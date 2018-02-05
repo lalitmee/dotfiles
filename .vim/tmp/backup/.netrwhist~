@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/lalit'
+let g:netrw_dirhist_2='/home/lalit/vim'
+let g:netrw_dirhist_3='/home/lalit'
+let g:netrw_dirhist_4='/home/lalit/Desktop'
+let g:netrw_dirhist_5='/home/lalit/Desktop/Github'
+let g:netrw_dirhist_6='/home/lalit/Desktop/Github/ReactJs'
+let g:netrw_dirhist_7='/home/lalit/Desktop/Github/ReactJs/bookworm'
+let g:netrw_dirhist_8='/home/lalit/Desktop/Github/ReactJs/bookworm/bookworm-api'
+let g:netrw_dirhist_9='/home/lalit/Desktop/Github/ReactJs/bookworm/bookworm-api/src'
