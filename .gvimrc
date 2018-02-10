@@ -30,7 +30,7 @@ map <C-l> <C-W>l
 
 au BufNewFile,BufRead *.vim setlocal noet ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
-au BufNewFile,BufRead *.md setlocal spell noet ts=4 sw=4
+au BufNewFile,BufRead *.md setlocal nospell noet ts=4 sw=4
 au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
 au BufNewFile,BufRead *.cpp setlocal expandtab ts=2 sw=2
 au BufNewFile,BufRead *.hpp setlocal expandtab ts=2 sw=2
@@ -41,7 +41,7 @@ au BufNewFile,BufRead *.jade setlocal expandtab ts=2 sw=2
 autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80 smarttab expandtab
 
 
-au FocusLost * :wa              " Set vim to save the file on focus out.
+"au FocusLost * :wa              " Set vim to save the file on focus out.
 
 " Searching
 set ignorecase " case insensitive searching
@@ -79,6 +79,10 @@ nnoremap tc :tabclose<CR>
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
+" let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
+autocmd BufRead,BufNewFile {*.markdown,*.mdown,*.mkdn,*.md,*.mkd,*.mdwn,*.mdtxt,*.mdtext,*.text} set filetype=markdown
+autocmd FileType markdown setlocal nospell
+
 
 " enable . command in visual mode
 vnoremap . :normal .<cr>
@@ -89,10 +93,10 @@ map <C-j> mzgg=G`z
 
 
 " Vim Autoformat
-au BufWrite * :Autoformat
-noremap <C-p> :Autoformat<CR>
+"au BufWrite * :Autoformat
+"noremap <C-p> :Autoformat<CR>
 
-"sow buffers
+"show buffers
 nnoremap <leader>bls :ls<cr>:b<space>
 
 " show old
@@ -118,7 +122,7 @@ set columns=120
 
 " font face and font size
 " set gfn=Ubuntu\ Mono\ 14
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 12
+set guifont=Monaco\ Regular\ 13
 
 
 " Make shift-insert work like in Xterm
@@ -131,13 +135,11 @@ imap <C-v> <ESC>"+pa
 let g:airline#extensions#tabline#enabled = 1
 
 " disabling folding in markdown
-let g:vim_markdown_folding_disabled = 1
-
 " markdown syntax highlighting
-set syntax=markdown
-let g:gfm_syntax_enable_always = 0
-let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
-autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
+"set syntax=markdown
+"let g:gfm_syntax_enable_always = 0
+"let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
+"autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
 colorscheme Tomorrow-Night-Bright
 
@@ -180,20 +182,20 @@ endfunction
 " Indent on save hook
 autocmd BufWritePre <buffer> call Indent()
 
-set colorcolumn=100
+set colorcolumn=120
 
 
 " Remove selected Highlight
 nnoremap <C-h> :noh<CR>
 
 " clear highlighted search
-noremap . :set hlsearch! hlsearch?<cr>
+noremap b :set hlsearch! hlsearch?<cr>
 
 
 " Pretteir configurations
 nmap <Leader>p <Plug>(Prettier)
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.html *.css *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Prettier
+"let g:prettier#autoformat = 0
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Prettier
 let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
 let g:prettier#quickfix_enabled = 0
 " max line length that prettier will wrap on
@@ -241,3 +243,8 @@ let g:prettier#config#config_precedence = 'prefer-file'
 
 " always|never|preserve
 let g:prettier#config#prose_wrap = 'preserve'
+
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
