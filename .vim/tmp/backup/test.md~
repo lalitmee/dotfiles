@@ -1,0 +1,17 @@
+# About
+
+I am Lalit Kumar. I am testing this typora editor for markdown editing.
+
+## Block Quotes
+
+	> Sometimes it is the people no one can imagine anything of who do the
+	> things no one can imagine. And I am a big brother of my brother and you
+	> are doing this wrong. So please let me do it for you.
+
+# Code
+
+```javascript
+var idea = "one";
+var two = "second idea";
+```
+
