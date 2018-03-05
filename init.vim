@@ -1,3 +1,61 @@
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'neomake/neomake'
+Plug 'tpope/vim-surround'
+Plug 'tomtom/tcomment_vim'
+Plug 'mattn/emmet-vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'mhartington/oceanic-next'
+
+
+
+" vim-airline ---------------------------------------------------------------{{{
+  
+	let g:airline_theme='powerlineish'
+	let g:airline_powerline_fonts=1
+	let g:airline#extensions#branch#enabled=1
+	let g:airline#extensions#whitespace#enabled = 1
+	let g:airline#extensions#hunks#non_zero_only = 1
+
+	let g:airline#extensions#tabline#enabled = 2
+	" let g:airline#extensions#tabline#fnamemod = ':t'
+	" let g:airline#extensions#tabline#buffer_min_count = 1
+	let g:airline#extensions#tabline#formatter = 'default'
+
+"}}}
+
+
+set number
+set relativenumber
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
+  set clipboard+=unnamed,unnamedplus
+filetype on
+let mapleader = ' '
+set noshowmode
+set nospell
+
+" Color Scheme
+" For Neovim 0.1.3 and 0.1.4
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" Or if you have Neovim >= 0.1.5
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" Theme
+syntax enable
+"colorscheme OceanicNext
+
+
+
+"" Gvim Config
 " GVim Configurations
 
 " Shortcut to save
@@ -22,8 +80,10 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+set path+=**
+
 set undofile
-set undodir=~/.vim/undodir
+set undodir=~/.nvim/undodir
 
 " ----------------------------------------- "
 " File Type settings                        "
@@ -77,8 +137,6 @@ nnoremap th :tabprev<CR>
 nnoremap tn :tabnew<CR>
 nnoremap tc :tabclose<CR>
 
-" Mark Multiple in vim key binding
-let g:mark_multiple_trigger = "<C-m>"
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
@@ -147,8 +205,6 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
 "autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
-colorscheme cobalt 
-
 " Restore cursor position, window position, and last search after running a
 " command.
 function! Preserve(command)
@@ -188,10 +244,9 @@ endfunction
 " Indent on save hook
 autocmd BufWritePre <buffer> call Indent()
 
-" set colorcolumn for the wrapping up of lines
 set textwidth=80
 set colorcolumn=+1
-"au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+
 
 
 " Remove selected Highlight
@@ -268,3 +323,5 @@ nmap <leader>sv :so $MYVIMRC<CR>
 
 
 
+
+call plug#end()

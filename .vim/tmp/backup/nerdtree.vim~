@@ -1,0 +1,232 @@
+let s:tree_up_dir_line = '.. (up a dir)'
+syn match NERDTreeIgnore #\~#
+exec 'syn match NERDTreeIgnore #\['.g:NERDTreeGlyphReadOnly.'\]#'
+
+"highlighting for the .. (up dir) line at the top of the tree
+execute "syn match NERDTreeUp #\\V". s:tree_up_dir_line ."#"
+
+"quickhelp syntax elements
+syn match NERDTreeHelpKey #" \{1,2\}[^ ]*:#ms=s+2,me=e-1
+syn match NERDTreeHelpKey #" \{1,2\}[^ ]*,#ms=s+2,me=e-1
+syn match NERDTreeHelpTitle #" .*\~$#ms=s+2,me=e-1
+syn match NERDTreeToggleOn #(on)#ms=s+1,he=e-1
+syn match NERDTreeToggleOff #(off)#ms=e-3,me=e-1
+syn match NERDTreeHelpCommand #" :.\{-}\>#hs=s+3
+syn match NERDTreeHelp  #^".*# contains=NERDTreeHelpKey,NERDTreeHelpTitle,NERDTreeIgnore,NERDTreeToggleOff,NERDTreeToggleOn,NERDTreeHelpCommand
+
+"highlighting for sym links
+syn match NERDTreeLinkTarget #->.*# containedin=NERDTreeDir,NERDTreeFile
+syn match NERDTreeLinkFile #.* ->#me=e-3 containedin=NERDTreeFile
+syn match NERDTreeLinkDir #.*/ ->#me=e-3 containedin=NERDTreeDir
+
+"highlighing for directory nodes and file nodes
+syn match NERDTreeDirSlash #/# containedin=NERDTreeDir
+
+exec 'syn match NERDTreeClosable #' . escape(g:NERDTreeDirArrowCollapsible, '~') . '\ze .*/# containedin=NERDTreeDir,NERDTreeFile'
+exec 'syn match NERDTreeOpenable #' . escape(g:NERDTreeDirArrowExpandable, '~') . '\ze .*/# containedin=NERDTreeDir,NERDTreeFile'
+
+let s:dirArrows = escape(g:NERDTreeDirArrowCollapsible, '~]\-').escape(g:NERDTreeDirArrowExpandable, '~]\-')
+exec 'syn match NERDTreeDir #[^'.s:dirArrows.' ].*/#'
+syn match NERDTreeExecFile  #^ .*\*\($\| \)# contains=NERDTreeRO,NERDTreeBookmark
+exec 'syn match NERDTreeFile  #^[^"\.'.s:dirArrows.'] *[^'.s:dirArrows.']*# contains=NERDTreeLink,NERDTreeRO,NERDTreeBookmark,NERDTreeExecFile'
+
+"highlighting for readonly files
+exec 'syn match NERDTreeRO # *\zs.*\ze \['.g:NERDTreeGlyphReadOnly.'\]# contains=NERDTreeIgnore,NERDTreeBookmark,NERDTreeFile'
+
+syn match NERDTreeFlags #^ *\zs\[.\]# containedin=NERDTreeFile,NERDTreeExecFile
+syn match NERDTreeFlags #\[.\]# containedin=NERDTreeDir
+
+syn match NERDTreeCWD #^[</].*$#
+
+"highlighting for bookmarks
+syn match NERDTreeBookmark # {.*}#hs=s+1
+
+"highlighting for the bookmarks table
+syn match NERDTreeBookmarksLeader #^>#
+syn match NERDTreeBookmarksHeader #^>-\+Bookmarks-\+$# contains=NERDTreeBookmarksLeader
+syn match NERDTreeBookmarkName #^>.\{-} #he=e-1 contains=NERDTreeBookmarksLeader
+syn match NERDTreeBookmark #^>.*$# contains=NERDTreeBookmarksLeader,NERDTreeBookmarkName,NERDTreeBookmarksHeader
+
+
+hi def link NERDTreePart Special
+hi def link NERDTreePartFile Type
+hi def link NERDTreeExecFile Title
+hi def link NERDTreeDirSlash Identifier
+
+hi def link NERDTreeBookmarksHeader statement
+hi def link NERDTreeBookmarksLeader ignore
+hi def link NERDTreeBookmarkName Identifier
+hi def link NERDTreeBookmark normal
+
+hi def link NERDTreeHelp String
+hi def link NERDTreeHelpKey Identifier
+hi def link NERDTreeHelpCommand Identifier
+hi def link NERDTreeHelpTitle Macro
+hi def link NERDTreeToggleOn Question
+hi def link NERDTreeToggleOff WarningMsg
+
+hi def link NERDTreeLinkTarget Type
+hi def link NERDTreeLinkFile Macro
+hi def link NERDTreeLinkDir Macro
+
+hi def link NERDTreeDir Directory
+hi def link NERDTreeUp Directory
+hi def link NERDTreeFile Normal
+hi def link NERDTreeCWD Statement
+hi def link NERDTreeOpenable Directory
+hi def link NERDTreeClosable Directory
+hi def link NERDTreeIgnore ignore
+hi def link NERDTreeRO WarningMsg
+hi def link NERDTreeBookmark Statement
+hi def link NERDTreeFlags Number
+
+hi def link NERDTreeCurrentNode Search
+
+if !exists('g:NERDTreeSyntaxEnabledExtensions')
+	let g:NERDTreeSyntaxEnabledExtensions = []
+endif
+
+if exists('g:NERDTreeLimitedSyntax') && !exists('g:NERDTreeSyntaxDisableDefaultExtensions')
+	for extension in s:enabled_extensions
+		call add(g:NERDTreeSyntaxEnabledExtensions, extension)
+	endfor
+endif
+
+let s:characters = '[a-zA-Z0-9_\#\-\+\*\%\!\~\(\)\{\}\&\.\$\@]'
+" substitute will 'eat' single backlashes on the string
+let s:chars_double_lashes = substitute(s:characters, '\\', '\\\\', 'g')
+
+" Extension colors
+
+if !exists('g:NERDTreeExtensionHighlightColor')
+	let g:NERDTreeExtensionHighlightColor = {}
+endif
+
+for [key, val] in items(s:file_extension_colors)
+	if ((exists('g:NERDTreeLimitedSyntax') ||
+				\ exists('g:NERDTreeSyntaxDisableDefaultExtensions')) ?
+				\ index(g:NERDTreeSyntaxEnabledExtensions, key) >= 0 :
+				\ !has_key(g:NERDTreeExtensionHighlightColor, key))
+		let g:NERDTreeExtensionHighlightColor[key] = val
+	endif
+endfor
+
+
+for [key, val] in items(g:NERDTreeExtensionHighlightColor)
+	let label_identifier = 'nerdtreeFileExtensionLabel_'.key
+	let icon_identifier = 'nerdtreeFileExtensionIcon_'.key
+	let regexp = '\v'.s:characters.'+\.'.substitute(key, '\W', '\\\0', 'g')
+
+	exec 'silent syn match '.label_identifier.' "'.regexp.'$" containedin=NERDTreeFile'
+	exec 'silent syn match '.label_identifier.' "'.regexp.'\*$" containedin=NERDTreeExecFile'
+	exec 'hi def link '.label_identifier.' NERDTreeFile'
+
+	if exists('g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols["'.key.'"]')
+		let icon_exp = '['.g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols[key].']'
+		if exists('g:WebDevIconsNerdTreeAfterGlyphPadding') && g:WebDevIconsNerdTreeAfterGlyphPadding =~ '\s\+'
+			let icon_exp = icon_exp.'.\{1}'
+		endif
+
+		exec 'silent syn match '.icon_identifier.' "\zs'.icon_exp.'\ze.\+\.'.key.'$" containedin=NERDTreeFile'
+		exec 'silent syn match '.icon_identifier.' "\zs'.icon_exp.'\ze.\+\.'.key.'\*$" containedin=NERDTreeExecFile'
+		exec 'hi def link '.icon_identifier.' '.label_identifier
+	endif
+
+	if !exists('g:NERDTreeDisableFileExtensionHighlight') && val != ''
+		call s:X(icon_identifier, val, '', '')
+		if exists('g:NERDTreeFileExtensionHighlightFullName')
+			call s:X(label_identifier, val, '', '')
+		endif
+	endif
+endfor
+
+"Exact Matches
+
+if !exists('g:NERDTreeExactMatchHighlightColor')
+	let g:NERDTreeExactMatchHighlightColor = {}
+endif
+
+for [key, val] in items(s:file_node_exact_matches)
+	if !has_key(g:NERDTreeExactMatchHighlightColor, key)
+		let g:NERDTreeExactMatchHighlightColor[key] = val
+	endif
+endfor
+
+for [key, val] in items(g:NERDTreeExactMatchHighlightColor)
+	let label_identifier = 'nerdtreeExactMatchLabel_'.key
+	let icon_identifier = 'nerdtreeExactMatchIcon_'.key
+	let folder_identifier = 'nerdtreeExactMatchFolder_'.key
+	let folder_icon_identifier = 'nerdtreeExactMatchFolderIcon_'.key
+	exec 'silent syn match '.label_identifier.' "\c'.key.'$" containedin=NERDTreeFile'
+	exec 'silent syn match '.label_identifier.' "\c'.key.'\*$" containedin=NERDTreeExecFile'
+	exec 'hi def link '.label_identifier.' NERDTreeFile'
+	exec 'silent syn match '.folder_identifier.' "\v\c<'.key.'\ze\/" containedin=NERDTreeDir'
+	exec 'hi def link '.folder_identifier.' NERDTreeDir'
+	if exists('g:WebDevIconsUnicodeDecorateFileNodesExactSymbols["'.key.'"]')
+		let icon_exp = '['.g:WebDevIconsUnicodeDecorateFileNodesExactSymbols[key].']'
+		if exists('g:WebDevIconsNerdTreeAfterGlyphPadding') && g:WebDevIconsNerdTreeAfterGlyphPadding =~ '\s\+'
+			let icon_exp = icon_exp.'.\{1}'
+		endif
+
+		exec 'silent syn match '.icon_identifier.' "\c'.icon_exp.'\ze.*'.key.'$" containedin=NERDTreeFile'
+		exec 'silent syn match '.icon_identifier.' "\c'.icon_exp.'\ze.*'.key.'\*$" containedin=NERDTreeExecFile'
+		exec 'hi def link '.icon_identifier.' '.label_identifier
+		exec 'silent syn match '.folder_icon_identifier.' "\c'.icon_exp.'\ze.*'.key.'\/" containedin=NERDTreeDir'
+		exec 'hi def link '.folder_icon_identifier.' '.folder_identifier
+	endif
+
+	if !exists('g:NERDTreeDisableExactMatchHighlight') && val != ''
+		call s:X(icon_identifier, val, '', '')
+		if exists('g:NERDTreeExactMatchHighlightFullName')
+			call s:X(label_identifier, val, '', '')
+		endif
+		if exists('g:NERDTreeHighlightFolders')
+			call s:X(folder_icon_identifier, val, '', '')
+			if exists('g:NERDTreeHighlightFoldersFullName')
+				call s:X(folder_identifier, val, '', '')
+			endif
+		endif
+	endif
+endfor
+
+"Pattern Matches
+
+if !exists('g:NERDTreePatternMatchHighlightColor')
+	let g:NERDTreePatternMatchHighlightColor = {}
+endif
+
+for [key, val] in items(s:file_node_pattern_matches)
+	if !has_key(g:NERDTreePatternMatchHighlightColor, key)
+		let g:NERDTreePatternMatchHighlightColor[key] = val
+	endif
+endfor
+
+for [key, val] in items(g:NERDTreePatternMatchHighlightColor)
+	let suffix = substitute(key, '\W', '', 'g')
+	let label_identifier = 'nerdtreePatternMatchLabel_'.suffix
+	let icon_identifier = 'nerdtreePatternMatchIcon_'.suffix
+	let sub_regexp = substitute(key, '\v\\@<!\.', s:chars_double_lashes, 'g')
+	let exec_sub_regexp = substitute(sub_regexp, '\$$', '\\*$', '')
+
+	exec 'syn match '.label_identifier.' "\v\c'.sub_regexp.'" containedin=NERDTreeFile'
+	exec 'syn match '.label_identifier.' "\v\c'.exec_sub_regexp.'" containedin=NERDTreeFile'
+	" TODO: handle executable file
+	exec 'hi def link '.label_identifier.' NERDTreeFile'
+
+	if exists("g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['".key."']")
+		let icon_exp = '['.g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols[key].']'
+		if exists('g:WebDevIconsNerdTreeAfterGlyphPadding') && g:WebDevIconsNerdTreeAfterGlyphPadding =~ '\s\+'
+			let icon_exp = icon_exp.'.\{1}'
+		endif
+
+		exec 'syn match '.icon_identifier.' "\v\c\zs'.icon_exp.'\ze.*'.sub_regexp.'" containedin=NERDTreeFile'
+		exec 'hi def link '.icon_identifier.' '.label_identifier
+	endif
+
+	if !exists('g:NERDTreeDisablePatternMatchHighlight') && val != ''
+		call s:X(icon_identifier, val, '', '')
+		if exists('g:NERDTreePatternMatchHighlightFullName')
+			call s:X(label_identifier, val, '', '')
+		endif
+	endif
+endfor

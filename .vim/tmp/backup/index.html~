@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <style type="text/css">
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        
+    }
+
+    .email-container {
+        background: #e1e1e1;
+    }
+    h2 {
+        padding: 1%;
+    }
+    .container {
+        padding: 1px;
+        width: 60%;
+        margin: 0 auto;
+        background: white;    
+    }
+
+    #header-inner {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    #inner-footer {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .detail-table {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
+    .items-table {
+        margin-top: 2%;
+        padding-bottom: 2%;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
+    .price-table {
+        margin-top: 2%;
+        padding-bottom: 2%;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
+    .text-color{
+        color: #6a5f9b;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+    .table-bordered {
+        border: none !important;
+    }
+    table {
+        width: 100%;
+        
+    }
+
+    table tr th {
+        color: #6a5f9b;
+        padding: 5px;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .table-row td {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .colored {
+        background: #c4c0d8;
+        color: white; 
+    }
+
+    tbody {
+        color: #6a5f9b;
+    }
+
+</style>
+</head>
+
+<body class="email-container">
+    <header>
+            <div id="header-inner">
+                <a href="https://ballyhoo.today" target="_top">
+                    <img src="https://res.cloudinary.com/dp67gawk6/image/upload/v1481790884/ballyhoo/EMAIL/header.png" alt="B A L L Y H O O T O D A Y" width="100%" class="img-responsive" style="display: block;" />
+                </a>
+            </div>
+        </header>
+        
+        <div class="container">
+        
+            <div class="detail-table">
+                <h2 class="text-color"> <center> <strong>{{$array['head']}}</strong> </center> </h2>
+                <table>
+                    <thead>
+                    
+                        <tr class="colored">
+                            <th width="50%">Information</th>
+                            <th width="50%">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row">
+                            <td class="bold-color">Merchant Business Name</td>
+                            <td>{{$array['merchant_bname']}}</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="bold-color">Merchant Contact No.</td>
+                            <td>{{$array['merchant_mobile']}}</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="bold-color">Customer Contact No.</td>
+                            <td>{{$array['customer_mobile']}}</td>
+                        </tr>
+                        @if($array['customer_name'] !== 0)
+                        <tr class="table-row">
+                            <td class="bold-color">Customer Name</td>
+                            <td>{{$array['customer_name']}}</td>
+                        </tr>
+                        @endif
+                        <tr class="table-row">
+                            <td class="bold-color">Purchased Offereing</td>
+                            <td>{{$array['offering']}}</td>
+                        </tr>
+                        @if($array['quantity'] !== 0)
+                        <tr class="table-row">
+                            <td class="bold-color">Purchased Quantity</td>
+                            <td>{{$array['quantity']}}</td>
+                        </tr>   
+                        @endif      
+                        @if($array['items'] == 0)                     
+                         <tr class="table-row">
+                             <td class="bold-color">Payment Amount</td>
+                            <td>{{$array['amount']}}</td>
+                        </tr>          
+                        @endif    
+                         <tr class="table-row">
+                            <td class="bold-color">Payment Type</td>
+                            <td>{{$array['type']}}</td>
+                        </tr>         
+                        @if($array['description'] !== 0)     
+                         <tr class="table-row">
+                            <td class="bold-color">Deal Inclusion</td>
+                            <td>{{$array['description']}}</td>
+                        </tr>
+                         @endif
+                         @if($array['customer_address'] !== 0)
+                         <tr class="table-row">
+                            <td class="bold-color">Customer Address</td>
+                            <td>{{$array['customer_address']}}</td>
+                        </tr>
+                         @endif
+                    </tbody>
+                </table>
+            </div>
+
+            @if($array['items'] !== 0)
+            <div class="items-table">
+                
+                <table>
+                    <thead>
+                    
+                        <tr class="colored">
+                            <th width="10%">No.</th>
+                            <th width="50%">Item Name</th>
+                            <th width="10%" class="text-center">Qantity</th>
+                            <th width="30%" class="right">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($array['items'] as $i => $merchant)
+                        <tr class="table-row">
+                            <td>{{++$i}}</td>
+                            <td class="bold-color">{{$merchant['item_name']}}</td>
+                            <td class="text-center">{{$merchant['item_quantity']}}</td>
+                            <td class="right">&#8377;{{$merchant['item_price']}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                
+            </div>
+            
+             <div class="price-table">
+                <table>
+                    <thead>
+                    
+                        <tr class="colored">
+                            <th width="50%">Amount</th>
+                            
+                            <th colspan="2" width="50%" class="right">&#8377;{{$array['items_total']}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @if($array['deal_discount'] !==0)
+                        <tr class="table-row">
+                            <td class="bold-color">Discount</td>
+                            <td></td>
+                            <td class="right">-&#8377;{{$array['deal_discount']}}</td>
+                        </tr>
+                        @endif
+
+                        <tr class="table-row">
+                            <td class="bold-color">Sub Total</td>
+                            <td></td>
+                            <td class="right">&#8377;{{$array['discount_total']}} </td>
+                        </tr>
+
+                         @if($array['additional_charges'] != 0)
+                        @foreach($array['additional_charges'] as $a)
+                        <tr class="table-row">
+                            <td class="bold-color">{{$a['Name']}}</td>
+                            <td class="bold-color" style="text-align: right;"> @if($a['Type'] == 1)&#8377;@endif {{$a['Value']}}  @if($a['Type'] == 2)% @endif :</td>
+                            <td class="right">+&#8377;{{$a['Amount']}}</td>
+                        </tr>
+                        @endforeach
+                        @endif
+                        <tr class="table-row" style="background: #6a5f9b; color: white; font-weight: bold; font-size: 18px;">
+                            <td class="bold-color">Payable Amount</td>
+                            <td></td>
+                            <td class="right">&#8377;{{$array['amount']}}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            @endif
+
+            <div class="ending-section">
+                <div class="price-table">
+                <table>
+                    <thead>
+                    
+                        <tr class="colored">
+                            <th width="100%">Delivery Instruction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @if($array['comment']!== 0)
+                        <tr class="table-row">
+                            <td class="right">{{$array['comment']}}</td>
+                        </tr>
+                        @endif
+                        
+                    </tbody>
+                </table>
+            
+                  
+
+                <p>Thank you for using ballyhoo.</p>
+
+
+                <p>
+                    <p><font color="#000000">Sincerely,<br>Ballyhoo.today</font></p>
+                </p>
+                </div>
+            </div>
+        </div>
+
+    <footer>
+        <div id="inner-footer">
+            <a  href="https://ballyhoo.today" target="_top">
+                <img src="https://res.cloudinary.com/dp67gawk6/image/upload/v1481790882/ballyhoo/EMAIL/footer.png" alt="B A L L Y H O O T O D A Y" width="100%" class="img-responsive" style="display: block;" />
+            </a>
+        </div>
+    </footer>
+    <script src="bootstrap.min.js"></script>
+</body>
+
+</html>
