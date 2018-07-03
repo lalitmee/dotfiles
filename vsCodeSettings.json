@@ -1,0 +1,68 @@
+{
+  // prettier configuration
+    "prettier.eslintIntegration": true,
+    "prettier.singleQuote": true,
+    "prettier.printWidth": 100,
+    "prettier.tabWidth": 4,
+    "keyboard.dispatch": "keyCode",
+    "update.channel": "none",
+    "editor.wordWrap": "on",
+    "explorer.confirmDelete": false,
+    "editor.fontSize": 16,
+    "workbench.iconTheme": "vscode-icons",
+    "window.zoomLevel": 0,
+    "editor.formatOnSave": true,
+    // "flow.useNPMPackagedFlow": true,
+    "javascript.validate.enable": false,
+    "javascript.format.enable": false,
+    "workbench.colorTheme": "Cobalt2",
+    "editor.lineHeight": 27,
+    "editor.letterSpacing": 0.5,
+    "files.trimTrailingWhitespace": true,
+    "editor.fontWeight": "600",
+    "editor.cursorBlinking": "blink",
+    "editor.renderWhitespace": "all",
+    "editor.fontFamily": "Operator Mono Light, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.formatOnPaste": true,
+    // "vscode_custom_css.imports": [
+      //     "file:///home/lalit/.vscodestyles.css"
+      // ],
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+    "editor.parameterHints": false,
+    "explorer.confirmDragAndDrop": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "editor.matchBrackets": false,
+    "subtleBrackets.styles": {
+        "global": {
+            "color": "#ff6600",
+            "borderWidth": "1px",
+            "borderStyle": "none none solid none"
+        }
+    },
+    "workbench.colorCustomizations": {
+        "editorLineNumber.activeForeground": "#ff6600",
+        "editorIndentGuide.activeBackground": "#33ff00"
+    },
+    "files.associations": {
+        "*Container.js": "javascriptreact",
+        "**/components/*/*.js": "javascriptreact",
+        "**/config/routes.js": "javascriptreact"
+    },
+    "emmet.showExpandedAbbreviation": "never",
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+        "markdown": "html",
+        "javascript": "javascriptreact"
+    },
+    "emmet.showSuggestionsAsSnippets": true,
+    "editor.snippetSuggestions": "top",
+    "vsicons.projectDetection.disableDetect": true,
+    // "editor.codeActionsOnSave": {
+      //     "source.organizeImports": true
+    // }
+}

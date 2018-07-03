@@ -1,4 +1,7 @@
 " GVim Configurations
+"
+" filetype indent
+ filetype indent on
 
 " Shortcut to save
 nmap <leader>, :w<cr>
@@ -21,6 +24,8 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+set path+=**
 
 set undofile
 set undodir=~/.vim/undodir
@@ -147,7 +152,7 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
 "autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
-colorscheme cobalt 
+colorscheme cobalt
 
 " Restore cursor position, window position, and last search after running a
 " command.
@@ -188,10 +193,9 @@ endfunction
 " Indent on save hook
 autocmd BufWritePre <buffer> call Indent()
 
-" set colorcolumn for the wrapping up of lines
 set textwidth=80
 set colorcolumn=+1
-"au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+
 
 
 " Remove selected Highlight
