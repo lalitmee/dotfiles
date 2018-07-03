@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     python
      vimscript
      markdown
      html
@@ -41,9 +42,13 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     ;; auto-completion
-     ;; better-defaults
+     auto-completion
+     better-defaults
      emacs-lisp
+     (org :variables
+          org-enable-github-support t
+          org-enable-reveal-js-support t)
+
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -51,12 +56,13 @@ values."
                       auto-completion-complete-with-key-sequence-delay 0.1
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t)
-     ;; git
-     ;; markdown
-     ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     git
+     markdown
+     org
+     shell
+      (shell :variables
+      shell-default-height 30
+      shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
@@ -66,10 +72,21 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      prettier-js,
-                                      treemacs,
-                                      treemacs-evil,
+                                      prettier-js
+                                      treemacs
+                                      treemacs-evil
                                       treemacs-projectile
+                                      multiple-cursors
+                                      iy-go-to-char
+                                      yasnippet-snippets
+                                      swiper
+                                      counsel
+                                      color-theme
+                                      ox-reveal
+                                      htmlize
+                                      auto-yasnippet
+                                      try
+                                      magit
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -321,6 +338,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
    linum-relative-format "%4s \u2502"
    )
 
+  ;; magit fullscreen commit status
+  ;;(setq-default git-magit-status-fullscreen t)
   )
 
 (defun dotspacemacs/user-config ()
@@ -331,8 +350,98 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; mappings of leader keys
   (spacemacs/set-leader-keys "," 'save-buffer)
   (spacemacs/set-leader-keys "j" 'spacemacs/indent-region-or-buffer)
+
+  ;; mappings of evil-go-to-char
+  (spacemacs/set-leader-keys "C-c" 'evil-avy-goto-char)
+  (spacemacs/set-leader-keys "c-'" 'evil-avy-goto-char-2)
+  (spacemacs/set-leader-keys "C-w" 'evil-avy-goto-word-1)
+  (spacemacs/set-leader-keys "C-l" 'evil-avy-goto-line)
+
+  ;; multiple cursor modes
+  (spacemacs/set-leader-keys "E" 'mc/edit-lines)
+  (spacemacs/set-leader-keys "N L" 'mc/mark-next-like-this)
+  (spacemacs/set-leader-keys "P L" 'mc/mark-previous-like-this)
+  (spacemacs/set-leader-keys "A L" 'mc/mark-all-like-this)
+
+  ;; iy-go-to-char
+  (require 'iy-go-to-char)
+  (global-set-key (kbd "C-c f") 'iy-go-to-char)
+  (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+  (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
+  (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
+
+  ;; magit autocomplete
+  (setq magit-repository-directories '("~/repos/"))
+  (global-git-commit-mode t)
+
+  ;; auto-yasnippet keybindings
+  ;;(global-set-key (kbd "e") #'aya-create)
+  ;;(global-set-key (kbd "y") #'aya-expand)
+
+  ;; ace-window configurations
+  (use-package ace-window
+    :init
+    (progn
+      (global-set-key [remap other-window] 'ace-window)
+      (custom-set-variables
+       '(aw-leading-char-face
+         ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+      ))
+
+
+  ;;;; color theme package
+  ;;(use-package color-theme
+  ;;  :ensure t)
+
+  (require 'ox-reveal)
+  (use-package ox-reveal
+    :ensure ox-reveal)
+  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+  (setq org-reveal-mathjax t)
+
+  ;; counsel for swiper file search
+  (use-package counsel
+    :defer t)
+
+  ;; swiper for word search : its awesome
+  (use-package swiper
+    :config
+    (progn
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)
+      (setq enable-recursive-minibuffers t)
+      (global-set-key "\C-s" 'swiper)
+      (global-set-key (kbd "C-c C-r") 'ivy-resume)
+      (global-set-key (kbd "<f6>") 'ivy-resume)
+      (global-set-key (kbd "M-x") 'counsel-M-x)
+      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+      (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+      (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+      (global-set-key (kbd "<f1> l") 'counsel-find-library)
+      (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+      (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+      (global-set-key (kbd "C-c g") 'counsel-git)
+      (global-set-key (kbd "C-c j") 'counsel-git-grep)
+      (global-set-key (kbd "C-c k") 'counsel-ag)
+      (global-set-key (kbd "C-x l") 'counsel-locate)
+      (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+      (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+      ))
+
+  (require 'ox-latex)
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
+  (add-to-list 'org-latex-classes
+               '("article"
+                 "\\documentclass{article}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   (use-package treemacs
     :defer t)
@@ -348,15 +457,19 @@ you should place your code here."
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
 
+  (use-package auto-yasnippet
+    :defer t)
+
   ;; Make linums relative by default
   ;;(with-eval-after-load 'linum
   ;;  (linum-relative-toggle))
 
   (setq-default agressive-indent-mode t)
 
+  (global-hungry-delete-mode)
+
   ;; Prettier installation
   (setq prettier-js-args '(
-                           "--trailing-comma" "all"
                            "--bracket-spacing" "true"
                            ))
 
@@ -366,6 +479,10 @@ you should place your code here."
         (if (string-match (car my-pair) buffer-file-name)
             (funcall (cdr my-pair)))))
 
+  (setq prettier-js-args '(
+                           "--trailing-comma" "all"
+                           "--bracket-spacing" "false"
+                           ))
   (add-hook 'web-mode-hook #'(lambda ()
                                (enable-minor-mode
                                 '("\\.jsx?\\'" . prettier-js-mode))))
@@ -411,7 +528,7 @@ you should place your code here."
          (treemacs-git-mode 'simple))))
     :bind
     (:map global-map
-          ([f8]         . treemacs-toggle)
+          ("C-i"         . treemacs-toggle)
           ("M-0"        . treemacs-select-window)
           ("C-c 1"      . treemacs-delete-other-windows)
           ("M-m ft"     . treemacs-toggle)
@@ -439,14 +556,15 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "58c6711a3b568437bab07a30385d34aacf64156cc5137ea20e799984f4227265" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" default)))
+    ("599f1561d84229e02807c952919cd9b0fbaa97ace123851df84806b067666332" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "58c6711a3b568437bab07a30385d34aacf64156cc5137ea20e799984f4227265" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(line-number-mode nil)
  '(package-selected-packages
    (quote
-    (babel helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern dash-functional tern company-statistics company auto-yasnippet ac-ispell auto-complete vimrc-mode dactyl-mode mmm-mode markdown-toc markdown-mode gh-md treemacs-projectile all-the-icons treemacs-evil treemacs web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode sublime-themes prettier-js web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
+    (xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor try yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download gnuplot htmlize ox-reveal zenburn-theme color-theme counsel swiper ivy yasnippet-snippets ht pfuture iy-go-to-char babel helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern dash-functional tern company-statistics company auto-yasnippet ac-ispell auto-complete vimrc-mode dactyl-mode mmm-mode markdown-toc markdown-mode gh-md treemacs-projectile all-the-icons treemacs-evil treemacs web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode sublime-themes prettier-js web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
