@@ -1,327 +1,229 @@
-call plug#begin('~/.local/share/nvim/plugged')
+""" Optixal's Neovim Init.vim
 
+""" Vim-Plug
+call plug#begin()
+
+" Aesthetics - Main
+Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'neomake/neomake'
-Plug 'tpope/vim-surround'
-Plug 'tomtom/tcomment_vim'
-Plug 'mattn/emmet-vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/vim-journal'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'nightsense/forgotten'
+Plug 'zaki/zazen'
 Plug 'mhartington/oceanic-next'
 
-
-
-" vim-airline ---------------------------------------------------------------{{{
-  
-	let g:airline_theme='powerlineish'
-	let g:airline_powerline_fonts=1
-	let g:airline#extensions#branch#enabled=1
-	let g:airline#extensions#whitespace#enabled = 1
-	let g:airline#extensions#hunks#non_zero_only = 1
-
-	let g:airline#extensions#tabline#enabled = 2
-	" let g:airline#extensions#tabline#fnamemod = ':t'
-	" let g:airline#extensions#tabline#buffer_min_count = 1
-	let g:airline#extensions#tabline#formatter = 'default'
-
-"}}}
-
-
-set number
-set relativenumber
-set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
-  set clipboard+=unnamed,unnamedplus
-filetype on
-let mapleader = ' '
-set noshowmode
-set nospell
-
-" Color Scheme
-" For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-" Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
-endif
-
-" Theme
-syntax enable
-"colorscheme OceanicNext
-
-
-
-"" Gvim Config
-" GVim Configurations
-
-" Shortcut to save
-nmap <leader>, :w<cr>
-
-" make backspace behave in a sane manner
-set backspace=indent,eol,start
-
-syntax on
-
-" Buffers command
-map <S-Tab> :bprevious<CR>
-map <Tab> :bnext<CR>
-
-" open help vertically
-command! -nargs=* -complete=help Help vertical belowright help <args>
-autocmd FileType help wincmd L
-
-" Better split switching
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-set path+=**
-
-set undofile
-set undodir=~/.nvim/undodir
-
-" ----------------------------------------- "
-" File Type settings                        "
-" ----------------------------------------- "
-
-au BufNewFile,BufRead *.vim setlocal noet ts=4 sw=4 sts=4
-au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
-au BufNewFile,BufRead *.md setlocal nospell noet ts=4 sw=4
-au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.cpp setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.hpp setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.json setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.jade setlocal expandtab ts=2 sw=2
-
-" python indent
-autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80 smarttab expandtab
-
-
-"au FocusLost * :wa              " Set vim to save the file on focus out.
-
-" Searching
-set ignorecase " case insensitive searching
-set smartcase " case-sensitive if expresson contains a capital letter
-set hlsearch " highlight search results
-set incsearch " set incremental search, like modern browsers
-
-" Appearence
-set wrap " turn on line wrapping
-set wrapmargin=8 " wrap lines when coming within n characters from side
-set linebreak " set soft wrapping
-set autoindent " automatically set indent of new line
-set ttyfast " faster redrawing
-set so=7 " set 7 lines to the cursors - when moving vertical
-set wildmenu " enhanced command line completion
-
-
-" Tab Control
-set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-
-" Tab navigation like Firefox.
-" nnoremap <C-S-tab> :tabprevious<CR>
-" noremap <C-tab>   :tabnext<CR>
-" noremap <C-t>     :tabnew<CR>
-" noremap <C-S-tab> <Esc>:tabprevious<CR>i
-" noremap <C-tab>   <Esc>:tabnext<CR>i
-" noremap <C-t>     <Esc>:tabnew<CR>
-
-" Vim Tabs Navigation
-nnoremap tl :tabnext<CR>
-nnoremap th :tabprev<CR>
-nnoremap tn :tabnew<CR>
-nnoremap tc :tabclose<CR>
-
-
-" switch between current and last buffer
-nmap <leader>. <c-^>
-
-" let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
-autocmd BufRead,BufNewFile {*.markdown,*.mdown,*.mkdn,*.md,*.mkd,*.mdwn,*.mdtxt,*.mdtext,*.text} set filetype=markdown
-autocmd FileType markdown setlocal nospell
-
-
-" enable . command in visual mode
-vnoremap . :normal .<cr>
-
-
-" Indenting
-map <C-j> mzgg=G`z
-
-" Only window command
-nnoremap <leader>on :on<cr>
-
-" Vim Autoformat
-"au BufWrite * :Autoformat
-"noremap <C-p> :Autoformat<CR>
-
-"show buffers
-nnoremap <leader>bls :ls<cr>:b<space>
-
-" show old
-nnoremap <leader>bo :browse old<CR>
-
-" delete all buffers
-nnoremap <leader>bdd :%bdelete<CR>
-
-" save buffers to session, write / quit too
-nnoremap <silent> <leader>ss :set sessionoptions=buffers<CR>:mksession!<CR>:echo('Saved buffers to Session.vim')<Esc>
-nnoremap <silent> <leader>ssw :set sessionoptions=buffers<CR>:mksession!<CR>:wa<CR>:echo('Saved all open buffers to disc')<CR>
-nnoremap <silent> <leader>ssq :set sessionoptions=buffers<CR>:mksession!<CR>:q<CR>
-nnoremap <silent> <leader>sswq :set sessionoptions=buffers<CR>:mksession!<CR>:wa<CR>:q<CR>
-
-" restore buffers
-let sessionmsg = "session restored from Session.vim" + "!!"
-" let sessionmsg = "session restored from Session.vim" + emoji#for('sheep')
-nnoremap <silent> <leader>rs :source Session.vim<CR>:echo("Session restored from Session.vim ")<Esc>
-
-" window size of Gvim
-set lines=64
-set columns=120
-
-" font face and font size
-" set gfn=Ubuntu\ Mono\ 14
-set guifont=Monaco\ Regular\ 13
-
-
-" Make shift-insert work like in Xterm
-map <S-Insert> <MiddleMouse>
-map! <S-Insert> <MiddleMouse>
-" Paste in insert mode
-imap <C-v> <ESC>"+pa
-
-" enabling tabline
-let g:airline#extensions#tabline#enabled = 1
-
-" disabling folding in markdown
-" markdown syntax highlighting
-"set syntax=markdown
-"let g:gfm_syntax_enable_always = 0
-"let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
-"autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
-
-" Restore cursor position, window position, and last search after running a
-" command.
-function! Preserve(command)
-    " Save the last search.
-    let search = @/
-
-    " Save the current cursor position.
-    let cursor_position = getpos('.')
-
-    " Save the current window position.
-    normal! H
-    let window_position = getpos('.')
-    call setpos('.', cursor_position)
-
-    " Execute the command.
-    execute a:command
-
-    " Restore the last search.
-    let @/ = search
-
-    " Restore the previous window position.
-    call setpos('.', window_position)
-    normal! zt
-
-    " Restore the previous cursor position.
-    call setpos('.', cursor_position)
-endfunction
-
-" Copy to clipboard
-set clipboard^=unnamed,unnamedplus
-
-" Re-indent the whole buffer.
-function! Indent()
-    call Preserve('normal gg=G')
-endfunction
-
-" Indent on save hook
-autocmd BufWritePre <buffer> call Indent()
-
-set textwidth=80
-set colorcolumn=+1
-
-
-
-" Remove selected Highlight
-"nnoremap <C-h> :noh<CR>
-
-" clear highlighted search
-noremap b :set hlsearch! hlsearch?<cr>
-
-
-" Pretteir configurations
-nmap <Leader>p <Plug>(Prettier)
-"let g:prettier#autoformat = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Prettier
-let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
-let g:prettier#quickfix_enabled = 0
-" max line length that prettier will wrap on
-" Prettier default: 80
-let g:prettier#config#print_width = 80
-
-" number of spaces per indentation level
-" Prettier default: 2
-let g:prettier#config#tab_width = 4
-
-" use tabs over spaces
-" Prettier default: false
-let g:prettier#config#use_tabs = 'false'
-
-" print semicolons
-" Prettier default: true
-let g:prettier#config#semi = 'true'
-
-" single quotes over double quotes
-" Prettier default: false
-let g:prettier#config#single_quote = 'true'
-
-" print spaces between brackets
-" Prettier default: true
-let g:prettier#config#bracket_spacing = 'true'
-
-" put > on the last line instead of new line
-" Prettier default: false
-let g:prettier#config#jsx_bracket_same_line = 'true'
-
-" avoid|always
-" Prettier default: avoid
-let g:prettier#config#arrow_parens = 'always'
-
-" none|es5|all
-" Prettier default: none
-let g:prettier#config#trailing_comma = 'all'
-
-" flow|babylon|typescript|css|less|scss|json|graphql|markdown
-" Prettier default: babylon
-let g:prettier#config#parser = 'flow'
-
-" cli-override|file-override|prefer-file
-let g:prettier#config#config_precedence = 'prefer-file'
-
-" always|never|preserve
-let g:prettier#config#prose_wrap = 'preserve'
-
-" after a re-source, fix syntax matching issues (concealing brackets):
-if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-endif
-
-
-" Edit the gvimrc files
-nmap <leader>eg :e $MYGVIMRC<CR>
-nmap <leader>sg :so $MYGVIMRC<CR>
-nmap <leader>ev :e ~/.oh-my-vim/vimrc<CR>
-nmap <leader>sv :so $MYVIMRC<CR>
-
-
-
-
+" Aethetics - Additional
+Plug 'nightsense/nemo'
+Plug 'yuttie/hydrangea-vim'
+Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
+Plug 'rhysd/vim-color-spring-night'
+
+" Functionalities
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'roxma/nvim-completion-manager'
+Plug 'ervandew/supertab'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/vim-easy-align'
+Plug 'alvan/vim-closetag'
+Plug 'tpope/vim-abolish'
+Plug 'Yggdroot/indentLine'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'chrisbra/Colorizer'
+Plug 'heavenshell/vim-pydocstring'
+Plug 'vim-scripts/loremipsum'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'metakirby5/codi.vim'
+
+" Entertainment
+Plug 'adelarsq/vim-hackernews'
 
 call plug#end()
+
+""" Python3 VirtualEnv
+let g:python3_host_prog = expand('~/.config/nvim/env/bin/python')
+
+""" Coloring
+syntax on
+color onedark 
+highlight Pmenu guibg=white guifg=black gui=bold
+highlight Comment gui=bold
+highlight Normal gui=none
+highlight NonText guibg=none
+
+" Opaque Background (Comment out to use terminal's profile)
+set termguicolors
+
+" Transparent Background (For i3 and compton)
+"highlight Normal guibg=NONE ctermbg=NONE
+"highlight LineNr guibg=NONE ctermbg=NONE
+
+""" Other Configurations
+filetype plugin indent on
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
+set incsearch ignorecase smartcase hlsearch
+set ruler laststatus=2 showcmd showmode
+set list listchars=trail:»,tab:»-
+set fillchars+=vert:\ 
+set wrap breakindent
+set encoding=utf-8
+set number
+set title
+
+""" Plugin Configurations
+
+" NERDTree
+let NERDTreeShowHidden=1
+let g:NERDTreeDirArrowExpandable = '↠'
+let g:NERDTreeDirArrowCollapsible = '↡'
+
+" Airline
+let g:airline_theme = 'onedark'
+let g:airline_powerline_fonts = 1
+let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
+let g:airline_section_warning = ''
+"let g:airline#extensions#tabline#enabled = 1
+
+" Neovim :Terminal
+tmap <Esc> <C-\><C-n>
+tmap <C-w> <Esc><C-w>
+"tmap <C-d> <Esc>:q<CR>
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
+
+" Nvim Completion Manager
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"let g:cm_complete_popup_delay = 0
+"let g:cm_refresh_length = [[1, 2], [7, 2]]
+
+
+" Disable documentation window
+set completeopt-=preview
+" Close the documentation window when completion is done
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "<C-n>"
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<C-Space>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<C-x>"
+
+" EasyAlign
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" indentLine
+let g:indentLine_char = '▏'
+let g:indentLine_color_gui = '#363949'
+
+" TagBar
+let g:tagbar_width = 30
+let g:tagbar_iconchars = ['↠', '↡']
+
+" fzf-vim
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'Type'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Character'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+""" Filetype-Specific Configurations
+
+" HTML, XML, Jinja
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
+
+" Markdown and Journal
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+""" Custom Functions
+
+" Trim Whitespaces
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    %s/\\\@<!\s\+$//e
+    call winrestview(l:save)
+endfunction
+
+
+""" Custom Mappings
+
+set relativenumber
+let mapleader=" "
+nmap <leader>q :NERDTreeToggle<CR>
+nmap <leader>w :TagbarToggle<CR>
+nmap \ <leader>q<leader>w
+nmap <leader>ee :Colors<CR>
+nmap <leader>ea :AirlineTheme 
+nmap <leader>e1 :call ColorDracula()<CR>
+nmap <leader>e2 :call ColorSeoul256()<CR>
+nmap <leader>e3 :call ColorForgotten()<CR>
+nmap <leader>e4 :call ColorZazen()<CR>
+nmap <leader>r :so ~/.config/nvim/init.vim<CR>
+nmap <leader>t :call TrimWhitespace()<CR>
+xmap <leader>a gaip*
+nmap <leader>a gaip*
+nmap <leader>s <C-w>s<C-w>j:terminal<CR>
+nmap <leader>vs <C-w>v<C-w>l:terminal<CR>
+nmap <leader>d <Plug>(pydocstring)
+nmap <leader>f :Files<CR>
+nmap <leader>g :Goyo<CR>
+nmap <leader>h :RainbowParentheses!!<CR>
+nmap <leader>j :set filetype=journal<CR>
+nmap <leader>k :ColorToggle<CR>
+nmap <leader>l :Limelight!!<CR>
+xmap <leader>l :Limelight!!<CR>
+autocmd FileType python nmap <leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
+nmap <leader>n <C-w>v<C-w>l:HackerNews best<CR>J
+nmap <silent> <leader><leader> :noh<CR>
+nmap <Tab> :bnext<CR>
+nmap <S-Tab> :bprevious<CR>
+
+" Copy paste in vim
+set mouse=a
+
+" save 
+nmap <leader>, :w<CR>
+
+" Paste with middle mouse click
+vmap <LeftRelease> "*ygv
+
+" Paste with <Shift> + <Insert>
+imap <S-Insert> <C-R>*
+
+" Paste from system clipboard
+set clipboard+=unnamedplus
