@@ -77,8 +77,6 @@ NeoBundle 'Shougo/unite.vim'
 " Unite sources
 NeoBundleLazy 'Shougo/unite-outline', {'autoload':{'unite_sources':'outline'}}
 NeoBundleLazy 'tsukkee/unite-help', {'autoload':{'unite_sources':'help'}}
-NeoBundleLazy 'ujihisa/unite-colorscheme', {'autoload':{'unite_sources':
-            \ 'colorscheme'}}
 NeoBundleLazy 'ujihisa/unite-locate', {'autoload':{'unite_sources':'locate'}}
 NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : { 'unite_sources' :
             \ ['history/command', 'history/search']}}
@@ -98,24 +96,22 @@ NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':
 
 " Dark themes
 " Improved terminal version of molokai, almost identical to the GUI one
-NeoBundle 'joedicastro/vim-molokai256'
-
-NeoBundle 'tomasr/molokai'
 NeoBundleLazy 'sjl/badwolf', { 'autoload' :
-            \ { 'unite_sources' : 'colorscheme', }}
-NeoBundleLazy 'nielsmadan/harlequin', { 'autoload' :
             \ { 'unite_sources' : 'colorscheme', }}
 
 " NerdTree
 NeoBundle 'scrooloose/nerdtree'
-nmap <leader>nt :NERDTreeToggle<CR>
-nmap <leader>nf :NERDTreeFind<CR>
-nmap <leader>nc :NERDTreeCWD<CR>
+nmap <leader>ww :NERDTreeToggle<CR>
+nmap <leader>wf :NERDTreeFind<CR>
+nmap <leader>wc :NERDTreeCWD<CR>
+let NERDTreeWinSize=20
 
 
 "Create the `tags` file
 command! MakeTags !ctags -R .
 
+""" Tmuxline for tmux
+NeoBundle 'edkolev/tmuxline.vim'
 
 " CtrlP Fuzzy file finder
 NeoBundle 'ctrlpvim/ctrlp.vim'
@@ -137,6 +133,17 @@ nnoremap <leader>s :ToggleWorkspace<CR>
 
 " git tool for vim
 NeoBundle 'tpope/vim-fugitive'
+
+
+""" tpope vim-unimpaired: pairs of handy bracket mappings
+NeoBundle 'tpope/vim-unimpaired'
+""" move line up and down using topope vim-unimpaired
+" Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 
 " Syntax checker for vim
@@ -173,6 +180,25 @@ NeoBundle 'tomtom/tcomment_vim'
 
 " js-beautify for formatting the code
 NeoBundle 'beautify-web/js-beautify'
+
+
+" Easymotion plugin
+NeoBundle 'easymotion/vim-easymotion'
+" <Leader>f{char} to move to {char}
+map  <Leader>fs <Plug>(easymotion-bd-f)
+nmap <Leader>fs <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+nmap t <Plug>(easymotion-t2)
+
+" Move to line
+map <Leader>ll <Plug>(easymotion-bd-jk)
+nmap <Leader>ll <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 
 " File Navigation easy
@@ -215,9 +241,13 @@ endif
 
 
 " one dark theme for vim
-NeoBundle 'joshdick/onedark.vim'
-colorscheme onedark
+" NeoBundle 'joshdick/onedark.vim'
+"colorscheme onedark
 
+
+" gruvbox color scheme for vim
+NeoBundle 'morhetz/gruvbox'
+colorscheme gruvbox
 
 " The silver searcher for vim
 NeoBundle 'rking/ag.vim'
@@ -261,9 +291,35 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+""" ALE Errors and Warnings Signs
+let g:ale_sign_error = 'x'
+let g:ale_sign_warning = '--'
+
 
 " creates table of the text if I want.
 NeoBundle 'godlygeek/tabular'
+
+""" tabularize mappings for `=` a
+if exists(":Tabularize")         
+    nmap <Leader>a= :Tabularize /
+    vmap <Leader>a= :Tabularize /
+    nmap <Leader>a: :Tabularize /
+    vmap <Leader>a: :Tabularize /
+endif                            
+
+""" tpope mapping method for the Character we want to align with
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+endfunction
 
 
 " makdown highlighting
@@ -307,11 +363,6 @@ NeoBundle 'scrooloose/nerdcommenter'
 " vim-autformat
 "NeoBundle 'Chiel92/vim-autoformat'
 
-" Light themes
-NeoBundleLazy 'vim-scripts/summerfruit256.vim', { 'autoload' :
-            \ { 'unite_sources' : 'colorscheme', }}
-NeoBundleLazy 'joedicastro/vim-github256', { 'autoload' :
-            \ { 'unite_sources' : 'colorscheme', }}
 
 " Make terminal themes from GUI themes
 NeoBundleLazy 'godlygeek/csapprox', { 'autoload' :
@@ -343,7 +394,7 @@ call neobundle#end()
 " <Leader> & <LocalLeader> mapping {{{
 
 let mapleader=' '
-let maplocalleader= ';'
+" let maplocalleader= ';'
 
 " }}}
 
@@ -412,7 +463,7 @@ NeoBundleCheck
 
 set noshowmode
 
-let g:airline_theme='onedark'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#whitespace#enabled = 1
@@ -433,7 +484,6 @@ set guifont=Monaco\ Regular\ 13
 " Colorschemes
 "syntax enable
 "set background=dark
-"colorscheme solarized
 
 " Neomru {{{
 
@@ -462,8 +512,8 @@ nnoremap <silent><Leader>i :Unite -silent history/yank<CR>
 " help
 nnoremap <silent> g<C-h> :UniteWithCursorWord -silent help<CR>
 " tasks
-nnoremap <silent><Leader>; :Unite -silent -toggle
-            \ grep:%::FIXME\|TODO\|NOTE\|XXX\|COMBAK\|@todo<CR>
+" nnoremap <silent><Leader>; :Unite -silent -toggle
+"             \ grep:%::FIXME\|TODO\|NOTE\|XXX\|COMBAK\|@todo<CR>
 " outlines (also ctags)
 nnoremap <silent><Leader>t :Unite -silent -vertical -winwidth=40
             \ -direction=topleft -toggle outline<CR>
@@ -563,6 +613,8 @@ set wildmenu " enhanced command line completion
 
 " Tab Control
 set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set shiftwidth=4
+set tabstop=4
 
 " Tab navigation like Firefox.
 " nnoremap <C-S-tab> :tabprevious<CR>
@@ -576,10 +628,16 @@ set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 nnoremap tn :tabnew<CR>
+nnoremap <leader>tn :tabnew<space>
 nnoremap tc :tabclose<CR>
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
+
+
+""" undolevels
+set undolevels=1000      " use many muchos levels of undo
+
 
 " yank all lines of a file
 nnoremap <leader>yl :%y<CR>
@@ -642,7 +700,6 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
 "autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
-"colorscheme cobalt
 
 " Restore cursor position, window position, and last search after running a
 " command.
@@ -705,7 +762,7 @@ let g:prettier#config#print_width = 80
 
 " number of spaces per indentation level
 " Prettier default: 2
-let g:prettier#config#tab_width = 2
+let g:prettier#config#tab_width = 4
 
 " use tabs over spaces
 " Prettier default: false
@@ -765,11 +822,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" mapping : to ;
-" nnoremap ; :
+
+""" repeat `n.` after editing the searched word
+nnoremap Q @='n.'<CR>
 
 
-" Edit the gvimrc files
+""" Edit the gvimrc files
 nmap <leader>eg :e $MYGVIMRC<CR>
 nmap <leader>sg :so $MYGVIMRC<CR>
 nmap <leader>ev :e ~/.oh-my-vim/vimrc<CR>
@@ -791,4 +849,25 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <leader>r :ZoomToggle<CR>
+
+
+""" Path settings for browsing files
+set path+=** 
+
+""" mapping : to ; for easy
+nnoremap ; :
+
+
+""" Qargs command for listing only the args 
+""" file which are in the quickfix list
+
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+function! QuickfixFilenames()
+    " Building a hash ensures we get each buffer only once
+    let buffer_numbers = {}
+    for quickfix_item in getqflist()
+        let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+    endfor
+    return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
 " }}}
