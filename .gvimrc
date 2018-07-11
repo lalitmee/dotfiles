@@ -1,7 +1,7 @@
 " GVim Configurations
 "
 " filetype indent
- filetype indent on
+filetype indent on
 
 " Shortcut to save
 nmap <leader>, :w<cr>
@@ -25,7 +25,11 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+""" files
 set path+=**
+
+""" for making ctags
+command! MakeTags !ctags -R .
 
 set undofile
 set undodir=~/.vim/undodir
@@ -152,7 +156,7 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
 "autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
-colorscheme cobalt
+colorscheme gruvbox
 
 " Restore cursor position, window position, and last search after running a
 " command.
@@ -270,5 +274,12 @@ nmap <leader>ev :e ~/.oh-my-vim/vimrc<CR>
 nmap <leader>sv :so $MYVIMRC<CR>
 
 
+""" move line up and down using topope vim-unimpaired
+" Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 
