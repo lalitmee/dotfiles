@@ -4,6 +4,17 @@
 call plug#begin()
 
 " Aesthetics - Main
+Plug 'machakann/vim-highlightedyank'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'tpope/vim-vividchalk'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'sonph/onehalf'
+Plug 'sjl/badwolf'
+Plug 'zeis/vim-kolor'
+Plug 'jacoborus/tender.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ayu-theme/ayu-vim'
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
@@ -21,18 +32,33 @@ Plug 'mhartington/oceanic-next'
 
 " Aethetics - Additional
 Plug 'gertjanreynaert/cobalt2-vim-theme'
+Plug 'mhartington/oceanic-next'
 Plug 'nightsense/nemo'
 Plug 'yuttie/hydrangea-vim'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 Plug 'rhysd/vim-color-spring-night'
 
 " Functionalities
+
+Plug 'easymotion/vim-easymotion'
 Plug 'tommcdo/vim-exchange'
 Plug 'prettier/vim-prettier'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-unimpaired'
 Plug 'thaerkh/vim-workspace'
 "Plug 'Valloric/YouCompleteMe'
+" Vimproc to asynchronously run commands (Plug, Unite)
+Plug 'Shougo/vimproc', {
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
+
+" Unite. The interface to rule almost everything
+Plug 'Shougo/unite.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -76,13 +102,19 @@ let g:python3_host_prog = expand('/home/lalit/.pyenv/versions/py3neovim/bin/pyth
 nnoremap <leader>; :ToggleWorkspace<CR>
 let g:workspace_session_disable_on_args = 1
 
+""" ctrlp settings
+let g:ctrlp_custom_ignore= {
+            \ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|log\|node_modules\|tmp$',
+            \ 'file':'\.exe$\|\.so$\|\.dat$|\moc$|\.cpp_parameters|\.o$|\.cpp.o$'
+            \}
+
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
+            \ 'tern#Complete',
+            \ 'jspc#omni'
+            \]
 
 """ for javascript completions
 set completeopt=longest,menuone,preview
@@ -101,23 +133,30 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 "autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 """ Coloring
+"let ayucolor="dark"
 syntax on
-colorscheme onedark
+colorscheme ayu
 highlight Pmenu guibg=LightYellow1 guifg=black
-highlight Comment gui=bold
+highlight Comment gui=none
 highlight Normal gui=none
 highlight NonText guibg=none
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors
 
+""" for planelight theme
+if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
 
 """ tabularize mappings for `=` and `:`
 if exists(":Tabularize")
-	nmap <Leader>a= :Tabularize /=<CR>
-	vmap <Leader>a= :Tabularize /=<CR>
-	nmap <Leader>a: :Tabularize /:\zs<CR>
-	vmap <Leader>a: :Tabularize /:\zs<CR>
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
 endif
 
 """ Edit command to remove the last file name of the current directory
@@ -125,6 +164,10 @@ map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+""" mapping of 0 and $ to easy map
+nmap <Leader>en $
+nmap <Leader>aa 0
 
 
 
@@ -166,9 +209,17 @@ set ruler laststatus=2 showcmd showmode
 set list listchars=trail:»,tab:»-
 set fillchars+=vert:\
 set wrap breakindent
+set formatprg=par\ -w72
 set encoding=utf-8
 set number
 set title
+
+""" Converting Markdown to html OR HTML to Markdown
+if has("autocmd")
+    let pandoc_pipeline  = "pandoc --from=html --to=markdown"
+    let pandoc_pipeline .= " | pandoc --from=markdown --to=html"
+    autocmd FileType html let &l:formatprg=pandoc_pipeline
+endif
 
 """ Plugin Configurations
 
@@ -176,6 +227,7 @@ set title
 let NERDTreeShowHidden=1
 let g:NERDTreeDirArrowExpandable = '↠'
 let g:NERDTreeDirArrowCollapsible = '↡'
+let g:NERDTreeWinSize=20
 
 " Airline
 let g:airline_theme = 'onedark'
@@ -224,23 +276,23 @@ nmap ff :FZF<CR>
 
 " fzf-vim
 let g:fzf_action = {
-			\ 'ctrl-t': 'tab split',
-			\ 'ctrl-s': 'split',
-			\ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-s': 'split',
+            \ 'ctrl-v': 'vsplit' }
 let g:fzf_colors =
-			\ { 'fg':      ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Comment'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'Type'],
-			\ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Character'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'Type'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Character'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 """ Filetype-Specific Configurations
 
@@ -260,9 +312,9 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Trim Whitespaces
 function! TrimWhitespace()
-	let l:save = winsaveview()
-	%s/\\\@<!\s\+$//e
-	call winrestview(l:save)
+    let l:save = winsaveview()
+    %s/\\\@<!\s\+$//e
+    call winrestview(l:save)
 endfunction
 
 
@@ -274,14 +326,18 @@ nmap <leader>q :NERDTreeToggle<CR>
 nmap <leader>w :TagbarToggle<CR>
 nmap \ <leader>q<leader>w
 nmap <leader>ee :Colors<CR>
+nmap <leader>ce :colorscheme<space>
 nmap <leader>ea :AirlineTheme
 nmap <leader>e1 :call ColorDracula()<CR>
+nmap <leader>gt :colorscheme gruvbox<CR>
+nmap <leader>co :colorscheme onedark<CR>
+nmap <leader>tb :colorscheme Tomorrow-Night-Bright<CR>
 nmap <leader>e2 :call ColorSeoul256()<CR>
 nmap <leader>e3 :call ColorForgotten()<CR>
 nmap <leader>e4 :call ColorZazen()<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>e :e ~/.config/nvim/init.vim<CR>
-nmap <silent> <leader>t :call TrimWhitespace()<CR>
+nmap <silent> <leader>tc :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
 nmap <leader>s <C-w>s<C-w>j:terminal<CR>
@@ -295,7 +351,7 @@ nmap <leader>h :RainbowParentheses!!<CR>
 "nmap <leader>l :Limelight!!<CR>
 "xmap <leader>l :Limelight!!<CR>
 autocmd FileType python nmap <leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
-nmap <leader>n <C-w>v<C-w>l:HackerNews best<CR>J
+map <leader>n <C-w>v<C-w>l:HackerNews best<CR>J
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
@@ -306,17 +362,17 @@ set mouse=a
 " save
 nmap <leader>, :w<CR>
 
-""" repeat `n.` command
-nnoremap Q @='n.'<CR>
-
 " Paste with middle mouse click
 vmap <LeftRelease> "*ygv
+
+" clear highlighted search
+"noremap r :set hlsearch! hlsearch?<cr>
 
 " Paste with <Shift> + <Insert>
 imap <S-Insert> <C-R>*
 
 " Paste from system clipboard
-" set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -334,6 +390,10 @@ inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
 nnoremap <expr> O getline('.') =~ '^\s*//' ? 'O<esc>S' : 'O'
 nnoremap <expr> o getline('.') =~ '^\s*//' ? 'o<esc>S' : 'o'
 
+""" Git verticall splitting handling
+set diffopt+=vertical
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>d :Gdiff<CR>
 
 
 """ Buffers moving around maping
@@ -347,7 +407,7 @@ nnoremap tn :tabnew<CR>
 nnoremap tc :tabclose<CR>
 
 """ Open new file in new tab
-nnoremap <leader>tnf :tabnew<space>
+nnoremap <leader>tn :tabnew<space>
 
 
 "show buffers
@@ -360,18 +420,6 @@ nnoremap <leader>bo :browse old<CR>
 nnoremap <leader>bdd :%bdelete<CR>
 
 
-" Vimproc to asynchronously run commands (Plug, Unite)
-Plug 'Shougo/vimproc', {
-            \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    },
-            \ }
-
-" Unite. The interface to rule almost everything
-Plug 'Shougo/unite.vim'
 
 
 
@@ -393,8 +441,8 @@ nnoremap <silent><Leader>i :Unite -silent history/yank<CR>
 " help
 nnoremap <silent> g<C-h> :UniteWithCursorWord -silent help<CR>
 " tasks
-nnoremap <silent><Leader>; :Unite -silent -toggle
-            \ grep:%::FIXME\|TODO\|NOTE\|XXX\|COMBAK\|@todo<CR>
+"nnoremap <silent><Leader>; :Unite -silent -toggle
+"\ grep:%::FIXME\|TODO\|NOTE\|XXX\|COMBAK\|@todo<CR>
 " outlines (also ctags)
 nnoremap <silent><Leader>tl :Unite -silent -vertical -winwidth=40
             \ -direction=topleft -toggle outline<CR>
@@ -417,6 +465,120 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+
+""" mapping : to ; for easy
+nnoremap ; :
+
+
+""" Path settings for browsing files
+set path+=**
+
+
+""" repeat `n.` after editing the searched word
+nnoremap Q @='n.'<CR>
+
+
+" Restore cursor position, window position, and last search after running a
+" command.
+function! Preserve(command)
+    " Save the last search.
+    let search = @/
+
+    " Save the current cursor position.
+    let cursor_position = getpos('.')
+
+    " Save the current window position.
+    normal! H
+    let window_position = getpos('.')
+    call setpos('.', cursor_position)
+
+    " Execute the command.
+    execute a:command
+
+    " Restore the last search.
+    let @/ = search
+
+    " Restore the previous window position.
+    call setpos('.', window_position)
+    normal! zt
+
+    " Restore the previous cursor position.
+    call setpos('.', cursor_position)
+endfunction
+
+" Re-indent the whole buffer.
+function! Indent()
+    call Preserve('normal gg=G')
+endfunction
+
+" Indent on save hook
+autocmd BufWritePre <buffer> call Indent()
+
+
+" Copy to clipboard
+set clipboard^=unnamed,unnamedplus
+
+
+" yank all lines of a file
+nnoremap <leader>yl :%y<CR>
+
+
+""" undolevels
+set undolevels=1000      " use many muchos levels of undo
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+    let @/ = ''
+    if exists('#auto_highlight')
+        au! auto_highlight
+        augroup! auto_highlight
+        setl updatetime=4000
+        echo 'Highlight current word: off'
+        return 0
+    else
+        augroup auto_highlight
+            au!
+            au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+        augroup end
+        setl updatetime=500
+        echo 'Highlight current word: ON'
+        return 1
+    endif
+endfunction
+
+""" highlight the word containing the cursor to make it easily visible
+nnoremap <C-M> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+    if !exists("s:highlightcursor")
+        match Todo /\k*\%#\k*/
+        let s:highlightcursor=1
+    else
+        match None
+        unlet s:highlightcursor
+    endif
+endfunction
+
+
+""" Easymotion mappings
+" <Leader>f{char} to move to {char}
+map  <Leader>fs <Plug>(easymotion-bd-f)
+nmap <Leader>fs <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+nmap t <Plug>(easymotion-t2)
+
+" Move to line
+map <Leader>ll <Plug>(easymotion-bd-jk)
+nmap <Leader>ll <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 
 """ Prettier Configurations for JavaScript
