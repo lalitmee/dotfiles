@@ -49,7 +49,7 @@ if has('vim_starting')
 endif
 
 " Supertab for tab completion
-"NeoBundle 'ervandew/supertab' 
+"NeoBundle 'ervandew/supertab'
 
 call neobundle#begin(expand($OH_MY_VIM.'/bundle/'))
 
@@ -120,7 +120,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 
-" Another fuzzy file finder 
+" Another fuzzy file finder
 NeoBundle 'junegunn/fzf'
 nmap ff :FZF<CR>
 
@@ -213,7 +213,7 @@ NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'w0rp/ale'
 
 
-" Easy Align 
+" Easy Align
 NeoBundle 'junegunn/vim-easy-align'
 
 
@@ -300,12 +300,12 @@ let g:ale_sign_warning = '--'
 NeoBundle 'godlygeek/tabular'
 
 """ tabularize mappings for `=` a
-if exists(":Tabularize")         
+if exists(":Tabularize")
     nmap <Leader>a= :Tabularize /
     vmap <Leader>a= :Tabularize /
     nmap <Leader>a: :Tabularize /
     vmap <Leader>a: :Tabularize /
-endif                            
+endif
 
 """ tpope mapping method for the Character we want to align with
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
@@ -323,7 +323,7 @@ endfunction
 
 
 " makdown highlighting
-NeoBundle "plasticboy/vim-markdown" 
+NeoBundle "plasticboy/vim-markdown"
 set conceallevel=2
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
@@ -338,7 +338,7 @@ let g:vim_markdown_toc_autofit = 1
 if has("autocmd")
     au VimEnter,InsertLeave * silent execute '!echo -ne "\e[1 q"' | redraw!
     au InsertEnter,InsertChange *
-                \ if v:insertmode == 'i' | 
+                \ if v:insertmode == 'i' |
                 \   silent execute '!echo -ne "\e[5 q"' | redraw! |
                 \ elseif v:insertmode == 'r' |
                 \   silent execute '!echo -ne "\e[3 q"' | redraw! |
@@ -478,7 +478,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 
 " Font {{{
 
-set guifont=Monaco\ Regular\ 13 
+set guifont=Monaco\ Regular\ 13
 " " }}}}
 
 " Colorschemes
@@ -852,13 +852,20 @@ nnoremap <leader>r :ZoomToggle<CR>
 
 
 """ Path settings for browsing files
-set path+=** 
+set path+=**
 
 """ mapping : to ; for easy
 nnoremap ; :
 
 
-""" Qargs command for listing only the args 
+""" ctrlp settings
+let g:ctrlp_custom_ignore= {
+            \ 'dir': '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|log\|node_modules\|tmp$',
+            \ 'file':'\.exe$\|\.so$\|\.dat$|\moc$|\.cpp_parameters|\.o$|\.cpp.o$'
+            \}
+
+
+""" Qargs command for listing only the args
 """ file which are in the quickfix list
 
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
