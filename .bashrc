@@ -81,7 +81,9 @@ source $OSH/oh-my-bash.sh
 # alias ohmybash="mate ~/.oh-my-bash"
 
 # alias for sublime command
-alias s="subl"
+alias s="subl ."
+alias a="atom ."
+alias c="code ."
 
 # alias for git commands
 alias gs="git status"
@@ -93,6 +95,8 @@ alias gl="git log"
 alias glo="git log --oneline"
 alias gls="git log --stat"
 alias glp="git log -p"
+alias gd="git diff"
+alias gpull="git pull"
 
 
 [ -n "$XTERM_VERSION" ] && transset-df --id "$WINDOWID" >/dev/null
@@ -108,3 +112,16 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 export PATH=/opt/firefox/firefox:$PATH
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+source ~/.bin/tmuxinator.bash
+
+
+# pyenv load paths
+
+export PATH="/home/lalit/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
