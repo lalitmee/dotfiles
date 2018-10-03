@@ -1,4 +1,4 @@
-""" Neovim Configurations
+" Configurations
 
 " Vim-Plug Plugins {{{
 
@@ -6,26 +6,40 @@ call plug#begin()
 
 " Main {{{
 
-Plug 'haya14busa/incsearch.vim'         " Better search highlighting
-Plug 'reedes/vim-pencil'                " Better Writing
-Plug 'vim-syntastic/syntastic'          " Syntax Checking
-Plug 'jeetsukumaran/vim-buffergator'    " Buffer Manager
-Plug 'w0rp/ale'                         " Linting and fixing
-Plug 'Raimondi/delimitMate'             " Better HTML Editing
-Plug 'mileszs/ack.vim'                  " SilverSearcher
-Plug 'terryma/vim-multiple-cursors'     " Multiple Cursor
-Plug 'airblade/vim-gitgutter'           " Vim Git Gutter
-Plug 'machakann/vim-highlightedyank'    " Highlight and Yank
-Plug 'vim-airline/vim-airline'          " vim airlines
-Plug 'vim-airline/vim-airline-themes'   " vim airline themes
-Plug 'ryanoasis/vim-devicons'           " vim icons
+Plug 'suan/vim-instant-markdown' " Instant markdown preview from vim
+Plug 'gcmt/wildfire.vim'         " For selecting closed text objects
+Plug 'fholgado/minibufexpl.vim'
+Plug 'dyng/ctrlsf.vim'           " Ctrl + Shift + F on sublime text
+Plug 'kshenoy/vim-signature'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-rhubarb'
+Plug 'benmills/vimux'
+Plug 'gilsondev/searchtasks.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'chrisbra/NrrwRgn'
+Plug 'jaxbot/github-issues.vim'
+Plug 'wincent/command-t'
+Plug 'ruanyl/vim-sort-imports'
+Plug 'haya14busa/incsearch.vim'        " Better search highlighting
+Plug 'reedes/vim-pencil'               " Better Writing
+Plug 'vim-syntastic/syntastic'         " Syntax Checking
+Plug 'jeetsukumaran/vim-buffergator'   " Buffer Manager
+Plug 'Raimondi/delimitMate'            " Better HTML Editing
+Plug 'mileszs/ack.vim'                 " SilverSearcher
+Plug 'terryma/vim-multiple-cursors'    " Multiple Cursor
+Plug 'airblade/vim-gitgutter'          " Vim Git Gutter
+Plug 'machakann/vim-highlightedyank'   " Highlight and Yank
+Plug 'vim-airline/vim-airline'         " vim airlines
+Plug 'vim-airline/vim-airline-themes'  " vim airline themes
+Plug 'ryanoasis/vim-devicons'          " vim icons
 Plug 'junegunn/vim-journal'
-Plug 'junegunn/rainbow_parentheses.vim'
 
 " }}}
 
 " Colors {{{
 
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'tomasr/molokai'
 Plug 'rafi/awesome-vim-colorschemes'    " Color Schemes
 Plug 'altercation/vim-colors-solarized' " solarized color scheme
 Plug 'ayu-theme/ayu-vim'                " ayu Color Scheme
@@ -39,6 +53,8 @@ Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 
 " Plugins for JavaScript & TypeScript {{{
 
+Plug 'w0rp/ale'                        " Linting and fixing
+Plug 'Quramy/tsuquyomi'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'rhysd/npm-debug-log.vim'
@@ -108,11 +124,18 @@ Plug 'metakirby5/codi.vim'
 
 " Entertainment {{{
 
-Plug 'adelarsq/vim-hackernews'
+Plug 'adelarsq/vim-hackernews' " For hackernews in your vim
+Plug 'vim-scripts/DrawIt' " For drawing easily
 
 " }}}
 
 call plug#end()
+
+" }}}
+
+" Search Task mappings {{{
+
+nnoremap <leader>st :SearchTasks .<CR>
 
 " }}}
 
@@ -200,20 +223,6 @@ augroup pencil
 augroup END
 
 " }}}
-
-" Other Configurations {{{
-
-filetype plugin indent on
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent
-set incsearch ignorecase smartcase hlsearch
-set ruler laststatus=2 showcmd showmode
-set list listchars=trail:»,tab:»-
-set fillchars+=vert:\
-set wrap breakindent
-set formatprg=par\ -w72
-set encoding=utf-8
-set number
-set title
 
 " Open help in vertical split {{{
 
@@ -370,6 +379,26 @@ endfunction
 
 " }}}
 
+" tabularize mappings for `=` and `:` {{{
+
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+" }}}
+
+" Edit command to remove the last file name of the current directory {{{
+
+map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" }}}
+
 " Custom Mappings {{{
 
 set relativenumber
@@ -395,7 +424,7 @@ nmap <leader>a gaip*
 nmap <leader>s <C-w>s<C-w>j:terminal<CR>
 nmap <leader>vs <C-w>v<C-w>l:terminal<CR>
 nmap <leader>d <Plug>(pydocstring)
-nmap <leader>f :Files<CR>
+"nmap <leader>f :Files<CR>
 nmap <leader>g :Goyo<CR>
 nmap <leader>h :RainbowParentheses!!<CR>
 "nmap <leader>j :set filetype=journal<CR>
@@ -407,6 +436,16 @@ map <leader>n <C-w>v<C-w>l:HackerNews best<CR>J
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
+
+" Taking word under the cursor and put in CtrlSF Plugin
+nmap <leader>f :CtrlSF <C-R><C-W><CR>
+
+
+" start indent-guides on startup
+"let g:indent_guides_enable_on_vim_startup = 1
+
+" To show marks, Toggle command from signature plugin
+nmap <leader>m :SignatureToggle<CR>
 
 " save
 nmap <leader>, :w<CR>
@@ -457,25 +496,6 @@ nnoremap <leader>yl :%y<CR>
 """ undolevels
 set undolevels=1000      " use many muchos levels of undo
 
-" tabularize mappings for `=` and `:` {{{
-
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
-
-" }}}
-
-" Edit command to remove the last file name of the current directory {{{
-
-map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" }}}
 
 """ mapping of 0 and $ to easy map
 nmap <Leader>en $
@@ -605,9 +625,6 @@ nnoremap <leader>bdd :%bdelete<CR>
 nmap <leader>d <Plug>(ale_fix)
 
 "}}}
-
-" vim-javascript settings
-let g:javascript_plugin_flow = 1
 
 " Saved Macros {{{
 
@@ -814,10 +831,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " }}}
 
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
-
 " Folding settings {{{
 
 augroup ft_vim
@@ -831,6 +844,26 @@ augroup ft_js
 augroup END
 
 " }}}
+
+" Other Configurations {{{
+
+filetype plugin indent on
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent
+set incsearch ignorecase smartcase hlsearch
+set ruler laststatus=2 showcmd showmode
+set list listchars=trail:»,tab:»-
+set fillchars+=vert:\
+set wrap breakindent
+set formatprg=par\ -w72
+set encoding=utf-8
+set number
+set title
+
+" vim-javascript settings
+let g:javascript_plugin_flow = 1
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " }}}
 
