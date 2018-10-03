@@ -53,6 +53,9 @@ Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 
 " Plugins for JavaScript & TypeScript {{{
 
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'kristijanhusak/vim-js-file-import'
+Plug 'Galooshi/vim-import-js'
 Plug 'w0rp/ale'                        " Linting and fixing
 Plug 'Quramy/tsuquyomi'
 Plug 'pangloss/vim-javascript'
@@ -399,10 +402,25 @@ map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " }}}
 
+" Indent Guides mappings {{{
+
+" Indentation Visualization Plugin Indent Guides
+" Start with vim
+"let g:indent_guides_enable_on_vim_startup = 1
+"" Visual display indentation from the second layer
+"let g:indent_guides_start_level = 2
+"" Color block width
+""let  g: indent_guides_guide_size = 1
+"" Shortcut i on/off indentation visualization
+"nmap <silent><leader>i<Plug> :IndentGuidesToggle
+
+" }}}
+
 " Custom Mappings {{{
 
 set relativenumber
 let mapleader=" "
+set cursorline
 nmap <leader>q :NERDTreeToggle<CR>
 nmap <leader>w :TagbarToggle<CR>
 nmap \ <leader>q<leader>w
@@ -441,8 +459,6 @@ nmap <S-Tab> :bprevious<CR>
 nmap <leader>f :CtrlSF <C-R><C-W><CR>
 
 
-" start indent-guides on startup
-"let g:indent_guides_enable_on_vim_startup = 1
 
 " To show marks, Toggle command from signature plugin
 nmap <leader>m :SignatureToggle<CR>
@@ -662,7 +678,7 @@ nnoremap <silent><Leader>f :Unite -silent -no-split -start-insert -auto-preview
 nnoremap <silent>[menu]8 :UniteWithCursorWord -silent -no-split -auto-preview
       \ line<CR>
 " yankring
-nnoremap <silent><Leader>i :Unite -silent history/yank<CR>
+"nnoremap <silent><Leader>i :Unite -silent history/yank<CR>
 " help
 nnoremap <silent> g<C-h> :UniteWithCursorWord -silent help<CR>
 " tasks
