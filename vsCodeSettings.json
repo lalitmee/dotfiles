@@ -1,68 +1,185 @@
 {
-  // prettier configuration
-    "prettier.eslintIntegration": true,
-    "prettier.singleQuote": true,
-    "prettier.printWidth": 100,
-    "prettier.tabWidth": 4,
-    "keyboard.dispatch": "keyCode",
-    "update.channel": "none",
-    "editor.wordWrap": "on",
-    "explorer.confirmDelete": false,
-    "editor.fontSize": 16,
-    "workbench.iconTheme": "vscode-icons",
-    "window.zoomLevel": 0,
-    "editor.formatOnSave": true,
-    // "flow.useNPMPackagedFlow": true,
-    "javascript.validate.enable": false,
-    "javascript.format.enable": false,
-    "workbench.colorTheme": "Cobalt2",
-    "editor.lineHeight": 27,
-    "editor.letterSpacing": 0.5,
-    "files.trimTrailingWhitespace": true,
-    "editor.fontWeight": "600",
-    "editor.cursorBlinking": "blink",
-    "editor.renderWhitespace": "all",
-    "editor.fontFamily": "Operator Mono Light, Menlo, Monaco, 'Courier New', monospace",
-    "editor.fontLigatures": true,
-    "editor.formatOnPaste": true,
-    // "vscode_custom_css.imports": [
-      //     "file:///home/lalit/.vscodestyles.css"
-      // ],
-    "editor.quickSuggestions": {
-        "other": true,
-        "comments": false,
-        "strings": true
-    },
-    "editor.parameterHints": false,
-    "explorer.confirmDragAndDrop": false,
-    "vsicons.dontShowNewVersionMessage": true,
-    "editor.matchBrackets": false,
-    "subtleBrackets.styles": {
-        "global": {
-            "color": "#ff6600",
-            "borderWidth": "1px",
-            "borderStyle": "none none solid none"
+  // ====================================
+  // Editor Settings Start
+  // ====================================
+
+  // format the code on hitting the save
+  "editor.formatOnSave": true,
+  // font face
+  "editor.fontSize": 16,
+  // wrap lines if went out of the view
+  "editor.wordWrap": "on",
+  // ruler settins
+  "editor.rulers": [
+    80, 120
+  ],
+  // line height
+  "editor.lineHeight": 27,
+  // letter spacings
+  "editor.letterSpacing": 0.5,
+  // font weight
+  "editor.fontWeight": "600",
+  // cursor blinking
+  "editor.cursorBlinking": "blink",
+  "editor.renderWhitespace": "all",
+  // font family
+  "editor.fontFamily": "Operator Mono Lig Book, Menlo, Monaco, 'Courier New', monospace",
+  // making good ===, => and more
+  "editor.fontLigatures": true,
+  // format on paste
+  "editor.formatOnPaste": true,
+  // quick suggestions
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  // changing alt to Ctrl for multi cursors
+  "editor.multiCursorModifier": "ctrlCmd",
+  // matchbrackets stop for sbutle bracket package
+  "editor.matchBrackets": false,
+  // color for current line number and indent color
+  "workbench.colorCustomizations": {
+    "editorLineNumber.activeForeground": "#ff6600",
+    "editorIndentGuide.activeBackground": "#33ff00"
+  },
+  "editor.snippetSuggestions": "top",
+  // sort import on save
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  // ligatures and cursive fonts settings
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [{
+        "scope": [
+          //following will be in italic (=FlottFlott)
+          "comment",
+          "entity.name.type.class", //class names
+          "keyword", //import, export, return…
+          "constant", //String, Number, Boolean…, this, super
+          "storage.modifier", //static keyword
+          "storage.type.class.js", //class keyword
+        ],
+        "settings": {
+          "fontStyle": "italic"
         }
+      },
+      {
+        "scope": [
+          //following will be excluded from italics (VSCode has some defaults for italics)
+          "invalid",
+          "keyword.operator",
+          "constant.numeric.css",
+          "keyword.other.unit.px.css",
+          "constant.numeric.decimal.js",
+          "constant.numeric.json"
+        ],
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+
+  // prettier settings
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
+
+  // don't know what it is doing
+  "keyboard.dispatch": "keyCode",
+
+  // stopping the updates notifications
+  "update.channel": "none",
+
+  // stoping delete confirmation popup
+  "explorer.confirmDelete": false,
+
+  // file icons
+  "workbench.iconTheme": "vscode-icons",
+
+  // zoom level
+  "window.zoomLevel": 1,
+
+  "javascript.validate.enable": false,
+  "javascript.format.enable": false,
+
+  // color theme
+  "workbench.colorTheme": "One Dark Pro",
+
+  // triming white spaces on save
+  "files.trimTrailingWhitespace": true,
+
+  "explorer.confirmDragAndDrop": false,
+  "vsicons.dontShowNewVersionMessage": true,
+
+  "files.associations": {
+    "*Container.js": "javascriptreact",
+    "**/components/*/*.js": "javascriptreact",
+    "**/config/routes.js": "javascriptreact"
+  },
+
+  // subtleBrackets settings
+  "subtleBrackets.styles": {
+    "global": {
+      "color": "yellow",
+      "borderColor": "blue",
+      "borderWidth": "2px",
+      "borderStyle": "none none solid none"
+    }
+  },
+  // ==================
+  // emmets settings
+  "emmet.showExpandedAbbreviation": "never",
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "markdown": "html",
+    "javascript": "javascriptreact"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  // ==================
+
+  "vsicons.projectDetection.disableDetect": true,
+
+  // files to watch or not
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
+
+  // ========================
+  // Better comments settings
+  "better-comments.highlightPlainText": true,
+  "better-comments.tags": [{
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
     },
-    "workbench.colorCustomizations": {
-        "editorLineNumber.activeForeground": "#ff6600",
-        "editorIndentGuide.activeBackground": "#33ff00"
+    {
+      "tag": "?",
+      "color": "#dbdb34",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
     },
-    "files.associations": {
-        "*Container.js": "javascriptreact",
-        "**/components/*/*.js": "javascriptreact",
-        "**/config/routes.js": "javascriptreact"
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "backgroundColor": "transparent"
     },
-    "emmet.showExpandedAbbreviation": "never",
-    "emmet.triggerExpansionOnTab": true,
-    "emmet.includeLanguages": {
-        "markdown": "html",
-        "javascript": "javascriptreact"
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
     },
-    "emmet.showSuggestionsAsSnippets": true,
-    "editor.snippetSuggestions": "top",
-    "vsicons.projectDetection.disableDetect": true,
-    // "editor.codeActionsOnSave": {
-      //     "source.organizeImports": true
-    // }
-}
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    }
+  ]
+  // ========================
+}}
