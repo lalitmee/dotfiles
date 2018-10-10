@@ -6,9 +6,9 @@ call plug#begin()
 
 " Main {{{
 
+Plug 'junegunn/limelight.vim'
 Plug 'suan/vim-instant-markdown' " Instant markdown preview from vim
 Plug 'gcmt/wildfire.vim'         " For selecting closed text objects
-Plug 'fholgado/minibufexpl.vim'
 Plug 'dyng/ctrlsf.vim'           " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -53,7 +53,6 @@ Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 
 " Plugins for JavaScript & TypeScript {{{
 
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'kristijanhusak/vim-js-file-import'
 Plug 'Galooshi/vim-import-js'
 Plug 'w0rp/ale'                        " Linting and fixing
@@ -133,6 +132,13 @@ Plug 'vim-scripts/DrawIt' " For drawing easily
 " }}}
 
 call plug#end()
+
+" }}}
+
+" Limelight mappings {{{
+
+nmap <Leader>l <Plug>(Limelight)
+xmap <Leader>l <Plug>(Limelight)
 
 " }}}
 
@@ -348,8 +354,50 @@ let g:tagbar_iconchars = ['↠', '↡']
 
 " fzf-vim {{{
 
-" FZF mapping to ff
+" FZF mapping to
+
+" search through files in the project
 nmap ff :FZF<CR>
+
+" search by Ag for some specific words or anything
+nmap fs :Ag<CR>
+
+" locate files in the system
+nmap fl :Locate<space>
+
+" find the lines in the loaded buffers
+nmap fbl :Lines<CR>
+
+" find the lines in the current buffer
+nmap fbcl :BLines<CR>
+
+" finds all the Snippets for the current buffer Filetype
+nmap fsn :Snippets<CR>
+
+" opens files which you have opened
+nmap fh :History<CR>
+
+" commands history which you have entered in the vim
+nmap fch :History:<CR>
+
+" search history which you have entered in the vim
+nmap fsh :History/<CR>
+
+" search through all the commits of the project
+nmap fc :Commits<CR>
+
+" search through all the commits for the current file
+nmap fbc :BCommits<CR>
+
+" search through all the normal mode mappings in your config
+nmap fm :Maps<CR>
+
+" search through all the help files
+nmap fht :Helptags<CR>
+
+" change the filetype of the current file by searching for all
+nmap ft :Filetypes<CR>
+
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
@@ -419,6 +467,7 @@ map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Custom Mappings {{{
 
 set relativenumber
+set wrap
 let mapleader=" "
 set cursorline
 nmap <leader>q :NERDTreeToggle<CR>
@@ -456,15 +505,15 @@ nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 
 " Taking word under the cursor and put in CtrlSF Plugin
-nmap <leader>f :CtrlSF <C-R><C-W><CR>
+noremap <leader>fw :CtrlSF <C-R><C-W><CR>
 
 
 
 " To show marks, Toggle command from signature plugin
-nmap <leader>m :SignatureToggle<CR>
+noremap <leader>m :SignatureToggle<CR>
 
 " save
-nmap <leader>, :w<CR>
+noremap <leader>, :w<CR>
 
 " Paste with middle mouse click
 vmap <LeftRelease> "*ygv
@@ -665,28 +714,28 @@ map g# <Plug>(incsearch-nohl-g#)
 " Unite Mappings {{{
 
 " files
-nnoremap <silent><Leader>o :Unite -silent -start-insert file<CR>
-nnoremap <silent><Leader>O :Unite -silent -start-insert file_rec/async<CR>
-nnoremap <silent><Leader>m :Unite -silent file_mru<CR>
-" buffers
-nnoremap <silent><Leader>b :Unite -silent buffer<CR>
-" tabs
-nnoremap <silent><Leader>B :Unite -silent tab<CR>
-" buffer search
-nnoremap <silent><Leader>f :Unite -silent -no-split -start-insert -auto-preview
-      \ line<CR>
-nnoremap <silent>[menu]8 :UniteWithCursorWord -silent -no-split -auto-preview
-      \ line<CR>
-" yankring
-"nnoremap <silent><Leader>i :Unite -silent history/yank<CR>
-" help
-nnoremap <silent> g<C-h> :UniteWithCursorWord -silent help<CR>
-" tasks
-"nnoremap <silent><Leader>; :Unite -silent -toggle
-"\ grep:%::FIXME\|TODO\|NOTE\|XXX\|COMBAK\|@todo<CR>
-" outlines (also ctags)
-nnoremap <silent><Leader>tl :Unite -silent -vertical -winwidth=40
-      \ -direction=topleft -toggle outline<CR>
+"nnoremap <silent><Leader>o :Unite -silent -start-insert file<CR>
+"nnoremap <silent><Leader>O :Unite -silent -start-insert file_rec/async<CR>
+"nnoremap <silent><Leader>m :Unite -silent file_mru<CR>
+"" buffers
+"nnoremap <silent><Leader>b :Unite -silent buffer<CR>
+"" tabs
+"nnoremap <silent><Leader>B :Unite -silent tab<CR>
+"" buffer search
+"nnoremap <silent><Leader>f :Unite -silent -no-split -start-insert -auto-preview
+"\ line<CR>
+"nnoremap <silent>[menu]8 :UniteWithCursorWord -silent -no-split -auto-preview
+"\ line<CR>
+"" yankring
+""nnoremap <silent><Leader>i :Unite -silent history/yank<CR>
+"" help
+"nnoremap <silent> g<C-h> :UniteWithCursorWord -silent help<CR>
+"" tasks
+""nnoremap <silent><Leader>; :Unite -silent -toggle
+""\ grep:%::FIXME\|TODO\|NOTE\|XXX\|COMBAK\|@todo<CR>
+"" outlines (also ctags)
+"nnoremap <silent><Leader>tl :Unite -silent -vertical -winwidth=40
+"\ -direction=topleft -toggle outline<CR>
 
 " }}}
 
@@ -787,7 +836,7 @@ autocmd BufWritePre <buffer> call Indent()
 
 " }}}
 
-" Highligh under cursor {{{ 
+" Highligh under cursor {{{
 
 " Highlight all instances of word under cursor, when idle.
 " Useful when studying strange source code.
@@ -817,8 +866,8 @@ endfunction
 " Easymotion mappings {{{
 
 " <Leader>f{char} to move to {char}
-map  <Leader>fs <Plug>(easymotion-bd-f)
-nmap <Leader>fs <Plug>(easymotion-overwin-f)
+map  <Leader>fes <Plug>(easymotion-bd-f)
+nmap <Leader>fes <Plug>(easymotion-overwin-f)
 
 " s{char}{char} to move to {char}{char}
 nmap s <Plug>(easymotion-overwin-f2)
@@ -834,7 +883,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " }}}
 
-" Linting configurations for ale {{{ 
+" Linting configurations for ale {{{
 
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
