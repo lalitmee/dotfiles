@@ -1,185 +1,201 @@
 {
-  // ====================================
-  // Editor Settings Start
-  // ====================================
+	// ====================================
+	// Editor Settings Start
+	// ====================================
 
-  // format the code on hitting the save
-  "editor.formatOnSave": true,
-  // font face
-  "editor.fontSize": 16,
-  // wrap lines if went out of the view
-  "editor.wordWrap": "on",
-  // ruler settins
-  "editor.rulers": [
-    80, 120
-  ],
-  // line height
-  "editor.lineHeight": 27,
-  // letter spacings
-  "editor.letterSpacing": 0.5,
-  // font weight
-  "editor.fontWeight": "600",
-  // cursor blinking
-  "editor.cursorBlinking": "blink",
-  "editor.renderWhitespace": "all",
-  // font family
-  "editor.fontFamily": "Operator Mono Lig Book, Menlo, Monaco, 'Courier New', monospace",
-  // making good ===, => and more
-  "editor.fontLigatures": true,
-  // format on paste
-  "editor.formatOnPaste": true,
-  // quick suggestions
-  "editor.quickSuggestions": {
-    "other": true,
-    "comments": false,
-    "strings": true
-  },
-  // changing alt to Ctrl for multi cursors
-  "editor.multiCursorModifier": "ctrlCmd",
-  // matchbrackets stop for sbutle bracket package
-  "editor.matchBrackets": false,
-  // color for current line number and indent color
-  "workbench.colorCustomizations": {
-    "editorLineNumber.activeForeground": "#ff6600",
-    "editorIndentGuide.activeBackground": "#33ff00"
-  },
-  "editor.snippetSuggestions": "top",
-  // sort import on save
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-  // ligatures and cursive fonts settings
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [{
-        "scope": [
-          //following will be in italic (=FlottFlott)
-          "comment",
-          "entity.name.type.class", //class names
-          "keyword", //import, export, return…
-          "constant", //String, Number, Boolean…, this, super
-          "storage.modifier", //static keyword
-          "storage.type.class.js", //class keyword
-        ],
-        "settings": {
-          "fontStyle": "italic"
-        }
-      },
-      {
-        "scope": [
-          //following will be excluded from italics (VSCode has some defaults for italics)
-          "invalid",
-          "keyword.operator",
-          "constant.numeric.css",
-          "keyword.other.unit.px.css",
-          "constant.numeric.decimal.js",
-          "constant.numeric.json"
-        ],
-        "settings": {
-          "fontStyle": ""
-        }
-      }
-    ]
-  },
+	// format the code on hitting the save
+	"editor.formatOnSave": true,
+	// font face
+	"editor.fontSize": 16,
+	// wrap lines if went out of the view
+	"editor.wordWrap": "on",
+	// ruler settins
+	"editor.rulers": [
+		80, 120
+	],
+	// line height
+	"editor.lineHeight": 27,
+	// letter spacings
+	"editor.letterSpacing": 0.5,
+	// font weight
+	"editor.fontWeight": "600",
+	// cursor blinking
+	"editor.cursorBlinking": "blink",
+	"editor.renderWhitespace": "all",
+	// font family
+	"editor.fontFamily": "Operator Mono Lig Book, Menlo, Monaco, 'Courier New', monospace",
+	// making good ===, => and more
+	"editor.fontLigatures": true,
+	// format on paste
+	"editor.formatOnPaste": true,
+	// quick suggestions
+	"editor.quickSuggestions": {
+		"other": true,
+		"comments": false,
+		"strings": true
+	},
+	// changing alt to Ctrl for multi cursors
+	"editor.multiCursorModifier": "ctrlCmd",
+	// matchbrackets stop for sbutle bracket package
+	"editor.matchBrackets": false,
+	// color for current line number and indent color
+	"workbench.colorCustomizations": {
+		"editorLineNumber.activeForeground": "#ff6600",
+		"editorBracketMatch.border": "#ff0000",
+		"editorOverviewRuler.bracketMatchForeground": "#ff0000",
+		"editorIndentGuide.activeBackground": "#33ff00"
+	},
+	"editor.snippetSuggestions": "top",
+	// editor tab completions of the suggestions
+	"editor.tabCompletion": "on",
+	// intellisense based on the distance of the previously used functions or parameters names
+	"editor.suggest.localityBonus": true,
+	// sort import on save
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": true
+	},
+	// ligatures and cursive fonts settings
+	"editor.tokenColorCustomizations": {
+		"textMateRules": [{
+			"scope": [
+				//following will be in italic (=FlottFlott)
+				"comment",
+				"entity.name.type.class", //class names
+				"keyword", //import, export, return…
+				"constant", //String, Number, Boolean…, this, super
+				"storage.modifier", //static keyword
+				"storage.type.class.js", //class keyword
+			],
+			"settings": {
+				"fontStyle": "italic"
+			}
+		},
+		{
+			"scope": [
+				//following will be excluded from italics (VSCode has some defaults for italics)
+				"invalid",
+				"keyword.operator",
+				"constant.numeric.css",
+				"keyword.other.unit.px.css",
+				"constant.numeric.decimal.js",
+				"constant.numeric.json"
+			],
+			"settings": {
+				"fontStyle": ""
+			}
+		}
+		]
+	},
 
-  // prettier settings
-  "prettier.singleQuote": true,
-  "prettier.eslintIntegration": true,
+	// prettier settings
+	"prettier.singleQuote": true,
+	"prettier.eslintIntegration": true,
 
-  // don't know what it is doing
-  "keyboard.dispatch": "keyCode",
+	// don't know what it is doing
+	"keyboard.dispatch": "keyCode",
 
-  // stopping the updates notifications
-  "update.channel": "none",
+	// stopping the updates notifications
+	"update.channel": "none",
 
-  // stoping delete confirmation popup
-  "explorer.confirmDelete": false,
+	// stoping delete confirmation popup
+	"explorer.confirmDelete": false,
 
-  // file icons
-  "workbench.iconTheme": "vscode-icons",
+	// file icons
+	"workbench.iconTheme": "vscode-icons",
 
-  // zoom level
-  "window.zoomLevel": 1,
+	// zoom level
+	"window.zoomLevel": 1,
 
-  "javascript.validate.enable": false,
-  "javascript.format.enable": false,
+	"javascript.validate.enable": false,
+	"javascript.format.enable": false,
 
-  // color theme
-  "workbench.colorTheme": "One Dark Pro",
+	// color theme
+	"workbench.colorTheme": "Cobalt2",
 
-  // triming white spaces on save
-  "files.trimTrailingWhitespace": true,
+	// triming white spaces on save
+	"files.trimTrailingWhitespace": true,
 
-  "explorer.confirmDragAndDrop": false,
-  "vsicons.dontShowNewVersionMessage": true,
+	"explorer.confirmDragAndDrop": false,
+	"vsicons.dontShowNewVersionMessage": true,
 
-  "files.associations": {
-    "*Container.js": "javascriptreact",
-    "**/components/*/*.js": "javascriptreact",
-    "**/config/routes.js": "javascriptreact"
-  },
+	"files.associations": {
+		"*Container.js": "javascriptreact",
+		"**/components/*/*.js": "javascriptreact",
+		"**/config/routes.js": "javascriptreact"
+	},
 
-  // subtleBrackets settings
-  "subtleBrackets.styles": {
-    "global": {
-      "color": "yellow",
-      "borderColor": "blue",
-      "borderWidth": "2px",
-      "borderStyle": "none none solid none"
-    }
-  },
-  // ==================
-  // emmets settings
-  "emmet.showExpandedAbbreviation": "never",
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.includeLanguages": {
-    "markdown": "html",
-    "javascript": "javascriptreact"
-  },
-  "emmet.showSuggestionsAsSnippets": true,
-  // ==================
+	// subtleBrackets settings
+	"subtleBrackets.styles": {
+		"global": {
+			"color": "yellow",
+			"borderColor": "blue",
+			"borderWidth": "2px",
+			"borderStyle": "none none solid none"
+		}
+	},
+	// ==================
+	// emmets settings
+	"emmet.showExpandedAbbreviation": "never",
+	"emmet.triggerExpansionOnTab": true,
+	"emmet.includeLanguages": {
+		"markdown": "html",
+		"javascript": "javascriptreact"
+	},
+	"emmet.showSuggestionsAsSnippets": true,
+	// ==================
 
-  "vsicons.projectDetection.disableDetect": true,
+	"vsicons.projectDetection.disableDetect": true,
 
-  // files to watch or not
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/*/**": true
-  },
+	// files to watch or not
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true
+	},
 
-  // ========================
-  // Better comments settings
-  "better-comments.highlightPlainText": true,
-  "better-comments.tags": [{
-      "tag": "!",
-      "color": "#FF2D00",
-      "strikethrough": false,
-      "backgroundColor": "transparent"
-    },
-    {
-      "tag": "?",
-      "color": "#dbdb34",
-      "strikethrough": false,
-      "backgroundColor": "transparent"
-    },
-    {
-      "tag": "//",
-      "color": "#474747",
-      "strikethrough": true,
-      "backgroundColor": "transparent"
-    },
-    {
-      "tag": "todo",
-      "color": "#FF8C00",
-      "strikethrough": false,
-      "backgroundColor": "transparent"
-    },
-    {
-      "tag": "*",
-      "color": "#98C379",
-      "strikethrough": false,
-      "backgroundColor": "transparent"
-    }
-  ]
-  // ========================
-}}
+	// ========================
+	// Better comments settings
+	"better-comments.highlightPlainText": true,
+	"better-comments.tags": [{
+		"tag": "!",
+		"color": "#FF2D00",
+		"strikethrough": false,
+		"backgroundColor": "transparent"
+	},
+	{
+		"tag": "?",
+		"color": "#dbdb34",
+		"strikethrough": false,
+		"backgroundColor": "transparent"
+	},
+	{
+		"tag": "//",
+		"color": "#474747",
+		"strikethrough": true,
+		"backgroundColor": "transparent"
+	},
+	{
+		"tag": "todo",
+		"color": "#FF8C00",
+		"strikethrough": false,
+		"backgroundColor": "transparent"
+	},
+	{
+		"tag": "*",
+		"color": "#98C379",
+		"strikethrough": false,
+		"backgroundColor": "transparent"
+	}
+	],
+	// ========================
+	// Git Settings
+	"git.inputValidation": "always",
+	"sync.gist": "aff91932cc008118abe310d56484b47f",
+	"sync.quietSync": false,
+	"sync.removeExtensions": true,
+	"sync.syncExtensions": true,
+	"sync.autoDownload": false,
+	"sync.autoUpload": false,
+	"sync.forceDownload": false,
+	"explorer.openEditors.visible": 0
+}
