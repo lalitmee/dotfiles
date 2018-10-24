@@ -6,7 +6,7 @@
 	// format the code on hitting the save
 	"editor.formatOnSave": true,
 	// font face
-	"editor.fontSize": 16,
+	"editor.fontSize": 15,
 	// wrap lines if went out of the view
 	"editor.wordWrap": "on",
 	// ruler settins
@@ -14,7 +14,7 @@
 		80, 120
 	],
 	// line height
-	"editor.lineHeight": 27,
+	"editor.lineHeight": 25,
 	// letter spacings
 	"editor.letterSpacing": 0.5,
 	// font weight
@@ -197,5 +197,94 @@
 	"sync.autoDownload": false,
 	"sync.autoUpload": false,
 	"sync.forceDownload": false,
-	"explorer.openEditors.visible": 0
+	"explorer.openEditors.visible": 0,
+
+	// files to exclude on search
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/coverage": true,
+		"**/ps.txt": true,
+		"**/TODO": true,
+		"**/TODO_archive": true
+	},
+
+	// VSCodeVim settings
+	"vim.leader": "<Space>",
+	"vim.easymotion": true,
+	"vim.sneak": true,
+	"vim.incsearch": true,
+	"vim.useSystemClipboard": true,
+	"vim.useCtrlKeys": true,
+	"vim.hlsearch": true,
+	"vim.normalModeKeyBindingsNonRecursive": [{
+		"commands": [
+			"workbench.action.files.save"
+		],
+		"before": [
+			"<Leader>",
+			","
+		]
+	}],
+	"vim.visualModeKeyBindingsNonRecursive": [{
+		"before": [
+			">"
+		],
+		"commands": [
+			"editor.action.indentLines"
+		]
+	},
+	{
+		"before": [
+			"<"
+		],
+		"commands": [
+			"editor.action.outdentLines"
+		]
+	},
+	],
+
+	// slider on the minimap
+	"editor.minimap.showSlider": "always",
+
+	// TODO+ Settings
+	"todo.timekeeping.created.enabled": true,
+	"todo.timekeeping.created.format": "ddd MM/DD/YYYY - hh:mm A",
+	"[todo]": {
+		"editor.wordWrap": "on",
+		"editor.lineNumbers": "off"
+	},
+
+	// less settings
+	"[less]": {
+		"editor.formatOnSave": false
+	},
+	"editor.smoothScrolling": true,
+	"editor.mouseWheelScrollSensitivity": 2,
+	"aceJump.finder.onlyInitialLetter": false,
+	"aceJump.placeholder.fontSize": 22,
+	"aceJump.placeholder.height": 22,
+	"aceJump.placeholder.width": 22,
+	"aceJump.placeholder.textPosY": 17,
+	"aceJump.placeholder.textPosX": 4,
+	"aceJump.placeholder.backgroundColor": "cyan",
+	"editor.renderControlCharacters": true,
+	"editor.showFoldingControls": "always",
+	"editor.suggestSelection": "recentlyUsedByPrefix",
+	"workbench.statusBar.feedback.visible": false,
+	"files.insertFinalNewline": true,
+	"git.confirmSync": false,
+	"aceJump.placeholder.fontFamily": "Hack",
+	"rewrap.wrappingColumn": 80,
+	"git.autofetch": true,
+	"gitlens.outputLevel": "errors",
+	"less.validate": false,
+	"workbench.editor.enablePreview": false,
+	"workbench.editor.enablePreviewFromQuickOpen": false,
+	"todo.colors.done": "#75715e",
+	"todo.colors.cancelled": "#75715e",
+	"todo.colors.tag": "#74c2e6",
+	"todo.statistics.project.enabled": "false",
+	"aceJump.finder.skipSelection": true,
+	"javascript.suggestionActions.enabled": false
 }
