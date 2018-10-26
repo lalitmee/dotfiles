@@ -23,7 +23,7 @@
 	"editor.cursorBlinking": "blink",
 	"editor.renderWhitespace": "all",
 	// font family
-	"editor.fontFamily": "Operator Mono Lig Book, Menlo, Monaco, 'Courier New', monospace",
+	"editor.fontFamily": "Operator Mono Lig Book, Menlo, Monaco, Hack, 'Courier New', monospace",
 	// making good ===, => and more
 	"editor.fontLigatures": true,
 	// format on paste
@@ -121,7 +121,8 @@
 	"files.associations": {
 		"*Container.js": "javascriptreact",
 		"**/components/*/*.js": "javascriptreact",
-		"**/config/routes.js": "javascriptreact"
+		"**/config/routes.js": "javascriptreact",
+		"*.js": "javascriptreact"
 	},
 
 	// subtleBrackets settings
@@ -252,7 +253,7 @@
 	"todo.timekeeping.created.format": "ddd MM/DD/YYYY - hh:mm A",
 	"[todo]": {
 		"editor.wordWrap": "on",
-		"editor.lineNumbers": "off"
+		"editor.lineNumbers": "on"
 	},
 
 	// less settings
@@ -268,14 +269,10 @@
 	"aceJump.placeholder.textPosY": 17,
 	"aceJump.placeholder.textPosX": 4,
 	"aceJump.placeholder.backgroundColor": "cyan",
-	"editor.renderControlCharacters": true,
 	"editor.showFoldingControls": "always",
-	"editor.suggestSelection": "recentlyUsedByPrefix",
 	"workbench.statusBar.feedback.visible": false,
-	"files.insertFinalNewline": true,
 	"git.confirmSync": false,
 	"aceJump.placeholder.fontFamily": "Hack",
-	"rewrap.wrappingColumn": 80,
 	"git.autofetch": true,
 	"gitlens.outputLevel": "errors",
 	"less.validate": false,
@@ -286,5 +283,24 @@
 	"todo.colors.tag": "#74c2e6",
 	"todo.statistics.project.enabled": "false",
 	"aceJump.finder.skipSelection": true,
-	"javascript.suggestionActions.enabled": false
+	"eslint.options": {
+		"configFile": "./.eslintrc"
+	},
+	"editor.renderIndentGuides": false,
+
+	// bracketPairColorizer
+	"bracketPairColorizer.forceUniqueOpeningColor": true,
+	"bracketPairColorizer.highlightActiveScope": true,
+	"bracketPairColorizer.scopeLineCSS": [
+		"borderStyle : solid",
+		"borderWidth : 1px",
+		"borderColor : #ff6600",
+		"opacity: 0.5",
+		"backgroundColor: #ff6600"
+	],
+	"bracketPairColorizer.showBracketsInGutter": true,
+	"bracketPairColorizer.showVerticalScopeLine": true,
+	"bracketPairColorizer.showHorizontalScopeLine": false,
+	"bracketPairColorizer.forceIterationColorCycle": true,
+	"workbench.startupEditor": "welcomePage"
 }
