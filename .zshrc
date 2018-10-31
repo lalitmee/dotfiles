@@ -33,7 +33,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=10
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -156,6 +156,7 @@ alias du="ddg"
 alias s="subl ."
 alias a="atom ."
 alias c="code ."
+alias o="oni ."
 
 # alias for using nvim instead of vim
 alias vim="nvim"
@@ -209,7 +210,7 @@ eval "$(rbenv init -)"
 export PATH="$PATH:/snap/bin"
 
 # pyenv root
-PYENV_ROOT="$(pyenv root)"
+export PYENV_ROOT="$(pyenv root)"
 
 # exporting editor
 export EDITOR=nvim
@@ -219,3 +220,5 @@ export EDITOR=nvim
 
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
