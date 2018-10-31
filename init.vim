@@ -7,14 +7,12 @@ call plug#begin()
 " Main {{{
 
 Plug 'suan/vim-instant-markdown' " Instant markdown preview from vim
-Plug 'gcmt/wildfire.vim'         " For selecting closed text objects
 Plug 'dyng/ctrlsf.vim'           " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-rhubarb'
 Plug 'benmills/vimux'
 Plug 'gilsondev/searchtasks.vim'
-Plug 'tpope/vim-vinegar'
 Plug 'chrisbra/NrrwRgn'
 Plug 'jaxbot/github-issues.vim'
 Plug 'wincent/command-t'
