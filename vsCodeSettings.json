@@ -1,7 +1,7 @@
 {
-	// ====================================
-	// Editor Settings Start
-	// ====================================
+	/*************************
+	* EDITOR SETTINGS START *
+	*************************/
 
 	// format the code on hitting the save
 	"editor.formatOnSave": true,
@@ -47,7 +47,7 @@
 	},
 	"editor.snippetSuggestions": "top",
 	// editor tab completions of the suggestions
-	"editor.tabCompletion": "on",
+	"editor.tabCompletion": "off",
 	// intellisense based on the distance of the previously used functions or parameters names
 	"editor.suggest.localityBonus": true,
 	// sort import on save
@@ -87,32 +87,48 @@
 		]
 	},
 
-	// prettier settings
+	/*********************
+	* PRETTIER SETTINGS *
+	*********************/
 	"prettier.singleQuote": true,
 	"prettier.eslintIntegration": true,
 
-	// don't know what it is doing
+	/*******************************
+	* DON'T KNOW WHAT IT IS DOING *
+	*******************************/
 	"keyboard.dispatch": "keyCode",
 
-	// stopping the updates notifications
+	/**************************************
+	* STOPPING THE UPDATES NOTIFICATIONS *
+	**************************************/
 	"update.channel": "none",
 
-	// stoping delete confirmation popup
+	/*************************************
+	* STOPING DELETE CONFIRMATION POPUP *
+	*************************************/
 	"explorer.confirmDelete": false,
 
-	// file icons
+	/**************
+	* FILE ICONS *
+	**************/
 	"workbench.iconTheme": "vscode-icons",
 
-	// zoom level
+	/**************
+	* ZOOM LEVEL *
+	**************/
 	"window.zoomLevel": 1,
 
 	"javascript.validate.enable": false,
 	"javascript.format.enable": false,
 
-	// color theme
+	/***************
+	* COLOR THEME *
+	***************/
 	"workbench.colorTheme": "Cobalt2",
 
-	// triming white spaces on save
+	/********************************
+	* TRIMING WHITE SPACES ON SAVE *
+	********************************/
 	"files.trimTrailingWhitespace": true,
 
 	"explorer.confirmDragAndDrop": false,
@@ -125,7 +141,9 @@
 		"*.js": "javascriptreact"
 	},
 
-	// subtleBrackets settings
+	/***************************
+	* SUBTLEBRACKETS SETTINGS *
+	***************************/
 	"subtleBrackets.styles": {
 		"global": {
 			"color": "yellow",
@@ -134,8 +152,10 @@
 			"borderStyle": "none none solid none"
 		}
 	},
-	// ==================
-	// emmets settings
+
+	/*******************
+	* EMMETS SETTINGS *
+	*******************/
 	"emmet.showExpandedAbbreviation": "never",
 	"emmet.triggerExpansionOnTab": true,
 	"emmet.includeLanguages": {
@@ -143,19 +163,21 @@
 		"javascript": "javascriptreact"
 	},
 	"emmet.showSuggestionsAsSnippets": true,
-	// ==================
 
 	"vsicons.projectDetection.disableDetect": true,
 
-	// files to watch or not
+	/*************************
+	* FILES TO WATCH OR NOT *
+	*************************/
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,
 		"**/.git/subtree-cache/**": true,
 		"**/node_modules/*/**": true
 	},
 
-	// ========================
-	// Better comments settings
+	/****************************
+	* BETTER COMMENTS SETTINGS *
+	****************************/
 	"better-comments.highlightPlainText": true,
 	"better-comments.tags": [{
 		"tag": "!",
@@ -188,8 +210,9 @@
 		"backgroundColor": "transparent"
 	}
 	],
-	// ========================
-	// Git Settings
+	/****************
+	* GIT SETTINGS *
+	****************/
 	"git.inputValidation": "always",
 	"sync.gist": "aff91932cc008118abe310d56484b47f",
 	"sync.quietSync": false,
@@ -200,6 +223,9 @@
 	"sync.forceDownload": false,
 	"explorer.openEditors.visible": 0,
 
+	/*******************
+	* SEARCH SETTINGS *
+	*******************/
 	// files to exclude on search
 	"search.exclude": {
 		"**/node_modules": true,
@@ -210,7 +236,12 @@
 		"**/TODO_archive": true
 	},
 
-	// VSCodeVim settings
+	"search.showLineNumbers": true,
+
+
+	/**********************
+	* VSCODEVIM SETTINGS *
+	**********************/
 	"vim.leader": "<Space>",
 	"vim.easymotion": true,
 	"vim.sneak": true,
@@ -233,7 +264,7 @@
 		],
 		"commands": [
 			"editor.action.indentLines"
-		]
+			]
 	},
 	{
 		"before": [
@@ -241,14 +272,18 @@
 		],
 		"commands": [
 			"editor.action.outdentLines"
-		]
+			]
 	},
 	],
 
-	// slider on the minimap
+	/*************************
+	* SLIDER ON THE MINIMAP *
+	*************************/
 	"editor.minimap.showSlider": "always",
 
-	// TODO+ Settings
+	/******************
+	* TODO+ SETTINGS *
+	******************/
 	"todo.timekeeping.created.enabled": true,
 	"todo.timekeeping.created.format": "ddd MM/DD/YYYY - hh:mm A",
 	"[todo]": {
@@ -256,7 +291,9 @@
 		"editor.lineNumbers": "on"
 	},
 
-	// less settings
+	/*****************
+	* LESS SETTINGS *
+	*****************/
 	"[less]": {
 		"editor.formatOnSave": false
 	},
@@ -288,7 +325,9 @@
 	},
 	"editor.renderIndentGuides": false,
 
-	// bracketPairColorizer
+	/************************
+	* BRACKETPAIRCOLORIZER *
+	************************/
 	"bracketPairColorizer.forceUniqueOpeningColor": true,
 	"bracketPairColorizer.highlightActiveScope": true,
 	"bracketPairColorizer.scopeLineCSS": [
@@ -296,7 +335,7 @@
 		"borderWidth : 1px",
 		"borderColor : #ff6600",
 		"opacity: 0.5",
-		"backgroundColor: #ff6600"
+		"backgroundColor: #ff6600",
 	],
 	"bracketPairColorizer.showBracketsInGutter": true,
 	"bracketPairColorizer.showVerticalScopeLine": true,
