@@ -537,7 +537,7 @@ nmap ff :FZF<CR>
 nmap <leader>b :Buffers<CR>
 
 " search by Ag for some specific words or anything
-nmap <leader>s :Ag<space>
+nmap <C-S-s> :Ag<space>
 
 " locate files in the system
 nmap <leader>lo :Locate<space>
@@ -706,6 +706,9 @@ vmap <LeftRelease> "*ygv
 
 " clear highlighted search
 noremap <silent> <leader>h :set hlsearch! hlsearch?<cr>
+
+" exit with leader
+noremap <silent> <leader>x :q<cr>
 
 " Paste with <Shift> + <Insert>
 imap <S-Insert> <C-R>*
@@ -1086,14 +1089,17 @@ let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['prettier', 'tslint']
 let g:ale_fixers['json'] = ['prettier']
 let g:ale_fixers['css'] = ['prettier']
-" let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_fix_on_save = 0
+let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_fix_on_save = 1
 
 " }}}
 
 " SilverSearcher for ack {{{
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
 
 " }}}
 
@@ -1262,7 +1268,7 @@ let g:prettier#config#trailing_comma = 'all'
 
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
-let g:prettier#config#parser = 'flow'
+let g:prettier#config#parser = 'babylon'
 
 " cli-override|file-override|prefer-file
 let g:prettier#config#config_precedence = 'prefer-file'
