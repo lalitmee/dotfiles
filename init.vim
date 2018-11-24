@@ -650,7 +650,7 @@ nmap <leader>w :TagbarToggle<CR>
 nmap \ <leader>q<leader>w
 nmap <leader>ee :Colors<CR>
 nmap <leader>ce :colorscheme<space>
-nmap <leader>ea :AirlineTheme
+nmap <leader>ea :AirlineTheme<space>
 nmap <leader>co :colorscheme onedark<CR>
 nmap <leader>cm :colorscheme molokai<CR>
 nmap <leader>tb :colorscheme Tomorrow-Night-Bright<CR>
