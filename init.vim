@@ -9,18 +9,10 @@ call plug#begin()
 Plug 'suan/vim-instant-markdown' " Instant markdown preview from vim
 Plug 'dyng/ctrlsf.vim'           " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'tpope/vim-rhubarb'
-Plug 'benmills/vimux'
-Plug 'gilsondev/searchtasks.vim'
-Plug 'chrisbra/NrrwRgn'
-Plug 'jaxbot/github-issues.vim'
-Plug 'wincent/command-t'
+Plug 'jaxbot/github-issues.vim' " lookup for github issues in the commit message window
 Plug 'ruanyl/vim-sort-imports'
 Plug 'haya14busa/incsearch.vim'        " Better search highlighting
-Plug 'reedes/vim-pencil'               " Better Writing
 Plug 'vim-syntastic/syntastic'         " Syntax Checking
-Plug 'jeetsukumaran/vim-buffergator'   " Buffer Manager
 Plug 'Raimondi/delimitMate'            " Better HTML Editing
 Plug 'mileszs/ack.vim'                 " SilverSearcher
 Plug 'terryma/vim-multiple-cursors'    " Multiple Cursor
@@ -73,14 +65,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 Plug 'zeis/vim-kolor'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tomasr/molokai'
-Plug 'junegunn/seoul256.vim'
-Plug 'rafi/awesome-vim-colorschemes'    " Color Schemes
 Plug 'altercation/vim-colors-solarized' " solarized color scheme
 Plug 'ayu-theme/ayu-vim'                " ayu Color Scheme
 Plug 'morhetz/gruvbox'                  " gruvbox Color Scheme
 Plug 'joshdick/onedark.vim'             " onedark Color Scheme
-Plug 'dracula/vim'                      " dracula Color Scheme
-Plug 'gertjanreynaert/cobalt2-vim-theme'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 
 " }}}
@@ -102,17 +90,16 @@ Plug 'gregsexton/MatchTag', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 
 " mustache support
-Plug 'mustache/vim-mustache-handlebars'
+"Plug 'mustache/vim-mustache-handlebars'
 
 " pug / jade support
-Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
+"Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
 
 " }}}
 
 " JavaScript {{{
 
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
@@ -133,7 +120,7 @@ let g:nvim_typescript#max_completion_detail=100
 
 " Styles {{{
 
-Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
+"Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
@@ -145,12 +132,6 @@ Plug 'stephenway/postcss.vim', { 'for': 'css' }
 " markdown {{{
 
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-
-" Open markdown files in Marked.app - mapped to <leader>m
-Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
-nmap <leader>m :MarkedOpen!<cr>
-nmap <leader>mq :MarkedQuit<cr>
-nmap <leader>* *<c-o>:%s///gn<cr>
 
 " }}}
 
@@ -180,16 +161,15 @@ Plug 'HerringtonDarkholme/yats.vim'
 " Functionalities {{{
 
 " search inside files using ripgrep. This plugin provides an Ack command.
-Plug 'wincent/ferret'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 Plug 'tpope/vim-commentary'
-Plug 'easymotion/vim-easymotion'
-Plug 'tommcdo/vim-exchange'
 Plug 'prettier/vim-prettier'
+Plug 'sbdchd/neoformat'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-unimpaired'
-Plug 'thaerkh/vim-workspace'
+" For Denite features
+Plug 'Shougo/denite.nvim'
 " Vimproc to asynchronously run commands (Plug, Unite)
 Plug 'Shougo/vimproc', {
 			\ 'build' : {
@@ -212,38 +192,38 @@ endif
 
 " LanguageClient {{{
 
-Plug 'autozimu/LanguageClient-neovim', {
-			\ 'branch': 'next',
-			\ 'do': 'bash install.sh',
-			\ }
-" Language Servers
-let g:LanguageClient_serverCommands = {
-			\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-			\ 'typescript': ['/usr/local/bin/typescript-language-server'],
-			\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-			\ 'python': ['/usr/local/bin/pyls'],
-			\ }
+"Plug 'autozimu/LanguageClient-neovim', {
+"\ 'branch': 'next',
+"\ 'do': 'bash install.sh',
+"\ }
+"" Language Servers
+"let g:LanguageClient_serverCommands = {
+"\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"\ 'typescript': ['/usr/local/bin/typescript-language-server'],
+"\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"\ 'python': ['/usr/local/bin/pyls'],
+"\ }
 
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
+"" Automatically start language servers.
+"let g:LanguageClient_autoStart = 1
 
-" Minimal LSP configuration for JavaScript
-let g:LanguageClient_serverCommands = {}
-if executable('javascript-typescript-stdio')
-	let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-	" Use LanguageServer for omnifunc completion
-	autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-else
-	echo "javascript-typescript-stdio not installed!\n"
-	:cq
-endif
+"" Minimal LSP configuration for JavaScript
+"let g:LanguageClient_serverCommands = {}
+"if executable('javascript-typescript-stdio')
+"let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+"" Use LanguageServer for omnifunc completion
+"autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+"else
+"echo "javascript-typescript-stdio not installed!\n"
+":cq
+"endif
 
-" Mappings
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"" Mappings
+"nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"" Or map each action separately
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " }}}
 
@@ -253,7 +233,7 @@ Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
+Plug 'jreybert/vimagit' " magit for git workflow
 Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
@@ -280,6 +260,22 @@ Plug 'metakirby5/codi.vim'
 
 Plug 'adelarsq/vim-hackernews' " For hackernews in your vim
 Plug 'vim-scripts/DrawIt' " For drawing easily
+
+" }}}
+
+
+" Commented out Plugins {{{
+
+" Plug 'reedes/vim-pencil'               " Better Writing
+" Plug 'benmills/vimux'                  " better integration with tmux
+" Plug 'nathanaelkane/vim-indent-guides' " indenting guides which I didn't like
+" Plug 'tpope/vim-rhubarb'               " fugitive relative somehow
+" Plug 'gilsondev/searchtasks.vim'       " searching tags like TODO and FIXME
+" Plug 'chrisbra/NrrwRgn'                " narrow region like emacs
+" Plug 'wincent/ferret'                  " I am using FZF so I disabled it
+" Plug 'easymotion/vim-easymotion'       " I don't think I need this
+" Plug 'tommcdo/vim-exchange'            " It does something for text operator exchange
+" Plug 'thaerkh/vim-workspace'           " It's not that hard to go for files now with FZF
 
 " }}}
 
@@ -322,8 +318,8 @@ nnoremap <leader>st :SearchTasks .<CR>
 
 " Python3 VirtualEnv {{{
 
-let g:python3_host_prog = expand('/home/lalit/.pyenv/versions/neovim3/bin/python')
-let g:python_host_prog = expand('/home/lalit/.pyenv/versions/neovim2/bin/python')
+let g:python3_host_prog = '/home/lalit/.pyenv/versions/neovim3/bin/python'
+let g:python_host_prog = '/home/lalit/.pyenv/versions/neovim2/bin/python'
 
 " }}}
 
@@ -379,6 +375,7 @@ let g:tern#arguments = ['--persistent']
 syntax on
 set bg=dark
 colorscheme gruvbox
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight Pmenu guibg=LightYellow1 guifg=black
 highlight Comment gui=none
 highlight Normal gui=none
@@ -432,8 +429,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:tsuquyomi_disable_quickfix = 1
@@ -646,6 +643,7 @@ map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 let mapleader=" "
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
+nmap <leader>* *<c-o>:%s///gn<cr>
 nmap <leader>u :PlugUpdate<CR>
 nmap <leader>qn :NERDTreeToggle<CR>
 nmap <leader>w :TagbarToggle<CR>
@@ -653,13 +651,9 @@ nmap \ <leader>q<leader>w
 nmap <leader>ee :Colors<CR>
 nmap <leader>ce :colorscheme<space>
 nmap <leader>ea :AirlineTheme
-nmap <leader>e1 :call ColorDracula()<CR>
-nmap <leader>gt :colorscheme gruvbox<CR>
 nmap <leader>co :colorscheme onedark<CR>
+nmap <leader>cm :colorscheme molokai<CR>
 nmap <leader>tb :colorscheme Tomorrow-Night-Bright<CR>
-nmap <leader>e2 :call ColorSeoul256()<CR>
-nmap <leader>e3 :call ColorForgotten()<CR>
-nmap <leader>e4 :call ColorZazen()<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>e :e ~/.config/nvim/init.vim<CR>
 
@@ -679,9 +673,9 @@ nmap <silent> <leader>tc :call TrimWhitespace()<CR>
 " nmap <leader>a gaip*
 nmap <leader>hs <C-w>s<C-w>j:terminal<CR>
 nmap <leader>vs <C-w>v<C-w>l:terminal<CR>
-nmap <leader>d <Plug>(pydocstring)
+"nmap <leader>d <Plug>(pydocstring)
 "nmap <leader>f :Files<CR>
-nmap <leader>g :Goyo<CR>
+nmap <leader>z :Goyo<CR>
 nmap <leader>h :RainbowParentheses!!<CR>
 "nmap <leader>j :set filetype=journal<CR>
 "nmap <leader>k :ColorToggle<CR>
@@ -696,7 +690,7 @@ nmap <S-Tab> :bprevious<CR>
 noremap <leader>fw :CtrlSF <C-R><C-W><CR>
 
 " To show marks, Toggle command from signature plugin
-noremap <leader>m :SignatureToggle<CR>
+"noremap <leader>m :SignatureToggle<CR>
 
 " save
 noremap <leader>, :w<CR>
@@ -706,6 +700,7 @@ vmap <LeftRelease> "*ygv
 
 " clear highlighted search
 noremap <silent> <leader>h :set hlsearch! hlsearch?<cr>
+nnoremap <CR> :noh<CR><CR>
 
 " exit with leader
 noremap <silent> <leader>x :q<cr>
@@ -833,8 +828,22 @@ imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " Git verticall splitting handling {{{
 
 set diffopt+=vertical
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>d :Gdiff<CR>
+" fugitive git bindings
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>
 
 " }}}
 
@@ -842,6 +851,7 @@ nmap <leader>d :Gdiff<CR>
 
 """ Buffers moving around maping
 nmap <leader>b :Buffers<CR>
+nmap <leader>db :bd!<CR>
 
 
 """ Tabs Navigation
@@ -872,7 +882,7 @@ nnoremap <leader>bdd :%bdelete<CR>
 "\ }
 
 " ale fix current file
-nmap <leader>d <Plug>(ale_fix)
+"nmap <leader>d <Plug>(ale_fix)
 
 "}}}
 
@@ -1048,23 +1058,29 @@ endfunction
 
 " }}}
 
+" Magit mappings {{{
+
+nnoremap <leader>m :Magit<CR>
+
+" }}}
+
 " Easymotion mappings {{{
 
 " <Leader>f{char} to move to {char}
-map  <Leader>fes <Plug>(easymotion-bd-f)
-nmap <Leader>fes <Plug>(easymotion-overwin-f)
+"map  <Leader>fes <Plug>(easymotion-bd-f)
+"nmap <Leader>fes <Plug>(easymotion-overwin-f)
 
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-nmap t <Plug>(easymotion-t2)
+"" s{char}{char} to move to {char}{char}
+"nmap s <Plug>(easymotion-overwin-f2)
+"nmap t <Plug>(easymotion-t2)
 
-" Move to line
-map <Leader>ll <Plug>(easymotion-bd-jk)
-nmap <Leader>ll <Plug>(easymotion-overwin-line)
+"" Move to line
+"map <Leader>ll <Plug>(easymotion-bd-jk)
+"nmap <Leader>ll <Plug>(easymotion-overwin-line)
 
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+"" Move to word
+"map  <Leader>w <Plug>(easymotion-bd-w)
+"nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " }}}
 
@@ -1219,13 +1235,25 @@ let g:javascript_plugin_flow = 1
 
 " }}}
 
-" Prettier Configurations {{{
+" Prettier and Neoformat Configurations {{{
+
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
+
+"neoformat: format javascript on save
+autocmd BufWritePre *.css *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Neoformat
 
 nmap <Leader>p <Plug>(Prettier)
 
 let g:prettier#autoformat = 0
 
-autocmd BufWritePre *.css *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Prettier
+autocmd BufWritePre *.css, *.js, *.jsx, *.mjs, *.ts, *.tsx, *.css, *.less, *.scss, *.json, *.graphql, *.md, *.vue Prettier
 
 let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
 
