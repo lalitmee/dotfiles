@@ -77,7 +77,7 @@ set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
 set incsearch ignorecase smartcase hlsearch
 set ruler laststatus=2 showcmd showmode
 set list listchars=trail:»,tab:»-
-set fillchars+=vert:\ 
+set fillchars+=vert:\
 set wrap breakindent
 set encoding=utf-8
 set number
@@ -136,23 +136,23 @@ let g:tagbar_iconchars = ['↠', '↡']
 
 " fzf-vim
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-s': 'split',
+			\ 'ctrl-v': 'vsplit' }
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'Type'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Character'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+			\ { 'fg':      ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Comment'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'Type'],
+			\ 'border':  ['fg', 'Ignore'],
+			\ 'prompt':  ['fg', 'Character'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
 
 """ Filetype-Specific Configurations
 
@@ -172,9 +172,9 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Trim Whitespaces
 function! TrimWhitespace()
-    let l:save = winsaveview()
-    %s/\\\@<!\s\+$//e
-    call winrestview(l:save)
+	let l:save = winsaveview()
+	%s/\\\@<!\s\+$//e
+	call winrestview(l:save)
 endfunction
 
 
@@ -186,7 +186,7 @@ nmap <leader>q :NERDTreeToggle<CR>
 nmap <leader>w :TagbarToggle<CR>
 nmap \ <leader>q<leader>w
 nmap <leader>ee :Colors<CR>
-nmap <leader>ea :AirlineTheme 
+nmap <leader>ea :AirlineTheme
 nmap <leader>e1 :call ColorDracula()<CR>
 nmap <leader>e2 :call ColorSeoul256()<CR>
 nmap <leader>e3 :call ColorForgotten()<CR>
@@ -214,7 +214,7 @@ nmap <S-Tab> :bprevious<CR>
 " Copy paste in vim
 set mouse=a
 
-" save 
+" save
 nmap <leader>, :w<CR>
 
 " Paste with middle mouse click

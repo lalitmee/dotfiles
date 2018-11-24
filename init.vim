@@ -463,7 +463,7 @@ let g:NERDTreeWinSize=20
 
 let g:airline_theme = 'badwolf'
 let g:airline_powerline_fonts = 1
-let g:airline_section_z = ' %{strftime("%-I:%M %p")}'
+"let g:airline_section_z = ' %{percentage line number column number strftime("%-I:%M %p")}'
 let g:airline_section_warning = ''
 let g:airline#extensions#tabline#enabled = 1
 
@@ -1207,6 +1207,8 @@ set foldlevel=1
 " set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 " set showbreak=↪
 
+set colorcolumn=80
+
 set ruler laststatus=2 showcmd showmode
 set list listchars=trail:»,tab:»-
 set fillchars+=vert:\
@@ -1241,13 +1243,42 @@ let g:javascript_plugin_flow = 1
 let g:neoformat_basic_format_align = 1
 
 " Enable tab to spaces conversion
-let g:neoformat_basic_format_retab = 1
+"let g:neoformat_basic_format_retab = 1
 
 " Enable trimmming of trailing whitespace
 let g:neoformat_basic_format_trim = 1
 
 "neoformat: format javascript on save
-autocmd BufWritePre *.css *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Neoformat
+au BufWrite * silent! Neoformat
+
+"autocmd BufWritePre *.css, *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Neoformat
+"autocmd BufWritePre *.css Neoformat
+"autocmd BufWritePre *.js Neoformat
+"autocmd BufWritePre *.jsx Neoformat
+"autocmd BufWritePre *.mjs Neoformat
+"autocmd BufWritePre *.ts Neoformat
+"autocmd BufWritePre *.tsx Neoformat
+"autocmd BufWritePre *.css Neoformat
+"autocmd BufWritePre *.less Neoformat
+"autocmd BufWritePre *.scss Neoformat
+"autocmd BufWritePre *.json Neoformat
+"autocmd BufWritePre *.graphql Neoformat
+"autocmd BufWritePre *.md Neoformat
+"autocmd BufWritePre *.vue Neoformat
+
+"autocmd BufWritePre *.css Prettier
+"autocmd BufWritePre *.js Prettier
+"autocmd BufWritePre *.jsx Prettier
+"autocmd BufWritePre *.mjs Prettier
+"autocmd BufWritePre *.ts Prettier
+"autocmd BufWritePre *.tsx Prettier
+"autocmd BufWritePre *.css Prettier
+"autocmd BufWritePre *.less Prettier
+"autocmd BufWritePre *.scss Prettier
+"autocmd BufWritePre *.json Prettier
+"autocmd BufWritePre *.graphql Prettier
+"autocmd BufWritePre *.md Prettier
+"autocmd BufWritePre *.vue Prettier
 
 nmap <Leader>p <Plug>(Prettier)
 
