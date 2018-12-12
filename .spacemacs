@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
      typescript
      python
      vimscript
@@ -61,9 +62,9 @@ values."
      markdown
      org
      shell
-      (shell :variables
-      shell-default-height 30
-      shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
@@ -90,6 +91,10 @@ values."
                                       magit
                                       gruvbox-theme
                                       atom-one-dark-theme
+                                      autothemer
+                                      fzf
+                                      helm-fuzzy-find
+                                      xref-js2
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -162,16 +167,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         atom-one-dark-theme
-                         gruvbox-theme
-                         spacemacs-light)
+   dotspacemacs-themes '(
+                         ;; gruvbox
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 15
+   dotspacemacs-default-font '("Monaco"
+                               :size 20
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -355,13 +359,18 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; gruvbox theme at the startup
+  (load-theme 'gruvbox t)
+
+  ;; default powerline separator
+  (setq powerline-default-separator 'arrow)
   ;; mappings of leader keys
   (spacemacs/set-leader-keys "," 'save-buffer)
   (spacemacs/set-leader-keys "j" 'spacemacs/indent-region-or-buffer)
 
   ;; mappings of evil-go-to-char
   (spacemacs/set-leader-keys "C-c" 'evil-avy-goto-char)
-  (spacemacs/set-leader-keys "c-'" 'evil-avy-goto-char-2)
+  (spacemacs/set-leader-keys "C-'" 'evil-avy-goto-char-2)
   (spacemacs/set-leader-keys "C-w" 'evil-avy-goto-word-1)
   (spacemacs/set-leader-keys "C-l" 'evil-avy-goto-line)
 
@@ -377,6 +386,9 @@ you should place your code here."
   (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
   (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
   (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
+
+  ;; keybinding for fuzzy finding files by fzf
+  (spacemacs/set-leader-keys "ff" 'fzf)
 
   ;; magit autocomplete
   (setq magit-repository-directories '("~/repos/"))
@@ -457,17 +469,75 @@ you should place your code here."
   (use-package treemacs-projectile
     :defer t)
 
+  ;; Emacs as JavaScript IDE
+  (require 'js2-mode)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+  ;; Better imenu
+  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+  (require 'js2-refactor)
+  (require 'xref-js2)
+
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-r")
+  (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+  ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+  ;; unbind it.
+  (define-key js-mode-map (kbd "M-.") nil)
+
+  (add-hook 'js2-mode-hook (lambda ()
+                             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+  (require 'company)
+  (require 'company-tern)
+
+  (add-to-list 'company-backends 'company-tern)
+  (add-hook 'js2-mode-hook (lambda ()
+                             (tern-mode)
+                             (company-mode)))
+
+  ;; Disable completion keybindings, as we use xref-js2 instead
+  (define-key tern-mode-keymap (kbd "M-.") nil)
+  (define-key tern-mode-keymap (kbd "M-,") nil)
+
+  ;; Emacs as Typescript IDE
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-organize-imports)
+  (add-hook 'before-save-hook 'tide-format-before-save)
+  (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil :indentSize 2 :tabSize 2))
+
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  ;; Prettier for prettifying the JavaScript files
   (use-package prettier-js
     :defer t)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'typescript-mode-hook 'prettier-js-mode)
+  (add-hook 'css-mode-hook 'prettier-js-mode)
+  (add-hook 'html-mode-hook 'prettier-js-mode)
+  (add-hook 'markdown-mode-hook 'prettier-js-mode)
+  (add-hook 'yaml-mode-hook #'setup-tide-mode)
 
   (use-package auto-yasnippet
     :defer t)
-
-  ;; Make linums relative by default
-  ;;(with-eval-after-load 'linum
-  ;;  (linum-relative-toggle))
 
   (setq-default agressive-indent-mode t)
 
@@ -476,6 +546,10 @@ you should place your code here."
   ;; Prettier installation
   (setq prettier-js-args '(
                            "--bracket-spacing" "true"
+                           "--trailing-comma" "none"
+                           "--print-width 80"
+                           "--tab-width 2"
+                           "--single-quote" "true"
                            ))
 
   (defun enable-minor-mode (my-pair)
@@ -484,13 +558,9 @@ you should place your code here."
         (if (string-match (car my-pair) buffer-file-name)
             (funcall (cdr my-pair)))))
 
-  (setq prettier-js-args '(
-                           "--trailing-comma" "all"
-                           "--bracket-spacing" "false"
-                           ))
   (add-hook 'web-mode-hook #'(lambda ()
                                (enable-minor-mode
-                                '("\\.jsx?\\'" . prettier-js-mode))))
+                                '("\\.jsx?\\'", "\\.ts?\\'" . prettier-js-mode))))
 
   (use-package treemacs
     :defer t
@@ -564,12 +634,12 @@ you should place your code here."
  '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
  '(custom-safe-themes
    (quote
-    ("78496062ff095da640c6bb59711973c7c66f392e3ac0127e611221d541850de2" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" "cd4d1a0656fee24dc062b997f54d6f9b7da8f6dc8053ac858f15820f9a04a679" "62c81ae32320ceff5228edceeaa6895c029cc8f43c8c98a023f91b5b339d633f" "a5956ec25b719bf325e847864e16578c61d8af3e8a3d95f60f9040d02497e408" "f27c3fcfb19bf38892bc6e72d0046af7a1ded81f54435f9d4d09b3bff9c52fc1" "599f1561d84229e02807c952919cd9b0fbaa97ace123851df84806b067666332" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "58c6711a3b568437bab07a30385d34aacf64156cc5137ea20e799984f4227265" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" default)))
+    ("06239857eba54280977d62190690bef6d58f9653465c71b0fe279c560fdcac80" "e08cf6a643018ccf990a099bcf82903d64f02e64798d13a1859e79e47c45616e" "57f95012730e3a03ebddb7f2925861ade87f53d5bbb255398357731a7b1ac0e0" "7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "8a9be13b2353a51d61cffed5123b157000da0347c252a7a308ebc43e16662de7" "78496062ff095da640c6bb59711973c7c66f392e3ac0127e611221d541850de2" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" "cd4d1a0656fee24dc062b997f54d6f9b7da8f6dc8053ac858f15820f9a04a679" "62c81ae32320ceff5228edceeaa6895c029cc8f43c8c98a023f91b5b339d633f" "a5956ec25b719bf325e847864e16578c61d8af3e8a3d95f60f9040d02497e408" "f27c3fcfb19bf38892bc6e72d0046af7a1ded81f54435f9d4d09b3bff9c52fc1" "599f1561d84229e02807c952919cd9b0fbaa97ace123851df84806b067666332" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "58c6711a3b568437bab07a30385d34aacf64156cc5137ea20e799984f4227265" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(line-number-mode nil)
  '(package-selected-packages
    (quote
-    (tide typescript-mode flycheck atom-one-dark-theme gruvbox-theme xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor try yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download gnuplot htmlize ox-reveal zenburn-theme color-theme counsel swiper ivy yasnippet-snippets ht pfuture iy-go-to-char babel helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern dash-functional tern company-statistics company auto-yasnippet ac-ispell auto-complete vimrc-mode dactyl-mode mmm-mode markdown-toc markdown-mode gh-md treemacs-projectile all-the-icons treemacs-evil treemacs web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode sublime-themes prettier-js web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
+    (yaml-mode xref-js2 helm-fuzzy-find fzf gruvbox-theme-theme treepy graphql smeargle autothemer tide typescript-mode flycheck atom-one-dark-theme gruvbox-theme xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor try yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download gnuplot htmlize ox-reveal zenburn-theme color-theme counsel swiper ivy yasnippet-snippets ht pfuture iy-go-to-char babel helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern dash-functional tern company-statistics company auto-yasnippet ac-ispell auto-complete vimrc-mode dactyl-mode mmm-mode markdown-toc markdown-mode gh-md treemacs-projectile all-the-icons treemacs-evil treemacs web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode sublime-themes prettier-js web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
