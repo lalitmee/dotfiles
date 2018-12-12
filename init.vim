@@ -62,6 +62,12 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
+Plug 'trevordmiller/nova-vim'
+Plug 'mhinz/vim-janah'
+Plug 'crusoexia/vim-monokai'
+Plug 'nanotech/jellybeans.vim'
+Plug 'raphamorim/lucario'
+Plug 'junegunn/seoul256.vim'
 Plug 'zeis/vim-kolor'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'tomasr/molokai'
@@ -89,16 +95,17 @@ Plug 'gregsexton/MatchTag', { 'for': 'html' }
 " html5 support
 Plug 'othree/html5.vim', { 'for': 'html' }
 
-" mustache support
-"Plug 'mustache/vim-mustache-handlebars'
+" yaml support
+Plug 'mrk21/yaml-vim'
 
-" pug / jade support
-"Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] }
+" for commenting out code
+Plug 'tomtom/tcomment_vim'
 
 " }}}
 
 " JavaScript {{{
 
+Plug 'heavenshell/vim-jsdoc' " for commenting the code
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
@@ -377,9 +384,10 @@ set bg=dark
 colorscheme gruvbox
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight Pmenu guibg=LightYellow1 guifg=black
-highlight Comment gui=none
-highlight Normal gui=none
-highlight NonText guibg=none
+highlight Comment cterm=italic
+"highlight Comment gui=none
+"highlight Normal gui=none
+"highlight NonText guibg=none
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors
@@ -596,10 +604,22 @@ let g:fzf_colors =
 
 " Trim Whitespaces {{{
 
-function! TrimWhitespace()
-	let l:save = winsaveview()
-	%s/\\\@<!\s\+$//e
-	call winrestview(l:save)
+nnoremap <silent> <space><space> :call <SID>StripTrailingWhitespaces()<CR>
+
+if has("autocmd")
+	autocmd BufWritePre *.py,*.js,*.ts,*.css,*.scss :call <SID>StripTrailingWhitespaces()
+endif
+
+function! <SID>StripTrailingWhitespaces()
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	%s/\s\+$//e
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
 endfunction
 
 " }}}
@@ -650,16 +670,12 @@ nmap <leader>w :TagbarToggle<CR>
 nmap \ <leader>q<leader>w
 nmap <leader>ee :Colors<CR>
 nmap <leader>ce :colorscheme<space>
-nmap <leader>ea :AirlineTheme<space>
+nmap <leader>ea :AirlineTheme
 nmap <leader>co :colorscheme onedark<CR>
 nmap <leader>cm :colorscheme molokai<CR>
 nmap <leader>tb :colorscheme Tomorrow-Night-Bright<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>e :e ~/.config/nvim/init.vim<CR>
-
-" remove extra whitespace
-" nmap <leader><space> :%s/\s\+$<cr>
-" nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
 
 " count the current matched number
 nnoremap <silent> <leader>n :%s///gn<CR>
@@ -668,7 +684,6 @@ nnoremap <silent> <leader>n :%s///gn<CR>
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-nmap <silent> <leader>tc :call TrimWhitespace()<CR>
 " xmap <leader>a gaip*
 " nmap <leader>a gaip*
 nmap <leader>hs <C-w>s<C-w>j:terminal<CR>
@@ -1239,6 +1254,16 @@ let g:javascript_plugin_flow = 1
 
 " Prettier and Neoformat Configurations {{{
 
+" prettier_d config with neoformat
+
+autocmd FileType javascript.jsx, javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
+autocmd BufWritePre,TextChanged,InsertLeave *.jsx, *.js, *.ts, *.css, *.scss, *.md Neoformat
+
+" Use formatprg when available
+let g:neoformat_try_formatprg = 1
+" https://github.com/sbdchd/neoformat/issues/25
+let g:neoformat_only_msg_on_error = 1
+
 " Enable alignment
 let g:neoformat_basic_format_align = 1
 
@@ -1249,42 +1274,13 @@ let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_trim = 1
 
 "neoformat: format javascript on save
-au BufWrite * silent! Neoformat
-
-"autocmd BufWritePre *.css, *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md, *.vue Neoformat
-"autocmd BufWritePre *.css Neoformat
-"autocmd BufWritePre *.js Neoformat
-"autocmd BufWritePre *.jsx Neoformat
-"autocmd BufWritePre *.mjs Neoformat
-"autocmd BufWritePre *.ts Neoformat
-"autocmd BufWritePre *.tsx Neoformat
-"autocmd BufWritePre *.css Neoformat
-"autocmd BufWritePre *.less Neoformat
-"autocmd BufWritePre *.scss Neoformat
-"autocmd BufWritePre *.json Neoformat
-"autocmd BufWritePre *.graphql Neoformat
-"autocmd BufWritePre *.md Neoformat
-"autocmd BufWritePre *.vue Neoformat
-
-"autocmd BufWritePre *.css Prettier
-"autocmd BufWritePre *.js Prettier
-"autocmd BufWritePre *.jsx Prettier
-"autocmd BufWritePre *.mjs Prettier
-"autocmd BufWritePre *.ts Prettier
-"autocmd BufWritePre *.tsx Prettier
-"autocmd BufWritePre *.css Prettier
-"autocmd BufWritePre *.less Prettier
-"autocmd BufWritePre *.scss Prettier
-"autocmd BufWritePre *.json Prettier
-"autocmd BufWritePre *.graphql Prettier
-"autocmd BufWritePre *.md Prettier
-"autocmd BufWritePre *.vue Prettier
+"au BufWrite * silent! Neoformat
 
 nmap <Leader>p <Plug>(Prettier)
 
 let g:prettier#autoformat = 0
 
-autocmd BufWritePre *.css, *.js, *.jsx, *.mjs, *.ts, *.tsx, *.css, *.less, *.scss, *.json, *.graphql, *.md, *.vue Prettier
+"autocmd BufWritePre *.css, *.js, *.jsx, *.mjs, *.ts, *.tsx, *.css, *.less, *.scss, *.json, *.graphql, *.md, *.vue Prettier
 
 let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
 
@@ -1350,5 +1346,9 @@ autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 """ Markdown and Journal
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+""" Yaml files
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " }}}
