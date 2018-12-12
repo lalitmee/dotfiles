@@ -1,345 +1,351 @@
 {
-	/*************************
-	* EDITOR SETTINGS START *
-	*************************/
+  /*************************
+   * EDITOR SETTINGS START *
+   *************************/
 
-	// format the code on hitting the save
-	"editor.formatOnSave": true,
-	// font face
-	"editor.fontSize": 15,
-	// wrap lines if went out of the view
-	"editor.wordWrap": "on",
-	// ruler settins
-	"editor.rulers": [
-		80, 120
-	],
-	// line height
-	"editor.lineHeight": 25,
-	// letter spacings
-	"editor.letterSpacing": 0.5,
-	// font weight
-	"editor.fontWeight": "600",
-	// cursor blinking
-	"editor.cursorBlinking": "blink",
-	"editor.renderWhitespace": "all",
-	// font family
-	"editor.fontFamily": "Operator Mono Lig Book, Menlo, Monaco, Hack, 'Courier New', monospace",
-	// making good ===, => and more
-	"editor.fontLigatures": true,
-	// format on paste
-	"editor.formatOnPaste": true,
-	// quick suggestions
-	"editor.quickSuggestions": {
-		"other": true,
-		"comments": false,
-		"strings": true
-	},
-	// changing alt to Ctrl for multi cursors
-	"editor.multiCursorModifier": "ctrlCmd",
-	// matchbrackets stop for sbutle bracket package
-	"editor.matchBrackets": false,
-	// color for current line number and indent color
-	"workbench.colorCustomizations": {
-		"editorLineNumber.activeForeground": "#ff6600",
-		"editorBracketMatch.border": "#ff0000",
-		"editorOverviewRuler.bracketMatchForeground": "#ff0000",
-		"editorIndentGuide.activeBackground": "#33ff00"
-	},
-	"editor.snippetSuggestions": "top",
-	// editor tab completions of the suggestions
-	"editor.tabCompletion": "off",
-	// intellisense based on the distance of the previously used functions or parameters names
-	"editor.suggest.localityBonus": true,
-	// sort import on save
-	"editor.codeActionsOnSave": {
-		"source.organizeImports": true
-	},
-	// ligatures and cursive fonts settings
-	"editor.tokenColorCustomizations": {
-		"textMateRules": [{
-			"scope": [
-				//following will be in italic (=FlottFlott)
-				"comment",
-				"entity.name.type.class", //class names
-				"keyword", //import, export, return…
-				"constant", //String, Number, Boolean…, this, super
-				"storage.modifier", //static keyword
-				"storage.type.class.js", //class keyword
-			],
-			"settings": {
-				"fontStyle": "italic"
-			}
-		},
-		{
-			"scope": [
-				//following will be excluded from italics (VSCode has some defaults for italics)
-				"invalid",
-				"keyword.operator",
-				"constant.numeric.css",
-				"keyword.other.unit.px.css",
-				"constant.numeric.decimal.js",
-				"constant.numeric.json"
-			],
-			"settings": {
-				"fontStyle": ""
-			}
-		}
-		]
-	},
+  // format the code on hitting the save
+  "editor.formatOnSave": true,
+  // font face
+  "editor.fontSize": 15,
+  // wrap lines if went out of the view
+  "editor.wordWrap": "on",
+  // ruler settins
+  "editor.rulers": [80, 120],
+  // line height
+  "editor.lineHeight": 25,
+  // letter spacings
+  "editor.letterSpacing": 0.5,
+  // font weight
+  "editor.fontWeight": "600",
+  // cursor blinking
+  "editor.cursorBlinking": "blink",
+  "editor.renderWhitespace": "all",
+  // font family
+  "editor.fontFamily": "Operator Mono Lig Book, Monofur for Powerline,  Fira Code, Menlo, Monaco, Hack, 'Courier New', monospace",
+  // making good ===, => and more
+  "editor.fontLigatures": true,
+  // format on paste
+  "editor.formatOnPaste": true,
+  // quick suggestions
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  // changing alt to Ctrl for multi cursors
+  "editor.multiCursorModifier": "ctrlCmd",
+  // matchbrackets stop for sbutle bracket package
+  "editor.matchBrackets": false,
+  // color for current line number and indent color
+  "workbench.colorCustomizations": {
+    "editorLineNumber.activeForeground": "#ff6600",
+    "editorBracketMatch.border": "#ff0000",
+    "editorOverviewRuler.bracketMatchForeground": "#ff0000",
+    "editorIndentGuide.activeBackground": "#33ff00"
+  },
+  "editor.snippetSuggestions": "top",
+  // editor tab completions of the suggestions
+  "editor.tabCompletion": "off",
+  // intellisense based on the distance of the previously used functions or parameters names
+  "editor.suggest.localityBonus": true,
+  // sort import on save
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  // ligatures and cursive fonts settings
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          //following will be in italic (=FlottFlott)
+          "comment",
+          "entity.name.type.class", //class names
+          "keyword", //import, export, return…
+          "constant", //String, Number, Boolean…, this, super
+          "storage.modifier", //static keyword
+          "storage.type.class.js" //class keyword
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": [
+          //following will be excluded from italics (VSCode has some defaults for italics)
+          "invalid",
+          "keyword.operator",
+          "constant.numeric.css",
+          "keyword.other.unit.px.css",
+          "constant.numeric.decimal.js",
+          "constant.numeric.json"
+        ],
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
 
-	/*********************
-	* PRETTIER SETTINGS *
-	*********************/
-	"prettier.singleQuote": true,
-	"prettier.eslintIntegration": true,
+  /*********************
+   * PRETTIER SETTINGS *
+   *********************/
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
 
-	/*******************************
-	* DON'T KNOW WHAT IT IS DOING *
-	*******************************/
-	"keyboard.dispatch": "keyCode",
+  /*******************************
+   * DON'T KNOW WHAT IT IS DOING *
+   *******************************/
+  "keyboard.dispatch": "keyCode",
 
-	/**************************************
-	* STOPPING THE UPDATES NOTIFICATIONS *
-	**************************************/
-	"update.channel": "none",
+  /**************************************
+   * STOPPING THE UPDATES NOTIFICATIONS *
+   **************************************/
+  "update.channel": "none",
 
-	/*************************************
-	* STOPING DELETE CONFIRMATION POPUP *
-	*************************************/
-	"explorer.confirmDelete": false,
+  /*************************************
+   * STOPING DELETE CONFIRMATION POPUP *
+   *************************************/
+  "explorer.confirmDelete": false,
 
-	/**************
-	* FILE ICONS *
-	**************/
-	"workbench.iconTheme": "vscode-icons",
+  /**************
+   * FILE ICONS *
+   **************/
+  "workbench.iconTheme": "vscode-icons",
 
-	/**************
-	* ZOOM LEVEL *
-	**************/
-	"window.zoomLevel": 1,
+  /**************
+   * ZOOM LEVEL *
+   **************/
+  "window.zoomLevel": 1,
 
-	"javascript.validate.enable": false,
-	"javascript.format.enable": false,
+  "javascript.validate.enable": false,
+  "javascript.format.enable": false,
 
-	/***************
-	* COLOR THEME *
-	***************/
-	"workbench.colorTheme": "Cobalt2",
+  /***************
+   * COLOR THEME *
+   ***************/
+  "workbench.colorTheme": "Cobalt2",
 
-	/********************************
-	* TRIMING WHITE SPACES ON SAVE *
-	********************************/
-	"files.trimTrailingWhitespace": true,
+  /********************************
+   * TRIMING WHITE SPACES ON SAVE *
+   ********************************/
+  "files.trimTrailingWhitespace": true,
 
-	"explorer.confirmDragAndDrop": false,
-	"vsicons.dontShowNewVersionMessage": true,
+  "explorer.confirmDragAndDrop": false,
+  "vsicons.dontShowNewVersionMessage": true,
 
-	"files.associations": {
-		"*Container.js": "javascriptreact",
-		"**/components/*/*.js": "javascriptreact",
-		"**/config/routes.js": "javascriptreact",
-		"*.js": "javascriptreact"
-	},
+  "files.associations": {
+    "*Container.js": "javascriptreact",
+    "**/components/*/*.js": "javascriptreact",
+    "**/config/routes.js": "javascriptreact",
+    "*.js": "javascriptreact"
+  },
 
-	/***************************
-	* SUBTLEBRACKETS SETTINGS *
-	***************************/
-	"subtleBrackets.styles": {
-		"global": {
-			"color": "yellow",
-			"borderColor": "blue",
-			"borderWidth": "2px",
-			"borderStyle": "none none solid none"
-		}
-	},
+  /***************************
+   * SUBTLEBRACKETS SETTINGS *
+   ***************************/
+  "subtleBrackets.styles": {
+    "global": {
+      "color": "yellow",
+      "borderColor": "blue",
+      "borderWidth": "2px",
+      "borderStyle": "none none solid none"
+    }
+  },
 
-	/*******************
-	* EMMETS SETTINGS *
-	*******************/
-	"emmet.showExpandedAbbreviation": "never",
-	"emmet.triggerExpansionOnTab": true,
-	"emmet.includeLanguages": {
-		"markdown": "html",
-		"javascript": "javascriptreact"
-	},
-	"emmet.showSuggestionsAsSnippets": true,
+  /*******************
+   * EMMETS SETTINGS *
+   *******************/
+  "emmet.showExpandedAbbreviation": "never",
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "markdown": "html",
+    "javascript": "javascriptreact"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
 
-	"vsicons.projectDetection.disableDetect": true,
+  "vsicons.projectDetection.disableDetect": true,
 
-	/*************************
-	* FILES TO WATCH OR NOT *
-	*************************/
-	"files.watcherExclude": {
-		"**/.git/objects/**": true,
-		"**/.git/subtree-cache/**": true,
-		"**/node_modules/*/**": true
-	},
+  /*************************
+   * FILES TO WATCH OR NOT *
+   *************************/
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
 
-	/****************************
-	* BETTER COMMENTS SETTINGS *
-	****************************/
-	"better-comments.highlightPlainText": true,
-	"better-comments.tags": [{
-		"tag": "!",
-		"color": "#FF2D00",
-		"strikethrough": false,
-		"backgroundColor": "transparent"
-	},
-	{
-		"tag": "?",
-		"color": "#dbdb34",
-		"strikethrough": false,
-		"backgroundColor": "transparent"
-	},
-	{
-		"tag": "//",
-		"color": "#474747",
-		"strikethrough": true,
-		"backgroundColor": "transparent"
-	},
-	{
-		"tag": "todo",
-		"color": "#FF8C00",
-		"strikethrough": false,
-		"backgroundColor": "transparent"
-	},
-	{
-		"tag": "*",
-		"color": "#98C379",
-		"strikethrough": false,
-		"backgroundColor": "transparent"
-	}
-	],
-	/****************
-	* GIT SETTINGS *
-	****************/
-	"git.inputValidation": "always",
-	"sync.gist": "aff91932cc008118abe310d56484b47f",
-	"sync.quietSync": false,
-	"sync.removeExtensions": true,
-	"sync.syncExtensions": true,
-	"sync.autoDownload": false,
-	"sync.autoUpload": false,
-	"sync.forceDownload": false,
-	"explorer.openEditors.visible": 0,
+  /****************************
+   * BETTER COMMENTS SETTINGS *
+   ****************************/
+  "better-comments.highlightPlainText": true,
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "?",
+      "color": "#dbdb34",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "backgroundColor": "transparent"
+    }
+  ],
+  /****************
+   * GIT SETTINGS *
+   ****************/
+  "git.inputValidation": "always",
+  "sync.gist": "aff91932cc008118abe310d56484b47f",
+  "sync.quietSync": false,
+  "sync.removeExtensions": true,
+  "sync.syncExtensions": true,
+  "sync.autoDownload": false,
+  "sync.autoUpload": false,
+  "sync.forceDownload": false,
+  "explorer.openEditors.visible": 0,
 
-	/*******************
-	* SEARCH SETTINGS *
-	*******************/
-	// files to exclude on search
-	"search.exclude": {
-		"**/node_modules": true,
-		"**/bower_components": true,
-		"**/coverage": true,
-		"**/ps.txt": true,
-		"**/TODO": true,
-		"**/TODO_archive": true
-	},
+  /*******************
+   * SEARCH SETTINGS *
+   *******************/
+  // files to exclude on search
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/coverage": true,
+    "**/ps.txt": true,
+    "**/TODO": true,
+    "**/TODO_archive": true
+  },
 
-	"search.showLineNumbers": true,
+  "search.showLineNumbers": true,
 
+  /**********************
+   * VSCODEVIM SETTINGS *
+   **********************/
+  "vim.leader": "<Space>",
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "commands": ["workbench.action.files.save"],
+      "before": ["<Leader>", ","]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
 
-	/**********************
-	* VSCODEVIM SETTINGS *
-	**********************/
-	"vim.leader": "<Space>",
-	"vim.easymotion": true,
-	"vim.sneak": true,
-	"vim.incsearch": true,
-	"vim.useSystemClipboard": true,
-	"vim.useCtrlKeys": true,
-	"vim.hlsearch": true,
-	"vim.normalModeKeyBindingsNonRecursive": [{
-		"commands": [
-			"workbench.action.files.save"
-		],
-		"before": [
-			"<Leader>",
-			","
-		]
-	}],
-	"vim.visualModeKeyBindingsNonRecursive": [{
-		"before": [
-			">"
-		],
-		"commands": [
-			"editor.action.indentLines"
-			]
-	},
-	{
-		"before": [
-			"<"
-		],
-		"commands": [
-			"editor.action.outdentLines"
-			]
-	},
-	],
+  /*************************
+   * SLIDER ON THE MINIMAP *
+   *************************/
+  "editor.minimap.showSlider": "always",
 
-	/*************************
-	* SLIDER ON THE MINIMAP *
-	*************************/
-	"editor.minimap.showSlider": "always",
+  /******************
+   * TODO+ SETTINGS *
+   ******************/
+  "todo.timekeeping.created.enabled": true,
+  "todo.timekeeping.created.format": "ddd MM/DD/YYYY - hh:mm A",
+  "[todo]": {
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "on"
+  },
 
-	/******************
-	* TODO+ SETTINGS *
-	******************/
-	"todo.timekeeping.created.enabled": true,
-	"todo.timekeeping.created.format": "ddd MM/DD/YYYY - hh:mm A",
-	"[todo]": {
-		"editor.wordWrap": "on",
-		"editor.lineNumbers": "on"
-	},
+  /*****************
+   * LESS SETTINGS *
+   *****************/
+  "[less]": {
+    "editor.formatOnSave": false
+  },
+  "editor.smoothScrolling": true,
+  "editor.mouseWheelScrollSensitivity": 2,
+  "aceJump.finder.onlyInitialLetter": false,
+  "aceJump.placeholder.fontSize": 22,
+  "aceJump.placeholder.height": 22,
+  "aceJump.placeholder.width": 22,
+  "aceJump.placeholder.textPosY": 17,
+  "aceJump.placeholder.textPosX": 4,
+  "aceJump.placeholder.backgroundColor": "cyan",
+  "editor.showFoldingControls": "always",
+  "workbench.statusBar.feedback.visible": false,
+  "git.confirmSync": false,
+  "aceJump.placeholder.fontFamily": "Hack",
+  "git.autofetch": true,
+  "gitlens.outputLevel": "errors",
+  "less.validate": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "todo.colors.done": "#75715e",
+  "todo.colors.cancelled": "#75715e",
+  "todo.colors.tag": "#74c2e6",
+  "todo.statistics.project.enabled": "false",
+  "aceJump.finder.skipSelection": true,
+  "eslint.options": {
+    "configFile": "./.eslintrc"
+  },
+  "editor.renderIndentGuides": false,
 
-	/*****************
-	* LESS SETTINGS *
-	*****************/
-	"[less]": {
-		"editor.formatOnSave": false
-	},
-	"editor.smoothScrolling": true,
-	"editor.mouseWheelScrollSensitivity": 2,
-	"aceJump.finder.onlyInitialLetter": false,
-	"aceJump.placeholder.fontSize": 22,
-	"aceJump.placeholder.height": 22,
-	"aceJump.placeholder.width": 22,
-	"aceJump.placeholder.textPosY": 17,
-	"aceJump.placeholder.textPosX": 4,
-	"aceJump.placeholder.backgroundColor": "cyan",
-	"editor.showFoldingControls": "always",
-	"workbench.statusBar.feedback.visible": false,
-	"git.confirmSync": false,
-	"aceJump.placeholder.fontFamily": "Hack",
-	"git.autofetch": true,
-	"gitlens.outputLevel": "errors",
-	"less.validate": false,
-	"workbench.editor.enablePreview": false,
-	"workbench.editor.enablePreviewFromQuickOpen": false,
-	"todo.colors.done": "#75715e",
-	"todo.colors.cancelled": "#75715e",
-	"todo.colors.tag": "#74c2e6",
-	"todo.statistics.project.enabled": "false",
-	"aceJump.finder.skipSelection": true,
-	"eslint.options": {
-		"configFile": "./.eslintrc"
-	},
-	"editor.renderIndentGuides": false,
+  /************************
+   * BRACKETPAIRCOLORIZER *
+   ************************/
+  "bracketPairColorizer.forceUniqueOpeningColor": true,
+  "bracketPairColorizer.highlightActiveScope": true,
+  "bracketPairColorizer.scopeLineCSS": [
+    "borderStyle : solid",
+    "borderWidth : 1px",
+    "borderColor : #ff6600",
+    "opacity: 0.5",
+    "backgroundColor: #ff6600"
+  ],
+  "bracketPairColorizer.showBracketsInGutter": true,
+  "bracketPairColorizer.showVerticalScopeLine": true,
+  "bracketPairColorizer.showHorizontalScopeLine": false,
+  "bracketPairColorizer.forceIterationColorCycle": true,
+  "workbench.startupEditor": "welcomePage",
+  "githubPullRequests.hosts": [
+    {
+      "host": "https://github.com",
+      "username": "oauth",
+      "token": "system"
+    }
+  ],
 
-	/************************
-	* BRACKETPAIRCOLORIZER *
-	************************/
-	"bracketPairColorizer.forceUniqueOpeningColor": true,
-	"bracketPairColorizer.highlightActiveScope": true,
-	"bracketPairColorizer.scopeLineCSS": [
-		"borderStyle : solid",
-		"borderWidth : 1px",
-		"borderColor : #ff6600",
-		"opacity: 0.5",
-		"backgroundColor: #ff6600",
-	],
-	"bracketPairColorizer.showBracketsInGutter": true,
-	"bracketPairColorizer.showVerticalScopeLine": true,
-	"bracketPairColorizer.showHorizontalScopeLine": false,
-	"bracketPairColorizer.forceIterationColorCycle": true,
-	"workbench.startupEditor": "welcomePage"
+  /***********************
+   * JSBEAUTIFY FOR HTML *
+   ***********************/
+  "html.format.wrapLineLength": 80,
+  "html.format.indentInnerHtml": true,
+  "html.format.enable": true,
+  "html.format.wrapAttributes": "aligned-multiple",
+  "html.format.preserveNewLines": true,
+  "html.format.endWithNewline": true
 }
