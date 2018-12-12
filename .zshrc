@@ -147,6 +147,12 @@ alias dpkg="sudo dpkg -i"
 alias ze="vim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
+# aliases for some terminal programmes
+alias yt="youtube-dl"
+alias wt="curl wttr.in/bangalore"
+alias wk="wikit"
+alias wb="wikit -b"
+
 # aliases for web search from terminal
 alias go="google"
 alias bi="bing"
@@ -157,6 +163,7 @@ alias s="subl ."
 alias a="atom ."
 alias c="code ."
 alias o="oni ."
+alias e="emacs ."
 
 # alias for using nvim instead of vim
 alias vim="nvim"
@@ -222,3 +229,7 @@ export EDITOR=nvim
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+
+# transfer.sh alias
+transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi 
+	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; } 
