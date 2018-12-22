@@ -91,6 +91,7 @@
    *********************/
   "prettier.singleQuote": true,
   "prettier.eslintIntegration": true,
+  // "prettier.disableLanguages": ["html"],
 
   /*******************************
    * DON'T KNOW WHAT IT IS DOING *
@@ -330,22 +331,14 @@
   "bracketPairColorizer.showVerticalScopeLine": true,
   "bracketPairColorizer.showHorizontalScopeLine": false,
   "bracketPairColorizer.forceIterationColorCycle": true,
-  "workbench.startupEditor": "welcomePage",
-  "githubPullRequests.hosts": [
-    {
-      "host": "https://github.com",
-      "username": "oauth",
-      "token": "system"
-    }
-  ],
+  "workbench.startupEditor": "welcomePage"
 
-  /***********************
-   * JSBEAUTIFY FOR HTML *
-   ***********************/
-  "html.format.wrapLineLength": 80,
-  "html.format.indentInnerHtml": true,
-  "html.format.enable": true,
-  "html.format.wrapAttributes": "aligned-multiple",
-  "html.format.preserveNewLines": true,
-  "html.format.endWithNewline": true
+  /*********************************************************
+   * JSBEAUTITY. DON'T NEED IT BECAUSE PRETTIER IS WORKING *
+   *********************************************************/
+  // "beautify.language": {
+  //   "html": ["html"],
+  //   "css": ["css", "scss"],
+  //   "js": ["javascript"]
+  // }
 }
