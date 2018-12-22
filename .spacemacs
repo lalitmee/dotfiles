@@ -31,21 +31,23 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     yaml
-     typescript
-     python
-     vimscript
-     markdown
-     html
-     javascript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
+     yaml
+     ansible
+     typescript
+     python
+     vimscript
+     markdown
+     html
+     javascript
      auto-completion
      better-defaults
+     themes-megapack
      emacs-lisp
      (org :variables
           org-enable-github-support t
@@ -62,12 +64,19 @@ values."
      markdown
      org
      shell
+     fasd
+     ranger
+     emoji
+     erc
+     spotify
+     tmux
+     games
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
+            shell-default-position 'bottom
+            shell-default-shell 'eshell)
+     syntax-checking
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -97,6 +106,8 @@ values."
                                       helm-fuzzy-find
                                       xref-js2
                                       ac-js2
+                                      auto-rename-tag
+                                      doom-themes
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -170,17 +181,26 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         ;; gruvbox
+                         ;; monokai
+                         ;; solarized-dark
+                         ;; material
+                         ;; leuven
+                         ;; zenburn
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Monaco"
+   dotspacemacs-default-font '(
+                               "OperatorMono Nerd Font"
+                               ;; "Fira Code"
+                               ;; "Source Code Pro for Powerline"
+                               ;; "Fira Mono for Powerline"
+                               ;; "Monofur for Powerline"
                                :size 18
-                               :weight normal
+                               :weight bold
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -348,9 +368,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
    linum-format "%4d \u2502"
    linum-relative-format "%4s \u2502"
    )
-
   ;; magit fullscreen commit status
   ;;(setq-default git-magit-status-fullscreen t)
+  (set-face-italic-p 'italic t)
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -362,41 +383,43 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; gruvbox theme at the startup
-  (load-theme 'gruvbox t)
+  ;; (load-theme 'gruvbox t)
+  ;; (spacemacs/load-theme 'gruvbox)
+  (spacemacs/load-theme 'doom-molokai)
+  (add-hook 'prog-mode-hook 'company-emoji-init)
+  (with-eval-after-load 'emoji-cheat-sheet-plus
+    (diminish 'emoji-cheat-sheet-plus-display-mode))
+  (defun --set-emoji-font (frame)
+    "Adjust the font settings of FRAME so Emacs can display emoji properly."
+    (if (eq system-type 'darwin)
+        ;; For NS/Cocoa
+        (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend)
+      ;; For Linux
+      (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
 
+  ;; For when Emacs is started in GUI mode:
+  (--set-emoji-font nil)
+  ;; Hook for when a frame is created with emacsclient
+  ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+  (add-hook 'after-make-frame-functions '--set-emoji-font)
+  ;; modeline configurations
+  ;; display battery in modeline
+  (fancy-battery-mode t)
+  ;; display time in modeline
+  (spaceline-define-segment datetime
+    (shell-command-to-string "echo -n $(date '+%a %d %b %I:%M%p')"))
+  (spaceline-spacemacs-theme 'datetime)
+  ;; total number of lines in a buffer
 
-  ;; web-beautify settings
-  (add-to-list 'load-path "~/emacs/web-beautify.el")
-  (eval-after-load 'js2-mode
-    '(add-hook 'js2-mode-hook
-               (lambda ()
-                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+  ;; page brake lines in prog-mode
+  (add-hook 'prog-mode-hook 'page-break-lines-mode)
 
-  ;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
-  (eval-after-load 'js
-    '(add-hook 'js-mode-hook
-               (lambda ()
-                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+  (setq paradox-github-token "522a037a14fea9c1ec1f2c00f40c087d7ed79c9d")
 
-  (eval-after-load 'json-mode
-    '(add-hook 'json-mode-hook
-               (lambda ()
-                 (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+  avy-all-windows 'all-frames
 
-  (eval-after-load 'sgml-mode
-    '(add-hook 'html-mode-hook
-               (lambda ()
-                 (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
-
-  (eval-after-load 'web-mode
-    '(add-hook 'web-mode-hook
-               (lambda ()
-                 (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
-
-  (eval-after-load 'css-mode
-    '(add-hook 'css-mode-hook
-               (lambda ()
-                 (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
+  ;; Wraps long lines in text mode
+  (add-hook 'text-mode-hook 'auto-fill-mode)
 
   ;; default powerline separator
   (setq powerline-default-separator 'arrow)
@@ -415,6 +438,10 @@ you should place your code here."
   (spacemacs/set-leader-keys "N L" 'mc/mark-next-like-this)
   (spacemacs/set-leader-keys "P L" 'mc/mark-previous-like-this)
   (spacemacs/set-leader-keys "A L" 'mc/mark-all-like-this)
+
+  ;; Tide mappings for Typescript
+  (spacemacs/set-leader-keys "g d" 'tide-jump-to-definition)
+  (spacemacs/set-leader-keys "o i" 'tide-organize-imports)
 
   ;; iy-go-to-char
   (require 'iy-go-to-char)
@@ -509,7 +536,10 @@ you should place your code here."
   (require 'js2-mode)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-hook 'js-mode-hook 'js2-minor-mode)
-  (add-hook 'js2-mode-hook 'ac-js2-mode)
+  ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+
+  ;; hook for yaml files
+  (add-hook 'yaml-mode-hook 'prettier-js-mode)
 
   ;; Better imenu
   (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
@@ -559,7 +589,11 @@ you should place your code here."
   ;; formats the buffer before saving
   (add-hook 'before-save-hook 'tide-organize-imports)
   (add-hook 'before-save-hook 'tide-format-before-save)
-  (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil :indentSize 2 :tabSize 2))
+  (setq tide-format-options '(:placeOpenBraceOnNewLineForFunctions nil
+                                                                   :indentSize 2
+                                                                   :tabSize 2
+                                                                   :insertSpaceBeforeAndAfterBinaryOperators t
+                                                                   :insertSpaceAfterKeywordsInControlFlowStatements t))
 
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
   (add-hook 'html-mode-hook #'setup-tide-mode)
@@ -572,16 +606,17 @@ you should place your code here."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
-  ;; (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'js-mode-hook 'prettier-js-mode)
   (add-hook 'typescript-mode-hook 'prettier-js-mode)
   (add-hook 'css-mode-hook 'prettier-js-mode)
   (add-hook 'scss-mode-hook 'prettier-js-mode)
-  ;; (add-hook 'html-mode-hook 'prettier-js-mode)
+  (add-hook 'html-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'auto-rename-tag-mode)
   (add-hook 'markdown-mode-hook 'prettier-js-mode)
 
-  (use-package auto-yasnippet
-    :defer t)
+  ;; yasnippet mode for files
+  (add-hook 'web-mode-hook 'prettier-js-mode)
 
   (setq-default agressive-indent-mode t)
 
@@ -589,11 +624,11 @@ you should place your code here."
 
   ;; Prettier installation
   (setq prettier-js-args '(
-                           "--bracket-spacing" "true"
                            "--trailing-comma" "none"
                            "--print-width 80"
                            "--tab-width 2"
                            "--single-quote" "true"
+                           "--html-whitespace-sensitivity" "ignore"
                            ))
 
   (defun enable-minor-mode (my-pair)
@@ -666,24 +701,19 @@ you should place your code here."
                 ("M-m fp" . treemacs-projectile-toggle)))
   )
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
  '(custom-safe-themes
    (quote
-    ("41c8c11f649ba2832347fe16fe85cf66dafe5213ff4d659182e25378f9cfc183" "43b219a31db8fddfdc8fdbfdbd97e3d64c09c1c9fdd5dff83f3ffc2ddb8f0ba0" "06239857eba54280977d62190690bef6d58f9653465c71b0fe279c560fdcac80" "e08cf6a643018ccf990a099bcf82903d64f02e64798d13a1859e79e47c45616e" "57f95012730e3a03ebddb7f2925861ade87f53d5bbb255398357731a7b1ac0e0" "7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "8a9be13b2353a51d61cffed5123b157000da0347c252a7a308ebc43e16662de7" "78496062ff095da640c6bb59711973c7c66f392e3ac0127e611221d541850de2" "7d2e7a9a7944fbde74be3e133fc607f59fdbbab798d13bd7a05e38d35ce0db8d" "cd4d1a0656fee24dc062b997f54d6f9b7da8f6dc8053ac858f15820f9a04a679" "62c81ae32320ceff5228edceeaa6895c029cc8f43c8c98a023f91b5b339d633f" "a5956ec25b719bf325e847864e16578c61d8af3e8a3d95f60f9040d02497e408" "f27c3fcfb19bf38892bc6e72d0046af7a1ded81f54435f9d4d09b3bff9c52fc1" "599f1561d84229e02807c952919cd9b0fbaa97ace123851df84806b067666332" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "58c6711a3b568437bab07a30385d34aacf64156cc5137ea20e799984f4227265" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(evil-want-Y-yank-to-eol nil)
- '(line-number-mode nil)
  '(package-selected-packages
    (quote
-    (ac-js2 darcula-theme blackboard-theme yaml-mode xref-js2 helm-fuzzy-find fzf gruvbox-theme-theme treepy graphql smeargle autothemer tide typescript-mode flycheck atom-one-dark-theme gruvbox-theme xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor try yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic ox-gfm org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download gnuplot htmlize ox-reveal zenburn-theme color-theme counsel swiper ivy yasnippet-snippets ht pfuture iy-go-to-char babel helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern dash-functional tern company-statistics company auto-yasnippet ac-ispell auto-complete vimrc-mode dactyl-mode mmm-mode markdown-toc markdown-mode gh-md treemacs-projectile all-the-icons treemacs-evil treemacs web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode sublime-themes prettier-js web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors js2-mode js-doc coffee-mode ws-butler winum volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup which-key undo-tree org-plus-contrib hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
+    (pretty-symbols pretty-mode typit mmt sudoku pacmacs 2048-game spacemacs-theme zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color xref-js2 ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme try treemacs-projectile treemacs-evil toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spotify spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox ox-reveal ox-gfm orgit organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jinja2-mode jbeans-theme jazz-theme iy-go-to-char ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-spotify-plus helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzy-find helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fzf fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator fasd farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump dracula-theme doom-themes django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme dactyl-mode cython-mode cyberpunk-theme counsel company-web company-tern company-statistics company-emoji company-ansible company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme blackboard-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-rename-tag auto-highlight-symbol auto-compile atom-one-dark-theme apropospriate-theme anti-zenburn-theme ansible-doc ansible ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-link ace-jump-helm-line ac-js2 ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
