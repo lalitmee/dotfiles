@@ -6,29 +6,28 @@ call plug#begin()
 
 " Main {{{
 
-Plug 'suan/vim-instant-markdown' " Instant markdown preview from vim
-Plug 'dyng/ctrlsf.vim'           " Ctrl + Shift + F on sublime text
-Plug 'kshenoy/vim-signature'
-Plug 'jaxbot/github-issues.vim' " lookup for github issues in the commit message window
-Plug 'ruanyl/vim-sort-imports'
-Plug 'haya14busa/incsearch.vim'        " Better search highlighting
-Plug 'vim-syntastic/syntastic'         " Syntax Checking
-Plug 'Raimondi/delimitMate'            " Better HTML Editing
-Plug 'mileszs/ack.vim'                 " SilverSearcher
-Plug 'terryma/vim-multiple-cursors'    " Multiple Cursor
-Plug 'airblade/vim-gitgutter'          " Vim Git Gutter
-Plug 'machakann/vim-highlightedyank'   " Highlight and Yank
-Plug 'vim-airline/vim-airline'         " vim airlines
-Plug 'vim-airline/vim-airline-themes'  " vim airline themes
-Plug 'ryanoasis/vim-devicons'          " vim icons
-Plug 'junegunn/vim-journal'
+Plug 'suan/vim-instant-markdown'      " Instant markdown preview from vim
+Plug 'dyng/ctrlsf.vim'                " Ctrl + Shift + F on sublime text
+Plug 'kshenoy/vim-signature'          " toggle, display and navigate marks
+Plug 'jaxbot/github-issues.vim'       " lookup for github issues in the commit message window
+Plug 'haya14busa/incsearch.vim'       " Better search highlighting
+Plug 'vim-syntastic/syntastic'        " Syntax Checking
+Plug 'Raimondi/delimitMate'           " Better HTML Editing
+Plug 'mileszs/ack.vim'                " SilverSearcher
+Plug 'terryma/vim-multiple-cursors'   " Multiple Cursor
+Plug 'airblade/vim-gitgutter'         " Vim Git Gutter
+Plug 'machakann/vim-highlightedyank'  " Highlight and Yank
+Plug 'vim-airline/vim-airline'        " vim airlines
+Plug 'vim-airline/vim-airline-themes' " vim airline themes
+Plug 'ryanoasis/vim-devicons'         " vim icons
+Plug 'junegunn/vim-journal'           " something like org-mode in vim
 
 " }}}
 
 " Writing in vim {{{{
 
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim' " Highlight the current visited area
+Plug 'junegunn/goyo.vim'      " remove all the things and go in the center
 let g:limelight_conceal_ctermfg = 240
 
 let g:goyo_entered = 0
@@ -62,20 +61,8 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
-Plug 'trevordmiller/nova-vim'
-Plug 'mhinz/vim-janah'
-Plug 'crusoexia/vim-monokai'
-Plug 'nanotech/jellybeans.vim'
-Plug 'raphamorim/lucario'
-Plug 'junegunn/seoul256.vim'
-Plug 'zeis/vim-kolor'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'tomasr/molokai'
-Plug 'altercation/vim-colors-solarized' " solarized color scheme
-Plug 'ayu-theme/ayu-vim'                " ayu Color Scheme
-Plug 'morhetz/gruvbox'                  " gruvbox Color Scheme
-Plug 'joshdick/onedark.vim'             " onedark Color Scheme
-Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
+Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
+Plug 'joshdick/onedark.vim' " onedark Color Scheme
 
 " }}}
 
@@ -170,6 +157,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 " search inside files using ripgrep. This plugin provides an Ack command.
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier'
 Plug 'sbdchd/neoformat'
@@ -248,6 +236,7 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'roxma/nvim-completion-manager'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
+Plug 'vim-scripts/closetag.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-abolish'
@@ -258,7 +247,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'chrisbra/Colorizer'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/loremipsum'
-Plug 'honza/vim-snippets'
 Plug 'metakirby5/codi.vim'
 
 " }}}
@@ -304,9 +292,10 @@ abbr attribuet attribute
 
 " tsuquyomi pluging settings {{{
 
-nmap <leader>ti :TsuImport<CR>
-nmap <leader>gf :TsuDefinition<CR>
-nmap <leader>tf :TsuReferences<CR>
+nmap <leader>ti :TSImport<CR>
+nmap <leader>gf :TSDef<CR>
+nmap <leader>tf :TSRefs<CR>
+nmap <leader>tr :TSRename<CR>
 
 " }}}
 
@@ -358,6 +347,7 @@ let g:deoplete#omni#functions.javascript = [
 """ for javascript completions
 set completeopt=longest,menuone,preview
 let g:deoplete#sources = {}
+let g:deoplete#sources['typescript.ts'] = ['file', 'ultisnips', 'ternjs']
 let g:deoplete#sources['javascript.js'] = ['file', 'ultisnips', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
@@ -677,6 +667,9 @@ nmap <leader>tb :colorscheme Tomorrow-Night-Bright<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>e :e ~/.config/nvim/init.vim<CR>
 
+" select whole file text in visual mode
+map <C-c> <esc>ggVG<CR>
+
 " count the current matched number
 nnoremap <silent> <leader>n :%s///gn<CR>
 
@@ -698,8 +691,6 @@ nmap <leader>l :Limelight!!<CR>
 xmap <leader>l :Limelight!!<CR>
 autocmd FileType python nmap <leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
 map <leader>hn <C-w>v<C-w>l:HackerNews best<CR>J
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
 
 " Taking word under the cursor and put in CtrlSF Plugin
 noremap <leader>fw :CtrlSF <C-R><C-W><CR>
@@ -830,13 +821,16 @@ nmap gV `[v`]
 " Emmet settings for UltiSnips {{{
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-f>"
-let g:UltiSnipsJumpBackwardTrigger="<C-b>"
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " emmet expand for emmet.vim
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+let g:user_emmet_leader_key='<C-Y>'
+let g:user_emmet_install_global = 0
 
 " }}}
 
@@ -1042,7 +1036,7 @@ function! Indent()
 endfunction
 
 " Indent on save hook
-autocmd BufWritePre <buffer> call Indent()
+" autocmd BufWritePre <buffer> call Indent()
 
 " }}}
 
@@ -1120,8 +1114,10 @@ let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['typescript'] = ['prettier', 'tslint']
 let g:ale_fixers['json'] = ['prettier']
 let g:ale_fixers['css'] = ['prettier']
+let g:ale_fixers['scss'] = ['prettier']
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_options = '--single-quote es5'
 
 " }}}
 
@@ -1256,8 +1252,8 @@ let g:javascript_plugin_flow = 1
 
 " prettier_d config with neoformat
 
-autocmd FileType javascript.jsx, javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
-autocmd BufWritePre,TextChanged,InsertLeave *.jsx, *.js, *.ts, *.css, *.scss, *.md Neoformat
+autocmd FileType javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.yml Neoformat
 
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
@@ -1267,20 +1263,13 @@ let g:neoformat_only_msg_on_error = 1
 " Enable alignment
 let g:neoformat_basic_format_align = 1
 
-" Enable tab to spaces conversion
-"let g:neoformat_basic_format_retab = 1
-
 " Enable trimmming of trailing whitespace
 let g:neoformat_basic_format_trim = 1
-
-"neoformat: format javascript on save
-"au BufWrite * silent! Neoformat
 
 nmap <Leader>p <Plug>(Prettier)
 
 let g:prettier#autoformat = 0
-
-"autocmd BufWritePre *.css, *.js, *.jsx, *.mjs, *.ts, *.tsx, *.css, *.less, *.scss, *.json, *.graphql, *.md, *.vue Prettier
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.yml PrettierAsync
 
 let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
 
@@ -1319,14 +1308,14 @@ let g:prettier#config#arrow_parens = 'always'
 
 " none|es5|all
 " Prettier default: none
-let g:prettier#config#trailing_comma = 'all'
+let g:prettier#config#trailing_comma = 'none'
 
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
 let g:prettier#config#parser = 'babylon'
 
 " cli-override|file-override|prefer-file
-let g:prettier#config#config_precedence = 'prefer-file'
+let g:prettier#config#config_precedence = 'cli-override'
 
 " always|never|preserve
 let g:prettier#config#prose_wrap = 'preserve'
@@ -1336,6 +1325,12 @@ let g:prettier#config#prose_wrap = 'preserve'
 " Filetype Specific Configurations {{{
 
 """ HTML, XML, Jinja
+
+" vim-closetag plugin settings
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
