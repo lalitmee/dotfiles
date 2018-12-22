@@ -195,13 +195,18 @@ alias gpsl="git push origin list-template"
 
 # tmuxinator aliases
 alias tsk="tmuxinator start katerra"
+alias tek="tmuxinator edit katerra"
 alias tsc="tmuxinator start scheduling"
+alias tec="tmuxinator edit scheduling"
 alias tss="tmuxinator start sonyliv"
+alias tes="tmuxinator edit sonyliv"
 alias tsv="tmuxinator start vscode"
+alias tev="tmuxinator edit vscode"
 alias tsp="tmuxinator start portfolio"
-alias tnn="tmuxinator new"
-alias tst="tmuxinator start"
-alias ted="tmuxinator edit"
+alias tep="tmuxinator edit portfolio"
+alias tn="tmuxinator new"
+alias ts="tmuxinator start"
+alias te="tmuxinator edit"
 
 # vim remote send stuff
 alias g="vim --remote-silent"
