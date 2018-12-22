@@ -414,7 +414,7 @@ you should place your code here."
   ;; page brake lines in prog-mode
   (add-hook 'prog-mode-hook 'page-break-lines-mode)
 
-  (setq paradox-github-token "522a037a14fea9c1ec1f2c00f40c087d7ed79c9d")
+  (setq paradox-github-token t)
 
   avy-all-windows 'all-frames
 
