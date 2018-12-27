@@ -197,7 +197,7 @@ values."
                                ;; "Source Code Pro for Powerline"
                                ;; "Fira Mono for Powerline"
                                ;; "Monofur for Powerline"
-                               :size 18
+                               :size 20
                                :weight bold
                                :width normal
                                :powerline-scale 1.3)
@@ -404,17 +404,18 @@ you should place your code here."
   (add-hook 'after-make-frame-functions '--set-emoji-font)
   ;; modeline configurations
   ;; display battery in modeline
-  (fancy-battery-mode t)
   ;; display time in modeline
   (spaceline-define-segment datetime
     (shell-command-to-string "echo -n $(date '+%a %d %b %I:%M%p')"))
   (spaceline-spacemacs-theme 'datetime)
+  (spaceline-toggle-buffer-size-off)
   ;; total number of lines in a buffer
 
   ;; page brake lines in prog-mode
   (add-hook 'prog-mode-hook 'page-break-lines-mode)
+  (add-hook 'prog-mode-hook 'column-enforce-mode)
 
-  (setq paradox-github-token t)
+  (setq paradox-github-token "522a037a14fea9c1ec1f2c00f40c087d7ed79c9d")
 
   avy-all-windows 'all-frames
 
@@ -719,4 +720,4 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(font-lock-comment-face ((t (:foreground "#555556" :slant normal)))))
