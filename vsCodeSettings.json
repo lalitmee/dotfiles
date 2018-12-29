@@ -332,13 +332,4 @@
   "bracketPairColorizer.showHorizontalScopeLine": false,
   "bracketPairColorizer.forceIterationColorCycle": true,
   "workbench.startupEditor": "welcomePage"
-
-  /*********************************************************
-   * JSBEAUTITY. DON'T NEED IT BECAUSE PRETTIER IS WORKING *
-   *********************************************************/
-  // "beautify.language": {
-  //   "html": ["html"],
-  //   "css": ["css", "scss"],
-  //   "js": ["javascript"]
-  // }
 }
