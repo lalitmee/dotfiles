@@ -144,14 +144,14 @@
   /***************************
    * SUBTLEBRACKETS SETTINGS *
    ***************************/
-  "subtleBrackets.styles": {
-    "global": {
-      "color": "yellow",
-      "borderColor": "blue",
-      "borderWidth": "2px",
-      "borderStyle": "none none solid none"
-    }
-  },
+  // "subtleBrackets.styles": {
+  //   "global": {
+  //     "color": "yellow",
+  //     "borderColor": "blue",
+  //     "borderWidth": "2px",
+  //     "borderStyle": "none none solid none"
+  //   }
+  // },
 
   /*******************
    * EMMETS SETTINGS *
@@ -242,29 +242,29 @@
   /**********************
    * VSCODEVIM SETTINGS *
    **********************/
-  "vim.leader": "<Space>",
-  "vim.easymotion": true,
-  "vim.sneak": true,
-  "vim.incsearch": true,
-  "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
-  "vim.hlsearch": true,
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "commands": ["workbench.action.files.save"],
-      "before": ["<Leader>", ","]
-    }
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": [">"],
-      "commands": ["editor.action.indentLines"]
-    },
-    {
-      "before": ["<"],
-      "commands": ["editor.action.outdentLines"]
-    }
-  ],
+  // "vim.leader": "<Space>",
+  // "vim.easymotion": true,
+  // "vim.sneak": true,
+  // "vim.incsearch": true,
+  // "vim.useSystemClipboard": true,
+  // "vim.useCtrlKeys": true,
+  // "vim.hlsearch": true,
+  // "vim.normalModeKeyBindingsNonRecursive": [
+  //   {
+  //     "commands": ["workbench.action.files.save"],
+  //     "before": ["<Leader>", ","]
+  //   }
+  // ],
+  // "vim.visualModeKeyBindingsNonRecursive": [
+  //   {
+  //     "before": [">"],
+  //     "commands": ["editor.action.indentLines"]
+  //   },
+  //   {
+  //     "before": ["<"],
+  //     "commands": ["editor.action.outdentLines"]
+  //   }
+  // ],
 
   /*************************
    * SLIDER ON THE MINIMAP *
