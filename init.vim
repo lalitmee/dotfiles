@@ -6,6 +6,7 @@ call plug#begin()
 
 " Main {{{
 
+Plug 'justinmk/vim-sneak'             " Vim sneak with two words
 Plug 'suan/vim-instant-markdown'      " Instant markdown preview from vim
 Plug 'dyng/ctrlsf.vim'                " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'          " toggle, display and navigate marks
@@ -61,8 +62,10 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
+Plug 'justinmk/molokai'
 Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
 Plug 'joshdick/onedark.vim' " onedark Color Scheme
+Plug 'sickill/vim-monokai'  " monokai Color Scheme
 
 " }}}
 
@@ -97,6 +100,7 @@ Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+Plug 'justinj/vim-react-snippets'
 
 " }}}
 
@@ -160,6 +164,7 @@ Plug 'xolox/vim-misc'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier'
+Plug 'skywind3000/asyncrun.vim' " AsyncRun for prettier or eslint
 Plug 'sbdchd/neoformat'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-unimpaired'
@@ -435,6 +440,10 @@ let g:tsuquyomi_disable_quickfix = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi']
 " let g:syntastic_enable_elixir_checker = 1
 " let g:syntastic_elixir_checkers = ["elixir"]
+
+" for react
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run eslint --'
 
 " }}}
 
@@ -720,6 +729,9 @@ set clipboard=unnamedplus
 " Copy paste in vim
 set mouse=a
 
+" to make nvim fast
+set re=1
+
 "HTML Editing
 set matchpairs+=<:>
 
@@ -829,8 +841,12 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " emmet expand for emmet.vim
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-let g:user_emmet_leader_key='<C-Y>'
-let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
 " }}}
 
@@ -1117,7 +1133,6 @@ let g:ale_fixers['css'] = ['prettier']
 let g:ale_fixers['scss'] = ['prettier']
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_options = '--single-quote es5'
 
 " }}}
 
@@ -1250,8 +1265,10 @@ let g:javascript_plugin_flow = 1
 
 " Prettier and Neoformat Configurations {{{
 
-" prettier_d config with neoformat
+" elsint config for React
+" autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
 
+" prettier_d config with neoformat
 autocmd FileType javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.yml Neoformat
 
