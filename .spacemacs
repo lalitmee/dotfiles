@@ -110,9 +110,7 @@ values."
                                       ac-js2
                                       auto-rename-tag
                                       babel
-                                      ng2-mode
                                       indium
-                                      lsp-mode
                                       doom-themes
                                       )
    ;; A list of packages that cannot be updated.
@@ -470,40 +468,40 @@ you should place your code here."
   ;; /////////////////////////////////
 
   ;; from this link: https://gist.github.com/asummers/b8304b8ea78fc331b8177ff35d002046
-  ;; (use-package web-mode
-  ;;   :ensure t
-  ;;   :defer t
-  ;;   :mode (("\\.ios\\.js$" . web-mode)
-  ;;          ("\\.android\\.js$" . web-mode)
-  ;;          ("\\.react\\.js$" . web-mode)
-  ;;          ("\\.js$" . web-mode))
-  ;;   :config
-  ;;   (add-to-list 'magic-mode-alist '("^import React" . web-mode))
-  ;;   (add-to-list 'magic-mode-alist '("React.Component" . web-mode))
-  ;;   (add-to-list 'magic-mode-alist '("from 'react';$" . web-mode))
-  ;;   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+  (use-package web-mode
+    :ensure t
+    :defer t
+    :mode (("\\.ios\\.js$" . react-mode)
+           ("\\.android\\.js$" . react-mode)
+           ("\\.react\\.js$" . react-mode)
+           ("\\.js$" . react-mode))
+    :config
+    (add-to-list 'magic-mode-alist '("^import React" . react-mode))
+    (add-to-list 'magic-mode-alist '("React.Component" . react-mode))
+    (add-to-list 'magic-mode-alist '("from 'react';$" . react-mode))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
 
-  ;;   (with-eval-after-load 'flycheck
-  ;;     (flycheck-add-mode 'javascript-eslint 'web-mode))
+    (with-eval-after-load 'flycheck
+      (flycheck-add-mode 'javascript-eslint 'react-mode))
 
-  ;;   (add-hook 'web-mode-hook
-  ;;             (lambda ()
-  ;;               (if (equal web-mode-content-type "javascript")
-  ;;                   (web-mode-set-content-type "jsx"))))
-  ;;   (setq-local web-mode-enable-auto-quoting nil)
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (if (equal web-mode-content-type "javascript")
+                    (web-mode-set-content-type "jsx"))))
+    (setq-local web-mode-enable-auto-quoting nil)
 
-  ;;   (setq-default js-indent-level 2)
+    (setq-default js-indent-level 2)
 
-  ;;   (add-hook 'web-mode-hook
-  ;;             (lambda ()
-  ;;               (setq web-mode-markup-indent-offset (symbol-value 'js-indent-level))
-  ;;               (setq web-mode-attr-indent-offset (symbol-value 'js-indent-level))
-  ;;               (setq web-mode-css-indent-offset (symbol-value 'js-indent-level))
-  ;;               (setq web-mode-code-indent-offset (symbol-value 'js-indent-level)))))
+    (add-hook 'web-mode-hook
+              (lambda ()
+                (setq web-mode-markup-indent-offset (symbol-value 'js-indent-level))
+                (setq web-mode-attr-indent-offset (symbol-value 'js-indent-level))
+                (setq web-mode-css-indent-offset (symbol-value 'js-indent-level))
+                (setq web-mode-code-indent-offset (symbol-value 'js-indent-level)))))
 
 
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
   (setq js2-basic-offset 2)
   (setq js-indent-level 2)
 
@@ -615,7 +613,6 @@ you should place your code here."
 
   ;; Emacs as JavaScript IDE
   (require 'js2-mode)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-hook 'js-mode-hook 'js2-minor-mode)
   ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 
