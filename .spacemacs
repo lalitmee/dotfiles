@@ -545,10 +545,6 @@ you should place your code here."
   (setq magit-repository-directories '("~/repos/"))
   (global-git-commit-mode t)
 
-  ;; auto-yasnippet keybindings
-  ;;(global-set-key (kbd "e") #'aya-create)
-  ;;(global-set-key (kbd "y") #'aya-expand)
-
   ;; ace-window configurations
   (use-package ace-window
     :init
@@ -560,10 +556,7 @@ you should place your code here."
       ))
 
 
-  ;;;; color theme package
-  ;;(use-package color-theme
-  ;;  :ensure t)
-
+  ;; pdf.js and reveal.js settings
   (require 'ox-reveal)
   (use-package ox-reveal
     :ensure ox-reveal)
@@ -628,9 +621,6 @@ you should place your code here."
 
   ;; hook for yaml files
   (add-hook 'yaml-mode-hook 'prettier-js-mode)
-
-  ;; Better imenu
-  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 
   (require 'js2-refactor)
   (require 'xref-js2)
