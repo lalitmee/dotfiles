@@ -63,7 +63,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
-Plug 'dikiaap/minimalist'
 Plug 'justinmk/molokai'
 Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
 Plug 'joshdick/onedark.vim' " onedark Color Scheme
@@ -101,6 +100,7 @@ Plug 'heavenshell/vim-jsdoc' " for commenting the code
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
+Plug 'Ivo-Donchev/vim-react-goto-definition'
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
 Plug 'justinj/vim-react-snippets'
 
@@ -444,8 +444,11 @@ let g:syntastic_typescript_checkers = ['tsuquyomi']
 " let g:syntastic_elixir_checkers = ["elixir"]
 
 " for react
+" goto plugin mapping for React
+noremap <leader>gt :call ReactGotoDef()<CR>
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'npm run eslint --'
+let g:jsx_ext_required = 0
 
 " }}}
 
@@ -1165,6 +1168,7 @@ augroup END
 
 set relativenumber                                           " relative line numbers
 set cursorline                                               " highlight the current line
+set tags=./tags;/
 
 filetype plugin indent on
 
