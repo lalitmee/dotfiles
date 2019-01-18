@@ -22,6 +22,7 @@ Plug 'vim-airline/vim-airline'        " vim airlines
 Plug 'vim-airline/vim-airline-themes' " vim airline themes
 Plug 'ryanoasis/vim-devicons'         " vim icons
 Plug 'junegunn/vim-journal'           " something like org-mode in vim
+Plug 'gioele/vim-autoswap'            " for handling swap files
 
 " }}}
 
@@ -62,6 +63,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
+Plug 'dikiaap/minimalist'
 Plug 'justinmk/molokai'
 Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
 Plug 'joshdick/onedark.vim' " onedark Color Scheme
@@ -1269,8 +1271,8 @@ let g:javascript_plugin_flow = 1
 " autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
 
 " prettier_d config with neoformat
-autocmd FileType javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.yml Neoformat
+" autocmd FileType javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.yml Neoformat
 
 " Use formatprg when available
 let g:neoformat_try_formatprg = 1
@@ -1286,7 +1288,7 @@ let g:neoformat_basic_format_trim = 1
 nmap <Leader>p <Plug>(Prettier)
 
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.yml PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.yml Prettier
 
 let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
 
@@ -1322,6 +1324,9 @@ let g:prettier#config#jsx_bracket_same_line = 'true'
 " avoid|always
 " Prettier default: avoid
 let g:prettier#config#arrow_parens = 'always'
+
+" html whitespace sensitivity
+let g:prettier#config#html_whitespace_sensitivity = 'ignore'
 
 " none|es5|all
 " Prettier default: none
