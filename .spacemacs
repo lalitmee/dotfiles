@@ -85,6 +85,10 @@ values."
      games
      syntax-checking
      version-control
+     (wakatime :variables
+               wakatime-api-key  "24ffed3b-d336-43be-80ff-2292eaefa867"
+               ;; use the actual wakatime path
+               wakatime-cli-path "/usr/local/bin/wakatime")
 
      ;; appearence
      themes-megapack
@@ -207,6 +211,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                "OperatorMono Nerd Font"
+                               ;; "Iosevka Type Slab Medium"
                                ;; "Fira Code"
                                ;; "Monaco"
                                ;; "Source Code Pro for Powerline"
