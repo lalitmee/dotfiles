@@ -162,6 +162,7 @@ alias du="ddg"
 alias s="subl ."
 alias a="atom ."
 alias c="code ."
+alias ci="code-insiders ."
 alias o="oni ."
 alias e="emacs ."
 
@@ -198,6 +199,8 @@ alias tsk="tmuxinator start katerra"
 alias tek="tmuxinator edit katerra"
 alias tsc="tmuxinator start scheduling"
 alias tec="tmuxinator edit scheduling"
+alias tsd="tmuxinator start dashboard"
+alias ted="tmuxinator edit dashboard"
 alias tss="tmuxinator start sonyliv"
 alias tes="tmuxinator edit sonyliv"
 alias tsv="tmuxinator start vscode"
@@ -207,6 +210,12 @@ alias tep="tmuxinator edit portfolio"
 alias tn="tmuxinator new"
 alias ts="tmuxinator start"
 alias te="tmuxinator edit"
+
+# alias for todo.txt-cli
+alias t="~/todo.txt_cli-2.11.0/todo.sh"
+
+# alias for taskwarrior
+alias to="task"
 
 # vim remote send stuff
 alias g="vim --remote-silent"
@@ -227,6 +236,21 @@ export PYENV_ROOT="$(pyenv root)"
 # exporting editor
 export EDITOR=nvim
 
+# vi mode showing mode settings
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# Tilix settings
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
 # autojump Path settings
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
@@ -238,3 +262,4 @@ export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 # transfer.sh alias
 transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi 
 	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; } 
+fpath+=${ZDOTDIR:-~}/.zsh_functions
