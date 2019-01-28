@@ -138,7 +138,7 @@
     "*Container.js": "javascriptreact",
     "**/components/*/*.js": "javascriptreact",
     "**/config/routes.js": "javascriptreact",
-    "*.js": "javascriptreact"
+    "*.js": "javascript"
   },
 
   /***************************
@@ -242,29 +242,31 @@
   /**********************
    * VSCODEVIM SETTINGS *
    **********************/
-  // "vim.leader": "<Space>",
-  // "vim.easymotion": true,
-  // "vim.sneak": true,
-  // "vim.incsearch": true,
-  // "vim.useSystemClipboard": true,
-  // "vim.useCtrlKeys": true,
-  // "vim.hlsearch": true,
-  // "vim.normalModeKeyBindingsNonRecursive": [
-  //   {
-  //     "commands": ["workbench.action.files.save"],
-  //     "before": ["<Leader>", ","]
-  //   }
-  // ],
-  // "vim.visualModeKeyBindingsNonRecursive": [
-  //   {
-  //     "before": [">"],
-  //     "commands": ["editor.action.indentLines"]
-  //   },
-  //   {
-  //     "before": ["<"],
-  //     "commands": ["editor.action.outdentLines"]
-  //   }
-  // ],
+  "vim.leader": "<Space>",
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "commands": ["workbench.action.files.save"],
+      "before": ["<Leader>", ","]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.enableNeovim": true,
+  "vim.neovimPath": "/home/linuxbrew/.linuxbrew/bin/nvim",
 
   /*************************
    * SLIDER ON THE MINIMAP *
@@ -331,5 +333,27 @@
   "bracketPairColorizer.showVerticalScopeLine": true,
   "bracketPairColorizer.showHorizontalScopeLine": false,
   "bracketPairColorizer.forceIterationColorCycle": true,
-  "workbench.startupEditor": "welcomePage"
+  "workbench.startupEditor": "welcomePage",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  /******************
+   * REWRAP SETTING *
+   ******************/
+  "rewrap.autoWrap.enabled": true,
+
+  /***************************
+   * INDENT RAINBOW SETTINGS *
+   ***************************/
+  "indentRainbow.colors": [
+    "rgba(16,16,16,0.1)",
+    "rgba(16,16,16,0.2)",
+    "rgba(16,16,16,0.3)",
+    "rgba(16,16,16,0.4)",
+    "rgba(16,16,16,0.5)",
+    "rgba(16,16,16,0.6)",
+    "rgba(16,16,16,0.7)",
+    "rgba(16,16,16,0.8)",
+    "rgba(16,16,16,0.9)",
+    "rgba(16,16,16,1.0)"
+  ]
 }
