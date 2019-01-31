@@ -91,6 +91,7 @@
    *********************/
   "prettier.singleQuote": true,
   "prettier.eslintIntegration": true,
+  "prettier.htmlWhitespaceSensitivity": "ignore",
   // "prettier.disableLanguages": ["html"],
 
   /*******************************
@@ -340,20 +341,21 @@
    * REWRAP SETTING *
    ******************/
   "rewrap.autoWrap.enabled": true,
+  "git.enableSmartCommit": true
 
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
-  "indentRainbow.colors": [
-    "rgba(16,16,16,0.1)",
-    "rgba(16,16,16,0.2)",
-    "rgba(16,16,16,0.3)",
-    "rgba(16,16,16,0.4)",
-    "rgba(16,16,16,0.5)",
-    "rgba(16,16,16,0.6)",
-    "rgba(16,16,16,0.7)",
-    "rgba(16,16,16,0.8)",
-    "rgba(16,16,16,0.9)",
-    "rgba(16,16,16,1.0)"
-  ]
+  // "indentRainbow.colors": [
+  //   "rgba(16,16,16,0.1)",
+  //   "rgba(16,16,16,0.2)",
+  //   "rgba(16,16,16,0.3)",
+  //   "rgba(16,16,16,0.4)",
+  //   "rgba(16,16,16,0.5)",
+  //   "rgba(16,16,16,0.6)",
+  //   "rgba(16,16,16,0.7)",
+  //   "rgba(16,16,16,0.8)",
+  //   "rgba(16,16,16,0.9)",
+  //   "rgba(16,16,16,1.0)"
+  // ]
 }
