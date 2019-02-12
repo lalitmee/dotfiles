@@ -207,6 +207,8 @@ alias tsv="tmuxinator start vscode"
 alias tev="tmuxinator edit vscode"
 alias tsp="tmuxinator start portfolio"
 alias tep="tmuxinator edit portfolio"
+alias tsg="tmuxinator start github-search"
+alias teg="tmuxinator edit github-search"
 alias tn="tmuxinator new"
 alias ts="tmuxinator start"
 alias te="tmuxinator edit"
@@ -235,16 +237,6 @@ export PYENV_ROOT="$(pyenv root)"
 
 # exporting editor
 export EDITOR=nvim
-
-# vi mode showing mode settings
-function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-    RPS2=$RPS1
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 # Tilix settings
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
