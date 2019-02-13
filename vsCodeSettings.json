@@ -5,53 +5,72 @@
 
   // format the code on hitting the save
   "editor.formatOnSave": true,
+
   // font face
   "editor.fontSize": 15,
+
   // wrap lines if went out of the view
   "editor.wordWrap": "on",
+
   // ruler settins
   "editor.rulers": [80, 120],
+
   // line height
   "editor.lineHeight": 25,
+
   // letter spacings
   "editor.letterSpacing": 0.5,
+
   // font weight
   "editor.fontWeight": "600",
+
   // cursor blinking
   "editor.cursorBlinking": "blink",
   "editor.renderWhitespace": "all",
+
   // font family
   "editor.fontFamily": "Operator Mono Lig Book, Monofur for Powerline,  Fira Code, Menlo, Monaco, Hack, 'Courier New', monospace",
+
   // making good ===, => and more
   "editor.fontLigatures": true,
+
   // format on paste
   "editor.formatOnPaste": true,
+
   // quick suggestions
   "editor.quickSuggestions": {
     "other": true,
     "comments": false,
     "strings": true
   },
+
   // changing alt to Ctrl for multi cursors
   "editor.multiCursorModifier": "ctrlCmd",
+
   // matchbrackets stop for sbutle bracket package
   "editor.matchBrackets": false,
+
   // color for current line number and indent color
   "workbench.colorCustomizations": {
     "editorLineNumber.activeForeground": "#ff6600",
     "editorBracketMatch.border": "#ff0000",
     "editorOverviewRuler.bracketMatchForeground": "#ff0000",
-    "editorIndentGuide.activeBackground": "#33ff00"
+    "editorIndentGuide.activeBackground": "#33ff00",
+    "editorRuler.foreground": "#ff6600"
   },
   "editor.snippetSuggestions": "top",
+
   // editor tab completions of the suggestions
   "editor.tabCompletion": "off",
+
   // intellisense based on the distance of the previously used functions or parameters names
   "editor.suggest.localityBonus": true,
+
   // sort import on save
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
+
   // ligatures and cursive fonts settings
   "editor.tokenColorCustomizations": {
     "textMateRules": [
