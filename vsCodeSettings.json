@@ -131,7 +131,7 @@
   /**************
    * FILE ICONS *
    **************/
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.iconTheme": "material-icon-theme",
 
   /**************
    * ZOOM LEVEL *
@@ -360,7 +360,8 @@
    * REWRAP SETTING *
    ******************/
   "rewrap.autoWrap.enabled": true,
-  "git.enableSmartCommit": true
+  "git.enableSmartCommit": true,
+  "window.titleBarStyle": "custom"
 
   /***************************
    * INDENT RAINBOW SETTINGS *
