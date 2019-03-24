@@ -165,6 +165,7 @@ alias c="code ."
 alias ci="code-insiders ."
 alias o="oni ."
 alias e="emacs ."
+alias em="emacs25 ."
 
 # alias for using nvim instead of vim
 alias vim="nvim"
