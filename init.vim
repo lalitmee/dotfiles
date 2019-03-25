@@ -126,6 +126,7 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'gko/vim-coloresque'
 Plug 'stephenway/postcss.vim', { 'for': 'css' }
+Plug 'csscomb/vim-csscomb'
 
 " }}}
 
@@ -1288,6 +1289,9 @@ let g:neoformat_basic_format_align = 1
 
 " Enable trimmming of trailing whitespace
 let g:neoformat_basic_format_trim = 1
+
+" Automatically comb your CSS on save
+autocmd BufWritePre,FileWritePre *.css,*.less,*.scss,*.sass silent! :CSScomb
 
 nmap <Leader>p <Plug>(Prettier)
 
