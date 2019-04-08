@@ -99,7 +99,6 @@ repo
 sudo
 web-search
 colored-man-pages
-zsh-syntax-highlighting
 zsh-autosuggestions
 )
 
@@ -154,7 +153,7 @@ alias wk="wikit"
 alias wb="wikit -b"
 
 # aliases for web search from terminal
-alias go="google"
+alias goo="google"
 alias bi="bing"
 alias du="ddg"
 
@@ -164,7 +163,7 @@ alias a="atom ."
 alias c="code ."
 alias ci="code-insiders ."
 alias o="oni ."
-alias e="emacs ."
+alias e="emacs26 ."
 alias em="emacs25 ."
 
 # alias for using nvim instead of vim
