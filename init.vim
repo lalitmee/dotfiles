@@ -143,6 +143,13 @@ let g:vim_json_syntax_conceal = 0
 
 " }}}
 
+
+" Golang {{{
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" }}}
+
 " Plugins for JavaScript & TypeScript {{{
 
 Plug 'kristijanhusak/vim-js-file-import'
