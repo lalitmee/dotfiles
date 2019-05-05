@@ -226,6 +226,9 @@ alias g="vim --remote-silent"
 # tmuxinator completion file
 source ~/tmuxinator.bash
 
+# nvim path for oni
+export ONI_NEOVIM_PATH='/home/lalit/app_images/nvim.appimage'
+
 # path for ruby manager
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
