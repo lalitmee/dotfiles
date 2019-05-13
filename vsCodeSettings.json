@@ -111,6 +111,7 @@
   "prettier.singleQuote": true,
   "prettier.eslintIntegration": true,
   "prettier.htmlWhitespaceSensitivity": "ignore",
+  "prettier.useTabs": false,
   // "prettier.disableLanguages": ["html"],
 
   /*******************************
@@ -141,18 +142,12 @@
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
 
-  /***************
-   * COLOR THEME *
-   ***************/
-  "workbench.colorTheme": "Cobalt2",
-
   /********************************
    * TRIMING WHITE SPACES ON SAVE *
    ********************************/
   "files.trimTrailingWhitespace": true,
 
   "explorer.confirmDragAndDrop": false,
-  "vsicons.dontShowNewVersionMessage": true,
 
   "files.associations": {
     "*Container.js": "javascriptreact",
@@ -183,8 +178,6 @@
     "javascript": "javascriptreact"
   },
   "emmet.showSuggestionsAsSnippets": true,
-
-  "vsicons.projectDetection.disableDetect": true,
 
   /*************************
    * FILES TO WATCH OR NOT *
@@ -361,7 +354,13 @@
    ******************/
   "rewrap.autoWrap.enabled": true,
   "git.enableSmartCommit": true,
-  "window.titleBarStyle": "custom"
+  "workbench.colorTheme": "Cobalt2",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.maxColumn": 200,
+  "editor.cursorSmoothCaretAnimation": true
 
   /***************************
    * INDENT RAINBOW SETTINGS *
