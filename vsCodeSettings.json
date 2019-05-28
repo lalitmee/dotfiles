@@ -7,7 +7,7 @@
   "editor.formatOnSave": true,
 
   // font face
-  "editor.fontSize": 15,
+  "editor.fontSize": 16,
 
   // wrap lines if went out of the view
   "editor.wordWrap": "on",
@@ -26,7 +26,7 @@
 
   // cursor blinking
   "editor.cursorBlinking": "blink",
-  "editor.renderWhitespace": "all",
+  "editor.renderWhitespace": "boundary",
 
   // font family
   "editor.fontFamily": "Operator Mono Lig Book, Monofur for Powerline,  Fira Code, Menlo, Monaco, Hack, 'Courier New', monospace",
@@ -137,7 +137,7 @@
   /**************
    * ZOOM LEVEL *
    **************/
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 0,
 
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
@@ -262,10 +262,34 @@
   "vim.useSystemClipboard": true,
   "vim.useCtrlKeys": true,
   "vim.hlsearch": true,
+  // "vim.searchHighlightColor": "#00cc44a8",
+  "vim.searchHighlightColor": "#ff7b00a1",
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "commands": ["workbench.action.files.save"],
       "before": ["<Leader>", ","]
+    },
+    {
+      "before": [":"],
+      "commands": ["workbench.action.showCommands"]
+    },
+    {
+      "before": ["Z", "Z"],
+      "commands": [":wq"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -360,7 +384,16 @@
   },
   "editor.minimap.renderCharacters": false,
   "editor.minimap.maxColumn": 200,
-  "editor.cursorSmoothCaretAnimation": true
+  "editor.cursorSmoothCaretAnimation": true,
+  "workbench.tips.enabled": false,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "zenMode.centerLayout": false,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "breadcrumbs.enabled": false,
+  "liveshare.featureSet": "insiders"
 
   /***************************
    * INDENT RAINBOW SETTINGS *
