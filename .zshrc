@@ -136,7 +136,8 @@ export LC_CTYPE=en_US.UTF-8
 
 # aliases for updating and installing packages
 alias upd="sudo apt-fast update"
-alias upg="sudo apt-fast upgrade"
+alias upg="sudo apt-fast upgrade -y"
+alias updg="sudo apt-fast dist-upgrade -y"
 alias install="sudo apt-fast install"
 alias purge="sudo apt-fast purge"
 alias remove="sudo apt-fast autoremove"
@@ -210,6 +211,8 @@ alias tsp="tmuxinator start portfolio"
 alias tep="tmuxinator edit portfolio"
 alias tsg="tmuxinator start github-search"
 alias teg="tmuxinator edit github-search"
+alias tsq="tmuxinator start c-quotes"
+alias teq="tmuxinator edit c-quotes"
 alias tn="tmuxinator new"
 alias ts="tmuxinator start"
 alias te="tmuxinator edit"
@@ -227,7 +230,8 @@ alias g="vim --remote-silent"
 source ~/tmuxinator.bash
 
 # nvim path for oni
-export ONI_NEOVIM_PATH='/home/lalit/app_images/nvim.appimage'
+# export ONI_NEOVIM_PATH='/home/lalit/app_images/nvim.appimage'
+export ONI_NEOVIM_PATH='/usr/bin/nvim'
 
 # path for ruby manager
 export PATH="$HOME/.rbenv/bin:$PATH"
