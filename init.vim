@@ -23,6 +23,7 @@ Plug 'vim-airline/vim-airline-themes' " vim airline themes
 Plug 'ryanoasis/vim-devicons'         " vim icons
 Plug 'junegunn/vim-journal'           " something like org-mode in vim
 Plug 'gioele/vim-autoswap'            " for handling swap files
+Plug 'danro/rename.vim'               " for renaming the current buffer
 
 " }}}
 
@@ -146,7 +147,7 @@ let g:vim_json_syntax_conceal = 0
 
 " Golang {{{
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " }}}
 
@@ -163,6 +164,7 @@ Plug 'cdata/vim-tagged-template'
 Plug 'romainl/ctags-patterns-for-javascript'
 Plug 'janko-m/vim-test'
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " }}}
 
@@ -304,6 +306,15 @@ abbr attribtue attribute
 abbr attribuet attribute
 
 " }}} Abbreviations "
+
+
+" coc.nvim {{{ "
+
+nmap <silent> <leader>dd <Plug>(coc-definition)
+nmap <silent> <leader>dr <Plug>(coc-references)
+nmap <silent> <leader>dj <Plug>(coc-implementation)
+
+" }}} coc.nvim  "
 
 " tsuquyomi pluging settings {{{
 
