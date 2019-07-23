@@ -452,6 +452,9 @@ comment box."
   ;; evil search module
   (setq evil-search-module 'isearch)
 
+  ;; multiple-cursor-mode
+  (global-evil-mc-mode t)
+
   ;; centered cursor mode
   (global-centered-cursor-mode +1)
 
