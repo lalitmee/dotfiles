@@ -57,6 +57,7 @@ values."
           org-enable-github-support t
           org-enable-reveal-js-support t)
 
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
 
      ;; functionalities layers
      (auto-completion :variables
@@ -118,7 +119,6 @@ values."
                                       treemacs
                                       treemacs-evil
                                       treemacs-projectile
-                                      multiple-cursors
                                       iy-go-to-char
                                       yasnippet-snippets
                                       swiper
@@ -577,12 +577,6 @@ comment box."
   (spacemacs/set-leader-keys "C-'" 'evil-avy-goto-char-2)
   (spacemacs/set-leader-keys "C-w" 'evil-avy-goto-word-1)
   (spacemacs/set-leader-keys "C-l" 'evil-avy-goto-line)
-
-  ;; multiple cursor modes
-  (spacemacs/set-leader-keys "E" 'mc/edit-lines)
-  (spacemacs/set-leader-keys "N L" 'mc/mark-next-like-this)
-  (spacemacs/set-leader-keys "P L" 'mc/mark-previous-like-this)
-  (spacemacs/set-leader-keys "A L" 'mc/mark-all-like-this)
 
   ;; Tide mappings for Typescript
   (spacemacs/set-leader-keys "g d" 'tide-jump-to-definition)
