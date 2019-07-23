@@ -20,7 +20,7 @@
   "editor.cursorBlinking": "blink",
   "editor.renderWhitespace": "boundary",
   // font family
-  "editor.fontFamily": "Operator Mono Lig Book, Monofur for Powerline,  Fira Code, Menlo, Monaco, Hack, 'Courier New', monospace",
+  "editor.fontFamily": "Operator Mono Lig Book, Monofur for Powerline, Dank Mono, Fira Code, Menlo, Monaco, Hack, 'Courier New', monospace",
   // making good ===, => and more
   "editor.fontLigatures": true,
   // format on paste
@@ -57,11 +57,11 @@
     "textMateRules": [
       {
         "scope": [
-          //following will be in italic (=FlottFlott)
           "comment",
           "entity.name.type.class", //class names
           "keyword", //import, export, return…
-          "constant", //String, Number, Boolean…, this, super
+          "constant", //String, Number, Boolean…
+          "variable.language", //this, super
           "storage.modifier", //static keyword
           "storage.type.class.js" //class keyword
         ],
@@ -71,7 +71,6 @@
       },
       {
         "scope": [
-          //following will be excluded from italics (VSCode has some defaults for italics)
           "invalid",
           "keyword.operator",
           "constant.numeric.css",
@@ -349,6 +348,10 @@
       "value": "#639"
     },
     {
+      "name": "Go Cyan",
+      "value": "#5dc9e2"
+    },
+    {
       "name": "Java Blue-Gray",
       "value": "#557c9b"
     },
@@ -376,7 +379,8 @@
       "name": "Vue Green",
       "value": "#42b883"
     }
-  ]
+  ],
+  "typescript.updateImportsOnFileMove.enabled": "always"
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
