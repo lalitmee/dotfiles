@@ -498,6 +498,21 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_warning = ''
 let g:airline#extensions#tabline#enabled = 1
 
+" function! DerekFugitiveStatusLine()
+"   let status = fugitive#statusline()
+"   let trimmed = substitute(status, '\[Git(\(.*\))\]', '\1', '')
+"   let trimmed = substitute(trimmed, '\(\w\)\w\+[_/]\ze', '\1/', '')
+"   let trimmed = substitute(trimmed, '/[^_]*\zs_.*', '', '')
+"   if len(trimmed) == 0
+"     return ""
+"   else
+"     return '(' . trimmed[0:10] . ')'
+"   endif
+" endfunction
+"
+" " Set the status line the way i like it
+" set stl=%f\ %m\ %r%{DerekFugitiveStatusLine()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
+
 " }}}
 
 " Neovim :Terminal {{{
