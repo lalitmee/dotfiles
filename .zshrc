@@ -83,7 +83,6 @@ tmuxinator
 tmux
 command-not-found
 common-aliases
-debian
 dirhistory
 docker
 gem
@@ -133,6 +132,15 @@ export LC_CTYPE=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# for finding swap files
+alias swps='find . -name .\*.sw[op]'
+
+# wikit alias
+alias wi="wikit"
+
+# wikit alias
+alias d="dict"
 
 # aliases for updating and installing packages
 alias upd="sudo apt-fast update"
