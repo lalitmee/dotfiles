@@ -420,6 +420,28 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; console log insert 
+  (defun insert-console-log ()
+    "Insert console.log of the variable at point."
+    (interactive)
+    (let ((beg nil)
+          (end nil))
+      (back-to-indentation)
+      (setq beg (point))
+      (end-of-line)
+      (setq end (point))
+      (message "beg %s" beg)
+      (message "end %s" end)
+      (message "type of %s" (type-of kill-ring))
+      (kill-region beg end)
+      (insert (format "console.log(\"%s\", %s)"
+                      (car kill-ring)
+                      (car kill-ring)))))
+
+  ;; keybindings for inserting console log
+  (spacemacs/set-leader-keys-for-major-mode 'web-mode "l" 'insert-console-log)
+  (spacemacs/set-leader-keys-for-major-mode 'react-mode "l" 'insert-console-log)
+  (spacemacs/set-leader-keys-for-major-mode 'typescript-mode "l" 'insert-console-log)
 
   ;; comment box
   (defun jcs-comment-box (b e)
