@@ -238,7 +238,37 @@ abbr attribuet attribute
 
 " coc.nvim settins {{{
 
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-yaml', 'coc-python', 'coc-highlight', 'coc-emmet', 'coc-snippets', 'coc-lists', 'coc-angular', 'coc-tslint',  'coc-git', 'coc-yank', 'coc-svg', 'coc-vimlsp', 'coc-xml', 'coc-texlab', 'coc-prettier', 'coc-smartf', 'coc-gitignore', 'coc-ultisnips', 'coc-neosnippet', 'coc-go', 'coc-gocode', 'coc-sh', 'coc-emoji', 'coc-dictionary', 'coc-syntax']
+let g:coc_global_extensions = [
+                                'coc-json',
+                                'coc-tsserver',
+                                'coc-html',
+                                'coc-css',
+                                'coc-yaml',
+                                'coc-python',
+                                'coc-highlight',
+                                'coc-emmet',
+                                'coc-snippets',
+                                'coc-lists',
+                                'coc-angular',
+                                'coc-tslint',
+                                'coc-git',
+                                'coc-yank',
+                                'coc-svg',
+                                'coc-vimlsp',
+                                'coc-xml',
+                                'coc-texlab',
+                                'coc-prettier',
+                                'coc-smartf',
+                                'coc-gitignore',
+                                'coc-ultisnips',
+                                'coc-neosnippet',
+                                'coc-go',
+                                'coc-gocode',
+                                'coc-sh',
+                                'coc-emoji',
+                                'coc-dictionary',
+                                'coc-syntax'
+                                ]
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
