@@ -236,8 +236,13 @@ alias to="task"
 # vim remote send stuff
 alias g="vim --remote-silent"
 
+# nvm path
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+
 # tmuxinator completion file
-source ~/tmuxinator.bash
+# source ~/tmuxinator.bash
 
 # nvim path for oni
 # export ONI_NEOVIM_PATH='/home/lalit/app_images/nvim.appimage'
@@ -261,17 +266,21 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
 
-# autojump Path settings
-[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
-
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+
+autoload -Uz compinit
+compinit
+
+# autojump Path settings
+[ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
 
 # transfer.sh alias
 transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi 
