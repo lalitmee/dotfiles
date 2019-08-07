@@ -50,7 +50,7 @@
   "editor.suggest.localityBonus": true,
   // sort import on save
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    // "source.organizeImports": true
   },
   // ligatures and cursive fonts settings
   "editor.tokenColorCustomizations": {
