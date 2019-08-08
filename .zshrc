@@ -9,12 +9,11 @@ export ZSH="/home/lalit/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-#ZSH_THEME="agnoster"
-#ZSH_THEME="bira"
-#ZSH_THEME="spaceship"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
-#ZSH_THEME="bullet-train"
-#ZSH_THEME="agnosterzak"
+# ZSH_THEME="agnoster"
+# ZSH_THEME="bira"
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+# ZSH_THEME="bullet-train"
+# ZSH_THEME="agnosterzak"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -157,7 +156,7 @@ alias zs="source ~/.zshrc"
 
 # aliases for some terminal programmes
 alias yt="youtube-dl"
-alias wt="curl wttr.in/bangalore"
+alias wt="curl wttr.in"
 alias wk="wikit"
 alias wb="wikit -b"
 
@@ -223,6 +222,10 @@ alias tsq="tmuxinator start c-quotes"
 alias teq="tmuxinator edit c-quotes"
 alias tst="tmuxinator start talaria"
 alias tet="tmuxinator edit talaria"
+alias tsw="tmuxinator start wfws"
+alias tew="tmuxinator edit wfws"
+alias tsm="tmuxinator start mwsn"
+alias tem="tmuxinator edit mwsn"
 alias tn="tmuxinator new"
 alias ts="tmuxinator start"
 alias te="tmuxinator edit"
@@ -274,7 +277,7 @@ export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 autoload -Uz compinit
 compinit
