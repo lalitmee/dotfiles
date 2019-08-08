@@ -232,14 +232,20 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '((
                                "OperatorMono Nerd Font"
+                               ;; "Operator Mono Lig Book"
                                ;; "Fira Code"
+                               ;; "FiraCode Nerd Font"
+                               ;; "Ubuntu Mono"
+                               ;; "Monaco for Powerline"
+                               ;; "monofur for Powerline"
+                               ;; "Powerline Consolas"
                                :size 18
-                               :weight normal
+                               :weight light
                                :width normal
                                :powerline-scale 1.3)
                                ("Fira Code Symbol"
                                 :size 16
-                                :weight normal
+                                :weight light
                                 :width normal
                                 :powerline-scale 1.1))
    ;; The leader key
@@ -444,7 +450,7 @@ you should place your code here."
   ;; (add-hook 'emms-browser-show-display-hook 'evil-initialize)
 
   ;; project project search path
-  (setq projectile-project-search-path '("~/Desktop/Github/" "~/Desktop/GitLab"))
+  (setq projectile-project-search-path '("~/Desktop/Github/" "~/Desktop/GitLab/" "~/Desktop/koinearth/"))
 
 
   ;; console log insert
