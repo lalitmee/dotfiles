@@ -478,7 +478,7 @@ let g:syntastic_check_on_wq = 0
 " goto plugin mapping for React
 noremap <leader>gt :call ReactGotoDef()<CR>
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'npm run eslint --'
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 let g:jsx_ext_required = 0
 
 " }}}
@@ -1263,7 +1263,7 @@ let g:prettier#config#html_whitespace_sensitivity = 'ignore'
 
 " none|es5|all
 " Prettier default: none
-let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#trailing_comma = 'es5'
 
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
