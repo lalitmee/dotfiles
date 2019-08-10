@@ -75,8 +75,8 @@ colored-man-pages
 command-not-found
 common-aliases
 copyfile
-debian
 dirhistory
+last-working-dir
 docker
 encode64
 fasd
@@ -139,9 +139,6 @@ export LC_CTYPE=en_US.UTF-8
 # for finding swap files
 alias swps="find . -name .\*.sw[op]"
 
-# alias for chuck-norris jokes with curl command
-alias chuck="curl -s http://api.icndb.com/jokes/random/ | python -c 'import sys, json; print "\n\n"+json.load(sys.stdin)["value"]["joke"]+"\n\n"'"
-
 # wikit alias
 alias wi="wikit"
 
@@ -149,6 +146,7 @@ alias wi="wikit"
 alias d="dict"
 
 # aliases for updating and installing packages
+alias update="sudo apt-get update && sudo apt-get upgrade"
 alias upd="sudo apt-fast update"
 alias upg="sudo apt-fast upgrade -y"
 alias updg="sudo apt-fast dist-upgrade -y"
@@ -198,8 +196,11 @@ alias nis="npm install --save"
 alias nid="npm install --save-dev"
 
 # common aliases
+alias rm="rm -i"
 alias rmnode="rm -rf node_modules"
 alias rmpack="rm -rf package-lock.json"
+alias hs="history | grep"
+alias myip="curl http://ipecho.net/plain; echo"
 
 
 # alias for git commands
