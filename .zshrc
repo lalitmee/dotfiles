@@ -68,35 +68,39 @@ export UPDATE_ZSH_DAYS=10
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-geeknote
-gitfast
-rand-quote
-screen
-taskwarrior
-fasd
-encode64
 autojump
-git
-git-extras
-tmuxinator
-tmux
+brew
+chucknorris
+colored-man-pages
 command-not-found
 common-aliases
+copyfile
+debian
 dirhistory
 docker
+encode64
+fasd
+geeknote
 gem
+git
+git-extras
+gitfast
 history
 ng
 node
 npm
 pip
 pyenv
+rand-quote
+repo
 ruby
 rvm
-repo
+screen
 sudo
+taskwarrior
+tmux
+tmuxinator
 web-search
-colored-man-pages
 zsh-autosuggestions
 )
 
@@ -133,7 +137,10 @@ export LC_CTYPE=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # for finding swap files
-alias swps='find . -name .\*.sw[op]'
+alias swps="find . -name .\*.sw[op]"
+
+# alias for chuck-norris jokes with curl command
+alias chuck="curl -s http://api.icndb.com/jokes/random/ | python -c 'import sys, json; print "\n\n"+json.load(sys.stdin)["value"]["joke"]+"\n\n"'"
 
 # wikit alias
 alias wi="wikit"
@@ -183,6 +190,16 @@ alias gco="git checkout"
 alias gcn="git checkout -b"
 alias gfu="git fetch upstream"
 alias gco="git checkout master"
+
+#aliases for npm
+alias ni="npm install"
+alias nig="npm install -g"
+alias nis="npm install --save"
+alias nid="npm install --save-dev"
+
+# common aliases
+alias rmnode="rm -rf node_modules"
+alias rmpack="rm -rf package-lock.json"
 
 
 # alias for git commands
@@ -279,8 +296,9 @@ export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
-autoload -Uz compinit
+autoload -Uz compinit bashcompinit
 compinit
+bashcompinit
 
 # autojump Path settings
 [ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
