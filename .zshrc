@@ -93,6 +93,7 @@ pip
 pyenv
 rand-quote
 repo
+yarn
 ruby
 rvm
 screen
