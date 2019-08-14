@@ -20,7 +20,7 @@
   "editor.cursorBlinking": "blink",
   "editor.renderWhitespace": "boundary",
   // font family
-  "editor.fontFamily": "Operator Mono Lig Book, Monofur for Powerline, Dank Mono, Fira Code, Menlo, Monaco, Hack, 'Courier New', monospace",
+  "editor.fontFamily": "Operator Mono Lig Book, Inconsolata, Monofur for Powerline, Menlo,  Dank Mono,  Powerline Consolas, Fira Code,  Monaco, Hack, 'Courier New', monospace",
   // making good ===, => and more
   "editor.fontLigatures": true,
   // format on paste
@@ -59,6 +59,7 @@
         "scope": [
           "comment",
           "entity.name.type.class", //class names
+          "entity.other.attribute-name", // html attributes
           "keyword", //import, export, return…
           "constant", //String, Number, Boolean…
           "variable.language", //this, super
@@ -88,7 +89,7 @@
    * PRETTIER SETTINGS *
    *********************/
   "prettier.singleQuote": true,
-  "prettier.eslintIntegration": true,
+  "prettier.eslintIntegration": false,
   "prettier.htmlWhitespaceSensitivity": "ignore",
   "prettier.useTabs": false,
   // "prettier.disableLanguages": ["html"],
@@ -285,7 +286,7 @@
   "todo.statistics.project.enabled": "false",
   "aceJump.finder.skipSelection": true,
   "eslint.options": {
-    "configFile": "./.eslintrc"
+    "configFile": "./.eslintrc.js"
   },
   "editor.renderIndentGuides": false,
   /************************
@@ -311,7 +312,7 @@
    ******************/
   "rewrap.autoWrap.enabled": true,
   "git.enableSmartCommit": true,
-  "workbench.colorTheme": "Cobalt2",
+  "workbench.colorTheme": "Shades of Purple",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -380,7 +381,10 @@
       "value": "#42b883"
     }
   ],
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
