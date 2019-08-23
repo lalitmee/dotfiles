@@ -101,7 +101,7 @@ module.exports = {
       2: 'start',
       3: 'build',
       // will run `npm test` since it's a native npm command
-      4: 'test'
+      4: 'test',
     },
 
     // the full list. if you're going to provide the full color palette,
@@ -123,7 +123,7 @@ module.exports = {
       lightBlue: '#6A76FB',
       lightMagenta: '#FD7CFC',
       lightCyan: '#68FDFE',
-      lightWhite: '#FFFFFF'
+      lightWhite: '#FFFFFF',
     },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
@@ -164,7 +164,7 @@ module.exports = {
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
-    webGLRenderer: false
+    webGLRenderer: false,
   },
 
   // a list of plugins to fetch and install from npm
@@ -186,7 +186,6 @@ module.exports = {
     'hyper-match',
     'hypertheme',
     'hyper-tab-icons',
-    'hyperfullscreen',
     'hyper-command-gifs',
     'hyper-solarized-light',
     'hyper-solarized-dark',
@@ -202,5 +201,5 @@ module.exports = {
   keymaps: {
     // Example
     // 'window:devtools': 'cmd+alt+o',
-  }
+  },
 };
