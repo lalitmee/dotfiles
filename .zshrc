@@ -9,6 +9,7 @@ export ZSH="/home/lalit/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="spaceship"
 # ZSH_THEME="agnoster"
 # ZSH_THEME="bira"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
@@ -136,6 +137,10 @@ export LC_CTYPE=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# for ls replacement with exa
+alias ls="exa"
+alias cat="bat"
 
 # for finding swap files
 alias swps="find . -name .\*.sw[op]"
@@ -284,9 +289,9 @@ export PYENV_ROOT="$(pyenv root)"
 export EDITOR=nvim
 
 # Tilix settings
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
+# if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+#         source /etc/profile.d/vte.sh
+# fi
 
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
