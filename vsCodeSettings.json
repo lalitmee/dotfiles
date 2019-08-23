@@ -5,7 +5,7 @@
   // format the code on hitting the save
   "editor.formatOnSave": true,
   // font face
-  "editor.fontSize": 16,
+  "editor.fontSize": 15,
   // wrap lines if went out of the view
   "editor.wordWrap": "on",
   // ruler settins
@@ -108,11 +108,11 @@
   /**************
    * FILE ICONS *
    **************/
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vscode-icons",
   /**************
    * ZOOM LEVEL *
    **************/
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -1,
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
   /********************************
@@ -312,7 +312,7 @@
    ******************/
   "rewrap.autoWrap.enabled": true,
   "git.enableSmartCommit": true,
-  "workbench.colorTheme": "Shades of Purple",
+  "workbench.colorTheme": "One Dark Pro",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -384,7 +384,10 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "editor.lineNumbers": "relative",
+  "editor.cursorWidth": 3,
+  "terminal.integrated.cursorBlinking": true
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
