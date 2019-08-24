@@ -142,6 +142,9 @@ export LC_CTYPE=en_US.UTF-8
 alias ls="exa"
 alias cat="bat"
 
+# alias for cheatsheet command
+alias cheat="cheatsheet"
+
 # for finding swap files
 alias swps="find . -name .\*.sw[op]"
 
@@ -314,3 +317,10 @@ bashcompinit
 transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi 
 	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; } 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+### Bashhub.com Installation
+if [ -f ~/.bashhub/bashhub.zsh ]; then
+    source ~/.bashhub/bashhub.zsh
+fi
+
+source ~/.aliasme/aliasme.sh
