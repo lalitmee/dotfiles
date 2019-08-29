@@ -140,6 +140,9 @@ export LC_CTYPE=en_US.UTF-8
 alias ls="exa"
 alias cat="bat"
 
+# hacker-new client
+alias hn="haxor-news"
+
 # alias for cheatsheet command
 alias cheat="cheatsheet"
 
