@@ -29,7 +29,6 @@ call plug#begin(expand('~/.vim/plugged'))
 "*****************************************************************************
 Plug 'ervandew/supertab'
 Plug 'itchyny/lightline.vim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -43,6 +42,8 @@ Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'kien/ctrlp.vim'
+Plug 'dansomething/vim-hackernews'
+" Plug 'vim-syntastic/syntastic'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -56,6 +57,43 @@ if exists('make')
 endif
 Plug 'Shougo/vimproc.vim', {'do': g:make}
 
+"" vim-syntastic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_loc_list_height = 5
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 1
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_error_symbol = '❌'
+" let g:syntastic_style_error_symbol = '⁉️'
+" let g:syntastic_warning_symbol = '⚠️'
+" let g:syntastic_style_warning_symbol = '💩'
+" highlight link SyntasticErrorSign SignColumn
+" highlight link SyntasticWarningSign SignColumn
+" highlight link SyntasticStyleErrorSign SignColumn
+" highlight link SyntasticStyleWarningSign SignColumn
+
+"" Hackernews
+noremap <silent> <leader>hn :HackerNews best<CR>
+
+"" Colors
+Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'fenetikm/falcon'
+Plug 'itchyny/landscape.vim'
+Plug 'tomasr/molokai'
+
+"" Lightline Colors
+Plug 'wolf-dog/lightline-nighted.vim'
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ }
+
 "" Vim-Session
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
@@ -63,9 +101,6 @@ Plug 'xolox/vim-session'
 "" Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-"" Color
-Plug 'tomasr/molokai'
 
 "*****************************************************************************
 "" Custom bundles
@@ -102,10 +137,11 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 
-" c
+" C && C++
 Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
 Plug 'rhysd/vim-clang-format'
 Plug 'ludwig/split-manpage.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 
 " go
@@ -167,6 +203,8 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 set ttyfast
+set formatoptions-=cro
+set formatlistpat=^\\s*[0-9*]\\+[\\]:.)}\\t\ ]\\s*
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -213,7 +251,7 @@ set wildmode=longest,list,full
 set wildmenu
 
 let no_buffers_menu=1
-silent! colorscheme darkblue
+silent! colorscheme landscape
 
 set mousemodel=popup
 set t_Co=256
@@ -366,6 +404,8 @@ set autoread
 "" Mappings
 "*****************************************************************************
 
+
+
 " General
 noremap <silent> <leader>x :q<CR>
 
@@ -433,7 +473,12 @@ endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> ff :FZF -m<CR>
+
+nnoremap <silent> <leader>ff :FZF -m<CR>
+nnoremap <silent> <leader>bb :Buffers<CR>
+nnoremap <silent> <leader>cc :Colors<CR>
+nnoremap <silent> <leader>hh :History<CR>
+
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
 
@@ -510,27 +555,27 @@ let g:clang_use_library = 1
 
 " CLANG FORMAT
 " default settings
-let g:clang_format#auto_format = 1
-let g:clang_format#code_style = "llvm"
-let g:clang_format#style_options = {
-      \ "AllowShortFunctionsOnASingleLine": "Empty",
-      \ "AlwaysBreakTemplateDeclarations": "true",
-      \ "BreakBeforeBraces": "Allman",
-      \ "BreakConstructorInitializersBeforeComma": "true",
-      \ "IndentCaseLabels": "true",
-      \ "IndentWidth":     4,
-      \ "MaxEmptyLinesToKeep": 2,
-      \ "NamespaceIndentation": "Inner",
-      \ "ObjCBlockIndentWidth": 4,
-      \ "TabWidth": 4}
+" let g:clang_format#auto_format = 1
+" let g:clang_format#code_style = "llvm"
+" let g:clang_format#style_options = {
+"       \ "AllowShortFunctionsOnASingleLine": "false",
+"       \ "AlwaysBreakTemplateDeclarations": "true",
+"       \ "BreakBeforeBraces": "false",
+"       \ "BreakConstructorInitializersBeforeComma": "true",
+"       \ "IndentCaseLabels": "true",
+"       \ "IndentWidth":     4,
+"       \ "MaxEmptyLinesToKeep": 2,
+"       \ "NamespaceIndentation": "Inner",
+"       \ "ObjCBlockIndentWidth": 4,
+"       \ "TabWidth": 4}
 
-augroup ClangFormatSettings
-    autocmd!
-    " if you install vim-operator-user
-    autocmd FileType c,cpp,objc,java,javascript map <buffer><Leader>c <Plug>(operator-clang-format)
-    autocmd FileType vimwiki nmap <leader>tts :TaskWikiMod +sprint<CR>
-    autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
-augroup END
+" augroup ClangFormatSettings
+"     autocmd!
+"     " if you install vim-operator-user
+"     autocmd FileType c,cpp,objc,java,javascript map <buffer><Leader>c <Plug>(operator-clang-format)
+"     autocmd FileType vimwiki nmap <leader>tts :TaskWikiMod +sprint<CR>
+"     autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
+" augroup END
 
 
 " go
@@ -618,6 +663,8 @@ augroup END
 
 " python
 " vim-python
+
+Plug 'Vimjas/vim-python-pep8-indent'
 augroup vimrc-python
   autocmd!
   autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
