@@ -69,9 +69,7 @@ export UPDATE_ZSH_DAYS=10
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-autojump
 brew
-chucknorris
 colored-man-pages
 command-not-found
 common-aliases
@@ -156,10 +154,11 @@ alias d="dict"
 
 # aliases for updating and installing packages
 alias update="sudo apt-get update && sudo apt-get upgrade"
-alias upd="sudo apt-fast update"
+alias upd="sudo apt-fast update -y"
 alias upg="sudo apt-fast upgrade -y"
 alias updg="sudo apt-fast dist-upgrade -y"
-alias install="sudo apt-fast install"
+alias install="sudo apt-fast install -y"
+alias fix="sudo apt-fast install -f -y"
 alias purge="sudo apt-fast purge"
 alias remove="sudo apt-fast autoremove"
 alias dpkg="sudo dpkg -i"
@@ -296,6 +295,10 @@ export EDITOR=nvim
 #         source /etc/profile.d/vte.sh
 # fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -310,12 +313,12 @@ autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
 
-# autojump Path settings
-[ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
+# # autojump Path settings
+# [ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
 
 # transfer.sh alias
-transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi 
-	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; } 
+transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
+	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 ### Bashhub.com Installation
@@ -324,3 +327,5 @@ if [ -f ~/.bashhub/bashhub.zsh ]; then
 fi
 
 source ~/.aliasme/aliasme.sh
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
