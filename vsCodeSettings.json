@@ -8,19 +8,17 @@
   "editor.fontSize": 15,
   // wrap lines if went out of the view
   "editor.wordWrap": "on",
-  // ruler settins
-  "editor.rulers": [80, 120],
   // line height
   "editor.lineHeight": 25,
   // letter spacings
   "editor.letterSpacing": 0.5,
   // font weight
-  "editor.fontWeight": "600",
+  "editor.fontWeight": "bold",
   // cursor blinking
   "editor.cursorBlinking": "blink",
   "editor.renderWhitespace": "boundary",
   // font family
-  "editor.fontFamily": "Operator Mono Lig Book, Inconsolata, Monofur for Powerline, Menlo,  Dank Mono,  Powerline Consolas, Fira Code,  Monaco, Hack, 'Courier New', monospace",
+  "editor.fontFamily": "Operator Mono Lig Book, Inconsolata, Monofur for Powerline, Menlo, Dank Mono,  Powerline Consolas, Fira Code,  Monaco, Hack, 'Courier New', monospace",
   // making good ===, => and more
   "editor.fontLigatures": true,
   // format on paste
@@ -108,7 +106,7 @@
   /**************
    * FILE ICONS *
    **************/
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.iconTheme": "material-icon-theme",
   /**************
    * ZOOM LEVEL *
    **************/
@@ -312,7 +310,7 @@
    ******************/
   "rewrap.autoWrap.enabled": true,
   "git.enableSmartCommit": true,
-  "workbench.colorTheme": "One Dark Pro",
+  "workbench.colorTheme": "Cobalt2",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -387,7 +385,8 @@
   },
   "editor.lineNumbers": "relative",
   "editor.cursorWidth": 3,
-  "terminal.integrated.cursorBlinking": true
+  "terminal.integrated.cursorBlinking": true,
+  "sync.forceUpload": true
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
