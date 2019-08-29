@@ -7,24 +7,23 @@ call plug#begin()
 
 " Main {{{
 
-Plug 'justinmk/vim-sneak'             " Vim sneak with two words
-Plug 'suan/vim-instant-markdown'      " Instant markdown preview from vim
-Plug 'dyng/ctrlsf.vim'                " Ctrl + Shift + F on sublime text
-Plug 'kshenoy/vim-signature'          " toggle, display and navigate marks
-Plug 'jaxbot/github-issues.vim'       " lookup for github issues in the commit message window
-Plug 'haya14busa/incsearch.vim'       " Better search highlighting
-Plug 'vim-syntastic/syntastic'        " Syntax Checking
-Plug 'Raimondi/delimitMate'           " Better HTML Editing
-Plug 'mileszs/ack.vim'                " SilverSearcher
-Plug 'terryma/vim-multiple-cursors'   " Multiple Cursor
-Plug 'airblade/vim-gitgutter'         " Vim Git Gutter
-Plug 'vim-airline/vim-airline'        " vim airlines
-Plug 'vim-airline/vim-airline-themes' " vim airline themes
-Plug 'ryanoasis/vim-devicons'         " vim icons
-Plug 'junegunn/vim-journal'           " something like org-mode in vim
-Plug 'gioele/vim-autoswap'            " for handling swap files
-Plug 'danro/rename.vim'               " for renaming the current buffer
-Plug 'tomtom/tcomment_vim'            " for commenting out code
+Plug 'justinmk/vim-sneak'           " Vim sneak with two words
+Plug 'suan/vim-instant-markdown'    " Instant markdown preview from vim
+Plug 'dyng/ctrlsf.vim'              " Ctrl + Shift + F on sublime text
+Plug 'kshenoy/vim-signature'        " toggle, display and navigate marks
+Plug 'jaxbot/github-issues.vim'     " lookup for github issues in the commit message window
+Plug 'haya14busa/incsearch.vim'     " Better search highlighting
+Plug 'vim-syntastic/syntastic'      " Syntax Checking
+Plug 'Raimondi/delimitMate'         " Better HTML Editing
+Plug 'mileszs/ack.vim'              " SilverSearcher
+Plug 'terryma/vim-multiple-cursors' " Multiple Cursor
+Plug 'airblade/vim-gitgutter'       " Vim Git Gutter
+Plug 'itchyny/lightline.vim'        " lightweight statusline for vim
+Plug 'ryanoasis/vim-devicons'       " vim icons
+Plug 'junegunn/vim-journal'         " something like org-mode in vim
+Plug 'gioele/vim-autoswap'          " for handling swap files
+Plug 'danro/rename.vim'             " for renaming the current buffer
+Plug 'tomtom/tcomment_vim'          " for commenting out code
 
 " }}}
 
@@ -66,15 +65,14 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Colors {{{
 
 Plug 'vim-scripts/xoria256.vim'
-Plug 'justinmk/molokai'
 Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
-Plug 'joshdick/onedark.vim' " onedark Color Scheme
-Plug 'sickill/vim-monokai'  " monokai Color Scheme
 
 " }}}
 
 " JavaScript {{{
 
+Plug 'isRuslan/vim-es6'
+Plug 'pangloss/vim-javascript'
 Plug 'heavenshell/vim-jsdoc' " for commenting the code
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
@@ -82,6 +80,47 @@ Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
 Plug 'Ivo-Donchev/vim-react-goto-definition'
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
 Plug 'justinj/vim-react-snippets'
+
+" }}}
+
+" Golang {{{
+
+Plug 'vim-scripts/c.vim' 
+Plug 'rhysd/vim-clang-format'
+
+let g:clang_library_path='/usr/lib/llvm-6.0/lib'
+let g:clang_use_library = 1
+
+" CLANG FORMAT
+" default settings
+let g:clang_format#auto_format = 1
+let g:clang_format#code_style = "llvm"
+let g:clang_format#style_options = {
+      \ "AllowShortFunctionsOnASingleLine": "Empty",
+      \ "AlwaysBreakTemplateDeclarations": "true",
+      \ "BreakBeforeBraces": "Allman",
+      \ "BreakConstructorInitializersBeforeComma": "true",
+      \ "IndentCaseLabels": "true",
+      \ "IndentWidth":     4,
+      \ "MaxEmptyLinesToKeep": 2,
+      \ "NamespaceIndentation": "Inner",
+      \ "ObjCBlockIndentWidth": 4,
+      \ "TabWidth": 4}
+
+augroup ClangFormatSettings
+    autocmd!
+    " if you install vim-operator-user
+    autocmd FileType c,cpp,objc,java,javascript map <buffer><Leader>c <Plug>(operator-clang-format)
+    autocmd FileType vimwiki nmap <leader>tts :TaskWikiMod +sprint<CR>
+    autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
+augroup END
+
+" }}}
+
+
+" Golang {{{
+
+Plug 'arp242/gopher.vim' 
 
 " }}}
 
@@ -122,12 +161,6 @@ let g:vim_json_syntax_conceal = 0
 
 " }}}
 
-" Golang {{{
-
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" }}}
-
 " Plugins for JavaScript & TypeScript {{{
 
 Plug 'rhysd/npm-debug-log.vim'
@@ -135,7 +168,8 @@ Plug 'neovim/node-host',                  { 'do': 'npm install' }
 Plug 'cdata/vim-tagged-template'
 Plug 'romainl/ctags-patterns-for-javascript'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+" Use release branch
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " }}}
 
@@ -196,6 +230,9 @@ Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/loremipsum'
 Plug 'metakirby5/codi.vim'
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 " }}}
 
 " Entertainment {{{
@@ -224,6 +261,16 @@ Plug 'vim-scripts/DrawIt' " For drawing easily
 call plug#end()
 
 " }}}
+
+" FZF {{{
+
+nnoremap <silent> <leader>ff :FZF -m<CR>
+nnoremap <silent> <leader>bb :Buffers<CR>
+nnoremap <silent> <leader>cc :Colors<CR>
+nnoremap <silent> <leader>hh :History<CR>
+
+
+" }}} 
 
 " Abbreviations{{{ "
 
@@ -279,7 +326,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -493,31 +540,6 @@ endif
 
 " }}}
 
-" Airline {{{
-
-let g:airline_theme = 'badwolf'
-let g:airline_powerline_fonts = 1
-"let g:airline_section_z = ' %{percentage line number column number strftime("%-I:%M %p")}'
-let g:airline_section_warning = ''
-let g:airline#extensions#tabline#enabled = 1
-
-" function! DerekFugitiveStatusLine()
-"   let status = fugitive#statusline()
-"   let trimmed = substitute(status, '\[Git(\(.*\))\]', '\1', '')
-"   let trimmed = substitute(trimmed, '\(\w\)\w\+[_/]\ze', '\1/', '')
-"   let trimmed = substitute(trimmed, '/[^_]*\zs_.*', '', '')
-"   if len(trimmed) == 0
-"     return ""
-"   else
-"     return '(' . trimmed[0:10] . ')'
-"   endif
-" endfunction
-"
-" " Set the status line the way i like it
-" set stl=%f\ %m\ %r%{DerekFugitiveStatusLine()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
-
-" }}}
-
 " Neovim :Terminal {{{
 
 tmap <Esc> <C-\><C-n>
@@ -624,10 +646,6 @@ nmap <leader>w :TagbarToggle<CR>
 nmap \ <leader>q<leader>w
 nmap <leader>ee :Colors<CR>
 nmap <leader>ce :colorscheme<space>
-nmap <leader>ea :AirlineTheme
-nmap <leader>co :colorscheme onedark<CR>
-nmap <leader>cm :colorscheme molokai<CR>
-nmap <leader>tb :colorscheme Tomorrow-Night-Bright<CR>
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>e :e ~/.config/nvim/init.vim<CR>
 
@@ -1077,6 +1095,7 @@ augroup END
 
 " Other Configurations {{{
 
+
 set relativenumber                                           " relative line numbers
 set cursorline                                               " highlight the current line
 set tags=./tags;/
@@ -1192,6 +1211,29 @@ highlight xmlAttrib cterm=italic term=italic gui=italic
 
 " vim-javascript settings
 let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+set conceallevel=1
+
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_conceal_noarg_arrow_function = "🞅"
+let g:javascript_conceal_underscore_arrow_function = "🞅"
+
+augroup filetype javascript syntax=javascript
 
 " }}}
 
@@ -1263,7 +1305,7 @@ let g:prettier#config#html_whitespace_sensitivity = 'ignore'
 
 " none|es5|all
 " Prettier default: none
-let g:prettier#config#trailing_comma = 'es5'
+let g:prettier#config#trailing_comma = 'all'
 
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
