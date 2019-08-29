@@ -246,7 +246,7 @@ values."
                                ;; "Monaco for Powerline"
                                ;; "monofur for Powerline"
                                ;; "Powerline Consolas"
-                               :size 17
+                               :size 15
                                :weight light
                                :width normal
                                :powerline-scale 1.3)
@@ -927,7 +927,7 @@ comment box."
 
   ;; prettier settings
   (setq prettier-js-args '(
-                           "--trailing-comma" "es5"
+                           "--trailing-comma" "all"
                            "--print-width 80"
                            "--tab-width 2"
                            "--single-quote" "true"
