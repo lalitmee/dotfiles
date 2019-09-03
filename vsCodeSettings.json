@@ -8,6 +8,11 @@
   "editor.fontSize": 15,
   // wrap lines if went out of the view
   "editor.wordWrap": "on",
+  // ruler settins
+  "editor.rulers": [
+    80,
+    120
+  ],
   // line height
   "editor.lineHeight": 25,
   // letter spacings
@@ -149,9 +154,10 @@
    * FILES TO WATCH OR NOT *
    *************************/
   "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
-    "**/node_modules/*/**": true
   },
   /****************************
    * BETTER COMMENTS SETTINGS *
@@ -226,18 +232,31 @@
   "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "commands": ["workbench.action.files.save"],
-      "before": ["<Leader>", ","]
+      "commands": [
+        "workbench.action.files.save"
+      ],
+      "before": [
+        "<Leader>",
+        ","
+      ]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": [">"],
-      "commands": ["editor.action.indentLines"]
+      "before": [
+        ">"
+      ],
+      "commands": [
+        "editor.action.indentLines"
+      ]
     },
     {
-      "before": ["<"],
-      "commands": ["editor.action.outdentLines"]
+      "before": [
+        "<"
+      ],
+      "commands": [
+        "editor.action.outdentLines"
+      ]
     }
   ],
   "vim.enableNeovim": true,
@@ -315,7 +334,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.minimap.renderCharacters": false,
-  "editor.minimap.maxColumn": 200,
+  "editor.minimap.maxColumn": 100,
   "editor.cursorSmoothCaretAnimation": true,
   "workbench.tips.enabled": false,
   "editor.suggestSelection": "first",
@@ -385,8 +404,7 @@
   },
   "editor.lineNumbers": "relative",
   "editor.cursorWidth": 3,
-  "terminal.integrated.cursorBlinking": true,
-  "sync.forceUpload": true
+  "terminal.integrated.cursorBlinking": true
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
