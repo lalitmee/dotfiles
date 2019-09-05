@@ -66,6 +66,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 Plug 'vim-scripts/xoria256.vim'
 Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
+Plug 'itchyny/landscape.vim'
 
 " }}}
 
@@ -466,7 +467,7 @@ let g:tern#arguments = ['--persistent']
 "let ayucolor="dark"
 syntax on
 set bg=dark
-colorscheme gruvbox
+colorscheme landscape
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight Pmenu guibg=LightYellow1 guifg=black
 highlight Comment cterm=italic
