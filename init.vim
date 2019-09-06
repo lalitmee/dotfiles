@@ -468,6 +468,7 @@ let g:tern#arguments = ['--persistent']
 syntax on
 set bg=dark
 colorscheme landscape
+" colorscheme darkblue
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight Pmenu guibg=LightYellow1 guifg=black
 highlight Comment cterm=italic
