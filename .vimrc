@@ -203,7 +203,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 set ttyfast
-set formatoptions-=cro
+set formatoptions=tcqrn1
 set formatlistpat=^\\s*[0-9*]\\+[\\]:.)}\\t\ ]\\s*
 
 "" Fix backspace indent
@@ -251,12 +251,14 @@ set wildmode=longest,list,full
 set wildmenu
 
 let no_buffers_menu=1
-silent! colorscheme landscape
+" silent! colorscheme landscape
+silent! colorscheme darkblue
 
 set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
-set gfn=FiraCode\ Nerd\ Font\ Medium\ 13
+set gfn=Monaco\ Regular\ 13
+" set gfn=FiraCode\ Nerd\ Font\ Medium\ 13
 " set gfn=IBM\ Plex\ Mono\ 11
 " set gfn=Powerline\ Consolas\ 11
 " set gfn=Ubuntu\ Mono\ 12
