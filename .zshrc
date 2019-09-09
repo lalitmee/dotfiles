@@ -136,6 +136,9 @@ export LC_CTYPE=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+#alias for imgur-uploader
+alias img="imgur-uploader"
+
 # for ls replacement with exa
 alias ls="exa"
 alias cat="bat"
@@ -156,7 +159,7 @@ alias wi="wikit"
 alias d="dict"
 
 # aliases for updating and installing packages
-alias update="sudo apt-get update && sudo apt-get upgrade"
+alias update="sudo apt-fast update -y && sudo apt-fast upgrade -y"
 alias upd="sudo apt-fast update -y"
 alias upg="sudo apt-fast upgrade -y"
 alias updg="sudo apt-fast dist-upgrade -y"
@@ -268,11 +271,6 @@ alias to="task"
 # vim remote send stuff
 alias g="vim --remote-silent"
 
-# nvm path
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-
 # tmuxinator completion file
 # source ~/tmuxinator.bash
 
@@ -316,8 +314,8 @@ autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
 
-# # autojump Path settings
-# [ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
+# autojump
+[ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
 
 # transfer.sh alias
 transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
@@ -332,3 +330,6 @@ fi
 source ~/.aliasme/aliasme.sh
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
+export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
