@@ -5,14 +5,14 @@
   // format the code on hitting the save
   "editor.formatOnSave": true,
   // font face
-  "editor.fontSize": 15,
+  "editor.fontSize": 16,
   // wrap lines if went out of the view
   "editor.wordWrap": "on",
   // ruler settins
-  "editor.rulers": [
-    80,
-    120
-  ],
+  // "editor.rulers": [
+  //   80,
+  //   120
+  // ],
   // line height
   "editor.lineHeight": 25,
   // letter spacings
@@ -158,6 +158,7 @@
     "**/.git/subtree-cache/**": true,
     "**/dist/**": true,
     "**/node_modules/**": true,
+    "**/node_modules/*/**": true,
     "**/tmp/**": true
   },
   "files.watcherExclude": {
@@ -165,7 +166,8 @@
     "**/.git/subtree-cache/**": true,
     "**/dist/**": true,
     "**/node_modules/**": true,
-    "**/tmp/**": true
+    "**/tmp/**": true,
+    "**/node_modules/*/**": true
   },
   /*******************
    * SEARCH SETTINGS *
@@ -412,7 +414,8 @@
   },
   "editor.lineNumbers": "relative",
   "editor.cursorWidth": 3,
-  "terminal.integrated.cursorBlinking": true
+  "terminal.integrated.cursorBlinking": true,
+  "sync.forceUpload": true
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
