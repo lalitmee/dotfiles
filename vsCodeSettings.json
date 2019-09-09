@@ -40,11 +40,11 @@
   "editor.matchBrackets": false,
   // color for current line number and indent color
   "workbench.colorCustomizations": {
-    "editorLineNumber.activeForeground": "#ff6600",
+    "editorLineNumber.activeForeground": "#ffd000",
     "editorBracketMatch.border": "#ff0000",
     "editorOverviewRuler.bracketMatchForeground": "#ff0000",
     "editorIndentGuide.activeBackground": "#33ff00",
-    "editorRuler.foreground": "#ff6600"
+    "editorRuler.foreground": "#ffd000"
   },
   "editor.snippetSuggestions": "top",
   // editor tab completions of the suggestions
