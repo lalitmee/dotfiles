@@ -121,7 +121,7 @@ values."
      (wakatime :variables
                wakatime-api-key  "24ffed3b-d336-43be-80ff-2292eaefa867"
                ;; use the actual wakatime path
-               wakatime-cli-path "/usr/local/bin/wakatime")
+               wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
 
      ;; appearence
      themes-megapack
