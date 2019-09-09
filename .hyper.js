@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      'Operator Mono Lig Book, Source Code Pro for Powerline, Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Operator Mono Lig Medium, Source Code Pro for Powerline, Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
