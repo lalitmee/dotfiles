@@ -270,7 +270,7 @@
     }
   ],
   "vim.enableNeovim": true,
-  "vim.neovimPath": "/home/linuxbrew/.linuxbrew/bin/nvim",
+  "vim.neovimPath": "/usr/bin/nvim",
   /*************************
    * SLIDER ON THE MINIMAP *
    *************************/
@@ -339,7 +339,7 @@
    ******************/
   "rewrap.autoWrap.enabled": true,
   "git.enableSmartCommit": true,
-  "workbench.colorTheme": "Cobalt2",
+  "workbench.colorTheme": "Min Dark",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
