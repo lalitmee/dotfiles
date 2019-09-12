@@ -13,10 +13,10 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      'Operator Mono Lig Medium, Source Code Pro for Powerline, Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Operator Mono Lig Medium,Source Code Pro for Powerline,  Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: 'normal',
+    fontWeight: '500',
 
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: 'bold',
@@ -174,7 +174,6 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyperterm-gruvbox-dark',
     'hyper-ligatures',
     'hyper-font-ligatures',
     'hypercwd',
@@ -187,10 +186,8 @@ module.exports = {
     'hypertheme',
     'hyper-tab-icons',
     'hyper-command-gifs',
-    'hyper-solarized-light',
-    'hyper-solarized-dark',
     'shades-of-purple-hyper',
-    'hyper-tabs-enhanced'
+    'hyper-tabs-enhanced',
   ],
 
   // in development, you can create a directory under
