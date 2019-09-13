@@ -9,6 +9,8 @@ export ZSH="/home/lalit/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="pure"
+# ZSH_THEME="random"
 # ZSH_THEME="spaceship"
 # ZSH_THEME="agnoster"
 # ZSH_THEME="bira"
@@ -236,14 +238,14 @@ alias gplo="git pull origin Observations"
 alias gpsl="git push origin list-template"
 
 # tmuxinator aliases
-alias tsk="tmuxinator start katerra"
-alias tek="tmuxinator edit katerra"
-alias tsc="tmuxinator start scheduling"
-alias tec="tmuxinator edit scheduling"
-alias tsd="tmuxinator start dashboard"
-alias ted="tmuxinator edit dashboard"
-alias tss="tmuxinator start sonyliv"
-alias tes="tmuxinator edit sonyliv"
+# alias tsk="tmuxinator start katerra"
+# alias tek="tmuxinator edit katerra"
+# alias tsc="tmuxinator start scheduling"
+# alias tec="tmuxinator edit scheduling"
+# alias tsd="tmuxinator start dashboard"
+# alias ted="tmuxinator edit dashboard"
+# alias tss="tmuxinator start sonyliv"
+# alias tes="tmuxinator edit sonyliv"
 alias tsv="tmuxinator start vscode"
 alias tev="tmuxinator edit vscode"
 alias tsp="tmuxinator start portfolio"
@@ -252,12 +254,12 @@ alias tsg="tmuxinator start github-search"
 alias teg="tmuxinator edit github-search"
 alias tsq="tmuxinator start c-quotes"
 alias teq="tmuxinator edit c-quotes"
-alias tst="tmuxinator start talaria"
-alias tet="tmuxinator edit talaria"
+# alias tst="tmuxinator start talaria"
+# alias tet="tmuxinator edit talaria"
 alias tsw="tmuxinator start wfws"
 alias tew="tmuxinator edit wfws"
-alias tsm="tmuxinator start mwsn"
-alias tem="tmuxinator edit mwsn"
+# alias tsm="tmuxinator start mwsn"
+# alias tem="tmuxinator edit mwsn"
 alias tn="tmuxinator new"
 alias ts="tmuxinator start"
 alias te="tmuxinator edit"
@@ -304,7 +306,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --ignore node_modules .git -g ""'
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
