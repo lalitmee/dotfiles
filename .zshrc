@@ -81,7 +81,6 @@ last-working-dir
 docker
 encode64
 fasd
-geeknote
 gem
 git
 git-extras
@@ -238,14 +237,6 @@ alias gplo="git pull origin Observations"
 alias gpsl="git push origin list-template"
 
 # tmuxinator aliases
-# alias tsk="tmuxinator start katerra"
-# alias tek="tmuxinator edit katerra"
-# alias tsc="tmuxinator start scheduling"
-# alias tec="tmuxinator edit scheduling"
-# alias tsd="tmuxinator start dashboard"
-# alias ted="tmuxinator edit dashboard"
-# alias tss="tmuxinator start sonyliv"
-# alias tes="tmuxinator edit sonyliv"
 alias tsv="tmuxinator start vscode"
 alias tev="tmuxinator edit vscode"
 alias tsp="tmuxinator start portfolio"
@@ -254,8 +245,6 @@ alias tsg="tmuxinator start github-search"
 alias teg="tmuxinator edit github-search"
 alias tsq="tmuxinator start c-quotes"
 alias teq="tmuxinator edit c-quotes"
-# alias tst="tmuxinator start talaria"
-# alias tet="tmuxinator edit talaria"
 alias tsw="tmuxinator start wfws"
 alias tew="tmuxinator edit wfws"
 # alias tsm="tmuxinator start mwsn"
@@ -335,3 +324,15 @@ eval "$(rbenv init -)"
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+
+# old aliases
+# alias tsk="tmuxinator start katerra"
+# alias tek="tmuxinator edit katerra"
+# alias tsc="tmuxinator start scheduling"
+# alias tec="tmuxinator edit scheduling"
+# alias tsd="tmuxinator start dashboard"
+# alias ted="tmuxinator edit dashboard"
+# alias tss="tmuxinator start sonyliv"
+# alias tes="tmuxinator edit sonyliv"
+# alias tst="tmuxinator start talaria"
+# alias tet="tmuxinator edit talaria"
