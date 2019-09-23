@@ -295,7 +295,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-export FZF_DEFAULT_COMMAND='ag --nocolor --hidden --ignore node_modules .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
@@ -324,6 +324,7 @@ eval "$(rbenv init -)"
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
 
 # old aliases
 # alias tsk="tmuxinator start katerra"
