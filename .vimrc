@@ -260,7 +260,7 @@ set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
 " set gfn=Monaco\ Regular\ 13
-set gfn=FiraCode\ Nerd\ Font\ Medium\ 12
+" set gfn=FiraCode\ Nerd\ Font\ Medium\ 12
 " set gfn=IBM\ Plex\ Mono\ 11
 " set gfn=Powerline\ Consolas\ 11
 " set gfn=Ubuntu\ Mono\ 12
@@ -268,6 +268,7 @@ set gfn=FiraCode\ Nerd\ Font\ Medium\ 12
 " set gfn=Source\ Code\ Pro\ Semibold\ 12
 " set gfn=Operator\ Mono\ Lig\ Book\ 11
 " set gfn=Operator\ Mono\ Lig\ Medium\ 12
+set gfn=Cascadia\ Code\ Regular\ 12
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
