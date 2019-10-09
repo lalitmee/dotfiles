@@ -67,6 +67,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 Plug 'vim-scripts/xoria256.vim'
 Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
 Plug 'itchyny/landscape.vim'
+Plug 'tomasr/molokai'
 
 " }}}
 
@@ -86,6 +87,7 @@ Plug 'justinj/vim-react-snippets'
 
 " Golang {{{
 
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'vim-scripts/c.vim' 
 Plug 'rhysd/vim-clang-format'
 
@@ -467,7 +469,9 @@ let g:tern#arguments = ['--persistent']
 "let ayucolor="dark"
 syntax on
 set bg=dark
-colorscheme landscape
+colorscheme gruvbox
+" colorscheme molokai
+" colorscheme landscape
 " colorscheme darkblue
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight Pmenu guibg=LightYellow1 guifg=black
@@ -477,7 +481,7 @@ highlight Comment cterm=italic
 "highlight NonText guibg=none
 
 " Some GUI stuff
-let g:lightTheme = 'lakesidelight'
+let g:lightTheme = 'molokai'
 let g:darkTheme = 'xoria256'
 command! Light :execute ':colorscheme ' . g:lightTheme . ' | set background=light'
 command! Dark  :execute ':colorscheme ' . g:darkTheme . ' | set background=dark'
@@ -683,7 +687,7 @@ noremap <leader>fw :CtrlSF <C-R><C-W><CR>
 "noremap <leader>m :SignatureToggle<CR>
 
 " save
-noremap <leader>, :w<CR>
+noremap <silent> <leader>, :w<CR>
 
 " Paste with middle mouse click
 vmap <LeftRelease> "*ygv
