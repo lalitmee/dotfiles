@@ -17,8 +17,6 @@
   "editor.lineHeight": 25,
   // letter spacings
   "editor.letterSpacing": 0.5,
-  // font weight
-  "editor.fontWeight": "bold",
   // cursor blinking
   "editor.cursorBlinking": "blink",
   "editor.renderWhitespace": "boundary",
@@ -92,7 +90,6 @@
    * PRETTIER SETTINGS *
    *********************/
   "prettier.singleQuote": true,
-  "prettier.eslintIntegration": false,
   "prettier.htmlWhitespaceSensitivity": "ignore",
   "prettier.useTabs": false,
   // "prettier.disableLanguages": ["html"],
@@ -412,10 +409,17 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.lineNumbers": "relative",
   "editor.cursorWidth": 3,
   "terminal.integrated.cursorBlinking": true,
-  "sync.forceUpload": true
+  "sync.forceUpload": true,
+  "extensions.confirmedUriHandlerExtensionIds": [
+    "GitHub.vscode-pull-request-github"
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.fontWeight": "bold",
+  "editor.fontWeight": "bold",
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
