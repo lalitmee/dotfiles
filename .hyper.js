@@ -9,11 +9,11 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 15,
+    fontSize: 16,
 
     // font family with optional fallbacks
     fontFamily:
-      'Operator Mono Lig Medium,Source Code Pro for Powerline,  Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Source Code Pro, Cascadia Code, Operator Mono Lig Medium, Source Code Pro for Powerline,  Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: '500',
@@ -77,11 +77,7 @@ module.exports = {
 		`,
 
     // custom CSS to embed in the terminal window
-    termCSS: `
-	 x - screen x - row {
-	   font - variant - ligatures: initial;
-	 }
-        `,
+    termCSS: '',
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
