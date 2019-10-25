@@ -267,10 +267,10 @@ call plug#end()
 
 " FZF {{{
 
-nnoremap <silent> <leader>ff :FZF -m<CR>
+nnoremap <silent> <leader>ff :Files<CR>
 nnoremap <silent> <leader>bb :Buffers<CR>
 nnoremap <silent> <leader>cc :Colors<CR>
-nnoremap <silent> <leader>hh :History<CR>
+nnoremap <silent> <leader>h :History<CR>
 
 
 " }}} 
