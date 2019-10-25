@@ -1,0 +1,14 @@
+# /home/lalit/.config/tmuxinator/portfolio.yml
+
+name: portfolio
+root: ~/Desktop/Github/portfolio
+
+windows:
+  - Editor: ci
+  - Cmus: cmus
+  - Server: yarn start
+  - Browser: chromium-browser
+  - Extras:
+      - clear
+      - cd
+      - quote
