@@ -1,0 +1,22 @@
+# /home/lalit/.config/tmuxinator/wfws.yml
+
+name: wfws
+root: ~/Desktop/koinearth/wf-webapp-service
+
+windows:
+  - Editor: ci
+  - Git: gs
+  - Cmus: cmus
+  - Server: yarn start
+  - Market:
+      # cd to markentsn repository
+      - cd ~/Desktop/koinearth/marketsn-webapp-service-nextjs
+      - yarn start
+  - Caddy:
+      - cd
+      - caddy
+  - Browser: chromium-browser
+  - Extras:
+      - clear
+      - cd
+      - quote
