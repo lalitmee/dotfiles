@@ -42,6 +42,7 @@ Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
 Plug 'kien/ctrlp.vim'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 Plug 'dansomething/vim-hackernews'
 " Plug 'vim-syntastic/syntastic'
 
@@ -253,8 +254,9 @@ set wildmenu
 let no_buffers_menu=1
 " silent! colorscheme landscape
 " silent! colorscheme darkblue
+silent! colorscheme base16-monokai
 " silent! colorscheme molokai
-silent! colorscheme base16-gruvbox-dark-hard
+" silent! colorscheme base16-gruvbox-dark-hard
 
 set mousemodel=popup
 set t_Co=256
@@ -265,10 +267,11 @@ set guioptions=egmrti
 " set gfn=Powerline\ Consolas\ 11
 " set gfn=Ubuntu\ Mono\ 12
 " set gfn=Source\ Code\ Pro\ for\ Powerline\ 10
-" set gfn=Source\ Code\ Pro\ Semibold\ 12
+set gfn=Source\ Code\ Pro\ Semibold\ 14
 " set gfn=Operator\ Mono\ Lig\ Book\ 11
 " set gfn=Operator\ Mono\ Lig\ Medium\ 12
-set gfn=Cascadia\ Code\ Regular\ 12
+" set gfn=Cascadia\ Code\ Regular\ 12
+" set gfn=Input\ Mono\ Regular\ 13
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
