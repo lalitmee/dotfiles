@@ -255,6 +255,23 @@ let no_buffers_menu=1
 " silent! colorscheme landscape
 " silent! colorscheme darkblue
 silent! colorscheme base16-monokai
+" silent! colorscheme base16-phd
+" silent! colorscheme base16-seti
+" silent! colorscheme base16-ocean
+" silent! colorscheme base16-brewer
+" silent! colorscheme base16-bright
+" silent! colorscheme base16-circus
+" silent! colorscheme base16-github
+" silent! colorscheme base16-snazzy
+" silent! colorscheme base16-dracula
+" silent! colorscheme base16-ia-dark
+" silent! colorscheme base16-ia-light
+" silent! colorscheme base16-irblack
+" silent! colorscheme base16-macintosh
+" silent! colorscheme base16-onedark
+" silent! colorscheme base16-eighties
+" silent! colorscheme base16-bespin
+" silent! colorscheme base16-chalk
 " silent! colorscheme molokai
 " silent! colorscheme base16-gruvbox-dark-hard
 
