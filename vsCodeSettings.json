@@ -239,31 +239,18 @@
   "vim.hlsearch": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "commands": [
-        "workbench.action.files.save"
-      ],
-      "before": [
-        "<Leader>",
-        ","
-      ]
+      "commands": ["workbench.action.files.save"],
+      "before": ["<Leader>", ","]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        ">"
-      ],
-      "commands": [
-        "editor.action.indentLines"
-      ]
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
     },
     {
-      "before": [
-        "<"
-      ],
-      "commands": [
-        "editor.action.outdentLines"
-      ]
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
     }
   ],
   "vim.enableNeovim": true,
@@ -419,7 +406,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "terminal.integrated.fontWeight": "bold",
-  "editor.fontWeight": "bold",
+  "editor.fontWeight": "bold"
   /***************************
    * INDENT RAINBOW SETTINGS *
    ***************************/
