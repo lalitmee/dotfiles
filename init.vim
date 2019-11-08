@@ -270,9 +270,10 @@ call plug#end()
 
 " FZF {{{
 
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>c :Colors<CR>
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <silent> <leader>ff :Files<CR>
+nnoremap <silent> <leader>bb :Buffers<CR>
+nnoremap <silent> <leader>cc :Colors<CR>
 nnoremap <silent> <leader>h :History<CR>
 
 
