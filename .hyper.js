@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      'Source Code Pro, Cascadia Code, Operator Mono Lig Medium, Source Code Pro for Powerline,  Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Cascadia Code, Ubuntu Mono, Source Code Pro, Operator Mono Lig Medium, Source Code Pro for Powerline,  Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: '500',
@@ -91,7 +91,9 @@ module.exports = {
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: '12px 14px',
 
-    hypernpm: {
+    hypercwd: { initialWorkingDirectory: '~'  },
+ 
+     hypernpm: {
       // wil run `npm run lint`
       1: 'lint',
       2: 'start',
