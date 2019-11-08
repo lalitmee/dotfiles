@@ -275,6 +275,8 @@ silent! colorscheme base16-monokai
 " silent! colorscheme molokai
 " silent! colorscheme base16-gruvbox-dark-hard
 
+set swapfile
+set dir=~/vim-autoswap
 set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
