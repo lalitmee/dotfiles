@@ -64,8 +64,11 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
-Plug 'vim-scripts/xoria256.vim'
-Plug 'morhetz/gruvbox'      " gruvbox Color Scheme
+Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'fenetikm/falcon'
 Plug 'itchyny/landscape.vim'
 Plug 'tomasr/molokai'
 
@@ -267,9 +270,9 @@ call plug#end()
 
 " FZF {{{
 
-nnoremap <silent> <leader>ff :Files<CR>
-nnoremap <silent> <leader>bb :Buffers<CR>
-nnoremap <silent> <leader>cc :Colors<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>c :Colors<CR>
 nnoremap <silent> <leader>h :History<CR>
 
 
@@ -469,8 +472,9 @@ let g:tern#arguments = ['--persistent']
 "let ayucolor="dark"
 syntax on
 set bg=dark
-colorscheme gruvbox
-" colorscheme molokai
+set swapfile
+set dir=~/vim-autoswap
+colorscheme base16-monokai
 " colorscheme landscape
 " colorscheme darkblue
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
