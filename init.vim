@@ -11,7 +11,6 @@ Plug 'justinmk/vim-sneak'           " Vim sneak with two words
 Plug 'suan/vim-instant-markdown'    " Instant markdown preview from vim
 Plug 'dyng/ctrlsf.vim'              " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'        " toggle, display and navigate marks
-Plug 'jaxbot/github-issues.vim'     " lookup for github issues in the commit message window
 Plug 'haya14busa/incsearch.vim'     " Better search highlighting
 Plug 'vim-syntastic/syntastic'      " Syntax Checking
 Plug 'Raimondi/delimitMate'         " Better HTML Editing
@@ -20,16 +19,13 @@ Plug 'terryma/vim-multiple-cursors' " Multiple Cursor
 Plug 'airblade/vim-gitgutter'       " Vim Git Gutter
 Plug 'itchyny/lightline.vim'        " lightweight statusline for vim
 Plug 'ryanoasis/vim-devicons'       " vim icons
-Plug 'junegunn/vim-journal'         " something like org-mode in vim
 Plug 'gioele/vim-autoswap'          " for handling swap files
 Plug 'danro/rename.vim'             " for renaming the current buffer
-Plug 'tomtom/tcomment_vim'          " for commenting out code
 
 " }}}
 
 " Writing in vim {{{{
 
-Plug 'junegunn/limelight.vim' " Highlight the current visited area
 Plug 'junegunn/goyo.vim'      " remove all the things and go in the center
 let g:limelight_conceal_ctermfg = 240
 
@@ -64,10 +60,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Colors {{{
 
-Plug 'altercation/vim-colors-solarized'
-Plug 'nanotech/jellybeans.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'danilo-augusto/vim-afterglow'
 Plug 'fenetikm/falcon'
 Plug 'itchyny/landscape.vim'
 Plug 'tomasr/molokai'
@@ -124,12 +117,6 @@ augroup END
 " }}}
 
 
-" Golang {{{
-
-Plug 'arp242/gopher.vim' 
-
-" }}}
-
 " TypeScript {{{
 
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -182,8 +169,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Functionalities {{{
 
 " search inside files using ripgrep. This plugin provides an Ack command.
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier'
@@ -218,11 +203,9 @@ Plug 'honza/vim-snippets'
 Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit' " magit for git workflow
 Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/closetag.vim'
@@ -243,8 +226,6 @@ Plug 'junegunn/fzf.vim'
 
 " Entertainment {{{
 
-Plug 'adelarsq/vim-hackernews' " For hackernews in your vim
-Plug 'vim-scripts/DrawIt' " For drawing easily
 
 " }}}
 
@@ -731,6 +712,8 @@ nnoremap <expr> o getline('.') =~ '^\s*//' ? 'o<esc>S' : 'o'
 
 " command for making ctags in a project
 command! MakeTags !ctags -R .
+
+set tags+=tags,./.git/tags
 
 """ mapping : to ; for easy
 " nnoremap ; :
