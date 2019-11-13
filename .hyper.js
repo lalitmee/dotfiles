@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      'Cascadia Code, Ubuntu Mono, Source Code Pro, Operator Mono Lig Medium, Source Code Pro for Powerline,  Monofur for Powerline, Fira Code,  Monaco, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Source Code Pro, Cascadia Code, Ubuntu Mono, Operator Mono Lig Medium, Source Code Pro for Powerline, Monaco, monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: '500',
@@ -47,34 +47,7 @@ module.exports = {
     borderColor: '#333',
 
     // custom CSS to embed in the main window
-    css: `
-				.header_header {
-				  background: transparent!important;
-				}
-				.footer_footer {
-				  font - size: 20 px!important;
-				  font - weight: bold!important;
-				  font - family: monaco!important;
-				}
-				.footer_footer.item_dirty {
-				    font - size: 20 px!important;
-				  }
-				  .footer_footer.item_number {
-				    font - size: 20 px!important;
-				  }
-				  .tab_tab {
-				    border: 0;
-				  }
-				  .tab_active::before {
-				    border - bottom: 2 px solid rgba(255, 255, 255, .5);
-				  }
-				  .tab_hasActivity {
-				    color: #42a1e4;
-				}
-				.tab_hasActivity:hover {
-					color: # 96 d4e4;
-				  }
-		`,
+    css: '',
 
     // custom CSS to embed in the terminal window
     termCSS: '',
@@ -91,9 +64,9 @@ module.exports = {
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: '12px 14px',
 
-    hypercwd: { initialWorkingDirectory: '~'  },
- 
-     hypernpm: {
+    hypercwd: { initialWorkingDirectory: '~' },
+
+    hypernpm: {
       // wil run `npm run lint`
       1: 'lint',
       2: 'start',
@@ -172,18 +145,9 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyper-ligatures',
     'hyper-font-ligatures',
-    'hypercwd',
-    'hypernpm',
-    'hyper-alt-click',
-    'hyper-broadcast',
-    'hyper-search',
-    'hypergoogle',
     'hyper-match',
-    'hypertheme',
     'hyper-tab-icons',
-    'hyper-command-gifs',
     'shades-of-purple-hyper',
     'hyper-tabs-enhanced',
   ],
