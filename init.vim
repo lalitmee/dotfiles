@@ -9,10 +9,8 @@ call plug#begin()
 
 Plug 'justinmk/vim-sneak'           " Vim sneak with two words
 Plug 'suan/vim-instant-markdown'    " Instant markdown preview from vim
-" Plug 'dyng/ctrlsf.vim'              " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'        " toggle, display and navigate marks
 Plug 'haya14busa/incsearch.vim'     " Better search highlighting
-" Plug 'vim-syntastic/syntastic'      " Syntax Checking
 Plug 'Raimondi/delimitMate'         " Better HTML Editing
 Plug 'mileszs/ack.vim'              " SilverSearcher
 Plug 'terryma/vim-multiple-cursors' " Multiple Cursor
@@ -73,20 +71,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " }}}
 
-" JavaScript {{{
-
-" Plug 'isRuslan/vim-es6'
-" Plug 'pangloss/vim-javascript'
-" Plug 'heavenshell/vim-jsdoc' " for commenting the code
-" Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
-" Plug 'moll/vim-node', { 'for': 'javascript' }
-" Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
-" Plug 'Ivo-Donchev/vim-react-goto-definition'
-" Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-" Plug 'justinj/vim-react-snippets'
-
-" }}}
-
 " Golang {{{
 
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
@@ -123,51 +107,9 @@ augroup END
 " }}}
 
 
-" TypeScript {{{
-
-" Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-" Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-
-" Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': './install.sh' }
-" let g:nvim_typescript#diagnostics_enable = 0
-" let g:nvim_typescript#max_completion_detail=100
-
-" }}}
-
-
-" Styles {{{
-
-"Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
-" Plug 'groenewege/vim-less', { 'for': 'less' }
-" Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-" Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-" Plug 'gko/vim-coloresque'
-" Plug 'stephenway/postcss.vim', { 'for': 'css' }
-" Plug 'csscomb/vim-csscomb'
-
-" }}}
-
-" markdown {{{
-
-" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-
-" }}}
-
-" JSON {{{
-
-" Plug 'elzr/vim-json', { 'for': 'json' }
-" let g:vim_json_syntax_conceal = 0
-
-" }}}
-
 " Plugins for JavaScript & TypeScript {{{
 
-" Plug 'rhysd/npm-debug-log.vim'
-" Plug 'neovim/node-host',                  { 'do': 'npm install' }
-" Plug 'cdata/vim-tagged-template'
-" Plug 'romainl/ctags-patterns-for-javascript'
 Plug 'HerringtonDarkholme/yats.vim'
-" Use release branch
 
 " }}}
 
@@ -179,26 +121,13 @@ Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-unimpaired'
-" For Denite features
-Plug 'Shougo/denite.nvim'
-" Vimproc to asynchronously run commands (Plug, Unite)
-Plug 'Shougo/vimproc', {
-			\ 'build' : {
-			\     'windows' : 'make -f make_mingw32.mak',
-			\     'cygwin' : 'make -f make_cygwin.mak',
-			\     'mac' : 'make -f make_mac.mak',
-			\     'unix' : 'make -f make_unix.mak',
-			\    },
-			\ }
 
 " Unite. The interface to rule almost everything
 Plug 'Shougo/unite.vim'
 if (has('nvim'))
 	Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
 	Plug 'Shougo/defx.nvim'
-	Plug 'Shougo/deoplete.nvim'
 	Plug 'roxma/nvim-yarp'
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -208,8 +137,6 @@ Plug 'kristijanhusak/defx-icons'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jreybert/vimagit' " magit for git workflow
 Plug 'tpope/vim-surround'
@@ -222,9 +149,7 @@ Plug 'tpope/vim-abolish'
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'chrisbra/Colorizer'
-Plug 'heavenshell/vim-pydocstring'
-Plug 'vim-scripts/loremipsum'
-Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
