@@ -3,6 +3,8 @@
 
 " Vim-Plug Plugins {{{
 
+" source ~/.config/nvim/init.vim
+
 call plug#begin()
 
 " Main {{{
@@ -25,7 +27,6 @@ Plug 'danro/rename.vim'             " for renaming the current buffer
 " Writing in vim {{{{
 
 Plug 'junegunn/goyo.vim'      " remove all the things and go in the center
-let g:limelight_conceal_ctermfg = 240
 
 let g:goyo_entered = 0
 function! s:goyo_enter()
@@ -37,7 +38,6 @@ function! s:goyo_enter()
 	set wrap
 	setlocal textwidth=0
 	setlocal wrapmargin=0
-	Limelight
 endfunction
 
 function! s:goyo_leave()
@@ -48,7 +48,6 @@ function! s:goyo_leave()
 	set scrolloff=5
 	set textwidth=120
 	set wrapmargin=8
-	Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -151,41 +150,13 @@ Plug 'sheerun/vim-polyglot'
 Plug 'chrisbra/Colorizer'
 Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
 
-if isdirectory('/usr/local/opt/fzf')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
 endif
-
-" }}}
-
-" Entertainment {{{
-
-
-" }}}
-
-
-" Commented out Plugins {{{
-
-" Plug 'reedes/vim-pencil'               " Better Writing
-" Plug 'benmills/vimux'                  " better integration with tmux
-" Plug 'nathanaelkane/vim-indent-guides' " indenting guides which I didn't like
-" Plug 'tpope/vim-rhubarb'               " fugitive relative somehow
-" Plug 'gilsondev/searchtasks.vim'       " searching tags like TODO and FIXME
-" Plug 'chrisbra/NrrwRgn'                " narrow region like emacs
-" Plug 'wincent/ferret'                  " I am using FZF so I disabled it
-" Plug 'easymotion/vim-easymotion'       " I don't think I need this
-" Plug 'tommcdo/vim-exchange'            " It does something for text operator exchange
-" Plug 'thaerkh/vim-workspace'           " It's not that hard to go for files now with FZF
-
-" }}}
-
-call plug#end()
 
 " }}}
 
@@ -209,17 +180,50 @@ if executable('rg')
 endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-
-nnoremap <silent> <leader>ff :FZF -m<CR>
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>bb :Buffers<CR>
+nnoremap <silent> <leader>gf :GFiles<CR>
+nnoremap <silent> <leader>ll :Lines<CR>
+nnoremap <silent> <leader>bl :BLines<CR>
+nnoremap <silent> <leader>tt :Tags<CR>
+nnoremap <silent> <leader>bt :BTags<CR>
+nnoremap <silent> <leader>mm :Marks<CR>
+nnoremap <silent> <leader>ww :Windows<CR>
+nnoremap <silent> <leader>ss :Snippets<CR>
+nnoremap <silent> <leader>cm :Commits<CR>
+nnoremap <silent> <leader>cb :BCommits<CR>
+nnoremap <silent> <leader>co :Commands<CR>
+nnoremap <silent> <leader>mp :Maps<CR>
+nnoremap <silent> <leader>ht :HelpTags<CR>
 nnoremap <silent> <leader>cc :Colors<CR>
 nnoremap <silent> <leader>hh :History<CR>
 
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
 
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " }}} 
+
+call plug#end()
+
+" }}}
+
 
 " Abbreviations{{{ "
 
@@ -369,34 +373,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" }}}
-
-" Limelight mappings {{{
-
-nmap <Leader>l <Plug>(Limelight)
-xmap <Leader>l <Plug>(Limelight)
-
-" }}}
-
-" Search Task mappings {{{
-
-nnoremap <Leader>st :SearchTasks .<CR>
+nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
 
 " }}}
 
@@ -423,40 +414,8 @@ let g:ctrlp_custom_ignore= {
 
 " }}}
 
-" Use deoplete {{{
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-			\ 'tern#Complete',
-			\ 'jspc#omni'
-			\]
-
-""" for javascript completions
-set completeopt=longest,menuone,preview
-let g:deoplete#sources = {}
-let g:deoplete#sources['typescript.ts'] = ['file', 'ultisnips', 'ternjs']
-let g:deoplete#sources['javascript.js'] = ['file', 'ultisnips', 'ternjs']
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
-
-" }}}
-
-" Commented Mappings {{{
-
-" close the preview window when you're not using it
-" or just disable the preview entirely
-"set completeopt-=preview
-
-
-""" javascript completions with TAB
-"autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
-" }}}
-
 " Coloring {{{
 
-"let ayucolor="dark"
 syntax on
 set bg=dark
 set swapfile
@@ -507,26 +466,6 @@ augroup END
 
 " }}}
 
-" Syntastic Configuration {{{
-
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 0
-" let g:syntastic_auto_loc_list = 0
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
-" " for react
-" " goto plugin mapping for React
-" noremap <Leader>gt :call ReactGotoDef()<CR>
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-" let g:jsx_ext_required = 0
-
-" }}}
-
 " Converting Markdown to html OR HTML to Markdown {{{
 
 if has("autocmd")
@@ -539,9 +478,6 @@ endif
 
 " Neovim :Terminal {{{
 
-tmap <Esc> <C-\><C-n>
-tmap <C-w> <Esc><C-w>
-"tmap <C-d> <Esc>:q<CR>
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
@@ -577,7 +513,7 @@ let g:tagbar_iconchars = ['↠', '↡']
 
 " Trim Whitespaces {{{
 
-nnoremap <silent> <space><space> :call <SID>StripTrailingWhitespaces()<CR>
+nnoremap <silent> <leader>c :call <SID>StripTrailingWhitespaces()<CR>
 
 if has("autocmd")
 	autocmd BufWritePre *.py,*.js,*.ts,*.css,*.scss :call <SID>StripTrailingWhitespaces()
@@ -655,19 +591,10 @@ nnoremap <silent> <Leader>n :%s///gn<CR>
 " scroll the viewport faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
-
-" xmap <Leader>a gaip*
-" nmap <Leader>a gaip*
 nmap <Leader>hs <C-w>s<C-w>j:terminal<CR>
 nmap <Leader>vs <C-w>v<C-w>l:terminal<CR>
-"nmap <Leader>d <Plug>(pydocstring)
-"nmap <Leader>f :Files<CR>
 nmap <Leader>z :Goyo<CR>
 nmap <Leader>h :RainbowParentheses!!<CR>
-"nmap <Leader>j :set filetype=journal<CR>
-"nmap <Leader>k :ColorToggle<CR>
-nmap <Leader>l :Limelight!!<CR>
-xmap <Leader>l :Limelight!!<CR>
 autocmd FileType python nmap <Leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
 map <Leader>hn <C-w>v<C-w>l:HackerNews best<CR>J
 
@@ -768,10 +695,6 @@ function! Expander()
 endfunction
 
 inoremap <expr> <CR> Expander()
-
-
-""" tpope mapping method for the Character we want to align with
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 function! s:align()
 	let p = '^\s*|\s.*\s|\s*$'
@@ -895,9 +818,8 @@ map g# <Plug>(incsearch-nohl-g#)
 " Window mappings {{{
 
 " window splits
-nnoremap <Leader>v <C-w>v
-nnoremap <Leader>H <C-w>S
-nnoremap <Leader>c <C-w>q
+nnoremap sv <C-w>v
+nnoremap sh <C-w>S
 
 " window chnages from current position
 "nnoremap <Leader>h <C-w>H

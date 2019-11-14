@@ -501,10 +501,21 @@ if executable('rg')
 endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-
-nnoremap <silent> <leader>ff :FZF -m<CR>
+nnoremap <silent> <leader><space> :FZF -m<CR>
 nnoremap <silent> <leader>bb :Buffers<CR>
+nnoremap <silent> <leader>gf :GFiles<CR>
+nnoremap <silent> <leader>ll :Lines<CR>
+nnoremap <silent> <leader>bl :BLines<CR>
+nnoremap <silent> <leader>tt :Tags<CR>
+nnoremap <silent> <leader>bt :BTags<CR>
+nnoremap <silent> <leader>mm :Marks<CR>
+nnoremap <silent> <leader>ww :Windows<CR>
+nnoremap <silent> <leader>ss :Snippets<CR>
+nnoremap <silent> <leader>cm :Commits<CR>
+nnoremap <silent> <leader>cb :BCommits<CR>
+nnoremap <silent> <leader>co :Commands<CR>
+nnoremap <silent> <leader>mp :Maps<CR>
+nnoremap <silent> <leader>ht :HelpTags<CR>
 nnoremap <silent> <leader>cc :Colors<CR>
 nnoremap <silent> <leader>hh :History<CR>
 
@@ -552,8 +563,9 @@ noremap <leader>w :bn<CR>
 "" Close buffer
 noremap <leader>c :bd<CR>
 
-"" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
+" clear highlighted search
+noremap <silent> <Leader>h :set hlsearch! hlsearch?<cr>
+nnoremap <CR> :noh<CR><CR>
 
 "" Switching windows
 noremap <C-j> <C-w>j
