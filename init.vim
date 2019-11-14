@@ -9,10 +9,10 @@ call plug#begin()
 
 Plug 'justinmk/vim-sneak'           " Vim sneak with two words
 Plug 'suan/vim-instant-markdown'    " Instant markdown preview from vim
-Plug 'dyng/ctrlsf.vim'              " Ctrl + Shift + F on sublime text
+" Plug 'dyng/ctrlsf.vim'              " Ctrl + Shift + F on sublime text
 Plug 'kshenoy/vim-signature'        " toggle, display and navigate marks
 Plug 'haya14busa/incsearch.vim'     " Better search highlighting
-Plug 'vim-syntastic/syntastic'      " Syntax Checking
+" Plug 'vim-syntastic/syntastic'      " Syntax Checking
 Plug 'Raimondi/delimitMate'         " Better HTML Editing
 Plug 'mileszs/ack.vim'              " SilverSearcher
 Plug 'terryma/vim-multiple-cursors' " Multiple Cursor
@@ -67,17 +67,23 @@ Plug 'tomasr/molokai'
 
 " }}}
 
+" coc.nvim {{{
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" }}}
+
 " JavaScript {{{
 
-Plug 'isRuslan/vim-es6'
-Plug 'pangloss/vim-javascript'
-Plug 'heavenshell/vim-jsdoc' " for commenting the code
-Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
-Plug 'moll/vim-node', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
-Plug 'Ivo-Donchev/vim-react-goto-definition'
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-Plug 'justinj/vim-react-snippets'
+" Plug 'isRuslan/vim-es6'
+" Plug 'pangloss/vim-javascript'
+" Plug 'heavenshell/vim-jsdoc' " for commenting the code
+" Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+" Plug 'moll/vim-node', { 'for': 'javascript' }
+" Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }
+" Plug 'Ivo-Donchev/vim-react-goto-definition'
+" Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+" Plug 'justinj/vim-react-snippets'
 
 " }}}
 
@@ -110,8 +116,8 @@ augroup ClangFormatSettings
     autocmd!
     " if you install vim-operator-user
     autocmd FileType c,cpp,objc,java,javascript map <buffer><Leader>c <Plug>(operator-clang-format)
-    autocmd FileType vimwiki nmap <leader>tts :TaskWikiMod +sprint<CR>
-    autocmd FileType vimwiki nmap <leader>ttS :TaskWikiMod -sprint<CR>
+    autocmd FileType vimwiki nmap <Leader>tts :TaskWikiMod +sprint<CR>
+    autocmd FileType vimwiki nmap <Leader>ttS :TaskWikiMod -sprint<CR>
 augroup END
 
 " }}}
@@ -119,12 +125,12 @@ augroup END
 
 " TypeScript {{{
 
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+" Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+" Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
-Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': './install.sh' }
-let g:nvim_typescript#diagnostics_enable = 0
-let g:nvim_typescript#max_completion_detail=100
+" Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': './install.sh' }
+" let g:nvim_typescript#diagnostics_enable = 0
+" let g:nvim_typescript#max_completion_detail=100
 
 " }}}
 
@@ -132,37 +138,36 @@ let g:nvim_typescript#max_completion_detail=100
 " Styles {{{
 
 "Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'gko/vim-coloresque'
-Plug 'stephenway/postcss.vim', { 'for': 'css' }
-Plug 'csscomb/vim-csscomb'
+" Plug 'groenewege/vim-less', { 'for': 'less' }
+" Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+" Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+" Plug 'gko/vim-coloresque'
+" Plug 'stephenway/postcss.vim', { 'for': 'css' }
+" Plug 'csscomb/vim-csscomb'
 
 " }}}
 
 " markdown {{{
 
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 " }}}
 
 " JSON {{{
 
-Plug 'elzr/vim-json', { 'for': 'json' }
-let g:vim_json_syntax_conceal = 0
+" Plug 'elzr/vim-json', { 'for': 'json' }
+" let g:vim_json_syntax_conceal = 0
 
 " }}}
 
 " Plugins for JavaScript & TypeScript {{{
 
-Plug 'rhysd/npm-debug-log.vim'
-Plug 'neovim/node-host',                  { 'do': 'npm install' }
-Plug 'cdata/vim-tagged-template'
-Plug 'romainl/ctags-patterns-for-javascript'
+" Plug 'rhysd/npm-debug-log.vim'
+" Plug 'neovim/node-host',                  { 'do': 'npm install' }
+" Plug 'cdata/vim-tagged-template'
+" Plug 'romainl/ctags-patterns-for-javascript'
 Plug 'HerringtonDarkholme/yats.vim'
 " Use release branch
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " }}}
 
@@ -172,8 +177,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier'
-Plug 'skywind3000/asyncrun.vim' " AsyncRun for prettier or eslint
-Plug 'sbdchd/neoformat'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-unimpaired'
 " For Denite features
@@ -191,12 +194,17 @@ Plug 'Shougo/vimproc', {
 " Unite. The interface to rule almost everything
 Plug 'Shougo/unite.vim'
 if (has('nvim'))
+	Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
+	Plug 'Shougo/defx.nvim'
 	Plug 'Shougo/deoplete.nvim'
 	Plug 'roxma/nvim-yarp'
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
+" custom implementation of devicons for defx
+Plug 'kristijanhusak/defx-icons'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -206,7 +214,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jreybert/vimagit' " magit for git workflow
 Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
-Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/closetag.vim'
 Plug 'junegunn/vim-easy-align'
@@ -219,8 +226,16 @@ Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/loremipsum'
 Plug 'metakirby5/codi.vim'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
+endif
+let g:make = 'gmake'
+if exists('make')
+        let g:make = 'make'
+endif
 
 " }}}
 
@@ -251,12 +266,33 @@ call plug#end()
 
 " FZF {{{
 
-let g:fzf_command_prefix = 'Fzf'
-nnoremap <silent> <leader>ff :Files<CR>
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+
+" The Silver Searcher
+if executable('ag')
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+
+nnoremap <silent> <leader>ff :FZF -m<CR>
 nnoremap <silent> <leader>bb :Buffers<CR>
 nnoremap <silent> <leader>cc :Colors<CR>
-nnoremap <silent> <leader>h :History<CR>
+nnoremap <silent> <leader>hh :History<CR>
 
+"Recovery commands from history through FZF
+nmap <leader>y :History:<CR>
 
 " }}} 
 
@@ -274,7 +310,45 @@ abbr attribuet attribute
 
 " coc.nvim settins {{{
 
-let g:coc_global_extensions = [ 'coc-json', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-yaml', 'coc-python', 'coc-highlight', 'coc-emmet', 'coc-snippets', 'coc-lists', 'coc-angular', 'coc-tslint', 'coc-git', 'coc-yank', 'coc-svg', 'coc-vimlsp', 'coc-xml', 'coc-texlab', 'coc-prettier', 'coc-smartf', 'coc-gitignore', 'coc-ultisnips', 'coc-neosnippet', 'coc-go', 'coc-gocode', 'coc-sh', 'coc-emoji', 'coc-dictionary', 'coc-syntax' ]
+" Prettier command for coc-prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+let g:coc_global_extensions = [ 
+				\ 'coc-pairs',
+				\ 'coc-eslint',
+				\ 'coc-prettier',
+				\ 'coc-json',
+				\ 'coc-tsserver', 
+				\ 'coc-html', 
+				\ 'coc-css',
+				\ 'coc-yaml', 
+				\ 'coc-python',
+				\ 'coc-highlight',
+				\ 'coc-emmet',
+				\ 'coc-snippets',
+				\ 'coc-lists',
+				\ 'coc-angular',
+				\ 'coc-tslint',
+				\ 'coc-git',
+				\ 'coc-yank',
+				\ 'coc-svg',
+				\ 'coc-vimlsp',
+				\ 'coc-xml',
+				\ 'coc-texlab',
+				\ 'coc-smartf',
+				\ 'coc-gitignore',
+				\ 'coc-ultisnips',
+				\ 'coc-neosnippet',
+				\ 'coc-go',
+				\ 'coc-gocode',
+				\ 'coc-sh',
+				\ 'coc-emoji',
+				\ 'coc-dictionary',
+				\ 'coc-syntax'
+				\ ]
+
+" Better display for messages
+set cmdheight=2
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -282,7 +356,7 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -290,11 +364,17 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-s-space> coc#refresh()
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -314,14 +394,14 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <F2> <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <Leader>f  <Plug>(coc-format-selected)
+nmap <Leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -331,10 +411,24 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+" Remap for do codeAction of selected region, ex: `<Leader>aap` for current paragraph
+xmap <Leader>a  <Plug>(coc-codeaction-selected)
+nmap <Leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <Leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <Leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -351,8 +445,6 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Using CocList
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Show all buffers
-nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
@@ -368,18 +460,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" coc-smartf settings
-" press <esc> to cancel.
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap , <Plug>(coc-smartf-repeat-opposite)
-
-augroup Smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#FF0000
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-augroup end
-
 " }}}
 
 " Limelight mappings {{{
@@ -391,7 +471,7 @@ xmap <Leader>l <Plug>(Limelight)
 
 " Search Task mappings {{{
 
-nnoremap <leader>st :SearchTasks .<CR>
+nnoremap <Leader>st :SearchTasks .<CR>
 
 " }}}
 
@@ -404,7 +484,7 @@ let g:python_host_prog = '/home/lalit/.pyenv/versions/neovim2/bin/python'
 
 " vim-workspace Configurations for saving the session {{{
 
-nnoremap <leader>; :ToggleWorkspace<CR>
+nnoremap <Leader>; :ToggleWorkspace<CR>
 let g:workspace_session_disable_on_args = 1
 
 " }}}
@@ -504,21 +584,21 @@ augroup END
 
 " Syntastic Configuration {{{
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 0
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
-" for react
-" goto plugin mapping for React
-noremap <leader>gt :call ReactGotoDef()<CR>
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-let g:jsx_ext_required = 0
+" " for react
+" " goto plugin mapping for React
+" noremap <Leader>gt :call ReactGotoDef()<CR>
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+" let g:jsx_ext_required = 0
 
 " }}}
 
@@ -605,10 +685,10 @@ endif
 
 " Edit command to remove the last file name of the current directory {{{
 
-map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+map <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " }}}
 
@@ -622,7 +702,7 @@ map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 "" Color block width
 ""let  g: indent_guides_guide_size = 1
 "" Shortcut i on/off indentation visualization
-"nmap <silent><leader>i<Plug> :IndentGuidesToggle
+"nmap <silent><Leader>i<Plug> :IndentGuidesToggle
 
 " }}}
 
@@ -631,65 +711,65 @@ map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 let mapleader=" "
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-nmap <leader>* *<c-o>:%s///gn<cr>
-nmap <leader>u :PlugUpdate<CR>
-nmap <leader>qn :NERDTreeToggle<CR>
-nmap <leader>w :TagbarToggle<CR>
-nmap \ <leader>q<leader>w
-nmap <leader>ee :Colors<CR>
-nmap <leader>ce :colorscheme<space>
-nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <leader>e :e ~/.config/nvim/init.vim<CR>
+nmap <Leader>* *<c-o>:%s///gn<cr>
+nmap <Leader>u :PlugUpdate<CR>
+nmap <Leader>qn :NERDTreeToggle<CR>
+nmap <Leader>w :TagbarToggle<CR>
+nmap \ <Leader>q<Leader>w
+nmap <Leader>ee :Colors<CR>
+nmap <Leader>ce :colorscheme<space>
+nmap <Leader>r :so ~/.config/nvim/init.vim<CR>
+nmap <Leader>e :e ~/.config/nvim/init.vim<CR>
 
 " select whole file text in visual mode
 map <C-c> <esc>ggVG<CR>
 
 " count the current matched number
-nnoremap <silent> <leader>n :%s///gn<CR>
+nnoremap <silent> <Leader>n :%s///gn<CR>
 
 " scroll the viewport faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-" xmap <leader>a gaip*
-" nmap <leader>a gaip*
-nmap <leader>hs <C-w>s<C-w>j:terminal<CR>
-nmap <leader>vs <C-w>v<C-w>l:terminal<CR>
-"nmap <leader>d <Plug>(pydocstring)
-"nmap <leader>f :Files<CR>
-nmap <leader>z :Goyo<CR>
-nmap <leader>h :RainbowParentheses!!<CR>
-"nmap <leader>j :set filetype=journal<CR>
-"nmap <leader>k :ColorToggle<CR>
-nmap <leader>l :Limelight!!<CR>
-xmap <leader>l :Limelight!!<CR>
-autocmd FileType python nmap <leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
-map <leader>hn <C-w>v<C-w>l:HackerNews best<CR>J
+" xmap <Leader>a gaip*
+" nmap <Leader>a gaip*
+nmap <Leader>hs <C-w>s<C-w>j:terminal<CR>
+nmap <Leader>vs <C-w>v<C-w>l:terminal<CR>
+"nmap <Leader>d <Plug>(pydocstring)
+"nmap <Leader>f :Files<CR>
+nmap <Leader>z :Goyo<CR>
+nmap <Leader>h :RainbowParentheses!!<CR>
+"nmap <Leader>j :set filetype=journal<CR>
+"nmap <Leader>k :ColorToggle<CR>
+nmap <Leader>l :Limelight!!<CR>
+xmap <Leader>l :Limelight!!<CR>
+autocmd FileType python nmap <Leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
+map <Leader>hn <C-w>v<C-w>l:HackerNews best<CR>J
 
 " Taking word under the cursor and put in CtrlSF Plugin
-noremap <leader>fw :CtrlSF <C-R><C-W><CR>
+noremap <Leader>fw :CtrlSF <C-R><C-W><CR>
 
 " To show marks, Toggle command from signature plugin
-"noremap <leader>m :SignatureToggle<CR>
+"noremap <Leader>m :SignatureToggle<CR>
 
 " save
-noremap <silent> <leader>, :w<CR>
+noremap <silent> <Leader>, :w<CR>
 
 " Paste with middle mouse click
 vmap <LeftRelease> "*ygv
 
 " clear highlighted search
-noremap <silent> <leader>h :set hlsearch! hlsearch?<cr>
+noremap <silent> <Leader>h :set hlsearch! hlsearch?<cr>
 nnoremap <CR> :noh<CR><CR>
 
 " exit with leader
-noremap <silent> <leader>x :q<cr>
+noremap <silent> <Leader>x :q<cr>
 
 " Paste with <Shift> + <Insert>
 imap <S-Insert> <C-R>*
 
 " For putting the file name on the current position of cursor from Derek Wyatt
-imap <leader>fn <c-r>=expand('%:t:r')<cr>
+imap <Leader>fn <c-r>=expand('%:t:r')<cr>
 
 " Paste from system clipboard
 set clipboard=unnamedplus
@@ -728,7 +808,7 @@ nnoremap Q @='n.'<CR>
 set clipboard^=unnamed,unnamedplus
 
 " yank all lines of a file
-nnoremap <leader>yl :%y<CR>
+nnoremap <Leader>yl :%y<CR>
 
 """ undolevels
 set undolevels=1000      " use many muchos levels of undo
@@ -822,28 +902,28 @@ let g:user_emmet_settings = {
 
 set diffopt+=vertical
 " fugitive git bindings
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit -v -q<CR>
-nnoremap <leader>gt :Gcommit -v -q %:p<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>ge :Gedit<CR>
-nnoremap <leader>gr :Gread<CR>
-nnoremap <leader>gw :Gwrite<CR><CR>
-nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
-nnoremap <leader>gp :Ggrep<Space>
-nnoremap <leader>gm :Gmove<Space>
-nnoremap <leader>gb :Git branch<Space>
-nnoremap <leader>go :Git checkout<Space>
-nnoremap <leader>gps :Dispatch! git push<CR>
-nnoremap <leader>gpl :Dispatch! git pull<CR>
+nnoremap <Leader>ga :Git add %:p<CR><CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit -v -q<CR>
+nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>ge :Gedit<CR>
+nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gw :Gwrite<CR><CR>
+nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <Leader>gp :Ggrep<Space>
+nnoremap <Leader>gm :Gmove<Space>
+nnoremap <Leader>gb :Git branch<Space>
+nnoremap <Leader>go :Git checkout<Space>
+nnoremap <Leader>gps :Dispatch! git push<CR>
+nnoremap <Leader>gpl :Dispatch! git pull<CR>
 
 " }}}
 
 " Buffers Mappings {{{
 
 """ Buffers moving around maping
-nmap <leader>db :bd!<CR>
+nmap <Leader>db :bd!<CR>
 
 
 """ Tabs Navigation
@@ -853,17 +933,17 @@ nnoremap tn :tabnew<CR>
 nnoremap tc :tabclose<CR>
 
 """ Open new file in new tab
-nnoremap <leader>tn :tabnew<space>
+nnoremap <Leader>tn :tabnew<space>
 
 
 """ show buffers
-nnoremap <leader>bls :ls<cr>:b<space>
+nnoremap <Leader>bls :ls<cr>:b<space>
 
 """ show old
-nnoremap <leader>bo :browse old<CR>
+nnoremap <Leader>bo :browse old<CR>
 
 " delete all buffers
-nnoremap <leader>bdd :%bdelete<CR>
+nnoremap <Leader>bdd :%bdelete<CR>
 
 " }}}
 
@@ -1013,7 +1093,7 @@ endfunction
 
 " Magit mappings {{{
 
-nnoremap <leader>m :Magit<CR>
+nnoremap <Leader>m :Magit<CR>
 
 " }}}
 
@@ -1089,7 +1169,6 @@ augroup END
 
 " Other Configurations {{{
 
-
 set relativenumber                                           " relative line numbers
 set cursorline                                               " highlight the current line
 set tags=./tags;/
@@ -1161,9 +1240,6 @@ set foldlevel=1
 set nobackup
 set nowritebackup
 
-" Better display for messages
-set cmdheight=1
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
@@ -1231,25 +1307,7 @@ augroup filetype javascript syntax=javascript
 
 " }}}
 
-" Prettier and Neoformat Configurations {{{
-
-" elsint config for React
-" autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
-
-" prettier_d config with neoformat
-" autocmd FileType javascript, typescript, css, scss, markdown setlocal formatprg=prettier_dnc\ --local-only\ --pkg-conf\ --fallback
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.yml Neoformat
-
-" Use formatprg when available
-let g:neoformat_try_formatprg = 1
-" https://github.com/sbdchd/neoformat/issues/25
-let g:neoformat_only_msg_on_error = 1
-
-" Enable alignment
-let g:neoformat_basic_format_align = 1
-
-" Enable trimmming of trailing whitespace
-let g:neoformat_basic_format_trim = 1
+" Prettier Configurations {{{
 
 " Automatically comb your CSS on save
 autocmd BufWritePre,FileWritePre *.css,*.less,*.scss,*.sass silent! :CSScomb
@@ -1288,11 +1346,11 @@ let g:prettier#config#bracket_spacing = 'true'
 
 " put > on the last line instead of new line
 " Prettier default: false
-let g:prettier#config#jsx_bracket_same_line = 'true'
+let g:prettier#config#jsx_bracket_same_line = 'false'
 
 " avoid|always
 " Prettier default: avoid
-let g:prettier#config#arrow_parens = 'always'
+let g:prettier#config#arrow_parens = 'avoid'
 
 " html whitespace sensitivity
 let g:prettier#config#html_whitespace_sensitivity = 'ignore'
@@ -1303,7 +1361,7 @@ let g:prettier#config#trailing_comma = 'all'
 
 " flow|babylon|typescript|css|less|scss|json|graphql|markdown
 " Prettier default: babylon
-let g:prettier#config#parser = 'babylon'
+let g:prettier#config#parser = 'babel'
 
 " cli-override|file-override|prefer-file
 let g:prettier#config#config_precedence = 'cli-override'
