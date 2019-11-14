@@ -153,11 +153,6 @@ Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-let g:make = 'gmake'
-if exists('make')
-        let g:make = 'make'
-endif
-
 " }}}
 
 " FZF {{{
@@ -180,24 +175,24 @@ if executable('rg')
 endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-let g:fzf_command_prefix = 'Fzf'
-nnoremap <silent> <leader><space> :Files<CR>
-nnoremap <silent> <leader>bb :Buffers<CR>
-nnoremap <silent> <leader>gf :GFiles<CR>
-nnoremap <silent> <leader>ll :Lines<CR>
-nnoremap <silent> <leader>bl :BLines<CR>
-nnoremap <silent> <leader>tt :Tags<CR>
-nnoremap <silent> <leader>bt :BTags<CR>
-nnoremap <silent> <leader>mm :Marks<CR>
-nnoremap <silent> <leader>ww :Windows<CR>
-nnoremap <silent> <leader>ss :Snippets<CR>
-nnoremap <silent> <leader>cm :Commits<CR>
-nnoremap <silent> <leader>cb :BCommits<CR>
-nnoremap <silent> <leader>co :Commands<CR>
-nnoremap <silent> <leader>mp :Maps<CR>
-nnoremap <silent> <leader>ht :HelpTags<CR>
-nnoremap <silent> <leader>cc :Colors<CR>
-nnoremap <silent> <leader>hh :History<CR>
+let g:fzf_command_prefix='Fzf'
+nnoremap <silent> <leader><space> :FZF<CR>
+nnoremap <silent> <leader>bb :FzfBuffers<CR>
+nnoremap <silent> <leader>gf :FzfGFiles<CR>
+nnoremap <silent> <leader>ll :FzfLines<CR>
+nnoremap <silent> <leader>bl :FzfBLines<CR>
+nnoremap <silent> <leader>tt :FzfTags<CR>
+nnoremap <silent> <leader>bt :FzfBTags<CR>
+nnoremap <silent> <leader>mm :FzfMarks<CR>
+nnoremap <silent> <leader>ww :FzfWindows<CR>
+nnoremap <silent> <leader>ss :FzfSnippets<CR>
+nnoremap <silent> <leader>cm :FzfCommits<CR>
+nnoremap <silent> <leader>cb :FzfBCommits<CR>
+nnoremap <silent> <leader>co :FzfCommands<CR>
+nnoremap <silent> <leader>mp :FzfMaps<CR>
+nnoremap <silent> <leader>ht :FzfHelpTags<CR>
+nnoremap <silent> <leader>cc :FzfColors<CR>
+nnoremap <silent> <leader>hh :FzfHistory<CR>
 
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
