@@ -191,6 +191,8 @@ nnoremap <silent> <leader>cb :FzfBCommits<CR>
 nnoremap <silent> <leader>co :FzfCommands<CR>
 nnoremap <silent> <leader>mp :FzfMaps<CR>
 nnoremap <silent> <leader>ht :FzfHelpTags<CR>
+nnoremap <silent> <leader>ag :FzfAg<CR>
+nnoremap <silent> <leader>rg :FzfRg<CR>
 nnoremap <silent> <leader>cc :FzfColors<CR>
 nnoremap <silent> <leader>hh :FzfHistory<CR>
 
