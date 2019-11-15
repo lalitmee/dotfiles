@@ -1,0 +1,25 @@
+{
+	"prettier_cli_path": "/home/lalit/.nvm/versions/node/v12.13.0/bin/prettier",
+	"node_path": "/home/lalit/.nvm/versions/node/v12.13.0/bin/node",
+	"auto_format_on_save": true,
+	"auto_format_on_save_excludes": [   
+		"*/node_modules/*",
+        "*/file.js",
+        "*.json"
+     ],
+	"prettier_options": {
+		"printWidth": 80,
+		"tabWidth": 2,
+		"singleQuote": true,
+		"trailingComma": "all",
+		"bracketSpacing": true,
+		"jsxBracketSameLine": false,
+		"parser": "babel",
+		"semi": true,
+		"requirePragma": false,
+		"proseWrap": "preserve",
+		"arrowParens": "avoid",
+		"htmlWhitespaceSensitivity": "ignore",
+		"quoteProps": "as-needed"
+	}
+}
