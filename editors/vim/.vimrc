@@ -58,25 +58,6 @@ if exists('make')
 endif
 Plug 'Shougo/vimproc.vim', {'do': g:make}
 
-"" vim-syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_loc_list_height = 5
-" let g:syntastic_auto_loc_list = 0
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_error_symbol = '❌'
-" let g:syntastic_style_error_symbol = '⁉️'
-" let g:syntastic_warning_symbol = '⚠️'
-" let g:syntastic_style_warning_symbol = '💩'
-" highlight link SyntasticErrorSign SignColumn
-" highlight link SyntasticWarningSign SignColumn
-" highlight link SyntasticStyleErrorSign SignColumn
-" highlight link SyntasticStyleWarningSign SignColumn
-
 "" Hackernews
 noremap <silent> <leader>hn :HackerNews best<CR>
 
@@ -109,7 +90,44 @@ Plug 'honza/vim-snippets'
 
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = [ 'coc-json', 'coc-tsserver', 'coc-html', 'coc-css', 'coc-yaml', 'coc-python', 'coc-highlight', 'coc-emmet', 'coc-snippets', 'coc-lists', 'coc-angular', 'coc-tslint', 'coc-git', 'coc-yank', 'coc-svg', 'coc-vimlsp', 'coc-xml', 'coc-texlab', 'coc-prettier', 'coc-smartf', 'coc-gitignore', 'coc-ultisnips', 'coc-neosnippet', 'coc-go', 'coc-gocode', 'coc-sh', 'coc-emoji', 'coc-dictionary', 'coc-syntax' ]
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+let g:coc_global_extensions = [ 
+				\ 'coc-pairs',
+				\ 'coc-eslint',
+				\ 'coc-prettier',
+				\ 'coc-json',
+				\ 'coc-tsserver', 
+				\ 'coc-html', 
+				\ 'coc-css',
+				\ 'coc-yaml', 
+				\ 'coc-python',
+				\ 'coc-highlight',
+				\ 'coc-emmet',
+				\ 'coc-snippets',
+				\ 'coc-lists',
+				\ 'coc-angular',
+				\ 'coc-tslint',
+				\ 'coc-git',
+				\ 'coc-yank',
+				\ 'coc-svg',
+				\ 'coc-vimlsp',
+				\ 'coc-xml',
+				\ 'coc-texlab',
+				\ 'coc-smartf',
+				\ 'coc-gitignore',
+				\ 'coc-ultisnips',
+				\ 'coc-neosnippet',
+				\ 'coc-go',
+				\ 'coc-gocode',
+				\ 'coc-sh',
+				\ 'coc-emoji',
+				\ 'coc-dictionary',
+				\ 'coc-syntax'
+				\ ]
+
+" Better display for messages
+set cmdheight=2
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -285,8 +303,9 @@ set guioptions=egmrti
 " set gfn=IBM\ Plex\ Mono\ 11
 " set gfn=Powerline\ Consolas\ 11
 " set gfn=Ubuntu\ Mono\ 12
-" set gfn=Source\ Code\ Pro\ for\ Powerline\ 10
-set gfn=Source\ Code\ Pro\ Semibold\ 13
+set gfn=Source\ Code\ Pro\ for\ Powerline\ Semibold\ 13
+" set gfn=Source\ Code\ Pro\ Semibold\ 13
+" set gfn=Monofur\ Nerd\ Font\ Mono\ Book\ 16
 " set gfn=Operator\ Mono\ Lig\ Book\ 11
 " set gfn=Operator\ Mono\ Lig\ Medium\ 12
 " set gfn=Cascadia\ Code\ Regular\ 12
@@ -760,10 +779,10 @@ let g:tagbar_type_ruby = {
 \ }
 
 " RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
 
 " For ruby refactory
 if has('nvim')
