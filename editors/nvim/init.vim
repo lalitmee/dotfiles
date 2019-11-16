@@ -183,6 +183,7 @@ nnoremap <silent> <leader>ll :FzfLines<CR>
 nnoremap <silent> <leader>bl :FzfBLines<CR>
 nnoremap <silent> <leader>tt :FzfTags<CR>
 nnoremap <silent> <leader>bt :FzfBTags<CR>
+nnoremap <silent> <leader>fl :FzfLocate<space>
 nnoremap <silent> <leader>mm :FzfMarks<CR>
 nnoremap <silent> <leader>ww :FzfWindows<CR>
 nnoremap <silent> <leader>ss :FzfSnippets<CR>
@@ -195,6 +196,8 @@ nnoremap <silent> <leader>ag :FzfAg<CR>
 nnoremap <silent> <leader>rg :FzfRg<CR>
 nnoremap <silent> <leader>cc :FzfColors<CR>
 nnoremap <silent> <leader>hh :FzfHistory<CR>
+nnoremap <silent> <leader>hc :FzfHistory:<CR>
+nnoremap <silent> <leader>hs :FzfHistory/<CR>
 
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
@@ -588,8 +591,8 @@ nnoremap <silent> <Leader>n :%s///gn<CR>
 " scroll the viewport faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
-nmap <Leader>hs <C-w>s<C-w>j:terminal<CR>
-nmap <Leader>vs <C-w>v<C-w>l:terminal<CR>
+nmap <Leader>th <C-w>s<C-w>j:terminal<CR>
+nmap <Leader>tv <C-w>v<C-w>l:terminal<CR>
 nmap <Leader>z :Goyo<CR>
 nmap <Leader>h :RainbowParentheses!!<CR>
 autocmd FileType python nmap <Leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
