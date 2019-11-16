@@ -6,95 +6,95 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: 'stable',
+    updateChannel: "stable",
 
     // default font size in pixels for all tabs
     fontSize: 16,
 
     // font family with optional fallbacks
     fontFamily:
-      'Source Code Pro, Cascadia Code, Ubuntu Mono, Operator Mono Lig Medium, Source Code Pro for Powerline, Monaco, monospace',
+      "Cascadia Code, Source Code Pro, Ubuntu Mono, Operator Mono Lig Medium, Source Code Pro for Powerline, Monaco, monospace",
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: '500',
+    fontWeight: "500",
 
     // font weight for bold characters: 'normal' or 'bold'
-    fontWeightBold: 'bold',
+    fontWeightBold: "bold",
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: 'rgb(255, 102, 0)',
+    cursorColor: "rgb(255, 102, 0)",
 
     // terminal text color under BLOCK cursor
-    cursorAccentColor: '#000',
+    cursorAccentColor: "#000",
 
     // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
-    cursorShape: 'BLOCK',
+    cursorShape: "BLOCK",
 
     // set to `true` (without backticks and without quotes) for blinking cursor
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#fff',
+    foregroundColor: "#fff",
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#000',
+    backgroundColor: "#000",
 
     // terminal selection color
-    selectionColor: 'rgba(248,28,229,0.3)',
+    selectionColor: "rgba(248,28,229,0.3)",
 
     // border color (window, tabs)
-    borderColor: '#333',
+    borderColor: "#333",
 
     // custom CSS to embed in the main window
-    css: '',
+    css: "",
 
     // custom CSS to embed in the terminal window
-    termCSS: '',
+    termCSS: "",
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
-    showHamburgerMenu: '',
+    showHamburgerMenu: "",
 
     // set to `false` (without backticks and without quotes) if you want to hide the minimize, maximize and close buttons
     // additionally, set to `'left'` if you want them on the left, like in Ubuntu
     // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
-    showWindowControls: '',
+    showWindowControls: "",
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: '12px 14px',
+    padding: "12px 14px",
 
-    hypercwd: { initialWorkingDirectory: '~' },
+    hypercwd: { initialWorkingDirectory: "~" },
 
     hypernpm: {
       // wil run `npm run lint`
-      1: 'lint',
-      2: 'start',
-      3: 'build',
+      1: "lint",
+      2: "start",
+      3: "build",
       // will run `npm test` since it's a native npm command
-      4: 'test',
+      4: "test"
     },
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
     colors: {
-      black: '#000000',
-      red: '#C51E14',
-      green: '#1DC121',
-      yellow: '#C7C329',
-      blue: '#0A2FC4',
-      magenta: '#C839C5',
-      cyan: '#20C5C6',
-      white: '#C7C7C7',
-      lightBlack: '#686868',
-      lightRed: '#FD6F6B',
-      lightGreen: '#67F86F',
-      lightYellow: '#FFFA72',
-      lightBlue: '#6A76FB',
-      lightMagenta: '#FD7CFC',
-      lightCyan: '#68FDFE',
-      lightWhite: '#FFFFFF',
+      black: "#000000",
+      red: "#C51E14",
+      green: "#1DC121",
+      yellow: "#C7C329",
+      blue: "#0A2FC4",
+      magenta: "#C839C5",
+      cyan: "#20C5C6",
+      white: "#C7C7C7",
+      lightBlack: "#686868",
+      lightRed: "#FD6F6B",
+      lightGreen: "#67F86F",
+      lightYellow: "#FFFA72",
+      lightBlue: "#6A76FB",
+      lightMagenta: "#FD7CFC",
+      lightCyan: "#68FDFE",
+      lightWhite: "#FFFFFF"
     },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
@@ -109,17 +109,17 @@ module.exports = {
     //
     // PowerShell on Windows
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
-    shell: '',
+    shell: "",
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
-    shellArgs: ['--login'],
+    shellArgs: ["--login"],
 
     // for environment variables
     env: {},
 
     // set to `false` for no bell
-    bell: 'SOUND',
+    bell: "SOUND",
 
     // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
     copyOnSelect: false,
@@ -135,7 +135,7 @@ module.exports = {
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
-    webGLRenderer: false,
+    webGLRenderer: false
   },
 
   // a list of plugins to fetch and install from npm
@@ -145,11 +145,10 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyper-font-ligatures',
-    'hyper-match',
-    'hyper-tab-icons',
-    'shades-of-purple-hyper',
-    'hyper-tabs-enhanced',
+    "hyper-match",
+    "hyper-tab-icons",
+    "shades-of-purple-hyper",
+    "hyper-tabs-enhanced"
   ],
 
   // in development, you can create a directory under
@@ -160,5 +159,5 @@ module.exports = {
   keymaps: {
     // Example
     // 'window:devtools': 'cmd+alt+o',
-  },
+  }
 };
