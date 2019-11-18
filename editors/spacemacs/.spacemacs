@@ -248,9 +248,9 @@ values."
    dotspacemacs-default-font '((
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator Mono Lig"
-                               "Source Code Pro"
+                               ;; "Source Code Pro"
                                ;; "Hasklig"
-                               ;; "Cascadia Code"
+                               "Cascadia Code"
                                ;; "Fira Code"
                                ;; "FiraCode Nerd Font"
                                ;; "Ubuntu Mono"
@@ -710,7 +710,9 @@ comment box."
   (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
 
   ;; keybinding for fuzzy finding files by fzf
-  (spacemacs/set-leader-keys "ff" 'fzf)
+  (spacemacs/set-leader-keys "ff" 'fzf-git-files)
+  (spacemacs/set-leader-keys "fd" 'fzf-directory)
+  (spacemacs/set-leader-keys "fp" 'fzf-git)
 
   ;; magit autocomplete
   (setq magit-repository-directories '("~/repos/"))
