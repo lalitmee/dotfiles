@@ -304,3 +304,25 @@ set-option -g allow-rename off
 
 # move status line to top
 #set -g status-position top
+
+# for split window
+bind-key - split-window -v -c '#{current_pane_path}'
+bind-key \ split-window -h -c '#{current_pane_path}'
+
+# create new window with the current directory path
+bind c new-window -c '#{current_pane_path}'
+
+# Fine adjustment (1 or 2 cursor cells per bump)
+bind -n S-Left resize-pane -L 2
+bind -n S-Right resize-pane -R 2
+bind -n S-Down resize-pane -D 1
+bind -n S-Up resize-pane -U 1
+
+# Coarse adjustment (5 or 10 cursor cells per bump)
+bind -n C-Left resize-pane -L 10
+bind -n C-Right resize-pane -R 10
+bind -n C-Down resize-pane -D 5
+bind -n C-Up resize-pane -U 5
+
+# send current pane to next window
+bind-key n break-pane -d
