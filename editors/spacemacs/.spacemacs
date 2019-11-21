@@ -52,7 +52,7 @@ values."
      vimscript
      docker
      pandoc
-     (rebox :variables rebox-enable-in-text-mode t)
+     ;; (rebox :variables rebox-enable-in-text-mode t)
      (org :variables
           org-enable-sticky-header t
           org-enable-epub-support t
@@ -133,26 +133,27 @@ values."
    dotspacemacs-additional-packages '(
                                       ;; ng2-mode
                                       ;; emms
-                                      nord-theme
-                                      all-the-icons
-                                      all-the-icons-ivy
-                                      all-the-icons-dired
-                                      beacon
                                       ac-js2
                                       add-node-modules-path
+                                      all-the-icons
+                                      all-the-icons-dired
+                                      all-the-icons-ivy
                                       atom-one-dark-theme
                                       auto-package-update
                                       auto-rename-tag
                                       auto-yasnippet
                                       autothemer
                                       babel
+                                      beacon
                                       blacken
                                       cobalt
                                       color-theme-modern
                                       company-tabnine
                                       counsel
                                       doom-themes
+                                      emojify
                                       faff-theme
+                                      forge
                                       fzf
                                       helm-fuzzy-find
                                       htmlize
@@ -160,8 +161,10 @@ values."
                                       iy-go-to-char
                                       magit
                                       multiple-cursors
+                                      nord-theme
                                       ox-reveal
                                       prettier-js
+                                      rjsx-mode
                                       sublimity
                                       swiper
                                       try
@@ -253,22 +256,25 @@ values."
    dotspacemacs-default-font '((
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator Mono Lig"
-                               ;; "Source Code Pro"
+                               "Source Code Pro"
                                ;; "Hasklig"
                                ;; "Cascadia Code"
                                ;; "Fira Code"
+                               ;; "FuraCode Nerd Font"
                                ;; "FiraCode Nerd Font"
                                ;; "UbuntuMono Nerd Font"
-                               "CodeNewRoman Nerd Font"
+                               ;; "CodeNewRoman Nerd Font"
+                               ;; "Code New Roman"
                                ;; "FuraMono Nerd Font"
                                ;; "Inconsolata Nerd Font"
                                ;; "Monaco for Powerline"
+                               ;; "Monaco Nerd Font"
                                ;; "monofur for Powerline"
                                ;; "Powerline Consolas"
                                ;; "Hack"
                                ;; "Menlo"
                                ;; "Monaco"
-                               :size 18
+                               :size 17
                                :weight normal
                                :width normal
                                :powerline-scale 1.3))
@@ -592,43 +598,64 @@ comment box."
   ;; centered cursor mode
   (global-centered-cursor-mode +1)
 
+  (defun fira-code-mode--make-alist (list)
+    "Generate prettify-symbols alist from LIST."
+    (let ((idx -1))
+      (mapcar
+      (lambda (s)
+        (setq idx (1+ idx))
+        (let* ((code (+ #Xe100 idx))
+            (width (string-width s))
+            (prefix ())
+            (suffix '(?\s (Br . Br)))
+            (n 1))
+      (while (< n width)
+        (setq prefix (append prefix '(?\s (Br . Bl))))
+        (setq n (1+ n)))
+      (cons s (append prefix suffix (list (decode-char 'ucs code))))))
+      list)))
 
-  ;; Font Ligatures
-  ;; (defun my-correct-symbol-bounds (pretty-alist)
-  ;;     "Prepend a TAB character to each symbol in this alist,
-  ;; this way compose-region called by prettify-symbols-mode
-  ;; will use the correct width of the symbols
-  ;; instead of the width measured by char-width."
-  ;;     (mapcar (lambda (el)
-  ;;               (setcdr el (string ?\t (cdr el)))
-  ;;               el)
-  ;;             pretty-alist))
-  ;; (defun my-ligature-list (ligatures codepoint-start)
-  ;;     "Create an alist of strings to replace with
-  ;; codepoints starting from codepoint-start."
-  ;;     (let ((codepoints (-iterate '1+ codepoint-start (length ligatures))))
-  ;;       (-zip-pair ligatures codepoints)))
-  ;; (setq my-fira-code-ligatures
-  ;;     (let* ((ligs '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-  ;;                   "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-  ;;                   "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-  ;;                   "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-  ;;                   ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-  ;;                   "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-  ;;                   "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-  ;;                   "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-  ;;                   ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-  ;;                   "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-  ;;                   "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-  ;;                   "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-  ;;                   "x" ":" "+" "+" "*")))
-  ;;       (my-correct-symbol-bounds (my-ligature-list ligs #Xe100))))
-  ;; (defun my-set-fira-code-ligatures ()
-  ;;     "Add fira code ligatures for use with prettify-symbols-mode."
-  ;;     (setq prettify-symbols-alist
-  ;;           (append my-fira-code-ligatures prettify-symbols-alist))
-  ;;     (prettify-symbols-mode))
-  ;; (add-hook 'prog-mode-hook 'my-set-fira-code-ligatures)
+  (defconst fira-code-mode--ligatures
+    '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+      "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+      "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+      "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+      ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
+      "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
+      "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
+      "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
+      ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
+      "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
+      "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
+      "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
+      "x" ":" "+" "+" "*"))
+
+  (defvar fira-code-mode--old-prettify-alist)
+
+  (defun fira-code-mode--enable ()
+    "Enable Fira Code ligatures in current buffer."
+    (setq-local fira-code-mode--old-prettify-alist prettify-symbols-alist)
+    (setq-local prettify-symbols-alist (append (fira-code-mode--make-alist fira-code-mode--ligatures) fira-code-mode--old-prettify-alist))
+    (prettify-symbols-mode t))
+
+  (defun fira-code-mode--disable ()
+    "Disable Fira Code ligatures in current buffer."
+    (setq-local prettify-symbols-alist fira-code-mode--old-prettify-alist)
+    (prettify-symbols-mode -1))
+
+  (define-minor-mode fira-code-mode
+    "Fira Code ligatures minor mode"
+    :lighter " Fira Code"
+    (setq-local prettify-symbols-unprettify-at-point 'right-edge)
+    (if fira-code-mode
+        (fira-code-mode--enable)
+      (fira-code-mode--disable)))
+
+  (defun fira-code-mode--setup ()
+    "Setup Fira Code Symbols"
+    (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol"))
+
+  (provide 'fira-code-mode)
 
   (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -670,12 +697,24 @@ comment box."
   ;; /////////////////////////////
 
   ;; (spacemacs/load-theme 'moe-dark)
+  (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
   ;; (spacemacs/load-theme 'doom-molokai)
-  (spacemacs/load-theme 'spacemacs-dark)
+  ;; (spacemacs/load-theme 'doom-gruvbox)
+  ;; (spacemacs/load-theme 'doom-palenight)
+  ;; (spacemacs/load-theme 'doom-tomorrow-night)
+  ;; (spacemacs/load-theme 'doom-oceanic-next)
+  ;; (spacemacs/load-theme 'spacemacs-dark)
   ;; (spacemacs/load-theme 'spacemacs-light)
   ;; (spacemacs/load-theme 'cobalt)
   ;; (spacemacs/load-theme 'faff)
+
+  ;; for setting line spacing
+  ;; (defun set-bigger-spacing ()
+  ;;   (setq-local default-text-properties '(line-spacing 0.25 line-height 0.75)))
+  ;; (add-hook 'text-mode-hook 'set-bigger-spacing)
+  ;; (add-hook 'prog-mode-hook 'set-bigger-spacing)
+  (add-hook 'after-init-hook #'global-emojify-mode)
   (add-hook 'prog-mode-hook 'company-emoji-init)
   (with-eval-after-load 'emoji-cheat-sheet-plus
     (diminish 'emoji-cheat-sheet-plus-display-mode))
@@ -769,6 +808,8 @@ comment box."
 
   ;; magit autocomplete
   (setq magit-repository-directories '("~/repos/"))
+  (with-eval-after-load 'magit
+    (require 'forge))
   (global-git-commit-mode t)
 
   ;; ace-window configurations
@@ -832,8 +873,6 @@ comment box."
   (add-hook 'js-mode-hook 'js2-minor-mode)
   ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 
-  ;; hook for yaml files
-  (add-hook 'yaml-mode-hook 'prettier-js-mode)
 
   (require 'js2-refactor)
   (require 'xref-js2)
@@ -877,22 +916,7 @@ comment box."
   ;; formats the buffer before saving
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
-  ;; (add-hook 'typescript-mode-hook 'ng2-mode)
-  (add-hook 'typescript-mode-hook 'prettier-js-mode)
   (add-hook 'html-mode-hook #'setup-tide-mode)
-  (add-hook 'before-save-hook 'tide-organize-imports)
-
-  ;; ;; (setq tide-tsserver-executable
-  ;; ;;       "/usr/local/lib/node_modules/typescript/bin/tsserver")
-  ;; ;; formats the buffer before saving
-  ;; ;; (setq tide-tsserver-executable "/usr/local/bin/tsserver")
-  ;; (setq tide-format-options
-  ;;       '(:placeOpenBraceOnNewLineForFunctions nil
-  ;;         :indentSize 2
-  ;;         :tabSize 2
-  ;;         :insertSpaceBeforeAndAfterBinaryOperators t
-  ;;         :insertSpaceAfterKeywordsInControlFlowStatements t))
-
 
   ;; web mode settings
   (add-to-list
@@ -901,9 +925,6 @@ comment box."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
 
-  (add-hook
-   'web-mode-hook
-   #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
 
   (add-hook
    'web-mode-hook
@@ -914,6 +935,10 @@ comment box."
   ;; from this post => https://www.cha1tanya.com/2015/06/20/configuring-web-mode-with-jsx.html
   (setq web-mode-content-types-alist
         '(("jsx" . "\\.js[x]?\\'")))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 
   ;; /////////////////////////////////
   ;; Web mode, React mode, Javascript, Typescript configurations
@@ -947,8 +972,6 @@ comment box."
        (setq web-mode-css-indent-offset (symbol-value 'js-indent-level))
        (setq web-mode-code-indent-offset (symbol-value 'js-indent-level)))))
 
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
   (setq js2-basic-offset 2)
   (setq js-indent-level 2)
   (setq-default js-indent-level 2)
@@ -979,10 +1002,6 @@ comment box."
   (add-hook 'web-mode-hook 'auto-rename-tag-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
 
-  ;; react mode settings
-  (add-hook 'react-mode-hook 'prettier-js-mode)
-  (eval-after-load 'js-mode
-    '(add-hook 'js-mode-hook #'add-node-modules-path))
 
   ;; python mode settings
   ;; python indent offset
@@ -1004,6 +1023,7 @@ comment box."
                            ))
 
   ;; prettier mode hooks
+  (add-hook 'prog-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'markdown-mode-hook 'prettier-js-mode)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
@@ -1012,6 +1032,14 @@ comment box."
   (add-hook 'css-mode-hook 'prettier-js-mode)
   (add-hook 'scss-mode-hook 'prettier-js-mode)
   (add-hook 'html-mode-hook 'prettier-js-mode)
+  (add-hook 'react-mode-hook 'prettier-js-mode)
+  (add-hook 'typescript-mode-hook 'prettier-js-mode)
+  (add-hook 'yaml-mode-hook 'prettier-js-mode)
+  (eval-after-load 'js-mode
+    '(add-hook 'js-mode-hook #'add-node-modules-path))
+  (add-hook
+   'web-mode-hook
+   #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
 
 
   (defun enable-minor-mode (my-pair)
@@ -1039,7 +1067,7 @@ comment box."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (nord-theme all-the-icons-ivy all-the-icons-dired beacon company-tabnine unicode-escape names polymode json-process-client add-node-modules-path stickyfunc-enhance srefactor emms elisp-format blacken ox-twbs chocolate-theme cobalt helm-dictionary ibuffer-projectile alert log4e spinner ht org-category-capture gntp multiple-cursors hydra parent-mode multi request dash-docs haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter pkg-info epl flx highlight transient with-editor anzu undo-tree all-the-icons memoize magit-popup json-snatcher json-reformat web-completion-data dash-functional tern pos-tip bind-map bind-key autothemer packed pythonic s skewer-mode js2-mode auto-complete popup iedit yasnippet tramp-theme color-theme-modern faff-theme dired-narrow go-guru go-eldoc flycheck-gometalinter company-go go-mode lv auto-package-update pfuture swiper anaconda-mode avy simple-httpd f dash company-quickhelp smooth-scroll xkcd selectric-mode zeal-at-point rebox2 pandoc-mode ox-pandoc helm-dash gmail-message-mode ham-mode html-to-markdown flymd edit-server dockerfile-mode docker tablist docker-tramp deft wakatime-mode zoom sublimity evil-snipe twittering-mode engine-mode rainbow-mode rainbow-identifiers color-identifiers-mode helm-gtags ggtags ng2-mode lsp-mode indium seq treemacs typescript-mode powerline ace-window smartparens evil goto-chg flycheck company helm helm-core markdown-mode projectile magit git-commit async org-plus-contrib ivy babel pretty-symbols pretty-mode typit mmt sudoku pacmacs 2048-game spacemacs-theme zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color xref-js2 ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme try treemacs-projectile treemacs-evil toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spotify spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox ox-reveal ox-gfm orgit organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jinja2-mode jbeans-theme jazz-theme iy-go-to-char ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-spotify-plus helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzy-find helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fzf fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator fasd farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump dracula-theme doom-themes django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme dactyl-mode cython-mode cyberpunk-theme counsel company-web company-tern company-statistics company-emoji company-ansible company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme blackboard-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-rename-tag auto-highlight-symbol auto-compile atom-one-dark-theme apropospriate-theme anti-zenburn-theme ansible-doc ansible ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-link ace-jump-helm-line ac-js2 ac-ispell)))
+    (rjsx-mode emojify forge ghub closql emacsql-sqlite emacsql treepy nord-theme all-the-icons-ivy all-the-icons-dired beacon company-tabnine unicode-escape names polymode json-process-client add-node-modules-path stickyfunc-enhance srefactor emms elisp-format blacken ox-twbs chocolate-theme cobalt helm-dictionary ibuffer-projectile alert log4e spinner ht org-category-capture gntp multiple-cursors hydra parent-mode multi request dash-docs haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter pkg-info epl flx highlight transient with-editor anzu undo-tree all-the-icons memoize magit-popup json-snatcher json-reformat web-completion-data dash-functional tern pos-tip bind-map bind-key autothemer packed pythonic s skewer-mode js2-mode auto-complete popup iedit yasnippet tramp-theme color-theme-modern faff-theme dired-narrow go-guru go-eldoc flycheck-gometalinter company-go go-mode lv auto-package-update pfuture swiper anaconda-mode avy simple-httpd f dash company-quickhelp smooth-scroll xkcd selectric-mode zeal-at-point rebox2 pandoc-mode ox-pandoc helm-dash gmail-message-mode ham-mode html-to-markdown flymd edit-server dockerfile-mode docker tablist docker-tramp deft wakatime-mode zoom sublimity evil-snipe twittering-mode engine-mode rainbow-mode rainbow-identifiers color-identifiers-mode helm-gtags ggtags ng2-mode lsp-mode indium seq treemacs typescript-mode powerline ace-window smartparens evil goto-chg flycheck company helm helm-core markdown-mode projectile magit git-commit async org-plus-contrib ivy babel pretty-symbols pretty-mode typit mmt sudoku pacmacs 2048-game spacemacs-theme zenburn-theme zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color xref-js2 ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme try treemacs-projectile treemacs-evil toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spotify spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme ranger rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme prettier-js popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox ox-reveal ox-gfm orgit organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jinja2-mode jbeans-theme jazz-theme iy-go-to-char ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-spotify-plus helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzy-find helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md gandalf-theme fzf fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator fasd farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump dracula-theme doom-themes django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme dactyl-mode cython-mode cyberpunk-theme counsel company-web company-tern company-statistics company-emoji company-ansible company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-theme coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme blackboard-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-rename-tag auto-highlight-symbol auto-compile atom-one-dark-theme apropospriate-theme anti-zenburn-theme ansible-doc ansible ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-link ace-jump-helm-line ac-js2 ac-ispell)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(wakatime-python-bin nil))
 (custom-set-faces
