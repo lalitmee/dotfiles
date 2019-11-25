@@ -161,7 +161,6 @@ values."
                                       iy-go-to-char
                                       magit
                                       multiple-cursors
-                                      nord-theme
                                       ox-reveal
                                       prettier-js
                                       rjsx-mode
@@ -697,9 +696,9 @@ comment box."
   ;; /////////////////////////////
 
   ;; (spacemacs/load-theme 'moe-dark)
-  (spacemacs/load-theme 'doom-one)
+  ;; (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
-  ;; (spacemacs/load-theme 'doom-molokai)
+  (spacemacs/load-theme 'doom-molokai)
   ;; (spacemacs/load-theme 'doom-gruvbox)
   ;; (spacemacs/load-theme 'doom-palenight)
   ;; (spacemacs/load-theme 'doom-tomorrow-night)
@@ -708,6 +707,11 @@ comment box."
   ;; (spacemacs/load-theme 'spacemacs-light)
   ;; (spacemacs/load-theme 'cobalt)
   ;; (spacemacs/load-theme 'faff)
+
+  ;; for yasnippet
+  (require 'yasnippet)
+  (yas-global-mode 1)
+  (setq yas-snippet-dirs '("~/.emacs.d/elpa/yasnippet-snippets-20191117.1730"))
 
   ;; for setting line spacing
   ;; (defun set-bigger-spacing ()
@@ -1023,7 +1027,6 @@ comment box."
                            ))
 
   ;; prettier mode hooks
-  (add-hook 'prog-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'markdown-mode-hook 'prettier-js-mode)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
