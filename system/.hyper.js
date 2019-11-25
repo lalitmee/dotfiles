@@ -9,11 +9,11 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 18,
+    fontSize: 15,
 
     // font family with optional fallbacks
     fontFamily:
-      'CodeNewRoman Nerd Font, UbuntuMono Nerd Font, MesloLGS NF, Cascadia Code, Source Code Pro, Ubuntu Mono, Operator Mono Lig Medium, Source Code Pro for Powerline, Monaco, monospace',
+      'Source Code Pro for Powerline, CodeNewRoman Nerd Font, UbuntuMono Nerd Font, MesloLGS NF, Cascadia Code, Source Code Pro, Ubuntu Mono, Operator Mono Lig Medium, Source Code Pro for Powerline, Monaco, monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: '500',
