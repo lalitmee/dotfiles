@@ -9,6 +9,7 @@ call plug#begin()
 
 " Main {{{
 
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'justinmk/vim-sneak'           " Vim sneak with two words
 Plug 'suan/vim-instant-markdown'    " Instant markdown preview from vim
 Plug 'kshenoy/vim-signature'        " toggle, display and navigate marks
@@ -109,6 +110,10 @@ augroup END
 " Plugins for JavaScript & TypeScript {{{
 
 Plug 'HerringtonDarkholme/yats.vim'
+
+" }}}
+
+" Lightline settings {{{
 
 " }}}
 
@@ -420,7 +425,8 @@ syntax on
 set bg=dark
 set swapfile
 set dir=~/vim-autoswap
-colorscheme base16-monokai
+" colorscheme base16-monokai
+silent colorscheme base16-material-darker
 " colorscheme landscape
 " colorscheme darkblue
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -818,7 +824,7 @@ map g# <Plug>(incsearch-nohl-g#)
 " Window mappings {{{
 
 " window splits
-nnoremap sv <C-w>v
+nnoremap <leader>v <C-w>v
 nnoremap sh <C-w>S
 
 " window chnages from current position
@@ -832,6 +838,17 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" }}}
+
+" Tmux Resizing and ballancing {{{
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
 
 " }}}
 
@@ -1108,7 +1125,6 @@ set list listchars=trail:»,tab:»-
 set fillchars+=vert:\
 set breakindent
 set formatprg=par\ -w72
-set encoding=utf-8
 
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 			\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor

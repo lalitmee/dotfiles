@@ -665,9 +665,9 @@ comment box."
   ;; (spacemacs/load-theme 'moe-dark)
   ;; (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
-  (spacemacs/load-theme 'doom-molokai)
+  ;; (spacemacs/load-theme 'doom-molokai)
   ;; (spacemacs/load-theme 'doom-gruvbox)
-  ;; (spacemacs/load-theme 'doom-palenight)
+  (spacemacs/load-theme 'doom-palenight)
   ;; (spacemacs/load-theme 'doom-tomorrow-night)
   ;; (spacemacs/load-theme 'doom-oceanic-next)
   ;; (spacemacs/load-theme 'spacemacs-dark)
@@ -779,6 +779,8 @@ comment box."
 
   ;; magit autocomplete
   (setq magit-repository-directories '("~/repos/"))
+  (setq magit-commit-show-diff nil
+        magit-revert-buffers 1)
   (with-eval-after-load 'magit
     (require 'forge))
   (global-git-commit-mode t)
