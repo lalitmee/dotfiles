@@ -59,7 +59,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Colors {{{
 
 Plug 'chriskempson/base16-vim'
-Plug 'fenetikm/falcon'
 Plug 'itchyny/landscape.vim'
 Plug 'tomasr/molokai'
 
@@ -252,7 +251,6 @@ let g:coc_global_extensions = [
 				\ 'coc-eslint',
 				\ 'coc-prettier',
 				\ 'coc-json',
-				\ 'coc-tsserver', 
 				\ 'coc-html', 
 				\ 'coc-css',
 				\ 'coc-yaml', 
@@ -278,7 +276,6 @@ let g:coc_global_extensions = [
 				\ 'coc-sh',
 				\ 'coc-emoji',
 				\ 'coc-dictionary',
-				\ 'coc-syntax'
 				\ ]
 
 " Better display for messages
@@ -580,6 +577,7 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 nmap <Leader>* *<c-o>:%s///gn<cr>
 nmap <Leader>u :PlugUpdate<CR>
+nmap <Leader>cl :PlugClean<CR>
 nmap <Leader>qn :NERDTreeToggle<CR>
 nmap <Leader>w :TagbarToggle<CR>
 nmap \ <Leader>q<Leader>w
@@ -609,6 +607,10 @@ noremap <Leader>fw :CtrlSF <C-R><C-W><CR>
 
 " To show marks, Toggle command from signature plugin
 "noremap <Leader>m :SignatureToggle<CR>
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+" http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+cmap w!! %!sudo tee > /dev/null %
 
 " save
 noremap <silent> <Leader>, :w<CR>
