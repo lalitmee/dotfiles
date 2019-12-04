@@ -36,7 +36,6 @@ Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
-Plug 'w0rp/ale'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
@@ -62,11 +61,7 @@ Plug 'Shougo/vimproc.vim', {'do': g:make}
 noremap <silent> <leader>hn :HackerNews best<CR>
 
 "" Colors
-Plug 'altercation/vim-colors-solarized'
-Plug 'nanotech/jellybeans.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'fenetikm/falcon'
 Plug 'itchyny/landscape.vim'
 Plug 'tomasr/molokai'
 
@@ -75,6 +70,15 @@ Plug 'wolf-dog/lightline-nighted.vim'
 " let g:lightline = {
 "       \ 'colorscheme': 'solarized',
 "       \ }
+let g:lightline = {
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#head'
+    \ },
+    \ }
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -272,7 +276,8 @@ set wildmenu
 let no_buffers_menu=1
 " silent! colorscheme landscape
 " silent! colorscheme darkblue
-silent! colorscheme base16-monokai
+silent! colorscheme base16-material-darker
+" silent! colorscheme base16-monokai
 " silent! colorscheme base16-phd
 " silent! colorscheme base16-seti
 " silent! colorscheme base16-ocean
@@ -368,14 +373,6 @@ if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
 endif
 
-" vim-airline
-let g:airline_theme = 'powerlineish'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline_skip_empty_sections = 1
-
 "*****************************************************************************
 "" Abbreviations
 "*****************************************************************************
@@ -452,8 +449,6 @@ set autoread
 "" Mappings
 "*****************************************************************************
 
-
-
 " General
 noremap <silent> <leader>x :q<CR>
 
@@ -463,6 +458,7 @@ noremap <silent> <leader>r :so $MYVIMRC<CR>
 
 " update bundle
 noremap <silent> <leader>u :PlugUpdate<CR>
+noremap <silent> <leader>cl :PlugClean<CR>
 
 " save
 noremap <silent> <leader>, :w<CR>
@@ -546,9 +542,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
-
-" ale
-let g:ale_linters = {}
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -701,10 +694,6 @@ augroup go
 
 augroup END
 
-" ale
-:call extend(g:ale_linters, {
-    \"go": ['golint', 'go vet'], })
-
 
 " html
 " for html files, 2 spaces
@@ -743,18 +732,10 @@ let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
-" ale
-:call extend(g:ale_linters, {
-    \'python': ['flake8'], })
-
-" vim-airline
-let g:airline#extensions#virtualenv#enabled = 1
-
 " Syntax highlight
 " Default highlight is better than polyglot
 let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
-
 
 " ruby
 let g:rubycomplete_buffer_loading = 1
