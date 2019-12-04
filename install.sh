@@ -1,5 +1,30 @@
 #!/bin/bash
 
+# function for creating symbolic link
+
+function linkDotfile {
+	# second argument will be the file name
+	# first argument will be the destination of the file from which 
+	# I need to create symlink
+
+  dest="${1}"
+	fileName="${2}"
+
+  if [ -h ~/${1} ]; then
+    # Existing symlink 
+    echo "Removing existing symlink: ${fileName}"
+    rm ${fileName} 
+
+  elif [ -f "${fileName}" ]; then
+    # Existing file
+    echo "Removing existing file: ${fileName}"
+    rm ${fileName} 
+  fi
+
+  echo "Creating new symlink: ${fileName}"
+  ln -s ${dest} ${fileName}
+}
+
 echo "======================="
 echo "Preparing...."
 echo "======================="
@@ -305,27 +330,3 @@ echo "======================="
 echo "General Softwares Installed"
 echo "======================="
 
-# function for creating symbolic link
-
-function linkDotfile {
-	# second argument will be the file name
-	# first argument will be the destination of the file from which 
-	# I need to create symlink
-
-  dest="${1}"
-	fileName="${2}"
-
-  if [ -h ~/${1} ]; then
-    # Existing symlink 
-    echo "Removing existing symlink: ${fileName}"
-    rm ${fileName} 
-
-  elif [ -f "${fileName}" ]; then
-    # Existing file
-    echo "Removing existing file: ${fileName}"
-    rm ${fileName} 
-  fi
-
-  echo "Creating new symlink: ${fileName}"
-  ln -s ${dest} ${fileName}
-}
