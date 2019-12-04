@@ -84,6 +84,7 @@ linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zsh_profile ~/.zsh_profile
 linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zprofile ~/.zprofile 
 linkDotfile ~/Desktop/Github/dotfiles/system/.profile ~/.profile 
 source ~/.zshrc
+zs
 figlet "Done"
 
 echo "======================="
@@ -91,24 +92,24 @@ echo "Installed OH_MY_ZSH"
 echo "======================="
 
 
-echo "======================="
-echo "Installing Node Package Manager"
-echo "======================="
+# echo "======================="
+# echo "Installing Node Package Manager"
+# echo "======================="
 
-cd ~/
-figlet 'nodejs'
-read -p "Enter the latest installation url from nvm github repository" url
-url
-bash install_nvm.sh
-source ~/.profile
-nvm install node
-nvm install --lts
+# cd ~/
+# figlet 'nodejs'
+# read -p "Enter the latest installation url from nvm github repository" url
+# url
+# bash install_nvm.sh
+# source ~/.profile
+# nvm install node
+# nvm install --lts
 
-figlet "Done"
+# figlet "Done"
 
-echo "======================="
-echo "Node Package Manager Installed"
-echo "======================="
+# echo "======================="
+# echo "Node Package Manager Installed"
+# echo "======================="
 
 
 
