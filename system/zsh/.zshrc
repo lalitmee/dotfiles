@@ -143,6 +143,7 @@ alias img="imgur-uploader"
 # for ls replacement with exa
 alias ls="exa"
 alias cat="bat"
+alias c="clear"
 
 # hacker-new client
 alias hn="haxor-news"
@@ -192,7 +193,7 @@ alias du="ddg"
 # alias for sublime command
 alias s="subl ."
 alias a="atom ."
-alias c="code ."
+alias co="code ."
 alias ci="code-insiders ."
 alias o="oni ."
 alias e="emacs26 ."
