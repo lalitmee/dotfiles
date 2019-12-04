@@ -1,3 +1,4 @@
+#!/bin/bash
 
 dest=$1
 fileName=$2
@@ -7,7 +8,7 @@ function linkDotfile {
 	# first argument will be the destination of the file from which 
 	# I need to create symlink
 
-  if [ -h ~/${1} ]; then
+  if [ -h ${fileName} ]; then
     # Existing symlink 
     echo "Removing existing symlink: ${fileName}"
     rm ${fileName} 
@@ -22,8 +23,8 @@ function linkDotfile {
   ln -s ${dest} ${fileName}
 }
 
-if [[ -n "$dest" ]] && [[ -n "$fileName" ]] ; then
-	linkDotfile $dest $fileName
+if [ -n ${dest} ] && [ -n ${fileName} ]; then
+	linkDotfile ${dest} ${fileName}
 else
     echo "argument error"
 fi

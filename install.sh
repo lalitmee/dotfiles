@@ -10,7 +10,7 @@ function linkDotfile {
   dest="${1}"
 	fileName="${2}"
 
-  if [ -h ~/${1} ]; then
+  if [ -h ${fileName} ]; then
     # Existing symlink 
     echo "Removing existing symlink: ${fileName}"
     rm ${fileName} 
