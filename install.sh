@@ -119,7 +119,7 @@ echo "======================="
 
 figlet "Emacs"
 cd ~/ && git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-linkDotfile ~/Desktop/Github/dotfiles/editors/spacemacs/.spacemacs~/.spacemacs 
+linkDotfile ~/Desktop/Github/dotfiles/editors/spacemacs/.spacemacs ~/.spacemacs 
 figlet "Done"
 
 figlet "Vim"
