@@ -25,10 +25,11 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-eval $(/bin/brew shellenv)
 
 # switch for caps lock to escape
 setxkbmap -option caps:swapescape
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)

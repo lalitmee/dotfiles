@@ -282,7 +282,7 @@ values."
                                ;; "Hack"
                                ;; "Menlo"
                                ;; "Monaco"
-                               :size 17
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.3)
