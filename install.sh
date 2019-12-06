@@ -118,7 +118,7 @@ echo "Installing Snap Package Manager"
 echo "======================="
 
 figlet 'snap'
-install snapd
+sudo apt install snapd
 figlet "Done"
 
 echo "======================="
@@ -132,10 +132,10 @@ echo "======================="
 echo "Installing vim, neovim and emacs"
 echo "======================="
 
-install vim neovim python-neovim python3-neovim
+sudo apt install vim neovim python-neovim python3-neovim
 
 # repository for emacs
-sudo add-apt-repository ppa:kelleyk/emacs && upd && install emacs26
+sudo add-apt-repository ppa:kelleyk/emacs && upd && sudo apt install emacs26
 
 
 
@@ -160,6 +160,13 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 linkDotfile ~/Desktop/Github/dotfiles/editors/nvim/init.vim ~/.config/nvim/init.vim
 linkDotfile ~/Desktop/Github/dotfiles/editors/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 figlet "Done"
+
+figlet "tmux"
+sudo apt install tmux
+git clone https://github.com/gpakosz/.tmux.git
+ln -s -f .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local .
+linkDotfile ~/Desktop/Github/dotfiles/system/tmux/.tmux.conf.local ~/.tmux.conf.local
 
 
 echo "======================="
