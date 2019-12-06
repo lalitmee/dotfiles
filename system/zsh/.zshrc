@@ -200,8 +200,8 @@ alias e="emacs26 ."
 alias em="emacs25 ."
 
 # alias for using nvim instead of vim
-alias v="vim"
-alias n="nvim"
+alias vi="vim"
+alias vim="nvim"
 
 # aliases for git cloning
 alias gclo="git clone"
