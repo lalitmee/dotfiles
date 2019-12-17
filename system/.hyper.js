@@ -9,20 +9,26 @@ module.exports = {
     updateChannel: "stable",
 
     // default font size in pixels for all tabs
-    fontSize: 13,
+    fontSize: 12,
 
     // font family with optional fallbacks
     fontFamily:
-      "Fira Code, Source Code Pro , CodeNewRoman Nerd Font, UbuntuMono Nerd Font, MesloLGS NF, Cascadia Code, Source Code Pro, Ubuntu Mono, Operator Mono Lig Medium, Source Code Pro for Powerline, Monaco, monospace",
+      '"Source Code Pro",  Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: "500",
+    fontWeight: "normal",
 
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: "bold",
 
+    // line height as a relative unit
+    lineHeight: 1,
+
+    // letter spacing as a relative unit
+    letterSpacing: 0,
+
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: "rgb(255, 102, 0)",
+    cursorColor: "rgba(248,28,229,0.8)",
 
     // terminal text color under BLOCK cursor
     cursorAccentColor: "#000",
@@ -50,11 +56,7 @@ module.exports = {
     css: "",
 
     // custom CSS to embed in the terminal window
-    termCSS: `
-        x-screen x-row {
-            font-variant-ligatures: initial;
-        }
-    `,
+    termCSS: "",
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
@@ -67,17 +69,6 @@ module.exports = {
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: "12px 14px",
-
-    hypercwd: { initialWorkingDirectory: "~" },
-
-    hypernpm: {
-      // wil run `npm run lint`
-      1: "lint",
-      2: "start",
-      3: "build",
-      // will run `npm test` since it's a native npm command
-      4: "test"
-    },
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -133,13 +124,21 @@ module.exports = {
 
     // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
     // selection is present (`true` by default on Windows and disables the context menu feature)
-    // quickEdit: true,
+    quickEdit: false,
+
+    // choose either `'vertical'`, if you want the column mode when Option key is hold during selection (Default)
+    // or `'force'`, if you want to force selection regardless of whether the terminal is in mouse events mode
+    // (inside tmux or vim with mouse mode enabled for example).
+    macOptionSelectionMode: "vertical",
 
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
+    // Whether to use the WebGL renderer. Set it to false to use canvas-based
+    // rendering (slower, but supports transparent backgrounds)
+    webGLRenderer: true
+
     // for advanced config flags please refer to https://hyper.is/#cfg
-    webGLRenderer: false
   },
 
   // a list of plugins to fetch and install from npm
