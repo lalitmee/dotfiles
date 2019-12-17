@@ -123,8 +123,6 @@ values."
                ;; use the actual wakatime path
                wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
 
-     ;; appearence
-     themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -133,14 +131,11 @@ values."
    dotspacemacs-additional-packages '(
                                       ;; ng2-mode
                                       ;; emms
-                                      doom-modeline
-                                      mode-icons
                                       ac-js2
                                       add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
                                       all-the-icons-ivy
-                                      atom-one-dark-theme
                                       auto-package-update
                                       auto-rename-tag
                                       auto-yasnippet
@@ -149,12 +144,11 @@ values."
                                       beacon
                                       blacken
                                       cobalt
-                                      color-theme-modern
                                       company-tabnine
                                       counsel
+                                      doom-modeline
                                       doom-themes
                                       emojify
-                                      faff-theme
                                       forge
                                       fzf
                                       helm-fuzzy-find
@@ -162,6 +156,7 @@ values."
                                       indium
                                       iy-go-to-char
                                       magit
+                                      mode-icons
                                       multiple-cursors
                                       ox-reveal
                                       prettier-js
