@@ -308,13 +308,14 @@ set guioptions=egmrti
 " set gfn=IBM\ Plex\ Mono\ 11
 " set gfn=Powerline\ Consolas\ 11
 " set gfn=Ubuntu\ Mono\ 12
-set gfn=Source\ Code\ Pro\ for\ Powerline\ Semibold\ 11
+" set gfn=Source\ Code\ Pro\ for\ Powerline\ Semibold\ 11
 " set gfn=Source\ Code\ Pro\ Semibold\ 13
 " set gfn=Monofur\ Nerd\ Font\ Mono\ Book\ 16
 " set gfn=Operator\ Mono\ Lig\ Book\ 11
 " set gfn=Operator\ Mono\ Lig\ Medium\ 12
 " set gfn=Cascadia\ Code\ Regular\ 12
-" set gfn=Input\ Mono\ Regular\ 13
+" set gfn=Input\ Mono\ Regular\ 11
+set gfn=Monaco\ Regular\ 10
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
