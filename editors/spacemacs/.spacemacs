@@ -257,9 +257,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "OperatorMono Nerd Font"
+                               "OperatorMono Nerd Font"
                                ;; "Operator Mono Lig"
-                               "Source Code Pro"
+                               ;; "Source Code Pro"
                                ;; "Hasklig"
                                ;; "Cascadia Code"
                                ;; "Fira Code"
@@ -661,6 +661,7 @@ comment box."
   ;; (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
   (spacemacs/load-theme 'doom-molokai)
+  ;; (spacemacs/load-theme 'doom-moonlight)
   ;; (spacemacs/load-theme 'doom-gruvbox)
   ;; (spacemacs/load-theme 'doom-palenight)
   ;; (spacemacs/load-theme 'doom-tomorrow-night)

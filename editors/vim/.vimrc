@@ -302,6 +302,7 @@ set swapfile
 set dir=~/vim-autoswap
 set mousemodel=popup
 set t_Co=256
+set scrolloff=100
 set guioptions=egmrti
 " set gfn=Monaco\ Regular\ 13
 " set gfn=FiraCode\ Nerd\ Font\ Medium\ 12
@@ -369,6 +370,9 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 " search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" keeps the cursor in the middle of the screen
+set scrolloff=999
 
 if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
