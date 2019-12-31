@@ -660,8 +660,8 @@ comment box."
   ;; (spacemacs/load-theme 'moe-dark)
   ;; (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
-  ;; (spacemacs/load-theme 'doom-molokai)
-  (spacemacs/load-theme 'doom-gruvbox)
+  (spacemacs/load-theme 'doom-molokai)
+  ;; (spacemacs/load-theme 'doom-gruvbox)
   ;; (spacemacs/load-theme 'doom-palenight)
   ;; (spacemacs/load-theme 'doom-tomorrow-night)
   ;; (spacemacs/load-theme 'doom-oceanic-next)
@@ -751,10 +751,7 @@ comment box."
   ;; (spacemacs/set-leader-keys "j" 'spacemacs/indent-region-or-buffer)
 
   ;; mappings of evil-go-to-char
-  (spacemacs/set-leader-keys "C-c" 'evil-avy-goto-char)
-  (spacemacs/set-leader-keys "C-'" 'evil-avy-goto-char-2)
-  (spacemacs/set-leader-keys "C-w" 'evil-avy-goto-word-1)
-  (spacemacs/set-leader-keys "C-l" 'evil-avy-goto-line)
+  (spacemacs/set-leader-keys "jj" 'evil-avy-goto-char-timer)
 
   ;; Tide mappings for Typescript
   (spacemacs/set-leader-keys "g d" 'tide-jump-to-definition)
