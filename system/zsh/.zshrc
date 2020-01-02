@@ -174,6 +174,8 @@ alias snapi="sudo snap install"
 alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
 alias snapl="snap list"
+alias bu="brew update"
+alias bug="brew upgrade"
 
 # aliases for editing and sourcing zshrc
 alias ze="vim ~/.zshrc"
