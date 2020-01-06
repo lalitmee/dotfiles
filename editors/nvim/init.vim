@@ -46,7 +46,7 @@ function! s:goyo_leave()
 	let g:goyo_entered = 0
 	set showmode
 	set showcmd
-	set scrolloff=5
+	" set scrolloff=5
 	set textwidth=120
 	set wrapmargin=8
 endfunction
@@ -640,6 +640,9 @@ set mouse=a
 " to make nvim fast
 set re=1
 
+" to make scroll stay in middle of the screen
+set scrolloff=999
+
 "HTML Editing
 set matchpairs+=<:>
 
@@ -1067,7 +1070,6 @@ set laststatus=2                                             " show the satus li
 set so=7                                                     " set 7 lines to the cursors - when moving vertical
 set hidden                                                   " current buffer can be put into background
 set noshowmode                                               " don't show which mode disabled for PowerLine
-set scrolloff=3                                              " lines of text around cursor
 set shell=$SHELL
 set title                                                    " set terminal title
 set showmatch                                                " show matching braces

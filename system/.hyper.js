@@ -151,7 +151,7 @@ module.exports = {
     'hyper-match',
     'hyper-tab-icons',
     'shades-of-purple-hyper',
-    'hyper-tabs-enhanced',
+    'hyper-tabs-enhanced'
   ],
 
   // in development, you can create a directory under
