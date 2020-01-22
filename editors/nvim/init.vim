@@ -10,18 +10,19 @@ call plug#begin()
 " Main {{{
 
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'justinmk/vim-sneak'           " Vim sneak with two words
-Plug 'suan/vim-instant-markdown'    " Instant markdown preview from vim
-Plug 'kshenoy/vim-signature'        " toggle, display and navigate marks
-Plug 'haya14busa/incsearch.vim'     " Better search highlighting
-Plug 'Raimondi/delimitMate'         " Better HTML Editing
-Plug 'mileszs/ack.vim'              " SilverSearcher
-Plug 'terryma/vim-multiple-cursors' " Multiple Cursor
-Plug 'airblade/vim-gitgutter'       " Vim Git Gutter
-Plug 'itchyny/lightline.vim'        " lightweight statusline for vim
-Plug 'ryanoasis/vim-devicons'       " vim icons
-Plug 'gioele/vim-autoswap'          " for handling swap files
-Plug 'danro/rename.vim'             " for renaming the current buffer
+Plug 'justinmk/vim-sneak'             " Vim sneak with two words
+Plug 'suan/vim-instant-markdown'      " Instant markdown preview from vim
+Plug 'kshenoy/vim-signature'          " toggle, display and navigate marks
+Plug 'haya14busa/incsearch.vim'       " Better search highlighting
+Plug 'Raimondi/delimitMate'           " Better HTML Editing
+Plug 'mileszs/ack.vim'                " SilverSearcher
+Plug 'terryma/vim-multiple-cursors'   " Multiple Cursor
+Plug 'airblade/vim-gitgutter'         " Vim Git Gutter
+Plug 'itchyny/lightline.vim'          " lightweight statusline for vim
+Plug 'ryanoasis/vim-devicons'         " vim icons
+Plug 'gioele/vim-autoswap'            " for handling swap files
+Plug 'danro/rename.vim'               " for renaming the current buffer
+Plug 'easymotion/vim-easymotion'      " for jumping
 
 " }}}
 
@@ -977,12 +978,12 @@ nnoremap <Leader>m :Magit<CR>
 "nmap t <Plug>(easymotion-t2)
 
 "" Move to line
-"map <Leader>ll <Plug>(easymotion-bd-jk)
-"nmap <Leader>ll <Plug>(easymotion-overwin-line)
+map <Leader>ll <Plug>(easymotion-bd-jk)
+nmap <Leader>ll <Plug>(easymotion-overwin-line)
 
 "" Move to word
-"map  <Leader>w <Plug>(easymotion-bd-w)
-"nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " }}}
 
