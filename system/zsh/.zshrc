@@ -357,3 +357,19 @@ export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
 # alias tes="tmuxinator edit sonyliv"
 # alias tst="tmuxinator start talaria"
 # alias tet="tmuxinator edit talaria"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/lalit/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/lalit/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/lalit/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/lalit/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
