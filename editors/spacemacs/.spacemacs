@@ -662,7 +662,7 @@ comment box."
   ;; (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
   ;; (spacemacs/load-theme 'doom-molokai)
-  ;; (spacemacs/load-theme 'doom-material)
+  (spacemacs/load-theme 'doom-material)
   ;; (spacemacs/load-theme 'doom-solarized-dark)
   ;; (spacemacs/load-theme 'doom-moonlight)
   ;; (spacemacs/load-theme 'doom-gruvbox)
@@ -671,7 +671,7 @@ comment box."
   ;; (spacemacs/load-theme 'doom-oceanic-next)
   ;; (spacemacs/load-theme 'spacemacs-dark)
   ;; (spacemacs/load-theme 'spacemacs-light)
-  (spacemacs/load-theme 'base16-material-darker)
+  ;; (spacemacs/load-theme 'base16-material-darker)
   ;; (spacemacs/load-theme 'cobalt)
   ;; (spacemacs/load-theme 'faff)
 
