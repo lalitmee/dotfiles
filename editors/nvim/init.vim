@@ -125,20 +125,6 @@ Plug 'tpope/vim-commentary'
 Plug 'prettier/vim-prettier'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-unimpaired'
-
-" Unite. The interface to rule almost everything
-Plug 'Shougo/unite.vim'
-if (has('nvim'))
-	Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-	Plug 'Shougo/defx.nvim'
-	Plug 'roxma/nvim-yarp'
-	Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-" custom implementation of devicons for defx
-Plug 'kristijanhusak/defx-icons'
-
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -154,13 +140,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'chrisbra/Colorizer'
 Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " }}}
 
-" FZF {{{
+" FZF settings {{{
 
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
@@ -239,6 +224,7 @@ abbr fitler filter
 abbr cosnt const
 abbr attribtue attribute
 abbr attribuet attribute
+abbr reciever receiver
 
 " }}} Abbreviations "
 
@@ -260,14 +246,11 @@ let g:coc_global_extensions = [
 				\ 'coc-emmet',
 				\ 'coc-snippets',
 				\ 'coc-lists',
-				\ 'coc-angular',
-				\ 'coc-tslint',
 				\ 'coc-git',
 				\ 'coc-yank',
 				\ 'coc-svg',
 				\ 'coc-vimlsp',
 				\ 'coc-xml',
-				\ 'coc-texlab',
 				\ 'coc-smartf',
 				\ 'coc-gitignore',
 				\ 'coc-ultisnips',
@@ -275,7 +258,6 @@ let g:coc_global_extensions = [
 				\ 'coc-go',
 				\ 'coc-gocode',
 				\ 'coc-sh',
-				\ 'coc-emoji',
 				\ 'coc-dictionary',
 				\ ]
 
@@ -1155,21 +1137,6 @@ augroup javascript_folding
     au!
     au FileType javascript setlocal foldmethod=syntax
 augroup END
-
-set conceallevel=1
-
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_this                 = "@"
-let g:javascript_conceal_return               = "⇚"
-let g:javascript_conceal_undefined            = "¿"
-let g:javascript_conceal_NaN                  = "ℕ"
-let g:javascript_conceal_prototype            = "¶"
-let g:javascript_conceal_static               = "•"
-let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
-let g:javascript_conceal_noarg_arrow_function = "🞅"
-let g:javascript_conceal_underscore_arrow_function = "🞅"
 
 augroup filetype javascript syntax=javascript
 
