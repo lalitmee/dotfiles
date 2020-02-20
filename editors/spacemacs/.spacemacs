@@ -278,8 +278,8 @@ values."
                                ;; "Hack"
                                ;; "Menlo"
                                ;; "Monaco"
-                               :size 13
-                               :weight normal
+                               :size 14
+                               :weight bold
                                :width normal
                                :powerline-scale 1.3)
    ;; The leader key
@@ -661,8 +661,8 @@ comment box."
   ;; (spacemacs/load-theme 'moe-dark)
   ;; (spacemacs/load-theme 'doom-one)
   ;; (spacemacs/load-theme 'atom-one-dark)
-  ;; (spacemacs/load-theme 'doom-molokai)
-  (spacemacs/load-theme 'doom-material)
+  (spacemacs/load-theme 'doom-molokai)
+  ;; (spacemacs/load-theme 'doom-material)
   ;; (spacemacs/load-theme 'doom-solarized-dark)
   ;; (spacemacs/load-theme 'doom-moonlight)
   ;; (spacemacs/load-theme 'doom-gruvbox)
