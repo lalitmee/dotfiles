@@ -184,6 +184,9 @@ alias bug="brew upgrade"
 alias ze="vim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
+# alias for editing the hyper config
+alias ez="vim ~/.hyper.js"
+
 # aliases for some terminal programmes
 alias yt="youtube-dl"
 alias wt="curl wttr.in"
