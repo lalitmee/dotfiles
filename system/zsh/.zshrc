@@ -137,6 +137,9 @@ export LC_CTYPE=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# alias for fzf get the output
+alias f="| fzf"
+
 #alias for imgur-uploader
 alias img="imgur-uploader"
 
@@ -204,13 +207,6 @@ alias em="emacs25 ."
 # alias for using nvim instead of vim
 alias vi="vim"
 alias vim="nvim"
-
-# aliases for git cloning
-alias gclo="git clone"
-alias gco="git checkout"
-alias gcn="git checkout -b"
-alias gfu="git fetch upstream"
-alias gco="git checkout master"
 
 #aliases for npm
 alias ni="npm install"
