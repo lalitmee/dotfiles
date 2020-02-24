@@ -185,7 +185,7 @@ alias ze="vim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
 # alias for editing the hyper config
-alias ez="vim ~/.hyper.js"
+alias eh="vim ~/.hyper.js"
 
 # aliases for some terminal programmes
 alias yt="youtube-dl"
