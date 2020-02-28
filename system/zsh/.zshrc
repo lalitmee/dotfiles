@@ -223,6 +223,7 @@ alias rmnode="rm -rf node_modules"
 alias rmpack="rm -rf package-lock.json"
 alias hs="history | grep"
 alias h="history | fzf"
+alias a="alias | fzf"
 alias myip="curl http://ipecho.net/plain; echo"
 
 
