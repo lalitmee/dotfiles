@@ -131,6 +131,7 @@ values."
    dotspacemacs-additional-packages '(
                                       ;; ng2-mode
                                       ;; emms
+                                      fancy-battery
                                       base16-theme
                                       ac-js2
                                       add-node-modules-path
@@ -493,44 +494,6 @@ you should place your code here."
   ;; project project search path
   (setq projectile-project-search-path '("~/Desktop/Github/" "~/Desktop/GitLab/" "~/Desktop/koinearth/"))
 
-
-  ;; console log insert
-  (defun insert-console-log ()
-    "Insert console.log of the variable at point."
-    (interactive)
-    (let ((beg nil)
-          (end nil))
-      (back-to-indentation)
-      (setq beg (point))
-      (end-of-line)
-      (setq end (point))
-      (message "beg %s" beg)
-      (message "end %s" end)
-      (message "type of %s" (type-of kill-ring))
-      (kill-region beg end)
-      (insert (format "console.log(\"%s\", %s)"
-                      (car kill-ring)
-                      (car kill-ring)))))
-
-  ;; keybindings for inserting console log
-  (spacemacs/set-leader-keys-for-major-mode 'web-mode "l" 'insert-console-log)
-  (spacemacs/set-leader-keys-for-major-mode 'react-mode "l" 'insert-console-log)
-  (spacemacs/set-leader-keys-for-major-mode 'typescript-mode "l" 'insert-console-log)
-
-  ;; comment box
-  (defun jcs-comment-box (b e)
-    "Draw a box comment around the region but arrange for the region
-to extend to at least the fill column. Place the point after the
-comment box."
-    (interactive "r")
-    (let ((e (copy-marker e t)))
-      (goto-char b)
-      (end-of-line)
-      (insert-char ?  (- fill-column (current-column)))
-      (comment-box b e 1)
-      (goto-char e)
-      (set-marker e nil)))
-
   ;; italic comments
   (set-face-italic 'font-lock-comment-face t)
 
@@ -559,65 +522,6 @@ comment box."
 
   ;; centered cursor mode
   (global-centered-cursor-mode +1)
-
-  (defun fira-code-mode--make-alist (list)
-    "Generate prettify-symbols alist from LIST."
-    (let ((idx -1))
-      (mapcar
-      (lambda (s)
-        (setq idx (1+ idx))
-        (let* ((code (+ #Xe100 idx))
-            (width (string-width s))
-            (prefix ())
-            (suffix '(?\s (Br . Br)))
-            (n 1))
-      (while (< n width)
-        (setq prefix (append prefix '(?\s (Br . Bl))))
-        (setq n (1+ n)))
-      (cons s (append prefix suffix (list (decode-char 'ucs code))))))
-      list)))
-
-  (defconst fira-code-mode--ligatures
-    '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-      "{-" "[]" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-      "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-      "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-      ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*"
-      "/**" "/=" "/==" "/>" "//" "///" "&&" "||" "||="
-      "|=" "|>" "^=" "$>" "++" "+++" "+>" "=:=" "=="
-      "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">="
-      ">=>" ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>"
-      "<$" "<$>" "<!--" "<-" "<--" "<->" "<+" "<+>" "<="
-      "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<" "<~"
-      "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>" "%%"
-      "x" ":" "+" "+" "*"))
-
-  (defvar fira-code-mode--old-prettify-alist)
-
-  (defun fira-code-mode--enable ()
-    "Enable Fira Code ligatures in current buffer."
-    (setq-local fira-code-mode--old-prettify-alist prettify-symbols-alist)
-    (setq-local prettify-symbols-alist (append (fira-code-mode--make-alist fira-code-mode--ligatures) fira-code-mode--old-prettify-alist))
-    (prettify-symbols-mode t))
-
-  (defun fira-code-mode--disable ()
-    "Disable Fira Code ligatures in current buffer."
-    (setq-local prettify-symbols-alist fira-code-mode--old-prettify-alist)
-    (prettify-symbols-mode -1))
-
-  (define-minor-mode fira-code-mode
-    "Fira Code ligatures minor mode"
-    :lighter " Fira Code"
-    (setq-local prettify-symbols-unprettify-at-point 'right-edge)
-    (if fira-code-mode
-        (fira-code-mode--enable)
-      (fira-code-mode--disable)))
-
-  (defun fira-code-mode--setup ()
-    "Setup Fira Code Symbols"
-    (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol"))
-
-  (provide 'fira-code-mode)
 
   (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -653,10 +557,6 @@ comment box."
     (face-remap-add-relative 'font-lock-function-name-face '((:slant italic)))
     (face-remap-add-relative 'font-lock-string-face '((:slant italic)))
     (face-remap-add-relative 'font-lock-constant-face '((:weight bold))))
-  ;; (add-hook 'color-identifiers-mode-hook 'myfunc-color-identifiers-mode-hook)
-  ;; /////////////////////////////
-  ;; colors layer settings end
-  ;; /////////////////////////////
 
   ;; (spacemacs/load-theme 'moe-dark)
   ;; (spacemacs/load-theme 'doom-one)
@@ -675,15 +575,18 @@ comment box."
   ;; (spacemacs/load-theme 'cobalt)
   ;; (spacemacs/load-theme 'faff)
 
+  ;; doom-modeline configurations
+  (setq doom-modeline-vcs-max-length 40)
+  (setq doom-modeline-minor-modes t)
+  (setq doom-modeline-enable-word-count nil)
+
+  ;; fancy-battery-mode
+  (fancy-battery-mode 1)
+
   ;; for yasnippet
   (require 'yasnippet)
   (yas-global-mode 1)
 
-  ;; for setting line spacing
-  ;; (defun set-bigger-spacing ()
-  ;;   (setq-local default-text-properties '(line-spacing 0.25 line-height 0.75)))
-  ;; (add-hook 'text-mode-hook 'set-bigger-spacing)
-  ;; (add-hook 'prog-mode-hook 'set-bigger-spacing)
   (add-hook 'after-init-hook #'global-emojify-mode)
   (add-hook 'prog-mode-hook 'company-emoji-init)
   (with-eval-after-load 'emoji-cheat-sheet-plus
@@ -704,17 +607,10 @@ comment box."
 
   ;; For when Emacs is started in GUI mode:
   (--set-emoji-font nil)
+
   ;; Hook for when a frame is created with emacsclient
   ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
   (add-hook 'after-make-frame-functions '--set-emoji-font)
-  ;; modeline configurations
-  ;; display battery in modeline
-  ;; display time in modeline
-  (spaceline-define-segment datetime
-    (shell-command-to-string
-     "echo -n $(date '+%a %d %b %I:%M%p')"))
-  (spaceline-spacemacs-theme 'datetime)
-  (spaceline-toggle-buffer-size-off)
 
   ;; total number of lines in a buffer
   ;; page brake lines in prog-mode
@@ -723,7 +619,7 @@ comment box."
 
   (setq paradox-github-token "522a037a14fea9c1ec1f2c00f40c087d7ed79c9d")
 
-  avy-all-windows 'all-frames
+  (setq avy-all-windows 'all-frames)
 
   ;; Wraps long lines in text mode
   (add-hook 'text-mode-hook 'auto-fill-mode)
@@ -840,13 +736,9 @@ comment box."
 
   ;; Emacs as JavaScript IDE
   (require 'js2-mode)
-  (add-hook 'js-mode-hook 'js2-minor-mode)
-  ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
-
-
   (require 'js2-refactor)
   (require 'xref-js2)
-
+  (add-hook 'js-mode-hook 'js2-minor-mode)
   (add-hook 'js2-mode-hook #'js2-refactor-mode)
   (js2r-add-keybindings-with-prefix "C-c C-r")
   (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
@@ -889,13 +781,11 @@ comment box."
   (add-hook 'html-mode-hook #'setup-tide-mode)
 
   ;; web mode settings
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
   (add-to-list
    'auto-mode-alist
    '("\\.html?\\'" . web-mode))
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-
-
   (add-hook
    'web-mode-hook
    (lambda () (if (equal web-mode-content-type "javascript")
@@ -905,8 +795,8 @@ comment box."
   ;; from this post => https://www.cha1tanya.com/2015/06/20/configuring-web-mode-with-jsx.html
   (setq web-mode-content-types-alist
         '(("jsx" . "\\.js[x]?\\'")))
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 
@@ -915,21 +805,25 @@ comment box."
   ;; to have a consistent 2 spaces indenting both on js and jsx
   ;; /////////////////////////////////
 
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
+
   ;; from this link: https://gist.github.com/asummers/b8304b8ea78fc331b8177ff35d002046
   (use-package web-mode
     :ensure t
     :defer t
-    :mode (("\\.ios\\.js$" . react-mode)
-           ("\\.android\\.js$" . react-mode)
-           ("\\.react\\.js$" . react-mode)
-           ("\\.js$" . react-mode))
+    :mode (("\\.ios\\.js$" . web-mode)
+           ("\\.android\\.js$" . web-mode)
+           ("\\.web\\.js$" . web-mode)
+           ("\\.js$" . web-mode))
     :config
-    (add-to-list 'magic-mode-alist '("^import React" . react-mode))
-    (add-to-list 'magic-mode-alist '("React.Component" . react-mode))
-    (add-to-list 'magic-mode-alist '("from 'react';$" . react-mode))
+    (add-to-list 'magic-mode-alist '("^import React" . web-mode))
+    (add-to-list 'magic-mode-alist '("React.Component" . web-mode))
+    (add-to-list 'magic-mode-alist '("from 'react';$" . web-mode))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
     (with-eval-after-load 'flycheck
-      (flycheck-add-mode 'javascript-eslint 'react-mode))
+      (flycheck-add-mode 'javascript-eslint 'web-mode))
     (add-hook 'web-mode-hook
               (lambda ()
                 (if (equal web-mode-content-type "javascript")
@@ -968,9 +862,7 @@ comment box."
   (setq-default flycheck-disabled-checker 'javascript-jshint)
   (setq-default flycheck-disabled-checker 'json-jsonlist)
   (add-hook 'js2-mode-hook #'my/use-eslint-from-node-modules)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'web-mode-hook 'auto-rename-tag-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
 
 
   ;; python mode settings
@@ -1001,7 +893,7 @@ comment box."
   (add-hook 'css-mode-hook 'prettier-js-mode)
   (add-hook 'scss-mode-hook 'prettier-js-mode)
   (add-hook 'html-mode-hook 'prettier-js-mode)
-  (add-hook 'react-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'typescript-mode-hook 'prettier-js-mode)
   (add-hook 'yaml-mode-hook 'prettier-js-mode)
   (eval-after-load 'js-mode

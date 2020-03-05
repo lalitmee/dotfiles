@@ -23,6 +23,8 @@ Plug 'ryanoasis/vim-devicons'         " vim icons
 Plug 'gioele/vim-autoswap'            " for handling swap files
 Plug 'danro/rename.vim'               " for renaming the current buffer
 Plug 'easymotion/vim-easymotion'      " for jumping
+Plug 'Yggdroot/LeaderF'
+Plug 'tamago324/LeaderF-filer'
 
 " }}}
 
