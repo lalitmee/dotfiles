@@ -133,7 +133,6 @@ values."
                                       ;; emms
                                       fancy-battery
                                       base16-theme
-                                      ac-js2
                                       add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
@@ -166,7 +165,6 @@ values."
                                       sublimity
                                       swiper
                                       try
-                                      xref-js2
                                       yasnippet-snippets
                                       )
    ;; A list of packages that cannot be updated.
@@ -412,11 +410,11 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smartparens-strict-mode t
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -451,17 +449,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (setq-default
    linum-format "%4d \u2502"
-   linum-relative-format "%4s \u2502"
-   )
+   linum-relative-format "%4s \u2502")
   ;; magit fullscreen commit status
   ;;(setq-default git-magit-status-fullscreen t)
   (set-face-italic-p 'italic t)
   (setq exec-path-from-shell-arguments '("-l"))
 
   (setq helm-dash-docsets-path "~/.docsets")
-  (setq helm-dash-min-length '3)
-
-  )
+  (setq helm-dash-min-length '3))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -522,6 +517,14 @@ you should place your code here."
 
   ;; centered cursor mode
   (global-centered-cursor-mode +1)
+
+  ;; smart parens mode in programming modes
+  (use-package smartparens-config
+    :ensure smartparens
+    :config (progn (show-smartparens-global-mode t)))
+  (add-hook 'prog-mode-hook #'turn-on-smartparens-strict-mode t)
+  (add-hook 'markdown-mode-hook #'turn-on-smartparens-strict-mode t)
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
 
   (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -734,35 +737,11 @@ you should place your code here."
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-  ;; Emacs as JavaScript IDE
-  (require 'js2-mode)
-  (require 'js2-refactor)
-  (require 'xref-js2)
-  (add-hook 'js-mode-hook 'js2-minor-mode)
-  (add-hook 'js2-mode-hook #'js2-refactor-mode)
-  (js2r-add-keybindings-with-prefix "C-c C-r")
-  (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
-
-  ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
-  ;; unbind it.
-  (define-key js-mode-map (kbd "M-.") nil)
-
-  (add-hook 'js2-mode-hook (lambda ()
-                             (add-hook
-                              'xref-backend-functions
-                              #'xref-js2-xref-backend nil t)))
 
   (require 'company)
   (require 'company-tern)
 
   (add-to-list 'company-backends 'company-tern)
-  (add-hook 'js2-mode-hook (lambda ()
-                             (tern-mode)
-                             (company-mode)))
-
-  ;; Disable completion keybindings, as we use xref-js2 instead
-  (define-key tern-mode-keymap (kbd "M-.") nil)
-  (define-key tern-mode-keymap (kbd "M-,") nil)
 
   ;; Emacs as Typescript IDE
   (defun setup-tide-mode ()
@@ -836,7 +815,6 @@ you should place your code here."
        (setq web-mode-css-indent-offset (symbol-value 'js-indent-level))
        (setq web-mode-code-indent-offset (symbol-value 'js-indent-level)))))
 
-  (setq js2-basic-offset 2)
   (setq js-indent-level 2)
   (setq-default js-indent-level 2)
 
@@ -861,7 +839,6 @@ you should place your code here."
   ;; disabling jshint for javascript files
   (setq-default flycheck-disabled-checker 'javascript-jshint)
   (setq-default flycheck-disabled-checker 'json-jsonlist)
-  (add-hook 'js2-mode-hook #'my/use-eslint-from-node-modules)
   (add-hook 'web-mode-hook 'auto-rename-tag-mode)
 
 
@@ -887,7 +864,6 @@ you should place your code here."
   ;; prettier mode hooks
   (add-hook 'web-mode-hook 'prettier-js-mode)
   (add-hook 'markdown-mode-hook 'prettier-js-mode)
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'js-mode-hook 'prettier-js-mode)
   (add-hook 'typescript-mode-hook 'prettier-js-mode)
   (add-hook 'css-mode-hook 'prettier-js-mode)
