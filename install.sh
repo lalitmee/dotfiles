@@ -3,22 +3,22 @@
 # function for creating symbolic link
 
 function linkDotfile {
-	# second argument will be the file name
-	# first argument will be the destination of the file from which 
-	# I need to create symlink
+  # second argument will be the file name
+  # first argument will be the destination of the file from which
+  # I need to create symlink
 
   dest="${1}"
-	fileName="${2}"
+  fileName="${2}"
 
   if [ -h ${fileName} ]; then
-    # Existing symlink 
+    # Existing symlink
     echo "Removing existing symlink: ${fileName}"
-    rm ${fileName} 
+    rm ${fileName}
 
   elif [ -f "${fileName}" ]; then
     # Existing file
     echo "Removing existing file: ${fileName}"
-    rm ${fileName} 
+    rm ${fileName}
   fi
 
   echo "Creating new symlink: ${fileName}"
@@ -67,7 +67,7 @@ echo "======================="
 
 mkdir ~/Desktop/Github
 cd ~/Desktop/Github
-git clone https://github.com/lalitmee/dotfiles.git 
+git clone https://github.com/lalitmee/dotfiles.git
 figlet "Done"
 
 
@@ -78,11 +78,11 @@ echo "======================="
 figlet "OH-MY-ZSH"
 cd ~/
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zshrc ~/.zshrc 
-linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zsh_history ~/.zsh_history 
-linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zsh_profile ~/.zsh_profile 
-linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zprofile ~/.zprofile 
-linkDotfile ~/Desktop/Github/dotfiles/system/.profile ~/.profile 
+linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zshrc ~/.zshrc
+linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zsh_history ~/.zsh_history
+linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zsh_profile ~/.zsh_profile
+linkDotfile ~/Desktop/Github/dotfiles/system/zsh/.zprofile ~/.zprofile
+linkDotfile ~/Desktop/Github/dotfiles/system/.profile ~/.profile
 source ~/.zshrc
 zs
 figlet "Done"
@@ -145,13 +145,13 @@ echo "======================="
 
 figlet "Emacs"
 cd ~/ && git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-linkDotfile ~/Desktop/Github/dotfiles/editors/spacemacs/.spacemacs ~/.spacemacs 
+linkDotfile ~/Desktop/Github/dotfiles/editors/spacemacs/.spacemacs ~/.spacemacs
 figlet "Done"
 
 figlet "Vim"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-linkDotfile ~/Desktop/Github/dotfiles/editors/vim/.vimrc ~/.vimrc 
+linkDotfile ~/Desktop/Github/dotfiles/editors/vim/.vimrc ~/.vimrc
 figlet "Done"
 
 figlet "Neovim"
@@ -337,4 +337,3 @@ figlet "Done"
 echo "======================="
 echo "General Softwares Installed"
 echo "======================="
-
