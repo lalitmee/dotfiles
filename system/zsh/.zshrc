@@ -140,6 +140,9 @@ export LC_CTYPE=en_US.UTF-8
 # alias for fzf get the output
 alias f="| fzf"
 
+# alias for system
+alias s="sudo reboot"
+
 #alias for imgur-uploader
 alias img="imgur-uploader"
 
@@ -199,8 +202,8 @@ alias bi="bing"
 alias du="ddg"
 
 # alias for sublime command
-alias s="subl ."
-alias a="atom ."
+alias sb="subl ."
+alias at="atom ."
 alias co="code ."
 alias ci="code-insiders ."
 alias o="oni ."
