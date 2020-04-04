@@ -259,7 +259,7 @@ values."
    dotspacemacs-default-font '(
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator Mono Lig"
-                               "Source Code Pro"
+                               ;; "Source Code Pro"
                                ;; "Hasklig"
                                ;; "Cascadia Code"
                                ;; "Fira Code"
@@ -267,17 +267,19 @@ values."
                                ;; "FiraCode Nerd Font"
                                ;; "UbuntuMono Nerd Font"
                                ;; "CodeNewRoman Nerd Font"
+                               "CaskaydiaCove Nerd Font"
                                ;; "Code New Roman"
                                ;; "FuraMono Nerd Font"
                                ;; "Inconsolata Nerd Font"
                                ;; "Monaco for Powerline"
                                ;; "Monaco Nerd Font"
+                               ;; "Mononoki Nerd Font"
                                ;; "monofur for Powerline"
                                ;; "Powerline Consolas"
                                ;; "Hack"
                                ;; "Menlo"
                                ;; "Monaco"
-                               :size 14
+                               :size 15
                                :weight bold
                                :width normal
                                :powerline-scale 1.3)
@@ -410,7 +412,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode t
+   dotspacemacs-smartparens-strict-mode nil
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -522,7 +524,7 @@ you should place your code here."
   (use-package smartparens-config
     :ensure smartparens
     :config (progn (show-smartparens-global-mode t)))
-  (add-hook 'prog-mode-hook #'turn-on-smartparens-strict-mode t)
+  ;; (add-hook 'prog-mode-hook #'turn-on-smartparens-strict-mode t)
   (add-hook 'markdown-mode-hook #'turn-on-smartparens-strict-mode t)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
 
