@@ -4,6 +4,13 @@
 
 module.exports = {
   config: {
+    // init extension settings
+    init: [
+      {
+        rule: "once",
+        commands: ["transset -a -t 0.65"],
+      },
+    ],
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
     updateChannel: "stable",
@@ -152,6 +159,7 @@ module.exports = {
     "hyper-tab-icons",
     "shades-of-purple-hyper",
     "hyper-tabs-enhanced",
+    "hyper-init",
   ],
 
   // in development, you can create a directory under
