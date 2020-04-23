@@ -7,30 +7,176 @@
 
 call plug#begin()
 
-" Main {{{
+" Plugins {{{
 
+" Colorizer for showing the colors
+Plug 'norcalli/nvim-colorizer.lua'
+
+" fancy start Screen for vim
+Plug 'mhinz/vim-startify'
+
+" vim which key
+Plug 'liuchengxu/vim-which-key' 
+
+" Moving in vim inside Tmux
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'justinmk/vim-sneak'             " Vim sneak with two words
-Plug 'suan/vim-instant-markdown'      " Instant markdown preview from vim
-Plug 'kshenoy/vim-signature'          " toggle, display and navigate marks
-Plug 'haya14busa/incsearch.vim'       " Better search highlighting
-Plug 'Raimondi/delimitMate'           " Better HTML Editing
-Plug 'mileszs/ack.vim'                " SilverSearcher
-Plug 'terryma/vim-multiple-cursors'   " Multiple Cursor
-Plug 'airblade/vim-gitgutter'         " Vim Git Gutter
-Plug 'itchyny/lightline.vim'          " lightweight statusline for vim
-Plug 'ryanoasis/vim-devicons'         " vim icons
-Plug 'gioele/vim-autoswap'            " for handling swap files
-Plug 'danro/rename.vim'               " for renaming the current buffer
-Plug 'easymotion/vim-easymotion'      " for jumping
+
+" Instant markdown preview from vim
+Plug 'suan/vim-instant-markdown'      
+
+" toggle, display and navigate marks
+Plug 'kshenoy/vim-signature'          
+
+" Better search highlighting
+Plug 'haya14busa/incsearch.vim'       
+
+" Better HTML Editing
+Plug 'Raimondi/delimitMate'           
+
+" SilverSearcher
+Plug 'mileszs/ack.vim'                
+
+" Multiple Cursor
+Plug 'terryma/vim-multiple-cursors'   
+
+" Vim Git Gutter
+Plug 'airblade/vim-gitgutter'         
+
+" lightweight statusline for vim
+Plug 'itchyny/lightline.vim'          
+
+" vim icons
+Plug 'ryanoasis/vim-devicons'         
+
+" for handling swap files
+Plug 'gioele/vim-autoswap'            
+
+" for renaming the current buffer
+Plug 'danro/rename.vim'               
+
+" for jumping
+Plug 'easymotion/vim-easymotion'      
+
+" Find files using <leader>f
 Plug 'Yggdroot/LeaderF'
 Plug 'tamago324/LeaderF-filer'
 
+" File Management using ranger
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
+
+" remove all the things and go in the center
+Plug 'junegunn/goyo.vim'      
+
+" Colors
+Plug 'chriskempson/base16-vim'
+Plug 'itchyny/landscape.vim'
+Plug 'tomasr/molokai'
+Plug 'mhinz/vim-janah'
+
+" Completion Conquerer
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Golang
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
+
+" C 
+Plug 'vim-scripts/c.vim' 
+Plug 'rhysd/vim-clang-format'
+
+" TypeScript
+Plug 'HerringtonDarkholme/yats.vim'
+
+" Pairs of handy bracket mappings
+Plug 'tpope/vim-unimpaired'
+
+" easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/vim-abolish'
+
+" Surround Plugin for brackets and more
+Plug 'tpope/vim-surround'
+
+" Version Control in Vim
+Plug 'tpope/vim-fugitive'
+
+" Vim sugar for the UNIX shell commands that need it the most
+" Example: :Delete, :Unlink, :Move, etc
+Plug 'tpope/vim-eunuch'
+
+" comment stuff out
+Plug 'tpope/vim-commentary'
+
+" Prettier for vim
+Plug 'prettier/vim-prettier'
+
+" Tabularize for Vim
+" Vim script for text filtering and alignment
+Plug 'godlygeek/tabular'
+
+" Snippets in Vim
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" <Ctrl + p> for file management
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Magit like emacs for git workflow
+Plug 'jreybert/vimagit' 
+
+" Show tags bar
+Plug 'majutsushi/tagbar'
+
+" Auto paris of brackets
+Plug 'jiangmiao/auto-pairs'
+
+" Auto Close Tag in HTML
+Plug 'vim-scripts/closetag.vim'
+Plug 'alvan/vim-closetag'
+
+" Easy Alignment in vim
+Plug 'junegunn/vim-easy-align'
+
+" Indent Lines made beautiful
+Plug 'Yggdroot/indentLine'
+
+"
+Plug 'sheerun/vim-polyglot'
+
+" The interactive scratchpad for hackers.
+Plug 'metakirby5/codi.vim' 
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 " }}}
 
-" Writing in vim {{{{
+call plug#end()
 
-Plug 'junegunn/goyo.vim'      " remove all the things and go in the center
+" Sneak Settings {{{ 
+
+let g:sneak#label = 1
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+" }}}
+
+" Which Key Settings{{{{
+
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
+" }}}}
+
+" Ranger Settings {{{{
+
+let g:ranger_map_keys = 0
+
+" }}}}
+
+" Goyo Settings {{{{
 
 let g:goyo_entered = 0
 function! s:goyo_enter()
@@ -59,25 +205,29 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " }}}
 
-" Colors {{{
+" Colors Settings {{{
 
-Plug 'chriskempson/base16-vim'
-Plug 'itchyny/landscape.vim'
-Plug 'tomasr/molokai'
+" colorscheme base16-monokai
+silent colorscheme base16-material-darker
+" colorscheme landscape
+" colorscheme darkblue
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+highlight Pmenu guibg=LightYellow1 guifg=black
+highlight Comment cterm=italic
+"highlight Comment gui=none
+"highlight Normal gui=none
+"highlight NonText guibg=none
+
+" Some GUI stuff
+let g:lightTheme = 'molokai'
+let g:darkTheme = 'xoria256'
+command! Light :execute ':colorscheme ' . g:lightTheme . ' | set background=light'
+command! Dark  :execute ':colorscheme ' . g:darkTheme . ' | set background=dark'
 
 " }}}
 
-" coc.nvim {{{
+" C language Settings {{{
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" }}}
-
-" Golang {{{
-
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-Plug 'vim-scripts/c.vim' 
-Plug 'rhysd/vim-clang-format'
 
 let g:clang_library_path='/usr/lib/llvm-6.0/lib'
 let g:clang_use_library = 1
@@ -105,45 +255,6 @@ augroup ClangFormatSettings
     autocmd FileType vimwiki nmap <Leader>tts :TaskWikiMod +sprint<CR>
     autocmd FileType vimwiki nmap <Leader>ttS :TaskWikiMod -sprint<CR>
 augroup END
-
-" }}}
-
-
-" Plugins for JavaScript & TypeScript {{{
-
-Plug 'HerringtonDarkholme/yats.vim'
-
-" }}}
-
-" Lightline settings {{{
-
-" }}}
-
-" Functionalities {{{
-
-" search inside files using ripgrep. This plugin provides an Ack command.
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-commentary'
-Plug 'prettier/vim-prettier'
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-unimpaired'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jreybert/vimagit' " magit for git workflow
-Plug 'tpope/vim-surround'
-Plug 'majutsushi/tagbar'
-Plug 'jiangmiao/auto-pairs'
-Plug 'vim-scripts/closetag.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'alvan/vim-closetag'
-Plug 'tpope/vim-abolish'
-Plug 'Yggdroot/indentLine'
-Plug 'sheerun/vim-polyglot'
-Plug 'chrisbra/Colorizer'
-Plug 'metakirby5/codi.vim' " The interactive scratchpad for hackers.
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 
 " }}}
 
@@ -212,7 +323,6 @@ let g:fzf_colors =
 
 " }}} 
 
-call plug#end()
 
 " }}}
 
@@ -309,15 +419,19 @@ function! s:show_documentation()
   endif
 endfunction
 
+nmap <expr> <silent> <C-A-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
+
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <silent> <F2> <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <Leader>f  <Plug>(coc-format-selected)
-nmap <Leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -370,7 +484,7 @@ nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>n  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
@@ -407,22 +521,6 @@ syntax on
 set bg=dark
 set swapfile
 set dir=~/vim-autoswap
-" colorscheme base16-monokai
-silent colorscheme base16-material-darker
-" colorscheme landscape
-" colorscheme darkblue
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-highlight Pmenu guibg=LightYellow1 guifg=black
-highlight Comment cterm=italic
-"highlight Comment gui=none
-"highlight Normal gui=none
-"highlight NonText guibg=none
-
-" Some GUI stuff
-let g:lightTheme = 'molokai'
-let g:darkTheme = 'xoria256'
-command! Light :execute ':colorscheme ' . g:lightTheme . ' | set background=light'
-command! Dark  :execute ':colorscheme ' . g:darkTheme . ' | set background=dark'
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors
@@ -560,6 +658,7 @@ map <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 let mapleader=" "
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
+" count the current matched number
 nmap <Leader>* *<c-o>:%s///gn<cr>
 nmap <Leader>u :PlugUpdate<CR>
 nmap <Leader>cl :PlugClean<CR>
@@ -574,9 +673,6 @@ nmap <Leader>e :e ~/.config/nvim/init.vim<CR>
 " select whole file text in visual mode
 map <C-c> <esc>ggVG<CR>
 
-" count the current matched number
-nnoremap <silent> <Leader>n :%s///gn<CR>
-
 " scroll the viewport faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
@@ -586,9 +682,6 @@ nmap <Leader>z :Goyo<CR>
 nmap <Leader>h :RainbowParentheses!!<CR>
 autocmd FileType python nmap <Leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
 map <Leader>hn <C-w>v<C-w>l:HackerNews best<CR>J
-
-" Taking word under the cursor and put in CtrlSF Plugin
-noremap <Leader>fw :CtrlSF <C-R><C-W><CR>
 
 " To show marks, Toggle command from signature plugin
 "noremap <Leader>m :SignatureToggle<CR>
@@ -953,21 +1046,24 @@ nnoremap <Leader>m :Magit<CR>
 
 " Easymotion mappings {{{
 
-" <Leader>f{char} to move to {char}
-"map  <Leader>fes <Plug>(easymotion-bd-f)
-"nmap <Leader>fes <Plug>(easymotion-overwin-f)
+" trigger easymotion
+map <Leader>j <Plug>(easymotion-prefix)
 
-"" s{char}{char} to move to {char}{char}
-"nmap s <Plug>(easymotion-overwin-f2)
-"nmap t <Plug>(easymotion-t2)
+" <Leader>f{char} to move to {char}
+map  <Leader>ff <Plug>(easymotion-bd-f)
+nmap <Leader>fw <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+nmap t <Plug>(easymotion-t2)
 
 "" Move to line
 map <Leader>ll <Plug>(easymotion-bd-jk)
 nmap <Leader>ll <Plug>(easymotion-overwin-line)
 
 "" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <Leader>wi <Plug>(easymotion-bd-w)
+nmap <Leader>wo <Plug>(easymotion-overwin-w)
 
 " }}}
 
