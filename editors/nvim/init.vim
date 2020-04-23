@@ -1058,8 +1058,8 @@ nmap s <Plug>(easymotion-overwin-f2)
 nmap t <Plug>(easymotion-t2)
 
 "" Move to line
-map <Leader>ll <Plug>(easymotion-bd-jk)
-nmap <Leader>ll <Plug>(easymotion-overwin-line)
+map <Leader>li <Plug>(easymotion-bd-jk)
+nmap <Leader>lo <Plug>(easymotion-overwin-line)
 
 "" Move to word
 map  <Leader>wi <Plug>(easymotion-bd-w)
