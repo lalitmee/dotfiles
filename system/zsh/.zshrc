@@ -80,7 +80,6 @@ dirhistory
 last-working-dir
 docker
 encode64
-fasd
 gem
 git
 git-extras
@@ -140,11 +139,18 @@ export LC_CTYPE=en_US.UTF-8
 # alias for fzf get the output
 alias f="| fzf"
 
+# gitmoji aliases
+alias gm="gitmoji -s"
+alias gml="gitmoji -l | fzf"
+
 # alias for system
-alias s="sudo reboot"
+# alias s="sudo reboot"
 
 #alias for imgur-uploader
 alias img="imgur-uploader"
+
+#alias for speedtest
+alias speed="speedtest-cli"
 
 # for ls replacement with exa
 alias ls="exa"
@@ -321,6 +327,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
@@ -378,3 +385,5 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+source <(navi widget zsh)
