@@ -71,13 +71,13 @@ export UPDATE_ZSH_DAYS=10
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+autojump
 brew
 colored-man-pages
 command-not-found
 common-aliases
 copyfile
 dirhistory
-last-working-dir
 docker
 encode64
 gem
@@ -85,6 +85,7 @@ git
 git-extras
 gitfast
 history
+last-working-dir
 ng
 node
 npm
@@ -92,7 +93,6 @@ pip
 pyenv
 rand-quote
 repo
-yarn
 ruby
 rvm
 screen
@@ -101,6 +101,8 @@ taskwarrior
 tmux
 tmuxinator
 web-search
+yarn
+z
 zsh-autosuggestions
 )
 
