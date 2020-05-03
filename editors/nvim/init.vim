@@ -9,6 +9,9 @@ call plug#begin()
 
 " Plugins {{{
 
+" Fuzzy Finder for Goneovim
+Plug 'akiyosi/gonvim-fuzzy'
+
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
 
@@ -208,9 +211,17 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Colors Settings {{{
 
 " colorscheme base16-monokai
-silent colorscheme base16-material-darker
+" silent colorscheme base16-material-darker
+silent colorscheme base16-gruvbox-dark-hard
 " colorscheme landscape
 " colorscheme darkblue
+
+" lightline theme
+let g:lightline = {
+      \ 'colorscheme': 'ayu_mirage',
+      \ }
+
+
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 highlight Pmenu guibg=LightYellow1 guifg=black
 highlight Comment cterm=italic
