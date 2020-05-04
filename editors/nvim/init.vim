@@ -120,8 +120,8 @@ Plug 'godlygeek/tabular'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-" <Ctrl + p> for file management
-Plug 'ctrlpvim/ctrlp.vim'
+" " <Ctrl + p> for file management
+" Plug 'ctrlpvim/ctrlp.vim'
 
 " Magit like emacs for git workflow
 Plug 'jreybert/vimagit' 
@@ -647,6 +647,16 @@ map <Leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" }}}
+
+" goneovim key mappings {{{
+
+nmap <Leader>pf :GonvimFuzzyFiles<CR>
+nmap <Leader>pb :GonvimFuzzyBuffers<CR>
+nmap <Leader>pl :GonvimFuzzyBLines<CR>
+nmap <Leader>/ :GonvimFuzzyAg<CR>
+nmap <Leader>r/ :GonvimFuzzyResume<CR>
 
 " }}}
 
