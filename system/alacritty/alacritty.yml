@@ -11,17 +11,17 @@ window:
   #
   # Specified in number of columns/lines, not pixels.
   # If both are `0`, this setting is ignored.
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
+  dimensions:
+    columns: 0
+    lines: 0
 
   # Window position (changes require restart)
   #
   # Specified in number of pixels.
   # If the position is not set, the window manager will handle the placement.
-  #position:
-  #  x: 0
-  #  y: 0
+  position:
+    x: 0
+    y: 0
 
   # Window padding (changes require restart)
   #
@@ -52,7 +52,7 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode: Fullscreen
+  startup_mode: Maximized
   # Window title
   #title: Alacritty
   # Window class (Linux/BSD only):
@@ -76,29 +76,28 @@ window:
     # scrollback is enabled (history > 0).
     multiplier: 3
 
-  # Font configuration
-  font:
-    # Normal (roman) font face
-    normal:
-      family: Operator Mono Lig Book
-    bold:
-      family: Operator Mono Lig Book
-    italic:
-      family: Operator Mono Lig Book
-    bold_italic:
-      family: Operator Mono Lig Book
-    size: 11.0
-    # Offset is the extra space around each character. `offset.y` can be thought of
-    # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
-    offset:
-      x: 0
-      y: 0
-    # Glyph offset determines the locations of the glyphs within their cells with
-    # the default being at the bottom. Increasing `x` moves the glyph to the right,
-    # increasing `y` moves the glyph upwards.
-    glyph_offset:
-      x: 0
-      y: 0
+# Font configuration
+font:
+  normal:
+    family: OperatorMono Lig Book
+  bold:
+    family: OperatorMono Lig Book
+  italic:
+    family: OperatorMono Lig Book
+  bold_italic:
+    family: OperatorMono Lig Book
+  size: 11.0
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 0
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increasing `x` moves the glyph to the right,
+  # increasing `y` moves the glyph upwards.
+  glyph_offset:
+    x: 0
+    y: 0
 # Thin stroke font rendering (macOS only)
 #
 # Thin strokes are suitable for retina displays, but for non-retina screens
