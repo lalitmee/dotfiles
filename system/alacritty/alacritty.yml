@@ -79,13 +79,21 @@ window:
 # Font configuration
 font:
   normal:
-    family: OperatorMono Lig Book
+    # family: mononoki Nerd Font Mono
+    # family: Operator Mono Lig
+    family: Monaco
   bold:
-    family: OperatorMono Lig Book
+    # family: mononoki Nerd Font Mono
+    # family: Operator Mono Lig
+    family: Monaco
   italic:
-    family: OperatorMono Lig Book
+    # family: mononoki Nerd Font Mono
+    # family: Operator Mono Lig
+    family: Monaco
   bold_italic:
-    family: OperatorMono Lig Book
+    # family: mononoki Nerd Font Mono
+    # family: Operator Mono Lig
+    family: mononoki Nerd Font Mono
   size: 11.0
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -117,73 +125,517 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night Bright)
+## Colors (Tomorrow Night Bright)
+#colors:
+#  # Default colors
+#  primary:
+#    background: '#000000'
+#    foreground: '#eaeaea'
+
+#  # Bright and dim foreground colors
+#  #
+#  # The dimmed foreground color is calculated automatically if it is not present.
+#  # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
+#  # is `false`, the normal foreground color will be used.
+#  dim_foreground: '#9a9a9a'
+#  bright_foreground: '#ffffff'
+
+#  # Cursor colors
+#  #
+#  # Colors which should be used to draw the terminal cursor. If these are unset,
+#  # the cursor color will be the inverse of the cell color.
+#  cursor:
+#    text: '#000000'
+#    cursor: '#ffffff'
+
+#  # Selection colors
+#  #
+#  # Colors which should be used to draw the selection area. If selection
+#  # background is unset, selection color will be the inverse of the cell colors.
+#  # If only text is unset the cell text color will remain the same.
+#  selection:
+#    text: '#eaeaea'
+#    background: '#404040'
+
+#  # Normal colors
+#  normal:
+#    black: '#000000'
+#    red: '#d54e53'
+#    green: '#b9ca4a'
+#    yellow: '#e6c547'
+#    blue: '#7aa6da'
+#    magenta: '#c397d8'
+#    cyan: '#70c0ba'
+#    white: '#eaeaea'
+
+#  # Bright colors
+#  bright:
+#    black: '#666666'
+#    red: '#ff3334'
+#    green: '#9ec400'
+#    yellow: '#e7c547'
+#    blue: '#7aa6da'
+#    magenta: '#b77ee0'
+#    cyan: '#54ced6'
+#    white: '#ffffff'
+
+## Colors (Cobalt 2)
+#colors:
+#  cursor:
+#    text: '#fefff2'
+#    cursor: '#f0cc09'
+
+#  selection:
+#    text: '#b5b5b5'
+#    background: '#18354f'
+
+#  primary:
+#    background: '#132738'
+#    foreground: '#ffffff'
+
+#  normal:
+#    black: '#000000'
+#    red: '#ff0000'
+#    green: '#38de21'
+#    yellow: '#ffe50a'
+#    blue: '#1460d2'
+#    magenta: '#ff005d'
+#    cyan: '#00bbbb'
+#    white: '#bbbbbb'
+
+#  bright:
+#    black: '#555555'
+#    red: '#f40e17'
+#    green: '#3bd01d'
+#    yellow: '#edc809'
+#    blue: '#5555ff'
+#    magenta: '#ff55ff'
+#    cyan: '#6ae3fa'
+#    white: '#ffffff'
+
+#  # Dim colors
+#  #
+#  # If the dim colors are not set, they will be calculated automatically based
+#  # on the `normal` colors.
+#  dim:
+#    black: '#000000'
+#    red: '#8c3336'
+#    green: '#7a8530'
+#    yellow: '#97822e'
+#    blue: '#506d8f'
+#    magenta: '#80638e'
+#    cyan: '#497e7a'
+#    white: '#9a9a9a'
+
+# # Colors (Ayu Dark)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#0A0E14'
+#     foreground: '#B3B1AD'
+
+#   # Normal colors
+#   normal:
+#     black: '#01060E'
+#     red: '#EA6C73'
+#     green: '#91B362'
+#     yellow: '#F9AF4F'
+#     blue: '#53BDFA'
+#     magenta: '#FAE994'
+#     cyan: '#90E1C6'
+#     white: '#C7C7C7'
+
+#   # Bright colors
+#   bright:
+#     black: '#686868'
+#     red: '#F07178'
+#     green: '#C2D94C'
+#     yellow: '#FFB454'
+#     blue: '#59C2FF'
+#     magenta: '#FFEE99'
+#     cyan: '#95E6CB'
+#     white: '#FFFFFF'
+
+# ## Colors (Afterglow)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#2c2c2c'
+#     foreground: '#d6d6d6'
+
+#     dim_foreground: '#dbdbdb'
+#     bright_foreground: '#d9d9d9'
+#     dim_background: '#202020' # not sure
+#     bright_background: '#3a3a3a' # not sure
+
+#   # Cursor colors
+#   cursor:
+#     text: '#2c2c2c'
+#     cursor: '#d9d9d9'
+
+#   # Normal colors
+#   normal:
+#     black: '#1c1c1c'
+#     red: '#bc5653'
+#     green: '#909d63'
+#     yellow: '#ebc17a'
+#     blue: '#7eaac7'
+#     magenta: '#aa6292'
+#     cyan: '#86d3ce'
+#     white: '#cacaca'
+
+#   # Bright colors
+#   bright:
+#     black: '#636363'
+#     red: '#bc5653'
+#     green: '#909d63'
+#     yellow: '#ebc17a'
+#     blue: '#7eaac7'
+#     magenta: '#aa6292'
+#     cyan: '#86d3ce'
+#     white: '#f7f7f7'
+
+#   # Dim colors
+#   dim:
+#     black: '#232323'
+#     red: '#74423f'
+#     green: '#5e6547'
+#     yellow: '#8b7653'
+#     blue: '#556b79'
+#     magenta: '#6e4962'
+#     cyan: '#5c8482'
+#     white: '#828282'
+
+# # Colors (Ayu Mirage)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#202734'
+#     foreground: '#CBCCC6'
+
+#   # Normal colors
+#   normal:
+#     black: '#191E2A'
+#     red: '#FF3333'
+#     green: '#BAE67E'
+#     yellow: '#FFA759'
+#     blue: '#73D0FF'
+#     magenta: '#FFD580'
+#     cyan: '#95E6CB'
+#     white: '#C7C7C7'
+
+#   # Bright colors
+#   bright:
+#     black: '#686868'
+#     red: '#F27983'
+#     green: '#A6CC70'
+#     yellow: '#FFCC66'
+#     blue: '#5CCFE6'
+#     magenta: '#FFEE99'
+#     cyan: '#95E6CB'
+#     white: '#FFFFFF'
+
+# # Colors (Base16 Default Dark)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#181818'
+#     foreground: '#d8d8d8'
+
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '#d8d8d8'
+#     cursor: '#d8d8d8'
+
+#   # Normal colors
+#   normal:
+#     black: '#181818'
+#     red: '#ab4642'
+#     green: '#a1b56c'
+#     yellow: '#f7ca88'
+#     blue: '#7cafc2'
+#     magenta: '#ba8baf'
+#     cyan: '#86c1b9'
+#     white: '#d8d8d8'
+
+#   # Bright colors
+#   bright:
+#     black: '#585858'
+#     red: '#ab4642'
+#     green: '#a1b56c'
+#     yellow: '#f7ca88'
+#     blue: '#7cafc2'
+#     magenta: '#ba8baf'
+#     cyan: '#86c1b9'
+#     white: '#f8f8f8'
+
+# # Colors (Blood Moon)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#10100E'
+#     foreground: '#C6C6C4'
+
+#   # Normal colors
+#   normal:
+#     black: '#10100E'
+#     red: '#C40233'
+#     green: '#009F6B'
+#     yellow: '#FFD700'
+#     blue: '#0087BD'
+#     magenta: '#9A4EAE'
+#     cyan: '#20B2AA'
+#     white: '#C6C6C4'
+
+#   # Bright colors
+#   bright:
+#     black: '#696969'
+#     red: '#FF2400'
+#     green: '#03C03C'
+#     yellow: '#FDFF00'
+#     blue: '#007FFF'
+#     magenta: '#FF1493'
+#     cyan: '#00CCCC'
+#     white: '#FFFAFA'
+
+# # Colors (Darkside)
+# colors:
+#   primary:
+#     background: '#222324'
+#     foreground: '#BABABA'
+
+#   # Normal colors
+#   normal:
+#     black: '#000000'
+#     red: '#E8341C'
+#     green: '#68C256'
+#     yellow: '#F2D42C'
+#     blue: '#1C98E8'
+#     magenta: '#8E69C9'
+#     cyan: '#1C98E8'
+#     white: '#BABABA'
+
+#   # Bright colors
+#   bright:
+#     black: '#666666'
+#     red: '#E05A4F'
+#     green: '#77B869'
+#     yellow: '#EFD64B'
+#     blue: '#387CD3'
+#     magenta: '#957BBE'
+#     cyan: '#3D97E2'
+#     white: '#BABABA'
+
+# # Colors (Gruvbox light)
+# colors:
+#   # Default colors
+#   primary:
+#     # hard contrast: background = '#f9f5d7'
+#     background: '#fbf1c7'
+#     # soft contrast: background = '#f2e5bc'
+#     foreground: '#3c3836'
+
+#   # Normal colors
+#   normal:
+#     black:   '#fbf1c7'
+#     red:     '#cc241d'
+#     green:   '#98971a'
+#     yellow:  '#d79921'
+#     blue:    '#458588'
+#     magenta: '#b16286'
+#     cyan:    '#689d6a'
+#     white:   '#7c6f64'
+
+#   # Bright colors
+#   bright:
+#     black:   '#928374'
+#     red:     '#9d0006'
+#     green:   '#79740e'
+#     yellow:  '#b57614'
+#     blue:    '#076678'
+#     magenta: '#8f3f71'
+#     cyan:    '#427b58'
+#     white:   '#3c3836'
+
+# # Colors (Gruvbox dark)
+# colors:
+#   # Default colors
+#   primary:
+#     # hard contrast: background = '#1d2021'
+#     background: '#282828'
+#     # soft contrast: background = '#32302f'
+#     foreground: '#ebdbb2'
+
+#   # Normal colors
+#   normal:
+#     black: '#282828'
+#     red: '#cc241d'
+#     green: '#98971a'
+#     yellow: '#d79921'
+#     blue: '#458588'
+#     magenta: '#b16286'
+#     cyan: '#689d6a'
+#     white: '#a89984'
+
+#   # Bright colors
+#   bright:
+#     black: '#928374'
+#     red: '#fb4934'
+#     green: '#b8bb26'
+#     yellow: '#fabd2f'
+#     blue: '#83a598'
+#     magenta: '#d3869b'
+#     cyan: '#8ec07c'
+#     white: '#ebdbb2'
+
+# # Colors (Material Theme)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#1e282d'
+#     foreground: '#c4c7d1'
+
+#   # Normal colors
+#   normal:
+#     black: '#666666'
+#     red: '#eb606b'
+#     green: '#c3e88d'
+#     yellow: '#f7eb95'
+#     blue: '#80cbc4'
+#     magenta: '#ff2f90'
+#     cyan: '#aeddff'
+#     white: '#ffffff'
+
+#   # Bright colors
+#   bright:
+#     black: '#ff262b'
+#     red: '#eb606b'
+#     green: '#c3e88d'
+#     yellow: '#f7eb95'
+#     blue: '#7dc6bf'
+#     magenta: '#6c71c4'
+#     cyan: '#35434d'
+#     white: '#ffffff'
+
+# # Colors (Oceanic Next)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#1b2b34'
+#     foreground: '#d8dee9'
+
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '#1b2b34'
+#     cursor: '#ffffff'
+
+#   # Normal colors
+#   normal:
+#     black: '#343d46'
+#     red: '#EC5f67'
+#     green: '#99C794'
+#     yellow: '#FAC863'
+#     blue: '#6699cc'
+#     magenta: '#c594c5'
+#     cyan: '#5fb3b3'
+#     white: '#d8dee9'
+
+#   # Bright colors
+#   bright:
+#     black: '#343d46'
+#     red: '#EC5f67'
+#     green: '#99C794'
+#     yellow: '#FAC863'
+#     blue: '#6699cc'
+#     magenta: '#c594c5'
+#     cyan: '#5fb3b3'
+#     white: '#d8dee9'
+
+# # Colors (Monokai Pro)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#2D2A2E'
+#     foreground: '#FCFCFA'
+
+#   # Normal colors
+#   normal:
+#     black: '#403E41'
+#     red: '#FF6188'
+#     green: '#A9DC76'
+#     yellow: '#FFD866'
+#     blue: '#FC9867'
+#     magenta: '#AB9DF2'
+#     cyan: '#78DCE8'
+#     white: '#FCFCFA'
+
+#   # Bright colors
+#   bright:
+#     black: '#727072'
+#     red: '#FF6188'
+#     green: '#A9DC76'
+#     yellow: '#FFD866'
+#     blue: '#FC9867'
+#     magenta: '#AB9DF2'
+#     cyan: '#78DCE8'
+#     white: '#FCFCFA'
+
+# # Colors (Monokai Dark)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#272822'
+#     foreground: '#F8F8F2'
+
+#   # Normal colors
+#   normal:
+#     black: '#272822'
+#     red: '#F92672'
+#     green: '#A6E22E'
+#     yellow: '#F4BF75'
+#     blue: '#66D9EF'
+#     magenta: '#AE81FF'
+#     cyan: '#A1EFE4'
+#     white: '#F8F8F2'
+
+#   # Bright colors
+#   bright:
+#     black: '#75715E'
+#     red: '#F92672'
+#     green: '#A6E22E'
+#     yellow: '#F4BF75'
+#     blue: '#66D9EF'
+#     magenta: '#AE81FF'
+#     cyan: '#A1EFE4'
+#     white: '#F9F8F5'
+
+# Colors (Molokai Dark)
 colors:
   # Default colors
   primary:
-    background: '#000000'
-    foreground: '#eaeaea'
-
-  # Bright and dim foreground colors
-  #
-  # The dimmed foreground color is calculated automatically if it is not present.
-  # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-  # is `false`, the normal foreground color will be used.
-  dim_foreground: '#9a9a9a'
-  bright_foreground: '#ffffff'
-
-  # Cursor colors
-  #
-  # Colors which should be used to draw the terminal cursor. If these are unset,
-  # the cursor color will be the inverse of the cell color.
-  cursor:
-    text: '#000000'
-    cursor: '#ffffff'
-
-  # Selection colors
-  #
-  # Colors which should be used to draw the selection area. If selection
-  # background is unset, selection color will be the inverse of the cell colors.
-  # If only text is unset the cell text color will remain the same.
-  selection:
-    text: '#eaeaea'
-    background: '#404040'
-
+    background: '#1B1D1E'
+    foreground: '#F8F8F2'
   # Normal colors
   normal:
-    black: '#000000'
-    red: '#d54e53'
-    green: '#b9ca4a'
-    yellow: '#e6c547'
-    blue: '#7aa6da'
-    magenta: '#c397d8'
-    cyan: '#70c0ba'
-    white: '#eaeaea'
-
+    black: '#333333'
+    red: '#C4265E'
+    green: '#86B42B'
+    yellow: '#B3B42B'
+    blue: '#6A7EC8'
+    magenta: '#8C6BC8'
+    cyan: '#56ADBC'
+    white: '#E3E3DD'
   # Bright colors
   bright:
     black: '#666666'
-    red: '#ff3334'
-    green: '#9ec400'
-    yellow: '#e7c547'
-    blue: '#7aa6da'
-    magenta: '#b77ee0'
-    cyan: '#54ced6'
-    white: '#ffffff'
+    red: '#F92672'
+    green: '#A6E22E'
+    yellow: '#E2E22E'
+    blue: '#819AFF'
+    magenta: '#AE81FF'
+    cyan: '#66D9EF'
+    white: '#F8F8F2'
 
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  dim:
-    black: '#000000'
-    red: '#8c3336'
-    green: '#7a8530'
-    yellow: '#97822e'
-    blue: '#506d8f'
-    magenta: '#80638e'
-    cyan: '#497e7a'
-    white: '#9a9a9a'
 # Indexed Colors
 #
 # The indexed colors include all colors from 16 to 256.
@@ -224,7 +676,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+background_opacity: 0.9
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
@@ -295,7 +747,7 @@ shell:
 # If this is `true`, the cursor is temporarily hidden when typing.
 #hide_when_typing: false
 
-#url:
+url:
 # URL launcher
 #
 # This program is executed when clicking on a text which is recognized as a URL.
@@ -307,9 +759,9 @@ shell:
 #   - (macOS) open
 #   - (Linux/BSD) xdg-open
 #   - (Windows) explorer
-#launcher:
-#  program: xdg-open
-#  args: []
+launcher:
+  program: xdg-open
+  args: []
 
 # URL modifiers
 #
