@@ -298,8 +298,9 @@ silent! colorscheme base16-material-darker
 " silent! colorscheme molokai
 " silent! colorscheme base16-gruvbox-dark-hard
 
-set swapfile
-set dir=~/vim-autoswap
+set undodir=~/.vim/undodir
+set undofile
+set noswapfile
 set mousemodel=popup
 set t_Co=256
 set scrolloff=100
