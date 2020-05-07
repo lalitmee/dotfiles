@@ -1205,6 +1205,8 @@ set foldlevelstart=99
 set foldnestmax=10                                           " deepest fold is 10 levels
 set nofoldenable                                             " don't fold by default
 set foldlevel=1
+set undodir=~/.vim/undodir
+set undofile
 
 " Some servers have issues with backup files, see #649
 set nobackup
