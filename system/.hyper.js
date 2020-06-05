@@ -4,23 +4,16 @@
 
 module.exports = {
   config: {
-    // init extension settings
-    init: [
-      {
-        rule: "once",
-        commands: ["transset -a -t 0.65"],
-      },
-    ],
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
     updateChannel: "stable",
 
     // default font size in pixels for all tabs
-    fontSize: 13,
+    fontSize: 11,
 
     // font family with optional fallbacks
     fontFamily:
-      'Mononoki Nerd Font, CaskaydiaCove Nerd Font, CodeNewRoman Nerd Font, Monaco, Operator Mono Lig Book, "Source Code Pro",  Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Monaco, Operator Mono Lig Book, CodeNewRoman Nerd Font, Mononoki Nerd Font, CaskaydiaCove Nerd Font, "Source Code Pro", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: "bold",
