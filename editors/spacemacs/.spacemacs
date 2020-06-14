@@ -743,9 +743,6 @@ you should place your code here."
 
 
   (require 'company)
-  (require 'company-tern)
-
-  (add-to-list 'company-backends 'company-tern)
 
   ;; Emacs as Typescript IDE
   (defun setup-tide-mode ()
