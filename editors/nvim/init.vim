@@ -9,9 +9,6 @@ call plug#begin()
 
 " Plugins {{{
 
-" Fuzzy Finder for Goneovim
-Plug 'akiyosi/gonvim-fuzzy'
-
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
 
@@ -89,9 +86,6 @@ Plug 'tpope/vim-eunuch'
 
 " comment stuff out
 Plug 'tpope/vim-commentary'
-
-" Prettier for vim
-Plug 'prettier/vim-prettier'
 
 " Tabularize for Vim
 " Vim script for text filtering and alignment
@@ -1095,68 +1089,6 @@ augroup javascript_folding
 augroup END
 
 augroup filetype javascript syntax=javascript
-
-" }}}
-
-" Prettier Configurations {{{
-
-" Automatically comb your CSS on save
-autocmd BufWritePre,FileWritePre *.css,*.less,*.scss,*.sass silent! :CSScomb
-
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.yml Prettier
-
-let g:prettier#exec_cmd_path = "/home/lalit/.npm-global/bin/prettier"
-
-let g:prettier#quickfix_enabled = 0
-" max line length that prettier will wrap on
-" Prettier default: 80
-let g:prettier#config#print_width = 80
-
-" number of spaces per indentation level
-" Prettier default: 2
-let g:prettier#config#tab_width = 2
-
-" use tabs over spaces
-" Prettier default: false
-let g:prettier#config#use_tabs = 'false'
-
-" print semicolons
-" Prettier default: true
-let g:prettier#config#semi = 'true'
-
-" single quotes over double quotes
-" Prettier default: false
-let g:prettier#config#single_quote = 'true'
-
-" print spaces between brackets
-" Prettier default: true
-let g:prettier#config#bracket_spacing = 'true'
-
-" put > on the last line instead of new line
-" Prettier default: false
-let g:prettier#config#jsx_bracket_same_line = 'false'
-
-" avoid|always
-" Prettier default: avoid
-let g:prettier#config#arrow_parens = 'avoid'
-
-" html whitespace sensitivity
-let g:prettier#config#html_whitespace_sensitivity = 'ignore'
-
-" none|es5|all
-" Prettier default: none
-let g:prettier#config#trailing_comma = 'all'
-
-" flow|babylon|typescript|css|less|scss|json|graphql|markdown
-" Prettier default: babylon
-let g:prettier#config#parser = 'babel'
-
-" cli-override|file-override|prefer-file
-let g:prettier#config#config_precedence = 'cli-override'
-
-" always|never|preserve
-let g:prettier#config#prose_wrap = 'preserve'
 
 " }}}
 

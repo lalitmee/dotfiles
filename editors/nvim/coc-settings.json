@@ -1,20 +1,20 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "json",
-    "javascriptreact",
-    "typescript.tsx",
-    "graphql",
     "css",
-    "markdown",
-    "javascript",
+    "graphql",
     "graphql",
     "html",
-    "yaml",
+    "javascript",
+    "javascript",
+    "javascriptreact",
     "json",
-    "python"
+    "json",
+    "markdown",
+    "python",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+    "yaml"
   ],
   "eslint.enable": true,
   "tsserver.enableJavascript": false,
@@ -53,16 +53,6 @@
   // snippets
   "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/utils/snips"],
 
-  // explorer
-  "explorer.width": 30,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.previewAction.onHover": false,
-  "explorer.icon.enableVimDevicons": false,
-  "explorer.keyMappings": {
-    "<cr>": ["expandable?", "expand", "open"],
-    "v": "open:vsplit"
-  },
-
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
@@ -70,7 +60,9 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-  }
+  },
+  // Prettier Settings
+  "prettier.singleQuote": true
 
   // TODO language servers
   // TODO g:coc_global_extensions
