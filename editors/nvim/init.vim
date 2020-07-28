@@ -18,64 +18,45 @@ Plug 'norcalli/nvim-colorizer.lua'
 " fancy start Screen for vim
 Plug 'mhinz/vim-startify'
 
-" vim which key
-Plug 'liuchengxu/vim-which-key' 
-
 " Moving in vim inside Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
 " Instant markdown preview from vim
-Plug 'suan/vim-instant-markdown'      
+Plug 'suan/vim-instant-markdown'
 
 " toggle, display and navigate marks
-Plug 'kshenoy/vim-signature'          
+Plug 'kshenoy/vim-signature'
 
 " Better search highlighting
-Plug 'haya14busa/incsearch.vim'       
+Plug 'haya14busa/incsearch.vim'
 
 " Better HTML Editing
-Plug 'Raimondi/delimitMate'           
+Plug 'Raimondi/delimitMate'
 
 " SilverSearcher
-Plug 'mileszs/ack.vim'                
-
-" Multiple Cursor
-Plug 'terryma/vim-multiple-cursors'   
-
-" Vim Git Gutter
-Plug 'airblade/vim-gitgutter'         
+Plug 'mileszs/ack.vim'
 
 " lightweight statusline for vim
-Plug 'itchyny/lightline.vim'          
+Plug 'itchyny/lightline.vim'
 
 " vim icons
-Plug 'ryanoasis/vim-devicons'         
+Plug 'ryanoasis/vim-devicons'
 
 " for handling swap files
-Plug 'gioele/vim-autoswap'            
+Plug 'gioele/vim-autoswap'
 
 " for renaming the current buffer
-Plug 'danro/rename.vim'               
+Plug 'danro/rename.vim'
 
 " for jumping
-Plug 'easymotion/vim-easymotion'      
-
-" Find files using <leader>f
-Plug 'Yggdroot/LeaderF'
-Plug 'tamago324/LeaderF-filer'
+Plug 'easymotion/vim-easymotion'
 
 " File Management using ranger
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
-" remove all the things and go in the center
-Plug 'junegunn/goyo.vim'      
-
 " Colors
-Plug 'chriskempson/base16-vim'
-Plug 'itchyny/landscape.vim'
-Plug 'tomasr/molokai'
-Plug 'mhinz/vim-janah'
+Plug 'gruvbox-community/gruvbox'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -83,8 +64,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Golang
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
-" C 
-Plug 'vim-scripts/c.vim' 
+" Clang
+Plug 'vim-scripts/c.vim'
 Plug 'rhysd/vim-clang-format'
 
 " TypeScript
@@ -124,7 +105,7 @@ Plug 'honza/vim-snippets'
 " Plug 'ctrlpvim/ctrlp.vim'
 
 " Magit like emacs for git workflow
-Plug 'jreybert/vimagit' 
+Plug 'jreybert/vimagit'
 
 " Show tags bar
 Plug 'majutsushi/tagbar'
@@ -146,7 +127,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 
 " The interactive scratchpad for hackers.
-Plug 'metakirby5/codi.vim' 
+Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -155,70 +136,20 @@ Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-" Sneak Settings {{{ 
-
-let g:sneak#label = 1
-map s <Plug>Sneak_s
-map S <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
-
-" }}}
-
-" Which Key Settings{{{{
-
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-
-" }}}}
-
 " Ranger Settings {{{{
 
 let g:ranger_map_keys = 0
 
 " }}}}
 
-" Goyo Settings {{{{
-
-let g:goyo_entered = 0
-function! s:goyo_enter()
-	silent !tmux set status off
-	let g:goyo_entered = 1
-	set noshowmode
-	set noshowcmd
-	set scrolloff=999
-	set wrap
-	setlocal textwidth=0
-	setlocal wrapmargin=0
-endfunction
-
-function! s:goyo_leave()
-	silent !tmux set status on
-	let g:goyo_entered = 0
-	set showmode
-	set showcmd
-	" set scrolloff=5
-	set textwidth=120
-	set wrapmargin=8
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-" }}}
-
 " Colors Settings {{{
 
-" colorscheme base16-monokai
-" silent colorscheme base16-material-darker
-silent colorscheme base16-gruvbox-dark-hard
-" colorscheme landscape
-" colorscheme darkblue
+colorscheme gruvbox
+set background=dark
 
 " lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'ayu_mirage',
+      \ 'colorscheme': 'gruvbox',
       \ }
 
 
@@ -229,16 +160,9 @@ highlight Comment cterm=italic
 "highlight Normal gui=none
 "highlight NonText guibg=none
 
-" Some GUI stuff
-let g:lightTheme = 'molokai'
-let g:darkTheme = 'xoria256'
-command! Light :execute ':colorscheme ' . g:lightTheme . ' | set background=light'
-command! Dark  :execute ':colorscheme ' . g:darkTheme . ' | set background=dark'
-
 " }}}
 
 " C language Settings {{{
-
 
 let g:clang_library_path='/usr/lib/llvm-6.0/lib'
 let g:clang_use_library = 1
@@ -290,8 +214,8 @@ endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 let g:fzf_command_prefix='Fzf'
-nnoremap <silent> <leader><space> :FZF<CR>
-nnoremap <silent> <leader>bb :FzfBuffers<CR>
+nnoremap <silent> <leader>pf :FZF<CR>
+nnoremap <silent> <leader>pb :FzfBuffers<CR>
 nnoremap <silent> <leader>gf :FzfGFiles<CR>
 nnoremap <silent> <leader>ll :FzfLines<CR>
 nnoremap <silent> <leader>bl :FzfBLines<CR>
@@ -332,11 +256,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" }}} 
-
-
 " }}}
-
 
 " Abbreviations{{{ "
 
@@ -356,14 +276,14 @@ abbr reciever receiver
 " Prettier command for coc-prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-let g:coc_global_extensions = [ 
+let g:coc_global_extensions = [
 				\ 'coc-pairs',
 				\ 'coc-eslint',
 				\ 'coc-prettier',
 				\ 'coc-json',
-				\ 'coc-html', 
+				\ 'coc-html',
 				\ 'coc-css',
-				\ 'coc-yaml', 
+				\ 'coc-yaml',
 				\ 'coc-python',
 				\ 'coc-highlight',
 				\ 'coc-emmet',
@@ -543,16 +463,6 @@ endif
 
 " }}}
 
-" Pencil auto detect for text and Markdown files {{{
-
-augroup pencil
-	autocmd!
-	autocmd FileType markdown,mkd call pencil#init()
-	autocmd FileType text         call pencil#init()
-augroup END
-
-" }}}
-
 " Open help in vertical split {{{
 
 augroup vimrc_help
@@ -586,13 +496,6 @@ let g:SuperTabDefaultCompletionType = "<C-n>"
 
 " }}}
 
-" EasyAlign {{{
-
-" xmap ga <Plug>(EasyAlign)
-" nmap ga <Plug>(EasyAlign)
-
-" }}}
-
 " indentLine {{{
 
 let g:indentLine_char = '▏'
@@ -609,23 +512,13 @@ let g:tagbar_iconchars = ['↠', '↡']
 
 " Trim Whitespaces {{{
 
-nnoremap <silent> <leader>c :call <SID>StripTrailingWhitespaces()<CR>
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
 
-if has("autocmd")
-	autocmd BufWritePre *.py,*.js,*.ts,*.css,*.scss :call <SID>StripTrailingWhitespaces()
-endif
-
-function! <SID>StripTrailingWhitespaces()
-	" Preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
-	" Do the business:
-	%s/\s\+$//e
-	" Clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
-endfunction
+autocmd BufWritePre * :call TrimWhitespace()
 
 " }}}
 
@@ -651,11 +544,11 @@ map <Leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " goneovim key mappings {{{
 
-nmap <Leader>pf :GonvimFuzzyFiles<CR>
-nmap <Leader>pb :GonvimFuzzyBuffers<CR>
-nmap <Leader>pl :GonvimFuzzyBLines<CR>
-nmap <Leader>/ :GonvimFuzzyAg<CR>
-nmap <Leader>r/ :GonvimFuzzyResume<CR>
+" nmap <Leader>pf :GonvimFuzzyFiles<CR>
+" nmap <Leader>pb :GonvimFuzzyBuffers<CR>
+" nmap <Leader>pl :GonvimFuzzyBLines<CR>
+" nmap <Leader>/ :GonvimFuzzyAg<CR>
+" nmap <Leader>r/ :GonvimFuzzyResume<CR>
 
 " }}}
 
@@ -682,10 +575,8 @@ cnoremap <C-n> <Down>
 nmap <Leader>* *<c-o>:%s///gn<cr>
 nmap <Leader>u :PlugUpdate<CR>
 nmap <Leader>cl :PlugClean<CR>
-nmap <Leader>qn :NERDTreeToggle<CR>
 nmap <Leader>w :TagbarToggle<CR>
 nmap \ <Leader>q<Leader>w
-nmap <Leader>ee :Colors<CR>
 nmap <Leader>ce :colorscheme<space>
 nmap <Leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <Leader>e :e ~/.config/nvim/init.vim<CR>
@@ -698,13 +589,8 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 nmap <Leader>th <C-w>s<C-w>j:terminal<CR>
 nmap <Leader>tv <C-w>v<C-w>l:terminal<CR>
-nmap <Leader>z :Goyo<CR>
 nmap <Leader>h :RainbowParentheses!!<CR>
 autocmd FileType python nmap <Leader>x :0,$!~/.config/nvim/env/bin/python -m yapf<CR>
-map <Leader>hn <C-w>v<C-w>l:HackerNews best<CR>J
-
-" To show marks, Toggle command from signature plugin
-"noremap <Leader>m :SignatureToggle<CR>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 " http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
@@ -713,36 +599,17 @@ cmap w!! %!sudo tee > /dev/null %
 " save
 noremap <silent> <Leader>, :w<CR>
 
-" Paste with middle mouse click
-vmap <LeftRelease> "*ygv
-
 " clear highlighted search
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<cr>
 nnoremap <CR> :noh<CR><CR>
 
-" exit with leader
+" exit or quit with leader
 noremap <silent> <Leader>x :q<cr>
 
-" Paste with <Shift> + <Insert>
-imap <S-Insert> <C-R>*
-
-" For putting the file name on the current position of cursor from Derek Wyatt
+" For putting the file name in insert mode on the current position of cursor
+" from Derek Wyatt
 imap <Leader>fn <c-r>=expand('%:t:r')<cr>
 
-" Paste from system clipboard
-set clipboard=unnamedplus
-
-" Copy paste in vim
-set mouse=a
-
-" to make nvim fast
-set re=1
-
-" to make scroll stay in middle of the screen
-set scrolloff=999
-
-"HTML Editing
-set matchpairs+=<:>
 
 " to not produce commented next line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -775,10 +642,6 @@ nnoremap <Leader>yl :%y<CR>
 set undolevels=1000      " use many muchos levels of undo
 
 
-""" mapping of 0 and $ to easy map
-nmap <Leader>en $
-nmap <Leader>aa 0
-
 """ HTML editing on pressing enter make an empty line
 function! Expander()
 	let line   = getline(".")
@@ -790,17 +653,12 @@ function! Expander()
 	if first ==# ">"
 		if second ==# "<" && third ==# "/"
 			return "\<CR>\<C-o>==\<C-o>O"
-
 		else
 			return "\<CR>"
-
 		endif
-
 	else
 		return "\<CR>"
-
 	endif
-
 endfunction
 
 inoremap <expr> <CR> Expander()
@@ -1087,33 +945,6 @@ nmap <Leader>wo <Plug>(easymotion-overwin-w)
 
 " }}}
 
-" Linting configurations for ale {{{
-
-let g:ale_set_highlights = 0
-let g:ale_change_sign_column_color = 0
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_echo_msg_error_str = '✖'
-let g:ale_echo_msg_warning_str = '⚠'
-let g:ale_echo_msg_format = '%severity% %s% [%linter%% code%]'
-
-let g:ale_linters = {
-			\   'javascript': ['eslint', 'tsserver'],
-			\   'typescript': ['tsserver', 'tslint'],
-			\   'html': []
-			\}
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['typescript'] = ['prettier', 'tslint']
-let g:ale_fixers['json'] = ['prettier']
-let g:ale_fixers['css'] = ['prettier']
-let g:ale_fixers['scss'] = ['prettier']
-let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_fix_on_save = 1
-
-" }}}
-
 " SilverSearcher for ack {{{
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -1139,50 +970,40 @@ augroup END
 
 " Other Configurations {{{
 
-set relativenumber                                           " relative line numbers
-set cursorline                                               " highlight the current line
+set relativenumber                      " relative line numbers
+set cursorline                          " highlight the current line
 set tags=./tags;/
-
-filetype plugin indent on
-
-if (has('nvim'))
-	" show results of substition as they're happening
-	" but don't open a split
-	set inccommand=nosplit
-endif
-
-set backspace=indent,eol,start                               " make backspace behave in a sane manner
-
-if has('mouse')
-	set mouse=a
-endif
-
-set magic                                                    " Set magic on, for regex
-set autoread                                                 " detect when a file is changed
-set number                                                   " show line numbers
-set wrap                                                     " turn on line wrapping
-set wrapmargin=8                                             " wrap lines when coming within n characters from side
-set linebreak                                                " set soft wrapping
-set showbreak=…                                              " show ellipsis at breaking
-set autoindent                                               " automatically set indent of new line
-set ttyfast                                                  " faster redrawing
+set clipboard=unnamedplus               " Paste from system clipboard
+set mouse=a                             " Copy paste in vim
+set re=1                                " to make nvim fast
+set scrolloff=999                       " to make scroll stay in middle of the screen
+set matchpairs+=<:>                     " HTML Editing
+set magic                               " Set magic on, for regex
+set autoread                            " detect when a file is changed
+set number                              " show line numbers
+set wrap                                " turn on line wrapping
+set wrapmargin=8                        " wrap lines when coming within n characters from side
+set linebreak                           " set soft wrapping
+set showbreak=…                         " show ellipsis at breaking
+set autoindent                          " automatically set indent of new line
+set ttyfast                             " faster redrawing
 set diffopt+=vertical
-set laststatus=2                                             " show the satus line all the time
-set so=7                                                     " set 7 lines to the cursors - when moving vertical
-set hidden                                                   " current buffer can be put into background
-set noshowmode                                               " don't show which mode disabled for PowerLine
+set laststatus=2                        " show the satus line all the time
+set so=7                                " set 7 lines to the cursors - when moving vertical
+set hidden                              " current buffer can be put into background
+set noshowmode                          " don't show which mode disabled for PowerLine
 set shell=$SHELL
-set title                                                    " set terminal title
-set showmatch                                                " show matching braces
-set mat=2                                                    " how many tenths of a second to blink
-set history=1000 " store more commands
+set title                               " set terminal title
+set showmatch                           " show matching braces
+set mat=2                               " how many tenths of a second to blink
+set history=1000                        " store more commands
 
 " Searching
-set ignorecase                                               " case insensitive searching
-set smartcase                                                " case-sensitive if expresson contains a capital letter
-set hlsearch                                                 " highlight search results
-set incsearch                                                " set incremental search, like modern browsers
-set nolazyredraw                                             " don't redraw while executing macros
+set ignorecase                          " case insensitive searching
+set smartcase                           " case-sensitive if expresson contains a capital letter
+set hlsearch                            " highlight search results
+set incsearch                           " set incremental search, like modern browsers
+set nolazyredraw                        " don't redraw while executing macros
 
 " error bells
 set noerrorbells
@@ -1191,18 +1012,18 @@ set t_vb=
 set tm=500
 
 " Tab control
-set noexpandtab                                              " insert tabs rather than spaces for <Tab>
-set smarttab                                                 " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set tabstop=2                                                " the visible width of tabs
-set softtabstop=2                                            " edit as if the tabs are 4 characters wide
-set shiftwidth=2                                             " number of spaces to use for indent and unindent
-set shiftround                                               " round indent to a multiple of 'shiftwidth'
+set noexpandtab                         " insert tabs rather than spaces for <Tab>
+set smarttab                            " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set tabstop=2                           " the visible width of tabs
+set softtabstop=2                       " edit as if the tabs are 4 characters wide
+set shiftwidth=2                        " number of spaces to use for indent and unindent
+set shiftround                          " round indent to a multiple of 'shiftwidth'
 
 " code folding settings
-set foldmethod=syntax                                        " fold based on indent
+set foldmethod=syntax                   " fold based on indent
 set foldlevelstart=99
-set foldnestmax=10                                           " deepest fold is 10 levels
-set nofoldenable                                             " don't fold by default
+set foldnestmax=10                      " deepest fold is 10 levels
+set nofoldenable                        " don't fold by default
 set foldlevel=1
 " set undodir=~/.vim/undodir
 " set undofile
@@ -1232,6 +1053,21 @@ set list listchars=trail:»,tab:»-
 set fillchars+=vert:\
 set breakindent
 set formatprg=par\ -w72
+
+filetype plugin indent on
+
+if (has('nvim'))
+	" show results of substition as they're happening
+	" but don't open a split
+	set inccommand=nosplit
+endif
+
+set backspace=indent,eol,start                               " make backspace behave in a sane manner
+
+if has('mouse')
+	set mouse=a
+endif
+
 
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 			\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
@@ -1369,7 +1205,7 @@ let g:startify_bookmarks = [
 
 let g:startify_enable_special = 0
 
-"}}} 
+"}}}
 
 "Filetype Specific Configurations {{{
 
