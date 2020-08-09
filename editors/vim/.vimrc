@@ -229,20 +229,20 @@ set mousemodel=popup
 set t_Co=256
 set scrolloff=100
 set guioptions=egmrti
-" set gfn=Monaco\ Regular\ 13
+" set gfn=Monaco\ Regular\ 10
 " set gfn=FiraCode\ Nerd\ Font\ Medium\ 12
 " set gfn=IBM\ Plex\ Mono\ 11
 " set gfn=Powerline\ Consolas\ 11
 " set gfn=Ubuntu\ Mono\ 12
 " set gfn=Source\ Code\ Pro\ for\ Powerline\ Semibold\ 11
-" set gfn=Source\ Code\ Pro\ Semibold\ 13
+set gfn=Source\ Code\ Pro\ Semibold\ 10
 " set gfn=Monofur\ Nerd\ Font\ Mono\ Book\ 16
 " set gfn=Mononoki\ Nerd\ Font\ Bold\ 12
 " set gfn=Operator\ Mono\ Lig\ Book\ 10
 " set gfn=Operator\ Mono\ Lig\ Medium\ 12
 " set gfn=Cascadia\ Code\ Regular\ 12
 " set gfn=Input\ Mono\ Regular\ 11
-set gfn=Monaco\ Bold\ 10
+" set gfn=Monaco\ Bold\ 10
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
@@ -401,8 +401,8 @@ noremap <Leader>v :<C-u>vsplit<CR>
 "" Git
 noremap <Leader>ga :Gwrite<CR>
 noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
+noremap <Leader>gp :Gpush<CR>
+noremap <Leader>gpl :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
