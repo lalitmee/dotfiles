@@ -62,7 +62,10 @@
     }
   },
   // Prettier Settings
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+
+  // Git Settings
+  "git.enableGutters": false
 
   // TODO language servers
   // TODO g:coc_global_extensions
