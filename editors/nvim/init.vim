@@ -432,6 +432,7 @@ let g:ctrlp_custom_ignore= {
 syntax on
 set bg=dark
 set noswapfile
+set guioptions=egmrti
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors
@@ -559,8 +560,8 @@ nmap <Leader>cl :PlugClean<CR>
 nmap <Leader>w :TagbarToggle<CR>
 nmap \ <Leader>q<Leader>w
 nmap <Leader>ce :colorscheme<space>
-nmap <Leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <Leader>e :e ~/.config/nvim/init.vim<CR>
+nmap <Leader>r :so ~/.vimrc<CR>
+nmap <Leader>e :e ~/.vimrc<CR>
 
 " select whole file text in visual mode
 map <C-c> <esc>ggVG<CR>
