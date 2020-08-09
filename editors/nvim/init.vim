@@ -58,16 +58,6 @@ Plug 'gruvbox-community/gruvbox'
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Golang
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-
-" Clang
-Plug 'vim-scripts/c.vim'
-Plug 'rhysd/vim-clang-format'
-
-" TypeScript
-Plug 'HerringtonDarkholme/yats.vim'
-
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
 
@@ -94,9 +84,6 @@ Plug 'godlygeek/tabular'
 " Snippets in Vim
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-" " <Ctrl + p> for file management
-" Plug 'ctrlpvim/ctrlp.vim'
 
 " Magit like emacs for git workflow
 Plug 'jreybert/vimagit'
@@ -271,31 +258,31 @@ abbr reciever receiver
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 let g:coc_global_extensions = [
-				\ 'coc-pairs',
-				\ 'coc-eslint',
-				\ 'coc-prettier',
-				\ 'coc-json',
-				\ 'coc-html',
 				\ 'coc-css',
-				\ 'coc-yaml',
-				\ 'coc-python',
-				\ 'coc-highlight',
+				\ 'coc-dictionary',
 				\ 'coc-emmet',
-				\ 'coc-snippets',
-				\ 'coc-lists',
+				\ 'coc-eslint',
 				\ 'coc-git',
-				\ 'coc-yank',
-				\ 'coc-svg',
-				\ 'coc-vimlsp',
-				\ 'coc-xml',
-				\ 'coc-smartf',
 				\ 'coc-gitignore',
-				\ 'coc-ultisnips',
-				\ 'coc-neosnippet',
 				\ 'coc-go',
 				\ 'coc-gocode',
+				\ 'coc-highlight',
+				\ 'coc-html',
+				\ 'coc-json',
+				\ 'coc-lists',
+				\ 'coc-neosnippet',
+				\ 'coc-pairs',
+				\ 'coc-prettier',
+				\ 'coc-python',
 				\ 'coc-sh',
-				\ 'coc-dictionary',
+				\ 'coc-smartf',
+				\ 'coc-snippets',
+				\ 'coc-svg',
+				\ 'coc-ultisnips',
+				\ 'coc-vimlsp',
+				\ 'coc-xml',
+				\ 'coc-yaml',
+				\ 'coc-yank',
 				\ ]
 
 " Better display for messages

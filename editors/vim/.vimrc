@@ -1,5 +1,4 @@
-" vim-bootstrap 
-
+" vim-bootstrap
 "*****************************************************************************
 "" Vim-PLug core
 "*****************************************************************************
@@ -31,16 +30,13 @@ Plug 'ervandew/supertab'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/grep.vim'
-Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-Plug 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 Plug 'dansomething/vim-hackernews'
 " Plug 'vim-syntastic/syntastic'
@@ -61,9 +57,7 @@ Plug 'Shougo/vimproc.vim', {'do': g:make}
 noremap <silent> <leader>hn :HackerNews best<CR>
 
 "" Colors
-Plug 'chriskempson/base16-vim'
-Plug 'itchyny/landscape.vim'
-Plug 'tomasr/molokai'
+Plug 'gruvbox-community/gruvbox'
 
 "" Lightline Colors
 Plug 'wolf-dog/lightline-nighted.vim'
@@ -96,42 +90,38 @@ Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-let g:coc_global_extensions = [ 
-				\ 'coc-pairs',
-				\ 'coc-eslint',
-				\ 'coc-prettier',
-				\ 'coc-json',
-				\ 'coc-tsserver', 
-				\ 'coc-html', 
+let g:coc_global_extensions = [
 				\ 'coc-css',
-				\ 'coc-yaml', 
-				\ 'coc-python',
-				\ 'coc-highlight',
+				\ 'coc-dictionary',
 				\ 'coc-emmet',
-				\ 'coc-snippets',
-				\ 'coc-lists',
-				\ 'coc-angular',
-				\ 'coc-tslint',
+				\ 'coc-eslint',
 				\ 'coc-git',
-				\ 'coc-yank',
-				\ 'coc-svg',
-				\ 'coc-vimlsp',
-				\ 'coc-xml',
-				\ 'coc-texlab',
-				\ 'coc-smartf',
 				\ 'coc-gitignore',
-				\ 'coc-ultisnips',
-				\ 'coc-neosnippet',
 				\ 'coc-go',
 				\ 'coc-gocode',
+				\ 'coc-highlight',
+				\ 'coc-html',
+				\ 'coc-json',
+				\ 'coc-lists',
+				\ 'coc-neosnippet',
+				\ 'coc-pairs',
+				\ 'coc-prettier',
+				\ 'coc-python',
 				\ 'coc-sh',
-				\ 'coc-emoji',
-				\ 'coc-dictionary',
-				\ 'coc-syntax'
+				\ 'coc-smartf',
+				\ 'coc-snippets',
+				\ 'coc-svg',
+				\ 'coc-ultisnips',
+				\ 'coc-vimlsp',
+				\ 'coc-xml',
+				\ 'coc-yaml',
+				\ 'coc-yank',
 				\ ]
 
 " Better display for messages
 set cmdheight=2
+
+set t_Co=256
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -158,51 +148,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-
-" C && C++
-Plug 'vim-scripts/c.vim', {'for': ['c', 'cpp']}
-Plug 'rhysd/vim-clang-format'
-Plug 'ludwig/split-manpage.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-
-
-" go
-"" Go Lang Bundle
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-
-
-" html
-"" HTML Bundle
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
-
-
-" javascript
-"" Javascript Bundle
-Plug 'jelera/vim-javascript-syntax'
-
-
-" python
-"" Python Bundle
-Plug 'davidhalter/jedi-vim'
-Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
-
-" ruby
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-projectionist'
-Plug 'thoughtbot/vim-rspec'
-Plug 'ecomba/vim-ruby-refactoring'
-
-
-" typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'HerringtonDarkholme/yats.vim'
-
 
 "*****************************************************************************
 "*****************************************************************************
@@ -274,29 +219,8 @@ set wildmode=longest,list,full
 set wildmenu
 
 let no_buffers_menu=1
-" silent! colorscheme landscape
-" silent! colorscheme darkblue
-silent! colorscheme base16-material-darker
-" silent! colorscheme base16-monokai
-" silent! colorscheme base16-phd
-" silent! colorscheme base16-seti
-" silent! colorscheme base16-ocean
-" silent! colorscheme base16-brewer
-" silent! colorscheme base16-bright
-" silent! colorscheme base16-circus
-" silent! colorscheme base16-github
-" silent! colorscheme base16-snazzy
-" silent! colorscheme base16-dracula
-" silent! colorscheme base16-ia-dark
-" silent! colorscheme base16-ia-light
-" silent! colorscheme base16-irblack
-" silent! colorscheme base16-macintosh
-" silent! colorscheme base16-onedark
-" silent! colorscheme base16-eighties
-" silent! colorscheme base16-bespin
-" silent! colorscheme base16-chalk
-" silent! colorscheme molokai
-" silent! colorscheme base16-gruvbox-dark-hard
+colorscheme gruvbox
+set background=dark
 
 set undodir=~/.vim/undodir
 set undofile
@@ -334,7 +258,7 @@ else
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
 
-  
+
   if $COLORTERM == 'gnome-terminal'
     set term=gnome-256color
   else
@@ -342,7 +266,7 @@ else
       set term=xterm-256color
     endif
   endif
-  
+
 endif
 
 
@@ -524,22 +448,28 @@ endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <silent> <leader><space> :FZF -m<CR>
-nnoremap <silent> <leader>bb :Buffers<CR>
-nnoremap <silent> <leader>gf :GFiles<CR>
-nnoremap <silent> <leader>ll :Lines<CR>
-nnoremap <silent> <leader>bl :BLines<CR>
-nnoremap <silent> <leader>tt :Tags<CR>
-nnoremap <silent> <leader>bt :BTags<CR>
-nnoremap <silent> <leader>mm :Marks<CR>
-nnoremap <silent> <leader>ww :Windows<CR>
-nnoremap <silent> <leader>ss :Snippets<CR>
-nnoremap <silent> <leader>cm :Commits<CR>
-nnoremap <silent> <leader>cb :BCommits<CR>
-nnoremap <silent> <leader>co :Commands<CR>
-nnoremap <silent> <leader>mp :Maps<CR>
-nnoremap <silent> <leader>ht :HelpTags<CR>
-nnoremap <silent> <leader>cc :Colors<CR>
-nnoremap <silent> <leader>hh :History<CR>
+nnoremap <silent> <leader>pf :FZF<CR>
+nnoremap <silent> <leader>pb :FzfBuffers<CR>
+nnoremap <silent> <leader>gf :FzfGFiles<CR>
+nnoremap <silent> <leader>ll :FzfLines<CR>
+nnoremap <silent> <leader>bl :FzfBLines<CR>
+nnoremap <silent> <leader>tt :FzfTags<CR>
+nnoremap <silent> <leader>bt :FzfBTags<CR>
+nnoremap <silent> <leader>fl :FzfLocate<space>
+nnoremap <silent> <leader>mm :FzfMarks<CR>
+nnoremap <silent> <leader>ww :FzfWindows<CR>
+nnoremap <silent> <leader>ss :FzfSnippets<CR>
+nnoremap <silent> <leader>cm :FzfCommits<CR>
+nnoremap <silent> <leader>cb :FzfBCommits<CR>
+nnoremap <silent> <leader>co :FzfCommands<CR>
+nnoremap <silent> <leader>mp :FzfMaps<CR>
+nnoremap <silent> <leader>ht :FzfHelpTags<CR>
+nnoremap <silent> <leader>ag :FzfAg<CR>
+nnoremap <silent> <leader>rg :FzfRg<CR>
+nnoremap <silent> <leader>cc :FzfColors<CR>
+nnoremap <silent> <leader>hh :FzfHistory<CR>
+nnoremap <silent> <leader>hc :FzfHistory:<CR>
+nnoremap <silent> <leader>hs :FzfHistory/<CR>
 
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>

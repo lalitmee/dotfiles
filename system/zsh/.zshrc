@@ -80,6 +80,7 @@ copyfile
 dirhistory
 docker
 encode64
+fzf-tab
 gem
 git
 git-extras
@@ -364,6 +365,7 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PA
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
+export PATH="$HOME/cargo/bin:$PATH"
 
 # old aliases
 # alias tsk="tmuxinator start katerra"
@@ -394,3 +396,5 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 source <(navi widget zsh)
+
+eval "$(starship init zsh)"
