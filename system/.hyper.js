@@ -16,10 +16,10 @@ module.exports = {
       'mononoki nerd font, Monaco, Operator Mono Lig Book, CodeNewRoman Nerd Font, Mononoki Nerd Font, CaskaydiaCove Nerd Font, "Source Code Pro", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: 'normal',
+    fontWeight: 'bold',
 
     // font weight for bold characters: 'normal' or 'bold'
-    fontWeightBold: 'normal',
+    fontWeightBold: 'bold',
 
     // line height as a relative unit
     lineHeight: 1,
