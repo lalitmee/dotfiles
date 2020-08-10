@@ -207,6 +207,7 @@ alias yt="youtube-dl"
 alias wt="curl wttr.in"
 alias wk="wikit"
 alias wb="wikit -b"
+alias hw="how2"
 
 # aliases for web search from terminal
 alias goo="google"
@@ -378,6 +379,9 @@ export PATH="$HOME/cargo/bin:$PATH"
 # alias tes="tmuxinator edit sonyliv"
 # alias tst="tmuxinator start talaria"
 # alias tet="tmuxinator edit talaria"
+
+# forgit
+source ~/Desktop/Github/forgit/forgit.plugin.zsh
 
 
 # >>> conda initialize >>>
