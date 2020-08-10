@@ -282,7 +282,7 @@ values."
                                ;; "Menlo"
                                ;; "Monaco"
                                :size 15
-                               :weight bold
+                               :weight normal
                                :width normal
                                :powerline-scale 1.3)
    ;; The leader key
