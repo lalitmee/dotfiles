@@ -112,6 +112,7 @@ Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 
 " }}}
 
@@ -179,6 +180,29 @@ augroup END
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 " The Silver Searcher
 if executable('ag')
@@ -386,21 +410,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <leader>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ld  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <leader>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>le  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <leader>n  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>ln  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>lp  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>lr  :<C-u>CocListResume<CR>
 
 " }}}
 
@@ -559,9 +583,8 @@ nmap <Leader>u :PlugUpdate<CR>
 nmap <Leader>cl :PlugClean<CR>
 nmap <Leader>w :TagbarToggle<CR>
 nmap \ <Leader>q<Leader>w
-nmap <Leader>ce :colorscheme<space>
-nmap <Leader>r :so ~/.vimrc<CR>
-nmap <Leader>e :e ~/.vimrc<CR>
+nmap <Leader>r :so ~/.config/nvim/init.vim<CR>
+nmap <Leader>e :e ~/.config/nvim/init.vim<CR>
 
 " select whole file text in visual mode
 map <C-c> <esc>ggVG<CR>
@@ -918,12 +941,12 @@ nmap s <Plug>(easymotion-overwin-f2)
 nmap t <Plug>(easymotion-t2)
 
 "" Move to line
-map <Leader>li <Plug>(easymotion-bd-jk)
-nmap <Leader>lo <Plug>(easymotion-overwin-line)
+map <Leader>jli <Plug>(easymotion-bd-jk)
+nmap <Leader>jlo <Plug>(easymotion-overwin-line)
 
 "" Move to word
-map  <Leader>wi <Plug>(easymotion-bd-w)
-nmap <Leader>wo <Plug>(easymotion-overwin-w)
+map  <Leader>jwi <Plug>(easymotion-bd-w)
+nmap <Leader>jwo <Plug>(easymotion-overwin-w)
 
 " }}}
 
