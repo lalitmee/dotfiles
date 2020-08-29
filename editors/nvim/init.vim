@@ -131,7 +131,7 @@ set background=dark
 
 " lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'wombat',
       \ }
 
 
