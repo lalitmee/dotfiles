@@ -71,6 +71,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+alias-tips
 autojump
 brew
 colored-man-pages
@@ -213,6 +214,7 @@ alias hw="how2"
 alias goo="google"
 alias bi="bing"
 alias du="ddg"
+alias d="ddgr"
 
 # alias for sublime command
 alias sb="subl ."
@@ -272,6 +274,8 @@ alias tsq="tmuxinator start c-quotes"
 alias teq="tmuxinator edit c-quotes"
 alias tsw="tmuxinator start wfws"
 alias tew="tmuxinator edit wfws"
+alias tspw="tmuxinator start wfps"
+alias tepw="tmuxinator edit wfps"
 alias tsj="tmuxinator start jarvis"
 alias tej="tmuxinator edit jarvis"
 alias tsps="tmuxinator start pdf-service"
@@ -383,6 +387,9 @@ export PATH="$HOME/cargo/bin:$PATH"
 # forgit
 source ~/Desktop/Github/forgit/forgit.plugin.zsh
 
+# almost on top plugin
+source ~/almostontop/almostontop.plugin.zsh
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -399,6 +406,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Navi: An interactive cheatsheet tool for the command-line and application launchers
 source <(navi widget zsh)
 
 eval "$(starship init zsh)"
