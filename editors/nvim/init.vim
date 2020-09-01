@@ -69,6 +69,7 @@ Plug 'tpope/vim-surround'
 
 " Version Control in Vim
 Plug 'tpope/vim-fugitive'
+Plug 'stsewd/fzf-checkout.vim'
 
 " Vim sugar for the UNIX shell commands that need it the most
 " Example: :Delete, :Unlink, :Move, etc
@@ -244,6 +245,9 @@ nnoremap <silent> <leader>cc :FzfColors<CR>
 nnoremap <silent> <leader>hh :FzfHistory<CR>
 nnoremap <silent> <leader>hc :FzfHistory:<CR>
 nnoremap <silent> <leader>hs :FzfHistory/<CR>
+
+" version control keybindings
+nnoremap <silent> <leader>gb :GBranches<CR>
 
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
@@ -737,7 +741,7 @@ nnoremap <Leader>gw :Gwrite<CR><CR>
 nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
 nnoremap <Leader>gp :Ggrep<Space>
 nnoremap <Leader>gm :Gmove<Space>
-nnoremap <Leader>gb :Git branch<Space>
+" nnoremap <Leader>gb :Git branch<Space>
 nnoremap <Leader>go :Git checkout<Space>
 nnoremap <Leader>gps :Dispatch! git push<CR>
 nnoremap <Leader>gpl :Dispatch! git pull<CR>
