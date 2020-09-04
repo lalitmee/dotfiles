@@ -325,7 +325,7 @@ _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
 ensure_tmux_is_running() {
   if _not_inside_tmux; then
-    tat
+    ~/Desktop/Github/dotfiles/bin/tat
   fi
 }
 
@@ -386,10 +386,6 @@ export PATH="$HOME/cargo/bin:$PATH"
 
 # forgit
 source ~/Desktop/Github/forgit/forgit.plugin.zsh
-
-# almost on top plugin
-source ~/almostontop/almostontop.plugin.zsh
-
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

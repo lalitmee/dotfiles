@@ -275,6 +275,8 @@ tmux_conf_copy_to_os_clipboard=false
 #run "command > source ~/.bashrc"
 #set-option -g default-shell "/bin/bash"
 
+# setting for neovim checkhealth
+# set-option -sa terminal-overrides ',XXX:RGB'
 
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
