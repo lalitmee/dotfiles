@@ -610,7 +610,7 @@ autocmd FileType python nmap <Leader>x :0,$!~/.config/nvim/env/bin/python -m yap
 cmap w!! %!sudo tee > /dev/null %
 
 " save
-noremap <silent> <Leader>, :w<CR>
+noremap <silent> <Leader>fs :w<CR>
 
 " clear highlighted search
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<cr>
