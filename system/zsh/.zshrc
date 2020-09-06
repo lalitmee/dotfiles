@@ -142,6 +142,7 @@ export LC_CTYPE=en_US.UTF-8
 
 # alias for fzf get the output
 alias f="| fzf"
+alias fk="fkill"
 
 # gitmoji aliases
 alias gm="gitmoji -s"
@@ -274,8 +275,8 @@ alias tsq="tmuxinator start c-quotes"
 alias teq="tmuxinator edit c-quotes"
 alias tsw="tmuxinator start wfws"
 alias tew="tmuxinator edit wfws"
-alias tspw="tmuxinator start wfps"
-alias tepw="tmuxinator edit wfps"
+alias tspw="tmuxinator start pwa-service"
+alias tepw="tmuxinator edit pwa-service"
 alias tsj="tmuxinator start jarvis"
 alias tej="tmuxinator edit jarvis"
 alias tsps="tmuxinator start pdf-service"
@@ -406,3 +407,4 @@ unset __conda_setup
 source <(navi widget zsh)
 
 eval "$(starship init zsh)"
+eval "$(thefuck --alias)"
