@@ -61,6 +61,14 @@ sudo apt install zsh
 chsh -s /bin/zsh
 sudo usermod -s /usr/bin/zsh $(whoami)
 
+
+echo "======================="
+echo "Installing apt-fast for installing the pacakges"
+echo "======================="
+sudo add-apt-repository ppa:saiarcot895/myppa
+sudo apt-get update
+sudo apt-get install apt-fast -y
+
 echo "======================="
 echo "Cloning dotfiles from Github"
 echo "======================="
