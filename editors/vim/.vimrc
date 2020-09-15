@@ -461,9 +461,10 @@ syntax on
 set bg=dark
 set noswapfile
 set guioptions=egmrti
+set guifont=Monaco\ 10
 " set guifont=Ubuntu\ Mono\ 12
 " set guifont=UbuntuMono\ Nerd\ Font\ 12
-set guifont=mononoki\ Nerd\ Font\ Bold\ 12
+" set guifont=mononoki\ Nerd\ Font\ Bold\ 12
 
 " Opaque Background (Comment out to use terminal's profile)
 set termguicolors

@@ -259,8 +259,8 @@ values."
    dotspacemacs-default-font '(
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator Mono Lig"
-                               ;; "Source Code Pro"
-                               "SauceCodePro Nerd Font"
+                               "Source Code Pro"
+                               ;; "SauceCodePro Nerd Font"
                                ;; "Hasklig"
                                ;; "Cascadia Code"
                                ;; "Fira Code"
@@ -281,7 +281,7 @@ values."
                                ;; "Hack"
                                ;; "Menlo"
                                ;; "Monaco"
-                               :size 15
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.3)
@@ -586,6 +586,7 @@ you should place your code here."
   (setq doom-modeline-vcs-max-length 40)
   (setq doom-modeline-minor-modes t)
   (setq doom-modeline-enable-word-count nil)
+  (setq doom-modeline-modal-icon nil)
 
   ;; fancy-battery-mode
   (fancy-battery-mode 1)
