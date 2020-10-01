@@ -180,6 +180,7 @@ augroup END
 
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+let g:fzf_preview_window = 'right:60%'
 
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
@@ -1180,4 +1181,8 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+" }}}
+
+" {{{
+set guifont=Monaco:h11
 " }}}
