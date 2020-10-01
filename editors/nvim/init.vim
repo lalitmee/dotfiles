@@ -54,6 +54,8 @@ Plug 'rbgrouleff/bclose.vim'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
+Plug 'tjdevries/colorbuddy.vim'
+Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -127,7 +129,9 @@ let g:ranger_map_keys = 0
 
 " Colors Settings {{{
 
-colorscheme gruvbox
+
+" colorscheme gruvbox
+lua require('colorbuddy').colorscheme('gruvbuddy')
 set background=dark
 
 " lightline theme
@@ -311,6 +315,7 @@ let g:coc_global_extensions = [
 				\ 'coc-smartf',
 				\ 'coc-snippets',
 				\ 'coc-svg',
+				\ 'coc-tsserver',
 				\ 'coc-ultisnips',
 				\ 'coc-vimlsp',
 				\ 'coc-xml',
@@ -635,7 +640,8 @@ nnoremap <expr> o getline('.') =~ '^\s*//' ? 'o<esc>S' : 'o'
 " command for making ctags in a project
 command! MakeTags !ctags -R .
 
-set tags+=tags,./.git/tags
+" set tags+=tags,./.git/tags
+set tags=./tags,tags;$HOME
 
 """ mapping : to ; for easy
 " nnoremap ; :

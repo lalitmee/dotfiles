@@ -53,6 +53,8 @@ Plug 'rbgrouleff/bclose.vim'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
+" Plug 'tjdevries/colorbuddy.vim'
+" Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -126,6 +128,7 @@ let g:ranger_map_keys = 0
 " Colors Settings {{{
 
 colorscheme gruvbox
+" lua require('colorbuddy').colorscheme('gruvbuddy')
 set background=dark
 
 " lightline theme
