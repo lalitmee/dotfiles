@@ -186,7 +186,8 @@ augroup END
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 let g:fzf_preview_window = 'right:60%'
 
-set wildmode=list:longest,list:full
+set wildmenu
+set wildmode=longest:full,full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 
@@ -617,6 +618,7 @@ cmap w!! %!sudo tee > /dev/null %
 
 " save
 noremap <silent> <Leader>fs :w<CR>
+noremap <silent> <Leader>, :w<CR>
 
 " clear highlighted search
 noremap <silent> <Leader>h :set hlsearch! hlsearch?<cr>
@@ -1079,7 +1081,7 @@ filetype plugin indent on
 if (has('nvim'))
 	" show results of substition as they're happening
 	" but don't open a split
-	set inccommand=nosplit
+	set inccommand=split
 endif
 
 set backspace=indent,eol,start                               " make backspace behave in a sane manner
