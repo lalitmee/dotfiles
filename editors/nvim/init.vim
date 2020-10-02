@@ -1158,7 +1158,7 @@ let g:webdevicons_enable_startify = 1
 
 let g:startify_bookmarks = [
             \ { 'i': '~/.config/nvim/init.vim' },
-            \ { 'k': '~/.config/kitty/kitty.conf' },
+            \ { 'ke': '~/.config/kitty/kitty.conf' },
             \ { 'z': '~/.zshrc' },
             \ ]
 
