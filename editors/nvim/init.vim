@@ -154,7 +154,7 @@ set background=dark
 
 " lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'material',
       \ }
 
 
@@ -163,7 +163,8 @@ highlight Pmenu guibg=LightYellow1 guifg=black
 highlight Comment cterm=italic
 "highlight Comment gui=none
 "highlight Normal gui=none
-"highlight NonText guibg=none
+highlight NonText guibg=none guifg=grey
+highlight Whitespace guibg=none guifg=grey
 
 " }}}
 
@@ -269,9 +270,6 @@ nnoremap <silent> <leader>cc :FzfColors<CR>
 nnoremap <silent> <leader>hh :FzfHistory<CR>
 nnoremap <silent> <leader>hc :FzfHistory:<CR>
 nnoremap <silent> <leader>hs :FzfHistory/<CR>
-
-" version control keybindings
-nnoremap <silent> <leader>gb :GBranches<CR>
 
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
@@ -662,7 +660,6 @@ noremap <silent> <Leader>fs :w<CR>
 noremap <silent> <Leader>, :w<CR>
 
 " clear highlighted search
-noremap <silent> <Leader>h :set hlsearch! hlsearch?<cr>
 nnoremap <CR> :noh<CR><CR>
 
 " exit or quit with leader
@@ -791,7 +788,7 @@ nnoremap <Leader>gw :Gwrite<CR><CR>
 nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
 nnoremap <Leader>gp :Ggrep<Space>
 nnoremap <Leader>gm :Gmove<Space>
-" nnoremap <Leader>gb :Git branch<Space>
+nnoremap <Leader>gb :Git branch<Space>
 nnoremap <Leader>go :Git checkout<Space>
 nnoremap <Leader>gps :Dispatch! git push<CR>
 nnoremap <Leader>gpl :Dispatch! git pull<CR>
@@ -848,7 +845,7 @@ map g# <Plug>(incsearch-nohl-g#)
 " Window mappings {{{
 
 " window splits
-nnoremap <leader>v <C-w>v
+nnoremap sv <C-w>v
 nnoremap sh <C-w>S
 
 " window chnages from current position
@@ -1197,9 +1194,10 @@ let g:startify_session_persistence = 1
 let g:webdevicons_enable_startify = 1
 
 let g:startify_bookmarks = [
-            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'ne': '~/.config/nvim/init.vim' },
             \ { 'ke': '~/.config/kitty/kitty.conf' },
-            \ { 'z': '~/.zshrc' },
+            \ { 'ge': '~/.goneovim/settings.toml' },
+            \ { 'ze': '~/.zshrc' },
             \ ]
 
 let g:startify_enable_special = 0
@@ -1233,5 +1231,6 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " }}}
 
 " {{{
-set guifont=Monaco:h11
+" set guifont=Monaco:h11
+set guifont=Operator\ Mono\ Lig\ Book:h11
 " }}}
