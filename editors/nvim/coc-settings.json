@@ -1,4 +1,5 @@
 {
+  "python.jediEnabled": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "graphql",
