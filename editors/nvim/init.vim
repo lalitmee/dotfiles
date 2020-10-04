@@ -94,9 +94,6 @@ Plug 'jreybert/vimagit'
 " Show tags bar
 Plug 'majutsushi/tagbar'
 
-" Auto paris of brackets
-Plug 'jiangmiao/auto-pairs'
-
 " Auto Close Tag in HTML
 Plug 'vim-scripts/closetag.vim'
 Plug 'alvan/vim-closetag'
@@ -148,8 +145,8 @@ let g:ranger_map_keys = 0
 " Colors Settings {{{
 
 
-" colorscheme gruvbox
-lua require('colorbuddy').colorscheme('gruvbuddy')
+colorscheme gruvbox
+" lua require('colorbuddy').colorscheme('gruvbuddy')
 set background=dark
 
 " lightline theme
@@ -163,8 +160,8 @@ highlight Pmenu guibg=LightYellow1 guifg=black
 highlight Comment cterm=italic
 "highlight Comment gui=none
 "highlight Normal gui=none
-highlight NonText guibg=none guifg=grey
-highlight Whitespace guibg=none guifg=grey
+" highlight NonText guibg=none guifg=grey
+" highlight Whitespace guibg=none guifg=grey
 
 " }}}
 
@@ -672,7 +669,7 @@ imap <Leader>fn <c-r>=expand('%:t:r')<cr>
 
 " to not produce commented next line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
+" inoremap <expr> <enter> getline('.') =~ '^\s*//' ? '<enter><esc>S' : '<enter>'
 """ for o and O behaviour
 nnoremap <expr> O getline('.') =~ '^\s*//' ? 'O<esc>S' : 'O'
 nnoremap <expr> o getline('.') =~ '^\s*//' ? 'o<esc>S' : 'o'
@@ -702,26 +699,26 @@ nnoremap <Leader>yl :%y<CR>
 set undolevels=1000      " use many muchos levels of undo
 
 
-""" HTML editing on pressing enter make an empty line
-function! Expander()
-	let line   = getline(".")
-	let col    = col(".")
-	let first  = line[col-2]
-	let second = line[col-1]
-	let third  = line[col]
+" """ HTML editing on pressing enter make an empty line
+" function! Expander()
+" 	let line   = getline(".")
+" 	let col    = col(".")
+" 	let first  = line[col-2]
+" 	let second = line[col-1]
+" 	let third  = line[col]
 
-	if first ==# ">"
-		if second ==# "<" && third ==# "/"
-			return "\<CR>\<C-o>==\<C-o>O"
-		else
-			return "\<CR>"
-		endif
-	else
-		return "\<CR>"
-	endif
-endfunction
+" 	if first ==# ">"
+" 		if second ==# "<" && third ==# "/"
+" 			return "\<CR>\<C-o>==\<C-o>O"
+" 		else
+" 			return "\<CR>"
+" 		endif
+" 	else
+" 		return "\<CR>"
+" 	endif
+" endfunction
 
-inoremap <expr> <CR> Expander()
+" inoremap <expr> <CR> Expander()
 
 function! s:align()
 	let p = '^\s*|\s.*\s|\s*$'
@@ -1230,7 +1227,15 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " }}}
 
-" {{{
-" set guifont=Monaco:h11
-set guifont=Operator\ Mono\ Lig\ Book:h11
+" Font and Cursor {{{
+set guifont=Monaco\ 10
+" set guifont=Operator\ Mono\ Lig\ Book:h11
+
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
 " }}}
