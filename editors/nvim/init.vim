@@ -12,6 +12,9 @@ call plug#begin()
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
 
+" Rainbow Parentheses
+Plug 'junegunn/rainbow_parentheses.vim'
+
 " fancy start Screen for vim
 Plug 'mhinz/vim-startify'
 
@@ -1237,5 +1240,22 @@ set guicursor=n-v-c:block-Cursor
 set guicursor+=i:ver100-iCursor
 set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
+
+" }}}
+
+
+" Rainbow Parentheses Settings {{{
+
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+
+autocmd FileType * RainbowParentheses
+
+" }}}
+
+
+" Colorizer Settings {{{
+
+luafile ~/.config/nvim/lua/plug-colorizer.lua
 
 " }}}
