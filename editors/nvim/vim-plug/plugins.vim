@@ -80,8 +80,13 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 
 " Version Control in Vim
-Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim'
+" Magit like emacs for git workflow
+Plug 'jreybert/vimagit'
 
 " Vim sugar for the UNIX shell commands that need it the most
 " Example: :Delete, :Unlink, :Move, etc
@@ -97,9 +102,6 @@ Plug 'godlygeek/tabular'
 " Snippets in Vim
 " Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
-
-" Magit like emacs for git workflow
-Plug 'jreybert/vimagit'
 
 " Auto Close Tag in HTML
 Plug 'vim-scripts/closetag.vim'
