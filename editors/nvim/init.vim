@@ -34,7 +34,8 @@ source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/themes/gruvbox.vim
 
 " Lua Plugins
-luafile ~/.config/nvim/lua/plug-colorizer.lua
+" luafile ~/.config/nvim/lua/plug-colorizer.lua
+" lua require'plug-colorizer'
 
 
 " Status Lines
