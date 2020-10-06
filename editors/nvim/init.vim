@@ -15,6 +15,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
+" Quickscope same as f, F, t, T but better
+Plug 'unblevable/quick-scope'
+
 " fancy start Screen for vim
 Plug 'mhinz/vim-startify'
 
@@ -93,9 +96,6 @@ Plug 'godlygeek/tabular'
 
 " Magit like emacs for git workflow
 Plug 'jreybert/vimagit'
-
-" Show tags bar
-Plug 'majutsushi/tagbar'
 
 " Auto Close Tag in HTML
 Plug 'vim-scripts/closetag.vim'
@@ -635,7 +635,6 @@ cnoremap <C-n> <Down>
 nmap <Leader>* *<c-o>:%s///gn<cr>
 nmap <Leader>u :PlugUpdate<CR>
 nmap <Leader>cl :PlugClean<CR>
-nmap <Leader>w :TagbarToggle<CR>
 nmap \ <Leader>q<Leader>w
 nmap <Leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <Leader>e :e ~/.config/nvim/init.vim<CR>
@@ -982,29 +981,6 @@ nnoremap <Leader>m :Magit<CR>
 
 " }}}
 
-" Easymotion mappings {{{
-
-" trigger easymotion
-map <Leader>j <Plug>(easymotion-prefix)
-
-" <Leader>f{char} to move to {char}
-map  <Leader>ff <Plug>(easymotion-bd-f)
-nmap <Leader>fw <Plug>(easymotion-overwin-f)
-
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-nmap t <Plug>(easymotion-t2)
-
-"" Move to line
-map <Leader>jli <Plug>(easymotion-bd-jk)
-nmap <Leader>jlo <Plug>(easymotion-overwin-line)
-
-"" Move to word
-map  <Leader>jwi <Plug>(easymotion-bd-w)
-nmap <Leader>jwo <Plug>(easymotion-overwin-w)
-
-" }}}
-
 " SilverSearcher for ack {{{
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -1259,3 +1235,18 @@ autocmd FileType * RainbowParentheses
 luafile ~/.config/nvim/lua/plug-colorizer.lua
 
 " }}}
+
+
+" Quick Scope Settings {{{
+
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+highlight QuickScopePrimary guifg='#00C7DF' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#afff5f' gui=underline ctermfg=81 cterm=underline
+
+let g:qs_max_chars=150
+
+" }}}
+
+
