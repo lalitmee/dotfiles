@@ -125,4 +125,7 @@ Plug 'airblade/vim-rooter'
 " For setting listchars dynamically by calling function of plugin
 Plug 'tjdevries/cyclist.vim'
 
+" Ranger
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+
 call plug#end()

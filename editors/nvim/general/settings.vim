@@ -1,6 +1,32 @@
+set iskeyword+=-                      	" treat dash separated words as a word text object"
+set formatoptions-=cro                  " Stop newline continution of comments
+
+syntax enable                           " Enables syntax highlighing
+set hidden                              " Required to keep multiple buffers open multiple buffers
+set nowrap                              " Display long lines as just one line
+set whichwrap+=<,>,[,],h,l
+set encoding=utf-8                      " The encoding displayed
+set pumheight=10                        " Makes popup menu smaller
+set fileencoding=utf-8                  " The encoding written to file
+set ruler              			            " Show the cursor position all the time
+set cmdheight=2                         " More space for displaying messages
+set splitbelow                          " Horizontal splits will automatically be below
+set splitright                          " Vertical splits will automatically be to the right
+set t_Co=256                            " Support 256 colors
+set conceallevel=0                      " So that I can see `` in markdown files
+set laststatus=2                        " Always display the status line
+set cursorline                          " Enable highlighting of the current line
+set background=dark                     " tell vim what the background color looks like
+set showtabline=2                       " Always show tabs
+set noshowmode                          " We don't need to see things like -- INSERT -- anymore
+set nobackup                            " This is recommended by coc
+set nowritebackup                       " This is recommended by coc
+set shortmess+=c                        " Don't pass messages to |ins-completion-menu|.
+set signcolumn=yes                      " Always show the signcolumn, otherwise it would shift the text each time
+set updatetime=300                      " Faster completion
+set timeoutlen=100                      " By default timeoutlen is 1000 ms
+set clipboard=unnamedplus               " Copy paste between vim and everything else
 set relativenumber                      " relative line numbers
-set cursorline                          " highlight the current line
-set clipboard=unnamedplus               " Paste from system clipboard
 set mouse=a                             " Copy paste in vim
 set re=1                                " to make nvim fast
 set scrolloff=999                       " to make scroll stay in middle of the screen
@@ -11,14 +37,9 @@ set number                              " show line numbers
 set wrap                                " turn on line wrapping
 set wrapmargin=8                        " wrap lines when coming within n characters from side
 set linebreak                           " set soft wrapping
-set showbreak=…                         " show ellipsis at breaking
-set autoindent                          " automatically set indent of new line
 set ttyfast                             " faster redrawing
 set diffopt+=vertical
-set laststatus=2                        " show the satus line all the time
 set so=7                                " set 7 lines to the cursors - when moving vertical
-set hidden                              " current buffer can be put into background
-set noshowmode                          " don't show which mode disabled for PowerLine
 set shell=$SHELL
 set title                               " set terminal title
 set showmatch                           " show matching braces
@@ -32,6 +53,11 @@ set hlsearch                            " highlight search results
 set incsearch                           " set incremental search, like modern browsers
 set nolazyredraw                        " don't redraw while executing macros
 
+" Indenting
+set smartindent                         " Makes smart indent
+set autoindent                          " Good auto indent
+set breakindent
+
 " error bells
 set noerrorbells
 set visualbell
@@ -41,6 +67,7 @@ set tm=500
 " Tab control
 set noexpandtab                         " insert tabs rather than spaces for <Tab>
 set smarttab                            " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set expandtab                           " Converts tabs to spaces
 set tabstop=2                           " the visible width of tabs
 set softtabstop=2                       " edit as if the tabs are 4 characters wide
 set shiftwidth=2                        " number of spaces to use for indent and unindent
@@ -55,28 +82,9 @@ set foldlevel=1
 " set undodir=~/.vim/undodir
 " set undofile
 
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" toggle invisible characters
-" set list
-" set showbreak=↪
-
 set colorcolumn=80
 
-set ruler laststatus=2 showcmd showmode
 set fillchars+=vert:\
-set breakindent
 set formatprg=par\ -w72
 
 filetype plugin indent on
@@ -157,3 +165,4 @@ autocmd BufWritePre * :call TrimWhitespace()
 " }}}
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
