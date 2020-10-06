@@ -1,0 +1,11 @@
+# gitignore for neovim
+**/tags*
+**/.netrwhist
+**/pythonpath.vim
+**/nodepath.vim
+**/autoload/plugged/*
+**/vimspector-config/*
+**/paths.vim
+**/session
+**/wiki/
+**/pack/
