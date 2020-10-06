@@ -37,6 +37,7 @@ source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
 source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/plug-config/signify.vim
 
 " Keys Mappings
 source $HOME/.config/nvim/keys/mappings.vim
