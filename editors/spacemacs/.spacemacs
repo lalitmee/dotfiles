@@ -131,8 +131,6 @@ values."
    dotspacemacs-additional-packages '(
                                       ;; ng2-mode
                                       ;; emms
-                                      fancy-battery
-                                      base16-theme
                                       add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
@@ -142,6 +140,7 @@ values."
                                       auto-yasnippet
                                       autothemer
                                       babel
+                                      base16-theme
                                       beacon
                                       blacken
                                       cobalt
@@ -470,7 +469,6 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  (require 'org-tempo)
   (beacon-mode 1)
   (mode-icons-mode)
 
@@ -491,17 +489,53 @@ you should place your code here."
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
   ;; project project search path
-  (setq projectile-project-search-path '("~/Desktop/Github/" "~/Desktop/GitLab/" "~/Desktop/koinearth/"))
+  (setq projectile-project-search-path
+        '("~/Desktop/Github/"
+          "~/Desktop/GitLab/"
+          "~/Desktop/koinearth/"))
 
-  ;; italic comments
-  (set-face-italic 'font-lock-comment-face t)
 
   ;; ranger
   (setq ranger-show-dotfiles t)
   (setq ranger-show-literal nil)
 
+  ;; Org Mode Settings
+  (require 'org-tempo)
   ;; org-templates expansion
   (setq org-reveal-note-key-char nil)
+  ;; changing the org-mode bullets
+  (setq org-bullets-bullet-list '("◉" "◎" "⚫" "○" "►" "◇"))
+  ;; for having a list of options on pressing `t` in org mode
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t!)"
+           "NEXT(n!)"
+           "DOINGNOW(d!)"
+           "BLOCKED(b!)"
+           "TODELEGATE(g!)"
+           "DELEGATED(D!)"
+           "FOLLOWUP(f!)"
+           "TICKLE(T!)"
+           "|"
+           "CANCELLED(c!)"
+           "DONE(F!)")))
+  ;; pdf.js and reveal.js settings
+  (require 'ox-reveal)
+  (require 'ox-latex)
+  (use-package ox-reveal
+    :ensure ox-reveal)
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
+  (setq org-reveal-mathjax t)
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
+  (add-to-list 'org-latex-classes
+               '("article"
+                 "\\documentclass{article}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
   ;; sublimity settings
   (sublimity-mode 1)
@@ -534,6 +568,33 @@ you should place your code here."
   ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
   (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
+  ;; Font Settings
+  (add-hook 'after-init-hook #'global-emojify-mode)
+  (add-hook 'prog-mode-hook 'company-emoji-init)
+  (with-eval-after-load 'emoji-cheat-sheet-plus
+    (diminish 'emoji-cheat-sheet-plus-display-mode))
+  (defun --set-emoji-font (frame)
+    "Adjust the font settings of FRAME so Emacs can display emoji properly."
+    (if (eq system-type 'darwin)
+        ;; For NS/Cocoa
+        (set-fontset-font t
+                          'symbol
+                          (font-spec
+                           :family "Apple Color Emoji") frame 'prepend)
+      ;; For Linux
+      (set-fontset-font t
+                        'symbol
+                        (font-spec
+                         :family "Symbola") frame 'prepend)))
+
+  ;; For when Emacs is started in GUI mode:
+  (--set-emoji-font nil)
+
+  ;; Hook for when a frame is created with emacsclient
+  ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+  (add-hook 'after-make-frame-functions '--set-emoji-font)
+  ;; italic comments
+  (set-face-italic 'font-lock-comment-face t)
   ;; To make the variables stand out, you can turn off highlighting for all other keywords in supported modes
   (defun myfunc-color-identifiers-mode-hook ()
     (let ((faces
@@ -556,7 +617,6 @@ you should place your code here."
         (face-remap-add-relative
          face
          '((:foreground "" :weight normal :slant normal)))))
-
     (face-remap-add-relative 'font-lock-keyword-face '((:weight bold)))
     (face-remap-add-relative 'font-lock-comment-face '((:slant italic)))
     (face-remap-add-relative 'font-lock-builtin-face '((:weight bold)))
@@ -592,33 +652,7 @@ you should place your code here."
   (fancy-battery-mode 1)
 
   ;; for yasnippet
-  (require 'yasnippet)
   (yas-global-mode 1)
-
-  (add-hook 'after-init-hook #'global-emojify-mode)
-  (add-hook 'prog-mode-hook 'company-emoji-init)
-  (with-eval-after-load 'emoji-cheat-sheet-plus
-    (diminish 'emoji-cheat-sheet-plus-display-mode))
-  (defun --set-emoji-font (frame)
-    "Adjust the font settings of FRAME so Emacs can display emoji properly."
-    (if (eq system-type 'darwin)
-        ;; For NS/Cocoa
-        (set-fontset-font t
-         'symbol
-         (font-spec
-          :family "Apple Color Emoji") frame 'prepend)
-      ;; For Linux
-      (set-fontset-font t
-       'symbol
-       (font-spec
-        :family "Symbola") frame 'prepend)))
-
-  ;; For when Emacs is started in GUI mode:
-  (--set-emoji-font nil)
-
-  ;; Hook for when a frame is created with emacsclient
-  ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
-  (add-hook 'after-make-frame-functions '--set-emoji-font)
 
   ;; total number of lines in a buffer
   ;; page brake lines in prog-mode
@@ -634,26 +668,7 @@ you should place your code here."
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'org-indent-mode)
 
-  ;; changing the org-mode bullets
-  (setq org-bullets-bullet-list '("◉" "◎" "⚫" "○" "►" "◇"))
-
-  ;; for having a list of options on pressing `t` in org mode
-  (setq org-todo-keywords
-        '((sequence
-           "TODO(t!)"
-           "NEXT(n!)"
-           "DOINGNOW(d!)"
-           "BLOCKED(b!)"
-           "TODELEGATE(g!)"
-           "DELEGATED(D!)"
-           "FOLLOWUP(f!)"
-           "TICKLE(T!)"
-           "|"
-           "CANCELLED(c!)"
-           "DONE(F!)")))
-
-  ;; default powerline separator
-  (setq powerline-default-separator 'arrow)
+  ;; Keys Mappings
   ;; mappings of leader keys
   (spacemacs/set-leader-keys "," 'save-buffer)
   ;; (spacemacs/set-leader-keys "j" 'spacemacs/indent-region-or-buffer)
@@ -666,7 +681,6 @@ you should place your code here."
   (spacemacs/set-leader-keys "o i" 'tide-organize-imports)
 
   ;; iy-go-to-char
-  (require 'iy-go-to-char)
   (global-set-key (kbd "C-c f") 'iy-go-to-char)
   (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
   (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
@@ -679,6 +693,7 @@ you should place your code here."
 
   ;; magit autocomplete
   (spacemacs/set-leader-keys "gc" 'magit-checkout)
+
   (setq magit-repository-directories '("~/Desktop/"))
   (setq magit-commit-show-diff nil
         magit-revert-buffers 1)
@@ -686,7 +701,7 @@ you should place your code here."
     (require 'forge))
   (global-git-commit-mode t)
 
-  ;; ace-window configurations
+  ;; ace-window configurations : for moving or swapping windows
   (use-package ace-window
     :init
     (progn
@@ -694,10 +709,6 @@ you should place your code here."
       (custom-set-variables
        '(aw-leading-char-face
          ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
-
-  ;; counsel for swiper file search
-  (use-package counsel
-    :defer t)
 
   ;; swiper for word search : its awesome
   (use-package swiper
@@ -722,28 +733,6 @@ you should place your code here."
       (global-set-key (kbd "C-x l") 'counsel-locate)
       (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)))
-
-
-  ;; pdf.js and reveal.js settings
-  (require 'ox-reveal)
-  (require 'ox-latex)
-  (use-package ox-reveal
-    :ensure ox-reveal)
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
-  (setq org-reveal-mathjax t)
-  (unless (boundp 'org-latex-classes)
-    (setq org-latex-classes nil))
-  (add-to-list 'org-latex-classes
-               '("article"
-                 "\\documentclass{article}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
-  (require 'company)
 
   ;; Emacs as Typescript IDE
   (defun setup-tide-mode ()
@@ -879,7 +868,6 @@ you should place your code here."
   (add-hook
    'web-mode-hook
    #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
-
 
   (defun enable-minor-mode (my-pair)
     ;Enable minor mode if filename match the regexp.

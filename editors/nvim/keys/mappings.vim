@@ -17,7 +17,6 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 nmap <leader>th <C-w>s<C-w>j:terminal<CR>
 nmap <leader>tv <C-w>v<C-w>l:terminal<CR>
-nmap <leader>h :RainbowParentheses!!<CR>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 " http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
