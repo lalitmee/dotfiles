@@ -35,8 +35,7 @@ let g:startify_session_persistence = 1
 let g:webdevicons_enable_startify = 1
 
 let g:startify_bookmarks = [
-            \ { 'ne': '~/.config/nvim/init.vim' },
-            \ { 'ke': '~/.config/kitty/kitty.conf' },
+            \ { 'ne': '~/Desktop/Github/dotfiles/editors/nvim/init.vim' },
             \ { 'ge': '~/.goneovim/settings.toml' },
             \ { 'ze': '~/.zshrc' },
             \ ]
