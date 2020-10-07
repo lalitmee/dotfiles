@@ -625,22 +625,8 @@ you should place your code here."
     (face-remap-add-relative 'font-lock-string-face '((:slant italic)))
     (face-remap-add-relative 'font-lock-constant-face '((:weight bold))))
 
-  ;; (spacemacs/load-theme 'moe-dark)
-  ;; (spacemacs/load-theme 'doom-one)
-  ;; (spacemacs/load-theme 'atom-one-dark)
-  (spacemacs/load-theme 'doom-molokai)
-  ;; (spacemacs/load-theme 'doom-material)
-  ;; (spacemacs/load-theme 'doom-solarized-dark)
-  ;; (spacemacs/load-theme 'doom-moonlight)
-  ;; (spacemacs/load-theme 'doom-gruvbox)
-  ;; (spacemacs/load-theme 'doom-palenight)
-  ;; (spacemacs/load-theme 'doom-tomorrow-night)
-  ;; (spacemacs/load-theme 'doom-oceanic-next)
-  ;; (spacemacs/load-theme 'spacemacs-dark)
-  ;; (spacemacs/load-theme 'spacemacs-light)
-  ;; (spacemacs/load-theme 'base16-material-darker)
-  ;; (spacemacs/load-theme 'cobalt)
-  ;; (spacemacs/load-theme 'faff)
+  ;; Color theme for spacemacs
+  (spacemacs/load-theme 'doom-one)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
