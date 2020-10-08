@@ -80,21 +80,21 @@ window:
 font:
   normal:
     # family: mononoki Nerd Font Mono
-    # family: Operator Mono Lig
-    family: Monaco
+    family: OperatorMono Book
+    # family: Monaco
   bold:
     # family: mononoki Nerd Font Mono
-    # family: Operator Mono Lig
-    family: Monaco
+    family: OperatorMono Medium
+    # family: Monaco
   italic:
     # family: mononoki Nerd Font Mono
-    # family: Operator Mono Lig
-    family: Monaco
+    family: OperatorMono Italic
+    # family: Monaco
   bold_italic:
     # family: mononoki Nerd Font Mono
-    # family: Operator Mono Lig
-    family: mononoki Nerd Font Mono
-  size: 11.0
+    family: OperatorMono Bold Italic
+    # family: Monaco
+  size: 11.5
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
