@@ -29,7 +29,6 @@ source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/indentLine.vim
-source $HOME/.config/nvim/plug-config/magit.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
 source $HOME/.config/nvim/plug-config/rainbow.vim
 source $HOME/.config/nvim/plug-config/ranger.vim
@@ -38,7 +37,10 @@ source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/signify.vim
+source $HOME/.config/nvim/plug-config/emmet.vim
+source $HOME/.config/nvim/plug-config/floaterm.vim
 
 " Keys Mappings
 source $HOME/.config/nvim/keys/mappings.vim
+source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/keys/windows.vim

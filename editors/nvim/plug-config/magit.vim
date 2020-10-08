@@ -1,1 +1,1 @@
-nnoremap <Leader>m :Magit<CR>
+" nnoremap <Leader>m :Magit<CR>

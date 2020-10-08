@@ -85,8 +85,8 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
-" Magit like emacs for git workflow
-Plug 'jreybert/vimagit'
+" " Magit like emacs for git workflow
+" Plug 'jreybert/vimagit'
 
 " Vim sugar for the UNIX shell commands that need it the most
 " Example: :Delete, :Unlink, :Move, etc
@@ -129,5 +129,17 @@ Plug 'tjdevries/cyclist.vim'
 
 " Ranger
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+
+" Emmets in Vim
+Plug 'mattn/emmet-vim'
+
+" See what keys do like in emacs
+Plug 'liuchengxu/vim-which-key'
+
+" Float Terminal
+Plug 'voldikss/vim-floaterm'
+
+" Find and Replace
+Plug 'brooth/far.vim'
 
 call plug#end()
