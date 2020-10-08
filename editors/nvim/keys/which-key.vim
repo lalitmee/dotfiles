@@ -1,0 +1,247 @@
+" Leader Key Maps
+
+" Map leader to which_key
+nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
+
+" Create map to add keys to
+let g:which_key_map =  {}
+" Define a separator
+let g:which_key_sep = '→'
+" set timeoutlen=100
+
+" Coc Search & refactor
+" nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
+" let g:which_key_map['?'] = 'search word'
+
+" Lalit Lalit
+
+" Not a fan of floating windows for this
+let g:which_key_use_floating_win = 0
+
+" Change the colors if you want
+highlight default link WhichKey          Operator
+highlight default link WhichKeySeperator DiffAdded
+highlight default link WhichKeyGroup     Identifier
+highlight default link WhichKeyDesc      Function
+
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+
+" Single mappings
+let g:which_key_map[','] = [ 'w'                          , 'save' ]
+let g:which_key_map['.'] = [ ':e $MYVIMRC'                , 'open init' ]
+let g:which_key_map[';'] = [ ':FzfCommands'               , 'commands' ]
+let g:which_key_map['='] = [ '<C-W>='                     , 'balance windows' ]
+let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'explorer' ]
+let g:which_key_map['r'] = [ ':RnvimrToggle'              , 'ranger' ]
+let g:which_key_map['u'] = [ ':UndotreeToggle'            , 'undo tree']
+let g:which_key_map['x'] = [ 'q'                          , 'quit' ]
+let g:which_key_map['z'] = [ 'Goyo'                       , 'zen' ]
+
+ " Group mappings
+
+" a is for actions
+let g:which_key_map.a = {
+      \ 'name' : '+actions'                               ,
+      \ 'e' : [':CocCommand explorer'                     , 'explorer'],
+      \ 't' : [':FloatermToggle'                          , 'terminal'],
+      \ 'w' : [':StripWhitespace'                         , 'strip whitespace'],
+      \ }
+
+" b is for buffer
+let g:which_key_map.b = {
+      \ 'name' : '+buffers'                               ,
+      \ '?' : [':FzfBuffers'                              , 'fzf-buffer'],
+      \ 'L' : [':FzfBLines'                               , 'fzf-buffer-lines'],
+      \ 'd' : [':Bdelete'                                 , 'delete-buffer'],
+      \ 'f' : ['bfirst'                                   , 'first-buffer'],
+      \ 'h' : ['Startify'                                 , 'home-buffer'],
+      \ 'l' : ['blast'                                    , 'last-buffer'],
+      \ 'n' : ['bnext'                                    , 'next-buffer'],
+      \ 'p' : ['bprev'                                    , 'previous-buffer'],
+      \ }
+
+" f is for find and replace
+let g:which_key_map.f = {
+      \ 'name' : '+files'                                 ,
+      \ 'b' : [':FzfBuffers'                              , 'Find Buffers'],
+      \ 'f' : [':FzfFiles'                                , 'Find Files'],
+      \ 'g' : [':FzfGFiles'                               , 'Find Git Files'],
+      \ 's' : [':w'                                       , 'Save File'],
+      \ }
+
+" F is for find and replace
+let g:which_key_map.F = {
+      \ 'name' : '+find & replace'                        ,
+      \ 'b' : [':Farr --source=vimgrep'                   , 'buffer'],
+      \ 'p' : [':Farr --source=rgnvim'                    , 'project'],
+      \ }
+
+" g is for git
+let g:which_key_map.g = {
+      \ 'name' : '+git'                                   ,
+      \ 'A' : [':Git add %'                               , 'add current'],
+      \ 'B' : [':GBrowse'                                 , 'browse'],
+      \ 'D' : [':Gdiffsplit'                              , 'diff split'],
+      \ 'G' : [':Gstatus'                                 , 'status'],
+      \ 'H' : ['<Plug>(GitGutterPreviewHunk)'             , 'preview hunk'],
+      \ 'P' : [':Git pull'                                , 'pull'],
+      \ 'S' : [':!git status'                             , 'status'],
+      \ 'V' : [':GV!'                                     , 'view buffer commits'],
+      \ 'a' : [':Git add .'                               , 'add all'],
+      \ 'b' : [':Git blame'                               , 'blame'],
+      \ 'c' : [':Git commit'                              , 'commit'],
+      \ 'd' : [':Git diff'                                , 'diff'],
+      \ 'g' : [':GGrep'                                   , 'git grep'],
+      \ 'h' : [':GitGutterLineHighlightsToggle'           , 'highlight hunks'],
+      \ 'i' : [':Gist -b'                                 , 'post gist'],
+      \ 'j' : ['<Plug>(GitGutterNextHunk)'                , 'next hunk'],
+      \ 'k' : ['<Plug>(GitGutterPrevHunk)'                , 'prev hunk'],
+      \ 'l' : [':Git log'                                 , 'log'],
+      \ 'm' : [':magit'                                   , 'magit'],
+      \ 'p' : [':Git push'                                , 'push'],
+      \ 'r' : [':GRemove'                                 , 'remove'],
+      \ 's' : ['<Plug>(GitGutterStageHunk)'               , 'stage hunk'],
+      \ 't' : [':GitGutterSignsToggle'                    , 'toggle signs'],
+      \ 'u' : ['<Plug>(GitGutterUndoHunk)'                , 'undo hunk'],
+      \ 'v' : [':GV'                                      , 'view commits'],
+      \ }
+
+" n is Neovim
+let g:which_key_map.n = {
+      \ 'name' : '+neovim'                                ,
+      \ 'U' : [':PlugUpgrade'                             , 'upgrade plug'],
+      \ 'c' : [':PlugClean'                               , 'clean packages'],
+      \ 'e' : [':e $MYVIMRC'                              , 'edit config'],
+      \ 'i' : [':PlugInstall'                             , 'install packages'],
+      \ 'r' : [':so $MYVIMRC'                             , 'source config'],
+      \ 's' : [':PlugSnapshot'                            , 'plug snapshot'],
+      \ 'u' : [':PlugUpdate'                              , 'update packages'],
+      \ }
+
+" p is for Project
+let g:which_key_map.p = {
+      \ 'name' : '+project'                               ,
+      \ 'b' : [':FzfBuffers'                              , 'Find Buffers'],
+      \ 'f' : [':FzfFiles'                                , 'Find Files'],
+      \ 'g' : [':FzfGFiles'                               , 'Find Git Files'],
+      \ 'l' : [':FzfLines'                                , 'Find Lines'],
+      \ }
+
+" s is for search
+let g:which_key_map.s = {
+      \ 'name' : '+search'                                ,
+      \ '/' : [':FzfHistory/'                             , 'history'],
+      \ ';' : [':FzfCommands'                             , 'commands'],
+      \ 'B' : [':FzfBuffers'                              , 'open buffers'],
+      \ 'C' : [':FzfBCommits'                             , 'buffer commits'],
+      \ 'G' : [':FzfGFiles?'                              , 'modified git files'],
+      \ 'H' : [':FzfHistory:'                             , 'command history'],
+      \ 'M' : [':FzfMaps'                                 , 'normal maps']            ,
+      \ 'P' : [':FzfTags'                                 , 'project tags'],
+      \ 'S' : [':FzfColors'                               , 'color schemes'],
+      \ 'T' : [':FzfBTags'                                , 'buffer tags'],
+      \ 'a' : [':FzfAg'                                   , 'text Ag'],
+      \ 'b' : [':FzfBLines'                               , 'current buffer'],
+      \ 'c' : [':FzfCommits'                              , 'commits'],
+      \ 'f' : [':FzfFiles'                                , 'files'],
+      \ 'g' : [':FzfGFiles'                               , 'git files'],
+      \ 'h' : [':FzfHistory'                              , 'file history'],
+      \ 'l' : [':FzfLines'                                , 'lines']                  ,
+      \ 'm' : [':FzfMarks'                                , 'marks']                  ,
+      \ 'p' : [':FzfHelptags'                             , 'help tags']              ,
+      \ 's' : [':CocList snippets'                        , 'snippets'],
+      \ 't' : [':FzfRg'                                   , 'text Rg'],
+      \ 'w' : [':FzfWindows'                              , 'search windows'],
+      \ 'y' : [':FzfFiletypes'                            , 'file types'],
+      \ 'z' : [':FZF'                                     , 'FZF'],
+      \ }
+      " \ 's' : [':Snippets'                              , 'snippets'],
+
+let g:which_key_map.S = {
+      \ 'name' : '+session'                               ,
+      \ 'c' : [':SClose'                                  , 'Close Session']          ,
+      \ 'd' : [':SDelete'                                 , 'Delete Session']         ,
+      \ 'l' : [':SLoad'                                   , 'Load Session']           ,
+      \ 's' : [':Startify'                                , 'Start Page']             ,
+      \ 'S' : [':SSave'                                   , 'Save Session']           ,
+      \ }
+
+
+" l is for language server protocol
+let g:which_key_map.l = {
+      \ 'name' : '+lsp'                                   ,
+      \ '.' : [':CocConfig'                               , 'config'],
+      \ ';' : ['<Plug>(coc-refactor)'                     , 'refactor'],
+      \ 'a' : ['<Plug>(coc-codeaction)'                   , 'line action'],
+      \ 'A' : ['<Plug>(coc-codeaction-selected)'          , 'selected action'],
+      \ 'b' : [':CocNext'                                 , 'next action'],
+      \ 'B' : [':CocPrev'                                 , 'prev action'],
+      \ 'c' : [':CocList commands'                        , 'commands'],
+      \ 'd' : ['<Plug>(coc-definition)'                   , 'definition'],
+      \ 'D' : ['<Plug>(coc-declaration)'                  , 'declaration'],
+      \ 'e' : [':CocList extensions'                      , 'extensions'],
+      \ 'f' : ['<Plug>(coc-format-selected)'              , 'format selected'],
+      \ 'F' : ['<Plug>(coc-format)'                       , 'format'],
+      \ 'h' : ['<Plug>(coc-float-hide)'                   , 'hide'],
+      \ 'i' : ['<Plug>(coc-implementation)'               , 'implementation'],
+      \ 'I' : [':CocList diagnostics'                     , 'diagnostics'],
+      \ 'j' : ['<Plug>(coc-float-jump)'                   , 'float jump'],
+      \ 'l' : ['<Plug>(coc-codelens-action)'              , 'code lens'],
+      \ 'n' : ['<Plug>(coc-diagnostic-next)'              , 'next diagnostic'],
+      \ 'N' : ['<Plug>(coc-diagnostic-next-error)'        , 'next error'],
+      \ 'o' : [':Vista!!'                                 , 'outline'],
+      \ 'O' : [':CocList outline'                         , 'outline'],
+      \ 'p' : ['<Plug>(coc-diagnostic-prev)'              , 'prev diagnostic'],
+      \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'        , 'prev error'],
+      \ 'q' : ['<Plug>(coc-fix-current)'                  , 'quickfix'],
+      \ 'r' : ['<Plug>(coc-references)'                   , 'references'],
+      \ 'R' : ['<Plug>(coc-rename)'                       , 'rename'],
+      \ 's' : [':CocList -I symbols'                      , 'references'],
+      \ 'S' : [':CocList snippets'                        , 'snippets'],
+      \ 't' : ['<Plug>(coc-type-definition)'              , 'type definition'],
+      \ 'u' : [':CocListResume'                           , 'resume list'],
+      \ 'U' : [':CocUpdate'                               , 'update CoC'],
+      \ 'z' : [':CocDisable'                              , 'disable CoC'],
+      \ 'Z' : [':CocEnable'                               , 'enable CoC'],
+      \ }
+      " \ 'o' : ['<Plug>(coc-openlink)'                   , 'open link'],
+
+let g:which_key_map.t = {
+      \ 'name' : '+terminal'                              ,
+      \ ';' : [':FloatermNew --wintype=popup --height=6'  , 'terminal'],
+      \ 'f' : [':FloatermNew fzf'                         , 'fzf'],
+      \ 'g' : [':FloatermNew lazygit'                     , 'git'],
+      \ 'd' : [':FloatermNew lazydocker'                  , 'docker'],
+      \ 'n' : [':FloatermNew node'                        , 'node'],
+      \ 'p' : [':FloatermNew python'                      , 'python'],
+      \ 'r' : [':FloatermNew ranger'                      , 'ranger'],
+      \ 't' : [':FloatermToggle'                          , 'toggle'],
+      \ 'y' : [':FloatermNew btm'                         , 'ytop'],
+      \ 's' : [':FloatermNew ncdu'                        , 'ncdu'],
+      \ }
+
+let g:which_key_map.w = {
+      \ 'name' : '+windows'                               ,
+      \ 'w' : ['<C-W>w'                                   , 'other-window'],
+      \ 'd' : ['<C-W>c'                                   , 'delete-window'],
+      \ '-' : ['<C-W>s'                                   , 'split-window-below'],
+      \ '\' : ['<C-W>v'                                   , 'split-window-right'],
+      \ '2' : ['<C-W>v'                                   , 'layout-double-columns'],
+      \ 'h' : ['<C-W>h'                                   , 'window-left'],
+      \ 'j' : ['<C-W>j'                                   , 'window-below'],
+      \ 'l' : ['<C-W>l'                                   , 'window-right'],
+      \ 'k' : ['<C-W>k'                                   , 'window-up'],
+      \ 'H' : ['<C-W>5<'                                  , 'expand-window-left'],
+      \ 'J' : [':resize +5'                               , 'expand-window-below'],
+      \ 'L' : ['<C-W>5>'                                  , 'expand-window-right'],
+      \ 'K' : [':resize -5'                               , 'expand-window-up'],
+      \ '=' : ['<C-W>='                                   , 'balance-window'],
+      \ '?' : [':FzfWindows'                              , 'fzf-window'],
+      \ }
+
+" Register which key map
+call which_key#register('<Space>', "g:which_key_map")
