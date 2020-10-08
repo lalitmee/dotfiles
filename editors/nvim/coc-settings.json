@@ -15,10 +15,11 @@
     "typescript",
     "typescript.tsx",
     "typescriptreact",
-    "yaml"
+    "yaml",
+    "vim"
   ],
   "eslint.enable": true,
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
   "eslint.filetypes": ["javascript", "typescript", "javascriptreact"],
   // suggestions
   // "suggest.echodocSupport": true,
@@ -51,7 +52,12 @@
   "python.linting.pylintEnabled": true,
 
   // snippets
-  "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/utils/snips"],
+  "snippets.userSnippetsDirectory": "~/.config/nvim/utils/snips",
+
+  // emmet
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
 
   "languageserver": {
     "bash": {

@@ -101,7 +101,7 @@ Plug 'godlygeek/tabular'
 
 " Snippets in Vim
 " Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Auto Close Tag in HTML
 Plug 'vim-scripts/closetag.vim'
