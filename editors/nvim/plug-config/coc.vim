@@ -1,36 +1,6 @@
 " Prettier command for coc-prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-let g:coc_global_extensions = [
-				\ 'coc-css',
-				\ 'coc-dictionary',
-				\ 'coc-emmet',
-				\ 'coc-emoji',
-				\ 'coc-eslint',
-				\ 'coc-git',
-				\ 'coc-gitignore',
-				\ 'coc-go',
-				\ 'coc-gocode',
-				\ 'coc-highlight',
-				\ 'coc-html',
-				\ 'coc-json',
-				\ 'coc-lists',
-				\ 'coc-neosnippet',
-				\ 'coc-pairs',
-				\ 'coc-prettier',
-				\ 'coc-python',
-				\ 'coc-sh',
-				\ 'coc-smartf',
-				\ 'coc-snippets',
-				\ 'coc-svg',
-				\ 'coc-tsserver',
-				\ 'coc-ultisnips',
-				\ 'coc-vimlsp',
-				\ 'coc-xml',
-				\ 'coc-yaml',
-				\ 'coc-yank',
-				\ ]
-
 " Better display for messages
 set cmdheight=2
 
