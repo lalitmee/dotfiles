@@ -133,6 +133,7 @@ highlight Pmenu guibg=LightYellow1 guifg=black
 " highlight NonText guibg=none guifg=grey
 " highlight Whitespace guibg=none guifg=grey
 
+set guifont=OperatorMono\ Book:h12
 
 " Open help in vertical split {{{
 
