@@ -2,12 +2,11 @@ let mapleader=" "
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 " count the current matched number
-nmap <leader>* *<c-o>:%s///gn<cr>
-nmap <leader>u :PlugUpdate<CR>
-nmap <leader>cl :PlugClean<CR>
-nmap \ <leader>q<Leader>w
-nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <leader>e :e ~/.config/nvim/init.vim<CR>
+nmap <silent> <leader>* *<c-o>:%s///gn<cr>
+nmap <silent> <leader>u :PlugUpdate<CR>
+nmap <silent> <leader>cl :PlugClean<CR>
+nmap <silent> <leader>r :so ~/.config/nvim/init.vim<CR>
+nmap <silent> <leader>e :e ~/.config/nvim/init.vim<CR>
 
 " select whole file text in visual mode
 map <C-c> <esc>ggVG<CR>
@@ -27,7 +26,7 @@ noremap <silent> <leader>fs :w<CR>
 noremap <silent> <leader>, :w<CR>
 
 " clear highlighted search
-nnoremap <CR> :noh<CR><CR>
+nnoremap <silent> <CR> :noh<CR><CR>
 
 " exit or quit with leader
 noremap <silent> <leader>x :q<cr>
@@ -73,7 +72,7 @@ nnoremap <leader>O O<Esc>^Da
 nnoremap Q @='n.'<CR>
 
 " yank all lines of a file
-nnoremap <leader>yl :%y<CR>
+nnoremap <silent> <leader>yl :%y<CR>
 
 
 " Edit command to remove the last file name of the current directory {{{
