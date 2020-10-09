@@ -72,16 +72,16 @@ let g:which_key_map.b = {
 " c is for coc.nvim
 let g:which_key_map.c = {
       \ 'name' : '+coc'                                   ,
-      \ 'S' : [':CocList symbols'                          , 'workspace symbols list'],
-      \ 'b' : [':CocList branches'                         , 'branches list'],
-      \ 'c' : [':CocList commands'                         , 'commands list'],
-      \ 'd' : [':CocList folders'                          , 'workspace directories list'],
-      \ 'e' : [':CocList extensions'                       , 'extensions list'],
-      \ 'l' : [':CocList links'                            , 'buffer links list'],
-      \ 'm' : [':CocList marketplace'                      , 'marketplace'],
-      \ 's' : [':CocList outline'                          , 'buffer symbols list'],
-      \ 't' : [':CocList floaterm'                         , 'floaterm list'],
-      \ 'w' : [':CocList words'                            , 'buffer words list'],
+      \ 'S' : [':CocList symbols'                         , 'workspace symbols list'],
+      \ 'b' : [':CocList branches'                        , 'branches list'],
+      \ 'c' : [':CocList commands'                        , 'commands list'],
+      \ 'd' : [':CocList folders'                         , 'workspace directories list'],
+      \ 'e' : [':CocList extensions'                      , 'extensions list'],
+      \ 'l' : [':CocList links'                           , 'buffer links list'],
+      \ 'm' : [':CocList marketplace'                     , 'marketplace'],
+      \ 's' : [':CocList outline'                         , 'buffer symbols list'],
+      \ 't' : [':CocList floaterm'                        , 'floaterm list'],
+      \ 'w' : [':CocList words'                           , 'buffer words list'],
       \ }
 
 let g:which_key_map.e = {
@@ -110,6 +110,7 @@ let g:which_key_map.g = {
       \ 'name' : '+git'                                   ,
       \ 'A' : [':Git add %'                               , 'add current'],
       \ 'B' : [':GBrowse'                                 , 'browse'],
+      \ 'C' : [':FzfGBranches'                            , 'checkout'],
       \ 'D' : [':Gdiffsplit'                              , 'diff split'],
       \ 'G' : [':Gstatus'                                 , 'status'],
       \ 'H' : ['<Plug>(GitGutterPreviewHunk)'             , 'preview hunk'],

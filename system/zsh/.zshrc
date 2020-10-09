@@ -73,6 +73,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
 alias-tips
 autojump
+autoupdate
 brew
 colored-man-pages
 command-not-found
