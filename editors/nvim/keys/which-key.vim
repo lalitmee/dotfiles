@@ -46,7 +46,12 @@ let g:which_key_map['z'] = [ 'Goyo'                       , 'zen' ]
 " a is for actions
 let g:which_key_map.a = {
       \ 'name' : '+actions'                               ,
+      \ 'L' : [':BraceyStop'                              , 'stop live server'],
+      \ 'M' : [':MarkdownPreviewStop'                     , 'markdown preview stop'],
+      \ 'c' : [':ColorizerToggle'                         , 'colorizer'],
       \ 'e' : [':CocCommand explorer'                     , 'explorer'],
+      \ 'l' : [':Bracey'                                  , 'start live server'],
+      \ 'm' : [':MarkdownPreview'                         , 'markdown preview'],
       \ 't' : [':FloatermToggle'                          , 'terminal'],
       \ 'w' : [':StripWhitespace'                         , 'strip whitespace'],
       \ }
@@ -62,6 +67,26 @@ let g:which_key_map.b = {
       \ 'l' : ['blast'                                    , 'last-buffer'],
       \ 'n' : ['bnext'                                    , 'next-buffer'],
       \ 'p' : ['bprev'                                    , 'previous-buffer'],
+      \ }
+
+" c is for coc.nvim
+let g:which_key_map.c = {
+      \ 'name' : '+coc'                                   ,
+      \ 'S' : [':CocList symbols'                          , 'workspace symbols list'],
+      \ 'b' : [':CocList branches'                         , 'branches list'],
+      \ 'c' : [':CocList commands'                         , 'commands list'],
+      \ 'd' : [':CocList folders'                          , 'workspace directories list'],
+      \ 'e' : [':CocList extensions'                       , 'extensions list'],
+      \ 'l' : [':CocList links'                            , 'buffer links list'],
+      \ 'm' : [':CocList marketplace'                      , 'marketplace'],
+      \ 's' : [':CocList outline'                          , 'buffer symbols list'],
+      \ 't' : [':CocList floaterm'                         , 'floaterm list'],
+      \ 'w' : [':CocList words'                            , 'buffer words list'],
+      \ }
+
+let g:which_key_map.e = {
+      \ 'name' : '+erros/warnings'                        ,
+      \ 'l' : ['CocList diagnostics'                      , 'list erros/warnings'],
       \ }
 
 " f is for find and replace
@@ -101,7 +126,7 @@ let g:which_key_map.g = {
       \ 'j' : ['<Plug>(GitGutterNextHunk)'                , 'next hunk'],
       \ 'k' : ['<Plug>(GitGutterPrevHunk)'                , 'prev hunk'],
       \ 'l' : [':Git log'                                 , 'log'],
-      \ 'm' : [':magit'                                   , 'magit'],
+      \ 'm' : [':Magit'                                   , 'magit'],
       \ 'p' : [':Git push'                                , 'push'],
       \ 'r' : [':GRemove'                                 , 'remove'],
       \ 's' : ['<Plug>(GitGutterStageHunk)'               , 'stage hunk'],
@@ -140,7 +165,7 @@ let g:which_key_map.s = {
       \ 'C' : [':FzfBCommits'                             , 'buffer commits'],
       \ 'G' : [':FzfGFiles?'                              , 'modified git files'],
       \ 'H' : [':FzfHistory:'                             , 'command history'],
-      \ 'M' : [':FzfMaps'                                 , 'normal maps']            ,
+      \ 'M' : [':FzfMaps'                                 , 'normal maps']                  ,
       \ 'P' : [':FzfTags'                                 , 'project tags'],
       \ 'S' : [':FzfColors'                               , 'color schemes'],
       \ 'T' : [':FzfBTags'                                , 'buffer tags'],
@@ -150,9 +175,9 @@ let g:which_key_map.s = {
       \ 'f' : [':FzfFiles'                                , 'files'],
       \ 'g' : [':FzfGFiles'                               , 'git files'],
       \ 'h' : [':FzfHistory'                              , 'file history'],
-      \ 'l' : [':FzfLines'                                , 'lines']                  ,
-      \ 'm' : [':FzfMarks'                                , 'marks']                  ,
-      \ 'p' : [':FzfHelptags'                             , 'help tags']              ,
+      \ 'l' : [':FzfLines'                                , 'lines']                        ,
+      \ 'm' : [':FzfMarks'                                , 'marks']                        ,
+      \ 'p' : [':FzfHelptags'                             , 'help tags']                    ,
       \ 's' : [':CocList snippets'                        , 'snippets'],
       \ 't' : [':FzfRg'                                   , 'text Rg'],
       \ 'w' : [':FzfWindows'                              , 'search windows'],
@@ -163,11 +188,11 @@ let g:which_key_map.s = {
 
 let g:which_key_map.S = {
       \ 'name' : '+session'                               ,
-      \ 'c' : [':SClose'                                  , 'Close Session']          ,
-      \ 'd' : [':SDelete'                                 , 'Delete Session']         ,
-      \ 'l' : [':SLoad'                                   , 'Load Session']           ,
-      \ 's' : [':Startify'                                , 'Start Page']             ,
-      \ 'S' : [':SSave'                                   , 'Save Session']           ,
+      \ 'c' : [':SClose'                                  , 'Close Session']                ,
+      \ 'd' : [':SDelete'                                 , 'Delete Session']               ,
+      \ 'l' : [':SLoad'                                   , 'Load Session']                 ,
+      \ 's' : [':Startify'                                , 'Start Page']                   ,
+      \ 'S' : [':SSave'                                   , 'Save Session']                 ,
       \ }
 
 
@@ -210,6 +235,7 @@ let g:which_key_map.l = {
       \ }
       " \ 'o' : ['<Plug>(coc-openlink)'                   , 'open link'],
 
+" t is for floaterm
 let g:which_key_map.t = {
       \ 'name' : '+terminal'                              ,
       \ ';' : [':FloatermNew --wintype=popup --height=6'  , 'terminal'],
@@ -224,6 +250,25 @@ let g:which_key_map.t = {
       \ 's' : [':FloatermNew ncdu'                        , 'ncdu'],
       \ }
 
+" T is for tabline
+let g:which_key_map.T = {
+      \ 'name' : '+tabline'                               ,
+      \ 'b' : [':XTabListBuffers'                         , 'list buffers'],
+      \ 'd' : [':XTabCloseBuffer'                         , 'close buffer'],
+      \ 'D' : [':XTabDeleteTab'                           , 'close tab'],
+      \ 'h' : [':XTabHideBuffer'                          , 'hide buffer'],
+      \ 'i' : [':XTabInfo'                                , 'info'],
+      \ 'l' : [':XTabLock'                                , 'lock tab'],
+      \ 'm' : [':XTabMode'                                , 'toggle mode'],
+      \ 'n' : [':tabNext'                                 , 'next tab'],
+      \ 'N' : [':XTabMoveBufferNext'                      , 'buffer->'],
+      \ 't' : [':tabnew'                                  , 'new tab'],
+      \ 'p' : [':tabprevious'                             , 'prev tab'],
+      \ 'P' : [':XTabMoveBufferPrev'                      , '<-buffer'],
+      \ 'x' : [':XTabPinBuffer'                           , 'pin buffer'],
+      \ }
+
+" w is for windows
 let g:which_key_map.w = {
       \ 'name' : '+windows'                               ,
       \ 'w' : ['<C-W>w'                                   , 'other-window'],
