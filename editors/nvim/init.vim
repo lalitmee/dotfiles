@@ -48,6 +48,7 @@ source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/magit.vim
+source $HOME/.config/nvim/plug-config/far.vim
 
 " Keys Mappings
 source $HOME/.config/nvim/keys/mappings.vim
