@@ -66,6 +66,7 @@ Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
 Plug 'mhartington/oceanic-next'
+Plug 'hzchirs/vim-material'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

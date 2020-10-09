@@ -130,8 +130,8 @@ set termguicolors
 
 highlight Pmenu guibg=LightYellow1 guifg=black
 " highlight Normal gui=none
-" highlight NonText guibg=none guifg=grey
-" highlight Whitespace guibg=none guifg=grey
+highlight NonText guibg=none guifg=lightgrey
+highlight Whitespace guibg=none guifg=lightgrey
 
 set guifont=OperatorMono\ Book:h12
 

@@ -1,1 +1,1 @@
-" nnoremap <Leader>m :Magit<CR>
+let g:magit_discard_utracked_do_delete=1
