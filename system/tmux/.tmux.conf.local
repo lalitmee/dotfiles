@@ -302,6 +302,14 @@ set -g mouse on
 # move status line to top
 #set -g status-position top
 
+set -g default-shell /bin/zsh
+set -wg xterm-keys on
+set -sg escape-time 0
+# IF TMUX VERSION > 2.2 (this check and the below settings are done in a shell script which is run at the end of my tmux.conf)
+set -g default-terminal "xterm-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
+set -ga terminal-overrides ',xterm*:smcup@:rmcup@'
+
 # for split window
 bind-key - split-window -v -c '#{current_pane_path}'
 bind-key \\ split-window -h -c '#{current_pane_path}'

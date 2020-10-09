@@ -63,6 +63,9 @@ Plug 'joshdick/onedark.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'tjdevries/gruvbuddy.nvim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'rakr/vim-one'
+Plug 'mhartington/oceanic-next'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

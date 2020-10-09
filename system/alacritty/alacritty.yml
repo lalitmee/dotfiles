@@ -88,11 +88,11 @@ font:
     # family: Monaco
   italic:
     # family: mononoki Nerd Font Mono
-    family: OperatorMono Italic
+    family: OperatorMono Book
     # family: Monaco
   bold_italic:
     # family: mononoki Nerd Font Mono
-    family: OperatorMono Bold Italic
+    family: OperatorMono Book
     # family: Monaco
   size: 11.5
   # Offset is the extra space around each character. `offset.y` can be thought of
