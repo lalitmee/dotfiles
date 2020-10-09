@@ -16,6 +16,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
 source $HOME/.config/nvim/themes/vim-one.vim
+" source $HOME/.config/nvim/themes/vim-material.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/oceanic-next.vim
@@ -46,6 +47,7 @@ source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
+source $HOME/.config/nvim/plug-config/magit.vim
 
 " Keys Mappings
 source $HOME/.config/nvim/keys/mappings.vim

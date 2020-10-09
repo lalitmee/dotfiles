@@ -72,6 +72,19 @@ let g:which_key_map.b = {
 " c is for coc.nvim
 let g:which_key_map.c = {
       \ 'name' : '+coc'                                   ,
+      \ 'a' : [':CocAction'                              , 'action'],
+      \ 'c' : [':CocCommand'                         , 'commands'],
+      \ 'd' : [':CocDiagnostics'                         , 'diagnostics'],
+      \ 'e' : [':CocConfig'                              , 'config'],
+      \ 'f' : [':CocFix'                                 , 'fix'],
+      \ 'i' : [':CocInfo'                                 , 'info'],
+      \ 'r' : [':CocListResume '                          , 'list resume'],
+      \ 's' : [':CocSearch'                         , 'search'],
+      \ }
+
+" c.l is for CocList
+let g:which_key_map.c.l = {
+      \ 'name' : '+list'                                   ,
       \ 'S' : [':CocList symbols'                         , 'workspace symbols list'],
       \ 'b' : [':CocList branches'                        , 'branches list'],
       \ 'c' : [':CocList commands'                        , 'commands list'],
