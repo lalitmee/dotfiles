@@ -77,7 +77,7 @@ set shiftround                          " round indent to a multiple of 'shiftwi
 set foldmethod=syntax                   " fold based on indent
 set foldlevelstart=99
 set foldnestmax=10                      " deepest fold is 10 levels
-set nofoldenable                        " don't fold by default
+set foldenable                        " don't fold by default
 set foldlevel=1
 " set undodir=~/.vim/undodir
 " set undofile
