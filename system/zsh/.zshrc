@@ -391,3 +391,9 @@ source <(navi widget zsh)
 
 eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
+
+export TERM="xterm-256color"
+if [ "$ISLINUX" '==' 'true' ]; then
+  { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
+    tic -x -
+fi

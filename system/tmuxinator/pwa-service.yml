@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/wfws.yml
 
-name: wfws
-root: ~/Desktop/koinearth/wf-webapp-service
+name: pwa-service
+root: ~/Desktop/koinearth/wf-pwa-service
 
 windows:
   - Editor: ci
@@ -11,10 +11,10 @@ windows:
       layout: even-horizontal
       panes:
         - yarn start
-        - cd ~/Desktop/koinearth/marketsn-webapp-service-nextjs && yarn dev
+        - cd ~/Desktop/koinearth/marketsn-pwa-service && yarn start
   - Caddy:
-      - cd
-      - caddy run
+      - cd ~/Desktop/koinearth
+      - caddy run Caddyfile
   - Browser: brave-browser
   - Extras:
       - clear

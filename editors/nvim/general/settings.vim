@@ -167,3 +167,28 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Enable Italics
+let &t_ZH = "\e[3m"
+let &t_ZR = "\e[23m"
+
+" Enable Truecolors
+let g:TermSettings = {}
+function! g:TermSettings.EnableTrueColors() "{{{
+  if ! has('termguicolors')
+    return
+  endif
+  if ! empty($TMUX)
+    let l:tmuxver = system("tmux -V | cut -d' ' -f2")
+    let l:tmuxver = substitute(l:tmuxver, '\n\+$', '', '')
+    let l:tmuxver_flt = str2float(l:tmuxver)
+    if l:tmuxver_flt < 2.2 " version must be > 2.2
+      return
+    endif
+  endif
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endfunction "}}}
+
+call g:TermSettings.EnableTrueColors()

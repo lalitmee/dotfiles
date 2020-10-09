@@ -13,7 +13,12 @@ source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/tmux.vim
 
 " Colorschemes
-source $HOME/.config/nvim/themes/onedark.vim
+" source $HOME/.config/nvim/themes/onedark.vim
+" source $HOME/.config/nvim/themes/gruvbox.vim
+source $HOME/.config/nvim/themes/vim-one.vim
+" source $HOME/.config/nvim/themes/gruvbuddy.vim
+" source $HOME/.config/nvim/themes/nord.vim
+" source $HOME/.config/nvim/themes/oceanic-next.vim
 
 " Lua Plugins
 " luafile ~/.config/nvim/lua/plug-colorizer.lua
