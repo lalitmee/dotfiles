@@ -5,7 +5,7 @@ let g:magit_commit_title_limit = 72
 let g:magit_discard_untracked_do_delete = 1
 
 " disable default open fold of files
-let g:magit_default_fold_level = 0
+let g:magit_default_fold_level = 1
 
 " disable default open fold when file changes
 let g:magit_auto_foldopen = 0
