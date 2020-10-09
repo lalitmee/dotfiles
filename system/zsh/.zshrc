@@ -245,25 +245,6 @@ alias h="history | fzf"
 alias a="alias | fzf"
 alias myip="curl http://ipecho.net/plain; echo"
 
-
-# alias for git commands
-alias gs="git status"
-alias ga="git add ."
-alias gcm="git commit -m"
-alias gc="git commit"
-alias gp="git push"
-alias gi="git init"
-alias gl="git log"
-alias glo="git log --oneline"
-alias gls="git log --stat"
-alias glp="git log -p"
-alias gd="git diff"
-alias gpull="git pull"
-
-# aliases for katerra git pull and push
-alias gplo="git pull origin Observations"
-alias gpsl="git push origin list-template"
-
 # tmuxinator aliases
 alias tsv="tmuxinator start vscode"
 alias tev="tmuxinator edit vscode"
