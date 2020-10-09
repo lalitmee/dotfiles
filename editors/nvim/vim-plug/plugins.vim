@@ -144,7 +144,8 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'voldikss/vim-floaterm'
 
 " Find and Replace
-Plug 'brooth/far.vim'
+" Plug 'brooth/far.vim'
+Plug 'ChristianChiarulli/far.vim'
 
 " Change dates fast
 Plug 'tpope/vim-speeddating'
