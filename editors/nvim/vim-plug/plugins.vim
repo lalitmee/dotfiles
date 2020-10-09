@@ -32,9 +32,6 @@ Plug 'kshenoy/vim-signature'
 " Better search highlighting
 Plug 'haya14busa/incsearch.vim'
 
-" Better HTML Editing
-Plug 'Raimondi/delimitMate'
-
 " SilverSearcher
 Plug 'mileszs/ack.vim'
 
@@ -80,13 +77,16 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 
 " Version Control in Vim
+Plug 'airblade/vim-gitgutter'
 Plug 'stsewd/fzf-checkout.vim'
-Plug 'mhinz/vim-signify'
+" Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
-" " Magit like emacs for git workflow
-" Plug 'jreybert/vimagit'
+" git messenger same as gitlens in vscode
+Plug 'rhysd/git-messenger.vim'
+" Magit like emacs for git workflow
+Plug 'jreybert/vimagit'
 
 " Vim sugar for the UNIX shell commands that need it the most
 " Example: :Delete, :Unlink, :Move, etc
@@ -100,12 +100,12 @@ Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 
 " Snippets in Vim
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Auto Close Tag in HTML
-Plug 'vim-scripts/closetag.vim'
 Plug 'alvan/vim-closetag'
+Plug 'AndrewRadev/tagalong.vim'
 
 " Easy Alignment in vim
 Plug 'junegunn/vim-easy-align'
@@ -141,5 +141,50 @@ Plug 'voldikss/vim-floaterm'
 
 " Find and Replace
 Plug 'brooth/far.vim'
+
+" Change dates fast
+Plug 'tpope/vim-speeddating'
+
+" Convert binary, hex, etc..
+Plug 'glts/vim-radical'
+
+" Repeat stuff
+Plug 'tpope/vim-repeat'
+
+" Useful for React Commenting
+Plug 'suy/vim-context-commentstring'
+
+" auto set indent settings
+Plug 'tpope/vim-sleuth'
+
+" Auto pairs for '(' '[' '{'
+Plug 'jiangmiao/auto-pairs'
+
+" Zen mode
+Plug 'junegunn/goyo.vim'
+
+" Better tabline
+Plug 'mg979/vim-xtabline'
+
+" undo time travel
+Plug 'mbbill/undotree'
+
+" Smooth scroll
+Plug 'psliwka/vim-smoothie'
+
+" Better Whitespace
+Plug 'ntpeters/vim-better-whitespace'
+
+" For deleting buffers without disturbing the layout
+Plug 'moll/vim-bbye'
+
+" live server
+Plug 'turbio/bracey.vim'
+
+" Swap windows
+Plug 'wesQ3/vim-windowswap'
+
+" Markdown Preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 
 call plug#end()
