@@ -79,6 +79,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+alias-finder
 alias-tips
 autojump
 autoupdate
@@ -87,9 +88,11 @@ colored-man-pages
 command-not-found
 common-aliases
 copyfile
+debian
 dirhistory
 docker
 encode64
+frontend-search
 fzf-tab
 gem
 git
