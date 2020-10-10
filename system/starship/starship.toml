@@ -1,0 +1,4 @@
+[time]
+disabled = true
+time_format = "%T"
+use_12hr= true
