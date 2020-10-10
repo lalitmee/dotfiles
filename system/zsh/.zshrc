@@ -111,6 +111,7 @@ sudo
 taskwarrior
 tmux
 tmuxinator
+ubuntu
 web-search
 yarn
 z
@@ -167,7 +168,8 @@ alias img="imgur-uploader"
 alias speed="speedtest-cli"
 
 # for ls replacement with exa
-alias ls="exa"
+# alias ls="exa"
+alias ls="colorls"
 alias cat="bat"
 alias c="clear"
 
@@ -187,21 +189,19 @@ alias wi="wikit"
 alias d="dict"
 
 # aliases for updating and installing packages
-alias update="sudo apt-fast update -y && sudo apt-fast upgrade -y"
-alias upd="sudo apt-fast update -y"
-alias upg="sudo apt-fast upgrade -y"
-alias updg="sudo apt-fast dist-upgrade -y"
-alias install="sudo apt-fast install -y"
-alias fix="sudo apt-fast install -f -y"
-alias purge="sudo apt-fast purge -y"
-alias remove="sudo apt-fast autoremove -y"
-alias dpkg="sudo dpkg -i"
+# alias update="sudo apt-fast update -y && sudo apt-fast upgrade -y"
+# alias upd="sudo apt-fast update -y"
+# alias upg="sudo apt-fast upgrade -y"
+# alias updg="sudo apt-fast dist-upgrade -y"
+# alias install="sudo apt-fast install -y"
+# alias fix="sudo apt-fast install -f -y"
+# alias purge="sudo apt-fast purge -y"
+# alias remove="sudo apt-fast autoremove -y"
+# alias dpkg="sudo dpkg -i"
 alias snapi="sudo snap install"
 alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
 alias snapl="snap list"
-alias bu="brew update"
-alias bug="brew upgrade"
 
 # aliases for editing and sourcing zshrc
 alias ze="vim ~/.zshrc"
@@ -232,18 +232,10 @@ alias at="atom ."
 alias co="code ."
 alias ci="code-insiders ."
 alias o="oni ."
-alias e="emacs26 ."
-alias em="emacs25 ."
 
 # alias for using nvim instead of vim
 alias vi="vim"
 alias vim="nvim"
-
-#aliases for npm
-alias ni="npm install"
-alias nig="npm install -g"
-alias nis="npm install --save"
-alias nid="npm install --save-dev"
 
 # common aliases
 alias rm="rm -i"
@@ -254,29 +246,6 @@ alias h="history | fzf"
 alias a="alias | fzf"
 alias myip="curl http://ipecho.net/plain; echo"
 
-# tmuxinator aliases
-alias tsv="tmuxinator start vscode"
-alias tev="tmuxinator edit vscode"
-alias tsp="tmuxinator start portfolio"
-alias tep="tmuxinator edit portfolio"
-alias tsg="tmuxinator start github-search"
-alias teg="tmuxinator edit github-search"
-alias tsq="tmuxinator start c-quotes"
-alias teq="tmuxinator edit c-quotes"
-alias tsw="tmuxinator start wfws"
-alias tew="tmuxinator edit wfws"
-alias tspw="tmuxinator start pwa-service"
-alias tepw="tmuxinator edit pwa-service"
-alias tsj="tmuxinator start jarvis"
-alias tej="tmuxinator edit jarvis"
-alias tsps="tmuxinator start pdf-service"
-alias teps="tmuxinator edit pdf-service"
-alias tsa="tmuxinator start annamalai-portfolio"
-alias tea="tmuxinator edit annamalai-portfolio"
-alias tn="tmuxinator new"
-alias ts="tmuxinator start"
-alias te="tmuxinator edit"
-
 # alias for todo.txt-cli
 alias t="~/todo.txt_cli-2.11.0/todo.sh"
 
@@ -285,6 +254,9 @@ alias to="task"
 
 # vim remote send stuff
 alias g="vim --remote-silent"
+
+# alias for colorls
+alias lc='colorls -lA --sd'
 
 # tmuxinator completion file
 # source ~/tmuxinator.bash
@@ -408,3 +380,6 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# enabling colorls tab completion
+source $(dirname $(gem which colorls))/tab_complete.sh
