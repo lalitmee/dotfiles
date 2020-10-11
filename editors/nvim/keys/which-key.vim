@@ -72,19 +72,19 @@ let g:which_key_map.b = {
 " c is for coc.nvim
 let g:which_key_map.c = {
       \ 'name' : '+coc'                                   ,
-      \ 'a' : [':CocAction'                              , 'action'],
-      \ 'c' : [':CocCommand'                         , 'commands'],
-      \ 'd' : [':CocDiagnostics'                         , 'diagnostics'],
-      \ 'e' : [':CocConfig'                              , 'config'],
-      \ 'f' : [':CocFix'                                 , 'fix'],
+      \ 'a' : [':CocAction'                               , 'action'],
+      \ 'c' : [':CocCommand'                              , 'commands'],
+      \ 'd' : [':CocDiagnostics'                          , 'diagnostics'],
+      \ 'e' : [':CocConfig'                               , 'config'],
+      \ 'f' : [':CocFix'                                  , 'fix'],
       \ 'i' : [':CocInfo'                                 , 'info'],
       \ 'r' : [':CocListResume '                          , 'list resume'],
-      \ 's' : [':CocSearch'                         , 'search'],
+      \ 's' : [':CocSearch'                               , 'search'],
       \ }
 
 " c.l is for CocList
 let g:which_key_map.c.l = {
-      \ 'name' : '+list'                                   ,
+      \ 'name' : '+list'                                  ,
       \ 'S' : [':CocList symbols'                         , 'workspace symbols list'],
       \ 'b' : [':CocList branches'                        , 'branches list'],
       \ 'c' : [':CocList commands'                        , 'commands list'],
@@ -147,6 +147,13 @@ let g:which_key_map.g = {
       \ 't' : [':GitGutterSignsToggle'                    , 'toggle signs'],
       \ 'u' : ['<Plug>(GitGutterUndoHunk)'                , 'undo hunk'],
       \ 'v' : [':GV'                                      , 'view commits'],
+      \ }
+
+
+" m is major mode
+let g:which_key_map.m = {
+      \ 'name' : '+major mode'                            ,
+      \ 'r' : ['<Plug>(coc-rename)'                       , 'rename symbol'],
       \ }
 
 " n is Neovim
