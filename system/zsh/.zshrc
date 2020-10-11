@@ -386,3 +386,6 @@ fi
 
 # enabling colorls tab completion
 source $(dirname $(gem which colorls))/tab_complete.sh
+
+# To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh.
+[[ ! -f ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh
