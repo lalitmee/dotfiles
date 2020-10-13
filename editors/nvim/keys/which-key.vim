@@ -119,7 +119,7 @@ let g:which_key_map.f = {
 
 " f is for find and replace
 let g:which_key_map.f.f = {
-      \ 'name' : '+find files'                            ,
+      \ 'name' : '+find-files'                            ,
       \ 'b' : [':FzfBuffers'                              , 'find-buffers'],
       \ 'f' : [':FzfFiles'                                , 'fzf-files'],
       \ 'g' : [':FzfGFiles'                               , 'fzf-git-files'],
