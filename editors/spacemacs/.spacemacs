@@ -257,33 +257,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "OperatorMono Nerd Font"
-                               ;; "Operator Mono Lig"
                                "Source Code Pro"
-                               ;; "SauceCodePro Nerd Font"
-                               ;; "Hasklig"
-                               ;; "Cascadia Code"
-                               ;; "Fira Code"
-                               ;; "FuraCode Nerd Font"
-                               ;; "FiraCode Nerd Font"
-                               ;; "OverPassMono Nerd Font"
-                               ;; "UbuntuMono Nerd Font"
-                               ;; "CodeNewRoman Nerd Font"
-                               ;; "CaskaydiaCove Nerd Font"
-                               ;; "Code New Roman"
-                               ;; "FuraMono Nerd Font"
-                               ;; "Inconsolata Nerd Font"
-                               ;; "Monaco for Powerline"
-                               ;; "Monaco Nerd Font"
-                               ;; "Mononoki Nerd Font"
-                               ;; "monofur for Powerline"
-                               ;; "Powerline Consolas"
-                               ;; "Hack"
-                               ;; "Menlo"
-                               ;; "Monaco"
-                               :size 14
+                               :size 15
                                :weight normal
-                               :width normal
                                :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -618,21 +594,21 @@ you should place your code here."
         (face-remap-add-relative
          face
          '((:foreground "" :weight normal :slant normal)))))
-    (face-remap-add-relative 'font-lock-keyword-face '((:weight bold)))
+    (face-remap-add-relative 'font-lock-keyword-face '((:weight semi-bold)))
     (face-remap-add-relative 'font-lock-comment-face '((:slant italic)))
-    (face-remap-add-relative 'font-lock-builtin-face '((:weight bold)))
-    (face-remap-add-relative 'font-lock-preprocessor-face '((:weight bold)))
+    (face-remap-add-relative 'font-lock-builtin-face '((:weight semi-bold)))
+    (face-remap-add-relative 'font-lock-preprocessor-face '((:weight semi-bold)))
     (face-remap-add-relative 'font-lock-function-name-face '((:slant italic)))
     (face-remap-add-relative 'font-lock-string-face '((:slant italic)))
-    (face-remap-add-relative 'font-lock-constant-face '((:weight bold))))
+    (face-remap-add-relative 'font-lock-constant-face '((:weight semi-bold))))
 
   ;; Color theme for spacemacs
-  (spacemacs/load-theme 'doom-nord)
+  (spacemacs/load-theme 'doom-one)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
-  (setq doom-modeline-minor-modes t)
   (setq doom-modeline-enable-word-count nil)
+  (setq doom-modeline-major-mode-color-icon t)
   (setq doom-modeline-modal-icon nil)
 
   ;; fancy-battery-mode
@@ -736,6 +712,7 @@ you should place your code here."
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
   (add-hook 'html-mode-hook #'setup-tide-mode)
+  (add-hook 'js2-mode-hook #'setup-tide-mode)
 
   ;; web mode settings
   (setq web-mode-markup-indent-offset 2)
@@ -763,50 +740,7 @@ you should place your code here."
   ;; /////////////////////////////////
 
   (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-eslint 'web-mode)
     (flycheck-add-mode 'javascript-eslint 'web-mode))
-
-  ;; from this link: https://gist.github.com/asummers/b8304b8ea78fc331b8177ff35d002046
-  (use-package web-mode
-    :ensure t
-    :defer t
-    :mode (("\\.ios\\.js$" . web-mode)
-           ("\\.android\\.js$" . web-mode)
-           ("\\.web\\.js$" . web-mode)
-           ("\\.js$" . web-mode))
-    :config
-    (add-to-list 'magic-mode-alist '("^import React" . web-mode))
-    (add-to-list 'magic-mode-alist '("React.Component" . web-mode))
-    (add-to-list 'magic-mode-alist '("from 'react';$" . web-mode))
-    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
-    (with-eval-after-load 'flycheck
-      (flycheck-add-mode 'javascript-eslint 'web-mode))
-    (add-hook 'web-mode-hook
-              (lambda ()
-                (if (equal web-mode-content-type "javascript")
-                    (web-mode-set-content-type "jsx"))))
-    (setq-local web-mode-enable-auto-quoting nil)
-    (add-hook
-     'web-mode-hook
-     (lambda () (setq web-mode-markup-indent-offset (symbol-value 'js-indent-level))
-       (setq web-mode-attr-indent-offset (symbol-value 'js-indent-level))
-       (setq web-mode-css-indent-offset (symbol-value 'js-indent-level))
-       (setq web-mode-code-indent-offset (symbol-value 'js-indent-level)))))
-
-  (setq js-indent-level 2)
-  (setq-default js-indent-level 2)
-
-  (use-package web-mode
-    :config
-    (defun my-web-mode-hook ()
-      "Hooks for Web mode. Adjust indents"
-      (setq web-mode-markup-indent-offset 2)
-      (setq web-mode-attr-indent-offset 2)
-      (setq web-mode-css-indent-offset 2)
-      (setq web-mode-code-indent-offset 2)
-      (setq-default css-indent-offset 2))
-    (add-to-list 'auto-mode-alist '("\\.cshtml\\'" . web-mode))
-    (add-hook 'web-mode-hook  'my-web-mode-hook))
 
   (defun my/use-eslint-from-node-modules ()
     "Gets eslint exe from local path."
@@ -814,11 +748,7 @@ you should place your code here."
       (setq eslint (projectile-expand-root "node_modules/eslint/bin/eslint.js"))
       (setq-default flycheck-javascript-eslint-executable eslint)))
 
-  ;; disabling jshint for javascript files
-  (setq-default flycheck-disabled-checker 'javascript-jshint)
-  (setq-default flycheck-disabled-checker 'json-jsonlist)
   (add-hook 'web-mode-hook 'auto-rename-tag-mode)
-
 
   ;; python mode settings
   ;; python indent offset
@@ -835,8 +765,8 @@ you should place your code here."
                            "--trailing-comma" "all"
                            "--print-width 80"
                            "--tab-width 2"
-                           "--single-quote" "true"
                            "--html-whitespace-sensitivity" "ignore"
+                           "--arrow-parens" "avoid"
                            ))
 
   ;; prettier mode hooks
@@ -862,6 +792,25 @@ you should place your code here."
     (if (buffer-file-name)
         (if (string-match (car my-pair) buffer-file-name)
             (funcall (cdr my-pair)))))
+
+  ;; Enable helm-gtags-mode
+  (add-hook 'c-mode-hook 'helm-gtags-mode)
+  (add-hook 'c++-mode-hook 'helm-gtags-mode)
+  (add-hook 'asm-mode-hook 'helm-gtags-mode)
+  (add-hook 'verilog-mode-hook 'helm-gtags-mode)
+  (add-hook 'vhdl-mode-hook 'helm-gtags-mode)
+  (add-hook 'web-mode-hook 'helm-gtags-mode)
+  (add-hook 'js-mode-hook 'helm-gtags-mode)
+  ;; Customize helm-gtags-mode
+  (custom-set-variables
+   '(helm-gtags-path-style 'root)
+   '(helm-gtags-display-style 'detail)
+   '(helm-gtags-direct-helm-completing t)
+   '(helm-gtags-ignore-case t)
+   '(helm-gtags-auto-update nil) ;update only when file is saved
+   '(helm-gtags-pulse-at-cursor t))
+
+  (setq large-file-warning-threshold nil)
   )
 
 (custom-set-variables
