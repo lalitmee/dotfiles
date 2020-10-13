@@ -1,0 +1,10 @@
+# /home/lalit/.config/tmuxinator/koinearth.yml
+
+name: koinearth
+root: ~/Desktop/koinearth
+
+windows:
+  - marketsn-webapp-service-nextjs: cd marketsn-webapp-service-nextjs
+  - wf-webapp-service: wf-webapp-service
+  - wf-marketsn-service: wf-marketsn-service
+  - wf-pwa-service: cd wf-marketsn-service
