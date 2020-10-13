@@ -490,33 +490,62 @@ draw_bold_text_with_bright_colors: true
 #     white: '#ebdbb2'
 
 # # Colors (Material Theme)
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#1e282d'
+#     foreground: '#c4c7d1'
+
+#   # Normal colors
+#   normal:
+#     black: '#666666'
+#     red: '#eb606b'
+#     green: '#c3e88d'
+#     yellow: '#f7eb95'
+#     blue: '#80cbc4'
+#     magenta: '#ff2f90'
+#     cyan: '#aeddff'
+#     white: '#ffffff'
+
+#   # Bright colors
+#   bright:
+#     black: '#ff262b'
+#     red: '#eb606b'
+#     green: '#c3e88d'
+#     yellow: '#f7eb95'
+#     blue: '#7dc6bf'
+#     magenta: '#6c71c4'
+#     cyan: '#35434d'
+#     white: '#ffffff'
+
+# Colors (Nord)
 colors:
   # Default colors
   primary:
-    background: '#1e282d'
-    foreground: '#c4c7d1'
+    background: '#2E3440'
+    foreground: '#D8DEE9'
 
   # Normal colors
   normal:
-    black: '#666666'
-    red: '#eb606b'
-    green: '#c3e88d'
-    yellow: '#f7eb95'
-    blue: '#80cbc4'
-    magenta: '#ff2f90'
-    cyan: '#aeddff'
-    white: '#ffffff'
+    black: '#3B4252'
+    red: '#BF616A'
+    green: '#A3BE8C'
+    yellow: '#EBCB8B'
+    blue: '#81A1C1'
+    magenta: '#B48EAD'
+    cyan: '#88C0D0'
+    white: '#E5E9F0'
 
   # Bright colors
   bright:
-    black: '#ff262b'
-    red: '#eb606b'
-    green: '#c3e88d'
-    yellow: '#f7eb95'
-    blue: '#7dc6bf'
-    magenta: '#6c71c4'
-    cyan: '#35434d'
-    white: '#ffffff'
+    black: '#4C566A'
+    red: '#BF616A'
+    green: '#A3BE8C'
+    yellow: '#EBCB8B'
+    blue: '#81A1C1'
+    magenta: '#B48EAD'
+    cyan: '#8FBCBB'
+    white: '#ECEFF4'
 
 # # Colors (Oceanic Next)
 # colors:

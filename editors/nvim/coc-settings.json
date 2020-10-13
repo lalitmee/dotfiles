@@ -63,5 +63,8 @@
   "prettier.singleQuote": true,
 
   // Git Settings
-  "git.enableGutters": false
+  "git.enableGutters": false,
+
+  // explorer settings
+  "explorer.icon.enableNerdfont": true
 }

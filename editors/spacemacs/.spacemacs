@@ -129,8 +129,8 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      ;; ng2-mode
                                       ;; emms
+                                      ;; ng2-mode
                                       add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
@@ -158,6 +158,7 @@ values."
                                       magit
                                       mode-icons
                                       multiple-cursors
+                                      nord-theme
                                       ox-reveal
                                       prettier-js
                                       rjsx-mode
@@ -626,7 +627,7 @@ you should place your code here."
     (face-remap-add-relative 'font-lock-constant-face '((:weight bold))))
 
   ;; Color theme for spacemacs
-  (spacemacs/load-theme 'doom-one)
+  (spacemacs/load-theme 'doom-nord)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
