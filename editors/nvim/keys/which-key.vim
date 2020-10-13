@@ -131,7 +131,7 @@ let g:which_key_map.f.f = {
 
 " F is for find and replace
 let g:which_key_map.F = {
-      \ 'name' : '+find & replace'                        ,
+      \ 'name' : '+find/replace'                        ,
       \ 'b' : [':Farr --source=vimgrep'                   , 'buffer'],
       \ 'p' : [':Farr --source=rgnvim'                    , 'project'],
       \ }
@@ -170,7 +170,7 @@ let g:which_key_map.g = {
 
 " m is major mode
 let g:which_key_map.m = {
-      \ 'name' : '+major mode'                            ,
+      \ 'name' : '+major-mode'                            ,
       \ 'r' : ['<Plug>(coc-rename)'                       , 'rename-symbol'],
       \ 'l' : ['<Plug>(JsConsoleLog)'                     , 'console-log'],
       \ }
