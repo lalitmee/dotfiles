@@ -16,10 +16,10 @@ source $HOME/.config/nvim/general/functions.vim
 " Colorschemes
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
-source $HOME/.config/nvim/themes/vim-one.vim
+" source $HOME/.config/nvim/themes/vim-one.vim
 " source $HOME/.config/nvim/themes/vim-material.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
-" source $HOME/.config/nvim/themes/nord.vim
+source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/oceanic-next.vim
 
 " Lua Plugins
