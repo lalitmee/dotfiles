@@ -11,6 +11,7 @@ source $HOME/.config/nvim/general/hosts.vim
 source $HOME/.config/nvim/general/search.vim
 source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/tmux.vim
+source $HOME/.config/nvim/general/functions.vim
 
 " Colorschemes
 " source $HOME/.config/nvim/themes/onedark.vim
