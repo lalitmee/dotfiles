@@ -129,6 +129,7 @@ Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-rooter'
 
 " Cyclist by Tjdevries
@@ -206,5 +207,13 @@ Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'styled-components/vim-styled-components'
 Plug 'elzr/vim-json'
 Plug 'jparise/vim-graphql'
+
+" telescope fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
+
+" " ctrl-space
+" Plug 'vim-ctrlspace/vim-ctrlspace'
 
 call plug#end()
