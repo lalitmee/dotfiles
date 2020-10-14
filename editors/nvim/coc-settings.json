@@ -61,6 +61,8 @@
 
   // Prettier Settings
   "prettier.singleQuote": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.trailingComma": "all",
 
   // Git Settings
   "git.enableGutters": false,

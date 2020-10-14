@@ -238,6 +238,8 @@ alias o="oni ."
 # alias for using nvim instead of vim
 alias vi="vim"
 alias vim="nvim"
+alias gnvim="~/Goneovim-0.4.8-linux/goneovim"
+alias g="gnvim"
 
 # common aliases
 alias rm="rm -i"
@@ -255,7 +257,7 @@ alias t="~/todo.txt_cli-2.11.0/todo.sh"
 alias to="task"
 
 # vim remote send stuff
-alias g="vim --remote-silent"
+# alias g="vim --remote-silent"
 
 # alias for colorls
 alias lc='colorls -lA --sd'

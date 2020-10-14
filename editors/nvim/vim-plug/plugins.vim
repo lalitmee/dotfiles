@@ -67,6 +67,10 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
 Plug 'mhartington/oceanic-next'
 Plug 'hzchirs/vim-material'
+Plug 'patstockwell/vim-monokai-tasty'
+Plug 'nanotech/jellybeans.vim'
+Plug 'tomasiser/vim-code-dark'
+
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -191,5 +195,16 @@ Plug 'wesQ3/vim-windowswap'
 
 " Markdown Preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+
+" Goneovim Fuzzy search
+Plug 'akiyosi/gonvim-fuzzy'
+
+" for supporting syntax highlighting for color schemes monkai
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'styled-components/vim-styled-components'
+Plug 'elzr/vim-json'
+Plug 'jparise/vim-graphql'
 
 call plug#end()

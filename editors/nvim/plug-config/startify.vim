@@ -36,7 +36,7 @@ let g:webdevicons_enable_startify = 1
 
 let g:startify_bookmarks = [
             \ { 'ne': '~/Desktop/Github/dotfiles/editors/nvim/init.vim' },
-            \ { 'ge': '~/.goneovim/settings.toml' },
+            \ { 'ge': '~/.goneovim/setting.toml' },
             \ { 'ze': '~/.zshrc' },
             \ ]
 
