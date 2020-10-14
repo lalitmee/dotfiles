@@ -9,6 +9,6 @@
 **/session
 **/wiki/
 **/pack/
-**/undodir/
-**/undo/
-**/tmp/
+**/.vim/undodir/
+**/.vim/undo/
+**/.vim/tmp/
