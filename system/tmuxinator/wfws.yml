@@ -11,7 +11,7 @@ windows:
       layout: even-horizontal
       panes:
         - yarn start
-        - cd ~/Desktop/koinearth/marketsn-webapp-service-nextjs && yarn dev
+        - cd ../marketsn-webapp-service-nextjs && yarn dev
   - Caddy:
       - cd
       - caddy run

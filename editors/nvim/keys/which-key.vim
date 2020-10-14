@@ -89,7 +89,8 @@ let g:which_key_map.c.l = {
       \ 'b' : [':CocList branches'                        , 'branches-list'],
       \ 'c' : [':CocList commands'                        , 'commands-list'],
       \ 'd' : [':CocList folders'                         , 'workspace-directories-list'],
-      \ 'e' : [':CocList extensions'                      , 'extensions-list'],
+      \ 'E' : [':CocList extensions'                      , 'extensions-list'],
+      \ 'e' : [':CocList diagnostics'                     , 'diagnostics-list'],
       \ 'l' : [':CocList links'                           , 'buffer-links-list'],
       \ 'm' : [':CocList marketplace'                     , 'marketplace'],
       \ 's' : [':CocList outline'                         , 'buffer-symbols-list'],
@@ -131,7 +132,7 @@ let g:which_key_map.f.f = {
 
 " F is for find and replace
 let g:which_key_map.F = {
-      \ 'name' : '+find/replace'                        ,
+      \ 'name' : '+find/replace'                          ,
       \ 'b' : [':Farr --source=vimgrep'                   , 'buffer'],
       \ 'p' : [':Farr --source=rgnvim'                    , 'project'],
       \ }
@@ -167,6 +168,22 @@ let g:which_key_map.g = {
       \ 'v' : [':GV'                                      , 'view-commits'],
       \ }
 
+" G is goneovim
+let g:which_key_map.G = {
+      \ 'name' : '+goneovim'                              ,
+      \ 'f' : [':GonvimFuzzyFiles'                        , 'fuzzy-files'],
+      \ 'l' : [':GonvimFuzzyBLines'                       , 'fuzzy-buffer-lines'],
+      \ 'a' : [':GonvimFuzzyAg'                           , 'fuzzy-ag'],
+      \ 'b' : [':GonvimFuzzyBuffers'                      , 'fuzzy-buffers'],
+      \ 'r' : [':GonvimFuzzyResume'                       , 'resume-previous-search'],
+      \ 'N' : [':GonvimWorkspaceNew'                      , 'create-new-workspace'],
+      \ 'n' : [':GonvimWorkspaceNext'                     , 'next-workspace'],
+      \ 'p' : [':GonvimWorkspacePrevious'                 , 'previous-workspace'],
+      \ 's' : [':GonvimWorkspaceSwitch '                  , 'switch-workspace'],
+      \ 'm' : [':GonvimMarkdown'                          , 'markdown-preview'],
+      \ 'F' : [':GonvimFilerOpen'                         , 'external-file-explorer'],
+      \ 'M' : [':GonvimMiniMap'                           , 'toggle-minimap'],
+      \ }
 
 " m is major mode
 let g:which_key_map.m = {
@@ -205,7 +222,7 @@ let g:which_key_map.s = {
       \ 'C' : [':FzfBCommits'                             , 'buffer-commits'],
       \ 'G' : [':FzfGFiles?'                              , 'modified-git-files'],
       \ 'H' : [':FzfHistory:'                             , 'command-history'],
-      \ 'M' : [':FzfMaps'                                 , 'normal-maps']                  ,
+      \ 'M' : [':FzfMaps'                                 , 'normal-maps'],
       \ 'P' : [':FzfTags'                                 , 'project-tags'],
       \ 'S' : [':FzfColors'                               , 'color-schemes'],
       \ 'T' : [':FzfBTags'                                , 'buffer-tags'],
@@ -215,9 +232,9 @@ let g:which_key_map.s = {
       \ 'f' : [':FzfFiles'                                , 'files'],
       \ 'g' : [':FzfGFiles'                               , 'git-files'],
       \ 'h' : [':FzfHistory'                              , 'file-history'],
-      \ 'l' : [':FzfLines'                                , 'lines']                        ,
-      \ 'm' : [':FzfMarks'                                , 'marks']                        ,
-      \ 'p' : [':FzfHelptags'                             , 'help-tags']                    ,
+      \ 'l' : [':FzfLines'                                , 'lines'],
+      \ 'm' : [':FzfMarks'                                , 'marks'],
+      \ 'p' : [':FzfHelptags'                             , 'help-tags'],
       \ 's' : [':CocList snippets'                        , 'snippets'],
       \ 't' : [':FzfRg'                                   , 'text-Rg'],
       \ 'w' : [':FzfWindows'                              , 'search-windows'],
@@ -228,11 +245,11 @@ let g:which_key_map.s = {
 
 let g:which_key_map.S = {
       \ 'name' : '+session'                               ,
-      \ 'c' : [':SClose'                                  , 'close-session']                ,
-      \ 'd' : [':SDelete'                                 , 'delete-session']               ,
-      \ 'l' : [':SLoad'                                   , 'load-session']                 ,
-      \ 's' : [':Startify'                                , 'start-page']                   ,
-      \ 'S' : [':SSave'                                   , 'save-session']                 ,
+      \ 'c' : [':SClose'                                  , 'close-session'],
+      \ 'd' : [':SDelete'                                 , 'delete-session'],
+      \ 'l' : [':SLoad'                                   , 'load-session'],
+      \ 's' : [':Startify'                                , 'start-page'],
+      \ 'S' : [':SSave'                                   , 'save-session'],
       \ }
 
 

@@ -11,9 +11,9 @@ windows:
       layout: even-horizontal
       panes:
         - yarn start
-        - cd ~/Desktop/koinearth/marketsn-pwa-service && yarn start
+        - cd ../marketsn-pwa-service && yarn start
   - Caddy:
-      - cd ~/Desktop/koinearth
+      - cd ..
       - caddy run Caddyfile
   - Browser: brave-browser
   - Extras:
