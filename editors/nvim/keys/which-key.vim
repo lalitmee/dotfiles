@@ -14,8 +14,6 @@ let g:which_key_sep = '→'
 " nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
 " let g:which_key_map['?'] = 'search word'
 
-" Lalit Lalit
-
 " Not a fan of floating windows for this
 let g:which_key_use_floating_win = 0
 
@@ -111,7 +109,7 @@ let g:which_key_map.f = {
       \ 'C' : [':FzfPreviewBookmarks'                           , 'bookmarks-list'],
       \ 'D' : [':CocCommand fzf-preview.CocTypeDefinitions'     , 'coc-type-definitions'],
       \ 'E' : [':CocCommand fzf-preview.CocCurrentDiagnostics'  , 'coc-current-diagnostics'],
-      \ 'G' : [':FzfPreviewGitFiles'                            , 'git-files'],
+      \ 'G' : [':FzfPreviewGitStatus'                           , 'git-status-list'],
       \ 'J' : [':FzfPreviewLocationList'                        , 'locations-list'],
       \ 'L' : [':FzfPreviewLines'                               , 'current-buffer-lines'],
       \ 'O' : [':FzfPreviewOldFiles'                            , 'fzf-old-files'],
@@ -125,7 +123,7 @@ let g:which_key_map.f = {
       \ 'd' : [':FzfPreviewDirectoryFiles'                      , 'directory-files'],
       \ 'e' : [':CocCommand fzf-preview.CocDiagnostics'         , 'coc-diagnostics'],
       \ 'f' : [':FzfPreviewProjectFiles'                        , 'project-files'],
-      \ 'g' : [':FzfPreviewGitStatus'                           , 'git-status-list'],
+      \ 'g' : [':FzfPreviewGitFiles'                            , 'git-files'],
       \ 'h' : [':FzfPreviewCommandPalette'                      , 'nvim-commands-list'],
       \ 'j' : [':FzfPreviewJumps'                               , 'jumps-list'],
       \ 'l' : [':FzfPreviewBufferLines'                         , 'loaded-buffer-lines'],
@@ -179,17 +177,18 @@ let g:which_key_map.F = {
 let g:which_key_map.g = {
       \ 'name' : '+git'                                         ,
       \ 'A' : [':Git add %'                                     , 'add-current'],
-      \ 'B' : [':GBrowse'                                       , 'browse'],
-      \ 'C' : [':FzfGBranches'                                  , 'checkout'],
+      \ 'B' : [':Git blame'                                     , 'blame'],
+      \ 'C' : [':Git commit'                                    , 'commit'],
       \ 'D' : [':Gdiffsplit'                                    , 'diff-split'],
       \ 'G' : [':Gstatus'                                       , 'status'],
       \ 'H' : ['<Plug>(GitGutterPreviewHunk)'                   , 'preview-hunk'],
+      \ 'M' : ['<Plug>(git-messenger)'                          , 'git-messenger'],
       \ 'P' : [':Git pull'                                      , 'pull'],
-      \ 'S' : [':!git status'                                   , 'status'],
+      \ 'S' : ['<Plug>(GitGutterStageHunk)'                     , 'stage-hunk'],
       \ 'V' : [':GV!'                                           , 'view-buffer-commits'],
       \ 'a' : [':Git add .'                                     , 'add-all'],
-      \ 'b' : [':Git blame'                                     , 'blame'],
-      \ 'c' : [':Git commit'                                    , 'commit'],
+      \ 'b' : [':GBrowse'                                       , 'browse'],
+      \ 'c' : [':FzfGBranches'                                  , 'checkout'],
       \ 'd' : [':Git diff'                                      , 'diff'],
       \ 'g' : [':GGrep'                                         , 'git-grep'],
       \ 'h' : [':GitGutterLineHighlightsToggle'                 , 'highlight-hunks'],
@@ -198,10 +197,9 @@ let g:which_key_map.g = {
       \ 'k' : ['<Plug>(GitGutterPrevHunk)'                      , 'prev-hunk'],
       \ 'l' : [':Git log'                                       , 'log'],
       \ 'm' : [':Magit'                                         , 'magit'],
-      \ 'M' : ['<Plug>(git-messenger)'                          , 'git-messenger'],
       \ 'p' : [':Git push'                                      , 'push'],
       \ 'r' : [':GRemove'                                       , 'remove'],
-      \ 's' : ['<Plug>(GitGutterStageHunk)'                     , 'stage-hunk'],
+      \ 's' : [':Magit'                                         , 'status'],
       \ 't' : [':GitGutterSignsToggle'                          , 'toggle-signs'],
       \ 'u' : ['<Plug>(GitGutterUndoHunk)'                      , 'undo-hunk'],
       \ 'v' : [':GV'                                            , 'view-commits'],
@@ -229,6 +227,7 @@ let g:which_key_map.m = {
       \ 'name' : '+major-mode'                                  ,
       \ 'r' : ['<Plug>(coc-rename)'                             , 'rename-symbol'],
       \ 'l' : ['<Plug>(JsConsoleLog)'                           , 'console-log'],
+      \ 'c' : [':MakeTags'                                      , 'make-ctags'],
       \ }
 
 " n is Neovim
@@ -383,22 +382,6 @@ let g:which_key_map.w = {
       \ '=' : ['<C-W>='                                         , 'balance-window'],
       \ '?' : [':FzfWindows'                                    , 'fzf-window'],
       \ }
-
-" telescope mappings
-" Searches over files in a git folder. Note: This does not work outside a git repo folder.
-" nnoremap <Leader>fA <cmd>lua require'telescope.builtin'.git_files{}<CR>
-" let g:which_key_map.f.A = 'telescope-git-files'
-
-" " Search over files in your cwd current working directory.
-" nnoremap <Leader>fF <cmd>lua require'telescope.builtin'.find_files{}<CR>
-" let g:which_key_map.f.F = 'telescope-files'
-
-" " Search over variable references from your Language Server.
-" nnoremap <Leader>gR <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
-" let g:which_key_map.g.R = 'telescope-lsp-references'
-
-" nnoremap <Leader>nF <cmd>lua require'telescope.builtin'.find_files{ cwd = "~/.config/nvim/" }<CR>
-" let g:which_key_map.n.F = 'telescope-nvim-files'
 
 " Register which key map
 call which_key#register('<Space>', "g:which_key_map")

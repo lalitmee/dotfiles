@@ -209,11 +209,7 @@ alias snapl="snap list"
 alias ze="vim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
-# alias for editing the hyper config
-alias eh="vim ~/.hyper.js"
-
-# alias for editing the alacritty config
-alias ea="vim ~/.config/alacritty/alacritty.yml"
+alias man="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
 alias yt="youtube-dl"
@@ -239,7 +235,7 @@ alias o="oni ."
 alias v="vim"
 alias n="nvim"
 alias gnvim="~/Goneovim-0.4.8-linux/goneovim"
-alias g="gnvim"
+alias g="gnvim &"
 
 # common aliases
 alias rm="rm -i"

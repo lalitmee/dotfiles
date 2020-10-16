@@ -52,30 +52,7 @@ if executable('rg')
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
 
-" cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 let g:fzf_command_prefix='Fzf'
-" nnoremap <silent> <leader>pf :FZF<CR>
-" nnoremap <silent> <leader>pb :FzfBuffers<CR>
-" nnoremap <silent> <leader>gf :FzfGFiles<CR>
-" nnoremap <silent> <leader>ll :FzfLines<CR>
-" nnoremap <silent> <leader>bl :FzfBLines<CR>
-" nnoremap <silent> <leader>tt :FzfTags<CR>
-" nnoremap <silent> <leader>bt :FzfBTags<CR>
-" nnoremap <silent> <leader>fl :FzfLocate<space>
-" nnoremap <silent> <leader>mm :FzfMarks<CR>
-" nnoremap <silent> <leader>ww :FzfWindows<CR>
-" nnoremap <silent> <leader>ss :FzfSnippets<CR>
-" nnoremap <silent> <leader>cm :FzfCommits<CR>
-" nnoremap <silent> <leader>cb :FzfBCommits<CR>
-" nnoremap <silent> <leader>co :FzfCommands<CR>
-" nnoremap <silent> <leader>mp :FzfMaps<CR>
-" nnoremap <silent> <leader>ht :FzfHelpTags<CR>
-" nnoremap <silent> <leader>ag :FzfAg<CR>
-" nnoremap <silent> <leader>rg :FzfRg<CR>
-" nnoremap <silent> <leader>cc :FzfColors<CR>
-" nnoremap <silent> <leader>hh :FzfHistory<CR>
-" nnoremap <silent> <leader>hc :FzfHistory:<CR>
-" nnoremap <silent> <leader>hs :FzfHistory/<CR>
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -92,4 +69,3 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
