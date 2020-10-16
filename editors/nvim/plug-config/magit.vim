@@ -1,5 +1,5 @@
 " commit title limit
-let g:magit_commit_title_limit = 72
+let g:magit_commit_title_limit = 50
 
 " delete untracted files on unstaging
 let g:magit_discard_untracked_do_delete = 1
