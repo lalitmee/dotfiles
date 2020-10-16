@@ -70,6 +70,7 @@ Plug 'hzchirs/vim-material'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
+Plug 'drewtempelmeyer/palenight.vim'
 
 
 " Completion Conquerer
@@ -208,12 +209,21 @@ Plug 'styled-components/vim-styled-components'
 Plug 'elzr/vim-json'
 Plug 'jparise/vim-graphql'
 
+" Viewer & Finder for LSP symbols and tags
+Plug 'liuchengxu/vista.vim'
+
+" bookmarks
+Plug 'MattesGroeger/vim-bookmarks'
+
+" vim and tmux = vimux
+Plug 'benmills/vimux'
+
+" Random color scheme on startup
+Plug 'Sammyalhashe/random_colorscheme.vim'
+
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/telescope.nvim'
-
-" " ctrl-space
-" Plug 'vim-ctrlspace/vim-ctrlspace'
 
 call plug#end()

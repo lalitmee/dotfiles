@@ -1,3 +1,3 @@
+" let g:gruvbox_italic=1
 colorscheme gruvbox
-" lua require('colorbuddy').colorscheme('gruvbuddy')
 set background=dark

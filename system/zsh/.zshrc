@@ -236,8 +236,8 @@ alias ci="code-insiders ."
 alias o="oni ."
 
 # alias for using nvim instead of vim
-alias vi="vim"
-alias vim="nvim"
+alias v="vim"
+alias n="nvim"
 alias gnvim="~/Goneovim-0.4.8-linux/goneovim"
 alias g="gnvim"
 

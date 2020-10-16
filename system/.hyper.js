@@ -13,7 +13,7 @@ module.exports = {
 
     // font family with optional fallbacks
     fontFamily:
-      'mononoki nerd font, Monaco, Operator Mono Lig Book, CodeNewRoman Nerd Font, Mononoki Nerd Font, CaskaydiaCove Nerd Font, "Source Code Pro", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Operator Mono Lig Book, CodeNewRoman Nerd Font, Mononoki Nerd Font, CaskaydiaCove Nerd Font, "Source Code Pro", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'bold',
@@ -136,7 +136,7 @@ module.exports = {
 
     // Whether to use the WebGL renderer. Set it to false to use canvas-based
     // rendering (slower, but supports transparent backgrounds)
-    webGLRenderer: true,
+    webGLRenderer: false,
 
     // for advanced config flags please refer to https://hyper.is/#cfg
   },
@@ -153,6 +153,7 @@ module.exports = {
     'shades-of-purple-hyper',
     'hyper-tabs-enhanced',
     'hyper-init',
+    'hyper-font-ligatures',
   ],
 
   // in development, you can create a directory under

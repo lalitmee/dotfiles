@@ -14,13 +14,14 @@ source $HOME/.config/nvim/general/tmux.vim
 source $HOME/.config/nvim/general/functions.vim
 
 " Colorschemes
-" source $HOME/.config/nvim/themes/gruvbox.vim
+source $HOME/.config/nvim/themes/gruvbox.vim
+" source $HOME/.config/nvim/themes/palenight.vim
 " source $HOME/.config/nvim/themes/jellybeans.vim
 " source $HOME/.config/nvim/themes/monokai.vim
 " source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/oceanic-next.vim
 " source $HOME/.config/nvim/themes/onedark.vim
-source $HOME/.config/nvim/themes/vim-code-dark.vim
+" source $HOME/.config/nvim/themes/vim-code-dark.vim
 " source $HOME/.config/nvim/themes/vim-material.vim
 " source $HOME/.config/nvim/themes/vim-one.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
@@ -28,6 +29,9 @@ source $HOME/.config/nvim/themes/vim-code-dark.vim
 " Lua Plugins
 " luafile ~/.config/nvim/lua/plug-colorizer.lua
 " lua require'plug-colorizer'
+" luafile $HOME/.config/nvim/lua/telescope/mappings.lua
+" lua require'telescope'
+" la require('plugins')
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
@@ -57,7 +61,7 @@ source $HOME/.config/nvim/plug-config/xtabline.vim
 source $HOME/.config/nvim/plug-config/git-messenger.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/window-swap.vim
-" source $HOME/.config/nvim/plug-config/telescope.vim
+source $HOME/.config/nvim/plug-config/fzf-preview.vim
 " source $HOME/.config/nvim/plug-config/ctrl-space.vim
 
 " Keys Mappings
