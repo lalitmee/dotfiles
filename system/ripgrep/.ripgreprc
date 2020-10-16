@@ -1,0 +1,34 @@
+# Search hidden files and directories.
+--hidden
+
+# Follow symbolic links.
+--follow
+
+# Don't respect ignore files (.gitignore, .ignore, etc.).
+--no-ignore
+
+# Exclude directories.
+--glob=!{.git,.svn,.tldr,node_modules,Trash,vendor,build}
+
+# Exclude file types.
+--glob=!*.{lock}
+
+# Exclude files.
+--glob=!{package-lock.json}
+
+# Don't print lines longer than this limit.
+--max-columns=10000
+
+# Searches case insensitively.
+--smart-case
+
+# Sort by file path.
+--sort=path
+
+# Configure color settings and styles.
+--colors=path:bg:0x3b,0x3b,0x3b
+--colors=path:fg:white
+--colors=line:fg:0xf2,0xc2,0x60
+--colors=match:bg:0x2b,0x83,0xa6
+--colors=match:fg:0xff,0xff,0xff
+--colors=match:style:nobold

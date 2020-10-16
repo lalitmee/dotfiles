@@ -32,6 +32,8 @@ source $HOME/.config/nvim/themes/gruvbox.vim
 " luafile $HOME/.config/nvim/lua/telescope/mappings.lua
 " lua require'telescope'
 " la require('plugins')
+" luafile $HOME/.config/nvim/lua/nvim-treesitter.lua
+" lua require'nvim-treesitter'
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
@@ -50,7 +52,6 @@ source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
 source $HOME/.config/nvim/plug-config/coc.vim
-" source $HOME/.config/nvim/plug-config/signify.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
@@ -62,7 +63,7 @@ source $HOME/.config/nvim/plug-config/git-messenger.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/window-swap.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
-" source $HOME/.config/nvim/plug-config/ctrl-space.vim
+" source $HOME/.config/nvim/plug-config/telescope.vim
 
 " Keys Mappings
 source $HOME/.config/nvim/keys/mappings.vim

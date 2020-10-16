@@ -71,6 +71,7 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'sainnhe/gruvbox-material'
 
 
 " Completion Conquerer
@@ -88,7 +89,6 @@ Plug 'tpope/vim-surround'
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
 Plug 'stsewd/fzf-checkout.vim'
-" Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
@@ -218,12 +218,20 @@ Plug 'MattesGroeger/vim-bookmarks'
 " vim and tmux = vimux
 Plug 'benmills/vimux'
 
-" Random color scheme on startup
-Plug 'Sammyalhashe/random_colorscheme.vim'
+" vim-workspaces
+Plug 'thaerkh/vim-workspace'
 
+" vim-be-good
+Plug 'ThePrimeagen/vim-be-good'
+
+" Lua Plugins
 " telescope fuzzy finder
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/telescope.nvim'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-lua/telescope.nvim'
+
+" syntax highlighting
+" Plug 'nvim-treesitter/nvim-treesitter'
+
 
 call plug#end()
