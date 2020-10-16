@@ -257,9 +257,11 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               "Source Code Pro"
+                               ;; "FiraCode Nerd Font"
+                               ;; "Mononoki Nerd Font Mono"
+                               "SauceCodePro Nerd Font"
                                :size 15
-                               :weight normal
+                               :weight semi-bold
                                :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -550,57 +552,8 @@ you should place your code here."
   (add-hook 'prog-mode-hook 'company-emoji-init)
   (with-eval-after-load 'emoji-cheat-sheet-plus
     (diminish 'emoji-cheat-sheet-plus-display-mode))
-  (defun --set-emoji-font (frame)
-    "Adjust the font settings of FRAME so Emacs can display emoji properly."
-    (if (eq system-type 'darwin)
-        ;; For NS/Cocoa
-        (set-fontset-font t
-                          'symbol
-                          (font-spec
-                           :family "Apple Color Emoji") frame 'prepend)
-      ;; For Linux
-      (set-fontset-font t
-                        'symbol
-                        (font-spec
-                         :family "Symbola") frame 'prepend)))
-
-  ;; For when Emacs is started in GUI mode:
-  (--set-emoji-font nil)
-
-  ;; Hook for when a frame is created with emacsclient
-  ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
-  (add-hook 'after-make-frame-functions '--set-emoji-font)
   ;; italic comments
   (set-face-italic 'font-lock-comment-face t)
-  ;; To make the variables stand out, you can turn off highlighting for all other keywords in supported modes
-  (defun myfunc-color-identifiers-mode-hook ()
-    (let ((faces
-          '(font-lock-comment-face
-            font-lock-comment-delimiter-face
-            font-lock-constant-face
-            font-lock-type-face
-            font-lock-function-name-face
-            font-lock-variable-name-face
-            font-lock-keyword-face
-            font-lock-string-face
-            font-lock-builtin-face
-            font-lock-preprocessor-face
-            font-lock-warning-face
-            font-lock-doc-face
-            font-lock-negation-char-face
-            font-lock-regexp-grouping-construct
-            font-lock-regexp-grouping-backslash)))
-      (dolist (face faces)
-        (face-remap-add-relative
-         face
-         '((:foreground "" :weight normal :slant normal)))))
-    (face-remap-add-relative 'font-lock-keyword-face '((:weight semi-bold)))
-    (face-remap-add-relative 'font-lock-comment-face '((:slant italic)))
-    (face-remap-add-relative 'font-lock-builtin-face '((:weight semi-bold)))
-    (face-remap-add-relative 'font-lock-preprocessor-face '((:weight semi-bold)))
-    (face-remap-add-relative 'font-lock-function-name-face '((:slant italic)))
-    (face-remap-add-relative 'font-lock-string-face '((:slant italic)))
-    (face-remap-add-relative 'font-lock-constant-face '((:weight semi-bold))))
 
   ;; Color theme for spacemacs
   (spacemacs/load-theme 'doom-one)
