@@ -1,0 +1,3 @@
+rofi.modi: window,run,drun,keys,combi,windowcd,ssh
+
+rofi.theme: /home/lalit/.config/rofi/themes/onedark.rasi
