@@ -13,7 +13,8 @@ Height = 600
 ## This is the font and linespace settings of the graphical UI as an nvim front end.
 ## For example, linespace affects the margins of the external completion popup menu UI.
 ## Font settings in nvim are set with well-known options, such as `:set guifont = hoge:h10`, `:set linespace=4`.
-FontFamily = "OperatorMono Nerd Font"
+# FontFamily = "OperatorMono Nerd Font"
+FontFamily = "Operator Mono Lig Book"
 FontSize = 12
 # Linespace = 6
 

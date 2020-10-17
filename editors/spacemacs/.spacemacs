@@ -38,20 +38,47 @@ values."
      ;; ----------------------------------------------------------------
 
      ;; languages layers
-     typescript
-     javascript
-     react
-     python
      (go :variables go-use-gometalinter t)
-     vimscript
-     markdown
-     html
      ansible
-     yaml
-     emacs-lisp
-     vimscript
+     auto-completion
+     better-defaults
+     chrome
+     colors
+     dash
+     deft
      docker
+     emacs-lisp
+     emoji
+     evil-snipe
+     fasd
+     games
+     git
+     gtags
+     helm
+     html
+     ibuffer
+     javascript
+     markdown
      pandoc
+     python
+     react
+     search-engine
+     semantic
+     shell
+     spotify
+     syntax-checking
+     theming
+     tmux
+     twitter
+     typescript
+     unimpaired
+     version-control
+     vimscript
+     vimscript
+     xkcd
+     yaml
+
+     ;; layers with custom variables
      ;; (rebox :variables rebox-enable-in-text-mode t)
      (org :variables
           org-enable-sticky-header t
@@ -59,8 +86,6 @@ values."
           org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t)
-
-
      ;; functionalities layers
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -76,32 +101,13 @@ values."
             shell-default-term-shell "/bin/zsh"
             shell-default-full-span nil
             shell-default-shell 'eshell)
-
-     ;; //////////////////////
-     ;; colors layer settings
-     ;; //////////////////////
      (colors :variables
              colors-colorize-identifiers 'variables)
-     helm
-     ibuffer
-     gtags
-     colors
-     theming
-     search-engine
-     evil-snipe
-     twitter
-     auto-completion
-     better-defaults
-     xkcd
-     git
-     shell
-     fasd
      (ranger :variables
              ranger-show-preview t
              ranger-cleanup-eagerly t
              ranger-cleanup-on-disable t
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
-     emoji
      (erc :variables
           erc-server-list
           '(("chat.freenode.net"
@@ -109,15 +115,6 @@ values."
              :ssl t
              :nick "user"
              :password "password")))
-     spotify
-     tmux
-     games
-     chrome
-     dash
-     deft
-     semantic
-     syntax-checking
-     version-control
      (wakatime :variables
                wakatime-api-key  "24ffed3b-d336-43be-80ff-2292eaefa867"
                ;; use the actual wakatime path

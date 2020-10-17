@@ -8,3 +8,4 @@ windows:
   - wf-webapp-service: cd wf-webapp-service
   - marketsn-pwa-service: cd marketsn-pwa-service
   - wf-pwa-service: cd wf-pwa-service
+  - dotfiles: cd ~/Desktop/Github/dotfiles

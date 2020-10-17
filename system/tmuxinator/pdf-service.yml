@@ -4,7 +4,7 @@ name: pdf-service
 root: ~/Desktop/koinearth/marketsn-pdf-service
 
 windows:
-  - Editor: nvim
+  - Editor: ls
   - Git: gst
   - Server: nodemon .
   - quote: quote
