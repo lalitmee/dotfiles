@@ -26,6 +26,11 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# set PATH for doom emacs
+if [ -d "$HOME/.emacs.d/doom" ] ; then
+    PATH="$HOME/.emacs.d/doom:$PATH"
+fi
+
 # switch for caps lock to escape
 setxkbmap -option caps:swapescape
 
