@@ -103,15 +103,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 			\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 			\,sm:block-blinkwait175-blinkoff150-blinkon175
 
-" " highlight conflicts
-" match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" " make comments and HTML attributes italic
-" highlight Comment cterm=italic term=italic gui=italic
-" highlight htmlArg cterm=italic term=italic gui=italic
-" highlight xmlAttrib cterm=italic term=italic gui=italic
-highlight VertSplit guibg=white guifg=black
-
 " command for making ctags in a project
 command! MakeTags !ctags -R .
 
@@ -136,7 +127,7 @@ set termguicolors
 " highlight NonText guibg=none guifg=lightgrey
 " highlight Whitespace guibg=none guifg=lightgrey
 
-set guifont=Operator\ Mono\ Book:h12
+set guifont=Operator\ Mono\ Lig\ Book:h12
 " set guifont=OperatorMono\ Book:h12
 " set guifont=OperatorMono\ Nerd\ Font:h12
 
@@ -172,28 +163,3 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Enable Italics
-" let &t_ZH = "\e[3m"
-" let &t_ZR = "\e[23m"
-
-" " Enable Truecolors
-" let g:TermSettings = {}
-" function! g:TermSettings.EnableTrueColors() "{{{
-"   if ! has('termguicolors')
-"     return
-"   endif
-"   if ! empty($TMUX)
-"     let l:tmuxver = system("tmux -V | cut -d' ' -f2")
-"     let l:tmuxver = substitute(l:tmuxver, '\n\+$', '', '')
-"     let l:tmuxver_flt = str2float(l:tmuxver)
-"     if l:tmuxver_flt < 2.2 " version must be > 2.2
-"       return
-"     endif
-"   endif
-"   set termguicolors
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" endfunction "}}}
-
-" call g:TermSettings.EnableTrueColors()

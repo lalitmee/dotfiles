@@ -4,7 +4,7 @@ name: pwa-service
 root: ~/Desktop/koinearth/wf-pwa-service
 
 windows:
-  - Editor: nvim
+  - Editor: ls
   - Git: gst
   - Cmus: cmus
   - Servers:
