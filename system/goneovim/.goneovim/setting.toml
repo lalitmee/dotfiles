@@ -210,10 +210,10 @@ AccentColor = "#5596ea"
 ##  name: directoryname
 ##  full: /path/to/directoryname
 ##  minimum: /p/t/directoryname
-PathStyle = "minimum"
+PathStyle = "full"
 
 ## Specifies whether the last exited session should be restored at the next startup.
-RestoreSession = false
+RestoreSession = true
 
 [FileExplore]
 ## Specify the maximum number of items to be displayed in the file explorer.

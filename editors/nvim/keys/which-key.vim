@@ -11,8 +11,8 @@ let g:which_key_sep = '→'
 " set timeoutlen=100
 
 " Coc Search & refactor
-" nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
-" let g:which_key_map['?'] = 'search word'
+nnoremap <leader>/ :CocSearch <C-R>=expand('<cword>')<CR><CR>
+let g:which_key_map['/'] = 'search word'
 
 " Not a fan of floating windows for this
 let g:which_key_use_floating_win = 0
@@ -273,13 +273,12 @@ let g:which_key_map.s = {
       \ 'l' : [':FzfLines'                                      , 'lines'],
       \ 'm' : [':FzfMarks'                                      , 'marks'],
       \ 'p' : [':FzfHelptags'                                   , 'help-tags'],
-      \ 's' : [':CocList snippets'                              , 'snippets'],
+      \ 's' : [':FzfSnippets'                              , 'snippets'],
       \ 't' : [':FzfRg'                                         , 'text-Rg'],
       \ 'w' : [':FzfWindows'                                    , 'search-windows'],
       \ 'y' : [':FzfFiletypes'                                  , 'file-types'],
       \ 'z' : [':FZF'                                           , 'FZF'],
       \ }
-      " \ 's' : [':Snippets'                                    , 'snippets'],
 
 let g:which_key_map.S = {
       \ 'name' : '+session'                                     ,
@@ -333,7 +332,7 @@ let g:which_key_map.l = {
 " t is for floaterm
 let g:which_key_map.t = {
       \ 'name' : '+terminal'                                    ,
-      \ ';' : [':FloatermNew --wintype=popup --height=6'        , 'terminal'],
+      \ ';' : [':FloatermNew'                                   , 'terminal'],
       \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
       \ 'g' : [':FloatermNew lazygit'                           , 'git'],
       \ 'd' : [':FloatermNew lazydocker'                        , 'docker'],
