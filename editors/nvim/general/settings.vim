@@ -129,7 +129,7 @@ set termguicolors
 
 set guifont=Operator\ Mono\ Lig\ Book:h12
 " set guifont=OperatorMono\ Book:h12
-" set guifont=OperatorMono\ Nerd\ Font:h12
+" set guifont=mononoki\ Nerd\ Font\ Mono:h12
 
 " Open help in vertical split {{{
 
