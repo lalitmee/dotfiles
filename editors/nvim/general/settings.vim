@@ -140,7 +140,6 @@ augroup END
 
 " }}}
 
-
 " Neovim :Terminal {{{
 
 autocmd BufWinEnter,WinEnter term://* startinsert

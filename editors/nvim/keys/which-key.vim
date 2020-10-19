@@ -57,14 +57,13 @@ let g:which_key_map.a = {
 " b is for buffer
 let g:which_key_map.b = {
       \ 'name' : '+buffers'                                     ,
-      \ '?' : [':FzfBuffers'                                    , 'fzf-buffer'],
-      \ 'L' : [':FzfBLines'                                     , 'fzf-buffer-lines'],
+      \ 'b' : [':FzfBuffers'                                    , 'fzf-buffer'],
       \ 'd' : [':Bdelete'                                       , 'delete-buffer'],
       \ 'f' : ['bfirst'                                         , 'first-buffer'],
       \ 'h' : ['Startify'                                       , 'home-buffer'],
-      \ 'l' : ['blast'                                          , 'last-buffer'],
-      \ 'n' : ['bnext'                                          , 'next-buffer'],
-      \ 'p' : ['bprev'                                          , 'previous-buffer'],
+      \ 'l' : [':FzfBLines'                                     , 'fzf-buffer-lines'],
+      \ 'n' : ['vnew'                                           , 'new-empty-buffer-vert'],
+      \ 's' : ['new'                                            , 'new-empty-buffer'],
       \ }
 
 " c is for coc.nvim
@@ -273,7 +272,7 @@ let g:which_key_map.s = {
       \ 'l' : [':FzfLines'                                      , 'lines'],
       \ 'm' : [':FzfMarks'                                      , 'marks'],
       \ 'p' : [':FzfHelptags'                                   , 'help-tags'],
-      \ 's' : [':FzfSnippets'                              , 'snippets'],
+      \ 's' : [':FzfSnippets'                                   , 'snippets'],
       \ 't' : [':FzfRg'                                         , 'text-Rg'],
       \ 'w' : [':FzfWindows'                                    , 'search-windows'],
       \ 'y' : [':FzfFiletypes'                                  , 'file-types'],

@@ -254,11 +254,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "FiraCode Nerd Font"
-                               ;; "Mononoki Nerd Font Mono"
-                               "SauceCodePro Nerd Font"
+                               "CaskaydiaCove Nerd Font"
                                :size 15
-                               :weight semi-bold
+                               :weight normal
                                :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -760,7 +758,11 @@ you should place your code here."
    '(helm-gtags-auto-update nil) ;update only when file is saved
    '(helm-gtags-pulse-at-cursor t))
 
+  ;; tags file too large warning
   (setq large-file-warning-threshold nil)
+
+  ;; lockfile create stop
+  (setq create-lockfiles nil)
   )
 
 (custom-set-variables
