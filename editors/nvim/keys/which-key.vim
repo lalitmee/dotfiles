@@ -112,6 +112,7 @@ let g:which_key_map.f = {
       \ 'J' : [':FzfPreviewLocationList'                        , 'locations-list'],
       \ 'L' : [':FzfPreviewLines'                               , 'current-buffer-lines'],
       \ 'O' : [':FzfPreviewOldFiles'                            , 'fzf-old-files'],
+      \ 'S' : [':wa'                                            , 'save-all-buffers'],
       \ 'T' : [':FzfPreviewBufferTags'                          , 'buffer-tags'],
       \ 'U' : [':FzfPreviewMruFiles'                            , 'fzf-mru-files'],
       \ 'V' : [':FzfPreviewVistaBufferCtags'                    , 'vista-buffer-ctags-list'],
@@ -131,12 +132,13 @@ let g:which_key_map.f = {
       \ 'p' : [':FzfPreviewBlamePR'                             , 'blame-PR'],
       \ 'q' : [':FzfPreviewQuickFix'                            , 'quickfix-list'],
       \ 'r' : [':CocCommand fzf-preview.CocReferences'          , 'coc-references'],
-      \ 's' : [':FzfPreviewProjectGrep '                        , 'project-grep'],
+      \ 's' : [':w'                                             , 'save-buffer'],
       \ 't' : [':FzfPreviewCtags'                               , 'tags'],
       \ 'u' : [':FzfPreviewProjectMruFiles'                     , 'project-mru-files'],
       \ 'v' : [':FzfPreviewVistaCtags'                          , 'vista-ctags-list'],
       \ 'w' : [':FzfPreviewProjectMrwFiles'                     , 'project-mrw-files'],
       \ }
+      " \ 's' : [':FzfPreviewProjectGrep '                      , 'project-grep'],
 
 " " f is for find and replace
 " let g:which_key_map.f = {

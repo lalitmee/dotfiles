@@ -117,7 +117,6 @@ tmuxinator
 ubuntu
 web-search
 yarn
-z
 zsh-autosuggestions
 )
 
@@ -272,6 +271,9 @@ eval "$(rbenv init -)"
 # snap path
 export PATH="$PATH:/snap/bin"
 
+# doom-emacs command
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
 # pyenv root
 export PYENV_ROOT="$(pyenv root)"
 
@@ -304,7 +306,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--layout=reverse --border'
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
@@ -371,6 +373,8 @@ source <(navi widget zsh)
 
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
+
+eval "$(lua /home/lalit/z.lua/z.lua --init zsh)"
 
 export TERM="xterm-256color"
 if [ "$ISLINUX" '==' 'true' ]; then
