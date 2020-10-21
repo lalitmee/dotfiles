@@ -99,8 +99,8 @@ let g:which_key_map.c.l = {
       \ }
 
 let g:which_key_map.e = {
-      \ 'name' : '+erros/warnings'                              ,
-      \ 'l' : ['CocDiagnostics'                            , 'list-erros/warnings'],
+      \ 'name' : '+errors/warnings'                             ,
+      \ 'l' : ['CocDiagnostics'                                 , 'list-errors/warnings'],
       \ 'n' : ['<Plug>(coc-diagnostic-next)'                    , 'next-diagnostic'],
       \ 'N' : ['<Plug>(coc-diagnostic-next-error)'              , 'next-error'],
       \ 'p' : ['<Plug>(coc-diagnostic-prev)'                    , 'prev-diagnostic'],
@@ -257,6 +257,7 @@ let g:which_key_map.p = {
       \ 'f' : [':FzfFiles'                                      , 'find-files'],
       \ 'g' : [':FzfGFiles'                                     , 'find-git-files'],
       \ 'l' : [':FzfLines'                                      , 'find-lines'],
+      \ 'p' : [':CocList project'                               , 'switch-project'],
       \ }
 
 " s is for search
@@ -368,6 +369,13 @@ let g:which_key_map.T = {
       \ 'p' : [':tabprevious'                                   , 'prev-tab'],
       \ 'P' : [':XTabMoveBufferPrev'                            , '<-buffer'],
       \ 'x' : [':XTabPinBuffer'                                 , 'pin-buffer'],
+      \ }
+
+" u is for UI and toggle
+let g:which_key_map.u = {
+      \ 'name' : '+ui/toggle'                                   ,
+      \ 'e' : [':CocCommand clock.enable'                       , 'show-clock'],
+      \ 'd' : [':CocCommand clock.disable'                      , 'hide-clock'],
       \ }
 
 " w is for windows
