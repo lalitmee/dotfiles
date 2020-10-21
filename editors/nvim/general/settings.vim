@@ -128,8 +128,8 @@ set termguicolors
 " highlight Whitespace guibg=none guifg=lightgrey
 
 " set guifont=CaskaydiaCove\ Nerd\ Font:h11
-set guifont=Operator\ Mono\ Lig\ Book:h12
-" set guifont=OperatorMono\ Book:h12
+" set guifont=Operator\ Mono\ Lig\ Book:h12
+set guifont=Fantasque\ Sans\ Mono\ Nerd\ Font:h12
 " set guifont=mononoki\ Nerd\ Font\ Mono:h12
 
 " Open help in vertical split {{{

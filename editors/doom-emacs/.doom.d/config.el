@@ -26,13 +26,15 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+;; (setq doom-font (font-spec :family "Fantasque Sans Mono Nerd Font" :size 16))
 ;; (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 15))
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
-(setq doom-font (font-spec :family "Operator Mono" :size 15 :weight 'light))
+;; (setq doom-font (font-spec :family "Operator Mono" :size 15 :weight 'light))
 ;; (setq doom-font (font-spec :family "Monaco" :size 15))
-;; (setq doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'semi-bold))
+;; (setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 15 :weight 'semi-bold))
+(setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
