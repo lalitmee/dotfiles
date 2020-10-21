@@ -127,6 +127,7 @@ set termguicolors
 " highlight NonText guibg=none guifg=lightgrey
 " highlight Whitespace guibg=none guifg=lightgrey
 
+" set guifont=CaskaydiaCove\ Nerd\ Font:h11
 set guifont=Operator\ Mono\ Lig\ Book:h12
 " set guifont=OperatorMono\ Book:h12
 " set guifont=mononoki\ Nerd\ Font\ Mono:h12
@@ -162,3 +163,6 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 " au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+set t_ZH=[3m
+set t_ZR=[23m

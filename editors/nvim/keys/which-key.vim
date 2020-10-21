@@ -12,7 +12,10 @@ let g:which_key_sep = '→'
 
 " Coc Search & refactor
 nnoremap <leader>/ :CocSearch <C-R>=expand('<cword>')<CR><CR>
-let g:which_key_map['/'] = 'search word'
+let g:which_key_map['/'] = 'search-word'
+
+nnoremap <leader>* *<c-o>:%s///gn<cr>
+let g:which_key_map['*'] = 'count-matches'
 
 " Not a fan of floating windows for this
 let g:which_key_use_floating_win = 0
@@ -44,12 +47,12 @@ let g:which_key_map['z'] = [ 'Goyo'                             , 'zen' ]
 " a is for actions
 let g:which_key_map.a = {
       \ 'name' : '+actions'                                     ,
-      \ 'L' : [':BraceyStop'                                    , 'stop-live-server'],
-      \ 'M' : [':MarkdownPreviewStop'                           , 'markdown-preview-stop'],
       \ 'c' : [':ColorizerToggle'                               , 'colorizer'],
       \ 'e' : [':CocCommand explorer'                           , 'explorer'],
       \ 'l' : [':Bracey'                                        , 'start-live-server'],
+      \ 'L' : [':BraceyStop'                                    , 'stop-live-server'],
       \ 'm' : [':MarkdownPreview'                               , 'markdown-preview'],
+      \ 'M' : [':MarkdownPreviewStop'                           , 'markdown-preview-stop'],
       \ 't' : [':FloatermToggle'                                , 'terminal'],
       \ 'w' : [':StripWhitespace'                               , 'strip-whitespace'],
       \ }
@@ -82,61 +85,65 @@ let g:which_key_map.c = {
 " c.l is for CocList
 let g:which_key_map.c.l = {
       \ 'name' : '+list'                                        ,
-      \ 'S' : [':CocList symbols'                               , 'workspace-symbols-list'],
       \ 'b' : [':CocList branches'                              , 'branches-list'],
       \ 'c' : [':CocList commands'                              , 'commands-list'],
       \ 'd' : [':CocList folders'                               , 'workspace-directories-list'],
-      \ 'E' : [':CocList extensions'                            , 'extensions-list'],
       \ 'e' : [':CocList diagnostics'                           , 'diagnostics-list'],
+      \ 'E' : [':CocList extensions'                            , 'extensions-list'],
       \ 'l' : [':CocList links'                                 , 'buffer-links-list'],
       \ 'm' : [':CocList marketplace'                           , 'marketplace'],
       \ 's' : [':CocList outline'                               , 'buffer-symbols-list'],
+      \ 'S' : [':CocList symbols'                               , 'workspace-symbols-list'],
       \ 't' : [':CocList floaterm'                              , 'floaterm-list'],
       \ 'w' : [':CocList words'                                 , 'buffer-words-list'],
       \ }
 
 let g:which_key_map.e = {
       \ 'name' : '+erros/warnings'                              ,
-      \ 'l' : ['CocList diagnostics'                            , 'list-erros/warnings'],
+      \ 'l' : ['CocDiagnostics'                            , 'list-erros/warnings'],
+      \ 'n' : ['<Plug>(coc-diagnostic-next)'                    , 'next-diagnostic'],
+      \ 'N' : ['<Plug>(coc-diagnostic-next-error)'              , 'next-error'],
+      \ 'p' : ['<Plug>(coc-diagnostic-prev)'                    , 'prev-diagnostic'],
+      \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'              , 'prev-error'],
       \ }
 
  " f is for fzf-preview
 let g:which_key_map.f = {
       \ 'name' : '+fzf-preview'                                 ,
       \ ';' : [':FzfPreviewFromResources'                       , 'files-from-resource'],
-      \ 'B' : [':FzfPreviewBuffers'                             , 'file-buffers'],
-      \ 'C' : [':FzfPreviewBookmarks'                           , 'bookmarks-list'],
-      \ 'D' : [':CocCommand fzf-preview.CocTypeDefinitions'     , 'coc-type-definitions'],
-      \ 'E' : [':CocCommand fzf-preview.CocCurrentDiagnostics'  , 'coc-current-diagnostics'],
-      \ 'G' : [':FzfPreviewGitStatus'                           , 'git-status-list'],
-      \ 'J' : [':FzfPreviewLocationList'                        , 'locations-list'],
-      \ 'L' : [':FzfPreviewLines'                               , 'current-buffer-lines'],
-      \ 'O' : [':FzfPreviewOldFiles'                            , 'fzf-old-files'],
-      \ 'S' : [':wa'                                            , 'save-all-buffers'],
-      \ 'T' : [':FzfPreviewBufferTags'                          , 'buffer-tags'],
-      \ 'U' : [':FzfPreviewMruFiles'                            , 'fzf-mru-files'],
-      \ 'V' : [':FzfPreviewVistaBufferCtags'                    , 'vista-buffer-ctags-list'],
-      \ 'W' : [':FzfPreviewMrwFiles'                            , 'fzf-mrw-files'],
       \ 'a' : [':FzfPreviewGitActions'                          , 'git-actions-list'],
       \ 'b' : [':FzfPreviewAllBuffers'                          , 'all-buffers'],
+      \ 'B' : [':FzfPreviewBuffers'                             , 'file-buffers'],
       \ 'c' : [':FzfPreviewChanges'                             , 'changes-list'],
+      \ 'C' : [':FzfPreviewBookmarks'                           , 'bookmarks-list'],
       \ 'd' : [':FzfPreviewDirectoryFiles'                      , 'directory-files'],
+      \ 'D' : [':CocCommand fzf-preview.CocTypeDefinitions'     , 'coc-type-definitions'],
       \ 'e' : [':CocCommand fzf-preview.CocDiagnostics'         , 'coc-diagnostics'],
       \ 'f' : [':FzfPreviewProjectFiles'                        , 'project-files'],
+      \ 'E' : [':CocCommand fzf-preview.CocCurrentDiagnostics'  , 'coc-current-diagnostics'],
       \ 'g' : [':FzfPreviewGitFiles'                            , 'git-files'],
+      \ 'G' : [':FzfPreviewGitStatus'                           , 'git-status-list'],
       \ 'h' : [':FzfPreviewCommandPalette'                      , 'nvim-commands-list'],
       \ 'j' : [':FzfPreviewJumps'                               , 'jumps-list'],
+      \ 'J' : [':FzfPreviewLocationList'                        , 'locations-list'],
       \ 'l' : [':FzfPreviewBufferLines'                         , 'loaded-buffer-lines'],
+      \ 'L' : [':FzfPreviewLines'                               , 'current-buffer-lines'],
       \ 'm' : [':FzfPreviewMarks'                               , 'marks-list'],
       \ 'o' : [':FzfPreviewProjectOldFiles'                     , 'project-old-files'],
+      \ 'O' : [':FzfPreviewOldFiles'                            , 'fzf-old-files'],
       \ 'p' : [':FzfPreviewBlamePR'                             , 'blame-PR'],
       \ 'q' : [':FzfPreviewQuickFix'                            , 'quickfix-list'],
       \ 'r' : [':CocCommand fzf-preview.CocReferences'          , 'coc-references'],
       \ 's' : [':w'                                             , 'save-buffer'],
+      \ 'S' : [':wa'                                            , 'save-all-buffers'],
       \ 't' : [':FzfPreviewCtags'                               , 'tags'],
+      \ 'T' : [':FzfPreviewBufferTags'                          , 'buffer-tags'],
       \ 'u' : [':FzfPreviewProjectMruFiles'                     , 'project-mru-files'],
       \ 'v' : [':FzfPreviewVistaCtags'                          , 'vista-ctags-list'],
+      \ 'V' : [':FzfPreviewVistaBufferCtags'                    , 'vista-buffer-ctags-list'],
+      \ 'U' : [':FzfPreviewMruFiles'                            , 'fzf-mru-files'],
       \ 'w' : [':FzfPreviewProjectMrwFiles'                     , 'project-mrw-files'],
+      \ 'W' : [':FzfPreviewMrwFiles'                            , 'fzf-mrw-files'],
       \ }
       " \ 's' : [':FzfPreviewProjectGrep '                      , 'project-grep'],
 
@@ -177,70 +184,70 @@ let g:which_key_map.F = {
 " g is for git
 let g:which_key_map.g = {
       \ 'name' : '+git'                                         ,
+      \ 'a' : [':Git add .'                                     , 'add-all'],
       \ 'A' : [':Git add %'                                     , 'add-current'],
+      \ 'b' : [':GBrowse'                                       , 'browse'],
       \ 'B' : [':Git blame'                                     , 'blame'],
       \ 'C' : [':Git commit'                                    , 'commit'],
-      \ 'D' : [':Gdiffsplit'                                    , 'diff-split'],
-      \ 'G' : [':Gstatus'                                       , 'status'],
-      \ 'H' : ['<Plug>(GitGutterPreviewHunk)'                   , 'preview-hunk'],
-      \ 'M' : ['<Plug>(git-messenger)'                          , 'git-messenger'],
-      \ 'P' : [':Git pull'                                      , 'pull'],
-      \ 'S' : ['<Plug>(GitGutterStageHunk)'                     , 'stage-hunk'],
-      \ 'V' : [':GV!'                                           , 'view-buffer-commits'],
-      \ 'a' : [':Git add .'                                     , 'add-all'],
-      \ 'b' : [':GBrowse'                                       , 'browse'],
       \ 'c' : [':FzfGBranches'                                  , 'checkout'],
       \ 'd' : [':Git diff'                                      , 'diff'],
+      \ 'D' : [':Gdiffsplit'                                    , 'diff-split'],
       \ 'g' : [':GGrep'                                         , 'git-grep'],
+      \ 'G' : [':Gstatus'                                       , 'status'],
       \ 'h' : [':GitGutterLineHighlightsToggle'                 , 'highlight-hunks'],
+      \ 'H' : ['<Plug>(GitGutterPreviewHunk)'                   , 'preview-hunk'],
       \ 'i' : [':Gist -b'                                       , 'post-gist'],
       \ 'j' : ['<Plug>(GitGutterNextHunk)'                      , 'next-hunk'],
       \ 'k' : ['<Plug>(GitGutterPrevHunk)'                      , 'prev-hunk'],
       \ 'l' : [':Git log'                                       , 'log'],
       \ 'm' : [':Magit'                                         , 'magit'],
+      \ 'M' : ['<Plug>(git-messenger)'                          , 'git-messenger'],
       \ 'p' : [':Git push'                                      , 'push'],
+      \ 'P' : [':Git pull'                                      , 'pull'],
       \ 'r' : [':GRemove'                                       , 'remove'],
       \ 's' : [':Magit'                                         , 'status'],
+      \ 'S' : ['<Plug>(GitGutterStageHunk)'                     , 'stage-hunk'],
       \ 't' : [':GitGutterSignsToggle'                          , 'toggle-signs'],
       \ 'u' : ['<Plug>(GitGutterUndoHunk)'                      , 'undo-hunk'],
       \ 'v' : [':GV'                                            , 'view-commits'],
+      \ 'V' : [':GV!'                                           , 'view-buffer-commits'],
       \ }
 
 " G is goneovim
 let g:which_key_map.G = {
       \ 'name' : '+goneovim'                                    ,
-      \ 'f' : [':GonvimFuzzyFiles'                              , 'fuzzy-files'],
-      \ 'l' : [':GonvimFuzzyBLines'                             , 'fuzzy-buffer-lines'],
       \ 'a' : [':GonvimFuzzyAg'                                 , 'fuzzy-ag'],
       \ 'b' : [':GonvimFuzzyBuffers'                            , 'fuzzy-buffers'],
-      \ 'r' : [':GonvimFuzzyResume'                             , 'resume-previous-search'],
-      \ 'N' : [':GonvimWorkspaceNew'                            , 'create-new-workspace'],
-      \ 'n' : [':GonvimWorkspaceNext'                           , 'next-workspace'],
-      \ 'p' : [':GonvimWorkspacePrevious'                       , 'previous-workspace'],
-      \ 's' : [':GonvimWorkspaceSwitch '                        , 'switch-workspace'],
-      \ 'm' : [':GonvimMarkdown'                                , 'markdown-preview'],
+      \ 'f' : [':GonvimFuzzyFiles'                              , 'fuzzy-files'],
       \ 'F' : [':GonvimFilerOpen'                               , 'external-file-explorer'],
+      \ 'l' : [':GonvimFuzzyBLines'                             , 'fuzzy-buffer-lines'],
+      \ 'm' : [':GonvimMarkdown'                                , 'markdown-preview'],
       \ 'M' : [':GonvimMiniMap'                                 , 'toggle-minimap'],
+      \ 'n' : [':GonvimWorkspaceNext'                           , 'next-workspace'],
+      \ 'N' : [':GonvimWorkspaceNew'                            , 'create-new-workspace'],
+      \ 'p' : [':GonvimWorkspacePrevious'                       , 'previous-workspace'],
+      \ 'r' : [':GonvimFuzzyResume'                             , 'resume-previous-search'],
+      \ 's' : [':GonvimWorkspaceSwitch '                        , 'switch-workspace'],
       \ }
 
 " m is major mode
 let g:which_key_map.m = {
       \ 'name' : '+major-mode'                                  ,
-      \ 'r' : ['<Plug>(coc-rename)'                             , 'rename-symbol'],
-      \ 'l' : ['<Plug>(JsConsoleLog)'                           , 'console-log'],
       \ 'c' : [':MakeTags'                                      , 'make-ctags'],
+      \ 'l' : ['<Plug>(JsConsoleLog)'                           , 'console-log'],
+      \ 'r' : ['<Plug>(coc-rename)'                             , 'rename-symbol'],
       \ }
 
 " n is Neovim
 let g:which_key_map.n = {
       \ 'name' : '+neovim'                                      ,
-      \ 'U' : [':PlugUpgrade'                                   , 'upgrade-plug'],
       \ 'c' : [':PlugClean'                                     , 'clean-packages'],
       \ 'e' : [':e $MYVIMRC'                                    , 'edit-config'],
       \ 'i' : [':PlugInstall'                                   , 'install-packages'],
       \ 'r' : [':so $MYVIMRC'                                   , 'source-config'],
       \ 's' : [':PlugSnapshot'                                  , 'plug-snapshot'],
       \ 'u' : [':PlugUpdate'                                    , 'update-packages'],
+      \ 'U' : [':PlugUpgrade'                                   , 'upgrade-plug'],
       \ }
 
 " p is for Project
@@ -257,25 +264,25 @@ let g:which_key_map.s = {
       \ 'name' : '+search'                                      ,
       \ '/' : [':FzfHistory/'                                   , 'history'],
       \ ';' : [':FzfCommands'                                   , 'commands'],
-      \ 'B' : [':FzfBuffers'                                    , 'open-buffers'],
-      \ 'C' : [':FzfBCommits'                                   , 'buffer-commits'],
-      \ 'G' : [':FzfGFiles?'                                    , 'modified-git-files'],
-      \ 'H' : [':FzfHistory:'                                   , 'command-history'],
-      \ 'M' : [':FzfMaps'                                       , 'normal-maps'],
-      \ 'P' : [':FzfTags'                                       , 'project-tags'],
-      \ 'S' : [':FzfColors'                                     , 'color-schemes'],
-      \ 'T' : [':FzfBTags'                                      , 'buffer-tags'],
       \ 'a' : [':FzfAg'                                         , 'text-Ag'],
       \ 'b' : [':FzfBLines'                                     , 'current-buffer'],
+      \ 'B' : [':FzfBuffers'                                    , 'open-buffers'],
       \ 'c' : [':FzfCommits'                                    , 'commits'],
+      \ 'C' : [':FzfBCommits'                                   , 'buffer-commits'],
       \ 'f' : [':FzfFiles'                                      , 'files'],
       \ 'g' : [':FzfGFiles'                                     , 'git-files'],
+      \ 'G' : [':FzfGFiles?'                                    , 'modified-git-files'],
       \ 'h' : [':FzfHistory'                                    , 'file-history'],
+      \ 'H' : [':FzfHistory:'                                   , 'command-history'],
       \ 'l' : [':FzfLines'                                      , 'lines'],
       \ 'm' : [':FzfMarks'                                      , 'marks'],
+      \ 'M' : [':FzfMaps'                                       , 'normal-maps'],
       \ 'p' : [':FzfHelptags'                                   , 'help-tags'],
+      \ 'P' : [':FzfTags'                                       , 'project-tags'],
       \ 's' : [':FzfSnippets'                                   , 'snippets'],
+      \ 'S' : [':FzfColors'                                     , 'color-schemes'],
       \ 't' : [':FzfRg'                                         , 'text-Rg'],
+      \ 'T' : [':FzfBTags'                                      , 'buffer-tags'],
       \ 'w' : [':FzfWindows'                                    , 'search-windows'],
       \ 'y' : [':FzfFiletypes'                                  , 'file-types'],
       \ 'z' : [':FZF'                                           , 'FZF'],
@@ -366,21 +373,21 @@ let g:which_key_map.T = {
 " w is for windows
 let g:which_key_map.w = {
       \ 'name' : '+windows'                                     ,
-      \ 'w' : ['<C-W>w'                                         , 'other-window'],
-      \ 'd' : ['<C-W>c'                                         , 'delete-window'],
-      \ ' ' : ['<C-W>s'                                         , 'split-window-below'],
-      \ '\' : ['<C-W>v'                                         , 'split-window-right'],
       \ '2' : ['<C-W>v'                                         , 'layout-double-columns'],
-      \ 'h' : ['<C-W>h'                                         , 'window-left'],
-      \ 'j' : ['<C-W>j'                                         , 'window-below'],
-      \ 'l' : ['<C-W>l'                                         , 'window-right'],
-      \ 'k' : ['<C-W>k'                                         , 'window-up'],
-      \ 'H' : ['<C-W>5<'                                        , 'expand-window-left'],
-      \ 'J' : [':resize +5'                                     , 'expand-window-below'],
-      \ 'L' : ['<C-W>5>'                                        , 'expand-window-right'],
-      \ 'K' : [':resize  5'                                     , 'expand-window-up'],
       \ '=' : ['<C-W>='                                         , 'balance-window'],
       \ '?' : [':FzfWindows'                                    , 'fzf-window'],
+      \ 'd' : ['<C-W>c'                                         , 'delete-window'],
+      \ 'h' : ['<C-W>h'                                         , 'window-left'],
+      \ 'H' : ['<C-W>5<'                                        , 'expand-window-left'],
+      \ 'L' : ['<C-W>5>'                                        , 'expand-window-right'],
+      \ 'j' : ['<C-W>j'                                         , 'window-below'],
+      \ 'J' : [':resize +5'                                     , 'expand-window-below'],
+      \ 'k' : ['<C-W>k'                                         , 'window-up'],
+      \ 'K' : [':resize  5'                                     , 'expand-window-up'],
+      \ 'l' : ['<C-W>l'                                         , 'window-right'],
+      \ 's' : ['<C-W>s'                                         , 'split-window-below'],
+      \ 'v' : ['<C-W>v'                                         , 'split-window-right'],
+      \ 'w' : ['<C-W>w'                                         , 'other-window'],
       \ }
 
 " Register which key map

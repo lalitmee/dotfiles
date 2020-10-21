@@ -35,9 +35,6 @@ Plug 'haya14busa/incsearch.vim'
 " SilverSearcher
 Plug 'mileszs/ack.vim'
 
-" lightweight statusline for vim
-Plug 'itchyny/lightline.vim'
-
 " Airline for vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -65,14 +62,13 @@ Plug 'tjdevries/colorbuddy.vim'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
-" Plug 'mhartington/oceanic-next'
-Plug 'hzchirs/vim-material'
+Plug 'mhartington/oceanic-next'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'sainnhe/gruvbox-material'
-Plug 'voronianski/oceanic-next-color-scheme'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
