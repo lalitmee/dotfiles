@@ -205,7 +205,7 @@ alias snapu="sudo snap refresh"
 alias snapl="snap list"
 
 # aliases for editing and sourcing zshrc
-alias ze="vim ~/.zshrc"
+alias ze="nvim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
 alias man="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
@@ -256,6 +256,9 @@ alias to="task"
 
 # alias for colorls
 alias lc='colorls -lA --sd'
+
+# alias for running tmux with screen-256color
+alias tmux="env TERM=alacritty tmux -2"
 
 # tmuxinator completion file
 # source ~/tmuxinator.bash
@@ -376,11 +379,15 @@ eval "$(thefuck --alias)"
 
 eval "$(lua /home/lalit/z.lua/z.lua --init zsh)"
 
-export TERM="xterm-256color"
-if [ "$ISLINUX" '==' 'true' ]; then
-  { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
-    tic -x -
-fi
+# export TERM="xterm-256color"
+# if [ "$ISLINUX" '==' 'true' ]; then
+  # { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
+    # tic -x -
+# fi
+
+# if [[ $TERM == xterm ]]; then
+  # TERM=screen-256color;
+# fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

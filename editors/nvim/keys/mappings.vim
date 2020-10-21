@@ -2,7 +2,6 @@ let mapleader=" "
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 " count the current matched number
-nmap <silent> * *<c-o>:%s///gn<cr>
 " nmap <silent> <leader>u :PlugUpdate<CR>
 " nmap <silent> <leader>cl :PlugClean<CR>
 " nmap <silent> <leader>r :so ~/.config/nvim/init.vim<CR>
