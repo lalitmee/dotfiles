@@ -208,6 +208,10 @@ alias snapl="snap list"
 alias ze="nvim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
+# alias for emacs
+alias es="emacs --with-profile spacemacs"
+alias ed="emacs --with-profile default"
+
 alias man="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
@@ -275,7 +279,7 @@ eval "$(rbenv init -)"
 export PATH="$PATH:/snap/bin"
 
 # doom-emacs command
-export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/doom-emacs/bin:$PATH"
 
 # pyenv root
 export PYENV_ROOT="$(pyenv root)"

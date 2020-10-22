@@ -65,6 +65,7 @@ values."
      search-engine
      semantic
      shell
+     spacemacs-navigation
      spotify
      syntax-checking
      theming
@@ -254,7 +255,8 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               "CaskaydiaCove Nerd Font"
+                               ;; "CaskaydiaCove Nerd Font"
+                               "Recursive Mono Casual Static"
                                :size 15
                                :weight normal
                                :powerline-scale 1.3)
@@ -551,7 +553,13 @@ you should place your code here."
   (set-face-italic 'font-lock-comment-face t)
 
   ;; Color theme for spacemacs
-  (spacemacs/load-theme 'doom-one)
+  (use-package doom-themes
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t))
+
+  (spacemacs/load-theme 'doom-gruvbox)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
