@@ -12,3 +12,4 @@
 **/.vim/undodir/
 **/.vim/undo/
 **/.vim/tmp/
+.log
