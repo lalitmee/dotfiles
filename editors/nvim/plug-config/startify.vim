@@ -35,8 +35,11 @@ let g:startify_session_persistence = 1
 let g:webdevicons_enable_startify = 1
 
 let g:startify_bookmarks = [
-            \ { 'ne': '~/Desktop/Github/dotfiles/editors/nvim/init.vim' },
+            \ { 'be': '~/.config/bat/config' },
+            \ { 'dec': '~/.doom.d/config.el' },
+            \ { 'dei': '~/.doom.d/init.el' },
             \ { 'ge': '~/.goneovim/setting.toml' },
+            \ { 'ne': '~/.config/nvim/init.vim' },
             \ { 'ze': '~/.zshrc' },
             \ ]
 

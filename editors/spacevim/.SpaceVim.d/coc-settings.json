@@ -68,5 +68,28 @@
   "git.enableGutters": false,
 
   // explorer settings
-  "explorer.icon.enableNerdfont": true
+  "explorer.icon.enableNerdfont": true,
+  "cSpell.userWords": [
+    "Bracey",
+    "Cfind",
+    "Clocate",
+    "Farr",
+    "Gdiffsplit",
+    "Gonvim",
+    "Goyo",
+    "Gstatus",
+    "Lfind",
+    "Llocate",
+    "Magit",
+    "Rnvimr",
+    "Startify",
+    "floaterm",
+    "funcobj",
+    "goneovim",
+    "mygroup",
+    "ncdu",
+    "pyright",
+    "rgnvim",
+    "ytop"
+  ]
 }

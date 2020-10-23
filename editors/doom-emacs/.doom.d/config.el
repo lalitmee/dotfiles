@@ -26,15 +26,16 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-;; (setq doom-font (font-spec :family "Fantasque Sans Mono Nerd Font" :size 16))
-;; (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 15))
+;; (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
+(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
-;; (setq doom-font (font-spec :family "Operator Mono" :size 15 :weight 'light))
-;; (setq doom-font (font-spec :family "Monaco" :size 15))
-;; (setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'semi-bold))
+;; (setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 15 :weight 'light))
+;; (setq doom-font (font-spec :family "Monaco Nerd Font Mono" :size 15))
+;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
-;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 15 :weight 'semi-bold))
-(setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 14))
+;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14))
+;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 14))
+;; (setq doom-font (font-spec :family "OverpassMono Nerd Font" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -102,3 +103,18 @@
 
 (setq-hook! 'js2-mode-hook flycheck-checker 'javascript-eslint)
 (add-hook! 'js2-mode-hook #'setup-tide-mode)
+
+(after! prettier-js
+  (setq-hook! 'js2-mode-hook 'prettier-js-mode))
+
+;; prettier settings
+(setq prettier-js-args '("--trailing-comma" "all"
+                         "--print-width 80"
+                         "--tab-width 2"
+                         "--html-whitespace-sensitivity" "ignore"
+                         "--arrow-parens" "avoid"
+                         ))
+
+(after! vimrc-mode
+  (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
+

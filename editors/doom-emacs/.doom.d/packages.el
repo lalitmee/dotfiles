@@ -48,3 +48,9 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+;; for vim lang support
+(package! vimrc-mode)
+
+;; prettier-js for prettier
+(package! prettier-js)

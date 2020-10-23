@@ -1,0 +1,9 @@
+# /home/lalit/.config/tmuxinator/countdown.yml
+
+name: countdown
+root: ~/Desktop/Github/countdown-timer
+
+windows:
+  - Editor: gst
+  - Server: yst
+  - Extra: quote
