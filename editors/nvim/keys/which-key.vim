@@ -11,7 +11,7 @@ let g:which_key_sep = '→'
 " set timeoutlen=100
 
 " Coc Search & refactor
-nnoremap <leader>/ :CocSearch <C-R>=expand('<cword>')<CR><CR>
+nnoremap <leader>/ :CocSearch <C-R>=expand("<cword>")<CR><CR>
 let g:which_key_map['/'] = 'search-word'
 
 nnoremap <leader>* *<c-o>:%s///gn<cr>

@@ -212,7 +212,7 @@ alias zs="source ~/.zshrc"
 alias es="emacs --with-profile spacemacs"
 alias ed="emacs --with-profile default"
 
-alias man="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
+alias manfzf="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
 alias yt="youtube-dl"
@@ -236,9 +236,9 @@ alias o="oni ."
 
 # alias for using nvim instead of vim
 alias v="vim"
+alias nvim="~/nvim.appimage"
 alias n="nvim"
-alias gnvim="~/Goneovim-0.4.8-linux/goneovim"
-alias g="gnvim &"
+alias g="~/Goneovim-0.4.8-linux/goneovim"
 
 # common aliases
 alias rm="rm -i"
