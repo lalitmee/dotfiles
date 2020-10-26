@@ -117,7 +117,6 @@ values."
              :nick "user"
              :password "password")))
      (wakatime :variables
-               wakatime-api-key  "24ffed3b-d336-43be-80ff-2292eaefa867"
                ;; use the actual wakatime path
                wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
 
@@ -255,8 +254,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "CaskaydiaCove Nerd Font"
-                               "Recursive Mono Casual Static"
+                               "CaskaydiaCove Nerd Font"
+                               ;; "Recursive Mono Casual Static"
+                               ;; "Rec Mono SemiCasual"
                                :size 15
                                :weight normal
                                :powerline-scale 1.3)

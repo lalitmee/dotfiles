@@ -51,6 +51,7 @@
 
 ;; for vim lang support
 (package! vimrc-mode)
+(package! wakatime-mode)
 
 ;; prettier-js for prettier
 (package! prettier-js)

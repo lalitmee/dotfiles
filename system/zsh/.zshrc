@@ -152,6 +152,8 @@ export LC_CTYPE=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias ciu="caniuse"
+
 # alias for fzf get the output
 alias f="| fzf"
 alias fk="fkill"
@@ -211,6 +213,10 @@ alias zs="source ~/.zshrc"
 # alias for emacs
 alias es="emacs --with-profile spacemacs"
 alias ed="emacs --with-profile default"
+alias dd="doom doctor"
+alias ds="doom sync"
+alias du="doom upgrade"
+alias dp="doom purge"
 
 alias manfzf="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
@@ -221,12 +227,6 @@ alias wk="wikit"
 alias wb="wikit -b"
 alias hw="how2"
 
-# aliases for web search from terminal
-alias goo="google"
-alias bi="bing"
-alias du="ddg"
-alias d="ddgr"
-
 # alias for sublime command
 alias sb="subl ."
 alias at="atom ."
@@ -235,10 +235,8 @@ alias ci="code-insiders ."
 alias o="oni ."
 
 # alias for using nvim instead of vim
-alias v="vim"
 alias nvim="~/nvim.appimage"
-alias n="nvim"
-alias g="~/Goneovim-0.4.8-linux/goneovim"
+alias g="~/Goneovim-0.4.8.1-linux/goneovim --nvim=/home/lalit/nvim.appimage"
 
 # common aliases
 alias rm="rm -i"
@@ -311,9 +309,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
+export FZF_DEFAULT_COMMAND='ag --ignore node_modules -g ""'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 60% --color=dark --layout=reverse --border --inline-info'
 
 export ANDROID_HOME=/home/lalit/Android/Sdk
 export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
@@ -344,6 +342,8 @@ export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
 export PATH="$HOME/cargo/bin:$PATH"
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # old aliases
 # alias tsk="tmuxinator start katerra"
@@ -401,3 +401,8 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 
 # To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh.
 [[ ! -f ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh
+
+# for s-search from the terminal
+if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
+    . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
+fi
