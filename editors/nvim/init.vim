@@ -65,6 +65,7 @@ source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/window-swap.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
+source $HOME/.config/nvim/plug-config/vim-markdown.vim
 " source $HOME/.config/nvim/plug-config/telescope.vim
 
 " Keys Mappings

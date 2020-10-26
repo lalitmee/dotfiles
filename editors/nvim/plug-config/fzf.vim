@@ -39,11 +39,11 @@ command! -bang -nargs=* GGrep
   \   'git grep --line-number '.shellescape(<q-args>), 0,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
-" The Silver Searcher
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
+" " The Silver Searcher
+" if executable('ag')
+"   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+"   set grepprg=ag\ --nogroup\ --nocolor
+" endif
 
 " ripgrep
 if executable('rg')

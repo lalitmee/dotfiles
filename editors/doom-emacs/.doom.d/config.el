@@ -27,14 +27,15 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
-(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 14))
+;; (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
 ;; (setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 15 :weight 'light))
 ;; (setq doom-font (font-spec :family "Monaco Nerd Font Mono" :size 15))
+;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 17))
 ;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14))
-;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 14))
+(setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 15))
 ;; (setq doom-font (font-spec :family "OverpassMono Nerd Font" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -53,6 +54,8 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
+(global-wakatime-mode)
+(setq wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
 
 ;; modeline settings
 ;; The maximum displayed length of the branch name of version control.
@@ -117,4 +120,3 @@
 
 (after! vimrc-mode
   (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
-
