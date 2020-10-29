@@ -52,7 +52,7 @@
   "python.linting.pylintEnabled": true,
 
   // snippets
-  "snippets.userSnippetsDirectory": "~/.config/nvim/utils/snips",
+  "snippets.userSnippetsDirectory": "~/.config/nvim/utils/snippets",
 
   // emmet
   "emmet.includeLanguages": {
@@ -68,28 +68,5 @@
   "git.enableGutters": false,
 
   // explorer settings
-  "explorer.icon.enableNerdfont": true,
-  "cSpell.userWords": [
-    "Bracey",
-    "Cfind",
-    "Clocate",
-    "Farr",
-    "Gdiffsplit",
-    "Gonvim",
-    "Goyo",
-    "Gstatus",
-    "Lfind",
-    "Llocate",
-    "Magit",
-    "Rnvimr",
-    "Startify",
-    "floaterm",
-    "funcobj",
-    "goneovim",
-    "mygroup",
-    "ncdu",
-    "pyright",
-    "rgnvim",
-    "ytop"
-  ]
+  "explorer.icon.enableNerdfont": true
 }

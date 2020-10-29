@@ -56,19 +56,20 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
 " Colors
-Plug 'joshdick/onedark.vim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'arcticicestudio/nord-vim'
-Plug 'rakr/vim-one'
-Plug 'mhartington/oceanic-next'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'patstockwell/vim-monokai-tasty'
-Plug 'nanotech/jellybeans.vim'
-Plug 'tomasiser/vim-code-dark'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'glepnir/oceanic-material'
+Plug 'gruvbox-community/gruvbox'
+Plug 'joshdick/onedark.vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'mhartington/oceanic-next'
+Plug 'nanotech/jellybeans.vim'
+Plug 'rakr/vim-one'
 Plug 'sainnhe/gruvbox-material'
+Plug 'tomasiser/vim-code-dark'
+Plug 'ayu-theme/ayu-vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -228,6 +229,17 @@ Plug 'ThePrimeagen/vim-be-good'
 
 " syntax highlighting
 " Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+
+" formatter in lua
+Plug 'mhartington/formatter.nvim'
+
+" wakatime for vim
+Plug 'wakatime/vim-wakatime'
+
+" easytags
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
 
 
 call plug#end()
