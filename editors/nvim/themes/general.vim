@@ -1,0 +1,2 @@
+" colorscheme dracula
+colorscheme PaperColor

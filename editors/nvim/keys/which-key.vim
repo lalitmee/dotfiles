@@ -82,6 +82,7 @@ let g:which_key_map.c = {
       \ 'i' : [':CocInfo'                                         , 'info'],
       \ 'r' : [':CocListResume '                                  , 'list-resume'],
       \ 's' : [':CocSearch'                                       , 'search'],
+      \ 'x' : ['<Plug>(coc-convert-snippet)'                      , 'covert-to-snippet'],
       \ }
 
 " c.l is for CocList
@@ -285,7 +286,7 @@ let g:which_key_map.s = {
       \ 'P' : [':FzfTags'                                         , 'project-tags'],
       \ 's' : [':FzfSnippets'                                     , 'snippets'],
       \ 'S' : [':FzfColors'                                       , 'color-schemes'],
-      \ 't' : [':FzfRg'                                           , 'text-Rg'],
+      \ 't' : [':Rg'                                           , 'text-Rg'],
       \ 'T' : [':FzfBTags'                                        , 'buffer-tags'],
       \ 'w' : [':FzfWindows'                                      , 'search-windows'],
       \ 'y' : [':FzfFiletypes'                                    , 'file-types'],
@@ -345,6 +346,7 @@ let g:which_key_map.l = {
 let g:which_key_map.t = {
       \ 'name' : '+terminal'                                      ,
       \ ';' : [':FloatermNew'                                     , 'terminal'],
+      \ 'a' : [':set scrolloff=999'                           , 'scrolloff'],
       \ 'f' : [':FloatermNew fzf'                                 , 'fzf'],
       \ 'g' : [':FloatermNew lazygit'                             , 'git'],
       \ 'd' : [':FloatermNew lazydocker'                          , 'docker'],
@@ -385,25 +387,27 @@ let g:which_key_map.u = {
 let g:which_key_map.w = {
       \ 'name' : '+windows'                                       ,
       \ '2' : ['<C-W>v'                                           , 'layout-double-columns'],
+      \ ';' : ['<C-W>L'                                           , 'move-window-far-right'],
       \ '=' : ['<C-W>='                                           , 'balance-window'],
       \ '?' : [':FzfWindows'                                      , 'fzf-window'],
-      \ 'a' : ['<C-W>H'                                       , 'move-window-far-left'],
+      \ 'a' : ['<C-W>H'                                           , 'move-window-far-left'],
       \ 'd' : ['<C-W>c'                                           , 'delete-window'],
-      \ 'f' : ['<C-W>J'                                       , 'move-window-far-down'],
-      \ 'g' : ['<C-W>K'                                       , 'move-window-far-top'],
       \ 'h' : ['<C-W>h'                                           , 'window-left'],
       \ 'H' : ['<C-W>5<'                                          , 'expand-window-left'],
-      \ 'i' : ['<C-W>L'                                       , 'move-window-far-right'],
+      \ 'i' : ['<C-W>K'                                           , 'move-window-far-top'],
       \ 'j' : ['<C-W>j'                                           , 'window-below'],
       \ 'J' : [':resize +5'                                       , 'expand-window-below'],
       \ 'k' : ['<C-W>k'                                           , 'window-up'],
       \ 'K' : [':resize  5'                                       , 'expand-window-up'],
       \ 'l' : ['<C-W>l'                                           , 'window-right'],
       \ 'L' : ['<C-W>5>'                                          , 'expand-window-right'],
+      \ 'n' : ['<C-W>J'                                           , 'move-window-far-down'],
       \ 's' : ['<C-W>s'                                           , 'split-window-below'],
       \ 'v' : ['<C-W>v'                                           , 'split-window-right'],
-      \ 'w' : ['<C-W><C-r>'                                       , 'rotate-window'],
-      \ 'x' : ['<C-W>x'                                           , 'swap-window-next'],
+      \ 'u' : ['<C-W>x'                                           , 'swap-window-next'],
+      \ 'x' : ['call WindowSwap#EasyWindowSwap()'                 , 'mark-window-for-swap'],
+      \ 'y' : ['call WindowSwap#MarkWindowSwap()'                 , 'mark-window-for-swap'],
+      \ 'z' : ['call WindowSwap#DoWindowSwap()'                   , 'do-window-swap'],
       \ }
 
 " Register which key map

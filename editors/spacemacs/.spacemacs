@@ -72,7 +72,6 @@ values."
      tmux
      twitter
      typescript
-     unimpaired
      version-control
      vimscript
      vimscript
