@@ -33,9 +33,9 @@
 ;; (setq doom-font (font-spec :family "Monaco Nerd Font Mono" :size 15))
 ;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 17))
 ;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
-;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14))
-(setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 15))
+;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 15))
 ;; (setq doom-font (font-spec :family "OverpassMono Nerd Font" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -85,6 +85,13 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; centered cursor mode
+(setq scroll-preserve-screen-position t
+      scroll-conservatively 0
+      maximum-scroll-margin 0.5
+      scroll-margin 99999)
+
+
 ;; tags file too large warning
 (setq large-file-warning-threshold nil)
 
@@ -108,15 +115,16 @@
 (add-hook! 'js2-mode-hook #'setup-tide-mode)
 
 (after! prettier-js
-  (setq-hook! 'js2-mode-hook 'prettier-js-mode))
+  (setq-hook! 'js2-mode-hook 'prettier-js-mode)
+  ;; prettier settings
+  (setq prettier-js-args '("--trailing-comma" "all"
+                           "--print-width" "80"
+                           "--tab-width" "2"
+                           "--html-whitespace-sensitivity" "ignore"
+                           "--arrow-parens" "avoid"
+                           ))
+  )
 
-;; prettier settings
-(setq prettier-js-args '("--trailing-comma" "all"
-                         "--print-width 80"
-                         "--tab-width 2"
-                         "--html-whitespace-sensitivity" "ignore"
-                         "--arrow-parens" "avoid"
-                         ))
 
 (after! vimrc-mode
   (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
