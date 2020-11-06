@@ -70,6 +70,8 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'tomasiser/vim-code-dark'
 Plug 'ayu-theme/ayu-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'tjdevries/colorbuddy.vim'
+Plug 'Th3Whit3Wolf/onebuddy'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -240,6 +242,13 @@ Plug 'wakatime/vim-wakatime'
 " easytags
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
+
+" skim fuzzy finder
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+
+" Maximizer for vim
+Plug 'szw/vim-maximizer'
+Plug 'puremourning/vimspector'
 
 
 call plug#end()

@@ -14,23 +14,24 @@ source $HOME/.config/nvim/general/tmux.vim
 source $HOME/.config/nvim/general/functions.vim
 
 " Colorschemes
-" source $HOME/.config/nvim/themes/gruvbox.vim
-" source $HOME/.config/nvim/themes/gruvbox-material.vim
-" source $HOME/.config/nvim/themes/oceanic-material.vim
-" source $HOME/.config/nvim/themes/palenight.vim
-" source $HOME/.config/nvim/themes/jellybeans.vim
-" source $HOME/.config/nvim/themes/monokai.vim
-source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/ayu.vim
-" source $HOME/.config/nvim/themes/oceanic-next.vim
-" source $HOME/.config/nvim/themes/onedark.vim
-" source $HOME/.config/nvim/themes/vim-code-dark.vim
-" source $HOME/.config/nvim/themes/material.vim
-" source $HOME/.config/nvim/themes/vim-one.vim
-" source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/general.vim
-" source $HOME/.config/nvim/themes/papercolor.vim
+" source $HOME/.config/nvim/themes/gruvbox-material.vim
+source $HOME/.config/nvim/themes/gruvbox.vim
+" source $HOME/.config/nvim/themes/gruvbuddy.vim
+" source $HOME/.config/nvim/themes/jellybeans.vim
+" source $HOME/.config/nvim/themes/material.vim
+" source $HOME/.config/nvim/themes/monokai.vim
+" source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
+" source $HOME/.config/nvim/themes/oceanic-material.vim
+" source $HOME/.config/nvim/themes/oceanic-next.vim
+" source $HOME/.config/nvim/themes/onebuddy.vim
+" source $HOME/.config/nvim/themes/onedark.vim
+" source $HOME/.config/nvim/themes/palenight.vim
+" source $HOME/.config/nvim/themes/papercolor.vim
+" source $HOME/.config/nvim/themes/vim-code-dark.vim
+" source $HOME/.config/nvim/themes/vim-one.vim
 
 " Lua Plugins
 " luafile ~/.config/nvim/lua/plug-colorizer.lua

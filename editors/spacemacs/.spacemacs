@@ -136,7 +136,6 @@ values."
                                       auto-yasnippet
                                       autothemer
                                       babel
-                                      base16-theme
                                       beacon
                                       blacken
                                       cobalt
@@ -154,7 +153,6 @@ values."
                                       magit
                                       mode-icons
                                       multiple-cursors
-                                      nord-theme
                                       ox-reveal
                                       prettier-js
                                       rjsx-mode
@@ -253,9 +251,9 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               "CaskaydiaCove Nerd Font"
-                               ;; "Recursive Mono Casual Static"
-                               ;; "Rec Mono SemiCasual"
+                               ;; "CaskaydiaCove Nerd Font"
+                               "Recursive Mono Casual Static"
+                               ;; "OperatorMono Nerd Font"
                                :size 15
                                :weight normal
                                :powerline-scale 1.3)
@@ -558,7 +556,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-gruvbox)
+  (spacemacs/load-theme 'doom-nord)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
