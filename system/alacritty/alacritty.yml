@@ -79,20 +79,20 @@ window:
 # Font configuration
 font:
   normal:
-    family: CaskaydiaCove Nerd Font
-    style: Regular
+    family: Operator Mono Nerd Font
+    style: Medium
 
   bold:
-    family: CaskaydiaCove Nerd Font
+    family: OperatorMono Nerd Font
     style: Bold
 
   italic:
-    family: CaskaydiaCove Nerd Font
-    style: Italic
+    family: OperatorMono Nerd Font
+    style: Medium Italic
 
   bold_italic:
-    family: CaskaydiaCove Nerd Font
-    style: Bold Italic
+    family: OperatorMono Nerd Font
+    style: Italic
 
   size: 10.5
   # Offset is the extra space around each character. `offset.y` can be thought of

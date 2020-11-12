@@ -72,6 +72,9 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'Th3Whit3Wolf/onebuddy'
+Plug 'lifepillar/vim-gruvbox8'
+" nvcode colors schemes
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -174,7 +177,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 
 " Better tabline
-Plug 'mg979/vim-xtabline'
+" Plug 'mg979/vim-xtabline'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
 " undo time travel
 Plug 'mbbill/undotree'
@@ -229,9 +234,9 @@ Plug 'ThePrimeagen/vim-be-good'
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-lua/telescope.nvim'
 
-" syntax highlighting
-" Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
 
 " formatter in lua
 Plug 'mhartington/formatter.nvim'
@@ -249,6 +254,9 @@ Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 " Maximizer for vim
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
+
+" Useful for React Commenting
+Plug 'suy/vim-context-commentstring'
 
 
 call plug#end()
