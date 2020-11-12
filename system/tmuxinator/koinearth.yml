@@ -4,6 +4,7 @@ name: koinearth
 root: ~/Desktop/koinearth
 
 windows:
+  - marketsn-api-service: cd marketsn-api-service
   - marketsn-webapp-service-nextjs: cd marketsn-webapp-service-nextjs
   - wf-webapp-service: cd wf-webapp-service
   - marketsn-pwa-service: cd marketsn-pwa-service

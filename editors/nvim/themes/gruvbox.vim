@@ -15,3 +15,4 @@ let g:gruvbox_hls_cursor="purple"
 let g:gruvbox_hls_highlight="faded_yellow"
 
 colorscheme gruvbox
+" colorscheme gruvbox8_hard

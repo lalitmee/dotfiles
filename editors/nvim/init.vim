@@ -34,14 +34,10 @@ source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/vim-one.vim
 
 " Lua Plugins
-" luafile ~/.config/nvim/lua/plug-colorizer.lua
-" lua require'plug-colorizer'
-" luafile $HOME/.config/nvim/lua/telescope/mappings.lua
-" lua require'telescope'
-" la require('plugins')
-" luafile $HOME/.config/nvim/lua/nvim-treesitter.lua
-" lua require'nvim-treesitter'
-luafile $HOME/.config/nvim/lua/formatter.lua
+luafile ~/.config/nvim/lua/plug-colorizer.lua
+" luafile $HOME/.config/nvim/lua/formatter.lua
+" luafile $HOME/.config/nvim/lua/nvcodeline.lua
+luafile $HOME/.config/nvim/lua/treesitter.lua
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
