@@ -73,6 +73,10 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'tjdevries/colorbuddy.vim'
 Plug 'Th3Whit3Wolf/onebuddy'
 Plug 'lifepillar/vim-gruvbox8'
+Plug 'patstockwell/vim-monokai-tasty'
+Plug 'crusoexia/vim-monokai'
+Plug 'ErichDonGubler/vim-sublime-monokai'
+Plug 'overcache/NeoSolarized'
 " nvcode colors schemes
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
@@ -235,8 +239,8 @@ Plug 'ThePrimeagen/vim-be-good'
 " Plug 'nvim-lua/telescope.nvim'
 
 " Treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'nvim-treesitter/playground'
 
 " formatter in lua
 Plug 'mhartington/formatter.nvim'

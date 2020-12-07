@@ -17,11 +17,14 @@ source $HOME/.config/nvim/general/functions.vim
 " source $HOME/.config/nvim/themes/ayu.vim
 " source $HOME/.config/nvim/themes/general.vim
 " source $HOME/.config/nvim/themes/gruvbox-material.vim
-source $HOME/.config/nvim/themes/gruvbox.vim
+" source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/jellybeans.vim
 " source $HOME/.config/nvim/themes/material.vim
-" source $HOME/.config/nvim/themes/monokai.vim
+" source $HOME/.config/nvim/themes/vim-monokai.vim
+" source $HOME/.config/nvim/themes/vim-sublime-monokai.vim
+" source $HOME/.config/nvim/themes/neo-solarized.vim
+" source $HOME/.config/nvim/themes/vim-monokai-tasty.vim
 " source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/oceanic-material.vim
@@ -30,14 +33,14 @@ source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/palenight.vim
 " source $HOME/.config/nvim/themes/papercolor.vim
-" source $HOME/.config/nvim/themes/vim-code-dark.vim
+source $HOME/.config/nvim/themes/vim-code-dark.vim
 " source $HOME/.config/nvim/themes/vim-one.vim
 
 " Lua Plugins
 luafile ~/.config/nvim/lua/plug-colorizer.lua
 " luafile $HOME/.config/nvim/lua/formatter.lua
 " luafile $HOME/.config/nvim/lua/nvcodeline.lua
-luafile $HOME/.config/nvim/lua/treesitter.lua
+" luafile $HOME/.config/nvim/lua/treesitter.lua
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim

@@ -35,6 +35,7 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": " ",
+  "diagnostic.refreshOnInsertMode": true,
   // "diagnostic.displayByAle": true,
 
   // codelens TODO what does this get me?

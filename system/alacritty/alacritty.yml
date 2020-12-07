@@ -94,7 +94,24 @@ font:
     family: OperatorMono Nerd Font
     style: Italic
 
-  size: 10.5
+  # font:
+  #   normal:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Regular
+
+  #   bold:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Bold
+
+  #   italic:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Italic
+
+  #   bold_italic:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Bolt Italic
+
+  size: 11
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:

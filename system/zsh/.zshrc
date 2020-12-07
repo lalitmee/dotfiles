@@ -236,7 +236,7 @@ alias o="oni ."
 
 # alias for using nvim instead of vim
 alias nvim="~/nvim.appimage"
-alias g="~/Goneovim-0.4.8.1-linux/goneovim --nvim=/home/lalit/nvim.appimage"
+alias g="~/Goneovim-0.4.9-linux/goneovim --nvim=/home/lalit/nvim.appimage"
 
 # common aliases
 alias rm="rm -i"
