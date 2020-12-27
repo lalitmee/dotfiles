@@ -82,6 +82,9 @@ Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/diagnostic-nvim'
 
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'

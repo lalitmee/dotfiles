@@ -16,7 +16,7 @@ source $HOME/.config/nvim/general/functions.vim
 " Colorschemes
 " source $HOME/.config/nvim/themes/ayu.vim
 " source $HOME/.config/nvim/themes/general.vim
-" source $HOME/.config/nvim/themes/gruvbox-material.vim
+source $HOME/.config/nvim/themes/gruvbox-material.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/jellybeans.vim
@@ -33,7 +33,7 @@ source $HOME/.config/nvim/general/functions.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/palenight.vim
 " source $HOME/.config/nvim/themes/papercolor.vim
-source $HOME/.config/nvim/themes/vim-code-dark.vim
+" source $HOME/.config/nvim/themes/vim-code-dark.vim
 " source $HOME/.config/nvim/themes/vim-one.vim
 
 " Lua Plugins
@@ -41,6 +41,7 @@ luafile ~/.config/nvim/lua/plug-colorizer.lua
 " luafile $HOME/.config/nvim/lua/formatter.lua
 " luafile $HOME/.config/nvim/lua/nvcodeline.lua
 " luafile $HOME/.config/nvim/lua/treesitter.lua
+" luafile $HOME/.config/nvim/lua/my_lspconfig.lua
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
@@ -58,7 +59,7 @@ source $HOME/.config/nvim/plug-config/ranger.vim
 source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
-source $HOME/.config/nvim/plug-config/coc.vim
+" source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
@@ -73,6 +74,7 @@ source $HOME/.config/nvim/plug-config/fzf-preview.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/formatter.vim
+" source $HOME/.config/nvim/plug-config/lsp.vim
 " source $HOME/.config/nvim/plug-config/telescope.vim
 
 " Keys Mappings
