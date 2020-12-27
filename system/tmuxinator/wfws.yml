@@ -4,7 +4,7 @@ name: wfws
 root: ~/Desktop/koinearth/wf-webapp-service
 
 windows:
-  - Editor: nvim
+  - Editor: ls
   - Git: gst
   - Cmus: cmus
   - Servers:
