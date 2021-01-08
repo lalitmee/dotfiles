@@ -41,6 +41,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " for handling swap files
 Plug 'gioele/vim-autoswap'
@@ -237,11 +238,11 @@ Plug 'ThePrimeagen/vim-be-good'
 
 " Lua Plugins
 " telescope fuzzy finder
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-lua/telescope.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
-" Treesitter
+" " Treesitter
 " Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'nvim-treesitter/playground'
 
