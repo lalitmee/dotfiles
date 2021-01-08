@@ -252,7 +252,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                "CaskaydiaCove Nerd Font"
-                               ;; "Recursive Mono Casual Static"
+                               ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                :size 15
                                :weight normal
@@ -556,7 +556,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-gruvbox)
+  (spacemacs/load-theme 'doom-nord)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)

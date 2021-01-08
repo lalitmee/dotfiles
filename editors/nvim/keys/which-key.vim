@@ -108,7 +108,7 @@ let g:which_key_map.e = {
       \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'              , 'prev-error'],
       \ }
 
- " f is for fzf-preview
+" f is for fzf-preview
 let g:which_key_map.f = {
       \ 'name' : '+fzf-preview'                                 ,
       \ ';' : [':FzfPreviewFromResources'                       , 'files-from-resource'],
@@ -147,6 +147,18 @@ let g:which_key_map.f = {
       \ 'W' : [':FzfPreviewMrwFiles'                            , 'fzf-mrw-files'],
       \ }
       " \ 's' : [':FzfPreviewProjectGrep '                      , 'project-grep'],
+
+
+ " " f is for fzf-preview
+" let g:which_key_map.f = {
+ "      \ 'name' : '+telescope'                                 ,
+ "      \ 'f' : ["lua require'telescope.builtin'.find_files"                       , 'find-files'],
+ "      \ 'F' : ['lua require"telescope.builtin".git_files'                       , 'find-git-files'],
+ "      \ 's' : [':w'                                             , 'save-buffer'],
+ "      \ 'S' : [':wa'                                            , 'save-all-buffers'],
+ "      \ 'g' : ['lua require"telescope.builtin".grep_string'                       , 'search-under-cursor'],
+ "      \ 'G' : ['lua require"telescope.builtin".live_grep'                       , 'search-in-current-directory-files'],
+ "      \ }
 
 " " f is for find and replace
 " let g:which_key_map.f = {
