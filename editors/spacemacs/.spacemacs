@@ -251,10 +251,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               "CaskaydiaCove Nerd Font"
-                               ;; "Ubuntu Mono Nerd Font"
+                               ;; "CaskaydiaCove Nerd Font"
+                               "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               :size 15
+                               :size 17
                                :weight normal
                                :powerline-scale 1.3)
    ;; The leader key
@@ -556,7 +556,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-nord)
+  (spacemacs/load-theme 'doom-dark+)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
