@@ -556,7 +556,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-dark+)
+  (spacemacs/load-theme 'doom-gruvbox)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)

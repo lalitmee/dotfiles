@@ -99,9 +99,10 @@ endif
 
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-			\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-			\,sm:block-blinkwait175-blinkoff150-blinkon175
+" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+" 			\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+" 			\,sm:block-blinkwait175-blinkoff150-blinkon175
+set guicursor=
 
 " command for making ctags in a project
 command! MakeTags !ctags -R .
@@ -132,9 +133,9 @@ endif
 " highlight NonText guibg=none guifg=lightgrey
 " highlight Whitespace guibg=none guifg=lightgrey
 
-set guifont=CaskaydiaCove\ Nerd\ Font:h11
+" set guifont=CaskaydiaCove\ Nerd\ Font:h11
 " set guifont=Operator\ Mono\ Lig\ Book:h11
-" set guifont=Fantasque\ Sans\ Mono\ Nerd\ Font:h12
+set guifont=Ubuntu\ Mono\ Nerd\ Font:h13
 " set guifont=mononoki\ Nerd\ Font\ Mono:h12
 
 " Open help in vertical split {{{
