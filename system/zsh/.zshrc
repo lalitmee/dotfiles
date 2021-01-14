@@ -235,8 +235,8 @@ alias ci="code-insiders ."
 alias o="oni ."
 
 # alias for using nvim instead of vim
-alias nvim="~/nvim.appimage"
-alias g="~/Goneovim-0.4.9-linux/goneovim --nvim=/home/lalit/nvim.appimage"
+# alias nvim="~/nvim.appimage"
+alias g="~/Goneovim-0.4.9-linux/goneovim --nvim=/home/linuxbrew/.linuxbrew/bin/nvim"
 
 # common aliases
 alias rm="rm -i"
@@ -406,3 +406,9 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
     . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
 fi
+
+
+export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"
+export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
+
+export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"

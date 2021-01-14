@@ -1,3 +1,13 @@
+let $NVIM_CONFIG_DIR = expand('$HOME/.config/nvim')
+
+" if has('nvim-0.5')
+"     " nightly config
+"     source $NVIM_CONFIG_DIR/init.vim
+" else
+"     " stable config
+"     source $NVIM_CONFIG_DIR/init.vim
+" end
+
 " Plugins
 source $HOME/.config/nvim/vim-plug/plugins.vim
 
@@ -81,3 +91,4 @@ source $HOME/.config/nvim/plug-config/formatter.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/keys/windows.vim
+
