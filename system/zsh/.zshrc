@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/lalit/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -260,7 +260,7 @@ alias to="task"
 alias lc='colorls -lA --sd'
 
 # alias for running tmux with screen-256color
-alias tmux="env TERM=alacritty tmux -2"
+# alias tmux="env TERM=alacritty tmux -2"
 
 # tmuxinator completion file
 # source ~/tmuxinator.bash
@@ -334,7 +334,6 @@ if [ -f ~/.bashhub/bashhub.zsh ]; then
     source ~/.bashhub/bashhub.zsh
 fi
 
-source ~/.aliasme/aliasme.sh
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
@@ -357,9 +356,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # alias tst="tmuxinator start talaria"
 # alias tet="tmuxinator edit talaria"
 
-# forgit
-source ~/Desktop/Github/forgit/forgit.plugin.zsh
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/lalit/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -381,7 +377,7 @@ source <(navi widget zsh)
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 
-eval "$(lua /home/lalit/z.lua/z.lua --init zsh)"
+eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
 
 # export TERM="xterm-256color"
 # if [ "$ISLINUX" '==' 'true' ]; then
@@ -407,8 +403,12 @@ if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
     . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
 fi
 
-
 export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"
 export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
 
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
