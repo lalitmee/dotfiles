@@ -443,7 +443,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (beacon-mode 1)
-  (mode-icons-mode)
+  (mode-icons-mode 1)
 
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
