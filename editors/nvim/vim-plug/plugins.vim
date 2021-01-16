@@ -22,6 +22,7 @@ Plug 'mhinz/vim-startify'
 
 " Moving in vim inside Tmux
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-runner'
 
 " Instant markdown preview from vim
 Plug 'suan/vim-instant-markdown'
