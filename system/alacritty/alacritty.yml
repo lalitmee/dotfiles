@@ -113,20 +113,38 @@ window:
 
 # font:
 #   normal:
-#     family: Ubuntu Mono Nerd Font
+#     family: mononoki Nerd Font Mono
 #     style: Regular
 
 #   bold:
-#     family: Ubuntu Mono Nerd Font
+#     family: mononoki Nerd Font Mono
 #     style: Bold
 
 #   italic:
-#     family: Ubuntu Mono Nerd Font
+#     family: mononoki Nerd Font Mono
 #     style: Italic
 
 #   bold_italic:
-#     family: Ubuntu Mono Nerd Font
+#     family: mononoki Nerd Font Mono
 #     style: Bolt Italic
+
+# font:
+#   normal:
+#     family: Hack Nerd Font
+#     style: Regular
+
+#   bold:
+#     family: Hack Nerd Font
+#     style: Bold
+
+#   italic:
+#     family: Hack Nerd Font
+#     style: Italic
+
+#   bold_italic:
+#     family: Hack Nerd Font
+#     style: Bolt Italic
+
 
 font:
   normal:
@@ -145,7 +163,7 @@ font:
     family: Ubuntu Mono Nerd Font
     style: Bolt Italic
 
-  size: 13
+  size: 12
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
