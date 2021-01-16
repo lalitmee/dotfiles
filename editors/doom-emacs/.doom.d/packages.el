@@ -55,3 +55,4 @@
 
 ;; prettier-js for prettier
 (package! prettier-js)
+(package! solaire-mode)

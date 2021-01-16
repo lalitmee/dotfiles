@@ -31,9 +31,9 @@
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
 ;; (setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 15 :weight 'light))
 ;; (setq doom-font (font-spec :family "CodeNewRoman Nerd Font" :size 16))
-(setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 17))
+;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 17))
 ;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
-;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 15))
 ;; (setq doom-font (font-spec :family "OverpassMono Nerd Font" :size 15))
@@ -41,7 +41,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dark+)
+(setq doom-theme 'doom-vibrant)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -128,3 +128,7 @@
 
 (after! vimrc-mode
   (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
+
+;; A simple config:
+(after! solaire-mode
+  (setq-hook! . 'solaire-global-mode))
