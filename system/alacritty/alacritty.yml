@@ -94,76 +94,75 @@ window:
 #     family: OperatorMono Nerd Font
 #     style: Italic
 
-# font:
-#   normal:
-#     family: CaskaydiaCove Nerd Font Mono
-#     style: Regular
-
-#   bold:
-#     family: CaskaydiaCove Nerd Font Mono
-#     style: Bold
-
-#   italic:
-#     family: CaskaydiaCove Nerd Font Mono
-#     style: Italic
-
-#   bold_italic:
-#     family: CaskaydiaCove Nerd Font Mono
-#     style: Bolt Italic
-
-# font:
-#   normal:
-#     family: mononoki Nerd Font Mono
-#     style: Regular
-
-#   bold:
-#     family: mononoki Nerd Font Mono
-#     style: Bold
-
-#   italic:
-#     family: mononoki Nerd Font Mono
-#     style: Italic
-
-#   bold_italic:
-#     family: mononoki Nerd Font Mono
-#     style: Bolt Italic
-
 font:
   normal:
-    family: SauceCodePro Nerd Font
+    family: CaskaydiaCove Nerd Font Mono
     style: Regular
 
   bold:
-    family: SauceCodePro Nerd Font
+    family: CaskaydiaCove Nerd Font Mono
     style: Bold
 
   italic:
-    family: SauceCodePro Nerd Font
+    family: CaskaydiaCove Nerd Font Mono
     style: Italic
 
   bold_italic:
-    family: SauceCodePro Nerd Font
+    family: CaskaydiaCove Nerd Font Mono
     style: Bolt Italic
 
+  # font:
+  #   normal:
+  #     family: mononoki Nerd Font Mono
+  #     style: Regular
 
-# font:
-#   normal:
-#     family: Ubuntu Mono Nerd Font
-#     style: Regular
+  #   bold:
+  #     family: mononoki Nerd Font Mono
+  #     style: Bold
 
-#   bold:
-#     family: Ubuntu Mono Nerd Font
-#     style: Bold
+  #   italic:
+  #     family: mononoki Nerd Font Mono
+  #     style: Italic
 
-#   italic:
-#     family: Ubuntu Mono Nerd Font
-#     style: Italic
+  #   bold_italic:
+  #     family: mononoki Nerd Font Mono
+  #     style: Bolt Italic
 
-#   bold_italic:
-#     family: Ubuntu Mono Nerd Font
-#     style: Bolt Italic
+  # font:
+  #   normal:
+  #     family: SauceCodePro Nerd Font
+  #     style: Regular
 
-  size: 11
+  #   bold:
+  #     family: SauceCodePro Nerd Font
+  #     style: Bold
+
+  #   italic:
+  #     family: SauceCodePro Nerd Font
+  #     style: Italic
+
+  #   bold_italic:
+  #     family: SauceCodePro Nerd Font
+  #     style: Bolt Italic
+
+  # font:
+  #   normal:
+  #     family: Ubuntu Mono Nerd Font
+  #     style: Regular
+
+  #   bold:
+  #     family: Ubuntu Mono Nerd Font
+  #     style: Bold
+
+  #   italic:
+  #     family: Ubuntu Mono Nerd Font
+  #     style: Italic
+
+  #   bold_italic:
+  #     family: Ubuntu Mono Nerd Font
+  #     style: Bolt Italic
+
+  size: 10
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
