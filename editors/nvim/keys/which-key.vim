@@ -152,12 +152,12 @@ let g:which_key_map.f = {
  " " f is for fzf-preview
 " let g:which_key_map.f = {
  "      \ 'name' : '+telescope'                                 ,
- "      \ 'f' : ["lua require'telescope.builtin'.find_files"                       , 'find-files'],
- "      \ 'F' : ['lua require"telescope.builtin".git_files'                       , 'find-git-files'],
- "      \ 's' : [':w'                                             , 'save-buffer'],
- "      \ 'S' : [':wa'                                            , 'save-all-buffers'],
- "      \ 'g' : ['lua require"telescope.builtin".grep_string'                       , 'search-under-cursor'],
- "      \ 'G' : ['lua require"telescope.builtin".live_grep'                       , 'search-in-current-directory-files'],
+ "      \ 'f' : ["lua require'telescope.builtin'.find_files"    , 'find-files'],
+ "      \ 'F' : ['lua require"telescope.builtin".git_files'     , 'find-git-files'],
+ "      \ 's' : [':w'                                           , 'save-buffer'],
+ "      \ 'S' : [':wa'                                          , 'save-all-buffers'],
+ "      \ 'g' : ['lua require"telescope.builtin".grep_string'   , 'search-under-cursor'],
+ "      \ 'G' : ['lua require"telescope.builtin".live_grep'     , 'search-in-current-directory-files'],
  "      \ }
 
 " " f is for find and replace
@@ -356,15 +356,17 @@ let g:which_key_map.t = {
       \ 'name' : '+terminal'                                    ,
       \ ';' : [':FloatermNew'                                   , 'terminal'],
       \ 'a' : [':set scrolloff=999'                             , 'scrolloff'],
+      \ 'd' : [':FloatermNew lazydocker'                        , 'docker'],
       \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
       \ 'g' : [':FloatermNew lazygit'                           , 'git'],
-      \ 'd' : [':FloatermNew lazydocker'                        , 'docker'],
+      \ 'h' : [':sp | te'                                       , 'horizontal-split-terminal'],
       \ 'n' : [':FloatermNew node'                              , 'node'],
       \ 'p' : [':FloatermNew python'                            , 'python'],
       \ 'r' : [':FloatermNew ranger'                            , 'ranger'],
-      \ 't' : [':FloatermToggle'                                , 'toggle'],
-      \ 'y' : [':FloatermNew btm'                               , 'ytop'],
       \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
+      \ 't' : [':FloatermToggle'                                , 'toggle'],
+      \ 'v' : [':vs | te'                                       , 'vertical-split-terminal'],
+      \ 'y' : [':FloatermNew btm'                               , 'ytop'],
       \ }
 
 " T is for tabline

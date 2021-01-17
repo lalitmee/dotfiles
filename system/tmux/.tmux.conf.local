@@ -403,6 +403,8 @@ tmux_conf_update_plugins_on_reload=true
 # "$@"
 # # /!\ do not remove the previous line
 
+set -g default-terminal "xterm-256color"
+
 is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
 bind -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
 bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
@@ -447,3 +449,40 @@ bind-key s display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 
 bind-key C-b send-keys 'tat && exit' 'C-m'
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# tmux gruvbox theme
+set -g @plugin 'egel/tmux-gruvbox'
+set -g @tmux-gruvbox 'dark' # or 'light'
+
+# tmux nord theme
+set -g @plugin "arcticicestudio/nord-tmux"
+
+# better mouse support in tmux
+set -g @plugin 'nhdaly/tmux-better-mouse-mode'
+
+# spotify from tmux
+set -g @plugin 'xamut/tmux-spotify'
+
+# tmux open for opening anything
+set -g @plugin 'tmux-plugins/tmux-open'
+
+# tmux thumbs for copy and paste
+set -g @plugin 'fcsonline/tmux-thumbs'
+
+# tmux search content
+set -g @plugin 'tmux-plugins/tmux-copycat'
+
+# notify when any process in tmux finishes
+set -g @plugin 'ChanderG/tmux-notify'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

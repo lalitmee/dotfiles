@@ -15,6 +15,7 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
+tnoremap <silent> <C-[><C-[> <C-\><C-n>
 " nmap <leader>th <C-w>s<C-w>j:terminal<CR>
 " nmap <leader>tv <C-w>v<C-w>l:terminal<CR>
 
@@ -84,3 +85,19 @@ nnoremap Q @='n.'<CR>
 
 " Close Fzf window on ESC
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+
+" Neovim Terminal Settings
+" Got it from here: https://www.reddit.com/r/neovim/comments/cger8p/how_quickly_close_a_terminal_buffer/eupal7q?utm_source=share&utm_medium=web2x&context=3
+augroup terminal_settings
+  autocmd!
+
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  " Ignore various filetypes as those will close terminal automatically
+  " Ignore fzf, ranger, coc
+  autocmd TermClose term://*
+        \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+        \   call nvim_input('<CR>')  |
+        \ endif
+augroup END

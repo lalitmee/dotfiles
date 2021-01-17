@@ -379,7 +379,7 @@ eval "$(thefuck --alias)"
 
 eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
 
-# export TERM="xterm-256color"
+export TERM="xterm-256color"
 # if [ "$ISLINUX" '==' 'true' ]; then
   # { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
     # tic -x -
