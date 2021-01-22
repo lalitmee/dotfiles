@@ -4,6 +4,7 @@ let g:coc_global_extensions = [
     \ 'coc-cssmodules',
     \ 'coc-emmet',
     \ 'coc-emoji',
+    \ 'coc-eslint',
     \ 'coc-explorer',
     \ 'coc-floaterm',
     \ 'coc-html',

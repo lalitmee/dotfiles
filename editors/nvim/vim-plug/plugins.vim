@@ -267,5 +267,8 @@ Plug 'puremourning/vimspector'
 " Useful for React Commenting
 Plug 'suy/vim-context-commentstring'
 
+" lisp in vim
+Plug 'vlime/vlime'
+
 
 call plug#end()

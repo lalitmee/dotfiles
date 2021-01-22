@@ -69,7 +69,7 @@ source $HOME/.config/nvim/plug-config/ranger.vim
 source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
-" source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
