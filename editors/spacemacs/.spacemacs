@@ -151,12 +151,10 @@ values."
                                       indium
                                       iy-go-to-char
                                       magit
-                                      mode-icons
                                       multiple-cursors
                                       ox-reveal
                                       prettier-js
                                       rjsx-mode
-                                      sublimity
                                       swiper
                                       try
                                       yasnippet-snippets
@@ -251,10 +249,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "CaskaydiaCove Nerd Font"
-                               "Ubuntu Mono Nerd Font"
+                               "CaskaydiaCove Nerd Font"
+                               ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               :size 17
+                               :size 13
                                :weight normal
                                :powerline-scale 1.3)
    ;; The leader key
@@ -443,7 +441,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (beacon-mode 1)
-  (mode-icons-mode 1)
 
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
@@ -509,9 +506,6 @@ you should place your code here."
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-  ;; sublimity settings
-  (sublimity-mode 1)
 
   ;; autocomplete mode is enabled globally
   (global-company-mode)

@@ -268,7 +268,9 @@ alias lc='colorls -lA --sd'
 
 # nvim path for oni
 # export ONI_NEOVIM_PATH='/home/lalit/app_images/nvim.appimage'
-export ONI_NEOVIM_PATH='/usr/bin/nvim'
+
+# path for neovim logs
+export NVIM_LOG_FILE_PATH="$HOME/.logs/nvim"
 
 # path for ruby manager
 export PATH="$HOME/.rbenv/bin:$PATH"

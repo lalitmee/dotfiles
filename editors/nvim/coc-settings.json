@@ -1,4 +1,5 @@
 {
+  "javascript.suggestionActions.enabled": false,
   "python.jediEnabled": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
@@ -18,9 +19,7 @@
     "yaml",
     "vim"
   ],
-  "eslint.enable": true,
   "eslint.autoFixOnSave": false,
-  "eslint.filetypes": ["javascript", "typescript", "javascriptreact"],
   // suggestions
   // "suggest.echodocSupport": true,
   // TODO add more labels and give them cool glyphs
@@ -64,9 +63,6 @@
   "prettier.singleQuote": true,
   "prettier.arrowParens": "avoid",
   "prettier.trailingComma": "all",
-
-  // Git Settings
-  "git.enableGutters": false,
 
   // explorer settings
   "explorer.icon.enableNerdfont": true
