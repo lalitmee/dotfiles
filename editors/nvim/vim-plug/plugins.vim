@@ -36,9 +36,12 @@ Plug 'haya14busa/incsearch.vim'
 " SilverSearcher
 Plug 'mileszs/ack.vim'
 
-" Airline for vim
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" lightline for vim
+Plug 'itchyny/lightline.vim'
+
+" " Airline for vim
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -79,6 +82,7 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'crusoexia/vim-monokai'
 Plug 'ErichDonGubler/vim-sublime-monokai'
 Plug 'overcache/NeoSolarized'
+Plug 'sainnhe/sonokai'
 " nvcode colors schemes
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
