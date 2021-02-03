@@ -40,7 +40,9 @@ source $HOME/.config/nvim/general/functions.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/palenight.vim
 " source $HOME/.config/nvim/themes/papercolor.vim
-source $HOME/.config/nvim/themes/sonokai.vim
+" source $HOME/.config/nvim/themes/sonokai.vim
+" source $HOME/.config/nvim/themes/minimalist.vim
+source $HOME/.config/nvim/themes/quantum.vim
 " source $HOME/.config/nvim/themes/vim-code-dark.vim
 " source $HOME/.config/nvim/themes/vim-monokai-tasty.vim
 " source $HOME/.config/nvim/themes/vim-monokai.vim
@@ -51,7 +53,7 @@ source $HOME/.config/nvim/themes/sonokai.vim
 luafile ~/.config/nvim/lua/plug-colorizer.lua
 " luafile $HOME/.config/nvim/lua/formatter.lua
 " luafile $HOME/.config/nvim/lua/nvcodeline.lua
-" luafile $HOME/.config/nvim/lua/treesitter.lua
+luafile $HOME/.config/nvim/lua/treesitter.lua
 " luafile $HOME/.config/nvim/lua/my_lspconfig.lua
 
 " Status Lines

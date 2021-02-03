@@ -423,5 +423,11 @@ let g:which_key_map.w = {
       \ 'z' : ['call WindowSwap#DoWindowSwap()'                 , 'do-window-swap'],
       \ }
 
+" q is for quit
+let g:which_key_map.q = {
+      \ 'name' : '+quit-vim'                                    ,
+      \ 'q' : [':qall'                                          , 'quit-vim'],
+      \ }
+
 " Register which key map
 call which_key#register('<Space>', "g:which_key_map")
