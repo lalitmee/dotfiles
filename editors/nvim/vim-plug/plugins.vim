@@ -36,12 +36,12 @@ Plug 'haya14busa/incsearch.vim'
 " SilverSearcher
 Plug 'mileszs/ack.vim'
 
-" lightline for vim
-Plug 'itchyny/lightline.vim'
+" " lightline for vim
+" Plug 'itchyny/lightline.vim'
 
-" " Airline for vim
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+" Airline for vim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -83,6 +83,8 @@ Plug 'crusoexia/vim-monokai'
 Plug 'ErichDonGubler/vim-sublime-monokai'
 Plug 'overcache/NeoSolarized'
 Plug 'sainnhe/sonokai'
+Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'dikiaap/minimalist'
 " nvcode colors schemes
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
@@ -247,9 +249,9 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-" " Treesitter
-" Plug 'nvim-treesitter/nvim-treesitter'
-" Plug 'nvim-treesitter/playground'
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/playground'
 
 " formatter in lua
 Plug 'mhartington/formatter.nvim'
