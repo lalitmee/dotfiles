@@ -62,29 +62,13 @@ Plug 'rbgrouleff/bclose.vim'
 
 " Colors
 Plug 'arcticicestudio/nord-vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'drewtempelmeyer/palenight.vim'
 Plug 'glepnir/oceanic-material'
 Plug 'gruvbox-community/gruvbox'
-Plug 'joshdick/onedark.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'mhartington/oceanic-next'
-Plug 'nanotech/jellybeans.vim'
-Plug 'rakr/vim-one'
 Plug 'sainnhe/gruvbox-material'
 Plug 'tomasiser/vim-code-dark'
-Plug 'ayu-theme/ayu-vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'Th3Whit3Wolf/onebuddy'
 Plug 'lifepillar/vim-gruvbox8'
-Plug 'patstockwell/vim-monokai-tasty'
-Plug 'crusoexia/vim-monokai'
-Plug 'ErichDonGubler/vim-sublime-monokai'
-Plug 'overcache/NeoSolarized'
 Plug 'sainnhe/sonokai'
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'dikiaap/minimalist'
 " nvcode colors schemes
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 

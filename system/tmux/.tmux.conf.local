@@ -459,6 +459,9 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 # set -g @plugin 'git@github.com:user/plugin'
 # set -g @plugin 'git@bitbucket.com:user/plugin'
 
+# nord theme for tmux
+set -g @plugin "arcticicestudio/nord-tmux"
+
 # better mouse support in tmux
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 
