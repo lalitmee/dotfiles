@@ -9,17 +9,17 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 13,
+    fontSize: 11,
 
     // font family with optional fallbacks
     fontFamily:
-      'Operator Mono Lig Book, CodeNewRoman Nerd Font, Mononoki Nerd Font, CaskaydiaCove Nerd Font, "Source Code Pro", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'CaskaydiaCove Nerd Font, Operator Mono Lig Book, CodeNewRoman Nerd Font, Mononoki Nerd Font, "Source Code Pro", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: 'bold',
+    fontWeight: 'normal',
 
     // font weight for bold characters: 'normal' or 'bold'
-    fontWeightBold: 'bold',
+    fontWeightBold: 'normal',
 
     // line height as a relative unit
     lineHeight: 1,

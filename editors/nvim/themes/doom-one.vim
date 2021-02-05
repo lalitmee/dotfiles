@@ -1,1 +1,0 @@
-colorscheme doom-one
