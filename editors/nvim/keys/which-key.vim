@@ -112,10 +112,12 @@ let g:which_key_map.e = {
 " f is for telescope
 let g:which_key_map.f = {
       \ 'name' : '+telescope/files'                            ,
+      \ 'a' : [':Telescope spell_suggest'                      , 'spelling-suggestions'],
       \ 'L' : [':Telescope live_grep'                          , 'search-current-directory'],
+      \ 's' : [':w'                                            , 'save-buffer'],
+      \ 'S' : [':wa'                                           , 'save-all-buffers'],
       \ 'u' : [':Telescope grep_string'                        , 'search-under-cursor'],
       \ 'w' : [':Telescope loclist'                            , 'items-current-window-location'],
-      \ 'S' : [':Telescope spell_suggest'                      , 'spelling-suggestions'],
       \ }
 
 " ff is for files
@@ -164,7 +166,7 @@ let g:which_key_map.f.p = {
       \ }
 
 " fs is for sorters
-let g:which_key_map.f.s = {
+let g:which_key_map.f.e = {
       \ 'name' : '+sorters'                                    ,
       \ 'a' : [':Telescope sorters.get_fzy_sorter'             , 'fuzzy-algorithm'],
       \ 'f' : [':Telescope sorters.get_fuzzy_file'             , 'sort-fuzzy-file'],
