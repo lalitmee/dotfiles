@@ -25,15 +25,12 @@ source $HOME/.config/nvim/general/functions.vim
 
 " Colorschemes
 " source $HOME/.config/nvim/themes/general.vim
-" source $HOME/.config/nvim/themes/gruvbox-material.vim
-" source $HOME/.config/nvim/themes/gruvbox.vim
-source $HOME/.config/nvim/themes/gruvbox8.vim
-" source $HOME/.config/nvim/themes/gruvbuddy.vim
+source $HOME/.config/nvim/themes/gruvbox-material.vim
 " source $HOME/.config/nvim/themes/material.vim
 " source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/oceanic-material.vim
-" source $HOME/.config/nvim/themes/sonokai.vim
+" source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/vim-code-dark.vim
 
 " Lua Plugins

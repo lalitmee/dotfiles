@@ -62,15 +62,12 @@ Plug 'rbgrouleff/bclose.vim'
 
 " Colors
 Plug 'arcticicestudio/nord-vim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'glepnir/oceanic-material'
 Plug 'gruvbox-community/gruvbox'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'sainnhe/gruvbox-material'
 Plug 'tomasiser/vim-code-dark'
-Plug 'lifepillar/vim-gruvbox8'
-Plug 'sainnhe/sonokai'
-" nvcode colors schemes
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
