@@ -27,10 +27,10 @@ source $HOME/.config/nvim/general/functions.vim
 " source $HOME/.config/nvim/themes/general.vim
 " source $HOME/.config/nvim/themes/gruvbox-material.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
-" source $HOME/.config/nvim/themes/gruvbox8.vim
+source $HOME/.config/nvim/themes/gruvbox8.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/material.vim
-source $HOME/.config/nvim/themes/nord.vim
+" source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/oceanic-material.vim
 " source $HOME/.config/nvim/themes/sonokai.vim
@@ -46,6 +46,10 @@ luafile $HOME/.config/nvim/lua/treesitter.lua
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
 source $HOME/.config/nvim/themes/airline.vim
+
+" Tab Lines
+source $HOME/.config/nvim/plug-config/xtabline.vim
+source $HOME/.config/nvim/plug-config/barbar.vim
 
 " Plugins Configurations
 source $HOME/.config/nvim/plug-config/cyclist.vim
@@ -66,7 +70,6 @@ source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/magit.vim
 source $HOME/.config/nvim/plug-config/far.vim
-source $HOME/.config/nvim/plug-config/xtabline.vim
 source $HOME/.config/nvim/plug-config/git-messenger.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/window-swap.vim
