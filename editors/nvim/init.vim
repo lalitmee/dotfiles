@@ -1,3 +1,8 @@
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
 let $NVIM_CONFIG_DIR = expand('$HOME/.config/nvim')
 
 " if has('nvim-0.5')
@@ -23,30 +28,22 @@ source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/tmux.vim
 source $HOME/.config/nvim/general/functions.vim
 
-" Colorschemes
-" source $HOME/.config/nvim/themes/general.vim
-source $HOME/.config/nvim/themes/gruvbox-material.vim
-" source $HOME/.config/nvim/themes/material.vim
-" source $HOME/.config/nvim/themes/nord.vim
-" source $HOME/.config/nvim/themes/nvcode.vim
-" source $HOME/.config/nvim/themes/oceanic-material.vim
-" source $HOME/.config/nvim/themes/gruvbox.vim
-" source $HOME/.config/nvim/themes/vim-code-dark.vim
 
 " Lua Plugins
-luafile ~/.config/nvim/lua/plug-colorizer.lua
-" luafile $HOME/.config/nvim/lua/formatter.lua
-" luafile $HOME/.config/nvim/lua/nvcodeline.lua
-luafile $HOME/.config/nvim/lua/treesitter.lua
-" luafile $HOME/.config/nvim/lua/my_lspconfig.lua
+luafile $HOME/.config/nvim/lua-config/plug-colorizer.lua
+" luafile $HOME/.config/nvim/lua-config/formatter.lua
+" luafile $HOME/.config/nvim/lua-config/nvcodeline.lua
+luafile $HOME/.config/nvim/lua-config/treesitter.lua
+" luafile $HOME/.config/nvim/lua-config/my_lspconfig.lua
+luafile $HOME/.config/nvim/lua-config/telescope.lua
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
 source $HOME/.config/nvim/themes/airline.vim
+source $HOME/.config/nvim/plug-config/barbar.vim
 
 " Tab Lines
 source $HOME/.config/nvim/plug-config/xtabline.vim
-source $HOME/.config/nvim/plug-config/barbar.vim
 
 " Plugins Configurations
 source $HOME/.config/nvim/plug-config/cyclist.vim
@@ -75,10 +72,18 @@ source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/formatter.vim
 " source $HOME/.config/nvim/plug-config/lsp.vim
-" source $HOME/.config/nvim/plug-config/telescope.vim
 
 " Keys Mappings
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/keys/windows.vim
+
+" Colorschemes
+" source $HOME/.config/nvim/themes/general.vim
+" source $HOME/.config/nvim/themes/material.vim
+" source $HOME/.config/nvim/themes/nord.vim
+" source $HOME/.config/nvim/themes/nvcode.vim
+" source $HOME/.config/nvim/themes/gruvbox.vim
+source $HOME/.config/nvim/themes/gruvbox8.vim
+" source $HOME/.config/nvim/themes/vim-code-dark.vim
 

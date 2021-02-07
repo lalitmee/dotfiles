@@ -45,7 +45,6 @@ Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
 
 " for handling swap files
 Plug 'gioele/vim-autoswap'
@@ -63,17 +62,13 @@ Plug 'rbgrouleff/bclose.vim'
 " Colors
 Plug 'arcticicestudio/nord-vim'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'glepnir/oceanic-material'
 Plug 'gruvbox-community/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'sainnhe/gruvbox-material'
 Plug 'tomasiser/vim-code-dark'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/diagnostic-nvim'
 
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
@@ -128,7 +123,6 @@ Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-rooter'
 
 " Cyclist by Tjdevries
@@ -174,7 +168,6 @@ Plug 'junegunn/goyo.vim'
 
 " Better tabline
 " Plug 'mg979/vim-xtabline'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
 " undo time travel
@@ -224,19 +217,6 @@ Plug 'thaerkh/vim-workspace'
 " vim-be-good
 Plug 'ThePrimeagen/vim-be-good'
 
-" Lua Plugins
-" telescope fuzzy finder
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
-" Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'nvim-treesitter/playground'
-
-" formatter in lua
-Plug 'mhartington/formatter.nvim'
-
 " wakatime for vim
 Plug 'wakatime/vim-wakatime'
 
@@ -257,5 +237,35 @@ Plug 'suy/vim-context-commentstring'
 " lisp in vim
 Plug 'vlime/vlime'
 
+" cheat.sh in vim
+Plug 'dbeniamine/cheat.sh-vim'
+
+" switch between single and multilines
+Plug 'AndrewRadev/splitjoin.vim'
+
+" add docs comments
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+" Lua Plugins
+" telescope fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" LSP
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/diagnostic-nvim'
+
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/playground'
+
+" formatter in lua
+Plug 'mhartington/formatter.nvim'
+
+" file explorer
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
