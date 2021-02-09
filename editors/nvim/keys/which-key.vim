@@ -35,7 +35,6 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 let g:which_key_map[','] = [ 'w'                       , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'             , 'open-init' ]
 let g:which_key_map[';'] = [ ':Telescope commands'     , 'commands' ]
-let g:which_key_map['='] = [ ':<C-W>='                 , 'balance-windows' ]
 let g:which_key_map['r'] = [ ':RnvimrToggle'           , 'ranger' ]
 let g:which_key_map['x'] = [ 'q'                       , 'quit' ]
 let g:which_key_map['z'] = [ 'Goyo'                    , 'zen' ]
@@ -203,7 +202,8 @@ let g:which_key_map.g = {
       \ 'M' : ['<Plug>(git-messenger)'                 , 'git-messenger'],
       \ 'p' : [':Git push'                             , 'push'],
       \ 'P' : [':Git pull'                             , 'pull'],
-      \ 'r' : [':GRemove'                              , 'remove'],
+      \ 'r' : [':Telescope gh pull_request'            , 'list-pull-requests'],
+      \ 'R' : [':GRemove'                              , 'remove'],
       \ 's' : [':Magit'                                , 'status'],
       \ 'S' : ['<Plug>(GitGutterStageHunk)'            , 'stage-hunk'],
       \ 't' : [':GitGutterSignsToggle'                 , 'toggle-signs'],
@@ -393,7 +393,7 @@ let g:which_key_map.w = {
       \ 'name' : '+windows'                            ,
       \ '2' : ['<C-W>v'                                , 'layout-double-columns'],
       \ ';' : ['<C-W>L'                                , 'move-window-far-right'],
-      \ '=' : ['<C-W>='                                , 'balance-window'],
+      \ '=' : ['<C-W>='                                , 'balance-windows'],
       \ '?' : [':FzfWindows'                           , 'fzf-window'],
       \ 'a' : ['<C-W>H'                                , 'move-window-far-left'],
       \ 'd' : ['<C-W>c'                                , 'delete-window'],

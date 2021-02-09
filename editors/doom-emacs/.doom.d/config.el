@@ -27,9 +27,9 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
-(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 13))
+;; (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 13))
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
-;; (setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 15 :weight 'light))
+(setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 14 :weight 'normal))
 ;; (setq doom-font (font-spec :family "CodeNewRoman Nerd Font" :size 16))
 ;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 17))
 ;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))

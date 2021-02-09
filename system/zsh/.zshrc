@@ -214,10 +214,12 @@ alias zs="source ~/.zshrc"
 # alias for emacs
 alias es="emacs --with-profile spacemacs"
 alias ed="emacs --with-profile default"
+alias db="doom build"
+alias dc="doom clean"
 alias dd="doom doctor"
+alias dp="doom purge"
 alias ds="doom sync"
 alias du="doom upgrade"
-alias dp="doom purge"
 
 alias manfzf="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
@@ -237,7 +239,7 @@ alias o="oni ."
 
 # alias for using nvim instead of vim
 # alias nvim="~/nvim.appimage"
-alias g="~/Goneovim-0.4.9-linux/goneovim --nvim=/home/linuxbrew/.linuxbrew/bin/nvim"
+alias g="~/Goneovim-0.4.9-linux/goneovim"
 
 # common aliases
 alias rm="rm -i"

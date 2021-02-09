@@ -77,39 +77,39 @@ window:
     multiplier: 3
 
 # Font configuration
-# font:
-#   normal:
-#     family: Operator Mono Nerd Font
-#     style: Medium
-
-#   bold:
-#     family: OperatorMono Nerd Font
-#     style: Bold
-
-#   italic:
-#     family: OperatorMono Nerd Font
-#     style: Medium Italic
-
-#   bold_italic:
-#     family: OperatorMono Nerd Font
-#     style: Italic
-
 font:
   normal:
-    family: CaskaydiaCove Nerd Font Mono
-    style: Regular
+    family: Operator Mono Nerd Font
+    style: Medium
 
   bold:
-    family: CaskaydiaCove Nerd Font Mono
+    family: OperatorMono Nerd Font
     style: Bold
 
   italic:
-    family: CaskaydiaCove Nerd Font Mono
-    style: Italic
+    family: OperatorMono Nerd Font
+    style: Medium Italic
 
   bold_italic:
-    family: CaskaydiaCove Nerd Font Mono
-    style: Bolt Italic
+    family: OperatorMono Nerd Font
+    style: Italic
+
+  # font:
+  #   normal:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Regular
+
+  #   bold:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Bold
+
+  #   italic:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Italic
+
+  #   bold_italic:
+  #     family: CaskaydiaCove Nerd Font Mono
+  #     style: Bolt Italic
 
   # font:
   #   normal:
