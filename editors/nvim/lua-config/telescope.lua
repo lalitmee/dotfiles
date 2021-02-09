@@ -1,11 +1,13 @@
--- local telescope = require('telescope')
--- local builtin = require('telescope.builtin')
--- local previewers = require('telescope.previewers')
--- local sorters = require('telescope.sorters')
+local sorters = require('telescope.sorters')
 local actions = require('telescope.actions')
+
+require('telescope').load_extension('gh')
 
 require('telescope').setup {
   defaults = {
+    prompt_prefix = "🔍",
+    sorting_strategy = "ascending",
+    prompt_position = "top",
     color_devicons = true,
     mappings = {
       i = {
@@ -19,20 +21,14 @@ require('telescope').setup {
       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
     },
 
-    -- file_sorter = sorters.get_fzy_sorter,
+    file_sorter = sorters.get_fzy_sorter,
 
     file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-    width = 0.5,
-    results_width = 0.5,
   }
 }
 
-require('telescope').setup {
-  defaults = {
-    sorting_strategy = "ascending",
-    prompt_position = "top",
-  }
-}
-
+-- require('telescope.builtin').buffers({
+--   entry_maker = require'rc.telescope.my_make_entry'.gen_from_buffer_like_leaderf(),
+-- })

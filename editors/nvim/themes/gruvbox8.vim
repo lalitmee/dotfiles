@@ -1,1 +1,1 @@
-colorscheme gruvbox8_hard
+colorscheme gruvbox8

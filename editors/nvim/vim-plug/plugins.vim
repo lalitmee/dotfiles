@@ -8,8 +8,6 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" Colorizer for showing the colors
-Plug 'norcalli/nvim-colorizer.lua'
 
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -33,15 +31,13 @@ Plug 'kshenoy/vim-signature'
 " Better search highlighting
 Plug 'haya14busa/incsearch.vim'
 
-" SilverSearcher
-Plug 'mileszs/ack.vim'
 
 " " lightline for vim
 " Plug 'itchyny/lightline.vim'
 
-" Airline for vim
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" " Airline for vim
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -66,6 +62,10 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomasiser/vim-code-dark'
+Plug 'tjdevries/colorbuddy.nvim'
+Plug 'tjdevries/gruvbuddy.nvim'
+Plug 'ajmwagar/vim-deus'
+Plug 'sainnhe/edge'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -194,14 +194,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 " Goneovim Fuzzy search
 Plug 'akiyosi/gonvim-fuzzy'
 
-" for supporting syntax highlighting for color schemes monkai
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'styled-components/vim-styled-components'
-Plug 'elzr/vim-json'
-Plug 'jparise/vim-graphql'
-
 " Viewer & Finder for LSP symbols and tags
 Plug 'liuchengxu/vista.vim'
 
@@ -224,9 +216,6 @@ Plug 'wakatime/vim-wakatime'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 
-" skim fuzzy finder
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-
 " Maximizer for vim
 Plug 'szw/vim-maximizer'
 Plug 'puremourning/vimspector'
@@ -238,19 +227,21 @@ Plug 'suy/vim-context-commentstring'
 Plug 'vlime/vlime'
 
 " cheat.sh in vim
-Plug 'dbeniamine/cheat.sh-vim'
+" Plug 'dbeniamine/cheat.sh-vim'
 
-" switch between single and multilines
-Plug 'AndrewRadev/splitjoin.vim'
+" " switch between single and multilines
+" Plug 'AndrewRadev/splitjoin.vim'
 
-" add docs comments
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+""""""""""""""""""""""""""""""""""""""
+"            Lua Plugins             "
+""""""""""""""""""""""""""""""""""""""
 
-" Lua Plugins
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'nvim-telescope/telescope-symbols.nvim'
 
 " LSP
 " Plug 'neovim/nvim-lspconfig'
@@ -267,5 +258,14 @@ Plug 'mhartington/formatter.nvim'
 " file explorer
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+
+" Colorizer for showing the colors
+Plug 'norcalli/nvim-colorizer.lua'
+
+" express_line from tj
+Plug 'tjdevries/express_line.nvim'
+
+" galaxyline for neovim
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 call plug#end()
