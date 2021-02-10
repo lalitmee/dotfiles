@@ -31,13 +31,12 @@ Plug 'kshenoy/vim-signature'
 " Better search highlighting
 Plug 'haya14busa/incsearch.vim'
 
-
 " " lightline for vim
 " Plug 'itchyny/lightline.vim'
 
-" " Airline for vim
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+" Airline for vim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -56,16 +55,13 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
 " Colors
-Plug 'arcticicestudio/nord-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'gruvbox-community/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-gruvbox8'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'tomasiser/vim-code-dark'
 Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'ajmwagar/vim-deus'
-Plug 'sainnhe/edge'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -115,7 +111,7 @@ Plug 'junegunn/vim-easy-align'
 " Indent Lines made beautiful
 Plug 'Yggdroot/indentLine'
 
-"
+" syntax highlighter for vim
 Plug 'sheerun/vim-polyglot'
 
 " The interactive scratchpad for hackers.
@@ -123,6 +119,7 @@ Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-rooter'
 
 " Cyclist by Tjdevries
@@ -262,8 +259,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
 
-" express_line from tj
-Plug 'tjdevries/express_line.nvim'
+" " express_line from tj
+" Plug 'tjdevries/express_line.nvim'
 
 " " galaxyline for neovim
 " Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
