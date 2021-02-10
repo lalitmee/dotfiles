@@ -265,7 +265,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 " express_line from tj
 Plug 'tjdevries/express_line.nvim'
 
-" galaxyline for neovim
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" " galaxyline for neovim
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 call plug#end()

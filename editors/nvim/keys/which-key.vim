@@ -60,14 +60,22 @@ let g:which_key_map.a = {
 " b is for buffer
 let g:which_key_map.b = {
       \ 'name' : '+buffers'                            ,
-      \ 'b' : [':Telescope buffers'                    , 'search-buffer'],
+      \ 'b' : [':FzfBuffers'                           , 'fzf-buffers'],
+      \ 'B' : [':Telescope buffers'                    , 'telescope-buffers'],
+      \ 'c' : ['vnew'                                  , 'new-empty-buffer-vert'],
       \ 'd' : [':Bdelete'                              , 'delete-buffer'],
       \ 'D' : [':%bd'                                  , 'delete-all-buffers'],
       \ 'f' : ['bfirst'                                , 'first-buffer'],
       \ 'h' : ['Startify'                              , 'home-buffer'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'  , 'search-buffer-lines'],
-      \ 'n' : ['vnew'                                  , 'new-empty-buffer-vert'],
+      \ 'n' : [':BufferNext'                           , 'next-buffer'],
+      \ 'N' : [':BufferMoveNext'                       , 'move-next-buffer'],
+      \ 'p' : [':BufferPrevious'                       , 'previous-buffer'],
+      \ 'P' : [':BufferMovePrevious'                   , 'move-previous-buffer'],
       \ 's' : ['new'                                   , 'new-empty-buffer'],
+      \ 'o' : [':BufferOrderByDirectory'               , 'order-by-direcoty'],
+      \ 'O' : [':BufferOrderByLanguage'                , 'order-by-language'],
+      \ 'e' : [':BufferLast'                           , 'last-buffer'],
       \ }
 
 " c is for coc.nvim

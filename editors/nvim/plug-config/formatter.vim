@@ -1,4 +1,4 @@
-augroup Format
-    autocmd!
-    autocmd BufWritePost * FormatWrite
-augroup END
+" augroup Format
+"     autocmd!
+"     autocmd BufWritePost * FormatWrite
+" augroup END
