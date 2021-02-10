@@ -80,7 +80,7 @@ window:
 font:
   normal:
     family: Operator Mono Nerd Font
-    style: Medium
+    style: Book
 
   bold:
     family: OperatorMono Nerd Font
@@ -88,11 +88,28 @@ font:
 
   italic:
     family: OperatorMono Nerd Font
-    style: Medium Italic
+    style: Book Italic
 
   bold_italic:
     family: OperatorMono Nerd Font
     style: Italic
+
+  # font:
+  #   normal:
+  #     family: Operator Mono Lig Book
+  #     style: Bold
+
+  #   bold:
+  #     family: OperatorMono Lig Book
+  #     style: Bold
+
+  #   italic:
+  #     family: OperatorMono Lig Book
+  #     style: Medium Italic
+
+  #   bold_italic:
+  #     family: OperatorMono Lig Book
+  #     style: Italic
 
   # font:
   #   normal:
