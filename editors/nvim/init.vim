@@ -29,26 +29,25 @@ source $HOME/.config/nvim/general/tmux.vim
 source $HOME/.config/nvim/general/functions.vim
 
 " Colorschemes
-" source $HOME/.config/nvim/themes/general.vim
 " source $HOME/.config/nvim/themes/material.vim
 " source $HOME/.config/nvim/themes/nord.vim
-" source $HOME/.config/nvim/themes/nvcode.vim
+source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/vim-deus.vim
 " source $HOME/.config/nvim/themes/edge.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
-source $HOME/.config/nvim/themes/gruvbox8.vim
+" source $HOME/.config/nvim/themes/gruvbox8.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/vim-code-dark.vim
 
 " Lua Plugins
 luafile $HOME/.config/nvim/lua-config/plug-colorizer.lua
-luafile $HOME/.config/nvim/lua-config/formatter.lua
+" luafile $HOME/.config/nvim/lua-config/formatter.lua
 " luafile $HOME/.config/nvim/lua-config/nvcodeline.lua
 luafile $HOME/.config/nvim/lua-config/treesitter.lua
 " luafile $HOME/.config/nvim/lua-config/my_lspconfig.lua
 luafile $HOME/.config/nvim/lua-config/telescope.lua
-" luafile $HOME/.config/nvim/lua-config/express_line.lua
-luafile $HOME/.config/nvim/lua-config/galaxyline.lua
+luafile $HOME/.config/nvim/lua-config/express_line.lua
+" luafile $HOME/.config/nvim/lua-config/galaxyline.lua
 
 " Status Lines
 " source $HOME/.config/nvim/themes/lightline.vim
@@ -70,7 +69,7 @@ source $HOME/.config/nvim/plug-config/ranger.vim
 source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
-" source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
