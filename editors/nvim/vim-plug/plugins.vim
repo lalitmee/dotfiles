@@ -8,9 +8,26 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
+" Switch between single-line and multiline forms of code
+Plug 'AndrewRadev/splitjoin.vim'
+
+" reopen files at the last edit place
+Plug 'farmergreg/vim-lastplace'
+
+" targets.vim for extra motions
+Plug 'wellle/targets.vim'
+
+" ack search
+Plug 'mileszs/ack.vim'
+
+" flygrep
+Plug 'wsdjeg/FlyGrep.vim'
 
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
+
+" cycle through your yank history
+Plug 'maxbrunsfeld/vim-yankstack'
 
 " Quickscope same as f, F, t, T but better
 Plug 'unblevable/quick-scope'
@@ -66,6 +83,9 @@ Plug 'tjdevries/gruvbuddy.nvim'
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" javascript syntax
+Plug 'othree/javascript-libraries-syntax.vim'
+
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
 
@@ -77,6 +97,11 @@ Plug 'tpope/vim-surround'
 
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -104,6 +129,7 @@ Plug 'honza/vim-snippets'
 " Auto Close Tag in HTML
 Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/tagalong.vim'
+Plug 'valloric/MatchTagAlways'
 
 " Easy Alignment in vim
 Plug 'junegunn/vim-easy-align'

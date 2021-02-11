@@ -21,7 +21,20 @@ require('telescope').setup {
       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
     },
 
-    -- file_sorter = sorters.get_fzy_sorter,
+    file_sorter = sorters.get_fzy_sorter,
+
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.14,
+        height_padding = 0.1,
+        preview_width = 0.6,
+      },
+      vertical = {
+        width_padding = 0.5,
+        height_padding = 1,
+        preview_height = 0.5,
+      }
+    },
 
     file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,

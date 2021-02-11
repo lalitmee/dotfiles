@@ -456,13 +456,23 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# Other examples:
-# set -g @plugin 'github_username/plugin_name'
-# set -g @plugin 'git@github.com:user/plugin'
-# set -g @plugin 'git@bitbucket.com:user/plugin'
-
 # nord theme for tmux
 set -g @plugin "arcticicestudio/nord-tmux"
+
+# # tmux power theme
+# set -g @plugin 'wfxr/tmux-power'
+# set -g @plugins 'wfxr/tmux-web-reachable'
+# set -g @plugins 'wfxr/tmux-net-speed'
+# # set -g @tmux_power_theme 'redwine'
+# # set -g @tmux_power_theme 'moon'
+# # set -g @tmux_power_theme 'forest'
+# # set -g @tmux_power_theme 'violet'
+# # set -g @tmux_power_theme 'snow'
+# set -g @tmux_power_theme 'sky'
+# set -g @tmux_power_prefix_highlight_pos 'R'
+# set -g @tmux_power_show_upload_speed true
+# set -g @tmux_power_show_download_speed true
+# set -g @tmux_power_show_web_reachable true
 
 # # onedark theme for tmux
 # set -g @plugin 'odedlaz/tmux-onedark-theme'
