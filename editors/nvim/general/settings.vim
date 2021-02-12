@@ -45,6 +45,7 @@ set title                               " set terminal title
 set showmatch                           " show matching braces
 set mat=2                               " how many tenths of a second to blink
 set history=1000                        " store more commands
+set nolist
 
 " Searching
 set ignorecase                          " case insensitive searching
@@ -84,7 +85,7 @@ set foldlevel=1
 
 set viminfo='1000
 
-set colorcolumn=80
+" set colorcolumn=0
 
 " set fillchars=vert:𝕀
 " set fillchars=vert:⫲

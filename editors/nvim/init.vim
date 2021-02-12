@@ -41,12 +41,13 @@ luafile $HOME/.config/nvim/lua-config/treesitter.lua
 
 " Colorschemes
 " source $HOME/.config/nvim/themes/material.vim
-source $HOME/.config/nvim/themes/nvcode.vim
+" source $HOME/.config/nvim/themes/nvcode.vim
+" source $HOME/.config/nvim/themes/solarized.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbox8.vim
-" source $HOME/.config/nvim/themes/gruvbuddy.vim
+source $HOME/.config/nvim/themes/gruvbuddy.vim
+" source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/onedark.vim
-" source $HOME/.config/nvim/themes/base16.vim
 
 " Status Lines
 source $HOME/.config/nvim/status-lines/airline.vim
