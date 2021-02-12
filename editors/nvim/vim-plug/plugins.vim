@@ -14,8 +14,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " " neovim in browser
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
 
-" dim focus on not active windows
-Plug 'blueyed/vim-diminactive'
+" " dim focus on not active windows
+" Plug 'blueyed/vim-diminactive'
 
 " Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
@@ -23,8 +23,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 " reopen files at the last edit place
 Plug 'farmergreg/vim-lastplace'
 
-" targets.vim for extra motions
-Plug 'wellle/targets.vim'
+" " targets.vim for extra motions
+" Plug 'wellle/targets.vim'
 
 " ack search
 Plug 'mileszs/ack.vim'
