@@ -456,25 +456,7 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# nord theme for tmux
-set -g @plugin "arcticicestudio/nord-tmux"
-
-# # tmux power theme
-# set -g @plugin 'wfxr/tmux-power'
-# set -g @plugins 'wfxr/tmux-web-reachable'
-# set -g @plugins 'wfxr/tmux-net-speed'
-# # set -g @tmux_power_theme 'redwine'
-# # set -g @tmux_power_theme 'moon'
-# # set -g @tmux_power_theme 'forest'
-# # set -g @tmux_power_theme 'violet'
-# # set -g @tmux_power_theme 'snow'
-# set -g @tmux_power_theme 'sky'
-# set -g @tmux_power_prefix_highlight_pos 'R'
-# set -g @tmux_power_show_upload_speed true
-# set -g @tmux_power_show_download_speed true
-# set -g @tmux_power_show_web_reachable true
-
-# # onedark theme for tmux
+# onedark theme for tmux
 set -g @plugin 'odedlaz/tmux-onedark-theme'
 set -g @onedark_time_format "%I:%M %p"
 set -g @onedark_date_format "%d/%m/%Y"
@@ -496,8 +478,6 @@ set -g @plugin 'tmux-plugins/tmux-copycat'
 
 # notify when any process in tmux finishes
 set -g @plugin 'ChanderG/tmux-notify'
-
-
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

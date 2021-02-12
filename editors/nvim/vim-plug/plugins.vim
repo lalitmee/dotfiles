@@ -199,8 +199,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 
 " Better tabline
-" Plug 'mg979/vim-xtabline'
-Plug 'romgrk/barbar.nvim'
+Plug 'mg979/vim-xtabline'
+" Plug 'romgrk/barbar.nvim'
 
 " undo time travel
 Plug 'mbbill/undotree'
@@ -275,10 +275,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-github.nvim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
 
-" LSP
+" " LSP
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/diagnostic-nvim'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
