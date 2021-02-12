@@ -76,7 +76,7 @@ window:
     # scrollback is enabled (history > 0).
     multiplier: 3
 
-# Font configuration
+  # Font configuration
 font:
   normal:
     family: Operator Mono Nerd Font
@@ -96,23 +96,6 @@ font:
 
   # font:
   #   normal:
-  #     family: Operator Mono Lig Book
-  #     style: Bold
-
-  #   bold:
-  #     family: OperatorMono Lig Book
-  #     style: Bold
-
-  #   italic:
-  #     family: OperatorMono Lig Book
-  #     style: Medium Italic
-
-  #   bold_italic:
-  #     family: OperatorMono Lig Book
-  #     style: Italic
-
-  # font:
-  #   normal:
   #     family: CaskaydiaCove Nerd Font Mono
   #     style: Regular
 
@@ -126,57 +109,6 @@ font:
 
   #   bold_italic:
   #     family: CaskaydiaCove Nerd Font Mono
-  #     style: Bolt Italic
-
-  # font:
-  #   normal:
-  #     family: mononoki Nerd Font Mono
-  #     style: Regular
-
-  #   bold:
-  #     family: mononoki Nerd Font Mono
-  #     style: Bold
-
-  #   italic:
-  #     family: mononoki Nerd Font Mono
-  #     style: Italic
-
-  #   bold_italic:
-  #     family: mononoki Nerd Font Mono
-  #     style: Bolt Italic
-
-  # font:
-  #   normal:
-  #     family: SauceCodePro Nerd Font
-  #     style: Regular
-
-  #   bold:
-  #     family: SauceCodePro Nerd Font
-  #     style: Bold
-
-  #   italic:
-  #     family: SauceCodePro Nerd Font
-  #     style: Italic
-
-  #   bold_italic:
-  #     family: SauceCodePro Nerd Font
-  #     style: Bolt Italic
-
-  # font:
-  #   normal:
-  #     family: Ubuntu Mono Nerd Font
-  #     style: Regular
-
-  #   bold:
-  #     family: Ubuntu Mono Nerd Font
-  #     style: Bold
-
-  #   italic:
-  #     family: Ubuntu Mono Nerd Font
-  #     style: Italic
-
-  #   bold_italic:
-  #     family: Ubuntu Mono Nerd Font
   #     style: Bolt Italic
 
   size: 10
