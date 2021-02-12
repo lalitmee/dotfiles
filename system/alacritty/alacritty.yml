@@ -5,6 +5,7 @@
 # set by alacritty itself.
 env:
   TERM: xterm-256color
+  WINIT_X11_SCALE_FACTOR: '1.0'
 
 window:
   # Window dimensions (changes require restart)
@@ -76,22 +77,22 @@ window:
     # scrollback is enabled (history > 0).
     multiplier: 3
 
-  # Font configuration
+# Font configuration
 font:
   normal:
     family: Operator Mono Nerd Font
     style: Book
 
   bold:
-    family: OperatorMono Nerd Font
+    family: Operator Mono Nerd Font
     style: Bold
 
   italic:
-    family: OperatorMono Nerd Font
+    family: Operator Mono Nerd Font
     style: Book Italic
 
   bold_italic:
-    family: OperatorMono Nerd Font
+    family: Operator Mono Nerd Font
     style: Italic
 
   # font:

@@ -14,7 +14,7 @@
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer
-    colorscheme = "molokai"
+    colorscheme = "gruvbox"
     colorscheme_bg = "dark"
     guifont = "Cascadia Code 11"
     # Disable guicolors in basic mode, many terminal do not support 24bit
