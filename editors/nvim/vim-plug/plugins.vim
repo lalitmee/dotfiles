@@ -17,6 +17,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " " dim focus on not active windows
 " Plug 'blueyed/vim-diminactive'
 
+" tagslist
+Plug 'vim-scripts/taglist.vim'
+
 " Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
 
@@ -81,7 +84,7 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 
 " Colors
-Plug 'chriskempson/base16-vim'
+Plug 'overcache/NeoSolarized'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
