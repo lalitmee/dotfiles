@@ -8,6 +8,15 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
+" " neomake
+" Plug 'neomake/neomake'
+
+" " neovim in browser
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
+
+" dim focus on not active windows
+Plug 'blueyed/vim-diminactive'
+
 " Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
 

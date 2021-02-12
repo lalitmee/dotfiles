@@ -82,6 +82,8 @@ set foldlevel=1
 " set undodir=~/.vim/undodir
 " set undofile
 
+set viminfo='1000
+
 set colorcolumn=80
 
 " set fillchars=vert:𝕀

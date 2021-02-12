@@ -231,18 +231,14 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         ;; moe-dark
-                         ;; doom-one
-                         ;; atom-one-dark
-                         ;; doom-molokai
-                         ;; doom-gruvbox
-                         ;; doom-palenight
-                         ;; doom-tomorrow-night
-                         ;; doom-oceanic-next
-                         ;; spacemacs-dark
-                         ;; spacemacs-light
-                         ;; cobalt
-                         ;; faff
+                         doom-dark+
+                         doom-gruvbox
+                         doom-molokai
+                         doom-nord
+                         doom-oceanic-next
+                         doom-one
+                         doom-palenight
+                         spacemacs-dark
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
