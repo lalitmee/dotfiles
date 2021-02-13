@@ -60,12 +60,12 @@ Plug 'kshenoy/vim-signature'
 " Better search highlighting
 Plug 'haya14busa/incsearch.vim'
 
-" " lightline for vim
-" Plug 'itchyny/lightline.vim'
+" lightline for vim
+Plug 'itchyny/lightline.vim'
 
-" Airline for vim
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" " Airline for vim
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -235,8 +235,8 @@ Plug 'liuchengxu/vista.vim'
 " bookmarks
 Plug 'MattesGroeger/vim-bookmarks'
 
-" vim and tmux = vimux
-Plug 'benmills/vimux'
+" " vim and tmux = vimux
+" Plug 'benmills/vimux'
 
 " vim-workspaces
 Plug 'thaerkh/vim-workspace'
@@ -295,6 +295,9 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
+
+" gitsigns in lua
+Plug 'lewis6991/gitsigns.nvim'
 
 " " express_line from tj
 " Plug 'tjdevries/express_line.nvim'
