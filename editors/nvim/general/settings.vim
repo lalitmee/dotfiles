@@ -128,12 +128,6 @@ endif
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 if (has("termguicolors"))
     set termguicolors
-    hi LineNr ctermbg=NONE guibg=NONE
-endif
-
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 " highlight Pmenu guibg=LightYellow1 guifg=black
@@ -180,3 +174,5 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 set t_ZH=[3m
 set t_ZR=[23m
+
+set t_ut=

@@ -35,22 +35,22 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua-config/status-lines/galaxyline.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/nvcodeline.lua
 luafile $HOME/.config/nvim/lua-config/fuzzy/telescope.lua
-luafile $HOME/.config/nvim/lua-config/themes/plug-colorizer.lua
+luafile $HOME/.config/nvim/lua-config/themes/colorizer.lua
 luafile $HOME/.config/nvim/lua-config/treesitter.lua
 " luafile $HOME/.config/nvim/lua/lsp.lua
 
 " Colorschemes
-" source $HOME/.config/nvim/themes/material.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/solarized.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbox8.vim
-source $HOME/.config/nvim/themes/gruvbuddy.vim
-" source $HOME/.config/nvim/themes/nord.vim
+" source $HOME/.config/nvim/themes/gruvbuddy.vim
+source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 
 " Status Lines
-source $HOME/.config/nvim/status-lines/airline.vim
+source $HOME/.config/nvim/status-lines/lightline.vim
+" source $HOME/.config/nvim/status-lines/airline.vim
 " source $HOME/.config/nvim/status-lines/barbar.vim
 
 " Tab Lines
