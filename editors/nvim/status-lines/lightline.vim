@@ -1,7 +1,6 @@
       " \ 'colorscheme': 'landscape',
       " \ 'colorscheme': 'wombat',
       " \ 'colorscheme': 'landscape',
-      " \ 'colorscheme': 'nord',
       " \ 'colorscheme': 'srcery_drk',
       " \ 'colorscheme': 'ayu_dark',
       " \ 'colorscheme': 'solarized',
@@ -11,6 +10,7 @@
       " \ 'colorscheme': 'one',
 
 
+      " \ 'colorscheme': 'nord',
       " \ 'colorscheme': 'material',
       " \ 'colorscheme': 'powerline',
       " \ 'colorscheme': 'powerlineish',

@@ -32,11 +32,12 @@ source $HOME/.config/nvim/general/tmux.vim
 " Lua Plugins
 " luafile $HOME/.config/nvim/lua-config/formatter.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/express_line.lua
-" luafile $HOME/.config/nvim/lua-config/status-lines/galaxyline.lua
+" luafile $HOME/.config/nvim/lua-config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/nvcodeline.lua
 luafile $HOME/.config/nvim/lua-config/fuzzy/telescope.lua
 luafile $HOME/.config/nvim/lua-config/themes/colorizer.lua
 luafile $HOME/.config/nvim/lua-config/treesitter.lua
+" luafile $HOME/.config/nvim/lua-config/bufferline.lua
 " luafile $HOME/.config/nvim/lua/lsp.lua
 
 " Colorschemes
