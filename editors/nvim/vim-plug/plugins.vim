@@ -299,6 +299,15 @@ Plug 'norcalli/nvim-colorizer.lua'
 " gitsigns in lua
 Plug 'lewis6991/gitsigns.nvim'
 
+" lightbulb like vscode
+Plug 'kosayoda/nvim-lightbulb'
+
+" colorshceme template
+Plug 'Iron-E/nvim-highlite'
+
+" " bufferline
+" Plug 'akinsho/nvim-bufferline.lua'
+
 " " express_line from tj
 " Plug 'tjdevries/express_line.nvim'
 
