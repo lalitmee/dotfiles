@@ -456,9 +456,9 @@ you should place your code here."
 
   ;; project project search path
   (setq projectile-project-search-path
-        '("~/Desktop/Github/"
-          "~/Desktop/GitLab/"
-          "~/Desktop/koinearth/"))
+        '("~/data/Github/"
+          "~/data/GitLab/"
+          "~/data/koinearth/"))
 
 
   ;; ranger

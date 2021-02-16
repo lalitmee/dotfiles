@@ -9,14 +9,14 @@ let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_powerline_fonts = 1
 
 " Switch to your current theme
-" let g:airline_theme = 'onedark'
+let g:airline_theme = 'onedark'
 " let g:airline_theme = 'one'
 " let g:airline_theme = 'material'
 " let g:airline_theme = 'nord'
 " let g:airline_theme = 'gruvbox'
 " let g:airline_theme = 'molokai'
 " let g:airline_theme = 'powerlineish'
-let g:airline_theme = 'bubblegum'
+" let g:airline_theme = 'bubblegum'
 
 " Always show tabs
 set showtabline=2

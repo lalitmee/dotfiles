@@ -47,9 +47,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org")
 
-(setq projectile-project-search-path '("~/Desktop/Github"
-                                       "~/Desktop/koinearth"
-                                       "~/Desktop/GitLab"))
+(setq projectile-project-search-path '("~/data/Github"
+                                       "~/data/koinearth"
+                                       "~/data/GitLab"))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

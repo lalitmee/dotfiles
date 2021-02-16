@@ -5,7 +5,6 @@ let g:coc_global_extensions = [
     \ 'coc-emmet',
     \ 'coc-emoji',
     \ 'coc-eslint',
-    \ 'coc-explorer',
     \ 'coc-floaterm',
     \ 'coc-html',
     \ 'coc-json',
@@ -25,6 +24,7 @@ let g:coc_global_extensions = [
     \ 'coc-yaml',
     \ 'coc-yank',
     \ ]
+    " \ 'coc-explorer',
     " \ 'coc-tabnine',
     " \ 'coc-highlight'," Prettier command for coc-prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile

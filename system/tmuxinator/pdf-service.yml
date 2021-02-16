@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/pdf-service.yml
 
 name: pdf-service
-root: ~/Desktop/koinearth/marketsn-pdf-service
+root: ~/data/koinearth/marketsn-pdf-service
 
 windows:
   - Editor: ls

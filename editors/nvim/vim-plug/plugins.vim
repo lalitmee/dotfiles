@@ -23,23 +23,17 @@ Plug 'vim-scripts/taglist.vim'
 " Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
 
-" reopen files at the last edit place
-Plug 'farmergreg/vim-lastplace'
-
-" " targets.vim for extra motions
-" Plug 'wellle/targets.vim'
+" targets.vim for extra motions
+Plug 'wellle/targets.vim'
 
 " ack search
 Plug 'mileszs/ack.vim'
 
-" flygrep
-Plug 'wsdjeg/FlyGrep.vim'
-
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
-" cycle through your yank history
-Plug 'maxbrunsfeld/vim-yankstack'
+" " cycle through your yank history
+" Plug 'maxbrunsfeld/vim-yankstack'
 
 " Quickscope same as f, F, t, T but better
 Plug 'unblevable/quick-scope'
@@ -59,6 +53,11 @@ Plug 'kshenoy/vim-signature'
 
 " Better search highlighting
 Plug 'haya14busa/incsearch.vim'
+
+" " minimalist status line
+" Plug 'doums/barow'
+" Plug 'doums/barowGit'
+" Plug 'doums/barowLSP'
 
 " lightline for vim
 Plug 'itchyny/lightline.vim'
@@ -94,9 +93,6 @@ Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" javascript syntax
-Plug 'othree/javascript-libraries-syntax.vim'
 
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
@@ -267,6 +263,7 @@ Plug 'vlime/vlime'
 " " switch between single and multilines
 " Plug 'AndrewRadev/splitjoin.vim'
 
+
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
 """"""""""""""""""""""""""""""""""""""
@@ -277,6 +274,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-github.nvim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
+
+" sorter for telescope
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " " LSP
 " Plug 'neovim/nvim-lspconfig'

@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/koinearth.yml
 
 name: koinearth
-root: ~/Desktop/koinearth
+root: ~/data/koinearth
 
 windows:
   - marketsn-pdf-service: cd marketsn-pdf-service
