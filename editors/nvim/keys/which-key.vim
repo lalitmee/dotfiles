@@ -47,17 +47,17 @@ let g:which_key_map[';'] = [ ':FzfCommands'                     , 'commands' ]
 let g:which_key_map.a = {
       \ 'name' : '+actions'                                     ,
       \ 'c' : [':ColorizerToggle'                               , 'colorizer'],
-      \ 'e' : [':CocCommand explorer'                           , 'explorer'],
+      \ 'e' : [':NvimTreeToggle'                                , 'nvim-tree-exlporer'],
       \ 'f' : [':NvimTreeFindFile'                              , 'nvim-tree-find-file'],
       \ 'l' : [':Bracey'                                        , 'start-live-server'],
       \ 'L' : [':BraceyStop'                                    , 'stop-live-server'],
       \ 'm' : [':MarkdownPreview'                               , 'markdown-preview'],
       \ 'M' : [':MarkdownPreviewStop'                           , 'markdown-preview-stop'],
-      \ 'n' : [':NvimTreeToggle'                                , 'nvim-tree-exlporer'],
       \ 'r' : [':NvimTreeRefresh'                               , 'nvim-tree-refresh'],
       \ 't' : [':FloatermToggle'                                , 'terminal'],
       \ 'w' : [':StripWhitespace'                               , 'strip-whitespace'],
       \ }
+      " \ 'e' : [':CocCommand explorer'                           , 'explorer'],
 
 " b is for buffer
 let g:which_key_map.b = {

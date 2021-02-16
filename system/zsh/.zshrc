@@ -96,6 +96,7 @@ frontend-search
 fzf-tab
 gem
 git
+git-extra-commands
 git-extras
 gitfast
 history
@@ -154,6 +155,8 @@ export LC_CTYPE=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ciu="caniuse"
+alias aw="awesome-hub"
+alias st="speed-test"
 
 # alias for fzf get the output
 alias f="| fzf"
@@ -239,7 +242,7 @@ alias o="oni ."
 
 # alias for using nvim instead of vim
 alias nvim="~/nvim.appimage"
-alias g="~/Goneovim-0.4.9-linux/goneovim"
+alias gnvim="~/goneovim/goneovim"
 
 # common aliases
 alias rm="rm -i"

@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/wfws.yml
 
 name: wfws
-root: ~/Desktop/koinearth/wf-webapp-service
+root: ~/data/koinearth/wf-webapp-service
 
 windows:
   - Editor: ls

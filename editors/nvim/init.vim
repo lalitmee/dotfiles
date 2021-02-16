@@ -50,6 +50,7 @@ source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 
 " Status Lines
+" source $HOME/.config/nvim/status-lines/barow.vim
 source $HOME/.config/nvim/status-lines/lightline.vim
 " source $HOME/.config/nvim/status-lines/airline.vim
 " source $HOME/.config/nvim/status-lines/barbar.vim
@@ -58,6 +59,7 @@ source $HOME/.config/nvim/status-lines/lightline.vim
 source $HOME/.config/nvim/plug-config/xtabline.vim
 
 " Plugins Configurations
+source $HOME/.config/nvim/plug-config/nvim-tree.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/cyclist.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
