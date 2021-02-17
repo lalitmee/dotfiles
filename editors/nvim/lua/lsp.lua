@@ -1,8 +1,11 @@
 local lsp = require('lspconfig')
 local completion = require('completion')
+local buf_map = require('utils').buf_map
+local buf_option = require('utils').buf_option
 
 local on_attach = function(client)
   completion.on_attach(client)
+  -- buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
@@ -13,17 +16,41 @@ local on_attach = function(client)
     silent = true
   }
 
-  vim.api.nvim_set_keymap('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', options)
-  vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', options)
-  vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>', options)
-  vim.api.nvim_set_keymap('n', '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', options)
-  vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', options)
-  vim.api.nvim_set_keymap('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', options)
-  vim.api.nvim_set_keymap('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', options)
-  vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', options)
+  -- vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', options)
 
-  vim.api.nvim_command([[setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
-  vim.api.nvim_command([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })]])
+  -- vim.api.nvim_command([[setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
+  -- vim.api.nvim_command([[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })]])
+
+  -- copied from https://github.com/lucastrvsn/dot/blob/master/.config/nvim/lua/lsp/on_attach.lua
+  -- buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  -- buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_map('n', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_map('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- buf_map('n', '<space>se', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_map('n', '<leader>ed', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })<CR>', opts)
+  -- buf_map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  -- buf_map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- buf_map('n', '<leader>eq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- buf_map('i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true, noremap = true })
+  -- buf_map('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true, noremap = true })
+
+  -- if client.resolved_capabilities.document_formatting then
+  --   vim.api.nvim_command [[augroup Format]]
+  --   vim.api.nvim_command [[autocmd! * <buffer>]]
+  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+  --   vim.api.nvim_command [[augroup END]]
+  -- end
 end
 
 -- bash
