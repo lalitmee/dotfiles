@@ -85,7 +85,8 @@ set foldlevel=1
 
 set viminfo='1000
 
-" set colorcolumn=0
+set colorcolumn=80
+highlight ColorColumn guibg=#3B4252
 
 " set fillchars=vert:𝕀
 " set fillchars=vert:⫲

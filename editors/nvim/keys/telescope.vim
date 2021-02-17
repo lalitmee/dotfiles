@@ -1,21 +1,24 @@
-" selected item
-highlight TelescopeSelection      guifg=#A3BE8C gui=bold
+" " selected item
+" highlight TelescopeSelection    guibg=#81A1C1  guifg=#EBCB8B gui=bold
+" " highlight TelescopeSelection    guibg=#D8DEE9  guifg=black gui=bold
+" " highlight TelescopeSelection    guibg=#5d7589  guifg=white gui=bold
 
-" selection caret
-highlight TelescopeSelectionCaret guifg=#B48EAD
+" " selection caret
+" highlight TelescopeSelectionCaret guifg=#B48EAD
 
-" Used for highlighting characters that you match.
-highlight TelescopeMatching       guifg=#BF616A
-" highlight TelescopeMatching       guifg=#EBCB8B
+" " Used for highlighting characters that you match.
+" highlight TelescopeMatching       guifg=#BF616A
+" " highlight TelescopeMatching       guifg=#fddc16
+" " highlight TelescopeMatching       guifg=yellow
 
-" Used for the prompt prefix
-highlight TelescopePromptPrefix   guifg=#A3BE8C
+" " Used for the prompt prefix
+" highlight TelescopePromptPrefix   guifg=#A3BE8C
 
-" Border highlight groups.
-highlight TelescopeBorder         guifg=#88C0D0
-highlight TelescopePromptBorder   guifg=#88C0D0
-highlight TelescopeResultsBorder  guifg=#88C0D0
-highlight TelescopePreviewBorder  guifg=#88C0D0
+" " Border highlight groups.
+" highlight TelescopeBorder         guifg=#c78b2a
+" highlight TelescopePromptBorder   guifg=#c78b2a
+" highlight TelescopeResultsBorder  guifg=#c78b2a
+" highlight TelescopePreviewBorder  guifg=#c78b2a
 
 nnoremap <silent> <Leader>jf :lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({}))<cr>
 

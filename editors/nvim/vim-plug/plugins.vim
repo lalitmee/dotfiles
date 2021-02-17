@@ -68,6 +68,7 @@ Plug 'itchyny/lightline.vim'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
+Plug 'lambdalisue/nerdfont.vim'
 
 " for handling swap files
 Plug 'gioele/vim-autoswap'
@@ -90,6 +91,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
+Plug 'pwntester/cobalt2.vim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -262,6 +264,9 @@ Plug 'vlime/vlime'
 
 " " switch between single and multilines
 " Plug 'AndrewRadev/splitjoin.vim'
+
+" " tmuxline
+" Plug 'edkolev/tmuxline.vim'
 
 
 """"""""""""""""""""""""""""""""""""""
