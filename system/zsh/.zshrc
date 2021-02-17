@@ -298,12 +298,15 @@ export EDITOR=nvim
 #         source /etc/profile.d/vte.sh
 # fi
 
+# z.sh
+source ~/data/Github/z/z.sh
+
 # start tmux while starting new terminal
 _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
 ensure_tmux_is_running() {
   if _not_inside_tmux; then
-    ~/Desktop/Github/dotfiles/bin/tat
+    ~/data/Github/dotfiles/bin/tat
   fi
 }
 
