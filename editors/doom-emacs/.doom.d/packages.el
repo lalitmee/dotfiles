@@ -56,3 +56,9 @@
 ;; prettier-js for prettier
 (package! prettier-js)
 (package! solaire-mode)
+
+;; pacakges for javascript development
+(package! ag)
+(package! dumb-jump)
+(package! manage-minor-mode)
+(package! flow-minor-mode)

@@ -296,7 +296,7 @@ let g:which_key_map.o = {
       \ 'C' : [':Telescope git_branches'                        , 'git-branches'],
       \ 'd' : [':Telescope git_bcommits'                        , 'git-buffer-commits'],
       \ 'D' : [':Telescope git_commits'                         , 'git-commits'],
-      \ 'e' : [':Telescope symbols'                             , 'git-commits'],
+      \ 'e' : [':Telescope symbols'                             , 'symbols'],
       \ 'f' : [':Telescope find_files'                          , 'files'],
       \ 'g' : [':Telescope git_files'                           , 'git-files'],
       \ 'G' : [':Telescope git_status'                          , 'git-status'],
