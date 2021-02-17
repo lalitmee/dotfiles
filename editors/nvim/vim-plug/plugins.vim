@@ -268,10 +268,19 @@ Plug 'vlime/vlime'
 " " tmuxline
 " Plug 'edkolev/tmuxline.vim'
 
+" auto cursorline
+Plug 'delphinus/vim-auto-cursorline'
+
 
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
 """"""""""""""""""""""""""""""""""""""
+
+" sql nvim database for frecency
+Plug 'tami5/sql.nvim'
+
+" snippets in lua
+Plug 'norcalli/snippets.nvim'
 
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -279,9 +288,14 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-github.nvim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
-
-" sorter for telescope
+Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'nvim-telescope/telescope-z.nvim'
+Plug 'nvim-telescope/telescope-snippets.nvim'
+Plug 'nvim-telescope/telescope-node-modules.nvim'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'

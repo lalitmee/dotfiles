@@ -49,6 +49,7 @@ let g:which_key_map.a = {
       \ 'c' : [':ColorizerToggle'                               , 'colorizer'],
       \ 'e' : [':NvimTreeToggle'                                , 'nvim-tree-exlporer'],
       \ 'f' : [':NvimTreeFindFile'                              , 'nvim-tree-find-file'],
+      \ 'h' : [':Telescope frecency'                            , 'telescope-frecency'],
       \ 'l' : [':Bracey'                                        , 'start-live-server'],
       \ 'L' : [':BraceyStop'                                    , 'stop-live-server'],
       \ 'm' : [':MarkdownPreview'                               , 'markdown-preview'],
@@ -57,7 +58,7 @@ let g:which_key_map.a = {
       \ 't' : [':FloatermToggle'                                , 'terminal'],
       \ 'w' : [':StripWhitespace'                               , 'strip-whitespace'],
       \ }
-      " \ 'e' : [':CocCommand explorer'                           , 'explorer'],
+      " \ 'e' : [':CocCommand explorer'                         , 'explorer'],
 
 " b is for buffer
 let g:which_key_map.b = {
@@ -297,11 +298,13 @@ let g:which_key_map.o = {
       \ 'd' : [':Telescope git_bcommits'                        , 'git-buffer-commits'],
       \ 'D' : [':Telescope git_commits'                         , 'git-commits'],
       \ 'e' : [':Telescope symbols'                             , 'symbols'],
-      \ 'f' : [':Telescope find_files'                          , 'files'],
+      \ 'f' : [':Telescope fzf_writer files'                    , 'files'],
+      \ 'F' : [':Telescope media_files'                         , 'files'],
       \ 'g' : [':Telescope git_files'                           , 'git-files'],
       \ 'G' : [':Telescope git_status'                          , 'git-status'],
       \ 'h' : [':Telescope help_tags'                           , 'help-tags'],
       \ 'H' : [':Telescope highlights'                          , 'highlights'],
+      \ 'i' : [':Telescope snippets snippets'                   , 'snippets'],
       \ 'j' : [':Telescope lsp_document_symbols'                , 'buffer-symbols'],
       \ 'J' : [':Telescope lsp_workspace_symbols'               , 'workspace-symbols'],
       \ 'k' : [':Telescope keymaps'                             , 'keymaps'],
@@ -312,16 +315,19 @@ let g:which_key_map.o = {
       \ 'M' : [':Telescope marks'                               , 'marks'],
       \ 'n' : [':Telescope lsp_code_actions'                    , 'code-actions'],
       \ 'N' : [':Telescope lsp_range_code_actions'              , 'range-code-actions'],
+      \ 'o' : [':Telescope z list'                              , 'highlights'],
       \ 'p' : [':Telescope planets'                             , 'planets'],
-      \ 'r' : [':Telescope oldfiles'                            , 'recent-files'],
+      \ 'r' : [':Telescope frecency'                            , 'recent-files'],
       \ 'R' : [':Telescope reloader'                            , 'reloaders'],
-      \ 's' : [':Telescope live_grep'                           , 'live-grep'],
+      \ 's' : [':Telescope fzf_writer grep'                     , 'live-grep'],
       \ 'S' : [':Telescope spell_suggest'                       , 'spell_suggest'],
       \ 't' : [':Telescope current_buffer_tags'                 , 'buffer-tags'],
       \ 'u' : [':Telescope grep_string'                         , 'grep-string'],
       \ 'v' : [':Telescope vim_options'                         , 'vim-options'],
       \ 'z' : [':Telescope filetypes'                           , 'filetypes'],
       \ }
+      " \ 'f' : [':Telescope find_files'                        , 'files'],
+      " \ 's' : [':Telescope live_grep'                         , 'live-grep'],
 
 " p is for Project
 let g:which_key_map.p = {
@@ -329,7 +335,8 @@ let g:which_key_map.p = {
       \ 'b' : [':FzfBuffers'                                    , 'find-buffers'],
       \ 'f' : [':FzfFiles'                                      , 'find-files'],
       \ 'g' : [':FzfGFiles'                                     , 'find-git-files'],
-      \ 'p' : [':CocList project'                               , 'switch-project'],
+      \ 'n' : [':Telescope node_modules list'                   , 'list-project-nodes-modules'],
+      \ 'p' : [':Telescope project project'                     , 'switch-project'],
       \ 's' : [':FzfRg'                                         , 'project-search'],
       \ }
 
@@ -452,8 +459,6 @@ let g:which_key_map.T = {
 " u is for UI and toggle
 let g:which_key_map.u = {
       \ 'name' : '+ui/toggle'                                   ,
-      \ 'e' : [':CocCommand clock.enable'                       , 'show-clock'],
-      \ 'd' : [':CocCommand clock.disable'                      , 'hide-clock'],
       \ 'u' : [':UndotreeToggle'                                , 'undo-tree'],
       \ }
 
