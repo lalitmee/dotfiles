@@ -29,9 +29,6 @@ Plug 'wellle/targets.vim'
 " ack search
 Plug 'mileszs/ack.vim'
 
-" Rainbow Parentheses
-Plug 'junegunn/rainbow_parentheses.vim'
-
 " " cycle through your yank history
 " Plug 'maxbrunsfeld/vim-yankstack'
 
@@ -60,6 +57,7 @@ Plug 'haya14busa/incsearch.vim'
 " Plug 'doums/barowLSP'
 
 " lightline for vim
+Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
 
 " " Airline for vim
@@ -68,7 +66,9 @@ Plug 'itchyny/lightline.vim'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
-Plug 'lambdalisue/nerdfont.vim'
+
+" " get file icon
+" Plug 'lambdalisue/nerdfont.vim'
 
 " for handling swap files
 Plug 'gioele/vim-autoswap'
@@ -96,14 +96,6 @@ Plug 'pwntester/cobalt2.vim'
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Pairs of handy bracket mappings
-Plug 'tpope/vim-unimpaired'
-
-" easily search for, substitute, and abbreviate multiple variants of a word
-Plug 'tpope/vim-abolish'
-
-" Surround Plugin for brackets and more
-Plug 'tpope/vim-surround'
 
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
@@ -120,13 +112,6 @@ Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 " Magit like emacs for git workflow
 Plug 'jreybert/vimagit'
-
-" Vim sugar for the UNIX shell commands that need it the most
-" Example: :Delete, :Unlink, :Move, etc
-Plug 'tpope/vim-eunuch'
-
-" comment stuff out
-Plug 'tpope/vim-commentary'
 
 " Tabularize for Vim
 " Vim script for text filtering and alignment
@@ -150,8 +135,8 @@ Plug 'Yggdroot/indentLine'
 " syntax highlighter for vim
 Plug 'sheerun/vim-polyglot'
 
-" The interactive scratchpad for hackers.
-Plug 'metakirby5/codi.vim'
+" " The interactive scratchpad for hackers.
+" Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -176,22 +161,35 @@ Plug 'voldikss/vim-floaterm'
 
 " Find and Replace
 " Plug 'brooth/far.vim'
-Plug 'ChristianChiarulli/far.vim'
+" Plug 'ChristianChiarulli/far.vim'
+
+" " Convert binary, hex, etc..
+" Plug 'glts/vim-radical'
+
+" Vim sugar for the UNIX shell commands that need it the most
+" Example: :Delete, :Unlink, :Move, etc
+Plug 'tpope/vim-eunuch'
+
+" comment stuff out
+Plug 'tpope/vim-commentary'
 
 " Change dates fast
 Plug 'tpope/vim-speeddating'
 
-" Convert binary, hex, etc..
-Plug 'glts/vim-radical'
-
 " Repeat stuff
 Plug 'tpope/vim-repeat'
 
-" Useful for React Commenting
-Plug 'suy/vim-context-commentstring'
-
 " auto set indent settings
 Plug 'tpope/vim-sleuth'
+
+" Pairs of handy bracket mappings
+Plug 'tpope/vim-unimpaired'
+
+" easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/vim-abolish'
+
+" Surround Plugin for brackets and more
+Plug 'tpope/vim-surround'
 
 " Auto pairs for '(' '[' '{'
 Plug 'jiangmiao/auto-pairs'
@@ -207,7 +205,7 @@ Plug 'mg979/vim-xtabline'
 Plug 'mbbill/undotree'
 
 " Smooth scroll
-Plug 'psliwka/vim-smoothie'
+Plug 'joeytwiddle/sexy_scroller.vim'
 
 " Better Whitespace
 Plug 'ntpeters/vim-better-whitespace'
@@ -236,11 +234,11 @@ Plug 'MattesGroeger/vim-bookmarks'
 " " vim and tmux = vimux
 " Plug 'benmills/vimux'
 
-" vim-workspaces
-Plug 'thaerkh/vim-workspace'
+" " vim-workspaces
+" Plug 'thaerkh/vim-workspace'
 
-" vim-be-good
-Plug 'ThePrimeagen/vim-be-good'
+" " vim-be-good
+" Plug 'ThePrimeagen/vim-be-good'
 
 " wakatime for vim
 Plug 'wakatime/vim-wakatime'
@@ -251,7 +249,7 @@ Plug 'xolox/vim-misc'
 
 " Maximizer for vim
 Plug 'szw/vim-maximizer'
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 
 " Useful for React Commenting
 Plug 'suy/vim-context-commentstring'
@@ -268,8 +266,8 @@ Plug 'vlime/vlime'
 " " tmuxline
 " Plug 'edkolev/tmuxline.vim'
 
-" auto cursorline
-Plug 'delphinus/vim-auto-cursorline'
+" " auto cursorline
+" Plug 'delphinus/vim-auto-cursorline'
 
 
 """"""""""""""""""""""""""""""""""""""
@@ -279,8 +277,8 @@ Plug 'delphinus/vim-auto-cursorline'
 " sql nvim database for frecency
 Plug 'tami5/sql.nvim'
 
-" snippets in lua
-Plug 'norcalli/snippets.nvim'
+" " snippets in lua
+" Plug 'norcalli/snippets.nvim'
 
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -298,12 +296,17 @@ Plug 'nvim-telescope/telescope-snippets.nvim'
 Plug 'nvim-telescope/telescope-node-modules.nvim'
 
 " LSP
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/playground'
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'nvim-treesitter/nvim-tree-docs'
 
 " formatter in lua
 Plug 'mhartington/formatter.nvim'
@@ -315,14 +318,14 @@ Plug 'kyazdani42/nvim-tree.lua'
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
 
-" gitsigns in lua
-Plug 'lewis6991/gitsigns.nvim'
+" " gitsigns in lua
+" Plug 'lewis6991/gitsigns.nvim'
 
-" lightbulb like vscode
-Plug 'kosayoda/nvim-lightbulb'
+" " lightbulb like vscode
+" Plug 'kosayoda/nvim-lightbulb'
 
-" colorshceme template
-Plug 'Iron-E/nvim-highlite'
+" " colorshceme template
+" Plug 'Iron-E/nvim-highlite'
 
 " " bufferline
 " Plug 'akinsho/nvim-bufferline.lua'

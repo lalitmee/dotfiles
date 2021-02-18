@@ -177,3 +177,5 @@ set t_ZH=[3m
 set t_ZR=[23m
 
 set t_ut=
+
+let g:easytags_cmd = '/usr/bin/ctags'
