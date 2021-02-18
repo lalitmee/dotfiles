@@ -76,7 +76,6 @@ source $HOME/.config/nvim/plug-config/indentLine.vim
 source $HOME/.config/nvim/plug-config/magit.vim
 source $HOME/.config/nvim/plug-config/nvim-tree.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
-source $HOME/.config/nvim/plug-config/rainbow.vim
 source $HOME/.config/nvim/plug-config/ranger.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
 source $HOME/.config/nvim/plug-config/snippets.vim

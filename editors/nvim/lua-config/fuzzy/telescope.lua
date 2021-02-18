@@ -54,8 +54,8 @@ require('telescope').setup {
     },
     fzf_writer = {
       use_highlighter = true,
-      minimum_grep_characters = 2,
-      minimum_files_characters = 2,
+      minimum_grep_characters = 0,
+      minimum_files_characters = 0,
     },
     media_files = {
       -- filetypes whitelist
