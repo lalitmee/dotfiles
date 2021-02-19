@@ -51,24 +51,12 @@ Plug 'kshenoy/vim-signature'
 " Better search highlighting
 Plug 'haya14busa/incsearch.vim'
 
-" " minimalist status line
-" Plug 'doums/barow'
-" Plug 'doums/barowGit'
-" Plug 'doums/barowLSP'
-
 " lightline for vim
 Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
 
-" " Airline for vim
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-
 " vim icons
 Plug 'ryanoasis/vim-devicons'
-
-" " get file icon
-" Plug 'lambdalisue/nerdfont.vim'
 
 " for handling swap files
 Plug 'gioele/vim-autoswap'
@@ -95,7 +83,6 @@ Plug 'pwntester/cobalt2.vim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
@@ -132,8 +119,8 @@ Plug 'junegunn/vim-easy-align'
 " Indent Lines made beautiful
 Plug 'Yggdroot/indentLine'
 
-" syntax highlighter for vim
-Plug 'sheerun/vim-polyglot'
+" " syntax highlighter for vim
+" Plug 'sheerun/vim-polyglot'
 
 " " The interactive scratchpad for hackers.
 " Plug 'metakirby5/codi.vim'
@@ -162,9 +149,6 @@ Plug 'voldikss/vim-floaterm'
 " Find and Replace
 " Plug 'brooth/far.vim'
 " Plug 'ChristianChiarulli/far.vim'
-
-" " Convert binary, hex, etc..
-" Plug 'glts/vim-radical'
 
 " Vim sugar for the UNIX shell commands that need it the most
 " Example: :Delete, :Unlink, :Move, etc
@@ -204,8 +188,8 @@ Plug 'mg979/vim-xtabline'
 " undo time travel
 Plug 'mbbill/undotree'
 
-" Smooth scroll
-Plug 'joeytwiddle/sexy_scroller.vim'
+" " Smooth scroll
+" Plug 'joeytwiddle/sexy_scroller.vim'
 
 " Better Whitespace
 Plug 'ntpeters/vim-better-whitespace'
@@ -243,9 +227,10 @@ Plug 'MattesGroeger/vim-bookmarks'
 " wakatime for vim
 Plug 'wakatime/vim-wakatime'
 
-" easytags
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
+" ERROR: making saving of the file slow
+" " easytags
+" Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-misc'
 
 " Maximizer for vim
 Plug 'szw/vim-maximizer'
@@ -258,16 +243,15 @@ Plug 'suy/vim-context-commentstring'
 Plug 'vlime/vlime'
 
 " cheat.sh in vim
-" Plug 'dbeniamine/cheat.sh-vim'
-
-" " switch between single and multilines
-" Plug 'AndrewRadev/splitjoin.vim'
+Plug 'dbeniamine/cheat.sh-vim'
 
 " " tmuxline
 " Plug 'edkolev/tmuxline.vim'
 
-" " auto cursorline
-" Plug 'delphinus/vim-auto-cursorline'
+" open browser from vim
+Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim'
+Plug 'tyru/caw.vim'
 
 
 """"""""""""""""""""""""""""""""""""""
@@ -279,6 +263,7 @@ Plug 'tami5/sql.nvim'
 
 " " snippets in lua
 " Plug 'norcalli/snippets.nvim'
+
 
 " telescope fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -292,8 +277,11 @@ Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope-z.nvim'
-Plug 'nvim-telescope/telescope-snippets.nvim'
+" Plug 'nvim-telescope/telescope-snippets.nvim'
 Plug 'nvim-telescope/telescope-node-modules.nvim'
+Plug 'the-codingguy/telescope-checkout'
+Plug 'tkmpypy/telescope-jumps.nvim'
+Plug 'tamago324/telescope-openbrowser.nvim'
 
 " LSP
 " Plug 'neovim/nvim-lspconfig'
@@ -326,9 +314,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 " " colorshceme template
 " Plug 'Iron-E/nvim-highlite'
-
-" " bufferline
-" Plug 'akinsho/nvim-bufferline.lua'
 
 " " express_line from tj
 " Plug 'tjdevries/express_line.nvim'

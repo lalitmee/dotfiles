@@ -1,14 +1,16 @@
 local sorters = require('telescope.sorters')
 local actions = require('telescope.actions')
 
-require('telescope').load_extension('gh')
-require('telescope').load_extension('fzy_native')
-require'telescope'.load_extension('project')
-require('telescope').load_extension('media_files')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('z')
-require('telescope').load_extension('node_modules')
+-- require('telescope').load_extension('gh')
 -- require('telescope').load_extension('snippets')
+-- require('telescope').load_extension('z')
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('jumps')
+require('telescope').load_extension('media_files')
+require('telescope').load_extension('node_modules')
+require('telescope').load_extension('project')
+require('telescope').load_extension('openbrowser')
 
 require('telescope').setup {
   defaults = {
@@ -34,7 +36,7 @@ require('telescope').setup {
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.6,
+        preview_width = 0.56,
       },
       vertical = {
         width_padding = 0.4,
@@ -72,6 +74,19 @@ require('telescope').setup {
         ["koinearth"] = "/home/data/koinearth",
         ["project"]   = "/home/data/Github",
         -- ["wiki"]   = "/home/my_username/wiki"
+      },
+    },
+    openbrowser = {
+      bookmarks = {
+        ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
+        ['dNotes'] = 'https://github.com/lalitmee/dNotes',
+        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
+        ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
+        ['wf-pwa-service']= 'https://github.com/koinearth/wf-pwa-service',
+        ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
+        ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
+        ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
+        ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer'
       }
     }
   }
