@@ -1,6 +1,37 @@
 -- in lua/finders.lua
 local finders = {}
 
+-- copied from https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery
+local dropdown_theme = require('telescope.themes').get_dropdown({
+  results_height = 20;
+  winblend = 20;
+  width = 0.8;
+  prompt_title = '';
+  prompt_prefix = 'Files>';
+  previewer = false;
+  borderchars = {
+    prompt = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
+    results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
+    preview = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
+  };
+})
+
+-- copied from https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery
+local full_theme = {
+  winblend = 20;
+  width = 0.8;
+  show_line = false;
+  prompt_prefix = 'Files>';
+  prompt_title = '';
+  results_title = '';
+  preview_title = '';
+  borderchars = {
+    prompt = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
+    results = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
+    preview = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
+  };
+}
+
 -- Dropdown list theme using a builtin theme definitions :
 local center_list = require'telescope.themes'.get_dropdown({
   winblend = 10,
@@ -22,6 +53,18 @@ local with_preview = {
 }
 
 -- Find in neovim config with center theme
+finders.fd_full = function()
+  local opts = vim.deepcopy(full_theme)
+  require'telescope.builtin'.fd(opts)
+end
+
+-- Find in neovim config with center theme
+finders.fd_files_dropdown = function()
+  local opts = vim.deepcopy(dropdown_theme)
+  require'telescope.builtin'.fd(opts)
+end
+
+-- Find in neovim config with center theme
 finders.fd_in_nvim = function()
   local opts = vim.deepcopy(center_list)
   opts.prompt_prefix = 'Nvim>'
@@ -30,7 +73,7 @@ finders.fd_in_nvim = function()
 end
 
 -- Find files with_preview settings
-function fd()
+finders.fd = function()
   local opts = vim.deepcopy(with_preview)
   opts.prompt_prefix = 'FD>'
   require'telescope.builtin'.fd(opts)
