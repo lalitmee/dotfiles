@@ -123,3 +123,16 @@ augroup VimAwesomeComplete
   autocmd!
   autocmd FileType vim inoremap <c-x><c-v> <c-r>=VimAwesomeComplete()<cr>
 augroup END
+
+" Restore Cursor postion
+function! s:RestoreCursor()
+  echom 'Restoring cursor'
+  let l:last_pos = line("'\"")
+  if l:last_pos > 0 && l:last_pos <= line('$')
+    exe 'normal! g`"'
+  endif
+endfunction
+augroup restore_cursor
+  autocmd!
+  autocmd BufReadPost * call s:RestoreCursor()
+augroup END

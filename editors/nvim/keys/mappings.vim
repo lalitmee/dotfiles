@@ -73,16 +73,6 @@ vnoremap > >gv
 """ repeat `n.` after editing the searched word
 nnoremap Q @='n.'<CR>
 
-" yank all lines of a file
-" nnoremap <silent> <leader>yl :%y<CR>
-
-
-" Edit command to remove the last file name of the current directory {{{
-" map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-" map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-" map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-" map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
 " Close Fzf window on ESC
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
@@ -101,3 +91,32 @@ augroup terminal_settings
         \   call nvim_input('<CR>')  |
         \ endif
 augroup END
+
+" Terminal key mappings
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <M-[> <Esc>
+  tnoremap <C-v><Esc> <Esc>
+  " Terminal mode:
+  tnoremap <M-h> <c-\><c-n><c-w>h
+  tnoremap <M-j> <c-\><c-n><c-w>j
+  tnoremap <M-k> <c-\><c-n><c-w>k
+  tnoremap <M-l> <c-\><c-n><c-w>l
+  " Insert mode:
+  inoremap <M-h> <Esc><c-w>h
+  inoremap <M-j> <Esc><c-w>j
+  inoremap <M-k> <Esc><c-w>k
+  inoremap <M-l> <Esc><c-w>l
+  " Visual mode:
+  vnoremap <M-h> <Esc><c-w>h
+  vnoremap <M-j> <Esc><c-w>j
+  vnoremap <M-k> <Esc><c-w>k
+  vnoremap <M-l> <Esc><c-w>l
+  " Normal mode:
+  nnoremap <M-h> <c-w>h
+  nnoremap <M-j> <c-w>j
+  nnoremap <M-k> <c-w>k
+  nnoremap <M-l> <c-w>l
+  " pasting from registers in terminal
+  tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+endif

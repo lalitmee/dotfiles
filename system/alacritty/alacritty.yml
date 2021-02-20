@@ -77,11 +77,11 @@ window:
     # scrollback is enabled (history > 0).
     multiplier: 3
 
-  # Font configuration
+# Font configuration
 font:
   normal:
     family: Operator Mono Nerd Font
-    style: Book
+    style: Medium
 
   bold:
     family: Operator Mono Nerd Font
@@ -94,23 +94,6 @@ font:
   bold_italic:
     family: Operator Mono Nerd Font
     style: Bold Italic
-
-  # font:
-  #   normal:
-  #     family: MonoLisa
-  #     style: Regular
-
-  #   bold:
-  #     family: MonoLisa
-  #     style: Bold
-
-  #   italic:
-  #     family: MonoLisa
-  #     style: Italic
-
-  #   bold_italic:
-  #     family: MonoLisa
-  #     style: Bold Italic
 
   # font:
   #   normal:
