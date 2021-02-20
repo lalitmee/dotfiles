@@ -253,6 +253,8 @@ Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'tyru/caw.vim'
 
+" sorting in vim
+Plug 'christoomey/vim-sort-motion'
 
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "

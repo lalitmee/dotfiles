@@ -179,3 +179,23 @@ set t_ZR=[23m
 set t_ut=
 
 let g:easytags_cmd = '/usr/bin/ctags'
+
+hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+
+" setting filetypes indent info
+augroup ft_indent
+  autocmd!
+  autocmd FileType go,make
+        \ setlocal shiftwidth=4 softtabstop=4 noexpandtab
+
+  autocmd FileType python,java,csharp
+        \ setlocal sw=4 sts=4 et
+
+  autocmd FileType javascript,typescript,javascriptreact,typescriptreact,svelte,vim
+        \ setlocal sw=2 sts=2 et
+
+  autocmd FileType lua
+        \ setlocal sw=2 sts=2 et
+
+augroup END
+
