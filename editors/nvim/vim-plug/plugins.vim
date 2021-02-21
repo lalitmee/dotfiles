@@ -251,10 +251,12 @@ Plug 'dbeniamine/cheat.sh-vim'
 " open browser from vim
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
-Plug 'tyru/caw.vim'
 
 " sorting in vim
 Plug 'christoomey/vim-sort-motion'
+
+" context for filetypes
+Plug 'Shougo/context_filetype.vim'
 
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
