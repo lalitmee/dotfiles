@@ -1,0 +1,148 @@
+####
+# Proptypes #
+####
+
+# element
+snippet pte "PropType Element" b
+${1:prop}: PropTypes.element,
+${0}
+endsnippet
+
+# element required
+snippet pter "PropType Element Required" b
+${1:prop}: PropTypes.element.isRequired,
+${0}
+endsnippet
+
+# array
+snippet pta "PropType Array" b
+${1:prop}: PropTypes.array,
+${0}
+endsnippet
+
+# array required
+snippet ptar "PropType Array Required" b
+${1:prop}: PropTypes.array.isRequired,
+${0}
+endsnippet
+
+# boolean
+snippet ptb "PropType Boolean" b
+${1:prop}: PropTypes.bool,
+${0}
+endsnippet
+
+# boolean required
+snippet ptbr "PropType Boolean Required" b
+${1:prop}: PropTypes.bool.isRequired,
+${0}
+endsnippet
+
+# function
+snippet ptf "PropType Function" b
+${1:prop}: PropTypes.func,
+${0}
+endsnippet
+
+# function required
+snippet ptfr "PropType Function Required" b
+${1:prop}: PropTypes.func.isRequired,
+${0}
+endsnippet
+
+# number
+snippet ptn "PropType Number" b
+${1:prop}: PropTypes.number,
+${0}
+endsnippet
+
+# number required
+snippet ptnr "PropType Number Required" b
+${1:prop}: PropTypes.number.isRequired,
+${0}
+endsnippet
+
+# object
+snippet pto "PropType Ojbect" b
+${1:prop}: PropTypes.object,
+${0}
+endsnippet
+
+# object required
+snippet ptor "PropType Ojbect Required" b
+${1:prop}: PropTypes.ojbect.isRequired,
+${0}
+endsnippet
+
+# string
+snippet pts "PropType String" b
+${1:prop}: PropTypes.string,
+${0}
+endsnippet
+
+# string required
+snippet ptsr "PropType String Required" b
+${1:prop}: PropTypes.string.isRequired,
+${0}
+endsnippet
+
+# one of type
+snippet ptof "PropType One Of Type" b
+${1:prop}: PropTypes.oneOfType([${2:prop-types}]),
+${0}
+endsnippet
+
+# one of type required
+snippet ptofr "PropType One Of Type Required" b
+${1:prop}: PropTypes.oneOfType([${2:prop-types}]).isRequired,
+${0}
+endsnippet
+
+# array of
+snippet ptao "PropType Array Of" b
+${1:prop}: PropTypes.arrayOf(${2:prop-type}),
+${0}
+endsnippet
+
+# array of required
+snippet ptaor "PropType Array Of Required" b
+${1:prop}: PropTypes.arrayOf(${2:prop-type}).isRequired,
+${0}
+endsnippet
+
+# object of
+snippet ptoo "PropType Object Of" b
+${1:prop}: PropTypes.objectOf(${2:prop-type}),
+${0}
+endsnippet
+
+# object of required
+snippet ptoor "PropType Object Of Required" b
+${1:prop}: PropTypes.objectOf(${2:prop-type}).isRequired,
+${0}
+endsnippet
+
+# shape of
+snippet ptss "PropType Shape" b
+${1:prop}: PropTypes.shape({
+	${2}
+}),
+${0}
+endsnippet
+
+# object of required
+snippet ptssr "PropType Shape Required" b
+${1:prop}: PropTypes.shape({
+	${2}
+}).isRequired,
+${0}
+endsnippet
+
+######
+#  Console Logs  #
+######
+
+# console.log({})
+snippet log "Console Log" b
+console.log({${1:variable}})${0}
+endsnippet
