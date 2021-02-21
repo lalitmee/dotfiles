@@ -96,9 +96,9 @@ set formatprg=par\ -w72
 filetype plugin indent on
 
 if (has('nvim'))
-	" show results of substition as they're happening
-	" but don't open a split
-	set inccommand=split
+  " show results of substition as they're happening
+  " but don't open a split
+  set inccommand=split
 endif
 
 set backspace=indent,eol,start " make backspace behave in a sane manner
@@ -120,15 +120,15 @@ set path+=**
 set undolevels=1000      " use many muchos levels of undo
 
 if (has("nvim"))
-	"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
 " For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
 " Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 if (has("termguicolors"))
-    set termguicolors
+  set termguicolors
 endif
 
 " highlight Pmenu guibg=LightYellow1 guifg=black
@@ -144,8 +144,8 @@ set guifont=Ubuntu\ Mono\ Nerd\ Font:h13
 " Open help in vertical split {{{
 
 augroup vimrc_help
-	autocmd!
-	autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+  autocmd!
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
 augroup END
 
 " }}}
@@ -161,9 +161,9 @@ autocmd BufLeave term://* stopinsert
 " Trim Whitespaces {{{
 
 fun! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
 endfun
 
 autocmd BufWritePre * :call TrimWhitespace()

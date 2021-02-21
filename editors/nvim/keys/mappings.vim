@@ -120,3 +120,9 @@ if has('nvim')
   " pasting from registers in terminal
   tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
+
+" transpose characters using repeat.vim
+" picked from http://vimcasts.org/episodes/creating-repeatable-mappings-with-repeat-vim/
+nnoremap <silent> <Plug>TransposeCharacters xp
+      \ :call repeat#set("\<Plug>TransposeCharacters")<CR>
+nmap cp <Plug>TransposeCharacters

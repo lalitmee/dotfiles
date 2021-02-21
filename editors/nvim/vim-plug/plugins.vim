@@ -258,6 +258,14 @@ Plug 'christoomey/vim-sort-motion'
 " context for filetypes
 Plug 'Shougo/context_filetype.vim'
 
+" vim-exchange for exchanging words
+Plug 'tommcdo/vim-exchange'
+
+" visual search using * from drew neil
+Plug 'nelstrom/vim-visual-star-search'
+
+
+
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
 """"""""""""""""""""""""""""""""""""""
