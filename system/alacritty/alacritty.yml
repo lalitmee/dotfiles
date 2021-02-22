@@ -77,7 +77,7 @@ window:
     # scrollback is enabled (history > 0).
     multiplier: 3
 
-# Font configuration
+  # Font configuration
 font:
   normal:
     family: Operator Mono Nerd Font
@@ -98,7 +98,7 @@ font:
   # font:
   #   normal:
   #     family: JetBrainsMono Nerd Font
-  #     style: Regular
+  #     style: Medium
 
   #   bold:
   #     family: JetBrainsMono Nerd Font

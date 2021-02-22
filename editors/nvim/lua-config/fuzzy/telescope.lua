@@ -21,8 +21,8 @@ require('telescope').setup {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        ["<c-k>"] = actions.move_selection_next,
-        ["<c-j>"] = actions.move_selection_prev,
+        -- ["<c-k>"] = actions.move_selection_next,
+        -- ["<c-j>"] = actions.move_selection_prev,
       }
     },
     borderchars = {
