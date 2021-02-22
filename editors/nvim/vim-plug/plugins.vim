@@ -265,7 +265,6 @@ Plug 'tommcdo/vim-exchange'
 Plug 'nelstrom/vim-visual-star-search'
 
 
-
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
 """"""""""""""""""""""""""""""""""""""
