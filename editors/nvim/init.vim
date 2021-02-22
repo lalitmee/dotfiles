@@ -26,7 +26,6 @@ autocmd VimEnter *
 source $HOME/.config/nvim/vim-plug/plugins.vim
 
 " General Settings
-source $HOME/.config/nvim/general/abbreviations.vim
 source $HOME/.config/nvim/general/buffers.vim
 source $HOME/.config/nvim/general/cursor.vim
 source $HOME/.config/nvim/general/fold.vim
