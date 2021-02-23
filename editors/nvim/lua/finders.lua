@@ -72,6 +72,14 @@ finders.fd_in_nvim = function()
   require'telescope.builtin'.fd(opts)
 end
 
+-- Find in dotfiles with center theme
+finders.fd_dotfiles = function()
+  local opts = vim.deepcopy(with_preview)
+  opts.prompt_prefix = 'dotfiles>'
+  opts.cwd = "~/data/Github/dotfiles"
+  require'telescope.builtin'.fd(opts)
+end
+
 -- Find files with_preview settings
 finders.fd = function()
   local opts = vim.deepcopy(with_preview)
