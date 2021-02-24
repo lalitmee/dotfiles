@@ -1,1 +1,1 @@
-let g:UltiSnipsEditSplit = context
+let g:UltiSnipsEditSplit = 'context'
