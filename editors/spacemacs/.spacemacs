@@ -231,9 +231,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         doom-gruvbox
                          doom-dark+
                          doom-nord
-                         doom-gruvbox
                          doom-molokai
                          doom-oceanic-next
                          doom-one
@@ -246,10 +246,10 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "CaskaydiaCove Nerd Font"
-                               "Ubuntu Mono Nerd Font"
+                               ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               ;; "OperatorMono Nerd Font"
-                               :size 15
+                               "JetBrainsMono Nerd Font"
+                               :size 14
                                :weight normal
                                :powerline-scale 1.3)
    ;; The leader key
