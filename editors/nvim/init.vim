@@ -70,6 +70,7 @@ source $HOME/.config/nvim/plug-config/xtabline.vim
 " Plugins Configurations
 " source $HOME/.config/nvim/plug-config/lsp.vim
 source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/cyclist.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
