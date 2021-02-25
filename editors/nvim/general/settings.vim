@@ -75,11 +75,14 @@ set shiftwidth=2                        " number of spaces to use for indent and
 set shiftround                          " round indent to a multiple of 'shiftwidth'
 
 " code folding settings
-set foldmethod=syntax                   " fold based on indent
+" set foldmethod=syntax                   " fold based on indent
 set foldlevelstart=99
 set foldnestmax=10                      " deepest fold is 10 levels
 set foldenable                        " don't fold by default
 set foldlevel=1
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 " set undodir=~/.vim/undodir
 " set undofile
 
@@ -197,5 +200,38 @@ augroup ft_indent
   autocmd FileType lua
         \ setlocal sw=2 sts=2 et
 
+augroup END
+
+" Helping nvim detect filetype
+let s:additional_filetypes = {
+      \ 'zsh': '*.zsh*',
+      \ 'sh': '.env.*, Caddyfile',
+      \ 'bnf': '*.bnf',
+      \ 'json': '*.webmanifest',
+      \ 'rest': '*.http',
+      \ 'elixir': ['*.exs', '*.ex'],
+      \ }
+
+augroup file_types
+  autocmd!
+  for kv in items(s:additional_filetypes)
+    if type(kv[1]) == v:t_list
+      for ext in kv[1]
+        execute 'autocmd BufNewFile,BufRead ' . ext
+              \ . ' setlocal filetype=' . kv[0]
+      endfor
+    else
+      execute 'autocmd BufNewFile,BufRead ' . kv[1]
+            \ . ' setlocal filetype=' . kv[0]
+    endif
+  endfor
+
+  autocmd FileType markdown setlocal conceallevel=2
+
+  " json 5 comment
+  autocmd FileType json
+                 \ syntax region Comment start="//" end="$" |
+                 \ syntax region Comment start="/\*" end="\*/" |
+                 \ setlocal commentstring=//\ %s
 augroup END
 

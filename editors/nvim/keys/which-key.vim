@@ -215,7 +215,7 @@ let g:which_key_map.g = {
       \ 'b' : [':GBrowse'                                       , 'browse'],
       \ 'B' : [':Git blame'                                     , 'blame'],
       \ 'C' : [':Git commit'                                    , 'commit'],
-      \ 'c' : [':Telescope git_branches'                        , 'checkout'],
+      \ 'c' : [':FzfGBranches'                                  , 'checkout'],
       \ 'd' : [':Git diff'                                      , 'diff'],
       \ 'D' : [':Gdiffsplit'                                    , 'diff-split'],
       \ 'g' : [':GGrep'                                         , 'git-grep'],

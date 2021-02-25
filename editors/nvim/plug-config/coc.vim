@@ -12,7 +12,6 @@ let g:coc_global_extensions = [
     \ 'coc-marketplace',
     \ 'coc-pairs',
     \ 'coc-prettier',
-    \ 'coc-project',
     \ 'coc-pyright',
     \ 'coc-python',
     \ 'coc-sh',
@@ -24,6 +23,7 @@ let g:coc_global_extensions = [
     \ 'coc-yaml',
     \ 'coc-yank',
     \ ]
+    " \ 'coc-project',
     " \ 'coc-explorer',
     " \ 'coc-tabnine',
     " \ 'coc-highlight'," Prettier command for coc-prettier

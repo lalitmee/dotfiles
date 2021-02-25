@@ -18,8 +18,8 @@
 # Basic example:
 #
 #		snippet emitter "emitter properties" !b
-#		private readonly ${1} = new Emitter<$2>()
-#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		private readonly ${1} = new Emitter<${2}>()
+#		public readonly ${1/^_(.*)/${1}/}: Event<${2}> = this.${1}.event
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
@@ -30,12 +30,12 @@ import React from 'react'
 function ${1:Component}() {
 	return (
 		<div>
-			$1
+			${1}
 		</div>
 	)
 }
 
-export default $1
+export default ${1}
 
 endsnippet
 ####
@@ -67,18 +67,18 @@ PropTypes.number
 endsnippet
 
 snippet ptarrayof "arrayOf proptype" !b
-PropTypes.arrayOf($1)
+PropTypes.arrayOf(${1})
 endsnippet
 
 snippet ptoneof "oneOf proptype" !b
 PropTypes.oneOf([
-	$1
+	${1}
 ])
 endsnippet
 
 snippet ptshape "shape proptype" !b
 PropTypes.shape({
-	$1: $2
+	${1}: ${2}
 })
 endsnippet
 
