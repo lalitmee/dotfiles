@@ -159,12 +159,12 @@ alias aw="awesome-hub"
 alias st="speed-test"
 
 # alias for fzf get the output
-alias f="| fzf"
+alias f="| fzf-tmux -d 40%"
 alias fk="fkill"
 
 # gitmoji aliases
 alias gm="gitmoji -s"
-alias gml="gitmoji -l | fzf"
+alias gml="gitmoji -l | fzf-tmux -d 40%"
 
 # alias for system
 # alias s="sudo reboot"
@@ -224,7 +224,7 @@ alias dp="doom purge"
 alias ds="doom sync"
 alias du="doom upgrade"
 
-alias manfzf="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
+alias manfzf="man -k . | fzf-tmux --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
 alias yt="youtube-dl"
@@ -250,8 +250,8 @@ alias rm="rm -i"
 alias rmnode="rm -rf node_modules"
 alias rmpack="rm -rf package-lock.json"
 alias hs="history | grep"
-alias h="history | fzf"
-alias a="alias | fzf"
+alias h="history | fzf-tmux -d 40%"
+alias a="alias | fzf-tmux -d 40%"
 alias myip="curl http://ipecho.net/plain; echo"
 
 # alias for todo.txt-cli

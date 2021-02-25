@@ -5,15 +5,14 @@ local finders = {}
 local dropdown_theme = require('telescope.themes').get_dropdown({
   results_height = 20;
   winblend = 20;
-  width = 0.8;
+  width = 0.6;
   prompt_title = '';
   prompt_prefix = 'Files>';
   previewer = false;
   borderchars = {
-    prompt = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
-    results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
-    preview = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
-  };
+    { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+    preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+  },
 })
 
 -- copied from https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery
@@ -26,10 +25,9 @@ local full_theme = {
   results_title = '';
   preview_title = '';
   borderchars = {
-    prompt = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
-    results = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
-    preview = {'▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' };
-  };
+    { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+    preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+  },
 }
 
 -- Dropdown list theme using a builtin theme definitions :
@@ -45,10 +43,12 @@ local center_list = require'telescope.themes'.get_dropdown({
 local with_preview = {
   winblend = 10,
   show_line = false,
-  results_title = false,
-  preview_title = false,
+  results_title = 'Results',
+  preview_title = 'Preview',
   layout_config = {
-    preview_width = 0.5,
+    width_padding = 0.11,
+    height_padding = 0.13,
+    preview_width = 0.56,
   },
 }
 

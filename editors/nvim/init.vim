@@ -38,40 +38,40 @@ source $HOME/.config/nvim/general/tmux.vim
 
 
 " Lua Plugins
+" luafile $HOME/.config/nvim/lua-config/bufferline.lua
 " luafile $HOME/.config/nvim/lua-config/formatter.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/nvcodeline.lua
+" luafile $HOME/.config/nvim/lua/lsp.lua
 luafile $HOME/.config/nvim/lua-config/fuzzy/telescope.lua
 luafile $HOME/.config/nvim/lua-config/themes/colorizer.lua
 luafile $HOME/.config/nvim/lua-config/treesitter.lua
-" luafile $HOME/.config/nvim/lua-config/bufferline.lua
-" luafile $HOME/.config/nvim/lua/lsp.lua
 
 " Colorschemes
-" source $HOME/.config/nvim/themes/nvcode.vim
-" source $HOME/.config/nvim/themes/solarized.vim
+" source $HOME/.config/nvim/themes/cobalt2.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbox8.vim
-source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/nord.vim
-" source $HOME/.config/nvim/themes/cobalt2.vim
+" source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/onedark.vim
+" source $HOME/.config/nvim/themes/solarized.vim
+source $HOME/.config/nvim/themes/gruvbuddy.vim
 
 " Status Lines
-" source $HOME/.config/nvim/status-lines/barow.vim
-source $HOME/.config/nvim/status-lines/lightline.vim
 " source $HOME/.config/nvim/status-lines/airline.vim
 " source $HOME/.config/nvim/status-lines/barbar.vim
+" source $HOME/.config/nvim/status-lines/barow.vim
+source $HOME/.config/nvim/status-lines/lightline.vim
 
 " Tab Lines
 source $HOME/.config/nvim/plug-config/xtabline.vim
 
 " Plugins Configurations
+" source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/lsp.vim
 source $HOME/.config/nvim/plug-config/coc.vim
-source $HOME/.config/nvim/plug-config/ultisnips.vim
-source $HOME/.config/nvim/plug-config/cyclist.vim
+source $HOME/.config/nvim/plug-config/coc-fzf.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
@@ -91,6 +91,7 @@ source $HOME/.config/nvim/plug-config/snippets.vim
 source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
+source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim

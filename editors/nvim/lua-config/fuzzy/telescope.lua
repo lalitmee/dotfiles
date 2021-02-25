@@ -68,7 +68,7 @@ require('telescope').setup {
     frecency = {
       show_scores = false,
       show_unindexed = true,
-      ignore_patterns = {"*.git/*", "*/tmp/*"},
+      ignore_patterns = {"*.git/*", "*/node_modules/*"},
       workspaces = {
         ["conf"]      = "/home/data/Github/dotfiles",
         ["koinearth"] = "/home/data/koinearth",

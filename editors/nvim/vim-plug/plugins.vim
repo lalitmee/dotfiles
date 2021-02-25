@@ -61,25 +61,19 @@ Plug 'ryanoasis/vim-devicons'
 " for handling swap files
 Plug 'gioele/vim-autoswap'
 
-" for renaming the current buffer
-Plug 'danro/rename.vim'
-
 " for jumping
 Plug 'easymotion/vim-easymotion'
 
 " File Management using ranger
 Plug 'francoiscabrol/ranger.vim'
-Plug 'rbgrouleff/bclose.vim'
 
 " Colors
-Plug 'overcache/NeoSolarized'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
-Plug 'pwntester/cobalt2.vim'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -129,10 +123,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-rooter'
-
-" Cyclist by Tjdevries
-" For setting listchars dynamically by calling function of plugin
-Plug 'tjdevries/cyclist.vim'
 
 " Ranger
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
@@ -187,9 +177,6 @@ Plug 'mg979/vim-xtabline'
 
 " undo time travel
 Plug 'mbbill/undotree'
-
-" " Smooth scroll
-" Plug 'joeytwiddle/sexy_scroller.vim'
 
 " Better Whitespace
 Plug 'ntpeters/vim-better-whitespace'

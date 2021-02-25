@@ -438,6 +438,24 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (beacon-mode 1)
+  ;; indent guides
+  (with-eval-after-load 'indent-guide
+    (when (boundp 'indent-guide-inhibit-modes)
+      ;; fix for crash on home page
+      (push 'spacemacs-buffer-mode indent-guide-inhibit-modes))
+
+    ;; configure indent guide
+    (setq indent-guide-char "|")
+    (setq indent-guide-recursive t)
+    (setq indent-guide-delay 0.2)
+    )
+
+  ;; use indent-guide globally
+  (spacemacs/toggle-indent-guide-globally-on)
+
+  ;; disable indent-guide in visual mode
+  (add-hook 'evil-visual-state-entry-hook #'spacemacs/toggle-indent-guide-off)
+  (add-hook 'evil-visual-state-exit-hook #'spacemacs/toggle-indent-guide-on)
 
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
