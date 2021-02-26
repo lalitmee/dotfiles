@@ -295,7 +295,8 @@ let g:which_key_map.o = {
       \ 'C' : [':Telescope git_branches'                        , 'git-branches'],
       \ 'd' : [':Telescope git_bcommits'                        , 'git-buffer-commits'],
       \ 'D' : [':Telescope git_commits'                         , 'git-commits'],
-      \ 'e' : [':Telescope symbols'                             , 'symbols'],
+      \ 'e' : [':Telescope file_browser'                        , 'file-browser'],
+      \ 'E' : [':Telescope symbols'                             , 'symbols'],
       \ 'f' : [':Telescope fzf_writer files'                    , 'files'],
       \ 'F' : [':Telescope media_files'                         , 'files'],
       \ 'g' : [':Telescope git_files'                           , 'git-files'],
@@ -322,6 +323,7 @@ let g:which_key_map.o = {
       \ 'S' : [':Telescope spell_suggest'                       , 'spell_suggest'],
       \ 't' : [':Telescope current_buffer_tags'                 , 'buffer-tags'],
       \ 'u' : [':Telescope grep_string'                         , 'grep-string'],
+      \ 'U' : [':Telescope ultisnips ultisnips'                 , 'ultisnips'],
       \ 'v' : [':Telescope vim_options'                         , 'vim-options'],
       \ 'z' : [':Telescope filetypes'                           , 'filetypes'],
       \ }

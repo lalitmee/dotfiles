@@ -1,14 +1,14 @@
-" " " selected item
-" highlight TelescopeSelection    guibg=#3E5D75  gui=bold
+" " selected item
+highlight TelescopeSelection    guibg=#3E5D75  gui=bold
 
-" " selection caret
-" highlight TelescopeSelectionCaret guibg=#3E5D75 guifg=#FFFFFF
+" selection caret
+highlight TelescopeSelectionCaret guibg=#3E5D75 guifg=#FFFFFF
 
-" " " Used for highlighting characters that you match.
-" highlight TelescopeMatching       guifg=#CC6666
+" " Used for highlighting characters that you match.
+highlight TelescopeMatching       guifg=#CC6666
 
-" " Used for the prompt prefix
-" highlight TelescopePromptPrefix   guifg=#FFFFFF
+" Used for the prompt prefix
+highlight TelescopePromptPrefix   guifg=#FFFFFF
 
 nnoremap <silent> <leader>ja :lua require'finders'.fd_dotfiles()<cr>
 nnoremap <silent> <Leader>jb :lua require('telescope.builtin').buffers({ entry_maker = require'rc.telescope.my_make_entry'.gen_from_buffer_like_leaderf() }) <cr>

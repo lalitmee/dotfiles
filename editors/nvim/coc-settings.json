@@ -52,7 +52,7 @@
   "python.linting.pylintEnabled": true,
 
   // snippets
-  "snippets.userSnippetsDirectory": "~/.config/nvim/utils/snippets",
+  "snippets.userSnippetsDirectory": "~/.config/nvim/UltiSnips",
 
   // emmet
   "emmet.includeLanguages": {
@@ -62,8 +62,5 @@
   // Prettier Settings
   "prettier.singleQuote": true,
   "prettier.arrowParens": "avoid",
-  "prettier.trailingComma": "all",
-
-  // explorer settings
-  "explorer.icon.enableNerdfont": true
+  "prettier.trailingComma": "all"
 }
