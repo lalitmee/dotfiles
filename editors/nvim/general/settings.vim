@@ -202,39 +202,42 @@ augroup ft_indent
 
 augroup END
 
-" Helping nvim detect filetype
-let s:additional_filetypes = {
-      \ 'zsh': '*.zsh*',
-      \ 'sh': '.env.*, Caddyfile',
-      \ 'bnf': '*.bnf',
-      \ 'json': '*.webmanifest',
-      \ 'rest': '*.http',
-      \ 'elixir': ['*.exs', '*.ex'],
-      \ }
+" " Helping nvim detect filetype
+" let s:additional_filetypes = {
+"       \ 'zsh': '*.zsh*',
+"       \ 'sh': '.env.*, Caddyfile',
+"       \ 'bnf': '*.bnf',
+"       \ 'json': '*.webmanifest',
+"       \ 'rest': '*.http',
+"       \ 'elixir': ['*.exs', '*.ex'],
+"       \ }
 
-augroup file_types
-  autocmd!
-  for kv in items(s:additional_filetypes)
-    if type(kv[1]) == v:t_list
-      for ext in kv[1]
-        execute 'autocmd BufNewFile,BufRead ' . ext
-              \ . ' setlocal filetype=' . kv[0]
-      endfor
-    else
-      execute 'autocmd BufNewFile,BufRead ' . kv[1]
-            \ . ' setlocal filetype=' . kv[0]
-    endif
-  endfor
+" augroup file_types
+"   autocmd!
+"   for kv in items(s:additional_filetypes)
+"     if type(kv[1]) == v:t_list
+"       for ext in kv[1]
+"         execute 'autocmd BufNewFile,BufRead ' . ext
+"               \ . ' setlocal filetype=' . kv[0]
+"       endfor
+"     else
+"       execute 'autocmd BufNewFile,BufRead ' . kv[1]
+"             \ . ' setlocal filetype=' . kv[0]
+"     endif
+"   endfor
 
-  autocmd FileType markdown setlocal conceallevel=2
+"   autocmd FileType markdown setlocal conceallevel=2
 
-  " json 5 comment
-  autocmd FileType json
-                 \ syntax region Comment start="//" end="$" |
-                 \ syntax region Comment start="/\*" end="\*/" |
-                 \ setlocal commentstring=//\ %s
-augroup END
+"   " json 5 comment
+"   autocmd FileType json
+"                  \ syntax region Comment start="//" end="$" |
+"                  \ syntax region Comment start="/\*" end="\*/" |
+"                  \ setlocal commentstring=//\ %s
+" augroup END
 
 " transparent background
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
+
+" make comments italic
+highlight Comment cterm=italic gui=italic

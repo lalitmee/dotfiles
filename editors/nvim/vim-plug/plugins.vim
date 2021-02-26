@@ -74,6 +74,8 @@ Plug 'joshdick/onedark.vim'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
+Plug 'Th3Whit3Wolf/onebuddy'
+Plug 'Th3Whit3Wolf/spacebuddy'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -280,6 +282,7 @@ Plug 'nvim-telescope/telescope-node-modules.nvim'
 Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
+Plug 'fhill2/telescope-ultisnips.nvim'
 
 " LSP
 " Plug 'neovim/nvim-lspconfig'

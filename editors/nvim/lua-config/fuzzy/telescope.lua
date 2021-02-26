@@ -11,6 +11,7 @@ require('telescope').load_extension('media_files')
 require('telescope').load_extension('node_modules')
 require('telescope').load_extension('project')
 require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('ultisnips')
 
 require('telescope').setup {
   defaults = {
