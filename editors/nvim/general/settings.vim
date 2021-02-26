@@ -235,3 +235,6 @@ augroup file_types
                  \ setlocal commentstring=//\ %s
 augroup END
 
+" transparent background
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
