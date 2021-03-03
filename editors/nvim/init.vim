@@ -49,15 +49,18 @@ luafile $HOME/.config/nvim/lua-config/themes/colorizer.lua
 luafile $HOME/.config/nvim/lua-config/treesitter.lua
 
 " Colorschemes
+" luafile $HOME/.config/nvim/lua-config/themes/nord.lua
 " source $HOME/.config/nvim/themes/cobalt2.vim
+source $HOME/.config/nvim/themes/gruvbox-material.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbox8.vim
-source $HOME/.config/nvim/themes/nord.vim
+" source $HOME/.config/nvim/themes/gruvbuddy.vim
+" source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
 " source $HOME/.config/nvim/themes/onedark.vim
 " source $HOME/.config/nvim/themes/solarized.vim
-" source $HOME/.config/nvim/themes/gruvbuddy.vim
-luafile $HOME/.config/nvim/lua-config/themes/nord.lua
+" source $HOME/.config/nvim/themes/spacemacs.vim
+" source $HOME/.config/nvim/themes/monokai-pro.vim
 
 " Status Lines
 " source $HOME/.config/nvim/status-lines/airline.vim
@@ -71,8 +74,9 @@ source $HOME/.config/nvim/plug-config/xtabline.vim
 " Plugins Configurations
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/lsp.vim
-source $HOME/.config/nvim/plug-config/coc.vim
+source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/coc-fzf.vim
+source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
@@ -85,6 +89,7 @@ source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/indentLine.vim
 source $HOME/.config/nvim/plug-config/magit.vim
 source $HOME/.config/nvim/plug-config/nvim-tree.vim
+source $HOME/.config/nvim/plug-config/openbrowser.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
 source $HOME/.config/nvim/plug-config/ranger.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim

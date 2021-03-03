@@ -1,17 +1,18 @@
 local sorters = require('telescope.sorters')
 local actions = require('telescope.actions')
 
--- require('telescope').load_extension('gh')
 -- require('telescope').load_extension('snippets')
--- require('telescope').load_extension('z')
+require('telescope').load_extension('dap')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('gh')
 require('telescope').load_extension('jumps')
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('node_modules')
-require('telescope').load_extension('project')
 require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('project')
 require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('z')
 
 require('telescope').setup {
   defaults = {
@@ -22,8 +23,7 @@ require('telescope').setup {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        -- ["<c-k>"] = actions.move_selection_next,
-        -- ["<c-j>"] = actions.move_selection_prev,
+        ["<C-l>"] = actions.send_to_qflist,
       }
     },
     borderchars = {
@@ -61,32 +61,29 @@ require('telescope').setup {
       minimum_files_characters = 0,
     },
     media_files = {
-      -- filetypes whitelist
-      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-      filetypes = {"png", "webp", "jpg", "jpeg", "pdf", "mp4", "webm"},
+      filetypes = {'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm'},
       find_cmd = "rg" -- find command (defaults to `fd`)
     },
     frecency = {
       show_scores = false,
       show_unindexed = true,
-      ignore_patterns = {"*.git/*", "*/node_modules/*"},
+      ignore_patterns = {'*.git/*', '*/node_modules/*'},
       workspaces = {
-        ["conf"]      = "/home/data/Github/dotfiles",
-        ["koinearth"] = "/home/data/koinearth",
-        ["project"]   = "/home/data/Github",
-        -- ["wiki"]   = "/home/my_username/wiki"
+        ['conf']      = '/home/data/Github/dotfiles',
+        ['koinearth'] = '/home/data/koinearth',
+        ['project']   = '/home/data/Github',
       },
     },
     openbrowser = {
       bookmarks = {
-        ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
-        ['dNotes'] = 'https://github.com/lalitmee/dNotes',
-        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
+        ['dotfiles']                = 'https://github.com/lalitmee/dotfiles',
+        ['dNotes']                  = 'https://github.com/lalitmee/dNotes',
+        ['wf-webapp-service']       = 'https://github.com/koinearth/wf-webapp-service',
         ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
-        ['wf-pwa-service']= 'https://github.com/koinearth/wf-pwa-service',
-        ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
-        ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
-        ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
+        ['wf-pwa-service']          = 'https://github.com/koinearth/wf-pwa-service',
+        ['marketsn-pwa-service']    = 'https://github.com/koinearth/marketsn-pwa-service',
+        ['marketsn-pdf-service']    = 'https://github.com/koinearth/marketsn-pdf-service',
+        ['marketsn-api-service']    = 'https://github.com/koinearth/marketsn-api-service',
         ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer'
       }
     }

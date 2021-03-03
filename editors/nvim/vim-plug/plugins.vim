@@ -52,8 +52,9 @@ Plug 'kshenoy/vim-signature'
 Plug 'haya14busa/incsearch.vim'
 
 " lightline for vim
-Plug 'delphinus/lightline-delphinus'
+" Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
+Plug 'josa42/vim-lightline-coc'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -76,6 +77,9 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'Th3Whit3Wolf/onebuddy'
 Plug 'Th3Whit3Wolf/spacebuddy'
+Plug 'colepeters/spacemacs-theme.vim'
+Plug 'sainnhe/gruvbox-material'
+Plug 'phanviet/vim-monokai-pro'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -253,6 +257,11 @@ Plug 'tommcdo/vim-exchange'
 " visual search using * from drew neil
 Plug 'nelstrom/vim-visual-star-search'
 
+" grep easily
+Plug 'mhinz/vim-grepper'
+
+" any-jump
+Plug 'pechorin/any-jump.vim'
 
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
@@ -266,23 +275,24 @@ Plug 'tami5/sql.nvim'
 
 
 " telescope fuzzy finder
-Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'nvim-telescope/telescope-symbols.nvim'
+Plug 'fhill2/telescope-ultisnips.nvim'
+Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
-Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
-Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'nvim-telescope/telescope-z.nvim'
-" Plug 'nvim-telescope/telescope-snippets.nvim'
 Plug 'nvim-telescope/telescope-node-modules.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-symbols.nvim'
+Plug 'nvim-telescope/telescope-z.nvim'
+Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
-Plug 'tamago324/telescope-openbrowser.nvim'
-Plug 'fhill2/telescope-ultisnips.nvim'
+" Plug 'nvim-telescope/telescope-snippets.nvim'
 
 " LSP
 " Plug 'neovim/nvim-lspconfig'
@@ -306,6 +316,13 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
+
+" better quick-fix winodw
+Plug 'kevinhwang91/nvim-bqf'
+
+" debugger attach protocol
+Plug 'mfussenegger/nvim-dap'
+
 
 " " gitsigns in lua
 " Plug 'lewis6991/gitsigns.nvim'

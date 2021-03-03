@@ -7,7 +7,7 @@ local dropdown_theme = require('telescope.themes').get_dropdown({
   -- winblend = 20;
   width = 0.6;
   prompt_title = '';
-  prompt_prefix = 'Files>';
+  prompt_prefix = 'Files> ';
   previewer = false;
   borderchars = {
     { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
@@ -20,7 +20,7 @@ local full_theme = {
   -- winblend = 20;
   width = 0.8;
   show_line = false;
-  prompt_prefix = 'Files>';
+  prompt_prefix = 'Files> ';
   prompt_title = '';
   results_title = '';
   preview_title = '';
@@ -65,17 +65,17 @@ finders.fd_files_dropdown = function()
 end
 
 -- Find in neovim config with center theme
-finders.fd_in_nvim = function()
+finders.search_nvim_config = function()
   local opts = vim.deepcopy(center_list)
-  opts.prompt_prefix = 'Nvim>'
+  opts.prompt_prefix = 'nvim> '
   opts.cwd = vim.fn.stdpath("config")
   require'telescope.builtin'.fd(opts)
 end
 
 -- Find in dotfiles with center theme
-finders.fd_dotfiles = function()
+finders.search_dotfiles = function()
   local opts = vim.deepcopy(with_preview)
-  opts.prompt_prefix = 'dotfiles>'
+  opts.prompt_prefix = 'dotfiles> '
   opts.cwd = "~/data/Github/dotfiles"
   require'telescope.builtin'.fd(opts)
 end
@@ -83,7 +83,7 @@ end
 -- Find files with_preview settings
 finders.fd = function()
   local opts = vim.deepcopy(with_preview)
-  opts.prompt_prefix = 'FD>'
+  opts.prompt_prefix = 'Files> '
   require'telescope.builtin'.fd(opts)
 end
 
