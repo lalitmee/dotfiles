@@ -18,7 +18,7 @@
       " \ 'colorscheme': 'monokai_pro',
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox_material',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [
       \             [ 'mode', 'paste' ],
