@@ -17,6 +17,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " " dim focus on not active windows
 " Plug 'blueyed/vim-diminactive'
 
+" ctags handling
+Plug 'ludovicchabant/vim-gutentags'
+
 " tagslist
 Plug 'vim-scripts/taglist.vim'
 
@@ -307,8 +310,8 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-tree-docs'
 
-" formatter in lua
-Plug 'mhartington/formatter.nvim'
+" " formatter in lua
+" Plug 'mhartington/formatter.nvim'
 
 " file explorer
 Plug 'kyazdani42/nvim-web-devicons' " for file icons

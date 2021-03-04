@@ -16,14 +16,18 @@ require('telescope').load_extension('z')
 
 require('telescope').setup {
   defaults = {
-    prompt_prefix = "🔍",
+    prompt_prefix = " 🔎 ",
+    -- prompt_prefix = " > ",
     sorting_strategy = "ascending",
     prompt_position = "top",
     color_devicons = true,
     mappings = {
       i = {
+        ["<C-e>"] = actions.move_to_bottom,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-y>"] = actions.move_to_top,
         ["<esc>"] = actions.close,
-        ["<C-l>"] = actions.send_to_qflist,
       }
     },
     borderchars = {
