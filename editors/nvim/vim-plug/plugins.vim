@@ -8,14 +8,8 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" " neomake
-" Plug 'neomake/neomake'
-
 " " neovim in browser
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
-
-" " dim focus on not active windows
-" Plug 'blueyed/vim-diminactive'
 
 " Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
@@ -69,12 +63,11 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'Th3Whit3Wolf/onebuddy'
 Plug 'Th3Whit3Wolf/spacebuddy'
-Plug 'colepeters/spacemacs-theme.vim'
 Plug 'sainnhe/gruvbox-material'
-Plug 'phanviet/vim-monokai-pro'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
@@ -87,9 +80,7 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
-" git messenger same as gitlens in vscode
 Plug 'rhysd/git-messenger.vim'
-" Magit like emacs for git workflow
 Plug 'jreybert/vimagit'
 
 " Tabularize for Vim
@@ -105,17 +96,8 @@ Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'valloric/MatchTagAlways'
 
-" Easy Alignment in vim
-Plug 'junegunn/vim-easy-align'
-
 " Indent Lines made beautiful
 Plug 'Yggdroot/indentLine'
-
-" " syntax highlighter for vim
-" Plug 'sheerun/vim-polyglot'
-
-" " The interactive scratchpad for hackers.
-" Plug 'metakirby5/codi.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -133,10 +115,6 @@ Plug 'liuchengxu/vim-which-key'
 
 " Float Terminal
 Plug 'voldikss/vim-floaterm'
-
-" Find and Replace
-" Plug 'brooth/far.vim'
-" Plug 'ChristianChiarulli/far.vim'
 
 " Vim sugar for the UNIX shell commands that need it the most
 " Example: :Delete, :Unlink, :Move, etc
@@ -203,11 +181,8 @@ Plug 'MattesGroeger/vim-bookmarks'
 " " vim and tmux = vimux
 " Plug 'benmills/vimux'
 
-" " vim-workspaces
-" Plug 'thaerkh/vim-workspace'
-
-" " vim-be-good
-" Plug 'ThePrimeagen/vim-be-good'
+" vim-be-good
+Plug 'ThePrimeagen/vim-be-good'
 
 " wakatime for vim
 Plug 'wakatime/vim-wakatime'
@@ -302,8 +277,9 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-tree-docs'
 
-" " formatter in lua
-" Plug 'mhartington/formatter.nvim'
+" formatter in lua
+Plug 'mhartington/formatter.nvim'
+Plug 'andrejlevkovitch/vim-lua-format'
 
 " file explorer
 Plug 'kyazdani42/nvim-web-devicons' " for file icons

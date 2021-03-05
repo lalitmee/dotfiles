@@ -17,38 +17,14 @@
       " \ 'colorscheme': 'materia',
       " \ 'colorscheme': 'monokai_pro',
 
-" let g:lightline = {
-"       \ 'colorscheme': 'nord',
-"       \ 'active': {
-"       \   'left': [
-"       \             [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-"       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-"       \             [ 'diagnostic', 'coc_status'],
-"       \           ],
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'FugitiveHead',
-"       \   'fileformat': 'LightlineFileformat',
-"       \   'filetype': 'LightlineFiletype',
-"       \   'mode': 'LightlineMode',
-"       \   'filename': 'LightlineFilename',
-"       \   'readonly': 'LightlineReadonly',
-"       \   'modified': 'LightlineModified',
-"       \ },
-"       \ }
-
-" call lightline#coc#register()
-
-" for neovim lsp
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-      \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
-      \             [ 'lsp_status'],
+      \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
+      \             [ 'diagnostic', 'coc_status'],
       \           ],
       \ },
       \ 'component_function': {
@@ -62,7 +38,31 @@ let g:lightline = {
       \ },
       \ }
 
-call lightline#lsp#register()
+call lightline#coc#register()
+
+" " for neovim lsp
+" let g:lightline = {
+"       \ 'colorscheme': 'nord',
+"       \ 'active': {
+"       \   'left': [
+"       \             [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
+"       \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
+"       \             [ 'lsp_status'],
+"       \           ],
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead',
+"       \   'fileformat': 'LightlineFileformat',
+"       \   'filetype': 'LightlineFiletype',
+"       \   'mode': 'LightlineMode',
+"       \   'filename': 'LightlineFilename',
+"       \   'readonly': 'LightlineReadonly',
+"       \   'modified': 'LightlineModified',
+"       \ },
+"       \ }
+
+" call lightline#lsp#register()
 
 function! LightlineModified()
   return &filetype=='help' ? "" : &modified ? "＋" : &modifiable ? "" : "🔒"

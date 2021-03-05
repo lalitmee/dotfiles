@@ -39,7 +39,7 @@ source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins
 " luafile $HOME/.config/nvim/lua/config/bufferline.lua
-" luafile $HOME/.config/nvim/lua/config/formatter.lua
+luafile $HOME/.config/nvim/lua/config/formatter.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/nvcodeline.lua
@@ -82,7 +82,6 @@ source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
-source $HOME/.config/nvim/plug-config/formatter.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
