@@ -9,7 +9,7 @@
 **/session
 **/wiki/
 **/pack/
-**/.vim/undodir/
+**/nvim/undodir/
 **/.vim/undo/
 **/.vim/tmp/
 .log

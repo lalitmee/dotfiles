@@ -17,23 +17,11 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " " dim focus on not active windows
 " Plug 'blueyed/vim-diminactive'
 
-" ctags handling
-Plug 'ludovicchabant/vim-gutentags'
-
-" tagslist
-Plug 'vim-scripts/taglist.vim'
-
 " Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
 
 " targets.vim for extra motions
 Plug 'wellle/targets.vim'
-
-" ack search
-Plug 'mileszs/ack.vim'
-
-" " cycle through your yank history
-" Plug 'maxbrunsfeld/vim-yankstack'
 
 " Quickscope same as f, F, t, T but better
 Plug 'unblevable/quick-scope'
@@ -86,6 +74,9 @@ Plug 'phanviet/vim-monokai-pro'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" CocList equivalent
+Plug 'vn-ki/coc-clap'
+
 
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
@@ -223,11 +214,6 @@ Plug 'MattesGroeger/vim-bookmarks'
 " wakatime for vim
 Plug 'wakatime/vim-wakatime'
 
-" ERROR: making saving of the file slow
-" " easytags
-" Plug 'xolox/vim-easytags'
-" Plug 'xolox/vim-misc'
-
 " Maximizer for vim
 Plug 'szw/vim-maximizer'
 " Plug 'puremourning/vimspector'
@@ -273,8 +259,8 @@ Plug 'pechorin/any-jump.vim'
 " sql nvim database for frecency
 Plug 'tami5/sql.nvim'
 
-" " snippets in lua
-" Plug 'norcalli/snippets.nvim'
+" snippets in lua
+Plug 'norcalli/snippets.nvim'
 
 
 " telescope fuzzy finder
@@ -295,11 +281,18 @@ Plug 'nvim-telescope/telescope-z.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
-" Plug 'nvim-telescope/telescope-snippets.nvim'
+Plug 'nvim-telescope/telescope-snippets.nvim'
 
-" LSP
+" " LSP
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
+Plug 'tjdevries/nlua.nvim'
+" Plug 'tjdevries/lsp_extensions.nvim'
+" Plug 'onsails/lspkind-nvim'
+" Plug 'glepnir/lspsaga.nvim'
+" Plug 'nvim-lua/lsp-status.nvim'
+" Plug 'euclidianAce/BetterLua.vim'
+" Plug 'tjdevries/manillua.nvim'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update

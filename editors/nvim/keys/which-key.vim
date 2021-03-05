@@ -68,19 +68,20 @@ let g:which_key_map.b = {
       \ 'c' : ['vnew'                                             , 'new-empty-buffer-vert'],
       \ 'd' : [':Bdelete'                                         , 'delete-buffer'],
       \ 'D' : [':%bd'                                             , 'delete-all-buffers'],
+      \ 'e' : [':BufferLast'                                      , 'last-buffer'],
       \ 'f' : ['bfirst'                                           , 'first-buffer'],
       \ 'h' : ['Startify'                                         , 'home-buffer'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'             , 'search-buffer-lines'],
+      \ 'M' : ['delm! | delm A-Za-z0-9'                           , 'new-empty-buffer'],
       \ 'n' : [':BufferNext'                                      , 'next-buffer'],
       \ 'N' : [':BufferMoveNext'                                  , 'move-next-buffer'],
+      \ 'o' : [':BufferOrderByDirectory'                          , 'order-by-direcoty'],
+      \ 'O' : [':BufferOrderByLanguage'                           , 'order-by-language'],
       \ 'p' : [':BufferPrevious'                                  , 'previous-buffer'],
       \ 'P' : [':BufferMovePrevious'                              , 'move-previous-buffer'],
       \ 'r' : ['e'                                                , 'refresh-buffer'],
       \ 'R' : ['bufdo :e'                                         , 'refresh-loaded-buffers'],
       \ 's' : ['new'                                              , 'new-empty-buffer'],
-      \ 'o' : [':BufferOrderByDirectory'                          , 'order-by-direcoty'],
-      \ 'O' : [':BufferOrderByLanguage'                           , 'order-by-language'],
-      \ 'e' : [':BufferLast'                                      , 'last-buffer'],
       \ }
 
 " c is for coc.nvim

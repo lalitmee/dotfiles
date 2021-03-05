@@ -43,7 +43,10 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua-config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua-config/status-lines/nvcodeline.lua
-" luafile $HOME/.config/nvim/lua/lsp.lua
+" luafile $HOME/.config/nvim/lua/lalit/lsp/init.lua
+" luafile $HOME/.config/nvim/lua/lalit/telescope/init.lua
+luafile $HOME/.config/nvim/lua/lalit/init.lua
+luafile $HOME/.config/nvim/lua/lalit/snippets.lua
 luafile $HOME/.config/nvim/lua-config/fuzzy/telescope.lua
 luafile $HOME/.config/nvim/lua-config/themes/colorizer.lua
 luafile $HOME/.config/nvim/lua-config/treesitter.lua
