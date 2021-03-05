@@ -110,7 +110,8 @@ set backspace=indent,eol,start " make backspace behave in a sane manner
 " set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 " 			\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 " 			\,sm:block-blinkwait175-blinkoff150-blinkon175
-set guicursor=
+" set guicursor=
+autocmd InsertEnter,InsertLeave * set cul!
 
 " command for making ctags in a project
 command! MakeTags !ctags -R .
@@ -148,10 +149,10 @@ set guifont=Ubuntu\ Mono\ Nerd\ Font:h13
 
 " Open help in vertical split {{{
 
-augroup vimrc_help
-  autocmd!
-  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
-augroup END
+" augroup vimrc_help
+"   autocmd!
+"   autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+" augroup END
 
 " }}}
 

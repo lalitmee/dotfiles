@@ -72,7 +72,7 @@ let g:which_key_map.b = {
       \ 'f' : ['bfirst'                                           , 'first-buffer'],
       \ 'h' : ['Startify'                                         , 'home-buffer'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'             , 'search-buffer-lines'],
-      \ 'M' : ['delm! | delm A-Za-z0-9'                           , 'new-empty-buffer'],
+      \ 'M' : [':delm!'                                            , 'delete-marks'],
       \ 'n' : [':BufferNext'                                      , 'next-buffer'],
       \ 'N' : [':BufferMoveNext'                                  , 'move-next-buffer'],
       \ 'o' : [':BufferOrderByDirectory'                          , 'order-by-direcoty'],
@@ -108,7 +108,8 @@ let g:which_key_map.c = {
         \ 't' : [':CocList floaterm'                              , 'floaterm-list'],
         \ 'w' : [':CocList words'                                 , 'buffer-words-list'],
       \ },
-      \ 'r' : [':CocListResume '                                  , 'list-resume'],
+      \ 'r' : ['coc#refresh()'                                  , 'coc-refresh'],
+      \ 'R' : [':CocListResume '                                  , 'list-resume'],
       \ 's' : [':CocSearch'                                       , 'search'],
       \ 'x' : ['<Plug>(coc-convert-snippet)'                      , 'covert-to-snippet'],
       \ }
