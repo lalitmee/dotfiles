@@ -46,6 +46,7 @@ Plug 'haya14busa/incsearch.vim'
 " Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
 Plug 'josa42/vim-lightline-coc'
+Plug 'josa42/nvim-lightline-lsp'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -74,9 +75,6 @@ Plug 'phanviet/vim-monokai-pro'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" CocList equivalent
-Plug 'vn-ki/coc-clap'
-
 
 " Version Control in Vim
 Plug 'airblade/vim-gitgutter'
@@ -287,12 +285,13 @@ Plug 'nvim-telescope/telescope-snippets.nvim'
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
 Plug 'tjdevries/nlua.nvim'
+" Plug 'hrsh7th/nvim-compe'
 " Plug 'tjdevries/lsp_extensions.nvim'
 " Plug 'onsails/lspkind-nvim'
 " Plug 'glepnir/lspsaga.nvim'
 " Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'euclidianAce/BetterLua.vim'
-" Plug 'tjdevries/manillua.nvim'
+Plug 'euclidianAce/BetterLua.vim'
+Plug 'tjdevries/manillua.nvim'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
@@ -313,8 +312,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 " Colorizer for showing the colors
 Plug 'norcalli/nvim-colorizer.lua'
 
-" better quick-fix winodw
-Plug 'kevinhwang91/nvim-bqf'
+" " better quick-fix winodw
+" Plug 'kevinhwang91/nvim-bqf'
 
 " debugger attach protocol
 Plug 'mfussenegger/nvim-dap'
