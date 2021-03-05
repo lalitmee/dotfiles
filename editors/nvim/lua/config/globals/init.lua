@@ -13,4 +13,4 @@ if pcall(require, 'plenary') then
 end
 
 -- `vim.opt`
-require('config.globals.opt')
+require('config.globals.opts')
