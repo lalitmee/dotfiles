@@ -1,26 +1,19 @@
-require'snippets'.use_suggested_mappings()
-
--- This variant will set up the mappings only for the *CURRENT* buffer.
-require'snippets'.use_suggested_mappings(true)
-
-
 R("nlua")
 R("snippets")
-
--- TODO: We should check out the UX stuff here. Norcalli made something sweet.
--- require'snippets'.set_ux(require'snippets.inserters.vim_input')
 
 local snip_plug = require('snippets')
 local indent = require('snippets.utils').match_indentation
 
 local snips = {}
 
+-- global
 snips._global = {
   ["todo"] = "TODO(tjdevries): ",
   ["date"] = [[${=os.date("%Y-%m-%d")}]],
   ["rs"] = [[${=RandomString(25)}]],
 }
 
+-- lua
 snips.lua = vim.tbl_deep_extend(
   "error",
   require('nlua.snippets').get_lua_snippets(),
@@ -32,12 +25,14 @@ snips.lua = vim.tbl_deep_extend(
   }
 )
 
+-- json
 snips.json = {
   testEntry = [[, {"text": "$1"}]],
   i = [["$1": "$2"]],
   e = [[, {"text": "$1: ${=RandomString(25)}", "score": $1}]],
 }
 
+-- rust
 snips.rust = {}
 
 snips.rust.mod_test = indent [[
@@ -54,6 +49,10 @@ snips.rust.test = indent [[
 fn $1() {
   $0
 }]]
+
+snips.javascript = {
+  log = [[console.log({$1})]]
+}
 
 snip_plug.snippets = snips
 snip_plug.use_suggested_mappings()
