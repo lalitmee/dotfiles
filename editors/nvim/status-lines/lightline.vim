@@ -24,7 +24,7 @@ let g:lightline = {
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             ['coc_status'],
+      \             [ 'diagnostic', 'coc_status'],
       \           ],
       \ },
       \ 'component_function': {
@@ -37,10 +37,31 @@ let g:lightline = {
       \   'modified': 'LightlineModified',
       \ },
       \ }
-      " \   'filename_with_icon': 'LightLineFileTypeWithIcon',
+
+" " for neovim lsp
+" let g:lightline = {
+"       \ 'colorscheme': 'nord',
+"       \ 'active': {
+"       \   'left': [
+"       \             [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
+"       \             [ 'lsp-status' ],
+"       \           ],
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead',
+"       \   'fileformat': 'LightlineFileformat',
+"       \   'filetype': 'LightlineFiletype',
+"       \   'mode': 'LightlineMode',
+"       \   'filename': 'LightlineFilename',
+"       \   'readonly': 'LightlineReadonly',
+"       \   'modified': 'LightlineModified',
+"       \   'lsp-status': 'LspStatus',
+"       \ },
+"       \ }
 
 function! LightlineModified()
-  return &filetype=='help' ? "" : &modified ? "●" : &modifiable ? "" : "🔒"
+  return &filetype=='help' ? "" : &modified ? "＋" : &modifiable ? "" : "🔒"
 endfunction
 
 function! LightlineReadonly()
@@ -72,6 +93,15 @@ endfunction
 
 function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
+endfunction
+
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
 endfunction
 
 call lightline#coc#register()

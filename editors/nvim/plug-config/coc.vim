@@ -2,18 +2,28 @@ let g:coc_global_extensions = [
     \ 'coc-actions',
     \ 'coc-css',
     \ 'coc-cssmodules',
+    \ 'coc-diagnostic',
+    \ 'coc-docker',
     \ 'coc-emmet',
     \ 'coc-emoji',
     \ 'coc-eslint',
     \ 'coc-floaterm',
+    \ 'coc-gist',
+    \ 'coc-git',
+    \ 'coc-go',
     \ 'coc-html',
+    \ 'coc-html-css-support',
+    \ 'coc-htmlhint',
     \ 'coc-json',
     \ 'coc-lists',
+    \ 'coc-lua',
+    \ 'coc-markdownlint',
     \ 'coc-marketplace',
     \ 'coc-pairs',
     \ 'coc-prettier',
     \ 'coc-pyright',
     \ 'coc-python',
+    \ 'coc-rust-analyzer',
     \ 'coc-sh',
     \ 'coc-snippets',
     \ 'coc-svg',
@@ -26,7 +36,9 @@ let g:coc_global_extensions = [
     " \ 'coc-project',
     " \ 'coc-explorer',
     " \ 'coc-tabnine',
-    " \ 'coc-highlight'," Prettier command for coc-prettier
+    " \ 'coc-highlight',
+
+" Prettier command for coc-prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Better display for messages
@@ -73,8 +85,8 @@ endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -84,7 +96,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-" nnoremap <leader>/ :Rg<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -152,24 +163,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands.
-" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols.
-" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list.
-" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
 " coc-snippets settings
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -207,3 +200,20 @@ let g:coc_explorer_global_presets = {
 \ }
 " If coc-explorer is the only buffer then close that too
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+" coc-git
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap [c <Plug>(coc-git-prevconflict)
+nmap ]c <Plug>(coc-git-nextconflict)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+" nmap gC <Plug>(coc-git-commit)
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)

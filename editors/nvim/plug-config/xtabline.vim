@@ -6,16 +6,14 @@ let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
 
 let g:xtabline_settings.enable_persistance = 0
 
-" let g:xtabline_settings.last_open_first = 1
 let g:xtabline_lazy = 1
 
 let g:xtabline_settings.special_tabs = 1
 
 let g:xtabline_settings.indicators = {
-      \ 'modified': '●',
+      \ 'modified': '＋',
       \ 'pinned': '[📌]',
       \}
-      " \ 'modified': '+',
 
 let g:xtabline_settings.icons = {
       \'pin': '📌',

@@ -114,6 +114,7 @@ set guicursor=
 
 " command for making ctags in a project
 command! MakeTags !ctags -R .
+command! MakeCTags !ctags-exuberant -R .
 
 set tags=./tags,tags;$HOME
 
