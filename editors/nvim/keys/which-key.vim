@@ -353,12 +353,14 @@ let g:which_key_map.m = {
       \ 'a' : [':Telescope lsp_code_actions'                      , 'code-actions'],
       \ 'b' : [':Telescope lsp_range_code_actions'                , 'range-code-actions'],
       \ 'c' : [':MakeTags'                                        , 'make-ctags'],
-      \ 'd' : [':Telescope lsp_workspace_symbols'                 , 'workspace-symbols'],
+      \ 'd' : [':Telescope lsp_document_diagnostics'                  , 'document-diagnostics'],
+      \ 'D' : [':Telescope lsp_workspace_diagnostics'                  , 'workspace-diagnostics'],
       \ 'f' : [':Telescope lsp_references'                        , 'references'],
+      \ 'j' : [':Telescope lsp_workspace_symbols'                 , 'workspace-symbols'],
       \ 'l' : ['<Plug>(JsConsoleLog)'                             , 'console-log'],
-      \ 'r' : ['<Plug>(coc-rename)'                               , 'rename-symbol'],
       \ 's' : [':Telescope lsp_document_symbols'                  , 'buffer-symbols'],
       \ }
+      " \ 'r' : ['<Plug>(coc-rename)'                               , 'rename-symbol'],
 
 " n is Neovim
 let g:which_key_map.n = {

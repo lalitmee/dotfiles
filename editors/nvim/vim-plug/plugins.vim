@@ -48,8 +48,8 @@ Plug 'ryanoasis/vim-devicons'
 " for handling swap files
 Plug 'gioele/vim-autoswap'
 
-" for jumping
-Plug 'easymotion/vim-easymotion'
+" " for jumping
+" Plug 'easymotion/vim-easymotion'
 
 " File Management using ranger
 Plug 'francoiscabrol/ranger.vim'
@@ -66,7 +66,7 @@ Plug 'Th3Whit3Wolf/spacebuddy'
 Plug 'sainnhe/gruvbox-material'
 
 " Completion Conquerer
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
@@ -257,14 +257,14 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 Plug 'nvim-telescope/telescope-snippets.nvim'
 
 " " LSP
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 Plug 'tjdevries/nlua.nvim'
-" Plug 'hrsh7th/nvim-compe'
-" Plug 'tjdevries/lsp_extensions.nvim'
-" Plug 'onsails/lspkind-nvim'
-" Plug 'glepnir/lspsaga.nvim'
-" Plug 'nvim-lua/lsp-status.nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'onsails/lspkind-nvim'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'euclidianAce/BetterLua.vim'
 Plug 'tjdevries/manillua.nvim'
 
@@ -293,6 +293,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 " debugger attach protocol
 Plug 'mfussenegger/nvim-dap'
+
+" easymotion using lua
+Plug 'phaazon/hop.nvim'
 
 
 " " gitsigns in lua
