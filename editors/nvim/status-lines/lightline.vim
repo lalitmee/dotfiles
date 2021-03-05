@@ -17,14 +17,38 @@
       " \ 'colorscheme': 'materia',
       " \ 'colorscheme': 'monokai_pro',
 
+" let g:lightline = {
+"       \ 'colorscheme': 'nord',
+"       \ 'active': {
+"       \   'left': [
+"       \             [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
+"       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
+"       \             [ 'diagnostic', 'coc_status'],
+"       \           ],
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead',
+"       \   'fileformat': 'LightlineFileformat',
+"       \   'filetype': 'LightlineFiletype',
+"       \   'mode': 'LightlineMode',
+"       \   'filename': 'LightlineFilename',
+"       \   'readonly': 'LightlineReadonly',
+"       \   'modified': 'LightlineModified',
+"       \ },
+"       \ }
+
+" call lightline#coc#register()
+
+" for neovim lsp
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-      \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             [ 'diagnostic', 'coc_status'],
+      \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
+      \             [ 'lsp_status'],
       \           ],
       \ },
       \ 'component_function': {
@@ -38,27 +62,7 @@ let g:lightline = {
       \ },
       \ }
 
-" " for neovim lsp
-" let g:lightline = {
-"       \ 'colorscheme': 'nord',
-"       \ 'active': {
-"       \   'left': [
-"       \             [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-"       \             [ 'lsp-status' ],
-"       \           ],
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'FugitiveHead',
-"       \   'fileformat': 'LightlineFileformat',
-"       \   'filetype': 'LightlineFiletype',
-"       \   'mode': 'LightlineMode',
-"       \   'filename': 'LightlineFilename',
-"       \   'readonly': 'LightlineReadonly',
-"       \   'modified': 'LightlineModified',
-"       \   'lsp-status': 'LspStatus',
-"       \ },
-"       \ }
+call lightline#lsp#register()
 
 function! LightlineModified()
   return &filetype=='help' ? "" : &modified ? "＋" : &modifiable ? "" : "🔒"
@@ -104,7 +108,6 @@ function! LspStatus() abort
   return ''
 endfunction
 
-call lightline#coc#register()
 
 " let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
 " let g:lightline_delphinus_tagbar_enable = 1

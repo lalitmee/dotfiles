@@ -38,21 +38,21 @@ source $HOME/.config/nvim/general/tmux.vim
 
 
 " Lua Plugins
-" luafile $HOME/.config/nvim/lua-config/bufferline.lua
-" luafile $HOME/.config/nvim/lua-config/formatter.lua
-" luafile $HOME/.config/nvim/lua-config/status-lines/express_line.lua
-" luafile $HOME/.config/nvim/lua-config/status-lines/galaxylines/1.lua
-" luafile $HOME/.config/nvim/lua-config/status-lines/nvcodeline.lua
-" luafile $HOME/.config/nvim/lua/lalit/lsp/init.lua
-" luafile $HOME/.config/nvim/lua/lalit/telescope/init.lua
-luafile $HOME/.config/nvim/lua/lalit/init.lua
-luafile $HOME/.config/nvim/lua/lalit/snippets.lua
-luafile $HOME/.config/nvim/lua-config/fuzzy/telescope.lua
-luafile $HOME/.config/nvim/lua-config/themes/colorizer.lua
-luafile $HOME/.config/nvim/lua-config/treesitter.lua
+" luafile $HOME/.config/nvim/lua/config/bufferline.lua
+" luafile $HOME/.config/nvim/lua/config/formatter.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/nvcodeline.lua
+" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
+" luafile $HOME/.config/nvim/lua/config/completion.lua
+luafile $HOME/.config/nvim/lua/config/init.lua
+luafile $HOME/.config/nvim/lua/config/snippets.lua
+luafile $HOME/.config/nvim/lua/config/telescope/init.lua
+luafile $HOME/.config/nvim/lua/config/themes/colorizer.lua
+luafile $HOME/.config/nvim/lua/config/treesitter/init.lua
 
 " Colorschemes
-" luafile $HOME/.config/nvim/lua-config/themes/nord.lua
+" luafile $HOME/.config/nvim/lua/config/themes/nord.lua
 " source $HOME/.config/nvim/themes/cobalt2.vim
 " source $HOME/.config/nvim/themes/gruvbox-material.vim
 " source $HOME/.config/nvim/themes/gruvbox.vim

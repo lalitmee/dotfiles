@@ -2,98 +2,118 @@ if not pcall(require, 'telescope') then
   return
 end
 
+local should_reload = true
+local reloader = function()
+  if should_reload then
+    RELOAD('plenary')
+    RELOAD('popup')
+    RELOAD('telescope')
+  end
+end
+
+reloader()
+
 local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
 -- local action_set = require('telescope.actions.set')
 
+require('telescope').load_extension('snippets')
+require('telescope').load_extension('dap')
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('gh')
+require('telescope').load_extension('jumps')
+require('telescope').load_extension('media_files')
+require('telescope').load_extension('node_modules')
+require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('project')
+require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('z')
+
 require('telescope').setup {
   defaults = {
-    prompt_prefix = ' >',
+    prompt_prefix = " 🔎 ",
+    -- prompt_prefix = " > ",
+    sorting_strategy = "ascending",
+    prompt_position = "top",
+    color_devicons = true,
+    mappings = {
+      i = {
+        ["<C-e>"] = actions.move_to_bottom,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-y>"] = actions.move_to_top,
+        ["<esc>"] = actions.close,
+      }
+    },
+    borderchars = {
+      { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+    },
 
-    winblend = 0,
-    preview_cutoff = 120,
+    file_sorter = sorters.get_fzy_sorter,
 
-    layout_strategy = 'horizontal',
     layout_defaults = {
       horizontal = {
-        width_padding = 0.1,
-        height_padding = 0.1,
-        preview_width = 0.6,
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56,
       },
       vertical = {
-        width_padding = 0.05,
-        height_padding = 1,
+        width_padding = 0.4,
+        height_padding = 0.8,
         preview_height = 0.5,
       }
     },
-
-    selection_strategy = "reset",
-    sorting_strategy = "descending",
-    scroll_strategy = "cycle",
-    prompt_position = "top",
-    color_devicons = true,
-
-    mappings = {
-      i = {
-        ["<C-x>"] = false,
-        ["<C-s>"] = actions.select_vertical,
-
-        -- Experimental
-        -- ["<tab>"] = actions.toggle_selection,
-
-        -- ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-        -- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-      },
-    },
-
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-
-    file_sorter = sorters.get_fzy_sorter,
 
     file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
   },
-
   extensions = {
     fzy_native = {
       override_generic_sorter = false,
       override_file_sorter = true,
     },
-
     fzf_writer = {
-      use_highlighter = false,
-      minimum_grep_characters = 4,
+      use_highlighter = true,
+      minimum_grep_characters = 0,
+      minimum_files_characters = 0,
     },
-
+    media_files = {
+      filetypes = {'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm'},
+      find_cmd = "rg" -- find command (defaults to `fd`)
+    },
     frecency = {
+      show_scores = false,
+      show_unindexed = true,
+      ignore_patterns = {'*.git/*', '*/node_modules/*'},
       workspaces = {
-        ["conf"] = "/home/tj/.config/nvim/",
-        ["nvim"] = "/home/tj/build/neovim",
+        ['conf']      = '/home/data/Github/dotfiles',
+        ['koinearth'] = '/home/data/koinearth',
+        ['project']   = '/home/data/Github',
+      },
+    },
+    openbrowser = {
+      bookmarks = {
+        ['dotfiles']                = 'https://github.com/lalitmee/dotfiles',
+        ['dNotes']                  = 'https://github.com/lalitmee/dNotes',
+        ['wf-webapp-service']       = 'https://github.com/koinearth/wf-webapp-service',
+        ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
+        ['wf-pwa-service']          = 'https://github.com/koinearth/wf-pwa-service',
+        ['marketsn-pwa-service']    = 'https://github.com/koinearth/marketsn-pwa-service',
+        ['marketsn-pdf-service']    = 'https://github.com/koinearth/marketsn-pdf-service',
+        ['marketsn-api-service']    = 'https://github.com/koinearth/marketsn-api-service',
+        ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer'
       }
     }
-  },
+  }
 }
-
--- -- Load the fzy native extension at the start.
--- pcall(require('telescope').load_extension, 'fzy_native')
--- pcall(require('telescope').load_extension, 'gh')
--- require('telescope').load_extension('octo')
--- require('telescope').load_extension("cheat")
-
--- if pcall(require('telescope').load_extension, 'frecency') then
---   require('tj.telescope.frecency')
--- end
 
 local M = {}
 
---[[
-lua require('plenary.reload').reload_module("my_user.tele")
-
-nnoremap <leader>en <cmd>lua require('my_user.tele').edit_neovim()<CR>
---]]
 function M.edit_neovim()
   require('telescope.builtin').find_files {
     prompt_title = "~ dotfiles ~",
@@ -280,6 +300,7 @@ end
 
 return setmetatable({}, {
   __index = function(_, k)
+    reloader()
 
     if M[k] then
       return M[k]

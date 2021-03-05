@@ -13,7 +13,7 @@ local map_tele = function(key, f, options, buffer)
 
   local mode = "n"
   local rhs = string.format(
-    "<cmd>lua R('lalit.telescope')['%s'](TelescopeMapArgs['%s'])<CR>",
+    "<cmd>lua R('config.telescope')['%s'](TelescopeMapArgs['%s'])<CR>",
     f,
     map_key
   )
