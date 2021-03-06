@@ -38,3 +38,7 @@ Group.new("LineNr", colors.nord_3, colors.none, styles.NONE)
 Group.new("CursorLineNr", colors.nord_12, colors.none, styles.NONE)
 Group.new("Line", colors.nord_12, colors.none, styles.bold)
 Group.new("SignColumn", colors.none, colors.none, styles.NONE)
+
+-- Neovim support
+Group.new("IncSearch", colors.nord_6, colors.nord_10, styles.underline)
+Group.new("Search", colors.nord_1, colors.nord_13)
