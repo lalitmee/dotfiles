@@ -6,8 +6,8 @@
 
 " colorscheme nord
 
-
-lua require('colorbuddy').colorscheme('nord')
+" lua require('colorbuddy').colorscheme('nord')
+lua require('colorbuddy').colorscheme('nord1')
 
 " transparent background
 hi! Normal ctermbg=NONE guibg=NONE
