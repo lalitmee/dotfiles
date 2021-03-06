@@ -39,7 +39,7 @@ Plug 'haya14busa/incsearch.vim'
 " lightline for vim
 " Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
-Plug 'josa42/vim-lightline-coc'
+" Plug 'josa42/vim-lightline-coc'
 Plug 'josa42/nvim-lightline-lsp'
 
 " vim icons
@@ -257,25 +257,23 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 Plug 'nvim-telescope/telescope-snippets.nvim'
 
 " " LSP
+Plug 'euclidianAce/BetterLua.vim'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'tjdevries/nlua.nvim'
-Plug 'hrsh7th/nvim-compe'
-Plug 'tjdevries/lsp_extensions.nvim'
-Plug 'onsails/lspkind-nvim'
-Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'euclidianAce/BetterLua.vim'
+Plug 'onsails/lspkind-nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/manillua.nvim'
+Plug 'tjdevries/nlua.nvim'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
-Plug 'romgrk/nvim-treesitter-context'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'nvim-treesitter/nvim-tree-docs'
 
 " formatter in lua
 Plug 'mhartington/formatter.nvim'
