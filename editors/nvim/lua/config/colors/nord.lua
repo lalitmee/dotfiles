@@ -41,4 +41,4 @@ Group.new("SignColumn", colors.none, colors.none, styles.NONE)
 
 -- Neovim support
 Group.new("IncSearch", colors.nord_6, colors.nord_10, styles.underline)
-Group.new("Search", colors.nord_1, colors.nord_13)
+Group.new("Search", colors.nord_1, colors.nord_8)
