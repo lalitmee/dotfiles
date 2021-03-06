@@ -1,7 +1,8 @@
-local lsp_config = require("lspconfig")
+local lsp_config = require('lspconfig')
 local lsp = vim.lsp
 local fn = vim.fn
 
+_ = require('lspkind').init()
 require('config.lsp.handlers')
 
 -- lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(
@@ -14,10 +15,22 @@ require('config.lsp.handlers')
 -- }
 -- )
 
-fn.sign_define("LspDiagnosticsSignError", { text = "🞮", numhl = "LspDiagnosticsDefaultError" })
-fn.sign_define("LspDiagnosticsSignWarning", { text = "▲", numhl = "LspDiagnosticsDefaultWarning" })
-fn.sign_define("LspDiagnosticsSignInformation", { text = "⁈", numhl = "LspDiagnosticsDefaultInformation" })
-fn.sign_define("LspDiagnosticsSignHint", { text = "⯁", numhl = "LspDiagnosticsDefaultHint" })
+fn.sign_define(
+    'LspDiagnosticsSignError',
+    { text = '🞮', numhl = 'LspDiagnosticsDefaultError' }
+)
+fn.sign_define(
+    'LspDiagnosticsSignWarning',
+    { text = '▲', numhl = 'LspDiagnosticsDefaultWarning' }
+)
+fn.sign_define(
+    'LspDiagnosticsSignInformation',
+    { text = '⁈', numhl = 'LspDiagnosticsDefaultInformation' }
+)
+fn.sign_define(
+    'LspDiagnosticsSignHint',
+    { text = '⯁', numhl = 'LspDiagnosticsDefaultHint' }
+)
 
 require('config.lsp.bash')
 require('config.lsp.css')
