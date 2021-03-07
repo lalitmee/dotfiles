@@ -41,7 +41,7 @@ let g:which_key_map[','] = [ 'w'                                  , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open-init' ]
 let g:which_key_map[';'] = [ ':FzfCommands'                       , 'commands' ]
 
- " Group mappings
+" Group mappings
 
 " a is for actions
 let g:which_key_map.a = {
@@ -58,7 +58,6 @@ let g:which_key_map.a = {
       \ 't' : [':FloatermToggle'                                  , 'terminal'],
       \ 'w' : [':StripWhitespace'                                 , 'strip-whitespace'],
       \ }
-      " \ 'e' : [':CocCommand explorer'                           , 'explorer'],
 
 " b is for buffer
 let g:which_key_map.b = {
@@ -72,7 +71,7 @@ let g:which_key_map.b = {
       \ 'f' : ['bfirst'                                           , 'first-buffer'],
       \ 'h' : ['Startify'                                         , 'home-buffer'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'             , 'search-buffer-lines'],
-      \ 'M' : [':delm!'                                            , 'delete-marks'],
+      \ 'M' : [':delm!'                                           , 'delete-marks'],
       \ 'n' : [':BufferNext'                                      , 'next-buffer'],
       \ 'N' : [':BufferMoveNext'                                  , 'move-next-buffer'],
       \ 'o' : [':BufferOrderByDirectory'                          , 'order-by-direcoty'],
@@ -108,11 +107,30 @@ let g:which_key_map.c = {
         \ 't' : [':CocList floaterm'                              , 'floaterm-list'],
         \ 'w' : [':CocList words'                                 , 'buffer-words-list'],
       \ },
-      \ 'r' : ['coc#refresh()'                                  , 'coc-refresh'],
+      \ 'm' : {
+        \ 'name' : '+fzf-list'                                    ,
+        \ 'a' : [':CocFzfList actions'                            , 'actions'],
+        \ 'b' : [':CocFzfList symbols'                            , 'symbols'],
+        \ 'c' : [':CocFzfList commands'                           , 'commands'],
+        \ 'd' : [':CocFzfList diagnostics'                        , 'diagnostics'],
+        \ 'e' : [':CocFzfList diagnostics --current-buf'          , 'buffer-diagnostics'],
+        \ 'g' : [':CocFzfList issues'                             , 'issues'],
+        \ 'i' : [':CocFzfList snippets'                           , 'snippets'],
+        \ 'l' : [':CocFzfList location'                           , 'locations'],
+        \ 'o' : [':CocFzfList outline'                            , 'outline'],
+        \ 'r' : [':CocFzfListResume'                              , 'resume-list'],
+        \ 's' : [':CocFzfList services'                           , 'services'],
+        \ 'u' : [':CocFzfList output'                             , 'output'],
+        \ 'v' : [':CocFzfList sources'                            , 'sources'],
+        \ 'y' : [':CocFzfList yank'                               , 'yank'],
+      \ },
+      \ 'r' : ['coc#refresh()'                                    , 'coc-refresh'],
       \ 'R' : [':CocListResume '                                  , 'list-resume'],
       \ 's' : [':CocSearch'                                       , 'search'],
       \ 'x' : ['<Plug>(coc-convert-snippet)'                      , 'covert-to-snippet'],
       \ }
+let g:which_key_map.c.G = 'grep-under-cursor'
+let g:which_key_map.c.g = 'grep-under-cursor-buffer'
 
 " d is for FZF
 let g:which_key_map.d = {
@@ -255,31 +273,27 @@ let g:which_key_map.g = {
       \ 'G' : [':Gstatus'                                         , 'status'],
       \ 'h' : {
         \ 'name' : '+hunks'                                       ,
-        \ 'c' : [':CocCommand git.copyUrl'                        , 'copy-url'],
-        \ 'h' : [':GitGutterLineHighlightsToggle'                 , 'highlight-hunks'],
-        \ 'i' : ['CocCommand git.chunkInfo'                       , 'chunk-info'],
-        \ 'j' : ['<Plug>(coc-git-nextchunk)'                      , 'next-hunk'],
-        \ 'k' : ['<Plug>(coc-git-prevchunk)'                      , 'prev-hunk'],
-        \ 'o' : [':CocCommand git.browserOpen'                    , 'open-in-browser'],
-        \ 'p' : ['<Plug>(GitGutterPreviewHunk)'                   , 'preview-hunk'],
-        \ 's' : [':CocCommand git.chunkStage'                     , 'stage-hunk'],
-        \ 'u' : [':CocCommand git.chunkUndo'                      , 'undo-hunk'],
-        \ 'v' : [':CocCommand git.showCommit'                     , 'show-commit'],
       \ },
       \ 'i' : [':Gist -b'                                         , 'post-gist'],
       \ 'l' : [':Git log'                                         , 'log'],
       \ 'm' : [':Magit'                                           , 'magit'],
       \ 'M' : ['<Plug>(git-messenger)'                            , 'git-messenger'],
-      \ 'p' : [':CocCommand git.push'                             , 'push'],
+      \ 'p' : [':Git push'                                        , 'push'],
       \ 'P' : [':Git pull'                                        , 'pull'],
       \ 'r' : [':Telescope gh pull_request'                       , 'list-pull-requests'],
       \ 'R' : [':GRemove'                                         , 'remove'],
       \ 's' : [':Magit'                                           , 'status'],
-      \ 't' : [':CocCommand git.toggleGutters'                    , 'toggle-gutters'],
-      \ 'u' : [':CocCommand git.refresh'                          , 'refresh'],
       \ 'v' : [':GV'                                              , 'view-commits'],
       \ 'V' : [':GV!'                                             , 'view-buffer-commits'],
       \ }
+" keybindings in nvim/lua/plugins/gitsigns.lua
+let g:which_key_map.g.h.b = "blame-hunk"
+let g:which_key_map.g.h.n = "next-hunk"
+let g:which_key_map.g.h.p = "prev-hunk"
+let g:which_key_map.g.h.r = "reset-hunk"
+let g:which_key_map.g.h.s = "stage-hunk"
+let g:which_key_map.g.h.u = "unstage-hunk"
+let g:which_key_map.g.h.v = "preview-hunk"
 
 " G is goneovim
 let g:which_key_map.G = {
