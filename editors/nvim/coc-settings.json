@@ -58,7 +58,7 @@
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": " ",
   "diagnostic.refreshOnInsertMode": true,
-  // "diagnostic.enableMessage": "never",
+  "diagnostic.enableMessage": "never",
   "diagnostic.messageTarget": "echo",
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualText": true,

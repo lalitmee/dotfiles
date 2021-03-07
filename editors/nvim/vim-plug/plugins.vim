@@ -52,8 +52,8 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
