@@ -15,11 +15,12 @@ require('lualine').status {
         -- shorten = true,
         file_status = true
       },
+      { 'diagnostics', sources = { 'coc' } },
+      { 'g:coc_status' },
+      { 'b:gitsigns_status' },
+      { 'b:coc_current_function' }
       -- { 'diagnostics', sources = { 'nvim_lsp' } },
-      { 'LspStatus' },
-      { 'b:gitsigns_status' }
-      -- { 'g:coc_status' },
-      -- { 'b:coc_current_function' }
+      -- { 'LspStatus' },
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
