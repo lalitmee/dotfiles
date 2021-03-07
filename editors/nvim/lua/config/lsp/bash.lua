@@ -1,6 +1,9 @@
 local lsp_config = require('lspconfig')
+local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 
-lsp_config.bashls.setup({
-  on_attach = on_attach
-})
+lsp_status.register_progress()
+
+lsp_config.bashls.setup(
+    { capabilities = lsp_status.capabilities, on_attach = on_attach }
+)

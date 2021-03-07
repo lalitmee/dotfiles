@@ -1,30 +1,30 @@
 local buf_map = require('utils').buf_map
 local buf_option = require('utils').buf_option
 local telescope_mapper = require('config.telescope.mappings')
-local completion = require('completion')
+-- local completion = require('completion')
 
 require('config.lsp.handlers')
 
 -- define an chain complete list
-local chain_complete_list = {
-  default = {
-    { complete_items = { 'lsp', 'snippet' } },
-    { complete_items = { 'path' }, triggered_only = { '/' } },
-    { complete_items = { 'buffers' } }
-  },
-  string = { { complete_items = { 'path' }, triggered_only = { '/' } } },
-  comment = {}
-}
+-- local chain_complete_list = {
+--   default = {
+--     { complete_items = { 'lsp', 'snippet' } },
+--     { complete_items = { 'path' }, triggered_only = { '/' } },
+--     { complete_items = { 'buffers' } }
+--   },
+--   string = { { complete_items = { 'path' }, triggered_only = { '/' } } },
+--   comment = {}
+-- }
 
-local function on_attach(client)
-  completion.on_attach(
-      {
-        sorting = 'alphabet',
-        matching_strategy_list = { 'exact', 'substring', 'fuzzy' },
-        chain_complete_list = chain_complete_list
-      }
-  )
-  -- buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+local function on_attach(_)
+  -- completion.on_attach(
+  --     {
+  --       sorting = 'length',
+  --       matching_strategy_list = { 'exact', 'substring', 'fuzzy' },
+  --       chain_complete_list = chain_complete_list
+  --     }
+  -- )
+  buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   local opts = { noremap = true, silent = true }
 

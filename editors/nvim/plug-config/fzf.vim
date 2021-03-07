@@ -33,18 +33,18 @@ let $FZF_DEFAULT_COMMAND = "
       \ "
 
 
-"Get Files
-command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(
-        \ <q-args>,
-        \ fzf#vim#with_preview(
-          \ {
-          \ 'options': [
-            \ '--layout=reverse',
-            \ '--inline-info'
-          \ ]
-          \ }
-      \ ), <bang>0)
+""Get Files
+"command! -bang -nargs=? -complete=dir Files
+"      \ call fzf#vim#files(
+"        \ <q-args>,
+"        \ fzf#vim#with_preview(
+"          \ {
+"          \ 'options': [
+"            \ '--layout=reverse',
+"            \ '--inline-info'
+"          \ ]
+"          \ }
+"      \ ), <bang>0)
 
 " Make Ripgrep ONLY search file contents and not filenames
 command! -bang -nargs=* Rg
