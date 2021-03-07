@@ -17,6 +17,7 @@
       " \ 'colorscheme': 'materia',
       " \ 'colorscheme': 'monokai_pro',
 
+" " " for coc lsp
 " let g:lightline = {
 "       \ 'colorscheme': 'nord',
 "       \ 'active': {
@@ -24,71 +25,48 @@
 "       \             [ 'mode', 'paste' ],
 "       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
 "       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-"       \             [ 'diagnostic', 'coc_status'],
+"       \             [ 'coc_status', 'gitsigns_status', 'nearest_vista'],
 "       \           ],
 "       \ },
 "       \ 'component_function': {
-"       \   'gitbranch': 'FugitiveHead',
-"       \   'fileformat': 'LightlineFileformat',
-"       \   'filetype': 'LightlineFiletype',
-"       \   'mode': 'LightlineMode',
-"       \   'filename': 'LightlineFilename',
-"       \   'readonly': 'LightlineReadonly',
-"       \   'modified': 'LightlineModified',
+"       \   'gitbranch'       : 'LightlineGitSignsHead',
+"       \   'fileformat'      : 'LightlineFileformat',
+"       \   'filetype'        : 'LightlineFiletype',
+"       \   'mode'            : 'LightlineMode',
+"       \   'filename'        : 'LightlineFilename',
+"       \   'readonly'        : 'LightlineReadonly',
+"       \   'modified'        : 'LightlineModified',
+"       \   'gitsigns_status' : 'LightlineGitSignsStatus',
 "       \ },
 "       \ }
-
 " call lightline#coc#register()
 
-" " for coc lsp
+" " for nvim-lsp
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-      \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             [ 'coc_status', 'gitsigns_status', 'nearest_vista'],
+      \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
+      \             [ 'lsp_status', 'nearest_vista' ],
+      \             [ 'gitsigns_head' ],
       \           ],
       \ },
       \ 'component_function': {
-      \   'gitbranch'       : 'LightlineGitSignsHead',
-      \   'fileformat'      : 'LightlineFileformat',
-      \   'filetype'        : 'LightlineFiletype',
-      \   'mode'            : 'LightlineMode',
-      \   'filename'        : 'LightlineFilename',
-      \   'readonly'        : 'LightlineReadonly',
-      \   'modified'        : 'LightlineModified',
-      \   'gitsigns_status' : 'LightlineGitSignsStatus',
+      \   'gitbranch': 'LightlineGitSignsHead',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'mode': 'LightlineMode',
+      \   'filename': 'LightlineFilename',
+      \   'readonly': 'LightlineReadonly',
+      \   'modified': 'LightlineModified',
+      \   'gitsigns_head': 'LightlineGitSignsStatus',
+      \   'nvim_lsp': 'LspStatus',
+      \   'nearest_vists': 'NearestMethodOrFunction',
       \ },
       \ }
-
-" " " for nvim-lsp
-" let g:lightline = {
-"       \ 'colorscheme': 'nord',
-"       \ 'active': {
-"       \   'left': [
-"       \             [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-"       \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
-"       \             [ 'lsp_status', 'nearest_vista' ],
-"       \             [ 'gitsigns_head' ],
-"       \           ],
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'LightlineGitSignsHead',
-"       \   'fileformat': 'LightlineFileformat',
-"       \   'filetype': 'LightlineFiletype',
-"       \   'mode': 'LightlineMode',
-"       \   'filename': 'LightlineFilename',
-"       \   'readonly': 'LightlineReadonly',
-"       \   'modified': 'LightlineModified',
-"       \   'gitsigns_head': 'LightlineGitSignsStatus',
-"       \   'nvim_lsp': 'LspStatus',
-"       \   'nearest_vists': 'NearestMethodOrFunction',
-"       \ },
-"       \ }
-"       " \   'current_func': 'LspStatusCurrentFunction',
+      " \   'current_func': 'LspStatusCurrentFunction',
 
 call lightline#lsp#register()
 

@@ -37,6 +37,7 @@ source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins
+luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
@@ -44,7 +45,6 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
-luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
@@ -60,11 +60,10 @@ luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
 " Colorschemes
-luafile $HOME/.config/nvim/lua/config/colors/nord.lua
+" luafile $HOME/.config/nvim/lua/config/colors/nord.lua
 " source $HOME/.config/nvim/themes/gruvbox8.vim
-" source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
-" luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
+luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 
 " Status Lines
 " source $HOME/.config/nvim/status-lines/airline.vim
@@ -76,13 +75,13 @@ source $HOME/.config/nvim/status-lines/lightline.vim
 source $HOME/.config/nvim/tab-lines/barbar.vim
 
 " Plugins Configurations
-" source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/indentLine.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
+" source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
@@ -110,7 +109,6 @@ source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vsnip.vim
 source $HOME/.config/nvim/plug-config/window-swap.vim
-source $HOME/.config/nvim/plug-config/action-menu.vim
 
 
 " Keys Mappings
