@@ -2,13 +2,21 @@
 local prettier = function()
   return {
     exe = 'prettier',
-    args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' },
+    args = {
+      '--stdin-filepath',
+      vim.api.nvim_buf_get_name(0),
+      '--single-quote'
+    },
     stdin = true
   }
 end
 
 local rustfmt = function()
-  return { exe = 'rustfmt', args = { '--emit=stdout' }, stdin = true }
+  return {
+    exe = 'rustfmt',
+    args = { '--emit=stdout' },
+    stdin = true
+  }
 end
 
 local luafmt = function()
@@ -20,7 +28,7 @@ local luafmt = function()
       '--no-keep-simple-control-block-one-line',
       '--break-after-functioncall-lp',
       '--break-before-functioncall-rp',
-      '--column-limit=80',
+      '--column-limit=70',
       '--double-quote-to-single-quote ',
       '--indent-width=2',
       '--no-single-quote-to-double-quote',
