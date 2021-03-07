@@ -393,6 +393,8 @@ let g:which_key_map.l = {
       \ 'p' : [':Lspsaga preview_definition'                      , 'preview-definition'],
       \ 'r' : [':Lspsaga rename'                                  , 'rename'],
       \ 's' : [':Lspsaga signature_help'                          , 'signature-help'],
+      \ 't' : [':Lspsaga open_floatterm'                          , 'open-floatterm'],
+      \ 'T' : [':Lspsaga close_floatterm'                          , 'close-floatterm'],
       \ 'v' : {
         \ 'name' : '+vista'                                       ,
           \ 'a' : [':Vista ale'                                   , 'ale'],
