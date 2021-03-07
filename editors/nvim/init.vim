@@ -60,11 +60,11 @@ luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
 " Colorschemes
-" luafile $HOME/.config/nvim/lua/config/colors/nord.lua
+luafile $HOME/.config/nvim/lua/config/colors/nord.lua
 " source $HOME/.config/nvim/themes/gruvbox8.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
-luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
+" luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 
 " Status Lines
 " source $HOME/.config/nvim/status-lines/airline.vim
