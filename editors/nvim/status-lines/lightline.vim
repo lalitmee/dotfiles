@@ -24,17 +24,18 @@ let g:lightline = {
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             [ 'diagnostic', 'coc_status'],
+      \             [ 'coc_status', 'gitsigns_status'],
       \           ],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'mode': 'LightlineMode',
-      \   'filename': 'LightlineFilename',
-      \   'readonly': 'LightlineReadonly',
-      \   'modified': 'LightlineModified',
+      \   'gitbranch'       : 'LightlineGitSignsHead',
+      \   'fileformat'      : 'LightlineFileformat',
+      \   'filetype'        : 'LightlineFiletype',
+      \   'mode'            : 'LightlineMode',
+      \   'filename'        : 'LightlineFilename',
+      \   'readonly'        : 'LightlineReadonly',
+      \   'modified'        : 'LightlineModified',
+      \   'gitsigns_status' : 'LightlineGitSignsStatus',
       \ },
       \ }
 
@@ -63,6 +64,14 @@ call lightline#coc#register()
 "       \ }
 
 " call lightline#lsp#register()
+
+function! LightlineGitSignsHead()
+  return '  ' . get(b:,'gitsigns_head','')
+endfunction
+
+function! LightlineGitSignsStatus()
+  return get(b:,'gitsigns_status','')
+endfunction
 
 function! LightlineModified()
   return &filetype=='help' ? "" : &modified ? "＋" : &modifiable ? "" : "🔒"
@@ -98,16 +107,6 @@ endfunction
 function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
-
-" Statusline
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
-
 
 " let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
 " let g:lightline_delphinus_tagbar_enable = 1

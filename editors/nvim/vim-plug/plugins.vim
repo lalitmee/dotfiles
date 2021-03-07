@@ -38,9 +38,9 @@ Plug 'haya14busa/incsearch.vim'
 
 " lightline for vim
 " Plug 'delphinus/lightline-delphinus'
-Plug 'itchyny/lightline.vim'
-Plug 'josa42/vim-lightline-coc'
-Plug 'josa42/nvim-lightline-lsp'
+" Plug 'itchyny/lightline.vim'
+" Plug 'josa42/vim-lightline-coc'
+" Plug 'josa42/nvim-lightline-lsp'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -67,15 +67,10 @@ Plug 'sainnhe/gruvbox-material'
 
 " Completion Conquerer
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
-Plug 'airblade/vim-gitgutter'
-if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
-else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -141,8 +136,8 @@ Plug 'tpope/vim-abolish'
 " Surround Plugin for brackets and more
 Plug 'tpope/vim-surround'
 
-" Auto pairs for '(' '[' '{'
-Plug 'jiangmiao/auto-pairs'
+" " Auto pairs for '(' '[' '{'
+" Plug 'jiangmiao/auto-pairs'
 
 " Zen mode
 Plug 'junegunn/goyo.vim'
@@ -294,9 +289,14 @@ Plug 'norcalli/nvim-colorizer.lua'
 " debugger attach protocol
 Plug 'mfussenegger/nvim-dap'
 
+" auto-pairs in lua
+Plug 'windwp/nvim-autopairs'
 
-" " gitsigns in lua
-" Plug 'lewis6991/gitsigns.nvim'
+" gitsigns in lua
+Plug 'lewis6991/gitsigns.nvim'
+
+" actions menu
+Plug 'kizza/actionmenu.nvim'
 
 " " lightbulb like vscode
 " Plug 'kosayoda/nvim-lightbulb'
@@ -304,8 +304,11 @@ Plug 'mfussenegger/nvim-dap'
 " " colorshceme template
 " Plug 'Iron-E/nvim-highlite'
 
-" " express_line from tj
-" Plug 'tjdevries/express_line.nvim'
+" express_line from tj
+Plug 'tjdevries/express_line.nvim'
+
+" " lualine
+" Plug 'hoob3rt/lualine.nvim'
 
 " " galaxyline for neovim
 " Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
