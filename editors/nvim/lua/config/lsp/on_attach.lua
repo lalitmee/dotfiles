@@ -61,15 +61,10 @@ local function on_attach(_)
 
   -- telescope mappings
   telescope_mapper(
-      'grr', 'lsp_references', {
-        layout_strategy = 'vertical',
-        sorting_strategy = 'ascending',
-        prompt_position = 'top',
-        ignore_filename = true
-      }, true
+      'grr', 'lsp_references',
+      { prompt_position = 'top', ignore_filename = true }, true
   )
 
-  -- TODO: I don't like these combos
   telescope_mapper(
       'grd', 'lsp_document_symbols', { ignore_filename = true }, true
   )
@@ -82,12 +77,6 @@ local function on_attach(_)
   )
   telescope_mapper('gra', 'lsp_code_actions', nil, true)
 
-  -- if client.resolved_capabilities.document_formatting then
-  --   vim.api.nvim_command [[augroup Format]]
-  --   vim.api.nvim_command [[autocmd! * <buffer>]]
-  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
-  --   vim.api.nvim_command [[augroup END]]
-  -- end
 end
 
 return on_attach
