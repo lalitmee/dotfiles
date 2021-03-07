@@ -52,8 +52,8 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
@@ -282,8 +282,8 @@ Plug 'haya14busa/vim-asterisk'
 " minimap like vscode
 Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 
-" git blame like gitlens in vscode
-Plug 'f-person/git-blame.nvim'
+" " git blame like gitlens in vscode
+" Plug 'f-person/git-blame.nvim'
 
 " commenting in lua
 Plug 'b3nj5m1n/kommentary'
