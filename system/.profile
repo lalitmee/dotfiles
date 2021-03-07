@@ -41,3 +41,4 @@ export NVM_DIR="$HOME/.nvm"
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 export PATH="$HOME/.cargo/bin:$PATH"
+if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

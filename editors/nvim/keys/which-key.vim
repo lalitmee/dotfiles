@@ -284,10 +284,11 @@ let g:which_key_map.g = {
       \ 'p' : [':Git push'                                        , 'push'],
       \ 'P' : [':Git pull'                                        , 'pull'],
       \ 'R' : [':GRemove'                                         , 'remove'],
-      \ 's' : [':Magit'                                           , 'status'],
+      \ 's' : [':Neogit'                                           , 'status'],
       \ 'v' : [':GV'                                              , 'view-commits'],
       \ 'V' : [':GV!'                                             , 'view-buffer-commits'],
       \ }
+      " \ 's' : [':Magit'                                           , 'status'],
 " keybindings in nvim/lua/plugins/gitsigns.lua
 let g:which_key_map.g.h.b = "blame-hunk"
 let g:which_key_map.g.h.n = "next-hunk"
