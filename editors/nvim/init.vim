@@ -39,7 +39,7 @@ source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins
 " luafile $HOME/.config/nvim/lua/config/lsp/init.lua
-luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/nvcodeline.lua
@@ -72,7 +72,7 @@ luafile $HOME/.config/nvim/lua/config/colors/nord.lua
 " source $HOME/.config/nvim/status-lines/airline.vim
 " source $HOME/.config/nvim/status-lines/barbar.vim
 " source $HOME/.config/nvim/status-lines/barow.vim
-" source $HOME/.config/nvim/status-lines/lightline.vim
+source $HOME/.config/nvim/status-lines/lightline.vim
 
 " Tab Lines
 source $HOME/.config/nvim/plug-config/xtabline.vim
