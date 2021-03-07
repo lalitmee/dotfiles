@@ -32,10 +32,9 @@ Plug 'haya14busa/incsearch.vim'
 
 " lightline for vim
 " Plug 'delphinus/lightline-delphinus'
-" Plug 'josa42/vim-lightline-coc'
 Plug 'itchyny/lightline.vim'
+Plug 'josa42/vim-lightline-coc'
 Plug 'josa42/nvim-lightline-lsp'
-" Plug 'shinchu/lightline-gruvbox.vim'
 
 " vim icons
 Plug 'ryanoasis/vim-devicons'
@@ -53,8 +52,8 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
@@ -243,17 +242,17 @@ Plug 'kevinhwang91/nvim-bqf'
 " debugger attach protocol
 Plug 'mfussenegger/nvim-dap'
 
-" easymotion using lua
-Plug 'phaazon/hop.nvim'
-
 " auto-pairs in lua
 Plug 'windwp/nvim-autopairs'
 
-" gitsigns in lua
-Plug 'lewis6991/gitsigns.nvim'
-
 " actions menu
 Plug 'kizza/actionmenu.nvim'
+
+" easymotion using lua
+Plug 'phaazon/hop.nvim'
+
+" gitsigns in lua
+Plug 'lewis6991/gitsigns.nvim'
 
 " lightbulb like vscode
 Plug 'kosayoda/nvim-lightbulb'
