@@ -121,9 +121,6 @@ Plug 'romgrk/barbar.nvim'
 " Better Whitespace
 Plug 'ntpeters/vim-better-whitespace'
 
-" For deleting buffers without disturbing the layout
-Plug 'moll/vim-bbye'
-
 " Swap windows
 Plug 'wesQ3/vim-windowswap'
 
@@ -297,6 +294,7 @@ Plug 'rmagatti/auto-session'
 
 " " buffer line
 " Plug 'akinsho/nvim-bufferline.lua'
+
 
 " status lines
 " Plug 'tjdevries/express_line.nvim'
