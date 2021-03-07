@@ -299,8 +299,8 @@ export EDITOR=nvim
 #         source /etc/profile.d/vte.sh
 # fi
 
-# z.sh
-source ~/data/Github/z/z.sh
+# # z.sh
+# source ~/data/Github/z/z.sh
 
 # start tmux while starting new terminal
 _not_inside_tmux() { [[ -z "$TMUX" ]] }

@@ -283,7 +283,6 @@ let g:which_key_map.g = {
       \ 'M' : ['<Plug>(git-messenger)'                            , 'git-messenger'],
       \ 'p' : [':Git push'                                        , 'push'],
       \ 'P' : [':Git pull'                                        , 'pull'],
-      \ 'r' : [':Telescope gh pull_request'                       , 'list-pull-requests'],
       \ 'R' : [':GRemove'                                         , 'remove'],
       \ 's' : [':Magit'                                           , 'status'],
       \ 'v' : [':GV'                                              , 'view-commits'],
@@ -387,8 +386,27 @@ let g:which_key_map.l = {
       \ 'p' : [':Lspsaga preview_definition'                      , 'preview-definition'],
       \ 'r' : [':Lspsaga rename'                                  , 'rename'],
       \ 's' : [':Lspsaga signature_help'                          , 'signature-help'],
+      \ 'v' : {
+        \ 'name' : '+vista'                                       ,
+          \ 'a' : [':Vista ale'                                   , 'ale'],
+          \ 'A' : [':Vista finder fzf:ale .'                      , 'fzf:ale'],
+          \ 'c' : [':Vista coc'                                   , 'coc'],
+          \ 'C' : [':Vista finder fzf:coc .'                      , 'fzf:coc'],
+          \ 'f' : [':Vista finder'                                , 'finder'],
+          \ 'F' : [':Vista finder!'                               , 'finder!'],
+          \ 'g' : [':Vista ctags'                                 , 'ctags'],
+          \ 'G' : [':Vista finder skim:ctags .'                   , 'skim:ctags'],
+          \ 'i' : [':Vista info'                                  , 'info'],
+          \ 'I' : [':Vista info+'                                 , 'info+'],
+          \ 'j' : [':Vista focus'                                 , 'focus'],
+          \ 'n' : [':Vista nvim_lsp'                              , 'nvim-lsp'],
+          \ 'N' : [':Vista finder fzf:nvim_lsp .'                 , 'fzf:nvim_lsp'],
+          \ 's' : [':Vista show'                                  , 'show'],
+          \ 't' : [':Vista!!'                                     , 'toggle-vista'],
+          \ 'u' : [':Vista vim_lsc'                               , 'vim_lsc'],
+          \ 'v' : [':Vista vim_lsp'                               , 'vim_lsp'],
+      \ },
       \ }
-      " \ 'o' : ['<Plug>(coc-openlink)'                           , 'open link'],
 
 " m is major mode
 let g:which_key_map.m = {
@@ -514,6 +532,9 @@ let g:which_key_map.p = {
       \ 'p' : [':Telescope project project'                       , 'switch-project'],
       \ 's' : [':Rg'                                              , 'project-search'],
       \ }
+
+let g:which_key_map.p.n = 'swap-parameter-next'
+let g:which_key_map.p.N = 'swap-parameter-previous'
 
 " s is for search
 let g:which_key_map.s = {

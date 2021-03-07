@@ -48,19 +48,24 @@ let g:lightline = {
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
       \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
-      \             [ 'lsp_status'],
+      \             [ 'lsp_status', 'nearest_vista' ],
+      \             [ 'gitsigns_head' ],
       \           ],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead',
+      \   'gitbranch': 'LightlineGitSignsHead',
       \   'fileformat': 'LightlineFileformat',
       \   'filetype': 'LightlineFiletype',
       \   'mode': 'LightlineMode',
       \   'filename': 'LightlineFilename',
       \   'readonly': 'LightlineReadonly',
       \   'modified': 'LightlineModified',
+      \   'gitsigns_head': 'LightlineGitSignsStatus',
+      \   'nvim_lsp': 'LspStatus',
+      \   'nearest_vists': 'NearestMethodOrFunction',
       \ },
       \ }
+      " \   'current_func': 'LspStatusCurrentFunction',
 
 call lightline#lsp#register()
 
@@ -107,14 +112,24 @@ function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
 
+function! LspStatus() abort
+  let status = luaeval('require("lsp-status").status()')
+  return trim(status)
+endfunction
+
+function! LspStatusCurrentFunction() abort
+  let current_function = luaeval('require("lsp-status").update_current_function()')
+  return trim(current_function)
+endfunction
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+
 " let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
 " let g:lightline_delphinus_tagbar_enable = 1
 " let g:lightline_delphinus_use_powerline_glyphs = 1
 " let g:lightline_delphinus_gitgutter_enable = 1
 " let g:lightline_delphinus_colorscheme = 'nord_improved'
 " let g:lightline_delphinus_colorscheme = 'solarized_improved'
-
-
-
-
-

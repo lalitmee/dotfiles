@@ -1,19 +1,8 @@
-local lsp_config = require('lspconfig')
-local lsp = vim.lsp
 local fn = vim.fn
 
-_ = require('lspkind').init()
+require('config.lsp.status')
+require('lspkind').init({})
 require('config.lsp.handlers')
-
--- lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(
--- lsp.diagnostic.on_publish_diagnostics, {
---   underline = true,
---   virtual_text = {
---     prefix = "●",
---     spacing = 4,
---   }
--- }
--- )
 
 fn.sign_define(
     'LspDiagnosticsSignError',
