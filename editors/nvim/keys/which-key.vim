@@ -68,7 +68,10 @@ let g:which_key_map.b = {
       \ 'b' : [':FzfBuffers'                                      , 'fzf-buffers'],
       \ 'B' : [':Telescope buffers'                               , 'telescope-buffers'],
       \ 'c' : ['vnew'                                             , 'new-empty-buffer-vert'],
-      \ 'd' : [':Bdelete'                                         , 'delete-buffer'],
+      \ 'C' : [':BufferCloseAllButCurrent'                        , 'close-all-but-current'],
+      \ 'a' : [':BufferCloseBuffersLeft'                          , 'close-all-left'],
+      \ ';' : [':BufferCloseBuffersRight'                         , 'close-all-right'],
+      \ 'd' : [':BufferClose'                                     , 'delete-buffer'],
       \ 'D' : [':%bd'                                             , 'delete-all-buffers'],
       \ 'e' : [':BufferLast'                                      , 'last-buffer'],
       \ 'f' : ['bfirst'                                           , 'first-buffer'],
@@ -84,6 +87,9 @@ let g:which_key_map.b = {
       \ 'r' : ['e'                                                , 'refresh-buffer'],
       \ 'R' : ['bufdo :e'                                         , 'refresh-loaded-buffers'],
       \ 's' : ['new'                                              , 'new-empty-buffer'],
+      \ 'w' : [':BufferWipeout'                                   , 'buffer-wipeout'],
+      \ 'z' : [':BarbarEnable'                                    , 'barbar-enable'],
+      \ 'y' : [':BarbarDisable'                                   , 'barbar-disable'],
       \ }
 
 " c is for coc.nvim
@@ -284,11 +290,11 @@ let g:which_key_map.g = {
       \ 'p' : [':Git push'                                        , 'push'],
       \ 'P' : [':Git pull'                                        , 'pull'],
       \ 'R' : [':GRemove'                                         , 'remove'],
-      \ 's' : [':Neogit'                                           , 'status'],
+      \ 's' : [':Neogit'                                          , 'status'],
       \ 'v' : [':GV'                                              , 'view-commits'],
       \ 'V' : [':GV!'                                             , 'view-buffer-commits'],
       \ }
-      " \ 's' : [':Magit'                                           , 'status'],
+      " \ 's' : [':Magit'                                         , 'status'],
 " keybindings in nvim/lua/plugins/gitsigns.lua
 let g:which_key_map.g.h.b = "blame-hunk"
 let g:which_key_map.g.h.n = "next-hunk"
