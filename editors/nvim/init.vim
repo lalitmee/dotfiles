@@ -62,16 +62,8 @@ luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 " Colorschemes
 luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 " luafile $HOME/.config/nvim/lua/config/colors/nord.lua
-" source $HOME/.config/nvim/themes/cobalt2.vim
-" source $HOME/.config/nvim/themes/gruvbox-material.vim
-" source $HOME/.config/nvim/themes/gruvbox.vim
 " source $HOME/.config/nvim/themes/gruvbox8.vim
-" source $HOME/.config/nvim/themes/monokai-pro.vim
-" source $HOME/.config/nvim/themes/nord.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
-" source $HOME/.config/nvim/themes/onedark.vim
-" source $HOME/.config/nvim/themes/solarized.vim
-" source $HOME/.config/nvim/themes/spacemacs.vim
 " source $HOME/.config/nvim/themes/gruvbuddy.vim
 
 " Status Lines
@@ -90,13 +82,14 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
+source $HOME/.config/nvim/plug-config/auto-sessions.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
-source $HOME/.config/nvim/plug-config/git-messenger.vim
+source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/hlslens.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/lsp.vim
@@ -117,7 +110,6 @@ source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vsnip.vim
 source $HOME/.config/nvim/plug-config/window-swap.vim
-source $HOME/.config/nvim/plug-config/auto-sessions.vim
 
 
 " Keys Mappings

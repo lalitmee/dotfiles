@@ -17,3 +17,5 @@ Group.new('NeogitDiffDeleteHighlight', c.red:dark(), c.black:light())
 Group.new('NeogitDiffContextHighlight', nil, c.black:light())
 Group.new('NeogitHunkHeader', c.black, c.blue:dark())
 Group.new('NeogitHunkHeaderHighlight', c.black, c.blue:dark())
+
+Group.new('gitblame', c.grey:dark(), nil)

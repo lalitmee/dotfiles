@@ -61,8 +61,6 @@ Plug 'chemzqm/vim-jsx-improve'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'rhysd/git-messenger.vim'
-" Plug 'jreybert/vimagit'
 
 " Tabularize for Vim
 Plug 'godlygeek/tabular'
