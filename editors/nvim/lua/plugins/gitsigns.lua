@@ -1,5 +1,3 @@
-RELOAD('gitsigns')
-
 require('colorbuddy')
 
 local c = require('colorbuddy.color').colors
@@ -11,11 +9,7 @@ Group.new('GitSignsDelete', c.red)
 
 require('gitsigns').setup {
   signs = {
-    add = {
-      hl = 'GitSignsAdd',
-      text = '+',
-      numhl = 'GitSignsAddNr'
-    },
+    add = { hl = 'GitSignsAdd', text = '+', numhl = 'GitSignsAddNr' },
     change = {
       hl = 'GitSignsChange',
       text = '~',
@@ -37,11 +31,7 @@ require('gitsigns').setup {
       numhl = 'GitSignsChangeNr'
     }
   },
-
-  -- Can't decide if I like this or not :)
-  numhl = false,
   keymaps = {
-    -- Default keymap options
     noremap = true,
     buffer = true,
     ['n <leader>ghn'] = {

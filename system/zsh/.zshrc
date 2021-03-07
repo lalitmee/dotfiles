@@ -177,7 +177,7 @@ alias speed="speedtest-cli"
 
 # for ls replacement with exa
 # alias ls="exa"
-alias ls="colorls"
+alias ls="lsd"
 alias cat="bat"
 alias c="clear"
 
@@ -299,8 +299,8 @@ export EDITOR=nvim
 #         source /etc/profile.d/vte.sh
 # fi
 
-# z.sh
-source ~/data/Github/z/z.sh
+# # z.sh
+# source ~/data/Github/z/z.sh
 
 # start tmux while starting new terminal
 _not_inside_tmux() { [[ -z "$TMUX" ]] }
@@ -332,10 +332,6 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fa
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B
 '
 
-export ANDROID_HOME=/home/lalit/Android/Sdk
-export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-
 autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
@@ -348,11 +344,6 @@ transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho
 	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-### Bashhub.com Installation
-if [ -f ~/.bashhub/bashhub.zsh ]; then
-    source ~/.bashhub/bashhub.zsh
-fi
-
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
@@ -362,33 +353,6 @@ export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
 export PATH="$HOME/cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
-# old aliases
-# alias tsk="tmuxinator start katerra"
-# alias tek="tmuxinator edit katerra"
-# alias tsc="tmuxinator start scheduling"
-# alias tec="tmuxinator edit scheduling"
-# alias tsd="tmuxinator start dashboard"
-# alias ted="tmuxinator edit dashboard"
-# alias tss="tmuxinator start sonyliv"
-# alias tes="tmuxinator edit sonyliv"
-# alias tst="tmuxinator start talaria"
-# alias tet="tmuxinator edit talaria"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/lalit/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/lalit/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/lalit/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/lalit/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 # Navi: An interactive cheatsheet tool for the command-line and application launchers
 source <(navi widget zsh)
@@ -414,9 +378,6 @@ fi
 # enabling colorls tab completion
 source $(dirname $(gem which colorls))/tab_complete.sh
 
-# To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh.
-[[ ! -f ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh
-
 # for s-search from the terminal
 if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
     . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
@@ -437,3 +398,5 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 # To customize prompt, run `p10k configure` or edit ~/data/Github/dotfiles/system/zsh/.p10k.zsh.
 [[ ! -f ~/data/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/data/Github/dotfiles/system/zsh/.p10k.zsh
+
+if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

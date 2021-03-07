@@ -17,6 +17,30 @@
       " \ 'colorscheme': 'materia',
       " \ 'colorscheme': 'monokai_pro',
 
+" let g:lightline = {
+"       \ 'colorscheme': 'nord',
+"       \ 'active': {
+"       \   'left': [
+"       \             [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
+"       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
+"       \             [ 'diagnostic', 'coc_status'],
+"       \           ],
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead',
+"       \   'fileformat': 'LightlineFileformat',
+"       \   'filetype': 'LightlineFiletype',
+"       \   'mode': 'LightlineMode',
+"       \   'filename': 'LightlineFilename',
+"       \   'readonly': 'LightlineReadonly',
+"       \   'modified': 'LightlineModified',
+"       \ },
+"       \ }
+
+" call lightline#coc#register()
+
+" " for coc lsp
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
@@ -24,7 +48,7 @@ let g:lightline = {
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             [ 'coc_status', 'gitsigns_status'],
+      \             [ 'coc_status', 'gitsigns_status', 'nearest_vista'],
       \           ],
       \ },
       \ 'component_function': {
@@ -39,9 +63,7 @@ let g:lightline = {
       \ },
       \ }
 
-call lightline#coc#register()
-
-" " for neovim lsp
+" " " for nvim-lsp
 " let g:lightline = {
 "       \ 'colorscheme': 'nord',
 "       \ 'active': {
@@ -49,21 +71,34 @@ call lightline#coc#register()
 "       \             [ 'mode', 'paste' ],
 "       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
 "       \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
-"       \             [ 'lsp_status'],
+"       \             [ 'lsp_status', 'nearest_vista' ],
+"       \             [ 'gitsigns_head' ],
 "       \           ],
 "       \ },
 "       \ 'component_function': {
-"       \   'gitbranch': 'FugitiveHead',
+"       \   'gitbranch': 'LightlineGitSignsHead',
 "       \   'fileformat': 'LightlineFileformat',
 "       \   'filetype': 'LightlineFiletype',
 "       \   'mode': 'LightlineMode',
 "       \   'filename': 'LightlineFilename',
 "       \   'readonly': 'LightlineReadonly',
 "       \   'modified': 'LightlineModified',
+"       \   'gitsigns_head': 'LightlineGitSignsStatus',
+"       \   'nvim_lsp': 'LspStatus',
+"       \   'nearest_vists': 'NearestMethodOrFunction',
 "       \ },
 "       \ }
+"       " \   'current_func': 'LspStatusCurrentFunction',
 
-" call lightline#lsp#register()
+call lightline#lsp#register()
+
+function! LightlineGitSignsHead()
+  return '  ' . get(b:,'gitsigns_head','')
+endfunction
+
+function! LightlineGitSignsStatus()
+  return get(b:,'gitsigns_status','')
+endfunction
 
 function! LightlineGitSignsHead()
   return '  ' . get(b:,'gitsigns_head','')
@@ -108,14 +143,24 @@ function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
 
+function! LspStatus() abort
+  let status = luaeval('require("lsp-status").status()')
+  return trim(status)
+endfunction
+
+function! LspStatusCurrentFunction() abort
+  let current_function = luaeval('require("lsp-status").update_current_function()')
+  return trim(current_function)
+endfunction
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+
 " let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
 " let g:lightline_delphinus_tagbar_enable = 1
 " let g:lightline_delphinus_use_powerline_glyphs = 1
 " let g:lightline_delphinus_gitgutter_enable = 1
 " let g:lightline_delphinus_colorscheme = 'nord_improved'
 " let g:lightline_delphinus_colorscheme = 'solarized_improved'
-
-
-
-
-
