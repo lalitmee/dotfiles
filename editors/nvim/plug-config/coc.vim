@@ -9,7 +9,6 @@ let g:coc_global_extensions = [
     \ 'coc-eslint',
     \ 'coc-floaterm',
     \ 'coc-gist',
-    \ 'coc-git',
     \ 'coc-go',
     \ 'coc-html',
     \ 'coc-html-css-support',
@@ -32,7 +31,6 @@ let g:coc_global_extensions = [
     \ 'coc-xml',
     \ 'coc-yaml',
     \ 'coc-yank',
-    \ 'coc-smartf',
     \ ]
     " \ 'coc-project',
     " \ 'coc-explorer',
@@ -169,32 +167,56 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   coc-git                             "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-" navigate conflicts of current buffer
-nmap [c <Plug>(coc-git-prevconflict)
-nmap ]c <Plug>(coc-git-nextconflict)
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
-" show commit contains current position
-" nmap gC <Plug>(coc-git-commit)
-" create text object for git chunks
-omap ig <Plug>(coc-git-chunk-inner)
-xmap ig <Plug>(coc-git-chunk-inner)
-omap ag <Plug>(coc-git-chunk-outer)
-xmap ag <Plug>(coc-git-chunk-outer)
+" " navigate chunks of current buffer
+" nmap [g <Plug>(coc-git-prevchunk)
+" nmap ]g <Plug>(coc-git-nextchunk)
+" " navigate conflicts of current buffer
+" nmap [c <Plug>(coc-git-prevconflict)
+" nmap ]c <Plug>(coc-git-nextconflict)
+" " show chunk diff at current position
+" nmap gi <Plug>(coc-git-chunkinfo)
+" " show commit contains current position
+" " nmap gC <Plug>(coc-git-commit)
+" " create text object for git chunks
+" omap ig <Plug>(coc-git-chunk-inner)
+" xmap ig <Plug>(coc-git-chunk-inner)
+" omap ag <Plug>(coc-git-chunk-outer)
+" xmap ag <Plug>(coc-git-chunk-outer)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   smartf                              "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" press <esc> to cancel.
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap , <Plug>(coc-smartf-repeat-opposite)
+" " press <esc> to cancel.
+" nmap f <Plug>(coc-smartf-forward)
+" nmap F <Plug>(coc-smartf-backward)
+" nmap ; <Plug>(coc-smartf-repeat)
+" nmap , <Plug>(coc-smartf-repeat-opposite)
 
-augroup Smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-augroup end
+" augroup Smartf
+"   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+"   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+" augroup end
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   coc-list                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
+" Keymapping for grep word under cursor with interactive mode
+nnoremap <silent> <leader>cG :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+
+" grep current word in current buffer
+nnoremap <silent> <leader>cg  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   coc-fzf                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:coc_fzf_opts = ['--layout=reverse', '--inline-info']
+let g:coc_fzf_preview = "right:60%"

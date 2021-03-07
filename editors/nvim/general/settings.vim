@@ -76,14 +76,23 @@ set shiftround             " round indent to a multiple of 'shiftwidth'
 
 " code folding settings
 " set foldmethod=syntax
-" fold based on indent
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 set foldnestmax=10         " deepest fold is 10 levels
 set foldenable             " don't fold by default
 set foldlevel=1
+set foldtext=MyFoldText()
+set fillchars=fold:-
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let folded_line_num = v:foldend - v:foldstart
+    let line_text = substitute(line, '^"{\+', '', 'g')
+    let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
+    return '+'. repeat('-', 4) . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ' L)'
+endfunction
+
 set undodir=~/.config/nvim/undodir
 set undofile
 

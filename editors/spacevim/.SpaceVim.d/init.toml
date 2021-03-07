@@ -25,6 +25,7 @@
     buffer_index_type = 4
     filemanager = "nerdtree"
     autocomplete_method = "coc"
+    snippet_engine = "ultisnips"
     disabled_plugins = ["tagbar"]
     search_tools = ["rg"]
     enable_googlesuggest = 1
