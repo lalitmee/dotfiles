@@ -75,6 +75,7 @@
 
   // autoformat
   "coc.preferences.hoverTarget": "float",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
   // python config
   "python.linting.enabled": true,
@@ -95,5 +96,6 @@
 
   // Lua language server settings
   "lua.enable": true,
-  "Lua.hint.enable": true
+  "Lua.hint.enable": true,
+  "session.directory": "~/.config/nvim/session"
 }

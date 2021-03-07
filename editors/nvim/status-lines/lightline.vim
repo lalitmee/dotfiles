@@ -64,6 +64,14 @@ let g:lightline = {
 
 call lightline#lsp#register()
 
+function! LightlineGitSignsHead()
+  return '  ' . get(b:,'gitsigns_head','')
+endfunction
+
+function! LightlineGitSignsStatus()
+  return get(b:,'gitsigns_status','')
+endfunction
+
 function! LightlineModified()
   return &filetype=='help' ? "" : &modified ? "＋" : &modifiable ? "" : "🔒"
 endfunction
@@ -98,16 +106,6 @@ endfunction
 function! LightlineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
-
-" Statusline
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
-
 
 " let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
 " let g:lightline_delphinus_tagbar_enable = 1
