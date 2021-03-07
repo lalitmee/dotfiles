@@ -9,6 +9,9 @@ let g:which_key_map =  {}
 " Define a separator
 let g:which_key_sep = '→'
 " set timeoutlen=100
+let g:which_key_use_floating_win = 1
+let g:which_key_display_names = {' ': '␣', '<CR>': '↵', '<TAB>': '⇆'}
+let g:which_key_disable_default_offset = 1
 
 " Coc Search & refactor
 nnoremap <leader>/ :CocSearch <C-R>=expand("<cword>")<CR><CR>
@@ -65,7 +68,10 @@ let g:which_key_map.b = {
       \ 'b' : [':FzfBuffers'                                      , 'fzf-buffers'],
       \ 'B' : [':Telescope buffers'                               , 'telescope-buffers'],
       \ 'c' : ['vnew'                                             , 'new-empty-buffer-vert'],
-      \ 'd' : [':Bdelete'                                         , 'delete-buffer'],
+      \ 'C' : [':BufferCloseAllButCurrent'                        , 'close-all-but-current'],
+      \ 'a' : [':BufferCloseBuffersLeft'                          , 'close-all-left'],
+      \ ';' : [':BufferCloseBuffersRight'                         , 'close-all-right'],
+      \ 'd' : [':BufferClose'                                     , 'delete-buffer'],
       \ 'D' : [':%bd'                                             , 'delete-all-buffers'],
       \ 'e' : [':BufferLast'                                      , 'last-buffer'],
       \ 'f' : ['bfirst'                                           , 'first-buffer'],
@@ -81,6 +87,9 @@ let g:which_key_map.b = {
       \ 'r' : ['e'                                                , 'refresh-buffer'],
       \ 'R' : ['bufdo :e'                                         , 'refresh-loaded-buffers'],
       \ 's' : ['new'                                              , 'new-empty-buffer'],
+      \ 'w' : [':BufferWipeout'                                   , 'buffer-wipeout'],
+      \ 'z' : [':BarbarEnable'                                    , 'barbar-enable'],
+      \ 'y' : [':BarbarDisable'                                   , 'barbar-disable'],
       \ }
 
 " c is for coc.nvim
@@ -280,12 +289,12 @@ let g:which_key_map.g = {
       \ 'M' : ['<Plug>(git-messenger)'                            , 'git-messenger'],
       \ 'p' : [':Git push'                                        , 'push'],
       \ 'P' : [':Git pull'                                        , 'pull'],
-      \ 'r' : [':Telescope gh pull_request'                       , 'list-pull-requests'],
       \ 'R' : [':GRemove'                                         , 'remove'],
-      \ 's' : [':Magit'                                           , 'status'],
+      \ 's' : [':Neogit'                                          , 'status'],
       \ 'v' : [':GV'                                              , 'view-commits'],
       \ 'V' : [':GV!'                                             , 'view-buffer-commits'],
       \ }
+      " \ 's' : [':Magit'                                         , 'status'],
 " keybindings in nvim/lua/plugins/gitsigns.lua
 let g:which_key_map.g.h.b = "blame-hunk"
 let g:which_key_map.g.h.n = "next-hunk"
@@ -316,50 +325,97 @@ let g:which_key_map.G = {
 let g:which_key_map.j = {
       \ 'name' : '+any-jump'                                      ,
       \ 'j' : [':AnyJump'                                         , 'current-word'],
-      \ 'l' : [':AnyJumpBack'                                     , 'back'],
+      \ 'l' : [':HopLine'                                         , 'hop-line'],
+      \ 'L' : [':AnyJumpBack'                                     , 'back'],
+      \ 'p' : [':HopPattern'                                      , 'hop-pattern'],
       \ 'r' : [':AnyJumpLastResults'                              , 'last-results'],
       \ 's' : [':AnyJumpRunSpecs'                                 , 'run-specs'],
       \ 'v' : [':AnyJumpVisual'                                   , 'visual-selection'],
+      \ 'w' : [':HopWord'                                         , 'hop-word'],
+      \ 'c' : [':HopChar1'                                        , 'hop-char-1'],
+      \ 'd' : [':HopChar2'                                        , 'hop-char-2'],
       \ }
+
+" " l is for language server protocol
+" let g:which_key_map.l = {
+"       \ 'name' : '+lsp'                                         ,
+"       \ '.' : [':CocConfig'                                     , 'config'],
+"       \ ';' : ['<Plug>(coc-refactor)'                           , 'refactor'],
+"       \ 'a' : ['<Plug>(coc-codeaction)'                         , 'line-action'],
+"       \ 'A' : ['<Plug>(coc-codeaction-selected)'                , 'selected-action'],
+"       \ 'b' : [':CocNext'                                       , 'next-action'],
+"       \ 'B' : [':CocPrev'                                       , 'prev-action'],
+"       \ 'c' : [':CocList commands'                              , 'commands'],
+"       \ 'd' : ['<Plug>(coc-definition)'                         , 'definition'],
+"       \ 'D' : ['<Plug>(coc-declaration)'                        , 'declaration'],
+"       \ 'e' : [':CocList extensions'                            , 'extensions'],
+"       \ 'f' : ['<Plug>(coc-format-selected)'                    , 'format-selected'],
+"       \ 'F' : ['<Plug>(coc-format)'                             , 'format'],
+"       \ 'h' : ['<Plug>(coc-float-hide)'                         , 'hide'],
+"       \ 'i' : ['<Plug>(coc-implementation)'                     , 'implementation'],
+"       \ 'I' : [':CocList diagnostics'                           , 'diagnostics'],
+"       \ 'j' : ['<Plug>(coc-float-jump)'                         , 'float-jump'],
+"       \ 'l' : ['<Plug>(coc-codelens-action)'                    , 'code-lens'],
+"       \ 'n' : ['<Plug>(coc-diagnostic-next)'                    , 'next-diagnostic'],
+"       \ 'N' : ['<Plug>(coc-diagnostic-next-error)'              , 'next-error'],
+"       \ 'o' : [':Vista!!'                                       , 'outline'],
+"       \ 'O' : [':CocList outline'                               , 'outline'],
+"       \ 'p' : ['<Plug>(coc-diagnostic-prev)'                    , 'prev-diagnostic'],
+"       \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'              , 'prev-error'],
+"       \ 'q' : ['<Plug>(coc-fix-current)'                        , 'quickfix'],
+"       \ 'r' : ['<Plug>(coc-references)'                         , 'references'],
+"       \ 'R' : ['<Plug>(coc-rename)'                             , 'rename'],
+"       \ 's' : [':CocList -I symbols'                            , 'symbols'],
+"       \ 'S' : [':CocList snippets'                              , 'snippets'],
+"       \ 't' : ['<Plug>(coc-type-definition)'                    , 'type-definition'],
+"       \ 'u' : [':CocListResume'                                 , 'resume-list'],
+"       \ 'U' : [':CocUpdate'                                     , 'update-CoC'],
+"       \ 'z' : [':CocDisable'                                    , 'disable-CoC'],
+"       \ 'Z' : [':CocEnable'                                     , 'enable-CoC'],
+"       \ }
+"       " \ 'o' : ['<Plug>(coc-openlink)'                         , 'open link'],
+
 
 " l is for language server protocol
 let g:which_key_map.l = {
       \ 'name' : '+lsp'                                           ,
-      \ '.' : [':CocConfig'                                       , 'config'],
-      \ ';' : ['<Plug>(coc-refactor)'                             , 'refactor'],
-      \ 'a' : ['<Plug>(coc-codeaction)'                           , 'line-action'],
-      \ 'A' : ['<Plug>(coc-codeaction-selected)'                  , 'selected-action'],
-      \ 'b' : [':CocNext'                                         , 'next-action'],
-      \ 'B' : [':CocPrev'                                         , 'prev-action'],
-      \ 'c' : [':CocList commands'                                , 'commands'],
-      \ 'd' : ['<Plug>(coc-definition)'                           , 'definition'],
-      \ 'D' : ['<Plug>(coc-declaration)'                          , 'declaration'],
-      \ 'e' : [':CocList extensions'                              , 'extensions'],
-      \ 'f' : ['<Plug>(coc-format-selected)'                      , 'format-selected'],
-      \ 'F' : ['<Plug>(coc-format)'                               , 'format'],
-      \ 'h' : ['<Plug>(coc-float-hide)'                           , 'hide'],
-      \ 'i' : ['<Plug>(coc-implementation)'                       , 'implementation'],
-      \ 'I' : [':CocList diagnostics'                             , 'diagnostics'],
-      \ 'j' : ['<Plug>(coc-float-jump)'                           , 'float-jump'],
-      \ 'l' : ['<Plug>(coc-codelens-action)'                      , 'code-lens'],
-      \ 'n' : ['<Plug>(coc-diagnostic-next)'                      , 'next-diagnostic'],
-      \ 'N' : ['<Plug>(coc-diagnostic-next-error)'                , 'next-error'],
-      \ 'o' : [':Vista!!'                                         , 'outline'],
-      \ 'O' : [':CocList outline'                                 , 'outline'],
-      \ 'p' : ['<Plug>(coc-diagnostic-prev)'                      , 'prev-diagnostic'],
-      \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'                , 'prev-error'],
-      \ 'q' : ['<Plug>(coc-fix-current)'                          , 'quickfix'],
-      \ 'r' : ['<Plug>(coc-references)'                           , 'references'],
-      \ 'R' : ['<Plug>(coc-rename)'                               , 'rename'],
-      \ 's' : [':CocList -I symbols'                              , 'symbols'],
-      \ 'S' : [':CocList snippets'                                , 'snippets'],
-      \ 't' : ['<Plug>(coc-type-definition)'                      , 'type-definition'],
-      \ 'u' : [':CocListResume'                                   , 'resume-list'],
-      \ 'U' : [':CocUpdate'                                       , 'update-CoC'],
-      \ 'z' : [':CocDisable'                                      , 'disable-CoC'],
-      \ 'Z' : [':CocEnable'                                       , 'enable-CoC'],
+      \ 'a' : [':Lspsaga code_action'                             , 'code-action'],
+      \ 'A' : [':Lspsaga range_code_action'                       , 'range-code-action'],
+      \ 'd' : [':Lspsaga hover_doc'                               , 'hover-doc'],
+      \ 'e' : {
+        \ 'name' : '+diagnostics'                                 ,
+        \ 'l' : [':Lspsaga show_line_diagnostics'                 , 'show-line-diagnostics'],
+        \ 'n' : [':Lspsaga diagnostic_jump_next'                  , 'next-diagnostic'],
+        \ 'p' : [':Lspsaga diagnostic_jump_prev'                  , 'prev-diagnostic'],
+      \ },
+      \ 'i' : [':LspInfo'                                         , 'lsp-info'],
+      \ 'l' : [':Lspsaga lsp_finder'                              , 'finder'],
+      \ 'p' : [':Lspsaga preview_definition'                      , 'preview-definition'],
+      \ 'r' : [':Lspsaga rename'                                  , 'rename'],
+      \ 's' : [':Lspsaga signature_help'                          , 'signature-help'],
+      \ 't' : [':Lspsaga open_floatterm'                          , 'open-floatterm'],
+      \ 'T' : [':Lspsaga close_floatterm'                          , 'close-floatterm'],
+      \ 'v' : {
+        \ 'name' : '+vista'                                       ,
+          \ 'a' : [':Vista ale'                                   , 'ale'],
+          \ 'A' : [':Vista finder fzf:ale .'                      , 'fzf:ale'],
+          \ 'c' : [':Vista coc'                                   , 'coc'],
+          \ 'C' : [':Vista finder fzf:coc .'                      , 'fzf:coc'],
+          \ 'f' : [':Vista finder'                                , 'finder'],
+          \ 'F' : [':Vista finder!'                               , 'finder!'],
+          \ 'g' : [':Vista ctags'                                 , 'ctags'],
+          \ 'G' : [':Vista finder skim:ctags .'                   , 'skim:ctags'],
+          \ 'i' : [':Vista info'                                  , 'info'],
+          \ 'I' : [':Vista info+'                                 , 'info+'],
+          \ 'j' : [':Vista focus'                                 , 'focus'],
+          \ 'n' : [':Vista nvim_lsp'                              , 'nvim-lsp'],
+          \ 'N' : [':Vista finder fzf:nvim_lsp .'                 , 'fzf:nvim_lsp'],
+          \ 's' : [':Vista show'                                  , 'show'],
+          \ 't' : [':Vista!!'                                     , 'toggle-vista'],
+          \ 'u' : [':Vista vim_lsc'                               , 'vim_lsc'],
+          \ 'v' : [':Vista vim_lsp'                               , 'vim_lsp'],
+      \ },
       \ }
-      " \ 'o' : ['<Plug>(coc-openlink)'                           , 'open link'],
 
 " m is major mode
 let g:which_key_map.m = {
@@ -367,8 +423,10 @@ let g:which_key_map.m = {
       \ 'a' : [':Telescope lsp_code_actions'                      , 'code-actions'],
       \ 'b' : [':Telescope lsp_range_code_actions'                , 'range-code-actions'],
       \ 'c' : [':MakeTags'                                        , 'make-ctags'],
-      \ 'd' : [':Telescope lsp_workspace_symbols'                 , 'workspace-symbols'],
+      \ 'd' : [':Telescope lsp_document_diagnostics'              , 'document-diagnostics'],
+      \ 'D' : [':Telescope lsp_workspace_diagnostics'             , 'workspace-diagnostics'],
       \ 'f' : [':Telescope lsp_references'                        , 'references'],
+      \ 'j' : [':Telescope lsp_workspace_symbols'                 , 'workspace-symbols'],
       \ 'l' : ['<Plug>(JsConsoleLog)'                             , 'console-log'],
       \ 'r' : ['<Plug>(coc-rename)'                               , 'rename-symbol'],
       \ 's' : [':Telescope lsp_document_symbols'                  , 'buffer-symbols'],
@@ -463,6 +521,15 @@ let g:which_key_map.o = {
       \ },
       \ }
 
+let g:which_key_map.o.a = 'emojis'
+let g:which_key_map.o.b.f = 'find-buffers'
+let g:which_key_map.o.f.N = 'nvim-config-dropdown'
+let g:which_key_map.o.f.c = 'dotfiles'
+let g:which_key_map.o.f.d = 'with-dropdown'
+let g:which_key_map.o.f.n = 'nvim-config'
+let g:which_key_map.o.g.C = 'git-checkout'
+let g:which_key_map.o.w = 'grep-words'
+
 " p is for Project
 let g:which_key_map.p = {
       \ 'name' : '+project'                                       ,
@@ -474,6 +541,9 @@ let g:which_key_map.p = {
       \ 'p' : [':Telescope project project'                       , 'switch-project'],
       \ 's' : [':Rg'                                              , 'project-search'],
       \ }
+
+let g:which_key_map.p.n = 'swap-parameter-next'
+let g:which_key_map.p.N = 'swap-parameter-previous'
 
 " s is for search
 let g:which_key_map.s = {

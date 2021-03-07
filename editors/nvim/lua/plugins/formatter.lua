@@ -2,21 +2,13 @@
 local prettier = function()
   return {
     exe = 'prettier',
-    args = {
-      '--stdin-filepath',
-      vim.api.nvim_buf_get_name(0),
-      '--single-quote'
-    },
+    args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' },
     stdin = true
   }
 end
 
 local rustfmt = function()
-  return {
-    exe = 'rustfmt',
-    args = { '--emit=stdout' },
-    stdin = true
-  }
+  return { exe = 'rustfmt', args = { '--emit=stdout' }, stdin = true }
 end
 
 local luafmt = function()
@@ -25,26 +17,25 @@ local luafmt = function()
     args = {
       '--align-args',
       '--align-parameter',
-      '--no-keep-simple-control-block-one-line',
+      '--align-table-field',
       '--break-after-functioncall-lp',
+      '--break-after-functiondef-lp',
+      '--break-after-table-lb',
       '--break-before-functioncall-rp',
-      '--column-limit=70',
+      '--break-before-functiondef-rp',
+      '--break-before-table-rb ',
+      '--chop-down-kv-table',
+      '--chop-down-parameter',
+      '--chop-down-table',
       '--double-quote-to-single-quote ',
       '--indent-width=2',
+      '--no-keep-simple-control-block-one-line',
+      '--no-keep-simple-function-one-line',
       '--no-single-quote-to-double-quote',
       '--no-use-tab',
       '--spaces-inside-table-braces',
-      '--tab-width=2',
-      '--chop-down-parameter',
-      ' --no-keep-simple-function-one-line',
-      '--break-after-functiondef-lp',
-      '--break-before-functiondef-rp',
-      '--align-table-field',
-      '--break-after-table-lb',
-      '--break-before-table-rb ',
-      '--chop-down-table',
-      '--chop-down-kv-table'
-      -- '--spaces-inside-functioncall-parens'
+      '--tab-width=1',
+      '--column-limit=80'
     },
     stdin = true
   }

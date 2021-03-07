@@ -19,6 +19,8 @@ require('lualine').status {
       { 'g:coc_status' },
       { 'b:gitsigns_status' },
       { 'b:coc_current_function' }
+      -- { 'diagnostics', sources = { 'nvim_lsp' } },
+      -- { 'LspStatus' },
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
