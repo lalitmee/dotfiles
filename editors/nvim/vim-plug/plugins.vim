@@ -62,7 +62,7 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
-Plug 'jreybert/vimagit'
+" Plug 'jreybert/vimagit'
 
 " Tabularize for Vim
 Plug 'godlygeek/tabular'
@@ -80,8 +80,8 @@ Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'valloric/MatchTagAlways'
 
-" Indent Lines made beautiful
-Plug 'Yggdroot/indentLine'
+" " Indent Lines made beautiful
+" Plug 'Yggdroot/indentLine'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -103,7 +103,7 @@ Plug 'voldikss/vim-floaterm'
 " tpope plugins
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
@@ -172,6 +172,9 @@ Plug 'tommcdo/vim-exchange'
 " any-jump
 Plug 'pechorin/any-jump.vim'
 
+" multiple cursors
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
 """"""""""""""""""""""""""""""""""""""
@@ -200,6 +203,9 @@ Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
+
+" " note taking using lua
+" Plug 'oberblastmeister/neuron.nvim'
 
 " " LSP
 Plug 'anott03/nvim-lspinstall'
@@ -263,8 +269,36 @@ Plug 'akinsho/nvim-toggleterm.lua'
 " registers in lua
 Plug 'gennaro-tedesco/nvim-peekup'
 
-" buffer line
-Plug 'akinsho/nvim-bufferline.lua'
+" indent guides using lua
+Plug 'glepnir/indent-guides.nvim'
+
+" magit for neovim in lua
+Plug 'TimUntersberger/neogit'
+
+" file manager in lua
+Plug 'TimUntersberger/neofs'
+
+" motion training
+Plug 'tjdevries/train.nvim'
+
+" hlslens lens for neovim
+Plug 'kevinhwang91/nvim-hlslens'
+Plug 'haya14busa/vim-asterisk'
+
+" minimap like vscode
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+
+" git blame like gitlens in vscode
+Plug 'f-person/git-blame.nvim'
+
+" commenting in lua
+Plug 'b3nj5m1n/kommentary'
+
+" auto session save
+Plug 'rmagatti/auto-session'
+
+" " buffer line
+" Plug 'akinsho/nvim-bufferline.lua'
 
 " status lines
 " Plug 'tjdevries/express_line.nvim'

@@ -437,3 +437,4 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 # To customize prompt, run `p10k configure` or edit ~/data/Github/dotfiles/system/zsh/.p10k.zsh.
 [[ ! -f ~/data/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/data/Github/dotfiles/system/zsh/.p10k.zsh
+if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
