@@ -23,34 +23,35 @@ require('telescope').load_extension('snippets')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
-require('telescope').load_extension('gh')
 require('telescope').load_extension('jumps')
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('node_modules')
 require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
 require('telescope').load_extension('ultisnips')
-require('telescope').load_extension('z')
 
 require('telescope').setup {
   defaults = {
-    prompt_prefix = " 🔎 ",
-    -- prompt_prefix = " > ",
-    sorting_strategy = "ascending",
-    prompt_position = "top",
+    -- prompt_prefix = ' 🔎 ',
+    prompt_prefix = ' > ',
+    sorting_strategy = 'ascending',
+    prompt_position = 'top',
     color_devicons = true,
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
     mappings = {
       i = {
-        ["<C-e>"] = actions.move_to_bottom,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-y>"] = actions.move_to_top,
-        ["<esc>"] = actions.close,
+        ['<C-e>'] = actions.move_to_bottom,
+        ['<C-n>'] = actions.move_selection_next,
+        ['<C-p>'] = actions.move_selection_previous,
+        ['<C-j>'] = actions.move_selection_next,
+        ['<C-k>'] = actions.move_selection_previous,
+        ['<C-y>'] = actions.move_to_top,
+        ['<esc>'] = actions.close
       }
     },
     borderchars = {
-      { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
     },
 
     file_sorter = sorters.get_fzy_sorter,
@@ -59,53 +60,52 @@ require('telescope').setup {
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56,
+        preview_width = 0.56
       },
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5,
+        preview_height = 0.5
       }
     },
 
-    file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
-    grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
-    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new
   },
   extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
-      override_file_sorter = true,
-    },
+    fzy_native = { override_generic_sorter = false, override_file_sorter = true },
     fzf_writer = {
       use_highlighter = true,
       minimum_grep_characters = 0,
-      minimum_files_characters = 0,
+      minimum_files_characters = 0
     },
     media_files = {
-      filetypes = {'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm'},
-      find_cmd = "rg" -- find command (defaults to `fd`)
+      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
+      find_cmd = 'rg' -- find command (defaults to `fd`)
     },
     frecency = {
-      show_scores = false,
       show_unindexed = true,
-      ignore_patterns = {'*.git/*', '*/node_modules/*'},
+      ignore_patterns = { '*.git/*', '*/node_modules/*' },
       workspaces = {
-        ['conf']      = '/home/data/Github/dotfiles',
-        ['koinearth'] = '/home/data/koinearth',
-        ['project']   = '/home/data/Github',
-      },
+        ['nvim'] = '/home/data/.config/nvim/plugged',
+        ['dotf'] = '/home/data/Github/dotfiles',
+        ['work'] = '/home/data/koinearth',
+        ['git'] = '/home/data/Github',
+        ['conf'] = '/home/.config',
+        ['data'] = '/home/lalitmee/.local/share'
+      }
     },
     openbrowser = {
       bookmarks = {
-        ['dotfiles']                = 'https://github.com/lalitmee/dotfiles',
-        ['dNotes']                  = 'https://github.com/lalitmee/dNotes',
-        ['wf-webapp-service']       = 'https://github.com/koinearth/wf-webapp-service',
+        ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
+        ['dNotes'] = 'https://github.com/lalitmee/dNotes',
+        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
         ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
-        ['wf-pwa-service']          = 'https://github.com/koinearth/wf-pwa-service',
-        ['marketsn-pwa-service']    = 'https://github.com/koinearth/marketsn-pwa-service',
-        ['marketsn-pdf-service']    = 'https://github.com/koinearth/marketsn-pdf-service',
-        ['marketsn-api-service']    = 'https://github.com/koinearth/marketsn-api-service',
+        ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
+        ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
+        ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
+        ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
         ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer'
       }
     }
@@ -116,44 +116,37 @@ local M = {}
 
 function M.edit_neovim()
   require('telescope.builtin').find_files {
-    prompt_title = "~ dotfiles ~",
+    prompt_title = '~ dotfiles ~',
     shorten_path = false,
-    cwd = "~/.config/nvim",
+    cwd = '~/.config/nvim',
 
     layout_strategy = 'horizontal',
-    layout_config = {
-      preview_width = 0.65,
-    },
+    layout_config = { preview_width = 0.65 }
   }
 end
 
 function M.find_nvim_source()
   require('telescope.builtin').find_files {
-    prompt_title = "~ nvim ~",
+    prompt_title = '~ nvim ~',
     shorten_path = false,
-    cwd = "~/build/neovim/",
+    cwd = '~/build/neovim/',
     width = .25,
 
     layout_strategy = 'horizontal',
-    layout_config = {
-      preview_width = 0.65,
-    },
+    layout_config = { preview_width = 0.65 }
   }
 end
 
 function M.edit_zsh()
   require('telescope.builtin').find_files {
     shorten_path = false,
-    cwd = "~/.config/zsh/",
-    prompt = "~ dotfiles ~",
+    cwd = '~/.config/zsh/',
+    prompt = '~ dotfiles ~',
 
     layout_strategy = 'horizontal',
-    layout_config = {
-      preview_width = 0.55,
-    },
+    layout_config = { preview_width = 0.55 }
   }
 end
-
 
 function M.fd()
   require('telescope.builtin').fd()
@@ -168,20 +161,22 @@ function M.git_files()
     winblend = 10,
     border = true,
     previewer = false,
-    shorten_path = false,
+    shorten_path = false
   }
 
   require('telescope.builtin').git_files(opts)
 end
 
 function M.buffer_git_files()
-  require('telescope.builtin').git_files(themes.get_dropdown {
-    cwd = vim.fn.expand("%:p:h"),
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false,
-  })
+  require('telescope.builtin').git_files(
+      themes.get_dropdown {
+        cwd = vim.fn.expand('%:p:h'),
+        winblend = 10,
+        border = true,
+        previewer = false,
+        shorten_path = false
+      }
+  )
 end
 
 function M.lsp_code_actions()
@@ -189,24 +184,24 @@ function M.lsp_code_actions()
     winblend = 10,
     border = true,
     previewer = false,
-    shorten_path = false,
+    shorten_path = false
   }
 
   require('telescope.builtin').lsp_code_actions(opts)
 end
 
 function M.live_grep()
- require('telescope').extensions.fzf_writer.staged_grep {
-   shorten_path = true,
-   previewer = false,
-   fzf_separator = "|>",
- }
+  require('telescope').extensions.fzf_writer.staged_grep {
+    shorten_path = true,
+    previewer = false,
+    fzf_separator = '|>'
+  }
 end
 
 function M.grep_prompt()
   require('telescope.builtin').grep_string {
     shorten_path = true,
-    search = vim.fn.input("Grep String > "),
+    search = vim.fn.input('Grep String > ')
   }
 end
 
@@ -215,7 +210,9 @@ function M.grep_last_search(opts)
 
   -- \<getreg\>\C
   -- -> Subs out the search things
-  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub("\\C", "")
+  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub(
+                       '\\C', ''
+                   )
 
   opts.shorten_path = true
   opts.word_match = '-w'
@@ -225,7 +222,9 @@ function M.grep_last_search(opts)
 end
 
 function M.oldfiles()
-  if true then require('telescope').extensions.frecency.frecency() end
+  if true then
+    require('telescope').extensions.frecency.frecency()
+  end
   if pcall(require('telescope').load_extension, 'frecency') then
   else
     require('telescope.builtin').oldfiles { layout_strategy = 'vertical' }
@@ -233,9 +232,7 @@ function M.oldfiles()
 end
 
 function M.my_plugins()
-  require('telescope.builtin').find_files {
-    cwd = '~/plugins/',
-  }
+  require('telescope.builtin').find_files { cwd = '~/plugins/' }
 end
 
 function M.installed_plugins()
@@ -247,15 +244,13 @@ end
 function M.project_search()
   require('telescope.builtin').find_files {
     previewer = false,
-    layout_strategy = "vertical",
-    cwd = require('nvim_lsp.util').root_pattern(".git")(vim.fn.expand("%:p")),
+    layout_strategy = 'vertical',
+    cwd = require('nvim_lsp.util').root_pattern('.git')(vim.fn.expand('%:p'))
   }
 end
 
 function M.buffers()
-  require('telescope.builtin').buffers {
-    shorten_path = false,
-  }
+  require('telescope.builtin').buffers { shorten_path = false }
 end
 
 function M.curbuf()
@@ -263,7 +258,7 @@ function M.curbuf()
     winblend = 10,
     border = true,
     previewer = false,
-    shorten_path = false,
+    shorten_path = false
 
     -- layout_strategy = 'current_buffer',
   }
@@ -271,14 +266,12 @@ function M.curbuf()
 end
 
 function M.help_tags()
-  require('telescope.builtin').help_tags {
-    show_version = true,
-  }
+  require('telescope.builtin').help_tags { show_version = true }
 end
 
 function M.search_all_files()
   require('telescope.builtin').find_files {
-    find_command = { 'rg', '--no-ignore', '--files', },
+    find_command = { 'rg', '--no-ignore', '--files' }
   }
 end
 
@@ -292,20 +285,22 @@ end
 
 function M.file_browser()
   require('telescope.builtin').file_browser {
-    sorting_strategy = "ascending",
-    scroll_strategy = "cycle",
-    prompt_position = "top",
+    sorting_strategy = 'ascending',
+    scroll_strategy = 'cycle',
+    prompt_position = 'top'
   }
 end
 
-return setmetatable({}, {
-  __index = function(_, k)
-    reloader()
+return setmetatable(
+           {}, {
+      __index = function(_, k)
+        reloader()
 
-    if M[k] then
-      return M[k]
-    else
-      return require('telescope.builtin')[k]
-    end
-  end
-})
+        if M[k] then
+          return M[k]
+        else
+          return require('telescope.builtin')[k]
+        end
+      end
+    }
+       )
