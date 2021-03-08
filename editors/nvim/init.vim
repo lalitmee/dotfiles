@@ -44,11 +44,11 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
-" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
+luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-" luafile $HOME/.config/nvim/lua/plugins/completion.lua
+luafile $HOME/.config/nvim/lua/plugins/completion.lua
 luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
@@ -60,10 +60,10 @@ luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
 " Colorschemes
-luafile $HOME/.config/nvim/lua/config/colors/nord.lua
+" luafile $HOME/.config/nvim/lua/config/colors/nord.lua
 " source $HOME/.config/nvim/themes/gruvbox8.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
-" luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
+luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 
 " Status Lines
 " source $HOME/.config/nvim/status-lines/airline.vim
@@ -75,7 +75,7 @@ source $HOME/.config/nvim/status-lines/lightline.vim
 source $HOME/.config/nvim/tab-lines/barbar.vim
 
 " Plugins Configurations
-source $HOME/.config/nvim/plug-config/coc.vim
+" source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/indentLine.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
