@@ -247,10 +247,10 @@ values."
    dotspacemacs-default-font '(
                                ;; "CaskaydiaCove Nerd Font"
                                ;; "Ubuntu Mono Nerd Font"
-                               ;; "OperatorMono Nerd Font"
-                               "JetBrainsMono Nerd Font"
+                               "OperatorMono Nerd Font"
+                               ;; "JetBrainsMono Nerd Font"
                                :size 14
-                               :weight normal
+                               :weight Book
                                :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
