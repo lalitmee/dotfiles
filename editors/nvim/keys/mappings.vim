@@ -145,4 +145,5 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" quickfix list
+" quit keybinding for some special buffers
+autocmd! FileType log nnoremap <buffer> <silent> q :quit<CR>
