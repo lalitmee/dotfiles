@@ -52,8 +52,8 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 
 " Completion Conquerer
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 
 " Version Control in Vim
@@ -100,7 +100,7 @@ Plug 'voldikss/vim-floaterm'
 " tpope plugins
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish'
-" Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
@@ -128,9 +128,6 @@ Plug 'wesQ3/vim-windowswap'
 
 " Viewer & Finder for LSP symbols and tags
 Plug 'liuchengxu/vista.vim'
-
-" bookmarks
-Plug 'MattesGroeger/vim-bookmarks'
 
 " " vim-be-good
 " Plug 'ThePrimeagen/vim-be-good'
@@ -282,8 +279,8 @@ Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 " " git blame like gitlens in vscode
 " Plug 'f-person/git-blame.nvim'
 
-" commenting in lua
-Plug 'b3nj5m1n/kommentary'
+" " commenting in lua
+" Plug 'b3nj5m1n/kommentary'
 
 " " auto session save
 " Plug 'rmagatti/auto-session'
