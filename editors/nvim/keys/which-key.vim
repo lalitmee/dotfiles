@@ -4,14 +4,15 @@
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
+" options for which key
+" let g:which_key_sep = '→'
+let g:which_key_use_floating_win = 0
+let g:which_key_disable_default_offset = 1
+let g:which_key_hspace = 10
+let g:which_key_centered = 0
+
 " Create map to add keys to
 let g:which_key_map =  {}
-" Define a separator
-let g:which_key_sep = '→'
-" set timeoutlen=100
-let g:which_key_use_floating_win = 1
-let g:which_key_display_names = {' ': '␣', '<CR>': '↵', '<TAB>': '⇆'}
-let g:which_key_disable_default_offset = 1
 
 " Coc Search & refactor
 nnoremap <leader>/ :CocSearch <C-R>=expand("<cword>")<CR><CR>
@@ -20,10 +21,6 @@ let g:which_key_map['/'] = 'search-word'
 nnoremap <leader>* *<c-o>:%s///gn<cr>
 let g:which_key_map['*'] = 'count-matches'
 
-" Not a fan of floating windows for this
-let g:which_key_use_floating_win = 0
-
-let g:which_key_centered = 0
 
 " Change the colors if you want
 highlight default link WhichKey          Operator
