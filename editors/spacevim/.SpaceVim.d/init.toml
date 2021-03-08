@@ -8,125 +8,120 @@
 
 # All SpaceVim option below [option] section
 [options]
-    bootstrap_before = "myspacevim#before"
-    bootstrap_after = "myspacevim#after"
-    automatic_update = true
-    # set spacevim theme. by default colorscheme layer is not loaded,
-    # if you want to use more colorscheme, please load the colorscheme
-    # layer
-    colorscheme = "gruvbox"
-    colorscheme_bg = "dark"
-    guifont = "Cascadia Code 11"
-    # Disable guicolors in basic mode, many terminal do not support 24bit
-    # true colors
-    enable_guicolors = true
-    # Disable statusline separator, if you want to use other value, please
-    # install nerd fonts
-    buffer_index_type = 4
-    filemanager = "nerdtree"
     autocomplete_method = "coc"
-    snippet_engine = "ultisnips"
-    disabled_plugins = ["tagbar"]
-    search_tools = ["rg"]
+    automatic_update = true
+    bootstrap_after = "myspacevim#after"
+    bootstrap_before = "myspacevim#before"
+    buffer_index_type = 4
+    colorscheme = "onedark"
+    colorscheme_bg = "dark"
     enable_googlesuggest = 1
+    enable_guicolors = true
+    enable_statusline_mode = false
+    enable_tabline_filetype_icon = true
+    enable_vimfiler_gitstatus = true
+    enable_vimfiler_welcome = false
+    guifont = "Cascadia Code 11"
+    search_tools = ["rg"]
+    snippet_engine = "ultisnips"
 
 [[layers]]
-  name = "core#statusline"
-  enable = false
+    name = "core#statusline"
+    enable = false
 
 [[layers]]
-name = 'colorscheme'
-# random_theme = true
-# frequency = "hourly"
+    name = 'colorscheme'
+    random_theme = true
+    frequency = "hourly"
 
 [[layers]]
-name = 'default'
+    name = 'default'
 
 [[layers]]
-name = 'edit'
+    name = 'edit'
 
 [[layers]]
-name = 'incsearch'
+    name = 'incsearch'
 
 [[layers]]
-name = 'fzf'
+    name = 'fzf'
 
 [[layers]]
-name = 'git'
-git-plugin = "fugitive"
+    name = 'git'
+    git-plugin = "fugitive"
 
 [[layers]]
-name = 'github'
+    name = 'VersionControl'
+    git-plugin = "fugitive"
 
 [[layers]]
-name = 'format'
-format_on_save = true
+    name = 'github'
 
 [[layers]]
-name = 'gtags'
-gtagslabel = 'ctags'
+    name = 'format'
+    format_on_save = true
+
+[[layers]]
+    name = 'gtags'
+    gtagslabel = 'ctags'
 
 # [[layers]]
-# name = 'tmux'
-# tmuxline_separators = 'arrow'
-# tmuxline_separators_alt = 'arrow'
+    # name = 'tmux'
+    # tmuxline_separators = 'arrow'
+    # tmuxline_separators_alt = 'arrow'
 
 [[layers]]
-name = 'tools#dash'
+    name = 'tools#dash'
 
 [[layers]]
-name = "tools#mpv"
-mpv_interpreter="/usr/bin/mpv"
-musics_directory = '/home/lalit/Music'
-
-
-[[layers]]
-name = 'sudo'
+    name = 'sudo'
 
 # languages layers
 [[layers]]
-name = 'lang#extra'
+    name = 'lang#extra'
 
 [[layers]]
-name = 'lsp'
-filetypes = [
-  'javascript'
-]
+    name = 'lsp'
+    filetypes = [
+      'javascript',
+      # 'javascriptreact',
+      # 'typescrpt',
+      # 'typescrptreact',
+      # 'json',
+      # 'lua',
+      # 'vim',
+      # 'go',
+  ]
 
 # Enable autocomplete layer
 [[layers]]
-name = 'autocomplete'
-auto_completion_return_key_behavior = "complete"
-auto_completion_tab_key_behavior = "smart"
+    name = 'autocomplete'
+    auto_completion_return_key_behavior = "complete"
+    auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
-name = 'shell'
-default_position = 'top'
-default_height = 30
+    name = 'shell'
+    default_position = 'float'
+    default_height = 30
+
 
 [[custom_plugins]]
-repo = 'neoclide/coc.nvim'
-merged = false
+    repo = 'sainnhe/gruvbox-material'
+    merged = false
 
 [[custom_plugins]]
-repo = 'yuki-ycino/fzf-preview.vim'
+    repo = 'tomasiser/vim-code-dark'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'itchyny/lightline.vim'
+    merged = false
 #
-# [[custom_plugins]]
-# repo = 'junegunn/fzf.vim'
-# merged = false
+[[custom_plugins]]
+    repo = 'ryanoasis/vim-devicons'
+    merged = false
 
 [[custom_plugins]]
-repo = 'sainnhe/gruvbox-material'
-merged = false
-
-[[custom_plugins]]
-repo = 'tomasiser/vim-code-dark'
-merged = false
-
-[[custom_plugins]]
-repo = 'pangloss/vim-javascript'
-merged = false
-
-[[custom_plugins]]
-repo = 'mxw/vim-jsx'
-merged = false
+    repo = "lilydjwg/colorizer"
+    on_cmd = ["ColorHighlight", "ColorToggle"]
+    merged = false
