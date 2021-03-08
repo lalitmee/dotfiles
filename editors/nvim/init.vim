@@ -75,13 +75,13 @@ source $HOME/.config/nvim/status-lines/lightline.vim
 source $HOME/.config/nvim/tab-lines/barbar.vim
 
 " Plugins Configurations
+" source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/indentLine.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
-" source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
@@ -93,6 +93,7 @@ source $HOME/.config/nvim/plug-config/hlslens.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/lsp.vim
 source $HOME/.config/nvim/plug-config/magit.vim
+source $HOME/.config/nvim/plug-config/nvim-bqf.vim
 source $HOME/.config/nvim/plug-config/nvim-tree.vim
 source $HOME/.config/nvim/plug-config/openbrowser.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
@@ -105,6 +106,7 @@ source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/toggle-term.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
+source $HOME/.config/nvim/plug-config/vim-bookmarks.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vsnip.vim

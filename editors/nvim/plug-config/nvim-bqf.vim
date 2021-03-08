@@ -5,8 +5,8 @@ augroup Coc
     autocmd User CocLocationsChange ++nested call Coc_qf_jump2loc(g:coc_jump_locations)
 augroup END
 
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> <leader>qd <Cmd>call Coc_qf_diagnostic()<CR>
+nmap <silent> grq <Plug>(coc-references)
+nnoremap <silent> qdq <Cmd>call Coc_qf_diagnostic()<CR>
 
 function! Coc_qf_diagnostic() abort
     let diagnostic_list = CocAction('diagnosticList')
@@ -36,22 +36,3 @@ function! Coc_qf_jump2loc(locs) abort
         call win_gotoid(winid)
     endif
 endfunction
-
-augroup Grepper
-    autocmd!
-    autocmd User Grepper call setqflist([], 'r',
-                \ {'context': {'bqf': {'pattern_hl': histget('/')}}}) |
-                \ botright copen
-augroup END
-
-let g:grepper = {
-            \ 'open': 0,
-            \ 'quickfix': 1,
-            \ 'searchreg': 1,
-            \ 'highlight': 0,
-            \ }
-
-" " try `gsiw` under word
-" nmap gs  <plug>(GrepperOperator)
-" xmap gs  <plug>(GrepperOperator)
-
