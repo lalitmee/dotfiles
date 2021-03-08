@@ -144,14 +144,6 @@ function! myspacevim#after() abort
         \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
         \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-  " " highlight conflicts
-  " match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-  "
-  " " make comments and HTML attributes italic
-  " highlight Comment cterm=italic term=italic gui=italic
-  " highlight htmlArg cterm=italic term=italic gui=italic
-  " highlight xmlAttrib cterm=italic term=italic gui=italic
-
   " command for making ctags in a project
   command! MakeTags !ctags -R .
 
@@ -276,12 +268,6 @@ function! myspacevim#after() abort
     \   'git grep --line-number '.shellescape(<q-args>), 0,
     \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
-  " The Silver Searcher
-  if executable('ag')
-    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-    set grepprg=ag\ --nogroup\ --nocolor
-  endif
-
   " ripgrep
   if executable('rg')
     let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
@@ -290,6 +276,7 @@ function! myspacevim#after() abort
   endif
 
   let g:fzf_command_prefix='Fzf'
+  let g:coc_config_home = '~/.SpaceVim.d/'
 
   " Customize fzf colors to match your color scheme
   let g:fzf_colors =
