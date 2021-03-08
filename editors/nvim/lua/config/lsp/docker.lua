@@ -4,17 +4,7 @@ local on_attach = require('config.lsp.on_attach')
 
 lsp_status.register_progress()
 
-lsp_config.tsserver.setup(
-    {
-      capabilities = lsp_status.capabilities,
-      on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        on_attach(client)
-      end
-    }
-)
-
-lsp_config.rome.setup(
+lsp_config.dockerls.setup(
     {
       capabilities = lsp_status.capabilities,
       on_attach = function(client)

@@ -20,7 +20,6 @@ local efm_languages = {
   scss = { prettier },
   typescript = { eslint, prettier },
   typescriptreact = { eslint, prettier },
-  vue = { prettier },
   yaml = { prettier }
 }
 
