@@ -1,6 +1,5 @@
 -- nord theme using colorbuddy
-local Color, colors, Group, groups, styles =
-    require('colorbuddy').setup()
+local Color, colors, Group, groups, styles = require('colorbuddy').setup()
 
 Color.new('background', '#3B4252')
 Color.new('fg', '#292929')
@@ -45,3 +44,23 @@ Group.new('IncSearch', colors.nord_6, colors.nord_10, styles.underline)
 Group.new('Search', colors.nord_1, colors.nord_12)
 
 Group.new('NvimTreeFolderIcon', colors.nord_11, colors.NONE)
+
+-- Neogit
+Group.new(
+    'NeogitDiffAddHighlight', colors.green:dark():dark():dark(),
+    colors.black:light()
+)
+Group.new('NeogitDiffDeleteHighlight', colors.red:dark(), colors.black:light())
+
+Group.new('NeogitDiffContextHighlight', nil, colors.black:light())
+Group.new('NeogitHunkHeader', colors.black, colors.blue:dark())
+Group.new('NeogitHunkHeaderHighlight', colors.black, colors.blue:dark())
+
+-- git blame
+Group.new('gitblame', colors.grey:dark(), nil)
+
+-- barbar highlight groups
+Group.new('BufferCurrent', colors.orange, nil, styles.bold)
+Group.new('BufferCurrentIndex', colors.orange, nil, styles.bold)
+Group.new('BufferCurrentMod', colors.red:dark(), nil, styles.bold)
+Group.new('BufferCurrentSign', nil, nil, styles.bold)
