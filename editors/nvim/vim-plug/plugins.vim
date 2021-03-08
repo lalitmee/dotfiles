@@ -197,6 +197,7 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 
 " " LSP
 Plug 'anott03/nvim-lspinstall'
+Plug 'alexaandru/nvim-lspupdate'
 Plug 'euclidianAce/BetterLua.vim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
