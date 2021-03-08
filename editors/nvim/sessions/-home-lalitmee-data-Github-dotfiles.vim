@@ -9,12 +9,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +65 editors/nvim/lua/config/lsp/on_attach.lua
-badd +1 ~/data/Github/dotfiles/editors/nvim/init.vim
+badd +1 editors/nvim/init.vim
 badd +303 editors/nvim/vim-plug/plugins.vim
-badd +0 editors/nvim/lua/config/colors/gruvbuddy.lua
+badd +32 editors/nvim/lua/config/colors/gruvbuddy.lua
+badd +0 ~/data/Github/dotfiles/editors/nvim/general/functions.vim
 argglobal
 %argdel
-edit editors/nvim/lua/config/colors/gruvbuddy.lua
+edit ~/data/Github/dotfiles/editors/nvim/general/functions.vim
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -28,26 +29,26 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 118 + 118) / 237)
 exe 'vert 2resize ' . ((&columns * 118 + 118) / 237)
 argglobal
-balt editors/nvim/vim-plug/plugins.vim
-setlocal fdm=expr
-setlocal fde=v:lua.manillua.foldexpr(v:lnum)
+balt editors/nvim/lua/config/colors/gruvbuddy.lua
+setlocal fdm=marker
+setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=3
+setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 32 - ((27 * winheight(0) + 27) / 55)
+let s:l = 20 - ((19 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 32
-normal! 021|
+keepjumps 20
+normal! 010|
 wincmd w
 argglobal
-if bufexists("~/data/Github/dotfiles/editors/nvim/init.vim") | buffer ~/data/Github/dotfiles/editors/nvim/init.vim | else | edit ~/data/Github/dotfiles/editors/nvim/init.vim | endif
+if bufexists("editors/nvim/init.vim") | buffer editors/nvim/init.vim | else | edit editors/nvim/init.vim | endif
 if &buftype ==# 'terminal'
-  silent file ~/data/Github/dotfiles/editors/nvim/init.vim
+  silent file editors/nvim/init.vim
 endif
 balt editors/nvim/lua/config/lsp/on_attach.lua
 setlocal fdm=marker
@@ -58,7 +59,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 103 - ((37 * winheight(0) + 27) / 55)
+let s:l = 103 - ((8 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt

@@ -37,7 +37,6 @@ source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins
-" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
@@ -45,6 +44,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
+luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua

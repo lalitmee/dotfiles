@@ -4,7 +4,7 @@ local on_attach = require('config.lsp.on_attach')
 
 lsp_status.register_progress()
 
-lsp_config.tsserver.setup(
+lsp_config.clangd.setup(
     {
       capabilities = lsp_status.capabilities,
       on_attach = function(client)
@@ -14,7 +14,7 @@ lsp_config.tsserver.setup(
     }
 )
 
-lsp_config.rome.setup(
+lsp_config.sourcekit.setup(
     {
       capabilities = lsp_status.capabilities,
       on_attach = function(client)
