@@ -243,7 +243,8 @@ alias o="oni ."
 # alias for using nvim instead of vim
 # alias nvim="~/nvim.appimage"
 # alias gnvim="~/goneovim/goneovim --nvim=/usr/bin/nvim"
-alias gnvim="~/goneovim/goneovim"
+# alias gnvim="~/goneovim/goneovim"
+alias gnvim="glrnvim"
 
 # common aliases
 alias rm="rm -i"
