@@ -166,9 +166,6 @@ Plug 'tommcdo/vim-exchange'
 " any-jump
 Plug 'pechorin/any-jump.vim'
 
-" multiple cursors
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-
 """"""""""""""""""""""""""""""""""""""
 "            Lua Plugins             "
 """"""""""""""""""""""""""""""""""""""
