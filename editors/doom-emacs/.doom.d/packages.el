@@ -62,3 +62,4 @@
 (package! dumb-jump)
 (package! manage-minor-mode)
 (package! flow-minor-mode)
+(package! format-all)
