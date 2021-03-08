@@ -8,4 +8,4 @@ let bufferline.maximum_padding = 4
 
 let bufferline.icons = "both"
 
-let bufferline.no_name_title = "unsaved"
+let bufferline.no_name_title = "[ No-Name ]"
