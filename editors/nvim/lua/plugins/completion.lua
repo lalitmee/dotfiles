@@ -1,5 +1,4 @@
-vim.o.completeopt = 'menuone,noselect'
-
+-- vim.o.completeopt = 'menuone,noselect'
 -- Don't show the dumb matching stuff.
 vim.cmd [[set shortmess+=c]]
 

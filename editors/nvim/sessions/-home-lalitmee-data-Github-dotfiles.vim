@@ -10,10 +10,11 @@ endif
 set shortmess=aoO
 badd +65 editors/nvim/lua/config/lsp/on_attach.lua
 badd +1 ~/data/Github/dotfiles/editors/nvim/init.vim
-badd +299 editors/nvim/vim-plug/plugins.vim
+badd +303 editors/nvim/vim-plug/plugins.vim
+badd +0 editors/nvim/lua/config/colors/gruvbuddy.lua
 argglobal
 %argdel
-edit editors/nvim/vim-plug/plugins.vim
+edit editors/nvim/lua/config/colors/gruvbuddy.lua
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -27,21 +28,21 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 118 + 118) / 237)
 exe 'vert 2resize ' . ((&columns * 118 + 118) / 237)
 argglobal
-balt editors/nvim/lua/config/lsp/on_attach.lua
-setlocal fdm=marker
-setlocal fde=nvim_treesitter#foldexpr()
+balt editors/nvim/vim-plug/plugins.vim
+setlocal fdm=expr
+setlocal fde=v:lua.manillua.foldexpr(v:lnum)
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=99
+setlocal fdl=3
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 299 - ((29 * winheight(0) + 27) / 55)
+let s:l = 32 - ((27 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 299
-normal! 0
+keepjumps 32
+normal! 021|
 wincmd w
 argglobal
 if bufexists("~/data/Github/dotfiles/editors/nvim/init.vim") | buffer ~/data/Github/dotfiles/editors/nvim/init.vim | else | edit ~/data/Github/dotfiles/editors/nvim/init.vim | endif
