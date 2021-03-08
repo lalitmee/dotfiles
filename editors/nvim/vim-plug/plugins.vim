@@ -288,8 +288,8 @@ Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
 " commenting in lua
 Plug 'b3nj5m1n/kommentary'
 
-" auto session save
-Plug 'rmagatti/auto-session'
+" " auto session save
+" Plug 'rmagatti/auto-session'
 
 " " buffer line
 " Plug 'akinsho/nvim-bufferline.lua'
