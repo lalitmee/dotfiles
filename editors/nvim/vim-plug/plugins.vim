@@ -29,9 +29,6 @@ Plug 'tjdevries/gruvbuddy.nvim'                    " gruvbuddy using colorbuddy
 Plug 'neoclide/coc.nvim', {
       \ 'branch': 'release'
       \ }                                          " Completion Conquerer
-" Plug 'antoinemadec/coc-fzf', {
-"       \ 'branch': 'release'
-"       \ }                                          " coc-fzf for coc.nvim
 Plug 'chemzqm/vim-jsx-improve'                     " better jsx
 Plug 'stsewd/fzf-checkout.vim'                     " fzf-checkout using fzf
 Plug 'junegunn/gv.vim'                             " commits blame
