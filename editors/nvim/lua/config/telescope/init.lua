@@ -132,7 +132,7 @@ function M.edit_neovim()
         height_padding = 0.8,
         preview_height = 0.5
       }
-    },
+    }
   }
 end
 
@@ -140,6 +140,7 @@ function M.edit_dotfiles()
   require('telescope.builtin').find_files {
     prompt_title = '~ dotfiles ~',
     shorten_path = false,
+    hidden = true,
     cwd = '~/data/Github/dotfiles',
 
     layout_strategy = 'horizontal',
@@ -154,7 +155,7 @@ function M.edit_dotfiles()
         height_padding = 0.8,
         preview_height = 0.5
       }
-    },
+    }
   }
 end
 
@@ -176,7 +177,7 @@ function M.edit_zsh()
         height_padding = 0.8,
         preview_height = 0.5
       }
-    },
+    }
   }
 end
 
@@ -276,6 +277,7 @@ end
 function M.project_search()
   require('telescope.builtin').find_files {
     previewer = false,
+    hidden = true,
     layout_strategy = 'vertical',
     cwd = require('nvim_lsp.util').root_pattern('.git')(vim.fn.expand('%:p'))
   }
