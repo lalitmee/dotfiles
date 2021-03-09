@@ -116,24 +116,45 @@ local M = {}
 
 function M.edit_neovim()
   require('telescope.builtin').find_files {
-    prompt_title = '~ dotfiles ~',
+    prompt_title = '~ neovim ~',
     shorten_path = false,
     cwd = '~/.config/nvim',
 
     layout_strategy = 'horizontal',
-    layout_config = { preview_width = 0.65 }
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
+    },
   }
 end
 
-function M.find_nvim_source()
+function M.edit_dotfiles()
   require('telescope.builtin').find_files {
-    prompt_title = '~ nvim ~',
+    prompt_title = '~ dotfiles ~',
     shorten_path = false,
-    cwd = '~/build/neovim/',
-    width = .25,
+    cwd = '~/data/Github/dotfiles',
 
     layout_strategy = 'horizontal',
-    layout_config = { preview_width = 0.65 }
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
+    },
   }
 end
 
@@ -144,7 +165,18 @@ function M.edit_zsh()
     prompt = '~ dotfiles ~',
 
     layout_strategy = 'horizontal',
-    layout_config = { preview_width = 0.55 }
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
+    },
   }
 end
 
@@ -214,7 +246,7 @@ function M.grep_last_search(opts)
                        '\\C', ''
                    )
 
-  opts.shorten_path = true
+  opts.shorten_path = false
   opts.word_match = '-w'
   opts.search = register
 
@@ -259,8 +291,6 @@ function M.curbuf()
     border = true,
     previewer = false,
     shorten_path = false
-
-    -- layout_strategy = 'current_buffer',
   }
   require('telescope.builtin').current_buffer_fuzzy_find(opts)
 end

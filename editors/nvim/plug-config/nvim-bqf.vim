@@ -5,8 +5,8 @@ augroup Coc
     autocmd User CocLocationsChange ++nested call Coc_qf_jump2loc(g:coc_jump_locations)
 augroup END
 
-nmap <silent> grq <Plug>(coc-references)
-nnoremap <silent> qdq <Cmd>call Coc_qf_diagnostic()<CR>
+nnoremap <silent> grr <Plug>(coc-references)
+nnoremap <silent> grd <Cmd>call Coc_qf_diagnostic()<CR>
 
 function! Coc_qf_diagnostic() abort
     let diagnostic_list = CocAction('diagnosticList')

@@ -23,6 +23,7 @@ let g:startify_lists = [
         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
         \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
         \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+        \ { 'type': function('helpers#startify#listcommits'), 'header': [ '   Recent Commits' ] },
         \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
 

@@ -1,1 +1,1 @@
-map <silent> <buffer> q :quit<CR>
+noremap <silent> <buffer> q :quit<CR>

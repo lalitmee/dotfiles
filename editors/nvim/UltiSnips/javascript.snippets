@@ -37,18 +37,19 @@ import React from 'react'
 
 function ${1:Component}() {
 	return (
-		<div>
+			<div>
 			${1}
-		</div>
-	)
+			</div>
+			)
 }
 
 export default ${1}
 
 endsnippet
-####
-# Proptypes #
-####
+
+#######################################################################
+#                              PropTypes                              #
+#######################################################################
 
 snippet ptf "function proptype" !b
 PropTypes.func
@@ -74,20 +75,20 @@ snippet ptn "number proptype" !b
 PropTypes.number
 endsnippet
 
-snippet ptarrayof "arrayOf proptype" !b
+	snippet ptarrayof "arrayOf proptype" !b
 PropTypes.arrayOf(${1})
-endsnippet
+	endsnippet
 
-snippet ptoneof "oneOf proptype" !b
-PropTypes.oneOf([
-	${1}
-])
-endsnippet
+	snippet ptoneof "oneOf proptype" !b
+	PropTypes.oneOf([
+			${1}
+	])
+	endsnippet
 
-snippet ptshape "shape proptype" !b
-PropTypes.shape({
-	${1}: ${2}
-})
+	snippet ptshape "shape proptype" !b
+	PropTypes.shape({
+			${1}: ${2}
+			})
 endsnippet
 
 # element
@@ -193,22 +194,40 @@ endsnippet
 # shape of
 snippet ptss "PropType Shape" !b
 ${1:prop}: PropTypes.shape({
-	${2}
-}),${0}
+		${2}
+		}),${0}
 endsnippet
 
 # object of required
 snippet ptssr "PropType Shape Required" !b
 ${1:prop}: PropTypes.shape({
-	${2}
-}).isRequired,${0}
+		${2}
+		}).isRequired,${0}
 endsnippet
 
-######
-#  Console Logs  #
-######
+#######################################################################
+#                             console log                             #
+#######################################################################
 
 # console.log({})
 snippet log "Console Log" !b
 console.log({${1:variable}})${0}
+endsnippet
+
+snippet logc "Insert log with color"
+console.log('%c${1}', 'font-weight:bold;color:${2:green};');
+endsnippet
+
+#######################################################################
+#                               eslint                                #
+#######################################################################
+
+
+snippet ign "eslint disable line"
+// eslint-disable-line ${1}
+endsnippet
+
+
+snippet des "Destructor Variable" b
+const {${2}} = ${1}
 endsnippet
