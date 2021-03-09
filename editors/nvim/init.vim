@@ -110,7 +110,6 @@ source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vsnip.vim
-source $HOME/.config/nvim/plug-config/window-swap.vim
 
 
 " Keys Mappings
