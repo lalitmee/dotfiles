@@ -34,12 +34,12 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 " Single mappings
-let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
-let g:which_key_map['x'] = [ 'q'                                  , 'quit' ]
-let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
 let g:which_key_map[','] = [ 'w'                                  , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open-init' ]
 let g:which_key_map[';'] = [ ':FzfCommands'                       , 'commands' ]
+let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
+let g:which_key_map['x'] = [ 'q'                                  , 'quit' ]
+let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
 
 " Group mappings
 
@@ -391,7 +391,7 @@ let g:which_key_map.l = {
       \ 'r' : [':Lspsaga rename'                                  , 'rename'],
       \ 's' : [':Lspsaga signature_help'                          , 'signature-help'],
       \ 't' : [':Lspsaga open_floatterm'                          , 'open-floatterm'],
-      \ 'T' : [':Lspsaga close_floatterm'                          , 'close-floatterm'],
+      \ 'T' : [':Lspsaga close_floatterm'                         , 'close-floatterm'],
       \ 'v' : {
         \ 'name' : '+vista'                                       ,
           \ 'a' : [':Vista ale'                                   , 'ale'],
@@ -584,20 +584,23 @@ let g:which_key_map.S = {
 
 " t is for floaterm
 let g:which_key_map.t = {
-      \ 'name' : '+terminal'                                      ,
-      \ ';' : [':FloatermNew'                                     , 'terminal'],
+      \ 'name' : '+toggle'                                        ,
       \ 'a' : [':set scrolloff=999'                               , 'scrolloff'],
-      \ 'd' : [':FloatermNew lazydocker'                          , 'docker'],
-      \ 'f' : [':FloatermNew fzf'                                 , 'fzf'],
-      \ 'g' : [':FloatermNew lazygit'                             , 'git'],
+      \ 't' : [':FloatermNew'                                     , 'terminal'],
+      \ 'f' : {
+        \ 'name' : '+floaterm'                                    ,
+          \ 'l' : [':FloatermNew lazydocker'                      , 'docker'],
+          \ 'f' : [':FloatermNew fzf'                             , 'fzf'],
+          \ 'g' : [':FloatermNew lazygit'                         , 'git'],
+          \ 'n' : [':FloatermNew node'                            , 'node'],
+          \ 'p' : [':FloatermNew python'                          , 'python'],
+          \ 'r' : [':FloatermNew ranger'                          , 'ranger'],
+          \ 's' : [':FloatermNew ncdu'                            , 'ncdu'],
+          \ 't' : [':FloatermToggle'                              , 'toggle'],
+          \ 'y' : [':FloatermNew btm'                             , 'ytop'],
+      \ },
       \ 'h' : [':sp | te'                                         , 'horizontal-split-terminal'],
-      \ 'n' : [':FloatermNew node'                                , 'node'],
-      \ 'p' : [':FloatermNew python'                              , 'python'],
-      \ 'r' : [':FloatermNew ranger'                              , 'ranger'],
-      \ 's' : [':FloatermNew ncdu'                                , 'ncdu'],
-      \ 't' : [':FloatermToggle'                                  , 'toggle'],
       \ 'v' : [':vs | te'                                         , 'vertical-split-terminal'],
-      \ 'y' : [':FloatermNew btm'                                 , 'ytop'],
       \ }
 
 " T is for tabline
