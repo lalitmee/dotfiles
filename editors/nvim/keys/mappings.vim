@@ -146,4 +146,4 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " quit keybinding for some special buffers
-autocmd! FileType log nnoremap <buffer> <silent> q :quit<CR>
+" autocmd! FileType log, help nnoremap <buffer> <silent> q :quit<CR>

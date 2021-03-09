@@ -51,6 +51,7 @@ Plug 'lifepillar/vim-gruvbox8'
 Plug 'tjdevries/colorbuddy.nvim'
 Plug 'tjdevries/gruvbuddy.nvim'
 
+
 " Completion Conquerer
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
