@@ -77,9 +77,8 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 
 " Plugins Configurations
 " source $HOME/.config/nvim/plug-config/cyclist.vim
-" source $HOME/.config/nvim/plug-config/indentLine.vim
-" source $HOME/.config/nvim/plug-config/lsp.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
+" source $HOME/.config/nvim/plug-config/lsp.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
@@ -93,6 +92,7 @@ source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/hlslens.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
+source $HOME/.config/nvim/plug-config/indentLine.vim
 source $HOME/.config/nvim/plug-config/magit.vim
 source $HOME/.config/nvim/plug-config/nvim-bqf.vim
 source $HOME/.config/nvim/plug-config/nvim-tree.vim
