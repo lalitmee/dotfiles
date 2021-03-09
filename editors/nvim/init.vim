@@ -78,7 +78,6 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 " Plugins Configurations
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
-" source $HOME/.config/nvim/plug-config/lsp.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
@@ -114,6 +113,7 @@ source $HOME/.config/nvim/plug-config/window-swap.vim
 
 
 " Keys Mappings
+" source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/which-key.vim
