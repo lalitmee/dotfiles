@@ -130,7 +130,7 @@ let g:which_key_map.c = {
         \ 'v' : [':CocFzfList sources'                            , 'sources'],
         \ 'y' : [':CocFzfList yank'                               , 'yank'],
       \ },
-      \ 'r' : ['coc#refresh()'                                    , 'coc-refresh'],
+      \ 'r' : [':call coc#refresh()'                              , 'coc-refresh'],
       \ 'R' : [':CocListResume '                                  , 'list-resume'],
       \ 's' : [':CocSearch'                                       , 'search'],
       \ 'x' : ['<Plug>(coc-convert-snippet)'                      , 'covert-to-snippet'],
