@@ -115,6 +115,7 @@ source $HOME/.config/nvim/plug-config/window-swap.vim
 
 " Keys Mappings
 " source $HOME/.config/nvim/keys/lsp.vim
+source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/which-key.vim
