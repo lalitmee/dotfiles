@@ -31,9 +31,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'haya14busa/incsearch.vim'
 
 " lightline for vim
-" Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
-Plug 'josa42/vim-lightline-coc'
+" Plug 'josa42/vim-lightline-coc'
 Plug 'josa42/nvim-lightline-lsp'
 
 " vim icons
@@ -78,8 +77,8 @@ Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'valloric/MatchTagAlways'
 
-" " Indent Lines made beautiful
-" Plug 'Yggdroot/indentLine'
+" Indent Lines made beautiful
+Plug 'Yggdroot/indentLine'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -259,8 +258,8 @@ Plug 'akinsho/nvim-toggleterm.lua'
 " registers in lua
 Plug 'gennaro-tedesco/nvim-peekup'
 
-" indent guides using lua
-Plug 'glepnir/indent-guides.nvim'
+" " indent guides using lua
+" Plug 'glepnir/indent-guides.nvim'
 
 " magit for neovim in lua
 Plug 'TimUntersberger/neogit'
