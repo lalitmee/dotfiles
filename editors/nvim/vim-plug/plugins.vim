@@ -17,8 +17,8 @@ Plug 'christoomey/vim-tmux-runner'                 " tmux runner for tests
 Plug 'kshenoy/vim-signature'                       " toggle, display and navigate marks
 Plug 'haya14busa/incsearch.vim'                    " Better search highlighting
 Plug 'itchyny/lightline.vim'                       " lightline for vim
-" Plug 'josa42/vim-lightline-coc'                    " coc.nvim support for lightline
-Plug 'josa42/nvim-lightline-lsp'                   " nvim_lsp support for lightline
+Plug 'josa42/vim-lightline-coc'                    " coc.nvim support for lightline
+" Plug 'josa42/nvim-lightline-lsp'                   " nvim_lsp support for lightline
 Plug 'ryanoasis/vim-devicons'                      " vim icons
 Plug 'gioele/vim-autoswap'                         " for handling swap files
 Plug 'francoiscabrol/ranger.vim'                   " File Management using ranger
@@ -26,12 +26,12 @@ Plug 'christianchiarulli/nvcode-color-schemes.vim' " nvcode colors
 Plug 'lifepillar/vim-gruvbox8'                     " gruvbox8 Colorscheme
 Plug 'tjdevries/colorbuddy.nvim'                   " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                    " gruvbuddy using colorbuddy
-" Plug 'neoclide/coc.nvim', {
-"       \ 'branch': 'release'
-"       \ }                                          " Completion Conquerer
-" Plug 'antoinemadec/coc-fzf', {
-"       \ 'branch': 'release'
-"       \ }                                          " coc-fzf for coc.nvim
+Plug 'neoclide/coc.nvim', {
+      \ 'branch': 'release'
+      \ }                                          " Completion Conquerer
+Plug 'antoinemadec/coc-fzf', {
+      \ 'branch': 'release'
+      \ }                                          " coc-fzf for coc.nvim
 Plug 'chemzqm/vim-jsx-improve'                     " better jsx
 Plug 'stsewd/fzf-checkout.vim'                     " fzf-checkout using fzf
 Plug 'junegunn/gv.vim'                             " commits blame
@@ -109,18 +109,18 @@ Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
 Plug 'oberblastmeister/neuron.nvim'                " note taking using lua
-Plug 'anott03/nvim-lspinstall'
-Plug 'alexaandru/nvim-lspupdate'
+" Plug 'anott03/nvim-lspinstall'
+" Plug 'alexaandru/nvim-lspupdate'
 Plug 'euclidianAce/BetterLua.vim'
-Plug 'glepnir/lspsaga.nvim'
-Plug 'hrsh7th/nvim-compe'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'ojroques/nvim-lspfuzzy'
-Plug 'onsails/lspkind-nvim'
-Plug 'tjdevries/complextras.nvim'
-Plug 'tjdevries/lsp_extensions.nvim'
+" Plug 'glepnir/lspsaga.nvim'
+" Plug 'hrsh7th/nvim-compe'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/lsp-status.nvim'
+" Plug 'ojroques/nvim-lspfuzzy'
+" Plug 'onsails/lspkind-nvim'
+" Plug 'tjdevries/complextras.nvim'
+" Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/manillua.nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {

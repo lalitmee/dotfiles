@@ -6,7 +6,7 @@ augroup Coc
 augroup END
 
 nmap <silent> grq <Plug>(coc-references)
-nnoremap <silent> qdq <Cmd>call Coc_qf_diagnostic()<CR>
+nnoremap <silent> gdq <Cmd>call Coc_qf_diagnostic()<CR>
 
 function! Coc_qf_diagnostic() abort
     let diagnostic_list = CocAction('diagnosticList')
