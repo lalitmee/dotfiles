@@ -4,6 +4,9 @@
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
+" By default timeoutlen is 1000 ms
+set timeoutlen=200
+
 " options for which key
 " let g:which_key_sep = '→'
 let g:which_key_use_floating_win = 0
@@ -36,7 +39,7 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 " Single mappings
 let g:which_key_map[','] = [ 'w'                                  , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open-init' ]
-let g:which_key_map[';'] = [ ':FzfCommands'                       , 'commands' ]
+let g:which_key_map[';'] = [ ':Telescope commands'                , 'commands' ]
 let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
 let g:which_key_map['x'] = [ 'q'                                  , 'quit' ]
 let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
@@ -62,8 +65,8 @@ let g:which_key_map.a = {
 " b is for buffer
 let g:which_key_map.b = {
       \ 'name' : '+buffers'                                       ,
-      \ 'b' : [':FzfBuffers'                                      , 'fzf-buffers'],
-      \ 'B' : [':Telescope buffers'                               , 'telescope-buffers'],
+      \ 'b' : [':Telescope buffers'                               , 'telescope-buffers'],
+      \ 'B' : [':FzfBuffers'                                      , 'fzf-buffers'],
       \ 'c' : ['vnew'                                             , 'new-empty-buffer-vert'],
       \ 'C' : [':BufferCloseAllButCurrent'                        , 'close-all-but-current'],
       \ 'a' : [':BufferCloseBuffersLeft'                          , 'close-all-left'],
@@ -132,7 +135,7 @@ let g:which_key_map.c = {
       \ },
       \ 'r' : [':call coc#refresh()'                              , 'coc-refresh'],
       \ 'R' : [':CocListResume '                                  , 'list-resume'],
-      \ 's' : [':CocSearch'                                       , 'search'],
+      \ 's' : [':CocSearch <C-R>=expand("<cword>")<CR>'           , 'search'],
       \ 'x' : ['<Plug>(coc-convert-snippet)'                      , 'covert-to-snippet'],
       \ }
 let g:which_key_map.c.G = 'grep-under-cursor'
@@ -272,7 +275,7 @@ let g:which_key_map.g = {
       \ 'b' : [':GBrowse'                                         , 'browse'],
       \ 'B' : [':Git blame'                                       , 'blame'],
       \ 'C' : [':Git commit'                                      , 'commit'],
-      \ 'c' : [':FzfGBranches'                                    , 'checkout'],
+      \ 'c' : [':Telescope git_branches'                          , 'checkout'],
       \ 'd' : [':Git diff'                                        , 'diff'],
       \ 'D' : [':Gdiffsplit'                                      , 'diff-split'],
       \ 'g' : [':GGrep'                                           , 'git-grep'],
@@ -479,7 +482,7 @@ let g:which_key_map.o = {
       \ 'g' : {
         \ 'name' : '+git'                                         ,
         \ 'b' : [':Telescope git_branches'                        , 'git-branches'],
-        \ 'c' : [':Telescope git_bcommits'                        , 'git-buffer-commits'],
+        \ 'C' : [':Telescope git_bcommits'                        , 'git-buffer-commits'],
         \ 'd' : [':Telescope git_commits'                         , 'git-commits'],
         \ 'f' : [':Telescope git_files'                           , 'git-files'],
         \ 's' : [':Telescope git_status'                          , 'git-status'],
@@ -517,26 +520,33 @@ let g:which_key_map.o = {
         \ 'v' : [':Telescope vim_options'                         , 'vim-options'],
       \ },
       \ }
-
-let g:which_key_map.o.a = 'emojis'
+let g:which_key_map.o.a   = 'emojis'
 let g:which_key_map.o.b.f = 'find-buffers'
+let g:which_key_map.o.b.o = 'find-buffers-theme'
 let g:which_key_map.o.f.N = 'nvim-config-dropdown'
 let g:which_key_map.o.f.c = 'dotfiles'
 let g:which_key_map.o.f.d = 'with-dropdown'
+let g:which_key_map.o.f.l = 'tj-old-files'
 let g:which_key_map.o.f.n = 'nvim-config'
-let g:which_key_map.o.g.C = 'git-checkout'
-let g:which_key_map.o.w = 'grep-words'
+let g:which_key_map.o.g.c = 'git-checkout'
+let g:which_key_map.o.s.f = 'grep-string'
+let g:which_key_map.o.s.r = 'resume-last-search'
+let g:which_key_map.o.s.w = 'grep-word'
+let g:which_key_map.o.w   = 'grep-words'
 
 " p is for Project
 let g:which_key_map.p = {
       \ 'name' : '+project'                                       ,
       \ 'a' : [':FzfAg'                                           , 'project-search'],
-      \ 'b' : [':FzfBuffers'                                      , 'find-buffers'],
+      \ 'b' : [':Telescope buffers'                               , 'find-buffers'],
       \ 'f' : [':Telescope fzf_writer files'                      , 'find-files'],
       \ 'g' : [':Telescope git_files'                             , 'find-git-files'],
+      \ 'r' : [':Telescope frecency'                              , 'old-files'],
       \ 'n' : [':Telescope node_modules list'                     , 'list-project-nodes-modules'],
       \ 'p' : [':Telescope project project'                       , 'switch-project'],
-      \ 's' : [':Rg'                                              , 'project-search'],
+      \ 's' : [':Telescope live_grep'                             , 'project-search'],
+      \ 'w' : [':Telescope grep_string'                           , 'string-search'],
+      \ 't' : [':Telescope symbols'                               , 'symbols'],
       \ }
 
 let g:which_key_map.p.n = 'swap-parameter-next'
@@ -554,18 +564,18 @@ let g:which_key_map.s = {
       \ 'C' : [':Telescope git_bcommits'                          , 'buffer-commits'],
       \ 'f' : [':Telescope find_files'                            , 'files'],
       \ 'g' : [':Telescope git_files'                             , 'git-files'],
-      \ 'G' : [':FzfGFiles?'                                      , 'modified-git-files'],
+      \ 'G' : [':Telescope git_status'                            , 'modified-git-files'],
       \ 'h' : [':Telescope help_tags'                             , 'file-history'],
-      \ 'H' : [':FzfHistory:'                                     , 'command-history'],
+      \ 'H' : [':Telescope command_history'                       , 'command-history'],
       \ 'l' : [':FzfLines'                                        , 'lines'],
       \ 'm' : [':Telescope marks'                                 , 'marks'],
-      \ 'M' : [':FzfMaps'                                         , 'normal-maps'],
+      \ 'M' : [':Telescope keymaps'                               , 'keymaps'],
       \ 'p' : [':Telescope live_grep'                             , 'project-live-grep'],
-      \ 'P' : [':FzfTags'                                         , 'project-tags'],
+      \ 'P' : [':Telescope tags'                                  , 'project-tags'],
       \ 'r' : [':Telescope registers'                             , 'registers'],
-      \ 's' : [':FzfSnippets'                                     , 'snippets'],
+      \ 's' : [':Telescope ultisnips ultisnips'                   , 'snippets'],
       \ 'S' : [':Telescope colorscheme'                           , 'color-schemes'],
-      \ 't' : [':Rg'                                              , 'text-Rg'],
+      \ 't' : [':Telescope live_grep'                             , 'text-Rg'],
       \ 'T' : [':FzfBTags'                                        , 'buffer-tags'],
       \ 'v' : [':Telescope vim_options'                           , 'vim-options'],
       \ 'w' : [':FzfWindows'                                      , 'search-windows'],
@@ -663,6 +673,7 @@ let g:which_key_map.q = {
       \ 'o' : [':copen'                                           , 'open-qf-window'],
       \ 'p' : [':cp'                                              , 'previous'],
       \ 'q' : [':qall'                                            , 'quit-vim'],
+      \ 'l' : [':Telescope quickfix'                              , 'fuzzy-quickfix'],
       \ }
 
 " Register which key map
