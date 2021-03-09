@@ -63,6 +63,7 @@ luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 " luafile $HOME/.config/nvim/lua/config/colors/nord.lua
 " source $HOME/.config/nvim/themes/gruvbox8.vim
 " source $HOME/.config/nvim/themes/nvcode.vim
+" source $HOME/.config/nvim/themes/test.vim
 luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 
 " Status Lines
