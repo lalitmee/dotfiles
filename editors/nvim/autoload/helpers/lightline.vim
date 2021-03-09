@@ -54,6 +54,7 @@ function! helpers#lightline#lsp_current_function() abort
   autocmd CursorHold * silent! lua require'lsp-status'.update_current_function()
 endfunction
 
-function! helpers#lightline#vista_nearest_method_or_function() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
+function! helpers#lightline#coc_current_function() abort
+  return get(b:, 'coc_current_function', '')
 endfunction
+
