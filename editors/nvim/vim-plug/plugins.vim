@@ -26,6 +26,8 @@ Plug 'christianchiarulli/nvcode-color-schemes.vim' " nvcode colors
 Plug 'lifepillar/vim-gruvbox8'                     " gruvbox8 Colorscheme
 Plug 'tjdevries/colorbuddy.nvim'                   " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                    " gruvbuddy using colorbuddy
+Plug 'Shougo/neco-vim'
+Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', {
       \ 'branch': 'release'
       \ }                                          " Completion Conquerer
