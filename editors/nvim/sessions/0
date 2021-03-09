@@ -3,16 +3,15 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/data/koinearth/wf-webapp-service
+cd ~/data/Github/dotfiles
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 .git/MERGE_MSG
+badd +693184 tags
 argglobal
 %argdel
-$argadd .git/MERGE_MSG
-edit .git/MERGE_MSG
+edit tags
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -28,12 +27,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+let s:l = 693184 - ((32 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 693184
+normal! 07|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -45,6 +44,7 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
