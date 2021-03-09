@@ -27,7 +27,7 @@ let g:lightline = {
       \             [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             [ 'coc_status', 'gitsigns_status', 'nearest_vista'],
+      \             [ 'coc_status', 'gitsigns_status', 'current_function'],
       \           ],
       \ },
       \ 'component_function': {
@@ -39,7 +39,7 @@ let g:lightline = {
       \   'readonly': 'helpers#lightline#readonly',
       \   'modified': 'helpers#lightline#modified',
       \   'gitsigns_status': 'helpers#lightline#gitsigns_status',
-      \   'current_function': 'helpers#lightline#lsp_current_function',
+      \   'current_function': 'helpers#lightline#coc_current_function',
       \ },
       \ }
 call lightline#coc#register()
