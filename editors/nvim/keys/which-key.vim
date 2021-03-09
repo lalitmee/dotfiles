@@ -5,7 +5,7 @@ nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 " By default timeoutlen is 1000 ms
-set timeoutlen=200
+" set timeoutlen=200
 
 " options for which key
 " let g:which_key_sep = '→'
