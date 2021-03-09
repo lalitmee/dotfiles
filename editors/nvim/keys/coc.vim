@@ -25,11 +25,18 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
+" " GoTo code navigation.
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> ge :CocCommand fzf-preview.CocCurrentDiagnostics<CR>
+nmap <silent> gl :CocCommand fzf-preview.CocDiagnostics<CR>
+nmap <silent> gi :CocCommand fzf-preview.CocImplementations<CR>
+nmap <silent> gr :CocCommand fzf-preview.CocReferences<CR>
+nmap <silent> gy :CocCommand fzf-preview.CocTypeDefinitions<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
