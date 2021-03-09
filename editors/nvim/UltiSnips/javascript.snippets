@@ -46,9 +46,10 @@ function ${1:Component}() {
 export default ${1}
 
 endsnippet
-####
-# Proptypes #
-####
+
+#######################################################################
+#                              PropTypes                              #
+#######################################################################
 
 snippet ptf "function proptype" !b
 PropTypes.func
@@ -204,11 +205,24 @@ ${1:prop}: PropTypes.shape({
 }).isRequired,${0}
 endsnippet
 
-######
-#  Console Logs  #
-######
+#######################################################################
+#                             console log                             #
+#######################################################################
 
 # console.log({})
 snippet log "Console Log" !b
 console.log({${1:variable}})${0}
+endsnippet
+
+snippet logc "Insert log with color"
+console.log('%c$1', 'font-weight:bold;color:${2:green};');
+endsnippet
+
+#######################################################################
+#                               eslint                                #
+#######################################################################
+
+
+snippet ign "eslint disable line"
+// eslint-disable-line $1
 endsnippet
