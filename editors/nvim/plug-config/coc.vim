@@ -24,7 +24,6 @@ let g:coc_global_extensions = [
     \ 'coc-html-css-support',
     \ 'coc-htmlhint',
     \ 'coc-import-cost',
-    \ 'coc-jira-cplt',
     \ 'coc-json',
     \ 'coc-lines',
     \ 'coc-lists',

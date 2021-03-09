@@ -133,44 +133,5 @@
   // Lua language server settings
   "lua.enable": true,
   "Lua.hint.enable": true,
-  "session.directory": "~/.config/nvim/sessions",
-
-  // jira settings
-  "j.workspaceUrl": "https://koinearth.atlassian.net",
-  "j.user.email": "lalitmee",
-  "j.user.apiKey": "GaHxR4BDkx2PGJPAvovV19DA",
-  "cSpell.userWords": [
-    "Parens",
-    "autoformat",
-    "autopep",
-    "barow",
-    "ccls",
-    "cplt",
-    "echodoc",
-    "floaterm",
-    "gitmoji",
-    "gruvbox",
-    "gruvbuddy",
-    "hlslens",
-    "kommentary",
-    "lalitmee",
-    "magit",
-    "mygroup",
-    "mypy",
-    "nord",
-    "noselect",
-    "nvcode",
-    "nvim",
-    "pacakges",
-    "pylama",
-    "pylint",
-    "pyright",
-    "pytype",
-    "struct",
-    "typeshed",
-    "ultisnips",
-    "venv",
-    "xtabline",
-    "yapf"
-  ]
+  "session.directory": "~/.config/nvim/sessions"
 }
