@@ -52,7 +52,7 @@ luafile $HOME/.config/nvim/lua/config/globals/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-luafile $HOME/.config/nvim/lua/plugins/formatter.lua
+" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
 luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
