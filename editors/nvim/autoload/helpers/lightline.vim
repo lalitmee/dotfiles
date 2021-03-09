@@ -47,7 +47,11 @@ function! helpers#lightline#lsp_status() abort
 endfunction
 
 function! helpers#lightline#lsp_current_function() abort
-  lua require("lsp-status").update_current_function()
+  " let g:current_function = luaeval('require("lsp-status").update_current_function()')
+  " if current_function
+  "   lua require("lsp-status").update_current_function()
+  " endif
+  autocmd CursorHold * silent! lua require'lsp-status'.update_current_function()
 endfunction
 
 function! helpers#lightline#vista_nearest_method_or_function() abort
