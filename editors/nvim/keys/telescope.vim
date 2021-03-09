@@ -16,4 +16,8 @@ nnoremap <silent> <leader>ofd :lua require('config.telescope.finders').fd_files_
 nnoremap <silent> <leader>ow :lua require('config.telescope').extensions.fzf_writer.staged_grep()<cr>
 nnoremap <silent> <leader>oa :lua require('telescope.builtin').symbols{sources = {'emoji'}}<cr>
 
+
+" nnoremap <silent> <leader>ota :lua require('config.telescope.customs').coc_list()<cr>
+
+
 autocmd User TelescopePreviewerLoaded setlocal wrap
