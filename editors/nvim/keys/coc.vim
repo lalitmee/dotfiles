@@ -32,6 +32,7 @@ nmap <silent> ]e <Plug>(coc-diagnostic-next)
 " nmap <silent> gr <Plug>(coc-references)
 
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD :CocCommand fzf-preview.CocReferences<CR>
 nmap <silent> ge :CocCommand fzf-preview.CocCurrentDiagnostics<CR>
 nmap <silent> gl :CocCommand fzf-preview.CocDiagnostics<CR>
 nmap <silent> gi :CocCommand fzf-preview.CocImplementations<CR>
