@@ -1,104 +1,67 @@
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" Switch between single-line and multiline forms of code
-Plug 'AndrewRadev/splitjoin.vim'
-
-" targets.vim for extra motions
-Plug 'wellle/targets.vim'
-
-" Quickscope same as f, F, t, T but better
-Plug 'unblevable/quick-scope'
-
-" fancy start Screen for vim
-Plug 'mhinz/vim-startify'
-
-" Moving in vim inside Tmux
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'christoomey/vim-tmux-runner'
-
-" toggle, display and navigate marks
-Plug 'kshenoy/vim-signature'
-
-" Better search highlighting
-Plug 'haya14busa/incsearch.vim'
-
-" lightline for vim
-Plug 'itchyny/lightline.vim'
-" Plug 'josa42/vim-lightline-coc'
-Plug 'josa42/nvim-lightline-lsp'
-
-" vim icons
-Plug 'ryanoasis/vim-devicons'
-
-" for handling swap files
-Plug 'gioele/vim-autoswap'
-
-" File Management using ranger
-Plug 'francoiscabrol/ranger.vim'
-
-" Colors
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'lifepillar/vim-gruvbox8'
-Plug 'tjdevries/colorbuddy.nvim'
-Plug 'tjdevries/gruvbuddy.nvim'
-
-
-" Completion Conquerer
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
-Plug 'chemzqm/vim-jsx-improve'
-
-" Version Control in Vim
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-
-" Tabularize for Vim
-Plug 'godlygeek/tabular'
-
-" Snippets in Vim
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" vsnip vscode snippets
-Plug 'hrsh7th/vim-vsnip'
+Plug 'AndrewRadev/splitjoin.vim'                   " Switch between single-line and multiline forms of code
+Plug 'wellle/targets.vim'                          " targets.vim for extra motions
+Plug 'unblevable/quick-scope'                      " Quickscope same as f, F, t, T but better
+Plug 'mhinz/vim-startify'                          " fancy start Screen for vim
+Plug 'christoomey/vim-tmux-navigator'              " Moving in vim inside Tmux
+Plug 'christoomey/vim-tmux-runner'                 " tmux runner for tests
+Plug 'kshenoy/vim-signature'                       " toggle, display and navigate marks
+Plug 'haya14busa/incsearch.vim'                    " Better search highlighting
+Plug 'itchyny/lightline.vim'                       " lightline for vim
+" Plug 'josa42/vim-lightline-coc'                    " coc.nvim support for lightline
+Plug 'josa42/nvim-lightline-lsp'                   " nvim_lsp support for lightline
+Plug 'ryanoasis/vim-devicons'                      " vim icons
+Plug 'gioele/vim-autoswap'                         " for handling swap files
+Plug 'francoiscabrol/ranger.vim'                   " File Management using ranger
+Plug 'christianchiarulli/nvcode-color-schemes.vim' " nvcode colors
+Plug 'lifepillar/vim-gruvbox8'                     " gruvbox8 Colorscheme
+Plug 'tjdevries/colorbuddy.nvim'                   " colorbuddy for Colorschemes
+Plug 'tjdevries/gruvbuddy.nvim'                    " gruvbuddy using colorbuddy
+" Plug 'neoclide/coc.nvim', {
+"       \ 'branch': 'release'
+"       \ }                                          " Completion Conquerer
+" Plug 'antoinemadec/coc-fzf', {
+"       \ 'branch': 'release'
+"       \ }                                          " coc-fzf for coc.nvim
+Plug 'chemzqm/vim-jsx-improve'                     " better jsx
+Plug 'stsewd/fzf-checkout.vim'                     " fzf-checkout using fzf
+Plug 'junegunn/gv.vim'                             " commits blame
+Plug 'godlygeek/tabular'                           " Tabularize for Vim
+Plug 'SirVer/ultisnips'                            " snippets engine
+Plug 'honza/vim-snippets'                          " Snippets in Vim
+Plug 'hrsh7th/vim-vsnip'                           " vsnip vscode snippets
 Plug 'hrsh7th/vim-vsnip-integ'
-
-" Auto Close Tag in HTML
-Plug 'alvan/vim-closetag'
-Plug 'AndrewRadev/tagalong.vim'
-Plug 'valloric/MatchTagAlways'
-
-" Indent Lines made beautiful
-Plug 'Yggdroot/indentLine'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-Plug 'airblade/vim-rooter'
-
-" Ranger
-Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
-
-" Emmets in Vim
-Plug 'mattn/emmet-vim'
-
-" See what keys do like in emacs
-Plug 'liuchengxu/vim-which-key'
-
-" Float Terminal
-Plug 'voldikss/vim-floaterm'
-
-" tpope plugins
-" Plug 'tpope/vim-speeddating'
+Plug 'alvan/vim-closetag'                          " Auto Close Tag in HTML
+Plug 'AndrewRadev/tagalong.vim'                    " html tags completion
+Plug 'valloric/MatchTagAlways'                     " match tags always
+Plug 'Yggdroot/indentLine'                         " Indent Lines made beautiful
+Plug 'junegunn/fzf', {
+      \ 'dir': '~/.fzf',
+      \ 'do': './install --all'
+      \ }                                          " FZF in vim
+Plug 'junegunn/fzf.vim'                            " FZF in vim
+Plug 'yuki-yano/fzf-preview.vim', {
+      \ 'branch': 'release/remote',
+      \ 'do': ':UpdateRemotePlugins'
+      \ }                                          " fzf with preview
+Plug 'airblade/vim-rooter'                         " change root director to root of the project
+Plug 'kevinhwang91/rnvimr', {
+      \ 'do': 'make sync'
+      \ }                                          " Ranger
+Plug 'mattn/emmet-vim'                             " Emmets in Vim
+Plug 'liuchengxu/vim-which-key'                    " See what keys do like in emacs
+Plug 'voldikss/vim-floaterm'                       " Float Terminal
+" Plug 'tpope/vim-speeddating'                       " change dates
+Plug 'tpope/vim-fugitive'                          " version control
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -106,75 +69,29 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-
-" Zen mode
-Plug 'junegunn/goyo.vim'
-
-" Better tabline
-" Plug 'mg979/vim-xtabline'
-Plug 'romgrk/barbar.nvim'
-
-" " undo time travel
-" Plug 'mbbill/undotree'
-
-" Better Whitespace
-Plug 'ntpeters/vim-better-whitespace'
-
-" Swap windows
-Plug 'wesQ3/vim-windowswap'
-
-" " Goneovim Fuzzy search
-" Plug 'akiyosi/gonvim-fuzzy'
-
-" Viewer & Finder for LSP symbols and tags
-Plug 'liuchengxu/vista.vim'
-
-" " vim-be-good
-" Plug 'ThePrimeagen/vim-be-good'
-
-" wakatime for vim
-Plug 'wakatime/vim-wakatime'
-
-" Maximizer for vim
-Plug 'szw/vim-maximizer'
-" Plug 'puremourning/vimspector'
-
-" " lisp in vim
-" Plug 'vlime/vlime'
-
-" cheat.sh in vim
-Plug 'dbeniamine/cheat.sh-vim'
-
-" " vim and tmux = vimux
-" " Testing in vim with tmux
-" Plug 'benmills/vimux'
-
-" open browser from vim
+Plug 'junegunn/goyo.vim'                           " Zen mode
+" Plug 'mg979/vim-xtabline'                          " tabline
+Plug 'romgrk/barbar.nvim'                          " tabline
+" Plug 'mbbill/undotree'                             " undo time travel
+Plug 'ntpeters/vim-better-whitespace'              " Better Whitespace
+Plug 'wesQ3/vim-windowswap'                        " Swap windows
+" Plug 'akiyosi/gonvim-fuzzy'                        " Goneovim Fuzzy search
+Plug 'liuchengxu/vista.vim'                        " Viewer & Finder for LSP symbols and tags
+Plug 'ThePrimeagen/vim-be-good'                    " vim-be-good
+Plug 'wakatime/vim-wakatime'                       " wakatime for vim
+Plug 'szw/vim-maximizer'                           " Maximizer for vim
+Plug 'puremourning/vimspector'                     " debugger in vim
+Plug 'vlime/vlime'                                 " lisp in vim
+Plug 'dbeniamine/cheat.sh-vim'                     " cheat.sh in vim
+Plug 'benmills/vimux'                              " Testing in vim with tmux
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'dhruvasagar/vim-open-url'
-
-" sorting in vim
-Plug 'christoomey/vim-sort-motion'
-
-" vim-exchange for exchanging words
-Plug 'tommcdo/vim-exchange'
-
-" any-jump
-Plug 'pechorin/any-jump.vim'
-
-""""""""""""""""""""""""""""""""""""""
-"            Lua Plugins             "
-""""""""""""""""""""""""""""""""""""""
-
-" sql nvim database for frecency
-Plug 'tami5/sql.nvim'
-
-" snippets in lua
-Plug 'norcalli/snippets.nvim'
-
-
-" telescope fuzzy finder
+Plug 'christoomey/vim-sort-motion'                 " sorting in vim
+Plug 'tommcdo/vim-exchange'                        " vim-exchange for exchanging words
+Plug 'pechorin/any-jump.vim'                       " any-jump
+Plug 'tami5/sql.nvim'                              " sql nvim database for frecency
+Plug 'norcalli/snippets.nvim'                      " snippets in lua
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -191,11 +108,7 @@ Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
-
-" " note taking using lua
-" Plug 'oberblastmeister/neuron.nvim'
-
-" " LSP
+Plug 'oberblastmeister/neuron.nvim'                " note taking using lua
 Plug 'anott03/nvim-lspinstall'
 Plug 'alexaandru/nvim-lspupdate'
 Plug 'euclidianAce/BetterLua.vim'
@@ -210,89 +123,44 @@ Plug 'tjdevries/complextras.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/manillua.nvim'
 Plug 'tjdevries/nlua.nvim'
-
-" Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {
+      \ 'do': ':TSUpdate'
+      \ }
 Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-
-" formatter in lua
-Plug 'mhartington/formatter.nvim'
-
-" file explorer
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
-
-" Colorizer for showing the colors
-Plug 'norcalli/nvim-colorizer.lua'
-
-" markdown preview
-Plug 'npxbr/glow.nvim'
-
-" better quick-fix winodw
-Plug 'kevinhwang91/nvim-bqf'
-
-" debugger attach protocol
-Plug 'mfussenegger/nvim-dap'
-
-" auto-pairs in lua
-Plug 'windwp/nvim-autopairs'
-
-" actions menu
-Plug 'kizza/actionmenu.nvim'
-
-" easymotion using lua
-Plug 'phaazon/hop.nvim'
-
-" gitsigns in lua
-Plug 'lewis6991/gitsigns.nvim'
-
-" lightbulb like vscode
-Plug 'kosayoda/nvim-lightbulb'
-
-" neovim terminal managment in lua
-Plug 'akinsho/nvim-toggleterm.lua'
-
-" registers in lua
-Plug 'gennaro-tedesco/nvim-peekup'
-
-" " indent guides using lua
-" Plug 'glepnir/indent-guides.nvim'
-
-" magit for neovim in lua
-Plug 'TimUntersberger/neogit'
-
-" file manager in lua
-Plug 'TimUntersberger/neofs'
-
-" motion training
-Plug 'tjdevries/train.nvim'
-
-" hlslens lens for neovim
-Plug 'kevinhwang91/nvim-hlslens'
-Plug 'haya14busa/vim-asterisk'
-
-" minimap like vscode
-Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
-
-" " git blame like gitlens in vscode
-" Plug 'f-person/git-blame.nvim'
-
-" " commenting in lua
-" Plug 'b3nj5m1n/kommentary'
-
-" " auto session save
-" Plug 'rmagatti/auto-session'
-
-" " buffer line
-" Plug 'akinsho/nvim-bufferline.lua'
-
-
-" status lines
+Plug 'mhartington/formatter.nvim'                  " formatter in lua
+Plug 'kyazdani42/nvim-web-devicons'                " for file icons
+Plug 'kyazdani42/nvim-tree.lua'                    " file explorer
+Plug 'norcalli/nvim-colorizer.lua'                 " Colorizer for showing the colors
+Plug 'npxbr/glow.nvim'                             " markdown preview
+Plug 'kevinhwang91/nvim-bqf'                       " better quick-fix winodw
+Plug 'mfussenegger/nvim-dap'                       " debugger attach protocol
+Plug 'windwp/nvim-autopairs'                       " auto-pairs in lua
+Plug 'kizza/actionmenu.nvim'                       " actions menu
+Plug 'phaazon/hop.nvim'                            " easymotion using lua
+Plug 'lewis6991/gitsigns.nvim'                     " gitsigns in lua
+Plug 'kosayoda/nvim-lightbulb'                     " lightbulb like vscode
+Plug 'akinsho/nvim-toggleterm.lua'                 " neovim terminal managment in lua
+Plug 'gennaro-tedesco/nvim-peekup'                 " registers in lua
+Plug 'TimUntersberger/neogit'                      " magit for neovim in lua
+Plug 'tjdevries/train.nvim'                        " motion training
+Plug 'kevinhwang91/nvim-hlslens'                   " hlslens lens for neovim
+Plug 'wfxr/minimap.vim', {
+      \ 'do':
+      \ ':!cargo install --locked code-minimap'
+      \ }
+" Plug 'glepnir/indent-guides.nvim'                  " indent guides using lua
+" Plug 'TimUntersberger/neofs'                       " file manager in lua
+" Plug 'f-person/git-blame.nvim'                     " git blame like gitlens in vscode
+" Plug 'b3nj5m1n/kommentary'                         " commenting in lua
+" Plug 'rmagatti/auto-session'                       " auto session save
+" Plug 'akinsho/nvim-bufferline.lua'                 " buffer line
 " Plug 'tjdevries/express_line.nvim'
 " Plug 'hoob3rt/lualine.nvim'
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'glepnir/galaxyline.nvim' , {
+"       \ 'branch': 'main'
+"       \ }
 
 call plug#end()
