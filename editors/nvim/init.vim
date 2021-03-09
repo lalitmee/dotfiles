@@ -52,7 +52,7 @@ luafile $HOME/.config/nvim/lua/plugins/completion.lua
 luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
-luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
+" luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
 " luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
 luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
 luafile $HOME/.config/nvim/lua/plugins/lsp-fuzzy.lua
@@ -78,7 +78,7 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 " Plugins Configurations
 " source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
-" source $HOME/.config/nvim/plug-config/indentLine.vim
+source $HOME/.config/nvim/plug-config/indentLine.vim
 " source $HOME/.config/nvim/plug-config/neuron.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
