@@ -19,41 +19,15 @@
 " \ 'colorscheme': 'sonokai',
 " \ 'colorscheme': 'edge',
 
-" " for coc lsp
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ 'active': {
-      \   'left': [
-      \             [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-      \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
-      \             [ 'coc_status', 'gitsigns_status', 'current_function'],
-      \           ],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'helpers#lightline#git_branch',
-      \   'fileformat': 'helpers#lightline#format',
-      \   'filetype': 'helpers#lightline#filetype',
-      \   'mode': 'helpers#lightline#mode',
-      \   'filename': 'helpers#lightline#filename',
-      \   'readonly': 'helpers#lightline#readonly',
-      \   'modified': 'helpers#lightline#modified',
-      \   'gitsigns_status': 'helpers#lightline#gitsigns_status',
-      \   'current_function': 'helpers#lightline#coc_current_function',
-      \ },
-      \ }
-call lightline#coc#register()
-
-" " for nvim-lsp
+" " " for coc lsp
 " let g:lightline = {
 "       \ 'colorscheme': 'nord',
 "       \ 'active': {
 "       \   'left': [
 "       \             [ 'mode', 'paste' ],
 "       \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
-"       \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
-"       \             [ 'lsp_status', 'current_function' ],
-"       \             [ 'gitsigns_status' ],
+"       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
+"       \             [ 'coc_status', 'gitsigns_status', 'current_function'],
 "       \           ],
 "       \ },
 "       \ 'component_function': {
@@ -65,11 +39,36 @@ call lightline#coc#register()
 "       \   'readonly': 'helpers#lightline#readonly',
 "       \   'modified': 'helpers#lightline#modified',
 "       \   'gitsigns_status': 'helpers#lightline#gitsigns_status',
-"       \   'current_function': 'helpers#lightline#lsp_current_function',
+"       \   'current_function': 'helpers#lightline#coc_current_function',
 "       \ },
 "       \ }
+" call lightline#coc#register()
 
-" call lightline#lsp#register()
+" for nvim-lsp
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'left': [
+      \             [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified'],
+      \             [ 'lsp_info', 'lsp_hints', 'lsp_errors', 'lsp_warnings', 'lsp_ok' ],
+      \             [ 'lsp_status', 'current_function' ],
+      \             [ 'gitsigns_status' ],
+      \           ],
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'helpers#lightline#git_branch',
+      \   'fileformat': 'helpers#lightline#format',
+      \   'filetype': 'helpers#lightline#filetype',
+      \   'mode': 'helpers#lightline#mode',
+      \   'filename': 'helpers#lightline#filename',
+      \   'readonly': 'helpers#lightline#readonly',
+      \   'modified': 'helpers#lightline#modified',
+      \   'gitsigns_status': 'helpers#lightline#gitsigns_status',
+      \   'current_function': 'helpers#lightline#lsp_current_function',
+      \ },
+      \ }
+call lightline#lsp#register()
 
 " let g:lightline_delphinus_use_nerd_fonts_glyphs = 1
 " let g:lightline_delphinus_tagbar_enable = 1
