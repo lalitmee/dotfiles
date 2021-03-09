@@ -3,22 +3,13 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/data/Github/drew_dotfiles
+cd ~/data/Github/dotfiles
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-<<<<<<< HEAD
-badd +13 editors/nvim/ginit.vim
 argglobal
 %argdel
-edit editors/nvim/ginit.vim
-=======
-badd +0 init.vim
-argglobal
-%argdel
-edit init.vim
->>>>>>> 0439ab3... change neovim and spacemacs config
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -26,7 +17,8 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-setlocal fdm=marker
+enew
+setlocal fdm=expr
 setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={{{,}}}
 setlocal fdi=#
@@ -34,22 +26,6 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-<<<<<<< HEAD
-let s:l = 13 - ((12 * winheight(0) + 27) / 55)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 13
-normal! 0
-lcd ~/data/Github/dotfiles
-=======
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1
-normal! 0
->>>>>>> 0439ab3... change neovim and spacemacs config
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
