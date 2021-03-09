@@ -8,8 +8,8 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" Switch between single-line and multiline forms of code
 Plug 'AndrewRadev/splitjoin.vim'
+" Switch between single-line and multiline forms of code
 
 " targets.vim for extra motions
 Plug 'wellle/targets.vim'
@@ -33,7 +33,7 @@ Plug 'haya14busa/incsearch.vim'
 " lightline for vim
 " Plug 'delphinus/lightline-delphinus'
 Plug 'itchyny/lightline.vim'
-Plug 'josa42/vim-lightline-coc'
+" Plug 'josa42/vim-lightline-coc'
 Plug 'josa42/nvim-lightline-lsp'
 
 " vim icons
