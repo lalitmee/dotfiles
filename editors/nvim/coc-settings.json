@@ -1,6 +1,5 @@
 {
   "javascript.suggestionActions.enabled": false,
-  "python.jediEnabled": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "graphql",
@@ -19,44 +18,57 @@
     "yaml",
     "vim"
   ],
+  // autoformat
+  "coc.preferences.hoverTarget": "float",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
+  // eslint
   "eslint.autoFixOnSave": false,
   // suggestions
   // "suggest.echodocSupport": true,
   "suggest.enablePreview": true,
+  "suggest.maxPreviewWidth": 30,
+  "suggest.labelMaxLength": 50,
+  "suggest.removeDuplicateItems": true,
   "suggest.completionItemKindLabels": {
-    "keyword": "\uf1de",
-    "variable": "\ue79b",
-    "value": "\uf89f",
-    "operator": "\u03a8",
-    "constructor": "\uf0ad",
-    "function": "\u0192",
-    "reference": "\ufa46",
-    "constant": "\uf8fe",
-    "method": "\uf09a",
-    "struct": "\ufb44",
-    "class": "\uf0e8",
-    "interface": "\uf417",
-    "text": "\ue612",
-    "enum": "\uf435",
-    "enumMember": "\uf02b",
-    "module": "\uf40d",
-    "color": "\ue22b",
-    "property": "\ue624",
-    "field": "\uf9be",
-    "unit": "\uf475",
-    "event": "\ufacd",
-    "file": "\uf723",
-    "folder": "\uf114",
-    "snippet": "\ue60b",
-    "typeParameter": "\uf728",
-    "default": "\uf29c"
+    "method": " ƒ ",
+    "function": "  ",
+    "variable": "",
+    "field": "  ",
+    "typeParameter": "⅀",
+    "constant": "  ",
+    "class": "  ",
+    "interface": " ﰮ",
+    "struct": "  ",
+    "event": "  ",
+    "operator": " ○ ",
+    "module": "  ",
+    "property": "  ",
+    "enum": " 了",
+    "reference": "  ",
+    "keyword": "  ",
+    "file": "  ",
+    "folder": "  ",
+    "color": "  ",
+    "unit": "  ",
+    "snippet": " ﬌ ",
+    "text": "  ",
+    "constructor": "  ",
+    "value": "  ",
+    "enumMember": "  ",
+    "default": "  "
   },
+  "suggest.noselect": false,
+  "snippets.priority": 1,
+  "coc.source.file.priority": 2,
+  "coc.source.around.priority": 3,
+  "coc.source.buffer.priority": 4,
 
   // diagnostics
-  "diagnostic.errorSign": "✗",
-  "diagnostic.warningSign": "⚠",
-  "diagnostic.infoSign": "",
-  "diagnostic.hintSign": " ",
+  "diagnostic.errorSign": "E",
+  "diagnostic.warningSign": "W",
+  "diagnostic.infoSign": "I",
+  "diagnostic.hintSign": "H ",
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.enableMessage": "never",
   "diagnostic.messageTarget": "echo",
@@ -72,21 +84,45 @@
   // list
   "list.indicator": ">",
   "list.selectedSignText": " ",
-
-  // autoformat
-  "coc.preferences.hoverTarget": "float",
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "list.height": 30,
 
   // python config
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.stubPath": "typings",
+  "python.analysis.typeshedPaths": [],
+  "python.analysis.diagnosticSeverityOverrides": {},
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.useLibraryCodeForTypes": true,
+  "python.pythonPath": "python",
+  "python.venvPath": "",
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "~/.local/bin/black",
+  "python.formatting.blackArgs": [],
+  "python.formatting.autopep8Path": "autopep8",
+  "python.formatting.autopep8Args": [],
+  "python.formatting.yapfPath": "yapf",
+  "python.formatting.yapfArgs": [],
   "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
+  "python.linting.flake8Enabled": false,
+  "python.linting.banditEnabled": false,
+  "python.linting.mypyEnabled": false,
+  "python.linting.pytypeEnabled": false,
+  "python.linting.prospectorEnabled": false,
+  "python.linting.pydocstyleEnabled": false,
+  "python.linting.pylamaEnabled": false,
+  "python.linting.pylintEnabled": false,
 
   // snippets
   "snippets.userSnippetsDirectory": "~/.config/nvim/UltiSnips",
 
   // emmet
   "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
+    "javascript": "javascript",
+    "javascriptreact": "javascriptreact",
+    "html": "html",
+    "css": "css"
   },
 
   // Prettier Settings
@@ -97,5 +133,5 @@
   // Lua language server settings
   "lua.enable": true,
   "Lua.hint.enable": true,
-  "session.directory": "~/.config/nvim/session"
+  "session.directory": "~/.config/nvim/sessions"
 }

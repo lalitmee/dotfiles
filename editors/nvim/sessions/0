@@ -3,53 +3,67 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/data/Github/drew_dotfiles
+cd ~/data/Github/config_manager
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-<<<<<<< HEAD
-badd +13 editors/nvim/ginit.vim
+badd +18 xdg_config/nvim/lua/tj/telescope/init.lua
+badd +50 xdg_config/nvim/lua/tj/telescope/mappings.lua
 argglobal
 %argdel
-edit editors/nvim/ginit.vim
-=======
-badd +0 init.vim
-argglobal
-%argdel
-edit init.vim
->>>>>>> 0439ab3... change neovim and spacemacs config
+edit xdg_config/nvim/lua/tj/telescope/init.lua
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe 'vert 1resize ' . ((&columns * 118 + 118) / 237)
+exe 'vert 2resize ' . ((&columns * 118 + 118) / 237)
 argglobal
-setlocal fdm=marker
-setlocal fde=nvim_treesitter#foldexpr()
+setlocal fdm=expr
+setlocal fde=v:lua.manillua.foldexpr(v:lnum)
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=99
+setlocal fdl=3
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-<<<<<<< HEAD
-let s:l = 13 - ((12 * winheight(0) + 27) / 55)
+let s:l = 16 - ((15 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 13
+keepjumps 16
 normal! 0
-lcd ~/data/Github/dotfiles
-=======
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+wincmd w
+argglobal
+if bufexists("xdg_config/nvim/lua/tj/telescope/mappings.lua") | buffer xdg_config/nvim/lua/tj/telescope/mappings.lua | else | edit xdg_config/nvim/lua/tj/telescope/mappings.lua | endif
+if &buftype ==# 'terminal'
+  silent file xdg_config/nvim/lua/tj/telescope/mappings.lua
+endif
+balt xdg_config/nvim/lua/tj/telescope/init.lua
+setlocal fdm=expr
+setlocal fde=v:lua.manillua.foldexpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=3
+setlocal fml=1
+setlocal fdn=10
+setlocal fen
+let s:l = 49 - ((28 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
+keepjumps 49
 normal! 0
->>>>>>> 0439ab3... change neovim and spacemacs config
+wincmd w
+exe 'vert 1resize ' . ((&columns * 118 + 118) / 237)
+exe 'vert 2resize ' . ((&columns * 118 + 118) / 237)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
