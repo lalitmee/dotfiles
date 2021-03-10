@@ -18,7 +18,6 @@ let g:coc_global_extensions = [
     \ 'coc-gist',
     \ 'coc-git',
     \ 'coc-go',
-    \ 'coc-grammarly',
     \ 'coc-highlight',
     \ 'coc-html',
     \ 'coc-html-css-support',

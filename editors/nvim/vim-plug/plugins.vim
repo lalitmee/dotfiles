@@ -8,9 +8,11 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" Plug 'skywind3000/asynctasks.vim'
-" Plug 'skywind3000/asyncrun.vim'
-Plug 'terryma/vim-smooth-scroll'
+Plug 'antoinemadec/FixCursorHold.nvim'              " fix cursor hold
+Plug 'scr1pt0r/crease.vim'                          " nice fold text
+Plug 'vimwiki/vimwiki'                              " vim wiki
+Plug 'michal-h21/vim-zettel'                        " zettel tasks
+Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
 Plug 'AndrewRadev/splitjoin.vim'                    " Switch between single-line and multiline forms of code
 Plug 'wellle/targets.vim'                           " targets.vim for extra motions
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
@@ -67,7 +69,7 @@ Plug 'voldikss/vim-floaterm', {
       \ ]
       \ }                                           " Float Terminal
 " Plug 'tpope/vim-speeddating'                      " change dates
-Plug 'tpope/vim-fugitive'                         " version control
+Plug 'tpope/vim-fugitive'                           " version control
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 " Plug 'tpope/vim-eunuch'
@@ -117,7 +119,7 @@ Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'tkmpypy/telescope-jumps.nvim'
-Plug 'oberblastmeister/neuron.nvim'                 " note taking using lua
+" Plug 'oberblastmeister/neuron.nvim'               " note taking using lua
 " Plug 'anott03/nvim-lspinstall'
 " Plug 'alexaandru/nvim-lspupdate'
 Plug 'euclidianAce/BetterLua.vim'
@@ -140,24 +142,23 @@ Plug 'p00f/nvim-ts-rainbow'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 " Plug 'mhartington/formatter.nvim'                 " formatter in lua
-Plug 'kyazdani42/nvim-web-devicons'               " for file icons
+Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
 Plug 'kyazdani42/nvim-tree.lua', {
       \ 'on': 'NvimTreeToggle'
       \ }                                           " file explorer
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
 Plug 'npxbr/glow.nvim'                              " markdown preview
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
-" Plug 'mfussenegger/nvim-dap'                      " debugger attach protocol
 Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
-" Plug 'kizza/actionmenu.nvim'                      " actions menu
 Plug 'phaazon/hop.nvim'                             " easymotion using lua
 Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
-" Plug 'akinsho/nvim-toggleterm.lua'                " neovim terminal managment in lua
 Plug 'gennaro-tedesco/nvim-peekup'                  " registers in lua
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
 Plug 'tjdevries/train.nvim'                         " motion training
 Plug 'kevinhwang91/nvim-hlslens'                    " hlslens lens for neovim
+" Plug 'kizza/actionmenu.nvim'                      " actions menu
+" Plug 'akinsho/nvim-toggleterm.lua'                " neovim terminal managment in lua
 " Plug 'glepnir/indent-guides.nvim'                 " indent guides using lua
 " Plug 'TimUntersberger/neofs'                      " file manager in lua
 " Plug 'f-person/git-blame.nvim'                    " git blame like gitlens in vscode
@@ -169,5 +170,8 @@ Plug 'kevinhwang91/nvim-hlslens'                    " hlslens lens for neovim
 " Plug 'glepnir/galaxyline.nvim' , {
 " \ 'branch': 'main'
 " \ }
+" Plug 'skywind3000/asynctasks.vim'
+" Plug 'skywind3000/asyncrun.vim'
+" Plug 'mfussenegger/nvim-dap'                      " debugger attach protocol
 
 call plug#end()
