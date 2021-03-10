@@ -161,6 +161,7 @@ alias st="speed-test"
 # alias for fzf get the output
 alias f="| fzf-tmux -d 40%"
 alias fk="fkill"
+alias procs="procs | fzf --bind 'f1:execute(vim {})' > selected"
 
 # gitmoji aliases
 alias gm="gitmoji -s"
@@ -303,6 +304,13 @@ export EDITOR=nvim
 # # z.sh
 # source ~/data/Github/z/z.sh
 
+# great functions for fzf from
+# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+source ~/data/Github/dotfiles/system/fzf/init.zsh
+
+# update cd bookmarks
+chpwd_functions+=(update_marks)
+
 # start tmux while starting new terminal
 _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
@@ -355,8 +363,8 @@ export PATH="$HOME/cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-# Navi: An interactive cheatsheet tool for the command-line and application launchers
-source <(navi widget zsh)
+# # Navi: An interactive cheatsheet tool for the command-line and application launchers
+# source <(navi widget zsh)
 
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"

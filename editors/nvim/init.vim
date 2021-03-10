@@ -84,9 +84,9 @@ source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
-source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
+source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
@@ -107,6 +107,7 @@ source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/toggle-term.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
+source $HOME/.config/nvim/plug-config/vim-awesome.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
@@ -116,6 +117,7 @@ source $HOME/.config/nvim/plug-config/vsnip.vim
 " Keys Mappings
 " source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/coc.vim
+source $HOME/.config/nvim/keys/fzf.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/telescope.vim

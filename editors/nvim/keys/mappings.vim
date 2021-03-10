@@ -73,8 +73,6 @@ vnoremap > >gv
 """ repeat `n.` after editing the searched word
 nnoremap Q @='n.'<CR>
 
-" Close Fzf window on ESC
-autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 " Neovim Terminal Settings
 " Got it from here: https://www.reddit.com/r/neovim/comments/cger8p/how_quickly_close_a_terminal_buffer/eupal7q?utm_source=share&utm_medium=web2x&context=3
