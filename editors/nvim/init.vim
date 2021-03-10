@@ -78,7 +78,6 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 
 " Plugins Configurations
 " source $HOME/.config/nvim/plug-config/cyclist.vim
-" source $HOME/.config/nvim/plug-config/neuron.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
@@ -112,7 +111,7 @@ source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vsnip.vim
-
+source $HOME/.config/nvim/plug-config/crease.vim
 
 " Keys Mappings
 " source $HOME/.config/nvim/keys/lsp.vim
@@ -123,4 +122,5 @@ source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/keys/windows.vim
+source $HOME/.config/nvim/keys/vim-zettel.vim
 

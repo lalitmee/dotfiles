@@ -65,13 +65,13 @@ set t_vb=
 set tm=500
 
 " Tab control
-set noexpandtab                           " insert tabs rather than spaces for <Tab>
-set smarttab                              " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set expandtab                             " Converts tabs to spaces
-set tabstop=2                             " the visible width of tabs
-set softtabstop=2                         " edit as if the tabs are 4 characters wide
-set shiftwidth=2                          " number of spaces to use for indent and unindent
-set shiftround                            " round indent to a multiple of 'shiftwidth'
+" set noexpandtab                           " insert tabs rather than spaces for <Tab>
+" set smarttab                              " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+" set expandtab                             " Converts tabs to spaces
+" set tabstop=2                             " the visible width of tabs
+" set softtabstop=2                         " edit as if the tabs are 4 characters wide
+" set shiftwidth=2                          " number of spaces to use for indent and unindent
+" set shiftround                            " round indent to a multiple of 'shiftwidth'
 
 " code folding settings
 " set foldmethod=syntax
@@ -81,6 +81,51 @@ set foldlevelstart=99
 set foldnestmax=10                        " deepest fold is 10 levels
 set foldenable                            " don't fold by default
 set foldlevel=1
+"set foldtext=CustomFoldText('-')
+
+"" Customized version of folded text, idea by
+"" http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+"fu! CustomFoldText(string) "{{{1
+"    "get first non-blank line
+"    let fs = v:foldstart
+"    if getline(fs) =~ '^\s*$'
+"      let fs = nextnonblank(fs + 1)
+"    endif
+"    if fs > v:foldend
+"        let line = getline(v:foldstart)
+"    else
+"        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+"    endif
+"    let pat  = matchstr(&l:cms, '^\V\.\{-}\ze%s\m')
+"    " remove leading comments from line
+"    let line = substitute(line, '^\s*'.pat.'\s*', '', '')
+"    " remove foldmarker from line
+"    let pat  = '\%('. pat. '\)\?\s*'. split(&l:fmr, ',')[0]. '\s*\d\+'
+"    let line = substitute(line, pat, '', '')
+
+""   let line = substitute(line, matchstr(&l:cms,
+""	    \ '^.\{-}\ze%s').'\?\s*'. split(&l:fmr,',')[0].'\s*\d\+', '', '')
+
+"    let w = get(g:, 'custom_foldtext_max_width', winwidth(0)) - &foldcolumn - (&number ? 8 : 0)
+"    let foldSize = 1 + v:foldend - v:foldstart
+"    let foldSizeStr = " " . foldSize . " lines "
+"    let foldLevelStr = '+'. v:folddashes
+"    let lineCount = line("$")
+"    if has("float")
+"	try
+"	    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+"	catch /^Vim\%((\a\+)\)\=:E806/	" E806: Using Float as String
+"	    let foldPercentage = printf("[of %d lines] ", lineCount)
+"	endtry
+"    endif
+"    if exists("*strwdith")
+"	let expansionString = repeat(a:string, w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+"    else
+"	let expansionString = repeat(a:string, w - strlen(substitute(foldSizeStr.line.foldLevelStr.foldPercentage, '.', 'x', 'g')))
+"    endif
+"    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+"endf
+
 
 set undodir=~/.config/nvim/undodir
 set undofile

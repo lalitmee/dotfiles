@@ -3,8 +3,9 @@ function! helpers#lightline#git_branch()
   let git_branch_icon =
         \ &filetype=='help' ||
         \ &filetype=='startify' ||
-        \ &filetype =='NeogitStatus'
-        \ ? ''
+        \ &filetype=='NeogitStatus' ||
+        \ &filetype==''
+        \ ? ' - '
         \ : '  '
   return git_branch_icon . '' . get(b:,'gitsigns_head','')
 endfunction

@@ -33,6 +33,7 @@ require('telescope').load_extension('ultisnips')
 require('telescope').setup {
   defaults = {
     -- prompt_prefix = ' 🔎 ',
+    -- prompt_prefix = ' 🔭 ',
     prompt_prefix = ' > ',
     sorting_strategy = 'ascending',
     prompt_position = 'top',
