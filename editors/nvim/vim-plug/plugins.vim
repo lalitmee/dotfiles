@@ -8,6 +8,8 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
+" Plug 'skywind3000/asynctasks.vim'
+" Plug 'skywind3000/asyncrun.vim'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'AndrewRadev/splitjoin.vim'                    " Switch between single-line and multiline forms of code
 Plug 'wellle/targets.vim'                           " targets.vim for extra motions
