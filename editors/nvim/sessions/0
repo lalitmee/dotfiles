@@ -3,15 +3,16 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/data/koinearth/wf-webapp-service
+cd ~/data/Github/dotfiles
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 pages/Orders/Edit/TSO.js
+badd +21 editors/nvim/status-lines/airline.vim
+badd +96 editors/nvim/vim-plug/plugins.vim
 argglobal
 %argdel
-edit pages/Orders/Edit/TSO.js
+edit editors/nvim/vim-plug
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -19,31 +20,22 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-setlocal fdm=marker
+balt editors/nvim/status-lines/airline.vim
+setlocal fdm=expr
 setlocal fde=nvim_treesitter#foldexpr()
-setlocal fmr={,}
+setlocal fmr={{{,}}}
 setlocal fdi=#
 setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-46
-normal! zo
-1265
-normal! zo
-1273
-normal! zo
-1280
-normal! zo
-1281
-normal! zo
-let s:l = 1276 - ((9 * winheight(0) + 27) / 55)
+let s:l = 9 - ((8 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1276
+keepjumps 9
 normal! 0
-lcd ~/data/koinearth/wf-webapp-service
+lcd ~/data/Github/dotfiles
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -55,7 +47,6 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
