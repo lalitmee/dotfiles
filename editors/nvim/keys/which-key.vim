@@ -156,6 +156,8 @@ let g:which_key_map.d = {
         \ 'f' : [':FzfFiles'                                      , 'files'],
         \ 'g' : [':FzfGFiles'                                     , 'git-files'],
         \ 's' : [':FzfGFiles?'                                    , 'git-status-files'],
+        \ 'd' : [':FzfDotfiles'                                   , 'dotfiles'],
+        \ 'n' : [':FzfNvimConfig'                                 , 'neovim-config'],
       \ },
       \ 'g' : {
         \ 'name' : '+git'                                         ,

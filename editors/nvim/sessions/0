@@ -3,16 +3,16 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/data/Github/dotfiles
+cd ~/data/koinearth/wf-webapp-service
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +21 editors/nvim/status-lines/airline.vim
-badd +96 editors/nvim/vim-plug/plugins.vim
+badd +1096 pages/Orders/Edit/TSO.js
+badd +509 pages/Shipments/Create/BTSTO.js
 argglobal
 %argdel
-edit editors/nvim/vim-plug
+edit pages/Orders/Edit/TSO.js
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -20,22 +20,43 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-balt editors/nvim/status-lines/airline.vim
-setlocal fdm=expr
+balt pages/Shipments/Create/BTSTO.js
+setlocal fdm=marker
 setlocal fde=nvim_treesitter#foldexpr()
-setlocal fmr={{{,}}}
+setlocal fmr={,}
 setlocal fdi=#
 setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 9 - ((8 * winheight(0) + 27) / 55)
+46
+normal! zo
+66
+normal! zo
+118
+normal! zo
+154
+normal! zo
+155
+normal! zo
+179
+normal! zo
+182
+normal! zo
+1085
+normal! zo
+1140
+normal! zo
+1268
+normal! zo
+1273
+normal! zo
+let s:l = 1140 - ((27 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 9
-normal! 0
-lcd ~/data/Github/dotfiles
+keepjumps 1140
+normal! 012|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -47,6 +68,7 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
