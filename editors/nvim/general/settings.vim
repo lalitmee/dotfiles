@@ -3,7 +3,6 @@ set formatoptions-=cro                    " Stop newline continution of comments
 
 syntax enable                             " Enables syntax highlighing
 set hidden                                " Required to keep multiple buffers open multiple buffers
-set nowrap                                " Display long lines as just one line
 set whichwrap+=<,>,[,],h,l
 set encoding=utf-8                        " The encoding displayed
 set pumheight=10                          " Makes popup menu smaller
@@ -40,7 +39,6 @@ set wrapmargin=8                          " wrap lines when coming within n char
 set linebreak                             " set soft wrapping
 set ttyfast                               " faster redrawing
 set diffopt+=vertical
-set so=7                                  " set 7 lines to the cursors - when moving vertical
 set shell=$SHELL
 set title                                 " set terminal title
 set showmatch                             " show matching braces

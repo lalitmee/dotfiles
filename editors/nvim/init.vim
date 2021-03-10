@@ -84,6 +84,7 @@ source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
+source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/far.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
@@ -116,6 +117,7 @@ source $HOME/.config/nvim/plug-config/vsnip.vim
 " source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/mappings.vim
+source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/keys/windows.vim
