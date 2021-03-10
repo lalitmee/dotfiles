@@ -21,8 +21,8 @@ let g:which_key_map =  {}
 nnoremap <leader>/ :CocSearch <C-R>=expand("<cword>")<CR><CR>
 let g:which_key_map['/'] = 'search-word'
 
-nnoremap <leader>* *<c-o>:%s///gn<cr>
-let g:which_key_map['*'] = 'count-matches'
+" nnoremap <leader>* *<c-o>:%s///gn<cr>
+let g:which_key_map['*'] = 'replace-word'
 
 
 " Change the colors if you want
@@ -40,7 +40,6 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 let g:which_key_map[','] = [ 'w'                                  , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open-init' ]
 let g:which_key_map[';'] = [ ':Telescope commands'                , 'commands' ]
-let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
 let g:which_key_map['x'] = [ 'q'                                  , 'quit' ]
 let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
 

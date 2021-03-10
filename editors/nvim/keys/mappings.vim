@@ -59,9 +59,9 @@ nmap gV `[v`]
 inoremap jk <Esc>
 inoremap kj <Esc>
 
-" Easy CAPS
-inoremap <c-u> <ESC>viwUi
-nnoremap <c-u> viwU<Esc>
+" " Easy CAPS
+" inoremap <c-u> <ESC>viwUi
+" nnoremap <c-u> viwU<Esc>
 
 " Better tabbing
 vnoremap < <gv
@@ -147,3 +147,6 @@ nmap ga <Plug>(EasyAlign)
 
 " count number of lines in visual mode
 vmap L  g<C-g>
+
+" search and replace the word under cursor
+nmap <leader>* :%s/<C-r><C-w>//<Left>

@@ -34,8 +34,8 @@ Color.new('orange', '#D08770')
 
 Group.new('Comment', colors.nord_3_light, colors.none, styles.italic)
 Group.new('SpecialComment', colors.nord_8, colors.none, styles.NONE)
-Group.new('LineNr', colors.nord_3, colors.none, styles.NONE)
-Group.new('CursorLineNr', colors.nord_12, colors.none, styles.NONE)
+Group.new('LineNr', colors.nord_4:dark():dark(), colors.none, styles.NONE)
+Group.new('CursorLineNr', colors.nord_13, colors.none, styles.NONE)
 Group.new('Line', colors.nord_12, colors.none, styles.bold)
 Group.new('SignColumn', colors.none, colors.none, styles.NONE)
 
