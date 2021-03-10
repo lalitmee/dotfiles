@@ -1,7 +1,12 @@
 function! helpers#lightline#git_branch()
   let git_branch_icon = ""
-  let git_branch_icon = &filetype=='help' ? '  ' : ''
-  return git_branch_icon . ' ' . get(b:,'gitsigns_head','')
+  let git_branch_icon =
+        \ &filetype=='help' ||
+        \ &filetype=='startify' ||
+        \ &filetype =='NeogitStatus'
+        \ ? ''
+        \ : '  '
+  return git_branch_icon . '' . get(b:,'gitsigns_head','')
 endfunction
 
 function! helpers#lightline#gitsigns_status()

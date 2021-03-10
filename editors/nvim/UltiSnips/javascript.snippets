@@ -75,20 +75,20 @@ snippet ptn "number proptype" !b
 PropTypes.number
 endsnippet
 
-	snippet ptarrayof "arrayOf proptype" !b
+snippet ptarrayof "arrayOf proptype" !b
 PropTypes.arrayOf(${1})
-	endsnippet
+endsnippet
 
-	snippet ptoneof "oneOf proptype" !b
-	PropTypes.oneOf([
-			${1}
-	])
-	endsnippet
+snippet ptoneof "oneOf proptype" !b
+PropTypes.oneOf([
+	${1}
+])
+endsnippet
 
-	snippet ptshape "shape proptype" !b
-	PropTypes.shape({
-			${1}: ${2}
-			})
+snippet ptshape "shape proptype" !b
+PropTypes.shape({
+	${1}: ${2}
+})
 endsnippet
 
 # element
@@ -195,14 +195,14 @@ endsnippet
 snippet ptss "PropType Shape" !b
 ${1:prop}: PropTypes.shape({
 		${2}
-		}),${0}
+	}),${0}
 endsnippet
 
 # object of required
 snippet ptssr "PropType Shape Required" !b
 ${1:prop}: PropTypes.shape({
 		${2}
-		}).isRequired,${0}
+	}).isRequired,${0}
 endsnippet
 
 #######################################################################
@@ -223,7 +223,7 @@ endsnippet
 #######################################################################
 
 
-snippet ign "eslint disable line"
+snippet ign "eslint disable line" b
 // eslint-disable-line ${1}
 endsnippet
 

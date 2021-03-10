@@ -26,8 +26,6 @@ Plug 'ryanoasis/vim-devicons'                       " vim icons
 Plug 'gioele/vim-autoswap'                          " for handling swap files
 Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-fnr'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'  " nvcode colors
-Plug 'lifepillar/vim-gruvbox8'                      " gruvbox8 Colorscheme
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
 Plug 'Shougo/neco-vim'
@@ -36,20 +34,20 @@ Plug 'neoclide/coc.nvim', {
       \ 'branch': 'release'
       \ }                                           " Completion Conquerer
 Plug 'chemzqm/vim-jsx-improve'                      " better jsx
-Plug 'stsewd/fzf-checkout.vim'                      " fzf-checkout using fzf
-Plug 'junegunn/gv.vim'                              " commits blame
 Plug 'godlygeek/tabular'                            " Tabularize for Vim
 Plug 'SirVer/ultisnips'                             " snippets engine
 Plug 'honza/vim-snippets'                           " Snippets in Vim
 Plug 'hrsh7th/vim-vsnip'                            " vsnip vscode snippets
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'alvan/vim-closetag'                           " Auto Close Tag in HTML
-Plug 'AndrewRadev/tagalong.vim'                     " html tags completion
-Plug 'valloric/MatchTagAlways'                      " match tags always
+Plug 'alvan/vim-closetag', {
+      \ 'for': ['html', 'javascriptreact']
+      \ }                                           " Auto Close Tag in HTML
+Plug 'AndrewRadev/tagalong.vim', {
+      \ 'for': ['html', 'javascriptreact']
+      \ }                                           " html tags completion
 Plug 'Yggdroot/indentLine', {
       \ 'on': 'IndentLinesEnable'
       \ }                                           " Indent Lines made beautiful
-Plug 'junegunn/vim-emoji'                           " emojis in vim
 Plug 'junegunn/fzf', {
       \ 'dir': '~/.fzf',
       \ 'do': './install --all'
@@ -57,17 +55,22 @@ Plug 'junegunn/fzf', {
 Plug 'junegunn/fzf.vim'                             " FZF in vim
 Plug 'yuki-yano/fzf-preview.vim', {
       \ 'branch': 'release/remote',
-      \ 'do': ':UpdateRemotePlugins'
+      \ 'do': ':UpdateRemotePlugs'
       \ }                                           " fzf with preview
 Plug 'airblade/vim-rooter'                          " change root director to root of the project
-Plug 'mattn/emmet-vim'                              " Emmets in Vim
+" Plug 'mattn/emmet-vim'                            " Emmets in Vim
 Plug 'liuchengxu/vim-which-key'                     " See what keys do like in emacs
-Plug 'voldikss/vim-floaterm'                        " Float Terminal
+Plug 'voldikss/vim-floaterm', {
+      \ 'on': [
+        \ 'FloatermNew',
+        \ 'FloatermToggle'
+      \ ]
+      \ }                                           " Float Terminal
 " Plug 'tpope/vim-speeddating'                      " change dates
-Plug 'tpope/vim-fugitive'                           " version control
+Plug 'tpope/vim-fugitive'                         " version control
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
@@ -81,14 +84,16 @@ Plug 'romgrk/barbar.nvim'                           " tabline
 Plug 'ntpeters/vim-better-whitespace'               " Better Whitespace
 Plug 'wesQ3/vim-windowswap'                         " Swap windows
 " Plug 'akiyosi/gonvim-fuzzy'                       " Goneovim Fuzzy search
-Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP symbols and tags
-Plug 'ThePrimeagen/vim-be-good'                     " vim-be-good
+" Plug 'liuchengxu/vista.vim'                       " Viewer & Finder for LSP symbols and tags
+Plug 'ThePrimeagen/vim-be-good', {
+      \ 'on': 'VimBeGood'
+      \ }                                           " vim-be-good
 Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 Plug 'szw/vim-maximizer'                            " Maximizer for vim
-Plug 'puremourning/vimspector'                      " debugger in vim
-Plug 'vlime/vlime'                                  " lisp in vim
+" Plug 'puremourning/vimspector'                    " debugger in vim
+" Plug 'vlime/vlime'                                " lisp in vim
 Plug 'dbeniamine/cheat.sh-vim'                      " cheat.sh in vim
-Plug 'benmills/vimux'                               " Testing in vim with tmux
+" Plug 'benmills/vimux'                             " Testing in vim with tmux
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/open-browser-github.vim'
 Plug 'dhruvasagar/vim-open-url'
@@ -111,7 +116,6 @@ Plug 'nvim-telescope/telescope-snippets.nvim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
-Plug 'the-codingguy/telescope-checkout'
 Plug 'tkmpypy/telescope-jumps.nvim'
 Plug 'oberblastmeister/neuron.nvim'                 " note taking using lua
 " Plug 'anott03/nvim-lspinstall'
@@ -135,20 +139,21 @@ Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'mhartington/formatter.nvim'                   " formatter in lua
-Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
+" Plug 'mhartington/formatter.nvim'                 " formatter in lua
+Plug 'kyazdani42/nvim-web-devicons'               " for file icons
 Plug 'kyazdani42/nvim-tree.lua', {
-      \ 'on': 'NvimTreeToggle'}                     " file explorer
+      \ 'on': 'NvimTreeToggle'
+      \ }                                           " file explorer
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
 Plug 'npxbr/glow.nvim'                              " markdown preview
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
-Plug 'mfussenegger/nvim-dap'                        " debugger attach protocol
+" Plug 'mfussenegger/nvim-dap'                      " debugger attach protocol
 Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
-Plug 'kizza/actionmenu.nvim'                        " actions menu
+" Plug 'kizza/actionmenu.nvim'                      " actions menu
 Plug 'phaazon/hop.nvim'                             " easymotion using lua
 Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
-Plug 'akinsho/nvim-toggleterm.lua'                  " neovim terminal managment in lua
+" Plug 'akinsho/nvim-toggleterm.lua'                " neovim terminal managment in lua
 Plug 'gennaro-tedesco/nvim-peekup'                  " registers in lua
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
 Plug 'tjdevries/train.nvim'                         " motion training

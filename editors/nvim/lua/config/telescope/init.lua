@@ -20,7 +20,7 @@ local themes = require('telescope.themes')
 -- local action_set = require('telescope.actions.set')
 
 require('telescope').load_extension('snippets')
-require('telescope').load_extension('dap')
+-- require('telescope').load_extension('dap')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('jumps')
