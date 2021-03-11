@@ -28,5 +28,5 @@ Group.new('BufferCurrentIndex', c.orange, nil, s.bold)
 Group.new('BufferCurrentMod', c.red:dark(), nil, s.bold)
 Group.new('BufferCurrentSign', nil, nil, s.bold)
 
--- Group.new('PMenuSel', c.black, c.pink, s.NONE)
--- Group.new('PMenu', c.black, c.yellow, s.NONE)
+-- Group.new('QuickScopePrimary', c.green:dark(), nil, s.bold)
+-- Group.new('QuickScopeSecondary', c.blue:dark(), nil, s.bold)

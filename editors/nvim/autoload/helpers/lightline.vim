@@ -1,3 +1,9 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                        LIGHTLINE HELPERS FUNCTIONS                         "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" git branch {{{
+
 function! helpers#lightline#git_branch()
   let git_branch_icon = ""
   let git_branch_icon =
@@ -10,17 +16,33 @@ function! helpers#lightline#git_branch()
   return git_branch_icon . '' . get(b:,'gitsigns_head','')
 endfunction
 
+" }}}
+
+" gitsigns_status {{{
+
 function! helpers#lightline#gitsigns_status()
   return get(b:,'gitsigns_status','')
 endfunction
+
+" }}}
+
+" file modified {{{
 
 function! helpers#lightline#modified()
   return &filetype=='help' ? "" : &modified ? "＋" : &modifiable ? "" : "🔒"
 endfunction
 
+" }}}
+
+" file readonly {{{
+
 function! helpers#lightline#readonly()
   return &readonly && &filetype !=# 'help' ? 'RO | 🔒' : ''
 endfunction
+
+" }}}
+
+" filename  {{{
 
 function! helpers#lightline#filename()
   let name = ""
@@ -49,6 +71,10 @@ function! helpers#lightline#filename()
   return name
 endfunction
 
+" }}}
+
+" lightline mode {{{
+
 function! helpers#lightline#mode()
   return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
         \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
@@ -58,6 +84,10 @@ function! helpers#lightline#mode()
         \ lightline#mode()
 endfunction
 
+" }}}
+
+" file format {{{
+
 function! helpers#lightline#format()
   return winwidth(0) > 70 ? &fileformat : ''
 endfunction
@@ -65,6 +95,10 @@ endfunction
 function! helpers#lightline#filetype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
+
+" }}}
+
+" lsp current function {{{
 
 function! kelpers#lightline#lsp_current_function() abort
   if g:lspconfig
@@ -79,4 +113,4 @@ function! kelpers#lightline#lsp_current_function() abort
   endif
 endfunction
 
-
+" }}}
