@@ -36,11 +36,10 @@ Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
 " icons {{{
 
 Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
-" Plug 'ryanoasis/vim-devicons'                       " vim icons
 
 "}}}
 
-" general {{{
+" General {{{
 
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
@@ -55,7 +54,6 @@ Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the 
 
 " Search, Replace and Jump {{{
 
-Plug 'gennaro-tedesco/nvim-peekup'                  " registers in lua
 Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-pseudocl'
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
@@ -78,7 +76,6 @@ Plug 'phaazon/hop.nvim', {'on': [
 
 " Movements {{{
 
-Plug 'rhysd/accelerated-jk'                         " accelerated movements for j and k
 Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
 
@@ -98,7 +95,6 @@ Plug 'szw/vim-maximizer'                            " Maximizer for vim
 Plug 'tommcdo/vim-exchange'                         " vim-exchange for exchanging words
 Plug 'wellle/targets.vim'                           " targets.vim for extra motions
 Plug 'wesQ3/vim-windowswap'                         " Swap windows
-Plug 'Asheq/close-buffers.vim'                      " close buffers
 
 
 " General }}}
@@ -218,18 +214,16 @@ Plug 'yuki-yano/fzf-preview.vim', {
 
 " telescope.nvim {{{
 
+" Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'nvim-telescope/telescope-snippets.nvim'
+Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
-Plug 'nvim-telescope/telescope-media-files.nvim'
-Plug 'nvim-telescope/telescope-node-modules.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
-Plug 'nvim-telescope/telescope-snippets.nvim'
-Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'tkmpypy/telescope-jumps.nvim'
@@ -267,13 +261,12 @@ Plug 'npxbr/glow.nvim', {
 
 " tags {{{
 
-" Plug 'liuchengxu/vista.vim'                       " Viewer & Finder for LSP symbols and tags
+Plug 'liuchengxu/vista.vim'                       " Viewer & Finder for LSP symbols and tags
 
 " tags }}}
 
 " General {{{
 
-" Plug 'b3nj5m1n/kommentary'                        " commenting in lua
 Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " General }}}
@@ -282,7 +275,6 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " VERSION CONTROL STYSTEM {{{
 
-" Plug 'f-person/git-blame.nvim'                    " git blame like gitlens in vscode
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
 Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'tpope/vim-fugitive'                           " version control
@@ -291,15 +283,12 @@ Plug 'tpope/vim-fugitive'                           " version control
 
 " STATUS AND TAB LINES {{{
 
-" Plug 'akinsho/nvim-bufferline.lua'                " buffer line
 " Plug 'glepnir/galaxyline.nvim' , {
 " \ 'branch': 'main'
 " \ }
 Plug 'hoob3rt/lualine.nvim'
 Plug 'romgrk/barbar.nvim'                         " tabline
 " Plug 'tjdevries/express_line.nvim'
-" Plug 'itchyny/lightline.vim'                        " lightline for vim
-" Plug 'mg979/vim-xtabline'                           " tabline
 
 " STATUS AND TAB LINES }}}
 
@@ -334,7 +323,6 @@ Plug 'junegunn/goyo.vim', {
 Plug 'kyazdani42/nvim-tree.lua', {
       \ 'on': 'NvimTreeToggle'
       \ }                                           " file explorer
-" Plug 'TimUntersberger/neofs'                      " file manager in lua
 
 " Explorer }}}
 
@@ -348,7 +336,6 @@ Plug 'gioele/vim-autoswap'                          " for handling swap files
 
 " TERMINAL {{{
 
-" Plug 'akinsho/nvim-toggleterm.lua'                " neovim terminal managment in lua
 Plug 'voldikss/vim-floaterm', {
       \ 'on': [
           \ 'FloatermNew',
@@ -366,7 +353,6 @@ Plug 'voldikss/vim-floaterm', {
 
 " BROWSER {{{
 
-Plug 'dbeniamine/cheat.sh-vim'                      " cheat.sh in vim
 Plug 'dhruvasagar/vim-open-url'
 Plug 'tami5/sql.nvim'                               " sql nvim database for frecency
 Plug 'tyru/open-browser-github.vim'
@@ -386,7 +372,6 @@ Plug 'tyru/open-browser.vim'
 
 " PROJECT MANAGEMENT {{{
 
-" Plug 'rmagatti/auto-session'                      " auto session save
 Plug 'airblade/vim-rooter'                          " change root director to root of the project
 
 " PROJECT MANAGEMENT }}}
