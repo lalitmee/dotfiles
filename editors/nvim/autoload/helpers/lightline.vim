@@ -66,20 +66,17 @@ function! helpers#lightline#filetype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
 endfunction
 
-function! helpers#lightline#lsp_status() abort
-  let status = luaeval('require("lsp-status").status()')
-  return trim(status)
+function! kelpers#lightline#lsp_current_function() abort
+  if g:lspconfig
+    let current_function = nvim_treesitter#statusline(90)
+    if current_function == v:null
+      return ""
+    else
+      return nvim_treesitter#statusline(90)
+    endif
+  else
+    return get(b:, 'coc_current_function', '')
+  endif
 endfunction
 
-function! helpers#lightline#lsp_current_function() abort
-  " let g:current_function = luaeval('require("lsp-status").update_current_function()')
-  " if current_function
-  "   lua require("lsp-status").update_current_function()
-  " endif
-  autocmd CursorHold * silent! lua require'lsp-status'.update_current_function()
-endfunction
-
-function! helpers#lightline#coc_current_function() abort
-  return get(b:, 'coc_current_function', '')
-endfunction
 
