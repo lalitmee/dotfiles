@@ -58,9 +58,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
 luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
-" luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 " luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
-" luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
 luafile $HOME/.config/nvim/lua/config/lsp/init.lua
@@ -91,11 +89,9 @@ luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 " Status Lines
 " source $HOME/.config/nvim/status-lines/airline.vim
 " source $HOME/.config/nvim/status-lines/barow.vim
-" source $HOME/.config/nvim/status-lines/lightline.vim
 
 " Tab Lines
 source $HOME/.config/nvim/tab-lines/barbar.vim
-" source $HOME/.config/nvim/tab-lines/xtabline.vim
 
 " Status Lines }}}
 
@@ -107,7 +103,6 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 " source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
-source $HOME/.config/nvim/plug-config/auto-sessions.vim
 source $HOME/.config/nvim/plug-config/crease.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim
@@ -116,8 +111,6 @@ source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
-source $HOME/.config/nvim/plug-config/git-blame.vim
-source $HOME/.config/nvim/plug-config/hlslens.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/indentLine.vim
 source $HOME/.config/nvim/plug-config/mundo.vim
@@ -129,7 +122,6 @@ source $HOME/.config/nvim/plug-config/snippets.vim
 source $HOME/.config/nvim/plug-config/startify.vim
 source $HOME/.config/nvim/plug-config/tabular.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
-source $HOME/.config/nvim/plug-config/toggle-term.vim
 source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-awesome.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
@@ -142,7 +134,6 @@ source $HOME/.config/nvim/plug-config/vsnip.vim
 " Keys Mappings {{{
 
 " source $HOME/.config/nvim/keys/coc.vim
-source $HOME/.config/nvim/keys/accelerated-jk.vim
 source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/fzf.vim
 source $HOME/.config/nvim/keys/lsp.vim

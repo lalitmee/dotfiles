@@ -70,7 +70,7 @@ let g:which_key_map.b = {
       \ 'b' : [':Telescope buffers'                         , 'telescope-buffers'],
       \ 'B' : [':FzfBuffers'                                , 'fzf-buffers'],
       \ 'c' : ['vnew'                                       , 'new-empty-buffer-vert'],
-      \ 'C' : [':BufferCloseAllButCurent'                   , 'close-all-but-current'],
+      \ 'C' : [':BufferCloseAllButCurrent'                  , 'close-all-but-current'],
       \ 'd' : [':BufferClose'                               , 'delete-buffer'],
       \ 'D' : [':%bd'                                       , 'delete-all-buffers'],
       \ 'e' : [':BufferLast'                                , 'last-buffer'],
@@ -95,53 +95,7 @@ let g:which_key_map.b = {
 
 " }}}
 
-" c is for code {{{
-
-" let g:which_key_map.c = {
-"       \ 'name' : '+coc'                                   ,
-"       \ 'a' : [':CocAction'                               , 'action'],
-"       \ 'c' : [':CocCommand'                              , 'commands'],
-"       \ 'd' : [':CocDiagnostics'                          , 'diagnostics'],
-"       \ 'e' : [':CocConfig'                               , 'config'],
-"       \ 'f' : [':CocFix'                                  , 'fix'],
-"       \ 'i' : [':CocInfo'                                 , 'info'],
-"       \ 'l' : {
-"         \ 'name' : '+list'                                ,
-"         \ 'b' : [':CocList branches'                      , 'branches-list'],
-"         \ 'c' : [':CocList commands'                      , 'commands-list'],
-"         \ 'd' : [':CocList folders'                       , 'workspace-directories-list'],
-"         \ 'e' : [':CocList diagnostics'                   , 'diagnostics-list'],
-"         \ 'E' : [':CocList extensions'                    , 'extensions-list'],
-"         \ 'l' : [':CocList fuzzy_lines'                   , 'buffer-fuzzy-lines'],
-"         \ 'L' : [':CocList links'                         , 'buffer-links-list'],
-"         \ 'm' : [':CocList marketplace'                   , 'marketplace'],
-"         \ 's' : [':CocList outline'                       , 'buffer-symbols-list'],
-"         \ 'S' : [':CocList symbols'                       , 'workspace-symbols-list'],
-"         \ 't' : [':CocList floaterm'                      , 'floaterm-list'],
-"         \ 'w' : [':CocList words'                         , 'buffer-words-list'],
-"       \ },
-"       \ 'm' : {
-"         \ 'name' : '+fzf-list'                            ,
-"         \ 'a' : [':CocFzfList actions'                    , 'actions'],
-"         \ 'b' : [':CocFzfList symbols'                    , 'symbols'],
-"         \ 'c' : [':CocFzfList commands'                   , 'commands'],
-"         \ 'd' : [':CocFzfList diagnostics'                , 'diagnostics'],
-"         \ 'e' : [':CocFzfList diagnostics --current-buf'  , 'buffer-diagnostics'],
-"         \ 'g' : [':CocFzfList issues'                     , 'issues'],
-"         \ 'i' : [':CocFzfList snippets'                   , 'snippets'],
-"         \ 'l' : [':CocFzfList location'                   , 'locations'],
-"         \ 'o' : [':CocFzfList outline'                    , 'outline'],
-"         \ 'r' : [':CocFzfListResume'                      , 'resume-list'],
-"         \ 's' : [':CocFzfList services'                   , 'services'],
-"         \ 'u' : [':CocFzfList output'                     , 'output'],
-"         \ 'v' : [':CocFzfList sources'                    , 'sources'],
-"         \ 'y' : [':CocFzfList yank'                       , 'yank'],
-"       \ },
-"       \ 'r' : [':call coc#refresh()'                      , 'coc-refresh'],
-"       \ 'R' : [':CocListResume '                          , 'list-resume'],
-"       \ 's' : [':CocSearch <C-R>=expand("<cword>")<CR>'   , 'search'],
-"       \ 'x' : ['<Plug>(coc-convert-snippet)'              , 'covert-to-snippet'],
-"       \ }
+" c is for lsp code {{{
 
 let g:which_key_map.c = {
       \ 'name' : '+code'                                    ,
@@ -746,51 +700,6 @@ let g:which_key_map.w = {
 
 " }}}
 
-" x is for xtabline {{{
-
-" let g:which_key_map.x = {
-"       \ 'name' : '+xtabline'                              ,
-"       \ 'b' : {
-"         \ 'name' : '+buffers'                             ,
-"           \ 'n' : [':XTabNextBuffer'                      , 'next-buffer'],
-"           \ 'p' : [':XTabPrevBuffer'                      , 'prev-buffer'],
-"           \ 'c' : [':XTabCloseBuffer'                     , 'close-buffer'],
-"           \ 'h' : [':XTabHideBuffer'                      , 'hide-buffer'],
-"           \ 'm' : [':XTabMoveBuffer'                      , 'move-buffer'],
-"           \ 'f' : [':XTabMoveBufferNext'                  , 'move-buffer-next'],
-"           \ 'b' : [':XTabMoveBufferPrev'                  , 'move-buffer-prev'],
-"           \ 'i' : [':XTabPinBuffer'                       , 'pin-buffer'],
-"       \ },
-"       \ 's' : {
-"         \ 'name' : '+sessions'                            ,
-"           \ 'l' : [':XTabLoadSession'                     , 'load-session'],
-"           \ 's' : [':XTabSaveSession'                     , 'save-session'],
-"           \ 'd' : [':XTabDeleteSession'                   , 'delete-session'],
-"           \ 'n' : [':XTabNewSession'                      , 'new-session'],
-"       \ },
-"       \ 't' : {
-"         \ 'name' : '+tabs'                                ,
-"           \ 'l' : [':XTabLast'                            , 'last-tab'],
-"           \ 'x' : [':XTabReopen'                          , 'reopen-last-tab'],
-"           \ 'X' : [':XTabReopenList'                      , 'reopen-last-tab-list'],
-"           \ 'a' : [':XTabListTabs'                        , 'list-tabs'],
-"           \ 'b' : [':XTabListBuffers'                     , 'list-buffers'],
-"           \ 'L' : [':XTabLoadTab'                         , 'load-tab'],
-"           \ 'S' : [':XTabSaveTab'                         , 'save-tab'],
-"           \ 'D' : [':XTabDeleteTab'                       , 'delete-tab'],
-"       \ },
-"       \ 'c' : {
-"         \ 'name' : '+cleanup'                             ,
-"           \ 'r' : [':XTabResetAll'                        , 'reset-all'],
-"           \ 'p' : [':XTabPurge'                           , 'purge'],
-"           \ 'c' : [':XTabCleanUp'                         , 'cleanup'],
-"           \ 'C' : [':XTabCleanUp!'                        , 'cleanup-reverse'],
-"           \ 'b' : [':XTabDeleteBuffers'                   , 'cleanup-buffers'],
-"       \ },
-"       \ }
-
-" }}}
-
 " key maps defined in other files {{{
 
 " keybindings for c {{{
@@ -843,8 +752,8 @@ let g:which_key_map.p.N = 'swap-parameter-previous'
 " keybindings for r = find and replace {{{
 
 " keybindings defined in ~/.config/nvim/lua/plugins/treesitter.lua
-let g:which_key_map.r = 'find-and-replace-text-object'
-let g:which_key_map.R = 'find-and-replace-current-word'
+let g:which_key_map.r = 'replace-text-object'
+let g:which_key_map.R = 'replace-current-word'
 
 " }}}
 
