@@ -13,3 +13,7 @@ function! JSFolds()
     return indent(v:lnum) / &shiftwidth
   endif
 endfunction
+
+
+autocmd FileType javascript,typescript,javascriptreact,typescriptreact,svelte,vim
+      \ setlocal sw=2 sts=2 et

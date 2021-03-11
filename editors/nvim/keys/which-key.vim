@@ -553,6 +553,17 @@ let g:which_key_map.p = {
 let g:which_key_map.p.n = 'swap-parameter-next'
 let g:which_key_map.p.N = 'swap-parameter-previous'
 
+" q is quick-fix-list
+let g:which_key_map.q = {
+      \ 'name' : '+quick-fix-list'                                ,
+      \ 'c' : [':cclose'                                          , 'close-qf-window'],
+      \ 'n' : [':cn'                                              , 'next'],
+      \ 'o' : [':copen'                                           , 'open-qf-window'],
+      \ 'p' : [':cp'                                              , 'previous'],
+      \ 'q' : [':qall'                                            , 'quit-vim'],
+      \ 'l' : [':Telescope quickfix'                              , 'fuzzy-quickfix'],
+      \ }
+
 " s is for search
 let g:which_key_map.s = {
       \ 'name' : '+search'                                        ,
@@ -638,7 +649,7 @@ let g:which_key_map.T = {
 " u is for UI and toggle
 let g:which_key_map.u = {
       \ 'name' : '+ui/toggle'                                     ,
-      \ 'u' : [':UndotreeToggle'                                  , 'undo-tree'],
+      \ 'u' : [':MundoToggle'                                     , 'mundo-tree'],
       \ }
 
 " w is for windows
@@ -665,18 +676,49 @@ let g:which_key_map.w = {
       \ 't' : ['<C-W>T'                                           , 'move-split-to-tab'],
       \ 'u' : ['<C-W>x'                                           , 'swap-window-next'],
       \ 'v' : ['<C-W>v'                                           , 'split-window-right'],
-      \ 'x' : [':call WindowSwap#EasyWindowSwap()'                 , 'window-swap'],
+      \ 'x' : [':call WindowSwap#EasyWindowSwap()'                , 'window-swap'],
       \ }
 
-" q is quick-fix-list
-let g:which_key_map.q = {
-      \ 'name' : '+quick-fix-list'                                ,
-      \ 'c' : [':cclose'                                          , 'close-qf-window'],
-      \ 'n' : [':cn'                                              , 'next'],
-      \ 'o' : [':copen'                                           , 'open-qf-window'],
-      \ 'p' : [':cp'                                              , 'previous'],
-      \ 'q' : [':qall'                                            , 'quit-vim'],
-      \ 'l' : [':Telescope quickfix'                              , 'fuzzy-quickfix'],
+" w is for windows
+let g:which_key_map.x = {
+      \ 'name' : '+xtabline'                                      ,
+      \ 'b' : {
+        \ 'name' : '+buffers'                                     ,
+          \ 'n' : [':XTabNextBuffer'                              , 'next-buffer'],
+          \ 'p' : [':XTabPrevBuffer'                              , 'prev-buffer'],
+          \ 'c' : [':XTabCloseBuffer'                             , 'close-buffer'],
+          \ 'h' : [':XTabHideBuffer'                              , 'hide-buffer'],
+          \ 'm' : [':XTabMoveBuffer'                              , 'move-buffer'],
+          \ 'f' : [':XTabMoveBufferNext'                          , 'move-buffer-next'],
+          \ 'b' : [':XTabMoveBufferPrev'                          , 'move-buffer-prev'],
+          \ 'i' : [':XTabPinBuffer'                               , 'pin-buffer'],
+      \ },
+      \ 's' : {
+        \ 'name' : '+sessions'                                    ,
+          \ 'l' : [':XTabLoadSession'                             , 'load-session'],
+          \ 's' : [':XTabSaveSession'                             , 'save-session'],
+          \ 'd' : [':XTabDeleteSession'                           , 'delete-session'],
+          \ 'n' : [':XTabNewSession'                              , 'new-session'],
+      \ },
+      \ 't' : {
+        \ 'name' : '+tabs'                                        ,
+          \ 'l' : [':XTabLast'                                    , 'last-tab'],
+          \ 'x' : [':XTabReopen'                                  , 'reopen-last-tab'],
+          \ 'X' : [':XTabReopenList'                              , 'reopen-last-tab-list'],
+          \ 'a' : [':XTabListTabs'                                , 'list-tabs'],
+          \ 'b' : [':XTabListBuffers'                             , 'list-buffers'],
+          \ 'L' : [':XTabLoadTab'                                 , 'load-tab'],
+          \ 'S' : [':XTabSaveTab'                                 , 'save-tab'],
+          \ 'D' : [':XTabDeleteTab'                               , 'delete-tab'],
+      \ },
+      \ 'c' : {
+        \ 'name' : '+cleanup'                                     ,
+          \ 'r' : [':XTabResetAll'                                , 'reset-all'],
+          \ 'p' : [':XTabPurge'                                   , 'purge'],
+          \ 'c' : [':XTabCleanUp'                                 , 'cleanup'],
+          \ 'C' : [':XTabCleanUp!'                                , 'cleanup-reverse'],
+          \ 'b' : [':XTabDeleteBuffers'                           , 'cleanup-buffers'],
+      \ },
       \ }
 
 " Register which key map

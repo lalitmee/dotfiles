@@ -4,7 +4,7 @@ let g:xtabline_settings.enable_mappings = 0
 
 let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
 
-let g:xtabline_settings.enable_persistance = 0
+let g:xtabline_settings.enable_persistance = 1
 
 let g:xtabline_lazy = 1
 
@@ -38,7 +38,7 @@ let g:xtabline_settings.buffers_paths = -2
 let g:xtabline_settings.current_tab_paths = -2
 let g:xtabline_settings.other_tabs_paths = -2
 
-let g:xtabline_settings.theme = "codedark"
+" let g:xtabline_settings.theme = "codedark"
 
 
 let g:xtabline_settings.todo = {
