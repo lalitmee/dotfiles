@@ -146,5 +146,3 @@ nmap ga <Plug>(EasyAlign)
 " count number of lines in visual mode
 vmap L  g<C-g>
 
-" search and replace the word under cursor
-nmap <leader>* :%s/<C-r><C-w>//<Left>

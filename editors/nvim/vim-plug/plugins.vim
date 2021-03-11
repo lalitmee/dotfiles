@@ -80,6 +80,8 @@ Plug 'szw/vim-maximizer'                " Maximizer for vim
 Plug 'tommcdo/vim-exchange'             " vim-exchange for exchanging words
 Plug 'wellle/targets.vim'               " targets.vim for extra motions
 Plug 'wesQ3/vim-windowswap'             " Swap windows
+Plug 'Asheq/close-buffers.vim'          " close buffers
+
 
 " General }}}
 
@@ -108,7 +110,7 @@ Plug 'norcalli/snippets.nvim'   " snippets in lua
 " Format {{{
 
 " Plug 'glepnir/indent-guides.nvim'  " indent guides using lua
-" Plug 'mhartington/formatter.nvim'  " formatter in lua
+Plug 'mhartington/formatter.nvim'  " formatter in lua
 Plug 'Yggdroot/indentLine', {
         \ 'on': 'IndentLinesEnable'
       \ }                            " Indent Lines made beautiful

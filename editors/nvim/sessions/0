@@ -8,8 +8,23 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
+badd +64 editors/nvim/init.vim
+badd +1 editors/nvim/general/buffers.vim
+badd +122 editors/nvim/general/settings.vim
+badd +71 editors/nvim/vim-plug/plugins.vim
+badd +1 editors/nvim/general/cursor.vim
+badd +7 editors/nvim/general/fonts.vim
+badd +1 editors/nvim/general/format.vim
+badd +1 editors/nvim/general/functions.vim
+badd +1 editors/nvim/general/hosts.vim
+badd +1 editors/nvim/general/search.vim
+badd +1 editors/nvim/autoload/plugged/vim-vsnip-integ/rplugin/python3/deoplete/source
+badd +1 ~/.config/nvim/general/tmux.vim
+badd +43 editors/nvim/keys/which-key.vim
+badd +148 ./editors/nvim/keys/mappings.vim
 argglobal
 %argdel
+edit editors/nvim/keys/which-key.vim
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -17,15 +32,33 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-enew
-setlocal fdm=expr
-setlocal fde=nvim_treesitter#foldexpr()
+balt ./editors/nvim/keys/mappings.vim
+setlocal fdm=marker
+setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=99
+setlocal fdl=1
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
+33
+normal! zo
+33
+normal! zc
+43
+normal! zo
+724
+normal! zo
+769
+normal! zo
+769
+normal! zc
+let s:l = 764 - ((71 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 764
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

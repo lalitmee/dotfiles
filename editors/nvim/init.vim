@@ -40,7 +40,6 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 " General Settings {{{
 
-source $HOME/.config/nvim/general/buffers.vim
 source $HOME/.config/nvim/general/cursor.vim
 source $HOME/.config/nvim/general/fonts.vim
 source $HOME/.config/nvim/general/format.vim
@@ -105,10 +104,10 @@ source $HOME/.config/nvim/tab-lines/xtabline.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/ranger.vim
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
+" source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/auto-sessions.vim
-source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/crease.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/far.vim

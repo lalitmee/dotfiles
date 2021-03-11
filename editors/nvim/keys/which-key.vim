@@ -17,13 +17,6 @@ let g:which_key_centered = 0
 " Create map to add keys to
 let g:which_key_map =  {}
 
-" Coc Search & refactor
-nnoremap <leader>/ :CocSearch <C-R>=expand("<cword>")<CR><CR>
-let g:which_key_map['/'] = 'search-word'
-
-" nnoremap <leader>* *<c-o>:%s///gn<cr>
-let g:which_key_map['*'] = 'replace-word'
-
 
 " Change the colors if you want
 highlight default link WhichKey          Operator
@@ -36,16 +29,21 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
-" Single mappings
+
+" Direct mappings {{{
+
 let g:which_key_map[','] = [ 'w'                                  , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open-init' ]
 let g:which_key_map[';'] = [ ':Telescope commands'                , 'commands' ]
 let g:which_key_map['x'] = [ 'q'                                  , 'quit' ]
 let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
 
-" Group mappings
+" }}}
 
-" a is for actions
+" Group mappings {{{
+
+" a is for actions {{{
+
 let g:which_key_map.a = {
       \ 'name' : '+actions'                                       ,
       \ 'c' : [':ColorizerToggle'                                 , 'colorizer'],
@@ -61,20 +59,27 @@ let g:which_key_map.a = {
       \ 'w' : [':StripWhitespace'                                 , 'strip-whitespace'],
       \ }
 
-" b is for buffer
+" }}}
+
+" b is for buffer {{{
+
 let g:which_key_map.b = {
       \ 'name' : '+buffers'                                       ,
+      \ ';' : [':BufferCloseBuffersRight'                         , 'close-all-right'],
+      \ 'a' : [':Bdelete all'                                     , 'close-all-buffers'],
       \ 'b' : [':Telescope buffers'                               , 'telescope-buffers'],
       \ 'B' : [':FzfBuffers'                                      , 'fzf-buffers'],
       \ 'c' : ['vnew'                                             , 'new-empty-buffer-vert'],
-      \ 'C' : [':BufferCloseAllButCurrent'                        , 'close-all-but-current'],
-      \ 'a' : [':BufferCloseBuffersLeft'                          , 'close-all-left'],
-      \ ';' : [':BufferCloseBuffersRight'                         , 'close-all-right'],
-      \ 'd' : [':BufferClose'                                     , 'delete-buffer'],
+      \ 'C' : [':Bdelete other'                                   , 'close-all-but-current'],
+      \ 'd' : [':Bdelete this'                                    , 'delete-buffer'],
       \ 'D' : [':%bd'                                             , 'delete-all-buffers'],
       \ 'e' : [':BufferLast'                                      , 'last-buffer'],
+      \ 'E' : [':Bdelete hidden'                                  , 'close-hidden-buffers'],
       \ 'f' : ['bfirst'                                           , 'first-buffer'],
+      \ 'F' : [':Bdelete menu'                                    , 'bdelete-menu'],
+      \ 'g' : [':Bdelete nameless'                                , 'delete-nameless-buffers'],
       \ 'h' : ['Startify'                                         , 'home-buffer'],
+      \ 'j' : [':Bdelete select'                                  , 'select-buffers-to-close'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'             , 'search-buffer-lines'],
       \ 'M' : [':delm!'                                           , 'delete-marks'],
       \ 'n' : [':BufferNext'                                      , 'next-buffer'],
@@ -87,11 +92,14 @@ let g:which_key_map.b = {
       \ 'R' : ['bufdo :e'                                         , 'refresh-loaded-buffers'],
       \ 's' : ['new'                                              , 'new-empty-buffer'],
       \ 'w' : [':BufferWipeout'                                   , 'buffer-wipeout'],
-      \ 'z' : [':BarbarEnable'                                    , 'barbar-enable'],
       \ 'y' : [':BarbarDisable'                                   , 'barbar-disable'],
+      \ 'z' : [':BarbarEnable'                                    , 'barbar-enable'],
       \ }
 
-" c is for coc.nvim
+" }}}
+
+" c is for coc.nvim {{{
+
 let g:which_key_map.c = {
       \ 'name' : '+coc'                                           ,
       \ 'a' : [':CocAction'                                       , 'action'],
@@ -137,10 +145,11 @@ let g:which_key_map.c = {
       \ 's' : [':CocSearch <C-R>=expand("<cword>")<CR>'           , 'search'],
       \ 'x' : ['<Plug>(coc-convert-snippet)'                      , 'covert-to-snippet'],
       \ }
-let g:which_key_map.c.G = 'grep-under-cursor'
-let g:which_key_map.c.g = 'grep-under-cursor-buffer'
 
-" d is for FZF
+" }}}
+
+" d is for FZF {{{
+
 let g:which_key_map.d = {
       \ 'name' : '+FZF'                                           ,
       \ 'a' : [':FzfAg'                                           , 'ag'],
@@ -184,6 +193,10 @@ let g:which_key_map.d = {
       \ 'w' : [':FzfWindows'                                      , 'windows'],
       \ }
 
+" }}}
+
+" e is for error and warnings {{{
+
 let g:which_key_map.e = {
       \ 'name' : '+errors/warnings'                               ,
       \ 'l' : ['CocDiagnostics'                                   , 'list-errors/warnings'],
@@ -193,7 +206,10 @@ let g:which_key_map.e = {
       \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'                , 'prev-error'],
       \ }
 
-" f is for fzf-preview
+" }}}
+
+" f is for fzf-preview {{{
+
 let g:which_key_map.f = {
       \ 'name' : '+fzf-preview'                                   ,
       \ 'f' : {
@@ -260,15 +276,20 @@ let g:which_key_map.f = {
       \ 'S' : [':wa'                                              , 'save-all-buffers'],
       \ }
 
+" }}}
 
-" F is for find and replace
+" F is for find and replace {{{
+
 let g:which_key_map.F = {
       \ 'name' : '+find/replace'                                  ,
       \ 'b' : [':Farr --source=vimgrep'                           , 'buffer'],
       \ 'p' : [':Farr --source=rgnvim'                            , 'project'],
       \ }
 
-" g is for git
+" }}}
+
+" g is for git {{{
+
 let g:which_key_map.g = {
       \ 'name' : '+git'                                           ,
       \ 'a' : [':Git add .'                                       , 'add-all'],
@@ -295,17 +316,11 @@ let g:which_key_map.g = {
       \ 'v' : [':GV'                                              , 'view-commits'],
       \ 'V' : [':GV!'                                             , 'view-buffer-commits'],
       \ }
-      " \ 's' : [':Magit'                                         , 'status'],
-" keybindings in nvim/lua/plugins/gitsigns.lua
-let g:which_key_map.g.h.b = "blame-hunk"
-let g:which_key_map.g.h.n = "next-hunk"
-let g:which_key_map.g.h.p = "prev-hunk"
-let g:which_key_map.g.h.r = "reset-hunk"
-let g:which_key_map.g.h.s = "stage-hunk"
-let g:which_key_map.g.h.u = "unstage-hunk"
-let g:which_key_map.g.h.v = "preview-hunk"
 
-" G is goneovim
+" }}}
+
+" G is goneovim {{{
+
 let g:which_key_map.G = {
       \ 'name' : '+goneovim'                                      ,
       \ 'a' : [':GonvimFuzzyAg'                                   , 'fuzzy-ag'],
@@ -322,7 +337,10 @@ let g:which_key_map.G = {
       \ 's' : [':GonvimWorkspaceSwitch '                          , 'switch-workspace'],
       \ }
 
-" j is AnyJump
+"}}}
+
+" j is AnyJump {{{
+
 let g:which_key_map.j = {
       \ 'name' : '+any-jump'                                      ,
       \ 'j' : [':AnyJump'                                         , 'current-word'],
@@ -337,7 +355,10 @@ let g:which_key_map.j = {
       \ 'd' : [':HopChar2'                                        , 'hop-char-2'],
       \ }
 
-" " l is for language server protocol
+" }}}
+
+" l is for language server protocol {{{
+
 " let g:which_key_map.l = {
 "       \ 'name' : '+lsp'                                         ,
 "       \ '.' : [':CocConfig'                                     , 'config'],
@@ -374,10 +395,11 @@ let g:which_key_map.j = {
 "       \ 'z' : [':CocDisable'                                    , 'disable-CoC'],
 "       \ 'Z' : [':CocEnable'                                     , 'enable-CoC'],
 "       \ }
-"       " \ 'o' : ['<Plug>(coc-openlink)'                         , 'open link'],
 
+" }}}
 
-" l is for language server protocol
+" l is for language server protocol {{{
+
 let g:which_key_map.l = {
       \ 'name' : '+lsp'                                           ,
       \ 'a' : [':Lspsaga code_action'                             , 'code-action'],
@@ -418,7 +440,10 @@ let g:which_key_map.l = {
       \ },
       \ }
 
-" m is major mode
+" }}}
+
+" m is major mode {{{
+
 let g:which_key_map.m = {
       \ 'name' : '+major-mode'                                    ,
       \ 'a' : [':Telescope lsp_code_actions'                      , 'code-actions'],
@@ -433,7 +458,10 @@ let g:which_key_map.m = {
       \ 's' : [':Telescope lsp_document_symbols'                  , 'buffer-symbols'],
       \ }
 
-" n is Neovim
+" }}}
+
+" n is Neovim {{{
+
 let g:which_key_map.n = {
       \ 'name' : '+neovim'                                        ,
       \ 'c' : [':PlugClean'                                       , 'clean-packages'],
@@ -445,7 +473,10 @@ let g:which_key_map.n = {
       \ 'U' : [':PlugUpgrade'                                     , 'upgrade-plug'],
       \ }
 
-" o is Telescope
+" }}}
+
+" o is Telescope {{{
+
 let g:which_key_map.o = {
       \ 'name' : '+Telescope'                                     ,
       \ 'b' : {
@@ -521,21 +552,11 @@ let g:which_key_map.o = {
         \ 'v' : [':Telescope vim_options'                         , 'vim-options'],
       \ },
       \ }
-let g:which_key_map.o.a   = 'emojis'
-let g:which_key_map.o.b.f = 'find-buffers'
-let g:which_key_map.o.b.o = 'find-buffers-theme'
-let g:which_key_map.o.f.N = 'nvim-config-dropdown'
-let g:which_key_map.o.f.c = 'dotfiles'
-let g:which_key_map.o.f.d = 'with-dropdown'
-let g:which_key_map.o.f.l = 'tj-old-files'
-let g:which_key_map.o.f.n = 'nvim-config'
-let g:which_key_map.o.g.c = 'git-checkout'
-let g:which_key_map.o.s.f = 'grep-string'
-let g:which_key_map.o.s.r = 'resume-last-search'
-let g:which_key_map.o.s.w = 'grep-word'
-let g:which_key_map.o.w   = 'grep-words'
 
-" p is for Project
+" }}}
+
+" p is for Project {{{
+
 let g:which_key_map.p = {
       \ 'name' : '+project'                                       ,
       \ 'a' : [':FzfAg'                                           , 'project-search'],
@@ -550,10 +571,10 @@ let g:which_key_map.p = {
       \ 't' : [':Telescope symbols'                               , 'symbols'],
       \ }
 
-let g:which_key_map.p.n = 'swap-parameter-next'
-let g:which_key_map.p.N = 'swap-parameter-previous'
+" }}}
 
-" q is quick-fix-list
+" q is quick-fix-list {{{
+
 let g:which_key_map.q = {
       \ 'name' : '+quick-fix-list'                                ,
       \ 'c' : [':cclose'                                          , 'close-qf-window'],
@@ -564,7 +585,10 @@ let g:which_key_map.q = {
       \ 'l' : [':Telescope quickfix'                              , 'fuzzy-quickfix'],
       \ }
 
-" s is for search
+" }}}
+
+" s is for search {{{
+
 let g:which_key_map.s = {
       \ 'name' : '+search'                                        ,
       \ '/' : [':Telescope command_history'                       , 'history'],
@@ -595,6 +619,10 @@ let g:which_key_map.s = {
       \ 'z' : [':FZF'                                             , 'FZF'],
       \ }
 
+" }}}
+
+" S is for sesstions {{{
+
 let g:which_key_map.S = {
       \ 'name' : '+session'                                       ,
       \ 'c' : [':SClose'                                          , 'close-session'],
@@ -604,7 +632,10 @@ let g:which_key_map.S = {
       \ 'S' : [':SSave'                                           , 'save-session'],
       \ }
 
-" t is for floaterm
+" }}}
+
+" t is for floaterm {{{
+
 let g:which_key_map.t = {
       \ 'name' : '+toggle'                                        ,
       \ 't' : [':FloatermNew'                                     , 'terminal'],
@@ -628,7 +659,10 @@ let g:which_key_map.t = {
       \ 'v' : [':vs | te'                                         , 'vertical-split-terminal'],
       \ }
 
-" T is for tabline
+" }}}
+
+" T is for tabline {{{
+
 let g:which_key_map.T = {
       \ 'name' : '+tabline'                                       ,
       \ 'b' : [':XTabListBuffers'                                 , 'list-buffers'],
@@ -646,13 +680,19 @@ let g:which_key_map.T = {
       \ 'x' : [':XTabPinBuffer'                                   , 'pin-buffer'],
       \ }
 
-" u is for UI and toggle
+" }}}
+
+" u is for UI and toggle {{{
+
 let g:which_key_map.u = {
       \ 'name' : '+ui/toggle'                                     ,
       \ 'u' : [':MundoToggle'                                     , 'mundo-tree'],
       \ }
 
-" w is for windows
+" }}}
+
+" w is for windows {{{
+
 let g:which_key_map.w = {
       \ 'name' : '+windows'                                       ,
       \ '2' : ['<C-W>v'                                           , 'layout-double-columns'],
@@ -679,7 +719,10 @@ let g:which_key_map.w = {
       \ 'x' : [':call WindowSwap#EasyWindowSwap()'                , 'window-swap'],
       \ }
 
-" w is for windows
+" }}}
+
+" x is for xtabline {{{
+
 let g:which_key_map.x = {
       \ 'name' : '+xtabline'                                      ,
       \ 'b' : {
@@ -720,6 +763,61 @@ let g:which_key_map.x = {
           \ 'b' : [':XTabDeleteBuffers'                           , 'cleanup-buffers'],
       \ },
       \ }
+
+" }}}
+
+" key maps defined in other files {{{
+
+" keybindings for c {{{
+
+let g:which_key_map.c.G = 'grep-under-cursor'
+let g:which_key_map.c.g = 'grep-under-cursor-buffer'
+
+" }}}
+
+" keybindings for o = telescope {{{
+
+" keybindings defined in ~/.config/nvim/keys/telescope.vim
+let g:which_key_map.o.a   = 'emojis'
+let g:which_key_map.o.b.f = 'find-buffers'
+let g:which_key_map.o.b.o = 'find-buffers-theme'
+let g:which_key_map.o.f.N = 'nvim-config-dropdown'
+let g:which_key_map.o.f.c = 'dotfiles'
+let g:which_key_map.o.f.d = 'with-dropdown'
+let g:which_key_map.o.f.l = 'tj-old-files'
+let g:which_key_map.o.f.n = 'nvim-config'
+let g:which_key_map.o.g.c = 'git-checkout'
+let g:which_key_map.o.s.f = 'grep-string'
+let g:which_key_map.o.s.r = 'resume-last-search'
+let g:which_key_map.o.s.w = 'grep-word'
+let g:which_key_map.o.w   = 'grep-words'
+
+" }}}
+
+" keybindings for p = treesitter {{{
+
+" keybindings defined in ~/.config/nvim/lua/plugins/treesitter.lua
+let g:which_key_map.p.n = 'swap-parameter-next'
+let g:which_key_map.p.N = 'swap-parameter-previous'
+
+" }}}
+
+" keybindings for g = git {{{
+
+" keybindings in nvim/lua/plugins/gitsigns.lua
+let g:which_key_map.g.h.b = " blame-hunk"
+let g:which_key_map.g.h.n = " next-hunk"
+let g:which_key_map.g.h.p = " prev-hunk"
+let g:which_key_map.g.h.r = " reset-hunk"
+let g:which_key_map.g.h.s = " stage-hunk"
+let g:which_key_map.g.h.u = " unstage-hunk"
+let g:which_key_map.g.h.v = " preview-hunk"
+
+" }}}
+
+" }}}
+
+" }}}
 
 " Register which key map
 call which_key#register('<Space>', "g:which_key_map")
