@@ -1,8 +1,9 @@
-" autocmd FileType lua setlocal sw=2 sts=2 et
+setlocal sw=2 sts=2 et
 
 setlocal textwidth=120
 
 setlocal shiftwidth=2
+setlocal tabstop=2
 setlocal formatoptions-=o
 
 

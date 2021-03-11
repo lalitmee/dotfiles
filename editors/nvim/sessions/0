@@ -8,10 +8,8 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +68 editors/nvim/vim-plug/plugins.vim
 argglobal
 %argdel
-edit editors/nvim/vim-plug/plugins.vim
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -19,23 +17,15 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-setlocal fdm=marker
+enew
+setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=2
+setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-54
-normal! zo
-let s:l = 81 - ((26 * winheight(0) + 27) / 54)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 81
-normal! 0
-lcd ~/data/Github/dotfiles
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

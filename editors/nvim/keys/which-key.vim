@@ -66,22 +66,19 @@ let g:which_key_map.a = {
 let g:which_key_map.b = {
       \ 'name' : '+buffers'                                 ,
       \ ';' : [':BufferCloseBuffersRight'                   , 'close-all-right'],
-      \ 'a' : [':Bdelete all'                               , 'close-all-buffers'],
+      \ 'a' : [':BufferCloseBuffersLeft'                    , 'close-all-left'],
       \ 'b' : [':Telescope buffers'                         , 'telescope-buffers'],
       \ 'B' : [':FzfBuffers'                                , 'fzf-buffers'],
       \ 'c' : ['vnew'                                       , 'new-empty-buffer-vert'],
-      \ 'C' : [':Bdelete other'                             , 'close-all-but-current'],
-      \ 'd' : [':Bdelete this'                              , 'delete-buffer'],
+      \ 'C' : [':BufferCloseAllButCurent'                   , 'close-all-but-current'],
+      \ 'd' : [':BufferClose'                               , 'delete-buffer'],
       \ 'D' : [':%bd'                                       , 'delete-all-buffers'],
       \ 'e' : [':BufferLast'                                , 'last-buffer'],
-      \ 'E' : [':Bdelete hidden'                            , 'close-hidden-buffers'],
       \ 'f' : ['bfirst'                                     , 'first-buffer'],
-      \ 'F' : [':Bdelete menu'                              , 'bdelete-menu'],
-      \ 'g' : [':Bdelete nameless'                          , 'delete-nameless-buffers'],
       \ 'h' : ['Startify'                                   , 'home-buffer'],
-      \ 'j' : [':Bdelete select'                            , 'select-buffers-to-close'],
+      \ 'j' : [':BufferPick'                                , 'buffer-pick'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'       , 'search-buffer-lines'],
-      \ 'M' : [':delm!'                                     , 'delete-marks'],
+      \ 'm' : [':delm!'                                     , 'delete-marks'],
       \ 'n' : [':BufferNext'                                , 'next-buffer'],
       \ 'N' : [':BufferMoveNext'                            , 'move-next-buffer'],
       \ 'o' : [':BufferOrderByDirectory'                    , 'order-by-direcoty'],
@@ -290,13 +287,12 @@ let g:which_key_map.f = {
 
 " }}}
 
-" F is for find and replace {{{
+" F is for workspace management using neovim-lsp {{{
 
-let g:which_key_map.F = {
-      \ 'name' : '+find/replace'                            ,
-      \ 'b' : [':Farr --source=vimgrep'                     , 'buffer'],
-      \ 'p' : [':Farr --source=rgnvim'                      , 'project'],
-      \ }
+let g:which_key_map.F   = {}
+let g:which_key_map.F.a = 'add-folder-to-workspace'
+let g:which_key_map.F.r = 'remove-folder-from-workspace'
+let g:which_key_map.F.l = 'list-workspace-folders'
 
 " }}}
 
@@ -752,46 +748,46 @@ let g:which_key_map.w = {
 
 " x is for xtabline {{{
 
-let g:which_key_map.x = {
-      \ 'name' : '+xtabline'                                ,
-      \ 'b' : {
-        \ 'name' : '+buffers'                               ,
-          \ 'n' : [':XTabNextBuffer'                        , 'next-buffer'],
-          \ 'p' : [':XTabPrevBuffer'                        , 'prev-buffer'],
-          \ 'c' : [':XTabCloseBuffer'                       , 'close-buffer'],
-          \ 'h' : [':XTabHideBuffer'                        , 'hide-buffer'],
-          \ 'm' : [':XTabMoveBuffer'                        , 'move-buffer'],
-          \ 'f' : [':XTabMoveBufferNext'                    , 'move-buffer-next'],
-          \ 'b' : [':XTabMoveBufferPrev'                    , 'move-buffer-prev'],
-          \ 'i' : [':XTabPinBuffer'                         , 'pin-buffer'],
-      \ },
-      \ 's' : {
-        \ 'name' : '+sessions'                              ,
-          \ 'l' : [':XTabLoadSession'                       , 'load-session'],
-          \ 's' : [':XTabSaveSession'                       , 'save-session'],
-          \ 'd' : [':XTabDeleteSession'                     , 'delete-session'],
-          \ 'n' : [':XTabNewSession'                        , 'new-session'],
-      \ },
-      \ 't' : {
-        \ 'name' : '+tabs'                                  ,
-          \ 'l' : [':XTabLast'                              , 'last-tab'],
-          \ 'x' : [':XTabReopen'                            , 'reopen-last-tab'],
-          \ 'X' : [':XTabReopenList'                        , 'reopen-last-tab-list'],
-          \ 'a' : [':XTabListTabs'                          , 'list-tabs'],
-          \ 'b' : [':XTabListBuffers'                       , 'list-buffers'],
-          \ 'L' : [':XTabLoadTab'                           , 'load-tab'],
-          \ 'S' : [':XTabSaveTab'                           , 'save-tab'],
-          \ 'D' : [':XTabDeleteTab'                         , 'delete-tab'],
-      \ },
-      \ 'c' : {
-        \ 'name' : '+cleanup'                               ,
-          \ 'r' : [':XTabResetAll'                          , 'reset-all'],
-          \ 'p' : [':XTabPurge'                             , 'purge'],
-          \ 'c' : [':XTabCleanUp'                           , 'cleanup'],
-          \ 'C' : [':XTabCleanUp!'                          , 'cleanup-reverse'],
-          \ 'b' : [':XTabDeleteBuffers'                     , 'cleanup-buffers'],
-      \ },
-      \ }
+" let g:which_key_map.x = {
+"       \ 'name' : '+xtabline'                              ,
+"       \ 'b' : {
+"         \ 'name' : '+buffers'                             ,
+"           \ 'n' : [':XTabNextBuffer'                      , 'next-buffer'],
+"           \ 'p' : [':XTabPrevBuffer'                      , 'prev-buffer'],
+"           \ 'c' : [':XTabCloseBuffer'                     , 'close-buffer'],
+"           \ 'h' : [':XTabHideBuffer'                      , 'hide-buffer'],
+"           \ 'm' : [':XTabMoveBuffer'                      , 'move-buffer'],
+"           \ 'f' : [':XTabMoveBufferNext'                  , 'move-buffer-next'],
+"           \ 'b' : [':XTabMoveBufferPrev'                  , 'move-buffer-prev'],
+"           \ 'i' : [':XTabPinBuffer'                       , 'pin-buffer'],
+"       \ },
+"       \ 's' : {
+"         \ 'name' : '+sessions'                            ,
+"           \ 'l' : [':XTabLoadSession'                     , 'load-session'],
+"           \ 's' : [':XTabSaveSession'                     , 'save-session'],
+"           \ 'd' : [':XTabDeleteSession'                   , 'delete-session'],
+"           \ 'n' : [':XTabNewSession'                      , 'new-session'],
+"       \ },
+"       \ 't' : {
+"         \ 'name' : '+tabs'                                ,
+"           \ 'l' : [':XTabLast'                            , 'last-tab'],
+"           \ 'x' : [':XTabReopen'                          , 'reopen-last-tab'],
+"           \ 'X' : [':XTabReopenList'                      , 'reopen-last-tab-list'],
+"           \ 'a' : [':XTabListTabs'                        , 'list-tabs'],
+"           \ 'b' : [':XTabListBuffers'                     , 'list-buffers'],
+"           \ 'L' : [':XTabLoadTab'                         , 'load-tab'],
+"           \ 'S' : [':XTabSaveTab'                         , 'save-tab'],
+"           \ 'D' : [':XTabDeleteTab'                       , 'delete-tab'],
+"       \ },
+"       \ 'c' : {
+"         \ 'name' : '+cleanup'                             ,
+"           \ 'r' : [':XTabResetAll'                        , 'reset-all'],
+"           \ 'p' : [':XTabPurge'                           , 'purge'],
+"           \ 'c' : [':XTabCleanUp'                         , 'cleanup'],
+"           \ 'C' : [':XTabCleanUp!'                        , 'cleanup-reverse'],
+"           \ 'b' : [':XTabDeleteBuffers'                   , 'cleanup-buffers'],
+"       \ },
+"       \ }
 
 " }}}
 

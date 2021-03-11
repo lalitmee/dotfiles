@@ -36,7 +36,7 @@ Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
 " icons {{{
 
 Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
-Plug 'ryanoasis/vim-devicons'                       " vim icons
+" Plug 'ryanoasis/vim-devicons'                       " vim icons
 
 "}}}
 
@@ -165,7 +165,7 @@ Plug 'anott03/nvim-lspinstall'
 Plug 'euclidianAce/BetterLua.vim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
-Plug 'josa42/nvim-lightline-lsp'                    " nvim_lsp support for lightline
+" Plug 'josa42/nvim-lightline-lsp'                    " nvim_lsp support for lightline
 Plug 'kizza/actionmenu.nvim'                        " actions menu
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
 Plug 'neovim/nvim-lspconfig'
@@ -295,11 +295,11 @@ Plug 'tpope/vim-fugitive'                           " version control
 " Plug 'glepnir/galaxyline.nvim' , {
 " \ 'branch': 'main'
 " \ }
-" Plug 'hoob3rt/lualine.nvim'
-" Plug 'romgrk/barbar.nvim'                         " tabline
+Plug 'hoob3rt/lualine.nvim'
+Plug 'romgrk/barbar.nvim'                         " tabline
 " Plug 'tjdevries/express_line.nvim'
-Plug 'itchyny/lightline.vim'                        " lightline for vim
-Plug 'mg979/vim-xtabline'                           " tabline
+" Plug 'itchyny/lightline.vim'                        " lightline for vim
+" Plug 'mg979/vim-xtabline'                           " tabline
 
 " STATUS AND TAB LINES }}}
 

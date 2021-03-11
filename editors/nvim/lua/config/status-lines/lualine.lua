@@ -1,26 +1,32 @@
 require('lualine').status {
   options = {
-    theme = 'nord',
+    -- theme = 'codedark',
+    -- theme = 'forest_night',
+    -- theme = 'gruvbox',
+    -- theme = 'gruvbox_material',
+    -- theme = 'onedark',
+    theme = 'solarized_dark',
     section_separators = { '', '' },
     component_separators = { '', '' },
-    icons_enabled = true
+    icons_enabled = true,
+    padding = 1,
   },
   sections = {
-    lualine_a = { { 'mode', upper = true } },
-    lualine_b = { { 'branch', icon = '' } },
+    lualine_a = {
+      { 'mode', upper = true },
+    },
+    lualine_b = {
+      { 'branch', icon = '' },
+    },
     lualine_c = {
+      { 'filename', full_path = true, file_status = true },
+      { 'diff' },
       {
-        'filename',
-        full_path = true,
-        -- shorten = true,
-        file_status = true
+        'diagnostics',
+        sources = { 'nvim_lsp' },
+        symbols = { error = 'E:', warn = 'W:', info = 'I:' },
       },
-      { 'diagnostics', sources = { 'coc' } },
-      { 'g:coc_status' },
-      { 'b:gitsigns_status' },
-      { 'b:coc_current_function' }
-      -- { 'diagnostics', sources = { 'nvim_lsp' } },
-      -- { 'LspStatus' },
+      { 'LspCurrentFunction' }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
@@ -36,3 +42,4 @@ require('lualine').status {
   },
   extensions = { 'fzf' }
 }
+

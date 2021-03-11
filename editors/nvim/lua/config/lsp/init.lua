@@ -6,19 +6,19 @@ require('config.lsp.handlers')
 
 fn.sign_define(
     'LspDiagnosticsSignError',
-    { text = '🞮', numhl = 'LspDiagnosticsDefaultError' }
+    { text = 'E', numhl = 'LspDiagnosticsDefaultError' }
 )
 fn.sign_define(
     'LspDiagnosticsSignWarning',
-    { text = '▲', numhl = 'LspDiagnosticsDefaultWarning' }
+    { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' }
 )
 fn.sign_define(
     'LspDiagnosticsSignInformation',
-    { text = '⁈', numhl = 'LspDiagnosticsDefaultInformation' }
+    { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' }
 )
 fn.sign_define(
     'LspDiagnosticsSignHint',
-    { text = '⯁', numhl = 'LspDiagnosticsDefaultHint' }
+    { text = 'H', numhl = 'LspDiagnosticsDefaultHint' }
 )
 
 require('config.lsp.angular')
