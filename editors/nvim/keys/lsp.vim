@@ -14,7 +14,7 @@ nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_sag
 " nnoremap <silent> gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 " nnoremap <silent> gn :lua vim.lsp.diagnostic.goto_next()<CR>
 
-inoremap <silent><expr> <C-n> compe#complete()
+inoremap <silent><expr> <C-n>     compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-c>     compe#close('<C-e>')
 inoremap <silent><expr> <C-n>     compe#scroll({ 'delta': +4 })
