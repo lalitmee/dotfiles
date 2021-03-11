@@ -57,7 +57,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
+luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 " luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 " luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
 " luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
@@ -91,11 +91,11 @@ luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 " Status Lines
 " source $HOME/.config/nvim/status-lines/airline.vim
 " source $HOME/.config/nvim/status-lines/barow.vim
-source $HOME/.config/nvim/status-lines/lightline.vim
+" source $HOME/.config/nvim/status-lines/lightline.vim
 
 " Tab Lines
-" source $HOME/.config/nvim/tab-lines/barbar.vim
-source $HOME/.config/nvim/tab-lines/xtabline.vim
+source $HOME/.config/nvim/tab-lines/barbar.vim
+" source $HOME/.config/nvim/tab-lines/xtabline.vim
 
 " Status Lines }}}
 

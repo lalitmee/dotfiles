@@ -1,10 +1,7 @@
 -- I will use this until formatting from LSP is stable.
 local prettier = function()
-  return {
-    exe = 'prettier',
-    args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' },
-    stdin = true
-  }
+  return
+      { exe = 'prettier', args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' }, stdin = true }
 end
 
 local rustfmt = function()
@@ -35,7 +32,7 @@ local luafmt = function()
       '--no-use-tab',
       '--spaces-inside-table-braces',
       '--tab-width=1',
-      '--column-limit=80'
+      '--column-limit=120'
     },
     stdin = true
   }
@@ -59,16 +56,11 @@ require('formatter').setup(
         vue = { prettier },
         yaml = { prettier },
         html = { prettier },
-        rust = { rustfmt },
-        lua = { luafmt }
+        rust = { rustfmt }
+        -- lua = { luafmt }
       }
     }
 )
-
--- vim.api.nvim_command [[augroup Format]]
--- vim.api.nvim_command [[autocmd! * <buffer>]]
--- vim.api.nvim_command [[autocmd BufWritePost <buffer> FormatWrite]]
--- vim.api.nvim_command [[augroup END]]
 
 vim.api.nvim_exec(
     [[

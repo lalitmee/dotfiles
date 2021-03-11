@@ -93,7 +93,9 @@ function! helpers#lightline#format()
 endfunction
 
 function! helpers#lightline#filetype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() . ' ' . &filetype : 'no ft') : ''
+  let file_name, file_ext = fn.expand("%:t"), fn.expand("%:e")
+  let icon = luaeval('require"nvim-web-devicons".get_icon(file_name, file_ext, { default = true })')
+  return winwidth(0) > 70 ? (&filetype !=# '' ? icon . ' ' . &filetype : 'no ft') : ''
 endfunction
 
 " }}}

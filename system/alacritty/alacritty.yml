@@ -95,56 +95,73 @@ font:
     family: Operator Mono Nerd Font
     style: Bold Italic
 
-  # font:
-  #   normal:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Medium
+# font:
+#   normal:
+#     family: JetBrainsMono Nerd Font
+#     style: Medium
 
-  #   bold:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Bold
+#   bold:
+#     family: JetBrainsMono Nerd Font
+#     style: Bold
 
-  #   italic:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Italic
+#   italic:
+#     family: JetBrainsMono Nerd Font
+#     style: Italic
 
-  #   bold_italic:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Bold Italic
+#   bold_italic:
+#     family: JetBrainsMono Nerd Font
+#     style: Bold Italic
 
-  # font:
-  #   normal:
-  #     family: UbuntuMono Nerd Font
-  #     style: Regular
+# font:
+#   normal:
+#     family: UbuntuMono Nerd Font
+#     style: Regular
 
-  #   bold:
-  #     family: UbuntuMono Nerd Font
-  #     style: Bold
+#   bold:
+#     family: UbuntuMono Nerd Font
+#     style: Bold
 
-  #   italic:
-  #     family: UbuntuMono Nerd Font
-  #     style: Italic
+#   italic:
+#     family: UbuntuMono Nerd Font
+#     style: Italic
 
-  #   bold_italic:
-  #     family: UbuntuMono Nerd Font
-  #     style: Bold Italic
+#   bold_italic:
+#     family: UbuntuMono Nerd Font
+#     style: Bold Italic
 
-  # font:
-  #   normal:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Regular
+# font:
+#   normal:
+#     family: BlexMono Nerd Font
+#     style: Medium
 
-  #   bold:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Bold
+#   bold:
+#     family: BlexMono Nerd Font
+#     style: Bold
 
-  #   italic:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Italic
+#   italic:
+#     family: BlexMono Nerd Font
+#     style: Medium Italic
 
-  #   bold_italic:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Bolt Italic
+#   bold_italic:
+#     family: BlexMono Nerd Font
+#     style: Bolt Italic
+
+# font:
+#   normal:
+#     family: CaskaydiaCove Nerd Font
+#     style: Bold
+
+#   bold:
+#     family: CaskaydiaCove Nerd Font
+#     style: Bold
+
+#   italic:
+#     family: CaskaydiaCove Nerd Font
+#     style: Italic
+
+#   bold_italic:
+#     family: CaskaydiaCove Nerd Font
+#     style: Bolt Italic
 
   size: 10
   # Offset is the extra space around each character. `offset.y` can be thought of
