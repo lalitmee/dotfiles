@@ -1,3 +1,6 @@
+" https://github.com/lalitmee/dotfiles
+" Created By: Lalit Kumar
+
 " Auto install vim-plug {{{
 
 " auto-install vim-plug
@@ -140,6 +143,7 @@ source $HOME/.config/nvim/plug-config/vsnip.vim
 " Keys Mappings {{{
 
 " source $HOME/.config/nvim/keys/lsp.vim
+source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/fzf.vim
 source $HOME/.config/nvim/keys/mappings.vim

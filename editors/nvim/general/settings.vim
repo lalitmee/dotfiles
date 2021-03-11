@@ -110,10 +110,10 @@ set path+=**
 " set foldmethod=expr
 " set foldexpr=
 "       \ nvim_treesitter#foldexpr()
-" set foldlevelstart=99
-" set foldnestmax=10                       " deepest fold is 10 levels
-" set foldenable                           " don't fold by default
-" set foldlevel=1
+set foldlevelstart=99
+set foldnestmax=10                       " deepest fold is 10 levels
+set foldenable                           " don't fold by default
+set foldlevel=1
 " set foldtext=
 "       \ CustomFoldText('-')
 
