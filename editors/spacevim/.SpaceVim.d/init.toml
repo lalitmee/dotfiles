@@ -13,7 +13,7 @@
     bootstrap_after = "myspacevim#after"
     bootstrap_before = "myspacevim#before"
     buffer_index_type = 4
-    colorscheme = "codedark"
+    colorscheme = "onedark"
     colorscheme_bg = "dark"
     enable_googlesuggest = 1
     enable_guicolors = true
@@ -104,9 +104,8 @@
     default_position = 'float'
     default_height = 30
 
-
 [[custom_plugins]]
-    repo = 'sainnhe/gruvbox-material'
+    repo = 'junegunn/fzf.vim'
     merged = false
 
 [[custom_plugins]]

@@ -27,7 +27,6 @@
   // suggestions
   // "suggest.echodocSupport": true,
   "suggest.enablePreview": true,
-  "suggest.maxPreviewWidth": 30,
   "suggest.labelMaxLength": 50,
   "suggest.removeDuplicateItems": true,
   "suggest.completionItemKindLabels": {
