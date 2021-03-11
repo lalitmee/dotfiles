@@ -13,7 +13,7 @@
     bootstrap_after = "myspacevim#after"
     bootstrap_before = "myspacevim#before"
     buffer_index_type = 4
-    colorscheme = "onedark"
+    colorscheme = "codedark"
     colorscheme_bg = "dark"
     enable_googlesuggest = 1
     enable_guicolors = true

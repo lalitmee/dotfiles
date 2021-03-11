@@ -8,11 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1096 pages/Orders/Edit/TSO.js
-badd +509 pages/Shipments/Create/BTSTO.js
+badd +840 pages/Orders/ByID/BTSTO.js
 argglobal
 %argdel
-edit pages/Orders/Edit/TSO.js
+edit pages/Orders/ByID/BTSTO.js
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -20,43 +19,21 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-balt pages/Shipments/Create/BTSTO.js
 setlocal fdm=marker
 setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={,}
 setlocal fdi=#
-setlocal fdl=99
+setlocal fdl=8
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-46
-normal! zo
-66
-normal! zo
-118
-normal! zo
-154
-normal! zo
-155
-normal! zo
-179
-normal! zo
-182
-normal! zo
-1085
-normal! zo
-1140
-normal! zo
-1268
-normal! zo
-1273
-normal! zo
-let s:l = 1140 - ((27 * winheight(0) + 27) / 55)
+let s:l = 77 - ((26 * winheight(0) + 27) / 54)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1140
-normal! 012|
+keepjumps 77
+normal! 0
+lcd ~/data/koinearth/wf-webapp-service
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
