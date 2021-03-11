@@ -130,31 +130,31 @@ Plug 'simnalamburt/vim-mundo', {
 
 " coc.nvim {{{
 
-Plug 'josa42/vim-lightline-coc'  " coc.nvim support for lightline
-Plug 'neoclide/coc-neco'         " vim completion for coc
-Plug 'neoclide/coc.nvim', {
-        \ 'branch': 'release'
-      \ }                        " Completion Conquerer
+" Plug 'josa42/vim-lightline-coc'  " coc.nvim support for lightline
+" Plug 'neoclide/coc-neco'         " vim completion for coc
+" Plug 'neoclide/coc.nvim', {
+"         \ 'branch': 'release'
+"       \ }                        " Completion Conquerer
 
 " coc.nvim }}}
 
 " neovim-lsp {{{
 
-" Plug 'alexaandru/nvim-lspupdate'
-" Plug 'anott03/nvim-lspinstall'
-" Plug 'euclidianAce/BetterLua.vim'
-" Plug 'glepnir/lspsaga.nvim'
-" Plug 'hrsh7th/nvim-compe'
-" Plug 'josa42/nvim-lightline-lsp'      " nvim_lsp support for lightline
-" Plug 'kizza/actionmenu.nvim'          " actions menu
+Plug 'alexaandru/nvim-lspupdate'
+Plug 'anott03/nvim-lspinstall'
+Plug 'euclidianAce/BetterLua.vim'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'josa42/nvim-lightline-lsp'      " nvim_lsp support for lightline
+Plug 'kizza/actionmenu.nvim'          " actions menu
 Plug 'kosayoda/nvim-lightbulb'        " lightbulb like vscode
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'ojroques/nvim-lspfuzzy'
-" Plug 'onsails/lspkind-nvim'
-" Plug 'tjdevries/complextras.nvim'
-" Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'ojroques/nvim-lspfuzzy'
+Plug 'onsails/lspkind-nvim'
+Plug 'tjdevries/complextras.nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/nlua.nvim'
 
 " neovim-lsp }}}
