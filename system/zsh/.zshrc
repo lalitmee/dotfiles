@@ -161,6 +161,7 @@ alias st="speed-test"
 # alias for fzf get the output
 alias f="| fzf-tmux -d 40%"
 alias fk="fkill"
+alias procs="procs | fzf-tmux -d 40%"
 
 # gitmoji aliases
 alias gm="gitmoji -s"
@@ -303,6 +304,13 @@ export EDITOR=nvim
 # # z.sh
 # source ~/data/Github/z/z.sh
 
+# great functions for fzf from
+# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+source ~/data/Github/dotfiles/system/fzf/init.zsh
+
+# update cd bookmarks
+chpwd_functions+=(update_marks)
+
 # start tmux while starting new terminal
 _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
@@ -322,9 +330,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-export FZF_DEFAULT_COMMAND='ag --ignore node_modules -g ""'
+export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules -g ""'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--color=dark --layout=reverse --border --inline-info'
+export FZF_DEFAULT_OPTS='--color=dark --layout=reverse --border --inline-info --height=100%'
 # # gruvbox color for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
 '
@@ -355,8 +363,8 @@ export PATH="$HOME/cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-# Navi: An interactive cheatsheet tool for the command-line and application launchers
-source <(navi widget zsh)
+# # Navi: An interactive cheatsheet tool for the command-line and application launchers
+# source <(navi widget zsh)
 
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"

@@ -21,8 +21,8 @@ let g:which_key_map =  {}
 nnoremap <leader>/ :CocSearch <C-R>=expand("<cword>")<CR><CR>
 let g:which_key_map['/'] = 'search-word'
 
-nnoremap <leader>* *<c-o>:%s///gn<cr>
-let g:which_key_map['*'] = 'count-matches'
+" nnoremap <leader>* *<c-o>:%s///gn<cr>
+let g:which_key_map['*'] = 'replace-word'
 
 
 " Change the colors if you want
@@ -40,7 +40,6 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 let g:which_key_map[','] = [ 'w'                                  , 'save' ]
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open-init' ]
 let g:which_key_map[';'] = [ ':Telescope commands'                , 'commands' ]
-let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
 let g:which_key_map['x'] = [ 'q'                                  , 'quit' ]
 let g:which_key_map['z'] = [ 'Goyo'                               , 'zen' ]
 
@@ -157,6 +156,8 @@ let g:which_key_map.d = {
         \ 'f' : [':FzfFiles'                                      , 'files'],
         \ 'g' : [':FzfGFiles'                                     , 'git-files'],
         \ 's' : [':FzfGFiles?'                                    , 'git-status-files'],
+        \ 'd' : [':FzfDotfiles'                                   , 'dotfiles'],
+        \ 'n' : [':FzfNvimConfig'                                 , 'neovim-config'],
       \ },
       \ 'g' : {
         \ 'name' : '+git'                                         ,
@@ -552,6 +553,17 @@ let g:which_key_map.p = {
 let g:which_key_map.p.n = 'swap-parameter-next'
 let g:which_key_map.p.N = 'swap-parameter-previous'
 
+" q is quick-fix-list
+let g:which_key_map.q = {
+      \ 'name' : '+quick-fix-list'                                ,
+      \ 'c' : [':cclose'                                          , 'close-qf-window'],
+      \ 'n' : [':cn'                                              , 'next'],
+      \ 'o' : [':copen'                                           , 'open-qf-window'],
+      \ 'p' : [':cp'                                              , 'previous'],
+      \ 'q' : [':qall'                                            , 'quit-vim'],
+      \ 'l' : [':Telescope quickfix'                              , 'fuzzy-quickfix'],
+      \ }
+
 " s is for search
 let g:which_key_map.s = {
       \ 'name' : '+search'                                        ,
@@ -595,11 +607,12 @@ let g:which_key_map.S = {
 " t is for floaterm
 let g:which_key_map.t = {
       \ 'name' : '+toggle'                                        ,
-      \ 'a' : [':set scrolloff=999'                               , 'scrolloff'],
       \ 't' : [':FloatermNew'                                     , 'terminal'],
       \ 'f' : {
         \ 'name' : '+floaterm'                                    ,
-          \ 'l' : [':FloatermNew lazydocker'                      , 'docker'],
+          \ 'G' : [':FloatermNew tig'                             , 'tig'],
+          \ 'a' : [':FloatermNew terminal_velocity'               , 'terminal_velocity'],
+          \ 'd' : [':FloatermNew lazydocker'                      , 'docker'],
           \ 'f' : [':FloatermNew fzf'                             , 'fzf'],
           \ 'g' : [':FloatermNew lazygit'                         , 'git'],
           \ 'n' : [':FloatermNew node'                            , 'node'],
@@ -607,6 +620,8 @@ let g:which_key_map.t = {
           \ 'r' : [':FloatermNew ranger'                          , 'ranger'],
           \ 's' : [':FloatermNew ncdu'                            , 'ncdu'],
           \ 't' : [':FloatermToggle'                              , 'toggle'],
+          \ 'v' : [':FloatermNew grv'                             , 'grv'],
+          \ 'w' : [':FloatermNew wt'                              , 'weather'],
           \ 'y' : [':FloatermNew btm'                             , 'ytop'],
       \ },
       \ 'h' : [':sp | te'                                         , 'horizontal-split-terminal'],
@@ -634,7 +649,7 @@ let g:which_key_map.T = {
 " u is for UI and toggle
 let g:which_key_map.u = {
       \ 'name' : '+ui/toggle'                                     ,
-      \ 'u' : [':UndotreeToggle'                                  , 'undo-tree'],
+      \ 'u' : [':MundoToggle'                                     , 'mundo-tree'],
       \ }
 
 " w is for windows
@@ -644,36 +659,66 @@ let g:which_key_map.w = {
       \ ';' : ['<C-W>L'                                           , 'move-window-far-right'],
       \ '=' : ['<C-W>='                                           , 'balance-windows'],
       \ '?' : [':FzfWindows'                                      , 'fzf-window'],
+      \ 'H' : ['<C-W>5<'                                          , 'expand-window-left'],
+      \ 'J' : [':resize +5'                                       , 'expand-window-below'],
+      \ 'K' : [':resize  5'                                       , 'expand-window-up'],
+      \ 'L' : ['<C-W>5>'                                          , 'expand-window-right'],
       \ 'a' : ['<C-W>H'                                           , 'move-window-far-left'],
       \ 'd' : ['<C-W>c'                                           , 'delete-window'],
       \ 'h' : ['<C-W>h'                                           , 'window-left'],
-      \ 'H' : ['<C-W>5<'                                          , 'expand-window-left'],
       \ 'i' : ['<C-W>K'                                           , 'move-window-far-top'],
       \ 'j' : ['<C-W>j'                                           , 'window-below'],
-      \ 'J' : [':resize +5'                                       , 'expand-window-below'],
       \ 'k' : ['<C-W>k'                                           , 'window-up'],
-      \ 'K' : [':resize  5'                                       , 'expand-window-up'],
       \ 'l' : ['<C-W>l'                                           , 'window-right'],
-      \ 'L' : ['<C-W>5>'                                          , 'expand-window-right'],
       \ 'm' : [':MaximizerToggle'                                 , 'maximize-windows'],
       \ 'n' : ['<C-W>J'                                           , 'move-window-far-down'],
       \ 's' : ['<C-W>s'                                           , 'split-window-below'],
-      \ 'v' : ['<C-W>v'                                           , 'split-window-right'],
+      \ 't' : ['<C-W>T'                                           , 'move-split-to-tab'],
       \ 'u' : ['<C-W>x'                                           , 'swap-window-next'],
-      \ 'x' : ['call WindowSwap#EasyWindowSwap()'                 , 'mark-window-for-swap'],
-      \ 'y' : ['call WindowSwap#MarkWindowSwap()'                 , 'mark-window-for-swap'],
-      \ 'z' : ['call WindowSwap#DoWindowSwap()'                   , 'do-window-swap'],
+      \ 'v' : ['<C-W>v'                                           , 'split-window-right'],
+      \ 'x' : [':call WindowSwap#EasyWindowSwap()'                , 'window-swap'],
       \ }
 
-" q is quick-fix-list
-let g:which_key_map.q = {
-      \ 'name' : '+quick-fix-list'                                ,
-      \ 'c' : [':cclose'                                          , 'close-qf-window'],
-      \ 'n' : [':cn'                                              , 'next'],
-      \ 'o' : [':copen'                                           , 'open-qf-window'],
-      \ 'p' : [':cp'                                              , 'previous'],
-      \ 'q' : [':qall'                                            , 'quit-vim'],
-      \ 'l' : [':Telescope quickfix'                              , 'fuzzy-quickfix'],
+" w is for windows
+let g:which_key_map.x = {
+      \ 'name' : '+xtabline'                                      ,
+      \ 'b' : {
+        \ 'name' : '+buffers'                                     ,
+          \ 'n' : [':XTabNextBuffer'                              , 'next-buffer'],
+          \ 'p' : [':XTabPrevBuffer'                              , 'prev-buffer'],
+          \ 'c' : [':XTabCloseBuffer'                             , 'close-buffer'],
+          \ 'h' : [':XTabHideBuffer'                              , 'hide-buffer'],
+          \ 'm' : [':XTabMoveBuffer'                              , 'move-buffer'],
+          \ 'f' : [':XTabMoveBufferNext'                          , 'move-buffer-next'],
+          \ 'b' : [':XTabMoveBufferPrev'                          , 'move-buffer-prev'],
+          \ 'i' : [':XTabPinBuffer'                               , 'pin-buffer'],
+      \ },
+      \ 's' : {
+        \ 'name' : '+sessions'                                    ,
+          \ 'l' : [':XTabLoadSession'                             , 'load-session'],
+          \ 's' : [':XTabSaveSession'                             , 'save-session'],
+          \ 'd' : [':XTabDeleteSession'                           , 'delete-session'],
+          \ 'n' : [':XTabNewSession'                              , 'new-session'],
+      \ },
+      \ 't' : {
+        \ 'name' : '+tabs'                                        ,
+          \ 'l' : [':XTabLast'                                    , 'last-tab'],
+          \ 'x' : [':XTabReopen'                                  , 'reopen-last-tab'],
+          \ 'X' : [':XTabReopenList'                              , 'reopen-last-tab-list'],
+          \ 'a' : [':XTabListTabs'                                , 'list-tabs'],
+          \ 'b' : [':XTabListBuffers'                             , 'list-buffers'],
+          \ 'L' : [':XTabLoadTab'                                 , 'load-tab'],
+          \ 'S' : [':XTabSaveTab'                                 , 'save-tab'],
+          \ 'D' : [':XTabDeleteTab'                               , 'delete-tab'],
+      \ },
+      \ 'c' : {
+        \ 'name' : '+cleanup'                                     ,
+          \ 'r' : [':XTabResetAll'                                , 'reset-all'],
+          \ 'p' : [':XTabPurge'                                   , 'purge'],
+          \ 'c' : [':XTabCleanUp'                                 , 'cleanup'],
+          \ 'C' : [':XTabCleanUp!'                                , 'cleanup-reverse'],
+          \ 'b' : [':XTabDeleteBuffers'                           , 'cleanup-buffers'],
+      \ },
       \ }
 
 " Register which key map

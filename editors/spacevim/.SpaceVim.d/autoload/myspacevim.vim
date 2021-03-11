@@ -6,7 +6,6 @@ function! myspacevim#before() abort
 
     " fzf colorschemes
     call SpaceVim#custom#SPC('nmap', [';'], ':CocList commands', 'coc-commands', 1)
-    call SpaceVim#custom#SPC('nmap', ['u', 'c'], ':FzfColors', 'spacevim-colors', 1)
     " fzf.vim
     " f
     call SpaceVim#custom#SPC('nmap', ['f', 'a'], ':FzfPreviewGitActions', 'git-actions', 1)

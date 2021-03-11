@@ -3,67 +3,29 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/data/Github/config_manager
+cd ~/data/Github/dotfiles
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +18 xdg_config/nvim/lua/tj/telescope/init.lua
-badd +50 xdg_config/nvim/lua/tj/telescope/mappings.lua
 argglobal
 %argdel
-edit xdg_config/nvim/lua/tj/telescope/init.lua
 set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 118 + 118) / 237)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 237)
 argglobal
+enew
 setlocal fdm=expr
-setlocal fde=v:lua.manillua.foldexpr(v:lnum)
+setlocal fde=nvim_treesitter#foldexpr()
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=3
+setlocal fdl=99
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 16 - ((15 * winheight(0) + 27) / 55)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 16
-normal! 0
-wincmd w
-argglobal
-if bufexists("xdg_config/nvim/lua/tj/telescope/mappings.lua") | buffer xdg_config/nvim/lua/tj/telescope/mappings.lua | else | edit xdg_config/nvim/lua/tj/telescope/mappings.lua | endif
-if &buftype ==# 'terminal'
-  silent file xdg_config/nvim/lua/tj/telescope/mappings.lua
-endif
-balt xdg_config/nvim/lua/tj/telescope/init.lua
-setlocal fdm=expr
-setlocal fde=v:lua.manillua.foldexpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=3
-setlocal fml=1
-setlocal fdn=10
-setlocal fen
-let s:l = 49 - ((28 * winheight(0) + 27) / 55)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 49
-normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 118 + 118) / 237)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 237)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

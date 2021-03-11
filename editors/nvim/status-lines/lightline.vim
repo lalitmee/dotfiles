@@ -29,6 +29,9 @@
 "       \             [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ],
 "       \             [ 'coc_status', 'gitsigns_status', 'current_function'],
 "       \           ],
+"       \   'right': [ [ 'lineinfo' ],
+"       \              [ 'percent' ],
+"       \              [ 'filetype' ] ],
 "       \ },
 "       \ 'component_function': {
 "       \   'gitbranch': 'helpers#lightline#git_branch',
@@ -41,6 +44,19 @@
 "       \   'gitsigns_status': 'helpers#lightline#gitsigns_status',
 "       \   'current_function': 'helpers#lightline#coc_current_function',
 "       \ },
+"       \ 'mode_map': {
+"         \ 'n' : '<N>',
+"         \ 'i' : '<I>',
+"         \ 'R' : '<R>',
+"         \ 'v' : '<V>',
+"         \ 'V' : '<VL>',
+"         \ "\<C-v>": '<VB>',
+"         \ 'c' : '<C>',
+"         \ 's' : '<S>',
+"         \ 'S' : '<SL>',
+"         \ "\<C-s>": '<SB>',
+"         \ 't': '<T>',
+"         \ },
 "       \ }
 " call lightline#coc#register()
 
@@ -67,6 +83,19 @@ let g:lightline = {
       \   'gitsigns_status': 'helpers#lightline#gitsigns_status',
       \   'current_function': 'helpers#lightline#lsp_current_function',
       \ },
+      \ 'mode_map': {
+        \ 'n' : '<N>',
+        \ 'i' : '<I>',
+        \ 'R' : '<R>',
+        \ 'v' : '<V>',
+        \ 'V' : '<VL>',
+        \ "\<C-v>": '<VB>',
+        \ 'c' : '<C>',
+        \ 's' : '<S>',
+        \ 'S' : '<SL>',
+        \ "\<C-s>": '<SB>',
+        \ 't': '<T>',
+        \ },
       \ }
 call lightline#lsp#register()
 
