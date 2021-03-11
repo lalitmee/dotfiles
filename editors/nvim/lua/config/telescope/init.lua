@@ -20,7 +20,7 @@ local themes = require('telescope.themes')
 -- local action_set = require('telescope.actions.set')
 
 require('telescope').load_extension('snippets')
-require('telescope').load_extension('dap')
+-- require('telescope').load_extension('dap')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('jumps')
@@ -32,7 +32,16 @@ require('telescope').load_extension('ultisnips')
 
 require('telescope').setup {
   defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
     -- prompt_prefix = ' 🔎 ',
+    -- prompt_prefix = ' 🔭 ',
     prompt_prefix = ' > ',
     sorting_strategy = 'ascending',
     prompt_position = 'top',

@@ -59,9 +59,9 @@ nmap gV `[v`]
 inoremap jk <Esc>
 inoremap kj <Esc>
 
-" Easy CAPS
-inoremap <c-u> <ESC>viwUi
-nnoremap <c-u> viwU<Esc>
+" " Easy CAPS
+" inoremap <c-u> <ESC>viwUi
+" nnoremap <c-u> viwU<Esc>
 
 " Better tabbing
 vnoremap < <gv
@@ -73,8 +73,6 @@ vnoremap > >gv
 """ repeat `n.` after editing the searched word
 nnoremap Q @='n.'<CR>
 
-" Close Fzf window on ESC
-autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 " Neovim Terminal Settings
 " Got it from here: https://www.reddit.com/r/neovim/comments/cger8p/how_quickly_close_a_terminal_buffer/eupal7q?utm_source=share&utm_medium=web2x&context=3
@@ -147,3 +145,6 @@ nmap ga <Plug>(EasyAlign)
 
 " count number of lines in visual mode
 vmap L  g<C-g>
+
+" search and replace the word under cursor
+nmap <leader>* :%s/<C-r><C-w>//<Left>

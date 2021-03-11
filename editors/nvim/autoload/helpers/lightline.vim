@@ -1,5 +1,13 @@
 function! helpers#lightline#git_branch()
-  return '  ' . get(b:,'gitsigns_head','')
+  let git_branch_icon = ""
+  let git_branch_icon =
+        \ &filetype=='help' ||
+        \ &filetype=='startify' ||
+        \ &filetype=='NeogitStatus' ||
+        \ &filetype==''
+        \ ? ' - '
+        \ : '  '
+  return git_branch_icon . '' . get(b:,'gitsigns_head','')
 endfunction
 
 function! helpers#lightline#gitsigns_status()
@@ -15,13 +23,30 @@ function! helpers#lightline#readonly()
 endfunction
 
 function! helpers#lightline#filename()
-  let filetype_with_icon = &filetype !=# '' ? &filetype : 'no ft'
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return WebDevIconsGetFileTypeSymbol() . ' ' . path[len(root)+1:]
+  let name = ""
+  if winwidth(0) < 150
+    let subs = split(expand('%'), "/")
+    let i = 1
+    for s in subs
+      let parent = name
+      if  i == len(subs)
+        let name = parent . '/' . s
+      elseif i == 1
+        let name = strpart(s, 0, 1)
+      else
+        let name = parent . '/' . strpart(s, 0, 1)
+      endif
+      let i += 1
+    endfor
+  else
+    let root = fnamemodify(get(b:, 'git_dir'), ':h')
+    let path = expand('%:p')
+    if path[:len(root)-1] ==# root
+      let name = path[len(root)+1:]
+    endif
+    let name = expand('%')
   endif
-  return WebDevIconsGetFileTypeSymbol() . ' ' . expand('%')
+  return name
 endfunction
 
 function! helpers#lightline#mode()
