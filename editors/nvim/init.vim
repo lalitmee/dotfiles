@@ -82,7 +82,6 @@ luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
 luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
-luafile $HOME/.config/nvim/lua/plugins/lsp-fuzzy.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 

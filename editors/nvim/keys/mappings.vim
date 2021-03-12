@@ -12,7 +12,7 @@ cnoremap <C-p> <Up>
 map <C-c> <esc>ggVG<CR>
 
 " turn terminal to normal mode with escape
-tnoremap <Esc> <C-\><C-n>
+tnoremap <buffer><nowait> <Esc> <C-\><C-n>
 tnoremap <silent> <C-[><C-[> <C-\><C-n>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.

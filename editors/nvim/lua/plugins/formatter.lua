@@ -56,8 +56,8 @@ require('formatter').setup(
         vue = { prettier },
         yaml = { prettier },
         html = { prettier },
-        rust = { rustfmt }
-        -- lua = { luafmt }
+        rust = { rustfmt },
+        lua = { luafmt }
       }
     }
 )

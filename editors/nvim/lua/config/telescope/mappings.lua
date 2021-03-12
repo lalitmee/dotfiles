@@ -12,10 +12,7 @@ local map_tele = function(key, f, options, buffer)
   TelescopeMapArgs[map_key] = options or {}
 
   local mode = 'n'
-  local rhs = string.format(
-                  '<cmd>lua R(\'config.telescope\')[\'%s\'](TelescopeMapArgs[\'%s\'])<CR>',
-                  f, map_key
-              )
+  local rhs = string.format('<cmd>lua R(\'config.telescope\')[\'%s\'](TelescopeMapArgs[\'%s\'])<CR>', f, map_key)
 
   local map_options = { noremap = true, silent = true }
 
@@ -26,10 +23,10 @@ local map_tele = function(key, f, options, buffer)
   end
 end
 
-vim.api.nvim_set_keymap(
-    'c', '<c-r><c-r>', '<Plug>(TelescopeFuzzyCommandSearch)',
-    { noremap = false, nowait = true }
-)
+vim.api.nvim_set_keymap('c', '<c-r><c-r>', '<Plug>(TelescopeFuzzyCommandSearch)', { noremap = false, nowait = true })
+
+-- lsp
+map_tele('gd', 'go_to_definition')
 
 -- Dotfiles
 map_tele('<leader>ofn', 'edit_neovim')
