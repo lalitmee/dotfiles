@@ -62,7 +62,7 @@ Plug 'pechorin/any-jump.vim', {
       \ 'on': [
         \ 'AnyJump'
         \ ]
-      \ }                        " any-jump
+      \ }                                           " any-jump
 Plug 'phaazon/hop.nvim', {'on': [
         \ 'HopWord',
         \ 'HopLine',
@@ -70,7 +70,7 @@ Plug 'phaazon/hop.nvim', {'on': [
         \ 'HopChar1',
         \ 'HopChar2'
         \ ]
-      \ }                             " easymotion using lua
+      \ }                                           " easymotion using lua
 
 " Search, Replace and Jump }}}
 
@@ -80,6 +80,12 @@ Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
 
 " Movements }}}
+
+" Navigations {{{
+
+Plug 'ThePrimeagen/harpoon'
+
+" Navigations }}}
 
 " General {{{
 
@@ -161,7 +167,6 @@ Plug 'anott03/nvim-lspinstall'
 Plug 'euclidianAce/BetterLua.vim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
-" Plug 'josa42/nvim-lightline-lsp'                    " nvim_lsp support for lightline
 Plug 'kizza/actionmenu.nvim'                        " actions menu
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
 Plug 'neovim/nvim-lspconfig'
@@ -261,7 +266,7 @@ Plug 'npxbr/glow.nvim', {
 
 " tags {{{
 
-Plug 'liuchengxu/vista.vim'                       " Viewer & Finder for LSP symbols and tags
+Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP symbols and tags
 
 " tags }}}
 
@@ -278,6 +283,11 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
 Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'tpope/vim-fugitive'                           " version control
+Plug 'kdheepak/lazygit.nvim', {
+      \ 'on': [
+        \ 'LazyGit'
+        \ ]
+      \ }                                           " lazygit from neovim
 
 " VERSION CONTROL STYSTEM }}}
 
@@ -287,7 +297,7 @@ Plug 'tpope/vim-fugitive'                           " version control
 " \ 'branch': 'main'
 " \ }
 Plug 'hoob3rt/lualine.nvim'
-Plug 'romgrk/barbar.nvim'                         " tabline
+Plug 'romgrk/barbar.nvim'                           " tabline
 " Plug 'tjdevries/express_line.nvim'
 
 " STATUS AND TAB LINES }}}

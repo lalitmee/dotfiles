@@ -17,15 +17,15 @@ function! s:gitUntracked()
 endfunction
 
 let g:startify_lists = [
-        \ { 'type': 'files',     'header': ['   Recent Files']            },
-        \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-        \ { 'type': function('helpers#startify#listcommits'), 'header': [ '   Recent Commits' ] },
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
+            \ { 'type': 'files',     'header': ['   Recent Files']            },
+            \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+            \ { 'type': 'sessions',  'header': ['   Sessions']       },
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+            \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+            \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+            \ { 'type': function('helpers#startify#listcommits'), 'header': [ '   Recent Commits' ] },
+            \ { 'type': 'commands',  'header': ['   Commands']       },
+            \ ]
 
 let g:startify_session_dir = '~/.config/nvim/sessions'
 
@@ -47,14 +47,18 @@ let g:startify_bookmarks = [
             \ { 'ze': '~/.zshrc' },
             \ ]
 
-function! GetUniqueSessionName()
-  let path = fnamemodify(getcwd(), ':~:t')
-  let path = empty(path) ? 'no-project' : path
-  let branch = gitbranch#name()
-  let branch = empty(branch) ? '' : '-' . branch
-  return substitute(path . branch, '/', '-', 'g')
-endfunction
+" function! StartifyEntryFormat()
+"     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+" endfunction
 
-autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
+" function! GetUniqueSessionName()
+"   let path = fnamemodify(getcwd(), ':~:t')
+"   let path = empty(path) ? 'no-project' : path
+"   let branch = gitbranch#name()
+"   let branch = empty(branch) ? '' : '-' . branch
+"   return substitute(path . branch, '/', '-', 'g')
+" endfunction
+
+" autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
 
 
