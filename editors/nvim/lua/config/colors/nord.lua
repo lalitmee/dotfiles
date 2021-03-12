@@ -46,10 +46,7 @@ Group.new('Search', colors.nord_1, colors.nord_12)
 Group.new('NvimTreeFolderIcon', colors.nord_11, colors.NONE)
 
 -- Neogit
-Group.new(
-    'NeogitDiffAddHighlight', colors.green:dark():dark():dark(),
-    colors.black:light()
-)
+Group.new('NeogitDiffAddHighlight', colors.green:dark():dark():dark(), colors.black:light())
 Group.new('NeogitDiffDeleteHighlight', colors.red:dark(), colors.black:light())
 
 Group.new('NeogitDiffContextHighlight', nil, colors.black:light())
