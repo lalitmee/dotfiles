@@ -60,6 +60,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
 luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 
+
 " }}}
 
 " config {{{
@@ -68,6 +69,7 @@ luafile $HOME/.config/nvim/lua/config/globals/init.lua
 luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
+source $HOME/.config/nvim/lua/lsp-wrapper.vim
 
 " }}}
 
@@ -84,6 +86,7 @@ luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
 luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
+luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
 
 " }}}
 

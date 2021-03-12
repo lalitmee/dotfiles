@@ -92,9 +92,7 @@ end
 
 -- Key mapping
 function M.map(mode, key, result, opts)
-  opts = vim.tbl_extend(
-             'keep', opts or {}, { noremap = true, silent = true, expr = false }
-         )
+  opts = vim.tbl_extend('keep', opts or {}, { noremap = true, silent = true, expr = false })
   fn.nvim_set_keymap(mode, key, result, opts)
 end
 
@@ -138,11 +136,7 @@ end
 
 function M.apply_colorscheme(name, mode)
   M.apply_options(
-      {
-        termguicolors = true,
-        guicursor = 'n-v-c-sm:block,i-ci-ve:ver50-Cursor,r-cr-o:hor50',
-        background = mode
-      }
+      { termguicolors = true, guicursor = 'n-v-c-sm:block,i-ci-ve:ver50-Cursor,r-cr-o:hor50', background = mode }
   )
 
   M.apply_globals({ colors_name = name })
@@ -164,9 +158,7 @@ function M.help_tab()
   if bo.buftype == 'help' then
     cmd('wincmd L')
     local nr = api.nvim_get_current_buf()
-    api.nvim_buf_set_keymap(
-        nr, '', 'q', ':q<CR>', { noremap = true, silent = true }
-    )
+    api.nvim_buf_set_keymap(nr, '', 'q', ':q<CR>', { noremap = true, silent = true })
   end
 end
 

@@ -34,16 +34,28 @@ lsp_config.efm.setup(
         '-logfile',
         efm_log_dir .. 'efm.log'
       },
-      filetype = {
+      filetypes = {
+        'css',
+        'graphql',
+        'html',
         'javascript',
         'javascriptreact',
+        'json',
+        'less',
+        'lua',
+        'markdown',
+        'sass',
+        'scss',
+        'sh',
         'typescript',
-        'typescriptreact'
+        'typescriptreact',
+        'vim',
+        'yaml'
       },
       capabilities = lsp_status.capabilities,
       on_attach = on_attach,
       root_dir = lsp_config.util.root_pattern(unpack(efm_root_markers)),
-      init_options = { documentFormatting = false },
+      init_options = { documentFormatting = true },
       settings = { rootMarkers = efm_root_markers, languages = efm_languages }
     }
 )

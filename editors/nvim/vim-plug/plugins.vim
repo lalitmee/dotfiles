@@ -46,6 +46,7 @@ Plug 'kshenoy/vim-signature'                        " toggle, display and naviga
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
+" Plug 'norcalli/ui.nvim'                             " figure out what this does
 
 "}}}
 
@@ -55,6 +56,7 @@ Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the 
 
 " Search, Replace and Jump {{{
 
+Plug 'thinca/vim-visualstar'
 Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-pseudocl'
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
@@ -98,6 +100,7 @@ Plug 'christoomey/vim-tmux-runner'                  " tmux runner for tests
 Plug 'haya14busa/incsearch.vim'                     " Better search highlighting
 Plug 'ntpeters/vim-better-whitespace'               " Better Whitespace
 Plug 'scr1pt0r/crease.vim'                          " nice fold text
+Plug 'Konfekt/FastFold'                             " fast folds in vim
 Plug 'szw/vim-maximizer'                            " Maximizer for vim
 Plug 'tommcdo/vim-exchange'                         " vim-exchange for exchanging words
 Plug 'wellle/targets.vim'                           " targets.vim for extra motions
@@ -106,6 +109,12 @@ Plug 'wesQ3/vim-windowswap'                         " Swap windows
 
 " General }}}
 
+" Profiling {{{
+
+Plug 'dstein64/vim-startuptime'
+
+" Profiling }}}
+
 " ACTIONS }}}
 
 " TEXT {{{
@@ -113,8 +122,8 @@ Plug 'wesQ3/vim-windowswap'                         " Swap windows
 " Notes {{{
 
 " Plug 'oberblastmeister/neuron.nvim'               " note taking using lua
-Plug 'michal-h21/vim-zettel'                        " zettel tasks
-Plug 'vimwiki/vimwiki'                              " vim wiki
+" Plug 'michal-h21/vim-zettel'                        " zettel tasks
+" Plug 'vimwiki/vimwiki'                              " vim wiki
 
 " Notes }}}
 
@@ -132,6 +141,7 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Plug 'glepnir/indent-guides.nvim'                 " indent guides using lua
 Plug 'mhartington/formatter.nvim'                   " formatter in lua
+Plug 'pappasam/vim-filetype-formatter'
 Plug 'Yggdroot/indentLine', {
         \ 'on': 'IndentLinesEnable'
       \ }                                           " Indent Lines made beautiful
@@ -146,6 +156,19 @@ Plug 'simnalamburt/vim-mundo', {
       \ }                                           " undo tree visualizer
 
 " Undo }}}
+
+" Highlight Yank {{{
+
+Plug 'machakann/vim-highlightedyank'
+
+" Highlight Yank }}}
+
+" General {{{
+
+Plug 'vim-scripts/JavaScript-Indent'
+Plug 'vim-scripts/restore_view.vim'
+
+" General }}}
 
 " TEXT }}}
 
@@ -163,6 +186,7 @@ Plug 'simnalamburt/vim-mundo', {
 
 " neovim-lsp {{{
 
+Plug 'glacambre/nvim-lsp'
 Plug 'alexaandru/nvim-lspupdate'
 Plug 'anott03/nvim-lspinstall'
 Plug 'euclidianAce/BetterLua.vim'
@@ -201,7 +225,7 @@ Plug 'chemzqm/vim-jsx-improve'                      " better jsx
 
 " LSP }}}
 
-" SEARCH {{{
+" FUZZY SEARCH {{{
 
 " fzf.vim {{{
 
@@ -220,22 +244,23 @@ Plug 'yuki-yano/fzf-preview.vim', {
 " telescope.nvim {{{
 
 " Plug 'nvim-telescope/telescope-dap.nvim'
-Plug 'nvim-telescope/telescope-snippets.nvim'
-Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope-cheat.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-snippets.nvim'
+Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'tkmpypy/telescope-jumps.nvim'
 
 " telescope.nvim }}}
 
-" SEARCH }}}
+" FUZZY SEARCH }}}
 
 " LANGUAGES {{{
 
@@ -321,7 +346,7 @@ Plug 'tpope/vim-unimpaired'
 
 " Plug 'junegunn/goyo.vim', {
 "       \ 'on': 'Goyo'
-"       \ }                                           " Zen mode
+"       \ }                                         " Zen mode
 
 " junegunn }}}
 

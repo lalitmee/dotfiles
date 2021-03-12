@@ -30,3 +30,6 @@ Group.new('BufferCurrentSign', nil, nil, s.bold)
 
 -- Group.new('QuickScopePrimary', c.green:dark(), nil, s.bold)
 -- Group.new('QuickScopeSecondary', c.blue:dark(), nil, s.bold)
+
+Group.new('LspLinesDiagBorder', c.white, nil, s.NONE)
+Group.new('LineDiagTuncateLine', c.white, nil, s.NONE)
