@@ -30,6 +30,7 @@ Plug 'tjdevries/train.nvim', {
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
+Plug 'gruvbox-community/gruvbox'
 
 "}}}
 
