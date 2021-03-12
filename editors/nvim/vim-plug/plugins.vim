@@ -319,9 +319,10 @@ Plug 'tpope/vim-unimpaired'
 
 " junegunn {{{
 
-Plug 'junegunn/goyo.vim', {
-      \ 'on': 'Goyo'
-      \ }                                           " Zen mode
+" Plug 'junegunn/goyo.vim', {
+"       \ 'on': 'Goyo'
+"       \ }                                           " Zen mode
+
 " junegunn }}}
 
 " VIM NINJAS }}}
