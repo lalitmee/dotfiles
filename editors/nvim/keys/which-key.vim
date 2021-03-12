@@ -101,20 +101,21 @@ let g:which_key_map.c = {
       \ 'name' : '+code'                                  ,
       \ 'a' : [':Lspsaga code_action'                     , 'code-action'],
       \ 'A' : [':Lspsaga range_code_action'               , 'range-code-action'],
+      \ 'b' : [':Telescope lsp_code_actions'              , 'lsp-code-actions'],
+      \ 'B' : [':Telescope lsp_range_code_actions'        , 'lsp-range-code-actions'],
       \ 'c' : [':Lspsaga close_floatterm'                 , 'close-floatterm'],
+      \ 'd' : [':Telescope lsp_definitions'               , 'lsp-definitions'],
+      \ 'e' : [':Telescope lsp_document_diagnostics'      , 'lsp-document-diagnostics'],
+      \ 'E' : [':Telescope lsp_workspace_diagnostics'     , 'lsp-workspace-diagnostics'],
       \ 'h' : [':Lspsaga hover_doc'                       , 'hover-doc'],
       \ 'o' : [':Lspsaga open_floatterm'                  , 'open-floatterm'],
       \ 'p' : [':Lspsaga preview_definition'              , 'preview-definition'],
+      \ 'r' : [':Telescope lsp_references'                , 'lsp-references'],
       \ 'R' : [':Lspsaga lsp_finder'                      , 'references'],
       \ 's' : [':Lspsaga signaute_help'                   , 'signature-help'],
-      \ 'd' : [':Telescope lsp_definitions'               , 'lsp-definitions'],
-      \ 'r' : [':Telescope lsp_references'                , 'lsp-references'],
+      \ 't' : [':Telescope treesitter'                    , 'treesitter-symbols'],
       \ 'w' : [':Telescope lsp_document_symbols'          , 'lsp-document-symbols'],
       \ 'W' : [':Telescope lsp_workspace_symbols'         , 'lsp-workspace-symbols'],
-      \ 'e' : [':Telescope lsp_document_diagnostics'      , 'lsp-document-diagnostics'],
-      \ 'E' : [':Telescope lsp_workspace_diagnostics'     , 'lsp-workspace-diagnostics'],
-      \ 'b' : [':Telescope lsp_code_actions'              , 'lsp-code-actions'],
-      \ 'B' : [':Telescope lsp_range_code_actions'        , 'lsp-range-code-actions'],
       \ }
 
 " }}}
@@ -663,7 +664,9 @@ let g:which_key_map.u = {
 let g:which_key_map.v = {
       \ 'name' : '+vim'                                   ,
       \ ':' : [':Telescope commands'                      , 'commands'],
-      \ 'h' : [':Telescope command_history'               , 'commands-history'],
+      \ 'h' : [':Telescope help_tags'                     , 'help-tags'],
+      \ 'H' : [':Telescope command_history'               , 'commands-history'],
+      \ 'o' : [':Telescope vim_options'                   , 'options'],
       \ 'p' : {
         \ 'name' : '+vim-plug'                            ,
           \ 'c' : [':PlugClean'                           , 'clean'],
