@@ -53,17 +53,28 @@ source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins {{{
 
+" status lines {{{
 
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
 luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
-" luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
-" luafile $HOME/.config/nvim/lua/plugins/neuron.lua
+
+" }}}
+
+" config {{{
+
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
 luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
+
+" }}}
+
+" plugins {{{
+
+" luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
+" luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
 luafile $HOME/.config/nvim/lua/plugins/completion.lua
@@ -74,6 +85,9 @@ luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
 luafile $HOME/.config/nvim/lua/plugins/lsp-fuzzy.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
+
+" }}}
+
 " Lua Plugins }}}
 
 " Colorschemes {{{

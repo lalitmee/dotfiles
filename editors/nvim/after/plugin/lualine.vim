@@ -4,7 +4,8 @@ function! LspCurrentFunction() abort
     if current_function == v:null || current_function == ""
       return ""
     else
-      return 'ƒ '. nvim_treesitter#statusline(90)
+      " return 'ƒ '. nvim_treesitter#statusline(90)
+      return nvim_treesitter#statusline(90)
     endif
   endif
   return ""

@@ -85,7 +85,7 @@ require('telescope').setup {
       override_file_sorter = true,
     },
     fzf_writer = {
-      use_highlighter = true,
+      use_highlighter = false,
       minimum_grep_characters = 0,
       minimum_files_characters = 0,
     },
