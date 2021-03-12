@@ -10,7 +10,6 @@ local reloader = function()
     RELOAD('telescope')
   end
 end
-
 reloader()
 
 local actions = require('telescope.actions')
@@ -18,12 +17,13 @@ local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
 -- require('telescope').load_extension('dap')
-require('telescope').load_extension('snippets')
+require('telescope').load_extension('cheat')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('jumps')
 require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
+require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
 
 require('telescope').setup {
@@ -71,7 +71,7 @@ require('telescope').setup {
   },
   extensions = {
     fzy_native = { override_generic_sorter = false, override_file_sorter = true },
-    fzf_writer = { use_highlighter = true, minimum_grep_characters = 0, minimum_files_characters = 0 },
+    fzf_writer = { use_highlighter = true, minimum_grep_characters = 3, minimum_files_characters = 3 },
     media_files = { filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' }, find_cmd = 'rg' },
     frecency = {
       show_unindexed = true,
@@ -206,7 +206,9 @@ function M.oldfiles()
   end
   if pcall(require('telescope').load_extension, 'frecency') then
   else
-    require('telescope.builtin').oldfiles { layout_strategy = 'vertical' }
+    require('telescope.builtin').oldfiles {
+      -- layout_strategy = 'vertical',
+    }
   end
 end
 
@@ -215,14 +217,13 @@ function M.my_plugins()
 end
 
 function M.installed_plugins()
-  require('telescope.builtin').find_files { cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/' }
+  require('telescope.builtin').find_files { cwd = vim.fn.stdpath('config') .. '/autoload/plugged' }
 end
 
 function M.project_search()
   require('telescope.builtin').find_files {
-    previewer = false,
+    -- previewer = true,
     hidden = true,
-    layout_strategy = 'vertical',
     cwd = require('nvim_lsp.util').root_pattern('.git')(vim.fn.expand('%:p'))
   }
 end
@@ -232,7 +233,7 @@ function M.buffers()
 end
 
 function M.curbuf()
-  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown { winblend = 0, border = true, previewer = false, shorten_path = false }
   require('telescope.builtin').current_buffer_fuzzy_find(opts)
 end
 
@@ -241,7 +242,16 @@ function M.help_tags()
 end
 
 function M.search_all_files()
-  require('telescope.builtin').find_files { find_command = { 'rg', '--no-ignore', '--files' } }
+  require('telescope.builtin').find_files {
+    find_command = {
+      'rg',
+      '--no-ignore',
+      '--hidden',
+      -- '--glob="!.git/*"',
+      '--files'
+    },
+    hidden = true
+  }
 end
 
 function M.file_browser()

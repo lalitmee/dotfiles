@@ -4,28 +4,16 @@ require('config.lsp.status')
 require('lspkind').init({})
 require('config.lsp.handlers')
 
-fn.sign_define(
-    'LspDiagnosticsSignError',
-    { text = 'E', numhl = 'LspDiagnosticsDefaultError' }
-)
-fn.sign_define(
-    'LspDiagnosticsSignWarning',
-    { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' }
-)
-fn.sign_define(
-    'LspDiagnosticsSignInformation',
-    { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' }
-)
-fn.sign_define(
-    'LspDiagnosticsSignHint',
-    { text = 'H', numhl = 'LspDiagnosticsDefaultHint' }
-)
+fn.sign_define('LspDiagnosticsSignError', { text = 'E', numhl = 'LspDiagnosticsDefaultError' })
+fn.sign_define('LspDiagnosticsSignWarning', { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' })
+fn.sign_define('LspDiagnosticsSignInformation', { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' })
+fn.sign_define('LspDiagnosticsSignHint', { text = 'H', numhl = 'LspDiagnosticsDefaultHint' })
 
+-- require('config.lsp.clang')
+-- require('config.lsp.diagnostics')
 require('config.lsp.angular')
 require('config.lsp.bash')
--- require('config.lsp.clang')
 require('config.lsp.css')
--- require('config.lsp.diagnostics')
 require('config.lsp.docker')
 require('config.lsp.efm')
 require('config.lsp.go')

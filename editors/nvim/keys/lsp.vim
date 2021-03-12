@@ -11,6 +11,13 @@ nnoremap <silent> gwl :Telescope lsp_workspace_symbols<CR>
 nnoremap <silent> ge :Telescope lsp_document_diagnostics<CR>
 nnoremap <silent> gE :Telescope lsp_workspace_diagnostics<CR>
 
+" nnoremap <silent> gd :LspDefinition<CR>
+" nnoremap <silent> gr :LspReferences<CR>
+" nnoremap <silent> gwl :LspWorkspaceSymbols<CR>
+" nnoremap <silent> gw :LspDocumentSymbols<CR>
+" nnoremap <silent> ge :LspGetAllDiagnostics<CR>
+" nnoremap <silent> gE :Telescope lsp_workspace_diagnostics<CR>
+
 inoremap <silent><expr> <C-n>     compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-c>     compe#close('<C-e>')
