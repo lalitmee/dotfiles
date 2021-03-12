@@ -172,7 +172,6 @@ Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'ojroques/nvim-lspfuzzy'
 Plug 'onsails/lspkind-nvim'
 Plug 'tjdevries/complextras.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'

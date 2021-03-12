@@ -35,9 +35,7 @@ require('telescope').setup {
       '--with-filename',
       '--line-number',
       '--column',
-      '--smart-case',
-      '--count-matches',
-      '--count',
+      '--smart-case'
     },
     prompt_prefix = ' > ',
     sorting_strategy = 'ascending',
@@ -64,35 +62,17 @@ require('telescope').setup {
     file_sorter = sorters.get_fzy_sorter,
 
     layout_defaults = {
-      horizontal = {
-        width_padding = 0.11,
-        height_padding = 0.13,
-        preview_width = 0.56,
-      },
-      vertical = {
-        width_padding = 0.4,
-        height_padding = 0.8,
-        preview_height = 0.5,
-      }
+      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
+      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
     },
     file_previewer = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
     qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new
   },
   extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
-      override_file_sorter = true,
-    },
-    fzf_writer = {
-      use_highlighter = false,
-      minimum_grep_characters = 0,
-      minimum_files_characters = 0,
-    },
-    media_files = {
-      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
-      find_cmd = 'rg',
-    },
+    fzy_native = { override_generic_sorter = false, override_file_sorter = true },
+    fzf_writer = { use_highlighter = true, minimum_grep_characters = 0, minimum_files_characters = 0 },
+    media_files = { filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' }, find_cmd = 'rg' },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
@@ -131,16 +111,8 @@ function M.edit_neovim()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = {
-        width_padding = 0.11,
-        height_padding = 0.13,
-        preview_width = 0.56,
-      },
-      vertical = {
-        width_padding = 0.4,
-        height_padding = 0.8,
-        preview_height = 0.5,
-      }
+      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
+      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
     }
   }
 end
@@ -154,16 +126,8 @@ function M.edit_dotfiles()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = {
-        width_padding = 0.11,
-        height_padding = 0.13,
-        preview_width = 0.56,
-      },
-      vertical = {
-        width_padding = 0.4,
-        height_padding = 0.8,
-        preview_height = 0.5,
-      }
+      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
+      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
     }
   }
 end
@@ -176,16 +140,8 @@ function M.edit_zsh()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = {
-        width_padding = 0.11,
-        height_padding = 0.13,
-        preview_width = 0.56,
-      },
-      vertical = {
-        width_padding = 0.4,
-        height_padding = 0.8,
-        preview_height = 0.5,
-      }
+      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
+      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
     }
   }
 end
@@ -199,52 +155,35 @@ function M.builtin()
 end
 
 function M.git_files()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false,
-  }
+  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
 
   require('telescope.builtin').git_files(opts)
 end
 
 function M.buffer_git_files()
   require('telescope.builtin').git_files(
-    themes.get_dropdown {
-      cwd = vim.fn.expand('%:p:h'),
-      winblend = 10,
-      border = true,
-      previewer = false,
-      shorten_path = false
-    }
+      themes.get_dropdown {
+        cwd = vim.fn.expand('%:p:h'),
+        winblend = 10,
+        border = true,
+        previewer = false,
+        shorten_path = false
+      }
   )
 end
 
 function M.lsp_code_actions()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false,
-  }
+  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
 
   require('telescope.builtin').lsp_code_actions(opts)
 end
 
 function M.live_grep()
-  require('telescope').extensions.fzf_writer.staged_grep {
-    shorten_path = true,
-    previewer = false,
-    fzf_separator = '|>',
-  }
+  require('telescope').extensions.fzf_writer.staged_grep { shorten_path = true, previewer = false, fzf_separator = '|>' }
 end
 
 function M.grep_prompt()
-  require('telescope.builtin').grep_string {
-    shorten_path = true,
-    search = vim.fn.input('Grep String > '),
-  }
+  require('telescope.builtin').grep_string { shorten_path = true, search = vim.fn.input('Grep String > ') }
 end
 
 function M.grep_last_search(opts)
@@ -272,15 +211,11 @@ function M.oldfiles()
 end
 
 function M.my_plugins()
-  require('telescope.builtin').find_files {
-    cwd = '~/plugins/',
-  }
+  require('telescope.builtin').find_files { cwd = '~/plugins/' }
 end
 
 function M.installed_plugins()
-  require('telescope.builtin').find_files {
-    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/',
-  }
+  require('telescope.builtin').find_files { cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/' }
 end
 
 function M.project_search()
@@ -293,31 +228,20 @@ function M.project_search()
 end
 
 function M.buffers()
-  require('telescope.builtin').buffers {
-    shorten_path = false,
-  }
+  require('telescope.builtin').buffers { shorten_path = false }
 end
 
 function M.curbuf()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false,
-  }
+  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
   require('telescope.builtin').current_buffer_fuzzy_find(opts)
 end
 
 function M.help_tags()
-  require('telescope.builtin').help_tags {
-    show_version = true,
-  }
+  require('telescope.builtin').help_tags { show_version = true }
 end
 
 function M.search_all_files()
-  require('telescope.builtin').find_files {
-    find_command = { 'rg', '--no-ignore', '--files' },
-  }
+  require('telescope.builtin').find_files { find_command = { 'rg', '--no-ignore', '--files' } }
 end
 
 function M.file_browser()
@@ -328,16 +252,24 @@ function M.file_browser()
   }
 end
 
-return setmetatable(
-  {}, {
-    __index = function(_, k)
-      reloader()
-
-      if M[k] then
-        return M[k]
-      else
-        return require('telescope.builtin')[k]
-      end
-    end
+function M.go_to_definition()
+  require('telescope.builtin').lsp_definitions {
+    -- sorting_strategy = 'ascending',
+    -- scroll_strategy = 'cycle',
+    -- prompt_position = 'top'
   }
-)
+end
+
+return setmetatable(
+           {}, {
+      __index = function(_, k)
+        reloader()
+
+        if M[k] then
+          return M[k]
+        else
+          return require('telescope.builtin')[k]
+        end
+      end
+    }
+       )

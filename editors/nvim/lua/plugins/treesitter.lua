@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup(
     {
-      ensure_installed = 'all',
+      ensure_installed = 'maintained',
       highlight = { enable = true },
       indent = { enable = true },
       rainbow = { enable = true },
@@ -33,28 +33,13 @@ require'nvim-treesitter.configs'.setup(
         },
         move = {
           enable = true,
-          goto_next_start = {
-            [']m'] = '@function.outer',
-            [']]'] = '@class.outer'
-          },
+          goto_next_start = { [']m'] = '@function.outer', [']]'] = '@class.outer' },
           goto_next_end = { [']M'] = '@function.outer', [']['] = '@class.outer' },
-          goto_previous_start = {
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer'
-          },
-          goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer'
-          }
+          goto_previous_start = { ['[m'] = '@function.outer', ['[['] = '@class.outer' },
+          goto_previous_end = { ['[M'] = '@function.outer', ['[]'] = '@class.outer' }
         },
         tree_docs = { enable = true },
-        lsp_interop = {
-          enable = true,
-          peek_definition_code = {
-            ['df'] = '@function.outer',
-            ['dF'] = '@class.outer'
-          }
-        }
+        lsp_interop = { enable = true, peek_definition_code = { ['df'] = '@function.outer', ['dF'] = '@class.outer' } }
       }
     }
 )
