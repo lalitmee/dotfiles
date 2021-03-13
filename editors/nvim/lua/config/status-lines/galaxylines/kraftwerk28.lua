@@ -1,4 +1,5 @@
-local gl = require 'galaxyline'
+-- NOTE: from kraftwerk28 dotfiles
+local gl = require('galaxyline')
 local gls = gl.section
 
 local fileinfo = require('galaxyline.provider_fileinfo')

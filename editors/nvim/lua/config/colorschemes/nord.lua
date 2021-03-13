@@ -46,7 +46,10 @@ Group.new('Search', colors.nord_1, colors.nord_12)
 Group.new('NvimTreeFolderIcon', colors.nord_11, colors.NONE)
 
 -- Neogit
-Group.new('NeogitDiffAddHighlight', colors.green:dark():dark():dark(), colors.black:light())
+Group.new(
+    'NeogitDiffAddHighlight', colors.green:dark():dark():dark(),
+    colors.black:light()
+)
 Group.new('NeogitDiffDeleteHighlight', colors.red:dark(), colors.black:light())
 
 Group.new('NeogitDiffContextHighlight', nil, colors.black:light())
@@ -61,3 +64,6 @@ Group.new('BufferCurrent', colors.orange, nil, styles.bold)
 Group.new('BufferCurrentIndex', colors.orange, nil, styles.bold)
 Group.new('BufferCurrentMod', colors.red:dark(), nil, styles.bold)
 Group.new('BufferCurrentSign', nil, nil, styles.bold)
+
+-- telescope
+Group.new('TelescopeMatching', colors.orange:saturate(.20), colors.None, s.bold)

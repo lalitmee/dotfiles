@@ -129,8 +129,6 @@ nmap ga <Plug>(EasyAlign)
 
 " Go back to alternate file (but retain other g<whatever> mappings) {{{
 
-nmap g  :w<CR>:e #<CR>
-
 function! s:conditional_nnoremap ( name )
     if maparg(a:name, 'n') == ""
         execute 'nnoremap  <unique> ' . a:name . ' ' . a:name

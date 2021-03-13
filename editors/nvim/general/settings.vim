@@ -76,6 +76,8 @@ set undolevels=1000                        " use many muchos levels of undo
 
 set viminfo='1000
 
+set sessionoptions+=globals
+
 set colorcolumn=80
 highlight ColorColumn guibg=#3B4252
 

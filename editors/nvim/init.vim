@@ -56,8 +56,9 @@ source $HOME/.config/nvim/general/tmux.vim
 " status lines {{{
 
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/disrupted.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/glepnir.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
 luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 
 
@@ -94,9 +95,9 @@ luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
 
 " Colorschemes {{{
 
-" luafile $HOME/.config/nvim/lua/config/colors/nord.lua
+" luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
 " source $HOME/.config/nvim/colorschemes/gruvbox.vim
-luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
+luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
 
 " Colorschemes }}}
 
@@ -107,7 +108,8 @@ luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
 " source $HOME/.config/nvim/status-lines/barow.vim
 
 " Tab Lines
-source $HOME/.config/nvim/tab-lines/barbar.vim
+" source $HOME/.config/nvim/tab-lines/barbar.vim
+luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 
 " Status Lines }}}
 
@@ -118,6 +120,7 @@ source $HOME/.config/nvim/tab-lines/barbar.vim
 " source $HOME/.config/nvim/plug-config/goyo.vim
 " source $HOME/.config/nvim/plug-config/ranger.vim
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
+" source $HOME/.config/nvim/plug-config/auto-resize.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/crease.vim
@@ -127,6 +130,7 @@ source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
+source $HOME/.config/nvim/plug-config/fzf-project.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/indentLine.vim

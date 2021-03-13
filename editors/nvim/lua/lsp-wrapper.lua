@@ -44,6 +44,10 @@ function lsp_wrapper.hover()
   vim.lsp.buf.hover()
 end
 
+function lsp_wrapper.signature_help()
+  vim.lsp.buf.signature_help()
+end
+
 function lsp_wrapper.implementation()
   vim.lsp.buf.implementation()
 end
@@ -81,10 +85,6 @@ function lsp_wrapper.rename()
   vim.lsp.buf.rename()
 end
 
-function lsp_wrapper.signature_help()
-  vim.lsp.buf.signature_help()
-end
-
 function lsp_wrapper.type_definition()
   vim.lsp.buf.type_definition()
 end
@@ -117,6 +117,10 @@ end
 
 function lsp_wrapper.show_line_diagnostics()
   vim.lsp.diagnostic.show_line_diagnostics()
+end
+
+function lsp_wrapper.set_diagnostics_loclist()
+  vim.lsp.diagnostic.set_loclist()
 end
 
 return lsp_wrapper

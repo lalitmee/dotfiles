@@ -42,11 +42,12 @@ Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
 
 " General {{{
 
+" Plug 'kovetskiy/vim-autoresize'                   " auto resize window for vim
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
-" Plug 'norcalli/ui.nvim'                             " figure out what this does
+" Plug 'norcalli/ui.nvim'                           " figure out what this does
 
 "}}}
 
@@ -92,6 +93,10 @@ Plug 'ThePrimeagen/harpoon'
 
 " General {{{
 
+Plug 'mhinz/vim-sayonara', {
+      \ 'on': 'Sayonara'
+      \ }                                           " delete buffers and windows
+Plug 'andymass/vim-matchup'                         " match brackets and more
 Plug 'AndrewRadev/splitjoin.vim'                    " Switch between single-line and multiline forms of code
 Plug 'antoinemadec/FixCursorHold.nvim'              " fix cursor hold
 Plug 'christoomey/vim-sort-motion'                  " sorting in vim
@@ -122,8 +127,8 @@ Plug 'dstein64/vim-startuptime'
 " Notes {{{
 
 " Plug 'oberblastmeister/neuron.nvim'               " note taking using lua
-" Plug 'michal-h21/vim-zettel'                        " zettel tasks
-" Plug 'vimwiki/vimwiki'                              " vim wiki
+" Plug 'michal-h21/vim-zettel'                      " zettel tasks
+" Plug 'vimwiki/vimwiki'                            " vim wiki
 
 " Notes }}}
 
@@ -142,9 +147,7 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 " Plug 'glepnir/indent-guides.nvim'                 " indent guides using lua
 Plug 'mhartington/formatter.nvim'                   " formatter in lua
 Plug 'pappasam/vim-filetype-formatter'
-Plug 'Yggdroot/indentLine', {
-        \ 'on': 'IndentLinesEnable'
-      \ }                                           " Indent Lines made beautiful
+Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
 Plug 'godlygeek/tabular'                            " Tabularize for Vim
 
 " Format }}}
@@ -189,13 +192,15 @@ Plug 'vim-scripts/restore_view.vim'
 Plug 'glacambre/nvim-lsp'
 Plug 'alexaandru/nvim-lspupdate'
 Plug 'anott03/nvim-lspinstall'
-Plug 'euclidianAce/BetterLua.vim'
+Plug 'euclidianAce/BetterLua.vim', {
+      \ 'for': 'lua'
+      \ }                                           " better lua syntax highlighting
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
-Plug 'kizza/actionmenu.nvim'                        " actions menu
+" Plug 'kizza/actionmenu.nvim'                      " actions menu
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'tjdevries/complextras.nvim'
@@ -238,6 +243,8 @@ Plug 'yuki-yano/fzf-preview.vim', {
       \ 'branch': 'release/remote',
       \ 'do': ':UpdateRemotePlugs'
       \ }                                           " fzf with preview
+Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
+Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
 
@@ -322,7 +329,8 @@ Plug 'kdheepak/lazygit.nvim', {
 " \ 'branch': 'main'
 " \ }
 Plug 'hoob3rt/lualine.nvim'
-Plug 'romgrk/barbar.nvim'                           " tabline
+Plug 'akinsho/nvim-bufferline.lua'
+" Plug 'romgrk/barbar.nvim'                         " tabline
 " Plug 'tjdevries/express_line.nvim'
 
 " STATUS AND TAB LINES }}}
@@ -356,6 +364,7 @@ Plug 'tpope/vim-unimpaired'
 
 " Explorer {{{
 
+Plug 'justinmk/vim-dirvish'
 Plug 'kyazdani42/nvim-tree.lua', {
       \ 'on': 'NvimTreeToggle'
       \ }                                           " file explorer

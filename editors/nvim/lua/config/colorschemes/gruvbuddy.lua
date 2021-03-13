@@ -29,7 +29,7 @@ Group.new('BufferCurrentMod', c.red:dark(), nil, s.bold)
 Group.new('BufferCurrentSign', nil, nil, s.NONE)
 
 Group.new('BufferInactive', c.black, c.yellow:light(), s.NONE)
-Group.new('BufferInactiveIndex', nil, c.yellow:light(), s.NONE)
+Group.new('BufferInactiveIndex', c.black, c.yellow:light(), s.NONE)
 Group.new('BufferInactiveMod', nil, c.yellow:light(), s.bold)
 Group.new('BufferInactiveSign', nil, c.yellow:light(), s.NONE)
 
