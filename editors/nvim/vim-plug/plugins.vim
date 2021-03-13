@@ -189,6 +189,7 @@ Plug 'vim-scripts/restore_view.vim'
 
 " neovim-lsp {{{
 
+Plug 'bfredl/nvim-luadev'
 Plug 'glacambre/nvim-lsp'
 Plug 'alexaandru/nvim-lspupdate'
 Plug 'anott03/nvim-lspinstall'

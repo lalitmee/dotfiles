@@ -133,7 +133,7 @@ let g:which_key_map.d = {
         \ 'l' : [':FzfBLines'                                        , 'buffer-lines'],
         \ 'L' : [':FzfLines'                                         , 'loaded-buffers-lines'],
       \ },
-      \ 'd' : [':FzfRg'                                              , 'rg'],
+      \ 'd' : [':RG'                                                 , 'rg'],
       \ 'f' : {
         \ 'name' : '+files'                                          ,
         \ 'f' : [':FzfFiles'                                         , 'files'],
@@ -152,7 +152,7 @@ let g:which_key_map.d = {
       \ 'h' : [':FzfHistory'                                         , 'history'],
       \ 'i' : [':FzfSnippets'                                        , 'snippets'],
       \ 'p' : [':FzfSwitchProject'                                   , 'projects'],
-      \ 's' : [':FzfLocate '                                         , 'locate'],
+      \ 'L' : [':FzfLocate '                                         , 'locate'],
       \ 't' : [':FzfBTags'                                           , 'buffer-tags'],
       \ 'T' : [':FzfTags'                                            , 'project-tags'],
       \ 'l' : {
@@ -169,6 +169,12 @@ let g:which_key_map.d = {
         \ 't' : [':FzfTypeDefinitions'                               , 'type-definition'],
         \ 'w' : [':FzfDocumentSymbols'                               , 'document-symbols'],
         \ 'W' : [':FzfWorkspaceSymbols'                              , 'workspace-symbols'],
+      \ },
+      \ 's' : {
+        \ 'name' : '+search'                                         ,
+        \ 'c' : [':RG'                                               , 'search-content'],
+        \ 'd' : [':FzfRg'                                            , 'default-rg'],
+        \ 'f' : [':Rg'                                               , 'custom-rg'],
       \ },
       \ 'v' : {
         \ 'name' : '+vim'                                            ,
@@ -691,6 +697,8 @@ let g:which_key_map.v = {
       \ ':' : [':Telescope commands'                                 , 'commands'],
       \ 'h' : [':Telescope help_tags'                                , 'help-tags'],
       \ 'H' : [':Telescope command_history'                          , 'commands-history'],
+      \ 'k' : [':Telescope keymaps'                                  , 'telescope-keymaps'],
+      \ 'K' : [':FzfMaps'                                            , 'fzf-keymaps'],
       \ 'o' : [':Telescope vim_options'                              , 'options'],
       \ 'p' : {
         \ 'name' : '+vim-plug'                                       ,
