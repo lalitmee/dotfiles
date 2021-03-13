@@ -3,7 +3,7 @@ local gls = gl.section
 local extension = require('galaxyline.provider_extensions')
 local fileinfo = require 'galaxyline.provider_fileinfo'
 local diagnostic = require('galaxyline.provider_diagnostic')
-local vcs = require('galaxyline.provider_vcs')
+local condition = require('galaxyline.condition')
 local u = require('utils').u
 local theme = require('theme')
 local colors = theme.galaxyline_colors
@@ -142,18 +142,19 @@ gls.left = {
   {
     GitIcon = {
       provider = function()
-        return '  '
+        return '  '
       end,
-      condition = vcs.check_git_workspace,
-      highlight = { colors.orange, colors.line_bg }
+      condition = condition.check_git_workspace,
+      separator = ' ',
+      separator_highlight = { 'NONE', colors.bg },
+      highlight = { colors.violet, colors.bg, 'bold' }
     }
   },
   {
     GitBranch = {
       provider = 'GitBranch',
-      icon = icons.branch,
-      condition = vcs.check_git_workspace,
-      highlight = { '#8FBCBB', colors.line_bg }
+      condition = condition.check_git_workspace,
+      highlight = { colors.violet, colors.bg, 'bold' }
     }
   },
   {

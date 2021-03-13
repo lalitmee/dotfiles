@@ -23,3 +23,6 @@ inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-c>     compe#close('<C-e>')
 inoremap <silent><expr> <C-n>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-p>     compe#scroll({ 'delta': -4 })
+
+" nmap <silent> <leader>c/ <Plug>(Luadev-RunLine)
+vmap <silent> <leader>c/ <Plug>(Luadev-Run)

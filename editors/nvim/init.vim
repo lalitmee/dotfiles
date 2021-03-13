@@ -104,8 +104,7 @@ luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
 " Status Lines {{{
 
 " Status Lines
-" source $HOME/.config/nvim/status-lines/airline.vim
-" source $HOME/.config/nvim/status-lines/barow.vim
+" source $HOME/.config/nvim/status-lines/spaceline.vim
 
 " Tab Lines
 " source $HOME/.config/nvim/tab-lines/barbar.vim
@@ -159,6 +158,7 @@ source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/fzf.vim
 source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/mappings.vim
+source $HOME/.config/nvim/keys/navigation.vim
 source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/vim-zettel.vim

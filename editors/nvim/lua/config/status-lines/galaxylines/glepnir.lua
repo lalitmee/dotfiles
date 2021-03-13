@@ -1,19 +1,7 @@
 local gl = require('galaxyline')
 local colors = require('galaxyline.theme').default
 local condition = require('galaxyline.condition')
-
 local gls = gl.section
-
-local function file_readonly()
-  if vim.bo.filetype == 'help' then
-    return ''
-  end
-  if vim.bo.readonly == true then
-    return '  '
-  end
-  return ''
-end
-
 gl.short_line_list = { 'NvimTree', 'vista', 'dbui', 'packer' }
 
 gls.left[1] = {
@@ -24,7 +12,6 @@ gls.left[1] = {
     highlight = { colors.blue, colors.bg }
   }
 }
-
 gls.left[2] = {
   ViMode = {
     provider = function()
@@ -53,7 +40,7 @@ gls.left[2] = {
       }
       vim.api
           .nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
-      return '  '
+      return '  '
     end,
     highlight = { colors.red, colors.bg, 'bold' }
   }
@@ -78,24 +65,8 @@ gls.left[4] = {
 
 gls.left[5] = {
   FileName = {
-    provider = function()
-      local file = vim.fn.expand('%:t')
-      if vim.fn.empty(file) == 1 then
-        return ''
-      end
-      if string.len(file_readonly()) ~= 0 then
-        return file .. file_readonly()
-      end
-      if vim.bo.modifiable then
-        if vim.bo.modified then
-          return file .. '  '
-        end
-      end
-      return file .. ' '
-    end,
+    provider = 'FileName',
     condition = condition.buffer_not_empty,
-    separator = ' ',
-    separator_highlight = { 'NONE', colors.bg },
     highlight = { colors.fg, colors.bg, 'bold' }
   }
 }
@@ -103,7 +74,7 @@ gls.left[5] = {
 gls.left[6] = {
   LineInfo = {
     provider = 'LineColumn',
-    separator = ' | ',
+    separator = ' ',
     separator_highlight = { 'NONE', colors.bg },
     highlight = { colors.fg, colors.bg }
   }

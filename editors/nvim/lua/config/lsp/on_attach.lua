@@ -3,7 +3,11 @@ local buf_option = require('utils').buf_option
 local telescope_mapper = require('config.telescope.mappings')
 local _ = require('config.lsp.handlers')
 
-local function on_attach(_)
+local function on_attach(client, bufnr)
+  if client.resolved_capabilities.document_formatting then
+    return true
+  end
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = true }
   buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 

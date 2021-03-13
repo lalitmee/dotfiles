@@ -35,7 +35,11 @@ require('telescope').setup {
       '--with-filename',
       '--line-number',
       '--column',
-      '--smart-case'
+      '--smart-case',
+      '--color=auto',
+      '--hidden',
+      '-g',
+      '!.git'
     },
     prompt_prefix = ' > ',
     sorting_strategy = 'ascending',

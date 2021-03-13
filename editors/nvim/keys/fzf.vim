@@ -23,8 +23,8 @@ end
 " Keys and Commands {{{
 
 command! -bang -nargs=? -complete=dir Files call s:fzf_files(<q-args>)
-command! -bang -nargs=* Rg call s:fzf_rg_without_file_names(<q-args>)
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -bang -nargs=* Rg call s:fzf_rg_without_file_names(<q-args>, <bang>0)
+command! -bang -nargs=* RG call RipgrepFzf(<q-args>, <bang>0)
 command! -bang -nargs=* GGrep call s:fzf_git_grep(<q-args>, <bang>0)
 command! -bang -nargs=* BatThemes call s:fzf_bat_themes()
 command! -bang FzfDotfiles call s:fzf_dotfiles()
@@ -149,13 +149,12 @@ endfunction
 
 
 " NOTE: Ripgrep with only file contents and not file names
-function! s:fzf_rg_without_file_names(query)
-  call fzf#vim#grep(
-        \ 'rg --column --line-number --hidden --smart-case --no-heading --color=always '
-        \ .shellescape(a:query), 1, a:query
-        \ ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-        \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
-        \   a:query)
+function! s:fzf_rg_without_file_names(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--query', a:query]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 
