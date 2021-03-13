@@ -62,8 +62,16 @@ require('telescope').setup {
     file_sorter = sorters.get_fzy_sorter,
 
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     },
     file_previewer = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
@@ -71,8 +79,15 @@ require('telescope').setup {
   },
   extensions = {
     fzy_native = { override_generic_sorter = false, override_file_sorter = true },
-    fzf_writer = { use_highlighter = true, minimum_grep_characters = 3, minimum_files_characters = 3 },
-    media_files = { filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' }, find_cmd = 'rg' },
+    fzf_writer = {
+      use_highlighter = true,
+      minimum_grep_characters = 3,
+      minimum_files_characters = 3
+    },
+    media_files = {
+      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
+      find_cmd = 'rg'
+    },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
@@ -111,8 +126,16 @@ function M.edit_neovim()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
   }
 end
@@ -126,8 +149,16 @@ function M.edit_dotfiles()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
   }
 end
@@ -140,8 +171,16 @@ function M.edit_zsh()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
   }
 end
@@ -155,7 +194,12 @@ function M.builtin()
 end
 
 function M.git_files()
-  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
 
   require('telescope.builtin').git_files(opts)
 end
@@ -173,17 +217,29 @@ function M.buffer_git_files()
 end
 
 function M.lsp_code_actions()
-  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
 
   require('telescope.builtin').lsp_code_actions(opts)
 end
 
 function M.live_grep()
-  require('telescope').extensions.fzf_writer.staged_grep { shorten_path = true, previewer = false, fzf_separator = '|>' }
+  require('telescope').extensions.fzf_writer.staged_grep {
+    shorten_path = true,
+    previewer = true,
+    fzf_separator = '|>'
+  }
 end
 
 function M.grep_prompt()
-  require('telescope.builtin').grep_string { shorten_path = true, search = vim.fn.input('Grep String > ') }
+  require('telescope.builtin').grep_string {
+    shorten_path = true,
+    search = vim.fn.input('Grep String > ')
+  }
 end
 
 function M.grep_last_search(opts)
@@ -191,7 +247,9 @@ function M.grep_last_search(opts)
 
   -- \<getreg\>\C
   -- -> Subs out the search things
-  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub('\\C', '')
+  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub(
+                       '\\C', ''
+                   )
 
   opts.shorten_path = false
   opts.word_match = '-w'
@@ -217,7 +275,9 @@ function M.my_plugins()
 end
 
 function M.installed_plugins()
-  require('telescope.builtin').find_files { cwd = vim.fn.stdpath('config') .. '/autoload/plugged' }
+  require('telescope.builtin').find_files {
+    cwd = vim.fn.stdpath('config') .. '/autoload/plugged'
+  }
 end
 
 function M.project_search()
@@ -233,7 +293,12 @@ function M.buffers()
 end
 
 function M.curbuf()
-  local opts = themes.get_dropdown { winblend = 0, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown {
+    winblend = 0,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
   require('telescope.builtin').current_buffer_fuzzy_find(opts)
 end
 
