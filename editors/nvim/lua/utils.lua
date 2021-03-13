@@ -92,7 +92,9 @@ end
 
 -- Key mapping
 function M.map(mode, key, result, opts)
-  opts = vim.tbl_extend('keep', opts or {}, { noremap = true, silent = true, expr = false })
+  opts = vim.tbl_extend(
+             'keep', opts or {}, { noremap = true, silent = true, expr = false }
+         )
   fn.nvim_set_keymap(mode, key, result, opts)
 end
 
@@ -136,7 +138,11 @@ end
 
 function M.apply_colorscheme(name, mode)
   M.apply_options(
-      { termguicolors = true, guicursor = 'n-v-c-sm:block,i-ci-ve:ver50-Cursor,r-cr-o:hor50', background = mode }
+      {
+        termguicolors = true,
+        guicursor = 'n-v-c-sm:block,i-ci-ve:ver50-Cursor,r-cr-o:hor50',
+        background = mode
+      }
   )
 
   M.apply_globals({ colors_name = name })
@@ -158,7 +164,9 @@ function M.help_tab()
   if bo.buftype == 'help' then
     cmd('wincmd L')
     local nr = api.nvim_get_current_buf()
-    api.nvim_buf_set_keymap(nr, '', 'q', ':q<CR>', { noremap = true, silent = true })
+    api.nvim_buf_set_keymap(
+        nr, '', 'q', ':q<CR>', { noremap = true, silent = true }
+    )
   end
 end
 
@@ -231,6 +239,31 @@ function M.set_hl(group, options)
   else
     vim.cmd(string.format('hi! link', group, target))
   end
+end
+
+function M.u(code)
+  if type(code) == 'string' then
+    code = tonumber('0x' .. code)
+  end
+  local c = string.char
+  if code <= 0x7f then
+    return c(code)
+  end
+  local t = {}
+  if code <= 0x07ff then
+    t[1] = c(bit.bor(0xc0, bit.rshift(code, 6)))
+    t[2] = c(bit.bor(0x80, bit.band(code, 0x3f)))
+  elseif code <= 0xffff then
+    t[1] = c(bit.bor(0xe0, bit.rshift(code, 12)))
+    t[2] = c(bit.bor(0x80, bit.band(bit.rshift(code, 6), 0x3f)))
+    t[3] = c(bit.bor(0x80, bit.band(code, 0x3f)))
+  else
+    t[1] = c(bit.bor(0xf0, bit.rshift(code, 18)))
+    t[2] = c(bit.bor(0x80, bit.band(bit.rshift(code, 12), 0x3f)))
+    t[3] = c(bit.bor(0x80, bit.band(bit.rshift(code, 6), 0x3f)))
+    t[4] = c(bit.bor(0x80, bit.band(code, 0x3f)))
+  end
+  return table.concat(t)
 end
 
 return M

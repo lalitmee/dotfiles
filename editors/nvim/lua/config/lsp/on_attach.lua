@@ -7,32 +7,58 @@ local function on_attach(_)
   local opts = { noremap = true, silent = true }
   buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_map('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_map('n', '<leader>Fa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_map('n', '<leader>Fr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_map('n', '<leader>Fl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_map('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_map('n', 'grr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_map('n', 'gel', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })<CR>', opts)
-  buf_map('n', 'gep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_map('n', 'gen', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_map('i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true, noremap = true })
-  buf_map('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true, noremap = true })
-  buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf native lsp key maps
+  buf_map('i', '<C-h>', '<cmd>LspSignatureHelp<CR>', opts)
+  buf_map('n', 'K', '<cmd>LspHover<CR>', opts)
+  buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
+  buf_map('n', 'gD', '<cmd>LspDeclaration<CR>', opts)
+
+  -- diagnostics mappings
+  buf_map('n', 'geN', '<cmd>LspGetNextDiagnostic<CR>', opts)
+  buf_map('n', 'geP', '<cmd>LspGetPrevDiagnostic<CR>', opts)
+  buf_map('n', 'gea', '<cmd>LspGetAllDiagnostics<CR>', opts)
+  buf_map('n', 'gel', '<cmd>LspShowLineDiagnostics<CR>', opts)
+  buf_map('n', 'gen', '<cmd>LspGotoNextDiagnostic<CR>', opts)
+  buf_map('n', 'gep', '<cmd>LspGotoPrevDiagnostic<CR>', opts)
+  buf_map('n', 'geq', '<cmd>LspSetDiagnosticsLocList<CR>', opts)
+
+  -- code actions mappings
+  buf_map('n', 'gcA', '<cmd>LspRangeCodeActions<CR>', opts)
+  buf_map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
+
+  -- formaaing mappings
+  buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)
+  buf_map('n', 'gfs', '<cmd>LspFormattingSync<CR>', opts)
+
+  -- workspace mappings
+  buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
+  buf_map('n', 'gi', '<cmd> LspImplementation<CR>', opts)
+  buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
+  buf_map('n', 'grc', '<cmd> LspClearReferences<CR>', opts)
+  buf_map('n', 'grn', '<cmd> LspRename<CR>', opts)
+  buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
+  buf_map('n', 'gy', '<cmd> LspTypeDefinition<CR>', opts)
 
   -- telescope mappings
   local telescope_opts = { prompt_position = 'top' }
-  telescope_mapper('gra', 'lsp_code_actions', telescope_opts, true)
-  telescope_mapper('grd', 'lsp_document_symbols', telescope_opts, true)
-  telescope_mapper('grr', 'lsp_references', telescope_opts, true)
-  telescope_mapper('grs', 'lsp_workspace_symbols', telescope_opts, true)
-  telescope_mapper('grw', 'symbols', telescope_opts, true)
+  telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
+  telescope_mapper('gtA', 'lsp_range_code_actions', telescope_opts, true)
+  telescope_mapper('gtd', 'lsp_definitions', telescope_opts, true)
+  telescope_mapper('gte', 'lsp_document_diagnostics', telescope_opts, true)
+  telescope_mapper('gtE', 'lsp_workspace_diagnostics', telescope_opts, true)
+  telescope_mapper('gtr', 'lsp_references', telescope_opts, true)
+  telescope_mapper('gtw', 'lsp_document_symbols', telescope_opts, true)
+  telescope_mapper('gtW', 'lsp_workspace_symbols', telescope_opts, true)
 
+  -- commented key maps
+  -- buf_map(
+  --     'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"',
+  --     { expr = true, noremap = true }
+  -- )
+  -- buf_map(
+  --     'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"',
+  --     { expr = true, noremap = true }
+  -- )
 end
 
 return on_attach

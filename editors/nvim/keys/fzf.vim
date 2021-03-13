@@ -1,13 +1,15 @@
+" CTRL-A CTRL-Q to select all and build quickfix list
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
+  cc
 endfunction
 
 let g:fzf_action = {
-      \ 'ctrl-o': function('s:build_quickfix_list'),
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit' }
+  \ 'ctrl-o': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 " close fzf window on esc
 if has('nvim')
@@ -17,15 +19,6 @@ if has('nvim')
   aug END
 end
 
-let g:FZF_DEFAULT_OPTIONS = '
-      \ --no-inline-info
-      \ --multi
-      \ --sort
-      \ --layout=reverse
-      \ --bind=ctrl-a:select-all,ctrl-d:deselect-all
-      \ --color=bw,border:8,bg:8,info:2,prompt:12,fg:10,bg+:0,fg+:10,gutter:0
-      \ --border=sharp
-      \ --prompt=" "'
 
 " Keys and Commands {{{
 
@@ -44,7 +37,7 @@ command! CustomFzfBuffers call s:fzf_Buffers()
 
 " insert mode completions {{{
 
-imap <silent> <C-F> <C-O>:call <sid>fzf_insert_file_path()<CR>
+inoremap <silent> <C-F> <C-O>:call <sid>fzf_insert_file_path()<CR>
 
 function! s:make_sentence(lines)
   return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
@@ -130,7 +123,7 @@ function! s:fzf_Grep()
   call fzf#run(fzf#wrap({
         \ 'source':  printf(command,  escape('^(?=.)', '"\')),
         \ 'sink*':   function('s:rg_handler'),
-        \ 'options': g:FZF_DEFAULT_OPTIONS.'--delimiter : --nth 4..'
+        \ 'options': $FZF_DEFAULT_OPTS.'--delimiter : --nth 4..'
         \ }))
 endfunction
 
@@ -173,7 +166,7 @@ function! s:fzf_insert_file_path()
   call fzf#run(fzf#wrap({
         \ 'source':  command,
         \ 'sink':    function('general#AppendToLine'),
-        \ 'options': g:FZF_DEFAULT_OPTIONS,
+        \ 'options': $FZF_DEFAULT_OPTS,
         \ }))
 endfunction
 
@@ -204,7 +197,7 @@ function! s:fzf_Buffers()
   call fzf#run(fzf#wrap({
         \ 'source':  reverse(<sid>buflist()),
         \ 'sink':    function('s:bufopen'),
-        \ 'options': g:FZF_DEFAULT_OPTIONS
+        \ 'options': $FZF_DEFAULT_OPTS
         \ }))
 endfunction
 
@@ -219,7 +212,7 @@ function! s:fzf_NeighbouringFiles()
   call fzf#run(fzf#wrap({
         \ 'source': command,
         \ 'dir': cwd,
-        \ 'options': g:FZF_DEFAULT_OPTIONS
+        \ 'options': $FZF_DEFAULT_OPTS
         \ }))
 endfunction
 
@@ -227,11 +220,11 @@ endfunction
 "NOTE: Files in $PWD that have changed in current branch compared to develop
 function! s:fzf_GitBranchFiles()
   let g:fzf_current_mode = 'GIT_BRANCH_FILES'
-  let command = 'git diff --name-only develop'
+  let command = 'git diff --name-only master'
 
   call fzf#run(fzf#wrap({
         \ 'source': command,
-        \ 'options': g:FZF_DEFAULT_OPTIONS
+        \ 'options': $FZF_DEFAULT_OPTS
         \ }))
 endfunction
 

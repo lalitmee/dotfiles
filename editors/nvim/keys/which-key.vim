@@ -29,7 +29,6 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
-
 " Direct mappings {{{
 
 let g:which_key_map[','] = [ 'w'                                     , 'save' ]
@@ -67,31 +66,32 @@ let g:which_key_map.a = {
 let g:which_key_map.b = {
       \ 'name' : '+buffers'                                          ,
       \ ';' : [':BufferCloseBuffersRight'                            , 'close-all-right'],
+      \ '[' : ['bp'                                                  , 'prev-buffer'],
+      \ ']' : ['bn'                                                  , 'next-buffer'],
       \ 'a' : [':BufferCloseBuffersLeft'                             , 'close-all-left'],
-      \ 'b' : [':Telescope buffers'                                  , 'telescope-buffers'],
-      \ 'B' : [':FzfBuffers'                                         , 'fzf-buffers'],
+      \ 'b' : [':FzfBuffers'                                         , 'fzf-buffers'],
+      \ 'B' : [':Telescope buffers'                                  , 'telescope-buffers'],
       \ 'c' : ['vnew'                                                , 'new-empty-buffer-vert'],
       \ 'C' : [':BufferCloseAllButCurrent'                           , 'close-all-but-current'],
-      \ 'd' : [':BufferClose'                                        , 'delete-buffer'],
+      \ 'd' : [':Sayonara!'                                          , 'delete-buffer'],
       \ 'D' : [':%bd'                                                , 'delete-all-buffers'],
-      \ 'e' : [':BufferLast'                                         , 'last-buffer'],
       \ 'f' : ['bfirst'                                              , 'first-buffer'],
+      \ 'g' : [':BufferlinePick'                                     , 'goto-buffer'],
       \ 'h' : ['Startify'                                            , 'home-buffer'],
       \ 'j' : [':BufferPick'                                         , 'buffer-pick'],
       \ 'l' : [':Telescope current_buffer_fuzzy_find'                , 'search-buffer-lines'],
+      \ 'L' : ['blast'                                               , 'first-buffer'],
       \ 'm' : [':delm!'                                              , 'delete-marks'],
-      \ 'n' : [':BufferNext'                                         , 'next-buffer'],
-      \ 'N' : [':BufferMoveNext'                                     , 'move-next-buffer'],
-      \ 'o' : [':BufferOrderByDirectory'                             , 'order-by-direcoty'],
-      \ 'O' : [':BufferOrderByLanguage'                              , 'order-by-language'],
-      \ 'p' : [':BufferPrevious'                                     , 'previous-buffer'],
-      \ 'P' : [':BufferMovePrevious'                                 , 'move-previous-buffer'],
+      \ 'n' : [':BufferLineCycleNext'                                , 'next-buffer'],
+      \ 'N' : [':BufferLineMoveNext'                                 , 'move-next-buffer'],
+      \ 'o' : [':BufferLineSorByDirectory'                           , 'order-by-direcoty'],
+      \ 'O' : [':BufferLineSortByExtension'                          , 'order-by-language'],
+      \ 'p' : [':BufferLineCyclePrev'                                , 'previous-buffer'],
+      \ 'P' : [':BufferLineMovePrev'                                 , 'move-previous-buffer'],
       \ 'r' : ['e'                                                   , 'refresh-buffer'],
       \ 'R' : ['bufdo :e'                                            , 'refresh-loaded-buffers'],
       \ 's' : ['new'                                                 , 'new-empty-buffer'],
-      \ 'w' : [':BufferWipeout'                                      , 'buffer-wipeout'],
-      \ 'y' : [':BarbarDisable'                                      , 'barbar-disable'],
-      \ 'z' : [':BarbarEnable'                                       , 'barbar-enable'],
+      \ 'w' : [':Sayonara'                                           , 'close-buffer-and-window'],
       \ }
 
 " }}}
@@ -128,7 +128,8 @@ let g:which_key_map.d = {
       \ 'a' : [':FzfAg'                                              , 'ag'],
       \ 'b' : {
         \ 'name' : '+buffers'                                        ,
-        \ 'j' : [':FzfBuffers'                                       , 'jump-buffers'],
+        \ 'c' : [':CustomFzfBuffers'                                 , 'custom-buffers'],
+        \ 'b' : [':FzfBuffers'                                       , 'jump-buffers'],
         \ 'l' : [':FzfBLines'                                        , 'buffer-lines'],
         \ 'L' : [':FzfLines'                                         , 'loaded-buffers-lines'],
       \ },
@@ -140,6 +141,7 @@ let g:which_key_map.d = {
         \ 's' : [':FzfGFiles?'                                       , 'git-status-files'],
         \ 'd' : [':FzfDotfiles'                                      , 'dotfiles'],
         \ 'n' : [':FzfNvimConfig'                                    , 'neovim-config'],
+        \ 'p' : [':FzfSwitchProjectFile'                             , 'switch-files'],
       \ },
       \ 'g' : {
         \ 'name' : '+git'                                            ,
@@ -149,9 +151,25 @@ let g:which_key_map.d = {
       \ },
       \ 'h' : [':FzfHistory'                                         , 'history'],
       \ 'i' : [':FzfSnippets'                                        , 'snippets'],
-      \ 'l' : [':FzfLocate '                                         , 'locate'],
+      \ 'p' : [':FzfSwitchProject'                                   , 'projects'],
+      \ 's' : [':FzfLocate '                                         , 'locate'],
       \ 't' : [':FzfBTags'                                           , 'buffer-tags'],
       \ 'T' : [':FzfTags'                                            , 'project-tags'],
+      \ 'l' : {
+        \ 'name' : '+nvim-lsp'                                       ,
+        \ 'a' : [':FzfCodeActions'                                   , 'code-actions'],
+        \ 'A' : [':FzfRangeCodeActions'                              , 'code-actions'],
+        \ 'c' : [':FzfIncomingCalls'                                 , 'incoming-calls'],
+        \ 'C' : [':FzfOutgoingCalls'                                 , 'outgoing-calls'],
+        \ 'd' : [':FzfDefinitions'                                   , 'definitions'],
+        \ 'D' : [':FzfDeclarations'                                  , 'delcarations'],
+        \ 'e' : [':FzfDiagnostics'                                   , 'diagnostics'],
+        \ 'i' : [':FzfImplementations'                               , 'implementations'],
+        \ 'r' : [':FzfReferences'                                    , 'references'],
+        \ 't' : [':FzfTypeDefinitions'                               , 'type-definition'],
+        \ 'w' : [':FzfDocumentSymbols'                               , 'document-symbols'],
+        \ 'W' : [':FzfWorkspaceSymbols'                              , 'workspace-symbols'],
+      \ },
       \ 'v' : {
         \ 'name' : '+vim'                                            ,
         \ '/' : [':FzfHistory/'                                      , 'search-history'],
@@ -350,6 +368,13 @@ let g:which_key_map.l = {
           \ 't' : [':Vista!!'                                        , 'toggle-vista'],
           \ 'u' : [':Vista vim_lsc'                                  , 'vim_lsc'],
           \ 'v' : [':Vista vim_lsp'                                  , 'vim_lsp'],
+      \ },
+      \ 'w' : {
+        \ 'name' : '+workspace'                                      ,
+        \ 'a' : [':LspAddToWorkspaceFolder'                          , 'add-folder-to-workspace'],
+        \ 'l' : [':LspListWorkspaceFolders'                          , 'list-workspace-folders'],
+        \ 'r' : [':LspRemoveWorkspaceFolder'                         , 'remove-workspace-folder'],
+        \ 's' : [':LspWorkspaceSymbols'                              , 'workspace-symbols'],
       \ },
       \ }
 
@@ -721,25 +746,16 @@ let g:which_key_map.w = {
 
 " " }}}
 
-" F is for workspace management using neovim-lsp {{{
-
-let g:which_key_map.F   = {}
-let g:which_key_map.F.a = 'add-folder-to-workspace'
-let g:which_key_map.F.r = 'remove-folder-from-workspace'
-let g:which_key_map.F.l = 'list-workspace-folders'
-
-" }}}
-
 " keybindings for g = git {{{
 
 " keybindings in nvim/lua/plugins/gitsigns.lua
-let g:which_key_map.g.h.b = " blame-hunk"
-let g:which_key_map.g.h.n = " next-hunk"
-let g:which_key_map.g.h.p = " prev-hunk"
-let g:which_key_map.g.h.r = " reset-hunk"
-let g:which_key_map.g.h.s = " stage-hunk"
-let g:which_key_map.g.h.u = " unstage-hunk"
-let g:which_key_map.g.h.v = " preview-hunk"
+let g:which_key_map.g.h.b = 'blame-hunk'
+let g:which_key_map.g.h.n = 'next-hunk'
+let g:which_key_map.g.h.p = 'prev-hunk'
+let g:which_key_map.g.h.r = 'reset-hunk'
+let g:which_key_map.g.h.s = 'stage-hunk'
+let g:which_key_map.g.h.u = 'unstage-hunk'
+let g:which_key_map.g.h.v = 'preview-hunk'
 
 " }}}
 

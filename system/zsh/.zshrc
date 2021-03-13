@@ -330,16 +330,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules -g ""'
+export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--color=dark --layout=reverse --border --inline-info --height=100%'
+export FZF_DEFAULT_OPTS='--color=dark --layout=reverse --border --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all --prompt="> "'
 # # gruvbox color for fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
-'
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
 
-# nord color for fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B
-'
+# # nord color for fzf
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B'
 
 autoload -Uz compinit bashcompinit
 compinit

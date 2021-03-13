@@ -2,6 +2,7 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
+inoremap <silent> <Plug>(-fzf-complete-finish) l
 inoremap <silent> <expr> <Plug>(coc-snippets-expand-jump) coc#_insert_key('notify', 'snippets-expand-jump', 1)
 inoremap <silent> <expr> <Plug>(coc-snippets-expand) coc#_insert_key('notify', 'snippets-expand', 1)
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', 'insert')
@@ -679,6 +680,10 @@ nnoremap z+ z+
 nnoremap z z
 nmap z [Z]
 nnoremap zz zz
+nnoremap <silent> <Plug>(-fzf-complete-finish) a
+nnoremap <Plug>(-fzf-:) :
+nnoremap <Plug>(-fzf-/) /
+nnoremap <Plug>(-fzf-vim-do) :execute g:__fzf_command
 vnoremap <silent> <Plug>(coc-translator-rv) :call coc#rpc#notify('doKeymap', ['translator-rv'])
 nnoremap <silent> <Plug>(coc-translator-r) :call coc#rpc#notify('doKeymap', ['translator-r'])
 vnoremap <silent> <Plug>(coc-translator-ev) :call coc#rpc#notify('doKeymap', ['translator-ev'])
@@ -1628,6 +1633,7 @@ endif
 set shortmess=aoO
 argglobal
 %argdel
+edit editors/nvim/plug-config/nvim-tree.vim:let\ g:nvim_tree_ignore\ =\ \[\ \'.git\',\ \'node_modules\',\ \'.cache\'\ ]
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -1635,51 +1641,17 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-enew
 let s:cpo_save=&cpo
 set cpo&vim
 imap <buffer> <silent> <C-G>g <Plug>delimitMateJumpMany
 imap <buffer> <S-BS> <Plug>delimitMateS-BS
 imap <buffer> <C-H> <Plug>delimitMateBS
 imap <buffer> <BS> <Plug>delimitMateBS
-nnoremap <buffer> <nowait> <silent>  :call startify#open_buffers()
-nnoremap <buffer> <nowait> <silent> 0 :call startify#open_buffers(18)
-nnoremap <buffer> <nowait> <silent> 11 :call startify#open_buffers(32)
-nnoremap <buffer> <nowait> <silent> 10 :call startify#open_buffers(31)
-nnoremap <buffer> <nowait> <silent> 1 :call startify#open_buffers(19)
-nnoremap <buffer> <nowait> <silent> 2 :call startify#open_buffers(20)
-nnoremap <buffer> <nowait> <silent> 3 :call startify#open_buffers(21)
-nnoremap <buffer> <nowait> <silent> 4 :call startify#open_buffers(22)
-nnoremap <buffer> <nowait> <silent> 5 :call startify#open_buffers(23)
-nnoremap <buffer> <nowait> <silent> 6 :call startify#open_buffers(27)
-nnoremap <buffer> <nowait> <silent> 7 :call startify#open_buffers(28)
-nnoremap <buffer> <nowait> <silent> 8 :call startify#open_buffers(29)
-nnoremap <buffer> <nowait> <silent> 9 :call startify#open_buffers(30)
-nnoremap <buffer> <nowait> <silent> B :call startify#set_batchmode('B')
-nnoremap <buffer> <expr> N 'j '[v:searchforward].'N'
-nnoremap <buffer> <nowait> <silent> S :call startify#set_batchmode('S')
-nnoremap <buffer> <nowait> <silent> T :call startify#set_batchmode('T')
-nnoremap <buffer> <nowait> <silent> V :call startify#set_batchmode('V')
 nmap <buffer> [c <Plug>(GitGutterPrevHunk)
 xmap <buffer> \hs <Plug>(GitGutterStageHunk)
 nmap <buffer> ]c <Plug>(GitGutterNextHunk)
-nnoremap <buffer> <nowait> <silent> b :call startify#set_mark('B')
-nnoremap <buffer> <nowait> <silent> e :call startify#open_buffers(14)
-nnoremap <buffer> <nowait> <silent> i :enew | startinsert
-nnoremap <buffer> <expr> n ' j'[v:searchforward].'n'
-nnoremap <buffer> <nowait> <silent> q :call startify#open_buffers(34)
-nnoremap <buffer> <nowait> <silent> s :call startify#set_mark('S')
-nnoremap <buffer> <nowait> <silent> t :call startify#set_mark('T')
-nnoremap <buffer> <nowait> <silent> v :call startify#set_mark('V')
-nnoremap <buffer> <F2> <Nop>
-nnoremap <buffer> <nowait> <silent> <MiddleMouse> :enew | execute 'normal! "'.(v:register=='"'?'*':v:register).'gp'
-nnoremap <buffer> <nowait> <silent> <2-LeftMouse> :call startify#open_buffers()
-nnoremap <buffer> <nowait> <silent> <Insert> :enew | startinsert
 imap <buffer> <silent> g <Plug>delimitMateJumpMany
 imap <buffer>  <Plug>delimitMateBS
-imap <buffer> " <Plug>delimitMate"
-imap <buffer> ' <Plug>delimitMate'
-imap <buffer> ` <Plug>delimitMate`
 let &cpo=s:cpo_save
 unlet s:cpo_save
 setlocal keymap=
@@ -1691,8 +1663,8 @@ setlocal nobinary
 set breakindent
 setlocal breakindent
 setlocal breakindentopt=
-setlocal bufhidden=wipe
-setlocal nobuflisted
+setlocal bufhidden=
+setlocal buflisted
 setlocal buftype=
 setlocal cindent
 setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
@@ -1703,8 +1675,8 @@ setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t
-setlocal concealcursor=
-setlocal conceallevel=0
+setlocal concealcursor=niv
+setlocal conceallevel=2
 setlocal completefunc=
 setlocal nocopyindent
 setlocal cryptmethod=
@@ -1719,8 +1691,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'startify'
-setlocal filetype=startify
+if &filetype != ''
+setlocal filetype=
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -1728,7 +1700,7 @@ setlocal foldenable
 setlocal foldexpr=0
 setlocal foldignore=#
 set foldlevel=1
-setlocal foldlevel=1
+setlocal foldlevel=99
 setlocal foldmarker={{{,}}}
 set foldmethod=syntax
 setlocal foldmethod=syntax
@@ -1760,7 +1732,7 @@ setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=<:>
 setlocal nomodeline
-setlocal nomodifiable
+setlocal modifiable
 setlocal nrformats=bin,hex
 set number
 setlocal number
@@ -1790,10 +1762,10 @@ setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
-setlocal noswapfile
+setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'startify'
-setlocal syntax=startify
+if &syntax != ''
+setlocal syntax=
 endif
 setlocal tabstop=2
 setlocal tagcase=
@@ -1813,7 +1785,14 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=8
+let s:l = 1 - ((0 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
 tabnext 1
+badd +0 editors/nvim/plug-config/nvim-tree.vim:let\ g:nvim_tree_ignore\ =\ \[\ \'.git\',\ \'node_modules\',\ \'.cache\'\ ]
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif

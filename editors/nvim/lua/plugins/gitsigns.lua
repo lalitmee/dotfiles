@@ -10,16 +10,8 @@ Group.new('GitSignsDelete', c.red)
 require('gitsigns').setup {
   signs = {
     add = { hl = 'GitSignsAdd', text = '+', numhl = 'GitSignsAddNr' },
-    change = {
-      hl = 'GitSignsChange',
-      text = '~',
-      numhl = 'GitSignsChangeNr'
-    },
-    delete = {
-      hl = 'GitSignsDelete',
-      text = '_',
-      numhl = 'GitSignsDeleteNr'
-    },
+    change = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr' },
+    delete = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr' },
     topdelete = {
       hl = 'GitSignsDelete',
       text = '‾',
