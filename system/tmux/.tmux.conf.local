@@ -472,7 +472,8 @@ set -g @plugin "arcticicestudio/nord-tmux"
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 
 # spotify from tmux
-set -g @plugin 'xamut/tmux-spotify'
+# requires macos
+# set -g @plugin 'xamut/tmux-spotify'
 
 # tmux open for opening anything
 set -g @plugin 'tmux-plugins/tmux-open'
@@ -488,16 +489,6 @@ set -g @plugin 'ChanderG/tmux-notify'
 
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
-
-# tmux-fzf-maccy
-set -g @plugin 'junegunn/tmux-fzf-maccy'
-
-# Bind-key (default: '@')
-set -g @fzf-maccy-bind '@'
-
-# fzf-tmux layout (default: '-p70%' on tmux 3.2, '-d' otherwise)
-#   (-p requires tmux 3.2 or above, see `man fzf-tmux` for available options)
-set -g @fzf-maccy-layout '-p70%'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
