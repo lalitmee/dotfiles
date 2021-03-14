@@ -3,7 +3,7 @@
 [Editor]
 ## If it is set to true, applications will be launched in a borderless window, except for Linux.
 ## The default value is false.
-# BorderlessWindow = false
+BorderlessWindow = true
 ## Editor minimum window width (>= 400)
 Width = 800
 ## Editor minimum window height (>= 300)
@@ -15,7 +15,7 @@ Height = 600
 ## Font settings in nvim are set with well-known options, such as `:set guifont = hoge:h10`, `:set linespace=4`.
 # FontFamily = "OperatorMono Nerd Font"
 FontFamily = "OperatorMono Lig Book"
-FontSize = 11
+FontSize = 10
 Linespace = 6
 
 ## Neovim external UI features
@@ -23,9 +23,9 @@ Linespace = 6
 ## You can change the behavior of the GUI by changing the following boolean values.
 ## If you prefer the traditional Vim UI, set it to false for all.
 ## Also, `ExtMessages` is still experimental at this time and we don't recommend setting it to true if you want stability.
-ExtCmdline   = false
-ExtPopupmenu = true
-ExtTabline   = false
+ExtCmdline   = true
+ExtPopupmenu = false
+ExtTabline   = true
 ExtMessages  = false
 
 ## Copy yanked text to clipboard
@@ -77,7 +77,7 @@ IndentGuide = true
 
 ## Enable desktop notification settings for nvim messages.
 ## This option works only if `ExtMessages` is enabled.
-DesktopNotifications = true
+DesktopNotifications = false
 
 
 # Pattern that fills the diff background
@@ -108,7 +108,7 @@ DiffDeletePattern = 1
 DiffChangePattern = 1
 
 # Display the effect when clicked
-ClickEffect = false
+ClickEffect = true
 
 [Palette]
 ## Specifies the proportion of the command line palette to the height of the entire window.
@@ -132,12 +132,23 @@ Visible = true
 ModeIndicatorType = "textLabel"
 
 ## Optional setting colors per Neovim editing modes
-NormalModeColor = "#3cabeb"
-CommandModeColor = "#5285b8"
-InsertModeColor = "#2abcb4"
-ReplaceModeColor = "#ff8c0a"
-VisualModeColor = "#9932cc"
-TerminalModeColor = "#778899"
+NormalModeColor = "#2AFFDF"
+CommandModeColor = "#FF9D00"
+InsertModeColor = "#ffc600"
+ReplaceModeColor = "#229aFF"
+VisualModeColor = "#9966cc"
+TerminalModeColor = "#219aFF"
+
+# colors from cobalt2 theme
+# Yellow: #ffc600
+# Orange: #FF9D00
+# Mint: #2AFFDF
+# Blue: #193549
+# Off Blue: #0D3A58 (use on variable bgs)
+# Dusty Blue: #35434d
+# Dark Blue: #15232D
+# Pink: #0B94FF
+# Light Blue: #181aFF
 
 ## Statusline components
 Left = [ "mode", "filepath", "filename" ]
@@ -190,20 +201,20 @@ Width = 120
 
 [ScrollBar]
 ## Specifies whether to show the external scrollbar or not.
-Visible = false
+Visible = true
 
 [SideBar]
 ## Specifies whether to show the external sidebar or not.
 Visible = false
 
 ## Specify whether or not to draw a shadow under the sidebar.
-DropShadow = false
+DropShadow = true
 
 ## Specify the sidebar width
 Width = 200
 
 ## Specify the color to use when selecting items in the sidebar or palette in hexadecimal format
-AccentColor = "#5596ea"
+AccentColor = "#5679ea"
 
 [Workspace]
 ## This setting sets the format of the path string of CWD in the sidebar.

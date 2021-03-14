@@ -27,17 +27,18 @@ local luafmt = function()
       '--chop-down-kv-table',
       '--chop-down-parameter',
       '--chop-down-table',
+      '--column-limit=120',
+      '--column-table-limit=80',
       '--double-quote-to-single-quote ',
       '--indent-width=2',
+      '--line-breaks-after-function-body=1',
       '--no-keep-simple-control-block-one-line',
       '--no-keep-simple-function-one-line',
       '--no-single-quote-to-double-quote',
       '--no-use-tab',
-      '--spaces-inside-table-braces',
       '--spaces-before-call=1',
-      '--tab-width=1',
-      '--column-table-limit=80',
-      '--column-limit=120'
+      '--spaces-inside-table-braces',
+      '--tab-width=1'
     },
     stdin = true
   }

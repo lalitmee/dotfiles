@@ -81,11 +81,12 @@ set sessionoptions+=globals
 set colorcolumn=80
 highlight ColorColumn guibg=#3B4252
 
-set formatprg=par\ -w72
+" NOTE: install par first from here http://www.nicemice.net/par/
+set formatprg=par\ -w80
 
 if (has('nvim'))
-                                           " show results of substition as they're happening
-                                           " but don't open a split
+  " show results of substition as they're happening
+  " but don't open a split
   set inccommand=split
 endif
 

@@ -3,6 +3,7 @@ local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 local eslint = require('config.lsp.efm.eslint')
 local prettier = require('config.lsp.efm.prettier')
+local luafmt = require('config.lsp.efm.luafmt')
 
 local efm_config = os.getenv('HOME') .. '/.config/nvim/lua/lsp/efm/config.yaml'
 local efm_log_dir = '/tmp/'
@@ -20,7 +21,8 @@ local efm_languages = {
   scss = { prettier },
   typescript = { eslint, prettier },
   typescriptreact = { eslint, prettier },
-  yaml = { prettier }
+  yaml = { prettier },
+  lua = { luafmt }
 }
 
 lsp_status.register_progress()
@@ -39,6 +41,7 @@ lsp_config.efm.setup(
         'graphql',
         'html',
         'javascript',
+        'javascript.jsx',
         'javascriptreact',
         'json',
         'less',
@@ -48,6 +51,7 @@ lsp_config.efm.setup(
         'scss',
         'sh',
         'typescript',
+        'typescript.tsx',
         'typescriptreact',
         'vim',
         'yaml'
