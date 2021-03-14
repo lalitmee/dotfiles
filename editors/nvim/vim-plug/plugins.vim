@@ -53,6 +53,7 @@ Plug 'kshenoy/vim-signature'                        " toggle, display and naviga
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
+Plug 'camspiers/animate.vim'
 " Plug 'norcalli/ui.nvim'                           " figure out what this does
 
 "}}}
