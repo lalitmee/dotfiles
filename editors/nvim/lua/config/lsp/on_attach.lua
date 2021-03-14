@@ -14,7 +14,6 @@ local function on_attach(client, bufnr)
   -- buf native lsp key maps
   buf_map('i', '<C-h>', '<cmd>LspSignatureHelp<CR>', opts)
   buf_map('n', 'K', '<cmd>LspHover<CR>', opts)
-  buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
   buf_map('n', 'gD', '<cmd>LspDeclaration<CR>', opts)
 
   -- diagnostics mappings
@@ -26,24 +25,34 @@ local function on_attach(client, bufnr)
   buf_map('n', 'gep', '<cmd>LspGotoPrevDiagnostic<CR>', opts)
   buf_map('n', 'geq', '<cmd>LspSetDiagnosticsLocList<CR>', opts)
 
-  -- code actions mappings
-  buf_map('n', 'gcA', '<cmd>LspRangeCodeActions<CR>', opts)
-  buf_map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
+  -- these can be set from Telescope that's why commented out
+  -- buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
+  -- buf_map('n', 'gcA', '<cmd>LspRangeCodeActions<CR>', opts)
+  -- buf_map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
+  -- buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
+  -- buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
+  -- buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
 
   -- formaaing mappings
   buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)
   buf_map('n', 'gfs', '<cmd>LspFormattingSync<CR>', opts)
 
   -- workspace mappings
-  buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
   buf_map('n', 'gi', '<cmd> LspImplementation<CR>', opts)
-  buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
   buf_map('n', 'grc', '<cmd> LspClearReferences<CR>', opts)
   buf_map('n', 'grn', '<cmd> LspRename<CR>', opts)
-  buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
   buf_map('n', 'gy', '<cmd> LspTypeDefinition<CR>', opts)
 
-  -- telescope mappings
+  -- telescope mappings for lsp and more
+  buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
+  buf_map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
+  buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+  buf_map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
+  buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
+  buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
+  buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
+  buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+
   local telescope_opts = { prompt_position = 'top' }
   telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
   telescope_mapper('gtA', 'lsp_range_code_actions', telescope_opts, true)

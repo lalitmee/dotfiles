@@ -11,15 +11,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " LEARN VIM {{{
 
 Plug 'ThePrimeagen/vim-be-good', {
-        \ 'on': 'VimBeGood'
+      \ 'on': 'VimBeGood'
       \ }                                           " vim-be-good
 Plug 'tjdevries/train.nvim', {
       \ 'on': [
-        \ 'TrainClear',
-        \ 'TrainUpDown',
-        \ 'TrainTextObj',
-        \ 'TrainWord'
-        \ ]
+      \ 'TrainClear',
+      \ 'TrainUpDown',
+      \ 'TrainTextObj',
+      \ 'TrainWord'
+      \ ]
       \ }                                           " motion training
 
 " LEARN VIM }}}
@@ -30,7 +30,13 @@ Plug 'tjdevries/train.nvim', {
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
-Plug 'gruvbox-community/gruvbox'
+
+if exists('g:goneovim')
+  Plug 'gruvbox-community/gruvbox'                  " gruvbox theme
+  Plug 'kristijanhusak/vim-hybrid-material'         " vim-hybrid-material
+  Plug 'joshdick/onedark.vim'                       " onedark.vim
+  Plug 'arcticicestudio/nord-vim' " nord theme
+endif
 
 "}}}
 
@@ -64,16 +70,16 @@ Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
 Plug 'kevinhwang91/nvim-hlslens'                    " hlslens lens for neovim
 Plug 'pechorin/any-jump.vim', {
       \ 'on': [
-        \ 'AnyJump'
-        \ ]
+      \ 'AnyJump'
+      \ ]
       \ }                                           " any-jump
 Plug 'phaazon/hop.nvim', {'on': [
-        \ 'HopWord',
-        \ 'HopLine',
-        \ 'HopPattern',
-        \ 'HopChar1',
-        \ 'HopChar2'
-        \ ]
+      \ 'HopWord',
+      \ 'HopLine',
+      \ 'HopPattern',
+      \ 'HopChar1',
+      \ 'HopChar2'
+      \ ]
       \ }                                           " easymotion using lua
 
 " Search, Replace and Jump }}}
@@ -155,7 +161,7 @@ Plug 'godlygeek/tabular'                            " Tabularize for Vim
 " Undo {{{
 
 Plug 'simnalamburt/vim-mundo', {
-        \ 'on': 'MundoToggle'
+      \ 'on': 'MundoToggle'
       \ }                                           " undo tree visualizer
 
 " Undo }}}
@@ -213,7 +219,7 @@ Plug 'tjdevries/nlua.nvim'
 " Treesitter {{{
 
 Plug 'nvim-treesitter/nvim-treesitter', {
-        \ 'do': ':TSUpdate'
+      \ 'do': ':TSUpdate'
       \ }
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
@@ -275,15 +281,15 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 " HTML {{{
 Plug 'alvan/vim-closetag', {
       \ 'for': [
-        \ 'html',
-        \ 'javascriptreact'
-        \ ]
+      \ 'html',
+      \ 'javascriptreact'
+      \ ]
       \ }                                           " Auto Close Tag in HTML
 Plug 'AndrewRadev/tagalong.vim', {
       \ 'for': [
-        \ 'html',
-        \ 'javascriptreact'
-        \ ]
+      \ 'html',
+      \ 'javascriptreact'
+      \ ]
       \ }                                           " html tags completion
 Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 
@@ -292,7 +298,7 @@ Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 " markdown {{{
 
 Plug 'npxbr/glow.nvim', {
-        \ 'on': 'Glow'
+      \ 'on': 'Glow'
       \ }                                           " markdown preview
 
 " markdown }}}
@@ -318,8 +324,8 @@ Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'tpope/vim-fugitive'                           " version control
 Plug 'kdheepak/lazygit.nvim', {
       \ 'on': [
-        \ 'LazyGit'
-        \ ]
+      \ 'LazyGit'
+      \ ]
       \ }                                           " lazygit from neovim
 
 " VERSION CONTROL STYSTEM }}}
@@ -384,16 +390,16 @@ Plug 'gioele/vim-autoswap'                          " for handling swap files
 
 Plug 'voldikss/vim-floaterm', {
       \ 'on': [
-          \ 'FloatermNew',
-          \ 'FloatermToggle'
-        \ ]
+      \ 'FloatermNew',
+      \ 'FloatermToggle'
+      \ ]
       \ }                                           " Float Terminal
 
 " TERMINAL }}}
 
 " GNVIM {{{
 
-" Plug 'akiyosi/gonvim-fuzzy'                       " Goneovim Fuzzy search
+Plug 'akiyosi/gonvim-fuzzy'                         " Goneovim Fuzzy search
 
 " GNVIM }}}
 
