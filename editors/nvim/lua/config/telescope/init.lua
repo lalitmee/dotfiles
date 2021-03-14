@@ -16,6 +16,16 @@ local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
+-- require('telescope').load_extension('dap')
+require('telescope').load_extension('cheat')
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('jumps')
+require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('project')
+require('telescope').load_extension('snippets')
+require('telescope').load_extension('ultisnips')
+
 require('telescope').setup {
   defaults = {
     vimgrep_arguments = {
@@ -109,16 +119,6 @@ require('telescope').setup {
     }
   }
 }
-
--- require('telescope').load_extension('dap')
-require('telescope').load_extension('cheat')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('fzy_native')
-require('telescope').load_extension('jumps')
-require('telescope').load_extension('openbrowser')
-require('telescope').load_extension('project')
-require('telescope').load_extension('snippets')
-require('telescope').load_extension('ultisnips')
 
 local M = {}
 
