@@ -47,6 +47,7 @@ require('telescope').setup {
     prompt_position = 'top',
     color_devicons = true,
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    winblend = 0,
     mappings = {
       i = {
         ['<C-e>'] = actions.move_to_bottom,
