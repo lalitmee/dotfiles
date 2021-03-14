@@ -23,9 +23,9 @@ Linespace = 6
 ## You can change the behavior of the GUI by changing the following boolean values.
 ## If you prefer the traditional Vim UI, set it to false for all.
 ## Also, `ExtMessages` is still experimental at this time and we don't recommend setting it to true if you want stability.
-ExtCmdline   = true
-ExtPopupmenu = false
-ExtTabline   = true
+ExtCmdline   = false
+ExtPopupmenu = true
+ExtTabline   = false
 ExtMessages  = false
 
 ## Copy yanked text to clipboard
@@ -61,7 +61,7 @@ Transparent = 0.8
 ## Draw window separator on the GUI side instead of the vertical border and status line that nvim draws.
 DrawWindowSeparator = false
 WindowSeparatorTheme = "dark"
-WindowSeparatorColor = "#adb3b8"
+# WindowSeparatorColor = "#adb3b8"
 WindowSeparatorGradient = true
 
 

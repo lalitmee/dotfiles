@@ -35,7 +35,7 @@ if exists('g:goneovim')
   Plug 'gruvbox-community/gruvbox'                  " gruvbox theme
   Plug 'kristijanhusak/vim-hybrid-material'         " vim-hybrid-material
   Plug 'joshdick/onedark.vim'                       " onedark.vim
-  Plug 'arcticicestudio/nord-vim' " nord theme
+  Plug 'arcticicestudio/nord-vim'                   " nord theme
 endif
 
 "}}}
@@ -99,6 +99,7 @@ Plug 'ThePrimeagen/harpoon'
 
 " General {{{
 
+Plug 'b3nj5m1n/kommentary'                          " comments using lua
 Plug 'mhinz/vim-sayonara', {
       \ 'on': 'Sayonara'
       \ }                                           " delete buffers and windows
@@ -337,7 +338,6 @@ Plug 'kdheepak/lazygit.nvim', {
 " \ }
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
-" Plug 'romgrk/barbar.nvim'                         " tabline
 " Plug 'tjdevries/express_line.nvim'
 
 " STATUS AND TAB LINES }}}
@@ -347,7 +347,7 @@ Plug 'akinsho/nvim-bufferline.lua'
 " tpope {{{
 
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
