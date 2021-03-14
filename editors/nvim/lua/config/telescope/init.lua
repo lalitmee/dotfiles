@@ -16,16 +16,6 @@ local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
--- require('telescope').load_extension('dap')
-require('telescope').load_extension('cheat')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('fzy_native')
-require('telescope').load_extension('jumps')
-require('telescope').load_extension('openbrowser')
-require('telescope').load_extension('project')
-require('telescope').load_extension('snippets')
-require('telescope').load_extension('ultisnips')
-
 require('telescope').setup {
   defaults = {
     vimgrep_arguments = {
@@ -47,7 +37,6 @@ require('telescope').setup {
     prompt_position = 'top',
     color_devicons = true,
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-    winblend = 0,
     mappings = {
       i = {
         ['<C-e>'] = actions.move_to_bottom,
@@ -97,11 +86,11 @@ require('telescope').setup {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
       workspaces = {
-        ['nvim'] = '/home/data/.config/nvim/plugged',
-        ['dotf'] = '/home/data/Github/dotfiles',
-        ['work'] = '/home/data/koinearth',
-        ['git'] = '/home/data/Github',
-        ['conf'] = '/home/.config',
+        ['nvim'] = '/home/lalitmee/data/.config/nvim/plugged',
+        ['dotf'] = '/home/lalitmee/data/Github/dotfiles',
+        ['work'] = '/home/lalitmee/data/koinearth',
+        ['git'] = '/home/lalitmee/data/Github',
+        ['conf'] = '/home/lalitmee/.config',
         ['data'] = '/home/lalitmee/.local/share'
       }
     },
@@ -120,6 +109,16 @@ require('telescope').setup {
     }
   }
 }
+
+-- require('telescope').load_extension('dap')
+require('telescope').load_extension('cheat')
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('jumps')
+require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('project')
+require('telescope').load_extension('snippets')
+require('telescope').load_extension('ultisnips')
 
 local M = {}
 

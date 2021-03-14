@@ -88,6 +88,7 @@ Plug 'phaazon/hop.nvim', {'on': [
 
 Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
+Plug 'justinmk/vim-sneak'
 
 " Movements }}}
 
@@ -99,6 +100,7 @@ Plug 'ThePrimeagen/harpoon'
 
 " General {{{
 
+Plug 'matze/vim-move'                               " move lines and selection up, down, left and right
 Plug 'b3nj5m1n/kommentary'                          " comments using lua
 Plug 'mhinz/vim-sayonara', {
       \ 'on': 'Sayonara'

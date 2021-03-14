@@ -226,6 +226,7 @@ function M.toggle_global_variables(global_variables)
     end
   end
 end
+
 -- helper for defining highlight groups
 function M.set_hl(group, options)
   local bg = options.bg == nil and '' or 'guibg=' .. options.bg

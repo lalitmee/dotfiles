@@ -27,19 +27,19 @@ lsp_handlers['callHierarchy/outgoingCalls'] = fzf_lsp.outgoing_calls_handler
 --     require'telescope.builtin'.lsp_workspace_symbols
 
 -- LSP definition
-lsp_handlers['textDocument/definition'] =
-    function(_, _, result)
-      if not result or vim.tbl_isempty(result) then
-        print('[LSP] Could not find definition')
-        return
-      end
+-- lsp_handlers['textDocument/definition'] =
+--     function(_, _, result)
+--       if not result or vim.tbl_isempty(result) then
+--         print('[LSP] Could not find definition')
+--         return
+--       end
 
-      if vim.tbl_islist(result) then
-        vim.lsp.util.jump_to_location(result[1])
-      else
-        vim.lsp.util.jump_to_location(result)
-      end
-    end
+--       if vim.tbl_islist(result) then
+--         vim.lsp.util.jump_to_location(result[1])
+--       else
+--         vim.lsp.util.jump_to_location(result)
+--       end
+--     end
 
 -- LSP diagnostics handler
 lsp_handlers['textDocument/publishDiagnostics'] =
