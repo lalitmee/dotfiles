@@ -113,12 +113,12 @@ luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 
 " Plugins Configurations {{{
 
+" source $HOME/.config/nvim/plug-config/auto-resize.vim
 " source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/goyo.vim
 " source $HOME/.config/nvim/plug-config/ranger.vim
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
-" source $HOME/.config/nvim/plug-config/auto-resize.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/crease.vim
