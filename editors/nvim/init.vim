@@ -61,7 +61,6 @@ source $HOME/.config/nvim/general/tmux.vim
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
 luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 
-
 " }}}
 
 " config {{{
