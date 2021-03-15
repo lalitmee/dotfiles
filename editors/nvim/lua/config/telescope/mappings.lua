@@ -49,25 +49,21 @@ map_tele(
 )
 
 -- -- Files
--- map_tele('<space>ft', 'git_files')
--- map_tele('<space>fg', 'live_grep')
+map_tele('<space>ofG', 'git_files')
+map_tele('<space>osL', 'live_grep')
 map_tele('<space>ofl', 'oldfiles')
--- map_tele('<space>fd', 'fd')
--- map_tele('<space>pf', 'project_search')
--- map_tele('<space>fv', 'find_nvim_source')
--- map_tele('<space>fe', 'file_browser')
+map_tele('<space>ofD', 'fd')
+map_tele('<space>pP', 'project_search')
+map_tele('<space>ofE', 'file_browser')
 
 -- -- Nvim
--- map_tele('<space>fb', 'buffers')
--- map_tele('<space>fp', 'my_plugins')
--- map_tele('<space>fa', 'installed_plugins')
--- map_tele('<space>fi', 'search_all_files')
+map_tele('<space>np', 'installed_plugins')
+map_tele('<space>ofa', 'search_all_files')
 map_tele('<space>obo', 'curbuf')
--- map_tele('<space>fh', 'help_tags')
--- map_tele('<space>so', 'vim_options')
+map_tele('<space>nh', 'help_tags')
 map_tele('<space>osf', 'grep_prompt')
 
 -- -- Telescope Meta
--- map_tele('<space>fB', 'builtin')
+map_tele('<space>otB', 'builtin')
 
 return map_tele

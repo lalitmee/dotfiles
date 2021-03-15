@@ -1,7 +1,10 @@
 -- I will use this until formatting from LSP is stable.
 local prettier = function()
-  return
-      { exe = 'prettier', args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' }, stdin = true }
+  return {
+    exe = 'prettier',
+    args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' },
+    stdin = true
+  }
 end
 
 local rustfmt = function()
@@ -24,15 +27,18 @@ local luafmt = function()
       '--chop-down-kv-table',
       '--chop-down-parameter',
       '--chop-down-table',
+      '--column-limit=120',
+      '--column-table-limit=80',
       '--double-quote-to-single-quote ',
       '--indent-width=2',
+      '--line-breaks-after-function-body=1',
       '--no-keep-simple-control-block-one-line',
       '--no-keep-simple-function-one-line',
       '--no-single-quote-to-double-quote',
       '--no-use-tab',
+      '--spaces-before-call=1',
       '--spaces-inside-table-braces',
-      '--tab-width=1',
-      '--column-limit=120'
+      '--tab-width=1'
     },
     stdin = true
   }

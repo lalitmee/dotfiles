@@ -1,22 +1,14 @@
 setlocal foldmethod=expr
 setlocal foldexpr=nvim_treesitter#foldexpr()
+setlocal foldlevel=0
+noremap <TAB> za
 
-" function! JSFolds()
-"   let thisline = getline(v:lnum)
-"   if thisline =~? '\v^\s*$'
-"     return '-1'
-"   endif
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
-"   if thisline =~ '^import.*$'
-"     return 1
-"   else
-"     return indent(v:lnum) / &shiftwidth
-"   endif
-" endfunction
+" set fillchars=fold:━
+" let g:crease_foldtext = { 'default': '%{repeat("-", v:foldlevel)} %l lines: %t ' }
 
 
-" autocmd FileType javascript,typescript,javascriptreact,typescriptreact,svelte,vim
-"       \ setlocal sw=2 sts=2 et
-
-set fillchars=fold:━
-let g:crease_foldtext = { 'default': '%{repeat("-", v:foldlevel)} %l lines: %t ' }

@@ -1,3 +1,5 @@
+local unpack = table.unpack
+
 local if_nil = function(a, b)
   if a == nil then
     return b

@@ -3,6 +3,7 @@ local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 local eslint = require('config.lsp.efm.eslint')
 local prettier = require('config.lsp.efm.prettier')
+local luafmt = require('config.lsp.efm.luafmt')
 
 local efm_config = os.getenv('HOME') .. '/.config/nvim/lua/lsp/efm/config.yaml'
 local efm_log_dir = '/tmp/'
@@ -20,7 +21,8 @@ local efm_languages = {
   scss = { prettier },
   typescript = { eslint, prettier },
   typescriptreact = { eslint, prettier },
-  yaml = { prettier }
+  yaml = { prettier },
+  lua = { luafmt }
 }
 
 lsp_status.register_progress()
@@ -34,16 +36,30 @@ lsp_config.efm.setup(
         '-logfile',
         efm_log_dir .. 'efm.log'
       },
-      filetype = {
+      filetypes = {
+        'css',
+        'graphql',
+        'html',
         'javascript',
+        'javascript.jsx',
         'javascriptreact',
+        'json',
+        'less',
+        'lua',
+        'markdown',
+        'sass',
+        'scss',
+        'sh',
         'typescript',
-        'typescriptreact'
+        'typescript.tsx',
+        'typescriptreact',
+        'vim',
+        'yaml'
       },
       capabilities = lsp_status.capabilities,
       on_attach = on_attach,
       root_dir = lsp_config.util.root_pattern(unpack(efm_root_markers)),
-      init_options = { documentFormatting = false },
+      init_options = { documentFormatting = true },
       settings = { rootMarkers = efm_root_markers, languages = efm_languages }
     }
 )

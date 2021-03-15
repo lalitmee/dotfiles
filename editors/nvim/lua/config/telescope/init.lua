@@ -10,7 +10,6 @@ local reloader = function()
     RELOAD('telescope')
   end
 end
-
 reloader()
 
 local actions = require('telescope.actions')
@@ -18,12 +17,13 @@ local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
 -- require('telescope').load_extension('dap')
-require('telescope').load_extension('snippets')
+require('telescope').load_extension('cheat')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('jumps')
 require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
+require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
 
 require('telescope').setup {
@@ -35,7 +35,11 @@ require('telescope').setup {
       '--with-filename',
       '--line-number',
       '--column',
-      '--smart-case'
+      '--smart-case',
+      '--color=auto',
+      '--hidden',
+      '-g',
+      '!.git'
     },
     prompt_prefix = ' > ',
     sorting_strategy = 'ascending',
@@ -62,8 +66,16 @@ require('telescope').setup {
     file_sorter = sorters.get_fzy_sorter,
 
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     },
     file_previewer = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
@@ -71,17 +83,24 @@ require('telescope').setup {
   },
   extensions = {
     fzy_native = { override_generic_sorter = false, override_file_sorter = true },
-    fzf_writer = { use_highlighter = true, minimum_grep_characters = 0, minimum_files_characters = 0 },
-    media_files = { filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' }, find_cmd = 'rg' },
+    fzf_writer = {
+      use_highlighter = true,
+      minimum_grep_characters = 3,
+      minimum_files_characters = 3
+    },
+    media_files = {
+      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
+      find_cmd = 'rg'
+    },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
       workspaces = {
-        ['nvim'] = '/home/data/.config/nvim/plugged',
-        ['dotf'] = '/home/data/Github/dotfiles',
-        ['work'] = '/home/data/koinearth',
-        ['git'] = '/home/data/Github',
-        ['conf'] = '/home/.config',
+        ['nvim'] = '/home/lalitmee/data/.config/nvim/plugged',
+        ['dotf'] = '/home/lalitmee/data/Github/dotfiles',
+        ['work'] = '/home/lalitmee/data/koinearth',
+        ['git'] = '/home/lalitmee/data/Github',
+        ['conf'] = '/home/lalitmee/.config',
         ['data'] = '/home/lalitmee/.local/share'
       }
     },
@@ -111,8 +130,16 @@ function M.edit_neovim()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
   }
 end
@@ -126,8 +153,16 @@ function M.edit_dotfiles()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
   }
 end
@@ -140,8 +175,16 @@ function M.edit_zsh()
 
     layout_strategy = 'horizontal',
     layout_defaults = {
-      horizontal = { width_padding = 0.11, height_padding = 0.13, preview_width = 0.56 },
-      vertical = { width_padding = 0.4, height_padding = 0.8, preview_height = 0.5 }
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
   }
 end
@@ -155,7 +198,12 @@ function M.builtin()
 end
 
 function M.git_files()
-  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
 
   require('telescope.builtin').git_files(opts)
 end
@@ -173,17 +221,29 @@ function M.buffer_git_files()
 end
 
 function M.lsp_code_actions()
-  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
 
   require('telescope.builtin').lsp_code_actions(opts)
 end
 
 function M.live_grep()
-  require('telescope').extensions.fzf_writer.staged_grep { shorten_path = true, previewer = false, fzf_separator = '|>' }
+  require('telescope').extensions.fzf_writer.staged_grep {
+    shorten_path = true,
+    previewer = true,
+    fzf_separator = '|>'
+  }
 end
 
 function M.grep_prompt()
-  require('telescope.builtin').grep_string { shorten_path = true, search = vim.fn.input('Grep String > ') }
+  require('telescope.builtin').grep_string {
+    shorten_path = true,
+    search = vim.fn.input('Grep String > ')
+  }
 end
 
 function M.grep_last_search(opts)
@@ -191,7 +251,9 @@ function M.grep_last_search(opts)
 
   -- \<getreg\>\C
   -- -> Subs out the search things
-  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub('\\C', '')
+  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub(
+                       '\\C', ''
+                   )
 
   opts.shorten_path = false
   opts.word_match = '-w'
@@ -206,7 +268,9 @@ function M.oldfiles()
   end
   if pcall(require('telescope').load_extension, 'frecency') then
   else
-    require('telescope.builtin').oldfiles { layout_strategy = 'vertical' }
+    require('telescope.builtin').oldfiles {
+      -- layout_strategy = 'vertical',
+    }
   end
 end
 
@@ -215,14 +279,15 @@ function M.my_plugins()
 end
 
 function M.installed_plugins()
-  require('telescope.builtin').find_files { cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/' }
+  require('telescope.builtin').find_files {
+    cwd = vim.fn.stdpath('config') .. '/autoload/plugged'
+  }
 end
 
 function M.project_search()
   require('telescope.builtin').find_files {
-    previewer = false,
+    -- previewer = true,
     hidden = true,
-    layout_strategy = 'vertical',
     cwd = require('nvim_lsp.util').root_pattern('.git')(vim.fn.expand('%:p'))
   }
 end
@@ -232,7 +297,12 @@ function M.buffers()
 end
 
 function M.curbuf()
-  local opts = themes.get_dropdown { winblend = 10, border = true, previewer = false, shorten_path = false }
+  local opts = themes.get_dropdown {
+    winblend = 0,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
   require('telescope.builtin').current_buffer_fuzzy_find(opts)
 end
 
@@ -241,7 +311,16 @@ function M.help_tags()
 end
 
 function M.search_all_files()
-  require('telescope.builtin').find_files { find_command = { 'rg', '--no-ignore', '--files' } }
+  require('telescope.builtin').find_files {
+    find_command = {
+      'rg',
+      '--no-ignore',
+      '--hidden',
+      -- '--glob="!.git/*"',
+      '--files'
+    },
+    hidden = true
+  }
 end
 
 function M.file_browser()

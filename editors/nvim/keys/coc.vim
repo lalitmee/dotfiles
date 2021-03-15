@@ -34,9 +34,13 @@ nmap <silent> ]e <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD :CocCommand fzf-preview.CocReferences<CR>
 nmap <silent> ge :CocCommand fzf-preview.CocCurrentDiagnostics<CR>
-nmap <silent> gl :CocCommand fzf-preview.CocDiagnostics<CR>
 nmap <silent> gi :CocCommand fzf-preview.CocImplementations<CR>
+nmap <silent> gl :CocCommand fzf-preview.CocDiagnostics<CR>
 nmap <silent> gr :CocCommand fzf-preview.CocReferences<CR>
+nmap <silent> gw :CocCommand fzf-preview.BufferTags<CR>
+nmap <silent> gW :CocList symbols<CR>
+nmap <silent> gwn :CocCommand document.jumpToNextSymbol<CR>
+nmap <silent> gwp :CocCommand document.jumpToPrevSymbol<CR>
 nmap <silent> gy :CocCommand fzf-preview.CocTypeDefinitions<CR>
 
 " Use K to show documentation in preview window.
@@ -79,27 +83,7 @@ endif
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
-
-
-" coc-snippets settings
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   coc-git                             "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" coc-git {{{
 " " navigate chunks of current buffer
 " nmap [g <Plug>(coc-git-prevchunk)
 " nmap ]g <Plug>(coc-git-nextchunk)
@@ -116,9 +100,10 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " omap ag <Plug>(coc-git-chunk-outer)
 " xmap ag <Plug>(coc-git-chunk-outer)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   smartf                              "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"}}}
+
+" smartf {{{
+
 " " press <esc> to cancel.
 " nmap f <Plug>(coc-smartf-forward)
 " nmap F <Plug>(coc-smartf-backward)
@@ -130,8 +115,41 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 "   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 " augroup end
 
+"}}}
+
+" keymappings and commands {{{
+" NOTE: keymappings and commands
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
 " Keymapping for grep word under cursor with interactive mode
 nnoremap <silent> <leader>cG :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
 " grep current word in current buffer
 nnoremap <silent> <leader>cg  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+
+" }}}
+
+" snippets {{{
+
+" use <TAB> like in vscode for snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+" }}}

@@ -10,20 +10,23 @@
     "javascriptreact",
     "json",
     "json",
+    "lua",
     "markdown",
     "python",
     "typescript",
     "typescript.tsx",
     "typescriptreact",
-    "yaml",
-    "vim"
+    "vim",
+    "yaml"
   ],
+
   // autoformat
   "coc.preferences.hoverTarget": "float",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
   // eslint
   "eslint.autoFixOnSave": false,
+
   // suggestions
   // "suggest.echodocSupport": true,
   "suggest.enablePreview": true,
@@ -84,6 +87,14 @@
   "list.indicator": ">",
   "list.selectedSignText": " ",
   "list.height": 30,
+  // "list.source.files.command": "rg",
+  "list.source.files.args": ["--hidden", "--files"],
+  "list.source.files.excludePatterns": [
+    "**/.git/*",
+    "/tmp/*",
+    "**/lua-language-server/*"
+  ],
+  "list.source.grep.excludePatterns": ["**/.git/*", "/tmp/*"],
 
   // python config
   "python.analysis.autoImportCompletions": true,
@@ -132,5 +143,18 @@
   // Lua language server settings
   "lua.enable": true,
   "Lua.hint.enable": true,
-  "session.directory": "~/.config/nvim/sessions"
+  "Lua.diagnostics.globals": [
+    "vim",
+    "describe",
+    "it",
+    "before_each",
+    "after_each",
+    "awesome",
+    "theme",
+    "client"
+  ],
+  "Lua.workspace.preloadFileSize": 1000,
+
+  // sessions
+  "session.directory": "~/.local/share/nvim/sessions"
 }
