@@ -2,21 +2,14 @@ local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 
-lsp_status.register_progress()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 lsp_config.clangd.setup(
     {
-      capabilities = lsp_status.capabilities,
-      on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        on_attach(client)
-      end
-    }
-)
-
-lsp_config.sourcekit.setup(
-    {
-      capabilities = lsp_status.capabilities,
+      handlers = lsp_status.extensions.clangd.setup(),
+      capabilities = vim.tbl_deep_extend(
+          'keep', capabilities or {}, lsp_status.capabilities
+      ),
       on_attach = function(client)
         client.resolved_capabilities.document_formatting = false
         on_attach(client)

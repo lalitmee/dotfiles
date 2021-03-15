@@ -4,8 +4,6 @@ local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 
-lsp_status.register_progress()
-
 local sumneko_root_path = ''
 local sumneko_binary = ''
 
@@ -35,10 +33,14 @@ local function get_lua_runtime()
   return result
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 lsp_config.sumneko_lua.setup(
     {
       cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-      capabilities = lsp_status.capabilities,
+      capabilities = vim.tbl_deep_extend(
+          'keep', capabilities or {}, lsp_status.capabilities
+      ),
       on_attach = on_attach,
       settings = {
         Lua = {

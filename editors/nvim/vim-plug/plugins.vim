@@ -154,8 +154,8 @@ Plug 'dstein64/vim-startuptime'
 
 Plug 'SirVer/ultisnips'                             " snippets engine
 Plug 'honza/vim-snippets'                           " Snippets in Vim
-" Plug 'hrsh7th/vim-vsnip'                            " vsnip vscode snippets
-" Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'hrsh7th/vim-vsnip'                            " vsnip vscode snippets
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Snippets }}}
@@ -257,10 +257,6 @@ Plug 'junegunn/fzf', {
       \ 'do': './install --all'
       \ }                                           " FZF in vim
 Plug 'junegunn/fzf.vim'                             " FZF in vim
-Plug 'yuki-yano/fzf-preview.vim', {
-      \ 'branch': 'release/remote',
-      \ 'do': ':UpdateRemotePlugs'
-      \ }                                           " fzf with preview
 Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
 Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 

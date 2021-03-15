@@ -1,13 +1,44 @@
+local lsp_status = require('lsp-status')
 local fn = vim.fn
 
-require('config.lsp.status')
 require('lspkind').init({})
 require('config.lsp.handlers')
 
-fn.sign_define('LspDiagnosticsSignError', { text = 'E', numhl = 'LspDiagnosticsDefaultError' })
-fn.sign_define('LspDiagnosticsSignWarning', { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' })
-fn.sign_define('LspDiagnosticsSignInformation', { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' })
-fn.sign_define('LspDiagnosticsSignHint', { text = 'H', numhl = 'LspDiagnosticsDefaultHint' })
+fn.sign_define(
+    'LspDiagnosticsSignError',
+    { text = 'E', numhl = 'LspDiagnosticsDefaultError' }
+)
+fn.sign_define(
+    'LspDiagnosticsSignWarning',
+    { text = 'W', numhl = 'LspDiagnosticsDefaultWarning' }
+)
+fn.sign_define(
+    'LspDiagnosticsSignInformation',
+    { text = 'I', numhl = 'LspDiagnosticsDefaultInformation' }
+)
+fn.sign_define(
+    'LspDiagnosticsSignHint',
+    { text = 'H', numhl = 'LspDiagnosticsDefaultHint' }
+)
+
+lsp_status.config {
+  select_symbol = function(cursor_pos, symbol)
+    if symbol.valueRange then
+      local value_range = {
+        ['start'] = {
+          character = 0,
+          line = vim.fn.byte2line(symbol.valueRange[1])
+        },
+        ['end'] = { character = 0, line = vim.fn.byte2line(symbol.valueRange[2]) }
+      }
+
+      return require('lsp-status/util').in_range(cursor_pos, value_range)
+    end
+  end,
+  current_function = true
+}
+
+lsp_status.register_progress()
 
 -- require('config.lsp.clang')
 -- require('config.lsp.diagnostics')
