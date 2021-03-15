@@ -45,10 +45,13 @@ require('lualine').status {
       { 'diff' },
       {
         'diagnostics',
-        sources = { 'nvim_lsp' },
+        -- sources = { 'nvim_lsp' },
+        sources = { 'coc' },
         symbols = { error = 'E:', warn = 'W:', info = 'I:' }
       },
-      { 'LspCurrentFunction' }
+      -- { 'LspCurrentFunction' },
+      { 'b:coc_current_function' },
+      { 'g:coc_status' }
       -- { get_lsp_client }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
