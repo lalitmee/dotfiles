@@ -20,7 +20,6 @@ let SignatureDeferPlacement =  1
 let SignaturePeriodicRefresh =  1 
 let SignatureMarkerLineHL = "SignatureMarkerLine"
 let SignatureErrorIfNoAvailableMarks =  1 
-let BetterLua_enable_emmylua =  1 
 let DevIconsAppendArtifactFix =  1 
 let VtrOrientation = "v"
 let SignatureMarkTextHLDynamic =  0 
@@ -54,27 +53,20 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +58 editors/nvim/lua/config/status-lines/lualine.lua
-badd +0 editors/nvim/after/ftplugin/lua.vim
-badd +1 editors/nvim/ftdetect/json.vim
-badd +0 editors/nvim/after/ftplugin/json.vim
+badd +1372 system/kitty/kitty.conf
+badd +46 editors/nvim/plug-config/coc.vim
+badd +45 editors/nvim/keys/which-key.vim
 argglobal
 %argdel
-edit editors/nvim/after/ftplugin/json.vim
+edit editors/nvim/plug-config/coc.vim
 set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
 argglobal
-balt editors/nvim/ftdetect/json.vim
+balt editors/nvim/keys/which-key.vim
 setlocal fdm=marker
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -83,38 +75,13 @@ setlocal fdl=999
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 4 - ((3 * winheight(0) + 25) / 50)
+let s:l = 68 - ((25 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 4
-normal! 0
+keepjumps 68
+normal! 04|
 lcd ~/data/Github/dotfiles
-wincmd w
-argglobal
-if bufexists("~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim") | buffer ~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim | else | edit ~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim | endif
-if &buftype ==# 'terminal'
-  silent file ~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim
-endif
-balt ~/data/Github/dotfiles/editors/nvim/lua/config/status-lines/lualine.lua
-setlocal fdm=marker
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=999
-setlocal fml=1
-setlocal fdn=10
-setlocal fen
-let s:l = 10 - ((9 * winheight(0) + 25) / 50)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 10
-normal! 0
-lcd ~/data/Github/dotfiles
-wincmd w
-exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
