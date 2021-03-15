@@ -460,20 +460,8 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# nord theme for tmux
-set -g @plugin "arcticicestudio/nord-tmux"
-
-# # onedark theme for tmux
-# set -g @plugin 'odedlaz/tmux-onedark-theme'
-# set -g @onedark_time_format "%I:%M %p"
-# set -g @onedark_date_format "%d/%m/%Y"
-
 # better mouse support in tmux
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
-
-# spotify from tmux
-# requires macos
-# set -g @plugin 'xamut/tmux-spotify'
 
 # tmux open for opening anything
 set -g @plugin 'tmux-plugins/tmux-open'
