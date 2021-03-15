@@ -34,9 +34,13 @@ nmap <silent> ]e <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD :CocCommand fzf-preview.CocReferences<CR>
 nmap <silent> ge :CocCommand fzf-preview.CocCurrentDiagnostics<CR>
-nmap <silent> gl :CocCommand fzf-preview.CocDiagnostics<CR>
 nmap <silent> gi :CocCommand fzf-preview.CocImplementations<CR>
+nmap <silent> gl :CocCommand fzf-preview.CocDiagnostics<CR>
 nmap <silent> gr :CocCommand fzf-preview.CocReferences<CR>
+nmap <silent> gw :CocCommand fzf-preview.BufferTags<CR>
+nmap <silent> gW :CocList symbols<CR>
+nmap <silent> gwn :CocCommand document.jumpToNextSymbol<CR>
+nmap <silent> gwp :CocCommand document.jumpToPrevSymbol<CR>
 nmap <silent> gy :CocCommand fzf-preview.CocTypeDefinitions<CR>
 
 " Use K to show documentation in preview window.

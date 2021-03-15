@@ -67,10 +67,10 @@ luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 " config {{{
 
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
-luafile $HOME/.config/nvim/lua/config/lsp/init.lua
+" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
-source $HOME/.config/nvim/lua/lsp-wrapper.vim
+" source $HOME/.config/nvim/lua/lsp-wrapper.vim
 
 " }}}
 
@@ -80,8 +80,8 @@ source $HOME/.config/nvim/lua/lsp-wrapper.vim
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-luafile $HOME/.config/nvim/lua/plugins/completion.lua
-luafile $HOME/.config/nvim/lua/plugins/formatter.lua
+" luafile $HOME/.config/nvim/lua/plugins/completion.lua
+" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
 luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
@@ -155,10 +155,10 @@ source $HOME/.config/nvim/plug-config/vim-sneak.vim
 
 " Keys Mappings {{{
 
-" source $HOME/.config/nvim/keys/coc.vim
+source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/fzf.vim
-source $HOME/.config/nvim/keys/lsp.vim
+" source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/navigation.vim
 source $HOME/.config/nvim/keys/smooth-scroll.vim
