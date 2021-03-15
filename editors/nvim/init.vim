@@ -40,7 +40,7 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 " General Settings {{{
 
-source $HOME/.config/nvim/general/animate.vim
+" source $HOME/.config/nvim/general/animate.vim
 source $HOME/.config/nvim/general/cursor.vim
 source $HOME/.config/nvim/general/fonts.vim
 source $HOME/.config/nvim/general/format.vim

@@ -730,10 +730,10 @@ let g:which_key_map.w = {
       \ 'l' : ['<C-W>l'                                              , 'window-right'],
       \ 'm' : [':MaximizerToggle'                                    , 'maximize-windows'],
       \ 'n' : ['<C-W>J'                                              , 'move-window-far-down'],
-      \ 's' : [':HorizontalSplit'                                    , 'split-window-below'],
+      \ 's' : ['<C-W>s'                                    , 'split-window-below'],
       \ 't' : ['<C-W>T'                                              , 'move-split-to-tab'],
       \ 'u' : ['<C-W>x'                                              , 'swap-window-next'],
-      \ 'v' : [':VerticalSplit'                                      , 'split-window-right'],
+      \ 'v' : ['<C-W>v'                                      , 'split-window-right'],
       \ 'x' : [':call WindowSwap#EasyWindowSwap()'                   , 'window-swap'],
       \ }
 
