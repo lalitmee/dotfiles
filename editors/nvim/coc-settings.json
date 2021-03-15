@@ -156,5 +156,5 @@
   "Lua.workspace.preloadFileSize": 1000,
 
   // sessions
-  "session.directory": "~/.config/nvim/sessions"
+  "session.directory": "~/.local/share/nvim/sessions"
 }
