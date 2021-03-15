@@ -777,7 +777,7 @@ let g:which_key_map.t = {
 
 " T is for tmux-runner {{{
 
-let g:which_key_map.t = {
+let g:which_key_map.T = {
       \ 'name' : '+tmux-runner'                                      ,
       \ 'a' : [':VtrAttachToPane'                                    , 'attach-pane'],
       \ 'c' : [':VtrClearRunner'                                     , 'clear-runner'],
