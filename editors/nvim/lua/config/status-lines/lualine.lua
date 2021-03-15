@@ -51,7 +51,12 @@ require('lualine').status {
       },
       -- { 'LspCurrentFunction' },
       { 'b:coc_current_function' },
-      { 'g:coc_status' }
+      {
+        'g:coc_status',
+        'b:coc_git_blame',
+        'g:coc_git-status',
+        'b:coc_git_status'
+      }
       -- { get_lsp_client }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
