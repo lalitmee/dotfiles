@@ -2,6 +2,7 @@ local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 local eslint = require('config.lsp.efm.eslint')
+local vint = require('config.lsp.efm.vint')
 local prettier = require('config.lsp.efm.prettier')
 local luafmt = require('config.lsp.efm.luafmt')
 
@@ -22,10 +23,11 @@ local efm_languages = {
   typescript = { eslint, prettier },
   typescriptreact = { eslint, prettier },
   yaml = { prettier },
-  lua = { luafmt }
+  lua = { luafmt },
+  vim = { vint }
 }
 
-lsp_status.register_progress()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 lsp_config.efm.setup(
     {
@@ -56,7 +58,9 @@ lsp_config.efm.setup(
         'vim',
         'yaml'
       },
-      capabilities = lsp_status.capabilities,
+      capabilities = vim.tbl_deep_extend(
+          'keep', capabilities or {}, lsp_status.capabilities
+      ),
       on_attach = on_attach,
       root_dir = lsp_config.util.root_pattern(unpack(efm_root_markers)),
       init_options = { documentFormatting = true },

@@ -2,11 +2,13 @@ local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
 local on_attach = require('config.lsp.on_attach')
 
-lsp_status.register_progress()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 lsp_config.dockerls.setup(
     {
-      capabilities = lsp_status.capabilities,
+      capabilities = vim.tbl_deep_extend(
+          'keep', capabilities or {}, lsp_status.capabilities
+      ),
       on_attach = function(client)
         client.resolved_capabilities.document_formatting = false
         on_attach(client)

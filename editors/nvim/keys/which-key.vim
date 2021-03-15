@@ -184,9 +184,21 @@ let g:which_key_map.c = {
 
 " }}}
 
-" d is for FZF {{{
+" e is for error and warnings with errors/warnings {{{
 
-let g:which_key_map.d = {
+let g:which_key_map.e = {
+      \ 'name' : '+errors/warnings'                                  ,
+      \ 'l' : [':Telescope lsp_workspace_diagnostics'                , 'list-errors/warnings'],
+      \ 'n' : [':Lspsaga diagnostic_jump_next'                       , 'next-diagnostic'],
+      \ 'p' : [':Lspsaga diagnostic_jump_prev'                       , 'prev-diagnostic'],
+      \ 'L' : [':Lspsaga show-line-diagnostics'                      , 'line-diagnostic'],
+      \ }
+
+" }}}
+
+" f is for FZF {{{
+
+let g:which_key_map.f = {
       \ 'name' : '+FZF'                                              ,
       \ 'a' : [':FzfAg'                                              , 'ag'],
       \ 'b' : {
@@ -214,6 +226,12 @@ let g:which_key_map.d = {
       \ },
       \ 'h' : [':FzfHistory'                                         , 'history'],
       \ 'i' : [':FzfSnippets'                                        , 'snippets'],
+      \ 'j' : {
+        \ 'name' : '+search'                                         ,
+        \ 'c' : [':RG'                                               , 'search-content'],
+        \ 'd' : [':FzfRg'                                            , 'default-rg'],
+        \ 'f' : [':Rg'                                               , 'custom-rg'],
+      \ },
       \ 'p' : [':FzfSwitchProject'                                   , 'projects'],
       \ 'L' : [':FzfLocate '                                         , 'locate'],
       \ 't' : [':FzfBTags'                                           , 'buffer-tags'],
@@ -233,12 +251,8 @@ let g:which_key_map.d = {
         \ 'w' : [':FzfDocumentSymbols'                               , 'document-symbols'],
         \ 'W' : [':FzfWorkspaceSymbols'                              , 'workspace-symbols'],
       \ },
-      \ 's' : {
-        \ 'name' : '+search'                                         ,
-        \ 'c' : [':RG'                                               , 'search-content'],
-        \ 'd' : [':FzfRg'                                            , 'default-rg'],
-        \ 'f' : [':Rg'                                               , 'custom-rg'],
-      \ },
+      \ 's' : [':w'                                                  , 'save-buffer'],
+      \ 'S' : [':wa'                                                 , 'save-all-buffers'],
       \ 'v' : {
         \ 'name' : '+vim'                                            ,
         \ '/' : [':FzfHistory/'                                      , 'search-history'],
@@ -251,80 +265,6 @@ let g:which_key_map.d = {
         \ 'M' : [':FzfMaps'                                          , 'maps'],
       \ },
       \ 'w' : [':FzfWindows'                                         , 'windows'],
-      \ }
-
-" }}}
-
-" e is for error and warnings with errors/warnings {{{
-
-let g:which_key_map.e = {
-      \ 'name' : '+errors/warnings'                                  ,
-      \ 'l' : [':Telescope lsp_workspace_diagnostics'                , 'list-errors/warnings'],
-      \ 'n' : [':Lspsaga diagnostic_jump_next'                       , 'next-diagnostic'],
-      \ 'p' : [':Lspsaga diagnostic_jump_prev'                       , 'prev-diagnostic'],
-      \ 'L' : [':Lspsaga show-line-diagnostics'                      , 'line-diagnostic'],
-      \ }
-
-" }}}
-
-" f is for fzf-preview {{{
-
-let g:which_key_map.f = {
-      \ 'name' : '+fzf-preview'                                      ,
-      \ 'f' : {
-        \ 'name' : '+files'                                          ,
-        \ 'd' : [':FzfPreviewFromResources directory'                , 'directory-resource'],
-        \ 'f' : [':FzfPreviewProjectFiles'                           , 'find-files'],
-        \ 'g' : [':FzfPreviewGitFiles'                               , 'find-git-files'],
-        \ 'K' : [':FzfPreviewFromResources project_mrw'              , 'project-mrw-resource'],
-        \ 'm' : [':FzfPreviewFromResources project_mru'              , 'project-mru-resource'],
-        \ 'o' : [':FzfPreviewFromResources project_old'              , 'project-old-resource'],
-        \ 'O' : [':FzfPreviewFromResources old'                      , 'old-resource'],
-        \ 'p' : [':FzfPreviewFromResources project'                  , 'project-resource'],
-        \ 'r' : [':FzfPreviewOldFiles'                               , 'recent-files'],
-        \ 'u' : [':FzfPreviewProjectMruFiles'                        , 'dir-mru-files'],
-        \ 'U' : [':FzfPreviewMruFiles'                               , 'mru-files'],
-        \ 'w' : [':FzfPreviewProjectMrwFiles'                        , 'dir-mrw-files'],
-        \ 'W' : [':FzfPreviewMruFiles'                               , 'mru-files'],
-        \ 'z' : [':FzfPreviewFromResources mru'                      , 'mru-resource'],
-        \ 'Z' : [':FzfPreviewFromResources mrw'                      , 'mrw-resource'],
-      \ },
-      \ 'g' : {
-        \ 'name' : '+git'                                            ,
-        \ 'a' : [':FzfPreviewGitActions'                             , 'git-actions'],
-        \ 'c' : [':FzfPreviewChanges'                                , 'changes'],
-        \ 'f' : [':FzfPreviewFromResources git'                      , 'git-resource'],
-        \ 'g' : [':FzfPreviewGitStatus'                              , 'git-status'],
-      \ },
-      \ 'b' : {
-        \ 'name' : '+buffers'                                        ,
-        \ 'a' : [':FzfPreviewFromResources buffer'                   , 'buffer-resource'],
-        \ 'b' : [':FzfPreviewBuffers'                                , 'buffers'],
-        \ 'B' : [':FzfPreviewAllBuffers'                             , 'all-buffers'],
-        \ 'l' : [':FzfPreviewLines'                                  , 'buffer-lines'],
-        \ 'L' : [':FzfPreviewBufferLines'                            , 'loaded-buffers-lines'],
-      \ },
-      \ 'j' : {
-        \ 'name' : '+jump'                                           ,
-        \ 'b' : [':FzfPreviewBookmarks'                              , 'bookmarks-preview'],
-        \ 'm' : [':FzfPreviewMarks'                                  , 'marks'],
-        \ 'j' : [':FzfPreviewJumps'                                  , 'jumps'],
-        \ 'l' : [':FzfPreviewLocationList'                           , 'location-list'],
-      \ },
-      \ 't' : {
-        \ 'name' : '+tags'                                           ,
-        \ 'b' : [':FzfPreviewBufferTags'                             , 'buffer-ctags'],
-        \ 'c' : [':FzfPreviewVistaBufferCtags'                       , 'vista-buffer-tags'],
-        \ 't' : [':FzfPreviewCtags'                                  , 'ctags'],
-        \ 'v' : [':FzfPreviewVistaCtags'                             , 'vista-tags'],
-      \ },
-      \ 'v' : {
-        \ 'name' : '+vim'                                            ,
-        \ 'h' : [':FzfPreviewCommandPalette'                         , 'execute-edit-commands-history'],
-      \ },
-      \ 'q' : [':FzfPreviewQuickFix'                                 , 'quick-fix-list'],
-      \ 's' : [':w'                                                  , 'save-buffer'],
-      \ 'S' : [':wa'                                                 , 'save-all-buffers'],
       \ }
 
 " }}}

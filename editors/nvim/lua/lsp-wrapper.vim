@@ -27,13 +27,13 @@ command! LspSignatureHelp          lua require 'lsp-wrapper'.signature_help()
 command! LspTypeDefinition         lua require 'lsp-wrapper'.type_definition()
 command! LspWorkspaceSymbols       lua require 'lsp-wrapper'.workspace_symbol()
 
-func! LspLocationList()
- lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
-endfun
+" func! LspLocationList()
+"  lua vim.lsp.diagnostic.set_loclist({open_loclist = false})
+" endfun
 
-augroup set_buffer_diagnostics_to_loc_list
-    autocmd!
-    autocmd! BufWrite,BufEnter,InsertLeave * :call LspLocationList()
-augroup END
+" augroup set_buffer_diagnostics_to_loc_list
+"     autocmd!
+"     autocmd! BufWrite,BufEnter,InsertLeave * :call LspLocationList()
+" augroup END
 
 

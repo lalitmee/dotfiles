@@ -26,4 +26,4 @@ let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
 
-let g:vsnip_snippet_dir = '~/.config/nvim/.vsnips'
+let g:vsnip_snippet_dir = '~/.config/nvim/snippets/vsnips'

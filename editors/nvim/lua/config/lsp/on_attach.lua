@@ -1,57 +1,11 @@
+local lsp_status = require('lsp-status')
 local buf_map = require('utils').buf_map
 local buf_option = require('utils').buf_option
 local telescope_mapper = require('config.telescope.mappings')
 local _ = require('config.lsp.handlers')
 
--- NOTE: source: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/lsp.lua
-vim.lsp.handlers['textDocument/formatting'] =
-    function(err, _, result, _, bufnr)
-      if err ~= nil or result == nil then
-        return
-      end
-      if not vim.api.nvim_buf_get_option(bufnr, 'modified') then
-        local view = vim.fn.winsaveview()
-        vim.lsp.util.apply_text_edits(result, bufnr)
-        vim.fn.winrestview(view)
-        if bufnr == vim.api.nvim_get_current_buf() then
-          vim.cmd [[noautocmd :update]]
-          -- vim.cmd [[GitGutter]]
-        end
-      end
-    end
-
-local format_options_prettier = {
-  tabWidth = 4,
-  singleQuote = true,
-  trailingComma = 'all',
-  configPrecedence = 'prefer-file'
-}
-vim.g.format_options_typescript = format_options_prettier
-vim.g.format_options_javascript = format_options_prettier
-vim.g.format_options_typescriptreact = format_options_prettier
-vim.g.format_options_javascriptreact = format_options_prettier
-vim.g.format_options_json = format_options_prettier
-vim.g.format_options_css = format_options_prettier
-vim.g.format_options_scss = format_options_prettier
-vim.g.format_options_html = format_options_prettier
-vim.g.format_options_yaml = format_options_prettier
-vim.g.format_options_markdown = format_options_prettier
-
-FormatToggle = function(value)
-  vim.g[string.format('format_disabled_%s', vim.bo.filetype)] = value
-end
-vim.cmd [[command! FormatDisable lua FormatToggle(true)]]
-vim.cmd [[command! FormatEnable lua FormatToggle(false)]]
-
-_G.formatting = function()
-  if not vim.g[string.format('format_disabled_%s', vim.bo.filetype)] then
-    vim.lsp.buf.formatting(
-        vim.g[string.format('format_options_%s', vim.bo.filetype)] or {}
-    )
-  end
-end
-
 local function on_attach(client, bufnr)
+  lsp_status.on_attach(client)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = true }
   buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -71,12 +25,12 @@ local function on_attach(client, bufnr)
   buf_map('n', 'geq', '<cmd>LspSetDiagnosticsLocList<CR>', opts)
 
   -- these can be set from Telescope that's why commented out
-  -- buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
   -- buf_map('n', 'gcA', '<cmd>LspRangeCodeActions<CR>', opts)
   -- buf_map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
-  buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
+  -- buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
   -- buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
   -- buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
+  buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
 
   -- formaaing mappings
   buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)
@@ -96,7 +50,7 @@ local function on_attach(client, bufnr)
   buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
   buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
   buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
-  buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+  -- buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
 
   local telescope_opts = { prompt_position = 'top' }
   telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
@@ -128,84 +82,52 @@ local function on_attach(client, bufnr)
   end
 end
 
--- diagnostics setup
-require('lspconfig').diagnosticls.setup {
-  on_attach = on_attach,
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'typescript',
-    'typescriptreact',
-    'css',
-    'scss',
-    'markdown',
-    'pandoc'
-  },
-  init_options = {
-    linters = {
-      eslint = {
-        command = 'eslint',
-        rootPatterns = { '.git' },
-        debounce = 100,
-        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
-        sourceName = 'eslint',
-        parseJson = {
-          errorsRoot = '[0].messages',
-          line = 'line',
-          column = 'column',
-          endLine = 'endLine',
-          endColumn = 'endColumn',
-          message = '[eslint] ${message} [${ruleId}]',
-          security = 'severity'
-        },
-        securities = { [2] = 'error', [1] = 'warning' }
-      },
-      markdownlint = {
-        command = 'markdownlint',
-        rootPatterns = { '.git' },
-        isStderr = true,
-        debounce = 100,
-        args = { '--stdin' },
-        offsetLine = 0,
-        offsetColumn = 0,
-        sourceName = 'markdownlint',
-        securities = { undefined = 'hint' },
-        formatLines = 1,
-        formatPattern = {
-          '^.*:(\\d+)\\s+(.*)$',
-          { line = 1, column = -1, message = 2 }
-        }
-      }
-    },
-    filetypes = {
-      javascript = 'eslint',
-      javascriptreact = 'eslint',
-      typescript = 'eslint',
-      typescriptreact = 'eslint',
-      markdown = 'markdownlint',
-      pandoc = 'markdownlint'
-    },
-    formatters = {
-      prettierEslint = {
-        command = 'prettier-eslint',
-        args = { '--stdin' },
-        rootPatterns = { '.git' }
-      },
-      prettier = {
-        command = 'prettier',
-        args = { '--stdin-filepath', '%filename' }
-      }
-    },
-    formatFiletypes = {
-      css = 'prettier',
-      javascript = 'prettierEslint',
-      javascriptreact = 'prettierEslint',
-      json = 'prettier',
-      scss = 'prettier',
-      typescript = 'prettierEslint',
-      typescriptreact = 'prettierEslint'
-    }
-  }
-}
-
 return on_attach
+
+-- -- NOTE: source: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/lsp.lua
+-- vim.lsp.handlers['textDocument/formatting'] =
+--     function(err, _, result, _, bufnr)
+--       if err ~= nil or result == nil then
+--         return
+--       end
+--       if not vim.api.nvim_buf_get_option(bufnr, 'modified') then
+--         local view = vim.fn.winsaveview()
+--         vim.lsp.util.apply_text_edits(result, bufnr)
+--         vim.fn.winrestview(view)
+--         if bufnr == vim.api.nvim_get_current_buf() then
+--           vim.cmd [[noautocmd :update]]
+--           -- vim.cmd [[GitGutter]]
+--         end
+--       end
+--     end
+
+-- local format_options_prettier = {
+--   tabWidth = 4,
+--   singleQuote = true,
+--   trailingComma = 'all',
+--   configPrecedence = 'prefer-file'
+-- }
+-- vim.g.format_options_typescript = format_options_prettier
+-- vim.g.format_options_javascript = format_options_prettier
+-- vim.g.format_options_typescriptreact = format_options_prettier
+-- vim.g.format_options_javascriptreact = format_options_prettier
+-- vim.g.format_options_json = format_options_prettier
+-- vim.g.format_options_css = format_options_prettier
+-- vim.g.format_options_scss = format_options_prettier
+-- vim.g.format_options_html = format_options_prettier
+-- vim.g.format_options_yaml = format_options_prettier
+-- vim.g.format_options_markdown = format_options_prettier
+
+-- FormatToggle = function(value)
+--   vim.g[string.format('format_disabled_%s', vim.bo.filetype)] = value
+-- end
+-- vim.cmd [[command! FormatDisable lua FormatToggle(true)]]
+-- vim.cmd [[command! FormatEnable lua FormatToggle(false)]]
+
+-- _G.formatting = function()
+--   if not vim.g[string.format('format_disabled_%s', vim.bo.filetype)] then
+--     vim.lsp.buf.formatting(
+--         vim.g[string.format('format_options_%s', vim.bo.filetype)] or {}
+--     )
+--   end
+-- end
