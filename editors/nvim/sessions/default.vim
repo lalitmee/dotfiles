@@ -54,24 +54,27 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +218 editors/nvim/vim-plug/plugins.vim
-badd +12 editors/nvim/after/plugin/lualine.vim
-badd +39 editors/nvim/keys/coc.vim
-badd +260 editors/nvim/keys/which-key.vim
-badd +16 editors/nvim/lua/config/telescope/init.lua
+badd +58 editors/nvim/lua/config/status-lines/lualine.lua
+badd +0 editors/nvim/after/ftplugin/lua.vim
+badd +1 editors/nvim/ftdetect/json.vim
+badd +0 editors/nvim/after/ftplugin/json.vim
 argglobal
 %argdel
-edit editors/nvim/keys/coc.vim
+edit editors/nvim/after/ftplugin/json.vim
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '2resize ' . ((&lines * 43 + 27) / 54)
-exe 'vert 2resize ' . ((&columns * 188 + 118) / 236)
+exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
+exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
 argglobal
-balt editors/nvim/after/plugin/lualine.vim
+balt editors/nvim/ftdetect/json.vim
 setlocal fdm=marker
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -80,68 +83,38 @@ setlocal fdl=999
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-let s:l = 39 - ((24 * winheight(0) + 25) / 50)
+let s:l = 4 - ((3 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 39
-normal! 07|
+keepjumps 4
+normal! 0
 lcd ~/data/Github/dotfiles
 wincmd w
 argglobal
-if bufexists("~/data/Github/dotfiles/editors/nvim/lua/config/telescope/init.lua") | buffer ~/data/Github/dotfiles/editors/nvim/lua/config/telescope/init.lua | else | edit ~/data/Github/dotfiles/editors/nvim/lua/config/telescope/init.lua | endif
+if bufexists("~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim") | buffer ~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim | else | edit ~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim | endif
 if &buftype ==# 'terminal'
-  silent file ~/data/Github/dotfiles/editors/nvim/lua/config/telescope/init.lua
+  silent file ~/data/Github/dotfiles/editors/nvim/after/ftplugin/lua.vim
 endif
-setlocal fdm=manual
+balt ~/data/Github/dotfiles/editors/nvim/lua/config/status-lines/lualine.lua
+setlocal fdm=marker
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=1
+setlocal fdl=999
 setlocal fml=1
 setlocal fdn=10
 setlocal fen
-silent! normal! zE
-81,83fold
-85,93fold
-96,146fold
-147,186fold
-95,187fold
-191,203fold
-205,218fold
-220,232fold
-234,236fold
-238,240fold
-242,246fold
-248,258fold
-260,264fold
-266,268fold
-270,272fold
-274,288fold
-290,297fold
-299,301fold
-303,305fold
-307,328fold
-330,332fold
-334,337fold
-339,341fold
-343,345fold
-347,353fold
-let &fdl = &fdl
-95
-normal! zo
-96
-normal! zo
-let s:l = 16 - ((15 * winheight(0) + 21) / 43)
+let s:l = 10 - ((9 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 16
-normal! 01|
+keepjumps 10
+normal! 0
 lcd ~/data/Github/dotfiles
 wincmd w
-exe '2resize ' . ((&lines * 43 + 27) / 54)
-exe 'vert 2resize ' . ((&columns * 188 + 118) / 236)
+exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
+exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
