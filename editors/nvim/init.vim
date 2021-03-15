@@ -67,10 +67,10 @@ luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 " config {{{
 
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
-" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
+luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
-" source $HOME/.config/nvim/lua/lsp-wrapper.vim
+source $HOME/.config/nvim/lua/lsp-wrapper.vim
 
 " }}}
 
@@ -80,7 +80,7 @@ luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-" luafile $HOME/.config/nvim/lua/plugins/completion.lua
+luafile $HOME/.config/nvim/lua/plugins/completion.lua
 luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
@@ -121,6 +121,7 @@ luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 " source $HOME/.config/nvim/plug-config/goyo.vim
 " source $HOME/.config/nvim/plug-config/ranger.vim
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
+" source $HOME/.config/nvim/plug-config/vsnip.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/crease.vim
@@ -148,20 +149,19 @@ source $HOME/.config/nvim/plug-config/vim-awesome.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
-source $HOME/.config/nvim/plug-config/vsnip.vim
 source $HOME/.config/nvim/plug-config/vim-sneak.vim
 
 " Plugins Configurations }}}
 
 " Keys Mappings {{{
 
-source $HOME/.config/nvim/keys/coc.vim
+" source $HOME/.config/nvim/keys/coc.vim
+" source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/fzf.vim
-" source $HOME/.config/nvim/keys/lsp.vim
+source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/navigation.vim
-source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/vim-zettel.vim
 source $HOME/.config/nvim/keys/which-key.vim

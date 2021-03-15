@@ -1,1 +1,1 @@
-noremap <silent> <buffer> <TAB> za
+noremap <silent> <TAB> za

@@ -1,4 +1,7 @@
-" auto-install vim-plug
+" NOTE: vim-plug and plugins
+
+" auto-install vim-plug {{{
+
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -6,21 +9,25 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
+" }}}
+
+" Plugins {{{
+
 call plug#begin('~/.config/nvim/autoload/plugged')
 
 " LEARN VIM {{{
 
-Plug 'ThePrimeagen/vim-be-good', {
-      \ 'on': 'VimBeGood'
-      \ }                                           " vim-be-good
-Plug 'tjdevries/train.nvim', {
-      \ 'on': [
-      \ 'TrainClear',
-      \ 'TrainUpDown',
-      \ 'TrainTextObj',
-      \ 'TrainWord'
-      \ ]
-      \ }                                           " motion training
+" Plug 'ThePrimeagen/vim-be-good', {
+"       \ 'on': 'VimBeGood'
+"       \ }                                           " vim-be-good
+" Plug 'tjdevries/train.nvim', {
+"       \ 'on': [
+"       \ 'TrainClear',
+"       \ 'TrainUpDown',
+"       \ 'TrainTextObj',
+"       \ 'TrainWord'
+"       \ ]
+"       \ }                                           " motion training
 
 " LEARN VIM }}}
 
@@ -49,13 +56,13 @@ Plug 'yamatsum/nvim-nonicons'
 
 " General {{{
 
+" Plug 'camspiers/animate.vim'
 " Plug 'kovetskiy/vim-autoresize'                   " auto resize window for vim
+" Plug 'norcalli/ui.nvim'                           " figure out what this does
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
-" Plug 'camspiers/animate.vim'
-" Plug 'norcalli/ui.nvim'                           " figure out what this does
 
 "}}}
 
@@ -88,7 +95,7 @@ Plug 'phaazon/hop.nvim', {'on': [
 
 " Movements {{{
 
-Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
+" Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
 Plug 'justinmk/vim-sneak'
 
@@ -96,13 +103,13 @@ Plug 'justinmk/vim-sneak'
 
 " Navigations {{{
 
-Plug 'ThePrimeagen/harpoon'
+" Plug 'ThePrimeagen/harpoon'
 
 " Navigations }}}
 
 " General {{{
 
-Plug 'matze/vim-move'                               " move lines and selection up, down, left and right
+" Plug 'matze/vim-move'                               " move lines and selection up, down, left and right
 Plug 'b3nj5m1n/kommentary'                          " comments using lua
 Plug 'mhinz/vim-sayonara', {
       \ 'on': 'Sayonara'
@@ -147,8 +154,8 @@ Plug 'dstein64/vim-startuptime'
 
 Plug 'SirVer/ultisnips'                             " snippets engine
 Plug 'honza/vim-snippets'                           " Snippets in Vim
-Plug 'hrsh7th/vim-vsnip'                            " vsnip vscode snippets
-Plug 'hrsh7th/vim-vsnip-integ'
+" Plug 'hrsh7th/vim-vsnip'                            " vsnip vscode snippets
+" Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Snippets }}}
@@ -157,7 +164,6 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Plug 'glepnir/indent-guides.nvim'                 " indent guides using lua
 Plug 'mhartington/formatter.nvim'                   " formatter in lua
-Plug 'pappasam/vim-filetype-formatter'
 Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
 Plug 'godlygeek/tabular'                            " Tabularize for Vim
 
@@ -192,31 +198,31 @@ Plug 'vim-scripts/restore_view.vim'
 
 " Plug 'josa42/vim-lightline-coc'                   " coc.nvim support for lightline
 " Plug 'neoclide/coc-neco'                          " vim completion for coc
-Plug 'neoclide/coc.nvim', {
-        \ 'branch': 'release'
-      \ }                                         " Completion Conquerer
+" Plug 'neoclide/coc.nvim', {
+"         \ 'branch': 'release'
+"       \ }                                         " Completion Conquerer
 
 " coc.nvim }}}
 
 " neovim-lsp {{{
 
+" Plug 'kizza/actionmenu.nvim'                      " actions menu
+" Plug 'nvim-lua/completion-nvim'
 Plug 'bfredl/nvim-luadev'
-" Plug 'glacambre/nvim-lsp'
-" Plug 'alexaandru/nvim-lspupdate'
+Plug 'glacambre/nvim-lsp'
+Plug 'alexaandru/nvim-lspupdate'
 Plug 'anott03/nvim-lspinstall'
 Plug 'euclidianAce/BetterLua.vim', {
       \ 'for': 'lua'
       \ }                                           " better lua syntax highlighting
-" Plug 'glepnir/lspsaga.nvim'
-" Plug 'hrsh7th/nvim-compe'
-" Plug 'kizza/actionmenu.nvim'                      " actions menu
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-compe'
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'onsails/lspkind-nvim'
-" Plug 'tjdevries/complextras.nvim'
-" Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'onsails/lspkind-nvim'
+Plug 'tjdevries/complextras.nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/nlua.nvim'
 
 " neovim-lsp }}}
@@ -279,18 +285,12 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 
 " telescope.nvim }}}
 
-
-" vim-clap {{{
-
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-
-" vim-clap }}}
-
 " FUZZY SEARCH }}}
 
 " LANGUAGES {{{
 
 " HTML {{{
+
 Plug 'alvan/vim-closetag', {
       \ 'for': [
       \ 'html',
@@ -357,8 +357,8 @@ Plug 'akinsho/nvim-bufferline.lua'
 
 " tpope {{{
 
-Plug 'tpope/vim-abolish'
 " Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
@@ -410,7 +410,9 @@ Plug 'voldikss/vim-floaterm', {
 
 " GNVIM {{{
 
-Plug 'akiyosi/gonvim-fuzzy'                         " Goneovim Fuzzy search
+if exists('g:goneovim')
+  Plug 'akiyosi/gonvim-fuzzy'                         " Goneovim Fuzzy search
+endif
 
 " GNVIM }}}
 
@@ -440,3 +442,5 @@ Plug 'airblade/vim-rooter'                          " change root director to ro
 " PROJECT MANAGEMENT }}}
 
 call plug#end()
+
+" Plugins }}}
