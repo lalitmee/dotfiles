@@ -30,7 +30,7 @@ local function on_attach(client, bufnr)
   -- buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
   -- buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
   -- buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
-  buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
+  -- buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
 
   -- formaaing mappings
   buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)

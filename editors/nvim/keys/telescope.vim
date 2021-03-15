@@ -37,6 +37,8 @@ nnoremap <silent> <leader>ow :lua
       \ })<cr>
 nnoremap <silent> <leader>oa :lua require('telescope.builtin').symbols{sources = {'emoji'}}<cr>
 
+nnoremap <silent> gW :lua require('config.telescope.lens').live_workspace_symbols()<cr>
+
 " nnoremap <silent> <leader>ota :lua require('config.telescope.customs').coc_list()<cr>
 
 " }}}
