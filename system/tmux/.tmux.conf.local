@@ -460,19 +460,8 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# nord theme for tmux
-set -g @plugin "arcticicestudio/nord-tmux"
-
-# # onedark theme for tmux
-# set -g @plugin 'odedlaz/tmux-onedark-theme'
-# set -g @onedark_time_format "%I:%M %p"
-# set -g @onedark_date_format "%d/%m/%Y"
-
 # better mouse support in tmux
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
-
-# spotify from tmux
-set -g @plugin 'xamut/tmux-spotify'
 
 # tmux open for opening anything
 set -g @plugin 'tmux-plugins/tmux-open'
@@ -488,16 +477,6 @@ set -g @plugin 'ChanderG/tmux-notify'
 
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
-
-# tmux-fzf-maccy
-set -g @plugin 'junegunn/tmux-fzf-maccy'
-
-# Bind-key (default: '@')
-set -g @fzf-maccy-bind '@'
-
-# fzf-tmux layout (default: '-p70%' on tmux 3.2, '-d' otherwise)
-#   (-p requires tmux 3.2 or above, see `man fzf-tmux` for available options)
-set -g @fzf-maccy-layout '-p70%'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

@@ -51,7 +51,7 @@ set mat=2                                  " how many tenths of a second to blin
 set history=1000                           " store more commands
 set nolist
 
-" Searching
+" NOTE: Searching
 set ignorecase                             " case insensitive searching
 set smartcase                              " case-sensitive if expresson contains a capital letter
 set hlsearch                               " highlight search results
@@ -76,14 +76,17 @@ set undolevels=1000                        " use many muchos levels of undo
 
 set viminfo='1000
 
+set sessionoptions+=globals
+
 set colorcolumn=80
 highlight ColorColumn guibg=#3B4252
 
-set formatprg=par\ -w72
+" NOTE: install par first from here http://www.nicemice.net/par/
+set formatprg=par\ -w80
 
 if (has('nvim'))
-                                           " show results of substition as they're happening
-                                           " but don't open a split
+  " show results of substition as they're happening
+  " but don't open a split
   set inccommand=split
 endif
 
@@ -91,12 +94,13 @@ set backspace=indent,eol,start             " make backspace behave in a sane man
 
 set tags=./tags,tags;$HOME
 
-""" Path settings for browsing files
+" NOTE: Path settings for browsing files
 set path+=**
 
+" NOTE: view options
+set viewoptions=cursor,folds,slash,unix
 
-
-" Tab control
+" NOTE: Tab control
 " set noexpandtab                          " insert tabs rather than spaces for <Tab>
 " set smarttab                             " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 " set expandtab                            " Converts tabs to spaces
@@ -105,7 +109,9 @@ set path+=**
 " set shiftwidth=2                         " number of spaces to use for indent and unindent
 " set shiftround                           " round indent to a multiple of 'shiftwidth'
 
-" code folding settings
+" NOTE: code folding settings
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 set foldnestmax=10                       " deepest fold is 10 levels
 set foldenable                           " don't fold by default
@@ -186,10 +192,10 @@ if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-if (has("termguicolors"))
+" set true colors
+if has('termguicolors')
+  set t_8f=\[[38;2;%lu;%lu;%lum
+  set t_8b=\[[48;2;%lu;%lu;%lum
   set termguicolors
 endif
 
@@ -271,3 +277,20 @@ highlight Comment cterm=italic gui=italic
 
 " background and comments }}}
 
+" Faster Startup time (disable default plugins loading) {{{
+
+let g:did_install_default_menus = 1
+let g:did_install_syntax_menu = 1
+set guioptions=M
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+" Leave netrw to death
+let g:netrw_banner=0
+
+"}}}

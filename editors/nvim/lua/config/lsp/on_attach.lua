@@ -3,36 +3,209 @@ local buf_option = require('utils').buf_option
 local telescope_mapper = require('config.telescope.mappings')
 local _ = require('config.lsp.handlers')
 
-local function on_attach(_)
+-- NOTE: source: https://github.com/lukas-reineke/dotfiles/blob/master/vim/lua/lsp.lua
+vim.lsp.handlers['textDocument/formatting'] =
+    function(err, _, result, _, bufnr)
+      if err ~= nil or result == nil then
+        return
+      end
+      if not vim.api.nvim_buf_get_option(bufnr, 'modified') then
+        local view = vim.fn.winsaveview()
+        vim.lsp.util.apply_text_edits(result, bufnr)
+        vim.fn.winrestview(view)
+        if bufnr == vim.api.nvim_get_current_buf() then
+          vim.cmd [[noautocmd :update]]
+          -- vim.cmd [[GitGutter]]
+        end
+      end
+    end
+
+local format_options_prettier = {
+  tabWidth = 4,
+  singleQuote = true,
+  trailingComma = 'all',
+  configPrecedence = 'prefer-file'
+}
+vim.g.format_options_typescript = format_options_prettier
+vim.g.format_options_javascript = format_options_prettier
+vim.g.format_options_typescriptreact = format_options_prettier
+vim.g.format_options_javascriptreact = format_options_prettier
+vim.g.format_options_json = format_options_prettier
+vim.g.format_options_css = format_options_prettier
+vim.g.format_options_scss = format_options_prettier
+vim.g.format_options_html = format_options_prettier
+vim.g.format_options_yaml = format_options_prettier
+vim.g.format_options_markdown = format_options_prettier
+
+FormatToggle = function(value)
+  vim.g[string.format('format_disabled_%s', vim.bo.filetype)] = value
+end
+vim.cmd [[command! FormatDisable lua FormatToggle(true)]]
+vim.cmd [[command! FormatEnable lua FormatToggle(false)]]
+
+_G.formatting = function()
+  if not vim.g[string.format('format_disabled_%s', vim.bo.filetype)] then
+    vim.lsp.buf.formatting(
+        vim.g[string.format('format_options_%s', vim.bo.filetype)] or {}
+    )
+  end
+end
+
+local function on_attach(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = true }
   buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_map('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_map('n', '<leader>Fa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_map('n', '<leader>Fr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_map('n', '<leader>Fl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_map('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_map('n', 'grr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_map('n', 'gel', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false })<CR>', opts)
-  buf_map('n', 'gep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_map('n', 'gen', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_map('i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { expr = true, noremap = true })
-  buf_map('i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { expr = true, noremap = true })
-  buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf native lsp key maps
+  buf_map('i', '<C-h>', '<cmd>LspSignatureHelp<CR>', opts)
+  buf_map('n', 'K', '<cmd>LspHover<CR>', opts)
+  buf_map('n', 'gD', '<cmd>LspDeclaration<CR>', opts)
 
-  -- telescope mappings
+  -- diagnostics mappings
+  buf_map('n', 'geN', '<cmd>LspGetNextDiagnostic<CR>', opts)
+  buf_map('n', 'geP', '<cmd>LspGetPrevDiagnostic<CR>', opts)
+  buf_map('n', 'gea', '<cmd>LspGetAllDiagnostics<CR>', opts)
+  buf_map('n', 'gel', '<cmd>LspShowLineDiagnostics<CR>', opts)
+  buf_map('n', 'gen', '<cmd>LspGotoNextDiagnostic<CR>', opts)
+  buf_map('n', 'gep', '<cmd>LspGotoPrevDiagnostic<CR>', opts)
+  buf_map('n', 'geq', '<cmd>LspSetDiagnosticsLocList<CR>', opts)
+
+  -- these can be set from Telescope that's why commented out
+  -- buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
+  -- buf_map('n', 'gcA', '<cmd>LspRangeCodeActions<CR>', opts)
+  -- buf_map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
+  buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
+  -- buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
+  -- buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
+
+  -- formaaing mappings
+  buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)
+  buf_map('n', 'gfs', '<cmd>LspFormattingSync<CR>', opts)
+
+  -- workspace mappings
+  buf_map('n', 'gi', '<cmd> LspImplementation<CR>', opts)
+  buf_map('n', 'grc', '<cmd> LspClearReferences<CR>', opts)
+  buf_map('n', 'grn', '<cmd> LspRename<CR>', opts)
+  buf_map('n', 'gy', '<cmd> LspTypeDefinition<CR>', opts)
+
+  -- telescope mappings for lsp and more
+  buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
+  buf_map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
+  buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+  buf_map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
+  buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
+  buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
+  buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
+  buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+
   local telescope_opts = { prompt_position = 'top' }
-  telescope_mapper('gra', 'lsp_code_actions', telescope_opts, true)
-  telescope_mapper('grd', 'lsp_document_symbols', telescope_opts, true)
-  telescope_mapper('grr', 'lsp_references', telescope_opts, true)
-  telescope_mapper('grs', 'lsp_workspace_symbols', telescope_opts, true)
-  telescope_mapper('grw', 'symbols', telescope_opts, true)
+  telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
+  telescope_mapper('gtA', 'lsp_range_code_actions', telescope_opts, true)
+  telescope_mapper('gtd', 'lsp_definitions', telescope_opts, true)
+  telescope_mapper('gte', 'lsp_document_diagnostics', telescope_opts, true)
+  telescope_mapper('gtE', 'lsp_workspace_diagnostics', telescope_opts, true)
+  telescope_mapper('gtr', 'lsp_references', telescope_opts, true)
+  telescope_mapper('gtw', 'lsp_document_symbols', telescope_opts, true)
+  telescope_mapper('gtW', 'lsp_workspace_symbols', telescope_opts, true)
 
+  if client.resolved_capabilities.document_formatting then
+    return true
+  end
+  if client.resolved_capabilities.goto_definition then
+    buf_map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  end
+  if client.resolved_capabilities.code_action then
+    vim.cmd [[augroup CodeAction]]
+    vim.cmd [[autocmd! * <buffer>]]
+    vim.cmd [[autocmd CursorHold * lua require'nvim-lightbulb'.update_lightbulb()]]
+    vim.cmd [[augroup END]]
+  end
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd [[augroup Format]]
+    vim.cmd [[autocmd! * <buffer>]]
+    vim.cmd [[autocmd BufWritePost <buffer> lua formatting()]]
+    vim.cmd [[augroup END]]
+  end
 end
+
+-- diagnostics setup
+require('lspconfig').diagnosticls.setup {
+  on_attach = on_attach,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'css',
+    'scss',
+    'markdown',
+    'pandoc'
+  },
+  init_options = {
+    linters = {
+      eslint = {
+        command = 'eslint',
+        rootPatterns = { '.git' },
+        debounce = 100,
+        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
+        sourceName = 'eslint',
+        parseJson = {
+          errorsRoot = '[0].messages',
+          line = 'line',
+          column = 'column',
+          endLine = 'endLine',
+          endColumn = 'endColumn',
+          message = '[eslint] ${message} [${ruleId}]',
+          security = 'severity'
+        },
+        securities = { [2] = 'error', [1] = 'warning' }
+      },
+      markdownlint = {
+        command = 'markdownlint',
+        rootPatterns = { '.git' },
+        isStderr = true,
+        debounce = 100,
+        args = { '--stdin' },
+        offsetLine = 0,
+        offsetColumn = 0,
+        sourceName = 'markdownlint',
+        securities = { undefined = 'hint' },
+        formatLines = 1,
+        formatPattern = {
+          '^.*:(\\d+)\\s+(.*)$',
+          { line = 1, column = -1, message = 2 }
+        }
+      }
+    },
+    filetypes = {
+      javascript = 'eslint',
+      javascriptreact = 'eslint',
+      typescript = 'eslint',
+      typescriptreact = 'eslint',
+      markdown = 'markdownlint',
+      pandoc = 'markdownlint'
+    },
+    formatters = {
+      prettierEslint = {
+        command = 'prettier-eslint',
+        args = { '--stdin' },
+        rootPatterns = { '.git' }
+      },
+      prettier = {
+        command = 'prettier',
+        args = { '--stdin-filepath', '%filename' }
+      }
+    },
+    formatFiletypes = {
+      css = 'prettier',
+      javascript = 'prettierEslint',
+      javascriptreact = 'prettierEslint',
+      json = 'prettier',
+      scss = 'prettier',
+      typescript = 'prettierEslint',
+      typescriptreact = 'prettierEslint'
+    }
+  }
+}
 
 return on_attach

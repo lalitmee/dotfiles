@@ -20,7 +20,7 @@ let g:fzf_tags_command = 'ctags -R .'
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all --border=sharp --prompt=" "'
 let $FZF_DEFAULT_COMMAND = "
       \ find *
       \ -path '*/\.*'
@@ -54,12 +54,5 @@ if executable('rg')
         \ "always"
         \ '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
-
-" The Silver Searcher
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
 
 

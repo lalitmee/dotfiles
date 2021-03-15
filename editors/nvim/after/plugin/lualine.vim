@@ -5,7 +5,8 @@ function! LspCurrentFunction() abort
       return ""
     else
       " return 'ƒ '. nvim_treesitter#statusline(90)
-      return nvim_treesitter#statusline(90)
+      " return nvim_treesitter#statusline(90)
+      return ""
     endif
   endif
   return ""

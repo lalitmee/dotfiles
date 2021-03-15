@@ -40,6 +40,7 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 " General Settings {{{
 
+" source $HOME/.config/nvim/general/animate.vim
 source $HOME/.config/nvim/general/cursor.vim
 source $HOME/.config/nvim/general/fonts.vim
 source $HOME/.config/nvim/general/format.vim
@@ -56,8 +57,9 @@ source $HOME/.config/nvim/general/tmux.vim
 " status lines {{{
 
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/1.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/4.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/disrupted.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/glepnir.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
 luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 
 " }}}
@@ -65,9 +67,10 @@ luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
 " config {{{
 
 luafile $HOME/.config/nvim/lua/config/globals/init.lua
-luafile $HOME/.config/nvim/lua/config/lsp/init.lua
+" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
+" source $HOME/.config/nvim/lua/lsp-wrapper.vim
 
 " }}}
 
@@ -77,11 +80,13 @@ luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-luafile $HOME/.config/nvim/lua/plugins/completion.lua
+" luafile $HOME/.config/nvim/lua/plugins/completion.lua
 luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
+luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
 luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
+luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
@@ -91,29 +96,31 @@ luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
 " Colorschemes {{{
 
-" luafile $HOME/.config/nvim/lua/config/colors/nord.lua
+" luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
 " source $HOME/.config/nvim/colorschemes/gruvbox.vim
-luafile $HOME/.config/nvim/lua/config/colors/gruvbuddy.lua
+luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
 
 " Colorschemes }}}
 
 " Status Lines {{{
 
 " Status Lines
-" source $HOME/.config/nvim/status-lines/airline.vim
-" source $HOME/.config/nvim/status-lines/barow.vim
+" source $HOME/.config/nvim/status-lines/spaceline.vim
 
 " Tab Lines
-source $HOME/.config/nvim/tab-lines/barbar.vim
+" source $HOME/.config/nvim/tab-lines/barbar.vim
+luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 
 " Status Lines }}}
 
 " Plugins Configurations {{{
 
+" source $HOME/.config/nvim/plug-config/auto-resize.vim
+" source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
+" source $HOME/.config/nvim/plug-config/goyo.vim
 " source $HOME/.config/nvim/plug-config/ranger.vim
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
-" source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/action-menu.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/crease.vim
@@ -123,6 +130,7 @@ source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-preview.vim
+source $HOME/.config/nvim/plug-config/fzf-project.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/indentLine.vim
@@ -141,16 +149,18 @@ source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vsnip.vim
+source $HOME/.config/nvim/plug-config/vim-sneak.vim
 
 " Plugins Configurations }}}
 
 " Keys Mappings {{{
 
-" source $HOME/.config/nvim/keys/coc.vim
+source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/fzf.vim
-source $HOME/.config/nvim/keys/lsp.vim
+" source $HOME/.config/nvim/keys/lsp.vim
 source $HOME/.config/nvim/keys/mappings.vim
+source $HOME/.config/nvim/keys/navigation.vim
 source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/telescope.vim
 source $HOME/.config/nvim/keys/vim-zettel.vim

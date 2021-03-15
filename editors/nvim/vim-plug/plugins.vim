@@ -11,15 +11,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " LEARN VIM {{{
 
 Plug 'ThePrimeagen/vim-be-good', {
-        \ 'on': 'VimBeGood'
+      \ 'on': 'VimBeGood'
       \ }                                           " vim-be-good
 Plug 'tjdevries/train.nvim', {
       \ 'on': [
-        \ 'TrainClear',
-        \ 'TrainUpDown',
-        \ 'TrainTextObj',
-        \ 'TrainWord'
-        \ ]
+      \ 'TrainClear',
+      \ 'TrainUpDown',
+      \ 'TrainTextObj',
+      \ 'TrainWord'
+      \ ]
       \ }                                           " motion training
 
 " LEARN VIM }}}
@@ -30,22 +30,32 @@ Plug 'tjdevries/train.nvim', {
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
-Plug 'gruvbox-community/gruvbox'
+
+if exists('g:goneovim')
+  Plug 'gruvbox-community/gruvbox'                  " gruvbox theme
+  Plug 'kristijanhusak/vim-hybrid-material'         " vim-hybrid-material
+  Plug 'joshdick/onedark.vim'                       " onedark.vim
+  Plug 'arcticicestudio/nord-vim'                   " nord theme
+endif
 
 "}}}
 
 " icons {{{
 
 Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
+Plug 'yamatsum/nvim-nonicons'
 
 "}}}
 
 " General {{{
 
+" Plug 'kovetskiy/vim-autoresize'                   " auto resize window for vim
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
+" Plug 'camspiers/animate.vim'
+" Plug 'norcalli/ui.nvim'                           " figure out what this does
 
 "}}}
 
@@ -55,22 +65,23 @@ Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the 
 
 " Search, Replace and Jump {{{
 
+Plug 'thinca/vim-visualstar'
 Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-pseudocl'
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
 Plug 'kevinhwang91/nvim-hlslens'                    " hlslens lens for neovim
 Plug 'pechorin/any-jump.vim', {
       \ 'on': [
-        \ 'AnyJump'
-        \ ]
+      \ 'AnyJump'
+      \ ]
       \ }                                           " any-jump
 Plug 'phaazon/hop.nvim', {'on': [
-        \ 'HopWord',
-        \ 'HopLine',
-        \ 'HopPattern',
-        \ 'HopChar1',
-        \ 'HopChar2'
-        \ ]
+      \ 'HopWord',
+      \ 'HopLine',
+      \ 'HopPattern',
+      \ 'HopChar1',
+      \ 'HopChar2'
+      \ ]
       \ }                                           " easymotion using lua
 
 " Search, Replace and Jump }}}
@@ -79,6 +90,7 @@ Plug 'phaazon/hop.nvim', {'on': [
 
 Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
+Plug 'justinmk/vim-sneak'
 
 " Movements }}}
 
@@ -90,6 +102,12 @@ Plug 'ThePrimeagen/harpoon'
 
 " General {{{
 
+Plug 'matze/vim-move'                               " move lines and selection up, down, left and right
+Plug 'b3nj5m1n/kommentary'                          " comments using lua
+Plug 'mhinz/vim-sayonara', {
+      \ 'on': 'Sayonara'
+      \ }                                           " delete buffers and windows
+Plug 'andymass/vim-matchup'                         " match brackets and more
 Plug 'AndrewRadev/splitjoin.vim'                    " Switch between single-line and multiline forms of code
 Plug 'antoinemadec/FixCursorHold.nvim'              " fix cursor hold
 Plug 'christoomey/vim-sort-motion'                  " sorting in vim
@@ -98,6 +116,7 @@ Plug 'christoomey/vim-tmux-runner'                  " tmux runner for tests
 Plug 'haya14busa/incsearch.vim'                     " Better search highlighting
 Plug 'ntpeters/vim-better-whitespace'               " Better Whitespace
 Plug 'scr1pt0r/crease.vim'                          " nice fold text
+Plug 'Konfekt/FastFold'                             " fast folds in vim
 Plug 'szw/vim-maximizer'                            " Maximizer for vim
 Plug 'tommcdo/vim-exchange'                         " vim-exchange for exchanging words
 Plug 'wellle/targets.vim'                           " targets.vim for extra motions
@@ -106,6 +125,12 @@ Plug 'wesQ3/vim-windowswap'                         " Swap windows
 
 " General }}}
 
+" Profiling {{{
+
+Plug 'dstein64/vim-startuptime'
+
+" Profiling }}}
+
 " ACTIONS }}}
 
 " TEXT {{{
@@ -113,8 +138,8 @@ Plug 'wesQ3/vim-windowswap'                         " Swap windows
 " Notes {{{
 
 " Plug 'oberblastmeister/neuron.nvim'               " note taking using lua
-Plug 'michal-h21/vim-zettel'                        " zettel tasks
-Plug 'vimwiki/vimwiki'                              " vim wiki
+" Plug 'michal-h21/vim-zettel'                      " zettel tasks
+" Plug 'vimwiki/vimwiki'                            " vim wiki
 
 " Notes }}}
 
@@ -132,9 +157,8 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Plug 'glepnir/indent-guides.nvim'                 " indent guides using lua
 Plug 'mhartington/formatter.nvim'                   " formatter in lua
-Plug 'Yggdroot/indentLine', {
-        \ 'on': 'IndentLinesEnable'
-      \ }                                           " Indent Lines made beautiful
+Plug 'pappasam/vim-filetype-formatter'
+Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
 Plug 'godlygeek/tabular'                            " Tabularize for Vim
 
 " Format }}}
@@ -142,10 +166,23 @@ Plug 'godlygeek/tabular'                            " Tabularize for Vim
 " Undo {{{
 
 Plug 'simnalamburt/vim-mundo', {
-        \ 'on': 'MundoToggle'
+      \ 'on': 'MundoToggle'
       \ }                                           " undo tree visualizer
 
 " Undo }}}
+
+" Highlight Yank {{{
+
+Plug 'machakann/vim-highlightedyank'
+
+" Highlight Yank }}}
+
+" General {{{
+
+Plug 'vim-scripts/JavaScript-Indent'
+Plug 'vim-scripts/restore_view.vim'
+
+" General }}}
 
 " TEXT }}}
 
@@ -155,27 +192,31 @@ Plug 'simnalamburt/vim-mundo', {
 
 " Plug 'josa42/vim-lightline-coc'                   " coc.nvim support for lightline
 " Plug 'neoclide/coc-neco'                          " vim completion for coc
-" Plug 'neoclide/coc.nvim', {
-"         \ 'branch': 'release'
-"       \ }                                         " Completion Conquerer
+Plug 'neoclide/coc.nvim', {
+        \ 'branch': 'release'
+      \ }                                         " Completion Conquerer
 
 " coc.nvim }}}
 
 " neovim-lsp {{{
 
-Plug 'alexaandru/nvim-lspupdate'
+Plug 'bfredl/nvim-luadev'
+" Plug 'glacambre/nvim-lsp'
+" Plug 'alexaandru/nvim-lspupdate'
 Plug 'anott03/nvim-lspinstall'
-Plug 'euclidianAce/BetterLua.vim'
-Plug 'glepnir/lspsaga.nvim'
-Plug 'hrsh7th/nvim-compe'
-Plug 'kizza/actionmenu.nvim'                        " actions menu
+Plug 'euclidianAce/BetterLua.vim', {
+      \ 'for': 'lua'
+      \ }                                           " better lua syntax highlighting
+" Plug 'glepnir/lspsaga.nvim'
+" Plug 'hrsh7th/nvim-compe'
+" Plug 'kizza/actionmenu.nvim'                      " actions menu
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'onsails/lspkind-nvim'
-Plug 'tjdevries/complextras.nvim'
-Plug 'tjdevries/lsp_extensions.nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/lsp-status.nvim'
+" Plug 'onsails/lspkind-nvim'
+" Plug 'tjdevries/complextras.nvim'
+" Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/nlua.nvim'
 
 " neovim-lsp }}}
@@ -183,7 +224,7 @@ Plug 'tjdevries/nlua.nvim'
 " Treesitter {{{
 
 Plug 'nvim-treesitter/nvim-treesitter', {
-        \ 'do': ':TSUpdate'
+      \ 'do': ':TSUpdate'
       \ }
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
@@ -201,7 +242,7 @@ Plug 'chemzqm/vim-jsx-improve'                      " better jsx
 
 " LSP }}}
 
-" SEARCH {{{
+" FUZZY SEARCH {{{
 
 " fzf.vim {{{
 
@@ -214,43 +255,53 @@ Plug 'yuki-yano/fzf-preview.vim', {
       \ 'branch': 'release/remote',
       \ 'do': ':UpdateRemotePlugs'
       \ }                                           " fzf with preview
+Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
+Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
 
 " telescope.nvim {{{
 
 " Plug 'nvim-telescope/telescope-dap.nvim'
-Plug 'nvim-telescope/telescope-snippets.nvim'
-Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope-cheat.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-snippets.nvim'
+Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'tkmpypy/telescope-jumps.nvim'
 
 " telescope.nvim }}}
 
-" SEARCH }}}
+
+" vim-clap {{{
+
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+" vim-clap }}}
+
+" FUZZY SEARCH }}}
 
 " LANGUAGES {{{
 
 " HTML {{{
 Plug 'alvan/vim-closetag', {
       \ 'for': [
-        \ 'html',
-        \ 'javascriptreact'
-        \ ]
+      \ 'html',
+      \ 'javascriptreact'
+      \ ]
       \ }                                           " Auto Close Tag in HTML
 Plug 'AndrewRadev/tagalong.vim', {
       \ 'for': [
-        \ 'html',
-        \ 'javascriptreact'
-        \ ]
+      \ 'html',
+      \ 'javascriptreact'
+      \ ]
       \ }                                           " html tags completion
 Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 
@@ -259,7 +310,7 @@ Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 " markdown {{{
 
 Plug 'npxbr/glow.nvim', {
-        \ 'on': 'Glow'
+      \ 'on': 'Glow'
       \ }                                           " markdown preview
 
 " markdown }}}
@@ -285,8 +336,8 @@ Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'tpope/vim-fugitive'                           " version control
 Plug 'kdheepak/lazygit.nvim', {
       \ 'on': [
-        \ 'LazyGit'
-        \ ]
+      \ 'LazyGit'
+      \ ]
       \ }                                           " lazygit from neovim
 
 " VERSION CONTROL STYSTEM }}}
@@ -297,7 +348,7 @@ Plug 'kdheepak/lazygit.nvim', {
 " \ 'branch': 'main'
 " \ }
 Plug 'hoob3rt/lualine.nvim'
-Plug 'romgrk/barbar.nvim'                           " tabline
+Plug 'akinsho/nvim-bufferline.lua'
 " Plug 'tjdevries/express_line.nvim'
 
 " STATUS AND TAB LINES }}}
@@ -307,7 +358,7 @@ Plug 'romgrk/barbar.nvim'                           " tabline
 " tpope {{{
 
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
@@ -319,9 +370,10 @@ Plug 'tpope/vim-unimpaired'
 
 " junegunn {{{
 
-Plug 'junegunn/goyo.vim', {
-      \ 'on': 'Goyo'
-      \ }                                           " Zen mode
+" Plug 'junegunn/goyo.vim', {
+"       \ 'on': 'Goyo'
+"       \ }                                         " Zen mode
+
 " junegunn }}}
 
 " VIM NINJAS }}}
@@ -330,6 +382,7 @@ Plug 'junegunn/goyo.vim', {
 
 " Explorer {{{
 
+Plug 'justinmk/vim-dirvish'
 Plug 'kyazdani42/nvim-tree.lua', {
       \ 'on': 'NvimTreeToggle'
       \ }                                           " file explorer
@@ -348,16 +401,16 @@ Plug 'gioele/vim-autoswap'                          " for handling swap files
 
 Plug 'voldikss/vim-floaterm', {
       \ 'on': [
-          \ 'FloatermNew',
-          \ 'FloatermToggle'
-        \ ]
+      \ 'FloatermNew',
+      \ 'FloatermToggle'
+      \ ]
       \ }                                           " Float Terminal
 
 " TERMINAL }}}
 
 " GNVIM {{{
 
-" Plug 'akiyosi/gonvim-fuzzy'                       " Goneovim Fuzzy search
+Plug 'akiyosi/gonvim-fuzzy'                         " Goneovim Fuzzy search
 
 " GNVIM }}}
 

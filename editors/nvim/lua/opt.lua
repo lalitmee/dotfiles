@@ -29,6 +29,8 @@ local if_nil = function(a, b)
   return a
 end
 
+local unpack = table.unpack
+
 local singular_values = {
   ['boolean'] = true,
   ['number']  = true,
@@ -45,7 +47,7 @@ local set_key_value = function(t, key_value_str)
   t[key] = value
 end
 
-local convert_vimoption_to_lua = function(option, val)
+local convert_vimoption_to_lua = function(_, val)
   -- Short circuit if we've already converted!
   if type(val) == 'table' then
     return val

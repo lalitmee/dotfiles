@@ -27,7 +27,7 @@ let g:startify_lists = [
             \ { 'type': 'commands',  'header': ['   Commands']       },
             \ ]
 
-let g:startify_session_dir = '~/.config/nvim/sessions'
+let g:startify_session_dir = '~/.local/share/nvim/sessions'
 
 let g:startify_session_autoload = 1
 let g:startify_session_delete_buffers = 1

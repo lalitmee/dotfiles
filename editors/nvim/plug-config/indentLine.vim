@@ -1,6 +1,12 @@
 let g:indentLine_char = '▏'
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
+let g:indentLine_enabled = 1
+
+" let g:indentLine_setColors = 0
+
+" let g:indentLine_defaultGroup = 'SpecialKey'
+
 " GVim
 " let g:indentLine_color_gui = '#f2e5bc'
 
