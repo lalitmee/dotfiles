@@ -43,6 +43,7 @@ endif
 " icons {{{
 
 Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
+Plug 'yamatsum/nvim-nonicons'
 
 "}}}
 
