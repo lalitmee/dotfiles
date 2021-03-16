@@ -257,7 +257,7 @@ Plug 'junegunn/fzf', {
       \ 'do': './install --all'
       \ }                                           " FZF in vim
 Plug 'junegunn/fzf.vim'                             " FZF in vim
-" Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
+" Plug 'gfanto/fzf-lsp.nvim'                        " fzf for neovim builtin lsp
 Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
@@ -287,18 +287,9 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 
 " HTML {{{
 
-Plug 'alvan/vim-closetag', {
-      \ 'for': [
-      \ 'html',
-      \ 'javascriptreact'
-      \ ]
-      \ }                                           " Auto Close Tag in HTML
-Plug 'AndrewRadev/tagalong.vim', {
-      \ 'for': [
-      \ 'html',
-      \ 'javascriptreact'
-      \ ]
-      \ }                                           " html tags completion
+Plug 'mattn/emmet-vim'                              " emmets in vim
+Plug 'alvan/vim-closetag',                          " Auto Close Tag in HTML
+Plug 'AndrewRadev/tagalong.vim',                    " html tags completion
 Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 
 " HTML }}}
