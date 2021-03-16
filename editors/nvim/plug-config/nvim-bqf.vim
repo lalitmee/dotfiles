@@ -31,7 +31,7 @@ function! Coc_qf_jump2loc(locs) abort
                 \ 'context': {'bqf': {'lsp_ranges_hl': loc_ranges}}})
     let winid = getloclist(0, {'winid': 0}).winid
     if winid == 0
-        aboveleft lwindow
+        botright lwindow
     else
         call win_gotoid(winid)
     endif
