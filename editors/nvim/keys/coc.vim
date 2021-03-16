@@ -31,10 +31,11 @@ nmap <silent> ge :CocCommand fzf-preview.CocCurrentDiagnostics<CR>
 nmap <silent> gE :CocList diagnostics<CR>
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gw :CocList tags<CR>
+nmap <silent> gw :CocList outline<CR>
 nmap <silent> gW :CocList symbols<CR>
 nmap <silent> gwn :CocCommand document.jumpToNextSymbol<CR>
 nmap <silent> gwp :CocCommand document.jumpToPrevSymbol<CR>
+nmap <silent> gt :CocList tags<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 
 " Use K to show documentation in preview window.
