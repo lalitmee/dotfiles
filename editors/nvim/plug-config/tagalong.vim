@@ -9,7 +9,6 @@ let g:tagalong_filetypes = [
             \ 'htmldjango',
             \ 'javascriptreact',
             \ 'typescriptreact',
-            \ 'javascript'
             \ ]
 
 let g:tagalong_verbose = 1
