@@ -197,10 +197,10 @@ Plug 'vim-scripts/restore_view.vim'
 " coc.nvim {{{
 
 " Plug 'josa42/vim-lightline-coc'                   " coc.nvim support for lightline
-Plug 'neoclide/coc-neco'                          " vim completion for coc
+Plug 'neoclide/coc-neco'                            " vim completion for coc
 Plug 'neoclide/coc.nvim', {
         \ 'branch': 'release'
-      \ }                                         " Completion Conquerer
+      \ }                                           " Completion Conquerer
 
 " coc.nvim }}}
 
@@ -217,7 +217,7 @@ Plug 'euclidianAce/BetterLua.vim', {
       \ }                                           " better lua syntax highlighting
 " Plug 'glepnir/lspsaga.nvim'
 " Plug 'hrsh7th/nvim-compe'
-" Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
+" Plug 'kosayoda/nvim-lightbulb'                    " lightbulb like vscode
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/lsp-status.nvim'
 " Plug 'onsails/lspkind-nvim'
@@ -257,7 +257,7 @@ Plug 'junegunn/fzf', {
       \ 'do': './install --all'
       \ }                                           " FZF in vim
 Plug 'junegunn/fzf.vim'                             " FZF in vim
-" Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
+" Plug 'gfanto/fzf-lsp.nvim'                        " fzf for neovim builtin lsp
 Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
@@ -287,18 +287,9 @@ Plug 'tkmpypy/telescope-jumps.nvim'
 
 " HTML {{{
 
-Plug 'alvan/vim-closetag', {
-      \ 'for': [
-      \ 'html',
-      \ 'javascriptreact'
-      \ ]
-      \ }                                           " Auto Close Tag in HTML
-Plug 'AndrewRadev/tagalong.vim', {
-      \ 'for': [
-      \ 'html',
-      \ 'javascriptreact'
-      \ ]
-      \ }                                           " html tags completion
+Plug 'mattn/emmet-vim'                              " emmets in vim
+Plug 'alvan/vim-closetag',                          " Auto Close Tag in HTML
+Plug 'AndrewRadev/tagalong.vim',                    " html tags completion
 Plug 'wakatime/vim-wakatime'                        " wakatime for vim
 
 " HTML }}}
