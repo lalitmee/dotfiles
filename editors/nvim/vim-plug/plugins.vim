@@ -19,7 +19,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 " Plug 'ThePrimeagen/vim-be-good', {
 "       \ 'on': 'VimBeGood'
-"       \ }                                           " vim-be-good
+"       \ }                                         " vim-be-good
 " Plug 'tjdevries/train.nvim', {
 "       \ 'on': [
 "       \ 'TrainClear',
@@ -27,7 +27,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 "       \ 'TrainTextObj',
 "       \ 'TrainWord'
 "       \ ]
-"       \ }                                           " motion training
+"       \ }                                         " motion training
 
 " LEARN VIM }}}
 
@@ -95,7 +95,7 @@ Plug 'phaazon/hop.nvim', {'on': [
 
 " Movements {{{
 
-" Plug 'terryma/vim-smooth-scroll'                    " smooth-scroll
+" Plug 'terryma/vim-smooth-scroll'                  " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
 Plug 'justinmk/vim-sneak'
 
@@ -109,7 +109,7 @@ Plug 'justinmk/vim-sneak'
 
 " General {{{
 
-" Plug 'matze/vim-move'                               " move lines and selection up, down, left and right
+" Plug 'matze/vim-move'                             " move lines and selection up, down, left and right
 Plug 'b3nj5m1n/kommentary'                          " comments using lua
 Plug 'mhinz/vim-sayonara', {
       \ 'on': 'Sayonara'
@@ -257,7 +257,7 @@ Plug 'junegunn/fzf', {
       \ 'do': './install --all'
       \ }                                           " FZF in vim
 Plug 'junegunn/fzf.vim'                             " FZF in vim
-Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
+" Plug 'gfanto/fzf-lsp.nvim'                          " fzf for neovim builtin lsp
 Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
@@ -327,6 +327,7 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " VERSION CONTROL STYSTEM {{{
 
+Plug 'rhysd/git-messenger.vim'                      " git lens in vim
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
 Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
 Plug 'tpope/vim-fugitive'                           " version control
@@ -407,7 +408,7 @@ Plug 'voldikss/vim-floaterm', {
 " GNVIM {{{
 
 if exists('g:goneovim')
-  Plug 'akiyosi/gonvim-fuzzy'                         " Goneovim Fuzzy search
+  Plug 'akiyosi/gonvim-fuzzy'                       " Goneovim Fuzzy search
 endif
 
 " GNVIM }}}

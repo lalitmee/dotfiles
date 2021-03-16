@@ -1,53 +1,45 @@
 -- fzf lsp handlers
-local fzf_lsp = require('fzf_lsp')
 local lsp_handlers = vim.lsp.handlers
 
--- fzf-lsp handlers
-lsp_handlers['callHierarchy/incomingCalls'] = fzf_lsp.incoming_calls_handler
-lsp_handlers['callHierarchy/outgoingCalls'] = fzf_lsp.outgoing_calls_handler
-lsp_handlers['textDocument/codeAction'] = fzf_lsp.code_action_handler
-lsp_handlers['textDocument/declaration'] = fzf_lsp.declaration_handler
-lsp_handlers['textDocument/definition'] = fzf_lsp.definition_handler
-lsp_handlers['textDocument/documentSymbol'] = fzf_lsp.document_symbol_handler
-lsp_handlers['textDocument/implementation'] = fzf_lsp.implementation_handler
-lsp_handlers['textDocument/references'] = fzf_lsp.references_handler
-lsp_handlers['textDocument/typeDefinition'] = fzf_lsp.type_definition_handler
-lsp_handlers['workspace/symbol'] = fzf_lsp.workspace_symbol_handler
-
 -- telescpe handlers
--- lsp_handlers['textDocument/codeAction'] =
---     require'telescope.builtin'.lsp_code_actions
--- lsp_handlers['textDocument/definition'] =
---     require'telescope.builtin'.lsp_definitions
--- lsp_handlers['textDocument/references'] =
---     require'telescope.builtin'.lsp_references
--- lsp_handlers['textDocument/documentSymbol'] =
---     require'telescope.builtin'.lsp_document_symbols
--- lsp_handlers['workspace/symbol'] =
---     require'telescope.builtin'.lsp_workspace_symbols
+lsp_handlers['textDocument/codeAction'] =
+    require'telescope.builtin'.lsp_code_actions
+lsp_handlers['textDocument/definition'] =
+    require'telescope.builtin'.lsp_definitions
+lsp_handlers['textDocument/references'] =
+    require'telescope.builtin'.lsp_references
+lsp_handlers['textDocument/documentSymbol'] =
+    require'telescope.builtin'.lsp_document_symbols
+lsp_handlers['workspace/symbol'] =
+    require'telescope.builtin'.lsp_workspace_symbols
 
 -- LSP definition
--- lsp_handlers['textDocument/definition'] =
---     function(_, _, result)
---       if not result or vim.tbl_isempty(result) then
---         print('[LSP] Could not find definition')
---         return
---       end
+lsp_handlers['textDocument/definition'] =
+    function(_, _, result)
+      if not result or vim.tbl_isempty(result) then
+        print('[LSP] Could not find definition')
+        return
+      end
 
---       if vim.tbl_islist(result) then
---         vim.lsp.util.jump_to_location(result[1])
---       else
---         vim.lsp.util.jump_to_location(result)
---       end
---     end
+      if vim.tbl_islist(result) then
+        vim.lsp.util.jump_to_location(result[1])
+      else
+        vim.lsp.util.jump_to_location(result)
+      end
+    end
 
 -- LSP diagnostics handler
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
     function(...)
-      vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics,
-          { underline = false, update_in_insert = false }
-      )(...)
+      vim.lsp.handlers['textDocument/publishDiagnostics'] =
+          vim.lsp.with(
+              vim.lsp.diagnostic.on_publish_diagnostics, {
+                underline = true,
+                virtual_text = true,
+                signs = true,
+                update_in_insert = true
+              }
+          )(...)
       pcall(vim.lsp.diagnostic.set_loclist, { open_loclist = false })
     end
 

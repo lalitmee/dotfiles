@@ -24,14 +24,6 @@ local function on_attach(client, bufnr)
   buf_map('n', 'gep', '<cmd>LspGotoPrevDiagnostic<CR>', opts)
   buf_map('n', 'geq', '<cmd>LspSetDiagnosticsLocList<CR>', opts)
 
-  -- these can be set from Telescope that's why commented out
-  -- buf_map('n', 'gcA', '<cmd>LspRangeCodeActions<CR>', opts)
-  -- buf_map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
-  -- buf_map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
-  -- buf_map('n', 'gr', '<cmd> LspReferences<CR>', opts)
-  -- buf_map('n', 'gw', '<cmd> LspDocumentSymbols<CR>', opts)
-  -- buf_map('n', 'gW', '<cmd> LspWorkspaceSymbols<CR>', opts)
-
   -- formaaing mappings
   buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)
   buf_map('n', 'gfs', '<cmd>LspFormattingSync<CR>', opts)
@@ -51,6 +43,11 @@ local function on_attach(client, bufnr)
   buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
   buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
   -- buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+  buf_map(
+      'n', 'gW',
+      '<cmd>lua require("config.telescope.lens").live_workspace_symbols()<CR>',
+      opts
+  )
 
   local telescope_opts = { prompt_position = 'top' }
   telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
