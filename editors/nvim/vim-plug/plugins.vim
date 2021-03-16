@@ -110,7 +110,7 @@ Plug 'justinmk/vim-sneak'
 " General {{{
 
 " Plug 'matze/vim-move'                             " move lines and selection up, down, left and right
-Plug 'b3nj5m1n/kommentary'                          " comments using lua
+" Plug 'b3nj5m1n/kommentary'                          " comments using lua
 Plug 'mhinz/vim-sayonara', {
       \ 'on': 'Sayonara'
       \ }                                           " delete buffers and windows
@@ -345,8 +345,9 @@ Plug 'akinsho/nvim-bufferline.lua'
 
 " tpope {{{
 
-" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
