@@ -45,6 +45,7 @@ source $HOME/.config/nvim/general/cursor.vim
 source $HOME/.config/nvim/general/fonts.vim
 source $HOME/.config/nvim/general/format.vim
 source $HOME/.config/nvim/general/functions.vim
+source $HOME/.config/nvim/general/highlights.vim
 source $HOME/.config/nvim/general/hosts.vim
 source $HOME/.config/nvim/general/search.vim
 source $HOME/.config/nvim/general/settings.vim
