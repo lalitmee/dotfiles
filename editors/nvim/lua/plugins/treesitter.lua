@@ -28,6 +28,15 @@ require'nvim-treesitter.configs'.setup(
         'yaml'
       },
       highlight = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = 'gtn',
+          node_incremental = 'gtn',
+          scope_incremental = 'gtc',
+          node_decremental = 'gtm'
+        }
+      },
       indent = { enable = true },
       rainbow = { enable = true },
       refactor = {
@@ -36,14 +45,14 @@ require'nvim-treesitter.configs'.setup(
         navigation = {
           enable = true,
           keymaps = {
-            goto_definition = 'gnd',
-            list_definitions = 'gnD',
+            goto_definition = 'gtd',
+            list_definitions = 'gtD',
             list_definitions_toc = 'gO',
-            goto_next_usage = '<a-*>',
-            goto_previous_usage = '<a-#>'
+            goto_next_usage = 'gtn',
+            goto_previous_usage = 'gtp'
           }
         },
-        smart_rename = { enable = true, keymaps = { smart_rename = 'grs' } }
+        smart_rename = { enable = true, keymaps = { smart_rename = 'gtr' } }
       },
       textobjects = {
         enable = true,
@@ -77,7 +86,7 @@ require'nvim-treesitter.configs'.setup(
           }
         }
       },
-      playground = { enable = true, updatetime = 25, persist_queries = false },
+      playground = { enable = true, updatetime = 25, persist_queries = true },
       query_linter = {
         enable = true,
         use_virtual_text = true,
