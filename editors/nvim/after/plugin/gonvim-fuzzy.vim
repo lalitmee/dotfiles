@@ -1,6 +1,6 @@
 if exists('g:goneovim')
   " goneovim colorscheme
-  " source $HOME/.config/nvim/colorschemes/goneovim-colors.vim
+  source $HOME/.config/nvim/colorschemes/goneovim-colors.vim
   " luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
 
   " goneovim key mappings
