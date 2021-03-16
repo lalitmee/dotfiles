@@ -198,48 +198,50 @@ alias wi="wikit"
 alias d="dict"
 
 # aliases for updating and installing packages
-alias update="sudo apt-fast update -y && sudo apt-fast upgrade -y"
-alias upd="sudo apt-fast update -y"
-alias upg="sudo apt-fast upgrade -y"
-alias updg="sudo apt-fast dist-upgrade -y"
-alias install="sudo apt-fast install -y"
+alias aptl="apt list | fzf-tmux"
+alias brewl="brew list | fzf-tmux"
 alias fix="sudo apt-fast install -f -y"
+alias install="sudo apt-fast install -y"
 alias purge="sudo apt-fast purge -y"
 alias remove="sudo apt-fast autoremove -y"
 alias snapi="sudo snap install"
+alias snapl="snap list | fzf-tmux"
 alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
-alias snapl="snap list"
+alias upd="sudo apt-fast update -y"
+alias update="sudo apt-fast update -y && sudo apt-fast upgrade -y"
+alias updg="sudo apt-fast dist-upgrade -y"
+alias upg="sudo apt-fast upgrade -y"
 
 # aliases for editing and sourcing zshrc
 alias ze="nvim ~/.zshrc"
 alias zs="source ~/.zshrc"
 
 # alias for emacs
-alias es="emacs --with-profile spacemacs"
-alias ed="emacs --with-profile default"
 alias db="doom build"
 alias dc="doom clean"
 alias dd="doom doctor"
 alias dp="doom purge"
 alias ds="doom sync"
 alias du="doom upgrade"
+alias ed="emacs --with-profile default"
+alias es="emacs --with-profile spacemacs"
 
 alias manfzf="man -k . | fzf-tmux --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
-alias yt="youtube-dl"
-alias wt="curl wttr.in"
-alias wk="wikit"
-alias wb="wikit -b"
 alias hw="how2"
+alias wb="wikit -b"
+alias wk="wikit"
+alias wt="curl wttr.in"
+alias yt="youtube-dl"
 
 # alias for sublime command
-alias sb="subl ."
 alias at="atom ."
-alias co="code ."
 alias ci="code-insiders ."
+alias co="code ."
 alias o="oni ."
+alias sb="subl ."
 
 # alias for using nvim instead of vim
 # alias nvim="~/nvim.appimage"
@@ -248,13 +250,13 @@ alias gnvim="~/goneovim/goneovim --nvim=/usr/bin/nvim"
 # alias gnvim="glrnvim"
 
 # common aliases
+alias a="alias | fzf-tmux -d 40%"
+alias h="history | fzf-tmux -d 40%"
+alias hs="history | grep"
+alias myip="curl http://ipecho.net/plain; echo"
 alias rm="rm -i"
 alias rmnode="rm -rf node_modules"
 alias rmpack="rm -rf package-lock.json"
-alias hs="history | grep"
-alias h="history | fzf-tmux -d 40%"
-alias a="alias | fzf-tmux -d 40%"
-alias myip="curl http://ipecho.net/plain; echo"
 
 # alias for todo.txt-cli
 alias t="~/todo.txt_cli-2.11.0/todo.sh"
