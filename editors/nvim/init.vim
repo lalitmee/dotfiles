@@ -77,15 +77,15 @@ luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
 " plugins {{{
 
 " luafile $HOME/.config/nvim/lua/plugins/completion.lua
-" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 " luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
+" luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
+" luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
+luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
-" luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
-" luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
 luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
