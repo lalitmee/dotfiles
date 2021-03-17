@@ -1,4 +1,4 @@
-require('lualine').status {
+require('lualine').setup {
   options = {
     theme = 'solarized_dark',
     section_separators = { '', '' },
