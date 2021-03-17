@@ -57,6 +57,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " status lines {{{
 
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/siduck76.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/disrupted.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/glepnir.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
