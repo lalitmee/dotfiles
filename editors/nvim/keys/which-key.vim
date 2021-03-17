@@ -353,7 +353,7 @@ let g:which_key_map.l = {
       \ 'i' : [':LspInfo'                                            , 'lsp-info'],
       \ 'l' : [':Lspsaga lsp_finder'                                 , 'finder'],
       \ 'p' : [':Lspsaga preview_definition'                         , 'preview-definition'],
-      \ 'r' : [':lua MyLspRename()'                                  , 'rename'],
+      \ 'r' : [':LspRename'                                          , 'rename'],
       \ 's' : [':Lspsaga signature_help'                             , 'signature-help'],
       \ 't' : [':Lspsaga open_floatterm'                             , 'open-floatterm'],
       \ 'T' : [':Lspsaga close_floatterm'                            , 'close-floatterm'],
@@ -485,7 +485,7 @@ let g:which_key_map.m = {
       \ 'f' : [':Telescope lsp_references'                           , 'references'],
       \ 'j' : [':Telescope lsp_workspace_symbols'                    , 'workspace-symbols'],
       \ 'l' : ['<Plug>(JsConsoleLog)'                                , 'console-log'],
-      \ 'r' : [':lua MyLspRename()'                                  , 'rename-symbol'],
+      \ 'r' : [':LspRename'                                          , 'rename-symbol'],
       \ 's' : [':Telescope lsp_document_symbols'                     , 'buffer-symbols'],
       \ }
 
