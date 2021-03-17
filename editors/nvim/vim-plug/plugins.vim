@@ -425,12 +425,6 @@ Plug 'tyru/open-browser.vim'
 
 " TESTING }}}
 
-" PROJECT MANAGEMENT {{{
-
-Plug 'airblade/vim-rooter'                          " change root director to root of the project
-
-" PROJECT MANAGEMENT }}}
-
 call plug#end()
 
 " Plugins }}}
