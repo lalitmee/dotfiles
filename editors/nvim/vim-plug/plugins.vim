@@ -110,7 +110,7 @@ Plug 'justinmk/vim-sneak'
 " General {{{
 
 " Plug 'matze/vim-move'                             " move lines and selection up, down, left and right
-" Plug 'b3nj5m1n/kommentary'                          " comments using lua
+" Plug 'b3nj5m1n/kommentary'                        " comments using lua
 Plug 'mhinz/vim-sayonara', {
       \ 'on': 'Sayonara'
       \ }                                           " delete buffers and windows
@@ -318,6 +318,7 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " VERSION CONTROL STYSTEM {{{
 
+Plug 'f-person/git-blame.nvim'                      " git blame in vim
 Plug 'rhysd/git-messenger.vim'                      " git lens in vim
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
 Plug 'lewis6991/gitsigns.nvim'                      " gitsigns in lua
