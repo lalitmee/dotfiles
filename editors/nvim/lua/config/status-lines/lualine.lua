@@ -15,17 +15,10 @@ require('lualine').setup {
       {
         'diagnostics',
         sources = { 'nvim_lsp' },
-        -- sources = { 'coc' },
         symbols = { error = 'E:', warn = 'W:', info = 'I:' }
       },
-      { 'LspStatus' }
-      -- { 'b:coc_current_function' },
-      -- {
-      --   'g:coc_status',
-      --   'b:coc_git_blame',
-      --   'g:coc_git-status',
-      --   'b:coc_git_status'
-      -- }
+      { 'LspCurrentFunction' }
+      -- { 'LspStatus' },
       -- { get_lsp_client }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
