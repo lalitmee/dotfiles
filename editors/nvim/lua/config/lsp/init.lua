@@ -41,7 +41,6 @@ lsp_status.config {
 lsp_status.register_progress()
 
 require('config.lsp.clang')
-require('config.lsp.diagnostics')
 require('config.lsp.angular')
 require('config.lsp.bash')
 require('config.lsp.css')
