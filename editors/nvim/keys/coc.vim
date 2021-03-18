@@ -28,15 +28,15 @@ nmap <silent> ]e <Plug>(coc-diagnostic-next)
 " " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> ge :CocCommand fzf-preview.CocCurrentDiagnostics<CR>
-nmap <silent> gE :CocList diagnostics<CR>
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gE :CocCommand fzf-preview.CocDiagnostics<CR>
+nmap <silent> gi :CocCommand fzf-preview.CocImplementations<CR>
+nmap <silent> gr :CocCommand fzf-preview.CocReferences<CR>
 nmap <silent> gw :CocList outline<CR>
 nmap <silent> gW :CocList symbols<CR>
 nmap <silent> gwn :CocCommand document.jumpToNextSymbol<CR>
 nmap <silent> gwp :CocCommand document.jumpToPrevSymbol<CR>
 nmap <silent> gt :CocList tags<CR>
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gy :CocCommand fzf-preview.CocTypeDefinitions<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
