@@ -31,7 +31,7 @@ local function on_attach(client, bufnr)
   -- workspace mappings
   buf_map('n', 'gi', '<cmd> LspImplementation<CR>', opts)
   buf_map('n', 'grc', '<cmd> LspClearReferences<CR>', opts)
-  buf_map('n', 'grn', '<cmd> LspRename<CR>', opts)
+  buf_map('n', 'grn', '<cmd>lua MyLspRename()<CR>', opts)
   buf_map('n', 'gy', '<cmd> LspTypeDefinition<CR>', opts)
 
   -- telescope mappings for lsp and more

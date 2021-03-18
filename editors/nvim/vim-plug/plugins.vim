@@ -120,7 +120,9 @@ Plug 'antoinemadec/FixCursorHold.nvim'              " fix cursor hold
 Plug 'christoomey/vim-sort-motion'                  " sorting in vim
 Plug 'christoomey/vim-tmux-navigator'               " Moving in vim inside Tmux
 Plug 'christoomey/vim-tmux-runner'                  " tmux runner for tests
+Plug 'haya14busa/is.vim'                            " successor of incsearch
 Plug 'haya14busa/incsearch.vim'                     " Better search highlighting
+Plug 'haya14busa/incsearch-fuzzy.vim'               " fuzzy incsearch
 Plug 'ntpeters/vim-better-whitespace'               " Better Whitespace
 Plug 'scr1pt0r/crease.vim'                          " nice fold text
 Plug 'Konfekt/FastFold'                             " fast folds in vim
@@ -310,6 +312,8 @@ Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP sy
 
 " General {{{
 
+Plug 'RishabhRD/popfix'
+Plug 'RishabhRD/nvim-cheat.sh'
 Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " General }}}
@@ -318,6 +322,9 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " VERSION CONTROL STYSTEM {{{
 
+Plug 'ackyshake/vim-fist'
+" Plug 'mattn/webapi-vim'
+" Plug 'mattn/vim-gist'
 Plug 'f-person/git-blame.nvim'                      " git blame in vim
 Plug 'rhysd/git-messenger.vim'                      " git lens in vim
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
@@ -424,12 +431,6 @@ Plug 'tyru/open-browser.vim'
 " Plug 'skywind3000/asynctasks.vim'
 
 " TESTING }}}
-
-" PROJECT MANAGEMENT {{{
-
-Plug 'airblade/vim-rooter'                          " change root director to root of the project
-
-" PROJECT MANAGEMENT }}}
 
 call plug#end()
 

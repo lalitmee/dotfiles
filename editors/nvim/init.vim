@@ -57,6 +57,7 @@ source $HOME/.config/nvim/general/tmux.vim
 " status lines {{{
 
 " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
+" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/siduck76.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/disrupted.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/glepnir.lua
 " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
@@ -130,6 +131,7 @@ source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
 source $HOME/.config/nvim/plug-config/fzf-project.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
+source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/indentLine.vim
 source $HOME/.config/nvim/plug-config/mundo.vim
@@ -147,6 +149,7 @@ source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vim-sneak.vim
+source $HOME/.config/nvim/plug-config/vim-fist.vim
 
 " Plugins Configurations }}}
 

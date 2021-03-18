@@ -56,7 +56,7 @@ StartFullscreen = true
 
 ## This option makes the whole GUI window in semi-transparent.
 ## This setting also implicitly enables the Drawborder setting
-Transparent = 0.8
+Transparent = 0.9
 
 ## Draw window separator on the GUI side instead of the vertical border and status line that nvim draws.
 DrawWindowSeparator = false
