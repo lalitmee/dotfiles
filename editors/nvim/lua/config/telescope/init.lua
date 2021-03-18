@@ -62,7 +62,21 @@ require('telescope').setup {
       { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
     },
-
+    file_ignore_patterns = {
+      '.backup',
+      '.swap',
+      '.langservers',
+      '.session',
+      '.undo',
+      '*.git',
+      'node_modules',
+      'vendor',
+      '.cache',
+      '.vscode-server',
+      '.Desktop',
+      '.Documents',
+      'classes'
+    },
     file_sorter = sorters.get_fzy_sorter,
 
     layout_defaults = {
