@@ -310,6 +310,8 @@ Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP sy
 
 " General {{{
 
+Plug 'RishabhRD/popfix'
+Plug 'RishabhRD/nvim-cheat.sh'
 Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " General }}}
