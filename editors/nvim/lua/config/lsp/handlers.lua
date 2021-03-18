@@ -29,19 +29,25 @@ lsp_handlers['textDocument/definition'] =
     end
 
 -- LSP diagnostics handler
+-- vim.lsp.handlers['textDocument/publishDiagnostics'] =
+--     function(...)
+--       vim.lsp.handlers['textDocument/publishDiagnostics'] =
+--           vim.lsp.with(
+--               vim.lsp.diagnostic.on_publish_diagnostics, {
+--                 underline = true,
+--                 -- virtual_text = true,
+--                 signs = true,
+--                 update_in_insert = true
+--               }
+--           )(...)
+--       pcall(vim.lsp.diagnostic.set_loclist, { open_loclist = false })
+--     end
+
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    function(...)
-      vim.lsp.handlers['textDocument/publishDiagnostics'] =
-          vim.lsp.with(
-              vim.lsp.diagnostic.on_publish_diagnostics, {
-                underline = true,
-                virtual_text = true,
-                signs = true,
-                update_in_insert = true
-              }
-          )(...)
-      pcall(vim.lsp.diagnostic.set_loclist, { open_loclist = false })
-    end
+    vim.lsp.with(
+        require('lsp_extensions.workspace.diagnostic').handler,
+        { signs = { severity_limit = 'Error' } }
+    )
 
 -- LSP hover
 lsp_handlers['textDocument/hover'] = require('lspsaga.hover').handler

@@ -4,10 +4,10 @@ import React, {useState} from "react"
 
 function ${1:`!p snip.rv = snip.basename`}(${2}){
 	return(
-		<div>
+			<div>
 			${3:<p>Body</p>}
-		</div>
-		)
+			</div>
+			)
 }
 
 export default $4`!p snip.rv = snip.basename`
@@ -18,7 +18,7 @@ const [${1}, set`!p snip.rv=t[1].title()`] = useState(${3:"${4}"})
 endsnippet
 snippet useE "useEffect Hook" b
 useEffect(() => {
-	${1:${0}}
+		${1:${0}}
 		}${2})
 endsnippet
 snippet useC "useContext Hook" b
@@ -34,9 +34,17 @@ const ${1:callback} = useCallback((${2})) => ${3:{
 endsnippet
 snippet useM "useMemo(fn, inputs)" b
 const ${1:memorized} = useMemo(() => ${2:{
-	${3}
-}}, [${4}])
+		${3}
+		}}, [${4}])
 endsnippet
 snippet useR "useRef(defaultValue)" b
 const ${1:ref} = useRef(${2:null})
+endsnippet
+
+snippet uStyles "useStyles"
+const useStyles = makeStyles((${1:theme}) => {
+	${2:prop}: {
+		${3:css}
+	}
+})
 endsnippet
