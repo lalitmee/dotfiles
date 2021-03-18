@@ -120,7 +120,9 @@ Plug 'antoinemadec/FixCursorHold.nvim'              " fix cursor hold
 Plug 'christoomey/vim-sort-motion'                  " sorting in vim
 Plug 'christoomey/vim-tmux-navigator'               " Moving in vim inside Tmux
 Plug 'christoomey/vim-tmux-runner'                  " tmux runner for tests
+Plug 'haya14busa/is.vim'                            " successor of incsearch
 Plug 'haya14busa/incsearch.vim'                     " Better search highlighting
+Plug 'haya14busa/incsearch-fuzzy.vim'               " fuzzy incsearch
 Plug 'ntpeters/vim-better-whitespace'               " Better Whitespace
 Plug 'scr1pt0r/crease.vim'                          " nice fold text
 Plug 'Konfekt/FastFold'                             " fast folds in vim
