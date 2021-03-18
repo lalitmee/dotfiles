@@ -322,8 +322,9 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " VERSION CONTROL STYSTEM {{{
 
-Plug 'mattn/webapi-vim'
-Plug 'mattn/vim-gist'
+Plug 'ackyshake/vim-fist'
+" Plug 'mattn/webapi-vim'
+" Plug 'mattn/vim-gist'
 Plug 'f-person/git-blame.nvim'                      " git blame in vim
 Plug 'rhysd/git-messenger.vim'                      " git lens in vim
 Plug 'TimUntersberger/neogit'                       " magit for neovim in lua
