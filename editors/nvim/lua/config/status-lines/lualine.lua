@@ -17,8 +17,8 @@ require('lualine').setup {
         sources = { 'nvim_lsp' },
         symbols = { error = 'E:', warn = 'W:', info = 'I:' }
       },
-      { 'LspCurrentFunction' }
-      -- { 'LspStatus' },
+      { 'LspStatus' }
+      -- { 'LspCurrentFunction' }
       -- { get_lsp_client }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
