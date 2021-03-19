@@ -170,7 +170,7 @@ alias aw="awesome-hub"
 alias st="speed-test"
 
 # alias for fzf get the output
-alias f="| fzf-tmux -d 40%"
+alias f="| fzf-tmux"
 alias fk="fkill"
 alias procs="procs | fzf-tmux -d 40%"
 
@@ -335,7 +335,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--color=dark --layout=reverse --border --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all --prompt="> "'
+export FZF_DEFAULT_OPTS='--color=dark --layout=reverse --border --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
 # # gruvbox color for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
 

@@ -212,7 +212,9 @@ let g:which_key_map.f = {
       \ 'f' : {
         \ 'name' : '+files'                                 ,
         \ 'f' : [':FzfFiles'                                , 'files'],
+        \ 'F' : [':FzfFilesWithDevicons'                    , 'files-with-icons'],
         \ 'g' : [':FzfGFiles'                               , 'git-files'],
+        \ 'G' : [':FzfGFilesWithDevicons'                   , 'git-files-with-icons'],
         \ 's' : [':FzfGFiles?'                              , 'git-status-files'],
         \ 'd' : [':FzfDotfiles'                             , 'dotfiles'],
         \ 'n' : [':FzfNvimConfig'                           , 'neovim-config'],
@@ -687,8 +689,8 @@ let g:which_key_map.S = {
       \ 'c' : [':SClose'                                    , 'close-session'],
       \ 'd' : [':SDelete'                                   , 'delete-session'],
       \ 'l' : [':SLoad'                                     , 'load-session'],
-      \ 's' : [':Startify'                                  , 'start-page'],
-      \ 'S' : [':SSave'                                     , 'save-session'],
+      \ 's' : [':SSave'                                     , 'save-session'],
+      \ 'S' : [':Startify'                                  , 'start-page'],
       \ }
 
 " }}}
