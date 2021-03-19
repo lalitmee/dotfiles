@@ -70,7 +70,7 @@ set t_vb=
 set tm=500
 
 " undo dir
-set undodir=~/.config/nvim/undodir
+set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000                        " use many muchos levels of undo
 
