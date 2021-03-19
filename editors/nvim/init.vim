@@ -84,7 +84,7 @@ luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-luafile $HOME/.config/nvim/lua/plugins/formatter.lua
+" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
 luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
