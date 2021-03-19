@@ -49,8 +49,8 @@ endif
 
 " icons {{{
 
-Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
-Plug 'yamatsum/nvim-nonicons'
+Plug 'kyazdani42/nvim-web-devicons'                 " for icons in vim
+Plug 'yamatsum/nvim-nonicons'                       " beautiful icons
 
 "}}}
 
