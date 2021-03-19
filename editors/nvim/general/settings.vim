@@ -115,7 +115,7 @@ set viewoptions=cursor,folds,slash,unix
 set foldlevelstart=99
 set foldnestmax=10                       " deepest fold is 10 levels
 set foldenable                           " don't fold by default
-set foldlevel=1
+set foldlevel=99
 
 " set Settings }}}
 
