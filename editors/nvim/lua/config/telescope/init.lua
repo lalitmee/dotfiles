@@ -16,16 +16,6 @@ local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
 
--- require('telescope').load_extension('dap')
-require('telescope').load_extension('cheat')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('fzy_native')
-require('telescope').load_extension('jumps')
-require('telescope').load_extension('openbrowser')
-require('telescope').load_extension('project')
-require('telescope').load_extension('snippets')
-require('telescope').load_extension('ultisnips')
-
 require('telescope').setup {
   defaults = {
     vimgrep_arguments = {
@@ -120,19 +110,29 @@ require('telescope').setup {
     },
     openbrowser = {
       bookmarks = {
-        ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
+        ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer',
         ['dNotes'] = 'https://github.com/lalitmee/dNotes',
-        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
+        ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
+        ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
+        ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
+        ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
         ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
         ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
-        ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
-        ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
-        ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
-        ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer'
+        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service'
       }
     }
   }
 }
+
+-- require('telescope').load_extension('dap')
+require('telescope').load_extension('cheat')
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('jumps')
+require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('project')
+require('telescope').load_extension('snippets')
+require('telescope').load_extension('ultisnips')
 
 local M = {}
 

@@ -1,6 +1,6 @@
 setlocal foldmethod=marker
 setlocal foldmarker={{{,}}}
-setlocal foldlevel=999
+setlocal foldlevel=0
 noremap <TAB> za
 
 " set fillchars=fold:━

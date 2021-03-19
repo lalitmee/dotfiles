@@ -37,9 +37,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
-
+Plug 'gruvbox-community/gruvbox'                    " gruvbox theme
 if exists('g:goneovim')
-  Plug 'gruvbox-community/gruvbox'                  " gruvbox theme
   Plug 'kristijanhusak/vim-hybrid-material'         " vim-hybrid-material
   Plug 'joshdick/onedark.vim'                       " onedark.vim
   Plug 'arcticicestudio/nord-vim'                   " nord theme
@@ -51,6 +50,7 @@ endif
 
 Plug 'kyazdani42/nvim-web-devicons'                 " for icons in vim
 Plug 'yamatsum/nvim-nonicons'                       " beautiful icons
+Plug 'coreyja/fzf.devicon.vim'                      " icons for fzf
 
 "}}}
 

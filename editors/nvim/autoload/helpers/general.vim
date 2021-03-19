@@ -1,6 +1,6 @@
 " FIXME: this is current bugged due to conflicting tpope plugin
 " rename current file, via Gary Bernhardt
-function! general#RenameFile()
+function! helpers#general#RenameFile()
   let l:old_name = expand('%')
   let l:new_name = input('New file name: ', expand('%'))
   if l:new_name !=# '' && l:new_name != l:old_name
@@ -12,7 +12,7 @@ endfunction
 
 " NOTE: copied from Damian Conway's vimrc
 " SOURCE: https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
-function! general#HLNext(blinktime)
+function! helpers#general#HLNext(blinktime)
   let l:target_pat = '\c\%#'.@/
   let l:ring = matchadd('CurrentSearchMatch', l:target_pat, 101)
   redraw
@@ -22,7 +22,7 @@ function! general#HLNext(blinktime)
 endfunction
 
 
-function! general#Preserve(command)
+function! helpers#general#Preserve(command)
   " Preparation: save last search, and cursor position.
   let l:s = @/
   let l:l = line('.')
@@ -41,7 +41,7 @@ function! general#Preserve(command)
 endfunction
 
 " save session
-function! general#WriteSession()
+function! helpers#general#WriteSession()
   let l:cwd = fnamemodify('.', ':p:h:t')
   " let dateStamp = strftime("%d-%m-%Y_%H:%M")
   let l:extension = '.session'
@@ -51,7 +51,7 @@ function! general#WriteSession()
   echo 'Wrote ' . l:fname
 endfun
 
-function! general#ExecVisualSelection()
+function! helpers#general#ExecVisualSelection()
   let l:selection = s:get_visual_selection()
   call jobstart("open -a '/Applications/Google Chrome.app' --args '" . l:selection . "'")
 endfunc
@@ -69,14 +69,14 @@ function! s:get_visual_selection()
 endfunction
 
 " Execute macro over visual selection
-function! general#ExecuteMacroOverVisualRange()
+function! helpers#general#ExecuteMacroOverVisualRange()
   echo '@'.getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
 " NOTE: copied from Damian Conway's vimrc
 " SOURCE: https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
-function! general#MarkMargin(on, ...)
+function! helpers#general#MarkMargin(on, ...)
   let s:text_length=get(a:, 1, 80)
 
   if exists('b:MarkMargin')
@@ -92,7 +92,7 @@ function! general#MarkMargin(on, ...)
 endfunction
 
 " Source: https://github.com/neovim/neovim/issues/9718#issuecomment-546603628
-function! general#create_relative_centered_window()
+function! helpers#general#create_relative_centered_window()
   let win = winnr()
   let win_width = winwidth(win)
   let win_height = winheight(win)
@@ -111,14 +111,33 @@ function! general#create_relative_centered_window()
 endfunction
 
 " NOTE: open help queries in floating window
-function! general#FloatingWindowHelp(query) abort
-  let l:buf = general#FloatingWindow('global')
+function! helpers#general#FloatingWindowHelp(query)
+  let l:buf = helpers#general#FloatingWindow('global')
   call nvim_set_current_buf(l:buf)
   setlocal filetype=help
   setlocal buftype=help
   execute 'help ' . a:query
 endfunction
 
-function! general#AppendToLine(str)
+function! helpers#general#AppendToLine(str)
   execute ":normal i" . a:str
+endfunction
+
+function! helpers#general#getwords_last_visual()
+    let l:reg = '"'
+    " save
+    let l:save_reg = getreg(l:reg)
+    let l:save_regtype = getregtype(l:reg)
+    let l:save_ve = &virtualedit
+
+    set virtualedit=
+
+    silent exec 'normal! gv"'.l:reg.'y'
+    let l:result = getreg(l:reg, 1)
+
+    " resotore
+    call setreg(l:reg, l:save_reg, l:save_regtype)
+    let &virtualedit = l:save_ve
+
+    return l:result
 endfunction
