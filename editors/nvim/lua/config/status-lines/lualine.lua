@@ -8,7 +8,13 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = { { 'mode', upper = true } },
-    lualine_b = { { 'branch', icon = '' } },
+    lualine_b = {
+      {
+        'branch',
+        -- icon = '' ,
+        icon = ''
+      }
+    },
     lualine_c = {
       { 'filename', full_path = true, file_status = true },
       { 'diff' },
