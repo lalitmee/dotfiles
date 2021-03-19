@@ -37,11 +37,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
-Plug 'gruvbox-community/gruvbox'                    " gruvbox theme
 if exists('g:goneovim')
-  Plug 'kristijanhusak/vim-hybrid-material'         " vim-hybrid-material
-  Plug 'joshdick/onedark.vim'                       " onedark.vim
-  Plug 'arcticicestudio/nord-vim'                   " nord theme
+  Plug 'gruvbox-community/gruvbox'                    " gruvbox theme
 endif
 
 "}}}
@@ -50,15 +47,11 @@ endif
 
 Plug 'kyazdani42/nvim-web-devicons'                 " for icons in vim
 Plug 'yamatsum/nvim-nonicons'                       " beautiful icons
-Plug 'coreyja/fzf.devicon.vim'                      " icons for fzf
 
 "}}}
 
 " General {{{
 
-" Plug 'camspiers/animate.vim'
-" Plug 'kovetskiy/vim-autoresize'                   " auto resize window for vim
-" Plug 'norcalli/ui.nvim'                           " figure out what this does
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
@@ -77,25 +70,13 @@ Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-pseudocl'
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
 Plug 'kevinhwang91/nvim-hlslens'                    " hlslens lens for neovim
-Plug 'pechorin/any-jump.vim', {
-      \ 'on': [
-      \ 'AnyJump'
-      \ ]
-      \ }                                           " any-jump
-Plug 'phaazon/hop.nvim', {'on': [
-      \ 'HopWord',
-      \ 'HopLine',
-      \ 'HopPattern',
-      \ 'HopChar1',
-      \ 'HopChar2'
-      \ ]
-      \ }                                           " easymotion using lua
+Plug 'pechorin/any-jump.vim'                                           " any-jump
+Plug 'phaazon/hop.nvim'                                           " easymotion using lua
 
 " Search, Replace and Jump }}}
 
 " Movements {{{
 
-" Plug 'terryma/vim-smooth-scroll'                  " smooth-scroll
 Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
 Plug 'justinmk/vim-sneak'
 
@@ -109,11 +90,7 @@ Plug 'justinmk/vim-sneak'
 
 " General {{{
 
-" Plug 'matze/vim-move'                             " move lines and selection up, down, left and right
-" Plug 'b3nj5m1n/kommentary'                        " comments using lua
-Plug 'mhinz/vim-sayonara', {
-      \ 'on': 'Sayonara'
-      \ }                                           " delete buffers and windows
+Plug 'mhinz/vim-sayonara'                                           " delete buffers and windows
 Plug 'andymass/vim-matchup'                         " match brackets and more
 Plug 'AndrewRadev/splitjoin.vim'                    " Switch between single-line and multiline forms of code
 Plug 'antoinemadec/FixCursorHold.nvim'              " fix cursor hold
@@ -164,7 +141,6 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Format {{{
 
-" Plug 'glepnir/indent-guides.nvim'                 " indent guides using lua
 Plug 'mhartington/formatter.nvim'                   " formatter in lua
 Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
 Plug 'godlygeek/tabular'                            " Tabularize for Vim
@@ -173,9 +149,9 @@ Plug 'godlygeek/tabular'                            " Tabularize for Vim
 
 " Undo {{{
 
-Plug 'simnalamburt/vim-mundo', {
-      \ 'on': 'MundoToggle'
-      \ }                                           " undo tree visualizer
+" Plug 'simnalamburt/vim-mundo', {
+"       \ 'on': 'MundoToggle'
+"       \ }                                           " undo tree visualizer
 
 " Undo }}}
 
@@ -187,7 +163,6 @@ Plug 'machakann/vim-highlightedyank'
 
 " General {{{
 
-Plug 'vim-scripts/JavaScript-Indent'
 Plug 'vim-scripts/restore_view.vim'
 
 " General }}}
@@ -208,15 +183,11 @@ Plug 'vim-scripts/restore_view.vim'
 
 " neovim-lsp {{{
 
-" Plug 'kizza/actionmenu.nvim'                      " actions menu
-" Plug 'nvim-lua/completion-nvim'
 Plug 'bfredl/nvim-luadev'
 Plug 'glacambre/nvim-lsp'
 Plug 'alexaandru/nvim-lspupdate'
 Plug 'anott03/nvim-lspinstall'
-Plug 'euclidianAce/BetterLua.vim', {
-      \ 'for': 'lua'
-      \ }                                           " better lua syntax highlighting
+Plug 'euclidianAce/BetterLua.vim'                                           " better lua syntax highlighting
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
@@ -259,7 +230,6 @@ Plug 'junegunn/fzf', {
       \ 'do': './install --all'
       \ }                                           " FZF in vim
 Plug 'junegunn/fzf.vim'                             " FZF in vim
-" Plug 'gfanto/fzf-lsp.nvim'                        " fzf for neovim builtin lsp
 Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
@@ -306,7 +276,7 @@ Plug 'npxbr/glow.nvim', {
 
 " tags {{{
 
-Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP symbols and tags
+" Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP symbols and tags
 
 " tags }}}
 
@@ -322,7 +292,7 @@ Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
 
 " VERSION CONTROL STYSTEM {{{
 
-Plug 'ackyshake/vim-fist'
+" Plug 'ackyshake/vim-fist'
 " Plug 'mattn/webapi-vim'
 " Plug 'mattn/vim-gist'
 Plug 'f-person/git-blame.nvim'                      " git blame in vim

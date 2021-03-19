@@ -212,9 +212,7 @@ let g:which_key_map.f = {
       \ 'f' : {
         \ 'name' : '+files'                                 ,
         \ 'f' : [':FzfFiles'                                , 'files'],
-        \ 'F' : [':FzfFilesWithDevicons'                    , 'files-with-icons'],
         \ 'g' : [':FzfGFiles'                               , 'git-files'],
-        \ 'G' : [':FzfGFilesWithDevicons'                   , 'git-files-with-icons'],
         \ 's' : [':FzfGFiles?'                              , 'git-status-files'],
         \ 'd' : [':FzfDotfiles'                             , 'dotfiles'],
         \ 'n' : [':FzfNvimConfig'                           , 'neovim-config'],

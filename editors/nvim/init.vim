@@ -126,6 +126,7 @@ luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 source $HOME/.config/nvim/plug-config/any-jump.vim
 source $HOME/.config/nvim/plug-config/crease.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
+source $HOME/.config/nvim/plug-config/fast-fold.vim
 source $HOME/.config/nvim/plug-config/floaterm.vim
 source $HOME/.config/nvim/plug-config/fnr.vim
 source $HOME/.config/nvim/plug-config/fugitive.vim
@@ -147,9 +148,9 @@ source $HOME/.config/nvim/plug-config/ultisnips.vim
 source $HOME/.config/nvim/plug-config/vim-awesome.vim
 source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
 source $HOME/.config/nvim/plug-config/vim-closetag.vim
+source $HOME/.config/nvim/plug-config/vim-fist.vim
 source $HOME/.config/nvim/plug-config/vim-markdown.vim
 source $HOME/.config/nvim/plug-config/vim-sneak.vim
-source $HOME/.config/nvim/plug-config/vim-fist.vim
 
 " Plugins Configurations }}}
 
