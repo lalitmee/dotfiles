@@ -26,7 +26,6 @@ augroup dirvish_config
   call s:make_map('v', 'vsplit')
   call s:make_map('s', 'split')
 
-  " TODO: We could use the lua version of this, to make it even faster
   autocmd FileType dirvish
         \ call dirvish#add_icon_fn({
           \ p -> luaeval(
