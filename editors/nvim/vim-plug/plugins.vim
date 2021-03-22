@@ -209,6 +209,7 @@ Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 Plug 'p00f/nvim-ts-rainbow'
+Plug 'windwp/nvim-ts-autotag'
 
 " Treesitter }}}
 
