@@ -6,7 +6,8 @@ local vint = require('config.lsp.efm.vint')
 local prettier = require('config.lsp.efm.prettier')
 local luafmt = require('config.lsp.efm.luafmt')
 
-local efm_config = os.getenv('HOME') .. '/.config/nvim/lua/lsp/efm/config.yaml'
+local efm_config = os.getenv('HOME') ..
+                       '/.config/nvim/lua/config/lsp/efm/config.yaml'
 local efm_log_dir = '/tmp/'
 local efm_root_markers = { 'package.json', '.git/', '.zshrc' }
 local efm_languages = {

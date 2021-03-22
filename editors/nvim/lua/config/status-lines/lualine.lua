@@ -11,7 +11,6 @@ require('lualine').setup {
     lualine_b = {
       {
         'branch',
-        -- icon = '' ,
         icon = ''
       }
     },
@@ -20,7 +19,6 @@ require('lualine').setup {
       { 'diff' },
       {
         'diagnostics',
-        -- sources = { 'nvim_lsp' },
         sources = { 'coc' },
         symbols = { error = 'E:', warn = 'W:', info = 'I:' }
       },
@@ -32,7 +30,6 @@ require('lualine').setup {
         'g:coc_git-status',
         'b:coc_git_status'
       }
-      -- { get_lsp_client }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },

@@ -20,20 +20,20 @@ let g:fzf_tags_command = 'ctags -R .'
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all --border=sharp --prompt=" "'
-let $FZF_DEFAULT_COMMAND = "
-      \ find *
-      \ -path '*/\.*'
-      \ -prune -o -path 'node_modules/**'
-      \ -prune -o -path 'target/**'
-      \ -prune -o -path 'dist/**'
-      \ -prune -o
-      \ -type f
-      \ -print
-      \ -o
-      \ -type l
-      \ -print 2> /dev/null
-      \ "
+let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all --border=sharp'
+" let $FZF_DEFAULT_COMMAND = "
+"       \ find *
+"       \ -path '*/\.*'
+"       \ -prune -o -path 'node_modules/**'
+"       \ -prune -o -path 'target/**'
+"       \ -prune -o -path 'dist/**'
+"       \ -prune -o
+"       \ -type f
+"       \ -print
+"       \ -o
+"       \ -type l
+"       \ -print 2> /dev/null
+"       \ "
 
 " ripgrep
 if executable('rg')
