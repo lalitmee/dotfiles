@@ -29,12 +29,7 @@ nnoremap <silent> <Leader>obf :lua
 nnoremap <silent> <leader>ofd :lua
       \ require('config.telescope.finders')
       \ .fd_files_dropdown()<cr>
-nnoremap <silent> <leader>ow :lua
-      \ require('config.telescope')
-      \ .extensions.
-      \ fzf_writer.staged_grep({
-      \ fzf_separator = "|"
-      \ })<cr>
+nnoremap <silent> <leader>ow :lua require('telescope').extensions.fzf_writer.staged_grep{}<cr>
 nnoremap <silent> <leader>oa :lua require('telescope.builtin').symbols{sources = {'emoji'}}<cr>
 
 " nnoremap <silent> <leader>ota :lua require('config.telescope.customs').coc_list()<cr>
