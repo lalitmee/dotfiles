@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup(
+require('nvim-treesitter.configs').setup(
     {
       ensure_installed = {
         'bash',
@@ -28,6 +28,7 @@ require'nvim-treesitter.configs'.setup(
         'yaml'
       },
       highlight = { enable = true },
+      autotag = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -92,6 +93,5 @@ require'nvim-treesitter.configs'.setup(
         use_virtual_text = true,
         lint_events = { 'BufWrite', 'CursorHold' }
       }
-
     }
 )
