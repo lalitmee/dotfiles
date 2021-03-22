@@ -687,8 +687,8 @@ let g:which_key_map.S = {
       \ 'c' : [':SClose'                                    , 'close-session'],
       \ 'd' : [':SDelete'                                   , 'delete-session'],
       \ 'l' : [':SLoad'                                     , 'load-session'],
-      \ 's' : [':Startify'                                  , 'start-page'],
-      \ 'S' : [':SSave'                                     , 'save-session'],
+      \ 's' : [':SSave'                                     , 'save-session'],
+      \ 'S' : [':Startify'                                  , 'start-page'],
       \ }
 
 " }}}

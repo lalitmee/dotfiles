@@ -1,12 +1,10 @@
 function! LspCurrentFunction() abort
-  if g:lspconfig
+  if g:lspconfig == 1
     let current_function = nvim_treesitter#statusline(90)
     if current_function == v:null || current_function == ""
       return ""
     else
-      " return 'ƒ '. nvim_treesitter#statusline(90)
-      " return nvim_treesitter#statusline(90)
-      return ""
+      return current_function
     endif
   endif
   return ""
