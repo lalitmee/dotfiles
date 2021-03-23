@@ -99,6 +99,7 @@ luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
 " luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
 " source $HOME/.config/nvim/colorschemes/gruvbox.vim
+" source $HOME/.config/nvim/colorschemes/spaceduck.vim
 luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
 
 " Colorschemes }}}
