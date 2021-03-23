@@ -269,55 +269,84 @@ draw_bold_text_with_bright_colors: true
 #    cyan: '#8ec07c'
 #    white: '#ebdbb2'
 
-# Colors (Nord)
+# # Colors (Nord)
+# colors:
+#   primary:
+#     background: '#2e3440'
+#     foreground: '#d8dee9'
+#     dim_foreground: '#a5abb6'
+#   cursor:
+#     text: '#2e3440'
+#     cursor: '#d8dee9'
+#   vi_mode_cursor:
+#     text: '#2e3440'
+#     cursor: '#d8dee9'
+#   selection:
+#     text: CellForeground
+#     background: '#4c566a'
+#   search:
+#     matches:
+#       foreground: CellBackground
+#       background: '#88c0d0'
+#     bar:
+#       background: '#434c5e'
+#       foreground: '#d8dee9'
+#   normal:
+#     black: '#3b4252'
+#     red: '#bf616a'
+#     green: '#a3be8c'
+#     yellow: '#ebcb8b'
+#     blue: '#81a1c1'
+#     magenta: '#b48ead'
+#     cyan: '#88c0d0'
+#     white: '#e5e9f0'
+#   bright:
+#     black: '#4c566a'
+#     red: '#bf616a'
+#     green: '#a3be8c'
+#     yellow: '#ebcb8b'
+#     blue: '#81a1c1'
+#     magenta: '#b48ead'
+#     cyan: '#8fbcbb'
+#     white: '#eceff4'
+#   dim:
+#     black: '#373e4d'
+#     red: '#94545d'
+#     green: '#809575'
+#     yellow: '#b29e75'
+#     blue: '#68809a'
+#     magenta: '#8c738c'
+#     cyan: '#6d96a5'
+#     white: '#aeb3bb'
+
+# Space Duck
 colors:
+  # Default colors
   primary:
-    background: '#2e3440'
-    foreground: '#d8dee9'
-    dim_foreground: '#a5abb6'
-  cursor:
-    text: '#2e3440'
-    cursor: '#d8dee9'
-  vi_mode_cursor:
-    text: '#2e3440'
-    cursor: '#d8dee9'
-  selection:
-    text: CellForeground
-    background: '#4c566a'
-  search:
-    matches:
-      foreground: CellBackground
-      background: '#88c0d0'
-    bar:
-      background: '#434c5e'
-      foreground: '#d8dee9'
+    background: '#0f111b'
+    foreground: '#ecf0c1'
+  # Normal colors
   normal:
-    black: '#3b4252'
-    red: '#bf616a'
-    green: '#a3be8c'
-    yellow: '#ebcb8b'
-    blue: '#81a1c1'
-    magenta: '#b48ead'
-    cyan: '#88c0d0'
-    white: '#e5e9f0'
+    black:   '#000000'
+    red:     '#e33400'
+    green:   '#5ccc96'
+    yellow:  '#b3a1e6'
+    blue:    '#00a3cc'
+    magenta: '#f2ce00'
+    cyan:    '#7a5ccc'
+    white:   '#686f9a'
+
+  # Bright colors
   bright:
-    black: '#4c566a'
-    red: '#bf616a'
-    green: '#a3be8c'
-    yellow: '#ebcb8b'
-    blue: '#81a1c1'
-    magenta: '#b48ead'
-    cyan: '#8fbcbb'
-    white: '#eceff4'
-  dim:
-    black: '#373e4d'
-    red: '#94545d'
-    green: '#809575'
-    yellow: '#b29e75'
-    blue: '#68809a'
-    magenta: '#8c738c'
-    cyan: '#6d96a5'
-    white: '#aeb3bb'
+    black:   '#686f9a'
+    red:     '#e33400'
+    green:   '#5ccc96'
+    yellow:  '#b3a1e6'
+    blue:    '#00a3cc'
+    magenta: '#f2ce00'
+    cyan:    '#7a5ccc'
+    white:   '#f0f1ce'
+
 
 # Indexed Colors
 #
