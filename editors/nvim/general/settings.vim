@@ -52,7 +52,7 @@ set history=1000                                                  " store more c
 set nolist
 set noswapfile                                                    " no swapfiles
 set shada=!,'1000,<50,s10,h                                       " store some data when I leave
-set noequalalways
+" set noequalalways
 set pumblend=17
 set wildmode-=list
 set wildmode+=full,longest
