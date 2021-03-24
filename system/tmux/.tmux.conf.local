@@ -478,6 +478,8 @@ set -g @plugin 'ChanderG/tmux-notify'
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
 
+# source-file ~/data/Github/dotfiles/system/tmux/themes/spaceduck/basic.conf
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
 

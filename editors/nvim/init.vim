@@ -86,6 +86,7 @@ luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
 " luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
+luafile $HOME/.config/nvim/lua/plugins/harpoon.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
 luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
@@ -99,7 +100,10 @@ luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
 
 " luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
 " source $HOME/.config/nvim/colorschemes/gruvbox.vim
+" source $HOME/.config/nvim/colorschemes/spaceduck.vim
 luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
+" luafile $HOME/.config/nvim/lua/config/colorschemes/material.lua
+" luafile $HOME/.config/nvim/lua/config/colorschemes/nightbuddy.lua
 
 " Colorschemes }}}
 
@@ -161,6 +165,7 @@ source $HOME/.config/nvim/plug-config/vim-sneak.vim
 source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/fzf.vim
+source $HOME/.config/nvim/keys/harpoon.vim
 source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/keys/navigation.vim
 source $HOME/.config/nvim/keys/telescope.vim

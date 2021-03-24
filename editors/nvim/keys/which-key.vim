@@ -184,6 +184,20 @@ let g:which_key_map.c = {
 
 " }}}
 
+" d is for harpoon  {{{
+
+let g:which_key_map.d = {
+      \ 'name' : '+harpoon'                                 ,
+      \ 'f' : {
+        \ 'name' : '+files'                                 ,
+      \ },
+      \ 't' : {
+        \ 'name' : '+terminals'                             ,
+      \ },
+      \ }
+
+" }}}
+
 " e is for error and warnings with errors/warnings {{{
 
 let g:which_key_map.e = {
@@ -822,6 +836,25 @@ let g:which_key_map.w = {
 
 let g:which_key_map.c.G = 'grep-under-cursor'
 let g:which_key_map.c.g = 'grep-under-cursor-buffer'
+
+" " }}}
+
+" " keybindings for d {{{
+
+let g:which_key_map.d.c = 'clear-all'
+let g:which_key_map.d.f.a = 'add-file'
+let g:which_key_map.d.f.e = 'goto-file-3'
+let g:which_key_map.d.f.f = 'goto-file-1'
+let g:which_key_map.d.f.o = 'goto-file-4'
+let g:which_key_map.d.f.r = 'remove-file'
+let g:which_key_map.d.f.t = 'goto-file-2'
+let g:which_key_map.d.m = 'quick-menu'
+let g:which_key_map.d.p = 'promote'
+let g:which_key_map.d.s = 'shorten-list'
+let g:which_key_map.d.t.f = 'goto-terminal-1'
+let g:which_key_map.d.t.s = 'send-command-terminal-1'
+let g:which_key_map.d.t.S = 'send-command-terminal-2'
+let g:which_key_map.d.t.t = 'goto-terminal-2'
 
 " " }}}
 
