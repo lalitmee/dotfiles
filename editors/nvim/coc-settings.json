@@ -21,7 +21,6 @@
   ],
 
   // autoformat
-  "coc.preferences.hoverTarget": "float",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
   // eslint
