@@ -907,8 +907,9 @@ let g:which_key_map.p.P = 'tj-project-search'
 
 " keybindings for n = neovim {{{
 
-let g:which_key_map.n.p = 'tj-installed-plugins'
 let g:which_key_map.n.h = 'tj-help-tags'
+let g:which_key_map.n.l = 'source-current'
+let g:which_key_map.n.p = 'tj-installed-plugins'
 
 " }}}
 
