@@ -71,7 +71,6 @@ luafile $HOME/.config/nvim/lua/config/globals/init.lua
 luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
-source $HOME/.config/nvim/lua/lsp-wrapper.vim
 
 " }}}
 
