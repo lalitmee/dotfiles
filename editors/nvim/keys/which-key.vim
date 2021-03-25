@@ -517,6 +517,7 @@ let g:which_key_map.n = {
       \ 'name' : '+neovim'                                  ,
       \ 'c' : [':PlugClean'                                 , 'clean-packages'],
       \ 'e' : [':e $MYVIMRC'                                , 'edit-config'],
+      \ 'H' : [':checkhealth'                               , 'check-health'],
       \ 'i' : [':PlugInstall'                               , 'install-packages'],
       \ 'r' : [':so $MYVIMRC'                               , 'source-config'],
       \ 's' : [':PlugSnapshot'                              , 'plug-snapshot'],
