@@ -196,8 +196,8 @@ nmap ga <Plug>(EasyAlign)
 " call s:conditional_nnoremap( 'g~~' )
 " call s:conditional_nnoremap( 'gx' )
 
-" Make gn jump into visual block mode, instead if plain visual mode
-nnoremap gn  gn<C-V>
+" " Make gn jump into visual block mode, instead if plain visual mode
+" nnoremap gn  gn<C-V>
 
 "}}}
 
