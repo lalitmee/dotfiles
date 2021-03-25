@@ -21,31 +21,32 @@ fn.sign_define(
     { text = 'H', numhl = 'LspDiagnosticsDefaultHint' }
 )
 
-lsp_status.config {
-  select_symbol = function(cursor_pos, symbol)
-    if symbol.valueRange then
-      local value_range = {
-        ['start'] = {
-          character = 0,
-          line = vim.fn.byte2line(symbol.valueRange[1])
-        },
-        ['end'] = { character = 0, line = vim.fn.byte2line(symbol.valueRange[2]) }
-      }
+-- lsp_status.config {
+--   select_symbol = function(cursor_pos, symbol)
+--     if symbol.valueRange then
+--       local value_range = {
+--         ['start'] = {
+--           character = 0,
+--           line = vim.fn.byte2line(symbol.valueRange[1])
+--         },
+--         ['end'] = { character = 0, line = vim.fn.byte2line(symbol.valueRange[2]) }
+--       }
 
-      return require('lsp-status/util').in_range(cursor_pos, value_range)
-    end
-  end,
-  current_function = true
-}
+--       return require('lsp-status/util').in_range(cursor_pos, value_range)
+--     end
+--   end,
+--   current_function = true
+-- }
 
-lsp_status.register_progress()
+-- lsp_status.register_progress()
 
+-- require('config.lsp.efm')
 require('config.lsp.angular')
 require('config.lsp.bash')
 require('config.lsp.clang')
 require('config.lsp.css')
+require('config.lsp.diagnostics')
 require('config.lsp.docker')
-require('config.lsp.efm')
 require('config.lsp.go')
 require('config.lsp.html')
 require('config.lsp.json')
@@ -57,3 +58,5 @@ require('config.lsp.ts')
 require('config.lsp.vim')
 require('config.lsp.vue')
 require('config.lsp.yaml')
+
+vim.lsp.set_log_level('debug')
