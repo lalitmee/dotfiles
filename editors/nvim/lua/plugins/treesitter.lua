@@ -32,10 +32,10 @@ require('nvim-treesitter.configs').setup(
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = 'gtn',
-          node_incremental = 'gtn',
-          scope_incremental = 'gtc',
-          node_decremental = 'gtm'
+          init_selection = ',v',
+          node_incremental = ',v',
+          scope_incremental = ']v',
+          node_decremental = '[v'
         }
       },
       indent = { enable = true },
@@ -47,7 +47,7 @@ require('nvim-treesitter.configs').setup(
           enable = true,
           keymaps = {
             goto_definition = 'gtd',
-            list_definitions = 'gtD',
+            list_definitions = 'gtl',
             list_definitions_toc = 'gO',
             goto_next_usage = 'gtn',
             goto_previous_usage = 'gtp'
@@ -66,16 +66,16 @@ require('nvim-treesitter.configs').setup(
           enable = true,
           goto_next_start = {
             [']m'] = '@function.outer',
-            [']]'] = '@class.outer'
+            [']c'] = '@class.outer'
           },
-          goto_next_end = { [']M'] = '@function.outer', [']['] = '@class.outer' },
+          goto_next_end = { [']M'] = '@function.outer', [']C'] = '@class.outer' },
           goto_previous_start = {
             ['[m'] = '@function.outer',
-            ['[['] = '@class.outer'
+            ['[c'] = '@class.outer'
           },
           goto_previous_end = {
             ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer'
+            ['[C'] = '@class.outer'
           }
         },
         tree_docs = { enable = true },
@@ -94,4 +94,19 @@ require('nvim-treesitter.configs').setup(
         lint_events = { 'BufWrite', 'CursorHold' }
       }
     }
+)
+
+local parsers = require 'nvim-treesitter.parsers'
+local configs = parsers.get_parser_configs()
+local ft_str = table.concat(
+                   vim.tbl_map(
+                       function(ft)
+          return configs[ft].filetype or ft
+        end, parsers.available_parsers()
+                   ), ','
+               )
+
+vim.cmd(
+    'autocmd! Filetype ' .. ft_str ..
+        ' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
 )

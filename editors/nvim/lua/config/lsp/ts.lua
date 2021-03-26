@@ -9,13 +9,6 @@ lsp_config.tsserver.setup(
       capabilities = vim.tbl_deep_extend(
           'keep', capabilities or {}, lsp_status.capabilities
       ),
-      on_attach = function(client)
-        if client.config.flags then
-          client.config.flags.allow_incremental_sync = true
-        end
-        client.resolved_capabilities.document_formatting = false
-        on_attach(client)
-        lsp_status.on_attach(client)
-      end
+      on_attach = on_attach
     }
 )
