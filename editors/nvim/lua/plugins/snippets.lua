@@ -1,5 +1,5 @@
-R("nlua")
-R("snippets")
+R('nlua')
+R('snippets')
 
 local snip_plug = require('snippets')
 local indent = require('snippets.utils').match_indentation
@@ -8,28 +8,26 @@ local snips = {}
 
 -- global
 snips._global = {
-  ["todo"] = "TODO(tjdevries): ",
-  ["date"] = [[${=os.date("%Y-%m-%d")}]],
-  ["rs"] = [[${=RandomString(25)}]],
+  ['todo'] = 'TODO(tjdevries): ',
+  ['date'] = [[${=os.date("%Y-%m-%d")}]],
+  ['rs'] = [[${=RandomString(25)}]]
 }
 
 -- lua
 snips.lua = vim.tbl_deep_extend(
-  "error",
-  require('nlua.snippets').get_lua_snippets(),
-  {
-    -- Custom parsed item, for a plugin I use a lot.
-    get_parsed = [[local parsed = get_parsed($1)]],
+                'error', require('nlua.snippets').get_lua_snippets(), {
+      -- Custom parsed item, for a plugin I use a lot.
+      get_parsed = [[local parsed = get_parsed($1)]],
 
-    reload = [[require('plenary.reload').reload_module('$1')$0]],
-  }
-)
+      reload = [[require('plenary.reload').reload_module('$1')$0]]
+    }
+            )
 
 -- json
 snips.json = {
   testEntry = [[, {"text": "$1"}]],
   i = [["$1": "$2"]],
-  e = [[, {"text": "$1: ${=RandomString(25)}", "score": $1}]],
+  e = [[, {"text": "$1: ${=RandomString(25)}", "score": $1}]]
 }
 
 -- rust
@@ -50,36 +48,40 @@ fn $1() {
   $0
 }]]
 
-snips.javascript = {
-  log = [[console.log({$1})]]
-}
+snips.javascript = { log = [[console.log({$1})]] }
 
 snip_plug.snippets = snips
 snip_plug.use_suggested_mappings()
 
 -- TODO: Investigate this again.
-require'snippets'.set_ux(require'snippets.inserters.floaty')
+require'snippets'.set_ux(require 'snippets.inserters.floaty')
 
 -- Shortcuts for me to edit the snippet files
 --  Could possibly use fzf or something for this, but this seemds good for now.
 
 local charset = {}
 do -- [0-9a-zA-Z]
-    -- for c = 48, 57  do table.insert(charset, string.char(c)) end
-    for c = 65, 90  do table.insert(charset, string.char(c)) end
-    for c = 97, 122 do table.insert(charset, string.char(c)) end
-    table.insert(charset, " ")
-    table.insert(charset, " ")
-    table.insert(charset, " ")
-    table.insert(charset, " ")
-    table.insert(charset, " ")
-    table.insert(charset, " ")
+  -- for c = 48, 57  do table.insert(charset, string.char(c)) end
+  for c = 65, 90 do
+    table.insert(charset, string.char(c))
+  end
+  for c = 97, 122 do
+    table.insert(charset, string.char(c))
+  end
+  table.insert(charset, ' ')
+  table.insert(charset, ' ')
+  table.insert(charset, ' ')
+  table.insert(charset, ' ')
+  table.insert(charset, ' ')
+  table.insert(charset, ' ')
 end
 
 function RandomString(length)
-    if not length or length <= 0 then return '' end
-    math.randomseed(os.clock()^5)
-    return RandomString(length - 1) .. charset[math.random(1, #charset)]
+  if not length or length <= 0 then
+    return ''
+  end
+  math.randomseed(os.clock() ^ 5)
+  return RandomString(length - 1) .. charset[math.random(1, #charset)]
 end
 
 --[[
@@ -90,4 +92,4 @@ end
 -- end
 -- vim.cmd [[inoremap <c-x><c-m> <C-R>=v:lua.ExampleForMccannch()<CR>]]
 -- vim.cmd [[inoremap <c-x><c-m> <C-R>=luaeval('require("my.plugin").thing()')<CR>]]
---]]
+-- ]]

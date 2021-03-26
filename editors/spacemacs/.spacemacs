@@ -245,10 +245,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               "CaskaydiaCove Nerd Font"
+                               ;; "CaskaydiaCove Nerd Font"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               ;; "JetBrainsMono Nerd Font"
+                               "JetBrainsMono Nerd Font"
                                :size 14
                                :weight normal
                                :powerline-scale 1.3)
@@ -439,16 +439,16 @@ you should place your code here."
 
   (beacon-mode 1)
   ;; indent guides
-  (with-eval-after-load 'indent-guide
-    (when (boundp 'indent-guide-inhibit-modes)
-      ;; fix for crash on home page
-      (push 'spacemacs-buffer-mode indent-guide-inhibit-modes))
+  ;; (with-eval-after-load 'indent-guide
+  ;;   (when (boundp 'indent-guide-inhibit-modes)
+  ;;     ;; fix for crash on home page
+  ;;     (push 'spacemacs-buffer-mode indent-guide-inhibit-modes))
 
-    ;; configure indent guide
-    (setq indent-guide-char "|")
-    (setq indent-guide-recursive t)
-    (setq indent-guide-delay 0.2)
-    )
+  ;;   ;; configure indent guide
+  ;;   (setq indent-guide-char "|")
+  ;;   (setq indent-guide-recursive t)
+  ;;   (setq indent-guide-delay 0.2)
+  ;;   )
 
   ;; use indent-guide globally
   (spacemacs/toggle-indent-guide-globally-on)

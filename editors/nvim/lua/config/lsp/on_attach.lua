@@ -5,8 +5,6 @@ local telescope_mapper = require('config.telescope.mappings')
 local _ = require('config.lsp.handlers')
 
 local function on_attach(client, bufnr)
-  lsp_status.on_attach(client)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = true }
   buf_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -29,10 +27,10 @@ local function on_attach(client, bufnr)
   buf_map('n', 'gfs', '<cmd>LspFormattingSync<CR>', opts)
 
   -- workspace mappings
-  buf_map('n', 'gi', '<cmd> LspImplementation<CR>', opts)
-  buf_map('n', 'grc', '<cmd> LspClearReferences<CR>', opts)
+  buf_map('n', 'gi', '<cmd>LspImplementation<CR>', opts)
+  buf_map('n', 'grc', '<cmd>LspClearReferences<CR>', opts)
   buf_map('n', 'grn', '<cmd>lua MyLspRename()<CR>', opts)
-  buf_map('n', 'gy', '<cmd> LspTypeDefinition<CR>', opts)
+  buf_map('n', 'gy', '<cmd>LspTypeDefinition<CR>', opts)
 
   -- telescope mappings for lsp and more
   buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
@@ -59,9 +57,6 @@ local function on_attach(client, bufnr)
   telescope_mapper('gtw', 'lsp_document_symbols', telescope_opts, true)
   telescope_mapper('gtW', 'lsp_workspace_symbols', telescope_opts, true)
 
-  if client.resolved_capabilities.document_formatting then
-    return true
-  end
   if client.resolved_capabilities.goto_definition then
     buf_map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   end
@@ -70,6 +65,25 @@ local function on_attach(client, bufnr)
     vim.cmd [[autocmd! * <buffer>]]
     vim.cmd [[autocmd CursorHold * lua require'nvim-lightbulb'.update_lightbulb()]]
     vim.cmd [[augroup END]]
+  end
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_map('n', 'gfr', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec(
+        [[
+    augroup lsp_document_highlight
+    autocmd! * <buffer>
+    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    augroup END
+    ]], false
+    )
   end
 end
 

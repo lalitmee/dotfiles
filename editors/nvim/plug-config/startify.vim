@@ -24,8 +24,6 @@ let g:startify_lists = [
       \ ]
 
 let g:startify_session_dir = '~/.local/share/nvim/sessions'
-
-
 let g:startify_change_to_dir = 1
 let g:startify_session_autoload = 1
 let g:startify_session_delete_buffers = 1
@@ -35,7 +33,6 @@ let g:startify_session_persistence = 1
 let g:startify_update_oldfiles = 1
 let g:webdevicons_enable_startify = 1
 let g:startify_session_sort = 1
-
 let g:startify_bookmarks = [
       \ { 'be': '~/.config/bat/config' },
       \ { 'dec': '~/.doom.d/config.el' },
@@ -48,12 +45,12 @@ let g:startify_bookmarks = [
 function! GetUniqueSessionName()
   let path = fnamemodify(getcwd(), ':~:t')
   let path = empty(path) ? 'no-project' : path
-  let branch = gitbranch#name()
+  let branch = get(b:,'gitsigns_head','')
   let branch = empty(branch) ? '' : '-' . branch
   return substitute(path . branch, '/', '-', 'g')
 endfunction
 
-autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
+autocmd! VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
 
 
 " function! StartifyEntryFormat()
