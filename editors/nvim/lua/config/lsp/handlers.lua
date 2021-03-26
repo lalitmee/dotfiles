@@ -1,17 +1,16 @@
--- fzf lsp handlers
 local lsp_handlers = vim.lsp.handlers
 
 -- telescpe handlers
 lsp_handlers['textDocument/codeAction'] =
-    require'telescope.builtin'.lsp_code_actions
+    require('telescope.builtin').lsp_code_actions
 lsp_handlers['textDocument/definition'] =
-    require'telescope.builtin'.lsp_definitions
+    require('telescope.builtin').lsp_definitions
 lsp_handlers['textDocument/references'] =
-    require'telescope.builtin'.lsp_references
+    require('telescope.builtin').lsp_references
 lsp_handlers['textDocument/documentSymbol'] =
-    require'telescope.builtin'.lsp_document_symbols
+    require('telescope.builtin').lsp_document_symbols
 lsp_handlers['workspace/symbol'] =
-    require'telescope.builtin'.lsp_workspace_symbols
+    require('telescope.builtin').lsp_workspace_symbols
 
 -- LSP definition
 lsp_handlers['textDocument/definition'] =
@@ -27,21 +26,6 @@ lsp_handlers['textDocument/definition'] =
         vim.lsp.util.jump_to_location(result)
       end
     end
-
--- LSP diagnostics handler
--- vim.lsp.handlers['textDocument/publishDiagnostics'] =
---     function(...)
---       vim.lsp.handlers['textDocument/publishDiagnostics'] =
---           vim.lsp.with(
---               vim.lsp.diagnostic.on_publish_diagnostics, {
---                 underline = true,
---                 -- virtual_text = true,
---                 signs = true,
---                 update_in_insert = true
---               }
---           )(...)
---       pcall(vim.lsp.diagnostic.set_loclist, { open_loclist = false })
---     end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
     vim.lsp.with(

@@ -9,10 +9,10 @@ let g:fzf_layout = {
         \ 'height': 0.8,
         \ 'yoffset':0.5,
         \ 'xoffset': 0.5,
-        \ 'highlight': 'Todo',
-        \ 'border': 'sharp'
+        \ 'border': 'rounded'
       \ }
     \ }
+
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_command_prefix='Fzf'
 let g:fzf_tags_command = 'ctags -R .'
