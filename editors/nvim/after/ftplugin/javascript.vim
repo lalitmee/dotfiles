@@ -1,7 +1,6 @@
 setlocal foldmethod=expr
 setlocal foldexpr=nvim_treesitter#foldexpr()
 setlocal foldlevel=99
-noremap <TAB> za
 
 setlocal expandtab
 setlocal tabstop=2
