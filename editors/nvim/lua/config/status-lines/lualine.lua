@@ -22,8 +22,8 @@ require('lualine').setup {
         'diagnostics',
         sources = { 'nvim_lsp' },
         symbols = { error = 'E:', warn = 'W:', info = 'I:' }
-      }
-      -- { 'LspStatus' }
+      },
+      { 'LspStatus' }
       -- { 'LspCurrentFunction' }
       -- { get_lsp_client }
     },

@@ -40,13 +40,13 @@ fn.sign_define(
 
 -- lsp_status.register_progress()
 
--- require('config.lsp.efm')
+-- require('config.lsp.diagnostics')
 require('config.lsp.angular')
 require('config.lsp.bash')
 require('config.lsp.clang')
 require('config.lsp.css')
-require('config.lsp.diagnostics')
 require('config.lsp.docker')
+require('config.lsp.efm')
 require('config.lsp.go')
 require('config.lsp.html')
 require('config.lsp.json')
