@@ -37,7 +37,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
-Plug 'DilanGMB/nightbuddy'                          " nightbuddy theme using colorbuddy
+" Plug 'DilanGMB/nightbuddy'                          " nightbuddy theme using colorbuddy
 Plug 'marko-cerovac/material.nvim'                  " material theme using colorbuddy
 if exists('g:goneovim')
   Plug 'gruvbox-community/gruvbox'                  " gruvbox theme
@@ -143,7 +143,10 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 " Format {{{
 
 Plug 'mhartington/formatter.nvim'                   " formatter in lua
-Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
+" Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
+Plug 'lukas-reineke/indent-blankline.nvim', {
+      \ 'branch': 'lua'
+      \ }
 Plug 'godlygeek/tabular'                            " Tabularize for Vim
 
 " Format }}}

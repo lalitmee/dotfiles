@@ -88,9 +88,9 @@ require('telescope').setup {
   extensions = {
     fzy_native = { override_generic_sorter = false, override_file_sorter = true },
     fzf_writer = {
-      use_highlighter = true,
       minimum_grep_characters = 5,
-      minimum_files_characters = 5
+      minimum_files_characters = 5,
+      use_highlighter = true
     },
     media_files = {
       filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },

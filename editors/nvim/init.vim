@@ -71,23 +71,24 @@ luafile $HOME/.config/nvim/lua/config/globals/init.lua
 " luafile $HOME/.config/nvim/lua/config/lsp/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/init.lua
 luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
-" source $HOME/.config/nvim/lua/lsp-wrapper.vim
 
 " }}}
 
 " plugins {{{
 
-" luafile $HOME/.config/nvim/lua/plugins/completion.lua
-" luafile $HOME/.config/nvim/lua/plugins/indent-guides.lua
+" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 " luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
+" luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
 " luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
 " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
 luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
 luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
 luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
 luafile $HOME/.config/nvim/lua/plugins/harpoon.lua
 luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
+luafile $HOME/.config/nvim/lua/plugins/indentlines.lua
+luafile $HOME/.config/nvim/lua/plugins/lspsaga.lua
+luafile $HOME/.config/nvim/lua/plugins/neogit.lua
 luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
 luafile $HOME/.config/nvim/lua/plugins/snippets.lua
 luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
@@ -138,7 +139,6 @@ source $HOME/.config/nvim/plug-config/fzf-project.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
-source $HOME/.config/nvim/plug-config/indentLine.vim
 source $HOME/.config/nvim/plug-config/mundo.vim
 source $HOME/.config/nvim/plug-config/nvim-bqf.vim
 source $HOME/.config/nvim/plug-config/nvim-tree.vim
