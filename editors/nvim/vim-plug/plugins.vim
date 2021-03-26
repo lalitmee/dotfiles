@@ -189,7 +189,7 @@ Plug 'vim-scripts/restore_view.vim'
 
 Plug 'bfredl/nvim-luadev'
 Plug 'glacambre/nvim-lsp'
-" Plug 'alexaandru/nvim-lspupdate'
+Plug 'alexaandru/nvim-lspupdate'
 " Plug 'kabouzeid/nvim-lspinstall'
 Plug 'euclidianAce/BetterLua.vim'                   " better lua syntax highlighting
 Plug 'glepnir/lspsaga.nvim'
