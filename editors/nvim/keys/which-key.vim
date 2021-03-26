@@ -512,6 +512,11 @@ let g:which_key_map.o = {
       \ 'j' : [':Telescope jumps jumps'                   , 'jumps'],
       \ 'l' : [':Telescope loclist'                       , 'loclist'],
       \ 'm' : [':Telescope man_pages'                     , 'man-pages'],
+      \ 'n' : {
+        \ 'name' : '+navigation/jumps'                    ,
+      \ 'j' : [':Telescope jumps jumps'                   , 'jumps'],
+      \ 'h' : [':Telescope harpoon marks'                 , 'harpoon marks'],
+      \ },
       \ 'o' : [':Telescope openbrowser list'              , 'openbrowser'],
       \ 's' : {
         \ 'name' : '+search'                              ,
