@@ -16,7 +16,6 @@ let g:coc_global_extensions = [
     \ 'coc-format-json',
     \ 'coc-fs-lists',
     \ 'coc-gist',
-    \ 'coc-git',
     \ 'coc-go',
     \ 'coc-highlight',
     \ 'coc-html',
