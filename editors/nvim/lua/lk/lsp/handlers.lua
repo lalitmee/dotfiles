@@ -1,17 +1,5 @@
 local lsp_handlers = vim.lsp.handlers
 
--- telescpe handlers
-lsp_handlers['textDocument/codeAction'] =
-    require('telescope.builtin').lsp_code_actions
-lsp_handlers['textDocument/definition'] =
-    require('telescope.builtin').lsp_definitions
-lsp_handlers['textDocument/references'] =
-    require('telescope.builtin').lsp_references
-lsp_handlers['textDocument/documentSymbol'] =
-    require('telescope.builtin').lsp_document_symbols
-lsp_handlers['workspace/symbol'] =
-    require('telescope.builtin').lsp_workspace_symbols
-
 -- LSP definition
 lsp_handlers['textDocument/definition'] =
     function(_, _, result)

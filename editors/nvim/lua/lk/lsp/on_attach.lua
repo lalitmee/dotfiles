@@ -1,8 +1,8 @@
 local lsp_status = require('lsp-status')
-local buf_map = require('utils').buf_map
-local buf_option = require('utils').buf_option
-local telescope_mapper = require('config.telescope.mappings')
-local _ = require('config.lsp.handlers')
+local buf_map = require('lk.utils').buf_map
+local buf_option = require('lk.utils').buf_option
+local telescope_mapper = require('lk.plugins.telescope.mappings')
+local _ = require('lk.lsp.handlers')
 
 local function on_attach(client, bufnr)
   local opts = { noremap = true, silent = true }

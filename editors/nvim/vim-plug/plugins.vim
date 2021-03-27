@@ -196,6 +196,7 @@ Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'kosayoda/nvim-lightbulb'                      " lightbulb like vscode
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'tjdevries/complextras.nvim'
