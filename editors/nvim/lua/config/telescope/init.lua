@@ -133,6 +133,7 @@ require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('harpoon')
 
 local M = {}
 
