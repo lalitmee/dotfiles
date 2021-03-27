@@ -255,6 +255,7 @@ Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'tkmpypy/telescope-jumps.nvim'
+Plug 'brandoncc/telescope-harpoon.nvim'
 
 " telescope.nvim }}}
 
