@@ -54,57 +54,14 @@ source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins {{{
 
-" status lines {{{
-
-" luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/siduck76.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/disrupted.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/glepnir.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
-luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
-
-" }}}
-
-" config {{{
-
-luafile $HOME/.config/nvim/lua/config/globals/init.lua
-" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
-luafile $HOME/.config/nvim/lua/config/telescope/init.lua
-luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
-
-" }}}
-
-" plugins {{{
-
-" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
-" luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
-" luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
-" luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
-" luafile $HOME/.config/nvim/lua/plugins/lspsaga.lua
-" luafile $HOME/.config/nvim/lua/plugins/neuron.lua
-luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
-luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
-luafile $HOME/.config/nvim/lua/plugins/harpoon.lua
-luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
-luafile $HOME/.config/nvim/lua/plugins/indentlines.lua
-luafile $HOME/.config/nvim/lua/plugins/neogit.lua
-luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
-luafile $HOME/.config/nvim/lua/plugins/snippets.lua
-luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
-
-" }}}
+luafile $HOME/.config/nvim/lua/lk/init.lua
 
 " Lua Plugins }}}
 
 " Colorschemes {{{
 
-" luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
 " source $HOME/.config/nvim/colorschemes/gruvbox.vim
 " source $HOME/.config/nvim/colorschemes/spaceduck.vim
-luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
-" luafile $HOME/.config/nvim/lua/config/colorschemes/material.lua
-" luafile $HOME/.config/nvim/lua/config/colorschemes/nightbuddy.lua
 
 " Colorschemes }}}
 
@@ -112,10 +69,6 @@ luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
 
 " Status Lines
 " source $HOME/.config/nvim/status-lines/spaceline.vim
-
-" Tab Lines
-" source $HOME/.config/nvim/tab-lines/barbar.vim
-luafile $HOME/.config/nvim/lua/plugins/bufferline.lua
 
 " Status Lines }}}
 
@@ -174,4 +127,3 @@ source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/keys/windows.vim
 
 " Keys Mappings }}}
-
