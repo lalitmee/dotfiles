@@ -54,50 +54,7 @@ source $HOME/.config/nvim/general/tmux.vim
 
 " Lua Plugins {{{
 
-luafile $HOME/.config/nvim/lua/lk/globals/init.lua
 luafile $HOME/.config/nvim/lua/lk/init.lua
-
-
-" " status lines {{{
-
-" " luafile $HOME/.config/nvim/lua/config/status-lines/express_line.lua
-" " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/siduck76.lua
-" " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/disrupted.lua
-" " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/glepnir.lua
-" " luafile $HOME/.config/nvim/lua/config/status-lines/galaxylines/voitd.lua
-" luafile $HOME/.config/nvim/lua/config/status-lines/lualine.lua
-
-" " }}}
-
-" " config {{{
-
-" luafile $HOME/.config/nvim/lua/config/globals/init.lua
-" luafile $HOME/.config/nvim/lua/config/lsp/init.lua
-" luafile $HOME/.config/nvim/lua/config/telescope/init.lua
-" luafile $HOME/.config/nvim/lua/config/telescope/mappings.lua
-
-" " }}}
-
-" " plugins {{{
-
-" " luafile $HOME/.config/nvim/lua/plugins/kommentary.lua
-" " luafile $HOME/.config/nvim/lua/plugins/neuron.lua
-" luafile $HOME/.config/nvim/lua/plugins/auto-pairs.lua
-" luafile $HOME/.config/nvim/lua/plugins/colorizer.lua
-" luafile $HOME/.config/nvim/lua/plugins/completion.lua
-" luafile $HOME/.config/nvim/lua/plugins/formatter.lua
-" luafile $HOME/.config/nvim/lua/plugins/gitsigns.lua
-" luafile $HOME/.config/nvim/lua/plugins/harpoon.lua
-" luafile $HOME/.config/nvim/lua/plugins/hlslens.lua
-" luafile $HOME/.config/nvim/lua/plugins/indentlines.lua
-" luafile $HOME/.config/nvim/lua/plugins/lightbulb.lua
-" luafile $HOME/.config/nvim/lua/plugins/neogit.lua
-" luafile $HOME/.config/nvim/lua/plugins/nvim-bqf.lua
-" luafile $HOME/.config/nvim/lua/plugins/snippets.lua
-" luafile $HOME/.config/nvim/lua/plugins/treesitter.lua
-" luafile $HOME/.config/nvim/lua/plugins/lspsaga.lua
-
-" }}}
 
 " Lua Plugins }}}
 
