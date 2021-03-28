@@ -95,4 +95,13 @@ snippet local "local x = 1"
 local ${1:x} = ${0:1}
 endsnippet
 
+snippet cmd "Add Command"
+command {
+  '${1:COMMAND}',
+  function()
+    ${2:function_body}
+  end
+}
+endsnippet
+
 # vim:ft=snippets:
