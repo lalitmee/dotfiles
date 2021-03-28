@@ -74,12 +74,6 @@ local custom_attach = function(client)
   if client.resolved_capabilities.goto_definition then
     buf_map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   end
-  if client.resolved_capabilities.code_action then
-    vim.cmd [[augroup CodeAction]]
-    vim.cmd [[autocmd! * <buffer>]]
-    vim.cmd [[autocmd CursorHold * lua require'nvim-lightbulb'.update_lightbulb()]]
-    vim.cmd [[augroup END]]
-  end
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
     buf_map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
@@ -126,7 +120,7 @@ local sumneko_binary = sumneko_root_path .. '/bin/' .. system_name ..
 lsp_config.sumneko_lua.setup(
     {
       cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-      -- on_attach = custom_attach,
+      on_attach = custom_attach,
       settings = {
         Lua = {
           runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
@@ -222,3 +216,82 @@ lsp_config.rust_analyzer.setup(
       on_attach = custom_attach
     }
 )
+
+lsp_config.diagnosticls.setup {
+  on_attach = custom_attach,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'css',
+    'scss',
+    'markdown',
+    'pandoc'
+  },
+  init_options = {
+    linters = {
+      eslint = {
+        command = 'eslint',
+        rootPatterns = { '.git' },
+        debounce = 100,
+        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
+        sourceName = 'eslint',
+        parseJson = {
+          errorsRoot = '[0].messages',
+          line = 'line',
+          column = 'column',
+          endLine = 'endLine',
+          endColumn = 'endColumn',
+          message = '[eslint] ${message} [${ruleId}]',
+          security = 'severity'
+        },
+        securities = { [2] = 'error', [1] = 'warning' }
+      },
+      markdownlint = {
+        command = 'markdownlint',
+        rootPatterns = { '.git' },
+        isStderr = true,
+        debounce = 100,
+        args = { '--stdin' },
+        offsetLine = 0,
+        offsetColumn = 0,
+        sourceName = 'markdownlint',
+        securities = { undefined = 'hint' },
+        formatLines = 1,
+        formatPattern = {
+          '^.*:(\\d+)\\s+(.*)$',
+          { line = 1, column = -1, message = 2 }
+        }
+      }
+    },
+    filetypes = {
+      javascript = 'eslint',
+      javascriptreact = 'eslint',
+      typescript = 'eslint',
+      typescriptreact = 'eslint',
+      markdown = 'markdownlint',
+      pandoc = 'markdownlint'
+    },
+    formatters = {
+      prettierEslint = {
+        command = 'prettier-eslint',
+        args = { '--stdin' },
+        rootPatterns = { '.git' }
+      },
+      prettier = {
+        command = 'prettier',
+        args = { '--stdin-filepath', '%filename' }
+      }
+    },
+    formatFiletypes = {
+      css = 'prettier',
+      javascript = 'prettierEslint',
+      javascriptreact = 'prettierEslint',
+      json = 'prettier',
+      scss = 'prettier',
+      typescript = 'prettierEslint',
+      typescriptreact = 'prettierEslint'
+    }
+  }
+}

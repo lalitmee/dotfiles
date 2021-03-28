@@ -188,8 +188,7 @@ Plug 'vim-scripts/restore_view.vim'
 " neovim-lsp {{{
 
 Plug 'bfredl/nvim-luadev'
-Plug 'glacambre/nvim-lsp'
-Plug 'alexaandru/nvim-lspupdate'
+" Plug 'alexaandru/nvim-lspupdate'
 " Plug 'kabouzeid/nvim-lspinstall'
 Plug 'euclidianAce/BetterLua.vim'                   " better lua syntax highlighting
 Plug 'glepnir/lspsaga.nvim'
@@ -199,7 +198,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'onsails/lspkind-nvim'
-Plug 'tjdevries/complextras.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/nlua.nvim'
 
