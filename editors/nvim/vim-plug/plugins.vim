@@ -39,9 +39,8 @@ Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorscheme
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
 " Plug 'DilanGMB/nightbuddy'                          " nightbuddy theme using colorbuddy
 Plug 'marko-cerovac/material.nvim'                  " material theme using colorbuddy
-if exists('g:goneovim')
-  Plug 'gruvbox-community/gruvbox'                  " gruvbox theme
-endif
+Plug 'rktjmp/lush.nvim'
+Plug 'npxbr/gruvbox.nvim'
 
 "}}}
 
