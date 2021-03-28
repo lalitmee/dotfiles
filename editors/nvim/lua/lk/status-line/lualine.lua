@@ -24,8 +24,6 @@ require('lualine').setup {
         symbols = { error = 'E:', warn = 'W:', info = 'I:' }
       },
       { 'LspStatus' }
-      -- { 'LspCurrentFunction' }
-      -- { get_lsp_client }
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },

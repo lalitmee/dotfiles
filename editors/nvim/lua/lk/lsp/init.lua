@@ -19,41 +19,45 @@ local custom_attach = function(client)
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
   -- buf native lsp key maps
-  buf_map('i', '<C-h>', '<cmd>LspSignatureHelp<CR>', opts)
-  buf_map('n', 'K', '<cmd>LspHover<CR>', opts)
-  buf_map('n', 'gD', '<cmd>LspDeclaration<CR>', opts)
+  buf_map('i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 
   -- diagnostics mappings
-  buf_map('n', 'geN', '<cmd>LspGetNextDiagnostic<CR>', opts)
-  buf_map('n', 'geP', '<cmd>LspGetPrevDiagnostic<CR>', opts)
-  buf_map('n', 'gea', '<cmd>LspGetAllDiagnostics<CR>', opts)
-  buf_map('n', 'gel', '<cmd>LspShowLineDiagnostics<CR>', opts)
-  buf_map('n', 'gen', '<cmd>LspGotoNextDiagnostic<CR>', opts)
-  buf_map('n', 'gep', '<cmd>LspGotoPrevDiagnostic<CR>', opts)
-  buf_map('n', 'geq', '<cmd>LspSetDiagnosticsLocList<CR>', opts)
+  buf_map('n', 'geN', '<cmd>lua vim.lsp.diagnostic.get_next()<CR>', opts)
+  buf_map('n', 'geP', '<cmd>lua vim.lsp.diagnostic.get_prev()<CR>', opts)
+  buf_map('n', 'gea', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
+  buf_map(
+      'n', 'gel', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+      opts
+  )
+  buf_map('n', 'gen', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_map('n', 'gep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- formaaing mappings
-  buf_map('n', 'gff', '<cmd>LspFormatting<CR>', opts)
-  buf_map('n', 'gfs', '<cmd>LspFormattingSync<CR>', opts)
+  buf_map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_map('n', 'gfs', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
 
   -- workspace mappings
-  buf_map('n', 'gi', '<cmd>LspImplementation<CR>', opts)
-  buf_map('n', 'grc', '<cmd>LspClearReferences<CR>', opts)
+  buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_map('n', 'grc', '<cmd>lua vim.lsp.buf.clear_references()<CR>', opts)
   buf_map('n', 'grn', '<cmd>lua MyLspRename()<CR>', opts)
-  buf_map('n', 'gy', '<cmd>LspTypeDefinition<CR>', opts)
+  buf_map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 
   -- telescope mappings for lsp and more
-  buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
+  -- buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+  -- buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
   buf_map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
-  buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+  buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
   buf_map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
   buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
   buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
   buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
-  -- buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
   buf_map(
       'n', 'gW',
-      '<cmd>lua require("config.telescope.lens").live_workspace_symbols()<CR>',
+      '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
       opts
   )
 
@@ -103,6 +107,7 @@ updated_capabilities = vim.tbl_extend(
                            'keep', updated_capabilities, lsp_status.capabilities
                        )
 
+-- lua lsp
 local system_name
 if vim.fn.has('mac') == 1 then
   system_name = 'macOS'
@@ -150,23 +155,70 @@ lsp_config.sumneko_lua.setup(
     }
 )
 
--- lsp_config.yamlls.setup { on_init = custom_init, on_attach = custom_attach }
+-- yaml
+lsp_config.yamlls.setup { on_init = custom_init, on_attach = custom_attach }
 
--- lsp_config.pyls.setup {
---   plugins = { pyls_mypy = { enabled = true, live_mode = false } },
---   on_init = custom_init,
---   on_attach = custom_attach
--- }
+-- python
+lsp_config.pyls.setup {
+  plugins = { pyls_mypy = { enabled = true, live_mode = false } },
+  on_init = custom_init,
+  on_attach = custom_attach
+}
 
--- lsp_config.vimls.setup { on_init = custom_init, on_attach = custom_attach }
+lsp_config.vimls.setup { on_init = custom_init, on_attach = custom_attach }
 
--- lsp_config.gopls.setup {
---   on_init = custom_init,
---   on_attach = custom_attach,
+lsp_config.gopls.setup {
+  on_init = custom_init,
+  on_attach = custom_attach,
+  capabilities = updated_capabilities,
+  settings = { gopls = { codelenses = { test = true } } }
+}
 
---   capabilities = updated_capabilities,
+lsp_config.gdscript.setup { on_init = custom_init, on_attach = custom_attach }
 
---   settings = { gopls = { codelenses = { test = true } } }
--- }
+lsp_config.tsserver.setup(
+    {
+      cmd = { 'typescript-language-server', '--stdio' },
+      filetypes = {
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx'
+      },
+      on_init = custom_init,
+      on_attach = custom_attach
+    }
+)
 
--- lsp_config.gdscript.setup { on_init = custom_init, on_attach = custom_attach }
+lsp_config.clangd.setup(
+    {
+      filetypes = { 'c', 'cpp' },
+      cmd = {
+        'clangd',
+        '--background-index',
+        '--suggest-missing-includes',
+        '--clang-tidy',
+        '--header-insertion=iwyu'
+      },
+      on_init = custom_init,
+      on_attach = custom_attach,
+
+      -- Required for lsp-status
+      init_options = { clangdFileStatus = true },
+      handlers = lsp_status.extensions.clangd.setup(),
+      capabilities = lsp_status.capabilities
+    }
+)
+
+lsp_config.cmake.setup { on_init = custom_init, on_attach = custom_attach }
+
+lsp_config.rust_analyzer.setup(
+    {
+      cmd = { 'rust-analyzer' },
+      filetypes = { 'rust' },
+      on_init = custom_init,
+      on_attach = custom_attach
+    }
+)
