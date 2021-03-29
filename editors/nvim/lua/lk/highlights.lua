@@ -147,11 +147,6 @@ local function general_overrides()
     { 'Folded', { link = 'Comment', force = true } },
     { 'TermCursor', { ctermfg = 'green', guifg = 'green' } },
     { 'MsgSeparator', { link = 'Comment' } },
-    { 'MatchParen', { gui = 'bold', guifg = 'LightGreen', guibg = 'NONE' } },
-    {
-      'IncSearch',
-      { guibg = 'NONE', guifg = 'LightGreen', gui = 'italic,bold,underline' }
-    },
     { 'Error', { link = 'WarningMsg', force = true } },
     -- Floating window overrides
     { 'mkdLineBreak', { link = 'None', force = true } },
