@@ -9,6 +9,42 @@ local telescope_mapper = require('lk.plugins.telescope.mappings')
 require('lk.lsp.handlers')
 -- require('lk.lsp.commands')
 
+-- highlights {{{
+
+local highlight = require('lk.highlights')
+local cursor_line_bg = highlight.hl_value('CursorLine', 'bg')
+highlight.all {
+  { 'LspReferenceText', { guibg = cursor_line_bg, gui = 'none' } },
+  { 'LspReferenceRead', { guibg = cursor_line_bg, gui = 'none' } },
+  { 'LspDiagnosticsSignHint', { guifg = '#fab005' } },
+  { 'LspDiagnosticsDefaultHint', { guifg = '#fab005' } },
+  { 'LspDiagnosticsDefaultError', { guifg = '#E06C75' } },
+  { 'LspDiagnosticsDefaultWarning', { guifg = '#ff922b' } },
+  { 'LspDiagnosticsDefaultInformation', { guifg = '#15aabf' } },
+  {
+    'LspDiagnosticsUnderlineError',
+    { gui = 'undercurl', guisp = '#E06C75', guifg = 'none' }
+  },
+  {
+    'LspDiagnosticsUnderlineHint',
+    { gui = 'undercurl', guisp = '#fab005', guifg = 'none' }
+  },
+  {
+    'LspDiagnosticsUnderlineWarning',
+    { gui = 'undercurl', guisp = 'orange', guifg = 'none' }
+  },
+  {
+    'LspDiagnosticsUnderlineInformation',
+    { gui = 'undercurl', guisp = '#15aabf', guifg = 'none' }
+  },
+  { 'LspDiagnosticsFloatingWarning', { guibg = 'NONE' } },
+  { 'LspDiagnosticsFloatingError', { guibg = 'NONE' } },
+  { 'LspDiagnosticsFloatingHint', { guibg = 'NONE' } },
+  { 'LspDiagnosticsFloatingInformation', { guibg = 'NONE' } }
+}
+
+-- }}}
+
 local custom_init = function(client)
   client.config.flags = client.config.flags or {}
   client.config.flags.allow_incremental_sync = true
@@ -22,11 +58,11 @@ local custom_attach = function(client)
   buf_map('i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_map('n', 'gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  buf_map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
-  buf_map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
+  -- buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_map('n', 'gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  -- buf_map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  -- buf_map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
 
   -- diagnostics mappings
   buf_map('n', 'geN', '<cmd>lua vim.lsp.diagnostic.get_next()<CR>', opts)
@@ -52,18 +88,18 @@ local custom_attach = function(client)
 
   -- telescope mappings for lsp and more
   -- buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
-  -- buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+  buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
   buf_map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
   buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
-  -- buf_map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
-  -- buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
-  -- buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-  -- buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
-  -- buf_map(
-  --     'n', 'gW',
-  --     '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
-  --     opts
-  -- )
+  buf_map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
+  buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
+  buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
+  buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
+  buf_map(
+      'n', 'gW',
+      '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
+      opts
+  )
 
   local telescope_opts = { prompt_position = 'top' }
   telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
@@ -222,7 +258,6 @@ lsp_config.rust_analyzer.setup(
 )
 
 lsp_config.diagnosticls.setup {
-  on_attach = custom_attach,
   filetypes = {
     'javascript',
     'javascriptreact',

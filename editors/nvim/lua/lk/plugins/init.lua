@@ -8,6 +8,7 @@
 -- require('lk.plugins.neuron')
 -- require('lk.plugins.snippets')
 -- require('lk.plugins.terminal')
+require('lk.plugins.completion')
 require('lk.plugins.auto-pairs')
 require('lk.plugins.bufferline')
 require('lk.plugins.colorizer')
