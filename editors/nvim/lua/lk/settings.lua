@@ -347,21 +347,21 @@ vim.o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 
 -- }}}
 
--- Git editor {{{
+-- -- Git editor {{{
 
-if executable('nvr') then
-  vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait +\'set bufhidden=wipe\''
-  vim.env.EDITOR = 'nvr -cc split --remote-wait +\'set bufhidden=wipe\''
-end
+-- if executable('nvr') then
+--   vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait +\'set bufhidden=wipe\''
+--   vim.env.EDITOR = 'nvr -cc split --remote-wait +\'set bufhidden=wipe\''
+-- end
 
--- }}}
+-- -- }}}
 
 -- vim.cmd {{{
 
-vim.cmd [[filetype plugin indent on]]
 vim.cmd [[set fo-=oat2]]
 vim.cmd [[set fo+=cqrnj]]
 vim.cmd [[syntax enable]]
+vim.cmd [[filetype plugin indent on]]
 vim.cmd [[set re=1]]
 vim.cmd [[set shada=!,'1000,<50,s10,h]]
 vim.cmd [[set t_ZH=[3m]]
