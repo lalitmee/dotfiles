@@ -180,7 +180,7 @@ Plug 'vim-scripts/restore_view.vim'
 " Plug 'josa42/vim-lightline-coc'                   " coc.nvim support for lightline
 Plug 'neoclide/coc-neco'                            " vim completion for coc
 Plug 'neoclide/coc.nvim', {
-        \ 'branch': 'release'
+      \ 'branch': 'release'
       \ }                                           " Completion Conquerer
 
 " coc.nvim }}}
@@ -320,10 +320,10 @@ Plug 'kdheepak/lazygit.nvim', {
 
 " STATUS AND TAB LINES {{{
 
-" Plug 'glepnir/galaxyline.nvim' , {
-" \ 'branch': 'main'
-" \ }
-Plug 'hoob3rt/lualine.nvim'
+Plug 'glepnir/galaxyline.nvim' , {
+      \ 'branch': 'main'
+      \ }
+" Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 " Plug 'tjdevries/express_line.nvim'
 
