@@ -142,7 +142,8 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Format {{{
 
-Plug 'mhartington/formatter.nvim'                   " formatter in lua
+Plug 'lukas-reineke/format.nvim'
+" Plug 'mhartington/formatter.nvim'                   " formatter in lua
 " Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
 Plug 'lukas-reineke/indent-blankline.nvim', {
       \ 'branch': 'lua'
