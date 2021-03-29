@@ -123,16 +123,15 @@ function M.is_empty(item)
 end
 
 -- Key mapping
-function M.map(mode, key, result, opts)
-  opts = vim.tbl_extend(
-             'keep', opts or {}, { noremap = true, silent = true, expr = false }
-         )
-  fn.nvim_set_keymap(mode, key, result, opts)
+function M.map(mode, lhs, rhs, opts)
+  opts = opts or get_defaults(mode)
+  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
 -- Buffer local keymap
-function M.buf_map(...)
-  vim.api.nvim_buf_set_keymap(bufnr, ...)
+function M.buf_map(bufnr, mode, lhs, rhs, opts)
+  opts = opts or get_defaults(mode)
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
 end
 
 return M

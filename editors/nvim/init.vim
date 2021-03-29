@@ -73,7 +73,6 @@ luafile $HOME/.config/nvim/lua/lk/init.lua
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
 " source $HOME/.config/nvim/plug-config/vsnip.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
-source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/crease.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/fast-fold.vim
@@ -106,7 +105,6 @@ source $HOME/.config/nvim/plug-config/vim-sneak.vim
 " source $HOME/.config/nvim/keys/lsp.vim
 " source $HOME/.config/nvim/keys/smooth-scroll.vim
 source $HOME/.config/nvim/keys/all.vim
-source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/fzf.vim
 source $HOME/.config/nvim/keys/harpoon.vim
 source $HOME/.config/nvim/keys/mappings.vim
