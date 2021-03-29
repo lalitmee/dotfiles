@@ -40,15 +40,7 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 " General Settings {{{
 
-" source $HOME/.config/nvim/general/animate.vim
-source $HOME/.config/nvim/general/cursor.vim
-source $HOME/.config/nvim/general/fonts.vim
-source $HOME/.config/nvim/general/format.vim
 source $HOME/.config/nvim/general/functions.vim
-source $HOME/.config/nvim/general/highlights.vim
-source $HOME/.config/nvim/general/hosts.vim
-source $HOME/.config/nvim/general/settings.vim
-source $HOME/.config/nvim/general/tmux.vim
 
 " General Settings }}}
 
@@ -75,13 +67,13 @@ luafile $HOME/.config/nvim/lua/lk/init.lua
 " Plugins Configurations {{{
 
 " source $HOME/.config/nvim/plug-config/auto-resize.vim
-" source $HOME/.config/nvim/plug-config/coc.vim
 " source $HOME/.config/nvim/plug-config/cyclist.vim
 " source $HOME/.config/nvim/plug-config/goyo.vim
 " source $HOME/.config/nvim/plug-config/ranger.vim
 " source $HOME/.config/nvim/plug-config/rnvimr.vim
 " source $HOME/.config/nvim/plug-config/vsnip.vim
 source $HOME/.config/nvim/plug-config/any-jump.vim
+source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/crease.vim
 source $HOME/.config/nvim/plug-config/emmet.vim
 source $HOME/.config/nvim/plug-config/fast-fold.vim
@@ -94,7 +86,6 @@ source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/mundo.vim
 source $HOME/.config/nvim/plug-config/nvim-bqf.vim
-source $HOME/.config/nvim/plug-config/nvim-tree.vim
 source $HOME/.config/nvim/plug-config/openbrowser.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
 source $HOME/.config/nvim/plug-config/snippets.vim

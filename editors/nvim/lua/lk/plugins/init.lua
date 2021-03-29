@@ -20,6 +20,7 @@ require('lk.plugins.hop')
 require('lk.plugins.indentlines')
 require('lk.plugins.neogit')
 require('lk.plugins.nvim-bqf')
+require('lk.plugins.nvim-tree')
 require('lk.plugins.treesitter')
 
 -- NOTE: fuzzy

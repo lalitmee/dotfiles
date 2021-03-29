@@ -150,7 +150,8 @@
     "after_each",
     "awesome",
     "theme",
-    "client"
+    "client",
+    "unpack"
   ],
   "Lua.workspace.preloadFileSize": 1000,
 
