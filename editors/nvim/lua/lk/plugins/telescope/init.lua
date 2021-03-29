@@ -134,6 +134,7 @@ require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('harpoon')
+require('telescope').load_extension('dotfiles')
 
 local M = {}
 
