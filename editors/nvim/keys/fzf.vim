@@ -37,7 +37,7 @@ command! CustomFzfBuffers call s:fzf_Buffers()
 
 " insert mode completions {{{
 
-inoremap <silent> <C-F> <C-O>:call <sid>fzf_insert_file_path()<CR>
+inoremap <silent> <C-f><C-o> :call s:fzf_insert_file_path()<CR>
 
 function! s:make_sentence(lines)
   return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
