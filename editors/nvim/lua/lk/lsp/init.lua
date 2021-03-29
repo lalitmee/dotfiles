@@ -60,7 +60,7 @@ local custom_attach = function(client)
   buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   -- buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   -- buf_map('n', 'gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  -- buf_map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  buf_map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
   -- buf_map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   -- buf_map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
 
@@ -95,11 +95,11 @@ local custom_attach = function(client)
   buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
   buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
   buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
-  buf_map(
-      'n', 'gW',
-      '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
-      opts
-  )
+  -- buf_map(
+  --     'n', 'gW',
+  --     '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
+  --     opts
+  -- )
 
   local telescope_opts = { prompt_position = 'top' }
   telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
