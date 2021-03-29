@@ -108,22 +108,22 @@ vim.o.diffopt = add(
 
 -- Format Options {{{
 
-opt.formatoptions = table.concat(
-                        {
-      '1',
-      'q', -- continue comments with gq"
-      'c', -- Auto-wrap comments using textwidth
-      'r', -- Continue comments when pressing Enter
-      'n', -- Recognize numbered lists
-      '2', -- Use indent from 2nd line of a paragraph
-      't', -- autowrap lines using text width value
-      'j', -- remove a comment leader when joining lines.
-      -- Only break if the line was not longer than 'textwidth' when the insert
-      -- started and only at a white character that has been entered during the
-      -- current insert command.
-      'lv'
-    }
-                    )
+-- opt.formatoptions = table.concat(
+--                         {
+--       '1',
+--       'q', -- continue comments with gq"
+--       'c', -- Auto-wrap comments using textwidth
+--       'r', -- Continue comments when pressing Enter
+--       'n', -- Recognize numbered lists
+--       '2', -- Use indent from 2nd line of a paragraph
+--       't', -- autowrap lines using text width value
+--       'j', -- remove a comment leader when joining lines.
+--       -- Only break if the line was not longer than 'textwidth' when the insert
+--       -- started and only at a white character that has been entered during the
+--       -- current insert command.
+--       'lv'
+--     }
+--                     )
 
 -- }}}
 
@@ -358,15 +358,15 @@ vim.o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 
 -- vim.cmd {{{
 
-vim.cmd [[set fo-=oat2]]
-vim.cmd [[set fo+=cqrnj]]
-vim.cmd [[syntax enable]]
-vim.cmd [[filetype plugin indent on]]
-vim.cmd [[set re=1]]
-vim.cmd [[set shada=!,'1000,<50,s10,h]]
-vim.cmd [[set t_ZH=[3m]]
-vim.cmd [[set t_ZR=[23m]]
-vim.cmd [[set t_ut=]]
+vim.cmd([[set fo-=oat2]])
+vim.cmd([[set fo+=cqrnj]])
+vim.cmd([[syntax enable]])
+vim.cmd([[filetype plugin indent on]])
+vim.cmd([[set re=1]])
+vim.cmd([[set shada=!,'1000,<50,s10,h]])
+vim.cmd([[set t_ZH=[3m]])
+vim.cmd([[set t_ZR=[23m]])
+vim.cmd([[set t_ut=]])
 
 -- }}}
 
@@ -387,16 +387,14 @@ vim.api.nvim_exec(
         set termguicolors
       endif
 
-
       " Trim Whitespaces
       fun! TrimWhitespace()
-      let l:save = winsaveview()
-      keeppatterns %s/\s\+$//e
-      call winrestview(l:save)
+        let l:save = winsaveview()
+        keeppatterns %s/\s\+$//e
+        call winrestview(l:save)
       endfun
 
       autocmd BufWritePre * :call TrimWhitespace()
-
 
       " Faster Startup time (disable default plugins loading)
       let g:did_install_default_menus = 1

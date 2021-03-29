@@ -12,8 +12,6 @@ if pcall(require, 'plenary') then
   end
 end
 
--- `vim.opt`
-require('lk.globals.opts')
 local utils = require('lk.utils')
 
 _G.lk_utils = {
@@ -50,3 +48,6 @@ function _G.dump(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
   print(unpack(objects))
 end
+
+-- `vim.opt`
+require('lk.globals.opts')
