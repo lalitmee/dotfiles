@@ -395,7 +395,6 @@ endif
 
 " BROWSER {{{
 
-Plug 'dhruvasagar/vim-open-url'
 Plug 'tami5/sql.nvim'                               " sql nvim database for frecency
 Plug 'tyru/open-browser-github.vim'
 Plug 'tyru/open-browser.vim'
