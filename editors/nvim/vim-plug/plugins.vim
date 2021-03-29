@@ -320,10 +320,10 @@ Plug 'kdheepak/lazygit.nvim', {
 
 " STATUS AND TAB LINES {{{
 
-Plug 'glepnir/galaxyline.nvim' , {
-      \ 'branch': 'main'
-      \ }
-" Plug 'hoob3rt/lualine.nvim'
+" Plug 'glepnir/galaxyline.nvim' , {
+"       \ 'branch': 'main'
+"       \ }
+Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 " Plug 'tjdevries/express_line.nvim'
 
