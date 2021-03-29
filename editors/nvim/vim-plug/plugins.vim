@@ -53,6 +53,7 @@ Plug 'yamatsum/nvim-nonicons'                       " beautiful icons
 
 " General {{{
 
+Plug 'junegunn/goyo.vim'
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
