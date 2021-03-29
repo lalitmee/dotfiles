@@ -1,2 +1,2 @@
--- require('lk.statusline.lualine')
-require('lk.statusline.galaxylines.glepnir')
+require('lk.statusline.lualine')
+-- require('lk.statusline.galaxylines.glepnir')
