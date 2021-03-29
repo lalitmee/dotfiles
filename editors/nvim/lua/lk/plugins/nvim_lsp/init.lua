@@ -6,8 +6,8 @@ local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
 local buf_map = require('lk.utils').buf_map
 local telescope_mapper = require('lk.plugins.telescope.mappings')
-require('lk.lsp.handlers')
--- require('lk.lsp.commands')
+require('lk.nvim_lsp.handlers')
+-- require('lk.lsp_config.commands')
 
 -- highlights {{{
 
