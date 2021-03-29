@@ -177,7 +177,6 @@ Plug 'vim-scripts/restore_view.vim'
 
 " coc.nvim {{{
 
-" Plug 'josa42/vim-lightline-coc'                   " coc.nvim support for lightline
 " Plug 'neoclide/coc-neco'                            " vim completion for coc
 " Plug 'neoclide/coc.nvim', {
 "         \ 'branch': 'release'
