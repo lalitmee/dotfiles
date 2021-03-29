@@ -12,4 +12,4 @@ require('lk.colorscheme')
 require('lk.plugins')
 require('lk.status-line')
 
--- require('lk.lsp')
+require('lk.lsp')
