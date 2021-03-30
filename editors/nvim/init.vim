@@ -70,7 +70,6 @@ source $HOME/.config/nvim/plug-config/fzf.vim
 source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
 source $HOME/.config/nvim/plug-config/mundo.vim
-source $HOME/.config/nvim/plug-config/nvim-bqf.vim
 source $HOME/.config/nvim/plug-config/openbrowser.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
 source $HOME/.config/nvim/plug-config/snippets.vim

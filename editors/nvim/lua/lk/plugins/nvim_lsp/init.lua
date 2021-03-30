@@ -9,6 +9,36 @@ local telescope_mapper = require('lk.plugins.telescope.mappings')
 require('lk.plugins.nvim_lsp.handlers')
 require('lk.plugins.nvim_lsp.commands')
 
+-- lsp kind symbols
+require('vim.lsp.protocol').CompletionItemKind =
+    {
+      ' [Text]', -- Text
+      ' [Method]', -- Method
+      'ƒ [Function]', -- Function
+      ' [Constructor]', -- Constructor
+      '識 [Field]', -- Field
+      ' [Variable]', -- Variable
+      '\u{f0e8} [Class]', -- Class
+      'ﰮ [Interface]', -- Interface
+      ' [Module]', -- Module
+      ' [Property]', -- Property
+      ' [Unit]', -- Unit
+      ' [Value]', -- Value
+      '了 [Enum]', -- Enum
+      ' [Keyword]', -- Keyword
+      '﬌ [Snippet]', -- Snippet
+      ' [Color]', -- Color
+      ' [File]', -- File
+      '渚 [Reference]', -- Reference
+      ' [Folder]', -- Folder
+      ' [Enum]', -- Enum
+      ' [Constant]', -- Constant
+      ' [Struct]', -- Struct
+      '鬒 [Event]', -- Event
+      '\u{03a8} [Operator]', -- Operator
+      ' [Type Parameter]' -- TypeParameter
+    }
+
 -- highlights {{{
 
 local highlight = require('lk.highlights')

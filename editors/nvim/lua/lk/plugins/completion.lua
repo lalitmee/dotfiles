@@ -1,27 +1,5 @@
--- vim.o.completeopt = 'menuone,noselect'
 -- Don't show the dumb matching stuff.
 vim.cmd [[set shortmess+=c]]
-
--- -- completion.nvim
--- -- vim.g.completion_confirm_key = ""
--- vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
-
--- -- vim.g.completion_enable_snippet = 'snippets.nvim'
-
--- vim.g.completion_enable_snippet = 'UltiSnips'
-
--- -- Decide on length
--- vim.g.completion_trigger_keyword_length = 1
-
--- vim.g.completion_chain_complete_list = {
---   default = {
---     { complete_items = { 'lsp', 'snippet' } },
---     { complete_items = { 'path' }, triggered_only = { '/' } },
---     { complete_items = { 'buffers' } }
---   },
---   string = { { complete_items = { 'path' }, triggered_only = { '/' } } },
---   comment = {}
--- }
 
 -- Complextras.nvim configuration
 vim.api.nvim_set_keymap(
@@ -48,17 +26,18 @@ if has_compe then
     allow_prefix_unmatch = false,
 
     source = {
-      path = true,
-      buffer = true,
-      calc = true,
-      vsnip = false,
-      nvim_lsp = true,
-      nvim_lua = true,
-      spell = true,
+      path = { kind = '  ' },
+      buffer = { kind = '  ' },
+      calc = { kind = '  ' },
+      vsnip = { kind = '  ' },
+      nvim_lsp = { kind = '  ' },
+      nvim_lua = { kind = '  ' },
+      spell = { kind = '  ' },
       tags = false,
-      snippets_nvim = true,
-      treesitter = true,
-      ultisnips = true
+      snippets_nvim = { kind = '  ' },
+      ultisnips = { kind = '  ' },
+      treesitter = { kind = '  ' },
+      emoji = { kind = ' ﲃ ', filetypes = { 'markdown' } }
     }
   }
 end
