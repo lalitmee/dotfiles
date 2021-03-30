@@ -199,7 +199,6 @@ Plug 'euclidianAce/BetterLua.vim', {
 " Plug 'kosayoda/nvim-lightbulb'                    " lightbulb like vscode
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'onsails/lspkind-nvim'
 " Plug 'tjdevries/complextras.nvim'
 " Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'tjdevries/nlua.nvim'
