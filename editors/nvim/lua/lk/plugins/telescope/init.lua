@@ -12,6 +12,7 @@ local reloader = function()
 end
 reloader()
 
+local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
 local themes = require('telescope.themes')
@@ -124,7 +125,7 @@ require('telescope').setup {
   }
 }
 
--- require('telescope').load_extension('dap')
+require('telescope').load_extension('dap')
 require('telescope').load_extension('cheat')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
@@ -134,11 +135,12 @@ require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('harpoon')
+require('telescope').load_extension('dotfiles')
 
 local M = {}
 
 function M.edit_neovim()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     prompt_title = '~ neovim ~',
     shorten_path = false,
     cwd = '~/.config/nvim',
@@ -160,7 +162,7 @@ function M.edit_neovim()
 end
 
 function M.edit_dotfiles()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     prompt_title = '~ dotfiles ~',
     shorten_path = false,
     hidden = true,
@@ -183,7 +185,7 @@ function M.edit_dotfiles()
 end
 
 function M.edit_zsh()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     shorten_path = false,
     cwd = '~/.config/zsh/',
     prompt = '~ dotfiles ~',
@@ -205,11 +207,11 @@ function M.edit_zsh()
 end
 
 function M.fd()
-  require('telescope.builtin').fd()
+  builtin.fd()
 end
 
 function M.builtin()
-  require('telescope.builtin').builtin()
+  builtin.builtin()
 end
 
 function M.git_files()
@@ -220,11 +222,11 @@ function M.git_files()
     shorten_path = false
   }
 
-  require('telescope.builtin').git_files(opts)
+  builtin.git_files(opts)
 end
 
 function M.buffer_git_files()
-  require('telescope.builtin').git_files(
+  builtin.git_files(
       themes.get_dropdown {
         cwd = vim.fn.expand('%:p:h'),
         winblend = 10,
@@ -243,7 +245,7 @@ function M.lsp_code_actions()
     shorten_path = false
   }
 
-  require('telescope.builtin').lsp_code_actions(opts)
+  builtin.lsp_code_actions(opts)
 end
 
 function M.live_grep()
@@ -255,7 +257,7 @@ function M.live_grep()
 end
 
 function M.grep_prompt()
-  require('telescope.builtin').grep_string {
+  builtin.grep_string {
     shorten_path = true,
     search = vim.fn.input('Grep String > ')
   }
@@ -274,7 +276,7 @@ function M.grep_last_search(opts)
   opts.word_match = '-w'
   opts.search = register
 
-  require('telescope.builtin').grep_string(opts)
+  builtin.grep_string(opts)
 end
 
 function M.oldfiles()
@@ -283,24 +285,22 @@ function M.oldfiles()
   end
   if pcall(require('telescope').load_extension, 'frecency') then
   else
-    require('telescope.builtin').oldfiles {
+    builtin.oldfiles {
       -- layout_strategy = 'vertical',
     }
   end
 end
 
 function M.my_plugins()
-  require('telescope.builtin').find_files { cwd = '~/plugins/' }
+  builtin.find_files { cwd = '~/plugins/' }
 end
 
 function M.installed_plugins()
-  require('telescope.builtin').find_files {
-    cwd = vim.fn.stdpath('config') .. '/autoload/plugged'
-  }
+  builtin.find_files { cwd = vim.fn.stdpath('config') .. '/autoload/plugged' }
 end
 
 function M.project_search()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     -- previewer = true,
     hidden = true,
     cwd = require('nvim_lsp.util').root_pattern('.git')(vim.fn.expand('%:p'))
@@ -308,7 +308,7 @@ function M.project_search()
 end
 
 function M.buffers()
-  require('telescope.builtin').buffers { shorten_path = false }
+  builtin.buffers { shorten_path = false }
 end
 
 function M.curbuf()
@@ -318,28 +318,22 @@ function M.curbuf()
     previewer = false,
     shorten_path = false
   }
-  require('telescope.builtin').current_buffer_fuzzy_find(opts)
+  builtin.current_buffer_fuzzy_find(opts)
 end
 
 function M.help_tags()
-  require('telescope.builtin').help_tags { show_version = true }
+  builtin.help_tags { show_version = true }
 end
 
 function M.search_all_files()
-  require('telescope.builtin').find_files {
-    find_command = {
-      'rg',
-      '--no-ignore',
-      '--hidden',
-      -- '--glob="!.git/*"',
-      '--files'
-    },
+  builtin.find_files {
+    find_command = { 'rg', '--no-ignore', '--hidden', '--files' },
     hidden = true
   }
 end
 
 function M.file_browser()
-  require('telescope.builtin').file_browser {
+  builtin.file_browser {
     sorting_strategy = 'ascending',
     scroll_strategy = 'cycle',
     prompt_position = 'top'
@@ -347,11 +341,15 @@ function M.file_browser()
 end
 
 function M.go_to_definition()
-  require('telescope.builtin').lsp_definitions {
-    -- sorting_strategy = 'ascending',
-    -- scroll_strategy = 'cycle',
-    -- prompt_position = 'top'
+  builtin.lsp_definitions {
+    sorting_strategy = 'ascending',
+    scroll_strategy = 'cycle',
+    prompt_position = 'top'
   }
+end
+
+function M.lsp_workspace_symbols()
+  builtin.lsp_workspace_symbols { query = vim.fn.input('Query > ') }
 end
 
 return setmetatable(
@@ -362,7 +360,7 @@ return setmetatable(
         if M[k] then
           return M[k]
         else
-          return require('telescope.builtin')[k]
+          return builtin[k]
         end
       end
     }

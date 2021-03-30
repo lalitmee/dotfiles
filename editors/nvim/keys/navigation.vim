@@ -9,4 +9,3 @@ nnoremap <C-q> :copen<CR>
 nnoremap <A-k> :lnext<CR>
 nnoremap <A-j> :lprev<CR>
 nnoremap <A-q> :lopen<CR>
-

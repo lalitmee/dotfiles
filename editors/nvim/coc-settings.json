@@ -21,7 +21,6 @@
   ],
 
   // autoformat
-  "coc.preferences.hoverTarget": "float",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
   // eslint
@@ -151,7 +150,8 @@
     "after_each",
     "awesome",
     "theme",
-    "client"
+    "client",
+    "unpack"
   ],
   "Lua.workspace.preloadFileSize": 1000,
 

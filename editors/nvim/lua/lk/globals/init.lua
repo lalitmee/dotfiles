@@ -12,8 +12,6 @@ if pcall(require, 'plenary') then
   end
 end
 
--- `vim.opt`
-require('lk.globals.opts')
 local utils = require('lk.utils')
 
 _G.lk_utils = {
@@ -39,7 +37,8 @@ _G.lk_utils = {
   has = utils.has,
   is_empty = utils.is_empty,
   command_callbacks = {},
-  lsp = {}
+  lsp = {},
+  plugins_count = utils.total_plugins
 }
 
 -- inspect the contents of an object very quickly in your code or from the command-line:
@@ -50,3 +49,6 @@ function _G.dump(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
   print(unpack(objects))
 end
+
+-- `vim.opt`
+require('lk.globals.opts')
