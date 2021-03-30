@@ -3,7 +3,6 @@ vim.g.maplocalleader = ',' -- Local leader is ,
 
 require('lk.utils')
 require('lk.globals')
-require('lk.options')
 require('lk.settings')
 require('lk.highlights')
 require('lk.folds')

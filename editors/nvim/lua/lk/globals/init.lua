@@ -37,7 +37,8 @@ _G.lk_utils = {
   has = utils.has,
   is_empty = utils.is_empty,
   command_callbacks = {},
-  lsp = {}
+  lsp = {},
+  plugins_count = utils.total_plugins
 }
 
 -- inspect the contents of an object very quickly in your code or from the command-line:
