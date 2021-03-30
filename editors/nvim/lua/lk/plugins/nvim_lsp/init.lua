@@ -4,10 +4,46 @@ USER = vim.fn.expand('$USER')
 
 local lsp_config = require('lspconfig')
 local lsp_status = require('lsp-status')
-local buf_map = require('lk.utils').buf_map
+local map = lk_utils.map
 local telescope_mapper = require('lk.plugins.telescope.mappings')
-require('lk.nvim_lsp.handlers')
--- require('lk.lsp_config.commands')
+require('lk.plugins.nvim_lsp.handlers')
+require('lk.plugins.nvim_lsp.commands')
+
+-- highlights {{{
+
+local highlight = require('lk.highlights')
+local cursor_line_bg = highlight.hl_value('CursorLine', 'bg')
+highlight.all {
+  { 'LspReferenceText', { guibg = cursor_line_bg, gui = 'none' } },
+  { 'LspReferenceRead', { guibg = cursor_line_bg, gui = 'none' } },
+  { 'LspDiagnosticsSignHint', { guifg = '#fab005' } },
+  { 'LspDiagnosticsDefaultHint', { guifg = '#fab005' } },
+  { 'LspDiagnosticsDefaultError', { guifg = '#E06C75' } },
+  { 'LspDiagnosticsDefaultWarning', { guifg = '#ff922b' } },
+  { 'LspDiagnosticsDefaultInformation', { guifg = '#15aabf' } },
+  {
+    'LspDiagnosticsUnderlineError',
+    { gui = 'undercurl', guisp = '#E06C75', guifg = 'none' }
+  },
+  {
+    'LspDiagnosticsUnderlineHint',
+    { gui = 'undercurl', guisp = '#fab005', guifg = 'none' }
+  },
+  {
+    'LspDiagnosticsUnderlineWarning',
+    { gui = 'undercurl', guisp = 'orange', guifg = 'none' }
+  },
+  {
+    'LspDiagnosticsUnderlineInformation',
+    { gui = 'undercurl', guisp = '#15aabf', guifg = 'none' }
+  },
+  { 'LspDiagnosticsFloatingWarning', { guibg = 'NONE' } },
+  { 'LspDiagnosticsFloatingError', { guibg = 'NONE' } },
+  { 'LspDiagnosticsFloatingHint', { guibg = 'NONE' } },
+  { 'LspDiagnosticsFloatingInformation', { guibg = 'NONE' } }
+}
+
+-- }}}
 
 local custom_init = function(client)
   client.config.flags = client.config.flags or {}
@@ -15,74 +51,98 @@ local custom_init = function(client)
 end
 
 local custom_attach = function(client)
-  local opts = { noremap = true, silent = true }
+  local opts = { noremap = false, silent = true }
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
   -- buf native lsp key maps
-  buf_map('i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_map('n', 'gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  buf_map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
-  buf_map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
+  -- map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
+  -- map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- map('n', 'gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
+  map('i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
   -- diagnostics mappings
-  buf_map('n', 'geN', '<cmd>lua vim.lsp.diagnostic.get_next()<CR>', opts)
-  buf_map('n', 'geP', '<cmd>lua vim.lsp.diagnostic.get_prev()<CR>', opts)
-  buf_map('n', 'gea', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
-  buf_map(
+  map('n', 'geN', '<cmd>lua vim.lsp.diagnostic.get_next()<CR>', opts)
+  map('n', 'geP', '<cmd>lua vim.lsp.diagnostic.get_prev()<CR>', opts)
+  map('n', 'gea', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
+  map(
       'n', 'gel', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
       opts
   )
-  buf_map('n', 'gen', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_map('n', 'gep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  map('n', 'gen', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  map('n', 'gep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- formaaing mappings
-  buf_map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_map('n', 'gfs', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
+  map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  map('n', 'gfs', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
 
   -- workspace mappings
-  buf_map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_map('n', 'grc', '<cmd>lua vim.lsp.buf.clear_references()<CR>', opts)
-  buf_map('n', 'grn', '<cmd>lua MyLspRename()<CR>', opts)
-  buf_map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  map('n', 'grc', '<cmd>lua vim.lsp.buf.clear_references()<CR>', opts)
+  map('n', 'grn', '<cmd>lua MyLspRename()<CR>', opts)
+  map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+
+  -- Lspsaga mappings
+  map('n', '<localleader>ma', '<cmd>Lspsaga code_action<CR>', opts)
+  map('n', '<localleader>mA', '<cmd>Lspsaga range_code_action<CR>', opts)
+  map('n', '<localleader>mc', '<cmd>Lspsaga close_floaterm<CR>', opts)
+  map('n', '<localleader>md', '<cmd>Lspsaga lsp_finder<CR>', opts)
+  map('n', '<localleader>me', '<cmd>Lspsaga show_cursor_diagnostics<CR>', opts)
+  map('n', '<localleader>mh', '<cmd>Lspsaga hover_doc<CR>', opts)
+  map('n', '<localleader>ml', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
+  map('n', '<localleader>mn', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+  map('n', '<localleader>mo', '<cmd>Lspsaga open_floaterm<CR>', opts)
+  map('n', '<localleader>mp', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+  map('n', '<localleader>mr', '<cmd>Lspsaga rename<CR>', opts)
+  map('n', '<localleader>mv', '<cmd>Lspsaga preview_definition<CR>', opts)
 
   -- telescope mappings for lsp and more
-  -- buf_map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
-  -- buf_map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
-  buf_map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
-  buf_map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
-  -- buf_map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
-  -- buf_map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
-  -- buf_map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-  -- buf_map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
-  -- buf_map(
+  map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+  map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+  map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
+  map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
+  map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
+  map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
+  map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
+  map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
+  -- map(
   --     'n', 'gW',
   --     '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
   --     opts
   -- )
 
   local telescope_opts = { prompt_position = 'top' }
-  telescope_mapper('gta', 'lsp_code_actions', telescope_opts, true)
-  telescope_mapper('gtA', 'lsp_range_code_actions', telescope_opts, true)
-  telescope_mapper('gtd', 'lsp_definitions', telescope_opts, true)
-  telescope_mapper('gte', 'lsp_document_diagnostics', telescope_opts, true)
-  telescope_mapper('gtE', 'lsp_workspace_diagnostics', telescope_opts, true)
-  telescope_mapper('gtr', 'lsp_references', telescope_opts, true)
-  telescope_mapper('gtw', 'lsp_document_symbols', telescope_opts, true)
-  telescope_mapper('gtW', 'lsp_workspace_symbols', telescope_opts, true)
+  telescope_mapper('<localleader>ta', 'lsp_code_actions', telescope_opts, true)
+  telescope_mapper(
+      '<localleader>tA', 'lsp_range_code_actions', telescope_opts, true
+  )
+  telescope_mapper('<localleader>td', 'lsp_definitions', telescope_opts, true)
+  telescope_mapper(
+      '<localleader>te', 'lsp_document_diagnostics', telescope_opts, true
+  )
+  telescope_mapper(
+      '<localleader>tE', 'lsp_workspace_diagnostics', telescope_opts, true
+  )
+  telescope_mapper('<localleader>tr', 'lsp_references', telescope_opts, true)
+  telescope_mapper(
+      '<localleader>tw', 'lsp_document_symbols', telescope_opts, true
+  )
+  telescope_mapper(
+      '<localleader>tW', 'lsp_workspace_symbols', telescope_opts, true
+  )
 
   if client.resolved_capabilities.goto_definition then
-    buf_map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   end
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    buf_map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   elseif client.resolved_capabilities.document_range_formatting then
-    buf_map('n', 'gfr', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+    map('n', 'gfr', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
   end
 
   -- Set autocommands conditional on server_capabilities
@@ -222,7 +282,6 @@ lsp_config.rust_analyzer.setup(
 )
 
 lsp_config.diagnosticls.setup {
-  on_attach = custom_attach,
   filetypes = {
     'javascript',
     'javascriptreact',
@@ -236,8 +295,8 @@ lsp_config.diagnosticls.setup {
   init_options = {
     linters = {
       eslint = {
-        command = 'eslint',
-        rootPatterns = { '.git' },
+        command = 'eslint_d',
+        rootPatterns = { '.git', 'package.json' },
         debounce = 100,
         args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
         sourceName = 'eslint',
