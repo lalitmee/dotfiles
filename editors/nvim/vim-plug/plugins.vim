@@ -1,15 +1,23 @@
 " NOTE: vim-plug and plugins
 
-" auto-install vim-plug {{{
+" Auto install vim-plug {{{
 
+" auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+  silent !curl -fLo
+        \ ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-" }}}
+" auto install not installed pacakges
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
+" Auto install vim-plug }}}
 
 " Plugins {{{
 
@@ -37,10 +45,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
-" Plug 'DilanGMB/nightbuddy'                        " nightbuddy theme using colorbuddy
-Plug 'marko-cerovac/material.nvim'                  " material theme using colorbuddy
-Plug 'rktjmp/lush.nvim'
-Plug 'npxbr/gruvbox.nvim'
 
 "}}}
 
@@ -56,6 +60,7 @@ Plug 'yamatsum/nvim-nonicons'                       " beautiful icons
 Plug 'junegunn/goyo.vim'
 Plug 'kshenoy/vim-signature'                        " toggle, display and navigate marks
 Plug 'liuchengxu/vim-which-key',                    " See what keys do like in emacs
+Plug 'AckslD/nvim-whichkey-setup.lua'
 Plug 'mhinz/vim-startify'                           " fancy start Screen for vim
 Plug 'norcalli/nvim-colorizer.lua'                  " Colorizer for showing the colors
 
@@ -94,7 +99,6 @@ Plug 'christoomey/vim-tmux-navigator'               " Moving in vim inside Tmux
 Plug 'christoomey/vim-tmux-runner'                  " tmux runner for tests
 Plug 'haya14busa/is.vim'                            " successor of incsearch
 Plug 'haya14busa/incsearch.vim'                     " Better search highlighting
-Plug 'haya14busa/incsearch-fuzzy.vim'               " fuzzy incsearch
 Plug 'ntpeters/vim-better-whitespace'               " Better Whitespace
 Plug 'scr1pt0r/crease.vim'                          " nice fold text
 Plug 'Konfekt/FastFold'                             " fast folds in vim
