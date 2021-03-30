@@ -26,18 +26,18 @@ if has_compe then
     allow_prefix_unmatch = false,
 
     source = {
-      path = { kind = '  ' },
-      buffer = { kind = '  ' },
-      calc = { kind = '  ' },
-      vsnip = { kind = '  ' },
-      nvim_lsp = { kind = '  ' },
-      nvim_lua = { kind = '  ' },
-      spell = { kind = '  ' },
+      path = true,
+      buffer = true,
+      calc = true,
+      vsnip = true,
+      nvim_lsp = true,
+      nvim_lua = true,
+      spell = true,
       tags = false,
-      snippets_nvim = { kind = '  ' },
-      ultisnips = { kind = '  ' },
-      treesitter = { kind = '  ' },
-      emoji = { kind = ' ﲃ ', filetypes = { 'markdown' } }
+      snippets_nvim = true,
+      ultisnips = true,
+      treesitter = true,
+      emoji = true
     }
   }
 end

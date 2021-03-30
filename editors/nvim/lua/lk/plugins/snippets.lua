@@ -16,7 +16,6 @@ snips._global = {
 -- lua
 snips.lua = vim.tbl_deep_extend(
                 'error', require('nlua.snippets').get_lua_snippets(), {
-      -- Custom parsed item, for a plugin I use a lot.
       get_parsed = [[local parsed = get_parsed($1)]],
 
       reload = [[require('plenary.reload').reload_module('$1')$0]]
@@ -56,9 +55,6 @@ snip_plug.use_suggested_mappings()
 -- TODO: Investigate this again.
 require'snippets'.set_ux(require 'snippets.inserters.floaty')
 
--- Shortcuts for me to edit the snippet files
---  Could possibly use fzf or something for this, but this seemds good for now.
-
 local charset = {}
 do -- [0-9a-zA-Z]
   -- for c = 48, 57  do table.insert(charset, string.char(c)) end
@@ -84,12 +80,11 @@ function RandomString(length)
   return RandomString(length - 1) .. charset[math.random(1, #charset)]
 end
 
---[[
--- Leftover from stream
--- function ExampleForMccannch()
---   vim.fn.complete(vim.fn.col('.'), { "hello", "world", "Tj is a nice streamer", "TJ is a helpful streamer" })
---   return ''
--- end
--- vim.cmd [[inoremap <c-x><c-m> <C-R>=v:lua.ExampleForMccannch()<CR>]]
--- vim.cmd [[inoremap <c-x><c-m> <C-R>=luaeval('require("my.plugin").thing()')<CR>]]
--- ]]
+-- <c-j> will jump backwards to the previous field.
+-- If you jump before the first field, it will cancel the snippet.
+vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>]]
+
+-- <c-k> will either expand the current snippet at the word or try to jump to
+-- the next position for the snippet.
+vim.cmd [[inoremap <c-j> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
+
