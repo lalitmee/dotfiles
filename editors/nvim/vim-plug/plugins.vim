@@ -180,8 +180,6 @@ Plug 'neoclide/coc.nvim', {
 
 " neovim-lsp {{{
 
-" Plug 'bfredl/nvim-luadev'
-" Plug 'euclidianAce/BetterLua.vim'                                           " better lua syntax highlighting
 " Plug 'glacambre/nvim-lsp'
 " Plug 'glepnir/lspsaga.nvim'
 " Plug 'hrsh7th/nvim-compe'
@@ -189,7 +187,9 @@ Plug 'neoclide/coc.nvim', {
 " Plug 'nvim-lua/lsp-status.nvim'
 " Plug 'tjdevries/complextras.nvim'
 " Plug 'tjdevries/lsp_extensions.nvim'
-" Plug 'tjdevries/nlua.nvim'
+Plug 'bfredl/nvim-luadev'
+Plug 'euclidianAce/BetterLua.vim'                                           " better lua syntax highlighting
+Plug 'tjdevries/nlua.nvim'
 
 " neovim-lsp }}}
 
