@@ -1,46 +1,41 @@
-vim.lsp.set_log_level('debug')
-
-USER = vim.fn.expand('$USER')
-
-local lsp_config = require('lspconfig')
-local lsp_status = require('lsp-status')
 local map = lk_utils.map
 local telescope_mapper = require('lk.plugins.telescope.mappings')
 require('lk.plugins.nvim_lsp.handlers')
 require('lk.plugins.nvim_lsp.commands')
 
--- lsp kind symbols
-require('vim.lsp.protocol').CompletionItemKind =
-    {
-      ' [Text]', -- Text
-      ' [Method]', -- Method
-      'ƒ [Function]', -- Function
-      ' [Constructor]', -- Constructor
-      '識 [Field]', -- Field
-      ' [Variable]', -- Variable
-      '\u{f0e8} [Class]', -- Class
-      'ﰮ [Interface]', -- Interface
-      ' [Module]', -- Module
-      ' [Property]', -- Property
-      ' [Unit]', -- Unit
-      ' [Value]', -- Value
-      '了 [Enum]', -- Enum
-      ' [Keyword]', -- Keyword
-      '﬌ [Snippet]', -- Snippet
-      ' [Color]', -- Color
-      ' [File]', -- File
-      '渚 [Reference]', -- Reference
-      ' [Folder]', -- Folder
-      ' [Enum]', -- Enum
-      ' [Constant]', -- Constant
-      ' [Struct]', -- Struct
-      '鬒 [Event]', -- Event
-      '\u{03a8} [Operator]', -- Operator
-      ' [Type Parameter]' -- TypeParameter
-    }
+require('lspkind').init({})
+
+-- -- lsp kind symbols
+-- require('vim.lsp.protocol').CompletionItemKind =
+--     {
+--       ' [Text]', -- Text
+--       ' [Method]', -- Method
+--       'ƒ [Function]', -- Function
+--       '  [Constructor]', -- Constructor
+--       '識 [Field]', -- Field
+--       ' [Variable]', -- Variable
+--       '\u{f0e8} [Class]', -- Class
+--       'ﰮ [Interface]', -- Interface
+--       ' [Module]', -- Module
+--       ' [Property]', -- Property
+--       ' [Unit]', -- Unit
+--       ' [Value]', -- Value
+--       '了 [Enum]', -- Enum
+--       ' [Keyword]', -- Keyword
+--       '﬌ [Snippet]', -- Snippet
+--       ' [Color]', -- Color
+--       ' [File]', -- File
+--       '渚 [Reference]', -- Reference
+--       ' [Folder]', -- Folder
+--       ' [Enum]', -- Enum
+--       ' [Constant]', -- Constant
+--       ' [Struct]', -- Struct
+--       '鬒 [Event]', -- Event
+--       '\u{03a8} [Operator]', -- Operator
+--       ' [Type Parameter]' -- TypeParameter
+--     }
 
 -- highlights {{{
-
 local highlight = require('lk.highlights')
 local cursor_line_bg = highlight.hl_value('CursorLine', 'bg')
 highlight.all {
@@ -73,17 +68,40 @@ highlight.all {
   { 'LspDiagnosticsFloatingInformation', { guibg = 'NONE' } }
 }
 
--- }}}
+vim.fn.sign_define(
+    'LspDiagnosticsSignError', {
+      texthl = 'LspDiagnosticsSignError',
+      text = '',
+      numhl = 'LspDiagnosticsSignError'
+    }
+)
+vim.fn.sign_define(
+    'LspDiagnosticsSignWarning', {
+      texthl = 'LspDiagnosticsSignWarning',
+      text = '',
+      numhl = 'LspDiagnosticsSignWarning'
+    }
+)
+vim.fn.sign_define(
+    'LspDiagnosticsSignHint', {
+      texthl = 'LspDiagnosticsSignHint',
+      text = '',
+      numhl = 'LspDiagnosticsSignHint'
+    }
+)
+vim.fn.sign_define(
+    'LspDiagnosticsSignInformation', {
+      texthl = 'LspDiagnosticsSignInformation',
+      text = '',
+      numhl = 'LspDiagnosticsSignInformation'
+    }
+)
 
-local custom_init = function(client)
-  client.config.flags = client.config.flags or {}
-  client.config.flags.allow_incremental_sync = true
-end
-
-local custom_attach = function(client)
-  local opts = { noremap = false, silent = true }
+-- keymaps
+local on_attach = function(client)
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+  local opts = { noremap = false, silent = true }
   -- buf native lsp key maps
   -- map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   -- map('n', 'ge', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
@@ -115,6 +133,20 @@ local custom_attach = function(client)
   map('n', 'grc', '<cmd>lua vim.lsp.buf.clear_references()<CR>', opts)
   map('n', 'grn', '<cmd>lua MyLspRename()<CR>', opts)
   map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+
+  -- Lspsaga mappings
+  map('n', '<localleader>ma', '<cmd>Lspsaga code_action<CR>', opts)
+  map('n', '<localleader>mA', '<cmd>Lspsaga range_code_action<CR>', opts)
+  map('n', '<localleader>mc', '<cmd>Lspsaga close_floaterm<CR>', opts)
+  map('n', '<localleader>md', '<cmd>Lspsaga lsp_finder<CR>', opts)
+  map('n', '<localleader>me', '<cmd>Lspsaga show_cursor_diagnostics<CR>', opts)
+  map('n', '<localleader>mh', '<cmd>Lspsaga hover_doc<CR>', opts)
+  map('n', '<localleader>ml', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
+  map('n', '<localleader>mn', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+  map('n', '<localleader>mo', '<cmd>Lspsaga open_floaterm<CR>', opts)
+  map('n', '<localleader>mp', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+  map('n', '<localleader>mr', '<cmd>Lspsaga rename<CR>', opts)
+  map('n', '<localleader>mv', '<cmd>Lspsaga preview_definition<CR>', opts)
 
   -- telescope mappings for lsp and more
   map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
@@ -150,154 +182,32 @@ local custom_attach = function(client)
   telescope_mapper(
       '<localleader>tW', 'lsp_workspace_symbols', telescope_opts, true
   )
-
-  if client.resolved_capabilities.goto_definition then
-    map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  end
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    map('n', 'gfr', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
-  end
-
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec(
-        [[
-    augroup lsp_document_highlight
-    autocmd! * <buffer>
-    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]], false
-    )
-  end
 end
 
-local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
-updated_capabilities.textDocument.codeLens = { dynamicRegistration = false }
-updated_capabilities = vim.tbl_extend(
-                           'keep', updated_capabilities, lsp_status.capabilities
-                       )
-
--- lua lsp
-local system_name
-if vim.fn.has('mac') == 1 then
-  system_name = 'macOS'
-elseif vim.fn.has('unix') == 1 then
-  system_name = 'Linux'
-elseif vim.fn.has('win32') == 1 then
-  system_name = 'Windows'
-else
-  print('Unsupported system for sumneko')
-end
-
-local sumneko_root_path = '/home/' .. USER .. '/data/Github/lua-language-server'
-local sumneko_binary = sumneko_root_path .. '/bin/' .. system_name ..
-                           '/lua-language-server'
-
-lsp_config.sumneko_lua.setup(
-    {
-      cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-      on_attach = custom_attach,
-      settings = {
-        Lua = {
-          runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
-          diagnostics = {
-            globals = {
-              'vim',
-              'describe',
-              'it',
-              'before_each',
-              'after_each',
-              'awesome',
-              'theme',
-              'client'
-            }
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-              [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-            },
-            maxPreload = 1000,
-            preloadFileSize = 1000
-          }
-        }
+-- Configure lua language server for neovim development
+local lua_settings = {
+  Lua = {
+    runtime = {
+      -- LuaJIT in the case of Neovim
+      version = 'LuaJIT',
+      path = vim.split(package.path, ';')
+    },
+    diagnostics = {
+      -- Get the language server to recognize the `vim` global
+      globals = { 'vim' }
+    },
+    workspace = {
+      -- Make the server aware of Neovim runtime files
+      library = {
+        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
       }
     }
-)
-
--- yaml
-lsp_config.yamlls.setup { on_init = custom_init, on_attach = custom_attach }
-
--- python
-lsp_config.pyls.setup {
-  plugins = { pyls_mypy = { enabled = true, live_mode = false } },
-  on_init = custom_init,
-  on_attach = custom_attach
+  }
 }
 
-lsp_config.vimls.setup { on_init = custom_init, on_attach = custom_attach }
-
-lsp_config.gopls.setup {
-  on_init = custom_init,
-  on_attach = custom_attach,
-  capabilities = updated_capabilities,
-  settings = { gopls = { codelenses = { test = true } } }
-}
-
-lsp_config.gdscript.setup { on_init = custom_init, on_attach = custom_attach }
-
-lsp_config.tsserver.setup(
-    {
-      cmd = { 'typescript-language-server', '--stdio' },
-      filetypes = {
-        'javascript',
-        'javascriptreact',
-        'javascript.jsx',
-        'typescript',
-        'typescriptreact',
-        'typescript.tsx'
-      },
-      on_init = custom_init,
-      on_attach = custom_attach
-    }
-)
-
-lsp_config.clangd.setup(
-    {
-      filetypes = { 'c', 'cpp' },
-      cmd = {
-        'clangd',
-        '--background-index',
-        '--suggest-missing-includes',
-        '--clang-tidy',
-        '--header-insertion=iwyu'
-      },
-      on_init = custom_init,
-      on_attach = custom_attach,
-
-      -- Required for lsp-status
-      init_options = { clangdFileStatus = true },
-      handlers = lsp_status.extensions.clangd.setup(),
-      capabilities = lsp_status.capabilities
-    }
-)
-
-lsp_config.cmake.setup { on_init = custom_init, on_attach = custom_attach }
-
-lsp_config.rust_analyzer.setup(
-    {
-      cmd = { 'rust-analyzer' },
-      filetypes = { 'rust' },
-      on_init = custom_init,
-      on_attach = custom_attach
-    }
-)
-
-lsp_config.diagnosticls.setup {
+-- diagnostic settings
+local diagnostic_settings = {
   filetypes = {
     'javascript',
     'javascriptreact',
@@ -374,3 +284,51 @@ lsp_config.diagnosticls.setup {
     }
   }
 }
+
+-- config that activates keymaps and enables snippet support
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_attach
+  }
+end
+
+-- lsp-install
+local function setup_servers()
+  require('lspinstall').setup()
+
+  -- get all installed servers
+  local servers = require('lspinstall').installed_servers()
+
+  for _, server in pairs(servers) do
+    local config = make_config()
+
+    -- language specific config
+    if server == 'lua' then
+      config.settings = lua_settings
+    end
+    if server == 'diagnosticls' then
+      config = diagnostic_settings
+    end
+    if server == 'sourcekit' then
+      config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
+    end
+    if server == 'clangd' then
+      config.filetypes = { 'c', 'cpp' }; -- we don't want objective-c and objective-cpp!
+    end
+    require('lspconfig')[server].setup(config)
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require('lspinstall').post_install_hook =
+    function()
+      setup_servers() -- reload installed servers
+      vim.cmd('bufdo e') -- this triggers the FileType autocmd that starts the server
+    end
