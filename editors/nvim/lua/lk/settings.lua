@@ -404,12 +404,11 @@ vim.api.nvim_exec(
       let g:loaded_vimballPlugin     = 1
       let g:loaded_getscript         = 1
       let g:loaded_getscriptPlugin   = 1
-      let g:loaded_netrw             = 1
-      let g:loaded_netrwPlugin       = 1
-      let g:loaded_netrwSettings     = 1
-      let g:loaded_netrwFileHandlers = 1
-      " Leave netrw to death
-      let g:netrw_banner=0
+      " let g:loaded_netrw             = 1
+      " let g:loaded_netrwPlugin       = 1
+      " let g:loaded_netrwSettings     = 1
+      " let g:loaded_netrwFileHandlers = 1
+      " let g:netrw_banner=0
 
       " python hosts
       let g:python3_host_prog = '/home/lalitmee/.pyenv/versions/neovim3/bin/python'

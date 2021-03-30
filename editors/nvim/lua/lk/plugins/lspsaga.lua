@@ -2,7 +2,7 @@ local saga = require('lspsaga')
 local nnoremap = lk_utils.nnoremap
 
 saga.init_lsp_saga {
-  use_saga_diagnostic_sign = true,
+  use_saga_diagnostic_sign = false,
   finder_action_keys = { vsplit = 'v', split = 's', quit = { 'q', '<ESC>' } },
   code_action_icon = '💡',
   code_action_prompt = { enable = true, sign = false, virtual_text = true }
