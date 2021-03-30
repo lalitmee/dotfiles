@@ -41,6 +41,7 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 " General Settings {{{
 
 source $HOME/.config/nvim/general/functions.vim
+source $HOME/.config/nvim/general/options.vim
 
 " General Settings }}}
 
@@ -52,43 +53,14 @@ luafile $HOME/.config/nvim/lua/lk/init.lua
 
 " Plugins Configurations {{{
 
-" source $HOME/.config/nvim/plug-config/auto-resize.vim
-" source $HOME/.config/nvim/plug-config/coc.vim
-" source $HOME/.config/nvim/plug-config/cyclist.vim
-" source $HOME/.config/nvim/plug-config/goyo.vim
-" source $HOME/.config/nvim/plug-config/ranger.vim
-" source $HOME/.config/nvim/plug-config/rnvimr.vim
 " source $HOME/.config/nvim/plug-config/vsnip.vim
-source $HOME/.config/nvim/plug-config/any-jump.vim
-source $HOME/.config/nvim/plug-config/crease.vim
-source $HOME/.config/nvim/plug-config/emmet.vim
-source $HOME/.config/nvim/plug-config/fast-fold.vim
-source $HOME/.config/nvim/plug-config/floaterm.vim
-source $HOME/.config/nvim/plug-config/fnr.vim
-source $HOME/.config/nvim/plug-config/fzf-project.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
-source $HOME/.config/nvim/plug-config/git-blame.vim
 source $HOME/.config/nvim/plug-config/incsearch.vim
-source $HOME/.config/nvim/plug-config/mundo.vim
-source $HOME/.config/nvim/plug-config/openbrowser.vim
-source $HOME/.config/nvim/plug-config/quickscope.vim
-source $HOME/.config/nvim/plug-config/snippets.vim
-source $HOME/.config/nvim/plug-config/startify.vim
-source $HOME/.config/nvim/plug-config/tabular.vim
-source $HOME/.config/nvim/plug-config/tagalong.vim
-source $HOME/.config/nvim/plug-config/ultisnips.vim
-source $HOME/.config/nvim/plug-config/vim-awesome.vim
-source $HOME/.config/nvim/plug-config/vim-better-whitespace.vim
-source $HOME/.config/nvim/plug-config/vim-closetag.vim
-source $HOME/.config/nvim/plug-config/vim-fist.vim
-source $HOME/.config/nvim/plug-config/vim-markdown.vim
-source $HOME/.config/nvim/plug-config/vim-sneak.vim
 
 " Plugins Configurations }}}
 
 " Keys Mappings {{{
 
-" source $HOME/.config/nvim/keys/coc.vim
 source $HOME/.config/nvim/keys/all.vim
 source $HOME/.config/nvim/keys/fzf.vim
 source $HOME/.config/nvim/keys/harpoon.vim

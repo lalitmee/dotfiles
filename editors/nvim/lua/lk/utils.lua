@@ -2,6 +2,25 @@ local M = {}
 local api = vim.api
 local fn = vim.fn
 
+function M.echomsg(msg, hl)
+  hl = hl or 'Title'
+  local msg_type = type(msg)
+  if msg_type ~= 'string' or 'table' then
+    return
+  end
+  if msg_type == 'string' then
+    msg = { { msg, hl } }
+  end
+  api.nvim_echo(msg, true, {})
+end
+
+function M.total_plugins()
+  local base_path = fn.stdpath('config') .. '/autoload/plugged/'
+  local plugins = vim.split(fn.globpath(base_path, '*'), '\n')
+  local total_count = vim.tbl_count(plugins)
+  return { total = total_count }
+end
+
 -- https://stackoverflow.com/questions/1283388/lua-merge-tables
 function M.deep_merge(t1, t2)
   for k, v in pairs(t2) do
