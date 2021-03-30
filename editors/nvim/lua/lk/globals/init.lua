@@ -51,4 +51,4 @@ function _G.dump(...)
 end
 
 -- `vim.opt`
-require('lk.globals.opts')
+require('lk.globals.opt')

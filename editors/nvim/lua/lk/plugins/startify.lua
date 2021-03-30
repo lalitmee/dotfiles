@@ -27,7 +27,7 @@ vim.g.startify_session_sort = 1
 vim.g.startify_bookmarks = {
   { be = ' ~/.config/bat/config' },
   { ge = ' ~/.goneovim/setting.toml' },
-  { ne = ' ~/.config/nvim/init.vim' },
+  { ne = ' ~/.config/nvim/init.lua' },
   { ze = ' ~/.zshrc' }
 }
 

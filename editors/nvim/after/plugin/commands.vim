@@ -1,4 +1,4 @@
-source $HOME/.config/nvim/init.vim
+luafile $HOME/.config/nvim/init.lua
 
 " make ctags {{{
 
