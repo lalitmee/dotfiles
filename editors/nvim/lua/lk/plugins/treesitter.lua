@@ -1,34 +1,17 @@
 require('nvim-treesitter.configs').setup(
     {
-      ensure_installed = {
-        'bash',
-        'c',
-        'c_sharp',
-        'cpp',
-        'css',
-        'fennel',
-        'gdscript',
-        'go',
-        'graphql',
-        'html',
-        'java',
-        'javascript',
-        'json',
-        'kotlin',
-        'lua',
-        'python',
-        'ql',
-        'query',
-        'regex',
-        'ruby',
-        'rust',
-        'teal',
-        'toml',
-        'typescript',
-        'yaml'
-      },
+      ensure_installed = 'all',
+      ignore_install = { 'haskell' },
       highlight = { enable = true },
       autotag = { enable = true },
+      indent = { enable = true },
+      rainbow = { enable = true },
+      playground = { enable = true, updatetime = 25, persist_queries = false },
+      query_linter = {
+        enable = true,
+        use_virtual_text = true,
+        lint_events = { 'BufWrite', 'CursorHold' }
+      },
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -38,8 +21,6 @@ require('nvim-treesitter.configs').setup(
           node_decremental = '[v'
         }
       },
-      indent = { enable = true },
-      rainbow = { enable = true },
       refactor = {
         highlight_definitions = { enable = true },
         highlight_current_scope = { enable = false },
@@ -86,27 +67,23 @@ require('nvim-treesitter.configs').setup(
             ['dF'] = '@class.outer'
           }
         }
-      },
-      playground = { enable = true, updatetime = 25, persist_queries = true },
-      query_linter = {
-        enable = true,
-        use_virtual_text = true,
-        lint_events = { 'BufWrite', 'CursorHold' }
       }
     }
 )
 
-local parsers = require 'nvim-treesitter.parsers'
-local configs = parsers.get_parser_configs()
-local ft_str = table.concat(
-                   vim.tbl_map(
-                       function(ft)
-          return configs[ft].filetype or ft
-        end, parsers.available_parsers()
-                   ), ','
-               )
+-- fold method
 
-vim.cmd(
-    'autocmd! Filetype ' .. ft_str ..
-        ' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
-)
+-- local parsers = require 'nvim-treesitter.parsers'
+-- local configs = parsers.get_parser_configs()
+-- local ft_str = table.concat(
+--                    vim.tbl_map(
+--                        function(ft)
+--           return configs[ft].filetype or ft
+--         end, parsers.available_parsers()
+--                    ), ','
+--                )
+
+-- vim.cmd(
+--     'autocmd! Filetype ' .. ft_str ..
+--         ' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()'
+-- )

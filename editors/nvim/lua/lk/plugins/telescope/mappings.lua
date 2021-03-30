@@ -31,6 +31,10 @@ vim.api.nvim_set_keymap(
     { noremap = false, nowait = true }
 )
 
+-- lsp
+map_tele('<localleader>lw', 'lsp_workspace_symbols')
+map_tele('<localleader>ld', 'go_to_definition')
+
 -- Dotfiles
 map_tele('<leader>ofn', 'edit_neovim')
 map_tele('<leader>ofc', 'edit_dotfiles')
