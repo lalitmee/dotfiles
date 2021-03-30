@@ -116,37 +116,37 @@ autocommands.create(
         {
           'BufEnter',
           '*',
-          [[lua require("as.numbers").enable_relative_number()]]
+          [[lua require("lk.numbers").enable_relative_number()]]
         },
         {
           'BufLeave',
           '*',
-          [[lua require("as.numbers").disable_relative_number()]]
+          [[lua require("lk.numbers").disable_relative_number()]]
         },
         {
           'FileType',
           '*',
-          [[lua require("as.numbers").enable_relative_number()]]
+          [[lua require("lk.numbers").enable_relative_number()]]
         },
         {
           'FocusGained',
           '*',
-          [[lua require("as.numbers").enable_relative_number()]]
+          [[lua require("lk.numbers").enable_relative_number()]]
         },
         {
           'FocusLost',
           '*',
-          [[lua require("as.numbers").disable_relative_number()]]
+          [[lua require("lk.numbers").disable_relative_number()]]
         },
         {
           'InsertEnter',
           '*',
-          [[lua require("as.numbers").disable_relative_number()]]
+          [[lua require("lk.numbers").disable_relative_number()]]
         },
         {
           'InsertLeave',
           '*',
-          [[lua require("as.numbers").enable_relative_number()]]
+          [[lua require("lk.numbers").enable_relative_number()]]
         }
       }
     }
