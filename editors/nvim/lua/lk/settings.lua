@@ -133,7 +133,7 @@ vim.o.foldtext = 'v:lua.folds()'
 vim.o.foldopen = add(vim.o.foldopen, 'search')
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 10
-opt.foldmethod = 'syntax'
+-- opt.foldmethod = 'syntax'
 
 -- }}}
 
@@ -358,8 +358,8 @@ vim.o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 
 -- vim.cmd {{{
 
-vim.cmd([[set fo-=oat2]])
-vim.cmd([[set fo+=cqrnj]])
+-- vim.cmd([[set fo-=oat2]])
+-- vim.cmd([[set fo+=cqrnj]])
 vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[set re=1]])

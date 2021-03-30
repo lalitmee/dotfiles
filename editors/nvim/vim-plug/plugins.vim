@@ -72,17 +72,10 @@ Plug 'junegunn/vim-fnr'
 Plug 'junegunn/vim-pseudocl'
 Plug 'kevinhwang91/nvim-bqf'                        " better quick-fix winodw
 Plug 'kevinhwang91/nvim-hlslens'                    " hlslens lens for neovim
-Plug 'pechorin/any-jump.vim'                        " any-jump
 Plug 'phaazon/hop.nvim'                             " easymotion using lua
+Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
 
 " Search, Replace and Jump }}}
-
-" Movements {{{
-
-Plug 'unblevable/quick-scope'                       " Quickscope same as f, F, t, T but better
-Plug 'justinmk/vim-sneak'
-
-" Movements }}}
 
 " Navigations {{{
 
@@ -142,8 +135,8 @@ Plug 'norcalli/snippets.nvim'                       " snippets in lua
 
 " Format {{{
 
-Plug 'lukas-reineke/format.nvim'
-" Plug 'mhartington/formatter.nvim'                   " formatter in lua
+" Plug 'lukas-reineke/format.nvim'
+Plug 'mhartington/formatter.nvim'                   " formatter in lua
 " Plug 'Yggdroot/indentLine',                         " Indent Lines made beautiful
 Plug 'lukas-reineke/indent-blankline.nvim', {
       \ 'branch': 'lua'
@@ -187,21 +180,16 @@ Plug 'neoclide/coc.nvim', {
 
 " neovim-lsp {{{
 
-Plug 'bfredl/nvim-luadev'
+" Plug 'bfredl/nvim-luadev'
+" Plug 'euclidianAce/BetterLua.vim'                                           " better lua syntax highlighting
 " Plug 'glacambre/nvim-lsp'
-" Plug 'alexaandru/nvim-lspupdate'
-" Plug 'anott03/nvim-lspinstall'
-Plug 'euclidianAce/BetterLua.vim', {
-      \ 'for': 'lua'
-      \ }                                           " better lua syntax highlighting
 " Plug 'glepnir/lspsaga.nvim'
 " Plug 'hrsh7th/nvim-compe'
-" Plug 'kosayoda/nvim-lightbulb'                    " lightbulb like vscode
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/lsp-status.nvim'
 " Plug 'tjdevries/complextras.nvim'
 " Plug 'tjdevries/lsp_extensions.nvim'
-Plug 'tjdevries/nlua.nvim'
+" Plug 'tjdevries/nlua.nvim'
 
 " neovim-lsp }}}
 
@@ -236,13 +224,12 @@ Plug 'junegunn/fzf', {
       \ 'do': './install --all'
       \ }                                           " FZF in vim
 Plug 'junegunn/fzf.vim'                             " FZF in vim
-Plug 'benwainwright/fzf-project'                    " switch projects using fzf
 
 " fzf.vim }}}
 
 " telescope.nvim {{{
 
-" Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
@@ -292,6 +279,7 @@ Plug 'npxbr/glow.nvim', {
 Plug 'RishabhRD/popfix'
 Plug 'RishabhRD/nvim-cheat.sh'
 Plug 'windwp/nvim-autopairs'                        " auto-pairs in lua
+Plug 'AndrewRadev/sideways.vim'
 
 " General }}}
 
@@ -379,6 +367,7 @@ Plug 'voldikss/vim-floaterm', {
       \ 'FloatermToggle'
       \ ]
       \ }                                           " Float Terminal
+Plug 'akinsho/nvim-toggleterm.lua'
 
 " TERMINAL }}}
 
@@ -401,10 +390,10 @@ Plug 'tyru/open-browser.vim'
 " TESTING {{{
 
 " Plug 'benmills/vimux'                             " Testing in vim with tmux
-" Plug 'mfussenegger/nvim-dap'                      " debugger attach protocol
 " Plug 'puremourning/vimspector'                    " debugger in vim
 " Plug 'skywind3000/asyncrun.vim'
 " Plug 'skywind3000/asynctasks.vim'
+Plug 'mfussenegger/nvim-dap'                      " debugger attach protocol
 
 " TESTING }}}
 
