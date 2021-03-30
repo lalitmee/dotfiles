@@ -2,42 +2,46 @@
 local finders = {}
 
 -- copied from https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery
-local dropdown_theme = require('telescope.themes').get_dropdown({
-  results_height = 20;
-  -- winblend = 20;
-  width = 0.6;
-  prompt_title = '';
-  prompt_prefix = 'Files> ';
-  previewer = false;
-  borderchars = {
-    { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-    preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-  },
-})
+local dropdown_theme = require('telescope.themes').get_dropdown(
+                           {
+      results_height = 20,
+      -- winblend = 20;
+      width = 0.6,
+      prompt_title = '',
+      prompt_prefix = 'Files> ',
+      previewer = false,
+      borderchars = {
+        { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+        preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+      }
+    }
+                       )
 
 -- copied from https://github.com/nvim-telescope/telescope.nvim/wiki/Gallery
 local full_theme = {
   -- winblend = 20;
-  width = 0.8;
-  show_line = false;
-  prompt_prefix = 'Files> ';
-  prompt_title = '';
-  results_title = '';
-  preview_title = '';
+  width = 0.8,
+  show_line = false,
+  prompt_prefix = 'Files> ',
+  prompt_title = '',
+  results_title = '',
+  preview_title = '',
   borderchars = {
-    { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-    preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-  },
+    { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+  }
 }
 
 -- Dropdown list theme using a builtin theme definitions :
-local center_list = require'telescope.themes'.get_dropdown({
-  -- winblend = 10,
-  width = 0.5,
-  prompt = " ",
-  results_height = 15,
-  previewer = false,
-})
+local center_list = require'telescope.themes'.get_dropdown(
+                        {
+      -- winblend = 10,
+      width = 0.5,
+      prompt = ' ',
+      results_height = 15,
+      previewer = false
+    }
+                    )
 
 -- Settings for with preview option
 local with_preview = {
@@ -48,8 +52,8 @@ local with_preview = {
   layout_config = {
     width_padding = 0.11,
     height_padding = 0.13,
-    preview_width = 0.56,
-  },
+    preview_width = 0.56
+  }
 }
 
 -- Find in neovim config with center theme
@@ -68,7 +72,7 @@ end
 finders.search_nvim_config = function()
   local opts = vim.deepcopy(center_list)
   opts.prompt_prefix = 'nvim> '
-  opts.cwd = vim.fn.stdpath("config")
+  opts.cwd = vim.fn.stdpath('config')
   require'telescope.builtin'.fd(opts)
 end
 
@@ -76,7 +80,7 @@ end
 finders.search_dotfiles = function()
   local opts = vim.deepcopy(with_preview)
   opts.prompt_prefix = 'dotfiles> '
-  opts.cwd = "~/data/Github/dotfiles"
+  opts.cwd = '~/data/Github/dotfiles'
   require'telescope.builtin'.fd(opts)
 end
 
