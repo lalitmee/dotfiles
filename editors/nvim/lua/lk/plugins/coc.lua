@@ -148,16 +148,13 @@ map(
 -- map('n', 'gi', [[<Plug>(coc-implementation)]], recursive)
 -- map('n', 'gr', [[<Plug>(coc-references)]], recursive)
 map('n', 'gd', [[<Plug>(coc-definition)]], recursive)
-map(
-    'n', 'ge', [[<cmd>CocCommandfzf-preview.CocCurrentDiagnostics<CR>]],
-    recursive
-)
-map('n', 'gE', [[<cmd>CocCommand fzf-preview.CocDiagnostics<CR>]], recursive)
+map('n', 'ge', [[<cmd>CocFzfList diagnostics --current-buf<CR>]], recursive)
+map('n', 'gE', [[<cmd>CocFzfList diagnostics<CR>]], recursive)
 map('n', 'gi', [[<cmd>CocCommand fzf-preview.CocImplementations<CR>]], recursive)
 map('n', 'gr', [[<cmd>CocCommand fzf-preview.CocReferences<CR>]], recursive)
-map('n', 'gt', [[<cmd>CocList tags<CR>]], recursive)
-map('n', 'gw', [[<cmd>CocList outline<CR>]], recursive)
-map('n', 'gW', [[<cmd>CocList symbols<CR>]], recursive)
+map('n', 'gt', [[<cmd>CocFzfList tags<CR>]], recursive)
+map('n', 'gw', [[<cmd>CocFzfList outline<CR>]], recursive)
+map('n', 'gW', [[<cmd>CocFzfList symbols<CR>]], recursive)
 map('n', 'gwn', [[<cmd>CocCommand document.jumpToNextSymbol<CR>]], recursive)
 map('n', 'gwp', [[<cmd>CocCommand document.jumpToPrevSymbol<CR>]], recursive)
 map('n', 'gy', [[<cmd>CocCommand fzf-preview.CocTypeDefinitions<CR>]], recursive)
