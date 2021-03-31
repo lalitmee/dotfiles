@@ -86,3 +86,4 @@ setlocal foldlevel=1
 " }}}
 
 setlocal noexpandtab
+set formatoptions-=o

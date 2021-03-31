@@ -65,6 +65,7 @@ highlight.all {
   { 'LspDiagnosticsFloatingInformation', { guibg = 'NONE' } }
 }
 
+-- lsp signs
 vim.fn.sign_define(
     'LspDiagnosticsSignError', {
       texthl = 'LspDiagnosticsSignError',
@@ -94,9 +95,102 @@ vim.fn.sign_define(
     }
 )
 
+-- lsp autocommands
+local function setup_autocommands(client)
+  local autocommands = require('lk.autocommands')
+
+  autocommands.augroup(
+      'LspLocationList', {
+        {
+          events = { 'InsertLeave', 'BufWrite', 'BufEnter' },
+          targets = { '<buffer>' },
+          command = [[lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
+        }
+      }
+  )
+  if client and client.resolved_capabilities.document_highlight then
+    autocommands.augroup(
+        'LspCursorCommands', {
+          {
+            events = { 'CursorHold' },
+            targets = { '<buffer>' },
+            command = 'lua vim.lsp.buf.document_highlight()'
+          },
+          {
+            events = { 'CursorHoldI' },
+            targets = { '<buffer>' },
+            command = 'lua vim.lsp.buf.document_highlight()'
+          },
+          {
+            events = { 'CursorMoved' },
+            targets = { '<buffer>' },
+            command = 'lua vim.lsp.buf.clear_references()'
+          }
+        }
+    )
+  end
+  if client and client.resolved_capabilities.document_formatting then
+    -- format on save
+    autocommands.augroup(
+        'LspFormat', {
+          {
+            events = { 'BufWritePre' },
+            targets = { '<buffer>' },
+            command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)'
+          }
+        }
+    )
+  end
+end
+
+-- mappings
+local function setup_mappings(client, bufnr)
+  local nnoremap, opts = lk_utils.nnoremap, { buffer = bufnr }
+  if client.resolved_capabilities.implementation then
+    nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  end
+  nnoremap('gI', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
+end
+
+function Tagfunc(pattern, flags)
+  if flags ~= 'c' then
+    return vim.NIL
+  end
+  local params = vim.lsp.util.make_position_params()
+  local client_id_to_results, err = vim.lsp.buf_request_sync(
+                                        0, 'textDocument/definition', params,
+                                        500
+                                    )
+  assert(not err, vim.inspect(err))
+
+  local results = {}
+  for _, lsp_results in ipairs(client_id_to_results) do
+    for _, location in ipairs(lsp_results.result or {}) do
+      local start = location.range.start
+      table.insert(
+          results, {
+            name = pattern,
+            filename = vim.uri_to_fname(location.uri),
+            cmd = string.format(
+                'call cursor(%d, %d)', start.line + 1, start.character + 1
+            )
+          }
+      )
+    end
+  end
+  return results
+end
+
 -- keymaps
-local on_attach = function()
+local function on_attach(client, bufnr)
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+  setup_autocommands(client)
+  setup_mappings(client, bufnr)
+
+  if client.resolved_capabilities.goto_definition then
+    vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.Tagfunc')
+  end
+  require('lsp-status').on_attach(client)
 end
 
 -- Configure lua language server for neovim development
@@ -200,27 +294,24 @@ local diagnostic_settings = {
   }
 }
 
--- config that activates keymaps and enables snippet support
-local function make_config()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  return {
-    -- enable snippet support
-    capabilities = capabilities,
-    -- map buffer local keybindings when the language server attaches
-    on_attach = on_attach
-  }
-end
-
 -- lsp-install
 local function setup_servers()
   require('lspinstall').setup()
 
   -- get all installed servers
   local servers = require('lspinstall').installed_servers()
-
+  local status_capabilities = require('lsp-status').capabilities
   for _, server in pairs(servers) do
-    local config = make_config()
+    local config = servers[server] or {}
+    config.on_attach = on_attach
+    if not config.capabilities then
+      config.capabilities = vim.lsp.protocol.make_client_capabilities()
+    end
+    config.capabilities.textDocument.completion.completionItem.snippetSupport =
+        true
+    config.capabilities = lk_utils.deep_merge(
+                              config.capabilities, status_capabilities
+                          )
 
     -- language specific config
     if server == 'lua' then

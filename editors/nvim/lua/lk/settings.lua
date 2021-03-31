@@ -358,8 +358,6 @@ vim.o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 
 -- vim.cmd {{{
 
--- vim.cmd([[set fo-=oat2]])
--- vim.cmd([[set fo+=cqrnj]])
 vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[set re=1]])

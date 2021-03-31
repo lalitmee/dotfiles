@@ -7,8 +7,7 @@ setlocal tabstop=2
 setlocal softtabstop=2
 setlocal shiftwidth=2
 
-" set fillchars=fold:━
-" let g:crease_foldtext = { 'default': '%{repeat("-", v:foldlevel)} %l lines: %t ' }
+set formatoptions-=o
 
 let g:vim_jsx_pretty_colorful_config = 1
 
