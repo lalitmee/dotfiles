@@ -10,9 +10,6 @@ vim.api.nvim_exec(
       cnoremap <C-n> <Down>
       cnoremap <C-p> <Up>
 
-      " select whole file text in visual mode
-      map <C-c> <esc>ggVG<CR>
-
       " turn terminal to normal mode with escape
       tnoremap <buffer><nowait> <Esc> <C-\><C-n>
       tnoremap <silent> <C-[><C-[> <C-\><C-n>
