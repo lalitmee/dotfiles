@@ -75,6 +75,9 @@ map_tele('<space>osf', 'grep_prompt')
 -- -- Telescope Meta
 map_tele('<space>otB', 'builtin')
 
+-- Change Background Wallpaper
+map_tele('<space>otw', 'change_background')
+
 -- NOTE: custom mappings
 local opts = { noremap = true, silent = true }
 -- Telescope key mappings {{{
