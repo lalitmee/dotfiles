@@ -175,23 +175,23 @@ Plug 'vim-scripts/restore_view.vim'
 
 " coc.nvim {{{
 
-Plug 'neoclide/coc-neco'                            " vim completion for coc
-Plug 'neoclide/coc.nvim', {
-        \ 'branch': 'release'
-      \ }                                           " Completion Conquerer
+" Plug 'neoclide/coc-neco'                            " vim completion for coc
+" Plug 'neoclide/coc.nvim', {
+"         \ 'branch': 'release'
+"       \ }                                           " Completion Conquerer
 
 " coc.nvim }}}
 
 " neovim-lsp {{{
 
-" Plug 'glepnir/lspsaga.nvim'
-" Plug 'hrsh7th/nvim-compe'
-" Plug 'kabouzeid/nvim-lspinstall'
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'onsails/lspkind-nvim'
-" Plug 'tjdevries/complextras.nvim'
-" Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'onsails/lspkind-nvim'
+Plug 'tjdevries/complextras.nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'bfredl/nvim-luadev'
 Plug 'euclidianAce/BetterLua.vim'                                           " better lua syntax highlighting
 Plug 'tjdevries/nlua.nvim'
