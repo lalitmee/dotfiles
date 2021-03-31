@@ -234,21 +234,22 @@ Plug 'junegunn/fzf.vim'                             " FZF in vim
 
 " telescope.nvim {{{
 
-Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'brandoncc/telescope-harpoon.nvim'
 Plug 'fhill2/telescope-ultisnips.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope-cheat.nvim'
+Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'nvim-telescope/telescope-fzf-writer.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'nvim-telescope/telescope-snippets.nvim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'tamago324/telescope-openbrowser.nvim'
 Plug 'tkmpypy/telescope-jumps.nvim'
-Plug 'brandoncc/telescope-harpoon.nvim'
 
 " telescope.nvim }}}
 
