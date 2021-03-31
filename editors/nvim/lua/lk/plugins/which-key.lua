@@ -842,8 +842,7 @@ local plug_keymaps = {
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
     ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' }
   }
-
 }
 
-wk.register_keymap('leader', leader_key_maps)
+wk.register_keymap('leader', leader_key_maps, { silent = true })
 wk.register_keymap('leader', plug_keymaps, { noremap = false })
