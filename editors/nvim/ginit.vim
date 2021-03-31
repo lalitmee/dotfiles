@@ -20,5 +20,10 @@ if exists('g:GuiLoaded')
     " Guifont Operator Mono Lig Book:h11
     " Guifont OperatorMono Nerd Font:h11
     Guifont JetbrainsMono Nerd Font:h11
-    luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
+    lua require('colorbuddy').colorscheme('gruvbuddy')
+endif
+
+if exists('g:GtkGuiLoaded')
+    set guifont=JetbrainsMono\ Nerd\ Font:h14
+    lua require('colorbuddy').colorscheme('gruvbuddy')
 endif
