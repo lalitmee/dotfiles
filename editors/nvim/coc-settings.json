@@ -25,6 +25,7 @@
 
   // eslint
   "eslint.autoFixOnSave": false,
+  "eslint.format.enable": true,
 
   // suggestions
   // "suggest.echodocSupport": true,
@@ -66,10 +67,10 @@
   "coc.source.buffer.priority": 4,
 
   // diagnostics
-  "diagnostic.errorSign": "E",
-  "diagnostic.warningSign": "W",
-  "diagnostic.infoSign": "I",
-  "diagnostic.hintSign": "H ",
+  "diagnostic.errorSign": " ",
+  "diagnostic.warningSign": " ",
+  "diagnostic.infoSign": " ",
+  "diagnostic.hintSign": " ",
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.enableMessage": "never",
   "diagnostic.messageTarget": "echo",
