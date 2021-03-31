@@ -12,5 +12,5 @@ require('lk.functions')
 require('lk.mappings')
 
 require('lk.colorscheme')
-require('lk.plugins')
 require('lk.statusline')
+require('lk.plugins')
