@@ -180,6 +180,9 @@ Plug 'neoclide/coc-neco'                            " vim completion for coc
 Plug 'neoclide/coc.nvim', {
         \ 'branch': 'release'
       \ }                                           " Completion Conquerer
+Plug 'antoinemadec/coc-fzf', {
+      \ 'branch': 'release'
+      \ }
 
 " coc.nvim }}}
 
@@ -194,7 +197,7 @@ Plug 'neoclide/coc.nvim', {
 " Plug 'tjdevries/complextras.nvim'
 " Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'bfredl/nvim-luadev'
-Plug 'euclidianAce/BetterLua.vim'                                           " better lua syntax highlighting
+Plug 'euclidianAce/BetterLua.vim'                   " better lua syntax highlighting
 Plug 'tjdevries/nlua.nvim'
 
 " neovim-lsp }}}
@@ -275,7 +278,7 @@ Plug 'npxbr/glow.nvim'                              " markdown preview
 
 " tags {{{
 
-" Plug 'liuchengxu/vista.vim'                       " Viewer & Finder for LSP symbols and tags
+Plug 'liuchengxu/vista.vim'                         " Viewer & Finder for LSP symbols and tags
 
 " tags }}}
 

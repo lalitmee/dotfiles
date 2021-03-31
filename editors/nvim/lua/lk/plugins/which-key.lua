@@ -135,6 +135,7 @@ local leader_key_maps = {
     },
     ['m'] = {
       ['name'] = '+fzf-list',
+      [';'] = { ':CocFzfList<CR>', 'commands' },
       ['a'] = { ':CocFzfList actions<CR>', 'actions' },
       ['b'] = { ':CocFzfList symbols<CR>', 'symbols' },
       ['c'] = { ':CocFzfList commands<CR>', 'commands' },
