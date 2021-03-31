@@ -58,7 +58,7 @@ require('lk/plugins/fnr')
 require('lk/plugins/hlslens')
 require('lk/plugins/hop')
 require('lk/plugins/incsearch')
-require('lk/plugins/quickscope')
+require('lk/plugins/quick-scope')
 
 -- NOTE: syntax
 require('lk/plugins/treesitter')
