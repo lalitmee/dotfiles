@@ -8,3 +8,4 @@ setlocal indentkeys-=*<Return>
 setlocal tw=80 linebreak textwidth=0
 setlocal nowrap
 setlocal matchpairs+=<:>
+set formatoptions-=o

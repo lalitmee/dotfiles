@@ -2,3 +2,5 @@
 nnoremap <silent> <buffer> <Left> :call quickfixed#older()<CR>
 nnoremap <silent> <buffer> <Right> :call quickfixed#newer()<CR>
 nnoremap <silent> <buffer> q :q<CR>
+
+set formatoptions-=o

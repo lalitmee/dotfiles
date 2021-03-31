@@ -10,10 +10,15 @@ local function file_icon()
          )
 end
 
+-- local function lsp_status()
+--   if #vim.lsp.buf_get_clients() > 0 then
+--     return require('lsp-status').status()
+--   end
+-- end
+
 require('lualine').setup {
   options = {
     theme = 'solarized_dark',
-    -- theme = 'codedark',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
@@ -32,14 +37,13 @@ require('lualine').setup {
       },
       {
         'diagnostics',
-        sources = { 'coc' },
+        sources = { 'nvim_lsp' },
         symbols = { error = ' :', warn = ' :', info = ' :' },
         color_error = '#E06C75',
         color_warn = '#FF922B',
         color_info = '#15AABF'
-      },
-      { 'b:coc_current_function' },
-      { 'g:coc_status' }
+      }
+      -- { lsp_status }
     },
     lualine_x = { { 'filetype', upper = true }, buf_spaces },
     lualine_y = { 'progress' },

@@ -8,3 +8,4 @@ setlocal listchars=tab:\ \ ,
 
 " Set color column at maximum commit summary length
 setlocal colorcolumn=50,72
+set formatoptions-=o

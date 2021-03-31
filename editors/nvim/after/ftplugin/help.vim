@@ -90,3 +90,4 @@ if &buftype ==# 'help'
 endif
 
 let &cpoptions = s:save_cpo
+set formatoptions-=o
