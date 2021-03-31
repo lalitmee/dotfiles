@@ -331,23 +331,6 @@ local leader_key_maps = {
     ['V'] = { ':GV!<CR>', 'view-buffer-commits' }
   },
 
-  -- NOTE: G is goneovim
-  ['G'] = {
-    ['name'] = '+goneovim',
-    ['a'] = { ':GonvimFuzzyAg<CR>', 'fuzzy-ag' },
-    ['b'] = { ':GonvimFuzzyBuffers<CR>', 'fuzzy-buffers' },
-    ['f'] = { ':GonvimFuzzyFiles<CR>', 'fuzzy-files' },
-    ['F'] = { ':GonvimFilerOpen<CR>', 'external-file-explorer' },
-    ['l'] = { ':GonvimFuzzyBLines<CR>', 'fuzzy-buffer-lines' },
-    ['m'] = { ':GonvimMarkdown<CR>', 'markdown-preview' },
-    ['M'] = { ':GonvimMiniMap<CR>', 'toggle-minimap' },
-    ['n'] = { ':GonvimWorkspaceNext<CR>', 'next-workspace' },
-    ['N'] = { ':GonvimWorkspaceNew<CR>', 'create-new-workspace' },
-    ['p'] = { ':GonvimWorkspacePrevious<CR>', 'previous-workspace' },
-    ['r'] = { ':GonvimFuzzyResume<CR>', 'resume-previous-search' },
-    ['s'] = { ':GonvimWorkspaceSwitch <CR>', 'switch-workspace' }
-  },
-
   -- NOTE: j is for jumping
   ['j'] = {
     ['name'] = '+jumping',
@@ -668,7 +651,7 @@ local leader_key_maps = {
       ['s'] = { ':GonvimWorkspaceSwitch <CR>', 'switch-workspace' }
     },
     ['G'] = { ':Telescope git_status<CR>', 'modified-git-files' },
-    ['h'] = { ':Telescope help_tags<CR>', 'file-history' },
+    ['h'] = { ':Telescope help_tags<CR>', 'help-tags' },
     ['H'] = { ':Telescope command_history<CR>', 'command-history' },
     ['l'] = { ':FzfLines<CR>', 'lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
