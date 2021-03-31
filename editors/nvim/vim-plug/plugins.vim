@@ -90,6 +90,7 @@ Plug 'ThePrimeagen/harpoon'
 
 " General {{{
 
+Plug 'karb94/neoscroll.nvim'
 Plug 'mhinz/vim-sayonara'                           " delete buffers and windows
 Plug 'andymass/vim-matchup'                         " match brackets and more
 Plug 'AndrewRadev/splitjoin.vim'                    " Switch between single-line and multiline forms of code

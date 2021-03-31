@@ -25,16 +25,24 @@ vim.g.startify_update_oldfiles = 1
 vim.g.webdevicons_enable_startify = 1
 vim.g.startify_session_sort = 1
 vim.g.startify_bookmarks = {
-  { be = ' ~/.config/bat/config' },
-  { ge = ' ~/.goneovim/setting.toml' },
-  { ne = ' ~/.config/nvim/init.lua' },
-  { ze = ' ~/.zshrc' }
+  { be = '~/.config/bat/config' },
+  { ge = '~/.goneovim/setting.toml' },
+  { ne = '~/.config/nvim/init.lua' },
+  { ze = '~/.zshrc' }
 }
 
 vim.g.startify_commands = {
   { h = { 'Help', ':help' } },
   { u = { 'Update Packages', ':PU' } }
 }
+
+function _G.webDevIcons(path)
+  local filename = vim.fn.fnamemodify(path, ':t')
+  local extension = vim.fn.fnamemodify(path, ':e')
+  return require'nvim-web-devicons'.get_icon(
+             filename, extension, { default = true }
+         )
+end
 
 vim.api.nvim_exec(
     [[
@@ -47,5 +55,10 @@ vim.api.nvim_exec(
       endfunction
 
       autocmd! VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
+
+      " icons in startify using nvim-web-devicons
+      function! StartifyEntryFormat() abort
+        return 'v:lua.webDevIcons(absolute_path) . "  " . entry_path'
+      endfunction
   ]], true
 )
