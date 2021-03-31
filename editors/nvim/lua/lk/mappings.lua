@@ -128,7 +128,7 @@ vim.api.nvim_exec(
 )
 
 -- NOTE: taken from https://github.com/awesome-streamers/awesome-streamerrc/tree/master/ThePrimeagen
-local opts = { noremap = true }
+local opts = { noremap = true, silent = true }
 
 -- quickfix navigation
 map('n', '<C-k>', [[:cnext<CR>]], opts)
