@@ -2,8 +2,6 @@ require('lk.plugins.nvim_lsp.handlers')
 require('lk.plugins.nvim_lsp.commands')
 require('lk.plugins.nvim_lsp.mappings')
 
--- require('lspkind').init({})
-
 -- lsp kind symbols
 require('vim.lsp.protocol').CompletionItemKind =
     {
