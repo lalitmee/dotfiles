@@ -97,6 +97,8 @@ local leader_key_maps = {
     ['c'] = { ':CocCommand<CR>', 'commands' },
     ['d'] = { ':CocDiagnostics<CR>', 'diagnostics' },
     ['e'] = { ':CocConfig<CR>', 'config' },
+    ['g'] = 'grep-under-cursor-buffer',
+    ['G'] = 'grep-under-cursor',
     ['f'] = { ':CocFix<CR>', 'fix' },
     ['i'] = { ':CocInfo<CR>', 'info' },
     ['l'] = {
@@ -153,8 +155,7 @@ local leader_key_maps = {
     },
     ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
     ['R'] = { ':CocListResume<CR>', 'list-resume' },
-    ['s'] = { ':CocSearch<CR>', 'search' },
-    ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
+    ['s'] = { ':CocSearch<CR>', 'search' }
   },
 
   -- NOTE: c is for code with lspconfig
@@ -174,8 +175,6 @@ local leader_key_maps = {
   --     ':Telescope lsp_workspace_diagnostics<CR>',
   --     'lsp-workspace-diagnostics'
   --   },
-  --   ['g'] = 'grep-under-cursor-buffer',
-  --   ['G'] = 'grep-under-cursor',
   --   ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
   --   ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
   --   ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
@@ -309,13 +308,7 @@ local leader_key_maps = {
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
     ['d'] = { ':Git diff<CR>', 'diff' },
     ['D'] = { ':Gdiffsplit<CR>', 'diff-split' },
-    ['g'] = {
-      ['name'] = '+gists',
-      ['c'] = { '<Plug>fov_new', 'create-new-gist' },
-      ['l'] = { '<Plug>fov_list', 'list-gists' },
-      ['u'] = { '<Plug>fov_update', 'update-gist' },
-      ['v'] = { '<Plug>fov_visual_new', 'create-new-from-visual' }
-    },
+    ['g'] = { ['name'] = '+gists' },
     ['G'] = { ':Gstatus<CR>', 'status' },
     ['h'] = {
       ['name'] = '+hunks',
@@ -328,7 +321,6 @@ local leader_key_maps = {
       ['v'] = 'preview-hunk'
     },
     ['l'] = { ':Git log<CR>', 'log' },
-    ['m'] = { '<Plug>(git-messenger)', 'git-messenger' },
     ['p'] = { ':Git push<CR>', 'push' },
     ['P'] = { ':Git pull<CR>', 'pull' },
     ['R'] = { ':GRemove<CR>', 'remove' },
@@ -368,34 +360,15 @@ local leader_key_maps = {
   ['l'] = {
     ['name'] = '+lsp',
     ['.'] = { ':CocConfig<CR>', 'config' },
-    [';'] = { '<Plug>(coc-refactor)', 'refactor' },
-    ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
-    ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
     ['b'] = { ':CocNext<CR>', 'next-action' },
     ['B'] = { ':CocPrev<CR>', 'prev-action' },
     ['c'] = { ':CocList commands<CR>', 'commands' },
-    ['d'] = { '<Plug>(coc-definition)', 'definition' },
-    ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
     ['e'] = { ':CocList extensions<CR>', 'extensions' },
-    ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
-    ['F'] = { '<Plug>(coc-format)', 'format' },
-    ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
-    ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
     ['I'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-    ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
-    ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
-    ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-    ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
     ['o'] = { ':Vista!!<CR>', 'outline' },
     ['O'] = { ':CocList outline<CR>', 'outline' },
-    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
-    ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
-    ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
-    ['R'] = { '<Plug>(coc-references)', 'references' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
     ['s'] = { ':CocList -I symbols<CR>', 'symbols' },
     ['S'] = { ':CocList snippets<CR>', 'snippets' },
-    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' },
     ['u'] = { ':CocListResume<CR>', 'resume-list' },
     ['U'] = { ':CocUpdate<CR>', 'update-CoC' },
     ['z'] = { ':CocDisable<CR>', 'disable-CoC' },
@@ -508,8 +481,6 @@ local leader_key_maps = {
     },
     ['f'] = { ':Telescope lsp_references<CR>', 'references' },
     ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
-    ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
     ['s'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' }
   },
 
@@ -832,4 +803,47 @@ local leader_key_maps = {
   ['z'] = { ':Goyo<CR>', 'zen-mode' }
 }
 
+local plug_keymaps = {
+  ['c'] = { ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' } },
+  ['g'] = {
+    ['g'] = {
+      ['name'] = '+gists',
+      ['c'] = { '<Plug>fov_new', 'create-new-gist' },
+      ['l'] = { '<Plug>fov_list', 'list-gists' },
+      ['u'] = { '<Plug>fov_update', 'update-gist' },
+      ['v'] = { '<Plug>fov_visual_new', 'create-new-from-visual' }
+    },
+    ['m'] = { '<Plug>(git-messenger)', 'git-messenger' }
+  },
+  ['l'] = {
+    ['name'] = '+lsp',
+    [';'] = { '<Plug>(coc-refactor)', 'refactor' },
+    ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
+    ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
+    ['d'] = { '<Plug>(coc-definition)', 'definition' },
+    ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
+    ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
+    ['F'] = { '<Plug>(coc-format)', 'format' },
+    ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
+    ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
+    ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
+    ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
+    ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
+    ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
+    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
+    ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
+    ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
+    ['R'] = { '<Plug>(coc-references)', 'references' },
+    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
+    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' }
+  },
+  ['m'] = {
+    ['name'] = '+major-mode',
+    ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
+    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' }
+  }
+
+}
+
 wk.register_keymap('leader', leader_key_maps)
+wk.register_keymap('leader', plug_keymaps, { noremap = false })
