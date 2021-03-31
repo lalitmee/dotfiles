@@ -1,6 +1,4 @@
--- This will be available for everyone when I merge:
---  https://github.com/neovim/neovim/pull/13479
--- Until then, you can check out `./lua/tj/globals/opt.lua
+-- NOTE: from tjdevries
 local opt = vim.opt
 
 -- Ignore compiled files
