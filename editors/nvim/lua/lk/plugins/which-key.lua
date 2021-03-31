@@ -617,7 +617,8 @@ local leader_key_maps = {
       ['b'] = { ':Telescope builtin<CR>', 'builtins' },
       ['p'] = { ':Telescope planets<CR>', 'planets' },
       ['r'] = { ':Telescope reloader<CR>', 'reloaders' },
-      ['t'] = { ':Telescope treesitter<CR>', 'reloaders' }
+      ['t'] = { ':Telescope treesitter<CR>', 'reloaders' },
+      ['w'] = 'change-background'
     },
     ['u'] = { ':Telescope ultisnips ultisnips<CR>', 'ultisnips' },
     ['v'] = {
