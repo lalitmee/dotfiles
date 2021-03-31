@@ -69,7 +69,7 @@ require('lk/plugins/fugitive')
 require('lk/plugins/git-blame')
 require('lk/plugins/git-messenger')
 require('lk/plugins/gitsigns')
-require('lk/plugins/neogit')
+-- require('lk/plugins/neogit')
 
 -- NOTE: fuzzy
 require('lk/plugins/fzf')
