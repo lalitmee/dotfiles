@@ -1,8 +1,6 @@
-local plugins_count = lk_utils.plugins_count
-
 vim.g.startify_lists = {
-  { ['type'] = 'files', header = { '   ⌚ Recent' } },
   { ['type'] = 'sessions', header = { '   😸 Sessions' } },
+  { ['type'] = 'files', header = { '   ⌚ Recent' } },
   {
     ['type'] = 'dir',
     header = {
