@@ -2,7 +2,7 @@ local saga = require('lspsaga')
 local nnoremap = lk_utils.nnoremap
 
 saga.init_lsp_saga {
-  use_saga_diagnostic_sign = false,
+  use_saga_diagnostic_sign = true,
   finder_action_keys = { vsplit = 'v', split = 's', quit = { 'q', '<ESC>' } },
   code_action_icon = '💡',
   code_action_prompt = { enable = true, sign = false, virtual_text = true }
@@ -37,17 +37,17 @@ nnoremap(
     [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]]
 )
 
-require('lk.autocommands').augroup(
-    'LspSagaCursorCommands', {
-      {
-        events = { 'CursorHold' },
-        targets = { '*' },
-        command = 'lua require(\'lspsaga.diagnostic\').show_cursor_diagnostics()'
-      }
-      -- {
-      --   events = {"CompleteDone"},
-      --   targets = {"*"},
-      --   command = "lua require('lspsaga.signaturehelp').signature_help()"
-      -- }
-    }
-)
+-- require('lk.autocommands').augroup(
+--     'LspSagaCursorCommands', {
+--       {
+--         events = { 'CursorHold' },
+--         targets = { '*' },
+--         command = 'lua require(\'lspsaga.diagnostic\').show_cursor_diagnostics()'
+--       },
+--       {
+--         events = {"CompleteDone"},
+--         targets = {"*"},
+--         command = "lua require('lspsaga.signaturehelp').signature_help()"
+--       }
+--     }
+-- )
