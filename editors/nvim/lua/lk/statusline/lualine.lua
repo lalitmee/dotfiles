@@ -1,26 +1,47 @@
+local function buf_spaces()
+  return 'Spaces: ' .. vim.api.nvim_buf_get_option(0, 'shiftwidth') .. ' '
+end
+
+local function file_icon()
+  local filename = vim.fn.fnamemodify(vim.fn.expand('%t'), ':t')
+  local extension = vim.fn.fnamemodify(vim.fn.expand('%t'), ':e')
+  return require'nvim-web-devicons'.get_icon(
+             filename, extension, { default = true }
+         )
+end
+
 require('lualine').setup {
   options = {
     theme = 'solarized_dark',
+    -- theme = 'codedark',
     section_separators = { '', '' },
-    component_separators = { '', '' },
-    icons_enabled = true,
-    padding = 1
+    component_separators = { '', '' }
   },
   sections = {
     lualine_a = { { 'mode', upper = true } },
     lualine_b = { { 'branch', icon = '' } },
     lualine_c = {
-      { 'filename', full_path = true, file_status = true },
-      { 'diff' },
+      { file_icon },
+      { 'filename', shorten = true },
+      {
+        'diff',
+        symbols = { added = ' ', modified = ' ', removed = ' ' },
+        color_added = '#F5ED0F',
+        color_modified = '#7DE89A',
+        color_removed = '#E06C75'
+      },
       {
         'diagnostics',
         sources = { 'coc' },
-        symbols = { error = 'E:', warn = 'W:', info = 'I:' }
+        symbols = { error = ' :', warn = ' :', info = ' :' },
+        color_error = '#E06C75',
+        color_warn = '#FF922B',
+        color_info = '#15AABF'
       },
       { 'b:coc_current_function' },
       { 'g:coc_status' }
     },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_x = { { 'filetype', upper = true }, buf_spaces },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
   },
@@ -32,5 +53,5 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  extensions = { 'fzf' }
+  extensions = { 'fzf', 'fugitive' }
 }

@@ -30,7 +30,7 @@ vim.api.nvim_exec(
         command! -bang -nargs=* Find call fzf#vim#grep(' rg --column line-number no-heading fixed-strings ignore-case hidden follow glob "!.git/*" color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
       endif
 
-      " CTRL-A CTRL-Q to select all and build quickfix list
+      " CTRL-A CTRL-O to select all and build quickfix list
       function! Build_quickfix_list(lines)
         call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
         copen
