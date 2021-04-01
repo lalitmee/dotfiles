@@ -1,1 +1,1 @@
-/home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.fish
+/home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf/shell/key-bindings.fish
