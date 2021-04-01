@@ -215,85 +215,6 @@ local lua_settings = {
   }
 }
 
--- diagnostic settings
-local diagnostic_settings = {
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'typescript',
-    'typescriptreact',
-    'css',
-    'scss',
-    'markdown',
-    'pandoc'
-  },
-  init_options = {
-    linters = {
-      eslint = {
-        command = 'eslint_d',
-        rootPatterns = { '.git', 'package.json' },
-        debounce = 100,
-        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
-        sourceName = 'eslint',
-        parseJson = {
-          errorsRoot = '[0].messages',
-          line = 'line',
-          column = 'column',
-          endLine = 'endLine',
-          endColumn = 'endColumn',
-          message = '[eslint] ${message} [${ruleId}]',
-          security = 'severity'
-        },
-        securities = { [2] = 'error', [1] = 'warning' }
-      },
-      markdownlint = {
-        command = 'markdownlint',
-        rootPatterns = { '.git' },
-        isStderr = true,
-        debounce = 100,
-        args = { '--stdin' },
-        offsetLine = 0,
-        offsetColumn = 0,
-        sourceName = 'markdownlint',
-        securities = { undefined = 'hint' },
-        formatLines = 1,
-        formatPattern = {
-          '^.*:(\\d+)\\s+(.*)$',
-          { line = 1, column = -1, message = 2 }
-        }
-      }
-    },
-    filetypes = {
-      javascript = 'eslint',
-      javascriptreact = 'eslint',
-      typescript = 'eslint',
-      typescriptreact = 'eslint',
-      markdown = 'markdownlint',
-      pandoc = 'markdownlint'
-    },
-    formatters = {
-      prettierEslint = {
-        command = 'prettier-eslint',
-        args = { '--stdin' },
-        rootPatterns = { '.git' }
-      },
-      prettier = {
-        command = 'prettier',
-        args = { '--stdin-filepath', '%filename' }
-      }
-    },
-    formatFiletypes = {
-      css = 'prettier',
-      javascript = 'prettierEslint',
-      javascriptreact = 'prettierEslint',
-      json = 'prettier',
-      scss = 'prettier',
-      typescript = 'prettierEslint',
-      typescriptreact = 'prettierEslint'
-    }
-  }
-}
-
 -- lsp-install
 local function setup_servers()
   require('lspinstall').setup()
@@ -317,8 +238,12 @@ local function setup_servers()
     if server == 'lua' then
       config.settings = lua_settings
     end
+    -- if server == 'efm' then
+    --   config.cmd = {'efm-langserver'}
+    --   config = vim.tbl_extend('force', config, require('lk/plugins/nvim_lsp/efm'))
+    -- end
     if server == 'diagnosticls' then
-      config = diagnostic_settings
+      config = vim.tbl_extend('force', config, require('lk/plugins/nvim_lsp/diagnosticls'))
     end
     if server == 'sourcekit' then
       config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
