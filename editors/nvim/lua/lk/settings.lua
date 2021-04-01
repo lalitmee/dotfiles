@@ -421,10 +421,16 @@ vim.api.nvim_exec(
 -- Neovim terminal
 autocommands.create(
     {
-      StartTerminal = {
-        { 'BufWinEnter', 'term://*', [[startinsert]] },
-        { 'BufLeave', 'term://*', [[stopinsert]] },
-        { 'WinEnter', 'term://*', [[startinsert]] }
+      Terminal = {
+        { 'TermOpen', '*', [[startinsert]] },
+        { 'TermEnter', '*', [[startinsert]] },
+        { 'TermLeave', '*', [[stopinsert]] },
+        { 'TermClose', '*', [[stopinsert]] },
+        {
+          'TermClose',
+          'term://*',
+          [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]]
+        }
       }
     }
 )

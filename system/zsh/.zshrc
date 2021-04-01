@@ -18,7 +18,7 @@ kitty + complete setup zsh | source /dev/stdin
 
 # }}}
 
-# {{{
+# colorscript {{{
 
 ### RANDOM COLOR SCRIPT ###
 colorscript random
@@ -31,6 +31,8 @@ colorscript random
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH

@@ -197,6 +197,7 @@ return require('packer').startup {
     use 'nvim-treesitter/playground'
     use 'p00f/nvim-ts-rainbow'
     use 'windwp/nvim-ts-autotag'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
 
     -- }}}
 
@@ -320,6 +321,7 @@ return require('packer').startup {
     -- tjdevries  {{{
 
     -- use 'tjdevries/express_line.nvim'
+    use 'tjdevries/manillua.nvim'
     use 'tjdevries/nlua.nvim'
     use 'tjdevries/train.nvim' -- motion training
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
