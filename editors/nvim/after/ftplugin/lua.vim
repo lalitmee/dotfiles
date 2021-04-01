@@ -1,8 +1,4 @@
-setlocal expandtab
-setlocal tabstop=2
-setlocal softtabstop=2
-setlocal shiftwidth=2
-setlocal textwidth=80
+autocmd FileType lua setlocal sw=2 sts=2 ts=2 tw=80 et
 set formatoptions-=o
 
 nnoremap <buffer><silent><leader>nl :execute "luafile %"
