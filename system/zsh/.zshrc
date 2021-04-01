@@ -272,7 +272,7 @@ alias sb="subl ."
 
 # alias for using nvim instead of vim
 # alias nvim="~/nvim.appimage"
-alias gnvim="~/goneovim/goneovim --nvim=/usr/local/bin/nvim"
+alias gnvim="~/goneovim/goneovim --nvim=/usr/local/bin/nvim &"
 # alias gnvim="~/goneovim/goneovim"
 # alias gnvim="glrnvim"
 
