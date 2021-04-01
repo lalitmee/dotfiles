@@ -270,11 +270,9 @@ alias co="code ."
 alias o="oni ."
 alias sb="subl ."
 
-# alias for using nvim instead of vim
-# alias nvim="~/nvim.appimage"
+# alias for gui nvims
 alias gnvim="~/goneovim/goneovim --nvim=/usr/local/bin/nvim &"
-# alias gnvim="~/goneovim/goneovim"
-# alias gnvim="glrnvim"
+alias glrnvim="~/data/Github/glrnvim/target/release/glrnvim &"
 
 # common aliases
 alias a="alias | fzf-tmux -d 40%"

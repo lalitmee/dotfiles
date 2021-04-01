@@ -514,17 +514,17 @@ local leader_key_maps = {
   -- NOTE: n is for neovim
   ['n'] = {
     ['name'] = '+neovim',
-    ['c'] = {':PlugClean<CR>', 'clean-packages'},
+    ['c'] = {':PackerClean<CR>', 'clean-packages'},
     ['e'] = {':e $HOME/.config/nvim/init.lua<CR>', 'edit-config'},
     ['h'] = 'tj-help-tags',
     ['H'] = {':checkhealth<CR>', 'check-health'},
-    ['i'] = {':PlugInstall<CR>', 'install-packages'},
+    ['i'] = {':PackerInstall<CR>', 'install-packages'},
     ['l'] = 'source-current',
     ['p'] = 'tj-installed-plugins',
     ['r'] = {':luafile $HOME/.config/nvim/init.lua<CR>', 'source-config'},
-    ['s'] = {':PlugSnapshot<CR>', 'plug-snapshot'},
-    ['u'] = {':PlugUpdate<CR>', 'update-packages'},
-    ['U'] = {':PlugUpgrade<CR>', 'upgrade-plug'}
+    ['s'] = {':PackerSync<CR>', 'upgrade-plug'},
+    ['S'] = {':PackerStatus<CR>', 'packages-status'},
+    ['u'] = {':PackerUpdate<CR>', 'update-packages'}
   },
 
   -- NOTE: o is for telescope
@@ -777,14 +777,12 @@ local leader_key_maps = {
     ['o'] = {':Telescope vim_options<CR>', 'options'},
     ['p'] = {
       ['name'] = '+vim-plug',
-      ['c'] = {':PlugClean<CR>', 'clean'},
-      ['d'] = {':PlugDiff<CR>', 'diff'},
-      ['h'] = {':PlugHelp<CR>', 'help'},
-      ['i'] = {':PlugInstall<CR>', 'install'},
-      ['k'] = {':PlugSnapshot<CR>', 'snapshot'},
-      ['r'] = {':PlugUpgrade<CR>', 'upgrade'},
-      ['s'] = {':PlugStatus<CR>', 'status'},
-      ['u'] = {':PlugUpdate<CR>', 'update'}
+      ['c'] = {':PackerClean<CR>', 'clean'},
+      ['i'] = {':PackerInstall<CR>', 'install'},
+      ['r'] = {':PackerCompile<CR>', 'complie'},
+      ['s'] = {':PackerSync<CR>', 'sync'},
+      ['S'] = {':PackerStatus<CR>', 'status'},
+      ['u'] = {':PackerUpdate<CR>', 'update'}
     }
   },
 
