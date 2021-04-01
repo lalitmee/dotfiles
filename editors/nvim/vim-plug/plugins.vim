@@ -45,6 +45,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'tjdevries/colorbuddy.nvim'                    " colorbuddy for Colorschemes
 Plug 'tjdevries/gruvbuddy.nvim'                     " gruvbuddy using colorbuddy
+Plug 'christianchiarulli/nvcode-color-schemes.vim'  " nvcode colors
 
 "}}}
 
@@ -176,10 +177,10 @@ Plug 'vim-scripts/restore_view.vim'
 
 " coc.nvim {{{
 
-" Plug 'neoclide/coc-neco'                            " vim completion for coc
+" Plug 'neoclide/coc-neco'                          " vim completion for coc
 " Plug 'neoclide/coc.nvim', {
 "         \ 'branch': 'release'
-"       \ }                                           " Completion Conquerer
+"       \ }                                         " Completion Conquerer
 " Plug 'antoinemadec/coc-fzf', {
 "       \ 'branch': 'release'
 "       \ }
