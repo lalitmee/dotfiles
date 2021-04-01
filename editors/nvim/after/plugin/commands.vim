@@ -23,8 +23,8 @@ endfunction
 
 "}}}
 
-" Plup Update and Upgrade {{{
+" Buffers related commands {{{
 
-command! PU PlugUpdate | PlugUpgrade
+command! BufferCloseAllButCurrent silent! execute "%bd|e#|bd#"
 
 " }}}

@@ -7,10 +7,8 @@ local opts = { noremap = true, silent = true }
 
 -- NOTE: Map leader to which_key
 map('n', '<leader>', [[:silent <c-u> :silent WhichKey '<Space>'<CR> ]], opts)
-map(
-    'v', '<leader>', [[:silent <c-u> :silent WhichKeyVisual '<Space>'<CR> ]],
-    opts
-)
+map('v', '<leader>', [[:silent <c-u> :silent WhichKeyVisual '<Space>'<CR> ]],
+    opts)
 
 -- NOTE: options for which key
 -- let g:which_key_sep = '→'
@@ -19,8 +17,7 @@ vim.g.which_key_disable_default_offset = 1
 vim.g.which_key_hspace = 10
 vim.g.which_key_centered = 0
 
-vim.api.nvim_exec(
-    [[
+vim.api.nvim_exec([[
       " highlights
       highlight default link WhichKey          Operator
       highlight default link WhichKeySeperator DiffAdded
@@ -30,8 +27,7 @@ vim.api.nvim_exec(
       " Hide status line
       autocmd! FileType which_key
       autocmd  FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-      ]], true
-)
+      ]], true)
 
 -- NOTE: leader key mappings
 local leader_key_maps = {
@@ -61,10 +57,8 @@ local leader_key_maps = {
   -- NOTE: b is for buffers
   ['b'] = {
     ['name'] = '+buffers',
-    [';'] = { ':BufferCloseBuffersRight<CR>', 'close-all-right' },
     ['['] = { ':bp<CR>', 'prev-buffer' },
     [']'] = { ':bn<CR>', 'next-buffer' },
-    ['a'] = { ':BufferCloseBuffersLeft<CR>', 'close-all-left' },
     ['b'] = { ':FzfBuffers<CR>', 'fzf-buffers' },
     ['B'] = { ':Telescope buffers<CR>', 'telescope-buffers' },
     ['c'] = { ':vnew<CR>', 'new-empty-buffer-vert' },
@@ -699,10 +693,9 @@ local leader_key_maps = {
     ['S'] = { ':Startify<CR>', 'start-page' }
   },
 
-  -- NOTE: t is for toggles/terminal
+  -- NOTE: t is for tabs/toggles/terminal
   ['t'] = {
-    ['name'] = '+toggle',
-    ['t'] = { ':FloatermNew<CR>', 'terminal' },
+    ['name'] = '+tabs/terminal/toggle',
     ['f'] = {
       ['name'] = '+floaterm',
       ['G'] = { ':FloatermNew tig<CR>', 'tig' },
@@ -719,14 +712,24 @@ local leader_key_maps = {
       ['w'] = { ':FloatermNew wt<CR>', 'weather' },
       ['y'] = { ':FloatermNew btm<CR>', 'ytop' }
     },
+    ['h'] = { ':sp | te<CR>', 'horizontal-split-terminal' },
     ['s'] = {
       ['name'] = '+scrolloff',
       ['t'] = { ':set scrolloff=10<CR>', 'scrolloff=10' },
       ['h'] = { ':set scrolloff=5<CR>', 'scrolloff=5' },
       ['n'] = { ':set scrolloff=999<CR>', 'scrolloff=999' }
     },
-    ['h'] = { ':sp | te<CR>', 'horizontal-split-terminal' },
-    ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' }
+    ['t'] = { ':FloatermNew<CR>', 'terminal' },
+    ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
+    ['w'] = {
+      ['name'] = '+tabs',
+      ['c'] = { ':tabclose', 'close-tab' },
+      ['f'] = { ':tabfirst', 'first-tab' },
+      ['l'] = { ':tablast', 'last-tab' },
+      ['n'] = { ':tabnext', 'next-tab' },
+      ['N'] = { ':tabnew', 'new-tab' },
+      ['p'] = { ':tabprevious', 'previous-tab' }
+    }
   },
 
   -- NOTE: T is for tmux-runner
