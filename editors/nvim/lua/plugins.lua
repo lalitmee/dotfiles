@@ -5,9 +5,7 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute(
-      '!git clone https://github.com/wbthomason/packer.nvim ' .. install_path
-  )
+  execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
   execute 'packadd packer.nvim'
 end
 
@@ -23,16 +21,13 @@ return require('packer').startup {
     -- LEARN VIM {{{
 
     use 'ThePrimeagen/vim-be-good' -- vim-be-good
-    use 'tjdevries/train.nvim' -- motion training
 
-    -- LEARN VIM }}}
+    -- }}}
 
     -- UI AND BEAUTIFY {{{
 
     -- colorschemes {{{
 
-    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
-    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'christianchiarulli/nvcode-color-schemes.vim' -- nvcode colors
 
     -- }}}
@@ -55,7 +50,7 @@ return require('packer').startup {
 
     -- }}}
 
-    -- UI AND BEAUTIFY }}}
+    -- }}}
 
     -- ACTIONS {{{
 
@@ -69,13 +64,13 @@ return require('packer').startup {
     use 'phaazon/hop.nvim' -- easymotion using lua
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
 
-    -- Search, Replace and Jump }}}
+    -- }}}
 
     -- Navigations {{{
 
     use 'ThePrimeagen/harpoon'
 
-    -- Navigations }}}
+    -- }}}
 
     -- General {{{
 
@@ -97,15 +92,15 @@ return require('packer').startup {
     use 'wellle/targets.vim' -- targets.vim for extra motions
     use 'wesQ3/vim-windowswap' -- Swap windows
 
-    -- General }}}
+    -- }}}
 
     -- Profiling {{{
 
     use 'dstein64/vim-startuptime'
 
-    -- Profiling }}}
+    -- }}}
 
-    -- ACTIONS }}}
+    -- }}}
 
     -- TEXT {{{
 
@@ -115,7 +110,7 @@ return require('packer').startup {
     -- use 'michal-h21/vim-zettel'                      " zettel tasks
     -- use 'vimwiki/vimwiki'                            " vim wiki
 
-    -- Notes }}}
+    -- }}}
 
     -- Snippets {{{
 
@@ -125,16 +120,19 @@ return require('packer').startup {
     use 'hrsh7th/vim-vsnip-integ'
     use 'norcalli/snippets.nvim' -- snippets in lua
 
-    -- Snippets }}}
+    -- }}}
 
     -- Format {{{
 
     -- use 'lukas-reineke/format.nvim'
     use 'mhartington/formatter.nvim' -- formatter in lua
-    use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
+    use {
+      'lukas-reineke/indent-blankline.nvim',
+      branch = 'lua'
+    }
     use 'godlygeek/tabular' -- Tabularize for Vim
 
-    -- Format }}}
+    -- }}}
 
     -- Undo {{{
 
@@ -142,31 +140,37 @@ return require('packer').startup {
     --       \ 'on': 'MundoToggle'
     --       \ }                                         " undo tree visualizer
 
-    -- Undo }}}
+    -- }}}
 
     -- Highlight Yank {{{
 
     use 'machakann/vim-highlightedyank'
 
-    -- Highlight Yank }}}
+    -- }}}
 
     -- General {{{
 
     use 'vim-scripts/restore_view.vim'
 
-    -- General }}}
+    -- }}}
 
-    -- TEXT }}}
+    -- }}}
 
     -- LSP {{{
 
     -- coc.nvim {{{
 
     use 'neoclide/coc-neco' -- vim completion for coc
-    use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
-    use { 'antoinemadec/coc-fzf', branch = 'release' }
+    use {
+      'neoclide/coc.nvim',
+      branch = 'release'
+    } -- Completion Conquerer
+    use {
+      'antoinemadec/coc-fzf',
+      branch = 'release'
+    }
 
-    -- coc.nvim }}}
+    -- }}}
 
     -- neovim-lsp {{{
 
@@ -179,38 +183,43 @@ return require('packer').startup {
     -- use 'tjdevries/lsp_extensions.nvim'
     use 'bfredl/nvim-luadev'
     use 'euclidianAce/BetterLua.vim' -- better lua syntax highlighting
-    use 'tjdevries/nlua.nvim'
 
-    -- neovim-lsp }}}
+    -- }}}
 
     -- Treesitter {{{
 
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate'
+    }
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/playground'
     use 'p00f/nvim-ts-rainbow'
     use 'windwp/nvim-ts-autotag'
 
-    -- Treesitter }}}
+    -- }}}
 
     -- General {{{
 
     use 'Shougo/neco-vim'
     use 'chemzqm/vim-jsx-improve' -- better jsx
 
-    -- General }}}
+    -- }}}
 
-    -- LSP }}}
+    -- }}}
 
     -- FUZZY SEARCH {{{
 
     -- fzf.vim {{{
 
-    use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
+    use {
+      'junegunn/fzf',
+      run = './install --all'
+    } -- FZF in vim
     use 'junegunn/fzf.vim' -- FZF in vim
 
-    -- fzf.vim }}}
+    -- }}}
 
     -- telescope.nvim {{{
 
@@ -231,9 +240,9 @@ return require('packer').startup {
     use 'tamago324/telescope-openbrowser.nvim'
     use 'tkmpypy/telescope-jumps.nvim'
 
-    -- telescope.nvim }}}
+    -- }}}
 
-    -- FUZZY SEARCH }}}
+    -- }}}
 
     -- LANGUAGES {{{
 
@@ -244,19 +253,19 @@ return require('packer').startup {
     use 'AndrewRadev/tagalong.vim' -- html tags completion
     use 'wakatime/vim-wakatime' -- wakatime for vim
 
-    -- HTML }}}
+    -- }}}
 
     -- markdown {{{
 
     use 'npxbr/glow.nvim' -- markdown preview
 
-    -- markdown }}}
+    -- }}}
 
     -- tags {{{
 
     use 'liuchengxu/vista.vim' -- Viewer & Finder for LSP symbols and tags
 
-    -- tags }}}
+    -- }}}
 
     -- General {{{
 
@@ -265,9 +274,9 @@ return require('packer').startup {
     use 'windwp/nvim-autopairs' -- auto-pairs in lua
     use 'AndrewRadev/sideways.vim'
 
-    -- General }}}
+    -- }}}
 
-    -- LANGUAGES }}}
+    -- }}}
 
     -- VERSION CONTROL STYSTEM {{{
 
@@ -281,16 +290,15 @@ return require('packer').startup {
     use 'tpope/vim-fugitive' -- version control
     use 'kdheepak/lazygit.nvim' -- lazygit from neovim
 
-    -- VERSION CONTROL STYSTEM }}}
+    -- }}}
 
     -- STATUS AND TAB LINES {{{
 
     -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
     use 'hoob3rt/lualine.nvim'
     use 'akinsho/nvim-bufferline.lua'
-    -- use 'tjdevries/express_line.nvim'
 
-    -- STATUS AND TAB LINES }}}
+    -- }}}
 
     -- VIM NINJAS {{{
 
@@ -307,9 +315,22 @@ return require('packer').startup {
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-scriptease'
 
-    -- tpope }}}
+    -- }}}
 
-    -- VIM NINJAS }}}
+    -- tjdevries  {{{
+
+    -- use 'tjdevries/express_line.nvim'
+    use 'tjdevries/nlua.nvim'
+    use 'tjdevries/train.nvim' -- motion training
+    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
+    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
+    use 'tjdevries/standard.vim'
+    use 'tjdevries/conf.vim'
+    use 'tjdevries/fold_search.vim'
+
+    -- }}}
+
+    --  }}}
 
     -- FILES {{{
 
@@ -318,28 +339,28 @@ return require('packer').startup {
     use 'justinmk/vim-dirvish'
     use 'kyazdani42/nvim-tree.lua' -- file explorer
 
-    -- Explorer }}}
+    -- }}}
 
     -- General {{{
 
     use 'gioele/vim-autoswap' -- for handling swap files
 
-    -- General }}}
+    -- }}}
 
-    -- FILES }}}
+    -- }}}
 
     -- TERMINAL {{{
 
     use 'voldikss/vim-floaterm' -- Float Terminal
     use 'akinsho/nvim-toggleterm.lua'
 
-    -- TERMINAL }}}
+    -- }}}
 
     -- GNVIM {{{
 
     use 'akiyosi/gonvim-fuzzy' -- Goneovim Fuzzy search
 
-    -- GNVIM }}}
+    -- }}}
 
     -- BROWSER {{{
 
@@ -347,7 +368,7 @@ return require('packer').startup {
     use 'tyru/open-browser-github.vim'
     use 'tyru/open-browser.vim'
 
-    -- BROWSER }}}
+    -- }}}
 
     -- TESTING {{{
 
@@ -357,8 +378,12 @@ return require('packer').startup {
     -- use 'skywind3000/asynctasks.vim'
     use 'mfussenegger/nvim-dap' -- debugger attach protocol
 
-    -- TESTING }}}
+    -- }}}
 
   end,
-  config = { display = { open_cmd = 'topleft 65vnew [packer]' } }
+  config = {
+    display = {
+      open_cmd = 'topleft 65vnew [packer]'
+    }
+  }
 }
