@@ -202,7 +202,7 @@ Width = 120
 
 [ScrollBar]
 ## Specifies whether to show the external scrollbar or not.
-Visible = true
+Visible = false
 
 [SideBar]
 ## Specifies whether to show the external sidebar or not.
@@ -215,14 +215,14 @@ DropShadow = true
 Width = 200
 
 ## Specify the color to use when selecting items in the sidebar or palette in hexadecimal format
-AccentColor = "#5679ea"
+AccentColor = "#A9A9A9"
 
 [Workspace]
 ## This setting sets the format of the path string of CWD in the sidebar.
 ##  name: directoryname
 ##  full: /path/to/directoryname
 ##  minimum: /p/t/directoryname
-PathStyle = "full"
+PathStyle = "name"
 
 ## Specifies whether the last exited session should be restored at the next startup.
 RestoreSession = true
