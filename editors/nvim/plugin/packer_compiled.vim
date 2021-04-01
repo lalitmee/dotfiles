@@ -304,6 +304,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/sql.nvim"
   },
+  ["standard.vim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/standard.vim"
+  },
   tabular = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/tabular"

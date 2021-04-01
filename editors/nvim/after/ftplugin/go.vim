@@ -1,4 +1,4 @@
-autocmd FileType go setlocal sw=4 sts=4 et
+autocmd FileType go setlocal ts=4 sw=4 sts=4 et
 
 " Folding Methods for Go {{{
 

@@ -2,10 +2,7 @@ setlocal foldmethod=expr
 setlocal foldexpr=nvim_treesitter#foldexpr()
 setlocal foldlevel=99
 
-setlocal expandtab
-setlocal tabstop=2
-setlocal softtabstop=2
-setlocal shiftwidth=2
+autocmd FileType gitcommit setlocal sw=2 sts=2 ts=2 et
 
 set formatoptions-=o
 
