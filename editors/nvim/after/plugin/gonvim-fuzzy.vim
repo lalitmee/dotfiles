@@ -1,11 +1,13 @@
 if exists('g:goneovim')
   " goneovim colorscheme
-  " source $HOME/.config/nvim/colorschemes/goneovim-colors.vim
-  " luafile $HOME/.config/nvim/lua/config/colorschemes/nord.lua
-  luafile $HOME/.config/nvim/lua/config/colorschemes/gruvbuddy.lua
+  " luafile $HOME/.config/nvim/lua/lk/colorscheme/nord.lua
+  " colorscheme nvcode
+  " colorscheme nord
 
   " goneovim key mappings
   noremap <silent> <C-p> :GonvimFuzzyFiles<CR>
+  noremap <silent> <C-l> :GonvimFuzzyBLines<CR>
+  noremap <silent> <C-b> :GonvimFuzzyBLines<CR>
 
   " goneovim ag command
   let g:gonvim_fuzzy_ag_cmd = 'rg --hidden --ignore node_modules --follow --glob "!.git/*"'

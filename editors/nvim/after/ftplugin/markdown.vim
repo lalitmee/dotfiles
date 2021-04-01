@@ -118,4 +118,6 @@ let b:undo_ftplugin .= '
   \ | setlocal foldmethod< foldtext< foldexpr<
   \ | delcommand FoldToggle
   \ '
+
+set formatoptions-=o
 " vim:set fdm=marker:

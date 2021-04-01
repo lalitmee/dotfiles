@@ -1,18 +1,18 @@
-require('bqf').setup( -- {
---   auto_enable = true,
---   preview = { auto_previw = true, win_height = 20, win_vheight = 20 },
---   func_map = { vsplit = '<C-v>' },
---   filter = {
---     fzf = {
---       extra_opts = {
---         '--bind',
---         'ctrl-a:select-all,ctrl-d:deselect-all',
---         '--prompt',
---         'Filter > '
---       }
---     }
---   }
--- }
+require('bqf').setup(
+    {
+      auto_enable = true,
+      preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
+      filter = {
+        fzf = {
+          extra_opts = {
+            '--bind',
+            'ctrl-s:select-all,ctrl-d:deselect-all',
+            '--prompt',
+            'Filter > '
+          }
+        }
+      }
+    }
 )
 
 vim.api.nvim_exec(
