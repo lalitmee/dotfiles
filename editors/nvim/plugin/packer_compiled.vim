@@ -52,6 +52,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/complextras.nvim"
   },
+  ["conf.vim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/conf.vim"
+  },
   ["crease.vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/crease.vim"
@@ -59,6 +63,10 @@ _G.packer_plugins = {
   ["emmet-vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/emmet-vim"
+  },
+  ["fold_search.vim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/fold_search.vim"
   },
   ["formatter.nvim"] = {
     loaded = true,
