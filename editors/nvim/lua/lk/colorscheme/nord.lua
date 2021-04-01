@@ -1,5 +1,5 @@
 -- nord theme using colorbuddy
-local Color, colors, Group, groups, styles = require('colorbuddy').setup()
+local Color, c, Group, g, s = require('colorbuddy').setup()
 
 Color.new('background', '#3B4252')
 Color.new('fg', '#292929')
@@ -32,38 +32,29 @@ Color.new('purple', '#B48EAD')
 Color.new('violet', '#B48EAD')
 Color.new('orange', '#D08770')
 
-Group.new('Comment', colors.nord_3_light, colors.none, styles.italic)
-Group.new('SpecialComment', colors.nord_8, colors.none, styles.NONE)
-Group.new('LineNr', colors.nord_4:dark():dark(), colors.none, styles.NONE)
-Group.new('CursorLineNr', colors.nord_13, colors.none, styles.NONE)
-Group.new('Line', colors.nord_12, colors.none, styles.bold)
-Group.new('SignColumn', colors.none, colors.none, styles.NONE)
+Group.new('Comment', c.nord_3_light, c.none, s.italic)
+Group.new('SpecialComment', c.nord_8, c.none, s.NONE)
+Group.new('LineNr', c.nord_4:dark():dark(), c.none, s.NONE)
+Group.new('CursorLineNr', c.nord_13, c.none, s.NONE)
+Group.new('Line', c.nord_12, c.none, s.bold)
+Group.new('SignColumn', c.none, c.none, s.NONE)
 
 -- Neovim support
-Group.new('IncSearch', colors.nord_6, colors.nord_10, styles.underline)
-Group.new('Search', colors.nord_1, colors.nord_12)
+Group.new('IncSearch', c.nord_6, c.nord_10, s.underline)
+Group.new('Search', c.nord_1, c.nord_12)
 
-Group.new('NvimTreeFolderIcon', colors.nord_11, colors.NONE)
+Group.new('NvimTreeFolderIcon', c.nord_11, c.NONE)
 
--- Neogit
-Group.new(
-    'NeogitDiffAddHighlight', colors.green:dark():dark():dark(),
-    colors.black:light()
-)
-Group.new('NeogitDiffDeleteHighlight', colors.red:dark(), colors.black:light())
-
-Group.new('NeogitDiffContextHighlight', nil, colors.black:light())
-Group.new('NeogitHunkHeader', colors.black, colors.blue:dark())
-Group.new('NeogitHunkHeaderHighlight', colors.black, colors.blue:dark())
+Group.new('NeogitDiffAdd', c.green:dark(), c.black:light())
+Group.new('NeogitDiffAddHighlight', c.green:dark(), c.black:light())
+Group.new('NeogitDiffContextHighlight', nil, c.black:light())
+Group.new('NeogitDiffDelete', c.red:dark(), c.black:light())
+Group.new('NeogitDiffDeleteHighlight', c.red:dark(), c.black:light())
+Group.new('NeogitHunkHeader', c.black, c.blue:dark())
+Group.new('NeogitHunkHeaderHighlight', c.black, c.blue:dark())
 
 -- git blame
-Group.new('gitblame', colors.grey:dark(), nil)
+Group.new('gitblame', c.grey:dark(), nil)
 
--- barbar highlight groups
-Group.new('BufferCurrent', colors.orange, nil, styles.bold)
-Group.new('BufferCurrentIndex', colors.orange, nil, styles.bold)
-Group.new('BufferCurrentMod', colors.red:dark(), nil, styles.bold)
-Group.new('BufferCurrentSign', nil, nil, styles.bold)
-
--- telescope
-Group.new('TelescopeMatching', colors.orange:saturate(.20), colors.None, s.bold)
+-- -- telescope
+-- Group.new('TelescopeMatching', c.orange:saturate(.20), c.None, s.bold)

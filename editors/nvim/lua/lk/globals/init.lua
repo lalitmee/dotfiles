@@ -34,6 +34,7 @@ _G.lk_utils = {
   command = utils.command,
   buf_map = utils.buf_map,
   profile = utils.profile,
+  deep_merge = utils.deep_merge,
   has = utils.has,
   is_empty = utils.is_empty,
   command_callbacks = {},

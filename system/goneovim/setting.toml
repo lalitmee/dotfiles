@@ -14,7 +14,8 @@ Height = 600
 ## For example, linespace affects the margins of the external completion popup menu UI.
 ## Font settings in nvim are set with well-known options, such as `:set guifont = hoge:h10`, `:set linespace=4`.
 # FontFamily = "OperatorMono Nerd Font"
-FontFamily = "OperatorMono Lig Book"
+# FontFamily = "OperatorMono Lig Book"
+FontFamily = "CaskaydiaCove Nerd Font"
 FontSize = 10
 Linespace = 6
 
@@ -126,7 +127,7 @@ Transparent = 1.0
 ## If you want to use neovim's status line plugin, you should disable its display.
 [Statusline]
 ## Whether or not to display the external status line
-Visible = true
+Visible = false
 
 ## Options: "textLabel" / "icon" / "background" / "none"
 ModeIndicatorType = "textLabel"
@@ -201,7 +202,7 @@ Width = 120
 
 [ScrollBar]
 ## Specifies whether to show the external scrollbar or not.
-Visible = true
+Visible = false
 
 [SideBar]
 ## Specifies whether to show the external sidebar or not.
@@ -214,14 +215,14 @@ DropShadow = true
 Width = 200
 
 ## Specify the color to use when selecting items in the sidebar or palette in hexadecimal format
-AccentColor = "#5679ea"
+AccentColor = "#A9A9A9"
 
 [Workspace]
 ## This setting sets the format of the path string of CWD in the sidebar.
 ##  name: directoryname
 ##  full: /path/to/directoryname
 ##  minimum: /p/t/directoryname
-PathStyle = "full"
+PathStyle = "name"
 
 ## Specifies whether the last exited session should be restored at the next startup.
 RestoreSession = true

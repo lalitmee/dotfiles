@@ -15,8 +15,8 @@ require('nvim-treesitter.configs').setup(
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = ',v',
-          node_incremental = ',v',
+          init_selection = '<localleader>tv',
+          node_incremental = '<localleader>tv',
           scope_incremental = ']v',
           node_decremental = '[v'
         }
@@ -27,11 +27,12 @@ require('nvim-treesitter.configs').setup(
         navigation = {
           enable = true,
           keymaps = {
-            goto_definition = 'gtd',
-            list_definitions = 'gtl',
-            list_definitions_toc = 'gO',
-            goto_next_usage = 'gtn',
-            goto_previous_usage = 'gtp'
+            goto_definition = '<localleader>td',
+            list_definitions = '<localleader>tl',
+            goto_definition_lsp_fallback = '<localleader>tD',
+            list_definitions_toc = '<localleader>to',
+            goto_next_usage = '<localleader>tn',
+            goto_previous_usage = '<localleader>tp'
           }
         },
         smart_rename = { enable = true, keymaps = { smart_rename = 'gtr' } }
@@ -59,7 +60,13 @@ require('nvim-treesitter.configs').setup(
             ['[C'] = '@class.outer'
           }
         },
-        tree_docs = { enable = true },
+        tree_docs = {
+          enable = true,
+          keymaps = {
+            doc_node_at_cursor = '<localleader>tc',
+            doc_all_in_range = '<localleader>tc'
+          }
+        },
         lsp_interop = {
           enable = true,
           peek_definition_code = {

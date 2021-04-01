@@ -90,102 +90,100 @@ local leader_key_maps = {
     ['w'] = { ':Sayonara<CR>', 'close-buffer-and-window' }
   },
 
-  -- NOTE: c is for code with coc.nvim
-  ['c'] = {
-    ['name'] = '+coc',
-    ['a'] = { ':CocAction<CR>', 'action' },
-    ['c'] = { ':CocCommand<CR>', 'commands' },
-    ['d'] = { ':CocDiagnostics<CR>', 'diagnostics' },
-    ['e'] = { ':CocConfig<CR>', 'config' },
-    ['g'] = 'grep-under-cursor-buffer',
-    ['G'] = 'grep-under-cursor',
-    ['f'] = { ':CocFix<CR>', 'fix' },
-    ['i'] = { ':CocInfo<CR>', 'info' },
-    ['l'] = {
-      ['name'] = '+list',
-      ['"'] = { ':CocList registers<CR>', 'registers' },
-      ['/'] = { ':CocList searchhistory<CR>', 'search-history' },
-      [';'] = { ':CocList commands<CR>', 'commands' },
-      ['a'] = { ':CocList sessions<CR>', 'sessions' },
-      ['b'] = { ':CocList buffers<CR>', 'buffers' },
-      ['c'] = { ':CocList colors<CR>', 'colorschemes' },
-      ['d'] = { ':CocList folders<CR>', 'workspace-directories' },
-      ['e'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-      ['E'] = { ':CocList extensions<CR>', 'extensions' },
-      ['f'] = { ':CocList files<CR>', 'files' },
-      ['g'] = { ':CocList branches<CR>', 'branches' },
-      ['h'] = { ':CocList cmd_history<CR>', 'command-history' },
-      ['H'] = { ':CocList helptags<CR>', 'help-tags' },
-      ['j'] = { ':CocList<CR>', 'lists' },
-      ['k'] = { ':CocList maps<CR>', 'mappings' },
-      ['l'] = { ':CocList fuzzy_lines<CR>', 'buffer-fuzzy-lines' },
-      ['L'] = { ':CocList links<CR>', 'buffer-links' },
-      ['m'] = { ':CocList marketplace<CR>', 'marketplace' },
-      ['M'] = { ':CocList marks<CR>', 'marks' },
-      ['o'] = { ':CocList locationlist<CR>', 'location-list' },
-      ['q'] = { ':CocList quickfix<CR>', 'quickfix-list' },
-      ['r'] = { ':CocList mru<CR>', 'mru' },
-      ['s'] = { ':CocList outline<CR>', 'buffer-symbols' },
-      ['S'] = { ':CocList symbols<CR>', 'workspace-symbols' },
-      ['t'] = { ':CocList floaterm<CR>', 'floaterm' },
-      ['v'] = { ':CocList vimcommands<CR>', 'vim-commands' },
-      ['w'] = { ':CocList windows<CR>', 'windows' },
-      ['W'] = { ':CocList words<CR>', 'buffer-words' },
-      ['z'] = { ':CocList tags<CR>', 'tag-files' }
-    },
-    ['m'] = {
-      ['name'] = '+fzf-list',
-      [';'] = { ':CocFzfList<CR>', 'commands' },
-      ['a'] = { ':CocFzfList actions<CR>', 'actions' },
-      ['b'] = { ':CocFzfList symbols<CR>', 'symbols' },
-      ['c'] = { ':CocFzfList commands<CR>', 'commands' },
-      ['d'] = { ':CocFzfList diagnostics<CR>', 'diagnostics' },
-      ['e'] = {
-        ':CocFzfList diagnostics --current-buf<CR>',
-        'buffer-diagnostics'
-      },
-      ['g'] = { ':CocFzfList issues<CR>', 'issues' },
-      ['i'] = { ':CocFzfList snippets<CR>', 'snippets' },
-      ['l'] = { ':CocFzfList location<CR>', 'locations' },
-      ['o'] = { ':CocFzfList outline<CR>', 'outline' },
-      ['r'] = { ':CocFzfListResume<CR>', 'resume-list' },
-      ['s'] = { ':CocFzfList services<CR>', 'services' },
-      ['u'] = { ':CocFzfList output<CR>', 'output' },
-      ['v'] = { ':CocFzfList sources<CR>', 'sources' },
-      ['y'] = { ':CocFzfList yank<CR>', 'yank' }
-    },
-    ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
-    ['R'] = { ':CocListResume<CR>', 'list-resume' },
-    ['s'] = { ':CocSearch<CR>', 'search' }
-  },
+  -- -- NOTE: c is for code with coc.nvim
+  -- ['c'] = {
+  --   ['name'] = '+coc',
+  --   ['a'] = { ':CocAction<CR>', 'action' },
+  --   ['c'] = { ':CocCommand<CR>', 'commands' },
+  --   ['d'] = { ':CocDiagnostics<CR>', 'diagnostics' },
+  --   ['e'] = { ':CocConfig<CR>', 'config' },
+  --   ['f'] = { ':CocFix<CR>', 'fix' },
+  --   ['i'] = { ':CocInfo<CR>', 'info' },
+  --   ['l'] = {
+  --     ['name'] = '+list',
+  --     ['"'] = { ':CocList registers<CR>', 'registers' },
+  --     ['/'] = { ':CocList searchhistory<CR>', 'search-history' },
+  --     [';'] = { ':CocList commands<CR>', 'commands' },
+  --     ['a'] = { ':CocList sessions<CR>', 'sessions' },
+  --     ['b'] = { ':CocList buffers<CR>', 'buffers' },
+  --     ['c'] = { ':CocList colors<CR>', 'colorschemes' },
+  --     ['d'] = { ':CocList folders<CR>', 'workspace-directories' },
+  --     ['e'] = { ':CocList diagnostics<CR>', 'diagnostics' },
+  --     ['E'] = { ':CocList extensions<CR>', 'extensions' },
+  --     ['f'] = { ':CocList files<CR>', 'files' },
+  --     ['g'] = { ':CocList branches<CR>', 'branches' },
+  --     ['h'] = { ':CocList cmd_history<CR>', 'command-history' },
+  --     ['H'] = { ':CocList helptags<CR>', 'help-tags' },
+  --     ['j'] = { ':CocList<CR>', 'lists' },
+  --     ['k'] = { ':CocList maps<CR>', 'mappings' },
+  --     ['l'] = { ':CocList fuzzy_lines<CR>', 'buffer-fuzzy-lines' },
+  --     ['L'] = { ':CocList links<CR>', 'buffer-links' },
+  --     ['m'] = { ':CocList marketplace<CR>', 'marketplace' },
+  --     ['M'] = { ':CocList marks<CR>', 'marks' },
+  --     ['o'] = { ':CocList locationlist<CR>', 'location-list' },
+  --     ['q'] = { ':CocList quickfix<CR>', 'quickfix-list' },
+  --     ['r'] = { ':CocList mru<CR>', 'mru' },
+  --     ['s'] = { ':CocList outline<CR>', 'buffer-symbols' },
+  --     ['S'] = { ':CocList symbols<CR>', 'workspace-symbols' },
+  --     ['t'] = { ':CocList floaterm<CR>', 'floaterm' },
+  --     ['v'] = { ':CocList vimcommands<CR>', 'vim-commands' },
+  --     ['w'] = { ':CocList windows<CR>', 'windows' },
+  --     ['W'] = { ':CocList words<CR>', 'buffer-words' },
+  --     ['z'] = { ':CocList tags<CR>', 'tag-files' }
+  --   },
+  --   ['m'] = {
+  --     ['name'] = '+fzf-list',
+  --     ['a'] = { ':CocFzfList actions<CR>', 'actions' },
+  --     ['b'] = { ':CocFzfList symbols<CR>', 'symbols' },
+  --     ['c'] = { ':CocFzfList commands<CR>', 'commands' },
+  --     ['d'] = { ':CocFzfList diagnostics<CR>', 'diagnostics' },
+  --     ['e'] = {
+  --       ':CocFzfList diagnostics --current-buf<CR>',
+  --       'buffer-diagnostics'
+  --     },
+  --     ['g'] = { ':CocFzfList issues<CR>', 'issues' },
+  --     ['i'] = { ':CocFzfList snippets<CR>', 'snippets' },
+  --     ['l'] = { ':CocFzfList location<CR>', 'locations' },
+  --     ['o'] = { ':CocFzfList outline<CR>', 'outline' },
+  --     ['r'] = { ':CocFzfListResume<CR>', 'resume-list' },
+  --     ['s'] = { ':CocFzfList services<CR>', 'services' },
+  --     ['u'] = { ':CocFzfList output<CR>', 'output' },
+  --     ['v'] = { ':CocFzfList sources<CR>', 'sources' },
+  --     ['y'] = { ':CocFzfList yank<CR>', 'yank' }
+  --   },
+  --   ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
+  --   ['R'] = { ':CocListResume<CR>', 'list-resume' },
+  --   ['s'] = { ':CocSearch<CR>', 'search' },
+  --   ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
+  -- },
 
   -- NOTE: c is for code with lspconfig
-  -- ['c'] = {
-  --   ['name'] = '+code',
-  --   ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
-  --   ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
-  --   ['b'] = { ':Telescope lsp_code_actions<CR>', 'lsp-code-actions' },
-  --   ['B'] = { ':Telescope lsp_range_code_actions<CR>', 'lsp-range-code-actions' },
-  --   ['c'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
-  --   ['d'] = { ':Telescope lsp_definitions<CR>', 'lsp-definitions' },
-  --   ['e'] = {
-  --     ':Telescope lsp_document_diagnostics<CR>',
-  --     'lsp-document-diagnostics'
-  --   },
-  --   ['E'] = {
-  --     ':Telescope lsp_workspace_diagnostics<CR>',
-  --     'lsp-workspace-diagnostics'
-  --   },
-  --   ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
-  --   ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
-  --   ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
-  --   ['r'] = { ':Telescope lsp_references<CR>', 'lsp-references' },
-  --   ['R'] = { ':Lspsaga lsp_finder<CR>', 'references' },
-  --   ['s'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
-  --   ['t'] = { ':Telescope treesitter<CR>', 'treesitter-symbols' },
-  --   ['w'] = { ':Telescope lsp_document_symbols<CR>', 'lsp-document-symbols' },
-  --   ['W'] = { ':Telescope lsp_workspace_symbols<CR>', 'lsp-workspace-symbols' }
-  -- },
+  ['c'] = {
+    ['name'] = '+code',
+    ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
+    ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
+    ['b'] = { ':Telescope lsp_code_actions<CR>', 'lsp-code-actions' },
+    ['B'] = { ':Telescope lsp_range_code_actions<CR>', 'lsp-range-code-actions' },
+    ['c'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
+    ['d'] = { ':Telescope lsp_definitions<CR>', 'lsp-definitions' },
+    ['e'] = {
+      ':Telescope lsp_document_diagnostics<CR>',
+      'lsp-document-diagnostics'
+    },
+    ['E'] = {
+      ':Telescope lsp_workspace_diagnostics<CR>',
+      'lsp-workspace-diagnostics'
+    },
+    ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
+    ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
+    ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
+    ['r'] = { ':Telescope lsp_references<CR>', 'lsp-references' },
+    ['R'] = { ':Lspsaga lsp_finder<CR>', 'references' },
+    ['s'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
+    ['t'] = { ':Telescope treesitter<CR>', 'treesitter-symbols' },
+    ['w'] = { ':Telescope lsp_document_symbols<CR>', 'lsp-document-symbols' },
+    ['W'] = { ':Telescope lsp_workspace_symbols<CR>', 'lsp-workspace-symbols' }
+  },
 
   -- NOTE: d is for harpoon
   ['d'] = {
@@ -341,71 +339,91 @@ local leader_key_maps = {
     ['d'] = { ':HopChar2<CR>', 'hop-char-2' }
   },
 
-  ['l'] = {
-    ['name'] = '+lsp',
-    ['.'] = { ':CocConfig<CR>', 'config' },
-    ['b'] = { ':CocNext<CR>', 'next-action' },
-    ['B'] = { ':CocPrev<CR>', 'prev-action' },
-    ['c'] = { ':CocList commands<CR>', 'commands' },
-    ['e'] = { ':CocList extensions<CR>', 'extensions' },
-    ['I'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-    ['o'] = { ':Vista!!<CR>', 'outline' },
-    ['O'] = { ':CocList outline<CR>', 'outline' },
-    ['s'] = { ':CocList -I symbols<CR>', 'symbols' },
-    ['S'] = { ':CocList snippets<CR>', 'snippets' },
-    ['u'] = { ':CocListResume<CR>', 'resume-list' },
-    ['U'] = { ':CocUpdate<CR>', 'update-CoC' },
-    ['z'] = { ':CocDisable<CR>', 'disable-CoC' },
-    ['Z'] = { ':CocEnable<CR>', 'enable-CoC' }
-  },
-
-  -- -- NOTE: l is for lsp with lspconfig
+  -- NOTE: l is for lsp with coc.nvim
   -- ['l'] = {
   --   ['name'] = '+lsp',
-  --   ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
-  --   ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
-  --   ['d'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
-  --   ['e'] = {
-  --     ['name'] = '+diagnostics',
-  --     ['l'] = { ':Lspsaga show_line_diagnostics<CR>', 'show-line-diagnostics' },
-  --     ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
-  --     ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' }
-  --   },
-  --   ['i'] = { ':LspInfo<CR>', 'lsp-info' },
-  --   ['l'] = { ':Lspsaga lsp_finder<CR>', 'finder' },
-  --   ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
-  --   ['r'] = { ':LspRename<CR>', 'rename' },
-  --   ['s'] = { ':Lspsaga signature_help<CR>', 'signature-help' },
-  --   ['t'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
-  --   ['T'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
-  --   ['v'] = {
-  --     ['name'] = '+vista',
-  --     ['a'] = { ':Vista ale<CR>', 'ale' },
-  --     ['A'] = { ':Vista finder fzf:ale<CR>', 'fzf:ale' },
-  --     ['c'] = { ':Vista coc<CR>', 'coc' },
-  --     ['C'] = { ':Vista finder fzf:coc<CR>', 'fzf:coc' },
-  --     ['f'] = { ':Vista finder<CR>', 'finder' },
-  --     ['F'] = { ':Vista finder!<CR>', 'finder!' },
-  --     ['g'] = { ':Vista ctags<CR>', 'ctags' },
-  --     ['G'] = { ':Vista finder skim:ctags<CR>', 'skim:ctags' },
-  --     ['i'] = { ':Vista info<CR>', 'info' },
-  --     ['I'] = { ':Vista info+<CR>', 'info+' },
-  --     ['j'] = { ':Vista focus<CR>', 'focus' },
-  --     ['n'] = { ':Vista nvim_lsp<CR>', 'nvim-lsp' },
-  --     ['N'] = { ':Vista finder fzf:nvim_lsp<CR>', 'fzf:nvim_lsp' },
-  --     ['s'] = { ':Vista show<CR>', 'show' },
-  --     ['t'] = { ':Vista!!<CR>', 'toggle-vista' },
-  --     ['u'] = { ':Vista vim_lsc<CR>', 'vim_lsc' },
-  --     ['v'] = { ':Vista vim_lsp<CR>', 'vim_lsp' }
-  --   },
-  --   ['w'] = {
-  --     ['name'] = '+workspace',
-  --     ['a'] = { ':LspAddToWorkspaceFolder<CR>', 'add-folder-to-workspace' },
-  --     ['l'] = { ':LspListWorkspaceFolders<CR>', 'list-workspace-folders' },
-  --     ['r'] = { ':LspRemoveWorkspaceFolder<CR>', 'remove-workspace-folder' },
-  --     ['s'] = { ':LspWorkspaceSymbols<CR>', 'workspace-symbols' }
-  --   }
+  --   ['.'] = { ':CocConfig<CR>', 'config' },
+  --   [';'] = { '<Plug>(coc-refactor)', 'refactor' },
+  --   ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
+  --   ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
+  --   ['b'] = { ':CocNext<CR>', 'next-action' },
+  --   ['B'] = { ':CocPrev<CR>', 'prev-action' },
+  --   ['c'] = { ':CocList commands<CR>', 'commands' },
+  --   ['d'] = { '<Plug>(coc-definition)', 'definition' },
+  --   ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
+  --   ['e'] = { ':CocList extensions<CR>', 'extensions' },
+  --   ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
+  --   ['F'] = { '<Plug>(coc-format)', 'format' },
+  --   ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
+  --   ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
+  --   ['I'] = { ':CocList diagnostics<CR>', 'diagnostics' },
+  --   ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
+  --   ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
+  --   ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
+  --   ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
+  --   ['o'] = { ':Vista!!<CR>', 'outline' },
+  --   ['O'] = { ':CocList outline<CR>', 'outline' },
+  --   ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
+  --   ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
+  --   ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
+  --   ['R'] = { '<Plug>(coc-references)', 'references' },
+  --   ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
+  --   ['s'] = { ':CocList -I symbols<CR>', 'symbols' },
+  --   ['S'] = { ':CocList snippets<CR>', 'snippets' },
+  --   ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' },
+  --   ['u'] = { ':CocListResume<CR>', 'resume-list' },
+  --   ['U'] = { ':CocUpdate<CR>', 'update-CoC' },
+  --   ['z'] = { ':CocDisable<CR>', 'disable-CoC' },
+  --   ['Z'] = { ':CocEnable<CR>', 'enable-CoC' }
   -- },
+
+  -- NOTE: l is for lsp with lspconfig
+  ['l'] = {
+    ['name'] = '+lsp',
+    ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
+    ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
+    ['d'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
+    ['e'] = {
+      ['name'] = '+diagnostics',
+      ['l'] = { ':Lspsaga show_line_diagnostics<CR>', 'show-line-diagnostics' },
+      ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
+      ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' }
+    },
+    ['i'] = { ':LspInfo<CR>', 'lsp-info' },
+    ['l'] = { ':Lspsaga lsp_finder<CR>', 'finder' },
+    ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
+    ['r'] = { ':LspRename<CR>', 'rename' },
+    ['s'] = { ':Lspsaga signature_help<CR>', 'signature-help' },
+    ['t'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
+    ['T'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
+    ['v'] = {
+      ['name'] = '+vista',
+      ['a'] = { ':Vista ale<CR>', 'ale' },
+      ['A'] = { ':Vista finder fzf:ale<CR>', 'fzf:ale' },
+      ['c'] = { ':Vista coc<CR>', 'coc' },
+      ['C'] = { ':Vista finder fzf:coc<CR>', 'fzf:coc' },
+      ['f'] = { ':Vista finder<CR>', 'finder' },
+      ['F'] = { ':Vista finder!<CR>', 'finder!' },
+      ['g'] = { ':Vista ctags<CR>', 'ctags' },
+      ['G'] = { ':Vista finder skim:ctags<CR>', 'skim:ctags' },
+      ['i'] = { ':Vista info<CR>', 'info' },
+      ['I'] = { ':Vista info+<CR>', 'info+' },
+      ['j'] = { ':Vista focus<CR>', 'focus' },
+      ['n'] = { ':Vista nvim_lsp<CR>', 'nvim-lsp' },
+      ['N'] = { ':Vista finder fzf:nvim_lsp<CR>', 'fzf:nvim_lsp' },
+      ['s'] = { ':Vista show<CR>', 'show' },
+      ['t'] = { ':Vista!!<CR>', 'toggle-vista' },
+      ['u'] = { ':Vista vim_lsc<CR>', 'vim_lsc' },
+      ['v'] = { ':Vista vim_lsp<CR>', 'vim_lsp' }
+    },
+    ['w'] = {
+      ['name'] = '+workspace',
+      ['a'] = { ':LspAddToWorkspaceFolder<CR>', 'add-folder-to-workspace' },
+      ['l'] = { ':LspListWorkspaceFolders<CR>', 'list-workspace-folders' },
+      ['r'] = { ':LspRemoveWorkspaceFolder<CR>', 'remove-workspace-folder' },
+      ['s'] = { ':LspWorkspaceSymbols<CR>', 'workspace-symbols' }
+    }
+  },
 
   -- NOTE: L is for lsp
   ['L'] = {
@@ -595,17 +613,17 @@ local leader_key_maps = {
   -- NOTE: p is for project
   ['p'] = {
     ['name'] = '+project',
-    ['N'] = 'swap-parameter-previous',
-    ['P'] = 'tj-project-search',
-    ['S'] = { ':Telescope live_grep<CR>', 'project-search' },
     ['a'] = { ':FzfAg<CR>', 'project-search' },
     ['b'] = { ':Telescope buffers<CR>', 'find-buffers' },
     ['f'] = { ':Telescope fzf_writer files<CR>', 'find-files' },
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['n'] = 'swap-parameter-next',
+    ['N'] = 'swap-parameter-previous',
     ['p'] = { ':Telescope project project<CR>', 'switch-project' },
+    ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
-    ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search' },
+    ['s'] = { ':Telescope live_grep<CR>', 'project-search' },
+    ['S'] = { ':Telescope fzf_writer grep<CR>', 'project-search' },
     ['w'] = { ':Telescope grep_string<CR>', 'string-search' }
   },
 
@@ -656,8 +674,8 @@ local leader_key_maps = {
     ['l'] = { ':FzfLines<CR>', 'lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
-    ['p'] = { ':Telescope fzf_writer grep<CR>', 'fzf-live-grep' },
-    ['P'] = { ':Telescope live_grep<CR>', 'live-grep' },
+    ['p'] = { ':Telescope live_grep<CR>', 'live-grep' },
+    ['P'] = { ':Telescope fzf_writer grep<CR>', 'fzf-live-grep' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
     ['S'] = { ':Telescope colorscheme<CR>', 'color-schemes' },
@@ -788,7 +806,7 @@ local leader_key_maps = {
 }
 
 local plug_keymaps = {
-  ['c'] = { ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' } },
+  ['c'] = {},
   ['g'] = {
     ['g'] = {
       ['name'] = '+gists',
@@ -800,31 +818,31 @@ local plug_keymaps = {
     ['m'] = { '<Plug>(git-messenger)', 'git-messenger' }
   },
   ['l'] = {
-    ['name'] = '+lsp',
-    [';'] = { '<Plug>(coc-refactor)', 'refactor' },
-    ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
-    ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
-    ['d'] = { '<Plug>(coc-definition)', 'definition' },
-    ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
-    ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
-    ['F'] = { '<Plug>(coc-format)', 'format' },
-    ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
-    ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
-    ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
-    ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
-    ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-    ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
-    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
-    ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
-    ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
-    ['R'] = { '<Plug>(coc-references)', 'references' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
-    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' }
+    ['name'] = '+lsp'
+    -- [';'] = {'<Plug>(coc-refactor)', 'refactor'},
+    -- ['a'] = {'<Plug>(coc-codeaction)', 'line-action'},
+    -- ['A'] = {'<Plug>(coc-codeaction-selected)', 'selected-action'},
+    -- ['d'] = {'<Plug>(coc-definition)', 'definition'},
+    -- ['D'] = {'<Plug>(coc-declaration)', 'declaration'},
+    -- ['f'] = {'<Plug>(coc-format-selected)', 'format-selected'},
+    -- ['F'] = {'<Plug>(coc-format)', 'format'},
+    -- ['h'] = {'<Plug>(coc-float-hide)', 'hide'},
+    -- ['i'] = {'<Plug>(coc-implementation)', 'implementation'},
+    -- ['j'] = {'<Plug>(coc-float-jump)', 'float-jump'},
+    -- ['l'] = {'<Plug>(coc-codelens-action)', 'code-lens'},
+    -- ['n'] = {'<Plug>(coc-diagnostic-next)', 'next-diagnostic'},
+    -- ['N'] = {'<Plug>(coc-diagnostic-next-error)', 'next-error'},
+    -- ['p'] = {'<Plug>(coc-diagnostic-prev)', 'prev-diagnostic'},
+    -- ['P'] = {'<Plug>(coc-diagnostic-prev-error)', 'prev-error'},
+    -- ['q'] = {'<Plug>(coc-fix-current)', 'quickfix'},
+    -- ['R'] = {'<Plug>(coc-references)', 'references'},
+    -- ['r'] = {'<Plug>(coc-rename)', 'rename-symbol'},
+    -- ['t'] = {'<Plug>(coc-type-definition)', 'type-definition'}
   },
   ['m'] = {
     ['name'] = '+major-mode',
-    ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' }
+    ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' }
+    -- ['r'] = {'<Plug>(coc-rename)', 'rename-symbol'}
   }
 }
 
