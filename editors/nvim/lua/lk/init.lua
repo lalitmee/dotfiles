@@ -7,7 +7,6 @@ require('lk/settings')
 require('lk/highlights')
 require('lk/folds')
 require('lk/numbers')
-require('lk/options')
 require('lk/functions')
 require('lk/mappings')
 
