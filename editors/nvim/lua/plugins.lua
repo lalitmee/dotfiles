@@ -162,21 +162,21 @@ return require('packer').startup {
 
     -- coc.nvim {{{
 
-    -- use 'neoclide/coc-neco' -- vim completion for coc
-    -- use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
-    -- use { 'antoinemadec/coc-fzf', branch = 'release' }
+    use 'neoclide/coc-neco' -- vim completion for coc
+    use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
+    use { 'antoinemadec/coc-fzf', branch = 'release' }
 
     -- coc.nvim }}}
 
     -- neovim-lsp {{{
 
-    use 'glepnir/lspsaga.nvim'
-    use 'hrsh7th/nvim-compe'
-    use 'kabouzeid/nvim-lspinstall'
-    use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/lsp-status.nvim'
-    use 'tjdevries/complextras.nvim'
-    use 'tjdevries/lsp_extensions.nvim'
+    -- use 'glepnir/lspsaga.nvim'
+    -- use 'hrsh7th/nvim-compe'
+    -- use 'kabouzeid/nvim-lspinstall'
+    -- use 'neovim/nvim-lspconfig'
+    -- use 'nvim-lua/lsp-status.nvim'
+    -- use 'tjdevries/complextras.nvim'
+    -- use 'tjdevries/lsp_extensions.nvim'
     use 'bfredl/nvim-luadev'
     use 'euclidianAce/BetterLua.vim' -- better lua syntax highlighting
     use 'tjdevries/nlua.nvim'
