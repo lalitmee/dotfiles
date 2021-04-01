@@ -5,7 +5,8 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  execute('!git clone https://github.com/wbthomason/packer.nvim ' ..
+              install_path)
   execute 'packadd packer.nvim'
 end
 
@@ -126,10 +127,7 @@ return require('packer').startup {
 
     -- use 'lukas-reineke/format.nvim'
     use 'mhartington/formatter.nvim' -- formatter in lua
-    use {
-      'lukas-reineke/indent-blankline.nvim',
-      branch = 'lua'
-    }
+    use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use 'godlygeek/tabular' -- Tabularize for Vim
 
     -- }}}
@@ -161,14 +159,8 @@ return require('packer').startup {
     -- coc.nvim {{{
 
     use 'neoclide/coc-neco' -- vim completion for coc
-    use {
-      'neoclide/coc.nvim',
-      branch = 'release'
-    } -- Completion Conquerer
-    use {
-      'antoinemadec/coc-fzf',
-      branch = 'release'
-    }
+    use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
+    use { 'antoinemadec/coc-fzf', branch = 'release' }
 
     -- }}}
 
@@ -188,10 +180,7 @@ return require('packer').startup {
 
     -- Treesitter {{{
 
-    use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
-    }
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/playground'
@@ -214,10 +203,7 @@ return require('packer').startup {
 
     -- fzf.vim {{{
 
-    use {
-      'junegunn/fzf',
-      run = './install --all'
-    } -- FZF in vim
+    use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
     use 'junegunn/fzf.vim' -- FZF in vim
 
     -- }}}
@@ -383,9 +369,5 @@ return require('packer').startup {
     -- }}}
 
   end,
-  config = {
-    display = {
-      open_cmd = 'topleft 65vnew [packer]'
-    }
-  }
+  config = { display = { open_cmd = 'topleft 65vnew [packer]' } }
 }
