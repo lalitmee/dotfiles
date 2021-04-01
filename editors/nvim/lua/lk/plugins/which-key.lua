@@ -329,6 +329,23 @@ local leader_key_maps = {
     ['V'] = { ':GV!<CR>', 'view-buffer-commits' }
   },
 
+  ['G'] = {
+    ['name'] = '+goneovim',
+    ['a'] = { ':GonvimFuzzyAg<CR>', 'fuzzy-ag' },
+    ['b'] = { ':GonvimFuzzyBuffers<CR>', 'fuzzy-buffers' },
+    ['f'] = { ':GonvimFuzzyFiles<CR>', 'fuzzy-files' },
+    ['F'] = { ':GonvimFilerOpen<CR>', 'external-file-explorer' },
+    ['l'] = { ':GonvimFuzzyBLines<CR>', 'fuzzy-buffer-lines' },
+    ['m'] = { ':GonvimMarkdown<CR>', 'markdown-preview' },
+    ['M'] = { ':GonvimMiniMap<CR>', 'toggle-minimap' },
+    ['n'] = { ':GonvimWorkspaceNext<CR>', 'next-workspace' },
+    ['N'] = { ':GonvimWorkspaceNew<CR>', 'create-new-workspace' },
+    ['p'] = { ':GonvimWorkspacePrevious<CR>', 'previous-workspace' },
+    ['r'] = { ':GonvimFuzzyResume<CR>', 'resume-previous-search' },
+    ['s'] = { ':GonvimWorkspaceSwitch <CR>', 'switch-workspace' },
+    ['w'] = { ':GonvimFuzzyAgCword<CR>', 'fuzzy-word' }
+  },
+
   -- NOTE: j is for jumping
   ['j'] = {
     ['name'] = '+jumping',
@@ -653,22 +670,7 @@ local leader_key_maps = {
     ['C'] = { ':Telescope git_bcommits<CR>', 'buffer-commits' },
     ['d'] = { ':Telescope git_files<CR>', 'git-files' },
     ['f'] = { ':Telescope find_files<CR>', 'files' },
-    ['g'] = {
-      ['name'] = '+goneovim',
-      ['a'] = { ':GonvimFuzzyAg<CR>', 'fuzzy-ag' },
-      ['b'] = { ':GonvimFuzzyBuffers<CR>', 'fuzzy-buffers' },
-      ['f'] = { ':GonvimFuzzyFiles<CR>', 'fuzzy-files' },
-      ['F'] = { ':GonvimFilerOpen<CR>', 'external-file-explorer' },
-      ['l'] = { ':GonvimFuzzyBLines<CR>', 'fuzzy-buffer-lines' },
-      ['m'] = { ':GonvimMarkdown<CR>', 'markdown-preview' },
-      ['M'] = { ':GonvimMiniMap<CR>', 'toggle-minimap' },
-      ['n'] = { ':GonvimWorkspaceNext<CR>', 'next-workspace' },
-      ['N'] = { ':GonvimWorkspaceNew<CR>', 'create-new-workspace' },
-      ['p'] = { ':GonvimWorkspacePrevious<CR>', 'previous-workspace' },
-      ['r'] = { ':GonvimFuzzyResume<CR>', 'resume-previous-search' },
-      ['s'] = { ':GonvimWorkspaceSwitch <CR>', 'switch-workspace' }
-    },
-    ['G'] = { ':Telescope git_status<CR>', 'modified-git-files' },
+    ['g'] = { ':Telescope git_status<CR>', 'modified-git-files' },
     ['h'] = { ':Telescope help_tags<CR>', 'help-tags' },
     ['H'] = { ':Telescope command_history<CR>', 'command-history' },
     ['l'] = { ':FzfLines<CR>', 'lines' },
