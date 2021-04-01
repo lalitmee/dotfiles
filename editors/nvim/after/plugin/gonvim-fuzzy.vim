@@ -10,6 +10,6 @@ if exists('g:goneovim')
   noremap <silent> <C-b> :GonvimFuzzyBLines<CR>
 
   " goneovim ag command
-  let g:gonvim_fuzzy_ag_cmd = 'rg --hidden --ignore node_modules --follow --glob "!.git/*"'
+  " let g:gonvim_fuzzy_ag_cmd = '/home/linuxbrew/.linuxbrew/bin/rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 
 endif
