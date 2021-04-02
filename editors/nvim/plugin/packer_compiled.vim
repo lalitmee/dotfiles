@@ -48,6 +48,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim"
   },
+  ["compe-tabnine"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/compe-tabnine"
+  },
   ["complextras.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/complextras.nvim"
@@ -148,6 +152,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
+  ["manillua.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/manillua.nvim"
+  },
   ["neco-vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neco-vim"
@@ -239,6 +247,10 @@ _G.packer_plugins = {
   ["nvim-ts-autotag"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring"
   },
   ["nvim-ts-rainbow"] = {
     loaded = true,
@@ -455,6 +467,10 @@ _G.packer_plugins = {
   ["vim-maximizer"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-maximizer"
+  },
+  ["vim-polyglot"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-polyglot"
   },
   ["vim-pseudocl"] = {
     loaded = true,

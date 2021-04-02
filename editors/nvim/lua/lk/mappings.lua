@@ -123,3 +123,11 @@ end
 
 map('i', '<CR>', 'v:lua.lk_utils.completion_confirm()',
     { expr = true, noremap = true })
+
+-- Complextras.nvim configuration
+map('i', '<C-x><C-m>',
+    [[<c-r>=luaeval("require('complextras').complete_matching_line()")<CR>]],
+    opts)
+map('i', '<C-x><C-d>',
+    [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<CR>]],
+    opts)
