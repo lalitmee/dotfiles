@@ -504,13 +504,13 @@ local leader_key_maps = {
     ['e'] = { ':e $HOME/.config/nvim/init.lua<CR>', 'edit-config' },
     ['h'] = 'tj-help-tags',
     ['H'] = { ':checkhealth<CR>', 'check-health' },
-    ['i'] = { ':PackerInstall<CR>', 'install-packages' },
+    ['i'] = { ':PackerInstall<CR>', 'packer-install' },
     ['l'] = 'source-current',
     ['p'] = 'tj-installed-plugins',
     ['r'] = { ':luafile $HOME/.config/nvim/init.lua<CR>', 'source-config' },
-    ['s'] = { ':PackerSync<CR>', 'upgrade-plug' },
+    ['s'] = { ':PackerSync<CR>', 'packer-sync' },
     ['S'] = { ':PackerStatus<CR>', 'packages-status' },
-    ['u'] = { ':PackerUpdate<CR>', 'update-packages' }
+    ['u'] = { ':PackerUpdate<CR>', 'packer-update' }
   },
 
   -- NOTE: o is for telescope

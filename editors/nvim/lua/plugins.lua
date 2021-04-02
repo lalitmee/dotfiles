@@ -5,9 +5,8 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute(
-      '!git clone https://github.com/wbthomason/packer.nvim ' .. install_path
-  )
+  execute('!git clone https://github.com/wbthomason/packer.nvim ' ..
+              install_path)
   execute 'packadd packer.nvim'
 end
 
@@ -118,8 +117,8 @@ return require('packer').startup {
 
     use 'SirVer/ultisnips' -- snippets engine
     use 'honza/vim-snippets' -- Snippets in Vim
-    use 'hrsh7th/vim-vsnip' -- vsnip vscode snippets
-    use 'hrsh7th/vim-vsnip-integ'
+    -- use 'hrsh7th/vim-vsnip' -- vsnip vscode snippets
+    -- use 'hrsh7th/vim-vsnip-integ'
     use 'norcalli/snippets.nvim' -- snippets in lua
 
     -- }}}
@@ -169,6 +168,11 @@ return require('packer').startup {
 
     use 'glepnir/lspsaga.nvim'
     use 'hrsh7th/nvim-compe'
+    use {
+      'tzachar/compe-tabnine',
+      run = './install.sh',
+      requires = 'hrsh7th/nvim-compe'
+    }
     use 'kabouzeid/nvim-lspinstall'
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
@@ -366,6 +370,12 @@ return require('packer').startup {
     -- use 'skywind3000/asyncrun.vim'
     -- use 'skywind3000/asynctasks.vim'
     use 'mfussenegger/nvim-dap' -- debugger attach protocol
+
+    -- }}}
+
+    -- SYNTAX {{{
+
+    use 'sheerun/vim-polyglot'
 
     -- }}}
 

@@ -40,7 +40,7 @@ require('lk/plugins/bufferline')
 
 -- NOTE: snippets
 require('lk/plugins/snippets')
-require('lk/plugins/vsnip')
+-- require('lk/plugins/vsnip')
 
 -- NOTE: quick fix
 require('lk/plugins/nvim-bqf')
@@ -69,7 +69,7 @@ require('lk/plugins/fugitive')
 require('lk/plugins/git-blame')
 require('lk/plugins/git-messenger')
 require('lk/plugins/gitsigns')
--- require('lk/plugins/neogit')
+-- require('lk/plugins/neogit') -- not required
 
 -- NOTE: fuzzy
 require('lk/plugins/fzf')
@@ -80,7 +80,7 @@ require('lk/plugins/telescope/mappings')
 -- require('lk/plugins/coc')
 
 -- NOTE: nvim_lsp
-require('lk/plugins/completion')
+require('lk/plugins/compe')
 require('lk/plugins/lspsaga')
 require('lk/plugins/nvim_lsp')
 
