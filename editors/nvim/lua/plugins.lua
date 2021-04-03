@@ -173,6 +173,7 @@ return require('packer').startup {
       run = './install.sh',
       requires = 'hrsh7th/nvim-compe'
     }
+    use { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' }
     use 'kabouzeid/nvim-lspinstall'
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
@@ -242,6 +243,7 @@ return require('packer').startup {
     use 'alvan/vim-closetag' -- Auto Close Tag in HTML
     use 'AndrewRadev/tagalong.vim' -- html tags completion
     use 'wakatime/vim-wakatime' -- wakatime for vim
+    use 'sheerun/vim-polyglot'
 
     -- }}}
 
@@ -372,13 +374,6 @@ return require('packer').startup {
     use 'mfussenegger/nvim-dap' -- debugger attach protocol
 
     -- }}}
-
-    -- SYNTAX {{{
-
-    use 'sheerun/vim-polyglot'
-
-    -- }}}
-
   end,
   config = { display = { open_cmd = 'topleft 65vnew [packer]' } }
 }
