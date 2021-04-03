@@ -31,19 +31,17 @@ vim.g.startify_bookmarks = {
 
 vim.g.startify_commands = {
   { h = { 'Help', ':help' } },
-  { u = { 'Update Packages', ':PU' } }
+  { u = { 'Packer Update', ':PackerUpdate' } }
 }
 
 function _G.webDevIcons(path)
   local filename = vim.fn.fnamemodify(path, ':t')
   local extension = vim.fn.fnamemodify(path, ':e')
-  return require'nvim-web-devicons'.get_icon(
-             filename, extension, { default = true }
-         )
+  return require'nvim-web-devicons'.get_icon(filename, extension,
+                                             { default = true })
 end
 
-vim.api.nvim_exec(
-    [[
+vim.api.nvim_exec([[
       function! GetUniqueSessionName()
         let path = fnamemodify(getcwd(), ':~:t')
         let path = empty(path) ? 'no-project' : path
@@ -58,5 +56,4 @@ vim.api.nvim_exec(
       function! StartifyEntryFormat() abort
         return 'v:lua.webDevIcons(absolute_path) . "  " . entry_path'
       endfunction
-  ]], true
-)
+  ]], true)
