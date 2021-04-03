@@ -84,73 +84,6 @@ local leader_key_maps = {
     ['w'] = { ':Sayonara<CR>', 'close-buffer-and-window' }
   },
 
-  -- -- NOTE: c is for code with coc.nvim
-  -- ['c'] = {
-  --   ['name'] = '+coc',
-  --   ['a'] = { ':CocAction<CR>', 'action' },
-  --   ['c'] = { ':CocCommand<CR>', 'commands' },
-  --   ['d'] = { ':CocDiagnostics<CR>', 'diagnostics' },
-  --   ['e'] = { ':CocConfig<CR>', 'config' },
-  --   ['f'] = { ':CocFix<CR>', 'fix' },
-  --   ['i'] = { ':CocInfo<CR>', 'info' },
-  --   ['l'] = {
-  --     ['name'] = '+list',
-  --     ['"'] = { ':CocList registers<CR>', 'registers' },
-  --     ['/'] = { ':CocList searchhistory<CR>', 'search-history' },
-  --     [';'] = { ':CocList commands<CR>', 'commands' },
-  --     ['a'] = { ':CocList sessions<CR>', 'sessions' },
-  --     ['b'] = { ':CocList buffers<CR>', 'buffers' },
-  --     ['c'] = { ':CocList colors<CR>', 'colorschemes' },
-  --     ['d'] = { ':CocList folders<CR>', 'workspace-directories' },
-  --     ['e'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-  --     ['E'] = { ':CocList extensions<CR>', 'extensions' },
-  --     ['f'] = { ':CocList files<CR>', 'files' },
-  --     ['g'] = { ':CocList branches<CR>', 'branches' },
-  --     ['h'] = { ':CocList cmd_history<CR>', 'command-history' },
-  --     ['H'] = { ':CocList helptags<CR>', 'help-tags' },
-  --     ['j'] = { ':CocList<CR>', 'lists' },
-  --     ['k'] = { ':CocList maps<CR>', 'mappings' },
-  --     ['l'] = { ':CocList fuzzy_lines<CR>', 'buffer-fuzzy-lines' },
-  --     ['L'] = { ':CocList links<CR>', 'buffer-links' },
-  --     ['m'] = { ':CocList marketplace<CR>', 'marketplace' },
-  --     ['M'] = { ':CocList marks<CR>', 'marks' },
-  --     ['o'] = { ':CocList locationlist<CR>', 'location-list' },
-  --     ['q'] = { ':CocList quickfix<CR>', 'quickfix-list' },
-  --     ['r'] = { ':CocList mru<CR>', 'mru' },
-  --     ['s'] = { ':CocList outline<CR>', 'buffer-symbols' },
-  --     ['S'] = { ':CocList symbols<CR>', 'workspace-symbols' },
-  --     ['t'] = { ':CocList floaterm<CR>', 'floaterm' },
-  --     ['v'] = { ':CocList vimcommands<CR>', 'vim-commands' },
-  --     ['w'] = { ':CocList windows<CR>', 'windows' },
-  --     ['W'] = { ':CocList words<CR>', 'buffer-words' },
-  --     ['z'] = { ':CocList tags<CR>', 'tag-files' }
-  --   },
-  --   ['m'] = {
-  --     ['name'] = '+fzf-list',
-  --     ['a'] = { ':CocFzfList actions<CR>', 'actions' },
-  --     ['b'] = { ':CocFzfList symbols<CR>', 'symbols' },
-  --     ['c'] = { ':CocFzfList commands<CR>', 'commands' },
-  --     ['d'] = { ':CocFzfList diagnostics<CR>', 'diagnostics' },
-  --     ['e'] = {
-  --       ':CocFzfList diagnostics --current-buf<CR>',
-  --       'buffer-diagnostics'
-  --     },
-  --     ['g'] = { ':CocFzfList issues<CR>', 'issues' },
-  --     ['i'] = { ':CocFzfList snippets<CR>', 'snippets' },
-  --     ['l'] = { ':CocFzfList location<CR>', 'locations' },
-  --     ['o'] = { ':CocFzfList outline<CR>', 'outline' },
-  --     ['r'] = { ':CocFzfListResume<CR>', 'resume-list' },
-  --     ['s'] = { ':CocFzfList services<CR>', 'services' },
-  --     ['u'] = { ':CocFzfList output<CR>', 'output' },
-  --     ['v'] = { ':CocFzfList sources<CR>', 'sources' },
-  --     ['y'] = { ':CocFzfList yank<CR>', 'yank' }
-  --   },
-  --   ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
-  --   ['R'] = { ':CocListResume<CR>', 'list-resume' },
-  --   ['s'] = { ':CocSearch<CR>', 'search' },
-  --   ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
-  -- },
-
   -- NOTE: c is for code with lspconfig
   ['c'] = {
     ['name'] = '+code',
@@ -350,47 +283,9 @@ local leader_key_maps = {
     ['d'] = { ':HopChar2<CR>', 'hop-char-2' }
   },
 
-  -- NOTE: l is for lsp with coc.nvim
-  -- ['l'] = {
-  --   ['name'] = '+lsp',
-  --   ['.'] = { ':CocConfig<CR>', 'config' },
-  --   [';'] = { '<Plug>(coc-refactor)', 'refactor' },
-  --   ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
-  --   ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
-  --   ['b'] = { ':CocNext<CR>', 'next-action' },
-  --   ['B'] = { ':CocPrev<CR>', 'prev-action' },
-  --   ['c'] = { ':CocList commands<CR>', 'commands' },
-  --   ['d'] = { '<Plug>(coc-definition)', 'definition' },
-  --   ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
-  --   ['e'] = { ':CocList extensions<CR>', 'extensions' },
-  --   ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
-  --   ['F'] = { '<Plug>(coc-format)', 'format' },
-  --   ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
-  --   ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
-  --   ['I'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-  --   ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
-  --   ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
-  --   ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-  --   ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
-  --   ['o'] = { ':Vista!!<CR>', 'outline' },
-  --   ['O'] = { ':CocList outline<CR>', 'outline' },
-  --   ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
-  --   ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
-  --   ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
-  --   ['R'] = { '<Plug>(coc-references)', 'references' },
-  --   ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
-  --   ['s'] = { ':CocList -I symbols<CR>', 'symbols' },
-  --   ['S'] = { ':CocList snippets<CR>', 'snippets' },
-  --   ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' },
-  --   ['u'] = { ':CocListResume<CR>', 'resume-list' },
-  --   ['U'] = { ':CocUpdate<CR>', 'update-CoC' },
-  --   ['z'] = { ':CocDisable<CR>', 'disable-CoC' },
-  --   ['Z'] = { ':CocEnable<CR>', 'enable-CoC' }
-  -- },
-
-  -- NOTE: l is for lsp with lspconfig
+  -- NOTE: l is for lsp with Lspsaga
   ['l'] = {
-    ['name'] = '+lsp',
+    ['name'] = '+Lspsaga',
     ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
     ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
     ['d'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
@@ -436,9 +331,9 @@ local leader_key_maps = {
     }
   },
 
-  -- NOTE: L is for lsp
+  -- NOTE: L is for builtin lsp
   ['L'] = {
-    ['name'] = '+lsp',
+    ['name'] = '+builtin-lsp',
     ['a'] = { ':LspCodeActions<CR>', 'code-action' },
     ['A'] = { ':LspRangeCodeActions<CR>', 'range-code-action' },
     ['e'] = {

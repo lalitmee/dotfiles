@@ -52,6 +52,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/compe-tabnine"
   },
+  ["compe-tmux"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/compe-tmux"
+  },
   ["complextras.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/complextras.nvim"
@@ -531,14 +535,6 @@ _G.packer_plugins = {
   ["vim-visualstar"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-visualstar"
-  },
-  ["vim-vsnip"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-vsnip"
-  },
-  ["vim-vsnip-integ"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
   },
   ["vim-wakatime"] = {
     loaded = true,
