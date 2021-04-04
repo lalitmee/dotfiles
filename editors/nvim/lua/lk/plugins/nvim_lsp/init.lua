@@ -68,22 +68,22 @@ highlight.all {
 -- lsp signs
 vim.fn.sign_define('LspDiagnosticsSignError', {
   texthl = 'LspDiagnosticsSignError',
-  text = '',
+  text = 'E',
   numhl = 'LspDiagnosticsSignError'
 })
 vim.fn.sign_define('LspDiagnosticsSignWarning', {
   texthl = 'LspDiagnosticsSignWarning',
-  text = '',
+  text = 'W',
   numhl = 'LspDiagnosticsSignWarning'
 })
 vim.fn.sign_define('LspDiagnosticsSignHint', {
   texthl = 'LspDiagnosticsSignHint',
-  text = '',
+  text = 'H',
   numhl = 'LspDiagnosticsSignHint'
 })
 vim.fn.sign_define('LspDiagnosticsSignInformation', {
   texthl = 'LspDiagnosticsSignInformation',
-  text = '',
+  text = 'I',
   numhl = 'LspDiagnosticsSignInformation'
 })
 
