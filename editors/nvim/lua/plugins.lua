@@ -10,6 +10,20 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute 'packadd packer.nvim'
 end
 
+local function hunspell_install_if_needed()
+  if vim.fn.executable('hunspell') == 0 then
+    if vim.fn.has('mac') > 0 then
+      -- on mac os need to download GB dictionary
+      -- and place in ~/Library/Spelling
+      -- these are available
+      -- https://wiki.openoffice.org/wiki/Dictionaries
+      vim.fn.system('brew install hunspell')
+    else
+      vim.fn.system('apt install hunspell hunspell_en_gb')
+    end
+  end
+end
+
 -- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 -- require('packer').init({ display = { auto_clean = false } })
@@ -171,17 +185,21 @@ return require('packer').startup {
 
     -- neovim-lsp {{{
 
-    use 'glepnir/lspsaga.nvim'
-    use 'hrsh7th/nvim-compe'
     use {
-      'tzachar/compe-tabnine',
-      run = './install.sh',
-      requires = 'hrsh7th/nvim-compe'
+      'neovim/nvim-lspconfig',
+      requires = {
+        { 'glepnir/lspsaga.nvim' },
+        { 'hrsh7th/nvim-compe' },
+        {
+          'tzachar/compe-tabnine',
+          run = './install.sh',
+          requires = 'hrsh7th/nvim-compe'
+        },
+        { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
+        { 'kabouzeid/nvim-lspinstall' },
+        { 'nvim-lua/lsp-status.nvim' }
+      }
     }
-    use { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' }
-    use 'kabouzeid/nvim-lspinstall'
-    use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/lsp-status.nvim'
     use 'bfredl/nvim-luadev'
     use 'euclidianAce/BetterLua.vim' -- better lua syntax highlighting
 
@@ -189,13 +207,28 @@ return require('packer').startup {
 
     -- Treesitter {{{
 
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/nvim-treesitter-refactor'
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'nvim-treesitter/playground'
-    use 'p00f/nvim-ts-rainbow'
-    use 'windwp/nvim-ts-autotag'
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      requires = {
+        'lewis6991/spellsitter.nvim',
+        cond = 'false',
+        run = hunspell_install_if_needed,
+        config = function()
+          require('spellsitter').setup { captures = { 'comment' } }
+        end
+      },
+      { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+      {
+        'nvim-treesitter/playground',
+        after = 'nvim-treesitter',
+        cmd = 'TSPlaygroundToggle'
+      },
+      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
+      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
+      { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
+    }
 
     -- }}}
 
