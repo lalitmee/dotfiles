@@ -43,6 +43,7 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
+    use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
     use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'christianchiarulli/nvcode-color-schemes.vim' -- nvcode colors
