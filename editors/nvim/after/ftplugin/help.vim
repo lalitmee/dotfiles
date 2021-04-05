@@ -89,5 +89,40 @@ if &buftype ==# 'help'
   call s:setup_buffer()
 endif
 
+" TODO(stream): We chould turn this into a plugin to make writing vim help
+" text easier. There's a lot of stuff that would be nice for it.
+
+setlocal expandtab
+setlocal textwidth=78
+setlocal tabstop=4
+setlocal shiftwidth=4
+
+
+function! HelpFormatExpr() abort
+  if mode() ==# 'i' || v:char != ''
+    return 1
+  endif
+
+  let line = getline(v:lnum)
+  if line =~# '^=\+$'
+    normal! macc
+    normal! 78i=
+    normal! `a
+    undojoin
+    return
+  elseif line =~# '^\k\%(\k\|\s\)\+\s*\*\%(\k\|-\)\+\*\s*'
+    let [header, link] = split(line, '^\k\%(\k\|\s\)\+\zs\s*')
+    let header = substitute(header, '^\_s*\|\_s*$', '', 'g')
+    let remainder = (&l:textwidth + 1) - len(header) - len(link)
+    let line = header.repeat(' ', remainder).link
+    call setline(v:lnum, line)
+    return
+  endif
+
+  return 1
+endfunction
+
+setlocal formatexpr=HelpFormatExpr()
+
 let &cpoptions = s:save_cpo
 set formatoptions-=o

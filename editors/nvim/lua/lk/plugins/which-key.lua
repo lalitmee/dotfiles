@@ -7,10 +7,8 @@ local opts = { noremap = true, silent = true }
 
 -- NOTE: Map leader to which_key
 map('n', '<leader>', [[:silent <c-u> :silent WhichKey '<Space>'<CR> ]], opts)
-map(
-    'v', '<leader>', [[:silent <c-u> :silent WhichKeyVisual '<Space>'<CR> ]],
-    opts
-)
+map('v', '<leader>', [[:silent <c-u> :silent WhichKeyVisual '<Space>'<CR> ]],
+    opts)
 
 -- NOTE: options for which key
 -- let g:which_key_sep = '→'
@@ -19,8 +17,7 @@ vim.g.which_key_disable_default_offset = 1
 vim.g.which_key_hspace = 10
 vim.g.which_key_centered = 0
 
-vim.api.nvim_exec(
-    [[
+vim.api.nvim_exec([[
       " highlights
       highlight default link WhichKey          Operator
       highlight default link WhichKeySeperator DiffAdded
@@ -30,8 +27,7 @@ vim.api.nvim_exec(
       " Hide status line
       autocmd! FileType which_key
       autocmd  FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-      ]], true
-)
+      ]], true)
 
 -- NOTE: leader key mappings
 local leader_key_maps = {
@@ -61,10 +57,8 @@ local leader_key_maps = {
   -- NOTE: b is for buffers
   ['b'] = {
     ['name'] = '+buffers',
-    [';'] = { ':BufferCloseBuffersRight<CR>', 'close-all-right' },
     ['['] = { ':bp<CR>', 'prev-buffer' },
     [']'] = { ':bn<CR>', 'next-buffer' },
-    ['a'] = { ':BufferCloseBuffersLeft<CR>', 'close-all-left' },
     ['b'] = { ':FzfBuffers<CR>', 'fzf-buffers' },
     ['B'] = { ':Telescope buffers<CR>', 'telescope-buffers' },
     ['c'] = { ':vnew<CR>', 'new-empty-buffer-vert' },
@@ -156,34 +150,6 @@ local leader_key_maps = {
     ['s'] = { ':CocSearch<CR>', 'search' },
     ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
   },
-
-  -- -- NOTE: c is for code with lspconfig
-  -- ['c'] = {
-  --   ['name'] = '+code',
-  --   ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
-  --   ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
-  --   ['b'] = { ':Telescope lsp_code_actions<CR>', 'lsp-code-actions' },
-  --   ['B'] = { ':Telescope lsp_range_code_actions<CR>', 'lsp-range-code-actions' },
-  --   ['c'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
-  --   ['d'] = { ':Telescope lsp_definitions<CR>', 'lsp-definitions' },
-  --   ['e'] = {
-  --     ':Telescope lsp_document_diagnostics<CR>',
-  --     'lsp-document-diagnostics'
-  --   },
-  --   ['E'] = {
-  --     ':Telescope lsp_workspace_diagnostics<CR>',
-  --     'lsp-workspace-diagnostics'
-  --   },
-  --   ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
-  --   ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
-  --   ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
-  --   ['r'] = { ':Telescope lsp_references<CR>', 'lsp-references' },
-  --   ['R'] = { ':Lspsaga lsp_finder<CR>', 'references' },
-  --   ['s'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
-  --   ['t'] = { ':Telescope treesitter<CR>', 'treesitter-symbols' },
-  --   ['w'] = { ':Telescope lsp_document_symbols<CR>', 'lsp-document-symbols' },
-  --   ['W'] = { ':Telescope lsp_workspace_symbols<CR>', 'lsp-workspace-symbols' }
-  -- },
 
   -- NOTE: d is for harpoon
   ['d'] = {
@@ -307,7 +273,23 @@ local leader_key_maps = {
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
     ['d'] = { ':Git diff<CR>', 'diff' },
     ['D'] = { ':Gdiffsplit<CR>', 'diff-split' },
-    ['g'] = { ['name'] = '+gists' },
+    ['g'] = {
+      ['name'] = '+gists',
+      ['a'] = { ':Gist -a<CR>', 'create-gist-anonymously' },
+      ['b'] = { ':Gist -b<CR>', 'open-gist-in-browser' },
+      ['c'] = { ':Gist<CR>', 'create-new-gist' },
+      ['d'] = { ':Gist -d<CR>', 'delete-gist' },
+      ['e'] = { ':Gist -e<CR>', 'edit-buffer-gist' },
+      ['f'] = { ':Gist -f<CR>', 'fork-gist' },
+      ['l'] = { ':Gist -l<CR>', 'list-public-gists' },
+      ['L'] = { ':Gist -la<CR>', 'list-everyones-gists' },
+      ['o'] = { ':Gist -ls<CR>', 'list-starred-gists' },
+      ['s'] = { ':Gist +1<CR>', 'star-the-gist' },
+      ['S'] = { ':Gist -1<CR>', 'unstar-the-gist' },
+      ['m'] = { ':Gist -m<CR>', 'create-gist-all-buffers' },
+      ['p'] = { ':Gist -p<CR>', 'create-private-gist' },
+      ['P'] = { ':Gist -P<CR>', 'create-public-gist' }
+    },
     ['G'] = { ':Gstatus<CR>', 'status' },
     ['h'] = {
       ['name'] = '+hunks',
@@ -408,99 +390,6 @@ local leader_key_maps = {
     ['Z'] = { ':CocEnable<CR>', 'enable-CoC' }
   },
 
-  -- -- NOTE: l is for lsp with lspconfig
-  -- ['l'] = {
-  --   ['name'] = '+lsp',
-  --   ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
-  --   ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
-  --   ['d'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
-  --   ['e'] = {
-  --     ['name'] = '+diagnostics',
-  --     ['l'] = { ':Lspsaga show_line_diagnostics<CR>', 'show-line-diagnostics' },
-  --     ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
-  --     ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' }
-  --   },
-  --   ['i'] = { ':LspInfo<CR>', 'lsp-info' },
-  --   ['l'] = { ':Lspsaga lsp_finder<CR>', 'finder' },
-  --   ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
-  --   ['r'] = { ':LspRename<CR>', 'rename' },
-  --   ['s'] = { ':Lspsaga signature_help<CR>', 'signature-help' },
-  --   ['t'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
-  --   ['T'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
-  --   ['v'] = {
-  --     ['name'] = '+vista',
-  --     ['a'] = { ':Vista ale<CR>', 'ale' },
-  --     ['A'] = { ':Vista finder fzf:ale<CR>', 'fzf:ale' },
-  --     ['c'] = { ':Vista coc<CR>', 'coc' },
-  --     ['C'] = { ':Vista finder fzf:coc<CR>', 'fzf:coc' },
-  --     ['f'] = { ':Vista finder<CR>', 'finder' },
-  --     ['F'] = { ':Vista finder!<CR>', 'finder!' },
-  --     ['g'] = { ':Vista ctags<CR>', 'ctags' },
-  --     ['G'] = { ':Vista finder skim:ctags<CR>', 'skim:ctags' },
-  --     ['i'] = { ':Vista info<CR>', 'info' },
-  --     ['I'] = { ':Vista info+<CR>', 'info+' },
-  --     ['j'] = { ':Vista focus<CR>', 'focus' },
-  --     ['n'] = { ':Vista nvim_lsp<CR>', 'nvim-lsp' },
-  --     ['N'] = { ':Vista finder fzf:nvim_lsp<CR>', 'fzf:nvim_lsp' },
-  --     ['s'] = { ':Vista show<CR>', 'show' },
-  --     ['t'] = { ':Vista!!<CR>', 'toggle-vista' },
-  --     ['u'] = { ':Vista vim_lsc<CR>', 'vim_lsc' },
-  --     ['v'] = { ':Vista vim_lsp<CR>', 'vim_lsp' }
-  --   },
-  --   ['w'] = {
-  --     ['name'] = '+workspace',
-  --     ['a'] = { ':LspAddToWorkspaceFolder<CR>', 'add-folder-to-workspace' },
-  --     ['l'] = { ':LspListWorkspaceFolders<CR>', 'list-workspace-folders' },
-  --     ['r'] = { ':LspRemoveWorkspaceFolder<CR>', 'remove-workspace-folder' },
-  --     ['s'] = { ':LspWorkspaceSymbols<CR>', 'workspace-symbols' }
-  --   }
-  -- },
-
-  -- NOTE: L is for lsp
-  ['L'] = {
-    ['name'] = '+lsp',
-    ['a'] = { ':LspCodeActions<CR>', 'code-action' },
-    ['A'] = { ':LspRangeCodeActions<CR>', 'range-code-action' },
-    ['e'] = {
-      ['name'] = '+diagnostics',
-      ['a'] = { ':LspGetAllDiagnostics<CR>', 'all-diagnostics' },
-      ['l'] = { ':LspShowLineDiagnostics<CR>', 'show-line-diagnostics' },
-      ['n'] = { ':LspGotoNextDiagnostic<CR>', 'next-diagnostic' },
-      ['N'] = { ':LspGetNextDiagnostic<CR>', 'get-next-diagnostic' },
-      ['p'] = { ':LspGotoPrevDiagnostic<CR>', 'prev-diagnostic' },
-      ['P'] = { ':LspGetPrevDiagnostic<CR>', 'get-prev-diagnostic' }
-    },
-    ['f'] = {
-      ['name'] = '+formatting',
-      ['f'] = { ':LspFormatting<CR>', 'formatting' },
-      ['r'] = { ':LspRangeFormatting<CR>', 'range-formatting' },
-      ['s'] = { ':LspFormattingSync<CR>', 'formatting-sync' }
-    },
-    ['g'] = {
-      ['name'] = '+definitions/references',
-      ['c'] = { ':LspClearReferences<CR>', 'clear-references' },
-      ['d'] = { ':LspDefinition<CR>', 'definition' },
-      ['i'] = { ':LspDeclaration<CR>', 'declaration' },
-      ['r'] = { ':LspReferences<CR>', 'references' },
-      ['t'] = { ':LspTypeDefinition<CR>', 'type-definition' }
-    },
-    ['h'] = { ':LspHover<CR>', 'hover-doc' },
-    ['H'] = { ':LspDocumentHighlight<CR>', 'document-highlight' },
-    ['i'] = { ':LspIncomingCalls<CR>', 'incoming-calls' },
-    ['o'] = { ':LspOutGoingCalls<CR>', 'outgoing-calls' },
-    ['r'] = { ':LspRename<CR>', 'rename' },
-    ['s'] = { ':LspDocumentSymbols<CR>', 'document-symbols' },
-    ['S'] = { ':LspWorkspaceSymbols<CR>', 'document-symbols' },
-    ['w'] = {
-      ['name'] = '+workspace',
-      ['a'] = { ':LspAddToWorkspaceFolder<CR>', 'add-folder-to-workspace' },
-      ['l'] = { ':LspListWorkspaceFolders<CR>', 'list-workspace-folders' },
-      ['r'] = { ':LspRemoveWorkspaceFolder<CR>', 'remove-workspace-folder' },
-      ['s'] = { ':LspWorkspaceSymbols<CR>', 'workspace-symbols' }
-    },
-    ['y'] = { ':LspImplementation<CR>', 'implementation' }
-  },
-
   -- NOTE: m is for major mode
   ['m'] = {
     ['name'] = '+major-mode',
@@ -524,13 +413,13 @@ local leader_key_maps = {
     ['e'] = { ':e $HOME/.config/nvim/init.lua<CR>', 'edit-config' },
     ['h'] = 'tj-help-tags',
     ['H'] = { ':checkhealth<CR>', 'check-health' },
-    ['i'] = { ':PackerInstall<CR>', 'install-packages' },
+    ['i'] = { ':PackerInstall<CR>', 'packer-install' },
     ['l'] = 'source-current',
     ['p'] = 'tj-installed-plugins',
     ['r'] = { ':luafile $HOME/.config/nvim/init.lua<CR>', 'source-config' },
-    ['s'] = { ':PackerSync<CR>', 'upgrade-plug' },
+    ['s'] = { ':PackerSync<CR>', 'packer-sync' },
     ['S'] = { ':PackerStatus<CR>', 'packages-status' },
-    ['u'] = { ':PackerUpdate<CR>', 'update-packages' }
+    ['u'] = { ':PackerUpdate<CR>', 'packer-update' }
   },
 
   -- NOTE: o is for telescope
@@ -573,7 +462,8 @@ local leader_key_maps = {
       ['D'] = 'tj-fd-files',
       ['e'] = { ':Telescope file_browser<CR>', 'file-browser' },
       ['E'] = 'tj-file-browser',
-      ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
+      ['f'] = { ':Telescope find_files<CR>', 'find-files' },
+      ['F'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
       ['g'] = { ':Telescope git_files<CR>', 'git-files' },
       ['G'] = 'tj-git-files',
       ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
@@ -713,10 +603,9 @@ local leader_key_maps = {
     ['S'] = { ':Startify<CR>', 'start-page' }
   },
 
-  -- NOTE: t is for toggles/terminal
+  -- NOTE: t is for tabs/toggles/terminal
   ['t'] = {
-    ['name'] = '+toggle',
-    ['t'] = { ':FloatermNew<CR>', 'terminal' },
+    ['name'] = '+tabs/terminal/toggle',
     ['f'] = {
       ['name'] = '+floaterm',
       ['G'] = { ':FloatermNew tig<CR>', 'tig' },
@@ -733,14 +622,24 @@ local leader_key_maps = {
       ['w'] = { ':FloatermNew wt<CR>', 'weather' },
       ['y'] = { ':FloatermNew btm<CR>', 'ytop' }
     },
+    ['h'] = { ':sp | te<CR>', 'horizontal-split-terminal' },
     ['s'] = {
       ['name'] = '+scrolloff',
       ['t'] = { ':set scrolloff=10<CR>', 'scrolloff=10' },
       ['h'] = { ':set scrolloff=5<CR>', 'scrolloff=5' },
       ['n'] = { ':set scrolloff=999<CR>', 'scrolloff=999' }
     },
-    ['h'] = { ':sp | te<CR>', 'horizontal-split-terminal' },
-    ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' }
+    ['t'] = { ':FloatermNew<CR>', 'terminal' },
+    ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
+    ['w'] = {
+      ['name'] = '+tabs',
+      ['c'] = { ':tabclose', 'close-tab' },
+      ['f'] = { ':tabfirst', 'first-tab' },
+      ['l'] = { ':tablast', 'last-tab' },
+      ['n'] = { ':tabnext', 'next-tab' },
+      ['N'] = { ':tabnew', 'new-tab' },
+      ['p'] = { ':tabprevious', 'previous-tab' }
+    }
   },
 
   -- NOTE: T is for tmux-runner
@@ -798,17 +697,18 @@ local leader_key_maps = {
     ['?'] = { ':FzfWindows<CR>', 'fzf-window' },
     ['a'] = { '<C-W>H', 'move-window-far-left' },
     ['d'] = { '<C-W>c', 'delete-window' },
-    ['h'] = { '<C-W>h', 'window-left' },
+    ['h'] = { ':lua require("Navigator").left()<CR>', 'window-left' },
     ['H'] = { '<C-W>5<', 'expand-window-left' },
     ['i'] = { '<C-W>K', 'move-window-far-top' },
-    ['j'] = { '<C-W>j', 'window-below' },
+    ['j'] = { ':lua require("Navigator").down()<CR>', 'window-down' },
     ['J'] = { ':resize +5<CR>', 'expand-window-below' },
-    ['k'] = { '<C-W>k', 'window-up' },
+    ['k'] = { ':lua require("Navigator").up()<CR>', 'window-up' },
     ['K'] = { ':resize  5<CR>', 'expand-window-up' },
-    ['l'] = { '<C-W>l', 'window-right' },
+    ['l'] = { ':lua require("Navigator").right()<CR>', 'window-right' },
     ['L'] = { '<C-W>5>', 'expand-window-right' },
     ['m'] = { ':MaximizerToggle<CR>', 'maximize-windows' },
     ['n'] = { '<C-W>J', 'move-window-far-down' },
+    ['p'] = { ':lua require("Navigator").previous()<CR>', 'window-previous' },
     ['s'] = { '<C-W>s', 'split-window-below' },
     ['t'] = { '<C-W>T', 'move-split-to-tab' },
     ['u'] = { '<C-W>x', 'swap-window-next' },
@@ -821,16 +721,6 @@ local leader_key_maps = {
 
 local plug_keymaps = {
   ['c'] = {},
-  ['g'] = {
-    ['g'] = {
-      ['name'] = '+gists',
-      ['c'] = { '<Plug>fov_new', 'create-new-gist' },
-      ['l'] = { '<Plug>fov_list', 'list-gists' },
-      ['u'] = { '<Plug>fov_update', 'update-gist' },
-      ['v'] = { '<Plug>fov_visual_new', 'create-new-from-visual' }
-    },
-    ['m'] = { '<Plug>(git-messenger)', 'git-messenger' }
-  },
   ['l'] = {
     ['name'] = '+lsp',
     [';'] = { '<Plug>(coc-refactor)', 'refactor' },
@@ -860,5 +750,5 @@ local plug_keymaps = {
   }
 }
 
-wk.register_keymap('leader', leader_key_maps, { silent = true })
+wk.register_keymap('leader', leader_key_maps, { noremap = true, silent = true })
 wk.register_keymap('leader', plug_keymaps, { noremap = false })

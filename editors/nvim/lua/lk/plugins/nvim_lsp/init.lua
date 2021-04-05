@@ -66,80 +66,66 @@ highlight.all {
 }
 
 -- lsp signs
-vim.fn.sign_define(
-    'LspDiagnosticsSignError', {
-      texthl = 'LspDiagnosticsSignError',
-      text = '',
-      numhl = 'LspDiagnosticsSignError'
-    }
-)
-vim.fn.sign_define(
-    'LspDiagnosticsSignWarning', {
-      texthl = 'LspDiagnosticsSignWarning',
-      text = '',
-      numhl = 'LspDiagnosticsSignWarning'
-    }
-)
-vim.fn.sign_define(
-    'LspDiagnosticsSignHint', {
-      texthl = 'LspDiagnosticsSignHint',
-      text = '',
-      numhl = 'LspDiagnosticsSignHint'
-    }
-)
-vim.fn.sign_define(
-    'LspDiagnosticsSignInformation', {
-      texthl = 'LspDiagnosticsSignInformation',
-      text = '',
-      numhl = 'LspDiagnosticsSignInformation'
-    }
-)
+vim.fn.sign_define('LspDiagnosticsSignError', {
+  texthl = 'LspDiagnosticsSignError',
+  text = 'E',
+  numhl = 'LspDiagnosticsSignError'
+})
+vim.fn.sign_define('LspDiagnosticsSignWarning', {
+  texthl = 'LspDiagnosticsSignWarning',
+  text = 'W',
+  numhl = 'LspDiagnosticsSignWarning'
+})
+vim.fn.sign_define('LspDiagnosticsSignHint', {
+  texthl = 'LspDiagnosticsSignHint',
+  text = 'H',
+  numhl = 'LspDiagnosticsSignHint'
+})
+vim.fn.sign_define('LspDiagnosticsSignInformation', {
+  texthl = 'LspDiagnosticsSignInformation',
+  text = 'I',
+  numhl = 'LspDiagnosticsSignInformation'
+})
 
 -- lsp autocommands
 local function setup_autocommands(client)
   local autocommands = require('lk.autocommands')
 
-  autocommands.augroup(
-      'LspLocationList', {
-        {
-          events = { 'InsertLeave', 'BufWrite', 'BufEnter' },
-          targets = { '<buffer>' },
-          command = [[lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-        }
-      }
-  )
+  autocommands.augroup('LspLocationList', {
+    {
+      events = { 'InsertLeave', 'BufWrite', 'BufEnter' },
+      targets = { '<buffer>' },
+      command = [[lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
+    }
+  })
   if client and client.resolved_capabilities.document_highlight then
-    autocommands.augroup(
-        'LspCursorCommands', {
-          {
-            events = { 'CursorHold' },
-            targets = { '<buffer>' },
-            command = 'lua vim.lsp.buf.document_highlight()'
-          },
-          {
-            events = { 'CursorHoldI' },
-            targets = { '<buffer>' },
-            command = 'lua vim.lsp.buf.document_highlight()'
-          },
-          {
-            events = { 'CursorMoved' },
-            targets = { '<buffer>' },
-            command = 'lua vim.lsp.buf.clear_references()'
-          }
-        }
-    )
+    autocommands.augroup('LspCursorCommands', {
+      {
+        events = { 'CursorHold' },
+        targets = { '<buffer>' },
+        command = 'lua vim.lsp.buf.document_highlight()'
+      },
+      {
+        events = { 'CursorHoldI' },
+        targets = { '<buffer>' },
+        command = 'lua vim.lsp.buf.document_highlight()'
+      },
+      {
+        events = { 'CursorMoved' },
+        targets = { '<buffer>' },
+        command = 'lua vim.lsp.buf.clear_references()'
+      }
+    })
   end
   if client and client.resolved_capabilities.document_formatting then
     -- format on save
-    autocommands.augroup(
-        'LspFormat', {
-          {
-            events = { 'BufWritePre' },
-            targets = { '<buffer>' },
-            command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)'
-          }
-        }
-    )
+    autocommands.augroup('LspFormat', {
+      {
+        events = { 'BufWritePre' },
+        targets = { '<buffer>' },
+        command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)'
+      }
+    })
   end
 end
 
@@ -157,25 +143,21 @@ function Tagfunc(pattern, flags)
     return vim.NIL
   end
   local params = vim.lsp.util.make_position_params()
-  local client_id_to_results, err = vim.lsp.buf_request_sync(
-                                        0, 'textDocument/definition', params,
-                                        500
-                                    )
+  local client_id_to_results, err = vim.lsp.buf_request_sync(0,
+                                                             'textDocument/definition',
+                                                             params, 500)
   assert(not err, vim.inspect(err))
 
   local results = {}
   for _, lsp_results in ipairs(client_id_to_results) do
     for _, location in ipairs(lsp_results.result or {}) do
       local start = location.range.start
-      table.insert(
-          results, {
-            name = pattern,
-            filename = vim.uri_to_fname(location.uri),
-            cmd = string.format(
-                'call cursor(%d, %d)', start.line + 1, start.character + 1
-            )
-          }
-      )
+      table.insert(results, {
+        name = pattern,
+        filename = vim.uri_to_fname(location.uri),
+        cmd = string.format('call cursor(%d, %d)', start.line + 1,
+                            start.character + 1)
+      })
     end
   end
   return results
@@ -215,85 +197,6 @@ local lua_settings = {
   }
 }
 
--- diagnostic settings
-local diagnostic_settings = {
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'typescript',
-    'typescriptreact',
-    'css',
-    'scss',
-    'markdown',
-    'pandoc'
-  },
-  init_options = {
-    linters = {
-      eslint = {
-        command = 'eslint_d',
-        rootPatterns = { '.git', 'package.json' },
-        debounce = 100,
-        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
-        sourceName = 'eslint',
-        parseJson = {
-          errorsRoot = '[0].messages',
-          line = 'line',
-          column = 'column',
-          endLine = 'endLine',
-          endColumn = 'endColumn',
-          message = '[eslint] ${message} [${ruleId}]',
-          security = 'severity'
-        },
-        securities = { [2] = 'error', [1] = 'warning' }
-      },
-      markdownlint = {
-        command = 'markdownlint',
-        rootPatterns = { '.git' },
-        isStderr = true,
-        debounce = 100,
-        args = { '--stdin' },
-        offsetLine = 0,
-        offsetColumn = 0,
-        sourceName = 'markdownlint',
-        securities = { undefined = 'hint' },
-        formatLines = 1,
-        formatPattern = {
-          '^.*:(\\d+)\\s+(.*)$',
-          { line = 1, column = -1, message = 2 }
-        }
-      }
-    },
-    filetypes = {
-      javascript = 'eslint',
-      javascriptreact = 'eslint',
-      typescript = 'eslint',
-      typescriptreact = 'eslint',
-      markdown = 'markdownlint',
-      pandoc = 'markdownlint'
-    },
-    formatters = {
-      prettierEslint = {
-        command = 'prettier-eslint',
-        args = { '--stdin' },
-        rootPatterns = { '.git' }
-      },
-      prettier = {
-        command = 'prettier',
-        args = { '--stdin-filepath', '%filename' }
-      }
-    },
-    formatFiletypes = {
-      css = 'prettier',
-      javascript = 'prettierEslint',
-      javascriptreact = 'prettierEslint',
-      json = 'prettier',
-      scss = 'prettier',
-      typescript = 'prettierEslint',
-      typescriptreact = 'prettierEslint'
-    }
-  }
-}
-
 -- lsp-install
 local function setup_servers()
   require('lspinstall').setup()
@@ -309,16 +212,21 @@ local function setup_servers()
     end
     config.capabilities.textDocument.completion.completionItem.snippetSupport =
         true
-    config.capabilities = lk_utils.deep_merge(
-                              config.capabilities, status_capabilities
-                          )
+    config.capabilities = lk_utils.deep_merge(config.capabilities,
+                                              status_capabilities)
 
     -- language specific config
     if server == 'lua' then
       config.settings = lua_settings
     end
+    if server == 'efm' then
+      config.cmd = { 'efm-langserver' }
+      config = vim.tbl_extend('force', config,
+                              require('lk/plugins/nvim_lsp/efm'))
+    end
     if server == 'diagnosticls' then
-      config = diagnostic_settings
+      config = vim.tbl_extend('force', config,
+                              require('lk/plugins/nvim_lsp/diagnosticls'))
     end
     if server == 'sourcekit' then
       config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!

@@ -227,15 +227,13 @@ function M.git_files()
 end
 
 function M.buffer_git_files()
-  builtin.git_files(
-      themes.get_dropdown {
-        cwd = vim.fn.expand('%:p:h'),
-        winblend = 10,
-        border = true,
-        previewer = false,
-        shorten_path = false
-      }
-  )
+  builtin.git_files(themes.get_dropdown {
+    cwd = vim.fn.expand('%:p:h'),
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  })
 end
 
 function M.lsp_code_actions()
@@ -270,8 +268,7 @@ function M.grep_last_search(opts)
   -- \<getreg\>\C
   -- -> Subs out the search things
   local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub(
-                       '\\C', ''
-                   )
+                       '\\C', '')
 
   opts.shorten_path = false
   opts.word_match = '-w'
@@ -297,7 +294,9 @@ function M.my_plugins()
 end
 
 function M.installed_plugins()
-  builtin.find_files { cwd = vim.fn.stdpath('config') .. '/autoload/plugged' }
+  builtin.find_files {
+    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
+  }
 end
 
 function M.project_search()
@@ -356,32 +355,26 @@ end
 local function set_background(content)
   vim.fn.system(
       'dconf write /org/mate/desktop/background/picture-filename "\'' .. content ..
-          '\'"'
-  )
+          '\'"')
 end
 
 local function select_background(prompt_bufnr, map)
   local function set_the_background(close)
     local content = require('telescope.actions.state').get_selected_entry(
-                        prompt_bufnr
-                    )
+                        prompt_bufnr)
     set_background(content.cwd .. '/' .. content.value)
     if close then
       require('telescope.actions').close(prompt_bufnr)
     end
   end
 
-  map(
-      'i', '<C-p>', function()
-        set_the_background()
-      end
-  )
+  map('i', '<C-p>', function()
+    set_the_background()
+  end)
 
-  map(
-      'i', '<CR>', function()
-        set_the_background(true)
-      end
-  )
+  map('i', '<CR>', function()
+    set_the_background(true)
+  end)
 end
 
 local function image_selector(prompt, cwd)
@@ -398,14 +391,12 @@ local function image_selector(prompt, cwd)
             -- Ctrl+n/p to move up and down the list.
             return true
           end
-        }
-    )
+        })
   end
 end
 
-M.change_background = image_selector(
-                          '< Select Wallpaper > ', '~/data/Github/wallpapers'
-                      )
+M.change_background = image_selector('< Select Wallpaper > ',
+                                     '~/data/Github/wallpapers')
 
 -- function M.change_background()
 --   require('telescope.builtin').find_files(
@@ -443,16 +434,14 @@ M.change_background = image_selector(
 --   )
 -- end
 
-return setmetatable(
-           {}, {
-      __index = function(_, k)
-        reloader()
+return setmetatable({}, {
+  __index = function(_, k)
+    reloader()
 
-        if M[k] then
-          return M[k]
-        else
-          return builtin[k]
-        end
-      end
-    }
-       )
+    if M[k] then
+      return M[k]
+    else
+      return builtin[k]
+    end
+  end
+})

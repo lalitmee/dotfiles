@@ -18,8 +18,7 @@ vim.cmd [[set wildmenu]]
 vim.cmd [[set wildmode=longest:full,full]]
 vim.cmd [[set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__]]
 
-vim.api.nvim_exec(
-    [[
+vim.api.nvim_exec([[
       let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all'
       let $FZF_DEFAULT_COMMAND = "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o -type f -print -o -type l -print 2> /dev/null"
 
@@ -206,5 +205,4 @@ vim.api.nvim_exec(
       endfunction
 
       " }}}
-]], true
-)
+]], true)
