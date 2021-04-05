@@ -43,7 +43,27 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
+    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
+    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'christianchiarulli/nvcode-color-schemes.vim' -- nvcode colors
+    use 'tanvirtin/monokai.nvim'
+    use 'novakne/kosmikoa.nvim'
+    use {
+      'bkegley/gloombuddy',
+      config = function()
+        require('colorbuddy').colorscheme('gloombuddy')
+      end
+    }
+    use {
+      'Th3Whit3Wolf/one-nvim',
+      config = function()
+        vim.g.one_nvim_transparent_bg = true
+      end
+    }
+    use 'Th3Whit3Wolf/onebuddy'
+    use 'sainnhe/sonokai'
+    use 'mhartington/oceanic-next'
+    use 'yonlu/omni.vim'
 
     -- }}}
 
@@ -360,8 +380,6 @@ return require('packer').startup {
     use 'tjdevries/manillua.nvim'
     use 'tjdevries/nlua.nvim'
     use 'tjdevries/train.nvim' -- motion training
-    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
-    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'tjdevries/complextras.nvim'
     use 'tjdevries/lsp_extensions.nvim'
     use 'tjdevries/standard.vim'
