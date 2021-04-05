@@ -294,7 +294,9 @@ function M.my_plugins()
 end
 
 function M.installed_plugins()
-  builtin.find_files { cwd = vim.fn.stdpath('config') .. '/autoload/plugged' }
+  builtin.find_files {
+    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
+  }
 end
 
 function M.project_search()

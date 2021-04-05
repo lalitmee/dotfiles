@@ -1,6 +1,3 @@
-vim.g.mapleader = ' ' -- Remap leader key
-vim.g.maplocalleader = ',' -- Local leader is ,
-
 require('lk/utils')
 require('lk/globals')
 require('lk/settings')

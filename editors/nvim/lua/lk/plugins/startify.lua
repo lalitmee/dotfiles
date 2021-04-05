@@ -29,6 +29,12 @@ vim.g.startify_bookmarks = {
   { ze = '~/.zshrc' }
 }
 
+local plugins_count = lk_utils.total_plugins()
+vim.g.header_suffix = { '', ' Plugins loaded: ' .. plugins_count.total .. '' }
+
+vim.g.startify_custom_header =
+    'startify#pad(startify#fortune#boxed() + g:header_suffix)'
+
 vim.g.startify_commands = {
   { h = { 'Help', ':help' } },
   { u = { 'Packer Update', ':PackerUpdate' } }
