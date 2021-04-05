@@ -234,7 +234,23 @@ local leader_key_maps = {
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
     ['d'] = { ':Git diff<CR>', 'diff' },
     ['D'] = { ':Gdiffsplit<CR>', 'diff-split' },
-    ['g'] = { ['name'] = '+gists' },
+    ['g'] = {
+      ['name'] = '+gists',
+      ['a'] = { ':Gist -a<CR>', 'create-gist-anonymously' },
+      ['b'] = { ':Gist -b<CR>', 'open-gist-in-browser' },
+      ['c'] = { ':Gist<CR>', 'create-new-gist' },
+      ['d'] = { ':Gist -d<CR>', 'delete-gist' },
+      ['e'] = { ':Gist -e<CR>', 'edit-buffer-gist' },
+      ['f'] = { ':Gist -f<CR>', 'fork-gist' },
+      ['l'] = { ':Gist -l<CR>', 'list-public-gists' },
+      ['L'] = { ':Gist -la<CR>', 'list-everyones-gists' },
+      ['o'] = { ':Gist -ls<CR>', 'list-starred-gists' },
+      ['s'] = { ':Gist +1<CR>', 'star-the-gist' },
+      ['S'] = { ':Gist -1<CR>', 'unstar-the-gist' },
+      ['m'] = { ':Gist -m<CR>', 'create-gist-all-buffers' },
+      ['p'] = { ':Gist -p<CR>', 'create-private-gist' },
+      ['P'] = { ':Gist -P<CR>', 'create-public-gist' }
+    },
     ['G'] = { ':Gstatus<CR>', 'status' },
     ['h'] = {
       ['name'] = '+hunks',
@@ -707,21 +723,12 @@ local leader_key_maps = {
 
 local plug_keymaps = {
   ['c'] = {},
-  ['g'] = {
-    ['g'] = {
-      ['name'] = '+gists',
-      ['c'] = { '<Plug>fov_new', 'create-new-gist' },
-      ['l'] = { '<Plug>fov_list', 'list-gists' },
-      ['u'] = { '<Plug>fov_update', 'update-gist' },
-      ['v'] = { '<Plug>fov_visual_new', 'create-new-from-visual' }
-    },
-    ['m'] = { '<Plug>(git-messenger)', 'git-messenger' }
-  },
+  ['g'] = { ['m'] = { '<Plug>(git-messenger)', 'git-messenger' } },
   ['m'] = {
     ['name'] = '+major-mode',
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' }
   }
 }
 
-wk.register_keymap('leader', leader_key_maps, { silent = true })
+wk.register_keymap('leader', leader_key_maps, { noremap = true, silent = true })
 wk.register_keymap('leader', plug_keymaps, { noremap = false })
