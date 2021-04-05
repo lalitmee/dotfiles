@@ -81,7 +81,12 @@ return require('packer').startup {
     use 'AndrewRadev/splitjoin.vim' -- Switch between single-line and multiline forms of code
     use 'antoinemadec/FixCursorHold.nvim' -- fix cursor hold
     use 'christoomey/vim-sort-motion' -- sorting in vim
-    use 'christoomey/vim-tmux-navigator' -- Moving in vim inside Tmux
+    use {
+      'numToStr/Navigator.nvim',
+      config = function()
+        require('Navigator').setup()
+      end
+    }
     use 'christoomey/vim-tmux-runner' -- tmux runner for tests
     use 'haya14busa/is.vim' -- successor of incsearch
     use 'haya14busa/incsearch.vim' -- Better search highlighting

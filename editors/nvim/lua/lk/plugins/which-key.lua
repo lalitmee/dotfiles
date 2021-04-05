@@ -683,17 +683,18 @@ local leader_key_maps = {
     ['?'] = { ':FzfWindows<CR>', 'fzf-window' },
     ['a'] = { '<C-W>H', 'move-window-far-left' },
     ['d'] = { '<C-W>c', 'delete-window' },
-    ['h'] = { '<C-W>h', 'window-left' },
+    ['h'] = { ':lua require("Navigator").left()<CR>', 'window-left' },
     ['H'] = { '<C-W>5<', 'expand-window-left' },
     ['i'] = { '<C-W>K', 'move-window-far-top' },
-    ['j'] = { '<C-W>j', 'window-below' },
+    ['j'] = { ':lua require("Navigator").down()<CR>', 'window-down' },
     ['J'] = { ':resize +5<CR>', 'expand-window-below' },
-    ['k'] = { '<C-W>k', 'window-up' },
+    ['k'] = { ':lua require("Navigator").up()<CR>', 'window-up' },
     ['K'] = { ':resize  5<CR>', 'expand-window-up' },
-    ['l'] = { '<C-W>l', 'window-right' },
+    ['l'] = { ':lua require("Navigator").right()<CR>', 'window-right' },
     ['L'] = { '<C-W>5>', 'expand-window-right' },
     ['m'] = { ':MaximizerToggle<CR>', 'maximize-windows' },
     ['n'] = { '<C-W>J', 'move-window-far-down' },
+    ['p'] = { ':lua require("Navigator").previous()<CR>', 'window-previous' },
     ['s'] = { '<C-W>s', 'split-window-below' },
     ['t'] = { '<C-W>T', 'move-split-to-tab' },
     ['u'] = { '<C-W>x', 'swap-window-next' },
@@ -716,32 +717,9 @@ local plug_keymaps = {
     },
     ['m'] = { '<Plug>(git-messenger)', 'git-messenger' }
   },
-  ['l'] = {
-    ['name'] = '+lsp'
-    -- [';'] = {'<Plug>(coc-refactor)', 'refactor'},
-    -- ['a'] = {'<Plug>(coc-codeaction)', 'line-action'},
-    -- ['A'] = {'<Plug>(coc-codeaction-selected)', 'selected-action'},
-    -- ['d'] = {'<Plug>(coc-definition)', 'definition'},
-    -- ['D'] = {'<Plug>(coc-declaration)', 'declaration'},
-    -- ['f'] = {'<Plug>(coc-format-selected)', 'format-selected'},
-    -- ['F'] = {'<Plug>(coc-format)', 'format'},
-    -- ['h'] = {'<Plug>(coc-float-hide)', 'hide'},
-    -- ['i'] = {'<Plug>(coc-implementation)', 'implementation'},
-    -- ['j'] = {'<Plug>(coc-float-jump)', 'float-jump'},
-    -- ['l'] = {'<Plug>(coc-codelens-action)', 'code-lens'},
-    -- ['n'] = {'<Plug>(coc-diagnostic-next)', 'next-diagnostic'},
-    -- ['N'] = {'<Plug>(coc-diagnostic-next-error)', 'next-error'},
-    -- ['p'] = {'<Plug>(coc-diagnostic-prev)', 'prev-diagnostic'},
-    -- ['P'] = {'<Plug>(coc-diagnostic-prev-error)', 'prev-error'},
-    -- ['q'] = {'<Plug>(coc-fix-current)', 'quickfix'},
-    -- ['R'] = {'<Plug>(coc-references)', 'references'},
-    -- ['r'] = {'<Plug>(coc-rename)', 'rename-symbol'},
-    -- ['t'] = {'<Plug>(coc-type-definition)', 'type-definition'}
-  },
   ['m'] = {
     ['name'] = '+major-mode',
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' }
-    -- ['r'] = {'<Plug>(coc-rename)', 'rename-symbol'}
   }
 }
 
