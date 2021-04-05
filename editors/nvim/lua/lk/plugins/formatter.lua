@@ -1,4 +1,3 @@
--- I will use this until formatting from LSP is stable.
 local prettier = function()
   return {
     exe = 'prettier',

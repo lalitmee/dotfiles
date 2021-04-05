@@ -7,19 +7,17 @@ end
 
 local opts_info = vim.api.nvim_get_all_options_info()
 
-local opt = setmetatable(
-                {}, {
-      __newindex = function(_, key, value)
-        vim.o[key] = value
-        local scope = opts_info[key].scope
-        if scope == 'win' then
-          vim.wo[key] = value
-        elseif scope == 'buf' then
-          vim.bo[key] = value
-        end
-      end
-    }
-            )
+local opt = setmetatable({}, {
+  __newindex = function(_, key, value)
+    vim.o[key] = value
+    local scope = opts_info[key].scope
+    if scope == 'win' then
+      vim.wo[key] = value
+    elseif scope == 'buf' then
+      vim.bo[key] = value
+    end
+  end
+})
 
 local function add(value, str, sep)
   sep = sep or ','
@@ -37,20 +35,18 @@ end
 
 -- Message output on vim actions {{{
 
-vim.o.shortmess = table.concat(
-                      {
-      't', -- truncate file messages at start
-      'A', -- ignore annoying swap file messages
-      'o', -- file-read message overwrites previous
-      'O', -- file-read message overwrites previous
-      'T', -- truncate non-file messages in middle
-      'f', -- (file x of x) instead of just (x of x
-      'F', -- Don't give file info when editing a file
-      's',
-      'c',
-      'W' -- Dont show [w] or written when writing
-    }
-                  )
+vim.o.shortmess = table.concat({
+  't', -- truncate file messages at start
+  'A', -- ignore annoying swap file messages
+  'o', -- file-read message overwrites previous
+  'O', -- file-read message overwrites previous
+  'T', -- truncate non-file messages in middle
+  'f', -- (file x of x) instead of just (x of x
+  'F', -- Don't give file info when editing a file
+  's',
+  'c',
+  'W' -- Dont show [w] or written when writing
+})
 
 -- }}}
 
@@ -78,7 +74,7 @@ vim.o.t_Co = '256'
 vim.o.switchbuf = 'useopen,uselast'
 vim.o.fillchars = add {
   'vert:▕', -- alternatives │
-  'fold: ',
+  'fold:━',
   'eob: ', -- suppress ~ at EndOfBuffer
   'diff:─', -- alternatives: ⣿ ░
   'msgsep:‾',
@@ -92,17 +88,15 @@ vim.o.fillchars = add {
 -- Diff {{{
 
 -- Use in vertical diff mode, blank lines to keep sides aligned, Ignore whitespace changes
-vim.o.diffopt = add(
-                    {
-      'vertical',
-      'iwhite',
-      'hiddenoff',
-      'foldcolumn:0',
-      'context:4',
-      'algorithm:histogram',
-      'indent-heuristic'
-    }, vim.o.diffopt
-                )
+vim.o.diffopt = add({
+  'vertical',
+  'iwhite',
+  'hiddenoff',
+  'foldcolumn:0',
+  'context:4',
+  'algorithm:histogram',
+  'indent-heuristic'
+}, vim.o.diffopt)
 
 -- }}}
 
@@ -166,10 +160,8 @@ vim.o.wildignore = add {
   '*.eot,*.otf,*.ttf,*.woff',
   '*.doc,*.pdf',
   '*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz',
-  -- Cache
   '.sass-cache',
   '*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem',
-  -- Temp/System
   '*.*~,*~ ',
   '*.swp,.lock,.DS_Store,._*,tags.lock'
 }
@@ -278,13 +270,11 @@ vim.o.virtualedit = 'block' -- allow cursor to move where there is no text in vi
 vim.o.dictionary = '/usr/share/dict/words'
 vim.o.inccommand = 'split'
 -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
-vim.o.guicursor = table.concat(
-                      {
-      [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
-      [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
-      [[sm:block-blinkwait175-blinkoff150-blinkon175]]
-    }, ','
-                  )
+vim.o.guicursor = table.concat({
+  [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
+  [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
+  [[sm:block-blinkwait175-blinkoff150-blinkon175]]
+}, ',')
 vim.o.autoread = true
 vim.o.mat = 2
 vim.o.history = 1000
@@ -370,8 +360,7 @@ vim.cmd([[set t_ut=]])
 
 -- vim.nvim_api {{{
 
-vim.api.nvim_exec(
-    [[
+vim.api.nvim_exec([[
       " True color support
       if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -411,29 +400,26 @@ vim.api.nvim_exec(
       " python hosts
       let g:python3_host_prog = '/home/lalitmee/.pyenv/versions/neovim3/bin/python'
       let g:python_host_prog = '/home/lalitmee/.pyenv/versions/neovim2/bin/python'
-  ]], true
-)
+  ]], true)
 
 -- }}}
 
 -- autocommands {{{
 
 -- Neovim terminal
-autocommands.create(
+autocommands.create({
+  Terminal = {
+    { 'TermOpen', '*', [[startinsert]] },
+    { 'TermEnter', '*', [[startinsert]] },
+    { 'TermLeave', '*', [[stopinsert]] },
+    { 'TermClose', '*', [[stopinsert]] },
     {
-      Terminal = {
-        { 'TermOpen', '*', [[startinsert]] },
-        { 'TermEnter', '*', [[startinsert]] },
-        { 'TermLeave', '*', [[stopinsert]] },
-        { 'TermClose', '*', [[stopinsert]] },
-        {
-          'TermClose',
-          'term://*',
-          [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]]
-        }
-      }
+      'TermClose',
+      'term://*',
+      [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]]
     }
-)
+  }
+})
 
 -- }}}
 

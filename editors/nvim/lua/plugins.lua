@@ -10,6 +10,20 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute 'packadd packer.nvim'
 end
 
+local function hunspell_install_if_needed()
+  if vim.fn.executable('hunspell') == 0 then
+    if vim.fn.has('mac') > 0 then
+      -- on mac os need to download GB dictionary
+      -- and place in ~/Library/Spelling
+      -- these are available
+      -- https://wiki.openoffice.org/wiki/Dictionaries
+      vim.fn.system('brew install hunspell')
+    else
+      vim.fn.system('apt install hunspell hunspell_en_gb')
+    end
+  end
+end
+
 -- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 -- require('packer').init({ display = { auto_clean = false } })
@@ -29,7 +43,28 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
+    use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
+    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
+    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'christianchiarulli/nvcode-color-schemes.vim' -- nvcode colors
+    use 'tanvirtin/monokai.nvim'
+    use 'novakne/kosmikoa.nvim'
+    use {
+      'bkegley/gloombuddy',
+      config = function()
+        require('colorbuddy').colorscheme('gloombuddy')
+      end
+    }
+    use {
+      'Th3Whit3Wolf/one-nvim',
+      config = function()
+        vim.g.one_nvim_transparent_bg = true
+      end
+    }
+    use 'Th3Whit3Wolf/onebuddy'
+    use 'sainnhe/sonokai'
+    use 'mhartington/oceanic-next'
+    use 'yonlu/omni.vim'
 
     -- }}}
 
@@ -81,7 +116,12 @@ return require('packer').startup {
     use 'AndrewRadev/splitjoin.vim' -- Switch between single-line and multiline forms of code
     use 'antoinemadec/FixCursorHold.nvim' -- fix cursor hold
     use 'christoomey/vim-sort-motion' -- sorting in vim
-    use 'christoomey/vim-tmux-navigator' -- Moving in vim inside Tmux
+    use {
+      'numToStr/Navigator.nvim',
+      config = function()
+        require('Navigator').setup()
+      end
+    }
     use 'christoomey/vim-tmux-runner' -- tmux runner for tests
     use 'haya14busa/is.vim' -- successor of incsearch
     use 'haya14busa/incsearch.vim' -- Better search highlighting
@@ -117,8 +157,8 @@ return require('packer').startup {
 
     use 'SirVer/ultisnips' -- snippets engine
     use 'honza/vim-snippets' -- Snippets in Vim
-    use 'hrsh7th/vim-vsnip' -- vsnip vscode snippets
-    use 'hrsh7th/vim-vsnip-integ'
+    -- use 'hrsh7th/vim-vsnip' -- vsnip vscode snippets
+    -- use 'hrsh7th/vim-vsnip-integ'
     use 'norcalli/snippets.nvim' -- snippets in lua
 
     -- }}}
@@ -158,6 +198,8 @@ return require('packer').startup {
 
     -- coc.nvim {{{
 
+    use 'Shougo/neco-vim'
+    use 'neoclide/vim-jsx-improve'
     use 'neoclide/coc-neco' -- vim completion for coc
     use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
     use { 'antoinemadec/coc-fzf', branch = 'release' }
@@ -166,13 +208,21 @@ return require('packer').startup {
 
     -- neovim-lsp {{{
 
-    -- use 'glepnir/lspsaga.nvim'
-    -- use 'hrsh7th/nvim-compe'
-    -- use 'kabouzeid/nvim-lspinstall'
-    -- use 'neovim/nvim-lspconfig'
-    -- use 'nvim-lua/lsp-status.nvim'
-    -- use 'tjdevries/complextras.nvim'
-    -- use 'tjdevries/lsp_extensions.nvim'
+    -- use {
+    --   'neovim/nvim-lspconfig',
+    --   requires = {
+    --     { 'glepnir/lspsaga.nvim' },
+    --     { 'hrsh7th/nvim-compe' },
+    --     {
+    --       'tzachar/compe-tabnine',
+    --       run = './install.sh',
+    --       requires = 'hrsh7th/nvim-compe'
+    --     },
+    --     { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
+    --     { 'kabouzeid/nvim-lspinstall' },
+    --     { 'nvim-lua/lsp-status.nvim' }
+    --   }
+    -- }
     use 'bfredl/nvim-luadev'
     use 'euclidianAce/BetterLua.vim' -- better lua syntax highlighting
 
@@ -180,20 +230,28 @@ return require('packer').startup {
 
     -- Treesitter {{{
 
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/nvim-treesitter-refactor'
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'nvim-treesitter/playground'
-    use 'p00f/nvim-ts-rainbow'
-    use 'windwp/nvim-ts-autotag'
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-
-    -- }}}
-
-    -- General {{{
-
-    use 'Shougo/neco-vim'
-    use 'chemzqm/vim-jsx-improve' -- better jsx
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      requires = {
+        'lewis6991/spellsitter.nvim',
+        cond = 'false',
+        run = hunspell_install_if_needed,
+        config = function()
+          require('spellsitter').setup { captures = { 'comment' } }
+        end
+      },
+      { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+      {
+        'nvim-treesitter/playground',
+        after = 'nvim-treesitter',
+        cmd = 'TSPlaygroundToggle'
+      },
+      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
+      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
+      { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
+    }
 
     -- }}}
 
@@ -210,22 +268,26 @@ return require('packer').startup {
 
     -- telescope.nvim {{{
 
-    use 'brandoncc/telescope-harpoon.nvim'
-    use 'fhill2/telescope-ultisnips.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-telescope/telescope-cheat.nvim'
-    use 'nvim-telescope/telescope-dap.nvim'
-    use 'nvim-telescope/telescope-frecency.nvim'
-    use 'nvim-telescope/telescope-fzf-writer.nvim'
-    use 'nvim-telescope/telescope-fzy-native.nvim'
-    use 'nvim-telescope/telescope-media-files.nvim'
-    use 'nvim-telescope/telescope-project.nvim'
-    use 'nvim-telescope/telescope-snippets.nvim'
-    use 'nvim-telescope/telescope-symbols.nvim'
-    use 'nvim-telescope/telescope.nvim'
-    use 'tamago324/telescope-openbrowser.nvim'
-    use 'tkmpypy/telescope-jumps.nvim'
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        { 'brandoncc/telescope-harpoon.nvim' },
+        { 'fhill2/telescope-ultisnips.nvim' },
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-lua/popup.nvim' },
+        { 'nvim-telescope/telescope-cheat.nvim' },
+        { 'nvim-telescope/telescope-dap.nvim' },
+        { 'nvim-telescope/telescope-frecency.nvim' },
+        { 'nvim-telescope/telescope-fzf-writer.nvim' },
+        { 'nvim-telescope/telescope-fzy-native.nvim' },
+        { 'nvim-telescope/telescope-media-files.nvim' },
+        { 'nvim-telescope/telescope-project.nvim' },
+        { 'nvim-telescope/telescope-snippets.nvim' },
+        { 'nvim-telescope/telescope-symbols.nvim' },
+        { 'tamago324/telescope-openbrowser.nvim' },
+        { 'tkmpypy/telescope-jumps.nvim' }
+      }
+    }
 
     -- }}}
 
@@ -239,6 +301,7 @@ return require('packer').startup {
     use 'alvan/vim-closetag' -- Auto Close Tag in HTML
     use 'AndrewRadev/tagalong.vim' -- html tags completion
     use 'wakatime/vim-wakatime' -- wakatime for vim
+    use 'sheerun/vim-polyglot'
 
     -- }}}
 
@@ -256,8 +319,7 @@ return require('packer').startup {
 
     -- General {{{
 
-    use 'RishabhRD/popfix'
-    use 'RishabhRD/nvim-cheat.sh'
+    use { 'RishabhRD/nvim-cheat.sh', requires = { 'RishabhRD/popfix' } }
     use 'windwp/nvim-autopairs' -- auto-pairs in lua
     use 'AndrewRadev/sideways.vim'
 
@@ -267,9 +329,19 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
-    -- use 'ackyshake/vim-fist'
-    -- use 'mattn/webapi-vim'
-    -- use 'mattn/vim-gist'
+    use 'mattn/webapi-vim'
+    use {
+      'mattn/vim-gist',
+      config = function()
+        vim.g.gist_clip_command = 'xclip -selection clipboard'
+        vim.g.gist_detect_filetype = 1
+        vim.g.open_browser_after_post = 1
+        vim.g.gist_show_privates = 1
+        vim.g.gist_post_private = 1
+        vim.g.gist_post_anonymous = 1
+        vim.g.gist_get_multiplefile = 1
+      end
+    }
     use 'f-person/git-blame.nvim' -- git blame in vim
     use 'rhysd/git-messenger.vim' -- git lens in vim
     use 'TimUntersberger/neogit' -- magit for neovim in lua
@@ -310,8 +382,8 @@ return require('packer').startup {
     use 'tjdevries/manillua.nvim'
     use 'tjdevries/nlua.nvim'
     use 'tjdevries/train.nvim' -- motion training
-    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
-    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
+    use 'tjdevries/complextras.nvim'
+    use 'tjdevries/lsp_extensions.nvim'
     use 'tjdevries/standard.vim'
     use 'tjdevries/conf.vim'
     use 'tjdevries/fold_search.vim'
@@ -367,7 +439,6 @@ return require('packer').startup {
     use 'mfussenegger/nvim-dap' -- debugger attach protocol
 
     -- }}}
-
   end,
   config = { display = { open_cmd = 'topleft 65vnew [packer]' } }
 }

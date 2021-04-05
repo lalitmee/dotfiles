@@ -21,14 +21,6 @@ map('n', '<Left>', [[:vertical resize -5<cr>]], opts)
 map('n', '<Up>', [[:resize +5<cr>]], opts)
 map('n', '<Down>', [[:resize -5<cr>]], opts)
 
--- move line up and down using topope vim-unimpaired
--- Bubble single lines
-map('n', '<S-Up>', [[[e]], opts)
-map('n', '<S-Down>', [[]e]], opts)
--- Bubble multiple lines
-map('v', '<C-Up>', [[[egv]], opts)
-map('v', '<C-Down>', [[]egv]], opts)
-
 -- Visually select the text that was last edited/pasted
 map('n', 'gV', [[`[v`]], opts)
 
@@ -123,3 +115,11 @@ end
 
 map('i', '<CR>', 'v:lua.lk_utils.completion_confirm()',
     { expr = true, noremap = true })
+
+-- Complextras.nvim configuration
+map('i', '<C-x><C-m>',
+    [[<c-r>=luaeval("require('complextras').complete_matching_line()")<CR>]],
+    opts)
+map('i', '<C-x><C-d>',
+    [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<CR>]],
+    opts)

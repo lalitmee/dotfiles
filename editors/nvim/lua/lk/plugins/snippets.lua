@@ -1,8 +1,9 @@
 R('nlua')
 R('snippets')
 
-local snip_plug = require('snippets')
-local indent = require('snippets.utils').match_indentation
+local map = lk_utils.map
+local snippets_nvim = require('snippets')
+local indent = require('snippets/utils').match_indentation
 
 local snips = {}
 
@@ -14,13 +15,12 @@ snips._global = {
 }
 
 -- lua
-snips.lua = vim.tbl_deep_extend(
-                'error', require('nlua.snippets').get_lua_snippets(), {
-      get_parsed = [[local parsed = get_parsed($1)]],
+snips.lua = vim.tbl_deep_extend('error',
+                                require('nlua.snippets').get_lua_snippets(), {
+  get_parsed = [[local parsed = get_parsed($1)]],
 
-      reload = [[require('plenary.reload').reload_module('$1')$0]]
-    }
-            )
+  reload = [[require('plenary.reload').reload_module('$1')$0]]
+})
 
 -- json
 snips.json = {
@@ -48,9 +48,8 @@ fn $1() {
 }]]
 
 snips.javascript = { log = [[console.log({$1})]] }
-
-snip_plug.snippets = snips
-snip_plug.use_suggested_mappings()
+snippets_nvim.snippets = snips
+snippets_nvim.use_suggested_mappings()
 
 -- TODO: Investigate this again.
 require'snippets'.set_ux(require 'snippets.inserters.floaty')
@@ -82,9 +81,10 @@ end
 
 -- <c-j> will jump backwards to the previous field.
 -- If you jump before the first field, it will cancel the snippet.
-vim.cmd [[inoremap <c-k> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>]]
+map('i', '<c-j>',
+    [[<cmd>lua return require('snippets').advance_snippet(-1)<CR>]], {})
 
 -- <c-k> will either expand the current snippet at the word or try to jump to
 -- the next position for the snippet.
-vim.cmd [[inoremap <c-j> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>]]
-
+map('i', '<c-k>',
+    [[<cmd>lua return require('snippets').expand_or_advance(1)<CR>]], {})
