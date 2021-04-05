@@ -1,6 +1,9 @@
 -- NOTE: gruvbuddy
 require('lk/colorscheme/gruvbuddy')
 
+-- NOTE: gruvbox
+-- require('lk/colorscheme/gruvbox')
+
 -- NOTE: nord
 -- require('lk/colorscheme/nord')
 
@@ -9,9 +12,6 @@ require('lk/colorscheme/gruvbuddy')
 
 -- NOTE: one-nvim
 -- require('lk/colorscheme/one-nvim')
-
--- NOTE: gruvbox
--- require('lk/colorscheme/gruvbox')
 
 -- NOTE: onebuddy
 -- require('lk/colorscheme/onebuddy')
