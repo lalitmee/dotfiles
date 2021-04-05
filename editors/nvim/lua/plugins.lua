@@ -232,13 +232,6 @@ return require('packer').startup {
 
     -- }}}
 
-    -- General {{{
-
-    use 'Shougo/neco-vim'
-    use 'chemzqm/vim-jsx-improve' -- better jsx
-
-    -- }}}
-
     -- }}}
 
     -- FUZZY SEARCH {{{
@@ -252,22 +245,27 @@ return require('packer').startup {
 
     -- telescope.nvim {{{
 
-    use 'brandoncc/telescope-harpoon.nvim'
-    use 'fhill2/telescope-ultisnips.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-telescope/telescope-cheat.nvim'
-    use 'nvim-telescope/telescope-dap.nvim'
-    use 'nvim-telescope/telescope-frecency.nvim'
-    use 'nvim-telescope/telescope-fzf-writer.nvim'
-    use 'nvim-telescope/telescope-fzy-native.nvim'
-    use 'nvim-telescope/telescope-media-files.nvim'
-    use 'nvim-telescope/telescope-project.nvim'
-    use 'nvim-telescope/telescope-snippets.nvim'
-    use 'nvim-telescope/telescope-symbols.nvim'
-    use 'nvim-telescope/telescope.nvim'
-    use 'tamago324/telescope-openbrowser.nvim'
-    use 'tkmpypy/telescope-jumps.nvim'
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        { 'brandoncc/telescope-harpoon.nvim' },
+        { 'fhill2/telescope-ultisnips.nvim' },
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-lua/popup.nvim' },
+        { 'nvim-telescope/telescope-cheat.nvim' },
+        { 'nvim-telescope/telescope-dap.nvim' },
+        { 'nvim-telescope/telescope-frecency.nvim' },
+        { 'nvim-telescope/telescope-fzf-writer.nvim' },
+        { 'nvim-telescope/telescope-fzy-native.nvim' },
+        { 'nvim-telescope/telescope-media-files.nvim' },
+        { 'nvim-telescope/telescope-project.nvim' },
+        { 'nvim-telescope/telescope-snippets.nvim' },
+        { 'nvim-telescope/telescope-symbols.nvim' },
+        { 'tamago324/telescope-openbrowser.nvim' },
+        { 'tkmpypy/telescope-jumps.nvim' }
+
+      }
+    }
 
     -- }}}
 
@@ -299,8 +297,7 @@ return require('packer').startup {
 
     -- General {{{
 
-    use 'RishabhRD/popfix'
-    use 'RishabhRD/nvim-cheat.sh'
+    use { 'RishabhRD/nvim-cheat.sh', requires = { 'RishabhRD/popfix' } }
     use 'windwp/nvim-autopairs' -- auto-pairs in lua
     use 'AndrewRadev/sideways.vim'
 
@@ -310,9 +307,19 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
-    -- use 'ackyshake/vim-fist'
-    -- use 'mattn/webapi-vim'
-    -- use 'mattn/vim-gist'
+    use 'mattn/webapi-vim'
+    use {
+      'mattn/vim-gist',
+      config = function()
+        vim.g.gist_clip_command = 'xclip -selection clipboard'
+        vim.g.gist_detect_filetype = 1
+        vim.g.open_browser_after_post = 1
+        vim.g.gist_show_privates = 1
+        vim.g.gist_post_private = 1
+        vim.g.gist_post_anonymous = 1
+        vim.g.gist_get_multiplefile = 1
+      end
+    }
     use 'f-person/git-blame.nvim' -- git blame in vim
     use 'rhysd/git-messenger.vim' -- git lens in vim
     use 'TimUntersberger/neogit' -- magit for neovim in lua
