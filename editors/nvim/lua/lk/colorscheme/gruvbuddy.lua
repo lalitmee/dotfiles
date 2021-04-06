@@ -5,7 +5,6 @@ require('colorizer').setup()
 
 local c = require('colorbuddy.color').colors
 local s = require('colorbuddy.style').styles
-local g = require('colorbuddy.style').groups
 local Group = require('colorbuddy.group').Group
 
 Group.new('NeogitDiffAdd', c.green:dark(), c.black:light())
