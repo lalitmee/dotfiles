@@ -114,28 +114,53 @@ local leader_key_maps = {
 
   -- NOTE: d is for harpoon
   ['d'] = {
-    ['name'] = '+harpoon',
-    ['c'] = 'clear-all',
-    ['f'] = {
-      ['name'] = '+files',
-      ['1'] = 'goto-file-1',
-      ['2'] = 'goto-file-2',
-      ['3'] = 'goto-file-3',
-      ['4'] = 'goto-file-4',
-      ['5'] = 'goto-file-5',
-      ['6'] = 'goto-file-6',
-      ['a'] = 'add-file',
-      ['r'] = 'remove-file'
+    ['name'] = '+harpoon/+dap',
+    ['d'] = {
+      ['name'] = '+dap',
+      ['?'] = { [[<cmd>lua require'dap.ui.variables'.scopes()<CR>]], 'scopes' },
+      ['c'] = { [[<cmd>lua require'dap'.continue()<CR>]], 'continue' },
+      ['o'] = { [[<cmd>lua require'dap'.step_over()<CR>]], 'step-over' },
+      ['i'] = { [[<cmd>lua require'dap'.step_into()<CR>]], 'step-into' },
+      ['e'] = { [[<cmd>lua require'dap'.step_out()<CR>]], 'step-out' },
+      ['b'] = {
+        [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],
+        'toggle-breakpoint'
+      },
+      ['B'] = {
+        [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
+        'set-breakpoint-condition'
+      },
+      ['l'] = {
+        [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
+        'set-breakpoint-log-message'
+      },
+      ['r'] = { [[<cmd>lua require'dap'.repl.open()<CR>]], 'open-repl' },
+      ['R'] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], 'repl-run-last' }
     },
-    ['m'] = 'quick-menu',
-    ['p'] = 'promote',
-    ['s'] = 'shorten-list',
-    ['t'] = {
-      ['name'] = '+terminals',
-      ['f'] = 'goto-terminal-1',
-      ['s'] = 'send-command-terminal-1',
-      ['S'] = 'send-command-terminal-2',
-      ['t'] = 'goto-terminal-2'
+    ['h'] = {
+      ['name'] = '+harpoon',
+      ['c'] = 'clear-all',
+      ['f'] = {
+        ['name'] = '+files',
+        ['1'] = 'goto-file-1',
+        ['2'] = 'goto-file-2',
+        ['3'] = 'goto-file-3',
+        ['4'] = 'goto-file-4',
+        ['5'] = 'goto-file-5',
+        ['6'] = 'goto-file-6',
+        ['a'] = 'add-file',
+        ['r'] = 'remove-file'
+      },
+      ['m'] = 'quick-menu',
+      ['p'] = 'promote',
+      ['s'] = 'shorten-list',
+      ['t'] = {
+        ['name'] = '+terminals',
+        ['f'] = 'goto-terminal-1',
+        ['s'] = 'send-command-terminal-1',
+        ['S'] = 'send-command-terminal-2',
+        ['t'] = 'goto-terminal-2'
+      }
     }
   },
 
@@ -722,14 +747,56 @@ local leader_key_maps = {
   ['z'] = { ':Goyo<CR>', 'zen-mode' }
 }
 
-local plug_keymaps = {
+local local_leader_key_maps = {
+  -- NOTE: f is for fzf lsp
+  [']'] = 'subvert-replace-1',
+  ['['] = 'subvert-replace-2',
+  ['f'] = {
+    ['name'] = '+fzf-lsp',
+    ['a'] = { ':FzfCodeActions<CR>', 'code-actions' },
+    ['A'] = { ':FzfRangeCodeActions<CR>', 'code-actions' },
+    ['c'] = { ':FzfIncomingCalls<CR>', 'incoming-calls' },
+    ['C'] = { ':FzfOutgoingCalls<CR>', 'outgoing-calls' },
+    ['d'] = { ':FzfDefinitions<CR>', 'definitions' },
+    ['D'] = { ':FzfDeclarations<CR>', 'delcarations' },
+    ['e'] = { ':FzfDiagnostics<CR>', 'diagnostics' },
+    ['i'] = { ':FzfImplementations<CR>', 'implementations' },
+    ['r'] = { ':FzfReferences<CR>', 'references' },
+    ['t'] = { ':FzfTypeDefinitions<CR>', 'type-definition' },
+    ['w'] = { ':FzfDocumentSymbols<CR>', 'document-symbols' },
+    ['W'] = { ':FzfWorkspaceSymbols<CR>', 'workspace-symbols' }
+  }
+}
+
+local local_leader_plug_keymaps = {
+  ['s'] = {
+    ['name'] = '+sideways',
+    ['i'] = { '<Plug>(SidewaysArgumentInsertBefore)', 'insert-before' },
+    ['a'] = { '<Plug>(SidewaysArgumentAppendAfter)', 'append-after' },
+    ['I'] = { '<Plug>(SidewaysArgumentInsertFirst)', 'insert-first' },
+    ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' }
+  }
+}
+
+local leader_plug_keymaps = {
   ['c'] = {},
   ['g'] = { ['m'] = { '<Plug>(git-messenger)', 'git-messenger' } },
+  ['j'] = {
+    ['a'] = {
+      ['name'] = '+aerojump',
+      ['s'] = { '<Plug>(AerojumpSpace)', 'aerojump-space' },
+      ['b'] = { '<Plug>(AerojumpBolt)', 'aerojump-bolt' },
+      ['a'] = { '<Plug>(AerojumpFromCursorBolt)', 'aerojump-from-cursor-bolt' },
+      ['d'] = { '<Plug>(AerojumpDefault)', 'aerojump-default' }
+    }
+  },
   ['m'] = {
     ['name'] = '+major-mode',
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' }
   }
 }
 
+wk.register_keymap('localleader', local_leader_key_maps, { silent = true })
+wk.register_keymap('localleader', local_leader_plug_keymaps, { noremap = false })
 wk.register_keymap('leader', leader_key_maps, { silent = true })
-wk.register_keymap('leader', plug_keymaps, { noremap = false })
+wk.register_keymap('leader', leader_plug_keymaps, { noremap = false })
