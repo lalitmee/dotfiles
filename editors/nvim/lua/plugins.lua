@@ -43,28 +43,13 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
     use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
-    use 'christianchiarulli/nvcode-color-schemes.vim' -- nvcode colors
-    use 'tanvirtin/monokai.nvim'
-    use 'novakne/kosmikoa.nvim'
-    use {
-      'bkegley/gloombuddy',
-      config = function()
-        require('colorbuddy').colorscheme('gloombuddy')
-      end
-    }
-    use {
-      'Th3Whit3Wolf/one-nvim',
-      config = function()
-        vim.g.one_nvim_transparent_bg = true
-      end
-    }
+    use 'DilanGMB/nightbuddy'
     use 'Th3Whit3Wolf/onebuddy'
-    use 'sainnhe/sonokai'
-    use 'mhartington/oceanic-next'
-    use 'yonlu/omni.vim'
+    use 'Th3Whit3Wolf/spacebuddy'
+    use 'bkegley/gloombuddy'
+    use 'marko-cerovac/material.nvim'
 
     -- }}}
 

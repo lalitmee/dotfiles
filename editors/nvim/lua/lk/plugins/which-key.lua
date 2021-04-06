@@ -730,5 +730,5 @@ local plug_keymaps = {
   }
 }
 
-wk.register_keymap('leader', leader_key_maps, { noremap = true, silent = true })
+wk.register_keymap('leader', leader_key_maps, { silent = true })
 wk.register_keymap('leader', plug_keymaps, { noremap = false })
