@@ -1,4 +1,3 @@
--- vim.cmd [[packadd packer.nvim]]
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -43,6 +42,7 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
+    use 'gruvbox-community/gruvbox'
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
     use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'DilanGMB/nightbuddy'
