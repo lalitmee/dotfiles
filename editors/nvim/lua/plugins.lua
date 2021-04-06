@@ -84,6 +84,7 @@ return require('packer').startup {
     use 'kevinhwang91/nvim-hlslens' -- hlslens lens for neovim
     use 'phaazon/hop.nvim' -- easymotion using lua
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
+    use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
 
     -- }}}
 
@@ -246,6 +247,7 @@ return require('packer').startup {
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
     use 'junegunn/fzf.vim' -- FZF in vim
+    use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
 
@@ -368,9 +370,6 @@ return require('packer').startup {
     use 'tjdevries/train.nvim' -- motion training
     use 'tjdevries/complextras.nvim'
     use 'tjdevries/lsp_extensions.nvim'
-    use 'tjdevries/standard.vim'
-    use 'tjdevries/conf.vim'
-    use 'tjdevries/fold_search.vim'
 
     -- }}}
 
