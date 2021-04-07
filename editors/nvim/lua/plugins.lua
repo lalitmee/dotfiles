@@ -244,7 +244,6 @@ return require('packer').startup {
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
     use 'junegunn/fzf.vim' -- FZF in vim
-    use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
 
@@ -271,7 +270,10 @@ return require('packer').startup {
         {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' }
-        }
+        },
+        { 'TC72/telescope-tele-tabby.nvim' },
+        { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
+        { 'nvim-telescope/telescope-packer.nvim' }
 
       }
     }

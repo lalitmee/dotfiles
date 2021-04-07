@@ -460,6 +460,7 @@ local leader_key_maps = {
       ['name'] = '+buffers',
       ['a'] = { ':Telescope lsp_code_actions<CR>', 'code-actions' },
       ['b'] = { ':Telescope buffers<CR>', 'buffers' },
+      ['B'] = { ':Telescope tele_tabby list<CR>', 'tele-tabby-buffers' },
       ['c'] = { ':Telescope lsp_range_code_actions<CR>', 'range-code-actions' },
       ['d'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' },
       ['f'] = {
