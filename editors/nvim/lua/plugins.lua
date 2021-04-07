@@ -267,7 +267,11 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-snippets.nvim' },
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'tkmpypy/telescope-jumps.nvim' }
+        { 'tkmpypy/telescope-jumps.nvim' },
+        {
+          'nvim-telescope/telescope-arecibo.nvim',
+          rocks = { 'openssl', 'lua-http-parser' }
+        }
 
       }
     }

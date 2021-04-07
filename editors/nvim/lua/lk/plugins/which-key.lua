@@ -452,17 +452,23 @@ local leader_key_maps = {
   -- NOTE: o is for telescope
   ['o'] = {
     ['name'] = '+Telescope',
-    ['a'] = 'emojis',
+    ['a'] = {
+      [[:lua require('telescope.builtin').symbols{sources = {'emoji'}}<cr>]],
+      'emojis'
+    },
     ['b'] = {
       ['name'] = '+buffers',
       ['a'] = { ':Telescope lsp_code_actions<CR>', 'code-actions' },
       ['b'] = { ':Telescope buffers<CR>', 'buffers' },
       ['c'] = { ':Telescope lsp_range_code_actions<CR>', 'range-code-actions' },
       ['d'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' },
-      ['f'] = 'find-buffers',
+      ['f'] = {
+        [[:lua require('telescope.builtin').buffers({ entry_maker = require('lk.plugins.telescope.my_make_entry').gen_from_buffer_like_leaderf() })<cr>]],
+        'find-buffers'
+      },
       ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
       ['l'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
-      ['o'] = 'find-buffers-theme',
+      ['o'] = 'buffer-lines-dropdown-theme',
       ['r'] = { ':Telescope lsp_references<CR>', 'references' },
       ['s'] = { ':Telescope spell_suggest<CR>', 'spell_suggest' },
       ['t'] = { ':Telescope current_buffer_tags<CR>', 'buffer-tags' }
@@ -485,26 +491,23 @@ local leader_key_maps = {
       ['name'] = '+files',
       ['a'] = 'tj-search-all-files',
       ['c'] = 'dotfiles',
-      ['d'] = 'with-dropdown',
-      ['D'] = 'tj-fd-files',
+      ['d'] = {
+        [[:lua require('lk.plugins.telescope.finders').fd_files_dropdown()<cr>]],
+        'with-dropdown'
+      },
       ['e'] = { ':Telescope file_browser<CR>', 'file-browser' },
-      ['E'] = 'tj-file-browser',
       ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
       ['F'] = { ':Telescope find_files<CR>', 'find-files' },
       ['g'] = { ':Telescope git_files<CR>', 'git-files' },
-      ['G'] = 'tj-git-files',
       ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
-      ['l'] = 'tj-old-files',
       ['m'] = { ':Telescope media_files<CR>', 'media-files' },
       ['n'] = 'nvim-config',
-      ['N'] = 'nvim-config-dropdown',
       ['o'] = { ':Telescope find_files<CR>', 'find-files' },
       ['r'] = { ':Telescope oldfiles<CR>', 'recent-files' },
       ['z'] = { ':Telescope filetypes<CR>', 'filetypes' }
     },
     ['g'] = {
       ['name'] = '+git',
-      ['c'] = 'git-checkout',
       ['b'] = { ':Telescope git_branches<CR>', 'git-branches' },
       ['C'] = { ':Telescope git_bcommits<CR>', 'git-buffer-commits' },
       ['d'] = { ':Telescope git_commits<CR>', 'git-commits' },
@@ -524,13 +527,13 @@ local leader_key_maps = {
     ['s'] = {
       ['name'] = '+search',
       ['b'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
-      ['f'] = 'grep-string',
-      ['l'] = 'tj-live-grep',
-      ['r'] = 'resume-last-search',
       ['s'] = { ':Telescope fzf_writer grep<CR>', 'fzf-writer-grep' },
       ['S'] = { ':Telescope live_grep<CR>', 'live-grep' },
       ['u'] = { ':Telescope grep_string<CR>', 'grep-string' },
-      ['w'] = 'grep-word'
+      ['w'] = {
+        [[:lua require("telescope").extensions.arecibo.websearch()<CR>]],
+        'search-web'
+      }
     },
     ['t'] = {
       ['name'] = '+telescope',
@@ -555,7 +558,10 @@ local leader_key_maps = {
       ['t'] = { ':Telescope help_tags<CR>', 'help-tags' },
       ['v'] = { ':Telescope vim_options<CR>', 'vim-options' }
     },
-    ['w'] = 'grep-words'
+    ['w'] = {
+      [[:lua require('telescope').extensions.fzf_writer.staged_grep{}<cr>]],
+      'grep-words'
+    }
   },
 
   -- NOTE: p is for project

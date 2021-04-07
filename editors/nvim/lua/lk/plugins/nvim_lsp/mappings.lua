@@ -18,7 +18,7 @@ local opts = { noremap = false, silent = true }
 map('i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+-- map('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
 -- diagnostics mappings
 map('n', 'geN', '<cmd>lua vim.lsp.diagnostic.get_next()<CR>', opts)
@@ -70,18 +70,14 @@ map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
 
 local telescope_opts = { prompt_position = 'top' }
 telescope_mapper('<localleader>ta', 'lsp_code_actions', telescope_opts, true)
-telescope_mapper(
-    '<localleader>tA', 'lsp_range_code_actions', telescope_opts, true
-)
+telescope_mapper('<localleader>tA', 'lsp_range_code_actions', telescope_opts,
+                 true)
 telescope_mapper('<localleader>td', 'lsp_definitions', telescope_opts, true)
-telescope_mapper(
-    '<localleader>te', 'lsp_document_diagnostics', telescope_opts, true
-)
-telescope_mapper(
-    '<localleader>tE', 'lsp_workspace_diagnostics', telescope_opts, true
-)
+telescope_mapper('<localleader>te', 'lsp_document_diagnostics', telescope_opts,
+                 true)
+telescope_mapper('<localleader>tE', 'lsp_workspace_diagnostics', telescope_opts,
+                 true)
 telescope_mapper('<localleader>tr', 'lsp_references', telescope_opts, true)
 telescope_mapper('<localleader>tw', 'lsp_document_symbols', telescope_opts, true)
-telescope_mapper(
-    '<localleader>tW', 'lsp_workspace_symbols', telescope_opts, true
-)
+telescope_mapper('<localleader>tW', 'lsp_workspace_symbols', telescope_opts,
+                 true)
