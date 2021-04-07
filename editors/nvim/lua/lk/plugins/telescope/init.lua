@@ -127,7 +127,8 @@ require('telescope').setup {
       ['url_open_command'] = 'xdg-open',
       ['show_http_headers'] = false,
       ['show_domain_icons'] = false
-    }
+    },
+    tele_tabby = { use_highlighter = true }
   }
 }
 
@@ -144,6 +145,9 @@ require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('arecibo')
+require('telescope').load_extension('tele_tabby')
+require('telescope').load_extension('lsp_handlers')
+require('telescope').load_extension('packer')
 
 local M = {}
 

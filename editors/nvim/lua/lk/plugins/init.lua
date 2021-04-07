@@ -73,7 +73,6 @@ require('lk/plugins/gitsigns')
 
 -- NOTE: fuzzy
 require('lk/plugins/fzf')
-require('lk/plugins/fzf-lsp')
 require('lk/plugins/telescope')
 require('lk/plugins/telescope/mappings')
 
