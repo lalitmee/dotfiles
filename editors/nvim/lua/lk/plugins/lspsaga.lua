@@ -24,9 +24,9 @@ require('lk.autocommands').augroup('LspSagaCursorCommands', {
   --   targets = { '*' },
   --   command = 'lua require(\'lspsaga.diagnostic\').show_cursor_diagnostics()'
   -- },
-  {
-    events = { 'CompleteDone' },
-    targets = { '*' },
-    command = 'lua require(\'lspsaga.signaturehelp\').signature_help()'
-  }
+  -- {
+  --   events = { 'CompleteDone' },
+  --   targets = { '*' },
+  --   command = 'lua require(\'lspsaga.signaturehelp\').signature_help()'
+  -- }
 })
