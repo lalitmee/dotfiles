@@ -1,20 +1,11 @@
 -- NOTE: gruvbuddy
 require('lk/colorscheme/gruvbuddy')
 
--- NOTE: gruvbox
--- require('lk/colorscheme/gruvbox')
-
--- NOTE: nightbuddy
--- require('lk/colorscheme/nightbuddy')
-
--- NOTE: material
--- require('lk/colorscheme/material')
-
 -- NOTE: onebuddy
 -- require('lk/colorscheme/onebuddy')
 
 -- NOTE: nord
 -- require('lk/colorscheme/nord')
 
--- NOTE: gloombuddy
--- require('lk/colorscheme/gloombuddy')
+-- NOTE: material
+-- require('lk/colorscheme/material')

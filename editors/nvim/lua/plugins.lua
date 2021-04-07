@@ -42,13 +42,10 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    use 'gruvbox-community/gruvbox'
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
     use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
-    use 'DilanGMB/nightbuddy'
     use 'Th3Whit3Wolf/onebuddy'
     use 'Th3Whit3Wolf/spacebuddy'
-    use 'bkegley/gloombuddy'
     use 'marko-cerovac/material.nvim'
 
     -- }}}
