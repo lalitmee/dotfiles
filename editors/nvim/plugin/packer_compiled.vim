@@ -44,6 +44,15 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/FixCursorHold.nvim"
   },
+  ["Navigator.nvim"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0" },
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/Navigator.nvim"
+  },
+  ["aerojump.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/aerojump.nvim"
+  },
   ["colorbuddy.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim"
@@ -60,10 +69,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/complextras.nvim"
   },
-  ["conf.vim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/conf.vim"
-  },
   ["crease.vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/crease.vim"
@@ -72,10 +77,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/emmet-vim"
   },
-  ["fold_search.vim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/fold_search.vim"
-  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/formatter.nvim"
@@ -83,6 +84,10 @@ _G.packer_plugins = {
   fzf = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf"
+  },
+  ["fzf-lsp.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf-lsp.nvim"
   },
   ["fzf.vim"] = {
     loaded = true,
@@ -160,9 +165,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/manillua.nvim"
   },
-  ["neco-vim"] = {
+  ["material.nvim"] = {
     loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neco-vim"
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/material.nvim"
   },
   neogit = {
     loaded = true,
@@ -175,10 +180,6 @@ _G.packer_plugins = {
   ["nlua.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nlua.nvim"
-  },
-  ["nvcode-color-schemes.vim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvcode-color-schemes.vim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -241,24 +242,29 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-treesitter-refactor"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor"
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-refactor"
   },
   ["nvim-treesitter-textobjects"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects"
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects"
   },
   ["nvim-ts-autotag"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
   },
   ["nvim-ts-context-commentstring"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring"
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring"
   },
   ["nvim-ts-rainbow"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow"
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -267,6 +273,10 @@ _G.packer_plugins = {
   ["nvim-whichkey-setup.lua"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-whichkey-setup.lua"
+  },
+  onebuddy = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/onebuddy"
   },
   ["open-browser-github.vim"] = {
     loaded = true,
@@ -281,8 +291,10 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
   playground = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/playground"
+    commands = { "TSPlaygroundToggle" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -312,6 +324,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/snippets.nvim"
   },
+  spacebuddy = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/spacebuddy"
+  },
   ["splitjoin.vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/splitjoin.vim"
@@ -319,10 +335,6 @@ _G.packer_plugins = {
   ["sql.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/sql.nvim"
-  },
-  ["standard.vim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/standard.vim"
   },
   tabular = {
     loaded = true,
@@ -456,13 +468,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
+  ["vim-gist"] = {
+    config = { "\27LJ\2\nª\2\0\0\2\0\n\0\0296\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\1\0)\1\1\0=\1\5\0006\0\0\0009\0\1\0)\1\1\0=\1\6\0006\0\0\0009\0\1\0)\1\1\0=\1\a\0006\0\0\0009\0\1\0)\1\1\0=\1\b\0006\0\0\0009\0\1\0)\1\1\0=\1\t\0K\0\1\0\26gist_get_multiplefile\24gist_post_anonymous\22gist_post_private\23gist_show_privates\28open_browser_after_post\25gist_detect_filetype\31xclip -selection clipboard\22gist_clip_command\6g\bvim\0" },
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-gist"
+  },
   ["vim-highlightedyank"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-highlightedyank"
-  },
-  ["vim-jsx-improve"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-jsx-improve"
   },
   ["vim-matchup"] = {
     loaded = true,
@@ -520,10 +533,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
-  ["vim-tmux-navigator"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator"
-  },
   ["vim-tmux-runner"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-tmux-runner"
@@ -551,8 +560,20 @@ _G.packer_plugins = {
   ["vista.vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vista.vim"
+  },
+  ["webapi-vim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/webapi-vim"
   }
 }
+
+-- Config for: vim-gist
+try_loadstring("\27LJ\2\nª\2\0\0\2\0\n\0\0296\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\1\0)\1\1\0=\1\5\0006\0\0\0009\0\1\0)\1\1\0=\1\6\0006\0\0\0009\0\1\0)\1\1\0=\1\a\0006\0\0\0009\0\1\0)\1\1\0=\1\b\0006\0\0\0009\0\1\0)\1\1\0=\1\t\0K\0\1\0\26gist_get_multiplefile\24gist_post_anonymous\22gist_post_private\23gist_show_privates\28open_browser_after_post\25gist_detect_filetype\31xclip -selection clipboard\22gist_clip_command\6g\bvim\0", "config", "vim-gist")
+-- Config for: Navigator.nvim
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
+
+-- Command lazy-loads
+vim.cmd [[command! -nargs=* -range -bang -complete=file TSPlaygroundToggle lua require("packer.load")({'playground'}, { cmd = "TSPlaygroundToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
 
 END
 
