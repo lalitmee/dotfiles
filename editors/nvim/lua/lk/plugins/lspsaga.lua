@@ -5,7 +5,7 @@ saga.init_lsp_saga {
   use_saga_diagnostic_sign = true,
   finder_action_keys = { vsplit = 'v', split = 's', quit = { 'q', '<ESC>' } },
   code_action_icon = '💡',
-  code_action_prompt = { enable = true, sign = false, virtual_text = true }
+  code_action_prompt = { enable = true, sign = true, virtual_text = false }
 }
 
 require('lk.highlights').highlight('LspSagaLightbulb',
@@ -18,17 +18,15 @@ nnoremap('<C-f>',
 nnoremap('<C-b>',
          [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]])
 
--- require('lk.autocommands').augroup(
---     'LspSagaCursorCommands', {
---       {
---         events = { 'CursorHold' },
---         targets = { '*' },
---         command = 'lua require(\'lspsaga.diagnostic\').show_cursor_diagnostics()'
---       },
---       {
---         events = {"CompleteDone"},
---         targets = {"*"},
---         command = "lua require('lspsaga.signaturehelp').signature_help()"
---       }
---     }
--- )
+require('lk.autocommands').augroup('LspSagaCursorCommands', {
+  -- {
+  --   events = { 'CursorHold' },
+  --   targets = { '*' },
+  --   command = 'lua require(\'lspsaga.diagnostic\').show_cursor_diagnostics()'
+  -- },
+  {
+    events = { 'CompleteDone' },
+    targets = { '*' },
+    command = 'lua require(\'lspsaga.signaturehelp\').signature_help()'
+  }
+})
