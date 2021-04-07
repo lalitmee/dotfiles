@@ -40,7 +40,7 @@ vim.g.nvim_tree_ignore = {
 }
 
 -- vim.cmd [[highlight link NvimTreeIndentMarker Comment]]
--- vim.cmd [[highlight NvimTreeRootFolder gui=bold,italic guifg=LightMagenta]]
+vim.cmd [[highlight NvimTreeRootFolder gui=bold,italic guifg=LightMagenta]]
 
 require('lk.autocommands').augroup('NvimTreeOverrides', {
   {
