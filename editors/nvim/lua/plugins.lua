@@ -244,6 +244,7 @@ return require('packer').startup {
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
     use 'junegunn/fzf.vim' -- FZF in vim
+    use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
 

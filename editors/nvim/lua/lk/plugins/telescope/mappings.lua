@@ -2,8 +2,6 @@ if not pcall(require, 'telescope') then
   return
 end
 
-local sorters = require('telescope.sorters')
-
 TelescopeMapArgs = TelescopeMapArgs or {}
 
 local map_tele = function(key, f, options, buffer)
@@ -30,7 +28,7 @@ vim.api.nvim_set_keymap('c', '<c-r><c-r>',
                         { noremap = false, nowait = true })
 
 -- lsp
-map_tele('gW', 'lsp_workspace_symbols')
+map_tele('<localleader>lw', 'lsp_workspace_symbols')
 
 -- Dotfiles
 map_tele('<leader>ofn', 'edit_neovim')
