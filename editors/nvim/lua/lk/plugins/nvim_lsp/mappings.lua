@@ -54,14 +54,14 @@ map('n', '<localleader>mr', '<cmd>Lspsaga rename<CR>', opts)
 map('n', '<localleader>mv', '<cmd>Lspsaga preview_definition<CR>', opts)
 
 -- telescope mappings for lsp and more
-map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
-map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
-map('n', 'gca', '<cmd>Telescope lsp_code_actions<CR>', opts)
+map('n', 'gd', '<cmd>LspDefinition<CR>', opts)
+map('n', 'gcA', '<cmd>LspRangeCodeAction<CR>', opts)
+map('n', 'gca', '<cmd>LspCodeActions<CR>', opts)
 map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
 map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
-map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
--- map('n', 'gW', '<cmd>Telescope lsp_workspace_symbols<CR>', opts)
+map('n', 'gr', '<cmd>LspReferences<CR>', opts)
+map('n', 'gw', '<cmd>LspDocumentSymbols<CR>', opts)
+map('n', 'gW', '<cmd>LspWorkspaceSymbols<CR>', opts)
 -- map(
 --     'n', 'gW',
 --     '<cmd>lua require("lk.plugins.telescope.lens").live_workspace_symbols()<CR>',
