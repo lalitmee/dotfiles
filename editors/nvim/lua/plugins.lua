@@ -1,4 +1,3 @@
--- vim.cmd [[packadd packer.nvim]]
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -24,9 +23,9 @@ local function hunspell_install_if_needed()
   end
 end
 
--- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
--- require('packer').init({ display = { auto_clean = false } })
+require('packer').init({ display = { auto_clean = false } })
 
 return require('packer').startup {
   function(use)
@@ -43,28 +42,11 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
     use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
-    use 'christianchiarulli/nvcode-color-schemes.vim' -- nvcode colors
-    use 'tanvirtin/monokai.nvim'
-    use 'novakne/kosmikoa.nvim'
-    use {
-      'bkegley/gloombuddy',
-      config = function()
-        require('colorbuddy').colorscheme('gloombuddy')
-      end
-    }
-    use {
-      'Th3Whit3Wolf/one-nvim',
-      config = function()
-        vim.g.one_nvim_transparent_bg = true
-      end
-    }
     use 'Th3Whit3Wolf/onebuddy'
-    use 'sainnhe/sonokai'
-    use 'mhartington/oceanic-next'
-    use 'yonlu/omni.vim'
+    use 'Th3Whit3Wolf/spacebuddy'
+    use 'marko-cerovac/material.nvim'
 
     -- }}}
 
@@ -99,6 +81,7 @@ return require('packer').startup {
     use 'kevinhwang91/nvim-hlslens' -- hlslens lens for neovim
     use 'phaazon/hop.nvim' -- easymotion using lua
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
+    use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
 
     -- }}}
 
@@ -263,6 +246,7 @@ return require('packer').startup {
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
     use 'junegunn/fzf.vim' -- FZF in vim
+    use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
 
@@ -285,7 +269,15 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-snippets.nvim' },
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'tkmpypy/telescope-jumps.nvim' }
+        { 'tkmpypy/telescope-jumps.nvim' },
+        {
+          'nvim-telescope/telescope-arecibo.nvim',
+          rocks = { 'openssl', 'lua-http-parser' }
+        },
+        { 'TC72/telescope-tele-tabby.nvim' },
+        { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
+        { 'nvim-telescope/telescope-packer.nvim' }
+
       }
     }
 
@@ -384,9 +376,6 @@ return require('packer').startup {
     use 'tjdevries/train.nvim' -- motion training
     use 'tjdevries/complextras.nvim'
     use 'tjdevries/lsp_extensions.nvim'
-    use 'tjdevries/standard.vim'
-    use 'tjdevries/conf.vim'
-    use 'tjdevries/fold_search.vim'
 
     -- }}}
 
