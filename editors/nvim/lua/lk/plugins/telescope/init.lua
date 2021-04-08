@@ -121,7 +121,14 @@ require('telescope').setup {
         ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
         ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service'
       }
-    }
+    },
+    arecibo = {
+      ['selected_engine'] = 'google',
+      ['url_open_command'] = 'xdg-open',
+      ['show_http_headers'] = false,
+      ['show_domain_icons'] = false
+    },
+    tele_tabby = { use_highlighter = true }
   }
 }
 
@@ -137,6 +144,10 @@ require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('arecibo')
+require('telescope').load_extension('tele_tabby')
+require('telescope').load_extension('lsp_handlers')
+require('telescope').load_extension('packer')
 
 local M = {}
 
@@ -185,130 +196,10 @@ function M.edit_dotfiles()
   }
 end
 
-function M.edit_zsh()
-  builtin.find_files {
-    shorten_path = false,
-    cwd = '~/.config/zsh/',
-    prompt = '~ dotfiles ~',
-
-    layout_strategy = 'horizontal',
-    layout_defaults = {
-      horizontal = {
-        width_padding = 0.11,
-        height_padding = 0.13,
-        preview_width = 0.56
-      },
-      vertical = {
-        width_padding = 0.4,
-        height_padding = 0.8,
-        preview_height = 0.5
-      }
-    }
-  }
-end
-
-function M.fd()
-  builtin.fd()
-end
-
-function M.builtin()
-  builtin.builtin()
-end
-
-function M.git_files()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false
-  }
-
-  builtin.git_files(opts)
-end
-
-function M.buffer_git_files()
-  builtin.git_files(themes.get_dropdown {
-    cwd = vim.fn.expand('%:p:h'),
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false
-  })
-end
-
-function M.lsp_code_actions()
-  local opts = themes.get_dropdown {
-    winblend = 10,
-    border = true,
-    previewer = false,
-    shorten_path = false
-  }
-
-  builtin.lsp_code_actions(opts)
-end
-
-function M.live_grep()
-  require('telescope').extensions.fzf_writer.staged_grep {
-    shorten_path = true,
-    previewer = true,
-    fzf_separator = '|>'
-  }
-end
-
-function M.grep_prompt()
-  builtin.grep_string {
-    shorten_path = true,
-    search = vim.fn.input('Grep String > ')
-  }
-end
-
-function M.grep_last_search(opts)
-  opts = opts or {}
-
-  -- \<getreg\>\C
-  -- -> Subs out the search things
-  local register = vim.fn.getreg('/'):gsub('\\<', ''):gsub('\\>', ''):gsub(
-                       '\\C', '')
-
-  opts.shorten_path = false
-  opts.word_match = '-w'
-  opts.search = register
-
-  builtin.grep_string(opts)
-end
-
-function M.oldfiles()
-  if true then
-    require('telescope').extensions.frecency.frecency()
-  end
-  if pcall(require('telescope').load_extension, 'frecency') then
-  else
-    builtin.oldfiles {
-      -- layout_strategy = 'vertical',
-    }
-  end
-end
-
-function M.my_plugins()
-  builtin.find_files { cwd = '~/plugins/' }
-end
-
 function M.installed_plugins()
   builtin.find_files {
     cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
   }
-end
-
-function M.project_search()
-  builtin.find_files {
-    -- previewer = true,
-    hidden = true,
-    cwd = require('nvim_lsp.util').root_pattern('.git')(vim.fn.expand('%:p'))
-  }
-end
-
-function M.buffers()
-  builtin.buffers { shorten_path = false }
 end
 
 function M.curbuf()
@@ -329,22 +220,6 @@ function M.search_all_files()
   builtin.find_files {
     find_command = { 'rg', '--no-ignore', '--hidden', '--files' },
     hidden = true
-  }
-end
-
-function M.file_browser()
-  builtin.file_browser {
-    sorting_strategy = 'ascending',
-    scroll_strategy = 'cycle',
-    prompt_position = 'top'
-  }
-end
-
-function M.go_to_definition()
-  builtin.lsp_definitions {
-    sorting_strategy = 'ascending',
-    scroll_strategy = 'cycle',
-    prompt_position = 'top'
   }
 end
 
@@ -397,42 +272,6 @@ end
 
 M.change_background = image_selector('< Select Wallpaper > ',
                                      '~/data/Github/wallpapers')
-
--- function M.change_background()
---   require('telescope.builtin').find_files(
---       {
---         prompt_title = '> |Select Wallpaper| <',
---         cwd = '~/data/Github/wallpapers',
---         attach_mappings = function(prompt_bufnr, map)
---           local function set_the_background(close)
---             local content = require('telescope.actions.state').get_selected_entry(
---                                 prompt_bufnr
---                             )
---             vim.fn.system(
---                 'dconf write /org/mate/desktop/background/picture-filename "\'' ..
---                     content.cwd .. '/' .. content.value .. '\'"'
---             )
---             if close then
---               require('telescope.actions').close(prompt_bufnr)
---             end
---           end
---           map(
---               'i', '<C-p>', function()
---                 set_the_background()
---               end
---           )
---           map(
---               'i', '<CR>', function()
---                 set_the_background(true)
---               end
---           )
---           -- Please continue mapping (attaching additional key maps):
---           -- Ctrl+n/p to move up and down the list.
---           return true
---         end
---       }
---   )
--- end
 
 return setmetatable({}, {
   __index = function(_, k)

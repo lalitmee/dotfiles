@@ -273,7 +273,7 @@ alias o="oni ."
 alias sb="subl ."
 
 # alias for gui nvims
-alias gnvim="~/goneovim/goneovim --nvim=/usr/local/bin/nvim &"
+alias gnvim="~/goneovim/goneovim &"
 alias glrnvim="~/data/Github/glrnvim/target/release/glrnvim &"
 
 # common aliases

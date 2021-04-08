@@ -5,9 +5,8 @@ end
 local function file_icon()
   local filename = vim.fn.fnamemodify(vim.fn.expand('%t'), ':t')
   local extension = vim.fn.fnamemodify(vim.fn.expand('%t'), ':e')
-  return require'nvim-web-devicons'.get_icon(
-             filename, extension, { default = true }
-         )
+  return require'nvim-web-devicons'.get_icon(filename, extension,
+                                             { default = true })
 end
 
 -- local function lsp_status()
@@ -18,7 +17,8 @@ end
 
 require('lualine').setup {
   options = {
-    theme = 'solarized_dark',
+    -- theme = 'solarized_dark',
+    theme = 'onedark',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },

@@ -155,28 +155,53 @@ local leader_key_maps = {
 
   -- NOTE: d is for harpoon
   ['d'] = {
-    ['name'] = '+harpoon',
-    ['c'] = 'clear-all',
-    ['f'] = {
-      ['name'] = '+files',
-      ['1'] = 'goto-file-1',
-      ['2'] = 'goto-file-2',
-      ['3'] = 'goto-file-3',
-      ['4'] = 'goto-file-4',
-      ['5'] = 'goto-file-5',
-      ['6'] = 'goto-file-6',
-      ['a'] = 'add-file',
-      ['r'] = 'remove-file'
+    ['name'] = '+harpoon/+dap',
+    ['d'] = {
+      ['name'] = '+dap',
+      ['?'] = { [[<cmd>lua require'dap.ui.variables'.scopes()<CR>]], 'scopes' },
+      ['c'] = { [[<cmd>lua require'dap'.continue()<CR>]], 'continue' },
+      ['o'] = { [[<cmd>lua require'dap'.step_over()<CR>]], 'step-over' },
+      ['i'] = { [[<cmd>lua require'dap'.step_into()<CR>]], 'step-into' },
+      ['e'] = { [[<cmd>lua require'dap'.step_out()<CR>]], 'step-out' },
+      ['b'] = {
+        [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],
+        'toggle-breakpoint'
+      },
+      ['B'] = {
+        [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
+        'set-breakpoint-condition'
+      },
+      ['l'] = {
+        [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
+        'set-breakpoint-log-message'
+      },
+      ['r'] = { [[<cmd>lua require'dap'.repl.open()<CR>]], 'open-repl' },
+      ['R'] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], 'repl-run-last' }
     },
-    ['m'] = 'quick-menu',
-    ['p'] = 'promote',
-    ['s'] = 'shorten-list',
-    ['t'] = {
-      ['name'] = '+terminals',
-      ['f'] = 'goto-terminal-1',
-      ['s'] = 'send-command-terminal-1',
-      ['S'] = 'send-command-terminal-2',
-      ['t'] = 'goto-terminal-2'
+    ['h'] = {
+      ['name'] = '+harpoon',
+      ['c'] = 'clear-all',
+      ['f'] = {
+        ['name'] = '+files',
+        ['1'] = 'goto-file-1',
+        ['2'] = 'goto-file-2',
+        ['3'] = 'goto-file-3',
+        ['4'] = 'goto-file-4',
+        ['5'] = 'goto-file-5',
+        ['6'] = 'goto-file-6',
+        ['a'] = 'add-file',
+        ['r'] = 'remove-file'
+      },
+      ['m'] = 'quick-menu',
+      ['p'] = 'promote',
+      ['s'] = 'shorten-list',
+      ['t'] = {
+        ['name'] = '+terminals',
+        ['f'] = 'goto-terminal-1',
+        ['s'] = 'send-command-terminal-1',
+        ['S'] = 'send-command-terminal-2',
+        ['t'] = 'goto-terminal-2'
+      }
     }
   },
 
@@ -427,17 +452,24 @@ local leader_key_maps = {
   -- NOTE: o is for telescope
   ['o'] = {
     ['name'] = '+Telescope',
-    ['a'] = 'emojis',
+    ['a'] = {
+      [[:lua require('telescope.builtin').symbols{sources = {'emoji'}}<cr>]],
+      'emojis'
+    },
     ['b'] = {
       ['name'] = '+buffers',
       ['a'] = { ':Telescope lsp_code_actions<CR>', 'code-actions' },
       ['b'] = { ':Telescope buffers<CR>', 'buffers' },
+      ['B'] = { ':Telescope tele_tabby list<CR>', 'tele-tabby-buffers' },
       ['c'] = { ':Telescope lsp_range_code_actions<CR>', 'range-code-actions' },
       ['d'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' },
-      ['f'] = 'find-buffers',
+      ['f'] = {
+        [[:lua require('telescope.builtin').buffers({ entry_maker = require('lk.plugins.telescope.my_make_entry').gen_from_buffer_like_leaderf() })<cr>]],
+        'find-buffers'
+      },
       ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
       ['l'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
-      ['o'] = 'find-buffers-theme',
+      ['o'] = 'buffer-lines-dropdown-theme',
       ['r'] = { ':Telescope lsp_references<CR>', 'references' },
       ['s'] = { ':Telescope spell_suggest<CR>', 'spell_suggest' },
       ['t'] = { ':Telescope current_buffer_tags<CR>', 'buffer-tags' }
@@ -460,26 +492,23 @@ local leader_key_maps = {
       ['name'] = '+files',
       ['a'] = 'tj-search-all-files',
       ['c'] = 'dotfiles',
-      ['d'] = 'with-dropdown',
-      ['D'] = 'tj-fd-files',
+      ['d'] = {
+        [[:lua require('lk.plugins.telescope.finders').fd_files_dropdown()<cr>]],
+        'with-dropdown'
+      },
       ['e'] = { ':Telescope file_browser<CR>', 'file-browser' },
-      ['E'] = 'tj-file-browser',
-      ['f'] = { ':Telescope find_files<CR>', 'find-files' },
-      ['F'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
+      ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
+      ['F'] = { ':Telescope find_files<CR>', 'find-files' },
       ['g'] = { ':Telescope git_files<CR>', 'git-files' },
-      ['G'] = 'tj-git-files',
       ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
-      ['l'] = 'tj-old-files',
       ['m'] = { ':Telescope media_files<CR>', 'media-files' },
       ['n'] = 'nvim-config',
-      ['N'] = 'nvim-config-dropdown',
       ['o'] = { ':Telescope find_files<CR>', 'find-files' },
       ['r'] = { ':Telescope oldfiles<CR>', 'recent-files' },
       ['z'] = { ':Telescope filetypes<CR>', 'filetypes' }
     },
     ['g'] = {
       ['name'] = '+git',
-      ['c'] = 'git-checkout',
       ['b'] = { ':Telescope git_branches<CR>', 'git-branches' },
       ['C'] = { ':Telescope git_bcommits<CR>', 'git-buffer-commits' },
       ['d'] = { ':Telescope git_commits<CR>', 'git-commits' },
@@ -499,13 +528,13 @@ local leader_key_maps = {
     ['s'] = {
       ['name'] = '+search',
       ['b'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
-      ['f'] = 'grep-string',
-      ['l'] = { ':Telescope live_grep<CR>', 'live-grep' },
-      ['L'] = 'tj-live-grep',
-      ['r'] = 'resume-last-search',
       ['s'] = { ':Telescope fzf_writer grep<CR>', 'fzf-writer-grep' },
+      ['S'] = { ':Telescope live_grep<CR>', 'live-grep' },
       ['u'] = { ':Telescope grep_string<CR>', 'grep-string' },
-      ['w'] = 'grep-word'
+      ['w'] = {
+        [[:lua require("telescope").extensions.arecibo.websearch()<CR>]],
+        'search-web'
+      }
     },
     ['t'] = {
       ['name'] = '+telescope',
@@ -530,7 +559,10 @@ local leader_key_maps = {
       ['t'] = { ':Telescope help_tags<CR>', 'help-tags' },
       ['v'] = { ':Telescope vim_options<CR>', 'vim-options' }
     },
-    ['w'] = 'grep-words'
+    ['w'] = {
+      [[:lua require('telescope').extensions.fzf_writer.staged_grep{}<cr>]],
+      'grep-words'
+    }
   },
 
   -- NOTE: p is for project
@@ -538,15 +570,16 @@ local leader_key_maps = {
     ['name'] = '+project',
     ['a'] = { ':FzfAg<CR>', 'project-search' },
     ['b'] = { ':Telescope buffers<CR>', 'find-buffers' },
-    ['f'] = { ':Telescope fzf_writer files<CR>', 'find-files' },
+    ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-find-files' },
+    ['F'] = { ':Telescope find_files<CR>', 'find-files' },
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['n'] = 'swap-parameter-next',
     ['N'] = 'swap-parameter-previous',
     ['p'] = { ':Telescope project project<CR>', 'switch-project' },
     ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
-    ['s'] = { ':Telescope live_grep<CR>', 'project-search' },
-    ['S'] = { ':Telescope fzf_writer grep<CR>', 'project-search' },
+    ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search' },
+    ['S'] = { ':Telescope live_grep<CR>', 'project-search' },
     ['w'] = { ':Telescope grep_string<CR>', 'string-search' }
   },
 
@@ -582,8 +615,8 @@ local leader_key_maps = {
     ['l'] = { ':FzfLines<CR>', 'lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
-    ['p'] = { ':Telescope live_grep<CR>', 'live-grep' },
-    ['P'] = { ':Telescope fzf_writer grep<CR>', 'fzf-live-grep' },
+    ['p'] = { ':Telescope fzf_writer grep<CR>', 'fzf-live-grep' },
+    ['P'] = { ':Telescope live_grep<CR>', 'live-grep' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
     ['S'] = { ':Telescope colorscheme<CR>', 'color-schemes' },
@@ -721,7 +754,38 @@ local leader_key_maps = {
   ['z'] = { ':Goyo<CR>', 'zen-mode' }
 }
 
-local plug_keymaps = {
+local local_leader_key_maps = {
+  -- NOTE: f is for fzf lsp
+  [']'] = 'subvert-replace-1',
+  ['['] = 'subvert-replace-2',
+  ['f'] = {
+    ['name'] = '+fzf-lsp',
+    ['a'] = { ':FzfCodeActions<CR>', 'code-actions' },
+    ['A'] = { ':FzfRangeCodeActions<CR>', 'code-actions' },
+    ['c'] = { ':FzfIncomingCalls<CR>', 'incoming-calls' },
+    ['C'] = { ':FzfOutgoingCalls<CR>', 'outgoing-calls' },
+    ['d'] = { ':FzfDefinitions<CR>', 'definitions' },
+    ['D'] = { ':FzfDeclarations<CR>', 'delcarations' },
+    ['e'] = { ':FzfDiagnostics<CR>', 'diagnostics' },
+    ['i'] = { ':FzfImplementations<CR>', 'implementations' },
+    ['r'] = { ':FzfReferences<CR>', 'references' },
+    ['t'] = { ':FzfTypeDefinitions<CR>', 'type-definition' },
+    ['w'] = { ':FzfDocumentSymbols<CR>', 'document-symbols' },
+    ['W'] = { ':FzfWorkspaceSymbols<CR>', 'workspace-symbols' }
+  }
+}
+
+local local_leader_plug_keymaps = {
+  ['s'] = {
+    ['name'] = '+sideways',
+    ['i'] = { '<Plug>(SidewaysArgumentInsertBefore)', 'insert-before' },
+    ['a'] = { '<Plug>(SidewaysArgumentAppendAfter)', 'append-after' },
+    ['I'] = { '<Plug>(SidewaysArgumentInsertFirst)', 'insert-first' },
+    ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' }
+  }
+}
+
+local leader_plug_keymaps = {
   ['c'] = {},
   ['l'] = {
     ['name'] = '+lsp',
@@ -745,6 +809,16 @@ local plug_keymaps = {
     ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
     ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' }
   },
+  ['g'] = { ['m'] = { '<Plug>(git-messenger)', 'git-messenger' } },
+  ['j'] = {
+    ['a'] = {
+      ['name'] = '+aerojump',
+      ['s'] = { '<Plug>(AerojumpSpace)', 'aerojump-space' },
+      ['b'] = { '<Plug>(AerojumpBolt)', 'aerojump-bolt' },
+      ['a'] = { '<Plug>(AerojumpFromCursorBolt)', 'aerojump-from-cursor-bolt' },
+      ['d'] = { '<Plug>(AerojumpDefault)', 'aerojump-default' }
+    }
+  },
   ['m'] = {
     ['name'] = '+major-mode',
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
@@ -752,5 +826,7 @@ local plug_keymaps = {
   }
 }
 
-wk.register_keymap('leader', leader_key_maps, { noremap = true, silent = true })
-wk.register_keymap('leader', plug_keymaps, { noremap = false })
+wk.register_keymap('localleader', local_leader_key_maps, { silent = true })
+wk.register_keymap('localleader', local_leader_plug_keymaps, { noremap = false })
+wk.register_keymap('leader', leader_key_maps, { silent = true })
+wk.register_keymap('leader', leader_plug_keymaps, { noremap = false })

@@ -451,11 +451,11 @@ you should place your code here."
   ;;   )
 
   ;; use indent-guide globally
-  (spacemacs/toggle-indent-guide-globally-on)
+  ;; (spacemacs/toggle-indent-guide-globally-on)
 
   ;; disable indent-guide in visual mode
-  (add-hook 'evil-visual-state-entry-hook #'spacemacs/toggle-indent-guide-off)
-  (add-hook 'evil-visual-state-exit-hook #'spacemacs/toggle-indent-guide-on)
+  ;; (add-hook 'evil-visual-state-entry-hook #'spacemacs/toggle-indent-guide-off)
+  ;; (add-hook 'evil-visual-state-exit-hook #'spacemacs/toggle-indent-guide-on)
 
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
