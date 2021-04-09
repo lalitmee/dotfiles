@@ -6,7 +6,7 @@ local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com/wbthomason/packer.nvim ' ..
               install_path)
-  execute 'packadd packer.nvim'
+  -- execute 'packadd packer.nvim'
 end
 
 local function hunspell_install_if_needed()
@@ -23,7 +23,7 @@ local function hunspell_install_if_needed()
   end
 end
 
--- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 -- require('packer').init({ display = { auto_clean = false } })
 
