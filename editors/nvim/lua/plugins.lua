@@ -291,7 +291,7 @@ return require('packer').startup {
     use 'alvan/vim-closetag' -- Auto Close Tag in HTML
     use 'AndrewRadev/tagalong.vim' -- html tags completion
     use 'wakatime/vim-wakatime' -- wakatime for vim
-    use 'sheerun/vim-polyglot'
+    -- use 'sheerun/vim-polyglot'
 
     -- }}}
 
