@@ -132,6 +132,7 @@ require('telescope').setup {
   }
 }
 
+require('telescope').load_extension('arecibo')
 require('telescope').load_extension('cheat')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('dotfiles')
@@ -139,15 +140,14 @@ require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('harpoon')
 require('telescope').load_extension('jumps')
+require('telescope').load_extension('lsp_handlers')
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('openbrowser')
+require('telescope').load_extension('packer')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
-require('telescope').load_extension('ultisnips')
-require('telescope').load_extension('arecibo')
 require('telescope').load_extension('tele_tabby')
-require('telescope').load_extension('lsp_handlers')
-require('telescope').load_extension('packer')
+require('telescope').load_extension('ultisnips')
 
 local M = {}
 

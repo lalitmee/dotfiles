@@ -205,10 +205,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-compe"
   },
-  ["nvim-dap"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-dap"
-  },
   ["nvim-hlslens"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-hlslens"
@@ -348,6 +344,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/targets.vim"
   },
+  ["telescope-arecibo.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-arecibo.nvim"
+  },
   ["telescope-cheat.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-cheat.nvim"
@@ -376,6 +376,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-jumps.nvim"
   },
+  ["telescope-lsp-handlers.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-lsp-handlers.nvim"
+  },
   ["telescope-media-files.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-media-files.nvim"
@@ -383,6 +387,10 @@ _G.packer_plugins = {
   ["telescope-openbrowser.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-openbrowser.nvim"
+  },
+  ["telescope-packer.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-packer.nvim"
   },
   ["telescope-project.nvim"] = {
     loaded = true,
@@ -395,6 +403,10 @@ _G.packer_plugins = {
   ["telescope-symbols.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-symbols.nvim"
+  },
+  ["telescope-tele-tabby.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-tele-tabby.nvim"
   },
   ["telescope-ultisnips.nvim"] = {
     loaded = true,
@@ -485,10 +497,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-maximizer"
   },
-  ["vim-polyglot"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-polyglot"
-  },
   ["vim-pseudocl"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-pseudocl"
@@ -567,10 +575,10 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: vim-gist
-try_loadstring("\27LJ\2\nª\2\0\0\2\0\n\0\0296\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\1\0)\1\1\0=\1\5\0006\0\0\0009\0\1\0)\1\1\0=\1\6\0006\0\0\0009\0\1\0)\1\1\0=\1\a\0006\0\0\0009\0\1\0)\1\1\0=\1\b\0006\0\0\0009\0\1\0)\1\1\0=\1\t\0K\0\1\0\26gist_get_multiplefile\24gist_post_anonymous\22gist_post_private\23gist_show_privates\28open_browser_after_post\25gist_detect_filetype\31xclip -selection clipboard\22gist_clip_command\6g\bvim\0", "config", "vim-gist")
 -- Config for: Navigator.nvim
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
+-- Config for: vim-gist
+try_loadstring("\27LJ\2\nª\2\0\0\2\0\n\0\0296\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\1\0)\1\1\0=\1\5\0006\0\0\0009\0\1\0)\1\1\0=\1\6\0006\0\0\0009\0\1\0)\1\1\0=\1\a\0006\0\0\0009\0\1\0)\1\1\0=\1\b\0006\0\0\0009\0\1\0)\1\1\0=\1\t\0K\0\1\0\26gist_get_multiplefile\24gist_post_anonymous\22gist_post_private\23gist_show_privates\28open_browser_after_post\25gist_detect_filetype\31xclip -selection clipboard\22gist_clip_command\6g\bvim\0", "config", "vim-gist")
 
 -- Command lazy-loads
 vim.cmd [[command! -nargs=* -range -bang -complete=file TSPlaygroundToggle lua require("packer.load")({'playground'}, { cmd = "TSPlaygroundToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]

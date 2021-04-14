@@ -6,7 +6,7 @@ local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com/wbthomason/packer.nvim ' ..
               install_path)
-  execute 'packadd packer.nvim'
+  -- execute 'packadd packer.nvim'
 end
 
 local function hunspell_install_if_needed()
@@ -293,7 +293,7 @@ return require('packer').startup {
     use 'alvan/vim-closetag' -- Auto Close Tag in HTML
     use 'AndrewRadev/tagalong.vim' -- html tags completion
     use 'wakatime/vim-wakatime' -- wakatime for vim
-    use 'sheerun/vim-polyglot'
+    -- use 'sheerun/vim-polyglot'
 
     -- }}}
 
