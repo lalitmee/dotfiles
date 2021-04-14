@@ -219,11 +219,11 @@ local function setup_servers()
     if server == 'lua' then
       config.settings = lua_settings
     end
-    if server == 'efm' then
-      config.cmd = { 'efm-langserver' }
-      config = vim.tbl_extend('force', config,
-                              require('lk/plugins/nvim_lsp/efm'))
-    end
+    -- if server == 'efm' then
+    --   config.cmd = { 'efm-langserver' }
+    --   config = vim.tbl_extend('force', config,
+    --                           require('lk/plugins/nvim_lsp/efm'))
+    -- end
     if server == 'diagnosticls' then
       config = vim.tbl_extend('force', config,
                               require('lk/plugins/nvim_lsp/diagnosticls'))
