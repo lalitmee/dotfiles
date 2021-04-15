@@ -339,6 +339,7 @@ return require('packer').startup {
     use 'lewis6991/gitsigns.nvim' -- gitsigns in lua
     use 'tpope/vim-fugitive' -- version control
     use 'kdheepak/lazygit.nvim' -- lazygit from neovim
+    use 'ThePrimeagen/git-worktree.nvim' -- git worktree
 
     -- }}}
 
