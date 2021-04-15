@@ -74,6 +74,7 @@ return require('packer').startup {
 
     -- Search, Replace and Jump {{{
 
+    use 'windwp/nvim-spectre'
     use 'thinca/vim-visualstar'
     use 'junegunn/vim-fnr'
     use 'junegunn/vim-pseudocl'
