@@ -2,12 +2,12 @@ local function buf_spaces()
   return 'Spaces: ' .. vim.api.nvim_buf_get_option(0, 'shiftwidth') .. ' '
 end
 
-local function file_icon()
-  local filename = vim.fn.fnamemodify(vim.fn.expand('%t'), ':t')
-  local extension = vim.fn.fnamemodify(vim.fn.expand('%t'), ':e')
-  return require'nvim-web-devicons'.get_icon(filename, extension,
-                                             { default = true })
-end
+-- local function file_icon()
+--   local filename = vim.fn.fnamemodify(vim.fn.expand('%t'), ':t')
+--   local extension = vim.fn.fnamemodify(vim.fn.expand('%t'), ':e')
+--   return require'nvim-web-devicons'.get_icon(filename, extension,
+--                                              { default = true })
+-- end
 
 -- local function lsp_status()
 --   if #vim.lsp.buf_get_clients() > 0 then
@@ -26,7 +26,7 @@ require('lualine').setup {
     lualine_a = { { 'mode', upper = true } },
     lualine_b = { { 'branch', icon = '' } },
     lualine_c = {
-      { file_icon },
+      -- file_icon,
       { 'filename', shorten = true },
       {
         'diff',
@@ -57,5 +57,9 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  extensions = { 'fzf', 'fugitive' }
+  extensions = {
+    'fzf',
+    'fugitive'
+    -- 'nvim-tree'
+  }
 }
