@@ -148,6 +148,7 @@ require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('tele_tabby')
 require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('git_worktree')
 
 local M = {}
 

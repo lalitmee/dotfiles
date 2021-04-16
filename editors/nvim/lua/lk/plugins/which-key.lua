@@ -294,7 +294,14 @@ local leader_key_maps = {
     ['s'] = { ':Neogit<CR>', 'status' },
     ['S'] = { ':GGrep<CR>', 'git-grep' },
     ['v'] = { ':GV<CR>', 'view-commits' },
-    ['V'] = { ':GV!<CR>', 'view-buffer-commits' }
+    ['V'] = { ':GV!<CR>', 'view-buffer-commits' },
+    ['w'] = {
+      ['name'] = '+git-worktree',
+      ['l'] = {
+        ':lua require("telescope").extensions.git_worktree.git_worktrees()<CR>',
+        'list-worktrees'
+      }
+    }
   },
 
   ['G'] = {
