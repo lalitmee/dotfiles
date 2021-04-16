@@ -346,7 +346,10 @@ return require('packer').startup {
     -- STATUS AND TAB LINES {{{
 
     -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
-    use 'hoob3rt/lualine.nvim'
+    use {
+      'hoob3rt/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
     use 'akinsho/nvim-bufferline.lua'
 
     -- }}}
