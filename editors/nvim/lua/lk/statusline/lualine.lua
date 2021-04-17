@@ -57,9 +57,5 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  extensions = {
-    'fzf',
-    'fugitive'
-    -- 'nvim-tree'
-  }
+  extensions = { 'fzf', 'fugitive', 'nvim-tree' }
 }
