@@ -1,5 +1,4 @@
 if exists('g:goneovim')
-  colorscheme gruvbox
 
   " goneovim key mappings
   noremap <silent> <C-p> :GonvimFuzzyFiles<CR>
