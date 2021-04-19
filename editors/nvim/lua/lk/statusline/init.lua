@@ -1,5 +1,6 @@
 -- NOTE: lualine/nvim
 require('lk/statusline/lualine')
+-- require('lk/statusline/evil_lualine')
 
 -- NOTE: express_line/nvim
 -- require('lk/statusline/express_line')
