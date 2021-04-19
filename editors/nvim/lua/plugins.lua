@@ -347,18 +347,18 @@ return require('packer').startup {
     -- VERSION CONTROL STYSTEM {{{
 
     use 'mattn/webapi-vim'
-    use {
-      'mattn/vim-gist',
-      config = function()
-        vim.g.gist_clip_command = 'xclip -selection clipboard'
-        vim.g.gist_detect_filetype = 1
-        vim.g.open_browser_after_post = 1
-        vim.g.gist_show_privates = 1
-        vim.g.gist_post_private = 1
-        vim.g.gist_post_anonymous = 1
-        vim.g.gist_get_multiplefile = 1
-      end
-    }
+    -- use {
+    --   'mattn/vim-gist',
+    --   config = function()
+    --     vim.g.gist_clip_command = 'xclip -selection clipboard'
+    --     vim.g.gist_detect_filetype = 1
+    --     vim.g.open_browser_after_post = 1
+    --     vim.g.gist_show_privates = 1
+    --     vim.g.gist_post_private = 1
+    --     vim.g.gist_post_anonymous = 1
+    --     vim.g.gist_get_multiplefile = 1
+    --   end
+    -- }
     use 'f-person/git-blame.nvim' -- git blame in vim
     use 'rhysd/git-messenger.vim' -- git lens in vim
     use 'TimUntersberger/neogit' -- magit for neovim in lua
