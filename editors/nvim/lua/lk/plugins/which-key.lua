@@ -545,7 +545,6 @@ local leader_key_maps = {
     },
     ['t'] = {
       ['name'] = '+telescope',
-      ['B'] = 'tj-builtin',
       ['b'] = { ':Telescope builtin<CR>', 'builtins' },
       ['p'] = { ':Telescope planets<CR>', 'planets' },
       ['r'] = { ':Telescope reloader<CR>', 'reloaders' },
