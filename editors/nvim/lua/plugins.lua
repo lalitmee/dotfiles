@@ -6,7 +6,6 @@ local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com/wbthomason/packer.nvim ' ..
               install_path)
-  -- execute 'packadd packer.nvim'
 end
 
 local function hunspell_install_if_needed()
@@ -23,7 +22,12 @@ local function hunspell_install_if_needed()
   end
 end
 
-vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+vim.api.nvim_exec([[
+  augroup Packer
+    autocmd!
+    autocmd BufWritePost plugins.lua PackerCompile
+  augroup end
+]], false)
 
 require('packer').init({ display = { auto_clean = false } })
 
@@ -74,6 +78,7 @@ return require('packer').startup {
 
     -- Search, Replace and Jump {{{
 
+    use 'windwp/nvim-spectre'
     use 'thinca/vim-visualstar'
     use 'junegunn/vim-fnr'
     use 'junegunn/vim-pseudocl'
@@ -82,6 +87,26 @@ return require('packer').startup {
     use 'phaazon/hop.nvim' -- easymotion using lua
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
     use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
+    use {
+      'edluffy/specs.nvim',
+      config = function()
+        require('specs').setup {
+          show_jumps = true,
+          min_jump = 30,
+          popup = {
+            delay_ms = 0, -- delay before popup displays
+            inc_ms = 10, -- time increments used for fade/resize effects
+            blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
+            width = 10,
+            winhl = 'PMenu',
+            fader = require('specs').linear_fader,
+            resizer = require('specs').shrink_resizer
+          },
+          ignore_filetypes = {},
+          ignore_buftypes = { nofile = true }
+        }
+      end
+    }
 
     -- }}}
 
@@ -340,13 +365,17 @@ return require('packer').startup {
     use 'lewis6991/gitsigns.nvim' -- gitsigns in lua
     use 'tpope/vim-fugitive' -- version control
     use 'kdheepak/lazygit.nvim' -- lazygit from neovim
+    use 'ThePrimeagen/git-worktree.nvim' -- git worktree
 
     -- }}}
 
     -- STATUS AND TAB LINES {{{
 
     -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
-    use 'hoob3rt/lualine.nvim'
+    use {
+      'hoob3rt/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
     use 'akinsho/nvim-bufferline.lua'
 
     -- }}}

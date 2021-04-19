@@ -335,7 +335,14 @@ local leader_key_maps = {
     ['s'] = { ':Neogit<CR>', 'status' },
     ['S'] = { ':GGrep<CR>', 'git-grep' },
     ['v'] = { ':GV<CR>', 'view-commits' },
-    ['V'] = { ':GV!<CR>', 'view-buffer-commits' }
+    ['V'] = { ':GV!<CR>', 'view-buffer-commits' },
+    ['w'] = {
+      ['name'] = '+git-worktree',
+      ['l'] = {
+        ':lua require("telescope").extensions.git_worktree.git_worktrees()<CR>',
+        'list-worktrees'
+      }
+    }
   },
 
   ['G'] = {
@@ -538,7 +545,6 @@ local leader_key_maps = {
     },
     ['t'] = {
       ['name'] = '+telescope',
-      ['B'] = 'tj-builtin',
       ['b'] = { ':Telescope builtin<CR>', 'builtins' },
       ['p'] = { ':Telescope planets<CR>', 'planets' },
       ['r'] = { ':Telescope reloader<CR>', 'reloaders' },
@@ -570,7 +576,7 @@ local leader_key_maps = {
     ['name'] = '+project',
     ['a'] = { ':FzfAg<CR>', 'project-search' },
     ['b'] = { ':Telescope buffers<CR>', 'find-buffers' },
-    ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-find-files' },
+    ['f'] = { ':Telescope fzf_writer files<CR>', 'find-files-fzf' },
     ['F'] = { ':Telescope find_files<CR>', 'find-files' },
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['n'] = 'swap-parameter-next',
@@ -578,7 +584,7 @@ local leader_key_maps = {
     ['p'] = { ':Telescope project project<CR>', 'switch-project' },
     ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
-    ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search' },
+    ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },
     ['S'] = { ':Telescope live_grep<CR>', 'project-search' },
     ['w'] = { ':Telescope grep_string<CR>', 'string-search' }
   },
@@ -603,7 +609,7 @@ local leader_key_maps = {
     ['/'] = { ':Telescope command_history<CR>', 'history' },
     [';'] = { ':Telescope commands<CR>', 'commands' },
     ['a'] = { ':FzfAg<CR>', 'text-Ag' },
-    ['b'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'current-buffer' },
+    ['b'] = { ':FzfBuffers<CR>', 'current-buffer' },
     ['B'] = { ':Telescope buffers<CR>', 'open-buffers' },
     ['c'] = { ':Telescope git_commits<CR>', 'commits' },
     ['C'] = { ':Telescope git_bcommits<CR>', 'buffer-commits' },
@@ -612,10 +618,14 @@ local leader_key_maps = {
     ['g'] = { ':Telescope git_status<CR>', 'modified-git-files' },
     ['h'] = { ':Telescope help_tags<CR>', 'help-tags' },
     ['H'] = { ':Telescope command_history<CR>', 'command-history' },
-    ['l'] = { ':FzfLines<CR>', 'lines' },
+    ['l'] = {
+      ':Telescope current_buffer_fuzzy_find<CR>',
+      'telescope-buffer-lines'
+    },
+    ['L'] = { ':FzfLines<CR>', 'fzf-buffer-lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
-    ['p'] = { ':Telescope fzf_writer grep<CR>', 'fzf-live-grep' },
+    ['p'] = { ':Telescope fzf_writer grep<CR>', 'live-grep-fzf' },
     ['P'] = { ':Telescope live_grep<CR>', 'live-grep' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
