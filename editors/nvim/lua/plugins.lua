@@ -51,6 +51,7 @@ return require('packer').startup {
     use 'Th3Whit3Wolf/onebuddy'
     use 'Th3Whit3Wolf/spacebuddy'
     use 'marko-cerovac/material.nvim'
+    use 'folke/tokyonight.nvim'
 
     -- }}}
 
