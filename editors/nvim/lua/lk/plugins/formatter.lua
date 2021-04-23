@@ -43,7 +43,6 @@ local luafmt = function()
 end
 
 require('formatter').setup({
-  logging = false,
   filetype = {
     javascript = { prettier },
     javascriptreact = { prettier },
