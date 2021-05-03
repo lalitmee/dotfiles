@@ -128,7 +128,13 @@ require('telescope').setup {
       ['show_http_headers'] = false,
       ['show_domain_icons'] = false
     },
-    tele_tabby = { use_highlighter = true }
+    tele_tabby = { use_highlighter = true },
+    bookmarks = {
+      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
+      selected_browser = 'brave',
+      url_open_command = 'xdg-open',
+      firefox_profile_name = nil
+    }
   }
 }
 
@@ -149,6 +155,7 @@ require('telescope').load_extension('snippets')
 require('telescope').load_extension('tele_tabby')
 require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('git_worktree')
+require('telescope').load_extension('bookmarks')
 
 local M = {}
 
