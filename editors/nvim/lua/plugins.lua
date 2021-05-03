@@ -211,7 +211,6 @@ return require('packer').startup {
     use 'neoclide/vim-jsx-improve'
     use 'neoclide/coc-neco' -- vim completion for coc
     use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
-    use { 'antoinemadec/coc-fzf', branch = 'release' }
 
     -- }}}
 
@@ -303,8 +302,8 @@ return require('packer').startup {
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
         { 'nvim-telescope/telescope-packer.nvim' },
-        { 'dhruvmanila/telescope-bookmarks.nvim' }
-
+        { 'dhruvmanila/telescope-bookmarks.nvim' },
+        { 'fannheyward/telescope-coc.nvim' }
       }
     }
 
