@@ -365,6 +365,7 @@ return require('packer').startup {
     use 'tpope/vim-fugitive' -- version control
     use 'kdheepak/lazygit.nvim' -- lazygit from neovim
     use 'ThePrimeagen/git-worktree.nvim' -- git worktree
+    use 'sindrets/diffview.nvim'
 
     -- }}}
 
