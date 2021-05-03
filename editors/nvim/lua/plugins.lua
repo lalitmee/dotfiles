@@ -51,6 +51,7 @@ return require('packer').startup {
     use 'Th3Whit3Wolf/onebuddy'
     use 'Th3Whit3Wolf/spacebuddy'
     use 'marko-cerovac/material.nvim'
+    use 'folke/tokyonight.nvim'
 
     -- }}}
 
@@ -301,7 +302,8 @@ return require('packer').startup {
         },
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
-        { 'nvim-telescope/telescope-packer.nvim' }
+        { 'nvim-telescope/telescope-packer.nvim' },
+        { 'dhruvmanila/telescope-bookmarks.nvim' }
 
       }
     }
@@ -366,6 +368,7 @@ return require('packer').startup {
     use 'tpope/vim-fugitive' -- version control
     use 'kdheepak/lazygit.nvim' -- lazygit from neovim
     use 'ThePrimeagen/git-worktree.nvim' -- git worktree
+    use 'sindrets/diffview.nvim'
 
     -- }}}
 
