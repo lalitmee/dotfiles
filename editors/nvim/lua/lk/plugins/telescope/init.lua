@@ -156,6 +156,7 @@ require('telescope').load_extension('tele_tabby')
 require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('bookmarks')
+require('telescope').load_extension('coc')
 
 local M = {}
 

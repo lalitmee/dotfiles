@@ -127,29 +127,31 @@ local leader_key_maps = {
       ['W'] = { ':CocList words<CR>', 'buffer-words' },
       ['z'] = { ':CocList tags<CR>', 'tag-files' }
     },
-    ['m'] = {
-      ['name'] = '+fzf-list',
-      ['a'] = { ':CocFzfList actions<CR>', 'actions' },
-      ['b'] = { ':CocFzfList symbols<CR>', 'symbols' },
-      ['c'] = { ':CocFzfList commands<CR>', 'commands' },
-      ['d'] = { ':CocFzfList diagnostics<CR>', 'diagnostics' },
-      ['e'] = {
-        ':CocFzfList diagnostics --current-buf<CR>',
-        'buffer-diagnostics'
-      },
-      ['g'] = { ':CocFzfList issues<CR>', 'issues' },
-      ['i'] = { ':CocFzfList snippets<CR>', 'snippets' },
-      ['l'] = { ':CocFzfList location<CR>', 'locations' },
-      ['o'] = { ':CocFzfList outline<CR>', 'outline' },
-      ['r'] = { ':CocFzfListResume<CR>', 'resume-list' },
-      ['s'] = { ':CocFzfList services<CR>', 'services' },
-      ['u'] = { ':CocFzfList output<CR>', 'output' },
-      ['v'] = { ':CocFzfList sources<CR>', 'sources' },
-      ['y'] = { ':CocFzfList yank<CR>', 'yank' }
-    },
     ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
     ['R'] = { ':CocListResume<CR>', 'list-resume' },
     ['s'] = { ':CocSearch<CR>', 'search' },
+    ['t'] = {
+      ['name'] = '+telescope',
+      ['a'] = { ':Telescope coc code_actions<CR>', 'actions' },
+      ['c'] = { ':Telescope coc commands<CR>', 'commands' },
+      ['d'] = { ':Telescope coc definitions<CR>', 'definitions' },
+      ['D'] = { ':Telescope coc declarations<CR>', 'declarations' },
+      ['e'] = { ':Telescope coc diagnostics<CR>', 'diagnostics' },
+      ['E'] = {
+        ':Telescope coc workspace_diagnostics<CR>',
+        'workspace-diagnostics'
+      },
+      ['g'] = { ':Telescope coc code_actions<CR>', 'code_actions' },
+      ['i'] = { ':Telescope coc implementations<CR>', 'implementations' },
+      ['I'] = { ':Telescope coc type_definitions<CR>', 'type_definitions' },
+      ['l'] = { ':Telescope coc links<CR>', 'links' },
+      ['m'] = { ':Telescope coc mru<CR>', 'mru' },
+      ['o'] = { ':Telescope coc file_code_actions<CR>', 'file-code-actions' },
+      ['O'] = { ':Telescope coc line_code_actions<CR>', 'line-code-actions' },
+      ['r'] = { ':Telescope coc references<CR>', 'references' },
+      ['w'] = { ':Telescope coc document_symbols<CR>', 'document-symbols' },
+      ['W'] = { ':Telescope coc workspace_symbols<CR>', 'workspace-symbols' }
+    },
     ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
   },
 
