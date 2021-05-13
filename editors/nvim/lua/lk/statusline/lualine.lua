@@ -18,8 +18,8 @@ end
 require('lualine').setup {
   options = {
     -- theme = 'solarized_dark',
-    -- theme = 'onedark',
-    theme = 'tokyonight',
+    theme = 'onedark',
+    -- theme = 'tokyonight',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
@@ -58,5 +58,5 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  extensions = { 'fzf', 'fugitive', 'nvim-tree' }
+  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' }
 }
