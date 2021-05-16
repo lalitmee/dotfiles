@@ -119,6 +119,7 @@ return require('packer').startup {
 
     -- General {{{
 
+    use 'famiu/nvim-reload'
     use 'karb94/neoscroll.nvim'
     use 'mhinz/vim-sayonara' -- delete buffers and windows
     use 'andymass/vim-matchup' -- match brackets and more
