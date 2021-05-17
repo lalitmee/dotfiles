@@ -1,7 +1,7 @@
 -- NOTE: gruvbuddy
 require('lk/colorscheme/gruvbuddy')
 
--- -- NOTE: gruvbuddy
+-- -- NOTE: nord-nvim
 -- require('lk/colorscheme/nord-nvim')
 
 -- -- NOTE: material
@@ -9,6 +9,9 @@ require('lk/colorscheme/gruvbuddy')
 
 -- -- NOTE: tokyonight
 -- require('lk/colorscheme/tokyonight')
+
+-- -- NOTE: moonlight
+-- require('lk/colorscheme/moonlight')
 
 -- -- NOTE: onebuddy
 -- require('lk/colorscheme/onebuddy')

@@ -19,7 +19,7 @@ require('lualine').setup {
   options = {
     -- theme = 'solarized_dark',
     -- theme = 'onedark',
-    theme = 'nord',
+    theme = 'moonlight',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
