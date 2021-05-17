@@ -18,8 +18,8 @@ end
 require('lualine').setup {
   options = {
     -- theme = 'solarized_dark',
-    theme = 'onedark',
-    -- theme = 'tokyonight',
+    -- theme = 'onedark',
+    theme = 'nord',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
