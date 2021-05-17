@@ -1,6 +1,9 @@
 -- NOTE: gruvbuddy
 require('lk/colorscheme/gruvbuddy')
 
+-- -- NOTE: gruvbuddy
+-- require('lk/colorscheme/nord-nvim')
+
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
 

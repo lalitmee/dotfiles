@@ -52,6 +52,8 @@ return require('packer').startup {
     use 'Th3Whit3Wolf/spacebuddy'
     use 'marko-cerovac/material.nvim'
     use 'folke/tokyonight.nvim'
+    use 'shaunsingh/nord.nvim'
+    use 'shaunsingh/moonlight.nvim'
 
     -- }}}
 
@@ -64,6 +66,16 @@ return require('packer').startup {
 
     -- General {{{
 
+    use {
+      'folke/zen-mode.nvim',
+      config = function()
+        require('zen-mode').setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
     use 'junegunn/goyo.vim'
     use 'kshenoy/vim-signature' -- toggle, display and navigate marks
     use 'liuchengxu/vim-which-key' -- See what keys do like in emacs
