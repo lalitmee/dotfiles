@@ -19,7 +19,7 @@ require('lualine').setup {
   options = {
     -- theme = 'solarized_dark',
     -- theme = 'onedark',
-    theme = 'tokyonight',
+    theme = 'moonlight',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
@@ -28,7 +28,7 @@ require('lualine').setup {
     lualine_b = { { 'branch', icon = '' } },
     lualine_c = {
       -- file_icon,
-      { 'filename', shorten = true },
+      { 'filename' },
       {
         'diff',
         symbols = { added = ' ', modified = ' ', removed = ' ' },
@@ -46,7 +46,7 @@ require('lualine').setup {
       },
       { 'g:coc_status' }
     },
-    lualine_x = { { 'filetype', upper = true }, buf_spaces },
+    lualine_x = { 'filetype', buf_spaces },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
   },
@@ -58,5 +58,5 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  extensions = { 'fzf', 'fugitive', 'nvim-tree' }
+  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' }
 }
