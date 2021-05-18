@@ -680,12 +680,12 @@ local leader_key_maps = {
     ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
     ['w'] = {
       ['name'] = '+tabs',
-      ['c'] = { ':tabclose', 'close-tab' },
-      ['f'] = { ':tabfirst', 'first-tab' },
-      ['l'] = { ':tablast', 'last-tab' },
-      ['n'] = { ':tabnext', 'next-tab' },
-      ['N'] = { ':tabnew', 'new-tab' },
-      ['p'] = { ':tabprevious', 'previous-tab' }
+      ['c'] = { ':tabclose<CR>', 'close-tab' },
+      ['f'] = { ':tabfirst<CR>', 'first-tab' },
+      ['l'] = { ':tablast<CR>', 'last-tab' },
+      ['n'] = { ':tabnext<CR>', 'next-tab' },
+      ['N'] = { ':tabnew<CR>', 'new-tab' },
+      ['p'] = { ':tabprevious<CR>', 'previous-tab' }
     }
   },
 
@@ -713,7 +713,10 @@ local leader_key_maps = {
   },
 
   -- NOTE: u is for undo
-  ['u'] = { ['name'] = '+ui/toggle', ['u'] = { ':MundoToggle', 'mundo-tree' } },
+  ['u'] = {
+    ['name'] = '+ui/toggle',
+    ['u'] = { ':MundoToggle<CR>', 'mundo-tree' }
+  },
 
   -- NOTE: v is for vim
   ['v'] = {

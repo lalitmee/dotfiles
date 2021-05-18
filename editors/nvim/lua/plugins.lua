@@ -52,6 +52,8 @@ return require('packer').startup {
     use 'Th3Whit3Wolf/spacebuddy'
     use 'marko-cerovac/material.nvim'
     use 'folke/tokyonight.nvim'
+    use 'shaunsingh/nord.nvim'
+    use 'shaunsingh/moonlight.nvim'
 
     -- }}}
 
@@ -64,6 +66,12 @@ return require('packer').startup {
 
     -- General {{{
 
+    use {
+      'folke/zen-mode.nvim',
+      config = function()
+        require('zen-mode').setup {}
+      end
+    }
     use 'junegunn/goyo.vim'
     use 'kshenoy/vim-signature' -- toggle, display and navigate marks
     use 'liuchengxu/vim-which-key' -- See what keys do like in emacs
@@ -119,6 +127,7 @@ return require('packer').startup {
 
     -- General {{{
 
+    use 'famiu/nvim-reload'
     use 'karb94/neoscroll.nvim'
     use 'mhinz/vim-sayonara' -- delete buffers and windows
     use 'andymass/vim-matchup' -- match brackets and more
@@ -226,10 +235,22 @@ return require('packer').startup {
     --       run = './install.sh',
     --       requires = 'hrsh7th/nvim-compe'
     --     },
-    --     { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
+    --     -- { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
     --     { 'kabouzeid/nvim-lspinstall' },
     --     { 'nvim-lua/lsp-status.nvim' }
     --   }
+    -- }
+    -- use 'folke/lsp-colors.nvim'
+    -- use {
+    --   'folke/trouble.nvim',
+    --   requires = 'kyazdani42/nvim-web-devicons',
+    --   config = function()
+    --     require('trouble').setup {
+    --       -- your configuration comes here
+    --       -- or leave it empty to use the default settings
+    --       -- refer to the configuration section below
+    --     }
+    --   end
     -- }
     use 'bfredl/nvim-luadev'
     use 'euclidianAce/BetterLua.vim' -- better lua syntax highlighting
