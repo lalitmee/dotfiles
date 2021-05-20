@@ -28,3 +28,9 @@ endfunction
 command! BufferCloseAllButCurrent silent! execute "%bd|e#|bd#"
 
 " }}}
+
+" Telescope grep string {{{
+
+command! -nargs=? Tgrep lua require 'telescope.builtin'.grep_string({ search = vim.fn.input("Grep For > ")})
+
+" }}}

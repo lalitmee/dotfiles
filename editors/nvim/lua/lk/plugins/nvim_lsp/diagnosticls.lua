@@ -21,7 +21,7 @@ return {
         command = 'eslint_d',
         rootPatterns = { '.git', 'package.json' },
         debounce = 100,
-        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
+        args = { '--stdin', '--stdin-filename', '%filepath', 'json' },
         sourceName = 'eslint',
         parseJson = {
           errorsRoot = '[0].messages',
@@ -147,7 +147,8 @@ return {
         args = { '--stdin-filepath', '%filename' }
       }
     },
-    formatFiletypes = { css = 'prettier',
+    formatFiletypes = {
+      css = 'prettier',
       javascript = 'prettierEslint',
       javascriptreact = 'prettierEslint',
       json = 'prettier',
