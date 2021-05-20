@@ -131,11 +131,11 @@ map('n', '[d', [[&diff ? '[c' : "\<Plug>(coc-diagnostic-next)"]],
     { expr = true, noremap = false, silent = true })
 
 -- GoTo code navigation.
--- map('n', 'gd', [[<Plug>(coc-definition)]], recursive)
+map('n', 'gd', [[<Plug>(coc-definition)]], recursive)
 -- map('n', 'gy', [[<Plug>(coc-type-definition)]], recursive)
 -- map('n', 'gi', [[<Plug>(coc-implementation)]], recursive)
 -- map('n', 'gr', [[<Plug>(coc-references)]], recursive)
-map('n', 'gd', [[<cmd>Telescope coc definitions<CR>]], recursive)
+map('n', '<C-]>', [[<cmd>Telescope coc definitions<CR>]], recursive)
 map('n', 'ge', [[<cmd>Telescope coc diagnostics<CR>]], recursive)
 map('n', 'gE', [[<cmd>Telescope coc workspace_diagnostics<CR>]], recursive)
 map('n', 'gi', [[<cmd>Telescope coc implementations<CR>]], recursive)
