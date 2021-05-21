@@ -27,9 +27,9 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
-;; (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 13))
+(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
-(setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 14))
+;; (setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "CodeNewRoman Nerd Font" :size 16))
 ;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 16 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
@@ -54,7 +54,7 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
-(global-wakatime-mode)
+(global-wakatime-mode 1)
 (setq wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
 
 ;; modeline settings
@@ -133,8 +133,7 @@
   (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
 
 ;; A simple config:
-(after! solaire-mode
-  (setq-hook! . 'solaire-global-mode))
+(solaire-global-mode)
 
 ;; lsp file watcher
 (setq lsp-file-watch-threshold 5000)
