@@ -231,9 +231,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         doom-nord
                          doom-gruvbox
                          doom-dark+
-                         doom-nord
                          doom-molokai
                          doom-oceanic-next
                          doom-one
@@ -245,10 +245,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "CaskaydiaCove Nerd Font"
+                               "CaskaydiaCove Nerd Font"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               "JetBrainsMono Nerd Font"
+                               ;; "JetBrainsMono Nerd Font"
                                :size 14
                                :weight normal
                                :powerline-scale 1.3)
@@ -565,7 +565,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-gruvbox)
+  (spacemacs/load-theme 'doom-nord)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
