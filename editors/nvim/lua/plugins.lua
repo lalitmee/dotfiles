@@ -240,7 +240,27 @@ return require('packer').startup {
         },
         -- { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
         { 'kabouzeid/nvim-lspinstall' },
-        { 'nvim-lua/lsp-status.nvim' }
+        { 'nvim-lua/lsp-status.nvim' },
+        {
+          'simrat39/symbols-outline.nvim',
+          config = function()
+            vim.g.symbols_outline = {
+              highlight_hovered_item = true,
+              show_guides = true,
+              auto_preview = false, -- experimental
+              position = 'right',
+              keymaps = {
+                close = '<Esc>',
+                goto_location = '<Cr>',
+                focus_location = 'o',
+                hover_symbol = '<C-space>',
+                rename_symbol = 'r',
+                code_actions = 'a'
+              },
+              lsp_blacklist = {}
+            }
+          end
+        }
       }
     }
     use 'folke/lsp-colors.nvim'
