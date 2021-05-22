@@ -102,11 +102,12 @@ local leader_key_maps = {
       'lsp-workspace-diagnostics'
     },
     ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
+    ['H'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
     ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
     ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
     ['r'] = { ':Telescope lsp_references<CR>', 'lsp-references' },
     ['R'] = { ':Lspsaga lsp_finder<CR>', 'references' },
-    ['s'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
+    ['s'] = { ':SymbolsOutline<CR>', 'symbols-outline' },
     ['t'] = { ':Telescope treesitter<CR>', 'treesitter-symbols' },
     ['w'] = { ':Telescope lsp_document_symbols<CR>', 'lsp-document-symbols' },
     ['W'] = { ':Telescope lsp_workspace_symbols<CR>', 'lsp-workspace-symbols' }
