@@ -616,6 +616,13 @@ local leader_key_maps = {
     ['C'] = { ':Telescope git_bcommits<CR>', 'buffer-commits' },
     ['d'] = { ':Telescope git_files<CR>', 'git-files' },
     ['f'] = { ':Telescope find_files<CR>', 'files' },
+    ['F'] = {
+      ['name'] = '+Findr',
+      ['f'] = { ':Findr<CR>', 'find-files' },
+      ['b'] = { ':FindrBuffers<CR>', 'find-buffers' },
+      ['l'] = { ':FindrLocList<CR>', 'find-in-loc-list' },
+      ['q'] = { ':FindrQFList<CR>', 'find-in-qf-list' }
+    },
     ['g'] = { ':Telescope git_status<CR>', 'modified-git-files' },
     ['h'] = { ':Telescope help_tags<CR>', 'help-tags' },
     ['H'] = { ':Telescope command_history<CR>', 'command-history' },
