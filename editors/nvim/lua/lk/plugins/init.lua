@@ -14,6 +14,7 @@ require('lk/plugins/startify')
 
 -- NOTE: windows
 require('lk/plugins/window-swap')
+-- require('lk/plugins/true-zen')
 
 -- NOTE: explorer
 require('lk/plugins/nvim-tree')

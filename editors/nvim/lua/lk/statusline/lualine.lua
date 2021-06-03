@@ -36,13 +36,13 @@ require('lualine').setup {
       },
       {
         'diagnostics',
-        sources = { 'nvim_lsp' },
+        sources = { 'coc' },
         symbols = { error = ' :', warn = ' :', info = ' :' },
         color_error = '#E06C75',
         color_warn = '#FF922B',
         color_info = '#15AABF'
-      }
-      -- { lsp_status }
+      },
+      { 'g:coc_status' }
     },
     lualine_x = { 'filetype', buf_spaces },
     lualine_y = { 'progress' },
