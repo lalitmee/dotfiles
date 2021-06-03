@@ -66,12 +66,7 @@ return require('packer').startup {
 
     -- General {{{
 
-    use {
-      'folke/zen-mode.nvim',
-      config = function()
-        require('zen-mode').setup {}
-      end
-    }
+    use 'Pocco81/TrueZen.nvim'
     use 'junegunn/goyo.vim'
     use 'kshenoy/vim-signature' -- toggle, display and navigate marks
     use 'liuchengxu/vim-which-key' -- See what keys do like in emacs
