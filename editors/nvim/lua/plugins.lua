@@ -29,7 +29,7 @@ vim.api.nvim_exec([[
   augroup end
 ]], false)
 
--- require('packer').init({ display = { auto_clean = false } })
+require('packer').init({ display = { auto_clean = false } })
 
 return require('packer').startup {
   function(use)
@@ -66,16 +66,7 @@ return require('packer').startup {
 
     -- General {{{
 
-    use {
-      'folke/zen-mode.nvim',
-      config = function()
-        require('zen-mode').setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    }
+    use 'Pocco81/TrueZen.nvim'
     use 'junegunn/goyo.vim'
     use 'kshenoy/vim-signature' -- toggle, display and navigate marks
     use 'liuchengxu/vim-which-key' -- See what keys do like in emacs
@@ -220,9 +211,13 @@ return require('packer').startup {
 
     -- coc.nvim {{{
 
+    -- use 'Shougo/neco-vim'
+    -- use 'neoclide/vim-jsx-improve'
     -- use 'neoclide/coc-neco' -- vim completion for coc
-    -- use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
-    -- use { 'antoinemadec/coc-fzf', branch = 'release' }
+    -- use {
+    --     'neoclide/coc.nvim',
+    --     branch = 'release'
+    -- } -- Completion Conquerer
 
     -- }}}
 
@@ -238,7 +233,6 @@ return require('packer').startup {
           run = './install.sh',
           requires = 'hrsh7th/nvim-compe'
         },
-        -- { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
         { 'kabouzeid/nvim-lspinstall' },
         { 'nvim-lua/lsp-status.nvim' },
         {
@@ -268,11 +262,7 @@ return require('packer').startup {
       'folke/trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
       config = function()
-        require('trouble').setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
+        require('trouble').setup {}
       end
     }
     use 'bfredl/nvim-luadev'
@@ -347,8 +337,8 @@ return require('packer').startup {
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
         { 'nvim-telescope/telescope-packer.nvim' },
-        { 'dhruvmanila/telescope-bookmarks.nvim' }
-
+        { 'dhruvmanila/telescope-bookmarks.nvim' },
+        { 'fannheyward/telescope-coc.nvim' }
       }
     }
 
@@ -393,18 +383,18 @@ return require('packer').startup {
     -- VERSION CONTROL STYSTEM {{{
 
     use 'mattn/webapi-vim'
-    use {
-      'mattn/vim-gist',
-      config = function()
-        vim.g.gist_clip_command = 'xclip -selection clipboard'
-        vim.g.gist_detect_filetype = 1
-        vim.g.open_browser_after_post = 1
-        vim.g.gist_show_privates = 1
-        vim.g.gist_post_private = 1
-        vim.g.gist_post_anonymous = 1
-        vim.g.gist_get_multiplefile = 1
-      end
-    }
+    -- use {
+    --   'mattn/vim-gist',
+    --   config = function()
+    --     vim.g.gist_clip_command = 'xclip -selection clipboard'
+    --     vim.g.gist_detect_filetype = 1
+    --     vim.g.open_browser_after_post = 1
+    --     vim.g.gist_show_privates = 1
+    --     vim.g.gist_post_private = 1
+    --     vim.g.gist_post_anonymous = 1
+    --     vim.g.gist_get_multiplefile = 1
+    --   end
+    -- }
     use 'f-person/git-blame.nvim' -- git blame in vim
     use 'rhysd/git-messenger.vim' -- git lens in vim
     use 'TimUntersberger/neogit' -- magit for neovim in lua

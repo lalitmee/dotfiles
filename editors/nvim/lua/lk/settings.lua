@@ -28,8 +28,8 @@ end
 
 -- Numbers {{{
 
--- vim.o.number = true
--- vim.o.relativenumber = true
+-- vim.go.number = true
+-- vim.go.relativenumber = true
 
 -- }}}
 
@@ -52,27 +52,27 @@ vim.o.shortmess = table.concat({
 
 -- Timings {{{
 
-vim.o.updatetime = 1000
-vim.o.timeout = true
-vim.o.timeoutlen = 500
-vim.o.ttimeoutlen = 10
+vim.go.updatetime = 1000
+vim.go.timeout = true
+vim.go.timeoutlen = 500
+vim.go.ttimeoutlen = 10
 
 -- }}}
 
 -- Window splitting and buffers {{{
 
 opt.ruler = true
-vim.o.hidden = true
-vim.o.encoding = 'utf-8'
-vim.o.fileencoding = 'utf-8'
-vim.o.splitbelow = true
-vim.o.splitright = true
-vim.o.eadirection = 'hor'
-vim.o.t_Co = '256'
+vim.go.hidden = true
+vim.go.encoding = 'utf-8'
+vim.bo.fileencoding = 'utf-8'
+vim.go.splitbelow = true
+vim.go.splitright = true
+vim.go.eadirection = 'hor'
+-- vim.go.t_Co = '256'
 -- exclude usetab as we do not want to jump to buffers in already open tabs
 -- do not use split or vsplit to ensure we don't open any new windows
-vim.o.switchbuf = 'useopen,uselast'
-vim.o.fillchars = add {
+vim.go.switchbuf = 'useopen,uselast'
+vim.go.fillchars = add {
   'vert:▕', -- alternatives │
   'fold:━',
   'eob: ', -- suppress ~ at EndOfBuffer
@@ -88,7 +88,7 @@ vim.o.fillchars = add {
 -- Diff {{{
 
 -- Use in vertical diff mode, blank lines to keep sides aligned, Ignore whitespace changes
-vim.o.diffopt = add({
+vim.go.diffopt = add({
   'vertical',
   'iwhite',
   'hiddenoff',
@@ -96,37 +96,35 @@ vim.o.diffopt = add({
   'context:4',
   'algorithm:histogram',
   'indent-heuristic'
-}, vim.o.diffopt)
+}, vim.go.diffopt)
 
 -- }}}
 
 -- Format Options {{{
 
--- opt.formatoptions = table.concat(
---                         {
---       '1',
---       'q', -- continue comments with gq"
---       'c', -- Auto-wrap comments using textwidth
---       'r', -- Continue comments when pressing Enter
---       'n', -- Recognize numbered lists
---       '2', -- Use indent from 2nd line of a paragraph
---       't', -- autowrap lines using text width value
---       'j', -- remove a comment leader when joining lines.
---       -- Only break if the line was not longer than 'textwidth' when the insert
---       -- started and only at a white character that has been entered during the
---       -- current insert command.
---       'lv'
---     }
---                     )
+opt.formatoptions = table.concat({
+  '1',
+  'q', -- continue comments with gq"
+  'c', -- Auto-wrap comments using textwidth
+  'r', -- Continue comments when pressing Enter
+  'n', -- Recognize numbered lists
+  '2', -- Use indent from 2nd line of a paragraph
+  't', -- autowrap lines using text width value
+  'j', -- remove a comment leader when joining lines.
+  -- Only break if the line was not longer than 'textwidth' when the insert
+  -- started and only at a white character that has been entered during the
+  -- current insert command.
+  'lv'
+})
 
 -- }}}
 
 -- Folds {{{
 
-vim.o.foldtext = 'v:lua.folds()'
-vim.o.foldopen = add(vim.o.foldopen, 'search')
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 10
+vim.wo.foldtext = 'v:lua.folds()'
+vim.go.foldopen = add(vim.go.foldopen, 'search')
+vim.wo.foldlevel = 99
+vim.go.foldlevelstart = 10
 -- opt.foldmethod = 'syntax'
 
 -- }}}
@@ -135,24 +133,24 @@ vim.o.foldlevelstart = 10
 
 -- Use faster grep alternatives if possible
 if executable('rg') then
-  vim.o.grepprg =
+  vim.go.grepprg =
       [[rg --hidden --glob "!.git" --no-heading --smart-case --vimgrep --follow $*]]
-  vim.o.grepformat = add('%f:%l:%c:%m', vim.o.grepformat)
+  vim.go.grepformat = add('%f:%l:%c:%m', vim.go.grepformat)
 elseif executable('ag') then
-  vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
-  vim.o.grepformat = add('%f:%l:%c:%m', vim.o.grepformat)
+  vim.go.grepprg = [[ag --nogroup --nocolor --vimgrep]]
+  vim.go.grepformat = add('%f:%l:%c:%m', vim.go.grepformat)
 end
 
 -- }}}
 
 -- Wild and file globbing stuff in command mode {{{
 
-vim.o.wildcharm = api.nvim_eval([[char2nr("\<C-Z>")]]) -- FIXME: what's the correct way to do this?
-vim.o.wildmenu = true
-vim.o.wildmode = 'full' -- Shows a menu bar as opposed to an enormous list
-vim.o.wildignorecase = true -- Ignore case when completing file names and directories
+vim.go.wildcharm = api.nvim_eval([[char2nr("\<C-Z>")]]) -- FIXME: what's the correct way to do this?
+vim.go.wildmenu = true
+vim.go.wildmode = 'full' -- Shows a menu bar as opposed to an enormous list
+vim.go.wildignorecase = true -- Ignore case when completing file names and directories
 -- Binary
-vim.o.wildignore = add {
+vim.go.wildignore = add {
   '*.aux,*.out,*.toc',
   '*.o,*.obj,*.dll,*.jar,*.pyc,*.rbc,*.class',
   '*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp',
@@ -160,15 +158,13 @@ vim.o.wildignore = add {
   '*.eot,*.otf,*.ttf,*.woff',
   '*.doc,*.pdf',
   '*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz',
-  -- Cache
   '.sass-cache',
   '*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem',
-  -- Temp/System
   '*.*~,*~ ',
   '*.swp,.lock,.DS_Store,._*,tags.lock'
 }
-vim.o.wildoptions = 'pum'
-vim.o.pumblend = 3 -- Make popup window translucent
+vim.go.wildoptions = 'pum'
+vim.go.pumblend = 3 -- Make popup window translucent
 
 -- }}}
 
@@ -179,17 +175,17 @@ opt.breakindentopt = 'sbr'
 opt.linebreak = true -- lines wrap at words rather than random characters
 opt.synmaxcol = 1024 -- don't syntax highlight long lines
 opt.signcolumn = 'yes:2'
-opt.colorcolumn = '+1' -- Set the colour column to highlight one column after the 'textwidth'
-vim.o.cmdheight = 2 -- Set command line height to two lines
-vim.o.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
+vim.go.colorcolumn = '+1' -- Set the colour column to highlight one column after the 'textwidth'
+vim.go.cmdheight = 2 -- Set command line height to two lines
+vim.go.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
 vim.g.vimsyn_embed = 'lPr' -- allow embedded syntax highlighting for lua,python and ruby
 
 -- }}}
 
 -- List chars {{{
 
-vim.o.list = true -- invisible chars
-vim.o.listchars = add {
+vim.go.list = true -- invisible chars
+vim.go.listchars = add {
   'eol: ',
   'tab:│ ',
   'extends:›', -- Alternatives: … »
@@ -211,30 +207,30 @@ opt.smarttab = true
 opt.autoindent = true
 opt.smartindent = true
 opt.breakindent = true
-vim.o.shiftround = true
+vim.go.shiftround = true
 
-vim.o.joinspaces = false
-vim.o.gdefault = true
-vim.o.pumheight = 15
-vim.o.confirm = true -- make vim prompt me to save before doing destructive things
-vim.o.completeopt = add { 'menuone', 'noinsert', 'noselect' }
-vim.o.hlsearch = true
-vim.o.autowriteall = true -- automatically :write before running commands and changing files
-vim.o.clipboard = 'unnamedplus'
-vim.o.lazyredraw = true
-vim.o.laststatus = 2
-vim.o.showtabline = 2
-vim.o.cursorline = true
-vim.o.ttyfast = true
-vim.o.belloff = 'all'
-vim.o.termguicolors = true
-vim.o.background = 'dark'
-vim.o.showmode = false
-vim.o.showcmd = false
-vim.o.backup = false
-vim.o.writebackup = false
-vim.o.visualbell = true
-vim.o.errorbells = false
+vim.go.joinspaces = false
+vim.go.gdefault = true
+vim.go.pumheight = 15
+vim.go.confirm = true -- make vim prompt me to save before doing destructive things
+vim.go.completeopt = add { 'menuone', 'noinsert', 'noselect' }
+vim.go.hlsearch = true
+vim.go.autowriteall = true -- automatically :write before running commands and changing files
+vim.go.clipboard = 'unnamedplus'
+vim.go.lazyredraw = true
+vim.go.laststatus = 2
+vim.go.showtabline = 2
+vim.go.cursorline = true
+vim.go.ttyfast = true
+vim.go.belloff = 'all'
+vim.go.termguicolors = true
+vim.go.background = 'dark'
+vim.go.showmode = false
+vim.go.showcmd = false
+vim.go.backup = false
+vim.go.writebackup = false
+vim.go.visualbell = true
+vim.go.errorbells = false
 
 -- }}}
 
@@ -243,23 +239,23 @@ vim.o.errorbells = false
 -- emoji is true by default but makes (n)vim treat all emoji as double width
 -- which breaks rendering so we turn this off.
 -- CREDIT: https://www.youtube.com/watch?v=F91VWOelFNE
-vim.o.emoji = false
+vim.go.emoji = false
 
 -- }}}
 
 -- Title {{{
 
-vim.o.titlestring = ' ❐ %t %r %m'
-vim.o.titleold = '%{fnamemodify(getcwd(), ":t")}'
-vim.o.title = true
-vim.o.titlelen = 70
+vim.go.titlestring = ' ❐ %t %r %m'
+vim.go.titleold = '%{fnamemodify(getcwd(), ":t")}'
+vim.go.title = true
+vim.go.titlelen = 70
 
 -- }}}
 
 -- Utilities {{{
 
-vim.o.showmode = false
-vim.o.sessionoptions = add {
+vim.go.showmode = false
+vim.go.sessionoptions = add {
   'globals',
   'buffers',
   'curdir',
@@ -267,33 +263,33 @@ vim.o.sessionoptions = add {
   'help',
   'winpos'
 }
-vim.o.viewoptions = add { 'cursor', 'folds', 'slash', 'unix' } -- save/restore just these (with `:{mk,load}view`)
-vim.o.virtualedit = 'block' -- allow cursor to move where there is no text in visual block mode
-vim.o.dictionary = '/usr/share/dict/words'
-vim.o.inccommand = 'split'
+vim.go.viewoptions = add { 'cursor', 'folds', 'slash', 'unix' } -- save/restore just these (with `:{mk,load}view`)
+vim.go.virtualedit = 'block' -- allow cursor to move where there is no text in visual block mode
+vim.go.dictionary = '/usr/share/dict/words'
+vim.go.inccommand = 'split'
 -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
-vim.o.guicursor = table.concat({
+vim.go.guicursor = table.concat({
   [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
   [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
   [[sm:block-blinkwait175-blinkoff150-blinkon175]]
 }, ',')
-vim.o.autoread = true
-vim.o.mat = 2
-vim.o.history = 1000
-vim.o.swapfile = false
-vim.o.backspace = add { 'indent', 'eol', 'start' }
-vim.o.path = table.concat({ '**' })
-vim.o.tags = table.concat({ './tags', 'tags:$HOME' })
+vim.go.autoread = true
+vim.go.mat = 2
+vim.go.history = 1000
+vim.go.swapfile = false
+vim.go.backspace = add { 'indent', 'eol', 'start' }
+vim.go.path = table.concat({ '**' })
+vim.go.tags = table.concat({ './tags', 'tags:$HOME' })
 
 -- }}}
 
 -- BACKUP AND SWAPS {{{
 
-vim.o.swapfile = false
-vim.o.backup = false
-vim.o.writebackup = false
-if fn.isdirectory(vim.o.undodir) == 0 then
-  fn.mkdir(vim.o.undodir, 'p')
+vim.go.swapfile = false
+vim.go.backup = false
+vim.go.writebackup = false
+if fn.isdirectory(vim.go.undodir) == 0 then
+  fn.mkdir(vim.go.undodir, 'p')
 end
 opt.undofile = true
 
@@ -301,41 +297,41 @@ opt.undofile = true
 
 -- Match and search {{{
 
-vim.o.showmatch = true
-vim.o.magic = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.incsearch = true
-vim.o.wrapscan = true -- Searches wrap around the end of the file
-vim.o.scrolloff = 9
-vim.o.sidescrolloff = 10
-vim.o.sidescroll = 1
+vim.go.showmatch = true
+vim.go.magic = true
+vim.go.ignorecase = true
+vim.go.smartcase = true
+vim.go.incsearch = true
+vim.go.wrapscan = true -- Searches wrap around the end of the file
+vim.go.scrolloff = 9
+vim.go.sidescrolloff = 10
+vim.go.sidescroll = 1
 
 -- }}}
 
 -- Spelling {{{
 
-vim.o.spellsuggest = add(12, vim.o.spellsuggest)
-vim.o.spelloptions = 'camel'
-vim.o.spellcapcheck = '' -- don't check for capital letters at start of sentence
-vim.o.fileformats = 'unix,mac,dos'
-vim.o.complete = add('kspell', vim.o.complete)
+vim.go.spellsuggest = add(12, vim.go.spellsuggest)
+vim.go.spelloptions = 'camel'
+vim.go.spellcapcheck = '' -- don't check for capital letters at start of sentence
+vim.go.fileformats = 'unix,mac,dos'
+vim.go.complete = add('kspell', vim.go.complete)
 
 -- }}}
 
 -- Mouse {{{
 
-vim.o.mouse = 'a'
-vim.o.mousefocus = true
+vim.go.mouse = 'a'
+vim.go.mousefocus = true
 -- FIXME - these don't work in lua
--- vim.o.mousehide = true -- Raise issue on Neovim as this errors
+-- vim.go.mousehide = true -- Raise issue on Neovim as this errors
 
 -- }}}
 
 -- these only read ".vim" files {{{
 
-vim.o.secure = true -- Disable autocmd etc for project local vimrc files.
-vim.o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
+vim.go.secure = true -- Disable autocmd etc for project local vimrc files.
+vim.go.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 
 -- }}}
 

@@ -332,7 +332,7 @@ local leader_key_maps = {
     ['d'] = { ':HopChar2<CR>', 'hop-char-2' }
   },
 
-  -- NOTE: l is for lsp with Lspsaga
+  -- NOTE: l is for lsp with builtin lsp
   ['l'] = {
     ['name'] = '+Lspsaga',
     ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },

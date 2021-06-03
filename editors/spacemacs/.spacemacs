@@ -249,7 +249,7 @@ values."
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "JetBrainsMono Nerd Font"
-                               :size 14
+                               :size 13
                                :weight normal
                                :powerline-scale 1.3)
    ;; The leader key

@@ -194,52 +194,9 @@ local function general_overrides()
   }
 end
 
-function M.darken_color(color, amount)
-  local success, module = pcall(require, 'bufferline')
-  if not success then
-    vim.notify('Failed to load bufferline', 2, {})
-    return color
-  else
-    return module.shade_color(color, amount)
-  end
-end
-
-local function set_explorer_highlight()
-  local normal_bg = M.hl_value('Normal', 'bg')
-  local split_color = M.hl_value('VertSplit', 'fg')
-  local bg_color = M.darken_color(normal_bg, -8)
-  local st_color = M.darken_color(M.hl_value('Visual', 'bg'), -20)
-  local hls = {
-    { 'ExplorerBackground', { guibg = bg_color } },
-    { 'ExplorerVertSplit', { guifg = split_color, guibg = bg_color } },
-    { 'ExplorerStNC', { guibg = st_color, cterm = 'italic' } },
-    { 'ExplorerSt', { guibg = st_color } }
-  }
-  for _, grp in ipairs(hls) do
-    M.highlight(unpack(grp))
-  end
-end
-
-local explorer_fts = { 'NvimTree' }
-
-function M.on_explorer_enter()
-  local highlights = table.concat(
-                         {
-        'Normal:ExplorerBackground',
-        'EndOfBuffer:ExplorerBackground',
-        'StatusLine:ExplorerSt',
-        'StatusLineNC:ExplorerStNC',
-        'SignColumn:ExplorerBackground',
-        'VertSplit:ExplorerVertSplit'
-      }, ','
-                     )
-  vim.cmd('setlocal winhighlight=' .. highlights)
-end
-
 function M.apply_user_highlights()
   plugin_highlights()
   general_overrides()
-  set_explorer_highlight()
 end
 
 require('lk.autocommands').augroup(
@@ -249,11 +206,6 @@ require('lk.autocommands').augroup(
         targets = { '*' },
         command = 'lua require(\'lk.highlights\').apply_user_highlights()'
       },
-      {
-        events = { 'FileType' },
-        targets = explorer_fts,
-        command = 'lua require(\'lk.highlights\').on_explorer_enter()'
-      }
     }
 )
 
