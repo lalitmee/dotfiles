@@ -357,6 +357,7 @@ return require('packer').startup {
     use { 'RishabhRD/nvim-cheat.sh', requires = { 'RishabhRD/popfix' } }
     use 'windwp/nvim-autopairs' -- auto-pairs in lua
     use 'AndrewRadev/sideways.vim'
+    use 'sudormrfbin/cheatsheet.nvim'
 
     -- }}}
 
