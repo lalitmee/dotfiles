@@ -1,5 +1,9 @@
 -- local nnoremap = lk_utils.nnoremap
 local vnoremap = lk_utils.vnoremap
+local dap = require('dap')
+
+-- vscode launch.json
+require('dap.ext.vscode').load_launchjs()
 
 vim.fn.sign_define('DapBreakpoint',
                    { text = '🛑', texthl = '', linehl = '', numhl = '' })
@@ -24,3 +28,17 @@ vnoremap('<leader>ddh',
 -- )
 -- nnoremap('<localleader>dr', [[<cmd>lua require'dap'.repl.open()<CR>]])
 -- nnoremap('<localleader>dl', [[<cmd>lua require'dap'.repl.run_last()<CR>]])
+
+----------------------------------------------------------------------------
+--                                    CONFIGURATIONS                      --
+----------------------------------------------------------------------------
+
+-- javascript
+dap.configurations.javascript = {
+  {
+    type = 'javascript',
+    request = 'attach',
+    name = 'Launch file',
+    program = '${file}'
+  }
+}
