@@ -344,9 +344,9 @@ return require('packer').startup {
         },
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
-        { 'nvim-telescope/telescope-packer.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
         { 'fannheyward/telescope-coc.nvim' }
+        -- { 'nvim-telescope/telescope-packer.nvim' },
         -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
       }
     }

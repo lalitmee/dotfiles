@@ -145,6 +145,7 @@ require('telescope').setup {
 }
 
 -- require('telescope').load_extension('fzf')
+-- require('telescope').load_extension('packer')
 require('telescope').load_extension('arecibo')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('cheat')
@@ -159,7 +160,6 @@ require('telescope').load_extension('jumps')
 require('telescope').load_extension('lsp_handlers')
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('openbrowser')
-require('telescope').load_extension('packer')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('tele_tabby')
