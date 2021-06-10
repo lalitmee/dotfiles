@@ -25,6 +25,20 @@ colorscript random
 
 # }}}
 
+# function to run git fetch on cd into a git repo {{{
+
+chpwd () {
+  set -- "$(git rev-parse --show-toplevel)" 2>/dev/null
+  # If cd'ing into a git working copy and not within the same working copy
+  if [ -n "$1" ] && [ "$1" != "$vc_root" ]; then
+    vc_root="$1"
+    git fetch
+  fi
+}
+chpwd
+
+# }}}
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
