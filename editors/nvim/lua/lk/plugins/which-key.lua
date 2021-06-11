@@ -445,7 +445,8 @@ local leader_key_maps = {
   -- NOTE: n is for neovim
   ['n'] = {
     ['name'] = '+neovim',
-    ['c'] = { ':PackerClean<CR>', 'clean-packages' },
+    ['c'] = { ':PackerCompile<CR>', 'packer-compile' },
+    ['d'] = { ':PackerClean<CR>', 'clean-packages' },
     ['e'] = { ':e $HOME/.config/nvim/init.lua<CR>', 'edit-config' },
     ['h'] = 'tj-help-tags',
     ['H'] = { ':checkhealth<CR>', 'check-health' },
