@@ -46,7 +46,7 @@ local function save_profiles(threshold)
   _G._packer.profile_output = results
 end
 
-time("Luarocks path setup", true)
+time([[Luarocks path setup]], true)
 local package_path_str = "/home/lalitmee/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/lalitmee/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/lalitmee/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/lalitmee/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
 local install_cpath_pattern = "/home/lalitmee/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
@@ -57,8 +57,8 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
   package.cpath = package.cpath .. ';' .. install_cpath_pattern
 end
 
-time("Luarocks path setup", false)
-time("try_loadstring definition", true)
+time([[Luarocks path setup]], false)
+time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
   local success, result = pcall(loadstring(s))
   if not success then
@@ -69,8 +69,8 @@ local function try_loadstring(s, component, name)
   return result
 end
 
-time("try_loadstring definition", false)
-time("Defining packer_plugins", true)
+time([[try_loadstring definition]], false)
+time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["BetterLua.vim"] = {
     loaded = true,
@@ -386,7 +386,7 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/spacebuddy"
   },
   ["specs.nvim"] = {
-    config = { "\27LJ\2\n \2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\nwidth\3\n\nblend\3\n\vinc_ms\3\n\rdelay_ms\3\0\nwinhl\nPMenu\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0" },
+    config = { "\27LJ\2\n \2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\vinc_ms\3\n\rdelay_ms\3\0\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/specs.nvim"
   },
@@ -648,24 +648,24 @@ _G.packer_plugins = {
   }
 }
 
-time("Defining packer_plugins", false)
+time([[Defining packer_plugins]], false)
 -- Config for: specs.nvim
-time("Config for specs.nvim", true)
-try_loadstring("\27LJ\2\n \2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\nwidth\3\n\nblend\3\n\vinc_ms\3\n\rdelay_ms\3\0\nwinhl\nPMenu\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0", "config", "specs.nvim")
-time("Config for specs.nvim", false)
+time([[Config for specs.nvim]], true)
+try_loadstring("\27LJ\2\n \2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\vinc_ms\3\n\rdelay_ms\3\0\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0", "config", "specs.nvim")
+time([[Config for specs.nvim]], false)
 -- Config for: Navigator.nvim
-time("Config for Navigator.nvim", true)
+time([[Config for Navigator.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
-time("Config for Navigator.nvim", false)
+time([[Config for Navigator.nvim]], false)
 -- Config for: nvim-reload
-time("Config for nvim-reload", true)
+time([[Config for nvim-reload]], true)
 try_loadstring("\27LJ\2\nÒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0", "config", "nvim-reload")
-time("Config for nvim-reload", false)
+time([[Config for nvim-reload]], false)
 
 -- Command lazy-loads
-time("Defining lazy-load commands", true)
+time([[Defining lazy-load commands]], true)
 vim.cmd [[command! -nargs=* -range -bang -complete=file TSPlaygroundToggle lua require("packer.load")({'playground'}, { cmd = "TSPlaygroundToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]]
-time("Defining lazy-load commands", false)
+time([[Defining lazy-load commands]], false)
 
 if should_profile then save_profiles() end
 
