@@ -27,3 +27,7 @@ if exists('g:GtkGuiLoaded')
     set guifont=JetbrainsMono\ Nerd\ Font:h14
     lua require('colorbuddy').colorscheme('gruvbuddy')
 endif
+
+" set guifont=CaskaydiaCove\ Nerd\ Font:h14
+" set guifont=OperatorMono\ Nerd\ Font:h14:w10
+set guifont=JetbrainsMono\ Nerd\ Font:h14

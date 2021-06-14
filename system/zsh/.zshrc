@@ -289,6 +289,7 @@ alias sb="subl ."
 # alias for gui nvims
 alias gnvim="~/goneovim/goneovim &"
 alias glrnvim="~/data/Github/glrnvim/target/release/glrnvim &"
+alias neovide="~/data/Softwares/editors/neovide &"
 
 # common aliases
 alias a="alias | fzf-tmux -d 40%"
