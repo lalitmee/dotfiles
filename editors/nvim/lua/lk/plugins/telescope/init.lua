@@ -140,7 +140,8 @@ require('telescope').setup {
       selected_browser = 'brave',
       url_open_command = 'xdg-open',
       firefox_profile_name = nil
-    }
+    },
+    project = { base_dir = '~/data', max_depth = 3 }
   }
 }
 

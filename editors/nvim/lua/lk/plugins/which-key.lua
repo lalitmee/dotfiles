@@ -584,7 +584,10 @@ local leader_key_maps = {
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['n'] = 'swap-parameter-next',
     ['N'] = 'swap-parameter-previous',
-    ['p'] = { ':Telescope project project<CR>', 'switch-project' },
+    ['p'] = {
+      ':lua require\'telescope\'.extensions.project.project{ display_type = \'full\' }<CR>',
+      'switch-project'
+    },
     ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
     ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },
