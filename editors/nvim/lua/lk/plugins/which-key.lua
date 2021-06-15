@@ -340,10 +340,11 @@ local leader_key_maps = {
     ['V'] = { ':GV!<CR>', 'view-buffer-commits' },
     ['w'] = {
       ['name'] = '+git-worktree',
-      ['l'] = {
-        ':lua require("telescope").extensions.git_worktree.git_worktrees()<CR>',
-        'list-worktrees'
-      }
+      ['c'] = {
+        ':Telescope git_worktree create_git_worktree<CR>',
+        'create-worktree'
+      },
+      ['l'] = { ':Telescope git_worktree git_worktrees<CR>', 'list-worktrees' }
     }
   },
 
