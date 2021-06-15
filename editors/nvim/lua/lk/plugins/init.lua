@@ -19,8 +19,8 @@ require('lk/plugins/window-swap')
 -- NOTE: explorer
 require('lk/plugins/nvim-tree')
 
--- -- NOTE: format
--- require('lk/plugins/formatter')
+-- NOTE: format
+require('lk/plugins/formatter')
 
 -- NOTE: terminal
 require('lk/plugins/floaterm')
