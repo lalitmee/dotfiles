@@ -46,6 +46,8 @@ require('telescope').setup {
         ['<C-j>'] = actions.move_selection_next,
         ['<C-k>'] = actions.move_selection_previous,
         ['<C-y>'] = actions.move_to_top,
+        ['<C-s>'] = actions.cycle_previewers_next,
+        ['<C-a>'] = actions.cycle_previewers_prev,
         ['<esc>'] = actions.close
       }
     },
