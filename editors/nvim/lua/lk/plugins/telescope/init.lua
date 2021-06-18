@@ -15,6 +15,7 @@ reloader()
 local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
 local sorters = require('telescope.sorters')
+local previewers = require('telescope.previewers')
 local themes = require('telescope.themes')
 
 require('telescope').setup {
@@ -84,9 +85,9 @@ require('telescope').setup {
         preview_height = 0.5
       }
     },
-    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new
+    file_previewer = previewers.vim_buffer_cat.new,
+    grep_previewer = previewers.vim_buffer_vimgrep.new,
+    qflist_previewer = previewers.vim_buffer_qflist.new
   },
   extensions = {
     -- fzf = {
