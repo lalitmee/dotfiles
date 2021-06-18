@@ -128,6 +128,7 @@ git
 git-extra-commands
 git-extras
 gitfast
+git-auto-fetch
 history
 last-working-dir
 ng
@@ -226,6 +227,15 @@ alias wi="wikit"
 # wikit alias
 alias d="dict"
 
+# git worktree aliases
+alias gwl="git worktree list"
+alias gwa="git worktree add"
+alias gwo="git worktree lock"
+alias gwm="git worktree move"
+alias gwp="git worktree prune"
+alias gwr="git worktree remove"
+alias gwu="git worktree unlock"
+
 # aliases for updating and installing packages
 alias aptl="apt list | fzf-tmux"
 alias brewl="brew list | fzf-tmux"
@@ -274,7 +284,8 @@ alias sb="subl ."
 
 # alias for gui nvims
 alias gnvim="~/goneovim/goneovim &"
-alias glrnvim="~/data/Github/glrnvim/target/release/glrnvim &"
+alias glm="~/data/Github/glrnvim/target/release/glrnvim &"
+alias nvd="~/data/Softwares/editors/neovide &"
 
 # common aliases
 alias a="alias | fzf-tmux -d 40%"

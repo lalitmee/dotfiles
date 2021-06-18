@@ -204,7 +204,7 @@ map('n', '<leader>cg',
 
 -- }}}
 
--- Coc Autocommands
+-- Coc Autocommands {{{
 
 require('lk.autocommands').create({
   coc_commands = {
@@ -226,6 +226,8 @@ require('lk.autocommands').create({
   }
 })
 
+-- }}}
+
 -- COC commands {{{
 
 -- Use `:Format` for format current buffer
@@ -245,4 +247,3 @@ command {
 }
 vim.cmd 'set tagfunc=CocTagFunc'
 -- }}}
--- vim:foldmethod=marker
