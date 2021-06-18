@@ -298,10 +298,11 @@ local leader_key_maps = {
     ['V'] = { ':GV!<CR>', 'view-buffer-commits' },
     ['w'] = {
       ['name'] = '+git-worktree',
-      ['l'] = {
-        ':lua require("telescope").extensions.git_worktree.git_worktrees()<CR>',
-        'list-worktrees'
-      }
+      ['c'] = {
+        ':Telescope git_worktree create_git_worktree<CR>',
+        'create-worktree'
+      },
+      ['l'] = { ':Telescope git_worktree git_worktrees<CR>', 'list-worktrees' }
     }
   },
 
@@ -444,7 +445,8 @@ local leader_key_maps = {
   -- NOTE: n is for neovim
   ['n'] = {
     ['name'] = '+neovim',
-    ['c'] = { ':PackerClean<CR>', 'clean-packages' },
+    ['c'] = { ':PackerCompile<CR>', 'packer-compile' },
+    ['d'] = { ':PackerClean<CR>', 'clean-packages' },
     ['e'] = { ':e $HOME/.config/nvim/init.lua<CR>', 'edit-config' },
     ['h'] = 'tj-help-tags',
     ['H'] = { ':checkhealth<CR>', 'check-health' },
@@ -582,7 +584,10 @@ local leader_key_maps = {
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['n'] = 'swap-parameter-next',
     ['N'] = 'swap-parameter-previous',
-    ['p'] = { ':Telescope project project<CR>', 'switch-project' },
+    ['p'] = {
+      ':lua require\'telescope\'.extensions.project.project{ display_type = \'full\' }<CR>',
+      'switch-project'
+    },
     ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
     ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },

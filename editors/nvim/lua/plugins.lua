@@ -122,7 +122,34 @@ return require('packer').startup {
 
     -- General {{{
 
-    use 'famiu/nvim-reload'
+    use {
+      'famiu/nvim-reload',
+      config = function()
+
+        local reload = require('nvim-reload')
+
+        -- If you use Neovim's built-in plugin system
+        -- Or a plugin manager that uses it (eg: packer.nvim)
+        local plugin_dirs = vim.fn.stdpath('data') .. '/site/pack/*/start/*'
+
+        reload.vim_reload_dirs = { vim.fn.stdpath('config'), plugin_dirs }
+
+        reload.lua_reload_dirs = {
+          vim.fn.stdpath('config'),
+          -- Note: the line below may cause issues reloading your config
+          plugin_dirs
+        }
+
+        reload.files_reload_external =
+            { vim.fn.stdpath('config') .. '/init.lua' }
+
+        reload.modules_reload_external = { 'packer' }
+
+        -- reload.post_reload_hook = function()
+        --   require('feline').reset_highlights()
+        -- end
+      end
+    }
     use 'karb94/neoscroll.nvim'
     use 'mhinz/vim-sayonara' -- delete buffers and windows
     use 'andymass/vim-matchup' -- match brackets and more
@@ -212,7 +239,7 @@ return require('packer').startup {
     -- coc.nvim {{{
 
     -- use 'Shougo/neco-vim'
-    -- use 'neoclide/vim-jsx-improve'
+    use 'neoclide/vim-jsx-improve'
     -- use 'neoclide/coc-neco' -- vim completion for coc
     -- use {
     --     'neoclide/coc.nvim',
@@ -336,9 +363,9 @@ return require('packer').startup {
         },
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
-        { 'nvim-telescope/telescope-packer.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
-        { 'fannheyward/telescope-coc.nvim' }
+        { 'fannheyward/telescope-coc.nvim' } -- { 'nvim-telescope/telescope-packer.nvim' },
+        -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
       }
     }
 
@@ -375,6 +402,7 @@ return require('packer').startup {
     use { 'RishabhRD/nvim-cheat.sh', requires = { 'RishabhRD/popfix' } }
     use 'windwp/nvim-autopairs' -- auto-pairs in lua
     use 'AndrewRadev/sideways.vim'
+    use 'sudormrfbin/cheatsheet.nvim'
 
     -- }}}
 
