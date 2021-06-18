@@ -259,6 +259,7 @@ return require('packer').startup {
     --     },
     --     -- { 'andersevenrud/compe-tmux', requires = 'hrsh7th/nvim-compe' },
     --     { 'kabouzeid/nvim-lspinstall' },
+    --     {'alexaandru/nvim-lspupdate'}
     --     { 'nvim-lua/lsp-status.nvim' }
     --   }
     -- }
