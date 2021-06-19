@@ -90,12 +90,12 @@ require('telescope').setup {
     qflist_previewer = previewers.vim_buffer_qflist.new
   },
   extensions = {
-    -- fzf = {
-    --   override_generic_sorter = false, -- override the generic sorter
-    --   override_file_sorter = true, -- override the file sorter
-    --   case_mode = 'smart_case' -- or "ignore_case" or "respect_case"
-    --   -- the default case_mode is "smart_case"
-    -- },
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = false, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = 'smart_case' -- or "ignore_case" or "respect_case"
+    },
     fzy_native = { override_generic_sorter = false, override_file_sorter = true },
     fzf_writer = {
       minimum_grep_characters = 5,
@@ -148,7 +148,6 @@ require('telescope').setup {
   }
 }
 
--- require('telescope').load_extension('fzf')
 -- require('telescope').load_extension('packer')
 require('telescope').load_extension('arecibo')
 require('telescope').load_extension('bookmarks')
@@ -157,6 +156,7 @@ require('telescope').load_extension('coc')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('dotfiles')
 require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzf')
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('harpoon')

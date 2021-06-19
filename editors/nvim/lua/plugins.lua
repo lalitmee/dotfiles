@@ -89,6 +89,20 @@ return require('packer').startup {
     use 'kevinhwang91/nvim-bqf' -- better quick-fix winodw
     use 'kevinhwang91/nvim-hlslens' -- hlslens lens for neovim
     use 'phaazon/hop.nvim' -- easymotion using lua
+    use {
+      'ggandor/lightspeed.nvim',
+      config = function()
+        require('lightspeed').setup {
+          jump_to_first_match = true,
+          jump_on_partial_input_safety_timeout = 400,
+          highlight_unique_chars = false,
+          grey_out_search_area = true,
+          match_only_the_start_of_same_char_seqs = true,
+          limit_ft_matches = 5,
+          full_inclusive_prefix_key = '<c-x>'
+        }
+      end
+    }
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
     use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
     use {
@@ -346,9 +360,9 @@ return require('packer').startup {
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
-        { 'fannheyward/telescope-coc.nvim' }
+        { 'fannheyward/telescope-coc.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         -- { 'nvim-telescope/telescope-packer.nvim' },
-        -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
       }
     }
 
