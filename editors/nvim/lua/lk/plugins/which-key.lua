@@ -32,13 +32,12 @@ vim.api.nvim_exec([[
 -- NOTE: leader key mappings
 local leader_key_maps = {
   -- NOTE: direct mappings
-  [','] = { ':w<CR>', 'save' },
-  ['.'] = { ':e $MYVIMRC<CR>', 'open-init' },
   [';'] = { ':Telescope commands<CR>', 'commands' },
 
   -- NOTE: a is for actions
   ['a'] = {
     ['name'] = '+actions',
+    ['a'] = { ':Cheatsheet<CR>', 'cheatsheet' },
     ['c'] = { ':ColorizerToggle<CR>', 'colorizer' },
     ['e'] = { ':NvimTreeToggle<CR>', 'nvim-tree-exlporer' },
     ['f'] = { ':NvimTreeFindFile<CR>', 'nvim-tree-find-file' },
@@ -155,56 +154,28 @@ local leader_key_maps = {
     ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
   },
 
-  -- NOTE: d is for harpoon
+  -- NOTE: d is for dap
   ['d'] = {
-    ['name'] = '+harpoon/+dap',
-    ['d'] = {
-      ['name'] = '+dap',
-      ['?'] = { [[<cmd>lua require'dap.ui.variables'.scopes()<CR>]], 'scopes' },
-      ['c'] = { [[<cmd>lua require'dap'.continue()<CR>]], 'continue' },
-      ['o'] = { [[<cmd>lua require'dap'.step_over()<CR>]], 'step-over' },
-      ['i'] = { [[<cmd>lua require'dap'.step_into()<CR>]], 'step-into' },
-      ['e'] = { [[<cmd>lua require'dap'.step_out()<CR>]], 'step-out' },
-      ['b'] = {
-        [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],
-        'toggle-breakpoint'
-      },
-      ['B'] = {
-        [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
-        'set-breakpoint-condition'
-      },
-      ['l'] = {
-        [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
-        'set-breakpoint-log-message'
-      },
-      ['r'] = { [[<cmd>lua require'dap'.repl.open()<CR>]], 'open-repl' },
-      ['R'] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], 'repl-run-last' }
+    ['name'] = '+dap',
+    ['?'] = { [[<cmd>lua require'dap.ui.variables'.scopes()<CR>]], 'scopes' },
+    ['c'] = { [[<cmd>lua require'dap'.continue()<CR>]], 'continue' },
+    ['o'] = { [[<cmd>lua require'dap'.step_over()<CR>]], 'step-over' },
+    ['i'] = { [[<cmd>lua require'dap'.step_into()<CR>]], 'step-into' },
+    ['e'] = { [[<cmd>lua require'dap'.step_out()<CR>]], 'step-out' },
+    ['b'] = {
+      [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],
+      'toggle-breakpoint'
     },
-    ['h'] = {
-      ['name'] = '+harpoon',
-      ['c'] = 'clear-all',
-      ['f'] = {
-        ['name'] = '+files',
-        ['1'] = 'goto-file-1',
-        ['2'] = 'goto-file-2',
-        ['3'] = 'goto-file-3',
-        ['4'] = 'goto-file-4',
-        ['5'] = 'goto-file-5',
-        ['6'] = 'goto-file-6',
-        ['a'] = 'add-file',
-        ['r'] = 'remove-file'
-      },
-      ['m'] = 'quick-menu',
-      ['p'] = 'promote',
-      ['s'] = 'shorten-list',
-      ['t'] = {
-        ['name'] = '+terminals',
-        ['f'] = 'goto-terminal-1',
-        ['s'] = 'send-command-terminal-1',
-        ['S'] = 'send-command-terminal-2',
-        ['t'] = 'goto-terminal-2'
-      }
-    }
+    ['B'] = {
+      [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
+      'set-breakpoint-condition'
+    },
+    ['l'] = {
+      [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
+      'set-breakpoint-log-message'
+    },
+    ['r'] = { [[<cmd>lua require'dap'.repl.open()<CR>]], 'open-repl' },
+    ['R'] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], 'repl-run-last' }
   },
 
   -- NOTE: e is for errors/warnings
@@ -286,9 +257,9 @@ local leader_key_maps = {
   },
 
   ['F'] = {
-    ['name'] = '+search/replace'
-    -- NOTE: r = 'replace-text-object',
-    -- NOTE: R = 'replace-current-word'
+    ['name'] = '+search/replace',
+    ['r'] = 'replace-text-object',
+    ['R'] = 'replace-current-word'
   },
 
   -- NOTE: g is for git
@@ -607,9 +578,6 @@ local leader_key_maps = {
     ['l'] = { ':Telescope quickfix<CR>', 'fuzzy-quickfix' }
   },
 
-  ['r'] = 'replace-text-object',
-  ['R'] = 'replace-current-word',
-
   -- NOTE: s is for search
   ['s'] = {
     ['name'] = '+search',
@@ -752,6 +720,49 @@ local leader_key_maps = {
     ['?'] = { ':FzfWindows<CR>', 'fzf-window' },
     ['a'] = { '<C-W>H', 'move-window-far-left' },
     ['d'] = { '<C-W>c', 'delete-window' },
+    ['f'] = {
+      ['name'] = '+harpoon',
+      ['c'] = { ':lua require("harpoon.mark").clear_all()<CR>', 'clear-all' },
+      ['f'] = {
+        ['name'] = '+files',
+        ['1'] = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'goto-file-4' },
+        ['2'] = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'goto-file-1' },
+        ['3'] = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'goto-file-2' },
+        ['4'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'goto-file-3' },
+        ['5'] = { ':lua require("harpoon.ui").nav_file(5)<CR>', 'goto-file-4' },
+        ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
+        ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
+        ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' }
+      },
+      ['m'] = {
+        ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
+        'quick-menu'
+      },
+      ['p'] = { ':lua require("harpoon.mark").promote()<CR>', 'promote' },
+      ['s'] = {
+        ':lua require("harpoon.mark").shorten_list()<CR>',
+        'shorten-list'
+      },
+      ['t'] = {
+        ['name'] = '+terminals',
+        ['f'] = {
+          ':lua require("harpoon.term").sendCommand(1, 2)<CR>',
+          'goto-terminal-1'
+        },
+        ['s'] = {
+          ':lua require("harpoon.term").gotoTerminal(1)<CR>',
+          'send-command-terminal-1'
+        },
+        ['S'] = {
+          ':lua require("harpoon.term").sendCommand(1, 1)<CR>',
+          'send-command-terminal-2'
+        },
+        ['t'] = {
+          ':lua require("harpoon.term").gotoTerminal(2)<CR>',
+          'goto-terminal-2'
+        }
+      }
+    },
     ['h'] = { ':lua require("Navigator").left()<CR>', 'window-left' },
     ['H'] = { '<C-W>5<', 'expand-window-left' },
     ['i'] = { '<C-W>K', 'move-window-far-top' },

@@ -89,6 +89,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/Navigator.nvim"
   },
+  ["TrueZen.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/TrueZen.nvim"
+  },
   ["aerojump.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/aerojump.nvim"
@@ -132,10 +136,6 @@ _G.packer_plugins = {
   fzf = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf"
-  },
-  ["fzf-lsp.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf-lsp.nvim"
   },
   ["fzf.vim"] = {
     loaded = true,
