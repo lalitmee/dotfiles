@@ -1,0 +1,11 @@
+linters:
+  shellcheck:
+    shell: bash
+  flake8:
+    fixer: true
+files:
+  ignore:
+    - 'bower_components/*'
+    - 'node_modules/*'
+fixers:
+  enable: true
