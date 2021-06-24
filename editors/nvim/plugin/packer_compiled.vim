@@ -198,7 +198,7 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lazygit.nvim"
   },
   ["lightspeed.nvim"] = {
-    config = { "\27LJ\2\n�\2\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\a\24jump_to_first_match\2\30full_inclusive_prefix_key\n<c-x>\21limit_ft_matches\3\5+match_only_the_start_of_same_char_seqs\2\25grey_out_search_area\2\27highlight_unique_chars\1)jump_on_partial_input_safety_timeout\3申3\nsetup\15lightspeed\frequire\0" },
+    config = { "\27LJ\2\n�\2\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\a+match_only_the_start_of_same_char_seqs\2\21limit_ft_matches\3\5\25grey_out_search_area\2\27highlight_unique_chars\1)jump_on_partial_input_safety_timeout\3申3\24jump_to_first_match\2\30full_inclusive_prefix_key\n<c-x>\nsetup\15lightspeed\frequire\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lightspeed.nvim"
   },
@@ -231,6 +231,7 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neogit"
   },
   ["neoscroll.nvim"] = {
+    config = { "\27LJ\2\nﾔ\4\0\0\4\0\30\0,4\0\0\0005\1\1\0005\2\2\0>\2\2\1=\1\0\0005\1\4\0005\2\5\0>\2\2\1=\1\3\0005\1\a\0005\2\b\0>\2\2\1=\1\6\0005\1\n\0005\2\v\0>\2\2\1=\1\t\0005\1\r\0005\2\14\0>\2\2\1=\1\f\0005\1\16\0005\2\17\0>\2\2\1=\1\15\0005\1\19\0005\2\20\0>\2\2\1=\1\18\0005\1\22\0005\2\23\0>\2\2\1=\1\21\0005\1\25\0005\2\26\0>\2\2\1=\1\24\0006\1\27\0'\3\28\0B\1\2\0029\1\29\1\18\3\0\0B\1\2\1K\0\1\0\17set_mappings\21neoscroll.config\frequire\1\2\0\0\b300\1\2\0\0\azb\azb\1\2\0\0\b300\1\2\0\0\azz\azz\1\2\0\0\b300\1\2\0\0\azt\azt\1\4\0\0\t0.10\nfalse\b100\1\2\0\0\vscroll\n<C-e>\1\4\0\0\n-0.10\nfalse\b100\1\2\0\0\vscroll\n<C-y>\1\5\0\0#vim.api.nvim_win_get_height(0)\ttrue\b500\15'circular'\1\2\0\0\vscroll\n<C-f>\1\5\0\0$-vim.api.nvim_win_get_height(0)\ttrue\b500\15'circular'\1\2\0\0\vscroll\n<C-b>\1\5\0\0\18vim.wo.scroll\ttrue\b350\v'sine'\1\2\0\0\vscroll\n<C-d>\1\5\0\0\19-vim.wo.scroll\ttrue\b350\v'sine'\1\2\0\0\vscroll\n<C-u>\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neoscroll.nvim"
   },
@@ -273,6 +274,10 @@ _G.packer_plugins = {
   ["nvim-luadev"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-luadev"
+  },
+  ["nvim-markdown-preview"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-markdown-preview"
   },
   ["nvim-nonicons"] = {
     loaded = true,
@@ -387,7 +392,7 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/spacebuddy"
   },
   ["specs.nvim"] = {
-    config = { "\27LJ\2\n\2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\rdelay_ms\3\0\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\vinc_ms\3\n\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0" },
+    config = { "\27LJ\2\n\2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\vinc_ms\3\n\rdelay_ms\3\0\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/specs.nvim"
   },
@@ -527,6 +532,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-commentary"
   },
+  ["vim-context-commentstring"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-context-commentstring"
+  },
   ["vim-dirvish"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-dirvish"
@@ -654,22 +663,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: lightspeed.nvim
-time([[Config for lightspeed.nvim]], true)
-try_loadstring("\27LJ\2\n�\2\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\a\24jump_to_first_match\2\30full_inclusive_prefix_key\n<c-x>\21limit_ft_matches\3\5+match_only_the_start_of_same_char_seqs\2\25grey_out_search_area\2\27highlight_unique_chars\1)jump_on_partial_input_safety_timeout\3申3\nsetup\15lightspeed\frequire\0", "config", "lightspeed.nvim")
-time([[Config for lightspeed.nvim]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+try_loadstring("\27LJ\2\nﾔ\4\0\0\4\0\30\0,4\0\0\0005\1\1\0005\2\2\0>\2\2\1=\1\0\0005\1\4\0005\2\5\0>\2\2\1=\1\3\0005\1\a\0005\2\b\0>\2\2\1=\1\6\0005\1\n\0005\2\v\0>\2\2\1=\1\t\0005\1\r\0005\2\14\0>\2\2\1=\1\f\0005\1\16\0005\2\17\0>\2\2\1=\1\15\0005\1\19\0005\2\20\0>\2\2\1=\1\18\0005\1\22\0005\2\23\0>\2\2\1=\1\21\0005\1\25\0005\2\26\0>\2\2\1=\1\24\0006\1\27\0'\3\28\0B\1\2\0029\1\29\1\18\3\0\0B\1\2\1K\0\1\0\17set_mappings\21neoscroll.config\frequire\1\2\0\0\b300\1\2\0\0\azb\azb\1\2\0\0\b300\1\2\0\0\azz\azz\1\2\0\0\b300\1\2\0\0\azt\azt\1\4\0\0\t0.10\nfalse\b100\1\2\0\0\vscroll\n<C-e>\1\4\0\0\n-0.10\nfalse\b100\1\2\0\0\vscroll\n<C-y>\1\5\0\0#vim.api.nvim_win_get_height(0)\ttrue\b500\15'circular'\1\2\0\0\vscroll\n<C-f>\1\5\0\0$-vim.api.nvim_win_get_height(0)\ttrue\b500\15'circular'\1\2\0\0\vscroll\n<C-b>\1\5\0\0\18vim.wo.scroll\ttrue\b350\v'sine'\1\2\0\0\vscroll\n<C-d>\1\5\0\0\19-vim.wo.scroll\ttrue\b350\v'sine'\1\2\0\0\vscroll\n<C-u>\0", "config", "neoscroll.nvim")
+time([[Config for neoscroll.nvim]], false)
 -- Config for: specs.nvim
 time([[Config for specs.nvim]], true)
-try_loadstring("\27LJ\2\n\2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\rdelay_ms\3\0\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\vinc_ms\3\n\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0", "config", "specs.nvim")
+try_loadstring("\27LJ\2\n\2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\vinc_ms\3\n\rdelay_ms\3\0\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0", "config", "specs.nvim")
 time([[Config for specs.nvim]], false)
--- Config for: nvim-reload
-time([[Config for nvim-reload]], true)
-try_loadstring("\27LJ\2\nﾒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0", "config", "nvim-reload")
-time([[Config for nvim-reload]], false)
 -- Config for: Navigator.nvim
 time([[Config for Navigator.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
 time([[Config for Navigator.nvim]], false)
+-- Config for: nvim-reload
+time([[Config for nvim-reload]], true)
+try_loadstring("\27LJ\2\nﾒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0", "config", "nvim-reload")
+time([[Config for nvim-reload]], false)
+-- Config for: lightspeed.nvim
+time([[Config for lightspeed.nvim]], true)
+try_loadstring("\27LJ\2\n�\2\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\a+match_only_the_start_of_same_char_seqs\2\21limit_ft_matches\3\5\25grey_out_search_area\2\27highlight_unique_chars\1)jump_on_partial_input_safety_timeout\3申3\24jump_to_first_match\2\30full_inclusive_prefix_key\n<c-x>\nsetup\15lightspeed\frequire\0", "config", "lightspeed.nvim")
+time([[Config for lightspeed.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
