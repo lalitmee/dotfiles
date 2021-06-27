@@ -33,6 +33,7 @@ vim.api.nvim_exec([[
 local leader_key_maps = {
   -- NOTE: direct mappings
   [';'] = { ':Telescope commands<CR>', 'commands' },
+  ['*'] = 'vimgrep-under-cursor',
 
   -- NOTE: a is for actions
   ['a'] = {

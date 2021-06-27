@@ -83,48 +83,49 @@ return require('packer').startup {
     -- Search, Replace and Jump {{{
 
     use 'windwp/nvim-spectre'
-    use 'thinca/vim-visualstar'
+    -- use 'thinca/vim-visualstar'
+    use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
     use 'junegunn/vim-pseudocl'
     use 'kevinhwang91/nvim-bqf' -- better quick-fix winodw
     use 'kevinhwang91/nvim-hlslens' -- hlslens lens for neovim
     use 'phaazon/hop.nvim' -- easymotion using lua
-    use {
-      'ggandor/lightspeed.nvim',
-      config = function()
-        require('lightspeed').setup {
-          jump_to_first_match = true,
-          jump_on_partial_input_safety_timeout = 400,
-          highlight_unique_chars = false,
-          grey_out_search_area = true,
-          match_only_the_start_of_same_char_seqs = true,
-          limit_ft_matches = 5,
-          full_inclusive_prefix_key = '<c-x>'
-        }
-      end
-    }
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
-    use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
-    use {
-      'edluffy/specs.nvim',
-      config = function()
-        require('specs').setup {
-          show_jumps = true,
-          min_jump = 30,
-          popup = {
-            delay_ms = 0, -- delay before popup displays
-            inc_ms = 10, -- time increments used for fade/resize effects
-            blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
-            width = 10,
-            winhl = 'PMenu',
-            fader = require('specs').linear_fader,
-            resizer = require('specs').shrink_resizer
-          },
-          ignore_filetypes = {},
-          ignore_buftypes = { nofile = true }
-        }
-      end
-    }
+    -- use {
+    --   'ggandor/lightspeed.nvim',
+    --   config = function()
+    --     require('lightspeed').setup {
+    --       jump_to_first_match = true,
+    --       jump_on_partial_input_safety_timeout = 400,
+    --       highlight_unique_chars = false,
+    --       grey_out_search_area = true,
+    --       match_only_the_start_of_same_char_seqs = true,
+    --       limit_ft_matches = 5,
+    --       full_inclusive_prefix_key = '<c-x>'
+    --     }
+    --   end
+    -- }
+    -- use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
+    -- use {
+    --   'edluffy/specs.nvim',
+    --   config = function()
+    --     require('specs').setup {
+    --       show_jumps = true,
+    --       min_jump = 30,
+    --       popup = {
+    --         delay_ms = 0, -- delay before popup displays
+    --         inc_ms = 10, -- time increments used for fade/resize effects
+    --         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
+    --         width = 10,
+    --         winhl = 'PMenu',
+    --         fader = require('specs').linear_fader,
+    --         resizer = require('specs').shrink_resizer
+    --       },
+    --       ignore_filetypes = {},
+    --       ignore_buftypes = { nofile = true }
+    --     }
+    --   end
+    -- }
 
     -- }}}
 
@@ -137,75 +138,11 @@ return require('packer').startup {
     -- General {{{
 
     use 'suy/vim-context-commentstring'
-    use {
-      'famiu/nvim-reload',
-      config = function()
-
-        local reload = require('nvim-reload')
-
-        -- If you use Neovim's built-in plugin system
-        -- Or a plugin manager that uses it (eg: packer.nvim)
-        local plugin_dirs = vim.fn.stdpath('data') .. '/site/pack/*/start/*'
-
-        reload.vim_reload_dirs = { vim.fn.stdpath('config'), plugin_dirs }
-
-        reload.lua_reload_dirs = {
-          vim.fn.stdpath('config'),
-          -- Note: the line below may cause issues reloading your config
-          plugin_dirs
-        }
-
-        reload.files_reload_external =
-            { vim.fn.stdpath('config') .. '/init.lua' }
-
-        reload.modules_reload_external = { 'packer' }
-
-        -- reload.post_reload_hook = function()
-        --   require('feline').reset_highlights()
-        -- end
-      end
-    }
+    use { 'famiu/nvim-reload' }
     use {
       'karb94/neoscroll.nvim',
       config = function()
-        -- require('neoscroll').setup({
-        --   mappings = {
-        --     '<C-u>',
-        --     '<C-d>',
-        --     '<C-b>',
-        --     '<C-f>',
-        --     '<C-y>',
-        --     '<C-e>',
-        --     'zt',
-        --     'zz',
-        --     'zb'
-        --   }
-        -- })
-        local t = {}
-        -- Syntax: t[keys] = {function, {function arguments}}
-        -- Use the "sine" easing function
-        t['<C-u>'] =
-            { 'scroll', { '-vim.wo.scroll', 'true', '350', [['sine']] } }
-        t['<C-d>'] =
-            { 'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']] } }
-        -- Use the "circular" easing function
-        t['<C-b>'] = {
-          'scroll',
-          { '-vim.api.nvim_win_get_height(0)', 'true', '500', [['circular']] }
-        }
-        t['<C-f>'] = {
-          'scroll',
-          { 'vim.api.nvim_win_get_height(0)', 'true', '500', [['circular']] }
-        }
-        -- Pass "nil" to disable the easing animation (constant scrolling speed)
-        t['<C-y>'] = { 'scroll', { '-0.10', 'false', '100', nil } }
-        t['<C-e>'] = { 'scroll', { '0.10', 'false', '100', nil } }
-        -- When no easing function is provided the default easing function (in this case "quadratic") will be used
-        t['zt'] = { 'zt', { '300' } }
-        t['zz'] = { 'zz', { '300' } }
-        t['zb'] = { 'zb', { '300' } }
-
-        require('neoscroll.config').set_mappings(t)
+        require('neoscroll').setup()
       end
     }
     use 'mhinz/vim-sayonara' -- delete buffers and windows
