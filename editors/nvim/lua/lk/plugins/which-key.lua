@@ -627,6 +627,13 @@ local leader_key_maps = {
   -- NOTE: t is for tabs/toggles/terminal
   ['t'] = {
     ['name'] = '+tabs/terminal/toggle',
+    ['c'] = {
+      ['name'] = '+colorscheme',
+      ['t'] = {
+        ':lua require("material.functions").toggle_style()<CR>',
+        'toggle-material-style'
+      }
+    },
     ['f'] = {
       ['name'] = '+floaterm',
       ['G'] = { ':FloatermNew tig<CR>', 'tig' },

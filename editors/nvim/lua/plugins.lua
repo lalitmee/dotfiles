@@ -54,6 +54,8 @@ return require('packer').startup {
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
     use 'shaunsingh/moonlight.nvim'
+    use 'gruvbox-community/gruvbox'
+    use 'sainnhe/gruvbox-material'
 
     -- }}}
 
@@ -82,8 +84,8 @@ return require('packer').startup {
 
     -- Search, Replace and Jump {{{
 
+    -- use 'mileszs/ack.vim'
     use 'windwp/nvim-spectre'
-    -- use 'thinca/vim-visualstar'
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
     use 'junegunn/vim-pseudocl'

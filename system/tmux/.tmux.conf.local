@@ -7,7 +7,7 @@
 
 # -- navigation ----------------------------------------------------------------
 
-# if you're running tmux within iTerm2
+# if you're running tmux within iTermg
 #   - and tmux is 1.9 or 1.9a
 #   - and iTerm2 is configured to let option key act as +Esc
 #   - and iTerm2 is configured to send [1;9A -> [1;9D for option + arrow keys
@@ -479,6 +479,7 @@ set -g @plugin 'ChanderG/tmux-notify'
 set -g @plugin 'sainnhe/tmux-fzf'
 
 # source-file ~/data/Github/dotfiles/system/tmux/themes/spaceduck/basic.conf
+# source-file ~/data/Github/dotfiles/system/tmux/themes/tokyonight_night.conf
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

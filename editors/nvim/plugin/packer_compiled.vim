@@ -275,7 +275,6 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-nonicons"
   },
   ["nvim-reload"] = {
-    config = { "\27LJ\2\nÒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-reload"
   },
@@ -649,18 +648,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: Navigator.nvim
-time([[Config for Navigator.nvim]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
-time([[Config for Navigator.nvim]], false)
 -- Config for: neoscroll.nvim
 time([[Config for neoscroll.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0", "config", "neoscroll.nvim")
 time([[Config for neoscroll.nvim]], false)
--- Config for: nvim-reload
-time([[Config for nvim-reload]], true)
-try_loadstring("\27LJ\2\nÒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0", "config", "nvim-reload")
-time([[Config for nvim-reload]], false)
+-- Config for: Navigator.nvim
+time([[Config for Navigator.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
+time([[Config for Navigator.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
