@@ -17,7 +17,7 @@ end
 
 require('lualine').setup {
   options = {
-    theme = 'nord',
+    theme = 'tokyonight',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
@@ -26,7 +26,7 @@ require('lualine').setup {
     lualine_b = { { 'branch', icon = '' } },
     lualine_c = {
       -- file_icon,
-      { 'filename' },
+      { 'filename', path = 1 },
       {
         'diff',
         symbols = { added = ' ', modified = ' ', removed = ' ' },
@@ -51,10 +51,10 @@ require('lualine').setup {
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
-    lualine_y = {},
-    lualine_z = {}
+    lualine_c = { { 'filename', path = 1 } },
+    lualine_x = { 'filetype', buf_spaces },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   },
   extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' }
 }
