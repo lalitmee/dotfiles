@@ -165,6 +165,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/goyo.vim"
   },
+  gruvbox = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbox"
+  },
+  ["gruvbox-material"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbox-material"
+  },
   ["gruvbuddy.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbuddy.nvim"
@@ -295,27 +303,27 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-treesitter-refactor"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-refactor"
   },
   ["nvim-treesitter-textobjects"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects"
   },
   ["nvim-ts-autotag"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
   },
   ["nvim-ts-context-commentstring"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring"
   },
   ["nvim-ts-rainbow"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-rainbow"
   },
@@ -401,10 +409,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/targets.vim"
   },
-  ["telescope-arecibo.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-arecibo.nvim"
-  },
   ["telescope-bookmarks.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-bookmarks.nvim"
@@ -472,6 +476,10 @@ _G.packer_plugins = {
   ["telescope-tele-tabby.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-tele-tabby.nvim"
+  },
+  ["telescope-tmux.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-tmux.nvim"
   },
   ["telescope-ultisnips.nvim"] = {
     loaded = true,

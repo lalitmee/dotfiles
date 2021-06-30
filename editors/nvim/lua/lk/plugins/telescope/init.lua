@@ -20,25 +20,16 @@ local themes = require('telescope.themes')
 
 require('telescope').setup {
   defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--hidden',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '--color=auto',
-      '--hidden',
-      '-g',
-      '!.git'
-    },
     prompt_prefix = ' > ',
+
+    selection_strategy = 'reset',
     sorting_strategy = 'ascending',
     scroll_strategy = 'cycle',
     prompt_position = 'top',
     color_devicons = true,
+
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+
     mappings = {
       i = {
         ['<C-e>'] = actions.move_to_bottom,
@@ -71,7 +62,6 @@ require('telescope').setup {
       '.Documents',
       'classes'
     },
-    file_sorter = sorters.get_fzy_sorter,
 
     layout_defaults = {
       horizontal = {
@@ -85,23 +75,39 @@ require('telescope').setup {
         preview_height = 0.5
       }
     },
+    layout_config = {
+      width = 0.95,
+      height = 0.85,
+      -- preview_cutoff = 120,
+      prompt_position = 'top',
+
+      horizontal = {
+        -- width_padding = 0.1,
+        -- height_padding = 0.1,
+        preview_width = function(_, cols, _)
+          if cols > 200 then
+            return math.floor(cols * 0.4)
+          else
+            return math.floor(cols * 0.6)
+          end
+        end
+      },
+
+      vertical = {
+        -- width_padding = 0.05,
+        -- height_padding = 1,
+        width = 0.9,
+        height = 0.95,
+        preview_height = 0.5
+      },
+
+      flex = { horizontal = { preview_width = 0.9 } }
+    },
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new
   },
   extensions = {
-    fzf = {
-      fuzzy = true, -- false will only do exact matching
-      override_generic_sorter = false, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = 'smart_case' -- or "ignore_case" or "respect_case"
-    },
-    fzy_native = { override_generic_sorter = false, override_file_sorter = true },
-    fzf_writer = {
-      minimum_grep_characters = 5,
-      minimum_files_characters = 5,
-      use_highlighter = true
-    },
     media_files = {
       filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
       find_cmd = 'rg'
@@ -131,12 +137,12 @@ require('telescope').setup {
         ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service'
       }
     },
-    arecibo = {
-      ['selected_engine'] = 'google',
-      ['url_open_command'] = 'xdg-open',
-      ['show_http_headers'] = false,
-      ['show_domain_icons'] = false
-    },
+    -- arecibo = {
+    --   ['selected_engine'] = 'google',
+    --   ['url_open_command'] = 'xdg-open',
+    --   ['show_http_headers'] = false,
+    --   ['show_domain_icons'] = false
+    -- },
     tele_tabby = { use_highlighter = true },
     bookmarks = {
       -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
@@ -148,8 +154,9 @@ require('telescope').setup {
   }
 }
 
+-- require('telescope').load_extension('arecibo')
+-- require('telescope').load_extension('fzy_native')
 -- require('telescope').load_extension('packer')
-require('telescope').load_extension('arecibo')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('cheat')
 require('telescope').load_extension('coc')
@@ -157,7 +164,6 @@ require('telescope').load_extension('dap')
 require('telescope').load_extension('dotfiles')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('harpoon')
 require('telescope').load_extension('jumps')
@@ -167,6 +173,7 @@ require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('tele_tabby')
+require('telescope').load_extension('tmux')
 require('telescope').load_extension('ultisnips')
 
 local M = {}
