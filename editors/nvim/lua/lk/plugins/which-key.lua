@@ -257,10 +257,13 @@ local leader_key_maps = {
     ['w'] = { ':FzfWindows<CR>', 'windows' }
   },
 
+  -- NOTE: F is for find and replace
   ['F'] = {
     ['name'] = '+search/replace',
     ['r'] = 'replace-text-object',
-    ['R'] = 'replace-current-word'
+    ['R'] = 'replace-current-word',
+    ['f'] = 'grep',
+    ['F'] = 'grep-and-replace'
   },
 
   -- NOTE: g is for git
@@ -563,8 +566,8 @@ local leader_key_maps = {
     },
     ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
-    ['s'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },
-    ['S'] = { ':Telescope live_grep<CR>', 'project-search' },
+    ['s'] = { ':Telescope live_grep<CR>', 'project-search' },
+    ['S'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },
     ['w'] = { ':Telescope grep_string<CR>', 'string-search' }
   },
 
@@ -603,6 +606,7 @@ local leader_key_maps = {
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
     ['p'] = { ':Telescope fzf_writer grep<CR>', 'live-grep-fzf' },
     ['P'] = { ':Telescope live_grep<CR>', 'live-grep' },
+    ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
     ['S'] = { ':Telescope colorscheme<CR>', 'color-schemes' },

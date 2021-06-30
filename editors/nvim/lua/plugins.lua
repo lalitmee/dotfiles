@@ -150,7 +150,12 @@ return require('packer').startup {
     use 'mhinz/vim-sayonara' -- delete buffers and windows
     use 'andymass/vim-matchup' -- match brackets and more
     use 'AndrewRadev/splitjoin.vim' -- Switch between single-line and multiline forms of code
-    use 'antoinemadec/FixCursorHold.nvim' -- fix cursor hold
+    use {
+      'antoinemadec/FixCursorHold.nvim',
+      run = function()
+        vim.g.curshold_updatime = 1000
+      end
+    }
     use 'christoomey/vim-sort-motion' -- sorting in vim
     use {
       'numToStr/Navigator.nvim',
@@ -316,14 +321,14 @@ return require('packer').startup {
     -- }}}
 
     -- telescope.nvim {{{
+    use { 'nvim-lua/plenary.nvim' }
+    use { 'nvim-lua/popup.nvim' }
 
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
-        { 'nvim-lua/plenary.nvim' },
-        { 'nvim-lua/popup.nvim' },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
@@ -335,15 +340,16 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
-        {
-          'nvim-telescope/telescope-arecibo.nvim',
-          rocks = { 'openssl', 'lua-http-parser' }
-        },
+        -- {
+        --   'nvim-telescope/telescope-arecibo.nvim',
+        --   rocks = { 'openssl', 'lua-http-parser' }
+        -- },
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
         { 'fannheyward/telescope-coc.nvim' },
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        { 'camgraff/telescope-tmux.nvim' }
         -- { 'nvim-telescope/telescope-packer.nvim' },
       }
     }
