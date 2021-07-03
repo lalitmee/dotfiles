@@ -54,6 +54,8 @@ return require('packer').startup {
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
     use 'shaunsingh/moonlight.nvim'
+    use 'gruvbox-community/gruvbox'
+    use 'sainnhe/gruvbox-material'
 
     -- }}}
 
@@ -82,35 +84,50 @@ return require('packer').startup {
 
     -- Search, Replace and Jump {{{
 
+    -- use 'mileszs/ack.vim'
     use 'windwp/nvim-spectre'
-    use 'thinca/vim-visualstar'
+    use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
     use 'junegunn/vim-pseudocl'
     use 'kevinhwang91/nvim-bqf' -- better quick-fix winodw
     use 'kevinhwang91/nvim-hlslens' -- hlslens lens for neovim
     use 'phaazon/hop.nvim' -- easymotion using lua
     use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
-    use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
-    use {
-      'edluffy/specs.nvim',
-      config = function()
-        require('specs').setup {
-          show_jumps = true,
-          min_jump = 30,
-          popup = {
-            delay_ms = 0, -- delay before popup displays
-            inc_ms = 10, -- time increments used for fade/resize effects
-            blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
-            width = 10,
-            winhl = 'PMenu',
-            fader = require('specs').linear_fader,
-            resizer = require('specs').shrink_resizer
-          },
-          ignore_filetypes = {},
-          ignore_buftypes = { nofile = true }
-        }
-      end
-    }
+    -- use {
+    --   'ggandor/lightspeed.nvim',
+    --   config = function()
+    --     require('lightspeed').setup {
+    --       jump_to_first_match = true,
+    --       jump_on_partial_input_safety_timeout = 400,
+    --       highlight_unique_chars = false,
+    --       grey_out_search_area = true,
+    --       match_only_the_start_of_same_char_seqs = true,
+    --       limit_ft_matches = 5,
+    --       full_inclusive_prefix_key = '<c-x>'
+    --     }
+    --   end
+    -- }
+    -- use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
+    -- use {
+    --   'edluffy/specs.nvim',
+    --   config = function()
+    --     require('specs').setup {
+    --       show_jumps = true,
+    --       min_jump = 30,
+    --       popup = {
+    --         delay_ms = 0, -- delay before popup displays
+    --         inc_ms = 10, -- time increments used for fade/resize effects
+    --         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
+    --         width = 10,
+    --         winhl = 'PMenu',
+    --         fader = require('specs').linear_fader,
+    --         resizer = require('specs').shrink_resizer
+    --       },
+    --       ignore_filetypes = {},
+    --       ignore_buftypes = { nofile = true }
+    --     }
+    --   end
+    -- }
 
     -- }}}
 
@@ -122,39 +139,23 @@ return require('packer').startup {
 
     -- General {{{
 
+    use 'suy/vim-context-commentstring'
+    use { 'famiu/nvim-reload' }
     use {
-      'famiu/nvim-reload',
+      'karb94/neoscroll.nvim',
       config = function()
-
-        local reload = require('nvim-reload')
-
-        -- If you use Neovim's built-in plugin system
-        -- Or a plugin manager that uses it (eg: packer.nvim)
-        local plugin_dirs = vim.fn.stdpath('data') .. '/site/pack/*/start/*'
-
-        reload.vim_reload_dirs = { vim.fn.stdpath('config'), plugin_dirs }
-
-        reload.lua_reload_dirs = {
-          vim.fn.stdpath('config'),
-          -- Note: the line below may cause issues reloading your config
-          plugin_dirs
-        }
-
-        reload.files_reload_external =
-            { vim.fn.stdpath('config') .. '/init.lua' }
-
-        reload.modules_reload_external = { 'packer' }
-
-        -- reload.post_reload_hook = function()
-        --   require('feline').reset_highlights()
-        -- end
+        require('neoscroll').setup()
       end
     }
-    use 'karb94/neoscroll.nvim'
     use 'mhinz/vim-sayonara' -- delete buffers and windows
     use 'andymass/vim-matchup' -- match brackets and more
     use 'AndrewRadev/splitjoin.vim' -- Switch between single-line and multiline forms of code
-    use 'antoinemadec/FixCursorHold.nvim' -- fix cursor hold
+    use {
+      'antoinemadec/FixCursorHold.nvim',
+      run = function()
+        vim.g.curshold_updatime = 1000
+      end
+    }
     use 'christoomey/vim-sort-motion' -- sorting in vim
     use {
       'numToStr/Navigator.nvim',
@@ -207,7 +208,7 @@ return require('packer').startup {
 
     -- use 'lukas-reineke/format.nvim'
     use 'mhartington/formatter.nvim' -- formatter in lua
-    use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
+    use { 'lukas-reineke/indent-blankline.nvim' }
     use 'godlygeek/tabular' -- Tabularize for Vim
 
     -- }}}
@@ -334,18 +335,19 @@ return require('packer').startup {
     use 'junegunn/fzf.vim' -- FZF in vim
     use 'gfanto/fzf-lsp.nvim'
     use 'conweller/findr.vim'
+    -- use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
 
     -- telescope.nvim {{{
+    use { 'nvim-lua/plenary.nvim' }
+    use { 'nvim-lua/popup.nvim' }
 
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
-        { 'nvim-lua/plenary.nvim' },
-        { 'nvim-lua/popup.nvim' },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
@@ -356,16 +358,16 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-snippets.nvim' },
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'tkmpypy/telescope-jumps.nvim' },
-        {
-          'nvim-telescope/telescope-arecibo.nvim',
-          rocks = { 'openssl', 'lua-http-parser' }
-        },
+        { 'tkmpypy/telescope-jumps.nvim' }, -- {
+        --   'nvim-telescope/telescope-arecibo.nvim',
+        --   rocks = { 'openssl', 'lua-http-parser' }
+        -- },
         { 'TC72/telescope-tele-tabby.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
-        { 'fannheyward/telescope-coc.nvim' } -- { 'nvim-telescope/telescope-packer.nvim' },
-        -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        { 'fannheyward/telescope-coc.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        { 'camgraff/telescope-tmux.nvim' } -- { 'nvim-telescope/telescope-packer.nvim' },
       }
     }
 
@@ -387,6 +389,7 @@ return require('packer').startup {
 
     -- markdown {{{
 
+    use 'davidgranstrom/nvim-markdown-preview'
     use 'npxbr/glow.nvim' -- markdown preview
 
     -- }}}

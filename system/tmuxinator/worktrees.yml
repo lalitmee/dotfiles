@@ -1,0 +1,11 @@
+# /home/lalitmee/.config/tmuxinator/worktrees.yml
+
+name: worktrees
+root: ~/data/work/koinearth
+windows:
+  - marketsn-pdf-service: cd marketsn-pdf-service
+  - marketsn-api-service: cd marketsn-api-service
+  - marketsn-webapp-service-nextjs: cd marketsn-webapp-service-nextjs
+  - wf-webapp-service: cd wf-webapp-service
+  - marketsn-pwa-service: cd marketsn-pwa-service
+  - wf-pwa-service: cd wf-pwa-service

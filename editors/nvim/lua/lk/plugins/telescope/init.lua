@@ -1,14 +1,14 @@
 if not pcall(require, 'telescope') then
-    return
+  return
 end
 
 local should_reload = true
 local reloader = function()
-    if should_reload then
-        RELOAD('plenary')
-        RELOAD('popup')
-        RELOAD('telescope')
-    end
+  if should_reload then
+    RELOAD('plenary')
+    RELOAD('popup')
+    RELOAD('telescope')
+  end
 end
 reloader()
 
@@ -19,131 +19,133 @@ local previewers = require('telescope.previewers')
 local themes = require('telescope.themes')
 
 require('telescope').setup {
-    defaults = {
-        vimgrep_arguments = {'rg', '--hidden', '--no-heading', '--with-filename', '--line-number', '--column',
-                             '--smart-case', '--color=auto', '--hidden', '-g', '!.git'},
-        prompt_prefix = ' > ',
-        sorting_strategy = 'ascending',
-        scroll_strategy = 'cycle',
-        prompt_position = 'top',
-        color_devicons = true,
-        set_env = {
-            ['COLORTERM'] = 'truecolor'
-        }, -- default = nil,
-        mappings = {
-            i = {
-                ['<C-e>'] = actions.move_to_bottom,
-                ['<C-n>'] = actions.move_selection_next,
-                ['<C-p>'] = actions.move_selection_previous,
-                ['<C-j>'] = actions.move_selection_next,
-                ['<C-k>'] = actions.move_selection_previous,
-                ['<C-y>'] = actions.move_to_top,
-                ['<C-s>'] = actions.cycle_previewers_next,
-                ['<C-a>'] = actions.cycle_previewers_prev,
-                ['<esc>'] = actions.close
-            }
-        },
-        borderchars = {
-            {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-            preview = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'}
-        },
-        file_ignore_patterns = {'.backup', '.swap', '.langservers', '.session', '.undo', '*.git', 'node_modules',
-                                'vendor', '.cache', '.vscode-server', '.Desktop', '.Documents', 'classes'},
-        file_sorter = sorters.get_fzy_sorter,
+  defaults = {
+    prompt_prefix = ' > ',
+    selection_strategy = 'reset',
+    sorting_strategy = 'ascending',
+    scroll_strategy = 'cycle',
+    color_devicons = true,
 
-        layout_defaults = {
-            horizontal = {
-                width_padding = 0.11,
-                height_padding = 0.13,
-                preview_width = 0.56
-            },
-            vertical = {
-                width_padding = 0.4,
-                height_padding = 0.8,
-                preview_height = 0.5
-            }
-        },
-        file_previewer = previewers.vim_buffer_cat.new,
-        grep_previewer = previewers.vim_buffer_vimgrep.new,
-        qflist_previewer = previewers.vim_buffer_qflist.new
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+
+    mappings = {
+      i = {
+        ['<C-e>'] = actions.move_to_bottom,
+        ['<C-n>'] = actions.move_selection_next,
+        ['<C-p>'] = actions.move_selection_previous,
+        ['<C-j>'] = actions.move_selection_next,
+        ['<C-k>'] = actions.move_selection_previous,
+        ['<C-y>'] = actions.move_to_top,
+        ['<C-s>'] = actions.cycle_previewers_next,
+        ['<C-a>'] = actions.cycle_previewers_prev,
+        ['<esc>'] = actions.close
+      }
     },
-    extensions = {
-        -- fzf = {
-        --   override_generic_sorter = false, -- override the generic sorter
-        --   override_file_sorter = true, -- override the file sorter
-        --   case_mode = 'smart_case' -- or "ignore_case" or "respect_case"
-        --   -- the default case_mode is "smart_case"
-        -- },
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true
-        },
-        fzf_writer = {
-            minimum_grep_characters = 5,
-            minimum_files_characters = 5,
-            use_highlighter = true
-        },
-        media_files = {
-            filetypes = {'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm'},
-            find_cmd = 'rg'
-        },
-        frecency = {
-            show_unindexed = true,
-            ignore_patterns = {'*.git/*', '*/node_modules/*'},
-            workspaces = {
-                ['nvim'] = '/home/lalitmee/data/.config/nvim/plugged',
-                ['dotf'] = '/home/lalitmee/data/Github/dotfiles',
-                ['work'] = '/home/lalitmee/data/koinearth',
-                ['git'] = '/home/lalitmee/data/Github',
-                ['conf'] = '/home/lalitmee/.config',
-                ['data'] = '/home/lalitmee/.local/share'
-            }
-        },
-        openbrowser = {
-            bookmarks = {
-                ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer',
-                ['dNotes'] = 'https://github.com/lalitmee/dNotes',
-                ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
-                ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
-                ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
-                ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
-                ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
-                ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
-                ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service'
-            }
-        },
-        arecibo = {
-            ['selected_engine'] = 'google',
-            ['url_open_command'] = 'xdg-open',
-            ['show_http_headers'] = false,
-            ['show_domain_icons'] = false
-        },
-        tele_tabby = {
-            use_highlighter = true
-        },
-        bookmarks = {
-            -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
-            selected_browser = 'brave',
-            url_open_command = 'xdg-open',
-            firefox_profile_name = nil
-        },
-        project = {
-            base_dir = '~/data',
-            max_depth = 3
-        }
-    }
+    borderchars = {
+      { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+    },
+    file_ignore_patterns = {
+      '.backup',
+      '.swap',
+      '.langservers',
+      '.session',
+      '.undo',
+      '*.git',
+      'node_modules',
+      'vendor',
+      '.cache',
+      '.vscode-server',
+      '.Desktop',
+      '.Documents',
+      'classes'
+    },
+
+    layout_config = {
+      width = 0.85,
+      height = 0.85,
+      prompt_position = 'top',
+
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      },
+
+      flex = { horizontal = { preview_width = 0.9 } }
+    },
+    file_previewer = previewers.vim_buffer_cat.new,
+    grep_previewer = previewers.vim_buffer_vimgrep.new,
+    qflist_previewer = previewers.vim_buffer_qflist.new
+  },
+  extensions = {
+    media_files = {
+      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
+      find_cmd = 'rg'
+    },
+    frecency = {
+      show_unindexed = true,
+      ignore_patterns = { '*.git/*', '*/node_modules/*' },
+      workspaces = {
+        ['nvim'] = '/home/lalitmee/data/.config/nvim/plugged',
+        ['dotf'] = '/home/lalitmee/data/Github/dotfiles',
+        ['work'] = '/home/lalitmee/data/koinearth',
+        ['git'] = '/home/lalitmee/data/Github',
+        ['conf'] = '/home/lalitmee/.config',
+        ['data'] = '/home/lalitmee/.local/share'
+      }
+    },
+    openbrowser = {
+      bookmarks = {
+        -- work related bookmards
+        ['B2BOrdersWorkflowServer'] = 'https://github.com/koinearth/B2BOrdersWorkflowServer',
+        ['dNotes'] = 'https://github.com/lalitmee/dNotes',
+        ['dotfiles'] = 'https://github.com/lalitmee/dotfiles',
+        ['marketsn-api-service'] = 'https://github.com/koinearth/marketsn-api-service',
+        ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
+        ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
+        ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
+        ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
+        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
+
+        -- work related bookmards
+        ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
+        ['neovim'] = 'https://github.com/neovim/neovim',
+        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim'
+      }
+    },
+    -- arecibo = {
+    --   ['selected_engine'] = 'google',
+    --   ['url_open_command'] = 'xdg-open',
+    --   ['show_http_headers'] = false,
+    --   ['show_domain_icons'] = false
+    -- },
+    tele_tabby = { use_highlighter = true },
+    bookmarks = {
+      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
+      selected_browser = 'brave',
+      url_open_command = 'xdg-open',
+      firefox_profile_name = nil
+    },
+    project = { base_dir = '~/data', max_depth = 3 }
+  }
 }
 
--- require('telescope').load_extension('fzf')
--- require('telescope').load_extension('coc')
+-- require('telescope').load_extension('arecibo')
+-- require('telescope').load_extension('fzy_native')
 -- require('telescope').load_extension('packer')
-require('telescope').load_extension('arecibo')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('cheat')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('dotfiles')
 require('telescope').load_extension('frecency')
-require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('fzf')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('harpoon')
 require('telescope').load_extension('jumps')
@@ -153,139 +155,141 @@ require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
 require('telescope').load_extension('tele_tabby')
+require('telescope').load_extension('tmux')
 require('telescope').load_extension('ultisnips')
 
 local M = {}
 
 function M.edit_neovim()
-    builtin.find_files {
-        prompt_title = '~ neovim ~',
-        shorten_path = false,
-        cwd = '~/.config/nvim',
+  builtin.find_files {
+    prompt_title = '~ neovim ~',
+    shorten_path = false,
+    cwd = '~/.config/nvim',
 
-        layout_strategy = 'horizontal',
-        layout_defaults = {
-            horizontal = {
-                width_padding = 0.11,
-                height_padding = 0.13,
-                preview_width = 0.56
-            },
-            vertical = {
-                width_padding = 0.4,
-                height_padding = 0.8,
-                preview_height = 0.5
-            }
-        }
+    layout_strategy = 'horizontal',
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
+  }
 end
 
 function M.edit_dotfiles()
-    builtin.find_files {
-        prompt_title = '~ dotfiles ~',
-        shorten_path = false,
-        hidden = true,
-        cwd = '~/data/Github/dotfiles',
+  builtin.find_files {
+    prompt_title = '~ dotfiles ~',
+    shorten_path = false,
+    hidden = true,
+    cwd = '~/data/Github/dotfiles',
 
-        layout_strategy = 'horizontal',
-        layout_defaults = {
-            horizontal = {
-                width_padding = 0.11,
-                height_padding = 0.13,
-                preview_width = 0.56
-            },
-            vertical = {
-                width_padding = 0.4,
-                height_padding = 0.8,
-                preview_height = 0.5
-            }
-        }
+    layout_strategy = 'horizontal',
+    layout_defaults = {
+      horizontal = {
+        width_padding = 0.11,
+        height_padding = 0.13,
+        preview_width = 0.56
+      },
+      vertical = {
+        width_padding = 0.4,
+        height_padding = 0.8,
+        preview_height = 0.5
+      }
     }
+  }
 end
 
 function M.installed_plugins()
-    builtin.find_files {
-        cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
-    }
+  builtin.find_files {
+    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
+  }
 end
 
 function M.curbuf()
-    local opts = themes.get_dropdown {
-        winblend = 0,
-        border = true,
-        previewer = false,
-        shorten_path = false
-    }
-    builtin.current_buffer_fuzzy_find(opts)
+  local opts = themes.get_dropdown {
+    winblend = 0,
+    border = true,
+    previewer = false,
+    shorten_path = false
+  }
+  builtin.current_buffer_fuzzy_find(opts)
 end
 
 function M.help_tags()
-    builtin.help_tags {
-        show_version = true
-    }
+  builtin.help_tags { show_version = true }
 end
 
 function M.search_all_files()
-    builtin.find_files {
-        find_command = {'rg', '--no-ignore', '--hidden', '--files'},
-        hidden = true
-    }
+  builtin.find_files {
+    find_command = { 'rg', '--no-ignore', '--hidden', '--files' },
+    hidden = true
+  }
 end
 
 function M.lsp_workspace_symbols()
-    builtin.lsp_workspace_symbols {
-        query = vim.fn.input('Query > ')
-    }
+  builtin.lsp_workspace_symbols { query = vim.fn.input('Query > ') }
 end
 
 local function set_background(content)
-    vim.fn.system('dconf write /org/mate/desktop/background/picture-filename "\'' .. content .. '\'"')
+  vim.fn.system(
+      'dconf write /org/mate/desktop/background/picture-filename "\'' .. content ..
+          '\'"')
 end
 
 local function select_background(prompt_bufnr, map)
-    local function set_the_background(close)
-        local content = require('telescope.actions.state').get_selected_entry(prompt_bufnr)
-        set_background(content.cwd .. '/' .. content.value)
-        if close then
-            require('telescope.actions').close(prompt_bufnr)
-        end
+  local function set_the_background(close)
+    local content = require('telescope.actions.state').get_selected_entry(
+                        prompt_bufnr)
+    set_background(content.cwd .. '/' .. content.value)
+    if close then
+      require('telescope.actions').close(prompt_bufnr)
     end
+  end
 
-    map('i', '<C-p>', function()
-        set_the_background()
-    end)
+  map('i', '<C-p>', function()
+    set_the_background()
+  end)
 
-    map('i', '<CR>', function()
-        set_the_background(true)
-    end)
+  map('i', '<CR>', function()
+    set_the_background(true)
+  end)
 end
 
 local function image_selector(prompt, cwd)
-    return function()
-        require('telescope.builtin').find_files({
-            prompt_title = prompt,
-            cwd = cwd,
+  return function()
+    require('telescope.builtin').find_files(
+        {
+          prompt_title = prompt,
+          cwd = cwd,
 
-            attach_mappings = function(prompt_bufnr, map)
-                select_background(prompt_bufnr, map)
+          attach_mappings = function(prompt_bufnr, map)
+            select_background(prompt_bufnr, map)
 
-                -- Please continue mapping (attaching additional key maps):
-                -- Ctrl+n/p to move up and down the list.
-                return true
-            end
+            -- Please continue mapping (attaching additional key maps):
+            -- Ctrl+n/p to move up and down the list.
+            return true
+          end
         })
-    end
+  end
 end
 
-M.change_background = image_selector('< Select Wallpaper > ', '~/data/Github/wallpapers')
+M.change_background = image_selector('< Select Wallpaper > ',
+                                     '~/data/Github/wallpapers')
 
 return setmetatable({}, {
-    __index = function(_, k)
-        reloader()
+  __index = function(_, k)
+    reloader()
 
-        if M[k] then
-            return M[k]
-        else
-            return builtin[k]
-        end
+    if M[k] then
+      return M[k]
+    else
+      return builtin[k]
     end
+  end
 })
