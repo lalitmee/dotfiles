@@ -206,14 +206,12 @@ local leader_key_maps = {
       ['g'] = { ':FzfGFiles<CR>', 'git-files' },
       ['s'] = { ':FzfGFiles?<CR>', 'git-status-files' },
       ['d'] = { ':FzfDotfiles<CR>', 'dotfiles' },
-      ['n'] = { ':FzfNvimConfig<CR>', 'neovim-config' },
-      ['p'] = { ':FzfSwitchProjectFile<CR>', 'switch-files' }
+      ['n'] = { ':FzfNvimConfig<CR>', 'neovim-config' }
     },
     ['g'] = {
       ['name'] = '+git',
       ['b'] = { ':FzfBCommits<CR>', 'buffer-commits' },
-      ['B'] = { ':FzfCommits<CR>', 'commits' },
-      ['c'] = { ':FzfGBranches<CR>', 'git-branches' }
+      ['B'] = { ':FzfCommits<CR>', 'commits' }
     },
     ['h'] = { ':FzfHistory<CR>', 'history' },
     ['i'] = { ':FzfSnippets<CR>', 'snippets' },
@@ -606,7 +604,6 @@ local leader_key_maps = {
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
     ['p'] = { ':Telescope fzf_writer grep<CR>', 'live-grep-fzf' },
     ['P'] = { ':Telescope live_grep<CR>', 'live-grep' },
-    ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
     ['S'] = { ':Telescope colorscheme<CR>', 'color-schemes' },
