@@ -105,7 +105,9 @@ function _G.__coc_check_back_space()
 end
 
 local expr = { expr = true, silent = true }
+local expr_recursive = { expr = true, noremap = true, silent = true }
 local recursive = { noremap = false, silent = true }
+
 -- Use <C-l> for trigger snippet expand.
 map('i', '<C-l>', [[<Plug>(coc-snippets-expand)]], recursive)
 
@@ -122,13 +124,12 @@ map('i', '<C-@>', [[coc#refresh()]], expr)
 -- format on enter, <cr> could be remapped by other vim plugin
 map('i', '<cr>',
     [[pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-    { expr = true, silent = true, noremap = true })
+    expr_recursive)
 
--- Use `[c` and `]c` for navigate diagnostics
-map('n', ']d', [[&diff ? ']c' : "\<Plug>(coc-diagnostic-prev)"]],
-    { expr = true, noremap = false, silent = true })
-map('n', '[d', [[&diff ? '[c' : "\<Plug>(coc-diagnostic-next)"]],
-    { expr = true, noremap = false, silent = true })
+map('n', 'gep', [[&diff ? ']c' : "\<Plug>(coc-diagnostic-prev)"]],
+    expr_recursive)
+map('n', 'gen', [[&diff ? '[c' : "\<Plug>(coc-diagnostic-next)"]],
+    expr_recursive)
 
 -- GoTo code navigation.
 -- map('n', 'gd', [[<Plug>(coc-definition)]], recursive)

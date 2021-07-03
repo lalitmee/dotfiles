@@ -1,17 +1,14 @@
-" Automatically generated packer.nvim plugin loader code
+-- Automatically generated packer.nvim plugin loader code
 
-if !has('nvim-0.5')
-  echohl WarningMsg
-  echom "Invalid Neovim version for packer.nvim!"
-  echohl None
-  finish
-endif
+if vim.api.nvim_call_function('has', {'nvim-0.5'}) ~= 1 then
+  vim.api.nvim_command('echohl WarningMsg | echom "Invalid Neovim version for packer.nvim! | echohl None"')
+  return
+end
 
-packadd packer.nvim
+vim.api.nvim_command('packadd packer.nvim')
 
-try
+local no_errors = pcall(function()
 
-lua << END
   local time
   local profile_info
   local should_profile = false
@@ -93,10 +90,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/TrueZen.nvim"
   },
-  ["aerojump.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/aerojump.nvim"
-  },
   ["cheatsheet.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/cheatsheet.nvim"
@@ -173,6 +166,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/goyo.vim"
   },
+  gruvbox = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbox"
+  },
+  ["gruvbox-material"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbox-material"
+  },
   ["gruvbuddy.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbuddy.nvim"
@@ -225,6 +226,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/manillua.nvim"
   },
+  ["material.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/material.nvim"
+  },
   ["moonlight.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/moonlight.nvim"
@@ -234,6 +239,7 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neogit"
   },
   ["neoscroll.nvim"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neoscroll.nvim"
   },
@@ -289,12 +295,15 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-luadev"
   },
+  ["nvim-markdown-preview"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-markdown-preview"
+  },
   ["nvim-nonicons"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-nonicons"
   },
   ["nvim-reload"] = {
-    config = { "\27LJ\2\nÒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-reload"
   },
@@ -315,27 +324,27 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-treesitter-refactor"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-refactor"
   },
   ["nvim-treesitter-textobjects"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects"
   },
   ["nvim-ts-autotag"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
   },
   ["nvim-ts-context-commentstring"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring"
   },
   ["nvim-ts-rainbow"] = {
-    loaded = false,
+    loaded = true,
     needs_bufread = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-ts-rainbow"
   },
@@ -401,11 +410,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/spacebuddy"
   },
-  ["specs.nvim"] = {
-    config = { "\27LJ\2\n \2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\vinc_ms\3\n\rdelay_ms\3\0\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0" },
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/specs.nvim"
-  },
   ["splitjoin.vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/splitjoin.vim"
@@ -415,7 +419,7 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/sql.nvim"
   },
   ["symbols-outline.nvim"] = {
-    config = { "\27LJ\2\n…\2\0\0\3\0\a\0\t6\0\0\0009\0\1\0005\1\3\0005\2\4\0=\2\5\0014\2\0\0=\2\6\1=\1\2\0K\0\1\0\18lsp_blacklist\fkeymaps\1\0\6\nclose\n<Esc>\17hover_symbol\14<C-space>\19focus_location\6o\18goto_location\t<Cr>\17code_actions\6a\18rename_symbol\6r\1\0\4\rposition\nright\17auto_preview\1\16show_guides\2\27highlight_hovered_item\2\20symbols_outline\6g\bvim\0" },
+    config = { "\27LJ\2\n…\2\0\0\3\0\a\0\t6\0\0\0009\0\1\0005\1\3\0005\2\4\0=\2\5\0014\2\0\0=\2\6\1=\1\2\0K\0\1\0\18lsp_blacklist\fkeymaps\1\0\6\18goto_location\t<Cr>\17code_actions\6a\18rename_symbol\6r\nclose\n<Esc>\17hover_symbol\14<C-space>\19focus_location\6o\1\0\4\27highlight_hovered_item\2\rposition\nright\17auto_preview\1\16show_guides\2\20symbols_outline\6g\bvim\0" },
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim"
   },
@@ -430,10 +434,6 @@ _G.packer_plugins = {
   ["targets.vim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/targets.vim"
-  },
-  ["telescope-arecibo.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-arecibo.nvim"
   },
   ["telescope-bookmarks.nvim"] = {
     loaded = true,
@@ -454,6 +454,10 @@ _G.packer_plugins = {
   ["telescope-frecency.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-frecency.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim"
   },
   ["telescope-fzf-writer.nvim"] = {
     loaded = true,
@@ -498,6 +502,10 @@ _G.packer_plugins = {
   ["telescope-tele-tabby.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-tele-tabby.nvim"
+  },
+  ["telescope-tmux.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-tmux.nvim"
   },
   ["telescope-ultisnips.nvim"] = {
     loaded = true,
@@ -547,6 +555,10 @@ _G.packer_plugins = {
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-commentary"
+  },
+  ["vim-context-commentstring"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-context-commentstring"
   },
   ["vim-dirvish"] = {
     loaded = true,
@@ -648,9 +660,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-unimpaired"
   },
-  ["vim-visualstar"] = {
+  ["vim-visual-star-search"] = {
     loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-visualstar"
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-visual-star-search"
   },
   ["vim-wakatime"] = {
     loaded = true,
@@ -675,10 +687,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: specs.nvim
-time([[Config for specs.nvim]], true)
-try_loadstring("\27LJ\2\n \2\0\0\a\0\r\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0006\4\0\0'\6\1\0B\4\2\0029\4\5\4=\4\6\0036\4\0\0'\6\1\0B\4\2\0029\4\a\4=\4\b\3=\3\t\0024\3\0\0=\3\n\0025\3\v\0=\3\f\2B\0\2\1K\0\1\0\20ignore_buftypes\1\0\1\vnofile\2\21ignore_filetypes\npopup\fresizer\19shrink_resizer\nfader\17linear_fader\1\0\5\nwinhl\nPMenu\nwidth\3\n\nblend\3\n\vinc_ms\3\n\rdelay_ms\3\0\1\0\2\rmin_jump\3\30\15show_jumps\2\nsetup\nspecs\frequire\0", "config", "specs.nvim")
-time([[Config for specs.nvim]], false)
+-- Config for: symbols-outline.nvim
+time([[Config for symbols-outline.nvim]], true)
+try_loadstring("\27LJ\2\n…\2\0\0\3\0\a\0\t6\0\0\0009\0\1\0005\1\3\0005\2\4\0=\2\5\0014\2\0\0=\2\6\1=\1\2\0K\0\1\0\18lsp_blacklist\fkeymaps\1\0\6\18goto_location\t<Cr>\17code_actions\6a\18rename_symbol\6r\nclose\n<Esc>\17hover_symbol\14<C-space>\19focus_location\6o\1\0\4\27highlight_hovered_item\2\rposition\nright\17auto_preview\1\16show_guides\2\20symbols_outline\6g\bvim\0", "config", "symbols-outline.nvim")
+time([[Config for symbols-outline.nvim]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0", "config", "neoscroll.nvim")
+time([[Config for neoscroll.nvim]], false)
 -- Config for: trouble.nvim
 time([[Config for trouble.nvim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
@@ -687,14 +703,6 @@ time([[Config for trouble.nvim]], false)
 time([[Config for Navigator.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
 time([[Config for Navigator.nvim]], false)
--- Config for: symbols-outline.nvim
-time([[Config for symbols-outline.nvim]], true)
-try_loadstring("\27LJ\2\n…\2\0\0\3\0\a\0\t6\0\0\0009\0\1\0005\1\3\0005\2\4\0=\2\5\0014\2\0\0=\2\6\1=\1\2\0K\0\1\0\18lsp_blacklist\fkeymaps\1\0\6\nclose\n<Esc>\17hover_symbol\14<C-space>\19focus_location\6o\18goto_location\t<Cr>\17code_actions\6a\18rename_symbol\6r\1\0\4\rposition\nright\17auto_preview\1\16show_guides\2\27highlight_hovered_item\2\20symbols_outline\6g\bvim\0", "config", "symbols-outline.nvim")
-time([[Config for symbols-outline.nvim]], false)
--- Config for: nvim-reload
-time([[Config for nvim-reload]], true)
-try_loadstring("\27LJ\2\nÒ\2\0\0\6\0\14\0)6\0\0\0'\2\1\0B\0\2\0026\1\2\0009\1\3\0019\1\4\1'\3\5\0B\1\2\2'\2\6\0&\1\2\0014\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\a\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2>\3\1\2>\1\2\2=\2\t\0004\2\3\0006\3\2\0009\3\3\0039\3\4\3'\5\b\0B\3\2\2'\4\v\0&\3\4\3>\3\1\2=\2\n\0005\2\r\0=\2\f\0K\0\1\0\1\2\0\0\vpacker\28modules_reload_external\14/init.lua\26files_reload_external\20lua_reload_dirs\vconfig\20vim_reload_dirs\25/site/pack/*/start/*\tdata\fstdpath\afn\bvim\16nvim-reload\frequire\0", "config", "nvim-reload")
-time([[Config for nvim-reload]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
@@ -703,11 +711,8 @@ time([[Defining lazy-load commands]], false)
 
 if should_profile then save_profiles() end
 
-END
+end)
 
-catch
-  echohl ErrorMsg
-  echom "Error in packer_compiled: " .. v:exception
-  echom "Please check your config for correctness"
-  echohl None
-endtry
+if not no_errors then
+  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: ".v:exception | echom "Please check your config for correctness" | echohl None')
+end

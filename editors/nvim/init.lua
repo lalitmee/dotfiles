@@ -1,3 +1,5 @@
+local cmd = vim.api.nvim_command
+
 -- [[
 -- https://github.com/lalitmee/dotfiles
 -- NOTE: Created By: Lalit Kumar
@@ -28,3 +30,22 @@ elseif uname.sysname == 'Linux' then
   vim.g.system_name = 'Linux'
   vim.g.is_linux = true
 end
+
+function Autosync()
+  require('nvim-reload').Reload()
+  cmd('PackerInstall')
+  cmd('PackerCompile')
+end
+
+function Autoreload()
+  require('nvim-reload').Reload()
+end
+
+-- cmd('augroup AutoSync')
+-- cmd('autocmd BufWritePost ~/.config/nvim/lua/plugins.lua lua Autosync()')
+-- cmd('augroup END')
+
+cmd('augroup AutoReload')
+cmd('autocmd BufWritePost ~/.config/nvim/init.lua lua Autoreload()')
+cmd('autocmd BufWritePost ~/.config/nvim/lua/*.lua lua Autoreload()')
+cmd('augroup END')

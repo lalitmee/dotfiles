@@ -29,8 +29,8 @@ map('i', 'jk', [[<Esc>]], opts)
 map('i', 'kj', [[<Esc>]], opts)
 
 -- " Easy CAPS
-map('n', '<c-u>', [[<ESC>viwUi]], opts)
-map('n', '<c-l>', [[viwl<Esc>]], opts)
+-- map('n', '<c-u>', [[<ESC>viwUi]], opts)
+-- map('n', '<c-l>', [[viwl<Esc>]], opts)
 
 -- repeat `n.` after editing the searched word
 map('n', 'Q', [[@='n.'<CR>]], opts)
