@@ -208,7 +208,7 @@ return require('packer').startup {
 
     -- use 'lukas-reineke/format.nvim'
     use 'mhartington/formatter.nvim' -- formatter in lua
-    use { 'lukas-reineke/indent-blankline.nvim' }
+    use 'lukas-reineke/indent-blankline.nvim'
     use 'godlygeek/tabular' -- Tabularize for Vim
 
     -- }}}
