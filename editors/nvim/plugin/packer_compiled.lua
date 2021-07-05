@@ -94,13 +94,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/cheatsheet.nvim"
   },
+  ["coc-neco"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/coc-neco"
+  },
   ["colorbuddy.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim"
-  },
-  ["compe-tabnine"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/compe-tabnine"
   },
   ["complextras.nvim"] = {
     loaded = true,
@@ -202,21 +202,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lazygit.nvim"
   },
-  ["lsp-colors.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim"
-  },
-  ["lsp-status.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lsp-status.nvim"
-  },
   ["lsp_extensions.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim"
-  },
-  ["lspsaga.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -233,6 +221,10 @@ _G.packer_plugins = {
   ["moonlight.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/moonlight.nvim"
+  },
+  ["neco-vim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neco-vim"
   },
   neogit = {
     loaded = true,
@@ -271,10 +263,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
-  ["nvim-compe"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-compe"
-  },
   ["nvim-dap"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-dap"
@@ -282,14 +270,6 @@ _G.packer_plugins = {
   ["nvim-hlslens"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-hlslens"
-  },
-  ["nvim-lspconfig"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
-  },
-  ["nvim-lspinstall"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-lspinstall"
   },
   ["nvim-luadev"] = {
     loaded = true,
@@ -418,11 +398,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/sql.nvim"
   },
-  ["symbols-outline.nvim"] = {
-    config = { "\27LJ\2\n…\2\0\0\3\0\a\0\t6\0\0\0009\0\1\0005\1\3\0005\2\4\0=\2\5\0014\2\0\0=\2\6\1=\1\2\0K\0\1\0\18lsp_blacklist\fkeymaps\1\0\6\19focus_location\6o\18goto_location\t<Cr>\17code_actions\6a\nclose\n<Esc>\18rename_symbol\6r\17hover_symbol\14<C-space>\1\0\4\rposition\nright\17auto_preview\1\16show_guides\2\27highlight_hovered_item\2\20symbols_outline\6g\bvim\0" },
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim"
-  },
   tabular = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/tabular"
@@ -522,11 +497,6 @@ _G.packer_plugins = {
   ["train.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/train.nvim"
-  },
-  ["trouble.nvim"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0" },
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/trouble.nvim"
   },
   ultisnips = {
     loaded = true,
@@ -687,22 +657,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: symbols-outline.nvim
-time([[Config for symbols-outline.nvim]], true)
-try_loadstring("\27LJ\2\n…\2\0\0\3\0\a\0\t6\0\0\0009\0\1\0005\1\3\0005\2\4\0=\2\5\0014\2\0\0=\2\6\1=\1\2\0K\0\1\0\18lsp_blacklist\fkeymaps\1\0\6\19focus_location\6o\18goto_location\t<Cr>\17code_actions\6a\nclose\n<Esc>\18rename_symbol\6r\17hover_symbol\14<C-space>\1\0\4\rposition\nright\17auto_preview\1\16show_guides\2\27highlight_hovered_item\2\20symbols_outline\6g\bvim\0", "config", "symbols-outline.nvim")
-time([[Config for symbols-outline.nvim]], false)
--- Config for: neoscroll.nvim
-time([[Config for neoscroll.nvim]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0", "config", "neoscroll.nvim")
-time([[Config for neoscroll.nvim]], false)
 -- Config for: Navigator.nvim
 time([[Config for Navigator.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14Navigator\frequire\0", "config", "Navigator.nvim")
 time([[Config for Navigator.nvim]], false)
--- Config for: trouble.nvim
-time([[Config for trouble.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
-time([[Config for trouble.nvim]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0", "config", "neoscroll.nvim")
+time([[Config for neoscroll.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
