@@ -59,8 +59,8 @@ local leader_key_maps = {
     ['name'] = '+buffers',
     ['['] = { ':bp<CR>', 'prev-buffer' },
     [']'] = { ':bn<CR>', 'next-buffer' },
-    ['b'] = { ':FzfBuffers<CR>', 'fzf-buffers' },
-    ['B'] = { ':Telescope buffers<CR>', 'telescope-buffers' },
+    ['b'] = { ':Telescope buffers<CR>', 'telescope-buffers' },
+    ['B'] = { ':FzfBuffers<CR>', 'fzf-buffers' },
     ['c'] = { ':vnew<CR>', 'new-empty-buffer-vert' },
     ['C'] = { ':BufferCloseAllButCurrent<CR>', 'close-all-but-current' },
     ['d'] = { ':Sayonara!<CR>', 'delete-buffer' },
@@ -182,10 +182,11 @@ local leader_key_maps = {
   -- NOTE: e is for errors/warnings
   ['e'] = {
     ['name'] = '+errors/warnings',
-    ['l'] = { ':Telescope lsp_workspace_diagnostics<CR>', 'list-errors/warnings' },
-    ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
-    ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' },
-    ['L'] = { ':Lspsaga show-line-diagnostics<CR>', 'line-diagnostic' }
+    ['l'] = { ':Telescope coc diagnostics<CR>', 'buffer-diagnostics' },
+    ['L'] = {
+      ':Telescope coc workspace_diagnostics<CR>',
+      'workspace_diagnostics'
+    }
   },
 
   -- NOTE: f is for FZF
@@ -827,6 +828,11 @@ local local_leader_plug_keymaps = {
 
 local leader_plug_keymaps = {
   ['c'] = {},
+  ['e'] = {
+    ['name'] = '+errors/warnings',
+    ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
+    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' }
+  },
   ['l'] = {
     ['name'] = '+lsp',
     [';'] = { '<Plug>(coc-refactor)', 'refactor' },
