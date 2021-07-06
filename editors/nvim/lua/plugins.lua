@@ -147,9 +147,17 @@ return require('packer').startup {
         require('neoscroll').setup()
       end
     }
+    use {
+      'jghauser/mkdir.nvim',
+      config = function()
+        require('mkdir')
+      end
+    }
+    use 'matbme/JABS.nvim' -- minimal and beautiful buffer switcher
     use 'mhinz/vim-sayonara' -- delete buffers and windows
     use 'andymass/vim-matchup' -- match brackets and more
     use 'AndrewRadev/splitjoin.vim' -- Switch between single-line and multiline forms of code
+    -- use 'yamatsum/nvim-cursorline'
     use {
       'antoinemadec/FixCursorHold.nvim',
       run = function()
