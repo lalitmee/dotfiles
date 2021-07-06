@@ -181,6 +181,12 @@ return require('packer').startup {
     use 'tommcdo/vim-exchange' -- vim-exchange for exchanging words
     use 'wellle/targets.vim' -- targets.vim for extra motions
     use 'wesQ3/vim-windowswap' -- Swap windows
+    use {
+      'nacro90/numb.nvim',
+      config = function()
+        require('numb').setup()
+      end
+    }
 
     -- }}}
 
@@ -327,6 +333,7 @@ return require('packer').startup {
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
     }
+    use 'mizlan/iswap.nvim' -- interactively swap so many things
 
     -- }}}
 
@@ -419,27 +426,20 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
-    use 'mattn/webapi-vim'
-    -- use {
-    --   'mattn/vim-gist',
-    --   config = function()
-    --     vim.g.gist_clip_command = 'xclip -selection clipboard'
-    --     vim.g.gist_detect_filetype = 1
-    --     vim.g.open_browser_after_post = 1
-    --     vim.g.gist_show_privates = 1
-    --     vim.g.gist_post_private = 1
-    --     vim.g.gist_post_anonymous = 1
-    --     vim.g.gist_get_multiplefile = 1
-    --   end
-    -- }
-    use 'f-person/git-blame.nvim' -- git blame in vim
-    use 'rhysd/git-messenger.vim' -- git lens in vim
-    use 'TimUntersberger/neogit' -- magit for neovim in lua
-    use 'lewis6991/gitsigns.nvim' -- gitsigns in lua
-    use 'tpope/vim-fugitive' -- version control
-    use 'kdheepak/lazygit.nvim' -- lazygit from neovim
+    use {
+      'pwntester/octo.nvim',
+      config = function()
+        require'octo'.setup()
+      end
+    }
     use 'ThePrimeagen/git-worktree.nvim' -- git worktree
+    use 'TimUntersberger/neogit' -- magit for neovim in lua
+    use 'f-person/git-blame.nvim' -- git blame in vim
+    use 'kdheepak/lazygit.nvim' -- lazygit from neovim
+    use 'lewis6991/gitsigns.nvim' -- gitsigns in lua
+    use 'rhysd/git-messenger.vim' -- git lens in vim
     use 'sindrets/diffview.nvim'
+    use 'tpope/vim-fugitive' -- version control
 
     -- }}}
 
