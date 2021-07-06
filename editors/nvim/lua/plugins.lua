@@ -350,12 +350,12 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-writer.nvim' },
         { 'nvim-telescope/telescope-fzy-native.nvim' },
-        { 'nvim-telescope/telescope-media-files.nvim' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'nvim-telescope/telescope-snippets.nvim' },
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'tkmpypy/telescope-jumps.nvim' }, -- {
+        { 'tkmpypy/telescope-jumps.nvim' },
+        -- {
         --   'nvim-telescope/telescope-arecibo.nvim',
         --   rocks = { 'openssl', 'lua-http-parser' }
         -- },
@@ -364,7 +364,8 @@ return require('packer').startup {
         { 'dhruvmanila/telescope-bookmarks.nvim' },
         { 'fannheyward/telescope-coc.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        { 'camgraff/telescope-tmux.nvim' } -- { 'nvim-telescope/telescope-packer.nvim' },
+        { 'camgraff/telescope-tmux.nvim' },
+        { 'nvim-telescope/telescope-github.nvim' }
       }
     }
 

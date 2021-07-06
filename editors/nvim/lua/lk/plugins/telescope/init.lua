@@ -85,10 +85,7 @@ require('telescope').setup {
     qflist_previewer = previewers.vim_buffer_qflist.new
   },
   extensions = {
-    media_files = {
-      filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf', 'mp4', 'webm' },
-      find_cmd = 'rg'
-    },
+    fzy_native = { override_generic_sorter = false, override_file_sorter = true },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
@@ -117,7 +114,8 @@ require('telescope').setup {
         -- work related bookmards
         ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
         ['neovim'] = 'https://github.com/neovim/neovim',
-        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim'
+        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
+        ['material-ui'] = 'https://material-ui.com/'
       }
     },
     -- arecibo = {
@@ -133,24 +131,27 @@ require('telescope').setup {
       url_open_command = 'xdg-open',
       firefox_profile_name = nil
     },
-    project = { base_dir = '~/data', max_depth = 3 }
+    project = {
+      base_dirs = { '~/data/Github', '~/data/koinearth' },
+      max_depth = 3
+    }
   }
 }
 
 -- require('telescope').load_extension('arecibo')
--- require('telescope').load_extension('fzy_native')
 -- require('telescope').load_extension('packer')
+require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('cheat')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('dotfiles')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('gh')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('harpoon')
 require('telescope').load_extension('jumps')
 require('telescope').load_extension('lsp_handlers')
-require('telescope').load_extension('media_files')
 require('telescope').load_extension('openbrowser')
 require('telescope').load_extension('project')
 require('telescope').load_extension('snippets')
