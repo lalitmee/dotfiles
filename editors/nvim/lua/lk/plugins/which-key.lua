@@ -59,6 +59,7 @@ local leader_key_maps = {
     ['name'] = '+buffers',
     ['['] = { ':bp<CR>', 'prev-buffer' },
     [']'] = { ':bn<CR>', 'next-buffer' },
+    ['a'] = { ':JABSOpen<CR>', 'beautiful-buffer-switcher' },
     ['b'] = { ':Telescope buffers<CR>', 'telescope-buffers' },
     ['B'] = { ':FzfBuffers<CR>', 'fzf-buffers' },
     ['c'] = { ':vnew<CR>', 'new-empty-buffer-vert' },
