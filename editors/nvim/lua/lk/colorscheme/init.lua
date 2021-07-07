@@ -1,5 +1,8 @@
 -- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
+require('lk/colorscheme/nvcode')
+
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
