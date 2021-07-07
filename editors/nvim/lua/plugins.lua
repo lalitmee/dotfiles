@@ -46,16 +46,17 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
-    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
     use 'Th3Whit3Wolf/onebuddy'
     use 'Th3Whit3Wolf/spacebuddy'
-    use 'marko-cerovac/material.nvim'
+    use 'christianchiarulli/nvcode-color-schemes.vim'
     use 'folke/tokyonight.nvim'
-    use 'shaunsingh/nord.nvim'
-    use 'shaunsingh/moonlight.nvim'
     use 'gruvbox-community/gruvbox'
+    use 'marko-cerovac/material.nvim'
     use 'sainnhe/gruvbox-material'
+    use 'shaunsingh/moonlight.nvim'
+    use 'shaunsingh/nord.nvim'
+    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
+    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
 
     -- }}}
 
