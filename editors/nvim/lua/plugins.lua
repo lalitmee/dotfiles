@@ -57,6 +57,7 @@ return require('packer').startup {
     use 'shaunsingh/nord.nvim'
     use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
     use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
+    use 'Mofiqul/vscode.nvim'
 
     -- }}}
 

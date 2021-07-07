@@ -1,5 +1,8 @@
--- NOTE: tokyonight
-require('lk/colorscheme/nvcode')
+-- NOTE: vscode
+require('lk/colorscheme/vscode')
+
+-- -- NOTE: nvcode
+-- require('lk/colorscheme/nvcode')
 
 -- -- NOTE: tokyonight
 -- require('lk/colorscheme/tokyonight')
