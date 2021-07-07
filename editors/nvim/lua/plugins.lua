@@ -138,7 +138,12 @@ return require('packer').startup {
     -- }}}
 
     -- General {{{
-
+    use {
+      'folke/todo-comments.nvim',
+      config = function()
+        require('todo-comments').setup {}
+      end
+    }
     use 'suy/vim-context-commentstring'
     use { 'famiu/nvim-reload' }
     use {

@@ -310,14 +310,14 @@ local leader_key_maps = {
       ['name'] = '+octo.nvim',
       ['a'] = {
         ['name'] = '+reaction',
-        ['c'] = { ':Octo reaction confused<CR>', 'react-confused<CR>' },
-        ['d'] = { ':Octo reaction thumbs_down<CR>', 'react-thumbs_down<CR>' },
-        ['e'] = { ':Octo reaction eyes<CR>', 'react-eyes<CR>' },
-        ['h'] = { ':Octo reaction heart<CR>', 'react-heart<CR>' },
-        ['l'] = { ':Octo reaction laugh<CR>', 'react-laugh<CR>' },
-        ['r'] = { ':Octo reaction rocket<CR>', 'react-rocket<CR>' },
-        ['t'] = { ':Octo reaction tada<CR>', 'react-tada<CR>' },
-        ['u'] = { ':Octo reaction thumbs_up<CR>', 'react-thumbs_up<CR>' }
+        ['c'] = { ':Octo reaction confused<CR>', 'react-confused' },
+        ['d'] = { ':Octo reaction thumbs_down<CR>', 'react-thumbs_down' },
+        ['e'] = { ':Octo reaction eyes<CR>', 'react-eyes' },
+        ['h'] = { ':Octo reaction heart<CR>', 'react-heart' },
+        ['l'] = { ':Octo reaction laugh<CR>', 'react-laugh' },
+        ['r'] = { ':Octo reaction rocket<CR>', 'react-rocket' },
+        ['t'] = { ':Octo reaction tada<CR>', 'react-tada' },
+        ['u'] = { ':Octo reaction thumbs_up<CR>', 'react-thumbs_up' }
       },
       ['A'] = { ':Octo reviewer add<CR>', 'add-reviewer' },
       ['c'] = {
@@ -417,6 +417,17 @@ local leader_key_maps = {
     ['r'] = { ':GonvimFuzzyResume<CR>', 'resume-previous-search' },
     ['s'] = { ':GonvimWorkspaceSwitch <CR>', 'switch-workspace' },
     ['w'] = { ':GonvimFuzzyAgCword<CR>', 'fuzzy-word' }
+  },
+
+  -- NOTE: h is for highlight
+  ['h'] = {
+    ['name'] = '+highlight',
+    ['t'] = {
+      ['name'] = '+todo-comments',
+      ['q'] = { ':TodoQuickFix<CR>', 'todos-quickfix' },
+      ['t'] = { ':TodoTelescope<CR>', 'todos-telescope' },
+      ['b'] = { ':TodoTrouble<CR>', 'todos-trouble' }
+    }
   },
 
   -- NOTE: j is for jumping
