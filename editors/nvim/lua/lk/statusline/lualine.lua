@@ -17,8 +17,7 @@ end
 
 require('lualine').setup {
   options = {
-    -- theme = 'tokyonight',
-    theme = 'codedark',
+    theme = 'vscode',
     section_separators = { '', '' },
     component_separators = { '', '' }
   },
