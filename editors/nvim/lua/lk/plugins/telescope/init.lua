@@ -112,10 +112,11 @@ require('telescope').setup {
         ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
 
         -- work related bookmards
-        ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
-        ['neovim'] = 'https://github.com/neovim/neovim',
         ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
-        ['material-ui'] = 'https://material-ui.com/'
+        ['material-ui'] = 'https://material-ui.com/',
+        ['my-pull-requests'] = 'https://github.com/pulls',
+        ['neovim'] = 'https://github.com/neovim/neovim',
+        ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim'
       }
     },
     -- arecibo = {
@@ -139,8 +140,8 @@ require('telescope').setup {
 }
 
 -- require('telescope').load_extension('arecibo')
--- require('telescope').load_extension('packer')
 -- require('telescope').load_extension('fzy_native')
+-- require('telescope').load_extension('packer')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('cheat')
 require('telescope').load_extension('dap')
@@ -158,13 +159,13 @@ require('telescope').load_extension('snippets')
 require('telescope').load_extension('tele_tabby')
 require('telescope').load_extension('tmux')
 require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('zoxide')
 
 local M = {}
 
 function M.edit_neovim()
   builtin.find_files {
     prompt_title = '~ neovim ~',
-    shorten_path = false,
     cwd = '~/.config/nvim',
 
     layout_strategy = 'horizontal',
@@ -186,7 +187,6 @@ end
 function M.edit_dotfiles()
   builtin.find_files {
     prompt_title = '~ dotfiles ~',
-    shorten_path = false,
     hidden = true,
     cwd = '~/data/Github/dotfiles',
 
@@ -216,8 +216,7 @@ function M.curbuf()
   local opts = themes.get_dropdown {
     winblend = 0,
     border = true,
-    previewer = false,
-    shorten_path = false
+    previewer = false
   }
   builtin.current_buffer_fuzzy_find(opts)
 end

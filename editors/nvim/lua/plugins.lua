@@ -38,7 +38,8 @@ return require('packer').startup {
 
     -- LEARN VIM {{{
 
-    use 'ThePrimeagen/vim-be-good' -- vim-be-good
+    -- vim-be-good
+    -- use 'ThePrimeagen/vim-be-good'
 
     -- }}}
 
@@ -46,37 +47,66 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    use 'Th3Whit3Wolf/onebuddy'
-    use 'Th3Whit3Wolf/spacebuddy'
-    use 'christianchiarulli/nvcode-color-schemes.vim'
-    use 'folke/tokyonight.nvim'
-    use 'gruvbox-community/gruvbox'
-    use 'marko-cerovac/material.nvim'
-    use 'sainnhe/gruvbox-material'
-    use 'shaunsingh/moonlight.nvim'
-    use 'shaunsingh/nord.nvim'
-    use 'tjdevries/colorbuddy.nvim' -- colorbuddy for Colorschemes
-    use 'tjdevries/gruvbuddy.nvim' -- gruvbuddy using colorbuddy
-    use 'Mofiqul/vscode.nvim'
+    -- use 'Mofiqul/vscode.nvim'
+    -- use 'Th3Whit3Wolf/onebuddy'
+    -- use 'Th3Whit3Wolf/spacebuddy'
+    -- use 'christianchiarulli/nvcode-color-schemes.vim'
+    -- use 'folke/tokyonight.nvim'
+    -- use 'gruvbox-community/gruvbox'
+    -- use 'marko-cerovac/material.nvim'
+    -- use 'sainnhe/gruvbox-material'
+    -- use 'shaunsingh/moonlight.nvim'
+    -- use 'shaunsingh/nord.nvim'
+
+    -- colorbuddy for Colorschemes
+    use 'tjdevries/colorbuddy.nvim'
+
+    -- gruvbuddy using colorbuddy
+    use 'tjdevries/gruvbuddy.nvim'
 
     -- }}}
 
     -- icons {{{
 
-    use 'kyazdani42/nvim-web-devicons' -- for icons in vim
-    use 'yamatsum/nvim-nonicons' -- beautiful icons
+    -- for icons in vim
+    use 'kyazdani42/nvim-web-devicons'
+
+    -- beautiful icons
+    use 'yamatsum/nvim-nonicons'
 
     -- }}}
 
     -- General {{{
 
     use 'Pocco81/TrueZen.nvim'
-    use 'junegunn/goyo.vim'
-    use 'kshenoy/vim-signature' -- toggle, display and navigate marks
-    use 'liuchengxu/vim-which-key' -- See what keys do like in emacs
+    use { 'junegunn/goyo.vim', cmd = { 'Goyo' } }
+
+    -- toggle, display and navigate marks
+    use 'kshenoy/vim-signature'
+
+    -- See what keys do like in emacs
+    use 'liuchengxu/vim-which-key'
     use 'AckslD/nvim-whichkey-setup.lua'
-    use 'mhinz/vim-startify' -- fancy start Screen for vim
-    use 'norcalli/nvim-colorizer.lua' -- Colorizer for showing the colors
+
+    -- fancy start Screen for vim
+    use 'mhinz/vim-startify'
+
+    -- Colorizer for showing the colors
+    use {
+      'norcalli/nvim-colorizer.lua'
+      -- cmd = {
+      --   'ColorizerToggle',
+      --   'ColorizerReloadAllBuffers',
+      --   'ColorizerDetachFromBuffer',
+      --   'ColorizerAttachToBuffer'
+      -- }
+    }
+    -- use {
+    --   'norcalli/nvim-terminal.lua',
+    --   config = function()
+    --     require('terminal').setup()
+    --   end
+    -- }
 
     -- }}}
 
@@ -91,10 +121,18 @@ return require('packer').startup {
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
     use 'junegunn/vim-pseudocl'
-    use 'kevinhwang91/nvim-bqf' -- better quick-fix winodw
-    use 'kevinhwang91/nvim-hlslens' -- hlslens lens for neovim
-    use 'phaazon/hop.nvim' -- easymotion using lua
-    use 'unblevable/quick-scope' -- Quickscope same as f, F, t, T but better
+
+    -- better quick-fix winodw
+    use 'kevinhwang91/nvim-bqf'
+
+    -- hlslens lens for neovim
+    use 'kevinhwang91/nvim-hlslens'
+
+    -- easymotion using lua
+    use 'phaazon/hop.nvim'
+
+    -- Quickscope same as f, F, t, T but better
+    use 'unblevable/quick-scope'
     -- use {
     --   'ggandor/lightspeed.nvim',
     --   config = function()
@@ -140,6 +178,9 @@ return require('packer').startup {
     -- }}}
 
     -- General {{{
+
+    -- For narrowing regions of text to look at them alone
+    use { 'chrisbra/NrrwRgn', cmd = { 'NarrowRegion', 'NarrowWindow' } }
     use {
       'folke/todo-comments.nvim',
       config = function()
@@ -160,10 +201,19 @@ return require('packer').startup {
         require('mkdir')
       end
     }
-    use 'matbme/JABS.nvim' -- minimal and beautiful buffer switcher
-    use 'mhinz/vim-sayonara' -- delete buffers and windows
-    use 'andymass/vim-matchup' -- match brackets and more
-    use 'AndrewRadev/splitjoin.vim' -- Switch between single-line and multiline forms of code
+
+    -- minimal and beautiful buffer switcher
+    use 'matbme/JABS.nvim'
+
+    -- delete buffers and windows
+    use 'mhinz/vim-sayonara'
+
+    -- match brackets and more
+    use 'andymass/vim-matchup'
+
+    -- Switch between single-line and multiline forms of code
+    use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
+
     -- use 'yamatsum/nvim-cursorline'
     use {
       'antoinemadec/FixCursorHold.nvim',
@@ -171,23 +221,45 @@ return require('packer').startup {
         vim.g.curshold_updatime = 1000
       end
     }
-    use 'christoomey/vim-sort-motion' -- sorting in vim
+
+    -- sorting in vim
+    use 'christoomey/vim-sort-motion'
     use {
       'numToStr/Navigator.nvim',
       config = function()
         require('Navigator').setup()
       end
     }
-    use 'christoomey/vim-tmux-runner' -- tmux runner for tests
-    use 'haya14busa/is.vim' -- successor of incsearch
-    use 'haya14busa/incsearch.vim' -- Better search highlighting
-    use 'ntpeters/vim-better-whitespace' -- Better Whitespace
-    use 'scr1pt0r/crease.vim' -- nice fold text
-    use 'Konfekt/FastFold' -- fast folds in vim
-    use 'szw/vim-maximizer' -- Maximizer for vim
-    use 'tommcdo/vim-exchange' -- vim-exchange for exchanging words
-    use 'wellle/targets.vim' -- targets.vim for extra motions
-    use 'wesQ3/vim-windowswap' -- Swap windows
+
+    -- tmux runner for tests
+    use 'christoomey/vim-tmux-runner'
+
+    -- successor of incsearch
+    use 'haya14busa/is.vim'
+
+    -- Better search highlighting
+    use 'haya14busa/incsearch.vim'
+
+    -- Better Whitespace
+    use 'ntpeters/vim-better-whitespace'
+
+    -- nice fold text
+    use 'scr1pt0r/crease.vim'
+
+    -- fast folds in vim
+    use 'Konfekt/FastFold'
+
+    -- Maximizer for vim
+    use 'szw/vim-maximizer'
+
+    -- vim-exchange for exchanging words
+    use 'tommcdo/vim-exchange'
+
+    -- targets.vim for extra motions
+    use 'wellle/targets.vim'
+
+    -- Swap windows
+    use 'wesQ3/vim-windowswap'
     use {
       'nacro90/numb.nvim',
       config = function()
@@ -199,7 +271,8 @@ return require('packer').startup {
 
     -- Profiling {{{
 
-    use 'dstein64/vim-startuptime'
+    -- Better profiling output for startup.
+    use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
 
     -- }}}
 
@@ -209,7 +282,22 @@ return require('packer').startup {
 
     -- Notes {{{
 
-    -- use 'oberblastmeister/neuron.nvim'               " note taking using lua
+    if false and vim.fn.executable 'neuron' == 1 then
+      use {
+        'oberblastmeister/neuron.nvim',
+        branch = 'unstable',
+        config = function()
+          -- these are all the default values
+          require('neuron').setup {
+            virtual_titles = true,
+            mappings = true,
+            run = nil,
+            neuron_dir = '~/neuron',
+            leader = 'gz'
+          }
+        end
+      }
+    end
     -- use 'michal-h21/vim-zettel'                      " zettel tasks
     -- use 'vimwiki/vimwiki'                            " vim wiki
 
@@ -217,28 +305,37 @@ return require('packer').startup {
 
     -- Snippets {{{
 
-    use 'SirVer/ultisnips' -- snippets engine
-    use 'honza/vim-snippets' -- Snippets in Vim
-    -- use 'hrsh7th/vim-vsnip' -- vsnip vscode snippets
+    -- snippets engine
+    use 'SirVer/ultisnips'
+
+    -- Snippets in Vim
+    use 'honza/vim-snippets'
+
+    -- vsnip vscode snippets
+    -- use 'hrsh7th/vim-vsnip'
     -- use 'hrsh7th/vim-vsnip-integ'
-    use 'norcalli/snippets.nvim' -- snippets in lua
+
+    -- snippets in lua
+    use 'norcalli/snippets.nvim'
 
     -- }}}
 
     -- Format {{{
 
     -- use 'lukas-reineke/format.nvim'
-    use 'mhartington/formatter.nvim' -- formatter in lua
+
+    -- formatter in lua
+    use 'mhartington/formatter.nvim'
     use 'lukas-reineke/indent-blankline.nvim'
-    use 'godlygeek/tabular' -- Tabularize for Vim
+
+    -- Tabularize for Vim
+    use 'godlygeek/tabular'
 
     -- }}}
 
     -- Undo {{{
 
-    -- use 'simnalamburt/vim-mundo', {
-    --       \ 'on': 'MundoToggle'
-    --       \ }                                         " undo tree visualizer
+    use { 'sjl/gundo.vim' }
 
     -- }}}
 
@@ -250,7 +347,7 @@ return require('packer').startup {
 
     -- General {{{
 
-    use 'vim-scripts/restore_view.vim'
+    -- use 'vim-scripts/restore_view.vim'
 
     -- }}}
 
@@ -262,8 +359,12 @@ return require('packer').startup {
 
     use 'Shougo/neco-vim'
     use 'neoclide/vim-jsx-improve'
-    use 'neoclide/coc-neco' -- vim completion for coc
-    use { 'neoclide/coc.nvim', branch = 'release' } -- Completion Conquerer
+
+    -- vim completion for coc
+    use 'neoclide/coc-neco'
+
+    -- Completion Conquerer
+    use { 'neoclide/coc.nvim', branch = 'release' }
 
     -- }}}
 
@@ -281,6 +382,7 @@ return require('packer').startup {
     --     },
     --     { 'kabouzeid/nvim-lspinstall' },
     --     { 'nvim-lua/lsp-status.nvim' },
+    --     {'tjdevries/lsp_extensions.nvim'},
     --     {
     --       'simrat39/symbols-outline.nvim',
     --       config = function()
@@ -312,7 +414,9 @@ return require('packer').startup {
     --   end
     -- }
     use 'bfredl/nvim-luadev'
-    use 'euclidianAce/BetterLua.vim' -- better lua syntax highlighting
+
+    -- better lua syntax highlighting
+    use 'euclidianAce/BetterLua.vim'
 
     -- }}}
 
@@ -340,7 +444,9 @@ return require('packer').startup {
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
     }
-    use 'mizlan/iswap.nvim' -- interactively swap so many things
+
+    -- interactively swap so many things
+    use 'mizlan/iswap.nvim'
 
     -- }}}
 
@@ -351,7 +457,9 @@ return require('packer').startup {
     -- fzf.vim {{{
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
-    use 'junegunn/fzf.vim' -- FZF in vim
+
+    -- FZF in vim
+    use 'junegunn/fzf.vim'
     use 'gfanto/fzf-lsp.nvim'
     use 'conweller/findr.vim'
     -- use 'gfanto/fzf-lsp.nvim'
@@ -387,7 +495,8 @@ return require('packer').startup {
         { 'fannheyward/telescope-coc.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'camgraff/telescope-tmux.nvim' },
-        { 'nvim-telescope/telescope-github.nvim' }
+        { 'nvim-telescope/telescope-github.nvim' },
+        { 'jvgrootveld/telescope-zoxide' }
       }
     }
 
@@ -399,10 +508,17 @@ return require('packer').startup {
 
     -- HTML {{{
 
-    use 'mattn/emmet-vim' -- emmets in vim
-    use 'alvan/vim-closetag' -- Auto Close Tag in HTML
-    use 'AndrewRadev/tagalong.vim' -- html tags completion
-    use 'wakatime/vim-wakatime' -- wakatime for vim
+    -- emmets in vim
+    use 'mattn/emmet-vim'
+
+    -- Auto Close Tag in HTML
+    use 'alvan/vim-closetag'
+
+    -- html tags completion
+    use 'AndrewRadev/tagalong.vim'
+
+    -- wakatime for vim
+    use 'wakatime/vim-wakatime'
     -- use 'sheerun/vim-polyglot'
 
     -- }}}
@@ -410,20 +526,31 @@ return require('packer').startup {
     -- markdown {{{
 
     use 'davidgranstrom/nvim-markdown-preview'
-    use 'npxbr/glow.nvim' -- markdown preview
+
+    use {
+      'iamcco/markdown-preview.nvim',
+      ft = 'markdown',
+      run = 'cd app && yarn install'
+    }
+
+    -- markdown preview
+    use 'npxbr/glow.nvim'
 
     -- }}}
 
     -- tags {{{
 
-    use 'liuchengxu/vista.vim' -- Viewer & Finder for LSP symbols and tags
+    -- Viewer & Finder for LSP symbols and tags
+    use { 'liuchengxu/vista.vim', cmd = { 'Vista' } }
 
     -- }}}
 
     -- General {{{
 
     use { 'RishabhRD/nvim-cheat.sh', requires = { 'RishabhRD/popfix' } }
-    use 'windwp/nvim-autopairs' -- auto-pairs in lua
+
+    -- auto-pairs in lua
+    use 'windwp/nvim-autopairs'
     use 'AndrewRadev/sideways.vim'
     use 'sudormrfbin/cheatsheet.nvim'
 
@@ -439,14 +566,38 @@ return require('packer').startup {
         require'octo'.setup()
       end
     }
-    use 'ThePrimeagen/git-worktree.nvim' -- git worktree
-    use 'TimUntersberger/neogit' -- magit for neovim in lua
-    use 'f-person/git-blame.nvim' -- git blame in vim
-    use 'kdheepak/lazygit.nvim' -- lazygit from neovim
-    use 'lewis6991/gitsigns.nvim' -- gitsigns in lua
-    use 'rhysd/git-messenger.vim' -- git lens in vim
-    use 'sindrets/diffview.nvim'
-    use 'tpope/vim-fugitive' -- version control
+
+    -- git worktree
+    use 'ThePrimeagen/git-worktree.nvim'
+
+    -- magit for neovim in lua
+    use {
+      'TimUntersberger/neogit'
+      -- cmd = { 'Neogit' }
+    }
+
+    -- git blame in vim
+    use 'f-person/git-blame.nvim'
+
+    -- lazygit from neovim
+    use {
+      'kdheepak/lazygit.nvim',
+      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' }
+    }
+
+    -- gitsigns in lua
+    use 'lewis6991/gitsigns.nvim'
+
+    -- git lens in vim
+    use {
+      'rhysd/git-messenger.vim',
+      cmd = { 'GitMessenger' },
+      keys = { '<Plug>(git-messenger)' }
+    }
+    use { 'sindrets/diffview.nvim', cmd = { 'DiffViewOpen' } }
+
+    -- version control
+    use 'tpope/vim-fugitive'
 
     -- }}}
 
@@ -467,14 +618,25 @@ return require('packer').startup {
 
     use 'tpope/vim-abolish'
     use 'tpope/vim-commentary'
-    use 'tpope/vim-dispatch'
+    use {
+      'tpope/vim-dispatch',
+      opt = true,
+      cmd = { 'Dispatch', 'Make', 'Focus', 'Start' }
+    }
     use 'tpope/vim-dotenv'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-repeat'
     use 'tpope/vim-sleuth'
     use 'tpope/vim-surround'
     use 'tpope/vim-unimpaired'
-    use 'tpope/vim-scriptease'
+    use {
+      'tpope/vim-scriptease',
+      cmd = {
+        'Messages', -- view messages in quickfix list
+        'Verbose', -- view verbose output in preview window.
+        'Time' -- measure how long it takes to run some stuff.
+      }
+    }
 
     -- }}}
 
@@ -483,9 +645,13 @@ return require('packer').startup {
     -- use 'tjdevries/express_line.nvim'
     use 'tjdevries/manillua.nvim'
     use 'tjdevries/nlua.nvim'
-    use 'tjdevries/train.nvim' -- motion training
+
+    -- motion training
+    use 'tjdevries/train.nvim'
     use 'tjdevries/complextras.nvim'
-    use 'tjdevries/lsp_extensions.nvim'
+
+    -- Make comments appear IN YO FACE
+    use { 'tjdevries/vim-inyoface', keys = { '<Plug>(InYoFace_Toggle)' } }
 
     -- }}}
 
@@ -496,13 +662,16 @@ return require('packer').startup {
     -- Explorer {{{
 
     use 'justinmk/vim-dirvish'
-    use 'kyazdani42/nvim-tree.lua' -- file explorer
+
+    -- file explorer
+    use 'kyazdani42/nvim-tree.lua'
 
     -- }}}
 
     -- General {{{
 
-    use 'gioele/vim-autoswap' -- for handling swap files
+    -- for handling swap files
+    use 'gioele/vim-autoswap'
 
     -- }}}
 
@@ -510,20 +679,23 @@ return require('packer').startup {
 
     -- TERMINAL {{{
 
-    use 'voldikss/vim-floaterm' -- Float Terminal
+    -- Float Terminal
+    use 'voldikss/vim-floaterm'
     use 'akinsho/nvim-toggleterm.lua'
 
     -- }}}
 
     -- GNVIM {{{
 
-    use 'akiyosi/gonvim-fuzzy' -- Goneovim Fuzzy search
+    -- Goneovim Fuzzy search
+    use 'akiyosi/gonvim-fuzzy'
 
     -- }}}
 
     -- BROWSER {{{
 
-    use 'tami5/sql.nvim' -- sql nvim database for frecency
+    -- sql nvim database for frecency
+    use 'tami5/sql.nvim'
     use 'tyru/open-browser-github.vim'
     use 'tyru/open-browser.vim'
 
@@ -535,7 +707,9 @@ return require('packer').startup {
     -- use 'puremourning/vimspector'                    " debugger in vim
     -- use 'skywind3000/asyncrun.vim'
     -- use 'skywind3000/asynctasks.vim'
-    use 'mfussenegger/nvim-dap' -- debugger attach protocol
+
+    -- debugger attach protocol
+    use 'mfussenegger/nvim-dap'
 
     -- }}}
   end,

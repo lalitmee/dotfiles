@@ -319,8 +319,8 @@ draw_bold_text_with_bright_colors: true
 #     cyan: '#6d96a5'
 #     white: '#aeb3bb'
 
-# TokyoNight Alacritty Colors
-# tokyonight_night
+# # TokyoNight Alacritty Colors
+# # tokyonight_night
 # colors:
 #   # Default colors
 #   primary:
@@ -353,35 +353,101 @@ draw_bold_text_with_bright_colors: true
 #     - { index: 16, color: '0xff9e64' }
 #     - { index: 17, color: '0xdb4b4b' }
 
-# vscode dark
+# tokyonight_storm
 colors:
+  # Default colors
   primary:
-    background: '#1e1e1e'
-    foreground: '#d4d4d4'
+    background: '0x24283b'
+    foreground: '0xc0caf5'
 
-  cursor:
-    text: '#d4d4d4'
-    cursor: '#d4d4d4'
-
+  # Normal colors
   normal:
-    black: '#1e1e1e'
-    red: '#f44747'
-    green: '#608b4e'
-    yellow: '#dcdcaa'
-    blue: '#569cd6'
-    magenta: '#c678dd'
-    cyan: '#56b6c2'
-    white: '#d4d4d4'
+    black: '0x1D202F'
+    red: '0xf7768e'
+    green: '0x9ece6a'
+    yellow: '0xe0af68'
+    blue: '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan: '0x7dcfff'
+    white: '0xa9b1d6'
 
+  # Bright colors
   bright:
-    black: '#545454'
-    red: '#f44747'
-    green: '#608b4e'
-    yellow: '#dcdcaa'
-    blue: '#569cd6'
-    magenta: '#c678dd'
-    cyan: '#56b6c2'
-    white: '#d4d4d4'
+    black: '0x414868'
+    red: '0xf7768e'
+    green: '0x9ece6a'
+    yellow: '0xe0af68'
+    blue: '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan: '0x7dcfff'
+    white: '0xc0caf5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff9e64' }
+    - { index: 17, color: '0xdb4b4b' }
+
+# # tokyonight_day
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0xe1e2e7'
+#     foreground: '0x3760bf'
+
+#   # Normal colors
+#   normal:
+#     black: '0xe9e9ed'
+#     red: '0xf52a65'
+#     green: '0x587539'
+#     yellow: '0x8c6c3e'
+#     blue: '0x2e7de9'
+#     magenta: '0x9854f1'
+#     cyan: '0x007197'
+#     white: '0x6172b0'
+
+#   # Bright colors
+#   bright:
+#     black: '0xa1a6c5'
+#     red: '0xf52a65'
+#     green: '0x587539'
+#     yellow: '0x8c6c3e'
+#     blue: '0x2e7de9'
+#     magenta: '0x9854f1'
+#     cyan: '0x007197'
+#     white: '0x3760bf'
+
+#   indexed_colors:
+#     - { index: 16, color: '0xb15c00' }
+#     - { index: 17, color: '0xc64343' }
+
+# # vscode dark
+# colors:
+#   primary:
+#     background: '#1e1e1e'
+#     foreground: '#d4d4d4'
+
+#   cursor:
+#     text: '#d4d4d4'
+#     cursor: '#d4d4d4'
+
+#   normal:
+#     black: '#1e1e1e'
+#     red: '#f44747'
+#     green: '#608b4e'
+#     yellow: '#dcdcaa'
+#     blue: '#569cd6'
+#     magenta: '#c678dd'
+#     cyan: '#56b6c2'
+#     white: '#d4d4d4'
+
+#   bright:
+#     black: '#545454'
+#     red: '#f44747'
+#     green: '#608b4e'
+#     yellow: '#dcdcaa'
+#     blue: '#569cd6'
+#     magenta: '#c678dd'
+#     cyan: '#56b6c2'
+#     white: '#d4d4d4'
 
 # # vscode light
 # colors:

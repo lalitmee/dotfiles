@@ -415,7 +415,8 @@ autocommands.create({
       'TermClose',
       'term://*',
       [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]]
-    }
+    },
+    { 'FileType', 'markdown', [[MarkdownPreview]] }
   }
 })
 
