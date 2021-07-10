@@ -600,7 +600,11 @@ local leader_key_maps = {
       ['j'] = { ':Telescope jumps jumps<CR>', 'jumps' },
       ['h'] = { ':Telescope harpoon marks<CR>', 'harpoon marks' }
     },
-    ['o'] = { ':Telescope openbrowser list<CR>', 'openbrowser' },
+    ['o'] = {
+      ['name'] = '+open',
+      ['o'] = { ':Telescope openbrowser list<CR>', 'openbrowser' },
+      ['b'] = { ':Telescope bookmarks<CR>', 'bookmarks' }
+    },
     ['s'] = {
       ['name'] = '+search',
       ['b'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
@@ -923,6 +927,10 @@ local leader_plug_keymaps = {
     ['name'] = '+errors/warnings',
     ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
     ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' }
+  },
+  ['h'] = {
+    ['name'] = '+highlight',
+    ['c'] = { '<Plug>(InYoFace_Toggle)<CR>', 'highlight-comments' }
   },
   ['l'] = {
     ['name'] = '+lsp',

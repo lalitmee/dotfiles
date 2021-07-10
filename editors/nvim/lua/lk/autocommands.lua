@@ -17,13 +17,9 @@ function M.augroup(name, commands)
   vim.cmd('augroup ' .. name)
   vim.cmd('autocmd!')
   for _, c in ipairs(commands) do
-    vim.cmd(
-        string.format(
-            'autocmd %s %s %s %s', table.concat(c.events, ','),
-            table.concat(c.targets or {}, ','),
-            table.concat(c.modifiers or {}, ' '), c.command
-        )
-    )
+    vim.cmd(string.format('autocmd %s %s %s %s', table.concat(c.events, ','),
+                          table.concat(c.targets or {}, ','),
+                          table.concat(c.modifiers or {}, ' '), c.command))
   end
   vim.cmd('augroup END')
 end
@@ -36,26 +32,22 @@ local function clear_messages()
     if id then
       fn.timer_stop(id)
     end
-    id = fn.timer_start(
-             2000, function()
-          if fn.mode() == 'n' then
-            vim.cmd [[echon '']]
-          end
-        end
-         )
+    id = fn.timer_start(2000, function()
+      if fn.mode() == 'n' then
+        vim.cmd [[echon '']]
+      end
+    end)
   end
 end
 
 M.clear_messages = clear_messages()
 
-M.augroup(
-    'ClearCommandMessages', {
-      {
-        events = { 'CmdlineLeave', 'CmdlineChanged' },
-        targets = { ':' },
-        command = 'lua require(\'lk.autocommands\').clear_messages()'
-      }
-    }
-)
+M.augroup('ClearCommandMessages', {
+  {
+    events = { 'CmdlineLeave', 'CmdlineChanged' },
+    targets = { ':' },
+    command = 'lua require(\'lk.autocommands\').clear_messages()'
+  }
+})
 
 return M
