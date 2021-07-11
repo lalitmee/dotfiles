@@ -1,25 +1,24 @@
 local lsp_handlers = vim.lsp.handlers
 
+-- NOTE: commented because its being handled by telescope-lsp-handlers
 -- LSP definition
-lsp_handlers['textDocument/definition'] =
-    function(_, _, result)
-      if not result or vim.tbl_isempty(result) then
-        print('[LSP] Could not find definition')
-        return
-      end
+-- lsp_handlers['textDocument/definition'] =
+--     function(_, _, result)
+--       if not result or vim.tbl_isempty(result) then
+--         print('[LSP] Could not find definition')
+--         return
+--       end
 
-      if vim.tbl_islist(result) then
-        vim.lsp.util.jump_to_location(result[1])
-      else
-        vim.lsp.util.jump_to_location(result)
-      end
-    end
+--       if vim.tbl_islist(result) then
+--         vim.lsp.util.jump_to_location(result[1])
+--       else
+--         vim.lsp.util.jump_to_location(result)
+--       end
+--     end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(
-        require('lsp_extensions.workspace.diagnostic').handler,
-        { signs = { severity_limit = 'Error' } }
-    )
+    vim.lsp.with(require('lsp_extensions.workspace.diagnostic').handler,
+                 { signs = { severity_limit = 'Error' } })
 
 -- LSP hover
 lsp_handlers['textDocument/hover'] = require('lspsaga.hover').handler
@@ -59,25 +58,19 @@ function MyLspRename()
     end
 
     if has_found_highlights then
-      vim.api.nvim_buf_add_highlight(
-          bufnr, ns_rename, 'Visual', line - 1, start - 1, finish
-      )
-      vim.cmd(
-          string.format(
-              'autocmd BufEnter <buffer=%s> ++once :call nvim_buf_clear_namespace(%s, %s, 0, -1)',
-              bufnr, bufnr, ns_rename
-          )
-      )
+      vim.api.nvim_buf_add_highlight(bufnr, ns_rename, 'Visual', line - 1,
+                                     start - 1, finish)
+      vim.cmd(string.format(
+                  'autocmd BufEnter <buffer=%s> ++once :call nvim_buf_clear_namespace(%s, %s, 0, -1)',
+                  bufnr, bufnr, ns_rename))
     end
 
     saga.rename()
 
     -- Just make escape quit the window as well.
-    vim.api.nvim_buf_set_keymap(
-        0, 'n', '<esc>',
-        '<cmd>lua require("lspsaga.rename").close_rename_win()<CR>',
-        { noremap = true, silent = true }
-    )
+    vim.api.nvim_buf_set_keymap(0, 'n', '<esc>',
+                                '<cmd>lua require("lspsaga.rename").close_rename_win()<CR>',
+                                { noremap = true, silent = true })
 
     return
   end
@@ -85,26 +78,21 @@ function MyLspRename()
   local plenary_window =
       require('plenary.window.float').percentage_range_window(0.5, 0.2)
   vim.api.nvim_buf_set_option(plenary_window.bufnr, 'buftype', 'prompt')
-  vim.fn.prompt_setprompt(
-      plenary_window.bufnr, string.format('Rename "%s" to > ', current_word)
-  )
-  vim.fn.prompt_setcallback(
-      plenary_window.bufnr, function(text)
-        vim.api.nvim_win_close(plenary_window.win_id, true)
+  vim.fn.prompt_setprompt(plenary_window.bufnr,
+                          string.format('Rename "%s" to > ', current_word))
+  vim.fn.prompt_setcallback(plenary_window.bufnr, function(text)
+    vim.api.nvim_win_close(plenary_window.win_id, true)
 
-        if text ~= '' then
-          vim.schedule(
-              function()
-                vim.api.nvim_buf_delete(plenary_window.bufnr, { force = true })
+    if text ~= '' then
+      vim.schedule(function()
+        vim.api.nvim_buf_delete(plenary_window.bufnr, { force = true })
 
-                vim.lsp.buf.rename(text)
-              end
-          )
-        else
-          print('Nothing to rename!')
-        end
-      end
-  )
+        vim.lsp.buf.rename(text)
+      end)
+    else
+      print('Nothing to rename!')
+    end
+  end)
 
   vim.cmd [[startinsert]]
 end

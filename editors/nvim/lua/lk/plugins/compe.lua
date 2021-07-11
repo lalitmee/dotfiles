@@ -29,7 +29,8 @@ if has_compe then
       ultisnips = true,
       tabnine = true,
       treesitter = true,
-      emoji = true
+      emoji = true,
+      vCard = true
     }
   }
 end

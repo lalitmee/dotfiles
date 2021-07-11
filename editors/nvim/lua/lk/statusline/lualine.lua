@@ -36,13 +36,20 @@ require('lualine').setup {
       },
       {
         'diagnostics',
-        sources = { 'coc' },
-        symbols = { error = ' :', warn = ' :', info = ' :' },
+        sources = { 'nvim_lsp' },
+        symbols = {
+          error = ' :',
+          warn = ' :',
+          info = ' :',
+          hint = '💡'
+        },
         color_error = '#E06C75',
         color_warn = '#FF922B',
-        color_info = '#15AABF'
+        color_info = '#15AABF',
+        color_hint = '#fab005'
       },
-      { 'g:coc_status' }
+      { 'os.data(\'%a\')', 'data', require'lsp-status'.status },
+      { 'b:toggle_number' }
     },
     lualine_x = { 'filetype', buf_spaces },
     lualine_y = { 'progress' },
@@ -53,8 +60,8 @@ require('lualine').setup {
     lualine_b = {},
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = { 'filetype', buf_spaces },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    lualine_y = {},
+    lualine_z = {}
   },
   extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' }
 }

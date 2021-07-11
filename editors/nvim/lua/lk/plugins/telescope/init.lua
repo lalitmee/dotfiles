@@ -14,7 +14,6 @@ reloader()
 
 local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
-local sorters = require('telescope.sorters')
 local previewers = require('telescope.previewers')
 local themes = require('telescope.themes')
 
@@ -116,7 +115,23 @@ require('telescope').setup {
         ['material-ui'] = 'https://material-ui.com/',
         ['my-pull-requests'] = 'https://github.com/pulls',
         ['neovim'] = 'https://github.com/neovim/neovim',
-        ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim'
+        ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
+
+        -- general
+        ['clang_func_dict'] = 'http://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',
+        ['crates_io'] = 'https://crates.io/search?q={query}',
+        ['devdocs'] = 'http://devdocs.io/#q={query}',
+        ['duckduckgo'] = 'http://duckduckgo.com/?q={query}',
+        ['github'] = 'http://github.com/search?q={query}',
+        ['luaroks'] = 'https://luarocks.org/search?q={query}',
+        ['mdnwebdocs'] = 'https://developer.mozilla.org/ja/search?q={query}',
+        ['memo'] = 'https://scrapbox.io/tamago324vim/search/page?q={query}',
+        ['neovim_patch'] = 'https://github.com/neovim/neovim/issues?q=is%3Aopen+sort%3Aupdated-desc+{query}',
+        ['python'] = 'https://docs.python.org/3/search.html?q={query}',
+        ['rust_doc_std'] = 'https://doc.rust-lang.org/std/index.html?search={query}',
+        ['utf8_icons'] = 'https://www.utf8icons.com/search?query={query}',
+        ['vim_commits'] = 'https://github.com/vim/vim/search?q={query}&type=commits',
+        ['vimawesome'] = 'https://vimawesome.com/?q={query}'
       }
     },
     -- arecibo = {
@@ -125,7 +140,6 @@ require('telescope').setup {
     --   ['show_http_headers'] = false,
     --   ['show_domain_icons'] = false
     -- },
-    tele_tabby = { use_highlighter = true },
     bookmarks = {
       -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
       selected_browser = 'brave',
@@ -139,27 +153,73 @@ require('telescope').setup {
   }
 }
 
+---------------------------------------------------------------------------------
+--                          loading extensions start                           --
+---------------------------------------------------------------------------------
+
+-- search internet
 -- require('telescope').load_extension('arecibo')
+
+-- FZY style sorter that is compiled
 -- require('telescope').load_extension('fzy_native')
+
+-- github cli from telescope
+-- require('telescope').load_extension('gh')
+
+-- packer integration with telescope
 -- require('telescope').load_extension('packer')
+
+-- browser bookmarks
 require('telescope').load_extension('bookmarks')
+
+-- cheat sheets
 require('telescope').load_extension('cheat')
+
+-- debugger
 require('telescope').load_extension('dap')
+
+-- dotfiles
 require('telescope').load_extension('dotfiles')
+
+-- recent files or history or files visited
 require('telescope').load_extension('frecency')
+
+-- FZF sorter for telescope written in c
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('gh')
+
+-- git worktree
 require('telescope').load_extension('git_worktree')
+
+-- harpoon
 require('telescope').load_extension('harpoon')
+
+-- jumps made
 require('telescope').load_extension('jumps')
+
+-- lsp handlers integration
 require('telescope').load_extension('lsp_handlers')
+
+-- open browser
 require('telescope').load_extension('openbrowser')
+
+-- project management in telescope
 require('telescope').load_extension('project')
+
+-- snippets from norcalli
 require('telescope').load_extension('snippets')
-require('telescope').load_extension('tele_tabby')
-require('telescope').load_extension('tmux')
+
+-- ultisnips
 require('telescope').load_extension('ultisnips')
+
+-- zoxide integration
 require('telescope').load_extension('zoxide')
+
+-- emoji search
+require('telescope').load_extension('emoji')
+
+---------------------------------------------------------------------------------
+--                           loading extensions end                            --
+---------------------------------------------------------------------------------
 
 local M = {}
 
