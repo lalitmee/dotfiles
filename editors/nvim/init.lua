@@ -17,6 +17,7 @@ vim.g.maplocalleader = ',' -- Local leader is ,
 -- sourcing plugins
 require('plugins')
 require('lk')
+require('scripts')
 
 -- The operating system is assigned to a global variable that
 -- that can be used elsewhere for conditional system based logic

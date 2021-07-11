@@ -292,7 +292,7 @@ return require('packer').startup {
             virtual_titles = true,
             mappings = true,
             run = nil,
-            neuron_dir = '~/neuron',
+            neuron_dir = '~/data/Github/Notes/neuron',
             leader = 'gz'
           }
         end
@@ -357,62 +357,89 @@ return require('packer').startup {
 
     -- coc.nvim {{{
 
-    use 'Shougo/neco-vim'
-    use 'neoclide/vim-jsx-improve'
+    -- use 'Shougo/neco-vim'
+    -- use 'neoclide/vim-jsx-improve'
 
-    -- vim completion for coc
-    use 'neoclide/coc-neco'
+    -- -- vim completion for coc
+    -- use 'neoclide/coc-neco'
 
-    -- Completion Conquerer
-    use { 'neoclide/coc.nvim', branch = 'release' }
+    -- -- Completion Conquerer
+    -- use { 'neoclide/coc.nvim', branch = 'release' }
 
     -- }}}
 
     -- neovim-lsp {{{
 
-    -- use {
-    --   'neovim/nvim-lspconfig',
-    --   requires = {
-    --     { 'glepnir/lspsaga.nvim' },
-    --     { 'hrsh7th/nvim-compe' },
-    --     {
-    --       'tzachar/compe-tabnine',
-    --       run = './install.sh',
-    --       requires = 'hrsh7th/nvim-compe'
-    --     },
-    --     { 'kabouzeid/nvim-lspinstall' },
-    --     { 'nvim-lua/lsp-status.nvim' },
-    --     {'tjdevries/lsp_extensions.nvim'},
-    --     {
-    --       'simrat39/symbols-outline.nvim',
-    --       config = function()
-    --         vim.g.symbols_outline = {
-    --           highlight_hovered_item = true,
-    --           show_guides = true,
-    --           auto_preview = false, -- experimental
-    --           position = 'right',
-    --           keymaps = {
-    --             close = '<Esc>',
-    --             goto_location = '<Cr>',
-    --             focus_location = 'o',
-    --             hover_symbol = '<C-space>',
-    --             rename_symbol = 'r',
-    --             code_actions = 'a'
-    --           },
-    --           lsp_blacklist = {}
-    --         }
-    --       end
-    --     }
-    --   }
-    -- }
-    -- use 'folke/lsp-colors.nvim'
-    -- use {
-    --   'folke/trouble.nvim',
-    --   requires = 'kyazdani42/nvim-web-devicons',
-    --   config = function()
-    --     require('trouble').setup {}
-    --   end
-    -- }
+    use {
+      'neovim/nvim-lspconfig',
+      requires = {
+        { 'glepnir/lspsaga.nvim' },
+        { 'hrsh7th/nvim-compe' },
+        {
+          'tzachar/compe-tabnine',
+          run = './install.sh',
+          requires = 'hrsh7th/nvim-compe'
+        },
+        { 'kabouzeid/nvim-lspinstall' },
+        { 'nvim-lua/lsp-status.nvim' },
+        { 'tjdevries/lsp_extensions.nvim' },
+        {
+          'simrat39/symbols-outline.nvim',
+          config = function()
+            vim.g.symbols_outline = {
+              highlight_hovered_item = true,
+              show_guides = true,
+              auto_preview = false, -- experimental
+              position = 'right',
+              keymaps = {
+                close = '<Esc>',
+                goto_location = '<Cr>',
+                focus_location = 'o',
+                hover_symbol = '<C-space>',
+                rename_symbol = 'r',
+                code_actions = 'a'
+              },
+              lsp_blacklist = {}
+            }
+          end
+        },
+        { 'folke/lsp-colors.nvim' },
+        {
+          'folke/trouble.nvim',
+          requires = 'kyazdani42/nvim-web-devicons',
+          config = function()
+            require('trouble').setup {}
+          end
+        },
+        { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
+        { 'jose-elias-alvarez/null-ls.nvim' },
+        {
+          'simrat39/symbols-outline.nvim',
+          config = function()
+            vim.g.symbols_outline = {
+              highlight_hovered_item = true,
+              show_guides = true,
+              auto_preview = true,
+              position = 'right',
+              show_numbers = false,
+              show_relative_numbers = false,
+              show_symbol_details = true,
+              keymaps = {
+                close = '<Esc>',
+                goto_location = '<Cr>',
+                focus_location = 'o',
+                hover_symbol = '<C-space>',
+                rename_symbol = 'r',
+                code_actions = 'a'
+              },
+              lsp_blacklist = {}
+            }
+          end
+        },
+        { 'stevearc/aerial.nvim' },
+        { 'folke/lua-dev.nvim' }
+      }
+    }
     use 'bfredl/nvim-luadev'
 
     -- better lua syntax highlighting
@@ -460,8 +487,9 @@ return require('packer').startup {
 
     -- FZF in vim
     use 'junegunn/fzf.vim'
-    use 'gfanto/fzf-lsp.nvim'
+
     use 'conweller/findr.vim'
+
     -- use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
@@ -474,29 +502,29 @@ return require('packer').startup {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
+        { 'dhruvmanila/telescope-bookmarks.nvim' },
+        { 'fannheyward/telescope-coc.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
+        { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
+        { 'jvgrootveld/telescope-zoxide' },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-fzf-writer.nvim' },
         { 'nvim-telescope/telescope-fzy-native.nvim' },
+        { 'nvim-telescope/telescope-github.nvim' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'nvim-telescope/telescope-snippets.nvim' },
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
+        { 'xiyaowong/telescope-emoji.nvim' }
+        -- { 'nvim-telescope/telescope-github.nvim' },
         -- {
         --   'nvim-telescope/telescope-arecibo.nvim',
         --   rocks = { 'openssl', 'lua-http-parser' }
         -- },
-        { 'TC72/telescope-tele-tabby.nvim' },
-        { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
-        { 'dhruvmanila/telescope-bookmarks.nvim' },
-        { 'fannheyward/telescope-coc.nvim' },
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        { 'camgraff/telescope-tmux.nvim' },
-        { 'nvim-telescope/telescope-github.nvim' },
-        { 'jvgrootveld/telescope-zoxide' }
       }
     }
 
@@ -552,7 +580,14 @@ return require('packer').startup {
     -- auto-pairs in lua
     use 'windwp/nvim-autopairs'
     use 'AndrewRadev/sideways.vim'
-    use 'sudormrfbin/cheatsheet.nvim'
+    use {
+      'sudormrfbin/cheatsheet.nvim',
+      requires = {
+        { 'nvim-telescope/telescope.nvim' },
+        { 'nvim-lua/popup.nvim' },
+        { 'nvim-lua/plenary.nvim' }
+      }
+    }
 
     -- }}}
 
@@ -575,9 +610,6 @@ return require('packer').startup {
       'TimUntersberger/neogit'
       -- cmd = { 'Neogit' }
     }
-
-    -- git blame in vim
-    use 'f-person/git-blame.nvim'
 
     -- lazygit from neovim
     use {
@@ -680,7 +712,6 @@ return require('packer').startup {
     -- TERMINAL {{{
 
     -- Float Terminal
-    use 'voldikss/vim-floaterm'
     use 'akinsho/nvim-toggleterm.lua'
 
     -- }}}

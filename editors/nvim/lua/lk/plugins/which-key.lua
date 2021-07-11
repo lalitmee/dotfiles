@@ -85,75 +85,33 @@ local leader_key_maps = {
     ['w'] = { ':Sayonara<CR>', 'close-buffer-and-window' }
   },
 
-  -- NOTE: c is for code with coc.nvim
+  -- NOTE: c is for code with lspconfig
   ['c'] = {
-    ['name'] = '+coc',
-    ['a'] = { ':CocAction<CR>', 'action' },
-    ['c'] = { ':CocCommand<CR>', 'commands' },
-    ['d'] = { ':CocDiagnostics<CR>', 'diagnostics' },
-    ['e'] = { ':CocConfig<CR>', 'config' },
-    ['f'] = { ':CocFix<CR>', 'fix' },
-    ['g'] = 'grep-word-current-buffer',
-    ['G'] = 'grep-word-project',
-    ['i'] = { ':CocInfo<CR>', 'info' },
-    ['l'] = {
-      ['name'] = '+list',
-      ['"'] = { ':CocList registers<CR>', 'registers' },
-      ['/'] = { ':CocList searchhistory<CR>', 'search-history' },
-      [';'] = { ':CocList commands<CR>', 'commands' },
-      ['a'] = { ':CocList sessions<CR>', 'sessions' },
-      ['b'] = { ':CocList buffers<CR>', 'buffers' },
-      ['c'] = { ':CocList colors<CR>', 'colorschemes' },
-      ['d'] = { ':CocList folders<CR>', 'workspace-directories' },
-      ['e'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-      ['E'] = { ':CocList extensions<CR>', 'extensions' },
-      ['f'] = { ':CocList files<CR>', 'files' },
-      ['g'] = { ':CocList branches<CR>', 'branches' },
-      ['h'] = { ':CocList cmd_history<CR>', 'command-history' },
-      ['H'] = { ':CocList helptags<CR>', 'help-tags' },
-      ['j'] = { ':CocList<CR>', 'lists' },
-      ['k'] = { ':CocList maps<CR>', 'mappings' },
-      ['l'] = { ':CocList fuzzy_lines<CR>', 'buffer-fuzzy-lines' },
-      ['L'] = { ':CocList links<CR>', 'buffer-links' },
-      ['m'] = { ':CocList marketplace<CR>', 'marketplace' },
-      ['M'] = { ':CocList marks<CR>', 'marks' },
-      ['o'] = { ':CocList locationlist<CR>', 'location-list' },
-      ['q'] = { ':CocList quickfix<CR>', 'quickfix-list' },
-      ['r'] = { ':CocList mru<CR>', 'mru' },
-      ['s'] = { ':CocList outline<CR>', 'buffer-symbols' },
-      ['S'] = { ':CocList symbols<CR>', 'workspace-symbols' },
-      ['t'] = { ':CocList floaterm<CR>', 'floaterm' },
-      ['v'] = { ':CocList vimcommands<CR>', 'vim-commands' },
-      ['w'] = { ':CocList windows<CR>', 'windows' },
-      ['W'] = { ':CocList words<CR>', 'buffer-words' },
-      ['z'] = { ':CocList tags<CR>', 'tag-files' }
+    ['name'] = '+code',
+    ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
+    ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
+    ['b'] = { ':Telescope lsp_code_actions<CR>', 'lsp-code-actions' },
+    ['B'] = { ':Telescope lsp_range_code_actions<CR>', 'lsp-range-code-actions' },
+    ['c'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
+    ['d'] = { ':Telescope lsp_definitions<CR>', 'lsp-definitions' },
+    ['e'] = {
+      ':Telescope lsp_document_diagnostics<CR>',
+      'lsp-document-diagnostics'
     },
-    ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
-    ['R'] = { ':CocListResume<CR>', 'list-resume' },
-    ['s'] = { ':CocSearch<CR>', 'search' },
-    ['t'] = {
-      ['name'] = '+telescope',
-      ['a'] = { ':Telescope coc code_actions<CR>', 'actions' },
-      ['c'] = { ':Telescope coc commands<CR>', 'commands' },
-      ['d'] = { ':Telescope coc definitions<CR>', 'definitions' },
-      ['D'] = { ':Telescope coc declarations<CR>', 'declarations' },
-      ['e'] = { ':Telescope coc diagnostics<CR>', 'diagnostics' },
-      ['E'] = {
-        ':Telescope coc workspace_diagnostics<CR>',
-        'workspace-diagnostics'
-      },
-      ['g'] = { ':Telescope coc code_actions<CR>', 'code_actions' },
-      ['i'] = { ':Telescope coc implementations<CR>', 'implementations' },
-      ['I'] = { ':Telescope coc type_definitions<CR>', 'type_definitions' },
-      ['l'] = { ':Telescope coc links<CR>', 'links' },
-      ['m'] = { ':Telescope coc mru<CR>', 'mru' },
-      ['o'] = { ':Telescope coc file_code_actions<CR>', 'file-code-actions' },
-      ['O'] = { ':Telescope coc line_code_actions<CR>', 'line-code-actions' },
-      ['r'] = { ':Telescope coc references<CR>', 'references' },
-      ['w'] = { ':Telescope coc document_symbols<CR>', 'document-symbols' },
-      ['W'] = { ':Telescope coc workspace_symbols<CR>', 'workspace-symbols' }
+    ['E'] = {
+      ':Telescope lsp_workspace_diagnostics<CR>',
+      'lsp-workspace-diagnostics'
     },
-    ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
+    ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
+    ['H'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
+    ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
+    ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
+    ['r'] = { ':Telescope lsp_references<CR>', 'lsp-references' },
+    ['R'] = { ':Lspsaga lsp_finder<CR>', 'references' },
+    ['s'] = { ':SymbolsOutline<CR>', 'symbols-outline' },
+    ['t'] = { ':Telescope treesitter<CR>', 'treesitter-symbols' },
+    ['w'] = { ':Telescope lsp_document_symbols<CR>', 'lsp-document-symbols' },
+    ['W'] = { ':Telescope lsp_workspace_symbols<CR>', 'lsp-workspace-symbols' }
   },
 
   -- NOTE: d is for dap
@@ -272,7 +230,6 @@ local leader_key_maps = {
     ['a'] = { ':Git add .<CR>', 'add-all' },
     ['A'] = { ':Git add %<CR>', 'add-current' },
     ['b'] = { ':GBrowse<CR>', 'browse' },
-    ['B'] = { ':GitBlameToggle<CR>', 'blame' },
     ['C'] = { ':Git commit<CR>', 'commit' },
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
     ['d'] = { ':Git diff<CR>', 'diff' },
@@ -296,14 +253,25 @@ local leader_key_maps = {
     },
     ['G'] = { ':Gstatus<CR>', 'status' },
     ['h'] = {
-      ['name'] = '+hunks',
-      ['b'] = 'blame-hunk',
-      ['n'] = 'next-hunk',
-      ['p'] = 'prev-hunk',
-      ['r'] = 'reset-hunk',
-      ['s'] = 'stage-hunk',
-      ['u'] = 'unstage-hunk',
-      ['v'] = 'preview-hunk'
+      ['name'] = '+gitsigns-hunks',
+      ['a'] = { ':Gitsigns attach<CR>', 'attach' },
+      ['A'] = { ':Gitsigns get_actions<CR>', 'get-actions' },
+      ['b'] = { ':Gitsigns blame_line<CR>', 'blame-line' },
+      ['B'] = { ':Gitsigns stage_buffer<CR>', 'stage-buffer' },
+      ['c'] = { ':Gitsigns setup<CR>', 'setup' },
+      ['C'] = { ':Gitsigns change_base<CR>', 'change-base' },
+      ['d'] = { ':Gitsigns diffthis<CR>', 'diffthis' },
+      ['D'] = { ':Gitsigns detach<CR>', 'detach' },
+      ['i'] = { ':Gitsigns reset_buffer_index<CR>', 'reset-buffer-index' },
+      ['n'] = { ':Gitsigns next_hunk<CR>', 'next-hunk' },
+      ['p'] = { ':Gitsigns prev_hunk<CR>', 'prev-hunk' },
+      ['P'] = { ':Gitsigns preview_hunk<CR>', 'preview_hunk' },
+      ['r'] = { ':Gitsigns refresh<CR>', 'refresh' },
+      ['R'] = { ':Gitsigns reset_buffer<CR>', 'reset-buffer' },
+      ['s'] = { ':Gitsigns stage_hunk<CR>', 'stage-hunk' },
+      ['S'] = { ':Gitsigns select_hunk<CR>', 'select-hunk' },
+      ['u'] = { ':Gitsigns detach_all<CR>', 'detach-all' },
+      ['U'] = { ':Gitsigns reset_hunk<CR>', 'reset-hunk' }
     },
     ['l'] = { ':Git log<CR>', 'log' },
     ['o'] = {
@@ -355,7 +323,6 @@ local leader_key_maps = {
         ['e'] = { ':Octo pr edit<CR>', 'edit' },
         ['g'] = { ':Octo pr commits<CR>', 'commits' },
         ['h'] = { ':Octo pr changes<CR>', 'changes' },
-        ['l'] = { ':Octo pr list<CR>', 'list' },
         ['l'] = { ':Octo pr list<CR>', 'list' },
         ['m'] = { ':Octo pr merge<CR>', 'merge' },
         ['o'] = { ':Octo pr reopen<CR>', 'reopen' },
@@ -440,42 +407,36 @@ local leader_key_maps = {
     ['d'] = { ':HopChar2<CR>', 'hop-char-2' }
   },
 
-  -- NOTE: l is for lsp with coc.nvim
+  -- NOTE: l is for lsp with lspconfig
   ['l'] = {
-    ['name'] = '+lsp',
-    ['.'] = { ':CocConfig<CR>', 'config' },
-    [';'] = { '<Plug>(coc-refactor)', 'refactor' },
-    ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
-    ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
-    ['b'] = { ':CocNext<CR>', 'next-action' },
-    ['B'] = { ':CocPrev<CR>', 'prev-action' },
-    ['c'] = { ':CocList commands<CR>', 'commands' },
-    ['d'] = { '<Plug>(coc-definition)', 'definition' },
-    ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
-    ['e'] = { ':CocList extensions<CR>', 'extensions' },
-    ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
-    ['F'] = { '<Plug>(coc-format)', 'format' },
-    ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
-    ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
-    ['I'] = { ':CocList diagnostics<CR>', 'diagnostics' },
-    ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
-    ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
-    ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-    ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
-    ['o'] = { ':Vista!!<CR>', 'outline' },
-    ['O'] = { ':CocList outline<CR>', 'outline' },
-    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
-    ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
-    ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
-    ['R'] = { '<Plug>(coc-references)', 'references' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
-    ['s'] = { ':CocList -I symbols<CR>', 'symbols' },
-    ['S'] = { ':CocList snippets<CR>', 'snippets' },
-    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' },
-    ['u'] = { ':CocListResume<CR>', 'resume-list' },
-    ['U'] = { ':CocUpdate<CR>', 'update-CoC' },
+    ['name'] = '+Lspsaga',
+    ['a'] = { ':Lspsaga code_action<CR>', 'code-action' },
+    ['A'] = { ':Lspsaga range_code_action<CR>', 'range-code-action' },
+    ['d'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
+    ['e'] = {
+      ['name'] = '+diagnostics',
+      ['l'] = { ':Lspsaga show_line_diagnostics<CR>', 'show-line-diagnostics' },
+      ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
+      ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' }
+    },
+    ['i'] = { ':LspInfo<CR>', 'lsp-info' },
+    ['l'] = { ':Lspsaga lsp_finder<CR>', 'finder' },
+    ['o'] = {
+      ['name'] = '+outline',
+      ['a'] = { ':AerialToggle<CR>', 'aerial' },
+      ['c'] = { ':AerialTreeCloseAll<CR>', 'aerial-close-all' },
+      ['o'] = { ':AerialTreeOpenAll<CR>', 'aerial-open-all' },
+      ['s'] = { ':SymbolsOutline<CR>', 'symbols-outline' }
+    },
+    ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
+    ['r'] = { ':LspRename<CR>', 'rename' },
+    ['s'] = { ':Lspsaga signature_help<CR>', 'signature-help' },
+    ['t'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
+    ['T'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
     ['v'] = {
       ['name'] = '+vista',
+      ['a'] = { ':Vista ale<CR>', 'ale' },
+      ['A'] = { ':Vista finder fzf:ale<CR>', 'fzf:ale' },
       ['c'] = { ':Vista coc<CR>', 'coc' },
       ['C'] = { ':Vista finder fzf:coc<CR>', 'fzf:coc' },
       ['f'] = { ':Vista finder<CR>', 'finder' },
@@ -485,11 +446,65 @@ local leader_key_maps = {
       ['i'] = { ':Vista info<CR>', 'info' },
       ['I'] = { ':Vista info+<CR>', 'info+' },
       ['j'] = { ':Vista focus<CR>', 'focus' },
+      ['n'] = { ':Vista nvim_lsp<CR>', 'nvim-lsp' },
+      ['N'] = { ':Vista finder fzf:nvim_lsp<CR>', 'fzf:nvim_lsp' },
       ['s'] = { ':Vista show<CR>', 'show' },
-      ['t'] = { ':Vista!!<CR>', 'toggle-vista' }
+      ['t'] = { ':Vista!!<CR>', 'toggle-vista' },
+      ['u'] = { ':Vista vim_lsc<CR>', 'vim_lsc' },
+      ['v'] = { ':Vista vim_lsp<CR>', 'vim_lsp' }
     },
-    ['z'] = { ':CocDisable<CR>', 'disable-CoC' },
-    ['Z'] = { ':CocEnable<CR>', 'enable-CoC' }
+    ['w'] = {
+      ['name'] = '+workspace',
+      ['a'] = { ':LspAddToWorkspaceFolder<CR>', 'add-folder-to-workspace' },
+      ['l'] = { ':LspListWorkspaceFolders<CR>', 'list-workspace-folders' },
+      ['r'] = { ':LspRemoveWorkspaceFolder<CR>', 'remove-workspace-folder' },
+      ['s'] = { ':LspWorkspaceSymbols<CR>', 'workspace-symbols' }
+    }
+  },
+
+  -- NOTE: L is for lspconfig
+  ['L'] = {
+    ['name'] = '+builtin-lsp',
+    ['a'] = { ':LspCodeActions<CR>', 'code-action' },
+    ['A'] = { ':LspRangeCodeActions<CR>', 'range-code-action' },
+    ['e'] = {
+      ['name'] = '+diagnostics',
+      ['a'] = { ':LspGetAllDiagnostics<CR>', 'all-diagnostics' },
+      ['l'] = { ':LspShowLineDiagnostics<CR>', 'show-line-diagnostics' },
+      ['n'] = { ':LspGotoNextDiagnostic<CR>', 'next-diagnostic' },
+      ['N'] = { ':LspGetNextDiagnostic<CR>', 'get-next-diagnostic' },
+      ['p'] = { ':LspGotoPrevDiagnostic<CR>', 'prev-diagnostic' },
+      ['P'] = { ':LspGetPrevDiagnostic<CR>', 'get-prev-diagnostic' }
+    },
+    ['f'] = {
+      ['name'] = '+formatting',
+      ['f'] = { ':LspFormatting<CR>', 'formatting' },
+      ['r'] = { ':LspRangeFormatting<CR>', 'range-formatting' },
+      ['s'] = { ':LspFormattingSync<CR>', 'formatting-sync' }
+    },
+    ['g'] = {
+      ['name'] = '+definitions/references',
+      ['c'] = { ':LspClearReferences<CR>', 'clear-references' },
+      ['d'] = { ':LspDefinition<CR>', 'definition' },
+      ['i'] = { ':LspDeclaration<CR>', 'declaration' },
+      ['r'] = { ':LspReferences<CR>', 'references' },
+      ['t'] = { ':LspTypeDefinition<CR>', 'type-definition' }
+    },
+    ['h'] = { ':LspHover<CR>', 'hover-doc' },
+    ['H'] = { ':LspDocumentHighlight<CR>', 'document-highlight' },
+    ['i'] = { ':LspIncomingCalls<CR>', 'incoming-calls' },
+    ['o'] = { ':LspOutGoingCalls<CR>', 'outgoing-calls' },
+    ['r'] = { ':LspRename<CR>', 'rename' },
+    ['s'] = { ':LspDocumentSymbols<CR>', 'document-symbols' },
+    ['S'] = { ':LspWorkspaceSymbols<CR>', 'document-symbols' },
+    ['w'] = {
+      ['name'] = '+workspace',
+      ['a'] = { ':LspAddToWorkspaceFolder<CR>', 'add-folder-to-workspace' },
+      ['l'] = { ':LspListWorkspaceFolders<CR>', 'list-workspace-folders' },
+      ['r'] = { ':LspRemoveWorkspaceFolder<CR>', 'remove-workspace-folder' },
+      ['s'] = { ':LspWorkspaceSymbols<CR>', 'workspace-symbols' }
+    },
+    ['y'] = { ':LspImplementation<CR>', 'implementation' }
   },
 
   -- NOTE: m is for major mode
@@ -523,6 +538,39 @@ local leader_key_maps = {
     ['s'] = { ':PackerSync<CR>', 'packer-sync' },
     ['S'] = { ':PackerStatus<CR>', 'packages-status' },
     ['u'] = { ':PackerUpdate<CR>', 'packer-update' }
+  },
+
+  -- NOTE: N is for notes
+  ['N'] = {
+    ['name'] = '+notes',
+    ['a'] = {
+      ':lua require"neuron/cmd".new_edit(require"neuron".config.neuron_dir)<CR>',
+      'create-new-note'
+    },
+    ['b'] = {
+      ':lua require"neuron/telescope".find_backlinks()<CR>',
+      'find-backlinks'
+    },
+    ['B'] = {
+      ':lua require"neuron/telescope".find_backlinks{ insert = true }<CR>',
+      'find-backlinks-insert'
+    },
+    ['e'] = { ':lua require"neuron".enter_link()<CR>', 'enter-link' },
+    ['i'] = {
+      ':lua require"neuron/telescope".find_zettels {insert = true}<CR>',
+      'insert-note-id'
+    },
+    ['n'] = { ':lua require"neuron".goto_next_extmark()<CR>', 'next' },
+    ['p'] = { ':lua require"neuron".goto_next_extmark()<CR>', 'prev' },
+    ['s'] = {
+      ':lua require"neuron".rib {address = "127.0.0.1:8200", verbose = true}<CR>',
+      'serve-notes'
+    },
+    ['t'] = { ':lua require"neuron/telescope".find_tags()<CR>', 'find-tags' },
+    ['z'] = {
+      ':lua require"neuron/telescope".find_zettels()<CR>',
+      'search-notes'
+    }
   },
 
   -- NOTE: o is for telescope
@@ -563,7 +611,7 @@ local leader_key_maps = {
       ['o'] = { ':Telescope dap commands<CR>', 'commands' },
       ['v'] = { ':Telescope dap variables<CR>', 'variables' }
     },
-    ['e'] = { ':Telescope symbols<CR>', 'symbols' },
+    ['e'] = { ':Telescope emoji search<CR>', 'emoji-search' },
     ['f'] = {
       ['name'] = '+files',
       ['a'] = 'tj-search-all-files',
@@ -733,19 +781,27 @@ local leader_key_maps = {
     },
     ['f'] = {
       ['name'] = '+floaterm',
-      ['G'] = { ':FloatermNew tig<CR>', 'tig' },
-      ['a'] = { ':FloatermNew terminal_velocity<CR>', 'terminal_velocity' },
-      ['d'] = { ':FloatermNew lazydocker<CR>', 'docker' },
-      ['f'] = { ':FloatermNew fzf<CR>', 'fzf' },
-      ['g'] = { ':FloatermNew lazygit<CR>', 'git' },
-      ['n'] = { ':FloatermNew node<CR>', 'node' },
-      ['p'] = { ':FloatermNew python<CR>', 'python' },
-      ['r'] = { ':FloatermNew ranger<CR>', 'ranger' },
-      ['s'] = { ':FloatermNew ncdu<CR>', 'ncdu' },
-      ['t'] = { ':FloatermToggle<CR>', 'toggle' },
-      ['v'] = { ':FloatermNew grv<CR>', 'grv' },
-      ['w'] = { ':FloatermNew wt<CR>', 'weather' },
-      ['y'] = { ':FloatermNew btm<CR>', 'ytop' }
+      ['G'] = { ':lua Tig()<CR>', 'tig' },
+      ['a'] = { ':lua Terminal_Velocity()<CR>', 'terminal_velocity' },
+      ['d'] = { ':lua LazyDocker()<CR>', 'docker' },
+      ['f'] = { ':lua Fzf()<CR>', 'fzf' },
+      ['g'] = { ':lua LazyGit()<CR>', 'lazygit' },
+      ['n'] = { ':lua Node()<CR>', 'node' },
+      ['p'] = { ':lua Python()<CR>', 'python' },
+      ['r'] = { ':lua Ranger()<CR>', 'ranger' },
+      ['s'] = { ':lua Ncdu()<CR>', 'ncdu' },
+      ['t'] = { ':ToggleTerm<CR>', 'toggle' },
+      ['v'] = { ':lua Grv()<CR>', 'grv' },
+      ['w'] = { ':lua Wt()<CR>', 'weather' },
+      ['y'] = { ':lua Btm()<CR>', 'ytop' }
+    },
+    ['g'] = {
+      ['name'] = '+git',
+      ['b'] = { ':Gitsigns toggle_current_line_blame<CR>', 'toggle-blame' },
+      ['l'] = { ':Gitsigns toggle_linehl<CR>', 'toggle-linehl' },
+      ['n'] = { ':Gitsigns toggle_numhl<CR>', 'toggle-numhl' },
+      ['s'] = { ':Gitsigns toggle_signs<CR>', 'toggle-signs' },
+      ['w'] = { ':Gitsigns toggle_word_diff<CR>', 'toggle-word-diff' }
     },
     ['h'] = { ':sp | te<CR>', 'horizontal-split-terminal' },
     ['s'] = {
@@ -754,7 +810,7 @@ local leader_key_maps = {
       ['h'] = { ':set scrolloff=5<CR>', 'scrolloff=5' },
       ['n'] = { ':set scrolloff=999<CR>', 'scrolloff=999' }
     },
-    ['t'] = { ':FloatermNew<CR>', 'terminal' },
+    ['t'] = { ':ToggleTerm<CR>', 'terminal' },
     ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
     ['w'] = {
       ['name'] = '+tabs',
@@ -931,28 +987,6 @@ local leader_plug_keymaps = {
   ['h'] = {
     ['name'] = '+highlight',
     ['c'] = { '<Plug>(InYoFace_Toggle)<CR>', 'highlight-comments' }
-  },
-  ['l'] = {
-    ['name'] = '+lsp',
-    [';'] = { '<Plug>(coc-refactor)', 'refactor' },
-    ['a'] = { '<Plug>(coc-codeaction)', 'line-action' },
-    ['A'] = { '<Plug>(coc-codeaction-selected)', 'selected-action' },
-    ['d'] = { '<Plug>(coc-definition)', 'definition' },
-    ['D'] = { '<Plug>(coc-declaration)', 'declaration' },
-    ['f'] = { '<Plug>(coc-format-selected)', 'format-selected' },
-    ['F'] = { '<Plug>(coc-format)', 'format' },
-    ['h'] = { '<Plug>(coc-float-hide)', 'hide' },
-    ['i'] = { '<Plug>(coc-implementation)', 'implementation' },
-    ['j'] = { '<Plug>(coc-float-jump)', 'float-jump' },
-    ['l'] = { '<Plug>(coc-codelens-action)', 'code-lens' },
-    ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-    ['N'] = { '<Plug>(coc-diagnostic-next-error)', 'next-error' },
-    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
-    ['P'] = { '<Plug>(coc-diagnostic-prev-error)', 'prev-error' },
-    ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
-    ['R'] = { '<Plug>(coc-references)', 'references' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
-    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' }
   },
   ['g'] = { ['m'] = { '<Plug>(git-messenger)', 'git-messenger' } },
   ['j'] = {

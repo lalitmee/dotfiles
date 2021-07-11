@@ -1,6 +1,6 @@
-require('lk.plugins.nvim_lsp.handlers')
-require('lk.plugins.nvim_lsp.commands')
-require('lk.plugins.nvim_lsp.mappings')
+require('lk/plugins/nvim_lsp/handlers')
+require('lk/plugins/nvim_lsp/commands')
+require('lk/plugins/nvim_lsp/mappings')
 
 -- lsp kind symbols
 require('vim.lsp.protocol').CompletionItemKind =
@@ -33,7 +33,7 @@ require('vim.lsp.protocol').CompletionItemKind =
     }
 
 -- highlights {{{
-local highlight = require('lk.highlights')
+local highlight = require('lk/highlights')
 local cursor_line_bg = highlight.hl_value('CursorLine', 'bg')
 highlight.all {
   { 'LspReferenceText', { guibg = cursor_line_bg, gui = 'none' } },
@@ -68,28 +68,28 @@ highlight.all {
 -- lsp signs
 vim.fn.sign_define('LspDiagnosticsSignError', {
   texthl = 'LspDiagnosticsSignError',
-  text = 'E',
+  text = ' ',
   numhl = 'LspDiagnosticsSignError'
 })
 vim.fn.sign_define('LspDiagnosticsSignWarning', {
   texthl = 'LspDiagnosticsSignWarning',
-  text = 'W',
+  text = ' ',
   numhl = 'LspDiagnosticsSignWarning'
 })
 vim.fn.sign_define('LspDiagnosticsSignHint', {
   texthl = 'LspDiagnosticsSignHint',
-  text = 'H',
+  text = '💡',
   numhl = 'LspDiagnosticsSignHint'
 })
 vim.fn.sign_define('LspDiagnosticsSignInformation', {
   texthl = 'LspDiagnosticsSignInformation',
-  text = 'I',
+  text = ' ',
   numhl = 'LspDiagnosticsSignInformation'
 })
 
 -- lsp autocommands
 local function setup_autocommands(client)
-  local autocommands = require('lk.autocommands')
+  local autocommands = require('lk/autocommands')
 
   autocommands.augroup('LspLocationList', {
     {
@@ -165,6 +165,7 @@ end
 
 -- keymaps
 local function on_attach(client, bufnr)
+  require('aerial').on_attach(client)
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
   setup_autocommands(client)
   setup_mappings(client, bufnr)
@@ -175,27 +176,93 @@ local function on_attach(client, bufnr)
   require('lsp-status').on_attach(client)
 end
 
--- Configure lua language server for neovim development
-local lua_settings = {
-  Lua = {
-    runtime = {
-      -- LuaJIT in the case of Neovim
-      version = 'LuaJIT',
-      path = vim.split(package.path, ';')
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = { 'vim' }
-    },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-      }
-    }
+-- configuration for tsserver
+local function on_attach_tsserver(client, bufnr)
+  require('aerial').on_attach(client)
+  vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+  setup_autocommands(client)
+  setup_mappings(client, bufnr)
+
+  if client.resolved_capabilities.document_formatting then
+    client.resolved_capabilities.document_formatting = false
+  end
+
+  if client.resolved_capabilities.goto_definition then
+    vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.Tagfunc')
+  end
+
+  require('null-ls').setup {}
+  local ts_utils = require('nvim-lsp-ts-utils')
+  -- defaults
+  ts_utils.setup {
+    debug = false,
+    disable_commands = false,
+    enable_import_on_completion = true,
+    import_all_timeout = 5000, -- ms
+
+    -- eslint
+    eslint_enable_code_actions = true,
+    eslint_enable_disable_comments = true,
+    eslint_bin = 'eslint',
+    eslint_config_fallback = nil,
+    eslint_enable_diagnostics = true,
+
+    -- formatting
+    enable_formatting = true,
+    formatter = 'prettier',
+    formatter_config_fallback = nil,
+
+    -- update imports on file move
+    update_imports_on_move = false,
+    require_confirmation_on_move = false,
+    watch_dir = nil
   }
-}
+
+  -- required to fix code action ranges
+  ts_utils.setup_client(client)
+
+  -- -- no default maps, so you may want to define some here
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', ':TSLspOrganize<CR>',
+  --                             { silent = true })
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'qq', ':TSLspFixCurrent<CR>',
+  --                             { silent = true })
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', ':TSLspRenameFile<CR>',
+  --                             { silent = true })
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', ':TSLspImportAll<CR>',
+  --                             { silent = true })
+
+  require('lsp-status').on_attach(client)
+end
+
+-- Configure lua language server for neovim development
+local luadev = require('lua-dev').setup({
+  -- add any options here, or leave empty to use the default settings
+  -- lspconfig = {
+  --   cmd = {"lua-language-server"}
+  -- },
+
+  -- old config
+  -- Lua = {
+  --   runtime = {
+  --     -- LuaJIT in the case of Neovim
+  --     version = 'LuaJIT',
+  --     path = vim.split(package.path, ';')
+  --   },
+  --   diagnostics = {
+  --     -- Get the language server to recognize the `vim` global
+  --     globals = { 'vim' }
+  --   },
+  --   workspace = {
+  --     -- Make the server aware of Neovim runtime files
+  --     library = {
+  --       [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+  --       [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+  --     },
+  --     maxPreload = 2000,
+  --     preloadFileSize = 1000
+  --   }
+  -- }
+})
 
 -- lsp-install
 local function setup_servers()
@@ -217,7 +284,10 @@ local function setup_servers()
 
     -- language specific config
     if server == 'lua' then
-      config.settings = lua_settings
+      config = luadev
+    end
+    if server == 'tsserver' then
+      config.on_attach = on_attach_tsserver
     end
     if server == 'efm' then
       config = vim.tbl_extend('force', config,
