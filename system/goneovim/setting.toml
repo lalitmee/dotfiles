@@ -111,6 +111,14 @@ DiffChangePattern = 1
 # Display the effect when clicked
 ClickEffect = true
 
+[Cursor]
+## Specifies whether the smooth cursor feature is enabled or disabled by a boolean value.
+SmoothMove = true
+
+## Specifies the duration of the animation at the smooth cursor. Default is 55ms.
+## Note that Goneovim uses the specified value as a base value and makes slight adjustments depending on the distance.
+Duration = 100
+
 [Palette]
 ## Specifies the proportion of the command line palette to the height of the entire window.
 AreaRatio = 0.5
@@ -128,6 +136,7 @@ Transparent = 1.0
 [Statusline]
 ## Whether or not to display the external status line
 Visible = false
+ShowIcon = false
 
 ## Options: "textLabel" / "icon" / "background" / "none"
 ModeIndicatorType = "textLabel"
@@ -158,8 +167,8 @@ Right = [ "message", "git", "filetype", "fileformat", "fileencoding", "curpos", 
 
 [Tabline]
 ## Whether or not to display the external tabline
-Visible = true
-ShowIcon = true
+Visible = false
+ShowIcon = false
 
 [Popupmenu]
 ## neovim's popupmenu is made up of word, menu and info parts.

@@ -1,3 +1,7 @@
+set guifont=CaskaydiaCove\ Nerd\ Font:h14
+" set guifont=Operator\ Mono\ Nerd\ Font:h14
+" set guifont=JetbrainsMono\ Nerd\ Font:h14
+
 if exists('g:fvim_loaded')
     FVimCursorSmoothMove v:true
     FVimCursorSmoothBlink v:true
@@ -5,7 +9,7 @@ if exists('g:fvim_loaded')
     " good old 'set guifont' compatibility
     " set guifont=UbuntuMono\ Nerd\ Font:h16
     " set guifont=SauceCodePro\ Nerd\ Font:h14
-    set guifont=CaskaydiaCove\ Nerd\ Font:h14
+    " set guifont=CaskaydiaCove\ Nerd\ Font:h14
     " set guifont=JetbrainsMono\ Nerd\ Font:h14
     " set guifont=Monaco\ Nerd\ Font:h13
     " Ctrl-ScrollWheel for zooming in/out
@@ -28,6 +32,3 @@ if exists('g:GtkGuiLoaded')
     lua require('colorbuddy').colorscheme('gruvbuddy')
 endif
 
-" set guifont=CaskaydiaCove\ Nerd\ Font:h14
-" set guifont=OperatorMono\ Lig\ Book:h14
-set guifont=JetbrainsMono\ Nerd\ Font:h14
