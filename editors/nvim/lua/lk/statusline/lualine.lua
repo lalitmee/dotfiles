@@ -36,7 +36,7 @@ require('lualine').setup {
       },
       {
         'diagnostics',
-        sources = { 'nvim_lsp' },
+        sources = { 'coc' },
         symbols = {
           error = ' :',
           warn = ' :',
@@ -48,7 +48,8 @@ require('lualine').setup {
         color_info = '#15AABF',
         color_hint = '#fab005'
       },
-      { 'os.data(\'%a\')', 'data', require'lsp-status'.status },
+      -- { 'os.data(\'%a\')', 'data', require'lsp-status'.status },
+      {'g:coc-status'},
       { 'b:toggle_number' }
     },
     lualine_x = { 'filetype', buf_spaces },

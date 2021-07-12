@@ -403,96 +403,96 @@ return require('packer').startup {
 
     -- coc.nvim {{{
 
-    -- use 'Shougo/neco-vim'
-    -- use 'neoclide/vim-jsx-improve'
+    use 'Shougo/neco-vim'
+    use 'neoclide/vim-jsx-improve'
 
-    -- -- vim completion for coc
-    -- use 'neoclide/coc-neco'
+    -- vim completion for coc
+    use 'neoclide/coc-neco'
 
-    -- -- Completion Conquerer
-    -- use { 'neoclide/coc.nvim', branch = 'release' }
+    -- Completion Conquerer
+    use { 'neoclide/coc.nvim', branch = 'release' }
 
     -- }}}
 
     -- neovim-lsp {{{
 
-    use {
-      'neovim/nvim-lspconfig',
-      requires = {
-        { 'glepnir/lspsaga.nvim' },
-        { 'hrsh7th/nvim-compe' },
-        {
-          'tzachar/compe-tabnine',
-          run = './install.sh',
-          requires = 'hrsh7th/nvim-compe'
-        },
-        { 'kabouzeid/nvim-lspinstall' },
-        { 'nvim-lua/lsp-status.nvim' },
-        { 'tjdevries/lsp_extensions.nvim' },
-        {
-          'simrat39/symbols-outline.nvim',
-          config = function()
-            vim.g.symbols_outline = {
-              highlight_hovered_item = true,
-              show_guides = true,
-              auto_preview = false, -- experimental
-              position = 'right',
-              keymaps = {
-                close = '<Esc>',
-                goto_location = '<Cr>',
-                focus_location = 'o',
-                hover_symbol = '<C-space>',
-                rename_symbol = 'r',
-                code_actions = 'a'
-              },
-              lsp_blacklist = {}
-            }
-          end
-        },
-        { 'folke/lsp-colors.nvim' },
-        {
-          'folke/trouble.nvim',
-          requires = 'kyazdani42/nvim-web-devicons',
-          config = function()
-            require('trouble').setup {}
-          end
-        },
-        { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
-        { 'jose-elias-alvarez/null-ls.nvim' },
-        {
-          'simrat39/symbols-outline.nvim',
-          config = function()
-            vim.g.symbols_outline = {
-              highlight_hovered_item = true,
-              show_guides = true,
-              auto_preview = true,
-              position = 'right',
-              show_numbers = false,
-              show_relative_numbers = false,
-              show_symbol_details = true,
-              keymaps = {
-                close = '<Esc>',
-                goto_location = '<Cr>',
-                focus_location = 'o',
-                hover_symbol = '<C-space>',
-                rename_symbol = 'r',
-                code_actions = 'a'
-              },
-              lsp_blacklist = {}
-            }
-          end
-        },
-        { 'stevearc/aerial.nvim' },
-        { 'folke/lua-dev.nvim' },
-        {
-          'ahmedkhalf/lsp-rooter.nvim',
-          config = function()
-            require('lsp-rooter').setup()
-          end,
-          event = 'ColorScheme'
-        }
-      }
-    }
+    -- use {
+    --   'neovim/nvim-lspconfig',
+    --   requires = {
+    --     { 'glepnir/lspsaga.nvim' },
+    --     { 'hrsh7th/nvim-compe' },
+    --     {
+    --       'tzachar/compe-tabnine',
+    --       run = './install.sh',
+    --       requires = 'hrsh7th/nvim-compe'
+    --     },
+    --     { 'kabouzeid/nvim-lspinstall' },
+    --     { 'nvim-lua/lsp-status.nvim' },
+    --     { 'tjdevries/lsp_extensions.nvim' },
+    --     {
+    --       'simrat39/symbols-outline.nvim',
+    --       config = function()
+    --         vim.g.symbols_outline = {
+    --           highlight_hovered_item = true,
+    --           show_guides = true,
+    --           auto_preview = false, -- experimental
+    --           position = 'right',
+    --           keymaps = {
+    --             close = '<Esc>',
+    --             goto_location = '<Cr>',
+    --             focus_location = 'o',
+    --             hover_symbol = '<C-space>',
+    --             rename_symbol = 'r',
+    --             code_actions = 'a'
+    --           },
+    --           lsp_blacklist = {}
+    --         }
+    --       end
+    --     },
+    --     { 'folke/lsp-colors.nvim' },
+    --     {
+    --       'folke/trouble.nvim',
+    --       requires = 'kyazdani42/nvim-web-devicons',
+    --       config = function()
+    --         require('trouble').setup {}
+    --       end
+    --     },
+    --     { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
+    --     { 'jose-elias-alvarez/null-ls.nvim' },
+    --     {
+    --       'simrat39/symbols-outline.nvim',
+    --       config = function()
+    --         vim.g.symbols_outline = {
+    --           highlight_hovered_item = true,
+    --           show_guides = true,
+    --           auto_preview = true,
+    --           position = 'right',
+    --           show_numbers = false,
+    --           show_relative_numbers = false,
+    --           show_symbol_details = true,
+    --           keymaps = {
+    --             close = '<Esc>',
+    --             goto_location = '<Cr>',
+    --             focus_location = 'o',
+    --             hover_symbol = '<C-space>',
+    --             rename_symbol = 'r',
+    --             code_actions = 'a'
+    --           },
+    --           lsp_blacklist = {}
+    --         }
+    --       end
+    --     },
+    --     { 'stevearc/aerial.nvim' },
+    --     { 'folke/lua-dev.nvim' },
+    --     {
+    --       'ahmedkhalf/lsp-rooter.nvim',
+    --       config = function()
+    --         require('lsp-rooter').setup()
+    --       end,
+    --       event = 'ColorScheme'
+    --     }
+    --   }
+    -- }
     use 'bfredl/nvim-luadev'
 
     -- better lua syntax highlighting
