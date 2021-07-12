@@ -48,7 +48,6 @@ require('lk/plugins/nvim-bqf')
 
 -- NOTE: language support
 require('lk/plugins/auto-pairs')
-require('lk/plugins/closetag')
 require('lk/plugins/emmet')
 require('lk/plugins/markdown')
 require('lk/plugins/sideways')

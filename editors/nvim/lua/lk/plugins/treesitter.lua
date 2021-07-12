@@ -3,7 +3,6 @@ require('nvim-treesitter.configs').setup(
       ensure_installed = 'all',
       ignore_install = { 'haskell' },
       highlight = { enable = true },
-      autotag = { enable = true },
       indent = { enable = true },
       rainbow = { enable = true },
       playground = { enable = true, updatetime = 25, persist_queries = false },
@@ -81,11 +80,11 @@ require('nvim-treesitter.configs').setup(
 -- NOTE: fold method using treesitter
 -- somehow I don't like it.
 
--- local parsers = require 'nvim-treesitter.parsers'
--- local configs = parsers.get_parser_configs()
--- local ft_str = table.concat(vim.tbl_map(function(ft)
---   return configs[ft].filetype or ft
--- end, parsers.available_parsers()), ',')
+local parsers = require 'nvim-treesitter.parsers'
+local configs = parsers.get_parser_configs()
+local ft_str = table.concat(vim.tbl_map(function(ft)
+  return configs[ft].filetype or ft
+end, parsers.available_parsers()), ',')
 
--- vim.cmd('autocmd! Filetype ' .. ft_str ..
---             ' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()')
+vim.cmd('autocmd! Filetype ' .. ft_str ..
+            ' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()')

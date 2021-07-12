@@ -78,8 +78,17 @@ return require('packer').startup {
 
     -- General {{{
 
-    use 'Pocco81/TrueZen.nvim'
-    use { 'junegunn/goyo.vim', cmd = { 'Goyo' } }
+    use {
+      'Pocco81/TrueZen.nvim',
+      cmd = {
+        'TZAtaraxis',
+        'TZAtaraxisOn',
+        'TZFocus',
+        'TZFocusOn',
+        'TZMinimalist',
+        'TZMinimalistOn'
+      }
+    }
 
     -- toggle, display and navigate marks
     use 'kshenoy/vim-signature'
@@ -92,15 +101,7 @@ return require('packer').startup {
     use 'mhinz/vim-startify'
 
     -- Colorizer for showing the colors
-    use {
-      'norcalli/nvim-colorizer.lua'
-      -- cmd = {
-      --   'ColorizerToggle',
-      --   'ColorizerReloadAllBuffers',
-      --   'ColorizerDetachFromBuffer',
-      --   'ColorizerAttachToBuffer'
-      -- }
-    }
+    use { 'norcalli/nvim-colorizer.lua' }
     -- use {
     --   'norcalli/nvim-terminal.lua',
     --   config = function()
@@ -282,6 +283,51 @@ return require('packer').startup {
 
     -- Notes {{{
 
+    use {
+      'vhyrro/neorg',
+      config = function()
+        require('neorg').setup {
+          -- Tell Neorg what modules to load
+          load = {
+            ['core.defaults'] = {}, -- Load all the default modules
+            ['core.norg.concealer'] = { -- Allows the use of icons
+              config = {
+                icons = { -- Set our own icons here
+                  todo = {
+                    enabled = true,
+
+                    done = { enabled = true, icon = '' },
+                    pending = { enabled = true, icon = '' },
+                    undone = { enabled = true, icon = '×' }
+                  },
+                  quote = { enabled = true, icon = '∣' },
+                  heading = {
+                    enabled = true,
+
+                    level_1 = { enabled = true, icon = '⦿' },
+
+                    level_2 = { enabled = true, icon = '⦾' },
+
+                    level_3 = { enabled = true, icon = '•' },
+
+                    level_4 = { enabled = true, icon = '◦' }
+                  },
+                  list = { enabled = true, icon = '‑' }
+                },
+
+                conceal_cursor = ''
+              }
+            },
+            ['core.norg.dirman'] = { -- Manage your directories with Neorg
+              config = {
+                workspaces = { my_workspace = '~/data/Github/Notes/neorg' }
+              }
+            }
+          }
+        }
+      end
+    }
+
     if false and vim.fn.executable 'neuron' == 1 then
       use {
         'oberblastmeister/neuron.nvim',
@@ -437,7 +483,14 @@ return require('packer').startup {
           end
         },
         { 'stevearc/aerial.nvim' },
-        { 'folke/lua-dev.nvim' }
+        { 'folke/lua-dev.nvim' },
+        {
+          'ahmedkhalf/lsp-rooter.nvim',
+          config = function()
+            require('lsp-rooter').setup()
+          end,
+          event = 'ColorScheme'
+        }
       }
     }
     use 'bfredl/nvim-luadev'
@@ -468,7 +521,6 @@ return require('packer').startup {
         cmd = 'TSPlaygroundToggle'
       },
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
-      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
     }
 
@@ -487,10 +539,6 @@ return require('packer').startup {
 
     -- FZF in vim
     use 'junegunn/fzf.vim'
-
-    use 'conweller/findr.vim'
-
-    -- use 'gfanto/fzf-lsp.nvim'
 
     -- }}}
 
@@ -539,9 +587,6 @@ return require('packer').startup {
     -- emmets in vim
     use 'mattn/emmet-vim'
 
-    -- Auto Close Tag in HTML
-    use 'alvan/vim-closetag'
-
     -- html tags completion
     use 'AndrewRadev/tagalong.vim'
 
@@ -562,7 +607,7 @@ return require('packer').startup {
     }
 
     -- markdown preview
-    use 'npxbr/glow.nvim'
+    use { 'npxbr/glow.nvim', cmd = { 'Glow' } }
 
     -- }}}
 
@@ -575,19 +620,28 @@ return require('packer').startup {
 
     -- General {{{
 
-    use { 'RishabhRD/nvim-cheat.sh', requires = { 'RishabhRD/popfix' } }
+    use {
+      'RishabhRD/nvim-cheat.sh',
+      requires = { 'RishabhRD/popfix' },
+      cmd = {
+        'Cheat',
+        'CheatWithouComments',
+        'CheatList',
+        'CheatListWithoutComments'
+      }
+    }
 
     -- auto-pairs in lua
     use 'windwp/nvim-autopairs'
-    use 'AndrewRadev/sideways.vim'
-    use {
-      'sudormrfbin/cheatsheet.nvim',
-      requires = {
-        { 'nvim-telescope/telescope.nvim' },
-        { 'nvim-lua/popup.nvim' },
-        { 'nvim-lua/plenary.nvim' }
-      }
-    }
+    -- use {
+    --   'sudormrfbin/cheatsheet.nvim',
+    --   requires = {
+    --     { 'nvim-telescope/telescope.nvim' },
+    --     { 'nvim-lua/popup.nvim' },
+    --     { 'nvim-lua/plenary.nvim' }
+    --   },
+    --   cmd = { 'CheatSheet', 'CheatSheedEdit' }
+    -- }
 
     -- }}}
 
@@ -606,10 +660,7 @@ return require('packer').startup {
     use 'ThePrimeagen/git-worktree.nvim'
 
     -- magit for neovim in lua
-    use {
-      'TimUntersberger/neogit'
-      -- cmd = { 'Neogit' }
-    }
+    use { 'TimUntersberger/neogit' }
 
     -- lazygit from neovim
     use {
@@ -679,7 +730,10 @@ return require('packer').startup {
     use 'tjdevries/nlua.nvim'
 
     -- motion training
-    use 'tjdevries/train.nvim'
+    use {
+      'tjdevries/train.nvim',
+      cmd = { 'TrainUpDown', 'TrainWord', 'TrainTextObj' }
+    }
     use 'tjdevries/complextras.nvim'
 
     -- Make comments appear IN YO FACE
@@ -693,10 +747,19 @@ return require('packer').startup {
 
     -- Explorer {{{
 
-    use 'justinmk/vim-dirvish'
-
     -- file explorer
-    use 'kyazdani42/nvim-tree.lua'
+    use {
+      'kyazdani42/nvim-tree.lua',
+      cmd = {
+        'NvimTreeToggle',
+        'NvimTreeOpen',
+        'NvimTreeClose',
+        'NvimTreeRefresh',
+        'NvimTreeFindFile',
+        'NvimTreeFindResize',
+        'NvimTreeClipboard'
+      }
+    }
 
     -- }}}
 
@@ -712,7 +775,11 @@ return require('packer').startup {
     -- TERMINAL {{{
 
     -- Float Terminal
-    use 'akinsho/nvim-toggleterm.lua'
+    use {
+      'akinsho/nvim-toggleterm.lua'
+      -- cmd = { 'ToggleTerm', 'ToggleTermCloseAll', 'ToggleTermOpenAll' },
+      -- keys = { '<C-t>' }
+    }
 
     -- }}}
 
@@ -727,8 +794,17 @@ return require('packer').startup {
 
     -- sql nvim database for frecency
     use 'tami5/sql.nvim'
-    use 'tyru/open-browser-github.vim'
-    use 'tyru/open-browser.vim'
+    use {
+      'tyru/open-browser-github.vim',
+      cmd = {
+        'OpenGithubFile',
+        'OpenGithubProject',
+        'OpenGithubPullReq',
+        'OpenGithubCommit',
+        'OpenGithubIssue'
+      }
+    }
+    use { 'tyru/open-browser.vim' }
 
     -- }}}
 
