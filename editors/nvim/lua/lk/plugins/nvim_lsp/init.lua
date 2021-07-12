@@ -1,3 +1,4 @@
+local null_ls = require('null-ls')
 require('lk/plugins/nvim_lsp/handlers')
 require('lk/plugins/nvim_lsp/commands')
 require('lk/plugins/nvim_lsp/mappings')
@@ -191,7 +192,21 @@ local function on_attach_tsserver(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.Tagfunc')
   end
 
-  require('null-ls').setup {}
+  -- null_ls config
+  -- local sources = {
+  --   null_ls.builtins.formatting.prettier,
+  --   null_ls.builtins.formatting.stylua,
+  --   null_ls.builtins.formatting.trim_whitespace,
+  --   null_ls.builtins.diagnostics.write_good,
+  --   null_ls.builtins.diagnostics.eslint_d,
+  --   null_ls.builtins.diagnostics.markdownlint,
+  --   null_ls.builtins.code_actions.gitsigns
+  -- }
+
+  null_ls.setup {
+    -- sources = sources
+  }
+
   local ts_utils = require('nvim-lsp-ts-utils')
   -- defaults
   ts_utils.setup {
@@ -203,7 +218,7 @@ local function on_attach_tsserver(client, bufnr)
     -- eslint
     eslint_enable_code_actions = true,
     eslint_enable_disable_comments = true,
-    eslint_bin = 'eslint',
+    eslint_bin = 'eslintd',
     eslint_config_fallback = nil,
     eslint_enable_diagnostics = true,
 
