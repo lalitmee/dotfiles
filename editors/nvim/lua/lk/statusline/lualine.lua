@@ -49,7 +49,7 @@ require('lualine').setup {
         color_hint = '#fab005'
       },
       -- { 'os.data(\'%a\')', 'data', require'lsp-status'.status },
-      {'g:coc-status'},
+      { 'g:coc_status' },
       { 'b:toggle_number' }
     },
     lualine_x = { 'filetype', buf_spaces },
