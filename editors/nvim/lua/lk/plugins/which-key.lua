@@ -630,20 +630,44 @@ local leader_key_maps = {
   --   ['y'] = { ':LspImplementation<CR>', 'implementation' }
   -- },
 
-  -- NOTE: m is for major mode
+  -- NOTE: m is for major mode for lspconfig
+  -- ['m'] = {
+  --   ['name'] = '+major-mode',
+  --   ['a'] = { ':Telescope lsp_code_actions<CR>', 'code-actions' },
+  --   ['b'] = { ':Telescope lsp_range_code_actions<CR>', 'range-code-actions' },
+  --   ['c'] = { ':MakeTags<CR>', 'make-ctags' },
+  --   ['d'] = { ':Telescope lsp_document_diagnostics<CR>', 'document-diagnostics' },
+  --   ['D'] = {
+  --     ':Telescope lsp_workspace_diagnostics<CR>',
+  --     'workspace-diagnostics'
+  --   },
+  --   ['f'] = { ':Telescope lsp_references<CR>', 'references' },
+  --   ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
+  --   ['s'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' }
+  -- },
+
+  -- NOTE: m is for major mode for coc
   ['m'] = {
     ['name'] = '+major-mode',
-    ['a'] = { ':Telescope lsp_code_actions<CR>', 'code-actions' },
-    ['b'] = { ':Telescope lsp_range_code_actions<CR>', 'range-code-actions' },
-    ['c'] = { ':MakeTags<CR>', 'make-ctags' },
-    ['d'] = { ':Telescope lsp_document_diagnostics<CR>', 'document-diagnostics' },
-    ['D'] = {
-      ':Telescope lsp_workspace_diagnostics<CR>',
+    ['a'] = { ':Telescope coc code_actions<CR>', 'code-actions' },
+    ['A'] = { ':Telescope coc line_code_actions<CR>', 'line-code-actions' },
+    ['c'] = { ':Telescope coc commands<CR>', 'commands' },
+    ['d'] = { ':Telescope coc definitions<CR>', 'definitions' },
+    ['D'] = { ':Telescope coc declarations<CR>', 'declarations' },
+    ['e'] = { ':Telescope coc diagnostics<CR>', 'document-diagnostics' },
+    ['E'] = {
+      ':Telescope coc workspace_diagnostics<CR>',
       'workspace-diagnostics'
     },
-    ['f'] = { ':Telescope lsp_references<CR>', 'references' },
-    ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
-    ['s'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' }
+    ['f'] = { ':Telescope coc references<CR>', 'references' },
+    ['F'] = { ':Telescope coc file_code_actions<CR>', 'file-code-actions' },
+    ['i'] = { ':Telescope coc implementations<CR>', 'implementations' },
+    ['j'] = { ':Telescope coc locations<CR>', 'locations' },
+    ['L'] = { ':Telescope coc links<CR>', 'links' },
+    ['h'] = { ':Telescope coc mru<CR>', 'most-recent' },
+    ['s'] = { ':Telescope coc document_symbols<CR>', 'buffer-symbols' },
+    ['S'] = { ':Telescope coc workspace_symbols<CR>', 'workspace-symbols' },
+    ['t'] = { ':Telescope coc type_definitions<CR>', 'type_definitions' }
   },
 
   -- NOTE: n is for neovim
