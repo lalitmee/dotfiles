@@ -47,16 +47,23 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    -- use 'Mofiqul/vscode.nvim'
-    -- use 'Th3Whit3Wolf/onebuddy'
-    -- use 'Th3Whit3Wolf/spacebuddy'
-    -- use 'christianchiarulli/nvcode-color-schemes.vim'
-    -- use 'folke/tokyonight.nvim'
-    -- use 'gruvbox-community/gruvbox'
-    -- use 'marko-cerovac/material.nvim'
-    -- use 'sainnhe/gruvbox-material'
-    -- use 'shaunsingh/moonlight.nvim'
-    -- use 'shaunsingh/nord.nvim'
+    -- vscode dark color colorshceme
+    use 'Mofiqul/vscode.nvim'
+
+    -- one dark colorscheme
+    use 'Th3Whit3Wolf/onebuddy'
+
+    -- nvcode colorschemes
+    use 'christianchiarulli/nvcode-color-schemes.vim'
+
+    -- tokyonight colorscheme
+    use 'folke/tokyonight.nvim'
+
+    -- gruvbox colorscheme
+    use 'gruvbox-community/gruvbox'
+
+    -- material colorscheme
+    use 'marko-cerovac/material.nvim'
 
     -- colorbuddy for Colorschemes
     use 'tjdevries/colorbuddy.nvim'
@@ -675,7 +682,10 @@ return require('packer').startup {
       cmd = { 'GitMessenger' },
       keys = { '<Plug>(git-messenger)' }
     }
-    use { 'sindrets/diffview.nvim', cmd = { 'DiffViewOpen' } }
+    use {
+      'sindrets/diffview.nvim'
+      -- cmd = { 'DiffViewOpen' }
+    }
 
     -- version control
     use 'tpope/vim-fugitive'
