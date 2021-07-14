@@ -1,9 +1,10 @@
 {
+  "workbench.colorTheme": "LaserWave Italic",
   "vsicons.dontShowNewVersionMessage": true,
-  "workbench.colorTheme": "Gruvbox Material Dark",
   "editor.detectIndentation": true,
-  "editor.fontFamily": "Operator Mono Lig Book",
-  "editor.fontSize": 14,
+  // "editor.fontFamily": "CaskaydiaCove Nerd Font",
+  "editor.fontFamily": "Operator Mono Lig book",
+  "editor.fontSize": 13,
   "editor.largeFileOptimizations": true,
   "editor.highlightActiveIndentGuide": true,
   "editor.indentSize": 4,
@@ -31,34 +32,20 @@
   "vim.useSystemClipboard": ["yank"],
   "vim.leader": "<space>",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[html]": {
-    "editor.formatOnSave": true
-  },
-  "[css]": {
-    "editor.formatOnSave": true
-  },
-  "[json]": {
-    "editor.formatOnSave": true
-  },
-  "[python]": {
-    "editor.formatOnSave": true
-  },
-  "[yaml]": {
-    "editor.formatOnSave": true
-  },
-  "[go]": {
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
-  }
+  "[javascript]": { "editor.formatOnSave": true },
+  "[typescript]": { "editor.formatOnSave": true },
+  "[html]": { "editor.formatOnSave": true },
+  "[css]": { "editor.formatOnSave": true },
+  "[json]": { "editor.formatOnSave": true },
+  "[python]": { "editor.formatOnSave": true },
+  "[yaml]": { "editor.formatOnSave": true },
+  "[go]": { "editor.formatOnSave": true },
+  "[javascriptreact]": { "editor.formatOnSave": true },
+  "[typescriptreact]": { "editor.formatOnSave": true },
+  "gitProjectManager.baseProjectsFolders": [
+    "/home/data/Github",
+    "/home/data/koinearth"
+  ],
+  "gitProjectManager.storeRepositoriesBetweenSessions": true,
+  "gitProjectManager.maxDepthRecursion": 4
 }
