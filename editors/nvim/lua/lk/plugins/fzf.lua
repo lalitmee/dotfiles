@@ -2,8 +2,8 @@
 vim.g.fzf_layout = {
   up = '~90%',
   window = {
-    width = 0.8,
-    height = 0.8,
+    width = 0.9,
+    height = 0.9,
     yoffset = 0.5,
     xoffset = 0.5,
     border = 'rounded'

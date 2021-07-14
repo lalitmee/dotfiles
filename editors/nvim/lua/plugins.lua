@@ -180,6 +180,12 @@ return require('packer').startup {
 
     -- General {{{
 
+    -- show preview for :substitute and :normal
+    use 'markonm/traces.vim'
+
+    -- move code up and down
+    use 'matze/vim-move'
+
     -- For narrowing regions of text to look at them alone
     use { 'chrisbra/NrrwRgn', cmd = { 'NarrowRegion', 'NarrowWindow' } }
     use {
@@ -248,7 +254,7 @@ return require('packer').startup {
     use 'scr1pt0r/crease.vim'
 
     -- fast folds in vim
-    use 'Konfekt/FastFold'
+    use { 'Konfekt/FastFold' }
 
     -- Maximizer for vim
     use 'szw/vim-maximizer'
@@ -385,28 +391,16 @@ return require('packer').startup {
 
     -- }}}
 
-    -- Highlight Yank {{{
-
-    use 'machakann/vim-highlightedyank'
-
-    -- }}}
-
-    -- General {{{
-
-    -- use 'vim-scripts/restore_view.vim'
-
-    -- }}}
-
     -- }}}
 
     -- LSP {{{
 
     -- coc.nvim {{{
 
-    use 'Shougo/neco-vim'
     use 'neoclide/vim-jsx-improve'
 
     -- vim completion for coc
+    use 'Shougo/neco-vim'
     use 'neoclide/coc-neco'
 
     -- Completion Conquerer
@@ -582,6 +576,10 @@ return require('packer').startup {
 
     -- LANGUAGES {{{
 
+    -- {{{
+
+    -- }}}
+
     -- HTML {{{
 
     -- emmets in vim
@@ -726,7 +724,6 @@ return require('packer').startup {
     -- tjdevries  {{{
 
     -- use 'tjdevries/express_line.nvim'
-    use 'tjdevries/manillua.nvim'
     use 'tjdevries/nlua.nvim'
 
     -- motion training
