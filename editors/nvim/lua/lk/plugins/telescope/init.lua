@@ -115,7 +115,9 @@ require('telescope').setup {
         ['material-ui'] = 'https://material-ui.com/',
         ['my-pull-requests'] = 'https://github.com/pulls',
         ['neovim'] = 'https://github.com/neovim/neovim',
+        ['neovim-discource'] = 'https://neovim.discourse.group/',
         ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
+        ['google-meet-1'] = 'https://meet.google.com/czd-juio-jvf',
 
         -- general
         ['clang_func_dict'] = 'http://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',

@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(lua
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -39,8 +39,23 @@ values."
 
      ;; languages layers
      (go :variables go-use-gometalinter t)
+     lua
      ansible
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-minimum-prefix-length 2
+                      auto-completion-idle-delay 0.2
+                      auto-completion-private-snippets-directory nil
+                      auto-completion-enable-snippets-in-popup nil
+                      auto-completion-enable-help-tooltip nil
+                      auto-completion-use-company-box nil
+                      auto-completion-enable-sort-by-usage nil
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-help-tooltip 'manual
+                      auto-completion-enable-sort-by-usage t)
      better-defaults
      chrome
      colors
@@ -52,16 +67,24 @@ values."
      evil-snipe
      fasd
      games
-     git
+     (git :variables
+          git-enable-magit-delta-plugin t
+          git-enable-magit-gitflow-plugin t
+          git-enable-magit-svn-plugin t
+          git-enable-magit-todos-plugin t)
      gtags
      helm
      html
      ibuffer
-     javascript
+     (javascript :variables
+                 javascript-backend 'lsp
+                 javascript-fmt-tool 'prettier
+                 javascript-fmt-on-save t)
+     react
+     prettier
      markdown
      pandoc
      python
-     react
      search-engine
      semantic
      shell
@@ -87,14 +110,6 @@ values."
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t)
      ;; functionalities layers
-     (auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
-                      auto-completion-tab-key-behavior 'cycle
-                      auto-completion-complete-with-key-sequence nil
-                      auto-completion-complete-with-key-sequence-delay 0.1
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t)
      (shell :variables
             shell-default-height 50
             shell-default-position 'bottom
@@ -125,8 +140,6 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      ;; emms
-                                      ;; ng2-mode
                                       add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
@@ -144,17 +157,13 @@ values."
                                       doom-modeline
                                       doom-themes
                                       emojify
-                                      forge
-                                      fzf
+                                      (forge :toggle t)
                                       helm-fuzzy-find
                                       htmlize
                                       indium
                                       iy-go-to-char
-                                      magit
                                       multiple-cursors
                                       ox-reveal
-                                      prettier-js
-                                      rjsx-mode
                                       swiper
                                       try
                                       yasnippet-snippets
@@ -231,8 +240,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         doom-nord
                          doom-gruvbox
+                         doom-shades-of-purple
+                         doom-nord
                          doom-dark+
                          doom-molokai
                          doom-oceanic-next
@@ -248,7 +258,8 @@ values."
                                ;; "CaskaydiaCove Nerd Font"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               "JetBrainsMono Nerd Font"
+                               ;; "JetBrainsMono Nerd Font"
+                               "SauceCodePro Nerd Font"
                                :size 13
                                :weight normal
                                :powerline-scale 1.3)
@@ -421,8 +432,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default
    linum-format "%4d \u2502"
    linum-relative-format "%4s \u2502")
-  ;; magit fullscreen commit status
-  ;;(setq-default git-magit-status-fullscreen t)
   (set-face-italic-p 'italic t)
   (setq exec-path-from-shell-arguments '("-l"))
 
@@ -438,24 +447,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (beacon-mode 1)
-  ;; indent guides
-  ;; (with-eval-after-load 'indent-guide
-  ;;   (when (boundp 'indent-guide-inhibit-modes)
-  ;;     ;; fix for crash on home page
-  ;;     (push 'spacemacs-buffer-mode indent-guide-inhibit-modes))
-
-  ;;   ;; configure indent guide
-  ;;   (setq indent-guide-char "|")
-  ;;   (setq indent-guide-recursive t)
-  ;;   (setq indent-guide-delay 0.2)
-  ;;   )
-
-  ;; use indent-guide globally
-  ;; (spacemacs/toggle-indent-guide-globally-on)
-
-  ;; disable indent-guide in visual mode
-  ;; (add-hook 'evil-visual-state-entry-hook #'spacemacs/toggle-indent-guide-off)
-  ;; (add-hook 'evil-visual-state-exit-hook #'spacemacs/toggle-indent-guide-on)
 
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
@@ -478,7 +469,6 @@ you should place your code here."
         '("~/data/Github/"
           "~/data/GitLab/"
           "~/data/koinearth/"))
-
 
   ;; ranger
   (setq ranger-show-dotfiles t)
@@ -565,7 +555,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-nord)
+  (spacemacs/load-theme 'doom-gruvbox)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
@@ -600,10 +590,6 @@ you should place your code here."
 
   ;; mappings of evil-go-to-char
   (spacemacs/set-leader-keys "jj" 'evil-avy-goto-char-timer)
-
-  ;; Tide mappings for Typescript
-  (spacemacs/set-leader-keys "g d" 'tide-jump-to-definition)
-  (spacemacs/set-leader-keys "o i" 'tide-organize-imports)
 
   ;; iy-go-to-char
   (global-set-key (kbd "C-c f") 'iy-go-to-char)
@@ -659,29 +645,32 @@ you should place your code here."
       (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)))
 
-  ;; Emacs as Typescript IDE
-  (defun setup-tide-mode ()
-    (interactive)
-    (tide-setup)
-    (flycheck-mode +1)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    (company-mode +1))
-  ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
-  ;; formats the buffer before saving
-  (add-hook 'before-save-hook 'tide-format-before-save)
-  (add-hook 'typescript-mode-hook #'setup-tide-mode)
-  (add-hook 'html-mode-hook #'setup-tide-mode)
-  (add-hook 'js2-mode-hook #'setup-tide-mode)
+  ;; spacemcas for React Development
+  (with-eval-after-load 'rjsx-mode
+    (setq javascript-fmt-tool 'prettier)
+    (setq flycheck-checker 'javascript-eslint))
+
+  ;; ;; Emacs as Typescript IDE
+  ;; (defun setup-tide-mode ()
+  ;;   (interactive)
+  ;;   (tide-setup)
+  ;;   (flycheck-mode +1)
+  ;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  ;;   (eldoc-mode +1)
+  ;;   (tide-hl-identifier-mode +1)
+  ;;   (company-mode +1))
+  ;; ;; aligns annotation to the right hand side
+  ;; (setq company-tooltip-align-annotations t)
+  ;; ;; formats the buffer before saving
+  ;; (add-hook 'before-save-hook 'tide-format-before-save)
+  ;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  ;; (add-hook 'html-mode-hook #'setup-tide-mode)
+  ;; (add-hook 'js2-mode-hook #'setup-tide-mode)
 
   ;; web mode settings
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (add-to-list
-   'auto-mode-alist
-   '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (add-hook
    'web-mode-hook
    (lambda () (if (equal web-mode-content-type "javascript")
@@ -693,8 +682,6 @@ you should place your code here."
         '(("jsx" . "\\.js[x]?\\'")))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 
   ;; /////////////////////////////////
   ;; Web mode, React mode, Javascript, Typescript configurations

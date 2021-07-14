@@ -1,8 +1,7 @@
-vim.api.nvim_exec(
-    [[
+vim.api.nvim_exec([[
       function! Console_Log() abort
         let l:word = expand('<cword>')
-        execute 'norm!oconsole.log('''.l:word.''', '.l:word.');'
+        execute 'norm!oconsole.log({'.l:word.'});'
         silent! call repeat#set("\<Plug>(JsConsoleLog)")
       endfunction
 
@@ -57,5 +56,4 @@ vim.api.nvim_exec(
       endfunction
 
       command! PlugHelp call fzf#run(fzf#wrap({ 'source': sort(keys(g:plugs)), 'sink':   function('Plug_help_sink')}))
-  ]], false
-)
+  ]], false)
