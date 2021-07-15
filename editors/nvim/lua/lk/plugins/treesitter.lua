@@ -1,10 +1,16 @@
 require('nvim-treesitter.configs').setup(
     {
-      ensure_installed = 'all',
+      ensure_installed = 'maintained',
       ignore_install = { 'haskell' },
       highlight = { enable = true },
+      autotag = { enable = true },
       indent = { enable = true },
-      rainbow = { enable = true },
+      rainbow = {
+        enable = true,
+        extended_mode = true,
+        max_file_lines = 4000,
+        disable = { 'lua', 'json' }
+      },
       playground = { enable = true, updatetime = 25, persist_queries = false },
       context_commentstring = { enable = true },
       query_linter = {
@@ -38,14 +44,26 @@ require('nvim-treesitter.configs').setup(
         smart_rename = { enable = true, keymaps = { smart_rename = 'gtr' } }
       },
       textobjects = {
-        enable = true,
+        lookahead = true,
+        select = {
+          enable = true,
+          keymaps = {
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = '@class.inner',
+            ['aC'] = '@conditional.outer',
+            ['iC'] = '@conditional.inner'
+          }
+        },
         swap = {
           enable = true,
-          swap_next = { ['<leader>pn'] = '@parameter.inner' },
-          swap_previous = { ['<leader>pN'] = '@parameter.inner' }
+          swap_next = { ['[w'] = '@parameter.inner' },
+          swap_previous = { [']w'] = '@parameter.inner' }
         },
         move = {
           enable = true,
+          set_jumps = true,
           goto_next_start = {
             [']m'] = '@function.outer',
             [']c'] = '@class.outer'

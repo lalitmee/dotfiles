@@ -426,7 +426,7 @@ local leader_key_maps = {
     ['p'] = { ':Git push<CR>', 'push' },
     ['P'] = { ':Git pull<CR>', 'pull' },
     ['R'] = { ':GRemove<CR>', 'remove' },
-    ['s'] = { ':Neogit<CR>', 'status' },
+    ['s'] = { ':Neogit kind=vsplit<CR>', 'status' },
     ['S'] = { ':GGrep<CR>', 'git-grep' },
     ['v'] = { ':GV<CR>', 'view-commits' },
     ['V'] = { ':GV!<CR>', 'view-buffer-commits' },
@@ -847,8 +847,6 @@ local leader_key_maps = {
     ['f'] = { ':Telescope fzf_writer files<CR>', 'find-files-fzf' },
     ['F'] = { ':Telescope find_files<CR>', 'find-files' },
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
-    ['n'] = 'swap-parameter-next',
-    ['N'] = 'swap-parameter-previous',
     ['p'] = {
       ':lua require\'telescope\'.extensions.project.project{ display_type = \'full\' }<CR>',
       'switch-project'
@@ -1111,6 +1109,17 @@ local local_leader_key_maps = {
     ['t'] = { ':FzfTypeDefinitions<CR>', 'type-definition' },
     ['w'] = { ':FzfDocumentSymbols<CR>', 'document-symbols' },
     ['W'] = { ':FzfWorkspaceSymbols<CR>', 'workspace-symbols' }
+  },
+  ['t'] = {
+    ['name'] = '+treesitter',
+    ['c'] = 'doc-node-at-cursor',
+    ['d'] = 'goto-definition',
+    ['D'] = 'goto-definition-fallback',
+    ['l'] = 'list-definitions',
+    ['n'] = 'goto-next-usage',
+    ['o'] = 'list-definitions-toc',
+    ['p'] = 'goto-previous-usage',
+    ['v'] = 'visual-selection'
   }
 }
 

@@ -1,3 +1,8 @@
+-- check for isEmpty
+local function isnotempty(s)
+  return s ~= nil or s == ''
+end
+
 local function buf_spaces()
   return 'Spaces: ' .. vim.api.nvim_buf_get_option(0, 'shiftwidth') .. ' '
 end
@@ -14,6 +19,14 @@ end
 --     return require('lsp-status').status()
 --   end
 -- end
+
+-- local function treesitter_status()
+--   if isnotempty(lua.eval('nvim_treesitter#statusline(90)')) then
+--     print('nvim_treesitter#statusline(90)')
+--   end
+-- end
+
+-- treesitter_status()
 
 require('lualine').setup {
   options = {
@@ -50,6 +63,7 @@ require('lualine').setup {
       },
       -- { 'os.data(\'%a\')', 'data', require'lsp-status'.status },
       { 'g:coc_status' },
+      { 'TreesitterStatus' },
       { 'b:toggle_number' }
     },
     lualine_x = { 'filetype', buf_spaces },
