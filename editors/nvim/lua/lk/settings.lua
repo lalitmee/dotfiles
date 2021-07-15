@@ -379,6 +379,17 @@ vim.api.nvim_exec([[
         call winrestview(l:save)
       endfun
 
+
+      " treesitter status
+      function! TreesitterStatus() abort
+        let ts = nvim_treesitter#statusline(30)
+        if ts ==# 'null'
+          return ''
+        else
+          return ts
+        endif
+      endfunction
+
       autocmd BufWritePre * :call TrimWhitespace()
 
       " Faster Startup time (disable default plugins loading)

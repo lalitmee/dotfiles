@@ -1,10 +1,10 @@
 -- NOTE: nvcode colorschemes
-vim.cmd [[colorscheme nvcode]]
+-- vim.cmd [[colorscheme nvcode]]
 -- vim.cmd [[colorscheme gruvbox]]
 -- vim.cmd [[colorscheme lunar]]
 -- vim.cmd [[colorscheme snazzy]]
 -- vim.cmd [[colorscheme xoria]]
--- vim.cmd [[colorscheme palenight]]
+vim.cmd [[colorscheme palenight]]
 -- vim.cmd [[colorscheme onedark]]
 -- vim.cmd [[colorscheme metanoia]]
 -- vim.cmd [[colorscheme dracula]]

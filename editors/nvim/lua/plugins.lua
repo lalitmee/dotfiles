@@ -290,6 +290,13 @@ return require('packer').startup {
 
     -- }}}
 
+    -- commenting {{{
+
+    -- not using this because this doesn't support repeating of the last acion
+    use { 'b3nj5m1n/kommentary', disable = true }
+
+    -- }}}
+
     -- }}}
 
     -- TEXT {{{
@@ -514,15 +521,21 @@ return require('packer').startup {
           require('spellsitter').setup { captures = { 'comment' } }
         end
       },
-      { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
-      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+      { 'nvim-treesitter/nvim-treesitter-refactor' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
+      { 'p00f/nvim-ts-rainbow' },
+      { 'JoosepAlviste/nvim-ts-context-commentstring' },
       {
-        'nvim-treesitter/playground',
-        after = 'nvim-treesitter',
-        cmd = 'TSPlaygroundToggle'
-      },
-      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
-      { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
+        'mfussenegger/nvim-ts-hint-textobject',
+        config = function()
+          require('tsht').config.hint_keys =
+              { 'h', 'j', 'f', 'd', 'n', 'v', 's', 'l', 'a' }
+          -- keybindings
+          lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
+          lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
+        end
+      }
     }
 
     -- interactively swap so many things
@@ -655,6 +668,27 @@ return require('packer').startup {
     -- VERSION CONTROL STYSTEM {{{
 
     use {
+      'rhysd/conflict-marker.vim',
+      config = function()
+        require('lk.highlights').plugin('conflictMarker', {
+          'ConflictMarkerBegin',
+          { guibg = '#2f7366' }
+        }, { 'ConflictMarkerOurs', { guibg = '#2e5049' } }, {
+          'ConflictMarkerTheirs',
+          { guibg = '#344f69' }
+        }, { 'ConflictMarkerEnd', { guibg = '#2f628e' } }, {
+          'ConflictMarkerCommonAncestorsHunk',
+          { guibg = '#754a81' }
+        })
+        -- disable the default highlight group
+        vim.g.conflict_marker_highlight_group = ''
+        -- Include text after begin and end markers
+        vim.g.conflict_marker_begin = '^<<<<<<< .*$'
+        vim.g.conflict_marker_end = '^>>>>>>> .*$'
+      end
+    }
+
+    use {
       'pwntester/octo.nvim',
       config = function()
         require'octo'.setup()
@@ -752,6 +786,14 @@ return require('packer').startup {
 
     -- FILES {{{
 
+    use {
+      'airblade/vim-rooter',
+      config = function()
+        vim.g.rooter_silent_chdir = 1
+        vim.g.rooter_resolve_links = 1
+      end
+    }
+
     -- Explorer {{{
 
     -- file explorer
@@ -817,13 +859,9 @@ return require('packer').startup {
 
     -- TESTING {{{
 
-    -- use 'benmills/vimux'                             " Testing in vim with tmux
-    -- use 'puremourning/vimspector'                    " debugger in vim
-    -- use 'skywind3000/asyncrun.vim'
-    -- use 'skywind3000/asynctasks.vim'
-
     -- debugger attach protocol
     use 'mfussenegger/nvim-dap'
+    use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
 
     -- }}}
   end,

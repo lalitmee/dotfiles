@@ -1,5 +1,8 @@
--- NOTE: gruvbuddy
-require('lk/colorscheme/gruvbuddy')
+-- NOTE: nvcode
+require('lk/colorscheme/nvcode')
+
+-- -- NOTE: gruvbuddy
+-- require('lk/colorscheme/gruvbuddy')
 
 -- -- NOTE: onebuddy
 -- require('lk/colorscheme/onebuddy')
@@ -13,9 +16,6 @@ require('lk/colorscheme/gruvbuddy')
 -- -- NOTE: vscode
 -- require('lk/colorscheme/vscode')
 
--- -- NOTE: nvcode
--- require('lk/colorscheme/nvcode')
-
 -- -- NOTE: tokyonight
 -- require('lk/colorscheme/tokyonight')
 
@@ -24,6 +24,3 @@ require('lk/colorscheme/gruvbuddy')
 
 -- -- NOTE: nord-nvim
 -- require('lk/colorscheme/nord-nvim')
-
--- -- NOTE: nord
--- require('lk/colorscheme/nord')
