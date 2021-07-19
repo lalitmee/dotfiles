@@ -42,11 +42,9 @@ function M.adopt_winhighlight(win_id, target, name, default)
   local hl_exists = vim.fn.hlexists(name) > 0
   if not hl_exists then
     local parts = vim.split(win_hl, ',')
-    local found = find(
-                      parts, function(part)
-          return part:match(target)
-        end
-                  )
+    local found = find(parts, function(part)
+      return part:match(target)
+    end)
     if found then
       local hl_group = vim.split(found, ':')[2]
       local bg = M.hl_value(hl_group, 'bg')
@@ -67,10 +65,8 @@ function M.highlight(name, opts)
   local force = opts.force or false
   if name and vim.tbl_count(opts) > 0 then
     if opts.link and opts.link ~= '' then
-      vim.cmd(
-          'highlight' .. (force and '!' or '') .. ' link ' .. name .. ' ' ..
-              opts.link
-      )
+      vim.cmd('highlight' .. (force and '!' or '') .. ' link ' .. name .. ' ' ..
+                  opts.link)
     else
       local cmd = { 'highlight', name }
       if opts.guifg and opts.guifg ~= '' then
@@ -131,6 +127,11 @@ local function plugin_highlights()
   M.highlight('HopNextKey1', { guifg = '#00dfff', gui = 'bold' })
   M.highlight('WhichKeySeperator', { guifg = 'LightGreen' })
   M.highlight('WhichKeyFloating', { link = 'Normal', force = true })
+  M.highlight('ConflictMarkerBegin', { guibg = '#2f7366' })
+  M.highlight('ConflictMarkerOurs', { guibg = '#2e5049' })
+  M.highlight('ConflictMarkerTheirs', { guibg = '#344f69' })
+  M.highlight('ConflictMarkerEnd', { guibg = '#2f628e' })
+  M.highlight('ConflictMarkerCommonAncestorsHunk', { guibg = '#754a81' })
   vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
 end
 
@@ -199,14 +200,12 @@ function M.apply_user_highlights()
   general_overrides()
 end
 
-require('lk.autocommands').augroup(
-    'ExplorerHighlights', {
-      {
-        events = { 'VimEnter', 'ColorScheme' },
-        targets = { '*' },
-        command = 'lua require(\'lk.highlights\').apply_user_highlights()'
-      },
-    }
-)
+require('lk.autocommands').augroup('ExplorerHighlights', {
+  {
+    events = { 'VimEnter', 'ColorScheme' },
+    targets = { '*' },
+    command = 'lua require(\'lk.highlights\').apply_user_highlights()'
+  }
+})
 
 return M
