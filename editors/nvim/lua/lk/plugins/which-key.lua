@@ -426,7 +426,7 @@ local leader_key_maps = {
     ['p'] = { ':Git push<CR>', 'push' },
     ['P'] = { ':Git pull<CR>', 'pull' },
     ['R'] = { ':GRemove<CR>', 'remove' },
-    ['s'] = { ':Neogit kind=vsplit<CR>', 'status' },
+    ['s'] = { ':Neogit<CR>', 'status' },
     ['S'] = { ':GGrep<CR>', 'git-grep' },
     ['v'] = { ':GV<CR>', 'view-commits' },
     ['V'] = { ':GV!<CR>', 'view-buffer-commits' },

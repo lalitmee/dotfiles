@@ -47,14 +47,11 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
+    -- colorbuddy for Colorschemes
+    use 'tjdevries/colorbuddy.nvim'
+
     -- vscode dark color colorshceme
     use 'Mofiqul/vscode.nvim'
-
-    -- one dark colorscheme
-    use 'Th3Whit3Wolf/onebuddy'
-
-    -- nvcode colorschemes
-    use 'christianchiarulli/nvcode-color-schemes.vim'
 
     -- tokyonight colorscheme
     use 'folke/tokyonight.nvim'
@@ -64,9 +61,6 @@ return require('packer').startup {
 
     -- material colorscheme
     use 'marko-cerovac/material.nvim'
-
-    -- colorbuddy for Colorschemes
-    use 'tjdevries/colorbuddy.nvim'
 
     -- gruvbuddy using colorbuddy
     use 'tjdevries/gruvbuddy.nvim'
@@ -670,16 +664,6 @@ return require('packer').startup {
     use {
       'rhysd/conflict-marker.vim',
       config = function()
-        require('lk.highlights').plugin('conflictMarker', {
-          'ConflictMarkerBegin',
-          { guibg = '#2f7366' }
-        }, { 'ConflictMarkerOurs', { guibg = '#2e5049' } }, {
-          'ConflictMarkerTheirs',
-          { guibg = '#344f69' }
-        }, { 'ConflictMarkerEnd', { guibg = '#2f628e' } }, {
-          'ConflictMarkerCommonAncestorsHunk',
-          { guibg = '#754a81' }
-        })
         -- disable the default highlight group
         vim.g.conflict_marker_highlight_group = ''
         -- Include text after begin and end markers

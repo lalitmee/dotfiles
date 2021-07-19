@@ -1,8 +1,8 @@
--- NOTE: nvcode
-require('lk/colorscheme/nvcode')
+-- NOTE: gruvbuddy
+require('lk/colorscheme/gruvbuddy')
 
--- -- NOTE: gruvbuddy
--- require('lk/colorscheme/gruvbuddy')
+-- -- NOTE: nvcode
+-- require('lk/colorscheme/nvcode')
 
 -- -- NOTE: onebuddy
 -- require('lk/colorscheme/onebuddy')

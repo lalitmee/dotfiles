@@ -1,0 +1,17 @@
+# /home/lalitmee/.config/tmuxinator/marketsn-api-service.yml
+
+name: marketsn-api-service
+root: ~/data/koinearth/marketsn-api-service
+
+windows:
+  - Editor: ls
+  - Git: gst
+  - Servers:
+      layout: even-horizontal
+      panes:
+        - yarn start
+        - cd ../marketsn-webapp-service-nextjs && yarn dev
+  - Extras:
+      - clear
+      - cd
+      - quote
