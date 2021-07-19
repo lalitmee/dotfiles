@@ -858,6 +858,63 @@ local leader_key_maps = {
     ['w'] = { ':Telescope grep_string<CR>', 'string-search' }
   },
 
+  -- NOTE: P is for fzf-preview using CocCommand
+  ['P'] = {
+    ['name'] = '+fzf-preview',
+    ['b'] = {
+      ['name'] = '+buffers',
+      ['a'] = { ':fzf-preview.AllBuffers<CR>', 'all-buffers' },
+      ['b'] = { ':fzf-preview.Buffers<CR>', 'buffers' },
+      ['l'] = { ':fzf-preview.BufferLines<CR>', 'buffer-lines' },
+      ['t'] = { ':fzf-preview.BufferTags<CR>', 'buffer-tags' },
+      ['v'] = { ':fzf-preview.VistaBufferCtags<CR>', 'vista-buffer-ctags' }
+    },
+    ['c'] = { ':fzf-preview.CommandPalette<CR>', 'commands-history' },
+    ['f'] = {
+      ['name'] = '+files',
+      ['p'] = { ':fzf-preview.ProjectFiles<CR>', 'project-files' },
+      ['g'] = { ':fzf-preview.GitFiles<CR>', 'git-files' },
+      ['d'] = { ':fzf-preview.DirectoryFiles<CR>', 'directory-files' },
+      ['o'] = { ':fzf-preview.ProjectOldFiles<CR>', 'project-old-files' },
+      ['O'] = { ':fzf-preview.OldFiles<CR>', 'old-files' },
+      ['r'] = { ':fzf-preview.ProjectMruFiles<CR>', 'project-mru-files' },
+      ['R'] = { ':fzf-preview.MruFiles<CR>', 'mru-files' },
+      ['w'] = { ':fzf-preview.ProjectMrwFiles<CR>', 'project-mrw-files' },
+      ['W'] = { ':fzf-preview.MrwFiles<CR>', 'mrw-files' }
+    },
+    ['g'] = {
+      ['name'] = '+git',
+      ['a'] = { ':fzf-preview.GitActions', 'git-actions' },
+      ['b'] = { ':fzf-preview.GitBranches', 'git-branches' },
+      ['B'] = { ':fzf-preview.GitBrancheActions', 'git-branch-actions' },
+      ['c'] = { ':fzf-preview.Changes<CR>', 'changes' },
+      ['f'] = { ':fzf-preview.GitFiles<CR>', 'git-files' },
+      ['s'] = { ':fzf-preview.GitStatus', 'git-status' },
+      ['S'] = { ':fzf-preview.GitStatusActions', 'git-status-actions' },
+      ['l'] = { ':fzf-preview.GitLogs', 'git-logs' },
+      ['L'] = { ':fzf-preview.GitCurrentLogs', 'git-current-logs' },
+      ['h'] = { ':fzf-preview.GitStashes', 'git-stashes' },
+      ['H'] = { ':fzf-preview.GitStashActions', 'git-stash-actions' },
+      ['g'] = { ':fzf-preview.GitLogActions', 'git-log-actions' }
+    },
+    ['j'] = { ':fzf-preview.Jumps<CR>', 'jumps' },
+    ['l'] = { ':fzf-preview.LocationList<CR>', 'location-list' },
+    ['m'] = { ':fzf-preview.Marks<CR>', 'marks' },
+    ['p'] = {
+      ['name'] = '+project',
+      ['f'] = { ':fzf-preview.ProjectFiles<CR>', 'project-files' },
+      ['o'] = { ':fzf-preview.ProjectOldFiles<CR>', 'project-old-files' },
+      ['r'] = { ':fzf-preview.ProjectMruFiles<CR>', 'project-mru-files' },
+      ['s'] = { ':fzf-preview.ProjectGrep<CR>', 'project-grep' },
+      ['S'] = { ':fzf-preview.ProjectGrepRecall<CR>', 'project-grep-recall' },
+      ['w'] = { ':fzf-preview.ProjectMrwFiles<CR>', 'project-mrw-files' }
+    },
+    ['t'] = { ':fzf-preview.TodoComments<CR>', 'todo-comments' },
+    ['v'] = { ':fzf-preview.VistCtags<CR>', 'vista-ctags' },
+    ['m'] = { ':fzf-preview.BlamePR<CR>', 'blame-pr' },
+    ['q'] = { ':fzf-preview.QuickFix<CR>', 'quick-fix' }
+  },
+
   -- NOTE: q is for quickfix and quit
   ['q'] = {
     ['name'] = '+quick-fix-list',

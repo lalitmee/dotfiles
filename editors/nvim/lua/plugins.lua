@@ -782,16 +782,16 @@ return require('packer').startup {
 
     -- file explorer
     use {
-      'kyazdani42/nvim-tree.lua',
-      cmd = {
-        'NvimTreeToggle',
-        'NvimTreeOpen',
-        'NvimTreeClose',
-        'NvimTreeRefresh',
-        'NvimTreeFindFile',
-        'NvimTreeFindResize',
-        'NvimTreeClipboard'
-      }
+      'kyazdani42/nvim-tree.lua'
+      -- cmd = {
+      --   'NvimTreeToggle',
+      --   'NvimTreeOpen',
+      --   'NvimTreeClose',
+      --   'NvimTreeRefresh',
+      --   'NvimTreeFindFile',
+      --   'NvimTreeFindResize',
+      --   'NvimTreeClipboard'
+      -- }
     }
 
     -- }}}
