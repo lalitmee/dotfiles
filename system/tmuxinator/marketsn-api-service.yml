@@ -9,8 +9,8 @@ windows:
   - Servers:
       layout: even-horizontal
       panes:
-        - yarn start
-        - cd ../marketsn-webapp-service-nextjs && yarn dev
+        - yarn start:dev
+        - docker start mysql
   - Extras:
       - clear
       - cd
