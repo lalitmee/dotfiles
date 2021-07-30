@@ -113,6 +113,7 @@ require('telescope').setup {
         -- work related bookmards
         ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
         ['material-ui'] = 'https://material-ui.com/',
+        ['material-ui-icons'] = 'https://material-ui.com/components/material-icons/#material-icons',
         ['my-pull-requests'] = 'https://github.com/pulls',
         ['neovim'] = 'https://github.com/neovim/neovim',
         ['neovim-discource'] = 'https://neovim.discourse.group/',
