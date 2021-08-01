@@ -172,6 +172,9 @@ require('telescope').setup {
 -- packer integration with telescope
 -- require('telescope').load_extension('packer')
 
+-- -- project management in telescope
+-- require('telescope').load_extension('project')
+
 -- browser bookmarks
 require('telescope').load_extension('bookmarks')
 
@@ -205,17 +208,11 @@ require('telescope').load_extension('lsp_handlers')
 -- open browser
 require('telescope').load_extension('openbrowser')
 
--- project management in telescope
-require('telescope').load_extension('project')
-
 -- snippets from norcalli
 require('telescope').load_extension('snippets')
 
 -- ultisnips
 require('telescope').load_extension('ultisnips')
-
--- zoxide integration
-require('telescope').load_extension('zoxide')
 
 -- emoji search
 require('telescope').load_extension('emoji')

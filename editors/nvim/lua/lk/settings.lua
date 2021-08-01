@@ -303,7 +303,7 @@ vim.go.ignorecase = true
 vim.go.smartcase = true
 vim.go.incsearch = true
 vim.go.wrapscan = true -- Searches wrap around the end of the file
-vim.go.scrolloff = 9
+vim.go.scrolloff = 999
 vim.go.sidescrolloff = 10
 vim.go.sidescroll = 1
 
@@ -409,6 +409,7 @@ vim.api.nvim_exec([[
       " python hosts
       let g:python3_host_prog = '/home/lalitmee/.pyenv/versions/neovim3/bin/python'
       let g:python_host_prog = '/home/lalitmee/.pyenv/versions/neovim2/bin/python'
+
   ]], true)
 
 -- }}}
