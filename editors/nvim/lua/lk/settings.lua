@@ -16,7 +16,7 @@ local opt = setmetatable({}, {
     elseif scope == 'buf' then
       vim.bo[key] = value
     end
-  end
+  end,
 })
 
 local function add(value, str, sep)
@@ -45,7 +45,7 @@ vim.o.shortmess = table.concat({
   'F', -- Don't give file info when editing a file
   's',
   'c',
-  'W' -- Dont show [w] or written when writing
+  'W', -- Dont show [w] or written when writing
 })
 
 -- }}}
@@ -80,7 +80,7 @@ vim.go.fillchars = add {
   'msgsep:‾',
   'foldopen:▾',
   'foldsep:│',
-  'foldclose:▸'
+  'foldclose:▸',
 }
 
 -- }}}
@@ -95,7 +95,7 @@ vim.go.diffopt = add({
   'foldcolumn:0',
   'context:4',
   'algorithm:histogram',
-  'indent-heuristic'
+  'indent-heuristic',
 }, vim.go.diffopt)
 
 -- }}}
@@ -114,7 +114,7 @@ opt.formatoptions = table.concat({
   -- Only break if the line was not longer than 'textwidth' when the insert
   -- started and only at a white character that has been entered during the
   -- current insert command.
-  'lv'
+  'lv',
 })
 
 -- }}}
@@ -161,7 +161,7 @@ vim.go.wildignore = add {
   '.sass-cache',
   '*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*.gem',
   '*.*~,*~ ',
-  '*.swp,.lock,.DS_Store,._*,tags.lock'
+  '*.swp,.lock,.DS_Store,._*,tags.lock',
 }
 vim.go.wildoptions = 'pum'
 vim.go.pumblend = 3 -- Make popup window translucent
@@ -190,7 +190,7 @@ vim.go.listchars = add {
   'tab:│ ',
   'extends:›', -- Alternatives: … »
   'precedes:‹', -- Alternatives: … «
-  'trail:•' -- BULLET (U+2022, UTF-8: E2 80 A2)
+  'trail:•', -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
 
 -- }}}
@@ -261,7 +261,7 @@ vim.go.sessionoptions = add {
   'curdir',
   'tabpages',
   'help',
-  'winpos'
+  'winpos',
 }
 vim.go.viewoptions = add { 'cursor', 'folds', 'slash', 'unix' } -- save/restore just these (with `:{mk,load}view`)
 vim.go.virtualedit = 'block' -- allow cursor to move where there is no text in visual block mode
@@ -271,7 +271,7 @@ vim.go.inccommand = 'split'
 vim.go.guicursor = table.concat({
   [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
   [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
-  [[sm:block-blinkwait175-blinkoff150-blinkon175]]
+  [[sm:block-blinkwait175-blinkoff150-blinkon175]],
 }, ',')
 vim.go.autoread = true
 vim.go.mat = 2
@@ -372,6 +372,9 @@ vim.api.nvim_exec([[
         set termguicolors
       endif
 
+      hi! Normal ctermbg=NONE guibg=NONE
+      hi! NonText ctermbg=NONE guibg=NONE
+
       " Trim Whitespaces
       fun! TrimWhitespace()
         let l:save = winsaveview()
@@ -426,16 +429,16 @@ autocommands.create({
     {
       'TermClose',
       'term://*',
-      [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]]
+      [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]],
     },
     { 'FileType', 'markdown', [[MarkdownPreview]] },
     -- for showing the highlight on yanking
     {
       'TextYankPost',
       '*',
-      [[lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}]]
-    }
-  }
+      [[lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}]],
+    },
+  },
 })
 
 -- }}}
