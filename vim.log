@@ -989,3 +989,222 @@ times in msec
 1453.933  000.560  000.560: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/delim.vim
 1462.188  008.990: first screen update
 1462.191  000.003: --- NVIM STARTED ---
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.006  000.006: --- NVIM STARTING ---
+000.282  000.276: locale set
+000.550  000.268: inits 1
+000.567  000.017: window checked
+003.588  003.021: parsing arguments
+003.741  000.153: expanding arguments
+003.756  000.015: inits 2
+004.201  000.445: init highlight
+004.202  000.001: waiting for UI
+005.086  000.885: done waiting for UI
+005.163  000.077: initialized screen early for UI
+017.324  000.236  000.236: sourcing /usr/local/share/nvim/runtime/syntax/syncolor.vim
+018.117  001.090  000.854: sourcing /usr/local/share/nvim/runtime/syntax/synload.vim
+024.089  000.011  000.011: sourcing /home/lalitmee/.config/nvim/ftdetect/html.vim
+024.142  000.036  000.036: sourcing /home/lalitmee/.config/nvim/ftdetect/javascript.vim
+024.186  000.030  000.030: sourcing /home/lalitmee/.config/nvim/ftdetect/json.vim
+024.209  000.011  000.011: sourcing /home/lalitmee/.config/nvim/ftdetect/markdown.vim
+024.232  000.011  000.011: sourcing /home/lalitmee/.config/nvim/ftdetect/ruby.vim
+024.255  000.009  000.009: sourcing /home/lalitmee/.config/nvim/ftdetect/typescript.vim
+024.277  000.011  000.011: sourcing /home/lalitmee/.config/nvim/ftdetect/xml.vim
+024.313  000.024  000.024: sourcing /home/lalitmee/.config/nvim/ftdetect/zsh.vim
+025.339  000.013  000.013: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/neorg/ftdetect/norg.vim
+025.369  000.016  000.016: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/fish.vim
+025.395  000.014  000.014: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/gdresource.vim
+025.418  000.010  000.010: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/gdscript.vim
+025.441  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/gomod.vim
+025.470  000.016  000.016: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/graphql.vim
+025.502  000.018  000.018: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/hcl.vim
+025.527  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/julia.vim
+025.555  000.015  000.015: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/ledger.vim
+025.580  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/nix.vim
+025.606  000.014  000.014: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/ql.vim
+025.639  000.021  000.021: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/query.vim
+025.663  000.009  000.009: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/teal.vim
+025.694  000.016  000.016: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/yang.vim
+025.726  000.018  000.018: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/ultisnips/ftdetect/snippets.vim
+025.750  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-fugitive/ftdetect/fugitive.vim
+027.060  008.889  008.523: sourcing /usr/local/share/nvim/runtime/filetype.vim
+028.392  000.465  000.465: sourcing /usr/local/share/nvim/runtime/scripts.vim
+029.096  012.139  001.696: sourcing /usr/local/share/nvim/runtime/syntax/syntax.vim
+029.159  000.011  000.011: sourcing /usr/local/share/nvim/runtime/filetype.vim
+029.854  000.031  000.031: sourcing /usr/local/share/nvim/runtime/ftplugin.vim
+030.502  000.029  000.029: sourcing /usr/local/share/nvim/runtime/indent.vim
+051.593  000.008  000.008: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/gruvbuddy.nvim/colors/gruvbuddy.vim
+235.010  000.202  000.202: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-which-key/autoload/which_key.vim
+240.482  235.214  222.793: sourcing /home/lalitmee/.config/nvim/init.lua
+240.515  000.138: sourcing vimrc file(s)
+252.306  000.303  000.303: sourcing /usr/local/share/nvim/runtime/plugin/gzip.vim
+252.328  000.009  000.009: sourcing /usr/local/share/nvim/runtime/plugin/health.vim
+252.463  000.126  000.126: sourcing /usr/local/share/nvim/runtime/plugin/man.vim
+253.498  000.301  000.301: sourcing /usr/local/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+253.578  001.104  000.803: sourcing /usr/local/share/nvim/runtime/plugin/matchit.vim
+253.713  000.124  000.124: sourcing /usr/local/share/nvim/runtime/plugin/matchparen.vim
+254.073  000.348  000.348: sourcing /usr/local/share/nvim/runtime/plugin/netrwPlugin.vim
+254.862  000.141  000.141: sourcing /usr/local/share/nvim/runtime/autoload/remote/host.vim
+255.658  000.197  000.197: sourcing /usr/local/share/nvim/runtime/autoload/remote/define.vim
+256.931  002.740  002.401: sourcing /home/lalitmee/.local/share/nvim/rplugin.vim
+256.936  002.847  000.107: sourcing /usr/local/share/nvim/runtime/plugin/rplugin.vim
+257.046  000.095  000.095: sourcing /usr/local/share/nvim/runtime/plugin/shada.vim
+257.084  000.022  000.022: sourcing /usr/local/share/nvim/runtime/plugin/spellfile.vim
+257.223  000.126  000.126: sourcing /usr/local/share/nvim/runtime/plugin/tarPlugin.vim
+257.309  000.070  000.070: sourcing /usr/local/share/nvim/runtime/plugin/tohtml.vim
+257.338  000.016  000.016: sourcing /usr/local/share/nvim/runtime/plugin/tutor.vim
+257.495  000.145  000.145: sourcing /usr/local/share/nvim/runtime/plugin/zipPlugin.vim
+283.907  026.355  026.355: sourcing /home/lalitmee/.config/nvim/plugin/packer_compiled.lua
+284.078  011.874: loading plugins
+284.964  000.024  000.024: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/BetterLua.vim/plugin/BetterLua.vim
+285.581  000.537  000.537: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/FastFold/plugin/fastfold.vim
+285.749  000.076  000.076: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/FixCursorHold.nvim/plugin/fix_cursorhold_nvim.vim
+285.846  000.010  000.010: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/JABS.nvim/plugin/jabs.vim
+286.092  000.136  000.136: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/aerojump.nvim/plugin/aerojump.vim
+286.807  000.069  000.069: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/coc.nvim/autoload/coc/rpc.vim
+287.702  000.433  000.433: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/coc.nvim/autoload/coc/util.vim
+288.443  000.175  000.175: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/coc.nvim/autoload/coc/client.vim
+292.368  006.164  005.488: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/coc.nvim/plugin/coc.vim
+293.025  000.462  000.462: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/conflict-marker.vim/plugin/conflict_marker.vim
+293.145  000.031  000.031: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/crease.vim/plugin/crease.vim
+293.405  000.179  000.179: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/diffview.nvim/plugin/diffview.vim
+295.927  002.441  002.441: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/emmet-vim/plugin/emmet.vim
+296.055  000.033  000.033: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/formatter.nvim/plugin/formatter.vim
+296.677  000.546  000.546: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf/plugin/fzf.vim
+297.489  000.723  000.723: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/fzf.vim/plugin/fzf.vim
+297.687  000.043  000.043: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/gonvim-fuzzy/plugin/gonvim_fuzzy.vim
+297.861  000.037  000.037: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/gundo.vim/plugin/gundo.vim
+297.995  000.049  000.049: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/harpoon/plugin/mark.vim
+298.205  000.130  000.130: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/hop.nvim/plugin/hop.vim
+298.609  000.303  000.303: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/incsearch.vim/plugin/incsearch.vim
+299.199  000.013  000.013: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim/autoload/indent_blankline/helper.vim
+302.336  003.635  003.621: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim/plugin/indent_blankline.vim
+303.008  000.578  000.578: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/is.vim/plugin/is.vim
+305.196  002.104  002.104: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/iswap.nvim/plugin/iswap.vim
+305.460  000.089  000.089: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/neco-vim/plugin/necovim.vim
+307.626  002.086  002.086: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/neogit/plugin/neogit.vim
+307.731  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/neorg/ftdetect/norg.vim
+307.829  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nlua.nvim/plugin/nlua.vim
+307.947  000.014  000.014: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-autopairs/plugin/nvim-autopairs.vim
+308.049  000.027  000.027: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-bqf/plugin/bqf.vim
+308.192  000.034  000.034: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua/plugin/colorizer.vim
+308.711  000.385  000.385: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-hlslens/plugin/hlslens.vim
+308.920  000.128  000.128: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-luadev/plugin/luadev.vim
+309.079  000.049  000.049: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-nonicons/plugin/nvim-nonicons.vim
+309.243  000.058  000.058: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-toggleterm.lua/plugin/toggleterm.vim
+309.448  000.127  000.127: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-tree.lua/plugin/tree.vim
+310.560  001.033  001.033: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/plugin/nvim-treesitter.vim
+310.700  000.017  000.017: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/fish.vim
+310.725  000.013  000.013: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/gdresource.vim
+310.745  000.009  000.009: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/gdscript.vim
+310.765  000.009  000.009: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/gomod.vim
+310.788  000.012  000.012: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/graphql.vim
+310.811  000.012  000.012: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/hcl.vim
+310.828  000.007  000.007: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/julia.vim
+310.850  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/ledger.vim
+310.868  000.008  000.008: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/nix.vim
+310.887  000.009  000.009: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/ql.vim
+310.913  000.016  000.016: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/query.vim
+310.935  000.007  000.007: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/teal.vim
+310.953  000.007  000.007: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/yang.vim
+311.712  000.696  000.696: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor/plugin/nvim-treesitter-refactor.vim
+315.065  003.239  003.239: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+315.561  000.398  000.398: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring/plugin/ts_context_commentstring.vim
+315.699  000.047  000.047: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-hint-textobject/plugin/tsht.vim
+316.123  000.342  000.342: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow/plugin/rainbow.vim
+316.245  000.039  000.039: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+317.186  000.832  000.832: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/octo.nvim/plugin/octo.vim
+317.647  000.376  000.376: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/open-browser.vim/plugin/openbrowser.vim
+317.817  000.055  000.055: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/plenary.nvim/plugin/plenary.vim
+317.930  000.035  000.035: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/popfix/plugin/popfix.vim
+318.898  000.863  000.863: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/quick-scope/plugin/quick_scope.vim
+319.069  000.085  000.085: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/rnvimr/plugin/rnvimr.vim
+319.376  000.168  000.168: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/tabular/plugin/Tabular.vim
+319.604  000.141  000.141: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/tagalong.vim/plugin/tagalong.vim
+319.944  000.255  000.255: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/targets.vim/plugin/targets.vim
+320.200  000.022  000.022: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope-frecency.nvim/plugin/frecency.vim
+321.046  000.390  000.390: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/telescope.nvim/plugin/telescope.vim
+321.171  000.038  000.038: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/todo-comments.nvim/plugin/todo.vim
+321.581  000.297  000.297: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/traces.vim/plugin/traces.vim
+321.978  000.055  000.055: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/ultisnips/autoload/UltiSnips/map_keys.vim
+322.112  000.442  000.387: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/ultisnips/plugin/UltiSnips.vim
+322.185  000.014  000.014: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/ultisnips/ftdetect/snippets.vim
+322.883  000.644  000.644: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-abolish/plugin/abolish.vim
+323.122  000.146  000.146: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-autoswap/plugin/autoswap.vim
+323.594  000.386  000.386: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-better-whitespace/plugin/better-whitespace.vim
+323.934  000.248  000.248: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-commentary/plugin/commentary.vim
+324.146  000.119  000.119: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-dotenv/plugin/dotenv.vim
+324.603  000.368  000.368: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-eunuch/plugin/eunuch.vim
+325.145  000.447  000.447: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-exchange/plugin/exchange.vim
+325.410  000.178  000.178: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-fnr/plugin/fnr.vim
+326.848  001.353  001.353: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-fugitive/plugin/fugitive.vim
+326.926  000.011  000.011: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-fugitive/ftdetect/fugitive.vim
+327.252  000.096  000.096: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/unmatchit.vim
+327.821  000.010  000.010: sourcing /usr/local/share/nvim/runtime/plugin/matchparen.vim
+328.430  000.185  000.185: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup.vim
+328.636  000.090  000.090: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/perf.vim
+329.230  000.284  000.284: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/loader.vim
+329.831  000.404  000.404: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/matchparen.vim
+331.760  004.751  003.681: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/plugin/matchup.vim
+331.981  000.127  000.127: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-maximizer/plugin/maximizer.vim
+332.532  000.466  000.466: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-move/plugin/move.vim
+332.872  000.194  000.194: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-rooter/plugin/rooter.vim
+333.048  000.090  000.090: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-sayonara/plugin/sayonara.vim
+333.326  000.089  000.089: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-signature/autoload/signature/utils.vim
+334.390  001.259  001.170: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-signature/plugin/signature.vim
+334.638  000.151  000.151: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-sleuth/plugin/sleuth.vim
+334.754  000.026  000.026: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-snippets/plugin/vimsnippets.vim
+335.042  000.208  000.208: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-sort-motion/plugin/sort_motion.vim
+335.273  000.147  000.147: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-startify/plugin/startify.vim
+335.952  000.595  000.595: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-surround/plugin/surround.vim
+336.772  000.732  000.732: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-tmux-runner/plugin/vim-tmux-runner.vim
+345.514  008.658  008.658: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-unimpaired/plugin/unimpaired.vim
+345.829  000.173  000.173: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-visual-star-search/plugin/visual-star-search.vim
+349.227  003.281  003.281: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-wakatime/plugin/wakatime.vim
+349.510  000.184  000.184: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-which-key/plugin/which_key.vim
+349.615  000.023  000.023: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-windowswap/plugin/WindowSwap.vim
+349.835  009.589: loading packages
+349.980  000.035  000.035: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-signature/after/plugin/signature.vim
+350.027  000.006  000.006: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/after/plugin/matchit.vim
+350.307  000.232  000.232: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/ultisnips/after/plugin/UltiSnips_after.vim
+351.012  000.327  000.327: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/tabular/autoload/tabular.vim
+352.285  001.932  001.606: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/tabular/after/plugin/TabularMaps.vim
+354.851  002.333  002.333: sourcing /home/lalitmee/.config/nvim/after/plugin/abolish.vim
+354.960  000.087  000.087: sourcing /home/lalitmee/.config/nvim/after/plugin/commands.vim
+354.991  000.017  000.017: sourcing /home/lalitmee/.config/nvim/after/plugin/commentary.vim
+355.015  000.010  000.010: sourcing /home/lalitmee/.config/nvim/after/plugin/dirvish.vim
+355.072  000.046  000.046: sourcing /home/lalitmee/.config/nvim/after/plugin/fzf.vim
+355.097  000.013  000.013: sourcing /home/lalitmee/.config/nvim/after/plugin/gonvim-fuzzy.vim
+355.130  000.006  000.006: sourcing /home/lalitmee/.config/nvim/after/plugin/mappings.vim
+355.153  000.012  000.012: sourcing /home/lalitmee/.config/nvim/after/plugin/neovide.vim
+355.209  000.045  000.045: sourcing /home/lalitmee/.config/nvim/after/plugin/settings.vim
+355.692  001.081: loading after plugins
+355.882  000.190: inits 3
+362.061  006.179: reading ShaDa
+363.343  000.040  000.040: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim/autoload/indent_blankline.vim
+364.478  000.114  000.114: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/ts_engine.vim
+366.049  000.023  000.023: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/re.vim
+366.208  003.969: opening buffers
+367.248  000.047  000.047: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/conflict-marker.vim/autoload/conflict_marker/detect.vim
+433.788  000.262  000.262: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-signature/autoload/signature/sign.vim
+434.272  000.269  000.269: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-signature/autoload/signature/mark.vim
+436.847  070.062: BufEnter autocommands
+436.851  000.004: editing files in windows
+443.296  000.553  000.553: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-startify/autoload/startify.vim
+443.789  000.342  000.342: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-startify/autoload/startify/fortune.vim
+462.586  000.313  000.313: sourcing /usr/local/share/nvim/runtime/autoload/provider/clipboard.vim
+463.153  000.369  000.369: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-startify/syntax/startify.vim
+464.640  000.009  000.009: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-startify/syntax/startify.vim
+486.350  047.914: VimEnter autocommands
+486.355  000.005: UIEnter autocommands
+486.358  000.003: before starting main loop
+487.535  000.657  000.657: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/coc.nvim/autoload/coc/float.vim
+488.046  000.091  000.091: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/pos.vim
+488.676  000.373  000.373: sourcing /home/lalitmee/.local/share/nvim/site/pack/packer/start/vim-matchup/autoload/matchup/delim.vim
+498.154  010.674: first screen update
+498.157  000.003: --- NVIM STARTED ---

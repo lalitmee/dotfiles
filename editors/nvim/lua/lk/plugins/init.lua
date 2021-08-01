@@ -64,7 +64,6 @@ require('lk/plugins/quick-scope')
 require('lk/plugins/treesitter')
 
 -- NOTE: git
-require('lk/plugins/fist')
 require('lk/plugins/fugitive')
 require('lk/plugins/git-blame')
 require('lk/plugins/git-messenger')
