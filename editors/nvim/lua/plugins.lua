@@ -87,8 +87,8 @@ return require('packer').startup {
         'TZFocus',
         'TZFocusOn',
         'TZMinimalist',
-        'TZMinimalistOn'
-      }
+        'TZMinimalistOn',
+      },
     }
 
     -- toggle, display and navigate marks
@@ -193,7 +193,7 @@ return require('packer').startup {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
-      end
+      end,
     }
     use 'suy/vim-context-commentstring'
     use { 'famiu/nvim-reload' }
@@ -201,13 +201,13 @@ return require('packer').startup {
       'karb94/neoscroll.nvim',
       config = function()
         require('neoscroll').setup()
-      end
+      end,
     }
     use {
       'jghauser/mkdir.nvim',
       config = function()
         require('mkdir')
-      end
+      end,
     }
 
     -- minimal and beautiful buffer switcher
@@ -227,7 +227,7 @@ return require('packer').startup {
       'antoinemadec/FixCursorHold.nvim',
       run = function()
         vim.g.curshold_updatime = 1000
-      end
+      end,
     }
 
     -- sorting in vim
@@ -236,7 +236,7 @@ return require('packer').startup {
       'numToStr/Navigator.nvim',
       config = function()
         require('Navigator').setup()
-      end
+      end,
     }
 
     -- tmux runner for tests
@@ -272,7 +272,7 @@ return require('packer').startup {
       'nacro90/numb.nvim',
       config = function()
         require('numb').setup()
-      end
+      end,
     }
 
     -- }}}
@@ -312,7 +312,7 @@ return require('packer').startup {
 
                     done = { enabled = true, icon = '' },
                     pending = { enabled = true, icon = '' },
-                    undone = { enabled = true, icon = '×' }
+                    undone = { enabled = true, icon = '×' },
                   },
                   quote = { enabled = true, icon = '∣' },
                   heading = {
@@ -324,22 +324,22 @@ return require('packer').startup {
 
                     level_3 = { enabled = true, icon = '•' },
 
-                    level_4 = { enabled = true, icon = '◦' }
+                    level_4 = { enabled = true, icon = '◦' },
                   },
-                  list = { enabled = true, icon = '‑' }
+                  list = { enabled = true, icon = '‑' },
                 },
 
-                conceal_cursor = ''
-              }
+                conceal_cursor = '',
+              },
             },
             ['core.norg.dirman'] = { -- Manage your directories with Neorg
               config = {
-                workspaces = { my_workspace = '~/data/Github/Notes/neorg' }
-              }
-            }
-          }
+                workspaces = { my_workspace = '~/data/Github/Notes/neorg' },
+              },
+            },
+          },
         }
-      end
+      end,
     }
 
     if false and vim.fn.executable 'neuron' == 1 then
@@ -353,9 +353,9 @@ return require('packer').startup {
             mappings = true,
             run = nil,
             neuron_dir = '~/data/Github/Notes/neuron',
-            leader = 'gz'
+            leader = 'gz',
           }
-        end
+        end,
       }
     end
     -- use 'michal-h21/vim-zettel'                      " zettel tasks
@@ -513,7 +513,7 @@ return require('packer').startup {
         run = hunspell_install_if_needed,
         config = function()
           require('spellsitter').setup { captures = { 'comment' } }
-        end
+        end,
       },
       { 'nvim-treesitter/nvim-treesitter-refactor' },
       { 'nvim-treesitter/nvim-treesitter-textobjects' },
@@ -528,8 +528,8 @@ return require('packer').startup {
           -- keybindings
           lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
           lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
-        end
-      }
+        end,
+      },
     }
 
     -- interactively swap so many things
@@ -575,13 +575,13 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
-        { 'xiyaowong/telescope-emoji.nvim' }
+        { 'xiyaowong/telescope-emoji.nvim' },
         -- { 'nvim-telescope/telescope-github.nvim' },
         -- {
         --   'nvim-telescope/telescope-arecibo.nvim',
         --   rocks = { 'openssl', 'lua-http-parser' }
         -- },
-      }
+      },
     }
 
     -- }}}
@@ -615,7 +615,7 @@ return require('packer').startup {
     use {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
-      run = 'cd app && yarn install'
+      run = 'cd app && yarn install',
     }
 
     -- markdown preview
@@ -639,8 +639,8 @@ return require('packer').startup {
         'Cheat',
         'CheatWithouComments',
         'CheatList',
-        'CheatListWithoutComments'
-      }
+        'CheatListWithoutComments',
+      },
     }
 
     -- auto-pairs in lua
@@ -669,14 +669,14 @@ return require('packer').startup {
         -- Include text after begin and end markers
         vim.g.conflict_marker_begin = '^<<<<<<< .*$'
         vim.g.conflict_marker_end = '^>>>>>>> .*$'
-      end
+      end,
     }
 
     use {
       'pwntester/octo.nvim',
       config = function()
         require'octo'.setup()
-      end
+      end,
     }
 
     -- git worktree
@@ -688,7 +688,7 @@ return require('packer').startup {
     -- lazygit from neovim
     use {
       'kdheepak/lazygit.nvim',
-      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' }
+      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' },
     }
 
     -- gitsigns in lua
@@ -698,10 +698,10 @@ return require('packer').startup {
     use {
       'rhysd/git-messenger.vim',
       cmd = { 'GitMessenger' },
-      keys = { '<Plug>(git-messenger)' }
+      keys = { '<Plug>(git-messenger)' },
     }
     use {
-      'sindrets/diffview.nvim'
+      'sindrets/diffview.nvim',
       -- cmd = { 'DiffViewOpen' }
     }
 
@@ -715,7 +715,7 @@ return require('packer').startup {
     -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
     use {
       'hoob3rt/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     }
     use 'akinsho/nvim-bufferline.lua'
 
@@ -730,7 +730,7 @@ return require('packer').startup {
     use {
       'tpope/vim-dispatch',
       opt = true,
-      cmd = { 'Dispatch', 'Make', 'Focus', 'Start' }
+      cmd = { 'Dispatch', 'Make', 'Focus', 'Start' },
     }
     use 'tpope/vim-dotenv'
     use 'tpope/vim-eunuch'
@@ -743,8 +743,8 @@ return require('packer').startup {
       cmd = {
         'Messages', -- view messages in quickfix list
         'Verbose', -- view verbose output in preview window.
-        'Time' -- measure how long it takes to run some stuff.
-      }
+        'Time', -- measure how long it takes to run some stuff.
+      },
     }
 
     -- }}}
@@ -757,7 +757,7 @@ return require('packer').startup {
     -- motion training
     use {
       'tjdevries/train.nvim',
-      cmd = { 'TrainUpDown', 'TrainWord', 'TrainTextObj' }
+      cmd = { 'TrainUpDown', 'TrainWord', 'TrainTextObj' },
     }
     use 'tjdevries/complextras.nvim'
 
@@ -775,14 +775,14 @@ return require('packer').startup {
       config = function()
         vim.g.rooter_silent_chdir = 1
         vim.g.rooter_resolve_links = 1
-      end
+      end,
     }
 
     -- Explorer {{{
 
     -- file explorer
     use {
-      'kyazdani42/nvim-tree.lua'
+      'kyazdani42/nvim-tree.lua',
       -- cmd = {
       --   'NvimTreeToggle',
       --   'NvimTreeOpen',
@@ -809,7 +809,7 @@ return require('packer').startup {
 
     -- Float Terminal
     use {
-      'akinsho/nvim-toggleterm.lua'
+      'akinsho/nvim-toggleterm.lua',
       -- cmd = { 'ToggleTerm', 'ToggleTermCloseAll', 'ToggleTermOpenAll' },
       -- keys = { '<C-t>' }
     }
@@ -834,8 +834,8 @@ return require('packer').startup {
         'OpenGithubProject',
         'OpenGithubPullReq',
         'OpenGithubCommit',
-        'OpenGithubIssue'
-      }
+        'OpenGithubIssue',
+      },
     }
     use { 'tyru/open-browser.vim' }
 
@@ -849,5 +849,5 @@ return require('packer').startup {
 
     -- }}}
   end,
-  config = { display = { open_cmd = 'topleft 65vnew [packer]' } }
+  config = { display = { open_cmd = 'topleft 65vnew [packer]' } },
 }
