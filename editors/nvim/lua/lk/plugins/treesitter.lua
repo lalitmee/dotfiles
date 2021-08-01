@@ -52,7 +52,10 @@ require('nvim-treesitter.configs').setup(
             goto_previous_usage = '<localleader>tp',
           },
         },
-        smart_rename = { enable = true, keymaps = { smart_rename = 'gtr' } },
+        smart_rename = {
+          enable = true,
+          keymaps = { smart_rename = '<localleader>tr' },
+        },
       },
       textobjects = {
         lookahead = true,

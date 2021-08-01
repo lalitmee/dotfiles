@@ -9,13 +9,13 @@ wk.setup({
   triggers = 'auto',
   plugins = { spelling = true, marks = true, registers = true },
   key_labels = { ['<leader>'] = 'SPC' },
-  layout = { spacing = 5, align = 'center' },
+  layout = { spacing = 10 },
 })
 
 -- NOTE: leader key mappings
 local leader_key_maps = {
   -- NOTE: direct mappings
-  ['<leader>'] = { ':Telescope fzf_writer files<CR>', 'find-files' },
+  ['<space>'] = { ':Telescope fzf_writer files<CR>', 'find-files' },
   [';'] = { ':Telescope commands<CR>', 'commands' },
   ['*'] = 'vimgrep-under-cursor',
 
@@ -1228,6 +1228,7 @@ local local_leader_key_maps = {
     ['n'] = 'goto-next-usage',
     ['o'] = 'list-definitions-toc',
     ['p'] = 'goto-previous-usage',
+    ['r'] = 'smart-rename',
     ['v'] = 'visual-selection',
   },
 }
