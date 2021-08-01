@@ -4,6 +4,13 @@ local cmd = vim.api.nvim_command
 -- https://github.com/lalitmee/dotfiles
 -- NOTE: Created By: Lalit Kumar
 -- ]]
+
+require('lk/profile')
+
+if require 'lk/first_load'() then
+  return
+end
+
 vim.api.nvim_exec([[
    augroup vimrc -- Ensure all autocommands are cleared
    autocmd!

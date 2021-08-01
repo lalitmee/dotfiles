@@ -407,6 +407,9 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
+# reducing escape time
+set -g escape-time 10
+
 set -ga terminal-overrides ",xterm-256color:Tc"
 
 set -g default-terminal "xterm-256color"

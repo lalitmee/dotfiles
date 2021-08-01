@@ -95,8 +95,16 @@ return require('packer').startup {
     use 'kshenoy/vim-signature'
 
     -- See what keys do like in emacs
-    use 'liuchengxu/vim-which-key'
-    use 'AckslD/nvim-whichkey-setup.lua'
+    use {
+      'folke/which-key.nvim',
+      config = function()
+        -- require('which-key').setup {
+        --   -- your configuration comes here
+        --   -- or leave it empty to use the default settings
+        --   -- refer to the configuration section below
+        -- }
+      end,
+    }
 
     -- fancy start Screen for vim
     use 'mhinz/vim-startify'
@@ -272,13 +280,6 @@ return require('packer').startup {
         require('numb').setup()
       end,
     }
-
-    -- }}}
-
-    -- Profiling {{{
-
-    -- Better profiling output for startup.
-    use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
 
     -- }}}
 

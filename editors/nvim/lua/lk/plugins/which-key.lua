@@ -1,37 +1,21 @@
-local map = lk_utils.map
-local wk = require('whichkey_setup')
+local wk = require('which-key')
 
-vim.cmd [[set timeoutlen=500]]
+vim.o.timeoutlen = 500
 
-local opts = { noremap = true, silent = true }
-
--- NOTE: Map leader to which_key
-map('n', '<leader>', [[:silent <c-u> :silent WhichKey '<Space>'<CR> ]], opts)
-map('v', '<leader>', [[:silent <c-u> :silent WhichKeyVisual '<Space>'<CR> ]],
-    opts)
-
--- NOTE: options for which key
--- let g:which_key_sep = '→'
-vim.g.which_key_use_floating_win = 0
-vim.g.which_key_disable_default_offset = 1
-vim.g.which_key_hspace = 10
-vim.g.which_key_centered = 0
-
-vim.api.nvim_exec([[
-      " highlights
-      highlight default link WhichKey          Operator
-      highlight default link WhichKeySeperator DiffAdded
-      highlight default link WhichKeyGroup     Identifier
-      highlight default link WhichKeyDesc      Function
-
-      " Hide status line
-      autocmd! FileType which_key
-      autocmd  FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-      ]], true)
+local presets = require('which-key.plugins.presets')
+presets.objects['a('] = nil
+wk.setup({
+  show_help = true,
+  triggers = 'auto',
+  plugins = { spelling = true, marks = true, registers = true },
+  key_labels = { ['<leader>'] = 'SPC' },
+  layout = { spacing = 5, align = 'center' },
+})
 
 -- NOTE: leader key mappings
 local leader_key_maps = {
   -- NOTE: direct mappings
+  ['<leader>'] = { ':Telescope fzf_writer files<CR>', 'find-files' },
   [';'] = { ':Telescope commands<CR>', 'commands' },
   ['*'] = 'vimgrep-under-cursor',
 
@@ -1164,8 +1148,6 @@ local leader_key_maps = {
     ['v'] = { '<C-W>v', 'split-window-right' },
     ['x'] = { ':call WindowSwap#EasyWindowSwap()<CR>', 'window-swap' },
   },
-  ['x'] = { ':q<CR>', 'quit' },
-  ['z'] = { ':Goyo<CR>', 'zen-mode' },
 }
 
 local leader_plug_keymaps = {
@@ -1260,7 +1242,7 @@ local local_leader_plug_keymaps = {
   },
 }
 
-wk.register_keymap('localleader', local_leader_key_maps, { silent = true })
-wk.register_keymap('localleader', local_leader_plug_keymaps, { noremap = false })
-wk.register_keymap('leader', leader_key_maps, { silent = true })
-wk.register_keymap('leader', leader_plug_keymaps, { noremap = false })
+wk.register(local_leader_key_maps, { prefix = '<localleader>' })
+wk.register(local_leader_plug_keymaps, { prefix = '<localleader>' })
+wk.register(leader_key_maps, { prefix = '<leader>' })
+wk.register(leader_plug_keymaps, { prefix = '<leader>' })
