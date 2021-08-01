@@ -1,12 +1,50 @@
 local map = lk_utils.map
 
 local opts = { noremap = true, silent = true }
+local map_opts = { noremap = true }
+
+-- behave vim
+map('n', 'Y', [[y$]], map_opts)
+
+-- keeping it centered
+map('n', 'n', [[nzzzv]], map_opts)
+map('n', 'N', [[Nzzzv]], map_opts)
+map('n', 'J', [[mzJ`z]], map_opts)
+
+-- undo breakpoints
+map('i', ',', [[,<c-g>u]], map_opts)
+map('i', '.', [[.<c-g>u]], map_opts)
+map('i', '!', [[!<c-g>u]], map_opts)
+map('i', '?', [[?<c-g>u]], map_opts)
+
+-- jumplist mutations
+map('n', 'j', [[(v:count > 5 ? "m'" . v:count : "") . 'j']],
+    { noremap = true, expr = true })
+map('n', 'k', [[(v:count > 5 ? "m'" . v:count : "") . 'k']],
+    { noremap = true, expr = true })
+
+-- moving text up and down
+map('i', '<C-k>', [[<esc>:m .-2<CR>==]], map_opts)
+map('i', '<C-j>', [[<esc>:m .+1<CR>==]], map_opts)
+map('v', 'J', [[:m '>+1<CR>gv=gv]], map_opts)
+map('v', 'K', [[:m '<-2<CR>gv=gv]], map_opts)
+
+-- change all the occurences of a word with dot
+map('n', 'cn', [[*``cgn]], map_opts)
+map('n', 'cN', [[*``cgN]], map_opts)
+
+-- add quotes around visual selection
+map('v', '"', [[<esc>`>a"<esc>`<i"<esc>]], map_opts)
 
 -- count number of lines in visual mode
 map('v', 'L', [[g<C-g>]], opts)
 
-map('c', '<C-n>', [[<Down>]], { noremap = true })
-map('c', '<C-p>', [[<Up>]], { noremap = true })
+-- circular window movements
+map('n', '<tab>', [[<C-w>w]])
+map('n', '<s-tab>', [[<C-w>W]])
+
+map('c', '<C-n>', [[<Down>]], map_opts)
+map('c', '<C-p>', [[<Up>]], map_opts)
 
 -- Allow saving of files as sudo when I forgot to start vim using sudo.
 -- http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
@@ -76,45 +114,12 @@ map('n', 'cp', [[<Plug>TransposeCharacters]])
 -- incsearch
 map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<CR>]], opts)
 
--- quickfix navigation
-map('n', '<C-k>', [[:cnext<CR>]], opts)
-map('n', '<C-j>', [[:cprev<CR>]], opts)
-map('n', '<C-q>', [[:copen<CR>]], opts)
-
--- loclist navigation
-map('n', '<A-k>', [[:lnext<CR>]], opts)
-map('n', '<A-j>', [[:lprev<CR>]], opts)
-map('n', '<A-q>', [[:lopen<CR>]], opts)
-
 -- NOTE: folds mappings
 -- if there is a fold under cursor open it by pressing <CR> otherwise do
 -- what <CR> does
 map('n', '<CR>', [[@=(foldlevel('.')?'za':"\<Space>")<CR>]], opts)
 -- create folds using visual select and then press <CR>
 map('v', '<CR>', [[zf]], opts)
-
--- NOTE: auto-pairs mapping <CR> for indentation inside html files
-local npairs = require('nvim-autopairs')
-
-vim.g.completion_confirm_key = ''
-lk_utils.completion_confirm = function()
-  if vim.fn.pumvisible() ~= 0 then
-    if vim.fn.complete_info()['selected'] ~= -1 then
-      vim.fn['compe#confirm']()
-      return npairs.esc('<c-y>')
-    else
-      vim.defer_fn(function()
-        vim.fn['compe#confirm']('<cr>')
-      end, 20)
-      return npairs.esc('<c-n>')
-    end
-  else
-    return npairs.check_break_line_char()
-  end
-end
-
-map('i', '<CR>', 'v:lua.lk_utils.completion_confirm()',
-    { expr = true, noremap = true })
 
 -- Complextras.nvim configuration
 map('i', '<C-x><C-m>',

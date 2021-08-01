@@ -149,7 +149,7 @@ return require('packer').startup {
     --     }
     --   end
     -- }
-    -- use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
+    use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
     -- use {
     --   'edluffy/specs.nvim',
     --   config = function()

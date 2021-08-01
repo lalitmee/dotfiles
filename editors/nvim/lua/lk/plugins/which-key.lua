@@ -943,15 +943,7 @@ local leader_key_maps = {
   },
 
   -- NOTE: q is for quickfix and quit
-  ['q'] = {
-    ['name'] = '+quick-fix-list',
-    ['c'] = { ':cclose<CR>', 'close-qf-window' },
-    ['n'] = { ':cn<CR>', 'next' },
-    ['o'] = { ':copen<CR>', 'open-qf-window' },
-    ['p'] = { ':cp<CR>', 'previous' },
-    ['q'] = { ':qall<CR>', 'quit-vim' },
-    ['l'] = { ':Telescope quickfix<CR>', 'fuzzy-quickfix' }
-  },
+  ['q'] = { ['name'] = '+quit', ['q'] = { ':qall<CR>', 'quit-vim' } },
 
   -- NOTE: s is for search
   ['s'] = {
@@ -1175,48 +1167,6 @@ local leader_key_maps = {
   ['z'] = { ':Goyo<CR>', 'zen-mode' }
 }
 
-local local_leader_key_maps = {
-  -- NOTE: f is for fzf lsp
-  [']'] = 'subvert-replace-1',
-  ['['] = 'subvert-replace-2',
-  ['f'] = {
-    ['name'] = '+fzf-lsp',
-    ['a'] = { ':FzfCodeActions<CR>', 'code-actions' },
-    ['A'] = { ':FzfRangeCodeActions<CR>', 'code-actions' },
-    ['c'] = { ':FzfIncomingCalls<CR>', 'incoming-calls' },
-    ['C'] = { ':FzfOutgoingCalls<CR>', 'outgoing-calls' },
-    ['d'] = { ':FzfDefinitions<CR>', 'definitions' },
-    ['D'] = { ':FzfDeclarations<CR>', 'delcarations' },
-    ['e'] = { ':FzfDiagnostics<CR>', 'diagnostics' },
-    ['i'] = { ':FzfImplementations<CR>', 'implementations' },
-    ['r'] = { ':FzfReferences<CR>', 'references' },
-    ['t'] = { ':FzfTypeDefinitions<CR>', 'type-definition' },
-    ['w'] = { ':FzfDocumentSymbols<CR>', 'document-symbols' },
-    ['W'] = { ':FzfWorkspaceSymbols<CR>', 'workspace-symbols' }
-  },
-  ['t'] = {
-    ['name'] = '+treesitter',
-    ['c'] = 'doc-node-at-cursor',
-    ['d'] = 'goto-definition',
-    ['D'] = 'goto-definition-fallback',
-    ['l'] = 'list-definitions',
-    ['n'] = 'goto-next-usage',
-    ['o'] = 'list-definitions-toc',
-    ['p'] = 'goto-previous-usage',
-    ['v'] = 'visual-selection'
-  }
-}
-
-local local_leader_plug_keymaps = {
-  ['s'] = {
-    ['name'] = '+sideways',
-    ['i'] = { '<Plug>(SidewaysArgumentInsertBefore)', 'insert-before' },
-    ['a'] = { '<Plug>(SidewaysArgumentAppendAfter)', 'append-after' },
-    ['I'] = { '<Plug>(SidewaysArgumentInsertFirst)', 'insert-first' },
-    ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' }
-  }
-}
-
 local leader_plug_keymaps = {
   ['c'] = {},
   ['e'] = {
@@ -1264,6 +1214,48 @@ local leader_plug_keymaps = {
     ['name'] = '+major-mode',
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
     ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' }
+  }
+}
+
+local local_leader_key_maps = {
+  [']'] = 'replace-all',
+  ['['] = 'replace-current',
+  ['q'] = {
+    ['name'] = '+quickfix',
+    ['c'] = { ':cclose<CR>', 'close' },
+    ['l'] = { ':Telescope quickfix<CR>', 'fuzzy-quickfix' },
+    ['n'] = { ':cnext<CR>', 'next' },
+    ['o'] = { ':copen<CR>', 'open' },
+    ['p'] = { ':cprev<CR>', 'prev' }
+  },
+  ['l'] = {
+    ['name'] = '+loclist',
+    ['c'] = { ':lclose<CR>', 'close' },
+    ['l'] = { ':Telescope loclist<CR>', 'fuzzy-loclist' },
+    ['n'] = { ':lnext<CR>', 'next' },
+    ['o'] = { ':lopen<CR>', 'open' },
+    ['p'] = { ':lprev<CR>', 'prev' }
+  },
+  ['t'] = {
+    ['name'] = '+treesitter',
+    ['c'] = 'doc-node-at-cursor',
+    ['d'] = 'goto-definition',
+    ['D'] = 'goto-definition-fallback',
+    ['l'] = 'list-definitions',
+    ['n'] = 'goto-next-usage',
+    ['o'] = 'list-definitions-toc',
+    ['p'] = 'goto-previous-usage',
+    ['v'] = 'visual-selection'
+  }
+}
+
+local local_leader_plug_keymaps = {
+  ['s'] = {
+    ['name'] = '+sideways',
+    ['i'] = { '<Plug>(SidewaysArgumentInsertBefore)', 'insert-before' },
+    ['a'] = { '<Plug>(SidewaysArgumentAppendAfter)', 'append-after' },
+    ['I'] = { '<Plug>(SidewaysArgumentInsertFirst)', 'insert-first' },
+    ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' }
   }
 }
 
