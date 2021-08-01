@@ -1,8 +1,8 @@
--- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
+-- NOTE: gruvbuddy
+require('lk/colorscheme/gruvbuddy')
 
--- -- NOTE: gruvbuddy
--- require('lk/colorscheme/gruvbuddy')
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: nvcode
 -- require('lk/colorscheme/nvcode')
