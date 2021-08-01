@@ -22,26 +22,12 @@ local function hunspell_install_if_needed()
   end
 end
 
-vim.api.nvim_exec([[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost plugins.lua PackerCompile
-  augroup end
-]], false)
-
 require('packer').init({ display = { auto_clean = false } })
 
 return require('packer').startup {
   function(use)
     -- Packer can manage itself as an optional plugin
     use 'wbthomason/packer.nvim'
-
-    -- LEARN VIM {{{
-
-    -- vim-be-good
-    -- use 'ThePrimeagen/vim-be-good'
-
-    -- }}}
 
     -- UI AND BEAUTIFY {{{
 
@@ -55,9 +41,6 @@ return require('packer').startup {
 
     -- tokyonight colorscheme
     use 'folke/tokyonight.nvim'
-
-    -- gruvbox colorscheme
-    use 'gruvbox-community/gruvbox'
 
     -- material colorscheme
     use 'marko-cerovac/material.nvim'
@@ -79,44 +62,17 @@ return require('packer').startup {
 
     -- General {{{
 
-    use {
-      'Pocco81/TrueZen.nvim',
-      cmd = {
-        'TZAtaraxis',
-        'TZAtaraxisOn',
-        'TZFocus',
-        'TZFocusOn',
-        'TZMinimalist',
-        'TZMinimalistOn',
-      },
-    }
-
     -- toggle, display and navigate marks
     use 'kshenoy/vim-signature'
 
     -- See what keys do like in emacs
-    use {
-      'folke/which-key.nvim',
-      config = function()
-        -- require('which-key').setup {
-        --   -- your configuration comes here
-        --   -- or leave it empty to use the default settings
-        --   -- refer to the configuration section below
-        -- }
-      end,
-    }
+    use 'folke/which-key.nvim'
 
     -- fancy start Screen for vim
     use 'mhinz/vim-startify'
 
     -- Colorizer for showing the colors
-    use { 'norcalli/nvim-colorizer.lua' }
-    -- use {
-    --   'norcalli/nvim-terminal.lua',
-    --   config = function()
-    --     require('terminal').setup()
-    --   end
-    -- }
+    use 'norcalli/nvim-colorizer.lua'
 
     -- }}}
 
@@ -126,7 +82,6 @@ return require('packer').startup {
 
     -- Search, Replace and Jump {{{
 
-    -- use 'mileszs/ack.vim'
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
@@ -135,49 +90,14 @@ return require('packer').startup {
     -- better quick-fix winodw
     use 'kevinhwang91/nvim-bqf'
 
-    -- hlslens lens for neovim
-    use 'kevinhwang91/nvim-hlslens'
+    -- display search matches
+    use 'henrik/vim-indexed-search'
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
 
     -- Quickscope same as f, F, t, T but better
     use 'unblevable/quick-scope'
-    -- use {
-    --   'ggandor/lightspeed.nvim',
-    --   config = function()
-    --     require('lightspeed').setup {
-    --       jump_to_first_match = true,
-    --       jump_on_partial_input_safety_timeout = 400,
-    --       highlight_unique_chars = false,
-    --       grey_out_search_area = true,
-    --       match_only_the_start_of_same_char_seqs = true,
-    --       limit_ft_matches = 5,
-    --       full_inclusive_prefix_key = '<c-x>'
-    --     }
-    --   end
-    -- }
-    use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
-    -- use {
-    --   'edluffy/specs.nvim',
-    --   config = function()
-    --     require('specs').setup {
-    --       show_jumps = true,
-    --       min_jump = 30,
-    --       popup = {
-    --         delay_ms = 0, -- delay before popup displays
-    --         inc_ms = 10, -- time increments used for fade/resize effects
-    --         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
-    --         width = 10,
-    --         winhl = 'PMenu',
-    --         fader = require('specs').linear_fader,
-    --         resizer = require('specs').shrink_resizer
-    --       },
-    --       ignore_filetypes = {},
-    --       ignore_buftypes = { nofile = true }
-    --     }
-    --   end
-    -- }
 
     -- }}}
 
@@ -189,52 +109,32 @@ return require('packer').startup {
 
     -- General {{{
 
-    -- show preview for :substitute and :normal
-    use 'markonm/traces.vim'
-
     -- move code up and down
     use 'matze/vim-move'
 
-    -- For narrowing regions of text to look at them alone
-    use { 'chrisbra/NrrwRgn', cmd = { 'NarrowRegion', 'NarrowWindow' } }
     use {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
       end,
     }
+
+    -- smooth scrolling in neovim
     use {
       'karb94/neoscroll.nvim',
       config = function()
         require('neoscroll').setup()
       end,
     }
-    use {
-      'jghauser/mkdir.nvim',
-      config = function()
-        require('mkdir')
-      end,
-    }
-
-    -- minimal and beautiful buffer switcher
-    use 'matbme/JABS.nvim'
 
     -- delete buffers and windows
-    use 'mhinz/vim-sayonara'
+    use { 'mhinz/vim-sayonara', cmd = { 'Sayonara' } }
 
     -- match brackets and more
     use 'andymass/vim-matchup'
 
     -- Switch between single-line and multiline forms of code
     use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
-
-    -- use 'yamatsum/nvim-cursorline'
-    use {
-      'antoinemadec/FixCursorHold.nvim',
-      run = function()
-        vim.g.curshold_updatime = 1000
-      end,
-    }
 
     -- sorting in vim
     use 'christoomey/vim-sort-motion'
@@ -244,15 +144,6 @@ return require('packer').startup {
         require('Navigator').setup()
       end,
     }
-
-    -- tmux runner for tests
-    use 'christoomey/vim-tmux-runner'
-
-    -- successor of incsearch
-    use 'haya14busa/is.vim'
-
-    -- Better search highlighting
-    use 'haya14busa/incsearch.vim'
 
     -- Better Whitespace
     use 'ntpeters/vim-better-whitespace'
@@ -494,10 +385,6 @@ return require('packer').startup {
     --     }
     --   }
     -- }
-    use 'bfredl/nvim-luadev'
-
-    -- better lua syntax highlighting
-    use 'euclidianAce/BetterLua.vim'
 
     -- }}}
 
@@ -660,6 +547,7 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
+    use 'rhysd/committia.vim'
     use {
       'rhysd/conflict-marker.vim',
       config = function()
@@ -737,6 +625,7 @@ return require('packer').startup {
     use 'tpope/vim-sleuth'
     use 'tpope/vim-surround'
     use 'tpope/vim-unimpaired'
+    use 'tpope/vim-characterize'
     use {
       'tpope/vim-scriptease',
       cmd = {

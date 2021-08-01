@@ -273,10 +273,24 @@ local leader_key_maps = {
   -- NOTE: F is for find and replace
   ['F'] = {
     ['name'] = '+search/replace',
-    ['r'] = 'replace-text-object',
-    ['R'] = 'replace-current-word',
     ['f'] = 'grep',
     ['F'] = 'grep-and-replace',
+    ['o'] = { ':lua require("spectre").open()<CR>', 'spectre-open' },
+    ['r'] = 'replace-text-object',
+    ['R'] = 'replace-current-word',
+    ['v'] = {
+      ':lua require("spectre").open_visual()<CR>',
+      'search-and-replace-selected',
+    },
+    ['w'] = {
+      'viw:lua require("spectre").open_file_search()<cr>',
+      'search-and-replace-in-current-buffer',
+    },
+    ['W'] = {
+      ':lua require("spectre").open_visual({select_word=true})<CR>',
+      'search-and-replace-current-word',
+    },
+
   },
 
   -- NOTE: g is for git
