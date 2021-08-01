@@ -51,7 +51,7 @@ local leader_key_maps = {
     ['r'] = { ':NvimTreeRefresh<CR>', 'nvim-tree-refresh' },
     ['t'] = { ':FloatermToggle<CR>', 'terminal' },
     ['w'] = { ':StripWhitespace<CR>', 'strip-whitespace' },
-    ['z'] = { ':Goyo<CR>', 'goyo' }
+    ['z'] = { ':Goyo<CR>', 'goyo' },
   },
 
   -- NOTE: b is for buffers
@@ -82,7 +82,7 @@ local leader_key_maps = {
     ['r'] = { ':e<CR>', 'refresh-buffer' },
     ['R'] = { ':bufdo :e<CR>', 'refresh-loaded-buffers' },
     ['s'] = { ':new<CR>', 'new-empty-buffer' },
-    ['w'] = { ':Sayonara<CR>', 'close-buffer-and-window' }
+    ['w'] = { ':Sayonara<CR>', 'close-buffer-and-window' },
   },
 
   -- NOTE: c is for code with lspconfig
@@ -155,7 +155,7 @@ local leader_key_maps = {
       ['v'] = { ':CocList vimcommands<CR>', 'vim-commands' },
       ['w'] = { ':CocList windows<CR>', 'windows' },
       ['W'] = { ':CocList words<CR>', 'buffer-words' },
-      ['z'] = { ':CocList tags<CR>', 'tag-files' }
+      ['z'] = { ':CocList tags<CR>', 'tag-files' },
     },
     ['r'] = { ':call coc#refresh()<CR>', 'coc-refresh' },
     ['R'] = { ':CocListResume<CR>', 'list-resume' },
@@ -169,7 +169,7 @@ local leader_key_maps = {
       ['e'] = { ':Telescope coc diagnostics<CR>', 'diagnostics' },
       ['E'] = {
         ':Telescope coc workspace_diagnostics<CR>',
-        'workspace-diagnostics'
+        'workspace-diagnostics',
       },
       ['g'] = { ':Telescope coc code_actions<CR>', 'code_actions' },
       ['i'] = { ':Telescope coc implementations<CR>', 'implementations' },
@@ -180,9 +180,9 @@ local leader_key_maps = {
       ['O'] = { ':Telescope coc line_code_actions<CR>', 'line-code-actions' },
       ['r'] = { ':Telescope coc references<CR>', 'references' },
       ['w'] = { ':Telescope coc document_symbols<CR>', 'document-symbols' },
-      ['W'] = { ':Telescope coc workspace_symbols<CR>', 'workspace-symbols' }
+      ['W'] = { ':Telescope coc workspace_symbols<CR>', 'workspace-symbols' },
     },
-    ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' }
+    ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' },
   },
 
   -- NOTE: d is for dap
@@ -195,18 +195,18 @@ local leader_key_maps = {
     ['e'] = { [[<cmd>lua require'dap'.step_out()<CR>]], 'step-out' },
     ['b'] = {
       [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],
-      'toggle-breakpoint'
+      'toggle-breakpoint',
     },
     ['B'] = {
       [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
-      'set-breakpoint-condition'
+      'set-breakpoint-condition',
     },
     ['l'] = {
       [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
-      'set-breakpoint-log-message'
+      'set-breakpoint-log-message',
     },
     ['r'] = { [[<cmd>lua require'dap'.repl.open()<CR>]], 'open-repl' },
-    ['R'] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], 'repl-run-last' }
+    ['R'] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], 'repl-run-last' },
   },
 
   -- NOTE: e is for errors/warnings
@@ -215,8 +215,8 @@ local leader_key_maps = {
     ['l'] = { ':Telescope coc diagnostics<CR>', 'buffer-diagnostics' },
     ['L'] = {
       ':Telescope coc workspace_diagnostics<CR>',
-      'workspace_diagnostics'
-    }
+      'workspace_diagnostics',
+    },
   },
 
   -- NOTE: f is for FZF
@@ -228,7 +228,7 @@ local leader_key_maps = {
       ['c'] = { ':CustomFzfBuffers<CR>', 'custom-buffers' },
       ['b'] = { ':FzfBuffers<CR>', 'jump-buffers' },
       ['l'] = { ':FzfBLines<CR>', 'buffer-lines' },
-      ['L'] = { ':FzfLines<CR>', 'loaded-buffers-lines' }
+      ['L'] = { ':FzfLines<CR>', 'loaded-buffers-lines' },
     },
     ['d'] = { ':RG<CR>', 'rg' },
     ['f'] = {
@@ -237,12 +237,12 @@ local leader_key_maps = {
       ['g'] = { ':FzfGFiles<CR>', 'git-files' },
       ['s'] = { ':FzfGFiles?<CR>', 'git-status-files' },
       ['d'] = { ':FzfDotfiles<CR>', 'dotfiles' },
-      ['n'] = { ':FzfNvimConfig<CR>', 'neovim-config' }
+      ['n'] = { ':FzfNvimConfig<CR>', 'neovim-config' },
     },
     ['g'] = {
       ['name'] = '+git',
       ['b'] = { ':FzfBCommits<CR>', 'buffer-commits' },
-      ['B'] = { ':FzfCommits<CR>', 'commits' }
+      ['B'] = { ':FzfCommits<CR>', 'commits' },
     },
     ['h'] = { ':FzfHistory<CR>', 'history' },
     ['i'] = { ':FzfSnippets<CR>', 'snippets' },
@@ -250,7 +250,7 @@ local leader_key_maps = {
       ['name'] = '+search',
       ['c'] = { ':RG<CR>', 'search-content' },
       ['d'] = { ':FzfRg<CR>', 'default-rg' },
-      ['f'] = { ':Rg<CR>', 'custom-rg' }
+      ['f'] = { ':Rg<CR>', 'custom-rg' },
     },
     ['L'] = { ':FzfLocate <CR>', 'locate' },
     ['t'] = { ':FzfBTags<CR>', 'buffer-tags' },
@@ -268,7 +268,7 @@ local leader_key_maps = {
       ['r'] = { ':FzfReferences<CR>', 'references' },
       ['t'] = { ':FzfTypeDefinitions<CR>', 'type-definition' },
       ['w'] = { ':FzfDocumentSymbols<CR>', 'document-symbols' },
-      ['W'] = { ':FzfWorkspaceSymbols<CR>', 'workspace-symbols' }
+      ['W'] = { ':FzfWorkspaceSymbols<CR>', 'workspace-symbols' },
     },
     ['s'] = { ':w<CR>', 'save-buffer' },
     ['S'] = { ':wa<CR>', 'save-all-buffers' },
@@ -281,9 +281,9 @@ local leader_key_maps = {
       ['f'] = { ':FzfFiletypes<CR>', 'filetypes' },
       ['h'] = { ':FzfHelptags<CR>', 'help-tags' },
       ['m'] = { ':FzfMarks<CR>', 'marks' },
-      ['M'] = { ':FzfMaps<CR>', 'maps' }
+      ['M'] = { ':FzfMaps<CR>', 'maps' },
     },
-    ['w'] = { ':FzfWindows<CR>', 'windows' }
+    ['w'] = { ':FzfWindows<CR>', 'windows' },
   },
 
   -- NOTE: F is for find and replace
@@ -292,7 +292,7 @@ local leader_key_maps = {
     ['r'] = 'replace-text-object',
     ['R'] = 'replace-current-word',
     ['f'] = 'grep',
-    ['F'] = 'grep-and-replace'
+    ['F'] = 'grep-and-replace',
   },
 
   -- NOTE: g is for git
@@ -320,7 +320,7 @@ local leader_key_maps = {
       ['S'] = { ':Gist -1<CR>', 'unstar-the-gist' },
       ['m'] = { ':Gist -m<CR>', 'create-gist-all-buffers' },
       ['p'] = { ':Gist -p<CR>', 'create-private-gist' },
-      ['P'] = { ':Gist -P<CR>', 'create-public-gist' }
+      ['P'] = { ':Gist -P<CR>', 'create-public-gist' },
     },
     ['G'] = { ':Gstatus<CR>', 'status' },
     ['h'] = {
@@ -342,7 +342,7 @@ local leader_key_maps = {
       ['s'] = { ':Gitsigns stage_hunk<CR>', 'stage-hunk' },
       ['S'] = { ':Gitsigns select_hunk<CR>', 'select-hunk' },
       ['u'] = { ':Gitsigns detach_all<CR>', 'detach-all' },
-      ['U'] = { ':Gitsigns reset_hunk<CR>', 'reset-hunk' }
+      ['U'] = { ':Gitsigns reset_hunk<CR>', 'reset-hunk' },
     },
     ['l'] = { ':Git log<CR>', 'log' },
     ['o'] = {
@@ -356,13 +356,13 @@ local leader_key_maps = {
         ['l'] = { ':Octo reaction laugh<CR>', 'react-laugh' },
         ['r'] = { ':Octo reaction rocket<CR>', 'react-rocket' },
         ['t'] = { ':Octo reaction tada<CR>', 'react-tada' },
-        ['u'] = { ':Octo reaction thumbs_up<CR>', 'react-thumbs_up' }
+        ['u'] = { ':Octo reaction thumbs_up<CR>', 'react-thumbs_up' },
       },
       ['A'] = { ':Octo reviewer add<CR>', 'add-reviewer' },
       ['c'] = {
         ['name'] = '+comment',
         ['a'] = { ':Octo comment add<CR>', 'add' },
-        ['d'] = { ':Octo comment delete<CR>', 'delete' }
+        ['d'] = { ':Octo comment delete<CR>', 'delete' },
       },
       ['g'] = { ':Octo gist list<CR>', 'list-gist' },
       ['i'] = {
@@ -375,13 +375,13 @@ local leader_key_maps = {
         ['o'] = { ':Octo issue reopen<CR>', 'reopen' },
         ['r'] = { ':Octo issue reload<CR>', 'reload' },
         ['s'] = { ':Octo issue search<CR>', 'search' },
-        ['u'] = { ':Octo issue url<CR>', 'url' }
+        ['u'] = { ':Octo issue url<CR>', 'url' },
       },
       ['l'] = {
         ['name'] = '+label',
         ['a'] = { ':Octo label add<CR>', 'add' },
         ['c'] = { ':Octo label create<CR>', 'create' },
-        ['r'] = { ':Octo label remove<CR>', 'remove' }
+        ['r'] = { ':Octo label remove<CR>', 'remove' },
       },
       ['p'] = {
         ['name'] = '+pull-requests',
@@ -400,14 +400,14 @@ local leader_key_maps = {
         ['r'] = { ':Octo pr reload<CR>', 'reload' },
         ['R'] = { ':Octo pr ready<CR>', 'ready' },
         ['s'] = { ':Octo pr search<CR>', 'search' },
-        ['u'] = { ':Octo pr url<CR>', 'url' }
+        ['u'] = { ':Octo pr url<CR>', 'url' },
       },
       ['r'] = {
         ['name'] = '+repositories',
         ['b'] = { ':Octo repo browser<CR>', 'browser' },
         ['f'] = { ':Octo repo fork<CR>', 'fork' },
         ['l'] = { ':Octo repo list<CR>', 'list' },
-        ['u'] = { ':Octo repo url<CR>', 'url' }
+        ['u'] = { ':Octo repo url<CR>', 'url' },
       },
       ['R'] = {
         ['name'] = '+review',
@@ -415,13 +415,13 @@ local leader_key_maps = {
         ['c'] = { ':Octo review comments<CR>', 'comments-review' },
         ['d'] = { ':Octo review discard<CR>', 'discard-review' },
         ['r'] = { ':Octo review resume<CR>', 'resume-review' },
-        ['s'] = { ':Octo review submit<CR>', 'submit-review' }
+        ['s'] = { ':Octo review submit<CR>', 'submit-review' },
       },
       ['t'] = {
         ['name'] = '+thread',
         ['r'] = { ':Octo thread resolve<CR>', 'resolve' },
-        ['u'] = { ':Octo thread unresolve<CR>', 'unresolve' }
-      }
+        ['u'] = { ':Octo thread unresolve<CR>', 'unresolve' },
+      },
     },
     ['p'] = { ':Git push<CR>', 'push' },
     ['P'] = { ':Git pull<CR>', 'pull' },
@@ -434,10 +434,10 @@ local leader_key_maps = {
       ['name'] = '+git-worktree',
       ['c'] = {
         ':Telescope git_worktree create_git_worktree<CR>',
-        'create-worktree'
+        'create-worktree',
       },
-      ['l'] = { ':Telescope git_worktree git_worktrees<CR>', 'list-worktrees' }
-    }
+      ['l'] = { ':Telescope git_worktree git_worktrees<CR>', 'list-worktrees' },
+    },
   },
 
   ['G'] = {
@@ -454,7 +454,7 @@ local leader_key_maps = {
     ['p'] = { ':GonvimWorkspacePrevious<CR>', 'previous-workspace' },
     ['r'] = { ':GonvimFuzzyResume<CR>', 'resume-previous-search' },
     ['s'] = { ':GonvimWorkspaceSwitch <CR>', 'switch-workspace' },
-    ['w'] = { ':GonvimFuzzyAgCword<CR>', 'fuzzy-word' }
+    ['w'] = { ':GonvimFuzzyAgCword<CR>', 'fuzzy-word' },
   },
 
   -- NOTE: h is for highlight
@@ -464,8 +464,8 @@ local leader_key_maps = {
       ['name'] = '+todo-comments',
       ['q'] = { ':TodoQuickFix<CR>', 'todos-quickfix' },
       ['t'] = { ':TodoTelescope<CR>', 'todos-telescope' },
-      ['b'] = { ':TodoTrouble<CR>', 'todos-trouble' }
-    }
+      ['b'] = { ':TodoTrouble<CR>', 'todos-trouble' },
+    },
   },
 
   -- NOTE: j is for jumping
@@ -475,7 +475,7 @@ local leader_key_maps = {
     ['p'] = { ':HopPattern<CR>', 'hop-pattern' },
     ['w'] = { ':HopWord<CR>', 'hop-word' },
     ['c'] = { ':HopChar1<CR>', 'hop-char-1' },
-    ['d'] = { ':HopChar2<CR>', 'hop-char-2' }
+    ['d'] = { ':HopChar2<CR>', 'hop-char-2' },
   },
 
   -- NOTE: l is for lsp with lspconfig
@@ -579,10 +579,10 @@ local leader_key_maps = {
       ['I'] = { ':Vista info+<CR>', 'info+' },
       ['j'] = { ':Vista focus<CR>', 'focus' },
       ['s'] = { ':Vista show<CR>', 'show' },
-      ['t'] = { ':Vista!!<CR>', 'toggle-vista' }
+      ['t'] = { ':Vista!!<CR>', 'toggle-vista' },
     },
     ['z'] = { ':CocDisable<CR>', 'disable-CoC' },
-    ['Z'] = { ':CocEnable<CR>', 'enable-CoC' }
+    ['Z'] = { ':CocEnable<CR>', 'enable-CoC' },
   },
 
   -- NOTE: L is for lspconfig
@@ -657,7 +657,7 @@ local leader_key_maps = {
     ['e'] = { ':Telescope coc diagnostics<CR>', 'document-diagnostics' },
     ['E'] = {
       ':Telescope coc workspace_diagnostics<CR>',
-      'workspace-diagnostics'
+      'workspace-diagnostics',
     },
     ['f'] = { ':Telescope coc references<CR>', 'references' },
     ['F'] = { ':Telescope coc file_code_actions<CR>', 'file-code-actions' },
@@ -667,7 +667,7 @@ local leader_key_maps = {
     ['h'] = { ':Telescope coc mru<CR>', 'most-recent' },
     ['s'] = { ':Telescope coc document_symbols<CR>', 'buffer-symbols' },
     ['S'] = { ':Telescope coc workspace_symbols<CR>', 'workspace-symbols' },
-    ['t'] = { ':Telescope coc type_definitions<CR>', 'type_definitions' }
+    ['t'] = { ':Telescope coc type_definitions<CR>', 'type_definitions' },
   },
 
   -- NOTE: n is for neovim
@@ -684,7 +684,7 @@ local leader_key_maps = {
     ['r'] = { ':luafile $HOME/.config/nvim/init.lua<CR>', 'source-config' },
     ['s'] = { ':PackerSync<CR>', 'packer-sync' },
     ['S'] = { ':PackerStatus<CR>', 'packages-status' },
-    ['u'] = { ':PackerUpdate<CR>', 'packer-update' }
+    ['u'] = { ':PackerUpdate<CR>', 'packer-update' },
   },
 
   -- NOTE: N is for notes
@@ -692,32 +692,32 @@ local leader_key_maps = {
     ['name'] = '+notes',
     ['a'] = {
       ':lua require"neuron/cmd".new_edit(require"neuron".config.neuron_dir)<CR>',
-      'create-new-note'
+      'create-new-note',
     },
     ['b'] = {
       ':lua require"neuron/telescope".find_backlinks()<CR>',
-      'find-backlinks'
+      'find-backlinks',
     },
     ['B'] = {
       ':lua require"neuron/telescope".find_backlinks{ insert = true }<CR>',
-      'find-backlinks-insert'
+      'find-backlinks-insert',
     },
     ['e'] = { ':lua require"neuron".enter_link()<CR>', 'enter-link' },
     ['i'] = {
       ':lua require"neuron/telescope".find_zettels {insert = true}<CR>',
-      'insert-note-id'
+      'insert-note-id',
     },
     ['n'] = { ':lua require"neuron".goto_next_extmark()<CR>', 'next' },
     ['p'] = { ':lua require"neuron".goto_next_extmark()<CR>', 'prev' },
     ['s'] = {
       ':lua require"neuron".rib {address = "127.0.0.1:8200", verbose = true}<CR>',
-      'serve-notes'
+      'serve-notes',
     },
     ['t'] = { ':lua require"neuron/telescope".find_tags()<CR>', 'find-tags' },
     ['z'] = {
       ':lua require"neuron/telescope".find_zettels()<CR>',
-      'search-notes'
-    }
+      'search-notes',
+    },
   },
 
   -- NOTE: o is for telescope
@@ -725,7 +725,7 @@ local leader_key_maps = {
     ['name'] = '+Telescope',
     ['a'] = {
       [[:lua require('telescope.builtin').symbols{sources = {'emoji'}}<cr>]],
-      'emojis'
+      'emojis',
     },
     ['b'] = {
       ['name'] = '+buffers',
@@ -736,19 +736,19 @@ local leader_key_maps = {
       ['d'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' },
       ['f'] = {
         [[:lua require('telescope.builtin').buffers({ entry_maker = require('lk.plugins.telescope.my_make_entry').gen_from_buffer_like_leaderf() })<cr>]],
-        'find-buffers'
+        'find-buffers',
       },
       ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
       ['l'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
       ['o'] = 'buffer-lines-dropdown-theme',
       ['r'] = { ':Telescope lsp_references<CR>', 'references' },
       ['s'] = { ':Telescope spell_suggest<CR>', 'spell_suggest' },
-      ['t'] = { ':Telescope current_buffer_tags<CR>', 'buffer-tags' }
+      ['t'] = { ':Telescope current_buffer_tags<CR>', 'buffer-tags' },
     },
     ['c'] = {
       ['name'] = '+cheat.sh',
       ['f'] = { ':Telescope cheat fd<CR>', 'cheat-find' },
-      ['r'] = { ':Telescope cheat readcache<CR>', 'read-cache' }
+      ['r'] = { ':Telescope cheat readcache<CR>', 'read-cache' },
     },
     ['d'] = {
       ['name'] = '+dap',
@@ -756,7 +756,7 @@ local leader_key_maps = {
       ['c'] = { ':Telescope dap configurations<CR>', 'configurations' },
       ['f'] = { ':Telescope dap frames<CR>', 'frames' },
       ['o'] = { ':Telescope dap commands<CR>', 'commands' },
-      ['v'] = { ':Telescope dap variables<CR>', 'variables' }
+      ['v'] = { ':Telescope dap variables<CR>', 'variables' },
     },
     ['e'] = { ':Telescope emoji search<CR>', 'emoji-search' },
     ['f'] = {
@@ -765,7 +765,7 @@ local leader_key_maps = {
       ['c'] = 'dotfiles',
       ['d'] = {
         [[:lua require('lk.plugins.telescope.finders').fd_files_dropdown()<cr>]],
-        'with-dropdown'
+        'with-dropdown',
       },
       ['e'] = { ':Telescope file_browser<CR>', 'file-browser' },
       ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
@@ -776,7 +776,7 @@ local leader_key_maps = {
       ['n'] = 'nvim-config',
       ['o'] = { ':Telescope find_files<CR>', 'find-files' },
       ['r'] = { ':Telescope oldfiles<CR>', 'recent-files' },
-      ['z'] = { ':Telescope filetypes<CR>', 'filetypes' }
+      ['z'] = { ':Telescope filetypes<CR>', 'filetypes' },
     },
     ['g'] = {
       ['name'] = '+git',
@@ -784,7 +784,7 @@ local leader_key_maps = {
       ['C'] = { ':Telescope git_bcommits<CR>', 'git-buffer-commits' },
       ['d'] = { ':Telescope git_commits<CR>', 'git-commits' },
       ['f'] = { ':Telescope git_files<CR>', 'git-files' },
-      ['s'] = { ':Telescope git_status<CR>', 'git-status' }
+      ['s'] = { ':Telescope git_status<CR>', 'git-status' },
     },
     ['i'] = { ':Telescope snippets snippets<CR>', 'snippets' },
     ['j'] = { ':Telescope jumps jumps<CR>', 'jumps' },
@@ -793,12 +793,12 @@ local leader_key_maps = {
     ['n'] = {
       ['name'] = '+navigation/jumps',
       ['j'] = { ':Telescope jumps jumps<CR>', 'jumps' },
-      ['h'] = { ':Telescope harpoon marks<CR>', 'harpoon marks' }
+      ['h'] = { ':Telescope harpoon marks<CR>', 'harpoon marks' },
     },
     ['o'] = {
       ['name'] = '+open',
       ['o'] = { ':Telescope openbrowser list<CR>', 'openbrowser' },
-      ['b'] = { ':Telescope bookmarks<CR>', 'bookmarks' }
+      ['b'] = { ':Telescope bookmarks<CR>', 'bookmarks' },
     },
     ['s'] = {
       ['name'] = '+search',
@@ -808,8 +808,8 @@ local leader_key_maps = {
       ['u'] = { ':Telescope grep_string<CR>', 'grep-string' },
       ['w'] = {
         [[:lua require("telescope").extensions.arecibo.websearch()<CR>]],
-        'search-web'
-      }
+        'search-web',
+      },
     },
     ['t'] = {
       ['name'] = '+telescope',
@@ -817,7 +817,7 @@ local leader_key_maps = {
       ['p'] = { ':Telescope planets<CR>', 'planets' },
       ['r'] = { ':Telescope reloader<CR>', 'reloaders' },
       ['t'] = { ':Telescope treesitter<CR>', 'reloaders' },
-      ['w'] = 'change-background'
+      ['w'] = 'change-background',
     },
     ['u'] = { ':Telescope ultisnips ultisnips<CR>', 'ultisnips' },
     ['v'] = {
@@ -831,12 +831,12 @@ local leader_key_maps = {
       ['m'] = { ':Telescope marks<CR>', 'marks' },
       ['r'] = { ':Telescope registers<CR>', 'vim-registers' },
       ['t'] = { ':Telescope help_tags<CR>', 'help-tags' },
-      ['v'] = { ':Telescope vim_options<CR>', 'vim-options' }
+      ['v'] = { ':Telescope vim_options<CR>', 'vim-options' },
     },
     ['w'] = {
       [[:lua require('telescope').extensions.fzf_writer.staged_grep{}<cr>]],
-      'grep-words'
-    }
+      'grep-words',
+    },
   },
 
   -- NOTE: p is for project
@@ -849,13 +849,13 @@ local leader_key_maps = {
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['p'] = {
       ':lua require\'telescope\'.extensions.project.project{ display_type = \'full\' }<CR>',
-      'switch-project'
+      'switch-project',
     },
     ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
     ['s'] = { ':Telescope live_grep<CR>', 'project-search' },
     ['S'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },
-    ['w'] = { ':Telescope grep_string<CR>', 'string-search' }
+    ['w'] = { ':Telescope grep_string<CR>', 'string-search' },
   },
 
   -- NOTE: P is for CocCommand fzf-preview using CocCommand
@@ -869,8 +869,8 @@ local leader_key_maps = {
       ['t'] = { ':CocCommand fzf-preview.BufferTags<CR>', 'buffer-tags' },
       ['v'] = {
         ':CocCommand fzf-preview.VistaBufferCtags<CR>',
-        'vista-buffer-ctags'
-      }
+        'vista-buffer-ctags',
+      },
     },
     ['c'] = { ':CocCommand fzf-preview.CommandPalette<CR>', 'commands-history' },
     ['f'] = {
@@ -880,19 +880,19 @@ local leader_key_maps = {
       ['d'] = { ':CocCommand fzf-preview.DirectoryFiles<CR>', 'directory-files' },
       ['o'] = {
         ':CocCommand fzf-preview.ProjectOldFiles<CR>',
-        'project-old-files'
+        'project-old-files',
       },
       ['O'] = { ':CocCommand fzf-preview.OldFiles<CR>', 'old-files' },
       ['r'] = {
         ':CocCommand fzf-preview.ProjectMruFiles<CR>',
-        'project-mru-files'
+        'project-mru-files',
       },
       ['R'] = { ':CocCommand fzf-preview.MruFiles<CR>', 'mru-files' },
       ['w'] = {
         ':CocCommand fzf-preview.ProjectMrwFiles<CR>',
-        'project-mrw-files'
+        'project-mrw-files',
       },
-      ['W'] = { ':CocCommand fzf-preview.MrwFiles<CR>', 'mrw-files' }
+      ['W'] = { ':CocCommand fzf-preview.MrwFiles<CR>', 'mrw-files' },
     },
     ['g'] = {
       ['name'] = '+git',
@@ -900,46 +900,47 @@ local leader_key_maps = {
       ['b'] = { ':CocCommand fzf-preview.GitBranches', 'git-branches' },
       ['B'] = {
         ':CocCommand fzf-preview.GitBrancheActions',
-        'git-branch-actions'
+        'git-branch-actions',
       },
       ['c'] = { ':CocCommand fzf-preview.Changes<CR>', 'changes' },
       ['f'] = { ':CocCommand fzf-preview.GitFiles<CR>', 'git-files' },
       ['s'] = { ':CocCommand fzf-preview.GitStatus', 'git-status' },
-      ['S'] = { ':CocCommand fzf-preview.GitStatusActions', 'git-status-actions' },
+      ['S'] = { ':CocCommand fzf-preview.GitStatusActions',
+                'git-status-actions' },
       ['l'] = { ':CocCommand fzf-preview.GitLogs', 'git-logs' },
       ['L'] = { ':CocCommand fzf-preview.GitCurrentLogs', 'git-current-logs' },
       ['h'] = { ':CocCommand fzf-preview.GitStashes', 'git-stashes' },
       ['H'] = { ':CocCommand fzf-preview.GitStashActions', 'git-stash-actions' },
-      ['g'] = { ':CocCommand fzf-preview.GitLogActions', 'git-log-actions' }
+      ['g'] = { ':CocCommand fzf-preview.GitLogActions', 'git-log-actions' },
     },
     ['j'] = { ':CocCommand fzf-preview.Jumps<CR>', 'jumps' },
     ['l'] = { ':CocCommand fzf-preview.LocationList<CR>', 'location-list' },
     ['m'] = { ':CocCommand fzf-preview.Marks<CR>', 'marks' },
+    ['M'] = { ':CocCommand fzf-preview.BlamePR<CR>', 'blame-pr' },
     ['p'] = {
       ['name'] = '+project',
       ['f'] = { ':CocCommand fzf-preview.ProjectFiles<CR>', 'project-files' },
       ['o'] = {
         ':CocCommand fzf-preview.ProjectOldFiles<CR>',
-        'project-old-files'
+        'project-old-files',
       },
       ['r'] = {
         ':CocCommand fzf-preview.ProjectMruFiles<CR>',
-        'project-mru-files'
+        'project-mru-files',
       },
       ['s'] = { ':CocCommand fzf-preview.ProjectGrep<CR>', 'project-grep' },
       ['S'] = {
         ':CocCommand fzf-preview.ProjectGrepRecall<CR>',
-        'project-grep-recall'
+        'project-grep-recall',
       },
       ['w'] = {
         ':CocCommand fzf-preview.ProjectMrwFiles<CR>',
-        'project-mrw-files'
-      }
+        'project-mrw-files',
+      },
     },
+    ['q'] = { ':CocCommand fzf-preview.QuickFix<CR>', 'quick-fix' },
     ['t'] = { ':CocCommand fzf-preview.TodoComments<CR>', 'todo-comments' },
     ['v'] = { ':CocCommand fzf-preview.VistCtags<CR>', 'vista-ctags' },
-    ['m'] = { ':CocCommand fzf-preview.BlamePR<CR>', 'blame-pr' },
-    ['q'] = { ':CocCommand fzf-preview.QuickFix<CR>', 'quick-fix' }
   },
 
   -- NOTE: q is for quickfix and quit
@@ -962,7 +963,7 @@ local leader_key_maps = {
     ['H'] = { ':Telescope command_history<CR>', 'command-history' },
     ['l'] = {
       ':Telescope current_buffer_fuzzy_find<CR>',
-      'telescope-buffer-lines'
+      'telescope-buffer-lines',
     },
     ['L'] = { ':FzfLines<CR>', 'fzf-buffer-lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
@@ -977,7 +978,7 @@ local leader_key_maps = {
     ['v'] = { ':Telescope vim_options<CR>', 'vim-options' },
     ['w'] = { ':FzfWindows<CR>', 'search-windows' },
     ['y'] = { ':Telescope filetypes<CR>', 'file-types' },
-    ['z'] = { ':FZF<CR>', 'FZF' }
+    ['z'] = { ':FZF<CR>', 'FZF' },
   },
 
   -- NOTE: S is for sessions
@@ -987,7 +988,7 @@ local leader_key_maps = {
     ['d'] = { ':SDelete<CR>', 'delete-session' },
     ['l'] = { ':SLoad<CR>', 'load-session' },
     ['s'] = { ':SSave<CR>', 'save-session' },
-    ['S'] = { ':Startify<CR>', 'start-page' }
+    ['S'] = { ':Startify<CR>', 'start-page' },
   },
 
   -- NOTE: t is for tabs/toggles/terminal
@@ -997,8 +998,8 @@ local leader_key_maps = {
       ['name'] = '+colorscheme',
       ['t'] = {
         ':lua require("material.functions").toggle_style()<CR>',
-        'toggle-material-style'
-      }
+        'toggle-material-style',
+      },
     },
     ['f'] = {
       ['name'] = '+floaterm',
@@ -1014,7 +1015,7 @@ local leader_key_maps = {
       ['t'] = { ':ToggleTerm<CR>', 'toggle' },
       ['v'] = { ':lua Grv()<CR>', 'grv' },
       ['w'] = { ':lua Wt()<CR>', 'weather' },
-      ['y'] = { ':lua Btm()<CR>', 'ytop' }
+      ['y'] = { ':lua Btm()<CR>', 'ytop' },
     },
     ['g'] = {
       ['name'] = '+git',
@@ -1022,14 +1023,14 @@ local leader_key_maps = {
       ['l'] = { ':Gitsigns toggle_linehl<CR>', 'toggle-linehl' },
       ['n'] = { ':Gitsigns toggle_numhl<CR>', 'toggle-numhl' },
       ['s'] = { ':Gitsigns toggle_signs<CR>', 'toggle-signs' },
-      ['w'] = { ':Gitsigns toggle_word_diff<CR>', 'toggle-word-diff' }
+      ['w'] = { ':Gitsigns toggle_word_diff<CR>', 'toggle-word-diff' },
     },
     ['h'] = { ':sp | te<CR>', 'horizontal-split-terminal' },
     ['s'] = {
       ['name'] = '+scrolloff',
       ['t'] = { ':set scrolloff=10<CR>', 'scrolloff=10' },
       ['h'] = { ':set scrolloff=5<CR>', 'scrolloff=5' },
-      ['n'] = { ':set scrolloff=999<CR>', 'scrolloff=999' }
+      ['n'] = { ':set scrolloff=999<CR>', 'scrolloff=999' },
     },
     ['t'] = { ':ToggleTerm<CR>', 'terminal' },
     ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
@@ -1040,8 +1041,8 @@ local leader_key_maps = {
       ['l'] = { ':tablast<CR>', 'last-tab' },
       ['n'] = { ':tabnext<CR>', 'next-tab' },
       ['N'] = { ':tabnew<CR>', 'new-tab' },
-      ['p'] = { ':tabprevious<CR>', 'previous-tab' }
-    }
+      ['p'] = { ':tabprevious<CR>', 'previous-tab' },
+    },
   },
 
   -- NOTE: T is for tmux-runner
@@ -1063,14 +1064,14 @@ local leader_key_maps = {
       ['f'] = { ':VtrSendFile<CR>', 'send-file' },
       ['k'] = { ':VtrSendKeysRaw<CR>', 'send-keys-raw' },
       ['l'] = { ':VtrSendLinesToRunner<CR>', 'send-lines-to-runner' },
-      ['s'] = { ':VtrSendCommandToRunner<CR>', 'send-command-to-runner' }
-    }
+      ['s'] = { ':VtrSendCommandToRunner<CR>', 'send-command-to-runner' },
+    },
   },
 
   -- NOTE: u is for undo
   ['u'] = {
     ['name'] = '+ui/toggle',
-    ['u'] = { ':MundoToggle<CR>', 'mundo-tree' }
+    ['u'] = { ':MundoToggle<CR>', 'mundo-tree' },
   },
 
   -- NOTE: v is for vim
@@ -1089,8 +1090,8 @@ local leader_key_maps = {
       ['r'] = { ':PackerCompile<CR>', 'complie' },
       ['s'] = { ':PackerSync<CR>', 'sync' },
       ['S'] = { ':PackerStatus<CR>', 'status' },
-      ['u'] = { ':PackerUpdate<CR>', 'update' }
-    }
+      ['u'] = { ':PackerUpdate<CR>', 'update' },
+    },
   },
 
   -- NOTE: w is for windows
@@ -1114,36 +1115,36 @@ local leader_key_maps = {
         ['5'] = { ':lua require("harpoon.ui").nav_file(5)<CR>', 'goto-file-4' },
         ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
         ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
-        ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' }
+        ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
       },
       ['m'] = {
         ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
-        'quick-menu'
+        'quick-menu',
       },
       ['p'] = { ':lua require("harpoon.mark").promote()<CR>', 'promote' },
       ['s'] = {
         ':lua require("harpoon.mark").shorten_list()<CR>',
-        'shorten-list'
+        'shorten-list',
       },
       ['t'] = {
         ['name'] = '+terminals',
         ['f'] = {
           ':lua require("harpoon.term").sendCommand(1, 2)<CR>',
-          'goto-terminal-1'
+          'goto-terminal-1',
         },
         ['s'] = {
           ':lua require("harpoon.term").gotoTerminal(1)<CR>',
-          'send-command-terminal-1'
+          'send-command-terminal-1',
         },
         ['S'] = {
           ':lua require("harpoon.term").sendCommand(1, 1)<CR>',
-          'send-command-terminal-2'
+          'send-command-terminal-2',
         },
         ['t'] = {
           ':lua require("harpoon.term").gotoTerminal(2)<CR>',
-          'goto-terminal-2'
-        }
-      }
+          'goto-terminal-2',
+        },
+      },
     },
     ['h'] = { ':lua require("Navigator").left()<CR>', 'window-left' },
     ['H'] = { '<C-W>5<', 'expand-window-left' },
@@ -1161,10 +1162,10 @@ local leader_key_maps = {
     ['t'] = { '<C-W>T', 'move-split-to-tab' },
     ['u'] = { '<C-W>x', 'swap-window-next' },
     ['v'] = { '<C-W>v', 'split-window-right' },
-    ['x'] = { ':call WindowSwap#EasyWindowSwap()<CR>', 'window-swap' }
+    ['x'] = { ':call WindowSwap#EasyWindowSwap()<CR>', 'window-swap' },
   },
   ['x'] = { ':q<CR>', 'quit' },
-  ['z'] = { ':Goyo<CR>', 'zen-mode' }
+  ['z'] = { ':Goyo<CR>', 'zen-mode' },
 }
 
 local leader_plug_keymaps = {
@@ -1172,11 +1173,11 @@ local leader_plug_keymaps = {
   ['e'] = {
     ['name'] = '+errors/warnings',
     ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' }
+    ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
   },
   ['h'] = {
     ['name'] = '+highlight',
-    ['c'] = { '<Plug>(InYoFace_Toggle)<CR>', 'highlight-comments' }
+    ['c'] = { '<Plug>(InYoFace_Toggle)<CR>', 'highlight-comments' },
   },
   ['g'] = { ['m'] = { '<Plug>(git-messenger)', 'git-messenger' } },
   ['j'] = {
@@ -1185,8 +1186,8 @@ local leader_plug_keymaps = {
       ['s'] = { '<Plug>(AerojumpSpace)', 'aerojump-space' },
       ['b'] = { '<Plug>(AerojumpBolt)', 'aerojump-bolt' },
       ['a'] = { '<Plug>(AerojumpFromCursorBolt)', 'aerojump-from-cursor-bolt' },
-      ['d'] = { '<Plug>(AerojumpDefault)', 'aerojump-default' }
-    }
+      ['d'] = { '<Plug>(AerojumpDefault)', 'aerojump-default' },
+    },
   },
   ['l'] = {
     ['name'] = '+lsp',
@@ -1208,13 +1209,13 @@ local leader_plug_keymaps = {
     ['q'] = { '<Plug>(coc-fix-current)', 'quickfix' },
     ['R'] = { '<Plug>(coc-references)', 'references' },
     ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
-    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' }
+    ['t'] = { '<Plug>(coc-type-definition)', 'type-definition' },
   },
   ['m'] = {
     ['name'] = '+major-mode',
     ['l'] = { '<Plug>(JsConsoleLog)', 'console-log' },
-    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' }
-  }
+    ['r'] = { '<Plug>(coc-rename)', 'rename-symbol' },
+  },
 }
 
 local local_leader_key_maps = {
@@ -1226,7 +1227,7 @@ local local_leader_key_maps = {
     ['l'] = { ':Telescope quickfix<CR>', 'fuzzy-quickfix' },
     ['n'] = { ':cnext<CR>', 'next' },
     ['o'] = { ':copen<CR>', 'open' },
-    ['p'] = { ':cprev<CR>', 'prev' }
+    ['p'] = { ':cprev<CR>', 'prev' },
   },
   ['l'] = {
     ['name'] = '+loclist',
@@ -1234,7 +1235,7 @@ local local_leader_key_maps = {
     ['l'] = { ':Telescope loclist<CR>', 'fuzzy-loclist' },
     ['n'] = { ':lnext<CR>', 'next' },
     ['o'] = { ':lopen<CR>', 'open' },
-    ['p'] = { ':lprev<CR>', 'prev' }
+    ['p'] = { ':lprev<CR>', 'prev' },
   },
   ['t'] = {
     ['name'] = '+treesitter',
@@ -1245,8 +1246,8 @@ local local_leader_key_maps = {
     ['n'] = 'goto-next-usage',
     ['o'] = 'list-definitions-toc',
     ['p'] = 'goto-previous-usage',
-    ['v'] = 'visual-selection'
-  }
+    ['v'] = 'visual-selection',
+  },
 }
 
 local local_leader_plug_keymaps = {
@@ -1255,8 +1256,8 @@ local local_leader_plug_keymaps = {
     ['i'] = { '<Plug>(SidewaysArgumentInsertBefore)', 'insert-before' },
     ['a'] = { '<Plug>(SidewaysArgumentAppendAfter)', 'append-after' },
     ['I'] = { '<Plug>(SidewaysArgumentInsertFirst)', 'insert-first' },
-    ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' }
-  }
+    ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' },
+  },
 }
 
 wk.register_keymap('localleader', local_leader_key_maps, { silent = true })
