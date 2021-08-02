@@ -1244,6 +1244,7 @@ local local_leader_key_maps = {
     ['p'] = 'goto-previous-usage',
     ['r'] = 'smart-rename',
     ['v'] = 'visual-selection',
+    ['t'] = { ':TSPlaygroundToggle<CR>', 'playground' },
   },
 }
 
