@@ -33,6 +33,9 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
+    -- gruvqueen on top on gruvbox-material
+    use 'Murtaza-Udaipurwala/gruvqueen'
+
     -- colorbuddy for Colorschemes
     use 'tjdevries/colorbuddy.nvim'
 

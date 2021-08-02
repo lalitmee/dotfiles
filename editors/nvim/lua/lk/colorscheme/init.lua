@@ -1,6 +1,9 @@
 -- NOTE: gruvbuddy
 require('lk/colorscheme/gruvbuddy')
 
+-- -- NOTE: gruvqueen
+-- require('lk/colorscheme/gruvqueen')
+
 -- -- NOTE: tokyonight
 -- require('lk/colorscheme/tokyonight')
 
