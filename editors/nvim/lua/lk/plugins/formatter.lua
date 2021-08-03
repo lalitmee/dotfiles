@@ -2,7 +2,7 @@ local prettier = function()
   return {
     exe = 'prettier',
     args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0), '--single-quote' },
-    stdin = true
+    stdin = true,
   }
 end
 
@@ -36,9 +36,11 @@ local luafmt = function()
       '--no-use-tab',
       '--spaces-before-call=1',
       '--spaces-inside-table-braces',
-      '--tab-width=2'
+      '--tab-width=2',
+      '--table-sep=","',
+      '--extra-sep-at-table-end',
     },
-    stdin = true
+    stdin = true,
   }
 end
 
@@ -59,8 +61,8 @@ require('formatter').setup({
     yaml = { prettier },
     html = { prettier },
     rust = { rustfmt },
-    lua = { luafmt }
-  }
+    lua = { luafmt },
+  },
 })
 
 -- vim.api.nvim_exec([[

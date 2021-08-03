@@ -22,13 +22,6 @@ local function hunspell_install_if_needed()
   end
 end
 
-vim.api.nvim_exec([[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost plugins.lua PackerCompile
-  augroup end
-]], false)
-
 require('packer').init({ display = { auto_clean = false } })
 
 return require('packer').startup {
@@ -36,16 +29,12 @@ return require('packer').startup {
     -- Packer can manage itself as an optional plugin
     use 'wbthomason/packer.nvim'
 
-    -- LEARN VIM {{{
-
-    -- vim-be-good
-    -- use 'ThePrimeagen/vim-be-good'
-
-    -- }}}
-
     -- UI AND BEAUTIFY {{{
 
     -- colorschemes {{{
+
+    -- gruvqueen on top on gruvbox-material
+    use 'Murtaza-Udaipurwala/gruvqueen'
 
     -- colorbuddy for Colorschemes
     use 'tjdevries/colorbuddy.nvim'
@@ -56,14 +45,19 @@ return require('packer').startup {
     -- tokyonight colorscheme
     use 'folke/tokyonight.nvim'
 
-    -- gruvbox colorscheme
-    use 'gruvbox-community/gruvbox'
-
     -- material colorscheme
     use 'marko-cerovac/material.nvim'
 
     -- gruvbuddy using colorbuddy
     use 'tjdevries/gruvbuddy.nvim'
+
+    -- dim the section of the code in which you are in
+    use {
+      'folke/twilight.nvim',
+      config = function()
+        require('twilight').setup {}
+      end,
+    }
 
     -- }}}
 
@@ -79,36 +73,17 @@ return require('packer').startup {
 
     -- General {{{
 
-    use {
-      'Pocco81/TrueZen.nvim',
-      cmd = {
-        'TZAtaraxis',
-        'TZAtaraxisOn',
-        'TZFocus',
-        'TZFocusOn',
-        'TZMinimalist',
-        'TZMinimalistOn'
-      }
-    }
-
     -- toggle, display and navigate marks
     use 'kshenoy/vim-signature'
 
     -- See what keys do like in emacs
-    use 'liuchengxu/vim-which-key'
-    use 'AckslD/nvim-whichkey-setup.lua'
+    use 'folke/which-key.nvim'
 
     -- fancy start Screen for vim
     use 'mhinz/vim-startify'
 
     -- Colorizer for showing the colors
-    use { 'norcalli/nvim-colorizer.lua' }
-    -- use {
-    --   'norcalli/nvim-terminal.lua',
-    --   config = function()
-    --     require('terminal').setup()
-    --   end
-    -- }
+    use 'norcalli/nvim-colorizer.lua'
 
     -- }}}
 
@@ -118,7 +93,6 @@ return require('packer').startup {
 
     -- Search, Replace and Jump {{{
 
-    -- use 'mileszs/ack.vim'
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
@@ -127,49 +101,14 @@ return require('packer').startup {
     -- better quick-fix winodw
     use 'kevinhwang91/nvim-bqf'
 
-    -- hlslens lens for neovim
-    use 'kevinhwang91/nvim-hlslens'
+    -- display search matches
+    use { 'kevinhwang91/nvim-hlslens' }
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
 
     -- Quickscope same as f, F, t, T but better
     use 'unblevable/quick-scope'
-    -- use {
-    --   'ggandor/lightspeed.nvim',
-    --   config = function()
-    --     require('lightspeed').setup {
-    --       jump_to_first_match = true,
-    --       jump_on_partial_input_safety_timeout = 400,
-    --       highlight_unique_chars = false,
-    --       grey_out_search_area = true,
-    --       match_only_the_start_of_same_char_seqs = true,
-    --       limit_ft_matches = 5,
-    --       full_inclusive_prefix_key = '<c-x>'
-    --     }
-    --   end
-    -- }
-    -- use { 'ripxorip/aerojump.nvim', run = ':UpdateRemotePlugins' }
-    -- use {
-    --   'edluffy/specs.nvim',
-    --   config = function()
-    --     require('specs').setup {
-    --       show_jumps = true,
-    --       min_jump = 30,
-    --       popup = {
-    --         delay_ms = 0, -- delay before popup displays
-    --         inc_ms = 10, -- time increments used for fade/resize effects
-    --         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
-    --         width = 10,
-    --         winhl = 'PMenu',
-    --         fader = require('specs').linear_fader,
-    --         resizer = require('specs').shrink_resizer
-    --       },
-    --       ignore_filetypes = {},
-    --       ignore_buftypes = { nofile = true }
-    --     }
-    --   end
-    -- }
 
     -- }}}
 
@@ -181,40 +120,26 @@ return require('packer').startup {
 
     -- General {{{
 
-    -- show preview for :substitute and :normal
-    use 'markonm/traces.vim'
-
     -- move code up and down
     use 'matze/vim-move'
 
-    -- For narrowing regions of text to look at them alone
-    use { 'chrisbra/NrrwRgn', cmd = { 'NarrowRegion', 'NarrowWindow' } }
     use {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
-      end
+      end,
     }
-    use 'suy/vim-context-commentstring'
-    use { 'famiu/nvim-reload' }
+
+    -- smooth scrolling in neovim
     use {
       'karb94/neoscroll.nvim',
       config = function()
         require('neoscroll').setup()
-      end
+      end,
     }
-    use {
-      'jghauser/mkdir.nvim',
-      config = function()
-        require('mkdir')
-      end
-    }
-
-    -- minimal and beautiful buffer switcher
-    use 'matbme/JABS.nvim'
 
     -- delete buffers and windows
-    use 'mhinz/vim-sayonara'
+    use { 'mhinz/vim-sayonara', cmd = { 'Sayonara' } }
 
     -- match brackets and more
     use 'andymass/vim-matchup'
@@ -222,31 +147,14 @@ return require('packer').startup {
     -- Switch between single-line and multiline forms of code
     use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
 
-    -- use 'yamatsum/nvim-cursorline'
-    use {
-      'antoinemadec/FixCursorHold.nvim',
-      run = function()
-        vim.g.curshold_updatime = 1000
-      end
-    }
-
     -- sorting in vim
     use 'christoomey/vim-sort-motion'
     use {
       'numToStr/Navigator.nvim',
       config = function()
         require('Navigator').setup()
-      end
+      end,
     }
-
-    -- tmux runner for tests
-    use 'christoomey/vim-tmux-runner'
-
-    -- successor of incsearch
-    use 'haya14busa/is.vim'
-
-    -- Better search highlighting
-    use 'haya14busa/incsearch.vim'
 
     -- Better Whitespace
     use 'ntpeters/vim-better-whitespace'
@@ -272,15 +180,8 @@ return require('packer').startup {
       'nacro90/numb.nvim',
       config = function()
         require('numb').setup()
-      end
+      end,
     }
-
-    -- }}}
-
-    -- Profiling {{{
-
-    -- Better profiling output for startup.
-    use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
 
     -- }}}
 
@@ -312,7 +213,7 @@ return require('packer').startup {
 
                     done = { enabled = true, icon = '' },
                     pending = { enabled = true, icon = '' },
-                    undone = { enabled = true, icon = '×' }
+                    undone = { enabled = true, icon = '×' },
                   },
                   quote = { enabled = true, icon = '∣' },
                   heading = {
@@ -324,22 +225,22 @@ return require('packer').startup {
 
                     level_3 = { enabled = true, icon = '•' },
 
-                    level_4 = { enabled = true, icon = '◦' }
+                    level_4 = { enabled = true, icon = '◦' },
                   },
-                  list = { enabled = true, icon = '‑' }
+                  list = { enabled = true, icon = '‑' },
                 },
 
-                conceal_cursor = ''
-              }
+                conceal_cursor = '',
+              },
             },
             ['core.norg.dirman'] = { -- Manage your directories with Neorg
               config = {
-                workspaces = { my_workspace = '~/data/Github/Notes/neorg' }
-              }
-            }
-          }
+                workspaces = { my_workspace = '~/data/Github/Notes/neorg' },
+              },
+            },
+          },
         }
-      end
+      end,
     }
 
     if false and vim.fn.executable 'neuron' == 1 then
@@ -353,9 +254,9 @@ return require('packer').startup {
             mappings = true,
             run = nil,
             neuron_dir = '~/data/Github/Notes/neuron',
-            leader = 'gz'
+            leader = 'gz',
           }
-        end
+        end,
       }
     end
     -- use 'michal-h21/vim-zettel'                      " zettel tasks
@@ -426,7 +327,7 @@ return require('packer').startup {
         {
           'tzachar/compe-tabnine',
           run = './install.sh',
-          requires = 'hrsh7th/nvim-compe'
+          requires = 'hrsh7th/nvim-compe',
         },
         { 'kabouzeid/nvim-lspinstall' },
         { 'nvim-lua/lsp-status.nvim' },
@@ -445,11 +346,11 @@ return require('packer').startup {
                 focus_location = 'o',
                 hover_symbol = '<C-space>',
                 rename_symbol = 'r',
-                code_actions = 'a'
+                code_actions = 'a',
               },
-              lsp_blacklist = {}
+              lsp_blacklist = {},
             }
-          end
+          end,
         },
         { 'folke/lsp-colors.nvim' },
         {
@@ -457,7 +358,7 @@ return require('packer').startup {
           requires = 'kyazdani42/nvim-web-devicons',
           config = function()
             require('trouble').setup {}
-          end
+          end,
         },
         { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
         { 'jose-elias-alvarez/null-ls.nvim' },
@@ -478,11 +379,11 @@ return require('packer').startup {
                 focus_location = 'o',
                 hover_symbol = '<C-space>',
                 rename_symbol = 'r',
-                code_actions = 'a'
+                code_actions = 'a',
               },
-              lsp_blacklist = {}
+              lsp_blacklist = {},
             }
-          end
+          end,
         },
         { 'stevearc/aerial.nvim' },
         { 'folke/lua-dev.nvim' },
@@ -491,14 +392,10 @@ return require('packer').startup {
           config = function()
             require('lsp-rooter').setup()
           end,
-          event = 'ColorScheme'
-        }
-      }
+          event = 'ColorScheme',
+        },
+      },
     }
-    use 'bfredl/nvim-luadev'
-
-    -- better lua syntax highlighting
-    use 'euclidianAce/BetterLua.vim'
 
     -- }}}
 
@@ -513,7 +410,7 @@ return require('packer').startup {
         run = hunspell_install_if_needed,
         config = function()
           require('spellsitter').setup { captures = { 'comment' } }
-        end
+        end,
       },
       { 'nvim-treesitter/nvim-treesitter-refactor' },
       { 'nvim-treesitter/nvim-treesitter-textobjects' },
@@ -528,8 +425,8 @@ return require('packer').startup {
           -- keybindings
           lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
           lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
-        end
-      }
+        end,
+      },
     }
 
     -- interactively swap so many things
@@ -575,13 +472,13 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
-        { 'xiyaowong/telescope-emoji.nvim' }
+        { 'xiyaowong/telescope-emoji.nvim' },
         -- { 'nvim-telescope/telescope-github.nvim' },
         -- {
         --   'nvim-telescope/telescope-arecibo.nvim',
         --   rocks = { 'openssl', 'lua-http-parser' }
         -- },
-      }
+      },
     }
 
     -- }}}
@@ -610,12 +507,10 @@ return require('packer').startup {
 
     -- markdown {{{
 
-    use 'davidgranstrom/nvim-markdown-preview'
-
     use {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
-      run = 'cd app && yarn install'
+      run = 'cd app && yarn install',
     }
 
     -- markdown preview
@@ -639,8 +534,8 @@ return require('packer').startup {
         'Cheat',
         'CheatWithouComments',
         'CheatList',
-        'CheatListWithoutComments'
-      }
+        'CheatListWithoutComments',
+      },
     }
 
     -- auto-pairs in lua
@@ -661,6 +556,7 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
+    use 'rhysd/committia.vim'
     use {
       'rhysd/conflict-marker.vim',
       config = function()
@@ -669,14 +565,14 @@ return require('packer').startup {
         -- Include text after begin and end markers
         vim.g.conflict_marker_begin = '^<<<<<<< .*$'
         vim.g.conflict_marker_end = '^>>>>>>> .*$'
-      end
+      end,
     }
 
     use {
       'pwntester/octo.nvim',
       config = function()
         require'octo'.setup()
-      end
+      end,
     }
 
     -- git worktree
@@ -688,7 +584,7 @@ return require('packer').startup {
     -- lazygit from neovim
     use {
       'kdheepak/lazygit.nvim',
-      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' }
+      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' },
     }
 
     -- gitsigns in lua
@@ -698,12 +594,9 @@ return require('packer').startup {
     use {
       'rhysd/git-messenger.vim',
       cmd = { 'GitMessenger' },
-      keys = { '<Plug>(git-messenger)' }
+      keys = { '<Plug>(git-messenger)' },
     }
-    use {
-      'sindrets/diffview.nvim'
-      -- cmd = { 'DiffViewOpen' }
-    }
+    use { 'sindrets/diffview.nvim' }
 
     -- version control
     use 'tpope/vim-fugitive'
@@ -715,7 +608,7 @@ return require('packer').startup {
     -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
     use {
       'hoob3rt/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     }
     use 'akinsho/nvim-bufferline.lua'
 
@@ -730,7 +623,7 @@ return require('packer').startup {
     use {
       'tpope/vim-dispatch',
       opt = true,
-      cmd = { 'Dispatch', 'Make', 'Focus', 'Start' }
+      cmd = { 'Dispatch', 'Make', 'Focus', 'Start' },
     }
     use 'tpope/vim-dotenv'
     use 'tpope/vim-eunuch'
@@ -738,13 +631,14 @@ return require('packer').startup {
     use 'tpope/vim-sleuth'
     use 'tpope/vim-surround'
     use 'tpope/vim-unimpaired'
+    use 'tpope/vim-characterize'
     use {
       'tpope/vim-scriptease',
       cmd = {
         'Messages', -- view messages in quickfix list
         'Verbose', -- view verbose output in preview window.
-        'Time' -- measure how long it takes to run some stuff.
-      }
+        'Time', -- measure how long it takes to run some stuff.
+      },
     }
 
     -- }}}
@@ -757,7 +651,7 @@ return require('packer').startup {
     -- motion training
     use {
       'tjdevries/train.nvim',
-      cmd = { 'TrainUpDown', 'TrainWord', 'TrainTextObj' }
+      cmd = { 'TrainUpDown', 'TrainWord', 'TrainTextObj' },
     }
     use 'tjdevries/complextras.nvim'
 
@@ -775,31 +669,50 @@ return require('packer').startup {
       config = function()
         vim.g.rooter_silent_chdir = 1
         vim.g.rooter_resolve_links = 1
-      end
+      end,
     }
 
     -- Explorer {{{
 
     -- file explorer
+
+    -- ranger for neovim
     use {
-      'kyazdani42/nvim-tree.lua'
-      -- cmd = {
-      --   'NvimTreeToggle',
-      --   'NvimTreeOpen',
-      --   'NvimTreeClose',
-      --   'NvimTreeRefresh',
-      --   'NvimTreeFindFile',
-      --   'NvimTreeFindResize',
-      --   'NvimTreeClipboard'
-      -- }
+      'kevinhwang91/rnvimr',
+      config = function()
+        -- Make Ranger replace Netrw and be the file explorer
+        vim.g.rnvimr_enable_ex = 1
+
+        -- Make Ranger to be hidden after picking a file
+        vim.g.rnvimr_enable_picker = 1
+
+        -- -- Disable a border for floating window
+        -- vim.g.rnvimr_draw_border = 0
+
+        -- Hide the files included in gitignore
+        vim.g.rnvimr_hide_gitignore = 1
+
+        -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
+        vim.g.rnvimr_enable_bw = 1
+
+        -- Add a shadow window, value is equal to 100 will disable shadow
+        vim.g.rnvimr_shadow_winblend = 70
+      end,
     }
+
+    use { 'kyazdani42/nvim-tree.lua' }
 
     -- }}}
 
     -- General {{{
 
     -- for handling swap files
-    use 'gioele/vim-autoswap'
+    use {
+      'gioele/vim-autoswap',
+      config = function()
+        vim.g.autoswap_detect_tmux = 1
+      end,
+    }
 
     -- }}}
 
@@ -809,7 +722,7 @@ return require('packer').startup {
 
     -- Float Terminal
     use {
-      'akinsho/nvim-toggleterm.lua'
+      'akinsho/nvim-toggleterm.lua',
       -- cmd = { 'ToggleTerm', 'ToggleTermCloseAll', 'ToggleTermOpenAll' },
       -- keys = { '<C-t>' }
     }
@@ -819,7 +732,7 @@ return require('packer').startup {
     -- GNVIM {{{
 
     -- Goneovim Fuzzy search
-    use 'akiyosi/gonvim-fuzzy'
+    use { 'akiyosi/gonvim-fuzzy', disable = true }
 
     -- }}}
 
@@ -834,8 +747,8 @@ return require('packer').startup {
         'OpenGithubProject',
         'OpenGithubPullReq',
         'OpenGithubCommit',
-        'OpenGithubIssue'
-      }
+        'OpenGithubIssue',
+      },
     }
     use { 'tyru/open-browser.vim' }
 
@@ -849,5 +762,5 @@ return require('packer').startup {
 
     -- }}}
   end,
-  config = { display = { open_cmd = 'topleft 65vnew [packer]' } }
+  config = { display = { open_cmd = 'topleft 65vnew [packer]' } },
 }

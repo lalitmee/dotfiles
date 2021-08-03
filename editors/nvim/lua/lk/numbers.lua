@@ -51,7 +51,7 @@ local function is_blocked()
   return false
 end
 
-function M.enable_relative_number()
+function M.disable_relative_number()
   if is_floating_win() then
     return
   end
@@ -99,7 +99,7 @@ vim.g.number_filetype_exclusions = {
   'help',
   'todoist',
   'lsputil_locations_list',
-  'lsputil_symbols_list'
+  'lsputil_symbols_list',
 }
 
 vim.g.number_buftype_exclusions = {
@@ -107,49 +107,31 @@ vim.g.number_buftype_exclusions = {
   'quickfix',
   'help',
   'nofile',
-  'acwrite'
+  'acwrite',
 }
 
-autocommands.create(
+autocommands.create({
+  ToggleRelativeLineNumbers = {
+    { 'BufEnter', '*', [[lua require("lk.numbers").disable_relative_number()]] },
+    { 'BufLeave', '*', [[lua require("lk.numbers").disable_relative_number()]] },
+    { 'FileType', '*', [[lua require("lk.numbers").disable_relative_number()]] },
     {
-      ToggleRelativeLineNumbers = {
-        {
-          'BufEnter',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        },
-        {
-          'BufLeave',
-          '*',
-          [[lua require("lk.numbers").disable_relative_number()]]
-        },
-        {
-          'FileType',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        },
-        {
-          'FocusGained',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        },
-        {
-          'FocusLost',
-          '*',
-          [[lua require("lk.numbers").disable_relative_number()]]
-        },
-        {
-          'InsertEnter',
-          '*',
-          [[lua require("lk.numbers").disable_relative_number()]]
-        },
-        {
-          'InsertLeave',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        }
-      }
-    }
-)
+      'FocusGained',
+      '*',
+      [[lua require("lk.numbers").disable_relative_number()]],
+    },
+    { 'FocusLost', '*', [[lua require("lk.numbers").disable_relative_number()]] },
+    {
+      'InsertEnter',
+      '*',
+      [[lua require("lk.numbers").disable_relative_number()]],
+    },
+    {
+      'InsertLeave',
+      '*',
+      [[lua require("lk.numbers").disable_relative_number()]],
+    },
+  },
+})
 
 return M

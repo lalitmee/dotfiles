@@ -20,15 +20,11 @@
     "yaml"
   ],
 
-  // autoformat
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
-  // eslint
   "eslint.autoFixOnSave": false,
   "eslint.format.enable": true,
 
-  // suggestions
-  // "suggest.echodocSupport": true,
   "suggest.enablePreview": true,
   "suggest.labelMaxLength": 50,
   "suggest.removeDuplicateItems": true,
@@ -66,7 +62,6 @@
   "coc.source.around.priority": 3,
   "coc.source.buffer.priority": 4,
 
-  // diagnostics
   "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
   "diagnostic.infoSign": " ",
@@ -80,14 +75,9 @@
   "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
 
-  // codelens TODO what does this get me?
-  // "codeLens.enable": true,
-
-  // list
   "list.indicator": ">",
   "list.selectedSignText": " ",
   "list.height": 30,
-  // "list.source.files.command": "rg",
   "list.source.files.args": ["--hidden", "--files"],
   "list.source.files.excludePatterns": [
     "**/.git/*",
@@ -96,7 +86,6 @@
   ],
   "list.source.grep.excludePatterns": ["**/.git/*", "/tmp/*"],
 
-  // python config
   "python.analysis.autoImportCompletions": true,
   "python.analysis.autoSearchPaths": true,
   "python.analysis.diagnosticMode": "openFilesOnly",
@@ -124,10 +113,8 @@
   "python.linting.pylamaEnabled": false,
   "python.linting.pylintEnabled": false,
 
-  // snippets
   "snippets.userSnippetsDirectory": "~/.config/nvim/UltiSnips",
 
-  // emmet
   "emmet.includeLanguages": {
     "javascript": "javascript",
     "javascriptreact": "javascriptreact",
@@ -135,12 +122,10 @@
     "css": "css"
   },
 
-  // Prettier Settings
   "prettier.singleQuote": true,
   "prettier.arrowParens": "avoid",
   "prettier.trailingComma": "all",
 
-  // Lua language server settings
   "lua.enable": true,
   "Lua.hint.enable": true,
   "Lua.diagnostics.globals": [
@@ -156,6 +141,7 @@
   ],
   "Lua.workspace.preloadFileSize": 1000,
 
-  // sessions
-  "session.directory": "~/.local/share/nvim/sessions"
+  "session.directory": "~/.local/share/nvim/sessions",
+
+  "smartf.timeout": 2000
 }

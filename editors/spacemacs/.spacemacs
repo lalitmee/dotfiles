@@ -161,7 +161,6 @@ values."
                                       helm-fuzzy-find
                                       htmlize
                                       indium
-                                      iy-go-to-char
                                       multiple-cursors
                                       ox-reveal
                                       swiper
@@ -241,15 +240,13 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          doom-gruvbox
-                         doom-shades-of-purple
                          doom-nord
                          doom-dark+
                          doom-molokai
                          doom-oceanic-next
                          doom-one
                          doom-palenight
-                         spacemacs-dark
-                         )
+                         spacemacs-dark)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -555,7 +552,7 @@ you should place your code here."
     (setq doom-themes-enable-bold t
           doom-themes-enable-italic t))
 
-  (spacemacs/load-theme 'doom-gruvbox)
+  (spacemacs/load-theme 'doom-shades-of-purple)
 
   ;; doom-modeline configurations
   (setq doom-modeline-vcs-max-length 40)
@@ -590,12 +587,6 @@ you should place your code here."
 
   ;; mappings of evil-go-to-char
   (spacemacs/set-leader-keys "jj" 'evil-avy-goto-char-timer)
-
-  ;; iy-go-to-char
-  (global-set-key (kbd "C-c f") 'iy-go-to-char)
-  (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
-  (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
-  (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
 
   ;; keybinding for fuzzy finding files by fzf
   (spacemacs/set-leader-keys "ff" 'fzf-git-files)
