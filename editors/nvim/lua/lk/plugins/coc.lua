@@ -8,7 +8,7 @@ function _G.__coc_apply_highlights()
     { 'CocHintHighlight', { guisp = '#15aabf', gui = 'undercurl' } },
     { 'CocOutlineIndentLine', { link = 'LineNr' } },
     -- By default this links to CocHintSign but that keeps getting cleared mysteriously
-    { 'CocRustChainingHint', { guifg = '#15aabf' } }
+    { 'CocRustChainingHint', { guifg = '#15aabf' } },
   }
 end
 
@@ -69,7 +69,7 @@ vim.g.coc_global_extensions = {
   'coc-xml',
   'coc-yaml',
   'coc-yank',
-  'coc-zi'
+  'coc-zi',
 }
 
 -- }}}
@@ -203,6 +203,20 @@ map('n', '<leader>cg',
     [[:exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>]],
     { silent = true })
 
+-- smartf settings
+-- -- press <esc> to cancel.
+-- lk_utils.nmap('f', [[<Plug>(coc-smartf-forward)]])
+-- lk_utils.nmap('F', [[<Plug>(coc-smartf-backward)]])
+-- lk_utils.nmap(';', [[<Plug>(coc-smartf-repeat)]])
+-- lk_utils.nmap(',', [[<Plug>(coc-smartf-repeat-opposite)]])
+
+-- vim.api.nvim_exec([[
+--     augroup Smartf
+--       autocmd User SmartfEnter :hi Conceal ctermfg=220 guibg=black guifg=yellow
+--       autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=black
+--     augroup end
+-- ]], false)
+
 -- }}}
 
 -- Coc Autocommands {{{
@@ -222,9 +236,9 @@ require('lk.autocommands').create({
     {
       'FileType',
       'typescript,json',
-      'setl formatexpr=CocAction(\'formatSelected\')'
-    }
-  }
+      'setl formatexpr=CocAction(\'formatSelected\')',
+    },
+  },
 })
 
 -- }}}
@@ -244,7 +258,7 @@ command { 'Fold', [[:call CocAction('fold')]], nargs = 0 }
 command {
   'OR',
   [[:call CocAction('runCommand', 'editor.action.organizeImport')]],
-  nargs = 0
+  nargs = 0,
 }
 vim.cmd 'set tagfunc=CocTagFunc'
 -- }}}

@@ -32,7 +32,7 @@ require('lualine').setup {
   options = {
     theme = 'vscode',
     section_separators = { '', '' },
-    component_separators = { '', '' }
+    component_separators = { '', '' },
   },
   sections = {
     lualine_a = { { 'mode', upper = true } },
@@ -45,7 +45,7 @@ require('lualine').setup {
         symbols = { added = ' ', modified = ' ', removed = ' ' },
         color_added = '#F5ED0F',
         color_modified = '#7DE89A',
-        color_removed = '#E06C75'
+        color_removed = '#E06C75',
       },
       {
         'diagnostics',
@@ -54,21 +54,21 @@ require('lualine').setup {
           error = ' :',
           warn = ' :',
           info = ' :',
-          hint = '💡'
+          hint = '💡',
         },
         color_error = '#E06C75',
         color_warn = '#FF922B',
         color_info = '#15AABF',
-        color_hint = '#fab005'
+        color_hint = '#fab005',
       },
       -- { 'os.data(\'%a\')', 'data', require'lsp-status'.status },
       { 'g:coc_status' },
-      { 'TreesitterStatus' },
-      { 'b:toggle_number' }
+      -- { 'TreesitterStatus' },
+      { 'b:toggle_number' },
     },
     lualine_x = { 'filetype', buf_spaces },
     lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    lualine_z = { 'location' },
   },
   inactive_sections = {
     lualine_a = {},
@@ -76,7 +76,7 @@ require('lualine').setup {
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = { 'filetype', buf_spaces },
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {},
   },
-  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' }
+  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' },
 }

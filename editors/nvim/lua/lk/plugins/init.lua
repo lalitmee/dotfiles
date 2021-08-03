@@ -55,16 +55,14 @@ require('lk/plugins/tagalong')
 
 -- NOTE: search
 require('lk/plugins/fnr')
-require('lk/plugins/hlslens')
 require('lk/plugins/hop')
-require('lk/plugins/incsearch')
 require('lk/plugins/quick-scope')
+require('lk/plugins/hlslens')
 
 -- NOTE: syntax
 require('lk/plugins/treesitter')
 
 -- NOTE: git
-require('lk/plugins/fist')
 require('lk/plugins/fugitive')
 require('lk/plugins/git-blame')
 require('lk/plugins/git-messenger')

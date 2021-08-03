@@ -29,20 +29,21 @@ require('telescope').setup {
 
     mappings = {
       i = {
+        ['<C-a>'] = actions.cycle_previewers_prev,
         ['<C-e>'] = actions.move_to_bottom,
-        ['<C-n>'] = actions.move_selection_next,
-        ['<C-p>'] = actions.move_selection_previous,
         ['<C-j>'] = actions.move_selection_next,
         ['<C-k>'] = actions.move_selection_previous,
-        ['<C-y>'] = actions.move_to_top,
+        ['<C-n>'] = actions.move_selection_next,
+        ['<C-p>'] = actions.move_selection_previous,
         ['<C-s>'] = actions.cycle_previewers_next,
-        ['<C-a>'] = actions.cycle_previewers_prev,
-        ['<esc>'] = actions.close
-      }
+        ['<C-y>'] = actions.move_to_top,
+        ['<C-o>'] = actions.send_selected_to_qflist,
+        ['<esc>'] = actions.close,
+      },
     },
     borderchars = {
       { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
     },
     file_ignore_patterns = {
       '.backup',
@@ -57,7 +58,7 @@ require('telescope').setup {
       '.vscode-server',
       '.Desktop',
       '.Documents',
-      'classes'
+      'classes',
     },
 
     layout_config = {
@@ -68,20 +69,20 @@ require('telescope').setup {
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56
+        preview_width = 0.56,
       },
 
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5
+        preview_height = 0.5,
       },
 
-      flex = { horizontal = { preview_width = 0.9 } }
+      flex = { horizontal = { preview_width = 0.9 } },
     },
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
-    qflist_previewer = previewers.vim_buffer_qflist.new
+    qflist_previewer = previewers.vim_buffer_qflist.new,
   },
   extensions = {
     fzy_native = { override_generic_sorter = false, override_file_sorter = true },
@@ -94,8 +95,8 @@ require('telescope').setup {
         ['work'] = '/home/lalitmee/data/koinearth',
         ['git'] = '/home/lalitmee/data/Github',
         ['conf'] = '/home/lalitmee/.config',
-        ['data'] = '/home/lalitmee/.local/share'
-      }
+        ['data'] = '/home/lalitmee/.local/share',
+      },
     },
     openbrowser = {
       bookmarks = {
@@ -134,8 +135,8 @@ require('telescope').setup {
         ['rust_doc_std'] = 'https://doc.rust-lang.org/std/index.html?search={query}',
         ['utf8_icons'] = 'https://www.utf8icons.com/search?query={query}',
         ['vim_commits'] = 'https://github.com/vim/vim/search?q={query}&type=commits',
-        ['vimawesome'] = 'https://vimawesome.com/?q={query}'
-      }
+        ['vimawesome'] = 'https://vimawesome.com/?q={query}',
+      },
     },
     -- arecibo = {
     --   ['selected_engine'] = 'google',
@@ -147,13 +148,13 @@ require('telescope').setup {
       -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
       selected_browser = 'brave',
       url_open_command = 'xdg-open',
-      firefox_profile_name = nil
+      firefox_profile_name = nil,
     },
     project = {
       base_dirs = { '~/data/Github', '~/data/koinearth' },
-      max_depth = 3
-    }
-  }
+      max_depth = 3,
+    },
+  },
 }
 
 ---------------------------------------------------------------------------------
@@ -171,6 +172,9 @@ require('telescope').setup {
 
 -- packer integration with telescope
 -- require('telescope').load_extension('packer')
+
+-- -- project management in telescope
+-- require('telescope').load_extension('project')
 
 -- browser bookmarks
 require('telescope').load_extension('bookmarks')
@@ -205,17 +209,11 @@ require('telescope').load_extension('lsp_handlers')
 -- open browser
 require('telescope').load_extension('openbrowser')
 
--- project management in telescope
-require('telescope').load_extension('project')
-
 -- snippets from norcalli
 require('telescope').load_extension('snippets')
 
 -- ultisnips
 require('telescope').load_extension('ultisnips')
-
--- zoxide integration
-require('telescope').load_extension('zoxide')
 
 -- emoji search
 require('telescope').load_extension('emoji')
@@ -236,14 +234,14 @@ function M.edit_neovim()
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56
+        preview_width = 0.56,
       },
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5
-      }
-    }
+        preview_height = 0.5,
+      },
+    },
   }
 end
 
@@ -258,20 +256,20 @@ function M.edit_dotfiles()
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56
+        preview_width = 0.56,
       },
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5
-      }
-    }
+        preview_height = 0.5,
+      },
+    },
   }
 end
 
 function M.installed_plugins()
   builtin.find_files {
-    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
+    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/',
   }
 end
 
@@ -279,7 +277,7 @@ function M.curbuf()
   local opts = themes.get_dropdown {
     winblend = 0,
     border = true,
-    previewer = false
+    previewer = false,
   }
   builtin.current_buffer_fuzzy_find(opts)
 end
@@ -291,7 +289,7 @@ end
 function M.search_all_files()
   builtin.find_files {
     find_command = { 'rg', '--no-ignore', '--hidden', '--files' },
-    hidden = true
+    hidden = true,
   }
 end
 
@@ -337,7 +335,7 @@ local function image_selector(prompt, cwd)
             -- Please continue mapping (attaching additional key maps):
             -- Ctrl+n/p to move up and down the list.
             return true
-          end
+          end,
         })
   end
 end
@@ -354,5 +352,5 @@ return setmetatable({}, {
     else
       return builtin[k]
     end
-  end
+  end,
 })

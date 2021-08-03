@@ -1,6 +1,18 @@
 -- NOTE: gruvbuddy
 require('lk/colorscheme/gruvbuddy')
 
+-- -- NOTE: vscode
+-- require('lk/colorscheme/vscode')
+
+-- -- NOTE: material
+-- require('lk/colorscheme/material')
+
+-- -- NOTE: gruvqueen
+-- require('lk/colorscheme/gruvqueen')
+
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
+
 -- -- NOTE: nvcode
 -- require('lk/colorscheme/nvcode')
 
@@ -9,15 +21,6 @@ require('lk/colorscheme/gruvbuddy')
 
 -- -- NOTE: moonlight
 -- require('lk/colorscheme/moonlight')
-
--- -- NOTE: material
--- require('lk/colorscheme/material')
-
--- -- NOTE: vscode
--- require('lk/colorscheme/vscode')
-
--- -- NOTE: tokyonight
--- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: gruvbox
 -- require('lk/colorscheme/gruvbox')
