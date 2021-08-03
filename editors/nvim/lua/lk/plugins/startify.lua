@@ -5,11 +5,11 @@ vim.g.startify_lists = {
     ['type'] = 'dir',
     header = {
       '   ⏲️ Recently opened in ' ..
-          vim.fn.fnamemodify(vim.fn.getcwd(), '=t')
-    }
+          vim.fn.fnamemodify(vim.fn.getcwd(), '=t'),
+    },
   },
   { ['type'] = 'bookmarks', header = { '   🔖 Bookmarks' } },
-  { ['type'] = 'commands', header = { '   🧰 Commands' } }
+  { ['type'] = 'commands', header = { '   🧰 Commands' } },
 }
 
 vim.g.startify_session_dir = '~/.local/share/nvim/sessions'
@@ -22,11 +22,12 @@ vim.g.startify_session_persistence = 1
 vim.g.startify_update_oldfiles = 1
 vim.g.webdevicons_enable_startify = 1
 vim.g.startify_session_sort = 1
+vim.g.startify_session_number = 20
 vim.g.startify_bookmarks = {
   { be = '~/.config/bat/config' },
   { ge = '~/.goneovim/setting.toml' },
   { ne = '~/.config/nvim/init.lua' },
-  { ze = '~/.zshrc' }
+  { ze = '~/.zshrc' },
 }
 
 local plugins_count = lk_utils.total_plugins()
@@ -36,8 +37,10 @@ vim.g.startify_custom_header =
     'startify#pad(startify#fortune#boxed() + g:header_suffix)'
 
 vim.g.startify_commands = {
+  { c = { 'Packer Compile', ':PackerCompile' } },
+  { d = { 'Packer Clean', ':PackerClean' } },
   { h = { 'Help', ':help' } },
-  { u = { 'Packer Update', ':PackerUpdate' } }
+  { u = { 'Packer Update', ':PackerUpdate' } },
 }
 
 function _G.webDevIcons(path)

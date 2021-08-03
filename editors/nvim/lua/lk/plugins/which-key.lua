@@ -1246,6 +1246,19 @@ local local_leader_key_maps = {
     ['v'] = 'visual-selection',
     ['t'] = { ':TSPlaygroundToggle<CR>', 'playground' },
   },
+  ['v'] = {
+    ['name'] = '+vim',
+    ['a'] = { ':Telescope autocommands<CR>', 'autocommands' },
+    ['c'] = { ':Telescope commands<CR>', 'commands' },
+    ['C'] = { ':Telescope command_history<CR>', 'commands-history' },
+    ['h'] = { ':Telescope help_tags<CR>', 'help-tags' },
+    ['H'] = { ':Telescope highlights<CR>', 'highlights' },
+    ['m'] = { ':Telescope keymaps<CR>', 'keymaps' },
+    ['M'] = { ':Telescope marks<CR>', 'marks' },
+    ['o'] = { ':Telescope vim_options<CR>', 'vim-options' },
+    ['r'] = { ':Telescope registers<CR>', 'vim-registers' },
+    ['s'] = { ':Telescope colorscheme<CR>', 'colorschemes' },
+  },
 }
 
 local local_leader_plug_keymaps = {
