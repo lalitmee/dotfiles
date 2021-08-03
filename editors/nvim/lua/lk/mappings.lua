@@ -9,7 +9,7 @@ map('n', 'Y', [[y$]], map_opts)
 -- keeping it centered
 map('n', 'n', [[nzzzv]], map_opts)
 map('n', 'N', [[Nzzzv]], map_opts)
-map('n', 'J', [[mzJ`z]], map_opts)
+map('n', 'J', [[mzJ`zmz]], map_opts)
 
 -- undo breakpoints
 map('i', ',', [[,<c-g>u]], map_opts)
@@ -112,7 +112,7 @@ map('n', 'cp', [[<Plug>TransposeCharacters]])
 -- }}}
 
 -- incsearch
-map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<CR>]], opts)
+-- map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<CR>]], opts)
 
 -- NOTE: folds mappings
 -- if there is a fold under cursor open it by pressing <CR> otherwise do
