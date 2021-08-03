@@ -23,8 +23,6 @@ local leader_key_maps = {
   ['a'] = {
     ['name'] = '+actions',
     ['a'] = { ':Cheatsheet<CR>', 'cheatsheet' },
-    ['c'] = { ':ColorizerToggle<CR>', 'colorizer' },
-    ['e'] = { ':NvimTreeToggle<CR>', 'nvim-tree-exlporer' },
     ['f'] = { ':NvimTreeFindFile<CR>', 'nvim-tree-find-file' },
     ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
     ['l'] = { ':Bracey<CR>', 'start-live-server' },
@@ -33,7 +31,6 @@ local leader_key_maps = {
     ['M'] = { ':MarkdownPreviewStop<CR>', 'markdown-preview-stop' },
     ['p'] = { ':PlugHelp<CR>', 'plug-help' },
     ['r'] = { ':NvimTreeRefresh<CR>', 'nvim-tree-refresh' },
-    ['t'] = { ':FloatermToggle<CR>', 'terminal' },
     ['w'] = { ':StripWhitespace<CR>', 'strip-whitespace' },
     ['z'] = { ':Goyo<CR>', 'goyo' },
   },
@@ -989,16 +986,19 @@ local leader_key_maps = {
     ['S'] = { ':Startify<CR>', 'start-page' },
   },
 
-  -- NOTE: t is for tabs/toggles/terminal
+  -- NOTE: t is for toggle
   ['t'] = {
     ['name'] = '+tabs/terminal/toggle',
     ['c'] = {
-      ['name'] = '+colorscheme',
+      ['name'] = '+colors',
+      ['c'] = { ':ColorizerToggle<CR>', 'colorizer' },
+      ['l'] = { ':Twilight<CR>', 'twilight' },
       ['t'] = {
         ':lua require("material.functions").toggle_style()<CR>',
         'toggle-material-style',
       },
     },
+    ['e'] = { ':NvimTreeToggle<CR>', 'nvim-tree-exlporer' },
     ['f'] = {
       ['name'] = '+floaterm',
       ['G'] = { ':lua Tig()<CR>', 'tig' },

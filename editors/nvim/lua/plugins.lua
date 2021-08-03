@@ -51,6 +51,14 @@ return require('packer').startup {
     -- gruvbuddy using colorbuddy
     use 'tjdevries/gruvbuddy.nvim'
 
+    -- dim the section of the code in which you are in
+    use {
+      'folke/twilight.nvim',
+      config = function()
+        require('twilight').setup {}
+      end,
+    }
+
     -- }}}
 
     -- icons {{{
@@ -94,7 +102,7 @@ return require('packer').startup {
     use 'kevinhwang91/nvim-bqf'
 
     -- display search matches
-    use 'henrik/vim-indexed-search'
+    use { 'kevinhwang91/nvim-hlslens' }
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
@@ -499,8 +507,6 @@ return require('packer').startup {
 
     -- markdown {{{
 
-    use 'davidgranstrom/nvim-markdown-preview'
-
     use {
       'iamcco/markdown-preview.nvim',
       ft = 'markdown',
@@ -590,10 +596,7 @@ return require('packer').startup {
       cmd = { 'GitMessenger' },
       keys = { '<Plug>(git-messenger)' },
     }
-    use {
-      'sindrets/diffview.nvim',
-      -- cmd = { 'DiffViewOpen' }
-    }
+    use { 'sindrets/diffview.nvim' }
 
     -- version control
     use 'tpope/vim-fugitive'
@@ -697,25 +700,19 @@ return require('packer').startup {
       end,
     }
 
-    use {
-      'kyazdani42/nvim-tree.lua',
-      -- cmd = {
-      --   'NvimTreeToggle',
-      --   'NvimTreeOpen',
-      --   'NvimTreeClose',
-      --   'NvimTreeRefresh',
-      --   'NvimTreeFindFile',
-      --   'NvimTreeFindResize',
-      --   'NvimTreeClipboard'
-      -- }
-    }
+    use { 'kyazdani42/nvim-tree.lua' }
 
     -- }}}
 
     -- General {{{
 
     -- for handling swap files
-    use 'gioele/vim-autoswap'
+    use {
+      'gioele/vim-autoswap',
+      config = function()
+        vim.g.autoswap_detect_tmux = 1
+      end,
+    }
 
     -- }}}
 
@@ -735,7 +732,7 @@ return require('packer').startup {
     -- GNVIM {{{
 
     -- Goneovim Fuzzy search
-    use 'akiyosi/gonvim-fuzzy'
+    use { 'akiyosi/gonvim-fuzzy', disable = true }
 
     -- }}}
 

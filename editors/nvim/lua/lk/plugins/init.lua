@@ -57,6 +57,7 @@ require('lk/plugins/tagalong')
 require('lk/plugins/fnr')
 require('lk/plugins/hop')
 require('lk/plugins/quick-scope')
+require('lk/plugins/hlslens')
 
 -- NOTE: syntax
 require('lk/plugins/treesitter')
