@@ -37,7 +37,7 @@ require('telescope').setup {
         ['<C-p>'] = actions.move_selection_previous,
         ['<C-s>'] = actions.cycle_previewers_next,
         ['<C-y>'] = actions.move_to_top,
-        ['<C-o>'] = actions.send_selected_to_qflist,
+        ['<C-o>'] = actions.send_selected_to_qflist + actions.open_qflist,
         ['<esc>'] = actions.close,
       },
     },
@@ -85,7 +85,6 @@ require('telescope').setup {
     qflist_previewer = previewers.vim_buffer_qflist.new,
   },
   extensions = {
-    fzy_native = { override_generic_sorter = false, override_file_sorter = true },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
@@ -164,14 +163,11 @@ require('telescope').setup {
 -- search internet
 -- require('telescope').load_extension('arecibo')
 
--- FZY style sorter that is compiled
--- require('telescope').load_extension('fzy_native')
-
--- github cli from telescope
--- require('telescope').load_extension('gh')
-
 -- packer integration with telescope
 -- require('telescope').load_extension('packer')
+
+-- -- github cli from telescope
+-- require('telescope').load_extension('gh')
 
 -- project management in telescope
 require('telescope').load_extension('project')
