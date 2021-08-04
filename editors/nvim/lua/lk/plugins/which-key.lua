@@ -466,11 +466,14 @@ local leader_key_maps = {
   -- NOTE: j is for jumping
   ['j'] = {
     ['name'] = '+jumping',
-    ['l'] = { ':HopLine<CR>', 'hop-line' },
-    ['p'] = { ':HopPattern<CR>', 'hop-pattern' },
-    ['w'] = { ':HopWord<CR>', 'hop-word' },
     ['c'] = { ':HopChar1<CR>', 'hop-char-1' },
     ['d'] = { ':HopChar2<CR>', 'hop-char-2' },
+    ['h'] = { ':AnyJumpLastResults<CR>', 'anyjump-last-results' },
+    ['l'] = { ':HopLine<CR>', 'hop-line' },
+    ['p'] = { ':HopPattern<CR>', 'hop-pattern' },
+    ['s'] = { ':AnyJump<CR>', 'anyjump' },
+    ['S'] = { ':AnyJumpBack<CR>', 'anyjump-back' },
+    ['w'] = { ':HopWord<CR>', 'hop-word' },
   },
 
   -- NOTE: l is for lsp with lspconfig
@@ -676,6 +679,7 @@ local leader_key_maps = {
     ['i'] = { ':PackerInstall<CR>', 'packer-install' },
     ['l'] = 'source-current',
     ['p'] = 'tj-installed-plugins',
+    ['P'] = { ':PackerProfile<CR>', 'packer-profile' },
     ['r'] = { ':luafile $HOME/.config/nvim/init.lua<CR>', 'source-config' },
     ['s'] = { ':PackerSync<CR>', 'packer-sync' },
     ['S'] = { ':PackerStatus<CR>', 'packages-status' },

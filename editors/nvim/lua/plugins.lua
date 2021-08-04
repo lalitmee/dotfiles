@@ -196,10 +196,15 @@ return require('packer').startup {
 
     -- TEXT {{{
 
+    -- jump to any definition or references
+    use 'pechorin/any-jump.vim'
+
     -- Notes {{{
 
+    -- NOTE: not using this because it has 3 seconds loading time
     use {
       'vhyrro/neorg',
+      disable = true,
       config = function()
         require('neorg').setup {
           -- Tell Neorg what modules to load
@@ -568,11 +573,13 @@ return require('packer').startup {
       end,
     }
 
+    -- NOTE: not using this because this has a 13 seconds loading time
     use {
       'pwntester/octo.nvim',
       config = function()
         require'octo'.setup()
       end,
+      disable = true,
     }
 
     -- git worktree
@@ -732,6 +739,7 @@ return require('packer').startup {
     -- GNVIM {{{
 
     -- Goneovim Fuzzy search
+    -- NOTE: not using this because we have neovide instead of goneovim
     use { 'akiyosi/gonvim-fuzzy', disable = true }
 
     -- }}}
@@ -762,5 +770,15 @@ return require('packer').startup {
 
     -- }}}
   end,
-  config = { display = { open_cmd = 'topleft 65vnew [packer]' } },
+  config = {
+    display = {
+      open_fn = function()
+        return require('packer.util').float({ border = 'single' })
+      end,
+    },
+    profile = {
+      enable = true,
+      threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+    },
+  },
 }
