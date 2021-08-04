@@ -173,8 +173,8 @@ require('telescope').setup {
 -- packer integration with telescope
 -- require('telescope').load_extension('packer')
 
--- -- project management in telescope
--- require('telescope').load_extension('project')
+-- project management in telescope
+require('telescope').load_extension('project')
 
 -- browser bookmarks
 require('telescope').load_extension('bookmarks')
