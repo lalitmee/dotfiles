@@ -470,7 +470,6 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-fzf-writer.nvim' },
-        { 'nvim-telescope/telescope-fzy-native.nvim' },
         { 'nvim-telescope/telescope-github.nvim' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'nvim-telescope/telescope-snippets.nvim' },
@@ -478,7 +477,6 @@ return require('packer').startup {
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        -- { 'nvim-telescope/telescope-github.nvim' },
         -- {
         --   'nvim-telescope/telescope-arecibo.nvim',
         --   rocks = { 'openssl', 'lua-http-parser' }
@@ -545,15 +543,6 @@ return require('packer').startup {
 
     -- auto-pairs in lua
     use 'windwp/nvim-autopairs'
-    -- use {
-    --   'sudormrfbin/cheatsheet.nvim',
-    --   requires = {
-    --     { 'nvim-telescope/telescope.nvim' },
-    --     { 'nvim-lua/popup.nvim' },
-    --     { 'nvim-lua/plenary.nvim' }
-    --   },
-    --   cmd = { 'CheatSheet', 'CheatSheedEdit' }
-    -- }
 
     -- }}}
 
