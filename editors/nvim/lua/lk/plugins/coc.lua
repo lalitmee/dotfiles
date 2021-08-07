@@ -45,7 +45,7 @@ vim.g.coc_global_extensions = {
   'coc-lines',
   'coc-lists',
   'coc-lit-html',
-  'coc-lua',
+  'coc-sumneko-lua',
   'coc-markdownlint',
   'coc-marketplace',
   'coc-pairs',

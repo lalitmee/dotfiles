@@ -24,6 +24,7 @@ require('telescope').setup {
     sorting_strategy = 'ascending',
     scroll_strategy = 'cycle',
     color_devicons = true,
+    dynamic_preview_title = true,
 
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
 
@@ -78,11 +79,25 @@ require('telescope').setup {
         preview_height = 0.5,
       },
 
-      flex = { horizontal = { preview_width = 0.9 } },
+      flex = { horizontal = { preview_width = 0.8 } },
     },
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new,
+
+  },
+  pickers = {
+    find_files = { theme = 'ivy' },
+    buffers = {
+      sort_mru = true,
+      sort_lastused = true,
+      show_all_buffers = true,
+      ignore_current_buffer = true,
+      mappings = {
+        i = { ['<c-x>'] = actions.delete_buffer },
+        n = { ['<c-x>'] = actions.delete_buffer },
+      },
+    },
   },
   extensions = {
     frecency = {
@@ -143,12 +158,6 @@ require('telescope').setup {
     --   ['show_http_headers'] = false,
     --   ['show_domain_icons'] = false
     -- },
-    bookmarks = {
-      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
-      selected_browser = 'brave',
-      url_open_command = 'xdg-open',
-      firefox_profile_name = nil,
-    },
     project = {
       base_dirs = { '~/data/Github', '~/data/koinearth' },
       max_depth = 3,
@@ -172,9 +181,6 @@ require('telescope').setup {
 -- project management in telescope
 require('telescope').load_extension('project')
 
--- browser bookmarks
-require('telescope').load_extension('bookmarks')
-
 -- cheat sheets
 require('telescope').load_extension('cheat')
 
@@ -187,8 +193,8 @@ require('telescope').load_extension('dotfiles')
 -- recent files or history or files visited
 require('telescope').load_extension('frecency')
 
--- FZF sorter for telescope written in c
-require('telescope').load_extension('fzf')
+-- -- FZF sorter for telescope written in c
+-- require('telescope').load_extension('fzf')
 
 -- git worktree
 require('telescope').load_extension('git_worktree')
@@ -204,9 +210,6 @@ require('telescope').load_extension('lsp_handlers')
 
 -- open browser
 require('telescope').load_extension('openbrowser')
-
--- snippets from norcalli
-require('telescope').load_extension('snippets')
 
 -- ultisnips
 require('telescope').load_extension('ultisnips')
@@ -280,6 +283,21 @@ end
 
 function M.help_tags()
   builtin.help_tags { show_version = true }
+end
+
+function M.find_files()
+  builtin.find_files {
+    hidden = true,
+    selection_strategy = 'reset',
+    sorting_strategy = 'descending',
+    scroll_strategy = 'cycle',
+    color_devicons = true,
+  }
+end
+
+function M.fd()
+  local opts = themes.get_ivy { hidden = true }
+  require('telescope.builtin').fd(opts)
 end
 
 function M.search_all_files()

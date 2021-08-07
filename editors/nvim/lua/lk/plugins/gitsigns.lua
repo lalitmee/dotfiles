@@ -1,3 +1,8 @@
+local ok, signs = pcall(require, 'gitsigns')
+if not ok then
+  return
+end
+
 require('colorbuddy')
 
 local c = require('colorbuddy.color').colors
@@ -11,34 +16,34 @@ require('gitsigns').setup {
   signs = {
     add = {
       hl = 'GitSignsAdd',
-      text = '▌',
+      text = '│',
       numhl = 'GitSignsAddNr',
-      linehl = 'GitSignsAddLn'
+      linehl = 'GitSignsAddLn',
     },
     change = {
       hl = 'GitSignsChange',
-      text = '▌',
+      text = '│',
       numhl = 'GitSignsChangeNr',
-      linehl = 'GitSignsChangeLn'
+      linehl = 'GitSignsChangeLn',
     },
     delete = {
       hl = 'GitSignsDelete',
-      text = '▌',
+      text = '_',
       numhl = 'GitSignsDeleteNr',
-      linehl = 'GitSignsDeleteLn'
+      linehl = 'GitSignsDeleteLn',
     },
     topdelete = {
       hl = 'GitSignsDelete',
-      text = '▌',
+      text = '‾',
       numhl = 'GitSignsDeleteNr',
-      linehl = 'GitSignsDeleteLn'
+      linehl = 'GitSignsDeleteLn',
     },
     changedelete = {
       hl = 'GitSignsChange',
-      text = '▌',
+      text = '~',
       numhl = 'GitSignsChangeNr',
-      linehl = 'GitSignsChangeLn'
-    }
+      linehl = 'GitSignsChangeLn',
+    },
   },
   numhl = false,
   linehl = false,
@@ -46,22 +51,21 @@ require('gitsigns').setup {
   sign_priority = 6,
   update_debounce = 200,
   status_formatter = nil,
-  use_decoration_api = false,
   keymaps = {
     noremap = true,
     buffer = true,
     ['n <leader>ghn'] = {
       expr = true,
-      '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''
+      '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\'',
     },
     ['n <leader>ghp'] = {
       expr = true,
-      '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''
+      '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\'',
     },
     ['n <leader>ghs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['n <leader>ghu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ['n <leader>ghr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
     ['n <leader>ghv'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <leader>ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>'
-  }
+    ['n <leader>ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+  },
 }

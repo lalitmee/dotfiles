@@ -22,8 +22,6 @@ local function hunspell_install_if_needed()
   end
 end
 
-require('packer').init({ display = { auto_clean = false } })
-
 return require('packer').startup {
   function(use)
     -- Packer can manage itself as an optional plugin
@@ -33,41 +31,36 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    -- gruvqueen on top on gruvbox-material
-    use 'Murtaza-Udaipurwala/gruvqueen'
+    -- enabled
+    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
+    use { 'navarasu/onedark.nvim', disable = false }
+    use { 'projekt0n/github-nvim-theme', disable = false }
+    use { 'tjdevries/colorbuddy.nvim', disable = false }
+    use { 'tjdevries/gruvbuddy.nvim', disable = false }
+    use { 'tomasiser/vim-code-dark', disable = false }
+    use { 'yashguptaz/calvera-dark.nvim', disable = false }
 
-    -- colorbuddy for Colorschemes
-    use 'tjdevries/colorbuddy.nvim'
-
-    -- vscode dark color colorshceme
-    use 'Mofiqul/vscode.nvim'
-
-    -- tokyonight colorscheme
-    use 'folke/tokyonight.nvim'
-
-    -- material colorscheme
-    use 'marko-cerovac/material.nvim'
-
-    -- gruvbuddy using colorbuddy
-    use 'tjdevries/gruvbuddy.nvim'
-
-    -- dim the section of the code in which you are in
+    -- disabled
+    use { 'Mofiqul/vscode.nvim', disable = true }
+    use { 'folke/tokyonight.nvim', disable = true }
+    use { 'marko-cerovac/material.nvim', disable = true }
     use {
       'folke/twilight.nvim',
       config = function()
         require('twilight').setup {}
       end,
+      disable = false,
     }
 
     -- }}}
 
     -- icons {{{
 
-    -- for icons in vim
-    use 'kyazdani42/nvim-web-devicons'
-
     -- beautiful icons
-    use 'yamatsum/nvim-nonicons'
+    use {
+      'yamatsum/nvim-nonicons',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+    }
 
     -- }}}
 
@@ -419,6 +412,7 @@ return require('packer').startup {
       },
       { 'nvim-treesitter/nvim-treesitter-refactor' },
       { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'RRethy/nvim-treesitter-textsubjects' },
       { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
       { 'p00f/nvim-ts-rainbow' },
       { 'JoosepAlviste/nvim-ts-context-commentstring' },
@@ -443,6 +437,8 @@ return require('packer').startup {
 
     -- FUZZY SEARCH {{{
 
+    use { 'camspiers/snap', rocks = { 'fzy' } }
+
     -- fzf.vim {{{
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
@@ -460,11 +456,9 @@ return require('packer').startup {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
-        { 'dhruvmanila/telescope-bookmarks.nvim' },
         { 'fannheyward/telescope-coc.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
-        { 'jvgrootveld/telescope-zoxide' },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
@@ -472,15 +466,9 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-fzf-writer.nvim' },
         { 'nvim-telescope/telescope-github.nvim' },
         { 'nvim-telescope/telescope-project.nvim' },
-        { 'nvim-telescope/telescope-snippets.nvim' },
-        { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        -- {
-        --   'nvim-telescope/telescope-arecibo.nvim',
-        --   rocks = { 'openssl', 'lua-http-parser' }
-        -- },
       },
     }
 
@@ -490,8 +478,14 @@ return require('packer').startup {
 
     -- LANGUAGES {{{
 
-    -- {{{
-
+    -- refactor the code {{{
+    use {
+      'ThePrimeagen/refactoring.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-treesitter/nvim-treesitter' },
+      },
+    }
     -- }}}
 
     -- HTML {{{
@@ -562,13 +556,11 @@ return require('packer').startup {
       end,
     }
 
-    -- NOTE: not using this because this has a 13 seconds loading time
     use {
       'pwntester/octo.nvim',
       config = function()
         require'octo'.setup()
       end,
-      disable = true,
     }
 
     -- git worktree
@@ -576,12 +568,6 @@ return require('packer').startup {
 
     -- magit for neovim in lua
     use { 'TimUntersberger/neogit' }
-
-    -- lazygit from neovim
-    use {
-      'kdheepak/lazygit.nvim',
-      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' },
-    }
 
     -- gitsigns in lua
     use 'lewis6991/gitsigns.nvim'
@@ -601,7 +587,6 @@ return require('packer').startup {
 
     -- STATUS AND TAB LINES {{{
 
-    -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
     use {
       'hoob3rt/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true },
@@ -670,11 +655,18 @@ return require('packer').startup {
 
     -- Explorer {{{
 
-    -- file explorer
-
+    use {
+      'tamago324/lir.nvim',
+      requires = {
+        { 'tamago324/lir-git-status.nvim' },
+        { 'nvim-lua/plenary.nvim' },
+        { 'kyazdani42/nvim-web-devicons' },
+      },
+    }
     -- ranger for neovim
     use {
       'kevinhwang91/rnvimr',
+      disable = true,
       config = function()
         -- Make Ranger replace Netrw and be the file explorer
         vim.g.rnvimr_enable_ex = 1

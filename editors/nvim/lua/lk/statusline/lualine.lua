@@ -1,8 +1,3 @@
--- check for isEmpty
-local function isnotempty(s)
-  return s ~= nil or s == ''
-end
-
 local function buf_spaces()
   return 'Spaces: ' .. vim.api.nvim_buf_get_option(0, 'shiftwidth') .. ' '
 end
@@ -30,7 +25,7 @@ end
 
 require('lualine').setup {
   options = {
-    theme = 'vscode',
+    theme = 'codedark',
     section_separators = { '', '' },
     component_separators = { '', '' },
   },
@@ -38,7 +33,7 @@ require('lualine').setup {
     lualine_a = { { 'mode', upper = true } },
     lualine_b = { { 'branch', icon = '' } },
     lualine_c = {
-      -- file_icon,
+      -- { file_icon },
       { 'filename', path = 1 },
       {
         'diff',
