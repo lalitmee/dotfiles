@@ -126,7 +126,6 @@
   "prettier.arrowParens": "avoid",
   "prettier.trailingComma": "all",
 
-  "lua.enable": true,
   "Lua.hint.enable": true,
   "Lua.diagnostics.globals": [
     "vim",
@@ -140,6 +139,7 @@
     "unpack"
   ],
   "Lua.workspace.preloadFileSize": 1000,
+  "sumneko-lua.enableNvimLuaDev": true,
 
   "session.directory": "~/.local/share/nvim/sessions",
 

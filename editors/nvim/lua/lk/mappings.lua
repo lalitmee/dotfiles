@@ -1,15 +1,37 @@
 local map = lk_utils.map
+local nnoremap = lk_utils.nnoremap
 
-local opts = { noremap = true, silent = true }
-local map_opts = { noremap = true }
+local map_opts = { noremap = true, silent = true }
+local map_expr_opts = { expr = true }
+
+-- highlight word under cursor but not search
+vim.api.nvim_exec([[
+    " Clears hlsearch after doing a search, otherwise just does normal <CR> stuff
+    nnoremap <expr> <CR> {-> v:hlsearch ? ":nohl\<CR>" : "\<CR>"}()
+]], false)
+
+-- tab operations
+nnoremap('<c-s-Right>', [[gt]])
+nnoremap('<c-s-Left>', [[gT]])
+
+-- buffers next and previous
+nnoremap('<c-Right>', [[:bn<cr>]])
+nnoremap('<c-Left>', [[:bp<cr>]])
+
+-- alternate file mapping
+map('n', '<bs>',
+    [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]],
+    map_opts)
 
 -- behave vim
 map('n', 'Y', [[y$]], map_opts)
+map('n', 'H', [[0]], map_opts)
+map('n', 'L', [[$]], map_opts)
 
 -- keeping it centered
 map('n', 'n', [[nzzzv]], map_opts)
 map('n', 'N', [[Nzzzv]], map_opts)
-map('n', 'J', [[mzJ`zmz]], map_opts)
+map('n', 'J', [[mzJ`z:delmarks z<CR>]], map_opts)
 
 -- undo breakpoints
 map('i', ',', [[,<c-g>u]], map_opts)
@@ -37,94 +59,99 @@ map('n', 'cN', [[*``cgN]], map_opts)
 map('v', '"', [[<esc>`>a"<esc>`<i"<esc>]], map_opts)
 
 -- count number of lines in visual mode
-map('v', 'L', [[g<C-g>]], opts)
+map('v', 'L', [[g<C-g>]], map_opts)
 
 -- circular window movements
 map('n', '<tab>', [[<C-w>w]])
 map('n', '<s-tab>', [[<C-w>W]])
 
-map('c', '<C-n>', [[<Down>]], map_opts)
-map('c', '<C-p>', [[<Up>]], map_opts)
+-- <c-n> and <c-p> in command line mode
+map('c', '<C-n>', [[wildmenumode() ? "\<c-n>" : "\<down>"]], map_expr_opts)
+map('c', '<C-p>', [[wildmenumode() ? "\<c-p>" : "\<up>"]], map_expr_opts)
+
+-- <c-l> for syntax highlight and more
+nnoremap('<c-l>',
+         [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>]])
 
 -- Allow saving of files as sudo when I forgot to start vim using sudo.
 -- http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
-map('c', 'w!!', [[%!sudo tee > /dev/null %]], opts)
+map('c', 'w!!', [[%!sudo tee > /dev/null %]], map_opts)
 
 -- clear highlighted search
-map('n', '<CR>', [[:noh<CR>]], opts)
+map('n', '<CR>', [[:noh<CR>]], map_opts)
 
 -- resize panes
-map('n', '<Right>', [[:vertical resize +5<cr>]], opts)
-map('n', '<Left>', [[:vertical resize -5<cr>]], opts)
-map('n', '<Up>', [[:resize +5<cr>]], opts)
-map('n', '<Down>', [[:resize -5<cr>]], opts)
+map('n', '<Right>', [[:vertical resize +5<cr>]], map_opts)
+map('n', '<Left>', [[:vertical resize -5<cr>]], map_opts)
+map('n', '<Up>', [[:resize +5<cr>]], map_opts)
+map('n', '<Down>', [[:resize -5<cr>]], map_opts)
 
 -- Visually select the text that was last edited/pasted
-map('n', 'gV', [[`[v`]], opts)
+map('n', 'gV', [[`[v`]], map_opts)
 
 -- I hate escape more than anything else
-map('i', 'jk', [[<Esc>]], opts)
-map('i', 'kj', [[<Esc>]], opts)
+map('i', 'jk', [[<Esc>]], map_opts)
+map('i', 'kj', [[<Esc>]], map_opts)
 
 -- " Easy CAPS
--- map('n', '<c-u>', [[<ESC>viwUi]], opts)
--- map('n', '<c-l>', [[viwl<Esc>]], opts)
+-- map('n', '<c-u>', [[<ESC>viwUi]], map_opts)
+-- map('n', '<c-l>', [[viwl<Esc>]], map_opts)
 
 -- repeat `n.` after editing the searched word
-map('n', 'Q', [[@='n.'<CR>]], opts)
+map('n', 'Q', [[@='n.'<CR>]], map_opts)
 
 -- NOTE: terminal mappings
 -- turn terminal to normal mode with escape
-map('t', '<Esc>', [[<C-\><C-n>]], opts)
-map('t', '<<C-[><C-[>>', [[<C-\><C-n>]], opts)
-map('t', '<C-d>', [[<C-\><C-n>:q!<CR>]], opts)
-map('t', '<M-[>', [[<Esc>]], opts)
-map('t', '<C-v><Esc>', [[<Esc>]], opts)
+map('t', '<Esc>', [[<C-\><C-n>]], map_opts)
+map('t', '<<C-[><C-[>>', [[<C-\><C-n>]], map_opts)
+map('t', '<C-d>', [[<C-\><C-n>:q!<CR>]], map_opts)
+map('t', '<M-[>', [[<Esc>]], map_opts)
+map('t', '<C-v><Esc>', [[<Esc>]], map_opts)
 -- Terminal mode:
-map('t', '<M-h>', [[<c-\><c-n><c-w>h]], opts)
-map('t', '<M-j>', [[<c-\><c-n><c-w>j]], opts)
-map('t', '<M-k>', [[<c-\><c-n><c-w>k]], opts)
-map('t', '<M-l>', [[<c-\><c-n><c-w>l]], opts)
+map('t', '<M-h>', [[<c-\><c-n><c-w>h]], map_opts)
+map('t', '<M-j>', [[<c-\><c-n><c-w>j]], map_opts)
+map('t', '<M-k>', [[<c-\><c-n><c-w>k]], map_opts)
+map('t', '<M-l>', [[<c-\><c-n><c-w>l]], map_opts)
 -- Insert mode:
-map('i', '<M-h>', [[<Esc><c-w>h]], opts)
-map('i', '<M-j>', [[<Esc><c-w>j]], opts)
-map('i', '<M-k>', [[<Esc><c-w>k]], opts)
-map('i', '<M-l>', [[<Esc><c-w>l]], opts)
+map('i', '<M-h>', [[<Esc><c-w>h]], map_opts)
+map('i', '<M-j>', [[<Esc><c-w>j]], map_opts)
+map('i', '<M-k>', [[<Esc><c-w>k]], map_opts)
+map('i', '<M-l>', [[<Esc><c-w>l]], map_opts)
 -- Visual mode:
-map('v', '<M-h>', [[<Esc><c-w>h]], opts)
-map('v', '<M-j>', [[<Esc><c-w>j]], opts)
-map('v', '<M-k>', [[<Esc><c-w>k]], opts)
-map('v', '<M-l>', [[<Esc><c-w>l]], opts)
+map('v', '<M-h>', [[<Esc><c-w>h]], map_opts)
+map('v', '<M-j>', [[<Esc><c-w>j]], map_opts)
+map('v', '<M-k>', [[<Esc><c-w>k]], map_opts)
+map('v', '<M-l>', [[<Esc><c-w>l]], map_opts)
 -- Normal mode:
-map('n', '<M-h>', [[<c-w>h]], opts)
-map('n', '<M-j>', [[<c-w>j]], opts)
-map('n', '<M-k>', [[<c-w>k]], opts)
-map('n', '<M-l>', [[<c-w>l]], opts)
+map('n', '<M-h>', [[<c-w>h]], map_opts)
+map('n', '<M-j>', [[<c-w>j]], map_opts)
+map('n', '<M-k>', [[<c-w>k]], map_opts)
+map('n', '<M-l>', [[<c-w>l]], map_opts)
 -- pasting from registers in terminal
-map('t', '<expr>', [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], opts)
+map('t', '<expr>', [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], map_opts)
 
 -- NOTE: Transpose characters xp {{{
 -- picked from http://vimcasts.org/episodes/creating-repeatable-mappings-with-repeat-vim/
 map('n', '<Plug>TransposeCharacters xp',
-    [[:call repeat#set("\<Plug>TransposeCharacters")<CR>]], opts)
+    [[:call repeat#set("\<Plug>TransposeCharacters")<CR>]], map_opts)
 map('n', 'cp', [[<Plug>TransposeCharacters]])
 
 -- }}}
 
 -- incsearch
--- map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<CR>]], opts)
+-- map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<CR>]], map_opts)
 
 -- NOTE: folds mappings
 -- if there is a fold under cursor open it by pressing <CR> otherwise do
 -- what <CR> does
-map('n', '<CR>', [[@=(foldlevel('.')?'za':"\<Space>")<CR>]], opts)
+map('n', '<CR>', [[@=(foldlevel('.')?'za':"\<Space>")<CR>]], map_opts)
 -- create folds using visual select and then press <CR>
-map('v', '<CR>', [[zf]], opts)
+map('v', '<CR>', [[zf]], map_opts)
 
 -- Complextras.nvim configuration
 map('i', '<C-x><C-m>',
     [[<c-r>=luaeval("require('complextras').complete_matching_line()")<CR>]],
-    opts)
+    map_opts)
 map('i', '<C-x><C-d>',
     [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<CR>]],
-    opts)
+    map_opts)

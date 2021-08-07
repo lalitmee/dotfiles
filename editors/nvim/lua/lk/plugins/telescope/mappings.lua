@@ -40,6 +40,8 @@ map_tele('<space>obo', 'curbuf')
 -- -- Nvim
 map_tele('<space>np', 'installed_plugins')
 map_tele('<space>ofa', 'search_all_files')
+map_tele('<space>ofi', 'fd')
+map_tele('<space>ofl', 'find_files')
 map_tele('<space>nh', 'help_tags')
 
 -- Change Background Wallpaper

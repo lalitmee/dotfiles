@@ -31,6 +31,8 @@ vim.opt.ttimeoutlen = 10
 -----------------------------------------------------------------------------//
 -- Window splitting and buffers {{{1
 -----------------------------------------------------------------------------//
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.hidden = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -195,7 +197,7 @@ vim.opt.termguicolors = true
 -- CREDIT: https://www.youtube.com/watch?v=F91VWOelFNE
 vim.opt.emoji = false
 -----------------------------------------------------------------------------//
-vim.opt.inccommand = 'nosplit'
+vim.opt.inccommand = 'split'
 -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
 vim.opt.guicursor = {
   [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
@@ -292,6 +294,9 @@ vim.cmd([[set shada=!,'1000,<50,s10,h]])
 vim.cmd([[set t_ZH=[3m]])
 vim.cmd([[set t_ZR=[23m]])
 vim.cmd([[set t_ut=]])
+vim.cmd([[set noerrorbells]])
+vim.cmd([[set novisualbell]])
+vim.cmd([[set t_vb=]])
 
 -- }}}
 
@@ -351,6 +356,17 @@ vim.api.nvim_exec([[
       " python hosts
       let g:python3_host_prog = '/home/lalitmee/.pyenv/versions/neovim3/bin/python'
       let g:python_host_prog = '/home/lalitmee/.pyenv/versions/neovim2/bin/python'
+
+      " cursors in different modes
+      if empty($TMUX)
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+      else
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+      endif
 
   ]], true)
 

@@ -71,8 +71,10 @@ require('lk/plugins/neogit')
 
 -- NOTE: fuzzy
 require('lk/plugins/fzf')
+require('lk/plugins/snap')
 require('lk/plugins/telescope')
 require('lk/plugins/telescope/mappings')
+require('lk/plugins/refactoring')
 
 -- NOTE: coc
 require('lk/plugins/coc')

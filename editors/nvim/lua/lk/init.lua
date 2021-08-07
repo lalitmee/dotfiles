@@ -3,7 +3,6 @@ require('lk/globals')
 require('lk/settings')
 require('lk/highlights')
 require('lk/folds')
-require('lk/numbers')
 require('lk/functions')
 require('lk/mappings')
 

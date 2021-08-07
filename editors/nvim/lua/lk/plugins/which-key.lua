@@ -771,6 +771,8 @@ local leader_key_maps = {
       ['F'] = { ':Telescope find_files<CR>', 'find-files' },
       ['g'] = { ':Telescope git_files<CR>', 'git-files' },
       ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
+      ['i'] = { 'ivy-theme-files' },
+      ['l'] = { 'find-files' },
       ['m'] = { ':Telescope media_files<CR>', 'media-files' },
       ['n'] = 'nvim-config',
       ['o'] = { ':Telescope find_files<CR>', 'find-files' },
@@ -944,6 +946,15 @@ local leader_key_maps = {
 
   -- NOTE: q is for quickfix and quit
   ['q'] = { ['name'] = '+quit', ['q'] = { ':qall<CR>', 'quit-vim' } },
+
+  -- NOTE: r is for refactor
+  -- mappings lies in `lua/lk/plugins/refactoring.lua`
+  ['r'] = {
+    ['name'] = '+refactor',
+    ['e'] = { 'extract function' },
+    ['f'] = { 'extract function to a file' },
+    ['r'] = { 'refactors' },
+  },
 
   -- NOTE: s is for search
   ['s'] = {
@@ -1221,6 +1232,8 @@ local leader_plug_keymaps = {
 local local_leader_key_maps = {
   [']'] = 'replace-all',
   ['['] = 'replace-current',
+  [','] = { ':term <CR> emacsclient -nw -e "(magit-status)" <CR>',
+            'emacs-magit' },
   ['q'] = {
     ['name'] = '+quickfix',
     ['c'] = { ':cclose<CR>', 'close' },
@@ -1236,6 +1249,13 @@ local local_leader_key_maps = {
     ['n'] = { ':lnext<CR>', 'next' },
     ['o'] = { ':lopen<CR>', 'open' },
     ['p'] = { ':lprev<CR>', 'prev' },
+  },
+  ['s'] = {
+    ['name'] = '+snap',
+    ['b'] = { 'buffers' },
+    ['f'] = { 'files' },
+    ['g'] = { 'git-files' },
+    ['s'] = { 'grep' },
   },
   ['t'] = {
     ['name'] = '+treesitter',
