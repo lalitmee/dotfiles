@@ -38,7 +38,6 @@ return require('packer').startup {
     use { 'tjdevries/colorbuddy.nvim', disable = false }
     use { 'tjdevries/gruvbuddy.nvim', disable = false }
     use { 'tomasiser/vim-code-dark', disable = false }
-    use { 'yashguptaz/calvera-dark.nvim', disable = false }
     use { 'Mofiqul/vscode.nvim', disable = false }
     use { 'folke/tokyonight.nvim', disable = false }
     use { 'marko-cerovac/material.nvim', disable = false }
