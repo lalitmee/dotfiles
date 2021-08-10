@@ -45,6 +45,9 @@ Abolish functoin function
 Abolish funtcion function
 Abolish functin function
 
+Abolish typgoraphy typography
+Abolish tyopgraphy typography
+
 Abolish respositories repositories
 
 " Abolish Tqbf        The quick, brown fox jumps over the lazy dog

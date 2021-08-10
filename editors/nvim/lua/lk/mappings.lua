@@ -62,8 +62,8 @@ map('v', '"', [[<esc>`>a"<esc>`<i"<esc>]], map_opts)
 map('v', 'L', [[g<C-g>]], map_opts)
 
 -- circular window movements
-map('n', '<tab>', [[<C-w>w]])
-map('n', '<s-tab>', [[<C-w>W]])
+-- map('n', '<c-tab>', [[<C-w>w]], map_opts)
+-- map('n', '<s-tab>', [[<C-w>W]])
 
 -- <c-n> and <c-p> in command line mode
 map('c', '<C-n>', [[wildmenumode() ? "\<c-n>" : "\<down>"]], map_expr_opts)
