@@ -23,7 +23,6 @@ require('lk/plugins/nvim-tree')
 require('lk/plugins/formatter')
 
 -- NOTE: terminal
-require('lk/plugins/floaterm')
 require('lk/plugins/toggleterm')
 
 -- NOTE: folds
@@ -63,9 +62,6 @@ require('lk/plugins/hlslens')
 require('lk/plugins/treesitter')
 
 -- NOTE: git
-require('lk/plugins/fugitive')
-require('lk/plugins/git-blame')
-require('lk/plugins/git-messenger')
 require('lk/plugins/gitsigns')
 require('lk/plugins/neogit')
 
