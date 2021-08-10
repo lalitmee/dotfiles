@@ -579,15 +579,7 @@ return require('packer').startup {
     use 'lewis6991/gitsigns.nvim'
 
     -- git lens in vim
-    use {
-      'rhysd/git-messenger.vim',
-      cmd = { 'GitMessenger' },
-      keys = { '<Plug>(git-messenger)' },
-    }
     use { 'sindrets/diffview.nvim' }
-
-    -- version control
-    use 'tpope/vim-fugitive'
 
     -- }}}
 

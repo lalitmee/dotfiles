@@ -293,31 +293,7 @@ local leader_key_maps = {
   -- NOTE: g is for git
   ['g'] = {
     ['name'] = '+git',
-    ['a'] = { ':Git add .<CR>', 'add-all' },
-    ['A'] = { ':Git add %<CR>', 'add-current' },
-    ['b'] = { ':GBrowse<CR>', 'browse' },
-    ['C'] = { ':Git commit<CR>', 'commit' },
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
-    ['d'] = { ':Git diff<CR>', 'diff' },
-    ['D'] = { ':Gdiffsplit<CR>', 'diff-split' },
-    ['g'] = {
-      ['name'] = '+gists',
-      ['a'] = { ':Gist -a<CR>', 'create-gist-anonymously' },
-      ['b'] = { ':Gist -b<CR>', 'open-gist-in-browser' },
-      ['c'] = { ':Gist<CR>', 'create-new-gist' },
-      ['d'] = { ':Gist -d<CR>', 'delete-gist' },
-      ['e'] = { ':Gist -e<CR>', 'edit-buffer-gist' },
-      ['f'] = { ':Gist -f<CR>', 'fork-gist' },
-      ['l'] = { ':Gist -l<CR>', 'list-public-gists' },
-      ['L'] = { ':Gist -la<CR>', 'list-everyones-gists' },
-      ['o'] = { ':Gist -ls<CR>', 'list-starred-gists' },
-      ['s'] = { ':Gist +1<CR>', 'star-the-gist' },
-      ['S'] = { ':Gist -1<CR>', 'unstar-the-gist' },
-      ['m'] = { ':Gist -m<CR>', 'create-gist-all-buffers' },
-      ['p'] = { ':Gist -p<CR>', 'create-private-gist' },
-      ['P'] = { ':Gist -P<CR>', 'create-public-gist' },
-    },
-    ['G'] = { ':Gstatus<CR>', 'status' },
     ['h'] = {
       ['name'] = '+gitsigns-hunks',
       ['a'] = { ':Gitsigns attach<CR>', 'attach' },
@@ -339,7 +315,7 @@ local leader_key_maps = {
       ['u'] = { ':Gitsigns detach_all<CR>', 'detach-all' },
       ['U'] = { ':Gitsigns reset_hunk<CR>', 'reset-hunk' },
     },
-    ['l'] = { ':Git log<CR>', 'log' },
+    ['m'] = { ':Gitsigns blame_line<CR>', 'blame-line' },
     ['o'] = {
       ['name'] = '+octo.nvim',
       ['a'] = {
@@ -418,13 +394,8 @@ local leader_key_maps = {
         ['u'] = { ':Octo thread unresolve<CR>', 'unresolve' },
       },
     },
-    ['p'] = { ':Git push<CR>', 'push' },
-    ['P'] = { ':Git pull<CR>', 'pull' },
-    ['R'] = { ':GRemove<CR>', 'remove' },
     ['s'] = { ':Neogit<CR>', 'status' },
     ['S'] = { ':GGrep<CR>', 'git-grep' },
-    ['v'] = { ':GV<CR>', 'view-commits' },
-    ['V'] = { ':GV!<CR>', 'view-buffer-commits' },
     ['w'] = {
       ['name'] = '+git-worktree',
       ['c'] = {
@@ -1190,7 +1161,7 @@ local leader_plug_keymaps = {
     ['name'] = '+highlight',
     ['c'] = { '<Plug>(InYoFace_Toggle)<CR>', 'highlight-comments' },
   },
-  ['g'] = { ['m'] = { '<Plug>(git-messenger)', 'git-messenger' } },
+  ['g'] = {},
   ['j'] = {
     ['a'] = {
       ['name'] = '+aerojump',
