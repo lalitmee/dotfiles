@@ -141,7 +141,5 @@
   "Lua.workspace.preloadFileSize": 1000,
   "sumneko-lua.enableNvimLuaDev": true,
 
-  "session.directory": "~/.local/share/nvim/sessions",
-
-  "smartf.timeout": 2000
+  "session.directory": "~/.local/share/nvim/sessions"
 }

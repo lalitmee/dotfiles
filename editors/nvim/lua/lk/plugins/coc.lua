@@ -15,6 +15,8 @@ end
 local map = lk_utils.map
 local command = lk_utils.command
 
+vim.g.coc_config_home = '~/.config/nvim/coc-settings.json'
+
 -- Extensions {{{
 
 vim.g.coc_global_extensions = {
