@@ -34,6 +34,7 @@ return require('packer').startup {
     -- enabled
     use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
     use { 'navarasu/onedark.nvim', disable = false }
+    use { 'NTBBloodbath/doom-one.nvim', disable = false }
     use { 'projekt0n/github-nvim-theme', disable = false }
     use { 'tjdevries/colorbuddy.nvim', disable = false }
     use { 'tjdevries/gruvbuddy.nvim', disable = false }
@@ -93,6 +94,7 @@ return require('packer').startup {
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
+    use 'henrik/vim-indexed-search'
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
@@ -601,7 +603,7 @@ return require('packer').startup {
 
     use {
       'hoob3rt/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
     }
     use 'akinsho/nvim-bufferline.lua'
 
@@ -765,6 +767,7 @@ return require('packer').startup {
   end,
   config = {
     display = {
+      prompt_border = 'rounded',
       open_fn = function()
         return require('packer.util').float({ border = 'single' })
       end,
