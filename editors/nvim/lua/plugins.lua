@@ -566,7 +566,7 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
-    use 'rhysd/committia.vim'
+    use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
     use {
       'rhysd/conflict-marker.vim',
       config = function()
@@ -600,9 +600,13 @@ return require('packer').startup {
     -- }}}
 
     -- STATUS AND TAB LINES {{{
+    -- use {
+    --   'tjdevries/express_line.nvim',
+    --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    -- }
 
     use {
-      'hoob3rt/lualine.nvim',
+      'shadmansaleh/lualine.nvim',
       requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
     }
     use 'akinsho/nvim-bufferline.lua'

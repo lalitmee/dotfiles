@@ -294,6 +294,10 @@ local leader_key_maps = {
   -- NOTE: g is for git
   ['g'] = {
     ['name'] = '+git',
+    ['b'] = {
+      ':lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<CR>',
+      'open-repo-browser',
+    },
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
     ['h'] = {
       ['name'] = '+gitsigns-hunks',
@@ -397,6 +401,8 @@ local leader_key_maps = {
     },
     ['s'] = { ':Neogit<CR>', 'status' },
     ['S'] = { ':GGrep<CR>', 'git-grep' },
+    ['y'] = { 'git-linker' },
+    ['Y'] = { ':lua require"gitlinker".get_repo_url()<CR>', 'copy-repo-url' },
     ['w'] = {
       ['name'] = '+git-worktree',
       ['c'] = {

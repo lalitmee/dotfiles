@@ -1,11 +1,11 @@
--- NOTE: doom-one
-require('lk/colorscheme/doom-one')
+-- NOTE: tokyonight
+require('lk/colorscheme/tokyonight')
+
+-- -- NOTE: doom-one
+-- require('lk/colorscheme/doom-one')
 
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')
-
--- -- NOTE: tokyonight
--- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: github
 -- require('lk/colorscheme/github')
