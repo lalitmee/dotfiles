@@ -44,9 +44,9 @@ local leader_key_maps = {
     ['b'] = { ':Telescope buffers<CR>', 'telescope-buffers' },
     ['B'] = { ':FzfBuffers<CR>', 'fzf-buffers' },
     ['c'] = { ':vnew<CR>', 'new-empty-buffer-vert' },
-    ['C'] = { ':BufferCloseAllButCurrent<CR>', 'close-all-but-current' },
-    ['d'] = { ':Sayonara!<CR>', 'delete-buffer' },
-    ['D'] = { ':%bd<CR>', 'delete-all-buffers' },
+    ['C'] = { ':BDelete other<CR>', 'close-all-but-current' },
+    ['d'] = { ':BDelete this<CR>', 'delete-buffer' },
+    ['D'] = { ':BDelete all<CR>', 'delete-all-buffers' },
     ['f'] = { ':bfirst<CR>', 'first-buffer' },
     ['g'] = { ':BufferLinePick<CR>', 'goto-buffer' },
     ['h'] = { ':Startify<CR>', 'home-buffer' },
@@ -63,7 +63,8 @@ local leader_key_maps = {
     ['r'] = { ':e<CR>', 'refresh-buffer' },
     ['R'] = { ':bufdo :e<CR>', 'refresh-loaded-buffers' },
     ['s'] = { ':new<CR>', 'new-empty-buffer' },
-    ['w'] = { ':Sayonara<CR>', 'close-buffer-and-window' },
+    ['u'] = { ':BDelete nameless<CR>', 'delete-nameless-buffers' },
+    ['w'] = { ':BDelete all<CR>', 'close-buffer-and-window' },
   },
 
   -- NOTE: c is for code with lspconfig
