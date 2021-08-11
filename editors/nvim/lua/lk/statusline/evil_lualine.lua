@@ -15,7 +15,7 @@ local colors = {
   violet = '#a9a1e1',
   magenta = '#c678dd',
   blue = '#51afef',
-  red = '#ec5f67'
+  red = '#ec5f67',
 }
 
 local conditions = {
@@ -29,7 +29,7 @@ local conditions = {
     local filepath = vim.fn.expand('%:p:h')
     local gitdir = vim.fn.finddir('.git', filepath .. ';')
     return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end
+  end,
 }
 
 -- Config
@@ -43,15 +43,15 @@ local config = {
       -- right section both are highlighted by c theme .
       -- So we are just setring default looks o ststusline
       normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg } }
-    }
+      inactive = { c = { fg = colors.fg, bg = colors.bg } },
+    },
   },
   sections = {
     -- These will be filled later
     lualine_c = {},
-    lualine_x = {}
+    lualine_x = {},
   },
-  inactive_sections = {}
+  inactive_sections = {},
 }
 
 -- Inserts a component in lualine_c ot left section
@@ -69,7 +69,7 @@ ins_left {
     return '▊'
   end,
   color = { fg = colors.blue }, -- Sets highlighting of component
-  left_padding = 0 -- We don't need space before this
+  left_padding = 0, -- We don't need space before this
 }
 
 ins_left {
@@ -96,7 +96,7 @@ ins_left {
       rm = colors.cyan,
       ['r?'] = colors.cyan,
       ['!'] = colors.red,
-      t = colors.red
+      t = colors.red,
     }
     vim.api.nvim_command(
         'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' ..
@@ -104,7 +104,7 @@ ins_left {
     return ''
   end,
   color = 'LualineMode',
-  left_padding = 0
+  left_padding = 0,
 }
 
 ins_left {
@@ -129,13 +129,13 @@ ins_left {
     end
     return format_file_size(file)
   end,
-  condition = conditions.buffer_not_empty
+  condition = conditions.buffer_not_empty,
 }
 
 ins_left {
   'filename',
   condition = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' }
+  color = { fg = colors.magenta, gui = 'bold' },
 }
 
 ins_left { 'location' }
@@ -148,7 +148,7 @@ ins_left {
   symbols = { error = ' ', warn = ' ', info = ' ' },
   color_error = colors.red,
   color_warn = colors.yellow,
-  color_info = colors.cyan
+  color_info = colors.cyan,
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
@@ -156,7 +156,7 @@ ins_left {
 ins_left {
   function()
     return '%='
-  end
+  end,
 }
 
 ins_left {
@@ -177,7 +177,7 @@ ins_left {
     return msg
   end,
   icon = ' LSP:',
-  color = { fg = colors.cyan, gui = 'bold' }
+  color = { fg = colors.cyan, gui = 'bold' },
 }
 
 -- Add components to right sections
@@ -185,21 +185,21 @@ ins_right {
   'o:encoding', -- option component same as &encoding in viml
   upper = true, -- I'm not sure why it's uper case either ;)
   condition = conditions.hide_in_width,
-  color = { fg = colors.green, gui = 'bold' }
+  color = { fg = colors.green, gui = 'bold' },
 }
 
 ins_right {
   'fileformat',
   upper = true,
   icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.green, gui = 'bold' }
+  color = { fg = colors.green, gui = 'bold' },
 }
 
 ins_right {
   'branch',
   icon = '',
   condition = conditions.check_git_workspace,
-  color = { fg = colors.violet, gui = 'bold' }
+  color = { fg = colors.violet, gui = 'bold' },
 }
 
 ins_right {
@@ -209,7 +209,7 @@ ins_right {
   color_added = colors.green,
   color_modified = colors.orange,
   color_removed = colors.red,
-  condition = conditions.hide_in_width
+  condition = conditions.hide_in_width,
 }
 
 ins_right {
@@ -217,7 +217,7 @@ ins_right {
     return '▊'
   end,
   color = { fg = colors.blue },
-  right_padding = 0
+  right_padding = 0,
 }
 
 -- Now don't forget to initialize lualine
