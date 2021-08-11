@@ -283,6 +283,7 @@ alias o="oni ."
 alias sb="subl ."
 
 # alias for gui nvims
+alias nvim="nvim --startuptime /tmp/nvim-startuptime"
 alias gnvim="~/goneovim/goneovim &"
 alias glm="~/data/Github/glrnvim/target/release/glrnvim &"
 alias nvd="~/data/Softwares/editors/neovide &"

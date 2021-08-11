@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/worktrees.yml
 
 name: worktrees
-root: ~/data/work/koinearth
+root: ~/data/koinearth/worktrees
 windows:
   - marketsn-pdf-service: cd marketsn-pdf-service
   - marketsn-api-service: cd marketsn-api-service
