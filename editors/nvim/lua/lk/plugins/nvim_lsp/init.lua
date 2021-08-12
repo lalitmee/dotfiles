@@ -83,7 +83,13 @@ local function on_attach(client, bufnr)
 end
 
 -- Configure lua language server for neovim development
-local luadev = require('lua-dev').setup({})
+local luadev = require('lua-dev').setup({
+  lspconfig = {
+    settings = {
+      Lua = { workspace = { maxPreload = 2000, preloadFileSize = 1000 } },
+    },
+  },
+})
 
 -- lsp-install
 local function setup_servers()

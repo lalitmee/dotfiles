@@ -94,7 +94,8 @@ return require('packer').startup {
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
-    use 'henrik/vim-indexed-search'
+    use { 'henrik/vim-indexed-search' }
+    use { 'google/vim-searchindex', disable = true }
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
