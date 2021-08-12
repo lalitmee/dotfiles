@@ -13,7 +13,7 @@ return {
     'python',
     'email',
     'prose',
-    'vim'
+    'vim',
   },
   init_options = {
     linters = {
@@ -30,9 +30,9 @@ return {
           endLine = 'endLine',
           endColumn = 'endColumn',
           message = '[eslint] ${message} [${ruleId}]',
-          security = 'severity'
+          security = 'severity',
         },
-        securities = { [2] = 'error', [1] = 'warning' }
+        securities = { [2] = 'error', [1] = 'warning' },
       },
       markdownlint = {
         command = 'markdownlint',
@@ -47,8 +47,8 @@ return {
         formatLines = 1,
         formatPattern = {
           '^.*:(\\d+)\\s+(.*)$',
-          { line = 1, column = -1, message = 2 }
-        }
+          { line = 1, column = -1, message = 2 },
+        },
       },
       shellcheck = {
         command = 'shellcheck', -- brew install shellcheck
@@ -60,9 +60,9 @@ return {
         formatLines = 1,
         formatPattern = {
           '^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$',
-          { line = 1, column = 2, message = 4, security = 3 }
+          { line = 1, column = 2, message = 4, security = 3 },
         },
-        securities = { error = 'error', warning = 'warning', note = 'info' }
+        securities = { error = 'error', warning = 'warning', note = 'info' },
       },
       languagetool = {
         command = 'languagetool', -- brew install languagetool
@@ -74,8 +74,8 @@ return {
         formatLines = 2,
         formatPattern = {
           '^\\d+?\\.\\)\\s+Line\\s+(\\d+),\\s+column\\s+(\\d+),\\s+([^\\n]+)\nMessage:\\s+(.*)$',
-          { line = 1, column = 2, message = { 4, 3 } }
-        }
+          { line = 1, column = 2, message = { 4, 3 } },
+        },
       },
       flake8 = {
         command = 'flake8', -- pip install flake8
@@ -87,15 +87,15 @@ return {
         formatLines = 1,
         formatPattern = {
           '(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$',
-          { line = 1, column = 2, security = 3, message = 4 }
+          { line = 1, column = 2, security = 3, message = 4 },
         },
         securities = {
           W = 'warning',
           E = 'error',
           F = 'error',
           C = 'error',
-          N = 'error'
-        }
+          N = 'error',
+        },
       },
       vint = {
         command = 'vint',
@@ -107,8 +107,8 @@ return {
         formatLines = 1,
         formatPattern = {
           '[^:]+:(\\d+):(\\d+):\\s*(.*)(\\r|\\n)*$',
-          { line = 1, column = 2, message = 3 }
-        }
+          { line = 1, column = 2, message = 3 },
+        },
       },
       ['write-good'] = {
         command = 'write-good',
@@ -120,9 +120,9 @@ return {
         formatLines = 1,
         formatPattern = {
           '(.*)\\s+on\\s+line\\s+(\\d+)\\s+at\\s+column\\s+(\\d+)\\s*$',
-          { line = 2, column = 3, message = 1 }
-        }
-      }
+          { line = 2, column = 3, message = 1 },
+        },
+      },
     },
     filetypes = {
       javascript = 'eslint',
@@ -134,28 +134,28 @@ return {
       sh = 'shellcheck',
       prose = 'languagetool',
       python = 'flake8',
-      vim = 'vint'
+      vim = 'vint',
     },
-    formatters = {
-      prettierEslint = {
-        command = 'prettier-eslint',
-        args = { '--stdin' },
-        rootPatterns = { '.git' }
-      },
-      prettier = {
-        command = 'prettier',
-        args = { '--stdin-filepath', '%filename' }
-      }
-    },
-    formatFiletypes = {
-      css = 'prettier',
-      javascript = 'prettierEslint',
-      javascriptreact = 'prettierEslint',
-      json = 'prettier',
-      scss = 'prettier',
-      typescript = 'prettierEslint',
-      typescriptreact = 'prettierEslint',
-      lua = 'lua-format'
-    }
-  }
+    -- formatters = {
+    --   prettierEslint = {
+    --     command = 'prettier-eslint',
+    --     args = { '--stdin' },
+    --     rootPatterns = { '.git' }
+    --   },
+    --   prettier = {
+    --     command = 'prettier',
+    --     args = { '--stdin-filepath', '%filename' }
+    --   }
+    -- },
+    -- formatFiletypes = {
+    --   css = 'prettier',
+    --   javascript = 'prettierEslint',
+    --   javascriptreact = 'prettierEslint',
+    --   json = 'prettier',
+    --   scss = 'prettier',
+    --   typescript = 'prettierEslint',
+    --   typescriptreact = 'prettierEslint',
+    --   lua = 'lua-format'
+    -- }
+  },
 }

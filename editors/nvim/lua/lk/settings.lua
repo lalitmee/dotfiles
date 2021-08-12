@@ -31,6 +31,8 @@ vim.opt.ttimeoutlen = 10
 -----------------------------------------------------------------------------//
 -- Window splitting and buffers {{{1
 -----------------------------------------------------------------------------//
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.hidden = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -71,7 +73,7 @@ vim.opt.formatoptions = {
   c = true, -- Auto-wrap comments using textwidth
   r = true, -- Continue comments when pressing Enter
   n = true, -- Recognize numbered lists
-  t = false, -- autowrap lines using text width value
+  t = true, -- autowrap lines using text width value
   j = true, -- remove a comment leader when joining lines.
   -- Only break if the line was not longer than 'textwidth' when the insert
   -- started and only at a white character that has been entered during the
@@ -195,13 +197,15 @@ vim.opt.termguicolors = true
 -- CREDIT: https://www.youtube.com/watch?v=F91VWOelFNE
 vim.opt.emoji = false
 -----------------------------------------------------------------------------//
-vim.opt.inccommand = 'nosplit'
+vim.opt.inccommand = 'split'
 -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
-vim.opt.guicursor = {
-  [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
-  [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
-  [[sm:block-blinkwait175-blinkoff150-blinkon175]],
-}
+vim.opt.cursorline = true
+vim.opt.cursorcolumn = false
+-- vim.opt.guicursor = {
+--   [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
+--   [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
+--   [[sm:block-blinkwait175-blinkoff150-blinkon175]],
+-- }
 -----------------------------------------------------------------------------//
 -- Title {{{1
 -----------------------------------------------------------------------------//
@@ -218,7 +222,7 @@ vim.opt.sessionoptions = {
   'curdir',
   'help',
   'winpos',
-  -- "tabpages",
+  'tabpages',
 }
 vim.opt.viewoptions = { 'cursor', 'folds' } -- save/restore just these (with `:{mk,load}view`)
 vim.opt.virtualedit = 'block' -- allow cursor to move where there is no text in visual block mode
@@ -292,6 +296,9 @@ vim.cmd([[set shada=!,'1000,<50,s10,h]])
 vim.cmd([[set t_ZH=[3m]])
 vim.cmd([[set t_ZR=[23m]])
 vim.cmd([[set t_ut=]])
+vim.cmd([[set noerrorbells]])
+vim.cmd([[set novisualbell]])
+vim.cmd([[set t_vb=]])
 
 -- }}}
 
@@ -351,6 +358,17 @@ vim.api.nvim_exec([[
       " python hosts
       let g:python3_host_prog = '/home/lalitmee/.pyenv/versions/neovim3/bin/python'
       let g:python_host_prog = '/home/lalitmee/.pyenv/versions/neovim2/bin/python'
+
+      " cursors in different modes
+      if empty($TMUX)
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+        let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+      else
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+        let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+      endif
 
   ]], true)
 

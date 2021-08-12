@@ -22,8 +22,6 @@ local function hunspell_install_if_needed()
   end
 end
 
-require('packer').init({ display = { auto_clean = false } })
-
 return require('packer').startup {
   function(use)
     -- Packer can manage itself as an optional plugin
@@ -33,41 +31,34 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    -- gruvqueen on top on gruvbox-material
-    use 'Murtaza-Udaipurwala/gruvqueen'
-
-    -- colorbuddy for Colorschemes
-    use 'tjdevries/colorbuddy.nvim'
-
-    -- vscode dark color colorshceme
-    use 'Mofiqul/vscode.nvim'
-
-    -- tokyonight colorscheme
-    use 'folke/tokyonight.nvim'
-
-    -- material colorscheme
-    use 'marko-cerovac/material.nvim'
-
-    -- gruvbuddy using colorbuddy
-    use 'tjdevries/gruvbuddy.nvim'
-
-    -- dim the section of the code in which you are in
+    -- enabled
+    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
+    use { 'navarasu/onedark.nvim', disable = false }
+    use { 'NTBBloodbath/doom-one.nvim', disable = false }
+    use { 'projekt0n/github-nvim-theme', disable = false }
+    use { 'tjdevries/colorbuddy.nvim', disable = false }
+    use { 'tjdevries/gruvbuddy.nvim', disable = false }
+    use { 'tomasiser/vim-code-dark', disable = false }
+    use { 'Mofiqul/vscode.nvim', disable = false }
+    use { 'folke/tokyonight.nvim', disable = false }
+    use { 'marko-cerovac/material.nvim', disable = false }
     use {
       'folke/twilight.nvim',
       config = function()
         require('twilight').setup {}
       end,
+      disable = false,
     }
 
     -- }}}
 
     -- icons {{{
 
-    -- for icons in vim
-    use 'kyazdani42/nvim-web-devicons'
-
     -- beautiful icons
-    use 'yamatsum/nvim-nonicons'
+    use {
+      'yamatsum/nvim-nonicons',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+    }
 
     -- }}}
 
@@ -103,6 +94,7 @@ return require('packer').startup {
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
+    use 'henrik/vim-indexed-search'
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
@@ -138,8 +130,23 @@ return require('packer').startup {
       end,
     }
 
-    -- delete buffers and windows
-    use { 'mhinz/vim-sayonara', cmd = { 'Sayonara' } }
+    -- delete buffers without distubing layout
+    use {
+      'kazhala/close-buffers.nvim',
+      config = function()
+        require('close_buffers').setup({
+          preserve_window_layout = { 'this', 'nameless' },
+          next_buffer_cmd = function(windows)
+            require('bufferline').cycle(1)
+            local bufnr = vim.api.nvim_get_current_buf()
+
+            for _, window in ipairs(windows) do
+              vim.api.nvim_win_set_buf(window, bufnr)
+            end
+          end,
+        })
+      end,
+    }
 
     -- match brackets and more
     use 'andymass/vim-matchup'
@@ -196,10 +203,15 @@ return require('packer').startup {
 
     -- TEXT {{{
 
+    -- jump to any definition or references
+    use 'pechorin/any-jump.vim'
+
     -- Notes {{{
 
+    -- NOTE: not using this because it has 3 seconds loading time
     use {
       'vhyrro/neorg',
+      disable = true,
       config = function()
         require('neorg').setup {
           -- Tell Neorg what modules to load
@@ -322,6 +334,7 @@ return require('packer').startup {
     use {
       'neovim/nvim-lspconfig',
       requires = {
+        { 'arkav/lualine-lsp-progress' },
         { 'glepnir/lspsaga.nvim' },
         { 'hrsh7th/nvim-compe' },
         {
@@ -414,6 +427,7 @@ return require('packer').startup {
       },
       { 'nvim-treesitter/nvim-treesitter-refactor' },
       { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'RRethy/nvim-treesitter-textsubjects' },
       { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
       { 'p00f/nvim-ts-rainbow' },
       { 'JoosepAlviste/nvim-ts-context-commentstring' },
@@ -438,6 +452,8 @@ return require('packer').startup {
 
     -- FUZZY SEARCH {{{
 
+    use { 'camspiers/snap', rocks = { 'fzy' } }
+
     -- fzf.vim {{{
 
     use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
@@ -455,29 +471,19 @@ return require('packer').startup {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
-        { 'dhruvmanila/telescope-bookmarks.nvim' },
         { 'fannheyward/telescope-coc.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
         { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
-        { 'jvgrootveld/telescope-zoxide' },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-fzf-writer.nvim' },
-        { 'nvim-telescope/telescope-fzy-native.nvim' },
         { 'nvim-telescope/telescope-github.nvim' },
         { 'nvim-telescope/telescope-project.nvim' },
-        { 'nvim-telescope/telescope-snippets.nvim' },
-        { 'nvim-telescope/telescope-symbols.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        -- { 'nvim-telescope/telescope-github.nvim' },
-        -- {
-        --   'nvim-telescope/telescope-arecibo.nvim',
-        --   rocks = { 'openssl', 'lua-http-parser' }
-        -- },
       },
     }
 
@@ -487,8 +493,22 @@ return require('packer').startup {
 
     -- LANGUAGES {{{
 
-    -- {{{
+    -- packages info
+    use {
+      'vuki656/package-info.nvim',
+      config = function()
+        require('package-info').setup()
+      end,
+    }
 
+    -- refactor the code {{{
+    use {
+      'ThePrimeagen/refactoring.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-treesitter/nvim-treesitter' },
+      },
+    }
     -- }}}
 
     -- HTML {{{
@@ -540,15 +560,6 @@ return require('packer').startup {
 
     -- auto-pairs in lua
     use 'windwp/nvim-autopairs'
-    -- use {
-    --   'sudormrfbin/cheatsheet.nvim',
-    --   requires = {
-    --     { 'nvim-telescope/telescope.nvim' },
-    --     { 'nvim-lua/popup.nvim' },
-    --     { 'nvim-lua/plenary.nvim' }
-    --   },
-    --   cmd = { 'CheatSheet', 'CheatSheedEdit' }
-    -- }
 
     -- }}}
 
@@ -556,7 +567,7 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
-    use 'rhysd/committia.vim'
+    use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
     use {
       'rhysd/conflict-marker.vim',
       config = function()
@@ -581,34 +592,23 @@ return require('packer').startup {
     -- magit for neovim in lua
     use { 'TimUntersberger/neogit' }
 
-    -- lazygit from neovim
-    use {
-      'kdheepak/lazygit.nvim',
-      cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitFilter' },
-    }
-
     -- gitsigns in lua
     use 'lewis6991/gitsigns.nvim'
 
     -- git lens in vim
-    use {
-      'rhysd/git-messenger.vim',
-      cmd = { 'GitMessenger' },
-      keys = { '<Plug>(git-messenger)' },
-    }
     use { 'sindrets/diffview.nvim' }
-
-    -- version control
-    use 'tpope/vim-fugitive'
 
     -- }}}
 
     -- STATUS AND TAB LINES {{{
+    -- use {
+    --   'tjdevries/express_line.nvim',
+    --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    -- }
 
-    -- use { 'glepnir/galaxyline.nvim', branch = 'main' }
     use {
-      'hoob3rt/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      'shadmansaleh/lualine.nvim',
+      requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
     }
     use 'akinsho/nvim-bufferline.lua'
 
@@ -674,11 +674,18 @@ return require('packer').startup {
 
     -- Explorer {{{
 
-    -- file explorer
-
+    use {
+      'tamago324/lir.nvim',
+      requires = {
+        { 'tamago324/lir-git-status.nvim' },
+        { 'nvim-lua/plenary.nvim' },
+        { 'kyazdani42/nvim-web-devicons' },
+      },
+    }
     -- ranger for neovim
     use {
       'kevinhwang91/rnvimr',
+      disable = true,
       config = function()
         -- Make Ranger replace Netrw and be the file explorer
         vim.g.rnvimr_enable_ex = 1
@@ -732,6 +739,7 @@ return require('packer').startup {
     -- GNVIM {{{
 
     -- Goneovim Fuzzy search
+    -- NOTE: not using this because we have neovide instead of goneovim
     use { 'akiyosi/gonvim-fuzzy', disable = true }
 
     -- }}}
@@ -762,5 +770,16 @@ return require('packer').startup {
 
     -- }}}
   end,
-  config = { display = { open_cmd = 'topleft 65vnew [packer]' } },
+  config = {
+    display = {
+      prompt_border = 'rounded',
+      open_fn = function()
+        return require('packer.util').float({ border = 'single' })
+      end,
+    },
+    profile = {
+      enable = true,
+      threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+    },
+  },
 }
