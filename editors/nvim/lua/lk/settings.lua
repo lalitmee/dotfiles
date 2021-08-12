@@ -199,11 +199,13 @@ vim.opt.emoji = false
 -----------------------------------------------------------------------------//
 vim.opt.inccommand = 'split'
 -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
-vim.opt.guicursor = {
-  [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
-  [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
-  [[sm:block-blinkwait175-blinkoff150-blinkon175]],
-}
+vim.opt.cursorline = true
+vim.opt.cursorcolumn = false
+-- vim.opt.guicursor = {
+--   [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
+--   [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
+--   [[sm:block-blinkwait175-blinkoff150-blinkon175]],
+-- }
 -----------------------------------------------------------------------------//
 -- Title {{{1
 -----------------------------------------------------------------------------//
