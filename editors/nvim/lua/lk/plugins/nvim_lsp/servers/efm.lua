@@ -1,61 +1,65 @@
-local prettier = { formatCommand = "prettier" }
+local prettier = { formatCommand = 'prettier' }
+
 local eslint = {
-  lintCommand = "eslint_d -f unix --stdin",
+  lintCommand = 'eslint_d --stdin --stdin-filename ${INPUT} -f unix',
+  lintStdin = true,
   lintIgnoreExitCode = true,
-  lintStdin = true
 }
+
 local shellcheck = {
-  lintCommand = "shellcheck -f gcc -x -",
+  lintCommand = 'shellcheck -f gcc -x -',
   lintStdin = true,
   lintFormats = {
-    "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m"
-  }
+    '%f:%l:%c: %trror: %m',
+    '%f:%l:%c: %tarning: %m',
+    '%f:%l:%c: %tote: %m',
+  },
 }
 
 local shfmt = {
   -- brew install shfmt
-  formatCommand = "shfmt -ci -s -bn",
-  formatStdin = true
+  formatCommand = 'shfmt -ci -s -bn',
+  formatStdin = true,
 }
 
 local luaformat = {
   -- luarocks install --server=https://luarocks.org/dev luaformatter
-  formatCommand = "lua-format -i ${--tab-width:tabSize} ${--indent-width:tabSize} --spaces-inside-table-braces --single-quote-to-double-quote",
-  formatStdin = true
+  formatCommand = 'lua-format -i ${--tab-width:tabSize} ${--indent-width:tabSize} --spaces-inside-table-braces --single-quote-to-double-quote',
+  formatStdin = true,
 }
 
 local vint = {
   -- brew install vint --HEAD
-  lintCommand = "vint --enable-neovim -",
+  lintCommand = 'vint --enable-neovim -',
   -- stdin needs vint >= 0.4
   lintStdin = true,
-  lintFormats = { "%f:%l:%c: %m" }
+  lintFormats = { '%f:%l:%c: %m' },
 }
 
-local checkmake = { lintCommand = "checkmake", lintStdin = true }
+local checkmake = { lintCommand = 'checkmake', lintStdin = true }
 
 -- brew install yamllint
-local yamllint = { lintCommand = "yamllint -f parsable -", lintStdin = true }
+local yamllint = { lintCommand = 'yamllint -f parsable -', lintStdin = true }
 
 local flake8 = {
-  lintCommand = "flake8 --stdin-display-name ${INPUT} -",
+  lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
   lintStdin = true,
-  lintFormats = { "%f:%l:%c: %m" }
+  lintFormats = { '%f:%l:%c: %m' },
 }
 
 local phpstan = {
-  lintCommand = "./vendor/bin/phpstan analyze --error-format raw --no-progress"
+  lintCommand = './vendor/bin/phpstan analyze --error-format raw --no-progress',
 }
 
 local bladeFormatter = {
-  formatCommand = "blade-formatter --stdin",
-  formatStdin = true
+  formatCommand = 'blade-formatter --stdin',
+  formatStdin = true,
 }
 
 local rustywind = {
   -- yarn global add rustywind
-  formatCommand = "rustywind --stdin",
-  formatStdin = true
+  formatCommand = 'rustywind --stdin',
+  formatStdin = true,
 }
 
 local languages = {
@@ -78,10 +82,10 @@ local languages = {
   typescript = { eslint, prettier },
   typescriptreact = { eslint, prettier },
   vim = { vint },
-  yaml = { yamllint }
+  yaml = { yamllint },
 }
 
-local tailwind_fts = require"lspinstall/servers".tailwindcss.default_config
+local tailwind_fts = require'lspinstall/servers'.tailwindcss.default_config
                          .filetypes
 for _, filetype in ipairs(tailwind_fts) do
   if languages[filetype] then
@@ -94,5 +98,5 @@ end
 return {
   filetypes = vim.tbl_keys(languages),
   init_options = { documentFormatting = false },
-  settings = { rootMarkers = { ".git/" }, languages = languages }
+  settings = { rootMarkers = { '.git/' }, languages = languages },
 }

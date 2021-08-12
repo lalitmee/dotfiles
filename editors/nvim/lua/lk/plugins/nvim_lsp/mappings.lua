@@ -3,6 +3,8 @@ local telescope_mapper = require('lk.plugins.telescope.mappings')
 
 local compe_opts = { noremap = true, silent = true, expr = true }
 
+local M = {}
+
 map('i', '<C-n>', [[compe#complete()]], compe_opts)
 map('i', '<CR>', [[compe#confirm('<CR>')]], compe_opts)
 map('i', '<C-c>', [[compe#close('<C-e>')]], compe_opts)
@@ -70,5 +72,16 @@ telescope_mapper('<localleader>tr', 'lsp_references', telescope_opts, true)
 telescope_mapper('<localleader>tw', 'lsp_document_symbols', telescope_opts, true)
 telescope_mapper('<localleader>tW', 'lsp_workspace_symbols', telescope_opts,
                  true)
+
+
+M.setup_mappings = function(client, bufnr)
+  local nnoremap, mapping_opts = lk_utils.nnoremap, { buffer = bufnr }
+  if client.resolved_capabilities.implementation then
+    nnoremap('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', mapping_opts)
+  end
+  nnoremap('gI', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>', mapping_opts)
+end
+
+return M
 
 -- commented mappings

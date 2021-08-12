@@ -343,6 +343,7 @@ return require('packer').startup {
           requires = 'hrsh7th/nvim-compe',
         },
         { 'kabouzeid/nvim-lspinstall' },
+        { 'alexaandru/nvim-lspupdate' },
         { 'nvim-lua/lsp-status.nvim' },
         { 'tjdevries/lsp_extensions.nvim' },
         {
