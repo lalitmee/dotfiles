@@ -408,6 +408,13 @@ return require('packer').startup {
           end,
           event = 'ColorScheme',
         },
+        {
+          'onsails/vimway-lsp-diag.nvim',
+          disable = true,
+          config = function()
+            require('vimway-lsp-diag').init({})
+          end,
+        },
       },
     }
 
