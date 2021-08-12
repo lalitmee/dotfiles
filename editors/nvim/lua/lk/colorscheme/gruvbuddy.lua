@@ -16,7 +16,9 @@ vim.opt.termguicolors = true
 -- Color.new('seagreen',  '#698b69')
 -- Color.new('turquoise', '#698b69')
 
+-- gruvbuddy
 require('colorbuddy').colorscheme('gruvbuddy')
+
 require('colorizer').setup()
 
 local c = require('colorbuddy.color').colors

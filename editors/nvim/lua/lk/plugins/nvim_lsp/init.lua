@@ -30,7 +30,7 @@ require('vim.lsp.protocol').CompletionItemKind =
       ' [Struct]', -- Struct
       '鬒 [Event]', -- Event
       '\u{03a8} [Operator]', -- Operator
-      ' [Type Parameter]' -- TypeParameter
+      ' [Type Parameter]', -- TypeParameter
     }
 
 -- highlights {{{
@@ -46,46 +46,46 @@ highlight.all {
   { 'LspDiagnosticsDefaultInformation', { guifg = '#15aabf' } },
   {
     'LspDiagnosticsUnderlineError',
-    { gui = 'undercurl', guisp = '#E06C75', guifg = 'none' }
+    { gui = 'undercurl', guisp = '#E06C75', guifg = 'none' },
   },
   {
     'LspDiagnosticsUnderlineHint',
-    { gui = 'undercurl', guisp = '#fab005', guifg = 'none' }
+    { gui = 'undercurl', guisp = '#fab005', guifg = 'none' },
   },
   {
     'LspDiagnosticsUnderlineWarning',
-    { gui = 'undercurl', guisp = 'orange', guifg = 'none' }
+    { gui = 'undercurl', guisp = 'orange', guifg = 'none' },
   },
   {
     'LspDiagnosticsUnderlineInformation',
-    { gui = 'undercurl', guisp = '#15aabf', guifg = 'none' }
+    { gui = 'undercurl', guisp = '#15aabf', guifg = 'none' },
   },
   { 'LspDiagnosticsFloatingWarning', { guibg = 'NONE' } },
   { 'LspDiagnosticsFloatingError', { guibg = 'NONE' } },
   { 'LspDiagnosticsFloatingHint', { guibg = 'NONE' } },
-  { 'LspDiagnosticsFloatingInformation', { guibg = 'NONE' } }
+  { 'LspDiagnosticsFloatingInformation', { guibg = 'NONE' } },
 }
 
 -- lsp signs
 vim.fn.sign_define('LspDiagnosticsSignError', {
   texthl = 'LspDiagnosticsSignError',
   text = ' ',
-  numhl = 'LspDiagnosticsSignError'
+  numhl = 'LspDiagnosticsSignError',
 })
 vim.fn.sign_define('LspDiagnosticsSignWarning', {
   texthl = 'LspDiagnosticsSignWarning',
   text = ' ',
-  numhl = 'LspDiagnosticsSignWarning'
+  numhl = 'LspDiagnosticsSignWarning',
 })
 vim.fn.sign_define('LspDiagnosticsSignHint', {
   texthl = 'LspDiagnosticsSignHint',
   text = '💡',
-  numhl = 'LspDiagnosticsSignHint'
+  numhl = 'LspDiagnosticsSignHint',
 })
 vim.fn.sign_define('LspDiagnosticsSignInformation', {
   texthl = 'LspDiagnosticsSignInformation',
   text = ' ',
-  numhl = 'LspDiagnosticsSignInformation'
+  numhl = 'LspDiagnosticsSignInformation',
 })
 
 -- lsp autocommands
@@ -96,38 +96,38 @@ local function setup_autocommands(client)
     {
       events = { 'InsertLeave', 'BufWrite', 'BufEnter' },
       targets = { '<buffer>' },
-      command = [[lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-    }
+      command = [[lua vim.lsp.diagnostic.set_loclist({open = false})]],
+    },
   })
   if client and client.resolved_capabilities.document_highlight then
     autocommands.augroup('LspCursorCommands', {
       {
         events = { 'CursorHold' },
         targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.document_highlight()'
+        command = 'lua vim.lsp.buf.document_highlight()',
       },
       {
         events = { 'CursorHoldI' },
         targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.document_highlight()'
+        command = 'lua vim.lsp.buf.document_highlight()',
       },
       {
         events = { 'CursorMoved' },
         targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.clear_references()'
-      }
+        command = 'lua vim.lsp.buf.clear_references()',
+      },
     })
   end
-  if client and client.resolved_capabilities.document_formatting then
-    -- format on save
-    autocommands.augroup('LspFormat', {
-      {
-        events = { 'BufWritePre' },
-        targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)'
-      }
-    })
-  end
+  -- if client and client.resolved_capabilities.document_formatting then
+  --   -- format on save
+  --   autocommands.augroup('LspFormat', {
+  --     {
+  --       events = { 'BufWritePre' },
+  --       targets = { '<buffer>' },
+  --       command = 'lua vim.lsp.buf.formatting_sync(nil, 1000)',
+  --     },
+  --   })
+  -- end
 end
 
 -- mappings
@@ -157,7 +157,7 @@ function Tagfunc(pattern, flags)
         name = pattern,
         filename = vim.uri_to_fname(location.uri),
         cmd = string.format('call cursor(%d, %d)', start.line + 1,
-                            start.character + 1)
+                            start.character + 1),
       })
     end
   end
@@ -230,7 +230,7 @@ local function on_attach_tsserver(client, bufnr)
     -- update imports on file move
     update_imports_on_move = false,
     require_confirmation_on_move = false,
-    watch_dir = nil
+    watch_dir = nil,
   }
 
   -- required to fix code action ranges
@@ -304,14 +304,14 @@ local function setup_servers()
     if server == 'tsserver' then
       config.on_attach = on_attach_tsserver
     end
-    if server == 'efm' then
-      config = vim.tbl_extend('force', config,
-                              require('lk/plugins/nvim_lsp/efm'))
-    end
-    -- if server == 'diagnosticls' then
+    -- if server == 'efm' then
     --   config = vim.tbl_extend('force', config,
-    --                           require('lk/plugins/nvim_lsp/diagnosticls'))
+    --                           require('lk/plugins/nvim_lsp/efm'))
     -- end
+    if server == 'diagnosticls' then
+      config = vim.tbl_extend('force', config,
+                              require('lk/plugins/nvim_lsp/diagnosticls'))
+    end
     if server == 'sourcekit' then
       config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
     end
