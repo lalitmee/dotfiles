@@ -630,7 +630,7 @@ local leader_key_maps = {
     },
     ['f'] = { ':Telescope lsp_references<CR>', 'references' },
     ['j'] = { ':Telescope lsp_workspace_symbols<CR>', 'workspace-symbols' },
-    ['r'] = { ':MyLspRename()<CR>', 'rename-symbol' },
+    ['r'] = { ':lua MyLspRename()<CR>', 'rename-symbol' },
     ['s'] = { ':Telescope lsp_document_symbols<CR>', 'buffer-symbols' },
   },
 
