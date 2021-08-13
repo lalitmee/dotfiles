@@ -1,8 +1,8 @@
--- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
+-- NOTE: doom-one
+require('lk/colorscheme/doom-one')
 
--- -- NOTE: doom-one
--- require('lk/colorscheme/doom-one')
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')

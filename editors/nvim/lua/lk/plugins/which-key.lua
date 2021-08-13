@@ -310,6 +310,8 @@ local leader_key_maps = {
       'open-repo-browser',
     },
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
+    ['d'] = { ':DiffviewOpen<CR>', 'diffview-open' },
+    ['D'] = { ':DiffviewClose<CR>', 'diffview-open' },
     ['h'] = {
       ['name'] = '+gitsigns-hunks',
       ['a'] = { ':Gitsigns attach<CR>', 'attach' },
