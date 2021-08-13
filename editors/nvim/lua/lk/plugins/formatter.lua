@@ -69,12 +69,12 @@ require('formatter').setup({
   },
 })
 
-vim.api.nvim_exec([[
-      augroup Format
-          autocmd!
-          autocmd BufWritePost *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.rs,*.lua FormatWrite
-      augroup END
-  ]], true)
+-- vim.api.nvim_exec([[
+--       augroup Format
+--           autocmd!
+--           autocmd BufWritePost *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.rs,*.lua FormatWrite
+--       augroup END
+--   ]], true)
 
 -- -- without ts and js formatting
 -- vim.api.nvim_exec([[
@@ -84,9 +84,9 @@ vim.api.nvim_exec([[
 --       augroup END
 --   ]], true)
 
--- vim.api.nvim_exec([[
---       augroup Format
---           autocmd!
---           autocmd BufWritePost *.lua FormatWrite
---       augroup END
---   ]], true)
+vim.api.nvim_exec([[
+      augroup Format
+          autocmd!
+          autocmd BufWritePost *.lua FormatWrite
+      augroup END
+  ]], true)

@@ -12,8 +12,8 @@ require('lualine').setup {
       { 'filename', path = 1 },
       {
         'diagnostics',
-        -- sources = { 'coc' },
-        sources = { 'nvim_lsp' },
+        sources = { 'coc' },
+        -- sources = { 'nvim_lsp' },
         symbols = {
           error = ' :',
           warn = ' :',
@@ -26,8 +26,8 @@ require('lualine').setup {
         color_hint = { fg = '#fab005' },
         update_in_insert = true,
       },
-      -- { 'b:coc_current_function', 'g:coc_status' },
-      { 'lsp_progress' },
+      { 'b:coc_current_function', 'g:coc_status' },
+      -- { 'lsp_progress' },
     },
     lualine_x = {},
     lualine_y = { { 'progress' } },
