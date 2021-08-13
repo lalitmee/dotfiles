@@ -29,6 +29,17 @@ return require('packer').startup {
 
     -- UI AND BEAUTIFY {{{
 
+    -- MENU
+    -- lazy load as it is very expensive to load during startup i.e. 20ms+
+    -- FIXME: UpdateRemotePlugins doesn't seem to be called for lazy loaded plugins
+    -- @see: https://github.com/wbthomason/packer.nvim/issues/464
+    -- use {
+    --   'gelguy/wilder.nvim',
+    --   -- event = 'CmdlineEnter',
+    --   rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
+    --   requires = { 'romgrk/fzy-lua-native', 'nixprime/cpsm' },
+    -- }
+
     -- colorschemes {{{
 
     -- enabled
@@ -94,7 +105,7 @@ return require('packer').startup {
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
-    use { 'henrik/vim-indexed-search' }
+    use { 'henrik/vim-indexed-search', disable = false }
     use { 'google/vim-searchindex', disable = true }
 
     -- easymotion using lua
@@ -335,7 +346,7 @@ return require('packer').startup {
     use {
       'neovim/nvim-lspconfig',
       requires = {
-        { 'arkav/lualine-lsp-progress' },
+        { 'arkav/lualine-lsp-progress', disable = true },
         { 'glepnir/lspsaga.nvim' },
         { 'hrsh7th/nvim-compe' },
         {
@@ -344,7 +355,7 @@ return require('packer').startup {
           requires = 'hrsh7th/nvim-compe',
         },
         { 'kabouzeid/nvim-lspinstall' },
-        { 'alexaandru/nvim-lspupdate' },
+        { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
         { 'nvim-lua/lsp-status.nvim' },
         { 'tjdevries/lsp_extensions.nvim' },
         {
@@ -605,7 +616,17 @@ return require('packer').startup {
     use 'lewis6991/gitsigns.nvim'
 
     -- git lens in vim
-    use { 'sindrets/diffview.nvim' }
+    use {
+      'sindrets/diffview.nvim',
+      config = function()
+        require('diffview').setup {
+          key_bindings = {
+            file_panel = { q = '<Cmd>DiffviewClose<CR>' },
+            view = { q = '<Cmd>DiffviewClose<CR>' },
+          },
+        }
+      end,
+    }
 
     -- }}}
 

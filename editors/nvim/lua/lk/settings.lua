@@ -18,6 +18,7 @@ vim.opt.shortmess = {
   f = true, -- (file x of x) instead of just (x of x
   F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
   s = true,
+  S = false,
   c = true,
   W = true, -- Dont show [w] or written when writing
 }
