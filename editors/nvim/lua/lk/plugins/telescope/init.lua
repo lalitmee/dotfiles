@@ -21,7 +21,7 @@ require('telescope').setup {
   defaults = {
     prompt_prefix = ' > ',
     selection_strategy = 'reset',
-    sorting_strategy = 'ascending',
+    sorting_strategy = 'descending',
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,
@@ -65,7 +65,7 @@ require('telescope').setup {
     layout_config = {
       width = 0.85,
       height = 0.85,
-      prompt_position = 'top',
+      prompt_position = 'bottom',
 
       horizontal = {
         width_padding = 0.11,
