@@ -220,29 +220,6 @@ return require('packer').startup {
 
     -- Notes {{{
 
-    use {
-      'kristijanhusak/orgmode.nvim',
-      config = function()
-        require('orgmode').setup {}
-      end,
-    }
-
-    if false and vim.fn.executable 'neuron' == 1 then
-      use {
-        'oberblastmeister/neuron.nvim',
-        branch = 'unstable',
-        config = function()
-          -- these are all the default values
-          require('neuron').setup {
-            virtual_titles = true,
-            mappings = true,
-            run = nil,
-            neuron_dir = '~/data/Github/Notes/neuron',
-            leader = 'gz',
-          }
-        end,
-      }
-    end
     -- use 'michal-h21/vim-zettel'                      " zettel tasks
     -- use 'vimwiki/vimwiki'                            " vim wiki
 
@@ -458,8 +435,6 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        { 'nvim-telescope/telescope-fzf-writer.nvim' },
-        { 'nvim-telescope/telescope-github.nvim' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },

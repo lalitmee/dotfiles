@@ -9,6 +9,7 @@ toggleterm.setup {
   start_in_insert = true,
   persist_size = true,
   direction = 'float',
+  float_opts = { border = 'curved' },
 }
 
 -- commands

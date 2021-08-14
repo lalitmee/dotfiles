@@ -15,7 +15,7 @@ wk.setup({
 -- NOTE: leader key mappings
 local leader_key_maps = {
   -- NOTE: direct mappings
-  ['<space>'] = { ':Telescope fzf_writer files<CR>', 'find-files' },
+  ['<space>'] = { ':Telescope find_files<CR>', 'find-files' },
   [';'] = { ':Telescope commands<CR>', 'commands' },
   ['*'] = 'vimgrep-under-cursor',
 
@@ -772,7 +772,7 @@ local leader_key_maps = {
         'with-dropdown',
       },
       ['e'] = { ':Telescope file_browser<CR>', 'file-browser' },
-      ['f'] = { ':Telescope fzf_writer files<CR>', 'fzf-writer-files' },
+      ['f'] = { ':Telescope find_files<CR>', 'find-files' },
       ['F'] = { ':Telescope find_files<CR>', 'find-files' },
       ['g'] = { ':Telescope git_files<CR>', 'git-files' },
       ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
@@ -809,7 +809,7 @@ local leader_key_maps = {
     ['s'] = {
       ['name'] = '+search',
       ['b'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
-      ['s'] = { ':Telescope fzf_writer grep<CR>', 'fzf-writer-grep' },
+      ['s'] = { ':Telescope live_grep<CR>', 'live-grep' },
       ['S'] = { ':Telescope live_grep<CR>', 'live-grep' },
       ['u'] = { ':Telescope grep_string<CR>', 'grep-string' },
       ['w'] = {
@@ -839,10 +839,7 @@ local leader_key_maps = {
       ['t'] = { ':Telescope help_tags<CR>', 'help-tags' },
       ['v'] = { ':Telescope vim_options<CR>', 'vim-options' },
     },
-    ['w'] = {
-      [[:lua require('telescope').extensions.fzf_writer.staged_grep{}<cr>]],
-      'grep-words',
-    },
+    ['w'] = { ':Telescope grep_string<CR>', 'grep-words' },
   },
 
   -- NOTE: p is for project
@@ -850,18 +847,18 @@ local leader_key_maps = {
     ['name'] = '+project',
     ['a'] = { ':FzfAg<CR>', 'project-search' },
     ['b'] = { ':Telescope buffers<CR>', 'find-buffers' },
-    ['f'] = { ':Telescope fzf_writer files<CR>', 'find-files-fzf' },
+    ['f'] = { ':Telescope find_files<CR>', 'find-files' },
     ['F'] = { ':Telescope find_files<CR>', 'find-files' },
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['p'] = {
-      ':lua require\'telescope\'.extensions.project.project{ display_type = \'full\' }<CR>',
+      ':Telescope project project display_type=full<CR>',
       'switch-project',
     },
-    ['P'] = 'tj-project-search',
     ['r'] = { ':Telescope frecency<CR>', 'old-files' },
     ['s'] = { ':Telescope live_grep<CR>', 'project-search' },
-    ['S'] = { ':Telescope fzf_writer grep<CR>', 'project-search-fzf' },
+    ['S'] = { ':RG<CR>', 'fzf-rg' },
     ['w'] = { ':Telescope grep_string<CR>', 'string-search' },
+    ['W'] = { ':Tgrep<CR>', 'tj-grep' },
   },
 
   -- NOTE: P is for CocCommand fzf-preview using CocCommand
@@ -983,8 +980,8 @@ local leader_key_maps = {
     ['L'] = { ':FzfLines<CR>', 'fzf-buffer-lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
-    ['p'] = { ':Telescope fzf_writer grep<CR>', 'live-grep-fzf' },
-    ['P'] = { ':Telescope live_grep<CR>', 'live-grep' },
+    ['p'] = { ':Telescope live_grep<CR>', 'live-grep' },
+    ['P'] = { ':RG<CR>', 'fzf-rg' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
     ['S'] = { ':Telescope colorscheme<CR>', 'color-schemes' },
