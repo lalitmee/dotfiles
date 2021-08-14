@@ -1,8 +1,11 @@
 -- NOTE: doom-one
 require('lk/colorscheme/doom-one')
 
--- -- NOTE: tokyonight
--- require('lk/colorscheme/tokyonight')
+-- -- NOTE: material
+-- require('lk/colorscheme/material')
+
+-- -- NOTE: gruvqueen
+-- require('lk/colorscheme/gruvqueen')
 
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')
@@ -10,14 +13,8 @@ require('lk/colorscheme/doom-one')
 -- -- NOTE: github
 -- require('lk/colorscheme/github')
 
--- -- NOTE: material
--- require('lk/colorscheme/material')
-
--- -- NOTE: gruvqueen
--- require('lk/colorscheme/gruvqueen')
-
--- -- NOTE: calvera
--- require('lk/colorscheme/calvera')
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: onedark
 -- require('lk/colorscheme/onedark')

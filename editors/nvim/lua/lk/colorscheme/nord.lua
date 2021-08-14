@@ -45,13 +45,13 @@ Group.new('Search', c.nord_1, c.nord_12)
 
 Group.new('NvimTreeFolderIcon', c.nord_11, c.NONE)
 
-Group.new('NeogitDiffAdd', c.green:dark(), c.black:light())
-Group.new('NeogitDiffAddHighlight', c.green:dark(), c.black:light())
-Group.new('NeogitDiffContextHighlight', nil, c.black:light())
-Group.new('NeogitDiffDelete', c.red:dark(), c.black:light())
-Group.new('NeogitDiffDeleteHighlight', c.red:dark(), c.black:light())
-Group.new('NeogitHunkHeader', c.black, c.blue:dark())
-Group.new('NeogitHunkHeaderHighlight', c.black, c.blue:dark())
+-- Group.new('NeogitDiffAdd', c.green:dark(), c.black:light())
+-- Group.new('NeogitDiffAddHighlight', c.green:dark(), c.black:light())
+-- Group.new('NeogitDiffContextHighlight', nil, c.black:light())
+-- Group.new('NeogitDiffDelete', c.red:dark(), c.black:light())
+-- Group.new('NeogitDiffDeleteHighlight', c.red:dark(), c.black:light())
+-- Group.new('NeogitHunkHeader', c.black, c.blue:dark())
+-- Group.new('NeogitHunkHeaderHighlight', c.black, c.blue:dark())
 
 -- git blame
 Group.new('gitblame', c.grey:dark(), nil)
