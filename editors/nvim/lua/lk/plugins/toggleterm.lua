@@ -3,12 +3,12 @@ local Terminal = require('toggleterm.terminal').Terminal
 
 toggleterm.setup {
   size = 30,
-  open_mapping = '<c-t>',
+  open_mapping = '<c-/>',
   shade_filetypes = {},
   shade_terminals = true,
   start_in_insert = true,
   persist_size = true,
-  direction = 'float'
+  direction = 'float',
 }
 
 -- commands
@@ -20,7 +20,7 @@ local lazygit = Terminal:new({ cmd = 'lazygit', hidden = true })
 local tig = Terminal:new({ cmd = 'tig', hidden = true })
 local terminal_velocity = Terminal:new({
   cmd = 'terminal_velocity',
-  hidden = true
+  hidden = true,
 })
 local lazydocker = Terminal:new({ cmd = 'lazydocker', hidden = true })
 local fzf = Terminal:new({ cmd = 'fzf', hidden = true })
