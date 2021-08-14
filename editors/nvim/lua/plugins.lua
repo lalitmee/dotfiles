@@ -207,7 +207,7 @@ return require('packer').startup {
     -- commenting {{{
 
     -- not using this because this doesn't support repeating of the last acion
-    use { 'b3nj5m1n/kommentary', disable = true }
+    use 'tpope/vim-commentary'
 
     -- }}}
 
@@ -220,50 +220,10 @@ return require('packer').startup {
 
     -- Notes {{{
 
-    -- NOTE: not using this because it has 3 seconds loading time
     use {
-      'vhyrro/neorg',
-      disable = true,
+      'kristijanhusak/orgmode.nvim',
       config = function()
-        require('neorg').setup {
-          -- Tell Neorg what modules to load
-          load = {
-            ['core.defaults'] = {}, -- Load all the default modules
-            ['core.norg.concealer'] = { -- Allows the use of icons
-              config = {
-                icons = { -- Set our own icons here
-                  todo = {
-                    enabled = true,
-
-                    done = { enabled = true, icon = '' },
-                    pending = { enabled = true, icon = '' },
-                    undone = { enabled = true, icon = '×' },
-                  },
-                  quote = { enabled = true, icon = '∣' },
-                  heading = {
-                    enabled = true,
-
-                    level_1 = { enabled = true, icon = '⦿' },
-
-                    level_2 = { enabled = true, icon = '⦾' },
-
-                    level_3 = { enabled = true, icon = '•' },
-
-                    level_4 = { enabled = true, icon = '◦' },
-                  },
-                  list = { enabled = true, icon = '‑' },
-                },
-
-                conceal_cursor = '',
-              },
-            },
-            ['core.norg.dirman'] = { -- Manage your directories with Neorg
-              config = {
-                workspaces = { my_workspace = '~/data/Github/Notes/neorg' },
-              },
-            },
-          },
-        }
+        require('orgmode').setup {}
       end,
     }
 
@@ -649,7 +609,6 @@ return require('packer').startup {
     -- tpope {{{
 
     use 'tpope/vim-abolish'
-    use 'tpope/vim-commentary'
     use {
       'tpope/vim-dispatch',
       opt = true,

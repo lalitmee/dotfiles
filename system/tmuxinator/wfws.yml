@@ -10,7 +10,7 @@ windows:
   - Servers:
       layout: even-horizontal
       panes:
-        - cd development
+        - cd development && yst
         - cd ../marketsn-webapp-service && cd development && yd
   - Caddy:
       - cd
