@@ -8,7 +8,6 @@ require('lk/plugins/harpoon')
 
 -- NOTE: UI
 require('lk/plugins/colorizer')
-require('lk/plugins/goyo')
 require('lk/plugins/indentlines')
 require('lk/plugins/startify')
 
@@ -49,7 +48,6 @@ require('lk/plugins/nvim-bqf')
 require('lk/plugins/auto-pairs')
 require('lk/plugins/emmet')
 require('lk/plugins/markdown')
-require('lk/plugins/sideways')
 require('lk/plugins/tagalong')
 
 -- NOTE: search
