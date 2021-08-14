@@ -58,9 +58,10 @@ map('n', 'cN', [[*``cgN]], map_opts)
 -- add quotes around visual selection
 map('v', '"', [[<esc>`>a"<esc>`<i"<esc>]], map_opts)
 
--- count number of lines in visual mode
-map('v', 'L', [[g<C-g>]], map_opts)
+-- -- count number of lines in visual mode
+-- map('v', 'L', [[g<C-g>]], map_opts)
 
+-- NOTE: this was creating problem with <C-I>
 -- circular window movements
 -- map('n', '<c-tab>', [[<C-w>w]], map_opts)
 -- map('n', '<s-tab>', [[<C-w>W]])

@@ -10,8 +10,8 @@ windows:
   - Servers:
       layout: even-horizontal
       panes:
-        - cd development && yst
-        - cd ../marketsn-webapp-service && cd development && yd
+        - ls
+        - cd ../../marketsn-webapp-service-nextjs && yd
   - Caddy:
       - cd
       - caddy run
