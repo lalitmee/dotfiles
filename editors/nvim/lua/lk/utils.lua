@@ -2,7 +2,7 @@ _G.lk_utils = {
   -- TODO: once commands and mappings can take functions
   -- as arguments natively remove these globals
   command_callbacks = {},
-  mapping_callbacks = {}
+  mapping_callbacks = {},
 }
 
 local fn = vim.fn
@@ -29,7 +29,7 @@ function lk_utils.total_plugins()
   return {
     total = start_count + opt_count,
     start = start_count,
-    lazy = opt_count
+    lazy = opt_count,
   }
 end
 
@@ -96,9 +96,9 @@ local function validate_mappings(lhs, rhs, opts)
         local arg_type = type(a)
         return arg_type == 'string' or arg_type == 'function'
       end,
-      'right hand side'
+      'right hand side',
     },
-    opts = { opts, validate_opts, 'mapping options are incorrect' }
+    opts = { opts, validate_opts, 'mapping options are incorrect' },
   }
 end
 
@@ -202,6 +202,24 @@ function lk_utils.is_empty(item)
   elseif item_type == 'table' then
     return vim.tbl_isempty(item)
   end
+end
+
+function lk_utils.log(msg, hl, name)
+  name = name or 'Neovim'
+  hl = hl or 'Todo'
+  vim.api.nvim_echo({ { name .. ': ', hl }, { msg } }, true, {})
+end
+
+function lk_utils.warn(msg, name)
+  lk_utils.log(msg, 'LspDiagnosticsDefaultWarning', name)
+end
+
+function lk_utils.error(msg, name)
+  lk_utils.log(msg, 'LspDiagnosticsDefaultError', name)
+end
+
+function lk_utils.info(msg, name)
+  lk_utils.log(msg, 'LspDiagnosticsDefaultInformation', name)
 end
 
 -- inspect the contents of an object very quickly in your code or from the command-line:
