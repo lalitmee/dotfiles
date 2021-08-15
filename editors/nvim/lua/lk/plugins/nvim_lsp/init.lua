@@ -74,12 +74,6 @@ local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.Tagfunc')
   end
   require('lsp-status').on_attach(client)
-  -- require("lk/plugins/nvim_lsp/formatting").setup(client, bufnr)
-
-  -- TypeScript specific stuff
-  if client.name == 'typescript' or client.name == 'tsserver' then
-    require('lk/plugins/nvim_lsp/servers/ts-utils').setup(client)
-  end
 end
 
 -- Configure lua language server for neovim development
@@ -90,6 +84,11 @@ local luadev = require('lua-dev').setup({
     },
   },
 })
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport =
+    { properties = { 'documentation', 'detail', 'additionalTextEdits' } }
 
 -- lsp-install
 local function setup_servers()
@@ -102,7 +101,7 @@ local function setup_servers()
     local config = servers[server] or {}
     config.on_attach = on_attach
     if not config.capabilities then
-      config.capabilities = vim.lsp.protocol.make_client_capabilities()
+      config.capabilities = capabilities
     end
     config.capabilities.textDocument.completion.completionItem.snippetSupport =
         true
@@ -117,10 +116,6 @@ local function setup_servers()
       config = vim.tbl_extend('force', config,
                               require('lk/plugins/nvim_lsp/servers/efm'))
     end
-    -- if server == 'diagnosticls' then
-    --   config = vim.tbl_extend('force', config, require(
-    --                               'lk/plugins/nvim_lsp/servers/diagnosticls'))
-    -- end
     if server == 'sourcekit' then
       config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
     end

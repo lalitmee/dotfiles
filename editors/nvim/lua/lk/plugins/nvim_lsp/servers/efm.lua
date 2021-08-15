@@ -1,9 +1,13 @@
-local prettier = { formatCommand = 'prettier' }
+local prettier = {
+  formatCommand = 'prettier --find-config-path --stdin-filepath ${INPUT}',
+  formatStdin = true,
+}
 
 local eslint = {
-  lintCommand = 'eslint_d --stdin --stdin-filename ${INPUT} -f unix',
-  lintStdin = true,
+  lintCommand = 'eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}',
   lintIgnoreExitCode = true,
+  lintStdin = true,
+  lintFormats = { '%f(%l,%c): %tarning %m', '%f(%l,%c): %trror %m' },
 }
 
 local shellcheck = {
@@ -98,5 +102,5 @@ end
 return {
   filetypes = vim.tbl_keys(languages),
   init_options = { documentFormatting = false },
-  settings = { rootMarkers = { '.git/' }, languages = languages },
+  settings = { rootMarkers = { 'package.json', '.git/' }, languages = languages },
 }
