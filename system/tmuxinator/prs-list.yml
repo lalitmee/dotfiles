@@ -1,0 +1,8 @@
+# /home/lalitmee/.config/tmuxinator/prs-list.yml
+
+name: prs-list
+root: ~/data/Github/prs-merged-since
+
+windows:
+  - editor: ls
+  - server: export PORT=3002 && yst

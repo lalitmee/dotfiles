@@ -947,7 +947,12 @@ local leader_key_maps = {
   },
 
   -- NOTE: q is for quickfix and quit
-  ['q'] = { ['name'] = '+quit', ['q'] = { ':qall<CR>', 'quit-vim' } },
+  ['q'] = {
+    ['name'] = '+quit',
+    ['q'] = { ':qall<CR>', 'quit-vim' },
+    ['s'] = { ':SearchSession<CR>', 'search-session' },
+
+  },
 
   -- NOTE: r is for refactor
   -- mappings lies in `lua/lk/plugins/refactoring.lua`
@@ -991,16 +996,6 @@ local leader_key_maps = {
     ['w'] = { ':FzfWindows<CR>', 'search-windows' },
     ['y'] = { ':Telescope filetypes<CR>', 'file-types' },
     ['z'] = { ':FZF<CR>', 'FZF' },
-  },
-
-  -- NOTE: S is for sessions
-  ['S'] = {
-    ['name'] = '+session',
-    ['c'] = { ':SClose<CR>', 'close-session' },
-    ['d'] = { ':SDelete<CR>', 'delete-session' },
-    ['l'] = { ':SLoad<CR>', 'load-session' },
-    ['s'] = { ':SSave<CR>', 'save-session' },
-    ['S'] = { ':Startify<CR>', 'start-page' },
   },
 
   -- NOTE: t is for toggle
