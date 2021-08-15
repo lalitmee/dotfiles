@@ -81,8 +81,17 @@ return require('packer').startup {
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
 
-    -- fancy start Screen for vim
-    use 'mhinz/vim-startify'
+    -- auto sessions
+    use {
+      'rmagatti/session-lens',
+      requires = { 'rmagatti/auto-session' },
+      config = function()
+        require('session-lens').setup({
+          prompt_title = 'Yay Sessions',
+          previewer = false,
+        })
+      end,
+    }
 
     -- Colorizer for showing the colors
     use 'norcalli/nvim-colorizer.lua'
@@ -220,8 +229,8 @@ return require('packer').startup {
 
     -- Notes {{{
 
-    -- use 'michal-h21/vim-zettel'                      " zettel tasks
-    -- use 'vimwiki/vimwiki'                            " vim wiki
+    -- use 'michal-h21/vim-zettel' -- zettel tasks
+    -- use 'vimwiki/vimwiki' -- vim wiki
 
     -- }}}
 
