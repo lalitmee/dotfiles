@@ -196,8 +196,8 @@ require('telescope').load_extension('dotfiles')
 -- recent files or history or files visited
 require('telescope').load_extension('frecency')
 
--- -- FZF sorter for telescope written in c
--- require('telescope').load_extension('fzf')
+-- FZF sorter for telescope written in c
+require('telescope').load_extension('fzf')
 
 -- git worktree
 require('telescope').load_extension('git_worktree')
