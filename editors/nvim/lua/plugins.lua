@@ -81,17 +81,7 @@ return require('packer').startup {
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
 
-    -- auto sessions
-    use {
-      'rmagatti/session-lens',
-      requires = { 'rmagatti/auto-session' },
-      config = function()
-        require('session-lens').setup({
-          prompt_title = 'Yay Sessions',
-          previewer = false,
-        })
-      end,
-    }
+    use 'mhinz/vim-startify'
 
     -- Colorizer for showing the colors
     use 'norcalli/nvim-colorizer.lua'

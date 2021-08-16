@@ -948,9 +948,12 @@ local leader_key_maps = {
 
   -- NOTE: q is for quickfix and quit
   ['q'] = {
-    ['name'] = '+quit',
-    ['q'] = { ':qall<CR>', 'quit-vim' },
-    ['s'] = { ':SearchSession<CR>', 'search-session' },
+    ['name'] = '+sessions',
+    ['c'] = { ':SClose<CR>', 'close-session' },
+    ['d'] = { ':SDelete<CR>', 'delete-session' },
+    ['l'] = { ':SLoad<CR>', 'load-session' },
+    ['q'] = { ':qall<CR>', 'quit-session' },
+    ['s'] = { ':SSave<CR>', 'save-session' },
 
   },
 

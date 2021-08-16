@@ -9,7 +9,7 @@ require('lk/plugins/harpoon')
 -- NOTE: UI
 require('lk/plugins/colorizer')
 require('lk/plugins/indentlines')
--- require('lk/plugins/startify')
+require('lk/plugins/startify')
 
 -- NOTE: windows
 require('lk/plugins/window-swap')
