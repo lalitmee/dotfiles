@@ -172,11 +172,11 @@ require('telescope').setup {
 -- search internet
 -- require('telescope').load_extension('arecibo')
 
--- packer integration with telescope
--- require('telescope').load_extension('packer')
-
 -- -- github cli from telescope
 -- require('telescope').load_extension('gh')
+
+-- -- packer integration with telescope
+-- require('telescope').load_extension('packer')
 
 -- project management in telescope
 require('telescope').load_extension('project')

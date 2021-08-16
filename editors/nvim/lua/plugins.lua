@@ -92,6 +92,22 @@ return require('packer').startup {
 
     -- ACTIONS {{{
 
+    -- clipboard
+    use {
+      'AckslD/nvim-neoclip.lua',
+      config = function()
+        require('neoclip').setup()
+      end,
+    }
+
+    -- post contents online like pastebin
+    use {
+      'rktjmp/paperplanes.nvim',
+      config = function()
+        require('paperplanes').setup({ register = '+', provider = 'dpaste.org' })
+      end,
+    }
+
     -- Search, Replace and Jump {{{
 
     use 'windwp/nvim-spectre'
@@ -104,8 +120,6 @@ return require('packer').startup {
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
-    use { 'henrik/vim-indexed-search', disable = false }
-    use { 'google/vim-searchindex', disable = true }
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
@@ -137,7 +151,7 @@ return require('packer').startup {
     use {
       'karb94/neoscroll.nvim',
       config = function()
-        require('neoscroll').setup()
+        require('neoscroll').setup({ use_local_scrolloff = true })
       end,
     }
 
@@ -438,6 +452,10 @@ return require('packer').startup {
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'tkmpypy/telescope-jumps.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
+        {
+          'nvim-telescope/telescope-arecibo.nvim',
+          rocks = { 'openssl', 'lua-http-parser' },
+        },
       },
     }
 

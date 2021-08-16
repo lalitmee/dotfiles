@@ -51,6 +51,9 @@ require('gitsigns').setup {
   sign_priority = 6,
   update_debounce = 200,
   status_formatter = nil,
+  current_line_blame = true,
+  current_line_blame_delay = 1000,
+  current_line_blame_position = 'eol',
   keymaps = {
     noremap = true,
     buffer = true,
