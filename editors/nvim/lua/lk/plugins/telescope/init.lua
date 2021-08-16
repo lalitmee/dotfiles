@@ -92,7 +92,7 @@ require('telescope').setup {
       sort_mru = true,
       sort_lastused = true,
       show_all_buffers = true,
-      -- ignore_current_buffer = true,
+      ignore_current_buffer = true,
       mappings = {
         i = { ['<c-x>'] = actions.delete_buffer },
         n = { ['<c-x>'] = actions.delete_buffer },
@@ -177,9 +177,6 @@ require('telescope').setup {
 
 -- -- github cli from telescope
 -- require('telescope').load_extension('gh')
-
--- auto sessions
-require('telescope').load_extension('session-lens')
 
 -- project management in telescope
 require('telescope').load_extension('project')
