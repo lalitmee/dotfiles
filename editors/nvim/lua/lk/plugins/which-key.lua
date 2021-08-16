@@ -1197,6 +1197,7 @@ local local_leader_key_maps = {
     ['o'] = { ':lopen<CR>', 'open' },
     ['p'] = { ':lprev<CR>', 'prev' },
   },
+  ['p'] = { '"+p', 'better-paste' },
   ['s'] = {
     ['name'] = '+snap',
     ['b'] = { 'buffers' },
@@ -1237,6 +1238,7 @@ local local_leader_key_maps = {
     ['r'] = { ':Telescope registers<CR>', 'vim-registers' },
     ['s'] = { ':Telescope colorscheme<CR>', 'colorschemes' },
   },
+  ['y'] = { '"+y', 'better-copy' },
 }
 
 wk.register(local_leader_key_maps, { prefix = '<localleader>' })

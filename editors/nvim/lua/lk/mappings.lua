@@ -23,6 +23,10 @@ map('n', '<bs>',
     [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]],
     map_opts)
 
+-- copy and pasting made easy
+map('n', '<localleader>y', [["+y]], { noremap = true })
+map('n', '<localleader>p', [["+p]], { noremap = true })
+
 -- behave vim
 map('n', 'Y', [[y$]], map_opts)
 map('n', 'H', [[0]], map_opts)
