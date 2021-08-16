@@ -1,5 +1,8 @@
--- NOTE: doom-one
-require('lk/colorscheme/doom-one')
+-- NOTE: tokyonight
+require('lk/colorscheme/tokyonight')
+
+-- -- NOTE: doom-one
+-- require('lk/colorscheme/doom-one')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
@@ -13,11 +16,5 @@ require('lk/colorscheme/doom-one')
 -- -- NOTE: github
 -- require('lk/colorscheme/github')
 
--- -- NOTE: tokyonight
--- require('lk/colorscheme/tokyonight')
-
 -- -- NOTE: onedark
 -- require('lk/colorscheme/onedark')
-
--- -- NOTE: gruvbuddy
--- require('lk/colorscheme/gruvbuddy')
