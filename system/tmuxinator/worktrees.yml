@@ -9,4 +9,4 @@ windows:
   - wf-webapp-service: cd wf-webapp-service
   - marketsn-pwa-service: cd marketsn-pwa-service
   - wf-pwa-service: cd wf-pwa-service
-  - dotfiles: cd ~/data/Github/dotfiles
+  - merged-prs: cd ~/data/koinearth/merged-prs

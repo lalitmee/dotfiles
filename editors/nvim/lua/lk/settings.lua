@@ -260,7 +260,8 @@ end
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.wrapscan = true -- Searches wrap around the end of the file
-vim.opt.scrolloff = 999
+-- vim.opt.scrolloff = 999
+vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 vim.opt.sidescroll = 1
 -----------------------------------------------------------------------------//
@@ -389,7 +390,7 @@ autocommands.create({
       'term://*',
       [[if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") | call nvim_input('<CR>')  | endif]],
     },
-    { 'FileType', 'markdown', [[MarkdownPreview]] },
+    -- { 'FileType', 'markdown', [[MarkdownPreview]] },
     -- for showing the highlight on yanking
     {
       'TextYankPost',
