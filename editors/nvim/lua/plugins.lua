@@ -288,6 +288,7 @@ return require('packer').startup {
 
     -- -- Completion Conquerer
     -- use { 'neoclide/coc.nvim', branch = 'release' }
+    -- use { 'fannheyward/telescope-coc.nvim' },
 
     -- }}}
 
@@ -308,26 +309,6 @@ return require('packer').startup {
         { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
         { 'nvim-lua/lsp-status.nvim' },
         { 'tjdevries/lsp_extensions.nvim' },
-        {
-          'simrat39/symbols-outline.nvim',
-          config = function()
-            vim.g.symbols_outline = {
-              highlight_hovered_item = true,
-              show_guides = true,
-              auto_preview = false, -- experimental
-              position = 'right',
-              keymaps = {
-                close = '<Esc>',
-                goto_location = '<Cr>',
-                focus_location = 'o',
-                hover_symbol = '<C-space>',
-                rename_symbol = 'r',
-                code_actions = 'a',
-              },
-              lsp_blacklist = {},
-            }
-          end,
-        },
         { 'folke/lsp-colors.nvim' },
         {
           'folke/trouble.nvim',
@@ -361,15 +342,7 @@ return require('packer').startup {
             }
           end,
         },
-        { 'stevearc/aerial.nvim' },
         { 'folke/lua-dev.nvim' },
-        {
-          'ahmedkhalf/lsp-rooter.nvim',
-          config = function()
-            require('lsp-rooter').setup()
-          end,
-          event = 'ColorScheme',
-        },
         {
           'onsails/vimway-lsp-diag.nvim',
           disable = true,
@@ -441,16 +414,13 @@ return require('packer').startup {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
-        { 'fannheyward/telescope-coc.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
-        { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'tkmpypy/telescope-jumps.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
         {
           'nvim-telescope/telescope-arecibo.nvim',

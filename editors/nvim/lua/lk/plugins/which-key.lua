@@ -23,6 +23,7 @@ local leader_key_maps = {
   ['a'] = {
     ['name'] = '+actions',
     ['a'] = { ':Cheatsheet<CR>', 'cheatsheet' },
+    ['b'] = { ':AnyJumpBack<CR>', 'any-jump-back' },
     ['c'] = { ':Telescope neoclip<CR>', 'clipboard' },
     ['f'] = { ':NvimTreeFindFile<CR>', 'nvim-tree-find-file' },
     ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
@@ -462,13 +463,6 @@ local leader_key_maps = {
   -- NOTE: j is for jumping
   ['j'] = {
     ['name'] = '+jumping',
-    ['a'] = {
-      ['name'] = '+aerojump',
-      ['s'] = { '<Plug>(AerojumpSpace)', 'aerojump-space' },
-      ['b'] = { '<Plug>(AerojumpBolt)', 'aerojump-bolt' },
-      ['a'] = { '<Plug>(AerojumpFromCursorBolt)', 'aerojump-from-cursor-bolt' },
-      ['d'] = { '<Plug>(AerojumpDefault)', 'aerojump-default' },
-    },
     ['c'] = { ':HopChar1<CR>', 'hop-char-1' },
     ['d'] = { ':HopChar2<CR>', 'hop-char-2' },
     ['h'] = { ':AnyJumpLastResults<CR>', 'anyjump-last-results' },
@@ -493,13 +487,6 @@ local leader_key_maps = {
     },
     ['i'] = { ':LspInfo<CR>', 'lsp-info' },
     ['l'] = { ':Lspsaga lsp_finder<CR>', 'finder' },
-    ['o'] = {
-      ['name'] = '+outline',
-      ['a'] = { ':AerialToggle<CR>', 'aerial' },
-      ['c'] = { ':AerialTreeCloseAll<CR>', 'aerial-close-all' },
-      ['o'] = { ':AerialTreeOpenAll<CR>', 'aerial-open-all' },
-      ['s'] = { ':SymbolsOutline<CR>', 'symbols-outline' },
-    },
     ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
     ['r'] = { ':LspRename<CR>', 'rename' },
     ['s'] = { ':Lspsaga signature_help<CR>', 'signature-help' },

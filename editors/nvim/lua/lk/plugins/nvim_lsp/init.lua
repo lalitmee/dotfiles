@@ -64,7 +64,6 @@ end
 
 -- keymaps
 local function on_attach(client, bufnr)
-  require('aerial').on_attach(client)
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
   autocommands.setup_autocommands(client)
   mappings.setup_mappings(client, bufnr)
