@@ -202,12 +202,6 @@ require('telescope').load_extension('git_worktree')
 -- harpoon
 require('telescope').load_extension('harpoon')
 
--- jumps made
-require('telescope').load_extension('jumps')
-
--- lsp handlers integration
-require('telescope').load_extension('lsp_handlers')
-
 -- open browser
 require('telescope').load_extension('openbrowser')
 
