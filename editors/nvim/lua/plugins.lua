@@ -291,50 +291,50 @@ return require('packer').startup {
     use 'neoclide/vim-jsx-improve'
 
     -- vim completion for coc
-    -- use 'Shougo/neco-vim'
-    -- use 'neoclide/coc-neco'
+    use 'Shougo/neco-vim'
+    use 'neoclide/coc-neco'
 
-    -- -- Completion Conquerer
-    -- use { 'neoclide/coc.nvim', branch = 'release' }
-    -- use { 'fannheyward/telescope-coc.nvim' },
+    -- Completion Conquerer
+    use { 'neoclide/coc.nvim', branch = 'release' }
+    use { 'fannheyward/telescope-coc.nvim' }
 
     -- }}}
 
     -- neovim-lsp {{{
 
-    use {
-      'neovim/nvim-lspconfig',
-      requires = {
-        { 'arkav/lualine-lsp-progress', disable = true },
-        { 'glepnir/lspsaga.nvim' },
-        { 'hrsh7th/nvim-compe' },
-        {
-          'tzachar/compe-tabnine',
-          run = './install.sh',
-          requires = 'hrsh7th/nvim-compe',
-        },
-        { 'kabouzeid/nvim-lspinstall' },
-        { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
-        { 'nvim-lua/lsp-status.nvim' },
-        { 'tjdevries/lsp_extensions.nvim' },
-        { 'folke/lsp-colors.nvim' },
-        {
-          'folke/trouble.nvim',
-          requires = 'kyazdani42/nvim-web-devicons',
-          config = function()
-            require('trouble').setup {}
-          end,
-        },
-        { 'folke/lua-dev.nvim' },
-        {
-          'onsails/vimway-lsp-diag.nvim',
-          disable = true,
-          config = function()
-            require('vimway-lsp-diag').init({})
-          end,
-        },
-      },
-    }
+    -- use {
+    --   'neovim/nvim-lspconfig',
+    --   requires = {
+    --     { 'arkav/lualine-lsp-progress', disable = true },
+    --     { 'glepnir/lspsaga.nvim' },
+    --     { 'hrsh7th/nvim-compe' },
+    --     {
+    --       'tzachar/compe-tabnine',
+    --       run = './install.sh',
+    --       requires = 'hrsh7th/nvim-compe',
+    --     },
+    --     { 'kabouzeid/nvim-lspinstall' },
+    --     { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
+    --     { 'nvim-lua/lsp-status.nvim' },
+    --     { 'tjdevries/lsp_extensions.nvim' },
+    --     { 'folke/lsp-colors.nvim' },
+    --     {
+    --       'folke/trouble.nvim',
+    --       requires = 'kyazdani42/nvim-web-devicons',
+    --       config = function()
+    --         require('trouble').setup {}
+    --       end,
+    --     },
+    --     { 'folke/lua-dev.nvim' },
+    --     {
+    --       'onsails/vimway-lsp-diag.nvim',
+    --       disable = true,
+    --       config = function()
+    --         require('vimway-lsp-diag').init({})
+    --       end,
+    --     },
+    --   },
+    -- }
 
     -- }}}
 
