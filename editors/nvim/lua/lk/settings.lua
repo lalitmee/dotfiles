@@ -323,12 +323,6 @@ vim.api.nvim_exec([[
       hi! Normal ctermbg=NONE guibg=NONE
       hi! NonText ctermbg=NONE guibg=NONE
 
-      " Trim Whitespaces
-      fun! TrimWhitespace()
-        let l:save = winsaveview()
-        keeppatterns %s/\s\+$//e
-        call winrestview(l:save)
-      endfun
 
 
       " treesitter status
@@ -340,8 +334,6 @@ vim.api.nvim_exec([[
           return ts
         endif
       endfunction
-
-      autocmd BufWritePre * :call TrimWhitespace()
 
       " Faster Startup time (disable default plugins loading)
       let g:did_install_default_menus = 1

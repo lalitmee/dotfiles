@@ -1,6 +1,9 @@
 -- NOTE: tokyonight
 require('lk/colorscheme/tokyonight')
 
+-- -- NOTE: test
+-- require('lk/colorscheme/test')
+
 -- -- NOTE: doom-one
 -- require('lk/colorscheme/doom-one')
 
