@@ -92,6 +92,14 @@ return require('packer').startup {
 
     -- ACTIONS {{{
 
+    -- trim whitespaces while you type
+    use {
+      'lewis6991/spaceless.nvim',
+      config = function()
+        require'spaceless'.setup()
+      end,
+    }
+
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
@@ -315,31 +323,6 @@ return require('packer').startup {
           requires = 'kyazdani42/nvim-web-devicons',
           config = function()
             require('trouble').setup {}
-          end,
-        },
-        { 'jose-elias-alvarez/nvim-lsp-ts-utils' },
-        { 'jose-elias-alvarez/null-ls.nvim' },
-        {
-          'simrat39/symbols-outline.nvim',
-          config = function()
-            vim.g.symbols_outline = {
-              highlight_hovered_item = true,
-              show_guides = true,
-              auto_preview = true,
-              position = 'right',
-              show_numbers = false,
-              show_relative_numbers = false,
-              show_symbol_details = true,
-              keymaps = {
-                close = '<Esc>',
-                goto_location = '<Cr>',
-                focus_location = 'o',
-                hover_symbol = '<C-space>',
-                rename_symbol = 'r',
-                code_actions = 'a',
-              },
-              lsp_blacklist = {},
-            }
           end,
         },
         { 'folke/lua-dev.nvim' },
