@@ -184,7 +184,7 @@ vim.opt.joinspaces = false
 vim.opt.gdefault = true
 vim.opt.pumheight = 15
 vim.opt.confirm = true -- make vim prompt me to save before doing destructive things
-vim.opt.completeopt = { 'menuone', 'noselect' }
+vim.opt.completeopt = { 'menuone', 'noselect', 'noinsert' }
 vim.opt.hlsearch = true
 vim.opt.autowriteall = true -- automatically :write before running commands and changing files
 vim.opt.clipboard = { 'unnamedplus' }
@@ -393,5 +393,3 @@ autocommands.create({
 })
 
 -- }}}
-
--- vim:foldmethod=marker

@@ -30,8 +30,8 @@ if has_compe then
       tabnine = true,
       treesitter = true,
       emoji = true,
-      vCard = true
-    }
+      vCard = true,
+    },
   }
 end
 

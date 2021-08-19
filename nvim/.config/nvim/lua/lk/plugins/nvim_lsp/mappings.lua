@@ -73,7 +73,6 @@ telescope_mapper('<localleader>tw', 'lsp_document_symbols', telescope_opts, true
 telescope_mapper('<localleader>tW', 'lsp_workspace_symbols', telescope_opts,
                  true)
 
-
 M.setup_mappings = function(client, bufnr)
   local nnoremap, mapping_opts = lk_utils.nnoremap, { buffer = bufnr }
   if client.resolved_capabilities.implementation then
