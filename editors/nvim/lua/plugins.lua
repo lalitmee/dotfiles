@@ -128,6 +128,7 @@ return require('packer').startup {
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
+    use { 'haya14busa/incsearch.vim' }
 
     -- easymotion using lua
     use 'phaazon/hop.nvim'
