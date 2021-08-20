@@ -425,7 +425,7 @@ export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"
 export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
 
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
