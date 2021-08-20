@@ -716,7 +716,13 @@ return require('packer').startup {
       end
     }
     -- for using telescope-tmux
-    use {'norcalli/nvim-terminal.lua'}
+    -- use {'norcalli/nvim-terminal.lua'}
+    use {
+      's1n7ax/nvim-terminal',
+      config = function()
+        require('nvim-terminal').setup()
+      end
+    }
 
     -- }}}
 
