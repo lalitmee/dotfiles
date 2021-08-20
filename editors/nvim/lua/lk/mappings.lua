@@ -4,11 +4,7 @@ local nnoremap = lk_utils.nnoremap
 local map_opts = { noremap = true, silent = true }
 local map_expr_opts = { expr = true }
 
--- highlight word under cursor but not search
-vim.api.nvim_exec([[
-    " Clears hlsearch after doing a search, otherwise just does normal <CR> stuff
-    nnoremap <expr> <CR> {-> v:hlsearch ? ":nohl\<CR>" : "\<CR>"}()
-]], false)
+nnoremap('<Esc><Esc>', ':<C-u>nohlsearch<CR>')
 
 -- tab operations
 nnoremap('<c-s-Right>', [[gt]])

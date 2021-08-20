@@ -1,4 +1,5 @@
 local wk = require('which-key')
+Terminal = require('nvim-terminal').DefaultTerminal;
 
 vim.o.timeoutlen = 500
 
@@ -15,9 +16,16 @@ wk.setup({
 -- NOTE: leader key mappings
 local leader_key_maps = {
   -- NOTE: direct mappings
-  ['<space>'] = { ':Telescope find_files<CR>', 'find-files' },
-  [';'] = { ':Telescope commands<CR>', 'commands' },
   ['*'] = 'vimgrep-under-cursor',
+  ['1'] = { ':lua Terminal:open(1)<CR>', 'toggle-terminal-1' },
+  ['2'] = { ':lua Terminal:open(2)<CR>', 'toggle-terminal-2' },
+  ['3'] = { ':lua Terminal:open(3)<CR>', 'toggle-terminal-3' },
+  ['4'] = { ':lua Terminal:open(4)<CR>', 'toggle-terminal-4' },
+  ['5'] = { ':lua Terminal:open(5)<CR>', 'toggle-terminal-5' },
+  ['6'] = { ':lua Terminal:open(6)<CR>', 'toggle-terminal-6' },
+  [':'] = { ':Telescope commands<CR>', 'commands' },
+  [';'] = { ':lua Terminal:toggle()<CR>', 'toggle-terminal' },
+  ['<leader>'] = { ':Telescope find_files<CR>', 'find-files' },
 
   -- NOTE: a is for actions
   ['a'] = {

@@ -668,6 +668,12 @@ return require('packer').startup {
       -- cmd = { 'ToggleTerm', 'ToggleTermCloseAll', 'ToggleTermOpenAll' },
       -- keys = { '<C-t>' }
     }
+    use {
+      's1n7ax/nvim-terminal',
+      config = function()
+        require('nvim-terminal').setup()
+      end,
+    }
 
     -- }}}
 
