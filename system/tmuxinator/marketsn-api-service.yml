@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/marketsn-api-service.yml
 
 name: marketsn-api-service
-root: ~/data/koinearth/marketsn-api-service
+root: ~/Desktop/koinearth/marketsn-api-service
 
 windows:
   - Editor: ls
