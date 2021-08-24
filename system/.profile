@@ -40,10 +40,10 @@ export NVM_DIR="$HOME/.nvm"
 # eval $(/bin/brew shellenv)
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-export PATH="$HOME/.cargo/bin:$PATH"
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
+. "$HOME/.cargo/env"

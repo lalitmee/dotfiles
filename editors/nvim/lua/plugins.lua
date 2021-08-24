@@ -29,6 +29,9 @@ return require('packer').startup {
 
     -- UI AND BEAUTIFY {{{
 
+    -- notifications
+    use { 'rcarriga/nvim-notify' }
+
     -- MENU
     -- lazy load as it is very expensive to load during startup i.e. 20ms+
     -- FIXME: UpdateRemotePlugins doesn't seem to be called for lazy loaded plugins
@@ -367,8 +370,17 @@ return require('packer').startup {
       {
         'mfussenegger/nvim-ts-hint-textobject',
         config = function()
-          require('tsht').config.hint_keys =
-              { 'h', 'j', 'f', 'd', 'n', 'v', 's', 'l', 'a' }
+          require('tsht').config.hint_keys = {
+            'h',
+            'j',
+            'f',
+            'd',
+            'n',
+            'v',
+            's',
+            'l',
+            'a',
+          }
           -- keybindings
           lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
           lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])

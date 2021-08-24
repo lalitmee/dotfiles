@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/dotfiles.yml
 
 name: dotfiles
-root: ~/data/Github
+root: ~/Desktop/Github
 
 windows:
   - Mine: cd ~/data/Github/dotfiles

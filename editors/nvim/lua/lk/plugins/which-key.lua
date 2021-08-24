@@ -17,6 +17,8 @@ wk.setup({
 local leader_key_maps = {
   -- NOTE: direct mappings
   ['*'] = 'vimgrep-under-cursor',
+  ['+'] = 'increase-terminal-size',
+  ['-'] = 'decrease-terminal-size',
   ['1'] = { ':lua Terminal:open(1)<CR>', 'toggle-terminal-1' },
   ['2'] = { ':lua Terminal:open(2)<CR>', 'toggle-terminal-2' },
   ['3'] = { ':lua Terminal:open(3)<CR>', 'toggle-terminal-3' },
