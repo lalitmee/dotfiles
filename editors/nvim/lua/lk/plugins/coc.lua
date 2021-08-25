@@ -53,7 +53,6 @@ vim.g.coc_global_extensions = {
   'coc-prettier',
   'coc-project',
   'coc-pyright',
-  'coc-python',
   'coc-react-refactor',
   'coc-sh',
   'coc-snippets',

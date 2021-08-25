@@ -121,7 +121,7 @@ values."
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
      (wakatime :variables
                ;; use the actual wakatime path
-               wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
+               wakatime-cli-path "/home/lalitmee/.pyenv/shims/wakatime")
 
      )
    ;; List of additional packages that will be installed without being
@@ -241,11 +241,11 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
-                               ;; "CaskaydiaCove Nerd Font"
+                               "CaskaydiaCove Nerd Font"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "JetBrainsMono Nerd Font"
-                               "SauceCodePro Nerd Font"
+                               ;; "SauceCodePro Nerd Font"
                                :size 13
                                :weight normal
                                :powerline-scale 1.3)
@@ -452,9 +452,8 @@ you should place your code here."
 
   ;; project project search path
   (setq projectile-project-search-path
-        '("~/data/Github/"
-          "~/data/GitLab/"
-          "~/data/koinearth/"))
+        '("~/Desktop/Github/"
+          "~/Desktop/koinearth/"))
 
   ;; ranger
   (setq ranger-show-dotfiles t)

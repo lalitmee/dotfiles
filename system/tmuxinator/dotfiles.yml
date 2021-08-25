@@ -4,6 +4,6 @@ name: dotfiles
 root: ~/Desktop/Github
 
 windows:
-  - Mine: cd ~/data/Github/dotfiles
-  - tjdevries: cd ~/data/Github/configs/config_manager
-  - akinsho: cd ~/data/Github/configs/akinsho-dotfiles
+  - Mine: cd ~/Desktop/Github/dotfiles
+  - tjdevries: cd ~/Desktop/Github/configs/config_manager
+  - akinsho: cd ~/Desktop/Github/configs/akinsho-dotfiles

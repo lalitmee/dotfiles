@@ -3,7 +3,7 @@ _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
 ensure_tmux_is_running() {
   if _not_inside_tmux; then
-    ~/data/Github/dotfiles/bin/tat
+    ~/Desktop/Github/dotfiles/bin/tat
   fi
 }
 
@@ -285,8 +285,8 @@ alias sb="subl ."
 # alias for gui nvims
 # alias nvim="nvim --startuptime /tmp/nvim-startuptime"
 alias gnvim="~/goneovim/goneovim &"
-alias glm="~/data/Github/glrnvim/target/release/glrnvim &"
-alias nvd="~/data/Softwares/editors/neovide &"
+alias glm="~/Desktop/Github/glrnvim/target/release/glrnvim &"
+alias nvd="~/Desktop/Softwares/editors/neovide &"
 
 # common aliases
 alias a="alias | fzf-tmux -d 40%"
@@ -343,11 +343,11 @@ export EDITOR=nvim
 # fi
 
 # # z.sh
-# source ~/data/Github/z/z.sh
+# source ~/Desktop/Github/z/z.sh
 
 # great functions for fzf from
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
-source ~/data/Github/dotfiles/system/fzf/init.zsh
+source ~/Desktop/Github/dotfiles/system/fzf/init.zsh
 
 # update cd bookmarks
 chpwd_functions+=(update_marks)
@@ -434,8 +434,8 @@ eval "$(pyenv virtualenv-init -)"
 
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
-# To customize prompt, run `p10k configure` or edit ~/data/Github/dotfiles/system/zsh/.p10k.zsh.
-[[ ! -f ~/data/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/data/Github/dotfiles/system/zsh/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh.
+[[ ! -f ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh
 
 
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
