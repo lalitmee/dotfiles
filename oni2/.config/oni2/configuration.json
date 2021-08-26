@@ -15,11 +15,11 @@
   "editor.minimap.maxColumn": 120,
   "editor.minimap.showSlider": true,
   "editor.renderWhitespace": "none",
-  "editor.rulers": [ 80 ],
+  "editor.rulers": [80],
   "editor.tabSize": 4,
   "editor.zenMode.hideTabs": true,
   "editor.zenMode.singleFile": true,
-  "files.exclude": [ "_esy", "node_modules", ".git" ],
+  "files.exclude": ["_esy", "node_modules", ".git"],
   "workbench.activityBar.visible": true,
   "workbench.editor.showTabs": true,
   "workbench.editor.enablePreview": true,
@@ -28,7 +28,7 @@
   "workbench.sideBar.visible": true,
   "workbench.statusBar.visible": true,
   "workbench.tree.indent": 2,
-  "vim.useSystemClipboard": [ "yank" ],
+  "vim.useSystemClipboard": ["yank"],
   "vim.leader": "<space>",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": { "editor.formatOnSave": true },
@@ -42,7 +42,8 @@
   "[javascriptreact]": { "editor.formatOnSave": true },
   "[typescriptreact]": { "editor.formatOnSave": true },
   "gitProjectManager.baseProjectsFolders": [
-    "/home/Desktop/Github", "/home/Desktop/koinearth"
+    "/home/Desktop/Github",
+    "/home/Desktop/koinearth"
   ],
   "gitProjectManager.storeRepositoriesBetweenSessions": true,
   "gitProjectManager.maxDepthRecursion": 4
