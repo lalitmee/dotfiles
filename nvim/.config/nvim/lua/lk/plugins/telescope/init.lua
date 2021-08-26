@@ -19,23 +19,17 @@ local themes = require('telescope.themes')
 
 require('telescope').setup {
   defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--hidden',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-    },
+    vimgrep_arguments = {'rg', '--hidden', '--color=never', '--no-heading', '--with-filename', '--line-number',
+                         '--column', '--smart-case'},
     selection_strategy = 'reset',
     sorting_strategy = 'descending',
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,
 
-    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    set_env = {
+      ['COLORTERM'] = 'truecolor'
+    }, -- default = nil,
 
     mappings = {
       i = {
@@ -48,30 +42,18 @@ require('telescope').setup {
         ['<C-s>'] = actions.cycle_previewers_next,
         ['<C-y>'] = actions.move_to_top,
         ['<C-o>'] = actions.send_selected_to_qflist + actions.open_qflist,
-        ['<esc>'] = actions.close,
-      },
+        ['<esc>'] = actions.close
+      }
     },
     borderchars = {
-      { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-      preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+      {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+      preview = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'}
     },
     -- NOTE: it was somehow stopping current_buffer_fuzzy_find, lsp_document_symbols
     -- and so many other things
-    file_ignore_patterns = {
-      '.backup',
-      '.swap',
-      '.langservers',
-      '.session',
-      '.undo',
-      '*.git',
-      'node_modules',
-      'vendor',
-      '.cache',
-      '.vscode-server',
-      -- '.Desktop',
-      '.Documents',
-      'classes',
-    },
+    file_ignore_patterns = {'.backup', '.swap', '.langservers', '.session', '.undo', '*.git', 'node_modules', 'vendor',
+                            '.cache', '.vscode-server', -- '.Desktop',
+    '.Documents', 'classes'},
 
     layout_config = {
       width = 0.85,
@@ -82,20 +64,24 @@ require('telescope').setup {
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56,
+        preview_width = 0.56
       },
 
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5,
+        preview_height = 0.5
       },
 
-      flex = { horizontal = { preview_width = 0.8 } },
+      flex = {
+        horizontal = {
+          preview_width = 0.8
+        }
+      }
     },
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
-    qflist_previewer = previewers.vim_buffer_qflist.new,
+    qflist_previewer = previewers.vim_buffer_qflist.new
 
   },
   pickers = {
@@ -110,23 +96,27 @@ require('telescope').setup {
       show_all_buffers = true,
       ignore_current_buffer = true,
       mappings = {
-        i = { ['<c-x>'] = actions.delete_buffer },
-        n = { ['<c-x>'] = actions.delete_buffer },
-      },
-    },
+        i = {
+          ['<c-x>'] = actions.delete_buffer
+        },
+        n = {
+          ['<c-x>'] = actions.delete_buffer
+        }
+      }
+    }
   },
   extensions = {
     frecency = {
       show_unindexed = true,
-      ignore_patterns = { '*.git/*', '*/node_modules/*' },
+      ignore_patterns = {'*.git/*', '*/node_modules/*'},
       workspaces = {
         ['nvim'] = '/home/lalitmee/.config/nvim/plugged',
         ['dotf'] = '/home/lalitmee/Desktop/Github/dotfiles',
         ['work'] = '/home/lalitmee/Desktop/koinearth',
         ['git'] = '/home/lalitmee/Desktop/Github',
         ['conf'] = '/home/lalitmee/.config',
-        ['data'] = '/home/lalitmee/.local/share',
-      },
+        ['data'] = '/home/lalitmee/.local/share'
+      }
     },
     openbrowser = {
       bookmarks = {
@@ -165,8 +155,8 @@ require('telescope').setup {
         ['rust_doc_std'] = 'https://doc.rust-lang.org/std/index.html?search={query}',
         ['utf8_icons'] = 'https://www.utf8icons.com/search?query={query}',
         ['vim_commits'] = 'https://github.com/vim/vim/search?q={query}&type=commits',
-        ['vimawesome'] = 'https://vimawesome.com/?q={query}',
-      },
+        ['vimawesome'] = 'https://vimawesome.com/?q={query}'
+      }
     },
     -- arecibo = {
     --   ['selected_engine'] = 'google',
@@ -176,12 +166,18 @@ require('telescope').setup {
     -- },
     project = {
       base_dirs = {
-        { '~/Desktop/Github', max_depth = 3 },
-        { '~/Desktop/koinearth', max_depth = 3 },
-        hidden_files = true,
-      },
-    },
-  },
+        {
+          '~/Desktop/Github',
+          max_depth = 3
+        },
+        {
+          '~/Desktop/koinearth',
+          max_depth = 3
+        },
+        hidden_files = true
+      }
+    }
+  }
 }
 
 ---------------------------------------------------------------------------------
@@ -252,14 +248,14 @@ function M.edit_neovim()
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56,
+        preview_width = 0.56
       },
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5,
-      },
-    },
+        preview_height = 0.5
+      }
+    }
   }
 end
 
@@ -274,20 +270,20 @@ function M.edit_dotfiles()
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
-        preview_width = 0.56,
+        preview_width = 0.56
       },
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
-        preview_height = 0.5,
-      },
-    },
+        preview_height = 0.5
+      }
+    }
   }
 end
 
 function M.installed_plugins()
   builtin.find_files {
-    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/',
+    cwd = vim.fn.stdpath('data') .. '/site/pack/packer/start/'
   }
 end
 
@@ -295,13 +291,15 @@ function M.curbuf()
   local opts = themes.get_dropdown {
     winblend = 0,
     border = true,
-    previewer = false,
+    previewer = false
   }
   builtin.current_buffer_fuzzy_find(opts)
 end
 
 function M.help_tags()
-  builtin.help_tags { show_version = true }
+  builtin.help_tags {
+    show_version = true
+  }
 end
 
 function M.find_files()
@@ -310,36 +308,37 @@ function M.find_files()
     selection_strategy = 'reset',
     sorting_strategy = 'descending',
     scroll_strategy = 'cycle',
-    color_devicons = true,
+    color_devicons = true
   }
 end
 
 function M.fd()
-  local opts = themes.get_ivy { hidden = true }
+  local opts = themes.get_ivy {
+    hidden = true
+  }
   require('telescope.builtin').fd(opts)
 end
 
 function M.search_all_files()
   builtin.find_files {
-    find_command = { 'rg', '--no-ignore', '--hidden', '--files' },
-    hidden = true,
+    find_command = {'rg', '--no-ignore', '--hidden', '--files'},
+    hidden = true
   }
 end
 
 function M.lsp_workspace_symbols()
-  builtin.lsp_workspace_symbols { query = vim.fn.input('Query > ') }
+  builtin.lsp_workspace_symbols {
+    query = vim.fn.input('Query > ')
+  }
 end
 
 local function set_background(content)
-  vim.fn.system(
-      'dconf write /org/mate/desktop/background/picture-filename "\'' .. content ..
-          '\'"')
+  vim.fn.system('dconf write /org/mate/desktop/background/picture-filename "\'' .. content .. '\'"')
 end
 
 local function select_background(prompt_bufnr, map)
   local function set_the_background(close)
-    local content = require('telescope.actions.state').get_selected_entry(
-                        prompt_bufnr)
+    local content = require('telescope.actions.state').get_selected_entry(prompt_bufnr)
     set_background(content.cwd .. '/' .. content.value)
     if close then
       require('telescope.actions').close(prompt_bufnr)
@@ -367,13 +366,12 @@ local function image_selector(prompt, cwd)
         -- Please continue mapping (attaching additional key maps):
         -- Ctrl+n/p to move up and down the list.
         return true
-      end,
+      end
     })
   end
 end
 
-M.change_background = image_selector('< Select Wallpaper > ',
-                                     '~/Desktop/Github/wallpapers')
+M.change_background = image_selector('< Select Wallpaper > ', '~/Desktop/Github/wallpapers')
 
 return setmetatable({}, {
   __index = function(_, k)
@@ -384,5 +382,5 @@ return setmetatable({}, {
     else
       return builtin[k]
     end
-  end,
+  end
 })
