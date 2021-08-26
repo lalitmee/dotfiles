@@ -6,8 +6,8 @@ vim.g.fzf_layout = {
     height = 0.9,
     yoffset = 0.5,
     xoffset = 0.5,
-    border = 'rounded'
-  }
+    border = 'rounded',
+  },
 }
 
 vim.g.fzf_preview_window = 'right:60%'
@@ -88,7 +88,7 @@ vim.api.nvim_exec([[
 
       " NOTE: dotfiles
       function! Fzfdotfiles()
-        call fzf#vim#files('~/data/Github/dotfiles', fzf#vim#with_preview({ 'options': [ '--layout=reverse', '--inline-info' ] }))
+        call fzf#vim#files('~/Desktop/Github/dotfiles', fzf#vim#with_preview({ 'options': [ '--layout=reverse', '--inline-info' ] }))
       endfunction
 
 

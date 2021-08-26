@@ -42,7 +42,7 @@
 #gem install neovim
 #npm install -g neovim
 
-cd ~/data/Github || exit
+cd ~/Desktop/Github || exit
 #Get or update neovim github repo
 if [ ! -e neovim ]; then
   echo "cloning neovim from github" | figlet -f big -w 1000

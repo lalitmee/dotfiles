@@ -106,10 +106,10 @@ require('telescope').setup {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
       workspaces = {
-        ['nvim'] = '/home/lalitmee/data/.config/nvim/plugged',
-        ['dotf'] = '/home/lalitmee/data/Github/dotfiles',
-        ['work'] = '/home/lalitmee/data/koinearth',
-        ['git'] = '/home/lalitmee/data/Github',
+        ['nvim'] = '/home/lalitmee/.config/nvim/plugged',
+        ['dotf'] = '/home/lalitmee/Desktop/Github/dotfiles',
+        ['work'] = '/home/lalitmee/Desktop/koinearth',
+        ['git'] = '/home/lalitmee/Desktop/Github',
         ['conf'] = '/home/lalitmee/.config',
         ['data'] = '/home/lalitmee/.local/share',
       },
@@ -161,7 +161,7 @@ require('telescope').setup {
     --   ['show_domain_icons'] = false
     -- },
     project = {
-      base_dirs = { '~/data/Github', '~/data/koinearth' },
+      base_dirs = { '~/Desktop/Github', '~/Desktop/koinearth' },
       max_depth = 3,
     },
   },
@@ -179,6 +179,9 @@ require('telescope').setup {
 
 -- -- packer integration with telescope
 -- require('telescope').load_extension('packer')
+
+-- coc integration in telescope
+require('telescope').load_extension('coc')
 
 -- project management in telescope
 require('telescope').load_extension('project')
@@ -244,7 +247,7 @@ function M.edit_dotfiles()
   builtin.find_files {
     prompt_title = '~ dotfiles ~',
     hidden = true,
-    cwd = '~/data/Github/dotfiles',
+    cwd = '~/Desktop/Github/dotfiles',
 
     layout_strategy = 'horizontal',
     layout_defaults = {
@@ -334,24 +337,23 @@ end
 
 local function image_selector(prompt, cwd)
   return function()
-    require('telescope.builtin').find_files(
-        {
-          prompt_title = prompt,
-          cwd = cwd,
+    require('telescope.builtin').find_files({
+      prompt_title = prompt,
+      cwd = cwd,
 
-          attach_mappings = function(prompt_bufnr, map)
-            select_background(prompt_bufnr, map)
+      attach_mappings = function(prompt_bufnr, map)
+        select_background(prompt_bufnr, map)
 
-            -- Please continue mapping (attaching additional key maps):
-            -- Ctrl+n/p to move up and down the list.
-            return true
-          end,
-        })
+        -- Please continue mapping (attaching additional key maps):
+        -- Ctrl+n/p to move up and down the list.
+        return true
+      end,
+    })
   end
 end
 
 M.change_background = image_selector('< Select Wallpaper > ',
-                                     '~/data/Github/wallpapers')
+                                     '~/Desktop/Github/wallpapers')
 
 return setmetatable({}, {
   __index = function(_, k)

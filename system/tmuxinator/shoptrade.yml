@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/shoptrade.yml
 
 name: shoptrade
-root: ~/data/Github/shoptrade
+root: ~/Desktop/Github/shoptrade
 
 windows:
   - editor: ls
