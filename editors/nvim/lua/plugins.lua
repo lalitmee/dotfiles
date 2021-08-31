@@ -30,7 +30,7 @@ return require('packer').startup {
     -- UI AND BEAUTIFY {{{
 
     -- notifications
-    use { 'rcarriga/nvim-notify' }
+    use { 'rcarriga/nvim-notify', disable = false }
 
     -- MENU
     -- lazy load as it is very expensive to load during startup i.e. 20ms+
@@ -306,7 +306,6 @@ return require('packer').startup {
 
     -- Completion Conquerer
     use { 'neoclide/coc.nvim', branch = 'release' }
-    use { 'fannheyward/telescope-coc.nvim' }
 
     -- }}}
 
@@ -355,7 +354,7 @@ return require('packer').startup {
       run = ':TSUpdate',
       requires = {
         'lewis6991/spellsitter.nvim',
-        cond = 'false',
+        cond = 'true',
         run = hunspell_install_if_needed,
         config = function()
           require('spellsitter').setup { captures = { 'comment' } }
@@ -397,17 +396,6 @@ return require('packer').startup {
 
     -- FUZZY SEARCH {{{
 
-    use { 'camspiers/snap', rocks = { 'fzy' } }
-
-    -- fzf.vim {{{
-
-    use { 'junegunn/fzf', run = './install --all' } -- FZF in vim
-
-    -- FZF in vim
-    use 'junegunn/fzf.vim'
-
-    -- }}}
-
     -- telescope.nvim {{{
     use { 'nvim-lua/plenary.nvim' }
     use { 'nvim-lua/popup.nvim' }
@@ -424,6 +412,7 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
+        { 'fannheyward/telescope-coc.nvim' },
         {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },

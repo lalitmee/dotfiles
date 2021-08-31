@@ -64,8 +64,7 @@ require('lk/plugins/gitsigns')
 require('lk/plugins/neogit')
 
 -- NOTE: fuzzy
-require('lk/plugins/fzf')
-require('lk/plugins/snap')
+-- require('lk/plugins/fzf')
 require('lk/plugins/telescope')
 require('lk/plugins/telescope/mappings')
 require('lk/plugins/refactoring')

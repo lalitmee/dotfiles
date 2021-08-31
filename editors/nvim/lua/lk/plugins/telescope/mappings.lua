@@ -31,21 +31,21 @@ vim.api.nvim_set_keymap('c', '<c-r><c-r>',
 map_tele('<localleader>lw', 'lsp_workspace_symbols')
 
 -- Dotfiles
-map_tele('<leader>ofn', 'edit_neovim')
-map_tele('<leader>ofc', 'edit_dotfiles')
+map_tele('<leader>ffn', 'edit_neovim')
+map_tele('<leader>ffc', 'edit_dotfiles')
 
 -- Search
-map_tele('<space>obo', 'curbuf')
+map_tele('<space>fbo', 'curbuf')
 
 -- -- Nvim
 map_tele('<space>np', 'installed_plugins')
-map_tele('<space>ofa', 'search_all_files')
-map_tele('<space>ofi', 'fd')
-map_tele('<space>ofl', 'find_files')
+map_tele('<space>ffa', 'search_all_files')
+map_tele('<space>ffi', 'fd')
+map_tele('<space>ffl', 'find_files')
 map_tele('<space>nh', 'help_tags')
 
 -- Change Background Wallpaper
-map_tele('<space>otw', 'change_background')
+map_tele('<space>ftw', 'change_background')
 
 vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal wrap]]
 
