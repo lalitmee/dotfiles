@@ -1,7 +1,6 @@
 require'bufferline'.setup {
   options = {
     numbers = 'ordinal',
-    number_style = '',
     separator_style = 'thick',
     -- separator_style = os.getenv 'KITTY_WINDOW_ID' and 'slant' or 'padded_slant',
     show_close_icon = false,

@@ -19,7 +19,7 @@ local themes = require('telescope.themes')
 
 require('telescope').setup {
   defaults = {
-    prompt_prefix = ' > ',
+    -- prompt_prefix = ' > ',
     selection_strategy = 'reset',
     sorting_strategy = 'descending',
     -- sorting_strategy = 'ascending',
@@ -180,9 +180,6 @@ require('telescope').setup {
 -- -- packer integration with telescope
 -- require('telescope').load_extension('packer')
 
--- coc integration in telescope
-require('telescope').load_extension('coc')
-
 -- project management in telescope
 require('telescope').load_extension('project')
 
@@ -191,9 +188,6 @@ require('telescope').load_extension('cheat')
 
 -- debugger
 require('telescope').load_extension('dap')
-
--- dotfiles
-require('telescope').load_extension('dotfiles')
 
 -- recent files or history or files visited
 require('telescope').load_extension('frecency')
