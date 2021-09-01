@@ -123,6 +123,7 @@ docker
 encode64
 frontend-search
 fzf-tab
+fzf-zsh-plugin
 gem
 git
 git-extra-commands
@@ -358,7 +359,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # fzf path settings
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+. /usr/share/doc/fzf/examples/key-bindings.zsh
 
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'

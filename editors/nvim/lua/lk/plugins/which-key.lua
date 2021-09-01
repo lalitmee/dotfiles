@@ -265,7 +265,7 @@ local leader_key_maps = {
     },
     ['c'] = { ':Telescope git_branches<CR>', 'checkout' },
     ['d'] = { ':DiffviewOpen<CR>', 'diffview-open' },
-    ['D'] = { ':DiffviewClose<CR>', 'diffview-open' },
+    ['D'] = { ':DiffviewClose<CR>', 'diffview-close' },
     ['h'] = {
       ['name'] = '+gitsigns-hunks',
       ['a'] = { ':Gitsigns attach<CR>', 'attach' },
