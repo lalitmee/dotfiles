@@ -3,7 +3,7 @@ _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
 ensure_tmux_is_running() {
   if _not_inside_tmux; then
-    ~/Desktop/Github/dotfiles/bin/tat
+    ~/dotfiles/zsh/tat
   fi
 }
 
@@ -348,7 +348,6 @@ export EDITOR=nvim
 
 # great functions for fzf from
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
-source ~/Desktop/Github/dotfiles/system/fzf/init.zsh
 
 # update cd bookmarks
 chpwd_functions+=(update_marks)
@@ -436,8 +435,8 @@ eval "$(pyenv virtualenv-init -)"
 
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
-# To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh.
-[[ ! -f ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh ]] || source ~/Desktop/Github/dotfiles/system/zsh/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
 
 
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
