@@ -709,14 +709,10 @@ return require('packer').startup {
 
     -- Float Terminal
     use {'akinsho/nvim-toggleterm.lua'}
-    use {
-      's1n7ax/nvim-terminal',
-      config = function()
-        require('nvim-terminal').setup()
-      end
-    }
+
     -- for using telescope-tmux
     -- use {'norcalli/nvim-terminal.lua'}
+
     use {
       's1n7ax/nvim-terminal',
       config = function()
