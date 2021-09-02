@@ -27,7 +27,10 @@ local leader_key_maps = {
   ['6'] = { ':lua Terminal:open(6)<CR>', 'toggle-terminal-6' },
   [':'] = { ':Telescope commands<CR>', 'commands' },
   [';'] = { ':lua Terminal:toggle()<CR>', 'toggle-terminal' },
-  ['<leader>'] = { ':Telescope find_files<CR>', 'find-files' },
+  ['<leader>'] = {
+    '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
+    'find-files',
+  },
 
   -- NOTE: a is for actions
   ['a'] = {
@@ -709,7 +712,11 @@ local leader_key_maps = {
         'with-dropdown',
       },
       ['e'] = { ':Telescope file_browser<CR>', 'file-browser' },
-      ['f'] = { ':Telescope find_files<CR>', 'find-files' },
+      ['f'] = {
+        '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
+        'find-files',
+      },
+
       ['F'] = { ':Telescope find_files<CR>', 'find-files' },
       ['g'] = { ':Telescope git_files<CR>', 'git-files' },
       ['h'] = { ':Telescope frecency<CR>', 'telescope-frecency' },
@@ -785,7 +792,10 @@ local leader_key_maps = {
     ['name'] = '+project',
     ['a'] = { ':FzfAg<CR>', 'project-search' },
     ['b'] = { ':Telescope buffers<CR>', 'find-buffers' },
-    ['f'] = { ':Telescope find_files<CR>', 'find-files' },
+    ['f'] = {
+      '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
+      'find-files',
+    },
     ['F'] = { ':Telescope find_files<CR>', 'find-files' },
     ['g'] = { ':Telescope git_files<CR>', 'find-git-files' },
     ['p'] = {
