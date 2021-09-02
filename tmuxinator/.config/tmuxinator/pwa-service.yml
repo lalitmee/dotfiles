@@ -1,0 +1,22 @@
+# /home/lalit/.config/tmuxinator/wfws.yml
+
+name: pwa-service
+root: ~/Desktop/koinearth/wf-pwa-service
+
+windows:
+  - Editor: ls
+  - Git: gst
+  - Cmus: cmus
+  - Servers:
+      layout: even-horizontal
+      panes:
+        - yarn start
+        - cd ../marketsn-pwa-service && yarn start
+  - Caddy:
+      - cd ..
+      - caddy run Caddyfile
+  - Browser: brave-browser
+  - Extras:
+      - clear
+      - cd
+      - quote

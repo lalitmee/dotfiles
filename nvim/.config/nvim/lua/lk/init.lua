@@ -1,0 +1,11 @@
+require('lk/utils')
+require('lk/globals')
+require('lk/settings')
+require('lk/highlights')
+require('lk/folds')
+require('lk/functions')
+require('lk/mappings')
+
+require('lk/colorscheme')
+require('lk/statusline')
+require('lk/plugins')

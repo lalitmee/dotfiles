@@ -1,8 +1,0 @@
-# /home/lalit/.config/tmuxinator/code-judge.yml
-
-name: code-judge
-root: ~/data/Github/code-judge
-
-windows:
-  - Editor: ls
-  - Server: yarn start

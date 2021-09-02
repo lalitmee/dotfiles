@@ -1,0 +1,10 @@
+# /home/lalit/.config/tmuxinator/c-quotes.yml
+
+name: c-quotes
+root: ~/Desktop/Github/c-quotes
+
+windows:
+  - Editor: ci
+  - Server: yarn start
+  - Cmus: cmus
+  - Browser: chromium-browser
