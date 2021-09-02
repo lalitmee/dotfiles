@@ -1,0 +1,9 @@
+# /home/lalitmee/.config/tmuxinator/dotfiles.yml
+
+name: dotfiles
+root: ~/Desktop/Github
+
+windows:
+  - Mine: cd ~/dotfiles
+  - tjdevries: cd ~/Desktop/Github/configs/config_manager
+  - akinsho: cd ~/Desktop/Github/configs/akinsho-dotfiles

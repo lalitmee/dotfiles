@@ -1,0 +1,22 @@
+# /home/lalit/.config/tmuxinator/wfws.yml
+
+name: wfws
+root: ~/Desktop/koinearth/worktrees/wf-webapp-service
+
+windows:
+  - Editor: ls
+  - Git: ls
+  - Cmus: cmus
+  - Servers:
+      layout: even-horizontal
+      panes:
+        - cd ~/Desktop/koinearth/wf-webapp-service && yst
+        - cd ~/Desktop/koinearth/marketsn-webapp-service-nextjs && yd
+  - Caddy:
+      - cd
+      - caddy run
+  - Browser: brave-browser
+  - Extras:
+      - clear
+      - cd
+      - quote

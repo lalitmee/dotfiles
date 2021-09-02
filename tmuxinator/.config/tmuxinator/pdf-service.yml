@@ -1,0 +1,10 @@
+# /home/lalit/.config/tmuxinator/pdf-service.yml
+
+name: pdf-service
+root: ~/Desktop/koinearth/marketsn-pdf-service
+
+windows:
+  - Editor: ls
+  - Git: gst
+  - Server: nodemon .
+  - quote: quote
