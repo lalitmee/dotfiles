@@ -655,14 +655,13 @@ local leader_key_maps = {
     ['e'] = {':Telescope emoji search<CR>', 'emoji-search'},
     ['f'] = {
       ['name'] = '+files',
+      ['F'] = {':Telescope find_files<CR>', 'find-files'},
       ['a'] = 'tj-search-all-files',
       ['c'] = 'dotfiles',
       ['d'] = {[[:lua require('lk.plugins.telescope.finders').fd_files_dropdown()<cr>]], 'with-dropdown'},
       ['e'] = {':Telescope file_browser<CR>', 'file-browser'},
       ['f'] = {'<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
                'find-files'},
-
-      ['F'] = {':Telescope find_files<CR>', 'find-files'},
       ['g'] = {':Telescope git_files<CR>', 'git-files'},
       ['h'] = {':Telescope frecency<CR>', 'telescope-frecency'},
       ['i'] = {'ivy-theme-files'},
@@ -732,6 +731,7 @@ local leader_key_maps = {
   -- NOTE: p is for project
   ['p'] = {
     ['name'] = '+project',
+    ['a'] = {':FzfAg<CR>', 'project-search'},
     ['b'] = {':Telescope buffers<CR>', 'find-buffers'},
     ['f'] = {'<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
              'find-files'},
@@ -747,6 +747,7 @@ local leader_key_maps = {
       ['s'] = {':lua require("package-info").show()<CR>', 'show-status'},
       ['u'] = {':lua require("package-info").update()<CR>', 'update-package'}
     },
+    ['p'] = {':Telescope project project display_type=full<CR>', 'switch-project'},
     ['p'] = {':Telescope project project display_type=full<CR>', 'switch-project'},
     ['h'] = {':Telescope frecency<CR>', 'old-files'},
     ['r'] = {':Telescope resume<CR>', 'resume-search'},
