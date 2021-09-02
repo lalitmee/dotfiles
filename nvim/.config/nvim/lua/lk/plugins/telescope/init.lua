@@ -19,10 +19,18 @@ local themes = require('telescope.themes')
 
 require('telescope').setup {
   defaults = {
-    -- prompt_prefix = ' > ',
+    vimgrep_arguments = {
+      'rg',
+      '--hidden',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+    },
     selection_strategy = 'reset',
     sorting_strategy = 'descending',
-    -- sorting_strategy = 'ascending',
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,

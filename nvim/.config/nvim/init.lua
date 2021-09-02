@@ -3,6 +3,9 @@ local cmd = vim.api.nvim_command
 -- https://github.com/lalitmee/dotfiles
 -- NOTE: Created By: Lalit Kumar
 -- ]]
+
+pcall(require, 'impatient')
+
 require('lk/profile')
 if require 'lk/first_load'() then
   return

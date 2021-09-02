@@ -26,6 +26,7 @@ return require('packer').startup {
   function(use)
     -- Packer can manage itself as an optional plugin
     use 'wbthomason/packer.nvim'
+    use 'lewis6991/impatient.nvim'
 
     -- UI AND BEAUTIFY {{{
 
