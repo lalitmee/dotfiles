@@ -19,7 +19,6 @@ local themes = require('telescope.themes')
 
 require('telescope').setup {
   defaults = {
-    -- prompt_prefix = ' > ',
     selection_strategy = 'reset',
     sorting_strategy = 'descending',
     -- sorting_strategy = 'ascending',
@@ -179,6 +178,12 @@ require('telescope').setup {
 
 -- -- packer integration with telescope
 -- require('telescope').load_extension('packer')
+
+-- -- coc integration in telescope
+-- require('telescope').load_extension('coc')
+
+-- -- tmux integration in telescope
+-- require('telescope').load_extension('tmux')
 
 -- project management in telescope
 require('telescope').load_extension('project')

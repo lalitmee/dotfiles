@@ -416,7 +416,7 @@ return require('packer').startup {
         {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },
-        },
+        }, -- { 'camgraff/telescope-tmux.nvim' },
       },
     }
 
@@ -670,17 +670,15 @@ return require('packer').startup {
     -- TERMINAL {{{
 
     -- Float Terminal
-    use {
-      'akinsho/nvim-toggleterm.lua',
-      -- cmd = { 'ToggleTerm', 'ToggleTermCloseAll', 'ToggleTermOpenAll' },
-      -- keys = { '<C-t>' }
-    }
+    use { 'akinsho/nvim-toggleterm.lua' }
     use {
       's1n7ax/nvim-terminal',
       config = function()
         require('nvim-terminal').setup()
       end,
     }
+    -- for using telescope-tmux
+    use { 'norcalli/nvim-terminal.lua' }
 
     -- }}}
 

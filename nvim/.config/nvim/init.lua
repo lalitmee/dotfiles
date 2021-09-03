@@ -1,27 +1,35 @@
-local cmd = vim.api.nvim_command
 -- [[
 -- https://github.com/lalitmee/dotfiles
 -- NOTE: Created By: Lalit Kumar
 -- ]]
+local cmd = vim.api.nvim_command
+
+pcall(require, 'impatient')
+
 require('lk/profile')
 if require 'lk/first_load'() then
   return
 end
+
 vim.api.nvim_exec([[
    augroup vimrc -- Ensure all autocommands are cleared
    autocmd!
    augroup END
-  ]], '')
+  ]], false)
+
 -- mapping leader and localleader keys
 vim.g.mapleader = ' ' -- Remap leader key
 vim.g.maplocalleader = ',' -- Local leader is ,
+
 -- sourcing plugins
 require('plugins')
 require('lk')
 require('scripts')
+
 -- The operating system is assigned to a global variable that
 -- that can be used elsewhere for conditional system based logic
 local uname = vim.loop.os_uname()
+
 if uname.sysname == 'Darwin' then
   vim.g.open_command = 'open'
   vim.g.system_name = 'macOS'
@@ -31,11 +39,13 @@ elseif uname.sysname == 'Linux' then
   vim.g.system_name = 'Linux'
   vim.g.is_linux = true
 end
+
 function Autosync()
   require('nvim-reload').Reload()
   cmd('PackerInstall')
   cmd('PackerCompile')
 end
+
 function Autoreload()
   require('nvim-reload').Reload()
 end

@@ -1,3 +1,6 @@
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
 require('lk/plugins/nvim_lsp/handlers')
 require('lk/plugins/nvim_lsp/commands')
 require('lk/plugins/nvim_lsp/mappings')
@@ -8,34 +11,33 @@ local autocommands = require('lk/plugins/nvim_lsp/autocommands')
 local mappings = require('lk/plugins/nvim_lsp/mappings')
 
 -- lsp kind symbols
-require('vim.lsp.protocol').CompletionItemKind =
-    {
-      ' [Text]', -- Text
-      ' [Method]', -- Method
-      'ƒ [Function]', -- Function
-      '  [Constructor]', -- Constructor
-      '識 [Field]', -- Field
-      ' [Variable]', -- Variable
-      '\u{f0e8} [Class]', -- Class
-      'ﰮ [Interface]', -- Interface
-      ' [Module]', -- Module
-      ' [Property]', -- Property
-      ' [Unit]', -- Unit
-      ' [Value]', -- Value
-      '了 [Enum]', -- Enum
-      ' [Keyword]', -- Keyword
-      '﬌ [Snippet]', -- Snippet
-      ' [Color]', -- Color
-      ' [File]', -- File
-      '渚 [Reference]', -- Reference
-      ' [Folder]', -- Folder
-      ' [Enum]', -- Enum
-      ' [Constant]', -- Constant
-      ' [Struct]', -- Struct
-      '鬒 [Event]', -- Event
-      '\u{03a8} [Operator]', -- Operator
-      ' [Type Parameter]', -- TypeParameter
-    }
+require('vim.lsp.protocol').CompletionItemKind = {
+  ' [Text]', -- Text
+  ' [Method]', -- Method
+  'ƒ [Function]', -- Function
+  '  [Constructor]', -- Constructor
+  '識 [Field]', -- Field
+  ' [Variable]', -- Variable
+  '\u{f0e8} [Class]', -- Class
+  'ﰮ [Interface]', -- Interface
+  ' [Module]', -- Module
+  ' [Property]', -- Property
+  ' [Unit]', -- Unit
+  ' [Value]', -- Value
+  '了 [Enum]', -- Enum
+  ' [Keyword]', -- Keyword
+  '﬌ [Snippet]', -- Snippet
+  ' [Color]', -- Color
+  ' [File]', -- File
+  '渚 [Reference]', -- Reference
+  ' [Folder]', -- Folder
+  ' [Enum]', -- Enum
+  ' [Constant]', -- Constant
+  ' [Struct]', -- Struct
+  '鬒 [Event]', -- Event
+  '\u{03a8} [Operator]', -- Operator
+  ' [Type Parameter]', -- TypeParameter
+}
 
 function Tagfunc(pattern, flags)
   if flags ~= 'c' then
@@ -86,8 +88,9 @@ local luadev = require('lua-dev').setup({
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport =
-    { properties = { 'documentation', 'detail', 'additionalTextEdits' } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { 'documentation', 'detail', 'additionalTextEdits' },
+}
 
 -- lsp-install
 local function setup_servers()
@@ -128,8 +131,7 @@ end
 setup_servers()
 
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require('lspinstall').post_install_hook =
-    function()
-      setup_servers() -- reload installed servers
-      vim.cmd('bufdo e') -- this triggers the FileType autocmd that starts the server
-    end
+require('lspinstall').post_install_hook = function()
+  setup_servers() -- reload installed servers
+  vim.cmd('bufdo e') -- this triggers the FileType autocmd that starts the server
+end

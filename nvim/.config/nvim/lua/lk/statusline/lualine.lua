@@ -1,3 +1,14 @@
+vim.api.nvim_exec([[
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
+endfunction
+]], false)
+
 require('lualine').setup {
   options = {
     theme = 'auto',
@@ -26,8 +37,10 @@ require('lualine').setup {
         color_hint = { fg = '#fab005' },
         update_in_insert = true,
       },
-      { 'b:coc_current_function', 'g:coc_status' },
+      { 'b:coc_current_function', 'g:coc_status' }, -- { 'lsp_progress' },
+      -- { 'b:coc_current_function', 'g:coc_status' },
       -- { 'lsp_progress' },
+      -- { 'LspStatus' },
     },
     lualine_x = {},
     lualine_y = { { 'progress' } },
