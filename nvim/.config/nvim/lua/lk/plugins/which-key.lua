@@ -239,7 +239,7 @@ local leader_key_maps = {
   -- NOTE: F is for find and replace
   ['F'] = {
     ['name'] = '+search/replace',
-    ['f'] = 'grep',
+    ['f'] = { ':Tgrep<CR>', 'grep' },
     ['F'] = 'grep-and-replace',
     ['o'] = { ':lua require("spectre").open()<CR>', 'spectre-open' },
     ['r'] = 'replace-text-object',
@@ -790,7 +790,6 @@ local leader_key_maps = {
   -- NOTE: p is for project
   ['p'] = {
     ['name'] = '+project',
-    ['a'] = { ':FzfAg<CR>', 'project-search' },
     ['b'] = { ':Telescope buffers<CR>', 'find-buffers' },
     ['f'] = {
       '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
@@ -919,9 +918,8 @@ local leader_key_maps = {
     ['name'] = '+search',
     ['/'] = { ':Telescope command_history<CR>', 'history' },
     [';'] = { ':Telescope commands<CR>', 'commands' },
-    ['a'] = { ':FzfAg<CR>', 'text-Ag' },
-    ['b'] = { ':FzfBuffers<CR>', 'current-buffer' },
-    ['B'] = { ':Telescope buffers<CR>', 'open-buffers' },
+    ['a'] = { ':Telescope live_grep<CR>', 'live-grep' },
+    ['b'] = { ':Telescope buffers<CR>', 'buffers' },
     ['c'] = { ':Telescope git_commits<CR>', 'commits' },
     ['C'] = { ':Telescope git_bcommits<CR>', 'buffer-commits' },
     ['d'] = { ':Telescope git_files<CR>', 'git-files' },
@@ -933,20 +931,16 @@ local leader_key_maps = {
       ':Telescope current_buffer_fuzzy_find<CR>',
       'telescope-buffer-lines',
     },
-    ['L'] = { ':FzfLines<CR>', 'fzf-buffer-lines' },
     ['m'] = { ':Telescope marks<CR>', 'marks' },
     ['M'] = { ':Telescope keymaps<CR>', 'keymaps' },
+    ['o'] = { ':Telescope oldfiles<CR>', 'old-files' },
     ['p'] = { ':Telescope live_grep<CR>', 'live-grep' },
-    ['P'] = { ':RG<CR>', 'fzf-rg' },
     ['r'] = { ':Telescope registers<CR>', 'registers' },
     ['s'] = { ':Telescope ultisnips ultisnips<CR>', 'snippets' },
     ['S'] = { ':Telescope colorscheme<CR>', 'color-schemes' },
     ['t'] = { ':Telescope tags<CR>', 'project-tags' },
-    ['T'] = { ':FzfBTags<CR>', 'buffer-tags' },
     ['v'] = { ':Telescope vim_options<CR>', 'vim-options' },
-    ['w'] = { ':FzfWindows<CR>', 'search-windows' },
     ['y'] = { ':Telescope filetypes<CR>', 'file-types' },
-    ['z'] = { ':FZF<CR>', 'FZF' },
   },
 
   -- NOTE: t is for toggle
@@ -1042,7 +1036,6 @@ local leader_key_maps = {
     ['h'] = { ':Telescope help_tags<CR>', 'help-tags' },
     ['H'] = { ':Telescope command_history<CR>', 'commands-history' },
     ['k'] = { ':Telescope keymaps<CR>', 'telescope-keymaps' },
-    ['K'] = { ':FzfMaps<CR>', 'fzf-keymaps' },
     ['o'] = { ':Telescope vim_options<CR>', 'options' },
     ['p'] = {
       ['name'] = '+vim-plug',
@@ -1061,7 +1054,6 @@ local leader_key_maps = {
     ['2'] = { '<C-W>v', 'layout-double-columns' },
     [';'] = { '<C-W>L', 'move-window-far-right' },
     ['='] = { '<C-W>=', 'balance-windows' },
-    ['?'] = { ':FzfWindows<CR>', 'fzf-window' },
     ['a'] = { '<C-W>H', 'move-window-far-left' },
     ['d'] = { '<C-W>c', 'delete-window' },
     ['f'] = {

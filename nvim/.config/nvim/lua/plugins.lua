@@ -47,6 +47,8 @@ return require('packer').startup {
     -- colorschemes {{{
 
     -- enabled
+    use { 'pineapplegiant/spaceduck', disable = false }
+    use { 'shaunsingh/nord.nvim', disable = false }
     use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
     use { 'navarasu/onedark.nvim', disable = false }
     use { 'NTBBloodbath/doom-one.nvim', disable = false }

@@ -169,8 +169,11 @@ require('telescope').setup {
     --   ['show_domain_icons'] = false
     -- },
     project = {
-      base_dirs = { '~/Desktop/Github', '~/Desktop/koinearth' },
-      max_depth = 3,
+      base_dirs = {
+        { '~/Desktop/Github', max_depth = 3 },
+        { '~/Desktop/koinearth', max_depth = 3 },
+        hidden_files = true,
+      },
     },
   },
 }
