@@ -198,6 +198,9 @@ require('telescope').setup {
 -- require('telescope').load_extension('tmux')
 
 -- project management in telescope
+require('telescope').load_extension('zoxide')
+
+-- project management in telescope
 require('telescope').load_extension('project')
 
 -- cheat sheets

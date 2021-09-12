@@ -416,6 +416,7 @@ return require('packer').startup {
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
         { 'fannheyward/telescope-coc.nvim' },
+        { 'jvgrootveld/telescope-zoxide' },
         {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },
