@@ -3,15 +3,11 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-(after! doom-themes
-  (setq
-   doom-themes-enable-bold t
-   doom-themes-enable-italic t))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "Lalit Kumar"
-      user-mail-address "lalitkumar.meena.lk@gmail.com")
+(setq user-full-name "John Doe"
+      user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -27,13 +23,13 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; (setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
-(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 14))
+;; (setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15))
 ;; (setq doom-font (font-spec :family "OperatorMono Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "CodeNewRoman Nerd Font" :size 16))
 ;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 16 :weight 'semi-bold))
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
-;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15 :weight 'semi-bold))
+;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 14 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "Recursive Mono Casual Static" :size 15))
 ;; (setq doom-font (font-spec :family "OverpassMono Nerd Font" :size 15))
@@ -45,27 +41,11 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org")
-
-(setq projectile-project-search-path '("~/data/Github"
-                                       "~/data/koinearth"
-                                       "~/data/GitLab"))
+(setq org-directory "~/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
-(global-wakatime-mode 1)
-(setq wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime")
-
-;; modeline settings
-;; The maximum displayed length of the branch name of version control.
-(setq doom-modeline-height 30)
-(setq doom-modeline-vcs-max-length 20)
-(after! doom-modeline
-  (display-battery-mode t))
-
-;; open emacs fully maximized
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(setq display-line-numbers-type t)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -85,56 +65,13 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; centered cursor mode
-(setq scroll-preserve-screen-position t
-      scroll-conservatively 0
-      maximum-scroll-margin 0.5
-      scroll-margin 99999)
+;; projectile projects
+(setq projectile-project-search-path '("~/Desktop/Github"
+                                       "~/Desktop/koinearth"
+                                       "~/Desktop/koinearth/worktrees"))
 
-
-;; tags file too large warning
+;; TAGS file large warning
 (setq large-file-warning-threshold nil)
 
-;; lockfile create stop
-(setq create-lockfiles nil)
-
-;; tide mode setup
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1))
-
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
-
-(setq-hook! 'rjsx-mode-hook flycheck-checker 'javascript-eslint)
-(add-hook! 'rjsx-mode-hook #'setup-tide-mode)
-
-(add-hook! 'prog-mode-hook 'format-all-mode)
-;; (add-hook! 'format-all-mode-hook 'format-all-ensure-formatter)
-
-(after! prettier-js
-  (setq-hook! 'rjsx-mode-hook 'prettier-js-mode)
-  ;; prettier settings
-  (setq prettier-js-args '("--trailing-comma" "all"
-                           "--print-width" "80"
-                           "--tab-width" "2"
-                           "--html-whitespace-sensitivity" "ignore"
-                           "--arrow-parens" "avoid"
-                           ))
-  )
-
-
-(after! vimrc-mode
-  (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
-
-;; A simple config:
-(solaire-global-mode)
-
-;; lsp file watcher
-(setq lsp-file-watch-threshold 5000)
-(setq lsp-enable-file-watchers nil)
+;; org bullets mode
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
