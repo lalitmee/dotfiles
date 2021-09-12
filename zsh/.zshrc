@@ -401,7 +401,8 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 
-eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
+# easily switch directories
+eval "$(zoxide init zsh)"
 
 export TERM="xterm-256color"
 # if [ "$ISLINUX" '==' 'true' ]; then
@@ -442,8 +443,6 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
