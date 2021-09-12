@@ -186,8 +186,9 @@ export LC_CTYPE=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ciu="caniuse"
+alias iu="is-up"
 alias aw="awesome-hub"
-alias st="speed-test"
+alias st="speed"
 
 # alias for fzf get the output
 alias f="| fzf-tmux"
@@ -271,6 +272,7 @@ alias manfzf="man -k . | fzf-tmux --prompt='Man> ' | awk '{print $1}' | xargs -r
 
 # aliases for some terminal programmes
 alias hw="how2"
+alias hi="howdoi"
 alias wb="wikit -b"
 alias wk="wikit"
 alias wt="curl wttr.in"
