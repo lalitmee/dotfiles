@@ -450,6 +450,9 @@ bind C-j split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(
 # Use vim keybindings in copy mode
 setw -g mode-keys vi
 
+# run cht.sh from tmux
+bind-key -r i run-shell "tmux neww bash -c \"~/.local/bin/tmux-cht.sh\""
+
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
 

@@ -87,7 +87,7 @@ return require('packer').startup {
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
 
-    use 'mhinz/vim-startify'
+    use { 'mhinz/vim-startify' }
 
     -- Colorizer for showing the colors
     use 'norcalli/nvim-colorizer.lua'
@@ -433,6 +433,7 @@ return require('packer').startup {
     -- packages info
     use {
       'vuki656/package-info.nvim',
+      requires = 'MunifTanjim/nui.nvim',
       config = function()
         require('package-info').setup()
       end,
@@ -504,6 +505,7 @@ return require('packer').startup {
 
     -- VERSION CONTROL STYSTEM {{{
 
+    use { 'tpope/vim-fugitive' }
     use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
     use {
       'rhysd/conflict-marker.vim',

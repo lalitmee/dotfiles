@@ -109,10 +109,12 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 alias-finder
+# fast-alias-tips
 alias-tips
 autojump
 autoupdate
 brew
+browse-commit
 colored-man-pages
 command-not-found
 common-aliases
@@ -126,10 +128,10 @@ fzf-tab
 fzf-zsh-plugin
 gem
 git
+git-auto-fetch
 git-extra-commands
 git-extras
 gitfast
-git-auto-fetch
 history
 last-working-dir
 ng
@@ -149,6 +151,7 @@ tmuxinator
 ubuntu
 web-search
 yarn
+zsh-256color
 zsh-autosuggestions
 zsh-syntax-highlighting
 )
@@ -398,10 +401,14 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # # Navi: An interactive cheatsheet tool for the command-line and application launchers
 # source <(navi widget zsh)
 
+# almost on top from github: https://github.com/Valiev/almostontop
+source ~/Desktop/Github/almostontop/almostontop.plugin.zsh
+
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 
 # easily switch directories
+# eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
 eval "$(zoxide init zsh)"
 
 export TERM="xterm-256color"

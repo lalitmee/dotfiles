@@ -15,7 +15,7 @@ vim.api.nvim_exec([[
    augroup vimrc -- Ensure all autocommands are cleared
    autocmd!
    augroup END
-  ]], false)
+  ]], '')
 
 -- mapping leader and localleader keys
 vim.g.mapleader = ' ' -- Remap leader key
