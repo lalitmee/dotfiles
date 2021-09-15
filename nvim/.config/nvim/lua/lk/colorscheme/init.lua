@@ -1,5 +1,8 @@
--- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
+-- NOTE: vim-code-dark
+require('lk/colorscheme/vscode')
+
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: spaceduck
 -- require('lk/colorscheme/spaceduck')
@@ -18,9 +21,6 @@ require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
-
--- -- NOTE: vim-code-dark
--- require('lk/colorscheme/vscode')
 
 -- -- NOTE: gruvqueen
 -- require('lk/colorscheme/gruvqueen')
