@@ -495,16 +495,6 @@ return require('packer').startup {
       },
     }
 
-    -- auto-pairs in lua
-    use {
-      'windwp/nvim-autopairs',
-      config = function()
-        require('nvim-autopairs').setup({
-          disable_filetype = { 'TelescopePrompt', 'vim' },
-        })
-      end,
-    }
-
     -- }}}
 
     -- }}}

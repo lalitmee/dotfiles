@@ -1,5 +1,4 @@
 local wk = require('which-key')
-Terminal = require('nvim-terminal').DefaultTerminal;
 
 vim.o.timeoutlen = 500
 
@@ -17,8 +16,8 @@ wk.setup({
 local leader_key_maps = {
   -- NOTE: direct mappings
   ['*'] = 'vimgrep-under-cursor',
-  ['+'] = 'increase-terminal-size',
-  ['-'] = 'decrease-terminal-size',
+  ['+'] = { ':lua Window:change_height(10)<CR>', 'increase-terminal-size' },
+  ['-'] = { ':lua Window:change_height(-10)<CR>', 'decrease-terminal-size' },
   ['1'] = { ':lua Terminal:open(1)<CR>', 'toggle-terminal-1' },
   ['2'] = { ':lua Terminal:open(2)<CR>', 'toggle-terminal-2' },
   ['3'] = { ':lua Terminal:open(3)<CR>', 'toggle-terminal-3' },
@@ -206,18 +205,6 @@ local leader_key_maps = {
   },
 
   -- NOTE: e is for errors/warnings using lspconfig
-  ['e'] = {
-    ['name'] = '+errors/warnings',
-    ['l'] = { ':Telescope lsp_document_diagnostics<CR>', 'buffer-diagnostics' },
-    ['L'] = {
-      ':Telescope lsp_workspace_diagnostics<CR>',
-      'workspace_diagnostics',
-    },
-    ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
-    ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' },
-  },
-
-  -- NOTE: e is for errors/warnings using coc
   -- ['e'] = {
   --   ['name'] = '+errors/warnings',
   --   ['l'] = { ':Telescope lsp_document_diagnostics<CR>', 'buffer-diagnostics' },
