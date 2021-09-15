@@ -1,14 +1,15 @@
 require('lualine').setup {
   options = {
     theme = 'auto',
-    section_separators = { '', '' },
-    component_separators = { '', '' },
+    separator = { left = '', right = '' },
+    -- section_separators = { '', '' },
+    -- component_separators = { '', '' },
   },
   sections = {
-    lualine_a = { { 'mode', upper = true } },
+    lualine_a = { { 'mode', fmt = string.upper } },
     lualine_b = { { 'branch', icon = '' } },
     lualine_c = {
-      { 'filetype', disable_text = true },
+      { 'filetype', icon_only = true },
       { 'filename', path = 1 },
       {
         'diagnostics',
@@ -20,10 +21,12 @@ require('lualine').setup {
           info = ' :',
           hint = '💡',
         },
-        color_error = { fg = '#E06C75' },
-        color_warn = { fg = '#FF922B' },
-        color_info = { fg = '#15AABF' },
-        color_hint = { fg = '#fab005' },
+        diagnostics_color = {
+          error = { fg = '#E06C75' },
+          warn = { fg = '#FF922B' },
+          info = { fg = '#15AABF' },
+          hint = { fg = '#fab005' },
+        },
         update_in_insert = true,
       },
       { 'b:coc_current_function', 'g:coc_status' },
