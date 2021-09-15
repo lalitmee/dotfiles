@@ -265,19 +265,20 @@ return require('packer').startup {
     -- }}}
 
     -- Snippets {{{
+    use 'L3MON4D3/LuaSnip'
 
-    -- snippets engine
-    use 'SirVer/ultisnips'
+    -- -- snippets engine
+    -- use 'SirVer/ultisnips'
 
-    -- Snippets in Vim
-    use 'honza/vim-snippets'
+    -- -- Snippets in Vim
+    -- use 'honza/vim-snippets'
 
     -- vsnip vscode snippets
     -- use 'hrsh7th/vim-vsnip'
     -- use 'hrsh7th/vim-vsnip-integ'
 
-    -- snippets in lua
-    use 'norcalli/snippets.nvim'
+    -- -- snippets in lua
+    -- use 'norcalli/snippets.nvim'
 
     -- }}}
 
@@ -325,13 +326,89 @@ return require('packer').startup {
     use {
       'neovim/nvim-lspconfig',
       requires = {
+        {
+          'onsails/lspkind-nvim',
+          config = function()
+            require('lspkind').init({
+              -- default symbol map
+              -- can be either 'default' (requires nerd-fonts font) or
+              -- 'codicons' for codicon preset (requires vscode-codicons font)
+              --
+              -- default: 'default'
+              preset = 'codicons',
+
+              -- default: {}
+              symbol_map = {
+                -- Class = 'ﴯ',
+                -- Color = '',
+                -- Constant = '',
+                -- Constructor = '',
+                -- Enum = '',
+                -- EnumMember = '',
+                -- Event = '',
+                -- Field = 'ﰠ',
+                -- File = '',
+                -- Folder = '',
+                -- Function = ' ',
+                -- Interface = '',
+                -- Keyword = '',
+                -- Method = '',
+                -- Module = '',
+                -- Operator = '',
+                -- Property = 'ﰠ',
+                -- Reference = '',
+                -- Snippet = '',
+                -- Struct = 'פּ',
+                -- Text = ' ',
+                -- TypeParameter = '',
+                -- Unit = '塞',
+                -- Value = '',
+                -- Variable = ' ',
+
+                Class = '   ',
+                Color = '   ',
+                Constant = '   ',
+                Constructor = '   ',
+                Default = '   ',
+                Enum = ' 了 ',
+                EnumMember = '   ',
+                Event = '   ',
+                Field = '   ',
+                File = '   ',
+                Folder = '   ',
+                Function = '   ',
+                Interface = ' ﰮ  ',
+                Keyword = '   ',
+                Method = ' ƒ  ',
+                Module = '   ',
+                Operator = ' ○  ',
+                Property = '   ',
+                Reference = '   ',
+                Snippet = ' ﬌  ',
+                Struct = '   ',
+                Text = '   ',
+                TypeParameter = ' ⅀  ',
+                Unit = '   ',
+                Value = '   ',
+                Variable = '   ',
+              },
+            })
+          end,
+        },
         { 'arkav/lualine-lsp-progress', disable = true },
         { 'glepnir/lspsaga.nvim' },
-        { 'hrsh7th/nvim-compe' },
+        { 'hrsh7th/nvim-compe', disable = true },
+        { 'hrsh7th/nvim-cmp' },
+        { 'hrsh7th/cmp-buffer' },
+        { 'hrsh7th/cmp-path' },
+        { 'hrsh7th/cmp-nvim-lua' },
+        { 'hrsh7th/cmp-nvim-lsp' },
+        { 'saadparwaiz1/cmp_luasnip' },
         {
           'tzachar/compe-tabnine',
           run = './install.sh',
           requires = 'hrsh7th/nvim-compe',
+          disable = true,
         },
         { 'kabouzeid/nvim-lspinstall' },
         { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
