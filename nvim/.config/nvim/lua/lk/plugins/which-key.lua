@@ -206,6 +206,18 @@ local leader_key_maps = {
   },
 
   -- NOTE: e is for errors/warnings using lspconfig
+  ['e'] = {
+    ['name'] = '+errors/warnings',
+    ['l'] = { ':Telescope lsp_document_diagnostics<CR>', 'buffer-diagnostics' },
+    ['L'] = {
+      ':Telescope lsp_workspace_diagnostics<CR>',
+      'workspace_diagnostics',
+    },
+    ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
+    ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' },
+  },
+
+  -- NOTE: e is for errors/warnings using coc
   -- ['e'] = {
   --   ['name'] = '+errors/warnings',
   --   ['l'] = { ':Telescope lsp_document_diagnostics<CR>', 'buffer-diagnostics' },
