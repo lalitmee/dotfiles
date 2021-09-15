@@ -419,8 +419,7 @@ return require('packer').startup {
         {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },
-        },
-        -- { 'camgraff/telescope-tmux.nvim' },
+        }, -- { 'camgraff/telescope-tmux.nvim' },
       },
     }
 
