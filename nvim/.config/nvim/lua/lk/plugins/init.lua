@@ -45,7 +45,6 @@ require('lk/plugins/snippets')
 require('lk/plugins/nvim-bqf')
 
 -- NOTE: language support
-require('lk/plugins/auto-pairs')
 require('lk/plugins/emmet')
 require('lk/plugins/markdown')
 require('lk/plugins/tagalong')
