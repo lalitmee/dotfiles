@@ -46,7 +46,7 @@ lk.style = {
 
 if vim.notify then
   ---Override of vim.notify to open floating window
-  -- vim.notify = require('notify')
+  vim.notify = require('notify')
 end
 
 -----------------------------------------------------------------------------//

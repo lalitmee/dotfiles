@@ -55,6 +55,8 @@ require('telescope').setup {
       { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
     },
+    -- NOTE: it was somehow stopping current_buffer_fuzzy_find, lsp_document_symbols
+    -- and so many other things
     file_ignore_patterns = {
       '.backup',
       '.swap',
@@ -66,7 +68,7 @@ require('telescope').setup {
       'vendor',
       '.cache',
       '.vscode-server',
-      '.Desktop',
+      -- '.Desktop',
       '.Documents',
       'classes',
     },
@@ -101,9 +103,9 @@ require('telescope').setup {
 
     buffers = {
       sort_mru = true,
-      theme = 'dropdown',
+      -- theme = 'dropdown',
       selection_strategy = 'closest',
-      previewer = false,
+      -- previewer = false,
       sort_lastused = true,
       show_all_buffers = true,
       ignore_current_buffer = true,

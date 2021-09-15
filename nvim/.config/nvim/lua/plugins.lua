@@ -8,20 +8,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
               install_path)
 end
 
-local function hunspell_install_if_needed()
-  if vim.fn.executable('hunspell') == 0 then
-    if vim.fn.has('mac') > 0 then
-      -- on mac os need to download GB dictionary
-      -- and place in ~/Library/Spelling
-      -- these are available
-      -- https://wiki.openoffice.org/wiki/Dictionaries
-      vim.fn.system('brew install hunspell')
-    else
-      vim.fn.system('apt install hunspell hunspell_en_gb')
-    end
-  end
-end
-
 return require('packer').startup {
   function(use)
     -- Packer can manage itself as an optional plugin
@@ -31,7 +17,31 @@ return require('packer').startup {
     -- UI AND BEAUTIFY {{{
 
     -- notifications
-    use { 'rcarriga/nvim-notify', disable = false }
+    use {
+      'rcarriga/nvim-notify',
+      disable = false,
+      config = function()
+        require('notify').setup({
+          -- Animation style (see below for details)
+          stages = 'fade',
+
+          -- Default timeout for notifications
+          timeout = 3000,
+
+          -- For stages that change opacity this is treated as the highlight behind the window
+          background_colour = 'BufferCurrent',
+
+          -- Icons for the different levels
+          icons = {
+            ERROR = '',
+            WARN = '',
+            INFO = '',
+            DEBUG = '',
+            TRACE = '✎',
+          },
+        })
+      end,
+    }
 
     -- MENU
     -- lazy load as it is very expensive to load during startup i.e. 20ms+
@@ -87,7 +97,7 @@ return require('packer').startup {
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
 
-    use { 'mhinz/vim-startify' }
+    use 'mhinz/vim-startify'
 
     -- Colorizer for showing the colors
     use 'norcalli/nvim-colorizer.lua'
@@ -210,13 +220,19 @@ return require('packer').startup {
     }
 
     -- Better Whitespace
-    use 'ntpeters/vim-better-whitespace'
+    use {
+      'ntpeters/vim-better-whitespace',
+      config = function()
+        vim.g.better_whitespace_enabled = 1
+        vim.g.strip_whitespace_on_save = 1
+      end,
+    }
 
     -- nice fold text
     use 'scr1pt0r/crease.vim'
 
     -- fast folds in vim
-    use { 'Konfekt/FastFold' }
+    use 'Konfekt/FastFold'
 
     -- Maximizer for vim
     use 'szw/vim-maximizer'
@@ -356,37 +372,31 @@ return require('packer').startup {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       requires = {
-        'lewis6991/spellsitter.nvim',
-        cond = 'true',
-        run = hunspell_install_if_needed,
-        config = function()
-          require('spellsitter').setup { captures = { 'comment' } }
-        end,
-      },
-      { 'nvim-treesitter/nvim-treesitter-refactor' },
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
-      { 'RRethy/nvim-treesitter-textsubjects' },
-      { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
-      { 'p00f/nvim-ts-rainbow' },
-      { 'JoosepAlviste/nvim-ts-context-commentstring' },
-      {
-        'mfussenegger/nvim-ts-hint-textobject',
-        config = function()
-          require('tsht').config.hint_keys = {
-            'h',
-            'j',
-            'f',
-            'd',
-            'n',
-            'v',
-            's',
-            'l',
-            'a',
-          }
-          -- keybindings
-          lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
-          lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
-        end,
+        { 'nvim-treesitter/nvim-treesitter-refactor' },
+        { 'nvim-treesitter/nvim-treesitter-textobjects' },
+        { 'RRethy/nvim-treesitter-textsubjects' },
+        { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
+        { 'p00f/nvim-ts-rainbow' },
+        { 'JoosepAlviste/nvim-ts-context-commentstring' },
+        {
+          'mfussenegger/nvim-ts-hint-textobject',
+          config = function()
+            require('tsht').config.hint_keys = {
+              'h',
+              'j',
+              'f',
+              'd',
+              'n',
+              'v',
+              's',
+              'l',
+              'a',
+            }
+            -- keybindings
+            lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
+            lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
+          end,
+        },
       },
     }
 
@@ -420,7 +430,8 @@ return require('packer').startup {
         {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },
-        }, -- { 'camgraff/telescope-tmux.nvim' },
+        },
+        -- { 'camgraff/telescope-tmux.nvim' },
       },
     }
 
