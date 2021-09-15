@@ -1,15 +1,7 @@
 local map = lk_utils.map
 local telescope_mapper = require('lk.plugins.telescope.mappings')
 
-local compe_opts = { noremap = true, silent = true, expr = true }
-
 local M = {}
-
-map('i', '<C-n>', [[compe#complete()]], compe_opts)
-map('i', '<CR>', [[compe#confirm('<CR>')]], compe_opts)
-map('i', '<C-c>', [[compe#close('<C-e>')]], compe_opts)
-map('i', '<C-f>', [[compe#scroll({ 'delta': +4 })]], compe_opts)
-map('i', '<C-b>', [[compe#scroll({ 'delta': -4 })]], compe_opts)
 
 local opts = { noremap = false, silent = true }
 

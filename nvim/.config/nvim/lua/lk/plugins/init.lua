@@ -38,7 +38,8 @@ require('lk/plugins/dap')
 require('lk/plugins/bufferline')
 
 -- NOTE: snippets
-require('lk/plugins/snippets')
+require('lk/plugins/luasnip')
+-- require('lk/plugins/snippets')
 -- require('lk/plugins/vsnip')
 
 -- NOTE: quick fix
@@ -73,7 +74,7 @@ require('lk/plugins/refactoring')
 -- require('lk/plugins/coc')
 
 -- NOTE: nvim_lsp
-require('lk/plugins/compe')
+require('lk/plugins/completion')
 require('lk/plugins/lspsaga')
 require('lk/plugins/nvim_lsp')
 
