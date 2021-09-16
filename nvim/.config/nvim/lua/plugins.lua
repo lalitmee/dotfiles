@@ -382,8 +382,8 @@ return require('packer').startup {
               'a',
             }
             -- keybindings
-            lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
-            lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
+            lk_utils.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
+            lk_utils.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
           end,
         },
       },
