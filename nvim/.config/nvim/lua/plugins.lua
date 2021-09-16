@@ -46,6 +46,7 @@ return require('packer').startup {
     -- colorschemes {{{
 
     -- enabled
+    use { 'EdenEast/nightfox.nvim', disable = false }
     use { 'pineapplegiant/spaceduck', disable = false }
     use { 'shaunsingh/nord.nvim', disable = false }
     use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
@@ -204,7 +205,17 @@ return require('packer').startup {
     use {
       'numToStr/Navigator.nvim',
       config = function()
-        require('Navigator').setup()
+        local config = {
+          -- When you want to save the modified buffers when moving to tmux
+          -- `nil` - Don't save (default)
+          -- `current` - Only save the current modified buffer
+          -- `all` - Save all the buffers
+          auto_save = nil,
+
+          -- Disable navigation when tmux is zoomed in
+          disable_on_zoom = false,
+        }
+        require('Navigator').setup({ config })
       end,
     }
 
@@ -271,10 +282,6 @@ return require('packer').startup {
 
     -- Snippets in Vim
     use 'honza/vim-snippets'
-
-    -- vsnip vscode snippets
-    -- use 'hrsh7th/vim-vsnip'
-    -- use 'hrsh7th/vim-vsnip-integ'
 
     -- snippets in lua
     use 'norcalli/snippets.nvim'
@@ -554,6 +561,26 @@ return require('packer').startup {
     use {
       'shadmansaleh/lualine.nvim',
       requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
+    }
+    use {
+      'SmiteshP/nvim-gps',
+      requires = 'nvim-treesitter/nvim-treesitter',
+      config = function()
+        require('nvim-gps').setup({
+          icons = {
+            ['class-name'] = ' ', -- Classes and class-like objects
+            ['function-name'] = ' ', -- Functions
+            ['method-name'] = ' ', -- Methods (functions inside class-like objects)
+          },
+          -- Disable any languages individually over here
+          -- Any language not disabled here is enabled by default
+          languages = {
+            -- ["bash"] = false,
+            -- ["go"] = false,
+          },
+          separator = ' > ',
+        })
+      end,
     }
     use 'akinsho/nvim-bufferline.lua'
 

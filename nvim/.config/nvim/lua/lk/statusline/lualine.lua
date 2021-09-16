@@ -1,3 +1,5 @@
+local gps = require('nvim-gps')
+
 require('lualine').setup {
   options = {
     theme = 'auto',
@@ -29,7 +31,12 @@ require('lualine').setup {
         },
         update_in_insert = true,
       },
-      { 'b:coc_current_function', 'g:coc_status' }, -- { 'LspStatus' },
+      {
+        -- 'b:coc_current_function',
+        'g:coc_status',
+      },
+      -- { 'LspStatus' },
+      { gps.get_location, cond = gps.is_available },
     },
     lualine_x = { { 'filesize' } },
     lualine_y = { { 'progress' } },
