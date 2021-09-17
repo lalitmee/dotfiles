@@ -46,19 +46,6 @@ return require('packer').startup {
     -- colorschemes {{{
 
     -- enabled
-    use { 'EdenEast/nightfox.nvim', disable = false }
-    use { 'pineapplegiant/spaceduck', disable = false }
-    use { 'shaunsingh/nord.nvim', disable = false }
-    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
-    use { 'navarasu/onedark.nvim', disable = false }
-    use { 'NTBBloodbath/doom-one.nvim', disable = false }
-    use { 'projekt0n/github-nvim-theme', disable = false }
-    use { 'tjdevries/colorbuddy.nvim', disable = false }
-    use { 'tjdevries/gruvbuddy.nvim', disable = false }
-    use { 'tomasiser/vim-code-dark', disable = false }
-    use { 'Mofiqul/vscode.nvim', disable = false }
-    use { 'folke/tokyonight.nvim', disable = false }
-    use { 'marko-cerovac/material.nvim', disable = false }
     use {
       'folke/twilight.nvim',
       config = function()
@@ -66,13 +53,20 @@ return require('packer').startup {
       end,
       disable = false,
     }
-
-    -- disabled
-    use {
-      'ellisonleao/gruvbox.nvim',
-      requires = { 'rktjmp/lush.nvim' },
-      disable = true,
-    }
+    use { 'EdenEast/nightfox.nvim', disable = false }
+    use { 'Mofiqul/vscode.nvim', disable = false }
+    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
+    use { 'NTBBloodbath/doom-one.nvim', disable = false }
+    use { 'folke/tokyonight.nvim', disable = false }
+    use { 'jackm245/nordark.nvim', disable = false }
+    use { 'lalitmee/cobalt2.nvim', disable = false }
+    use { 'marko-cerovac/material.nvim', disable = false }
+    use { 'navarasu/onedark.nvim', disable = false }
+    use { 'pineapplegiant/spaceduck', disable = false }
+    use { 'projekt0n/github-nvim-theme', disable = false }
+    use { 'shaunsingh/nord.nvim', disable = false }
+    use { 'tjdevries/colorbuddy.nvim', disable = false }
+    use { 'tjdevries/gruvbuddy.nvim', disable = false }
 
     -- }}}
 

@@ -186,3 +186,5 @@
 	name = Lalit Kumar
 [gpg]
 	program = gpg2
+[init]
+	defaultBranch = master
