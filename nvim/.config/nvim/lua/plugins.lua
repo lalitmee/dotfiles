@@ -67,6 +67,13 @@ return require('packer').startup {
       disable = false,
     }
 
+    -- disabled
+    use {
+      'ellisonleao/gruvbox.nvim',
+      requires = { 'rktjmp/lush.nvim' },
+      disable = true,
+    }
+
     -- }}}
 
     -- icons {{{
@@ -566,20 +573,7 @@ return require('packer').startup {
       'SmiteshP/nvim-gps',
       requires = 'nvim-treesitter/nvim-treesitter',
       config = function()
-        require('nvim-gps').setup({
-          icons = {
-            ['class-name'] = ' ', -- Classes and class-like objects
-            ['function-name'] = ' ', -- Functions
-            ['method-name'] = ' ', -- Methods (functions inside class-like objects)
-          },
-          -- Disable any languages individually over here
-          -- Any language not disabled here is enabled by default
-          languages = {
-            -- ["bash"] = false,
-            -- ["go"] = false,
-          },
-          separator = ' > ',
-        })
+        require('nvim-gps').setup()
       end,
     }
     use 'akinsho/nvim-bufferline.lua'
