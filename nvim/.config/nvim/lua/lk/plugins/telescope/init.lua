@@ -152,11 +152,11 @@ require('telescope').setup {
         ['google-meet-1'] = 'https://meet.google.com/czd-juio-jvf',
 
         -- general
-        ['clang_func_dict'] = 'http://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',
+        ['clang_func_dict'] = 'https://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',
         ['crates_io'] = 'https://crates.io/search?q={query}',
-        ['devdocs'] = 'http://devdocs.io/#q={query}',
-        ['duckduckgo'] = 'http://duckduckgo.com/?q={query}',
-        ['github'] = 'http://github.com/search?q={query}',
+        ['devdocs'] = 'https://devdocs.io/#q={query}',
+        ['duckduckgo'] = 'https://duckduckgo.com/?q={query}',
+        ['github'] = 'https://github.com/search?q={query}',
         ['luaroks'] = 'https://luarocks.org/search?q={query}',
         ['mdnwebdocs'] = 'https://developer.mozilla.org/ja/search?q={query}',
         ['memo'] = 'https://scrapbox.io/tamago324vim/search/page?q={query}',

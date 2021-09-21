@@ -50,5 +50,5 @@ require('lualine').setup {
     lualine_x = { 'filetype' },
     lualine_z = { 'location' },
   },
-  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix' },
+  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix', 'toggleterm' },
 }
