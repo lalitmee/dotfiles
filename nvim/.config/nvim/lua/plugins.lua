@@ -274,6 +274,32 @@ return require('packer').startup {
     -- use 'michal-h21/vim-zettel' -- zettel tasks
     -- use 'vimwiki/vimwiki' -- vim wiki
 
+    use {
+      'kristijanhusak/orgmode.nvim',
+      requires = {
+        {
+          'akinsho/org-bullets.nvim',
+          config = function()
+            require('org-bullets').setup {
+              symbols = { '◉', '○', '✸', '✿' },
+            }
+          end,
+        },
+        {
+          'lukas-reineke/headlines.nvim',
+          config = function()
+            require('headlines').setup()
+          end,
+        },
+        { 'michaelb/sniprun', run = 'bash ./install.sh' },
+        { 'dhruvasagar/vim-table-mode' },
+      },
+      config = function()
+        require('orgmode').setup {}
+      end,
+      disable = true,
+    }
+
     -- }}}
 
     -- Snippets {{{
@@ -710,25 +736,15 @@ return require('packer').startup {
     -- BROWSER {{{
 
     -- sql nvim database for frecency
-    use 'tami5/sql.nvim'
-    use {
-      'tyru/open-browser-github.vim',
-      cmd = {
-        'OpenGithubFile',
-        'OpenGithubProject',
-        'OpenGithubPullReq',
-        'OpenGithubCommit',
-        'OpenGithubIssue',
-      },
-    }
+    use { 'tami5/sql.nvim' }
     use { 'tyru/open-browser.vim' }
+    use { 'tyru/open-browser-github.vim' }
 
     -- }}}
 
     -- TESTING {{{
 
     -- debugger attach protocol
-    use 'mfussenegger/nvim-dap'
     use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
 
     -- }}}
