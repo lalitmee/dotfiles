@@ -191,9 +191,6 @@ require('telescope').setup {
 -- search internet
 -- require('telescope').load_extension('arecibo')
 
--- -- github cli from telescope
--- require('telescope').load_extension('gh')
-
 -- -- packer integration with telescope
 -- require('telescope').load_extension('packer')
 

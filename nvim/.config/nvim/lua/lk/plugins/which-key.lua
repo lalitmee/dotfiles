@@ -4,6 +4,8 @@ vim.o.timeoutlen = 500
 
 local presets = require('which-key.plugins.presets')
 presets.objects['a('] = nil
+presets.operators['g'] = nil
+
 wk.setup({
   show_help = true,
   triggers = 'auto',

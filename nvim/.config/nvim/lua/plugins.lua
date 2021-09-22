@@ -99,14 +99,6 @@ return require('packer').startup {
 
     -- ACTIONS {{{
 
-    -- trim whitespaces while you type
-    use {
-      'lewis6991/spaceless.nvim',
-      config = function()
-        require'spaceless'.setup()
-      end,
-    }
-
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
@@ -199,7 +191,7 @@ return require('packer').startup {
     use 'andymass/vim-matchup'
 
     -- Switch between single-line and multiline forms of code
-    use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
+    use 'AndrewRadev/splitjoin.vim'
 
     -- sorting in vim
     use 'christoomey/vim-sort-motion'
@@ -440,7 +432,13 @@ return require('packer').startup {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
+        { 'fannheyward/telescope-coc.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
+        { 'jvgrootveld/telescope-zoxide' },
+        {
+          'nvim-telescope/telescope-arecibo.nvim',
+          rocks = { 'openssl', 'lua-http-parser' },
+        },
         { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
@@ -448,12 +446,6 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        { 'fannheyward/telescope-coc.nvim' },
-        { 'jvgrootveld/telescope-zoxide' },
-        {
-          'nvim-telescope/telescope-arecibo.nvim',
-          rocks = { 'openssl', 'lua-http-parser' },
-        }, -- { 'camgraff/telescope-tmux.nvim' },
       },
     }
 
@@ -738,7 +730,6 @@ return require('packer').startup {
     -- sql nvim database for frecency
     use { 'tami5/sql.nvim' }
     use { 'tyru/open-browser.vim' }
-    use { 'tyru/open-browser-github.vim' }
 
     -- }}}
 
