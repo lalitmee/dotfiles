@@ -69,7 +69,7 @@ require('telescope').setup {
       '.cache',
       '.vscode-server',
       -- '.Desktop',
-      '.Documents',
+      -- '.Documents',
       'classes',
     },
 
@@ -138,18 +138,19 @@ require('telescope').setup {
         ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
         ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
         ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
-        ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
-        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
-
-        -- work related bookmards
-        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
         ['material-ui'] = 'https://material-ui.com/',
         ['material-ui-icons'] = 'https://material-ui.com/components/material-icons/#material-icons',
         ['my-pull-requests'] = 'https://github.com/pulls',
+        ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
+        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
+        ['google-meet-1'] = 'https://meet.google.com/czd-juio-jvf',
+
+        -- neovim related bookmards
+        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
         ['neovim'] = 'https://github.com/neovim/neovim',
         ['neovim-discource'] = 'https://neovim.discourse.group/',
         ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
-        ['google-meet-1'] = 'https://meet.google.com/czd-juio-jvf',
+        ['awesome-neovim'] = 'https://github.com/rockerBOO/awesome-neovim',
 
         -- general
         ['clang_func_dict'] = 'https://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',

@@ -62,9 +62,6 @@ return require('packer').startup {
     use { 'lalitmee/cobalt2.nvim', disable = false }
     use { 'marko-cerovac/material.nvim', disable = false }
     use { 'navarasu/onedark.nvim', disable = false }
-    use { 'pineapplegiant/spaceduck', disable = false }
-    use { 'projekt0n/github-nvim-theme', disable = false }
-    use { 'shaunsingh/nord.nvim', disable = false }
     use { 'tjdevries/colorbuddy.nvim', disable = false }
     use { 'tjdevries/gruvbuddy.nvim', disable = false }
 

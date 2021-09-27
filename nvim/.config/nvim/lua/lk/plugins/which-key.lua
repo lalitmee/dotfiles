@@ -1007,6 +1007,12 @@ local leader_key_maps = {
     },
     ['t'] = { ':ToggleTerm<CR>', 'terminal' },
     ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
+    ['n'] = {
+      ['name'] = '+nvim-tree',
+      ['t'] = { ':NvimTreeToggle<CR>', 'toggle' },
+      ['f'] = { ':NvimTreeFindFile<CR>', 'find-file' },
+      ['r'] = { ':NvimTreeRefresh<CR>', 'refresh' },
+    },
     ['w'] = {
       ['name'] = '+tabs',
       ['c'] = { ':tabclose<CR>', 'close-tab' },
