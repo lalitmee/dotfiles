@@ -195,17 +195,7 @@ return require('packer').startup {
     use {
       'numToStr/Navigator.nvim',
       config = function()
-        local config = {
-          -- When you want to save the modified buffers when moving to tmux
-          -- `nil` - Don't save (default)
-          -- `current` - Only save the current modified buffer
-          -- `all` - Save all the buffers
-          auto_save = nil,
-
-          -- Disable navigation when tmux is zoomed in
-          disable_on_zoom = false,
-        }
-        require('Navigator').setup({ config })
+        require('Navigator').setup()
       end,
     }
 
