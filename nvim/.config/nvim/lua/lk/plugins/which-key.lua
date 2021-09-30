@@ -1013,6 +1013,7 @@ local leader_key_maps = {
       ['f'] = { ':NvimTreeFindFile<CR>', 'find-file' },
       ['r'] = { ':NvimTreeRefresh<CR>', 'refresh' },
     },
+    ['u'] = { ':MundoToggle<CR>', 'undo-tree' },
     ['w'] = {
       ['name'] = '+tabs',
       ['c'] = { ':tabclose<CR>', 'close-tab' },
