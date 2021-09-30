@@ -14,6 +14,11 @@ return require('packer').startup {
     use 'wbthomason/packer.nvim'
     use 'lewis6991/impatient.nvim'
 
+    -- NOTE: VIM
+
+    -- NOTE: man pages in vim
+    use 'vim-utils/vim-man'
+
     -- UI AND BEAUTIFY {{{
 
     -- notifications
@@ -309,7 +314,7 @@ return require('packer').startup {
 
     -- Undo {{{
 
-    use { 'sjl/gundo.vim' }
+    use { 'simnalamburt/vim-mundo' }
 
     -- }}}
 
