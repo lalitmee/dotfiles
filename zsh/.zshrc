@@ -293,6 +293,7 @@ alias sb="subl ."
 alias gnvim="~/goneovim/goneovim &"
 alias glm="~/Desktop/Github/glrnvim/target/release/glrnvim &"
 alias nvd="~/Desktop/Softwares/editors/neovide &"
+alias oni="${HOME}/Applications/Onivim2-x86_64-master_8bbaf25b07ff2ac4dc6c74823d5a69bc.AppImage"
 
 # common aliases
 alias a="alias | fzf-tmux -d 40%"
