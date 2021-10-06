@@ -701,6 +701,7 @@ return require('packer').startup {
     use {
       's1n7ax/nvim-terminal',
       config = function()
+        ---@diagnostic disable-next-line: different-requires
         require('nvim-terminal').setup()
       end,
     }

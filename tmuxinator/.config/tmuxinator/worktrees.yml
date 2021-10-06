@@ -10,4 +10,5 @@ windows:
   - marketsn-pwa-service: cd marketsn-pwa-service
   - wf-pwa-service: cd wf-pwa-service
   - ngagen-app: cd ngagen-app
+  - ngagen-webapp-service: cd ngagen-webapp-service
   - merged-prs: cd ~/Desktop/koinearth/merged-prs
