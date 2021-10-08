@@ -242,7 +242,13 @@ return require('packer').startup {
     -- commenting {{{
 
     -- not using this because this doesn't support repeating of the last acion
-    use 'tpope/vim-commentary'
+    -- use 'tpope/vim-commentary'
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end,
+    }
 
     -- }}}
 
