@@ -1,6 +1,9 @@
 -- NOTE: tokyonight
 require('lk/colorscheme/tokyonight')
 
+-- -- NOTE: onedark
+-- require('lk/colorscheme/onedark')
+
 -- -- NOTE: nightfox
 -- require('lk/colorscheme/nightfox')
 
@@ -30,9 +33,6 @@ require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: gruvbuddy
 -- require('lk/colorscheme/gruvbuddy')
-
--- -- NOTE: onedark
--- require('lk/colorscheme/onedark')
 
 -- -- NOTE: spaceduck
 -- require('lk/colorscheme/spaceduck')

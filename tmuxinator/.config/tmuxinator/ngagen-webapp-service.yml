@@ -6,5 +6,5 @@ root: ~/Desktop/koinearth/ngagen-webapp-service
 windows:
   - Editor: ll
   - Git: gst
-  - Server: yst
+  - Server: yd
   - Extra: quote

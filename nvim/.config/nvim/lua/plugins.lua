@@ -24,14 +24,13 @@ return require('packer').startup {
     -- notifications
     use {
       'rcarriga/nvim-notify',
-      disable = false,
       config = function()
         require('notify').setup({
           -- Animation style (see below for details)
           stages = 'fade',
 
           -- Default timeout for notifications
-          timeout = 3000,
+          timeout = 1000,
 
           -- For stages that change opacity this is treated as the highlight behind the window
           background_colour = 'BufferCurrent',
@@ -66,7 +65,8 @@ return require('packer').startup {
     use { 'jackm245/nordark.nvim', disable = false }
     use { 'lalitmee/cobalt2.nvim', disable = false }
     use { 'marko-cerovac/material.nvim', disable = false }
-    use { 'navarasu/onedark.nvim', disable = false }
+    -- use { 'navarasu/onedark.nvim', disable = false }
+    use { 'olimorris/onedark.nvim', disable = false }
     use { 'tjdevries/colorbuddy.nvim', disable = false }
     use { 'tjdevries/gruvbuddy.nvim', disable = false }
 
