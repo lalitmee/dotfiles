@@ -1,10 +1,11 @@
 local wk = require('which-key')
-Terminal = require('nvim-terminal').DefaultTerminal;
 
 vim.o.timeoutlen = 500
 
 local presets = require('which-key.plugins.presets')
 presets.objects['a('] = nil
+presets.operators['g'] = nil
+
 wk.setup({
   show_help = true,
   triggers = 'auto',
@@ -17,8 +18,8 @@ wk.setup({
 local leader_key_maps = {
   -- NOTE: direct mappings
   ['*'] = 'vimgrep-under-cursor',
-  ['+'] = 'increase-terminal-size',
-  ['-'] = 'decrease-terminal-size',
+  ['+'] = { ':lua Window:change_height(10)<CR>', 'increase-terminal-size' },
+  ['-'] = { ':lua Window:change_height(-10)<CR>', 'decrease-terminal-size' },
   ['1'] = { ':lua Terminal:open(1)<CR>', 'toggle-terminal-1' },
   ['2'] = { ':lua Terminal:open(2)<CR>', 'toggle-terminal-2' },
   ['3'] = { ':lua Terminal:open(3)<CR>', 'toggle-terminal-3' },
@@ -1006,6 +1007,13 @@ local leader_key_maps = {
     },
     ['t'] = { ':ToggleTerm<CR>', 'terminal' },
     ['v'] = { ':vs | te<CR>', 'vertical-split-terminal' },
+    ['n'] = {
+      ['name'] = '+nvim-tree',
+      ['t'] = { ':NvimTreeToggle<CR>', 'toggle' },
+      ['f'] = { ':NvimTreeFindFile<CR>', 'find-file' },
+      ['r'] = { ':NvimTreeRefresh<CR>', 'refresh' },
+    },
+    ['u'] = { ':MundoToggle<CR>', 'undo-tree' },
     ['w'] = {
       ['name'] = '+tabs',
       ['c'] = { ':tabclose<CR>', 'close-tab' },

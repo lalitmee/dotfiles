@@ -1,0 +1,10 @@
+# /home/lalitmee/.config/tmuxinator/ngagen-webapp-service.yml
+
+name: ngagen-webapp-service
+root: ~/Desktop/koinearth/ngagen-webapp-service
+
+windows:
+  - Editor: ll
+  - Git: gst
+  - Server: yd -- -p 4000
+  - Extra: quote

@@ -23,6 +23,7 @@ require('lk/plugins/formatter')
 
 -- NOTE: terminal
 require('lk/plugins/toggleterm')
+require('lk/plugins/nvim-terminal')
 
 -- NOTE: folds
 require('lk/plugins/crease')
@@ -46,7 +47,6 @@ require('lk/plugins/luasnip')
 require('lk/plugins/nvim-bqf')
 
 -- NOTE: language support
-require('lk/plugins/auto-pairs')
 require('lk/plugins/emmet')
 require('lk/plugins/markdown')
 require('lk/plugins/tagalong')
