@@ -1,12 +1,14 @@
--- NOTE: not using gruvbox-material because that background color doesn't come
--- in the whole page and telescope selction color also is a little bit weird.
-vim.g.gruvqueen_transparent_background = true
--- vim.g.gruvqueen_background_color = "#10151a"
-vim.g.gruvqueen_italic_comments = true
-vim.g.gruvqueen_italic_keywords = true
-vim.g.gruvqueen_italic_functions = true
-vim.g.gruvqueen_italic_variables = true
--- vim.g.gruvqueen_invert_selection = true
-vim.g.gruvqueen_style = 'original' -- possible values: 'original', 'mix', 'material'
-
-vim.cmd [[colorscheme gruvqueen]]
+vim.o.background = 'dark' -- or light if you so prefer
+require('gruvqueen').setup({
+  config = {
+    disable_bold = false,
+    italic_comments = true,
+    italic_keywords = true,
+    italic_functions = false,
+    italic_variables = false,
+    invert_selection = false,
+    style = 'mix', -- possible values: 'original', 'mix', 'material'
+    -- transparent_background = true,
+    -- bg_color = "black",
+  },
+})
