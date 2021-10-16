@@ -94,44 +94,37 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- lsp-install
 local function setup_servers()
-  require('lspinstall').setup()
-
-  -- get all installed servers
-  local servers = require('lspinstall').installed_servers()
+  local lsp_installer = require('nvim-lsp-installer')
   local status_capabilities = require('lsp-status').capabilities
-  for _, server in pairs(servers) do
-    local config = servers[server] or {}
-    config.on_attach = on_attach
-    if not config.capabilities then
-      config.capabilities = capabilities
+
+  lsp_installer.on_server_ready(function(server)
+    local opts = { on_attach = on_attach }
+    if not opts.capabilities then
+      opts.capabilities = capabilities
     end
-    config.capabilities.textDocument.completion.completionItem.snippetSupport =
+    opts.capabilities.textDocument.completion.completionItem.snippetSupport =
         true
-    config.capabilities = lk_utils.deep_merge(config.capabilities,
-                                              status_capabilities)
+    opts.capabilities = lk_utils.deep_merge(opts.capabilities,
+                                            status_capabilities)
 
     -- language specific config
-    if server == 'lua' then
-      config = luadev
+    if server.name == 'lua' then
+      opts = luadev
     end
-    if server == 'efm' then
-      config = vim.tbl_extend('force', config,
-                              require('lk/plugins/nvim_lsp/servers/efm'))
+    if server.name == 'efm' then
+      opts = vim.tbl_extend('force', opts,
+                            require('lk/plugins/nvim_lsp/servers/efm'))
     end
-    if server == 'sourcekit' then
-      config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
+    if server.name == 'sourcekit' then
+      opts.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
     end
-    if server == 'clangd' then
-      config.filetypes = { 'c', 'cpp' }; -- we don't want objective-c and objective-cpp!
+    if server.name == 'clangd' then
+      opts.filetypes = { 'c', 'cpp' }; -- we don't want objective-c and objective-cpp!
     end
-    require('lspconfig')[server].setup(config)
-  end
+
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+  end)
 end
 
 setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require('lspinstall').post_install_hook = function()
-  setup_servers() -- reload installed servers
-  vim.cmd('bufdo e') -- this triggers the FileType autocmd that starts the server
-end
