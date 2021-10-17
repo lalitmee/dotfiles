@@ -1,4 +1,5 @@
-local cmp = require 'cmp'
+local cmp = require('cmp')
+local lspkind = require('lspkind')
 
 local has_any_words_before = function()
   if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
@@ -71,11 +72,6 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-
-    -- These mappings are useless. I already use C-n and C-p correctly.
-    -- This simply overrides them and makes them do bad things in other buffers.
-    -- ["<C-p>"] = cmp.mapping.select_prev_item(),
-    -- ["<C-n>"] = cmp.mapping.select_next_item(),
   },
 
   sources = {
@@ -95,28 +91,22 @@ cmp.setup {
     },
   },
 
-  -- formatting = {
-  --   format = function(entry, vim_item)
-  --     vim_item.kind = lspkind.presets.default[vim_item.kind]
-  --     return vim_item
-  --   end,
-  -- },
   formatting = {
     format = function(entry, vim_item)
-      -- fancy icons and a name of kind
-      vim_item.kind =
-          require('lspkind').presets.default[vim_item.kind] .. ' ' ..
-              vim_item.kind
-
-      -- set a name for each source
+      vim_item.kind = string.format('%s %s',
+                                    lspkind.presets.default[vim_item.kind],
+                                    vim_item.kind)
       vim_item.menu = ({
-        buffer = '[Buffer]',
-        nvim_lsp = '[LSP]',
-        luasnip = '[LuaSnip]',
-        ultisnips = '[Snippet]',
-        nvim_lua = '[Lua]',
-        latex_symbols = '[Latex]',
+        nvim_lsp = 'ﲳ',
+        nvim_lua = '',
+        treesitter = '',
+        path = 'ﱮ',
+        buffer = '﬘',
+        zsh = '',
+        vsnip = '',
+        spell = '暈',
       })[entry.source.name]
+
       return vim_item
     end,
   },
