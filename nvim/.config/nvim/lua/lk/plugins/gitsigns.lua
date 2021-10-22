@@ -12,7 +12,7 @@ Group.new('GitSignsAdd', c.green)
 Group.new('GitSignsChange', c.yellow)
 Group.new('GitSignsDelete', c.red)
 
-require('gitsigns').setup {
+require('gitsigns').setup({
   signs = {
     add = {
       hl = 'GitSignsAdd',
@@ -45,7 +45,7 @@ require('gitsigns').setup {
       linehl = 'GitSignsChangeLn',
     },
   },
-  numhl = false,
+  numhl = true,
   linehl = false,
   watch_index = { interval = 1000 },
   sign_priority = 6,
@@ -73,4 +73,4 @@ require('gitsigns').setup {
     ['n <leader>ghv'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <leader>ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
   },
-}
+})
