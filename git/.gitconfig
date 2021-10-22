@@ -100,10 +100,13 @@
 	new = green # additions
 
 [color "status"]
+	changed = red bold
+	untracked = red bold
+	added = green bold
 
-	added = yellow
-	changed = green
-	untracked = cyan
+	; added = yellow
+	; changed = green
+	; untracked = cyan
 
 [commit]
 
