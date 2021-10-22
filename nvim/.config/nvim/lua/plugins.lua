@@ -65,8 +65,6 @@ return require('packer').startup {
     use { 'jackm245/nordark.nvim', disable = false }
     use { 'lalitmee/cobalt2.nvim', disable = false }
     use { 'marko-cerovac/material.nvim', disable = false }
-    -- use { 'navarasu/onedark.nvim', disable = false }
-    use { 'olimorris/onedark.nvim', disable = false }
     use { 'tjdevries/colorbuddy.nvim', disable = false }
     use { 'tjdevries/gruvbuddy.nvim', disable = false }
 
@@ -636,8 +634,8 @@ return require('packer').startup {
     -- }
 
     use {
-      'shadmansaleh/lualine.nvim',
-      requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     }
     use {
       'SmiteshP/nvim-gps',
