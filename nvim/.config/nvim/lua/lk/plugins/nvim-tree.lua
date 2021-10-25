@@ -18,9 +18,9 @@ vim.g.nvim_tree_icons = {
   },
 }
 
+vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_disable_window_picker = 1
 vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_highlight_opened_files = 1
 vim.g.nvim_tree_root_folder_modifier = ':t'
 vim.g.nvim_tree_ignore = {
   '.DS_Store',
@@ -30,7 +30,7 @@ vim.g.nvim_tree_ignore = {
   'node_modules',
 }
 
-lk_utils.nnoremap('<c-n>', [[<cmd>NvimTreeFindFile<CR>]])
+lk_utils.nnoremap('<c-n>', [[<cmd>NvimTreeToggle<CR>]])
 
 vim.cmd [[highlight link NvimTreeIndentMarker Comment]]
 vim.cmd [[highlight NvimTreeRootFolder gui=bold,italic guifg=Cyan]]
@@ -44,10 +44,12 @@ require('lk.autocommands').augroup('NvimTreeOverrides', {
 })
 
 require('nvim-tree').setup({
+  update_cwd = true,
   nvim_tree_follow = true,
   hijack_cursor = true,
   auto_close = false,
   view = { width = 40, side = 'right' },
+  update_focused_file = { enable = true },
   mappings = {
     list = {
       { key = 'h', cb = ':lua require"nvim-tree".on_keypress("close_node")<CR>' },
