@@ -576,8 +576,8 @@ return require('packer').startup {
     -- }
 
     use {
-      'shadmansaleh/lualine.nvim',
-      requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     }
     use {
       'SmiteshP/nvim-gps',
