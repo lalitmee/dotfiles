@@ -19,37 +19,6 @@ end
 -- Don't show the dumb matching stuff.
 vim.cmd [[set shortmess+=c]]
 
--- cmp.setup {
---   mapping = {
---     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
---     ['<C-f>'] = cmp.mapping.scroll_docs(4),
---     ['<C-e>'] = cmp.mapping.close(),
---     ['<CR>'] = cmp.mapping.confirm {
---       behavior = cmp.ConfirmBehavior.Insert,
---       select = true,
---     },
---
---   formatting = {
---     format = function(entry, vim_item)
---       vim_item.kind = string.format('%s %s',
---                                     lspkind.presets.default[vim_item.kind],
---                                     vim_item.kind)
---       vim_item.menu = ({
---         nvim_lsp = 'ﲳ',
---         nvim_lua = '',
---         treesitter = '',
---         path = 'ﱮ',
---         buffer = '﬘',
---         zsh = '',
---         vsnip = '',
---         spell = '暈',
---       })[entry.source.name]
---
---       return vim_item
---     end,
---   },
--- }
-
 lspkind.init()
 
 cmp.setup {
@@ -118,17 +87,19 @@ cmp.setup {
     { name = 'treesitter', keyword_length = 3 },
     { name = 'path' },
     { name = 'ultisnips' },
-    { name = 'buffer', keyword_length = 4 },
+    {
+      name = 'buffer',
+      keyword_length = 4,
+      opts = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end,
+      },
+    },
     { name = 'spell' },
     { name = 'emoji' },
-    {
-      name = 'look',
-      keyword_length = 2,
-      opts = { convert_case = true, loud = true },
-    },
   },
 
-  -- Youtube: mention that you need a separate snippets plugin
   snippet = {
     expand = function(args)
       vim.fn['UltiSnips#Anon'](args.body)
@@ -136,7 +107,6 @@ cmp.setup {
   },
 
   formatting = {
-    -- Youtube: How to set up nice formatting for your sources.
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
@@ -153,13 +123,11 @@ cmp.setup {
     },
   },
 
-  experimental = {
-    -- I like the new menu better! Nice work hrsh7th
-    native_menu = false,
-
-    -- Let's play with this for a day or two
-    ghost_text = true,
+  documentation = {
+    border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
   },
+
+  experimental = { native_menu = false, ghost_text = true },
 }
 
 -- require('nvim-autopairs.completion.cmp').setup({
