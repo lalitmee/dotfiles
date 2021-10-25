@@ -456,3 +456,5 @@ if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitme
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 export GREN_GITHUB_TOKEN=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
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
