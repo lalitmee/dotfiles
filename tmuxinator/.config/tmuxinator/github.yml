@@ -7,3 +7,4 @@ windows:
   - dNotes: cd dNotes && gst
   - neovim: cd neovim && gst
   - neovide: cd neovide && gst
+  - spacemacs: cd ~/spacemacs && gst
