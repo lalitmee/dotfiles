@@ -1,17 +1,5 @@
--- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
-
--- -- NOTE: onedark
--- require('lk/colorscheme/onedark')
-
--- -- NOTE: nightfox
--- require('lk/colorscheme/nightfox')
-
--- -- NOTE: doom-one
--- require('lk/colorscheme/doom-one')
-
--- -- NOTE: github
--- require('lk/colorscheme/github')
+-- NOTE: gruvqueen
+require('lk/colorscheme/gruvqueen')
 
 -- -- NOTE: nord
 -- require('lk/colorscheme/nord')
@@ -19,11 +7,11 @@ require('lk/colorscheme/tokyonight')
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')
 
--- -- NOTE: gruvqueen
--- require('lk/colorscheme/gruvqueen')
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
--- -- NOTE: gruvqueen
--- require('lk/colorscheme/gruvbox')
+-- -- NOTE: github
+-- require('lk/colorscheme/github')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
@@ -33,6 +21,3 @@ require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: gruvbuddy
 -- require('lk/colorscheme/gruvbuddy')
-
--- -- NOTE: spaceduck
--- require('lk/colorscheme/spaceduck')

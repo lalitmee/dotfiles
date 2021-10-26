@@ -57,12 +57,10 @@ return require('packer').startup {
       end,
       disable = false,
     }
-    use { 'EdenEast/nightfox.nvim', disable = false }
     use { 'Mofiqul/vscode.nvim', disable = false }
     use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
-    use { 'NTBBloodbath/doom-one.nvim', disable = false }
     use { 'folke/tokyonight.nvim', disable = false }
-    use { 'jackm245/nordark.nvim', disable = false }
+    use { 'shaunsingh/nord.nvim', disable = false }
     use { 'lalitmee/cobalt2.nvim', disable = false }
     use { 'marko-cerovac/material.nvim', disable = false }
     use { 'tjdevries/colorbuddy.nvim', disable = false }
@@ -395,7 +393,7 @@ return require('packer').startup {
             })
           end,
         },
-        { 'glepnir/lspsaga.nvim' },
+        { 'tami5/lspsaga.nvim' },
         -- nvim-cmp plugins
         {
           'hrsh7th/nvim-cmp',
