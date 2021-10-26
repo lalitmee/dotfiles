@@ -57,12 +57,10 @@ return require('packer').startup {
       end,
       disable = false,
     }
-    use { 'EdenEast/nightfox.nvim', disable = false }
     use { 'Mofiqul/vscode.nvim', disable = false }
     use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
-    use { 'NTBBloodbath/doom-one.nvim', disable = false }
     use { 'folke/tokyonight.nvim', disable = false }
-    use { 'jackm245/nordark.nvim', disable = false }
+    use { 'shaunsingh/nord.nvim', disable = false }
     use { 'lalitmee/cobalt2.nvim', disable = false }
     use { 'marko-cerovac/material.nvim', disable = false }
     -- use { 'navarasu/onedark.nvim', disable = false }
@@ -343,39 +341,88 @@ return require('packer').startup {
 
     -- neovim-lsp {{{
 
-    -- use {
-    --   'neovim/nvim-lspconfig',
-    --   requires = {
-    --     { 'arkav/lualine-lsp-progress', disable = true },
-    --     { 'glepnir/lspsaga.nvim' },
-    --     { 'hrsh7th/nvim-compe' },
-    --     {
-    --       'tzachar/compe-tabnine',
-    --       run = './install.sh',
-    --       requires = 'hrsh7th/nvim-compe',
-    --     },
-    --     { 'kabouzeid/nvim-lspinstall' },
-    --     { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
-    --     { 'nvim-lua/lsp-status.nvim' },
-    --     { 'tjdevries/lsp_extensions.nvim' },
-    --     { 'folke/lsp-colors.nvim' },
-    --     {
-    --       'folke/trouble.nvim',
-    --       requires = 'kyazdani42/nvim-web-devicons',
-    --       config = function()
-    --         require('trouble').setup {}
-    --       end,
-    --     },
-    --     { 'folke/lua-dev.nvim' },
-    --     {
-    --       'onsails/vimway-lsp-diag.nvim',
-    --       disable = true,
-    --       config = function()
-    --         require('vimway-lsp-diag').init({})
-    --       end,
-    --     },
-    --   },
-    -- }
+    use {
+      'neovim/nvim-lspconfig',
+      requires = {
+        {
+          'onsails/lspkind-nvim',
+          config = function()
+            require('lspkind').init({
+              preset = 'codicons',
+              symbol_map = {
+                Class = '   ',
+                Color = '   ',
+                Constant = '   ',
+                Constructor = '   ',
+                Default = '   ',
+                Enum = ' 了 ',
+                EnumMember = '   ',
+                Event = '   ',
+                Field = '   ',
+                File = '   ',
+                Folder = '   ',
+                Function = '   ',
+                Interface = ' ﰮ  ',
+                Keyword = '   ',
+                Method = ' ƒ  ',
+                Module = '   ',
+                Operator = ' ○  ',
+                Property = '   ',
+                Reference = '   ',
+                Snippet = ' ﬌  ',
+                Struct = '   ',
+                Text = '   ',
+                TypeParameter = ' ⅀  ',
+                Unit = '   ',
+                Value = '   ',
+                Variable = '   ',
+              },
+            })
+          end,
+        },
+        { 'tami5/lspsaga.nvim' },
+        -- nvim-cmp plugins
+        {
+          'hrsh7th/nvim-cmp',
+          requires = {
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
+            { 'hrsh7th/cmp-path' },
+            { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
+            {
+              'tzachar/cmp-tabnine',
+              run = './install.sh',
+              requires = 'hrsh7th/nvim-cmp',
+            },
+            { 'quangnguyen30192/cmp-nvim-ultisnips' },
+            { 'f3fora/cmp-spell' },
+            { 'ray-x/cmp-treesitter' },
+            { 'hrsh7th/cmp-emoji' },
+          },
+        },
+        { 'williamboman/nvim-lsp-installer' },
+        { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
+        { 'nvim-lua/lsp-status.nvim' },
+        { 'tjdevries/lsp_extensions.nvim' },
+        { 'folke/lsp-colors.nvim' },
+        {
+          'folke/trouble.nvim',
+          requires = 'kyazdani42/nvim-web-devicons',
+          config = function()
+            require('trouble').setup {}
+          end,
+        },
+        { 'folke/lua-dev.nvim' },
+        {
+          'onsails/vimway-lsp-diag.nvim',
+          disable = true,
+          config = function()
+            require('vimway-lsp-diag').init({})
+          end,
+        },
+      },
+    }
 
     -- }}}
 
