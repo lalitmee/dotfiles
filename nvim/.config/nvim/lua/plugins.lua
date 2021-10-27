@@ -357,42 +357,7 @@ return require('packer').startup {
     use {
       'neovim/nvim-lspconfig',
       requires = {
-        {
-          'onsails/lspkind-nvim',
-          config = function()
-            require('lspkind').init({
-              preset = 'codicons',
-              symbol_map = {
-                Class = '   ',
-                Color = '   ',
-                Constant = '   ',
-                Constructor = '   ',
-                Default = '   ',
-                Enum = ' 了 ',
-                EnumMember = '   ',
-                Event = '   ',
-                Field = '   ',
-                File = '   ',
-                Folder = '   ',
-                Function = '   ',
-                Interface = ' ﰮ  ',
-                Keyword = '   ',
-                Method = ' ƒ  ',
-                Module = '   ',
-                Operator = ' ○  ',
-                Property = '   ',
-                Reference = '   ',
-                Snippet = ' ﬌  ',
-                Struct = '   ',
-                Text = '   ',
-                TypeParameter = ' ⅀  ',
-                Unit = '   ',
-                Value = '   ',
-                Variable = '   ',
-              },
-            })
-          end,
-        },
+        { 'onsails/lspkind-nvim' },
         { 'tami5/lspsaga.nvim' },
         -- nvim-cmp plugins
         {

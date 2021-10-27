@@ -19,7 +19,37 @@ end
 -- Don't show the dumb matching stuff.
 vim.cmd [[set shortmess+=c]]
 
-lspkind.init()
+require('lspkind').init({
+  preset = 'codicons',
+  symbol_map = {
+    Class = '   ',
+    Color = '   ',
+    Constant = '   ',
+    Constructor = '   ',
+    Default = '   ',
+    Enum = ' 了 ',
+    EnumMember = '   ',
+    Event = '   ',
+    Field = '   ',
+    File = '   ',
+    Folder = '   ',
+    Function = '   ',
+    Interface = ' ﰮ  ',
+    Keyword = '   ',
+    Method = ' ƒ  ',
+    Module = '   ',
+    Operator = ' ○  ',
+    Property = '   ',
+    Reference = '   ',
+    Snippet = ' ﬌  ',
+    Struct = '   ',
+    Text = '   ',
+    TypeParameter = ' ⅀  ',
+    Unit = '   ',
+    Value = '   ',
+    Variable = '   ',
+  },
+})
 
 cmp.setup {
   mapping = {
