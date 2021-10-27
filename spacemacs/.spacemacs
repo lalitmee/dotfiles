@@ -81,6 +81,10 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-sort-by-usage t)
+     (helm :variables
+           helm-enable-auto-resize t
+           spacemacs-helm-rg-max-column-number 1024
+           helm-use-fuzzy 'source)
      (git :variables
           git-enable-magit-delta-plugin t
           git-enable-magit-gitflow-plugin t
@@ -133,19 +137,13 @@ values."
                                       auto-rename-tag
                                       auto-yasnippet
                                       beacon
-                                      blacken
                                       company-tabnine
-                                      counsel
                                       doom-modeline
                                       doom-themes
                                       emojify
                                       format-all
-                                      helm-fuzzy-find
-                                      htmlize
-                                      indium
                                       multiple-cursors
                                       ox-reveal
-                                      swiper
                                       try
                                       yasnippet-snippets)
 
@@ -296,7 +294,7 @@ values."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-resize 1
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
    dotspacemacs-helm-no-header nil
@@ -307,7 +305,7 @@ values."
    ;; in all non-asynchronous sources. If set to `source', preserve individual
    ;; source settings. Else, disable fuzzy matching in all sources.
    ;; (default 'always)
-   dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-helm-use-fuzzy 'source
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-transient-state nil
@@ -445,7 +443,7 @@ you should place your code here."
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
   ;; company-tabnine settings
-  (add-to-list 'company-backends #'company-tabnine)
+  ;; (add-to-list 'company-backends #'company-tabnine)
 
   ;; project project search path
   (setq projectile-project-search-path
@@ -572,30 +570,6 @@ you should place your code here."
       (custom-set-variables
        '(aw-leading-char-face
          ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
-
-  ;; swiper for word search : its awesome
-  (use-package swiper
-    :config
-    (progn
-      (ivy-mode 1)
-      (setq ivy-use-virtual-buffers t)
-      (setq enable-recursive-minibuffers t)
-      (global-set-key "\C-s" 'swiper)
-      (global-set-key (kbd "C-c C-r") 'ivy-resume)
-      (global-set-key (kbd "<f6>") 'ivy-resume)
-      (global-set-key (kbd "M-x") 'counsel-M-x)
-      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-      (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-      (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-      (global-set-key (kbd "<f1> l") 'counsel-find-library)
-      (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-      (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-      (global-set-key (kbd "C-c g") 'counsel-git)
-      (global-set-key (kbd "C-c j") 'counsel-git-grep)
-      (global-set-key (kbd "C-c k") 'counsel-ag)
-      (global-set-key (kbd "C-x l") 'counsel-locate)
-      (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-      (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)))
 
   (add-hook 'web-mode-hook 'auto-rename-tag-mode)
 
