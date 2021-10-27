@@ -38,7 +38,6 @@ values."
      ;; ----------------------------------------------------------------
 
      ;; languages layers
-     ansible
      better-defaults
      chrome
      colors
@@ -52,6 +51,7 @@ values."
      helm
      html
      ibuffer
+     imenu-list
      lua
      markdown
      pandoc
@@ -62,7 +62,6 @@ values."
      spacemacs-navigation
      spotify
      syntax-checking
-     theming
      version-control
      vimscript
      yaml
@@ -78,9 +77,7 @@ values."
                       auto-completion-idle-delay 0.2
                       auto-completion-private-snippets-directory nil
                       auto-completion-enable-snippets-in-popup nil
-                      auto-completion-enable-help-tooltip nil
                       auto-completion-use-company-box nil
-                      auto-completion-enable-sort-by-usage nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-sort-by-usage t)
@@ -129,18 +126,14 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(forge
-                                      add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
                                       all-the-icons-ivy
                                       auto-package-update
                                       auto-rename-tag
                                       auto-yasnippet
-                                      autothemer
-                                      babel
                                       beacon
                                       blacken
-                                      cobalt
                                       company-tabnine
                                       counsel
                                       doom-modeline
@@ -434,6 +427,7 @@ you should place your code here."
 
   (beacon-mode 1)
 
+
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
     :ensure t
@@ -449,6 +443,9 @@ you should place your code here."
   (use-package all-the-icons-dired
     :ensure t)
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+  ;; company-tabnine settings
+  (add-to-list 'company-backends #'company-tabnine)
 
   ;; project project search path
   (setq projectile-project-search-path
@@ -553,30 +550,12 @@ you should place your code here."
   (add-hook 'prog-mode-hook 'page-break-lines-mode)
   (add-hook 'prog-mode-hook 'column-enforce-mode)
 
-  (setq paradox-github-token "522a037a14fea9c1ec1f2c00f40c087d7ed79c9d")
-
   (setq avy-all-windows 'all-frames)
 
   ;; Wraps long lines in text mode
   (add-hook 'text-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'org-indent-mode)
-
-  ;; Keys Mappings
-  ;; mappings of leader keys
-  (spacemacs/set-leader-keys "," 'save-buffer)
-  ;; (spacemacs/set-leader-keys "j" 'spacemacs/indent-region-or-buffer)
-
-  ;; mappings of evil-go-to-char
-  (spacemacs/set-leader-keys "jj" 'evil-avy-goto-char-timer)
-
-  ;; keybinding for fuzzy finding files by fzf
-  (spacemacs/set-leader-keys "ff" 'fzf-git-files)
-  (spacemacs/set-leader-keys "fd" 'fzf-directory)
-  (spacemacs/set-leader-keys "fp" 'fzf-git)
-
-  ;; magit autocomplete
-  (spacemacs/set-leader-keys "gc" 'magit-checkout)
 
   (setq magit-repository-directories '("~/Desktop/"))
   (setq magit-commit-show-diff nil
