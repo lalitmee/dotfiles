@@ -1149,6 +1149,7 @@ local local_leader_key_maps = {
   ['['] = 'replace-current',
   [','] = { ':term <CR> emacsclient -nw -e "(magit-status)" <CR>',
             'emacs-magit' },
+  ['d'] = { ':CocCommand docthis.documentThis<CR>', 'js-doc' },
   ['g'] = {
     ['name'] = '+fugitive',
     ['b'] = { ['name'] = '+blame', ['l'] = { 'blame' } },

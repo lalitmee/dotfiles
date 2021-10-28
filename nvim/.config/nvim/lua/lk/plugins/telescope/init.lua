@@ -167,6 +167,7 @@ require('telescope').setup {
         ['utf8_icons'] = 'https://www.utf8icons.com/search?query={query}',
         ['vim_commits'] = 'https://github.com/vim/vim/search?q={query}&type=commits',
         ['vimawesome'] = 'https://vimawesome.com/?q={query}',
+        ['google'] = 'https://www.google.com/search?q={query}',
       },
     },
     -- arecibo = {
