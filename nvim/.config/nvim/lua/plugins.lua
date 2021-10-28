@@ -254,8 +254,20 @@ return require('packer').startup {
 
     -- TEXT {{{
 
-    -- jump to any definition or references
-    use 'pechorin/any-jump.vim'
+    -- inline text edit
+    use 'AndrewRadev/inline_edit.vim'
+
+    -- cycle similar words
+    use 'zef/vim-cycle'
+
+    -- toggle numbers in active and inactive windows
+    use 'myusuf3/numbers.vim'
+
+    -- brackets done right way
+    use 'itmammoth/doorboy.vim'
+
+    -- github copilot
+    use 'github/copilot.vim'
 
     -- Notes {{{
 
@@ -318,7 +330,7 @@ return require('packer').startup {
 
     -- Undo {{{
 
-    use { 'simnalamburt/vim-mundo' }
+    use 'simnalamburt/vim-mundo'
 
     -- }}}
 
@@ -336,6 +348,8 @@ return require('packer').startup {
 
     -- Completion Conquerer
     use { 'neoclide/coc.nvim', branch = 'release' }
+
+    use { 'fannheyward/go.vim', ft = 'go' }
 
     -- }}}
 
