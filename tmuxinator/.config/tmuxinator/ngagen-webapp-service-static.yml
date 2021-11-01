@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/ngagen-webapp-service.yml
 
-name: ngagen-webapp-service
-root: ~/Desktop/koinearth/ngagen-webapp-service
+name: ngagen-webapp-service-static
+root: ~/Desktop/koinearth/ngagen/ngagen-webapp-service-static
 
 windows:
   - Editor: ll

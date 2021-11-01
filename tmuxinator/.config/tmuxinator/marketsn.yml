@@ -1,7 +1,7 @@
-# /home/lalit/.config/tmuxinator/koinearth.yml
+# /home/lalitmee/.config/tmuxinator/marketsn.yml
 
-name: koinearth
-root: ~/Desktop/koinearth
+name: marketsn
+root: ~/Desktop/koinearth/marketsn
 
 windows:
   - marketsn-pdf-service: cd marketsn-pdf-service
@@ -10,6 +10,4 @@ windows:
   - wf-webapp-service: cd wf-webapp-service
   - marketsn-pwa-service: cd marketsn-pwa-service
   - wf-pwa-service: cd wf-pwa-service
-  - ngagen-app: cd ngagen-app
-  - ngagen-webapp-service: cd ngagen-webapp-service
   - merged-prs: cd merged-prs
