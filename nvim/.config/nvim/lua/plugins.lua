@@ -260,9 +260,6 @@ return require('packer').startup {
     -- cycle similar words
     use 'zef/vim-cycle'
 
-    -- toggle numbers in active and inactive windows
-    use 'myusuf3/numbers.vim'
-
     -- brackets done right way
     use 'itmammoth/doorboy.vim'
 
