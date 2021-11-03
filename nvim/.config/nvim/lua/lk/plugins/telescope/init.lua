@@ -193,14 +193,14 @@ require('telescope').setup {
 -- search internet
 -- require('telescope').load_extension('arecibo')
 
--- -- packer integration with telescope
--- require('telescope').load_extension('packer')
-
 -- -- coc integration in telescope
 -- require('telescope').load_extension('coc')
 
 -- -- tmux integration in telescope
 -- require('telescope').load_extension('tmux')
+
+-- packer integration with telescope
+require('telescope').load_extension('packer')
 
 -- project management in telescope
 require('telescope').load_extension('zoxide')

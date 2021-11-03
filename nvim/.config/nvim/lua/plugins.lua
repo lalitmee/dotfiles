@@ -21,6 +21,23 @@ return require('packer').startup {
 
     -- UI AND BEAUTIFY {{{
 
+    -- NOTE: disturbing Telescope UI
+    -- -- auto focus and resizing
+    -- use {
+    --   'beauwilliams/focus.nvim',
+    --   config = function()
+    --     require('focus').setup()
+    --   end,
+    -- }
+
+    -- stabilize windows
+    use {
+      'luukvbaal/stabilize.nvim',
+      config = function()
+        require('stabilize').setup()
+      end,
+    }
+
     -- notifications
     use {
       'rcarriga/nvim-notify',
@@ -55,18 +72,18 @@ return require('packer').startup {
       config = function()
         require('twilight').setup {}
       end,
-      disable = false,
     }
-    use { 'Mofiqul/vscode.nvim', disable = false }
-    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
-    use { 'folke/tokyonight.nvim', disable = false }
-    use { 'shaunsingh/nord.nvim', disable = false }
-    use { 'lalitmee/cobalt2.nvim', disable = false }
-    use { 'marko-cerovac/material.nvim', disable = false }
-    -- use { 'navarasu/onedark.nvim', disable = false }
-    use { 'olimorris/onedark.nvim', disable = false }
-    use { 'tjdevries/colorbuddy.nvim', disable = false }
-    use { 'tjdevries/gruvbuddy.nvim', disable = false }
+    use { 'rmehri01/onenord.nvim' }
+    use { 'Mofiqul/vscode.nvim' }
+    use { 'Murtaza-Udaipurwala/gruvqueen' }
+    use { 'folke/tokyonight.nvim' }
+    use { 'shaunsingh/nord.nvim' }
+    use { 'lalitmee/cobalt2.nvim' }
+    use { 'marko-cerovac/material.nvim' }
+    -- use { 'navarasu/onedark.nvim' }
+    use { 'olimorris/onedark.nvim' }
+    use { 'tjdevries/colorbuddy.nvim' }
+    use { 'tjdevries/gruvbuddy.nvim' }
 
     -- }}}
 
@@ -202,14 +219,8 @@ return require('packer').startup {
       end,
     }
 
-    -- Better Whitespace
-    use {
-      'ntpeters/vim-better-whitespace',
-      config = function()
-        vim.g.better_whitespace_enabled = 1
-        vim.g.strip_whitespace_on_save = 1
-      end,
-    }
+    -- remove trailing whitespace and lines
+    use 'McAuleyPenney/tidy.nvim'
 
     -- nice fold text
     use 'scr1pt0r/crease.vim'
@@ -502,6 +513,7 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
+        { 'nvim-telescope/telescope-packer.nvim' },
       },
     }
 
@@ -636,13 +648,6 @@ return require('packer').startup {
     use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    }
-    use {
-      'SmiteshP/nvim-gps',
-      requires = 'nvim-treesitter/nvim-treesitter',
-      config = function()
-        require('nvim-gps').setup()
-      end,
     }
     use 'akinsho/nvim-bufferline.lua'
 

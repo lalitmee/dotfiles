@@ -1,11 +1,11 @@
 -- NOTE: tokyonight
 require('lk/colorscheme/tokyonight')
 
--- -- NOTE: gruvqueen
--- require('lk/colorscheme/gruvqueen')
-
 -- -- NOTE: nord
 -- require('lk/colorscheme/nord')
+
+-- -- NOTE: gruvqueen
+-- require('lk/colorscheme/gruvqueen')
 
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')
