@@ -22,13 +22,6 @@ vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_disable_window_picker = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_root_folder_modifier = ':t'
-vim.g.nvim_tree_ignore = {
-  '.DS_Store',
-  '.cache',
-  '.git',
-  'fugitive:',
-  'node_modules',
-}
 
 lk_utils.nnoremap('<c-n>', [[<cmd>NvimTreeToggle<CR>]])
 
@@ -57,5 +50,8 @@ require('nvim-tree').setup({
       { key = 'v', cb = ':lua require"nvim-tree".on_keypress("vsplit")<CR>' },
       { key = 's', cb = ':lua require"nvim-tree".on_keypress("split")<CR>' },
     },
+  },
+  filters = {
+    custom = { '.DS_Store', '.cache', '.git', 'fugitive:', 'node_modules' },
   },
 })
