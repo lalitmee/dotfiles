@@ -1,8 +1,8 @@
--- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
+-- NOTE: nord
+require('lk/colorscheme/nord')
 
--- -- NOTE: nord
--- require('lk/colorscheme/nord')
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: gruvqueen
 -- require('lk/colorscheme/gruvqueen')
