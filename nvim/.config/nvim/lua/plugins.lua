@@ -514,6 +514,7 @@ return require('packer').startup {
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
         { 'nvim-telescope/telescope-packer.nvim' },
+        { 'nvim-telescope/telescope-smart-history.nvim' },
       },
     }
 
@@ -790,8 +791,9 @@ return require('packer').startup {
     -- BROWSER {{{
 
     -- sql nvim database for frecency
-    use { 'tami5/sql.nvim' }
-    use { 'tyru/open-browser.vim' }
+    use 'tami5/sqlite.lua'
+    use 'tami5/sql.nvim'
+    use 'tyru/open-browser.vim'
 
     -- }}}
 

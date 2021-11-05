@@ -34,6 +34,10 @@ require('telescope').setup {
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,
+    history = {
+      path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+      limit = 100,
+    },
 
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
 
@@ -198,6 +202,9 @@ require('telescope').setup {
 
 -- -- tmux integration in telescope
 -- require('telescope').load_extension('tmux')
+
+-- smart history in telescope
+require('telescope').load_extension('smart_history')
 
 -- packer integration with telescope
 require('telescope').load_extension('packer')

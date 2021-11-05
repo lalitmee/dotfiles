@@ -1146,6 +1146,7 @@ local local_leader_key_maps = {
   ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
   ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
   ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
+  ['m'] = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'quick-menu' },
   [']'] = 'replace-all',
   ['['] = 'replace-current',
   [','] = { ':term <CR> emacsclient -nw -e "(magit-status)" <CR>',
