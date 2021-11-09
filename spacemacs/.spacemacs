@@ -67,6 +67,8 @@ values."
      yaml
      ;; layers with custom variables
      ;; (rebox :variables rebox-enable-in-text-mode t)
+     (lsp :variables
+          lsp-lens-enable t)
      (go :variables go-use-gometalinter t)
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -447,8 +449,10 @@ you should place your code here."
 
   ;; project project search path
   (setq projectile-project-search-path
-        '("~/Desktop/Github/"
-          "~/Desktop/koinearth/"))
+        '("~/"
+          "~/Desktop/koinearth/marketsn"
+          "~/Desktop/koinearth/ngagen"
+          "~/Desktop/Github"))
 
   ;; ranger
   (setq ranger-show-dotfiles t)

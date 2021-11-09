@@ -1,8 +1,9 @@
+local lualine = require('lualine')
 
-require('lualine').setup {
+lualine.setup {
   options = {
-    theme = 'auto',
-    -- theme = 'gruvbox',
+    -- theme = 'auto',
+    theme = 'solarized_dark',
     separator = { left = '', right = '' },
     -- section_separators = { '', '' },
     -- component_separators = { '', '' },
