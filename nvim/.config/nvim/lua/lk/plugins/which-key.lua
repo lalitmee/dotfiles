@@ -1144,6 +1144,7 @@ local local_leader_key_maps = {
   ['4'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'goto-file-3' },
   ['5'] = { ':lua require("harpoon.ui").nav_file(5)<CR>', 'goto-file-4' },
   ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
+  ['7'] = { ':lua require("harpoon.ui").nav_file(7)<CR>', 'goto-file-7' },
   ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
   ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
   ['m'] = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'quick-menu' },

@@ -1,0 +1,164 @@
+{
+	"import": {
+        "prefix": "import",
+        "body": "import { ${1:nextTick, observe, extractClass} } from '${2:omi}'",
+        "description": "Omi module"
+    },
+    "export default": {
+        "prefix": "export default",
+        "scope": "javascript,typescript",
+        "body": [
+            "export default class {",
+            "\tcss() {",
+            "\t\treturn (",
+            "\t\t\t${2}",
+            "\t\t)",
+            "\t}",
+            "\tinstall() {",
+            "\t\tthis.data = {",
+            "\t\t\t${1}",
+            "\t\t}",
+            "\t}",
+            "})"
+        ],
+        "description": "Omi export struct"
+    },
+    "module.exports": {
+        "prefix": "module.exports",
+        "body": [
+            "module.exports = class {",
+            "\tcss() {",
+            "\t\treturn (",
+            "\t\t\t${2}",
+            "\t\t)",
+            "\t}",
+            "\tinstall() {",
+            "\t\tthis.data = {",
+            "\t\t\t${1}",
+            "\t\t}",
+            "\t}",
+            "})"
+        ],
+        "description": "Omi export struct"
+    },
+    "render": {
+        "prefix": "render",
+        "body": [
+            "render(${1}) {",
+            "\treturn (",
+            "\t\t${2}",
+            "\t)",
+            "}"
+        ],
+        "description": "Omi function struct"
+    },
+    "templateLang": {
+        "prefix": "templateLang",
+        "scope": "html",
+        "body": [
+            "<template lang=\"html\">",
+            "\t<div$1>",
+            "\t\t$0",
+            "\t</div>",
+            "</template>"
+        ],
+        "description": "Template element"
+    },
+    "template": {
+        "prefix": "template",
+        "scope": "html",
+        "body": [
+            "<template name=\"component-name\">",
+            "\t<div$1>",
+            "\t\t$0",
+            "\t</div>",
+            "</template>"
+        ],
+        "description": "Template element"
+    },
+    "scriptExportClass": {
+        "prefix": "script",
+        "body": [
+            "<script>",
+            "export default class {",
+            "\tinstall() {",
+                "\t\tthis.data = {",
+                "\t\t\ttitle: \"omi$1\"",
+                "\t\t}",
+                "\t}",
+            "}",
+            "</script>"
+        ],
+        "description": "Script element"
+    },
+	"styleLang": {
+        "prefix": "styleLang",
+        "body": [
+            "<style lang=\"scss\">",
+            "\t$1",
+            "</style>"
+        ],
+        "description": "Style element with Sass attribute"
+    },
+    "scaffoldOmi": {
+        "prefix": ["scaffold","t-omi","!omi"],
+        "body": [
+            "<template name=\"component-name\">",
+            "\t<div>",
+            "\t\t$0<!-- JSX -->",
+            "\t\t<p>{this.data.title}</p>",
+            "\t</div>",
+            "</template>",
+            "<script>",
+            "// JS",
+            "export default class {",
+                "\tinstall() {",
+                "\t\tthis.data = {",
+                "\t\t\ttitle: \"omi$1\"",
+                "\t\t}",
+                "\t}",
+            "}",
+            "</script>",
+            "<style lang=\"scss\">",
+            "/* CSS */",
+            "p {color: #58bc58;}",
+            "</style>"
+        ],
+        "description": "Scaffold Omi <template><script><style>"
+    },
+    "scaffoldReact": {
+        "prefix": ["scaffold","t-react","react","!react"],
+        "body": [
+            "<template name=\"Component-name\">",
+            "\t<div>",
+            "\t\t$0<!-- JSX -->",
+            "\t\t<p>{this.state.title}</p>",
+            "\t</div>",
+            "</template>",
+            "<script>",
+            "// JS",
+            "export default class {",
+                "\tconstructor(props)\t{",
+                "\t\tsuper(props)",
+                "\t\tthis.state = {",
+                "\t\t\ttitle: \"react$1\"",
+                "\t\t}",
+                "\t}",
+                "\tcomponentDidMount\t()\t{}",
+            "}",
+            "</script>",
+            "<style lang=\"scss\">",
+            "/* CSS */",
+            "p {color: #58bc58;}",
+            "</style>"
+        ],
+        "description": "Scaffold React <template><script><style>"
+    },
+    "enoyao": {
+        "prefix": "enoyaowscats",
+        "body": [
+            "/* Hello I'm YJL(Eno Yao), Thank you for your use! */"
+        ],
+        "description": "Eno Yao"
+    }
+}

@@ -4,7 +4,8 @@
   "vsicons.dontShowNewVersionMessage": true,
   "editor.detectIndentation": true,
   "editor.fontFamily": "Operator Mono Lig book",
-  "editor.fontSize": 13,
+  "editor.fontSize": 14,
+  "editor.fontWeight": 700,
   "editor.largeFileOptimizations": true,
   "editor.highlightActiveIndentGuide": true,
   "editor.indentSize": 4,
@@ -15,11 +16,17 @@
   "editor.minimap.maxColumn": 120,
   "editor.minimap.showSlider": true,
   "editor.renderWhitespace": "none",
-  "editor.rulers": [ 80 ],
+  "editor.rulers": [
+    80
+  ],
   "editor.tabSize": 4,
   "editor.zenMode.hideTabs": true,
   "editor.zenMode.singleFile": true,
-  "files.exclude": [ "_esy", "node_modules", ".git" ],
+  "files.exclude": [
+    "_esy",
+    "node_modules",
+    ".git"
+  ],
   "workbench.activityBar.visible": true,
   "workbench.editor.showTabs": true,
   "workbench.editor.enablePreview": true,
@@ -28,21 +35,44 @@
   "workbench.sideBar.visible": true,
   "workbench.statusBar.visible": true,
   "workbench.tree.indent": 2,
-  "vim.useSystemClipboard": [ "yank" ],
+  "vim.useSystemClipboard": [
+    "yank"
+  ],
   "vim.leader": "<space>",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": { "editor.formatOnSave": true },
-  "[typescript]": { "editor.formatOnSave": true },
-  "[html]": { "editor.formatOnSave": true },
-  "[css]": { "editor.formatOnSave": true },
-  "[json]": { "editor.formatOnSave": true },
-  "[python]": { "editor.formatOnSave": true },
-  "[yaml]": { "editor.formatOnSave": true },
-  "[go]": { "editor.formatOnSave": true },
-  "[javascriptreact]": { "editor.formatOnSave": true },
-  "[typescriptreact]": { "editor.formatOnSave": true },
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "[python]": {
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.formatOnSave": true
+  },
+  "[go]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
   "gitProjectManager.baseProjectsFolders": [
-    "/home/Desktop/Github", "/home/Desktop/koinearth"
+    "/home/Desktop/Github",
+    "/home/Desktop/koinearth"
   ],
   "gitProjectManager.storeRepositoriesBetweenSessions": true,
   "gitProjectManager.maxDepthRecursion": 4
