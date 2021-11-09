@@ -1,6 +1,6 @@
 {
   "workbench.colorTheme": "Gruvbox Dark Hard",
-  "editor.renderIndentGuides": false,
+  "editor.renderIndentGuides": true,
   "vsicons.dontShowNewVersionMessage": true,
   "editor.detectIndentation": true,
   "editor.fontFamily": "Operator Mono Lig book",
@@ -27,6 +27,11 @@
     "node_modules",
     ".git"
   ],
+  "search.exclude": [
+    "_esy",
+    "node_modules",
+    ".git"
+  ],
   "workbench.activityBar.visible": true,
   "workbench.editor.showTabs": true,
   "workbench.editor.enablePreview": true,
@@ -35,10 +40,9 @@
   "workbench.sideBar.visible": true,
   "workbench.statusBar.visible": true,
   "workbench.tree.indent": 2,
-  "vim.useSystemClipboard": [
-    "yank"
-  ],
+  "vim.useSystemClipboard": true,
   "vim.leader": "<space>",
+  "vim.highlightedyank.color": "#FF7F50",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.formatOnSave": true
@@ -71,6 +75,7 @@
     "editor.formatOnSave": true
   },
   "gitProjectManager.baseProjectsFolders": [
+    "/home",
     "/home/Desktop/Github",
     "/home/Desktop/koinearth"
   ],
