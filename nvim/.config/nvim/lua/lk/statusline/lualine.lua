@@ -1,9 +1,9 @@
-local gps = require('nvim-gps')
+local lualine = require('lualine')
 
-require('lualine').setup {
+lualine.setup {
   options = {
-    theme = 'auto',
-    -- theme = 'gruvbox',
+    -- theme = 'auto',
+    theme = 'solarized_dark',
     separator = { left = '', right = '' },
     -- section_separators = { '', '' },
     -- component_separators = { '', '' },
@@ -31,10 +31,12 @@ require('lualine').setup {
           hint = { fg = '#fab005' },
         },
         update_in_insert = true,
-      }, -- { 'b:coc_current_function', 'g:coc_status' },
-      -- { 'require\'lsp-status\'.status()' },
-      { 'LspStatus' }, -- { 'require\'lsp-status\'.update_current_function()' },
-      -- { 'lsp_progress' },
+      },
+      {
+        -- 'b:coc_current_function',
+        -- 'g:coc_status',
+      },
+      { 'LspStatus' },
     },
     lualine_x = { { 'filesize' } },
     lualine_y = { { 'progress' } },

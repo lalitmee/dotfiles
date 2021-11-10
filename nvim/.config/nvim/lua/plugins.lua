@@ -21,6 +21,23 @@ return require('packer').startup {
 
     -- UI AND BEAUTIFY {{{
 
+    -- NOTE: disturbing Telescope UI
+    -- -- auto focus and resizing
+    -- use {
+    --   'beauwilliams/focus.nvim',
+    --   config = function()
+    --     require('focus').setup()
+    --   end,
+    -- }
+
+    -- stabilize windows
+    use {
+      'luukvbaal/stabilize.nvim',
+      config = function()
+        require('stabilize').setup()
+      end,
+    }
+
     -- notifications
     use {
       'rcarriga/nvim-notify',
@@ -55,16 +72,18 @@ return require('packer').startup {
       config = function()
         require('twilight').setup {}
       end,
-      disable = false,
     }
-    use { 'Mofiqul/vscode.nvim', disable = false }
-    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
-    use { 'folke/tokyonight.nvim', disable = false }
-    use { 'shaunsingh/nord.nvim', disable = false }
-    use { 'lalitmee/cobalt2.nvim', disable = false }
-    use { 'marko-cerovac/material.nvim', disable = false }
-    use { 'tjdevries/colorbuddy.nvim', disable = false }
-    use { 'tjdevries/gruvbuddy.nvim', disable = false }
+    use { 'rmehri01/onenord.nvim' }
+    use { 'Mofiqul/vscode.nvim' }
+    use { 'Murtaza-Udaipurwala/gruvqueen' }
+    use { 'folke/tokyonight.nvim' }
+    use { 'shaunsingh/nord.nvim' }
+    use { 'lalitmee/cobalt2.nvim' }
+    use { 'marko-cerovac/material.nvim' }
+    -- use { 'navarasu/onedark.nvim' }
+    use { 'olimorris/onedark.nvim' }
+    use { 'tjdevries/colorbuddy.nvim' }
+    use { 'tjdevries/gruvbuddy.nvim' }
 
     -- }}}
 
@@ -210,14 +229,8 @@ return require('packer').startup {
       end,
     }
 
-    -- Better Whitespace
-    use {
-      'ntpeters/vim-better-whitespace',
-      config = function()
-        vim.g.better_whitespace_enabled = 1
-        vim.g.strip_whitespace_on_save = 1
-      end,
-    }
+    -- remove trailing whitespace and lines
+    use 'McAuleyPenney/tidy.nvim'
 
     -- nice fold text
     use 'scr1pt0r/crease.vim'
@@ -261,8 +274,17 @@ return require('packer').startup {
 
     -- TEXT {{{
 
-    -- jump to any definition or references
-    use 'pechorin/any-jump.vim'
+    -- inline text edit
+    use 'AndrewRadev/inline_edit.vim'
+
+    -- cycle similar words
+    use 'zef/vim-cycle'
+
+    -- brackets done right way
+    use 'itmammoth/doorboy.vim'
+
+    -- github copilot
+    use 'github/copilot.vim'
 
     -- Notes {{{
 
@@ -328,7 +350,7 @@ return require('packer').startup {
 
     -- Undo {{{
 
-    use { 'simnalamburt/vim-mundo' }
+    use 'simnalamburt/vim-mundo'
 
     -- }}}
 
@@ -350,6 +372,8 @@ return require('packer').startup {
     --   branch = 'release'
     -- }
 
+    use { 'fannheyward/go.vim', ft = 'go' }
+
     -- }}}
 
     -- neovim-lsp {{{
@@ -358,8 +382,13 @@ return require('packer').startup {
       'neovim/nvim-lspconfig',
       requires = {
         { 'onsails/lspkind-nvim' },
-        { 'tami5/lspsaga.nvim' },
-        -- nvim-cmp plugins
+        { 'tami5/lspsaga.nvim' }, -- nvim-cmp plugins
+        {
+          'mfussenegger/nvim-lint',
+          config = function()
+            require('lk/plugins/nvim_lsp/lint')
+          end,
+        },
         {
           'hrsh7th/nvim-cmp',
           requires = {
@@ -469,6 +498,8 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
+        { 'nvim-telescope/telescope-packer.nvim' },
+        { 'nvim-telescope/telescope-smart-history.nvim' },
       },
     }
 
@@ -603,13 +634,6 @@ return require('packer').startup {
     use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    }
-    use {
-      'SmiteshP/nvim-gps',
-      requires = 'nvim-treesitter/nvim-treesitter',
-      config = function()
-        require('nvim-gps').setup()
-      end,
     }
     use 'akinsho/nvim-bufferline.lua'
 
@@ -753,8 +777,9 @@ return require('packer').startup {
     -- BROWSER {{{
 
     -- sql nvim database for frecency
-    use { 'tami5/sql.nvim' }
-    use { 'tyru/open-browser.vim' }
+    use 'tami5/sqlite.lua'
+    use 'tami5/sql.nvim'
+    use 'tyru/open-browser.vim'
 
     -- }}}
 

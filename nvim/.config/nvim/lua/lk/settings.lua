@@ -301,5 +301,7 @@ vim.cmd([[set noerrorbells]])
 vim.cmd([[set novisualbell]])
 vim.cmd([[set t_vb=]])
 vim.cmd([[set path+=**]])
+vim.cmd([[set formatexpr=CocActionAsync('formatSelected')]])
+vim.cmd([[set tagfunc=CocTagFunc]])
 
 -- }}}

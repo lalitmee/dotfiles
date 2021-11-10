@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/wfws.yml
 
 name: pwa-service
-root: ~/Desktop/koinearth/wf-pwa-service
+root: ~/Desktop/koinearth/marketsn/wf-pwa-service
 
 windows:
   - Editor: ls
