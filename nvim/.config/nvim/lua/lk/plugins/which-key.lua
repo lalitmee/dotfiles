@@ -218,21 +218,44 @@ local leader_key_maps = {
     ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' },
   },
 
-  -- NOTE: e is for errors/warnings using coc
-  -- ['e'] = {
-  --   ['name'] = '+errors/warnings',
-  --   ['l'] = { ':Telescope coc diagnostics<CR>', 'buffer-diagnostics' },
-  --   ['L'] = {
-  --     ':Telescope coc workspace_diagnostics<CR>',
-  --     'workspace_diagnostics',
-  --   },
-  --   ['n'] = { '<Plug>(coc-diagnostic-next)', 'next-diagnostic' },
-  --   ['p'] = { '<Plug>(coc-diagnostic-prev)', 'prev-diagnostic' },
-  -- },
-
-  -- NOTE: f is for FZF
+  -- NOTE: f is for files
   ['f'] = {
     ['name'] = '+files',
+    ['c'] = { ':lua require("harpoon.mark").clear_all()<CR>', 'clear-all' },
+    ['f'] = {
+      ['name'] = '+files',
+      ['1'] = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'goto-file-4' },
+      ['2'] = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'goto-file-1' },
+      ['3'] = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'goto-file-2' },
+      ['4'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'goto-file-3' },
+      ['5'] = { ':lua require("harpoon.ui").nav_file(5)<CR>', 'goto-file-4' },
+      ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
+      ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
+      ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
+    },
+    ['m'] = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
+              'quick-menu' },
+    ['p'] = { ':lua require("harpoon.mark").promote()<CR>', 'promote' },
+    ['l'] = { ':lua require("harpoon.mark").shorten_list()<CR>', 'shorten-list' },
+    ['t'] = {
+      ['name'] = '+terminals',
+      ['f'] = {
+        ':lua require("harpoon.term").sendCommand(1, 2)<CR>',
+        'goto-terminal-1',
+      },
+      ['s'] = {
+        ':lua require("harpoon.term").gotoTerminal(1)<CR>',
+        'send-command-terminal-1',
+      },
+      ['S'] = {
+        ':lua require("harpoon.term").sendCommand(1, 1)<CR>',
+        'send-command-terminal-2',
+      },
+      ['t'] = {
+        ':lua require("harpoon.term").gotoTerminal(2)<CR>',
+        'goto-terminal-2',
+      },
+    },
     ['s'] = { ':w<CR>', 'save-buffer' },
     ['S'] = { ':wa<CR>', 'save-all-buffers' },
   },
@@ -617,6 +640,7 @@ local leader_key_maps = {
   -- NOTE: n is for neovim
   ['n'] = {
     ['name'] = '+neovim',
+    ['a'] = { ':Telescope packer plugins<CR>', 'packer-plugins' },
     ['c'] = { ':PackerCompile<CR>', 'packer-compile' },
     ['d'] = { ':PackerClean<CR>', 'clean-packages' },
     ['e'] = { ':e $HOME/.config/nvim/init.lua<CR>', 'edit-config' },
@@ -1063,7 +1087,7 @@ local leader_key_maps = {
     ['k'] = { ':Telescope keymaps<CR>', 'telescope-keymaps' },
     ['o'] = { ':Telescope vim_options<CR>', 'options' },
     ['p'] = {
-      ['name'] = '+vim-plug',
+      ['name'] = '+packer',
       ['c'] = { ':PackerClean<CR>', 'clean' },
       ['i'] = { ':PackerInstall<CR>', 'install' },
       ['r'] = { ':PackerCompile<CR>', 'complie' },
@@ -1081,49 +1105,6 @@ local leader_key_maps = {
     ['='] = { '<C-W>=', 'balance-windows' },
     ['a'] = { '<C-W>H', 'move-window-far-left' },
     ['d'] = { '<C-W>c', 'delete-window' },
-    ['f'] = {
-      ['name'] = '+harpoon',
-      ['c'] = { ':lua require("harpoon.mark").clear_all()<CR>', 'clear-all' },
-      ['f'] = {
-        ['name'] = '+files',
-        ['1'] = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'goto-file-4' },
-        ['2'] = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'goto-file-1' },
-        ['3'] = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'goto-file-2' },
-        ['4'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'goto-file-3' },
-        ['5'] = { ':lua require("harpoon.ui").nav_file(5)<CR>', 'goto-file-4' },
-        ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
-        ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
-        ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
-      },
-      ['m'] = {
-        ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
-        'quick-menu',
-      },
-      ['p'] = { ':lua require("harpoon.mark").promote()<CR>', 'promote' },
-      ['s'] = {
-        ':lua require("harpoon.mark").shorten_list()<CR>',
-        'shorten-list',
-      },
-      ['t'] = {
-        ['name'] = '+terminals',
-        ['f'] = {
-          ':lua require("harpoon.term").sendCommand(1, 2)<CR>',
-          'goto-terminal-1',
-        },
-        ['s'] = {
-          ':lua require("harpoon.term").gotoTerminal(1)<CR>',
-          'send-command-terminal-1',
-        },
-        ['S'] = {
-          ':lua require("harpoon.term").sendCommand(1, 1)<CR>',
-          'send-command-terminal-2',
-        },
-        ['t'] = {
-          ':lua require("harpoon.term").gotoTerminal(2)<CR>',
-          'goto-terminal-2',
-        },
-      },
-    },
     ['h'] = { ':lua require("Navigator").left()<CR>', 'window-left' },
     ['H'] = { '<C-W>5<', 'expand-window-left' },
     ['i'] = { '<C-W>K', 'move-window-far-top' },
@@ -1145,10 +1126,21 @@ local leader_key_maps = {
 }
 
 local local_leader_key_maps = {
+  ['1'] = { ':lua require("harpoon.ui").nav_file(1)<CR>', 'goto-file-4' },
+  ['2'] = { ':lua require("harpoon.ui").nav_file(2)<CR>', 'goto-file-1' },
+  ['3'] = { ':lua require("harpoon.ui").nav_file(3)<CR>', 'goto-file-2' },
+  ['4'] = { ':lua require("harpoon.ui").nav_file(4)<CR>', 'goto-file-3' },
+  ['5'] = { ':lua require("harpoon.ui").nav_file(5)<CR>', 'goto-file-4' },
+  ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
+  ['7'] = { ':lua require("harpoon.ui").nav_file(7)<CR>', 'goto-file-7' },
+  ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
+  ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
+  ['m'] = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'quick-menu' },
   [']'] = 'replace-all',
   ['['] = 'replace-current',
   [','] = { ':term <CR> emacsclient -nw -e "(magit-status)" <CR>',
             'emacs-magit' },
+  ['d'] = { ':CocCommand docthis.documentThis<CR>', 'js-doc' },
   ['g'] = {
     ['name'] = '+fugitive',
     ['b'] = { ['name'] = '+blame', ['l'] = { 'blame' } },

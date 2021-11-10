@@ -1,0 +1,10 @@
+# /home/lalitmee/.config/tmuxinator/ngagen.yml
+
+name: ngagen
+root: ~/Desktop/koinearth/ngagen
+
+windows:
+  - ngagen-app: cd ngagen-app
+  - ngagen-webapp-service-static: cd ngagen-webapp-service-static
+  - ngagen-webapp-service: cd ngagen-webapp-service
+  - merged-prs: cd merged-prs

@@ -38,7 +38,6 @@ values."
      ;; ----------------------------------------------------------------
 
      ;; languages layers
-     ansible
      better-defaults
      chrome
      colors
@@ -52,6 +51,7 @@ values."
      helm
      html
      ibuffer
+     imenu-list
      lua
      markdown
      pandoc
@@ -62,12 +62,13 @@ values."
      spacemacs-navigation
      spotify
      syntax-checking
-     theming
      version-control
      vimscript
      yaml
      ;; layers with custom variables
      ;; (rebox :variables rebox-enable-in-text-mode t)
+     (lsp :variables
+          lsp-lens-enable t)
      (go :variables go-use-gometalinter t)
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -78,12 +79,14 @@ values."
                       auto-completion-idle-delay 0.2
                       auto-completion-private-snippets-directory nil
                       auto-completion-enable-snippets-in-popup nil
-                      auto-completion-enable-help-tooltip nil
                       auto-completion-use-company-box nil
-                      auto-completion-enable-sort-by-usage nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-sort-by-usage t)
+     (helm :variables
+           helm-enable-auto-resize t
+           spacemacs-helm-rg-max-column-number 1024
+           helm-use-fuzzy 'source)
      (git :variables
           git-enable-magit-delta-plugin t
           git-enable-magit-gitflow-plugin t
@@ -129,30 +132,20 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(forge
-                                      add-node-modules-path
                                       all-the-icons
                                       all-the-icons-dired
                                       all-the-icons-ivy
                                       auto-package-update
                                       auto-rename-tag
                                       auto-yasnippet
-                                      autothemer
-                                      babel
                                       beacon
-                                      blacken
-                                      cobalt
                                       company-tabnine
-                                      counsel
                                       doom-modeline
                                       doom-themes
                                       emojify
                                       format-all
-                                      helm-fuzzy-find
-                                      htmlize
-                                      indium
                                       multiple-cursors
                                       ox-reveal
-                                      swiper
                                       try
                                       yasnippet-snippets)
 
@@ -303,7 +296,7 @@ values."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-resize 1
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
    dotspacemacs-helm-no-header nil
@@ -314,7 +307,7 @@ values."
    ;; in all non-asynchronous sources. If set to `source', preserve individual
    ;; source settings. Else, disable fuzzy matching in all sources.
    ;; (default 'always)
-   dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-helm-use-fuzzy 'source
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-transient-state nil
@@ -434,6 +427,7 @@ you should place your code here."
 
   (beacon-mode 1)
 
+
   ;; all the icons settings from mike zamansky
   (use-package all-the-icons
     :ensure t
@@ -450,10 +444,15 @@ you should place your code here."
     :ensure t)
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
+  ;; company-tabnine settings
+  ;; (add-to-list 'company-backends #'company-tabnine)
+
   ;; project project search path
   (setq projectile-project-search-path
-        '("~/Desktop/Github/"
-          "~/Desktop/koinearth/"))
+        '("~/"
+          "~/Desktop/koinearth/marketsn"
+          "~/Desktop/koinearth/ngagen"
+          "~/Desktop/Github"))
 
   ;; ranger
   (setq ranger-show-dotfiles t)
@@ -553,30 +552,12 @@ you should place your code here."
   (add-hook 'prog-mode-hook 'page-break-lines-mode)
   (add-hook 'prog-mode-hook 'column-enforce-mode)
 
-  (setq paradox-github-token "522a037a14fea9c1ec1f2c00f40c087d7ed79c9d")
-
   (setq avy-all-windows 'all-frames)
 
   ;; Wraps long lines in text mode
   (add-hook 'text-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'org-indent-mode)
-
-  ;; Keys Mappings
-  ;; mappings of leader keys
-  (spacemacs/set-leader-keys "," 'save-buffer)
-  ;; (spacemacs/set-leader-keys "j" 'spacemacs/indent-region-or-buffer)
-
-  ;; mappings of evil-go-to-char
-  (spacemacs/set-leader-keys "jj" 'evil-avy-goto-char-timer)
-
-  ;; keybinding for fuzzy finding files by fzf
-  (spacemacs/set-leader-keys "ff" 'fzf-git-files)
-  (spacemacs/set-leader-keys "fd" 'fzf-directory)
-  (spacemacs/set-leader-keys "fp" 'fzf-git)
-
-  ;; magit autocomplete
-  (spacemacs/set-leader-keys "gc" 'magit-checkout)
 
   (setq magit-repository-directories '("~/Desktop/"))
   (setq magit-commit-show-diff nil
@@ -593,30 +574,6 @@ you should place your code here."
       (custom-set-variables
        '(aw-leading-char-face
          ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
-
-  ;; swiper for word search : its awesome
-  (use-package swiper
-    :config
-    (progn
-      (ivy-mode 1)
-      (setq ivy-use-virtual-buffers t)
-      (setq enable-recursive-minibuffers t)
-      (global-set-key "\C-s" 'swiper)
-      (global-set-key (kbd "C-c C-r") 'ivy-resume)
-      (global-set-key (kbd "<f6>") 'ivy-resume)
-      (global-set-key (kbd "M-x") 'counsel-M-x)
-      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-      (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-      (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-      (global-set-key (kbd "<f1> l") 'counsel-find-library)
-      (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-      (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-      (global-set-key (kbd "C-c g") 'counsel-git)
-      (global-set-key (kbd "C-c j") 'counsel-git-grep)
-      (global-set-key (kbd "C-c k") 'counsel-ag)
-      (global-set-key (kbd "C-x l") 'counsel-locate)
-      (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-      (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)))
 
   (add-hook 'web-mode-hook 'auto-rename-tag-mode)
 

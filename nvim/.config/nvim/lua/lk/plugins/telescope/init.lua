@@ -26,6 +26,10 @@ require('telescope').setup {
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,
+    history = {
+      path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+      limit = 100
+    },
 
     set_env = {
       ['COLORTERM'] = 'truecolor'
@@ -157,7 +161,8 @@ require('telescope').setup {
         ['rust_doc_std'] = 'https://doc.rust-lang.org/std/index.html?search={query}',
         ['utf8_icons'] = 'https://www.utf8icons.com/search?query={query}',
         ['vim_commits'] = 'https://github.com/vim/vim/search?q={query}&type=commits',
-        ['vimawesome'] = 'https://vimawesome.com/?q={query}'
+        ['vimawesome'] = 'https://vimawesome.com/?q={query}',
+        ['google'] = 'https://www.google.com/search?q={query}'
       }
     },
     -- arecibo = {
@@ -189,14 +194,17 @@ require('telescope').setup {
 -- search internet
 -- require('telescope').load_extension('arecibo')
 
--- -- packer integration with telescope
--- require('telescope').load_extension('packer')
-
 -- -- coc integration in telescope
 -- require('telescope').load_extension('coc')
 
 -- -- tmux integration in telescope
 -- require('telescope').load_extension('tmux')
+
+-- smart history in telescope
+require('telescope').load_extension('smart_history')
+
+-- packer integration with telescope
+require('telescope').load_extension('packer')
 
 -- project management in telescope
 require('telescope').load_extension('zoxide')

@@ -1,11 +1,10 @@
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
-require('lk/plugins/nvim_lsp/handlers')
-require('lk/plugins/nvim_lsp/commands')
-require('lk/plugins/nvim_lsp/mappings')
-require('lk/plugins/nvim_lsp/diagnostics')
 -- require('lk/plugins/nvim_lsp/highlights')
+require('lk/plugins/nvim_lsp/commands')
+require('lk/plugins/nvim_lsp/handlers')
+require('lk/plugins/nvim_lsp/mappings')
 
 local autocommands = require('lk/plugins/nvim_lsp/autocommands')
 local mappings = require('lk/plugins/nvim_lsp/mappings')
@@ -77,54 +76,70 @@ local function on_attach(client, bufnr)
   require('lsp-status').on_attach(client)
 end
 
--- Configure lua language server for neovim development
-local luadev = require('lua-dev').setup({
-  lspconfig = {
-    settings = {
-      Lua = { workspace = { maxPreload = 2000, preloadFileSize = 1000 } },
-    },
-  },
-})
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = { 'documentation', 'detail', 'additionalTextEdits' },
 }
 
--- lsp-install
-local function setup_servers()
-  local lsp_installer = require('nvim-lsp-installer')
+local servers = {
+  cssls = true,
+  gopls = true,
+  bashls = true,
+  jsonls = true,
+  tsserver = true,
+  vimls = true,
+  pyright = true,
+  sumneko_lua = function()
+    local lua_dev = require('lua-dev')
+    return lua_dev.setup {
+      lspconfig = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = {
+                'vim',
+                'describe',
+                'it',
+                'before_each',
+                'after_each',
+                'pending',
+                'teardown',
+                'packer_plugins',
+              },
+            },
+            completion = { keywordSnippet = 'Replace', callSnippet = 'Replace' },
+          },
+        },
+      },
+    }
+  end,
+
+}
+
+local function get_server_config(server)
+  local cmp_nvim_lsp = require('cmp_nvim_lsp')
   local status_capabilities = require('lsp-status').capabilities
+  local conf = servers[server.name]
+  local conf_type = type(conf)
+  local config = conf_type == 'table' and conf or conf_type == 'function' and
+                     conf() or {}
+  config.flags = { debounce_text_changes = 500 }
+  config.on_attach = on_attach
+  config.capabilities = config.capabilities or
+                            vim.lsp.protocol.make_client_capabilities()
+  cmp_nvim_lsp.update_capabilities(config.capabilities)
+  config.capabilities = lk_utils.deep_merge(status_capabilities,
+                                            config.capabilities)
+  return config
+end
 
+local function set_servers()
+  local lsp_installer = require 'nvim-lsp-installer'
   lsp_installer.on_server_ready(function(server)
-    local opts = { on_attach = on_attach }
-    if not opts.capabilities then
-      opts.capabilities = capabilities
-    end
-    opts.capabilities.textDocument.completion.completionItem.snippetSupport =
-        true
-    opts.capabilities = lk_utils.deep_merge(opts.capabilities,
-                                            status_capabilities)
-
-    -- language specific config
-    if server.name == 'lua' then
-      opts = luadev
-    end
-    if server.name == 'efm' then
-      opts = vim.tbl_extend('force', opts,
-                            require('lk/plugins/nvim_lsp/servers/efm'))
-    end
-    if server.name == 'sourcekit' then
-      opts.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
-    end
-    if server.name == 'clangd' then
-      opts.filetypes = { 'c', 'cpp' }; -- we don't want objective-c and objective-cpp!
-    end
-
-    server:setup(opts)
+    server:setup(get_server_config(server))
     vim.cmd [[ do User LspAttachBuffers ]]
   end)
 end
 
-setup_servers()
+set_servers()
