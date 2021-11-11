@@ -382,7 +382,7 @@ return require('packer').startup {
       'neovim/nvim-lspconfig',
       requires = {
         { 'onsails/lspkind-nvim' },
-        { 'tami5/lspsaga.nvim' }, -- nvim-cmp plugins
+        { 'tami5/lspsaga.nvim' },
         {
           'mfussenegger/nvim-lint',
           config = function()
