@@ -784,7 +784,7 @@ return require('packer').startup {
 
     -- Goneovim Fuzzy search
     -- NOTE: not using this because we have neovide instead of goneovim
-    use { 'akiyosi/gonvim-fuzzy', disable = true }
+    use { 'akiyosi/gonvim-fuzzy', disable = false }
 
     -- }}}
 
