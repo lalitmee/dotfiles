@@ -78,8 +78,8 @@ require('telescope').setup {
     },
 
     layout_config = {
-      width = 0.85,
-      height = 0.85,
+      width = 0.90,
+      height = 0.90,
       prompt_position = 'bottom',
       -- prompt_position = 'top',
 
