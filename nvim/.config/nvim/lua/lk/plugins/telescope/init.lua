@@ -30,7 +30,8 @@ require('telescope').setup {
       '--smart-case',
     },
     selection_strategy = 'reset',
-    sorting_strategy = 'descending',
+    -- sorting_strategy = 'descending',
+    sorting_strategy = 'ascending',
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,
@@ -80,8 +81,8 @@ require('telescope').setup {
     layout_config = {
       width = 0.90,
       height = 0.90,
-      prompt_position = 'bottom',
-      -- prompt_position = 'top',
+      -- prompt_position = 'bottom',
+      prompt_position = 'top',
 
       horizontal = {
         width_padding = 0.11,

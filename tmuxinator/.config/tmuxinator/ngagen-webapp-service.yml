@@ -6,4 +6,5 @@ root: ~/Desktop/koinearth/ngagen/ngagen-webapp-service
 windows:
   - Editor: gst
   - Server: yd - -p 4001
+  - Browser: brave-browser
   - Extras: echo # do extras here

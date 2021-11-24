@@ -1,5 +1,8 @@
--- NOTE: gruvbuddy
-require('lk/colorscheme/gruvbuddy')
+-- NOTE: vim-code-dark
+require('lk/colorscheme/vscode')
+
+-- -- NOTE: gruvbuddy
+-- require('lk/colorscheme/gruvbuddy')
 
 -- -- NOTE: gruvqueen
 -- require('lk/colorscheme/gruvqueen')
@@ -12,9 +15,6 @@ require('lk/colorscheme/gruvbuddy')
 
 -- -- NOTE: tokyonight
 -- require('lk/colorscheme/tokyonight')
-
--- -- NOTE: vim-code-dark
--- require('lk/colorscheme/vscode')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
