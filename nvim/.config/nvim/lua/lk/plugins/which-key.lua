@@ -1192,17 +1192,14 @@ local local_leader_key_maps = {
     ['p'] = { ':cprev<CR>', 'prev' },
   },
   ['s'] = {
-    ['name'] = '+snap',
-    ['b'] = { 'buffers' },
-    ['f'] = { 'files' },
-    ['g'] = { 'git-files' },
-    ['s'] = { 'grep' },
-    ['S'] = {
-      ['name'] = '+sideways',
-      ['i'] = { '<Plug>(SidewaysArgumentInsertBefore)', 'insert-before' },
-      ['a'] = { '<Plug>(SidewaysArgumentAppendAfter)', 'append-after' },
-      ['I'] = { '<Plug>(SidewaysArgumentInsertFirst)', 'insert-first' },
-      ['A'] = { '<Plug>(SidewaysArgumentAppendLast)', 'append-last' },
+    ['name'] = '+system',
+    ['t'] = {
+      ':lua require("lk.functions").notify_current_datetime()<CR>',
+      'current-date-time',
+    },
+    ['y'] = {
+      ':lua require("lk.functions").yank_current_file_name()<CR>',
+      'yank-current-file-name',
     },
   },
   ['t'] = {
