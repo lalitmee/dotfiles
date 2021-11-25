@@ -19,6 +19,7 @@ vim.cmd [[set wildmode=longest:full,full]]
 vim.cmd [[set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__]]
 
 vim.api.nvim_exec([[
+
       let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all'
       let $FZF_DEFAULT_COMMAND = "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o -type f -print -o -type l -print 2> /dev/null"
 
@@ -38,13 +39,12 @@ vim.api.nvim_exec([[
 
       let g:fzf_action = { 'ctrl-o': function('Build_quickfix_list'), 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 
-      " close fzf window on esc
-      if has('nvim')
-        aug fzf_setup
-          au!
-          autocmd! FileType fzf tnoremap <buffer><nowait> <esc> <c-c>
-        aug END
-      end
+      aug fzf_setup
+        au!
+        autocmd! FileType fzf tnoremap <buffer><nowait> <esc> <c-c>
+      aug END
+
+      tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 
 
       " Keys and Commands {{{
