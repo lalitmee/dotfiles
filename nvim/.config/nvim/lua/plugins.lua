@@ -491,6 +491,8 @@ return require('packer').startup {
 
     -- FUZZY SEARCH {{{
 
+    use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf' } }
+
     -- telescope.nvim {{{
     use { 'nvim-lua/plenary.nvim' }
     use { 'nvim-lua/popup.nvim' }

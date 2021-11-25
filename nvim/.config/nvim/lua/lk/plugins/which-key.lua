@@ -32,6 +32,7 @@ local leader_key_maps = {
     '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
     'find-files',
   },
+  ['/'] = { ':RG<CR>', 'search-project' },
 
   -- NOTE: a is for actions
   ['a'] = {
