@@ -45,7 +45,7 @@ signs.setup({
   current_line_blame_opts = {
     virt_text = true,
     virt_text_pos = 'eol',
-    delay = 2000,
+    delay = 500,
   },
   keymaps = {
     noremap = true,
