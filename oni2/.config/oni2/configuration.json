@@ -1,4 +1,5 @@
 {
+  "git.ignoreLimitWarning": true,
   "workbench.colorTheme": "Gruvbox Dark Hard",
   "editor.renderIndentGuides": true,
   "vsicons.dontShowNewVersionMessage": true,
@@ -34,36 +35,16 @@
   "vim.leader": "<space>",
   "vim.highlightedyank.color": "#FF7F50",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[html]": {
-    "editor.formatOnSave": true
-  },
-  "[css]": {
-    "editor.formatOnSave": true
-  },
-  "[json]": {
-    "editor.formatOnSave": true
-  },
-  "[python]": {
-    "editor.formatOnSave": true
-  },
-  "[yaml]": {
-    "editor.formatOnSave": true
-  },
-  "[go]": {
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
-  },
+  "[javascript]": { "editor.formatOnSave": true },
+  "[typescript]": { "editor.formatOnSave": true },
+  "[html]": { "editor.formatOnSave": true },
+  "[css]": { "editor.formatOnSave": true },
+  "[json]": { "editor.formatOnSave": true },
+  "[python]": { "editor.formatOnSave": true },
+  "[yaml]": { "editor.formatOnSave": true },
+  "[go]": { "editor.formatOnSave": true },
+  "[javascriptreact]": { "editor.formatOnSave": true },
+  "[typescriptreact]": { "editor.formatOnSave": true },
   "gitProjectManager.baseProjectsFolders": [
     "/home",
     "/home/Desktop/Github",

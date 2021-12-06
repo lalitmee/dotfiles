@@ -1,5 +1,5 @@
-local refactoring = require('refactoring')
-refactoring.setup()
+local refactor = require('refactoring')
+refactor.setup({})
 
 -- telescope refactoring helper
 local function refactor(prompt_bufnr)
@@ -16,11 +16,13 @@ end
 -- in the mappings below
 M = {}
 M.refactors = function()
-  require('telescope.pickers').new({}, {
+  local opts = require('telescope.themes').get_cursor() -- set personal telescope options
+  require('telescope.pickers').new(opts, {
     prompt_title = 'refactors',
-    finder = require('telescope.finders').new_table(
-        { results = require('refactoring').get_refactors() }),
-    sorter = require('telescope.config').values.generic_sorter({}),
+    finder = require('telescope.finders').new_table({
+      results = require('refactoring').get_refactors(),
+    }),
+    sorter = require('telescope.config').values.generic_sorter(opts),
     attach_mappings = function(_, map)
       map('i', '<CR>', refactor)
       map('n', '<CR>', refactor)
@@ -29,16 +31,11 @@ M.refactors = function()
   }):find()
 end
 
--- extract function
-vim.api.nvim_set_keymap('v', '<leader>re',
-                        [[ <Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+vim.api.nvim_set_keymap('v', '<Leader>re',
+                        [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
                         { noremap = true, silent = true, expr = false })
-
--- extract function to file
-vim.api.nvim_set_keymap('v', '<leader>rf',
-                        [[ <Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+vim.api.nvim_set_keymap('v', '<Leader>rf',
+                        [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
                         { noremap = true, silent = true, expr = false })
-
--- refactors list
-vim.api.nvim_set_keymap('v', '<leader>rt', [[ <Cmd>lua M.refactors()<CR>]],
+vim.api.nvim_set_keymap('v', '<Leader>rt', [[ <Esc><Cmd>lua M.refactors()<CR>]],
                         { noremap = true, silent = true, expr = false })
