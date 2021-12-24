@@ -36,6 +36,7 @@ vim.g.coc_global_extensions = {
   'coc-eslint',
   'coc-floaterm',
   'coc-format-json',
+  'coc-fzf-preview',
   'coc-gist',
   'coc-go',
   'coc-highlight',
