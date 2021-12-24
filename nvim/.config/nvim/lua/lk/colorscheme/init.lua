@@ -1,5 +1,8 @@
--- NOTE: vim-code-dark
-require('lk/colorscheme/vscode')
+-- NOTE: tokyonight
+require('lk/colorscheme/tokyonight')
+
+-- -- NOTE: vim-code-dark
+-- require('lk/colorscheme/vscode')
 
 -- -- NOTE: onedark
 -- require('lk/colorscheme/onedark')
@@ -18,9 +21,6 @@ require('lk/colorscheme/vscode')
 
 -- -- NOTE: nord
 -- require('lk/colorscheme/nord')
-
--- -- NOTE: tokyonight
--- require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
