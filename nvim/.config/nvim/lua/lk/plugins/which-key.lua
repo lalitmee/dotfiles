@@ -862,91 +862,6 @@ local leader_key_maps = {
     ['W'] = { ':Tgrep<CR>', 'tj-grep' },
   },
 
-  -- NOTE: P is for CocCommand fzf-preview using CocCommand
-  ['P'] = {
-    ['name'] = '+fzf-preview',
-    ['b'] = {
-      ['name'] = '+buffers',
-      ['a'] = { ':CocCommand fzf-preview.AllBuffers<CR>', 'all-buffers' },
-      ['b'] = { ':CocCommand fzf-preview.Buffers<CR>', 'buffers' },
-      ['l'] = { ':CocCommand fzf-preview.BufferLines<CR>', 'buffer-lines' },
-      ['t'] = { ':CocCommand fzf-preview.BufferTags<CR>', 'buffer-tags' },
-      ['v'] = {
-        ':CocCommand fzf-preview.VistaBufferCtags<CR>',
-        'vista-buffer-ctags',
-      },
-    },
-    ['c'] = { ':CocCommand fzf-preview.CommandPalette<CR>', 'commands-history' },
-    ['f'] = {
-      ['name'] = '+files',
-      ['p'] = { ':CocCommand fzf-preview.ProjectFiles<CR>', 'project-files' },
-      ['g'] = { ':CocCommand fzf-preview.GitFiles<CR>', 'git-files' },
-      ['d'] = { ':CocCommand fzf-preview.DirectoryFiles<CR>', 'directory-files' },
-      ['o'] = {
-        ':CocCommand fzf-preview.ProjectOldFiles<CR>',
-        'project-old-files',
-      },
-      ['O'] = { ':CocCommand fzf-preview.OldFiles<CR>', 'old-files' },
-      ['r'] = {
-        ':CocCommand fzf-preview.ProjectMruFiles<CR>',
-        'project-mru-files',
-      },
-      ['R'] = { ':CocCommand fzf-preview.MruFiles<CR>', 'mru-files' },
-      ['w'] = {
-        ':CocCommand fzf-preview.ProjectMrwFiles<CR>',
-        'project-mrw-files',
-      },
-      ['W'] = { ':CocCommand fzf-preview.MrwFiles<CR>', 'mrw-files' },
-    },
-    ['g'] = {
-      ['name'] = '+git',
-      ['a'] = { ':CocCommand fzf-preview.GitActions', 'git-actions' },
-      ['b'] = { ':CocCommand fzf-preview.GitBranches', 'git-branches' },
-      ['B'] = {
-        ':CocCommand fzf-preview.GitBrancheActions',
-        'git-branch-actions',
-      },
-      ['c'] = { ':CocCommand fzf-preview.Changes<CR>', 'changes' },
-      ['f'] = { ':CocCommand fzf-preview.GitFiles<CR>', 'git-files' },
-      ['s'] = { ':CocCommand fzf-preview.GitStatus', 'git-status' },
-      ['S'] = { ':CocCommand fzf-preview.GitStatusActions',
-                'git-status-actions' },
-      ['l'] = { ':CocCommand fzf-preview.GitLogs', 'git-logs' },
-      ['L'] = { ':CocCommand fzf-preview.GitCurrentLogs', 'git-current-logs' },
-      ['h'] = { ':CocCommand fzf-preview.GitStashes', 'git-stashes' },
-      ['H'] = { ':CocCommand fzf-preview.GitStashActions', 'git-stash-actions' },
-      ['g'] = { ':CocCommand fzf-preview.GitLogActions', 'git-log-actions' },
-    },
-    ['j'] = { ':CocCommand fzf-preview.Jumps<CR>', 'jumps' },
-    ['l'] = { ':CocCommand fzf-preview.LocationList<CR>', 'location-list' },
-    ['m'] = { ':CocCommand fzf-preview.Marks<CR>', 'marks' },
-    ['M'] = { ':CocCommand fzf-preview.BlamePR<CR>', 'blame-pr' },
-    ['p'] = {
-      ['name'] = '+project',
-      ['f'] = { ':CocCommand fzf-preview.ProjectFiles<CR>', 'project-files' },
-      ['o'] = {
-        ':CocCommand fzf-preview.ProjectOldFiles<CR>',
-        'project-old-files',
-      },
-      ['r'] = {
-        ':CocCommand fzf-preview.ProjectMruFiles<CR>',
-        'project-mru-files',
-      },
-      ['s'] = { ':CocCommand fzf-preview.ProjectGrep<CR>', 'project-grep' },
-      ['S'] = {
-        ':CocCommand fzf-preview.ProjectGrepRecall<CR>',
-        'project-grep-recall',
-      },
-      ['w'] = {
-        ':CocCommand fzf-preview.ProjectMrwFiles<CR>',
-        'project-mrw-files',
-      },
-    },
-    ['q'] = { ':CocCommand fzf-preview.QuickFix<CR>', 'quick-fix' },
-    ['t'] = { ':CocCommand fzf-preview.TodoComments<CR>', 'todo-comments' },
-    ['v'] = { ':CocCommand fzf-preview.VistCtags<CR>', 'vista-ctags' },
-  },
-
   -- NOTE: q is for quickfix and quit
   ['q'] = {
     ['name'] = '+sessions',
@@ -1147,6 +1062,91 @@ local local_leader_key_maps = {
   ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
   ['7'] = { ':lua require("harpoon.ui").nav_file(7)<CR>', 'goto-file-7' },
   ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
+
+  -- NOTE: f is for CocCommand fzf-preview using CocCommand
+  ['f'] = {
+    ['name'] = '+fzf-preview',
+    ['b'] = {
+      ['name'] = '+buffers',
+      ['a'] = { ':CocCommand fzf-preview.AllBuffers<CR>', 'all-buffers' },
+      ['b'] = { ':CocCommand fzf-preview.Buffers<CR>', 'buffers' },
+      ['l'] = { ':CocCommand fzf-preview.BufferLines<CR>', 'buffer-lines' },
+      ['t'] = { ':CocCommand fzf-preview.BufferTags<CR>', 'buffer-tags' },
+      ['v'] = {
+        ':CocCommand fzf-preview.VistaBufferCtags<CR>',
+        'vista-buffer-ctags',
+      },
+    },
+    ['c'] = { ':CocCommand fzf-preview.CommandPalette<CR>', 'commands-history' },
+    ['f'] = {
+      ['name'] = '+files',
+      ['p'] = { ':CocCommand fzf-preview.ProjectFiles<CR>', 'project-files' },
+      ['g'] = { ':CocCommand fzf-preview.GitFiles<CR>', 'git-files' },
+      ['d'] = { ':CocCommand fzf-preview.DirectoryFiles<CR>', 'directory-files' },
+      ['o'] = {
+        ':CocCommand fzf-preview.ProjectOldFiles<CR>',
+        'project-old-files',
+      },
+      ['O'] = { ':CocCommand fzf-preview.OldFiles<CR>', 'old-files' },
+      ['r'] = {
+        ':CocCommand fzf-preview.ProjectMruFiles<CR>',
+        'project-mru-files',
+      },
+      ['R'] = { ':CocCommand fzf-preview.MruFiles<CR>', 'mru-files' },
+      ['w'] = {
+        ':CocCommand fzf-preview.ProjectMrwFiles<CR>',
+        'project-mrw-files',
+      },
+      ['W'] = { ':CocCommand fzf-preview.MrwFiles<CR>', 'mrw-files' },
+    },
+    ['g'] = {
+      ['name'] = '+git',
+      ['a'] = { ':CocCommand fzf-preview.GitActions', 'git-actions' },
+      ['b'] = { ':CocCommand fzf-preview.GitBranches', 'git-branches' },
+      ['B'] = {
+        ':CocCommand fzf-preview.GitBrancheActions',
+        'git-branch-actions',
+      },
+      ['c'] = { ':CocCommand fzf-preview.Changes<CR>', 'changes' },
+      ['f'] = { ':CocCommand fzf-preview.GitFiles<CR>', 'git-files' },
+      ['s'] = { ':CocCommand fzf-preview.GitStatus', 'git-status' },
+      ['S'] = { ':CocCommand fzf-preview.GitStatusActions',
+                'git-status-actions' },
+      ['l'] = { ':CocCommand fzf-preview.GitLogs', 'git-logs' },
+      ['L'] = { ':CocCommand fzf-preview.GitCurrentLogs', 'git-current-logs' },
+      ['h'] = { ':CocCommand fzf-preview.GitStashes', 'git-stashes' },
+      ['H'] = { ':CocCommand fzf-preview.GitStashActions', 'git-stash-actions' },
+      ['g'] = { ':CocCommand fzf-preview.GitLogActions', 'git-log-actions' },
+    },
+    ['j'] = { ':CocCommand fzf-preview.Jumps<CR>', 'jumps' },
+    ['l'] = { ':CocCommand fzf-preview.LocationList<CR>', 'location-list' },
+    ['m'] = { ':CocCommand fzf-preview.Marks<CR>', 'marks' },
+    ['M'] = { ':CocCommand fzf-preview.BlamePR<CR>', 'blame-pr' },
+    ['p'] = {
+      ['name'] = '+project',
+      ['f'] = { ':CocCommand fzf-preview.ProjectFiles<CR>', 'project-files' },
+      ['o'] = {
+        ':CocCommand fzf-preview.ProjectOldFiles<CR>',
+        'project-old-files',
+      },
+      ['r'] = {
+        ':CocCommand fzf-preview.ProjectMruFiles<CR>',
+        'project-mru-files',
+      },
+      ['s'] = { ':CocCommand fzf-preview.ProjectGrep<CR>', 'project-grep' },
+      ['S'] = {
+        ':CocCommand fzf-preview.ProjectGrepRecall<CR>',
+        'project-grep-recall',
+      },
+      ['w'] = {
+        ':CocCommand fzf-preview.ProjectMrwFiles<CR>',
+        'project-mrw-files',
+      },
+    },
+    ['q'] = { ':CocCommand fzf-preview.QuickFix<CR>', 'quick-fix' },
+    ['t'] = { ':CocCommand fzf-preview.TodoComments<CR>', 'todo-comments' },
+    ['v'] = { ':CocCommand fzf-preview.VistCtags<CR>', 'vista-ctags' },
+  },
   ['r'] = { ':lua require("harpoon.mark").rm_file()<CR>', 'remove-file' },
   ['m'] = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'quick-menu' },
   [']'] = 'replace-all',

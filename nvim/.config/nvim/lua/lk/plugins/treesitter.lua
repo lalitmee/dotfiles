@@ -7,7 +7,7 @@ require('nvim-treesitter.configs').setup({
     enable = true,
     extended_mode = true,
     max_file_lines = 4000,
-    disable = { 'lua', 'json' },
+    -- disable = { 'lua', 'json' },
   },
   playground = { enable = true, updatetime = 25, persist_queries = false },
   context_commentstring = {

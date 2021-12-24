@@ -1,6 +1,12 @@
 -- NOTE: vim-code-dark
 require('lk/colorscheme/vscode')
 
+-- -- NOTE: onedark
+-- require('lk/colorscheme/onedark')
+
+-- -- NOTE: vim-code-dark
+-- require('lk/colorscheme/nordic')
+
 -- -- NOTE: gruvbuddy
 -- require('lk/colorscheme/gruvbuddy')
 
