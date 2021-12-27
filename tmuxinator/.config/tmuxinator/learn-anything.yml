@@ -1,0 +1,11 @@
+# /home/lalitmee/.config/tmuxinator/learn-anything.yml
+
+name: learn-anything
+root: ~/Desktop/Github/learn
+
+windows:
+  - all: gst
+  - bash: cd bash && ls
+  - golang: cd golang && ls
+  - javascript: cd javascript && ls
+  - python: cd python && ls

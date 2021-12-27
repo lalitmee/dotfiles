@@ -288,6 +288,12 @@ return require('packer').startup {
 
     -- Notes {{{
 
+    -- table like in org mode in emacs
+    use { 'dhruvasagar/vim-table-mode' }
+
+    -- run any code of any file type
+    use { 'michaelb/sniprun', run = 'bash ./install.sh' }
+
     -- use 'michal-h21/vim-zettel' -- zettel tasks
     -- use 'vimwiki/vimwiki' -- vim wiki
 
@@ -308,13 +314,10 @@ return require('packer').startup {
             require('headlines').setup()
           end,
         },
-        { 'michaelb/sniprun', run = 'bash ./install.sh' },
-        { 'dhruvasagar/vim-table-mode' },
       },
       config = function()
         require('orgmode').setup {}
       end,
-      disable = true,
     }
 
     -- }}}
