@@ -6,6 +6,9 @@ require('lk/plugins/nvim_lsp/commands')
 require('lk/plugins/nvim_lsp/handlers')
 require('lk/plugins/nvim_lsp/mappings')
 
+-- servers config
+require('lk/plugins/nvim_lsp/servers/gopls')
+
 local autocommands = require('lk/plugins/nvim_lsp/autocommands')
 local mappings = require('lk/plugins/nvim_lsp/mappings')
 
