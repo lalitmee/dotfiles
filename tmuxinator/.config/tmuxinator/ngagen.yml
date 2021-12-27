@@ -6,4 +6,5 @@ root: ~/Desktop/koinearth/ngagen
 windows:
   - ngagen-app: cd ngagen-app
   - ngagen-webapp-service-nextjs: cd ngagen-webapp-service-nextjs
+  - ngagen-pdf-service: cd ngagen-pdf-service
   - merged-prs: cd merged-prs
