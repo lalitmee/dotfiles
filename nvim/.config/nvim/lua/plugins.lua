@@ -21,6 +21,14 @@ return require('packer').startup {
 
     -- UI AND BEAUTIFY {{{
 
+    -- prettify quickfix windows for neovim
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        require('pqf').setup()
+      end,
+    }
+
     -- NOTE: disturbing Telescope UI
     -- -- auto focus and resizing
     -- use {
@@ -80,10 +88,12 @@ return require('packer').startup {
     use { 'shaunsingh/nord.nvim' }
     use { 'lalitmee/cobalt2.nvim' }
     use { 'marko-cerovac/material.nvim' }
-    -- use { 'navarasu/onedark.nvim' }
-    use { 'olimorris/onedark.nvim' }
+    use { 'olimorris/onedarkpro.nvim' }
+    use { 'LunarVim/onedarker.nvim' }
+    use { 'lukas-reineke/onedark.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
+    use { 'andersevenrud/nordic.nvim' }
 
     -- }}}
 
@@ -119,6 +129,7 @@ return require('packer').startup {
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
+      requires = { 'tami5/sqlite.lua', module = 'sqlite' },
       config = function()
         require('neoclip').setup()
       end,
@@ -287,6 +298,12 @@ return require('packer').startup {
 
     -- Notes {{{
 
+    -- table like in org mode in emacs
+    use { 'dhruvasagar/vim-table-mode' }
+
+    -- run any code of any file type
+    use { 'michaelb/sniprun', run = 'bash ./install.sh' }
+
     -- use 'michal-h21/vim-zettel' -- zettel tasks
     -- use 'vimwiki/vimwiki' -- vim wiki
 
@@ -307,13 +324,10 @@ return require('packer').startup {
             require('headlines').setup()
           end,
         },
-        { 'michaelb/sniprun', run = 'bash ./install.sh' },
-        { 'dhruvasagar/vim-table-mode' },
       },
       config = function()
         require('orgmode').setup {}
       end,
-      disable = true,
     }
 
     -- }}}
@@ -500,8 +514,9 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        { 'nvim-telescope/telescope-packer.nvim' },
+        -- { 'nvim-telescope/telescope-packer.nvim' },
         { 'nvim-telescope/telescope-smart-history.nvim' },
+        { 'dhruvmanila/telescope-bookmarks.nvim' },
       },
     }
 
@@ -510,6 +525,14 @@ return require('packer').startup {
     -- }}}
 
     -- LANGUAGES {{{
+
+    -- golang
+    use {
+      'ray-x/go.nvim',
+      config = function()
+        require('go').setup()
+      end,
+    }
 
     -- packages info
     use {

@@ -124,6 +124,18 @@ require('telescope').setup {
         ['data'] = '/home/lalitmee/.local/share'
       }
     },
+    bookmarks = {
+      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
+      selected_browser = 'brave',
+
+      -- Either provide a shell command to open the URL
+      url_open_command = 'xdg-open',
+
+      -- Or provide the plugin name which is already installed
+      -- Available: 'vim_external', 'open_browser'
+      url_open_plugin = nil,
+      firefox_profile_name = nil,
+    },
     openbrowser = {
       bookmarks = {
         -- work related bookmards
@@ -202,10 +214,13 @@ require('telescope').setup {
 -- require('telescope').load_extension('tmux')
 
 -- smart history in telescope
+require('telescope').load_extension('bookmarks')
+
+-- smart history in telescope
 require('telescope').load_extension('smart_history')
 
--- packer integration with telescope
-require('telescope').load_extension('packer')
+-- -- packer integration with telescope
+-- require('telescope').load_extension('packer')
 
 -- project management in telescope
 require('telescope').load_extension('zoxide')

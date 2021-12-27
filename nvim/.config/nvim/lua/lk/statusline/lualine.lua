@@ -2,8 +2,8 @@ local lualine = require('lualine')
 
 lualine.setup {
   options = {
-    -- theme = 'auto',
-    theme = 'solarized_dark',
+    theme = 'auto',
+    -- theme = 'nord',
     separator = { left = '', right = '' },
     -- section_separators = { '', '' },
     -- component_separators = { '', '' },
@@ -17,7 +17,7 @@ lualine.setup {
       {
         'diagnostics',
         -- sources = { 'coc' },
-        sources = { 'nvim_lsp' },
+        sources = { 'nvim_diagnostic' },
         symbols = {
           error = ' :',
           warn = ' :',
@@ -32,15 +32,12 @@ lualine.setup {
         },
         update_in_insert = true,
       },
-      {
-        -- 'b:coc_current_function',
-        -- 'g:coc_status',
-      },
       { 'LspStatus' },
+      { 'diff' },
     },
     lualine_x = { { 'filesize' } },
     lualine_y = { { 'progress' } },
-    lualine_z = { { 'location' } },
+    lualine_z = { { 'location' }, { 'tabs' } },
   },
   inactive_sections = {
     lualine_a = {},
@@ -49,5 +46,13 @@ lualine.setup {
     lualine_x = { 'filetype' },
     lualine_z = { 'location' },
   },
+  -- tabline = {
+  --   lualine_a = { 'buffers' },
+  --   lualine_b = {},
+  --   lualine_c = {},
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = { 'tabs' },
+  -- },
   extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix', 'toggleterm' },
 }
