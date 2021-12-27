@@ -4,6 +4,5 @@ name: ngagen-worktrees
 root: ~/Desktop/koinearth/ngagen/worktrees
 windows:
   - ngagen-app: cd ngagen-app
-  - ngagen-webapp-service-static: cd ngagen-webapp-service-static
-  - ngagen-webapp-service: cd ngagen-webapp-service
+  - ngagen-webapp-service-nextjs: cd ngagen-webapp-service-nextjs
   - merged-prs: cd merged-prs
