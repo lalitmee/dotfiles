@@ -74,26 +74,26 @@ return require('packer').startup {
 
     -- colorschemes {{{
 
-    -- enabled
     use {
       'folke/twilight.nvim',
       config = function()
         require('twilight').setup {}
       end,
     }
-    use { 'rmehri01/onenord.nvim' }
+    use { 'LunarVim/onedarker.nvim' }
     use { 'Mofiqul/vscode.nvim' }
     use { 'Murtaza-Udaipurwala/gruvqueen' }
+    use { 'andersevenrud/nordic.nvim' }
     use { 'folke/tokyonight.nvim' }
-    use { 'shaunsingh/nord.nvim' }
     use { 'lalitmee/cobalt2.nvim' }
+    use { 'luisiacc/gruvbox-baby' }
+    use { 'lukas-reineke/onedark.nvim' }
     use { 'marko-cerovac/material.nvim' }
     use { 'olimorris/onedarkpro.nvim' }
-    use { 'LunarVim/onedarker.nvim' }
-    use { 'lukas-reineke/onedark.nvim' }
+    use { 'rmehri01/onenord.nvim' }
+    use { 'shaunsingh/nord.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
-    use { 'andersevenrud/nordic.nvim' }
 
     -- }}}
 
@@ -144,6 +144,18 @@ return require('packer').startup {
     }
 
     -- Search, Replace and Jump {{{
+
+    use {
+      'ray-x/sad.nvim',
+      requires = { 'ray-x/guihua.lua' },
+      config = function()
+        require('sad').setup({
+          diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+          ls_file = 'fd', -- also git ls_file
+          exact = false, -- exact match
+        })
+      end,
+    }
 
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'

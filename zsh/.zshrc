@@ -220,8 +220,8 @@ alias c="clear"
 # hacker-new client
 alias hn="haxor-news"
 
-# alias for cheatsheet command
-alias cheat="cheatsheet"
+# # alias for cheatsheet command
+# alias cheat="cheatsheet"
 
 # for finding swap files
 alias swps="find . -name .\*.sw[op]"
