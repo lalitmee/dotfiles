@@ -1,6 +1,9 @@
 -- NOTE: tokyonight
 require('lk/colorscheme/tokyonight')
 
+-- -- NOTE: gruvbox baby
+-- require('lk/colorscheme/gruvbox-baby')
+
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')
 

@@ -262,5 +262,6 @@ command {
   [[:call CocAction('runCommand', 'editor.action.organizeImport')]],
   nargs = 0,
 }
+
 vim.cmd 'set tagfunc=CocTagFunc'
 -- }}}
