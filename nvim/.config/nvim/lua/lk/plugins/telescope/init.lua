@@ -187,12 +187,12 @@ require('telescope').setup {
         ['google'] = 'https://www.google.com/search?q={query}',
       },
     },
-    -- arecibo = {
-    --   ['selected_engine'] = 'google',
-    --   ['url_open_command'] = 'xdg-open',
-    --   ['show_http_headers'] = false,
-    --   ['show_domain_icons'] = false
-    -- },
+    arecibo = {
+      ['selected_engine'] = 'google',
+      ['url_open_command'] = 'xdg-open',
+      ['show_http_headers'] = false,
+      ['show_domain_icons'] = false
+    },
     project = {
       base_dirs = {
         { '~/Desktop/Github', max_depth = 3 },
@@ -207,14 +207,14 @@ require('telescope').setup {
 --                          loading extensions start                           --
 ---------------------------------------------------------------------------------
 
--- search internet
--- require('telescope').load_extension('arecibo')
-
 -- -- coc integration in telescope
 -- require('telescope').load_extension('coc')
 
 -- -- tmux integration in telescope
 -- require('telescope').load_extension('tmux')
+
+-- search internet
+require('telescope').load_extension('arecibo')
 
 -- smart history in telescope
 require('telescope').load_extension('bookmarks')
@@ -257,6 +257,9 @@ require('telescope').load_extension('ultisnips')
 
 -- emoji search
 require('telescope').load_extension('emoji')
+
+-- file browser
+require('telescope').load_extension('file_browser')
 
 ---------------------------------------------------------------------------------
 --                           loading extensions end                            --
