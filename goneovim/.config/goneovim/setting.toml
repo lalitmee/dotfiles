@@ -38,7 +38,14 @@ StartFullscreen = true
 ## In MacOS,
 # FontFamily = "Monaco Nerd Font"
 ## In Linux
-FontFamily = "OperatorMono Lig Book"
+# FontFamily = "OperatorMono Lig Book"
+# FontFamily = "CaskaydiaCove Nerd Font Mono"
+# FontFamily = "JetBrainsMono Nerd Font Mono"
+FontFamily = "JetBrainsMonoMedium Nerd Font Mono"
+# FontFamily = "BlexMono Nerd Font Mono"
+# FontFamily = "SpaceMono Nerd Font Mono"
+# FontFamily = "SauceCodePro Nerd Font Mono"
+# FontFamily = "UbuntuMono Nerd Font"
 ## In Windows
 # FontFamily = "Windows"
 ## Fontsize is
@@ -66,8 +73,8 @@ Linespace = 6
 ## Disables font ligatures.
 # DisableLigatures = true
 
-## Copy yanked text to clipboard
-# Clipboard = true
+# Copy yanked text to clipboard
+Clipboard = true
 
 ## This setting is equivalent to Macmeta in MacVim.
 # Macmeta = true
@@ -93,11 +100,11 @@ SmoothScroll = true
 ## Disables horizontal scrolling for smooth scrolling with the touchpad.
 # DisableHorizontalScroll = true
 
-## Draw border on a float window
-# DrawBorderForFloatWindow = false
+# Draw border on a float window
+DrawBorderForFloatWindow = false
 
-## Draw shadow under a float window
-# DrawShadowForFloatWindow = false
+# Draw shadow under a float window
+DrawShadowForFloatWindow = false
 
 ## Enable desktop notification settings for nvim messages.
 ## This option works only if `ExtMessages` is enabled.

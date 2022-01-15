@@ -3,7 +3,7 @@ local lualine = require('lualine')
 lualine.setup {
   options = {
     theme = 'auto',
-    -- theme = 'nord',
+    -- theme = 'palenight',
     separator = { left = '', right = '' },
     -- section_separators = { '', '' },
     -- component_separators = { '', '' },

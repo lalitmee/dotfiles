@@ -1,8 +1,17 @@
--- NOTE: tokyonight
-require('lk/colorscheme/tokyonight')
+-- NOTE: vim-code-dark
+require('lk/colorscheme/vscode')
 
--- -- NOTE: vim-code-dark
--- require('lk/colorscheme/vscode')
+-- -- NOTE: kanagawa
+-- require('lk/colorscheme/kanagawa')
+
+-- -- NOTE: github
+-- require('lk/colorscheme/github')
+
+-- -- NOTE: tokyonight
+-- require('lk/colorscheme/tokyonight')
+
+-- -- NOTE: gruvbox baby
+-- require('lk/colorscheme/gruvbox-baby')
 
 -- -- NOTE: onedark
 -- require('lk/colorscheme/onedark')
@@ -15,9 +24,6 @@ require('lk/colorscheme/tokyonight')
 
 -- -- NOTE: gruvqueen
 -- require('lk/colorscheme/gruvqueen')
-
--- -- NOTE: github
--- require('lk/colorscheme/github')
 
 -- -- NOTE: nord
 -- require('lk/colorscheme/nord')
