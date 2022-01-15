@@ -141,5 +141,16 @@
   "Lua.workspace.preloadFileSize": 1000,
   "sumneko-lua.enableNvimLuaDev": true,
 
-  "session.directory": "~/.local/share/nvim/sessions"
+  "session.directory": "~/.local/share/nvim/sessions",
+
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+  }
 }

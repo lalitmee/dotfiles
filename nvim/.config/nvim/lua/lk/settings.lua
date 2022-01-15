@@ -290,7 +290,7 @@ end
 
 -- vim.cmd {{{
 
-vim.cmd([[syntax enable]])
+-- vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[set re=1]])
 vim.cmd([[set shada=!,'1000,<50,s10,h]])

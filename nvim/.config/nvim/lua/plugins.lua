@@ -19,8 +19,9 @@ return require('packer').startup {
     -- NOTE: man pages in vim
     use 'vim-utils/vim-man'
 
-    -- UI AND BEAUTIFY {{{
-
+    ----------------------------------------------------------------------------
+    --                            UI AND BEAUTIFY                             --
+    ----------------------------------------------------------------------------
     -- prettify quickfix windows for neovim
     use {
       'https://gitlab.com/yorickpeterse/nvim-pqf.git',
@@ -29,24 +30,7 @@ return require('packer').startup {
       end,
     }
 
-    -- NOTE: disturbing Telescope UI
-    -- -- auto focus and resizing
-    -- use {
-    --   'beauwilliams/focus.nvim',
-    --   config = function()
-    --     require('focus').setup()
-    --   end,
-    -- }
-
-    -- stabilize windows
-    use {
-      'luukvbaal/stabilize.nvim',
-      config = function()
-        require('stabilize').setup()
-      end,
-    }
-
-    -- notifications
+    -- NOTE: notifications
     use {
       'rcarriga/nvim-notify',
       config = function()
@@ -72,42 +56,38 @@ return require('packer').startup {
       end,
     }
 
-    -- colorschemes {{{
-
-    -- enabled
-    use {
-      'folke/twilight.nvim',
-      config = function()
-        require('twilight').setup {}
-      end,
-    }
-    use { 'rmehri01/onenord.nvim' }
+    -- NOTE: colorschemes
+    -- use {
+    --   'folke/twilight.nvim',
+    --   config = function()
+    --     require('twilight').setup {}
+    --   end,
+    -- }
+    use { 'rebelot/kanagawa.nvim' }
+    use { 'LunarVim/onedarker.nvim' }
     use { 'Mofiqul/vscode.nvim' }
     use { 'Murtaza-Udaipurwala/gruvqueen' }
+    use { 'andersevenrud/nordic.nvim' }
     use { 'folke/tokyonight.nvim' }
-    use { 'shaunsingh/nord.nvim' }
     use { 'lalitmee/cobalt2.nvim' }
+    use { 'luisiacc/gruvbox-baby' }
+    use { 'lukas-reineke/onedark.nvim' }
     use { 'marko-cerovac/material.nvim' }
     use { 'olimorris/onedarkpro.nvim' }
-    use { 'LunarVim/onedarker.nvim' }
-    use { 'lukas-reineke/onedark.nvim' }
+    use { 'rmehri01/onenord.nvim' }
+    use { 'shaunsingh/nord.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
-    use { 'andersevenrud/nordic.nvim' }
+    use { 'projekt0n/github-nvim-theme' }
 
-    -- }}}
-
-    -- icons {{{
-
+    -- NOTE: icons
     -- beautiful icons
     use {
       'yamatsum/nvim-nonicons',
       requires = { 'kyazdani42/nvim-web-devicons' },
     }
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     -- toggle, display and navigate marks
     use 'kshenoy/vim-signature'
@@ -120,12 +100,9 @@ return require('packer').startup {
     -- Colorizer for showing the colors
     use 'norcalli/nvim-colorizer.lua'
 
-    -- }}}
-
-    -- }}}
-
-    -- ACTIONS {{{
-
+    ------------------------------------------------------------------------
+    --                          ACTIONS                                   --
+    ------------------------------------------------------------------------
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
@@ -143,7 +120,18 @@ return require('packer').startup {
       end,
     }
 
-    -- Search, Replace and Jump {{{
+    -- Search, Replace and Jump
+    use {
+      'ray-x/sad.nvim',
+      requires = { 'ray-x/guihua.lua' },
+      config = function()
+        require('sad').setup({
+          diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+          ls_file = 'fd', -- also git ls_file
+          exact = false, -- exact match
+        })
+      end,
+    }
 
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'
@@ -169,15 +157,11 @@ return require('packer').startup {
     -- Quickscope same as f, F, t, T but better
     use 'unblevable/quick-scope'
 
-    -- }}}
-
-    -- Navigations {{{
+    -- Navigations
 
     use 'ThePrimeagen/harpoon'
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     -- move code up and down
     use 'matze/vim-move'
@@ -186,6 +170,24 @@ return require('packer').startup {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
+      end,
+    }
+
+    use {
+      'petertriho/nvim-scrollbar',
+      config = function()
+        require('scrollbar').setup({
+          show = true,
+          handle = {
+            text = ' ',
+            color = 'grey',
+            hide_if_all_visible = true, -- Hides handle if all lines are visible
+          },
+          handlers = {
+            diagnostic = true,
+            search = true, -- Requires hlslens to be loaded
+          },
+        })
       end,
     }
 
@@ -267,10 +269,7 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- commenting {{{
-
+    -- commenting
     use {
       'numToStr/Comment.nvim',
       config = function()
@@ -278,12 +277,9 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- }}}
-
-    -- TEXT {{{
-
+    ------------------------------------------------------------------------
+    --                          TEXT                                      --
+    ------------------------------------------------------------------------
     -- inline text edit
     use 'AndrewRadev/inline_edit.vim'
 
@@ -296,7 +292,7 @@ return require('packer').startup {
     -- github copilot
     use 'github/copilot.vim'
 
-    -- Notes {{{
+    -- NOTE: Notes
 
     -- table like in org mode in emacs
     use { 'dhruvasagar/vim-table-mode' }
@@ -330,9 +326,7 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- Snippets {{{
+    -- NOTE: Snippets
 
     -- -- snippets engine
     use {
@@ -346,9 +340,7 @@ return require('packer').startup {
     -- -- snippets in lua
     -- use 'norcalli/snippets.nvim'
 
-    -- }}}
-
-    -- Format {{{
+    -- NOTE: Format
 
     -- use 'lukas-reineke/format.nvim'
 
@@ -359,49 +351,65 @@ return require('packer').startup {
     -- Tabularize for Vim
     use 'godlygeek/tabular'
 
-    -- }}}
-
-    -- Undo {{{
+    -- Undo
 
     use 'simnalamburt/vim-mundo'
 
-    -- }}}
-
-    -- }}}
-
-    -- LSP {{{
-
-    -- coc.nvim {{{
-
+    ------------------------------------------------------------------------
+    --                          LSP                          --
+    ------------------------------------------------------------------------
+    -- -- NOTE: coc.nvim
     -- use 'neoclide/vim-jsx-improve'
-
     -- -- vim completion for coc
     -- use 'Shougo/neco-vim'
     -- use 'neoclide/coc-neco'
 
-    -- -- Completion Conquerer
-    -- use {
-    --   'neoclide/coc.nvim',
-    --   branch = 'release'
-    -- }
+    -- -- NOTE: Completion Conquerer
+    -- use { 'neoclide/coc.nvim', branch = 'release' }
 
-    use { 'fannheyward/go.vim', ft = 'go' }
+    -- use { 'fannheyward/go.vim', ft = 'go' }
 
-    -- }}}
-
-    -- neovim-lsp {{{
-
+    -- NOTE: neovim-lsp
     use {
       'neovim/nvim-lspconfig',
       requires = {
-        { 'onsails/lspkind-nvim' },
-        { 'tami5/lspsaga.nvim' },
         {
-          'mfussenegger/nvim-lint',
+          'onsails/lspkind-nvim',
           config = function()
-            require('lk/plugins/nvim_lsp/lint')
+            require('lspkind').init({
+              preset = 'codicons',
+              symbol_map = {
+                Class = '   ',
+                Color = '   ',
+                Constant = '   ',
+                Constructor = '   ',
+                Default = '   ',
+                Enum = ' 了 ',
+                EnumMember = '   ',
+                Event = '   ',
+                Field = '   ',
+                File = '   ',
+                Folder = '   ',
+                Function = '   ',
+                Interface = ' ﰮ  ',
+                Keyword = '   ',
+                Method = ' ƒ  ',
+                Module = '   ',
+                Operator = ' ○  ',
+                Property = '   ',
+                Reference = '   ',
+                Snippet = ' ﬌  ',
+                Struct = '   ',
+                Text = '   ',
+                TypeParameter = ' ⅀  ',
+                Unit = '   ',
+                Value = '   ',
+                Variable = '   ',
+              },
+            })
           end,
         },
+        { 'tami5/lspsaga.nvim' }, -- nvim-cmp plugins
         {
           'hrsh7th/nvim-cmp',
           requires = {
@@ -432,7 +440,6 @@ return require('packer').startup {
           config = function()
             require('trouble').setup {}
           end,
-          disable = true,
         },
         { 'folke/lua-dev.nvim' },
         {
@@ -445,9 +452,7 @@ return require('packer').startup {
       },
     }
 
-    -- }}}
-
-    -- Treesitter {{{
+    -- Treesitter
 
     use {
       'nvim-treesitter/nvim-treesitter',
@@ -484,18 +489,14 @@ return require('packer').startup {
     -- interactively swap so many things
     use 'mizlan/iswap.nvim'
 
-    -- }}}
-
-    -- }}}
-
-    -- FUZZY SEARCH {{{
-
+    ------------------------------------------------------------------------
+    --                         FUZZY SEARCH                           --
+    ------------------------------------------------------------------------
     use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf' } }
 
-    -- telescope.nvim {{{
+    -- telescope.nvim
     use { 'nvim-lua/plenary.nvim' }
     use { 'nvim-lua/popup.nvim' }
-
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
@@ -513,27 +514,16 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'xiyaowong/telescope-emoji.nvim' },
-        -- { 'nvim-telescope/telescope-packer.nvim' },
+        { 'xiyaowong/telescope-emoji.nvim' }, -- { 'nvim-telescope/telescope-packer.nvim' },
         { 'nvim-telescope/telescope-smart-history.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
       },
     }
+    use { 'nvim-telescope/telescope-file-browser.nvim' }
 
-    -- }}}
-
-    -- }}}
-
-    -- LANGUAGES {{{
-
-    -- golang
-    use {
-      'ray-x/go.nvim',
-      config = function()
-        require('go').setup()
-      end,
-    }
-
+    ----------------------------------------------------------------------------
+    --                                   LANGUAGES                            --
+    ----------------------------------------------------------------------------
     -- packages info
     use {
       'vuki656/package-info.nvim',
@@ -543,7 +533,7 @@ return require('packer').startup {
       end,
     }
 
-    -- refactor the code {{{
+    -- refactor the code
     use {
       'ThePrimeagen/refactoring.nvim',
       requires = {
@@ -551,9 +541,8 @@ return require('packer').startup {
         { 'nvim-treesitter/nvim-treesitter' },
       },
     }
-    -- }}}
 
-    -- HTML {{{
+    -- NOTE: HTML
 
     -- emmets in vim
     use 'mattn/emmet-vim'
@@ -565,9 +554,7 @@ return require('packer').startup {
     use 'wakatime/vim-wakatime'
     -- use 'sheerun/vim-polyglot'
 
-    -- }}}
-
-    -- markdown {{{
+    -- NOTE: markdown
 
     use {
       'iamcco/markdown-preview.nvim',
@@ -578,16 +565,12 @@ return require('packer').startup {
     -- markdown preview
     use { 'npxbr/glow.nvim', cmd = { 'Glow' } }
 
-    -- }}}
-
-    -- tags {{{
+    -- NOTE: tags
 
     -- Viewer & Finder for LSP symbols and tags
     use { 'liuchengxu/vista.vim', cmd = { 'Vista' } }
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     use {
       'RishabhRD/nvim-cheat.sh',
@@ -600,12 +583,9 @@ return require('packer').startup {
       },
     }
 
-    -- }}}
-
-    -- }}}
-
-    -- VERSION CONTROL STYSTEM {{{
-
+    ------------------------------------------------------------------------
+    --                          VERSION CONTROL STYSTEM                   --
+    ------------------------------------------------------------------------
     use { 'tpope/vim-fugitive' }
     use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
     use {
@@ -648,9 +628,9 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- STATUS AND TAB LINES {{{
+    ------------------------------------------------------------------------
+    --                          STATUS AND TAB LINES                      --
+    ------------------------------------------------------------------------
     -- use {
     --   'tjdevries/express_line.nvim',
     --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
@@ -662,12 +642,10 @@ return require('packer').startup {
     }
     use 'akinsho/nvim-bufferline.lua'
 
-    -- }}}
-
-    -- VIM NINJAS {{{
-
-    -- tpope {{{
-
+    ------------------------------------------------------------------------
+    --                          VIM NINJAS                                --
+    ------------------------------------------------------------------------
+    -- NOTE: tpope
     use 'tpope/vim-abolish'
     use {
       'tpope/vim-dispatch',
@@ -690,9 +668,7 @@ return require('packer').startup {
       },
     }
 
-    -- }}}
-
-    -- tjdevries  {{{
+    -- NOTE:  tjdevries
 
     -- use 'tjdevries/express_line.nvim'
     use 'tjdevries/nlua.nvim'
@@ -707,12 +683,9 @@ return require('packer').startup {
     -- Make comments appear IN YO FACE
     use { 'tjdevries/vim-inyoface', keys = { '<Plug>(InYoFace_Toggle)' } }
 
-    -- }}}
-
-    --  }}}
-
-    -- FILES {{{
-
+    ------------------------------------------------------------------------
+    --                          FILES                                     --
+    ------------------------------------------------------------------------
     use {
       'airblade/vim-rooter',
       config = function()
@@ -721,8 +694,7 @@ return require('packer').startup {
       end,
     }
 
-    -- Explorer {{{
-
+    -- Explorer
     use {
       'tamago324/lir.nvim',
       requires = {
@@ -758,9 +730,7 @@ return require('packer').startup {
 
     use { 'kyazdani42/nvim-tree.lua' }
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     -- for handling swap files
     use {
@@ -770,11 +740,9 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- }}}
-
-    -- TERMINAL {{{
+    ------------------------------------------------------------------------
+    --                          TERMINAL                                  --
+    ------------------------------------------------------------------------
 
     -- Float Terminal
     use { 'akinsho/nvim-toggleterm.lua' }
@@ -789,31 +757,50 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- GNVIM {{{
+    ------------------------------------------------------------------------
+    --                          GNVIM                                     --
+    ------------------------------------------------------------------------
 
     -- Goneovim Fuzzy search
     -- NOTE: not using this because we have neovide instead of goneovim
     use { 'akiyosi/gonvim-fuzzy', disable = false }
 
-    -- }}}
-
-    -- BROWSER {{{
+    ------------------------------------------------------------------------
+    --                          BROWSER                                   --
+    ------------------------------------------------------------------------
 
     -- sql nvim database for frecency
     use 'tami5/sqlite.lua'
     use 'tami5/sql.nvim'
     use 'tyru/open-browser.vim'
 
-    -- }}}
-
-    -- TESTING {{{
+    ------------------------------------------------------------------------
+    --                          TESTING                                   --
+    ------------------------------------------------------------------------
 
     -- debugger attach protocol
     use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
 
-    -- }}}
+    ----------------------------------------------------------------------------
+    --                            NOT USING                                   --
+    ----------------------------------------------------------------------------
+    -- -- NOTE: disturbing Telescope UI
+    -- -- auto focus and resizing
+    -- use {
+    --   'beauwilliams/focus.nvim',
+    --   config = function()
+    --     require('focus').setup()
+    --   end,
+    -- }
+    --
+    -- -- stabilize windows
+    -- use {
+    --   'luukvbaal/stabilize.nvim',
+    --   config = function()
+    --     require('stabilize').setup()
+    --   end,
+    -- }
+
   end,
   config = {
     display = {
