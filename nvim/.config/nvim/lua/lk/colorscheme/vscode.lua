@@ -1,5 +1,6 @@
 -- vscode
-vim.g.vscode_style = 'dark'
+-- vim.g.vscode_style = 'dark'
 -- For light theme
 -- vim.g.vscode_style = 'light'
-vim.cmd [[colorscheme vscode]]
+-- vim.cmd [[colorscheme vscode]]
+vim.cmd [[colorscheme darkplus]]

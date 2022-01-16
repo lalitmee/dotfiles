@@ -63,6 +63,7 @@ return require('packer').startup {
     --     require('twilight').setup {}
     --   end,
     -- }
+    use { 'martinsione/darkplus.nvim' }
     use { 'rebelot/kanagawa.nvim' }
     use { 'LunarVim/onedarker.nvim' }
     use { 'Mofiqul/vscode.nvim' }
