@@ -158,6 +158,9 @@ return require('packer').startup {
     -- Quickscope same as f, F, t, T but better
     use 'unblevable/quick-scope'
 
+    -- fuzzy motion
+    use 'rlane/pounce.nvim'
+
     -- Navigations
 
     use 'ThePrimeagen/harpoon'
@@ -167,11 +170,13 @@ return require('packer').startup {
     -- move code up and down
     use 'matze/vim-move'
 
+    -- NOTE: disabled due to a breaking change
     use {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
       end,
+      disable = true,
     }
 
     use {
@@ -445,10 +450,14 @@ return require('packer').startup {
 
     use {
       'nvim-treesitter/nvim-treesitter',
+      -- commit = '668de0951a36ef17016074f1120b6aacbe6c4515',
       run = ':TSUpdate',
       requires = {
         { 'nvim-treesitter/nvim-treesitter-refactor' },
-        { 'nvim-treesitter/nvim-treesitter-textobjects' },
+        {
+          'nvim-treesitter/nvim-treesitter-textobjects',
+          commit = 'c81382328ad47c154261d1528d7c921acad5eae5',
+        },
         { 'RRethy/nvim-treesitter-textsubjects' },
         { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
         { 'p00f/nvim-ts-rainbow' },
@@ -497,14 +506,13 @@ return require('packer').startup {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },
         },
-        { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        -- { 'nvim-telescope/telescope-packer.nvim' },
+        { 'nvim-telescope/telescope-packer.nvim' },
         { 'nvim-telescope/telescope-smart-history.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
       },
@@ -535,10 +543,10 @@ return require('packer').startup {
     -- NOTE: HTML
 
     -- emmets in vim
-    use 'mattn/emmet-vim'
+    use { 'mattn/emmet-vim', ft = { 'html', 'xml' } }
 
     -- html tags completion
-    use 'AndrewRadev/tagalong.vim'
+    use { 'AndrewRadev/tagalong.vim', ft = { 'html', 'xml' } }
 
     -- wakatime for vim
     use 'wakatime/vim-wakatime'
@@ -686,6 +694,12 @@ return require('packer').startup {
 
     -- Explorer
     use {
+      'elihunter173/dirbuf.nvim',
+      -- config = function()
+      --   require('dirbuf').setup()
+      -- end,
+    }
+    use {
       'tamago324/lir.nvim',
       requires = {
         { 'tamago324/lir-git-status.nvim' },
@@ -718,6 +732,12 @@ return require('packer').startup {
       end,
     }
 
+    use {
+      'sidebar-nvim/sidebar.nvim',
+      config = function()
+        require('sidebar-nvim').setup()
+      end,
+    }
     use { 'kyazdani42/nvim-tree.lua' }
 
     -- General

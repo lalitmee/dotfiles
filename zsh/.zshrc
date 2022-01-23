@@ -458,3 +458,4 @@ if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitme
 export GREN_GITHUB_TOKEN=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
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+fpath=(~/.zsh.d/$fpath)

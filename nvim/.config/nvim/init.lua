@@ -5,6 +5,9 @@
 local cmd = vim.api.nvim_command
 
 pcall(require, 'impatient')
+-- require'impatient'.enable_profile()
+
+-- require('packer_compiled')
 
 require('lk/profile')
 if require 'lk/first_load'() then
