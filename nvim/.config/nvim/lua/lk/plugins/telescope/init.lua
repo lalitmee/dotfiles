@@ -191,7 +191,7 @@ require('telescope').setup {
       ['selected_engine'] = 'google',
       ['url_open_command'] = 'xdg-open',
       ['show_http_headers'] = false,
-      ['show_domain_icons'] = false
+      ['show_domain_icons'] = false,
     },
     project = {
       base_dirs = {
@@ -222,17 +222,14 @@ require('telescope').load_extension('bookmarks')
 -- smart history in telescope
 require('telescope').load_extension('smart_history')
 
--- -- packer integration with telescope
--- require('telescope').load_extension('packer')
+-- packer integration with telescope
+require('telescope').load_extension('packer')
 
 -- project management in telescope
 require('telescope').load_extension('zoxide')
 
 -- project management in telescope
 require('telescope').load_extension('project')
-
--- cheat sheets
-require('telescope').load_extension('cheat')
 
 -- debugger
 require('telescope').load_extension('dap')

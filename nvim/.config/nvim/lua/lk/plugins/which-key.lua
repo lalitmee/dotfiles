@@ -653,7 +653,7 @@ local leader_key_maps = {
   -- NOTE: n is for neovim
   ['n'] = {
     ['name'] = '+neovim',
-    ['a'] = { ':Telescope packer plugins<CR>', 'packer-plugins' },
+    ['a'] = { ':Telescope packer packer<CR>', 'packer-plugins' },
     ['c'] = { ':PackerCompile<CR>', 'packer-compile' },
     ['d'] = { ':PackerClean<CR>', 'clean-packages' },
     ['e'] = { ':e $HOME/.config/nvim/init.lua<CR>', 'edit-config' },
@@ -726,11 +726,6 @@ local leader_key_maps = {
       ['r'] = { ':Telescope lsp_references<CR>', 'references' },
       ['s'] = { ':Telescope spell_suggest<CR>', 'spell_suggest' },
       ['t'] = { ':Telescope current_buffer_tags<CR>', 'buffer-tags' },
-    },
-    ['c'] = {
-      ['name'] = '+cheat.sh',
-      ['f'] = { ':Telescope cheat fd<CR>', 'cheat-find' },
-      ['r'] = { ':Telescope cheat readcache<CR>', 'read-cache' },
     },
     ['d'] = {
       ['name'] = '+dap',
@@ -1062,7 +1057,13 @@ local local_leader_key_maps = {
   ['6'] = { ':lua require("harpoon.ui").nav_file(6)<CR>', 'goto-file-6' },
   ['7'] = { ':lua require("harpoon.ui").nav_file(7)<CR>', 'goto-file-7' },
   ['a'] = { ':lua require("harpoon.mark").add_file()<CR>', 'add-file' },
-
+  ['c'] = {
+    ['name'] = '+cheat.sh',
+    ['r'] = { ':Cheat<CR>', 'cht.sh' },
+    ['R'] = { ':CheatWithoutComments<CR>', 'cht.sh-no-comments' },
+    ['l'] = { ':Cheatlist<CR>', 'cheat-lists' },
+    ['L'] = { ':CheatListWithoutComments<CR>', 'cheat-lists-no-comments' },
+  },
   -- NOTE: f is for CocCommand fzf-preview using CocCommand
   ['f'] = {
     ['name'] = '+fzf-preview',

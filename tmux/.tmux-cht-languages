@@ -1,8 +1,8 @@
-ArnoldC
 bash
 c
 cpp
 css
+gdb
 golang
 haskell
 html
@@ -12,4 +12,10 @@ nodejs
 php
 python
 rust
+solidity
+tmux
 typescript
+zsh
+vim
+elisp
+markdown
