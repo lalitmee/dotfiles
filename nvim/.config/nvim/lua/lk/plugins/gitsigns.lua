@@ -38,7 +38,7 @@ signs.setup({
   },
   numhl = true,
   linehl = false,
-  watch_index = { interval = 1000 },
+  watch_gitdir = { interval = 1000 },
   sign_priority = 6,
   update_debounce = 200,
   status_formatter = nil,

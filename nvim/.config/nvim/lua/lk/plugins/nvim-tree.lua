@@ -43,6 +43,7 @@ require('nvim-tree').setup({
   auto_close = false,
   view = { width = 40, side = 'right' },
   update_focused_file = { enable = true },
+  update_to_bug_dir = { enable = false },
   mappings = {
     list = {
       { key = 'h', cb = ':lua require"nvim-tree".on_keypress("close_node")<CR>' },

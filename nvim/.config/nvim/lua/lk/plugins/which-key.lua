@@ -1064,6 +1064,7 @@ local local_leader_key_maps = {
     ['l'] = { ':Cheatlist<CR>', 'cheat-lists' },
     ['L'] = { ':CheatListWithoutComments<CR>', 'cheat-lists-no-comments' },
   },
+  ['e'] = { ':Dirbuf<CR>', 'open-dirbuf' },
   -- NOTE: f is for CocCommand fzf-preview using CocCommand
   ['f'] = {
     ['name'] = '+fzf-preview',
