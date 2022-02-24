@@ -62,11 +62,11 @@ return require('packer').startup {
     use { 'folke/tokyonight.nvim' }
     use { 'luisiacc/gruvbox-baby' }
     use { 'marko-cerovac/material.nvim' }
-    use { 'martinsione/darkplus.nvim' }
     use { 'rebelot/kanagawa.nvim' }
     use { 'rmehri01/onenord.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
+    use { 'EdenEast/nightfox.nvim' }
 
     -- NOTE: icons
     -- beautiful icons
@@ -88,6 +88,9 @@ return require('packer').startup {
     ------------------------------------------------------------------------
     --                          ACTIONS                                   --
     ------------------------------------------------------------------------
+    -- scratch buffer in neovim like emacs
+    use { 'shift-d/scratch.nvim' }
+
     -- smart pairs in lua
     use {
       'ZhiyuanLck/smart-pairs',

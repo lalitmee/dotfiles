@@ -724,7 +724,8 @@ local leader_key_maps = {
       ['l'] = { ':Telescope current_buffer_fuzzy_find<CR>', 'buffer-lines' },
       ['o'] = 'buffer-lines-dropdown-theme',
       ['r'] = { ':Telescope lsp_references<CR>', 'references' },
-      ['s'] = { ':Telescope spell_suggest<CR>', 'spell_suggest' },
+      ['s'] = { ':Telescope scratch<CR>', 'scratch-buffer' },
+      ['p'] = { ':Telescope spell_suggest<CR>', 'spell_suggest' },
       ['t'] = { ':Telescope current_buffer_tags<CR>', 'buffer-tags' },
     },
     ['d'] = {
