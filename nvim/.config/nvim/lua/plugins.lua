@@ -22,13 +22,6 @@ return require('packer').startup {
     ----------------------------------------------------------------------------
     --                            UI AND BEAUTIFY                             --
     ----------------------------------------------------------------------------
-    -- prettify quickfix windows for neovim
-    use {
-      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
-      config = function()
-        require('pqf').setup()
-      end,
-    }
 
     -- NOTE: notifications
     use {
@@ -63,23 +56,17 @@ return require('packer').startup {
     --     require('twilight').setup {}
     --   end,
     -- }
+    use { 'catppuccin/nvim', as = 'catppuccin' }
+    use { 'lalitmee/cobalt2.nvim' }
+    use { 'Mofiqul/vscode.nvim' }
+    use { 'folke/tokyonight.nvim' }
+    use { 'luisiacc/gruvbox-baby' }
+    use { 'marko-cerovac/material.nvim' }
     use { 'martinsione/darkplus.nvim' }
     use { 'rebelot/kanagawa.nvim' }
-    use { 'LunarVim/onedarker.nvim' }
-    use { 'Mofiqul/vscode.nvim' }
-    use { 'Murtaza-Udaipurwala/gruvqueen' }
-    use { 'andersevenrud/nordic.nvim' }
-    use { 'folke/tokyonight.nvim' }
-    use { 'lalitmee/cobalt2.nvim' }
-    use { 'luisiacc/gruvbox-baby' }
-    use { 'lukas-reineke/onedark.nvim' }
-    use { 'marko-cerovac/material.nvim' }
-    use { 'olimorris/onedarkpro.nvim' }
     use { 'rmehri01/onenord.nvim' }
-    use { 'shaunsingh/nord.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
-    use { 'projekt0n/github-nvim-theme' }
 
     -- NOTE: icons
     -- beautiful icons
@@ -89,9 +76,6 @@ return require('packer').startup {
     }
 
     -- General
-
-    -- toggle, display and navigate marks
-    use 'kshenoy/vim-signature'
 
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
@@ -104,6 +88,24 @@ return require('packer').startup {
     ------------------------------------------------------------------------
     --                          ACTIONS                                   --
     ------------------------------------------------------------------------
+    -- smart pairs in lua
+    use {
+      'ZhiyuanLck/smart-pairs',
+      event = 'InsertEnter',
+      config = function()
+        require('pairs'):setup()
+      end,
+      disable = true,
+    }
+
+    -- beautiful code snippets from neovim
+    -- use {
+    --   'ellisonleao/carbon-now.nvim',
+    --   config = function()
+    --     require('carbon-now').setup()
+    --   end,
+    -- }
+
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
@@ -121,19 +123,6 @@ return require('packer').startup {
       end,
     }
 
-    -- Search, Replace and Jump
-    use {
-      'ray-x/sad.nvim',
-      requires = { 'ray-x/guihua.lua' },
-      config = function()
-        require('sad').setup({
-          diff = 'delta', -- you can use `diff`, `diff-so-fancy`
-          ls_file = 'fd', -- also git ls_file
-          exact = false, -- exact match
-        })
-      end,
-    }
-
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
@@ -141,6 +130,13 @@ return require('packer').startup {
 
     -- better quick-fix winodw
     use 'kevinhwang91/nvim-bqf'
+    -- prettify quickfix windows for neovim
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        require('pqf').setup()
+      end,
+    }
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
@@ -162,7 +158,6 @@ return require('packer').startup {
     use 'rlane/pounce.nvim'
 
     -- Navigations
-
     use 'ThePrimeagen/harpoon'
 
     -- General
@@ -177,24 +172,6 @@ return require('packer').startup {
         require('todo-comments').setup {}
       end,
       disable = true,
-    }
-
-    use {
-      'petertriho/nvim-scrollbar',
-      config = function()
-        require('scrollbar').setup({
-          show = true,
-          handle = {
-            text = ' ',
-            color = 'grey',
-            hide_if_all_visible = true, -- Hides handle if all lines are visible
-          },
-          handlers = {
-            diagnostic = true,
-            search = true, -- Requires hlslens to be loaded
-          },
-        })
-      end,
     }
 
     -- smooth scrolling in neovim
@@ -214,7 +191,6 @@ return require('packer').startup {
           next_buffer_cmd = function(windows)
             require('bufferline').cycle(1)
             local bufnr = vim.api.nvim_get_current_buf()
-
             for _, window in ipairs(windows) do
               vim.api.nvim_win_set_buf(window, bufnr)
             end
@@ -231,6 +207,8 @@ return require('packer').startup {
 
     -- sorting in vim
     use 'christoomey/vim-sort-motion'
+
+    -- navigate and splits
     use {
       'numToStr/Navigator.nvim',
       config = function()
@@ -258,6 +236,8 @@ return require('packer').startup {
 
     -- Swap windows
     use 'wesQ3/vim-windowswap'
+
+    -- search lines using numbers
     use {
       'nacro90/numb.nvim',
       config = function()
@@ -289,7 +269,6 @@ return require('packer').startup {
     use 'github/copilot.vim'
 
     -- NOTE: Notes
-
     -- table like in org mode in emacs
     use { 'dhruvasagar/vim-table-mode' }
 
@@ -300,7 +279,7 @@ return require('packer').startup {
     -- use 'vimwiki/vimwiki' -- vim wiki
 
     use {
-      'kristijanhusak/orgmode.nvim',
+      'nvim-orgmode/orgmode.nvim',
       requires = {
         {
           'akinsho/org-bullets.nvim',
@@ -317,9 +296,6 @@ return require('packer').startup {
           end,
         },
       },
-      config = function()
-        require('orgmode').setup {}
-      end,
     }
 
     -- NOTE: Snippets
@@ -543,7 +519,7 @@ return require('packer').startup {
     -- NOTE: HTML
 
     -- emmets in vim
-    use { 'mattn/emmet-vim', ft = { 'html', 'xml' } }
+    use { 'mattn/emmet-vim' }
 
     -- html tags completion
     use { 'AndrewRadev/tagalong.vim', ft = { 'html', 'xml' } }
@@ -788,7 +764,7 @@ return require('packer').startup {
     ------------------------------------------------------------------------
 
     -- debugger attach protocol
-    use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
+    -- use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
 
     ----------------------------------------------------------------------------
     --                            NOT USING                                   --
@@ -807,6 +783,22 @@ return require('packer').startup {
     --   'luukvbaal/stabilize.nvim',
     --   config = function()
     --     require('stabilize').setup()
+    --   end,
+    -- }
+    --
+    -- -- toggle, display and navigate marks
+    -- use 'kshenoy/vim-signature'
+    --
+    -- -- Search, Replace and Jump
+    -- use {
+    --   'ray-x/sad.nvim',
+    --   requires = { 'ray-x/guihua.lua' },
+    --   config = function()
+    --     require('sad').setup({
+    --       diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+    --       ls_file = 'fd', -- also git ls_file
+    --       exact = false, -- exact match
+    --     })
     --   end,
     -- }
 

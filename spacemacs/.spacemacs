@@ -564,7 +564,7 @@ you should place your code here."
         magit-revert-buffers 1)
   (with-eval-after-load 'magit
     (require 'forge))
-  (global-git-commit-mode t)
+  ;; (global-git-commit-mode t)
 
   ;; ace-window configurations : for moving or swapping windows
   (use-package ace-window

@@ -213,6 +213,9 @@ require('telescope').setup {
 -- -- tmux integration in telescope
 -- require('telescope').load_extension('tmux')
 
+-- -- debugger
+-- require('telescope').load_extension('dap')
+
 -- search internet
 require('telescope').load_extension('arecibo')
 
@@ -230,9 +233,6 @@ require('telescope').load_extension('zoxide')
 
 -- project management in telescope
 require('telescope').load_extension('project')
-
--- debugger
-require('telescope').load_extension('dap')
 
 -- recent files or history or files visited
 require('telescope').load_extension('frecency')
