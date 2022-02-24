@@ -216,6 +216,9 @@ require('telescope').setup {
 -- -- debugger
 -- require('telescope').load_extension('dap')
 
+-- scratch buffer
+require('telescope').load_extension('scratch')
+
 -- search internet
 require('telescope').load_extension('arecibo')
 

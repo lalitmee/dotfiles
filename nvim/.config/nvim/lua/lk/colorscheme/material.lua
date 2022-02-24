@@ -1,7 +1,9 @@
-vim.g.material_style = 'darker'
+-- vim.g.material_style = 'darker'
+-- vim.g.material_style = 'oceanic'
+-- vim.g.material_style = 'palenight'
+vim.g.material_style = 'deep ocean'
 
 require('material').setup({
-
 
   italics = {
     comments = true, -- Enable italic comments

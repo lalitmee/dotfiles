@@ -1,11 +1,17 @@
--- NOTE: cobalt2
-require('lk/colorscheme/cobalt2')
+-- NOTE: catppuccin
+require('lk/colorscheme/catppuccin')
+
+-- -- NOTE: nightfox
+-- require('lk/colorscheme/nightfox')
 
 -- -- NOTE: material
 -- require('lk/colorscheme/material')
 
--- -- NOTE: catppuccin
--- require('lk/colorscheme/catppuccin')
+-- -- NOTE: kanagawa
+-- require('lk/colorscheme/kanagawa')
+
+-- -- NOTE: cobalt2
+-- require('lk/colorscheme/cobalt2')
 
 -- -- NOTE: vim-code-dark
 -- require('lk/colorscheme/vscode')
@@ -24,6 +30,3 @@ require('lk/colorscheme/cobalt2')
 
 -- -- NOTE: tokyonight
 -- require('lk/colorscheme/tokyonight')
-
--- -- NOTE: kanagawa
--- require('lk/colorscheme/kanagawa')
