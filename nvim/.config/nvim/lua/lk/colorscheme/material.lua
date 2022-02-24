@@ -2,8 +2,6 @@ vim.g.material_style = 'darker'
 
 require('material').setup({
 
-  contrast = true, -- Enable contrast for sidebars, floating windows and popup menus like Nvim-Tree
-  borders = true, -- Enable borders between verticaly split windows
 
   italics = {
     comments = true, -- Enable italic comments

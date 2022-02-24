@@ -232,6 +232,10 @@ function _G.dump(...)
   print(unpack(objects))
 end
 
+function _G.packer_notify(msg, level)
+  vim.notify(msg, level, { title = 'Packer' })
+end
+
 function _G.plugin_loaded(plugin_name)
   local plugins = _G.packer_plugins or {}
   return plugins[plugin_name] and plugins[plugin_name].loaded
