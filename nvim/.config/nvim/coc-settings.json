@@ -152,5 +152,6 @@
         "usePlaceholders": true
       }
     }
-  }
+  },
+  "Lua.telemetry.enable": true
 }

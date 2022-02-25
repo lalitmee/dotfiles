@@ -489,8 +489,9 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
 
-# source-file ~/data/Github/dotfiles/system/tmux/tmux-themes/spaceduck/basic.conf
-# source-file ~/data/Github/dotfiles/system/tmux/tmux-themes/tokyonight_night.conf
+# source-file ~/dotfiles/tmux/tmux-themes/spaceduck/basic.conf
+# source-file ~/dotfiles/tmux/tmux-themes/tokyonight_night.conf
+# source-file ~/dotfiles/tmux/tmux-themes/catppuccin.conf
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

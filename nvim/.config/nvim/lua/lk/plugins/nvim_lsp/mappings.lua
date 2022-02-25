@@ -25,7 +25,7 @@ map('n', 'gea', '<cmd>lua vim.lsp.diagnostic.get_all()<CR>', opts)
 map('n', 'gel', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 map('n', 'gen', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 map('n', 'gep', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+map('n', 'geq', '<cmd>lua vim.lsp.diagnostic.setloclist()<CR>', opts)
 
 -- formaaing mappings
 map('n', 'gff', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)

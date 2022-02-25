@@ -4,7 +4,6 @@ lsp_status.register_progress()
 -- require('lk/plugins/nvim_lsp/highlights')
 require('lk/plugins/nvim_lsp/commands')
 require('lk/plugins/nvim_lsp/handlers')
-require('lk/plugins/nvim_lsp/mappings')
 
 -- servers config
 require('lk/plugins/nvim_lsp/servers/gopls')
@@ -112,6 +111,14 @@ local servers = {
               },
             },
             completion = { keywordSnippet = 'Replace', callSnippet = 'Replace' },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = library,
+              maxPreload = 2000,
+              preloadFileSize = 50000,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = { enable = false },
           },
         },
       },

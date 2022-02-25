@@ -1,6 +1,8 @@
 {
+  "ui.zoom": 1.0,
+  "workbench.colorTheme": "Cobalt2",
+  "git.autofetch": true,
   "git.ignoreLimitWarning": true,
-  "workbench.colorTheme": "Gruvbox Dark Hard",
   "editor.renderIndentGuides": true,
   "vsicons.dontShowNewVersionMessage": true,
   "editor.detectIndentation": true,
