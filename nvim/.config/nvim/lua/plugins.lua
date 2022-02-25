@@ -32,7 +32,7 @@ return require('packer').startup {
           stages = 'fade',
 
           -- Default timeout for notifications
-          timeout = 1000,
+          timeout = 2000,
 
           -- For stages that change opacity this is treated as the highlight behind the window
           background_colour = 'BufferCurrent',
@@ -494,6 +494,7 @@ return require('packer').startup {
         { 'nvim-telescope/telescope-packer.nvim' },
         { 'nvim-telescope/telescope-smart-history.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
+        { 'nvim-telescope/telescope-ui-select.nvim' },
       },
     }
     use { 'nvim-telescope/telescope-file-browser.nvim' }
