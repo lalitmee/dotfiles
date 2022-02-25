@@ -11,7 +11,7 @@ windows:
       layout: even-horizontal
       panes:
         - cd ../../wf-webapp-service && yst
-        - cd ../../marketsn-webapp-service-nextjs && yd
+        - cd ../../worktrees/marketsn-webapp-service-nextjs/test-env && yd
   - Caddy:
       - cd
       - caddy run

@@ -1,10 +1,14 @@
 require('nvim-treesitter.configs').setup({
-  ensure_installed = 'maintained',
-  highlight = { enable = true },
+  ensure_installed = 'all',
+  highlight = {
+    enable = true,
+    disable = { 'org' },
+    additional_vim_regex_highlighting = { 'org' },
+  },
   autotag = { enable = true },
   indent = { enable = true },
   rainbow = {
-    enable = true,
+    enable = false,
     extended_mode = true,
     max_file_lines = 4000,
     -- disable = { 'lua', 'json' },

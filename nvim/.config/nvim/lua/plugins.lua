@@ -22,13 +22,6 @@ return require('packer').startup {
     ----------------------------------------------------------------------------
     --                            UI AND BEAUTIFY                             --
     ----------------------------------------------------------------------------
-    -- prettify quickfix windows for neovim
-    use {
-      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
-      config = function()
-        require('pqf').setup()
-      end,
-    }
 
     -- NOTE: notifications
     use {
@@ -39,7 +32,7 @@ return require('packer').startup {
           stages = 'fade',
 
           -- Default timeout for notifications
-          timeout = 1000,
+          timeout = 2000,
 
           -- For stages that change opacity this is treated as the highlight behind the window
           background_colour = 'BufferCurrent',
@@ -63,22 +56,17 @@ return require('packer').startup {
     --     require('twilight').setup {}
     --   end,
     -- }
-    use { 'rebelot/kanagawa.nvim' }
-    use { 'LunarVim/onedarker.nvim' }
-    use { 'Mofiqul/vscode.nvim' }
-    use { 'Murtaza-Udaipurwala/gruvqueen' }
-    use { 'andersevenrud/nordic.nvim' }
-    use { 'folke/tokyonight.nvim' }
+    use { 'catppuccin/nvim', as = 'catppuccin' }
     use { 'lalitmee/cobalt2.nvim' }
+    use { 'Mofiqul/vscode.nvim' }
+    use { 'folke/tokyonight.nvim' }
     use { 'luisiacc/gruvbox-baby' }
-    use { 'lukas-reineke/onedark.nvim' }
     use { 'marko-cerovac/material.nvim' }
-    use { 'olimorris/onedarkpro.nvim' }
+    use { 'rebelot/kanagawa.nvim' }
     use { 'rmehri01/onenord.nvim' }
-    use { 'shaunsingh/nord.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
-    use { 'projekt0n/github-nvim-theme' }
+    use { 'EdenEast/nightfox.nvim' }
 
     -- NOTE: icons
     -- beautiful icons
@@ -88,9 +76,6 @@ return require('packer').startup {
     }
 
     -- General
-
-    -- toggle, display and navigate marks
-    use 'kshenoy/vim-signature'
 
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
@@ -103,6 +88,27 @@ return require('packer').startup {
     ------------------------------------------------------------------------
     --                          ACTIONS                                   --
     ------------------------------------------------------------------------
+    -- scratch buffer in neovim like emacs
+    use { 'shift-d/scratch.nvim' }
+
+    -- smart pairs in lua
+    use {
+      'ZhiyuanLck/smart-pairs',
+      event = 'InsertEnter',
+      config = function()
+        require('pairs'):setup()
+      end,
+      disable = true,
+    }
+
+    -- beautiful code snippets from neovim
+    -- use {
+    --   'ellisonleao/carbon-now.nvim',
+    --   config = function()
+    --     require('carbon-now').setup()
+    --   end,
+    -- }
+
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
@@ -120,19 +126,6 @@ return require('packer').startup {
       end,
     }
 
-    -- Search, Replace and Jump
-    use {
-      'ray-x/sad.nvim',
-      requires = { 'ray-x/guihua.lua' },
-      config = function()
-        require('sad').setup({
-          diff = 'delta', -- you can use `diff`, `diff-so-fancy`
-          ls_file = 'fd', -- also git ls_file
-          exact = false, -- exact match
-        })
-      end,
-    }
-
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
@@ -140,6 +133,13 @@ return require('packer').startup {
 
     -- better quick-fix winodw
     use 'kevinhwang91/nvim-bqf'
+    -- prettify quickfix windows for neovim
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        require('pqf').setup()
+      end,
+    }
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
@@ -157,8 +157,10 @@ return require('packer').startup {
     -- Quickscope same as f, F, t, T but better
     use 'unblevable/quick-scope'
 
-    -- Navigations
+    -- fuzzy motion
+    use 'rlane/pounce.nvim'
 
+    -- Navigations
     use 'ThePrimeagen/harpoon'
 
     -- General
@@ -166,29 +168,13 @@ return require('packer').startup {
     -- move code up and down
     use 'matze/vim-move'
 
+    -- NOTE: disabled due to a breaking change
     use {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
       end,
-    }
-
-    use {
-      'petertriho/nvim-scrollbar',
-      config = function()
-        require('scrollbar').setup({
-          show = true,
-          handle = {
-            text = ' ',
-            color = 'grey',
-            hide_if_all_visible = true, -- Hides handle if all lines are visible
-          },
-          handlers = {
-            diagnostic = true,
-            search = true, -- Requires hlslens to be loaded
-          },
-        })
-      end,
+      disable = true,
     }
 
     -- smooth scrolling in neovim
@@ -208,7 +194,6 @@ return require('packer').startup {
           next_buffer_cmd = function(windows)
             require('bufferline').cycle(1)
             local bufnr = vim.api.nvim_get_current_buf()
-
             for _, window in ipairs(windows) do
               vim.api.nvim_win_set_buf(window, bufnr)
             end
@@ -235,6 +220,8 @@ return require('packer').startup {
 
     -- sorting in vim
     use 'christoomey/vim-sort-motion'
+
+    -- navigate and splits
     use {
       'numToStr/Navigator.nvim',
       config = function()
@@ -262,6 +249,8 @@ return require('packer').startup {
 
     -- Swap windows
     use 'wesQ3/vim-windowswap'
+
+    -- search lines using numbers
     use {
       'nacro90/numb.nvim',
       config = function()
@@ -293,7 +282,6 @@ return require('packer').startup {
     use 'github/copilot.vim'
 
     -- NOTE: Notes
-
     -- table like in org mode in emacs
     use { 'dhruvasagar/vim-table-mode' }
 
@@ -304,7 +292,7 @@ return require('packer').startup {
     -- use 'vimwiki/vimwiki' -- vim wiki
 
     use {
-      'kristijanhusak/orgmode.nvim',
+      'nvim-orgmode/orgmode.nvim',
       requires = {
         {
           'akinsho/org-bullets.nvim',
@@ -321,9 +309,6 @@ return require('packer').startup {
           end,
         },
       },
-      config = function()
-        require('orgmode').setup {}
-      end,
     }
 
     -- NOTE: Snippets
@@ -449,6 +434,12 @@ return require('packer').startup {
             require('vimway-lsp-diag').init({})
           end,
         },
+        {
+          'j-hui/fidget.nvim',
+          config = function()
+            require'fidget'.setup {}
+          end,
+        },
       },
     }
 
@@ -456,10 +447,14 @@ return require('packer').startup {
 
     use {
       'nvim-treesitter/nvim-treesitter',
+      -- commit = '668de0951a36ef17016074f1120b6aacbe6c4515',
       run = ':TSUpdate',
       requires = {
         { 'nvim-treesitter/nvim-treesitter-refactor' },
-        { 'nvim-treesitter/nvim-treesitter-textobjects' },
+        {
+          'nvim-treesitter/nvim-treesitter-textobjects',
+          commit = 'c81382328ad47c154261d1528d7c921acad5eae5',
+        },
         { 'RRethy/nvim-treesitter-textsubjects' },
         { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
         { 'p00f/nvim-ts-rainbow' },
@@ -508,15 +503,16 @@ return require('packer').startup {
           'nvim-telescope/telescope-arecibo.nvim',
           rocks = { 'openssl', 'lua-http-parser' },
         },
-        { 'nvim-telescope/telescope-cheat.nvim' },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
-        { 'xiyaowong/telescope-emoji.nvim' }, -- { 'nvim-telescope/telescope-packer.nvim' },
+        { 'xiyaowong/telescope-emoji.nvim' },
+        { 'nvim-telescope/telescope-packer.nvim' },
         { 'nvim-telescope/telescope-smart-history.nvim' },
         { 'dhruvmanila/telescope-bookmarks.nvim' },
+        { 'nvim-telescope/telescope-ui-select.nvim' },
       },
     }
     use { 'nvim-telescope/telescope-file-browser.nvim' }
@@ -545,10 +541,10 @@ return require('packer').startup {
     -- NOTE: HTML
 
     -- emmets in vim
-    use 'mattn/emmet-vim'
+    use { 'mattn/emmet-vim' }
 
     -- html tags completion
-    use 'AndrewRadev/tagalong.vim'
+    use { 'AndrewRadev/tagalong.vim', ft = { 'html', 'xml' } }
 
     -- wakatime for vim
     use 'wakatime/vim-wakatime'
@@ -696,6 +692,11 @@ return require('packer').startup {
 
     -- Explorer
     use {
+      'elihunter173/dirbuf.nvim', -- config = function()
+      --   require('dirbuf').setup()
+      -- end,
+    }
+    use {
       'tamago324/lir.nvim',
       requires = {
         { 'tamago324/lir-git-status.nvim' },
@@ -728,6 +729,12 @@ return require('packer').startup {
       end,
     }
 
+    use {
+      'sidebar-nvim/sidebar.nvim',
+      config = function()
+        require('sidebar-nvim').setup()
+      end,
+    }
     use { 'kyazdani42/nvim-tree.lua' }
 
     -- General
@@ -779,7 +786,7 @@ return require('packer').startup {
     ------------------------------------------------------------------------
 
     -- debugger attach protocol
-    use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
+    -- use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
 
     ----------------------------------------------------------------------------
     --                            NOT USING                                   --
@@ -798,6 +805,22 @@ return require('packer').startup {
     --   'luukvbaal/stabilize.nvim',
     --   config = function()
     --     require('stabilize').setup()
+    --   end,
+    -- }
+    --
+    -- -- toggle, display and navigate marks
+    -- use 'kshenoy/vim-signature'
+    --
+    -- -- Search, Replace and Jump
+    -- use {
+    --   'ray-x/sad.nvim',
+    --   requires = { 'ray-x/guihua.lua' },
+    --   config = function()
+    --     require('sad').setup({
+    --       diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+    --       ls_file = 'fd', -- also git ls_file
+    --       exact = false, -- exact match
+    --     })
     --   end,
     -- }
 

@@ -236,6 +236,6 @@ command {
 command {
   'LspSetLoclist',
   function()
-    vim.lsp.diagnostic.set_loclist()
+    vim.lsp.diagnostic.setloclist()
   end
 }

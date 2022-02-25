@@ -1,6 +1,10 @@
-set guifont=SauceCodePro\ Nerd\ Font:h11
-" set guifont=CaskaydiaCove\ Nerd\ Font:h10
+" set guifont=SauceCodePro\ Nerd\ Font:h11
+set guifont=CaskaydiaCove\ Nerd\ Font:h10
 " set guifont=Operator\ Mono\ Nerd\ Font:h11
-" set guifont=JetbrainsMono\ Nerd\ Font\ Mono:h11
+" set guifont=Operator\ Mono\ Lig:h11
+" set guifont=JetbrainsMono\ Nerd\ Font\ Mono:h10
 " set guifont=mononoki\ Nerd\ Font\ Mono:h13
 " set guifont=UbuntuMono\ Nerd\ Font:h13
+" set guifont=Consolas\ NF:h12
+" set guifont=BlexMono\ Nerd\ Font\ Mono:h10
+" set guifont=SpaceMono\ Nerd\ Font\ Mono:h10

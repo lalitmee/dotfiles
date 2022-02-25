@@ -112,6 +112,11 @@ require('telescope').setup {
     }
   },
   extensions = {
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {
+        -- even more opts
+      },
+    },
     frecency = {
       show_unindexed = true,
       ignore_patterns = {'*.git/*', '*/node_modules/*'},
@@ -182,7 +187,7 @@ require('telescope').setup {
       ['selected_engine'] = 'google',
       ['url_open_command'] = 'xdg-open',
       ['show_http_headers'] = false,
-      ['show_domain_icons'] = false
+      ['show_domain_icons'] = false,
     },
     project = {
       base_dirs = {
@@ -210,6 +215,15 @@ require('telescope').setup {
 -- -- tmux integration in telescope
 -- require('telescope').load_extension('tmux')
 
+-- -- debugger
+-- require('telescope').load_extension('dap')
+
+-- scratch buffer
+require('telescope').load_extension('ui-select')
+
+-- scratch buffer
+require('telescope').load_extension('scratch')
+
 -- search internet
 require('telescope').load_extension('arecibo')
 
@@ -219,20 +233,14 @@ require('telescope').load_extension('bookmarks')
 -- smart history in telescope
 require('telescope').load_extension('smart_history')
 
--- -- packer integration with telescope
--- require('telescope').load_extension('packer')
+-- packer integration with telescope
+require('telescope').load_extension('packer')
 
 -- project management in telescope
 require('telescope').load_extension('zoxide')
 
 -- project management in telescope
 require('telescope').load_extension('project')
-
--- cheat sheets
-require('telescope').load_extension('cheat')
-
--- debugger
-require('telescope').load_extension('dap')
 
 -- recent files or history or files visited
 require('telescope').load_extension('frecency')

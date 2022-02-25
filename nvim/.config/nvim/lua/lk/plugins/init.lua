@@ -32,8 +32,8 @@ require('lk/plugins/fastfold')
 -- NOTE: icons
 require('lk/plugins/devicons')
 
--- NOTE: debugging
-require('lk/plugins/dap')
+-- -- NOTE: debugging
+-- require('lk/plugins/dap')
 
 -- NOTE: status-line and buffer line
 require('lk/plugins/bufferline')
@@ -81,3 +81,6 @@ require('lk/plugins/nvim_lsp')
 
 -- NOTE: which key
 require('lk/plugins/which-key')
+
+-- NOTE: notes
+require('lk/plugins/orgmode')

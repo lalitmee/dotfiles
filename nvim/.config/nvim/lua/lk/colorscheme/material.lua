@@ -1,9 +1,9 @@
-vim.g.material_style = 'darker'
+-- vim.g.material_style = 'darker'
+-- vim.g.material_style = 'oceanic'
+-- vim.g.material_style = 'palenight'
+vim.g.material_style = 'deep ocean'
 
 require('material').setup({
-
-  contrast = true, -- Enable contrast for sidebars, floating windows and popup menus like Nvim-Tree
-  borders = true, -- Enable borders between verticaly split windows
 
   italics = {
     comments = true, -- Enable italic comments
