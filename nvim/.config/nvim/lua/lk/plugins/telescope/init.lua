@@ -121,6 +121,11 @@ require('telescope').setup {
     },
   },
   extensions = {
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {
+        -- even more opts
+      },
+    },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
@@ -215,6 +220,9 @@ require('telescope').setup {
 
 -- -- debugger
 -- require('telescope').load_extension('dap')
+
+-- scratch buffer
+require('telescope').load_extension('ui-select')
 
 -- scratch buffer
 require('telescope').load_extension('scratch')
