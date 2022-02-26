@@ -77,7 +77,7 @@ cmp.setup {
     --   end
     -- end, { 'i', 's' }),
 
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<C-n>'] = cmp.mapping(function(fallback)
       if vim.fn.complete_info()['selected'] == -1 and
           vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
         press('<C-R>=UltiSnips#ExpandSnippet()<CR>')
@@ -91,7 +91,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<C-p>'] = cmp.mapping(function(fallback)
       if vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
         press('<ESC>:call UltiSnips#JumpBackwards()<CR>')
       elseif cmp.visible() then
@@ -129,36 +129,37 @@ cmp.setup {
     { name = 'spell' },
     { name = 'emoji' },
   },
-
   snippet = {
     expand = function(args)
       vim.fn['UltiSnips#Anon'](args.body)
     end,
   },
-
   formatting = {
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
         cmp_tabnine = '[TN]',
-        buffer = '[buf]',
-        gh_issues = '[issues]',
-        look = '[look]',
+        buffer = '[BUF]',
+        gh_issues = '[ISSUES]',
+        look = '[LOOK]',
         nvim_lsp = '[LSP]',
-        nvim_lua = '[api]',
-        path = '[path]',
-        spell = '[spell]',
-        ultisnips = '[snip]',
+        nvim_lua = '[API]',
+        path = '[PATH]',
+        spell = '[SPELL]',
+        ultisnips = '[SNIP]',
       },
     },
   },
-
-  documentation = {
-    border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-  },
-
-  experimental = { native_menu = false, ghost_text = true },
+  documentation = { border = 'rounded' },
+  experimental = { native_menu = false, ghost_text = false },
 }
+
+cmp.setup
+    .cmdline('/', { sources = cmp.config.sources({ { name = 'buffer' } }) })
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({ { name = 'path' } },
+                               { { name = 'cmdline', keyword_length = 2 } }),
+})
 
 -- require('nvim-autopairs.completion.cmp').setup({
 --   map_cr = true, --  map <CR> on insert mode
@@ -171,13 +172,13 @@ cmp.setup {
 --   },
 -- })
 
--- -- nvim-cmp highlight groups.
--- local Group = require('colorbuddy.group').Group
--- local g = require('colorbuddy.group').groups
--- local s = require('colorbuddy.style').styles
---
--- Group.new('CmpItemAbbr', g.Comment)
--- Group.new('CmpItemAbbrDeprecated', g.Error)
--- Group.new('CmpItemAbbrMatchFuzzy', g.CmpItemAbbr.fg:dark(), nil, s.italic)
--- Group.new('CmpItemKind', g.Special)
--- Group.new('CmpItemMenu', g.NonText)
+-- nvim-cmp highlight groups.
+local Group = require('colorbuddy.group').Group
+local g = require('colorbuddy.group').groups
+local s = require('colorbuddy.style').styles
+
+Group.new('CmpItemAbbr', g.Comment)
+Group.new('CmpItemAbbrDeprecated', g.Error)
+Group.new('CmpItemAbbrMatchFuzzy', g.Type, nil, s.italic)
+Group.new('CmpItemKind', g.Function)
+Group.new('CmpItemMenu', g.Constant.fg:light())

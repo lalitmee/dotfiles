@@ -8,7 +8,7 @@ require('nvim-treesitter.configs').setup({
   autotag = { enable = true },
   indent = { enable = true },
   rainbow = {
-    enable = false,
+    enable = true,
     extended_mode = true,
     max_file_lines = 4000,
     -- disable = { 'lua', 'json' },

@@ -1,5 +1,5 @@
 local map = lk_utils.map
-local telescope_mapper = require('lk.plugins.telescope.mappings')
+local tele_mapper = require('lk.plugins.telescope.mappings')
 
 local M = {}
 
@@ -9,8 +9,7 @@ local opts = { noremap = false, silent = true }
 map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
 map('n', 'gcA', '<cmd>Telescope lsp_range_code_actions<CR>', opts)
 map('n', 'gca', '<cmd>Telescope lsp_code_action<CR>', opts)
-map('n', 'ge', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
-map('n', 'gE', '<cmd>Telescope lsp_workspace_diagnostics<CR>', opts)
+map('n', 'ge', '<cmd>Telescope diagnostics<CR>', opts)
 map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
 map('n', 'gw', '<cmd>Telescope lsp_document_symbols<CR>', opts)
 map('n', 'gW', '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', opts)
@@ -52,17 +51,14 @@ map('n', '<localleader>mr', '<cmd>Lspsaga rename<CR>', opts)
 map('n', '<localleader>mv', '<cmd>Lspsaga preview_definition<CR>', opts)
 
 local telescope_opts = { prompt_position = 'top' }
-telescope_mapper('<localleader>ta', 'lsp_code_actions', telescope_opts, true)
-telescope_mapper('<localleader>tA', 'lsp_range_code_actions', telescope_opts,
+tele_mapper('<localleader>ta', 'lsp_code_actions', telescope_opts, true)
+tele_mapper('<localleader>tA', 'lsp_range_code_actions', telescope_opts,
                  true)
-telescope_mapper('<localleader>td', 'lsp_definitions', telescope_opts, true)
-telescope_mapper('<localleader>te', 'lsp_document_diagnostics', telescope_opts,
-                 true)
-telescope_mapper('<localleader>tE', 'lsp_workspace_diagnostics', telescope_opts,
-                 true)
-telescope_mapper('<localleader>tr', 'lsp_references', telescope_opts, true)
-telescope_mapper('<localleader>tw', 'lsp_document_symbols', telescope_opts, true)
-telescope_mapper('<localleader>tW', 'lsp_workspace_symbols', telescope_opts,
+tele_mapper('<localleader>td', 'lsp_definitions', telescope_opts, true)
+tele_mapper('<localleader>te', 'diagnostics', telescope_opts, true)
+tele_mapper('<localleader>tr', 'lsp_references', telescope_opts, true)
+tele_mapper('<localleader>tw', 'lsp_document_symbols', telescope_opts, true)
+tele_mapper('<localleader>tW', 'lsp_workspace_symbols', telescope_opts,
                  true)
 
 M.setup_mappings = function(client, bufnr)

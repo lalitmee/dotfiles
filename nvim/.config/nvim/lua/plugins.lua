@@ -39,9 +39,9 @@ return require('packer').startup {
 
           -- Icons for the different levels
           icons = {
-            ERROR = '',
-            WARN = '',
-            INFO = '',
+            ERROR = ' ',
+            WARN = ' ',
+            INFO = ' ',
             DEBUG = '',
             TRACE = '✎',
           },
@@ -337,7 +337,6 @@ return require('packer').startup {
     use 'godlygeek/tabular'
 
     -- Undo
-
     use 'simnalamburt/vim-mundo'
 
     ------------------------------------------------------------------------
@@ -358,51 +357,17 @@ return require('packer').startup {
     use {
       'neovim/nvim-lspconfig',
       requires = {
-        {
-          'onsails/lspkind-nvim',
-          config = function()
-            require('lspkind').init({
-              preset = 'codicons',
-              symbol_map = {
-                Class = '   ',
-                Color = '   ',
-                Constant = '   ',
-                Constructor = '   ',
-                Default = '   ',
-                Enum = ' 了 ',
-                EnumMember = '   ',
-                Event = '   ',
-                Field = '   ',
-                File = '   ',
-                Folder = '   ',
-                Function = '   ',
-                Interface = ' ﰮ  ',
-                Keyword = '   ',
-                Method = ' ƒ  ',
-                Module = '   ',
-                Operator = ' ○  ',
-                Property = '   ',
-                Reference = '   ',
-                Snippet = ' ﬌  ',
-                Struct = '   ',
-                Text = '   ',
-                TypeParameter = ' ⅀  ',
-                Unit = '   ',
-                Value = '   ',
-                Variable = '   ',
-              },
-            })
-          end,
-        },
-        { 'tami5/lspsaga.nvim' }, -- nvim-cmp plugins
+        { 'onsails/lspkind-nvim' },
+        { 'tami5/lspsaga.nvim' },
         {
           'hrsh7th/nvim-cmp',
           requires = {
+            { 'hrsh7th/cmp-cmdline' },
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lua' },
             { 'hrsh7th/cmp-path' },
-            { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
+            { 'petertriho/cmp-git' },
             {
               'tzachar/cmp-tabnine',
               run = './install.sh',
@@ -427,19 +392,7 @@ return require('packer').startup {
           end,
         },
         { 'folke/lua-dev.nvim' },
-        {
-          'onsails/vimway-lsp-diag.nvim',
-          disable = true,
-          config = function()
-            require('vimway-lsp-diag').init({})
-          end,
-        },
-        {
-          'j-hui/fidget.nvim',
-          config = function()
-            require'fidget'.setup {}
-          end,
-        },
+        { 'arkav/lualine-lsp-progress' },
       },
     }
 

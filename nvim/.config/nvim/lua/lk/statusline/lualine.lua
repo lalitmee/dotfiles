@@ -32,7 +32,7 @@ lualine.setup {
         },
         update_in_insert = true,
       },
-      -- { 'LspStatus' },
+      { 'lsp_progress' },
       { 'diff' },
     },
     lualine_x = { { 'filesize' } },
