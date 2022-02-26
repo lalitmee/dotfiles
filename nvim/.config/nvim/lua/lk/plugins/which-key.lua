@@ -92,14 +92,7 @@ local leader_key_maps = {
     ['B'] = { ':Telescope lsp_range_code_actions<CR>', 'lsp-range-code-actions' },
     ['c'] = { ':Lspsaga close_floatterm<CR>', 'close-floatterm' },
     ['d'] = { ':Telescope lsp_definitions<CR>', 'lsp-definitions' },
-    ['e'] = {
-      ':Telescope lsp_document_diagnostics<CR>',
-      'lsp-document-diagnostics',
-    },
-    ['E'] = {
-      ':Telescope lsp_workspace_diagnostics<CR>',
-      'lsp-workspace-diagnostics',
-    },
+    ['e'] = { ':Telescope diagnostics<CR>', 'lsp-diagnostics' },
     ['h'] = { ':Lspsaga hover_doc<CR>', 'hover-doc' },
     ['H'] = { ':Lspsaga signaute_help<CR>', 'signature-help' },
     ['o'] = { ':Lspsaga open_floatterm<CR>', 'open-floatterm' },
@@ -210,11 +203,7 @@ local leader_key_maps = {
   -- NOTE: e is for errors/warnings using lspconfig
   ['e'] = {
     ['name'] = '+errors/warnings',
-    ['l'] = { ':Telescope lsp_document_diagnostics<CR>', 'buffer-diagnostics' },
-    ['L'] = {
-      ':Telescope lsp_workspace_diagnostics<CR>',
-      'workspace_diagnostics',
-    },
+    ['l'] = { ':Telescope diagnostics<CR>', 'diagnosticss' },
     ['n'] = { ':Lspsaga diagnostic_jump_next<CR>', 'next-diagnostic' },
     ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' },
   },

@@ -194,49 +194,49 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-## Colors (Cobalt 2)
-#colors:
-#  cursor:
-#    text: '#fefff2'
-#    cursor: '#f0cc09'
+# Colors (Cobalt 2)
+colors:
+  cursor:
+    text: '#fefff2'
+    cursor: '#f0cc09'
 
-#  selection:
-#    text: '#b5b5b5'
-#    background: '#18354f'
+  selection:
+    text: '#b5b5b5'
+    background: '#18354f'
 
-#  primary:
-#    background: '#132738'
-#    foreground: '#ffffff'
+  primary:
+    background: '#193549'
+    foreground: '#ffffff'
 
-#  normal:
-#    black: '#000000'
-#    red: '#ff0000'
-#    green: '#38de21'
-#    yellow: '#ffe50a'
-#    blue: '#1460d2'
-#    magenta: '#ff005d'
-#    cyan: '#00bbbb'
-#    white: '#bbbbbb'
+  normal:
+    black: '#000000'
+    red: '#ff0000'
+    green: '#3AD900'
+    yellow: '#FFC600'
+    blue: '#00AAFF'
+    magenta: '#FF00FF'
+    cyan: '#80FCFF'
+    white: '#bbbbbb'
 
-#  bright:
-#    black: '#555555'
-#    red: '#f40e17'
-#    green: '#3bd01d'
-#    yellow: '#edc809'
-#    blue: '#5555ff'
-#    magenta: '#ff55ff'
-#    cyan: '#6ae3fa'
-#    white: '#ffffff'
+  bright:
+    black: '#555555'
+    red: '#FF628C'
+    green: '#88FF88'
+    yellow: '#F2ED7F'
+    blue: '#0088FF'
+    magenta: '#EE80E1'
+    cyan: '#6ae3fa'
+    white: '#ffffff'
 
-#  dim:
-#    black: '#000000'
-#    red: '#8c3336'
-#    green: '#7a8530'
-#    yellow: '#97822e'
-#    blue: '#506d8f'
-#    magenta: '#80638e'
-#    cyan: '#497e7a'
-#    white: '#9a9a9a'
+  dim:
+    black: '#000000'
+    red: '#8c3336'
+    green: '#70b950'
+    yellow: '#FF9A00'
+    blue: '#0050A4'
+    magenta: '#FFA5F3'
+    cyan: '#668799'
+    white: '#9a9a9a'
 
 ## Colors (Gruvbox dark)
 #colors:
@@ -449,43 +449,43 @@ draw_bold_text_with_bright_colors: true
 #     cyan: '#56b6c2'
 #     white: '#d4d4d4'
 
-# Catppuccin!
-colors:
-  # Default colors
-  primary:
-    background: '0x1E1D2F'
-    foreground: '0xD9E0EE'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x1E1D2F'
-    cursor: '0xF5E0DC'
-
-  # Normal colors
-  normal:
-    black: '0x6E6C7E'
-    red: '0xF28FAD'
-    green: '0xABE9B3'
-    yellow: '0xFAE3B0'
-    blue: '0x96CDFB'
-    magenta: '0xF5C2E7'
-    cyan: '0x89DCEB'
-    white: '0xD9E0EE'
-
-  # Bright colors
-  bright:
-    black: '0x988BA2'
-    red: '0xF28FAD'
-    green: '0xABE9B3'
-    yellow: '0xFAE3B0'
-    blue: '0x96CDFB'
-    magenta: '0xF5C2E7'
-    cyan: '0x89DCEB'
-    white: '0xD9E0EE'
-
-  indexed_colors:
-    - { index: 16, color: '0xF8BD96' }
-    - { index: 17, color: '0xF5E0DC' }
+# # Catppuccin!
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x1E1D2F'
+#     foreground: '0xD9E0EE'
+#
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '0x1E1D2F'
+#     cursor: '0xF5E0DC'
+#
+#   # Normal colors
+#   normal:
+#     black: '0x6E6C7E'
+#     red: '0xF28FAD'
+#     green: '0xABE9B3'
+#     yellow: '0xFAE3B0'
+#     blue: '0x96CDFB'
+#     magenta: '0xF5C2E7'
+#     cyan: '0x89DCEB'
+#     white: '0xD9E0EE'
+#
+#   # Bright colors
+#   bright:
+#     black: '0x988BA2'
+#     red: '0xF28FAD'
+#     green: '0xABE9B3'
+#     yellow: '0xFAE3B0'
+#     blue: '0x96CDFB'
+#     magenta: '0xF5C2E7'
+#     cyan: '0x89DCEB'
+#     white: '0xD9E0EE'
+#
+#   indexed_colors:
+#     - { index: 16, color: '0xF8BD96' }
+#     - { index: 17, color: '0xF5E0DC' }
 
 # # vscode light
 # colors:
