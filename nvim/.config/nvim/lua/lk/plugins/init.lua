@@ -71,13 +71,13 @@ require('lk/plugins/telescope')
 require('lk/plugins/telescope/mappings')
 require('lk/plugins/refactoring')
 
--- NOTE: coc
-require('lk/plugins/coc')
+-- -- NOTE: coc
+-- require('lk/plugins/coc')
 
--- -- NOTE: nvim_lsp
--- require('lk/plugins/completion')
--- require('lk/plugins/lspsaga')
--- require('lk/plugins/nvim_lsp')
+-- NOTE: nvim_lsp
+require('lk/plugins/completion')
+require('lk/plugins/lspsaga')
+require('lk/plugins/nvim_lsp')
 
 -- NOTE: which key
 require('lk/plugins/which-key')
