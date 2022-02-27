@@ -263,9 +263,10 @@ return require('packer').startup {
     use {
       'numToStr/Comment.nvim',
       config = function()
-        require('Comment').setup()
       end,
     }
+    -- comment boxes
+    use 'LudoPinelli/comment-box.nvim'
 
     ------------------------------------------------------------------------
     --                          TEXT                                      --
@@ -401,7 +402,6 @@ return require('packer').startup {
 
     use {
       'nvim-treesitter/nvim-treesitter',
-      -- commit = '668de0951a36ef17016074f1120b6aacbe6c4515',
       run = ':TSUpdate',
       requires = {
         { 'nvim-treesitter/nvim-treesitter-refactor' },

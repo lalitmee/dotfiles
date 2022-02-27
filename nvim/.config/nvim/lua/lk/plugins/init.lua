@@ -20,6 +20,7 @@ require('lk/plugins/nvim-tree')
 
 -- NOTE: format
 require('lk/plugins/formatter')
+require('lk/plugins/comment')
 
 -- NOTE: terminal
 require('lk/plugins/toggleterm')
