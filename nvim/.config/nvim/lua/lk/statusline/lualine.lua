@@ -32,7 +32,7 @@ lualine.setup {
         },
         update_in_insert = true,
       },
-      { 'b:coc_current_function', 'g:coc_status' },
+      { 'lsp_progress' },
       { 'diff' },
     },
     lualine_x = { { 'filesize' } },
