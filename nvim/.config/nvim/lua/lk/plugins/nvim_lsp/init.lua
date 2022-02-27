@@ -1,41 +1,44 @@
-require('lk/plugins/nvim_lsp/handlers')
-require('lk/plugins/nvim_lsp/commands')
-require('lk/plugins/nvim_lsp/mappings')
-require('lk/plugins/nvim_lsp/diagnostics')
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
 -- require('lk/plugins/nvim_lsp/highlights')
+require('lk/plugins/nvim_lsp/commands')
+require('lk/plugins/nvim_lsp/handlers')
+
+-- servers config
+require('lk/plugins/nvim_lsp/servers/gopls')
 
 local autocommands = require('lk/plugins/nvim_lsp/autocommands')
 local mappings = require('lk/plugins/nvim_lsp/mappings')
 
 -- lsp kind symbols
-require('vim.lsp.protocol').CompletionItemKind =
-    {
-      ' [Text]', -- Text
-      ' [Method]', -- Method
-      'ƒ [Function]', -- Function
-      '  [Constructor]', -- Constructor
-      '識 [Field]', -- Field
-      ' [Variable]', -- Variable
-      '\u{f0e8} [Class]', -- Class
-      'ﰮ [Interface]', -- Interface
-      ' [Module]', -- Module
-      ' [Property]', -- Property
-      ' [Unit]', -- Unit
-      ' [Value]', -- Value
-      '了 [Enum]', -- Enum
-      ' [Keyword]', -- Keyword
-      '﬌ [Snippet]', -- Snippet
-      ' [Color]', -- Color
-      ' [File]', -- File
-      '渚 [Reference]', -- Reference
-      ' [Folder]', -- Folder
-      ' [Enum]', -- Enum
-      ' [Constant]', -- Constant
-      ' [Struct]', -- Struct
-      '鬒 [Event]', -- Event
-      '\u{03a8} [Operator]', -- Operator
-      ' [Type Parameter]', -- TypeParameter
-    }
+require('vim.lsp.protocol').CompletionItemKind = {
+  ' [Text]', -- Text
+  ' [Method]', -- Method
+  'ƒ [Function]', -- Function
+  '  [Constructor]', -- Constructor
+  '識 [Field]', -- Field
+  ' [Variable]', -- Variable
+  '\u{f0e8} [Class]', -- Class
+  'ﰮ [Interface]', -- Interface
+  ' [Module]', -- Module
+  ' [Property]', -- Property
+  ' [Unit]', -- Unit
+  ' [Value]', -- Value
+  '了 [Enum]', -- Enum
+  ' [Keyword]', -- Keyword
+  '﬌ [Snippet]', -- Snippet
+  ' [Color]', -- Color
+  ' [File]', -- File
+  '渚 [Reference]', -- Reference
+  ' [Folder]', -- Folder
+  ' [Enum]', -- Enum
+  ' [Constant]', -- Constant
+  ' [Struct]', -- Struct
+  '鬒 [Event]', -- Event
+  '\u{03a8} [Operator]', -- Operator
+  ' [Type Parameter]', -- TypeParameter
+}
 
 function Tagfunc(pattern, flags)
   if flags ~= 'c' then
@@ -75,61 +78,78 @@ local function on_attach(client, bufnr)
   require('lsp-status').on_attach(client)
 end
 
--- Configure lua language server for neovim development
-local luadev = require('lua-dev').setup({
-  lspconfig = {
-    settings = {
-      Lua = { workspace = { maxPreload = 2000, preloadFileSize = 1000 } },
-    },
-  },
-})
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport =
-    { properties = { 'documentation', 'detail', 'additionalTextEdits' } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { 'documentation', 'detail', 'additionalTextEdits' },
+}
 
--- lsp-install
-local function setup_servers()
-  require('lspinstall').setup()
+local servers = {
+  cssls = true,
+  gopls = true,
+  bashls = true,
+  jsonls = true,
+  tsserver = true,
+  vimls = true,
+  pyright = true,
+  sumneko_lua = function()
+    local lua_dev = require('lua-dev')
+    return lua_dev.setup {
+      lspconfig = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = {
+                'vim',
+                'describe',
+                'it',
+                'before_each',
+                'after_each',
+                'pending',
+                'teardown',
+                'packer_plugins',
+              },
+            },
+            completion = { keywordSnippet = 'Replace', callSnippet = 'Replace' },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              maxPreload = 2000,
+              preloadFileSize = 50000,
+              checkThirdParty = false,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = { enable = false },
+          },
+        },
+      },
+    }
+  end,
 
-  -- get all installed servers
-  local servers = require('lspinstall').installed_servers()
+}
+
+local function get_server_config(server)
+  local cmp_nvim_lsp = require('cmp_nvim_lsp')
   local status_capabilities = require('lsp-status').capabilities
-  for _, server in pairs(servers) do
-    local config = servers[server] or {}
-    config.on_attach = on_attach
-    if not config.capabilities then
-      config.capabilities = capabilities
-    end
-    config.capabilities.textDocument.completion.completionItem.snippetSupport =
-        true
-    config.capabilities = lk_utils.deep_merge(config.capabilities,
-                                              status_capabilities)
-
-    -- language specific config
-    if server == 'lua' then
-      config = luadev
-    end
-    if server == 'efm' then
-      config = vim.tbl_extend('force', config,
-                              require('lk/plugins/nvim_lsp/servers/efm'))
-    end
-    if server == 'sourcekit' then
-      config.filetypes = { 'swift', 'objective-c', 'objective-cpp' }; -- we don't want c and cpp!
-    end
-    if server == 'clangd' then
-      config.filetypes = { 'c', 'cpp' }; -- we don't want objective-c and objective-cpp!
-    end
-    require('lspconfig')[server].setup(config)
-  end
+  local conf = servers[server.name]
+  local conf_type = type(conf)
+  local config = conf_type == 'table' and conf or conf_type == 'function' and
+                     conf() or {}
+  config.flags = { debounce_text_changes = 500 }
+  config.on_attach = on_attach
+  config.capabilities = config.capabilities or
+                            vim.lsp.protocol.make_client_capabilities()
+  cmp_nvim_lsp.update_capabilities(config.capabilities)
+  config.capabilities = lk_utils.deep_merge(status_capabilities,
+                                            config.capabilities)
+  return config
 end
 
-setup_servers()
+local function set_servers()
+  local lsp_installer = require 'nvim-lsp-installer'
+  lsp_installer.on_server_ready(function(server)
+    server:setup(get_server_config(server))
+    vim.cmd [[ do User LspAttachBuffers ]]
+  end)
+end
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require('lspinstall').post_install_hook =
-    function()
-      setup_servers() -- reload installed servers
-      vim.cmd('bufdo e') -- this triggers the FileType autocmd that starts the server
-    end
+set_servers()

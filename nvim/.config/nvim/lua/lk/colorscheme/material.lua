@@ -1,26 +1,36 @@
--- vim.g.material_style = 'default'
-vim.g.material_style = 'darker'
--- vim.g.material_style = 'palenight'
--- vim.g.material_style = 'deep ocean'
+-- vim.g.material_style = 'darker'
 -- vim.g.material_style = 'oceanic'
--- vim.g.material_style = 'lighter'
+-- vim.g.material_style = 'palenight'
+vim.g.material_style = 'deep ocean'
 
-vim.g.material_italics = 1
-vim.g.material_borders = true
-vim.g.material_italic_keywords = true
-vim.g.material_italic_comments = true
--- vim.g.material_italic_functions = true
--- vim.g.material_italic_variables = true
+require('material').setup({
 
-require('colorbuddy').colorscheme('material')
+  italics = {
+    comments = true, -- Enable italic comments
+    keywords = true, -- Enable italic keywords
+    functions = false, -- Enable italic functions
+    strings = false, -- Enable italic strings
+    variables = false, -- Enable italic variables
+  },
 
-local c = require('colorbuddy.color').colors
-local Group = require('colorbuddy.group').Group
+  contrast_windows = { -- Specify which windows get the contrasted (darker) background
+    'terminal', -- Darker terminal background
+    'packer', -- Darker packer background
+    'qf', -- Darker qf list background
+  },
 
-Group.new('NeogitDiffAdd', c.green:dark(), c.black:light())
-Group.new('NeogitDiffAddHighlight', c.green:dark(), c.black:light())
-Group.new('NeogitDiffContextHighlight', nil, c.black:light())
-Group.new('NeogitDiffDelete', c.red:dark(), c.black:light())
-Group.new('NeogitDiffDeleteHighlight', c.red:dark(), c.black:light())
-Group.new('NeogitHunkHeader', c.black, c.blue:dark())
-Group.new('NeogitHunkHeaderHighlight', c.black, c.blue:dark())
+  text_contrast = {
+    lighter = false, -- Enable higher contrast text for lighter style
+    darker = false, -- Enable higher contrast text for darker style
+  },
+
+  disable = {
+    background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
+    term_colors = false, -- Prevent the theme from setting terminal colors
+    eob_lines = false, -- Hide the end-of-buffer lines
+  },
+
+  custom_highlights = {}, -- Overwrite highlights with your own
+})
+
+vim.cmd [[colorscheme material]]

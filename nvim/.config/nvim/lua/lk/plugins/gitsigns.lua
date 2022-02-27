@@ -3,16 +3,7 @@ if not ok then
   return
 end
 
-require('colorbuddy')
-
-local c = require('colorbuddy.color').colors
-local Group = require('colorbuddy.group').Group
-
-Group.new('GitSignsAdd', c.green)
-Group.new('GitSignsChange', c.yellow)
-Group.new('GitSignsDelete', c.red)
-
-require('gitsigns').setup {
+signs.setup({
   signs = {
     add = {
       hl = 'GitSignsAdd',
@@ -45,16 +36,16 @@ require('gitsigns').setup {
       linehl = 'GitSignsChangeLn',
     },
   },
-  numhl = false,
+  numhl = true,
   linehl = false,
-  watch_index = { interval = 1000 },
+  watch_gitdir = { interval = 1000 },
   sign_priority = 6,
   update_debounce = 200,
   status_formatter = nil,
   current_line_blame_opts = {
     virt_text = true,
     virt_text_pos = 'eol',
-    delay = 2000,
+    delay = 500,
   },
   keymaps = {
     noremap = true,
@@ -73,4 +64,4 @@ require('gitsigns').setup {
     ['n <leader>ghv'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <leader>ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
   },
-}
+})

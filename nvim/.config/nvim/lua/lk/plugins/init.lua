@@ -23,6 +23,7 @@ require('lk/plugins/formatter')
 
 -- NOTE: terminal
 require('lk/plugins/toggleterm')
+require('lk/plugins/nvim-terminal')
 
 -- NOTE: folds
 require('lk/plugins/crease')
@@ -31,21 +32,21 @@ require('lk/plugins/fastfold')
 -- NOTE: icons
 require('lk/plugins/devicons')
 
--- NOTE: debugging
-require('lk/plugins/dap')
+-- -- NOTE: debugging
+-- require('lk/plugins/dap')
 
 -- NOTE: status-line and buffer line
 require('lk/plugins/bufferline')
 
 -- NOTE: snippets
-require('lk/plugins/snippets')
+require('lk/plugins/luasnip')
+-- require('lk/plugins/snippets')
 -- require('lk/plugins/vsnip')
 
 -- NOTE: quick fix
 require('lk/plugins/nvim-bqf')
 
 -- NOTE: language support
-require('lk/plugins/auto-pairs')
 require('lk/plugins/emmet')
 require('lk/plugins/markdown')
 require('lk/plugins/tagalong')
@@ -62,9 +63,10 @@ require('lk/plugins/treesitter')
 -- NOTE: git
 require('lk/plugins/gitsigns')
 require('lk/plugins/neogit')
+require('lk/plugins/fugitive')
 
 -- NOTE: fuzzy
--- require('lk/plugins/fzf')
+require('lk/plugins/fzf')
 require('lk/plugins/telescope')
 require('lk/plugins/telescope/mappings')
 require('lk/plugins/refactoring')
@@ -73,9 +75,12 @@ require('lk/plugins/refactoring')
 require('lk/plugins/coc')
 
 -- -- NOTE: nvim_lsp
--- require('lk/plugins/compe')
+-- require('lk/plugins/completion')
 -- require('lk/plugins/lspsaga')
 -- require('lk/plugins/nvim_lsp')
 
 -- NOTE: which key
 require('lk/plugins/which-key')
+
+-- NOTE: notes
+require('lk/plugins/orgmode')

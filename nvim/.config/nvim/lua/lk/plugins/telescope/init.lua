@@ -30,10 +30,15 @@ require('telescope').setup {
       '--smart-case',
     },
     selection_strategy = 'reset',
-    sorting_strategy = 'descending',
+    -- sorting_strategy = 'descending',
+    sorting_strategy = 'ascending',
     scroll_strategy = 'cycle',
     color_devicons = true,
     dynamic_preview_title = true,
+    history = {
+      path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+      limit = 100,
+    },
 
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
 
@@ -55,6 +60,8 @@ require('telescope').setup {
       { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       preview = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
     },
+    -- NOTE: it was somehow stopping current_buffer_fuzzy_find, lsp_document_symbols
+    -- and so many other things
     file_ignore_patterns = {
       '.backup',
       '.swap',
@@ -65,17 +72,16 @@ require('telescope').setup {
       'node_modules',
       'vendor',
       '.cache',
-      '.vscode-server',
-      '.Desktop',
-      '.Documents',
+      '.vscode-server', -- '.Desktop',
+      -- '.Documents',
       'classes',
     },
 
     layout_config = {
-      width = 0.85,
-      height = 0.85,
-      prompt_position = 'bottom',
-      -- prompt_position = 'top',
+      width = 0.90,
+      height = 0.90,
+      -- prompt_position = 'bottom',
+      prompt_position = 'top',
 
       horizontal = {
         width_padding = 0.11,
@@ -98,8 +104,12 @@ require('telescope').setup {
   },
   pickers = {
     -- find_files = { theme = 'ivy' },
+
     buffers = {
       sort_mru = true,
+      -- theme = 'dropdown',
+      selection_strategy = 'closest',
+      -- previewer = false,
       sort_lastused = true,
       show_all_buffers = true,
       ignore_current_buffer = true,
@@ -110,6 +120,11 @@ require('telescope').setup {
     },
   },
   extensions = {
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {
+        -- even more opts
+      },
+    },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { '*.git/*', '*/node_modules/*' },
@@ -122,6 +137,18 @@ require('telescope').setup {
         ['data'] = '/home/lalitmee/.local/share',
       },
     },
+    bookmarks = {
+      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
+      selected_browser = 'brave',
+
+      -- Either provide a shell command to open the URL
+      url_open_command = 'xdg-open',
+
+      -- Or provide the plugin name which is already installed
+      -- Available: 'vim_external', 'open_browser'
+      url_open_plugin = nil,
+      firefox_profile_name = nil,
+    },
     openbrowser = {
       bookmarks = {
         -- work related bookmards
@@ -132,25 +159,26 @@ require('telescope').setup {
         ['marketsn-pdf-service'] = 'https://github.com/koinearth/marketsn-pdf-service',
         ['marketsn-pwa-service'] = 'https://github.com/koinearth/marketsn-pwa-service',
         ['marketsn-webapp-service'] = 'https://github.com/koinearth/marketsn-webapp-service-nextjs',
-        ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
-        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
-
-        -- work related bookmards
-        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
         ['material-ui'] = 'https://material-ui.com/',
         ['material-ui-icons'] = 'https://material-ui.com/components/material-icons/#material-icons',
         ['my-pull-requests'] = 'https://github.com/pulls',
+        ['wf-pwa-service'] = 'https://github.com/koinearth/wf-pwa-service',
+        ['wf-webapp-service'] = 'https://github.com/koinearth/wf-webapp-service',
+        ['google-meet-1'] = 'https://meet.google.com/czd-juio-jvf',
+
+        -- neovim related bookmards
+        ['lualine'] = 'https://github.com/hoob3rt/lualine.nvim',
         ['neovim'] = 'https://github.com/neovim/neovim',
         ['neovim-discource'] = 'https://neovim.discourse.group/',
         ['nvim-telescope'] = 'https://github.com/nvim-telescope/telescope.nvim',
-        ['google-meet-1'] = 'https://meet.google.com/czd-juio-jvf',
+        ['awesome-neovim'] = 'https://github.com/rockerBOO/awesome-neovim',
 
         -- general
-        ['clang_func_dict'] = 'http://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',
+        ['clang_func_dict'] = 'https://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0',
         ['crates_io'] = 'https://crates.io/search?q={query}',
-        ['devdocs'] = 'http://devdocs.io/#q={query}',
-        ['duckduckgo'] = 'http://duckduckgo.com/?q={query}',
-        ['github'] = 'http://github.com/search?q={query}',
+        ['devdocs'] = 'https://devdocs.io/#q={query}',
+        ['duckduckgo'] = 'https://duckduckgo.com/?q={query}',
+        ['github'] = 'https://github.com/search?q={query}',
         ['luaroks'] = 'https://luarocks.org/search?q={query}',
         ['mdnwebdocs'] = 'https://developer.mozilla.org/ja/search?q={query}',
         ['memo'] = 'https://scrapbox.io/tamago324vim/search/page?q={query}',
@@ -160,17 +188,21 @@ require('telescope').setup {
         ['utf8_icons'] = 'https://www.utf8icons.com/search?query={query}',
         ['vim_commits'] = 'https://github.com/vim/vim/search?q={query}&type=commits',
         ['vimawesome'] = 'https://vimawesome.com/?q={query}',
+        ['google'] = 'https://www.google.com/search?q={query}',
       },
     },
-    -- arecibo = {
-    --   ['selected_engine'] = 'google',
-    --   ['url_open_command'] = 'xdg-open',
-    --   ['show_http_headers'] = false,
-    --   ['show_domain_icons'] = false
-    -- },
+    arecibo = {
+      ['selected_engine'] = 'google',
+      ['url_open_command'] = 'xdg-open',
+      ['show_http_headers'] = false,
+      ['show_domain_icons'] = false,
+    },
     project = {
-      base_dirs = { '~/Desktop/Github', '~/Desktop/koinearth' },
-      max_depth = 3,
+      base_dirs = {
+        { '~/Desktop/Github', max_depth = 3 },
+        { '~/Desktop/koinearth', max_depth = 3 },
+        hidden_files = true,
+      },
     },
   },
 }
@@ -179,23 +211,38 @@ require('telescope').setup {
 --                          loading extensions start                           --
 ---------------------------------------------------------------------------------
 
+-- -- coc integration in telescope
+-- require('telescope').load_extension('coc')
+
+-- -- tmux integration in telescope
+-- require('telescope').load_extension('tmux')
+
+-- -- debugger
+-- require('telescope').load_extension('dap')
+
+-- scratch buffer
+require('telescope').load_extension('ui-select')
+
+-- scratch buffer
+require('telescope').load_extension('scratch')
+
 -- search internet
--- require('telescope').load_extension('arecibo')
+require('telescope').load_extension('arecibo')
 
--- -- github cli from telescope
--- require('telescope').load_extension('gh')
+-- smart history in telescope
+require('telescope').load_extension('bookmarks')
 
--- -- packer integration with telescope
--- require('telescope').load_extension('packer')
+-- smart history in telescope
+require('telescope').load_extension('smart_history')
+
+-- packer integration with telescope
+require('telescope').load_extension('packer')
+
+-- project management in telescope
+require('telescope').load_extension('zoxide')
 
 -- project management in telescope
 require('telescope').load_extension('project')
-
--- cheat sheets
-require('telescope').load_extension('cheat')
-
--- debugger
-require('telescope').load_extension('dap')
 
 -- recent files or history or files visited
 require('telescope').load_extension('frecency')
@@ -217,6 +264,9 @@ require('telescope').load_extension('ultisnips')
 
 -- emoji search
 require('telescope').load_extension('emoji')
+
+-- file browser
+require('telescope').load_extension('file_browser')
 
 ---------------------------------------------------------------------------------
 --                           loading extensions end                            --

@@ -8,79 +8,75 @@ if fn.empty(fn.glob(install_path)) > 0 then
               install_path)
 end
 
-local function hunspell_install_if_needed()
-  if vim.fn.executable('hunspell') == 0 then
-    if vim.fn.has('mac') > 0 then
-      -- on mac os need to download GB dictionary
-      -- and place in ~/Library/Spelling
-      -- these are available
-      -- https://wiki.openoffice.org/wiki/Dictionaries
-      vim.fn.system('brew install hunspell')
-    else
-      vim.fn.system('apt install hunspell hunspell_en_gb')
-    end
-  end
-end
-
 return require('packer').startup {
   function(use)
     -- Packer can manage itself as an optional plugin
     use 'wbthomason/packer.nvim'
     use 'lewis6991/impatient.nvim'
 
-    -- UI AND BEAUTIFY {{{
+    -- NOTE: VIM
 
-    -- notifications
-    use { 'rcarriga/nvim-notify', disable = false }
+    -- NOTE: man pages in vim
+    use 'vim-utils/vim-man'
 
-    -- MENU
-    -- lazy load as it is very expensive to load during startup i.e. 20ms+
-    -- FIXME: UpdateRemotePlugins doesn't seem to be called for lazy loaded plugins
-    -- @see: https://github.com/wbthomason/packer.nvim/issues/464
-    -- use {
-    --   'gelguy/wilder.nvim',
-    --   -- event = 'CmdlineEnter',
-    --   rocks = { 'luarocks-fetch-gitrec', 'pcre2' },
-    --   requires = { 'romgrk/fzy-lua-native', 'nixprime/cpsm' },
-    -- }
+    ----------------------------------------------------------------------------
+    --                            UI AND BEAUTIFY                             --
+    ----------------------------------------------------------------------------
 
-    -- colorschemes {{{
-
-    -- enabled
-    use { 'Murtaza-Udaipurwala/gruvqueen', disable = false }
-    use { 'navarasu/onedark.nvim', disable = false }
-    use { 'NTBBloodbath/doom-one.nvim', disable = false }
-    use { 'projekt0n/github-nvim-theme', disable = false }
-    use { 'tjdevries/colorbuddy.nvim', disable = false }
-    use { 'tjdevries/gruvbuddy.nvim', disable = false }
-    use { 'tomasiser/vim-code-dark', disable = false }
-    use { 'Mofiqul/vscode.nvim', disable = false }
-    use { 'folke/tokyonight.nvim', disable = false }
-    use { 'marko-cerovac/material.nvim', disable = false }
+    -- NOTE: notifications
     use {
-      'folke/twilight.nvim',
+      'rcarriga/nvim-notify',
       config = function()
-        require('twilight').setup {}
+        require('notify').setup({
+          -- Animation style (see below for details)
+          stages = 'fade',
+
+          -- Default timeout for notifications
+          timeout = 2000,
+
+          -- For stages that change opacity this is treated as the highlight behind the window
+          background_colour = 'BufferCurrent',
+
+          -- Icons for the different levels
+          icons = {
+            ERROR = ' ',
+            WARN = ' ',
+            INFO = ' ',
+            DEBUG = '',
+            TRACE = '✎',
+          },
+        })
       end,
-      disable = false,
     }
 
-    -- }}}
+    -- NOTE: colorschemes
+    -- use {
+    --   'folke/twilight.nvim',
+    --   config = function()
+    --     require('twilight').setup {}
+    --   end,
+    -- }
+    use { 'EdenEast/nightfox.nvim' }
+    use { 'Mofiqul/vscode.nvim' }
+    use { 'catppuccin/nvim', as = 'catppuccin' }
+    use { 'folke/tokyonight.nvim' }
+    use { 'kyazdani42/nvim-palenight.lua' }
+    use { 'lalitmee/cobalt2.nvim' }
+    use { 'luisiacc/gruvbox-baby' }
+    use { 'marko-cerovac/material.nvim' }
+    use { 'rebelot/kanagawa.nvim' }
+    use { 'rmehri01/onenord.nvim' }
+    use { 'tjdevries/colorbuddy.nvim' }
+    use { 'tjdevries/gruvbuddy.nvim' }
 
-    -- icons {{{
-
+    -- NOTE: icons
     -- beautiful icons
     use {
       'yamatsum/nvim-nonicons',
       requires = { 'kyazdani42/nvim-web-devicons' },
     }
 
-    -- }}}
-
-    -- General {{{
-
-    -- toggle, display and navigate marks
-    use 'kshenoy/vim-signature'
+    -- General
 
     -- See what keys do like in emacs
     use 'folke/which-key.nvim'
@@ -90,23 +86,34 @@ return require('packer').startup {
     -- Colorizer for showing the colors
     use 'norcalli/nvim-colorizer.lua'
 
-    -- }}}
+    ------------------------------------------------------------------------
+    --                          ACTIONS                                   --
+    ------------------------------------------------------------------------
+    -- scratch buffer in neovim like emacs
+    use { 'shift-d/scratch.nvim' }
 
-    -- }}}
-
-    -- ACTIONS {{{
-
-    -- trim whitespaces while you type
+    -- smart pairs in lua
     use {
-      'lewis6991/spaceless.nvim',
+      'ZhiyuanLck/smart-pairs',
+      event = 'InsertEnter',
       config = function()
-        require'spaceless'.setup()
+        require('pairs'):setup()
       end,
+      disable = true,
     }
+
+    -- beautiful code snippets from neovim
+    -- use {
+    --   'ellisonleao/carbon-now.nvim',
+    --   config = function()
+    --     require('carbon-now').setup()
+    --   end,
+    -- }
 
     -- clipboard
     use {
       'AckslD/nvim-neoclip.lua',
+      requires = { 'tami5/sqlite.lua', module = 'sqlite' },
       config = function()
         require('neoclip').setup()
       end,
@@ -120,8 +127,6 @@ return require('packer').startup {
       end,
     }
 
-    -- Search, Replace and Jump {{{
-
     use 'windwp/nvim-spectre'
     use 'nelstrom/vim-visual-star-search'
     use 'junegunn/vim-fnr'
@@ -129,6 +134,13 @@ return require('packer').startup {
 
     -- better quick-fix winodw
     use 'kevinhwang91/nvim-bqf'
+    -- prettify quickfix windows for neovim
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        require('pqf').setup()
+      end,
+    }
 
     -- display search matches
     use { 'kevinhwang91/nvim-hlslens' }
@@ -146,24 +158,24 @@ return require('packer').startup {
     -- Quickscope same as f, F, t, T but better
     use 'unblevable/quick-scope'
 
-    -- }}}
+    -- fuzzy motion
+    use 'rlane/pounce.nvim'
 
-    -- Navigations {{{
-
+    -- Navigations
     use 'ThePrimeagen/harpoon'
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     -- move code up and down
     use 'matze/vim-move'
 
+    -- NOTE: disabled due to a breaking change
     use {
       'folke/todo-comments.nvim',
       config = function()
         require('todo-comments').setup {}
       end,
+      disable = true,
     }
 
     -- smooth scrolling in neovim
@@ -183,7 +195,6 @@ return require('packer').startup {
           next_buffer_cmd = function(windows)
             require('bufferline').cycle(1)
             local bufnr = vim.api.nvim_get_current_buf()
-
             for _, window in ipairs(windows) do
               vim.api.nvim_win_set_buf(window, bufnr)
             end
@@ -192,14 +203,26 @@ return require('packer').startup {
       end,
     }
 
+    -- auto pairs
+    use {
+      'windwp/nvim-autopairs',
+      config = function()
+        require('nvim-autopairs').setup({
+          disable_filetype = { 'TelescopePrompt', 'vim' },
+        })
+      end,
+    }
+
     -- match brackets and more
     use 'andymass/vim-matchup'
 
     -- Switch between single-line and multiline forms of code
-    use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
+    use 'AndrewRadev/splitjoin.vim'
 
     -- sorting in vim
     use 'christoomey/vim-sort-motion'
+
+    -- navigate and splits
     use {
       'numToStr/Navigator.nvim',
       config = function()
@@ -207,14 +230,14 @@ return require('packer').startup {
       end,
     }
 
-    -- Better Whitespace
-    use 'ntpeters/vim-better-whitespace'
+    -- remove trailing whitespace and lines
+    use 'McAuleyPenney/tidy.nvim'
 
     -- nice fold text
     use 'scr1pt0r/crease.vim'
 
     -- fast folds in vim
-    use { 'Konfekt/FastFold' }
+    use 'Konfekt/FastFold'
 
     -- Maximizer for vim
     use 'szw/vim-maximizer'
@@ -227,6 +250,8 @@ return require('packer').startup {
 
     -- Swap windows
     use 'wesQ3/vim-windowswap'
+
+    -- search lines using numbers
     use {
       'nacro90/numb.nvim',
       config = function()
@@ -234,47 +259,74 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
+    -- commenting
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end,
+    }
 
-    -- commenting {{{
+    ------------------------------------------------------------------------
+    --                          TEXT                                      --
+    ------------------------------------------------------------------------
+    -- inline text edit
+    use 'AndrewRadev/inline_edit.vim'
 
-    -- not using this because this doesn't support repeating of the last acion
-    use 'tpope/vim-commentary'
+    -- cycle similar words
+    use 'zef/vim-cycle'
 
-    -- }}}
+    -- brackets done right way
+    use 'itmammoth/doorboy.vim'
 
-    -- }}}
+    -- github copilot
+    use 'github/copilot.vim'
 
-    -- TEXT {{{
+    -- NOTE: Notes
+    -- table like in org mode in emacs
+    use { 'dhruvasagar/vim-table-mode' }
 
-    -- jump to any definition or references
-    use 'pechorin/any-jump.vim'
-
-    -- Notes {{{
+    -- run any code of any file type
+    use { 'michaelb/sniprun', run = 'bash ./install.sh' }
 
     -- use 'michal-h21/vim-zettel' -- zettel tasks
     -- use 'vimwiki/vimwiki' -- vim wiki
 
-    -- }}}
+    use {
+      'nvim-orgmode/orgmode.nvim',
+      requires = {
+        {
+          'akinsho/org-bullets.nvim',
+          config = function()
+            require('org-bullets').setup {
+              symbols = { '◉', '○', '✸', '✿' },
+            }
+          end,
+        },
+        {
+          'lukas-reineke/headlines.nvim',
+          config = function()
+            require('headlines').setup()
+          end,
+        },
+      },
+    }
 
-    -- Snippets {{{
+    -- NOTE: Snippets
 
-    -- snippets engine
-    use 'SirVer/ultisnips'
+    -- -- snippets engine
+    use {
+      'SirVer/ultisnips',
+      requires = 'honza/vim-snippets',
+      config = function()
+        vim.g.UltiSnipsRemoveSelectModeMappings = 0
+      end,
+    }
 
-    -- Snippets in Vim
-    use 'honza/vim-snippets'
+    -- -- snippets in lua
+    -- use 'norcalli/snippets.nvim'
 
-    -- vsnip vscode snippets
-    -- use 'hrsh7th/vim-vsnip'
-    -- use 'hrsh7th/vim-vsnip-integ'
-
-    -- snippets in lua
-    use 'norcalli/snippets.nvim'
-
-    -- }}}
-
-    -- Format {{{
+    -- NOTE: Format
 
     -- use 'lukas-reineke/format.nvim'
 
@@ -285,45 +337,50 @@ return require('packer').startup {
     -- Tabularize for Vim
     use 'godlygeek/tabular'
 
-    -- }}}
+    -- Undo
+    use 'simnalamburt/vim-mundo'
 
-    -- Undo {{{
-
-    use { 'sjl/gundo.vim' }
-
-    -- }}}
-
-    -- }}}
-
-    -- LSP {{{
-
-    -- coc.nvim {{{
-
+    ------------------------------------------------------------------------
+    --                          LSP                          --
+    ------------------------------------------------------------------------
+    -- NOTE: coc.nvim
     use 'neoclide/vim-jsx-improve'
-
     -- vim completion for coc
     use 'Shougo/neco-vim'
     use 'neoclide/coc-neco'
 
-    -- Completion Conquerer
+    -- NOTE: Completion Conquerer
     use { 'neoclide/coc.nvim', branch = 'release' }
 
-    -- }}}
+    use { 'fannheyward/go.vim', ft = 'go' }
 
-    -- neovim-lsp {{{
-
+    -- -- NOTE: neovim-lsp
     -- use {
     --   'neovim/nvim-lspconfig',
     --   requires = {
-    --     { 'arkav/lualine-lsp-progress', disable = true },
-    --     { 'glepnir/lspsaga.nvim' },
-    --     { 'hrsh7th/nvim-compe' },
+    --     { 'onsails/lspkind-nvim' },
+    --     { 'tami5/lspsaga.nvim' },
     --     {
-    --       'tzachar/compe-tabnine',
-    --       run = './install.sh',
-    --       requires = 'hrsh7th/nvim-compe',
+    --       'hrsh7th/nvim-cmp',
+    --       requires = {
+    --         { 'hrsh7th/cmp-cmdline' },
+    --         { 'hrsh7th/cmp-buffer' },
+    --         { 'hrsh7th/cmp-nvim-lsp' },
+    --         { 'hrsh7th/cmp-nvim-lua' },
+    --         { 'hrsh7th/cmp-path' },
+    --         { 'petertriho/cmp-git' },
+    --         {
+    --           'tzachar/cmp-tabnine',
+    --           run = './install.sh',
+    --           requires = 'hrsh7th/nvim-cmp',
+    --         },
+    --         { 'quangnguyen30192/cmp-nvim-ultisnips' },
+    --         { 'f3fora/cmp-spell' },
+    --         { 'ray-x/cmp-treesitter' },
+    --         { 'hrsh7th/cmp-emoji' },
+    --       },
     --     },
-    --     { 'kabouzeid/nvim-lspinstall' },
+    --     { 'williamboman/nvim-lsp-installer' },
     --     { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
     --     { 'nvim-lua/lsp-status.nvim' },
     --     { 'tjdevries/lsp_extensions.nvim' },
@@ -336,106 +393,97 @@ return require('packer').startup {
     --       end,
     --     },
     --     { 'folke/lua-dev.nvim' },
-    --     {
-    --       'onsails/vimway-lsp-diag.nvim',
-    --       disable = true,
-    --       config = function()
-    --         require('vimway-lsp-diag').init({})
-    --       end,
-    --     },
+    --     { 'arkav/lualine-lsp-progress' },
     --   },
     -- }
 
-    -- }}}
-
-    -- Treesitter {{{
+    -- Treesitter
 
     use {
       'nvim-treesitter/nvim-treesitter',
+      -- commit = '668de0951a36ef17016074f1120b6aacbe6c4515',
       run = ':TSUpdate',
       requires = {
-        'lewis6991/spellsitter.nvim',
-        cond = 'true',
-        run = hunspell_install_if_needed,
-        config = function()
-          require('spellsitter').setup { captures = { 'comment' } }
-        end,
-      },
-      { 'nvim-treesitter/nvim-treesitter-refactor' },
-      { 'nvim-treesitter/nvim-treesitter-textobjects' },
-      { 'RRethy/nvim-treesitter-textsubjects' },
-      { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
-      { 'p00f/nvim-ts-rainbow' },
-      { 'JoosepAlviste/nvim-ts-context-commentstring' },
-      {
-        'mfussenegger/nvim-ts-hint-textobject',
-        config = function()
-          require('tsht').config.hint_keys = {
-            'h',
-            'j',
-            'f',
-            'd',
-            'n',
-            'v',
-            's',
-            'l',
-            'a',
-          }
-          -- keybindings
-          lk.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
-          lk.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
-        end,
+        { 'nvim-treesitter/nvim-treesitter-refactor' },
+        {
+          'nvim-treesitter/nvim-treesitter-textobjects',
+          commit = 'c81382328ad47c154261d1528d7c921acad5eae5',
+        },
+        { 'RRethy/nvim-treesitter-textsubjects' },
+        { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle' },
+        { 'p00f/nvim-ts-rainbow' },
+        { 'JoosepAlviste/nvim-ts-context-commentstring' },
+        {
+          'mfussenegger/nvim-ts-hint-textobject',
+          config = function()
+            require('tsht').config.hint_keys = {
+              'h',
+              'j',
+              'f',
+              'd',
+              'n',
+              'v',
+              's',
+              'l',
+              'a',
+            }
+            -- keybindings
+            lk_utils.omap('m', [[:<C-U>lua require('tsht').nodes()<CR>]])
+            lk_utils.vnoremap('m', [[:lua require('tsht').nodes()<CR>]])
+          end,
+        },
       },
     }
 
     -- interactively swap so many things
     use 'mizlan/iswap.nvim'
 
-    -- }}}
+    ------------------------------------------------------------------------
+    --                         FUZZY SEARCH                           --
+    ------------------------------------------------------------------------
+    use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf' } }
 
-    -- }}}
-
-    -- FUZZY SEARCH {{{
-
-    -- telescope.nvim {{{
+    -- telescope.nvim
     use { 'nvim-lua/plenary.nvim' }
     use { 'nvim-lua/popup.nvim' }
-
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'brandoncc/telescope-harpoon.nvim' },
+        { 'fannheyward/telescope-coc.nvim' },
         { 'fhill2/telescope-ultisnips.nvim' },
-        { 'nvim-telescope/telescope-cheat.nvim' },
+        { 'jvgrootveld/telescope-zoxide' },
+        {
+          'nvim-telescope/telescope-arecibo.nvim',
+          rocks = { 'openssl', 'lua-http-parser' },
+        },
         { 'nvim-telescope/telescope-dap.nvim' },
         { 'nvim-telescope/telescope-frecency.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         { 'nvim-telescope/telescope-project.nvim' },
         { 'tamago324/telescope-openbrowser.nvim' },
         { 'xiyaowong/telescope-emoji.nvim' },
-        { 'fannheyward/telescope-coc.nvim' },
-        {
-          'nvim-telescope/telescope-arecibo.nvim',
-          rocks = { 'openssl', 'lua-http-parser' },
-        },
+        { 'nvim-telescope/telescope-packer.nvim' },
+        { 'nvim-telescope/telescope-smart-history.nvim' },
+        { 'dhruvmanila/telescope-bookmarks.nvim' },
+        { 'nvim-telescope/telescope-ui-select.nvim' },
       },
     }
+    use { 'nvim-telescope/telescope-file-browser.nvim' }
 
-    -- }}}
-
-    -- }}}
-
-    -- LANGUAGES {{{
-
+    ----------------------------------------------------------------------------
+    --                                   LANGUAGES                            --
+    ----------------------------------------------------------------------------
     -- packages info
     use {
       'vuki656/package-info.nvim',
+      requires = 'MunifTanjim/nui.nvim',
       config = function()
         require('package-info').setup()
       end,
     }
 
-    -- refactor the code {{{
+    -- refactor the code
     use {
       'ThePrimeagen/refactoring.nvim',
       requires = {
@@ -443,23 +491,20 @@ return require('packer').startup {
         { 'nvim-treesitter/nvim-treesitter' },
       },
     }
-    -- }}}
 
-    -- HTML {{{
+    -- NOTE: HTML
 
     -- emmets in vim
-    use 'mattn/emmet-vim'
+    use { 'mattn/emmet-vim' }
 
     -- html tags completion
-    use 'AndrewRadev/tagalong.vim'
+    use { 'AndrewRadev/tagalong.vim', ft = { 'html', 'xml' } }
 
     -- wakatime for vim
     use 'wakatime/vim-wakatime'
     -- use 'sheerun/vim-polyglot'
 
-    -- }}}
-
-    -- markdown {{{
+    -- NOTE: markdown
 
     use {
       'iamcco/markdown-preview.nvim',
@@ -470,16 +515,12 @@ return require('packer').startup {
     -- markdown preview
     use { 'npxbr/glow.nvim', cmd = { 'Glow' } }
 
-    -- }}}
-
-    -- tags {{{
+    -- NOTE: tags
 
     -- Viewer & Finder for LSP symbols and tags
     use { 'liuchengxu/vista.vim', cmd = { 'Vista' } }
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     use {
       'RishabhRD/nvim-cheat.sh',
@@ -492,15 +533,10 @@ return require('packer').startup {
       },
     }
 
-    -- auto-pairs in lua
-    use 'windwp/nvim-autopairs'
-
-    -- }}}
-
-    -- }}}
-
-    -- VERSION CONTROL STYSTEM {{{
-
+    ------------------------------------------------------------------------
+    --                          VERSION CONTROL STYSTEM                   --
+    ------------------------------------------------------------------------
+    use { 'tpope/vim-fugitive' }
     use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim' }
     use {
       'rhysd/conflict-marker.vim',
@@ -542,26 +578,24 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- STATUS AND TAB LINES {{{
+    ------------------------------------------------------------------------
+    --                          STATUS AND TAB LINES                      --
+    ------------------------------------------------------------------------
     -- use {
     --   'tjdevries/express_line.nvim',
     --   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     -- }
 
     use {
-      'shadmansaleh/lualine.nvim',
-      requires = { { 'kyazdani42/nvim-web-devicons', opt = true } },
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     }
     use 'akinsho/nvim-bufferline.lua'
 
-    -- }}}
-
-    -- VIM NINJAS {{{
-
-    -- tpope {{{
-
+    ------------------------------------------------------------------------
+    --                          VIM NINJAS                                --
+    ------------------------------------------------------------------------
+    -- NOTE: tpope
     use 'tpope/vim-abolish'
     use {
       'tpope/vim-dispatch',
@@ -584,9 +618,7 @@ return require('packer').startup {
       },
     }
 
-    -- }}}
-
-    -- tjdevries  {{{
+    -- NOTE:  tjdevries
 
     -- use 'tjdevries/express_line.nvim'
     use 'tjdevries/nlua.nvim'
@@ -601,12 +633,9 @@ return require('packer').startup {
     -- Make comments appear IN YO FACE
     use { 'tjdevries/vim-inyoface', keys = { '<Plug>(InYoFace_Toggle)' } }
 
-    -- }}}
-
-    --  }}}
-
-    -- FILES {{{
-
+    ------------------------------------------------------------------------
+    --                          FILES                                     --
+    ------------------------------------------------------------------------
     use {
       'airblade/vim-rooter',
       config = function()
@@ -615,8 +644,12 @@ return require('packer').startup {
       end,
     }
 
-    -- Explorer {{{
-
+    -- Explorer
+    use {
+      'elihunter173/dirbuf.nvim', -- config = function()
+      --   require('dirbuf').setup()
+      -- end,
+    }
     use {
       'tamago324/lir.nvim',
       requires = {
@@ -650,11 +683,15 @@ return require('packer').startup {
       end,
     }
 
+    use {
+      'sidebar-nvim/sidebar.nvim',
+      config = function()
+        require('sidebar-nvim').setup()
+      end,
+    }
     use { 'kyazdani42/nvim-tree.lua' }
 
-    -- }}}
-
-    -- General {{{
+    -- General
 
     -- for handling swap files
     use {
@@ -664,18 +701,16 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- }}}
-
-    -- TERMINAL {{{
+    ------------------------------------------------------------------------
+    --                          TERMINAL                                  --
+    ------------------------------------------------------------------------
 
     -- Float Terminal
-    use {
-      'akinsho/nvim-toggleterm.lua',
-      -- cmd = { 'ToggleTerm', 'ToggleTermCloseAll', 'ToggleTermOpenAll' },
-      -- keys = { '<C-t>' }
-    }
+    use { 'akinsho/nvim-toggleterm.lua' }
+
+    -- for using telescope-tmux
+    -- use {'norcalli/nvim-terminal.lua'}
+
     use {
       's1n7ax/nvim-terminal',
       config = function()
@@ -683,41 +718,66 @@ return require('packer').startup {
       end,
     }
 
-    -- }}}
-
-    -- GNVIM {{{
+    ------------------------------------------------------------------------
+    --                          GNVIM                                     --
+    ------------------------------------------------------------------------
 
     -- Goneovim Fuzzy search
     -- NOTE: not using this because we have neovide instead of goneovim
-    use { 'akiyosi/gonvim-fuzzy', disable = true }
+    use { 'akiyosi/gonvim-fuzzy', disable = false }
 
-    -- }}}
-
-    -- BROWSER {{{
+    ------------------------------------------------------------------------
+    --                          BROWSER                                   --
+    ------------------------------------------------------------------------
 
     -- sql nvim database for frecency
+    use 'tami5/sqlite.lua'
     use 'tami5/sql.nvim'
-    use {
-      'tyru/open-browser-github.vim',
-      cmd = {
-        'OpenGithubFile',
-        'OpenGithubProject',
-        'OpenGithubPullReq',
-        'OpenGithubCommit',
-        'OpenGithubIssue',
-      },
-    }
-    use { 'tyru/open-browser.vim' }
+    use 'tyru/open-browser.vim'
 
-    -- }}}
-
-    -- TESTING {{{
+    ------------------------------------------------------------------------
+    --                          TESTING                                   --
+    ------------------------------------------------------------------------
 
     -- debugger attach protocol
-    use 'mfussenegger/nvim-dap'
-    use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
+    -- use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap' } }
 
-    -- }}}
+    ----------------------------------------------------------------------------
+    --                            NOT USING                                   --
+    ----------------------------------------------------------------------------
+    -- -- NOTE: disturbing Telescope UI
+    -- -- auto focus and resizing
+    -- use {
+    --   'beauwilliams/focus.nvim',
+    --   config = function()
+    --     require('focus').setup()
+    --   end,
+    -- }
+    --
+    -- -- stabilize windows
+    -- use {
+    --   'luukvbaal/stabilize.nvim',
+    --   config = function()
+    --     require('stabilize').setup()
+    --   end,
+    -- }
+    --
+    -- -- toggle, display and navigate marks
+    -- use 'kshenoy/vim-signature'
+    --
+    -- -- Search, Replace and Jump
+    -- use {
+    --   'ray-x/sad.nvim',
+    --   requires = { 'ray-x/guihua.lua' },
+    --   config = function()
+    --     require('sad').setup({
+    --       diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+    --       ls_file = 'fd', -- also git ls_file
+    --       exact = false, -- exact match
+    --     })
+    --   end,
+    -- }
+
   end,
   config = {
     display = {

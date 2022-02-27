@@ -1,20 +1,28 @@
-vim.api.nvim_exec([[
-      " put the cursor on the first searched word in the center
-      function! CenterSearch()
-        let cmdtype = getcmdtype()
-        if cmdtype == '/' || cmdtype == '?'
-          return "\<enter>zz"
-        endif
-        return "\<enter>"
-      endfunction
+local Job = require 'plenary.job'
 
-      cnoremap <silent> <expr> <enter> CenterSearch()
+local M = {}
 
-      function! Console_Log() abort
-        let l:word = expand('<cword>')
-        execute 'norm!oconsole.log({'.l:word.'});'
-        silent! call repeat#set("\<Plug>(JsConsoleLog)")
-      endfunction
+function M.notify_current_datetime()
+  local dt = vim.fn.strftime '%c'
+  require 'notify'('Current Date Time: ' .. dt, 'info',
+                   { title = 'Date & Time' })
+end
 
-      nnoremap <silent><Plug>(JsConsoleLog) :<C-u>call Console_Log()<CR>
-  ]], false)
+-- @TODOUA: is this a util? Should it be made into one?
+function M.yank_current_file_name()
+  local file_name = vim.api.nvim_buf_get_name(0)
+  local input_pipe = vim.loop.new_pipe(false)
+
+  local yanker = Job:new{ writer = input_pipe, command = 'pbcopy' }
+
+  -- @TODOUA: This works perfectly but double-check if it could be better(less)
+  yanker:start()
+  input_pipe:write(file_name)
+  input_pipe:close()
+  yanker:shutdown()
+
+  require 'notify'('Yanked: ' .. file_name, 'info',
+                   { title = 'File Name Yanker', timeout = 1000 })
+end
+
+return M

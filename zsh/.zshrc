@@ -109,10 +109,12 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 alias-finder
+# fast-alias-tips
 alias-tips
 autojump
 autoupdate
 brew
+browse-commit
 colored-man-pages
 command-not-found
 common-aliases
@@ -126,10 +128,10 @@ fzf-tab
 fzf-zsh-plugin
 gem
 git
+git-auto-fetch
 git-extra-commands
 git-extras
 gitfast
-git-auto-fetch
 history
 last-working-dir
 ng
@@ -149,6 +151,7 @@ tmuxinator
 ubuntu
 web-search
 yarn
+zsh-256color
 zsh-autosuggestions
 zsh-syntax-highlighting
 )
@@ -186,8 +189,9 @@ export LC_CTYPE=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ciu="caniuse"
+alias iu="is-up"
 alias aw="awesome-hub"
-alias st="speed-test"
+alias st="speed"
 
 # alias for fzf get the output
 alias f="| fzf-tmux"
@@ -216,8 +220,8 @@ alias c="clear"
 # hacker-new client
 alias hn="haxor-news"
 
-# alias for cheatsheet command
-alias cheat="cheatsheet"
+# # alias for cheatsheet command
+# alias cheat="cheatsheet"
 
 # for finding swap files
 alias swps="find . -name .\*.sw[op]"
@@ -271,6 +275,7 @@ alias manfzf="man -k . | fzf-tmux --prompt='Man> ' | awk '{print $1}' | xargs -r
 
 # aliases for some terminal programmes
 alias hw="how2"
+alias hi="howdoi"
 alias wb="wikit -b"
 alias wk="wikit"
 alias wt="curl wttr.in"
@@ -288,6 +293,7 @@ alias sb="subl ."
 alias gnvim="~/goneovim/goneovim &"
 alias glm="~/Desktop/Github/glrnvim/target/release/glrnvim &"
 alias nvd="~/Desktop/Softwares/editors/neovide &"
+alias oni="${HOME}/Applications/Onivim2-x86_64-master_8bbaf25b07ff2ac4dc6c74823d5a69bc.AppImage"
 
 # common aliases
 alias a="alias | fzf-tmux -d 40%"
@@ -364,12 +370,20 @@ export NVM_DIR="$HOME/.nvm"
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--layout=reverse --border --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
-# # gruvbox color for fzf
+export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
+
+# gruvbox color for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
 
 # # nord color for fzf
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B'
+
+# # cobalt2 color for fzf
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+#  --color=fg:#ffffff,bg:#0d3a58,hl:#5f87af
+#  --color=fg+:#ffffff,bg+:#F2ED7F,hl+:#ff9d00
+#  --color=info:#ffc600,prompt:#ff628c,pointer:#fb94ff
+#  --color=marker:#3ad900,spinner:#967efb,header:#2affdf'
 
 autoload -Uz compinit bashcompinit
 compinit
@@ -396,10 +410,15 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # # Navi: An interactive cheatsheet tool for the command-line and application launchers
 # source <(navi widget zsh)
 
+# almost on top from github: https://github.com/Valiev/almostontop
+source ~/Desktop/Github/almostontop/almostontop.plugin.zsh
+
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 
-eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
+# easily switch directories
+# eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
+eval "$(zoxide init zsh)"
 
 export TERM="xterm-256color"
 # if [ "$ISLINUX" '==' 'true' ]; then
@@ -441,9 +460,10 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-
-
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 export GREN_GITHUB_TOKEN=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
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+fpath=(~/.zsh.d/$fpath)
