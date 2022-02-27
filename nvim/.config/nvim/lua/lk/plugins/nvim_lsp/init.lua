@@ -92,6 +92,7 @@ local servers = {
   tsserver = true,
   vimls = true,
   pyright = true,
+  remark_ls = true,
   sumneko_lua = function()
     local lua_dev = require('lua-dev')
     return lua_dev.setup {
