@@ -17,25 +17,25 @@ vim.opt.termguicolors = true
 -- Color.new('turquoise', '#698b69')
 
 -- gruvbuddy
-require('colorbuddy').colorscheme('gruvbuddy')
+require("colorbuddy").colorscheme("gruvbuddy")
 
-require('colorizer').setup()
+require("colorizer").setup()
 
-local c = require('colorbuddy.color').colors
-local s = require('colorbuddy.style').styles
-local Group = require('colorbuddy.group').Group
+local c = require("colorbuddy.color").colors
+local s = require("colorbuddy.style").styles
+local Group = require("colorbuddy.group").Group
 
 -- git blame
-Group.new('gitblame', c.grey:dark(), nil)
+Group.new("gitblame", c.grey:dark(), nil)
 
 -- Group.new('QuickScopePrimary', c.green:dark(), nil, s.bold)
 -- Group.new('QuickScopeSecondary', c.blue:dark(), nil, s.bold)
 
-Group.new('LspLinesDiagBorder', c.white, nil, s.NONE)
-Group.new('LineDiagTuncateLine', c.white, nil, s.NONE)
+Group.new("LspLinesDiagBorder", c.white, nil, s.NONE)
+Group.new("LineDiagTuncateLine", c.white, nil, s.NONE)
 
-Group.new('IndentBlanklineChar', c.grey, nil, s.NONE)
+Group.new("IndentBlanklineChar", c.grey, nil, s.NONE)
 
 -- javascript
-Group.new('Keyword', c.purple:light(), nil, s.italic)
-Group.new('Identifier', c.red, nil, s.italic)
+Group.new("Keyword", c.purple:light(), nil, s.italic)
+Group.new("Identifier", c.red, nil, s.italic)

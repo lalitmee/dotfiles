@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup_autocommands = function(client)
-  local autocommands = require('lk/autocommands')
+  local autocommands = require("lk/autocommands")
 
   -- autocommands.augroup('LspLocationList', {
   --   {
@@ -11,21 +11,21 @@ M.setup_autocommands = function(client)
   --   },
   -- })
   if client and client.resolved_capabilities.document_highlight then
-    autocommands.augroup('LspCursorCommands', {
+    autocommands.augroup("LspCursorCommands", {
       {
-        events = { 'CursorHold' },
-        targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.document_highlight()',
+        events = { "CursorHold" },
+        targets = { "<buffer>" },
+        command = "lua vim.lsp.buf.document_highlight()",
       },
       {
-        events = { 'CursorHoldI' },
-        targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.document_highlight()',
+        events = { "CursorHoldI" },
+        targets = { "<buffer>" },
+        command = "lua vim.lsp.buf.document_highlight()",
       },
       {
-        events = { 'CursorMoved' },
-        targets = { '<buffer>' },
-        command = 'lua vim.lsp.buf.clear_references()',
+        events = { "CursorMoved" },
+        targets = { "<buffer>" },
+        command = "lua vim.lsp.buf.clear_references()",
       },
     })
   end

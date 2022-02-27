@@ -1,24 +1,25 @@
 -- Border color
 vim.g.fzf_layout = {
-  up = '~90%',
+  up = "~90%",
   window = {
     width = 0.9,
     height = 0.9,
     yoffset = 0.5,
     xoffset = 0.5,
-    border = 'rounded',
+    border = "rounded",
   },
 }
 
-vim.g.fzf_preview_window = 'right:60%'
-vim.g.fzf_command_prefix = 'Fzf'
-vim.g.fzf_tags_command = 'ctags -R .'
+vim.g.fzf_preview_window = "right:60%"
+vim.g.fzf_command_prefix = "Fzf"
+vim.g.fzf_tags_command = "ctags -R ."
 
-vim.cmd [[set wildmenu]]
-vim.cmd [[set wildmode=longest:full,full]]
-vim.cmd [[set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__]]
+vim.cmd([[set wildmenu]])
+vim.cmd([[set wildmode=longest:full,full]])
+vim.cmd([[set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__]])
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+  [[
 
       let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info --multi --bind=ctrl-a:select-all,ctrl-d:deselect-all'
       let $FZF_DEFAULT_COMMAND = "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o -type f -print -o -type l -print 2> /dev/null"
@@ -205,4 +206,6 @@ vim.api.nvim_exec([[
       endfunction
 
       " }}}
-]], true)
+]],
+  true
+)

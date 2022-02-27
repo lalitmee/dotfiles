@@ -15,7 +15,7 @@ local rustfmt = function()
   return { exe = "rustfmt", args = { "--emit=stdout" }, stdin = true }
 end
 
-require("formatter").setup {
+require("formatter").setup({
   filetype = {
     javascript = { prettier },
     javascriptreact = { prettier },
@@ -33,7 +33,7 @@ require("formatter").setup {
     html = { prettier },
     rust = { rustfmt },
   },
-}
+})
 
 vim.api.nvim_exec(
   [[

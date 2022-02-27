@@ -21,22 +21,22 @@ _G.lk = { _store = __lk_global_callbacks }
 -----------------------------------------------------------------------------//
 -- Consistent store of various UI items to reuse throughout my config
 lk.style = {
-  icons = { error = '✗', warning = '', info = '', hint = '' },
+  icons = { error = "✗", warning = "", info = "", hint = "" },
   palette = {
-    pale_red = '#E06C75',
-    dark_red = '#be5046',
-    light_red = '#c43e1f',
-    dark_orange = '#FF922B',
-    green = '#98c379',
-    bright_yellow = '#FAB005',
-    light_yellow = '#e5c07b',
-    dark_blue = '#4e88ff',
-    magenta = '#c678dd',
-    comment_grey = '#5c6370',
-    grey = '#3E4556',
-    whitesmoke = '#626262',
-    bright_blue = '#51afef',
-    teal = '#15AABF',
+    pale_red = "#E06C75",
+    dark_red = "#be5046",
+    light_red = "#c43e1f",
+    dark_orange = "#FF922B",
+    green = "#98c379",
+    bright_yellow = "#FAB005",
+    light_yellow = "#e5c07b",
+    dark_blue = "#4e88ff",
+    magenta = "#c678dd",
+    comment_grey = "#5c6370",
+    grey = "#3E4556",
+    whitesmoke = "#626262",
+    bright_blue = "#51afef",
+    teal = "#15AABF",
   },
 }
 
@@ -52,8 +52,8 @@ end
 -----------------------------------------------------------------------------//
 -- Debugging
 -----------------------------------------------------------------------------//
-if pcall(require, 'plenary') then
-  RELOAD = require('plenary.reload').reload_module
+if pcall(require, "plenary") then
+  RELOAD = require("plenary.reload").reload_module
 
   R = function(name)
     RELOAD(name)
@@ -78,13 +78,11 @@ local installed
 ---@return boolean
 function lk.plugin_installed(plugin_name)
   if not installed then
-    local dirs = fn.expand(fn.stdpath 'data' .. '/site/pack/packer/start/*',
-                           true, true)
-    local opt = fn.expand(fn.stdpath 'data' .. '/site/pack/packer/opt/*', true,
-                          true)
+    local dirs = fn.expand(fn.stdpath("data") .. "/site/pack/packer/start/*", true, true)
+    local opt = fn.expand(fn.stdpath("data") .. "/site/pack/packer/opt/*", true, true)
     vim.list_extend(dirs, opt)
     installed = vim.tbl_map(function(path)
-      return fn.fnamemodify(path, ':t')
+      return fn.fnamemodify(path, ":t")
     end, dirs)
   end
   return vim.tbl_contains(installed, plugin_name)
@@ -121,19 +119,25 @@ end
 ---@param name string
 ---@param commands Autocmd[]
 function lk.augroup(name, commands)
-  vim.cmd('augroup ' .. name)
-  vim.cmd 'autocmd!'
+  vim.cmd("augroup " .. name)
+  vim.cmd("autocmd!")
   for _, c in ipairs(commands) do
     local command = c.command
-    if type(command) == 'function' then
+    if type(command) == "function" then
       local fn_id = lk._create(command)
-      command = fmt('lua lk._execute(%s)', fn_id)
+      command = fmt("lua lk._execute(%s)", fn_id)
     end
-    vim.cmd(string.format('autocmd %s %s %s %s', table.concat(c.events, ','),
-                          table.concat(c.targets or {}, ','),
-                          table.concat(c.modifiers or {}, ' '), command))
+    vim.cmd(
+      string.format(
+        "autocmd %s %s %s %s",
+        table.concat(c.events, ","),
+        table.concat(c.targets or {}, ","),
+        table.concat(c.modifiers or {}, " "),
+        command
+      )
+    )
   end
-  vim.cmd 'augroup END'
+  vim.cmd("augroup END")
 end
 
 ---Check if a cmd is executable
@@ -147,11 +151,13 @@ end
 ---@param msg string | table
 ---@param hl string
 function lk.echomsg(msg, hl)
-  hl = hl or 'Title'
+  hl = hl or "Title"
   local msg_type = type(msg)
-  assert(msg_type ~= 'string' or msg_type ~= 'table', fmt(
-             'message should be a string or list of strings not a %s', msg_type))
-  if msg_type == 'string' then
+  assert(
+    msg_type ~= "string" or msg_type ~= "table",
+    fmt("message should be a string or list of strings not a %s", msg_type)
+  )
+  if msg_type == "string" then
     msg = { { msg, hl } }
   end
   vim.api.nvim_echo(msg, true, {})
@@ -160,7 +166,7 @@ end
 -- https://stackoverflow.com/questions/1283388/lua-merge-tables
 function lk.deep_merge(t1, t2)
   for k, v in pairs(t2) do
-    if (type(v) == 'table') and (type(t1[k] or false) == 'table') then
+    if (type(v) == "table") and (type(t1[k] or false) == "table") then
       lk.deep_merge(t1[k], t2[k])
     else
       t1[k] = v
@@ -174,19 +180,19 @@ end
 --- 2. At the bottom of the file call `stop()`
 --- 3. Restart neovim, the newly created log file should open
 function lk.profile(filename)
-  local base = '/tmp/config/profile/'
-  fn.mkdir(base, 'p')
-  local success, profile = pcall(require, 'plenary.profile.lua_profiler')
+  local base = "/tmp/config/profile/"
+  fn.mkdir(base, "p")
+  local success, profile = pcall(require, "plenary.profile.lua_profiler")
   if not success then
-    vim.api.nvim_echo({ 'Plenary is not installed.', 'Title' }, true, {})
+    vim.api.nvim_echo({ "Plenary is not installed.", "Title" }, true, {})
   end
   profile.start()
   return function()
     profile.stop()
-    local logfile = base .. filename .. '.log'
+    local logfile = base .. filename .. ".log"
     profile.report(logfile)
     vim.defer_fn(function()
-      vim.cmd('tabedit ' .. logfile)
+      vim.cmd("tabedit " .. logfile)
     end, 1000)
   end
 end
@@ -208,8 +214,7 @@ end
 ---Check if a vim variable usually a number is truthy or not
 ---@param value integer
 function lk.truthy(value)
-  assert(type(value) == 'number',
-         fmt('Value should be a number but you passed %s', value))
+  assert(type(value) == "number", fmt("Value should be a number but you passed %s", value))
   return value > 0
 end
 
@@ -237,9 +242,9 @@ function lk.empty(item)
     return true
   end
   local item_type = type(item)
-  if item_type == 'string' then
-    return item == ''
-  elseif item_type == 'table' then
+  if item_type == "string" then
+    return item == ""
+  elseif item_type == "table" then
     return vim.tbl_isempty(item)
   end
 end
@@ -249,8 +254,8 @@ end
 ---@param mode string
 ---@return boolean
 function lk.has_map(lhs, mode)
-  mode = mode or 'n'
-  return vim.fn.maparg(lhs, mode) ~= ''
+  mode = mode or "n"
+  return vim.fn.maparg(lhs, mode) ~= ""
 end
 
 local function validate_opts(opts)
@@ -258,30 +263,30 @@ local function validate_opts(opts)
     return true
   end
 
-  if type(opts) ~= 'table' then
-    return false, 'opts should be a table'
+  if type(opts) ~= "table" then
+    return false, "opts should be a table"
   end
 
-  if opts.buffer and type(opts.buffer) ~= 'number' then
-    return false, 'The buffer key should be a number'
+  if opts.buffer and type(opts.buffer) ~= "number" then
+    return false, "The buffer key should be a number"
   end
 
   return true
 end
 
 local function validate_mappings(lhs, rhs, opts)
-  vim.validate {
-    lhs = { lhs, 'string' },
+  vim.validate({
+    lhs = { lhs, "string" },
     rhs = {
       rhs,
       function(a)
         local arg_type = type(a)
-        return arg_type == 'string' or arg_type == 'function'
+        return arg_type == "string" or arg_type == "function"
       end,
-      'right hand side',
+      "right hand side",
     },
-    opts = { opts, validate_opts, 'mapping options are incorrect' },
-  }
+    opts = { opts, validate_opts, "mapping options are incorrect" },
+  })
 end
 
 ---create a mapping function factory
@@ -296,8 +301,7 @@ local function make_mapper(mode, o)
   ---@param rhs string|function
   ---@param opts table
   return function(lhs, rhs, opts)
-    assert(lhs ~= mode,
-           fmt('The lhs should not be the same as mode for %s', lhs))
+    assert(lhs ~= mode, fmt("The lhs should not be the same as mode for %s", lhs))
     local _opts = opts and vim.deepcopy(opts) or {}
 
     validate_mappings(lhs, rhs, _opts)
@@ -310,20 +314,19 @@ local function make_mapper(mode, o)
     end
 
     -- add functions to a global table keyed by their index
-    if type(rhs) == 'function' then
+    if type(rhs) == "function" then
       local fn_id = lk._create(rhs)
-      rhs = string.format('<cmd>lua lk._execute(%s)<CR>', fn_id)
+      rhs = string.format("<cmd>lua lk._execute(%s)<CR>", fn_id)
     end
 
     if _opts.buffer then
       -- Remove the buffer from the args sent to the key map function
       local bufnr = _opts.buffer
       _opts.buffer = nil
-      _opts = vim.tbl_extend('keep', _opts, parent_opts)
+      _opts = vim.tbl_extend("keep", _opts, parent_opts)
       api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, _opts)
     else
-      api.nvim_set_keymap(mode, lhs, rhs,
-                          vim.tbl_extend('keep', _opts, parent_opts))
+      api.nvim_set_keymap(mode, lhs, rhs, vim.tbl_extend("keep", _opts, parent_opts))
     end
   end
 end
@@ -331,23 +334,23 @@ end
 local map_opts = { noremap = false, silent = true }
 local noremap_opts = { noremap = true, silent = true }
 
-lk.nmap = make_mapper('n', map_opts)
-lk.xmap = make_mapper('x', map_opts)
-lk.imap = make_mapper('i', map_opts)
-lk.vmap = make_mapper('v', map_opts)
-lk.omap = make_mapper('o', map_opts)
-lk.tmap = make_mapper('t', map_opts)
-lk.smap = make_mapper('s', map_opts)
-lk.cmap = make_mapper('c', { noremap = false, silent = false })
+lk.nmap = make_mapper("n", map_opts)
+lk.xmap = make_mapper("x", map_opts)
+lk.imap = make_mapper("i", map_opts)
+lk.vmap = make_mapper("v", map_opts)
+lk.omap = make_mapper("o", map_opts)
+lk.tmap = make_mapper("t", map_opts)
+lk.smap = make_mapper("s", map_opts)
+lk.cmap = make_mapper("c", { noremap = false, silent = false })
 
-lk.nnoremap = make_mapper('n', noremap_opts)
-lk.xnoremap = make_mapper('x', noremap_opts)
-lk.vnoremap = make_mapper('v', noremap_opts)
-lk.inoremap = make_mapper('i', noremap_opts)
-lk.onoremap = make_mapper('o', noremap_opts)
-lk.tnoremap = make_mapper('t', noremap_opts)
-lk.snoremap = make_mapper('s', noremap_opts)
-lk.cnoremap = make_mapper('c', { noremap = true, silent = false })
+lk.nnoremap = make_mapper("n", noremap_opts)
+lk.xnoremap = make_mapper("x", noremap_opts)
+lk.vnoremap = make_mapper("v", noremap_opts)
+lk.inoremap = make_mapper("i", noremap_opts)
+lk.onoremap = make_mapper("o", noremap_opts)
+lk.tnoremap = make_mapper("t", noremap_opts)
+lk.snoremap = make_mapper("s", noremap_opts)
+lk.cnoremap = make_mapper("c", { noremap = true, silent = false })
 
 ---Create an nvim command
 ---@param args table
@@ -355,22 +358,20 @@ function lk.command(args)
   local nargs = args.nargs or 0
   local name = args[1]
   local rhs = args[2]
-  local types = (args.types and type(args.types) == 'table') and
-                    table.concat(args.types, ' ') or ''
+  local types = (args.types and type(args.types) == "table") and table.concat(args.types, " ") or ""
 
-  if type(rhs) == 'function' then
+  if type(rhs) == "function" then
     local fn_id = lk._create(rhs)
-    rhs = string.format('lua lk._execute(%d%s)', fn_id,
-                        nargs > 0 and ', <f-args>' or '')
+    rhs = string.format("lua lk._execute(%d%s)", fn_id, nargs > 0 and ", <f-args>" or "")
   end
 
-  vim.cmd(string.format('command! -nargs=%s %s %s %s', nargs, types, name, rhs))
+  vim.cmd(string.format("command! -nargs=%s %s %s %s", nargs, types, name, rhs))
 end
 
 function lk.invalidate(path, recursive)
   if recursive then
     for key, value in pairs(package.loaded) do
-      if key ~= '_G' and value and vim.fn.match(key, path) ~= -1 then
+      if key ~= "_G" and value and vim.fn.match(key, path) ~= -1 then
         package.loaded[key] = nil
         require(key)
       end
