@@ -13,7 +13,6 @@ endif
 Abolish reciever{,s} receiver{}
 Abolish teh the
 Abolish cusror cursor
-Abolish functoin function
 Abolish cosnt const
 Abolish {hon,col}our{,s,ed,ing} {}or{}
 
@@ -44,6 +43,9 @@ Abolish configuratoin configuration
 Abolish functoin function
 Abolish funtcion function
 Abolish functin function
+
+Abolish cosntants constants
+Abolish constnats constants
 
 Abolish typgoraphy typography
 Abolish tyopgraphy typography

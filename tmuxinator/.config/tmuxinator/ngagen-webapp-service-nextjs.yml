@@ -1,0 +1,10 @@
+# /home/lalitmee/.config/tmuxinator/ngagen-webapp-service-nextjs.yml
+
+name: ngagen-webapp-service-nextjs
+root: ~/Desktop/koinearth/ngagen/ngagen-webapp-service-nextjs
+
+windows:
+  - Editor: gst
+  - Server: yd
+  - Browser: brave-browser
+  - Extras: echo do extras here

@@ -49,17 +49,11 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;; for vim lang support
+;; for vim language support
 (package! vimrc-mode)
+
+;; for wakatime
 (package! wakatime-mode)
 
-;; prettier-js for prettier
-(package! prettier-js)
-(package! solaire-mode)
-
-;; pacakges for javascript development
-(package! ag)
-(package! dumb-jump)
-(package! manage-minor-mode)
-(package! flow-minor-mode)
-(package! format-all)
+;; org bullets
+(package! org-bullets)

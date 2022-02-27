@@ -450,11 +450,14 @@ bind C-j split-window -v "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(
 # Use vim keybindings in copy mode
 setw -g mode-keys vi
 
+# run cht.sh from tmux
+bind-key -r i run-shell "tmux neww bash -c \"~/.local/bin/tmux-cht.sh\""
+
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
 
 # Easily swap a pane (targeted by pane number) with the current pane
-bind-key s display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
+bind-key q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 
 # bind-key C-b send-keys 'tat && exit' 'C-m'
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
@@ -481,9 +484,14 @@ set -g @plugin 'ChanderG/tmux-notify'
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
 
-# source-file ~/data/Github/dotfiles/system/tmux/tmux-themes/spaceduck/basic.conf
-# source-file ~/data/Github/dotfiles/system/tmux/tmux-themes/tokyonight_night.conf
+# saves tmux state
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
+
+# source-file ~/dotfiles/tmux/tmux-themes/spaceduck/basic.conf
+# source-file ~/dotfiles/tmux/tmux-themes/tokyonight_night.conf
+# source-file ~/dotfiles/tmux/tmux-themes/catppuccin.conf
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
-

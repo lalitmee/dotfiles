@@ -1,37 +1,43 @@
-local lsp_handlers = vim.lsp.handlers
+local notify = require 'notify'
 
--- NOTE: commented because its being handled by telescope-lsp-handlers
--- LSP definition
--- lsp_handlers['textDocument/definition'] =
---     function(_, _, result)
---       if not result or vim.tbl_isempty(result) then
---         print('[LSP] Could not find definition')
---         return
---       end
+local override = require 'lk.plugins.nvim_lsp.override'
 
---       if vim.tbl_islist(result) then
---         vim.lsp.util.jump_to_location(result[1])
---       else
---         vim.lsp.util.jump_to_location(result)
---       end
---     end
+-- Jump directly to the first available definition every time.
+vim.lsp.handlers['textDocument/definition'] = function(_, result)
+  if not result or vim.tbl_isempty(result) then
+    print '[LSP] Could not find definition'
+    return
+  end
+
+  if vim.tbl_islist(result) then
+    vim.lsp.util.jump_to_location(result[1], 'utf-8')
+  else
+    vim.lsp.util.jump_to_location(result, 'utf-8')
+  end
+end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      underline = false,
-      virtual_text = { spacing = 5, severity_limit = 'Warning' },
-      update_in_insert = true
+    vim.lsp.with(vim.lsp.handlers['textDocument/publishDiagnostics'], {
+      signs = { severity_limit = 'Error' },
+      underline = { severity_limit = 'Warning' },
+      virtual_text = true,
     })
 
--- LSP hover
-lsp_handlers['textDocument/hover'] = require('lspsaga.hover').handler
-
--- LSP show line diagnostics
-vim.lsp.diagnostic.show_line_diagnostics =
-    require('lspsaga.diagnostic').show_line_diagnostics
+vim.lsp.handlers['window/showMessage'] =
+    function(_, result, ctx)
+      local client = vim.lsp.get_client_by_id(ctx.client_id)
+      local lvl = ({ 'ERROR', 'WARN', 'INFO', 'DEBUG' })[result.type]
+      notify({ result.message }, lvl, {
+        title = 'LSP | ' .. client.name,
+        timeout = 10000,
+        keep = function()
+          return lvl == 'ERROR' or lvl == 'WARN'
+        end,
+      })
+    end
 
 -- LSP Rename symbol
-local ns_rename = vim.api.nvim_create_namespace('tj_rename')
+local ns_rename = vim.api.nvim_create_namespace('lk_rename')
 
 local saga_config = require('lspsaga').config_values
 saga_config.rename_prompt_prefix = '>'
@@ -99,3 +105,33 @@ function MyLspRename()
 
   vim.cmd [[startinsert]]
 end
+
+local M = {}
+
+M.implementation = function()
+  local params = vim.lsp.util.make_position_params()
+
+  vim.lsp.buf_request(0, 'textDocument/implementation', params,
+                      function(err, result, ctx, config)
+    local bufnr = ctx.bufnr
+    local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+
+    -- In go code, I do not like to see any mocks for impls
+    if ft == 'go' then
+      local new_result = vim.tbl_filter(function(v)
+        return not string.find(v.uri, 'mock_')
+      end, result)
+
+      if #new_result > 0 then
+        result = new_result
+      end
+    end
+
+    vim.lsp.handlers['textDocument/implementation'](err, result, ctx, config)
+    vim.cmd [[normal! zz]]
+  end)
+end
+
+-- vim.lsp.codelens.display = require('gl.codelens').display
+
+return M

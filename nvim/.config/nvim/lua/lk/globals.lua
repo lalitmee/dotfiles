@@ -46,7 +46,7 @@ lk.style = {
 
 if vim.notify then
   ---Override of vim.notify to open floating window
-  vim.notify = require('notify')
+  -- vim.notify = require('notify')
 end
 
 -----------------------------------------------------------------------------//
@@ -380,30 +380,3 @@ function lk.invalidate(path, recursive)
     require(path)
   end
 end
-
-local function get_last_notification()
-  for _, win in ipairs(api.nvim_list_wins()) do
-    local buf = api.nvim_win_get_buf(win)
-    if vim.bo[buf].filetype == 'vim-notify' and api.nvim_win_is_valid(win) then
-      return api.nvim_win_get_config(win)
-    end
-  end
-end
-
-local notification_hl = setmetatable({
-  [2] = {
-    'FloatBorder:NvimNotificationError',
-    'NormalFloat:NvimNotificationError',
-  },
-  [1] = { 'FloatBorder:NvimNotificationInfo',
-          'NormalFloat:NvimNotificationInfo' },
-}, {
-  __index = function(t, k)
-    local is_number = type(k) == 'number'
-    k = is_number and k or 2 -- handle incorrect level keys as errors
-    if not is_number then
-      lk.echomsg(fmt('%s is not a valid vim.notify error level', k), 'ErrorMsg')
-    end
-    return k > 1 and t[2] or t[1]
-  end,
-})
