@@ -1,22 +1,20 @@
-require('bqf').setup(
-    {
-      auto_enable = true,
-      preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
-      filter = {
-        fzf = {
-          extra_opts = {
-            '--bind',
-            'ctrl-s:select-all,ctrl-d:deselect-all',
-            '--prompt',
-            'Filter > '
-          }
-        }
-      }
-    }
-)
+require("bqf").setup({
+  auto_enable = true,
+  preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
+  filter = {
+    fzf = {
+      extra_opts = {
+        "--bind",
+        "ctrl-s:select-all,ctrl-d:deselect-all",
+        "--prompt",
+        "Filter > ",
+      },
+    },
+  },
+})
 
 vim.api.nvim_exec(
-    [[
+  [[
         " :h CocLocationsChange for detail
         let g:coc_enable_locationlist = 0
         augroup Coc
@@ -55,5 +53,6 @@ vim.api.nvim_exec(
                 call win_gotoid(winid)
             endif
         endfunction
-    ]], true
+    ]],
+  true
 )

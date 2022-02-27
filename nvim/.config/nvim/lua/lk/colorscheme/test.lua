@@ -1,2 +1,2 @@
 -- vim.cmd [[colorscheme zephyr]]
-require('colorbuddy').colorscheme('cobalt2')
+require("colorbuddy").colorscheme("cobalt2")

@@ -1,24 +1,21 @@
-local saga = require('lspsaga')
+local saga = require("lspsaga")
 local nnoremap = lk_utils.nnoremap
 
-saga.init_lsp_saga {
+saga.init_lsp_saga({
   use_saga_diagnostic_sign = true,
-  finder_action_keys = { vsplit = 'v', split = 's', quit = { 'q', '<ESC>' } },
-  code_action_icon = '💡',
-  code_action_prompt = { enable = true, sign = true, virtual_text = false }
-}
+  finder_action_keys = { vsplit = "v", split = "s", quit = { "q", "<ESC>" } },
+  code_action_icon = "💡",
+  code_action_prompt = { enable = true, sign = true, virtual_text = false },
+})
 
-require('lk.highlights').highlight('LspSagaLightbulb',
-                                   { guifg = 'NONE', guibg = 'NONE' })
+require("lk.highlights").highlight("LspSagaLightbulb", { guifg = "NONE", guibg = "NONE" })
 
 -- scroll down hover doc
-nnoremap('<C-f>',
-         [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]])
+nnoremap("<C-f>", [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]])
 -- scroll up hover doc
-nnoremap('<C-b>',
-         [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]])
+nnoremap("<C-b>", [[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]])
 
-require('lk.autocommands').augroup('LspSagaCursorCommands', {
+require("lk.autocommands").augroup("LspSagaCursorCommands", {
   -- {
   --   events = { 'CursorHold' },
   --   targets = { '*' },

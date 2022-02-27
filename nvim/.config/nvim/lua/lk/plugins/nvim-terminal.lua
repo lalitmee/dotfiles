@@ -1,7 +1,7 @@
-local terminal = require('nvim-terminal').Terminal
-local window = require('nvim-terminal').Window
+local terminal = require("nvim-terminal").Terminal
+local window = require("nvim-terminal").Window
 
-Window = window:new({ pos = 'vertical', split = 'vsp' })
+Window = window:new({ pos = "vertical", split = "vsp" })
 
 Terminal = terminal:new(window)
 

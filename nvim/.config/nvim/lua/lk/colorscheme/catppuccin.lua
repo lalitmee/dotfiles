@@ -1,30 +1,30 @@
-local catppuccin = require('catppuccin')
+local catppuccin = require("catppuccin")
 
-catppuccin.setup {
+catppuccin.setup({
   transparent_background = false,
   term_colors = false,
   styles = {
-    comments = 'italic',
-    functions = 'NONE',
-    keywords = 'italic',
-    strings = 'NONE',
-    variables = 'NONE',
+    comments = "italic",
+    functions = "NONE",
+    keywords = "italic",
+    strings = "NONE",
+    variables = "NONE",
   },
   integrations = {
     treesitter = true,
     native_lsp = {
       enabled = true,
       virtual_text = {
-        errors = 'italic',
-        hints = 'italic',
-        warnings = 'italic',
-        information = 'italic',
+        errors = "italic",
+        hints = "italic",
+        warnings = "italic",
+        information = "italic",
       },
       underlines = {
-        errors = 'underline',
-        hints = 'underline',
-        warnings = 'underline',
-        information = 'underline',
+        errors = "underline",
+        hints = "underline",
+        warnings = "underline",
+        information = "underline",
       },
     },
     lsp_trouble = false,
@@ -50,6 +50,6 @@ catppuccin.setup {
     notify = true,
     telekasten = true,
   },
-}
+})
 
-vim.cmd [[colorscheme catppuccin]]
+vim.cmd([[colorscheme catppuccin]])

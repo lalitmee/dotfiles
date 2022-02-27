@@ -1,6 +1,6 @@
 vim.cmd([[nmap zuz <Plug>(FastFoldUpdate)]])
 
-vim.g.fastfold_skip_filetypes = { 'TelescopeResults' }
+vim.g.fastfold_skip_filetypes = { "TelescopeResults" }
 
 -- vim.g.fastfold_savehook = 1
 -- vim.g.markdown_folding = 1

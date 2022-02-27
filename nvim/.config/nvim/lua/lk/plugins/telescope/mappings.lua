@@ -1,4 +1,4 @@
-if not pcall(require, 'telescope') then
+if not pcall(require, "telescope") then
   return
 end
 
@@ -9,10 +9,8 @@ local map_tele = function(key, f, options, buffer)
 
   TelescopeMapArgs[map_key] = options or {}
 
-  local mode = 'n'
-  local rhs = string.format(
-                  '<cmd>lua R(\'lk.plugins.telescope\')[\'%s\'](TelescopeMapArgs[\'%s\'])<CR>',
-                  f, map_key)
+  local mode = "n"
+  local rhs = string.format("<cmd>lua R('lk.plugins.telescope')['%s'](TelescopeMapArgs['%s'])<CR>", f, map_key)
 
   local map_options = { noremap = true, silent = true }
 
@@ -23,30 +21,28 @@ local map_tele = function(key, f, options, buffer)
   end
 end
 
-vim.api.nvim_set_keymap('c', '<c-r><c-r>',
-                        '<Plug>(TelescopeFuzzyCommandSearch)',
-                        { noremap = false, nowait = true })
+vim.api.nvim_set_keymap("c", "<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", { noremap = false, nowait = true })
 
 -- lsp
-map_tele('<localleader>lw', 'lsp_workspace_symbols')
+map_tele("<localleader>lw", "lsp_workspace_symbols")
 
 -- Dotfiles
-map_tele('<leader>ofn', 'edit_neovim')
-map_tele('<leader>ofc', 'edit_dotfiles')
+map_tele("<leader>ofn", "edit_neovim")
+map_tele("<leader>ofc", "edit_dotfiles")
 
 -- Search
-map_tele('<space>obo', 'curbuf')
+map_tele("<space>obo", "curbuf")
 
 -- -- Nvim
-map_tele('<space>np', 'installed_plugins')
-map_tele('<space>ofa', 'search_all_files')
-map_tele('<space>ofi', 'fd')
-map_tele('<space>ofl', 'find_files')
-map_tele('<space>nh', 'help_tags')
+map_tele("<space>np", "installed_plugins")
+map_tele("<space>ofa", "search_all_files")
+map_tele("<space>ofi", "fd")
+map_tele("<space>ofl", "find_files")
+map_tele("<space>nh", "help_tags")
 
 -- Change Background Wallpaper
-map_tele('<space>otw', 'change_background')
+map_tele("<space>otw", "change_background")
 
-vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal wrap]]
+vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
 
 return map_tele

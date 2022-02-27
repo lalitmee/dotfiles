@@ -1,50 +1,50 @@
-local lualine = require('lualine')
+local lualine = require("lualine")
 
 -- NOTE: default
-lualine.setup {
+lualine.setup({
   options = {
-    theme = 'auto',
+    theme = "auto",
     -- theme = 'cobalt2',
-    section_separators = { left = '', right = '' },
-    component_separators = { left = '', right = '' },
+    section_separators = { left = "", right = "" },
+    component_separators = { left = "", right = "" },
   },
   sections = {
-    lualine_a = { { 'mode', fmt = string.upper } },
-    lualine_b = { { 'branch', icon = '' } },
+    lualine_a = { { "mode", fmt = string.upper } },
+    lualine_b = { { "branch", icon = "" } },
     lualine_c = {
-      { 'filetype', icon_only = true },
-      { 'filename', path = 1 },
+      { "filetype", icon_only = true },
+      { "filename", path = 1 },
       {
-        'diagnostics',
+        "diagnostics",
         -- sources = { 'coc' },
-        sources = { 'nvim_diagnostic' },
+        sources = { "nvim_diagnostic" },
         symbols = {
-          error = ' :',
-          warn = ' :',
-          info = ' :',
-          hint = '💡',
+          error = " :",
+          warn = " :",
+          info = " :",
+          hint = "💡",
         },
         diagnostics_color = {
-          error = { fg = '#E06C75' },
-          warn = { fg = '#FF922B' },
-          info = { fg = '#15AABF' },
-          hint = { fg = '#fab005' },
+          error = { fg = "#E06C75" },
+          warn = { fg = "#FF922B" },
+          info = { fg = "#15AABF" },
+          hint = { fg = "#fab005" },
         },
         update_in_insert = true,
       },
-      { 'lsp_progress' },
-      { 'diff' },
+      { "lsp_progress" },
+      { "diff" },
     },
-    lualine_x = { { 'filesize' } },
-    lualine_y = { { 'progress' } },
-    lualine_z = { { 'location' } },
+    lualine_x = { { "filesize" } },
+    lualine_y = { { "progress" } },
+    lualine_z = { { "location" } },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { { 'filename', path = 0 } },
-    lualine_x = { 'filetype' },
-    lualine_z = { 'location' },
+    lualine_c = { { "filename", path = 0 } },
+    lualine_x = { "filetype" },
+    lualine_z = { "location" },
   },
   -- tabline = {
   --   lualine_a = { 'buffers' },
@@ -54,8 +54,8 @@ lualine.setup {
   --   lualine_y = {},
   --   lualine_z = { 'tabs' },
   -- },
-  extensions = { 'fzf', 'fugitive', 'nvim-tree', 'quickfix', 'toggleterm' },
-}
+  extensions = { "fzf", "fugitive", "nvim-tree", "quickfix", "toggleterm" },
+})
 
 -- -- NOTE: slanted gaps
 -- local colors = { white = '#1f2335', red = '#db4b4b' }

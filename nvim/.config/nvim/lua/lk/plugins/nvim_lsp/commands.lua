@@ -2,240 +2,240 @@ local command = lk_utils.command
 
 -- from akinsho dotfiles
 
-command {
-  'ReloadLSP',
+command({
+  "ReloadLSP",
   function()
     vim.lsp.stop_client(vim.lsp.get_active_clients())
-    vim.cmd [[edit]]
-  end
-}
+    vim.cmd([[edit]])
+  end,
+})
 
-command {
-  'LogLSP',
+command({
+  "LogLSP",
   function()
     local path = vim.lsp.get_log_path()
-    vim.cmd('edit ' .. path)
-  end
-}
-command {
-  'DebugLSP',
+    vim.cmd("edit " .. path)
+  end,
+})
+command({
+  "DebugLSP",
   function()
     print(vim.inspect(vim.lsp.get_active_clients()))
-  end
-}
-command {
-  'Format',
+  end,
+})
+command({
+  "Format",
   function()
     vim.lsp.buf.formatting_sync(nil, 1000)
-  end
-}
+  end,
+})
 
 -- buf
 
-command {
-  'LspAddToWorkspaceFolder',
+command({
+  "LspAddToWorkspaceFolder",
   function()
     vim.lsp.buf.add_workspace_folder()
-  end
-}
+  end,
+})
 
-command {
-  'LspClearReferences',
+command({
+  "LspClearReferences",
   function()
     vim.lsp.buf.clear_references()
-  end
-}
+  end,
+})
 
-command {
-  'LspCodeActions',
+command({
+  "LspCodeActions",
   function()
     vim.lsp.buf.code_action()
-  end
-}
+  end,
+})
 
-command {
-  'LspDeclaration',
+command({
+  "LspDeclaration",
   function()
     vim.lsp.buf.declaration()
     vim.lsp.buf.clear_references()
-  end
-}
+  end,
+})
 
-command {
-  'LspDefinition',
+command({
+  "LspDefinition",
   function()
     vim.lsp.buf.definition()
     vim.lsp.buf.clear_references()
-  end
-}
+  end,
+})
 
-command {
-  'LspDocumentHighlight',
+command({
+  "LspDocumentHighlight",
   function()
     vim.lsp.buf.document_highlight()
-  end
-}
+  end,
+})
 
-command {
-  'LspDocumentSymbols',
+command({
+  "LspDocumentSymbols",
   function()
     vim.lsp.buf.document_symbol()
-  end
-}
+  end,
+})
 
-command {
-  'LspDocumentFormatting',
+command({
+  "LspDocumentFormatting",
   function()
     vim.lsp.buf.formatting()
-  end
-}
+  end,
+})
 
-command {
-  'LspFormattingSync',
+command({
+  "LspFormattingSync",
   function()
     vim.lsp.buf.formatting_sync()
-  end
-}
+  end,
+})
 
-command {
-  'LspHover',
+command({
+  "LspHover",
   function()
     vim.lsp.buf.hover()
-  end
-}
+  end,
+})
 
-command {
-  'LspSignatureHelp',
+command({
+  "LspSignatureHelp",
   function()
     vim.lsp.buf.signature_help()
-  end
-}
+  end,
+})
 
-command {
-  'LspImplementation',
+command({
+  "LspImplementation",
   function()
     vim.lsp.buf.implementation()
-  end
-}
+  end,
+})
 
-command {
-  'LspIncomingCalls',
+command({
+  "LspIncomingCalls",
   function()
     vim.lsp.buf.incoming_calls()
-  end
-}
+  end,
+})
 
-command {
-  'LspOutgoingCalls',
+command({
+  "LspOutgoingCalls",
   function()
     vim.lsp.buf.outgoing_calls()
-  end
-}
+  end,
+})
 
-command {
-  'LspWorkspaceFolders',
+command({
+  "LspWorkspaceFolders",
   function()
     vim.lsp.buf.list_workspace_folders()
-  end
-}
+  end,
+})
 
-command {
-  'LspRangeCodeAction',
+command({
+  "LspRangeCodeAction",
   function()
     vim.lsp.buf.range_code_action()
-  end
-}
+  end,
+})
 
-command {
-  'LspRangeFormatting',
+command({
+  "LspRangeFormatting",
   function()
     vim.lsp.buf.range_formatting()
-  end
-}
+  end,
+})
 
-command {
-  'LspReferences',
+command({
+  "LspReferences",
   function()
     vim.lsp.buf.references()
     vim.lsp.buf.clear_references()
-  end
-}
+  end,
+})
 
-command {
-  'LspRemoveWorkspaceFolder',
+command({
+  "LspRemoveWorkspaceFolder",
   function()
     vim.lsp.buf.remove_workspace_folder()
-  end
-}
+  end,
+})
 
-command {
-  'LspRename',
+command({
+  "LspRename",
   function()
     vim.lsp.buf.rename()
-  end
-}
+  end,
+})
 
-command {
-  'LspTypeDefinition',
+command({
+  "LspTypeDefinition",
   function()
     vim.lsp.buf.type_definition()
-  end
-}
+  end,
+})
 
-command {
-  'LspWorkspaceSymbols',
+command({
+  "LspWorkspaceSymbols",
   function()
     vim.lsp.buf.workspace_symbol()
-  end
-}
+  end,
+})
 
 -- diagnostic
 
-command {
-  'LspGetAllDiagnostics',
+command({
+  "LspGetAllDiagnostics",
   function()
     vim.lsp.diagnostic.get_all()
-  end
-}
+  end,
+})
 
-command {
-  'LspGetNextDiagnostic',
+command({
+  "LspGetNextDiagnostic",
   function()
     vim.lsp.diagnostic.get_next()
-  end
-}
+  end,
+})
 
-command {
-  'LspGetPrevDiagnostic',
+command({
+  "LspGetPrevDiagnostic",
   function()
     vim.lsp.diagnostic.get_prev()
-  end
-}
+  end,
+})
 
-command {
-  'LspGotoNextDiagnostic',
+command({
+  "LspGotoNextDiagnostic",
   function()
     vim.lsp.diagnostic.goto_next()
-  end
-}
+  end,
+})
 
-command {
-  'LspGotoPrevDiagnostic',
+command({
+  "LspGotoPrevDiagnostic",
   function()
     vim.lsp.diagnostic.goto_prev()
-  end
-}
+  end,
+})
 
-command {
-  'LspShowLineDiagnostics',
+command({
+  "LspShowLineDiagnostics",
   function()
     vim.lsp.diagnostic.show_line_diagnostics()
-  end
-}
+  end,
+})
 
-command {
-  'LspSetLoclist',
+command({
+  "LspSetLoclist",
   function()
     vim.lsp.diagnostic.setloclist()
-  end
-}
+  end,
+})

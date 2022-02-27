@@ -1,4 +1,4 @@
-local true_zen = require('true-zen')
+local true_zen = require("true-zen")
 
 -- setup for TrueZen.nvim
 true_zen.setup({
@@ -8,10 +8,10 @@ true_zen.setup({
       ruler = true,
       showmode = true,
       showcmd = true,
-      cmdheight = 2
+      cmdheight = 2,
     },
     top = { showtabline = 1 },
-    left = { number = true, relativenumber = true, signcolumn = 'yes' }
+    left = { number = true, relativenumber = true, signcolumn = "yes" },
   },
   modes = {
     ataraxis = {
@@ -22,7 +22,7 @@ true_zen.setup({
       ideal_writing_area_width = 0,
       just_do_it_for_me = true,
       keep_default_fold_fillchars = true,
-      custome_bg = '',
+      custome_bg = "",
       bg_configuration = true,
       affected_higroups = {
         NonText = {},
@@ -31,10 +31,10 @@ true_zen.setup({
         VertSplit = {},
         StatusLine = {},
         StatusLineNC = {},
-        SignColumn = {}
-      }
+        SignColumn = {},
+      },
     },
-    focus = { margin_of_error = 5, focus_method = 'experimental' }
+    focus = { margin_of_error = 5, focus_method = "experimental" },
   },
   integrations = {
     vim_gitgutter = false,
@@ -47,11 +47,11 @@ true_zen.setup({
     vim_powerline = false,
     vim_signify = false,
     express_line = false,
-    lualine = true
+    lualine = true,
   },
   misc = {
     on_off_commands = false,
     ui_elements_commands = false,
-    cursor_by_mode = true
-  }
+    cursor_by_mode = true,
+  },
 })
