@@ -56,17 +56,18 @@ return require('packer').startup {
     --     require('twilight').setup {}
     --   end,
     -- }
-    use { 'catppuccin/nvim', as = 'catppuccin' }
-    use { 'lalitmee/cobalt2.nvim' }
+    use { 'EdenEast/nightfox.nvim' }
     use { 'Mofiqul/vscode.nvim' }
+    use { 'catppuccin/nvim', as = 'catppuccin' }
     use { 'folke/tokyonight.nvim' }
+    use { 'kyazdani42/nvim-palenight.lua' }
+    use { 'lalitmee/cobalt2.nvim' }
     use { 'luisiacc/gruvbox-baby' }
     use { 'marko-cerovac/material.nvim' }
     use { 'rebelot/kanagawa.nvim' }
     use { 'rmehri01/onenord.nvim' }
     use { 'tjdevries/colorbuddy.nvim' }
     use { 'tjdevries/gruvbuddy.nvim' }
-    use { 'EdenEast/nightfox.nvim' }
 
     -- NOTE: icons
     -- beautiful icons
