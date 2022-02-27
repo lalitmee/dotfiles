@@ -343,59 +343,59 @@ return require('packer').startup {
     ------------------------------------------------------------------------
     --                          LSP                          --
     ------------------------------------------------------------------------
-    -- -- NOTE: coc.nvim
-    -- use 'neoclide/vim-jsx-improve'
-    -- -- vim completion for coc
-    -- use 'Shougo/neco-vim'
-    -- use 'neoclide/coc-neco'
+    -- NOTE: coc.nvim
+    use 'neoclide/vim-jsx-improve'
+    -- vim completion for coc
+    use 'Shougo/neco-vim'
+    use 'neoclide/coc-neco'
 
-    -- -- NOTE: Completion Conquerer
-    -- use { 'neoclide/coc.nvim', branch = 'release' }
+    -- NOTE: Completion Conquerer
+    use { 'neoclide/coc.nvim', branch = 'release' }
 
-    -- use { 'fannheyward/go.vim', ft = 'go' }
+    use { 'fannheyward/go.vim', ft = 'go' }
 
-    -- NOTE: neovim-lsp
-    use {
-      'neovim/nvim-lspconfig',
-      requires = {
-        { 'onsails/lspkind-nvim' },
-        { 'tami5/lspsaga.nvim' },
-        {
-          'hrsh7th/nvim-cmp',
-          requires = {
-            { 'hrsh7th/cmp-cmdline' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-nvim-lua' },
-            { 'hrsh7th/cmp-path' },
-            { 'petertriho/cmp-git' },
-            {
-              'tzachar/cmp-tabnine',
-              run = './install.sh',
-              requires = 'hrsh7th/nvim-cmp',
-            },
-            { 'quangnguyen30192/cmp-nvim-ultisnips' },
-            { 'f3fora/cmp-spell' },
-            { 'ray-x/cmp-treesitter' },
-            { 'hrsh7th/cmp-emoji' },
-          },
-        },
-        { 'williamboman/nvim-lsp-installer' },
-        { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
-        { 'nvim-lua/lsp-status.nvim' },
-        { 'tjdevries/lsp_extensions.nvim' },
-        { 'folke/lsp-colors.nvim' },
-        {
-          'folke/trouble.nvim',
-          requires = 'kyazdani42/nvim-web-devicons',
-          config = function()
-            require('trouble').setup {}
-          end,
-        },
-        { 'folke/lua-dev.nvim' },
-        { 'arkav/lualine-lsp-progress' },
-      },
-    }
+    -- -- NOTE: neovim-lsp
+    -- use {
+    --   'neovim/nvim-lspconfig',
+    --   requires = {
+    --     { 'onsails/lspkind-nvim' },
+    --     { 'tami5/lspsaga.nvim' },
+    --     {
+    --       'hrsh7th/nvim-cmp',
+    --       requires = {
+    --         { 'hrsh7th/cmp-cmdline' },
+    --         { 'hrsh7th/cmp-buffer' },
+    --         { 'hrsh7th/cmp-nvim-lsp' },
+    --         { 'hrsh7th/cmp-nvim-lua' },
+    --         { 'hrsh7th/cmp-path' },
+    --         { 'petertriho/cmp-git' },
+    --         {
+    --           'tzachar/cmp-tabnine',
+    --           run = './install.sh',
+    --           requires = 'hrsh7th/nvim-cmp',
+    --         },
+    --         { 'quangnguyen30192/cmp-nvim-ultisnips' },
+    --         { 'f3fora/cmp-spell' },
+    --         { 'ray-x/cmp-treesitter' },
+    --         { 'hrsh7th/cmp-emoji' },
+    --       },
+    --     },
+    --     { 'williamboman/nvim-lsp-installer' },
+    --     { 'alexaandru/nvim-lspupdate', tag = 'v0.9.0' },
+    --     { 'nvim-lua/lsp-status.nvim' },
+    --     { 'tjdevries/lsp_extensions.nvim' },
+    --     { 'folke/lsp-colors.nvim' },
+    --     {
+    --       'folke/trouble.nvim',
+    --       requires = 'kyazdani42/nvim-web-devicons',
+    --       config = function()
+    --         require('trouble').setup {}
+    --       end,
+    --     },
+    --     { 'folke/lua-dev.nvim' },
+    --     { 'arkav/lualine-lsp-progress' },
+    --   },
+    -- }
 
     -- Treesitter
 
