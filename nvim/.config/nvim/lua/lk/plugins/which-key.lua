@@ -454,6 +454,7 @@ local leader_key_maps = {
       ['p'] = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev-diagnostic' },
     },
     ['i'] = { ':LspInfo<CR>', 'lsp-info' },
+    ['I'] = { ':LspInstallInfo<CR>', 'lsp-installer-info' },
     ['l'] = { ':Lspsaga lsp_finder<CR>', 'finder' },
     ['p'] = { ':Lspsaga preview_definition<CR>', 'preview-definition' },
     ['r'] = { ':LspRename<CR>', 'rename' },
