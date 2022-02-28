@@ -168,13 +168,11 @@ return require("packer").startup({
     -- move code up and down
     use("matze/vim-move")
 
-    -- NOTE: disabled due to a breaking change
     use({
       "folke/todo-comments.nvim",
       config = function()
         require("todo-comments").setup({})
       end,
-      disable = true,
     })
 
     -- smooth scrolling in neovim
