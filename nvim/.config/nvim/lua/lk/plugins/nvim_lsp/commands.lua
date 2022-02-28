@@ -190,49 +190,14 @@ command({
 })
 
 -- diagnostic
-
 command({
   "LspGetAllDiagnostics",
   function()
-    vim.lsp.diagnostic.get_all()
+    vim.diagnostic.get_all()
   end,
 })
 
-command({
-  "LspGetNextDiagnostic",
-  function()
-    vim.lsp.diagnostic.get_next()
-  end,
-})
-
-command({
-  "LspGetPrevDiagnostic",
-  function()
-    vim.lsp.diagnostic.get_prev()
-  end,
-})
-
-command({
-  "LspGotoNextDiagnostic",
-  function()
-    vim.lsp.diagnostic.goto_next()
-  end,
-})
-
-command({
-  "LspGotoPrevDiagnostic",
-  function()
-    vim.lsp.diagnostic.goto_prev()
-  end,
-})
-
-command({
-  "LspShowLineDiagnostics",
-  function()
-    vim.lsp.diagnostic.show_line_diagnostics()
-  end,
-})
-
+-- loclist
 command({
   "LspSetLoclist",
   function()

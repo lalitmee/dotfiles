@@ -24,7 +24,6 @@ require("lk/plugins/comment")
 
 -- NOTE: terminal
 require("lk/plugins/toggleterm")
-require("lk/plugins/nvim-terminal")
 
 -- NOTE: folds
 require("lk/plugins/crease")
