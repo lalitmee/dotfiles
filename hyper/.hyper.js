@@ -18,7 +18,7 @@ module.exports = {
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: "bold",
     // line height as a relative unit
-    lineHeight: 1,
+    lineHeight: 1.2,
     // letter spacing as a relative unit
     letterSpacing: 1,
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
@@ -143,6 +143,7 @@ module.exports = {
     "hyper-tokyo-night-storm",
     "nord-hyper",
     "hyper-gruvbox",
+    "hyperterm-cobalt2-theme",
   ],
   gruvboxTheme: {
     style: "dark", // or 'light'

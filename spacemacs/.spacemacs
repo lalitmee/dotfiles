@@ -514,7 +514,7 @@ you should place your code here."
   (add-hook 'markdown-mode-hook #'turn-on-smartparens-strict-mode t)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
 
-  (add-hook 'prog-mode-hook 'rainbow-mode)
+  ;; (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
   (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
