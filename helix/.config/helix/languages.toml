@@ -1,0 +1,6 @@
+[[language]]
+name = "javascript"
+scope = "source.javascript"
+auto-format = true
+file-types = ["js", "jsx"]
+language-server = { command = "typescript-language-server" }

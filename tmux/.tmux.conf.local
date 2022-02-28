@@ -484,6 +484,15 @@ set -g @plugin 'ChanderG/tmux-notify'
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
 
+# tmux-modal
+set -g @plugin 'whame/tmux-modal'
+
+# popup menus for the commands
+set -g @plugin 'jaclu/tmux-menus'
+
+# search for something in scrollback buffer
+set -g @plugin 'roosta/tmux-fuzzback'
+
 # saves tmux state
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
