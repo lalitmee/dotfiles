@@ -384,7 +384,7 @@ export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctr
 #     --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
 #     --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 
-# # # nord color for fzf
+# # nord color for fzf
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 #     --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
 #     --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
@@ -393,10 +393,10 @@ export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctr
 
 # cobalt2 color for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-    --color=fg:#bcbcbc,bg:#193549,hl:#0088FF
-    --color=fg+:#ffc600,bg+:#185294,hl+:#00aaff
-    --color=info:#afaf87,prompt:#00aaff,pointer:#00aaff
-    --color=marker:#FF628C,spinner:#ff9a00,header:#ff9a00'
+    --color=fg:#00aaff,bg:#193549,hl:#ffc600
+    --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
+    --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
+    --color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
 
 autoload -Uz compinit bashcompinit
 compinit
