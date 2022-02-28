@@ -715,7 +715,14 @@ return require("packer").startup({
     use({
       "s1n7ax/nvim-terminal",
       config = function()
-        require("nvim-terminal").setup()
+        require("nvim-terminal").setup({
+          window = {
+            position = "vertical",
+            split = "vsp",
+            width = 140,
+            height = 140,
+          },
+        })
       end,
     })
 
