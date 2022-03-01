@@ -3,6 +3,23 @@ if not ok then
   return
 end
 
+-- NOTE: to get the current client server name
+local function get_client_name()
+  local msg = "No Active Lsp"
+  local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+  local clients = vim.lsp.get_active_clients()
+  if next(clients) == nil then
+    return msg
+  end
+  for _, client in ipairs(clients) do
+    local filetypes = client.config.filetypes
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      return "[ ⚙ LSP: " .. client.name .. " ]"
+    end
+  end
+  return msg
+end
+
 lualine.setup({
   options = {
     theme = "auto",
@@ -16,17 +33,23 @@ lualine.setup({
     lualine_c = {
       { "filetype", icon_only = true },
       { "filename", path = 1 },
-      {
-        "diagnostics",
-        -- sources = { "coc" },
-        sources = { "nvim_diagnostic" },
-        symbols = { error = " :", warn = " :", info = " :", hint = "💡" },
-        update_in_insert = true,
-      },
       { "lsp_progress" },
       { "diff" },
     },
-    lualine_x = { { "filesize" } },
+    lualine_x = {
+      {
+        "diagnostics",
+        sources = { "nvim_diagnostic" },
+        sections = { "error", "warn", "info", "hint" },
+        symbols = { error = " :", warn = " :", info = " :", hint = "💡" },
+        update_in_insert = true,
+      },
+      {
+        get_client_name,
+        color = { fg = "#FFC600" },
+      },
+      { "filesize" },
+    },
     lualine_y = { { "progress" } },
     lualine_z = { { "location" } },
   },
@@ -37,13 +60,5 @@ lualine.setup({
     lualine_x = { "filetype" },
     lualine_z = { "location" },
   },
-  -- tabline = {
-  --   lualine_a = { 'buffers' },
-  --   lualine_b = {},
-  --   lualine_c = {},
-  --   lualine_x = {},
-  --   lualine_y = {},
-  --   lualine_z = { 'tabs' },
-  -- },
-  extensions = { "fzf", "fugitive", "nvim-tree", "quickfix", "toggleterm" },
+  extensions = { "fzf", "fugitive", "nvim-tree", "quickfix", "toggleterm", "symbols-outline" },
 })

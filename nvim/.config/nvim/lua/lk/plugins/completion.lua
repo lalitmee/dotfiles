@@ -116,6 +116,10 @@ cmp.setup({
     { name = "spell" },
     { name = "cmp_git" },
     { name = "emoji" },
+    { name = "nvim_lsp_signature_help" },
+    { name = "tmux" },
+    { name = "npm", keyword_length = 4 },
+    { name = "dictionary", keyword_length = 2 },
   }, {
     { name = "buffer" },
   }),
@@ -174,14 +178,3 @@ cmp.setup.cmdline(":", {
 --     tex = '{',
 --   },
 -- })
-
--- nvim-cmp highlight groups.
-local Group = require("colorbuddy.group").Group
-local g = require("colorbuddy.group").groups
-local s = require("colorbuddy.style").styles
-
-Group.new("CmpItemAbbr", g.Comment)
-Group.new("CmpItemAbbrDeprecated", g.Error)
-Group.new("CmpItemAbbrMatchFuzzy", g.Type, nil, s.italic)
-Group.new("CmpItemKind", g.Function)
-Group.new("CmpItemMenu", g.Constant.fg:light())

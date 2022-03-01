@@ -1,3 +1,5 @@
+local oslib = require("lk/utils/oslib")
+
 local lspconfig_util = require("lspconfig.util")
 
 require("lk/plugins/nvim_lsp/commands")
@@ -32,13 +34,27 @@ function Tagfunc(pattern, flags)
   return results
 end
 
--- keymaps
+-- on_atthach
 local function on_attach(client, bufnr)
+  vim.notify(
+    string.format("[LSP] %s\n[CWD] %s", client.name, oslib.get_cwd()),
+    "info",
+    { title = "[LSP] Active", timeout = 250 }
+  )
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
   autocommands.setup_autocommands(client)
   mappings.setup_mappings(client, bufnr)
 
   client.resolved_capabilities.document_formatting = false
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd([[
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd! CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd! CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]])
+  end
   if client.resolved_capabilities.goto_definition then
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.Tagfunc")
   end

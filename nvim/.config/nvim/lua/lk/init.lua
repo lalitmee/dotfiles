@@ -1,4 +1,3 @@
-require("lk/utils")
 require("lk/globals")
 require("lk/settings")
 require("lk/highlights")

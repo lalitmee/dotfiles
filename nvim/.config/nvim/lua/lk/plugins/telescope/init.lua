@@ -17,6 +17,23 @@ local actions = require("telescope.actions")
 local previewers = require("telescope.previewers")
 local themes = require("telescope.themes")
 
+local function get_border(opts)
+  return vim.tbl_deep_extend("force", opts or {}, {
+    borderchars = {
+      { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+      preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    },
+  })
+end
+
+---@param opts table
+---@return table
+local function dropdown(opts)
+  return themes.get_dropdown(get_border(opts))
+end
+
 require("telescope").setup({
   defaults = {
     vimgrep_arguments = {
@@ -30,14 +47,13 @@ require("telescope").setup({
       "--smart-case",
     },
     selection_strategy = "reset",
-    -- sorting_strategy = 'descending',
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
     color_devicons = true,
     dynamic_preview_title = true,
+    -- path_display = { "absolute", "truncate" },
     history = {
-      path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
-      limit = 100,
+      path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
     },
 
     set_env = {
@@ -62,41 +78,22 @@ require("telescope").setup({
       { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     },
-    -- NOTE: it was somehow stopping current_buffer_fuzzy_find, lsp_document_symbols
-    -- and so many other things
-    file_ignore_patterns = {
-      ".backup",
-      ".swap",
-      ".langservers",
-      ".session",
-      ".undo",
-      "*.git",
-      "node_modules",
-      "vendor",
-      ".cache",
-      ".vscode-server", -- '.Desktop',
-      -- '.Documents',
-      "classes",
-    },
+    file_ignore_patterns = { "%.jpg", "%.jpeg", "%.png", "%.otf", "%.ttf", "%.DS_Store" },
 
     layout_config = {
       width = 0.90,
       height = 0.90,
-      -- prompt_position = 'bottom',
       prompt_position = "top",
-
       horizontal = {
         width_padding = 0.11,
         height_padding = 0.13,
         preview_width = 0.56,
       },
-
       vertical = {
         width_padding = 0.4,
         height_padding = 0.8,
         preview_height = 0.5,
       },
-
       flex = {
         horizontal = {
           preview_width = 0.8,
@@ -108,25 +105,47 @@ require("telescope").setup({
     qflist_previewer = previewers.vim_buffer_qflist.new,
   },
   pickers = {
-    -- find_files = { theme = 'ivy' },
-
     buffers = {
       sort_mru = true,
-      -- theme = 'dropdown',
-      selection_strategy = "closest",
-      -- previewer = false,
       sort_lastused = true,
       show_all_buffers = true,
       ignore_current_buffer = true,
       mappings = {
-        i = {
-          ["<c-x>"] = actions.delete_buffer,
-        },
-        n = {
-          ["<c-x>"] = actions.delete_buffer,
+        i = { ["<c-x>"] = "delete_buffer" },
+        n = { ["<c-x>"] = "delete_buffer" },
+      },
+    },
+    live_grep = {
+      file_ignore_patterns = { ".git/" },
+    },
+    -- current_buffer_fuzzy_find = dropdown({
+    --   previewer = false,
+    --   shorten_path = false,
+    -- }),
+    lsp_code_actions = {
+      theme = "cursor",
+    },
+    colorscheme = {
+      enable_preview = true,
+    },
+    find_files = {
+      hidden = true,
+    },
+    git_bcommits = {
+      layout_config = {
+        horizontal = {
+          preview_width = 0.55,
         },
       },
     },
+    git_commits = {
+      layout_config = {
+        horizontal = {
+          preview_width = 0.55,
+        },
+      },
+    },
+    reloader = dropdown(),
   },
   extensions = {
     ["ui-select"] = {
@@ -389,7 +408,7 @@ end
 
 local function select_background(prompt_bufnr, map)
   local function set_the_background(close)
-    local content = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
+    local content = require("telescope.actions.state").get_selected_entry()
     set_background(content.cwd .. "/" .. content.value)
     if close then
       require("telescope.actions").close(prompt_bufnr)

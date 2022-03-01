@@ -199,6 +199,20 @@ command({
   end,
 })
 
+command({
+  "LspGotoNextDiagnostic",
+  function()
+    vim.diagnostic.goto_next()
+  end,
+})
+
+command({
+  "LspGotoPrevDiagnostic",
+  function()
+    vim.diagnostic.goto_prev()
+  end,
+})
+
 -- loclist
 command({
   "LspSetLoclist",

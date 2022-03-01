@@ -1,11 +1,16 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
+local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua"
+
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
   execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end
+
+-- cfilter plugin allows filter down an existing quickfix list
+vim.cmd("packadd! cfilter")
 
 require("packer").startup({
   function(use)
@@ -101,20 +106,28 @@ require("packer").startup({
       disable = true,
     })
 
-    -- beautiful code snippets from neovim
-    -- use {
-    --   'ellisonleao/carbon-now.nvim',
+    -- -- beautiful code snippets from neovim
+    -- use({
+    --   "ellisonleao/carbon-now.nvim",
     --   config = function()
-    --     require('carbon-now').setup()
+    --     require("carbon-now").setup()
     --   end,
-    -- }
+    -- })
 
     -- clipboard
     use({
       "AckslD/nvim-neoclip.lua",
       requires = { "tami5/sqlite.lua", module = "sqlite" },
       config = function()
-        require("neoclip").setup()
+        require("neoclip").setup({
+          enable_persistent_history = true,
+          keys = {
+            telescope = {
+              i = { select = "<c-p>", paste = "<CR>", paste_behind = "<c-k>" },
+              n = { select = "p", paste = "<CR>", paste_behind = "P" },
+            },
+          },
+        })
       end,
     })
 
@@ -126,6 +139,7 @@ require("packer").startup({
       end,
     })
 
+    -- Search and replace plugins
     use("windwp/nvim-spectre")
     use("nelstrom/vim-visual-star-search")
     use("junegunn/vim-fnr")
@@ -357,20 +371,43 @@ require("packer").startup({
       "neovim/nvim-lspconfig",
       requires = {
         { "onsails/lspkind-nvim" },
-        { "tami5/lspsaga.nvim" },
+        -- { "tami5/lspsaga.nvim" },
         {
           "hrsh7th/nvim-cmp",
           requires = {
+            { "David-Kunz/cmp-npm", after = "nvim-cmp" },
+            { "andersevenrud/cmp-tmux", after = "nvim-cmp" },
+            { "f3fora/cmp-spell", after = "nvim-cmp" },
+            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+            { "hrsh7th/cmp-calc", after = "nvim-cmp" },
+            { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+            { "hrsh7th/cmp-emoji", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+            { "hrsh7th/cmp-path", after = "nvim-cmp" },
+            {
+              "uga-rosa/cmp-dictionary",
+              after = "nvim-cmp",
+              config = function()
+                require("cmp_dictionary").setup({
+                  dic = {
+                    ["*"] = { "/usr/share/dict/words" },
+                    -- ["lua"] = "path/to/lua.dic",
+                    -- ["javascript,typescript"] = { "path/to/js.dic", "path/to/js2.dic" },
+                    -- filename = {
+                    --   ["xmake.lua"] = { "path/to/xmake.dic", "path/to/lua.dic" },
+                    -- },
+                    -- filepath = {
+                    --   ["%.tmux.*%.conf"] = "path/to/tmux.dic",
+                    -- },
+                  },
+                })
+              end,
+            },
             { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
             { "ray-x/cmp-treesitter", after = "nvim-cmp" },
-            { "hrsh7th/cmp-emoji", after = "nvim-cmp" },
-            { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-            { "f3fora/cmp-spell", after = "nvim-cmp" },
-            { "hrsh7th/cmp-path", after = "nvim-cmp" },
-            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
             {
               "petertriho/cmp-git",
@@ -477,6 +514,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     --                                   LANGUAGES                            --
     ----------------------------------------------------------------------------
+    -- vim log highlighting
+    use({ "MTDL9/vim-log-highlighting" })
+
     -- packages info
     use({
       "vuki656/package-info.nvim",
@@ -790,6 +830,7 @@ require("packer").startup({
   end,
   config = {
     display = {
+      compile_path = PACKER_COMPILED_PATH,
       prompt_border = "rounded",
       open_fn = function()
         return require("packer.util").float({ border = "single" })
