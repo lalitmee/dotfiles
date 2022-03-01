@@ -7,7 +7,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end
 
-return require("packer").startup({
+require("packer").startup({
   function(use)
     -- Packer can manage itself as an optional plugin
     use("wbthomason/packer.nvim")
@@ -190,7 +190,6 @@ return require("packer").startup({
         require("close_buffers").setup({
           preserve_window_layout = { "this", "nameless" },
           next_buffer_cmd = function(windows)
-            require("bufferline").cycle(1)
             local bufnr = vim.api.nvim_get_current_buf()
             for _, window in ipairs(windows) do
               vim.api.nvim_win_set_buf(window, bufnr)
@@ -362,21 +361,26 @@ return require("packer").startup({
         {
           "hrsh7th/nvim-cmp",
           requires = {
-            { "hrsh7th/cmp-cmdline" },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-nvim-lua" },
-            { "hrsh7th/cmp-path" },
-            { "petertriho/cmp-git" },
+            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+            { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
+            { "ray-x/cmp-treesitter", after = "nvim-cmp" },
+            { "hrsh7th/cmp-emoji", after = "nvim-cmp" },
+            { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+            { "f3fora/cmp-spell", after = "nvim-cmp" },
+            { "hrsh7th/cmp-path", after = "nvim-cmp" },
+            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+            { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
             {
-              "tzachar/cmp-tabnine",
-              run = "./install.sh",
-              requires = "hrsh7th/nvim-cmp",
+              "petertriho/cmp-git",
+              after = "nvim-cmp",
+              config = function()
+                require("cmp_git").setup({
+                  filetypes = { "gitcommit", "NeogitCommitMessage" },
+                })
+              end,
             },
-            { "quangnguyen30192/cmp-nvim-ultisnips" },
-            { "f3fora/cmp-spell" },
-            { "ray-x/cmp-treesitter" },
-            { "hrsh7th/cmp-emoji" },
           },
         },
         { "williamboman/nvim-lsp-installer" },
@@ -427,8 +431,8 @@ return require("packer").startup({
               "a",
             }
             -- keybindings
-            lk_utils.omap("m", [[:<C-U>lua require('tsht').nodes()<CR>]])
-            lk_utils.vnoremap("m", [[:lua require('tsht').nodes()<CR>]])
+            lk.omap("m", [[:<C-U>lua require('tsht').nodes()<CR>]])
+            lk.vnoremap("m", [[:lua require('tsht').nodes()<CR>]])
           end,
         },
       },

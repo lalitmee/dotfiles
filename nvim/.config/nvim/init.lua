@@ -56,15 +56,6 @@ require("nvim-treesitter.configs").setup({
   ensure_installed = { "org" }, -- Or run :TSUpdate org
 })
 
--- require('orgmode').setup({
---   org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
---   org_default_notes_file = '~/Dropbox/org/refile.org',
--- })
-
--- [[
--- NOTE: orgmode setup ends
--- ]]
-
 -- The operating system is assigned to a global variable that
 -- that can be used elsewhere for conditional system based logic
 local uname = vim.loop.os_uname()

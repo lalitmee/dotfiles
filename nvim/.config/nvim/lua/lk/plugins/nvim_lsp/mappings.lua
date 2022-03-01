@@ -1,4 +1,4 @@
-local map = lk_utils.map
+local map = lk.map
 local tele_mapper = require("lk.plugins.telescope.mappings")
 
 local M = {}
@@ -60,7 +60,7 @@ tele_mapper("<localleader>tw", "lsp_document_symbols", telescope_opts, true)
 tele_mapper("<localleader>tW", "lsp_workspace_symbols", telescope_opts, true)
 
 M.setup_mappings = function(client, bufnr)
-  local nnoremap, mapping_opts = lk_utils.nnoremap, { buffer = bufnr }
+  local nnoremap, mapping_opts = lk.nnoremap, { buffer = bufnr }
   if client.resolved_capabilities.implementation then
     nnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", mapping_opts)
   end

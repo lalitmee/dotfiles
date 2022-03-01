@@ -4,6 +4,7 @@ require("lk/settings")
 require("lk/highlights")
 require("lk/folds")
 require("lk/mappings")
+require("lk/commands")
 
 require("lk/colorscheme")
 require("lk/statusline")

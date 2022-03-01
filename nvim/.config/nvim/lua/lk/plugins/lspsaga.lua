@@ -1,5 +1,5 @@
 local saga = require("lspsaga")
-local nnoremap = lk_utils.nnoremap
+local nnoremap = lk.nnoremap
 
 saga.init_lsp_saga({
   use_saga_diagnostic_sign = true,

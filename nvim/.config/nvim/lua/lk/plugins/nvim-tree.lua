@@ -23,7 +23,7 @@ vim.g.nvim_tree_disable_window_picker = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_root_folder_modifier = ":t"
 
-lk_utils.nnoremap("<c-n>", [[<cmd>NvimTreeToggle<CR>]])
+lk.nnoremap("<c-n>", [[<cmd>NvimTreeToggle<CR>]])
 
 vim.cmd([[highlight link NvimTreeIndentMarker Comment]])
 vim.cmd([[highlight NvimTreeRootFolder gui=bold,italic guifg=Cyan]])

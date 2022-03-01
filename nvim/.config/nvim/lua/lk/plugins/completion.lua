@@ -105,26 +105,20 @@ cmp.setup({
   --        priority
   --        max_item_count
   --        (more?)
-
-  sources = {
-    { name = "cmp_tabnine" },
+  sources = cmp.config.sources({
     { name = "nvim_lsp" },
+    { name = "cmp_tabnine" },
     { name = "nvim_lua" },
-    { name = "treesitter", keyword_length = 3 },
-    { name = "path" },
     { name = "ultisnips" },
-    {
-      name = "buffer",
-      keyword_length = 4,
-      option = {
-        get_bufnrs = function()
-          return vim.api.nvim_list_bufs()
-        end,
-      },
-    },
+    { name = "treesitter", keyword_length = 3 },
+    { name = "orgmode" },
+    { name = "path" },
     { name = "spell" },
+    { name = "cmp_git" },
     { name = "emoji" },
-  },
+  }, {
+    { name = "buffer" },
+  }),
   snippet = {
     expand = function(args)
       vim.fn["UltiSnips#Anon"](args.body)
@@ -134,14 +128,20 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
-        cmp_tabnine = "[TN]",
         buffer = "[BUF]",
-        gh_issues = "[ISSUES]",
+        calc = "[CALC]",
+        cmdline = "[COM]",
+        cmp_git = "[GIT]",
+        cmp_tabnine = "[TN]",
+        emoji = "[EMOJ]",
+        gh_issues = "[GH]",
         look = "[LOOK]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[API]",
+        orgmode = "[ORG]",
         path = "[PATH]",
         spell = "[SPELL]",
+        treesitter = "[TS]",
         ultisnips = "[SNIP]",
       },
     }),
@@ -150,7 +150,16 @@ cmp.setup({
   experimental = { native_menu = false, ghost_text = false },
 })
 
-cmp.setup.cmdline("/", { sources = cmp.config.sources({ { name = "buffer" } }) })
+local search_sources = {
+  sources = cmp.config.sources({
+    { name = "nvim_lsp_document_symbol" },
+  }, {
+    { name = "buffer" },
+  }),
+}
+
+cmp.setup.cmdline("/", search_sources)
+cmp.setup.cmdline("?", search_sources)
 cmp.setup.cmdline(":", {
   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", keyword_length = 2 } }),
 })
