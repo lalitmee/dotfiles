@@ -12,8 +12,8 @@ function _G.__coc_apply_highlights()
   })
 end
 
-local map = lk_utils.map
-local command = lk_utils.command
+local map = lk.map
+local command = lk.command
 
 -- vim.g.coc_config_home = '~/Desktop/Github/dotfiles/editors/nvim/coc-settings.json'
 
@@ -186,10 +186,10 @@ map("n", "<leader>cg", [[:exe 'CocList -I --normal --input='.expand('<cword>').'
 
 -- smartf settings
 -- -- press <esc> to cancel.
--- lk_utils.nmap('f', [[<Plug>(coc-smartf-forward)]])
--- lk_utils.nmap('F', [[<Plug>(coc-smartf-backward)]])
--- lk_utils.nmap(';', [[<Plug>(coc-smartf-repeat)]])
--- lk_utils.nmap(',', [[<Plug>(coc-smartf-repeat-opposite)]])
+-- lk.nmap('f', [[<Plug>(coc-smartf-forward)]])
+-- lk.nmap('F', [[<Plug>(coc-smartf-backward)]])
+-- lk.nmap(';', [[<Plug>(coc-smartf-repeat)]])
+-- lk.nmap(',', [[<Plug>(coc-smartf-repeat-opposite)]])
 
 -- vim.api.nvim_exec([[
 --     augroup Smartf

@@ -1,44 +1,14 @@
-local lsp_status = require("lsp-status")
-lsp_status.register_progress()
+local lspconfig_util = require("lspconfig.util")
 
--- require('lk/plugins/nvim_lsp/highlights')
 require("lk/plugins/nvim_lsp/commands")
 require("lk/plugins/nvim_lsp/handlers")
-
--- servers config
 require("lk/plugins/nvim_lsp/servers/gopls")
 
 local autocommands = require("lk/plugins/nvim_lsp/autocommands")
 local mappings = require("lk/plugins/nvim_lsp/mappings")
+local status = require("lk/plugins/nvim_lsp/status")
 
--- lsp kind symbols
-require("vim.lsp.protocol").CompletionItemKind = {
-  " [Text]", -- Text
-  " [Method]", -- Method
-  "ƒ [Function]", -- Function
-  "  [Constructor]", -- Constructor
-  "識 [Field]", -- Field
-  " [Variable]", -- Variable
-  "\u{f0e8} [Class]", -- Class
-  "ﰮ [Interface]", -- Interface
-  " [Module]", -- Module
-  " [Property]", -- Property
-  " [Unit]", -- Unit
-  " [Value]", -- Value
-  "了 [Enum]", -- Enum
-  " [Keyword]", -- Keyword
-  "﬌ [Snippet]", -- Snippet
-  " [Color]", -- Color
-  " [File]", -- File
-  "渚 [Reference]", -- Reference
-  " [Folder]", -- Folder
-  " [Enum]", -- Enum
-  " [Constant]", -- Constant
-  " [Struct]", -- Struct
-  "鬒 [Event]", -- Event
-  "\u{03a8} [Operator]", -- Operator
-  " [Type Parameter]", -- TypeParameter
-}
+status.activate()
 
 function Tagfunc(pattern, flags)
   if flags ~= "c" then
@@ -83,13 +53,38 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 local servers = {
   cssls = true,
-  gopls = true,
+  gopls = {
+    root_dir = function(fname)
+      local Path = require("plenary.path")
+
+      local absolute_cwd = Path:new(vim.loop.cwd()):absolute()
+      local absolute_fname = Path:new(fname):absolute()
+
+      if string.find(absolute_cwd, "/cmd/", 1, true) and string.find(absolute_fname, absolute_cwd, 1, true) then
+        return absolute_cwd
+      end
+
+      return lspconfig_util.root_pattern("go.mod", ".git")(fname)
+    end,
+
+    settings = {
+      gopls = {
+        codelenses = { test = true },
+      },
+    },
+
+    flags = {
+      debounce_text_changes = 200,
+    },
+  },
   bashls = true,
   jsonls = true,
   tsserver = true,
   vimls = true,
   pyright = true,
   remark_ls = true,
+  rust_analyzer = true,
+  eslint = true,
   sumneko_lua = function()
     local lua_dev = require("lua-dev")
     return lua_dev.setup({
@@ -134,7 +129,7 @@ local function get_server_config(server)
   config.on_attach = on_attach
   config.capabilities = config.capabilities or vim.lsp.protocol.make_client_capabilities()
   cmp_nvim_lsp.update_capabilities(config.capabilities)
-  config.capabilities = lk_utils.deep_merge(status_capabilities, config.capabilities)
+  config.capabilities = lk.deep_merge(status_capabilities, config.capabilities)
   return config
 end
 

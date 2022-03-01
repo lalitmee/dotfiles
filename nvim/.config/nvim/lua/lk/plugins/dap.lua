@@ -1,5 +1,5 @@
--- local nnoremap = lk_utils.nnoremap
-local vnoremap = lk_utils.vnoremap
+-- local nnoremap = lk.nnoremap
+local vnoremap = lk.vnoremap
 local dap = require("dap")
 
 -- vscode launch.json

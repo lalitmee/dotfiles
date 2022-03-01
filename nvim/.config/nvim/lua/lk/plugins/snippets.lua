@@ -1,7 +1,7 @@
 R("nlua")
 R("snippets")
 
-local map = lk_utils.map
+local map = lk.map
 local snippets_nvim = require("snippets")
 local indent = require("snippets/utils").match_indentation
 

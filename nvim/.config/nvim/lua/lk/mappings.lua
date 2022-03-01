@@ -1,5 +1,5 @@
-local map = lk_utils.map
-local nnoremap = lk_utils.nnoremap
+local map = lk.map
+local nnoremap = lk.nnoremap
 
 local map_opts = { noremap = true, silent = true }
 local map_expr_opts = { expr = true }

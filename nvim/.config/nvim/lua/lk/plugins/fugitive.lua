@@ -10,9 +10,9 @@ function _G.__fugitive_create_new_branch()
   end
 end
 
-local nnoremap = lk_utils.nnoremap
-local vnoremap = lk_utils.vnoremap
-local command = lk_utils.command
+local nnoremap = lk.nnoremap
+local vnoremap = lk.vnoremap
+local command = lk.command
 
 command({ "Gcm", [[<cmd>G checkout master]], nargs = 0 })
 command({ "Gcb", [[<cmd>G checkout -b <q-args>]], nargs = 1 })

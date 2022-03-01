@@ -1,9 +1,14 @@
-local status_ok, comment = pcall(require, "Comment")
+local status_ok, comment = lk.safe_require("Comment")
 if not status_ok then
   return
 end
 
 comment.setup({
+  -- opleader = {
+  --   line = "gc",
+  --   block = "gb",
+  -- },
+  -- ignore = "^$",
   pre_hook = function(ctx)
     local U = require("Comment.utils")
 

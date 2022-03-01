@@ -1,4 +1,4 @@
-local map = lk_utils.map
+local map = lk.map
 map("n", "]w", "<cmd>SidewaysLeft<cr>")
 map("n", "[w", "<cmd>SidewaysRight<cr>")
 
