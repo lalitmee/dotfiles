@@ -420,6 +420,26 @@ require("packer").startup({
             },
           },
         },
+        {
+          "kosayoda/nvim-lightbulb",
+          config = function()
+            vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
+          end,
+        },
+        { "ray-x/lsp_signature.nvim" },
+        -- {
+        --   "mfussenegger/nvim-lint",
+        --   config = function()
+        --     require("lint").linters_by_ft = {
+        --       lua = { "luacheck" },
+        --       markdown = { "vale" },
+        --       javascript = { "eslint" },
+        --       javascriptreact = { "eslint" },
+        --       typescript = { "eslint" },
+        --       typescriptreact = { "eslint" },
+        --     }
+        --   end,
+        -- },
         { "williamboman/nvim-lsp-installer" },
         { "alexaandru/nvim-lspupdate", tag = "v0.9.0" },
         { "nvim-lua/lsp-status.nvim" },

@@ -59,6 +59,10 @@ local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.Tagfunc")
   end
   require("lsp-status").on_attach(client)
+  require("lsp_signature").on_attach({
+    bind = true,
+    handler_opts = { border = "rounded" },
+  }, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
