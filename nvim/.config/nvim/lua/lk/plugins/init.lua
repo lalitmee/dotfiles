@@ -76,7 +76,6 @@ require("lk/plugins/refactoring")
 
 -- NOTE: nvim_lsp
 require("lk/plugins/completion")
-require("lk/plugins/lspsaga")
 require("lk/plugins/nvim_lsp")
 
 -- NOTE: which key

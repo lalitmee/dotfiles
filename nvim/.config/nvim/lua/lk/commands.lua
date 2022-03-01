@@ -20,6 +20,11 @@ command({
   end,
 })
 
+if not vim.g.packer_compiled_loaded and vim.loop.fs_stat(PACKER_COMPILED_PATH) then
+  lk.source(PACKER_COMPILED_PATH)
+  vim.g.packer_compiled_loaded = true
+end
+
 augroup("PackerSetupInit", {
   {
     events = { "User PackerCompileDone" },
