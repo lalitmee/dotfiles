@@ -19,4 +19,7 @@ autocommands.create({
       [[lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}]],
     },
   },
+  LSP = {
+    { "BufWritePost", "<buffer>", [[lua require('lint').try_lint()]] },
+  },
 })
