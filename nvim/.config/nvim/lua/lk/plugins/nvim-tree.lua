@@ -19,22 +19,10 @@ vim.g.nvim_tree_icons = {
 }
 
 vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_disable_window_picker = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_root_folder_modifier = ":t"
 
 lk.nnoremap("<c-n>", [[<cmd>NvimTreeToggle<CR>]])
-
-vim.cmd([[highlight link NvimTreeIndentMarker Comment]])
-vim.cmd([[highlight NvimTreeRootFolder gui=bold,italic guifg=Cyan]])
-
-require("lk.autocommands").augroup("NvimTreeOverrides", {
-  {
-    events = { "ColorScheme" },
-    targets = { "*" },
-    command = "highlight NvimTreeRootFolder gui=bold,italic guifg=Cyan",
-  },
-})
 
 require("nvim-tree").setup({
   update_cwd = true,
@@ -54,5 +42,10 @@ require("nvim-tree").setup({
   },
   filters = {
     custom = { ".DS_Store", ".cache", ".git", "fugitive:", "node_modules" },
+  },
+  actions = {
+    open_file = {
+      window_picker = { enable = false },
+    },
   },
 })
