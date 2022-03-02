@@ -114,9 +114,8 @@ cmp.setup({
     { name = "orgmode" },
     { name = "path" },
     { name = "spell" },
-    { name = "cmp_git" },
     { name = "emoji" },
-    { name = "nvim_lsp_signature_help" },
+    -- { name = "nvim_lsp_signature_help" },
     { name = "tmux" },
     { name = "npm", keyword_length = 4 },
     { name = "dictionary", keyword_length = 2 },
@@ -161,6 +160,15 @@ local search_sources = {
     { name = "buffer" },
   }),
 }
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype("gitcommit", {
+  sources = cmp.config.sources({
+    { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = "buffer" },
+  }),
+})
 
 cmp.setup.cmdline("/", search_sources)
 cmp.setup.cmdline("?", search_sources)

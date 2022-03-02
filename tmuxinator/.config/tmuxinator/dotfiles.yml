@@ -1,11 +1,13 @@
 # /home/lalitmee/.config/tmuxinator/dotfiles.yml
 
 name: dotfiles
-root: ~/Desktop/Github
+root: ~/Desktop/Github/configs
 
 windows:
-  - Mine: cd ~/dotfiles
-  - tjdevries: cd ~/Desktop/Github/configs/config_manager
-  - akinsho: cd ~/Desktop/Github/configs/akinsho-dotfiles
-  - codesmell: cd ~/Desktop/Github/configs/dots
-  - ThePrimeagen: cd ~/Desktop/Github/configs/ThePrimeagen_dots
+  - lalitmee: cd ~/dotfiles
+  - tjdevries: cd config_manager
+  - akinsho: cd akinsho-dotfiles
+  - codesmell: cd dots
+  - ThePrimeagen: cd ThePrimeagen_dots
+  - gametaro: cd gametaro
+  - ViRu-ThE-ViRuS: cd ViRu-ThE-ViRuS
