@@ -26,10 +26,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# set PATH for doom emacs
-if [ -d "$HOME/.emacs.d/doom" ] ; then
-    PATH="$HOME/.emacs.d/doom:$PATH"
-fi
+# # set PATH for doom emacs
+# if [ -d "$HOME/.emacs.d/doom" ] ; then
+#     PATH="$HOME/.emacs.d/doom:$PATH"
+# fi
 
 # switch for caps lock to escape
 setxkbmap -option caps:swapescape
@@ -42,8 +42,4 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
 . "$HOME/.cargo/env"

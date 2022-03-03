@@ -506,10 +506,10 @@ set -g @plugin 'jaclu/tmux-power-zoom'
 # # tmux-window-name for naming windows smartly
 # set -g @plugin 'ofirgall/tmux-window-name'
 
-# saves tmux state
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-restore 'on'
+# # saves tmux state
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @continuum-restore 'on'
 
 # source-file ~/dotfiles/tmux/tmux-themes/spaceduck/basic.conf
 # source-file ~/dotfiles/tmux/tmux-themes/tokyonight_night.conf

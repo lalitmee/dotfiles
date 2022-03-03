@@ -5,18 +5,12 @@ local api = vim.api
 local fmt = string.format
 local L = vim.log.levels
 
+--------------------------------------------------------------------------------
+-- print contents of the table
+--------------------------------------------------------------------------------
 P = function(v)
   print(vim.inspect(v))
   return v
-end
-
-if pcall(require, "plenary") then
-  RELOAD = require("plenary.reload").reload_module
-
-  R = function(name)
-    RELOAD(name)
-    return require(name)
-  end
 end
 
 -----------------------------------------------------------------------------//
@@ -32,12 +26,20 @@ _G.lk = { _store = __lk_global_callbacks }
 -- UI
 -----------------------------------------------------------------------------//
 -- Consistent store of various UI items to reuse throughout my config
-lk.style = { icons = { error = "✗", warning = "", info = "", hint = "" } }
+lk.style = {
+  icons = {
+    error = " ",
+    hint = "",
+    info = " ",
+    warn = " ",
+    trace = "🖉",
+    debug = "🐞",
+  },
+}
 
 -----------------------------------------------------------------------------//
 -- Messaging
 -----------------------------------------------------------------------------//
-
 if vim.notify then
   -- Override of vim.notify to open floating window
   vim.notify = require("notify")
@@ -46,13 +48,13 @@ end
 -----------------------------------------------------------------------------//
 -- Debugging
 -----------------------------------------------------------------------------//
-if pcall(require, "plenary") then
-  RELOAD = require("plenary.reload").reload_module
+RELOAD = function(...)
+  return require("plenary.reload").reload_module(...)
+end
 
-  R = function(name)
-    RELOAD(name)
-    return require(name)
-  end
+R = function(name)
+  RELOAD(name)
+  return require(name)
 end
 
 -- inspect the contents of an object very quickly

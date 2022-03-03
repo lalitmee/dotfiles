@@ -98,16 +98,10 @@ cmp.setup({
     end, { "i", "s" }),
   },
 
-  -- Youtube:
-  --    the order of your sources matter (by default). That gives them priority
-  --    you can configure:
-  --        keyword_length
-  --        priority
-  --        max_item_count
-  --        (more?)
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "cmp_tabnine" },
+    { name = "copilot" },
     { name = "nvim_lua" },
     { name = "ultisnips" },
     { name = "treesitter", keyword_length = 3 },
@@ -115,10 +109,9 @@ cmp.setup({
     { name = "path" },
     { name = "spell" },
     { name = "emoji" },
-    -- { name = "nvim_lsp_signature_help" },
+    { name = "nvim_lsp_signature_help" },
     { name = "tmux" },
     { name = "npm", keyword_length = 4 },
-    { name = "dictionary", keyword_length = 2 },
   }, {
     { name = "buffer" },
   }),
@@ -161,6 +154,12 @@ local search_sources = {
   }),
 }
 
+cmp.setup.cmdline("/", search_sources)
+cmp.setup.cmdline("?", search_sources)
+cmp.setup.cmdline(":", {
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", keyword_length = 2 } }),
+})
+
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
   sources = cmp.config.sources({
@@ -168,12 +167,6 @@ cmp.setup.filetype("gitcommit", {
   }, {
     { name = "buffer" },
   }),
-})
-
-cmp.setup.cmdline("/", search_sources)
-cmp.setup.cmdline("?", search_sources)
-cmp.setup.cmdline(":", {
-  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", keyword_length = 2 } }),
 })
 
 -- require('nvim-autopairs.completion.cmp').setup({

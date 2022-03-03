@@ -18,16 +18,7 @@ wk.setup({
 local leader_key_maps = {
   -- NOTE: direct mappings
   ["*"] = "vimgrep-under-cursor",
-  ["+"] = { ":lua NTGlobal['window']:change_height(10)<CR>", "increase-terminal-size" },
-  ["-"] = { ":lua NTGlobal['window']:change_height(-10)<CR>", "decrease-terminal-size" },
-  ["1"] = { ":lua NTGlobal['terminal']:open(1)<CR>", "toggle-terminal-1" },
-  ["2"] = { ":lua NTGlobal['terminal']:open(2)<CR>", "toggle-terminal-2" },
-  ["3"] = { ":lua NTGlobal['terminal']:open(3)<CR>", "toggle-terminal-3" },
-  ["4"] = { ":lua NTGlobal['terminal']:open(4)<CR>", "toggle-terminal-4" },
-  ["5"] = { ":lua NTGlobal['terminal']:open(5)<CR>", "toggle-terminal-5" },
-  ["6"] = { ":lua NTGlobal['terminal']:open(6)<CR>", "toggle-terminal-6" },
   [":"] = { ":Telescope commands<CR>", "commands" },
-  [";"] = { ":lua NTGlobal['terminal']:toggle()<CR>", "toggle-terminal" },
   ["<leader>"] = {
     '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
     "find-files",
@@ -37,21 +28,15 @@ local leader_key_maps = {
   -- NOTE: a is for actions
   ["a"] = {
     ["name"] = "+actions",
-    ["a"] = { ":Cheatsheet<CR>", "cheatsheet" },
-    ["b"] = { ":AnyJumpBack<CR>", "any-jump-back" },
-    ["c"] = { ":Telescope neoclip<CR>", "clipboard" },
+    ["a"] = { ":CheatList<CR>", "cheatsheet" },
+    ["c"] = { ":Telescope neoclip +<CR>", "clipboard" },
+    ["o"] = { ":NvimTreeToggle<CR>", "nvim-tree-toggle" },
     ["f"] = { ":NvimTreeFindFile<CR>", "nvim-tree-find-file" },
-    ["h"] = { ":Telescope frecency<CR>", "telescope-frecency" },
     ["i"] = { ":ISwapWith<CR>", "iswap-with" },
     ["I"] = { ":ISwap<CR>", "iswap" },
-    ["l"] = { ":Bracey<CR>", "start-live-server" },
-    ["L"] = { ":BraceyStop<CR>", "stop-live-server" },
     ["m"] = { ":MarkdownPreview<CR>", "markdown-preview" },
     ["M"] = { ":MarkdownPreviewStop<CR>", "markdown-preview-stop" },
-    ["p"] = { ":PlugHelp<CR>", "plug-help" },
     ["r"] = { ":NvimTreeRefresh<CR>", "nvim-tree-refresh" },
-    ["w"] = { ":StripWhitespace<CR>", "strip-whitespace" },
-    ["z"] = { ":Goyo<CR>", "goyo" },
   },
 
   -- NOTE: b is for buffers
@@ -68,7 +53,6 @@ local leader_key_maps = {
     ["f"] = { ":bfirst<CR>", "first-buffer" },
     ["g"] = { ":BufferLinePick<CR>", "goto-buffer" },
     ["h"] = { ":Startify<CR>", "home-buffer" },
-    ["j"] = { ":BufferPick<CR>", "buffer-pick" },
     ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "search-buffer-lines" },
     ["L"] = { ":blast<CR>", "first-buffer" },
     ["m"] = { ":delm!<CR>", "delete-marks" },
@@ -204,40 +188,10 @@ local leader_key_maps = {
   -- NOTE: f is for files
   ["f"] = {
     ["name"] = "+files",
-    ["c"] = { ':lua require("harpoon.mark").clear_all()<CR>', "clear-all" },
-    ["f"] = {
-      ["name"] = "+files",
-      ["1"] = { ':lua require("harpoon.ui").nav_file(1)<CR>', "goto-file-4" },
-      ["2"] = { ':lua require("harpoon.ui").nav_file(2)<CR>', "goto-file-1" },
-      ["3"] = { ':lua require("harpoon.ui").nav_file(3)<CR>', "goto-file-2" },
-      ["4"] = { ':lua require("harpoon.ui").nav_file(4)<CR>', "goto-file-3" },
-      ["5"] = { ':lua require("harpoon.ui").nav_file(5)<CR>', "goto-file-4" },
-      ["6"] = { ':lua require("harpoon.ui").nav_file(6)<CR>', "goto-file-6" },
-      ["a"] = { ':lua require("harpoon.mark").add_file()<CR>', "add-file" },
-      ["r"] = { ':lua require("harpoon.mark").rm_file()<CR>', "remove-file" },
-    },
-    ["m"] = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', "quick-menu" },
-    ["p"] = { ':lua require("harpoon.mark").promote()<CR>', "promote" },
-    ["l"] = { ':lua require("harpoon.mark").shorten_list()<CR>', "shorten-list" },
-    ["t"] = {
-      ["name"] = "+terminals",
-      ["f"] = {
-        ':lua require("harpoon.term").sendCommand(1, 2)<CR>',
-        "goto-terminal-1",
-      },
-      ["s"] = {
-        ':lua require("harpoon.term").gotoTerminal(1)<CR>',
-        "send-command-terminal-1",
-      },
-      ["S"] = {
-        ':lua require("harpoon.term").sendCommand(1, 1)<CR>',
-        "send-command-terminal-2",
-      },
-      ["t"] = {
-        ':lua require("harpoon.term").gotoTerminal(2)<CR>',
-        "goto-terminal-2",
-      },
-    },
+    ["b"] = { ":Telescope file_browser<CR>", "file-browser" },
+    ["f"] = { ":Telescope find_files<CR>", "files" },
+    ["g"] = { ":Telescope git_files<CR>", "git-files" },
+    ["r"] = { ":Telescope frecency<CR>", "telescope-frecency" },
     ["s"] = { ":w<CR>", "save-buffer" },
     ["S"] = { ":wa<CR>", "save-all-buffers" },
   },
@@ -422,11 +376,8 @@ local leader_key_maps = {
     ["name"] = "+jumping",
     ["c"] = { ":HopChar1<CR>", "hop-char-1" },
     ["d"] = { ":HopChar2<CR>", "hop-char-2" },
-    ["h"] = { ":AnyJumpLastResults<CR>", "anyjump-last-results" },
     ["l"] = { ":HopLine<CR>", "hop-line" },
     ["p"] = { ":HopPattern<CR>", "hop-pattern" },
-    ["s"] = { ":AnyJump<CR>", "anyjump" },
-    ["S"] = { ":AnyJumpBack<CR>", "anyjump-back" },
     ["w"] = { ":HopWord<CR>", "hop-word" },
   },
 

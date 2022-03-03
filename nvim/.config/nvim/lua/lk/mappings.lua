@@ -1,4 +1,4 @@
-local map = lk.map
+local map = vim.keymap.set
 local nnoremap = lk.nnoremap
 
 local map_opts = { noremap = true, silent = true }
@@ -50,9 +50,6 @@ map("v", "K", [[:m '<-2<CR>gv=gv]], map_opts)
 -- change all the occurences of a word with dot
 map("n", "cn", [[*``cgn]], map_opts)
 map("n", "cN", [[*``cgN]], map_opts)
-
--- add quotes around visual selection
-map("v", '"', [[<esc>`>a"<esc>`<i"<esc>]], map_opts)
 
 -- -- count number of lines in visual mode
 -- map('v', 'L', [[g<C-g>]], map_opts)
