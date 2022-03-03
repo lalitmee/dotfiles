@@ -1,3 +1,4 @@
+local colors = require("cobalt2.palette")
 local ok, lualine = lk.safe_require("lualine")
 if not ok then
   return
@@ -33,20 +34,33 @@ lualine.setup({
     lualine_c = {
       { "filetype", icon_only = true },
       { "filename", path = 1 },
-      { "lsp_progress" },
+      {
+        "lsp_progress",
+        colors = {
+          lsp_client_name = colors.yellow,
+          title = colors.white,
+          message = colors.dark_orange,
+          percentage = colors.blue,
+          spinner = colors.dark_pink,
+          use = true,
+        },
+        display_components = { "lsp_client_name", { "title", "message", "percentage" }, "spinner" },
+        separators = {
+          message = { commenced = ".", completed = "OK" },
+        },
+      },
       { "diff" },
     },
     lualine_x = {
       {
         "diagnostics",
         sources = { "nvim_diagnostic" },
-        sections = { "error", "warn", "info", "hint" },
-        symbols = { error = " :", warn = " :", info = " :", hint = "💡" },
+        symbols = { error = "  ", warn = "  ", hint = " ", info = "  " },
         update_in_insert = true,
       },
       {
         get_client_name,
-        color = { fg = "#FFC600" },
+        color = { fg = colors.yellow },
       },
       { "filesize" },
     },

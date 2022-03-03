@@ -22,8 +22,6 @@ vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_git_hl = 1
 vim.g.nvim_tree_root_folder_modifier = ":t"
 
-lk.nnoremap("<c-n>", [[<cmd>NvimTreeToggle<CR>]])
-
 require("nvim-tree").setup({
   update_cwd = true,
   nvim_tree_follow = true,
@@ -31,7 +29,7 @@ require("nvim-tree").setup({
   auto_close = false,
   view = { width = 40, side = "right" },
   update_focused_file = { enable = true },
-  update_to_bug_dir = { enable = false },
+  update_to_buf_dir = { enable = false },
   mappings = {
     list = {
       { key = "h", cb = ':lua require"nvim-tree".on_keypress("close_node")<CR>' },

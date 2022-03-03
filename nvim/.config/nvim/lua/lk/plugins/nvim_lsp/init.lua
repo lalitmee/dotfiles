@@ -1,3 +1,8 @@
+local fn = vim.fn
+local fmt = string.format
+
+local icons = lk.style.icons
+
 local oslib = require("lk/utils/oslib")
 
 local lspconfig_util = require("lspconfig.util")
@@ -7,7 +12,6 @@ require("lk/plugins/nvim_lsp/handlers")
 require("lk/plugins/nvim_lsp/servers/gopls")
 
 local autocommands = require("lk/plugins/nvim_lsp/autocommands")
-local mappings = require("lk/plugins/nvim_lsp/mappings")
 local status = require("lk/plugins/nvim_lsp/status")
 
 status.activate()
@@ -34,8 +38,100 @@ function Tagfunc(pattern, flags)
   return results
 end
 
+-----------------------------------------------------------------------------//
+-- Signs
+-----------------------------------------------------------------------------//
+local diagnostic_types = {
+  { "Error", icon = icons.error },
+  { "Warn", icon = icons.warn },
+  { "Hint", icon = icons.hint },
+  { "Info", icon = icons.info },
+}
+
+fn.sign_define(vim.tbl_map(function(t)
+  local hl = "DiagnosticSign" .. t[1]
+  return {
+    name = hl,
+    text = t.icon,
+    texthl = hl,
+    linehl = fmt("%sLine", hl),
+  }
+end, diagnostic_types))
+
+---Override diagnostics signs helper to only show the single most relevant sign
+---@see: http://reddit.com/r/neovim/comments/mvhfw7/can_built_in_lsp_diagnostics_be_limited_to_show_a
+---@param diagnostics table[]
+---@param _ number buffer number
+---@return table[]
+local function filter_diagnostics(diagnostics, _)
+  if not diagnostics then
+    return {}
+  end
+  -- Work out max severity diagnostic per line
+  local max_severity_per_line = {}
+  for _, d in pairs(diagnostics) do
+    local lnum = d.lnum
+    if max_severity_per_line[lnum] then
+      local current_d = max_severity_per_line[lnum]
+      if d.severity < current_d.severity then
+        max_severity_per_line[lnum] = d
+      end
+    else
+      max_severity_per_line[lnum] = d
+    end
+  end
+
+  -- map to list
+  local filtered_diagnostics = {}
+  for _, v in pairs(max_severity_per_line) do
+    table.insert(filtered_diagnostics, v)
+  end
+  return filtered_diagnostics
+end
+
+--- This overwrites the diagnostic show/set_signs function to replace it with a custom function
+--- that restricts nvim's diagnostic signs to only the single most severe one per line
+local ns = vim.api.nvim_create_namespace("severe-diagnostics")
+local show = vim.diagnostic.show
+local function display_signs(bufnr)
+  -- Get all diagnostics from the current buffer
+  local diagnostics = vim.diagnostic.get(bufnr)
+  local filtered = filter_diagnostics(diagnostics, bufnr)
+  show(ns, bufnr, filtered, {
+    virtual_text = false,
+    underline = false,
+    signs = true,
+  })
+end
+
+function vim.diagnostic.show(namespace, bufnr, ...)
+  show(namespace, bufnr, ...)
+  display_signs(bufnr)
+end
+
 -- on_atthach
 local function on_attach(client, bufnr)
+  local map = vim.keymap.set
+  local opts = { noremap = false, silent = true }
+
+  -- lsp mapping for the client
+  map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+  map("n", "gcA", "<cmd>Telescope lsp_range_code_actions<CR>", opts)
+  map("n", "gca", "<cmd>Telescope lsp_code_action<CR>", opts)
+  map("n", "ge", "<cmd>Telescope diagnostics<CR>", opts)
+  map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+  map("n", "gw", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+  map("n", "gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
+  map("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+  map("n", "K", vim.lsp.buf.hover, opts)
+  map("n", "gD", vim.lsp.buf.declaration, opts)
+  map("n", "gy", vim.lsp.buf.type_definition, opts)
+
+  local mapping_opts = { buffer = bufnr }
+  if client.resolved_capabilities.implementation then
+    map("n", "gi", vim.lsp.buf.implementation, mapping_opts)
+  end
+
   vim.notify(
     string.format("[LSP] %s\n[CWD] %s", client.name, oslib.get_cwd()),
     "info",
@@ -43,7 +139,6 @@ local function on_attach(client, bufnr)
   )
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
   autocommands.setup_autocommands(client)
-  mappings.setup_mappings(client, bufnr)
 
   client.resolved_capabilities.document_formatting = false
   if client.resolved_capabilities.document_highlight then
@@ -59,10 +154,6 @@ local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.Tagfunc")
   end
   require("lsp-status").on_attach(client)
-  require("lsp_signature").on_attach({
-    bind = true,
-    handler_opts = { border = "rounded" },
-  }, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -126,6 +217,8 @@ local servers = {
             completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
             workspace = {
               -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+
               maxPreload = 2000,
               preloadFileSize = 50000,
               checkThirdParty = false,
@@ -162,3 +255,5 @@ local function set_servers()
 end
 
 set_servers()
+
+-- vim:foldmethod=marker

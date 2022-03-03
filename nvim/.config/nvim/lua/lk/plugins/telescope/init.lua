@@ -260,20 +260,11 @@ require("telescope").load_extension("ui-select")
 -- scratch buffer
 require("telescope").load_extension("scratch")
 
--- search internet
-require("telescope").load_extension("arecibo")
-
--- smart history in telescope
-require("telescope").load_extension("bookmarks")
-
 -- smart history in telescope
 require("telescope").load_extension("smart_history")
 
 -- packer integration with telescope
 require("telescope").load_extension("packer")
-
--- project management in telescope
-require("telescope").load_extension("zoxide")
 
 -- project management in telescope
 require("telescope").load_extension("project")
@@ -292,9 +283,6 @@ require("telescope").load_extension("harpoon")
 
 -- open browser
 require("telescope").load_extension("openbrowser")
-
--- ultisnips
-require("telescope").load_extension("ultisnips")
 
 -- emoji search
 require("telescope").load_extension("emoji")

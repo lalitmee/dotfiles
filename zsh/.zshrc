@@ -33,6 +33,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+ZSH_PYENV_QUIET=true
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -338,9 +339,6 @@ export PATH="$PATH:/snap/bin"
 # doom-emacs command
 export PATH="$HOME/doom-emacs/bin:$PATH"
 
-# pyenv root
-export PYENV_ROOT="$(pyenv root)"
-
 # exporting editor
 export EDITOR=nvim
 
@@ -364,8 +362,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # fzf path settings
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-. /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# . /usr/share/doc/fzf/examples/key-bindings.zsh
 
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
@@ -460,10 +458,9 @@ export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
 # source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 

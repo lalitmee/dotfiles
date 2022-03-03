@@ -7,7 +7,7 @@ windows:
   - lalitmee: cd ~/dotfiles
   - tjdevries: cd config_manager
   - akinsho: cd akinsho-dotfiles
-  - codesmell: cd dots
+  - codesmell: cd codesmell
   - ThePrimeagen: cd ThePrimeagen_dots
   - gametaro: cd gametaro
   - ViRu-ThE-ViRuS: cd ViRu-ThE-ViRuS

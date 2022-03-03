@@ -49,7 +49,6 @@ require("lk/plugins/nvim-bqf")
 -- NOTE: language support
 require("lk/plugins/emmet")
 require("lk/plugins/markdown")
-require("lk/plugins/tagalong")
 
 -- NOTE: search
 require("lk/plugins/fnr")
@@ -63,10 +62,9 @@ require("lk/plugins/treesitter")
 -- NOTE: git
 require("lk/plugins/gitsigns")
 require("lk/plugins/neogit")
-require("lk/plugins/fugitive")
 
 -- NOTE: fuzzy
-require("lk/plugins/fzf")
+require("lk/plugins/fzy")
 require("lk/plugins/telescope")
 require("lk/plugins/telescope/mappings")
 require("lk/plugins/refactoring")
@@ -75,7 +73,7 @@ require("lk/plugins/refactoring")
 -- require('lk/plugins/coc')
 
 -- NOTE: nvim_lsp
-require("lk/plugins/completion")
+require("lk/plugins/nvim-cmp")
 require("lk/plugins/nvim_lsp")
 
 -- NOTE: which key
