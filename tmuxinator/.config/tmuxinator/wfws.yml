@@ -15,8 +15,8 @@ windows:
   - Caddy:
       - cd
       - caddy run
-  - Work-Browser: chromium-browser
-  - Normal-Browser: brave-browser
+  - Brave: brave-browser
+  - Firefox: firefox
   - Extras:
       - clear
       - cd

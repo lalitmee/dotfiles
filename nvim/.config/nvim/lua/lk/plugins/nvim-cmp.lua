@@ -1,14 +1,6 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 
-local has_any_words_before = function()
-  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-    return false
-  end
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 local press = function(key)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
 end
@@ -57,47 +49,39 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     }),
-
-    -- ['<c-space>'] = cmp.mapping.complete(),
-
-    -- ['<C-Space>'] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
-    --       return press('<C-R>=UltiSnips#ExpandSnippet()<CR>')
-    --     end
-    --
-    --     cmp.select_next_item()
-    --   elseif has_any_words_before() then
-    --     press('<Space>')
-    --   else
-    --     fallback()
-    --   end
-    -- end, { 'i', 's' }),
-
-    ["<C-n>"] = cmp.mapping(function(fallback)
-      if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-        press("<ESC>:call UltiSnips#JumpForwards()<CR>")
-      elseif cmp.visible() then
-        cmp.select_next_item()
-      elseif has_any_words_before() then
-        press("<Tab>")
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<C-p>"] = cmp.mapping(function(fallback)
-      if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-        press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
-      elseif cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+    ["<C-n>"] = cmp.mapping({
+      c = function()
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          press("<Down>")
+        end
+      end,
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end,
+    }),
+    ["<C-p>"] = cmp.mapping({
+      c = function()
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          press("<Up>")
+        end
+      end,
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+        else
+          fallback()
+        end
+      end,
+    }),
   },
-
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "cmp_tabnine" },
@@ -148,9 +132,10 @@ cmp.setup({
 
 local search_sources = {
   sources = cmp.config.sources({
-    { name = "nvim_lsp_document_symbol" },
-  }, {
-    { name = "buffer" },
+    {
+      name = "buffer",
+      options = { keyword_pattern = [=[[^[:blank:]].*]=] },
+    },
   }),
 }
 
@@ -163,19 +148,8 @@ cmp.setup.cmdline(":", {
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
   sources = cmp.config.sources({
-    { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+    { name = "cmp_git" },
   }, {
     { name = "buffer" },
   }),
 })
-
--- require('nvim-autopairs.completion.cmp').setup({
---   map_cr = true, --  map <CR> on insert mode
---   map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
---   auto_select = true, -- automatically select the first item
---   insert = false, -- use insert confirm behavior instead of replace
---   map_char = { -- modifies the function or method delimiter by filetypes
---     all = '(',
---     tex = '{',
---   },
--- })
