@@ -216,9 +216,11 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["e"] = {
     ["name"] = "+errors/warnings",
+    ["a"] = { ":DiagListAll<CR>", "quickfix-diagnostics" },
+    ["b"] = { ":DiagList<CR>", "quickfix-buffer-diagnostics" },
+    ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnosticss" },
     ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnosticss" },
     ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnosticss" },
-    ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnosticss" },
   },
   -- }}}
   ----------------------------------------------------------------------

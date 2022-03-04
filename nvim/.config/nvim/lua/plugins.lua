@@ -140,6 +140,15 @@ require("packer").startup({
     -- wakatime for vim
     use("wakatime/vim-wakatime")
 
+    -- prevent select and visual mode from overwriting the clipboard
+    use({
+      "kevinhwang91/nvim-hclipboard",
+      event = "InsertCharPre",
+      config = function()
+        require("hclipboard").start()
+      end,
+    })
+
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
       "svermeulen/vim-yoink",
@@ -169,8 +178,15 @@ require("packer").startup({
     -- registers
     use({ "tversteeg/registers.nvim" })
 
-    -- -- toggle, display and navigate marks
-    -- use("kshenoy/vim-signature")
+    -- toggle, display and navigate marks
+    use({
+      "chentau/marks.nvim",
+      config = function()
+        require("marks").setup({
+          mappings = { set_next = "m," },
+        })
+      end,
+    })
 
     -- clipboard
     use({
@@ -481,7 +497,6 @@ require("packer").startup({
             { "hrsh7th/cmp-emoji", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "hrsh7th/cmp-copilot", after = "nvim-cmp" },
@@ -503,20 +518,13 @@ require("packer").startup({
             },
           },
         },
-        -- { "ray-x/lsp_signature.nvim" },
-        -- {
-        --   "mfussenegger/nvim-lint",
-        --   config = function()
-        --     require("lint").linters_by_ft = {
-        --       lua = { "luacheck" },
-        --       markdown = { "vale" },
-        --       javascript = { "eslint" },
-        --       javascriptreact = { "eslint" },
-        --       typescript = { "eslint" },
-        --       typescriptreact = { "eslint" },
-        --     }
-        --   end,
-        -- },
+        {
+          "ray-x/lsp_signature.nvim",
+          config = function()
+            require("lsp_signature").setup()
+          end,
+        },
+        { "onsails/diaglist.nvim" },
         { "williamboman/nvim-lsp-installer" },
         { "nvim-lua/lsp-status.nvim" },
         { "tjdevries/lsp_extensions.nvim" },

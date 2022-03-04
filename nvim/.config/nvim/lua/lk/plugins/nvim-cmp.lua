@@ -38,7 +38,6 @@ require("lspkind").init({
 
 cmp.setup({
   mapping = {
-    ["<tab>"] = cmp.config.disable,
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
@@ -58,7 +57,6 @@ cmp.setup({
     { name = "path" },
     { name = "spell" },
     { name = "emoji" },
-    { name = "nvim_lsp_signature_help" },
     { name = "tmux" },
     { name = "npm", keyword_length = 4 },
   }, {
