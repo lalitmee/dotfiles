@@ -1,4 +1,4 @@
-local map = lk_utils.map
+local map = lk.map
 
 -- copied from here https://twitter.com/ThePrimeagen/status/1416844366421897223
 -- map('v', 'J', [[:m '>+1<CR>gv=gv]])

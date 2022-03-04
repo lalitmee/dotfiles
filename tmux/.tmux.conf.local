@@ -483,11 +483,33 @@ set -g @plugin 'ChanderG/tmux-notify'
 
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
+TMUX_FZF_LAUNCH_KEY="C-j"
+TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl-a:select-all,ctrl-d:deselect-all --color=fg:#00aaff,bg:#193549,hl:#ffc600 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600"
 
-# saves tmux state
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-restore 'on'
+# tmux-modal
+set -g @plugin 'whame/tmux-modal'
+
+# search for something in scrollback buffer
+set -g @plugin 'roosta/tmux-fuzzback'
+
+# mouse scroll in tmux
+set -g @plugin 'noscript/tmux-mighty-scroll'
+
+# manage sessions more quickly
+set -g @plugin 'tmux-plugins/tmux-sessionist'
+
+# zoom out and zoom back the pane
+set -g @plugin 'jaclu/tmux-power-zoom'
+
+# NOTE: somehow this is destroying the names which I have given in the
+# tmuxinator config
+# # tmux-window-name for naming windows smartly
+# set -g @plugin 'ofirgall/tmux-window-name'
+
+# # saves tmux state
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @continuum-restore 'on'
 
 # source-file ~/dotfiles/tmux/tmux-themes/spaceduck/basic.conf
 # source-file ~/dotfiles/tmux/tmux-themes/tokyonight_night.conf

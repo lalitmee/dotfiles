@@ -52,7 +52,17 @@ values."
      html
      ibuffer
      imenu-list
-     lua
+     (lua :variables
+          lua-backend 'lsp
+          lua-lsp-server 'lua-language-server
+          lsp-lua-diagnostics-globals '("vim"
+                                        "describe"
+                                        "it"
+                                        "before_each"
+                                        "after_each"
+                                        "pending"
+                                        "teardown"
+                                        "packer_plugins"))
      markdown
      pandoc
      python
@@ -237,8 +247,8 @@ values."
                                ;; "CaskaydiaCove Nerd Font"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
-                               "JetBrainsMono Nerd Font"
-                               ;; "SauceCodePro Nerd Font"
+                               ;; "JetBrainsMono Nerd Font"
+                               "SauceCodePro Nerd Font"
                                :size 14
                                :weight normal
                                :powerline-scale 1.3)
@@ -514,7 +524,7 @@ you should place your code here."
   (add-hook 'markdown-mode-hook #'turn-on-smartparens-strict-mode t)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
 
-  (add-hook 'prog-mode-hook 'rainbow-mode)
+  ;; (add-hook 'prog-mode-hook 'rainbow-mode)
   ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
   (add-hook 'after-init-hook 'global-color-identifiers-mode)
 

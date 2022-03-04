@@ -1,3 +1,3 @@
-local nvim_web_icons = require('nvim-web-devicons')
+local nvim_web_icons = require("nvim-web-devicons")
 
-nvim_web_icons.setup { get_icons = require('nvim-nonicons') }
+nvim_web_icons.setup({ get_icons = require("nvim-nonicons") })

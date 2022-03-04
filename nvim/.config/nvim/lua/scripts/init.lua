@@ -1,1 +1,1 @@
-require('scripts/grep')
+require("scripts/grep")

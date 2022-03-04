@@ -33,6 +33,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+ZSH_PYENV_QUIET=true
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -338,9 +339,6 @@ export PATH="$PATH:/snap/bin"
 # doom-emacs command
 export PATH="$HOME/doom-emacs/bin:$PATH"
 
-# pyenv root
-export PYENV_ROOT="$(pyenv root)"
-
 # exporting editor
 export EDITOR=nvim
 
@@ -364,26 +362,39 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # fzf path settings
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-. /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# . /usr/share/doc/fzf/examples/key-bindings.zsh
 
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
 export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
 
-# gruvbox color for fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'; --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
+# # gruvbox color for fzf
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+#     --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+#     --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
+
+# # dracula theme for fzf
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+#     --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
+#     --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
+#     --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
+#     --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 
 # # nord color for fzf
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B'
-
-# # cobalt2 color for fzf
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-#  --color=fg:#ffffff,bg:#0d3a58,hl:#5f87af
-#  --color=fg+:#ffffff,bg+:#F2ED7F,hl+:#ff9d00
-#  --color=info:#ffc600,prompt:#ff628c,pointer:#fb94ff
-#  --color=marker:#3ad900,spinner:#967efb,header:#2affdf'
+#     --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
+#     --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
+#     --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
+#     --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
+
+# cobalt2 color for fzf
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+    --color=fg:#00aaff,bg:#193549,hl:#ffc600
+    --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
+    --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
+    --color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
 
 autoload -Uz compinit bashcompinit
 compinit
@@ -447,10 +458,9 @@ export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
 # source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 

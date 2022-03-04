@@ -1,3 +1,6 @@
 [submodule "kitty/.config/kitty/kitty-themes"]
 	path = kitty/.config/kitty/kitty-themes
 	url = https://github.com/dexpota/kitty-themes.git
+[submodule "bat/.config/bat/themes/cobalt2"]
+	path = bat/.config/bat/themes/cobalt2
+	url = https://github.com/wesbos/cobalt2.git

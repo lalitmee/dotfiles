@@ -4,7 +4,7 @@ All of my dotfiles are here. 👍
 
 ## Branches
 
-Sometimes I face some issues with neovim buitin lsp, that's why I manintain two
+Sometimes I face some issues with neovim buitin lsp, that's why I maintain two
 branches for `coc.nvim` and `lspconfig.nvim`
 
 - [lsp/coc.nvim](https://github.com/lalitmee/dotfiles/tree/lsp/coc.nvim): config using [coc.nvim](https://github.com/neoclide/coc.nvim)

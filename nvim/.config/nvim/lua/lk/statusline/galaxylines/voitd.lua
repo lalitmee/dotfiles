@@ -2,7 +2,7 @@ local cmd = vim.cmd
 local fn = vim.fn
 local gl = require("galaxyline")
 local section = gl.section
-gl.short_line_list = {"LuaTree", "packager", "Floaterm", "coc-eplorer"}
+gl.short_line_list = { "LuaTree", "packager", "Floaterm", "coc-eplorer" }
 
 local one_dark_colors = {
   bg = "#2e3440",
@@ -18,7 +18,7 @@ local one_dark_colors = {
   magenta = "#d16d9e",
   grey = "#c0c0c0",
   blue = "#569CD6",
-  red = "#D16969"
+  red = "#D16969",
 }
 
 local nord_colors = {
@@ -35,7 +35,7 @@ local nord_colors = {
   magenta = "#BF616A",
   gray = "#616E88",
   blue = "#5E81AC",
-  red = "#BF616A"
+  red = "#BF616A",
 }
 
 local buffer_not_empty = function()
@@ -51,8 +51,8 @@ section.left[1] = {
     provider = function()
       return "  "
     end,
-    highlight = {nord_colors.blue, nord_colors.line_bg}
-  }
+    highlight = { nord_colors.blue, nord_colors.line_bg },
+  },
 }
 section.left[2] = {
   ViMode = {
@@ -78,20 +78,20 @@ section.left[2] = {
         rm = nord_colors.cyan,
         ["r?"] = nord_colors.cyan,
         ["!"] = nord_colors.red,
-        t = nord_colors.red
+        t = nord_colors.red,
       }
       cmd("hi GalaxyViMode guifg=" .. mode_color[fn.mode()])
       return "   "
     end,
-    highlight = {nord_colors.red, nord_colors.line_bg, "bold"}
-  }
+    highlight = { nord_colors.red, nord_colors.line_bg, "bold" },
+  },
 }
 section.left[3] = {
   FileIcon = {
     provider = "FileIcon",
     condition = buffer_not_empty,
-    highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, nord_colors.line_bg}
-  }
+    highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, nord_colors.line_bg },
+  },
 }
 section.left[4] = {
   FileName = {
@@ -101,9 +101,9 @@ section.left[4] = {
     end,
     condition = buffer_not_empty,
     separator = " ",
-    separator_highlight = {nord_colors.purple, nord_colors.bg},
-    highlight = {nord_colors.purple, nord_colors.line_bg, "bold"}
-  }
+    separator_highlight = { nord_colors.purple, nord_colors.bg },
+    highlight = { nord_colors.purple, nord_colors.line_bg, "bold" },
+  },
 }
 
 section.right[1] = {
@@ -112,17 +112,17 @@ section.right[1] = {
       return " "
     end,
     condition = require("galaxyline.provider_vcs").check_git_workspace,
-    highlight = {nord_colors.orange, nord_colors.line_bg}
-  }
+    highlight = { nord_colors.orange, nord_colors.line_bg },
+  },
 }
 section.right[2] = {
   GitBranch = {
     provider = "GitBranch",
     condition = require("galaxyline.provider_vcs").check_git_workspace,
     separator = "",
-    separator_highlight = {nord_colors.purple, nord_colors.bg},
-    highlight = {nord_colors.orange, nord_colors.line_bg, "bold"}
-  }
+    separator_highlight = { nord_colors.purple, nord_colors.bg },
+    highlight = { nord_colors.orange, nord_colors.line_bg, "bold" },
+  },
 }
 
 local checkwidth = function()
@@ -138,33 +138,33 @@ section.right[3] = {
     provider = "DiffAdd",
     condition = checkwidth,
     icon = " ",
-    highlight = {nord_colors.green, nord_colors.line_bg}
-  }
+    highlight = { nord_colors.green, nord_colors.line_bg },
+  },
 }
 section.right[4] = {
   DiffModified = {
     provider = "DiffModified",
     condition = checkwidth,
     icon = "柳",
-    highlight = {nord_colors.yellow, nord_colors.line_bg}
-  }
+    highlight = { nord_colors.yellow, nord_colors.line_bg },
+  },
 }
 section.right[5] = {
   DiffRemove = {
     provider = "DiffRemove",
     condition = checkwidth,
     icon = " ",
-    highlight = {nord_colors.red, nord_colors.line_bg}
-  }
+    highlight = { nord_colors.red, nord_colors.line_bg },
+  },
 }
 
 section.right[6] = {
   LineInfo = {
     provider = "LineColumn",
     separator = "",
-    separator_highlight = {nord_colors.blue, nord_colors.line_bg},
-    highlight = {nord_colors.gray, nord_colors.line_bg}
-  }
+    separator_highlight = { nord_colors.blue, nord_colors.line_bg },
+    highlight = { nord_colors.gray, nord_colors.line_bg },
+  },
 }
 -- section.right[7] = {
 --   FileSize = {
@@ -181,18 +181,18 @@ section.right[8] = {
     provider = "DiagnosticError",
     separator = " ",
     icon = " ",
-    highlight = {nord_colors.red, nord_colors.line_bg},
-    separator_highlight = {nord_colors.bg, nord_colors.bg}
-  }
+    highlight = { nord_colors.red, nord_colors.line_bg },
+    separator_highlight = { nord_colors.bg, nord_colors.bg },
+  },
 }
 section.right[9] = {
   DiagnosticWarn = {
     provider = "DiagnosticWarn",
     -- separator = " ",
     icon = " ",
-    highlight = {nord_colors.yellow, nord_colors.line_bg},
-    separator_highlight = {nord_colors.bg, nord_colors.bg}
-  }
+    highlight = { nord_colors.yellow, nord_colors.line_bg },
+    separator_highlight = { nord_colors.bg, nord_colors.bg },
+  },
 }
 
 section.right[10] = {
@@ -200,9 +200,9 @@ section.right[10] = {
     -- separator = " ",
     provider = "DiagnosticInfo",
     icon = " ",
-    highlight = {nord_colors.green, nord_colors.line_bg},
-    separator_highlight = {nord_colors.bg, nord_colors.bg}
-  }
+    highlight = { nord_colors.green, nord_colors.line_bg },
+    separator_highlight = { nord_colors.bg, nord_colors.bg },
+  },
 }
 
 section.right[11] = {
@@ -210,40 +210,40 @@ section.right[11] = {
     provider = "DiagnosticHint",
     -- separator = " ",
     icon = " ",
-    highlight = {nord_colors.blue, nord_colors.line_bg},
-    separator_highlight = {nord_colors.bg, nord_colors.bg}
-  }
+    highlight = { nord_colors.blue, nord_colors.line_bg },
+    separator_highlight = { nord_colors.bg, nord_colors.bg },
+  },
 }
 
 section.short_line_left[1] = {
   BufferType = {
-    provider = 'FileTypeName',
-    separator = ' ',
-    separator_highlight = {'NONE',nord_colors.bg},
-    highlight = {nord_colors.blue,nord_colors.bg,'bold'}
-  }
+    provider = "FileTypeName",
+    separator = " ",
+    separator_highlight = { "NONE", nord_colors.bg },
+    highlight = { nord_colors.blue, nord_colors.bg, "bold" },
+  },
 }
 
 section.short_line_left[2] = {
   SFileName = {
-    provider = function ()
-      local fileinfo = require('galaxyline.provider_fileinfo')
+    provider = function()
+      local fileinfo = require("galaxyline.provider_fileinfo")
       local fname = fileinfo.get_current_file_name()
-      for _,v in ipairs(gl.short_line_list) do
+      for _, v in ipairs(gl.short_line_list) do
         if v == vim.bo.filetype then
-          return ''
+          return ""
         end
       end
       return fname
     end,
     condition = buffer_not_empty,
-    highlight = {nord_colors.white,nord_colors.bg,'bold'}
-  }
+    highlight = { nord_colors.white, nord_colors.bg, "bold" },
+  },
 }
 
 section.short_line_right[1] = {
   BufferIcon = {
-    provider= 'BufferIcon',
-    highlight = {nord_colors.fg,nord_colors.bg}
-  }
+    provider = "BufferIcon",
+    highlight = { nord_colors.fg, nord_colors.bg },
+  },
 }

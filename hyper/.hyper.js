@@ -9,7 +9,7 @@ module.exports = {
     // or `'canary'` for less polished but more frequent updates
     updateChannel: "stable",
     // default font size in pixels for all tabs
-    fontSize: 12,
+    fontSize: 10,
     // font family with optional fallbacks
     fontFamily:
       'Operator Mono Lig Book, CaskaydiaCove Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
@@ -18,9 +18,9 @@ module.exports = {
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: "bold",
     // line height as a relative unit
-    lineHeight: 1,
+    lineHeight: 1.2,
     // letter spacing as a relative unit
-    letterSpacing: 1,
+    letterSpacing: 1.0,
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: "rgba(248,28,229,0.8)",
     // terminal text color under BLOCK cursor
@@ -138,16 +138,11 @@ module.exports = {
   plugins: [
     "hyperminimal",
     "hyper-opacity",
+    "hyper-font-ligatures",
 
     // themes
-    "hyper-tokyo-night-storm",
-    "nord-hyper",
-    "hyper-gruvbox",
+    "hyperterm-cobalt2-theme",
   ],
-  gruvboxTheme: {
-    style: "dark", // or 'light'
-    contrast: "hard", // or 'soft', 'hard'
-  },
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
