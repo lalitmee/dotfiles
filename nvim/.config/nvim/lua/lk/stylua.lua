@@ -69,6 +69,9 @@ stylua.format = function(bufnr)
   end
 
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
+  vim.schedule(function()
+    vim.notify(vim.fn.expand("%"), "info", { title = "[stylua] File formatted successfully" })
+  end)
 end
 
 return stylua
