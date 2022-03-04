@@ -1,13 +1,13 @@
-require'nvim-lightbulb'.update_lightbulb {
+require("nvim-lightbulb").update_lightbulb({
   sign = {
     enabled = true,
     -- Priority of the gutter sign
-    priority = 10
+    priority = 10,
   },
   float = {
     enabled = false,
     -- Text to show in the popup float
-    text = '💡',
+    text = "💡",
     -- Available keys for window options:
     -- - height     of floating window
     -- - width      of floating window
@@ -22,11 +22,11 @@ require'nvim-lightbulb'.update_lightbulb {
     -- - offset_y   y-axis offset of the floating window
     -- - anchor     corner of float to place at the cursor (NW, NE, SW, SE)
     -- - winblend   transparency of the window (0-100)
-    win_opts = {}
+    win_opts = {},
   },
   virtual_text = {
     enabled = true,
     -- Text to show at virtual text
-    text = '💡'
-  }
-}
+    text = "💡",
+  },
+})

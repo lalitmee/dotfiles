@@ -1,23 +1,23 @@
 -- Inspiration
 -- 1. vim-relativity
 -- 2. numbers.vim - https://github.com/myusuf3/numbers.vim/blob/master/plugin/numbers.vim
-local autocommands = require('lk.autocommands')
+local autocommands = require("lk.autocommands")
 local fn = vim.fn
 local M = {}
 
 local function is_floating_win()
-  return vim.fn.win_gettype() == 'popup'
+  return vim.fn.win_gettype() == "popup"
 end
 
 -- block list certain plugins and buffer types
 local function is_blocked()
   local win_type = vim.fn.win_gettype()
 
-  if win_type == 'popup' then
+  if win_type == "popup" then
     return false
   end
 
-  if fn.buflisted(fn.bufnr('')) == 0 then
+  if fn.buflisted(fn.bufnr("")) == 0 then
     return true
   end
 
@@ -25,11 +25,11 @@ local function is_blocked()
     return true
   end
 
-  if win_type == 'command' then
+  if win_type == "command" then
     return true
   end
 
-  if fn.exists('#goyo') > 0 then
+  if fn.exists("#goyo") > 0 then
     return true
   end
 
@@ -82,74 +82,72 @@ function M.disable_relative_number()
 end
 
 vim.g.number_filetype_exclusions = {
-  'log',
-  'man',
-  'dap-repl',
-  'markdown',
-  'vimwiki',
-  'vim-plug',
-  'gitcommit',
-  'toggleterm',
-  'fugitive',
-  'coc-explorer',
-  'coc-list',
-  'list',
-  'NvimTree',
-  'startify',
-  'help',
-  'todoist',
-  'lsputil_locations_list',
-  'lsputil_symbols_list'
+  "log",
+  "man",
+  "dap-repl",
+  "markdown",
+  "vimwiki",
+  "vim-plug",
+  "gitcommit",
+  "toggleterm",
+  "fugitive",
+  "coc-explorer",
+  "coc-list",
+  "list",
+  "NvimTree",
+  "startify",
+  "help",
+  "todoist",
+  "lsputil_locations_list",
+  "lsputil_symbols_list",
 }
 
 vim.g.number_buftype_exclusions = {
-  'terminal',
-  'quickfix',
-  'help',
-  'nofile',
-  'acwrite'
+  "terminal",
+  "quickfix",
+  "help",
+  "nofile",
+  "acwrite",
 }
 
-autocommands.create(
+autocommands.create({
+  ToggleRelativeLineNumbers = {
     {
-      ToggleRelativeLineNumbers = {
-        {
-          'BufEnter',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        },
-        {
-          'BufLeave',
-          '*',
-          [[lua require("lk.numbers").disable_relative_number()]]
-        },
-        {
-          'FileType',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        },
-        {
-          'FocusGained',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        },
-        {
-          'FocusLost',
-          '*',
-          [[lua require("lk.numbers").disable_relative_number()]]
-        },
-        {
-          'InsertEnter',
-          '*',
-          [[lua require("lk.numbers").disable_relative_number()]]
-        },
-        {
-          'InsertLeave',
-          '*',
-          [[lua require("lk.numbers").enable_relative_number()]]
-        }
-      }
-    }
-)
+      "BufEnter",
+      "*",
+      [[lua require("lk.numbers").enable_relative_number()]],
+    },
+    {
+      "BufLeave",
+      "*",
+      [[lua require("lk.numbers").disable_relative_number()]],
+    },
+    {
+      "FileType",
+      "*",
+      [[lua require("lk.numbers").enable_relative_number()]],
+    },
+    {
+      "FocusGained",
+      "*",
+      [[lua require("lk.numbers").enable_relative_number()]],
+    },
+    {
+      "FocusLost",
+      "*",
+      [[lua require("lk.numbers").disable_relative_number()]],
+    },
+    {
+      "InsertEnter",
+      "*",
+      [[lua require("lk.numbers").disable_relative_number()]],
+    },
+    {
+      "InsertLeave",
+      "*",
+      [[lua require("lk.numbers").enable_relative_number()]],
+    },
+  },
+})
 
 return M

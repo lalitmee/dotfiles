@@ -1,63 +1,62 @@
-local has_lir, lir = pcall(require, 'lir')
+local has_lir, lir = pcall(require, "lir")
 if not has_lir then
   return
 end
 
-local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
+local has_devicons, devicons = pcall(require, "nvim-web-devicons")
 if has_devicons then
-  devicons.setup {
+  devicons.setup({
     override = {
       lir_folder_icon = {
-        icon = '',
-        color = '#7ebae4',
-        name = 'LirFolderNode',
+        icon = "",
+        color = "#7ebae4",
+        name = "LirFolderNode",
       },
     },
-  }
+  })
 end
 
-local actions = require 'lir.actions'
-local mark_actions = require 'lir.mark.actions'
-local clipboard_actions = require 'lir.clipboard.actions'
-local has_mmv, mmv_actions = pcall(require, 'lir.mmv.actions')
+local actions = require("lir.actions")
+local mark_actions = require("lir.mark.actions")
+local clipboard_actions = require("lir.clipboard.actions")
+local has_mmv, mmv_actions = pcall(require, "lir.mmv.actions")
 
-lir.setup {
+lir.setup({
   show_hidden_files = true,
   devicons_enable = true,
 
   float = { winblend = 15 },
 
   mappings = {
-    ['<C-s>'] = actions.split,
-    ['<C-v>'] = actions.vsplit,
-    ['<C-t>'] = actions.tabedit,
-    ['<CR>'] = actions.edit,
-    ['-'] = actions.up,
+    ["<C-s>"] = actions.split,
+    ["<C-v>"] = actions.vsplit,
+    ["<C-t>"] = actions.tabedit,
+    ["<CR>"] = actions.edit,
+    ["-"] = actions.up,
 
-    ['K'] = actions.mkdir,
-    ['N'] = actions.newfile,
-    ['R'] = actions.rename,
-    ['Y'] = actions.yank_path,
-    ['D'] = actions.delete,
-    ['.'] = actions.toggle_show_hidden,
+    ["K"] = actions.mkdir,
+    ["N"] = actions.newfile,
+    ["R"] = actions.rename,
+    ["Y"] = actions.yank_path,
+    ["D"] = actions.delete,
+    ["."] = actions.toggle_show_hidden,
 
-    ['J'] = function()
+    ["J"] = function()
       mark_actions.toggle_mark()
-      vim.cmd('normal! j')
+      vim.cmd("normal! j")
     end,
-    ['C'] = clipboard_actions.copy,
-    ['X'] = clipboard_actions.cut,
-    ['P'] = clipboard_actions.paste,
+    ["C"] = clipboard_actions.copy,
+    ["X"] = clipboard_actions.cut,
+    ["P"] = clipboard_actions.paste,
 
     -- mmv
-    ['M'] = (has_mmv and mmv_actions.mmv) or nil,
+    ["M"] = (has_mmv and mmv_actions.mmv) or nil,
   },
-}
+})
 
-require('lir.git_status').setup { show_ignored = false }
+require("lir.git_status").setup({ show_ignored = false })
 
-vim.api.nvim_set_keymap('n', '-', ':edit %:h<CR>',
-                        { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "-", ":edit %:h<CR>", { noremap = true, silent = true })
 
 -- Can do this if we want to get particular settings
 -- vim.cmd [[

@@ -1,47 +1,46 @@
--- vim.g.indent_blankline_char = '▏'
-vim.g.indent_blankline_char = '│'
-vim.g.indent_blankline_show_foldtext = false
-vim.g.indent_blankline_show_first_indent_level = true
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_use_treesitter = true
-vim.g.indent_blankline_show_current_context = true
-vim.g.indent_blankline_filetype_exclude =
-    {
-      '', -- for all buffers without a file type
-      'NeogitStatus',
-      'NvimTree',
-      'TelescopePrompt',
-      'dashboard',
-      'dotooagenda',
-      'flutterToolsOutline',
-      'fugitive',
-      'git',
-      'gitcommit',
-      'help',
-      'json',
-      'log',
-      'lspinfo',
-      'markdown',
-      'packer',
-      'peekaboo',
-      'startify',
-      'todoist',
-      'txt',
-      'undotree',
-      'vimwiki',
-      'vista'
-    }
-vim.g.indent_blankline_context_patterns =
-    {
-      '^if',
-      '^table',
-      'block',
-      'class',
-      'for',
-      'function',
-      'if_statement',
-      'list_literal',
-      'method',
-      'selector',
-      'while'
-    }
+require("indent_blankline").setup({
+  char = "│", -- ┆ ┊ 
+  show_foldtext = false,
+  show_current_context = true,
+  show_current_context_start = false,
+  show_first_indent_level = true,
+  use_treesitter = true,
+  filetype_exclude = {
+    "dap-repl",
+    "startify",
+    "dashboard",
+    "log",
+    "fugitive",
+    "gitcommit",
+    "packer",
+    "vimwiki",
+    "markdown",
+    "json",
+    "txt",
+    "vista",
+    "help",
+    "NvimTree",
+    "git",
+    "TelescopePrompt",
+    "undotree",
+    "flutterToolsOutline",
+    "norg",
+    "org",
+    "orgagenda",
+    "", -- for all buffers without a file type
+  },
+  buftype_exclude = { "terminal", "nofile" },
+  context_patterns = {
+    "class",
+    "function",
+    "method",
+    "block",
+    "list_literal",
+    "selector",
+    "^if",
+    "^table",
+    "if_statement",
+    "while",
+    "for",
+  },
+})

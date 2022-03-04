@@ -1,4 +1,4 @@
-require('onenord').setup({
+require("onenord").setup({
   borders = true, -- Split window borders
   italics = {
     comments = true, -- Italic comments
