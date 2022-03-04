@@ -196,6 +196,7 @@ local servers = {
   remark_ls = true,
   rust_analyzer = true,
   eslint = true,
+  emmet_ls = true,
   sumneko_lua = function()
     local lua_dev = require("lua-dev")
     return lua_dev.setup({

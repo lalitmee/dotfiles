@@ -47,7 +47,6 @@ require("lk/plugins/luasnip")
 require("lk/plugins/nvim-bqf")
 
 -- NOTE: language support
-require("lk/plugins/emmet")
 require("lk/plugins/markdown")
 
 -- NOTE: search

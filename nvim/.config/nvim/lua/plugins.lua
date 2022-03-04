@@ -421,7 +421,6 @@ require("packer").startup({
     -- -- snippets engine
     use({
       "SirVer/ultisnips",
-      requires = "honza/vim-snippets",
       config = function()
         vim.g.UltiSnipsRemoveSelectModeMappings = 0
       end,
@@ -597,14 +596,6 @@ require("packer").startup({
 
     -- refactor the code
     use({ "ThePrimeagen/refactoring.nvim" })
-
-    ----------------------------------------------------------------------------
-    -- NOTE: HMTL {{{
-    ----------------------------------------------------------------------------
-    -- emmets in vim
-    use({ "mattn/emmet-vim" })
-    -- }}}
-    ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
     -- NOTE: markdown {{{
