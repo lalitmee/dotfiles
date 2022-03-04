@@ -30,29 +30,11 @@ function M.augroup(name, commands)
   vim.cmd("augroup END")
 end
 
---- automatically clear commandline messages after a few seconds delay
---- source: https://unix.stackexchange.com/a/613645
-local function clear_messages()
-  local id
-  return function()
-    if id then
-      fn.timer_stop(id)
-    end
-    id = fn.timer_start(2000, function()
-      if fn.mode() == "n" then
-        vim.cmd([[echon '']])
-      end
-    end)
-  end
-end
-
-M.clear_messages = clear_messages()
-
-M.augroup("ClearCommandMessages", {
+lk.augroup("ClearCommandMessages", {
   {
     events = { "CmdlineLeave", "CmdlineChanged" },
     targets = { ":" },
-    command = "lua require('lk.autocommands').clear_messages()",
+    command = "lua require('lk.functions').clear_messages()",
   },
 })
 

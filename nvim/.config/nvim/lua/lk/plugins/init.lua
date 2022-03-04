@@ -64,7 +64,6 @@ require("lk/plugins/gitsigns")
 require("lk/plugins/neogit")
 
 -- NOTE: fuzzy
-require("lk/plugins/fzy")
 require("lk/plugins/telescope")
 require("lk/plugins/telescope/mappings")
 require("lk/plugins/refactoring")
@@ -75,6 +74,7 @@ require("lk/plugins/refactoring")
 -- NOTE: nvim_lsp
 require("lk/plugins/nvim-cmp")
 require("lk/plugins/nvim_lsp")
+require("lk/plugins/lspsaga")
 
 -- NOTE: which key
 require("lk/plugins/which-key")

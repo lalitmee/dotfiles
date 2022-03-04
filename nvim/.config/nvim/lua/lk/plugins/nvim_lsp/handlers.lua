@@ -6,7 +6,7 @@ local lsp = vim.lsp
 --------------------------------------------------------------------------------
 lsp.handlers["textDocument/definition"] = function(_, result)
   if not result or vim.tbl_isempty(result) then
-    print("[LSP] Could not find definition")
+    vim.notify("[LSP] Could not find definition", "info", { title = "[LSP] definition" })
     return
   end
 
@@ -82,7 +82,7 @@ local function lsp_rename()
     return
   end
 
-  local plenary_window = require("plenary.window.float").percentage_range_window(0.5, 0.2)
+  local plenary_window = require("plenary.window.float").percentage_range_window(0.8, 0.2)
   vim.api.nvim_buf_set_option(plenary_window.bufnr, "buftype", "prompt")
   vim.fn.prompt_setprompt(plenary_window.bufnr, string.format('Rename "%s" to > ', current_word))
   vim.fn.prompt_setcallback(plenary_window.bufnr, function(text)
@@ -93,7 +93,7 @@ local function lsp_rename()
         vim.lsp.buf.rename(text)
       end)
     else
-      print("Nothing to rename!")
+      vim.notify("Nothing to rename!", "warning", { title = "[LSP] rename" })
     end
   end)
 
@@ -180,7 +180,7 @@ lsp.handlers["textDocument/implementation"] = implementation
 -- }}}
 --------------------------------------------------------------------------------
 
--- --------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 -- -- NOTE: progress handler {{{
 -- --------------------------------------------------------------------------------
 -- local client_notifs = {}
@@ -258,7 +258,7 @@ lsp.handlers["textDocument/implementation"] = implementation
 --   end
 -- end
 -- -- }}}
--- --------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 -- NOTE: codelens handler {{{

@@ -59,7 +59,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: colorschemes {{{
     ----------------------------------------------------------------------------
-    use({ "lalitmee/cobalt2.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
+    use({ "/home/lalitmee/Desktop/Github/cobalt2.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
     -- use({ "EdenEast/nightfox.nvim" })
     -- use({ "Mofiqul/vscode.nvim" })
     -- use({ "catppuccin/nvim", as = "catppuccin" })
@@ -119,6 +119,15 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- beautiful code snippets from neovim
+    use({
+      "kristijanhusak/vim-carbon-now-sh",
+      cmd = "CarbonNowSh",
+      config = function()
+        vim.g.carbon_now_sh_options = { fm = "MonoLisa" }
+      end,
+    })
+
     -- packages info
     use({
       "vuki656/package-info.nvim",
@@ -248,9 +257,6 @@ require("packer").startup({
       },
     })
     use({ "nvim-telescope/telescope-file-browser.nvim" })
-
-    -- fzy in neovim
-    use({ "mfussenegger/nvim-fzy" })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -431,10 +437,10 @@ require("packer").startup({
     use("lukas-reineke/indent-blankline.nvim")
 
     -- Tabularize for Vim
-    use("godlygeek/tabular")
+    use({ "godlygeek/tabular", cmd = "Tabularize" })
 
     -- Undo
-    use("simnalamburt/vim-mundo")
+    use({ "mbbill/undotree", cmd = "UndotreeToggle" })
     -- }}}
     ------------------------------------------------------------------------
     -- }}}
@@ -485,6 +491,10 @@ require("packer").startup({
             { "ray-x/cmp-treesitter", after = "nvim-cmp" },
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
             {
+              "simrat39/symbols-outline.nvim",
+              cmd = { "SymbolsOutline", "SymbolsOutlineClose", "SymbolsOutlineOpen" },
+            },
+            {
               "petertriho/cmp-git",
               after = "nvim-cmp",
               config = function()
@@ -520,7 +530,22 @@ require("packer").startup({
           end,
         },
         { "folke/lua-dev.nvim" },
-        { "arkav/lualine-lsp-progress" },
+        {
+          "j-hui/fidget.nvim",
+          config = function()
+            require("fidget").setup({
+              text = {
+                spinner = "bouncing_bar",
+              },
+              align = {
+                bottom = true,
+              },
+              window = {
+                relative = "editor",
+              },
+            })
+          end,
+        },
       },
     })
     -- }}}
@@ -543,6 +568,24 @@ require("packer").startup({
         { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
         { "mfussenegger/nvim-ts-hint-textobject" },
       },
+    })
+
+    -- spell checker using treesitter
+    use({
+      "lewis6991/spellsitter.nvim",
+      config = function()
+        require("spellsitter").setup()
+      end,
+    })
+
+    -- annotations using treesitter
+    use({
+      "danymat/neogen",
+      config = function()
+        require("neogen").setup({})
+      end,
+      -- Uncomment next line if you want to follow only stable versions
+      -- tag = "*"
     })
     -- }}}
     ------------------------------------------------------------------------
