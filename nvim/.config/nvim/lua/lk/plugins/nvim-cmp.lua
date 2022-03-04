@@ -1,12 +1,8 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 
-local press = function(key)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
-end
-
 -- Don't show the dumb matching stuff.
-vim.cmd([[set shortmess+=c]])
+vim.opt.shortmess:append("c")
 
 require("lspkind").init({
   preset = "codicons",
@@ -42,44 +38,13 @@ require("lspkind").init({
 
 cmp.setup({
   mapping = {
+    ["<tab>"] = cmp.config.disable,
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
-    }),
-    ["<C-n>"] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          press("<Down>")
-        end
-      end,
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
-      end,
-    }),
-    ["<C-p>"] = cmp.mapping({
-      c = function()
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          press("<Up>")
-        end
-      end,
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        else
-          fallback()
-        end
-      end,
     }),
   },
   sources = cmp.config.sources({
@@ -99,6 +64,32 @@ cmp.setup({
   }, {
     { name = "buffer" },
   }),
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+
+      -- copied from cmp-under, but I don't think I need the plugin for this.
+      -- I might add some more of my own.
+      function(entry1, entry2)
+        local _, entry1_under = entry1.completion_item.label:find("^_+")
+        local _, entry2_under = entry2.completion_item.label:find("^_+")
+        entry1_under = entry1_under or 0
+        entry2_under = entry2_under or 0
+        if entry1_under > entry2_under then
+          return false
+        elseif entry1_under < entry2_under then
+          return true
+        end
+      end,
+
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
   snippet = {
     expand = function(args)
       vim.fn["UltiSnips#Anon"](args.body)
@@ -108,20 +99,20 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
-        buffer = "[BUF]",
+        buffer = "[BUFFER]",
         calc = "[CALC]",
-        cmdline = "[COM]",
+        cmdline = "[COMMAND]",
         cmp_git = "[GIT]",
-        cmp_tabnine = "[TN]",
-        emoji = "[EMOJ]",
-        gh_issues = "[GH]",
+        cmp_tabnine = "[TABNINE]",
+        emoji = "[EMOJI]",
+        gh_issues = "[GITHUB ISSUE]",
         look = "[LOOK]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[API]",
-        orgmode = "[ORG]",
+        orgmode = "[ORGMODE]",
         path = "[PATH]",
         spell = "[SPELL]",
-        treesitter = "[TS]",
+        treesitter = "[TREESITTER]",
         ultisnips = "[SNIP]",
       },
     }),

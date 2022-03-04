@@ -1,6 +1,7 @@
 local colors = require("cobalt2.palette")
 local ok, lualine = lk.safe_require("lualine")
 if not ok then
+  vim.notify("Failed to load lualine", "error", { title = "[lualine.nvim] error" })
   return
 end
 
