@@ -34,21 +34,6 @@ lualine.setup({
     lualine_c = {
       { "filetype", icon_only = true },
       { "filename", path = 1 },
-      {
-        "lsp_progress",
-        colors = {
-          lsp_client_name = colors.yellow,
-          title = colors.white,
-          message = colors.dark_orange,
-          percentage = colors.blue,
-          spinner = colors.dark_pink,
-          use = true,
-        },
-        display_components = { "lsp_client_name", { "title", "message", "percentage" }, "spinner" },
-        separators = {
-          message = { commenced = ".", completed = "OK" },
-        },
-      },
       { "diff" },
     },
     lualine_x = {
