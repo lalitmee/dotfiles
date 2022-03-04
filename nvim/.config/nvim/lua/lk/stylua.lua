@@ -62,7 +62,7 @@ stylua.format = function(bufnr)
   if j.code ~= 0 then
     -- Schedule this so that it doesn't do dumb stuff like printing two things.
     vim.schedule(function()
-      print("[stylua] Failed to process due to errors")
+      vim.notify("[stylua] Failed to process due to errors", "error", { title = "[stylua]" })
     end)
 
     return
