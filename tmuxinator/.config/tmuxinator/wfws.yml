@@ -13,7 +13,7 @@ windows:
         - cd ../../wf-webapp-service && yst
         - cd ../../worktrees/marketsn-webapp-service-nextjs/test-env && yd
   - Caddy:
-      - cd
+      - cd ../..
       - caddy run
   - Brave: brave-browser
   - Firefox: firefox
