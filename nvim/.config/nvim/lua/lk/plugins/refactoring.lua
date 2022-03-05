@@ -1,50 +1,19 @@
-local refactor = require("refactoring")
-refactor.setup({})
-
--- telescope refactoring helper
-local function refactor(prompt_bufnr)
-  local content = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
-  require("telescope.actions").close(prompt_bufnr)
-  require("refactoring").refactor(content.value)
+local status_ok, refactoring = lk.safe_require("refactoring")
+if not status_ok then
+  vim.notify("Failed to load refactoring module", "error", { title = "[refactoring] Error" })
+  return
 end
 
--- NOTE: M is a global object
--- for the sake of simplicity in this example
--- you can extract this function and the helper above
--- and then require the file and call the extracted function
--- in the mappings below
-M = {}
-M.refactors = function()
-  local opts = require("telescope.themes").get_cursor() -- set personal telescope options
-  require("telescope.pickers").new(opts, {
-    prompt_title = "refactors",
-    finder = require("telescope.finders").new_table({
-      results = require("refactoring").get_refactors(),
-    }),
-    sorter = require("telescope.config").values.generic_sorter(opts),
-    attach_mappings = function(_, map)
-      map("i", "<CR>", refactor)
-      map("n", "<CR>", refactor)
-      return true
-    end,
-  }):find()
-end
+refactoring.setup({})
 
-vim.api.nvim_set_keymap(
-  "v",
-  "<Leader>re",
-  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
-  { noremap = true, silent = true, expr = false }
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<Leader>rf",
-  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
-  { noremap = true, silent = true, expr = false }
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<Leader>rt",
-  [[ <Esc><Cmd>lua M.refactors()<CR>]],
-  { noremap = true, silent = true, expr = false }
-)
+local map = vim.keymap.set
+local map_opts = { noremap = true, silent = true, expr = false }
+
+map("v", "<leader>rr", [[:lua require("lk/plugins/telescope").refactors()<CR>]], map_opts)
+map("v", "<leader>re", [[:lua require("refactoring").refactor(106)<CR>]], map_opts)
+map("n", "<leader>ri", [[:lua require("refactoring").refactor(123)<CR>]], map_opts)
+map("n", "<leader>rh", [[:lua print(vim.inspect(require("refactoring").debug.get_path()))<CR>]], map_opts)
+map("n", "<leader>rg", [[:lua require("refactoring").debug.printf({below=false})<CR>]], map_opts)
+map("n", "<leader>rm", [[:lua require("refactoring").debug.printf({below=true})<CR>]], map_opts)
+map("n", "<leader>rf", [[:lua require("refactoring").debug.print_var({below=false})<CR>]], map_opts)
+map("n", "<leader>rb", [[:lua require("refactoring").debug.print_var({below=true})<CR>]], map_opts)

@@ -245,8 +245,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["F"] = {
     ["name"] = "+search/replace",
-    ["f"] = { ":Tgrep<CR>", "grep" },
-    ["F"] = "grep-and-replace",
+    ["g"] = { ":LGrep<CR>", "grep" },
     ["o"] = { ':lua require("spectre").open()<CR>', "spectre-open" },
     ["r"] = "replace-text-object",
     ["R"] = "replace-current-word",
@@ -813,9 +812,12 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["r"] = {
     ["name"] = "+refactor",
-    ["e"] = { "extract function" },
-    ["f"] = { "extract function to a file" },
-    ["r"] = { "refactors" },
+    ["b"] = { "print-var-below" },
+    ["f"] = { "print-var" },
+    ["g"] = { "printf" },
+    ["h"] = { "print-debug-path" },
+    ["i"] = { "inline-variable" },
+    ["m"] = { "printf-below" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -1097,7 +1099,21 @@ local local_leader_key_maps = {
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE:visual mode keymaps {{{
+----------------------------------------------------------------------
+local visual_mode_leader_key_maps = {
+  ["r"] = {
+    ["name"] = "+refactor",
+    ["e"] = { "extract-function" },
+    ["r"] = { "refactors-list" },
+  },
+}
+-- }}}
+----------------------------------------------------------------------
+
 wk.register(local_leader_key_maps, { prefix = "<localleader>" })
 wk.register(leader_key_maps, { prefix = "<leader>" })
+wk.register(visual_mode_leader_key_maps, { prefix = "<leader>", mode = "v" })
 
 -- vim:foldmethod=marker

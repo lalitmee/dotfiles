@@ -1,4 +1,6 @@
-if not pcall(require, "telescope") then
+local status_ok, telescope = lk.safe_require("telescope")
+if not status_ok then
+  vim.notify("telescope not found", "error", { title = "[telescope] error" })
   return
 end
 
@@ -34,7 +36,10 @@ local function dropdown(opts)
   return themes.get_dropdown(get_border(opts))
 end
 
-require("telescope").setup({
+----------------------------------------------------------------------
+-- NOTE: setup {{{
+----------------------------------------------------------------------
+telescope.setup({
   defaults = {
     vimgrep_arguments = {
       "rg",
@@ -78,7 +83,7 @@ require("telescope").setup({
       { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     },
-    file_ignore_patterns = { "%.jpg", "%.jpeg", "%.png", "%.otf", "%.ttf", "%.DS_Store" },
+    file_ignore_patterns = { "%.otf", "%.ttf", "%.DS_Store" },
 
     layout_config = {
       width = 0.90,
@@ -148,6 +153,9 @@ require("telescope").setup({
     reloader = dropdown(),
   },
   extensions = {
+    media_files = {
+      find_cmd = "rg", -- find command (defaults to `fd`)
+    },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({
         -- even more opts
@@ -233,10 +241,12 @@ require("telescope").setup({
     },
   },
 })
+-- }}}
+----------------------------------------------------------------------
 
----------------------------------------------------------------------------------
---                          loading extensions start                           --
----------------------------------------------------------------------------------
+----------------------------------------------------------------------
+-- NOTE: loading extensions {{{
+----------------------------------------------------------------------
 
 -- -- coc integration in telescope
 -- require('telescope').load_extension('coc')
@@ -249,6 +259,9 @@ require("telescope").setup({
 
 -- scratch buffer
 require("telescope").load_extension("ui-select")
+
+-- media files
+require("telescope").load_extension("media_files")
 
 -- scratch buffer
 require("telescope").load_extension("scratch")
@@ -283,9 +296,12 @@ require("telescope").load_extension("emoji")
 -- file browser
 require("telescope").load_extension("file_browser")
 
----------------------------------------------------------------------------------
---                           loading extensions end                            --
----------------------------------------------------------------------------------
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: custom commands {{{
+----------------------------------------------------------------------
 
 local M = {}
 
@@ -314,7 +330,7 @@ function M.edit_dotfiles()
   builtin.find_files({
     prompt_title = "~ dotfiles ~",
     hidden = true,
-    cwd = "~/Desktop/Github/dotfiles",
+    cwd = "~/dotfiles",
 
     layout_strategy = "horizontal",
     layout_defaults = {
@@ -357,7 +373,7 @@ function M.find_files()
   builtin.find_files({
     hidden = true,
     selection_strategy = "reset",
-    sorting_strategy = "descending",
+    sorting_strategy = "ascending",
     scroll_strategy = "cycle",
     color_devicons = true,
   })
@@ -383,46 +399,34 @@ function M.lsp_workspace_symbols()
   })
 end
 
-local function set_background(content)
-  vim.fn.system("dconf write /org/mate/desktop/background/picture-filename \"'" .. content .. "'\"")
+----------------------------------------------------------------------
+-- NOTE: ThePrimeagen/refactoring.nvim setup {{{
+----------------------------------------------------------------------
+local function refactor(prompt_bufnr)
+  local content = require("telescope.actions.state").get_selected_entry()
+  require("telescope.actions").close(prompt_bufnr)
+  require("refactoring").refactor(content.value)
 end
 
-local function select_background(prompt_bufnr, map)
-  local function set_the_background(close)
-    local content = require("telescope.actions.state").get_selected_entry()
-    set_background(content.cwd .. "/" .. content.value)
-    if close then
-      require("telescope.actions").close(prompt_bufnr)
-    end
-  end
-
-  map("i", "<C-p>", function()
-    set_the_background()
-  end)
-
-  map("i", "<CR>", function()
-    set_the_background(true)
-  end)
+M.refactors = function()
+  require("telescope.pickers").new({}, {
+    prompt_title = "refactors",
+    finder = require("telescope.finders").new_table({
+      results = require("refactoring").get_refactors(),
+    }),
+    sorter = require("telescope.config").values.generic_sorter({}),
+    attach_mappings = function(_, map)
+      map("i", "<CR>", refactor)
+      map("n", "<CR>", refactor)
+      return true
+    end,
+  }):find()
 end
+-- }}}
+----------------------------------------------------------------------
 
-local function image_selector(prompt, cwd)
-  return function()
-    require("telescope.builtin").find_files({
-      prompt_title = prompt,
-      cwd = cwd,
-
-      attach_mappings = function(prompt_bufnr, map)
-        select_background(prompt_bufnr, map)
-
-        -- Please continue mapping (attaching additional key maps):
-        -- Ctrl+n/p to move up and down the list.
-        return true
-      end,
-    })
-  end
-end
-
-M.change_background = image_selector("< Select Wallpaper > ", "~/Desktop/Github/wallpapers")
+-- }}}
+----------------------------------------------------------------------
 
 return setmetatable({}, {
   __index = function(_, k)
@@ -435,3 +439,5 @@ return setmetatable({}, {
     end
   end,
 })
+
+-- vim:foldmethod=marker

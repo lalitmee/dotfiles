@@ -149,6 +149,9 @@ require("packer").startup({
       end,
     })
 
+    -- better increment
+    use({ "monaqa/dial.nvim" })
+
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
       "svermeulen/vim-yoink",
@@ -216,6 +219,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- makes quickfix list editable
+    use({ "gabrielpoca/replacer.nvim" })
+
     -- Search and replace plugins
     use("windwp/nvim-spectre")
     use("nelstrom/vim-visual-star-search")
@@ -256,7 +262,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- telescope.nvim
     use({ "nvim-lua/plenary.nvim" })
-    use({ "nvim-lua/popup.nvim" })
     use({
       "nvim-telescope/telescope.nvim",
       requires = {
@@ -270,6 +275,7 @@ require("packer").startup({
         { "nvim-telescope/telescope-packer.nvim" },
         { "nvim-telescope/telescope-smart-history.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
+        { "nvim-telescope/telescope-media-files.nvim" },
       },
     })
     use({ "nvim-telescope/telescope-file-browser.nvim" })
@@ -540,15 +546,8 @@ require("packer").startup({
           "j-hui/fidget.nvim",
           config = function()
             require("fidget").setup({
-              text = {
-                spinner = "bouncing_bar",
-              },
-              align = {
-                bottom = true,
-              },
-              window = {
-                relative = "editor",
-              },
+              text = { spinner = "bouncing_bar" },
+              window = { winblend = 0 },
             })
           end,
         },

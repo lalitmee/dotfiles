@@ -1,7 +1,3 @@
-if not pcall(require, "telescope") then
-  return
-end
-
 TelescopeMapArgs = TelescopeMapArgs or {}
 
 local map_tele = function(key, f, options, buffer)
@@ -40,9 +36,18 @@ map_tele("<space>ofi", "fd")
 map_tele("<space>ofl", "find_files")
 map_tele("<space>nh", "help_tags")
 
--- Change Background Wallpaper
-map_tele("<space>otw", "change_background")
-
 vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
+
+----------------------------------------------------------------------
+-- NOTE: telescope commands {{{
+----------------------------------------------------------------------
+lk.command({
+  "LGrep",
+  function()
+    require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ") })
+  end,
+})
+-- }}}
+----------------------------------------------------------------------
 
 return map_tele

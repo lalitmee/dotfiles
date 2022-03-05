@@ -1,6 +1,6 @@
 " luafile $HOME/.config/nvim/init.lua
 
-" make ctags {{{
+" NOTE: make ctags {{{
 
 " command for making ctags in a project
 command! MakeTags !ctags -R .
@@ -8,7 +8,7 @@ command! MakeCTags !ctags-exuberant -R .
 
 " }}}
 
-" Qargs with only filenames {{{
+" NOTE: Qargs with only filenames {{{
 
 " populate args list with only those files which have matching text in them
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
@@ -23,14 +23,4 @@ endfunction
 
 "}}}
 
-" Buffers related commands {{{
-
-command! BufferCloseAllButCurrent silent! execute "%bd|e#|bd#"
-
-" }}}
-
-" Telescope grep string {{{
-
-command! -nargs=? Tgrep lua require 'telescope.builtin'.grep_string({ search = vim.fn.input("Grep For > ")})
-
-" }}}
+" vim:foldmethod=marker

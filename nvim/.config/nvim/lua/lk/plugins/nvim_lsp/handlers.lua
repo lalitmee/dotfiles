@@ -141,7 +141,7 @@ lsp.handlers["window/showMessage"] = function(_, result, ctx)
     "DEBUG",
   })[result.type]
   vim.notify({ result.message }, lvl, {
-    title = "LSP | " .. client.name,
+    title = "[LSP] | " .. client.name,
     timeout = 10000,
     keep = function()
       return lvl == "ERROR" or lvl == "WARN"
