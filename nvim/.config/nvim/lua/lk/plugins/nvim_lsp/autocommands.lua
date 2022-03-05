@@ -1,17 +1,18 @@
 local M = {}
 
 M.setup_autocommands = function(client)
-  local autocommands = require("lk/autocommands")
+  local augroup = lk.augroup
 
-  -- autocommands.augroup('LspLocationList', {
-  --   {
-  --     events = { 'InsertLeave', 'BufWrite', 'BufEnter' },
-  --     targets = { '<buffer>' },
-  --     command = [[lua vim.lsp.diagnostic.setloclist({open = false})]],
-  --   },
-  -- })
+  augroup("LspLocationList", {
+    {
+      events = { "InsertLeave", "BufWrite", "BufEnter" },
+      targets = { "<buffer>" },
+      command = [[lua vim.diagnostic.setloclist({open = false})]],
+    },
+  })
+
   if client and client.resolved_capabilities.document_highlight then
-    autocommands.augroup("LspCursorCommands", {
+    augroup("LspCursorCommands", {
       {
         events = { "CursorHold" },
         targets = { "<buffer>" },
