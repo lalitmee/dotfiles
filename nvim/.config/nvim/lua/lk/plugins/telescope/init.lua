@@ -76,6 +76,7 @@ telescope.setup({
         ["<C-s>"] = actions.cycle_previewers_next,
         ["<C-y>"] = actions.move_to_top,
         ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-h>"] = R("telescope").extensions.hop.hop,
         ["<esc>"] = actions.close,
       },
     },
@@ -153,9 +154,14 @@ telescope.setup({
     reloader = dropdown(),
   },
   extensions = {
-    media_files = {
-      find_cmd = "rg", -- find command (defaults to `fd`)
+    extensions = {
+      hop = {
+        sign_hl = { "WarningMsg", "Title" },
+        line_hl = { "CursorLine", "Normal" },
+      },
     },
+    windowizer = { find_cmd = "rg" },
+    media_files = { find_cmd = "rg" },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({
         -- even more opts
@@ -251,11 +257,20 @@ telescope.setup({
 -- -- coc integration in telescope
 -- require('telescope').load_extension('coc')
 
--- -- tmux integration in telescope
--- require('telescope').load_extension('tmux')
-
 -- -- debugger
 -- require('telescope').load_extension('dap')
+
+-- hop integration
+require("telescope").load_extension("hop")
+
+-- windowizer integration in telescope
+require("telescope").load_extension("windowizer")
+
+-- tmux integration in telescope
+require("telescope").load_extension("tmux")
+
+-- tmuxinator
+require("telescope").load_extension("tmuxinator")
 
 -- scratch buffer
 require("telescope").load_extension("ui-select")

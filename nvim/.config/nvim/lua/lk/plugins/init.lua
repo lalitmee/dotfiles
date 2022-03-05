@@ -39,9 +39,7 @@ require("lk/plugins/devicons")
 require("lk/plugins/bufferline")
 
 -- NOTE: snippets
-require("lk/plugins/luasnip")
--- require('lk/plugins/snippets')
--- require('lk/plugins/vsnip')
+require("lk/plugins/ultisnip")
 
 -- NOTE: quick fix
 require("lk/plugins/nvim-bqf")

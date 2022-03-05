@@ -195,13 +195,13 @@ alias aw="awesome-hub"
 alias st="speed"
 
 # alias for fzf get the output
-alias f="| fzf-tmux"
+alias f="| fzf"
 alias fk="fkill"
-alias procs="procs | fzf-tmux -d 40%"
+alias procs="procs | fzf -d 40%"
 
 # gitmoji aliases
 alias gm="gitmoji -s"
-alias gml="gitmoji -l | fzf-tmux -d 40%"
+alias gml="gitmoji -l | fzf -d 40%"
 
 # alias for system
 # alias s="sudo reboot"
@@ -243,14 +243,14 @@ alias gwr="git worktree remove"
 alias gwu="git worktree unlock"
 
 # aliases for updating and installing packages
-alias aptl="apt list | fzf-tmux"
-alias brewl="brew list | fzf-tmux"
+alias aptl="apt list | fzf"
+alias brewl="brew list | fzf"
 alias fix="sudo apt-fast install -f -y"
 alias install="sudo apt-fast install -y"
 alias purge="sudo apt-fast purge -y"
 alias remove="sudo apt-fast autoremove -y"
 alias snapi="sudo snap install"
-alias snapl="snap list | fzf-tmux"
+alias snapl="snap list | fzf"
 alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
 alias upd="sudo apt-fast update -y"
@@ -272,7 +272,7 @@ alias du="doom upgrade"
 alias ed="emacs --with-profile default"
 alias es="emacs --with-profile spacemacs"
 
-alias manfzf="man -k . | fzf-tmux --prompt='Man> ' | awk '{print $1}' | xargs -r man"
+alias manfzf="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
 alias hw="how2"
@@ -297,8 +297,8 @@ alias nvd="~/Desktop/Softwares/editors/neovide &"
 alias oni="${HOME}/Applications/Onivim2-x86_64-master_8bbaf25b07ff2ac4dc6c74823d5a69bc.AppImage"
 
 # common aliases
-alias a="alias | fzf-tmux -d 40%"
-alias h="history | fzf-tmux -d 40%"
+alias a="alias | fzf -d 40%"
+alias h="history | fzf -d 40%"
 alias hs="history | grep"
 alias myip="curl http://ipecho.net/plain; echo"
 alias rm="rm -i"
