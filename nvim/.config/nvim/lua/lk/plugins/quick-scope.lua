@@ -10,7 +10,7 @@ vim.g.qs_lazy_highlight = 1
 highlight.all({
   {
     "QuickScopePrimary",
-    { guifg = "#00C7DF", ctermfg = 155, cterm = "underline" },
+    { guifg = "#FF0000", ctermfg = 155, cterm = "underline" },
   },
   {
     "QuickScopeSecondary",

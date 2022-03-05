@@ -1,3 +1,5 @@
+local command = lk.command
+
 TelescopeMapArgs = TelescopeMapArgs or {}
 
 local map_tele = function(key, f, options, buffer)
@@ -41,12 +43,20 @@ vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
 ----------------------------------------------------------------------
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
-lk.command({
+command({
   "LGrep",
   function()
     require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ") })
   end,
 })
+
+command({
+  "TmuxinatorProjects",
+  function()
+    require("telescope").extensions.tmuxinator.projects(require("telescope.themes").get_dropdown({}))
+  end,
+})
+
 -- }}}
 ----------------------------------------------------------------------
 

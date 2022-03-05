@@ -392,7 +392,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE:h is for highlight {{{
+  -- NOTE: h is for highlight {{{
   ----------------------------------------------------------------------
   ["h"] = {
     ["name"] = "+highlight",
@@ -402,6 +402,20 @@ local leader_key_maps = {
       ["t"] = { ":TodoTelescope<CR>", "todos-telescope" },
       ["b"] = { ":TodoTrouble<CR>", "todos-trouble" },
     },
+  },
+  -- }}}
+  ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: i is for tmux {{{
+  ----------------------------------------------------------------------
+  ["i"] = {
+    ["name"] = "+tmux",
+    ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
+    ["p"] = { ":TmuxinatorProjects<CR>", "tmuxnator-projects" },
+    ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
+    ["w"] = { ":Telescope tmux windows<CR>", "windows" },
+    ["W"] = { ":Telescope windowizer<CR>", "windowizer" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -1003,6 +1017,17 @@ local local_leader_key_maps = {
   ["7"] = { ":HarpoonGoToFile7<CR>", "goto-file-7" },
   ["8"] = { ":HarpoonGoToFile8<CR>", "goto-file-8" },
   ["9"] = { ":HarpoonGoToFile9<CR>", "goto-file-9" },
+  -- }}}
+  ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: telescope arglist {{{
+  ----------------------------------------------------------------------
+  ["a"] = {
+    ["name"] = "+arglist",
+    ["g"] = { ":Telescope arglist global<CR>", "global" },
+    ["w"] = { ":Telescope arglist window<CR>", "window" },
+  },
   -- }}}
   ----------------------------------------------------------------------
 

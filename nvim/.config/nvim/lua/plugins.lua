@@ -276,6 +276,11 @@ require("packer").startup({
         { "nvim-telescope/telescope-smart-history.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
         { "nvim-telescope/telescope-media-files.nvim" },
+        { "camgraff/telescope-tmux.nvim", requires = { "norcalli/nvim-terminal.lua" } }, -- tmux support
+        { "jgvw/telescope-arglist.nvim" }, -- arglist in telescope
+        { "wesleimp/telescope-windowizer.nvim" },
+        { "danielpieper/telescope-tmuxinator.nvim" }, -- tmuxinator support
+        { "nvim-telescope/telescope-hop.nvim" },
       },
     })
     use({ "nvim-telescope/telescope-file-browser.nvim" })
@@ -443,6 +448,9 @@ require("packer").startup({
     -- -- snippets engine
     use({
       "SirVer/ultisnips",
+      requires = {
+        { "honza/vim-snippets", rtp = "~/.config/nvim/" },
+      },
       config = function()
         vim.g.UltiSnipsRemoveSelectModeMappings = 0
       end,
