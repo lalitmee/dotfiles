@@ -3,41 +3,9 @@ local List = require("plenary.collections.py_list")
 
 local fn = vim.fn
 
-local function is_ft(b, ft)
-  return vim.bo[b].filetype == ft
-end
-
-local symbols = { error = " ", warning = " ", info = " " }
-
-local function diagnostics_indicator(_, _, diagnostics)
-  local result = {}
-  for name, count in pairs(diagnostics) do
-    if symbols[name] and count > 0 then
-      table.insert(result, symbols[name] .. count)
-    end
-  end
-  result = table.concat(result, " ")
-  return #result > 0 and result or ""
-end
-
-local function custom_filter(buf, buf_nums)
-  local logs = vim.tbl_filter(function(b)
-    return is_ft(b, "log")
-  end, buf_nums)
-  if vim.tbl_isempty(logs) then
-    return true
-  end
-  local tab_num = vim.fn.tabpagenr()
-  local last_tab = vim.fn.tabpagenr("$")
-  local is_log = is_ft(buf, "log")
-  if last_tab == 1 then
-    return true
-  end
-  -- only show log buffers in secondary tabs
-  return (tab_num == last_tab and is_log) or (tab_num ~= last_tab and not is_log)
-end
-
----@diagnostic disable-next-line: unused-function, unused-local
+----------------------------------------------------------------------
+-- NOTE: sorting of buffers {{{
+----------------------------------------------------------------------
 local function sort_by_mtime(a, b)
   local astat = vim.loop.fs_stat(a.path)
   local bstat = vim.loop.fs_stat(b.path)
@@ -45,18 +13,20 @@ local function sort_by_mtime(a, b)
   local mod_b = bstat and bstat.mtime.sec or 0
   return mod_a > mod_b
 end
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: setup {{{
+----------------------------------------------------------------------
 require("bufferline").setup({
   options = {
     sort_by = sort_by_mtime,
     numbers = "none",
     separator_style = "thick",
-    -- separator_style = os.getenv 'KITTY_WINDOW_ID' and 'slant' or 'padded_slant',
     show_close_icon = false,
     show_buffer_close_icons = true,
     diagnostics = "coc",
-    diagnostics_indicator = diagnostics_indicator,
-    custom_filter = custom_filter,
     offsets = {
       {
         filetype = "undotree",
@@ -132,3 +102,7 @@ require("bufferline").setup({
     },
   },
 })
+-- }}}
+----------------------------------------------------------------------
+
+-- vim:foldmethod=marker

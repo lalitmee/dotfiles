@@ -5,7 +5,9 @@ if not ok then
   return
 end
 
--- NOTE: to get the current client server name
+--------------------------------------------------------------------------------
+-- NOTE: to get the current client server name {{{
+--------------------------------------------------------------------------------
 local function get_client_name()
   local msg = "No Active Lsp"
   local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -21,7 +23,12 @@ local function get_client_name()
   end
   return msg
 end
+-- }}}
+--------------------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: setup {{{
+----------------------------------------------------------------------
 lualine.setup({
   options = {
     theme = "auto",
@@ -62,3 +69,7 @@ lualine.setup({
   },
   extensions = { "fzf", "fugitive", "nvim-tree", "quickfix", "toggleterm", "symbols-outline" },
 })
+-- }}}
+----------------------------------------------------------------------
+
+-- vim:foldmethod=marker
