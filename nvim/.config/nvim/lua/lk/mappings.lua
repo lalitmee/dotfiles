@@ -59,6 +59,9 @@ map("n", "cN", [[*``cgN]], map_opts)
 -- map('n', '<c-tab>', [[<C-w>w]], map_opts)
 -- map('n', '<s-tab>', [[<C-w>W]])
 
+-- go to search and replace mode
+map("n", "<C-s>", [[:%s/]], map_opts)
+
 -- <c-n> and <c-p> in command line mode
 map("c", "<C-n>", [[wildmenumode() ? "\<c-n>" : "\<down>"]], map_expr_opts)
 map("c", "<C-p>", [[wildmenumode() ? "\<c-p>" : "\<up>"]], map_expr_opts)

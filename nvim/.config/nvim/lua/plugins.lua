@@ -60,6 +60,7 @@ require("packer").startup({
     -- NOTE: colorschemes {{{
     ----------------------------------------------------------------------------
     use({ "/home/lalitmee/Desktop/Github/cobalt2.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
+    -- use({ "sainnhe/gruvbox-material" })
     -- use({ "EdenEast/nightfox.nvim" })
     -- use({ "Mofiqul/vscode.nvim" })
     -- use({ "catppuccin/nvim", as = "catppuccin" })
