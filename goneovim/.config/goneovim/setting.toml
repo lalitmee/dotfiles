@@ -38,7 +38,8 @@ StartFullscreen = true
 ## In MacOS,
 # FontFamily = "Monaco Nerd Font"
 ## In Linux
-FontFamily = "OperatorMono Lig Book"
+# FontFamily = "OperatorMono Lig Book"
+FontFamily = "MonoLisa"
 # FontFamily = "CaskaydiaCove Nerd Font Mono"
 # FontFamily = "JetBrainsMono Nerd Font Mono"
 # FontFamily = "JetBrainsMonoMedium Nerd Font Mono"
