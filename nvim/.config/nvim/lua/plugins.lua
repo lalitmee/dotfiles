@@ -60,15 +60,11 @@ require("packer").startup({
     -- NOTE: colorschemes {{{
     ----------------------------------------------------------------------------
     use({ "/home/lalitmee/Desktop/Github/cobalt2.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
-    -- use({ "sainnhe/gruvbox-material" })
+    use({ "themercorp/themer.lua" })
     -- use({ "EdenEast/nightfox.nvim" })
     -- use({ "Mofiqul/vscode.nvim" })
-    -- use({ "catppuccin/nvim", as = "catppuccin" })
-    -- use({ "folke/tokyonight.nvim" })
-    -- use({ "kyazdani42/nvim-palenight.lua" })
     -- use({ "luisiacc/gruvbox-baby" })
     -- use({ "marko-cerovac/material.nvim" })
-    -- use({ "rebelot/kanagawa.nvim" })
     -- use({ "rmehri01/onenord.nvim" })
     -- use({ "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
     -- }}}
@@ -364,7 +360,12 @@ require("packer").startup({
     use("wellle/targets.vim")
 
     -- Swap windows
-    use("wesQ3/vim-windowswap")
+    use({
+      "wesQ3/vim-windowswap",
+      config = function()
+        vim.g.windowswap_map_keys = 0
+      end,
+    })
 
     -- commenting
     use({

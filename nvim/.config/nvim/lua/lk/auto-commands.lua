@@ -37,7 +37,7 @@ augroup("PackerSetupInit", {
 ----------------------------------------------------------------------
 -- NOTE: terminal autocommands {{{
 ----------------------------------------------------------------------
-lk.augroup("AddTerminalMappings", {
+augroup("AddTerminalMappings", {
   {
     events = { "TermOpen" },
     targets = { "term://*" },
@@ -79,7 +79,7 @@ lk.augroup("AddTerminalMappings", {
 ----------------------------------------------------------------------
 -- NOTE: markdown autocommands {{{
 ----------------------------------------------------------------------
-lk.augroup("AddTerminalMappings", {
+augroup("AddTerminalMappings", {
   {
     events = { "FileType" },
     targets = { "markdown" },
@@ -87,6 +87,24 @@ lk.augroup("AddTerminalMappings", {
   },
 })
 
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: highlight on yank {{{
+----------------------------------------------------------------------
+augroup("TextYankHighlight", {
+  {
+    events = { "TextYankPost" },
+    targets = { "*" },
+    command = function()
+      vim.highlight.on_yank({
+        higroup = "IncSearch",
+        timeout = 500,
+      })
+    end,
+  },
+})
 -- }}}
 ----------------------------------------------------------------------
 
