@@ -1,6 +1,9 @@
 -- NOTE: cobalt2
 require("lk/colorscheme/cobalt2")
 
+-- -- NOTE: cobalt2
+-- require("lk/colorscheme/gruvbox-material")
+
 -- -- NOTE: catppuccin
 -- require('lk/colorscheme/catppuccin')
 
