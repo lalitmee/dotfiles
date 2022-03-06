@@ -134,7 +134,7 @@ values."
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
      (wakatime :variables
                ;; use the actual wakatime path
-               wakatime-cli-path "/home/lalitmee/.pyenv/shims/wakatime")
+               wakatime-cli-path "/home/lalitmee/.local/bin/wakatime")
 
      )
    ;; List of additional packages that will be installed without being
@@ -248,8 +248,9 @@ values."
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "JetBrainsMono Nerd Font"
-                               "SauceCodePro Nerd Font"
-                               :size 14
+                               ;; "SauceCodePro Nerd Font"
+                               "MonoLisa"
+                               :size 12
                                :weight normal
                                :powerline-scale 1.3)
    ;; The leader key

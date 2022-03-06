@@ -40,9 +40,8 @@ require("packer").startup({
       "rcarriga/nvim-notify",
       config = function()
         require("notify").setup({
-          stages = "fade",
+          stages = "static",
           timeout = 2000,
-          background_colour = "BufferCurrent",
           icons = {
             ERROR = lk.style.icons.error,
             WARN = lk.style.icons.warn,
@@ -61,12 +60,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     use({ "/home/lalitmee/Desktop/Github/cobalt2.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
     use({ "themercorp/themer.lua" })
-    -- use({ "EdenEast/nightfox.nvim" })
-    -- use({ "Mofiqul/vscode.nvim" })
-    -- use({ "luisiacc/gruvbox-baby" })
-    -- use({ "marko-cerovac/material.nvim" })
-    -- use({ "rmehri01/onenord.nvim" })
-    -- use({ "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
+    use({ "Mofiqul/vscode.nvim" })
+    use({ "marko-cerovac/material.nvim" })
+    use({ "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
     -- }}}
     ----------------------------------------------------------------------------
 
@@ -216,6 +212,10 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- fzf
+    use({ "junegunn/fzf", dir = "~/.fzf", run = "./install --all" })
+    use({ "junegunn/fzf.vim" })
+
     -- makes quickfix list editable
     use({ "gabrielpoca/replacer.nvim" })
 
