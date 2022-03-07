@@ -245,13 +245,15 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "CaskaydiaCove Nerd Font"
+                               "Cascadia Code"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
+                               ;; "Operator SSm"
                                ;; "JetBrainsMono Nerd Font"
                                ;; "SauceCodePro Nerd Font"
-                               "MonoLisa"
-                               :size 12
-                               :weight normal
+                               ;; "MonoLisa"
+                               :size 13
+                               :weight medium
                                :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
