@@ -5,26 +5,30 @@ local api = vim.api
 local fmt = string.format
 local L = vim.log.levels
 
---------------------------------------------------------------------------------
--- print contents of the table
---------------------------------------------------------------------------------
+----------------------------------------------------------------------
+-- NOTE: print contents of the table {{{
+-----------------------------------------------------------------------------
 P = function(v)
   print(vim.inspect(v))
   return v
 end
+-- }}}
+----------------------------------------------------------------------
 
------------------------------------------------------------------------------//
--- Global namespace
------------------------------------------------------------------------------//
+----------------------------------------------------------------------
+-- NOTE: Global namespace {{{
+-----------------------------------------------------------------------------
 --- Inspired by @tjdevries' astraunauta.nvim/ @TimUntersberger's config
 --- store all callbacks in one global table so they are able to survive re-requiring this file
 _G.__lk_global_callbacks = __lk_global_callbacks or {}
 
 _G.lk = { _store = __lk_global_callbacks }
+-- }}}
+----------------------------------------------------------------------
 
------------------------------------------------------------------------------//
--- UI
------------------------------------------------------------------------------//
+----------------------------------------------------------------------
+-- NOTE: UI {{{
+-----------------------------------------------------------------------------
 -- Consistent store of various UI items to reuse throughout my config
 lk.style = {
   icons = {
@@ -36,10 +40,12 @@ lk.style = {
     debug = "🐞",
   },
 }
+-- }}}
+----------------------------------------------------------------------
 
------------------------------------------------------------------------------//
--- Messaging
------------------------------------------------------------------------------//
+----------------------------------------------------------------------
+-- NOTE: Messaging {{{
+-----------------------------------------------------------------------------
 if vim.notify then
   -- Override of vim.notify to open floating window
   local log = require("plenary.log").new({
@@ -53,10 +59,12 @@ if vim.notify then
     require("notify")(msg, level, opts)
   end
 end
+-- }}}
+----------------------------------------------------------------------
 
------------------------------------------------------------------------------//
--- Debugging
------------------------------------------------------------------------------//
+----------------------------------------------------------------------
+-- NOTE: Debugging {{{
+-----------------------------------------------------------------------------
 RELOAD = function(...)
   return require("plenary.reload").reload_module(...)
 end
@@ -77,6 +85,21 @@ function P(...)
   print(unpack(objects))
 end
 
+-- inspect the contents of an object very quickly in your code or from the command-line:
+-- usage:
+-- in lua: dump({1, 2, 3})
+-- in commandline: :lua dump(vim.loop)
+---@vararg any
+function _G.dump(...)
+  local objects = vim.tbl_map(vim.inspect, { ... })
+  print(unpack(objects))
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: packer plugins {{{
+----------------------------------------------------------------------
 local installed
 ---Check if a plugin is on the system not whether or not it is loaded
 ---@param plugin_name string
@@ -102,9 +125,47 @@ function _G.plugin_loaded(plugin_name)
   local plugins = _G.packer_plugins or {}
   return plugins[plugin_name] and plugins[plugin_name].loaded
 end
------------------------------------------------------------------------------//
--- Utils
------------------------------------------------------------------------------//
+
+function lk.total_plugins()
+  local base_path = fn.stdpath("data") .. "/site/pack/packer/"
+  local start = vim.split(fn.globpath(base_path .. "start", "*"), "\n")
+  local opt = vim.split(fn.globpath(base_path .. "opt", "*"), "\n")
+  local start_count = vim.tbl_count(start)
+  local opt_count = vim.tbl_count(opt)
+  return {
+    total = start_count + opt_count,
+    start = start_count,
+    lazy = opt_count,
+  }
+end
+
+function _G.packer_notify(msg, level)
+  vim.notify(msg, level, { title = "Packer" })
+end
+
+function _G.plugin_loaded(plugin_name)
+  local plugins = _G.packer_plugins or {}
+  return plugins[plugin_name] and plugins[plugin_name].loaded
+end
+
+-- }}}
+----------------------------------------------------------------------
+
+---------------------------------------------------------------------
+-- NOTE: Utils {{{
+-----------------------------------------------------------------------------
+function lk.is_empty(item)
+  if not item then
+    return true
+  end
+  local item_type = type(item)
+  if item_type == "string" then
+    return item == ""
+  elseif item_type == "table" then
+    return vim.tbl_isempty(item)
+  end
+end
+
 function lk._create(f)
   table.insert(lk._store, f)
   return #lk._store
@@ -263,6 +324,9 @@ local function validate_mappings(lhs, rhs, opts)
   })
 end
 
+----------------------------------------------------------------------
+-- NOTE: mappings creator {{{
+----------------------------------------------------------------------
 ---create a mapping function factory
 ---@param mode string
 ---@param o table
@@ -326,6 +390,26 @@ lk.tnoremap = make_mapper("t", noremap_opts)
 lk.snoremap = make_mapper("s", noremap_opts)
 lk.cnoremap = make_mapper("c", { noremap = true, silent = false })
 
+local function get_defaults(mode)
+  return { noremap = true, silent = not mode == "c" }
+end
+
+function lk.map(mode, lhs, rhs, opts)
+  opts = opts or get_defaults(mode)
+  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+end
+
+function lk.buf_map(bufnr, mode, lhs, rhs, opts)
+  opts = opts or get_defaults(mode)
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+end
+
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: command creator {{{
+----------------------------------------------------------------------
 ---Create an nvim command
 ---@param args table
 function lk.command(args)
@@ -341,21 +425,12 @@ function lk.command(args)
 
   vim.cmd(string.format("command! -nargs=%s %s %s %s", nargs, types, name, rhs))
 end
+-- }}}
+----------------------------------------------------------------------
 
-function lk.invalidate(path, recursive)
-  if recursive then
-    for key, value in pairs(package.loaded) do
-      if key ~= "_G" and value and vim.fn.match(key, path) ~= -1 then
-        package.loaded[key] = nil
-        require(key)
-      end
-    end
-  else
-    package.loaded[path] = nil
-    require(path)
-  end
-end
-
+----------------------------------------------------------------------
+-- NOTE: source a file {{{
+----------------------------------------------------------------------
 ---Source a lua or vimscript file
 ---@param path string path relative to the nvim directory
 ---@param prefix boolean?
@@ -366,7 +441,12 @@ function lk.source(path, prefix)
     vim.cmd(fmt("source %s/%s", vim.g.vim_dir, path))
   end
 end
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: safe require {{{
+----------------------------------------------------------------------
 ---Require a module using [pcall] and report any errors
 ---@param module string
 ---@param opts table?
@@ -379,133 +459,14 @@ function lk.safe_require(module, opts)
   end
   return ok, result
 end
+-- }}}
+----------------------------------------------------------------------
+-- }}}
+----------------------------------------------------------------------
 
-function lk.echomsg(msg, hl)
-  hl = hl or "Title"
-  local msg_type = type(msg)
-  if msg_type ~= "string" or "table" then
-    return
-  end
-  if msg_type == "string" then
-    msg = { { msg, hl } }
-  end
-  api.nvim_echo(msg, true, {})
-end
-
-function lk.total_plugins()
-  local base_path = fn.stdpath("data") .. "/site/pack/packer/"
-  local start = vim.split(fn.globpath(base_path .. "start", "*"), "\n")
-  local opt = vim.split(fn.globpath(base_path .. "opt", "*"), "\n")
-  local start_count = vim.tbl_count(start)
-  local opt_count = vim.tbl_count(opt)
-  return {
-    total = start_count + opt_count,
-    start = start_count,
-    lazy = opt_count,
-  }
-end
-
--- https://stackoverflow.com/questions/1283388/lua-merge-tables
-function lk.deep_merge(t1, t2)
-  for k, v in pairs(t2) do
-    if (type(v) == "table") and (type(t1[k] or false) == "table") then
-      lk.deep_merge(t1[k], t2[k])
-    else
-      t1[k] = v
-    end
-  end
-  return t1
-end
-
---- Usage:
---- 1. Call `local stop = utils.profile('my-log')` at the top of the file
---- 2. At the bottom of the file call `stop()`
---- 3. Restart neovim, the newly created log file should open
-function lk.profile(filename)
-  local base = "/tmp/config/profile/"
-  fn.mkdir(base, "p")
-  local success, profile = pcall(require, "plenary.profile.lua_profiler")
-  if not success then
-    vim.api.nvim_echo({ "Plenary is not installed.", "Title" }, true, {})
-  end
-  profile.start()
-  return function()
-    profile.stop()
-    local logfile = base .. filename .. ".log"
-    profile.report(logfile)
-    vim.defer_fn(function()
-      vim.cmd("tabedit " .. logfile)
-    end, 1000)
-  end
-end
-
-function lk.has(feature)
-  return vim.fn.has(feature) > 0
-end
-
-local function get_defaults(mode)
-  return { noremap = true, silent = not mode == "c" }
-end
-
-function lk.map(mode, lhs, rhs, opts)
-  opts = opts or get_defaults(mode)
-  vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
-
-function lk.buf_map(bufnr, mode, lhs, rhs, opts)
-  opts = opts or get_defaults(mode)
-  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-end
-
-function lk.is_empty(item)
-  if not item then
-    return true
-  end
-  local item_type = type(item)
-  if item_type == "string" then
-    return item == ""
-  elseif item_type == "table" then
-    return vim.tbl_isempty(item)
-  end
-end
-
-function lk.log(msg, hl, name)
-  name = name or "Neovim"
-  hl = hl or "Todo"
-  vim.api.nvim_echo({ { name .. ": ", hl }, { msg } }, true, {})
-end
-
-function lk.warn(msg, name)
-  lk.log(msg, "LspDiagnosticsDefaultWarning", name)
-end
-
-function lk.error(msg, name)
-  lk.log(msg, "LspDiagnosticsDefaultError", name)
-end
-
-function lk.info(msg, name)
-  lk.log(msg, "LspDiagnosticsDefaultInformation", name)
-end
-
--- inspect the contents of an object very quickly in your code or from the command-line:
--- usage:
--- in lua: dump({1, 2, 3})
--- in commandline: :lua dump(vim.loop)
----@vararg any
-function _G.dump(...)
-  local objects = vim.tbl_map(vim.inspect, { ... })
-  print(unpack(objects))
-end
-
-function _G.packer_notify(msg, level)
-  vim.notify(msg, level, { title = "Packer" })
-end
-
-function _G.plugin_loaded(plugin_name)
-  local plugins = _G.packer_plugins or {}
-  return plugins[plugin_name] and plugins[plugin_name].loaded
-end
-
+----------------------------------------------------------------------
+-- NOTE: autocommand creator {{{
+----------------------------------------------------------------------
 ---@class Autocommand
 ---@field events string[] list of autocommand events
 ---@field targets string[] list of autocommand patterns
@@ -547,14 +508,12 @@ function lk.augroup(name, commands)
   end
   vim.cmd("augroup END")
 end
+-- }}}
+----------------------------------------------------------------------
 
----A terser proxy for `nvim_replace_termcodes`
----@param str string
----@return any
-function lk.replace_termcodes(str)
-  return api.nvim_replace_termcodes(str, true, true, true)
-end
-
+----------------------------------------------------------------------
+-- NOTE: qflist util {{{
+----------------------------------------------------------------------
 -- set qflist and open
 function lk.qf_populate(lines, mode)
   if mode == nil or type(mode) == "table" then
@@ -580,3 +539,7 @@ function lk.qf_populate(lines, mode)
         wincmd p
     ]])
 end
+-- }}}
+----------------------------------------------------------------------
+
+-- vim:foldmethod=marker

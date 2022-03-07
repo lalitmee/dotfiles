@@ -38,8 +38,8 @@ StartFullscreen = true
 ## In MacOS,
 # FontFamily = "Monaco Nerd Font"
 ## In Linux
-# FontFamily = "OperatorMono Lig Book"
-FontFamily = "MonoLisa"
+FontFamily = "OperatorMono Lig Book"
+# FontFamily = "MonoLisa"
 # FontFamily = "CaskaydiaCove Nerd Font Mono"
 # FontFamily = "JetBrainsMono Nerd Font Mono"
 # FontFamily = "JetBrainsMonoMedium Nerd Font Mono"
@@ -52,15 +52,15 @@ FontFamily = "MonoLisa"
 ## Fontsize is
 FontSize = 10
 ## linespace is
-Linespace = 6
+Linespace = 10
 
 ## Neovim external UI features
 ## The following is the default value of goneovim.
 ## You can change the behavior of the GUI by changing the following boolean values.
 ## If you prefer the traditional Vim UI, set it to false for all.
 ## Also, `ExtMessages` is still experimental at this time and we don't recommend setting it to true if you want stability.
-# ExtCmdline   = false
-# ExtPopupmenu = false
+# ExtCmdline   = true
+# ExtPopupmenu = true
 # ExtTabline   = false
 # ExtMessages  = false
 

@@ -20,9 +20,6 @@ if has('termguicolors')
   set termguicolors
 endif
 
-hi! Normal ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE
-
 " treesitter status
 function! TreesitterStatus() abort
   let ts = nvim_treesitter#statusline(30)
@@ -61,8 +58,6 @@ else
   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
   let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
 endif
-
-
 
 " put the cursor on the first searched word in the center
 function! CenterSearch()
