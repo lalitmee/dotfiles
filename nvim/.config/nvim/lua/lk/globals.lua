@@ -42,7 +42,16 @@ lk.style = {
 -----------------------------------------------------------------------------//
 if vim.notify then
   -- Override of vim.notify to open floating window
-  vim.notify = require("notify")
+  local log = require("plenary.log").new({
+    plugin = "notify",
+    level = "debug",
+    use_console = false,
+  })
+
+  vim.notify = function(msg, level, opts)
+    log.info(msg, level, opts)
+    require("notify")(msg, level, opts)
+  end
 end
 
 -----------------------------------------------------------------------------//

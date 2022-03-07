@@ -112,6 +112,17 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    --regex explainer
+    use({
+      "bennypowers/nvim-regexplainer",
+      config = function()
+        require("regexplainer").setup()
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+      },
+    })
+
     -- beautiful code snippets from neovim
     use({
       "kristijanhusak/vim-carbon-now-sh",
@@ -581,7 +592,6 @@ require("packer").startup({
         { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle", after = "nvim-treesitter" },
         { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
         { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
-        { "mfussenegger/nvim-ts-hint-textobject" },
       },
     })
 

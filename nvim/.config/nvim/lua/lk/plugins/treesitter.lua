@@ -152,11 +152,6 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
-require("tsht").config.hint_keys = { "h", "j", "f", "d", "n", "v", "s", "l", "a" }
--- keybindings
-lk.omap("m", [[:<C-U>lua require('tsht').nodes()<CR>]])
-lk.vnoremap("m", [[:lua require('tsht').nodes()<CR>]])
-
 -- NOTE: fold method using treesitter
 -- somehow I don't like it.
 
