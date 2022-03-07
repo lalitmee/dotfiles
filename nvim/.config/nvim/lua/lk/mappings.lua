@@ -7,12 +7,12 @@ local map_expr_opts = { expr = true }
 nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<CR>")
 
 -- tab operations
-nnoremap("<c-s-Right>", [[gt]])
-nnoremap("<c-s-Left>", [[gT]])
+nnoremap("<C-S-Right>", [[gt]])
+nnoremap("<C-S-Left>", [[gT]])
 
 -- buffers next and previous
-nnoremap("<c-Right>", [[:bn<cr>]])
-nnoremap("<c-Left>", [[:bp<cr>]])
+nnoremap("<C-Right>", [[:bn<cr>]])
+nnoremap("<C-Left>", [[:bp<cr>]])
 
 -- alternate file mapping
 map("n", "<bs>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], map_opts)

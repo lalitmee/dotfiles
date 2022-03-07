@@ -298,8 +298,16 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: General {{{
     ----------------------------------------------------------------------------
+    -- access recent buffers
+    use({ "gaborvecsei/memento.nvim" })
+
     -- move code up and down
-    use("matze/vim-move")
+    use({
+      "booperlv/nvim-gomove",
+      config = function()
+        require("gomove").setup()
+      end,
+    })
 
     -- smooth scrolling in neovim
     use({
@@ -627,6 +635,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: markdown {{{
     ----------------------------------------------------------------------------
+    -- preview markdown in neovim
+    use({ "ellisonleao/glow.nvim" })
+
     use({
       "iamcco/markdown-preview.nvim",
       ft = "markdown",
