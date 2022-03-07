@@ -3,7 +3,7 @@
 
 [Editor]
 ## Makes the application window frameless.
-BorderlessWindow = true
+# BorderlessWindow = false
 
 ## Editor minimum window width (>= 400)
 # Width = 800
@@ -23,7 +23,7 @@ BorderlessWindow = true
 
 ## This option makes the whole GUI window in semi-transparent.
 ## This setting also implicitly enables the Drawborder setting
-# Transparent = 1.0
+# Transparent = 0.9
 
 ## Launch goneovim with full screen window size.
 StartFullscreen = true
@@ -36,31 +36,35 @@ StartFullscreen = true
 ## Of course, these settings can also be changed by setting the guifont and linespace on the Neovim side.
 ## Fontfamily is
 ## In MacOS,
-# FontFamily = "Monaco Nerd Font"
+# FontFamily = "Monaco"
 ## In Linux
-FontFamily = "OperatorMono Lig Book"
+# FontFamily = "Consolas"
+## In Windows
+# FontFamily = "Windows"
+# FontFamily = "OperatorMono Lig Book"
+# FontFamily = "OperatorMono Nerd Font"
 # FontFamily = "MonoLisa"
+# FontFamily = "Cascadia Code"
 # FontFamily = "CaskaydiaCove Nerd Font Mono"
 # FontFamily = "JetBrainsMono Nerd Font Mono"
 # FontFamily = "JetBrainsMonoMedium Nerd Font Mono"
-# FontFamily = "BlexMono Nerd Font Mono"
+FontFamily = "BlexMono Nerd Font Mono"
 # FontFamily = "SpaceMono Nerd Font Mono"
 # FontFamily = "SauceCodePro Nerd Font Mono"
+# FontFamily = "BlexMono NF"
 # FontFamily = "UbuntuMono Nerd Font"
-## In Windows
-# FontFamily = "Windows"
 ## Fontsize is
-FontSize = 10
+FontSize = 11
 ## linespace is
-Linespace = 10
+# Linespace = 10
 
 ## Neovim external UI features
 ## The following is the default value of goneovim.
 ## You can change the behavior of the GUI by changing the following boolean values.
 ## If you prefer the traditional Vim UI, set it to false for all.
 ## Also, `ExtMessages` is still experimental at this time and we don't recommend setting it to true if you want stability.
-# ExtCmdline   = true
-# ExtPopupmenu = true
+# ExtCmdline   = false
+# ExtPopupmenu = false
 # ExtTabline   = false
 # ExtMessages  = false
 
@@ -74,11 +78,11 @@ Linespace = 10
 ## Disables font ligatures.
 # DisableLigatures = true
 
-# Copy yanked text to clipboard
+## Copy yanked text to clipboard
 Clipboard = true
 
 ## This setting is equivalent to Macmeta in MacVim.
-# Macmeta = true
+# Macmeta = false
 
 ## The input method editor will be automatically disabled when the mode is changed to normal mode.
 ## It may be useful for users who use the input method editor (e.g. East Asian users).
@@ -101,15 +105,15 @@ SmoothScroll = true
 ## Disables horizontal scrolling for smooth scrolling with the touchpad.
 # DisableHorizontalScroll = true
 
-# Draw border on a float window
-DrawBorderForFloatWindow = false
+## Draw border on a float window
+# DrawBorderForFloatWindow = false
 
-# Draw shadow under a float window
-DrawShadowForFloatWindow = false
+## Draw shadow under a float window
+# DrawShadowForFloatWindow = false
 
 ## Enable desktop notification settings for nvim messages.
 ## This option works only if `ExtMessages` is enabled.
-DesktopNotifications = true
+# DesktopNotifications = false
 
 # Display the effect when clicked
 # ClickEffect = false
@@ -155,7 +159,7 @@ SmoothMove = true
 
 ## Specifies the duration of the animation at the smooth cursor. Default is 55ms.
 ## Note that Goneovim uses the specified value as a base value and makes slight adjustments depending on the distance.
-Duration = 55
+# Duration = ５５
 
 
 
@@ -281,7 +285,7 @@ Duration = 55
 ##  name: directoryname
 ##  full: /path/to/directoryname
 ##  minimum: /p/t/directoryname
-PathStyle = "full"
+# PathStyle = "minimum"
 
 ## Specifies whether the last exited session should be restored at the next startup.
-RestoreSession = true
+# RestoreSession = false
