@@ -112,6 +112,15 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- projects management
+    use({
+      "ahmedkhalf/project.nvim",
+      config = function()
+        require("project_nvim").setup({
+          show_hidden = true,
+        })
+      end,
+    })
     --regex explainer
     use({
       "bennypowers/nvim-regexplainer",
@@ -160,19 +169,20 @@ require("packer").startup({
     use({
       "svermeulen/vim-yoink",
       config = function()
-        local map = lk.map
+        local nmap = lk.nmap
+        local xmap = lk.xmap
         local map_opts = {}
-        map("n", "<C-n>", "<Plug>(YoinkPostPasteSwapBack)", map_opts)
-        map("n", "<C-p>", "<Plug>(YoinkPostPasteSwapForward)", map_opts)
-        map("n", "p", "<Plug>(YoinkPaste_p)", map_opts)
-        map("n", "P", "<Plug>(YoinkPaste_P)", map_opts)
-        map("n", "gp", "<Plug>(YoinkPaste_gp)", map_opts)
-        map("n", "gP", "<Plug>(YoinkPaste_gP)", map_opts)
-        map("n", "[y", "<Plug>(YoinkRotateBack)", map_opts)
-        map("n", "]y", "<Plug>(YoinkRotateForward)", map_opts)
-        map("n", "y", "<Plug>(YoinkYankPreserveCursorPosition)", map_opts)
-        map("x", "y", "<Plug>(YoinkYankPreserveCursorPosition)", map_opts)
-        map("n", "[y", "<Plug>(YoinkRotateBack)", map_opts)
+        nmap("<C-n>", "<Plug>(YoinkPostPasteSwapBack)", map_opts)
+        nmap("<C-p>", "<Plug>(YoinkPostPasteSwapForward)", map_opts)
+        nmap("p", "<Plug>(YoinkPaste_p)", map_opts)
+        nmap("P", "<Plug>(YoinkPaste_P)", map_opts)
+        nmap("gp", "<Plug>(YoinkPaste_gp)", map_opts)
+        nmap("gP", "<Plug>(YoinkPaste_gP)", map_opts)
+        nmap("[y", "<Plug>(YoinkRotateBack)", map_opts)
+        nmap("]y", "<Plug>(YoinkRotateForward)", map_opts)
+        nmap("y", "<Plug>(YoinkYankPreserveCursorPosition)", map_opts)
+        nmap("[y", "<Plug>(YoinkRotateBack)", map_opts)
+        xmap("y", "<Plug>(YoinkYankPreserveCursorPosition)", map_opts)
       end,
     })
 
@@ -289,6 +299,7 @@ require("packer").startup({
         { "wesleimp/telescope-windowizer.nvim" },
         { "danielpieper/telescope-tmuxinator.nvim" }, -- tmuxinator support
         { "nvim-telescope/telescope-hop.nvim" },
+        { "cljoly/telescope-repo.nvim" },
       },
     })
     use({ "nvim-telescope/telescope-file-browser.nvim" })

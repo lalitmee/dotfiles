@@ -6,3 +6,4 @@ root: ~/Desktop/Github
 windows:
   - cobalt2.nvim: cd cobalt2.nvim
   - palenight.nvim: cd palenight.nvim
+  - shades-of-purple.nvim: cd shades-of-purple.nvim

@@ -51,12 +51,16 @@ telescope.setup({
       "--column",
       "--smart-case",
     },
+    prompt_prefix = " ",
     selection_strategy = "reset",
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
     color_devicons = true,
     dynamic_preview_title = true,
-    -- path_display = { "absolute", "truncate" },
+    path_display = {
+      "absolute",
+      -- "smart",
+    },
     history = {
       path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
     },
@@ -240,10 +244,10 @@ telescope.setup({
       ["show_domain_icons"] = false,
     },
     project = {
-      { "~/", max_depth = 7 },
       base_dirs = {
-        hidden_files = true,
+        { "~/", max_depth = 7 },
       },
+      hidden_files = true,
     },
   },
 })
@@ -287,8 +291,11 @@ require("telescope").load_extension("smart_history")
 -- packer integration with telescope
 require("telescope").load_extension("packer")
 
--- project management in telescope
+-- project management in `telescope-project`
 require("telescope").load_extension("project")
+
+-- projects integration `ahmedkhalf/project.nvim`
+require("telescope").load_extension("projects")
 
 -- recent files or history or files visited
 require("telescope").load_extension("frecency")
@@ -310,6 +317,9 @@ require("telescope").load_extension("emoji")
 
 -- file browser
 require("telescope").load_extension("file_browser")
+
+-- repo list
+require("telescope").load_extension("repo")
 
 -- }}}
 ----------------------------------------------------------------------
