@@ -974,6 +974,8 @@ local leader_key_maps = {
     ["l"] = { ":Telescope loclist<CR>", "loclist" },
     ["m"] = { ":Telescope marks<CR>", "marks" },
     ["o"] = { ":Telescope vim_options<CR>", "options" },
+    ["r"] = { ":Random<CR>", "random-vim-tag" },
+    ["R"] = { ":Random!<CR>", "random-vim-tag-!" },
     ["t"] = { ":Telescope tagstack<CR>", "tag-stack" },
   },
   -- }}}
