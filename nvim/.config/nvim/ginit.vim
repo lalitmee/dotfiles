@@ -1,4 +1,4 @@
-set guifont=BlexMono\ Nerd\ Font\ Mono:h11
+" set guifont=BlexMono\ Nerd\ Font\ Mono:h11
 " set guifont=CaskaydiaCove\ Nerd\ Font:h10
 " set guifont=Consolas\ NF:h12
 " set guifont=FantasqueSansMono\ Nerd\ Font:h11
@@ -12,7 +12,7 @@ set guifont=BlexMono\ Nerd\ Font\ Mono:h11
 " set guifont=MonoLisa:h10
 " set guifont=MonoLisa\ Nerd\ Font:h10
 " set guifont=Monofur\ Nerd\ Font\ Mono:h12
-" set guifont=OperatorMono\ Nerd\ Font:h11
+set guifont=Operator\ Mono\ Book:h11
 " set guifont=Operator\ Mono\ Lig\ Book:h11
 " set guifont=OverpassMono\ Nerd\ Font:h11
 " set guifont=SauceCodePro\ Nerd\ Font:h11
