@@ -51,7 +51,7 @@ telescope.setup({
       "--column",
       "--smart-case",
     },
-    prompt_prefix = " ",
+    prompt_prefix = "  ",
     selection_strategy = "reset",
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
@@ -255,79 +255,8 @@ telescope.setup({
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: loading extensions {{{
-----------------------------------------------------------------------
-
--- -- coc integration in telescope
--- require('telescope').load_extension('coc')
-
--- -- debugger
--- require('telescope').load_extension('dap')
-
--- hop integration
-require("telescope").load_extension("hop")
-
--- windowizer integration in telescope
-require("telescope").load_extension("windowizer")
-
--- tmux integration in telescope
-require("telescope").load_extension("tmux")
-
--- tmuxinator
-require("telescope").load_extension("tmuxinator")
-
--- scratch buffer
-require("telescope").load_extension("ui-select")
-
--- media files
-require("telescope").load_extension("media_files")
-
--- scratch buffer
-require("telescope").load_extension("scratch")
-
--- smart history in telescope
-require("telescope").load_extension("smart_history")
-
--- packer integration with telescope
-require("telescope").load_extension("packer")
-
--- project management in `telescope-project`
-require("telescope").load_extension("project")
-
--- projects integration `ahmedkhalf/project.nvim`
-require("telescope").load_extension("projects")
-
--- recent files or history or files visited
-require("telescope").load_extension("frecency")
-
--- FZF sorter for telescope written in c
-require("telescope").load_extension("fzf")
-
--- git worktree
-require("telescope").load_extension("git_worktree")
-
--- harpoon
-require("telescope").load_extension("harpoon")
-
--- open browser
-require("telescope").load_extension("openbrowser")
-
--- emoji search
-require("telescope").load_extension("emoji")
-
--- file browser
-require("telescope").load_extension("file_browser")
-
--- repo list
-require("telescope").load_extension("repo")
-
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: custom commands {{{
 ----------------------------------------------------------------------
-
 local M = {}
 
 function M.edit_neovim()

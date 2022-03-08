@@ -115,7 +115,9 @@ require("packer").startup({
     -- projects management
     use({
       "ahmedkhalf/project.nvim",
+      after = "telescope.nvim",
       config = function()
+        require("telescope").load_extension("projects")
         require("project_nvim").setup({
           show_hidden = true,
         })
@@ -190,7 +192,12 @@ require("packer").startup({
     use("mizlan/iswap.nvim")
 
     -- scratch buffer in neovim like emacs
-    use({ "shift-d/scratch.nvim" })
+    use({
+      "shift-d/scratch.nvim",
+      config = function()
+        require("telescope").load_extension("scratch")
+      end,
+    })
 
     -- registers
     use({ "tversteeg/registers.nvim" })
@@ -283,26 +290,136 @@ require("packer").startup({
     use({
       "nvim-telescope/telescope.nvim",
       requires = {
-        { "brandoncc/telescope-harpoon.nvim" },
-        { "nvim-telescope/telescope-dap.nvim" },
-        { "nvim-telescope/telescope-frecency.nvim" },
-        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-        { "nvim-telescope/telescope-project.nvim" },
-        { "tamago324/telescope-openbrowser.nvim" },
-        { "xiyaowong/telescope-emoji.nvim" },
-        { "nvim-telescope/telescope-packer.nvim" },
-        { "nvim-telescope/telescope-smart-history.nvim" },
-        { "nvim-telescope/telescope-ui-select.nvim" },
-        { "nvim-telescope/telescope-media-files.nvim" },
-        { "camgraff/telescope-tmux.nvim", requires = { "norcalli/nvim-terminal.lua" } }, -- tmux support
-        { "jgvw/telescope-arglist.nvim" }, -- arglist in telescope
-        { "wesleimp/telescope-windowizer.nvim" },
-        { "danielpieper/telescope-tmuxinator.nvim" }, -- tmuxinator support
-        { "nvim-telescope/telescope-hop.nvim" },
-        { "cljoly/telescope-repo.nvim" },
+        {
+          "brandoncc/telescope-harpoon.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("harpoon")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-dap.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("dap")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-frecency.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("frecency")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-fzf-native.nvim",
+          run = "make",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("fzf")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-project.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("project")
+          end,
+        },
+        {
+          "tamago324/telescope-openbrowser.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("openbrowser")
+          end,
+        },
+        {
+          "xiyaowong/telescope-emoji.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("emoji")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-packer.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("packer")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-smart-history.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("smart_history")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-ui-select.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("ui-select")
+          end,
+        },
+        {
+          "nvim-telescope/telescope-media-files.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("media_files")
+          end,
+        },
+        {
+          "camgraff/telescope-tmux.nvim",
+          requires = { "norcalli/nvim-terminal.lua" },
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("tmux")
+          end,
+        }, -- tmux support
+        {
+          "jgvw/telescope-arglist.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("arglist")
+          end,
+        }, -- arglist in telescope
+        {
+          "wesleimp/telescope-windowizer.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("windowizer")
+          end,
+        },
+        {
+          "danielpieper/telescope-tmuxinator.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("tmuxinator")
+          end,
+        }, -- tmuxinator support
+        {
+          "nvim-telescope/telescope-hop.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("hop")
+          end,
+        },
+        {
+          "cljoly/telescope-repo.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("repo")
+          end,
+        },
       },
     })
-    use({ "nvim-telescope/telescope-file-browser.nvim" })
+    use({
+      "nvim-telescope/telescope-file-browser.nvim",
+      after = "telescope.nvim",
+      config = function()
+        require("telescope").load_extension("file_browser")
+      end,
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -700,7 +817,12 @@ require("packer").startup({
     })
 
     -- git worktree
-    use("ThePrimeagen/git-worktree.nvim")
+    use({
+      "ThePrimeagen/git-worktree.nvim",
+      config = function()
+        require("telescope").load_extension("git_worktree")
+      end,
+    })
 
     -- magit for neovim in lua
     use({ "TimUntersberger/neogit" })
