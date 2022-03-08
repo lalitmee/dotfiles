@@ -92,6 +92,9 @@ require("packer").startup({
     -- home screen
     use("mhinz/vim-startify")
 
+    -- learn something new about vim by typing `:Random`
+    use({ "mhinz/vim-randomtag" })
+
     -- Colorizer for showing the colors
     use("norcalli/nvim-colorizer.lua")
 
@@ -729,14 +732,6 @@ require("packer").startup({
         { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
         { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
       },
-    })
-
-    -- spell checker using treesitter
-    use({
-      "lewis6991/spellsitter.nvim",
-      config = function()
-        require("spellsitter").setup()
-      end,
     })
 
     -- annotations using treesitter
