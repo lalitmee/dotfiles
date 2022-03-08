@@ -150,11 +150,14 @@ vim.opt.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
 --- This is used to handle markdown code blocks where the language might
 --- be set to a value that isn't equivalent to a vim filetype
 vim.g.markdown_fenced_languages = {
-  "js=javascript",
-  "ts=typescript",
-  "shell=sh",
-  "bash=sh",
-  "console=sh",
+  "bash",
+  "css",
+  "javascript",
+  "lua",
+  "python",
+  "scss",
+  "typescript",
+  "vim",
 }
 -----------------------------------------------------------------------------//
 -- List chars {{{1

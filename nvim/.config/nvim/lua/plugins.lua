@@ -62,6 +62,16 @@ require("packer").startup({
       "/home/lalitmee/Desktop/Github/cobalt2.nvim",
       requires = { "tjdevries/colorbuddy.nvim" },
     })
+    use({
+      "themercorp/themer.lua",
+      config = function()
+        require("themer").setup({
+          styles = {
+            comment = { style = "italic" },
+          },
+        })
+      end,
+    })
     -- }}}
     ----------------------------------------------------------------------------
 
@@ -685,6 +695,13 @@ require("packer").startup({
                 })
               end,
             },
+            {
+              "narutoxy/dim.lua",
+              after = "nvim-lspconfig",
+              config = function()
+                require("dim").setup()
+              end,
+            },
           },
         },
         {
@@ -844,6 +861,13 @@ require("packer").startup({
             view = { q = "<Cmd>DiffviewClose<CR>" },
           },
         })
+      end,
+    })
+    -- github notifications in neovim
+    use({
+      "rlch/github-notifications.nvim",
+      cond = function()
+        return lk.executable("gh")
       end,
     })
     -- }}}
