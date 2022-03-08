@@ -5,6 +5,9 @@ if not ok then
   return
 end
 
+local ghn_ok, ghn = pcall(require, "github-notifications")
+local notifications = ghn_ok and ghn.statusline_notification_count() or ""
+
 --------------------------------------------------------------------------------
 -- NOTE: to get the current client server name {{{
 --------------------------------------------------------------------------------
@@ -38,7 +41,7 @@ lualine.setup({
   },
   sections = {
     lualine_a = { { "mode", fmt = string.upper } },
-    lualine_b = { { "branch", icon = "" } },
+    lualine_b = { { "branch", icon = "" }, { notifications } },
     lualine_c = {
       { "filetype", icon_only = true },
       { "filename", path = 1 },
