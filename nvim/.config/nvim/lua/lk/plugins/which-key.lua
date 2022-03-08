@@ -617,6 +617,8 @@ local leader_key_maps = {
     ["c"] = { ":PackerCompile<CR>", "packer-compile" },
     ["d"] = { ":PackerClean<CR>", "clean-packages" },
     ["e"] = { ":e $HOME/.config/nvim/init.lua<CR>", "edit-config" },
+    ["g"] = { ":e ~/.config/nvim/ginit.vim<CR>", "edit-gui" },
+    ["G"] = { ":so ~/.config/nvim/ginit.vim<CR>", "reload-gui" },
     ["h"] = "tj-help-tags",
     ["H"] = { ":checkhealth<CR>", "check-health" },
     ["i"] = { ":PackerInstall<CR>", "packer-install" },
@@ -797,8 +799,9 @@ local leader_key_maps = {
       ":Telescope project project display_type=full<CR>",
       "switch-project",
     },
+    ["P"] = { ":Telescope projects<CR>", "switch-projects" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
-    ["r"] = { ":Telescope resume<CR>", "resume-search" },
+    ["r"] = { ":Telescope repo list shorten_path=true<CR>", "reops-list" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
     ["W"] = { ":Tgrep<CR>", "tj-grep" },
@@ -807,15 +810,11 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: q is for sessions and quit {{{
+  -- NOTE: q is for quit/close {{{
   ----------------------------------------------------------------------
   ["q"] = {
-    ["name"] = "+sessions",
-    ["c"] = { ":SClose<CR>", "close-session" },
-    ["d"] = { ":SDelete<CR>", "delete-session" },
-    ["l"] = { ":SLoad<CR>", "load-session" },
-    ["q"] = { ":qall<CR>", "quit-session" },
-    ["s"] = { ":SSave<CR>", "save-session" },
+    ["name"] = "+quit/+close",
+    ["q"] = { ":qall<CR>", "quit-neovim" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -865,6 +864,19 @@ local leader_key_maps = {
     ["T"] = { ":Telescope tags<CR>", "project-tags" },
     ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
     ['"'] = { ":Telescope registers<CR>", "registers" },
+  },
+  -- }}}
+  ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: S is for sessions {{{
+  ----------------------------------------------------------------------
+  ["S"] = {
+    ["name"] = "+sessions",
+    ["c"] = { ":SClose<CR>", "close-session" },
+    ["d"] = { ":SDelete<CR>", "delete-session" },
+    ["l"] = { ":SLoad<CR>", "load-session" },
+    ["s"] = { ":SSave<CR>", "save-session" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -1110,18 +1122,6 @@ local local_leader_key_maps = {
     ["r"] = { ":SnipRun<CR>", "run-code" },
     ["t"] = { ':lua require("lk.functions").notify_current_datetime()<CR>', "current-date-time" },
     ["y"] = { ':lua require("lk.functions").yank_current_file_name()<CR>', "yank-current-file-name" },
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
-  -- NOTE: nvim gui {{{
-  ----------------------------------------------------------------------
-  ["r"] = {
-    ["name"] = "+relaod",
-    ["v"] = { ":colorscheme vscode<CR>", "vscode" },
-    ["r"] = { ":so ~/.config/nvim/ginit.vim<CR>", "reload-gui" },
-    ["e"] = { ":e ~/.config/nvim/ginit.vim<CR>", "edit-gui" },
   },
   -- }}}
   ----------------------------------------------------------------------
