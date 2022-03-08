@@ -714,6 +714,7 @@ local leader_key_maps = {
       ["g"] = { ":Telescope git_status<CR>", "git-status" },
       ["s"] = { ":Telescope git_stash<CR>", "git-stash" },
     },
+    ["h"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
     ["i"] = { ":Telescope snippets snippets<CR>", "snippets" },
     ["j"] = { ":Telescope jumps jumps<CR>", "jumps" },
     ["l"] = { ":Telescope loclist<CR>", "loclist" },
@@ -813,8 +814,10 @@ local leader_key_maps = {
   -- NOTE: q is for quit/close {{{
   ----------------------------------------------------------------------
   ["q"] = {
-    ["name"] = "+quit/+close",
+    ["name"] = "+quit/+reload",
     ["q"] = { ":qall<CR>", "quit-neovim" },
+    ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
+    ["r"] = { ":ReloadConfig<CR>", "realod-config" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -858,7 +861,7 @@ local leader_key_maps = {
     ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
     ["p"] = { ":Telescope live_grep<CR>", "live-grep" },
     ["r"] = { ":Telescope resume<CR>", "resume-search" },
-    ["s"] = { ":Telescope ultisnips ultisnips<CR>", "snippets" },
+    ["s"] = { ":TelescopeLiveGrepRaw<CR>", "raw-grep" },
     ["S"] = { ":Telescope colorscheme<CR>", "color-schemes" },
     ["t"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
     ["T"] = { ":Telescope tags<CR>", "project-tags" },
@@ -927,7 +930,17 @@ local leader_key_maps = {
       ["h"] = { ":set scrolloff=5<CR>", "scrolloff=5" },
       ["n"] = { ":set scrolloff=999<CR>", "scrolloff=999" },
     },
-    ["t"] = { ":ToggleTerm<CR>", "terminal" },
+    ["t"] = {
+      ["name"] = "+trouble",
+      ["d"] = { ":TroubleToggle lsp_definitions<CR>", "lsp-definitions" },
+      ["e"] = { ":TroubleToggle document_diagnostics<CR>", "document-diagnostics" },
+      ["E"] = { ":TroubleToggle workspace_diagnostics<CR>", "workspace-diagnostics" },
+      ["i"] = { ":TroubleToggle lsp_implementations<CR>", "lsp-implementations" },
+      ["l"] = { ":TroubleToggle loclist<CR>", "loclist" },
+      ["q"] = { ":TroubleToggle quickfix<CR>", "quickfix" },
+      ["r"] = { ":TroubleToggle lsp_references<CR>", "lsp-references" },
+      ["t"] = { ":TroubleToggle telescope<CR>", "telescope" },
+    },
     ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
     ["n"] = {
       ["name"] = "+nvim-tree",

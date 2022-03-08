@@ -58,11 +58,10 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: colorschemes {{{
     ----------------------------------------------------------------------------
-    use({ "/home/lalitmee/Desktop/Github/cobalt2.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
-    use({ "themercorp/themer.lua" })
-    use({ "Mofiqul/vscode.nvim" })
-    use({ "marko-cerovac/material.nvim" })
-    use({ "tjdevries/gruvbuddy.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
+    use({
+      "/home/lalitmee/Desktop/Github/cobalt2.nvim",
+      requires = { "tjdevries/colorbuddy.nvim" },
+    })
     -- }}}
     ----------------------------------------------------------------------------
 
@@ -414,6 +413,10 @@ require("packer").startup({
             require("telescope").load_extension("repo")
           end,
         },
+        {
+          "nvim-telescope/telescope-live-grep-raw.nvim",
+          after = "telescope.nvim",
+        },
       },
     })
     use({
@@ -687,7 +690,13 @@ require("packer").startup({
         {
           "ray-x/lsp_signature.nvim",
           config = function()
-            require("lsp_signature").setup()
+            require("lsp_signature").setup({
+              bind = true,
+              fix_pos = false,
+              auto_close_after = 15, -- close after 15 seconds
+              hint_enable = false,
+              handler_opts = { border = "rounded" },
+            })
           end,
         },
         { "onsails/diaglist.nvim" },
@@ -904,11 +913,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
-    use({
-      "elihunter173/dirbuf.nvim", -- config = function()
-      --   require('dirbuf').setup()
-      -- end,
-    })
+    use({ "elihunter173/dirbuf.nvim" })
     use({ "kyazdani42/nvim-tree.lua" })
     -- }}}
     ------------------------------------------------------------------------

@@ -81,4 +81,43 @@ command({
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: telescope commands {{{
+----------------------------------------------------------------------
+command({
+  "TelescopeLiveGrepRaw",
+  function()
+    require("telescope").extensions.live_grep_raw.live_grep_raw()
+  end,
+})
+
+command({
+  "TelescopeNotifyHistory",
+  function()
+    require("telescope").extensions.notify.notify()
+  end,
+})
+
+command({
+  "ReloadConfigTelescope",
+  function()
+    require("lk/utils/reload").reload()
+  end,
+})
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: config commands {{{
+----------------------------------------------------------------------
+command({
+  "ReloadConfig",
+  function()
+    require("lk/utils/reload").reload_config()
+  end,
+})
+
+-- }}}
+----------------------------------------------------------------------
+
 -- vim:foldmethod=marker
