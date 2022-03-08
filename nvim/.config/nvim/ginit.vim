@@ -6,6 +6,7 @@
 " set guifont=mononoki\ Nerd\ Font\ Mono:h13
 " set guifont=UbuntuMono\ Nerd\ Font:h13
 " set guifont=Consolas\ NF:h12
-set guifont=BlexMono\ Nerd\ Font\ Mono:h11
+" set guifont=BlexMono\ Nerd\ Font\ Mono:h11
 " set guifont=SpaceMono\ Nerd\ Font\ Mono:h10
 " set guifont=MonoLisa:h10
+set guifont=MonoLisa\ Nerd\ Font:h10

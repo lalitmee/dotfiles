@@ -44,17 +44,18 @@ StartFullscreen = true
 # FontFamily = "OperatorMono Lig Book"
 # FontFamily = "OperatorMono Nerd Font"
 # FontFamily = "MonoLisa"
+FontFamily = "MonoLisa Nerd Font"
 # FontFamily = "Cascadia Code"
 # FontFamily = "CaskaydiaCove Nerd Font Mono"
 # FontFamily = "JetBrainsMono Nerd Font Mono"
 # FontFamily = "JetBrainsMonoMedium Nerd Font Mono"
-FontFamily = "BlexMono Nerd Font Mono"
+# FontFamily = "BlexMono Nerd Font Mono"
 # FontFamily = "SpaceMono Nerd Font Mono"
 # FontFamily = "SauceCodePro Nerd Font Mono"
 # FontFamily = "BlexMono NF"
 # FontFamily = "UbuntuMono Nerd Font"
 ## Fontsize is
-FontSize = 11
+FontSize = 10
 ## linespace is
 # Linespace = 10
 
