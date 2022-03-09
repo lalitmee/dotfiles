@@ -1095,6 +1095,23 @@ local local_leader_key_maps = {
   },
   -- }}}
   ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: marks.nvim {{{
+  ----------------------------------------------------------------------
+  ["m"] = {
+    ["name"] = "+marks",
+    ["a"] = { ":MarksListAll<CR>", "list-all-marks" },
+    ["b"] = { ":MarksListBuf<CR>", "list-buf-marks" },
+    ["q"] = { ":MarksQFListBuf<CR>", "qf-buf-marks" },
+    ["Q"] = { ":MarksQFListAll<CR>", "qf-all-marks" },
+    ["g"] = { ":MarksListGlobal<CR>", "list-global-marks" },
+    ["G"] = { ":MarksQFListGlobal<CR>", "qf-global-marks" },
+    ["t"] = { ":MarksToggleSigns<CR>", "toggle-marks-signs" },
+  },
+  -- }}}
+  ----------------------------------------------------------------------
+
   ["p"] = { '"+p', "better-paste" },
 
   ----------------------------------------------------------------------

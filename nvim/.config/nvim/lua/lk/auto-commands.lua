@@ -22,18 +22,10 @@ augroup("ClearCommandMessages", {
 augroup("PackerSetupInit", {
   {
     events = { "BufWritePost" },
-    targets = { "lk/plugins/init.lua" },
+    targets = { "plugins.lua" },
     command = function()
-      vim.cmd([[luafile %]])
-      require("packer").compile()
-    end,
-  },
-  {
-    events = { "BufWritePost" },
-    targets = { "*/lk/plugins/*.lua" },
-    command = function()
-      lk.invalidate("lk.plugins", true)
-      require("packer").compile()
+      vim.api.nvim_command("luafile %")
+      vim.api.nvim_command("PackerCompile")
     end,
   },
   {

@@ -22,9 +22,13 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 ----------------------------------------------------------------------
 -- NOTE: sourcing namespace {{{
 ----------------------------------------------------------------------
-require("plugins")
 require("lk")
+require("plugins")
 -- }}}
 ----------------------------------------------------------------------
+
+-- Cache the humungous packer_compiled.lua file with impatient.nvim
+-- for a solid speedup
+require("packer_compiled")
 
 -- vim:foldmethod=marker
