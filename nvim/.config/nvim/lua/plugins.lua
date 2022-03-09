@@ -92,9 +92,13 @@ require("packer").startup({
     use({
       "folke/todo-comments.nvim",
       config = function()
+        if vim.g.packer_compiled_loaded then
+          return
+        end
         require("todo-comments").setup({})
       end,
     })
+
     -- which-key
     use("folke/which-key.nvim")
 
@@ -252,10 +256,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
-    -- fzf
-    use({ "junegunn/fzf", dir = "~/.fzf", run = "./install --all" })
-    use({ "junegunn/fzf.vim" })
-
     -- makes quickfix list editable
     use({ "gabrielpoca/replacer.nvim" })
 
@@ -775,9 +775,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Languages {{{
     ----------------------------------------------------------------------------
-    -- vim log highlighting
-    use({ "MTDL9/vim-log-highlighting" })
-
     -- refactor the code
     use({ "ThePrimeagen/refactoring.nvim" })
 
@@ -785,7 +782,7 @@ require("packer").startup({
     -- NOTE: markdown {{{
     ----------------------------------------------------------------------------
     -- preview markdown in neovim
-    use({ "ellisonleao/glow.nvim" })
+    use({ "ellisonleao/glow.nvim", ft = "markdown" })
 
     use({
       "iamcco/markdown-preview.nvim",
@@ -798,7 +795,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: General {{{
     ----------------------------------------------------------------------------
-
+    -- cheat.sh in neovim
     use({
       "RishabhRD/nvim-cheat.sh",
       requires = { "RishabhRD/popfix" },

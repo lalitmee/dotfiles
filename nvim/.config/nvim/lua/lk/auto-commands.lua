@@ -22,6 +22,14 @@ augroup("ClearCommandMessages", {
 augroup("PackerSetupInit", {
   {
     events = { "BufWritePost" },
+    targets = { "plugins.lua" },
+    command = function()
+      vim.cmd([[luafile %]])
+      require("packer").compile()
+    end,
+  },
+  {
+    events = { "BufWritePost" },
     targets = { "*/lk/plugins/*.lua" },
     command = function()
       lk.invalidate("lk.plugins", true)
@@ -38,23 +46,6 @@ augroup("PackerSetupInit", {
     events = { "User PackerComplete" },
     command = function()
       vim.notify("Packer completed the job", nil, { title = "Packer" })
-    end,
-  },
-  {
-    events = { "BufEnter" },
-    targets = { "<buffer>" },
-    --- Open a repository from an authorname/repository string
-    --- e.g. 'akinso/example-repo'
-    command = function()
-      lk.nnoremap("gf", function()
-        local repo = fn.expand("<cfile>")
-        if not repo or #vim.split(repo, "/") ~= 2 then
-          return vim.cmd("norm! gf")
-        end
-        local url = fmt("https://www.github.com/%s", repo)
-        fn.jobstart("xdg-open " .. url)
-        vim.notify(fmt("Opening %s at %s", repo, url), "info", { title = fmt("[plugin] %s", repo) })
-      end)
     end,
   },
 })
@@ -104,20 +95,6 @@ augroup("AddTerminalMappings", {
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: markdown autocommands {{{
-----------------------------------------------------------------------
-augroup("MarkdownMappings", {
-  {
-    events = { "FileType" },
-    targets = { "markdown" },
-    command = "MarkdownPreview",
-  },
-})
-
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: highlight on yank {{{
 ----------------------------------------------------------------------
 augroup("TextYankHighlight", {
@@ -140,7 +117,6 @@ augroup("TextYankHighlight", {
 ----------------------------------------------------------------------
 augroup("OpenLastPlace", {
   {
-
     -- When editing a file, always jump to the last known cursor position.
     -- Don't do it for commit messages, when the position is invalid, or when
     -- inside an event handler (happens when dropping a file on gvim).
@@ -155,6 +131,23 @@ augroup("OpenLastPlace", {
         ]],
         true
       )
+    end,
+  },
+  {
+    events = { "BufEnter" },
+    targets = { "<buffer>" },
+    --- Open a repository from an authorname/repository string
+    --- e.g. 'akinso/example-repo'
+    command = function()
+      lk.nnoremap("gf", function()
+        local repo = fn.expand("<cfile>")
+        if not repo or #vim.split(repo, "/") ~= 2 then
+          return vim.cmd("norm! gf")
+        end
+        local url = fmt("https://www.github.com/%s", repo)
+        fn.jobstart("xdg-open " .. url)
+        vim.notify(fmt("Opening %s at %s", repo, url), "info", { title = fmt("[plugin] %s", repo) })
+      end)
     end,
   },
 })
