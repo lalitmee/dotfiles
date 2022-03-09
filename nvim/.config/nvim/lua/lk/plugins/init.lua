@@ -7,6 +7,7 @@ require("lk/plugins/comment")
 require("lk/plugins/abolish")
 require("lk/plugins/openbrowser")
 require("lk/plugins/harpoon")
+require("lk/plugins/vim-yoink")
 -- require('lk/plugins/dap')
 -- }}}
 ----------------------------------------------------------------------

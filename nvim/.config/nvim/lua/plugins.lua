@@ -39,6 +39,9 @@ require("packer").startup({
     use({
       "rcarriga/nvim-notify",
       config = function()
+        if vim.g.packer_compiled_loaded then
+          return
+        end
         require("notify").setup({
           stages = "static",
           timeout = 2000,
@@ -186,22 +189,7 @@ require("packer").startup({
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
       "svermeulen/vim-yoink",
-      config = function()
-        local nmap = lk.nmap
-        local xmap = lk.xmap
-        local map_opts = {}
-        nmap("<C-n>", "<Plug>(YoinkPostPasteSwapBack)", map_opts)
-        nmap("<C-p>", "<Plug>(YoinkPostPasteSwapForward)", map_opts)
-        nmap("p", "<Plug>(YoinkPaste_p)", map_opts)
-        nmap("P", "<Plug>(YoinkPaste_P)", map_opts)
-        nmap("gp", "<Plug>(YoinkPaste_gp)", map_opts)
-        nmap("gP", "<Plug>(YoinkPaste_gP)", map_opts)
-        nmap("[y", "<Plug>(YoinkRotateBack)", map_opts)
-        nmap("]y", "<Plug>(YoinkRotateForward)", map_opts)
-        nmap("y", "<Plug>(YoinkYankPreserveCursorPosition)", map_opts)
-        nmap("[y", "<Plug>(YoinkRotateBack)", map_opts)
-        xmap("y", "<Plug>(YoinkYankPreserveCursorPosition)", map_opts)
-      end,
+      config = function() end,
     })
 
     -- interactively swap so many things
