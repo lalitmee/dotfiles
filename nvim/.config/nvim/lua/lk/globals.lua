@@ -296,6 +296,23 @@ function lk.has_map(lhs, mode)
   return vim.fn.maparg(lhs, mode) ~= ""
 end
 
+---Reload lua modules
+---@param path string
+---@param recursive string
+function lk.invalidate(path, recursive)
+  if recursive then
+    for key, value in pairs(package.loaded) do
+      if key ~= "_G" and value and fn.match(key, path) ~= -1 then
+        package.loaded[key] = nil
+        require(key)
+      end
+    end
+  else
+    package.loaded[path] = nil
+    require(path)
+  end
+end
+
 ----------------------------------------------------------------------
 -- NOTE: command creator {{{
 ----------------------------------------------------------------------

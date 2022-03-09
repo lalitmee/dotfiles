@@ -59,6 +59,7 @@ lualine.setup({
         color = { fg = colors.yellow },
       },
       { "filesize" },
+      { "filetype" },
     },
     lualine_y = { { "progress" } },
     lualine_z = { { "location" } },

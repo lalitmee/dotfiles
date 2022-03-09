@@ -493,12 +493,6 @@ TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl
 # tmux-modal
 set -g @plugin 'whame/tmux-modal'
 
-# search for something in scrollback buffer
-set -g @plugin 'roosta/tmux-fuzzback'
-
-# mouse scroll in tmux
-set -g @plugin 'noscript/tmux-mighty-scroll'
-
 # manage sessions more quickly
 set -g @plugin 'tmux-plugins/tmux-sessionist'
 
