@@ -1,16 +1,17 @@
 --------------------------------------------------------------------------------
 -- NOTE: plugins setup {{{
 --------------------------------------------------------------------------------
-local execute = vim.api.nvim_command
+local utils = require("lk/utils/plugins")
 local fn = vim.fn
 
 local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua"
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if fn.empty(fn.glob(install_path)) > 0 then
-  execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-end
+----------------------------------------------------------------------
+-- NOTE: bootstrap packer {{{
+----------------------------------------------------------------------
+utils.bootstrap_packer()
+-- }}}
+----------------------------------------------------------------------
 
 -- cfilter plugin allows filter down an existing quickfix list
 vim.cmd("packadd! cfilter")
@@ -23,7 +24,7 @@ require("packer").startup({
     --------------------------------------------------------------------------------
     -- NOTE: Packer {{{
     --------------------------------------------------------------------------------
-    use("wbthomason/packer.nvim")
+    use({ "wbthomason/packer.nvim", opt = true })
     use("lewis6991/impatient.nvim")
     -- }}}
     --------------------------------------------------------------------------------
