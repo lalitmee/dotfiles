@@ -453,9 +453,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: General {{{
     ----------------------------------------------------------------------------
-    -- manipulate function calls
-    use({ "Matt-A-Bennett/vim-surround-funk" })
-
     -- access recent buffers
     use({ "gaborvecsei/memento.nvim" })
 
@@ -1076,8 +1073,8 @@ require("packer").startup({
     ----------------------------------------------------------------------------
   end,
   config = {
+    compile_path = PACKER_COMPILED_PATH,
     display = {
-      compile_path = PACKER_COMPILED_PATH,
       prompt_border = "rounded",
       open_fn = function()
         return require("packer.util").float({ border = "single" })
