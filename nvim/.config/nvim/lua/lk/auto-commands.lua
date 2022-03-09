@@ -1,5 +1,7 @@
 local augroup = lk.augroup
 local tnoremap = lk.tnoremap
+local fn = vim.fn
+local fmt = string.format
 
 ----------------------------------------------------------------------
 -- NOTE: command line autocommands {{{
@@ -19,6 +21,14 @@ augroup("ClearCommandMessages", {
 ----------------------------------------------------------------------
 augroup("PackerSetupInit", {
   {
+    events = { "BufWritePost" },
+    targets = { "*/lk/plugins/*.lua" },
+    command = function()
+      lk.invalidate("lk.plugins", true)
+      require("packer").compile()
+    end,
+  },
+  {
     events = { "User PackerCompileDone" },
     command = function()
       vim.notify("Packer compiled done", nil, { title = "Packer" })
@@ -28,6 +38,23 @@ augroup("PackerSetupInit", {
     events = { "User PackerComplete" },
     command = function()
       vim.notify("Packer completed the job", nil, { title = "Packer" })
+    end,
+  },
+  {
+    events = { "BufEnter" },
+    targets = { "<buffer>" },
+    --- Open a repository from an authorname/repository string
+    --- e.g. 'akinso/example-repo'
+    command = function()
+      lk.nnoremap("gf", function()
+        local repo = fn.expand("<cfile>")
+        if not repo or #vim.split(repo, "/") ~= 2 then
+          return vim.cmd("norm! gf")
+        end
+        local url = fmt("https://www.github.com/%s", repo)
+        fn.jobstart("xdg-open " .. url)
+        vim.notify(fmt("Opening %s at %s", repo, url), "info", { title = fmt("[plugin] %s", repo) })
+      end)
     end,
   },
 })
@@ -79,7 +106,7 @@ augroup("AddTerminalMappings", {
 ----------------------------------------------------------------------
 -- NOTE: markdown autocommands {{{
 ----------------------------------------------------------------------
-augroup("AddTerminalMappings", {
+augroup("MarkdownMappings", {
   {
     events = { "FileType" },
     targets = { "markdown" },
@@ -102,6 +129,94 @@ augroup("TextYankHighlight", {
         higroup = "IncSearch",
         timeout = 500,
       })
+    end,
+  },
+})
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: extend vim {{{
+----------------------------------------------------------------------
+augroup("OpenLastPlace", {
+  {
+
+    -- When editing a file, always jump to the last known cursor position.
+    -- Don't do it for commit messages, when the position is invalid, or when
+    -- inside an event handler (happens when dropping a file on gvim).
+    events = { "BufReadPost" },
+    targets = { "*" },
+    command = function()
+      vim.api.nvim_exec(
+        [[
+          if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+            exe "normal g`\"" |
+          endif
+        ]],
+        true
+      )
+    end,
+  },
+})
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: filetype specific {{{
+-- Set syntax highlighting for specific file types
+----------------------------------------------------------------------
+augroup("FileTypeSpecific", {
+  {
+    events = { "BufRead", "BufNewFile" },
+    targets = { "*.md" },
+    command = function()
+      vim.bo.filetype = "markdown"
+    end,
+  },
+  {
+    events = { "BufRead", "BufNewFile" },
+    targets = { ".{jscs,jshint,eslint,babel}rc" },
+    command = function()
+      vim.bo.filetype = "json"
+    end,
+  },
+  {
+    events = { "BufRead", "BufNewFile" },
+    targets = {
+      "aliases.local",
+      "zshenv.local",
+      "zlogin.local",
+      "zlogout.local",
+      "zprofile.local",
+      "zshenv",
+      "zlogin",
+      "zlogout",
+      "zprofile",
+      "*/zsh/configs/*",
+    },
+    command = function()
+      vim.bo.filetype = "sh"
+    end,
+  },
+  {
+    events = { "BufRead", "BufNewFile" },
+    targets = { "gitconfig.local" },
+    command = function()
+      vim.bo.filetype = "gitconfig"
+    end,
+  },
+  {
+    events = { "BufRead", "BufNewFile" },
+    targets = { "tmux.conf.local" },
+    command = function()
+      vim.bo.filetype = "tmux"
+    end,
+  },
+  {
+    events = { "BufRead", "BufNewFile" },
+    targets = { "*.conf", "Caddyfile" },
+    command = function()
+      vim.bo.filetype = "conf"
     end,
   },
 })

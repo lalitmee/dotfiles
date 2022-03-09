@@ -69,16 +69,17 @@ vim.g.coc_global_extensions = {
   "coc-yank",
   "coc-zi",
 }
-
 -- }}}
+----------------------------------------------------------------------
 
--- options {{{
-
+----------------------------------------------------------------------
+-- NOTE: options {{{
+----------------------------------------------------------------------
 vim.g.coc_snippet_next = "<tab>"
 vim.g.coc_fzf_opts = { "--layout=reverse", "--inline-info" }
 vim.g.coc_fzf_preview = "right:60%"
-
 -- }}}
+----------------------------------------------------------------------
 
 -- CoC Mappings {{{
 
@@ -201,33 +202,55 @@ nmap("<leader>cg", [[:exe 'CocList -I --normal --input='.expand('<cword>').' wor
 -- ]], false)
 
 -- }}}
+----------------------------------------------------------------------
 
--- Coc Autocommands {{{
-
-require("lk.autocommands").create({
-  coc_commands = {
-    -- { 'VimEnter', '*', 'lua __coc_init()' },
-    { "CursorHold", "*", "silent call CocActionAsync('highlight')" },
-    -- Update signature help on jump placeholder.
-    { "User CocJumpPlaceholder", "call CocActionAsync('showSignatureHelp')" },
-    { "CompleteDone", "*", "if pumvisible() == 0 | pclose | endif" },
-    -- Suggestions don't work and are not needed in the command line window
-    { "CmdwinEnter", "*", "let b:coc_suggest_disable = 1" },
-    { "User CocOpenFloat", "setlocal foldlevel=20 foldcolumn=0" },
-    { "VimEnter,ColorScheme", "*", "lua __coc_apply_highlights()" },
-    -- Setup formatexpr specified filetype(s).
-    {
-      "FileType",
-      "typescript,json",
-      "setl formatexpr=CocAction('formatSelected')",
-    },
+----------------------------------------------------------------------
+-- NOTE: auto commands {{{
+----------------------------------------------------------------------
+lk.augroup("coc_autocommands", {
+  {
+    events = { "CursorHold" },
+    targets = { "*" },
+    command = "silent call CocActionAsync('highlight')",
+  },
+  {
+    events = { "User CocJumpPlaceholder" },
+    targets = { "<buffer>" },
+    command = "call CocActionAsync('showSignatureHelp')",
+  },
+  {
+    events = { "CmdwinEnter" },
+    targets = { "*" },
+    command = function()
+      vim.b.coc_suggest_disable = 1
+    end,
+  },
+  {
+    events = { "VimEnter", "ColorScheme" },
+    targets = { "*" },
+    command = "lua __coc_apply_highlights()",
+  },
+  {
+    events = { "FileType" },
+    targets = { "TelescopePrompt" },
+    command = function()
+      vim.b.coc_pairs_disabled = { '"', "'", "(" }
+    end,
+  },
+  {
+    events = { "FileType" },
+    targets = { "vim" },
+    command = function()
+      vim.b.coc_pairs_disabled = { '"' }
+    end,
   },
 })
-
 -- }}}
+----------------------------------------------------------------------
 
--- COC commands {{{
-
+----------------------------------------------------------------------
+-- NOTE: commands {{{
+----------------------------------------------------------------------
 -- Use `:Format` for format current buffer
 command({ "Format", [[:call CocActionAsync('format')]], nargs = 0 })
 
@@ -243,6 +266,9 @@ command({
   [[:call CocAction('runCommand', 'editor.action.organizeImport')]],
   nargs = 0,
 })
+-- }}}
+----------------------------------------------------------------------
 
 vim.cmd("set tagfunc=CocTagFunc")
--- }}}
+
+-- vim:foldmethod=marker

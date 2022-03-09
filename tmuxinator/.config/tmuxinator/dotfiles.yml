@@ -6,7 +6,7 @@ root: ~/Desktop/Github/configs
 windows:
   - lalitmee: cd ~/dotfiles
   - tjdevries: cd config_manager
-  - akinsho: cd akinsho-dotfiles
+  - akinsho: cd akinsho
   - codesmell: cd codesmell
   - ThePrimeagen: cd ThePrimeagen_dots
   - gametaro: cd gametaro
