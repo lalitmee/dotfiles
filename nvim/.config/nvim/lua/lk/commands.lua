@@ -116,7 +116,39 @@ command({
     require("lk/utils/reload").reload_config()
   end,
 })
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: nvim-spectre commands {{{
+----------------------------------------------------------------------
+command({
+  "SpectreOpen",
+  function()
+    require("spectre").open()
+  end,
+})
+
+command({
+  "SpectreOpenVisual",
+  function()
+    require("spectre").open_visual()
+  end,
+})
+
+command({
+  "SpectreOpenFileSearch",
+  function()
+    vim.cmd([[viw:lua require("spectre").open_file_search()<CR>]])
+  end,
+})
+
+command({
+  "SpectreOpenWord",
+  function()
+    require("spectre").open_visual({ select_word = true })
+  end,
+})
 -- }}}
 ----------------------------------------------------------------------
 
