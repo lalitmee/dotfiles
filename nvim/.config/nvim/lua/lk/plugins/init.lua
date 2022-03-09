@@ -364,13 +364,6 @@ require("packer").startup({
           end,
         },
         {
-          "nvim-telescope/telescope-packer.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("packer")
-          end,
-        },
-        {
           "nvim-telescope/telescope-smart-history.nvim",
           after = "telescope.nvim",
           config = function()
