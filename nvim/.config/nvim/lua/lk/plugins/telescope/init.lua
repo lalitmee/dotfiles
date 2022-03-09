@@ -4,6 +4,13 @@ if not status_ok then
   return
 end
 
+----------------------------------------------------------------------
+-- NOTE: telescope mappings {{{
+----------------------------------------------------------------------
+require("lk/plugins/telescope/mappings")
+-- }}}
+----------------------------------------------------------------------
+
 local should_reload = true
 local reloader = function()
   if should_reload then

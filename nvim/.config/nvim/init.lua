@@ -13,19 +13,18 @@ if require("lk/first_load")() then
   return
 end
 
-vim.api.nvim_exec(
-  [[
-   augroup vimrc
-   autocmd!
-   augroup END
-  ]],
-  ""
-)
-
+----------------------------------------------------------------------
+-- NOTE: leaders {{{
+----------------------------------------------------------------------
 -- mapping leader and localleader keys
-vim.g.mapleader = " " -- Remap leader key
-vim.g.maplocalleader = "," -- Local leader is ,
+vim.g.mapleader = " " -- NOTE: leader is `<space>`
+vim.g.maplocalleader = "," -- NOTE: local leader is ,
+-- }}}
+----------------------------------------------------------------------
 
--- sourcing plugins
-require("plugins")
+----------------------------------------------------------------------
+-- NOTE: sourcing namespace {{{
+----------------------------------------------------------------------
 require("lk")
+-- }}}
+----------------------------------------------------------------------
