@@ -28,3 +28,5 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 require("lk")
 -- }}}
 ----------------------------------------------------------------------
+
+-- vim:foldmethod=marker
