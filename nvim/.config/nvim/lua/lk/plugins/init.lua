@@ -453,6 +453,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: General {{{
     ----------------------------------------------------------------------------
+    -- manipulate function calls
+    use({ "Matt-A-Bennett/vim-surround-funk" })
+
     -- access recent buffers
     use({ "gaborvecsei/memento.nvim" })
 
