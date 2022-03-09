@@ -2,9 +2,6 @@
 -- NOTE: plugins setup {{{
 --------------------------------------------------------------------------------
 local utils = require("lk/utils/plugins")
-local fn = vim.fn
-
-local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua"
 
 ----------------------------------------------------------------------
 -- NOTE: bootstrap packer {{{
@@ -16,16 +13,30 @@ utils.bootstrap_packer()
 -- cfilter plugin allows filter down an existing quickfix list
 vim.cmd("packadd! cfilter")
 
+-- load config
+local function load_config(path)
+  require(path)
+end
+
 --------------------------------------------------------------------------------
 -- NOTE: packer startup {{{
 --------------------------------------------------------------------------------
 require("packer").startup({
   function(use)
     --------------------------------------------------------------------------------
-    -- NOTE: Packer {{{
+    -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
     use({ "wbthomason/packer.nvim", opt = true })
     use("lewis6991/impatient.nvim")
+
+    -- fast filetype detection
+    use({ "nathom/filetype.nvim" })
+
+    -- Profile startup time
+    use({
+      "tweekmonster/startuptime.vim",
+      cmd = "StartupTime",
+    })
     -- }}}
     --------------------------------------------------------------------------------
 
@@ -63,7 +74,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     use({
       "/home/lalitmee/Desktop/Github/cobalt2.nvim",
-      requires = { "tjdevries/colorbuddy.nvim" },
+      requires = "tjdevries/colorbuddy.nvim",
     })
     use({
       "themercorp/themer.lua",
@@ -83,6 +94,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     use({
       "yamatsum/nvim-nonicons",
+      config = load_config("lk/plugins/devicons"),
       requires = { "kyazdani42/nvim-web-devicons" },
     })
     -- }}}
@@ -103,19 +115,31 @@ require("packer").startup({
     })
 
     -- which-key
-    use("folke/which-key.nvim")
+    use({
+      "folke/which-key.nvim",
+      config = load_config("lk/plugins/which-key"),
+    })
 
     -- home screen
-    use("mhinz/vim-startify")
+    use({
+      "mhinz/vim-startify",
+      config = load_config("lk/plugins/startify"),
+    })
 
     -- learn something new about vim by typing `:Random`
     use({ "mhinz/vim-randomtag" })
 
     -- Colorizer for showing the colors
-    use("norcalli/nvim-colorizer.lua")
+    use({
+      "norcalli/nvim-colorizer.lua",
+      config = load_config("lk/plugins/colorizer"),
+    })
 
     -- better quick-fix winodw
-    use("kevinhwang91/nvim-bqf")
+    use({
+      "kevinhwang91/nvim-bqf",
+      config = load_config("lk/plugins/nvim-bqf"),
+    })
     -- prettify quickfix windows for neovim
     use({
       "https://gitlab.com/yorickpeterse/nvim-pqf.git",
@@ -189,7 +213,7 @@ require("packer").startup({
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
       "svermeulen/vim-yoink",
-      config = function() end,
+      config = load_config("lk/plugins/vim-yoink"),
     })
 
     -- interactively swap so many things
@@ -254,7 +278,10 @@ require("packer").startup({
     use("junegunn/vim-pseudocl")
 
     -- display search matches
-    use({ "kevinhwang91/nvim-hlslens" })
+    use({
+      "kevinhwang91/nvim-hlslens",
+      config = load_config("lk/plugins/hlslens"),
+    })
     use({ "haya14busa/incsearch.vim" })
     use({
       "romainl/vim-cool",
@@ -272,13 +299,22 @@ require("packer").startup({
     })
 
     -- easymotion using lua
-    use("phaazon/hop.nvim")
+    use({
+      "phaazon/hop.nvim",
+      config = load_config("lk/plugins/hop"),
+    })
 
     -- Quickscope same as f, F, t, T but better
-    use("unblevable/quick-scope")
+    use({
+      "unblevable/quick-scope",
+      config = load_config("lk/plugins/quick-scope"),
+    })
 
     -- Navigations
-    use("ThePrimeagen/harpoon")
+    use({
+      "ThePrimeagen/harpoon",
+      config = load_config("lk/plugins/harpoon"),
+    })
     -- }}}
     ----------------------------------------------------------------------------
 
@@ -289,6 +325,7 @@ require("packer").startup({
     use({ "nvim-lua/plenary.nvim" })
     use({
       "nvim-telescope/telescope.nvim",
+      config = load_config("lk/plugins/telescope"),
       requires = {
         {
           "brandoncc/telescope-harpoon.nvim",
@@ -338,13 +375,6 @@ require("packer").startup({
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("emoji")
-          end,
-        },
-        {
-          "nvim-telescope/telescope-packer.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("packer")
           end,
         },
         {
@@ -496,10 +526,16 @@ require("packer").startup({
     use("McAuleyPenney/tidy.nvim")
 
     -- nice fold text
-    use("scr1pt0r/crease.vim")
+    use({
+      "scr1pt0r/crease.vim",
+      config = load_config("lk/plugins/crease"),
+    })
 
     -- fast folds in vim
-    use("Konfekt/FastFold")
+    use({
+      "Konfekt/FastFold",
+      config = load_config("lk/plugins/fastfold"),
+    })
 
     -- Maximizer for vim
     use("szw/vim-maximizer")
@@ -521,9 +557,7 @@ require("packer").startup({
     -- commenting
     use({
       "numToStr/Comment.nvim",
-      config = function()
-        require("Comment").setup()
-      end,
+      config = load_config("lk/plugins/comment"),
     })
     -- comment boxes
     use("LudoPinelli/comment-box.nvim")
@@ -575,6 +609,7 @@ require("packer").startup({
 
     use({
       "nvim-orgmode/orgmode.nvim",
+      config = load_config("lk/plugins/orgmode"),
       requires = {
         {
           "akinsho/org-bullets.nvim",
@@ -601,12 +636,8 @@ require("packer").startup({
     -- -- snippets engine
     use({
       "SirVer/ultisnips",
-      requires = {
-        { "honza/vim-snippets", rtp = "~/.config/nvim/" },
-      },
-      config = function()
-        vim.g.UltiSnipsRemoveSelectModeMappings = 0
-      end,
+      config = load_config("lk/plugins/ultisnip"),
+      requires = { "honza/vim-snippets" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -615,8 +646,14 @@ require("packer").startup({
     -- NOTE: Format {{{
     ------------------------------------------------------------------------
     -- formatter in lua
-    use("mhartington/formatter.nvim")
-    use("lukas-reineke/indent-blankline.nvim")
+    use({
+      "mhartington/formatter.nvim",
+      config = load_config("lk/plugins/formatter"),
+    })
+    use({
+      "lukas-reineke/indent-blankline.nvim",
+      config = load_config("lk/plugins/indent-blankline"),
+    })
 
     -- Tabularize for Vim
     use({ "godlygeek/tabular", cmd = "Tabularize" })
@@ -651,46 +688,35 @@ require("packer").startup({
       "neovim/nvim-lspconfig",
       requires = {
         { "onsails/lspkind-nvim" },
-        { "tami5/lspsaga.nvim" },
+        {
+          "tami5/lspsaga.nvim",
+          config = load_config("lk/plugins/lspsaga"),
+        },
         {
           "hrsh7th/nvim-cmp",
+          config = load_config("lk/plugins/nvim-cmp"),
           requires = {
-            { "David-Kunz/cmp-npm", after = "nvim-cmp" },
-            { "andersevenrud/cmp-tmux", after = "nvim-cmp" },
             { "f3fora/cmp-spell", after = "nvim-cmp" },
             { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-            { "hrsh7th/cmp-calc", after = "nvim-cmp" },
             { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
             { "hrsh7th/cmp-emoji", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
-            { "hrsh7th/cmp-copilot", after = "nvim-cmp" },
             { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
-            { "ray-x/cmp-treesitter", after = "nvim-cmp" },
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
-            {
-              "simrat39/symbols-outline.nvim",
-              cmd = { "SymbolsOutline", "SymbolsOutlineClose", "SymbolsOutlineOpen" },
-            },
-            {
-              "petertriho/cmp-git",
-              after = "nvim-cmp",
-              config = function()
-                require("cmp_git").setup({
-                  filetypes = { "gitcommit", "NeogitCommitMessage" },
-                })
-              end,
-            },
-            {
-              "narutoxy/dim.lua",
-              after = "nvim-lspconfig",
-              config = function()
-                require("dim").setup()
-              end,
-            },
           },
+        },
+        {
+          "simrat39/symbols-outline.nvim",
+          cmd = { "SymbolsOutline", "SymbolsOutlineClose", "SymbolsOutlineOpen" },
+        },
+        {
+          "narutoxy/dim.lua",
+          after = "nvim-lspconfig",
+          config = function()
+            require("dim").setup()
+          end,
         },
         {
           "ray-x/lsp_signature.nvim",
@@ -738,6 +764,7 @@ require("packer").startup({
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
+      config = load_config("lk/plugins/treesitter"),
       requires = {
         { "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter" },
         { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
@@ -764,7 +791,10 @@ require("packer").startup({
     -- NOTE: Languages {{{
     ----------------------------------------------------------------------------
     -- refactor the code
-    use({ "ThePrimeagen/refactoring.nvim" })
+    use({
+      "ThePrimeagen/refactoring.nvim",
+      config = load_config("lk/plugins/refactoring"),
+    })
 
     ----------------------------------------------------------------------------
     -- NOTE: markdown {{{
@@ -831,10 +861,16 @@ require("packer").startup({
     })
 
     -- magit for neovim in lua
-    use({ "TimUntersberger/neogit" })
+    use({
+      "TimUntersberger/neogit",
+      config = load_config("lk/plugins/neogit"),
+    })
 
     -- gitsigns in lua
-    use("lewis6991/gitsigns.nvim")
+    use({
+      "lewis6991/gitsigns.nvim",
+      config = load_config("lk/plugins/gitsigns"),
+    })
 
     -- git lens in vim
     use({
@@ -866,11 +902,14 @@ require("packer").startup({
     -- lualine.nvim
     use({
       "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      config = load_config("lk/plugins/lualine"),
     })
 
     -- bufferline
-    use("akinsho/nvim-bufferline.lua")
+    use({
+      "akinsho/nvim-bufferline.lua",
+      config = load_config("lk/plugins/bufferline"),
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -880,7 +919,10 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: tpope {{{
     ------------------------------------------------------------------------
-    use("tpope/vim-abolish")
+    use({
+      "tpope/vim-abolish",
+      config = load_config("lk/plugins/abolish"),
+    })
     use({
       "tpope/vim-dispatch",
       opt = true,
@@ -923,7 +965,10 @@ require("packer").startup({
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
     use({ "elihunter173/dirbuf.nvim" })
-    use({ "kyazdani42/nvim-tree.lua" })
+    use({
+      "kyazdani42/nvim-tree.lua",
+      config = load_config("lk/plugins/nvim-tree"),
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -946,7 +991,10 @@ require("packer").startup({
     -- NOTE: TERMINAL {{{
     ------------------------------------------------------------------------
     -- Float Terminal
-    use({ "akinsho/nvim-toggleterm.lua" })
+    use({
+      "akinsho/nvim-toggleterm.lua",
+      config = load_config("lk/plugins/toggleterm"),
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -956,7 +1004,10 @@ require("packer").startup({
     -- sql nvim database for frecency
     use("tami5/sqlite.lua")
     use("tami5/sql.nvim")
-    use("tyru/open-browser.vim")
+    use({
+      "tyru/open-browser.vim",
+      config = load_config("lk/plugins/open-browser"),
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -965,7 +1016,11 @@ require("packer").startup({
     ------------------------------------------------------------------------
 
     -- debugger attach protocol
-    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+    use({
+      "rcarriga/nvim-dap-ui",
+      config = load_config("lk/plugins/dap"),
+      requires = "mfussenegger/nvim-dap",
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -1006,7 +1061,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
   end,
   config = {
-    compile_path = PACKER_COMPILED_PATH,
+    compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
     display = {
       prompt_border = "rounded",
       open_fn = function()

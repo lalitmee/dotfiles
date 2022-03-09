@@ -4,7 +4,7 @@ local nnoremap = lk.nnoremap
 local map_opts = { noremap = true, silent = true }
 local map_expr_opts = { expr = true }
 
-nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<CR>")
+nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 
 -- tab operations
 nnoremap("<C-S-Right>", [[gt]])
@@ -29,7 +29,7 @@ map("n", "L", [[$]], map_opts)
 -- keeping it centered
 map("n", "n", [[nzzzv]], map_opts)
 map("n", "N", [[Nzzzv]], map_opts)
-map("n", "J", [[mzJ`z:delmarks z<CR>]], map_opts)
+map("n", "J", [[:let p=getpos('.')<bar>join<bar>call setpos('.', p)<cr>]], map_opts)
 
 -- undo breakpoints
 map("i", ",", [[,<c-g>u]], map_opts)
@@ -42,10 +42,10 @@ map("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { noremap = true, e
 map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { noremap = true, expr = true })
 
 -- moving text up and down
-map("i", "<C-k>", [[<esc>:m .-2<CR>==]], map_opts)
-map("i", "<C-j>", [[<esc>:m .+1<CR>==]], map_opts)
-map("v", "J", [[:m '>+1<CR>gv=gv]], map_opts)
-map("v", "K", [[:m '<-2<CR>gv=gv]], map_opts)
+map("i", "<C-k>", [[<esc>:m .-2<cr>==]], map_opts)
+map("i", "<C-j>", [[<esc>:m .+1<cr>==]], map_opts)
+map("v", "J", [[:m '>+1<cr>gv=gv]], map_opts)
+map("v", "K", [[:m '<-2<cr>gv=gv]], map_opts)
 
 -- change all the occurences of a word with dot
 map("n", "cn", [[*``cgn]], map_opts)
@@ -74,7 +74,7 @@ nnoremap("<c-l>", [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l
 map("c", "w!!", [[%!sudo tee > /dev/null %]], map_opts)
 
 -- clear highlighted search
-map("n", "<CR>", [[:noh<CR>]], map_opts)
+map("n", "<cr>", [[:noh<cr>]], map_opts)
 
 -- resize panes
 map("n", "<Right>", [[:vertical resize +5<cr>]], map_opts)
@@ -94,13 +94,13 @@ map("i", "kj", [[<Esc>]], map_opts)
 -- map('n', '<c-l>', [[viwl<Esc>]], map_opts)
 
 -- repeat `n.` after editing the searched word
-map("n", "Q", [[@='n.'<CR>]], map_opts)
+map("n", "Q", [[@='n.'<cr>]], map_opts)
 
 -- NOTE: terminal mappings
 -- turn terminal to normal mode with escape
 map("t", "<Esc>", [[<C-\><C-n>]], map_opts)
 map("t", "<<C-[><C-[>>", [[<C-\><C-n>]], map_opts)
-map("t", "<C-d>", [[<C-\><C-n>:q!<CR>]], map_opts)
+map("t", "<C-d>", [[<C-\><C-n>:q!<cr>]], map_opts)
 map("t", "<M-[>", [[<Esc>]], map_opts)
 map("t", "<C-v><Esc>", [[<Esc>]], map_opts)
 -- Terminal mode:
@@ -128,21 +128,21 @@ map("t", "<expr>", [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], map_opts)
 
 -- NOTE: Transpose characters xp {{{
 -- picked from http://vimcasts.org/episodes/creating-repeatable-mappings-with-repeat-vim/
-map("n", "<Plug>TransposeCharacters xp", [[:call repeat#set("\<Plug>TransposeCharacters")<CR>]], map_opts)
+map("n", "<Plug>TransposeCharacters xp", [[:call repeat#set("\<Plug>TransposeCharacters")<cr>]], map_opts)
 map("n", "cp", [[<Plug>TransposeCharacters]])
 
 -- }}}
 
 -- incsearch
--- map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<CR>]], map_opts)
+-- map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<cr>]], map_opts)
 
 -- NOTE: folds mappings
--- if there is a fold under cursor open it by pressing <CR> otherwise do
--- what <CR> does
-map("n", "<CR>", [[@=(foldlevel('.')?'za':"\<Space>")<CR>]], map_opts)
--- create folds using visual select and then press <CR>
-map("v", "<CR>", [[zf]], map_opts)
+-- if there is a fold under cursor open it by pressing <cr> otherwise do
+-- what <cr> does
+map("n", "<cr>", [[@=(foldlevel('.')?'za':"\<Space>")<cr>]], map_opts)
+-- create folds using visual select and then press <cr>
+map("v", "<cr>", [[zf]], map_opts)
 
 -- Complextras.nvim configuration
-map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<CR>]], map_opts)
-map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<CR>]], map_opts)
+map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
+map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)
