@@ -1,7 +1,6 @@
 --------------------------------------------------------------------------------
 -- NOTE: plugins setup {{{
 --------------------------------------------------------------------------------
-
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -1006,8 +1005,8 @@ require("packer").startup({
     ----------------------------------------------------------------------------
   end,
   config = {
+    compile_path = PACKER_COMPILED_PATH,
     display = {
-      compile_path = PACKER_COMPILED_PATH,
       prompt_border = "rounded",
       open_fn = function()
         return require("packer.util").float({ border = "single" })
