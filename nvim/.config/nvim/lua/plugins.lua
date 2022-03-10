@@ -424,11 +424,15 @@ require("packer").startup({
     })
 
     -- remove trailing whitespace and lines
-    use("McAuleyPenney/tidy.nvim")
+    use({
+      "McAuleyPenney/tidy.nvim",
+      event = { "BufWritePre" },
+    })
 
     -- nice fold text
     use({
       "scr1pt0r/crease.vim",
+      event = { "BufEnter" },
       config = load_config("lk/plugins/crease"),
     })
 
@@ -895,49 +899,13 @@ require("packer").startup({
     ------------------------------------------------------------------------
 
     -- debugger attach protocol
-    use({
-      "rcarriga/nvim-dap-ui",
-      config = load_config("lk/plugins/dap"),
-      requires = "mfussenegger/nvim-dap",
-    })
+    -- use({
+    --   "rcarriga/nvim-dap-ui",
+    --   config = load_config("lk/plugins/dap"),
+    --   requires = "mfussenegger/nvim-dap",
+    -- })
     -- }}}
     ------------------------------------------------------------------------
-
-    ----------------------------------------------------------------------------
-    -- NOTE: NOT USING {{{
-    ----------------------------------------------------------------------------
-    -- -- NOTE: disturbing Telescope UI
-    -- -- auto focus and resizing
-    -- use {
-    --   'beauwilliams/focus.nvim',
-    --   config = function()
-    --     require('focus').setup()
-    --   end,
-    -- }
-    --
-    -- -- stabilize windows
-    -- use {
-    --   'luukvbaal/stabilize.nvim',
-    --   config = function()
-    --     require('stabilize').setup()
-    --   end,
-    -- }
-    --
-    --
-    -- -- Search, Replace and Jump
-    -- use {
-    --   'ray-x/sad.nvim',
-    --   requires = { 'ray-x/guihua.lua' },
-    --   config = function()
-    --     require('sad').setup({
-    --       diff = 'delta', -- you can use `diff`, `diff-so-fancy`
-    --       ls_file = 'fd', -- also git ls_file
-    --       exact = false, -- exact match
-    --     })
-    --   end,
-    -- }
-    -- }}}
-    ----------------------------------------------------------------------------
   end,
   config = {
     compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
