@@ -41,16 +41,23 @@ cmp.setup({
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    }),
+    -- ["<CR>"] = cmp.mapping.confirm({
+    --   behavior = cmp.ConfirmBehavior.Insert,
+    --   select = true,
+    -- }),
+    ["<CR>"] = cmp.mapping(
+      cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
+      { "i", "c" }
+    ),
   },
   sources = cmp.config.sources({
     { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "ultisnips" },
+    { name = "luasnip" },
     { name = "orgmode" },
     { name = "path" },
   }, {
@@ -78,9 +85,15 @@ cmp.setup({
       cmp.config.compare.order,
     },
   },
+  -- snippet = {
+  --   expand = function(args)
+  --     vim.fn["UltiSnips#Anon"](args.body)
+  --   end,
+  -- },
+
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   formatting = {
@@ -101,7 +114,8 @@ cmp.setup({
         path = "[PATH]",
         spell = "[SPELL]",
         treesitter = "[TREESITTER]",
-        ultisnips = "[SNIP]",
+        -- ultisnips = "[SNIP]",
+        luasnip = "[SNIP]",
       },
     }),
   },
