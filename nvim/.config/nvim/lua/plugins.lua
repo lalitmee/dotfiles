@@ -1,15 +1,6 @@
 --------------------------------------------------------------------------------
 -- NOTE: plugins setup {{{
 --------------------------------------------------------------------------------
-local utils = require("lk/utils/plugins")
-
-----------------------------------------------------------------------
--- NOTE: bootstrap packer {{{
-----------------------------------------------------------------------
-utils.bootstrap_packer()
--- }}}
-----------------------------------------------------------------------
-
 -- cfilter plugin allows filter down an existing quickfix list
 vim.cmd("packadd! cfilter")
 
@@ -26,7 +17,7 @@ require("packer").startup({
     --------------------------------------------------------------------------------
     -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
-    use({ "wbthomason/packer.nvim", opt = true })
+    use({ "wbthomason/packer.nvim" })
     use("lewis6991/impatient.nvim")
 
     -- fast filetype detection
