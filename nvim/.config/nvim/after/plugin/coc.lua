@@ -5,24 +5,9 @@ local omap = lk.omap
 local xmap = lk.xmap
 local command = lk.command
 
-function _G.__coc_apply_highlights()
-  local highlight = require("lk.highlights").all
-  highlight({
-    { "CocErrorHighlight", { guisp = "#E06C75", gui = "undercurl" } },
-    { "CocWarningHighlight", { guisp = "orange", gui = "undercurl" } },
-    { "CocInfoHighlight", { guisp = "orange", gui = "undercurl" } },
-    -- { 'CocHighlightText', { gui = 'underline' } },
-    { "CocHintHighlight", { guisp = "#15aabf", gui = "undercurl" } },
-    { "CocOutlineIndentLine", { link = "LineNr" } },
-    -- By default this links to CocHintSign but that keeps getting cleared mysteriously
-    { "CocRustChainingHint", { guifg = "#15aabf" } },
-  })
-end
-
--- vim.g.coc_config_home = '~/Desktop/Github/dotfiles/editors/nvim/coc-settings.json'
-
--- Extensions {{{
-
+--------------------------------------------------------------------------------
+-- NOTE: Extensions {{{
+--------------------------------------------------------------------------------
 vim.g.coc_global_extensions = {
   "coc-actions",
   "coc-angular",
@@ -81,7 +66,9 @@ vim.g.coc_fzf_preview = "right:60%"
 -- }}}
 ----------------------------------------------------------------------
 
--- CoC Mappings {{{
+----------------------------------------------------------------------
+-- NOTE: coc mappings {{{
+----------------------------------------------------------------------
 
 -- Use tab for trigger completion with characters ahead and navigate.
 -- Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -224,11 +211,6 @@ lk.augroup("coc_autocommands", {
     command = function()
       vim.b.coc_suggest_disable = 1
     end,
-  },
-  {
-    events = { "VimEnter", "ColorScheme" },
-    targets = { "*" },
-    command = "lua __coc_apply_highlights()",
   },
   {
     events = { "FileType" },
