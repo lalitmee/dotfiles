@@ -418,9 +418,7 @@ require("packer").startup({
     -- navigate and splits
     use({
       "numToStr/Navigator.nvim",
-      config = function()
-        require("Navigator").setup()
-      end,
+      config = load_config("lk/plugins/navigator"),
     })
 
     -- remove trailing whitespace and lines
