@@ -1,3 +1,4 @@
+local colors = require("cobalt2.palette")
 local highlight = require("lk.highlights")
 
 -- Trigger a highlight in the appropriate direction when pressing these keys:
@@ -10,10 +11,18 @@ vim.g.qs_lazy_highlight = 1
 highlight.all({
   {
     "QuickScopePrimary",
-    { guifg = "#FF0000", ctermfg = 155, cterm = "underline" },
+    {
+      guifg = colors.red,
+      ctermfg = 155,
+      cterm = "underline",
+    },
   },
   {
     "QuickScopeSecondary",
-    { guifg = "#afff5f", ctermfg = 81, cterm = "underline" },
+    {
+      guifg = colors.pink,
+      ctermfg = 81,
+      cterm = "underline",
+    },
   },
 })
