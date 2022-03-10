@@ -51,7 +51,11 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: icons {{{
     ----------------------------------------------------------------------------
-    use({ "yamatsum/nvim-nonicons", requires = { "kyazdani42/nvim-web-devicons" } })
+    use({
+      "yamatsum/nvim-nonicons",
+      requires = { "kyazdani42/nvim-web-devicons" },
+    })
+
     -- }}}
     ----------------------------------------------------------------------------
 
