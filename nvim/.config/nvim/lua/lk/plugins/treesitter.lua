@@ -80,25 +80,6 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "[v",
     },
   },
-  refactor = {
-    highlight_definitions = { enable = true },
-    highlight_current_scope = { enable = false },
-    navigation = {
-      enable = true,
-      keymaps = {
-        goto_definition = "<localleader>td",
-        list_definitions = "<localleader>tl",
-        goto_definition_lsp_fallback = "<localleader>tD",
-        list_definitions_toc = "<localleader>to",
-        goto_next_usage = "<localleader>tn",
-        goto_previous_usage = "<localleader>tp",
-      },
-    },
-    smart_rename = {
-      enable = true,
-      keymaps = { smart_rename = "<localleader>tr" },
-    },
-  },
   textobjects = {
     lookahead = true,
     select = {
@@ -141,13 +122,6 @@ require("nvim-treesitter.configs").setup({
         ["df"] = "@function.outer",
         ["dF"] = "@class.outer",
       },
-    },
-  },
-  textsubjects = {
-    enable = true,
-    keymaps = {
-      ["."] = "textsubjects-smart",
-      [";"] = "textsubjects-container-outer",
     },
   },
 })
