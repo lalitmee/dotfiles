@@ -736,8 +736,6 @@ require("packer").startup({
     -- NOTE: BROWSER {{{
     ------------------------------------------------------------------------
     -- sql nvim database for frecency
-    use("tami5/sqlite.lua")
-    use("tami5/sql.nvim")
     use({ "tyru/open-browser.vim" })
     -- }}}
     ------------------------------------------------------------------------
