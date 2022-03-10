@@ -7,12 +7,12 @@ local oslib = require("lk/utils/oslib")
 
 local lspconfig_util = require("lspconfig.util")
 
-require("lk/plugins/nvim_lsp/commands")
-require("lk/plugins/nvim_lsp/handlers")
-require("lk/plugins/nvim_lsp/servers/gopls")
+require("lk/lsp/commands")
+require("lk/lsp/handlers")
+require("lk/lsp/servers/gopls")
 
-local autocommands = require("lk/plugins/nvim_lsp/autocommands")
-local status = require("lk/plugins/nvim_lsp/status")
+local autocommands = require("lk/lsp/autocommands")
+local status = require("lk/lsp/status")
 
 status.activate()
 

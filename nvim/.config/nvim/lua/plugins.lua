@@ -4,11 +4,6 @@
 -- cfilter plugin allows filter down an existing quickfix list
 vim.cmd("packadd! cfilter")
 
--- load config
-local function load_config(path)
-  require(path)
-end
-
 --------------------------------------------------------------------------------
 -- NOTE: packer startup {{{
 --------------------------------------------------------------------------------
