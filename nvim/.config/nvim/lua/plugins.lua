@@ -735,12 +735,6 @@ require("packer").startup({
         { "nvim-lua/lsp-status.nvim" },
         { "tjdevries/lsp_extensions.nvim" },
         { "folke/lsp-colors.nvim" },
-        {
-          "folke/trouble.nvim",
-          config = function()
-            require("trouble").setup({})
-          end,
-        },
         { "folke/lua-dev.nvim" },
       },
     })

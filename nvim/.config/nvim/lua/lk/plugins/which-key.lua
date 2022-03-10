@@ -389,7 +389,6 @@ local leader_key_maps = {
       ["name"] = "+todo-comments",
       ["q"] = { ":TodoQuickFix<CR>", "todos-quickfix" },
       ["t"] = { ":TodoTelescope<CR>", "todos-telescope" },
-      ["b"] = { ":TodoTrouble<CR>", "todos-trouble" },
     },
   },
   -- }}}
@@ -912,17 +911,6 @@ local leader_key_maps = {
       ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },
       ["h"] = { ":set scrolloff=5<CR>", "scrolloff=5" },
       ["n"] = { ":set scrolloff=999<CR>", "scrolloff=999" },
-    },
-    ["t"] = {
-      ["name"] = "+trouble",
-      ["d"] = { ":TroubleToggle lsp_definitions<CR>", "lsp-definitions" },
-      ["e"] = { ":TroubleToggle document_diagnostics<CR>", "document-diagnostics" },
-      ["E"] = { ":TroubleToggle workspace_diagnostics<CR>", "workspace-diagnostics" },
-      ["i"] = { ":TroubleToggle lsp_implementations<CR>", "lsp-implementations" },
-      ["l"] = { ":TroubleToggle loclist<CR>", "loclist" },
-      ["q"] = { ":TroubleToggle quickfix<CR>", "quickfix" },
-      ["r"] = { ":TroubleToggle lsp_references<CR>", "lsp-references" },
-      ["t"] = { ":TroubleToggle telescope<CR>", "telescope" },
     },
     ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
     ["n"] = {
