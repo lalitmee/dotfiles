@@ -757,9 +757,7 @@ require("packer").startup({
       run = ":TSUpdate",
       config = load_config("lk/plugins/treesitter"),
       requires = {
-        { "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter" },
         { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
-        { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" },
         { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle", after = "nvim-treesitter" },
         { "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
         { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
