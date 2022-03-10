@@ -46,6 +46,7 @@ lualine.setup({
       { "filetype", icon_only = true },
       { "filename", path = 1 },
       { "diff" },
+      { "LspStatus" },
     },
     lualine_x = {
       {

@@ -742,15 +742,6 @@ require("packer").startup({
           end,
         },
         { "folke/lua-dev.nvim" },
-        {
-          "j-hui/fidget.nvim",
-          config = function()
-            require("fidget").setup({
-              text = { spinner = "bouncing_bar" },
-              window = { winblend = 0 },
-            })
-          end,
-        },
       },
     })
     -- }}}
