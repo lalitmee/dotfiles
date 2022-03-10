@@ -184,34 +184,6 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: d is for dap {{{
-  ----------------------------------------------------------------------
-  ["d"] = {
-    ["name"] = "+dap",
-    ["?"] = { [[<cmd>lua require'dap.ui.variables'.scopes()<CR>]], "scopes" },
-    ["c"] = { [[<cmd>lua require'dap'.continue()<CR>]], "continue" },
-    ["o"] = { [[<cmd>lua require'dap'.step_over()<CR>]], "step-over" },
-    ["i"] = { [[<cmd>lua require'dap'.step_into()<CR>]], "step-into" },
-    ["e"] = { [[<cmd>lua require'dap'.step_out()<CR>]], "step-out" },
-    ["b"] = {
-      [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],
-      "toggle-breakpoint",
-    },
-    ["B"] = {
-      [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]],
-      "set-breakpoint-condition",
-    },
-    ["l"] = {
-      [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]],
-      "set-breakpoint-log-message",
-    },
-    ["r"] = { [[<cmd>lua require'dap'.repl.open()<CR>]], "open-repl" },
-    ["R"] = { [[<cmd>lua require'dap'.repl.run_last()<CR>]], "repl-run-last" },
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
   -- NOTE: e is for error/warnings using lspconfig {{{
   ----------------------------------------------------------------------
   ["e"] = {
@@ -403,7 +375,6 @@ local leader_key_maps = {
     ["p"] = { ":TmuxinatorProjects<CR>", "tmuxnator-projects" },
     ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
     ["w"] = { ":Telescope tmux windows<CR>", "windows" },
-    ["W"] = { ":Telescope windowizer<CR>", "windowizer" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -651,17 +622,8 @@ local leader_key_maps = {
       ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "buffer-lines" },
       ["o"] = "buffer-lines-dropdown-theme",
       ["r"] = { ":Telescope lsp_references<CR>", "references" },
-      ["s"] = { ":Telescope scratch<CR>", "scratch-buffer" },
       ["p"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
       ["t"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
-    },
-    ["d"] = {
-      ["name"] = "+dap",
-      ["b"] = { ":Telescope dap lsp_breakpoints<CR>", "lsp-breakpoints" },
-      ["c"] = { ":Telescope dap configurations<CR>", "configurations" },
-      ["f"] = { ":Telescope dap frames<CR>", "frames" },
-      ["o"] = { ":Telescope dap commands<CR>", "commands" },
-      ["v"] = { ":Telescope dap variables<CR>", "variables" },
     },
     ["e"] = { ":Telescope emoji search<CR>", "emoji-search" },
     ["f"] = {
@@ -1014,17 +976,6 @@ local local_leader_key_maps = {
   ["7"] = { ":HarpoonGoToFile7<CR>", "goto-file-7" },
   ["8"] = { ":HarpoonGoToFile8<CR>", "goto-file-8" },
   ["9"] = { ":HarpoonGoToFile9<CR>", "goto-file-9" },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
-  -- NOTE: telescope arglist {{{
-  ----------------------------------------------------------------------
-  ["a"] = {
-    ["name"] = "+arglist",
-    ["g"] = { ":Telescope arglist global<CR>", "global" },
-    ["w"] = { ":Telescope arglist window<CR>", "window" },
-  },
   -- }}}
   ----------------------------------------------------------------------
 

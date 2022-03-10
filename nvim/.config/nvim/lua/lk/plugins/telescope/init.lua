@@ -171,7 +171,6 @@ telescope.setup({
         line_hl = { "CursorLine", "Normal" },
       },
     },
-    windowizer = { find_cmd = "rg" },
     media_files = { find_cmd = "rg" },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({
@@ -243,12 +242,6 @@ telescope.setup({
         ["vimawesome"] = "https://vimawesome.com/?q={query}",
         ["google"] = "https://www.google.com/search?q={query}",
       },
-    },
-    arecibo = {
-      ["selected_engine"] = "google",
-      ["url_open_command"] = "xdg-open",
-      ["show_http_headers"] = false,
-      ["show_domain_icons"] = false,
     },
     project = {
       base_dirs = {
