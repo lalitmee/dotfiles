@@ -708,10 +708,6 @@ require("packer").startup({
           },
         },
         {
-          "simrat39/symbols-outline.nvim",
-          cmd = { "SymbolsOutline", "SymbolsOutlineClose", "SymbolsOutlineOpen" },
-        },
-        {
           "narutoxy/dim.lua",
           after = "nvim-lspconfig",
           config = function()
