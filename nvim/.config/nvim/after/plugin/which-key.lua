@@ -45,6 +45,7 @@ local leader_key_maps = {
     ["m"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
     ["g"] = { ":Glow<CR>", "markdown-glow" },
     ["r"] = { ":NvimTreeRefresh<CR>", "nvim-tree-refresh" },
+    ["s"] = { ":StartupTime<CR>", "run-startup-time" },
   },
   -- }}}
   ----------------------------------------------------------------------
