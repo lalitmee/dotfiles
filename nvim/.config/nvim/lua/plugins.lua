@@ -166,46 +166,9 @@ require("packer").startup({
         })
       end,
     })
-    --regex explainer
-    use({
-      "bennypowers/nvim-regexplainer",
-      config = function()
-        require("regexplainer").setup()
-      end,
-      requires = {
-        "MunifTanjim/nui.nvim",
-      },
-    })
-
-    -- beautiful code snippets from neovim
-    use({
-      "kristijanhusak/vim-carbon-now-sh",
-      cmd = "CarbonNowSh",
-      config = function()
-        vim.g.carbon_now_sh_options = { fm = "MonoLisa" }
-      end,
-    })
-
-    -- packages info
-    use({
-      "vuki656/package-info.nvim",
-      requires = "MunifTanjim/nui.nvim",
-      config = function()
-        require("package-info").setup()
-      end,
-    })
 
     -- wakatime for vim
     use("wakatime/vim-wakatime")
-
-    -- prevent select and visual mode from overwriting the clipboard
-    use({
-      "kevinhwang91/nvim-hclipboard",
-      event = "InsertCharPre",
-      config = function()
-        require("hclipboard").start()
-      end,
-    })
 
     -- better increment
     use({ "monaqa/dial.nvim" })
@@ -218,17 +181,6 @@ require("packer").startup({
 
     -- interactively swap so many things
     use("mizlan/iswap.nvim")
-
-    -- scratch buffer in neovim like emacs
-    use({
-      "shift-d/scratch.nvim",
-      config = function()
-        require("telescope").load_extension("scratch")
-      end,
-    })
-
-    -- registers
-    use({ "tversteeg/registers.nvim" })
 
     -- toggle, display and navigate marks
     use({
@@ -257,14 +209,6 @@ require("packer").startup({
       end,
     })
 
-    -- post contents online like pastebin
-    use({
-      "rktjmp/paperplanes.nvim",
-      config = function()
-        require("paperplanes").setup({ register = "+", provider = "dpaste.org" })
-      end,
-    })
-
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
@@ -274,8 +218,6 @@ require("packer").startup({
     -- Search and replace plugins
     use("windwp/nvim-spectre")
     use("nelstrom/vim-visual-star-search")
-    use("junegunn/vim-fnr")
-    use("junegunn/vim-pseudocl")
 
     -- display search matches
     use({
@@ -283,12 +225,7 @@ require("packer").startup({
       config = load_config("lk/plugins/hlslens"),
     })
     use({ "haya14busa/incsearch.vim" })
-    use({
-      "romainl/vim-cool",
-      config = function()
-        vim.g.CoolTotalMatches = 1
-      end,
-    })
+    use({ "romainl/vim-cool" })
 
     -- search lines using numbers
     use({
@@ -332,13 +269,6 @@ require("packer").startup({
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("harpoon")
-          end,
-        },
-        {
-          "nvim-telescope/telescope-dap.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("dap")
           end,
         },
         {
@@ -406,20 +336,6 @@ require("packer").startup({
             require("telescope").load_extension("tmux")
           end,
         }, -- tmux support
-        {
-          "jgvw/telescope-arglist.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("arglist")
-          end,
-        }, -- arglist in telescope
-        {
-          "wesleimp/telescope-windowizer.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("windowizer")
-          end,
-        },
         {
           "danielpieper/telescope-tmuxinator.nvim",
           after = "telescope.nvim",
