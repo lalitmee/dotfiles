@@ -18,7 +18,7 @@ require("packer").startup({
     -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
     use({ "wbthomason/packer.nvim" })
-    use("lewis6991/impatient.nvim")
+    use({ "lewis6991/impatient.nvim" })
 
     -- fast filetype detection
     use({ "nathom/filetype.nvim" })
@@ -41,12 +41,9 @@ require("packer").startup({
     use({
       "rcarriga/nvim-notify",
       config = function()
-        if vim.g.packer_compiled_loaded then
-          return
-        end
         require("notify").setup({
           stages = "static",
-          timeout = 2000,
+          timeout = 3000,
           icons = {
             ERROR = lk.style.icons.error,
             WARN = lk.style.icons.warn,
@@ -98,9 +95,6 @@ require("packer").startup({
     use({
       "folke/todo-comments.nvim",
       config = function()
-        if vim.g.packer_compiled_loaded then
-          return
-        end
         require("todo-comments").setup({})
       end,
     })
@@ -959,6 +953,7 @@ require("packer").startup({
     },
   },
 })
+
 -- }}}
 --------------------------------------------------------------------------------
 -- }}}
