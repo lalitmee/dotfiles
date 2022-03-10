@@ -39,19 +39,6 @@ require("nvim-treesitter.configs").setup({
   },
   autotag = { enable = true },
   indent = { enable = true },
-  rainbow = {
-    enable = true,
-    disable = { "lua", "json", "html" },
-    colors = {
-      "royalblue3",
-      "darkorange3",
-      "seagreen3",
-      "firebrick",
-      "darkorchid3",
-    },
-    extended_mode = true,
-    max_file_lines = 4000,
-  },
   autopairs = { enable = true },
   playground = { enable = true, updatetime = 25, persist_queries = false },
   context_commentstring = {
