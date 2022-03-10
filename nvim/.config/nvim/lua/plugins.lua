@@ -15,8 +15,8 @@ require("packer").startup({
     use({ "wbthomason/packer.nvim" })
     use({ "lewis6991/impatient.nvim" })
 
-    -- fast filetype detection
-    use({ "nathom/filetype.nvim" })
+    -- -- fast filetype detection
+    -- use({ "nathom/filetype.nvim" })
 
     -- Profile startup time
     use({
@@ -432,7 +432,14 @@ require("packer").startup({
     -- NOTE: Snippets {{{
     ------------------------------------------------------------------------
     -- -- snippets engine
-    use({ "SirVer/ultisnips", requires = { "honza/vim-snippets" } })
+    -- use({
+    --   "SirVer/ultisnips",
+    --   requires = { "honza/vim-snippets" },
+    -- })
+    use({
+      "L3MON4D3/LuaSnip",
+      requires = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
+    })
     -- }}}
     ------------------------------------------------------------------------
 
@@ -487,7 +494,8 @@ require("packer").startup({
             { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
-            { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
+            -- { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
+            { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
           },
         },
