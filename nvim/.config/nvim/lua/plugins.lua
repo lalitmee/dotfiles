@@ -643,6 +643,7 @@ require("packer").startup({
         { "onsails/diaglist.nvim" },
         { "williamboman/nvim-lsp-installer" },
         { "nvim-lua/lsp-status.nvim" },
+        { "arkav/lualine-lsp-progress" },
         { "tjdevries/lsp_extensions.nvim" },
         { "folke/lsp-colors.nvim" },
         { "folke/lua-dev.nvim" },
