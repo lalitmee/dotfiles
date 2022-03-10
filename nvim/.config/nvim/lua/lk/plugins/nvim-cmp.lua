@@ -53,8 +53,6 @@ cmp.setup({
     { name = "ultisnips" },
     { name = "orgmode" },
     { name = "path" },
-    { name = "spell" },
-    { name = "emoji" },
   }, {
     { name = "buffer" },
   }),
