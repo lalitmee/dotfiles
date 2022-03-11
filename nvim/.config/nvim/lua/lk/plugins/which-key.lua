@@ -796,10 +796,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["S"] = {
     ["name"] = "+sessions",
-    ["c"] = { ":SClose<CR>", "close-session" },
-    ["d"] = { ":SDelete<CR>", "delete-session" },
-    ["l"] = { ":SLoad<CR>", "load-session" },
-    ["s"] = { ":SSave<CR>", "save-session" },
+    ["l"] = { ":SearchSession<CR>", "search-sessions" },
   },
   -- }}}
   ----------------------------------------------------------------------
