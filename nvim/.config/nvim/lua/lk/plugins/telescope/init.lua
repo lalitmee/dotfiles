@@ -173,37 +173,25 @@ telescope.setup({
   extensions = {
     extensions = {
       hop = {
-        sign_hl = { "WarningMsg", "Title" },
-        line_hl = { "CursorLine", "Normal" },
+        sign_hl = { "Title" },
+        line_hl = { "CursorLine" },
       },
     },
     media_files = { find_cmd = "rg" },
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown({
-        -- even more opts
-      }),
+      require("telescope.themes").get_dropdown({}),
     },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { "*.git/*", "*/node_modules/*" },
       workspaces = {
         ["nvim"] = "/home/lalitmee/.config/nvim/plugged",
-        ["dotf"] = "/home/lalitmee/Desktop/Github/dotfiles",
+        ["dotf"] = "/home/lalitmee/dotfiles",
         ["work"] = "/home/lalitmee/Desktop/koinearth",
         ["git"] = "/home/lalitmee/Desktop/Github",
         ["conf"] = "/home/lalitmee/.config",
         ["data"] = "/home/lalitmee/.local/share",
       },
-    },
-    openbrowser = {
-      bookmarks = {
-        ["lualine"] = "https://github.com/hoob3rt/lualine.nvim",
-        ["neovim"] = "https://github.com/neovim/neovim",
-        ["neovim-discource"] = "https://neovim.discourse.group/",
-        ["nvim-telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
-        ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
-      },
-      bookmark_filepath = "~/config/nvim/telescope_openbrowser_bookamarks",
     },
     project = {
       base_dirs = {
