@@ -96,10 +96,6 @@ augroup("AddTerminalMappings", {
         tnoremap("<C-j>", [[<C-\><C-n><C-W>j]], opts)
         tnoremap("<C-k>", [[<C-\><C-n><C-W>k]], opts)
         tnoremap("<C-l>", [[<C-\><C-n><C-W>l]], opts)
-        tnoremap("]t", [[<C-\><C-n>:tablast<CR>]])
-        tnoremap("[t", [[<C-\><C-n>:tabnext<CR>]])
-        tnoremap("<S-Tab>", [[<C-\><C-n>:bprev<CR>]])
-        tnoremap("<leader><Tab>", [[<C-\><C-n>:close \| :bnext<cr>]])
       end
       vim.cmd([[startinsert]])
     end,
