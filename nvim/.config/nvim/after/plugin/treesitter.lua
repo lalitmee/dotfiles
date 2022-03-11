@@ -9,25 +9,6 @@ parser_config.org = {
   filetype = "org",
 }
 
--- NOTE: norg setup
--- These two are optional and provide syntax highlighting
--- for Neorg tables and the @document.meta tag
-parser_config.norg_meta = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-    files = { "src/parser.c" },
-    branch = "main",
-  },
-}
-
-parser_config.norg_table = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-    files = { "src/parser.c" },
-    branch = "main",
-  },
-}
-
 require("orgmode").setup_ts_grammar()
 
 require("nvim-treesitter.configs").setup({
@@ -39,7 +20,6 @@ require("nvim-treesitter.configs").setup({
   },
   autotag = { enable = true },
   indent = { enable = true },
-  autopairs = { enable = true },
   playground = { enable = true, updatetime = 25, persist_queries = false },
   context_commentstring = {
     enable = true,
