@@ -1,3 +1,6 @@
+----------------------------------------------------------------------
+-- NOTE: prettier {{{
+----------------------------------------------------------------------
 local prettier = function()
   return {
     exe = "prettier",
@@ -10,11 +13,21 @@ local prettier = function()
     stdin = true,
   }
 end
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: rustfmt {{{
+----------------------------------------------------------------------
 local rustfmt = function()
   return { exe = "rustfmt", args = { "--emit=stdout" }, stdin = true }
 end
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: styluafmt {{{
+----------------------------------------------------------------------
 local styluafmt = function()
   return {
     exe = "stylua",
@@ -25,7 +38,12 @@ local styluafmt = function()
     stdin = true,
   }
 end
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: formatter setup {{{
+----------------------------------------------------------------------
 require("formatter").setup({
   filetype = {
     javascript = { prettier },
@@ -46,41 +64,7 @@ require("formatter").setup({
     lua = { styluafmt },
   },
 })
+-- }}}
+----------------------------------------------------------------------
 
-vim.api.nvim_exec(
-  [[
-      augroup Format
-          autocmd!
-          autocmd BufWritePost *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.rs, *.lua FormatWrite
-      augroup END
-  ]],
-  true
-)
-
--- lk.augroup("FormatterAutoCmd", {
---   {
---     event = "BufWritePre",
---     buffer = 0,
---     pattern = {
---       "*.js",
---       "*.jsx",
---       "*.mjs",
---       "*.ts",
---       "*.tsx",
---       "*.css",
---       "*.less",
---       "*.scss",
---       "*.json",
---       "*.graphql",
---       "*.md",
---       "*.vue",
---       "*.yaml",
---       "*.html",
---       "*.rs",
---       "*.lua",
---     },
---     command = function()
---       vim.cmd [[FormatWrite]]
---     end,
---   },
--- })
+-- vim:foldmethod=marker
