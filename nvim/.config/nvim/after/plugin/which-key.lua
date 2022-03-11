@@ -673,7 +673,6 @@ local leader_key_maps = {
     ["o"] = {
       ["name"] = "+open",
       ["o"] = { ":Telescope openbrowser list<CR>", "openbrowser" },
-      ["b"] = { ":Telescope bookmarks<CR>", "bookmarks" },
     },
     ["s"] = {
       ["name"] = "+search",
