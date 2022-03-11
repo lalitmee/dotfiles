@@ -390,22 +390,6 @@ require("packer").startup({
     -- table like in org mode in emacs
     use({ "dhruvasagar/vim-table-mode" })
 
-    -- norg for notes and tasks
-    use({
-      "nvim-neorg/neorg",
-      config = function()
-        require("neorg").setup({
-          ["core.norg.dirman"] = {
-            config = {
-              workspaces = {
-                work = "~/Desktop/Github/Notes/neorg",
-              },
-            },
-          },
-        })
-      end,
-    })
-
     use({
       "nvim-orgmode/orgmode.nvim",
       requires = {
