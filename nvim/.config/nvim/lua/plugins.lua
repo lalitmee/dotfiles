@@ -77,10 +77,16 @@ require("packer").startup({
       config = [[require('lk/plugins/which-key')]],
     })
 
-    -- home screen
+    -- session management
     use({
-      "mhinz/vim-startify",
-      config = [[require('lk/plugins/startify')]],
+      "rmagatti/session-lens",
+      after = { "telescope.nvim", "auto-session" },
+      cmd = { "SearchSession" },
+      requires = {
+        "rmagatti/auto-session",
+        config = [[require('lk/plugins/auto-session')]],
+      },
+      config = [[require('lk/plugins/session-lens')]],
     })
 
     -- Colorizer for showing the colors
