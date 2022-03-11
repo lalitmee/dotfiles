@@ -286,13 +286,6 @@ require("packer").startup({
           end,
         },
         {
-          "tamago324/telescope-openbrowser.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("openbrowser")
-          end,
-        },
-        {
           "xiyaowong/telescope-emoji.nvim",
           after = "telescope.nvim",
           config = function()
@@ -831,17 +824,6 @@ require("packer").startup({
     use({
       "akinsho/nvim-toggleterm.lua",
       config = [[require('lk/plugins/toggleterm')]],
-    })
-    -- }}}
-    ------------------------------------------------------------------------
-
-    ------------------------------------------------------------------------
-    -- NOTE: BROWSER {{{
-    ------------------------------------------------------------------------
-    -- sql nvim database for frecency
-    use({
-      "tyru/open-browser.vim",
-      config = [[require('lk/plugins/open-browser')]],
     })
     -- }}}
     ------------------------------------------------------------------------
