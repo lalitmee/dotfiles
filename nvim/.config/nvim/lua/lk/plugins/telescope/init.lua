@@ -7,7 +7,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: telescope mappings {{{
 ----------------------------------------------------------------------
-require("lk/telescope/mappings")
+require("lk/plugins/telescope/mappings")
 -- }}}
 ----------------------------------------------------------------------
 
@@ -95,8 +95,14 @@ telescope.setup({
       { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     },
-    file_ignore_patterns = { "%.otf", "%.ttf", "%.DS_Store" },
-
+    file_ignore_patterns = {
+      "%.otf",
+      "%.ttf",
+      "%.DS_Store",
+      "%.git",
+      "build",
+      "node_modules",
+    },
     layout_config = {
       width = 0.90,
       height = 0.90,
@@ -167,80 +173,24 @@ telescope.setup({
   extensions = {
     extensions = {
       hop = {
-        sign_hl = { "WarningMsg", "Title" },
-        line_hl = { "CursorLine", "Normal" },
+        sign_hl = { "Title" },
+        line_hl = { "CursorLine" },
       },
     },
     media_files = { find_cmd = "rg" },
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown({
-        -- even more opts
-      }),
+      require("telescope.themes").get_dropdown({}),
     },
     frecency = {
       show_unindexed = true,
       ignore_patterns = { "*.git/*", "*/node_modules/*" },
       workspaces = {
         ["nvim"] = "/home/lalitmee/.config/nvim/plugged",
-        ["dotf"] = "/home/lalitmee/Desktop/Github/dotfiles",
+        ["dotf"] = "/home/lalitmee/dotfiles",
         ["work"] = "/home/lalitmee/Desktop/koinearth",
         ["git"] = "/home/lalitmee/Desktop/Github",
         ["conf"] = "/home/lalitmee/.config",
         ["data"] = "/home/lalitmee/.local/share",
-      },
-    },
-    bookmarks = {
-      -- Available: 'brave', 'google_chrome', 'safari', 'firefox', 'firefox_dev'
-      selected_browser = "brave",
-
-      -- Either provide a shell command to open the URL
-      url_open_command = "xdg-open",
-
-      -- Or provide the plugin name which is already installed
-      -- Available: 'vim_external', 'open_browser'
-      url_open_plugin = nil,
-      firefox_profile_name = nil,
-    },
-    openbrowser = {
-      bookmarks = {
-        -- work related bookmards
-        ["B2BOrdersWorkflowServer"] = "https://github.com/koinearth/B2BOrdersWorkflowServer",
-        ["dNotes"] = "https://github.com/lalitmee/dNotes",
-        ["dotfiles"] = "https://github.com/lalitmee/dotfiles",
-        ["marketsn-api-service"] = "https://github.com/koinearth/marketsn-api-service",
-        ["marketsn-pdf-service"] = "https://github.com/koinearth/marketsn-pdf-service",
-        ["marketsn-pwa-service"] = "https://github.com/koinearth/marketsn-pwa-service",
-        ["marketsn-webapp-service"] = "https://github.com/koinearth/marketsn-webapp-service-nextjs",
-        ["material-ui"] = "https://material-ui.com/",
-        ["material-ui-icons"] = "https://material-ui.com/components/material-icons/#material-icons",
-        ["my-pull-requests"] = "https://github.com/pulls",
-        ["wf-pwa-service"] = "https://github.com/koinearth/wf-pwa-service",
-        ["wf-webapp-service"] = "https://github.com/koinearth/wf-webapp-service",
-        ["google-meet-1"] = "https://meet.google.com/czd-juio-jvf",
-
-        -- neovim related bookmards
-        ["lualine"] = "https://github.com/hoob3rt/lualine.nvim",
-        ["neovim"] = "https://github.com/neovim/neovim",
-        ["neovim-discource"] = "https://neovim.discourse.group/",
-        ["nvim-telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
-        ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
-
-        -- general
-        ["clang_func_dict"] = "https://www.c-tipsref.com/cgi-bin/index.cgi?q={query}&b.x=0&b.y=0",
-        ["crates_io"] = "https://crates.io/search?q={query}",
-        ["devdocs"] = "https://devdocs.io/#q={query}",
-        ["duckduckgo"] = "https://duckduckgo.com/?q={query}",
-        ["github"] = "https://github.com/search?q={query}",
-        ["luaroks"] = "https://luarocks.org/search?q={query}",
-        ["mdnwebdocs"] = "https://developer.mozilla.org/ja/search?q={query}",
-        ["memo"] = "https://scrapbox.io/tamago324vim/search/page?q={query}",
-        ["neovim_patch"] = "https://github.com/neovim/neovim/issues?q=is%3Aopen+sort%3Aupdated-desc+{query}",
-        ["python"] = "https://docs.python.org/3/search.html?q={query}",
-        ["rust_doc_std"] = "https://doc.rust-lang.org/std/index.html?search={query}",
-        ["utf8_icons"] = "https://www.utf8icons.com/search?query={query}",
-        ["vim_commits"] = "https://github.com/vim/vim/search?q={query}&type=commits",
-        ["vimawesome"] = "https://vimawesome.com/?q={query}",
-        ["google"] = "https://www.google.com/search?q={query}",
       },
     },
     project = {

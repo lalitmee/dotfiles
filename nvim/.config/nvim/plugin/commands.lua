@@ -59,38 +59,12 @@ command({
   end,
 })
 
-----------------------------------------------------------------------
--- NOTE: memento commands {{{
-----------------------------------------------------------------------
-command({
-  "RecentBuffers",
-  function()
-    require("memento").toggle()
-  end,
-})
-
-command({
-  "ClearRecentBuffers",
-  function()
-    require("memento").clear_history()
-  end,
-})
--- }}}
-----------------------------------------------------------------------
-
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
-command({
-  "TelescopeLiveGrepRaw",
-  function()
-    require("telescope").extensions.live_grep_raw.live_grep_raw()
-  end,
-})
-
 command({
   "TelescopeNotifyHistory",
   function()

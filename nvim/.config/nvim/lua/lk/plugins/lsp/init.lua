@@ -7,12 +7,12 @@ local oslib = require("lk/utils/oslib")
 
 local lspconfig_util = require("lspconfig.util")
 
-require("lk/lsp/commands")
-require("lk/lsp/handlers")
-require("lk/lsp/servers/gopls")
+require("lk/plugins/lsp/commands")
+require("lk/plugins/lsp/handlers")
+require("lk/plugins/lsp/servers/gopls")
 
-local autocommands = require("lk/lsp/autocommands")
-local status = require("lk/lsp/status")
+local autocommands = require("lk/plugins/lsp/autocommands")
+local status = require("lk/plugins/lsp/status")
 
 status.activate()
 
