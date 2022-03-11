@@ -1,4 +1,4 @@
-local map = vim.keymap.set
+local map = lk.map
 local nnoremap = lk.nnoremap
 
 local map_opts = { noremap = true, silent = true }
