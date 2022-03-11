@@ -73,6 +73,7 @@ require("packer").startup({
 
     -- learn something new about vim by typing `:Random`
     use({ "mhinz/vim-randomtag" })
+
     -- Colorizer for showing the colors
     use({ "norcalli/nvim-colorizer.lua" })
 
@@ -167,6 +168,7 @@ require("packer").startup({
         },
         {
           "nvim-telescope/telescope-frecency.nvim",
+          requires = { "tami5/sqlite.lua" },
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("frecency")
