@@ -8,8 +8,6 @@ pcall(function()
   require("impatient").enable_profile()
 end)
 
-require("lk/profile")
-
 if require("lk/first_load")() then
   return
 end
@@ -32,17 +30,11 @@ require("plugins")
 -- globals
 require("lk/globals")
 
--- highlights
-require("lk/highlights")
-
--- colors
+-- colorscheme
 require("lk/colors")
 
--- lsp
-require("lk/lsp")
-
--- telescope
-require("lk/telescope")
+-- disable builtin
+require("lk/disable_builtin")
 -- }}}
 ----------------------------------------------------------------------
 

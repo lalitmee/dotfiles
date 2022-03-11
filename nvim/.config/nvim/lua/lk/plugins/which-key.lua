@@ -27,7 +27,7 @@ local leader_key_maps = {
     '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
     "find-files",
   },
-  ["/"] = { ":RG<CR>", "search-project" },
+  ["/"] = { ":Telescope live_grep<CR>", "search-project" },
   -- }}}
   ----------------------------------------------------------------------
 
@@ -718,35 +718,12 @@ local leader_key_maps = {
   ["p"] = {
     ["name"] = "+project",
     ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
-    ["f"] = {
-      '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
-      "find-files",
-    },
-    ["F"] = { ":Telescope find_files<CR>", "find-files" },
+    ["f"] = { ":Telescope find_files<cr>", "find-files" },
+    ["F"] = { ":Telescope old_files<CR>", "old-files" },
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-    ["m"] = {
-      ["name"] = "+node-modules",
-      ["c"] = {
-        ':lua require("package-info").change_version()<CR>',
-        "change-version",
-      },
-      ["d"] = { ':lua require("package-info").delete()<CR>', "delete-package" },
-      ["h"] = { ':lua require("package-info").hide()<CR>', "hide-status" },
-      ["i"] = { ':lua require("package-info").install()<CR>', "install-package" },
-      ["r"] = {
-        ':lua require("package-info").reinstall()<CR>',
-        "reinstall-dependencies",
-      },
-      ["s"] = { ':lua require("package-info").show()<CR>', "show-status" },
-      ["u"] = { ':lua require("package-info").update()<CR>', "update-package" },
-    },
-    ["p"] = {
-      ":Telescope project project display_type=full<CR>",
-      "switch-project",
-    },
+    ["p"] = { ":Telescope project project display_type=full<CR>", "switch-project" },
     ["P"] = { ":Telescope projects<CR>", "switch-projects" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
-    ["r"] = { ":Telescope repo list shorten_path=true<CR>", "reops-list" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
     ["W"] = { ":Tgrep<CR>", "tj-grep" },
@@ -805,7 +782,6 @@ local leader_key_maps = {
     ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
     ["p"] = { ":Telescope live_grep<CR>", "live-grep" },
     ["r"] = { ":Telescope resume<CR>", "resume-search" },
-    ["s"] = { ":TelescopeLiveGrepRaw<CR>", "raw-grep" },
     ["S"] = { ":Telescope colorscheme<CR>", "color-schemes" },
     ["t"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
     ["T"] = { ":Telescope tags<CR>", "project-tags" },
@@ -945,14 +921,14 @@ local leader_key_maps = {
     ["K"] = { ":resize  5<CR>", "expand-window-up" },
     ["l"] = { ":NavigateRight<CR>", "window-right" },
     ["L"] = { "<C-W>5>", "expand-window-right" },
-    ["m"] = { ":MaximizerToggle<CR>", "maximize-windows" },
+    ["m"] = { ":call ToggleZoom(v:true)<CR>", "maximize-windows" },
     ["n"] = { "<C-W>J", "move-window-far-down" },
     ["p"] = { ":NavigatePrevious<CR>", "window-previous" },
+    ["r"] = { "<C-W>r", "window-swap" },
     ["s"] = { "<C-W>s", "split-window-below" },
     ["t"] = { "<C-W>T", "move-split-to-tab" },
     ["u"] = { "<C-W>x", "swap-window-next" },
     ["v"] = { "<C-W>v", "split-window-right" },
-    ["x"] = { ":call WindowSwap#EasyWindowSwap()<CR>", "window-swap" },
   },
 }
 -- }}}
@@ -1000,7 +976,6 @@ local local_leader_key_maps = {
   },
   -- }}}
   ----------------------------------------------------------------------
-  ["e"] = { ":Dirbuf<CR>", "open-dirbuf" },
 
   ----------------------------------------------------------------------
   -- NOTE: files {{{
