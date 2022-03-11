@@ -96,33 +96,6 @@ map("i", "kj", [[<Esc>]], map_opts)
 -- repeat `n.` after editing the searched word
 map("n", "Q", [[@='n.'<cr>]], map_opts)
 
--- NOTE: terminal mappings
--- turn terminal to normal mode with escape
-map("t", "<Esc>", [[<C-\><C-n>]], map_opts)
-map("t", "<<C-[><C-[>>", [[<C-\><C-n>]], map_opts)
-map("t", "<C-d>", [[<C-\><C-n>:q!<cr>]], map_opts)
-map("t", "<M-[>", [[<Esc>]], map_opts)
-map("t", "<C-v><Esc>", [[<Esc>]], map_opts)
--- Terminal mode:
-map("t", "<M-h>", [[<c-\><c-n><c-w>h]], map_opts)
-map("t", "<M-j>", [[<c-\><c-n><c-w>j]], map_opts)
-map("t", "<M-k>", [[<c-\><c-n><c-w>k]], map_opts)
-map("t", "<M-l>", [[<c-\><c-n><c-w>l]], map_opts)
--- Insert mode:
-map("i", "<M-h>", [[<Esc><c-w>h]], map_opts)
-map("i", "<M-j>", [[<Esc><c-w>j]], map_opts)
-map("i", "<M-k>", [[<Esc><c-w>k]], map_opts)
-map("i", "<M-l>", [[<Esc><c-w>l]], map_opts)
--- Visual mode:
-map("v", "<M-h>", [[<Esc><c-w>h]], map_opts)
-map("v", "<M-j>", [[<Esc><c-w>j]], map_opts)
-map("v", "<M-k>", [[<Esc><c-w>k]], map_opts)
-map("v", "<M-l>", [[<Esc><c-w>l]], map_opts)
--- Normal mode:
-map("n", "<M-h>", [[<c-w>h]], map_opts)
-map("n", "<M-j>", [[<c-w>j]], map_opts)
-map("n", "<M-k>", [[<c-w>k]], map_opts)
-map("n", "<M-l>", [[<c-w>l]], map_opts)
 -- pasting from registers in terminal
 map("t", "<expr>", [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], map_opts)
 
