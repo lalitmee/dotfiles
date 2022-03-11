@@ -41,5 +41,6 @@ require("lk/disable_builtin")
 -- Cache the humungous packer_compiled.lua file with impatient.nvim
 -- for a solid speedup
 require("packer_compiled")
+vim.cmd([[PackerCompile]])
 
 -- vim:foldmethod=marker
