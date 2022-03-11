@@ -1,6 +1,7 @@
-local Job = require("plenary.job")
-
-local fn = vim.fn
+local ok, Job = lk.safe_require("plenary.job")
+if not ok then
+  return
+end
 
 local M = {}
 
@@ -20,7 +21,7 @@ end
 function M.yank_current_file_name()
   local file_name = vim.api.nvim_buf_get_name(0)
   local input_pipe = vim.loop.new_pipe(false)
-  local yanker = Job:new({ writer = input_pipe, command = "pbcopy" })
+  local yanker = Job:new({ writer = input_pipe, command = "xclip" })
   yanker:start()
   input_pipe:write(file_name)
   input_pipe:close()

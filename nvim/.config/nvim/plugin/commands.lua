@@ -66,13 +66,6 @@ command({
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
 command({
-  "TelescopeLiveGrepRaw",
-  function()
-    require("telescope").extensions.live_grep_raw.live_grep_raw()
-  end,
-})
-
-command({
   "TelescopeNotifyHistory",
   function()
     require("telescope").extensions.notify.notify()

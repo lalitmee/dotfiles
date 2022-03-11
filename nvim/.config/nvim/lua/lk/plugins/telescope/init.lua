@@ -7,7 +7,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: telescope mappings {{{
 ----------------------------------------------------------------------
-require("lk/telescope/mappings")
+require("lk/plugins/telescope/mappings")
 -- }}}
 ----------------------------------------------------------------------
 
@@ -95,8 +95,14 @@ telescope.setup({
       { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     },
-    file_ignore_patterns = { "%.otf", "%.ttf", "%.DS_Store" },
-
+    file_ignore_patterns = {
+      "%.otf",
+      "%.ttf",
+      "%.DS_Store",
+      "%.git",
+      "build",
+      "node_modules",
+    },
     layout_config = {
       width = 0.90,
       height = 0.90,

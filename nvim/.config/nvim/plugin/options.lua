@@ -6,6 +6,7 @@ local executable = lk.executable
 -----------------------------------------------------------------------------//
 -- Message output on vim actions {{{1
 -----------------------------------------------------------------------------//
+opt.termguicolors = true
 opt.shortmess = {
   t = true, -- truncate file messages at start
   A = true, -- ignore annoying swap file messages
@@ -263,8 +264,10 @@ opt.smartcase = true
 opt.wrapscan = true -- Searches wrap around the end of the file
 opt.scrolloff = 999
 -- opt.scrolloff = 10
-opt.sidescrolloff = 10
+-- opt.sidescrolloff = 10
 opt.sidescroll = 1
+opt.visualbell = false
+opt.errorbells = false
 -----------------------------------------------------------------------------//
 -- Spelling {{{1
 -----------------------------------------------------------------------------//
@@ -292,18 +295,20 @@ end
 
 -- vim.cmd {{{
 
--- vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[set re=1]])
 vim.cmd([[set t_ZH=[3m]])
 vim.cmd([[set t_ZR=[23m]])
 vim.cmd([[set t_ut=]])
--- vim.cmd([[set noerrorbells]])
--- vim.cmd([[set novisualbell]])
+vim.cmd([[set termguicolors]])
+vim.api.nvim_exec(
+  [[
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  ]],
+  true
+)
 vim.cmd([[set t_vb=]])
 vim.cmd([[set path+=**]])
-
-opt.visualbell = false
-opt.errorbells = false
 
 -- }}}

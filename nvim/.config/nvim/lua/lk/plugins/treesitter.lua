@@ -1,16 +1,3 @@
--- NOTE: orgmode setup
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.org = {
-  install_info = {
-    url = "https://github.com/milisims/tree-sitter-org",
-    revision = "f110024d539e676f25b72b7c80b0fd43c34264ef",
-    files = { "src/parser.c", "src/scanner.cc" },
-  },
-  filetype = "org",
-}
-
-require("orgmode").setup_ts_grammar()
-
 require("nvim-treesitter.configs").setup({
   ensure_installed = "all",
   highlight = {
@@ -18,20 +5,13 @@ require("nvim-treesitter.configs").setup({
     -- disable = { "org" },
     additional_vim_regex_highlighting = { "org" },
   },
+  matchup = { enable = true },
   autotag = { enable = true },
   indent = { enable = true },
   playground = { enable = true, updatetime = 25, persist_queries = false },
   context_commentstring = {
     enable = true,
-    config = {
-      javascript = {
-        __default = "// %s",
-        jsx_element = "{/* %s */}",
-        jsx_fragment = "{/* %s */}",
-        jsx_attribute = "// %s",
-        comment = "// %s",
-      },
-    },
+    enable_autocmd = false,
   },
   query_linter = {
     enable = true,
