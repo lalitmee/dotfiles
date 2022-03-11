@@ -83,12 +83,6 @@ require("packer").startup({
       config = [[require('lk/plugins/startify')]],
     })
 
-    -- learn something new about vim by typing `:Random`
-    use({
-      "mhinz/vim-randomtag",
-      cmd = { "Random", "!Random" },
-    })
-
     -- Colorizer for showing the colors
     use({
       "norcalli/nvim-colorizer.lua",
@@ -470,6 +464,7 @@ require("packer").startup({
       "numToStr/Comment.nvim",
       config = [[require('lk/plugins/comment')]],
     })
+
     -- comment boxes
     use({
       "LudoPinelli/comment-box.nvim",
@@ -846,7 +841,6 @@ require("packer").startup({
     -- sql nvim database for frecency
     use({
       "tyru/open-browser.vim",
-      requires = { "tami5/sqlite.lua" },
       config = [[require('lk/plugins/open-browser')]],
     })
     -- }}}

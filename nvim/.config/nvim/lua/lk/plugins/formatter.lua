@@ -15,6 +15,17 @@ local rustfmt = function()
   return { exe = "rustfmt", args = { "--emit=stdout" }, stdin = true }
 end
 
+local styluafmt = function()
+  return {
+    exe = "stylua",
+    args = {
+      "--config-path " .. os.getenv("XDG_CONFIG_HOME") .. "/stylua/stylua.toml",
+      "-",
+    },
+    stdin = true,
+  }
+end
+
 require("formatter").setup({
   filetype = {
     javascript = { prettier },
@@ -32,6 +43,7 @@ require("formatter").setup({
     yaml = { prettier },
     html = { prettier },
     rust = { rustfmt },
+    lua = { styluafmt },
   },
 })
 
@@ -39,16 +51,36 @@ vim.api.nvim_exec(
   [[
       augroup Format
           autocmd!
-          autocmd BufWritePost *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.rs, FormatWrite
+          autocmd BufWritePost *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.rs, *.lua FormatWrite
       augroup END
   ]],
   true
 )
 
--- -- without ts and js formatting
--- vim.api.nvim_exec([[
---       augroup Format
---           autocmd!
---           autocmd BufWritePost *.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.rs,*.lua FormatWrite
---       augroup END
---   ]], true)
+-- lk.augroup("FormatterAutoCmd", {
+--   {
+--     event = "BufWritePre",
+--     buffer = 0,
+--     pattern = {
+--       "*.js",
+--       "*.jsx",
+--       "*.mjs",
+--       "*.ts",
+--       "*.tsx",
+--       "*.css",
+--       "*.less",
+--       "*.scss",
+--       "*.json",
+--       "*.graphql",
+--       "*.md",
+--       "*.vue",
+--       "*.yaml",
+--       "*.html",
+--       "*.rs",
+--       "*.lua",
+--     },
+--     command = function()
+--       vim.cmd [[FormatWrite]]
+--     end,
+--   },
+-- })
