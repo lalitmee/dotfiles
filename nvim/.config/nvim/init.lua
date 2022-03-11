@@ -24,15 +24,24 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: sourcing namespace {{{
+-- NOTE: sourcing {{{
 ----------------------------------------------------------------------
+-- packer plugins
 require("plugins")
+
+-- globals
 require("lk/globals")
-require("lk/settings")
+
+-- highlights
 require("lk/highlights")
+
+-- colors
 require("lk/colors")
-require("lk/plugins")
+
+-- lsp
 require("lk/lsp")
+
+-- telescope
 require("lk/telescope")
 -- }}}
 ----------------------------------------------------------------------

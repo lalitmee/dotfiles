@@ -984,8 +984,6 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
   ["b"] = {
     ["name"] = "+buffers",
-    ["r"] = { ":RecentBuffers<CR>", "recent-buffers" },
-    ["c"] = { ":ClearRecentBuffers<CR>", "clear-recent-buffers" },
   },
   -- }}}
   ----------------------------------------------------------------------
