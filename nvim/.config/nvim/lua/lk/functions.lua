@@ -30,28 +30,6 @@ end
 -- }}}
 --------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------
---- NOTE: clear messages {{{
-
--- automatically clear commandline messages after a few seconds delay
---- source: https://unix.stackexchange.com/a/613645
---------------------------------------------------------------------------------
-function M.clear_messages()
-  local id
-  return function()
-    if id then
-      fn.timer_stop(id)
-    end
-    id = fn.timer_start(2000, function()
-      if fn.mode() == "n" then
-        vim.cmd([[echon '']])
-      end
-    end)
-  end
-end
---}}}
---------------------------------------------------------------------------------
-
 return M
 
 -- vim:foldmethod=marker

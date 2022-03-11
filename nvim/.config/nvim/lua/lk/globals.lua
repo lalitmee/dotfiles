@@ -374,45 +374,35 @@ end
 -- NOTE: autocommand creator {{{
 ----------------------------------------------------------------------
 ---@class Autocommand
----@field events string[] list of autocommand events
----@field targets string[] list of autocommand patterns
----@field modifiers string[] e.g. nested, once
+---@field description string
+---@field event  string[] list of autocommand events
+---@field pattern string[] list of autocommand patterns
 ---@field command string | function
-
----@param command Autocommand
-local function is_valid_target(command)
-  local valid_type = command.targets and vim.tbl_islist(command.targets)
-  return valid_type or vim.startswith(command.events[1], "User ")
-end
+---@field nested  boolean
+---@field once    boolean
+---@field buffer  number
 
 ---Create an autocommand
+---returns the group ID so that it can be cleared or manipulated.
 ---@param name string
 ---@param commands Autocommand[]
+---@return number
 function lk.augroup(name, commands)
-  vim.cmd("augroup " .. name)
-  vim.cmd("autocmd!")
-  for _, c in ipairs(commands) do
-    if c.command and c.events and is_valid_target(c) then
-      local command = c.command
-      if type(command) == "function" then
-        local fn_id = lk._create(command)
-        command = fmt("lua lk._execute(%s)", fn_id)
-      end
-      c.events = type(c.events) == "string" and { c.events } or c.events
-      vim.cmd(
-        string.format(
-          "autocmd %s %s %s %s",
-          table.concat(c.events, ","),
-          table.concat(c.targets or {}, ","),
-          table.concat(c.modifiers or {}, " "),
-          command
-        )
-      )
-    else
-      vim.notify(fmt("An autocommand in %s is specified incorrectly: %s", name, vim.inspect(name)), L.ERROR)
-    end
+  local id = api.nvim_create_augroup(name, { clear = true })
+  for _, autocmd in ipairs(commands) do
+    local is_callback = type(autocmd.command) == "function"
+    api.nvim_create_autocmd(autocmd.event, {
+      group = id,
+      pattern = autocmd.pattern,
+      desc = autocmd.description,
+      callback = is_callback and autocmd.command or nil,
+      command = not is_callback and autocmd.command or nil,
+      once = autocmd.once,
+      nested = autocmd.nested,
+      buffer = autocmd.buffer,
+    })
   end
-  vim.cmd("augroup END")
+  return id
 end
 -- }}}
 ----------------------------------------------------------------------
