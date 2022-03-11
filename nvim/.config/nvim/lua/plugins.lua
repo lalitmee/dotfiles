@@ -15,8 +15,8 @@ require("packer").startup({
     use({ "wbthomason/packer.nvim" })
     use({ "lewis6991/impatient.nvim" })
 
-    -- -- fast filetype detection
-    -- use({ "nathom/filetype.nvim" })
+    -- fast filetype detection
+    use({ "nathom/filetype.nvim" })
 
     -- Profile startup time
     use({
@@ -354,14 +354,14 @@ require("packer").startup({
     use({
       "booperlv/nvim-gomove",
       keys = {
-        { "n", "<A-h>" },
-        { "n", "<A-j>" },
-        { "n", "<A-k>" },
-        { "n", "<A-l>" },
-        { "v", "<A-h>" },
-        { "v", "<A-j>" },
-        { "v", "<A-k>" },
-        { "v", "<A-l>" },
+        { "n", "<M-h>" },
+        { "n", "<M-j>" },
+        { "n", "<M-k>" },
+        { "n", "<M-l>" },
+        { "v", "<M-h>" },
+        { "v", "<M-j>" },
+        { "v", "<M-k>" },
+        { "v", "<M-l>" },
       },
       config = [[require('lk/plugins/gomove')]],
     })
