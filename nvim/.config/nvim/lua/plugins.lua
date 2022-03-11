@@ -113,6 +113,28 @@ require("packer").startup({
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({ "svermeulen/vim-yoink" })
 
+    use({
+      "gbprod/substitute.nvim",
+      config = function()
+        require("substitute").setup()
+        lk.nnoremap("S", function()
+          require("substitute").operator()
+        end)
+        lk.xnoremap("S", function()
+          require("substitute").visual()
+        end)
+        lk.nnoremap("X", function()
+          require("substitute.exchange").operator()
+        end)
+        lk.xnoremap("X", function()
+          require("substitute.exchange").visual()
+        end)
+        lk.nnoremap("Xc", function()
+          require("substitute.exchange").cancel()
+        end)
+      end,
+    })
+
     -- interactively swap so many things
     use("mizlan/iswap.nvim")
 
@@ -272,9 +294,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: General {{{
     ----------------------------------------------------------------------------
-    -- access recent buffers
-    use({ "gaborvecsei/memento.nvim" })
-
     -- move code up and down
     use({
       "booperlv/nvim-gomove",
@@ -621,13 +640,6 @@ require("packer").startup({
             view = { q = "<Cmd>DiffviewClose<CR>" },
           },
         })
-      end,
-    })
-    -- github notifications in neovim
-    use({
-      "rlch/github-notifications.nvim",
-      cond = function()
-        return lk.executable("gh")
       end,
     })
     -- }}}
