@@ -41,6 +41,15 @@ augroup("ClearCommandMessages", {
 ----------------------------------------------------------------------
 augroup("PackerSetupInit", {
   {
+    event = "BufWritePost",
+    description = "Packer Compile after saving plugins.lua",
+    pattern = { "plugins.lua" },
+    command = function()
+      vim.api.nvim_command("luafile %")
+      vim.api.nvim_command("PackerCompile")
+    end,
+  },
+  {
     event = "BufEnter",
     description = "Open a repository from an authorname/repository string",
     buffer = 0,
