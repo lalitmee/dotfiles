@@ -502,7 +502,6 @@ require("packer").startup({
           requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
           config = function()
             require("dim").setup({
-              disable_lsp_decorations = true,
               change_in_insert = true,
             })
           end,
