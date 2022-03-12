@@ -91,7 +91,6 @@ require("packer").startup({
     use({
       "folke/which-key.nvim",
       config = [[require('lk/plugins/which-key')]],
-      keys = { "n", "<space>" },
     })
 
     -- session management
@@ -211,13 +210,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
-    -- Search and replace plugins
-    use({
-      "windwp/nvim-spectre",
-      cmd = { "SpectreOpen" },
-      module = "spectre",
-    })
-
     -- search multiple thing using `*`
     use({
       "nelstrom/vim-visual-star-search",
@@ -253,12 +245,6 @@ require("packer").startup({
     use({
       "phaazon/hop.nvim",
       config = [[require('lk/plugins/hop')]],
-    })
-
-    -- Quickscope same as f, F, t, T but better
-    use({
-      "unblevable/quick-scope",
-      config = [[require('lk/plugins/quick-scope')]],
     })
 
     -- Navigations
@@ -694,10 +680,6 @@ require("packer").startup({
       run = ":TSUpdate",
       requires = {
         {
-          "nvim-treesitter/nvim-treesitter-textobjects",
-          after = { "nvim-treesitter" },
-        },
-        {
           "nvim-treesitter/playground",
           cmd = { "TSPlaygroundToggle" },
           after = { "nvim-treesitter" },
@@ -834,16 +816,12 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: tpope {{{
     ------------------------------------------------------------------------
-    use({
-      "tpope/vim-abolish",
-      config = [[require('lk/plugins/abolish')]],
-    })
-    use({ "tpope/vim-dotenv", ft = "env" })
+    use({ "Pocco81/AbbrevMan.nvim" })
+    -- use({ "tpope/vim-dotenv", ft = "env" })
     use({
       "tpope/vim-repeat",
       keys = { "n", "." },
     })
-    use({ "tpope/vim-sleuth" })
     use({
       "tpope/vim-surround",
       event = { "BufRead" },

@@ -20,50 +20,6 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "[v",
     },
   },
-  textobjects = {
-    lookahead = true,
-    select = {
-      enable = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["aC"] = "@conditional.outer",
-        ["iC"] = "@conditional.inner",
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = { ["[w"] = "@parameter.inner" },
-      swap_previous = { ["]w"] = "@parameter.inner" },
-    },
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = { ["]m"] = "@function.outer", ["]c"] = "@class.outer" },
-      goto_next_end = { ["]M"] = "@function.outer", ["]C"] = "@class.outer" },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[c"] = "@class.outer",
-      },
-      goto_previous_end = { ["[M"] = "@function.outer", ["[C"] = "@class.outer" },
-    },
-    tree_docs = {
-      enable = true,
-      keymaps = {
-        doc_node_at_cursor = "<localleader>tc",
-        doc_all_in_range = "<localleader>tc",
-      },
-    },
-    lsp_interop = {
-      enable = true,
-      peek_definition_code = {
-        ["df"] = "@function.outer",
-        ["dF"] = "@class.outer",
-      },
-    },
-  },
 })
 
 -- NOTE: fold method using treesitter
