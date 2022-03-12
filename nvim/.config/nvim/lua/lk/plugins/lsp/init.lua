@@ -5,8 +5,6 @@ local icons = lk.style.icons
 
 local oslib = require("lk/utils/oslib")
 
-local lspconfig_util = require("lspconfig.util")
-
 require("lk/plugins/lsp/commands")
 require("lk/plugins/lsp/handlers")
 require("lk/plugins/lsp/servers/gopls")
@@ -109,25 +107,26 @@ end
 
 -- on_atthach
 local function on_attach(client, bufnr)
-  local map = vim.keymap.set
-  local opts = { noremap = false, silent = true }
+  local nmap = lk.nmap
+  local imap = lk.imap
+  local opts = { noremap = false, silent = true, buffer = bufnr }
 
   -- lsp mapping for the client
-  map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  map("n", "gcA", "<cmd>Telescope lsp_range_code_actions<CR>", opts)
-  map("n", "gca", "<cmd>Telescope lsp_code_action<CR>", opts)
-  map("n", "ge", "<cmd>Telescope diagnostics<CR>", opts)
-  map("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
-  map("n", "gw", "<cmd>Telescope lsp_document_symbols<CR>", opts)
-  map("n", "gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
-  map("i", "<C-h>", "<cmd>Lspsaga signature_help<CR>", opts)
-  map("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-  map("n", "gD", vim.lsp.buf.declaration, opts)
-  map("n", "gy", vim.lsp.buf.type_definition, opts)
+  nmap("gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+  nmap("gcA", "<cmd>Telescope lsp_range_code_actions<CR>", opts)
+  nmap("gca", "<cmd>Telescope lsp_code_action<CR>", opts)
+  nmap("ge", "<cmd>Telescope diagnostics<CR>", opts)
+  nmap("gr", "<cmd>Telescope lsp_references<CR>", opts)
+  nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+  nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
+  nmap("K", vim.lsp.buf.hover, opts)
+  nmap("gD", vim.lsp.buf.declaration, opts)
+  nmap("gy", vim.lsp.buf.type_definition, opts)
+  imap("<C-h>", vim.lsp.buf.signature_help, opts)
 
   local mapping_opts = { buffer = bufnr }
   if client.resolved_capabilities.implementation then
-    map("n", "gi", vim.lsp.buf.implementation, mapping_opts)
+    nmap("gi", vim.lsp.buf.implementation, mapping_opts)
   end
 
   vim.notify(
