@@ -27,6 +27,7 @@ lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.handlers["textDoc
   underline = { severity_limit = "Warning" },
   virtual_text = true,
 })
+
 -- }}}
 --------------------------------------------------------------------------------
 
