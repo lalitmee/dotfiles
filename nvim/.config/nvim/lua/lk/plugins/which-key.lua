@@ -87,25 +87,20 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: c is for lspsaga with lspconfig {{{
+  -- NOTE: c is for telescope with lspconfig {{{
   ----------------------------------------------------------------------
   ["c"] = {
-    ["name"] = "lspsaga",
-    ["a"] = { ":Lspsaga code_action<CR>", "code-action" },
-    ["c"] = { ":Lspsaga ranger_code_action<CR>", "range-code-action" },
-    ["d"] = { ":Lspsaga preview_definition<CR>", "preview-definition" },
-    ["f"] = { ":Lspsaga lsp_finder<CR>", "lsp-finder" },
-    ["h"] = { ":Lspsaga signature_help<CR>", "signature-help" },
-    ["i"] = { ":Lspsaga implement<CR>", "implementation" },
-    ["k"] = { ":Lspsaga hover_doc<CR>", "hover-doc" },
-    ["l"] = { ":Lspsaga show_line_diagnostics<CR>", "show-line-diagnostics" },
-    ["n"] = { ":Lspsaga diagnotic_jump_next<CR>", "next-diagnostic" },
-    ["o"] = { ":Lspsaga open_floaterm<CR>", "open-floaterm" },
-    ["O"] = { ":Lspsaga close_floaterm<CR>", "close-floaterm" },
-    ["p"] = { ":Lspsaga diagnotic_jump_prev<CR>", "prev-diagnostic" },
-    ["r"] = { ":Lspsaga rename<CR>", "rename" },
-    ["t"] = { ":Lspsaga toggle_virtual_text<CR>", "toggle-virtual-text" },
-    ["y"] = { ":Lspsaga yank_line_diagnostics<CR>", "yank-line-diagnostics" },
+    ["name"] = "+telescope-lsp",
+    ["a"] = { ":Telescope lsp_code_actions<CR>", "code-action" },
+    ["c"] = { ":Telescope lsp_ranger_code_actions<CR>", "range-code-action" },
+    ["d"] = { ":Telescope lsp_definitions<CR>", "definitions" },
+    ["e"] = { ":Telescope diagnostic<CR>", "diagnostic" },
+    ["f"] = { ":Telescope lsp_references<CR>", "references" },
+    ["i"] = { ":Telescope lsp_implementations<CR>", "implementations" },
+    ["s"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "dynamic-workspace-symbols" },
+    ["t"] = { ":Telescope lsp_type_definitions<CR>", "type-definitions" },
+    ["w"] = { ":Telescope lsp_document_symbols<CR>", "document-symbols" },
+    ["W"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -233,10 +228,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["g"] = {
     ["name"] = "+git",
-    ["b"] = {
-      ':lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<CR>',
-      "open-repo-browser",
-    },
+    ["b"] = { ":BrowseRepo<CR>", "open-repo" },
     ["c"] = { ":Telescope git_branches<CR>", "checkout" },
     ["d"] = { ":DiffviewOpen<CR>", "diffview-open" },
     ["D"] = { ":DiffviewClose<CR>", "diffview-close" },
@@ -339,15 +331,9 @@ local leader_key_maps = {
       },
     },
     ["s"] = { ":Neogit<CR>", "status" },
-    ["S"] = { ":GGrep<CR>", "git-grep" },
-    ["y"] = { "git-linker" },
-    ["Y"] = { ':lua require"gitlinker".get_repo_url()<CR>', "copy-repo-url" },
     ["w"] = {
       ["name"] = "+git-worktree",
-      ["c"] = {
-        ":Telescope git_worktree create_git_worktree<CR>",
-        "create-worktree",
-      },
+      ["c"] = { ":Telescope git_worktree create_git_worktree<CR>", "create-worktree" },
       ["l"] = { ":Telescope git_worktree git_worktrees<CR>", "list-worktrees" },
     },
   },
@@ -749,12 +735,15 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["r"] = {
     ["name"] = "+refactor",
-    ["b"] = { "print-var-below" },
-    ["f"] = { "print-var" },
-    ["g"] = { "printf" },
-    ["h"] = { "print-debug-path" },
-    ["i"] = { "inline-variable" },
-    ["m"] = { "printf-below" },
+    ["c"] = { ":RefactorExtractVar<CR>", "extract-var" },
+    ["f"] = { ":RefactorExtractFunc<CR>", "extract-func" },
+    ["h"] = { ":RefactorDebugPath<CR>", "print-debug-path" },
+    ["i"] = { ":RefactorInlineVar<CR>", "inline-variable" },
+    ["p"] = { ":RefactorDebugPrintfBelow<CR>", "printf-below" },
+    ["P"] = { ":RefactorDebugPrintfAbove<CR>", "printf-above" },
+    ["r"] = { ":Refactors<CR>", "list-refactors" },
+    ["v"] = { ":RefactorDebugPrintVarBelow<CR>", "var-below" },
+    ["V"] = { ":RefactorDebugPrintVarAbove<CR>", "var-above" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -802,20 +791,10 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: t is for toggle {{{
+  -- NOTE: t is for toggle/tabs/terminal {{{
   ----------------------------------------------------------------------
   ["t"] = {
     ["name"] = "+tabs/terminal/toggle",
-    ["c"] = {
-      ["name"] = "+colors",
-      ["c"] = { ":ColorizerToggle<CR>", "colorizer" },
-      ["l"] = { ":Twilight<CR>", "twilight" },
-      ["t"] = {
-        ':lua require("material.functions").toggle_style()<CR>',
-        "toggle-material-style",
-      },
-    },
-    ["e"] = { ":NvimTreeToggle<CR>", "nvim-tree-exlporer" },
     ["f"] = {
       ["name"] = "+floaterm",
       ["G"] = { ":lua Tig()<CR>", "tig" },
@@ -1065,8 +1044,8 @@ local local_leader_key_maps = {
 local visual_mode_leader_key_maps = {
   ["r"] = {
     ["name"] = "+refactor",
-    ["e"] = { "extract-function" },
-    ["r"] = { "refactors-list" },
+    ["e"] = { ":RefactorExtractFunc<CR>", "extract-function" },
+    ["r"] = { ":Refactors<CR>", "refactors-list" },
   },
 }
 -- }}}

@@ -36,7 +36,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
-    --- ui and beatification related plugins
+    -- improve default neovim UI
+    use({ "stevearc/dressing.nvim" })
+
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
     ----------------------------------------------------------------------------
@@ -280,13 +282,6 @@ require("packer").startup({
       config = [[require('lk/plugins/telescope')]],
       requires = {
         {
-          "gbrlsnchs/telescope-lsp-handlers.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("lsp_handlers")
-          end,
-        },
-        {
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
           after = "telescope.nvim",
@@ -521,7 +516,7 @@ require("packer").startup({
     -- github copilot
     use({
       "github/copilot.vim",
-      event = { "VimEnter" },
+      event = { "InsertEnter" },
       config = function()
         vim.g.copilot_filetypes = {
           gitcommit = false,
@@ -602,10 +597,6 @@ require("packer").startup({
       config = [[require('lk/plugins/lsp')]],
       requires = {
         { "onsails/lspkind-nvim" },
-        {
-          "tami5/lspsaga.nvim",
-          config = [[require('lk/plugins/lspsaga')]],
-        },
         {
           "hrsh7th/nvim-cmp",
           config = [[require('lk/plugins/nvim-cmp')]],
