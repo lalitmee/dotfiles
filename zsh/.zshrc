@@ -285,7 +285,7 @@ alias yt="youtube-dl"
 # alias for gui nvims
 alias gvim="~/goneovim/goneovim &"
 alias lpc="~/Desktop/Softwares/editors/lapce &"
-alias glm="~/Desktop/Github/glrnvim/target/release/glrnvim &"
+alias glm="glrnvim"
 alias neovide="~/Desktop/Softwares/editors/neovide &"
 alias oni="${HOME}/Applications/Onivim2-x86_64-master_8bbaf25b07ff2ac4dc6c74823d5a69bc.AppImage"
 
@@ -295,10 +295,9 @@ alias ci="code-insiders ."
 alias co="code ."
 alias o="oni ."
 alias sb="subl ."
-alias vi="vim"
-alias vim="nvim"
-alias gvi="gvim"
-alias nvd="neovide"
+alias vi="nvim"
+alias gv="gvim"
+alias nv="neovide"
 
 # common aliases
 alias a="alias | fzf -d 40%"

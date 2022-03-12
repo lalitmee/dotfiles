@@ -48,7 +48,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     use({
       "rcarriga/nvim-notify",
-      module = "vim.notify",
+      module = "vim",
       config = [[require('lk/plugins/notify')]],
     })
     -- }}}
@@ -91,6 +91,7 @@ require("packer").startup({
     use({
       "folke/which-key.nvim",
       config = [[require('lk/plugins/which-key')]],
+      keys = { "n", "<space>" },
     })
 
     -- session management
@@ -888,7 +889,7 @@ require("packer").startup({
     -- dirbuf
     use({
       "elihunter173/dirbuf.nvim",
-      cmd = { "DirBuf" },
+      cmd = { "Dirbuf", "DirbufSync" },
     })
     -- }}}
     ------------------------------------------------------------------------

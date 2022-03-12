@@ -10,6 +10,10 @@ nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 nnoremap("<C-S-Right>", [[gt]])
 nnoremap("<C-S-Left>", [[gT]])
 
+-- slightly more intuitive gt/gT (ma need some unlearning to get used to)
+nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']])
+nnoremap("gT", [[":tabnext -" . v:count1 . '<CR>']])
+
 -- buffers next and previous
 nnoremap("<C-Right>", [[:bn<cr>]])
 nnoremap("<C-Left>", [[:bp<cr>]])
