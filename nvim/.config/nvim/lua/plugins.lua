@@ -486,6 +486,12 @@ require("packer").startup({
     use({
       "github/copilot.vim",
       event = { "VimEnter" },
+      config = function()
+        vim.g.copilot_filetypes = {
+          gitcommit = false,
+          NeogitCommitMessage = false,
+        }
+      end,
     })
 
     -- run any code of any file type
