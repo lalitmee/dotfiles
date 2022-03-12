@@ -10,11 +10,9 @@ local lspconfig_util = require("lspconfig.util")
 require("lk/plugins/lsp/commands")
 require("lk/plugins/lsp/handlers")
 require("lk/plugins/lsp/servers/gopls")
+local sumneko = require("lk/plugins/lsp/servers/sumneko")
 
 local autocommands = require("lk/plugins/lsp/autocommands")
-local status = require("lk/plugins/lsp/status")
-
-status.activate()
 
 function Tagfunc(pattern, flags)
   if flags ~= "c" then
@@ -153,7 +151,6 @@ local function on_attach(client, bufnr)
   if client.resolved_capabilities.goto_definition then
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.Tagfunc")
   end
-  require("lsp-status").on_attach(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -163,79 +160,23 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 local servers = {
-  cssls = true,
-  gopls = {
-    root_dir = function(fname)
-      local Path = require("plenary.path")
-
-      local absolute_cwd = Path:new(vim.loop.cwd()):absolute()
-      local absolute_fname = Path:new(fname):absolute()
-
-      if string.find(absolute_cwd, "/cmd/", 1, true) and string.find(absolute_fname, absolute_cwd, 1, true) then
-        return absolute_cwd
-      end
-
-      return lspconfig_util.root_pattern("go.mod", ".git")(fname)
-    end,
-
-    settings = {
-      gopls = {
-        codelenses = { test = true },
-      },
-    },
-
-    flags = {
-      debounce_text_changes = 200,
-    },
-  },
+  -- NOTE: not using these servers
+  -- gopls = true,
+  -- pyright = true,
+  -- rust_analyzer = true,
   bashls = true,
+  cssls = true,
+  emmet_ls = true,
+  eslint = true,
   jsonls = true,
+  remark_ls = true,
   tsserver = true,
   vimls = true,
-  pyright = true,
-  remark_ls = true,
-  rust_analyzer = true,
-  eslint = true,
-  emmet_ls = true,
-  sumneko_lua = function()
-    local lua_dev = require("lua-dev")
-    return lua_dev.setup({
-      lspconfig = {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = {
-                "vim",
-                "describe",
-                "it",
-                "before_each",
-                "after_each",
-                "pending",
-                "teardown",
-                "packer_plugins",
-              },
-            },
-            completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-
-              maxPreload = 2000,
-              preloadFileSize = 50000,
-              checkThirdParty = false,
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = { enable = false },
-          },
-        },
-      },
-    })
-  end,
+  sumneko_lua = sumneko,
 }
 
 local function get_server_config(server)
   local cmp_nvim_lsp = require("cmp_nvim_lsp")
-  local status_capabilities = require("lsp-status").capabilities
   local conf = servers[server.name]
   local conf_type = type(conf)
   local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
@@ -243,7 +184,7 @@ local function get_server_config(server)
   config.on_attach = on_attach
   config.capabilities = config.capabilities or vim.lsp.protocol.make_client_capabilities()
   cmp_nvim_lsp.update_capabilities(config.capabilities)
-  config.capabilities = lk.deep_merge(status_capabilities, config.capabilities)
+  config.capabilities = config.capabilities
   return config
 end
 

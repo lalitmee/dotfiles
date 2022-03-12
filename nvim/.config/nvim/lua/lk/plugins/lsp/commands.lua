@@ -196,7 +196,7 @@ command({
 command({
   "LspGetAllDiagnostics",
   function()
-    vim.diagnostic.get_all()
+    vim.diagnostic.get()
   end,
 })
 

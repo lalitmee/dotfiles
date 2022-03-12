@@ -1,9 +1,19 @@
-local cmp = require("cmp")
-local lspkind = require("lspkind")
+local cmp_ok, cmp = lk.safe_require("cmp")
+if not cmp_ok then
+  return
+end
+
+local lspkind_ok, lspkind = lk.safe_require("lspkind")
+if not lspkind_ok then
+  return
+end
 
 -- Don't show the dumb matching stuff.
 vim.opt.shortmess:append("c")
 
+----------------------------------------------------------------------
+-- NOTE: lspkind setup {{{
+----------------------------------------------------------------------
 require("lspkind").init({
   preset = "codicons",
   symbol_map = {
@@ -35,7 +45,12 @@ require("lspkind").init({
     Variable = "   ",
   },
 })
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: cmp setup {{{
+----------------------------------------------------------------------
 cmp.setup({
   mapping = {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -53,6 +68,7 @@ cmp.setup({
     { name = "ultisnips" },
     { name = "orgmode" },
     { name = "path" },
+    { name = "emoji" },
   }, {
     { name = "buffer" },
   }),
@@ -108,7 +124,12 @@ cmp.setup({
   documentation = { border = "rounded" },
   experimental = { native_menu = false, ghost_text = false },
 })
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: cmp cmdline setup {{{
+----------------------------------------------------------------------
 local search_sources = {
   sources = cmp.config.sources({
     {
@@ -121,7 +142,7 @@ local search_sources = {
 cmp.setup.cmdline("/", search_sources)
 cmp.setup.cmdline("?", search_sources)
 cmp.setup.cmdline(":", {
-  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", keyword_length = 2 } }),
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 
 -- Set configuration for specific filetype.
@@ -132,3 +153,7 @@ cmp.setup.filetype("gitcommit", {
     { name = "buffer" },
   }),
 })
+-- }}}
+----------------------------------------------------------------------
+
+-- vim:foldmethod=marker

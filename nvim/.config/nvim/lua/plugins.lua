@@ -269,6 +269,13 @@ require("packer").startup({
       config = [[require('lk/plugins/telescope')]],
       requires = {
         {
+          "gbrlsnchs/telescope-lsp-handlers.nvim",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("lsp_handlers")
+          end,
+        },
+        {
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
           after = "telescope.nvim",
@@ -282,13 +289,6 @@ require("packer").startup({
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("fzf")
-          end,
-        },
-        {
-          "nvim-telescope/telescope-project.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("project")
           end,
         },
         {
@@ -410,21 +410,19 @@ require("packer").startup({
       end,
     })
 
-    -- Switch between single-line and multiline forms of code
+    -- do opposite of `J` using `gS`
     use({
-      "AndrewRadev/splitjoin.vim",
-      keys = {
-        { "n", "gS" },
-        { "n", "gJ" },
-      },
+      "AckslD/nvim-revJ.lua",
+      requires = { "wellle/targets.vim" },
+      config = [[require('lk/plugins/nvim-revj')]],
     })
 
     -- sorting in vim
     use({
       "christoomey/vim-sort-motion",
       keys = {
-        { "n", "gs" },
         { "v", "gs" },
+        { "n", "gs" },
       },
     })
 
@@ -459,9 +457,6 @@ require("packer").startup({
       "Konfekt/FastFold",
       config = [[require('lk/plugins/fastfold')]],
     })
-
-    -- targets.vim for extra motions
-    use({ "wellle/targets.vim" })
 
     -- commenting
     use({
@@ -564,21 +559,73 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "neovim/nvim-lspconfig",
+      ft = {
+        "lua",
+        "c",
+        "cpp",
+        "css",
+        "go",
+        "js",
+        "jsx",
+        "json",
+        "ts",
+        "tsx",
+        "yaml",
+        "bash",
+        "rust",
+        "vim",
+        "python",
+        "md",
+        "html",
+      },
       config = [[require('lk/plugins/lsp')]],
       requires = {
         { "onsails/lspkind-nvim" },
-        { "tami5/lspsaga.nvim", config = [[require('lk/plugins/lspsaga')]] },
+        {
+          "tami5/lspsaga.nvim",
+          config = [[require('lk/plugins/lspsaga')]],
+        },
         {
           "hrsh7th/nvim-cmp",
           config = [[require('lk/plugins/nvim-cmp')]],
+          event = { "InsertEnter", "CmdlineEnter" },
           requires = {
-            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-            { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-            { "hrsh7th/cmp-path", after = "nvim-cmp" },
-            { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
-            { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
+            {
+              "hrsh7th/cmp-buffer",
+              after = "nvim-cmp",
+              event = { "BufEnter" },
+            },
+            {
+              "hrsh7th/cmp-cmdline",
+              after = "nvim-cmp",
+              event = { "CmdlineEnter" },
+            },
+            {
+              "hrsh7th/cmp-nvim-lsp",
+              after = "nvim-cmp",
+            },
+            {
+              "hrsh7th/cmp-nvim-lua",
+              after = "nvim-cmp",
+              ft = { "lua" },
+            },
+            {
+              "hrsh7th/cmp-path",
+              after = "nvim-cmp",
+            },
+            {
+              "hrsh7th/cmp-emoji",
+              after = "nvim-cmp",
+            },
+            {
+              "quangnguyen30192/cmp-nvim-ultisnips",
+              after = "nvim-cmp",
+            },
+            {
+              "tzachar/cmp-tabnine",
+              run = "./install.sh",
+              after = "nvim-cmp",
+            },
           },
         },
         {
@@ -605,10 +652,7 @@ require("packer").startup({
         },
         { "onsails/diaglist.nvim" },
         { "williamboman/nvim-lsp-installer" },
-        { "nvim-lua/lsp-status.nvim" },
         { "arkav/lualine-lsp-progress" },
-        { "tjdevries/lsp_extensions.nvim" },
-        { "folke/lsp-colors.nvim" },
         { "folke/lua-dev.nvim" },
       },
     })
@@ -791,11 +835,8 @@ require("packer").startup({
     use("tpope/vim-unimpaired")
     use({
       "tpope/vim-scriptease",
-      cmd = {
-        "Messages", -- view messages in quickfix list
-        "Verbose", -- view verbose output in preview window.
-        "Time", -- measure how long it takes to run some stuff.
-      },
+      ft = "help",
+      cmd = { "Messages", "Verbose", "Time" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -804,7 +845,7 @@ require("packer").startup({
     -- NOTE: tjdevries {{{
     ------------------------------------------------------------------------
     -- use 'tjdevries/express_line.nvim'
-    use("tjdevries/complextras.nvim")
+    -- use("tjdevries/complextras.nvim")
     -- }}}
     ------------------------------------------------------------------------
 
