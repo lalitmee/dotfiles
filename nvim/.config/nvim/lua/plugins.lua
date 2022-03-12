@@ -84,6 +84,7 @@ require("packer").startup({
     use({
       "folke/todo-comments.nvim",
       config = [[require('lk/plugins/todo-comments')]],
+      requires = { "nvim-lua/plenary.nvim" },
     })
 
     -- which-key
@@ -279,12 +280,12 @@ require("packer").startup({
     -- NOTE: FUZZY SEARCH {{{
     ------------------------------------------------------------------------
     -- telescope.nvim
-    use({ "nvim-lua/plenary.nvim" })
     use({
       "nvim-telescope/telescope.nvim",
       cmd = { "Telescope" },
       config = [[require('lk/plugins/telescope')]],
       requires = {
+        { "nvim-lua/plenary.nvim", after = "telescope.nvim" },
         {
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
@@ -651,20 +652,24 @@ require("packer").startup({
         },
         {
           "ray-x/lsp_signature.nvim",
-          config = function()
-            require("lsp_signature").setup({
-              bind = true,
-              fix_pos = false,
-              auto_close_after = 15, -- close after 15 seconds
-              hint_enable = false,
-              handler_opts = { border = "rounded" },
-            })
-          end,
+          config = [[require('lk/plugins/lsp/signature')]],
+          after = "nvim-lspconfig",
         },
-        { "onsails/diaglist.nvim" },
+        {
+          "onsails/diaglist.nvim",
+          after = "nvim-lspconfig",
+          cmd = { "DiagList", "DiagListAll" },
+        },
         { "williamboman/nvim-lsp-installer" },
-        { "arkav/lualine-lsp-progress" },
-        { "folke/lua-dev.nvim" },
+        {
+          "arkav/lualine-lsp-progress",
+          after = { "nvim-lspconfig", "lualine.nvim" },
+        },
+        {
+          "folke/lua-dev.nvim",
+          ft = "lua",
+          after = { "nvim-lspconfig" },
+        },
       },
     })
     -- }}}
