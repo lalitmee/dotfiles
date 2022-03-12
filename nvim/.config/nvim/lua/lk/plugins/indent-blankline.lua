@@ -1,6 +1,6 @@
 require("indent_blankline").setup({
   space_char_blankline = " ",
-  char = "", -- │ ┊ ┆
+  char = "┆", -- │ ┊ 
   show_foldtext = false,
   show_current_context = true,
   show_current_context_start = false,

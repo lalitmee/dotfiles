@@ -112,6 +112,9 @@ require("packer").startup({
       cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
     })
 
+    ----------------------------------------------------------------------
+    -- NOTE: quick fix plugins {{{
+    ----------------------------------------------------------------------
     -- better quick-fix winodw
     use({
       "kevinhwang91/nvim-bqf",
@@ -122,8 +125,11 @@ require("packer").startup({
     -- prettify quickfix windows for neovim
     use({
       "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+      ft = { "qf" },
       config = [[require('lk/plugins/nvim-pqf')]],
     })
+    -- }}}
+    ----------------------------------------------------------------------
     -- }}}
     ----------------------------------------------------------------------------
     -- }}}
