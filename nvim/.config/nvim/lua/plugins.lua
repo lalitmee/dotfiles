@@ -571,7 +571,6 @@ require("packer").startup({
             {
               "hrsh7th/cmp-buffer",
               after = "nvim-cmp",
-              event = { "BufEnter" },
             },
             {
               "hrsh7th/cmp-cmdline",
