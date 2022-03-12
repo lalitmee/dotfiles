@@ -413,6 +413,7 @@ require("packer").startup({
     -- do opposite of `J` using `gS`
     use({
       "AckslD/nvim-revJ.lua",
+      keys = { "n", "gS" },
       requires = { "wellle/targets.vim" },
       config = [[require('lk/plugins/nvim-revj')]],
     })
@@ -549,7 +550,7 @@ require("packer").startup({
     -- use 'Shougo/neco-vim'
     -- use 'neoclide/coc-neco'
     -- -- NOTE: Completion Conquerer
-    -- use { 'neoclide/coc.nvim', branch = 'release' }
+    -- use { 'neoclide/coc.nvim', branch = 'release', }
     -- use { 'fannheyward/go.vim', ft = 'go' }
     -- }}}
     --------------------------------------------------------------------------
@@ -559,25 +560,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "neovim/nvim-lspconfig",
-      ft = {
-        "lua",
-        "c",
-        "cpp",
-        "css",
-        "go",
-        "js",
-        "jsx",
-        "json",
-        "ts",
-        "tsx",
-        "yaml",
-        "bash",
-        "rust",
-        "vim",
-        "python",
-        "md",
-        "html",
-      },
+      ft = { "bash", "css", "html", "js", "json", "lua", "md", "ts", "vim", "yaml" },
       config = [[require('lk/plugins/lsp')]],
       requires = {
         { "onsails/lspkind-nvim" },
