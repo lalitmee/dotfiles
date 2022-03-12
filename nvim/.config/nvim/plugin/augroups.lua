@@ -215,7 +215,7 @@ augroup("FileTypeSpecific", {
   },
   {
     event = { "BufRead", "BufNewFile" },
-    pattern = { "*.conf", "Caddyfile" },
+    pattern = { "*.conf", "Caddyfile", ".env" },
     command = function()
       vim.bo.filetype = "conf"
     end,

@@ -817,7 +817,6 @@ require("packer").startup({
     -- NOTE: tpope {{{
     ------------------------------------------------------------------------
     use({ "Pocco81/AbbrevMan.nvim" })
-    -- use({ "tpope/vim-dotenv", ft = "env" })
     use({
       "tpope/vim-repeat",
       keys = { "n", "." },
