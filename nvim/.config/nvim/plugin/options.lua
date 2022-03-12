@@ -16,6 +16,7 @@ g.enable_treesitter_ft = {
   "typescript",
   "vim",
   "yaml",
+  "dockerfile",
 }
 
 -- enable lsp for what filetype
@@ -30,6 +31,7 @@ g.enable_lspconfig_ft = {
   "typescript",
   "vim",
   "yaml",
+  "dockerfile",
 }
 
 -----------------------------------------------------------------------------//

@@ -39,7 +39,6 @@ require("packer").startup({
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
-      event = { "BufEnter" },
       module = "vim.ui",
       config = [[require('lk/plugins/dressing')]],
     })
@@ -49,7 +48,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     use({
       "rcarriga/nvim-notify",
-      module = "vim",
+      module = "vim.notify",
       config = [[require('lk/plugins/notify')]],
     })
     -- }}}
@@ -646,13 +645,9 @@ require("packer").startup({
         },
         {
           "narutoxy/dim.lua",
-          after = "nvim-lspconfig",
+          after = { "nvim-lspconfig", "nvim-treesitter" },
           requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-          config = function()
-            require("dim").setup({
-              change_in_insert = true,
-            })
-          end,
+          config = [[require('lk/plugins/dim')]],
         },
         {
           "ray-x/lsp_signature.nvim",
@@ -706,6 +701,8 @@ require("packer").startup({
     use({
       "danymat/neogen",
       cmd = { "Neogen" },
+      after = { "nvim-treesitter" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
       config = [[require('lk/plugins/neogen')]],
     })
     -- }}}
@@ -866,6 +863,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
+    -- nvim-tree explorer
     use({
       "kyazdani42/nvim-tree.lua",
       cmd = {
@@ -874,6 +872,12 @@ require("packer").startup({
         "NvimTreeFindFile",
       },
       config = [[require('lk/plugins/nvim-tree')]],
+    })
+
+    -- dirbuf
+    use({
+      "elihunter173/dirbuf.nvim",
+      cmd = { "DirBuf" },
     })
     -- }}}
     ------------------------------------------------------------------------

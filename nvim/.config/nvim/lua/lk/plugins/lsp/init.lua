@@ -171,6 +171,7 @@ local servers = {
   remark_ls = true,
   tsserver = true,
   vimls = true,
+  dockerls = true,
   sumneko_lua = sumneko,
 }
 
