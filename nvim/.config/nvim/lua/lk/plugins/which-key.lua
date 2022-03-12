@@ -796,21 +796,6 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["t"] = {
     ["name"] = "+tabs/terminal/toggle",
-    ["f"] = {
-      ["name"] = "+floaterm",
-      ["G"] = { ":lua Tig()<CR>", "tig" },
-      ["a"] = { ":lua Terminal_Velocity()<CR>", "terminal_velocity" },
-      ["d"] = { ":lua LazyDocker()<CR>", "docker" },
-      ["g"] = { ":lua LazyGit()<CR>", "lazygit" },
-      ["n"] = { ":lua Node()<CR>", "node" },
-      ["p"] = { ":lua Python()<CR>", "python" },
-      ["r"] = { ":lua Ranger()<CR>", "ranger" },
-      ["s"] = { ":lua Ncdu()<CR>", "ncdu" },
-      ["t"] = { ":ToggleTerm<CR>", "toggle" },
-      ["v"] = { ":lua Grv()<CR>", "grv" },
-      ["w"] = { ":lua Wt()<CR>", "weather" },
-      ["y"] = { ":lua Btm()<CR>", "ytop" },
-    },
     ["g"] = {
       ["name"] = "+git",
       ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
