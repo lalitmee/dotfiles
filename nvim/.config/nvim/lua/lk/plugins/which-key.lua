@@ -206,6 +206,7 @@ local leader_key_maps = {
     ["r"] = { ":Telescope frecency<CR>", "telescope-frecency" },
     ["s"] = { ":w<CR>", "save-buffer" },
     ["S"] = { ":wa<CR>", "save-all-buffers" },
+    ["t"] = { ":Telescope filetypes<CR>", "file-types" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -846,6 +847,7 @@ local leader_key_maps = {
     ["/"] = { ":Telescope command_history<CR>", "commands-history" },
     [":"] = { ":Telescope commands<CR>", "commands" },
     ["c"] = { ":Telescope colorscheme<CR>", "colorschemes" },
+    ["f"] = { ":Telescope filetypes<CR>", "filetypes" },
     ["h"] = { ":Telescope help_tags<CR>", "help-tags" },
     ["H"] = { ":Telescope highlights<CR>", "highlights" },
     ["j"] = { ":Telescope jumplist<CR>", "jumplist" },
