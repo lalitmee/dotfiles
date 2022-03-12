@@ -37,7 +37,11 @@ require("packer").startup({
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
     -- improve default neovim UI
-    use({ "stevearc/dressing.nvim" })
+    use({
+      "stevearc/dressing.nvim",
+      event = { "BufEnter" },
+      config = [[require('lk/plugins/dressing')]],
+    })
 
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
