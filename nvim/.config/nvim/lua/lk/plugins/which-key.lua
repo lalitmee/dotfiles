@@ -90,8 +90,8 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["c"] = {
     ["name"] = "lspsaga",
-    ["a"] = { ":Lspsaga ranger_code_action<CR>", "range-code-action" },
-    ["c"] = { ":Lspsaga code_action<CR>", "code-action" },
+    ["a"] = { ":Lspsaga code_action<CR>", "code-action" },
+    ["c"] = { ":Lspsaga ranger_code_action<CR>", "range-code-action" },
     ["d"] = { ":Lspsaga preview_definition<CR>", "preview-definition" },
     ["f"] = { ":Lspsaga lsp_finder<CR>", "lsp-finder" },
     ["h"] = { ":Lspsaga signature_help<CR>", "signature-help" },
@@ -721,8 +721,7 @@ local leader_key_maps = {
     ["f"] = { ":Telescope find_files<cr>", "find-files" },
     ["F"] = { ":Telescope old_files<CR>", "old-files" },
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-    ["p"] = { ":Telescope project project display_type=full<CR>", "switch-project" },
-    ["P"] = { ":Telescope projects<CR>", "switch-projects" },
+    ["p"] = { ":Telescope projects<CR>", "switch-projects" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },

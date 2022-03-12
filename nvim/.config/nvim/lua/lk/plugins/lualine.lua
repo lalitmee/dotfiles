@@ -5,6 +5,12 @@ if not ok then
   return
 end
 
+local auto_session_ok, auto_session_library = lk.safe_require("auto-session-library")
+if not auto_session_ok then
+  vim.notify("Failed to load auto-session-library", "error", { title = "[auto-session-library.nvim] error" })
+  return
+end
+
 --------------------------------------------------------------------------------
 -- NOTE: to get the current client server name {{{
 --------------------------------------------------------------------------------
@@ -89,6 +95,10 @@ lualine.setup({
       },
       { "filesize" },
       { "filetype" },
+      {
+        auto_session_library.current_session_name,
+        color = { fg = colors.black, bg = colors.blue },
+      },
     },
     lualine_y = { { "progress" } },
     lualine_z = { { "location" } },

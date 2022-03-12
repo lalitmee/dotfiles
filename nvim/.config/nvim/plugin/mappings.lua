@@ -116,6 +116,6 @@ map("n", "<cr>", [[@=(foldlevel('.')?'za':"\<Space>")<cr>]], map_opts)
 -- create folds using visual select and then press <cr>
 map("v", "<cr>", [[zf]], map_opts)
 
--- Complextras.nvim configuration
-map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
-map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)
+-- -- Complextras.nvim configuration
+-- map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
+-- map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)
