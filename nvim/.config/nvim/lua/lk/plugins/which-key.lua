@@ -1051,6 +1051,17 @@ local visual_mode_leader_key_maps = {
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: g keymaps {{{
+----------------------------------------------------------------------
+wk.register({
+  g = {
+    o = { ":Browse<CR>", "browse" },
+  },
+}, { silent = true })
+-- }}}
+----------------------------------------------------------------------
+
 wk.register(local_leader_key_maps, { prefix = "<localleader>" })
 wk.register(leader_key_maps, { prefix = "<leader>" })
 wk.register(visual_mode_leader_key_maps, { prefix = "<leader>", mode = "v" })
