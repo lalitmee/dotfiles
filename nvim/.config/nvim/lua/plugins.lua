@@ -40,6 +40,7 @@ require("packer").startup({
     use({
       "stevearc/dressing.nvim",
       event = { "BufEnter" },
+      module = "vim.ui",
       config = [[require('lk/plugins/dressing')]],
     })
 
