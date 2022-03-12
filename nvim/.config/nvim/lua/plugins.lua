@@ -825,7 +825,6 @@ require("packer").startup({
       "tpope/vim-surround",
       event = { "BufRead" },
     })
-    use({ "tpope/vim-unimpaired" })
     use({
       "tpope/vim-scriptease",
       ft = "help",
