@@ -96,7 +96,7 @@ augroup("AddTerminalMappings", {
         tnoremap("<C-j>", [[<C-\><C-n><C-W>j]], opts)
         tnoremap("<C-k>", [[<C-\><C-n><C-W>k]], opts)
         tnoremap("<C-l>", [[<C-\><C-n><C-W>l]], opts)
-        tnoremap("<BS>", [[<NOP>]], opts)
+        tnoremap("<BS>", [[<BS>]], opts)
       end
       vim.cmd([[startinsert]])
     end,
