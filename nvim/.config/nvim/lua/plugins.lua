@@ -23,6 +23,13 @@ require("packer").startup({
       "tweekmonster/startuptime.vim",
       cmd = "StartupTime",
     })
+
+    use({
+      "antoinemadec/FixCursorHold.nvim",
+      run = function()
+        vim.g.curshold_updatime = 1000
+      end,
+    })
     -- }}}
     --------------------------------------------------------------------------------
 
@@ -35,6 +42,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     use({
       "rcarriga/nvim-notify",
+      module = "vim",
       config = [[require('lk/plugins/notify')]],
     })
     -- }}}
@@ -57,6 +65,7 @@ require("packer").startup({
       "yamatsum/nvim-nonicons",
       requires = { "kyazdani42/nvim-web-devicons" },
       config = [[require('lk/plugins/devicons')]],
+      event = { "BufRead" },
     })
 
     -- }}}
@@ -93,6 +102,7 @@ require("packer").startup({
     use({
       "norcalli/nvim-colorizer.lua",
       config = [[require('lk/plugins/colorizer')]],
+      cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
     })
 
     -- better quick-fix winodw
@@ -191,6 +201,7 @@ require("packer").startup({
     use({
       "windwp/nvim-spectre",
       cmd = { "SpectreOpen" },
+      module = "spectre",
     })
 
     -- search multiple thing using `*`
@@ -399,19 +410,37 @@ require("packer").startup({
     -- auto pairs
     use({
       "windwp/nvim-autopairs",
+      keys = {
+        { "i", "(" },
+        { "i", "{" },
+        { "i", "[" },
+        { "i", "'" },
+        { "i", '"' },
+        { "i", "`" },
+      },
       config = [[require('lk/plugins/autopairs')]],
     })
 
     -- match brackets and more
     use({
       "andymass/vim-matchup",
-      config = function()
-        vim.g.matchup_transmute_enabled = 1
-      end,
+      keys = {
+        { "n", "%" },
+        { "v", "%" },
+      },
     })
 
-    -- do opposite of `J` using `gS`
+    -- extra text objects
     use({ "wellle/targets.vim" })
+
+    -- split and join
+    use({
+      "AndrewRadev/splitjoin.vim",
+      keys = {
+        { "n", "gJ" },
+        { "n", "gS" },
+      },
+    })
 
     -- sorting in vim
     use({
@@ -451,6 +480,7 @@ require("packer").startup({
     -- fast folds in vim
     use({
       "Konfekt/FastFold",
+      event = { "BufRead" },
       config = [[require('lk/plugins/fastfold')]],
     })
 
@@ -458,6 +488,12 @@ require("packer").startup({
     use({
       "numToStr/Comment.nvim",
       config = [[require('lk/plugins/comment')]],
+      keys = {
+        { "n", "gcc" },
+        { "n", "gbc" },
+        { "v", "gc" },
+        { "v", "gb" },
+      },
     })
 
     -- comment boxes
@@ -528,6 +564,7 @@ require("packer").startup({
     use({
       "lukas-reineke/indent-blankline.nvim",
       config = [[require('lk/plugins/indent-blankline')]],
+      event = { "BufRead" },
     })
 
     -- Tabularize for Vim
@@ -561,7 +598,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "neovim/nvim-lspconfig",
-      ft = { "bash", "css", "html", "js", "json", "lua", "md", "ts", "vim", "yaml" },
+      ft = vim.g.enable_lspconfig_ft,
       config = [[require('lk/plugins/lsp')]],
       requires = {
         { "onsails/lspkind-nvim" },
@@ -649,6 +686,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
+      ft = vim.g.enable_treesitter_ft,
       config = [[require('lk/plugins/treesitter')]],
       run = ":TSUpdate",
       requires = {
@@ -683,6 +721,7 @@ require("packer").startup({
     -- refactor the code
     use({
       "ThePrimeagen/refactoring.nvim",
+      after = { "nvim-treesitter" },
       config = [[require('lk/plugins/refactoring')]],
     })
 
@@ -698,25 +737,10 @@ require("packer").startup({
 
     use({
       "iamcco/markdown-preview.nvim",
+      run = function()
+        vim.fn["mkdp#util#install"]()
+      end,
       ft = "markdown",
-      run = "cd app && yarn install",
-    })
-    -- }}}
-    ----------------------------------------------------------------------------
-
-    ----------------------------------------------------------------------------
-    -- NOTE: General {{{
-    ----------------------------------------------------------------------------
-    -- cheat.sh in neovim
-    use({
-      "RishabhRD/nvim-cheat.sh",
-      requires = { "RishabhRD/popfix" },
-      cmd = {
-        "Cheat",
-        "CheatWithouComments",
-        "CheatList",
-        "CheatListWithoutComments",
-      },
     })
     -- }}}
     ----------------------------------------------------------------------------
@@ -726,22 +750,22 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: VERSION CONTROL STYSTEM {{{
     ------------------------------------------------------------------------
-    use({ "ruifm/gitlinker.nvim" })
     use({
       "rhysd/conflict-marker.vim",
-      config = function()
-        vim.g.conflict_marker_highlight_group = ""
-        vim.g.conflict_marker_begin = "^<<<<<<< .*$"
-        vim.g.conflict_marker_end = "^>>>>>>> .*$"
-      end,
+      config = [[require('lk/plugins/conflict-marker')]],
     })
 
     -- git actions using telescope
     use({
       "pwntester/octo.nvim",
-      config = function()
-        require("octo").setup()
-      end,
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "kyazdani42/nvim-web-devicons",
+      },
+      config = [[require('lk/plugins/octo')]],
+      after = { "telescope.nvim" },
+      keys = { "n", "<leader>go" },
     })
 
     -- git worktree
@@ -756,6 +780,7 @@ require("packer").startup({
     -- magit for neovim in lua
     use({
       "TimUntersberger/neogit",
+      requires = { "nvim-lua/plenary.nvim" },
       cmd = { "Neogit" },
       config = [[require('lk/plugins/neogit')]],
     })
@@ -763,21 +788,17 @@ require("packer").startup({
     -- gitsigns in lua
     use({
       "lewis6991/gitsigns.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+      event = { "BufRead" },
       config = [[require('lk/plugins/gitsigns')]],
     })
 
     -- git lens in vim
     use({
       "sindrets/diffview.nvim",
-      cmd = { "DiffviewOpen" },
-      config = function()
-        require("diffview").setup({
-          key_bindings = {
-            file_panel = { q = "<Cmd>DiffviewClose<CR>" },
-            view = { q = "<Cmd>DiffviewClose<CR>" },
-          },
-        })
-      end,
+      requires = { "nvim-lua/plenary.nvim" },
+      config = [[require('lk/plugins/diffview')]],
+      cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -796,6 +817,7 @@ require("packer").startup({
     -- bufferline
     use({
       "akinsho/nvim-bufferline.lua",
+      event = { "BufRead" },
       config = [[require('lk/plugins/bufferline')]],
     })
     -- }}}
@@ -811,11 +833,17 @@ require("packer").startup({
       "tpope/vim-abolish",
       config = [[require('lk/plugins/abolish')]],
     })
-    use("tpope/vim-dotenv")
-    use("tpope/vim-repeat")
-    use("tpope/vim-sleuth")
-    use("tpope/vim-surround")
-    use("tpope/vim-unimpaired")
+    use({ "tpope/vim-dotenv", ft = "env" })
+    use({
+      "tpope/vim-repeat",
+      keys = { "n", "." },
+    })
+    use({ "tpope/vim-sleuth" })
+    use({
+      "tpope/vim-surround",
+      event = { "BufRead" },
+    })
+    use({ "tpope/vim-unimpaired" })
     use({
       "tpope/vim-scriptease",
       ft = "help",
@@ -844,7 +872,11 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "kyazdani42/nvim-tree.lua",
-      cmd = { "NvimTreeToggle" },
+      cmd = {
+        "NvimTreeToggle",
+        "NvimTreeRefresh",
+        "NvimTreeFindFile",
+      },
       config = [[require('lk/plugins/nvim-tree')]],
     })
     -- }}}
@@ -859,6 +891,7 @@ require("packer").startup({
     use({
       "akinsho/nvim-toggleterm.lua",
       config = [[require('lk/plugins/toggleterm')]],
+      keys = { "n", [[<C-\>]] },
     })
     -- }}}
     ------------------------------------------------------------------------

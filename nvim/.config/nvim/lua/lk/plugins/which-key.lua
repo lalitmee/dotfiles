@@ -36,7 +36,8 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["a"] = {
     ["name"] = "+actions",
-    ["a"] = { ":CheatList<CR>", "cheatsheet" },
+    ["b"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
+    ["d"] = { ":ColorizerAttachToBuffer<CR>", "attach-colorizer" },
     ["c"] = { ":Telescope neoclip<CR>", "clipboard" },
     ["o"] = { ":NvimTreeToggle<CR>", "nvim-tree-toggle" },
     ["f"] = { ":NvimTreeFindFile<CR>", "nvim-tree-find-file" },
@@ -954,19 +955,9 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
   ["b"] = {
     ["name"] = "+buffers",
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
-  -- NOTE: cheat.sh {{{
-  ----------------------------------------------------------------------
-  ["c"] = {
-    ["name"] = "+cheat.sh",
-    ["r"] = { ":Cheat<CR>", "cht.sh" },
-    ["R"] = { ":CheatWithoutComments<CR>", "cht.sh-no-comments" },
-    ["l"] = { ":Cheatlist<CR>", "cheat-lists" },
-    ["L"] = { ":CheatListWithoutComments<CR>", "cheat-lists-no-comments" },
+    ["b"] = { ":ReachOpen buffers<CR>", "buffers" },
+    ["m"] = { ":ReachOpen marks<CR>", "marks" },
+    ["t"] = { ":ReachOpen tabpages<CR>", "tabs" },
   },
   -- }}}
   ----------------------------------------------------------------------

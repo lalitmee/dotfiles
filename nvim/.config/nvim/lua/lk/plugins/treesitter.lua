@@ -1,9 +1,8 @@
 require("nvim-treesitter.configs").setup({
-  ensure_installed = "all",
+  ensure_installed = vim.g.enable_treesitter_ft,
   highlight = {
     enable = true,
-    -- disable = { "org" },
-    additional_vim_regex_highlighting = { "org" },
+    additional_vim_regex_highlighting = true,
   },
   matchup = { enable = true },
   autotag = { enable = true },
