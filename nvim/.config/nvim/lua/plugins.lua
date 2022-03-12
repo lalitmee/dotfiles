@@ -411,12 +411,7 @@ require("packer").startup({
     })
 
     -- do opposite of `J` using `gS`
-    use({
-      "AckslD/nvim-revJ.lua",
-      keys = { "n", "gS" },
-      requires = { "wellle/targets.vim" },
-      config = [[require('lk/plugins/nvim-revj')]],
-    })
+    use({ "wellle/targets.vim" })
 
     -- sorting in vim
     use({
