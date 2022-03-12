@@ -1,7 +1,36 @@
 local fn = vim.fn
 local api = vim.api
 local opt = vim.opt
+local g = vim.g
 local executable = lk.executable
+
+-- enable treesitter for what filetype?
+g.enable_treesitter_ft = {
+  "bash",
+  "css",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "typescript",
+  "vim",
+  "yaml",
+}
+
+-- enable lsp for what filetype
+g.enable_lspconfig_ft = {
+  "bash",
+  "css",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "typescript",
+  "vim",
+  "yaml",
+}
 
 -----------------------------------------------------------------------------//
 -- Message output on vim actions {{{1
