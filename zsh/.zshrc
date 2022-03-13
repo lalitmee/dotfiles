@@ -296,6 +296,7 @@ alias co="code ."
 alias o="oni ."
 alias sb="subl ."
 alias vi="nvim"
+alias vim="nvim"
 alias gv="gvim"
 alias nv="neovide"
 
