@@ -4,6 +4,14 @@
 -- cfilter plugin allows filter down an existing quickfix list
 -- vim.cmd([[packadd! cfilter]])
 
+-- function to return string for require plugins using path
+local function conf(name)
+  if name == "signature" then
+    return string.format("require('lk/plugins/lsp/%s')", name)
+  end
+  return string.format("require('lk/plugins/%s')", name)
+end
+
 --------------------------------------------------------------------------------
 -- NOTE: packer startup {{{
 --------------------------------------------------------------------------------
@@ -40,7 +48,7 @@ require("packer").startup({
     use({
       "stevearc/dressing.nvim",
       module = "vim.ui",
-      config = [[require('lk/plugins/dressing')]],
+      config = conf("dressing"),
     })
 
     ----------------------------------------------------------------------------
@@ -49,7 +57,7 @@ require("packer").startup({
     use({
       "rcarriga/nvim-notify",
       module = "vim",
-      config = [[require('lk/plugins/notify')]],
+      config = conf("notify"),
     })
     -- }}}
     ----------------------------------------------------------------------------
@@ -70,7 +78,7 @@ require("packer").startup({
     use({
       "yamatsum/nvim-nonicons",
       requires = { "kyazdani42/nvim-web-devicons" },
-      config = [[require('lk/plugins/devicons')]],
+      config = conf("devicons"),
       event = { "BufRead" },
     })
 
@@ -83,14 +91,14 @@ require("packer").startup({
     -- highlighting of todo comments
     use({
       "folke/todo-comments.nvim",
-      config = [[require('lk/plugins/todo-comments')]],
+      config = conf("todo-comments"),
       requires = { "nvim-lua/plenary.nvim" },
     })
 
     -- which-key
     use({
       "folke/which-key.nvim",
-      config = [[require('lk/plugins/which-key')]],
+      config = conf("which-key"),
     })
 
     -- session management
@@ -100,15 +108,15 @@ require("packer").startup({
       cmd = { "SearchSession" },
       requires = {
         "rmagatti/auto-session",
-        config = [[require('lk/plugins/auto-session')]],
+        config = conf("auto-session"),
       },
-      config = [[require('lk/plugins/session-lens')]],
+      config = conf("session-lens"),
     })
 
     -- Colorizer for showing the colors
     use({
       "norcalli/nvim-colorizer.lua",
-      config = [[require('lk/plugins/colorizer')]],
+      config = conf("colorizer"),
       cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
     })
 
@@ -119,14 +127,14 @@ require("packer").startup({
     use({
       "kevinhwang91/nvim-bqf",
       ft = { "qf" },
-      config = [[require('lk/plugins/nvim-bqf')]],
+      config = conf("nvim-bqf"),
     })
 
     -- prettify quickfix windows for neovim
     use({
       "https://gitlab.com/yorickpeterse/nvim-pqf.git",
       ft = { "qf" },
-      config = [[require('lk/plugins/nvim-pqf')]],
+      config = conf("nvim-pqf"),
     })
     -- }}}
     ----------------------------------------------------------------------
@@ -173,18 +181,18 @@ require("packer").startup({
         { "v", "g<C-a>" },
         { "v", "g<C-x>" },
       },
-      config = [[require('lk/plugins/dial')]],
+      config = conf("dial"),
     })
 
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
       "svermeulen/vim-yoink",
-      config = [[require('lk/plugins/vim-yoink')]],
+      config = conf("vim-yoink"),
     })
 
     use({
       "gbprod/substitute.nvim",
-      config = [[require('lk/plugins/substitute')]],
+      config = conf("substitute"),
     })
 
     -- interactively swap so many things
@@ -196,7 +204,7 @@ require("packer").startup({
     -- toggle, display and navigate marks
     use({
       "chentau/marks.nvim",
-      config = [[require('lk/plugins/marks')]],
+      config = conf("marks"),
     })
 
     -- clipboard
@@ -204,7 +212,7 @@ require("packer").startup({
       "AckslD/nvim-neoclip.lua",
       after = { "telescope.nvim" },
       requires = { "tami5/sqlite.lua", module = "sqlite" },
-      config = [[require('lk/plugins/neoclip')]],
+      config = conf("neoclip"),
     })
 
     ----------------------------------------------------------------------------
@@ -227,7 +235,7 @@ require("packer").startup({
         { "n", "#" },
         { "n", "g#" },
       },
-      config = [[require('lk/plugins/hlslens')]],
+      config = conf("hlslens"),
       requires = {
         { "haya14busa/incsearch.vim" },
         { "romainl/vim-cool" },
@@ -238,13 +246,13 @@ require("packer").startup({
     use({
       "nacro90/numb.nvim",
       keys = { "c", ":" },
-      config = [[require('lk/plugins/numb')]],
+      config = conf("numb"),
     })
 
     -- easymotion using lua
     use({
       "phaazon/hop.nvim",
-      config = [[require('lk/plugins/hop')]],
+      config = conf("hop"),
     })
 
     -- Navigations
@@ -264,7 +272,7 @@ require("packer").startup({
         "HarpoonRemoveFile",
         "ToggleHarpoonMenu",
       },
-      config = [[require('lk/plugins/harpoon')]],
+      config = conf("harpoon"),
     })
     -- }}}
     ----------------------------------------------------------------------------
@@ -276,7 +284,7 @@ require("packer").startup({
     use({
       "nvim-telescope/telescope.nvim",
       cmd = { "Telescope" },
-      config = [[require('lk/plugins/telescope')]],
+      config = conf("telescope"),
       requires = {
         { "nvim-lua/plenary.nvim", after = "telescope.nvim" },
         {
@@ -373,7 +381,7 @@ require("packer").startup({
         { "v", "<M-k>" },
         { "v", "<M-l>" },
       },
-      config = [[require('lk/plugins/gomove')]],
+      config = conf("gomove"),
     })
 
     -- smooth scrolling in neovim
@@ -390,14 +398,14 @@ require("packer").startup({
         { "n", "zz" },
         { "n", "zb" },
       },
-      config = [[require('lk/plugins/neoscroll')]],
+      config = conf("neoscroll"),
     })
 
     -- delete buffers without distubing layout
     use({
       "kazhala/close-buffers.nvim",
       cmd = { "BDelete" },
-      config = [[require('lk/plugins/close-buffers')]],
+      config = conf("close-buffers"),
     })
 
     -- auto pairs
@@ -411,7 +419,7 @@ require("packer").startup({
         { "i", '"' },
         { "i", "`" },
       },
-      config = [[require('lk/plugins/autopairs')]],
+      config = conf("autopairs"),
     })
 
     -- match brackets and more
@@ -447,7 +455,7 @@ require("packer").startup({
     -- navigate and splits
     use({
       "numToStr/Navigator.nvim",
-      config = [[require('lk/plugins/navigator')]],
+      config = conf("navigator"),
       cmd = {
         "NavigateLeft",
         "NavigateRight",
@@ -467,20 +475,20 @@ require("packer").startup({
     use({
       "anuvyklack/pretty-fold.nvim",
       event = { "BufEnter" },
-      config = [[require('lk/plugins/pretty-fold')]],
+      config = conf("pretty-fold"),
     })
 
     -- fast folds in vim
     use({
       "Konfekt/FastFold",
       event = { "BufRead" },
-      config = [[require('lk/plugins/fastfold')]],
+      config = conf("fastfold"),
     })
 
     -- commenting
     use({
       "numToStr/Comment.nvim",
-      config = [[require('lk/plugins/comment')]],
+      config = conf("comment"),
       keys = {
         { "n", "gcc" },
         { "n", "gbc" },
@@ -538,7 +546,7 @@ require("packer").startup({
     use({
       "SirVer/ultisnips",
       requires = { "honza/vim-snippets" },
-      config = [[require('lk/plugins/ultisnips')]],
+      config = conf("ultisnips"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -549,14 +557,14 @@ require("packer").startup({
     -- formatter in lua
     use({
       "mhartington/formatter.nvim",
-      config = [[require('lk/plugins/formatter')]],
+      config = conf("formatter"),
       cmd = { "FormatWrite" },
     })
 
     -- indentlines in neovim
     use({
       "lukas-reineke/indent-blankline.nvim",
-      config = [[require('lk/plugins/indent-blankline')]],
+      config = conf("indent-blankline"),
       event = { "BufRead" },
     })
 
@@ -592,12 +600,12 @@ require("packer").startup({
     use({
       "neovim/nvim-lspconfig",
       ft = vim.g.enable_lspconfig_ft,
-      config = [[require('lk/plugins/lsp')]],
+      config = conf("lsp"),
       requires = {
         { "onsails/lspkind-nvim" },
         {
           "hrsh7th/nvim-cmp",
-          config = [[require('lk/plugins/nvim-cmp')]],
+          config = conf("nvim-cmp"),
           event = { "InsertEnter", "CmdlineEnter" },
           requires = {
             {
@@ -641,11 +649,11 @@ require("packer").startup({
           "narutoxy/dim.lua",
           after = { "nvim-lspconfig", "nvim-treesitter" },
           requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-          config = [[require('lk/plugins/dim')]],
+          config = conf("dim"),
         },
         {
           "ray-x/lsp_signature.nvim",
-          config = [[require('lk/plugins/lsp/signature')]],
+          config = conf("signature"),
           after = "nvim-lspconfig",
         },
         {
@@ -676,7 +684,7 @@ require("packer").startup({
     use({
       "nvim-treesitter/nvim-treesitter",
       ft = vim.g.enable_treesitter_ft,
-      config = [[require('lk/plugins/treesitter')]],
+      config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
         {
@@ -697,7 +705,7 @@ require("packer").startup({
       cmd = { "Neogen" },
       after = { "nvim-treesitter" },
       requires = { "nvim-treesitter/nvim-treesitter" },
-      config = [[require('lk/plugins/neogen')]],
+      config = conf("neogen"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -709,7 +717,7 @@ require("packer").startup({
     use({
       "ThePrimeagen/refactoring.nvim",
       after = { "nvim-treesitter" },
-      config = [[require('lk/plugins/refactoring')]],
+      config = conf("refactoring"),
     })
 
     ----------------------------------------------------------------------------
@@ -739,7 +747,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "rhysd/conflict-marker.vim",
-      config = [[require('lk/plugins/conflict-marker')]],
+      config = conf("conflict-marker"),
     })
 
     -- git actions using telescope
@@ -750,7 +758,7 @@ require("packer").startup({
         "nvim-telescope/telescope.nvim",
         "kyazdani42/nvim-web-devicons",
       },
-      config = [[require('lk/plugins/octo')]],
+      config = conf("octo"),
       after = { "telescope.nvim" },
       keys = { "n", "<leader>go" },
     })
@@ -769,7 +777,7 @@ require("packer").startup({
       "TimUntersberger/neogit",
       requires = { "nvim-lua/plenary.nvim" },
       cmd = { "Neogit" },
-      config = [[require('lk/plugins/neogit')]],
+      config = conf("neogit"),
     })
 
     -- gitsigns in lua
@@ -777,14 +785,14 @@ require("packer").startup({
       "lewis6991/gitsigns.nvim",
       requires = { "nvim-lua/plenary.nvim" },
       event = { "BufRead" },
-      config = [[require('lk/plugins/gitsigns')]],
+      config = conf("gitsigns"),
     })
 
     -- git lens in vim
     use({
       "sindrets/diffview.nvim",
       requires = { "nvim-lua/plenary.nvim" },
-      config = [[require('lk/plugins/diffview')]],
+      config = conf("diffview"),
       cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     })
     -- }}}
@@ -798,14 +806,14 @@ require("packer").startup({
     -- lualine.nvim
     use({
       "nvim-lualine/lualine.nvim",
-      config = [[require('lk/plugins/lualine')]],
+      config = conf("lualine"),
     })
 
     -- bufferline
     use({
       "akinsho/nvim-bufferline.lua",
       event = { "BufRead" },
-      config = [[require('lk/plugins/bufferline')]],
+      config = conf("bufferline"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -816,14 +824,19 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: tpope {{{
     ------------------------------------------------------------------------
+    -- repeat using `.`
     use({
       "tpope/vim-repeat",
       keys = { "n", "." },
     })
+
+    -- surrounding in vim
     use({
       "tpope/vim-surround",
       event = { "BufRead" },
     })
+
+    -- debug things
     use({
       "tpope/vim-scriptease",
       ft = "help",
@@ -858,7 +871,7 @@ require("packer").startup({
         "NvimTreeRefresh",
         "NvimTreeFindFile",
       },
-      config = [[require('lk/plugins/nvim-tree')]],
+      config = conf("nvim-tree"),
     })
 
     -- dirbuf
@@ -877,7 +890,7 @@ require("packer").startup({
     -- Float Terminal
     use({
       "akinsho/nvim-toggleterm.lua",
-      config = [[require('lk/plugins/toggleterm')]],
+      config = conf("toggleterm"),
       keys = { "n", [[<C-\>]] },
     })
     -- }}}
