@@ -65,7 +65,7 @@ cmp.setup({
     { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "ultisnips" },
+    { name = "luasnip" },
     { name = "orgmode" },
     { name = "path" },
     { name = "emoji" },
@@ -94,9 +94,15 @@ cmp.setup({
       cmp.config.compare.order,
     },
   },
+  -- snippet = {
+  --   expand = function(args)
+  --     vim.fn["UltiSnips#Anon"](args.body)
+  --   end,
+  -- },
+
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   formatting = {
@@ -113,7 +119,7 @@ cmp.setup({
         path = "[PATH]",
         spell = "[SPELL]",
         treesitter = "[TREE]",
-        ultisnips = "[SNIP]",
+        luasnip = "[SNIP]",
       },
     }),
   },
