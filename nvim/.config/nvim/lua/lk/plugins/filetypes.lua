@@ -6,7 +6,7 @@ require("filetype").setup({
     },
     literal = {
       Caddyfile = "conf",
-      [".env"] = "env",
+      [".env"] = "sh",
     },
     complex = {
       -- Set the filetype of any full filename matching the regex to gitconfig
