@@ -526,10 +526,6 @@ require("packer").startup({
     -- NOTE: Snippets {{{
     ------------------------------------------------------------------------
     -- -- snippets engine
-    -- use({
-    --   "SirVer/ultisnips",
-    --   requires = { "honza/vim-snippets" },
-    -- })
     use({
       "L3MON4D3/LuaSnip",
       after = { "nvim-cmp" },
@@ -626,10 +622,6 @@ require("packer").startup({
               "hrsh7th/cmp-emoji",
               after = "nvim-cmp",
               keys = { "i", ":" },
-            },
-            {
-              "quangnguyen30192/cmp-nvim-ultisnips",
-              after = "nvim-cmp",
             },
             {
               "tzachar/cmp-tabnine",
