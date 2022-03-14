@@ -829,7 +829,8 @@ local leader_key_maps = {
   -- NOTE: u is for undo {{{
   ----------------------------------------------------------------------
   ["u"] = {
-    ["name"] = "+ui/toggle",
+    ["name"] = "+undo/+ultisnips",
+    ["e"] = { ":UltiSnipsEdit<CR>", "undo-tree" },
     ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
   },
   -- }}}
