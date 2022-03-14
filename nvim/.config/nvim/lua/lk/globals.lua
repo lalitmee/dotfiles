@@ -40,7 +40,7 @@ lk.style = {
     info = " ",
     warn = " ",
     trace = "🖉",
-    debug = "🐞",
+    debug = "",
   },
 }
 -- }}}

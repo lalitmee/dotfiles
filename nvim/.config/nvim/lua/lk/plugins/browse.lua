@@ -23,6 +23,10 @@ local bookmarks = {
   "https://github.com/nvim-telescope/telescope.nvim",
   "https://github.com/rockerBOO/awesome-neovim",
   "https://neovim.discourse.group/",
+
+  -- configs
+  "https://github.com/akinsho/dotfiles",
+  "https://github.com/tjdevries/config_manager",
 }
 
 vim.keymap.set("n", "go", function()
