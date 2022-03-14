@@ -23,10 +23,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["*"] = "vimgrep-under-cursor",
   [":"] = { ":Telescope commands<CR>", "commands" },
-  ["<leader>"] = {
-    '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
-    "find-files",
-  },
+  ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
   ["/"] = { ":Telescope live_grep<CR>", "search-project" },
   -- }}}
   ----------------------------------------------------------------------
