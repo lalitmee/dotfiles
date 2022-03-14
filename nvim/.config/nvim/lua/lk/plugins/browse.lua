@@ -21,3 +21,11 @@ local bookmarks = {
 vim.keymap.set("n", "go", function()
   require("browse").browse({ bookmarks = bookmarks })
 end)
+
+vim.keymap.set("n", "gl", function()
+  require("browse").open_bookmarks({ bookmarks = bookmarks })
+end)
+
+vim.keymap.set("n", "gx", function()
+  require("browse").input_search()
+end)

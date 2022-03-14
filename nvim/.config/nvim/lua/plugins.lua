@@ -108,6 +108,7 @@ require("packer").startup({
       cmd = { "SearchSession" },
       requires = {
         "rmagatti/auto-session",
+        event = { "VimEnter" },
         config = conf("auto-session"),
       },
       config = conf("session-lens"),
@@ -150,6 +151,18 @@ require("packer").startup({
     use({
       "gabrielpoca/replacer.nvim",
       cmd = { "ReplacerRun", "ReplacerRunFiles" },
+    })
+
+    -- workspaces in neovim
+    use({
+      "natecraddock/workspaces.nvim",
+      cmd = {
+        "WorkspacesAdd",
+        "WorkspacesRemove",
+        "WorkspacesList",
+        "WorkspacesOpen",
+      },
+      config = conf("workspaces"),
     })
 
     -- projects management
@@ -201,20 +214,6 @@ require("packer").startup({
       cmd = { "ISwap", "ISwapWith" },
     })
 
-    -- toggle, display and navigate marks
-    use({
-      "chentau/marks.nvim",
-      config = conf("marks"),
-    })
-
-    -- clipboard
-    use({
-      "AckslD/nvim-neoclip.lua",
-      after = { "telescope.nvim" },
-      requires = { "tami5/sqlite.lua", module = "sqlite" },
-      config = conf("neoclip"),
-    })
-
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
@@ -224,23 +223,8 @@ require("packer").startup({
       keys = { "v", "*" },
     })
 
-    -- display search matches
-    use({
-      "kevinhwang91/nvim-hlslens",
-      keys = {
-        { "n", "/" },
-        { "n", "?" },
-        { "n", "*" },
-        { "n", "g*" },
-        { "n", "#" },
-        { "n", "g#" },
-      },
-      config = conf("hlslens"),
-      requires = {
-        { "haya14busa/incsearch.vim" },
-        { "romainl/vim-cool" },
-      },
-    })
+    -- clear search highlight after moving away
+    use({ "romainl/vim-cool" })
 
     -- search lines using numbers
     use({
@@ -340,13 +324,6 @@ require("packer").startup({
           end,
         },
         {
-          "danielpieper/telescope-tmuxinator.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("tmuxinator")
-          end,
-        },
-        {
           "nvim-telescope/telescope-hop.nvim",
           after = "telescope.nvim",
           config = function()
@@ -408,6 +385,13 @@ require("packer").startup({
       config = conf("close-buffers"),
     })
 
+    -- buffer, marks and tabpages switcher
+    use({
+      "toppair/reach.nvim",
+      config = conf("reach"),
+      cmd = { "ReachOpen" },
+    })
+
     -- auto pairs
     use({
       "windwp/nvim-autopairs",
@@ -425,10 +409,10 @@ require("packer").startup({
     -- match brackets and more
     use({
       "andymass/vim-matchup",
-      keys = {
-        { "n", "%" },
-        { "v", "%" },
-      },
+      -- keys = {
+      --   { "n", "%" },
+      --   { "v", "%" },
+      -- },
     })
 
     -- extra text objects
@@ -522,7 +506,6 @@ require("packer").startup({
     -- github copilot
     use({
       "github/copilot.vim",
-      event = { "InsertEnter" },
       config = function()
         vim.g.copilot_filetypes = {
           gitcommit = false,
@@ -602,7 +585,10 @@ require("packer").startup({
       ft = vim.g.enable_lspconfig_ft,
       config = conf("lsp"),
       requires = {
-        { "onsails/lspkind-nvim" },
+        {
+          "onsails/lspkind-nvim",
+          after = "nvim-lspconfig",
+        },
         {
           "hrsh7th/nvim-cmp",
           config = conf("nvim-cmp"),
@@ -633,6 +619,7 @@ require("packer").startup({
             {
               "hrsh7th/cmp-emoji",
               after = "nvim-cmp",
+              keys = { "i", ":" },
             },
             {
               "quangnguyen30192/cmp-nvim-ultisnips",
@@ -644,12 +631,6 @@ require("packer").startup({
               after = "nvim-cmp",
             },
           },
-        },
-        {
-          "narutoxy/dim.lua",
-          after = { "nvim-lspconfig", "nvim-treesitter" },
-          requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-          config = conf("dim"),
         },
         {
           "ray-x/lsp_signature.nvim",
@@ -683,7 +664,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
-      ft = vim.g.enable_treesitter_ft,
+      -- ft = vim.g.enable_treesitter_ft,
       config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
@@ -745,11 +726,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: VERSION CONTROL STYSTEM {{{
     ------------------------------------------------------------------------
-    use({
-      "rhysd/conflict-marker.vim",
-      config = conf("conflict-marker"),
-    })
-
     -- git actions using telescope
     use({
       "pwntester/octo.nvim",
