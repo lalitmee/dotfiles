@@ -666,10 +666,13 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
-      -- ft = vim.g.enable_treesitter_ft,
       config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
+        {
+          "nvim-treesitter/nvim-treesitter-textobjects",
+          after = "nvim-treesitter",
+        },
         {
           "nvim-treesitter/playground",
           cmd = { "TSPlaygroundToggle" },

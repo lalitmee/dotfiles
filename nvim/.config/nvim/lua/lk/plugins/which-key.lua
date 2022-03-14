@@ -1027,8 +1027,10 @@ local local_leader_key_maps = {
 local visual_mode_leader_key_maps = {
   ["r"] = {
     ["name"] = "+refactor",
-    ["e"] = { ":RefactorExtractFunc<CR>", "extract-function" },
-    ["r"] = { ":Refactors<CR>", "refactors-list" },
+    ["f"] = { ":ExtractSelectedFunc<CR>", "extract-function" },
+    ["r"] = { ":RefactorsList", "refactors-list" },
+    ["v"] = { ":DebugPrintVarBelow", "print-var-below" },
+    ["V"] = { ":DebugPrintVarAbove", "print-var-above" },
   },
 }
 -- }}}
