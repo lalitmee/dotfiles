@@ -529,7 +529,11 @@ require("packer").startup({
     use({
       "L3MON4D3/LuaSnip",
       after = { "nvim-cmp" },
-      requires = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
+      requires = {
+        "rafamadriz/friendly-snippets",
+        "honza/vim-snippets",
+        "molleweide/LuaSnip-snippets.nvim",
+      },
       config = conf("luasnip"),
     })
     -- }}}
