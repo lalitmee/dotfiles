@@ -702,7 +702,20 @@ require("packer").startup({
     -- refactor the code
     use({
       "ThePrimeagen/refactoring.nvim",
-      after = { "nvim-treesitter" },
+      after = { "nvim-treesitter", "telescope.nvim" },
+      cmd = {
+        "ExtractSelectedFunc",
+        "RefactorDebugPath",
+        "RefactorDebugPrintVarAbove",
+        "RefactorDebugPrintVarBelow",
+        "RefactorDebugPrintfAbove",
+        "RefactorDebugPrintfBelow",
+        "RefactorExtractFunc",
+        "RefactorExtractVar",
+        "RefactorInlineVar",
+        "Refactors",
+        "RefactorsList",
+      },
       config = conf("refactoring"),
     })
 
