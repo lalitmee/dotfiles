@@ -1,23 +1,20 @@
 snippet cmd "Add Command"
-command {
-  '${1:COMMAND}',
-  function()
-    ${2:function_body}
-  end
-}
-endsnippet
+  command {
+    '${1:COMMAND}',
+    function()
+      ${2:function_body}
+    end
+  }
 
 snippet cbox "config comment box"
-----------------------------------------------------------------------
--- NOTE: ${1:description} {{{
-----------------------------------------------------------------------
-$0
--- }}}
-----------------------------------------------------------------------
-endsnippet
+  ----------------------------------------------------------------------
+  -- NOTE: ${1:description} {{{
+  ----------------------------------------------------------------------
+  $0
+  -- }}}
+  ----------------------------------------------------------------------
 
 snippet fdm "fold method marker comment"
--- vim:foldmethod=marker
-endsnippet
+  -- vim:foldmethod=marker
 
 # vim:ft=snippets:
