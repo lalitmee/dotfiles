@@ -24,10 +24,9 @@ ls.config.set_config({
   },
 })
 
-require("luasnip.loaders.from_vscode").load()
--- NOTE: somehow not working right now
--- require("luasnip.loaders.from_snipmate").load({ paths = { "~/.config/nvim/snippets" } })
--- ls.filetype_extend("all", { "_" })
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load()
+ls.filetype_extend("all", { "_" })
 
 -- <c-j> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.

@@ -96,10 +96,7 @@ augroup("AddTerminalMappings", {
         tnoremap("<C-j>", [[<C-\><C-n><C-W>j]], opts)
         tnoremap("<C-k>", [[<C-\><C-n><C-W>k]], opts)
         tnoremap("<C-l>", [[<C-\><C-n><C-W>l]], opts)
-        tnoremap("]t", [[<C-\><C-n>:tablast<CR>]])
-        tnoremap("[t", [[<C-\><C-n>:tabnext<CR>]])
-        tnoremap("<S-Tab>", [[<C-\><C-n>:bprev<CR>]])
-        tnoremap("<leader><Tab>", [[<C-\><C-n>:close \| :bnext<cr>]])
+        tnoremap("<BS>", [[<BS>]], opts)
       end
       vim.cmd([[startinsert]])
     end,
@@ -159,68 +156,6 @@ augroup("OpenLastPlace", {
         ]],
         true
       )
-    end,
-  },
-})
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: filetype specific {{{
--- Set syntax highlighting for specific file types
-----------------------------------------------------------------------
-augroup("FileTypeSpecific", {
-  {
-    event = { "BufRead", "BufNewFile" },
-    pattern = { "*.md" },
-    command = function()
-      vim.bo.filetype = "markdown"
-    end,
-  },
-  {
-    event = { "BufRead", "BufNewFile" },
-    pattern = { ".{jscs,jshint,eslint,babel}rc" },
-    command = function()
-      vim.bo.filetype = "json"
-    end,
-  },
-  {
-    event = { "BufRead", "BufNewFile" },
-    pattern = {
-      "aliases.local",
-      "zshenv.local",
-      "zlogin.local",
-      "zlogout.local",
-      "zprofile.local",
-      "zshenv",
-      "zlogin",
-      "zlogout",
-      "zprofile",
-      "*/zsh/configs/*",
-    },
-    command = function()
-      vim.bo.filetype = "sh"
-    end,
-  },
-  {
-    event = { "BufRead", "BufNewFile" },
-    pattern = { "gitconfig.local" },
-    command = function()
-      vim.bo.filetype = "gitconfig"
-    end,
-  },
-  {
-    event = { "BufRead", "BufNewFile" },
-    pattern = { "tmux.conf.local" },
-    command = function()
-      vim.bo.filetype = "tmux"
-    end,
-  },
-  {
-    event = { "BufRead", "BufNewFile" },
-    pattern = { "*.conf", "Caddyfile" },
-    command = function()
-      vim.bo.filetype = "conf"
     end,
   },
 })

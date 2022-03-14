@@ -23,10 +23,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["*"] = "vimgrep-under-cursor",
   [":"] = { ":Telescope commands<CR>", "commands" },
-  ["<leader>"] = {
-    '<cmd>lua require"telescope.builtin".find_files({ find_command = {"rg", "--files", "--hidden", "-g", "!.git" }})<cr>',
-    "find-files",
-  },
+  ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
   ["/"] = { ":Telescope live_grep<CR>", "search-project" },
   -- }}}
   ----------------------------------------------------------------------
@@ -36,13 +33,15 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["a"] = {
     ["name"] = "+actions",
-    ["a"] = { ":CheatList<CR>", "cheatsheet" },
+    ["b"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
+    ["d"] = { ":ColorizerAttachToBuffer<CR>", "attach-colorizer" },
     ["c"] = { ":Telescope neoclip<CR>", "clipboard" },
-    ["o"] = { ":NvimTreeToggle<CR>", "nvim-tree-toggle" },
+    ["e"] = { ":Dirbuf<CR>", "dirbuf-explorer" },
     ["f"] = { ":NvimTreeFindFile<CR>", "nvim-tree-find-file" },
     ["i"] = { ":ISwapWith<CR>", "iswap-with" },
     ["I"] = { ":ISwap<CR>", "iswap" },
     ["m"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
+    ["o"] = { ":NvimTreeToggle<CR>", "nvim-tree-toggle" },
     ["g"] = { ":Glow<CR>", "markdown-glow" },
     ["r"] = { ":NvimTreeRefresh<CR>", "nvim-tree-refresh" },
     ["s"] = { ":StartupTime<CR>", "run-startup-time" },
@@ -86,25 +85,20 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: c is for lspsaga with lspconfig {{{
+  -- NOTE: c is for telescope with lspconfig {{{
   ----------------------------------------------------------------------
   ["c"] = {
-    ["name"] = "lspsaga",
-    ["a"] = { ":Lspsaga ranger_code_action<CR>", "range-code-action" },
-    ["c"] = { ":Lspsaga code_action<CR>", "code-action" },
-    ["d"] = { ":Lspsaga preview_definition<CR>", "preview-definition" },
-    ["f"] = { ":Lspsaga lsp_finder<CR>", "lsp-finder" },
-    ["h"] = { ":Lspsaga signature_help<CR>", "signature-help" },
-    ["i"] = { ":Lspsaga implement<CR>", "implementation" },
-    ["k"] = { ":Lspsaga hover_doc<CR>", "hover-doc" },
-    ["l"] = { ":Lspsaga show_line_diagnostics<CR>", "show-line-diagnostics" },
-    ["n"] = { ":Lspsaga diagnotic_jump_next<CR>", "next-diagnostic" },
-    ["o"] = { ":Lspsaga open_floaterm<CR>", "open-floaterm" },
-    ["O"] = { ":Lspsaga close_floaterm<CR>", "close-floaterm" },
-    ["p"] = { ":Lspsaga diagnotic_jump_prev<CR>", "prev-diagnostic" },
-    ["r"] = { ":Lspsaga rename<CR>", "rename" },
-    ["t"] = { ":Lspsaga toggle_virtual_text<CR>", "toggle-virtual-text" },
-    ["y"] = { ":Lspsaga yank_line_diagnostics<CR>", "yank-line-diagnostics" },
+    ["name"] = "+telescope-lsp",
+    ["a"] = { ":Telescope lsp_code_actions<CR>", "code-action" },
+    ["c"] = { ":Telescope lsp_ranger_code_actions<CR>", "range-code-action" },
+    ["d"] = { ":Telescope lsp_definitions<CR>", "definitions" },
+    ["e"] = { ":Telescope diagnostic<CR>", "diagnostic" },
+    ["f"] = { ":Telescope lsp_references<CR>", "references" },
+    ["i"] = { ":Telescope lsp_implementations<CR>", "implementations" },
+    ["s"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "dynamic-workspace-symbols" },
+    ["t"] = { ":Telescope lsp_type_definitions<CR>", "type-definitions" },
+    ["w"] = { ":Telescope lsp_document_symbols<CR>", "document-symbols" },
+    ["W"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -209,6 +203,7 @@ local leader_key_maps = {
     ["r"] = { ":Telescope frecency<CR>", "telescope-frecency" },
     ["s"] = { ":w<CR>", "save-buffer" },
     ["S"] = { ":wa<CR>", "save-all-buffers" },
+    ["t"] = { ":Telescope filetypes<CR>", "file-types" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -219,10 +214,6 @@ local leader_key_maps = {
   ["F"] = {
     ["name"] = "+search/replace",
     ["g"] = { ":LGrep<CR>", "grep" },
-    ["o"] = { ":SpectreOpen<CR>", "spectre-open" },
-    ["v"] = { ':lua require("spectre").open_visual()<CR>', "search-and-replace-selected" },
-    ["w"] = { 'viw:lua require("spectre").open_file_search()<cr>', "search-and-replace-in-current-buffer" },
-    ["W"] = { ':lua require("spectre").open_visual({select_word=true})<CR>', "search-and-replace-current-word" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -232,10 +223,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["g"] = {
     ["name"] = "+git",
-    ["b"] = {
-      ':lua require"gitlinker".get_repo_url({action_callback = require"gitlinker.actions".open_in_browser})<CR>',
-      "open-repo-browser",
-    },
+    ["b"] = { ":BrowseRepo<CR>", "open-repo" },
     ["c"] = { ":Telescope git_branches<CR>", "checkout" },
     ["d"] = { ":DiffviewOpen<CR>", "diffview-open" },
     ["D"] = { ":DiffviewClose<CR>", "diffview-close" },
@@ -338,15 +326,9 @@ local leader_key_maps = {
       },
     },
     ["s"] = { ":Neogit<CR>", "status" },
-    ["S"] = { ":GGrep<CR>", "git-grep" },
-    ["y"] = { "git-linker" },
-    ["Y"] = { ':lua require"gitlinker".get_repo_url()<CR>', "copy-repo-url" },
     ["w"] = {
       ["name"] = "+git-worktree",
-      ["c"] = {
-        ":Telescope git_worktree create_git_worktree<CR>",
-        "create-worktree",
-      },
+      ["c"] = { ":Telescope git_worktree create_git_worktree<CR>", "create-worktree" },
       ["l"] = { ":Telescope git_worktree git_worktrees<CR>", "list-worktrees" },
     },
   },
@@ -373,7 +355,6 @@ local leader_key_maps = {
   ["i"] = {
     ["name"] = "+tmux",
     ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
-    ["p"] = { ":TmuxinatorProjects<CR>", "tmuxnator-projects" },
     ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
     ["w"] = { ":Telescope tmux windows<CR>", "windows" },
   },
@@ -721,8 +702,7 @@ local leader_key_maps = {
     ["f"] = { ":Telescope find_files<cr>", "find-files" },
     ["F"] = { ":Telescope old_files<CR>", "old-files" },
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-    ["p"] = { ":Telescope project project display_type=full<CR>", "switch-project" },
-    ["P"] = { ":Telescope projects<CR>", "switch-projects" },
+    ["p"] = { ":Telescope projects<CR>", "switch-projects" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
@@ -749,12 +729,15 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["r"] = {
     ["name"] = "+refactor",
-    ["b"] = { "print-var-below" },
-    ["f"] = { "print-var" },
-    ["g"] = { "printf" },
-    ["h"] = { "print-debug-path" },
-    ["i"] = { "inline-variable" },
-    ["m"] = { "printf-below" },
+    ["c"] = { ":RefactorExtractVar<CR>", "extract-var" },
+    ["f"] = { ":RefactorExtractFunc<CR>", "extract-func" },
+    ["h"] = { ":RefactorDebugPath<CR>", "print-debug-path" },
+    ["i"] = { ":RefactorInlineVar<CR>", "inline-variable" },
+    ["p"] = { ":RefactorDebugPrintfBelow<CR>", "printf-below" },
+    ["P"] = { ":RefactorDebugPrintfAbove<CR>", "printf-above" },
+    ["r"] = { ":Refactors<CR>", "list-refactors" },
+    ["v"] = { ":RefactorDebugPrintVarBelow<CR>", "var-below" },
+    ["V"] = { ":RefactorDebugPrintVarAbove<CR>", "var-above" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -796,44 +779,16 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["S"] = {
     ["name"] = "+sessions",
-    ["c"] = { ":SClose<CR>", "close-session" },
-    ["d"] = { ":SDelete<CR>", "delete-session" },
-    ["l"] = { ":SLoad<CR>", "load-session" },
-    ["s"] = { ":SSave<CR>", "save-session" },
+    ["l"] = { ":SearchSession<CR>", "search-sessions" },
   },
   -- }}}
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: t is for toggle {{{
+  -- NOTE: t is for toggle/tabs/terminal {{{
   ----------------------------------------------------------------------
   ["t"] = {
     ["name"] = "+tabs/terminal/toggle",
-    ["c"] = {
-      ["name"] = "+colors",
-      ["c"] = { ":ColorizerToggle<CR>", "colorizer" },
-      ["l"] = { ":Twilight<CR>", "twilight" },
-      ["t"] = {
-        ':lua require("material.functions").toggle_style()<CR>',
-        "toggle-material-style",
-      },
-    },
-    ["e"] = { ":NvimTreeToggle<CR>", "nvim-tree-exlporer" },
-    ["f"] = {
-      ["name"] = "+floaterm",
-      ["G"] = { ":lua Tig()<CR>", "tig" },
-      ["a"] = { ":lua Terminal_Velocity()<CR>", "terminal_velocity" },
-      ["d"] = { ":lua LazyDocker()<CR>", "docker" },
-      ["g"] = { ":lua LazyGit()<CR>", "lazygit" },
-      ["n"] = { ":lua Node()<CR>", "node" },
-      ["p"] = { ":lua Python()<CR>", "python" },
-      ["r"] = { ":lua Ranger()<CR>", "ranger" },
-      ["s"] = { ":lua Ncdu()<CR>", "ncdu" },
-      ["t"] = { ":ToggleTerm<CR>", "toggle" },
-      ["v"] = { ":lua Grv()<CR>", "grv" },
-      ["w"] = { ":lua Wt()<CR>", "weather" },
-      ["y"] = { ":lua Btm()<CR>", "ytop" },
-    },
     ["g"] = {
       ["name"] = "+git",
       ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
@@ -888,6 +843,7 @@ local leader_key_maps = {
     ["/"] = { ":Telescope command_history<CR>", "commands-history" },
     [":"] = { ":Telescope commands<CR>", "commands" },
     ["c"] = { ":Telescope colorscheme<CR>", "colorschemes" },
+    ["f"] = { ":Telescope filetypes<CR>", "filetypes" },
     ["h"] = { ":Telescope help_tags<CR>", "help-tags" },
     ["H"] = { ":Telescope highlights<CR>", "highlights" },
     ["j"] = { ":Telescope jumplist<CR>", "jumplist" },
@@ -958,19 +914,9 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
   ["b"] = {
     ["name"] = "+buffers",
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
-  -- NOTE: cheat.sh {{{
-  ----------------------------------------------------------------------
-  ["c"] = {
-    ["name"] = "+cheat.sh",
-    ["r"] = { ":Cheat<CR>", "cht.sh" },
-    ["R"] = { ":CheatWithoutComments<CR>", "cht.sh-no-comments" },
-    ["l"] = { ":Cheatlist<CR>", "cheat-lists" },
-    ["L"] = { ":CheatListWithoutComments<CR>", "cheat-lists-no-comments" },
+    ["b"] = { ":ReachOpen buffers<CR>", "buffers" },
+    ["m"] = { ":ReachOpen marks<CR>", "marks" },
+    ["t"] = { ":ReachOpen tabpages<CR>", "tabs" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -1078,8 +1024,10 @@ local local_leader_key_maps = {
 local visual_mode_leader_key_maps = {
   ["r"] = {
     ["name"] = "+refactor",
-    ["e"] = { "extract-function" },
-    ["r"] = { "refactors-list" },
+    ["f"] = { ":ExtractSelectedFunc<CR>", "extract-function" },
+    ["r"] = { ":RefactorsList", "refactors-list" },
+    ["v"] = { ":DebugPrintVarBelow", "print-var-below" },
+    ["V"] = { ":DebugPrintVarAbove", "print-var-above" },
   },
 }
 -- }}}

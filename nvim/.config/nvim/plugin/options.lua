@@ -1,7 +1,38 @@
 local fn = vim.fn
 local api = vim.api
 local opt = vim.opt
+local g = vim.g
 local executable = lk.executable
+
+-- enable treesitter for what filetype?
+g.enable_treesitter_ft = {
+  "bash",
+  "css",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "typescript",
+  "vim",
+  "yaml",
+  "dockerfile",
+}
+
+-- enable lsp for what filetype
+g.enable_lspconfig_ft = {
+  "bash",
+  "css",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "typescript",
+  "vim",
+  "yaml",
+  "dockerfile",
+}
 
 -----------------------------------------------------------------------------//
 -- Message output on vim actions {{{1
@@ -226,6 +257,10 @@ opt.sessionoptions = {
   "help",
   "winpos",
   "tabpages",
+  "help",
+  "winsize",
+  "terminal",
+  "winpos",
 }
 opt.viewoptions = { "cursor", "folds" } -- save/restore just these (with `:{mk,load}view`)
 opt.virtualedit = "block" -- allow cursor to move where there is no text in visual block mode

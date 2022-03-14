@@ -4,6 +4,14 @@
 -- cfilter plugin allows filter down an existing quickfix list
 -- vim.cmd([[packadd! cfilter]])
 
+-- function to return string for require plugins using path
+local function conf(name)
+  if name == "signature" then
+    return string.format("require('lk/plugins/lsp/%s')", name)
+  end
+  return string.format("require('lk/plugins/%s')", name)
+end
+
 --------------------------------------------------------------------------------
 -- NOTE: packer startup {{{
 --------------------------------------------------------------------------------
@@ -16,12 +24,19 @@ require("packer").startup({
     use({ "lewis6991/impatient.nvim" })
 
     -- fast filetype detection
-    use({ "nathom/filetype.nvim" })
+    use({ "nathom/filetype.nvim", config = conf("filetypes") })
 
     -- Profile startup time
     use({
       "tweekmonster/startuptime.vim",
       cmd = "StartupTime",
+    })
+
+    use({
+      "antoinemadec/FixCursorHold.nvim",
+      run = function()
+        vim.g.curshold_updatime = 1000
+      end,
     })
     -- }}}
     --------------------------------------------------------------------------------
@@ -29,13 +44,20 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
-    --- ui and beatification related plugins
+    -- improve default neovim UI
+    use({
+      "stevearc/dressing.nvim",
+      module = "vim.ui",
+      config = conf("dressing"),
+    })
+
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
     ----------------------------------------------------------------------------
     use({
       "rcarriga/nvim-notify",
-      config = [[require('lk/plugins/notify')]],
+      module = "vim",
+      config = conf("notify"),
     })
     -- }}}
     ----------------------------------------------------------------------------
@@ -56,7 +78,8 @@ require("packer").startup({
     use({
       "yamatsum/nvim-nonicons",
       requires = { "kyazdani42/nvim-web-devicons" },
-      config = [[require('lk/plugins/devicons')]],
+      config = conf("devicons"),
+      event = { "BufRead" },
     })
 
     -- }}}
@@ -68,39 +91,54 @@ require("packer").startup({
     -- highlighting of todo comments
     use({
       "folke/todo-comments.nvim",
-      config = [[require('lk/plugins/todo-comments')]],
+      config = conf("todo-comments"),
+      requires = { "nvim-lua/plenary.nvim" },
     })
 
     -- which-key
     use({
       "folke/which-key.nvim",
-      config = [[require('lk/plugins/which-key')]],
+      config = conf("which-key"),
     })
 
-    -- home screen
+    -- session management
     use({
-      "mhinz/vim-startify",
-      config = [[require('lk/plugins/startify')]],
+      "rmagatti/session-lens",
+      after = { "telescope.nvim", "auto-session" },
+      cmd = { "SearchSession" },
+      requires = {
+        "rmagatti/auto-session",
+        event = { "VimEnter" },
+        config = conf("auto-session"),
+      },
+      config = conf("session-lens"),
     })
 
     -- Colorizer for showing the colors
     use({
       "norcalli/nvim-colorizer.lua",
-      config = [[require('lk/plugins/colorizer')]],
+      config = conf("colorizer"),
+      cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
     })
 
+    ----------------------------------------------------------------------
+    -- NOTE: quick fix plugins {{{
+    ----------------------------------------------------------------------
     -- better quick-fix winodw
     use({
       "kevinhwang91/nvim-bqf",
       ft = { "qf" },
-      config = [[require('lk/plugins/nvim-bqf')]],
+      config = conf("nvim-bqf"),
     })
 
     -- prettify quickfix windows for neovim
     use({
       "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-      config = [[require('lk/plugins/nvim-pqf')]],
+      ft = { "qf" },
+      config = conf("nvim-pqf"),
     })
+    -- }}}
+    ----------------------------------------------------------------------
     -- }}}
     ----------------------------------------------------------------------------
     -- }}}
@@ -113,6 +151,18 @@ require("packer").startup({
     use({
       "gabrielpoca/replacer.nvim",
       cmd = { "ReplacerRun", "ReplacerRunFiles" },
+    })
+
+    -- workspaces in neovim
+    use({
+      "natecraddock/workspaces.nvim",
+      cmd = {
+        "WorkspacesAdd",
+        "WorkspacesRemove",
+        "WorkspacesList",
+        "WorkspacesOpen",
+      },
+      config = conf("workspaces"),
     })
 
     -- projects management
@@ -144,18 +194,18 @@ require("packer").startup({
         { "v", "g<C-a>" },
         { "v", "g<C-x>" },
       },
-      config = [[require('lk/plugins/dial')]],
+      config = conf("dial"),
     })
 
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
       "svermeulen/vim-yoink",
-      config = [[require('lk/plugins/vim-yoink')]],
+      config = conf("vim-yoink"),
     })
 
     use({
       "gbprod/substitute.nvim",
-      config = [[require('lk/plugins/substitute')]],
+      config = conf("substitute"),
     })
 
     -- interactively swap so many things
@@ -164,70 +214,29 @@ require("packer").startup({
       cmd = { "ISwap", "ISwapWith" },
     })
 
-    -- toggle, display and navigate marks
-    use({
-      "chentau/marks.nvim",
-      config = [[require('lk/plugins/marks')]],
-    })
-
-    -- clipboard
-    use({
-      "AckslD/nvim-neoclip.lua",
-      after = { "telescope.nvim" },
-      requires = { "tami5/sqlite.lua", module = "sqlite" },
-      config = [[require('lk/plugins/neoclip')]],
-    })
-
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
-    -- Search and replace plugins
-    use({
-      "windwp/nvim-spectre",
-      cmd = { "SpectreOpen" },
-    })
-
     -- search multiple thing using `*`
     use({
       "nelstrom/vim-visual-star-search",
       keys = { "v", "*" },
     })
 
-    -- display search matches
-    use({
-      "kevinhwang91/nvim-hlslens",
-      keys = {
-        { "n", "/" },
-        { "n", "?" },
-        { "n", "*" },
-        { "n", "g*" },
-        { "n", "#" },
-        { "n", "g#" },
-      },
-      config = [[require('lk/plugins/hlslens')]],
-      requires = {
-        { "haya14busa/incsearch.vim" },
-        { "romainl/vim-cool" },
-      },
-    })
+    -- clear search highlight after moving away
+    use({ "romainl/vim-cool" })
 
     -- search lines using numbers
     use({
       "nacro90/numb.nvim",
       keys = { "c", ":" },
-      config = [[require('lk/plugins/numb')]],
+      config = conf("numb"),
     })
 
     -- easymotion using lua
     use({
       "phaazon/hop.nvim",
-      config = [[require('lk/plugins/hop')]],
-    })
-
-    -- Quickscope same as f, F, t, T but better
-    use({
-      "unblevable/quick-scope",
-      config = [[require('lk/plugins/quick-scope')]],
+      config = conf("hop"),
     })
 
     -- Navigations
@@ -247,7 +256,7 @@ require("packer").startup({
         "HarpoonRemoveFile",
         "ToggleHarpoonMenu",
       },
-      config = [[require('lk/plugins/harpoon')]],
+      config = conf("harpoon"),
     })
     -- }}}
     ----------------------------------------------------------------------------
@@ -256,12 +265,12 @@ require("packer").startup({
     -- NOTE: FUZZY SEARCH {{{
     ------------------------------------------------------------------------
     -- telescope.nvim
-    use({ "nvim-lua/plenary.nvim" })
     use({
       "nvim-telescope/telescope.nvim",
       cmd = { "Telescope" },
-      config = [[require('lk/plugins/telescope')]],
+      config = conf("telescope"),
       requires = {
+        { "nvim-lua/plenary.nvim", after = "telescope.nvim" },
         {
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
@@ -276,13 +285,6 @@ require("packer").startup({
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("fzf")
-          end,
-        },
-        {
-          "nvim-telescope/telescope-project.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("project")
           end,
         },
         {
@@ -322,13 +324,6 @@ require("packer").startup({
           end,
         },
         {
-          "danielpieper/telescope-tmuxinator.nvim",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("tmuxinator")
-          end,
-        },
-        {
           "nvim-telescope/telescope-hop.nvim",
           after = "telescope.nvim",
           config = function()
@@ -363,7 +358,7 @@ require("packer").startup({
         { "v", "<M-k>" },
         { "v", "<M-l>" },
       },
-      config = [[require('lk/plugins/gomove')]],
+      config = conf("gomove"),
     })
 
     -- smooth scrolling in neovim
@@ -380,31 +375,55 @@ require("packer").startup({
         { "n", "zz" },
         { "n", "zb" },
       },
-      config = [[require('lk/plugins/neoscroll')]],
+      config = conf("neoscroll"),
     })
 
     -- delete buffers without distubing layout
     use({
       "kazhala/close-buffers.nvim",
       cmd = { "BDelete" },
-      config = [[require('lk/plugins/close-buffers')]],
+      config = conf("close-buffers"),
+    })
+
+    -- buffer, marks and tabpages switcher
+    use({
+      "toppair/reach.nvim",
+      config = conf("reach"),
+      cmd = { "ReachOpen" },
     })
 
     -- auto pairs
     use({
       "windwp/nvim-autopairs",
-      config = [[require('lk/plugins/autopairs')]],
+      keys = {
+        { "i", "(" },
+        { "i", "{" },
+        { "i", "[" },
+        { "i", "'" },
+        { "i", '"' },
+        { "i", "`" },
+      },
+      config = conf("autopairs"),
     })
 
     -- match brackets and more
-    use({ "andymass/vim-matchup" })
+    use({
+      "andymass/vim-matchup",
+      -- keys = {
+      --   { "n", "%" },
+      --   { "v", "%" },
+      -- },
+    })
 
-    -- Switch between single-line and multiline forms of code
+    -- extra text objects
+    use({ "wellle/targets.vim" })
+
+    -- split and join
     use({
       "AndrewRadev/splitjoin.vim",
       keys = {
-        { "n", "gS" },
         { "n", "gJ" },
+        { "n", "gS" },
       },
     })
 
@@ -412,15 +431,15 @@ require("packer").startup({
     use({
       "christoomey/vim-sort-motion",
       keys = {
-        { "n", "gs" },
         { "v", "gs" },
+        { "n", "gs" },
       },
     })
 
     -- navigate and splits
     use({
       "numToStr/Navigator.nvim",
-      config = [[require('lk/plugins/navigator')]],
+      config = conf("navigator"),
       cmd = {
         "NavigateLeft",
         "NavigateRight",
@@ -440,22 +459,26 @@ require("packer").startup({
     use({
       "anuvyklack/pretty-fold.nvim",
       event = { "BufEnter" },
-      config = [[require('lk/plugins/pretty-fold')]],
+      config = conf("pretty-fold"),
     })
 
     -- fast folds in vim
     use({
       "Konfekt/FastFold",
-      config = [[require('lk/plugins/fastfold')]],
+      event = { "BufRead" },
+      config = conf("fastfold"),
     })
-
-    -- targets.vim for extra motions
-    use({ "wellle/targets.vim" })
 
     -- commenting
     use({
       "numToStr/Comment.nvim",
-      config = [[require('lk/plugins/comment')]],
+      config = conf("comment"),
+      keys = {
+        { "n", "gcc" },
+        { "n", "gbc" },
+        { "v", "gc" },
+        { "v", "gb" },
+      },
     })
 
     -- comment boxes
@@ -483,7 +506,12 @@ require("packer").startup({
     -- github copilot
     use({
       "github/copilot.vim",
-      event = { "VimEnter" },
+      config = function()
+        vim.g.copilot_filetypes = {
+          gitcommit = false,
+          NeogitCommitMessage = false,
+        }
+      end,
     })
 
     -- run any code of any file type
@@ -504,7 +532,9 @@ require("packer").startup({
     -- })
     use({
       "L3MON4D3/LuaSnip",
+      after = { "nvim-cmp" },
       requires = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
+      config = conf("luasnip"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -515,14 +545,15 @@ require("packer").startup({
     -- formatter in lua
     use({
       "mhartington/formatter.nvim",
-      config = [[require('lk/plugins/formatter')]],
+      config = conf("formatter"),
       cmd = { "FormatWrite" },
     })
 
     -- indentlines in neovim
     use({
       "lukas-reineke/indent-blankline.nvim",
-      config = [[require('lk/plugins/indent-blankline')]],
+      config = conf("indent-blankline"),
+      event = { "BufRead" },
     })
 
     -- Tabularize for Vim
@@ -546,7 +577,7 @@ require("packer").startup({
     -- use 'Shougo/neco-vim'
     -- use 'neoclide/coc-neco'
     -- -- NOTE: Completion Conquerer
-    -- use { 'neoclide/coc.nvim', branch = 'release' }
+    -- use { 'neoclide/coc.nvim', branch = 'release', }
     -- use { 'fannheyward/go.vim', ft = 'go' }
     -- }}}
     --------------------------------------------------------------------------
@@ -556,53 +587,77 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "neovim/nvim-lspconfig",
-      config = [[require('lk/plugins/lsp')]],
+      ft = vim.g.enable_lspconfig_ft,
+      config = conf("lsp"),
       requires = {
-        { "onsails/lspkind-nvim" },
-        { "tami5/lspsaga.nvim", config = [[require('lk/plugins/lspsaga')]] },
+        {
+          "onsails/lspkind-nvim",
+          after = "nvim-lspconfig",
+        },
         {
           "hrsh7th/nvim-cmp",
-          config = [[require('lk/plugins/nvim-cmp')]],
+          config = conf("nvim-cmp"),
+          event = { "InsertEnter", "CmdlineEnter" },
           requires = {
-            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-            { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-            { "hrsh7th/cmp-path", after = "nvim-cmp" },
-            -- { "quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-            { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
+            {
+              "hrsh7th/cmp-buffer",
+              after = "nvim-cmp",
+            },
+            {
+              "hrsh7th/cmp-cmdline",
+              after = "nvim-cmp",
+              event = { "CmdlineEnter" },
+            },
+            {
+              "hrsh7th/cmp-nvim-lsp",
+              after = "nvim-cmp",
+            },
+            {
+              "hrsh7th/cmp-nvim-lua",
+              after = "nvim-cmp",
+              ft = { "lua" },
+            },
+            {
+              "hrsh7th/cmp-path",
+              after = "nvim-cmp",
+            },
+            {
+              "hrsh7th/cmp-emoji",
+              after = "nvim-cmp",
+              keys = { "i", ":" },
+            },
+            {
+              "quangnguyen30192/cmp-nvim-ultisnips",
+              after = "nvim-cmp",
+            },
+            {
+              "tzachar/cmp-tabnine",
+              run = "./install.sh",
+              after = "nvim-cmp",
+            },
           },
         },
         {
-          "narutoxy/dim.lua",
+          "ray-x/lsp_signature.nvim",
+          config = conf("signature"),
           after = "nvim-lspconfig",
-          requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-          config = function()
-            require("dim").setup({
-              change_in_insert = true,
-            })
-          end,
         },
         {
-          "ray-x/lsp_signature.nvim",
-          config = function()
-            require("lsp_signature").setup({
-              bind = true,
-              fix_pos = false,
-              auto_close_after = 15, -- close after 15 seconds
-              hint_enable = false,
-              handler_opts = { border = "rounded" },
-            })
-          end,
+          "onsails/diaglist.nvim",
+          after = "nvim-lspconfig",
+          cmd = { "DiagList", "DiagListAll" },
         },
-        { "onsails/diaglist.nvim" },
         { "williamboman/nvim-lsp-installer" },
-        { "nvim-lua/lsp-status.nvim" },
-        { "arkav/lualine-lsp-progress" },
-        { "tjdevries/lsp_extensions.nvim" },
-        { "folke/lsp-colors.nvim" },
-        { "folke/lua-dev.nvim" },
+        {
+          "arkav/lualine-lsp-progress",
+          after = { "nvim-lspconfig", "lualine.nvim" },
+        },
+        {
+          "folke/lua-dev.nvim",
+          ft = "lua",
+          after = { "nvim-lspconfig" },
+        },
       },
     })
     -- }}}
@@ -615,12 +670,12 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
-      config = [[require('lk/plugins/treesitter')]],
+      config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
         {
           "nvim-treesitter/nvim-treesitter-textobjects",
-          after = { "nvim-treesitter" },
+          after = "nvim-treesitter",
         },
         {
           "nvim-treesitter/playground",
@@ -638,7 +693,9 @@ require("packer").startup({
     use({
       "danymat/neogen",
       cmd = { "Neogen" },
-      config = [[require('lk/plugins/neogen')]],
+      after = { "nvim-treesitter" },
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      config = conf("neogen"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -649,7 +706,21 @@ require("packer").startup({
     -- refactor the code
     use({
       "ThePrimeagen/refactoring.nvim",
-      config = [[require('lk/plugins/refactoring')]],
+      after = { "nvim-treesitter", "telescope.nvim" },
+      cmd = {
+        "ExtractSelectedFunc",
+        "RefactorDebugPath",
+        "RefactorDebugPrintVarAbove",
+        "RefactorDebugPrintVarBelow",
+        "RefactorDebugPrintfAbove",
+        "RefactorDebugPrintfBelow",
+        "RefactorExtractFunc",
+        "RefactorExtractVar",
+        "RefactorInlineVar",
+        "Refactors",
+        "RefactorsList",
+      },
+      config = conf("refactoring"),
     })
 
     ----------------------------------------------------------------------------
@@ -664,25 +735,10 @@ require("packer").startup({
 
     use({
       "iamcco/markdown-preview.nvim",
+      run = function()
+        vim.fn["mkdp#util#install"]()
+      end,
       ft = "markdown",
-      run = "cd app && yarn install",
-    })
-    -- }}}
-    ----------------------------------------------------------------------------
-
-    ----------------------------------------------------------------------------
-    -- NOTE: General {{{
-    ----------------------------------------------------------------------------
-    -- cheat.sh in neovim
-    use({
-      "RishabhRD/nvim-cheat.sh",
-      requires = { "RishabhRD/popfix" },
-      cmd = {
-        "Cheat",
-        "CheatWithouComments",
-        "CheatList",
-        "CheatListWithoutComments",
-      },
     })
     -- }}}
     ----------------------------------------------------------------------------
@@ -692,22 +748,17 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: VERSION CONTROL STYSTEM {{{
     ------------------------------------------------------------------------
-    use({ "ruifm/gitlinker.nvim" })
-    use({
-      "rhysd/conflict-marker.vim",
-      config = function()
-        vim.g.conflict_marker_highlight_group = ""
-        vim.g.conflict_marker_begin = "^<<<<<<< .*$"
-        vim.g.conflict_marker_end = "^>>>>>>> .*$"
-      end,
-    })
-
     -- git actions using telescope
     use({
       "pwntester/octo.nvim",
-      config = function()
-        require("octo").setup()
-      end,
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "kyazdani42/nvim-web-devicons",
+      },
+      config = conf("octo"),
+      after = { "telescope.nvim" },
+      keys = { "n", "<leader>go" },
     })
 
     -- git worktree
@@ -722,28 +773,25 @@ require("packer").startup({
     -- magit for neovim in lua
     use({
       "TimUntersberger/neogit",
+      requires = { "nvim-lua/plenary.nvim" },
       cmd = { "Neogit" },
-      config = [[require('lk/plugins/neogit')]],
+      config = conf("neogit"),
     })
 
     -- gitsigns in lua
     use({
       "lewis6991/gitsigns.nvim",
-      config = [[require('lk/plugins/gitsigns')]],
+      requires = { "nvim-lua/plenary.nvim" },
+      event = { "BufRead" },
+      config = conf("gitsigns"),
     })
 
     -- git lens in vim
     use({
       "sindrets/diffview.nvim",
-      cmd = { "DiffviewOpen" },
-      config = function()
-        require("diffview").setup({
-          key_bindings = {
-            file_panel = { q = "<Cmd>DiffviewClose<CR>" },
-            view = { q = "<Cmd>DiffviewClose<CR>" },
-          },
-        })
-      end,
+      requires = { "nvim-lua/plenary.nvim" },
+      config = conf("diffview"),
+      cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -756,13 +804,14 @@ require("packer").startup({
     -- lualine.nvim
     use({
       "nvim-lualine/lualine.nvim",
-      config = [[require('lk/plugins/lualine')]],
+      config = conf("lualine"),
     })
 
     -- bufferline
     use({
       "akinsho/nvim-bufferline.lua",
-      config = [[require('lk/plugins/bufferline')]],
+      event = { "BufRead" },
+      config = conf("bufferline"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -773,22 +822,23 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: tpope {{{
     ------------------------------------------------------------------------
+    -- repeat using `.`
     use({
-      "tpope/vim-abolish",
-      config = [[require('lk/plugins/abolish')]],
+      "tpope/vim-repeat",
+      keys = { "n", "." },
     })
-    use("tpope/vim-dotenv")
-    use("tpope/vim-repeat")
-    use("tpope/vim-sleuth")
-    use("tpope/vim-surround")
-    use("tpope/vim-unimpaired")
+
+    -- surrounding in vim
+    use({
+      "tpope/vim-surround",
+      event = { "BufRead" },
+    })
+
+    -- debug things
     use({
       "tpope/vim-scriptease",
-      cmd = {
-        "Messages", -- view messages in quickfix list
-        "Verbose", -- view verbose output in preview window.
-        "Time", -- measure how long it takes to run some stuff.
-      },
+      ft = "help",
+      cmd = { "Messages", "Verbose", "Time" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -797,7 +847,7 @@ require("packer").startup({
     -- NOTE: tjdevries {{{
     ------------------------------------------------------------------------
     -- use 'tjdevries/express_line.nvim'
-    use("tjdevries/complextras.nvim")
+    -- use("tjdevries/complextras.nvim")
     -- }}}
     ------------------------------------------------------------------------
 
@@ -811,10 +861,21 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
+    -- nvim-tree explorer
     use({
       "kyazdani42/nvim-tree.lua",
-      cmd = { "NvimTreeToggle" },
-      config = [[require('lk/plugins/nvim-tree')]],
+      cmd = {
+        "NvimTreeToggle",
+        "NvimTreeRefresh",
+        "NvimTreeFindFile",
+      },
+      config = conf("nvim-tree"),
+    })
+
+    -- dirbuf
+    use({
+      "elihunter173/dirbuf.nvim",
+      cmd = { "Dirbuf", "DirbufSync" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -827,10 +888,22 @@ require("packer").startup({
     -- Float Terminal
     use({
       "akinsho/nvim-toggleterm.lua",
-      config = [[require('lk/plugins/toggleterm')]],
+      config = conf("toggleterm"),
+      keys = { "n", [[<C-\>]] },
     })
     -- }}}
     ------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------
+    -- NOTE: browse {{{
+    ----------------------------------------------------------------------
+    use({
+      "~/Desktop/Github/browse.nvim",
+      requires = { "nvim-telescope/telescope.nvim" },
+      config = conf("browse"),
+    })
+    -- }}}
+    ----------------------------------------------------------------------
 
     ------------------------------------------------------------------------
     -- NOTE: TESTING {{{

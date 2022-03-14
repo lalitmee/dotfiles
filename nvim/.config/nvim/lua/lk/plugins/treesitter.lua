@@ -1,18 +1,12 @@
 require("nvim-treesitter.configs").setup({
-  ensure_installed = "all",
-  highlight = {
-    enable = true,
-    -- disable = { "org" },
-    additional_vim_regex_highlighting = { "org" },
-  },
+  -- ensure_installed = vim.g.enable_treesitter_ft,
+  ensure_installed = "maintained",
+  highlight = { enable = true },
   matchup = { enable = true },
   autotag = { enable = true },
   indent = { enable = true },
   playground = { enable = true, updatetime = 25, persist_queries = false },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
+  context_commentstring = { enable = true, enable_autocmd = false },
   query_linter = {
     enable = true,
     use_virtual_text = true,
