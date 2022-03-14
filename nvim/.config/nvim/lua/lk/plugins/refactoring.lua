@@ -8,30 +8,34 @@ refactoring.setup({})
 
 local command = lk.command
 
-----------------------------------------------------------------------
--- NOTE: commands {{{
-----------------------------------------------------------------------
 local function refactor(prompt_bufnr)
   local content = require("telescope.actions.state").get_selected_entry()
   require("telescope.actions").close(prompt_bufnr)
   require("refactoring").refactor(content.value)
 end
 
+local function get_refactors()
+  require("telescope.pickers").new({}, {
+    prompt_title = "refactors",
+    finder = require("telescope.finders").new_table({
+      results = require("refactoring").get_refactors(),
+    }),
+    sorter = require("telescope.config").values.generic_sorter({}),
+    attach_mappings = function(_, map)
+      map("i", "<CR>", refactor)
+      map("n", "<CR>", refactor)
+      return true
+    end,
+  }):find()
+end
+
+----------------------------------------------------------------------
+-- NOTE: commands {{{
+----------------------------------------------------------------------
 command({
   "Refactors",
   function()
-    require("telescope.pickers").new({}, {
-      prompt_title = "refactors",
-      finder = require("telescope.finders").new_table({
-        results = require("refactoring").get_refactors(),
-      }),
-      sorter = require("telescope.config").values.generic_sorter({}),
-      attach_mappings = function(_, map)
-        map("i", "<CR>", refactor)
-        map("n", "<CR>", refactor)
-        return true
-      end,
-    }):find()
+    get_refactors()
   end,
 })
 
@@ -64,7 +68,7 @@ command({
 })
 
 command({
-  "RefactorDebugPrintAbove",
+  "RefactorDebugPrintfAbove",
   function()
     require("refactoring").debug.printf({ below = false })
   end,
@@ -90,5 +94,29 @@ command({
     require("refactoring").debug.print_var({ below = true })
   end,
 })
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: visual mode mappings {{{
+-----------------------------------------------
+-- refactors list
+vim.api.nvim_add_user_command("RefactorsList", function()
+  get_refactors()
+end, { range = "%" })
+
+-- extract func
+vim.api.nvim_add_user_command("ExtractSelectedFunc", function()
+  require("refactoring").refactor(106)
+end, { range = "%" })
+
+-- -- print var
+-- vim.api.nvim_add_user_command("DebugPrintVarBelow", function()
+--   require("refactoring").debug.print_var({ below = true })
+-- end, { range = "%" })
+--
+-- vim.api.nvim_add_user_command("DebugPrintVarAbove", function()
+--   require("refactoring").debug.print_var({ below = false })
+-- end, { range = "%" })
 -- }}}
 ----------------------------------------------------------------------
