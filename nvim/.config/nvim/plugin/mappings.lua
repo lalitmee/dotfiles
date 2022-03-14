@@ -10,6 +10,10 @@ nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 nnoremap("<C-S-Right>", [[gt]])
 nnoremap("<C-S-Left>", [[gT]])
 
+-- slightly more intuitive gt/gT (ma need some unlearning to get used to)
+nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']])
+nnoremap("gT", [[":tabnext -" . v:count1 . '<CR>']])
+
 -- buffers next and previous
 nnoremap("<C-Right>", [[:bn<cr>]])
 nnoremap("<C-Left>", [[:bp<cr>]])
@@ -96,33 +100,6 @@ map("i", "kj", [[<Esc>]], map_opts)
 -- repeat `n.` after editing the searched word
 map("n", "Q", [[@='n.'<cr>]], map_opts)
 
--- NOTE: terminal mappings
--- turn terminal to normal mode with escape
-map("t", "<Esc>", [[<C-\><C-n>]], map_opts)
-map("t", "<<C-[><C-[>>", [[<C-\><C-n>]], map_opts)
-map("t", "<C-d>", [[<C-\><C-n>:q!<cr>]], map_opts)
-map("t", "<M-[>", [[<Esc>]], map_opts)
-map("t", "<C-v><Esc>", [[<Esc>]], map_opts)
--- Terminal mode:
-map("t", "<M-h>", [[<c-\><c-n><c-w>h]], map_opts)
-map("t", "<M-j>", [[<c-\><c-n><c-w>j]], map_opts)
-map("t", "<M-k>", [[<c-\><c-n><c-w>k]], map_opts)
-map("t", "<M-l>", [[<c-\><c-n><c-w>l]], map_opts)
--- Insert mode:
-map("i", "<M-h>", [[<Esc><c-w>h]], map_opts)
-map("i", "<M-j>", [[<Esc><c-w>j]], map_opts)
-map("i", "<M-k>", [[<Esc><c-w>k]], map_opts)
-map("i", "<M-l>", [[<Esc><c-w>l]], map_opts)
--- Visual mode:
-map("v", "<M-h>", [[<Esc><c-w>h]], map_opts)
-map("v", "<M-j>", [[<Esc><c-w>j]], map_opts)
-map("v", "<M-k>", [[<Esc><c-w>k]], map_opts)
-map("v", "<M-l>", [[<Esc><c-w>l]], map_opts)
--- Normal mode:
-map("n", "<M-h>", [[<c-w>h]], map_opts)
-map("n", "<M-j>", [[<c-w>j]], map_opts)
-map("n", "<M-k>", [[<c-w>k]], map_opts)
-map("n", "<M-l>", [[<c-w>l]], map_opts)
 -- pasting from registers in terminal
 map("t", "<expr>", [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], map_opts)
 
@@ -143,6 +120,6 @@ map("n", "<cr>", [[@=(foldlevel('.')?'za':"\<Space>")<cr>]], map_opts)
 -- create folds using visual select and then press <cr>
 map("v", "<cr>", [[zf]], map_opts)
 
--- Complextras.nvim configuration
-map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
-map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)
+-- -- Complextras.nvim configuration
+-- map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
+-- map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)

@@ -49,14 +49,6 @@ command({
     require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ") })
   end,
 })
-
-command({
-  "TmuxinatorProjects",
-  function()
-    require("telescope").extensions.tmuxinator.projects(require("telescope.themes").get_dropdown({}))
-  end,
-})
-
 -- }}}
 ----------------------------------------------------------------------
 

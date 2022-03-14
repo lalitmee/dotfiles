@@ -94,33 +94,24 @@ command({
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: nvim-spectre commands {{{
+-- NOTE: gh commands {{{
 ----------------------------------------------------------------------
 command({
-  "SpectreOpen",
+  "BrowseRepo",
   function()
-    require("spectre").open()
+    vim.cmd([[silent !gh o]])
   end,
 })
+-- }}}
+----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: browse command {{{
+----------------------------------------------------------------------
 command({
-  "SpectreOpenVisual",
+  "Browse",
   function()
-    require("spectre").open_visual()
-  end,
-})
-
-command({
-  "SpectreOpenFileSearch",
-  function()
-    vim.cmd([[viw:lua require("spectre").open_file_search()<CR>]])
-  end,
-})
-
-command({
-  "SpectreOpenWord",
-  function()
-    require("spectre").open_visual({ select_word = true })
+    vim.cmd([[lua Browse()]])
   end,
 })
 -- }}}
