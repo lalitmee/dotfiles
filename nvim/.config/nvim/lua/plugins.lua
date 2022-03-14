@@ -24,7 +24,7 @@ require("packer").startup({
     use({ "lewis6991/impatient.nvim" })
 
     -- fast filetype detection
-    use({ "nathom/filetype.nvim" })
+    use({ "nathom/filetype.nvim", config = conf("filetypes") })
 
     -- Profile startup time
     use({
