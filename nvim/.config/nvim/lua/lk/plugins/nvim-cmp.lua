@@ -94,12 +94,6 @@ cmp.setup({
       cmp.config.compare.order,
     },
   },
-  -- snippet = {
-  --   expand = function(args)
-  --     vim.fn["UltiSnips#Anon"](args.body)
-  --   end,
-  -- },
-
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
