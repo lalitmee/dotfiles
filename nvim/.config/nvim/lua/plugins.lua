@@ -526,12 +526,15 @@ require("packer").startup({
     -- NOTE: Snippets {{{
     ------------------------------------------------------------------------
     -- -- snippets engine
+    -- use({
+    --   "SirVer/ultisnips",
+    --   requires = { "honza/vim-snippets" },
+    -- })
     use({
-      "SirVer/ultisnips",
-      requires = { "honza/vim-snippets" },
-      config = conf("ultisnips"),
-      after = "nvim-cmp",
-      cmd = { "UltiSnipsEdit", "UltiSnipsAddFiletypes" },
+      "L3MON4D3/LuaSnip",
+      after = { "nvim-cmp" },
+      requires = { "rafamadriz/friendly-snippets", "honza/vim-snippets" },
+      config = conf("luasnip"),
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -596,6 +599,7 @@ require("packer").startup({
           config = conf("nvim-cmp"),
           event = { "InsertEnter", "CmdlineEnter" },
           requires = {
+            { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
             {
               "hrsh7th/cmp-buffer",
               after = "nvim-cmp",
