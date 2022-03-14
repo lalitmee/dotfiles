@@ -530,6 +530,8 @@ require("packer").startup({
       "SirVer/ultisnips",
       requires = { "honza/vim-snippets" },
       config = conf("ultisnips"),
+      event = { "InsertEnter" },
+      cmd = { "UltiSnipsEdit", "UltiSnipsAddFiletypes" },
     })
     -- }}}
     ------------------------------------------------------------------------
