@@ -358,7 +358,6 @@ local leader_key_maps = {
   ["i"] = {
     ["name"] = "+tmux",
     ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
-    ["p"] = { ":TmuxinatorProjects<CR>", "tmuxnator-projects" },
     ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
     ["w"] = { ":Telescope tmux windows<CR>", "windows" },
   },

@@ -78,16 +78,14 @@ telescope.setup({
 
     mappings = {
       i = {
-        ["<C-a>"] = actions.cycle_previewers_prev,
         ["<C-e>"] = actions.move_to_bottom,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-n>"] = actions.move_selection_next,
         ["<C-p>"] = actions.move_selection_previous,
-        ["<C-s>"] = actions.cycle_previewers_next,
         ["<C-y>"] = actions.move_to_top,
         ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["<C-h>"] = R("telescope").extensions.hop.hop,
+        ["<C-s>"] = R("telescope").extensions.hop.hop,
         ["<esc>"] = actions.close,
       },
     },
@@ -128,16 +126,17 @@ telescope.setup({
     qflist_previewer = previewers.vim_buffer_qflist.new,
   },
   pickers = {
-    buffers = {
+    buffers = dropdown({
+      previewer = false,
       sort_mru = true,
       sort_lastused = true,
       show_all_buffers = true,
       ignore_current_buffer = true,
       mappings = {
-        i = { ["<c-x>"] = "delete_buffer" },
-        n = { ["<c-x>"] = "delete_buffer" },
+        i = { ["<c-d>"] = "delete_buffer" },
+        n = { ["d"] = "delete_buffer" },
       },
-    },
+    }),
     live_grep = {
       file_ignore_patterns = { ".git/" },
     },
@@ -172,6 +171,7 @@ telescope.setup({
   },
   extensions = {
     extensions = {
+      workspaces = { keep_insert = true },
       hop = {
         sign_hl = { "Title" },
         line_hl = { "CursorLine" },
