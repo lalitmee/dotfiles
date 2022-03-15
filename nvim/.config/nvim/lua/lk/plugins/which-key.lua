@@ -197,7 +197,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["f"] = {
     ["name"] = "+files",
-    ["b"] = { ":Telescope file_browser<CR>", "file-browser" },
+    ["e"] = { ":Telescope file_browser<CR>", "file-browser" },
     ["f"] = { ":Telescope find_files<CR>", "files" },
     ["g"] = { ":Telescope git_files<CR>", "git-files" },
     ["r"] = { ":Telescope frecency<CR>", "telescope-frecency" },
@@ -702,7 +702,7 @@ local leader_key_maps = {
     ["f"] = { ":Telescope find_files<cr>", "find-files" },
     ["F"] = { ":Telescope old_files<CR>", "old-files" },
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-    ["p"] = { ":Telescope projects<CR>", "switch-projects" },
+    ["p"] = { ":Telescope workspaces<CR>", "switch-workspace" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
@@ -778,8 +778,13 @@ local leader_key_maps = {
   -- NOTE: S is for sessions {{{
   ----------------------------------------------------------------------
   ["S"] = {
-    ["name"] = "+sessions",
-    ["l"] = { ":SearchSession<CR>", "search-sessions" },
+    ["name"] = "+sessions/+workspaces",
+    ["a"] = { ":WorksapcesAdd<CR>", "add-workspace" },
+    ["l"] = { ":WorksapcesList<CR>", "list-workspaces" },
+    ["r"] = { ":WorksapcesRemove<CR>", "remove-workspace" },
+    ["s"] = { ":SearchSession<CR>", "search-sessions" },
+    ["w"] = { ":WorksapcesOpen<CR>", "open-workspace" },
+    ["t"] = { ":Telescope workspaces<CR>", "open-workspace-tele" },
   },
   -- }}}
   ----------------------------------------------------------------------

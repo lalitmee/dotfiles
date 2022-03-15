@@ -166,18 +166,6 @@ require("packer").startup({
       config = conf("workspaces"),
     })
 
-    -- projects management
-    use({
-      "ahmedkhalf/project.nvim",
-      after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension("projects")
-        require("project_nvim").setup({
-          show_hidden = true,
-        })
-      end,
-    })
-
     -- wakatime for vim
     use({
       "wakatime/vim-wakatime",
@@ -253,6 +241,11 @@ require("packer").startup({
     use({
       "phaazon/hop.nvim",
       config = conf("hop"),
+    })
+
+    use({
+      "unblevable/quick-scope",
+      config = conf("quick-scope"),
     })
 
     -- Navigations
