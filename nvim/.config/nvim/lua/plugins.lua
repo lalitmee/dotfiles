@@ -218,14 +218,29 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- display search matches
+    use({
+      "kevinhwang91/nvim-hlslens",
+      keys = {
+        { "n", "/" },
+        { "n", "?" },
+        { "n", "*" },
+        { "n", "g*" },
+        { "n", "#" },
+        { "n", "g#" },
+      },
+      config = conf("hlslens"),
+      requires = {
+        { "haya14busa/incsearch.vim" },
+        { "romainl/vim-cool" },
+      },
+    })
+
     -- search multiple thing using `*`
     use({
       "nelstrom/vim-visual-star-search",
       keys = { "v", "*" },
     })
-
-    -- clear search highlight after moving away
-    use({ "romainl/vim-cool" })
 
     -- search lines using numbers
     use({
