@@ -156,6 +156,7 @@ require("packer").startup({
     -- workspaces in neovim
     use({
       "natecraddock/workspaces.nvim",
+      after = { "telescope.nvim" },
       cmd = {
         "WorkspacesAdd",
         "WorkspacesRemove",
