@@ -698,15 +698,18 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["p"] = {
     ["name"] = "+project",
+    ["a"] = { ":WorkspacesAdd<CR>", "add-as-workspace" },
     ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
     ["f"] = { ":Telescope find_files<cr>", "find-files" },
     ["F"] = { ":Telescope old_files<CR>", "old-files" },
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-    ["p"] = { ":Telescope workspaces<CR>", "switch-workspace" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
+    ["l"] = { ":WorkspacesList<CR>", "list-workspace" },
+    ["o"] = { ":WorkspacesOpen<CR>", "open-workspace" },
+    ["p"] = { ":Telescope workspaces<CR>", "switch-workspace" },
+    ["r"] = { ":WorkspacesRemove<CR>", "remove-workspace" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
-    ["W"] = { ":Tgrep<CR>", "tj-grep" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -779,11 +782,11 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["S"] = {
     ["name"] = "+sessions/+workspaces",
-    ["a"] = { ":WorksapcesAdd<CR>", "add-workspace" },
-    ["l"] = { ":WorksapcesList<CR>", "list-workspaces" },
-    ["r"] = { ":WorksapcesRemove<CR>", "remove-workspace" },
+    ["a"] = { ":WorkspacesAdd<CR>", "add-workspace" },
+    ["l"] = { ":WorkspacesList<CR>", "list-workspaces" },
+    ["r"] = { ":WorkspacesRemove<CR>", "remove-workspace" },
     ["s"] = { ":SearchSession<CR>", "search-sessions" },
-    ["w"] = { ":WorksapcesOpen<CR>", "open-workspace" },
+    ["w"] = { ":WorkspacesOpen<CR>", "open-workspace" },
     ["t"] = { ":Telescope workspaces<CR>", "open-workspace-tele" },
   },
   -- }}}

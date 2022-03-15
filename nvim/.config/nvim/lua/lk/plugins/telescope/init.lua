@@ -140,10 +140,9 @@ telescope.setup({
     live_grep = {
       file_ignore_patterns = { ".git/" },
     },
-    -- current_buffer_fuzzy_find = dropdown({
-    --   previewer = false,
-    --   shorten_path = false,
-    -- }),
+    current_buffer_fuzzy_find = dropdown({
+      previewer = false,
+    }),
     lsp_code_actions = {
       theme = "cursor",
     },
