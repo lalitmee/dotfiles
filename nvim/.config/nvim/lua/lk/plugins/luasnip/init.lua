@@ -24,9 +24,18 @@ ls.config.set_config({
   },
 })
 
+----------------------------------------------------------------------
+-- NOTE: loading snippets {{{
+----------------------------------------------------------------------
+-- NOTE: snippets from extension and from `snippet` dir
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
 ls.filetype_extend("all", { "_" })
+
+-- NOTE: custom snippets created in `lua` format
+require("lk/plugins/luasnip/snips")
+-- }}}
+----------------------------------------------------------------------
 
 -- <c-j> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
