@@ -1,0 +1,12 @@
+# /home/lalitmee/.config/tmuxinator/ngagen-nfts.yml
+
+name: ngagen-nfts
+root: ~/Desktop/koinearth/ngagen/ngagen-webapp-service-nextjs
+
+windows:
+  - Editor: gst
+  - Server: npm run dev
+  - Music: cmus
+  - Brave: brave-browser
+  - Firefox: firefox
+  - Extras: echo # do extras here
