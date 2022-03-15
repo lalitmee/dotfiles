@@ -6,6 +6,9 @@ local map_expr_opts = { expr = true }
 
 nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 
+nnoremap("0", "^")
+nnoremap("^", "0")
+
 -- tab operations
 nnoremap("<C-S-Right>", [[gt]])
 nnoremap("<C-S-Left>", [[gT]])
