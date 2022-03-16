@@ -797,9 +797,6 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["t"] = {
     ["name"] = "+tabs/terminal/toggle",
-    ["1"] = { ":HarpoonGotoTerm1<CR>", "terminal-1" },
-    ["2"] = { ":HarpoonGotoTerm2<CR>", "terminal-2" },
-    ["3"] = { ":HarpoonGotoTerm3<CR>", "terminal-3" },
     ["g"] = {
       ["name"] = "+git",
       ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
@@ -1011,15 +1008,11 @@ local local_leader_key_maps = {
   -- NOTE: treesitter {{{
   ----------------------------------------------------------------------
   ["t"] = {
-    ["name"] = "+treesitter",
+    ["name"] = "+treesitter/+harppon",
+    ["1"] = { ":HarpoonGotoTerm1<CR>", "terminal-1" },
+    ["2"] = { ":HarpoonGotoTerm2<CR>", "terminal-2" },
+    ["3"] = { ":HarpoonGotoTerm3<CR>", "terminal-3" },
     ["c"] = "doc-node-at-cursor",
-    ["d"] = "goto-definition",
-    ["D"] = "goto-definition-fallback",
-    ["l"] = "list-definitions",
-    ["n"] = "goto-next-usage",
-    ["o"] = "list-definitions-toc",
-    ["p"] = "goto-previous-usage",
-    ["r"] = "smart-rename",
     ["v"] = "visual-selection",
     ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
   },
