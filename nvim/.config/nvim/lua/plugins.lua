@@ -398,6 +398,8 @@ require("packer").startup({
       config = conf("close-buffers"),
     })
 
+    use({ "ton/vim-bufsurf" })
+
     -- buffer, marks and tabpages switcher
     use({
       "toppair/reach.nvim",
@@ -660,7 +662,7 @@ require("packer").startup({
         { "williamboman/nvim-lsp-installer" },
         {
           "arkav/lualine-lsp-progress",
-          after = { "nvim-lspconfig", "lualine.nvim" },
+          -- after = { "lualine.nvim" },
         },
         {
           "folke/lua-dev.nvim",
@@ -840,7 +842,7 @@ require("packer").startup({
     -- repeat using `.`
     use({
       "tpope/vim-repeat",
-      keys = { "n", "." },
+      module = "repeat",
     })
 
     -- surrounding in vim

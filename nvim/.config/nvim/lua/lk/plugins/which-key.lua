@@ -353,10 +353,8 @@ local leader_key_maps = {
   -- NOTE: i is for tmux {{{
   ----------------------------------------------------------------------
   ["i"] = {
-    ["name"] = "+tmux",
-    ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
-    ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
-    ["w"] = { ":Telescope tmux windows<CR>", "windows" },
+    ["name"] = "+insert-text",
+    ["e"] = { ":LuasnipEdit<CR>", "edit-snippets" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -783,11 +781,14 @@ local leader_key_maps = {
   ["S"] = {
     ["name"] = "+sessions/+workspaces",
     ["a"] = { ":WorkspacesAdd<CR>", "add-workspace" },
+    ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
     ["l"] = { ":WorkspacesList<CR>", "list-workspaces" },
+    ["L"] = { ":SearchSession<CR>", "search-sessions" },
+    ["o"] = { ":WorkspacesOpen<CR>", "open-workspace" },
     ["r"] = { ":WorkspacesRemove<CR>", "remove-workspace" },
-    ["s"] = { ":SearchSession<CR>", "search-sessions" },
-    ["w"] = { ":WorkspacesOpen<CR>", "open-workspace" },
+    ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
     ["t"] = { ":Telescope workspaces<CR>", "open-workspace-tele" },
+    ["w"] = { ":Telescope tmux windows<CR>", "windows" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -1035,6 +1036,19 @@ local visual_mode_leader_key_maps = {
     ["V"] = { ":DebugPrintVarAbove", "print-var-above" },
   },
 }
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: [ mappings {{{
+----------------------------------------------------------------------
+wk.register({
+  b = { "<Plug>(buf-surf-back)", "buf-surf-back" },
+}, { prefix = "[" })
+
+wk.register({
+  b = { "<Plug>(buf-surf-forward)", "buf-surf-forward" },
+}, { prefix = "]" })
 -- }}}
 ----------------------------------------------------------------------
 
