@@ -23,63 +23,73 @@ end
 -- NOTE: publish diagnostics handler {{{
 --------------------------------------------------------------------------------
 lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.handlers["textDocument/publishDiagnostics"], {
-  signs = { severity_limit = "Error" },
-  underline = { severity_limit = "Warning" },
+  signs = true,
+  underline = true,
   update_in_insert = false,
-  virtual_text = { source = "always" },
+  virtual_text = {
+    severity = nil,
+    source = "if_many",
+    prefix = "■", -- Could be '●', '▎', 'x'
+  },
   float = { source = "always" },
 })
 
----Override diagnostics signs helper to only show the single most relevant sign
----@see: http://reddit.com/r/neovim/comments/mvhfw7/can_built_in_lsp_diagnostics_be_limited_to_show_a
----@param diagnostics table[]
----@param _ number buffer number
----@return table[]
-local function filter_diagnostics(diagnostics, _)
-  if not diagnostics then
-    return {}
-  end
-  -- Work out max severity diagnostic per line
-  local max_severity_per_line = {}
-  for _, d in pairs(diagnostics) do
-    local lnum = d.lnum
-    if max_severity_per_line[lnum] then
-      local current_d = max_severity_per_line[lnum]
-      if d.severity < current_d.severity then
-        max_severity_per_line[lnum] = d
+vim.diagnostic.config({
+  underline = true,
+  virtual_text = {
+    severity = nil,
+    source = "if_many",
+    format = nil,
+  },
+  signs = true,
+
+  -- options for floating windows:
+  float = {
+    show_header = true,
+    border = "rounded",
+    source = "always",
+    format = function(d)
+      local t = vim.deepcopy(d)
+      local code = d.code or d.user_data.lsp.code
+      if code then
+        t.message = string.format("%s [%s]", t.message, code):gsub("1. ", "")
       end
-    else
-      max_severity_per_line[lnum] = d
-    end
-  end
+      return t.message
+    end,
+  },
+  severity_sort = true,
+  update_in_insert = false,
+})
 
-  -- map to list
-  local filtered_diagnostics = {}
-  for _, v in pairs(max_severity_per_line) do
-    table.insert(filtered_diagnostics, v)
-  end
-  return filtered_diagnostics
-end
-
---- This overwrites the diagnostic show/set_signs function to replace it with a custom function
---- that restricts nvim's diagnostic signs to only the single most severe one per line
+--- Restricts nvim's diagnostic signs to only the single most severe one per line
+--- @see `:help vim.diagnostic`
 local ns = vim.api.nvim_create_namespace("severe-diagnostics")
-local show = vim.diagnostic.show
-local function display_signs(bufnr)
-  -- Get all diagnostics from the current buffer
-  local diagnostics = vim.diagnostic.get(bufnr)
-  local filtered = filter_diagnostics(diagnostics, bufnr)
-  show(ns, bufnr, filtered, {
-    virtual_text = false,
-    underline = false,
-    signs = true,
-  })
-end
+--- Get a reference to the original signs handler
+local signs_handler = vim.diagnostic.handlers.signs
+--- Override the built-in signs handler
+vim.diagnostic.handlers.signs = {
+  show = function(_, bufnr, _, opts)
+    -- Get all diagnostics from the whole buffer rather than just the
+    -- diagnostics passed to the handler
+    local diagnostics = vim.diagnostic.get(bufnr)
+    -- Find the "worst" diagnostic per line
+    local max_severity_per_line = {}
+    for _, d in pairs(diagnostics) do
+      local m = max_severity_per_line[d.lnum]
+      if not m or d.severity < m.severity then
+        max_severity_per_line[d.lnum] = d
+      end
+    end
+    -- Pass the filtered diagnostics (with our custom namespace) to
+    -- the original handler
+    signs_handler.show(ns, bufnr, vim.tbl_values(max_severity_per_line), opts)
+  end,
+  hide = function(_, bufnr)
+    signs_handler.hide(ns, bufnr)
+  end,
+}
 
-function vim.diagnostic.show(namespace, bufnr, ...)
-  show(namespace, bufnr, ...)
-  display_signs(bufnr)
-end
+vim.diagnostic.config({})
 -- }}}
 --------------------------------------------------------------------------------
 
