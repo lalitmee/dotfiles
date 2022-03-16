@@ -9,6 +9,9 @@ ls.snippets = {
     -- ls.parser.parse_snippet("expand", "-- this is just expanded thing"),
   },
   lua = {
+    -- local var
+    s("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
+
     -- require
     s("req", fmt("local {} = require('{}')", { i(1, "name"), rep(1) })),
 

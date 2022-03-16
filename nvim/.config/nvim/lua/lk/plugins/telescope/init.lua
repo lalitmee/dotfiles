@@ -23,16 +23,15 @@ reloader()
 
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
+local action_layout = require("telescope.actions.layout")
 local previewers = require("telescope.previewers")
 local themes = require("telescope.themes")
 
 local function get_border(opts)
   return vim.tbl_deep_extend("force", opts or {}, {
     borderchars = {
-      { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-      prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
-      results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
-      preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+      { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
     },
   })
 end
@@ -57,6 +56,7 @@ telescope.setup({
       "--line-number",
       "--column",
       "--smart-case",
+      "--trim",
     },
     prompt_prefix = "  ",
     selection_strategy = "reset",
@@ -82,10 +82,23 @@ telescope.setup({
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-n>"] = actions.move_selection_next,
-        ["<C-p>"] = actions.move_selection_previous,
-        ["<C-y>"] = actions.move_to_top,
         ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-p>"] = actions.move_selection_previous,
         ["<C-s>"] = R("telescope").extensions.hop.hop,
+        ["<C-u>"] = false,
+        ["<C-y>"] = actions.move_to_top,
+        ["<M-p>"] = action_layout.toggle_preview,
+        ["<esc>"] = actions.close,
+      },
+      n = {
+        ["e"] = actions.move_to_bottom,
+        ["j"] = actions.move_selection_next,
+        ["k"] = actions.move_selection_previous,
+        ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["s"] = R("telescope").extensions.hop.hop,
+        ["u"] = false,
+        ["y"] = actions.move_to_top,
+        ["p"] = action_layout.toggle_preview,
         ["<esc>"] = actions.close,
       },
     },
@@ -150,6 +163,7 @@ telescope.setup({
       enable_preview = true,
     },
     find_files = {
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
       hidden = true,
     },
     git_bcommits = {

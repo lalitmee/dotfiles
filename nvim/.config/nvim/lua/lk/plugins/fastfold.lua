@@ -1,4 +1,5 @@
-vim.cmd([[nmap zuz <Plug>(FastFoldUpdate)]])
+local nmap = lk.nmap
 
-vim.g.fastfold_skip_filetypes = { "TelescopeResults" }
 vim.g.fastfold_minlines = 500
+
+nmap("zuz", [[<Plug>(FastFoldUpdate)]])

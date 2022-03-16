@@ -23,6 +23,7 @@ local bookmarks = {
   "https://github.com/nvim-telescope/telescope.nvim",
   "https://github.com/rockerBOO/awesome-neovim",
   "https://neovim.discourse.group/",
+  "https://github.com/phaazon/hop.nvim",
 
   -- configs
   "https://github.com/akinsho/dotfiles",
