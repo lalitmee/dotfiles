@@ -21,4 +21,8 @@ ls.snippets = {
     -- todo
     s("todo", fmt("-- TODO: {}", { i(1, "description") })),
   },
+  javascript = {
+    -- todo
+    s("clg", fmt("console.log({})", { i(1, "name") })),
+  },
 }

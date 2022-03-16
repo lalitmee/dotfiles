@@ -503,7 +503,7 @@ local leader_key_maps = {
     ["e"] = { ":Telescope diagnostics<CR>", "lsp-diagnostics" },
     ["f"] = { ":Telescope lsp_references<CR>", "references" },
     ["j"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
-    ["l"] = { "<Plug>(JsConsoleLog)", "console-log" },
+    ["l"] = { ":LogVariable<CR>", "log-var" },
     ["r"] = { ":LspRename<CR>", "rename-symbol" },
     ["t"] = { ":Telescope treesitter<CR>", "treesitter-symbols" },
     ["w"] = { ":Telescope lsp_document_symbols<CR>", "buffer-symbols" },
@@ -999,8 +999,8 @@ local local_leader_key_maps = {
   ["s"] = {
     ["name"] = "+system",
     ["r"] = { ":SnipRun<CR>", "run-code" },
-    ["t"] = { ':lua require("lk.functions").notify_current_datetime()<CR>', "current-date-time" },
-    ["y"] = { ':lua require("lk.functions").yank_current_file_name()<CR>', "yank-current-file-name" },
+    ["t"] = { ":lua Notify_current_datetime()<CR>", "current-date-time" },
+    ["y"] = { ":lua Yank_current_file_name()<CR>", "yank-current-file-name" },
   },
   -- }}}
   ----------------------------------------------------------------------
