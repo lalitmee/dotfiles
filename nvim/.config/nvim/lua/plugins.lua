@@ -831,6 +831,12 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: tpope {{{
     ------------------------------------------------------------------------
+    -- abbreviations
+    use({
+      "tpope/vim-abolish",
+      config = conf("abolish"),
+    })
+
     -- repeat using `.`
     use({
       "tpope/vim-repeat",
