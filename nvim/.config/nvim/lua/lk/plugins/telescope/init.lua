@@ -183,12 +183,10 @@ telescope.setup({
     reloader = dropdown(),
   },
   extensions = {
-    extensions = {
-      workspaces = { keep_insert = true },
-      hop = {
-        sign_hl = { "Title" },
-        line_hl = { "CursorLine" },
-      },
+    workspaces = { keep_insert = true },
+    hop = {
+      sign_hl = { "Title" },
+      line_hl = { "CursorLine" },
     },
     media_files = { find_cmd = "rg" },
     ["ui-select"] = {

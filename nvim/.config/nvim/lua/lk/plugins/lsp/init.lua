@@ -182,20 +182,21 @@ set_servers()
 ----------------------------------------------------------------------
 -- NOTE: autocommands {{{
 ----------------------------------------------------------------------
-lk.augroup("au_diagnostics", {
-  {
-    event = { "CursorHold", "CursorHoldI" },
-    command = function()
-      vim.diagnostic.open_float(nil, { focus = false })
-    end,
-  },
-  {
-    event = { "CursorHold", "CursorHoldI" },
-    command = function()
-      vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
-    end,
-  },
-})
+-- NOTE: not using these since we are using virtual text
+-- lk.augroup("au_diagnostics", {
+--   {
+--     event = { "CursorHold", "CursorHoldI" },
+--     command = function()
+--       vim.diagnostic.open_float(nil, { focus = false })
+--     end,
+--   },
+--   {
+--     event = { "CursorHold", "CursorHoldI" },
+--     command = function()
+--       vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+--     end,
+--   },
+-- })
 -- }}}
 ----------------------------------------------------------------------
 
