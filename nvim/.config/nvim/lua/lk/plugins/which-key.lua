@@ -797,6 +797,9 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["t"] = {
     ["name"] = "+tabs/terminal/toggle",
+    ["1"] = { ":HarpoonGotoTerm1<CR>", "terminal-1" },
+    ["2"] = { ":HarpoonGotoTerm2<CR>", "terminal-2" },
+    ["3"] = { ":HarpoonGotoTerm3<CR>", "terminal-3" },
     ["g"] = {
       ["name"] = "+git",
       ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
@@ -906,15 +909,15 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
   -- NOTE: harpoon go to file {{{
   ----------------------------------------------------------------------
-  ["1"] = { ":HarpoonGoToFile1<CR>", "goto-file-4" },
-  ["2"] = { ":HarpoonGoToFile2<CR>", "goto-file-1" },
-  ["3"] = { ":HarpoonGoToFile3<CR>", "goto-file-2" },
-  ["4"] = { ":HarpoonGoToFile4<CR>", "goto-file-3" },
-  ["5"] = { ":HarpoonGoToFile5<CR>", "goto-file-4" },
-  ["6"] = { ":HarpoonGoToFile6<CR>", "goto-file-6" },
-  ["7"] = { ":HarpoonGoToFile7<CR>", "goto-file-7" },
-  ["8"] = { ":HarpoonGoToFile8<CR>", "goto-file-8" },
-  ["9"] = { ":HarpoonGoToFile9<CR>", "goto-file-9" },
+  ["1"] = { ":HarpoonGotoFile1<CR>", "goto-file-4" },
+  ["2"] = { ":HarpoonGotoFile2<CR>", "goto-file-1" },
+  ["3"] = { ":HarpoonGotoFile3<CR>", "goto-file-2" },
+  ["4"] = { ":HarpoonGotoFile4<CR>", "goto-file-3" },
+  ["5"] = { ":HarpoonGotoFile5<CR>", "goto-file-4" },
+  ["6"] = { ":HarpoonGotoFile6<CR>", "goto-file-6" },
+  ["7"] = { ":HarpoonGotoFile7<CR>", "goto-file-7" },
+  ["8"] = { ":HarpoonGotoFile8<CR>", "goto-file-8" },
+  ["9"] = { ":HarpoonGotoFile9<CR>", "goto-file-9" },
   -- }}}
   ----------------------------------------------------------------------
 

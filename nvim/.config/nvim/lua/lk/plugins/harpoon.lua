@@ -16,70 +16,70 @@ require("harpoon").setup({
 ----------------------------------------------------------------------
 
 command({
-  "HarpoonGoToFile1",
+  "HarpoonGotoFile1",
   function()
     require("harpoon.ui").nav_file(1)
   end,
 })
 
 command({
-  "HarpoonGoToFile2",
+  "HarpoonGotoFile2",
   function()
     require("harpoon.ui").nav_file(2)
   end,
 })
 
 command({
-  "HarpoonGoToFile3",
+  "HarpoonGotoFile3",
   function()
     require("harpoon.ui").nav_file(3)
   end,
 })
 
 command({
-  "HarpoonGoToFile4",
+  "HarpoonGotoFile4",
   function()
     require("harpoon.ui").nav_file(4)
   end,
 })
 
 command({
-  "HarpoonGoToFile5",
+  "HarpoonGotoFile5",
   function()
     require("harpoon.ui").nav_file(5)
   end,
 })
 
 command({
-  "HarpoonGoToFile6",
+  "HarpoonGotoFile6",
   function()
     require("harpoon.ui").nav_file(6)
   end,
 })
 
 command({
-  "HarpoonGoToFile7",
+  "HarpoonGotoFile7",
   function()
     require("harpoon.ui").nav_file(7)
   end,
 })
 
 command({
-  "HarpoonGoToFile8",
+  "HarpoonGotoFile8",
   function()
     require("harpoon.ui").nav_file(8)
   end,
 })
 
 command({
-  "HarpoonGoToFile9",
+  "HarpoonGotoFile9",
   function()
     require("harpoon.ui").nav_file(9)
   end,
 })
 
 command({
-  "HarpoonGoToFile10",
+  "HarpoonGotoFile10",
   function()
     require("harpoon.ui").nav_file(10)
   end,
@@ -88,7 +88,7 @@ command({
 command({
   "HarpoonAddFile",
   function()
-    require("harpoon.ui").add_file()
+    require("harpoon.mark").add_file()
   end,
 })
 
@@ -103,6 +103,27 @@ command({
   "ToggleHarpoonMenu",
   function()
     require("harpoon.ui").toggle_quick_menu()
+  end,
+})
+
+command({
+  "HarpoonGotoTerm1",
+  function()
+    require("harpoon.term").gotoTerminal(1)
+  end,
+})
+
+command({
+  "HarpoonGotoTerm2",
+  function()
+    require("harpoon.term").gotoTerminal(2)
+  end,
+})
+
+command({
+  "HarpoonGotoTerm3",
+  function()
+    require("harpoon.term").gotoTerminal(3)
   end,
 })
 
