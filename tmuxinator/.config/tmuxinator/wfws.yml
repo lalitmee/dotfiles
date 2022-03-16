@@ -10,7 +10,7 @@ windows:
   - Servers:
       layout: even-horizontal
       panes:
-        - cd ../../wf-webapp-service && yst
+        - cd ../../wf-webapp-service && npmst
         - cd ../../worktrees/marketsn-webapp-service-nextjs/test-env && yd
   - Caddy:
       - cd ../..

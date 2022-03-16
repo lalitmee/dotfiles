@@ -3,12 +3,10 @@ if not ok then
   return
 end
 
-local M = {}
-
 --------------------------------------------------------------------------------
 -- NOTE: notify current date and time {{{
 --------------------------------------------------------------------------------
-function M.notify_current_datetime()
+function Notify_current_datetime()
   local dt = vim.fn.strftime("%c")
   vim.notify("Current Date Time: " .. dt, "info", { title = "Date & Time" })
 end
@@ -18,7 +16,7 @@ end
 --------------------------------------------------------------------------------
 -- NOTE:yank current file name {{{
 --------------------------------------------------------------------------------
-function M.yank_current_file_name()
+function Yank_current_file_name()
   local file_name = vim.api.nvim_buf_get_name(0)
   local input_pipe = vim.loop.new_pipe(false)
   local yanker = Job:new({ writer = input_pipe, command = "xclip" })
@@ -31,6 +29,14 @@ end
 -- }}}
 --------------------------------------------------------------------------------
 
-return M
+function Log_var()
+  local word_under_cursor = vim.fn.expand("<cword>")
+  local filetype = vim.fn.expand("%:p:e")
+  if filetype == "lua" then
+    vim.cmd(string.format("norm!oprint('%s', %s)", word_under_cursor, word_under_cursor))
+  elseif filetype == "js" then
+    vim.cmd(string.format("norm!oconsole.log({%s})", word_under_cursor))
+  end
+end
 
 -- vim:foldmethod=marker

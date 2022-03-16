@@ -4,6 +4,14 @@ local opt = vim.opt
 local g = vim.g
 local executable = lk.executable
 
+----------------------------------------------------------------------
+-- NOTE: python hosts {{{
+----------------------------------------------------------------------
+g.python3_host_prog = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
+g.python_host_prog = "/home/lalitmee/.pyenv/versions/neovim2/bin/python"
+-- }}}
+----------------------------------------------------------------------
+
 -- enable treesitter for what filetype?
 g.enable_treesitter_ft = {
   "bash",
