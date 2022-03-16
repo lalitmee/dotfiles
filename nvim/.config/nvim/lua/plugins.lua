@@ -925,7 +925,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
   end,
   config = {
-    compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
     display = {
       prompt_border = "rounded",
       open_fn = function()
