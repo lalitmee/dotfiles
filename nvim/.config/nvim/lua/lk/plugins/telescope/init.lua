@@ -15,7 +15,6 @@ local should_reload = true
 local reloader = function()
   if should_reload then
     RELOAD("plenary")
-    RELOAD("popup")
     RELOAD("telescope")
   end
 end
@@ -140,6 +139,7 @@ telescope.setup({
   },
   pickers = {
     buffers = dropdown({
+      path_display = { "absolute", "smart" },
       previewer = false,
       sort_mru = true,
       sort_lastused = true,
