@@ -12,7 +12,7 @@ module.exports = {
     fontSize: 10,
     // font family with optional fallbacks
     fontFamily:
-      'Operator Mono Lig Book, CaskaydiaCove Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'Operator Mono Book, CaskaydiaCove Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
     // default font weight: 'normal' or 'bold'
     fontWeight: 600,
     // font weight for bold characters: 'normal' or 'bold'
