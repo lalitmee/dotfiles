@@ -101,14 +101,22 @@ lualine.setup({
       {
         "diagnostics",
         sources = { "nvim_diagnostic" },
-        symbols = { error = " ", warn = " ", hint = " ", info = " " },
+        symbols = {
+          error = " ",
+          warn = " ",
+          hint = " ",
+          info = " ",
+        },
         update_in_insert = true,
       },
       { "filesize" },
       { "filetype" },
       {
         get_client_name,
-        color = { fg = colors.yellow, bg = colors.cursor_hover },
+        color = {
+          fg = colors.yellow,
+          bg = colors.cursor_hover,
+        },
       },
       {
         get_session_name,
