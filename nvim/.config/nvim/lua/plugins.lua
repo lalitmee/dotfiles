@@ -734,6 +734,17 @@ require("packer").startup({
       config = conf("refactoring"),
     })
 
+    ----------------------------------------------------------------------
+    -- NOTE: html and jsx {{{
+    ----------------------------------------------------------------------
+    use({
+      "mattn/emmet-vim",
+      config = conf("emmet"),
+      keys = { "i", "," },
+    })
+    -- }}}
+    ----------------------------------------------------------------------
+
     ----------------------------------------------------------------------------
     -- NOTE: markdown {{{
     ----------------------------------------------------------------------------
@@ -848,6 +859,12 @@ require("packer").startup({
     -- surrounding in vim
     use({
       "tpope/vim-surround",
+      event = { "BufRead" },
+    })
+
+    -- set buffer options heuristicly
+    use({
+      "tpope/vim-sleuth",
       event = { "BufRead" },
     })
 

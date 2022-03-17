@@ -4,7 +4,7 @@ require("nvim-treesitter.configs").setup({
   highlight = { enable = true },
   matchup = { enable = true },
   autotag = { enable = true },
-  indent = { enable = true },
+  indent = { enable = true, disable = { "css" } },
   playground = { enable = true, updatetime = 25, persist_queries = false },
   context_commentstring = { enable = true, enable_autocmd = false },
   query_linter = {

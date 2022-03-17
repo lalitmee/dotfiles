@@ -214,6 +214,15 @@ command({
   end,
 })
 
+command({
+  "ShowLineDiagnosticInFlot",
+  function()
+    vim.diagnostic.open_float(0, {
+      scope = "line",
+    })
+  end,
+})
+
 -- loclist
 command({
   "LspSetLoclist",
@@ -221,6 +230,7 @@ command({
     vim.lsp.diagnostic.setloclist()
   end,
 })
+
 -- }}}
 ----------------------------------------------------------------------
 

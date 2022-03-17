@@ -188,6 +188,7 @@ local leader_key_maps = {
     ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnosticss" },
     ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnosticss" },
     ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnosticss" },
+    ["v"] = { ":ShowLineDiagnosticInFlot<CR>", "diagnostic-float-preview" },
   },
   -- }}}
   ----------------------------------------------------------------------
