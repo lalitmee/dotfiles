@@ -24,7 +24,8 @@ local function get_client_name()
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      return "[ ⚙ LSP: " .. client.name .. " ]"
+      -- return "[ ⚙ LSP: " .. client.name .. " ]"
+      return client.name
     end
   end
   return msg
@@ -33,12 +34,26 @@ end
 --------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------
+-- NOTE: get session name {{{
+----------------------------------------------------------------------
+local function get_session_name()
+  local session_name = auto_session_library.current_session_name()
+  if session_name == nil then
+    return "No Active Session"
+  end
+  -- return "[ Session: " .. session_name .. " ]"
+  -- return "Session: " .. session_name
+  return session_name
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
 lualine.setup({
   options = {
     theme = "auto",
-    -- theme = 'cobalt2',
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
   },
@@ -89,15 +104,18 @@ lualine.setup({
         symbols = { error = " ", warn = " ", hint = " ", info = " " },
         update_in_insert = true,
       },
-      {
-        get_client_name,
-        color = { fg = colors.yellow },
-      },
       { "filesize" },
       { "filetype" },
       {
-        auto_session_library.current_session_name,
-        color = { fg = colors.black, bg = colors.blue },
+        get_client_name,
+        color = { fg = colors.yellow, bg = colors.cursor_hover },
+      },
+      {
+        get_session_name,
+        color = {
+          fg = colors.darkest_blue,
+          bg = colors.blue,
+        },
       },
     },
     lualine_y = { { "progress" } },
