@@ -42,6 +42,8 @@ g.enable_lspconfig_ft = {
   "dockerfile",
 }
 
+vim.cmd([[filetype plugin indent on]])
+
 -----------------------------------------------------------------------------//
 -- Message output on vim actions {{{1
 -----------------------------------------------------------------------------//
@@ -211,6 +213,7 @@ opt.wrap = true
 opt.wrapmargin = 2
 opt.textwidth = 80
 opt.autoindent = true
+opt.smartindent = true
 opt.shiftround = true
 opt.expandtab = true
 opt.shiftwidth = 2
@@ -338,7 +341,6 @@ end
 
 -- vim.cmd {{{
 
-vim.cmd([[filetype plugin indent on]])
 vim.cmd([[set re=1]])
 vim.cmd([[set t_ZH=[3m]])
 vim.cmd([[set t_ZR=[23m]])
@@ -355,3 +357,5 @@ vim.cmd([[set t_vb=]])
 vim.cmd([[set path+=**]])
 
 -- }}}
+
+-- vim:foldmethod=marker

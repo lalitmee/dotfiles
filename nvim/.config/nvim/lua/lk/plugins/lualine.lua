@@ -118,13 +118,13 @@ lualine.setup({
           bg = colors.cursor_hover,
         },
       },
-      {
-        get_session_name,
-        color = {
-          fg = colors.darkest_blue,
-          bg = colors.blue,
-        },
-      },
+      -- {
+      --   get_session_name,
+      --   color = {
+      --     fg = colors.darkest_blue,
+      --     bg = colors.blue,
+      --   },
+      -- },
     },
     lualine_y = { { "progress" } },
     lualine_z = { { "location" } },
