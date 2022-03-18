@@ -310,6 +310,11 @@ alias rmnode="rm -rf node_modules"
 alias rmpack="rm -rf package-lock.json"
 alias rmyarn="rm -rf yarn.lock"
 
+# make aliases for building neovim from source
+alias mc="sudo make clean && sudo make distclean"
+alias mr="make CMAKE_BUILD_TYPE=Release"
+alias mi="sudo make install"
+
 # alias for todo.txt-cli
 alias t="~/todo.txt_cli-2.11.0/todo.sh"
 
