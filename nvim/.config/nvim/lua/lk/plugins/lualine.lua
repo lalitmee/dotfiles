@@ -59,10 +59,16 @@ lualine.setup({
     component_separators = { left = "", right = "" },
   },
   sections = {
-    lualine_a = { { "mode", fmt = string.upper } },
+    lualine_a = {
+      {
+        "mode",
+        fmt = function(str)
+          return "<" .. str:sub(1, 1) .. ">"
+        end,
+      },
+    },
     lualine_b = { { "branch", icon = "" } },
     lualine_c = {
-      { "filetype", icon_only = true },
       { "filename", path = 1 },
       { "diff" },
       {
