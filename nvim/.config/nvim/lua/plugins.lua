@@ -244,11 +244,6 @@ require("packer").startup({
       config = conf("hop"),
     })
 
-    use({
-      "unblevable/quick-scope",
-      config = conf("quick-scope"),
-    })
-
     -- Navigations
     use({
       "ThePrimeagen/harpoon",
