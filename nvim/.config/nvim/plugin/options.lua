@@ -81,10 +81,17 @@ opt.eadirection = "hor"
 -- do not use split or vsplit to ensure we don't open any new windows
 vim.o.switchbuf = "useopen,uselast"
 opt.fillchars = {
-  vert = "▕", -- alternatives │
+  -- vert = "▕", -- alternatives │
   eob = "~", -- suppress ~ at EndOfBuffer
   diff = "╱", -- alternatives = ⣿ ░ ─
   msgsep = "‾",
+  horiz = "━",
+  horizup = "┻",
+  horizdown = "┳",
+  vert = "┃",
+  vertleft = "┫",
+  vertright = "┣",
+  verthoriz = "╋",
 }
 -----------------------------------------------------------------------------//
 -- Diff {{{1
@@ -232,7 +239,7 @@ opt.completeopt = {
 opt.hlsearch = true
 opt.autowriteall = true -- automatically :write before running commands and changing files
 opt.clipboard = { "unnamedplus" }
-opt.laststatus = 2
+opt.laststatus = 3
 opt.termguicolors = true
 -----------------------------------------------------------------------------//
 -- Emoji {{{1
