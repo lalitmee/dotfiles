@@ -82,6 +82,7 @@ lualine.setup({
           use = true,
         },
         display_components = { "lsp_client_name", { "title", "message", "percentage" }, "spinner" },
+        timer = { spinner = 200 },
         separators = {
           message = { commenced = ".", completed = "OK" },
         },
