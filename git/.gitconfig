@@ -2,7 +2,6 @@
 	statusHints = true
 
 [alias]
-
 	# View abbreviated SHA, description, and history graph of the latest 20 commits.
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
@@ -70,24 +69,20 @@
 	whoami = config user.email
 
 [apply]
-
 	# Detect whitespace errors when applying a patch.
 	whitespace = fix
 
 [branch]
-
 	# Show most recently changed branches first.
 	sort = -committerdate
 	autosetupmerge = true
 
 [color]
-
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
 	ui = auto
 
 [color "branch"]
-
 	current = yellow reverse
 	local = yellow
 	remote = green
@@ -103,13 +98,11 @@
 	changed = red bold
 	untracked = red bold
 	added = green bold
-
 	; added = yellow
 	; changed = green
 	; untracked = cyan
 
 [commit]
-
 	# https://help.github.com/articles/signing-commits-using-gpg/
 	gpgsign = false
 
@@ -117,33 +110,19 @@
 	helper =
 	helper = !/usr/bin/gh auth git-credential
 
+[core]
+	editor = nvim
+	pager = delta
+
 [delta]
-	plus-style = "syntax #012800"
-	minus-style = "syntax #340001"
-	syntax-theme = Monokai Extended
-	navigate = true
 	line-numbers = true
-	side-by-side = true
-	line-numbers-left-format = ""
-	line-numbers-right-format = "│ "
-	features = unobtrusive-line-numbers decorations
-	whitespace-error-style = 22 reverse
+	syntax-theme = gruvbox
+	side-by-side = false
 
-[delta "unobtrusive-line-numbers"]
-	line-numbers = true
-	line-numbers-minus-style = "#444444"
-	line-numbers-zero-style = "#444444"
-	line-numbers-plus-style = "#444444"
-	line-numbers-left-format = "{nm:>4}┊"
-	line-numbers-right-format = "{np:>4}│"
-	line-numbers-left-style = blue
-	line-numbers-right-style = blue
+	file-modified-label = modified:
 
-[delta "decorations"]
-	commit-decoration-style = bold yellow box ul
-	file-style = bold yellow ul
-	file-decoration-style = none
-	hunk-header-decoration-style = yellow box
+[interactive]
+	diffFilter = delta --color-only
 
 [diff]
 
@@ -178,6 +157,9 @@
 [pull]
 	rebase = true
 
+[push]
+	default = current
+
 [pager]
 	diff = delta
 	log = delta
@@ -187,7 +169,9 @@
 [user]
 	email = lalitkumar.meena.lk@gmail.com
 	name = Lalit Kumar
+
 [gpg]
 	program = gpg2
+
 [init]
 	defaultBranch = master
