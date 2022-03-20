@@ -43,12 +43,9 @@ vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
 ----------------------------------------------------------------------
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
-command({
-  "LGrep",
-  function()
-    require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ") })
-  end,
-})
+command("LGrep", function()
+  require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ") })
+end)
 -- }}}
 ----------------------------------------------------------------------
 

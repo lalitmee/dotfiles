@@ -32,68 +32,41 @@ end
 ----------------------------------------------------------------------
 -- NOTE: commands {{{
 ----------------------------------------------------------------------
-command({
-  "Refactors",
-  function()
-    get_refactors()
-  end,
-})
+command("Refactors", function()
+  get_refactors()
+end)
 
-command({
-  "RefactorExtractFunc",
-  function()
-    require("refactoring").refactor(106)
-  end,
-})
+command("RefactorExtractFunc", function()
+  require("refactoring").refactor(106)
+end)
 
-command({
-  "RefactorExtractVar",
-  function()
-    require("refactoring").refactor(119)
-  end,
-})
+command("RefactorExtractVar", function()
+  require("refactoring").refactor(119)
+end)
 
-command({
-  "RefactorInlineVar",
-  function()
-    require("refactoring").refactor(123)
-  end,
-})
+command("RefactorInlineVar", function()
+  require("refactoring").refactor(123)
+end)
 
-command({
-  "RefactorDebugPath",
-  function()
-    print(vim.inspect(require("refactoring").debug.get_path()))
-  end,
-})
+command("RefactorDebugPath", function()
+  print(vim.inspect(require("refactoring").debug.get_path()))
+end)
 
-command({
-  "RefactorDebugPrintfAbove",
-  function()
-    require("refactoring").debug.printf({ below = false })
-  end,
-})
+command("RefactorDebugPrintfAbove", function()
+  require("refactoring").debug.printf({ below = false })
+end)
 
-command({
-  "RefactorDebugPrintfBelow",
-  function()
-    require("refactoring").debug.printf({ below = true })
-  end,
-})
+command("RefactorDebugPrintfBelow", function()
+  require("refactoring").debug.printf({ below = true })
+end)
 
-command({
-  "RefactorDebugPrintVarAbove",
-  function()
-    require("refactoring").debug.print_var({ below = false })
-  end,
-})
+command("RefactorDebugPrintVarAbove", function()
+  require("refactoring").debug.print_var({ below = false })
+end)
 
-command({
-  "RefactorDebugPrintVarBelow",
-  function()
-    require("refactoring").debug.print_var({ below = true })
-  end,
-})
+command("RefactorDebugPrintVarBelow", function()
+  require("refactoring").debug.print_var({ below = true })
+end)
 -- }}}
 ----------------------------------------------------------------------
 
