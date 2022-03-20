@@ -95,6 +95,14 @@ require("packer").startup({
       requires = { "nvim-lua/plenary.nvim" },
     })
 
+    -- find keymaps and a lot more
+    use({
+      "mrjones2014/legendary.nvim",
+      keys = { "<C-p>" },
+      config = conf("legendary"),
+      requires = { "stevearc/dressing.nvim" },
+    })
+
     -- which-key
     use({
       "folke/which-key.nvim",
