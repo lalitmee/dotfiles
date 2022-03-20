@@ -3,7 +3,7 @@ local fmt = string.format
 local fn = vim.fn
 
 ----------------------------------------------------------------------
--- NOTE:pakcer commands {{{
+-- NOTE: pakcer commands {{{
 ----------------------------------------------------------------------
 local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua"
 
@@ -102,6 +102,15 @@ end)
 ----------------------------------------------------------------------
 command("LogVariable", function()
   Log_var()
+end)
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: neovim utility commands {{{
+----------------------------------------------------------------------
+command("ToggleBackground", function()
+  vim.o.background = vim.o.background == "dark" and "light" or "dark"
 end)
 -- }}}
 ----------------------------------------------------------------------
