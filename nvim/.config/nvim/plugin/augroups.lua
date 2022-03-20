@@ -65,18 +65,23 @@ augroup("PackerSetupInit", {
       end)
     end,
   },
-  -- FIXME: user autocommands are triggered multiple times
-  -- {
-  -- event = 'User PackerCompileDone',
-  -- command = function()
-  --   print 'calling compile done'
-  --   vim.notify('Packer compile complete', nil, { title = 'Packer' })
-  -- end,
-  -- },
+  {
+    event = "User",
+    pattern = "PackerCompileDone",
+    description = "Notify when packer compile done",
+    command = function()
+      vim.notify("Packer compile complete", nil, { title = "Packer" })
+    end,
+  },
+  {
+    event = "User",
+    pattern = "PackerCompelete",
+    description = "Notify when packer completes the job",
+    command = function()
+      vim.notify("Packer has done the job", nil, { title = "Packer" })
+    end,
+  },
 })
-
-vim.cmd([[autocmd! User PackerCompileDone lua vim.notify('Packer compile complete', 'info', { title = 'Packer' })]])
-vim.cmd([[autocmd! User PackerComplete lua vim.notify('Packer has done the job', 'info', { title = 'Packer' })]])
 -- }}}
 ----------------------------------------------------------------------
 
