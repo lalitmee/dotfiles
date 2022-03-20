@@ -5,9 +5,12 @@ local rep = require("luasnip.extras").rep
 
 local c = ls.choice_node
 local f = ls.function_node
+local d = ls.dynamic_node
 local insert = ls.insert_node
 local snippet = ls.snippet
 local text = ls.text_node
+
+local fn = vim.fn
 
 ls.snippets = {
   all = {
@@ -45,6 +48,45 @@ ls.snippets = {
     ),
   },
   lua = {
+    snippet(
+      {
+        trig = "use",
+        name = "packer use",
+        dscr = {
+          "packer use plugin block",
+          "e.g.",
+          "use {'author/plugin'}",
+        },
+      },
+      fmt([[use {{"{}"{}}}]], {
+        d(1, function()
+          -- Get the author and URL in the clipboard and auto populate the author and project
+          local default = snippet("", { insert(1, "author"), text("/"), insert(2, "plugin") })
+          local clip = fn.getreg("*")
+          if not vim.startswith(clip, "https://github.com/") then
+            return default
+          end
+          local parts = vim.split(clip, "/")
+          if #parts < 2 then
+            return default
+          end
+          local author, project = parts[#parts - 1], parts[#parts]
+          return snippet("", { text(author .. "/" .. project) })
+        end),
+        c(2, {
+          fmt(
+            [[
+              , config = function()
+                require("{}").setup()
+              end
+              ]],
+            { insert(1, "module") }
+          ),
+          text(""),
+        }),
+      })
+    ),
+
     -- local var
     snippet("loc", fmt("local {} = {}", { insert(1, "name"), insert(2, "module/package") })),
 
