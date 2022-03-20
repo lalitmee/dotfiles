@@ -7,20 +7,14 @@ local fn = vim.fn
 ----------------------------------------------------------------------
 local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua"
 
-command({
-  "PackerCompiledEdit",
-  function()
-    vim.cmd(fmt("edit %s", PACKER_COMPILED_PATH))
-  end,
-})
+command("PackerCompiledEdit", function()
+  vim.cmd(fmt("edit %s", PACKER_COMPILED_PATH))
+end)
 
-command({
-  "PackerCompiledDelete",
-  function()
-    vim.fn.delete(PACKER_COMPILED_PATH)
-    packer_notify(fmt("Deleted %s", PACKER_COMPILED_PATH))
-  end,
-})
+command("PackerCompiledDelete", function()
+  vim.fn.delete(PACKER_COMPILED_PATH)
+  packer_notify(fmt("Deleted %s", PACKER_COMPILED_PATH))
+end)
 
 if not vim.g.packer_compiled_loaded and vim.loop.fs_stat(PACKER_COMPILED_PATH) then
   lk.source(PACKER_COMPILED_PATH)
@@ -33,31 +27,22 @@ end
 ----------------------------------------------------------------------
 -- NOTE: replacer.nvim commands {{{
 ----------------------------------------------------------------------
-command({
-  "ReplacerRunFiles",
-  function()
-    require("replacer").run()
-  end,
-})
+command("ReplacerRunFiles", function()
+  require("replacer").run()
+end)
 
-command({
-  "ReplacerRun",
-  function()
-    require("replacer").run({ rename_files = false })
-  end,
-})
+command("ReplacerRun", function()
+  require("replacer").run({ rename_files = false })
+end)
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: buffer commands {{{
 ----------------------------------------------------------------------
-command({
-  "BufferCloseAllButCurrent",
-  function()
-    vim.cmd([[:bd|e#|bd#"]])
-  end,
-})
+command("BufferCloseAllButCurrent", function()
+  vim.cmd([[:bd|e#|bd#"]])
+end)
 
 -- }}}
 ----------------------------------------------------------------------
@@ -65,19 +50,13 @@ command({
 ----------------------------------------------------------------------
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
-command({
-  "TelescopeNotifyHistory",
-  function()
-    require("telescope").extensions.notify.notify()
-  end,
-})
+command("TelescopeNotifyHistory", function()
+  require("telescope").extensions.notify.notify()
+end)
 
-command({
-  "ReloadConfigTelescope",
-  function()
-    require("lk/utils/reload").reload()
-  end,
-})
+command("ReloadConfigTelescope", function()
+  require("lk/utils/reload").reload()
+end)
 
 -- }}}
 ----------------------------------------------------------------------
@@ -85,60 +64,45 @@ command({
 ----------------------------------------------------------------------
 -- NOTE: config commands {{{
 ----------------------------------------------------------------------
-command({
-  "ReloadConfig",
-  function()
-    require("lk/utils/reload").reload_config()
-  end,
-})
+command("ReloadConfig", function()
+  require("lk/utils/reload").reload_config()
+end)
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: gh commands {{{
 ----------------------------------------------------------------------
-command({
-  "BrowseRepo",
-  function()
-    vim.cmd([[silent !gh o]])
-  end,
-})
+command("BrowseRepo", function()
+  vim.cmd([[silent !gh o]])
+end)
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: browse command {{{
 ----------------------------------------------------------------------
-command({
-  "Browse",
-  function()
-    vim.cmd([[lua Browse()]])
-  end,
-})
+command("Browse", function()
+  vim.cmd([[lua Browse()]])
+end)
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: luasnip edit {{{
 ----------------------------------------------------------------------
-command({
-  "LuasnipEdit",
-  function()
-    vim.cmd(fmt("e %s/lua/lk/plugins/luasnip/snips/init.lua", vim.fn.stdpath("config")))
-  end,
-})
+command("LuasnipEdit", function()
+  vim.cmd(fmt("e %s/lua/lk/plugins/luasnip/snips/init.lua", vim.fn.stdpath("config")))
+end)
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: log variable {{{
 ----------------------------------------------------------------------
-command({
-  "LogVariable",
-  function()
-    Log_var()
-  end,
-})
+command("LogVariable", function()
+  Log_var()
+end)
 -- }}}
 ----------------------------------------------------------------------
 

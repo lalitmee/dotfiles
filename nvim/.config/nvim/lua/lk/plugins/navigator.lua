@@ -10,40 +10,25 @@ navigator.setup()
 ----------------------------------------------------------------------
 local command = lk.command
 
-command({
-  "NavigateLeft",
-  function()
-    navigator.left()
-  end,
-})
+command("NavigateLeft", function()
+  navigator.left()
+end)
 
-command({
-  "NavigateDown",
-  function()
-    navigator.down()
-  end,
-})
+command("NavigateDown", function()
+  navigator.down()
+end)
 
-command({
-  "NavigateUp",
-  function()
-    navigator.up()
-  end,
-})
+command("NavigateUp", function()
+  navigator.up()
+end)
 
-command({
-  "NavigateRight",
-  function()
-    navigator.right()
-  end,
-})
+command("NavigateRight", function()
+  navigator.right()
+end)
 
-command({
-  "NavigatePrevious",
-  function()
-    navigator.previous()
-  end,
-})
+command("NavigatePrevious", function()
+  navigator.previous()
+end)
 
 -- }}}
 ----------------------------------------------------------------------
