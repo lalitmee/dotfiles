@@ -98,8 +98,8 @@ require("packer").startup({
     -- find keymaps and a lot more
     use({
       "mrjones2014/legendary.nvim",
-      keys = { "<C-p>" },
       config = conf("legendary"),
+      cmd = { "Legendary" },
       requires = { "stevearc/dressing.nvim" },
     })
 
