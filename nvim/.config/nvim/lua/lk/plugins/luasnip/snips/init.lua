@@ -1,28 +1,64 @@
 local ls = require("luasnip")
-local s = ls.s
+
 local fmt = require("luasnip.extras.fmt").fmt
-local i = ls.insert_node
 local rep = require("luasnip.extras").rep
+
+local c = ls.choice_node
+local f = ls.function_node
+local insert = ls.insert_node
+local snippet = ls.snippet
+local text = ls.text_node
 
 ls.snippets = {
   all = {
-    -- ls.parser.parse_snippet("expand", "-- this is just expanded thing"),
+    snippet({ trig = "td", name = "TODO" }, {
+      c(1, {
+        text("TODO: "),
+        text("FIXME: "),
+        text("HACK: "),
+        text("BUG: "),
+      }),
+      insert(0),
+    }),
+    snippet(
+      { trig = "hr", name = "Header" },
+      fmt(
+        [[
+            {1}
+            {2} {3}
+            {1}
+            {4}
+          ]],
+        {
+          f(function()
+            local comment = string.format(vim.bo.commentstring:gsub(" ", "") or "#%s", "-")
+            local col = vim.bo.textwidth or 80
+            return comment .. string.rep("-", col - #comment)
+          end),
+          f(function()
+            return vim.bo.commentstring:gsub("%%s", "")
+          end),
+          insert(1, "HEADER"),
+          insert(0),
+        }
+      )
+    ),
   },
   lua = {
     -- local var
-    s("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
+    snippet("loc", fmt("local {} = {}", { insert(1, "name"), insert(2, "module/package") })),
 
     -- require
-    s("req", fmt("local {} = require('{}')", { i(1, "name"), rep(1) })),
+    snippet("req", fmt("local {} = require('{}')", { insert(1, "name"), rep(1) })),
 
     -- note
-    s("note", fmt("-- NOTE: {}", { i(1, "description") })),
+    snippet("note", fmt("-- NOTE: {}", { insert(1, "description") })),
 
     -- todo
-    s("todo", fmt("-- TODO: {}", { i(1, "description") })),
+    snippet("todo", fmt("-- TODO: {}", { insert(1, "description") })),
   },
   javascript = {
     -- todo
-    s("clg", fmt("console.log({})", { i(1, "name") })),
+    snippet("clg", fmt("console.log({})", { insert(1, "name") })),
   },
 }
