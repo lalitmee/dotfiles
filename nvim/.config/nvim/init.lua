@@ -3,6 +3,8 @@
 -- │                 Created By: Lalit Kumar                  │
 -- ╰──────────────────────────────────────────────────────────╯
 
+vim.g.did_load_filetypes = 0
+
 pcall(require, "impatient")
 pcall(function()
   require("impatient").enable_profile()
