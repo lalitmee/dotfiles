@@ -1,5 +1,7 @@
 local ls = require("luasnip")
 local types = require("luasnip.util.types")
+local extras = require("luasnip.extras")
+local fmt = require("luasnip.extras.fmt").fmt
 
 ls.config.set_config({
   -- This tells LuaSnip to remember to keep around the last snippet.
@@ -8,19 +10,32 @@ ls.config.set_config({
 
   updateevents = "TextChanged,TextChangedI",
 
-  -- enable_autosnippets = true,
+  enable_autosnippets = true,
 
   ext_opts = {
     [types.choiceNode] = {
       active = {
+        hl_mode = "blend",
         virt_text = { { "● ", "Error" } },
       },
     },
     [types.insertNode] = {
       active = {
+        hl_mode = "blend",
         virt_text = { { "● ", "WarningMsg" } },
       },
     },
+  },
+  snip_env = {
+    fmt = fmt,
+    m = extras.match,
+    r = extras.rep,
+    t = ls.text_node,
+    f = ls.function_node,
+    c = ls.choice_node,
+    d = ls.dynamic_node,
+    i = ls.insert_node,
+    snippet = ls.snippet,
   },
 })
 
@@ -33,7 +48,10 @@ require("luasnip.loaders.from_snipmate").lazy_load()
 ls.filetype_extend("all", { "_" })
 
 -- NOTE: custom snippets created in `lua` format
-require("lk/plugins/luasnip/snips")
+require("luasnip.loaders.from_lua").lazy_load()
+lk.command("LuaSnipEdit", function()
+  require("luasnip.loaders.from_lua").edit_snippet_files()
+end)
 -- }}}
 ----------------------------------------------------------------------
 
