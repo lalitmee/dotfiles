@@ -23,9 +23,6 @@ require("packer").startup({
     use({ "wbthomason/packer.nvim" })
     use({ "lewis6991/impatient.nvim" })
 
-    -- fast filetype detection
-    use({ "nathom/filetype.nvim", config = conf("filetypes") })
-
     -- Profile startup time
     use({
       "tweekmonster/startuptime.vim",
@@ -684,6 +681,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
+      ft = vim.g.enable_treesitter_ft,
       config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
