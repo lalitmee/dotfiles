@@ -15,13 +15,13 @@ ls.config.set_config({
   ext_opts = {
     [types.choiceNode] = {
       active = {
-        hl_mode = "blend",
+        hl_mode = "combine",
         virt_text = { { "● ", "Error" } },
       },
     },
     [types.insertNode] = {
       active = {
-        hl_mode = "blend",
+        hl_mode = "combine",
         virt_text = { { "● ", "WarningMsg" } },
       },
     },
