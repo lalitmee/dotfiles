@@ -97,7 +97,6 @@ require("packer").startup({
       "mrjones2014/legendary.nvim",
       config = conf("legendary"),
       cmd = { "Legendary" },
-      requires = { "stevearc/dressing.nvim" },
     })
 
     -- which-key
@@ -525,6 +524,7 @@ require("packer").startup({
         vim.g.copilot_filetypes = {
           gitcommit = false,
           NeogitCommitMessage = false,
+          DressingInput = false,
         }
       end,
     })
@@ -741,7 +741,6 @@ require("packer").startup({
     use({
       "mattn/emmet-vim",
       config = conf("emmet"),
-      keys = { "i", "," },
     })
     -- }}}
     ----------------------------------------------------------------------

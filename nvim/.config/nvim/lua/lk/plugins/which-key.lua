@@ -893,6 +893,7 @@ local leader_key_maps = {
     ["="] = { "<C-W>=", "balance-windows" },
     ["a"] = { "<C-W>H", "move-window-far-left" },
     ["d"] = { "<C-W>c", "delete-window" },
+    ["e"] = { ":AutoResize<CR>", "auto-resize" },
     ["h"] = { ":NavigateLeft<CR>", "window-left" },
     ["H"] = { "<C-W>5<", "expand-window-left" },
     ["i"] = { "<C-W>K", "move-window-far-top" },

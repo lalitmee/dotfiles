@@ -9,6 +9,7 @@ vim.filetype.add({
     lock = "yaml",
     pn = "potion",
     md = "markdown",
+    snippets = "snippets",
   },
   filename = {
     [".gitignore"] = "conf",
