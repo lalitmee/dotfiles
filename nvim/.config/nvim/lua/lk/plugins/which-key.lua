@@ -713,16 +713,11 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["p"] = {
     ["name"] = "+project",
-    ["a"] = { ":WorkspacesAdd<CR>", "add-as-workspace" },
     ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
     ["f"] = { ":Telescope find_files<cr>", "find-files" },
     ["F"] = { ":Telescope old_files<CR>", "old-files" },
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
-    ["l"] = { ":WorkspacesList<CR>", "list-workspace" },
-    ["o"] = { ":WorkspacesOpen<CR>", "open-workspace" },
-    ["p"] = { ":Telescope workspaces<CR>", "switch-workspace" },
-    ["r"] = { ":WorkspacesRemove<CR>", "remove-workspace" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
   },
@@ -797,14 +792,9 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["S"] = {
     ["name"] = "+sessions/+workspaces",
-    ["a"] = { ":WorkspacesAdd<CR>", "add-workspace" },
     ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
-    ["l"] = { ":WorkspacesList<CR>", "list-workspaces" },
     ["L"] = { ":SearchSession<CR>", "search-sessions" },
-    ["o"] = { ":WorkspacesOpen<CR>", "open-workspace" },
-    ["r"] = { ":WorkspacesRemove<CR>", "remove-workspace" },
     ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
-    ["t"] = { ":Telescope workspaces<CR>", "open-workspace-tele" },
     ["w"] = { ":Telescope tmux windows<CR>", "windows" },
   },
   -- }}}

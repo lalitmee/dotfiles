@@ -157,20 +157,6 @@ require("packer").startup({
       cmd = { "ReplacerRun", "ReplacerRunFiles" },
     })
 
-    -- workspaces in neovim
-    use({
-      "natecraddock/workspaces.nvim",
-      requires = { "nvim-telescope/telescope.nvim" },
-      after = { "telescope.nvim" },
-      cmd = {
-        "WorkspacesAdd",
-        "WorkspacesRemove",
-        "WorkspacesList",
-        "WorkspacesOpen",
-      },
-      config = conf("workspaces"),
-    })
-
     -- wakatime for vim
     use({
       "wakatime/vim-wakatime",
