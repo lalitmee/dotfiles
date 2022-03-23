@@ -14,7 +14,7 @@ end
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- NOTE:yank current file name {{{
+-- NOTE: yank current file name {{{
 --------------------------------------------------------------------------------
 function Yank_current_file_name()
   local file_name = vim.api.nvim_buf_get_name(0)
@@ -29,6 +29,29 @@ end
 -- }}}
 --------------------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: show current file path {{{
+----------------------------------------------------------------------
+function Show_current_file_path()
+  local file_path = vim.fn.expand("%")
+  vim.notify(file_path, "info", { title = "[buffer] file path" })
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: show current working directry {{{
+----------------------------------------------------------------------
+function Get_current_working_directory()
+  local cwd = vim.fn.getcwd()
+  vim.notify(cwd, "info", { title = "[buffer] current working directory" })
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: debug variables {{{
+----------------------------------------------------------------------
 function Log_var()
   local word_under_cursor = vim.fn.expand("<cword>")
   local filetype = vim.fn.expand("%:p:e")
@@ -38,5 +61,7 @@ function Log_var()
     vim.cmd(string.format("norm!oconsole.log({%s})", word_under_cursor))
   end
 end
+-- }}}
+----------------------------------------------------------------------
 
 -- vim:foldmethod=marker
