@@ -1016,6 +1016,8 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
   ["s"] = {
     ["name"] = "+system",
+    ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
+    ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },
     ["r"] = { ":SnipRun<CR>", "run-code" },
     ["t"] = { ":lua Notify_current_datetime()<CR>", "current-date-time" },
     ["y"] = { ":lua Yank_current_file_name()<CR>", "yank-current-file-name" },
