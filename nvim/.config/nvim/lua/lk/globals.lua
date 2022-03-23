@@ -43,6 +43,18 @@ lk.style = {
     debug = "",
     question = "",
   },
+  border = {
+    line = {
+      { "🭽", "FloatBorder" },
+      { "▔", "FloatBorder" },
+      { "🭾", "FloatBorder" },
+      { "▕", "FloatBorder" },
+      { "🭿", "FloatBorder" },
+      { "▁", "FloatBorder" },
+      { "🭼", "FloatBorder" },
+      { "▏", "FloatBorder" },
+    },
+  },
 }
 -- }}}
 ----------------------------------------------------------------------
