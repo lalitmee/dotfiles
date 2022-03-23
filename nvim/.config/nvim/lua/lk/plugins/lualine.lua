@@ -71,39 +71,6 @@ lualine.setup({
     lualine_c = {
       { "filename", path = 1 },
       { "diff" },
-      {
-        "lsp_progress",
-        colors = {
-          lsp_client_name = colors.yellow,
-          title = colors.white,
-          message = colors.dark_orange,
-          percentage = colors.blue,
-          spinner = colors.dark_pink,
-          use = true,
-        },
-        display_components = { "lsp_client_name", { "title", "message", "percentage" }, "spinner" },
-        timer = { spinner = 200 },
-        separators = {
-          message = { commenced = ".", completed = "OK" },
-        },
-        spinner_symbols = {
-          "[    ]",
-          "[=   ]",
-          "[==  ]",
-          "[=== ]",
-          "[ ===]",
-          "[  ==]",
-          "[   =]",
-          "[    ]",
-          "[   =]",
-          "[  ==]",
-          "[ ===]",
-          "[====]",
-          "[=== ]",
-          "[==  ]",
-          "[=   ]",
-        },
-      },
     },
     lualine_x = {
       {
@@ -146,6 +113,45 @@ lualine.setup({
   },
   extensions = { "fzf", "fugitive", "nvim-tree", "quickfix", "toggleterm", "symbols-outline" },
 })
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: lsp_progress {{{
+----------------------------------------------------------------------
+-- {
+--   "lsp_progress",
+--   colors = {
+--     lsp_client_name = colors.yellow,
+--     title = colors.white,
+--     message = colors.dark_orange,
+--     percentage = colors.blue,
+--     spinner = colors.dark_pink,
+--     use = true,
+--   },
+--   display_components = { "lsp_client_name", { "title", "message", "percentage" }, "spinner" },
+--   timer = { spinner = 200 },
+--   separators = {
+--     message = { commenced = ".", completed = "OK" },
+--   },
+--   spinner_symbols = {
+--     "[    ]",
+--     "[=   ]",
+--     "[==  ]",
+--     "[=== ]",
+--     "[ ===]",
+--     "[  ==]",
+--     "[   =]",
+--     "[    ]",
+--     "[   =]",
+--     "[  ==]",
+--     "[ ===]",
+--     "[====]",
+--     "[=== ]",
+--     "[==  ]",
+--     "[=   ]",
+--   },
+-- },
 -- }}}
 ----------------------------------------------------------------------
 
