@@ -4,10 +4,11 @@ name: dotfiles
 root: ~/Desktop/Github/configs
 
 windows:
-  - lalitmee: cd ~/dotfiles
-  - tjdevries: cd config_manager
-  - akinsho: cd akinsho
-  - codesmell: cd codesmell
-  - ThePrimeagen: cd ThePrimeagen_dots
-  - gametaro: cd gametaro
-  - ViRu-ThE-ViRuS: cd ViRu-ThE-ViRuS
+  - lalitmee: cd ~/dotfiles && gst
+  - tjdevries: cd config_manager && gst
+  - akinsho: cd akinsho && gst
+  - codesmell: cd codesmell && gst
+  - folke: cd folke && gst
+  - ThePrimeagen: cd ThePrimeagen_dots && gst
+  - gametaro: cd gametaro && gst
+  - ViRu-ThE-ViRuS: cd ViRu-ThE-ViRuS && gst
