@@ -606,6 +606,11 @@ require("packer").startup({
       config = conf("lsp"),
       requires = {
         {
+          "j-hui/fidget.nvim",
+          config = conf("fidget"),
+          after = "nvim-lspconfig",
+        },
+        {
           "onsails/lspkind-nvim",
           after = "nvim-lspconfig",
         },
@@ -660,10 +665,6 @@ require("packer").startup({
           cmd = { "DiagList", "DiagListAll" },
         },
         { "williamboman/nvim-lsp-installer" },
-        {
-          "arkav/lualine-lsp-progress",
-          -- after = { "lualine.nvim" },
-        },
         {
           "folke/lua-dev.nvim",
           ft = "lua",

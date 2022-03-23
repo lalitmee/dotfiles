@@ -35,12 +35,13 @@ require("lk/utils/mappings")
 -- Consistent store of various UI items to reuse throughout my config
 lk.style = {
   icons = {
-    error = " ",
+    error = "",
     hint = "",
-    info = " ",
-    warn = " ",
+    info = "",
+    warn = "",
     trace = "🖉",
     debug = "",
+    question = "",
   },
 }
 -- }}}
