@@ -219,7 +219,8 @@ opt.synmaxcol = 1024 -- don't syntax highlight long lines
 opt.signcolumn = "yes:2"
 opt.ruler = false
 opt.cmdheight = 2 -- Set command line height to two lines
-opt.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
+-- NOTE: it was putting eol characters in dressinginput
+-- opt.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
 --- This is used to handle markdown code blocks where the language might
 --- be set to a value that isn't equivalent to a vim filetype
 vim.g.markdown_fenced_languages = {

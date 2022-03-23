@@ -22,18 +22,6 @@ end
 --------------------------------------------------------------------------------
 -- NOTE: publish diagnostics handler {{{
 --------------------------------------------------------------------------------
-lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.handlers["textDocument/publishDiagnostics"], {
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  virtual_text = {
-    severity = nil,
-    source = "if_many",
-    prefix = "■", -- Could be '●', '▎', 'x'
-  },
-  float = { source = "always" },
-})
-
 vim.diagnostic.config({
   underline = true,
   virtual_text = {
@@ -41,6 +29,7 @@ vim.diagnostic.config({
     source = "if_many",
     format = nil,
   },
+  -- virtual_text = false,
   signs = true,
 
   -- options for floating windows:
