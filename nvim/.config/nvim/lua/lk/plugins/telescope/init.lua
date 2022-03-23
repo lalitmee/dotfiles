@@ -183,7 +183,6 @@ telescope.setup({
     reloader = dropdown(),
   },
   extensions = {
-    workspaces = { keep_insert = true },
     hop = {
       sign_hl = { "Title" },
       line_hl = { "CursorLine" },
