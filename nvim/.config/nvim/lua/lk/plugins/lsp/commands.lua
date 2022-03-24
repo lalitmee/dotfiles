@@ -135,7 +135,7 @@ end)
 
 -- loclist
 command("LspSetLoclist", function()
-  vim.lsp.diagnostic.setloclist()
+  vim.diagnostic.setloclist()
 end)
 
 -- }}}
