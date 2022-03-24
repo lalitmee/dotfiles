@@ -1,4 +1,6 @@
-" put the cursor on the first searched word in the center {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: centered search {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CenterSearch()
   let cmdtype = getcmdtype()
   if cmdtype == '/' || cmdtype == '?'
@@ -9,8 +11,11 @@ endfunction
 
 cnoremap <silent> <expr> <enter> CenterSearch()
 " }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" toggle zoom for maximizing split {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: toggle maximize {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ToggleZoom(zoom)
   if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
       exec t:restore_zoom.cmd
@@ -25,5 +30,6 @@ augroup restorezoom
     au WinEnter * silent! :call ToggleZoom(v:false)
 augroup END
 " }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vim:foldmethod=marker
