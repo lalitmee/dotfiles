@@ -154,6 +154,12 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- rooter for neovim
+    use({
+      "ahmedkhalf/project.nvim",
+      config = conf("project"),
+    })
+
     -- makes quickfix list editable
     use({
       "gabrielpoca/replacer.nvim",
