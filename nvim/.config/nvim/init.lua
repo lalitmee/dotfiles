@@ -3,13 +3,16 @@
 -- │                 Created By: Lalit Kumar                  │
 -- ╰──────────────────────────────────────────────────────────╯
 
+-- deactivate vim based filetype detection
 vim.g.did_load_filetypes = 0
 
+-- impatient
 pcall(require, "impatient")
 pcall(function()
   require("impatient").enable_profile()
 end)
 
+-- install packer if not installed
 if require("lk/first_load")() then
   return
 end
@@ -26,17 +29,26 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 ----------------------------------------------------------------------
 -- NOTE: sourcing {{{
 ----------------------------------------------------------------------
+local ok, reload = pcall(require, "plenary.reload")
+RELOAD = ok and reload.reload_module or function(...)
+  return ...
+end
+function R(name)
+  RELOAD(name)
+  return require(name)
+end
+
 -- packer plugins
-require("plugins")
+R("plugins")
 
 -- globals
-require("lk/globals")
+R("lk/globals")
 
 -- colorscheme
-require("lk/colors")
+R("lk/colors")
 
 -- disable builtin
-require("lk/disable_builtin")
+R("lk/disable_builtin")
 -- }}}
 ----------------------------------------------------------------------
 
