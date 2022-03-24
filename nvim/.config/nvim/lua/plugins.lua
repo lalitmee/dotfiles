@@ -228,6 +228,12 @@ require("packer").startup({
       config = conf("numb"),
     })
 
+    -- quick scope for lines
+    use({
+      "unblevable/quick-scope",
+      config = conf("quick-scope"),
+    })
+
     -- easymotion using lua
     use({
       "phaazon/hop.nvim",
