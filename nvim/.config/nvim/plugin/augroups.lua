@@ -1,7 +1,6 @@
 local augroup = lk.augroup
 local tnoremap = lk.tnoremap
 local fn = vim.fn
-local fmt = string.format
 
 ----------------------------------------------------------------------
 -- NOTE: command line autocommands {{{
