@@ -580,12 +580,21 @@ require("packer").startup({
     --------------------------------------------------------------------------
     ---- NOTE: coc.nvim {{{
     --------------------------------------------------------------------------
-    -- use 'neoclide/vim-jsx-improve'
-    -- use 'Shougo/neco-vim'
-    -- use 'neoclide/coc-neco'
+    -- use("neoclide/vim-jsx-improve")
     -- -- NOTE: Completion Conquerer
-    -- use { 'neoclide/coc.nvim', branch = 'release', }
-    -- use { 'fannheyward/go.vim', ft = 'go' }
+    -- use({
+    --   "neoclide/coc.nvim",
+    --   branch = "release",
+    --   config = [[require('lk/plugins/coc')]],
+    --   event = { "BufRead", "BufEnter" },
+    -- })
+    -- use({
+    --   "fannheyward/telescope-coc.nvim",
+    --   after = { "coc.nvim", "telescope.nvim" },
+    --   config = function()
+    --     require("telescope").load_extension("coc")
+    --   end,
+    -- })
     -- }}}
     --------------------------------------------------------------------------
 
