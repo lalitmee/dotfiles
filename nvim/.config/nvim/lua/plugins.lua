@@ -20,7 +20,10 @@ require("packer").startup({
     --------------------------------------------------------------------------------
     -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
-    use({ "wbthomason/packer.nvim" })
+    use({
+      "wbthomason/packer.nvim",
+      config = conf("packer"),
+    })
     use({ "lewis6991/impatient.nvim" })
 
     -- Profile startup time
@@ -31,7 +34,7 @@ require("packer").startup({
 
     use({
       "antoinemadec/FixCursorHold.nvim",
-      run = function()
+      config = function()
         vim.g.curshold_updatime = 1000
       end,
     })
@@ -553,7 +556,7 @@ require("packer").startup({
     use({
       "mhartington/formatter.nvim",
       config = conf("formatter"),
-      cmd = { "FormatWrite" },
+      -- cmd = { "FormatWrite" },
     })
 
     -- indentlines in neovim
