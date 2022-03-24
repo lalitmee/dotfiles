@@ -21,22 +21,12 @@ end
 
 vim.api.nvim_set_keymap("c", "<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", { noremap = false, nowait = true })
 
--- lsp
-map_tele("<localleader>lw", "lsp_workspace_symbols")
-
 -- Dotfiles
 map_tele("<leader>ofn", "edit_neovim")
 map_tele("<leader>ofc", "edit_dotfiles")
 
--- Search
-map_tele("<space>obo", "curbuf")
-
--- -- Nvim
+-- Nvim
 map_tele("<space>np", "installed_plugins")
-map_tele("<space>ofa", "search_all_files")
-map_tele("<space>ofi", "fd")
-map_tele("<space>ofl", "find_files")
-map_tele("<space>nh", "help_tags")
 
 vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
 
