@@ -4,6 +4,8 @@ return {
   snippet({ trig = "td", name = "TODO" }, {
     c(1, {
       t("TODO: "),
+      t("NOTE: "),
+      t("WARN: "),
       t("FIXME: "),
       t("HACK: "),
       t("BUG: "),

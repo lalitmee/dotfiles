@@ -54,12 +54,38 @@ end
 ----------------------------------------------------------------------
 function Log_var()
   local word_under_cursor = vim.fn.expand("<cword>")
-  local filetype = vim.fn.expand("%:p:e")
+  local filetype = vim.bo.filetype
   if filetype == "lua" then
     vim.cmd(string.format("norm!oprint('%s', %s)", word_under_cursor, word_under_cursor))
   elseif filetype == "js" then
     vim.cmd(string.format("norm!oconsole.log({%s})", word_under_cursor))
   end
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: save and execute {{{
+----------------------------------------------------------------------
+function Save_and_execute()
+  local filetype = vim.bo.filetype
+  local filepath = vim.fn.expand("%")
+  if filetype == "lua" then
+    vim.cmd([[
+      silent! write
+      luafile %
+    ]])
+  elseif filetype == "vim" then
+    vim.cmd([[
+      silent! write
+      source %
+    ]])
+  else
+    vim.cmd([[
+      silent! write
+    ]])
+  end
+  vim.notify(filepath, "info", { title = "Save and Execute" })
 end
 -- }}}
 ----------------------------------------------------------------------

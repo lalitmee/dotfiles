@@ -10,12 +10,8 @@ nnoremap("0", "^")
 nnoremap("^", "0")
 
 -- tab operations
-nnoremap("<C-S-Right>", [[gt]])
-nnoremap("<C-S-Left>", [[gT]])
-
--- slightly more intuitive gt/gT (ma need some unlearning to get used to)
-nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']])
-nnoremap("gT", [[":tabnext -" . v:count1 . '<CR>']])
+nnoremap("<M-Right>", [[:tabnext<CR>]])
+nnoremap("<M-Left>", [[:tabprevious<CR>]])
 
 -- buffers next and previous
 nnoremap("<C-Right>", [[:bn<cr>]])
@@ -112,9 +108,6 @@ map("n", "<Plug>TransposeCharacters xp", [[:call repeat#set("\<Plug>TransposeCha
 map("n", "cp", [[<Plug>TransposeCharacters]])
 
 -- }}}
-
--- incsearch
--- map('n', '<Esc><Esc>', [[:<C-u>nohlsearch<cr>]], map_opts)
 
 -- NOTE: folds mappings
 -- if there is a fold under cursor open it by pressing <cr> otherwise do
