@@ -33,34 +33,6 @@ return {
       }
     )
   ),
-  snippet({ trig = "tt", wordTrig = true }, {
-    t({ "╔" }),
-    f(function()
-      return "0"
-    end, {}),
-    t({ "1", "2" }),
-    i(0),
-  }),
-  snippet({ trig = "bbox" }, {
-    t({ "╔" }),
-    f(replace_each("═"), { 1 }),
-    t({ "╗", "║" }),
-    i(1, { "content" }),
-    t({ "║", "╚" }),
-    f(replace_each("═"), { 1 }),
-    t({ "╝" }),
-    i(0),
-  }),
-  snippet({ trig = "sbox", wordTrig = true }, {
-    t({ "*" }),
-    f(replace_each("-"), { 1 }),
-    t({ "*", "|" }),
-    i(1, { "content" }),
-    t({ "|", "*" }),
-    f(replace_each("-"), { 1 }),
-    t({ "*" }),
-    i(0),
-  }),
 }
 
 --   ls.parser.parse_snippet(
