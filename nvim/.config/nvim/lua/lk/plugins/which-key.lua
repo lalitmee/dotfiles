@@ -342,6 +342,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["h"] = {
     ["name"] = "+highlight",
+    ["h"] = { ":TSHighlightCapturesUnderCursor<CR>", "show-highlights-info" },
     ["t"] = {
       ["name"] = "+todo-comments",
       ["q"] = { ":TodoQuickFix<CR>", "todos-quickfix" },
@@ -806,20 +807,20 @@ local leader_key_maps = {
       ["w"] = { ":Gitsigns toggle_word_diff<CR>", "toggle-word-diff" },
     },
     ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
-    ["s"] = {
-      ["name"] = "+scrolloff",
-      ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },
-      ["h"] = { ":set scrolloff=5<CR>", "scrolloff=5" },
-      ["n"] = { ":set scrolloff=999<CR>", "scrolloff=999" },
-    },
-    ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
     ["n"] = {
       ["name"] = "+nvim-tree",
       ["t"] = { ":NvimTreeToggle<CR>", "toggle" },
       ["f"] = { ":NvimTreeFindFile<CR>", "find-file" },
       ["r"] = { ":NvimTreeRefresh<CR>", "refresh" },
     },
+    ["s"] = {
+      ["name"] = "+scrolloff",
+      ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },
+      ["h"] = { ":set scrolloff=5<CR>", "scrolloff=5" },
+      ["n"] = { ":set scrolloff=999<CR>", "scrolloff=999" },
+    },
     ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
+    ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
     ["w"] = {
       ["name"] = "+tabs",
       ["c"] = { ":tabclose<CR>", "close-tab" },
@@ -838,7 +839,6 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["u"] = {
     ["name"] = "+undo/+ultisnips",
-    ["e"] = { ":UltiSnipsEdit<CR>", "undo-tree" },
     ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
   },
   -- }}}
