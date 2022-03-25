@@ -786,10 +786,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["S"] = {
     ["name"] = "+sessions/+workspaces",
-    ["c"] = { ":Telescope tmux pane_contents<CR>", "pane-contents" },
-    ["L"] = { ":SearchSession<CR>", "search-sessions" },
-    ["s"] = { ":Telescope tmux sessions<CR>", "sessions" },
-    ["w"] = { ":Telescope tmux windows<CR>", "windows" },
+    ["l"] = { ":SearchSession<CR>", "search-sessions" },
   },
   -- }}}
   ----------------------------------------------------------------------
