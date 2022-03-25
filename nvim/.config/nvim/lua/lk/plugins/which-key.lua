@@ -725,6 +725,7 @@ local leader_key_maps = {
     ["q"] = { ":qall<CR>", "quit-neovim" },
     ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
     ["r"] = { ":ReloadConfig<CR>", "realod-config" },
+    ["m"] = { ":ReloadModule ", "realod-module" },
   },
   -- }}}
   ----------------------------------------------------------------------
