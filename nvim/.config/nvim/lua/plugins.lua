@@ -345,6 +345,8 @@ require("packer").startup({
         },
       },
     })
+
+    -- file browser using telescope
     use({
       "nvim-telescope/telescope-file-browser.nvim",
       after = "telescope.nvim",
