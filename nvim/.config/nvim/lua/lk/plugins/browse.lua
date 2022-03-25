@@ -18,16 +18,21 @@ local bookmarks = {
   "https://github.com/lalitmee/dotfiles",
 
   -- neovim related
+  "https://github.com/elihunter173/dirbuf.nvim",
+  "https://github.com/kyazdani42/nvim-tree.lua",
   "https://github.com/neovim/neovim",
   "https://github.com/nvim-lualine/lualine.nvim",
   "https://github.com/nvim-telescope/telescope.nvim",
-  "https://github.com/rockerBOO/awesome-neovim",
-  "https://neovim.discourse.group/",
   "https://github.com/phaazon/hop.nvim",
+  "https://github.com/rockerBOO/awesome-neovim",
+  "https://github.com/tamago324/lir.nvim",
+  "https://neovim.discourse.group/",
 
   -- configs
+  "https://github.com/ThePrimeagen/.dotfiles",
   "https://github.com/akinsho/dotfiles",
   "https://github.com/tjdevries/config_manager",
+  "https://github.com/whatsthatsmell/dots",
 }
 
 vim.keymap.set("n", "go", function()

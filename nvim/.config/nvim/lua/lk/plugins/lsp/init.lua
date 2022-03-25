@@ -135,7 +135,10 @@ local servers = {
 -- NOTE: get servers config {{{
 ----------------------------------------------------------------------
 local function get_server_config(server)
-  local cmp_nvim_lsp = require("cmp_nvim_lsp")
+  local ok, cmp_nvim_lsp = lk.safe_require("cmp_nvim_lsp")
+  if not ok then
+    return nil
+  end
   local conf = servers[server.name]
   local conf_type = type(conf)
   local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}

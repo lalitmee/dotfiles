@@ -329,14 +329,6 @@ require("packer").startup({
           end,
         },
         {
-          "camgraff/telescope-tmux.nvim",
-          requires = { "norcalli/nvim-terminal.lua" },
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("tmux")
-          end,
-        },
-        {
           "nvim-telescope/telescope-hop.nvim",
           after = "telescope.nvim",
           config = function()
@@ -631,39 +623,14 @@ require("packer").startup({
           config = conf("nvim-cmp"),
           event = { "InsertEnter", "CmdlineEnter" },
           requires = {
+            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+            { "hrsh7th/cmp-cmdline", after = "nvim-cmp", event = { "CmdlineEnter" } },
+            { "hrsh7th/cmp-emoji", after = "nvim-cmp", keys = { "i", ":" } },
+            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp", ft = { "lua" } },
+            { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-            {
-              "hrsh7th/cmp-buffer",
-              after = "nvim-cmp",
-            },
-            {
-              "hrsh7th/cmp-cmdline",
-              after = "nvim-cmp",
-              event = { "CmdlineEnter" },
-            },
-            {
-              "hrsh7th/cmp-nvim-lsp",
-              after = "nvim-cmp",
-            },
-            {
-              "hrsh7th/cmp-nvim-lua",
-              after = "nvim-cmp",
-              ft = { "lua" },
-            },
-            {
-              "hrsh7th/cmp-path",
-              after = "nvim-cmp",
-            },
-            {
-              "hrsh7th/cmp-emoji",
-              after = "nvim-cmp",
-              keys = { "i", ":" },
-            },
-            {
-              "tzachar/cmp-tabnine",
-              run = "./install.sh",
-              after = "nvim-cmp",
-            },
+            { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
           },
         },
         {

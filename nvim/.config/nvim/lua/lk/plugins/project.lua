@@ -5,6 +5,3 @@ end
 
 -- setup
 project.setup()
-
--- telescope extension
-require("telescope").load_extension("projects")
