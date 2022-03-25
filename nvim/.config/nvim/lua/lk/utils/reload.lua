@@ -3,7 +3,7 @@ local M = {}
 ----------------------------------------------------------------------
 -- NOTE: relaod using telescope {{{
 ----------------------------------------------------------------------
-function M.reload()
+M.reload = function()
   -- Telescope will give us something like lk/colors.lua,
   -- so this function convert the selected entry to
   -- the module name: ju.colors
@@ -52,15 +52,57 @@ end
 ----------------------------------------------------------------------
 --- NOTE: reload using namesapce {{{
 ----------------------------------------------------------------------
-function M.reload_config()
+-- M.reload_config = function()
+--   for name, _ in pairs(package.loaded) do
+--     if name:match("^lk") then
+--       package.loaded[name] = nil
+--     end
+--   end
+--
+--   dofile(vim.env.MYVIMRC)
+--   vim.notify("Config Reloaded", "info", { title = "[config] reload" })
+-- end
+
+M.reload_config = function()
+  -- Handle impatient.nvim automatically.
+  local luacache = (_G.__luacache or {}).cache
+
   for name, _ in pairs(package.loaded) do
-    if name:match("^lk") then
+    if name:match("^lk.") then
       package.loaded[name] = nil
+
+      if luacache then
+        luacache[name] = nil
+      end
     end
   end
 
   dofile(vim.env.MYVIMRC)
   vim.notify("Config Reloaded", "info", { title = "[config] reload" })
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: reload module {{{
+----------------------------------------------------------------------
+M.reload_module = function(module_name)
+  local matcher = function(pack)
+    return string.find(pack, module_name, 1, true)
+  end
+
+  -- Handle impatient.nvim automatically.
+  local luacache = (_G.__luacache or {}).cache
+
+  for pack, _ in pairs(package.loaded) do
+    if matcher(pack) then
+      package.loaded[pack] = nil
+
+      if luacache then
+        luacache[pack] = nil
+      end
+    end
+  end
 end
 -- }}}
 ----------------------------------------------------------------------

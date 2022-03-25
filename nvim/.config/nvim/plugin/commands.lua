@@ -59,6 +59,10 @@ command("ReloadConfigTelescope", function()
   require("lk/utils/reload").reload()
 end)
 
+command("ReloadModule", function(args)
+  require("lk/utils/reload").reload_module(args)
+end)
+
 -- }}}
 ----------------------------------------------------------------------
 
