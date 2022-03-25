@@ -11,3 +11,10 @@ command! -range=% EN <line1>,<line2>w !curl -F 'file=@-;' https://envs.sh | tr -
 command! -range=% TB <line1>,<line2>w !nc termbin.com 9999 | tr -d '\n' | xclip -i -selection clipboard
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: git jump {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! -bar -nargs=* Jump cexpr system('git jump ' . expand(<q-args>))
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -370,6 +370,7 @@ opt.scrolloff = 999
 opt.sidescroll = 1
 opt.visualbell = false
 opt.errorbells = false
+opt.colorcolumn = "80"
 -- }}}
 ----------------------------------------------------------------------
 
