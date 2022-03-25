@@ -93,4 +93,22 @@ augroup("yank_au", {
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: highlight character after column 80 {{{
+----------------------------------------------------------------------
+augroup("colorcolumn_au", {
+  {
+    event = { "WinEnter", "BufEnter" },
+    pattern = { "*" },
+    command = function()
+      vim.cmd([[
+        call clearmatches()
+        call matchadd('ColorColumn', '\%>80v', 100)
+      ]])
+    end,
+  },
+})
+-- }}}
+----------------------------------------------------------------------
+
 -- vim:foldmethod=marker

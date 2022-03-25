@@ -19,6 +19,9 @@ vim.cmd([[
   nnoremap <silent> <expr> gT ":tabnext -" . v:count1 . '<CR>'
 ]])
 
+-- from here https://gist.github.com/romainl/db725db7babc84a9a6436180cedee188
+vim.cmd([[nnoremap . :<C-u>execute "norm! " . repeat(".", v:count1)<CR>]])
+
 -- buffers next and previous
 nnoremap("<C-Right>", [[:bn<cr>]])
 nnoremap("<C-Left>", [[:bp<cr>]])

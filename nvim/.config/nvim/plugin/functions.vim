@@ -69,5 +69,45 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: format with gq {{{
+" gq wrapper that:
+" - tries its best at keeping the cursor in place
+" - tries to handle formatter errors
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Format(type, ...)
+  normal! '[v']gq
+  if v:shell_error > 0
+    silent undo
+    redraw
+    echomsg 'formatprg "' . &formatprg . '" exited with status ' . v:shell_error
+  endif
+  call winrestview(w:gqview)
+  unlet w:gqview
+endfunction
+nmap <silent> GQ :let w:gqview = winsaveview()<CR>:set opfunc=Format<CR>g@
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: substitute operator {{{
+" Usage:
+"   <key>ipfoo<CR>         Substitute every occurrence of the word under
+"                          the cursor with 'foo' in the current paragraph
+"   <key>Gfoo<CR>          Same, from here to the end of the buffer
+"   <key>?bar<CR>foo<CR>   Same, from previous occurrence of 'bar'
+"                          to current line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Substitute(type, ...)
+	let cur = getpos("''")
+	call cursor(cur[1], cur[2])
+	let cword = expand('<cword>')
+	execute "'[,']s/" . cword . "/" . input(cword . '/')
+	call cursor(cur[1], cur[2])
+endfunction
+nmap <silent> s m':set opfunc=Substitute<CR>g@
+" }}}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " vim:foldmethod=marker
