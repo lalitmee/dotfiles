@@ -158,10 +158,10 @@ opt.foldmethod = "expr"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("rg") then
-  vim.o.grepprg = [[rg --glob "!.git" --no-heading --vimgrep --follow $*]]
+  vim.o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
   opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
-  vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
+  vim.o.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
   opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 -- }}}
