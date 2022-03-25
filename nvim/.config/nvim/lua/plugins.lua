@@ -923,6 +923,8 @@ require("packer").startup({
       "tamago324/lir.nvim",
       requires = { "tamago324/lir-git-status.nvim" },
       config = conf("lir"),
+      keys = { "n", "-" },
+      cmd = { "LirFloatToggle", "LirFloatInit" },
       disable = false,
     })
 
