@@ -10,6 +10,7 @@ vim.filetype.add({
     pn = "potion",
     md = "markdown",
     snippets = "snippets",
+    conf = "conf",
   },
   filename = {
     [".gitignore"] = "conf",
