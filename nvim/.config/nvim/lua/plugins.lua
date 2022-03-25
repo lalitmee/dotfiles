@@ -131,8 +131,6 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: quick fix plugins {{{
     ----------------------------------------------------------------------
-    use({ "romainl/vim-devdocs" })
-
     -- better quick-fix winodw
     use({
       "kevinhwang91/nvim-bqf",
