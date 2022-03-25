@@ -392,8 +392,6 @@ require("packer").startup({
       config = conf("close-buffers"),
     })
 
-    use({ "ton/vim-bufsurf" })
-
     -- buffer, marks and tabpages switcher
     use({
       "toppair/reach.nvim",
@@ -802,6 +800,13 @@ require("packer").startup({
     -- NOTE: STATUS AND TAB LINES {{{
     ------------------------------------------------------------------------
     -- use({ "tjdevries/express_line.nvim" })
+
+    -- current location
+    use({
+      "SmiteshP/nvim-gps",
+      after = "nvim-treesitter",
+      config = conf("gps"),
+    })
 
     -- lualine.nvim
     use({
