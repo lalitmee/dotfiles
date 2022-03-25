@@ -919,10 +919,18 @@ require("packer").startup({
       config = conf("nvim-tree"),
     })
 
+    use({
+      "tamago324/lir.nvim",
+      requires = { "tamago324/lir-git-status.nvim" },
+      config = conf("lir"),
+      disable = false,
+    })
+
     -- dirbuf
     use({
       "elihunter173/dirbuf.nvim",
       cmd = { "Dirbuf", "DirbufSync" },
+      disable = true,
     })
     -- }}}
     ------------------------------------------------------------------------
