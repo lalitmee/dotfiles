@@ -8,6 +8,7 @@
 pushd . > /dev/null || exit
 
 #Install dependencies
+echo "Installing dependencies..."
 sudo apt-get update
 sudo apt-get install -y \
   autoconf \
@@ -27,6 +28,7 @@ sudo apt-get install -y \
   software-properties-common \
   unzip
 
+echo "Installing python3-neovim..."
 # Enable use of python plugins
 # Note: python neovim module was renamed to pynvim
 # https://github.com/neovim/neovim/wiki/Following-HEAD#steps-to-update-pynvim-formerly-neovim-python-package
@@ -37,9 +39,13 @@ pip install --upgrade pynvim
 pip3 install setuptools
 pip3 install --upgrade pynvim
 
+echo "Installing rust neovim..."
 sudo gem install neovim
+
+echo "Installing nodejs neovim..."
 npm install -g neovim
 
+echo "creating neovim directory and cloning repo..."
 #Get or update neovim github repo
 mkdir -p ~/Desktop/Github/neovim
 cd ~/Desktop/Github || exit
@@ -47,19 +53,25 @@ if [ ! -e ~/Desktop/Github/neovim ]; then
   git clone https://github.com/neovim/neovim
 else
   cd neovim || exit
+  echo "Updating neovim repo..."
   git pull origin
 fi
 
+echo "checking out to master neovim..."
 cd ~/Desktop/Github/neovim || exit
 git checkout master
 
+echo "removing old build..."
 #Remove old build dir and .deps dir
 rm -rf build/
 rm -rf .deps/
 sudo make clean && sudo make distclean
 
+echo "building neovim..."
 # Build and install neovim
 make CMAKE_BUILD_TYPE=Release
+
+echo "installing neovim..."
 sudo make install
 
 # Enable use of ruby plugins

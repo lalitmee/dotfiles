@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+if [[ -z $STOW_FOLDERS ]]; then
+    STOW_FOLDERS="alacritty,awesome,bash,bat,bin,chemacs,ctags,doom-emacs,fzf,git,glrnvim,goneovim,helix,Hyper,hyper,kitty,lsd,lubuntu,nushell,nvim,oni2,postman,ripgrep,rofi,s,spacemacs,starship,stylua,taskwarrior,tmux,tmuxinator,vimium,zsh,"
+fi
+
+if [[ -z $DOTFILES ]]; then
+    DOTFILES=$HOME/dotfiles
+fi
+
+STOW_FOLDERS=$STOW_FOLDERS DOTFILES=$DOTFILES $DOTFILES/install
