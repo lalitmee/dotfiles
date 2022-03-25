@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 " NOTE: centered search {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 function! CenterSearch()
   let cmdtype = getcmdtype()
   if cmdtype == '/' || cmdtype == '?'
@@ -11,11 +11,11 @@ endfunction
 
 cnoremap <silent> <expr> <enter> CenterSearch()
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 " NOTE: toggle maximize {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 function! ToggleZoom(zoom)
   if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
     exec t:restore_zoom.cmd
@@ -30,12 +30,12 @@ augroup restorezoom
   au WinEnter * silent! :call ToggleZoom(v:false)
 augroup END
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 " NOTE: Redir ex cmd {{{
 " Redirect the output of a Vim or external command into a scratch buffer
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 function! Redir(cmd, rng, start, end)
   for win in range(1, winnr('$'))
     if getwinvar(win, 'scratch')
@@ -67,14 +67,14 @@ endfunction
 
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 " NOTE: format with gq {{{
 " gq wrapper that:
 " - tries its best at keeping the cursor in place
 " - tries to handle formatter errors
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 function! Format(type, ...)
   normal! '[v']gq
   if v:shell_error > 0
@@ -85,11 +85,11 @@ function! Format(type, ...)
   call winrestview(w:gqview)
   unlet w:gqview
 endfunction
-nmap <silent> GQ :let w:gqview = winsaveview()<CR>:set opfunc=Format<CR>g@
+nmap <silent> gq :let w:gqview = winsaveview()<CR>:set opfunc=Format<CR>g@
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 " NOTE: substitute operator {{{
 " Usage:
 "   <key>ipfoo<CR>         Substitute every occurrence of the word under
@@ -97,7 +97,7 @@ nmap <silent> GQ :let w:gqview = winsaveview()<CR>:set opfunc=Format<CR>g@
 "   <key>Gfoo<CR>          Same, from here to the end of the buffer
 "   <key>?bar<CR>foo<CR>   Same, from previous occurrence of 'bar'
 "                          to current line
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"---------------------------------------------------------------------
 function! Substitute(type, ...)
 	let cur = getpos("''")
 	call cursor(cur[1], cur[2])
@@ -107,7 +107,6 @@ function! Substitute(type, ...)
 endfunction
 nmap <silent> s m':set opfunc=Substitute<CR>g@
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"---------------------------------------------------------------------
 
 " vim:foldmethod=marker
