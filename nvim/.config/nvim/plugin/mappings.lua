@@ -13,6 +13,12 @@ nnoremap("^", "0")
 nnoremap("<M-Right>", [[:tabnext<CR>]])
 nnoremap("<M-Left>", [[:tabprevious<CR>]])
 
+-- from here https://gist.github.com/romainl/0f589e07a079ea4b7a77fd66ef16ebee
+vim.cmd([[
+  nnoremap <silent> <expr> gt ":tabnext +" . v:count1 . '<CR>'
+  nnoremap <silent> <expr> gT ":tabnext -" . v:count1 . '<CR>'
+]])
+
 -- buffers next and previous
 nnoremap("<C-Right>", [[:bn<cr>]])
 nnoremap("<C-Left>", [[:bp<cr>]])
