@@ -68,3 +68,34 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 exit
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 chsh -s $(which zsh)
+sudo apt update
+sudo apt upgrade
+sudo reboot now
+sudo apt install apt-transport-https curl
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo apt install brave-browser
+which zsh
+zsh
+install zsh
+cd dotfiles/
+sudo apt install git
+install
+chmod +x install 
+install
+ll
+chmod +x ubuntu 
+ubuntu-
+./ubuntu 
+sudo apt install zsh
+./ubuntu 
+sudo apt install stow
+./ubuntu 
+install
+./install 
+./ubuntu 
+update
+a
+vi
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin

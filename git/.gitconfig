@@ -116,7 +116,7 @@
 
 [delta]
 	line-numbers = true
-	syntax-theme = gruvbox
+	syntax-theme = cobalt2
 	side-by-side = false
 
 	file-modified-label = modified:
