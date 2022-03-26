@@ -52,7 +52,6 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   -- NOTE: b is for buffers {{{
   ----------------------------------------------------------------------
-
   ["b"] = {
     ["name"] = "+buffers",
     ["["] = { ":bp<CR>", "prev-buffer" },
@@ -175,6 +174,26 @@ local leader_key_maps = {
   --   },
   --   ['x'] = { '<Plug>(coc-convert-snippet)', 'covert-to-snippet' },
   -- },
+  -- }}}
+  ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: d is for dap {{{
+  ----------------------------------------------------------------------
+  ["d"] = {
+    ["name"] = "+dap/+debug",
+    ["a"] = { ":DapStepOut<CR>", "step-out" },
+    ["c"] = { ":DapContinue<CR>", "continue" },
+    ["d"] = { ":DapToggleBreakpoint<CR>", "toggle-breakpoint" },
+    ["i"] = { ":DapStepInto<CR>", "step-into" },
+    ["l"] = { ":DapSetLogpoint<CR>", "log-point" },
+    ["o"] = { ":DapStepOver<CR>", "step-over" },
+    ["r"] = { ":DapReplOpen<CR>", "open-repl" },
+    ["s"] = { ":DapRunLast<CR>", "run-last" },
+    ["t"] = { ":DapToggleBreakpointCond<CR>", "breakpoint-condition" },
+    ["j"] = { ":OsvLaunch<CR>", "lua-launch" },
+    ["k"] = { ":OsvRunThis<CR>", "lua-run-this" },
+  },
   -- }}}
   ----------------------------------------------------------------------
 
