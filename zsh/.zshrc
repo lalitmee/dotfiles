@@ -109,8 +109,8 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-alias-finder
 # fast-alias-tips
+alias-finder
 alias-tips
 autojump
 autoupdate
@@ -134,6 +134,7 @@ git-extra-commands
 git-extras
 gitfast
 history
+k
 last-working-dir
 ng
 node
@@ -189,6 +190,9 @@ export LC_CTYPE=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# output in a url
+alias tb="nc termbin.com 9999"
+
 alias ciu="caniuse"
 alias iu="is-up"
 alias aw="awesome-hub"
@@ -230,7 +234,7 @@ alias swps="find . -name .\*.sw[op]"
 # wikit alias
 alias wi="wikit"
 
-# wikit alias
+# dict alias
 alias d="dict"
 
 # git worktree aliases
@@ -314,6 +318,9 @@ alias rmyarn="rm -rf yarn.lock"
 alias mc="sudo make clean && sudo make distclean"
 alias mr="make CMAKE_BUILD_TYPE=Release"
 alias mi="sudo make install"
+
+# alias for duckduckgo from terminal
+alias sd="ddgr"
 
 # alias for todo.txt-cli
 alias t="~/todo.txt_cli-2.11.0/todo.sh"
@@ -487,3 +494,9 @@ export GREN_GITHUB_TOKEN=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
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 fpath=(~/.zsh.d/$fpath)
+
+PATH="/home/lalitmee/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/lalitmee/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/lalitmee/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/lalitmee/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/lalitmee/perl5"; export PERL_MM_OPT;
