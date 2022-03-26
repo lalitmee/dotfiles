@@ -1,7 +1,7 @@
 local oslib = require("lk/utils/oslib")
 local fn = vim.fn
 local fmt = string.format
-local icons = lk.style.icons
+local icons = lk.style.icons.lsp
 local map = lk.map
 
 ----------------------------------------------------------------------

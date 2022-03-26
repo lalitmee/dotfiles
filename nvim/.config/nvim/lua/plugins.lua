@@ -891,6 +891,16 @@ require("packer").startup({
       config = conf("nvim-tree"),
     })
 
+    -- lir explorer
+    use({
+      "tamago324/lir.nvim",
+      requires = { "tamago324/lir-git-status.nvim" },
+      config = conf("lir"),
+      keys = { "n", "-" },
+      cmd = { "LirFloatToggle", "LirFloatInit" },
+      disable = false,
+    })
+
     -- dirbuf
     use({
       "elihunter173/dirbuf.nvim",
@@ -931,11 +941,17 @@ require("packer").startup({
     ------------------------------------------------------------------------
 
     -- debugger attach protocol
-    -- use({
-    --   "rcarriga/nvim-dap-ui",
-    --   config = load_config("lk/plugins/dap"),
-    --   requires = "mfussenegger/nvim-dap",
-    -- })
+    use({
+      "mfussenegger/nvim-dap",
+      config = conf("dap"),
+      cmd = { "DapToggleBreakpoint" },
+      requires = {
+        { "jbyuki/one-small-step-for-vimkind", after = "nvim-dap" },
+        { "rcarriga/nvim-dap-ui", after = "nvim-dap" },
+        { "theHamsta/nvim-dap-virtual-text", after = "nvim-dap" },
+        { "nvim-telescope/telescope-dap.nvim", after = { "nvim-dap", "telescope.nvim" } },
+      },
+    })
     -- }}}
     ------------------------------------------------------------------------
   end,
