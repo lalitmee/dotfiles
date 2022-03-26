@@ -891,20 +891,12 @@ require("packer").startup({
       config = conf("nvim-tree"),
     })
 
-    use({
-      "tamago324/lir.nvim",
-      requires = { "tamago324/lir-git-status.nvim" },
-      config = conf("lir"),
-      keys = { "n", "-" },
-      cmd = { "LirFloatToggle", "LirFloatInit" },
-      disable = false,
-    })
-
     -- dirbuf
     use({
       "elihunter173/dirbuf.nvim",
+      branch = "issue-27",
       cmd = { "Dirbuf", "DirbufSync" },
-      disable = true,
+      disable = false,
     })
     -- }}}
     ------------------------------------------------------------------------
