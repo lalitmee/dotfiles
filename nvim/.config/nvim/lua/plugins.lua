@@ -335,6 +335,13 @@ require("packer").startup({
             require("telescope").load_extension("hop")
           end,
         },
+        {
+          "nvim-telescope/telescope-dap.nvim",
+          after = { "nvim-dap", "telescope.nvim" },
+          config = function()
+            require("telescope").load_extension("dap")
+          end,
+        },
       },
     })
 
@@ -949,7 +956,6 @@ require("packer").startup({
         { "jbyuki/one-small-step-for-vimkind", after = "nvim-dap" },
         { "rcarriga/nvim-dap-ui", after = "nvim-dap" },
         { "theHamsta/nvim-dap-virtual-text", after = "nvim-dap" },
-        { "nvim-telescope/telescope-dap.nvim", after = { "nvim-dap", "telescope.nvim" } },
       },
     })
     -- }}}
