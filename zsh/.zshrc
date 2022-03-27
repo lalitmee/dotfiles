@@ -109,53 +109,84 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-# fast-alias-tips
-alias-finder
-alias-tips
-autojump
-autoupdate
-brew
-browse-commit
-colored-man-pages
-command-not-found
-common-aliases
-copyfile
-debian
-dirhistory
-docker
-encode64
-frontend-search
-fzf-tab
-fzf-zsh-plugin
-gem
-git
-git-auto-fetch
-git-extra-commands
-git-extras
-gitfast
-history
-k
-last-working-dir
-ng
-node
-npm
-pip
-pyenv
-rand-quote
-repo
-ruby
-rvm
-screen
-sudo
-taskwarrior
-tmux
-tmuxinator
-ubuntu
-web-search
-yarn
-zsh-256color
-zsh-autosuggestions
-zsh-syntax-highlighting
+  alias-finder
+  alias-tips
+  aliases
+  autojump
+  autoupdate
+  brew
+  browse-commit
+  colored-man-pages
+  command-not-found
+  common-aliases
+  copyfile
+  debian
+  dircycle
+  dirhistory
+  docker
+  docker-compose
+  dotenv
+  emoji
+  emoji-clock
+  encode64
+  extract
+  fancy-ctrl-z
+  fasd
+  fd
+  fig
+  frontend-search
+  fzf
+  fzf-tab
+  fzf-zsh-plugin
+  gem
+  gh
+  git
+  git-auto-fetch
+  git-extra-commands
+  git-extras
+  gitfast
+  golang
+  history
+  hitchhiker
+  hitokoto
+  jira
+  k
+  last-working-dir
+  magic-enter
+  ng
+  node
+  npm
+  nvm
+  pip
+  pyenv
+  rand-quote
+  react-native
+  repo
+  ripgrep
+  rsync
+  ruby
+  rust
+  rvm
+  screen
+  screen
+  sprunge
+  sudo
+  taskwarrior
+  thefuck
+  themes
+  tig
+  tmux
+  tmuxinator
+  vi-mode
+  virtualenvwrapper
+  web-search
+  yarn
+  zoxide
+  zsh-256color
+  zsh-autosuggestions
+  zsh-interactive-cd
+  zsh-navigation-tools
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -359,6 +390,14 @@ export PATH="$HOME/doom-emacs/bin:$PATH"
 # exporting editor
 export EDITOR=nvim
 
+# vi-mode settings
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
+
+# jira url
+JIRA_URL="https://koinearth.atlassian.net"
+JIRA_NAME="lalitmee"
+
 # Tilix settings
 # if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 #         source /etc/profile.d/vte.sh
@@ -373,7 +412,6 @@ export EDITOR=nvim
 # update cd bookmarks
 chpwd_functions+=(update_marks)
 
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -381,7 +419,6 @@ export NVM_DIR="$HOME/.nvm"
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # . /usr/share/doc/fzf/examples/key-bindings.zsh
-
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
@@ -408,10 +445,10 @@ export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctr
 
 # cobalt2 color for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-    --color=fg:#00aaff,bg:#193549,hl:#ffc600
-    --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
-    --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
-    --color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
+--color=fg:#00aaff,bg:#193549,hl:#ffc600
+--color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
+--color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
+--color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
 
 autoload -Uz compinit bashcompinit
 compinit
@@ -422,18 +459,18 @@ bashcompinit
 
 # transfer.sh alias
 transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
-	tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
-fpath+=${ZDOTDIR:-~}/.zsh_functions
+  tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
+  fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
-export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
-export PATH="$HOME/cargo/bin:$PATH"
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+  export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
+  export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+  export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
+  export PATH="$HOME/cargo/bin:$PATH"
+  export GOPATH=$HOME/go
+  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # # Navi: An interactive cheatsheet tool for the command-line and application launchers
 # source <(navi widget zsh)
@@ -450,8 +487,8 @@ eval "$(zoxide init zsh)"
 
 export TERM="xterm-256color"
 # if [ "$ISLINUX" '==' 'true' ]; then
-  # { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
-    # tic -x -
+# { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
+# tic -x -
 # fi
 
 if [[ $TERM == xterm ]]; then
@@ -461,12 +498,9 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# enabling colorls tab completion
-source $(dirname $(gem which colorls))/tab_complete.sh
-
 # for s-search from the terminal
 if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
-    . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
+  . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
 fi
 
 export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"

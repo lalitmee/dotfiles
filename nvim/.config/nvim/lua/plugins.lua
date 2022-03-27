@@ -913,7 +913,7 @@ require("packer").startup({
       "elihunter173/dirbuf.nvim",
       branch = "issue-27",
       cmd = { "Dirbuf", "DirbufSync" },
-      disable = false,
+      disable = true,
     })
     -- }}}
     ------------------------------------------------------------------------
