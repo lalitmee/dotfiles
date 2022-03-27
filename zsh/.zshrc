@@ -127,7 +127,6 @@ plugins=(
   docker-compose
   dotenv
   emoji
-  emoji-clock
   encode64
   extract
   fancy-ctrl-z
