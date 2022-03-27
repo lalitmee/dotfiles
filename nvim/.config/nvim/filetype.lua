@@ -17,6 +17,7 @@ vim.filetype.add({
     Podfile = "ruby",
     Brewfile = "ruby",
     Caddyfile = "conf",
+    lfrc = "sh",
     [".env"] = "sh",
   },
   pattern = {
