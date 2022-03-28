@@ -25,6 +25,10 @@ local leader_key_maps = {
   [":"] = { ":Telescope commands<CR>", "commands" },
   ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
   ["/"] = { ":Telescope live_grep<CR>", "search-project" },
+  ["1"] = { ":ToggleTerm1<CR>", "terminal-1" },
+  ["2"] = { ":ToggleTerm2<CR>", "terminal-2" },
+  ["3"] = { ":ToggleTerm3<CR>", "terminal-3" },
+  ["4"] = { ":ToggleTerm4<CR>", "terminal-4" },
   -- }}}
   ----------------------------------------------------------------------
 
