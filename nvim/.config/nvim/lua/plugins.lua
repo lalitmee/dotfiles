@@ -285,6 +285,7 @@ require("packer").startup({
       requires = {
         {
           "cljoly/telescope-repo.nvim",
+          after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("repo")
           end,

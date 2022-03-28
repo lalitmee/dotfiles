@@ -731,6 +731,7 @@ local leader_key_maps = {
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
     ["p"] = { ":Telescope projects<CR>", "projects" },
     ["r"] = { ":Telescope repo list<CR>", "repo-list" },
+    ["R"] = { ":Telescope repo cached_list<CR>", "repo-list" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
   },
