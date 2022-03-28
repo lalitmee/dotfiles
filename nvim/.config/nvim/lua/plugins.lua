@@ -283,6 +283,12 @@ require("packer").startup({
       cmd = { "Telescope" },
       config = conf("telescope"),
       requires = {
+        {
+          "cljoly/telescope-repo.nvim",
+          config = function()
+            require("telescope").load_extension("repo")
+          end,
+        },
         { "nvim-lua/plenary.nvim", after = "telescope.nvim" },
         {
           "nvim-telescope/telescope-frecency.nvim",
