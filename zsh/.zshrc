@@ -1,4 +1,7 @@
+# -------------------------------------------------------------------
+# NOTE: auto start tmux {{{
 # start tmux while starting new terminal
+# -------------------------------------------------------------------
 _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
 ensure_tmux_is_running() {
@@ -8,23 +11,31 @@ ensure_tmux_is_running() {
 }
 
 ensure_tmux_is_running
+# }}}
+# -------------------------------------------------------------------
 
-# kitty terminal {{{
-
+# -------------------------------------------------------------------
+# NOTE: kitty settings {{{
+# -------------------------------------------------------------------
 autoload -Uz compinit
 compinit
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
-
 # }}}
+# -------------------------------------------------------------------
 
-# colorscript {{{
-
-### RANDOM COLOR SCRIPT ###
+# -------------------------------------------------------------------
+# NOTE: colorscript {{{
+# from https://gitlab.com/dwt1/shell-color-scripts
+# shows random colors and things in starting of the terminal
+# -------------------------------------------------------------------
 colorscript random
-
 # }}}
+# -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: powerlevel10k theme {{{
+# -------------------------------------------------------------------
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -34,7 +45,12 @@ fi
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 ZSH_PYENV_QUIET=true
+# }}}
+# -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: oh-my-zsh {{{
+# -------------------------------------------------------------------
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -46,15 +62,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="pure"
-# ZSH_THEME="random"
-# ZSH_THEME="spaceship"
-# ZSH_THEME="agnoster"
-# ZSH_THEME="bira"
-# ZSH_THEME="powerlevel9k/powerlevel9k"
-# ZSH_THEME="bullet-train"
-# ZSH_THEME="agnosterzak"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,6 +110,9 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# -------------------------------------------------------------------
+# NOTE: plugins {{{
+# -------------------------------------------------------------------
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -134,7 +144,7 @@ plugins=(
   fd
   fig
   frontend-search
-  fzf
+  # fzf
   fzf-tab
   fzf-zsh-plugin
   gem
@@ -183,14 +193,38 @@ plugins=(
   zoxide
   zsh-256color
   zsh-autosuggestions
-  zsh-interactive-cd
-  zsh-navigation-tools
   zsh-syntax-highlighting
 )
+# }}}
+# -------------------------------------------------------------------
 
-source $ZSH/oh-my-zsh.sh
+# -------------------------------------------------------------------
+# NOTE: zsh plugins settings {{{
+# -------------------------------------------------------------------
+# vi-mode settings
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
 
-# User configuration
+# jira url
+JIRA_URL="https://koinearth.atlassian.net"
+JIRA_NAME="lalitmee"
+# }}}
+# -------------------------------------------------------------------
+
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: user configurations {{{
+# -------------------------------------------------------------------
+export TERM="xterm-256color"
+
+if [[ $TERM == xterm ]]; then
+  TERM=screen-256color;
+fi
+
+# exporting editor
+export EDITOR=nvim
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -198,19 +232,24 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"
+export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
+
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+# }}}
+# -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: aliases {{{
+# -------------------------------------------------------------------
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -366,17 +405,26 @@ alias lc='colorls -lA --sd'
 
 # alias for running tmux with screen-256color
 # alias tmux="env TERM=alacritty tmux -2"
+# }}}
+# -------------------------------------------------------------------
 
-# tmuxinator completion file
-# source ~/tmuxinator.bash
+# -------------------------------------------------------------------
+# NOTE: exporting paths {{{
+# -------------------------------------------------------------------
+# perl
+PATH="/home/lalitmee/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/lalitmee/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/lalitmee/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/lalitmee/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/lalitmee/perl5"; export PERL_MM_OPT;
 
-# nvim path for oni
-# export ONI_NEOVIM_PATH='/home/lalit/app_images/nvim.appimage'
+# yarn
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# path for neovim logs
+# neovim logs
 export NVIM_LOG_FILE_PATH="$HOME/.logs/nvim"
 
-# path for ruby manager
+# ruby manager
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
@@ -384,36 +432,42 @@ eval "$(rbenv init -)"
 export PATH="$PATH:/snap/bin"
 
 # doom-emacs command
-export PATH="$HOME/doom-emacs/bin:$PATH"
+export PATH="$HOME/Desktop/Github/doom-emacs/bin:$PATH"
 
-# exporting editor
-export EDITOR=nvim
-
-# vi-mode settings
-VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
-VI_MODE_SET_CURSOR=true
-
-# jira url
-JIRA_URL="https://koinearth.atlassian.net"
-JIRA_NAME="lalitmee"
-
-# Tilix settings
-# if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-#         source /etc/profile.d/vte.sh
-# fi
-
-# # z.sh
-# source ~/Desktop/Github/z/z.sh
-
-# great functions for fzf from
-# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
-
-# update cd bookmarks
-chpwd_functions+=(update_marks)
-
+# nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# linuxbrew
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
+export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
+
+# cargo
+export PATH="$HOME/cargo/bin:$PATH"
+
+# go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: fzf {{{
+# -------------------------------------------------------------------
+# great functions for fzf from
+# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
 
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -448,88 +502,100 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: unknown {{{
+# -------------------------------------------------------------------
+# update cd bookmarks
+chpwd_functions+=(update_marks)
 
 autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
 
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+fpath=(~/.zsh.d/$fpath)
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: custom plugins {{{
+# -------------------------------------------------------------------
+
+# NOTE: autojump {{{
+# -------------------------------------------------------------------
 # autojump
 [ -f /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh ] && . /home/linuxbrew/.linuxbrew/etc/profile.d/autojump.sh
+# }}}
+# -------------------------------------------------------------------
 
-# transfer.sh alias
-transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi
-  tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
-  fpath+=${ZDOTDIR:-~}/.zsh_functions
+# -------------------------------------------------------------------
+# NOTE: navi {{{
+# -------------------------------------------------------------------
+# Navi: An interactive cheatsheet tool for the command-line and application launchers
+source <(navi widget zsh)
+# }}}
+# -------------------------------------------------------------------
 
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-  export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
-  export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
-  export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
-  export PATH="$HOME/cargo/bin:$PATH"
-  export GOPATH=$HOME/go
-  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
-# # Navi: An interactive cheatsheet tool for the command-line and application launchers
-# source <(navi widget zsh)
-
+# -------------------------------------------------------------------
+# NOTE: almostontop {{{
+# -------------------------------------------------------------------
 # almost on top from github: https://github.com/Valiev/almostontop
 source ~/Desktop/Github/almostontop/almostontop.plugin.zsh
+# }}}
+# -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: thfuck {{{
+# -------------------------------------------------------------------
 # eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
+# }}}
+# -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: zoxide {{{
+# -------------------------------------------------------------------
 # easily switch directories
 # eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
 eval "$(zoxide init zsh)"
+# }}}
+# -------------------------------------------------------------------
 
-export TERM="xterm-256color"
-# if [ "$ISLINUX" '==' 'true' ]; then
-# { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
-# tic -x -
-# fi
-
-if [[ $TERM == xterm ]]; then
-  TERM=screen-256color;
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
+# -------------------------------------------------------------------
+# NOTE: s search {{{
 # for s-search from the terminal
+# -------------------------------------------------------------------
 if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
   . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
 fi
+# }}}
+# -------------------------------------------------------------------
 
-export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"
-export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
+# }}}
+# -------------------------------------------------------------------
 
-export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
+# -------------------------------------------------------------------
+# NOTE: prompt {{{
+# -------------------------------------------------------------------
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# # To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/zsh/.p10k.zsh.
+# [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
+# }}}
+# -------------------------------------------------------------------
 
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-
-# To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
-
-
-if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
+# -------------------------------------------------------------------
+# NOTE: automatically loaded {{{
+# -------------------------------------------------------------------
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+# }}}
+# -------------------------------------------------------------------
 
-export GREN_GITHUB_TOKEN=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
+source $ZSH/oh-my-zsh.sh
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-fpath=(~/.zsh.d/$fpath)
-
-PATH="/home/lalitmee/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/lalitmee/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/lalitmee/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/lalitmee/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/lalitmee/perl5"; export PERL_MM_OPT;
+# vim:foldmethod=marker
