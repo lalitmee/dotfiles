@@ -935,6 +935,13 @@ require("packer").startup({
       "akinsho/nvim-toggleterm.lua",
       config = conf("toggleterm"),
       keys = { "n", [[<C-\>]] },
+      cmd = {
+        "ToggleTerm",
+        "ToggleTerm1",
+        "ToggleTerm2",
+        "ToggleTerm3",
+        "ToggleTerm4",
+      },
     })
     -- }}}
     ------------------------------------------------------------------------
