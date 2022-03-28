@@ -24,12 +24,20 @@ color:
   # When "classic" is set, this is set to "never".
   # Possible values: never, auto, always
   when: auto
+  # How to colorize the output.
+  # When "classic" is set, this is set to "no-color".
+  # Possible values: default, <theme-file-name>
+  # when specifying <theme-file-name>, lsd will look up theme file
+  # XDG Base Directory if relative, e.g. ~/.config/lsd/themes/<theme-file-name>.yaml,
+  # The file path if absolute
+  theme: default
 
 # == Date ==
 # This specifies the date format for the date column. The freeform format
 # accepts an strftime like string.
 # When "classic" is set, this is set to "date".
-# Possible values: date, relative, +<date_format>
+# Possible values: date, relative, '+<date_format>'
+# `date_format` will be a `strftime` formatted value. e.g. `date: '+%d %b %y %X'` will give you a date like this: 17 Jun 21 20:14:55
 date: date
 
 # == Dereference ==
@@ -51,6 +59,9 @@ icons:
   # Which icon theme to use.
   # Possible values: fancy, unicode
   theme: fancy
+  # Separator between icon and the name
+  # Default to 1 space
+  separator: " "
 
 # == Ignore Globs ==
 # A list of globs to ignore when listing.
