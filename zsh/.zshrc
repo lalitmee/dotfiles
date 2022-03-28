@@ -195,6 +195,9 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
+
+source $ZSH/oh-my-zsh.sh
+
 # }}}
 # -------------------------------------------------------------------
 
@@ -287,7 +290,7 @@ alias speed="speedtest-cli"
 
 # for ls replacement with exa
 # alias ls="exa"
-alias ls="lsd"
+alias ls="lsd" # possible values are: lsd, colorls, exa, ls
 alias cat="bat"
 alias c="clear"
 
@@ -596,6 +599,5 @@ fi
 # }}}
 # -------------------------------------------------------------------
 
-source $ZSH/oh-my-zsh.sh
 
 # vim:foldmethod=marker
