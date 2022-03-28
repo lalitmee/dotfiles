@@ -64,6 +64,8 @@ map("n", "<localleader>p", [["+p]], { noremap = true })
 ----------------------------------------------------------------------
 -- NOTE: text edits {{{
 ----------------------------------------------------------------------
+vim.cmd([[nnoremap . :<C-u>execute "norm! " . repeat(".", v:count1)<CR>]])
+
 -- keep cursor in same position while using `J`
 map("n", "J", [[:let p=getpos('.')<bar>join<bar>call setpos('.', p)<cr>]], map_opts)
 
