@@ -574,7 +574,6 @@ require("packer").startup({
     use({
       "mhartington/formatter.nvim",
       config = conf("formatter"),
-      -- cmd = { "FormatWrite" },
     })
 
     -- indentlines in neovim
@@ -778,7 +777,6 @@ require("packer").startup({
       },
       config = conf("octo"),
       after = { "telescope.nvim" },
-      keys = { "n", "<leader>go" },
     })
 
     -- git worktree
@@ -819,15 +817,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: STATUS AND TAB LINES {{{
     ------------------------------------------------------------------------
-    -- use({ "tjdevries/express_line.nvim" })
-
-    -- current location
-    use({
-      "SmiteshP/nvim-gps",
-      after = "nvim-treesitter",
-      config = conf("gps"),
-    })
-
     -- lualine.nvim
     use({
       "nvim-lualine/lualine.nvim",
@@ -864,12 +853,6 @@ require("packer").startup({
     -- surrounding in vim
     use({
       "tpope/vim-surround",
-      event = { "BufRead" },
-    })
-
-    -- set buffer options heuristicly
-    use({
-      "tpope/vim-sleuth",
       event = { "BufRead" },
     })
 
