@@ -24,6 +24,7 @@ local leader_key_maps = {
   ["*"] = "vimgrep-under-cursor",
   [":"] = { ":Telescope commands<CR>", "commands" },
   ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
+  ["<TAB>"] = { ":FoldToggleAll<CR>", "toggle-all-folds" },
   ["/"] = { ":Telescope live_grep<CR>", "search-project" },
   ["1"] = { ":ToggleTerm1<CR>", "terminal-1" },
   ["2"] = { ":ToggleTerm2<CR>", "terminal-2" },
@@ -1060,19 +1061,6 @@ local visual_mode_leader_key_maps = {
     ["V"] = { ":DebugPrintVarAbove", "print-var-above" },
   },
 }
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: [ mappings {{{
-----------------------------------------------------------------------
-wk.register({
-  b = { "<Plug>(buf-surf-back)", "buf-surf-back" },
-}, { prefix = "[" })
-
-wk.register({
-  b = { "<Plug>(buf-surf-forward)", "buf-surf-forward" },
-}, { prefix = "]" })
 -- }}}
 ----------------------------------------------------------------------
 

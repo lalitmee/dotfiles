@@ -1,3 +1,31 @@
+----------------------------------------------------------------------
+-- NOTE: norg setup {{{
+----------------------------------------------------------------------
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+
+-- These two are optional and provide syntax highlighting
+-- for Neorg tables and the @document.meta tag
+parser_configs.norg_meta = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
+        files = { "src/parser.c" },
+        branch = "main"
+    },
+}
+
+parser_configs.norg_table = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
+        files = { "src/parser.c" },
+        branch = "main"
+    },
+}
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: treesitter setup {{{
+----------------------------------------------------------------------
 require("nvim-treesitter.configs").setup({
   -- ensure_installed = vim.g.enable_treesitter_ft,
   ensure_installed = "maintained",
@@ -66,15 +94,7 @@ require("nvim-treesitter.configs").setup({
     },
   },
 })
+-- }}}
+----------------------------------------------------------------------
 
--- NOTE: fold method using treesitter
--- somehow I don't like it.
-
--- local parsers = require 'nvim-treesitter.parsers'
--- local configs = parsers.get_parser_configs()
--- local ft_str = table.concat(vim.tbl_map(function(ft)
---   return configs[ft].filetype or ft
--- end, parsers.available_parsers()), ',')
-
--- vim.cmd('autocmd! Filetype ' .. ft_str ..
---             ' setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()')
+-- vim:foldmethod=marker

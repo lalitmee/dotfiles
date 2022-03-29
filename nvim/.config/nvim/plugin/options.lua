@@ -26,6 +26,7 @@ g.enable_treesitter_ft = {
   "json",
   "lua",
   "markdown",
+  "norg",
   "typescript",
   "vim",
   "yaml",
