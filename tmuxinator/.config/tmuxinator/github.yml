@@ -8,4 +8,5 @@ windows:
   - neovide: cd neovide && gst
   - spacemacs: cd spacemacs && gst
   - doom-emacs: cd doom-emacs && gst
+  - goneovim: cd goneovim && gst
   - github-profile: cd lalitmee && gst
