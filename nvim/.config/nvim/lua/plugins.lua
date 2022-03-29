@@ -147,17 +147,9 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
-    -- fold cycle
     use({
-      "jghauser/fold-cycle.nvim",
-      config = conf("fold-cycle"),
-      cmd = {
-        "FoldOpen",
-        "FoldClose",
-        "FoldToggleAll",
-        "FoldOpenAll",
-        "FoldCloseAll",
-      },
+      "arecarn/vim-fold-cycle",
+      config = conf("vim-fold-cycle"),
     })
 
     -- rooter for neovim
