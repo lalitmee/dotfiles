@@ -34,6 +34,27 @@ colorscript random
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
+# NOTE: zplug {{{
+# -------------------------------------------------------------------
+source ~/.zplug/init.zsh
+
+# alias abbreviations like abbreviations in vim
+zplug "momo-lab/zsh-abbrev-alias"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
 # NOTE: powerlevel10k theme {{{
 # -------------------------------------------------------------------
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -122,7 +143,6 @@ plugins=(
   alias-finder
   alias-tips
   aliases
-  autojump
   autoupdate
   brew
   browse-commit
@@ -140,11 +160,9 @@ plugins=(
   encode64
   extract
   fancy-ctrl-z
-  fasd
   fd
   fig
   frontend-search
-  # fzf
   fzf-tab
   fzf-zsh-plugin
   gem
@@ -193,8 +211,15 @@ plugins=(
   zoxide
   zsh-256color
   zsh-autosuggestions
+  zsh-better-npm-completion
+  zsh-brew-services
+  zsh-cargo-completion
+  zsh-cpan-completion
   zsh-syntax-highlighting
 )
+
+# zsh completions
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
 
@@ -332,11 +357,11 @@ alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
 alias upd="sudo apt-fast update -y"
 alias update="
-  sudo apt-fast update -y &&
-  sudo apt-fast upgrade -y &&
-  sudo flatpak update -y &&
-  snapu &&
-  bubc"
+sudo apt-fast update -y &&
+sudo apt-fast upgrade -y &&
+sudo flatpak update -y &&
+snapu &&
+bubc"
 alias updg="sudo apt-fast dist-upgrade -y"
 alias upg="sudo apt-fast upgrade -y"
 
@@ -351,10 +376,10 @@ alias dd="doom doctor"
 alias dp="doom purge"
 alias ds="doom sync"
 alias du="doom upgrade"
-alias ed="emacs --with-profile default"
 alias es="emacs --with-profile spacemacs"
+alias ed="emacs --with-profile doom-emacs"
 
-alias manfzf="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
+alias m="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
 
 # aliases for some terminal programmes
 alias hw="how2"
@@ -416,6 +441,14 @@ alias lc='colorls -lA --sd'
 # alias tmux="env TERM=alacritty tmux -2"
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: alias abbreviations {{{
+# -------------------------------------------------------------------
+abbrev-alias -g h="--help"
+# }}}
+# -------------------------------------------------------------------
+
 
 # -------------------------------------------------------------------
 # NOTE: exporting paths {{{
