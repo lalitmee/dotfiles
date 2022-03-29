@@ -150,6 +150,14 @@ require("packer").startup({
     use({
       "jghauser/fold-cycle.nvim",
       config = conf("fold-cycle"),
+      keys = { "n", "<TAB>" },
+      cmd = {
+        "FoldOpen",
+        "FoldClose",
+        "FoldCloseAll",
+        "FoldOpenAll",
+        "FoldToggleAll",
+      },
     })
 
     -- rooter for neovim
