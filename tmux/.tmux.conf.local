@@ -466,6 +466,9 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 bind s display-popup -E -w 100% -h 100% nvim -c ":Telescope tmux sessions quit_on_select=true"
 bind w display-popup -E -w 100% -h 100% nvim -c ":Telescope tmux windows quit_on_select=true"
 
+# tmux sessionizer
+bind-key -r f run-shell "tmux neww tmux-sessionizer"
+
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
