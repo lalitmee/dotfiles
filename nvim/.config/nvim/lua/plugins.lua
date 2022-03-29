@@ -980,6 +980,7 @@ require("packer").startup({
     use({
       "nvim-neorg/neorg",
       ft = "norg",
+      cmd = { "Neorg" },
       config = conf("neorg"),
       requires = {
         { "nvim-lua/plenary.nvim" },
