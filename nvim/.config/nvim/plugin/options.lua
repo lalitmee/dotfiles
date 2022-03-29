@@ -19,6 +19,8 @@ g.python_host_prog = "/home/lalitmee/.pyenv/versions/neovim2/bin/python"
 g.enable_treesitter_ft = {
   "bash",
   "css",
+  "dockerfile",
+  "go",
   "html",
   "javascript",
   "json",
@@ -27,13 +29,14 @@ g.enable_treesitter_ft = {
   "typescript",
   "vim",
   "yaml",
-  "dockerfile",
 }
 
 -- enable lsp for what filetype
 g.enable_lspconfig_ft = {
   "bash",
   "css",
+  "dockerfile",
+  "go",
   "html",
   "javascript",
   "json",
@@ -42,7 +45,6 @@ g.enable_lspconfig_ft = {
   "typescript",
   "vim",
   "yaml",
-  "dockerfile",
 }
 -- }}}
 ----------------------------------------------------------------------
