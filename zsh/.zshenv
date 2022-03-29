@@ -29,3 +29,4 @@ fi
 
 #    cd $destdir
 # end
+. "$HOME/.cargo/env"

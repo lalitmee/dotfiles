@@ -330,7 +330,12 @@ alias snapl="snap list | fzf"
 alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
 alias upd="sudo apt-fast update -y"
-alias update="sudo apt-fast update -y && sudo apt-fast upgrade -y"
+alias update="
+  sudo apt-fast update -y &&
+  sudo apt-fast upgrade -y &&
+  sudo flatpak update -y &&
+  snapu &&
+  bubc"
 alias updg="sudo apt-fast dist-upgrade -y"
 alias upg="sudo apt-fast upgrade -y"
 
