@@ -28,6 +28,9 @@ map("c", "<C-p>", [[wildmenumode() ? "\<c-p>" : "\<up>"]], map_expr_opts)
 ----------------------------------------------------------------------
 -- NOTE: buffers and tabs {{{
 ----------------------------------------------------------------------
+-- stop that stupid window from popping up
+map("n", "q:", [[:q]], map_opts)
+
 -- tab operations
 nnoremap("<M-Right>", [[:tabnext<CR>]])
 nnoremap("<M-Left>", [[:tabprevious<CR>]])
