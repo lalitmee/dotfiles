@@ -147,6 +147,19 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- fold cycle
+    use({
+      "jghauser/fold-cycle.nvim",
+      config = conf("fold-cycle"),
+      cmd = {
+        "FoldOpen",
+        "FoldClose",
+        "FoldToggleAll",
+        "FoldOpenAll",
+        "FoldCloseAll",
+      },
+    })
+
     -- rooter for neovim
     use({
       "ahmedkhalf/project.nvim",
@@ -967,6 +980,22 @@ require("packer").startup({
     })
     -- }}}
     ------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------
+    -- NOTE: notes {{{
+    ----------------------------------------------------------------------
+    use({
+      "nvim-neorg/neorg",
+      after = { "nvim-treesitter" },
+      config = conf("neorg"),
+      ft = "norg",
+      requires = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-treesitter/nvim-treesitter" },
+      },
+    })
+    -- }}}
+    ----------------------------------------------------------------------
   end,
   config = {
     display = {

@@ -244,6 +244,7 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 
 if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
+export GO111MODULE=off
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -603,6 +604,5 @@ fi
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 # }}}
 # -------------------------------------------------------------------
-
 
 # vim:foldmethod=marker

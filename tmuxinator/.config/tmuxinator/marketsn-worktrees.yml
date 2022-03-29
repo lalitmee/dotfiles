@@ -9,4 +9,4 @@ windows:
   - wf-webapp-service: cd wf-webapp-service
   - marketsn-pwa-service: cd marketsn-pwa-service
   - wf-pwa-service: cd wf-pwa-service
-  - merged-prs: cd merged-prs
+  - notes: cd ~/Desktop/Github/work-notes && ls && gst

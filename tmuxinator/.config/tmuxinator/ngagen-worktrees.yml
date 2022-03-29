@@ -5,3 +5,4 @@ root: ~/Desktop/koinearth/ngagen/worktrees
 windows:
   - ngagen-app: cd ngagen-app
   - ngagen-webapp-service-nextjs: cd ngagen-webapp-service-nextjs
+  - notes: cd ~/Desktop/Github/work-notes && ls && gst
