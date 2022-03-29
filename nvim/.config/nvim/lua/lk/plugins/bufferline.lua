@@ -1,8 +1,3 @@
-local groups = require("bufferline.groups")
-local List = require("plenary.collections.py_list")
-
-local fn = vim.fn
-
 ----------------------------------------------------------------------
 -- NOTE: sorting of buffers {{{
 ----------------------------------------------------------------------
