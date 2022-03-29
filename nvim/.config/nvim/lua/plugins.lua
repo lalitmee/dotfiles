@@ -983,8 +983,7 @@ require("packer").startup({
       cmd = { "Neorg" },
       config = conf("neorg"),
       requires = {
-        { "nvim-lua/plenary.nvim" },
-        { "nvim-treesitter/nvim-treesitter" },
+        { "nvim-neorg/neorg-telescope" },
       },
     })
     -- }}}

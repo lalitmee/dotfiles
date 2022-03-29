@@ -381,6 +381,8 @@ local leader_key_maps = {
   ["i"] = {
     ["name"] = "+insert-text",
     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
+    ["n"] = { ":Neorg<CR>", "neorg" },
+    ["w"] = { ":Neorg workspace work<CR>", "work-notes" },
   },
   -- }}}
   ----------------------------------------------------------------------
