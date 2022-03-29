@@ -32,13 +32,6 @@ end
 -- }}}
 --------------------------------------------------------------------------------
 
-local function get_current_location()
-  local gps = require("nvim-gps")
-  if gps.is_available() then
-    return gps.get_location()
-  end
-end
-
 ----------------------------------------------------------------------
 -- NOTE: get session name {{{
 ----------------------------------------------------------------------
@@ -77,7 +70,6 @@ lualine.setup({
     lualine_c = {
       { "filename", path = 1 },
       { "diff" },
-      { get_current_location },
     },
     lualine_x = {
       {
