@@ -28,7 +28,7 @@ M.reload = function()
 
     attach_mappings = function(_, map)
       -- Adds a new map to ctrl+e.
-      map("i", "<c-e>", function(_)
+      map("i", "<c-r>", function(_)
         -- these two a very self-explanatory
         local entry = require("telescope.actions.state").get_selected_entry()
         local name = get_module_name(entry.value)

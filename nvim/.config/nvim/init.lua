@@ -38,11 +38,14 @@ function R(name)
   return require(name)
 end
 
--- packer plugins
-R("plugins")
+-- -- packer plugins
+-- R("plugins")
 
 -- globals
 R("lk/globals")
+
+-- core
+R("lk/core")
 
 -- colorscheme
 R("lk/colors")

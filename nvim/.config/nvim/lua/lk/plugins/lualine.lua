@@ -1,4 +1,3 @@
-local colors = require("cobalt2.palette")
 local ok, lualine = lk.safe_require("lualine")
 if not ok then
   vim.notify("Failed to load lualine", "error", { title = "[lualine.nvim] error" })
@@ -25,7 +24,7 @@ local function get_client_name()
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
       -- return "[ ⚙ LSP: " .. client.name .. " ]"
-      return client.name
+      return "[" .. client.name .. "]"
     end
   end
   return msg
@@ -48,9 +47,7 @@ local function get_session_name()
   if session_name == nil then
     return "No Active Session"
   end
-  -- return "[ Session: " .. session_name .. " ]"
-  -- return "Session: " .. session_name
-  return session_name
+  return "[" .. session_name .. "]"
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -63,7 +60,8 @@ lualine.setup({
     theme = "auto",
     globalstatus = true,
     section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
+    component_separators = { left = "│", right = "│" },
+    -- component_separators = { left = "┆", right = "┆" },
   },
   sections = {
     lualine_a = {
@@ -73,6 +71,7 @@ lualine.setup({
           return "<" .. str:sub(1, 1) .. ">"
         end,
       },
+      { get_session_name },
     },
     lualine_b = { { "branch", icon = "" } },
     lualine_c = {
@@ -94,23 +93,9 @@ lualine.setup({
       },
       { "filesize" },
       { "filetype" },
-      {
-        get_client_name,
-        color = {
-          fg = colors.yellow,
-          bg = colors.cursor_hover,
-        },
-      },
-      {
-        get_session_name,
-        color = {
-          fg = colors.darkest_blue,
-          bg = colors.blue,
-        },
-      },
     },
-    lualine_y = { { "progress" } },
-    lualine_z = { { "location" } },
+    lualine_y = { { get_client_name } },
+    lualine_z = { { "location" }, { "progress" } },
   },
   inactive_sections = {
     lualine_a = {},

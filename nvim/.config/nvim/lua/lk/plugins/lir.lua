@@ -3,18 +3,13 @@ if not has_lir then
   return
 end
 
-local has_cobalt2, cobalt2_colors = lk.safe_require("cobalt2.palette")
-if not has_cobalt2 then
-  return
-end
-
 local has_devicons, devicons = lk.safe_require("nvim-web-devicons")
 if has_devicons then
   devicons.setup({
     override = {
       lir_folder_icon = {
         icon = "",
-        color = cobalt2_colors.blue,
+        color = "#00AAFF",
         name = "LirFolderNode",
       },
     },

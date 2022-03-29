@@ -1,0 +1,5 @@
+require("lk/core/augroups")
+require("lk/core/commands")
+require("lk/core/functions")
+require("lk/core/mappings")
+require("lk/core/options")

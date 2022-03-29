@@ -1,4 +1,3 @@
-local colors = require("cobalt2.palette")
 local highlight = require("lk.highlights")
 
 -- Trigger a highlight in the appropriate direction when pressing these keys:
@@ -12,7 +11,7 @@ highlight.all({
   {
     "QuickScopePrimary",
     {
-      guifg = colors.red,
+      guifg = "#FF0000",
       ctermfg = 155,
       cterm = "underline",
     },
@@ -20,7 +19,7 @@ highlight.all({
   {
     "QuickScopeSecondary",
     {
-      guifg = colors.pink,
+      guifg = "#ff6fff",
       ctermfg = 81,
       cterm = "underline",
     },
