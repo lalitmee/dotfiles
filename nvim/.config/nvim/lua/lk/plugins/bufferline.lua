@@ -58,48 +58,6 @@ require("bufferline").setup({
         padding = 1,
       },
     },
-    groups = {
-      options = { toggle_hidden_on_enter = true },
-      items = {
-        groups.builtin.ungrouped,
-        {
-          highlight = { guisp = "#51AFEF", gui = "underline" },
-          name = "tests",
-          icon = "",
-          matcher = function(buf)
-            return buf.filename:match("_spec") or buf.filename:match("test")
-          end,
-        },
-        {
-          name = "view models",
-          highlight = { guisp = "#03589C", gui = "underline" },
-          matcher = function(buf)
-            return buf.filename:match("view_model%.dart")
-          end,
-        },
-        {
-          name = "screens",
-          matcher = function(buf)
-            return buf.path:match("screen")
-          end,
-        },
-        {
-          name = "terminals",
-          matcher = function(buf)
-            return buf.filename:match("/usr/bin/zsh")
-          end,
-        },
-        {
-          highlight = { guisp = "#C678DD", gui = "underline" },
-          name = "docs",
-          auto_close = true,
-          matcher = function(buf)
-            local list = List({ "md", "txt", "org", "norg", "wiki" })
-            return list:contains(fn.fnamemodify(buf.path, ":e"))
-          end,
-        },
-      },
-    },
   },
 })
 -- }}}
