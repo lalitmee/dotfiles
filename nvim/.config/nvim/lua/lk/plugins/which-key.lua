@@ -592,7 +592,6 @@ local leader_key_maps = {
     ["c"] = { ":PackerCompile<CR>", "packer-compile" },
     ["d"] = { ":PackerClean<CR>", "clean-packages" },
     ["e"] = { ":e $HOME/.config/nvim/init.lua<CR>", "edit-config" },
-    ["f"] = { ":Legendary<CR>", "find-key-maps" },
     ["g"] = { ":e ~/.config/nvim/ginit.vim<CR>", "edit-gui" },
     ["G"] = { ":so ~/.config/nvim/ginit.vim<CR>", "reload-gui" },
     ["H"] = { ":checkhealth<CR>", "check-health" },
