@@ -24,6 +24,7 @@ local leader_key_maps = {
   ["*"] = "vimgrep-under-cursor",
   [":"] = { ":Telescope commands<CR>", "commands" },
   ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
+  ["<TAB>"] = { ":tabnext<CR>", "next-tab" },
   ["/"] = { ":Telescope live_grep<CR>", "search-project" },
   ["1"] = { ":ToggleTerm1<CR>", "terminal-1" },
   ["2"] = { ":ToggleTerm2<CR>", "terminal-2" },
