@@ -148,8 +148,8 @@ require("packer").startup({
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
     use({
-      "arecarn/vim-fold-cycle",
-      config = conf("vim-fold-cycle"),
+      "jghauser/fold-cycle.nvim",
+      config = conf("fold-cycle"),
     })
 
     -- rooter for neovim
@@ -976,11 +976,11 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: notes {{{
     ----------------------------------------------------------------------
+    -- similar to orgmode but with neovim in lua
     use({
       "nvim-neorg/neorg",
-      after = { "nvim-treesitter" },
-      config = conf("neorg"),
       ft = "norg",
+      config = conf("neorg"),
       requires = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-treesitter/nvim-treesitter" },
