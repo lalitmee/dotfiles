@@ -314,7 +314,10 @@ opt.titlelen = 70
 ----------------------------------------------------------------------
 -- NOTE: utilities {{{
 ----------------------------------------------------------------------
+opt.lazyredraw = true
 opt.showmode = false
+opt.showmatch = true
+opt.showcmd = true
 opt.sessionoptions = {
   "globals",
   "buffers",
