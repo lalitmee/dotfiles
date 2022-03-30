@@ -160,7 +160,10 @@ opt.foldmethod = "expr"
 -- NOTE: greprg {{{
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
-if executable("rg") then
+if executable("ack") then
+  vim.o.grepprg = [[ack --ignore-dir=".git,build" --ignore-file="tags"]]
+  opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
+elseif executable("rg") then
   vim.o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
   opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
