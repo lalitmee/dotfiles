@@ -38,9 +38,8 @@ function R(name)
   return require(name)
 end
 
--- NOTE: no need to load this because we have `packer_compiled`
--- -- packer plugins
--- R("plugins")
+-- packer plugins
+R("plugins")
 
 -- globals
 R("lk/globals")
