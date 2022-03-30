@@ -1,4 +1,5 @@
 local map = lk.map
+local nmap = lk.nmap
 local nnoremap = lk.nnoremap
 
 local map_opts = { noremap = true, silent = true }
@@ -22,6 +23,12 @@ map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { noremap = true, e
 -- <c-n> and <c-p> in command line mode
 map("c", "<C-n>", [[wildmenumode() ? "\<c-n>" : "\<down>"]], map_expr_opts)
 map("c", "<C-p>", [[wildmenumode() ? "\<c-p>" : "\<up>"]], map_expr_opts)
+
+-- tmux movements
+nmap("<C-h>", [[<cmd>NavigateLeft<cr>]], map_opts)
+nmap("<C-l>", [[<cmd>NavigateRight<cr>]], map_opts)
+nmap("<C-j>", [[<cmd>NavigateDown<cr>]], map_opts)
+nmap("<C-k>", [[<cmd>NavigateUp<cr>]], map_opts)
 -- }}}
 ----------------------------------------------------------------------
 

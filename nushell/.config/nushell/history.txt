@@ -2,3 +2,19 @@ ls
 ll
 help
 help commands
+ls
+ll
+la
+ls -la
+ls
+ls -l
+ls -l --sort
+nu help
+ls help
+ls --hlep
+ls --help
+procs
+fzf
+fd
+man fd
+man fd | most
