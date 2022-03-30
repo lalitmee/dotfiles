@@ -38,6 +38,7 @@ function R(name)
   return require(name)
 end
 
+-- NOTE: no need to load this because we have `packer_compiled`
 -- -- packer plugins
 -- R("plugins")
 
@@ -52,6 +53,9 @@ R("lk/colors")
 
 -- disable builtin
 R("lk/disable_builtin")
+
+-- pakcer_compliled
+R("packer_compiled")
 -- }}}
 ----------------------------------------------------------------------
 
