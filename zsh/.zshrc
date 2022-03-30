@@ -291,6 +291,9 @@ export GO111MODULE=off
 # output in a url
 alias tb="nc termbin.com 9999"
 
+# cht.sh
+alias ch="cht.sh"
+
 alias ciu="caniuse"
 alias iu="is-up"
 alias aw="awesome-hub"
@@ -425,9 +428,6 @@ alias mi="sudo make install"
 # alias for duckduckgo from terminal
 alias sd="ddgr"
 
-# alias for todo.txt-cli
-alias t="~/todo.txt_cli-2.11.0/todo.sh"
-
 # alias for taskwarrior
 alias to="task"
 
@@ -445,10 +445,10 @@ alias lc='colorls -lA --sd'
 # -------------------------------------------------------------------
 # NOTE: alias abbreviations {{{
 # -------------------------------------------------------------------
-abbrev-alias -g h="--help"
+abbrev-alias -g he="--help"
+abbrev-alias -g p="|"
 # }}}
 # -------------------------------------------------------------------
-
 
 # -------------------------------------------------------------------
 # NOTE: exporting paths {{{
