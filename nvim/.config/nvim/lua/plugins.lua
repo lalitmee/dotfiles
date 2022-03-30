@@ -212,6 +212,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- show search matches
+    use({ "google/vim-searchindex" })
+
     -- display search matches
     use({
       "kevinhwang91/nvim-hlslens",
