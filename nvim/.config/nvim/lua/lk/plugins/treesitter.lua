@@ -27,7 +27,6 @@ parser_configs.norg_table = {
 -- NOTE: treesitter setup {{{
 ----------------------------------------------------------------------
 require("nvim-treesitter.configs").setup({
-  -- ensure_installed = vim.g.enable_treesitter_ft,
   ensure_installed = "maintained",
   highlight = {
     enable = true,

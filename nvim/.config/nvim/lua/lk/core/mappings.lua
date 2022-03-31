@@ -1,3 +1,6 @@
+----------------------------------------------------------------------
+-- NOTE: mappings {{{
+----------------------------------------------------------------------
 local map = lk.map
 local nmap = lk.nmap
 local nnoremap = lk.nnoremap
@@ -36,7 +39,7 @@ nmap("<C-k>", [[<cmd>NavigateUp<cr>]], map_opts)
 -- NOTE: buffers and tabs {{{
 ----------------------------------------------------------------------
 -- stop that stupid window from popping up
-map("n", "q:", [[:q]], map_opts)
+-- map("n", "q:", [[:q]], map_opts) -- NOTE: making q slow
 
 -- tab operations
 nnoremap("<M-Right>", [[:tabnext<CR>]])
@@ -195,6 +198,9 @@ map("v", "<cr>", [[zf]], map_opts)
 -- -- Complextras.nvim configuration
 -- map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
 -- map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)
+-- }}}
+----------------------------------------------------------------------
+
 -- }}}
 ----------------------------------------------------------------------
 
