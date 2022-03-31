@@ -1,3 +1,6 @@
+----------------------------------------------------------------------
+-- NOTE: which-key mappings {{{
+----------------------------------------------------------------------
 local wk = require("which-key")
 
 vim.o.timeoutlen = 500
@@ -877,6 +880,7 @@ local leader_key_maps = {
     ["/"] = { ":Telescope command_history<CR>", "commands-history" },
     [":"] = { ":Telescope commands<CR>", "commands" },
     ["c"] = { ":Telescope colorscheme<CR>", "colorschemes" },
+    ["d"] = { ":Messages<CR>", "messages" },
     ["f"] = { ":Telescope filetypes<CR>", "filetypes" },
     ["h"] = { ":Telescope help_tags<CR>", "help-tags" },
     ["H"] = { ":Telescope highlights<CR>", "highlights" },
@@ -1069,5 +1073,7 @@ local visual_mode_leader_key_maps = {
 wk.register(local_leader_key_maps, { prefix = "<localleader>" })
 wk.register(leader_key_maps, { prefix = "<leader>" })
 wk.register(visual_mode_leader_key_maps, { prefix = "<leader>", mode = "v" })
+-- }}}
+----------------------------------------------------------------------
 
 -- vim:foldmethod=marker

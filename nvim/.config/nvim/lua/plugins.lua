@@ -289,6 +289,7 @@ require("packer").startup({
     -- telescope.nvim
     use({
       "nvim-telescope/telescope.nvim",
+      module = "telescope",
       cmd = { "Telescope" },
       config = conf("telescope"),
       requires = {
@@ -626,6 +627,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "neovim/nvim-lspconfig",
+      module = "lspconfig",
       ft = vim.g.enable_lspconfig_ft,
       config = conf("lsp"),
       requires = {
@@ -681,7 +683,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
-      ft = vim.g.enable_treesitter_ft,
+      event = { "BufRead", "BufNewFile" },
       config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
@@ -823,6 +825,7 @@ require("packer").startup({
     -- lualine.nvim
     use({
       "nvim-lualine/lualine.nvim",
+      after = "nvim-web-devicons",
       config = conf("lualine"),
     })
 
