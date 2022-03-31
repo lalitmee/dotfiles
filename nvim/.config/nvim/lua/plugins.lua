@@ -30,6 +30,7 @@ require("packer").startup({
     use({
       "tweekmonster/startuptime.vim",
       cmd = "StartupTime",
+      opt = true,
     })
 
     use({
@@ -41,13 +42,19 @@ require("packer").startup({
     -- }}}
     --------------------------------------------------------------------------------
 
+    ----------------------------------------------------------------------
+    -- NOTE: must have {{{
+    ----------------------------------------------------------------------
+    use({ "nvim-lua/plenary.nvim" })
+    -- }}}
+    ----------------------------------------------------------------------
+
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
-      module = "vim.ui",
       config = conf("dressing"),
     })
 
@@ -118,7 +125,10 @@ require("packer").startup({
     use({
       "norcalli/nvim-colorizer.lua",
       config = conf("colorizer"),
-      cmd = { "ColorizerToggle", "ColorizerAttachToBuffer" },
+      cmd = {
+        "ColorizerToggle",
+        "ColorizerAttachToBuffer",
+      },
     })
 
     ----------------------------------------------------------------------
@@ -134,7 +144,6 @@ require("packer").startup({
     -- prettify quickfix windows for neovim
     use({
       "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-      ft = { "qf" },
       config = conf("nvim-pqf"),
     })
     -- }}}
@@ -216,22 +225,7 @@ require("packer").startup({
     use({ "google/vim-searchindex" })
 
     -- display search matches
-    use({
-      "kevinhwang91/nvim-hlslens",
-      keys = {
-        { "n", "/" },
-        { "n", "?" },
-        { "n", "*" },
-        { "n", "g*" },
-        { "n", "#" },
-        { "n", "g#" },
-      },
-      config = conf("hlslens"),
-      requires = {
-        { "haya14busa/incsearch.vim" },
-        { "romainl/vim-cool" },
-      },
-    })
+    use({ "romainl/vim-cool" })
 
     -- search multiple thing using `*`
     use({
@@ -289,7 +283,6 @@ require("packer").startup({
     -- telescope.nvim
     use({
       "nvim-telescope/telescope.nvim",
-      module = "telescope",
       cmd = { "Telescope" },
       config = conf("telescope"),
       requires = {
@@ -947,6 +940,10 @@ require("packer").startup({
     use({
       "~/Desktop/Github/browse.nvim",
       requires = { "nvim-telescope/telescope.nvim" },
+      keys = {
+        { "n", "gx" },
+        { "n", "gl" },
+      },
       config = conf("browse"),
     })
     -- }}}
