@@ -81,8 +81,8 @@ lualine.setup({
       },
     },
     lualine_c = {
+      "%=",
       { "filename", path = 1, color = "LualineFileName" },
-      { "diff" },
     },
     lualine_x = {
       {
