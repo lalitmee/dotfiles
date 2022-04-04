@@ -23,7 +23,7 @@ local function get_client_name()
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      -- return "[ ⚙ LSP: " .. client.name .. " ]"
+      -- return "[⚙ LSP: " .. client.name .. "]"
       return "[" .. client.name .. "]"
     end
   end
@@ -40,6 +40,7 @@ local function get_session_name()
   if session_name == nil then
     return "No Active Session"
   end
+  -- return "[⚙ Session: " .. session_name .. "]"
   return "[" .. session_name .. "]"
 end
 -- }}}
@@ -52,9 +53,11 @@ lualine.setup({
   options = {
     theme = "auto",
     globalstatus = true,
-    section_separators = { left = "", right = "" },
-    component_separators = { left = "│", right = "│" },
-    -- component_separators = { left = "┆", right = "┆" },
+    -- section_separators = { left = "", right = "" },
+    -- component_separators = { left = "│", right = "│" },
+
+    section_separators = { left = "", right = "" },
+    component_separators = { left = "", right = "" },
   },
   sections = {
     lualine_a = {
@@ -64,11 +67,21 @@ lualine.setup({
           return "<" .. str:sub(1, 1) .. ">"
         end,
       },
-      { get_session_name },
     },
-    lualine_b = { { "branch", icon = "" } },
+    lualine_b = {
+      {
+        "branch",
+        icon = "",
+        separator = { right = "" },
+      },
+      {
+        get_session_name,
+        color = "LualineSessionName",
+        separator = { right = "" },
+      },
+    },
     lualine_c = {
-      { "filename", path = 1 },
+      { "filename", path = 1, color = "LualineFileName" },
       { "diff" },
     },
     lualine_x = {
@@ -83,11 +96,16 @@ lualine.setup({
         },
         update_in_insert = true,
       },
-      { "filesize" },
-      { "filetype" },
+      { "filesize", color = "LualineFileSize" },
+      { "filetype", color = "LualineFileType" },
+      {
+        get_client_name,
+        color = "LualineSessionName",
+        separator = { left = "" },
+      },
     },
-    lualine_y = { { get_client_name } },
-    lualine_z = { { "location" }, { "progress" } },
+    lualine_y = { { "progress" } },
+    lualine_z = { { "location" } },
   },
   inactive_sections = {
     lualine_a = {},
