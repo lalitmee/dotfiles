@@ -529,14 +529,15 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- github copilot
     use({
-      "github/copilot.vim",
-      config = function()
-        vim.g.copilot_filetypes = {
-          gitcommit = false,
-          NeogitCommitMessage = false,
-          DressingInput = false,
-        }
-      end,
+      "zbirenbaum/copilot.lua",
+      after = "lualine.nvim",
+      requires = {
+        {
+          "zbirenbaum/copilot-cmp",
+          after = { "copilot.lua", "nvim-cmp" },
+        },
+      },
+      config = conf("copilot"),
     })
 
     -- run any code of any file type
