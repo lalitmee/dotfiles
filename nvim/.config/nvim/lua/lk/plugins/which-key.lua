@@ -51,6 +51,8 @@ local leader_key_maps = {
     ["o"] = { ":NeoTreeFocusToggle<CR>", "neo-tree-toggle" },
     ["g"] = { ":Glow<CR>", "markdown-glow" },
     ["s"] = { ":StartupTime<CR>", "run-startup-time" },
+    ["z"] = { ":ZenMode<CR>", "toggle-zen-mode" },
+    ["t"] = { ":Twilight<CR>", "toggle-twilight-mode" },
   },
   -- }}}
   ----------------------------------------------------------------------
