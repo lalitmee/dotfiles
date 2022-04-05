@@ -102,6 +102,13 @@ require("packer").startup({
       requires = { "nvim-lua/plenary.nvim" },
     })
 
+    use({
+      "folke/zen-mode.nvim",
+      requires = { "folke/twilight.nvim" },
+      config = conf("zen-mode"),
+      cmd = { "ZenMode" },
+    })
+
     -- which-key
     use({
       "folke/which-key.nvim",
