@@ -1,4 +1,9 @@
+local opt = vim.opt
 local nnoremap = lk.nnoremap
+
+----------------------------------------------------------------------
+-- NOTE: hover doc function {{{
+----------------------------------------------------------------------
 
 local function find(word, ...)
   for _, str in ipairs({ ... }) do
@@ -57,3 +62,20 @@ local function hover_doc()
 end
 
 nnoremap("gK", hover_doc, { buffer = 0 })
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: options {{{
+----------------------------------------------------------------------
+opt.colorcolumn = { "120" }
+opt.expandtab = true
+opt.formatoptions = opt.formatoptions - "o" -- don't continue comments on `o` and `O`
+opt.shiftwidth = 2
+opt.softtabstop = 2
+opt.tabstop = 2
+opt.textwidth = 120
+-- }}}
+----------------------------------------------------------------------
+
+-- vim:foldmethod=marker

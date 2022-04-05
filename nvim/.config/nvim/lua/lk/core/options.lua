@@ -114,21 +114,31 @@ opt.diffopt = opt.diffopt
 ----------------------------------------------------------------------
 -- NOTE: format options {{{
 ----------------------------------------------------------------------
-opt.formatoptions = {
-  ["1"] = true,
-  ["2"] = true, -- Use indent from 2nd line of a paragraph
-  q = true, -- continue comments with gq"
-  c = true, -- Auto-wrap comments using textwidth
-  r = true, -- Continue comments when pressing Enter
-  n = true, -- Recognize numbered lists
-  t = true, -- autowrap lines using text width value
-  j = true, -- remove a comment leader when joining lines.
-  -- Only break if the line was not longer than 'textwidth' when the insert
-  -- started and only at a white character that has been entered during the
-  -- current insert command.
-  l = true,
-  v = true,
-}
+-- opt.formatoptions = {
+--   ["1"] = true,
+--   ["2"] = true, -- Use indent from 2nd line of a paragraph
+--   c = true, -- Auto-wrap comments using textwidth
+--   j = true, -- remove a comment leader when joining lines.
+--   l = true,
+--   n = true, -- Recognize numbered lists
+--   o = false, -- don't continue comments on `o` and `O`
+--   q = true, -- continue comments with gq"
+--   r = true, -- Continue comments when pressing Enter
+--   t = true, -- autowrap lines using text width value
+--   v = true,
+-- }
+
+-- TODO: w, {v, b, l}
+opt.formatoptions = opt.formatoptions
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "c" -- In general, I like it when comments respect textwidth
+  + "q" -- Allow formatting comments w/ gq
+  - "o" -- O and o, don't continue comments
+  + "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- I'm not in gradeschool anymore
 -- }}}
 ----------------------------------------------------------------------
 

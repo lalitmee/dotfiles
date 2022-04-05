@@ -1,4 +1,3 @@
-autocmd FileType go setlocal ts=4 sw=4 sts=4 et
 
 " Folding Methods for Go {{{
 
@@ -85,5 +84,8 @@ setlocal foldlevel=1
 
 " }}}
 
-setlocal noexpandtab
 set formatoptions-=o
+setlocal noexpandtab
+setlocal ts=4 sw=4 sts=4 et
+
+" vim:foldmethod=marker
