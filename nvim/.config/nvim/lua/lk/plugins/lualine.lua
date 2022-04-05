@@ -14,7 +14,7 @@ end
 -- NOTE: to get the current client server name {{{
 --------------------------------------------------------------------------------
 local function get_client_name()
-  local msg = "No Active Lsp"
+  local msg = "[No Active Lsp]"
   local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
   local clients = vim.lsp.get_active_clients()
   if next(clients) == nil then
@@ -53,11 +53,8 @@ lualine.setup({
   options = {
     theme = "auto",
     globalstatus = true,
-    -- section_separators = { left = "", right = "" },
-    -- component_separators = { left = "│", right = "│" },
-
     section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
+    component_separators = { left = "", right = "" },
   },
   sections = {
     lualine_a = {
@@ -82,6 +79,7 @@ lualine.setup({
     },
     lualine_c = {
       "%=",
+      { "filetype", icon_only = true },
       { "filename", path = 1, color = "LualineFileName" },
     },
     lualine_x = {
