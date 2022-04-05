@@ -104,7 +104,10 @@ require("packer").startup({
 
     use({
       "folke/zen-mode.nvim",
-      requires = { "folke/twilight.nvim" },
+      requires = {
+        "folke/twilight.nvim",
+        after = { "zen-mode.nvim" },
+      },
       config = conf("zen-mode"),
       cmd = { "ZenMode" },
     })
