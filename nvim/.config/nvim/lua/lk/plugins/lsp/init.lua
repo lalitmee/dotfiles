@@ -134,6 +134,11 @@ local servers = {
 ----------------------------------------------------------------------
 -- NOTE: get servers config {{{
 ----------------------------------------------------------------------
+local custom_init = function(client)
+  client.config.flags = client.config.flags or {}
+  client.config.flags.allow_incremental_sync = true
+end
+
 local function get_server_config(server)
   local ok, cmp_nvim_lsp = lk.safe_require("cmp_nvim_lsp")
   if not ok then
@@ -143,10 +148,16 @@ local function get_server_config(server)
   local conf_type = type(conf)
   local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
   config.flags = { debounce_text_changes = 500 }
-  config.on_attach = on_attach
   config.capabilities = config.capabilities or vim.lsp.protocol.make_client_capabilities()
   cmp_nvim_lsp.update_capabilities(config.capabilities)
-  config.capabilities = config.capabilities
+  config = vim.tbl_deep_extend("force", {
+    on_init = custom_init,
+    on_attach = on_attach,
+    capabilities = config.capabilities,
+    flags = {
+      debounce_text_changes = nil,
+    },
+  }, config)
   return config
 end
 -- }}}
