@@ -7,9 +7,9 @@
 -- function to return string for require plugins using path
 local function conf(name)
   if name == "signature" then
-    return string.format("require('lk/plugins/lsp/%s')", name)
+    return string.format("R('lk/plugins/lsp/%s')", name)
   end
-  return string.format("require('lk/plugins/%s')", name)
+  return string.format("R('lk/plugins/%s')", name)
 end
 
 --------------------------------------------------------------------------------
@@ -613,7 +613,7 @@ require("packer").startup({
     -- use({
     --   "neoclide/coc.nvim",
     --   branch = "release",
-    --   config = [[require('lk/plugins/coc')]],
+    --   config = conf('coc'),
     --   event = { "BufRead", "BufEnter" },
     -- })
     -- use({
@@ -659,11 +659,11 @@ require("packer").startup({
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
           },
         },
-        {
-          "ray-x/lsp_signature.nvim",
-          config = conf("signature"),
-          after = "nvim-lspconfig",
-        },
+        -- {
+        --   "ray-x/lsp_signature.nvim",
+        --   config = conf("signature"),
+        --   after = "nvim-lspconfig",
+        -- },
         {
           "onsails/diaglist.nvim",
           after = "nvim-lspconfig",

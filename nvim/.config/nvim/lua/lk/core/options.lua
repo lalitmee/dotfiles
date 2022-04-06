@@ -134,8 +134,8 @@ opt.formatoptions = opt.formatoptions
 -- opt.foldtext = 'v:lua.as.folds()'
 opt.foldopen = opt.foldopen + "search"
 opt.foldlevelstart = 0
-opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- }}}
 ----------------------------------------------------------------------
 
