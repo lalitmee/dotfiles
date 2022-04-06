@@ -437,6 +437,9 @@ alias to="task"
 # alias for colorls
 alias lc='colorls -lA --sd'
 
+# aliases for npm
+alias npd='npm run dev'
+
 # alias for running tmux with screen-256color
 # alias tmux="env TERM=alacritty tmux -2"
 # }}}

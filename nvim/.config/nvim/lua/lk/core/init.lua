@@ -1,5 +1,16 @@
-require("lk/core/augroups")
-require("lk/core/commands")
-require("lk/core/functions")
-require("lk/core/mappings")
-require("lk/core/options")
+-- NOTE: the order of the imports matter in this file
+
+-- options
+R("lk/core/options")
+
+-- helper functions
+R("lk/core/functions")
+
+-- commands
+R("lk/core/commands")
+
+-- mappings
+R("lk/core/mappings")
+
+-- autocmds
+R("lk/core/augroups")
