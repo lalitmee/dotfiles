@@ -57,7 +57,12 @@ function Log_var()
   local filetype = vim.bo.filetype
   if filetype == "lua" then
     vim.cmd(string.format("norm!oprint('%s', %s)", word_under_cursor, word_under_cursor))
-  elseif filetype == "js" then
+  elseif
+    filetype == "javascript"
+    or filetype == "typescript"
+    or filetype == "javascriptreact"
+    or filetype == "typescriptreact"
+  then
     vim.cmd(string.format("norm!oconsole.log({%s})", word_under_cursor))
   end
 end

@@ -408,12 +408,7 @@ local leader_key_maps = {
     },
     ["c"] = { ":HopChar1<CR>", "hop-char-1" },
     ["d"] = { ":HopChar2<CR>", "hop-char-2" },
-    ["l"] = {
-      ["name"] = "+line-jumping",
-      ["l"] = { ":HopLine<CR>", "hop-line" },
-      ["d"] = { ":HopLineAC<CR>", "hop-line-AC" },
-      ["u"] = { ":HopLineBC<CR>", "hop-line-BC" },
-    },
+    ["l"] = { ":HopLine<CR>", "hop-line" },
     ["L"] = { ":HopWordCurrentLine<CR>", "hop-current-line" },
     ["p"] = { ":HopPattern<CR>", "hop-pattern" },
     ["w"] = { ":HopWord<CR>", "hop-word" },

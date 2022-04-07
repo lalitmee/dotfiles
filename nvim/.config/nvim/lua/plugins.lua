@@ -169,7 +169,7 @@ require("packer").startup({
     use({
       "jghauser/fold-cycle.nvim",
       config = conf("fold-cycle"),
-      keys = { "n", "<TAB>" },
+      keys = { "n", "<CR>" },
       cmd = {
         "FoldOpen",
         "FoldClose",
@@ -508,10 +508,13 @@ require("packer").startup({
       "numToStr/Comment.nvim",
       config = conf("comment"),
       keys = {
-        { "n", "gcc" },
+        { "n", "gbA" },
+        { "n", "gbO" },
         { "n", "gbc" },
-        { "v", "gc" },
+        { "n", "gcc" },
+        { "n", "gco" },
         { "v", "gb" },
+        { "v", "gc" },
       },
     })
 
