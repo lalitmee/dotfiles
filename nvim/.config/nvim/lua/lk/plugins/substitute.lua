@@ -1,7 +1,11 @@
 local nnoremap = lk.nnoremap
 local xnoremap = lk.xnoremap
 
-require("substitute").setup()
+require("substitute").setup({
+  on_substitute = function(event)
+    require("yanky").init_ring("p", event.register, event.count, event.vmode:match("[vV�]"))
+  end,
+})
 
 -- substitute
 nnoremap("S", function()
