@@ -57,7 +57,7 @@ telescope.setup({
       "--smart-case",
       "--trim",
     },
-    prompt_prefix = "  ",
+    prompt_prefix = "   ", --   
     selection_strategy = "reset",
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
