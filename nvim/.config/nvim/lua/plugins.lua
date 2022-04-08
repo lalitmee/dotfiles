@@ -213,8 +213,8 @@ require("packer").startup({
 
     -- yank history after paste with `<C-n>` and `<C-p>`
     use({
-      "svermeulen/vim-yoink",
-      config = conf("vim-yoink"),
+      "gbprod/yanky.nvim",
+      config = conf("yanky"),
     })
 
     use({
