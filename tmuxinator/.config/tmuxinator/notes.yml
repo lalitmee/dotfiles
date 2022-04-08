@@ -4,4 +4,5 @@ name: notes
 root: ~/Desktop/Github
 
 windows:
-  - dNotes: cd dNotes/ && ls
+  - dNotes: cd dNotes && ls
+  - work-notes: cd work-notes && gst
