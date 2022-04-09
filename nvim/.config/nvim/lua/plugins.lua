@@ -987,6 +987,17 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: notes {{{
     ----------------------------------------------------------------------
+    -- org mode in neovim
+    use({
+      "nvim-orgmode/orgmode",
+      config = conf("orgmode"),
+      requires = {
+        { "akinsho/org-bullets.nvim" },
+        { "dhruvasagar/vim-table-mode" },
+        { "lukas-reineke/headlines.nvim" },
+      },
+    })
+
     -- similar to orgmode but with neovim in lua
     use({
       "nvim-neorg/neorg",
