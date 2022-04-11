@@ -690,6 +690,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     use({
       "nvim-treesitter/nvim-treesitter",
+      ft = vim.g.enable_treesitter_ft,
       event = { "BufRead", "BufNewFile" },
       config = conf("treesitter"),
       run = ":TSUpdate",

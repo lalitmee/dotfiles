@@ -19,7 +19,7 @@ g.python_host_prog = "/home/lalitmee/.pyenv/versions/neovim2/bin/python"
 ----------------------------------------------------------------------
 -- NOTE: filetypes for lspconfig and treesitter {{{
 ----------------------------------------------------------------------
--- enable lsp for what filetype
+-- NOTE: lspconfig
 g.enable_lspconfig_ft = {
   "bash",
   "css",
@@ -30,6 +30,27 @@ g.enable_lspconfig_ft = {
   "json",
   "lua",
   "markdown",
+  "typescript",
+  "vim",
+  "yaml",
+}
+
+-- NOTE: treesitter
+g.enable_treesitter_ft = {
+  "c",
+  "cpp",
+  "css",
+  "dockerfile",
+  "go",
+  "help",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "norg",
+  "python",
+  "scss",
   "typescript",
   "vim",
   "yaml",
