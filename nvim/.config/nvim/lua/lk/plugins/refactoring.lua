@@ -74,21 +74,21 @@ end)
 -- NOTE: visual mode mappings {{{
 -----------------------------------------------
 -- refactors list
-vim.api.nvim_add_user_command("RefactorsList", function()
+vim.api.nvim_create_user_command("RefactorsList", function()
   get_refactors()
 end, { range = "%" })
 
 -- extract func
-vim.api.nvim_add_user_command("ExtractSelectedFunc", function()
+vim.api.nvim_create_user_command("ExtractSelectedFunc", function()
   require("refactoring").refactor(106)
 end, { range = "%" })
 
 -- -- print var
--- vim.api.nvim_add_user_command("DebugPrintVarBelow", function()
+-- vim.api.nvim_create_user_command("DebugPrintVarBelow", function()
 --   require("refactoring").debug.print_var({ below = true })
 -- end, { range = "%" })
 --
--- vim.api.nvim_add_user_command("DebugPrintVarAbove", function()
+-- vim.api.nvim_create_user_command("DebugPrintVarAbove", function()
 --   require("refactoring").debug.print_var({ below = false })
 -- end, { range = "%" })
 -- }}}
