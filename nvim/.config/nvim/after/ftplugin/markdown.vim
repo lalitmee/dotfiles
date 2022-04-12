@@ -1,5 +1,5 @@
 set formatoptions-=o
-autocmd FileType markdown setlocal sw=2 sts=2 ts=2 et
+setlocal sw=2 sts=2 ts=2 et
 
 "---------------------------------------------------------------------
 " NOTE: markdown jump to next heading {{{

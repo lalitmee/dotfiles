@@ -40,7 +40,7 @@ cmp.setup({
     { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "luasnip" },
+    -- { name = "luasnip" },
     { name = "path" },
     { name = "emoji" },
   }, {
@@ -83,7 +83,7 @@ cmp.setup({
         cmp_tabnine = "[TBN]",
         copilot = "[COP]",
         emoji = "[EMJ]",
-        luasnip = "[SNIP]",
+        -- luasnip = "[SNIP]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[API]",
         path = "[PATH]",
