@@ -87,6 +87,8 @@ telescope.setup({
         ["<C-u>"] = false,
         ["<C-y>"] = actions.move_to_top,
         ["<M-p>"] = action_layout.toggle_preview,
+        ["<M-v>"] = action_layout.toggle_mirror,
+        ["<M-o>"] = action_layout.toggle_prompt_position,
         ["<esc>"] = actions.close,
       },
       n = {

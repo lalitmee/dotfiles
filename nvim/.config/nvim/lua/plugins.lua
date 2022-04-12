@@ -299,6 +299,7 @@ require("packer").startup({
         {
           "cljoly/telescope-repo.nvim",
           after = "telescope.nvim",
+          module = "telescope._extensions.repo",
           config = function()
             require("telescope").load_extension("repo")
           end,
@@ -308,6 +309,7 @@ require("packer").startup({
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
           after = "telescope.nvim",
+          module = "telescope._extensions.frecency",
           config = function()
             require("telescope").load_extension("frecency")
           end,
@@ -316,6 +318,7 @@ require("packer").startup({
           "nvim-telescope/telescope-fzf-native.nvim",
           run = "make",
           after = "telescope.nvim",
+          module = "telescope._extensions.fzf",
           config = function()
             require("telescope").load_extension("fzf")
           end,
@@ -323,6 +326,7 @@ require("packer").startup({
         {
           "xiyaowong/telescope-emoji.nvim",
           after = "telescope.nvim",
+          module = "telescope._extensions.emoji",
           config = function()
             require("telescope").load_extension("emoji")
           end,
@@ -330,6 +334,7 @@ require("packer").startup({
         {
           "nvim-telescope/telescope-smart-history.nvim",
           after = "telescope.nvim",
+          module = "telescope._extensions.smart_history",
           config = function()
             require("telescope").load_extension("smart_history")
           end,
@@ -344,6 +349,7 @@ require("packer").startup({
         {
           "nvim-telescope/telescope-media-files.nvim",
           after = "telescope.nvim",
+          module = "telescope._extensions.media_files",
           config = function()
             require("telescope").load_extension("media_files")
           end,
@@ -351,6 +357,7 @@ require("packer").startup({
         {
           "nvim-telescope/telescope-hop.nvim",
           after = "telescope.nvim",
+          module = "telescope._extensions.hop",
           config = function()
             require("telescope").load_extension("hop")
           end,
@@ -358,8 +365,41 @@ require("packer").startup({
         {
           "nvim-telescope/telescope-dap.nvim",
           after = { "nvim-dap", "telescope.nvim" },
+          module = "telescope._extensions.dap",
           config = function()
             require("telescope").load_extension("dap")
+          end,
+        },
+        {
+          "LinArcX/telescope-changes.nvim",
+          after = "telescope.nvim",
+          module = "telescope._extensions.changes",
+          config = function()
+            require("telescope").load_extension("changes")
+          end,
+        },
+        {
+          "olacin/telescope-gitmoji.nvim",
+          after = "telescope.nvim",
+          module = "telescope._extensions.gitmoji",
+          config = function()
+            require("telescope").load_extension("gitmoji")
+          end,
+        },
+        {
+          "kelly-lin/telescope-ag",
+          after = "telescope.nvim",
+          module = "telescope._extensions.ag",
+          config = function()
+            require("telescope").load_extension("ag")
+          end,
+        },
+        {
+          "benfowler/telescope-luasnip.nvim",
+          module = "telescope._extensions.luasnip",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("luasnip")
           end,
         },
       },
@@ -926,7 +966,10 @@ require("packer").startup({
       "elihunter173/dirbuf.nvim",
       branch = "issue-27",
       cmd = { "Dirbuf", "DirbufSync" },
-      disable = true,
+      config = function()
+        vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
+      end,
+      disable = false,
     })
     -- }}}
     ------------------------------------------------------------------------
