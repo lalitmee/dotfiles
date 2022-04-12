@@ -673,18 +673,12 @@ local leader_key_maps = {
       ["s"] = { ":Telescope git_stash<CR>", "git-stash" },
     },
     ["h"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
-    ["i"] = { ":Telescope snippets snippets<CR>", "snippets" },
-    ["j"] = { ":Telescope jumps jumps<CR>", "jumps" },
+    ["i"] = { ":Telescope luasnip<CR>", "snippets" },
     ["l"] = { ":Telescope loclist<CR>", "loclist" },
     ["m"] = { ":Telescope man_pages<CR>", "man-pages" },
     ["n"] = {
       ["name"] = "+navigation/jumps",
-      ["j"] = { ":Telescope jumps jumps<CR>", "jumps" },
       ["h"] = { ":Telescope harpoon marks<CR>", "harpoon marks" },
-    },
-    ["o"] = {
-      ["name"] = "+open",
-      ["o"] = { ":Telescope openbrowser list<CR>", "openbrowser" },
     },
     ["s"] = {
       ["name"] = "+search",
@@ -692,10 +686,6 @@ local leader_key_maps = {
       ["s"] = { ":Telescope live_grep<CR>", "live-grep" },
       ["S"] = { ":Telescope live_grep<CR>", "live-grep" },
       ["u"] = { ":Telescope grep_string<CR>", "grep-string" },
-      ["w"] = {
-        [[:lua require("telescope").extensions.arecibo.websearch()<CR>]],
-        "search-web",
-      },
     },
     ["t"] = {
       ["name"] = "+telescope",
@@ -705,7 +695,6 @@ local leader_key_maps = {
       ["t"] = { ":Telescope treesitter<CR>", "treesitter" },
       ["w"] = "change-background",
     },
-    ["u"] = { ":Telescope ultisnips ultisnips<CR>", "ultisnips" },
     ["v"] = {
       ["name"] = "+vim",
       [";"] = { ":Telescope commands<CR>", "commands" },
