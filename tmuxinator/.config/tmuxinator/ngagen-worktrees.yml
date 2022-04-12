@@ -6,3 +6,4 @@ windows:
   - ngagen-client-api-service: cd ngagen-client-api-service
   - ngagen-pdf-service: cd ngagen-pdf-service
   - ngagen-webapp-service-nextjs: cd ngagen-webapp-service-nextjs
+  - frontend-guidelines: cd ~/Desktop/koinearth/frontend-guidelines/ && gst

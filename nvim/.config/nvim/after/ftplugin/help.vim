@@ -48,6 +48,12 @@ function! s:setup_buffer()
   " Skip to previous option link
   nmap <buffer> O ?'[a-z]\{2,\}'<CR>
 
+  " find the next subject
+  nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
+
+  " find the previous subject
+  nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
+
   " Skip to next subject link
   nmap <buffer><nowait> f /\|\S\+\|<CR>l
 
@@ -89,15 +95,6 @@ if &buftype ==# 'help'
   call s:setup_buffer()
 endif
 
-" TODO(stream): We chould turn this into a plugin to make writing vim help
-" text easier. There's a lot of stuff that would be nice for it.
-
-setlocal expandtab
-setlocal textwidth=78
-setlocal tabstop=4
-setlocal shiftwidth=4
-
-
 function! HelpFormatExpr() abort
   if mode() ==# 'i' || v:char != ''
     return 1
@@ -121,8 +118,16 @@ function! HelpFormatExpr() abort
 
   return 1
 endfunction
-
 setlocal formatexpr=HelpFormatExpr()
 
+"---------------------------------------------------------------------
+" NOTE: options {{{
+"---------------------------------------------------------------------
 let &cpoptions = s:save_cpo
 set formatoptions-=o
+setlocal expandtab
+setlocal textwidth=78
+setlocal tabstop=4
+setlocal shiftwidth=4
+" }}}
+"---------------------------------------------------------------------
