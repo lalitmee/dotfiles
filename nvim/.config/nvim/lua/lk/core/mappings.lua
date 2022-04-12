@@ -125,7 +125,7 @@ map("n", "<cr>", [[:noh<cr>]], map_opts)
 map("n", "Q", [[@='n.'<cr>]], map_opts)
 
 -- <c-l> for syntax highlight and more
-nnoremap("<c-l>", [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>]])
+nnoremap("<A-S-l>", [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>]])
 -- }}}
 ----------------------------------------------------------------------
 
