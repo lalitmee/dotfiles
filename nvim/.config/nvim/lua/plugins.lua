@@ -964,7 +964,6 @@ require("packer").startup({
     -- dirbuf
     use({
       "elihunter173/dirbuf.nvim",
-      branch = "issue-27",
       cmd = { "Dirbuf", "DirbufSync" },
       config = function()
         vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
