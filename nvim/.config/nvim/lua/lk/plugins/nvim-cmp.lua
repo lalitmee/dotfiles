@@ -3,10 +3,8 @@ if not cmp_ok then
   return
 end
 
-local lspkind_ok, lspkind = lk.safe_require("lspkind")
-if not lspkind_ok then
-  return
-end
+local lspkind = require("lspkind")
+local luasnip = require("luasnip")
 
 -- Don't show the dumb matching stuff.
 vim.opt.shortmess:append("c")
@@ -14,7 +12,7 @@ vim.opt.shortmess:append("c")
 ----------------------------------------------------------------------
 -- NOTE: lspkind setup {{{
 ----------------------------------------------------------------------
-require("lspkind").init({
+lspkind.init({
   preset = "codicons",
   mode = "text_symbol",
   symbol_map = lk.style.icons.kind,
@@ -25,8 +23,30 @@ require("lspkind").init({
 ----------------------------------------------------------------------
 -- NOTE: cmp setup {{{
 ----------------------------------------------------------------------
+local function tab(fallback)
+  if cmp.visible() then
+    cmp.select_next_item()
+  elseif luasnip.expand_or_locally_jumpable() then
+    luasnip.expand_or_jump()
+  else
+    fallback()
+  end
+end
+
+local function shift_tab(fallback)
+  if cmp.visible() then
+    cmp.select_prev_item()
+  elseif luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  else
+    fallback()
+  end
+end
+
 cmp.setup({
   mapping = {
+    ["<Tab>"] = cmp.mapping(tab, { "i", "c" }),
+    ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "c" }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
@@ -40,7 +60,7 @@ cmp.setup({
     { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    -- { name = "luasnip" },
+    { name = "luasnip" },
     { name = "path" },
     { name = "emoji" },
   }, {
@@ -70,7 +90,7 @@ cmp.setup({
   },
   snippet = {
     expand = function(args)
-      require("luasnip").lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   formatting = {
@@ -83,7 +103,7 @@ cmp.setup({
         cmp_tabnine = "[TBN]",
         copilot = "[COP]",
         emoji = "[EMJ]",
-        -- luasnip = "[SNIP]",
+        luasnip = "[SNIP]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[API]",
         path = "[PATH]",
@@ -92,7 +112,6 @@ cmp.setup({
       },
     }),
   },
-  documentation = { border = "rounded" },
   experimental = { native_menu = false, ghost_text = false },
 })
 -- }}}

@@ -49,6 +49,7 @@ g.enable_treesitter_ft = {
   "lua",
   "markdown",
   "norg",
+  "org",
   "python",
   "scss",
   "typescript",
