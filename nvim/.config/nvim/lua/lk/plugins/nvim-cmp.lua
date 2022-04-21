@@ -10,17 +10,6 @@ local luasnip = require("luasnip")
 vim.opt.shortmess:append("c")
 
 ----------------------------------------------------------------------
--- NOTE: lspkind setup {{{
-----------------------------------------------------------------------
-lspkind.init({
-  preset = "codicons",
-  mode = "text_symbol",
-  symbol_map = lk.style.icons.kind,
-})
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: cmp setup {{{
 ----------------------------------------------------------------------
 local function tab(fallback)
@@ -45,6 +34,8 @@ end
 
 cmp.setup({
   mapping = {
+    ["<C-n>"] = cmp.mapping(tab, { "i", "c" }),
+    ["<C-p>"] = cmp.mapping(shift_tab, { "i", "c" }),
     ["<Tab>"] = cmp.mapping(tab, { "i", "c" }),
     ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "c" }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -56,7 +47,6 @@ cmp.setup({
     }),
   },
   sources = cmp.config.sources({
-    { name = "copilot" },
     { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
@@ -101,7 +91,6 @@ cmp.setup({
         cmdline = "[CMD]",
         cmp_git = "[GIT]",
         cmp_tabnine = "[TBN]",
-        copilot = "[COP]",
         emoji = "[EMJ]",
         luasnip = "[SNIP]",
         nvim_lsp = "[LSP]",
