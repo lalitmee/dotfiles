@@ -582,15 +582,15 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- github copilot
     use({
-      "zbirenbaum/copilot.lua",
-      after = "lualine.nvim",
-      requires = {
-        {
-          "zbirenbaum/copilot-cmp",
-          after = { "copilot.lua", "nvim-cmp" },
-        },
-      },
-      config = conf("copilot"),
+      "github/copilot.vim",
+      config = function()
+        vim.g.copilot_filetypes = {
+          gitcommit = false,
+          NeogitCommitMessage = false,
+          DressingInput = false,
+          TelescopePrompt = false,
+        }
+      end,
     })
 
     -- run any code of any file type
@@ -702,11 +702,11 @@ require("packer").startup({
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
           },
         },
-        -- {
-        --   "ray-x/lsp_signature.nvim",
-        --   config = conf("signature"),
-        --   after = "nvim-lspconfig",
-        -- },
+        {
+          "ray-x/lsp_signature.nvim",
+          config = conf("signature"),
+          after = "nvim-lspconfig",
+        },
         {
           "onsails/diaglist.nvim",
           after = "nvim-lspconfig",
