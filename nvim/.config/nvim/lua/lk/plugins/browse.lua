@@ -10,6 +10,7 @@ local bookmarks = {
   "https://github.com/pulls",
   "https://mui.com/components/material-icons/#material-icons",
   "https://v4.mui.com/",
+  "https://mui.com/",
 
   -- mine
   "https://github.com/lalitmee/browse.nvim",

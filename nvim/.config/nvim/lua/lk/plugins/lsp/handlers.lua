@@ -299,7 +299,7 @@ local function qf_rename()
       })
 
       if num_files > 1 then
-        require("utils").qf_populate(entries, "r")
+        lk.qf_populate(entries, "r")
       end
     end)
   end)
