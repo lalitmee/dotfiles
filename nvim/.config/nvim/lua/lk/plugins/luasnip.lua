@@ -55,17 +55,17 @@ end)
 -- }}}
 ----------------------------------------------------------------------
 
--- <c-j> is my expansion key
+-- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
-vim.keymap.set({ "i", "s" }, "<c-j>", function()
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
   if ls.expand_or_jumpable() then
     ls.expand_or_jump()
   end
 end, { silent = true })
 
--- <c-k> is my jump backwards key.
+-- <c-j> is my jump backwards key.
 -- this always moves to the previous item within the snippet
-vim.keymap.set({ "i", "s" }, "<c-k>", function()
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
   if ls.jumpable(-1) then
     ls.jump(-1)
   end
@@ -78,3 +78,5 @@ vim.keymap.set("i", "<c-l>", function()
     ls.change_choice(1)
   end
 end)
+
+vim.keymap.set("i", "<c-u>", require("luasnip.extras.select_choice"))
