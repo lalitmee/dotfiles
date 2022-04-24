@@ -937,18 +937,14 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
-    -- neo-tree explorer
     use({
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      requires = { "MunifTanjim/nui.nvim" },
-      config = conf("neo-tree"),
+      "kyazdani42/nvim-tree.lua",
       cmd = {
-        "NeoTreeFocusToggle",
-        ":NeoTreeFloatToggle",
-        ":NeoTreeShowInSplit",
-        ":NeoTreeRevealInSplit",
+        "NvimTreeToggle",
+        "NvimTreeRefresh",
+        "NvimTreeFindFile",
       },
+      config = conf("nvim-tree"),
     })
 
     -- lir explorer
