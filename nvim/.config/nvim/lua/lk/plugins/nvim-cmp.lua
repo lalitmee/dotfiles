@@ -36,8 +36,8 @@ cmp.setup({
   mapping = {
     ["<C-n>"] = cmp.mapping(tab, { "i", "c" }),
     ["<C-p>"] = cmp.mapping(shift_tab, { "i", "c" }),
-    ["<Tab>"] = cmp.mapping(tab, { "i", "c" }),
-    ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "c" }),
+    ["<Tab>"] = cmp.mapping(tab, { "c" }),
+    ["<S-Tab>"] = cmp.mapping(shift_tab, { "c" }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),

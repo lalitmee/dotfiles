@@ -188,7 +188,12 @@ require("packer").startup({
     -- makes quickfix list editable
     use({
       "gabrielpoca/replacer.nvim",
-      cmd = { "ReplacerRun", "ReplacerRunFiles" },
+      config = conf("replacer"),
+      cmd = {
+        "ReplacerRun",
+        "ReplacerRunF",
+        "ReplacerRunFiles",
+      },
     })
 
     -- wakatime for vim

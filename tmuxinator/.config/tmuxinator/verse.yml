@@ -1,0 +1,10 @@
+# /home/lalitmee/.config/tmuxinator/verse.yml
+
+name: verse
+root: ~/Desktop/koinearth/ngagen/verse-webapp-service
+
+windows:
+  - Editor: gst
+  - Server: npm run dev
+  - Firefox: firefox
+  - Brave: brave-browser
