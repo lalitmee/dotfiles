@@ -12,35 +12,13 @@ vim.opt.shortmess:append("c")
 ----------------------------------------------------------------------
 -- NOTE: cmp setup {{{
 ----------------------------------------------------------------------
-local function tab(fallback)
-  if cmp.visible() then
-    cmp.select_next_item()
-  elseif luasnip.expand_or_locally_jumpable() then
-    luasnip.expand_or_jump()
-  else
-    fallback()
-  end
-end
-
-local function shift_tab(fallback)
-  if cmp.visible() then
-    cmp.select_prev_item()
-  elseif luasnip.jumpable(-1) then
-    luasnip.jump(-1)
-  else
-    fallback()
-  end
-end
-
 cmp.setup({
   mapping = {
-    ["<C-n>"] = cmp.mapping(tab, { "i", "c" }),
-    ["<C-p>"] = cmp.mapping(shift_tab, { "i", "c" }),
-    ["<Tab>"] = cmp.mapping(tab, { "c" }),
-    ["<S-Tab>"] = cmp.mapping(shift_tab, { "c" }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+    ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,

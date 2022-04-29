@@ -689,7 +689,7 @@ require("packer").startup({
           after = "nvim-lspconfig",
         },
         {
-          "onsails/lspkind-nvim",
+          "onsails/lspkind.nvim",
           after = "nvim-lspconfig",
         },
         {
