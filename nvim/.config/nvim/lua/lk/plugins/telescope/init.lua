@@ -22,6 +22,7 @@ reloader()
 
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
+local action_utils = require("telescope.actions.utils")
 local action_layout = require("telescope.actions.layout")
 local previewers = require("telescope.previewers")
 local themes = require("telescope.themes")
@@ -39,6 +40,29 @@ end
 ---@return table
 local function dropdown(opts)
   return themes.get_dropdown(get_border(opts))
+end
+
+------------------------------------------------------------------------------------------------------------------------
+-- action to open entried in the results
+------------------------------------------------------------------------------------------------------------------------
+local open_entries = function(prompt_bufnr)
+  local bufs = vim.tbl_map(function(b)
+    return vim.api.nvim_buf_get_name(b)
+  end, vim.api.nvim_list_bufs())
+  local entries = {}
+  action_utils.map_entries(prompt_bufnr, function(entry)
+    table.insert(entries, entry)
+  end)
+  -- we have to close telescope picker beforehand
+  -- otherwise window config of previewer subsumed
+  actions.close(prompt_bufnr)
+  for _, e in ipairs(entries) do
+    if vim.tbl_isempty(vim.tbl_filter(function(b)
+      return b == e[1]
+    end, bufs)) then
+      vim.cmd(string.format("e %s", e[1]))
+    end
+  end
 end
 
 ----------------------------------------------------------------------
@@ -77,6 +101,7 @@ telescope.setup({
 
     mappings = {
       i = {
+        ["<C-b>"] = open_entries,
         ["<C-e>"] = actions.move_to_bottom,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,

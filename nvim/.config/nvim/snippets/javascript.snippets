@@ -1,37 +1,44 @@
+
+snippet imp "import statment"
+	import ${2:name} from '${1:module}';$0
+
+snippet impt "import proptypes"
+	import PropTypes from 'prop-types';$0
+
 snippet ptdef "define proptypes"
 	$1.propTypes = {
 		$2
 	}
 
 snippet ptsho "Shape Of Proptypes"
-	PropTypes.shapeOf({$1})$0
+	PropTypes.shapeOf({$1})$0,
 
 snippet ptoef "One Of Proptypes"
-	PropTypes.oneOf({$1})$0
+	PropTypes.oneOf({$1})$0,
 
 snippet ptoet "One Of Type Proptypes"
-	PropTypes.oneOfType({$1})$0
+	PropTypes.oneOfType({$1})$0,
 
 snippet pta "Array Proptype"
-	PropTypes.array$0
+	PropTypes.array$0,
 
 snippet ptb "Boolean Proptype"
-	PropTypes.bool$0
+	PropTypes.bool$0,
 
 snippet pte "element Proptype"
-	PropTypes.element$0
+	PropTypes.element$0,
 
 snippet ptf "function Proptype"
-	PropTypes.func$0
+	PropTypes.func$0,
 
 snippet ptn "number Proptype"
-	PropTypes.node$0
+	PropTypes.node$0,
 
 snippet ptn "node Proptype"
-	PropTypes.number$0
+	PropTypes.number$0,
 
 snippet pto "object Proptype"
-	PropTypes.object$0
+	PropTypes.object$0,
 
 snippet pts "string Proptype"
-	PropTypes.string$0
+	PropTypes.string$0,
