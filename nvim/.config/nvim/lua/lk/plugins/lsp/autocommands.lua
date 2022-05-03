@@ -13,7 +13,7 @@ M.setup_autocommands = function(client)
     },
   })
 
-  if client and client.resolved_capabilities.document_highlight then
+  if client and client.server_capabilities.document_highlight then
     augroup("LspCursorCommands", {
       {
         event = { "CursorHold", "CursorHoldI" },
@@ -31,7 +31,7 @@ M.setup_autocommands = function(client)
       },
     })
   end
-  if client and client.resolved_capabilities.document_formatting then
+  if client and client.server_capabilities.document_formatting then
     -- format on save
     augroup("LspFormat", {
       {
