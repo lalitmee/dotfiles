@@ -63,7 +63,7 @@ local function on_attach(client, bufnr)
   imap("<C-h>", vim.lsp.buf.signature_help, opts)
 
   local mapping_opts = { buffer = bufnr }
-  if client.resolved_capabilities.implementation then
+  if client.server_capabilities.implementation then
     nmap("gi", vim.lsp.buf.implementation, mapping_opts)
   end
 
@@ -75,8 +75,8 @@ local function on_attach(client, bufnr)
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
   autocommands.setup_autocommands(client)
 
-  client.resolved_capabilities.document_formatting = false
-  if client.resolved_capabilities.document_highlight then
+  client.server_capabilities.document_formatting = false
+  if client.server_capabilities.document_highlight then
     vim.cmd([[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -85,11 +85,11 @@ local function on_attach(client, bufnr)
       augroup END
     ]])
   end
-  if client.resolved_capabilities.goto_definition == true then
+  if client.server_capabilities.goto_definition == true then
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   end
 
-  if client.resolved_capabilities.document_formatting == true then
+  if client.server_capabilities.document_formatting == true then
     vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
     -- Add this <leader> bound mapping so formatting the entire document is easier.
     map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
