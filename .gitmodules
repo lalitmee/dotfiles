@@ -4,3 +4,36 @@
 [submodule "bat/.config/bat/themes/cobalt2"]
 	path = bat/.config/bat/themes/cobalt2
 	url = https://github.com/wesbos/cobalt2.git
+[submodule "ulauncher-nord"]
+	path = ulauncher-nord
+	url = https://github.com/KiranWells/ulauncher-nord/
+[submodule "ulauncher/.config/ulauncher/user-themes/ulauncher-nord"]
+	path = ulauncher/.config/ulauncher/user-themes/ulauncher-nord
+	url = https://github.com/KiranWells/ulauncher-nord/
+[submodule "ulauncher/.config/ulauncher/user-themes/ulauncher"]
+	path = ulauncher/.config/ulauncher/user-themes/ulauncher
+	url = https://github.com/getomni/ulauncher.git
+[submodule "ulauncher/.config/ulauncher/user-themes/materia-dark-ulauncher"]
+	path = ulauncher/.config/ulauncher/user-themes/materia-dark-ulauncher
+	url = https://github.com/levonhart/materia-dark-ulauncher/
+[submodule "ulauncher/.config/ulauncher/user-themes/dracula"]
+	path = ulauncher/.config/ulauncher/user-themes/dracula
+	url = https://github.com/dracula/ulauncher.git
+[submodule "ulauncher/.config/ulauncher/user-themes/omni"]
+	path = ulauncher/.config/ulauncher/user-themes/omni
+	url = https://github.com/getomni/ulauncher.git
+[submodule "ulauncher/.config/ulauncher/user-themes/nord"]
+	path = ulauncher/.config/ulauncher/user-themes/nord
+	url = https://github.com/KiranWells/ulauncher-nord/
+[submodule "ulauncher/.config/ulauncher/user-themes/materia-dark"]
+	path = ulauncher/.config/ulauncher/user-themes/materia-dark
+	url = https://github.com/levonhart/materia-dark-ulauncher/
+[submodule "ulauncher/.config/ulauncher/user-themes/transparent-adwaita"]
+	path = ulauncher/.config/ulauncher/user-themes/transparent-adwaita
+	url = https://github.com/kalenpw/transparent-adwaita
+[submodule "ulauncher/.config/ulauncher/user-themes/DarkBlue-Ice"]
+	path = ulauncher/.config/ulauncher/user-themes/DarkBlue-Ice
+	url = https://github.com/DarkBlue-Ice/DarkBlue-Ice-for-ulauncher
+[submodule "ulauncher/.config/ulauncher/user-themes/eigen-dark"]
+	path = ulauncher/.config/ulauncher/user-themes/eigen-dark
+	url = https://github.com/sotsugov/ulauncher-eigen
