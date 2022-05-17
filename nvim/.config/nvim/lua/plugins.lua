@@ -753,6 +753,10 @@ require("packer").startup({
           "JoosepAlviste/nvim-ts-context-commentstring",
           after = { "nvim-treesitter", "Comment.nvim" },
         },
+        {
+          "nvim-treesitter/nvim-treesitter-context",
+          after = { "nvim-treesitter" },
+        },
       },
     })
 
@@ -1040,6 +1044,7 @@ require("packer").startup({
         { "dhruvasagar/vim-table-mode" },
         { "lukas-reineke/headlines.nvim" },
       },
+      -- disable = true,
     })
 
     -- similar to orgmode but with neovim in lua
