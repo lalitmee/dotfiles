@@ -58,6 +58,12 @@ require("packer").startup({
       config = conf("dressing"),
     })
 
+    -- decorated scrollbar
+    use({
+      "lewis6991/satellite.nvim",
+      config = conf("satellite"),
+    })
+
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
     ----------------------------------------------------------------------------
@@ -166,6 +172,7 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- cycle folds
     use({
       "jghauser/fold-cycle.nvim",
       config = conf("fold-cycle"),
