@@ -227,6 +227,7 @@ require("packer").startup({
     use({
       "gbprod/yanky.nvim",
       config = conf("yanky"),
+      requires = { "nvim-telescope/telescope.nvim" },
     })
 
     use({
@@ -893,6 +894,11 @@ require("packer").startup({
       config = conf("lualine"),
     })
 
+    use({
+      "SmiteshP/nvim-gps",
+      requires = "nvim-treesitter/nvim-treesitter",
+    })
+
     -- bufferline
     use({
       "akinsho/nvim-bufferline.lua",
@@ -917,7 +923,7 @@ require("packer").startup({
     -- repeat using `.`
     use({
       "tpope/vim-repeat",
-      module = "repeat",
+      event = { "BufRead" },
     })
 
     -- surrounding in vim
