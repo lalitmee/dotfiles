@@ -709,6 +709,7 @@ local leader_key_maps = {
       ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
     },
     ["w"] = { ":Telescope grep_string<CR>", "grep-words" },
+    ["y"] = { ":Telescope yank_history<CR>", "yank-history" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -1035,7 +1036,7 @@ local local_leader_key_maps = {
   },
   -- }}}
   ----------------------------------------------------------------------
-  ["y"] = { '"+y', "better-copy" },
+  ["y"] = { ":YankyRingHistory<CR>", "yank-ring-history" },
 }
 -- }}}
 ----------------------------------------------------------------------
