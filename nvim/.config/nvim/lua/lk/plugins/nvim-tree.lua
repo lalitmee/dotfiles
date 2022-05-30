@@ -1,30 +1,5 @@
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "",
-    staged = "",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "",
-    deleted = "",
-  },
-  folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-  },
-}
-
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_root_folder_modifier = ":t"
-
--- for `ahmedkhalf/project.nvim`
-vim.g.nvim_tree_respect_buf_cwd = 1
-
 require("nvim-tree").setup({
+  respect_buf_cwd = true,
   update_cwd = true,
   hijack_cursor = true,
   view = { width = 40, side = "right" },
@@ -44,6 +19,29 @@ require("nvim-tree").setup({
     },
   },
   renderer = {
+    root_folder_modifier = ":t",
+    highlight_git = true,
+    icons = {
+      glyphs = {
+        default = "",
+        symlink = "",
+        git = {
+          unstaged = "",
+          staged = "",
+          unmerged = "",
+          renamed = "➜",
+          untracked = "",
+          deleted = "",
+        },
+        folder = {
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+        },
+      },
+    },
     indent_markers = {
       enable = true,
     },
