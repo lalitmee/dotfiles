@@ -11,6 +11,7 @@ vim.filetype.add({
     md = "markdown",
     snippets = "snippets",
     conf = "conf",
+    gitcommit = "gitcommit",
   },
   filename = {
     [".gitignore"] = "conf",
@@ -22,7 +23,6 @@ vim.filetype.add({
   },
   pattern = {
     ["*.gradle"] = "groovy",
-    ["*.env.*"] = "env",
     [".*git/config"] = "gitconfig", -- Included in the plugin
     ["*.env.*"] = "env",
     ["*.conf"] = "conf",
