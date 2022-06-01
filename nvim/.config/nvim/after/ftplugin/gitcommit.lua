@@ -9,5 +9,4 @@ opt.relativenumber = false
 opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.spell = true
-opt.spelling = "en_gb"
 opt.tabstop = 2
