@@ -7,4 +7,5 @@ windows:
   - ngagen-pdf-service: cd ngagen-pdf-service
   - ngagen-webapp-service-nextjs: cd ngagen-webapp-service-nextjs
   - verse-webapp-service: cd verse-webapp-service
+  - verse-static-website: cd verse-static-website
   - frontend-guidelines: cd ~/Desktop/koinearth/frontend-guidelines/ && gst
