@@ -415,19 +415,17 @@ opt.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 ----------------------------------------------------------------------
 -- NOTE: vim cmds {{{
 ----------------------------------------------------------------------
-vim.cmd([[set re=1]])
-vim.cmd([[set t_ZH=[3m]])
-vim.cmd([[set t_ZR=[23m]])
-vim.cmd([[set t_ut=]])
-vim.api.nvim_exec(
-  [[
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  ]],
-  true
-)
-vim.cmd([[set t_vb=]])
-vim.cmd([[set path+=**]])
+vim.cmd([[
+  set t_vb=
+  set path+=**
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set re=1
+  set t_ZH=[3m
+  set t_ZR=[23m
+  set t_ut=
+  set winbar=%=%m\ %f
+]])
 -- }}}
 ----------------------------------------------------------------------
 

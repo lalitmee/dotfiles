@@ -150,14 +150,14 @@ set_cursorline("FileType", false, "TelescopePrompt")
 ----------------------------------------------------------------------
 -- NOTE: winbar {{{
 ----------------------------------------------------------------------
-augroup("winbar_au", {
-  {
-    event = { "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" },
-    command = function()
-      require("lk.utils.winbar").get_winbar()
-    end,
-  },
-})
+-- augroup("winbar_au", {
+--   {
+--     event = { "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" },
+--     command = function()
+--       require("lk.utils.winbar").get_winbar()
+--     end,
+--   },
+-- })
 
 -- }}}
 ----------------------------------------------------------------------

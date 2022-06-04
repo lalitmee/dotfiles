@@ -11,7 +11,8 @@ highlight.all({
   {
     "QuickScopePrimary",
     {
-      guifg = "#FF0000",
+      guifg = "#ff6fff",
+      guibg = "#000000",
       ctermfg = 155,
       cterm = "underline",
     },
@@ -19,7 +20,8 @@ highlight.all({
   {
     "QuickScopeSecondary",
     {
-      guifg = "#ff6fff",
+      guifg = "#FF0000",
+      guibg = "#000000",
       ctermfg = 81,
       cterm = "underline",
     },

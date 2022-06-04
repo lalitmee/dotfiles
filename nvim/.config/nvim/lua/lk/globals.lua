@@ -22,7 +22,12 @@ end
 --- store all callbacks in one global table so they are able to survive re-requiring this file
 _G.__lk_global_callbacks = __lk_global_callbacks or {}
 
-_G.lk = { _store = __lk_global_callbacks }
+_G.lk = {
+  _store = __lk_global_callbacks,
+
+  -- for UI elements like the winbar and statusline that need global references
+  ui = {},
+}
 -- }}}
 ----------------------------------------------------------------------
 
@@ -121,10 +126,41 @@ lk.style = {
       Telescope = " ",
     },
     misc = {
-      Robot = " ",
-      Squirrel = " ",
-      Tag = " ",
-      Watch = " ",
+      ellipsis = "…",
+      up = "⇡",
+      down = "⇣",
+      line = "ℓ", -- ''
+      indent = "Ξ",
+      tab = "⇥",
+      bug = "", -- 'ﴫ'
+      question = "",
+      lock = "",
+      circle = "",
+      project = "",
+      dashboard = "",
+      history = "",
+      comment = "",
+      robot = "ﮧ",
+      lightbulb = "",
+      search = "",
+      code = "",
+      telescope = "",
+      gear = "",
+      package = "",
+      list = "",
+      sign_in = "",
+      check = "",
+      fire = "",
+      note = "",
+      bookmark = "",
+      pencil = "",
+      tools = "",
+      caret_right = "",
+      chevron_right = "",
+      double_chevron_right = "»",
+      table = "",
+      calendar = "",
+      block = "▌",
     },
   },
   border = {
@@ -146,19 +182,19 @@ lk.style = {
 ----------------------------------------------------------------------
 -- NOTE: Messaging {{{
 -----------------------------------------------------------------------------
-if vim.notify then
-  -- Override of vim.notify to open floating window
-  local log = require("plenary.log").new({
-    plugin = "notify",
-    level = "debug",
-    use_console = false,
-  })
-
-  vim.notify = function(msg, level, opts)
-    log.info(msg, level, opts)
-    require("notify")(msg, level, opts)
-  end
-end
+-- if vim.notify then
+--   -- Override of vim.notify to open floating window
+--   local log = require("plenary.log").new({
+--     plugin = "notify",
+--     level = "debug",
+--     use_console = false,
+--   })
+--
+--   -- vim.notify = function(msg, level, opts)
+--   --   log.info(msg, level, opts)
+--   --   require("notify")(msg, level, opts)
+--   -- end
+-- end
 -- }}}
 ----------------------------------------------------------------------
 
@@ -379,6 +415,8 @@ function lk.empty(item)
   local item_type = type(item)
   if item_type == "string" then
     return item == ""
+  elseif item_type == "number" then
+    return item <= 0
   elseif item_type == "table" then
     return vim.tbl_isempty(item)
   end
@@ -535,6 +573,21 @@ function lk.get_buf_option(opt)
   else
     return buf_option
   end
+end
+
+--- Convert a list or map of items into a value by iterating all it's fields and transforming
+--- them with a callback
+---@generic T : table
+---@param callback fun(T, T, key: string | number): T
+---@param list T[]
+---@param accum T
+---@return T
+function lk.fold(callback, list, accum)
+  for k, v in pairs(list) do
+    accum = callback(accum, v, k)
+    assert(accum, "The accumulator must be returned on each iteration")
+  end
+  return accum
 end
 
 -- vim:foldmethod=marker
