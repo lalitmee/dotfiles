@@ -26,7 +26,6 @@ local api = vim.api
 notify.setup({
   timeout = 3000,
   stages = "fade_in_slide_out",
-  background_colour = "NormalFloat",
   max_width = function()
     return math.floor(vim.o.columns * 0.8)
   end,
