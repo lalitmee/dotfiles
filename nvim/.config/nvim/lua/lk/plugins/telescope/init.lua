@@ -207,9 +207,13 @@ telescope.setup({
         },
       },
     },
-    reloader = dropdown(),
+    reloader = dropdown({}),
   },
   extensions = {
+    howdoi = {
+      num_answers = 3,
+      explain_answer = true,
+    },
     hop = {
       sign_hl = { "Title" },
       line_hl = { "CursorLine" },

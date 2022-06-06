@@ -415,6 +415,14 @@ require("packer").startup({
             require("telescope").load_extension("luasnip")
           end,
         },
+        {
+          "zane-/howdoi.nvim",
+          module = "telescope._extensions.howdoi",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("howdoi")
+          end,
+        },
       },
     })
 

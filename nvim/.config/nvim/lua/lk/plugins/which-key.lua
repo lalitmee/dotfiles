@@ -777,6 +777,7 @@ local leader_key_maps = {
     ["c"] = { ":Telescope git_commits<CR>", "commits" },
     ["C"] = { ":Telescope git_bcommits<CR>", "buffer-commits" },
     ["d"] = { ":Telescope git_files<CR>", "git-files" },
+    ["e"] = { ":Telescope howdoi<CR>", "howdoi" },
     ["f"] = { ":Telescope find_files<CR>", "files" },
     ["F"] = { ":Telescope filetypes<CR>", "file-types" },
     ["g"] = { ":Telescope git_status<CR>", "modified-git-files" },
