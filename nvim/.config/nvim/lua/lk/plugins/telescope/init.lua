@@ -210,6 +210,9 @@ telescope.setup({
     reloader = dropdown({}),
   },
   extensions = {
+    cder = {
+      dir_command = { "fd", "--type=d", ".", "~/Desktop" },
+    },
     howdoi = {
       num_answers = 3,
       explain_answer = true,
