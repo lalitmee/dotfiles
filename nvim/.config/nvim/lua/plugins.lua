@@ -423,6 +423,14 @@ require("packer").startup({
             require("telescope").load_extension("howdoi")
           end,
         },
+        {
+          "zane-/cder.nvim",
+          module = "telescope._extensions.cder",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("cder")
+          end,
+        },
       },
     })
 
@@ -769,10 +777,10 @@ require("packer").startup({
           "JoosepAlviste/nvim-ts-context-commentstring",
           after = { "nvim-treesitter", "Comment.nvim" },
         },
-        {
-          "nvim-treesitter/nvim-treesitter-context",
-          after = { "nvim-treesitter" },
-        },
+        -- {
+        --   "nvim-treesitter/nvim-treesitter-context",
+        --   after = { "nvim-treesitter" },
+        -- },
       },
     })
 
