@@ -52,6 +52,13 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
+    use({
+      "xiyaowong/virtcolumn.nvim",
+      config = function()
+        vim.g.virtcolumn_char = "▕" -- by default
+      end,
+    })
+
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
