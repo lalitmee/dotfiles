@@ -12,3 +12,4 @@ windows:
   - ThePrimeagen: cd ThePrimeagen_dots && gst
   - gametaro: cd gametaro && gst
   - ViRu-ThE-ViRuS: cd ViRu-ThE-ViRuS && gst
+  - rcarriga: cd rcarriga && gst
