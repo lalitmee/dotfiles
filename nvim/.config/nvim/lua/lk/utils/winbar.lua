@@ -14,7 +14,7 @@ local disabled_filetypes = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" }
 -- See :h statusline for %v values
 M.eval = function()
   if vim.tbl_contains(disabled_filetypes, vim.bo.filetype) then
-    vim.opt.winbar = nil
+    vim.opt_local.winbar = nil
     return
   end
   local file_path = vim.api.nvim_eval_statusline("%f", {}).str
