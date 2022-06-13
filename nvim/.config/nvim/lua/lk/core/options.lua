@@ -228,7 +228,7 @@ opt.linebreak = true -- lines wrap at words rather than random characters
 opt.synmaxcol = 1024 -- don't syntax highlight long lines
 opt.signcolumn = "yes:2"
 opt.ruler = false
-opt.cmdheight = 2 -- Set command line height to two lines
+opt.cmdheight = 1 -- Set command line height to two lines
 -- NOTE: it was putting eol characters in dressinginput
 -- opt.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
 --- This is used to handle markdown code blocks where the language might
@@ -381,7 +381,7 @@ opt.wrapscan = true -- Searches wrap around the end of the file
 opt.scrolloff = 10
 opt.visualbell = false
 opt.errorbells = false
-opt.colorcolumn = "80"
+-- opt.colorcolumn = "80"
 -- }}}
 ----------------------------------------------------------------------
 
@@ -424,13 +424,16 @@ vim.cmd([[
   set t_ZH=[3m
   set t_ZR=[23m
   set t_ut=
-  " set winbar=%=%m\ %f
 ]])
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: winbar {{{
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: showing the folder structure in the winbar {{{
 ----------------------------------------------------------------------
 -- function WinBar()
 --   local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
@@ -455,6 +458,16 @@ vim.cmd([[
 --     vim.api.nvim_win_set_option(win, "winbar", winbar)
 --   end,
 -- })
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: using nvim-navic {{{
+----------------------------------------------------------------------
+vim.opt.winbar = "%{%v:lua.require('lk.utils.winbar').eval()%}"
+-- }}}
+----------------------------------------------------------------------
+
 -- }}}
 ----------------------------------------------------------------------
 

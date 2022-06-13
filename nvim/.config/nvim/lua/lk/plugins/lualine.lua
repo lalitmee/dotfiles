@@ -10,6 +10,12 @@ if not auto_session_ok then
   return
 end
 
+local navic_ok, navic = lk.safe_require("nvim-navic")
+if not navic_ok then
+  vim.notify("Failed to load nvim-navic", "error", { title = "[nvim-navic.nvim] error" })
+  return
+end
+
 --------------------------------------------------------------------------------
 -- NOTE: to get the current client server name {{{
 --------------------------------------------------------------------------------
@@ -78,7 +84,7 @@ lualine.setup({
       },
     },
     lualine_c = {
-      "%=",
+      -- "%=%=",
       { "filetype", icon_only = true },
       { "filename", path = 1, color = "LualineFileName" },
     },
@@ -94,6 +100,7 @@ lualine.setup({
         },
         update_in_insert = true,
       },
+      { navic.get_location, cond = navic.is_available },
       { "filesize", color = "LualineFileSize" },
       { "filetype", color = "LualineFileType" },
       {
