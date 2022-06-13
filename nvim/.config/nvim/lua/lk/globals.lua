@@ -503,6 +503,16 @@ function lk.has_map(lhs, mode)
   return vim.fn.maparg(lhs, mode) ~= ""
 end
 
+function lk.has_value(tab, val)
+  for _, value in ipairs(tab) do
+    if value == val then
+      return true
+    end
+  end
+
+  return false
+end
+
 ---Reload lua modules
 ---@param path string
 ---@param recursive string
