@@ -1,3 +1,5 @@
+lk.lsp = {}
+
 local oslib = require("lk/utils/oslib")
 local fn = vim.fn
 local fmt = string.format
@@ -15,8 +17,7 @@ require("lk/plugins/lsp/handlers")
 ----------------------------------------------------------------------
 -- NOTE: servers config {{{
 ----------------------------------------------------------------------
-local gopls = require("lk/plugins/lsp/servers/gopls")
-local sumneko = require("lk/plugins/lsp/servers/sumneko")
+-- local gopls = require("lk/plugins/lsp/servers/gopls")
 local autocommands = require("lk/plugins/lsp/autocommands")
 -- }}}
 ----------------------------------------------------------------------
@@ -94,6 +95,16 @@ local function on_attach(client, bufnr)
     -- Add this <leader> bound mapping so formatting the entire document is easier.
     map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
+
+  -- nvim-navic
+  local navic_ok, navic = lk.safe_require("nvim-navic")
+  if navic_ok then
+    local skipNavicLsps = { "ltex", "cssls", "eslint", "html" }
+
+    if lk.has_value(skipNavicLsps, client.name) == false then
+      navic.attach(client, bufnr)
+    end
+  end
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -124,7 +135,62 @@ local servers = {
   pyright = true,
   remark_ls = true,
   rust_analyzer = true,
-  sumneko_lua = sumneko,
+  -- sumneko_lua = function()
+  --   local lua_dev = require("lua-dev")
+  --   return lua_dev.setup({
+  --     lspconfig = {
+  --       settings = {
+  --         Lua = {
+  --           diagnostics = {
+  --             globals = {
+  --               "vim",
+  --               "describe",
+  --               "it",
+  --               "before_each",
+  --               "after_each",
+  --               "pending",
+  --               "teardown",
+  --               "packer_plugins",
+  --             },
+  --           },
+  --           completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
+  --           workspace = {
+  --             -- Make the server aware of Neovim runtime files
+  --             library = vim.api.nvim_get_runtime_file("", true),
+  --
+  --             maxPreload = 2000,
+  --             preloadFileSize = 50000,
+  --             checkThirdParty = false,
+  --           },
+  --           -- Do not send telemetry data containing a randomized but unique identifier
+  --           telemetry = { enable = false },
+  --         },
+  --       },
+  --     },
+  --   })
+  -- end,
+
+  sumneko_lua = function()
+    local settings = {
+      settings = {
+        Lua = {
+          format = { enable = false },
+          diagnostics = {
+            globals = { "vim", "describe", "it", "before_each", "after_each", "packer_plugins" },
+          },
+          completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
+        },
+      },
+    }
+    local ok, lua_dev = lk.safe_require("lua-dev")
+    if not ok then
+      return settings
+    end
+    return lua_dev.setup({
+      library = { plugins = { "plenary.nvim" } },
+      lspconfig = settings,
+    })
+  end,
   tsserver = true,
   vimls = true,
 }
@@ -139,12 +205,12 @@ local custom_init = function(client)
   client.config.flags.allow_incremental_sync = true
 end
 
-local function get_server_config(server)
+local function get_server_config(name)
   local ok, cmp_nvim_lsp = lk.safe_require("cmp_nvim_lsp")
   if not ok then
     return nil
   end
-  local conf = servers[server.name]
+  local conf = servers[name]
   local conf_type = type(conf)
   local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
   config.flags = { debounce_text_changes = 500 }
@@ -167,11 +233,11 @@ end
 -- NOTE: setting servers {{{
 ----------------------------------------------------------------------
 local function set_servers()
-  local lsp_installer = require("nvim-lsp-installer")
-  lsp_installer.on_server_ready(function(server)
-    server:setup(get_server_config(server))
-    vim.cmd([[ do User LspAttachBuffers ]])
-  end)
+  for name, config in pairs(servers) do
+    if config then
+      require("lspconfig")[name].setup(get_server_config(name))
+    end
+  end
 end
 
 set_servers()

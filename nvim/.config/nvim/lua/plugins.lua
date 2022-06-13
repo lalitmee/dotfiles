@@ -488,6 +488,11 @@ require("packer").startup({
       config = conf("neoscroll"),
     })
 
+    use({
+      "chentoast/marks.nvim",
+      config = conf("marks"),
+    })
+
     -- delete buffers without distubing layout
     use({
       "kazhala/close-buffers.nvim",
@@ -709,8 +714,15 @@ require("packer").startup({
     -- NOTE: lspconfig {{{
     ------------------------------------------------------------------------
     use({
+      "williamboman/nvim-lsp-installer",
+      config = function()
+        require("nvim-lsp-installer").setup({ automatic_installation = true })
+      end,
+    })
+    use({
       "neovim/nvim-lspconfig",
       module = "lspconfig",
+      after = { "nvim-lsp-installer" },
       ft = vim.g.enable_lspconfig_ft,
       config = conf("lsp"),
       requires = {
@@ -748,7 +760,6 @@ require("packer").startup({
           after = "nvim-lspconfig",
           cmd = { "DiagList", "DiagListAll" },
         },
-        { "williamboman/nvim-lsp-installer" },
         {
           "folke/lua-dev.nvim",
           ft = "lua",
@@ -917,9 +928,16 @@ require("packer").startup({
       config = conf("lualine"),
     })
 
+    -- location component
     use({
       "SmiteshP/nvim-gps",
       requires = "nvim-treesitter/nvim-treesitter",
+    })
+
+    -- winbar component
+    use({
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig",
     })
 
     -- bufferline
