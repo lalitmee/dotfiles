@@ -7,14 +7,14 @@ end
 
 vim.api.nvim_set_hl(0, "WinBar", { bg = colors.cobalt_bg, fg = colors.blue })
 
-local separator = ""
+local separator = ">"
 
 local disabled_filetypes = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" }
 
 -- See :h statusline for %v values
 M.eval = function()
   if vim.tbl_contains(disabled_filetypes, vim.bo.filetype) then
-    vim.opt_local.winbar = nil
+    vim.opt.winbar = nil
     return
   end
   local file_path = vim.api.nvim_eval_statusline("%f", {}).str
