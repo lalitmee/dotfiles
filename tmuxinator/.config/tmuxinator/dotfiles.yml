@@ -8,9 +8,4 @@ windows:
   - tjdevries: cd config_manager && gst
   - akinsho: cd akinsho && gst
   - codesmell: cd codesmell && gst
-  - folke: cd folke && gst
   - ThePrimeagen: cd ThePrimeagen_dots && gst
-  - gametaro: cd gametaro && gst
-  - ViRu-ThE-ViRuS: cd ViRu-ThE-ViRuS && gst
-  - rcarriga: cd rcarriga && gst
-  - SmiteshP: cd SmiteshP && gst
