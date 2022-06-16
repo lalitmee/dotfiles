@@ -52,6 +52,12 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
+    -- embed statusline into tmux statusbar
+    use({
+      "vimpostor/vim-tpipeline",
+      config = conf("vim-tpipeline"),
+    })
+
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
