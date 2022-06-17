@@ -8,3 +8,5 @@ windows:
   - Server: npm run dev
   - Firefox: firefox
   - Brave: brave-browser
+  - merged-prs: cd ../merged-prs
+

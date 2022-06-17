@@ -52,12 +52,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
-    -- embed statusline into tmux statusbar
-    use({
-      "vimpostor/vim-tpipeline",
-      config = conf("vim-tpipeline"),
-    })
-
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
@@ -1109,6 +1103,19 @@ require("packer").startup({
       requires = {
         { "nvim-neorg/neorg-telescope" },
       },
+    })
+    -- }}}
+    ----------------------------------------------------------------------
+
+    ----------------------------------------------------------------------
+    -- NOTE: entertainment {{{
+    ----------------------------------------------------------------------
+    use({
+      "KadoBOT/nvim-spotify",
+      requires = "nvim-telescope/telescope.nvim",
+      config = conf("spotify"),
+      run = "make",
+      -- disable = true,
     })
     -- }}}
     ----------------------------------------------------------------------
