@@ -3,9 +3,9 @@
 /*****************************************************************************/
 
 :root {
-  --font-size: 17;
+  --font-size: 15;
   --font-weight: normal;
-  --font: Ubuntu Mono, Source Code Pro, sans;
+  --font: MonoLisa, Ubuntu Mono, Source Code Pro, sans;
   --padding: 5px;
   --shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
