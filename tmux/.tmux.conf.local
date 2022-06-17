@@ -469,13 +469,6 @@ bind w display-popup -E -w 100% -h 100% nvim -c ":Telescope tmux windows quit_on
 # tmux sessionizer
 bind-key -r f run-shell "tmux neww tmux-sessionizer"
 
-# vim-tpipeline settings for neovim
-set -g focus-events on
-set -g status-style bg=default
-set -g status-left-length 90
-set -g status-right-length 90
-set -g status-justify absolute-centre
-
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
