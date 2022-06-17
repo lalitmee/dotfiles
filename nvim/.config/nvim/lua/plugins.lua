@@ -741,6 +741,15 @@ require("packer").startup({
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
+            {
+              "KadoBOT/cmp-plugins",
+              after = "nvim-cmp",
+              config = function()
+                require("cmp-plugins").setup({
+                  files = { "plugins.lua" },
+                })
+              end,
+            },
           },
         },
         {

@@ -96,17 +96,17 @@ local function on_attach(client, bufnr)
     map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
 
-  -- -- nvim-navic
-  -- local navic_ok, navic = lk.safe_require("nvim-navic")
-  -- if navic_ok then
-  --   local skipNavicLsps = { "ltex", "cssls", "eslint", "html" }
-  --
-  --   if lk.has_value(skipNavicLsps, client.name) == false then
-  --     navic.attach(client, bufnr)
-  --   end
-  -- end
+  -- nvim-navic
+  local navic_ok, navic = lk.safe_require("nvim-navic")
+  if navic_ok then
+    local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls" }
 
-  require("nvim-navic").attach(client, bufnr)
+    if lk.has_value(skipNavicLsps, client.name) == false then
+      navic.attach(client, bufnr)
+    end
+  end
+
+  -- require("nvim-navic").attach(client, bufnr)
 end
 -- }}}
 ----------------------------------------------------------------------

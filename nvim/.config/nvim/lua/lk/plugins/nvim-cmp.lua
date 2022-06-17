@@ -30,6 +30,7 @@ cmp.setup({
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "path" },
+    { name = "plugins" },
     { name = "emoji" },
   }, {
     { name = "buffer" },
@@ -76,6 +77,7 @@ cmp.setup({
         path = "[PATH]",
         spell = "[SPELL]",
         treesitter = "[TREE]",
+        plugins = "[PLUG]",
       },
     }),
   },
