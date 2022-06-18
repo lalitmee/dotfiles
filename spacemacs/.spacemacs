@@ -125,8 +125,8 @@ values."
             shell-default-term-shell "/bin/zsh"
             shell-default-full-span nil
             shell-default-shell 'eshell)
-     (colors :variables
-             colors-colorize-identifiers 'variables)
+     ;; (colors :variables
+     ;;         colors-colorize-identifiers 'variables)
      (ranger :variables
              ranger-show-preview t
              ranger-cleanup-eagerly t
@@ -245,13 +245,13 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                ;; "CaskaydiaCove Nerd Font"
-                               "Cascadia Code"
+                               ;; "Cascadia Code"
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator SSm"
                                ;; "JetBrainsMono Nerd Font"
                                ;; "SauceCodePro Nerd Font"
-                               ;; "MonoLisa"
+                               "MonoLisa"
                                :size 13
                                :weight medium
                                :powerline-scale 1.3)
@@ -527,9 +527,7 @@ you should place your code here."
   (add-hook 'markdown-mode-hook #'turn-on-smartparens-strict-mode t)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
 
-  ;; (add-hook 'prog-mode-hook 'rainbow-mode)
-  ;; (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
-  (add-hook 'after-init-hook 'global-color-identifiers-mode)
+  ;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
   ;; Font Settings
   (add-hook 'after-init-hook #'global-emojify-mode)
