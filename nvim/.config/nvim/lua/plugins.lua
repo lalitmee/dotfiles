@@ -172,6 +172,13 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+
+    -- scratch files in `/tmp` folder
+    use({
+      "m-demare/attempt.nvim",
+      config = conf("attempt"),
+    })
+
     -- cycle folds
     use({
       "jghauser/fold-cycle.nvim",
@@ -1006,6 +1013,11 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: FILES {{{
     ------------------------------------------------------------------------
+    -- better `gf` command
+    use({
+      "moevis/smartjump.nvim",
+      requires = "nvim-telescope/telescope.nvim",
+    })
 
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
@@ -1104,9 +1116,11 @@ require("packer").startup({
       "nvim-orgmode/orgmode",
       config = conf("orgmode"),
       requires = {
-        { "akinsho/org-bullets.nvim" },
-        { "dhruvasagar/vim-table-mode" },
-        { "lukas-reineke/headlines.nvim" },
+        { "akinsho/org-bullets.nvim", ft = "org" },
+        { "TravonteD/org-capture-filetype", after = "orgmode" },
+        { "ranjithshegde/orgWiki.nvim", after = "orgmode" },
+        { "dhruvasagar/vim-table-mode", after = "orgmode" },
+        { "lukas-reineke/headlines.nvim", after = "orgmode" },
       },
       -- disable = true,
     })

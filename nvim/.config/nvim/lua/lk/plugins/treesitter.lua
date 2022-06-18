@@ -29,15 +29,19 @@ parser_configs.norg_table = {
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
+-- NOTE: orgmode setup {{{
+----------------------------------------------------------------------
+-- Load custom tree-sitter grammar for org filetype
+require("orgmode").setup_ts_grammar()
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: treesitter setup {{{
 ----------------------------------------------------------------------
 require("nvim-treesitter.configs").setup({
   ensure_installed = vim.g.enable_treesitter_ft,
-  highlight = {
-    enable = true,
-    disable = { "org" },
-    additional_vim_regex_highlighting = { "org" },
-  },
+  highlight = { enable = true },
   matchup = { enable = true },
   autotag = { enable = true },
   indent = { enable = true, disable = { "css" } },

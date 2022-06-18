@@ -1,29 +1,44 @@
 ----------------------------------------------------------------------
--- NOTE: orgmode setup {{{
+-- NOTE: org-mode setup {{{
 ----------------------------------------------------------------------
--- Load custom tree-sitter grammar for org filetype
-require("orgmode").setup_ts_grammar()
 require("orgmode").setup()
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: org capture {{{
+----------------------------------------------------------------------
+require("org-capture-filetype")
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: org-bullets {{{
 ----------------------------------------------------------------------
-require("org-bullets").setup({
-  symbols = { "◉", "○", "✸", "✿", "♥" },
-  -- or a function that receives the defaults and returns a list
-  -- symbols = function(default_list)
-  --   table.insert(default_list, "♥")
-  --   return default_list
-  -- end
-})
+local bullets_ok, bullets = lk.safe_require("org-bullets")
+if bullets_ok then
+  bullets.setup({
+    concealcursor = true,
+    symbols = {
+      headlines = { "◉", "○", "✸", "✿" },
+      checkboxes = {
+        cancelled = { "", "OrgCancelled" },
+        done = { "✓", "OrgDone" },
+        todo = { "˟", "OrgTODO" },
+      },
+    },
+  })
+end
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: headlines.nvim setup {{{
 ----------------------------------------------------------------------
-require("headlines").setup()
+local headlines_ok, headlines = lk.safe_require("headlines")
+if headlines_ok then
+  headlines.setup()
+end
+
 -- }}}
 ----------------------------------------------------------------------

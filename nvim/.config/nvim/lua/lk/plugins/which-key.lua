@@ -381,7 +381,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: i is for tmux {{{
+  -- NOTE: i is for insert {{{
   ----------------------------------------------------------------------
   ["i"] = {
     ["name"] = "+insert-text",
@@ -412,6 +412,21 @@ local leader_key_maps = {
     ["L"] = { ":HopWordCurrentLine<CR>", "hop-current-line" },
     ["p"] = { ":HopPattern<CR>", "hop-pattern" },
     ["w"] = { ":HopWord<CR>", "hop-word" },
+  },
+  -- }}}
+  ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: NOTE: k is for scratch buffers {{{
+  ----------------------------------------------------------------------
+  ["k"] = {
+    ["name"] = "+scratch-buffers",
+    ["a"] = { ":AttemptNew<CR>", "new-scratch-buffer" },
+    ["c"] = { ":AttemptRenameBuf<CR>", "rename-scratch-buffer" },
+    ["d"] = { ":AttemptDeleteBuf<CR>", "delete-scratch-buffer" },
+    ["e"] = { ":AttemptNewExtension<CR>", "new-extension-scratch-buffer" },
+    ["f"] = { ":Telescope attempt<CR>", "find-scratch-buffers" },
+    ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
   },
   -- }}}
   ----------------------------------------------------------------------
