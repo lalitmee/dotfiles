@@ -728,6 +728,7 @@ require("packer").startup({
       ft = vim.g.enable_lspconfig_ft,
       config = conf("lsp"),
       requires = {
+        { "jose-elias-alvarez/nvim-lsp-ts-utils" },
         {
           "JASONews/glow-hover",
           config = function()

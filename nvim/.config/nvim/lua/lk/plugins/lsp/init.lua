@@ -6,6 +6,8 @@ local fmt = string.format
 local icons = lk.style.icons.lsp
 local map = lk.map
 
+local ts_utils = require("nvim-lsp-ts-utils")
+
 ----------------------------------------------------------------------
 -- NOTE: automatic setting up commands and handlers {{{
 ----------------------------------------------------------------------
@@ -166,7 +168,24 @@ local servers = {
       lspconfig = settings,
     })
   end,
-  tsserver = true,
+  tsserver = {
+    init_options = ts_utils.init_options,
+    cmd = { "typescript-language-server", "--stdio" },
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+    },
+
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+      ts_utils.setup({ auto_inlay_hints = false })
+      ts_utils.setup_client(client)
+    end,
+  },
   vimls = true,
 }
 -- }}}
