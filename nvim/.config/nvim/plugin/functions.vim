@@ -109,4 +109,30 @@ nmap <silent> s m':set opfunc=Substitute<CR>g@
 " }}}
 "---------------------------------------------------------------------
 
+"---------------------------------------------------------------------
+" NOTE: Terminal command {{{
+"---------------------------------------------------------------------
+command! -nargs=? Terminal call s:Term(<q-args>)
+function! s:Term(args)
+  if has('nvim')
+    tabnew
+    execute 'terminal ' . a:args
+    " no left gutter
+    setlocal signcolumn=no
+    setlocal norelativenumber
+    setlocal nonumber
+    " if no errors, auto-close
+    autocmd! TermClose <buffer=abuf> if !v:event.status | exec 'bd! '..expand('<abuf>') | endif | checktime
+    startinsert
+  elseif has('terminal')
+    " vim 8
+    execute 'tab terminal ++close ' . a:args
+  else
+    " vim 7
+    execute 'silent !( ' . (a:args != '' ? a:args : $SHELL) . ') || ( echo "Hit Enter"; read; )' | redraw!
+  endif
+endfunction
+" }}}
+"---------------------------------------------------------------------
+
 " vim:foldmethod=marker
