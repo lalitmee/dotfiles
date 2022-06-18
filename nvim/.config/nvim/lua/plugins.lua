@@ -709,7 +709,7 @@ require("packer").startup({
     use({
       "williamboman/nvim-lsp-installer",
       config = function()
-        require("nvim-lsp-installer").setup({ automatic_installation = true })
+        require("nvim-lsp-installer").setup()
       end,
     })
     use({
@@ -719,6 +719,14 @@ require("packer").startup({
       ft = vim.g.enable_lspconfig_ft,
       config = conf("lsp"),
       requires = {
+        {
+          "JASONews/glow-hover",
+          config = function()
+            require("glow-hover").setup({
+              border = "rounded",
+            })
+          end,
+        },
         {
           "j-hui/fidget.nvim",
           config = conf("fidget"),
