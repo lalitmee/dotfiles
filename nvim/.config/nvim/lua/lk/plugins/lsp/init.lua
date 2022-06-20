@@ -121,6 +121,10 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = { "documentation", "detail", "additionalTextEdits" },
 }
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 -- }}}
 ----------------------------------------------------------------------
 
@@ -208,7 +212,7 @@ local function get_server_config(name)
   local conf_type = type(conf)
   local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
   config.flags = { debounce_text_changes = 500 }
-  config.capabilities = config.capabilities or vim.lsp.protocol.make_client_capabilities()
+  config.capabilities = config.capabilities or capabilities or vim.lsp.protocol.make_client_capabilities()
   cmp_nvim_lsp.update_capabilities(config.capabilities)
   config = vim.tbl_deep_extend("force", {
     on_init = custom_init,

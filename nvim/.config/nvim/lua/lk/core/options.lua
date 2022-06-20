@@ -99,7 +99,7 @@ opt.splitright = true
 opt.eadirection = "hor"
 -- exclude usetab as we do not want to jump to buffers in already open tabs
 -- do not use split or vsplit to ensure we don't open any new windows
-vim.o.switchbuf = "useopen,uselast"
+opt.switchbuf = "useopen,uselast"
 opt.fillchars = {
   -- vert = "▕", -- alternatives │
   eob = "~", -- suppress ~ at EndOfBuffer
@@ -154,6 +154,7 @@ opt.formatoptions = opt.formatoptions
 -- NOTE: folds {{{
 ----------------------------------------------------------------------
 -- opt.foldtext = 'v:lua.as.folds()'
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.foldopen = opt.foldopen + "search"
 opt.foldlevelstart = 0
 opt.foldmethod = "expr"
@@ -166,13 +167,13 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("ack") then
-  vim.o.grepprg = [[ack --ignore-dir=".git,build" --ignore-file="tags"]]
+  opt.grepprg = [[ack --ignore-dir=".git,build" --ignore-file="tags"]]
   opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("rg") then
-  vim.o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
+  opt.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
   opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
-  vim.o.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
+  opt.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
   opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 -- }}}
@@ -278,7 +279,7 @@ opt.shiftwidth = 2
 ----------------------------------------------------------------------
 -- NOTE: general {{{
 ----------------------------------------------------------------------
--- vim.o.debug = "msg"
+-- opt.debug = "msg"
 opt.joinspaces = false
 opt.gdefault = true
 opt.pumheight = 15
@@ -446,7 +447,7 @@ vim.cmd([[
 --   return "%#WinBarPath#" .. table.concat(elems, " %#WinBarSep# %#WinBarPath#") .. " %#WinBar#%m"
 -- end
 --
--- vim.opt.winbar = ""
+-- optpt.winbar = ""
 --
 -- vim.api.nvim_create_autocmd("BufWinEnter", {
 --   callback = function()
@@ -465,7 +466,7 @@ vim.cmd([[
 ----------------------------------------------------------------------
 -- NOTE: using nvim-navic {{{
 ----------------------------------------------------------------------
-vim.opt.winbar = "%{%v:lua.require('lk.utils.winbar').eval()%}"
+opt.winbar = "%{%v:lua.require('lk.utils.winbar').eval()%}"
 -- }}}
 ----------------------------------------------------------------------
 

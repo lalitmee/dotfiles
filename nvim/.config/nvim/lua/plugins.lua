@@ -572,6 +572,14 @@ require("packer").startup({
       event = { "BufWritePre" },
     })
 
+    use({
+      "kevinhwang91/nvim-ufo",
+      requires = "kevinhwang91/promise-async",
+      config = function()
+        require("ufo").setup()
+      end,
+    })
+
     -- nice fold text
     use({
       "anuvyklack/pretty-fold.nvim",
