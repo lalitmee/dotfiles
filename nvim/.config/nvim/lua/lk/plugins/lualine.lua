@@ -117,7 +117,14 @@ lualine.setup({
     lualine_x = { "filetype" },
     lualine_z = { "location" },
   },
-  extensions = { "fzf", "fugitive", "nvim-tree", "quickfix", "toggleterm", "symbols-outline" },
+  extensions = {
+    "fugitive",
+    "fzf",
+    "man",
+    "nvim-tree",
+    "quickfix",
+    "toggleterm",
+  },
 })
 -- }}}
 ----------------------------------------------------------------------
