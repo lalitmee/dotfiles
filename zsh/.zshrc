@@ -430,6 +430,7 @@ alias sd="ddgr"
 
 # alias for taskwarrior
 alias to="task"
+alias tt="taskwarrior-tui"
 
 # vim remote send stuff
 # alias g="vim --remote-silent"
