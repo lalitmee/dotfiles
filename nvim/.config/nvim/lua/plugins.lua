@@ -466,13 +466,6 @@ require("packer").startup({
       config = conf("close-buffers"),
     })
 
-    -- buffer, marks and tabpages switcher
-    use({
-      "toppair/reach.nvim",
-      config = conf("reach"),
-      cmd = { "ReachOpen" },
-    })
-
     -- auto pairs
     use({
       "windwp/nvim-autopairs",
@@ -747,11 +740,6 @@ require("packer").startup({
           "ray-x/lsp_signature.nvim",
           config = conf("signature"),
           after = "nvim-lspconfig",
-        },
-        {
-          "onsails/diaglist.nvim",
-          after = "nvim-lspconfig",
-          cmd = { "DiagList", "DiagListAll" },
         },
         {
           "folke/lua-dev.nvim",
@@ -1122,7 +1110,7 @@ require("packer").startup({
       requires = "nvim-telescope/telescope.nvim",
       config = conf("spotify"),
       run = "make",
-      -- disable = true,
+      disable = true,
     })
     -- }}}
     ----------------------------------------------------------------------
