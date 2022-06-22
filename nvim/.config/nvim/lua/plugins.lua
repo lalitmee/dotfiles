@@ -319,14 +319,10 @@ require("packer").startup({
       config = conf("telescope"),
       requires = {
         {
-          "cljoly/telescope-repo.nvim",
+          "nvim-lua/plenary.nvim",
+          module = "plenary",
           after = "telescope.nvim",
-          module = "telescope._extensions.repo",
-          config = function()
-            require("telescope").load_extension("repo")
-          end,
         },
-        { "nvim-lua/plenary.nvim", after = "telescope.nvim" },
         {
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
@@ -377,14 +373,6 @@ require("packer").startup({
           end,
         },
         {
-          "nvim-telescope/telescope-hop.nvim",
-          after = "telescope.nvim",
-          module = "telescope._extensions.hop",
-          config = function()
-            require("telescope").load_extension("hop")
-          end,
-        },
-        {
           "nvim-telescope/telescope-dap.nvim",
           after = { "nvim-dap", "telescope.nvim" },
           module = "telescope._extensions.dap",
@@ -393,27 +381,11 @@ require("packer").startup({
           end,
         },
         {
-          "LinArcX/telescope-changes.nvim",
-          after = "telescope.nvim",
-          module = "telescope._extensions.changes",
-          config = function()
-            require("telescope").load_extension("changes")
-          end,
-        },
-        {
           "olacin/telescope-gitmoji.nvim",
           after = "telescope.nvim",
           module = "telescope._extensions.gitmoji",
           config = function()
             require("telescope").load_extension("gitmoji")
-          end,
-        },
-        {
-          "kelly-lin/telescope-ag",
-          after = "telescope.nvim",
-          module = "telescope._extensions.ag",
-          config = function()
-            require("telescope").load_extension("ag")
           end,
         },
         {
@@ -430,14 +402,6 @@ require("packer").startup({
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("howdoi")
-          end,
-        },
-        {
-          "zane-/cder.nvim",
-          module = "telescope._extensions.cder",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("cder")
           end,
         },
       },
@@ -642,6 +606,7 @@ require("packer").startup({
           TelescopePrompt = false,
         }
       end,
+      disable = true,
     })
 
     -- run any code of any file type
