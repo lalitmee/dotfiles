@@ -10,10 +10,6 @@ if not auto_session_ok then
   return
 end
 
-local spotify_status = require("nvim-spotify").status
-
-spotify_status:start()
-
 --------------------------------------------------------------------------------
 -- NOTE: to get the current client server name {{{
 --------------------------------------------------------------------------------
@@ -98,7 +94,6 @@ lualine.setup({
         },
         update_in_insert = true,
       },
-      { spotify_status.listen },
       { "filesize", color = "LualineFileSize" },
       { "filetype", color = "LualineFileType" },
       {
