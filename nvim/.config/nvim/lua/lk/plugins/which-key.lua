@@ -956,6 +956,7 @@ local local_leader_key_maps = {
   ["b"] = {
     ["name"] = "+buffers",
     ["b"] = { ":ReachOpen buffers<CR>", "buffers" },
+    ["c"] = { ":ReachOpen colorschemes<CR>", "colorschemes" },
     ["m"] = { ":ReachOpen marks<CR>", "marks" },
     ["t"] = { ":ReachOpen tabpages<CR>", "tabs" },
   },
