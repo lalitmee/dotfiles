@@ -260,8 +260,9 @@ export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/libnsl/lib"
-export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/libnsl/include"
+export CPPFLAGS="-I$(brew --prefix openssl)/include"
+export CFLAGS="-I$(brew --prefix openssl)/include"
+export LDFLAGS="-L$(brew --prefix openssl)/lib"
 
 export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
 
@@ -287,6 +288,9 @@ export GO111MODULE=off
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# alias for dooit
+alias dt="dooit"
 
 # output in a url
 alias tb="nc termbin.com 9999"

@@ -108,7 +108,6 @@ telescope.setup({
         ["<C-n>"] = actions.move_selection_next,
         ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-p>"] = actions.move_selection_previous,
-        ["<C-s>"] = R("telescope").extensions.hop.hop,
         ["<C-u>"] = false,
         ["<C-y>"] = actions.move_to_top,
         ["<M-p>"] = action_layout.toggle_preview,
@@ -121,7 +120,6 @@ telescope.setup({
         ["j"] = actions.move_selection_next,
         ["k"] = actions.move_selection_previous,
         ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["s"] = R("telescope").extensions.hop.hop,
         ["u"] = false,
         ["y"] = actions.move_to_top,
         ["p"] = action_layout.toggle_preview,
@@ -216,10 +214,6 @@ telescope.setup({
     howdoi = {
       num_answers = 3,
       explain_answer = true,
-    },
-    hop = {
-      sign_hl = { "Title" },
-      line_hl = { "CursorLine" },
     },
     media_files = { find_cmd = "rg" },
     ["ui-select"] = {

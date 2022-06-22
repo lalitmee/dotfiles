@@ -101,14 +101,11 @@ local function on_attach(client, bufnr)
   -- nvim-navic
   local navic_ok, navic = lk.safe_require("nvim-navic")
   if navic_ok then
-    local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls" }
-
+    local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls", "bashls" }
     if lk.has_value(skipNavicLsps, client.name) == false then
       navic.attach(client, bufnr)
     end
   end
-
-  -- require("nvim-navic").attach(client, bufnr)
 end
 -- }}}
 ----------------------------------------------------------------------
