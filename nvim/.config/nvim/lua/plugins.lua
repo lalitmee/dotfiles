@@ -315,7 +315,6 @@ require("packer").startup({
     -- telescope.nvim
     use({
       "nvim-telescope/telescope.nvim",
-      cmd = { "Telescope" },
       config = conf("telescope"),
       requires = {
         {
@@ -616,7 +615,6 @@ require("packer").startup({
     -- -- snippets engine
     use({
       "L3MON4D3/LuaSnip",
-      after = { "nvim-cmp" },
       requires = {
         "rafamadriz/friendly-snippets",
         "honza/vim-snippets",
@@ -725,15 +723,6 @@ require("packer").startup({
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
             { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
-            {
-              "KadoBOT/cmp-plugins",
-              after = "nvim-cmp",
-              config = function()
-                require("cmp-plugins").setup({
-                  files = { "plugins.lua" },
-                })
-              end,
-            },
           },
         },
         {
@@ -1080,11 +1069,11 @@ require("packer").startup({
       "nvim-orgmode/orgmode",
       config = conf("orgmode"),
       requires = {
-        { "akinsho/org-bullets.nvim", ft = "org" },
-        { "TravonteD/org-capture-filetype", after = "orgmode" },
-        { "ranjithshegde/orgWiki.nvim", after = "orgmode" },
-        { "dhruvasagar/vim-table-mode", after = "orgmode" },
-        { "lukas-reineke/headlines.nvim", after = "orgmode" },
+        { "akinsho/org-bullets.nvim" },
+        { "TravonteD/org-capture-filetype" },
+        { "ranjithshegde/orgWiki.nvim" },
+        { "dhruvasagar/vim-table-mode" },
+        { "lukas-reineke/headlines.nvim" },
       },
       -- disable = true,
     })
