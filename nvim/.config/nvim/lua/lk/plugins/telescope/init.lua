@@ -248,8 +248,8 @@ telescope.setup({
 -- projects extension
 require("telescope").load_extension("projects")
 
--- yanky extension
-require("telescope").load_extension("yank_history")
+-- -- yanky extension
+-- require("telescope").load_extension("yank_history")
 -- }}}
 ----------------------------------------------------------------------
 
