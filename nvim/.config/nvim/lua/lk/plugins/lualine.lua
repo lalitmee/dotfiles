@@ -78,7 +78,7 @@ lualine.setup({
       },
     },
     lualine_c = {
-      -- "%=",
+      "%=",
       { "filetype", icon_only = true },
       { "filename", path = 1, color = "LualineFileName" },
     },
