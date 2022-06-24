@@ -52,6 +52,15 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
+    -- merge vim and tmux statuslines
+    use({
+      "vimpostor/vim-tpipeline",
+      config = function()
+        vim.g.tpipeline_cursormoved = 1
+        vim.g.tpipeline_restore = 1
+      end,
+    })
+
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
