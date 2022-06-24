@@ -9,12 +9,12 @@ local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua
 
 command("PackerCompiledEdit", function()
   vim.cmd(fmt("edit %s", PACKER_COMPILED_PATH))
-end)
+end, {})
 
 command("PackerCompiledDelete", function()
   vim.fn.delete(PACKER_COMPILED_PATH)
   packer_notify(fmt("Deleted %s", PACKER_COMPILED_PATH))
-end)
+end, {})
 
 if not vim.g.packer_compiled_loaded and vim.loop.fs_stat(PACKER_COMPILED_PATH) then
   lk.source(PACKER_COMPILED_PATH)
@@ -27,11 +27,17 @@ end
 ----------------------------------------------------------------------
 -- NOTE: buffer commands {{{
 ----------------------------------------------------------------------
+-- close all buffers except current one
 command("BufferCloseAllButCurrent", function()
   vim.cmd([[:bd|e#|bd#"]])
-end)
+end, {})
 
-command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]])
+-- close all buffers
+command("BufferCloseAll", function()
+  vim.cmd([[:%bd]])
+end, {})
+
+command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]], {})
 -- }}}
 ----------------------------------------------------------------------
 
@@ -40,15 +46,15 @@ command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]])
 ----------------------------------------------------------------------
 command("TelescopeNotifyHistory", function()
   require("telescope").extensions.notify.notify()
-end)
+end, {})
 
 command("ReloadConfigTelescope", function()
   require("lk/utils/reload").reload()
-end)
+end, {})
 
 command("ReloadModule", function(args)
   require("lk/utils/reload").reload_module(args)
-end)
+end, {})
 
 -- }}}
 ----------------------------------------------------------------------
@@ -58,7 +64,7 @@ end)
 ----------------------------------------------------------------------
 command("ReloadConfig", function()
   require("lk/utils/reload").reload_config()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
@@ -67,7 +73,7 @@ end)
 ----------------------------------------------------------------------
 command("BrowseRepo", function()
   vim.cmd([[silent !gh o]])
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
@@ -76,7 +82,7 @@ end)
 ----------------------------------------------------------------------
 command("LogVariable", function()
   Log_var()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
@@ -85,7 +91,7 @@ end)
 ----------------------------------------------------------------------
 command("ToggleBackground", function()
   vim.o.background = vim.o.background == "dark" and "light" or "dark"
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 

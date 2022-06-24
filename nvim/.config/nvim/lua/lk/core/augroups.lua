@@ -162,4 +162,19 @@ set_cursorline("FileType", false, "TelescopePrompt")
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: buffer deletion {{{
+----------------------------------------------------------------------
+augroup("bdelete_au", {
+  {
+    event = { "User" },
+    pattern = { "BDeletePost" },
+    command = function()
+      vim.notify("Buffer Deleted Successfully")
+    end,
+  },
+})
+-- }}}
+----------------------------------------------------------------------
+
 -- vim:foldmethod=marker
