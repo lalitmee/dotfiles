@@ -67,9 +67,9 @@ local leader_key_maps = {
     ["a"] = { ":JABSOpen<CR>", "beautiful-buffer-switcher" },
     ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
     ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
-    ["C"] = { ":BDelete other<CR>", "close-all-but-current" },
-    ["d"] = { ":BDelete this<CR>", "delete-buffer" },
-    ["D"] = { ":BDelete all<CR>", "delete-all-buffers" },
+    ["C"] = { ":BufferCloseAllButCurrent<CR>", "close-all-but-current" },
+    ["d"] = { ":Bdelete<CR>", "delete-buffer" },
+    ["D"] = { ":BufferCloseAll<CR>", "delete-all-buffers" },
     ["f"] = { ":bfirst<CR>", "first-buffer" },
     ["g"] = { ":BufferLinePick<CR>", "goto-buffer" },
     ["h"] = { ":Startify<CR>", "home-buffer" },
@@ -85,8 +85,8 @@ local leader_key_maps = {
     ["r"] = { ":e<CR>", "refresh-buffer" },
     ["R"] = { ":bufdo :e<CR>", "refresh-loaded-buffers" },
     ["s"] = { ":new<CR>", "new-empty-buffer" },
-    ["u"] = { ":BDelete nameless<CR>", "delete-nameless-buffers" },
-    ["w"] = { ":BDelete all<CR>", "close-buffer-and-window" },
+    ["u"] = { ":Bdelete<CR>", "delete-nameless-buffers" },
+    ["w"] = { ":Bdelete<CR>", "close-buffer-and-window" },
   },
   -- }}}
   ----------------------------------------------------------------------

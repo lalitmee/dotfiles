@@ -400,7 +400,7 @@ alias yt="youtube-dl"
 alias gvim="~/goneovim/goneovim &"
 alias lpc="~/Desktop/Softwares/editors/lapce &"
 alias glm="glrnvim"
-alias neovide="~/Desktop/Softwares/editors/neovide &"
+alias neovide="~/Desktop/Softwares/editors/neovide/neovide &"
 alias oni="${HOME}/Applications/Onivim2-x86_64-master_8bbaf25b07ff2ac4dc6c74823d5a69bc.AppImage"
 
 # alias for sublime command
