@@ -596,18 +596,32 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: TEXT {{{
     ------------------------------------------------------------------------
-    -- github copilot
+    -- -- github copilot
+    -- use({
+    --   "github/copilot.vim",
+    --   config = function()
+    --     vim.g.copilot_filetypes = {
+    --       gitcommit = false,
+    --       NeogitCommitMessage = false,
+    --       DressingInput = false,
+    --       TelescopePrompt = false,
+    --     }
+    --   end,
+    --   disable = false,
+    -- })
+
     use({
-      "github/copilot.vim",
-      config = function()
-        vim.g.copilot_filetypes = {
-          gitcommit = false,
-          NeogitCommitMessage = false,
-          DressingInput = false,
-          TelescopePrompt = false,
-        }
-      end,
-      disable = true,
+      "zbirenbaum/copilot.lua",
+      event = { "VimEnter" },
+      -- config = function()
+      --   vim.defer_fn(function()
+      --     require("lk.plugins.copilot")
+      --   end, 100)
+      -- end,
+    })
+    use({
+      "zbirenbaum/copilot-cmp",
+      module = "copilot_cmp",
     })
 
     -- run any code of any file type

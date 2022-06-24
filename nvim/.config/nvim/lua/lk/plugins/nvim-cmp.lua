@@ -25,6 +25,7 @@ cmp.setup({
     }),
   },
   sources = cmp.config.sources({
+    { name = "copilot" },
     { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
@@ -69,6 +70,7 @@ cmp.setup({
         cmdline = "[CMD]",
         cmp_git = "[GIT]",
         cmp_tabnine = "[TBN]",
+        copilot = "[COP]",
         emoji = "[EMJ]",
         luasnip = "[SNIP]",
         nvim_lsp = "[LSP]",
