@@ -124,6 +124,11 @@ require("packer").startup({
       config = conf("which-key"),
     })
 
+    -- use({
+    --   "anuvyklack/hydra.nvim",
+    --   requires = "anuvyklack/keymap-layer.nvim",
+    -- })
+
     -- session management
     use({
       "rmagatti/session-lens",
@@ -172,6 +177,11 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- rest.nvim http client
+    use({
+      "NTBBloodbath/rest.nvim",
+      config = conf("rest"),
+    })
 
     -- scratch files in `/tmp` folder
     use({
