@@ -27,16 +27,6 @@ end
 ----------------------------------------------------------------------
 -- NOTE: buffer commands {{{
 ----------------------------------------------------------------------
--- close all buffers except current one
-command("BufferCloseAllButCurrent", function()
-  vim.cmd([[:bd|e#|bd#"]])
-end, {})
-
--- close all buffers
-command("BufferCloseAll", function()
-  vim.cmd([[:%bd]])
-end, {})
-
 command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]], {})
 -- }}}
 ----------------------------------------------------------------------
