@@ -124,6 +124,11 @@ require("packer").startup({
       config = conf("which-key"),
     })
 
+    use({
+      "folke/trouble.nvim",
+      config = conf("trouble"),
+    })
+
     -- use({
     --   "anuvyklack/hydra.nvim",
     --   requires = "anuvyklack/keymap-layer.nvim",
@@ -538,7 +543,10 @@ require("packer").startup({
       "kevinhwang91/nvim-ufo",
       requires = "kevinhwang91/promise-async",
       config = function()
-        require("ufo").setup()
+        local ufo = require("ufo")
+        ufo.setup({ open_fold_hl_timeout = 0 })
+        lk.nnoremap("zR", ufo.openAllFolds, "open all folds")
+        lk.nnoremap("zM", ufo.closeAllFolds, "close all folds")
       end,
     })
 
@@ -549,12 +557,12 @@ require("packer").startup({
       config = conf("pretty-fold"),
     })
 
-    -- fast folds in vim
-    use({
-      "Konfekt/FastFold",
-      event = { "BufRead" },
-      config = conf("fastfold"),
-    })
+    -- -- fast folds in vim
+    -- use({
+    --   "Konfekt/FastFold",
+    --   event = { "BufRead" },
+    --   config = conf("fastfold"),
+    -- })
 
     -- commenting
     use({
