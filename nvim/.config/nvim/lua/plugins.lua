@@ -182,6 +182,18 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- icon picker for neovim
+    use({
+      "ziontee113/icon-picker.nvim",
+      config = conf("icon-picker"),
+    })
+
+    -- color picker for neovim
+    use({
+      "ziontee113/color-picker.nvim",
+      config = conf("color-picker"),
+    })
+
     -- rest.nvim http client
     use({
       "NTBBloodbath/rest.nvim",
@@ -353,14 +365,6 @@ require("packer").startup({
           module = "telescope._extensions.fzf",
           config = function()
             require("telescope").load_extension("fzf")
-          end,
-        },
-        {
-          "xiyaowong/telescope-emoji.nvim",
-          after = "telescope.nvim",
-          module = "telescope._extensions.emoji",
-          config = function()
-            require("telescope").load_extension("emoji")
           end,
         },
         {
