@@ -391,7 +391,9 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["i"] = {
     ["name"] = "+insert-text",
+    ["c"] = { ":PickColor<CR>", "color-picker" },
     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
+    ["i"] = { ":PickIcons<CR>", "icon-picker" },
     ["n"] = { ":Neorg<CR>", "neorg" },
     ["w"] = { ":Neorg workspace work<CR>", "work-notes" },
   },
