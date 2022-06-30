@@ -278,6 +278,13 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- search the whole project
+    use({
+      "nvim-pack/nvim-spectre",
+      config = conf("spectre"),
+    })
+
+    -- highlight search results
     use({
       "kevinhwang91/nvim-hlslens",
       config = conf("hlslens"),
