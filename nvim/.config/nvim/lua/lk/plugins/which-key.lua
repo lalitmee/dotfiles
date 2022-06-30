@@ -943,6 +943,8 @@ local leader_key_maps = {
 -- NOTE: local leader key mappings {{{
 ----------------------------------------------------------------------
 local local_leader_key_maps = {
+  -- search using spectre
+  ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
   ----------------------------------------------------------------------
   -- NOTE: harpoon go to file {{{
   ----------------------------------------------------------------------
@@ -974,7 +976,6 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
   -- NOTE: files {{{
   ----------------------------------------------------------------------
-
   ["f"] = {
     ["name"] = "+files",
     ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
@@ -1046,9 +1047,22 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: system {{{
+  -- NOTE: spectre search and replace {{{
   ----------------------------------------------------------------------
   ["s"] = {
+    ["name"] = "+spectre-search",
+    ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
+    ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
+    ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
+    ["v"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
+  },
+  -- }}}
+  ----------------------------------------------------------------------
+
+  ----------------------------------------------------------------------
+  -- NOTE: system {{{
+  ----------------------------------------------------------------------
+  ["S"] = {
     ["name"] = "+system",
     ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
     ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },
