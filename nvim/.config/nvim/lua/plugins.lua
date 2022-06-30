@@ -600,6 +600,20 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: TEXT {{{
     ------------------------------------------------------------------------
+    -- github copilot
+    use({
+      "github/copilot.vim",
+      config = function()
+        vim.g.copilot_filetypes = {
+          gitcommit = false,
+          NeogitCommitMessage = false,
+          DressingInput = false,
+          TelescopePrompt = false,
+        }
+      end,
+      disable = false,
+    })
+
     -- run any code of any file type
     use({
       "michaelb/sniprun",
