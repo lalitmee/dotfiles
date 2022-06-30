@@ -546,12 +546,7 @@ require("packer").startup({
     use({
       "kevinhwang91/nvim-ufo",
       requires = "kevinhwang91/promise-async",
-      config = function()
-        local ufo = require("ufo")
-        ufo.setup({ open_fold_hl_timeout = 0 })
-        lk.nnoremap("zR", ufo.openAllFolds, "open all folds")
-        lk.nnoremap("zM", ufo.closeAllFolds, "close all folds")
-      end,
+      config = conf("ufo"),
     })
 
     -- nice fold text
@@ -1105,6 +1100,16 @@ require("packer").startup({
       run = "make",
       disable = true,
     })
+    -- }}}
+    ----------------------------------------------------------------------
+
+    ----------------------------------------------------------------------
+    -- NOTE: reading {{{
+    ----------------------------------------------------------------------
+    -- use({
+    --   "Massolari/forem.nvim",
+    --   config = conf("forem"),
+    -- })
     -- }}}
     ----------------------------------------------------------------------
   end,
