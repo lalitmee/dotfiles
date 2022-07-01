@@ -395,7 +395,25 @@ local leader_key_maps = {
     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
     ["i"] = { ":PickIcons<CR>", "icon-picker" },
     ["n"] = { ":Neorg<CR>", "neorg" },
+    ----------------------------------------------------------------------
+    -- NOTE: r is for refactor {{{
+    -- mappings lies in `lua/lk/plugins/refactoring.lua`
+    ----------------------------------------------------------------------
+    ["r"] = {
+      ["name"] = "+refactor",
+      ["c"] = { ":RefactorExtractVar<CR>", "extract-var" },
+      ["f"] = { ":RefactorExtractFunc<CR>", "extract-func" },
+      ["h"] = { ":RefactorDebugPath<CR>", "print-debug-path" },
+      ["i"] = { ":RefactorInlineVar<CR>", "inline-variable" },
+      ["p"] = { ":RefactorDebugPrintfBelow<CR>", "printf-below" },
+      ["P"] = { ":RefactorDebugPrintfAbove<CR>", "printf-above" },
+      ["r"] = { ":Refactors<CR>", "list-refactors" },
+      ["v"] = { ":RefactorDebugPrintVarBelow<CR>", "var-below" },
+      ["V"] = { ":RefactorDebugPrintVarAbove<CR>", "var-above" },
+    },
     ["w"] = { ":Neorg workspace work<CR>", "work-notes" },
+    -- }}}
+    ----------------------------------------------------------------------
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -770,20 +788,15 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: r is for refactor {{{
-  -- mappings lies in `lua/lk/plugins/refactoring.lua`
+  -- NOTE: r is for runner {{{
   ----------------------------------------------------------------------
   ["r"] = {
     ["name"] = "+refactor",
-    ["c"] = { ":RefactorExtractVar<CR>", "extract-var" },
-    ["f"] = { ":RefactorExtractFunc<CR>", "extract-func" },
-    ["h"] = { ":RefactorDebugPath<CR>", "print-debug-path" },
-    ["i"] = { ":RefactorInlineVar<CR>", "inline-variable" },
-    ["p"] = { ":RefactorDebugPrintfBelow<CR>", "printf-below" },
-    ["P"] = { ":RefactorDebugPrintfAbove<CR>", "printf-above" },
-    ["r"] = { ":Refactors<CR>", "list-refactors" },
-    ["v"] = { ":RefactorDebugPrintVarBelow<CR>", "var-below" },
-    ["V"] = { ":RefactorDebugPrintVarAbove<CR>", "var-above" },
+    ["p"] = { ":RunProject<CR>", "run-project" },
+    ["r"] = { ":RunCode<CR>", "run-code" },
+    ["R"] = { ":RunClose<CR>", "run-close" },
+    ["s"] = { ":SnipRun<CR>", "snip-run" },
+    ["S"] = { ":SnipClose<CR>", "snip-close" },
   },
   -- }}}
   ----------------------------------------------------------------------
