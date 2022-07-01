@@ -550,11 +550,11 @@ require("packer").startup({
       event = { "BufWritePre" },
     })
 
-    use({
-      "kevinhwang91/nvim-ufo",
-      requires = "kevinhwang91/promise-async",
-      config = conf("ufo"),
-    })
+    -- use({
+    --   "kevinhwang91/nvim-ufo",
+    --   requires = "kevinhwang91/promise-async",
+    --   config = conf("ufo"),
+    -- })
 
     -- nice fold text
     use({
@@ -1054,11 +1054,15 @@ require("packer").startup({
     use({
       "~/Desktop/Github/browse.nvim",
       requires = { "nvim-telescope/telescope.nvim" },
-      keys = {
-        { "n", "gx" },
-        { "n", "gl" },
-      },
       config = conf("browse"),
+      cmd = {
+        "Browse",
+        "BrowseBookmarks",
+        "BrowseInputSearch",
+        "BrowseDevdocsSearch",
+        "BrowseDevdocsFiletypeSearch",
+        "BrowseMdnSearch",
+      },
     })
     -- }}}
     ----------------------------------------------------------------------

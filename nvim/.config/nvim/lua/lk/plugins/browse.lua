@@ -37,14 +37,38 @@ local bookmarks = {
   "https://github.com/whatsthatsmell/dots",
 }
 
-vim.keymap.set("n", "go", function()
-  require("browse").browse({ bookmarks = bookmarks })
-end)
+local ok, browse = lk.safe_require("browse")
+if not ok then
+  return
+end
 
-vim.keymap.set("n", "gl", function()
-  require("browse").open_bookmarks({ bookmarks = bookmarks })
-end)
+----------------------------------------------------------------------
+-- NOTE: commands {{{
+----------------------------------------------------------------------
+local command = lk.command
 
-vim.keymap.set("n", "gx", function()
-  require("browse").input_search()
-end)
+command("Browse", function()
+  browse.browse({ bookmarks = bookmarks })
+end, {})
+
+command("BrowseBookmarks", function()
+  browse.open_bookmarks({ bookmarks = bookmarks })
+end, {})
+
+command("BrowseInputSearch", function()
+  browse.input_search()
+end, {})
+
+command("BrowseDevdocsSearch", function()
+  browse.devdocs.search()
+end, {})
+
+command("BrowseDevdocsFiletypeSearch", function()
+  browse.devdocs.search_with_filetype()
+end, {})
+
+command("BrowseMdnSearch", function()
+  browse.mdn.search()
+end, {})
+-- }}}
+----------------------------------------------------------------------
