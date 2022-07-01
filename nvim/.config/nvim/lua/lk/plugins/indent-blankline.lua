@@ -23,6 +23,7 @@ require("indent_blankline").setup({
     "NvimTree",
     "git",
     "TelescopePrompt",
+    "frecency",
     "undotree",
     "flutterToolsOutline",
     "norg",

@@ -1,15 +1,16 @@
 --------------------------------------------------------------------------------
 -- NOTE: plugins setup {{{
 --------------------------------------------------------------------------------
+local fmt = string.format
 -- cfilter plugin allows filter down an existing quickfix list
 -- vim.cmd([[packadd! cfilter]])
 
 -- function to return string for require plugins using path
 local function conf(name)
   if name == "signature" then
-    return string.format("R('lk/plugins/lsp/%s')", name)
+    return fmt("R('lk/plugins/lsp/%s')", name)
   end
-  return string.format("R('lk/plugins/%s')", name)
+  return fmt("R('lk/plugins/%s')", name)
 end
 
 --------------------------------------------------------------------------------
@@ -360,7 +361,7 @@ require("packer").startup({
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
           after = "telescope.nvim",
-          module = "telescope._extensions.frecency",
+          -- module = "telescope._extensions.frecency",
           config = function()
             require("telescope").load_extension("frecency")
           end,
@@ -626,7 +627,14 @@ require("packer").startup({
       "michaelb/sniprun",
       run = "bash ./install.sh",
       cmd = { "SnipRun" },
-      opt = true,
+      config = conf("sniprun"),
+    })
+
+    -- run any code
+    use({
+      "CRAG666/code_runner.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = conf("code_runner"),
     })
 
     ------------------------------------------------------------------------
@@ -747,8 +755,8 @@ require("packer").startup({
         },
         {
           "ray-x/lsp_signature.nvim",
-          config = conf("signature"),
           after = "nvim-lspconfig",
+          config = conf("signature"),
         },
         {
           "folke/lua-dev.nvim",
@@ -1036,14 +1044,15 @@ require("packer").startup({
     use({
       "akinsho/nvim-toggleterm.lua",
       config = conf("toggleterm"),
-      keys = { "n", [[<C-\>]] },
       cmd = {
         "ToggleTerm",
         "ToggleTerm1",
         "ToggleTerm2",
         "ToggleTerm3",
         "ToggleTerm4",
+        "TermExec",
       },
+      keys = { "n", [[<C-\>]] },
     })
     -- }}}
     ------------------------------------------------------------------------
