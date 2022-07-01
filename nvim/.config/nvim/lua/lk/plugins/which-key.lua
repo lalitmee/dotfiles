@@ -964,11 +964,13 @@ local local_leader_key_maps = {
   -- NOTE: buffers  {{{
   ----------------------------------------------------------------------
   ["b"] = {
-    ["name"] = "+buffers",
-    ["b"] = { ":ReachOpen buffers<CR>", "buffers" },
-    ["c"] = { ":ReachOpen colorschemes<CR>", "colorschemes" },
-    ["m"] = { ":ReachOpen marks<CR>", "marks" },
-    ["t"] = { ":ReachOpen tabpages<CR>", "tabs" },
+    ["name"] = "+browse",
+    ["b"] = { ":Browse<CR>", "browse" },
+    ["c"] = { ":BrowseBookmarks<CR>", "bookmarks" },
+    ["d"] = { ":BrowseDevdocsFiletypeSearch<CR>", "devdocs-filetype-search" },
+    ["D"] = { ":BrowseDevdocsSearch<CR>", "devdocs-search" },
+    ["i"] = { ":BrowseInputSearch<CR>", "input-search" },
+    ["m"] = { ":BrowseMdnSearch<CR>", "mdn-search" },
   },
   -- }}}
   ----------------------------------------------------------------------
