@@ -300,6 +300,14 @@ require("packer").startup({
       keys = { "v", "*" },
     })
 
+    -- toggle relative line numbers automatically
+    use({
+      "sitiom/nvim-numbertoggle",
+      config = function()
+        require("numbertoggle").setup()
+      end,
+    })
+
     -- search lines using numbers
     use({
       "nacro90/numb.nvim",
@@ -926,12 +934,6 @@ require("packer").startup({
       config = conf("lualine"),
     })
 
-    -- location component
-    use({
-      "SmiteshP/nvim-gps",
-      requires = "nvim-treesitter/nvim-treesitter",
-    })
-
     -- winbar component
     use({
       "SmiteshP/nvim-navic",
@@ -1106,7 +1108,7 @@ require("packer").startup({
         { "TravonteD/org-capture-filetype" },
         { "ranjithshegde/orgWiki.nvim" },
         { "dhruvasagar/vim-table-mode" },
-        { "lukas-reineke/headlines.nvim" },
+        -- { "lukas-reineke/headlines.nvim" },
       },
       -- disable = true,
     })
