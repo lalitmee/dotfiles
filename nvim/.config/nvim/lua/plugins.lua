@@ -1108,7 +1108,7 @@ require("packer").startup({
         { "TravonteD/org-capture-filetype" },
         { "ranjithshegde/orgWiki.nvim" },
         { "dhruvasagar/vim-table-mode" },
-        -- { "lukas-reineke/headlines.nvim" },
+        { "lukas-reineke/headlines.nvim" },
       },
       -- disable = true,
     })
