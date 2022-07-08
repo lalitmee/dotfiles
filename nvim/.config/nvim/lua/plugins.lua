@@ -670,6 +670,8 @@ require("packer").startup({
       config = conf("formatter"),
     })
 
+    use({ "sbdchd/neoformat" })
+
     -- indentlines in neovim
     use({
       "lukas-reineke/indent-blankline.nvim",
@@ -1099,20 +1101,6 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: notes {{{
     ----------------------------------------------------------------------
-    -- org mode in neovim
-    use({
-      "nvim-orgmode/orgmode",
-      config = conf("orgmode"),
-      requires = {
-        { "akinsho/org-bullets.nvim" },
-        { "TravonteD/org-capture-filetype" },
-        { "ranjithshegde/orgWiki.nvim" },
-        { "dhruvasagar/vim-table-mode" },
-        { "lukas-reineke/headlines.nvim" },
-      },
-      -- disable = true,
-    })
-
     -- similar to orgmode but with neovim in lua
     use({
       "nvim-neorg/neorg",
