@@ -1,3 +1,10 @@
+local ok, formatter = lk.safe_require("formatter")
+if not ok then
+  return
+end
+
+local util = require("formatter.util")
+
 ----------------------------------------------------------------------
 -- NOTE: prettier {{{
 ----------------------------------------------------------------------
@@ -7,7 +14,7 @@ local prettier = function()
     args = {
       "--find-config-path",
       "--stdin-filepath",
-      vim.api.nvim_buf_get_name(0),
+      string.format('"%s"', util.escape_path(util.get_current_buffer_file_path())),
       "--config-precedencei:file-override",
     },
     stdin = true,
@@ -44,7 +51,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: formatter setup {{{
 ----------------------------------------------------------------------
-require("formatter").setup({
+formatter.setup({
   filetype = {
     javascript = { prettier },
     javascriptreact = { prettier },
@@ -62,6 +69,9 @@ require("formatter").setup({
     html = { prettier },
     rust = { rustfmt },
     lua = { styluafmt },
+    ["*"] = {
+      require("formatter.filetypes.any").remove_trailing_whitespace,
+    },
   },
 })
 -- }}}
