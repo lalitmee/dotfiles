@@ -4,12 +4,6 @@ if not ok then
   return
 end
 
-local auto_session_ok, auto_session_library = lk.safe_require("auto-session-library")
-if not auto_session_ok then
-  vim.notify("Failed to load auto-session-library", "error", { title = "[auto-session-library.nvim] error" })
-  return
-end
-
 --------------------------------------------------------------------------------
 -- NOTE: to get the current client server name {{{
 --------------------------------------------------------------------------------
@@ -33,15 +27,14 @@ end
 --------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: get session name {{{
+-- NOTE: is in a session {{{
 ----------------------------------------------------------------------
-local function get_session_name()
-  local session_name = auto_session_library.current_session_name()
-  if session_name == nil then
+local function is_in_a_session()
+  if vim.g.persisting == false then
     return "No Active Session"
   end
   -- return "[⚙ Session: " .. session_name .. "]"
-  return "[" .. session_name .. "]"
+  return "[Persisting]"
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -72,7 +65,7 @@ lualine.setup({
         separator = { right = "" },
       },
       {
-        get_session_name,
+        is_in_a_session,
         color = "LualineSessionName",
         separator = { right = "" },
       },

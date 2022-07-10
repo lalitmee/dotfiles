@@ -137,15 +137,9 @@ require("packer").startup({
 
     -- session management
     use({
-      "rmagatti/session-lens",
-      after = { "telescope.nvim", "auto-session" },
-      cmd = { "SearchSession" },
-      requires = {
-        "rmagatti/auto-session",
-        event = { "VimEnter" },
-        config = conf("auto-session"),
-      },
-      config = conf("session-lens"),
+      "olimorris/persisted.nvim",
+      -- module = "persisted", -- can't do this because it doesn't load automatically
+      config = conf("persisted"),
     })
 
     -- Colorizer for showing the colors

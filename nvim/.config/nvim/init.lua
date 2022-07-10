@@ -3,8 +3,8 @@
 -- │                 Created By: Lalit Kumar                  │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- deactivate vim based filetype detection
-vim.g.did_load_filetypes = 0
+-- -- deactivate vim based filetype detection
+-- vim.g.did_load_filetypes = 0
 
 -- impatient
 pcall(require, "impatient")
