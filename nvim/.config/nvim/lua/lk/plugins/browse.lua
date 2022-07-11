@@ -42,6 +42,12 @@ if not ok then
   return
 end
 
+browse.setup({
+  provider = "brave",
+  -- provider = "duckduckgo",
+  -- provider = "google",
+})
+
 ----------------------------------------------------------------------
 -- NOTE: commands {{{
 ----------------------------------------------------------------------
