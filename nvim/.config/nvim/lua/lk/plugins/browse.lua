@@ -43,8 +43,8 @@ if not ok then
 end
 
 browse.setup({
-  provider = "brave",
-  -- provider = "duckduckgo",
+  -- provider = "brave",
+  provider = "duckduckgo",
   -- provider = "google",
 })
 
