@@ -315,6 +315,11 @@ require("packer").startup({
       config = conf("quick-scope"),
     })
 
+    -- use({
+    --   "jinh0/eyeliner.nvim",
+    --   config = conf("eyeliner"),
+    -- })
+
     -- easymotion using lua
     use({
       "phaazon/hop.nvim",
@@ -553,11 +558,11 @@ require("packer").startup({
       event = { "BufWritePre" },
     })
 
-    -- use({
-    --   "kevinhwang91/nvim-ufo",
-    --   requires = "kevinhwang91/promise-async",
-    --   config = conf("ufo"),
-    -- })
+    use({
+      "kevinhwang91/nvim-ufo",
+      requires = "kevinhwang91/promise-async",
+      config = conf("ufo"),
+    })
 
     -- nice fold text
     use({
@@ -964,9 +969,14 @@ require("packer").startup({
     })
 
     -- surrounding in vim
+    -- use({
+    --   "tpope/vim-surround",
+    --   event = { "BufRead" },
+    -- })
+
     use({
-      "tpope/vim-surround",
-      event = { "BufRead" },
+      "kylechui/nvim-surround",
+      config = conf("nvim-surround"),
     })
 
     -- debug things

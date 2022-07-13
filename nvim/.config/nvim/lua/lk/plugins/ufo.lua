@@ -1,9 +1,9 @@
 local ufo = require("ufo")
 
 vim.opt.sessionoptions:append("folds")
--- vim.wo.foldcolumn = "5"
-vim.wo.foldlevel = 99 -- feel free to decrease the value
-vim.wo.foldenable = true
+-- vim.o.foldcolumn = "5"
+vim.o.foldlevel = 99
+vim.o.foldenable = true
 
 lk.nnoremap("zR", ufo.openAllFolds, "open all folds")
 lk.nnoremap("zM", ufo.closeAllFolds, "close all folds")
