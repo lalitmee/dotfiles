@@ -156,7 +156,7 @@ opt.formatoptions = opt.formatoptions
 -- opt.foldtext = 'v:lua.as.folds()'
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.foldopen = opt.foldopen + "search"
-opt.foldlevelstart = 0
+opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- }}}
