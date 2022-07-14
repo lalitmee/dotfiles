@@ -86,16 +86,9 @@
     "com.github.rootwork.ulauncher-symbol": {
         "id": "com.github.rootwork.ulauncher-symbol",
         "url": "https://github.com/rootwork/ulauncher-symbol",
-        "updated_at": "2021-10-28T17:24:35.259203",
-        "last_commit": "8a580616039acc8e24c9f3b4c534cb2afc3b7107",
-        "last_commit_time": "2021-10-26T04:05:08"
-    },
-    "com.github.manahter.ulauncher-translate": {
-        "id": "com.github.manahter.ulauncher-translate",
-        "url": "https://github.com/manahter/ulauncher-translate",
-        "updated_at": "2021-12-23T15:52:01.391142",
-        "last_commit": "f81d32c583c7e3542bdba655e991a56e6d9a2c28",
-        "last_commit_time": "2021-04-09T18:12:40"
+        "updated_at": "2022-07-13T22:57:23.902213",
+        "last_commit": "c5d7ab5c94c1b418cb1f8a9161be169a29c65658",
+        "last_commit_time": "2022-02-24T01:17:09"
     },
     "com.github.brpaz.ulauncher-awesomelists": {
         "id": "com.github.brpaz.ulauncher-awesomelists",
@@ -124,5 +117,12 @@
         "updated_at": "2022-04-05T18:48:56.090512",
         "last_commit": "5c6b7589a6d70665a63a2421f92d44d51266b6fd",
         "last_commit_time": "2021-07-31T14:41:16"
+    },
+    "com.github.nastuzzisamy.ulauncher-translate": {
+        "id": "com.github.nastuzzisamy.ulauncher-translate",
+        "url": "https://github.com/NastuzziSamy/ulauncher-translate",
+        "updated_at": "2022-07-13T22:58:43.741620",
+        "last_commit": "f16b6eed05923e604bacafefdc40b7b7290e21da",
+        "last_commit_time": "2021-03-27T11:43:48"
     }
 }
