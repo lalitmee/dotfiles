@@ -4,4 +4,6 @@ if not ok then
 end
 
 -- setup
-project.setup()
+project.setup({
+  show_hidden = true,
+})

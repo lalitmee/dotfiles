@@ -92,8 +92,8 @@ require("packer").startup({
     use({
       "yamatsum/nvim-nonicons",
       requires = { "kyazdani42/nvim-web-devicons" },
-      config = conf("devicons"),
       event = { "BufRead" },
+      config = conf("devicons"),
     })
 
     -- }}}
@@ -193,12 +193,14 @@ require("packer").startup({
     use({
       "NTBBloodbath/rest.nvim",
       config = conf("rest"),
+      disable = true,
     })
 
     -- scratch files in `/tmp` folder
     use({
       "m-demare/attempt.nvim",
       config = conf("attempt"),
+      cmd = { "AttemptNew", "AttemptNewExtension" },
     })
 
     -- cycle folds
@@ -277,6 +279,12 @@ require("packer").startup({
     use({
       "nvim-pack/nvim-spectre",
       config = conf("spectre"),
+      cmd = {
+        "SpectreOpen",
+        "SpectreCurWord",
+        "SpectreVisual",
+        "SpectreCurFileSearch",
+      },
     })
 
     -- highlight search results
@@ -368,7 +376,6 @@ require("packer").startup({
           "nvim-telescope/telescope-frecency.nvim",
           requires = { "tami5/sqlite.lua" },
           after = "telescope.nvim",
-          -- module = "telescope._extensions.frecency",
           config = function()
             require("telescope").load_extension("frecency")
           end,
@@ -493,7 +500,10 @@ require("packer").startup({
     })
 
     -- delete buffers without distubing layout
-    use({ "kazhala/close-buffers.nvim" })
+    use({
+      "kazhala/close-buffers.nvim",
+      cmd = { "BDelete", "BWipeout" },
+    })
 
     -- auto pairs
     use({
@@ -558,11 +568,11 @@ require("packer").startup({
       event = { "BufWritePre" },
     })
 
-    use({
-      "kevinhwang91/nvim-ufo",
-      requires = "kevinhwang91/promise-async",
-      config = conf("ufo"),
-    })
+    -- use({
+    --   "kevinhwang91/nvim-ufo",
+    --   requires = "kevinhwang91/promise-async",
+    --   config = conf("ufo"),
+    -- })
 
     -- nice fold text
     use({
@@ -570,13 +580,6 @@ require("packer").startup({
       event = { "BufEnter" },
       config = conf("pretty-fold"),
     })
-
-    -- -- fast folds in vim
-    -- use({
-    --   "Konfekt/FastFold",
-    --   event = { "BufRead" },
-    --   config = conf("fastfold"),
-    -- })
 
     -- commenting
     use({
@@ -669,8 +672,6 @@ require("packer").startup({
       config = conf("formatter"),
     })
 
-    use({ "sbdchd/neoformat" })
-
     -- indentlines in neovim
     use({
       "lukas-reineke/indent-blankline.nvim",
@@ -724,9 +725,9 @@ require("packer").startup({
     })
     use({
       "neovim/nvim-lspconfig",
+      ft = vim.g.enable_lspconfig_ft,
       module = "lspconfig",
       after = { "nvim-lsp-installer" },
-      ft = vim.g.enable_lspconfig_ft,
       config = conf("lsp"),
       requires = {
         { "jose-elias-alvarez/nvim-lsp-ts-utils" },
@@ -968,12 +969,6 @@ require("packer").startup({
       event = { "BufRead" },
     })
 
-    -- surrounding in vim
-    -- use({
-    --   "tpope/vim-surround",
-    --   event = { "BufRead" },
-    -- })
-
     use({
       "kylechui/nvim-surround",
       config = conf("nvim-surround"),
@@ -1002,12 +997,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: FILES {{{
     ------------------------------------------------------------------------
-    -- better `gf` command
-    use({
-      "moevis/smartjump.nvim",
-      requires = "nvim-telescope/telescope.nvim",
-    })
-
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
@@ -1121,23 +1110,24 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: entertainment {{{
     ----------------------------------------------------------------------
-    use({
-      "KadoBOT/nvim-spotify",
-      requires = "nvim-telescope/telescope.nvim",
-      config = conf("spotify"),
-      run = "make",
-      disable = true,
-    })
+    -- use({
+    --   "KadoBOT/nvim-spotify",
+    --   requires = "nvim-telescope/telescope.nvim",
+    --   config = conf("spotify"),
+    --   run = "make",
+    --   disable = true,
+    -- })
     -- }}}
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
     -- NOTE: reading {{{
     ----------------------------------------------------------------------
-    -- use({
-    --   "Massolari/forem.nvim",
-    --   config = conf("forem"),
-    -- })
+    use({
+      "Massolari/forem.nvim",
+      config = conf("forem"),
+      cmd = { "Forem" },
+    })
     -- }}}
     ----------------------------------------------------------------------
   end,
