@@ -1,11 +1,6 @@
 local M = {}
 
-local colors_ok, colors = lk.safe_require("cobalt2.palette")
-if not colors_ok then
-  return
-end
-
-vim.api.nvim_set_hl(0, "WinBar", { bg = colors.cobalt_bg, fg = colors.blue })
+vim.api.nvim_set_hl(0, "WinBar", { link = "Comment" })
 
 local separator = ">"
 
