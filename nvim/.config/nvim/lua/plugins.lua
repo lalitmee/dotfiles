@@ -83,6 +83,13 @@ require("packer").startup({
       "/home/lalitmee/Desktop/Github/cobalt2.nvim",
       requires = "tjdevries/colorbuddy.nvim",
     })
+    -- use({
+    --   "catppuccin/nvim",
+    --   as = "catppuccin",
+    -- })
+    -- use({ "marko-cerovac/material.nvim" })
+    -- use({ "Mofiqul/vscode.nvim" })
+    -- use({ "folke/tokyonight.nvim" })
     -- }}}
     ----------------------------------------------------------------------------
 
@@ -137,9 +144,15 @@ require("packer").startup({
 
     -- session management
     use({
-      "olimorris/persisted.nvim",
-      -- module = "persisted", -- can't do this because it doesn't load automatically
-      config = conf("persisted"),
+      "rmagatti/session-lens",
+      after = { "telescope.nvim", "auto-session" },
+      cmd = { "SearchSession" },
+      requires = {
+        "rmagatti/auto-session",
+        event = { "VimEnter" },
+        config = conf("auto-session"),
+      },
+      config = conf("session-lens"),
     })
 
     -- Colorizer for showing the colors
@@ -337,6 +350,7 @@ require("packer").startup({
     -- Navigations
     use({
       "ThePrimeagen/harpoon",
+      config = conf("harpoon"),
       cmd = {
         "HarpoonAddFile",
         "HarpoonGotoFile1",
@@ -354,7 +368,6 @@ require("packer").startup({
         "HarpoonRemoveFile",
         "ToggleHarpoonMenu",
       },
-      config = conf("harpoon"),
     })
     -- }}}
     ----------------------------------------------------------------------------

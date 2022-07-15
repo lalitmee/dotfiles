@@ -839,14 +839,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["S"] = {
     ["name"] = "+sessions/+workspaces",
-    ["d"] = { ":SessionDelete<CR>", "delete-session" },
-    ["f"] = { ":Telescope persisted<CR>", "search-sessions" },
-    ["l"] = { ":SessionLoad<CR>", "load-session" },
-    ["L"] = { ":SessionLoadLast<CR>", "load-last-session" },
-    ["p"] = { ":SessionStop<CR>", "stop-session" },
-    ["r"] = { ":SessionStart<CR>", "start-session" },
-    ["s"] = { ":SessionSave<CR>", "save-session" },
-    ["t"] = { ":SessionToggle<CR>", "toggle-session" },
+    ["l"] = { ":SearchSession<CR>", "search-sessions" },
   },
   -- }}}
   ----------------------------------------------------------------------
