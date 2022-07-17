@@ -518,6 +518,12 @@ require("packer").startup({
       cmd = { "BDelete", "BWipeout" },
     })
 
+    -- tag buffers for their names
+    use({
+      "ldelossa/buffertag",
+      config = conf("buffertag"),
+    })
+
     -- auto pairs
     use({
       "windwp/nvim-autopairs",
