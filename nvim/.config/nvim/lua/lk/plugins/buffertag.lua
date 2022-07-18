@@ -4,6 +4,8 @@ if not ok then
   return
 end
 
+require("buffertag.config").config.border = "rounded"
+
 buffertag.enable()
 
 ----------------------------------------------------------------------
