@@ -840,6 +840,7 @@ local leader_key_maps = {
   ["S"] = {
     ["name"] = "+sessions/+workspaces",
     ["l"] = { ":SearchSession<CR>", "search-sessions" },
+    ["s"] = { ":SaveSession<CR>", "save-session" },
   },
   -- }}}
   ----------------------------------------------------------------------

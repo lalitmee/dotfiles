@@ -142,19 +142,6 @@ require("packer").startup({
     --   requires = "anuvyklack/keymap-layer.nvim",
     -- })
 
-    -- session management
-    use({
-      "rmagatti/session-lens",
-      after = { "telescope.nvim", "auto-session" },
-      cmd = { "SearchSession" },
-      requires = {
-        "rmagatti/auto-session",
-        event = { "VimEnter" },
-        config = conf("auto-session"),
-      },
-      config = conf("session-lens"),
-    })
-
     -- Colorizer for showing the colors
     use({
       "norcalli/nvim-colorizer.lua",
