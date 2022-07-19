@@ -18,9 +18,12 @@ require("nvim-tree").setup({
       window_picker = { enable = false },
     },
   },
+  git = {
+    enable = false,
+  },
   renderer = {
     root_folder_modifier = ":t",
-    highlight_git = true,
+    highlight_git = false,
     icons = {
       glyphs = {
         default = "",
