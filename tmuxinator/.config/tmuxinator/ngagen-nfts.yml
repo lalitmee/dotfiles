@@ -5,7 +5,7 @@ root: ~/Desktop/koinearth/ngagen/ngagen-webapp-service-nextjs
 
 windows:
   - Editor: gst
-  - Server: ~/Desktop/koinearth/ngagen/worktrees/ngagen-webapp-service-nextjs/602 && npm run dev
+  - Server: ~/Desktop/koinearth/ngagen/ngagen-webapp-service-nextjs && npd
   - Music: cmus
   - Brave: brave-browser
   - Firefox: firefox

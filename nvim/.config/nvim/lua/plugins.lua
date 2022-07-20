@@ -177,6 +177,12 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- keep the cursor where it is
+    use({
+      "gbprod/stay-in-place.nvim",
+      config = conf("stay-in-place"),
+    })
+
     -- icon picker for neovim
     use({
       "ziontee113/icon-picker.nvim",
