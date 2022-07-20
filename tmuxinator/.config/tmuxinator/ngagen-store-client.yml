@@ -1,0 +1,11 @@
+# /home/lalitmee/.config/tmuxinator/ngagen-store-client.yml
+
+name: ngagen-store-client
+root: ~/Desktop/koinearth/ngagen/ngagen-store-client-webapp-service
+
+windows:
+  - Editor: ls
+  - Server: npd
+  - Browser: brave-browser
+  - Side-Browser: firefox
+  - Extra: quote
