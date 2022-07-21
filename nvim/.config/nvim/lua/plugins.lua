@@ -177,11 +177,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
-    use({
-      "beauwilliams/focus.nvim",
-      config = conf("focus"),
-    })
-
     -- keep the cursor where it is
     use({
       "gbprod/stay-in-place.nvim",
