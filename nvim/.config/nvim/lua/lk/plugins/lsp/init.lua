@@ -129,8 +129,20 @@ capabilities.textDocument.foldingRange = {
 -- NOTE: servers {{{
 ----------------------------------------------------------------------
 local servers = {
-  -- NOTE: not using these servers
   bashls = true,
+  clangd = {
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--suggest-missing-includes",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+    },
+    -- Required for lsp-status
+    init_options = {
+      clangdFileStatus = true,
+    },
+  },
   cssls = true,
   dockerls = true,
   emmet_ls = true,
