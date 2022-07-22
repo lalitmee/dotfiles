@@ -4,11 +4,43 @@ if not ok then
   return
 end
 
--- local auto_session_ok, auto_session_library = lk.safe_require("auto-session-library")
--- if not auto_session_ok then
---   vim.notify("Failed to load auto-session-library", "error", { title = "[auto-session-library.nvim] error" })
---   return
--- end
+----------------------------------------------------------------------
+-- NOTE: custom filename component {{{
+----------------------------------------------------------------------
+local custom_fname = require("lualine.components.filename"):extend()
+local highlight = require("lualine.highlight")
+local colors = require("cobalt2.palette")
+local default_status_colors = { saved = colors.green, modified = colors.red }
+
+function custom_fname:init(options)
+  custom_fname.super.init(self, options)
+  self.status_colors = {
+    saved = highlight.create_component_highlight_group(
+      { fg = default_status_colors.saved },
+      "filename_status_saved",
+      self.options
+    ),
+    modified = highlight.create_component_highlight_group(
+      { fg = default_status_colors.modified },
+      "filename_status_modified",
+      self.options
+    ),
+  }
+  if self.options.color == nil then
+    self.options.color = ""
+  end
+end
+
+function custom_fname:update_status()
+  local data = custom_fname.super.update_status(self)
+  data = highlight.component_format_highlight(
+    vim.bo.modified and self.status_colors.modified or self.status_colors.saved
+  ) .. data
+  return data
+end
+
+-- }}}
+----------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 -- NOTE: to get the current client server name {{{
@@ -23,8 +55,8 @@ local function get_client_name()
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      -- return "[⚙ LSP: " .. client.name .. "]"
-      return "[" .. client.name .. "]"
+      return "[⚙ LSP: " .. client.name .. "]"
+      -- return "[" .. client.name .. "]"
     end
   end
   return msg
@@ -33,15 +65,11 @@ end
 --------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: get session name {{{
+-- NOTE: trailing whitespaces {{{
 ----------------------------------------------------------------------
-local function get_session_name()
-  local session_name = auto_session_library.current_session_name() or nil
-  if session_name == nil then
-    return "No Active Session"
-  end
-  -- return "[⚙ Session: " .. session_name .. "]"
-  return "[" .. session_name .. "]"
+local function get_trailing_whitespace()
+  local space = vim.fn.search([[\s\+$]], "nwc")
+  return space ~= 0 and "TW:" .. space or ""
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -69,18 +97,26 @@ lualine.setup({
       {
         "branch",
         icon = "",
-        separator = { right = "" },
-      },
-      {
-        get_session_name,
-        color = "LualineSessionName",
-        separator = { right = "" },
       },
     },
     lualine_c = {
-      "%=",
+      { "diff" },
+      "%=%",
       { "filetype", icon_only = true },
-      { "filename", path = 1, color = "LualineFileName" },
+      {
+        custom_fname,
+        path = 1,
+        color = "LualineFileName",
+        symbols = {
+          modified = " []",
+          readonly = " []",
+        },
+      },
+      {
+        get_client_name,
+        color = "LualineSessionName",
+        separator = { right = "", left = "" },
+      },
     },
     lualine_x = {
       {
@@ -92,18 +128,11 @@ lualine.setup({
           hint = " ",
           info = " ",
         },
-        update_in_insert = true,
       },
-      { "filesize", color = "LualineFileSize" },
-      { "filetype", color = "LualineFileType" },
-      {
-        get_client_name,
-        color = "LualineSessionName",
-        separator = { left = "" },
-      },
+      { get_trailing_whitespace },
     },
     lualine_y = { { "progress" } },
-    lualine_z = { { "location" } },
+    lualine_z = { { "location", icon = "" } },
   },
   inactive_sections = {
     lualine_a = {},
@@ -113,8 +142,6 @@ lualine.setup({
     lualine_z = { "location" },
   },
   extensions = {
-    "fugitive",
-    "fzf",
     "man",
     "nvim-tree",
     "quickfix",

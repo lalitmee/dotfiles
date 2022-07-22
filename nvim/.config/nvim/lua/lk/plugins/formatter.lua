@@ -6,6 +6,24 @@ end
 local util = require("formatter.util")
 
 ----------------------------------------------------------------------
+-- NOTE: clang-format {{{
+----------------------------------------------------------------------
+local clang_format = function()
+  return {
+    exe = "clang-format",
+    -- args = {
+    --   "--find-config-path",
+    --   "--stdin-filepath",
+    --   string.format('"%s"', util.escape_path(util.get_current_buffer_file_path())),
+    --   "--config-precedencei:file-override",
+    -- },
+    stdin = true,
+  }
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: prettier {{{
 ----------------------------------------------------------------------
 local prettier = function()
@@ -53,6 +71,8 @@ end
 ----------------------------------------------------------------------
 formatter.setup({
   filetype = {
+    c = { clang_format },
+    cpp = { clang_format },
     javascript = { prettier },
     javascriptreact = { prettier },
     typescript = { prettier },
@@ -84,22 +104,24 @@ lk.augroup("formatter_au", {
   {
     event = "BufWritePost",
     pattern = {
+      "*.c",
+      "*.cpp",
+      "*.css",
+      "*.graphql",
+      "*.html",
       "*.js",
+      "*.json",
       "*.jsx",
+      "*.less",
+      "*.lua",
+      "*.md",
       "*.mjs",
+      "*.rs",
+      "*.scss",
       "*.ts",
       "*.tsx",
-      "*.css",
-      "*.less",
-      "*.scss",
-      "*.json",
-      "*.graphql",
-      "*.md",
       "*.vue",
       "*.yaml",
-      "*.html",
-      "*.rs",
-      "*.lua",
     },
     command = function()
       vim.cmd([[FormatWrite]])

@@ -792,6 +792,7 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["r"] = {
     ["name"] = "+refactor",
+    ["c"] = { ":lua require('lk/utils/compiler').compile_and_run()<CR>", "compile-and-run" },
     ["p"] = { ":RunProject<CR>", "run-project" },
     ["r"] = { ":RunCode<CR>", "run-code" },
     ["R"] = { ":RunClose<CR>", "run-close" },

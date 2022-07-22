@@ -836,6 +836,12 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Languages {{{
     ----------------------------------------------------------------------------
+    -- build and run code
+    use({
+      "Shatur/neovim-cmake",
+      config = conf("neovim-cmake"),
+    })
+
     -- refactor the code
     use({
       "ThePrimeagen/refactoring.nvim",
@@ -1093,7 +1099,7 @@ require("packer").startup({
     use({
       "mfussenegger/nvim-dap",
       config = conf("dap"),
-      cmd = { "DapToggleBreakpoint" },
+      -- cmd = { "DapToggleBreakpoint" },
       requires = {
         { "jbyuki/one-small-step-for-vimkind", after = "nvim-dap" },
         { "rcarriga/nvim-dap-ui", after = "nvim-dap" },
