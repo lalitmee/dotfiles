@@ -101,7 +101,7 @@ lualine.setup({
     },
     lualine_c = {
       { "diff" },
-      "%=%",
+      { "%=", type = "stl" },
       { "filetype", icon_only = true },
       {
         custom_fname,
