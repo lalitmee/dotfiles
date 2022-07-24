@@ -154,11 +154,10 @@ set_cursorline("FileType", false, "TelescopePrompt")
 --   {
 --     event = { "CursorMoved", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost" },
 --     command = function()
---       require("lk.utils.winbar").get_winbar()
+--       vim.opt.winbar = "%{%v:lua.require('lk.utils.winbar').eval()%}"
 --     end,
 --   },
 -- })
-
 -- }}}
 ----------------------------------------------------------------------
 

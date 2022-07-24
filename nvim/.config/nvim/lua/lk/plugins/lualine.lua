@@ -75,6 +75,15 @@ end
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
+-- NOTE: winbar {{{
+----------------------------------------------------------------------
+local function get_winbar()
+  return require("lk.utils.winbar").eval()
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
 lualine.setup({
@@ -83,6 +92,9 @@ lualine.setup({
     globalstatus = true,
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
+    disabled_filetypes = {
+      winbar = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" },
+    },
   },
   sections = {
     lualine_a = {
@@ -140,6 +152,20 @@ lualine.setup({
     lualine_c = { { "filename", path = 0 } },
     lualine_x = { "filetype" },
     lualine_z = { "location" },
+  },
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { get_winbar, { color = { link = "Cursor" } } },
+    lualine_x = {},
+    lualine_z = {},
+  },
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { get_winbar },
+    lualine_x = {},
+    lualine_z = {},
   },
   extensions = {
     "man",
