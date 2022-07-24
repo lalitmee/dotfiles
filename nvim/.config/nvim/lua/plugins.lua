@@ -323,16 +323,11 @@ require("packer").startup({
       config = conf("numb"),
     })
 
-    -- quick scope for lines
+    -- quick scope for lines in lua
     use({
-      "unblevable/quick-scope",
-      config = conf("quick-scope"),
+      "jinh0/eyeliner.nvim",
+      config = conf("eyeliner"),
     })
-
-    -- use({
-    --   "jinh0/eyeliner.nvim",
-    --   config = conf("eyeliner"),
-    -- })
 
     -- easymotion using lua
     use({
@@ -444,7 +439,7 @@ require("packer").startup({
         },
         {
           "zane-/howdoi.nvim",
-          module = "telescope._extensions.howdoi",
+          -- module = "telescope._extensions.howdoi",
           after = "telescope.nvim",
           config = function()
             require("telescope").load_extension("howdoi")

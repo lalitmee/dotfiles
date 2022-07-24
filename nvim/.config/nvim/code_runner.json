@@ -1,0 +1,14 @@
+{
+  "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
+  "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
+  "cs": "dotnet watch",
+  "dart": "dart",
+  "go": "go run",
+  "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+  "javascript": "node",
+  "kotlin": "cd $dir && kotlinc-native $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt.kexe",
+  "python": "python -u",
+  "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+  "sh": "bash",
+  "typescript": "deno run"
+}
