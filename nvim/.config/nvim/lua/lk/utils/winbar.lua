@@ -1,7 +1,5 @@
 local M = {}
 
-vim.api.nvim_set_hl(0, "WinBar", { link = "Cursor" })
-
 local separator = ">" --   
 
 local disabled_filetypes = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" }
@@ -18,7 +16,7 @@ M.eval = function()
   if not navic_ok or not navic.is_available() then
     return string.format("     %s", file_path)
   end
-  return string.format("     %s %s %s", file_path, separator, navic.get_location())
+  return string.format("    %s %s %s", file_path, separator, navic.get_location())
 end
 
 return M
