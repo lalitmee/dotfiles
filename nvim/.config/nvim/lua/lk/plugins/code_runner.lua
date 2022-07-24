@@ -4,16 +4,11 @@ if not ok then
 end
 
 code_runner.setup({
-  filetype = {
-    cpp = "g++ -o $fileBase && ./$fileBase",
-    go = "go run",
-    java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
-    javascript = "node",
-    lua = "lua",
-    markdown = "glow",
-    python = "python3 -u",
-    rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
-    sh = "sh",
-    typescript = "deno run",
+  startinsert = true,
+  term = {
+    position = "vert",
+    size = 100,
   },
+  filetype_path = vim.fn.expand("~/.config/nvim/code_runner.json"),
+  project_path = vim.fn.expand("~/.config/nvim/project_manager.json"),
 })

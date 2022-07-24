@@ -4,6 +4,7 @@ if not ok then
 end
 
 eyeliner.setup({
+  highlight_on_key = true,
   -- bold = true,
   underline = true,
 })
