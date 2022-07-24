@@ -93,7 +93,19 @@ lualine.setup({
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
     disabled_filetypes = {
-      winbar = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" },
+      winbar = {
+        "",
+        "lspinfo",
+        "NvimTree",
+        "NeogitStatus",
+        "NeogitCommitMessage",
+        "lsp-installer",
+      },
+    },
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 100,
     },
   },
   sections = {
