@@ -393,7 +393,16 @@ local leader_key_maps = {
     ["name"] = "+insert-text",
     ["c"] = { ":PickColor<CR>", "color-picker" },
     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
-    ["i"] = { ":PickIcons<CR>", "icon-picker" },
+    ["i"] = {
+      ["name"] = "+icons",
+      ["a"] = { ":PickEverything<CR>", "everything" },
+      ["i"] = { ":PickIcons<CR>", "icons" },
+      ["e"] = { ":PickEmoji<CR>", "emoji" },
+      ["n"] = { ":PickNerd<CR>", "nerd-fonts" },
+      ["s"] = { ":PickSymbols<CR>", "symbols" },
+      ["f"] = { ":PickAltFont<CR>", "alt-font" },
+      ["g"] = { ":PickAltFontAndSymbols<CR>", "alt-font-and-symbols" },
+    },
     ["n"] = { ":Neorg<CR>", "neorg" },
     ----------------------------------------------------------------------
     -- NOTE: r is for refactor {{{
