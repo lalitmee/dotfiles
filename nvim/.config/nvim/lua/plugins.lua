@@ -829,6 +829,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Languages {{{
     ----------------------------------------------------------------------------
+    -- golang support
+    use({ "ray-x/go.nvim" })
+
     -- build and run code
     use({
       "Shatur/neovim-cmake",
@@ -836,24 +839,24 @@ require("packer").startup({
     })
 
     -- refactor the code
-    use({
-      "ThePrimeagen/refactoring.nvim",
-      after = { "nvim-treesitter", "telescope.nvim" },
-      cmd = {
-        "ExtractSelectedFunc",
-        "RefactorDebugPath",
-        "RefactorDebugPrintVarAbove",
-        "RefactorDebugPrintVarBelow",
-        "RefactorDebugPrintfAbove",
-        "RefactorDebugPrintfBelow",
-        "RefactorExtractFunc",
-        "RefactorExtractVar",
-        "RefactorInlineVar",
-        "Refactors",
-        "RefactorsList",
-      },
-      config = conf("refactoring"),
-    })
+    -- use({
+    --   "ThePrimeagen/refactoring.nvim",
+    --   after = { "nvim-treesitter", "telescope.nvim" },
+    --   cmd = {
+    --     "ExtractSelectedFunc",
+    --     "RefactorDebugPath",
+    --     "RefactorDebugPrintVarAbove",
+    --     "RefactorDebugPrintVarBelow",
+    --     "RefactorDebugPrintfAbove",
+    --     "RefactorDebugPrintfBelow",
+    --     "RefactorExtractFunc",
+    --     "RefactorExtractVar",
+    --     "RefactorInlineVar",
+    --     "Refactors",
+    --     "RefactorsList",
+    --   },
+    --   config = conf("refactoring"),
+    -- })
 
     ----------------------------------------------------------------------
     -- NOTE: html and jsx {{{
