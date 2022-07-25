@@ -116,6 +116,7 @@ require("packer").startup({
       requires = { "nvim-lua/plenary.nvim" },
     })
 
+    -- zen mode for neovim
     use({
       "folke/zen-mode.nvim",
       requires = {
@@ -132,6 +133,7 @@ require("packer").startup({
       config = conf("which-key"),
     })
 
+    -- make better diagnostics and a lot of things
     use({
       "folke/trouble.nvim",
       config = conf("trouble"),
@@ -187,12 +189,32 @@ require("packer").startup({
     use({
       "ziontee113/icon-picker.nvim",
       config = conf("icon-picker"),
+      cmd = {
+        -- normal mode
+        "PickEverything",
+        "PickIcons",
+        "PickEmoji",
+        "PickNerd",
+        "PickSymbols",
+        "PickAltFont",
+        "PickAltFontAndSymbols",
+
+        -- insert mode
+        "PickEverythingInsert",
+        "PickIconsInsert",
+        "PickEmojiInsert",
+        "PickNerdInsert",
+        "PickSymbolsInsert",
+        "PickAltFontInsert",
+        "PickAltFontAndSymbolsInsert",
+      },
     })
 
     -- color picker for neovim
     use({
       "ziontee113/color-picker.nvim",
       config = conf("color-picker"),
+      cmd = { "PickColor" },
     })
 
     -- rest.nvim http client
@@ -244,20 +266,6 @@ require("packer").startup({
     use({
       "wakatime/vim-wakatime",
       event = { "VimEnter" },
-    })
-
-    -- better increment
-    use({
-      "monaqa/dial.nvim",
-      keys = {
-        { "n", "<C-a>" },
-        { "n", "<C-x>" },
-        { "v", "<C-a>" },
-        { "v", "<C-x>" },
-        { "v", "g<C-a>" },
-        { "v", "g<C-x>" },
-      },
-      config = conf("dial"),
     })
 
     -- yank history after paste with `<C-n>` and `<C-p>`
