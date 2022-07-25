@@ -725,16 +725,14 @@ require("packer").startup({
     -- NOTE: lspconfig {{{
     ------------------------------------------------------------------------
     use({
-      "williamboman/nvim-lsp-installer",
-      config = function()
-        require("nvim-lsp-installer").setup()
-      end,
+      "williamboman/mason-lspconfig.nvim",
+      requires = { "williamboman/mason.nvim" },
+      config = conf("mason"),
     })
     use({
       "neovim/nvim-lspconfig",
       ft = vim.g.enable_lspconfig_ft,
       module = "lspconfig",
-      after = { "nvim-lsp-installer" },
       config = conf("lsp"),
       requires = {
         { "jose-elias-alvarez/nvim-lsp-ts-utils" },
