@@ -4,6 +4,26 @@ if not ok then
   return
 end
 
+local auto_session_ok, auto_session_library = lk.safe_require("auto-session-library")
+if not auto_session_ok then
+  vim.notify("Failed to load auto-session-library", "error", { title = "[auto-session-library.nvim] error" })
+  return
+end
+
+----------------------------------------------------------------------
+-- NOTE: get session name {{{
+----------------------------------------------------------------------
+local function get_session_name()
+  local session_name = auto_session_library.current_session_name()
+  if session_name == nil then
+    return "No Active Session"
+  end
+  -- return "[⚙ Session: " .. session_name .. "]"
+  return "[" .. session_name .. "]"
+end
+-- }}}
+----------------------------------------------------------------------
+
 ----------------------------------------------------------------------
 -- NOTE: custom filename component {{{
 ----------------------------------------------------------------------
@@ -77,36 +97,29 @@ end
 ----------------------------------------------------------------------
 -- NOTE: winbar {{{
 ----------------------------------------------------------------------
-local function get_winbar()
-  return require("lk.utils.winbar").eval()
-end
+-- local function get_winbar()
+--   return require("lk.utils.winbar").eval()
+-- end
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
+-- local filetypes = {
+--   "NeogitBranchPopup",
+--   "NeogitCommitMessage",
+--   "NeogitPopup",
+--   "NeogitStatus",
+--   "NvimTree",
+-- }
+
 lualine.setup({
   options = {
     theme = "auto",
     globalstatus = true,
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
-    disabled_filetypes = {
-      winbar = {
-        "",
-        "lspinfo",
-        "NvimTree",
-        "NeogitStatus",
-        "NeogitCommitMessage",
-        "lsp-installer",
-      },
-    },
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 100,
-    },
   },
   sections = {
     lualine_a = {
@@ -122,6 +135,11 @@ lualine.setup({
         "branch",
         icon = "",
       },
+      {
+        get_session_name,
+        color = "LualineSessionName",
+        separator = { right = "" },
+      },
     },
     lualine_c = {
       { "diff" },
@@ -136,11 +154,6 @@ lualine.setup({
           readonly = " []",
         },
       },
-      {
-        get_client_name,
-        color = "LualineSessionName",
-        separator = { right = "", left = "" },
-      },
     },
     lualine_x = {
       {
@@ -154,6 +167,11 @@ lualine.setup({
         },
       },
       { get_trailing_whitespace },
+      {
+        get_client_name,
+        color = "LualineSessionName",
+        separator = { left = "" },
+      },
     },
     lualine_y = { { "progress" } },
     lualine_z = { { "location", icon = "" } },
@@ -165,20 +183,20 @@ lualine.setup({
     lualine_x = { "filetype" },
     lualine_z = { "location" },
   },
-  winbar = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { get_winbar, { color = { link = "Cursor" } } },
-    lualine_x = {},
-    lualine_z = {},
-  },
-  inactive_winbar = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { get_winbar },
-    lualine_x = {},
-    lualine_z = {},
-  },
+  -- winbar = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = { get_winbar, { color = { link = "Cursor" } } },
+  --   lualine_x = {},
+  --   lualine_z = {},
+  -- },
+  -- inactive_winbar = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = { get_winbar },
+  --   lualine_x = {},
+  --   lualine_z = {},
+  -- },
   extensions = {
     "man",
     "nvim-tree",
