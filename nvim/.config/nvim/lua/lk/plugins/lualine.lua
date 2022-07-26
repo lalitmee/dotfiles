@@ -134,6 +134,7 @@ lualine.setup({
       {
         "branch",
         icon = "",
+        separator = { right = "" },
       },
       {
         get_session_name,
