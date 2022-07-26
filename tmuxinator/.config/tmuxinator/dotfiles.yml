@@ -9,3 +9,4 @@ windows:
   - akinsho: cd akinsho && gst
   - codesmell: cd codesmell && gst
   - ThePrimeagen: cd ThePrimeagen_dots && gst
+  - togglebyte: cd togglebyte && gst
