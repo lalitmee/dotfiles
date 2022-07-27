@@ -800,9 +800,23 @@ local leader_key_maps = {
   -- NOTE: r is for runner {{{
   ----------------------------------------------------------------------
   ["r"] = {
-    ["name"] = "+refactor",
+    ["name"] = "+build/+run/+compile",
     ["c"] = { ":lua require('lk/utils/compiler').compile_and_run()<CR>", "compile-and-run" },
     ["f"] = { ":RunFile<CR>", "run-file" },
+    ["o"] = {
+      ["name"] = "+overseer",
+      ["a"] = { ":OverseerTaskAction<CR>", "task-action" },
+      ["b"] = { ":OverseerBuild<CR>", "build" },
+      ["c"] = { ":OverseerClose<CR>", "close" },
+      ["d"] = { ":OverseerDeleteBundle<CR>", "delete-bundle" },
+      ["f"] = { ":OverseerRunCmd<CR>", "run-cmd" },
+      ["l"] = { ":OverseerLoadBundle<CR>", "load-bundle" },
+      ["o"] = { ":OverseerOpen<CR>", "open" },
+      ["q"] = { ":OverseerQuickAction<CR>", "quick-action" },
+      ["r"] = { ":OverseerRun<CR>", "run" },
+      ["s"] = { ":OverseerSaveBundle<CR>", "save-bundle" },
+      ["t"] = { ":OverseerToggle<CR>", "toggle" },
+    },
     ["p"] = { ":RunProject<CR>", "run-project" },
     ["r"] = { ":RunCode<CR>", "run-code" },
     ["R"] = { ":RunClose<CR>", "run-close" },
