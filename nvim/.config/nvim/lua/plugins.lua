@@ -59,11 +59,11 @@ require("packer").startup({
       config = conf("dressing"),
     })
 
-    -- decorated scrollbar
-    use({
-      "lewis6991/satellite.nvim",
-      config = conf("satellite"),
-    })
+    -- -- decorated scrollbar
+    -- use({
+    --   "lewis6991/satellite.nvim",
+    --   config = conf("satellite"),
+    -- })
 
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
@@ -230,13 +230,6 @@ require("packer").startup({
       cmd = { "PickColor" },
     })
 
-    -- rest.nvim http client
-    use({
-      "NTBBloodbath/rest.nvim",
-      config = conf("rest"),
-      disable = true,
-    })
-
     -- scratch files in `/tmp` folder
     use({
       "m-demare/attempt.nvim",
@@ -262,6 +255,7 @@ require("packer").startup({
     use({
       "ahmedkhalf/project.nvim",
       config = conf("project"),
+      cmd = { "Telescope projects" },
     })
 
     -- makes quickfix list editable
