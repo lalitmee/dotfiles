@@ -88,10 +88,7 @@ telescope.setup({
     scroll_strategy = "cycle",
     color_devicons = true,
     dynamic_preview_title = true,
-    path_display = {
-      "absolute",
-      -- "smart",
-    },
+    path_display = { "absolute", "truncate" },
     history = {
       path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
     },
@@ -167,7 +164,7 @@ telescope.setup({
   },
   pickers = {
     buffers = dropdown({
-      path_display = { "absolute", "smart" },
+      path_display = { "absolute", shorten = 2 },
       previewer = false,
       sort_mru = true,
       sort_lastused = true,
