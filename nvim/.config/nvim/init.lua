@@ -44,9 +44,6 @@ R("lk/globals")
 -- core
 R("lk/core")
 
--- colorscheme
-R("lk/colors")
-
 -- disable builtin
 R("lk/disable_builtin")
 

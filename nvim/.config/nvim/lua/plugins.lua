@@ -255,7 +255,6 @@ require("packer").startup({
     use({
       "ahmedkhalf/project.nvim",
       config = conf("project"),
-      cmd = { "Telescope projects" },
     })
 
     -- makes quickfix list editable
@@ -331,12 +330,12 @@ require("packer").startup({
       end,
     })
 
-    -- search lines using numbers
-    use({
-      "nacro90/numb.nvim",
-      keys = { "c", ":" },
-      config = conf("numb"),
-    })
+    -- -- search lines using numbers
+    -- use({
+    --   "nacro90/numb.nvim",
+    --   keys = { "c", ":" },
+    --   config = conf("numb"),
+    -- })
 
     -- quick scope for lines in lua
     use({
@@ -852,13 +851,7 @@ require("packer").startup({
     -- NOTE: Languages {{{
     ----------------------------------------------------------------------------
     -- golang support
-    use({ "ray-x/go.nvim" })
-
-    -- build and run code
-    use({
-      "Shatur/neovim-cmake",
-      config = conf("neovim-cmake"),
-    })
+    use({ "ray-x/go.nvim", ft = "go" })
 
     -- refactor the code
     -- use({
@@ -1053,7 +1046,6 @@ require("packer").startup({
       config = conf("lir"),
       keys = { "n", "-" },
       cmd = { "LirFloatToggle", "LirFloatInit" },
-      disable = false,
     })
 
     -- dirbuf
@@ -1063,7 +1055,6 @@ require("packer").startup({
       config = function()
         vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
       end,
-      disable = false,
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -1117,11 +1108,20 @@ require("packer").startup({
     use({
       "mfussenegger/nvim-dap",
       config = conf("dap"),
-      -- cmd = { "DapToggleBreakpoint" },
+      cmd = { "DapToggleBreakpoint" },
       requires = {
-        { "jbyuki/one-small-step-for-vimkind", after = "nvim-dap" },
-        { "rcarriga/nvim-dap-ui", after = "nvim-dap" },
-        { "theHamsta/nvim-dap-virtual-text", after = "nvim-dap" },
+        {
+          "jbyuki/one-small-step-for-vimkind",
+          after = "nvim-dap",
+        },
+        {
+          "rcarriga/nvim-dap-ui",
+          after = "nvim-dap",
+        },
+        {
+          "theHamsta/nvim-dap-virtual-text",
+          after = "nvim-dap",
+        },
       },
     })
     -- }}}
@@ -1146,24 +1146,12 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: entertainment {{{
     ----------------------------------------------------------------------
-    -- use({
-    --   "KadoBOT/nvim-spotify",
-    --   requires = "nvim-telescope/telescope.nvim",
-    --   config = conf("spotify"),
-    --   run = "make",
-    --   disable = true,
-    -- })
     -- }}}
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
     -- NOTE: reading {{{
     ----------------------------------------------------------------------
-    use({
-      "Massolari/forem.nvim",
-      config = conf("forem"),
-      cmd = { "Forem" },
-    })
     -- }}}
     ----------------------------------------------------------------------
   end,
