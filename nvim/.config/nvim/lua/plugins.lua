@@ -684,9 +684,9 @@ require("packer").startup({
       module = "lspconfig",
       config = conf("lsp"),
       requires = {
-        { "jose-elias-alvarez/nvim-lsp-ts-utils" },
         {
           "JASONews/glow-hover",
+          requires = { "ellisonleao/glow.nvim" },
           config = function()
             require("glow-hover").setup({
               border = "rounded",
@@ -709,7 +709,6 @@ require("packer").startup({
           requires = {
             { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
             { "hrsh7th/cmp-cmdline", after = "nvim-cmp", event = { "CmdlineEnter" } },
-            { "hrsh7th/cmp-emoji", after = "nvim-cmp", keys = { "i", ":" } },
             { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp", ft = { "lua" } },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
