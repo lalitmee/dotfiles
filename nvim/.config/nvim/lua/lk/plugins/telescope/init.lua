@@ -3,7 +3,6 @@ if not status_ok then
   vim.notify("telescope not found", "error", { title = "[telescope] error" })
   return
 end
-local trouble = require("trouble")
 
 ----------------------------------------------------------------------
 -- NOTE: telescope mappings {{{
@@ -112,10 +111,8 @@ telescope.setup({
         ["<M-v>"] = action_layout.toggle_mirror,
         ["<M-o>"] = action_layout.toggle_prompt_position,
         ["<esc>"] = actions.close,
-        ["<C-f>"] = trouble.open_with_trouble,
       },
       n = {
-        ["f"] = trouble.open_with_trouble,
         ["e"] = actions.move_to_bottom,
         ["j"] = actions.move_selection_next,
         ["k"] = actions.move_selection_previous,
