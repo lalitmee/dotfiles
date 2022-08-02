@@ -134,7 +134,7 @@ values."
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
      (wakatime :variables
                ;; use the actual wakatime path
-               wakatime-cli-path "/home/lalitmee/.local/bin/wakatime")
+               wakatime-cli-path "~/.wakatime/wakatime-cli")
 
      )
    ;; List of additional packages that will be installed without being
@@ -154,7 +154,6 @@ values."
                                       doom-themes
                                       emojify
                                       format-all
-                                      multiple-cursors
                                       ox-reveal
                                       try
                                       yasnippet-snippets)
