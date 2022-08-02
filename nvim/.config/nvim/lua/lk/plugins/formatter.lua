@@ -8,18 +8,7 @@ local util = require("formatter.util")
 ----------------------------------------------------------------------
 -- NOTE: clang-format {{{
 ----------------------------------------------------------------------
-local clang_format = function()
-  return {
-    exe = "clang-format",
-    -- args = {
-    --   "--find-config-path",
-    --   "--stdin-filepath",
-    --   string.format('"%s"', util.escape_path(util.get_current_buffer_file_path())),
-    --   "--config-precedencei:file-override",
-    -- },
-    stdin = true,
-  }
-end
+local clang_format = require("formatter.filetypes.cpp")
 -- }}}
 ----------------------------------------------------------------------
 
@@ -28,12 +17,12 @@ end
 ----------------------------------------------------------------------
 local prettier = function()
   return {
-    exe = "prettier",
+    exe = "prettierd",
     args = {
-      "--find-config-path",
-      "--stdin-filepath",
+      -- "--find-config-path",
+      -- "--stdin-filepath",
       string.format('"%s"', util.escape_path(util.get_current_buffer_file_path())),
-      "--config-precedencei:file-override",
+      -- "--config-precedencei:file-override",
     },
     stdin = true,
   }
@@ -44,9 +33,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: rustfmt {{{
 ----------------------------------------------------------------------
-local rustfmt = function()
-  return { exe = "rustfmt", args = { "--emit=stdout" }, stdin = true }
-end
+local rustfmt = require("formatter.filetypes.rust")
 -- }}}
 ----------------------------------------------------------------------
 
@@ -102,7 +89,7 @@ formatter.setup({
 ----------------------------------------------------------------------
 lk.augroup("formatter_au", {
   {
-    event = "BufWritePost",
+    event = { "BufWritePost" },
     pattern = {
       "*.c",
       "*.cpp",
