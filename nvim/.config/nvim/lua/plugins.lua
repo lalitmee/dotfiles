@@ -685,18 +685,9 @@ require("packer").startup({
       config = conf("lsp"),
       requires = {
         {
-          "JASONews/glow-hover",
-          requires = { "ellisonleao/glow.nvim" },
-          config = function()
-            require("glow-hover").setup({
-              border = "rounded",
-            })
-          end,
-        },
-        {
           "j-hui/fidget.nvim",
-          config = conf("fidget"),
           after = "nvim-lspconfig",
+          config = conf("fidget"),
         },
         {
           "onsails/lspkind.nvim",
