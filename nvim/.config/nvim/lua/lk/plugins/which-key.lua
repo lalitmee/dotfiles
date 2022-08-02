@@ -982,8 +982,6 @@ local leader_key_maps = {
 -- NOTE: local leader key mappings {{{
 ----------------------------------------------------------------------
 local local_leader_key_maps = {
-  -- search using spectre
-  ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
   ----------------------------------------------------------------------
   -- NOTE: harpoon go to file {{{
   ----------------------------------------------------------------------
@@ -1083,19 +1081,6 @@ local local_leader_key_maps = {
     ["r"] = { "<Plug>RestNvim", "rest-open" },
     ["p"] = { "<Plug>RestNvimPreview", "rest-with-preview" },
     ["l"] = { "<Plug>RestNvimLast", "rest-open-last" },
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
-  -- NOTE: spectre search and replace {{{
-  ----------------------------------------------------------------------
-  ["s"] = {
-    ["name"] = "+spectre-search",
-    ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
-    ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
-    ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
-    ["v"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
   },
   -- }}}
   ----------------------------------------------------------------------

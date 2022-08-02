@@ -22,9 +22,7 @@ require("packer").startup({
     -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
     use({
-      -- "wbthomason/packer.nvim",
-      "akinsho/packer.nvim",
-      branch = "bugfix/esc-mappings",
+      "wbthomason/packer.nvim",
       config = conf("packer"),
     })
     use({ "lewis6991/impatient.nvim" })
@@ -61,11 +59,11 @@ require("packer").startup({
       config = conf("dressing"),
     })
 
-    -- -- decorated scrollbar
-    -- use({
-    --   "lewis6991/satellite.nvim",
-    --   config = conf("satellite"),
-    -- })
+    -- decorated scrollbar
+    use({
+      "lewis6991/satellite.nvim",
+      config = conf("satellite"),
+    })
 
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
@@ -118,27 +116,10 @@ require("packer").startup({
       requires = { "nvim-lua/plenary.nvim" },
     })
 
-    -- zen mode for neovim
-    use({
-      "folke/zen-mode.nvim",
-      requires = {
-        "folke/twilight.nvim",
-        after = { "zen-mode.nvim" },
-      },
-      config = conf("zen-mode"),
-      cmd = { "ZenMode" },
-    })
-
     -- which-key
     use({
       "folke/which-key.nvim",
       config = conf("which-key"),
-    })
-
-    -- make better diagnostics and a lot of things
-    use({
-      "folke/trouble.nvim",
-      config = conf("trouble"),
     })
 
     -- use({
@@ -183,6 +164,17 @@ require("packer").startup({
     use({
       "https://gitlab.com/yorickpeterse/nvim-pqf.git",
       config = conf("nvim-pqf"),
+    })
+
+    -- makes quickfix list editable
+    use({
+      "gabrielpoca/replacer.nvim",
+      config = conf("replacer"),
+      cmd = {
+        "ReplacerRun",
+        "ReplacerRunF",
+        "ReplacerRunFiles",
+      },
     })
     -- }}}
     ----------------------------------------------------------------------
@@ -259,17 +251,6 @@ require("packer").startup({
       config = conf("project"),
     })
 
-    -- makes quickfix list editable
-    use({
-      "gabrielpoca/replacer.nvim",
-      config = conf("replacer"),
-      cmd = {
-        "ReplacerRun",
-        "ReplacerRunF",
-        "ReplacerRunFiles",
-      },
-    })
-
     -- wakatime for vim
     use({
       "wakatime/vim-wakatime",
@@ -297,24 +278,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
-    -- search the whole project
-    use({
-      "nvim-pack/nvim-spectre",
-      config = conf("spectre"),
-      cmd = {
-        "SpectreOpen",
-        "SpectreCurWord",
-        "SpectreVisual",
-        "SpectreCurFileSearch",
-      },
-    })
-
-    -- highlight search results
-    use({
-      "kevinhwang91/nvim-hlslens",
-      config = conf("hlslens"),
-    })
-
     -- display search matches
     use({ "romainl/vim-cool" })
 
@@ -331,13 +294,6 @@ require("packer").startup({
         require("numbertoggle").setup()
       end,
     })
-
-    -- -- search lines using numbers
-    -- use({
-    --   "nacro90/numb.nvim",
-    --   keys = { "c", ":" },
-    --   config = conf("numb"),
-    -- })
 
     -- quick scope for lines in lua
     use({
@@ -1006,19 +962,11 @@ require("packer").startup({
       config = conf("nvim-tree"),
     })
 
-    -- lir explorer
-    use({
-      "tamago324/lir.nvim",
-      requires = { "tamago324/lir-git-status.nvim" },
-      config = conf("lir"),
-      keys = { "n", "-" },
-      cmd = { "LirFloatToggle", "LirFloatInit" },
-    })
-
     -- dirbuf
     use({
       "elihunter173/dirbuf.nvim",
       cmd = { "Dirbuf", "DirbufSync" },
+      keys = { { "n", "-" } },
       config = function()
         vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
       end,
