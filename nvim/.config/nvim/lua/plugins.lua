@@ -22,7 +22,9 @@ require("packer").startup({
     -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
     use({
-      "wbthomason/packer.nvim",
+      -- "wbthomason/packer.nvim",
+      "akinsho/packer.nvim",
+      branch = "bugfix/esc-mappings",
       config = conf("packer"),
     })
     use({ "lewis6991/impatient.nvim" })
@@ -420,35 +422,11 @@ require("packer").startup({
           end,
         },
         {
-          "nvim-telescope/telescope-media-files.nvim",
-          after = "telescope.nvim",
-          module = "telescope._extensions.media_files",
-          config = function()
-            require("telescope").load_extension("media_files")
-          end,
-        },
-        {
           "nvim-telescope/telescope-dap.nvim",
           after = { "nvim-dap", "telescope.nvim" },
           module = "telescope._extensions.dap",
           config = function()
             require("telescope").load_extension("dap")
-          end,
-        },
-        {
-          "olacin/telescope-gitmoji.nvim",
-          after = "telescope.nvim",
-          module = "telescope._extensions.gitmoji",
-          config = function()
-            require("telescope").load_extension("gitmoji")
-          end,
-        },
-        {
-          "benfowler/telescope-luasnip.nvim",
-          module = "telescope._extensions.luasnip",
-          after = "telescope.nvim",
-          config = function()
-            require("telescope").load_extension("luasnip")
           end,
         },
         {
@@ -519,12 +497,6 @@ require("packer").startup({
       "kazhala/close-buffers.nvim",
       cmd = { "BDelete", "BWipeout" },
     })
-
-    -- -- tag buffers for their names
-    -- use({
-    --   "ldelossa/buffertag",
-    --   config = conf("buffertag"),
-    -- })
 
     -- auto pairs
     use({
@@ -839,10 +811,9 @@ require("packer").startup({
     -- annotations using treesitter
     use({
       "danymat/neogen",
-      cmd = { "Neogen" },
-      after = { "nvim-treesitter" },
       requires = { "nvim-treesitter/nvim-treesitter" },
       config = conf("neogen"),
+      cmd = { "Neogen" },
     })
     -- }}}
     ------------------------------------------------------------------------
@@ -876,10 +847,6 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: html and jsx {{{
     ----------------------------------------------------------------------
-    use({
-      "mattn/emmet-vim",
-      config = conf("emmet"),
-    })
     -- }}}
     ----------------------------------------------------------------------
 

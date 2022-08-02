@@ -11,6 +11,22 @@ if not auto_session_ok then
 end
 
 ----------------------------------------------------------------------
+-- NOTE: get search count {{{
+----------------------------------------------------------------------
+-- local function searchCount()
+--   local search = vim.fn.searchcount({ maxcount = 0 }) -- maxcount = 0 makes the number not be capped at 99
+--   local searchCurrent = search.current
+--   local searchTotal = search.total
+--   if searchCurrent > 0 then
+--     return "/" .. vim.fn.getreg("/") .. " [" .. searchCurrent .. "/" .. searchTotal .. "]"
+--   else
+--     return ""
+--   end
+-- end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: get session name {{{
 ----------------------------------------------------------------------
 local function get_session_name()
@@ -141,6 +157,7 @@ lualine.setup({
         color = "LualineSessionName",
         separator = { right = "" },
       },
+      -- { searchCount },
     },
     lualine_c = {
       { "diff" },
