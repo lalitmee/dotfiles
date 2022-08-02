@@ -278,6 +278,9 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- show search count
+    use({ "google/vim-searchindex" })
+
     -- display search matches
     use({ "romainl/vim-cool" })
 
@@ -509,12 +512,6 @@ require("packer").startup({
         "NavigateDown",
         "NavigatePrevious",
       },
-    })
-
-    -- remove trailing whitespace and lines
-    use({
-      "McAuleyPenney/tidy.nvim",
-      event = { "BufWritePre" },
     })
 
     -- use({
