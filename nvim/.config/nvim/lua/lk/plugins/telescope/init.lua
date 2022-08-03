@@ -242,8 +242,8 @@ telescope.setup({
 ----------------------------------------------------------------------
 -- NOTE: load extensions {{{
 ----------------------------------------------------------------------
--- projects extension
-require("telescope").load_extension("projects")
+-- -- projects extension
+-- require("telescope").load_extension("projects")
 
 -- }}}
 ----------------------------------------------------------------------

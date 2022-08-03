@@ -5,5 +5,7 @@ end
 
 -- setup
 project.setup({
+  detection_methods = { "pattern", "lsp" },
   show_hidden = true,
+  silent_chdir = false,
 })

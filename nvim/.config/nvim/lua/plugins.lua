@@ -446,9 +446,22 @@ require("packer").startup({
       config = conf("neoscroll"),
     })
 
+    -- marks in neovim
     use({
       "chentoast/marks.nvim",
       config = conf("marks"),
+    })
+
+    -- zen-mode and more
+    use({
+      "Pocco81/true-zen.nvim",
+      config = conf("true-zen"),
+      cmd = {
+        "TZAtaraxis",
+        "TZFocus",
+        "TZMinimalist",
+        "TZNarrow",
+      },
     })
 
     -- delete buffers without distubing layout
@@ -999,6 +1012,15 @@ require("packer").startup({
         "BrowseMdnSearch",
       },
     })
+
+    -- -- editor in browser
+    -- use({
+    --   "glacambre/firenvim",
+    --   run = function()
+    --     vim.fn["firenvim#install"](0)
+    --   end,
+    --   config = conf("firenvim"),
+    -- })
     -- }}}
     ----------------------------------------------------------------------
 
