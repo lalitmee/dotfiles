@@ -51,7 +51,7 @@ local leader_key_maps = {
     ["o"] = { ":NvimTreeToggle<CR>", "nvim-tree-toggle" },
     ["g"] = { ":Glow<CR>", "markdown-glow" },
     ["s"] = { ":StartupTime<CR>", "run-startup-time" },
-    ["z"] = { ":ZenMode<CR>", "toggle-zen-mode" },
+    ["z"] = { ":TZAtaraxis<CR>", "toggle-zen-mode" },
     ["t"] = { ":Twilight<CR>", "toggle-twilight-mode" },
   },
   -- }}}
@@ -973,6 +973,7 @@ local visual_mode_leader_key_maps = {
     ["v"] = { ":DebugPrintVarBelow", "print-var-below" },
     ["V"] = { ":DebugPrintVarAbove", "print-var-above" },
   },
+  ["z"] = { ":TZNarrow<CR>", "narrow-code" },
 }
 -- }}}
 ----------------------------------------------------------------------
