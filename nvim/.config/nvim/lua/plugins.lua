@@ -464,6 +464,12 @@ require("packer").startup({
       },
     })
 
+    -- pomodoro timer
+    use({
+      "dbinagi/nomodoro",
+      config = conf("nomodoro"),
+    })
+
     -- delete buffers without distubing layout
     use({
       "kazhala/close-buffers.nvim",

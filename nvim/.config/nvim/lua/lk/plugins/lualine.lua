@@ -168,6 +168,7 @@ lualine.setup({
         },
       },
       { get_trailing_whitespace },
+      { require("nomodoro").status },
       {
         get_client_name,
         color = "LualineSessionName",
