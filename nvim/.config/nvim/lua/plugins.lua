@@ -640,7 +640,9 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- formatter in lua
     use({
-      "mhartington/formatter.nvim",
+      -- "mhartington/formatter.nvim",
+      "Hrle97/formatter.nvim",
+      branch = "fix/shellescape",
       config = conf("formatter"),
     })
 
