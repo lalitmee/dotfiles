@@ -1009,7 +1009,6 @@ require("packer").startup({
     ----------------------------------------------------------------------
     use({
       "~/Desktop/Github/browse.nvim",
-      requires = { "nvim-telescope/telescope.nvim" },
       config = conf("browse"),
       cmd = {
         "Browse",
