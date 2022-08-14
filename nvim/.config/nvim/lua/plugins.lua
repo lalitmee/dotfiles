@@ -142,7 +142,7 @@ require("packer").startup({
 
     -- Colorizer for showing the colors
     use({
-      "norcalli/nvim-colorizer.lua",
+      "NvChad/nvim-colorizer.lua",
       config = conf("colorizer"),
       cmd = {
         "ColorizerToggle",
