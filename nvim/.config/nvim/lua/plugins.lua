@@ -788,6 +788,14 @@ require("packer").startup({
     -- golang support
     use({ "ray-x/go.nvim", ft = "go" })
 
+    -- debug print
+    use({
+      "andrewferrier/debugprint.nvim",
+      config = function()
+        require("debugprint").setup()
+      end,
+    })
+
     -- refactor the code
     -- use({
     --   "ThePrimeagen/refactoring.nvim",
@@ -839,6 +847,22 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: VERSION CONTROL STYSTEM {{{
     ------------------------------------------------------------------------
+    -- merge conflicts resolution
+    use({
+      "akinsho/git-conflict.nvim",
+      tag = "*",
+      config = conf("git-conflict"),
+      cmd = {
+        "GitConflictChooseOurs",
+        "GitConflictChooseTheirs",
+        "GitConflictChooseBoth",
+        "GitConflictChooseNone",
+        "GitConflictNextConflict",
+        "GitConflictPrevConflict",
+        "GitConflictListQf",
+      },
+    })
+
     -- git actions using telescope
     use({
       "pwntester/octo.nvim",
