@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  snippet({ trig = "td", name = "TODO" }, {
+  s({ trig = "td", name = "TODO" }, {
     c(1, {
       t("TODO: "),
       t("NOTE: "),
@@ -12,7 +12,7 @@ return {
     }),
     i(0),
   }),
-  snippet(
+  s(
     { trig = "hr", name = "Header" },
     fmt(
       [[
@@ -37,7 +37,7 @@ return {
   ),
 }
 
---   ls.parser.parse_snippet(
+--   ls.parser.parse_s(
 --     { trig = "foo" },
 --     [[
 -- ${$TM_SELECTED_TEXT} --  TM_SELECTED_TEXT The currently selected text or the empty string
