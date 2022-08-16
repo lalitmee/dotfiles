@@ -735,6 +735,15 @@ require("packer").startup({
           ft = "lua",
           after = { "nvim-lspconfig" },
         },
+        {
+          "simrat39/symbols-outline.nvim",
+          config = conf("symbols-outline"),
+          cmd = {
+            "SymbolsOutline",
+            "SymbolsOutlineOpen",
+            "SymbolsOutlineClose",
+          },
+        },
       },
     })
     -- }}}

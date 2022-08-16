@@ -8,7 +8,7 @@ local util = require("formatter.util")
 ----------------------------------------------------------------------
 -- NOTE: clang-format {{{
 ----------------------------------------------------------------------
-local clang_format = require("formatter.filetypes.cpp")
+local clang_format = require("formatter.filetypes.cpp").clangformat
 -- }}}
 ----------------------------------------------------------------------
 
