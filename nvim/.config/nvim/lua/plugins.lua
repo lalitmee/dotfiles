@@ -774,6 +774,10 @@ require("packer").startup({
           "JoosepAlviste/nvim-ts-context-commentstring",
           after = { "nvim-treesitter", "Comment.nvim" },
         },
+        {
+          "p00f/nvim-ts-rainbow",
+          after = { "nvim-treesitter" },
+        },
         -- {
         --   "nvim-treesitter/nvim-treesitter-context",
         --   after = { "nvim-treesitter" },

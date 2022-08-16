@@ -4,19 +4,19 @@ local fn = vim.fn
 
 return {
   -- local var
-  snippet("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
+  s("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
 
   -- require
-  snippet("locr", fmt("local {} = require('{}')", { i(1, "name"), r(1) })),
+  s("locr", fmt("local {} = require('{}')", { i(1, "name"), r(1) })),
 
   -- note
-  snippet("note", fmt("-- NOTE: {}", { i(1, "description") })),
+  s("note", fmt("-- NOTE: {}", { i(1, "description") })),
 
   -- todo
-  snippet("todo", fmt("-- TODO: {}", { i(1, "description") })),
+  s("todo", fmt("-- TODO: {}", { i(1, "description") })),
 
   -- require
-  snippet(
+  s(
     {
       trig = "req",
       name = "require module",
@@ -30,7 +30,7 @@ return {
       i(1),
     })
   ),
-  snippet(
+  s(
     {
       trig = "use",
       name = "packer use",
@@ -43,7 +43,7 @@ return {
     fmt([[use {{"{}"{}}}]], {
       d(1, function()
         -- Get the author and URL in the clipboard and auto populate the author and project
-        local default = snippet("", { i(1, "author"), t("/"), i(2, "plugin") })
+        local default = s("", { i(1, "author"), t("/"), i(2, "plugin") })
         local clip = fn.getreg("*")
         if not vim.startswith(clip, "https://github.com/") then
           return default
@@ -53,7 +53,7 @@ return {
           return default
         end
         local author, project = parts[#parts - 1], parts[#parts]
-        return snippet("", { t(author .. "/" .. project) })
+        return s("", { t(author .. "/" .. project) })
       end),
       c(2, {
         fmt(
@@ -68,5 +68,5 @@ return {
       }),
     })
   ),
-  snippet("sre", fmt('local {}, {} = lk.safe_require("{}")', { i(1, 'ok'), i(2, 'package'), r(2, 'pacakge') })),
+  s("sre", fmt('local {}, {} = lk.safe_require("{}")', { i(1, "ok"), i(2, "package"), r(2, "pacakge") })),
 }

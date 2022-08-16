@@ -2,14 +2,32 @@
 
 return {
 
-  -- console.log({name})
-  snippet("clg", fmt("console.log({})", { i(1, "name") })),
+  -- NOTE: debugger
+  s("de", "debugger"),
+
+  -- NOTE: console.log({name})
+  s("clg", fmt("console.log({})", { i(1, "name") })),
+
+  -- NOTE: console log with choices
+  -- 1. console.log(object)
+  -- 2. console.log('object', object)
+  -- 3. console.log({object})
+  s(
+    "log",
+    fmt("console.log({});", {
+      c(1, {
+        i(1, "basic"),
+        sn(1, { t("'"), i(1, "labelled"), t("',"), same(1) }),
+        sn(1, { t("{ "), i(1, "object"), t(" }") }),
+      }),
+    })
+  ),
 
   ------------------------------------------------------------------------------------------------------------------------
   -- prop-types
   ------------------------------------------------------------------------------------------------------------------------
   -- with choices
-  snippet({ trig = "ptd", name = "PropTypes" }, {
+  s({ trig = "ptd", name = "PropTypes" }, {
     i(1, "PropTypes."),
     c(1, {
       t("array"),
@@ -31,7 +49,7 @@ return {
   -- ------------------------------------------------------------------------------------------------------------------------
   -- -- functional component
   -- ------------------------------------------------------------------------------------------------------------------------
-  -- snippet({ trig = "rfce", name = "react functional component" }, {
+  -- s({ trig = "rfce", name = "react functional component" }, {
   --   i(1, "function "),
   --   i(2, "Component"),
   --   i(0),

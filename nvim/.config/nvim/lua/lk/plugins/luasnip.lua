@@ -3,6 +3,32 @@ local types = require("luasnip.util.types")
 local extras = require("luasnip.extras")
 local fmt = require("luasnip.extras.fmt").fmt
 
+local t, i, c, d, f, s, sn =
+  ls.text_node, ls.insert_node, ls.choice_node, ls.dynamic_node, ls.function_node, ls.snippet, ls.snippet_node
+
+----------------------------------------------------------------------
+-- NOTE: helper functions {{{
+----------------------------------------------------------------------
+-- repeat the same word
+local same = function(index)
+  return f(function(args)
+    return args[1]
+  end, { index })
+end
+
+-- get the file name of the current file
+local filename = function()
+  return f(function(_, snip)
+    local name = vim.split(snip.snippet.env.TM_FILENAME, ".", true)
+    return name[1] or ""
+  end)
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: configurations {{{
+----------------------------------------------------------------------
 ls.config.set_config({
   -- This tells LuaSnip to remember to keep around the last snippet.
   -- You can jump back into it even if you move outside of the selection
@@ -30,14 +56,19 @@ ls.config.set_config({
     fmt = fmt,
     m = extras.match,
     r = extras.rep,
-    t = ls.text_node,
-    f = ls.function_node,
-    c = ls.choice_node,
-    d = ls.dynamic_node,
-    i = ls.insert_node,
-    snippet = ls.snippet,
+    t = t,
+    f = f,
+    c = c,
+    d = d,
+    i = i,
+    s = s,
+    sn = sn,
+    same = same,
+    filename = filename,
   },
 })
+-- }}}
+----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: loading snippets {{{
@@ -51,10 +82,13 @@ ls.filetype_extend("all", { "_" })
 require("luasnip.loaders.from_lua").lazy_load()
 lk.command("LuaSnipEdit", function()
   require("luasnip.loaders.from_lua").edit_snippet_files()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE: key mappings {{{
+----------------------------------------------------------------------
 -- <c-j> is my forward key
 -- this will jump to the next item within the snippet.
 vim.keymap.set({ "i", "s" }, "<c-j>", function()
@@ -88,3 +122,5 @@ vim.keymap.set("i", "<c-l>", function()
 end)
 
 vim.keymap.set("i", "<c-u>", require("luasnip.extras.select_choice"))
+-- }}}
+----------------------------------------------------------------------
