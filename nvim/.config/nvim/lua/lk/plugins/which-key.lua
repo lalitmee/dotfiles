@@ -33,6 +33,7 @@ local leader_key_maps = {
   ["2"] = { ":ToggleTerm2<CR>", "terminal-2" },
   ["3"] = { ":ToggleTerm3<CR>", "terminal-3" },
   ["4"] = { ":ToggleTerm4<CR>", "terminal-4" },
+  ["x"] = { ":q<CR>", "close-window" },
   -- }}}
   ----------------------------------------------------------------------
 
