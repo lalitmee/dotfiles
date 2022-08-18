@@ -18,23 +18,23 @@ local command = lk.command
 
 command("FoldOpen", function()
   fold_cycle.open()
-end)
+end, {})
 
 command("FoldClose", function()
   fold_cycle.close()
-end)
+end, {})
 
 command("FoldOpenAll", function()
   fold_cycle.open_all()
-end)
+end, {})
 
 command("FoldCloseAll", function()
   fold_cycle.close_all()
-end)
+end, {})
 
 command("FoldToggleAll", function()
   fold_cycle.toggle_all()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 

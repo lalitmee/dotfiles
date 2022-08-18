@@ -533,11 +533,11 @@ require("packer").startup({
       },
     })
 
-    -- use({
-    --   "kevinhwang91/nvim-ufo",
-    --   requires = "kevinhwang91/promise-async",
-    --   config = conf("ufo"),
-    -- })
+    use({
+      "kevinhwang91/nvim-ufo",
+      requires = "kevinhwang91/promise-async",
+      config = conf("ufo"),
+    })
 
     -- nice fold text
     use({
