@@ -6,137 +6,137 @@ local command = lk.command
 command("ReloadLSP", function()
   vim.lsp.stop_client(vim.lsp.get_active_clients())
   vim.cmd([[edit]])
-end)
+end, {})
 
 command("LogLSP", function()
   local path = vim.lsp.get_log_path()
   vim.cmd("edit " .. path)
-end)
+end, {})
 
 command("DebugLSP", function()
   print(vim.inspect(vim.lsp.get_active_clients()))
-end)
+end, {})
 
 command("Format", function()
   vim.lsp.buf.formatting_sync(nil, 1000)
-end)
+end, {})
 
 -- buf
 
 command("LspAddToWorkspaceFolder", function()
   vim.lsp.buf.add_workspace_folder()
-end)
+end, {})
 
 command("LspClearReferences", function()
   vim.lsp.buf.clear_references()
-end)
+end, {})
 
 command("LspCodeActions", function()
   vim.lsp.buf.code_action()
-end)
+end, {})
 
 command("LspDeclaration", function()
   vim.lsp.buf.declaration()
   vim.lsp.buf.clear_references()
-end)
+end, {})
 
 command("LspDefinition", function()
   vim.lsp.buf.definition()
   vim.lsp.buf.clear_references()
-end)
+end, {})
 
 command("LspDocumentHighlight", function()
   vim.lsp.buf.document_highlight()
-end)
+end, {})
 
 command("LspDocumentSymbols", function()
   vim.lsp.buf.document_symbol()
-end)
+end, {})
 
 command("LspDocumentFormatting", function()
   vim.lsp.buf.formatting()
-end)
+end, {})
 
 command("LspFormattingSync", function()
   vim.lsp.buf.formatting_sync()
-end)
+end, {})
 
 command("LspHover", function()
   vim.lsp.buf.hover()
-end)
+end, {})
 
 command("LspSignatureHelp", function()
   vim.lsp.buf.signature_help()
-end)
+end, {})
 
 command("LspImplementation", function()
   vim.lsp.buf.implementation()
-end)
+end, {})
 
 command("LspIncomingCalls", function()
   vim.lsp.buf.incoming_calls()
-end)
+end, {})
 
 command("LspOutgoingCalls", function()
   vim.lsp.buf.outgoing_calls()
-end)
+end, {})
 
 command("LspWorkspaceFolders", function()
   vim.lsp.buf.list_workspace_folders()
-end)
+end, {})
 
 command("LspRangeCodeAction", function()
   vim.lsp.buf.range_code_action()
-end)
+end, {})
 
 command("LspRangeFormatting", function()
   vim.lsp.buf.range_formatting()
-end)
+end, {})
 
 command("LspReferences", function()
   vim.lsp.buf.references()
   vim.lsp.buf.clear_references()
-end)
+end, {})
 
 command("LspRemoveWorkspaceFolder", function()
   vim.lsp.buf.remove_workspace_folder()
-end)
+end, {})
 
 command("LspRename", function()
   vim.lsp.buf.rename()
-end)
+end, {})
 
 command("LspTypeDefinition", function()
   vim.lsp.buf.type_definition()
-end)
+end, {})
 
 command("LspWorkspaceSymbols", function()
   vim.lsp.buf.workspace_symbol()
-end)
+end, {})
 
 -- diagnostic
 command("LspGetAllDiagnostics", function()
   vim.diagnostic.get()
-end)
+end, {})
 
 command("LspGotoNextDiagnostic", function()
   vim.diagnostic.goto_next()
-end)
+end, {})
 
 command("LspGotoPrevDiagnostic", function()
   vim.diagnostic.goto_prev()
-end)
+end, {})
 
 command("ShowLineDiagnosticInFlot", function()
   vim.diagnostic.open_float(0, {
     scope = "line",
   })
-end)
+end, {})
 
 -- loclist
 command("LspSetLoclist", function()
   vim.diagnostic.setloclist()
-end)
+end, {})
 
 -- }}}
 ----------------------------------------------------------------------
@@ -146,11 +146,11 @@ end)
 ----------------------------------------------------------------------
 command("DiagList", function()
   require("diaglist").open_buffer_diagnostics()
-end)
+end, {})
 
 command("DiagListAll", function()
   require("diaglist").open_all_diagnostics()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 

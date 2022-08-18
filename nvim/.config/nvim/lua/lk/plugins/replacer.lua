@@ -10,14 +10,14 @@ local command = lk.command
 
 command("ReplacerRunFiles", function()
   replacer.run()
-end)
+end, {})
 
 command("ReplacerRun", function()
   replacer.run({ rename_files = false })
-end)
+end, {})
 
 command("ReplacerRunF", function()
   replacer.run()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------

@@ -12,3 +12,5 @@ ufo.setup({
   open_fold_hl_timeout = 0,
   -- fold_virt_text_handler = handler,
 })
+
+-- vim:foldmethod=marker:foldlevel=99

@@ -34,39 +34,39 @@ end
 ----------------------------------------------------------------------
 command("Refactors", function()
   get_refactors()
-end)
+end, {})
 
 command("RefactorExtractFunc", function()
   require("refactoring").refactor(106)
-end)
+end, {})
 
 command("RefactorExtractVar", function()
   require("refactoring").refactor(119)
-end)
+end, {})
 
 command("RefactorInlineVar", function()
   require("refactoring").refactor(123)
-end)
+end, {})
 
 command("RefactorDebugPath", function()
   print(vim.inspect(require("refactoring").debug.get_path()))
-end)
+end, {})
 
 command("RefactorDebugPrintfAbove", function()
   require("refactoring").debug.printf({ below = false })
-end)
+end, {})
 
 command("RefactorDebugPrintfBelow", function()
   require("refactoring").debug.printf({ below = true })
-end)
+end, {})
 
 command("RefactorDebugPrintVarAbove", function()
   require("refactoring").debug.print_var({ below = false })
-end)
+end, {})
 
 command("RefactorDebugPrintVarBelow", function()
   require("refactoring").debug.print_var({ below = true })
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
