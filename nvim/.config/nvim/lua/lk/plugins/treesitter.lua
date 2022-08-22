@@ -34,7 +34,10 @@ parser_configs.norg_table = {
 require("nvim-treesitter.configs").setup({
   ensure_installed = vim.g.enable_treesitter_ft,
   highlight = { enable = true },
-  rainbow = { enable = true, extended_mode = true },
+  --[[ rainbow = { ]]
+  --[[   enable = true, ]]
+  --[[   extended_mode = true ]]
+  --[[ }, ]]
   matchup = { enable = true },
   autotag = { enable = true },
   indent = { enable = true, disable = { "css" } },
