@@ -97,9 +97,9 @@ end
 ----------------------------------------------------------------------
 -- NOTE: winbar {{{
 ----------------------------------------------------------------------
--- local function get_winbar()
---   return require("lk.utils.winbar").eval()
--- end
+local function get_winbar()
+  return require("lk.utils.winbar").eval()
+end
 -- }}}
 ----------------------------------------------------------------------
 
@@ -118,8 +118,18 @@ lualine.setup({
   options = {
     theme = "auto",
     globalstatus = true,
-    section_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
+    disabled_filetypes = {
+      winbar = {
+        "",
+        "lspinfo",
+        "NvimTree",
+        "NeogitStatus",
+        "NeogitCommitMessage",
+        "lsp-installer",
+      },
+    },
   },
   sections = {
     lualine_a = {
@@ -134,12 +144,10 @@ lualine.setup({
       {
         "branch",
         icon = "",
-        separator = { right = "" },
       },
       {
         get_session_name,
         color = "LualineSessionName",
-        separator = { right = "" },
       },
     },
     lualine_c = {
@@ -172,7 +180,6 @@ lualine.setup({
       {
         get_client_name,
         color = "LualineSessionName",
-        separator = { left = "" },
       },
     },
     lualine_y = { { "progress" } },
@@ -185,20 +192,20 @@ lualine.setup({
     lualine_x = { "filetype" },
     lualine_z = { "location" },
   },
-  -- winbar = {
-  --   lualine_a = {},
-  --   lualine_b = {},
-  --   lualine_c = { get_winbar, { color = { link = "Cursor" } } },
-  --   lualine_x = {},
-  --   lualine_z = {},
-  -- },
-  -- inactive_winbar = {
-  --   lualine_a = {},
-  --   lualine_b = {},
-  --   lualine_c = { get_winbar },
-  --   lualine_x = {},
-  --   lualine_z = {},
-  -- },
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { get_winbar, { color = { link = "Cursor" } } },
+    lualine_x = {},
+    lualine_z = {},
+  },
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { get_winbar, { color = { link = "Cursor" } } },
+    lualine_x = {},
+    lualine_z = {},
+  },
   extensions = {
     "man",
     "nvim-tree",
