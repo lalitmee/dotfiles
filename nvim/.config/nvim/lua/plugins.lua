@@ -111,7 +111,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- highlighting of todo comments
     use({
-      "folke/todo-comments.nvim",
+      "B4mbus/todo-comments.nvim",
       config = conf("todo-comments"),
       requires = { "nvim-lua/plenary.nvim" },
     })
@@ -278,9 +278,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
-    -- show search count
-    use({ "google/vim-searchindex" })
-
     -- display search matches
     use({ "romainl/vim-cool" })
 
@@ -1083,6 +1080,13 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: notes {{{
     ----------------------------------------------------------------------
+    -- mind
+    use({
+      "phaazon/mind.nvim",
+      config = function()
+        require("mind").setup()
+      end,
+    })
     -- similar to orgmode but with neovim in lua
     use({
       "nvim-neorg/neorg",
