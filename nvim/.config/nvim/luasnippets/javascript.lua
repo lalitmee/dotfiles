@@ -3,7 +3,7 @@
 return {
 
   -- NOTE: debugger
-  s("de", "debugger"),
+  s("de", t("debugger")),
 
   -- NOTE: console.log({name})
   s("clg", fmt("console.log({})", { i(1, "name") })),
