@@ -1,8 +1,28 @@
+local width = 60
+local height = 30
+
+-- Get the current UI
+local ui = vim.api.nvim_list_uis()[1]
+
 require("nvim-tree").setup({
   respect_buf_cwd = true,
   update_cwd = true,
   hijack_cursor = true,
-  view = { width = 40, side = "right" },
+  view = {
+    width = width,
+    height = height,
+    float = {
+      enable = true,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = width,
+        height = height,
+        col = (ui.width / 2) - (width / 2),
+        row = (ui.height / 2) - (height / 2),
+      },
+    },
+  },
   update_focused_file = {
     enable = true,
     update_cwd = true,
