@@ -447,6 +447,10 @@ alias npd='npm run dev'
 
 # alias for running tmux with screen-256color
 # alias tmux="env TERM=alacritty tmux -2"
+
+# aliases for sound fix
+alias goodaudio="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') a2dp-sink"
+alias headset="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') headset-head-unit"
 # }}}
 # -------------------------------------------------------------------
 
