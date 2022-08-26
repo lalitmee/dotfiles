@@ -1079,6 +1079,7 @@ require("packer").startup({
     -- mind
     use({
       "phaazon/mind.nvim",
+      branch = "v2.1",
       config = function()
         require("mind").setup()
       end,
