@@ -120,7 +120,7 @@ augroup("help_tab_au", {
     pattern = { "*.txt" },
     command = function()
       if vim.bo.filetype == "help" then
-        vim.cmd([[wincmd T]])
+        -- vim.cmd([[wincmd T]])
       end
     end,
   },

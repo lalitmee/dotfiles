@@ -1,99 +1,20 @@
-" Snippets from vim-help
-" Credits: https://github.com/dahu/vim-help
+" TODO(stream): We chould turn this into a plugin to make writing vim help
+" text easier. There's a lot of stuff that would be nice for it.
 
-let s:save_cpo = &cpoptions
-set cpoptions&vim
+setlocal expandtab
+setlocal textwidth=78
+setlocal tabstop=4
+setlocal shiftwidth=4
 
-function! s:setup_buffer()
-  let b:undo_ftplugin .= ' | setlocal spell< list< hidden< iskeyword<'
-        \ . " | execute 'nunmap <buffer> <CR>'"
-        \ . " | execute 'nunmap <buffer> <BS>'"
-        \ . " | execute 'nunmap <buffer> o'"
-        \ . " | execute 'nunmap <buffer> O'"
-        \ . " | execute 'nunmap <buffer> f'"
-        \ . " | execute 'nunmap <buffer> F'"
-        \ . " | execute 'nunmap <buffer> t'"
-        \ . " | execute 'nunmap <buffer> T'"
-        \ . " | execute 'nunmap <buffer> <leader>j'"
-        \ . " | execute 'nunmap <buffer> <leader>k'"
-        \ . " | execute 'nunmap <buffer> q'"
 
-  setlocal nospell
-  setlocal nolist
-  setlocal nohidden
-  setlocal iskeyword+=:
-  setlocal iskeyword+=#
-  setlocal iskeyword+=-
-
-  " unsilent echomsg 'help edit' &ft bufname() 'type:' &buftype
-
-  if s:count_windows() - 1 > 1
-    wincmd K
-  else
-    wincmd L
-  endif
-
-  " Exit help window with 'q'
-  nnoremap <silent><buffer> q :quit<CR>
-
-  " Jump to links with enter
-  nmap <buffer> <CR> <C-]>
-
-  " Jump back with backspace
-  nmap <buffer> <BS> <C-T>
-
-  " Skip to next option link
-  nmap <buffer> o /'[a-z]\{2,\}'<CR>
-
-  " Skip to previous option link
-  nmap <buffer> O ?'[a-z]\{2,\}'<CR>
-
-  " find the next subject
-  nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
-
-  " find the previous subject
-  nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
-
-  " Skip to next subject link
-  nmap <buffer><nowait> f /\|\S\+\|<CR>l
-
-  " Skip to previous subject link
-  nmap <buffer> F h?\|\S\+\|<CR>l
-
-  " Skip to next tag (subject anchor)
-  nmap <buffer> t /\*\S\+\*<CR>l
-
-  " Skip to previous tag (subject anchor)
-  nmap <buffer> T h?\*\S\+\*<CR>l
-
-  " Skip to next/prev quickfix list entry (from a helpgrep)
-  nmap <buffer> <leader>j :cnext<CR>
-  nmap <buffer> <leader>k :cprev<CR>
+" TODO: When refactoring this, consider just using `:right`...
+"       That seems much simpler and better.
+function! s:right_align() abort
+  let text = matchstr(getline('.'), '^\s*\zs.\+\ze\s*$')
+  let remainder = (&l:textwidth + 2) - len(text)
+  call setline(line('.'), repeat(' ', remainder).text)
+  undojoin
 endfunction
-
-" Count tab page windows
-function! s:count_windows()
-  let l:count = 0
-  let l:tabnr = tabpagenr()
-  let l:ignore = '^\(hover\|fern\|clap_\|defx\|denite\)'
-  try
-    let l:windows = gettabinfo(l:tabnr)[0].windows
-    for l:win in l:windows
-      if getwinvar(l:win, '&filetype') !~# l:ignore
-        let l:count += 1
-      endif
-    endfor
-  catch
-    " Fallback
-    let l:count = tabpagewinnr(l:tabnr, '$')
-  endtry
-  return l:count
-endfunction
-
-" Setup only when viewing help pages
-if &buftype ==# 'help'
-  call s:setup_buffer()
-endif
 
 function! HelpFormatExpr() abort
   if mode() ==# 'i' || v:char != ''
@@ -118,16 +39,69 @@ function! HelpFormatExpr() abort
 
   return 1
 endfunction
+
+if !exists('*<SID>toggle_help_file_type')
+  function! s:toggle_help_file_type()
+    if &filetype == 'help'
+      set filetype=
+      setlocal list
+      setlocal listchars=tab:>~
+      setlocal colorcolumn=78
+    else
+      set filetype=help
+      setlocal nolist
+      setlocal colorcolumn=
+    endif
+  endfunction
+endif
+
+nnoremap <silent><buffer> <leader>th :<c-u>call <SID>toggle_help_file_type()<CR>
+
+
+" [h]elp [a]lign.
+nnoremap <silent><buffer> <leader>ha :<c-u>call <sid>right_align()<cr>
+
+nnoremap <silent><buffer> <leader>i= i==============================================================================<esc>
+"
+" nnoremap <silent><buffer> <leader>
+
 setlocal formatexpr=HelpFormatExpr()
 
 "---------------------------------------------------------------------
-" NOTE: options {{{
+" NOTE: mappings {{{
 "---------------------------------------------------------------------
-let &cpoptions = s:save_cpo
-set formatoptions-=o
-setlocal expandtab
-setlocal textwidth=78
-setlocal tabstop=4
-setlocal shiftwidth=4
+" Exit help window with 'q'
+nnoremap <silent><buffer> q :quit<CR>
+
+" Jump to links with enter
+nmap <silent><buffer> <CR> <C-]>
+
+" Jump back with backspace
+nmap <silent><buffer> <BS> <C-T>
+
+" Skip to next option link
+nmap <silent><buffer> o /'[a-z]\{2,\}'<CR>
+
+" Skip to previous option link
+nmap <silent><buffer> O ?'[a-z]\{2,\}'<CR>
+
+" find the next subject
+nnoremap <silent><buffer> s /\|\zs\S\+\ze\|<CR>
+
+" find the previous subject
+nnoremap <silent><buffer> S ?\|\zs\S\+\ze\|<CR>
+
+" Skip to next subject link
+nmap <silent><buffer><nowait> f /\|\S\+\|<CR>l
+
+" Skip to previous subject link
+nmap <silent><buffer> F h?\|\S\+\|<CR>l
+
+" Skip to next tag (subject anchor)
+nmap <silent><buffer> t /\*\S\+\*<CR>l
+
+" Skip to previous tag (subject anchor)
+nmap <silent><buffer> T h?\*\S\+\*<CR>l
 " }}}
 "---------------------------------------------------------------------
+
