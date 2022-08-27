@@ -106,13 +106,39 @@ end
 ----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
--- local filetypes = {
---   "NeogitBranchPopup",
---   "NeogitCommitMessage",
---   "NeogitPopup",
---   "NeogitStatus",
---   "NvimTree",
--- }
+local winbar_excluded_filetypes = {
+  "",
+  "DressingSelect",
+  "Jaq",
+  "Markdown",
+  "NeogitCommitMessage",
+  "NeogitCommitPopup",
+  "NeogitHelpPopup",
+  "NeogitPopup",
+  "NeogitStatus",
+  "NvimTree",
+  "Outline",
+  "Trouble",
+  "alpha",
+  "dap-repl",
+  "dap-terminal",
+  "dapui_breakpoints",
+  "dapui_console",
+  "dapui_scopes",
+  "dapui_stacks",
+  "dapui_watches",
+  "dashboard",
+  "dirbuf",
+  "harpoon",
+  "help",
+  "lab",
+  "lir",
+  "packer",
+  "qf",
+  "spectre_panel",
+  "startify",
+  "toggleterm",
+}
 
 lualine.setup({
   options = {
@@ -121,14 +147,7 @@ lualine.setup({
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
     disabled_filetypes = {
-      winbar = {
-        "",
-        "lspinfo",
-        "NvimTree",
-        "NeogitStatus",
-        "NeogitCommitMessage",
-        "lsp-installer",
-      },
+      winbar = winbar_excluded_filetypes,
     },
   },
   sections = {
