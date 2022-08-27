@@ -104,6 +104,22 @@ end
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
+-- NOTE: search count {{{
+----------------------------------------------------------------------
+local function search_count()
+  if vim.api.nvim_get_vvar("hlsearch") == 1 then
+    local res = vim.fn.searchcount({ maxcount = 999, timeout = 500 })
+
+    if res.total > 0 then
+      return string.format("[%d/%d]", res.current, res.total)
+    end
+  end
+  return ""
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
 local winbar_excluded_filetypes = {
@@ -152,6 +168,11 @@ lualine.setup({
   },
   sections = {
     lualine_a = {
+      {
+        search_count,
+        type = "lua_expr",
+        color = "LualineSessionName",
+      },
       {
         "mode",
         fmt = function(str)
@@ -213,14 +234,14 @@ lualine.setup({
   winbar = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { get_winbar, { color = { link = "Cursor" } } },
+    lualine_c = { get_winbar },
     lualine_x = {},
     lualine_z = {},
   },
   inactive_winbar = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { get_winbar, { color = { link = "Cursor" } } },
+    lualine_c = { get_winbar },
     lualine_x = {},
     lualine_z = {},
   },
@@ -231,45 +252,6 @@ lualine.setup({
     "toggleterm",
   },
 })
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: lsp_progress {{{
-----------------------------------------------------------------------
--- {
---   "lsp_progress",
---   colors = {
---     lsp_client_name = colors.yellow,
---     title = colors.white,
---     message = colors.dark_orange,
---     percentage = colors.blue,
---     spinner = colors.dark_pink,
---     use = true,
---   },
---   display_components = { "lsp_client_name", { "title", "message", "percentage" }, "spinner" },
---   timer = { spinner = 200 },
---   separators = {
---     message = { commenced = ".", completed = "OK" },
---   },
---   spinner_symbols = {
---     "[    ]",
---     "[=   ]",
---     "[==  ]",
---     "[=== ]",
---     "[ ===]",
---     "[  ==]",
---     "[   =]",
---     "[    ]",
---     "[   =]",
---     "[  ==]",
---     "[ ===]",
---     "[====]",
---     "[=== ]",
---     "[==  ]",
---     "[=   ]",
---   },
--- },
 -- }}}
 ----------------------------------------------------------------------
 

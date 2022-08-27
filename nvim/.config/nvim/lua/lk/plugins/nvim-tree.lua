@@ -1,5 +1,5 @@
 local width = 60
-local height = 30
+local height = 40
 
 -- Get the current UI
 local ui = vim.api.nvim_list_uis()[1]
