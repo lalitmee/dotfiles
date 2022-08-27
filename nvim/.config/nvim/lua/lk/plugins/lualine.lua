@@ -110,7 +110,7 @@ local winbar_excluded_filetypes = {
   "",
   "DressingSelect",
   "Jaq",
-  "Markdown",
+  "markdown",
   "NeogitCommitMessage",
   "NeogitCommitPopup",
   "NeogitHelpPopup",
