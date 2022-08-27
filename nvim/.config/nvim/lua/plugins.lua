@@ -1079,11 +1079,18 @@ require("packer").startup({
     -- mind
     use({
       "phaazon/mind.nvim",
-      branch = "v2.1",
+      tag = "v2.1.0",
       config = function()
         require("mind").setup()
       end,
     })
+
+    -- auto add list markers to the next lines
+    use({
+      "gaoDean/autolist.nvim",
+      config = conf("autolist"),
+    })
+
     -- similar to orgmode but with neovim in lua
     use({
       "nvim-neorg/neorg",
@@ -1093,6 +1100,16 @@ require("packer").startup({
       requires = {
         { "nvim-neorg/neorg-telescope" },
       },
+    })
+
+    use({
+      "nvim-orgmode/orgmode",
+      requires = {
+        "akinsho/org-bullets.nvim",
+        "lukas-reineke/headlines.nvim",
+        "dhruvasagar/vim-table-mode",
+      },
+      config = conf("orgmode"),
     })
     -- }}}
     ----------------------------------------------------------------------

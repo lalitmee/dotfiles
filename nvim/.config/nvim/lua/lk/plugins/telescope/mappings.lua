@@ -1,5 +1,3 @@
-local command = lk.command
-
 TelescopeMapArgs = TelescopeMapArgs or {}
 
 local map_tele = function(key, f, options, buffer)
@@ -21,22 +19,13 @@ end
 
 vim.api.nvim_set_keymap("c", "<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", { noremap = false, nowait = true })
 
--- Dotfiles
-map_tele("<leader>ofn", "edit_neovim")
-map_tele("<leader>ofc", "edit_dotfiles")
+-- dotfiles
+map_tele("<leader>ffc", "edit_dotfiles")
+map_tele("<leader>ffn", "edit_neovim")
 
--- Nvim
+-- nvim
 map_tele("<space>np", "installed_plugins")
 
 vim.cmd([[autocmd User TelescopePreviewerLoaded setlocal wrap]])
-
-----------------------------------------------------------------------
--- NOTE: telescope commands {{{
-----------------------------------------------------------------------
-command("LGrep", function()
-  require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ") })
-end)
--- }}}
-----------------------------------------------------------------------
 
 return map_tele

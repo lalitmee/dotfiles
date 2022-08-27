@@ -1,7 +1,5 @@
 local M = {}
 
-M.disabled_filetypes = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" }
-
 M.get_filename = function()
   local filename = vim.fn.expand("%:t")
   local extension = vim.fn.expand("%:e")
@@ -27,14 +25,6 @@ M.get_filename = function()
   end
 end
 
-local excludes = function()
-  if vim.tbl_contains(M.disabled_filetypes, vim.bo.filetype) then
-    vim.opt_local.winbar = nil
-    return true
-  end
-  return false
-end
-
 local get_gps = function()
   local status_gps_ok, gps = lk.safe_require("nvim-navic")
   if not status_gps_ok then
@@ -58,11 +48,7 @@ local get_gps = function()
   end
 end
 
--- See :h statusline for %v values
 M.eval = function()
-  if excludes() then
-    return
-  end
   local nvim_location = get_gps()
   return string.format("%s %s", M.get_filename(), nvim_location)
 end
