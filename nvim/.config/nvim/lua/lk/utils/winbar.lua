@@ -19,7 +19,7 @@ M.get_filename = function()
       file_icon_color = ""
     end
 
-    vim.api.nvim_set_hl(0, "Winbar", { link = "Number" })
+    vim.api.nvim_set_hl(0, "Winbar", { link = "Variable" })
 
     return " " .. "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#Winbar#" .. filename .. "%*"
   end
