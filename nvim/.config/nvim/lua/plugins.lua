@@ -989,16 +989,6 @@ require("packer").startup({
       },
       config = conf("nvim-tree"),
     })
-
-    -- dirbuf
-    use({
-      "elihunter173/dirbuf.nvim",
-      cmd = { "Dirbuf", "DirbufSync" },
-      keys = { { "n", "-" } },
-      config = function()
-        vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
-      end,
-    })
     -- }}}
     ------------------------------------------------------------------------
     -- }}}

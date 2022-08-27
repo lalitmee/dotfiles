@@ -45,7 +45,6 @@ local leader_key_maps = {
     ["b"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
     ["d"] = { ":ColorizerAttachToBuffer<CR>", "attach-colorizer" },
     ["c"] = { ":Telescope neoclip<CR>", "clipboard" },
-    ["e"] = { ":Dirbuf<CR>", "dirbuf-explorer" },
     ["i"] = { ":ISwapWith<CR>", "iswap-with" },
     ["I"] = { ":ISwap<CR>", "iswap" },
     ["m"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
