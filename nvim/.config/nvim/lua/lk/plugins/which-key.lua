@@ -555,6 +555,7 @@ local leader_key_maps = {
     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
     ["h"] = { ":Telescope frecency<CR>", "old-files" },
     ["p"] = { ":Telescope projects<CR>", "projects" },
+    ["l"] = { ":Telescope zoxide list<CR>", "zoxide-dirs" },
     ["r"] = { ":Telescope repo list<CR>", "repo-list" },
     ["R"] = { ":Telescope repo cached_list<CR>", "repo-list" },
     ["s"] = { ":Telescope live_grep<CR>", "project-search" },
