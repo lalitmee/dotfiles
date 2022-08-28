@@ -188,6 +188,10 @@ lualine.setup({
       {
         get_session_name,
         color = "LualineSessionName",
+        --[[ fmt = function(str) ]]
+        --[[   local result = str.format("%-7s", str) ]]
+        --[[   return result ]]
+        --[[ end, ]]
       },
     },
     lualine_c = {

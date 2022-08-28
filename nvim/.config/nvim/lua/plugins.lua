@@ -393,6 +393,13 @@ require("packer").startup({
             require("telescope").load_extension("howdoi")
           end,
         },
+        {
+          "jvgrootveld/telescope-zoxide",
+          after = "telescope.nvim",
+          config = function()
+            require("telescope").load_extension("zoxide")
+          end,
+        },
       },
     })
 

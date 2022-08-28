@@ -67,12 +67,12 @@ require("nvim-tree").setup({
     },
     indent_markers = {
       enable = true,
-      icons = {
-        corner = "╰",
-        edge = "┊",
-        item = "┊",
-        none = "",
-      },
+      --[[ icons = { ]]
+      --[[   corner = "╰", ]]
+      --[[   edge = "┊", ]]
+      --[[   item = "┊", ]]
+      --[[   none = "", ]]
+      --[[ }, ]]
     },
   },
 })
