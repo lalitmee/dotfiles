@@ -593,7 +593,7 @@ local leader_key_maps = {
       ["o"] = { ":OverseerOpen<CR>", "open" },
       ["q"] = { ":OverseerQuickAction<CR>", "quick-action" },
       ["r"] = { ":OverseerRun<CR>", "run" },
-      ["s"] = { ":OverseerSaveBundle<CR>", "save-bundle" },
+      ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
       ["t"] = { ":OverseerToggle<CR>", "toggle" },
     },
     ["p"] = { ":RunProject<CR>", "run-project" },

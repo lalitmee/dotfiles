@@ -90,7 +90,7 @@ function Save_and_execute()
       silent! write
     ]])
   end
-  vim.notify(filepath, "info", { title = "Save and Execute" })
+  vim.notify(filepath, "info", { title = " Save and Execute" })
 end
 -- }}}
 ----------------------------------------------------------------------

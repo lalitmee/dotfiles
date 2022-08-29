@@ -71,7 +71,7 @@ local function on_attach(client, bufnr)
   vim.notify(
     string.format("[LSP] %s\n[CWD] %s", client.name, oslib.get_cwd()),
     vim.log.levels.INFO,
-    { title = "[LSP] Active", timeout = 250 }
+    { title = " [LSP] Active", timeout = 250 }
   )
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
   autocommands.setup_autocommands(client)
