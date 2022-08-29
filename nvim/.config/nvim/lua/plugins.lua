@@ -712,7 +712,6 @@ require("packer").startup({
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp", ft = { "lua" } },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-            { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
           },
         },
         {
