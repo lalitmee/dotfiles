@@ -30,7 +30,10 @@ end
 local custom_fname = require("lualine.components.filename"):extend()
 local highlight = require("lualine.highlight")
 local colors = require("cobalt2.palette")
-local default_status_colors = { saved = colors.green, modified = colors.red }
+local default_status_colors = {
+  saved = colors.green,
+  modified = colors.red,
+}
 
 function custom_fname:init(options)
   custom_fname.super.init(self, options)
@@ -115,6 +118,19 @@ local function search_count()
     end
   end
   return ""
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: scrollbar {{{
+----------------------------------------------------------------------
+local function get_scroll_bar()
+  local sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" }
+  local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+  local lines = vim.api.nvim_buf_line_count(0)
+  local i = math.floor(curr_line / lines * (#sbar - 1)) + 1
+  return string.rep(sbar[i], 2)
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -227,7 +243,17 @@ lualine.setup({
       },
     },
     lualine_y = { { "progress" } },
-    lualine_z = { { "location", icon = "" } },
+    lualine_z = {
+      { "location" },
+      {
+        get_scroll_bar,
+        padding = 0,
+        color = {
+          fg = colors.yellow,
+          bg = colors.cursor_hover,
+        },
+      },
+    },
   },
   inactive_sections = {
     lualine_a = {},
