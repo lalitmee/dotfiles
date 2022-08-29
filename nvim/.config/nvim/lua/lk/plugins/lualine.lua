@@ -126,7 +126,6 @@ local winbar_excluded_filetypes = {
   "",
   "DressingSelect",
   "Jaq",
-  "markdown",
   "NeogitCommitMessage",
   "NeogitCommitPopup",
   "NeogitHelpPopup",
@@ -134,6 +133,7 @@ local winbar_excluded_filetypes = {
   "NeogitStatus",
   "NvimTree",
   "Outline",
+  "OverseerList",
   "Trouble",
   "alpha",
   "dap-repl",
@@ -149,6 +149,7 @@ local winbar_excluded_filetypes = {
   "help",
   "lab",
   "lir",
+  "markdown",
   "packer",
   "qf",
   "spectre_panel",
@@ -189,7 +190,7 @@ lualine.setup({
         get_session_name,
         color = "LualineSessionName",
         --[[ fmt = function(str) ]]
-        --[[   local result = str.format("%-7s", str) ]]
+        --[[   local result = str.format("%-7", str) ]]
         --[[   return result ]]
         --[[ end, ]]
       },

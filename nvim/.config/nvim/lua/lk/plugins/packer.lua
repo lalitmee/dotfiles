@@ -2,12 +2,20 @@ local augroup = lk.augroup
 local fmt = string.format
 local fn = vim.fn
 
+--- packer notify wrapper
+---@param msg string to be shown
+---@param type type of the message
+local packer_notify = function(msg, type)
+  local msg_type = type or "info"
+  vim.notify(msg, msg_type, { title = " Packer" })
+end
+
 ----------------------------------------------------------------------
 -- NOTE: packer autocommands {{{
 ----------------------------------------------------------------------
 augroup("PackerSetupInit", {
   {
-    event = "BufWritePost",
+    event = { "BufWritePost" },
     description = "Packer Compile after saving plugins.lua",
     pattern = { "plugins.lua" },
     command = function()
@@ -16,7 +24,7 @@ augroup("PackerSetupInit", {
     end,
   },
   {
-    event = "BufEnter",
+    event = { "BufEnter" },
     description = "Open a repository from an authorname/repository string",
     buffer = 0,
     command = function()
@@ -27,24 +35,24 @@ augroup("PackerSetupInit", {
         end
         local url = fmt("https://www.github.com/%s", repo)
         fn.jobstart("xdg-open " .. url)
-        vim.notify(fmt("Opening %s at %s", repo, url), "info", { title = fmt("[plugin] %s", repo) })
+        vim.notify(fmt("Opening %s at %s", repo, url), "info", { title = fmt(" [plugin] %s", repo) })
       end)
     end,
   },
   {
-    event = "User",
-    pattern = "PackerCompileDone",
+    event = { "User" },
+    pattern = { "PackerCompileDone" },
     description = "Notify when packer compile done",
     command = function()
-      vim.notify("Packer compile complete", nil, { title = "Packer" })
+      packer_notify("Packer compile complete", nil)
     end,
   },
   {
-    event = "User",
-    pattern = "PackerCompelete",
+    event = { "User" },
+    pattern = { "PackerCompelete" },
     description = "Notify when packer completes the job",
     command = function()
-      vim.notify("Packer has done the job", nil, { title = "Packer" })
+      packer_notify("Packer has done the job", nil)
     end,
   },
 })

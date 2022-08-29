@@ -6,7 +6,6 @@ end
 ----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
-orgmode.setup_ts_grammar()
 orgmode.setup({
   org_default_notes_file = "~/Desktop/Github/dNotes/notes/index.org",
 })
