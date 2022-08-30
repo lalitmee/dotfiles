@@ -152,6 +152,7 @@ local winbar_excluded_filetypes = {
   "OverseerList",
   "Trouble",
   "alpha",
+  "checkhealth",
   "dap-repl",
   "dap-terminal",
   "dapui_breakpoints",
