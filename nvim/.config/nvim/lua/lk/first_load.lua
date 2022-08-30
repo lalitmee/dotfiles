@@ -12,8 +12,10 @@ local download_packer = function()
   )
 
   print(out)
-  print("Downloading packer.nvim...")
-  print("( You'll need to restart now )")
+  print("=================================")
+  print("    Downloading packer.nvim...")
+  print("    You'll need to restart nvim")
+  print("=================================")
 end
 
 return function()
