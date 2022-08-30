@@ -53,6 +53,13 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: UI and Beautify {{{
     ----------------------------------------------------------------------------
+    -- beautiful screenshots of the code
+    use({
+      "cameronviner/carbon-now-sh.nvim",
+      config = conf("carbon-now"),
+      cmd = { "CarbonNow" },
+    })
+
     -- improve default neovim UI
     use({
       "stevearc/dressing.nvim",
