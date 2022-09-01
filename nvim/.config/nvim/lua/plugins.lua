@@ -731,15 +731,6 @@ require("packer").startup({
           ft = "lua",
           after = { "nvim-lspconfig" },
         },
-        {
-          "simrat39/symbols-outline.nvim",
-          config = conf("symbols-outline"),
-          cmd = {
-            "SymbolsOutline",
-            "SymbolsOutlineOpen",
-            "SymbolsOutlineClose",
-          },
-        },
       },
     })
     -- }}}
@@ -935,12 +926,12 @@ require("packer").startup({
       end,
     })
 
-    -- bufferline
-    use({
-      "akinsho/nvim-bufferline.lua",
-      event = { "BufRead" },
-      config = conf("bufferline"),
-    })
+    --[[ -- bufferline ]]
+    --[[ use({ ]]
+    --[[   "akinsho/nvim-bufferline.lua", ]]
+    --[[   event = { "BufRead" }, ]]
+    --[[   config = conf("bufferline"), ]]
+    --[[ }) ]]
     -- }}}
     ------------------------------------------------------------------------
 
