@@ -270,7 +270,9 @@ lualine.setup({
     lualine_z = {},
   },
   tabline = {
-    lualine_a = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {
       {
         "buffers",
         mode = 2,
@@ -283,7 +285,6 @@ lualine.setup({
         },
       },
     },
-    lualine_b = {},
     lualine_x = {},
     lualine_y = {
       { "tabs" },
