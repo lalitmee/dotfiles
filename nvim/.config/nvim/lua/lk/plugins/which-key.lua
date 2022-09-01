@@ -483,7 +483,6 @@ local leader_key_maps = {
     ["j"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
     ["l"] = { ":LogVariable<CR>", "log-var" },
     ["r"] = { ":LspRename<CR>", "rename-symbol" },
-    ["s"] = { ":SymbolsOutline<CR>", "symbols-outline" },
     ["t"] = { ":Telescope treesitter<CR>", "treesitter-symbols" },
     ["w"] = { ":Telescope lsp_document_symbols<CR>", "buffer-symbols" },
     ["W"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "workspace-symbols" },

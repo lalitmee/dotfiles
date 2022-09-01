@@ -203,17 +203,9 @@ lualine.setup({
         "branch",
         icon = "",
       },
-      {
-        get_session_name,
-        color = "LualineSessionName",
-        --[[ fmt = function(str) ]]
-        --[[   local result = str.format("%-7", str) ]]
-        --[[   return result ]]
-        --[[ end, ]]
-      },
     },
     lualine_c = {
-      { "%=", type = "stl" },
+      --[[ { "%=", type = "stl" }, ]]
       { "filetype", icon_only = true },
       {
         custom_fname,
@@ -276,6 +268,31 @@ lualine.setup({
     lualine_c = { get_winbar },
     lualine_x = {},
     lualine_z = {},
+  },
+  tabline = {
+    lualine_a = {
+      {
+        "buffers",
+        mode = 2,
+        filetype_names = {
+          mason = "Mason.nvim",
+        },
+        buffers_color = {
+          active = { fg = colors.yellow, bg = colors.darker_blue },
+          inactive = { fg = colors.yellow, bg = colors.cobalt_bg },
+        },
+      },
+    },
+    lualine_b = {},
+    lualine_x = {},
+    lualine_y = {
+      { "tabs" },
+    },
+    lualine_z = {
+      {
+        get_session_name,
+      },
+    },
   },
   extensions = {
     "man",
