@@ -1,6 +1,6 @@
 local ok, bufferline = lk.safe_require("bufferline")
 if not ok then
-  vim.notify("Failed to load bufferline.nvim", "error", { title = "[bufferline.nvim] error" })
+  lk.package_notify("bufferline.nvim", "error")
   return
 end
 

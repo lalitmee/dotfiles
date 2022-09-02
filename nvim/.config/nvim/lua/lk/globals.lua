@@ -672,4 +672,13 @@ function lk.fold(callback, list, accum)
   return accum
 end
 
+--- notify wrapper for pacakge loading failed
+---@param package string
+---@param type string
+function lk.package_notify(package, type)
+  local msg = fmt("Failed to load %s", package)
+  local title = fmt("[%s] error")
+  vim.notify(msg, type, { title })
+end
+
 -- vim:foldmethod=marker
