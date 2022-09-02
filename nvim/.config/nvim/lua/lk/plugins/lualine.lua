@@ -216,6 +216,10 @@ lualine.setup({
           readonly = " []",
         },
       },
+      {
+        get_client_name,
+        color = "LualineSessionName",
+      },
     },
     lualine_x = {
       {
@@ -231,7 +235,7 @@ lualine.setup({
       { get_trailing_whitespace },
       { require("nomodoro").status },
       {
-        get_client_name,
+        get_session_name,
         color = "LualineSessionName",
       },
     },
@@ -269,32 +273,32 @@ lualine.setup({
     lualine_x = {},
     lualine_z = {},
   },
-  tabline = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {
-      {
-        "buffers",
-        mode = 2,
-        filetype_names = {
-          mason = "Mason.nvim",
-        },
-        buffers_color = {
-          active = { fg = colors.yellow, bg = colors.darker_blue },
-          inactive = { fg = colors.yellow, bg = colors.cobalt_bg },
-        },
-      },
-    },
-    lualine_x = {},
-    lualine_y = {
-      { "tabs" },
-    },
-    lualine_z = {
-      {
-        get_session_name,
-      },
-    },
-  },
+  --[[ tabline = { ]]
+  --[[   lualine_a = {}, ]]
+  --[[   lualine_b = {}, ]]
+  --[[   lualine_c = { ]]
+  --[[     { ]]
+  --[[       "buffers", ]]
+  --[[       mode = 2, ]]
+  --[[       filetype_names = { ]]
+  --[[         mason = "Mason.nvim", ]]
+  --[[       }, ]]
+  --[[       buffers_color = { ]]
+  --[[         active = { fg = colors.yellow, bg = colors.darker_blue }, ]]
+  --[[         inactive = { fg = colors.yellow, bg = colors.cobalt_bg }, ]]
+  --[[       }, ]]
+  --[[     }, ]]
+  --[[   }, ]]
+  --[[   lualine_x = {}, ]]
+  --[[   lualine_y = { ]]
+  --[[     { "tabs" }, ]]
+  --[[   }, ]]
+  --[[   lualine_z = { ]]
+  --[[     { ]]
+  --[[       get_session_name, ]]
+  --[[     }, ]]
+  --[[   }, ]]
+  --[[ }, ]]
   extensions = {
     "man",
     "nvim-tree",
