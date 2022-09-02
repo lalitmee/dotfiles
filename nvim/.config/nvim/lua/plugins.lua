@@ -955,7 +955,9 @@ require("packer").startup({
       "akinsho/nvim-bufferline.lua",
       event = { "BufRead" },
       config = conf("bufferline"),
+      requires = { "tiagovla/scope.nvim" },
     })
+
     -- }}}
     ------------------------------------------------------------------------
 
