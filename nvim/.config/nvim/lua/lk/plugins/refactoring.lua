@@ -1,6 +1,6 @@
 local status_ok, refactoring = lk.safe_require("refactoring")
 if not status_ok then
-  vim.notify("Failed to load refactoring module", "error", { title = "[refactoring] Error" })
+  lk.package_notify("refactoring.nvim", "error")
   return
 end
 

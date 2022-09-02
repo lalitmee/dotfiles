@@ -1,12 +1,12 @@
 local ok, lualine = lk.safe_require("lualine")
 if not ok then
-  vim.notify("Failed to load lualine", "error", { title = "[lualine.nvim] error" })
+  lk.package_notify("lualine.nvim", "error")
   return
 end
 
 local auto_session_ok, auto_session_library = lk.safe_require("auto-session-library")
 if not auto_session_ok then
-  vim.notify("Failed to load auto-session-library", "error", { title = "[auto-session-library.nvim] error" })
+  lk.package_notify("auto-session-library.nvim", "error")
   return
 end
 
