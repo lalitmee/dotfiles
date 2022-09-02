@@ -1,3 +1,9 @@
+local ok, bufferline = lk.safe_require("bufferline")
+if not ok then
+  vim.notify("Failed to load bufferline.nvim", "error", { title = "[bufferline.nvim] error" })
+  return
+end
+
 ----------------------------------------------------------------------
 -- NOTE: sorting of buffers {{{
 ----------------------------------------------------------------------
@@ -14,7 +20,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
-require("bufferline").setup({
+bufferline.setup({
   options = {
     sort_by = sort_by_mtime,
     numbers = "none",
@@ -53,6 +59,7 @@ require("bufferline").setup({
         padding = 1,
       },
     },
+    custom_areas = {},
   },
 })
 -- }}}

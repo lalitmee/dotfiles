@@ -124,8 +124,14 @@ require("packer").startup({
     })
 
     -- which-key
+    --[[ use({ ]]
+    --[[   "folke/which-key.nvim", ]]
+    --[[   config = conf("which-key"), ]]
+    --[[ }) ]]
+
     use({
-      "folke/which-key.nvim",
+      "xaviervalarino/which-key.nvim",
+      branch = "fix-maparg",
       config = conf("which-key"),
     })
 
@@ -818,6 +824,20 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: html and jsx {{{
     ----------------------------------------------------------------------
+    use({
+      "ray-x/web-tools.nvim",
+      config = function()
+        require("web-tools").setup()
+      end,
+      cmd = {
+        "BrowserOpen",
+        "BrowserPreview",
+        "BrowserRestart",
+        "BrowserStop",
+        "BrowserSync",
+        "TagRename",
+      },
+    })
     -- }}}
     ----------------------------------------------------------------------
 
@@ -930,12 +950,12 @@ require("packer").startup({
       end,
     })
 
-    --[[ -- bufferline ]]
-    --[[ use({ ]]
-    --[[   "akinsho/nvim-bufferline.lua", ]]
-    --[[   event = { "BufRead" }, ]]
-    --[[   config = conf("bufferline"), ]]
-    --[[ }) ]]
+    -- bufferline
+    use({
+      "akinsho/nvim-bufferline.lua",
+      event = { "BufRead" },
+      config = conf("bufferline"),
+    })
     -- }}}
     ------------------------------------------------------------------------
 
