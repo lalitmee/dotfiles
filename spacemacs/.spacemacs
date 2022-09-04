@@ -134,9 +134,7 @@ values."
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
      (wakatime :variables
                ;; use the actual wakatime path
-               wakatime-api-key "24ffed3b-d336-43be-80ff-2292eaefa867"
-               wakatime-cli-path "/home/lalitmee/.local/bin/wakatime"
-               wakatime-python-bin "/home/lalitmee/.pyenv/shims/wakatime")
+               wakatime-cli-path "/home/lalitme/.wakatime/wakatime-cli")
 
      )
    ;; List of additional packages that will be installed without being
