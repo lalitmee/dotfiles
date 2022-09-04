@@ -1098,7 +1098,7 @@ require("packer").startup({
     -- mind
     use({
       "phaazon/mind.nvim",
-      tag = "v2.1.0",
+      tag = "v2.2",
       config = function()
         require("mind").setup()
       end,
@@ -1121,15 +1121,15 @@ require("packer").startup({
       },
     })
 
-    use({
-      "nvim-orgmode/orgmode",
-      requires = {
-        "akinsho/org-bullets.nvim",
-        "lukas-reineke/headlines.nvim",
-        "dhruvasagar/vim-table-mode",
-      },
-      config = conf("orgmode"),
-    })
+    --[[ use({ ]]
+    --[[   "nvim-orgmode/orgmode", ]]
+    --[[   requires = { ]]
+    --[[     "akinsho/org-bullets.nvim", ]]
+    --[[     "lukas-reineke/headlines.nvim", ]]
+    --[[     "dhruvasagar/vim-table-mode", ]]
+    --[[   }, ]]
+    --[[   config = conf("orgmode"), ]]
+    --[[ }) ]]
     -- }}}
     ----------------------------------------------------------------------
 
