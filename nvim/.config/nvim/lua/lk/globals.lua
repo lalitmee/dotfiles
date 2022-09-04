@@ -492,6 +492,7 @@ function lk.empty(item)
   elseif item_type == "table" then
     return vim.tbl_isempty(item)
   end
+  return false
 end
 
 ---check if a mapping already exists

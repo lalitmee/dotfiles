@@ -124,14 +124,8 @@ require("packer").startup({
     })
 
     -- which-key
-    --[[ use({ ]]
-    --[[   "folke/which-key.nvim", ]]
-    --[[   config = conf("which-key"), ]]
-    --[[ }) ]]
-
     use({
-      "xaviervalarino/which-key.nvim",
-      branch = "fix-maparg",
+      "~/Desktop/Github/which-key.nvim",
       config = conf("which-key"),
     })
 
