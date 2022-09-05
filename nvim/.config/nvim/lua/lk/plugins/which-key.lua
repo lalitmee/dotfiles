@@ -411,6 +411,7 @@ local leader_key_maps = {
   -- NOTE: l is for lspconfig {{{
   ----------------------------------------------------------------------
   ["l"] = {
+    ["name"] = "+lsp",
     ["a"] = { ":LspCodeActions<CR>", "code-action" },
     ["A"] = { ":LspRangeCodeActions<CR>", "range-code-action" },
     ["e"] = {
