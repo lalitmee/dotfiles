@@ -4,26 +4,6 @@ if not ok then
   return
 end
 
-local auto_session_ok, auto_session_library = lk.safe_require("auto-session-library")
-if not auto_session_ok then
-  lk.package_notify("auto-session-library.nvim", "error")
-  return
-end
-
-----------------------------------------------------------------------
--- NOTE: get session name {{{
-----------------------------------------------------------------------
-local function get_session_name()
-  local session_name = auto_session_library.current_session_name()
-  if session_name == nil then
-    return "No Active Session"
-  end
-  -- return "[⚙ Session: " .. session_name .. "]"
-  return "[" .. session_name .. "]"
-end
--- }}}
-----------------------------------------------------------------------
-
 ----------------------------------------------------------------------
 -- NOTE: custom filename component {{{
 ----------------------------------------------------------------------
@@ -205,7 +185,7 @@ lualine.setup({
       },
     },
     lualine_c = {
-      --[[ { "%=", type = "stl" }, ]]
+      { "%=", type = "stl" },
       { "filetype", icon_only = true },
       {
         custom_fname,
@@ -215,10 +195,6 @@ lualine.setup({
           modified = " []",
           readonly = " []",
         },
-      },
-      {
-        get_client_name,
-        color = "LualineSessionName",
       },
     },
     lualine_x = {
@@ -235,7 +211,7 @@ lualine.setup({
       { get_trailing_whitespace },
       { require("nomodoro").status },
       {
-        get_session_name,
+        get_client_name,
         color = "LualineSessionName",
       },
     },
