@@ -216,6 +216,7 @@ plugins=(
   zsh-cargo-completion
   zsh-cpan-completion
   zsh-syntax-highlighting
+  zsh-wakatime
 )
 
 # zsh completions
