@@ -37,7 +37,7 @@ local bookmarks = {
   "https://github.com/whatsthatsmell/dots",
 }
 
-local ok, browse = lk.safe_require("browse")
+local ok, browse = lk.require("browse")
 if not ok then
   return
 end

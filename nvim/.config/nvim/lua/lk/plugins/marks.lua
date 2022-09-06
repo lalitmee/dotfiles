@@ -1,4 +1,4 @@
-local ok, marks = lk.safe_require("marks")
+local ok, marks = lk.require("marks")
 if not ok then
   return
 end

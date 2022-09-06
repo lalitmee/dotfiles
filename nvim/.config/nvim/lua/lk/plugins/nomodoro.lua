@@ -1,4 +1,4 @@
-local ok, nomodoro = lk.safe_require("nomodoro")
+local ok, nomodoro = lk.require("nomodoro")
 if not ok then
   return
 end

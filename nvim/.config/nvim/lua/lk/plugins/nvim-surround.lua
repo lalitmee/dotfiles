@@ -1,4 +1,4 @@
-local ok, nvim_surround = lk.safe_require("nvim-surround")
+local ok, nvim_surround = lk.require("nvim-surround")
 if not ok then
   return
 end

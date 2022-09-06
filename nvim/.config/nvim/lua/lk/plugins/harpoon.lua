@@ -1,4 +1,4 @@
-local ok, harpoon = lk.safe_require("harpoon")
+local ok, harpoon = lk.require("harpoon")
 if not ok then
   return
 end

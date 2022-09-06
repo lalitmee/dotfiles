@@ -1,4 +1,4 @@
-local ok, carbonnow = lk.safe_require("carbonnow")
+local ok, carbonnow = lk.require("carbonnow")
 if not ok then
   return
 end

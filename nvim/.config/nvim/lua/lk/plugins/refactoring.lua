@@ -1,6 +1,5 @@
-local status_ok, refactoring = lk.safe_require("refactoring")
+local status_ok, refactoring = lk.require("refactoring")
 if not status_ok then
-  lk.package_notify("refactoring.nvim", "error")
   return
 end
 

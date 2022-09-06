@@ -1,4 +1,4 @@
-local ok, buffertag = lk.safe_require("buffertag")
+local ok, buffertag = lk.require("buffertag")
 
 if not ok then
   return

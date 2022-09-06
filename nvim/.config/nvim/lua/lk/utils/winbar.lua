@@ -26,7 +26,7 @@ M.get_filename = function()
 end
 
 local get_gps = function()
-  local status_gps_ok, gps = lk.safe_require("nvim-navic")
+  local status_gps_ok, gps = lk.require("nvim-navic")
   if not status_gps_ok then
     return ""
   end

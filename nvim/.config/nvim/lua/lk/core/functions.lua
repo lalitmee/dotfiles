@@ -1,4 +1,4 @@
-local ok, Job = lk.safe_require("plenary.job")
+local ok, Job = lk.require("plenary.job")
 if not ok then
   return
 end

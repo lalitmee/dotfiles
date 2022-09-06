@@ -1,4 +1,4 @@
-local ok, replacer = lk.safe_require("replacer")
+local ok, replacer = lk.require("replacer")
 if not ok then
   return
 end

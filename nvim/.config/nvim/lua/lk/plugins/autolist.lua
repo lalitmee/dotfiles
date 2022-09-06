@@ -1,4 +1,4 @@
-local ok, autolist = lk.safe_require("autolist")
+local ok, autolist = lk.require("autolist")
 if not ok then
   return
 end

@@ -1,4 +1,4 @@
-local ok, attempt = lk.safe_require("attempt")
+local ok, attempt = lk.require("attempt")
 if not ok then
   return
 end

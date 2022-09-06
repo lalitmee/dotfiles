@@ -1,4 +1,4 @@
-local ok, telescope = lk.safe_require("telescope")
+local ok, telescope = lk.require("telescope")
 if not ok then
   return
 end

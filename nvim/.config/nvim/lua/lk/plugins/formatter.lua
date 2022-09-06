@@ -1,4 +1,4 @@
-local ok, formatter = lk.safe_require("formatter")
+local ok, formatter = lk.require("formatter")
 if not ok then
   return
 end

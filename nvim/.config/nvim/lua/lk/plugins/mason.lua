@@ -1,4 +1,4 @@
-local ok, mason = lk.safe_require("mason")
+local ok, mason = lk.require("mason")
 if not ok then
   return
 end

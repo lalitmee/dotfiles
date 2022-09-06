@@ -1,4 +1,4 @@
-local dressing_ok, dressing = lk.safe_require("dressing")
+local dressing_ok, dressing = lk.require("dressing")
 if not dressing_ok then
   return
 end

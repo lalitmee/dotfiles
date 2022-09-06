@@ -1,4 +1,4 @@
-local ok, code_runner = lk.safe_require("code_runner")
+local ok, code_runner = lk.require("code_runner")
 if not ok then
   return
 end

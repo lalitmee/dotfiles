@@ -1,4 +1,4 @@
-local ok, yanky = lk.safe_require("yanky")
+local ok, yanky = lk.require("yanky")
 if not ok then
   return
 end

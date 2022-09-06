@@ -1,4 +1,4 @@
-local ok, spotify = lk.safe_require("nvim-spotify")
+local ok, spotify = lk.require("nvim-spotify")
 if not ok then
   return
 end
