@@ -137,16 +137,14 @@ require("packer").startup({
 
     -- session management
     use({
-      "rmagatti/auto-session",
-      event = { "VimEnter" },
-      config = conf("auto-session"),
-    })
-
-    -- search session
-    use({
       "rmagatti/session-lens",
       after = { "telescope.nvim", "auto-session" },
       cmd = { "SearchSession" },
+      requires = {
+        "rmagatti/auto-session",
+        event = { "VimEnter" },
+        config = conf("auto-session"),
+      },
       config = conf("session-lens"),
     })
 
