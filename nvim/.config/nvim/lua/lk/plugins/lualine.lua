@@ -44,28 +44,6 @@ end
 -- }}}
 ----------------------------------------------------------------------
 
---------------------------------------------------------------------------------
--- NOTE: to get the current client server name {{{
---------------------------------------------------------------------------------
-local function get_client_name()
-  local msg = "[No Active Lsp]"
-  local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-  local clients = vim.lsp.get_active_clients()
-  if next(clients) == nil then
-    return msg
-  end
-  for _, client in ipairs(clients) do
-    local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      --[[ return "[⚙ LSP: " .. client.name .. "]" ]]
-      return "[" .. client.name .. "]"
-    end
-  end
-  return msg
-end
--- }}}
---------------------------------------------------------------------------------
-
 ----------------------------------------------------------------------
 -- NOTE: trailing whitespaces {{{
 ----------------------------------------------------------------------
@@ -209,10 +187,6 @@ lualine.setup({
       },
       { get_trailing_whitespace },
       { require("nomodoro").status },
-      {
-        get_client_name,
-        color = "LualineSessionName",
-      },
     },
     lualine_y = {
       { "progress" },
@@ -246,7 +220,7 @@ lualine.setup({
   inactive_winbar = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { get_winbar },
+    lualine_c = {},
     lualine_x = {},
     lualine_z = {},
   },
