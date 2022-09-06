@@ -125,7 +125,8 @@ require("packer").startup({
 
     -- which-key
     use({
-      "~/Desktop/Github/which-key.nvim",
+      -- "~/Desktop/Github/which-key.nvim",
+      "folke/which-key.nvim",
       config = conf("which-key"),
     })
 
