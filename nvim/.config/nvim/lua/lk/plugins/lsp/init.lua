@@ -1,10 +1,6 @@
-lk.lsp = {}
-
-local oslib = require("lk/utils/oslib")
 local fn = vim.fn
-local fmt = string.format
 local icons = lk.style.icons.lsp
-local map = lk.map
+local lsp_utils = require("lk/plugins/lsp/utils")
 
 ----------------------------------------------------------------------
 -- NOTE: automatic setting up commands and handlers {{{
@@ -15,96 +11,22 @@ require("lk/plugins/lsp/handlers")
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: servers config {{{
-----------------------------------------------------------------------
--- local gopls = require("lk/plugins/lsp/servers/gopls")
-local autocommands = require("lk/plugins/lsp/autocommands")
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: diagnostic signs {{{
 ----------------------------------------------------------------------
-local diagnostic_types = {
-  { "Error", icon = icons.error },
-  { "Warn", icon = icons.warn },
-  { "Hint", icon = icons.hint },
-  { "Info", icon = icons.info },
-}
-
-fn.sign_define(vim.tbl_map(function(t)
-  local hl = "DiagnosticSign" .. t[1]
-  return {
-    name = hl,
-    text = t.icon,
-    texthl = hl,
-    linehl = fmt("%sLine", hl),
-  }
-end, diagnostic_types))
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: on attach function {{{
-----------------------------------------------------------------------
-local function on_attach(client, bufnr)
-  local nmap = lk.nmap
-  local imap = lk.imap
-  local opts = { noremap = false, silent = true, buffer = bufnr }
-
-  -- lsp mapping for the client
-  nmap("gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  nmap("ge", "<cmd>Telescope diagnostics<CR>", opts)
-  nmap("gr", "<cmd>Telescope lsp_references<CR>", opts)
-  nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", opts)
-  nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", opts)
-  nmap("K", vim.lsp.buf.hover, opts)
-  nmap("gD", vim.lsp.buf.declaration, opts)
-  nmap("gy", vim.lsp.buf.type_definition, opts)
-  imap("<C-h>", vim.lsp.buf.signature_help, opts)
-
-  local mapping_opts = { buffer = bufnr }
-  if client.server_capabilities.implementation then
-    nmap("gi", vim.lsp.buf.implementation, mapping_opts)
-  end
-
-  vim.notify(
-    string.format("[LSP] %s\n[CWD] %s", client.name, oslib.get_cwd()),
-    vim.log.levels.INFO,
-    { title = " [LSP] Active", timeout = 250 }
-  )
-  vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-  autocommands.setup_autocommands(client)
-
-  client.server_capabilities.document_formatting = false
-  if client.server_capabilities.document_highlight then
-    vim.cmd([[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd! CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd! CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]])
-  end
-  if client.server_capabilities.goto_definition == true then
-    vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-  end
-
-  if client.server_capabilities.document_formatting == true then
-    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-    -- Add this <leader> bound mapping so formatting the entire document is easier.
-    map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  end
-
-  -- nvim-navic
-  local navic_ok, navic = lk.require("nvim-navic")
-  if navic_ok then
-    local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls", "bashls", "tailwindcss" }
-    if lk.has_value(skipNavicLsps, client.name) == false then
-      navic.attach(client, bufnr)
-    end
-  end
+local function sign(opts)
+  fn.sign_define(opts.highlight, {
+    text = opts.icon,
+    texthl = opts.highlight,
+    numhl = opts.highlight .. "Nr",
+    culhl = opts.highlight .. "CursorNr",
+    linehl = opts.highlight .. "Line",
+  })
 end
+
+sign({ highlight = "DiagnosticSignError", icon = icons.error })
+sign({ highlight = "DiagnosticSignWarn", icon = icons.warn })
+sign({ highlight = "DiagnosticSignInfo", icon = icons.info })
+sign({ highlight = "DiagnosticSignHint", icon = icons.hint })
 -- }}}
 ----------------------------------------------------------------------
 
@@ -207,7 +129,7 @@ local function get_server_config(name)
   cmp_nvim_lsp.update_capabilities(config.capabilities)
   config = vim.tbl_deep_extend("force", {
     on_init = custom_init,
-    on_attach = on_attach,
+    on_attach = lsp_utils.on_attach,
     capabilities = config.capabilities,
     flags = {
       debounce_text_changes = nil,
@@ -221,36 +143,16 @@ end
 ----------------------------------------------------------------------
 -- NOTE: setting servers {{{
 ----------------------------------------------------------------------
-local function set_servers()
-  for name, config in pairs(servers) do
-    if config then
-      require("lspconfig")[name].setup(get_server_config(name))
-    end
+local ok, lsp = lk.require("lspconfig")
+if not ok then
+  return
+end
+for name, config in pairs(servers) do
+  if config then
+    lsp[name].setup(get_server_config(name))
   end
 end
 
-set_servers()
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: autocommands {{{
-----------------------------------------------------------------------
--- NOTE: not using these since we are using virtual text
--- lk.augroup("au_diagnostics", {
---   {
---     event = { "CursorHold", "CursorHoldI" },
---     command = function()
---       vim.diagnostic.open_float(nil, { focus = false })
---     end,
---   },
---   {
---     event = { "CursorHold", "CursorHoldI" },
---     command = function()
---       vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
---     end,
---   },
--- })
 -- }}}
 ----------------------------------------------------------------------
 
