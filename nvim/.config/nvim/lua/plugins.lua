@@ -7,7 +7,7 @@ local fmt = string.format
 
 -- function to return string for require plugins using path
 local function conf(name)
-  if name == "signature" then
+  if name == "signature" or name == "null-ls" then
     return fmt("R('lk/plugins/lsp/%s')", name)
   end
   return fmt("R('lk/plugins/%s')", name)
@@ -700,6 +700,11 @@ require("packer").startup({
       module = "lspconfig",
       config = conf("lsp"),
       requires = {
+        {
+          "jose-elias-alvarez/null-ls.nvim",
+          event = "BufRead",
+          config = conf("null-ls"),
+        },
         {
           "j-hui/fidget.nvim",
           after = "nvim-lspconfig",

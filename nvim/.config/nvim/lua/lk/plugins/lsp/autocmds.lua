@@ -13,24 +13,24 @@ M.setup_autocommands = function(client)
     },
   })
 
-  if client and client.server_capabilities.document_highlight then
-    augroup("LspCursorCommands", {
-      {
-        event = { "CursorHold", "CursorHoldI" },
-        buffer = 0,
-        command = function()
-          vim.lsp.buf.document_highlight()
-        end,
-      },
-      {
-        event = { "CursorMoved" },
-        buffer = 0,
-        command = function()
-          vim.lsp.buf.clear_references()
-        end,
-      },
-    })
-  end
+  --[[ if client and client.server_capabilities.document_highlight then ]]
+  --[[   augroup("LspCursorCommands", { ]]
+  --[[     { ]]
+  --[[       event = { "CursorHold", "CursorHoldI" }, ]]
+  --[[       buffer = 0, ]]
+  --[[       command = function() ]]
+  --[[         vim.lsp.buf.document_highlight() ]]
+  --[[       end, ]]
+  --[[     }, ]]
+  --[[     { ]]
+  --[[       event = { "CursorMoved" }, ]]
+  --[[       buffer = 0, ]]
+  --[[       command = function() ]]
+  --[[         vim.lsp.buf.clear_references() ]]
+  --[[       end, ]]
+  --[[     }, ]]
+  --[[   }) ]]
+  --[[ end ]]
   if client and client.server_capabilities.document_formatting then
     -- format on save
     augroup("LspFormat", {
