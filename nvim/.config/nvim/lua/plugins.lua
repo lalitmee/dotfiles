@@ -87,7 +87,7 @@ require("packer").startup({
     -- NOTE: colorschemes {{{
     ----------------------------------------------------------------------------
     use({
-      "/home/lalitmee/Desktop/Github/cobalt2.nvim",
+      "~/Desktop/Github/cobalt2.nvim",
       requires = "tjdevries/colorbuddy.nvim",
     })
     -- use({
@@ -134,6 +134,21 @@ require("packer").startup({
     --   "anuvyklack/hydra.nvim",
     --   requires = "anuvyklack/keymap-layer.nvim",
     -- })
+
+    -- session management
+    use({
+      "rmagatti/auto-session",
+      event = { "VimEnter" },
+      config = conf("auto-session"),
+    })
+
+    -- search session
+    use({
+      "rmagatti/session-lens",
+      after = { "telescope.nvim", "auto-session" },
+      cmd = { "SearchSession" },
+      config = conf("session-lens"),
+    })
 
     -- Colorizer for showing the colors
     use({

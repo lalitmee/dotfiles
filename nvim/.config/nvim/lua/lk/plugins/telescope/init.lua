@@ -1,4 +1,4 @@
-local status_ok, telescope = lk.safe_require("telescope")
+local status_ok, telescope = lk.require("telescope")
 if not status_ok then
   vim.notify("telescope not found", "error", { title = "[telescope] error" })
   return

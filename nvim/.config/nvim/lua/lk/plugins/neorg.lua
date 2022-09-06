@@ -1,4 +1,4 @@
-local ok, neorg = lk.safe_require("neorg")
+local ok, neorg = lk.require("neorg")
 
 if not ok then
   return
@@ -32,7 +32,7 @@ neorg.setup({
 ----------------------------------------------------------------------
 -- NOTE: key mappings {{{
 ----------------------------------------------------------------------
-local which_key_ok, wk = lk.safe_require("which-key")
+local which_key_ok, wk = lk.require("which-key")
 if which_key_ok then
   wk.register({
     ["f"] = { ":Telescope neorg insert_file_link<CR>", "insert-file" },

@@ -1,4 +1,4 @@
-local cmp_ok, cmp = lk.safe_require("cmp")
+local cmp_ok, cmp = lk.require("cmp")
 if not cmp_ok then
   return
 end

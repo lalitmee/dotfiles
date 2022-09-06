@@ -1,4 +1,4 @@
-local ok, notify = lk.safe_require("notify")
+local ok, notify = lk.require("notify")
 if not ok then
   return
 end

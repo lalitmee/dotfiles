@@ -1,4 +1,4 @@
-local ok, fold_cycle = lk.safe_require("fold-cycle")
+local ok, fold_cycle = lk.require("fold-cycle")
 
 if not ok then
   return

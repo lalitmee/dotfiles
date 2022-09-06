@@ -1,4 +1,4 @@
-local ok, true_zen = lk.safe_require("true-zen")
+local ok, true_zen = lk.require("true-zen")
 if not ok then
   return
 end

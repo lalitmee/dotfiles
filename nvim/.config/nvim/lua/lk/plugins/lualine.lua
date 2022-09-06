@@ -1,6 +1,5 @@
-local ok, lualine = lk.safe_require("lualine")
+local ok, lualine = lk.require("lualine")
 if not ok then
-  lk.package_notify("lualine.nvim", "error")
   return
 end
 

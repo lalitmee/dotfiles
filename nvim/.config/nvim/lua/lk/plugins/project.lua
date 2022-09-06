@@ -1,4 +1,4 @@
-local ok, project = lk.safe_require("project_nvim")
+local ok, project = lk.require("project_nvim")
 if not ok then
   return
 end

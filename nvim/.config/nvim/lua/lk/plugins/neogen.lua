@@ -1,4 +1,4 @@
-local ok, neogen = lk.safe_require("neogen")
+local ok, neogen = lk.require("neogen")
 if not ok then
   return
 end

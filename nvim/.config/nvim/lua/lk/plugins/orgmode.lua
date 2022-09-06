@@ -1,4 +1,4 @@
-local ok, orgmode = lk.safe_require("orgmode")
+local ok, orgmode = lk.require("orgmode")
 if not ok then
   return
 end
@@ -16,7 +16,7 @@ orgmode.setup({
 -- NOTE: extra plugins setup {{{
 ----------------------------------------------------------------------
 -- NOTE: org-bullets
-local bullets_ok, bullets = lk.safe_require("org-bullets")
+local bullets_ok, bullets = lk.require("org-bullets")
 if bullets_ok then
   bullets.setup({
     concealcursor = true,

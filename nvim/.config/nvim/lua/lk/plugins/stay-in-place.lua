@@ -1,4 +1,4 @@
-local ok, stay_in_place = lk.safe_require("stay-in-place")
+local ok, stay_in_place = lk.require("stay-in-place")
 if not ok then
   return
 end

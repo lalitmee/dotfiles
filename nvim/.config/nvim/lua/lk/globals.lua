@@ -3,7 +3,7 @@ local core = require("lk/utils/core")
 local fn = vim.fn
 local api = vim.api
 local fmt = string.format
-local L = vim.log.levels
+local l = vim.log.levels
 
 ----------------------------------------------------------------------
 -- NOTE: print contents of the table {{{
@@ -49,7 +49,7 @@ local function make_mapper(mode, o)
     -- If the label is all that was passed in, set the opts automagically
     opts = type(opts) == "string" and { label = opts } or opts and vim.deepcopy(opts) or {}
     if opts.label then
-      local ok, wk = lk.safe_require("which-key", { silent = true })
+      local ok, wk = lk.require("which-key", { silent = true })
       if ok then
         wk.register({ [lhs] = opts.label }, { mode = mode })
       end
@@ -568,11 +568,14 @@ end
 ---@param module string
 ---@param opts table?
 ---@return boolean, any
-function lk.safe_require(module, opts)
+function lk.require(module, opts)
   opts = opts or { silent = false }
   local ok, result = pcall(require, module)
   if not ok and not opts.silent then
-    vim.notify(result, L.ERROR, { title = fmt("Error requiring: %s", module) })
+    if opts.message then
+      result = opts.message .. "\n" .. result
+    end
+    vim.notify(result, l.ERROR, { title = fmt("Error requiring: %s", module) })
   end
   return ok, result
 end
@@ -671,15 +674,6 @@ function lk.fold(callback, list, accum)
     assert(accum, "The accumulator must be returned on each iteration")
   end
   return accum
-end
-
---- notify wrapper for pacakge loading failed
----@param package string
----@param type string
-function lk.package_notify(package, type)
-  local msg = fmt("Failed to load %s", package)
-  local title = fmt("[%s] error")
-  vim.notify(msg, type, { title })
 end
 
 -- vim:foldmethod=marker

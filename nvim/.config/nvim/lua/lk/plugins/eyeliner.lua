@@ -1,4 +1,4 @@
-local ok, eyeliner = lk.safe_require("eyeliner")
+local ok, eyeliner = lk.require("eyeliner")
 if not ok then
   return
 end

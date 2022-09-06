@@ -1,6 +1,5 @@
-local ok, bufferline = lk.safe_require("bufferline")
+local ok, bufferline = lk.require("bufferline")
 if not ok then
-  lk.package_notify("bufferline.nvim", "error")
   return
 end
 
@@ -68,9 +67,8 @@ bufferline.setup({
 ----------------------------------------------------------------------
 -- NOTE: scope.nvim setup {{{
 ----------------------------------------------------------------------
-local scope_ok, scope = lk.safe_require("scope")
+local scope_ok, scope = lk.require("scope")
 if not scope_ok then
-  lk.package_notify("scope.nvim", "error")
   return
 end
 

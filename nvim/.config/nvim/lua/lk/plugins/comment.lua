@@ -1,6 +1,5 @@
-local status_ok, comment = lk.safe_require("Comment")
+local status_ok, comment = lk.require("Comment")
 if not status_ok then
-  lk.package_notify("Comment.nvim", "error")
   return
 end
 

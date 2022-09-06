@@ -97,7 +97,7 @@ local function on_attach(client, bufnr)
   end
 
   -- nvim-navic
-  local navic_ok, navic = lk.safe_require("nvim-navic")
+  local navic_ok, navic = lk.require("nvim-navic")
   if navic_ok then
     local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls", "bashls", "tailwindcss" }
     if lk.has_value(skipNavicLsps, client.name) == false then
@@ -170,7 +170,7 @@ local servers = {
         },
       },
     }
-    local ok, lua_dev = lk.safe_require("lua-dev")
+    local ok, lua_dev = lk.require("lua-dev")
     if not ok then
       return settings
     end
@@ -195,7 +195,7 @@ local custom_init = function(client)
 end
 
 local function get_server_config(name)
-  local ok, cmp_nvim_lsp = lk.safe_require("cmp_nvim_lsp")
+  local ok, cmp_nvim_lsp = lk.require("cmp_nvim_lsp")
   if not ok then
     return nil
   end

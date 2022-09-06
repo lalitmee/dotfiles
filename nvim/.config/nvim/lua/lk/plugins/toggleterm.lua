@@ -1,4 +1,4 @@
-local ok, toggleterm = lk.safe_require("toggleterm")
+local ok, toggleterm = lk.require("toggleterm")
 if not ok then
   return
 end

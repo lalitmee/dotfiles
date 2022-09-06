@@ -1,4 +1,4 @@
-local ok, sniprun = lk.safe_require("sniprun")
+local ok, sniprun = lk.require("sniprun")
 if not ok then
   return
 end

@@ -1,4 +1,4 @@
-local ok, navigator = lk.safe_require("Navigator")
+local ok, navigator = lk.require("Navigator")
 if not ok then
   return
 end

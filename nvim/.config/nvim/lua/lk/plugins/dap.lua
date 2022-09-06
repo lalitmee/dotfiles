@@ -1,9 +1,9 @@
-local dap_status_ok, dap = lk.safe_require("dap")
+local dap_status_ok, dap = lk.require("dap")
 if not dap_status_ok then
   return
 end
 
-local dap_ui_status_ok, dapui = lk.safe_require("dapui")
+local dap_ui_status_ok, dapui = lk.require("dapui")
 if not dap_ui_status_ok then
   return
 end

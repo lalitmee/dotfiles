@@ -1,4 +1,4 @@
-local ok, neogit = lk.safe_require("neogit")
+local ok, neogit = lk.require("neogit")
 if not ok then
   return
 end
