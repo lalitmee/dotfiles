@@ -561,16 +561,8 @@ require("packer").startup({
     -- commenting
     use({
       "numToStr/Comment.nvim",
+      event = "BufRead",
       config = conf("comment"),
-      keys = {
-        { "n", "gbA" },
-        { "n", "gbO" },
-        { "n", "gbc" },
-        { "n", "gcc" },
-        { "n", "gco" },
-        { "v", "gb" },
-        { "v", "gc" },
-      },
     })
 
     -- comment boxes
