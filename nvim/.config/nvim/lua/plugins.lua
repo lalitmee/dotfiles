@@ -18,6 +18,15 @@ end
 --------------------------------------------------------------------------------
 require("packer").startup({
   function(use)
+    local local_use = function(opts)
+      local plug_path = opts[1]
+
+      if vim.fn.isdirectory(vim.fn.expand("~/Desktop/Github/" .. plug_path)) == 1 then
+        opts[1] = "~/Desktop/Github/" .. plug_path
+      end
+
+      use(opts)
+    end
     --------------------------------------------------------------------------------
     -- NOTE: Packer and speed ups {{{
     --------------------------------------------------------------------------------
@@ -86,8 +95,8 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: colorschemes {{{
     ----------------------------------------------------------------------------
-    use({
-      "~/Desktop/Github/cobalt2.nvim",
+    local_use({
+      "cobalt2.nvim",
       requires = "tjdevries/colorbuddy.nvim",
     })
     -- use({
@@ -858,22 +867,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: VERSION CONTROL STYSTEM {{{
     ------------------------------------------------------------------------
-    -- merge conflicts resolution
-    use({
-      "akinsho/git-conflict.nvim",
-      tag = "*",
-      config = conf("git-conflict"),
-      cmd = {
-        "GitConflictChooseOurs",
-        "GitConflictChooseTheirs",
-        "GitConflictChooseBoth",
-        "GitConflictChooseNone",
-        "GitConflictNextConflict",
-        "GitConflictPrevConflict",
-        "GitConflictListQf",
-      },
-    })
-
     -- git actions using telescope
     use({
       "pwntester/octo.nvim",
@@ -1039,8 +1032,8 @@ require("packer").startup({
     ----------------------------------------------------------------------
     -- NOTE: browse {{{
     ----------------------------------------------------------------------
-    use({
-      "~/Desktop/Github/browse.nvim",
+    local_use({
+      "browse.nvim",
       config = conf("browse"),
       cmd = {
         "Browse",
