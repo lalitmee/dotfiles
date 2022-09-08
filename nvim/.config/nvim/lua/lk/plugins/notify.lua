@@ -24,6 +24,7 @@ local notify_icons = lk.style.icons.notify
 local api = vim.api
 
 notify.setup({
+  background_colour = "ColorColumn",
   timeout = 3000,
   stages = "fade_in_slide_out",
   max_width = function()
