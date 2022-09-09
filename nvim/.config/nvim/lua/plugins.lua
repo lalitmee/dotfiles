@@ -604,14 +604,6 @@ require("packer").startup({
       config = conf("sniprun"),
     })
 
-    -- run any code
-    use({
-      "CRAG666/code_runner.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      config = conf("code_runner"),
-      cmd = { "RunCode", "RunFile", "RunProject" },
-    })
-
     -- overseer.nvim: task runner and job management
     use({
       "stevearc/overseer.nvim",
