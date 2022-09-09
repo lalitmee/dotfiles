@@ -5,7 +5,11 @@ root: ~/Desktop/koinearth/ngagen/ngagen-store-client-webapp-service
 
 windows:
   - Editor: ls
-  - Server: npd
+  - Servers:
+      layout: even-horizontal
+      panes:
+        - npd
+        - cd ~/Desktop/koinearth/ngagen/caddyfiles/store-client && caddy run
   - Browser: brave-browser
   - Side-Browser: firefox
   - Extra: quote
