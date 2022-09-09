@@ -10,4 +10,3 @@ windows:
   - ngagen-accounts-webapp-service: cd ngagen-accounts-webapp-service
   - ngagen-store-webapp-service: cd ngagen-store-webapp-service
   - ngagen-store-client-webapp-service: cd ngagen-store-client-webapp-service
-  - ngagen-store-client-homepage-webapp-service: cd ngagen-store-client-homepage-webapp-service
