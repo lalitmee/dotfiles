@@ -581,7 +581,6 @@ local leader_key_maps = {
   ["r"] = {
     ["name"] = "+build/+run/+compile",
     ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
-    ["f"] = { ":RunFile<CR>", "run-file" },
     ["o"] = {
       ["name"] = "+overseer",
       ["a"] = { ":OverseerTaskAction<CR>", "task-action" },
@@ -596,9 +595,6 @@ local leader_key_maps = {
       ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
       ["t"] = { ":OverseerToggle<CR>", "toggle" },
     },
-    ["p"] = { ":RunProject<CR>", "run-project" },
-    ["r"] = { ":RunCode<CR>", "run-code" },
-    ["R"] = { ":RunClose<CR>", "run-close" },
     ["s"] = { ":SnipRun<CR>", "snip-run" },
     ["S"] = { ":SnipClose<CR>", "snip-close" },
   },
