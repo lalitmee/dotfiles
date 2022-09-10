@@ -8,9 +8,9 @@ local fmt = string.format
 -- function to return string for require plugins using path
 local function conf(name)
   if name == "signature" or name == "null-ls" then
-    return fmt("R('lk/plugins/lsp/%s')", name)
+    return fmt("R('lk.plugins.lsp.%s')", name)
   end
-  return fmt("R('lk/plugins/%s')", name)
+  return fmt("R('lk.plugins.%s')", name)
 end
 
 --------------------------------------------------------------------------------
@@ -295,6 +295,12 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Search {{{
     ----------------------------------------------------------------------------
+    -- search and replace in the whole project
+    use({
+      "nvim-pack/nvim-spectre",
+      config = conf("spectre"),
+    })
+
     -- display search matches
     use({ "romainl/vim-cool" })
 
@@ -323,6 +329,9 @@ require("packer").startup({
       "phaazon/hop.nvim",
       config = conf("hop"),
     })
+
+    -- improved `gf`
+    use({ "sam4llis/nvim-lua-gf" })
 
     -- Navigations
     use({

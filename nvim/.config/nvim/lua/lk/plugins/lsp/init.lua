@@ -1,12 +1,12 @@
 local fn = vim.fn
 local icons = lk.style.icons.lsp
-local lsp_utils = require("lk/plugins/lsp/utils")
+local lsp_utils = require("lk.plugins.lsp.utils")
 
 ----------------------------------------------------------------------
 -- NOTE: automatic setting up commands and handlers {{{
 ----------------------------------------------------------------------
-require("lk/plugins/lsp/commands")
-require("lk/plugins/lsp/handlers")
+require("lk.plugins.lsp.commands")
+require("lk.plugins.lsp.handlers")
 -- }}}
 ----------------------------------------------------------------------
 
