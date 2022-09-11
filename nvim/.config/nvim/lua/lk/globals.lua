@@ -236,16 +236,9 @@ lk.style = {
     },
   },
   border = {
-    line = {
-      { "🭽", "FloatBorder" },
-      { "▔", "FloatBorder" },
-      { "🭾", "FloatBorder" },
-      { "▕", "FloatBorder" },
-      { "🭿", "FloatBorder" },
-      { "▁", "FloatBorder" },
-      { "🭼", "FloatBorder" },
-      { "▏", "FloatBorder" },
-    },
+    line = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+    rounded = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    rectangle = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
   },
 }
 -- }}}
@@ -620,6 +613,36 @@ function lk.augroup(name, commands)
 end
 -- }}}
 ----------------------------------------------------------------------
+
+--- Call the given function and use `vim.notify` to notify of any errors
+--- this function is a wrapper around `xpcall` which allows having a single
+--- error handler for all errors
+---@param msg string
+---@param func function
+---@vararg any
+---@return boolean, any
+---@overload fun(fun: function, ...): boolean, any
+function lk.wrap_err(msg, func, ...)
+  local args = { ... }
+  if type(msg) == "function" then
+    args, func, msg = { func, unpack(args) }, msg, nil
+  end
+  return xpcall(func, function(err)
+    msg = msg and fmt("%s:\n%s", msg, err) or err
+    vim.schedule(function()
+      vim.notify(msg, l.ERROR, { title = "ERROR" })
+    end)
+  end, unpack(args))
+end
+
+---@generic T : table
+---@param callback fun(T, key: string | number): T
+---@param list T[]
+function lk.foreach(callback, list)
+  for k, v in pairs(list) do
+    callback(v, k)
+  end
+end
 
 ----------------------------------------------------------------------
 -- NOTE: qflist util {{{

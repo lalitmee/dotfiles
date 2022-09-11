@@ -98,14 +98,6 @@ cmp.setup.cmdline(":", {
   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 
-for _, cmd_type in ipairs({ ":", "/", "?", "@" }) do
-  cmp.setup.cmdline(cmd_type, {
-    sources = {
-      { name = "cmdline_history" },
-    },
-  })
-end
-
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
   sources = cmp.config.sources({

@@ -43,6 +43,9 @@ require("packer").startup({
       opt = true,
     })
 
+    -- TODO: this fixes a bug in neovim core that prevents "CursorHold" from working
+    -- hopefully one day when this issue is fixed this can be removed
+    -- @see: https://github.com/neovim/neovim/issues/12587
     use({
       "antoinemadec/FixCursorHold.nvim",
       config = function()
@@ -127,7 +130,7 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- highlighting of todo comments
     use({
-      "B4mbus/todo-comments.nvim",
+      "folke/todo-comments.nvim",
       config = conf("todo-comments"),
       requires = { "nvim-lua/plenary.nvim" },
     })
@@ -727,7 +730,6 @@ require("packer").startup({
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp", ft = { "lua" } },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-            { "dmitmel/cmp-cmdline-history", after = "nvim-cmp" },
             { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
           },
         },
@@ -758,6 +760,10 @@ require("packer").startup({
       config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
+        -- {
+        --   "David-Kunz/markid",
+        --   after = "nvim-treesitter",
+        -- },
         {
           "nvim-treesitter/nvim-treesitter-textobjects",
           after = "nvim-treesitter",
