@@ -2,6 +2,11 @@ local fn = vim.fn
 local icons = lk.style.icons.lsp
 local lsp_utils = require("lk.plugins.lsp.utils")
 
+require("lk.highlights").plugin("lspconfig", {
+  { LspInfoBorder = { link = "FloatBorder" } },
+})
+require("lspconfig.ui.windows").default_options.border = lk.style.border.rounded
+
 ----------------------------------------------------------------------
 -- NOTE: automatic setting up commands and handlers {{{
 ----------------------------------------------------------------------

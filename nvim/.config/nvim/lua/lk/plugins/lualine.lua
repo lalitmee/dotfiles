@@ -220,7 +220,7 @@ lualine.setup({
   inactive_winbar = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {},
+    lualine_c = { get_winbar },
     lualine_x = {},
     lualine_z = {},
   },
