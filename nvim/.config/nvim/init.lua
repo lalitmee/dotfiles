@@ -18,7 +18,6 @@ end
 -- NOTE: leaders {{{
 ----------------------------------------------------------------------
 -- mapping leader and localleader keys
-vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = " " -- NOTE: leader is `<space>`
 vim.g.maplocalleader = "," -- NOTE: local leader is ,
 -- }}}
