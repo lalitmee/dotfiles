@@ -51,6 +51,8 @@ nls.setup({
         "lk",
         "packer_plugins",
         "vim",
+        "RELOAD",
+        "R",
         "--std",
         "luajit",
       },
