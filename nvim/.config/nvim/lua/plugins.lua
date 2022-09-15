@@ -760,10 +760,6 @@ require("packer").startup({
       config = conf("treesitter"),
       run = ":TSUpdate",
       requires = {
-        -- {
-        --   "David-Kunz/markid",
-        --   after = "nvim-treesitter",
-        -- },
         {
           "nvim-treesitter/nvim-treesitter-textobjects",
           after = "nvim-treesitter",
