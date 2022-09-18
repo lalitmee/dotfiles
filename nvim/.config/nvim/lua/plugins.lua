@@ -78,11 +78,12 @@ require("packer").startup({
       config = conf("dressing"),
     })
 
-    -- decorated scrollbar
-    use({
-      "lewis6991/satellite.nvim",
-      config = conf("satellite"),
-    })
+    -- NOTE: I think I don't even see this sometimes
+    -- -- decorated scrollbar
+    -- use({
+    --   "lewis6991/satellite.nvim",
+    --   config = conf("satellite"),
+    -- })
 
     ----------------------------------------------------------------------------
     -- NOTE: notifications {{{
