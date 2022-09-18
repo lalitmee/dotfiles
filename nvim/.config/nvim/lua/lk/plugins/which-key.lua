@@ -745,7 +745,7 @@ local leader_key_maps = {
     ["K"] = { ":resize  5<CR>", "expand-window-up" },
     ["l"] = { ":NavigateRight<CR>", "window-right" },
     ["L"] = { "<C-W>5>", "expand-window-right" },
-    ["m"] = { ":call ToggleZoom(v:true)<CR>", "maximize-windows" },
+    ["m"] = { ":WindowsMaximaze<CR>", "maximize-window" },
     ["n"] = { "<C-W>J", "move-window-far-down" },
     ["p"] = { ":NavigatePrevious<CR>", "window-previous" },
     ["r"] = { "<C-W>r", "window-swap" },
@@ -753,6 +753,7 @@ local leader_key_maps = {
     ["t"] = { "<C-W>T", "move-split-to-tab" },
     ["u"] = { "<C-W>x", "swap-window-next" },
     ["v"] = { "<C-W>v", "split-window-right" },
+    ["w"] = { ":WindowsToggleAutowidth", "toggle-windows-auto-width" },
   },
 }
 -- }}}
