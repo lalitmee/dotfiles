@@ -68,5 +68,5 @@ return {
       }),
     })
   ),
-  s("sre", fmt('local {}, {} = lk.safe_require("{}")', { i(1, "ok"), i(2, "package"), r(2, "pacakge") })),
+  s("re", fmt('local {}, {} = lk.require("{}")', { i(1, "ok"), i(2, "package"), r(2, "pacakge") })),
 }
