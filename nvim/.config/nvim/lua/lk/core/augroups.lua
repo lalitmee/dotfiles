@@ -83,7 +83,7 @@ augroup("yank_au", {
     event = { "TextYankPost" },
     command = function()
       vim.highlight.on_yank({
-        timeout = 500,
+        timeout = 40,
         on_visual = false,
         higroup = "IncSearch",
       })

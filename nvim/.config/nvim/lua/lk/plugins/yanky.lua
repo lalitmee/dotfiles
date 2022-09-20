@@ -6,7 +6,11 @@ end
 ----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
-yanky.setup()
+yanky.setup({
+  highlight = {
+    timer = 40,
+  },
+})
 
 -- yanky extension
 require("telescope").load_extension("yank_history")
