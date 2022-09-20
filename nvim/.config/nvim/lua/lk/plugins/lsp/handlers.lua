@@ -1,4 +1,6 @@
 local lsp = vim.lsp
+local api = vim.api
+local fn = vim.fn
 
 --------------------------------------------------------------------------------
 -- NOTE: definition handler {{{
@@ -27,7 +29,9 @@ vim.diagnostic.config({
   virtual_text = {
     severity = nil,
     source = "if_many",
-    format = nil,
+    format = function(diagnostic)
+      return diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+    end,
   },
   -- virtual_text = false,
   signs = true,
@@ -79,6 +83,50 @@ vim.diagnostic.handlers.signs = {
 }
 
 vim.diagnostic.config({})
+
+---@param buf integer
+---@return boolean
+local function is_buffer_valid(buf)
+  return buf and api.nvim_buf_is_loaded(buf) and api.nvim_buf_is_valid(buf)
+end
+
+do
+  ---@type integer?
+  local id
+  local TITLE = "DIAGNOSTICS"
+  -- A helper function to auto-update the quickfix list when new diagnostics come
+  -- in and close it once everything is resolved. This functionality only runs whilst
+  -- the list is open.
+  -- similar functionality is provided by: https://github.com/onsails/diaglist.nvim
+  local function smart_quickfix_diagnostics()
+    if not is_buffer_valid(api.nvim_get_current_buf()) then
+      return
+    end
+
+    vim.diagnostic.setqflist({ open = false, title = TITLE })
+    lk.toggle_qf_list()
+
+    if not lk.is_vim_list_open() and id then
+      api.nvim_del_autocmd(id)
+      id = nil
+    end
+
+    id = id
+      or api.nvim_create_autocmd("DiagnosticChanged", {
+        callback = function()
+          -- skip QF lists that we did not populate
+          if not lk.is_vim_list_open() or fn.getqflist({ title = 0 }).title ~= TITLE then
+            return
+          end
+          vim.diagnostic.setqflist({ open = false, title = TITLE })
+          if #fn.getqflist() == 0 then
+            lk.toggle_qf_list()
+          end
+        end,
+      })
+  end
+  lk.command("LspDiagnostics", smart_quickfix_diagnostics, {})
+end
 -- }}}
 --------------------------------------------------------------------------------
 
