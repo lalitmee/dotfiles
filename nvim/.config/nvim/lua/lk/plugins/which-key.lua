@@ -136,18 +136,11 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["e"] = {
     ["name"] = "+errors/warnings",
-    ["a"] = { ":DiagListAll<CR>", "quickfix-diagnostics" },
-    ["b"] = { ":DiagList<CR>", "quickfix-buffer-diagnostics" },
-    ["d"] = { ":Trouble lsp_definitions<CR>", "trouble-lsp-definitions" },
     ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnosticss" },
-    ["L"] = { ":Trouble loclist<CR>", "trouble-loclist" },
     ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnosticss" },
+    ["o"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
     ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnosticss" },
-    ["q"] = { ":Trouble quickfix<CR>", "trouble-quickfix" },
-    ["r"] = { ":Trouble lsp_references<CR>", "trouble-lsp-references" },
-    ["t"] = { ":TroubleToggle<CR>", "toggle-trouble" },
     ["v"] = { ":ShowLineDiagnosticInFlot<CR>", "diagnostic-float-preview" },
-    ["w"] = { ":Trouble workspace_diagnostics<CR>", "trouble-workspace-diagnostics" },
   },
   -- }}}
   ----------------------------------------------------------------------
