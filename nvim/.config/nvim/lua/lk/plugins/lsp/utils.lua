@@ -15,7 +15,7 @@ local autocmds = require("lk.plugins.lsp.autocmds")
 ----------------------------------------------------------------------
 M.on_attach = function(client, bufnr)
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-  autocmds.setup_autocommands(client)
+  autocmds.setup_autocommands(client, bufnr)
 
   -- mappings
   M.mappings()
@@ -79,15 +79,6 @@ end
 ----------------------------------------------------------------------
 M.capabilities = function(client, bufnr)
   client.server_capabilities.document_formatting = false
-  if client.server_capabilities.document_highlight then
-    vim.cmd([[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd! CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd! CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]])
-  end
   if client.server_capabilities.goto_definition == true then
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   end

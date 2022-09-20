@@ -42,16 +42,6 @@ require("packer").startup({
       cmd = "StartupTime",
       opt = true,
     })
-
-    -- TODO: this fixes a bug in neovim core that prevents "CursorHold" from working
-    -- hopefully one day when this issue is fixed this can be removed
-    -- @see: https://github.com/neovim/neovim/issues/12587
-    use({
-      "antoinemadec/FixCursorHold.nvim",
-      config = function()
-        vim.g.curshold_updatime = 1000
-      end,
-    })
     -- }}}
     --------------------------------------------------------------------------------
 
