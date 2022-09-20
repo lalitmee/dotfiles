@@ -510,15 +510,6 @@ require("packer").startup({
       cmd = { "BDelete", "BWipeout" },
     })
 
-    use({
-      "anuvyklack/windows.nvim",
-      requires = {
-        "anuvyklack/middleclass",
-        "anuvyklack/animation.nvim",
-      },
-      config = conf("windows"),
-    })
-
     -- auto pairs
     use({
       "windwp/nvim-autopairs",
