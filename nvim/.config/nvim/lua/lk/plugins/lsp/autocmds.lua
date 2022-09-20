@@ -88,18 +88,18 @@ M.setup_autocommands = function(client, bufnr)
 
   local augroup = augroup_factory(bufnr, client, events)
 
-  augroup(FEATURES.DIAGNOSTICS, function()
-    return {
-      {
-        event = { "CursorHold" },
-        buffer = bufnr,
-        desc = "LSP: Show diagnostics",
-        command = function(args)
-          vim.diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
-        end,
-      },
-    }
-  end)
+  -- augroup(FEATURES.DIAGNOSTICS, function()
+  --   return {
+  --     {
+  --       event = { "CursorHold" },
+  --       buffer = bufnr,
+  --       desc = "LSP: Show diagnostics",
+  --       command = function(args)
+  --         vim.diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
+  --       end,
+  --     },
+  --   }
+  -- end)
 
   augroup(FEATURES.FORMATTING, function(provider)
     return {
