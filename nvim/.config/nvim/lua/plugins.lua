@@ -275,6 +275,10 @@ require("packer").startup({
       requires = { "nvim-telescope/telescope.nvim" },
     })
 
+    -- undo tree
+    use({ "mbbill/undotree" })
+
+    -- better substitute
     use({
       "gbprod/substitute.nvim",
       config = conf("substitute"),
