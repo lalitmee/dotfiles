@@ -514,15 +514,6 @@ require("packer").startup({
       config = conf("autopairs"),
     })
 
-    -- match brackets and more
-    use({
-      "andymass/vim-matchup",
-      -- keys = {
-      --   { "n", "%" },
-      --   { "v", "%" },
-      -- },
-    })
-
     -- extra text objects
     use({ "wellle/targets.vim" })
 
