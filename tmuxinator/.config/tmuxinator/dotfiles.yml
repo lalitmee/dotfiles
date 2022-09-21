@@ -10,3 +10,4 @@ windows:
   - codesmell: cd codesmell && gst
   - ThePrimeagen: cd ThePrimeagen_dots && gst
   - togglebyte: cd togglebyte && gst
+  - vsedov: cd vsedov && gst

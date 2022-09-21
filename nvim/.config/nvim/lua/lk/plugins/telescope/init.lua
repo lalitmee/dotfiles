@@ -66,6 +66,34 @@ local open_entries = function(prompt_bufnr)
 end
 
 ----------------------------------------------------------------------
+-- NOTE: maker for buffers list {{{
+----------------------------------------------------------------------
+local Job = require("plenary.job")
+local new_maker = function(filepath, bufnr, opts)
+  filepath = vim.fn.expand(filepath)
+  Job
+    :new({
+      command = "file",
+      args = { "--mime-type", "-b", filepath },
+      on_exit = function(j)
+        local mime_class = vim.split(j:result()[1], "/")[1]
+        local mime_type = j:result()[1]
+        if mime_class == "text" or (mime_class == "application" and mime_type ~= "application/x-pie-executable") then
+          previewers.buffer_previewer_maker(filepath, bufnr, opts)
+        else
+          -- maybe we want to write something to the buffer here
+          vim.schedule(function()
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+          end)
+        end
+      end,
+    })
+    :sync()
+end
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
 telescope.setup({
@@ -91,6 +119,7 @@ telescope.setup({
     history = {
       path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
     },
+    buffer_previewer_maker = new_maker,
 
     set_env = {
       ["COLORTERM"] = "truecolor",
@@ -217,8 +246,13 @@ telescope.setup({
       require("telescope.themes").get_dropdown({}),
     },
     frecency = {
-      show_unindexed = true,
-      ignore_patterns = { "*.git/*", "*/node_modules/*" },
+      default_workspace = "CWD",
+      show_unindexed = false, -- Show all files or only those that have been indexed
+      ignore_patterns = { "*.git/*", "*/tmp/*", "*node_modules/*", "*vendor/*" },
+      workspaces = {
+        conf = vim.env.DOTFILES,
+        project = vim.env.PROJECTS_DIR,
+      },
       workspaces = {
         ["nvim"] = "/home/lalitmee/.config/nvim/plugged",
         ["dotf"] = "/home/lalitmee/dotfiles",

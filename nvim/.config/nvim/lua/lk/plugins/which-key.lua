@@ -338,22 +338,7 @@ local leader_key_maps = {
     },
     ["n"] = { ":Neorg<CR>", "neorg" },
     ["p"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
-    ----------------------------------------------------------------------
-    -- NOTE: r is for refactor {{{
-    -- mappings lies in `lua/lk/plugins/refactoring.lua`
-    ----------------------------------------------------------------------
-    ["r"] = {
-      ["name"] = "+refactor",
-      ["c"] = { ":RefactorExtractVar<CR>", "extract-var" },
-      ["f"] = { ":RefactorExtractFunc<CR>", "extract-func" },
-      ["h"] = { ":RefactorDebugPath<CR>", "print-debug-path" },
-      ["i"] = { ":RefactorInlineVar<CR>", "inline-variable" },
-      ["p"] = { ":RefactorDebugPrintfBelow<CR>", "printf-below" },
-      ["P"] = { ":RefactorDebugPrintfAbove<CR>", "printf-above" },
-      ["r"] = { ":Refactors<CR>", "list-refactors" },
-      ["v"] = { ":RefactorDebugPrintVarBelow<CR>", "var-below" },
-      ["V"] = { ":RefactorDebugPrintVarAbove<CR>", "var-above" },
-    },
+    ["u"] = { ":UndotreeToggle<CR>", "toggle-undo-tree" },
     ["w"] = { ":Neorg workspace work<CR>", "work-notes" },
     -- }}}
     ----------------------------------------------------------------------
