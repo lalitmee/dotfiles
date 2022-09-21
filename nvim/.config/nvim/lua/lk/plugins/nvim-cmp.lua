@@ -25,7 +25,7 @@ cmp.setup({
     }),
   },
   sources = cmp.config.sources({
-    { name = "copilot" },
+    { name = "cmp_tabnine" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "luasnip" },
@@ -66,6 +66,7 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
+        cmp_tabnine = "[TBN]",
         buffer = "[BUF]",
         cmdline = "[CMD]",
         luasnip = "[SNIP]",
