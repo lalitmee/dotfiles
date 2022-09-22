@@ -922,14 +922,6 @@ require("packer").startup({
       end,
     })
 
-    -- bufferline
-    use({
-      "akinsho/nvim-bufferline.lua",
-      event = { "BufRead" },
-      config = conf("bufferline"),
-      requires = { "tiagovla/scope.nvim" },
-    })
-
     -- }}}
     ------------------------------------------------------------------------
 
