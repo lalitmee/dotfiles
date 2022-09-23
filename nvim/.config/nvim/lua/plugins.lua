@@ -93,13 +93,6 @@ require("packer").startup({
       "cobalt2.nvim",
       requires = "tjdevries/colorbuddy.nvim",
     })
-    -- use({
-    --   "catppuccin/nvim",
-    --   as = "catppuccin",
-    -- })
-    -- use({ "marko-cerovac/material.nvim" })
-    -- use({ "Mofiqul/vscode.nvim" })
-    -- use({ "folke/tokyonight.nvim" })
     -- }}}
     ----------------------------------------------------------------------------
 
