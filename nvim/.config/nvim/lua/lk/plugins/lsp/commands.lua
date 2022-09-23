@@ -193,4 +193,17 @@ end, {})
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+-- NOTE:diaglist commands {{{
+----------------------------------------------------------------------
+command("DiagList", function()
+  require("diaglist").open_buffer_diagnostics()
+end, {})
+
+command("DiagListAll", function()
+  require("diaglist").open_all_diagnostics()
+end, {})
+-- }}}
+----------------------------------------------------------------------
+
 -- vim:foldmethod=marker
