@@ -101,21 +101,21 @@ M.setup_autocommands = function(client, bufnr)
   --   }
   -- end)
 
-  augroup(FEATURES.FORMATTING, function(provider)
-    return {
-      {
-        event = "BufWritePre",
-        buffer = bufnr,
-        desc = "LSP: Format on save",
-        command = function(args)
-          if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
-            local clients = clients_by_capability(args.buf, provider)
-            format({ bufnr = args.buf, async = #clients == 1 })
-          end
-        end,
-      },
-    }
-  end)
+  -- augroup(FEATURES.FORMATTING, function(provider)
+  --   return {
+  --     {
+  --       event = "BufWritePre",
+  --       buffer = bufnr,
+  --       desc = "LSP: Format on save",
+  --       command = function(args)
+  --         if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
+  --           local clients = clients_by_capability(args.buf, provider)
+  --           format({ bufnr = args.buf, async = #clients == 1 })
+  --         end
+  --       end,
+  --     },
+  --   }
+  -- end)
 
   augroup(FEATURES.CODELENS, function()
     return {
