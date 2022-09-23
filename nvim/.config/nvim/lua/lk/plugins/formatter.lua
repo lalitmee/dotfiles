@@ -24,19 +24,6 @@ local prettier = function()
     stdin = true,
   }
 end
--- local prettier = function()
---   return {
---     exe = "prettierd",
---     args = {
---       -- "--find-config-path",
---       -- "--stdin-filepath",
---       string.format('"%s"', util.escape_path(util.get_current_buffer_file_path())),
---       -- util.get_current_buffer_file_path(),
---       -- "--config-precedencei:file-override",
---     },
---     stdin = true,
---   }
--- end
 -- }}}
 ----------------------------------------------------------------------
 
