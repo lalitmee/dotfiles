@@ -77,9 +77,10 @@ local leader_key_maps = {
     ["p"] = { ":bp<CR>", "prev-buffer" },
     ["r"] = { ":e<CR>", "refresh-buffer" },
     ["R"] = { ":bufdo :e<CR>", "refresh-loaded-buffers" },
-    ["s"] = { ":new<CR>", "new-empty-buffer" },
+    ["s"] = { ":new<CR>", "new-empty-buffer-horizontally" },
     ["t"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
     ["u"] = { ":BDelete nameless<CR>", "delete-nameless-buffers" },
+    ["v"] = { ":vnew<CR>", "new-empty-buffer-vertically" },
     ["w"] = { ":BDelete<CR>", "close-buffer-and-window" },
   },
   -- }}}
