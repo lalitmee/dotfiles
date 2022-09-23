@@ -190,6 +190,9 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: ACTIONS {{{
     ------------------------------------------------------------------------
+    -- matchit extended
+    use({ "andymass/vim-matchup" })
+
     -- keep the cursor where it is
     use({
       "gbprod/stay-in-place.nvim",
