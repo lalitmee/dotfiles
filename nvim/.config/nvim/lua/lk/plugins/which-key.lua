@@ -491,25 +491,6 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: N is for notes {{{
-  ----------------------------------------------------------------------
-  ["N"] = {
-    ["name"] = "+notes",
-    ["a"] = { ':lua require"neuron/cmd".new_edit(require"neuron".config.neuron_dir)<CR>', "create-new-note" },
-    ["b"] = { ':lua require"neuron/telescope".find_backlinks()<CR>', "find-backlinks" },
-    ["B"] = { ':lua require"neuron/telescope".find_backlinks{ insert = true }<CR>', "find-backlinks-insert" },
-    ["e"] = { ':lua require"neuron".enter_link()<CR>', "enter-link" },
-    ["i"] = { ':lua require"neuron/telescope".find_zettels {insert = true}<CR>', "insert-note-id" },
-    ["n"] = { ':lua require"neuron".goto_next_extmark()<CR>', "next" },
-    ["p"] = { ':lua require"neuron".goto_next_extmark()<CR>', "prev" },
-    ["s"] = { ':lua require"neuron".rib {address = "127.0.0.1:8200", verbose = true}<CR>', "serve-notes" },
-    ["t"] = { ':lua require"neuron/telescope".find_tags()<CR>', "find-tags" },
-    ["z"] = { ':lua require"neuron/telescope".find_zettels()<CR>', "search-notes" },
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
   -- NOTE: o is for telescope.nvim {{{
   ----------------------------------------------------------------------
   ["o"] = {
