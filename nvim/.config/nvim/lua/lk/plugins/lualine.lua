@@ -224,28 +224,28 @@ lualine.setup({
     lualine_x = {},
     lualine_z = {},
   },
-  tabline = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {
-      {
-        "buffers",
-        mode = 2,
-        filetype_names = {
-          mason = "Mason.nvim",
-        },
-        buffers_color = {
-          active = { fg = colors.yellow, bg = colors.darker_blue },
-          inactive = { fg = colors.yellow, bg = colors.cobalt_bg },
-        },
-      },
-    },
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {
-      { "tabs" },
-    },
-  },
+  -- tabline = {
+  --   lualine_a = {},
+  --   lualine_b = {},
+  --   lualine_c = {
+  --     {
+  --       "buffers",
+  --       mode = 2,
+  --       filetype_names = {
+  --         mason = "Mason.nvim",
+  --       },
+  --       buffers_color = {
+  --         active = { fg = colors.yellow, bg = colors.darker_blue },
+  --         inactive = { fg = colors.yellow, bg = colors.cobalt_bg },
+  --       },
+  --     },
+  --   },
+  --   lualine_x = {},
+  --   lualine_y = {},
+  --   lualine_z = {
+  --     { "tabs" },
+  --   },
+  -- },
   extensions = {
     "man",
     "nvim-tree",
