@@ -712,6 +712,11 @@ require("packer").startup({
           ft = "lua",
           after = { "nvim-lspconfig" },
         },
+        {
+          "onsails/diaglist.nvim",
+          after = { "nvim-lspconfig" },
+          cmd = { "DiagList", "DiagListAll" },
+        },
       },
     })
     -- }}}
