@@ -127,7 +127,6 @@ telescope.setup({
         ["<C-n>"] = actions.move_selection_next,
         ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-p>"] = actions.move_selection_previous,
-        ["<C-u>"] = false,
         ["<C-y>"] = actions.move_to_top,
         ["<M-p>"] = action_layout.toggle_preview,
         ["<M-v>"] = action_layout.toggle_mirror,
@@ -139,7 +138,6 @@ telescope.setup({
         ["j"] = actions.move_selection_next,
         ["k"] = actions.move_selection_previous,
         ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["u"] = false,
         ["y"] = actions.move_to_top,
         ["p"] = action_layout.toggle_preview,
         ["<esc>"] = actions.close,
@@ -227,9 +225,6 @@ telescope.setup({
     reloader = dropdown({}),
   },
   extensions = {
-    cder = {
-      dir_command = { "fd", "--type=d", ".", "~/Desktop" },
-    },
     howdoi = {
       num_answers = 3,
       explain_answer = true,
