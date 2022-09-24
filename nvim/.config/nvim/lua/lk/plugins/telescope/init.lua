@@ -4,13 +4,6 @@ if not status_ok then
   return
 end
 
-----------------------------------------------------------------------
--- NOTE: telescope mappings {{{
-----------------------------------------------------------------------
-require("lk.plugins.telescope.mappings")
--- }}}
-----------------------------------------------------------------------
-
 local should_reload = true
 local reloader = function()
   if should_reload then
@@ -250,10 +243,6 @@ telescope.setup({
       show_unindexed = false, -- Show all files or only those that have been indexed
       ignore_patterns = { "*.git/*", "*/tmp/*", "*node_modules/*", "*vendor/*" },
       workspaces = {
-        conf = vim.env.DOTFILES,
-        project = vim.env.PROJECTS_DIR,
-      },
-      workspaces = {
         ["nvim"] = "/home/lalitmee/.config/nvim/plugged",
         ["dotf"] = "/home/lalitmee/dotfiles",
         ["work"] = "/home/lalitmee/Desktop/koinearth",
@@ -285,9 +274,9 @@ require("telescope").load_extension("projects")
 ----------------------------------------------------------------------
 -- NOTE: custom commands {{{
 ----------------------------------------------------------------------
-local M = {}
+local command = lk.command
 
-function M.edit_neovim()
+command("TelescopeEditNeovim", function()
   builtin.find_files({
     prompt_title = "~ neovim ~",
     cwd = "~/.config/nvim",
@@ -306,9 +295,9 @@ function M.edit_neovim()
       },
     },
   })
-end
+end, {})
 
-function M.edit_dotfiles()
+command("TelescopeEditDotfiles", function()
   builtin.find_files({
     prompt_title = "~ dotfiles ~",
     hidden = true,
@@ -328,13 +317,21 @@ function M.edit_dotfiles()
       },
     },
   })
-end
+end, {})
 
-function M.installed_plugins()
+command("TelescopeInstalledPlugins", function()
   builtin.find_files({
     cwd = vim.fn.stdpath("data") .. "/site/pack/packer/start/",
   })
-end
+end, {})
+
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+-- NOTE: mappings {{{
+----------------------------------------------------------------------
+lk.cmap("<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", { noremap = false, nowait = true })
 -- }}}
 ----------------------------------------------------------------------
 
@@ -347,6 +344,13 @@ lk.augroup("telescope_au", {
     pattern = { "TelescopeResults" },
     command = function()
       vim.cmd([[setlocal notfoldenable]])
+    end,
+  },
+  {
+    event = { "User" },
+    pattern = { "TelescopePreviewerLoaded" },
+    command = function()
+      vim.cmd([[setlocal wrap]])
     end,
   },
 })
