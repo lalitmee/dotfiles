@@ -498,6 +498,9 @@ set -g @plugin 'tmux-plugins/tmux-sessionist'
 # zoom out and zoom back the pane
 set -g @plugin 'jaclu/tmux-power-zoom'
 
+# # session management using fzf
+# set -g @plugin 'thuanpham2311/tmux-fzf-session-switch
+
 # NOTE: this is destroying the names which I have given in the
 # tmuxinator config
 # # tmux-window-name for naming windows smartly
