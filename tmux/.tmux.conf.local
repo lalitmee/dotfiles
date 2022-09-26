@@ -462,10 +462,6 @@ bind-key q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 # bind-key C-b send-keys 'tat && exit' 'C-m'
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
-# use telescope-tmux for picking sessions and windows
-bind s display-popup -E -w 100% -h 100% nvim -c ":Telescope tmux sessions quit_on_select=true"
-bind w display-popup -E -w 100% -h 100% nvim -c ":Telescope tmux windows quit_on_select=true"
-
 # tmux sessionizer
 bind-key -r f run-shell "tmux neww tmux-sessionizer"
 
@@ -502,7 +498,7 @@ set -g @plugin 'tmux-plugins/tmux-sessionist'
 # zoom out and zoom back the pane
 set -g @plugin 'jaclu/tmux-power-zoom'
 
-# NOTE: somehow this is destroying the names which I have given in the
+# NOTE: this is destroying the names which I have given in the
 # tmuxinator config
 # # tmux-window-name for naming windows smartly
 # set -g @plugin 'ofirgall/tmux-window-name'
