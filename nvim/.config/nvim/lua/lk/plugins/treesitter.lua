@@ -40,6 +40,8 @@ parser_configs.norg_table = {
 ----------------------------------------------------------------------
 require("nvim-treesitter.configs").setup({
   ensure_installed = vim.g.enable_treesitter_ft,
+  -- Auto install parsers, if missing, for the current buffer
+  auto_install = true,
   highlight = { enable = true },
   rainbow = {
     enable = true,
