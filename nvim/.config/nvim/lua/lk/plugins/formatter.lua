@@ -35,6 +35,13 @@ local rustfmt = require("formatter.filetypes.rust")
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
+-- NOTE: python format {{{
+----------------------------------------------------------------------
+local black = require("formatter.filetypes.python").black
+-- }}}
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
 -- NOTE: styluafmt {{{
 ----------------------------------------------------------------------
 local styluafmt = function()
@@ -68,6 +75,7 @@ formatter.setup({
     json = { prettier },
     graphql = { prettier },
     markdown = { prettier },
+    python = { black },
     vue = { prettier },
     yaml = { prettier },
     html = { prettier },
@@ -87,26 +95,7 @@ formatter.setup({
 lk.augroup("formatter_au", {
   {
     event = { "BufWritePost" },
-    pattern = {
-      "*.c",
-      "*.cpp",
-      "*.css",
-      "*.graphql",
-      "*.html",
-      "*.js",
-      "*.json",
-      "*.jsx",
-      "*.less",
-      "*.lua",
-      "*.md",
-      "*.mjs",
-      "*.rs",
-      "*.scss",
-      "*.ts",
-      "*.tsx",
-      "*.vue",
-      "*.yaml",
-    },
+    pattern = { "*" },
     command = function()
       vim.cmd([[FormatWrite]])
     end,
