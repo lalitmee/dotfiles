@@ -2,24 +2,27 @@
 
 All of my dotfiles are here. 👍
 
-## Branches
-
-Sometimes I face some issues with neovim buitin lsp, that's why I maintain two
-branches for `coc.nvim` and `lspconfig.nvim`
-
-- [lsp/coc.nvim](https://github.com/lalitmee/dotfiles/tree/lsp/coc.nvim): config using [coc.nvim](https://github.com/neoclide/coc.nvim)
-- [lsp/nvim-lsp](https://github.com/lalitmee/dotfiles/tree/lsp/nvim-lsp): config using [lspconfig.nvim](https://github.com/neovim/nvim-lspconfig)
-
 ## Screenshots
 
-- neovim
-  ![neovim](./media/neovim.png "neovim")
+### neovim
 
-- tmux
-  ![tmux](./media/tmux.png "tmux")
+![neovim](./media/neovim.png "neovim")
 
-- kitty
-  ![kitty](./media/kitty.png "kitty")
+```log
+Total Time:   33.125 -- Flawless Victory
+```
 
-- alacritty
-  ![alacritty](./media/alacritty.png "alacritty")
+I have around 120+ plugins and this start-up time is using [tweekmonster/startuptime.vim](https://github.com/tweekmonster/startuptime.vim).
+I use [packer](https://github.com/wbthomason/packer.nvim) with lazy-loading
+
+### tmux
+
+![tmux](./media/tmux.png "tmux")
+
+### kitty
+
+![kitty](./media/kitty.png "kitty")
+
+### alacritty
+
+![alacritty](./media/alacritty.png "alacritty")
