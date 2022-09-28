@@ -3,25 +3,18 @@ if not ok then
   return
 end
 
+local api = vim.api
 local notify_icons = lk.style.icons.notify
 
--- notify.setup({
---   stages = "fade_in_slide_out",
---   timeout = 3000,
---   render = function(bufnr, notif, highlights)
---     local style = notif.title[1] == "" and "minimal" or "default"
---     renderer[style](bufnr, notif, highlights)
---   end,
---   icons = {
---     DEBUG = notify_icons.debug,
---     ERROR = notify_icons.error,
---     INFO = notify_icons.info,
---     TRACE = notify_icons.trace,
---     WARN = notify_icons.warn,
---   },
--- })
-
-local api = vim.api
+-- NOTE: vim.log.levels
+-- {
+--   DEBUG = 1,
+--   ERROR = 4,
+--   INFO = 2,
+--   OFF = 5,
+--   TRACE = 0,
+--   WARN = 3
+-- }
 
 notify.setup({
   background_colour = "ColorColumn",

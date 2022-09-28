@@ -35,6 +35,48 @@ return {
       }
     )
   ),
+  s(
+    { trig = "cbox", name = "comment box" },
+    fmt(
+      [[
+            {1}
+            {2} {3} {4} {5}
+            {1}
+            {2} {6}
+            {1}
+            {7}
+          ]],
+      {
+        f(function()
+          local comment = string.format(vim.bo.commentstring:gsub(" ", "") or "#%s", "-")
+          local col = vim.bo.textwidth or 80
+          return comment .. string.rep("-", col - #comment)
+        end),
+        f(function()
+          return vim.bo.commentstring:gsub("%%s", "")
+        end),
+        t("NOTE: "),
+        i(1, "description"),
+        t("{{{"),
+        t("}}}"),
+        i(0),
+      }
+    )
+  ),
+  s(
+    { trig = "fdm", name = "fold method marker comment" },
+    fmt(
+      [[
+      {1} {2}
+      ]],
+      {
+        f(function()
+          return vim.bo.commentstring:gsub("%%s", "")
+        end),
+        t("vim:fdm=marker"),
+      }
+    )
+  ),
 }
 
 --   ls.parser.parse_s(

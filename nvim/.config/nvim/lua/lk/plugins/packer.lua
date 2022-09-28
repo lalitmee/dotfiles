@@ -4,9 +4,9 @@ local fn = vim.fn
 
 --- packer notify wrapper
 ---@param msg string to be shown
----@param type type of the message
+---@param type number of the vim.log.levels
 local packer_notify = function(msg, type)
-  local msg_type = type or "info"
+  local msg_type = type or 2
   vim.notify(msg, msg_type, { title = " Packer" })
 end
 
@@ -35,7 +35,7 @@ augroup("PackerSetupInit", {
         end
         local url = fmt("https://www.github.com/%s", repo)
         fn.jobstart("xdg-open " .. url)
-        vim.notify(fmt("Opening %s at %s", repo, url), "info", { title = fmt(" [plugin] %s", repo) })
+        vim.notify(fmt("Opening %s at %s", repo, url), 2, { title = fmt(" [plugin] %s", repo) })
       end)
     end,
   },

@@ -93,7 +93,7 @@ function M.get(group, attribute, fallback)
     return color
   end
   vim.schedule(function()
-    vim.notify(fmt("%s's %s does not exist", group, attr), "error")
+    vim.notify(fmt("%s's %s does not exist", group, attr), 4)
   end)
   return "NONE"
 end

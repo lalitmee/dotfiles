@@ -36,12 +36,21 @@ require("packer").startup({
     })
     use({ "lewis6991/impatient.nvim" })
 
-    -- Profile startup time
-    use({
-      "tweekmonster/startuptime.vim",
-      cmd = "StartupTime",
-      opt = true,
-    })
+    local tweek = true
+    if tweek then
+      -- Profile startup time
+      use({
+        "tweekmonster/startuptime.vim",
+        cmd = "StartupTime",
+        opt = true,
+      })
+    else
+      use({
+        "dstein64/vim-startuptime",
+        cmd = "StartupTime",
+        opt = true,
+      })
+    end
     -- }}}
     --------------------------------------------------------------------------------
 

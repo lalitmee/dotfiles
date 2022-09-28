@@ -8,7 +8,7 @@ local fn = vim.fn
 --------------------------------------------------------------------------------
 lsp.handlers["textDocument/definition"] = function(_, result)
   if not result or vim.tbl_isempty(result) then
-    vim.notify("[LSP] Could not find definition", "info", { title = "[LSP] definition" })
+    vim.notify("[LSP] Could not find definition", 2, { title = "[LSP] definition" })
     return
   end
 
@@ -185,7 +185,7 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_hel
 --   })
 -- end
 vim.lsp.handlers["window/showMessage"] = function(_, method, params, client_id)
-  vim.notify(method.message, severity[params.type], { title = vim.lsp.get_client_by_id(client_id).name })
+  vim.notify(method.message, vim.log.levels[params.type], { title = vim.lsp.get_client_by_id(client_id).name })
 end
 -- }}}
 --------------------------------------------------------------------------------
@@ -235,14 +235,14 @@ local function qf_rename()
 
   vim.ui.input({ prompt = "Rename To: ", default = position_params.oldName }, function(input)
     if input == nil then
-      vim.notify("[LSP] aborted rename", "warn", { render = "minimal" })
+      vim.notify("[LSP] aborted rename", 3, { render = "minimal" })
       return
     end
 
     position_params.newName = input
     vim.lsp.buf_request(0, "textDocument/rename", position_params, function(err, result, ...)
       if not result or not result.changes then
-        vim.notify(string.format("could not perform rename"), "error", {
+        vim.notify(string.format("could not perform rename"), 4, {
           title = string.format("[LSP] rename: %s -> %s", position_params.oldName, position_params.newName),
           timeout = 500,
         })
@@ -274,7 +274,7 @@ local function qf_rename()
         notification = notification .. string.format("made %d change(s) in %s", #edits, short_uri)
       end
 
-      vim.notify(notification, "info", {
+      vim.notify(notification, 2, {
         title = string.format("[LSP] rename: %s -> %s", position_params.oldName, position_params.newName),
         timeout = 2500,
       })
