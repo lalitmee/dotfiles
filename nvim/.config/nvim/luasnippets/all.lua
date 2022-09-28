@@ -40,9 +40,9 @@ return {
     fmt(
       [[
             {1}
-            {2} {3} {4} {5}
+            {2} {3}{4} {5}
             {1}
-            {2} {6}
+            {2}{6}
             {1}
             {7}
           ]],
@@ -67,7 +67,7 @@ return {
     { trig = "fdm", name = "fold method marker comment" },
     fmt(
       [[
-      {1} {2}
+      {1}{2}
       ]],
       {
         f(function()
