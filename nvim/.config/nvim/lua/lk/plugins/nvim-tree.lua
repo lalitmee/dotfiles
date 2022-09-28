@@ -10,7 +10,6 @@ require("nvim-tree").setup({
   hijack_cursor = true,
   view = {
     width = width,
-    height = height,
     float = {
       enable = true,
       open_win_config = {
