@@ -8,7 +8,7 @@ end
 --------------------------------------------------------------------------------
 function Notify_current_datetime()
   local dt = vim.fn.strftime("%c")
-  vim.notify("Current Date Time: " .. dt, "info", { title = "Date & Time" })
+  vim.notify("Current Date Time: " .. dt, 2, { title = "Date & Time" })
 end
 -- }}}
 --------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ function Yank_current_file_name()
   input_pipe:write(file_name)
   input_pipe:close()
   yanker:shutdown()
-  vim.notify("Yanked: " .. file_name, "info", { title = "File Name Yanker", timeout = 1000 })
+  vim.notify("Yanked: " .. file_name, 2, { title = "File Name Yanker", timeout = 1000 })
 end
 -- }}}
 --------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ end
 ----------------------------------------------------------------------
 function Show_current_file_path()
   local file_path = vim.fn.expand("%")
-  vim.notify(file_path, "info", { title = "[buffer] file path" })
+  vim.notify(file_path, 2, { title = "[buffer] file path" })
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -44,7 +44,7 @@ end
 ----------------------------------------------------------------------
 function Get_current_working_directory()
   local cwd = vim.fn.getcwd()
-  vim.notify(cwd, "info", { title = "[buffer] current working directory" })
+  vim.notify(cwd, 2, { title = "[buffer] current working directory" })
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -90,7 +90,7 @@ function Save_and_execute()
       silent! write
     ]])
   end
-  vim.notify(filepath, "info", { title = " Save and Execute" })
+  vim.notify(filepath, 2, { title = " Save and Execute" })
 end
 -- }}}
 ----------------------------------------------------------------------

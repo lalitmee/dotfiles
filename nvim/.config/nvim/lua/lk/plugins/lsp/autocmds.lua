@@ -76,7 +76,7 @@ end
 M.setup_autocommands = function(client, bufnr)
   if not client then
     local msg = fmt("Unable to setup LSP autocommands, client for %d is missing", bufnr)
-    return vim.notify(msg, "error", { title = "LSP Setup" })
+    return vim.notify(msg, 4, { title = "LSP Setup" })
   end
 
   local events = vim.F.if_nil(vim.b.lsp_events, {

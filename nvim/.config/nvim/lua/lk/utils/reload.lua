@@ -36,7 +36,7 @@ M.reload = function()
         -- call the helper method to reload the module
         -- and give some feedback
         R(name)
-        vim.notify(name, "info", { title = "RELOADED" })
+        vim.notify(name, 2, { title = "RELOADED" })
       end)
 
       return true
@@ -60,7 +60,7 @@ end
 --   end
 --
 --   dofile(vim.env.MYVIMRC)
---   vim.notify("Config Reloaded", "info", { title = "[config] reload" })
+--   vim.notify("Config Reloaded", 2, { title = "[config] reload" })
 -- end
 
 M.reload_config = function()
@@ -78,7 +78,7 @@ M.reload_config = function()
   end
 
   dofile(vim.env.MYVIMRC)
-  vim.notify("Config Reloaded", "info", { title = "[config] reload" })
+  vim.notify("Config Reloaded", 2, { title = "[config] reload" })
 end
 -- }}}
 ----------------------------------------------------------------------
