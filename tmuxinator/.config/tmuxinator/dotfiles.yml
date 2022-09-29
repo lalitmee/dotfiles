@@ -11,3 +11,4 @@ windows:
   - ThePrimeagen: cd ThePrimeagen_dots && gst
   - togglebyte: cd togglebyte && gst
   - vsedov: cd vsedov && gst
+  - devtainer: cd devtainer && gst

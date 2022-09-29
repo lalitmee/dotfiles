@@ -430,7 +430,6 @@ setw -g mode-keys vi
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
 
-set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
 # better mouse support in tmux
@@ -554,7 +553,4 @@ bind-key -r f run-shell "tmux neww tmux-sessionizer"
 # }}}
 #-------------------------------------------------------------------------------
 
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
-
-#  vim:fdm=marker
+# vim:fdm=marker
