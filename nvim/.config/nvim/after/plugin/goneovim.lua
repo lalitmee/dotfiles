@@ -1,3 +1,3 @@
 if vim.g.goneovim then
-vim.notify("GoneoVim is loaded", 2, { title = "[goneovim]" })
+  vim.o.linespace = 1
 end
