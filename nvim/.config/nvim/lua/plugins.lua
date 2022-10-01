@@ -307,12 +307,6 @@ require("packer").startup({
     -- display search matches
     use({ "romainl/vim-cool" })
 
-    -- search multiple thing using `*`
-    use({
-      "nelstrom/vim-visual-star-search",
-      keys = { "v", "*" },
-    })
-
     -- toggle relative line numbers automatically
     use({
       "sitiom/nvim-numbertoggle",

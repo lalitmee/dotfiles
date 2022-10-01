@@ -563,6 +563,7 @@ local leader_key_maps = {
     ["name"] = "+search",
     ["/"] = { ":Telescope command_history<CR>", "history" },
     [":"] = { ":Telescope commands<CR>", "commands" },
+    ["a"] = { ":Telescope<CR>", "telescope-all-options" },
     ["b"] = { ":Telescope builtin<CR>", "builtins" },
     ["c"] = { ":Telescope git_commits<CR>", "commits" },
     ["C"] = { ":Telescope git_bcommits<CR>", "buffer-commits" },
