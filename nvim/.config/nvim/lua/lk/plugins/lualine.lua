@@ -99,6 +99,9 @@ lualine.setup({
         fmt = function(str)
           return "<" .. str:sub(1, 1) .. ">"
         end,
+        color = {
+          gui = "bold",
+        },
       },
     },
     lualine_b = {
@@ -113,10 +116,6 @@ lualine.setup({
       {
         "filename",
         path = 1,
-        symbols = {
-          modified = " []",
-          readonly = " []",
-        },
       },
     },
     lualine_x = {
@@ -133,10 +132,15 @@ lualine.setup({
       { get_trailing_whitespace },
     },
     lualine_y = {
-      { "progress" },
+      {
+        "progress",
+      },
     },
     lualine_z = {
-      { "location" },
+      {
+        "location",
+        color = { gui = "bold" },
+      },
     },
   },
   inactive_sections = {

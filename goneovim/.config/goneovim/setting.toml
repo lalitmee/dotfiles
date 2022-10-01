@@ -40,7 +40,6 @@ StartFullscreen = true
 ## In Linux
 # FontFamily = "Consolas"
 ## In Windows
-# FontFamily = "Windows"
 # FontFamily = "BlexMono NF"
 # FontFamily = "BlexMono Nerd Font Mono"
 # FontFamily = "Cascadia Code"
@@ -49,11 +48,13 @@ StartFullscreen = true
 # FontFamily = "JetBrainsMonoMedium Nerd Font Mono"
 FontFamily = "MonoLisa Nerd Font"
 # FontFamily = "MonoLisa"
-# FontFamily = "OperatorMono Lig Book"
+# FontFamily = "Monaco"
 # FontFamily = "Operator Mono Book"
+# FontFamily = "OperatorMono Lig Book"
 # FontFamily = "SauceCodePro Nerd Font Mono"
 # FontFamily = "SpaceMono Nerd Font Mono"
 # FontFamily = "UbuntuMono Nerd Font"
+# FontFamily = "Windows"
 ## Fontsize is
 FontSize = 11
 ## linespace is
