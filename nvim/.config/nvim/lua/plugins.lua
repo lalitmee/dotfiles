@@ -860,18 +860,6 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: VERSION CONTROL STYSTEM {{{
     ------------------------------------------------------------------------
-    -- git actions using telescope
-    use({
-      "pwntester/octo.nvim",
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-        "kyazdani42/nvim-web-devicons",
-      },
-      config = conf("octo"),
-      after = { "telescope.nvim" },
-    })
-
     -- git worktree
     use({
       "ThePrimeagen/git-worktree.nvim",
