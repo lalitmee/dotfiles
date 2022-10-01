@@ -109,7 +109,7 @@ local leader_key_maps = {
   -- NOTE: d is for dap {{{
   ----------------------------------------------------------------------
   ["d"] = {
-    ["name"] = "+dap/+debug",
+    ["name"] = "+dap",
     ["a"] = { ":DapStepOut<CR>", "step-out" },
     ["c"] = { ":DapContinue<CR>", "continue" },
     ["d"] = { ":DapToggleBreakpoint<CR>", "toggle-breakpoint" },
@@ -129,7 +129,7 @@ local leader_key_maps = {
   -- NOTE: e is for error/warnings using lspconfig {{{
   ----------------------------------------------------------------------
   ["e"] = {
-    ["name"] = "+errors/warnings",
+    ["name"] = "+errors",
     ["d"] = { ":DiagList<CR>", "buffer-diagnostics-quickfix" },
     ["D"] = { ":DiagListAll<CR>", "workspace-diagnostics-quickfix" },
     ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnostics" },
@@ -159,16 +159,6 @@ local leader_key_maps = {
     ["s"] = { ":w<CR>", "save-buffer" },
     ["S"] = { ":wa<CR>", "save-all-buffers" },
     ["t"] = { ":Telescope filetypes<CR>", "file-types" },
-  },
-  -- }}}
-  ----------------------------------------------------------------------
-
-  ----------------------------------------------------------------------
-  -- NOTE: F is for find and replace {{{
-  ----------------------------------------------------------------------
-  ["F"] = {
-    ["name"] = "+search/replace",
-    ["g"] = { ":LGrep<CR>", "grep" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -534,7 +524,7 @@ local leader_key_maps = {
   -- NOTE: r is for runner {{{
   ----------------------------------------------------------------------
   ["r"] = {
-    ["name"] = "+build/+run/+compile",
+    ["name"] = "+build-and-run",
     ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
     ["o"] = {
       ["name"] = "+overseer",
@@ -597,7 +587,7 @@ local leader_key_maps = {
   -- NOTE: S is for sessions {{{
   ----------------------------------------------------------------------
   ["S"] = {
-    ["name"] = "+sessions/+workspaces",
+    ["name"] = "+sessions",
     ["l"] = { ":SearchSession<CR>", "search-sessions" },
     ["s"] = { ":SaveSession<CR>", "save-session" },
     ["d"] = { ":DeleteSession<CR>", "delete-session" },
@@ -609,7 +599,7 @@ local leader_key_maps = {
   -- NOTE: t is for toggle/tabs/terminal {{{
   ----------------------------------------------------------------------
   ["t"] = {
-    ["name"] = "+tabs/terminal/toggle",
+    ["name"] = "+toggle",
     ["g"] = {
       ["name"] = "+git",
       ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
@@ -650,7 +640,7 @@ local leader_key_maps = {
   -- NOTE: u is for undo {{{
   ----------------------------------------------------------------------
   ["u"] = {
-    ["name"] = "+undo/+ultisnips",
+    ["name"] = "+undo",
     ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
   },
   -- }}}
