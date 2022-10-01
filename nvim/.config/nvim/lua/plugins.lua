@@ -620,6 +620,14 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: Format {{{
     ------------------------------------------------------------------------
+    -- trim whitespaces while editing
+    use({
+      "lewis6991/spaceless.nvim",
+      config = function()
+        require("spaceless").setup()
+      end,
+    })
+
     -- formatter in lua
     use({
       -- "mhartington/formatter.nvim",
