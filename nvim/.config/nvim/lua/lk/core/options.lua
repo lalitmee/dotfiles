@@ -272,7 +272,6 @@ opt.autoindent = true
 opt.smartindent = true
 opt.shiftround = true
 opt.expandtab = true
-opt.shiftwidth = 2
 -- }}}
 ----------------------------------------------------------------------
 
