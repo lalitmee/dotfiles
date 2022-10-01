@@ -101,6 +101,7 @@ telescope.setup({
       "--smart-case",
       "--trim",
     },
+    winblend = 5,
     prompt_prefix = "   ", --   
     selection_strategy = "reset",
     sorting_strategy = "ascending",
