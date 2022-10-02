@@ -119,6 +119,9 @@ lualine.setup({
       {
         "filename",
         path = 1,
+        color = {
+          gui = "bold",
+        },
       },
     },
     lualine_x = {
@@ -137,6 +140,9 @@ lualine.setup({
     lualine_y = {
       {
         "progress",
+        color = {
+          gui = "bold",
+        },
       },
     },
     lualine_z = {
