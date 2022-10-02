@@ -437,22 +437,6 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: General {{{
     ----------------------------------------------------------------------------
-    -- move code up and down
-    use({
-      "booperlv/nvim-gomove",
-      keys = {
-        { "n", "<M-h>" },
-        { "n", "<M-j>" },
-        { "n", "<M-k>" },
-        { "n", "<M-l>" },
-        { "v", "<M-h>" },
-        { "v", "<M-j>" },
-        { "v", "<M-k>" },
-        { "v", "<M-l>" },
-      },
-      config = conf("gomove"),
-    })
-
     -- smooth scrolling in neovim
     use({
       "karb94/neoscroll.nvim",
@@ -468,24 +452,6 @@ require("packer").startup({
         { "n", "zb" },
       },
       config = conf("neoscroll"),
-    })
-
-    -- marks in neovim
-    use({
-      "chentoast/marks.nvim",
-      config = conf("marks"),
-    })
-
-    -- zen-mode and more
-    use({
-      "Pocco81/true-zen.nvim",
-      config = conf("true-zen"),
-      cmd = {
-        "TZAtaraxis",
-        "TZFocus",
-        "TZMinimalist",
-        "TZNarrow",
-      },
     })
 
     -- delete buffers without distubing layout
@@ -561,21 +527,6 @@ require("packer").startup({
       event = "BufRead",
       config = conf("comment"),
     })
-
-    -- comment boxes
-    use({
-      "LudoPinelli/comment-box.nvim",
-      cmd = {
-        "CBlbox",
-        "CBclbox",
-        "CBcbox",
-        "CBccbox",
-        "CBalbox",
-        "CBaclbox",
-        "CBacbox",
-        "CBaccbox",
-      },
-    })
     -- }}}
     ------------------------------------------------------------------------
     -- }}}
@@ -633,13 +584,6 @@ require("packer").startup({
       config = conf("formatter"),
     })
 
-    -- indentlines in neovim
-    use({
-      "lukas-reineke/indent-blankline.nvim",
-      config = conf("indent-blankline"),
-      event = { "BufRead" },
-    })
-
     -- Tabularize for Vim
     use({
       "godlygeek/tabular",
@@ -652,31 +596,6 @@ require("packer").startup({
 
     ------------------------------------------------------------------------
     -- NOTE: LSP {{{
-    ------------------------------------------------------------------------
-
-    --------------------------------------------------------------------------
-    ---- NOTE: coc.nvim {{{
-    --------------------------------------------------------------------------
-    -- use("neoclide/vim-jsx-improve")
-    -- -- NOTE: Completion Conquerer
-    -- use({
-    --   "neoclide/coc.nvim",
-    --   branch = "release",
-    --   config = conf('coc'),
-    --   event = { "BufRead", "BufEnter" },
-    -- })
-    -- use({
-    --   "fannheyward/telescope-coc.nvim",
-    --   after = { "coc.nvim", "telescope.nvim" },
-    --   config = function()
-    --     require("telescope").load_extension("coc")
-    --   end,
-    -- })
-    -- }}}
-    --------------------------------------------------------------------------
-
-    ------------------------------------------------------------------------
-    -- NOTE: lspconfig {{{
     ------------------------------------------------------------------------
     use({
       "williamboman/mason-lspconfig.nvim",
@@ -723,15 +642,8 @@ require("packer").startup({
           ft = "lua",
           after = { "nvim-lspconfig" },
         },
-        {
-          "onsails/diaglist.nvim",
-          after = { "nvim-lspconfig" },
-          cmd = { "DiagList", "DiagListAll" },
-        },
       },
     })
-    -- }}}
-    ------------------------------------------------------------------------
     -- }}}
     ------------------------------------------------------------------------
 
@@ -791,27 +703,6 @@ require("packer").startup({
         require("debugprint").setup()
       end,
     })
-
-    -- refactor the code
-    -- use({
-    --   "ThePrimeagen/refactoring.nvim",
-    --   after = { "nvim-treesitter", "telescope.nvim" },
-    --   cmd = {
-    --     "ExtractSelectedFunc",
-    --     "RefactorDebugPath",
-    --     "RefactorDebugPrintVarAbove",
-    --     "RefactorDebugPrintVarBelow",
-    --     "RefactorDebugPrintfAbove",
-    --     "RefactorDebugPrintfBelow",
-    --     "RefactorExtractFunc",
-    --     "RefactorExtractVar",
-    --     "RefactorInlineVar",
-    --     "Refactors",
-    --     "RefactorsList",
-    --   },
-    --   config = conf("refactoring"),
-    -- })
-
     ----------------------------------------------------------------------
     -- NOTE: html and jsx {{{
     ----------------------------------------------------------------------
