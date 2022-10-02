@@ -327,9 +327,6 @@ require("packer").startup({
       config = conf("hop"),
     })
 
-    -- improved `gf`
-    use({ "sam4llis/nvim-lua-gf" })
-
     -- Navigations
     use({
       "ThePrimeagen/harpoon",
