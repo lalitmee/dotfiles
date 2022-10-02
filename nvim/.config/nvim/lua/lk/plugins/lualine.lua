@@ -108,6 +108,9 @@ lualine.setup({
       {
         "branch",
         icon = "",
+        color = {
+          gui = "bold",
+        },
       },
     },
     lualine_c = {

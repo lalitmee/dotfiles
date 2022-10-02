@@ -426,7 +426,7 @@ alias rmyarn="rm -rf yarn.lock"
 
 # make aliases for building neovim from source
 alias mc="sudo make clean && sudo make distclean"
-alias mr="make CMAKE_BUILD_TYPE=RelWithDebInfo"
+alias mr="make CMAKE_BUILD_TYPE=Release"
 alias mi="sudo make install"
 
 # alias for duckduckgo from terminal
