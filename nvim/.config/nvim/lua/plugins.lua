@@ -938,16 +938,6 @@ require("packer").startup({
         { "nvim-neorg/neorg-telescope" },
       },
     })
-
-    --[[ use({ ]]
-    --[[   "nvim-orgmode/orgmode", ]]
-    --[[   requires = { ]]
-    --[[     "akinsho/org-bullets.nvim", ]]
-    --[[     "lukas-reineke/headlines.nvim", ]]
-    --[[     "dhruvasagar/vim-table-mode", ]]
-    --[[   }, ]]
-    --[[   config = conf("orgmode"), ]]
-    --[[ }) ]]
     -- }}}
     ----------------------------------------------------------------------
 
