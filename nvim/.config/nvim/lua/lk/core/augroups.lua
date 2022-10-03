@@ -195,7 +195,6 @@ augroup("neogit_au", {
 --------------------------------------------------------------------------------
 --  NOTE: kitty config reload {{{
 --------------------------------------------------------------------------------
--- autocmd bufwritepost ~/.config/kitty/kitty.conf
 augroup("kitty_au", {
   {
     event = { "BufWritePost" },
