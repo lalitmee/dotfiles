@@ -121,6 +121,16 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: general {{{
     ----------------------------------------------------------------------------
+    -- -- new UI paradigm
+    -- use({
+    --   "folke/noice.nvim",
+    --   event = "VimEnter",
+    --   config = conf("noice"),
+    --   requires = {
+    --     "MunifTanjim/nui.nvim",
+    --   },
+    -- })
+
     -- highlighting of todo comments
     use({
       "folke/todo-comments.nvim",
