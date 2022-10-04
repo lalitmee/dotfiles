@@ -18,6 +18,7 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "bashls",
     "ccls",
+    "css_lsp",
     "clangd",
     "dockerls",
     "emmet_ls",

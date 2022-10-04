@@ -98,7 +98,7 @@ end
 M.navic = function(client, bufnr)
   local navic_ok, navic = lk.require("nvim-navic")
   if navic_ok then
-    local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls", "bashls", "tailwindcss" }
+    local skipNavicLsps = { "ltex", "cssls", "eslint", "html", "remark_ls", "bashls", "tailwindcss", "emmet_ls" }
     if lk.has_value(skipNavicLsps, client.name) == false then
       navic.attach(client, bufnr)
     end
