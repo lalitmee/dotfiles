@@ -693,6 +693,22 @@ require("packer").startup({
     ----------------------------------------------------------------------------
     -- NOTE: Languages {{{
     ----------------------------------------------------------------------------
+    -- web tools for html
+    use({
+      "ray-x/web-tools.nvim",
+      config = function()
+        require("web-tools").setup()
+      end,
+      cmd = {
+        "BrowserOpen",
+        "BrowserPreview",
+        "BrowserRestart",
+        "BrowserStop",
+        "BrowserSync",
+        "TagRename",
+      },
+    })
+
     -- golang support
     use({ "ray-x/go.nvim", ft = "go" })
 
