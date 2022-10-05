@@ -41,6 +41,7 @@ g.enable_treesitter_ft = {
   "json",
   "lua",
   "markdown",
+  "markdown_inline",
   "norg",
   "org",
   "python",
