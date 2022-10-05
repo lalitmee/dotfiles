@@ -10,9 +10,9 @@ presets.objects["a("] = nil
 presets.operators["g"] = nil
 
 wk.setup({
-  show_help = true,
+  show_help = false,
   triggers = "auto",
-  plugins = { spelling = true, marks = true, registers = true },
+  plugins = { spelling = true, marks = false, registers = false },
   key_labels = { ["<leader>"] = "SPC" },
   layout = { spacing = 10 },
 })
