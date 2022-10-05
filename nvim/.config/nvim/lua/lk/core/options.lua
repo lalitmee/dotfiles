@@ -30,6 +30,7 @@ g.enable_lspconfig_ft = {
 -- NOTE: treesitter
 g.enable_treesitter_ft = {
   "c",
+  "comment",
   "cpp",
   "css",
   "dockerfile",
