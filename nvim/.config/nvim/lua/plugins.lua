@@ -860,14 +860,14 @@ require("packer").startup({
     ------------------------------------------------------------------------
     -- NOTE: Explorers {{{
     ------------------------------------------------------------------------
+    -- neo-tree
     use({
-      "kyazdani42/nvim-tree.lua",
-      cmd = {
-        "NvimTreeToggle",
-        "NvimTreeRefresh",
-        "NvimTreeFindFile",
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+        "MunifTanjim/nui.nvim",
       },
-      config = conf("nvim-tree"),
+      config = conf("neo-tree"),
     })
     -- }}}
     ------------------------------------------------------------------------
