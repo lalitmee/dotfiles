@@ -13,42 +13,42 @@ local executable = lk.executable
 ----------------------------------------------------------------------
 -- NOTE: lspconfig
 g.enable_lspconfig_ft = {
-  "bash",
-  "css",
-  "dockerfile",
-  "go",
-  "html",
-  "javascript",
-  "json",
-  "lua",
-  "markdown",
-  "typescript",
-  "vim",
-  "yaml",
+    "bash",
+    "css",
+    "dockerfile",
+    "go",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "markdown",
+    "typescript",
+    "vim",
+    "yaml",
 }
 
 -- NOTE: treesitter
 g.enable_treesitter_ft = {
-  "c",
-  "comment",
-  "cpp",
-  "css",
-  "dockerfile",
-  "go",
-  "help",
-  "html",
-  "javascript",
-  "json",
-  "lua",
-  "markdown",
-  "markdown_inline",
-  "norg",
-  "org",
-  "python",
-  "scss",
-  "typescript",
-  "vim",
-  "yaml",
+    "c",
+    "comment",
+    "cpp",
+    "css",
+    "dockerfile",
+    "go",
+    "help",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "markdown",
+    "markdown_inline",
+    "norg",
+    "org",
+    "python",
+    "scss",
+    "typescript",
+    "vim",
+    "yaml",
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -65,17 +65,17 @@ g.python_host_prog = "/home/lalitmee/.pyenv/versions/neovim2/bin/python"
 -- NOTE: messages output {{{
 ----------------------------------------------------------------------
 opt.shortmess = {
-  t = true, -- truncate file messages at start
-  A = true, -- ignore annoying swap file messages
-  o = true, -- file-read message overwrites previous
-  O = true, -- file-read message overwrites previous
-  T = true, -- truncate non-file messages in middle
-  f = true, -- (file x of x) instead of just (x of x
-  F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
-  s = true,
-  S = false,
-  c = true,
-  W = true, -- Dont show [w] or written when writing
+    t = true, -- truncate file messages at start
+    A = true, -- ignore annoying swap file messages
+    o = true, -- file-read message overwrites previous
+    O = true, -- file-read message overwrites previous
+    T = true, -- truncate non-file messages in middle
+    f = true, -- (file x of x) instead of just (x of x
+    F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
+    s = true,
+    S = false,
+    c = true,
+    W = true, -- Dont show [w] or written when writing
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -98,22 +98,23 @@ opt.relativenumber = true
 opt.hidden = true
 opt.splitbelow = true
 opt.splitright = true
+opt.splitkeep = "cursor"
 opt.eadirection = "hor"
 -- exclude usetab as we do not want to jump to buffers in already open tabs
 -- do not use split or vsplit to ensure we don't open any new windows
 opt.switchbuf = "useopen,uselast"
 opt.fillchars = {
-  -- vert = "▕", -- alternatives │
-  eob = "~", -- suppress ~ at EndOfBuffer
-  diff = "╱", -- alternatives = ⣿ ░ ─
-  msgsep = "‾",
-  horiz = "━",
-  horizup = "┻",
-  horizdown = "┳",
-  vert = "┃",
-  vertleft = "┫",
-  vertright = "┣",
-  verthoriz = "╋",
+    -- vert = "▕", -- alternatives │
+    eob = "~", -- suppress ~ at EndOfBuffer
+    diff = "╱", -- alternatives = ⣿ ░ ─
+    msgsep = "‾",
+    horiz = "━",
+    horizup = "┻",
+    horizdown = "┳",
+    vert = "┃",
+    vertleft = "┫",
+    vertright = "┣",
+    verthoriz = "╋",
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -123,15 +124,15 @@ opt.fillchars = {
 ----------------------------------------------------------------------
 -- Use in vertical diff mode, blank lines to keep sides aligned, Ignore whitespace changes
 opt.diffopt = opt.diffopt
-  + {
-    "vertical",
-    "iwhite",
-    "hiddenoff",
-    "foldcolumn:0",
-    "context:4",
-    "algorithm:histogram",
-    "indent-heuristic",
-  }
+    + {
+        "vertical",
+        "iwhite",
+        "hiddenoff",
+        "foldcolumn:0",
+        "context:4",
+        "algorithm:histogram",
+        "indent-heuristic",
+    }
 -- }}}
 ----------------------------------------------------------------------
 
@@ -140,15 +141,15 @@ opt.diffopt = opt.diffopt
 ----------------------------------------------------------------------
 -- TODO: w, {v, b, l}
 opt.formatoptions = opt.formatoptions
-  + "c" -- In general, I like it when comments respect textwidth
-  + "j" -- Auto-remove comments if possible.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "q" -- Allow formatting comments w/ gq
-  + "r" -- But do continue when pressing enter.
-  - "2" -- I'm not in gradeschool anymore
-  - "a" -- Auto formatting is BAD.
-  - "o" -- O and o, don't continue comments
-  - "t" -- Don't auto format my code. I got linters for that.
+    + "c" -- In general, I like it when comments respect textwidth
+    + "j" -- Auto-remove comments if possible.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "q" -- Allow formatting comments w/ gq
+    + "r" -- But do continue when pressing enter.
+    - "2" -- I'm not in gradeschool anymore
+    - "a" -- Auto formatting is BAD.
+    - "o" -- O and o, don't continue comments
+    - "t" -- Don't auto format my code. I got linters for that.
 -- }}}
 ----------------------------------------------------------------------
 
@@ -169,11 +170,11 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("rg") then
-  opt.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
-  opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
+    opt.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
+    opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
-  opt.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
-  opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
+    opt.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
+    opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -186,30 +187,30 @@ opt.wildmode = "longest:full,full" -- Shows a menu bar as opposed to an enormous
 opt.wildignorecase = true -- Ignore case when completing file names and directories
 -- Binary
 opt.wildignore = {
-  "*.aux",
-  "*.out",
-  "*.toc",
-  "*.o",
-  "*.obj",
-  "*.dll",
-  "*.jar",
-  "*.pyc",
-  "*.rbc",
-  "*.class",
-  "*.gif",
-  "*.ico",
-  "*.jpg",
-  "*.jpeg",
-  "*.png",
-  "*.avi",
-  "*.wav",
-  -- Temp/System
-  "*.*~",
-  "*~ ",
-  "*.swp",
-  ".lock",
-  ".DS_Store",
-  "tags.lock",
+    "*.aux",
+    "*.out",
+    "*.toc",
+    "*.o",
+    "*.obj",
+    "*.dll",
+    "*.jar",
+    "*.pyc",
+    "*.rbc",
+    "*.class",
+    "*.gif",
+    "*.ico",
+    "*.jpg",
+    "*.jpeg",
+    "*.png",
+    "*.avi",
+    "*.wav",
+    -- Temp/System
+    "*.*~",
+    "*~ ",
+    "*.swp",
+    ".lock",
+    ".DS_Store",
+    "tags.lock",
 }
 opt.wildoptions = "pum"
 opt.pumblend = 3 -- Make popup window translucent
@@ -235,14 +236,14 @@ opt.cmdheight = 1 -- Set command line height to two lines
 --- This is used to handle markdown code blocks where the language might
 --- be set to a value that isn't equivalent to a vim filetype
 vim.g.markdown_fenced_languages = {
-  "bash",
-  "css",
-  "javascript",
-  "lua",
-  "python",
-  "scss",
-  "typescript",
-  "vim",
+    "bash",
+    "css",
+    "javascript",
+    "lua",
+    "python",
+    "scss",
+    "typescript",
+    "vim",
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -252,11 +253,11 @@ vim.g.markdown_fenced_languages = {
 ----------------------------------------------------------------------
 opt.list = true -- invisible chars
 opt.listchars = {
-  eol = nil,
-  tab = "│ ",
-  extends = "›", -- Alternatives: … »
-  precedes = "‹", -- Alternatives: … «
-  trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
+    eol = nil,
+    tab = "│ ",
+    extends = "›", -- Alternatives: … »
+    precedes = "‹", -- Alternatives: … «
+    trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -283,10 +284,10 @@ opt.gdefault = true
 opt.pumheight = 15
 opt.confirm = true -- make vim prompt me to save before doing destructive things
 opt.completeopt = {
-  "menu",
-  "menuone",
-  "noselect",
-  "noinsert",
+    "menu",
+    "menuone",
+    "noselect",
+    "noinsert",
 }
 opt.hlsearch = true
 opt.autowriteall = true -- automatically :write before running commands and changing files
@@ -324,16 +325,16 @@ opt.showmode = false
 opt.showmatch = true
 opt.showcmd = true
 opt.sessionoptions = {
-  "globals",
-  "buffers",
-  "curdir",
-  "help",
-  "winpos",
-  "tabpages",
-  "help",
-  "winsize",
-  "terminal",
-  "winpos",
+    "globals",
+    "buffers",
+    "curdir",
+    "help",
+    "winpos",
+    "tabpages",
+    "help",
+    "winsize",
+    "terminal",
+    "winpos",
 }
 opt.viewoptions = { "cursor", "folds" } -- save/restore just these (with `:{mk,load}view`)
 opt.virtualedit = "block" -- allow cursor to move where there is no text in visual block mode
@@ -358,7 +359,7 @@ opt.shada = { "!", "'1000", "<50", "s10", "h" }
 opt.backup = false
 opt.writebackup = false
 if fn.isdirectory(vim.o.undodir) == 0 then
-  fn.mkdir(vim.o.undodir, "p")
+    fn.mkdir(vim.o.undodir, "p")
 end
 opt.undofile = true
 opt.swapfile = false
@@ -367,7 +368,7 @@ opt.swapfile = false
 -- with the same name from different directories.
 opt.directory = fn.stdpath("data") .. "/swap//"
 if fn.isdirectory(vim.o.directory) == 0 then
-  fn.mkdir(vim.o.directory, "p")
+    fn.mkdir(vim.o.directory, "p")
 end
 -- }}}
 ----------------------------------------------------------------------
