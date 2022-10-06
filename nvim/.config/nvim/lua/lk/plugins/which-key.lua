@@ -63,26 +63,23 @@ local leader_key_maps = {
   ----------------------------------------------------------------------
   ["b"] = {
     ["name"] = "+buffers",
-    ["a"] = { ":JABSOpen<CR>", "beautiful-buffer-switcher" },
-    ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
+    ["a"] = { ":Telescope buffers<CR>", "telescope-buffers" },
+    ["b"] = { ":ReachOpen buffers<CR>", "telescope-buffers" },
     ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
-    ["C"] = { ":BDelete other<CR>", "close-all-but-current" },
-    ["d"] = { ":BDelete this<CR>", "delete-buffer" },
-    ["D"] = { ":BDelete all<CR>", "delete-all-buffers" },
+    ["C"] = { ":BufOnly<CR>", "close-all-but-current" },
+    ["d"] = { ":Bdelete<CR>", "delete-buffer" },
     ["f"] = { ":bfirst<CR>", "first-buffer" },
-    ["h"] = { ":BDelete hidden<CR>", "delete-hidden-buffer" },
-    ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "search-buffer-lines" },
-    ["L"] = { ":blast<CR>", "first-buffer" },
-    ["m"] = { ":delm!<CR>", "delete-marks" },
+    ["l"] = { ":blast<CR>", "first-buffer" },
+    ["m"] = { ":ReachOpen marks<CR>", "buffer-marks" },
+    ["M"] = { ":delm!<CR>", "delete-marks" },
     ["n"] = { ":bn<CR>", "next-buffer" },
     ["p"] = { ":bp<CR>", "prev-buffer" },
     ["r"] = { ":e<CR>", "refresh-buffer" },
     ["R"] = { ":bufdo :e<CR>", "refresh-loaded-buffers" },
-    ["s"] = { ":new<CR>", "new-empty-buffer-horizontally" },
-    ["t"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
-    ["u"] = { ":BDelete nameless<CR>", "delete-nameless-buffers" },
+    ["s"] = { ":Telescope current_buffer_fuzzy_find<CR>", "search-buffer-lines" },
+    ["t"] = { ":ReachOpen tabpages<CR>", "tabpages" },
     ["v"] = { ":vnew<CR>", "new-empty-buffer-vertically" },
-    ["w"] = { ":BDelete<CR>", "close-buffer-and-window" },
+    ["w"] = { ":Bwipeout<CR>", "close-buffer-and-window" },
   },
   -- }}}
   ----------------------------------------------------------------------
@@ -477,7 +474,8 @@ local leader_key_maps = {
     ["/"] = { ":Telescope command_history<CR>", "history" },
     [":"] = { ":Telescope commands<CR>", "commands" },
     ["a"] = { ":Telescope<CR>", "telescope-all-options" },
-    ["b"] = { ":Telescope builtin<CR>", "builtins" },
+    ["b"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
+    ["B"] = { ":Telescope builtin<CR>", "builtins" },
     ["c"] = { ":Telescope git_commits<CR>", "commits" },
     ["C"] = { ":Telescope git_bcommits<CR>", "buffer-commits" },
     ["d"] = { ":Telescope git_files<CR>", "git-files" },
@@ -649,7 +647,7 @@ local local_leader_key_maps = {
   ----------------------------------------------------------------------
 
   ----------------------------------------------------------------------
-  -- NOTE: buffers  {{{
+  -- NOTE: browse  {{{
   ----------------------------------------------------------------------
   ["b"] = {
     ["name"] = "+browse",
