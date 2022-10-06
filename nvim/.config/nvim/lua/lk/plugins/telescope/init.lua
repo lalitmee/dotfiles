@@ -181,7 +181,7 @@ telescope.setup({
   },
   pickers = {
     buffers = dropdown({
-      path_display = { "absolute", shorten = 2 },
+      path_display = { "smart" },
       previewer = false,
       sort_mru = true,
       sort_lastused = true,

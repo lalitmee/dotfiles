@@ -466,8 +466,14 @@ require("packer").startup({
 
     -- delete buffers without distubing layout
     use({
-      "kazhala/close-buffers.nvim",
-      cmd = { "BDelete", "BWipeout" },
+      "famiu/bufdelete.nvim",
+      cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
+    })
+
+    -- beautiful buffer switcher
+    use({
+      "toppair/reach.nvim",
+      config = conf("reach"),
     })
 
     -- auto pairs
