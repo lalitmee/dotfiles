@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 local fmt = string.format
 -- cfilter plugin allows filter down an existing quickfix list
--- vim.cmd([[packadd! cfilter]])
+vim.cmd([[packadd! cfilter]])
 
 -- function to return string for require plugins using path
 local function conf(name)
@@ -93,6 +93,7 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         use({
             "yamatsum/nvim-nonicons",
+            branch = "feat/lua",
             requires = { "kyazdani42/nvim-web-devicons" },
         })
 
@@ -111,11 +112,10 @@ require("packer").startup({
         --   },
         -- })
 
+        -- TODO: I may try to remove this in the future, I don't think I get anything
+        --       from this that's why I can remove this
         -- which-key
-        use({
-            -- "~/Desktop/Github/which-key.nvim",
-            "folke/which-key.nvim",
-        })
+        use({ "folke/which-key.nvim" })
 
         -- Colorizer for showing the colors
         use({ "NvChad/nvim-colorizer.lua" })
