@@ -14,7 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:UbuntuMono Nerd Font 10
-font pango:MonoLisa Nerd Font 9
+font pango:MonoLisa Nerd Font 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -53,7 +53,7 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
@@ -159,27 +159,27 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Caps_Lock mode "default"
-        bindsym $mod+r mode "default"
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Caps_Lock mode "default"
+    bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -190,8 +190,9 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
-        # i3bar_command /usr/bin/i3bar
+    position top
+    status_command i3status
+    # i3bar_command /usr/bin/i3bar
 }
 
 # show polybar
@@ -217,14 +218,26 @@ exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled"
 #-------------------------------------------------------------------------------
 #  NOTE: autostart applications {{{
 #-------------------------------------------------------------------------------
+# NOTE: feh (setting wallpapers)
+exec_always --no-startup-id feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*
+
+# NOTE: compositor
+exec --no-startup-id picom -CGb
+
 # NOTE: slack
 exec --no-startup-id i3-msg "exec slack"
+
+# NOTE: firefox
+exec --no-startup-id i3-msg "exec firefox"
+
+# NOTE: brave-browser
+exec --no-startup-id i3-msg "exec brave-browser"
 
 # NOTE: terminal
 exec --no-startup-id i3-msg "exec kitty"
 
-# NOTE: feh - wallpapers
-exec_always --no-startup-id feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*
+# NOTE: spotify
+exec --no-startup-id i3-msg "exec flatpak run com.spotify.Client"
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -232,7 +245,10 @@ exec_always --no-startup-id feh -FD3600 --randomize --bg-fill $HOME/Desktop/Gith
 #  NOTE: assignments {{{
 #-------------------------------------------------------------------------------
 assign [class="Slack"] $ws1
+assign [class="Brave-browser"] $ws2
 assign [class="kitty"] $ws3
+assign [class="firefox"] $ws4
+assign [class="Spotify"] $ws5
 # }}}
 #-------------------------------------------------------------------------------
 
