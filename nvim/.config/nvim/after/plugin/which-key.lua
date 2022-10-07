@@ -24,15 +24,14 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     -- NOTE: direct mappings {{{
     ----------------------------------------------------------------------
-    ["*"] = "vimgrep-under-cursor",
     [":"] = { ":Telescope commands<CR>", "commands" },
     ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
     ["<TAB>"] = { ":tabnext<CR>", "next-tab" },
     ["/"] = { ":Telescope live_grep<CR>", "search-project" },
-    ["1"] = { ":ToggleTerm1<CR>", "terminal-1" },
-    ["2"] = { ":ToggleTerm2<CR>", "terminal-2" },
-    ["3"] = { ":ToggleTerm3<CR>", "terminal-3" },
-    ["4"] = { ":ToggleTerm4<CR>", "terminal-4" },
+    ["1"] = { ":HarpoonGotoTerm 1<CR>", "terminal-1" },
+    ["2"] = { ":HarpoonGotoTerm 2<CR>", "terminal-2" },
+    ["3"] = { ":HarpoonGotoTerm 3<CR>", "terminal-3" },
+    ["4"] = { ":HarpoonGotoTerm 4<CR>", "terminal-4" },
     ["x"] = { ":q<CR>", "close-window" },
     -- }}}
     ----------------------------------------------------------------------
@@ -617,15 +616,15 @@ local local_leader_key_maps = {
     ----------------------------------------------------------------------
     -- NOTE: harpoon go to file {{{
     ----------------------------------------------------------------------
-    ["1"] = { ":HarpoonGotoFile1<CR>", "goto-file-4" },
-    ["2"] = { ":HarpoonGotoFile2<CR>", "goto-file-1" },
-    ["3"] = { ":HarpoonGotoFile3<CR>", "goto-file-2" },
-    ["4"] = { ":HarpoonGotoFile4<CR>", "goto-file-3" },
-    ["5"] = { ":HarpoonGotoFile5<CR>", "goto-file-4" },
-    ["6"] = { ":HarpoonGotoFile6<CR>", "goto-file-6" },
-    ["7"] = { ":HarpoonGotoFile7<CR>", "goto-file-7" },
-    ["8"] = { ":HarpoonGotoFile8<CR>", "goto-file-8" },
-    ["9"] = { ":HarpoonGotoFile9<CR>", "goto-file-9" },
+    ["1"] = { ":HarpoonGotoFile 1<CR>", "goto-file-1" },
+    ["2"] = { ":HarpoonGotoFile 2<CR>", "goto-file-2" },
+    ["3"] = { ":HarpoonGotoFile 3<CR>", "goto-file-3" },
+    ["4"] = { ":HarpoonGotoFile 4<CR>", "goto-file-4" },
+    ["5"] = { ":HarpoonGotoFile 5<CR>", "goto-file-5" },
+    ["6"] = { ":HarpoonGotoFile 6<CR>", "goto-file-6" },
+    ["7"] = { ":HarpoonGotoFile 7<CR>", "goto-file-7" },
+    ["8"] = { ":HarpoonGotoFile 8<CR>", "goto-file-8" },
+    ["9"] = { ":HarpoonGotoFile 9<CR>", "goto-file-9" },
     -- }}}
     ----------------------------------------------------------------------
 
@@ -650,8 +649,10 @@ local local_leader_key_maps = {
     ["f"] = {
         ["name"] = "+files",
         ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
-        ["r"] = { ":HarpoonRemoveFile<CR>", "remove-file" },
         ["m"] = { ":ToggleHarpoonMenu<CR>", "quick-menu" },
+        ["n"] = { ":HarpoonNextMark<CR>", "next-mark" },
+        ["p"] = { ":HarpoonPrevMark<CR>", "prev-mark" },
+        ["r"] = { ":HarpoonRemoveFile<CR>", "remove-file" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -778,10 +779,7 @@ local local_leader_key_maps = {
     -- NOTE: treesitter {{{
     ----------------------------------------------------------------------
     ["t"] = {
-        ["name"] = "+treesitter/+harppon",
-        ["1"] = { ":HarpoonGotoTerm1<CR>", "terminal-1" },
-        ["2"] = { ":HarpoonGotoTerm2<CR>", "terminal-2" },
-        ["3"] = { ":HarpoonGotoTerm3<CR>", "terminal-3" },
+        ["name"] = "+treesitter",
         ["c"] = "doc-node-at-cursor",
         ["v"] = "visual-selection",
         ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
