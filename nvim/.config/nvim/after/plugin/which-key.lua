@@ -85,12 +85,11 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
-    -- NOTE: c is for telescope with lspconfig {{{
+    -- NOTE: c is for code with lspconfig {{{
     ----------------------------------------------------------------------
     ["c"] = {
         ["name"] = "+telescope-lsp",
-        ["a"] = { ":Telescope lsp_code_actions<CR>", "code-action" },
-        ["c"] = { ":Telescope lsp_range_code_actions<CR>", "range-code-action" },
+        ["a"] = { ":LspCodeActions<CR>", "code-action" },
         ["d"] = { ":Telescope lsp_definitions<CR>", "definitions" },
         ["e"] = { ":Telescope diagnostic<CR>", "diagnostic" },
         ["f"] = { ":Telescope lsp_references<CR>", "references" },
@@ -344,8 +343,7 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["m"] = {
         ["name"] = "+major-mode",
-        ["a"] = { ":Telescope lsp_code_actions<CR>", "code-actions" },
-        ["A"] = { ":Telescope lsp_range_code_actions<CR>", "lsp-range-code-actions" },
+        ["a"] = { ":LspCodeActions<CR>", "code-actions" },
         ["c"] = { ":MakeTags<CR>", "make-ctags" },
         ["d"] = { ":Telescope lsp_definitions<CR>", "lsp-definitions" },
         ["e"] = { ":Telescope diagnostics<CR>", "lsp-diagnostics" },

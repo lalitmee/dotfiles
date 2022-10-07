@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 local fmt = string.format
 -- cfilter plugin allows filter down an existing quickfix list
-vim.cmd([[packadd! cfilter]])
+-- vim.cmd([[packadd! cfilter]])
 
 -- function to return string for require plugins using path
 local function conf(name)
@@ -61,6 +61,9 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: UI and Beautify {{{
         ----------------------------------------------------------------------------
+        -- highlights of unused functions, variables, parameters, and more
+        use({ "zbirenbaum/neodim" })
+
         -- improve default neovim UI
         use({ "stevearc/dressing.nvim" })
 
