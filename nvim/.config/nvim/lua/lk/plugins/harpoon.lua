@@ -6,9 +6,10 @@ end
 local command = lk.command
 
 harpoon.setup({
+    enter_on_sendcmd = true,
+    mark_branch = true,
     save_on_toggle = true,
     tmux_autoclose_windows = true,
-    mark_branch = true,
 })
 
 ----------------------------------------------------------------------
