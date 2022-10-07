@@ -41,6 +41,10 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+# # Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -199,5 +203,8 @@ default_floating_border pixel 1
 exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled" 1
 # }}}
 #-------------------------------------------------------------------------------
+
+# Suspend
+bindsym $mod+Shift+period exec systemctl suspend
 
 # vim:fdm=marker
