@@ -160,6 +160,7 @@ map("i", "kj", [[<Esc>]], map_opts)
 -- NOTE: terminal {{{
 ----------------------------------------------------------------------
 -- pasting from registers in terminal
+nnoremap([[<C-\>]], "<cmd>HarpoonGotoTerm 1<CR>")
 map("t", "<expr>", [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], map_opts)
 -- }}}
 ----------------------------------------------------------------------
