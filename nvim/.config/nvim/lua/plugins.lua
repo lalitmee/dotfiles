@@ -98,14 +98,14 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: colorschemes {{{
         ----------------------------------------------------------------------------
-        -- local_use({
-        --     "cobalt2.nvim",
-        --     requires = "tjdevries/colorbuddy.nvim",
-        -- })
-        use({
-            "catppuccin/nvim",
-            as = "catppuccin",
+        local_use({
+            "cobalt2.nvim",
+            requires = "tjdevries/colorbuddy.nvim",
         })
+        -- use({
+        --     "catppuccin/nvim",
+        --     as = "catppuccin",
+        -- })
         -- }}}
         ----------------------------------------------------------------------------
 
