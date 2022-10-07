@@ -521,6 +521,7 @@ eval "$(pyenv init --path)"
 # -------------------------------------------------------------------
 # great functions for fzf from
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+[ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
 
 # fzf path settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
