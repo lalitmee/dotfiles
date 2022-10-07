@@ -593,7 +593,6 @@ require("packer").startup({
         use({
             "lewis6991/gitsigns.nvim",
             requires = { "nvim-lua/plenary.nvim" },
-            event = { "BufRead" },
         })
 
         -- git lens in vim
