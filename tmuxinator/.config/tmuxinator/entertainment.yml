@@ -5,4 +5,3 @@ root: ~/
 
 windows:
   - Editor: ls
-  - Browser: brave-browser

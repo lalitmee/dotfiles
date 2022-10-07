@@ -7,6 +7,4 @@ windows:
   - Editor: gst
   - Server: ~/Desktop/koinearth/ngagen/ngagen-webapp-service-nextjs && npd
   - Music: cmus
-  - Brave: brave-browser
-  - Firefox: firefox
   - Extras: echo # do extras here

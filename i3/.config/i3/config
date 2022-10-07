@@ -238,6 +238,9 @@ exec --no-startup-id i3-msg "exec kitty"
 
 # NOTE: spotify
 exec --no-startup-id i3-msg "exec flatpak run com.spotify.Client"
+
+# NOTE: battery notifications
+exec --no-startup-id i3-msg "exec cbatticon -l 40 -r 20"
 # }}}
 #-------------------------------------------------------------------------------
 
