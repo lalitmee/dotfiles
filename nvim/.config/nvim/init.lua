@@ -6,12 +6,12 @@
 -- impatient
 pcall(require, "impatient")
 pcall(function()
-  require("impatient").enable_profile()
+    require("impatient").enable_profile()
 end)
 
 -- install packer if not installed
 if require("lk/first_load")() then
-  return
+    return
 end
 
 ----------------------------------------------------------------------
@@ -28,11 +28,11 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 ----------------------------------------------------------------------
 local ok, reload = pcall(require, "plenary.reload")
 RELOAD = ok and reload.reload_module or function(...)
-  return ...
+    return ...
 end
 function R(name)
-  RELOAD(name)
-  return require(name)
+    RELOAD(name)
+    return require(name)
 end
 
 -- packer plugins
@@ -41,8 +41,8 @@ R("plugins")
 -- globals
 R("lk/globals")
 
--- core
-R("lk/core")
+-- -- core
+-- R("lk/core")
 
 -- disable builtin
 R("lk/disable_builtin")
