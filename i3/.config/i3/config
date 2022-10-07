@@ -222,7 +222,7 @@ exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled"
 exec_always --no-startup-id feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*
 
 # NOTE: compositor
-exec --no-startup-id picom -CGb
+exec --no-startup-id picom
 
 # NOTE: slack
 exec --no-startup-id i3-msg "exec slack"
