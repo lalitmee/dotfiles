@@ -3,14 +3,12 @@ if not ok then
     return
 end
 
+local nonicon_extension = require("nvim-nonicons.extentions.mason")
+
 mason.setup({
     ui = {
         border = "rounded",
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗",
-        },
+        icons = nonicon_extension.icons,
     },
 })
 
