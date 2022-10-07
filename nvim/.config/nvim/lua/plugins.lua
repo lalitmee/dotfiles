@@ -33,7 +33,7 @@ require("packer").startup({
         use({ "wbthomason/packer.nvim" })
         use({ "lewis6991/impatient.nvim" })
 
-        local tweek = true
+        local tweek = false
         if tweek then
             -- Profile startup time
             use({
