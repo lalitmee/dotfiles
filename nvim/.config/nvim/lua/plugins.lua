@@ -98,9 +98,13 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: colorschemes {{{
         ----------------------------------------------------------------------------
-        local_use({
-            "cobalt2.nvim",
-            requires = "tjdevries/colorbuddy.nvim",
+        -- local_use({
+        --     "cobalt2.nvim",
+        --     requires = "tjdevries/colorbuddy.nvim",
+        -- })
+        use({
+            "catppuccin/nvim",
+            as = "catppuccin",
         })
         -- }}}
         ----------------------------------------------------------------------------
@@ -355,6 +359,8 @@ require("packer").startup({
                 "HarpoonGotoTerm1",
                 "HarpoonGotoTerm2",
                 "HarpoonGotoTerm3",
+                "HarpoonNextMark",
+                "HarpoonPrevMark",
                 "HarpoonRemoveFile",
                 "ToggleHarpoonMenu",
             },

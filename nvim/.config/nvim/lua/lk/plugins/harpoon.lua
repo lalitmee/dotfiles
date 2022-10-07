@@ -1,13 +1,13 @@
 local ok, harpoon = lk.require("harpoon")
 if not ok then
-  return
+    return
 end
 
 local command = lk.command
 
 harpoon.setup({
-  save_on_toggle = true,
-  tmux_autoclose_windows = true,
+    save_on_toggle = true,
+    tmux_autoclose_windows = true,
 })
 
 ----------------------------------------------------------------------
@@ -20,68 +20,76 @@ require("telescope").load_extension("harpoon")
 ----------------------------------------------------------------------
 -- NOTE: harpoon commands {{{
 ----------------------------------------------------------------------
+command("HarpoonNextMark", function()
+    require("harpoon.ui").nav_next()
+end, {})
+
+command("HarpoonPrevMark", function()
+    require("harpoon.ui").nav_prev()
+end, {})
+
 command("HarpoonGotoFile1", function()
-  require("harpoon.ui").nav_file(1)
+    require("harpoon.ui").nav_file(1)
 end, {})
 
 command("HarpoonGotoFile2", function()
-  require("harpoon.ui").nav_file(2)
+    require("harpoon.ui").nav_file(2)
 end, {})
 
 command("HarpoonGotoFile3", function()
-  require("harpoon.ui").nav_file(3)
+    require("harpoon.ui").nav_file(3)
 end, {})
 
 command("HarpoonGotoFile4", function()
-  require("harpoon.ui").nav_file(4)
+    require("harpoon.ui").nav_file(4)
 end, {})
 
 command("HarpoonGotoFile5", function()
-  require("harpoon.ui").nav_file(5)
+    require("harpoon.ui").nav_file(5)
 end, {})
 
 command("HarpoonGotoFile6", function()
-  require("harpoon.ui").nav_file(6)
+    require("harpoon.ui").nav_file(6)
 end, {})
 
 command("HarpoonGotoFile7", function()
-  require("harpoon.ui").nav_file(7)
+    require("harpoon.ui").nav_file(7)
 end, {})
 
 command("HarpoonGotoFile8", function()
-  require("harpoon.ui").nav_file(8)
+    require("harpoon.ui").nav_file(8)
 end, {})
 
 command("HarpoonGotoFile9", function()
-  require("harpoon.ui").nav_file(9)
+    require("harpoon.ui").nav_file(9)
 end, {})
 
 command("HarpoonGotoFile10", function()
-  require("harpoon.ui").nav_file(10)
+    require("harpoon.ui").nav_file(10)
 end, {})
 
 command("HarpoonAddFile", function()
-  require("harpoon.mark").add_file()
+    require("harpoon.mark").add_file()
 end, {})
 
 command("HarpoonRemoveFile", function()
-  require("harpoon.mark").rm_file()
+    require("harpoon.mark").rm_file()
 end, {})
 
 command("ToggleHarpoonMenu", function()
-  require("harpoon.ui").toggle_quick_menu()
+    require("harpoon.ui").toggle_quick_menu()
 end, {})
 
 command("HarpoonGotoTerm1", function()
-  require("harpoon.term").gotoTerminal(1)
+    require("harpoon.term").gotoTerminal(1)
 end, {})
 
 command("HarpoonGotoTerm2", function()
-  require("harpoon.term").gotoTerminal(2)
+    require("harpoon.term").gotoTerminal(2)
 end, {})
 
 command("HarpoonGotoTerm3", function()
-  require("harpoon.term").gotoTerminal(3)
+    require("harpoon.term").gotoTerminal(3)
 end, {})
 -- }}}
 ----------------------------------------------------------------------
