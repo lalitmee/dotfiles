@@ -211,9 +211,6 @@ require("packer").startup({
             config = conf("eyeliner"),
         })
 
-        -- easymotion using lua
-        use({ "phaazon/hop.nvim" })
-
         -- Navigations
         use({
             "ThePrimeagen/harpoon",
