@@ -1,0 +1,21 @@
+#!/bin/bash
+bat_files="/sys/class/power_supply/BAT0"
+bat_status=$(cat "${bat_files}/status")
+capacity=$(cat "${bat_files}/capacity")
+echo "${capacity}"
+
+if [[ ${bat_status} == "Discharging" && ${capacity} -le 40 ]]; then
+    echo "Battery alert - ${capacity}%"
+    notify-send \
+        --icon=/usr/local/share/icons/battery_low.png \
+        "Low battery" \
+        "Only ${capacity}% battery remaining"
+fi
+
+if [[ ${bat_status} == "Charging" && ${capacity} -ge 95 ]]; then
+    echo "Battery alert - ${capacity}%"
+    notify-send \
+        --icon=/usr/local/share/icons/battery_full.png \
+        "Full Battery" \
+        "${capacity}% battery charged"
+fi

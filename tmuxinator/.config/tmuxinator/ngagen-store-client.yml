@@ -7,6 +7,4 @@ windows:
   - Editor: ls
   - Server: npd
   - Caddy: cd ~/Desktop/koinearth/ngagen/caddyfiles/store-client && caddy run
-  - Browser: brave-browser
-  - Side-Browser: firefox
   - Extra: quote
