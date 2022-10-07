@@ -32,11 +32,10 @@ require("packer").startup({
         --------------------------------------------------------------------------------
         use({
             "wbthomason/packer.nvim",
-            config = conf("packer"),
         })
         use({ "lewis6991/impatient.nvim" })
 
-        local tweek = true
+        local tweek = false
         if tweek then
             -- Profile startup time
             use({
@@ -67,21 +66,18 @@ require("packer").startup({
         -- beautiful screenshots of the code
         use({
             "cameronviner/carbon-now-sh.nvim",
-            config = conf("carbon-now"),
             cmd = { "CarbonNow" },
         })
 
         -- improve default neovim UI
         use({
             "stevearc/dressing.nvim",
-            config = conf("dressing"),
         })
 
         -- NOTE: I think I don't even see this sometimes
         -- -- decorated scrollbar
         -- use({
         --   "lewis6991/satellite.nvim",
-        --   config = conf("satellite"),
         -- })
 
         ----------------------------------------------------------------------------
@@ -90,7 +86,6 @@ require("packer").startup({
         use({
             "rcarriga/nvim-notify",
             module = "vim",
-            config = conf("notify"),
         })
         -- }}}
         ----------------------------------------------------------------------------
@@ -116,7 +111,6 @@ require("packer").startup({
             "yamatsum/nvim-nonicons",
             requires = { "kyazdani42/nvim-web-devicons" },
             event = { "BufRead" },
-            config = conf("devicons"),
         })
 
         -- }}}
@@ -129,7 +123,6 @@ require("packer").startup({
         -- use({
         --   "folke/noice.nvim",
         --   event = "VimEnter",
-        --   config = conf("noice"),
         --   requires = {
         --     "MunifTanjim/nui.nvim",
         --   },
@@ -138,7 +131,6 @@ require("packer").startup({
         -- highlighting of todo comments
         use({
             "folke/todo-comments.nvim",
-            config = conf("todo-comments"),
             requires = { "nvim-lua/plenary.nvim" },
         })
 
@@ -146,31 +138,11 @@ require("packer").startup({
         use({
             -- "~/Desktop/Github/which-key.nvim",
             "folke/which-key.nvim",
-            config = conf("which-key"),
-        })
-
-        -- use({
-        --   "anuvyklack/hydra.nvim",
-        --   requires = "anuvyklack/keymap-layer.nvim",
-        -- })
-
-        -- session management
-        use({
-            "rmagatti/session-lens",
-            after = { "telescope.nvim", "auto-session" },
-            cmd = { "SearchSession" },
-            requires = {
-                "rmagatti/auto-session",
-                event = { "VimEnter" },
-                config = conf("auto-session"),
-            },
-            config = conf("session-lens"),
         })
 
         -- Colorizer for showing the colors
         use({
             "NvChad/nvim-colorizer.lua",
-            config = conf("colorizer"),
             cmd = {
                 "ColorizerToggle",
                 "ColorizerAttachToBuffer",
@@ -184,19 +156,16 @@ require("packer").startup({
         use({
             "kevinhwang91/nvim-bqf",
             ft = { "qf" },
-            config = conf("nvim-bqf"),
         })
 
         -- prettify quickfix windows for neovim
         use({
             "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-            config = conf("nvim-pqf"),
         })
 
         -- makes quickfix list editable
         use({
             "gabrielpoca/replacer.nvim",
-            config = conf("replacer"),
             cmd = {
                 "ReplacerRun",
                 "ReplacerRunF",
@@ -219,13 +188,11 @@ require("packer").startup({
         -- keep the cursor where it is
         use({
             "gbprod/stay-in-place.nvim",
-            config = conf("stay-in-place"),
         })
 
         -- icon picker for neovim
         use({
             "ziontee113/icon-picker.nvim",
-            config = conf("icon-picker"),
             cmd = {
                 -- normal mode
                 "PickEverything",
@@ -250,21 +217,18 @@ require("packer").startup({
         -- color picker for neovim
         use({
             "ziontee113/color-picker.nvim",
-            config = conf("color-picker"),
             cmd = { "PickColor" },
         })
 
         -- scratch files in `/tmp` folder
         use({
             "m-demare/attempt.nvim",
-            config = conf("attempt"),
             cmd = { "AttemptNew", "AttemptNewExtension" },
         })
 
         -- cycle folds
         use({
             "jghauser/fold-cycle.nvim",
-            config = conf("fold-cycle"),
             keys = { "n", "<CR>" },
             cmd = {
                 "FoldOpen",
@@ -278,7 +242,6 @@ require("packer").startup({
         -- rooter for neovim
         use({
             "ahmedkhalf/project.nvim",
-            config = conf("project"),
         })
 
         -- wakatime for vim
@@ -290,7 +253,6 @@ require("packer").startup({
         -- yank history after paste with `<C-n>` and `<C-p>`
         use({
             "gbprod/yanky.nvim",
-            config = conf("yanky"),
             requires = { "nvim-telescope/telescope.nvim" },
         })
 
@@ -300,7 +262,6 @@ require("packer").startup({
         -- better substitute
         use({
             "gbprod/substitute.nvim",
-            config = conf("substitute"),
         })
 
         -- interactively swap so many things
@@ -315,7 +276,6 @@ require("packer").startup({
         -- search and replace in the whole project
         use({
             "nvim-pack/nvim-spectre",
-            config = conf("spectre"),
         })
 
         -- display search matches
@@ -338,7 +298,6 @@ require("packer").startup({
         -- easymotion using lua
         use({
             "phaazon/hop.nvim",
-            config = conf("hop"),
         })
 
         -- Navigations
@@ -467,7 +426,6 @@ require("packer").startup({
                 { "n", "zz" },
                 { "n", "zb" },
             },
-            config = conf("neoscroll"),
         })
 
         -- delete buffers without distubing layout
@@ -479,7 +437,6 @@ require("packer").startup({
         -- beautiful buffer switcher
         use({
             "toppair/reach.nvim",
-            config = conf("reach"),
         })
 
         -- auto pairs
@@ -493,7 +450,6 @@ require("packer").startup({
                 { "i", '"' },
                 { "i", "`" },
             },
-            config = conf("autopairs"),
         })
 
         -- extra text objects
@@ -520,7 +476,6 @@ require("packer").startup({
         -- navigate and splits
         use({
             "numToStr/Navigator.nvim",
-            config = conf("navigator"),
             cmd = {
                 "NavigateLeft",
                 "NavigateRight",
@@ -533,21 +488,18 @@ require("packer").startup({
         use({
             "kevinhwang91/nvim-ufo",
             requires = "kevinhwang91/promise-async",
-            config = conf("ufo"),
         })
 
         -- nice fold text
         use({
             "anuvyklack/pretty-fold.nvim",
             event = { "BufEnter" },
-            config = conf("pretty-fold"),
         })
 
         -- commenting
         use({
             "numToStr/Comment.nvim",
             event = "BufRead",
-            config = conf("comment"),
         })
         -- }}}
         ------------------------------------------------------------------------
@@ -562,13 +514,11 @@ require("packer").startup({
             "michaelb/sniprun",
             run = "bash ./install.sh",
             cmd = { "SnipRun" },
-            config = conf("sniprun"),
         })
 
         -- overseer.nvim: task runner and job management
         use({
             "stevearc/overseer.nvim",
-            config = conf("overseer"),
         })
 
         ------------------------------------------------------------------------
@@ -582,7 +532,6 @@ require("packer").startup({
                 "honza/vim-snippets",
                 "molleweide/LuaSnip-snippets.nvim",
             },
-            config = conf("luasnip"),
         })
         -- }}}
         ------------------------------------------------------------------------
@@ -603,7 +552,6 @@ require("packer").startup({
             -- "mhartington/formatter.nvim",
             "Hrle97/formatter.nvim",
             branch = "fix/shellescape",
-            config = conf("formatter"),
         })
 
         -- Tabularize for Vim
@@ -622,7 +570,6 @@ require("packer").startup({
         use({
             "williamboman/mason-lspconfig.nvim",
             requires = { "williamboman/mason.nvim" },
-            config = conf("mason"),
         })
         use({
             "neovim/nvim-lspconfig",
@@ -633,7 +580,6 @@ require("packer").startup({
                 {
                     "j-hui/fidget.nvim",
                     after = "nvim-lspconfig",
-                    config = conf("fidget"),
                 },
                 {
                     "onsails/lspkind.nvim",
@@ -641,7 +587,6 @@ require("packer").startup({
                 },
                 {
                     "hrsh7th/nvim-cmp",
-                    config = conf("nvim-cmp"),
                     event = { "InsertEnter", "CmdlineEnter" },
                     requires = {
                         { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
@@ -674,7 +619,7 @@ require("packer").startup({
         ------------------------------------------------------------------------
         use({
             "nvim-treesitter/nvim-treesitter",
-            ft = vim.g.enable_treesitter_ft,
+            -- ft = vim.g.enable_treesitter_ft,
             event = { "BufRead", "BufNewFile" },
             config = conf("treesitter"),
             run = ":TSUpdate",
@@ -706,7 +651,6 @@ require("packer").startup({
         -- annotations using treesitter
         use({
             "danymat/neogen",
-            config = conf("neogen"),
             cmd = { "Neogen" },
         })
         -- }}}
@@ -781,7 +725,6 @@ require("packer").startup({
             "TimUntersberger/neogit",
             requires = { "nvim-lua/plenary.nvim" },
             cmd = { "Neogit" },
-            config = conf("neogit"),
         })
 
         -- gitsigns in lua
@@ -789,14 +732,12 @@ require("packer").startup({
             "lewis6991/gitsigns.nvim",
             requires = { "nvim-lua/plenary.nvim" },
             event = { "BufRead" },
-            config = conf("gitsigns"),
         })
 
         -- git lens in vim
         use({
             "sindrets/diffview.nvim",
             requires = { "nvim-lua/plenary.nvim" },
-            config = conf("diffview"),
             cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         })
         -- }}}
@@ -809,7 +750,6 @@ require("packer").startup({
         use({
             "nvim-lualine/lualine.nvim",
             after = "nvim-web-devicons",
-            config = conf("lualine"),
         })
 
         -- winbar component
@@ -835,7 +775,6 @@ require("packer").startup({
         -- abbreviations
         use({
             "tpope/vim-abolish",
-            config = conf("abolish"),
         })
 
         -- repeat using `.`
@@ -846,7 +785,6 @@ require("packer").startup({
 
         use({
             "kylechui/nvim-surround",
-            config = conf("nvim-surround"),
         })
 
         -- debug things
@@ -879,7 +817,6 @@ require("packer").startup({
             requires = {
                 "MunifTanjim/nui.nvim",
             },
-            config = conf("neo-tree"),
         })
         -- }}}
         ------------------------------------------------------------------------
@@ -890,7 +827,6 @@ require("packer").startup({
         -- Float Terminal
         use({
             "akinsho/nvim-toggleterm.lua",
-            config = conf("toggleterm"),
             cmd = {
                 "ToggleTerm",
                 "ToggleTerm1",
@@ -909,7 +845,6 @@ require("packer").startup({
         ----------------------------------------------------------------------
         local_use({
             "browse.nvim",
-            config = conf("browse"),
             cmd = {
                 "Browse",
                 "BrowseBookmarks",
@@ -963,7 +898,6 @@ require("packer").startup({
         -- auto add list markers to the next lines
         use({
             "gaoDean/autolist.nvim",
-            config = conf("autolist"),
         })
 
         -- similar to orgmode but with neovim in lua
@@ -971,7 +905,6 @@ require("packer").startup({
             "nvim-neorg/neorg",
             ft = "norg",
             cmd = { "Neorg" },
-            config = conf("neorg"),
             requires = {
                 { "nvim-neorg/neorg-telescope" },
             },
