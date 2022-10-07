@@ -220,18 +220,8 @@ require("packer").startup({
             config = conf("harpoon"),
             cmd = {
                 "HarpoonAddFile",
-                "HarpoonGotoFile1",
-                "HarpoonGotoFile2",
-                "HarpoonGotoFile3",
-                "HarpoonGotoFile4",
-                "HarpoonGotoFile5",
-                "HarpoonGotoFile6",
-                "HarpoonGotoFile7",
-                "HarpoonGotoFile8",
-                "HarpoonGotoFile9",
-                "HarpoonGotoTerm1",
-                "HarpoonGotoTerm2",
-                "HarpoonGotoTerm3",
+                "HarpoonGotoFile",
+                "HarpoonGotoTerm",
                 "HarpoonNextMark",
                 "HarpoonPrevMark",
                 "HarpoonRemoveFile",
@@ -670,14 +660,6 @@ require("packer").startup({
                 "MunifTanjim/nui.nvim",
             },
         })
-        -- }}}
-        ------------------------------------------------------------------------
-
-        ------------------------------------------------------------------------
-        -- NOTE: TERMINAL {{{
-        ------------------------------------------------------------------------
-        -- Float Terminal
-        use({ "akinsho/nvim-toggleterm.lua" })
         -- }}}
         ------------------------------------------------------------------------
 
