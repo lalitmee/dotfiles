@@ -57,6 +57,10 @@ bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
+
+# start ulauncher
+bindsym Ctrl+space exec ulauncher
+
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -155,7 +159,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -165,10 +169,10 @@ mode "resize" {
     # Pressing right will grow the window’s width.
     # Pressing up will shrink the window’s height.
     # Pressing down will grow the window’s height.
-    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym l resize shrink width 10 px or 10 ppt
     bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink height 10 px or 10 ppt
-    bindsym semicolon resize grow width 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym h resize grow width 10 px or 10 ppt
 
     # same bindings, but for the arrow keys
     bindsym Left resize shrink width 10 px or 10 ppt
@@ -203,21 +207,32 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #-------------------------------------------------------------------------------
 #  NOTE: title bar {{{
 #-------------------------------------------------------------------------------
+# Or any other numeric value for "0"
+for_window [class=.*] border pixel 2
 default_border pixel 1
 default_floating_border pixel 1
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: touchpad {{{
-#-------------------------------------------------------------------------------
-exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled" 1
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
 #  NOTE: autostart applications {{{
 #-------------------------------------------------------------------------------
+# NOTE: feh
+exec --no-startup-id i3-msg "exec feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*"
+
+# NOTE: xset
+exec --no-startup-id xset r rate 350 30
+
+# NOTE: touchpad
+exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled" 1
+
+# NOTE: picom
+# exec_always --no-startup-id picom --experimental-backends --blur-method="box"
+exec --no-startup-id picom
+
+# NOTE: cbatticon
+exec --no-startup-id i3-msg "exec cbatticon -l 40 -r 20"
+
 # NOTE: slack
 exec --no-startup-id i3-msg "exec slack"
 
