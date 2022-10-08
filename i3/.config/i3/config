@@ -189,14 +189,14 @@ bindsym $mod+r mode "resize"
 #-------------------------------------------------------------------------------
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    position top
-    status_command i3status
-    # i3bar_command /usr/bin/i3bar
-}
+# bar {
+#     position top
+#     status_command i3status
+#     # i3bar_command /usr/bin/i3bar
+# }
 
 # show polybar
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -251,7 +251,10 @@ assign [class="Slack"] $ws1
 assign [class="Brave-browser"] $ws2
 assign [class="kitty"] $ws3
 assign [class="firefox"] $ws4
-assign [class="Spotify"] $ws5
+
+# NOTE: spotify doesn't work with `assign`
+# assign [class="Spotify"] $ws5
+for_window [class="^Spotify"] move to workspace $ws5
 # }}}
 #-------------------------------------------------------------------------------
 
