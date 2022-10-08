@@ -192,7 +192,7 @@ bindsym $mod+r mode "resize"
 # bar {
 #     position top
 #     status_command i3status
-#     # i3bar_command /usr/bin/i3bar
+#     status_command i3blocks
 # }
 
 # show polybar
@@ -218,12 +218,6 @@ exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled"
 #-------------------------------------------------------------------------------
 #  NOTE: autostart applications {{{
 #-------------------------------------------------------------------------------
-# NOTE: feh (setting wallpapers)
-exec_always --no-startup-id feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*
-
-# NOTE: compositor
-exec --no-startup-id picom
-
 # NOTE: slack
 exec --no-startup-id i3-msg "exec slack"
 
@@ -238,9 +232,6 @@ exec --no-startup-id i3-msg "exec kitty"
 
 # NOTE: spotify
 exec --no-startup-id i3-msg "exec flatpak run com.spotify.Client"
-
-# NOTE: battery notifications
-exec --no-startup-id i3-msg "exec cbatticon -l 40 -r 20"
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -263,5 +254,13 @@ bindsym $mod+Shift+period exec systemctl suspend
 
 # i3lock
 bindsym $mod+Shift+x exec i3lock
+
+#-------------------------------------------------------------------------------
+#  NOTE: gaps {{{
+#-------------------------------------------------------------------------------
+gaps inner 10
+# }}}
+#-------------------------------------------------------------------------------
+
 
 # vim:fdm=marker
