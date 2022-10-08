@@ -12,7 +12,7 @@
 " set guifont=MesloLGM\ Nerd\ Font\ Mono:h11
 " set guifont=Monaco:h11
 " set guifont=MonoLisa:h11
-set guifont=MonoLisa\ Nerd\ Font:h11
+set guifont=MonoLisa\ Nerd\ Font:h8
 " set guifont=Monofur\ Nerd\ Font\ Mono:h12
 " set guifont=Operator\ Mono\ Book:h11
 " set guifont=Operator\ Mono\ Lig\ Book:h11
