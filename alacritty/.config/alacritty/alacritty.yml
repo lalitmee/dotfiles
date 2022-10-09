@@ -5,7 +5,7 @@
 # set by alacritty itself.
 env:
   TERM: xterm-256color
-  WINIT_X11_SCALE_FACTOR: '1.0'
+  WINIT_X11_SCALE_FACTOR: "1.0"
 
 window:
   # Window dimensions (changes require restart)
@@ -77,93 +77,25 @@ window:
     # scrollback is enabled (history > 0).
     multiplier: 3
 
-  # Font configuration
+# Font configuration
 font:
   normal:
-    family: Operator Mono Nerd Font
-    style: Medium
+    family: CaskaydiaCove Nerd Font
+    style: Bold
 
   bold:
-    family: Operator Mono Nerd Font
+    family: CaskaydiaCove Nerd Font
     style: Bold
 
   italic:
-    family: Operator Mono Nerd Font
-    style: Medium Italic
+    family: OperatorMono Lig Book
+    style: Italic
 
   bold_italic:
-    family: Operator Mono Nerd Font
-    style: Bold Italic
+    family: CaskaydiaCove Nerd Font
+    style: Bolt Italic
 
-  # font:
-  #   normal:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Medium
-  #
-  #   bold:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Bold
-  #
-  #   italic:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Italic
-  #
-  #   bold_italic:
-  #     family: JetBrainsMono Nerd Font
-  #     style: Bold Italic
-
-  # font:
-  #   normal:
-  #     family: UbuntuMono Nerd Font
-  #     style: Regular
-
-  #   bold:
-  #     family: UbuntuMono Nerd Font
-  #     style: Bold
-
-  #   italic:
-  #     family: UbuntuMono Nerd Font
-  #     style: Italic
-
-  #   bold_italic:
-  #     family: UbuntuMono Nerd Font
-  #     style: Bold Italic
-
-  # font:
-  #   normal:
-  #     family: BlexMono Nerd Font
-  #     style: Medium
-
-  #   bold:
-  #     family: BlexMono Nerd Font
-  #     style: Bold
-
-  #   italic:
-  #     family: BlexMono Nerd Font
-  #     style: Medium Italic
-
-  #   bold_italic:
-  #     family: BlexMono Nerd Font
-  #     style: Bolt Italic
-
-  # font:
-  #   normal:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Bold
-
-  #   bold:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Bold
-
-  #   italic:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Italic
-
-  #   bold_italic:
-  #     family: CaskaydiaCove Nerd Font
-  #     style: Bolt Italic
-
-  size: 12
+  size: 11
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
@@ -197,46 +129,46 @@ draw_bold_text_with_bright_colors: true
 # Colors (Cobalt 2)
 colors:
   cursor:
-    text: '#fefff2'
-    cursor: '#f0cc09'
+    text: "#fefff2"
+    cursor: "#f0cc09"
 
   selection:
-    text: '#b5b5b5'
-    background: '#18354f'
+    text: "#b5b5b5"
+    background: "#18354f"
 
   primary:
-    background: '#193549'
-    foreground: '#ffffff'
+    background: "#193549"
+    foreground: "#ffffff"
 
   normal:
-    black: '#000000'
-    red: '#ff0000'
-    green: '#3AD900'
-    yellow: '#FFC600'
-    blue: '#00AAFF'
-    magenta: '#FF00FF'
-    cyan: '#80FCFF'
-    white: '#bbbbbb'
+    black: "#000000"
+    red: "#ff0000"
+    green: "#3AD900"
+    yellow: "#FFC600"
+    blue: "#00AAFF"
+    magenta: "#FF00FF"
+    cyan: "#80FCFF"
+    white: "#bbbbbb"
 
   bright:
-    black: '#555555'
-    red: '#FF628C'
-    green: '#88FF88'
-    yellow: '#F2ED7F'
-    blue: '#0088FF'
-    magenta: '#EE80E1'
-    cyan: '#6ae3fa'
-    white: '#ffffff'
+    black: "#555555"
+    red: "#FF628C"
+    green: "#88FF88"
+    yellow: "#F2ED7F"
+    blue: "#0088FF"
+    magenta: "#EE80E1"
+    cyan: "#6ae3fa"
+    white: "#ffffff"
 
   dim:
-    black: '#000000'
-    red: '#8c3336'
-    green: '#70b950'
-    yellow: '#FF9A00'
-    blue: '#0050A4'
-    magenta: '#FFA5F3'
-    cyan: '#668799'
-    white: '#9a9a9a'
+    black: "#000000"
+    red: "#8c3336"
+    green: "#70b950"
+    yellow: "#FF9A00"
+    blue: "#0050A4"
+    magenta: "#FFA5F3"
+    cyan: "#668799"
+    white: "#9a9a9a"
 
 ## Colors (Gruvbox dark)
 #colors:
@@ -619,7 +551,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-window.opacity: 0.98
+window.opacity: 0.9
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
