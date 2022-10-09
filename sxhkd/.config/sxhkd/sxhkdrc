@@ -7,23 +7,32 @@ super + Return
 super + shift + Return
     nemo
 
-#Rofi & dmenu
-super + shift + d
-   dmenu run
-
+#-------------------------------------------------------------------------------
+# NOTE: rofi/dmenu {{{
+#-------------------------------------------------------------------------------
 super + d
-    rofi -show drun -show-icons -font "Noto Sans 13"
+   dmenu_run
+
+super + o
+    rofi -show drun -show-icons -font "CaskaydiaCove Nerd Font 13"
 
 super + c
   clipmenu
 
-super + e
-    rofi -show emoji -modi emoji
-
 alt + p
     rofi -show
+#}}}
+#-------------------------------------------------------------------------------
 
-# Application Keybindings
+#-------------------------------------------------------------------------------
+# NOTE: applications {{{
+#-------------------------------------------------------------------------------
+super + shift + f
+    firefox
+
+super + shift + b
+    brave-browser
+
 ctrl + space
     ulauncher
 
@@ -32,8 +41,12 @@ alt + t
 
 ctrl + alt + n
     termite 'ncmpcpp' -e ncmpcpp
+#}}}
+#-------------------------------------------------------------------------------
 
-#Audio Keybindings
+#-------------------------------------------------------------------------------
+# NOTE: audio {{{
+#-------------------------------------------------------------------------------
 XF86AudioPlay
     playerctl play-pause
 
@@ -57,9 +70,12 @@ XF86AudioStop
 
 alt + {h,j,k,l}
    mpc {prev,next,play,pause}
+#}}}
+#-------------------------------------------------------------------------------
 
-#i3 Specific bindings
-
+#-------------------------------------------------------------------------------
+# NOTE: i3 {{{
+#-------------------------------------------------------------------------------
 super + {1-9,0}
     i3-msg workspace {1-9,10}
 
@@ -136,5 +152,7 @@ super + shift + period
 
 super + shift + x
     systemctl i3lock
+#}}}
+#-------------------------------------------------------------------------------
 
-
+#vim:fdm=marker
