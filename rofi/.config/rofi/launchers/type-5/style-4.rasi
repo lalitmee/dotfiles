@@ -21,7 +21,7 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    font:                        "Iosevka Nerd Font 10";
+font:                        "CaskaydiaCove Nerd Font 10";
 }
 
 /*****----- Main Window -----*****/

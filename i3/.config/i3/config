@@ -167,7 +167,6 @@ assign [class="kitty"] $ws3
 assign [class="firefox"] $ws4
 assign [class="Org.gnome.Nautilus"] $ws10
 
-
 # NOTE: spotify doesn't work with `assign`
 # assign [class="Spotify"] $ws5
 for_window [class="^Spotify"] move to workspace $ws5
@@ -177,9 +176,8 @@ for_window [class="^Spotify"] move to workspace $ws5
 #-------------------------------------------------------------------------------
 #  NOTE: gaps {{{
 #-------------------------------------------------------------------------------
-gaps inner 10
+gaps inner 8
 # }}}
 #-------------------------------------------------------------------------------
-
 
 # vim:fdm=marker

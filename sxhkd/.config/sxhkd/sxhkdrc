@@ -11,7 +11,28 @@ super + shift + Return
 # NOTE: rofi/dmenu {{{
 #-------------------------------------------------------------------------------
 super + d
-   dmenu_run
+   ~/.config/rofi/launchers/type-1/launcher.sh
+
+super + shift + v
+   ~/.config/rofi/applets/bin/volume.sh
+
+super + shift + b
+   ~/.config/rofi/applets/bin/battery.sh
+
+super + shift + m
+   ~/.config/rofi/applets/bin/mpd.sh
+
+super + shift + a
+   ~/.config/rofi/applets/bin/apps.sh
+
+super + p
+   ~/.config/rofi/applets/bin/powermenu.sh
+
+super + shift + u
+   ~/.config/rofi/applets/bin/quicklinks.sh
+
+super + shift + s
+   ~/.config/rofi/applets/bin/screenshot.sh
 
 super + o
     rofi -show drun -show-icons -font "CaskaydiaCove Nerd Font 13"
