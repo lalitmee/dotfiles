@@ -485,6 +485,9 @@ eval "$(rbenv init -)"
 # snap path
 export PATH="$PATH:/snap/bin"
 
+# rofi scripts
+export PATH=$HOME/.config/rofi/scripts:$PATH
+
 # doom-emacs command
 export PATH="$HOME/Desktop/Github/doom-emacs/bin:$PATH"
 
