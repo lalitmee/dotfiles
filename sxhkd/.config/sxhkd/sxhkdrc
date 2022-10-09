@@ -172,7 +172,7 @@ super + shift + period
     systemctl suspend
 
 super + shift + x
-    systemctl i3lock
+    i3lock
 #}}}
 #-------------------------------------------------------------------------------
 
