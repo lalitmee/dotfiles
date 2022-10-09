@@ -5,9 +5,9 @@
 _not_inside_tmux() { [[ -z "$TMUX" ]] }
 
 ensure_tmux_is_running() {
-  if _not_inside_tmux; then
-    ~/dotfiles/zsh/tat
-  fi
+    if _not_inside_tmux; then
+        ~/dotfiles/zsh/tat
+    fi
 }
 
 ensure_tmux_is_running
@@ -61,7 +61,7 @@ zplug load
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
@@ -140,82 +140,82 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  alias-tips
-  aliases
-  autoupdate
-  brew
-  browse-commit
-  colored-man-pages
-  command-not-found
-  common-aliases
-  copyfile
-  debian
-  dircycle
-  dirhistory
-  docker
-  docker-compose
-  dotenv
-  emoji
-  encode64
-  extract
-  fancy-ctrl-z
-  fd
-  fig
-  frontend-search
-  fzf-tab
-  fzf-zsh-plugin
-  gem
-  gh
-  git
-  git-auto-fetch
-  git-extra-commands
-  git-extras
-  gitfast
-  golang
-  history
-  hitchhiker
-  hitokoto
-  jira
-  k
-  last-working-dir
-  magic-enter
-  ng
-  node
-  npm
-  nvm
-  pip
-  pyenv
-  rand-quote
-  react-native
-  repo
-  ripgrep
-  rsync
-  ruby
-  rust
-  rvm
-  screen
-  screen
-  sprunge
-  sudo
-  taskwarrior
-  thefuck
-  themes
-  tig
-  tmux
-  tmuxinator
-  vi-mode
-  virtualenvwrapper
-  web-search
-  yarn
-  zoxide
-  zsh-256color
-  zsh-autosuggestions
-  zsh-better-npm-completion
-  zsh-brew-services
-  zsh-cargo-completion
-  zsh-cpan-completion
-  zsh-syntax-highlighting
-  zsh-wakatime
+    alias-tips
+    aliases
+    autoupdate
+    brew
+    browse-commit
+    colored-man-pages
+    command-not-found
+    common-aliases
+    copyfile
+    debian
+    dircycle
+    dirhistory
+    docker
+    docker-compose
+    dotenv
+    emoji
+    encode64
+    extract
+    fancy-ctrl-z
+    fd
+    fig
+    frontend-search
+    fzf-tab
+    fzf-zsh-plugin
+    gem
+    gh
+    git
+    git-auto-fetch
+    git-extra-commands
+    git-extras
+    gitfast
+    golang
+    history
+    hitchhiker
+    hitokoto
+    jira
+    k
+    last-working-dir
+    magic-enter
+    ng
+    node
+    npm
+    nvm
+    pip
+    pyenv
+    rand-quote
+    react-native
+    repo
+    ripgrep
+    rsync
+    ruby
+    rust
+    rvm
+    screen
+    screen
+    sprunge
+    sudo
+    taskwarrior
+    thefuck
+    themes
+    tig
+    tmux
+    tmuxinator
+    vi-mode
+    virtualenvwrapper
+    web-search
+    yarn
+    zoxide
+    zsh-256color
+    zsh-autosuggestions
+    zsh-better-npm-completion
+    zsh-brew-services
+    zsh-cargo-completion
+    zsh-cpan-completion
+    zsh-syntax-highlighting
+    zsh-wakatime
 )
 
 # zsh completions
@@ -248,7 +248,7 @@ JIRA_NAME="lalitmee"
 export TERM="xterm-256color"
 
 if [[ $TERM == xterm ]]; then
-  TERM=screen-256color;
+    TERM=screen-256color;
 fi
 
 # exporting editor
@@ -365,12 +365,12 @@ alias snapu="sudo snap refresh"
 alias upd="sudo apt-fast update -y"
 alias update="
 sudo apt-fast update -y &&
-sudo apt-fast upgrade -y &&
-sudo flatpak update -y &&
-snapu &&
-bubc"
-alias updg="sudo apt-fast dist-upgrade -y"
-alias upg="sudo apt-fast upgrade -y"
+    sudo apt-fast upgrade -y &&
+    sudo flatpak update -y &&
+    snapu &&
+    bubc"
+    alias updg="sudo apt-fast dist-upgrade -y"
+    alias upg="sudo apt-fast upgrade -y"
 
 # aliases for editing and sourcing zshrc
 alias ze="nvim ~/.zshrc"
@@ -626,7 +626,7 @@ eval "$(zoxide init zsh)"
 # for s-search from the terminal
 # -------------------------------------------------------------------
 if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
-  . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
+    . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
 fi
 # }}}
 # -------------------------------------------------------------------
@@ -657,11 +657,10 @@ fi
 # NOTE: kill port {{{
 # -------------------------------------------------------------------
 killport () {
-  PID=$(sudo lsof -t -i:$1)
-  sudo kill -9 ${PID}
+    PID=$(sudo lsof -t -i:$1)
+    sudo kill -9 ${PID}
 }
 # }}}
 # -------------------------------------------------------------------
-
 
 # vim:foldmethod=marker
