@@ -9,7 +9,7 @@ local parsers = require("nvim-treesitter.parsers")
 require("nvim-treesitter.configs").setup({
     ensure_installed = vim.g.enable_treesitter_ft,
     -- Auto install parsers, if missing, for the current buffer
-    auto_install = true,
+    auto_install = false,
     highlight = { enable = true },
     rainbow = {
         enable = true,
