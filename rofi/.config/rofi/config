@@ -1,3 +1,0 @@
-rofi.modi: window,run,drun,keys,combi,windowcd,ssh
-
-rofi.theme: /usr/share/rofi/themes/onedark.rasi
