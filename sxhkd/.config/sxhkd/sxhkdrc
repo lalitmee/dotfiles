@@ -1,0 +1,140 @@
+super + Escape
+    pkill -USR1 -x sxhkd
+
+super + Return
+   kitty
+
+super + shift + Return
+    nemo
+
+#Rofi & dmenu
+super + shift + d
+   dmenu run
+
+super + d
+    rofi -show drun -show-icons -font "Noto Sans 13"
+
+super + c
+  clipmenu
+
+super + e
+    rofi -show emoji -modi emoji
+
+alt + p
+    rofi -show
+
+# Application Keybindings
+ctrl + space
+    ulauncher
+
+alt + t
+    todoist
+
+ctrl + alt + n
+    termite 'ncmpcpp' -e ncmpcpp
+
+#Audio Keybindings
+XF86AudioPlay
+    playerctl play-pause
+
+ctrl + alt + p
+    playerctl play-pause
+
+XF86AudioNext
+    playerctl next
+
+XF86AudioPrev
+    playerctl previous
+
+ctrl + shift + period
+    playerctl next
+
+ctrl + shift + comma
+    playerctl previous
+
+XF86AudioStop
+    playerctl stop
+
+alt + {h,j,k,l}
+   mpc {prev,next,play,pause}
+
+#i3 Specific bindings
+
+super + {1-9,0}
+    i3-msg workspace {1-9,10}
+
+control + {1-9}
+    i3-msg workspace {11,12,13,14,15,16,17,18,19}
+
+super + shift + c
+    i3-msg reload
+
+super + shift + r
+    i3-msg restart
+
+super + shift + e
+    i3-msg exit
+
+super + q
+    i3-msg kill
+
+super + {z,v}
+    i3-msg {split h, split v}
+
+super + f
+    i3-msg fullscreen toggle
+
+super + {s,w,e}
+    i3-msg layout {stacking, tabbed, toggle split}
+
+super + space
+    i3-msg focus mode_toggle
+
+super + shift + space
+    i3-msg floating toggle
+
+super + {h,j,k,l}
+    i3-msg focus {left,down,up,right}
+
+super + shift + {h,j,k,l}
+    i3-msg move {left,down,up,right}
+
+super + ctrl + h
+    i3-msg resize grow width 4 px or 4 ppt
+
+super + ctrl + j
+    i3-msg resize shrink height 4 px or 4 ppt
+
+super + ctrl + k
+    i3-msg resize grow height 4 px or 4 ppt
+
+super + ctrl + l
+    i3-msg resize shrink width 4 px or 4 ppt
+
+alt + o
+    i3-msg gaps inner current plus 5
+
+alt + i
+    i3-msg gaps inner current minus 5
+
+alt + u
+    i3-msg gaps outer current plus 5
+alt + y
+    i3-msg gaps outer current minus 5
+
+#super + a
+ #  i3-msg focus parent
+
+super + shift + {1-9,0}
+    i3-msg move container to workspace {1-9,0}
+
+control + shift + {1-9}
+    i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
+
+super + shift + period
+    systemctl suspend
+
+super + shift + x
+    systemctl i3lock
+
+
