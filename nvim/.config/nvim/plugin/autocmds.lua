@@ -123,12 +123,20 @@ augroup("colorcolumn_au", {
 ----------------------------------------------------------------------
 augroup("help_tab_au", {
     {
-        event = { "BufEnter" },
-        pattern = { "*.txt" },
+        event = { "FileType" },
+        pattern = { "help" },
         command = function()
-            if vim.bo.filetype == "help" then
-                -- vim.cmd([[wincmd T]])
-            end
+            -- vim.cmd([[tabnew]])
+            -- vim.cmd([[tabprevious]])
+            -- vim.cmd([[quit]])
+            -- vim.cmd([[tabnext]])
+        end,
+    },
+    {
+        event = { "FileType" },
+        pattern = { "help" },
+        command = function()
+            -- vim.cmd([[set buflisted]])
         end,
     },
 })

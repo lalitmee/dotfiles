@@ -152,6 +152,9 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: ACTIONS {{{
         ------------------------------------------------------------------------
+        -- neozoom
+        use({ "nyngwang/NeoZoom.lua" })
+
         -- matchit extended
         use({ "andymass/vim-matchup" })
 
@@ -248,11 +251,6 @@ require("packer").startup({
             config = conf("telescope"),
             requires = {
                 {
-                    "nvim-lua/plenary.nvim",
-                    module = "plenary",
-                    after = "telescope.nvim",
-                },
-                {
                     "nvim-telescope/telescope-frecency.nvim",
                     requires = { "tami5/sqlite.lua" },
                     after = "telescope.nvim",
@@ -264,17 +262,8 @@ require("packer").startup({
                     "nvim-telescope/telescope-fzf-native.nvim",
                     run = "make",
                     after = "telescope.nvim",
-                    module = "telescope._extensions.fzf",
                     config = function()
                         require("telescope").load_extension("fzf")
-                    end,
-                },
-                {
-                    "nvim-telescope/telescope-smart-history.nvim",
-                    after = "telescope.nvim",
-                    module = "telescope._extensions.smart_history",
-                    config = function()
-                        require("telescope").load_extension("smart_history")
                     end,
                 },
                 {
@@ -287,14 +276,12 @@ require("packer").startup({
                 {
                     "nvim-telescope/telescope-dap.nvim",
                     after = { "nvim-dap", "telescope.nvim" },
-                    module = "telescope._extensions.dap",
                     config = function()
                         require("telescope").load_extension("dap")
                     end,
                 },
                 {
                     "zane-/howdoi.nvim",
-                    -- module = "telescope._extensions.howdoi",
                     after = "telescope.nvim",
                     config = function()
                         require("telescope").load_extension("howdoi")

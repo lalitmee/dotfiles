@@ -6,7 +6,6 @@ setlocal textwidth=78
 setlocal tabstop=4
 setlocal shiftwidth=4
 
-
 " TODO: When refactoring this, consider just using `:right`...
 "       That seems much simpler and better.
 function! s:right_align() abort
@@ -57,7 +56,6 @@ endif
 
 nnoremap <silent><buffer> <leader>th :<c-u>call <SID>toggle_help_file_type()<CR>
 
-
 " [h]elp [a]lign.
 nnoremap <silent><buffer> <leader>ha :<c-u>call <sid>right_align()<cr>
 
@@ -104,4 +102,3 @@ nmap <silent><buffer> t /\*\S\+\*<CR>l
 nmap <silent><buffer> T h?\*\S\+\*<CR>l
 " }}}
 "---------------------------------------------------------------------
-
