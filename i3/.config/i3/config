@@ -123,7 +123,7 @@ exec_always --no-startup-id compton -f
 exec --no-startup-id unclutter
 
 # NOTE: cbatticon
-exec --no-startup-id i3-msg "exec cbatticon -l 40 -r 20"
+exec --no-startup-id i3-msg "exec cbatticon -l 30 -r 20"
 
 # NOTE: slack
 exec --no-startup-id i3-msg "exec slack"
