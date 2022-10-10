@@ -4,7 +4,11 @@ pidof dunst && killall dunst
 
 dunst &
 
-notify-send "This is my message 1" "Hello this is my name"
+notify-send "This is my message 1" "Hello this is my name Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+
+notify-send -u critical "This is my message 1" "Hello this is my name Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
+
+notify-send -u low "This is my message 1" "Hello this is my name Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
 # notify-send "This is my message 2"
 # notify-send "This is my message 3"
 # notify-send "This is my message 4"
