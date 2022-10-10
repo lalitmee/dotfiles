@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pidof dunst && killall dunst
+
+dunst &
+
+notify-send "This is my message 1" "Hello this is my name"
+# notify-send "This is my message 2"
+# notify-send "This is my message 3"
+# notify-send "This is my message 4"
+# notify-send "This is my message 5"
+# notify-send "This is my message 6"
+# notify-send "This is my message 7"
