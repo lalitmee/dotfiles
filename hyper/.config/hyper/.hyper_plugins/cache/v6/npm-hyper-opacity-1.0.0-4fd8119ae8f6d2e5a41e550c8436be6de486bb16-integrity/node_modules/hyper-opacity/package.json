@@ -1,0 +1,18 @@
+{
+  "name": "hyper-opacity",
+  "version": "1.0.0",
+  "keywords": ["hyper", "hyper-plugin", "opacity"],
+  "description": "Set the opacity of your hyper window",
+  "main": "index.js",
+  "files": ["index.js"],
+  "license": "MIT",
+  "author": "lucleray",
+  "homepage": "https://github.com/lucleray/hyper-opacity#readme",
+  "bugs": {
+    "url": "https://github.com/lucleray/hyper-opacity/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucleray/hyper-opacity.git"
+  }
+}

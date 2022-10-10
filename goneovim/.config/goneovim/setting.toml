@@ -26,7 +26,7 @@
 Transparent = 0.8
 
 ## Launch goneovim with full screen window size.
-StartFullscreen = true
+# StartFullscreen = true
 
 ## Editor external font-family, font-size, and linespace.
 ## This is the font and linespace settings of the graphical UI as an nvim front end.
@@ -152,7 +152,6 @@ SmoothScroll = true
 ## '''
 # Ginitvim = ""
 
-
 [Cursor]
 ## Specifies whether the smooth cursor feature is enabled or disabled by a boolean value.
 SmoothMove = true
@@ -160,8 +159,6 @@ SmoothMove = true
 ## Specifies the duration of the animation at the smooth cursor. Default is 55ms.
 ## Note that Goneovim uses the specified value as a base value and makes slight adjustments depending on the distance.
 # Duration = ５５
-
-
 
 ## The palette is used as an input UI for externalized command lines and the Fuzzy-Finder feature built into Goneovim.
 [Palette]
@@ -172,12 +169,10 @@ SmoothMove = true
 ## Specifies the opacity of the command line palette.
 # Transparent = 1.0
 
-
 ## Configure externalized message UI.
 [Message]
 ## Specifies the opacity of the message window.
 # Transparent = 1.0
-
 
 ## The statusline configuration below relates to the display of Goenovim's own external status lines.
 ## If you want to use neovim's status line plugin, you should disable its display.
@@ -200,13 +195,11 @@ SmoothMove = true
 # Left = [ "mode", "filepath", "filename" ]
 # Right = [ "message", "git", "filetype", "fileformat", "fileencoding", "curpos", "lint" ]
 
-
 ## Configure externalized tabline UI.
 [Tabline]
 ## Whether or not to display the external tabline
 # Visible = true
 # ShowIcon = true
-
 
 ## Configure externalized popupmenu UI.
 [Popupmenu]
@@ -234,11 +227,9 @@ SmoothMove = true
 ## Show digit number which can select item for popupmenu
 # ShowDigit = true
 
-
 [ScrollBar]
 ## Specifies whether to show the external scrollbar or not.
 # Visible = false
-
 
 [MiniMap]
 ## To view the minimap, launch an additional nvim instance;
@@ -252,14 +243,12 @@ SmoothMove = true
 ## Specifies the width of the minimap.
 # Width = 100
 
-
 ## Configure the markdown preview feature
 [Markdown]
 # Disable = false
 
 ## Specifying code highlighting styles
 # CodeHlStyle = "github"
-
 
 [SideBar]
 ## Specifies whether to show the external sidebar or not.
@@ -274,11 +263,9 @@ SmoothMove = true
 ## Specify the color to use when selecting items in the sidebar or palette in hexadecimal format
 # AccentColor = "#5596ea"
 
-
 [FileExplore]
 ## Specify the maximum number of items to be displayed in the file explorer.
 # MaxDisplayItems = 30
-
 
 [Workspace]
 ## This setting sets the format of the path string of CWD in the sidebar.
