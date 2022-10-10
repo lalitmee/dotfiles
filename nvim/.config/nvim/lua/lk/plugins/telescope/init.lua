@@ -116,17 +116,14 @@ telescope.setup({
         color_devicons = true,
         dynamic_preview_title = true,
         path_display = { "absolute", "truncate" },
-        history = {
-            path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
-        },
         buffer_previewer_maker = new_maker,
-
         set_env = {
             ["COLORTERM"] = "truecolor",
-        }, -- default = nil,
-
+        },
         mappings = {
             i = {
+                ["<C-Down>"] = actions.cycle_history_next,
+                ["<C-Up>"] = actions.cycle_history_prev,
                 ["<C-b>"] = open_entries,
                 ["<C-e>"] = actions.move_to_bottom,
                 ["<C-j>"] = actions.move_selection_next,
@@ -135,19 +132,21 @@ telescope.setup({
                 ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
                 ["<C-p>"] = actions.move_selection_previous,
                 ["<C-y>"] = actions.move_to_top,
+                ["<M-o>"] = action_layout.toggle_prompt_position,
                 ["<M-p>"] = action_layout.toggle_preview,
                 ["<M-v>"] = action_layout.toggle_mirror,
-                ["<M-o>"] = action_layout.toggle_prompt_position,
                 ["<esc>"] = actions.close,
             },
             n = {
+                ["<Down>"] = actions.cycle_history_next,
+                ["<Up>"] = actions.cycle_history_prev,
+                ["<esc>"] = actions.close,
                 ["e"] = actions.move_to_bottom,
                 ["j"] = actions.move_selection_next,
                 ["k"] = actions.move_selection_previous,
                 ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
-                ["y"] = actions.move_to_top,
                 ["p"] = action_layout.toggle_preview,
-                ["<esc>"] = actions.close,
+                ["y"] = actions.move_to_top,
             },
         },
         borderchars = {
