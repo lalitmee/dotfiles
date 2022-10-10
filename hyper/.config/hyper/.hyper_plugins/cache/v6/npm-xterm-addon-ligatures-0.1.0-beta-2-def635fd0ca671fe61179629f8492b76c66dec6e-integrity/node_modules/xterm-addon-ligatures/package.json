@@ -1,0 +1,76 @@
+{
+  "name": "xterm-addon-ligatures",
+  "version": "0.1.0-beta-2",
+  "description": "Add support for programming ligatures to xterm.js",
+  "homepage": "https://github.com/xtermjs/xterm-addon-ligatures#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xtermjs/xterm-addon-ligatures.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xtermjs/xterm-addon-ligatures/issues"
+  },
+  "engines": {
+    "node": ">8.0.0"
+  },
+  "main": "lib/index.js",
+  "types": "typings/xterm-addon-ligatures.d.ts",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json --fix",
+    "prebuild": "npm run lint",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "pretest": "npm run build",
+    "test": "nyc mocha lib/**/*.{test,integration}.js",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "font",
+    "ligature",
+    "xterm",
+    "xterm.js",
+    "terminal"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "font-finder": "^1.0.2",
+    "font-ligatures": "^1.3.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^8.10.10",
+    "@types/sinon": "^5.0.1",
+    "axios": "^0.18.0",
+    "chai": "^4.1.2",
+    "mkdirp": "^0.5.1",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "sinon": "^6.1.3",
+    "tslint": "^5.9.1",
+    "tslint-consistent-codestyle": "^1.13.0",
+    "typescript": "^2.8.3",
+    "xterm": "^3.5.0",
+    "yauzl": "^2.10.0"
+  },
+  "peerDependencies": {
+    "xterm": "^3.5.0"
+  },
+  "nyc": {
+    "sourceMap": true,
+    "reporter": [
+      "text",
+      "html",
+      "json"
+    ],
+    "include": [
+      "lib/**/*.js"
+    ],
+    "exclude": [
+      "lib/**/*.test.*",
+      "lib/**/*.integration.*",
+      "lib/**/*.d.ts",
+      "lib/**/*.map*"
+    ]
+  }
+}

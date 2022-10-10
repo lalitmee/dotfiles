@@ -1,0 +1,15 @@
+{
+  "name": "hyper-plugins",
+  "description": "Auto-generated from `~/.hyper.js`!",
+  "private": true,
+  "version": "0.0.1",
+  "repository": "vercel/hyper",
+  "license": "MIT",
+  "homepage": "https://hyper.is",
+  "dependencies": {
+    "hyperminimal": "latest",
+    "hyper-font-ligatures": "latest",
+    "hyperterm-cobalt2-theme": "latest",
+    "hyper-opacity": "latest"
+  }
+}

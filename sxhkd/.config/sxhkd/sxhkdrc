@@ -1,3 +1,6 @@
+#-------------------------------------------------------------------------------
+# NOTE: must have {{{
+#-------------------------------------------------------------------------------
 super + Escape
     pkill -USR1 -x sxhkd
 
@@ -5,7 +8,27 @@ super + Return
    kitty
 
 super + shift + Return
+   alacritty
+
+# super + shift + Return
+#    hyper
+
+super + shift + f
     nemo
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: editors {{{
+#-------------------------------------------------------------------------------
+super + n
+   ~/Desktop/Softwares/editors/neovide/neovide
+
+super + shift + n
+   ~/goneovim/goneovim
+
+#}}}
+#-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # NOTE: rofi/dmenu {{{
@@ -33,15 +56,6 @@ super + shift + u
 
 super + shift + s
    ~/.config/rofi/applets/bin/screenshot.sh
-
-super + o
-    rofi -show drun -show-icons -font "CaskaydiaCove Nerd Font 13"
-
-super + c
-  clipmenu
-
-alt + p
-    rofi -show
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -97,12 +111,28 @@ alt + {h,j,k,l}
 #-------------------------------------------------------------------------------
 # NOTE: i3 {{{
 #-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: workspaces {{{
+#-------------------------------------------------------------------------------
 super + {1-9,0}
     i3-msg workspace {1-9,10}
 
 control + {1-9}
     i3-msg workspace {11,12,13,14,15,16,17,18,19}
 
+super + shift + {1-9,0}
+    i3-msg move container to workspace {1-9,0}
+
+control + shift + {1-9}
+    i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
+
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# reload
+#-------------------------------------------------------------------------------
 super + shift + c
     i3-msg reload
 
@@ -115,26 +145,50 @@ super + shift + e
 super + q
     i3-msg kill
 
-super + {z,v}
-    i3-msg {split h, split v}
+super + shift + period
+    systemctl suspend
 
+super + shift + x
+    i3lock
+
+#-------------------------------------------------------------------------------
+# toggle layouts
+#-------------------------------------------------------------------------------
 super + f
     i3-msg fullscreen toggle
 
-super + {s,w,e}
-    i3-msg layout {stacking, tabbed, toggle split}
+super + e
+    i3-msg layout toggle splith splitv tabbed stacking
 
 super + space
     i3-msg focus mode_toggle
 
 super + shift + space
-    i3-msg floating toggle
+    i3fyra --float
 
+super + z
+    i3zen --workspace zen
+
+super + shift + z
+    workspace zen
+
+#-------------------------------------------------------------------------------
+# NOTE: windows {{{
+#-------------------------------------------------------------------------------
 super + {h,j,k,l}
-    i3-msg focus {left,down,up,right}
+    i3viswiz {left,down,up,right}
 
 super + shift + {h,j,k,l}
-    i3-msg move {left,down,up,right}
+    i3flip --move {left,down,up,right}
+
+super + Tab
+    i3flip next
+
+super + Shift + Tab
+    i3flip prev
+
+# Alt_L + Tab
+#     workspaces back_and_forth
 
 super + ctrl + h
     i3-msg resize grow width 4 px or 4 ppt
@@ -147,7 +201,12 @@ super + ctrl + k
 
 super + ctrl + l
     i3-msg resize shrink width 4 px or 4 ppt
+#}}}
+#-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# NOTE: gaps {{{
+#-------------------------------------------------------------------------------
 alt + o
     i3-msg gaps inner current plus 5
 
@@ -156,34 +215,26 @@ alt + i
 
 alt + u
     i3-msg gaps outer current plus 5
+
 alt + y
     i3-msg gaps outer current minus 5
+#}}}
+#-------------------------------------------------------------------------------
 
-#super + a
- #  i3-msg focus parent
-
-super + shift + {1-9,0}
-    i3-msg move container to workspace {1-9,0}
-
-control + shift + {1-9}
-    i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
-
-super + shift + period
-    systemctl suspend
-
-super + shift + x
-    i3lock
 #}}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # NOTE: scratchpads {{{
 #-------------------------------------------------------------------------------
+super + o
+    i3run --summon --title my_terminal -- kitty --title my_terminal,my_terminal
+
 super + m
-    i3run --title cmus -- kitty --title cmus -e cmus
+    i3run --summon --title cmus -- kitty --title cmus -e cmus
 
 super + b
-    i3run --title monitor -- kitty --title monitor -e btm
+    i3run --summon --title monitor -- kitty --title monitor -e btm
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -191,8 +242,8 @@ super + b
 # NOTE: testing {{{
 #-------------------------------------------------------------------------------
 # dunst
-super + n
-    test-noti
+# super + n
+#     test-noti
 #}}}
 #-------------------------------------------------------------------------------
 

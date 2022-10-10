@@ -4,7 +4,7 @@
 // See https://hyper.is#cfg for all currently supported options.
 module.exports = {
   config: {
-    opacity: 0.5,
+    opacity: 0.8,
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
     updateChannel: "stable",
@@ -12,15 +12,15 @@ module.exports = {
     fontSize: 12,
     // font family with optional fallbacks
     fontFamily:
-      'Operator Mono Lig Book, CaskaydiaCove Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      'MonoLisa Nerd Font, Operator Mono Lig Book, CaskaydiaCove Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
     // default font weight: 'normal' or 'bold'
     fontWeight: 600,
     // font weight for bold characters: 'normal' or 'bold'
-    fontWeightBold: "bold",
+    fontWeightBold: "normal",
     // line height as a relative unit
     lineHeight: 1.2,
     // letter spacing as a relative unit
-    letterSpacing: 1.0,
+    letterSpacing: 0,
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: "rgba(248,28,229,0.8)",
     // terminal text color under BLOCK cursor
@@ -30,14 +30,14 @@ module.exports = {
     // set to `true` (without backticks and without quotes) for blinking cursor
     cursorBlink: true,
     // color of the text
-    foregroundColor: "#fff",
+    // foregroundColor: "#fff",
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: "#000",
+    // backgroundColor: "#000",
     // terminal selection color
     selectionColor: "rgba(248,28,229,0.3)",
     // border color (window, tabs)
-    borderColor: "#333",
+    borderColor: "none",
     // custom CSS to embed in the main window
     css: "",
     // custom CSS to embed in the terminal window
@@ -136,12 +136,10 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    "hyperminimal",
-    "hyper-opacity",
+    "hyperminimal", // themes
     "hyper-font-ligatures",
-
-    // themes
     "hyperterm-cobalt2-theme",
+    "hyper-opacity",
   ],
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
