@@ -1,0 +1,14 @@
+#!/bin/bash
+
+this_window_id=$(i3get)
+clear
+i3get -r ticroymdn --print-format '%k: %v\n'
+
+while true ; do
+  [[ $(i3get) = "$this_window_id" ]] || {
+    clear
+    i3get -r ticroymdn --print-format '%k: %v\n'
+  }
+
+  i3-msg -qt subscribe '["window"]'
+done
