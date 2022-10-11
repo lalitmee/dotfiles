@@ -5,8 +5,6 @@ if not ok then
     return
 end
 
-local nonicons_extention = require("nvim-nonicons.extentions.nvim-notify")
-
 -- NOTE: vim.log.levels
 -- {
 --   DEBUG = 1,
@@ -37,7 +35,7 @@ notify.setup({
         local style = notif.title[1] == "" and "minimal" or "default"
         require("notify.render")[style](...)
     end,
-    icons = nonicons_extention.icons,
+    icons = lk.style.icons.notify,
 })
 vim.notify = notify
 
