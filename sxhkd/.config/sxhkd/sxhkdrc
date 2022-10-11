@@ -125,7 +125,7 @@ control + {1-9}
     i3-msg workspace {11,12,13,14,15,16,17,18,19}
 
 super + shift + {1-9,0}
-    i3-msg move container to workspace {1-9,0}
+    i3-msg move container to workspace {1-9,10}
 
 control + shift + {1-9}
     i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
