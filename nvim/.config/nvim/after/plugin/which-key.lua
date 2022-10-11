@@ -41,9 +41,7 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["a"] = {
         ["name"] = "+actions",
-        ["b"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
-        ["d"] = { ":ColorizerAttachToBuffer<CR>", "attach-colorizer" },
-        ["c"] = { ":Telescope neoclip<CR>", "clipboard" },
+        ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
         ["i"] = { ":ISwapWith<CR>", "iswap-with" },
         ["I"] = { ":ISwap<CR>", "iswap" },
         ["m"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
@@ -51,8 +49,6 @@ local leader_key_maps = {
         ["o"] = { ":NeoTreeRevealToggle<CR>", "neo-tree-toggle" },
         ["g"] = { ":Glow<CR>", "markdown-glow" },
         ["s"] = { ":StartupTime<CR>", "run-startup-time" },
-        ["z"] = { ":TZAtaraxis<CR>", "toggle-zen-mode" },
-        ["t"] = { ":Twilight<CR>", "toggle-twilight-mode" },
     },
     -- }}}
     ----------------------------------------------------------------------
