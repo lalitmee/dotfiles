@@ -491,9 +491,16 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["S"] = {
         ["name"] = "+sessions",
-        ["l"] = { ":SearchSession<CR>", "search-sessions" },
-        ["s"] = { ":SaveSession<CR>", "save-session" },
+        ["b"] = { ":ChangeSystemBackground<CR>", "change-system-background" },
+        ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
         ["d"] = { ":DeleteSession<CR>", "delete-session" },
+        ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },
+        ["l"] = { ":SearchSession<CR>", "search-sessions" },
+        ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
+        ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
+        ["s"] = { ":SaveSession<CR>", "save-session" },
+        ["t"] = { ":lua Notify_current_datetime()<CR>", "current-date-time" },
+        ["y"] = { ":lua Yank_current_file_name()<CR>", "yank-current-file-name" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -753,25 +760,6 @@ local local_leader_key_maps = {
         ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
         ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
         ["v"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: system {{{
-    ----------------------------------------------------------------------
-    ["S"] = {
-        ["name"] = "+system",
-        ["b"] = { ":ChangeSystemBackground<CR>", "change-system-background" },
-        ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
-        ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },
-        ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
-        ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
-        ["r"] = { ":SnipRun<CR>", "run-code" },
-        ["s"] = { "<Plug>(SpotifyPause)", "pause-resume-song" },
-        ["S"] = { "<Plug>(SpotifySave)", "save-song" },
-        ["t"] = { ":lua Notify_current_datetime()<CR>", "current-date-time" },
-        ["y"] = { ":lua Yank_current_file_name()<CR>", "yank-current-file-name" },
     },
     -- }}}
     ----------------------------------------------------------------------
