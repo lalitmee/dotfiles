@@ -54,8 +54,11 @@ super + p
 super + shift + u
    ~/.config/rofi/applets/bin/quicklinks.sh
 
+# super + shift + s
+#    ~/.config/rofi/applets/bin/screenshot.sh
+
 super + shift + s
-   ~/.config/rofi/applets/bin/screenshot.sh
+   flameshot gui
 #}}}
 #-------------------------------------------------------------------------------
 
