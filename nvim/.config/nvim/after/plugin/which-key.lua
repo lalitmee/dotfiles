@@ -762,6 +762,7 @@ local local_leader_key_maps = {
     ----------------------------------------------------------------------
     ["S"] = {
         ["name"] = "+system",
+        ["b"] = { ":ChangeSystemBackground<CR>", "change-system-background" },
         ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
         ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },
         ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },

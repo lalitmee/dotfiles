@@ -397,6 +397,9 @@ alias npd='npm run dev'
 # aliases for sound fix
 alias goodaudio="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') a2dp-sink"
 alias headset="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') headset-head-unit"
+
+# >> change wallpaper aliases
+alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpapers/*"
 # }}}
 # -------------------------------------------------------------------
 
@@ -545,6 +548,3 @@ killport () {
 # -------------------------------------------------------------------
 
 # vim:foldmethod=marker
-
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
