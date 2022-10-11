@@ -251,6 +251,13 @@ require("packer").startup({
             config = conf("telescope"),
             requires = {
                 {
+                    "nvim-telescope/telescope-media-files.nvim",
+                    after = "telescope.nvim",
+                    config = function()
+                        require("telescope").load_extension("media_files")
+                    end,
+                },
+                {
                     "nvim-telescope/telescope-frecency.nvim",
                     requires = { "tami5/sqlite.lua" },
                     after = "telescope.nvim",
