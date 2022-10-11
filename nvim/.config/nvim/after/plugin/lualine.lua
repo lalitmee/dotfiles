@@ -2,7 +2,6 @@ local ok, lualine = lk.require("lualine")
 if not ok then
     return
 end
-local icons = require("nvim-nonicons")
 
 ----------------------------------------------------------------------
 -- NOTE: trailing whitespaces {{{
@@ -108,8 +107,7 @@ lualine.setup({
         lualine_b = {
             {
                 "branch",
-                -- icon = "",
-                icon = icons.get("git-branch"),
+                icon = "",
                 color = {
                     gui = "bold",
                 },

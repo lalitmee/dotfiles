@@ -110,8 +110,7 @@ telescope.setup({
             "--trim",
         },
         winblend = 5,
-        -- prompt_prefix = "   ", --   
-        prompt_prefix = "  " .. icons.get("telescope") .. "  ",
+        prompt_prefix = "   ", --   
         selection_strategy = "reset",
         sorting_strategy = "ascending",
         scroll_strategy = "cycle",
