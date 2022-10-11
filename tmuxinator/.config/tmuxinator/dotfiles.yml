@@ -5,10 +5,7 @@ root: ~/Desktop/Github/configs
 
 windows:
   - lalitmee: cd ~/dotfiles && gst
-  - tjdevries: cd config_manager && gst
-  - akinsho: cd akinsho && gst
-  - codesmell: cd codesmell && gst
   - ThePrimeagen: cd ThePrimeagen_dots && gst
-  - togglebyte: cd togglebyte && gst
-  - vsedov: cd vsedov && gst
-  - devtainer: cd devtainer && gst
+  - tjdevries: cd tjdevries && gst
+  - akinsho: cd akinsho && gst
+  - williamboman: cd williamboman && gst
