@@ -350,6 +350,7 @@ opt.virtualedit = "block" -- allow cursor to move where there is no text in visu
 -- add f0 so file marks aren't stored
 -- @credit: wincent
 opt.shada = { "!", "'1000", "<50", "s10", "h" }
+opt.maxmempattern = 5000
 -- }}}
 ----------------------------------------------------------------------
 

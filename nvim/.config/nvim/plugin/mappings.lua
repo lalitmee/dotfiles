@@ -23,10 +23,6 @@ map("n", "L", [[$]], map_opts)
 map("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { noremap = true, expr = true })
 map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { noremap = true, expr = true })
 
--- <c-n> and <c-p> in command line mode
-map("c", "<C-n>", [[wildmenumode() ? "\<c-n>" : "\<down>"]], map_expr_opts)
-map("c", "<C-p>", [[wildmenumode() ? "\<c-p>" : "\<up>"]], map_expr_opts)
-
 -- tmux movements
 nmap("<C-h>", [[<cmd>NavigateLeft<cr>]], map_opts)
 nmap("<C-l>", [[<cmd>NavigateRight<cr>]], map_opts)
