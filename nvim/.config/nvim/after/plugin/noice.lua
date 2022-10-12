@@ -1,17 +1,24 @@
 -- local ok, noice = lk.require("noice")
 -- if not ok then
---   return
+--     return
 -- end
---
+
 -- noice.setup({
---   routes = {
---     {
---       filter = {
---         event = "msg_show",
---         kind = "",
---         find = "written",
---       },
---       opts = { skip = true },
+--     routes = {
+--         {
+--             filter = {
+--                 event = "msg_show",
+--                 kind = "",
+--                 find = "written",
+--             },
+--             opts = { skip = true },
+--         },
+--         {
+--             filter = {
+--                 event = "msg_show",
+--                 kind = "search_count",
+--             },
+--             opts = { skip = true },
+--         },
 --     },
---   },
 -- })
