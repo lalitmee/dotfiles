@@ -106,11 +106,10 @@ require("packer").startup({
 
         -- -- new UI paradigm
         -- use({
-        --   "folke/noice.nvim",
-        --   event = "VimEnter",
-        --   requires = {
-        --     "MunifTanjim/nui.nvim",
-        --   },
+        --     "folke/noice.nvim",
+        --     requires = {
+        --         "MunifTanjim/nui.nvim",
+        --     },
         -- })
 
         -- TODO: I may try to remove this in the future, I don't think I get anything
@@ -309,6 +308,9 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: General {{{
         ----------------------------------------------------------------------------
+        -- restor last editing cursor position
+        use({ "farmergreg/vim-lastplace" })
+
         -- smooth scrolling in neovim
         use({ "karb94/neoscroll.nvim" })
 
