@@ -27,42 +27,6 @@ kitty + complete setup zsh | source /dev/stdin
 # }}}
 # -------------------------------------------------------------------
 
-# # -------------------------------------------------------------------
-# # NOTE: colorscript {{{
-# # from https://gitlab.com/dwt1/shell-color-scripts
-# # shows random colors and things in starting of the terminal
-# # -------------------------------------------------------------------
-# colorscript random
-# # }}}
-# # -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: powerlevel10k theme {{{
-# -------------------------------------------------------------------
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-ZSH_PYENV_QUIET=true
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: prompt {{{
-# -------------------------------------------------------------------
-# # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# # To customize prompt, run `p10k configure` or edit ~/Desktop/Github/dotfiles/zsh/.p10k.zsh.
-# [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
-
-# }}}
-# -------------------------------------------------------------------
-
 # -------------------------------------------------------------------
 # NOTE: oh-my-zsh {{{
 # -------------------------------------------------------------------
@@ -187,10 +151,6 @@ source $ZSH/oh-my-zsh.sh
 # vi-mode settings
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_SET_CURSOR=true
-
-# jira url
-JIRA_URL="https://koinearth.atlassian.net"
-JIRA_NAME="lalitmee"
 # }}}
 # -------------------------------------------------------------------
 
@@ -205,11 +165,6 @@ export TERM="xterm-256color"
 if [[ $TERM == xterm ]]; then
     TERM=screen-256color;
 fi
-
-# exporting editor
-export EDITOR=nvim
-
-# export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -311,12 +266,13 @@ alias snapu="sudo snap refresh"
 alias upd="sudo apt-fast update -y"
 alias update="
 sudo apt-fast update -y &&
-    sudo apt-fast upgrade -y &&
-    sudo flatpak update -y &&
-    snapu &&
-    bubc"
-    alias updg="sudo apt-fast dist-upgrade -y"
-    alias upg="sudo apt-fast upgrade -y"
+sudo apt-fast upgrade -y &&
+sudo flatpak update -y &&
+snapu &&
+bubc
+"
+alias updg="sudo apt-fast dist-upgrade -y"
+alias upg="sudo apt-fast upgrade -y"
 
 # aliases for editing and sourcing zshrc
 alias ze="nvim ~/.zshrc"
@@ -404,69 +360,8 @@ alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpape
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: exporting paths {{{
-# -------------------------------------------------------------------
-# perl
-# PATH="/home/lalitmee/perl5/bin${PATH:+:${PATH}}"; export PATH;
-# PERL5LIB="/home/lalitmee/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-# PERL_LOCAL_LIB_ROOT="/home/lalitmee/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-# PERL_MB_OPT="--install_base \"/home/lalitmee/perl5\""; export PERL_MB_OPT;
-# PERL_MM_OPT="INSTALL_BASE=/home/lalitmee/perl5"; export PERL_MM_OPT;
-
-# yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# neovim logs
-export NVIM_LOG_FILE_PATH="$HOME/.logs/nvim"
-
-# snap path
-export PATH="$PATH:/snap/bin"
-
-# rofi scripts
-export PATH=$HOME/.config/rofi/scripts:$PATH
-
-# doom-emacs command
-export PATH="$HOME/Desktop/Github/doom-emacs/bin:$PATH"
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# linuxbrew
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin/:$PATH"
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
-export PATH="/home/linuxbrew/.linuxbrew/opt/openssl@1.1/bin:$PATH"
-
-# cargo
-export PATH="$HOME/cargo/bin:$PATH"
-
-# go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
 # NOTE: fzf {{{
 # -------------------------------------------------------------------
-# great functions for fzf from
-# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
-[ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
-
-# fzf path settings
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# . /usr/share/doc/fzf/examples/key-bindings.zsh
-
-export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
-
 # # gruvbox color for fzf
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 #     --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
@@ -492,40 +387,6 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: custom plugins {{{
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: almostontop {{{
-# -------------------------------------------------------------------
-# almost on top from github: https://github.com/Valiev/almostontop
-source ~/Desktop/Github/almostontop/almostontop.plugin.zsh
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: zoxide {{{
-# -------------------------------------------------------------------
-# easily switch directories
-# eval "$(lua /home/lalitmee/z.lua/z.lua --init zsh)"
-eval "$(zoxide init zsh)"
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: s search {{{
-# for s-search from the terminal
-# -------------------------------------------------------------------
-if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
-    . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
-fi
-# }}}
-# -------------------------------------------------------------------
-
 # }}}
 # -------------------------------------------------------------------
 
