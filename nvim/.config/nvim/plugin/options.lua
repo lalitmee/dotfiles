@@ -98,7 +98,7 @@ opt.relativenumber = true
 opt.hidden = true
 opt.splitbelow = true
 opt.splitright = true
-opt.splitkeep = "cursor"
+-- opt.splitkeep = "cursor"
 opt.eadirection = "hor"
 -- exclude usetab as we do not want to jump to buffers in already open tabs
 -- do not use split or vsplit to ensure we don't open any new windows
