@@ -209,15 +209,11 @@ require("packer").startup({
         })
 
         -- quick scope for lines in lua
-        use({
-            "jinh0/eyeliner.nvim",
-            config = conf("eyeliner"),
-        })
+        use({ "jinh0/eyeliner.nvim" })
 
         -- Navigations
         use({
             "ThePrimeagen/harpoon",
-            config = conf("harpoon"),
             cmd = {
                 "HarpoonAddFile",
                 "HarpoonGotoFile",
@@ -420,7 +416,6 @@ require("packer").startup({
         use({
             "williamboman/mason-lspconfig.nvim",
             requires = { "williamboman/mason.nvim" },
-            config = conf("mason"),
         })
 
         use({
@@ -465,7 +460,6 @@ require("packer").startup({
         ------------------------------------------------------------------------
         use({
             "nvim-treesitter/nvim-treesitter",
-            config = conf("treesitter"),
             run = ":TSUpdate",
             requires = {
                 {
@@ -654,8 +648,6 @@ require("packer").startup({
         -- debugger attach protocol
         use({
             "mfussenegger/nvim-dap",
-            config = conf("dap"),
-            cmd = { "DapToggleBreakpoint" },
             requires = {
                 {
                     "jbyuki/one-small-step-for-vimkind",
