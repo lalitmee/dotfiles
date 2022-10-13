@@ -362,6 +362,17 @@ alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpape
 # -------------------------------------------------------------------
 # NOTE: fzf {{{
 # -------------------------------------------------------------------
+# fzf path settings
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# great functions for fzf from
+# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+[ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
+
+export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
+export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
+
 # # gruvbox color for fzf
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 #     --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
