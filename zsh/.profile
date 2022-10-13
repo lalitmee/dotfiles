@@ -1,3 +1,5 @@
+#!/usr/bin zsh
+
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -37,9 +39,8 @@ setxkbmap -option caps:swapescape
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# eval $(/bin/brew shellenv)
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-if [ -e /home/lalitmee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/lalitmee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 . "$HOME/.cargo/env"
