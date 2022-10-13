@@ -5,4 +5,9 @@ end
 
 neodim.setup({
     alpha = 0.6,
+    hide = {
+        virtual_text = false,
+        signs = false,
+        underline = false,
+    },
 })
