@@ -154,6 +154,7 @@ local leader_key_maps = {
         ["s"] = { ":w<CR>", "save-buffer" },
         ["S"] = { ":wa<CR>", "save-all-buffers" },
         ["t"] = { ":Telescope filetypes<CR>", "file-types" },
+        ["q"] = { ":wq<CR>", "save-and-quit" },
     },
     -- }}}
     ----------------------------------------------------------------------
