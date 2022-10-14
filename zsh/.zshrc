@@ -369,7 +369,7 @@ alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpape
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-d:deselect-all'
+export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all'
 
 # # gruvbox color for fzf
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
