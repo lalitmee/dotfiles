@@ -116,11 +116,11 @@ exec --no-startup-id xset r rate 350 30
 exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled" 1
 exec xinput set-prop "DELL08A6:00 06CB:7E92 Mouse" "libinput Tapping Enabled" 1
 
-# # NOTE: picom
-# exec --no-startup-id picom
+# NOTE: picom
+exec_always --no-startup-id picom
 
 # NOTE: compton
-exec_always --no-startup-id compton -f
+# exec_always --no-startup-id compton -f
 
 # NOTE: unclutter - remove mouse pointer after some time
 exec --no-startup-id unclutter
