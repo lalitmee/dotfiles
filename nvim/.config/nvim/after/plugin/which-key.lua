@@ -138,16 +138,19 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["f"] = {
         ["name"] = "+files",
+        ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
         ["c"] = { ":TelescopeEditDotfiles<CR>", "dotfiles" },
         ["d"] = { ":Telescope find_files theme=dropdown<CR>", "with-dropdown" },
-        ["e"] = { ":Telescope file_browser<CR>", "file-browser" },
+        ["e"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
         ["f"] = { ":Telescope find_files<CR>", "files" },
         ["g"] = { ":Telescope git_files<CR>", "git-files" },
+        ["h"] = { ":Telescope frecency<CR>", "telescope-frecency" },
         ["i"] = { ":Telescope find_files theme=ivy<CR>", "ivy-theme-files" },
-        ["m"] = { ":Telescope media_files<CR>", "media-files" },
-        ["n"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
+        ["m"] = { ":ToggleHarpoonMenu<CR>", "quick-menu" },
+        ["n"] = { ":HarpoonNextMark<CR>", "next-mark" },
         ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
-        ["r"] = { ":Telescope frecency<CR>", "telescope-frecency" },
+        ["p"] = { ":HarpoonPrevMark<CR>", "prev-mark" },
+        ["r"] = { ":HarpoonRemoveFile<CR>", "remove-file" },
         ["s"] = { ":w<CR>", "save-buffer" },
         ["S"] = { ":wa<CR>", "save-all-buffers" },
         ["t"] = { ":Telescope filetypes<CR>", "file-types" },
@@ -646,19 +649,6 @@ local local_leader_key_maps = {
     -- }}}
     ----------------------------------------------------------------------
 
-    ----------------------------------------------------------------------
-    -- NOTE: files {{{
-    ----------------------------------------------------------------------
-    ["f"] = {
-        ["name"] = "+files",
-        ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
-        ["m"] = { ":ToggleHarpoonMenu<CR>", "quick-menu" },
-        ["n"] = { ":HarpoonNextMark<CR>", "next-mark" },
-        ["p"] = { ":HarpoonPrevMark<CR>", "prev-mark" },
-        ["r"] = { ":HarpoonRemoveFile<CR>", "remove-file" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
     ["]"] = "replace-all", -- coming from  `plugins/abolish.lua`
     ["["] = "replace-current", -- coming from `plugins/abolish.lua`
     ["d"] = { ":Neogen<CR>", "doc-this" },

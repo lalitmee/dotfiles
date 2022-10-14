@@ -1,6 +1,3 @@
-# starship prompt
-eval "$(starship init zsh)"
-
 # -------------------------------------------------------------------
 # NOTE: auto start tmux {{{
 # start tmux while starting new terminal
@@ -128,6 +125,7 @@ plugins=(
     rust
     sprunge
     sudo
+    tmux
     tmuxinator
     vi-mode
     yarn
@@ -418,5 +416,8 @@ killport () {
 }
 # }}}
 # -------------------------------------------------------------------
+
+# starship prompt
+eval "$(starship init zsh)"
 
 # vim:foldmethod=marker
