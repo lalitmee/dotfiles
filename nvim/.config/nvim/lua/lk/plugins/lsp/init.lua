@@ -53,6 +53,21 @@ capabilities.textDocument.foldingRange = {
 ----------------------------------------------------------------------
 -- NOTE: servers {{{
 ----------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: neodev setup {{{
+--------------------------------------------------------------------------------
+local ok, neodev = lk.require("neodev")
+if not ok then
+    vim.notify("Something wrong with [neodev]", 2, { title = "[neodev]" })
+    return
+end
+neodev.setup({
+    library = { plugins = { "plenary.nvim" } },
+})
+-- }}}
+--------------------------------------------------------------------------------
+
 local servers = {
     bashls = true,
     clangd = {
@@ -97,14 +112,7 @@ local servers = {
                 },
             },
         }
-        local ok, lua_dev = lk.require("neodev")
-        if not ok then
-            return settings
-        end
-        return lua_dev.setup({
-            library = { plugins = { "plenary.nvim" } },
-            lspconfig = settings,
-        })
+        return settings
     end,
     tailwindcss = true,
     tsserver = true,

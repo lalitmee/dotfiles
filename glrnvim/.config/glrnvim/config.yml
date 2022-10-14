@@ -3,7 +3,7 @@
 # Choose the backend terminal to run neovim in.
 # Current supported terminals: alacritty, urxvt, kitty.
 #
-backend: alacritty
+backend: kitty
 # path to backend executable file
 # NOTE: requires a backend key
 #exe_path: /path/to/urxvt

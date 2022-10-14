@@ -228,6 +228,8 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: FUZZY SEARCH {{{
         ------------------------------------------------------------------------
+        use({ "ibhagwan/fzf-lua" })
+
         -- telescope.nvim
         use({
             "nvim-telescope/telescope.nvim",
