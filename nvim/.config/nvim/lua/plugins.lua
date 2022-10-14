@@ -99,9 +99,7 @@ require("packer").startup({
         -- trim whitespaces
         use({
             "cappyzawa/trim.nvim",
-            config = function()
-                require("trim").setup()
-            end,
+            config = [[require("trim").setup()]],
         })
 
         -- -- new UI paradigm
@@ -427,8 +425,7 @@ require("packer").startup({
                 { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp", ft = { "lua" } },
                 { "hrsh7th/cmp-path", after = "nvim-cmp" },
                 { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-                { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
-                -- { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
+                { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
             },
         })
 
@@ -438,20 +435,11 @@ require("packer").startup({
             module = "lspconfig",
             config = conf("lsp"),
             requires = {
-                {
-                    "onsails/lspkind.nvim",
-                    after = "nvim-lspconfig",
-                },
-                {
-                    "ray-x/lsp_signature.nvim",
-                    after = "nvim-lspconfig",
-                    config = conf("signature"),
-                },
-                { "folke/lua-dev.nvim" },
+                { "onsails/lspkind.nvim" },
+                { "j-hui/fidget.nvim" },
+                { "folke/neodev.nvim" },
             },
         })
-
-        use({ "j-hui/fidget.nvim" })
         -- }}}
         ------------------------------------------------------------------------
 

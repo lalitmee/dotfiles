@@ -25,13 +25,12 @@ cmp.setup({
         }),
     },
     sources = cmp.config.sources({
-        -- { name = "cmp_tabnine" },
+        { name = "cmp_tabnine" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "path" },
         { name = "orgmode" },
-        { name = "rg" },
     }, {
         { name = "buffer" },
     }),
@@ -66,7 +65,7 @@ cmp.setup({
         format = lspkind.cmp_format({
             with_text = true,
             menu = {
-                -- cmp_tabnine = "[TBN]",
+                cmp_tabnine = "[TBN]",
                 buffer = "[BUF]",
                 cmdline = "[CMD]",
                 luasnip = "[SNIP]",

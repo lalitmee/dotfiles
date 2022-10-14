@@ -1,6 +1,6 @@
 local ok, replacer = lk.require("replacer")
 if not ok then
-  return
+    return
 end
 
 ----------------------------------------------------------------------
@@ -8,16 +8,14 @@ end
 ----------------------------------------------------------------------
 local command = lk.command
 
-command("ReplacerRunFiles", function()
-  replacer.run()
+-- this can rename or replace everything in quickfix
+command("ReplacerFiles", function()
+    replacer.run()
 end, {})
 
-command("ReplacerRun", function()
-  replacer.run({ rename_files = false })
-end, {})
-
-command("ReplacerRunF", function()
-  replacer.run()
+-- this will not rename or move file names
+command("Replacer", function()
+    replacer.run({ rename_files = false })
 end, {})
 -- }}}
 ----------------------------------------------------------------------

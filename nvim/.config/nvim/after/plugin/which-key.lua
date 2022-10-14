@@ -700,27 +700,15 @@ local local_leader_key_maps = {
     ----------------------------------------------------------------------
     -- NOTE: quickfix {{{
     ----------------------------------------------------------------------
-    ["p"] = {
-        ["name"] = "+pomodoro",
-        ["b"] = { ":NomoBreak<CR>", "start-break" },
-        ["h"] = { ":NomoStatus<CR>", "status" },
-        ["n"] = { ":NomoTimer ", "set-timer" },
-        ["s"] = { ":NomoWork<CR>", "start-work" },
-        ["t"] = { ":NomoStop<CR>", "stop" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: quickfix {{{
-    ----------------------------------------------------------------------
     ["q"] = {
         ["name"] = "+quickfix",
         ["c"] = { ":cclose<CR>", "close" },
-        ["l"] = { ":Telescope quickfix<CR>", "fuzzy-quickfix" },
+        ["f"] = { ":ReplacerFiles<CR>", "replacer-files" },
+        ["l"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
         ["n"] = { ":cnext<CR>", "next" },
         ["o"] = { ":copen<CR>", "open" },
         ["p"] = { ":cprev<CR>", "prev" },
+        ["r"] = { ":Replacer<CR>", "replacer" },
     },
     -- }}}
     ----------------------------------------------------------------------
