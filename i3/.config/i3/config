@@ -100,6 +100,9 @@ default_floating_border pixel 1
 #-------------------------------------------------------------------------------
 #  NOTE: autostart applications {{{
 #-------------------------------------------------------------------------------
+# NOTE: caps lock to escape
+exec --no-startup-id setxkbmap -option caps:swapescape
+
 # NOTE: feh
 exec_always sxhkd
 

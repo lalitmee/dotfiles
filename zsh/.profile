@@ -33,9 +33,6 @@ fi
 #     PATH="$HOME/.emacs.d/doom:$PATH"
 # fi
 
-# switch for caps lock to escape
-setxkbmap -option caps:swapescape
-
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
