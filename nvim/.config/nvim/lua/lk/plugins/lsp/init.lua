@@ -139,7 +139,7 @@ local function get_server_config(name)
     local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
     config.flags = { debounce_text_changes = 500 }
     config.capabilities = config.capabilities or capabilities or vim.lsp.protocol.make_client_capabilities()
-    cmp_nvim_lsp.update_capabilities(config.capabilities)
+    cmp_nvim_lsp.default_capabilities(config.capabilities)
     config = vim.tbl_deep_extend("force", {
         on_init = custom_init,
         on_attach = lsp_utils.on_attach,
