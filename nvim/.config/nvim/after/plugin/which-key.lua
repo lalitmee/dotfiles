@@ -255,6 +255,21 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["j"] = {
         ["name"] = "+jumping",
+        ["a"] = {
+            ["name"] = "+anywhere",
+            [";"] = { ":HopAnywhereCurrentLineAC<CR>", "hop-anywhere-current-line-AC" },
+            ["a"] = { ":HopAnywhere<CR>", "hop-anywhere" },
+            ["d"] = { ":HopAnywhereAC<CR>", "hop-anywhere-AC" },
+            ["h"] = { ":HopAnywhereCurrentLineBC<CR>", "hop-anywhere-current-line-BC" },
+            ["l"] = { ":HopAnywhereCurrentLine<CR>", "hop-anywhere-current-line" },
+            ["u"] = { ":HopAnywhereBC<CR>", "hop-anywhere-BC" },
+        },
+        ["c"] = { ":HopChar1<CR>", "hop-char-1" },
+        ["d"] = { ":HopChar2<CR>", "hop-char-2" },
+        ["l"] = { ":HopLine<CR>", "hop-line" },
+        ["L"] = { ":HopWordCurrentLine<CR>", "hop-current-line" },
+        ["p"] = { ":HopPattern<CR>", "hop-pattern" },
+        ["w"] = { ":HopWord<CR>", "hop-word" },
     },
     -- }}}
     ----------------------------------------------------------------------
