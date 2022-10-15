@@ -209,6 +209,9 @@ require("packer").startup({
         -- quick scope for lines in lua
         use({ "jinh0/eyeliner.nvim" })
 
+        -- easymotion using lua
+        use({ "phaazon/hop.nvim" })
+
         -- Navigations
         use({
             "ThePrimeagen/harpoon",
@@ -228,8 +231,6 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: FUZZY SEARCH {{{
         ------------------------------------------------------------------------
-        use({ "ibhagwan/fzf-lua" })
-
         -- telescope.nvim
         use({
             "nvim-telescope/telescope.nvim",
