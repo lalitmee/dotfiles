@@ -196,17 +196,17 @@ super + Shift + Tab
 # Alt_L + Tab
 #     workspaces back_and_forth
 
-super + ctrl + h
-    i3-msg resize grow width 4 px or 4 ppt
+super + ctrl + shift + h
+    i3Kornhe size --speed 50 left
 
-super + ctrl + j
-    i3-msg resize shrink height 4 px or 4 ppt
+super + ctrl + shift + j
+    i3Kornhe size --speed 50 down
 
-super + ctrl + k
-    i3-msg resize grow height 4 px or 4 ppt
+super + ctrl + shift + k
+    i3Kornhe size --speed 50 up
 
-super + ctrl + l
-    i3-msg resize shrink width 4 px or 4 ppt
+super + ctrl + shift + l
+    i3Kornhe size --speed 50 right
 #}}}
 #-------------------------------------------------------------------------------
 
