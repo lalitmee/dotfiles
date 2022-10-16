@@ -127,6 +127,9 @@ control + {1-9}
 super + shift + {1-9,0}
     i3-msg move container to workspace {1-9,10}
 
+super + ctrl + {h,j,k,l}
+    i3-msg move workspace to output {left, down, up, right}
+
 control + shift + {1-9}
     i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
 
