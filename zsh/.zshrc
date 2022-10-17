@@ -89,6 +89,7 @@ plugins=(
     docker-compose
     dotenv
     extract
+    fast-syntax-highlighting
     fzf-tab
     fzf-zsh-plugin
     gem
@@ -115,7 +116,7 @@ plugins=(
     yarn
     zoxide
     zsh-autosuggestions
-    zsh-syntax-highlighting
+    # zsh-syntax-highlighting
     zsh-wakatime
 )
 

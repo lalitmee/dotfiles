@@ -456,10 +456,6 @@ set -g @plugin 'tmux-plugins/tmux-sessionist'
 set -g @plugin 'wfxr/tmux-fzf-url'
 set -g @fzf-url-bind 'U'
 
-# session wizard
-set -g @plugin '27medkamal/tmux-session-wizard'
-set -g @session-wizard 'C-m'
-
 # }}}
 #-------------------------------------------------------------------------------
 
