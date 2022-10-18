@@ -17,6 +17,6 @@ command("MinimapClose", function()
     codewindow.close_minimap()
 end, {})
 
-command("MinimapToggle", function()
+command("MinimapToggleFocus", function()
     codewindow.toggle_focus()
 end, {})
