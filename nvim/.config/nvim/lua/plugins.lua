@@ -51,6 +51,8 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: UI and Beautify {{{
         ----------------------------------------------------------------------------
+        use({ "gorbit99/codewindow.nvim" })
+
         -- highlights of unused functions, variables, parameters, and more
         use({ "zbirenbaum/neodim" })
 
@@ -276,20 +278,11 @@ require("packer").startup({
             },
         })
 
-        local_use({
-            "telescope-media-files.nvim",
+        use({
+            "nvim-telescope/telescope-media-files.nvim",
             after = "telescope.nvim",
             config = function()
                 require("telescope").load_extension("media_files")
-            end,
-        })
-
-        -- file browser using telescope
-        use({
-            "nvim-telescope/telescope-file-browser.nvim",
-            after = "telescope.nvim",
-            config = function()
-                require("telescope").load_extension("file_browser")
             end,
         })
         -- }}}

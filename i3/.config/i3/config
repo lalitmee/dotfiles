@@ -122,8 +122,11 @@ default_floating_border pixel 1
 # NOTE: caps lock to escape
 exec --no-startup-id setxkbmap -option caps:swapescape
 
-# NOTE: feh
+# NOTE: sxhkd
 exec_always sxhkd
+
+# NOTE: safeeyes
+exec --no-startup-id safeeyes
 
 # NOTE: feh
 exec --no-startup-id i3-msg "exec feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*"
