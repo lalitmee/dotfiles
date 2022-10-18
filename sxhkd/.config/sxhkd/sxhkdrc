@@ -54,9 +54,6 @@ super + p
 super + shift + u
    ~/.config/rofi/applets/bin/quicklinks.sh
 
-# super + shift + s
-#    ~/.config/rofi/applets/bin/screenshot.sh
-
 super + shift + s
    flameshot gui
 #}}}
@@ -121,17 +118,21 @@ alt + {h,j,k,l}
 super + {1-9,0}
     i3-msg workspace {1-9,10}
 
+super + shift + {1-9,0}
+    i3-msg move container to workspace {1-9,10}
+
 control + {1-9}
     i3-msg workspace {11,12,13,14,15,16,17,18,19}
 
-super + shift + {1-9,0}
-    i3-msg move container to workspace {1-9,10}
+control + shift + {1-9}
+    i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
 
 super + ctrl + {h,j,k,l}
     i3-msg move workspace to output {left, down, up, right}
 
-control + shift + {1-9}
-    i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
+super + ctrl + {Left,Down,Up,Right}
+    i3-msg move workspace to output {left, down, up, right}
+
 
 #}}}
 #-------------------------------------------------------------------------------
@@ -184,7 +185,13 @@ super + shift + z
 super + {h,j,k,l}
     i3viswiz {left,down,up,right}
 
+super + {Left,Down,Up,Right}
+    i3viswiz {left,down,up,right}
+
 super + shift + {h,j,k,l}
+    i3flip --move {left,down,up,right}
+
+super + shift + {Left,Down,Up,Right}
     i3flip --move {left,down,up,right}
 
 super + Tab
