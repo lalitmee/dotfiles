@@ -80,22 +80,22 @@ window:
 # Font configuration
 font:
   normal:
-    family: CaskaydiaCove Nerd Font
-    style: Bold
+    family: JetBrainsMono Nerd Font
+    style: Regular
 
   bold:
-    family: CaskaydiaCove Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bold
 
   italic:
-    family: OperatorMono Lig Book
+    family: JetBrainsMono Nerd Font
     style: Italic
 
   bold_italic:
-    family: CaskaydiaCove Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bolt Italic
 
-  size: 11
+  size: 10
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:

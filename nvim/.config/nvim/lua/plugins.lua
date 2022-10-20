@@ -469,6 +469,10 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: Languages {{{
         ----------------------------------------------------------------------------
+        -- sxhkdrc syntax
+        use({ "baskerville/vim-sxhkdrc" })
+
+        -- emmet vim
         use({
             "mattn/emmet-vim",
         })
@@ -502,8 +506,6 @@ require("packer").startup({
         })
         -- }}}
 
-        -- NOTE: sxhkd
-        use({ "baskerville/vim-sxhkdrc" })
         ----------------------------------------------------------------------------
         -- }}}
         ----------------------------------------------------------------------------
@@ -648,9 +650,6 @@ require("packer").startup({
         use({
             "phaazon/mind.nvim",
             tag = "v2.2",
-            config = function()
-                require("mind").setup()
-            end,
         })
 
         -- auto add list markers to the next lines
