@@ -135,33 +135,48 @@ lualine.setup({
             },
         },
     },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { { "filename", path = 0 } },
-        lualine_x = { "filetype" },
-        lualine_z = { "location" },
-    },
-    tabline = {
-        lualine_a = {
-            {
-                "buffers",
-                buffers_color = { active = "lualine_b_normal" },
-            },
-        },
-        lualine_z = {
-            {
-                "tabs",
-                tabs_color = { active = "lualine_b_normal" },
-            },
-        },
-    },
+    -- tabline = {
+    --     lualine_c = {
+    --         -- {
+    --         --     "buffers",
+    --         --     mode = 2,
+    --         --     buffers_color = { active = "lualine_b_normal" },
+    --         -- },
+    --         { "filetype", icon_only = true },
+    --         { "filename", path = 1 },
+    --     },
+    --     lualine_z = {
+    --         {
+    --             "tabs",
+    --             tabs_color = { active = "lualine_b_normal" },
+    --         },
+    --     },
+    -- },
     winbar = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { get_winbar },
-        lualine_x = {},
+        lualine_c = {
+            {
+                "filetype",
+                icon_only = true,
+            },
+            {
+                "filename",
+                path = 1,
+            },
+            { get_winbar },
+        },
         lualine_z = {},
+    },
+    inactive_winbar = {
+        lualine_c = {
+            {
+                "filetype",
+                icon_only = true,
+            },
+            {
+                "filename",
+                path = 1,
+            },
+        },
     },
     extensions = {
         "man",
