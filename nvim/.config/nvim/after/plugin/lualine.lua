@@ -23,22 +23,6 @@ end
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
--- NOTE: search count {{{
-----------------------------------------------------------------------
-local function search_count()
-    if vim.api.nvim_get_vvar("hlsearch") == 1 then
-        local res = vim.fn.searchcount({ maxcount = 999, timeout = 500 })
-
-        if res.total > 0 then
-            return string.format("[%d/%d]", res.current, res.total)
-        end
-    end
-    return ""
-end
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: setup {{{
 ----------------------------------------------------------------------
 local winbar_excluded_filetypes = {
@@ -90,8 +74,7 @@ lualine.setup({
     sections = {
         lualine_a = {
             {
-                search_count,
-                type = "lua_expr",
+                "searchcount",
                 color = "LualineSessionName",
             },
             {
@@ -159,14 +142,21 @@ lualine.setup({
         lualine_x = { "filetype" },
         lualine_z = { "location" },
     },
-    winbar = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { get_winbar },
-        lualine_x = {},
-        lualine_z = {},
+    tabline = {
+        lualine_a = {
+            {
+                "buffers",
+                buffers_color = { active = "lualine_b_normal" },
+            },
+        },
+        lualine_z = {
+            {
+                "tabs",
+                tabs_color = { active = "lualine_b_normal" },
+            },
+        },
     },
-    inactive_winbar = {
+    winbar = {
         lualine_a = {},
         lualine_b = {},
         lualine_c = { get_winbar },
