@@ -21,15 +21,7 @@ set $sm DP-1
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: layout {{{
-#-------------------------------------------------------------------------------
-set $layout 'AB=-350 AC=220 BD=252'
-exec --no-startup-id i3fyra --layout $layout
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: didn't touch {{{
+#  NOTE: don't touch {{{
 #-------------------------------------------------------------------------------
 set $mod Mod4
 set $mod1 Mod1
@@ -38,56 +30,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 set $refresh_i3status killall -SIGUSR1 i3status
 floating_modifier $mod
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: workspaces {{{
-#-------------------------------------------------------------------------------
-# WARN: don't remove this because without this i3 doesn't work properly
-bindsym $mod1+Tab workspace back_and_forth
-
-# >> sets for workspace names
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
-# first monitor workspaces
-workspace $ws1 output $fm
-workspace $ws4 output $fm
-workspace $ws5 output $fm
-
-# second monitor workspaces
-workspace $ws2 output $sm
-workspace $ws3 output $sm
-workspace $ws6 output $sm
-workspace $ws0 output $sm
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: resize mode {{{
-#-------------------------------------------------------------------------------
-mode "resize" {
-    bindsym $left resize shrink width 10 px or 10 ppt
-    bindsym $down resize grow height 10 px or 10 ppt
-    bindsym $up resize shrink height 10 px or 10 ppt
-    bindsym $right resize grow width 10 px or 10 ppt
-
-    # back to normal: Enter or Escape or $mod+r
-    bindsym Return mode "default"
-    bindsym Caps_Lock mode "default"
-    bindsym $mod+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -107,100 +49,23 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: title bar {{{
+#  NOTE: borders {{{
 #-------------------------------------------------------------------------------
 # Or any other numeric value for "0"
-for_window [class=.*] border pixel 2
+for_window [class=.*] border pixel 3
 default_border pixel 1
 default_floating_border pixel 1
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: autostart applications {{{
+#  NOTE: including files {{{
 #-------------------------------------------------------------------------------
-# NOTE: caps lock to escape
-exec --no-startup-id setxkbmap -option caps:swapescape
-
-# NOTE: sxhkd
-exec_always sxhkd
-
-# NOTE: safeeyes
-exec --no-startup-id safeeyes
-
-# NOTE: feh
-exec --no-startup-id i3-msg "exec feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/nord-wallpapers/*"
-
-# NOTE: xset
-exec --no-startup-id xset r rate 350 30
-
-# NOTE: touchpad
-exec xinput set-prop "DELL08A6:00 06CB:7E92 Touchpad" "libinput Tapping Enabled" 1
-exec xinput set-prop "DELL08A6:00 06CB:7E92 Mouse" "libinput Tapping Enabled" 1
-
-# NOTE: picom
-exec_always --no-startup-id picom
-
-# NOTE: compton
-# exec_always --no-startup-id compton -f
-
-# NOTE: unclutter - remove mouse pointer after some time
-exec --no-startup-id unclutter
-
-# NOTE: cbatticon
-exec --no-startup-id i3-msg "exec cbatticon -l 30 -r 20"
-
-# NOTE: slack
-exec --no-startup-id i3-msg "exec slack"
-
-# NOTE: firefox
-exec --no-startup-id i3-msg "exec firefox"
-
-# NOTE: brave-browser
-exec --no-startup-id i3-msg "exec brave-browser"
-
-# NOTE: terminal
-exec --no-startup-id i3-msg "exec kitty"
-
-# NOTE: spotify
-exec --no-startup-id i3-msg "exec flatpak run com.spotify.Client"
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: assignments {{{
-#-------------------------------------------------------------------------------
-assign [class="Slack"] $ws1
-assign [class="Brave-browser"] $ws2
-assign [class="kitty"] $ws3
-assign [class="firefox"] $ws4
-# assign [class="Org.gnome.Nautilus"] $ws10
-
-# NOTE: spotify doesn't work with `assign`
-# assign [class="Spotify"] $ws5
-for_window [class="^Spotify"] move to workspace $ws5
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: gaps {{{
-#-------------------------------------------------------------------------------
-gaps inner 8
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: arandr config {{{
-#-------------------------------------------------------------------------------
-exec_always xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-2 --off --output HDMI-1 --off
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: scratchpads enable floating window {{{
-#-------------------------------------------------------------------------------
-# for_window [title="cmus"] floating enable
-# for_window [title="monitor"] floating enable
+include $HOME/.config/i3/gaps.conf
+include $HOME/.config/i3/scratchpads.conf
+include $HOME/.config/i3/autostart/workspaces.conf
+include $HOME/.config/i3/autostart/applications.conf
+include $HOME/.config/i3/autostart/xrandr.conf
 # }}}
 #-------------------------------------------------------------------------------
 

@@ -478,8 +478,8 @@ bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 #  NOTE: window management {{{
 #-------------------------------------------------------------------------------
 # for split window
-bind-key - split-window -v -c '#{current_pane_path}'
-bind-key | split-window -h -c '#{current_pane_path}'
+bind-key '-' split-window -v -c '#{current_pane_path}'
+bind-key '\' split-window -h -c '#{current_pane_path}'
 
 # create new window with the current directory path
 bind c new-window -c '#{current_pane_path}'
