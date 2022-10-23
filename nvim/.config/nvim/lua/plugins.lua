@@ -176,10 +176,7 @@ require("packer").startup({
         use({ "mbbill/undotree" })
 
         -- interactively swap so many things
-        use({
-            "mizlan/iswap.nvim",
-            cmd = { "ISwap", "ISwapWith" },
-        })
+        use({ "mizlan/iswap.nvim" })
 
         ----------------------------------------------------------------------------
         -- NOTE: Search {{{
