@@ -50,8 +50,8 @@ end
 
 M.eval = function()
     local nvim_location = get_gps()
-    -- return string.format("%s %s", M.get_filename(), nvim_location)
-    return string.format("%s", nvim_location)
+    return string.format("%s %s", M.get_filename(), nvim_location)
+    -- return string.format("%s", nvim_location)
 end
 
 return M

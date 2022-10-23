@@ -87,17 +87,9 @@ lualine.setup({
                 },
             },
         },
-        lualine_b = {
-            {
-                "branch",
-                icon = "",
-                color = {
-                    gui = "bold",
-                },
-            },
-        },
+        lualine_b = {},
         lualine_c = {
-            { "%=", type = "stl" },
+            -- { "%=", type = "stl" },
             { "filetype", icon_only = true },
             {
                 "filename",
@@ -122,7 +114,8 @@ lualine.setup({
         },
         lualine_y = {
             {
-                "progress",
+                "branch",
+                icon = "",
                 color = {
                     gui = "bold",
                 },
@@ -130,8 +123,16 @@ lualine.setup({
         },
         lualine_z = {
             {
+                "progress",
+                color = {
+                    gui = "bold",
+                },
+            },
+            {
                 "location",
-                color = { gui = "bold" },
+                color = {
+                    gui = "bold",
+                },
             },
         },
     },
@@ -154,14 +155,14 @@ lualine.setup({
     -- },
     winbar = {
         lualine_c = {
-            {
-                "filetype",
-                icon_only = true,
-            },
-            {
-                "filename",
-                path = 1,
-            },
+            -- {
+            --     "filetype",
+            --     icon_only = true,
+            -- },
+            -- {
+            --     "filename",
+            --     path = 1,
+            -- },
             { get_winbar },
         },
         lualine_z = {},
