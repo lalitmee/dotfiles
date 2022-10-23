@@ -97,10 +97,7 @@ require("packer").startup({
         -- NOTE: general {{{
         ----------------------------------------------------------------------------
         -- trim whitespaces
-        use({
-            "cappyzawa/trim.nvim",
-            config = [[require("trim").setup()]],
-        })
+        use({ "cappyzawa/trim.nvim" })
 
         -- -- new UI paradigm
         -- use({
