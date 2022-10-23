@@ -1,0 +1,21 @@
+{
+  "border": "pixel",
+  "current_border_width": 3,
+  "floating": "auto_off",
+  "geometry": {
+    "height": 1036,
+    "width": 1900,
+    "x": 1930,
+    "y": 34
+  },
+  "marks": [],
+  "name": "brave-browser",
+  "percent": 1,
+  "swallows": [
+    {
+      "class": "^Brave\\-browser$",
+      "instance": "^brave\\-browser$"
+    }
+  ],
+  "type": "con"
+}
