@@ -210,7 +210,7 @@ require("packer").startup({
         use({ "jinh0/eyeliner.nvim" })
 
         -- easymotion using lua
-        use({ "phaazon/hop.nvim" })
+        use({ "ggandor/leap.nvim" })
 
         -- Navigations
         use({
