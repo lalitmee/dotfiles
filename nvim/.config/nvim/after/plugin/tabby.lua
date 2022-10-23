@@ -3,50 +3,65 @@ if not ok then
     return
 end
 
-local theme = {
-    fill = "TabLineFill",
-    -- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
-    head = "TabLine",
-    current_tab = "TabLineSel",
-    tab = "TabLine",
-    win = "TabLine",
-    tail = "TabLine",
+local palette = require("cobalt2.palette")
+local filename = require("tabby.filename")
+local cwd = function()
+    return " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " "
+end
+local tabname = function(tabid)
+    return vim.api.nvim_tabpage_get_number(tabid)
+end
+local line = {
+    hl = { fg = palette.yellow, bg = palette.cobalt_bg },
+    layout = "active_wins_at_tail",
+    head = {
+        { cwd, hl = { fg = palette.black, bg = palette.yellow } },
+        { "", hl = { fg = palette.yellow, bg = palette.cobalt_bg } },
+    },
+    active_tab = {
+        label = function(tabid)
+            return {
+                "  " .. tabname(tabid) .. " ",
+                hl = { fg = palette.yellow, bg = palette.cursor_hover, style = "bold" },
+            }
+        end,
+        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+    },
+    inactive_tab = {
+        label = function(tabid)
+            return {
+                "  " .. tabname(tabid) .. " ",
+                hl = { fg = palette.yellow, bg = palette.cursor_hover, style = "bold" },
+            }
+        end,
+        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+    },
+    top_win = {
+        label = function(winid)
+            return {
+                "  " .. filename.unique(winid) .. " ",
+                hl = { fg = palette.yellow, bg = palette.cursor_hover },
+            }
+        end,
+        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+    },
+    win = {
+        label = function(winid)
+            return {
+                "  " .. filename.unique(winid) .. " ",
+                hl = { fg = palette.yellow, bg = palette.cursor_hover },
+            }
+        end,
+        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+    },
+    tail = {
+        { "", hl = { fg = palette.yellow, bg = palette.cobalt_bg } },
+        { "  ", hl = { fg = palette.black, bg = palette.yellow } },
+    },
 }
 
-require("tabby.tabline").set(function(line)
-    return {
-        {
-            { "█", hl = theme.head },
-            line.sep("|", theme.head, theme.fill),
-        },
-        line.tabs().foreach(function(tab)
-            local hl = tab.is_current() and theme.current_tab or theme.tab
-            return {
-                line.sep("|", hl, theme.fill),
-                tab.is_current() and "" or "",
-                tab.number(),
-                tab.name(),
-                tab.close_btn(""),
-                line.sep("|", hl, theme.fill),
-                hl = hl,
-                margin = " ",
-            }
-        end),
-        line.spacer(),
-        line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-            return {
-                line.sep("|", theme.win, theme.fill),
-                win.is_current() and "" or "",
-                win.buf_name(),
-                line.sep("", theme.win, theme.fill),
-                hl = theme.win,
-                margin = " ",
-            }
-        end),
-        {
-            line.sep("|", theme.tail, theme.fill),
-            { "  ", hl = theme.tail },
-        },
-        hl = theme.fill,
-    }
-end)
+tabby.setup({ tabline = line })
