@@ -51,6 +51,8 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: UI and Beautify {{{
         ----------------------------------------------------------------------------
+        use({ "gorbit99/codewindow.nvim" })
+
         -- highlights of unused functions, variables, parameters, and more
         use({ "zbirenbaum/neodim" })
 
@@ -320,7 +322,6 @@ require("packer").startup({
             requires = {
                 "rafamadriz/friendly-snippets",
                 "honza/vim-snippets",
-                "molleweide/LuaSnip-snippets.nvim",
             },
         })
         -- }}}
@@ -491,6 +492,8 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: STATUS AND TAB LINES {{{
         ------------------------------------------------------------------------
+        use({ "nanozuki/tabby.nvim" })
+
         -- lualine.nvim
         use({
             "nvim-lualine/lualine.nvim",
