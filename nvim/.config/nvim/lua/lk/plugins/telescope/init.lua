@@ -393,7 +393,7 @@ end
 
 local function image_selector(prompt, cwd)
     return function()
-        require("telescope").extensions.media_files.media_files({
+        require("telescope.builtin").find_files({
             prompt_title = prompt,
             cwd = cwd,
 
