@@ -534,15 +534,6 @@ local leader_key_maps = {
         ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
         ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
         ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
-        ["w"] = {
-            ["name"] = "+tabs",
-            ["c"] = { ":tabclose<CR>", "close-tab" },
-            ["f"] = { ":tabfirst<CR>", "first-tab" },
-            ["l"] = { ":tablast<CR>", "last-tab" },
-            ["n"] = { ":tabnext<CR>", "next-tab" },
-            ["N"] = { ":tabnew<CR>", "new-tab" },
-            ["p"] = { ":tabprevious<CR>", "previous-tab" },
-        },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -677,6 +668,17 @@ local local_leader_key_maps = {
         ["name"] = "+treesitter",
         ["c"] = "doc-node-at-cursor",
         ["v"] = "visual-selection",
+    },
+    ["w"] = {
+        ["name"] = "+tabs",
+        ["a"] = { ":tabnew<CR>", "new-tab" },
+        ["c"] = { ":tabclose<CR>", "close-tab" },
+        ["f"] = { ":tabfirst<CR>", "first-tab" },
+        ["j"] = { ":-tabmove<CR>", "move-tab-to-previous-position" },
+        ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
+        ["l"] = { ":tablast<CR>", "last-tab" },
+        ["n"] = { ":tabnext<CR>", "next-tab" },
+        ["p"] = { ":tabprevious<CR>", "previous-tab" },
     },
     -- }}}
     ----------------------------------------------------------------------
