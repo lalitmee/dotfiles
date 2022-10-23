@@ -178,9 +178,6 @@ require("packer").startup({
         -- undo tree
         use({ "mbbill/undotree" })
 
-        -- better substitute
-        use({ "gbprod/substitute.nvim" })
-
         -- interactively swap so many things
         use({
             "mizlan/iswap.nvim",
@@ -199,12 +196,7 @@ require("packer").startup({
         use({ "romainl/vim-cool" })
 
         -- toggle relative line numbers automatically
-        use({
-            "sitiom/nvim-numbertoggle",
-            config = function()
-                require("numbertoggle").setup()
-            end,
-        })
+        use({ "sitiom/nvim-numbertoggle" })
 
         -- quick scope for lines in lua
         use({ "jinh0/eyeliner.nvim" })
@@ -213,18 +205,7 @@ require("packer").startup({
         use({ "ggandor/leap.nvim" })
 
         -- Navigations
-        use({
-            "ThePrimeagen/harpoon",
-            cmd = {
-                "HarpoonAddFile",
-                "HarpoonGotoFile",
-                "HarpoonGotoTerm",
-                "HarpoonNextMark",
-                "HarpoonPrevMark",
-                "HarpoonRemoveFile",
-                "ToggleHarpoonMenu",
-            },
-        })
+        use({ "ThePrimeagen/harpoon" })
         -- }}}
         ----------------------------------------------------------------------------
 
@@ -276,13 +257,6 @@ require("packer").startup({
             },
         })
 
-        use({
-            "nvim-telescope/telescope-media-files.nvim",
-            after = "telescope.nvim",
-            config = function()
-                require("telescope").load_extension("media_files")
-            end,
-        })
         -- }}}
         ------------------------------------------------------------------------
 
@@ -296,10 +270,7 @@ require("packer").startup({
         use({ "karb94/neoscroll.nvim" })
 
         -- delete buffers without distubing layout
-        use({
-            "famiu/bufdelete.nvim",
-            cmd = { "Bdelete", "Bwipeout", "Bdelete!", "Bwipeout!" },
-        })
+        use({ "famiu/bufdelete.nvim" })
 
         -- beautiful buffer switcher
         use({ "toppair/reach.nvim" })
@@ -311,22 +282,10 @@ require("packer").startup({
         use({ "wellle/targets.vim" })
 
         -- split and join
-        use({
-            "AndrewRadev/splitjoin.vim",
-            keys = {
-                { "n", "gJ" },
-                { "n", "gS" },
-            },
-        })
+        use({ "AndrewRadev/splitjoin.vim" })
 
         -- sorting in vim
-        use({
-            "christoomey/vim-sort-motion",
-            keys = {
-                { "v", "gs" },
-                { "n", "gs" },
-            },
-        })
+        use({ "christoomey/vim-sort-motion" })
 
         -- navigate and splits
         use({ "numToStr/Navigator.nvim" })
@@ -356,9 +315,7 @@ require("packer").startup({
         })
 
         -- overseer.nvim: task runner and job management
-        use({
-            "stevearc/overseer.nvim",
-        })
+        use({ "stevearc/overseer.nvim" })
 
         ------------------------------------------------------------------------
         -- NOTE: Snippets {{{
@@ -481,12 +438,7 @@ require("packer").startup({
         use({ "ray-x/go.nvim", ft = "go" })
 
         -- debug print
-        use({
-            "andrewferrier/debugprint.nvim",
-            config = function()
-                require("debugprint").setup()
-            end,
-        })
+        use({ "andrewferrier/debugprint.nvim" })
 
         ----------------------------------------------------------------------------
         -- NOTE: markdown {{{
