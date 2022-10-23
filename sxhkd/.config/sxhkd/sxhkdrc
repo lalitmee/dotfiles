@@ -164,6 +164,12 @@ super + shift + x
 super + f
     i3-msg fullscreen toggle
 
+super + backslash
+    i3-msg splith
+
+super + minus
+    i3-msg splitv
+
 super + e
     i3-msg layout toggle splith splitv tabbed stacking
 

@@ -62,6 +62,7 @@ default_floating_border pixel 1
 #  NOTE: including files {{{
 #-------------------------------------------------------------------------------
 include $HOME/.config/i3/gaps.conf
+include $HOME/.config/i3/colors.conf
 include $HOME/.config/i3/scratchpads.conf
 include $HOME/.config/i3/autostart/workspaces.conf
 include $HOME/.config/i3/autostart/applications.conf
