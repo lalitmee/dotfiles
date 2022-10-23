@@ -41,14 +41,17 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["a"] = {
         ["name"] = "+actions",
+        ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
         ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
+        ["e"] = { ":NeoTreeFocusToggle<CR>", "neo-tree-toggle" },
+        ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
+        ["g"] = { ":Glow<CR>", "markdown-glow" },
         ["i"] = { ":ISwapWith<CR>", "iswap-with" },
         ["I"] = { ":ISwap<CR>", "iswap" },
         ["m"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
-        ["e"] = { ":NeoTreeFocusToggle<CR>", "neo-tree-toggle" },
         ["o"] = { ":NeoTreeRevealToggle<CR>", "neo-tree-toggle" },
-        ["g"] = { ":Glow<CR>", "markdown-glow" },
         ["s"] = { ":StartupTime<CR>", "run-startup-time" },
+        ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -363,6 +366,7 @@ local leader_key_maps = {
         ["H"] = { ":checkhealth<CR>", "check-health" },
         ["i"] = { ":PackerInstall<CR>", "packer-install" },
         ["l"] = { ":lua Save_and_execute()<CR>", "save-and-execute" },
+        ["m"] = { ":ReloadModule ", "realod-module" },
         ["p"] = { ":TelescopeInstalledPlugins<CR>", "installed-plugins" },
         ["P"] = { ":PackerProfile<CR>", "packer-profile" },
         ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
@@ -404,11 +408,15 @@ local leader_key_maps = {
     -- NOTE: q is for quit/close {{{
     ----------------------------------------------------------------------
     ["q"] = {
-        ["name"] = "+quit/+reload",
-        ["m"] = { ":ReloadModule ", "realod-module" },
+        ["name"] = "+quickfix",
+        ["c"] = { ":cclose<CR>", "close" },
+        ["f"] = { ":ReplacerFiles<CR>", "replacer-files" },
+        ["l"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
+        ["n"] = { ":cnext<CR>", "next" },
+        ["o"] = { ":copen<CR>", "open" },
+        ["p"] = { ":cprev<CR>", "prev" },
         ["q"] = { ":qall<CR>", "quit-neovim" },
-        ["r"] = { ":ReloadConfig<CR>", "realod-config" },
-        ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
+        ["r"] = { ":Replacer<CR>", "replacer" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -522,6 +530,7 @@ local leader_key_maps = {
             ["h"] = { ":set scrolloff=5<CR>", "scrolloff=5" },
             ["n"] = { ":set scrolloff=999<CR>", "scrolloff=999" },
         },
+        ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
         ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
         ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
         ["w"] = {
@@ -584,14 +593,14 @@ local leader_key_maps = {
         ["d"] = { "<C-W>c", "delete-window" },
         ["e"] = { ":AutoResize<CR>", "auto-resize" },
         ["h"] = { ":NavigateLeft<CR>", "window-left" },
-        ["H"] = { "<C-W>5<", "expand-window-left" },
+        ["H"] = { "<C-W>10<", "expand-window-left" },
         ["i"] = { "<C-W>K", "move-window-far-top" },
         ["j"] = { ":NavigateDown<CR>", "window-down" },
-        ["J"] = { ":resize +5<CR>", "expand-window-below" },
+        ["J"] = { ":resize +10<CR>", "expand-window-below" },
         ["k"] = { ":NavigateUp<CR>", "window-up" },
-        ["K"] = { ":resize  5<CR>", "expand-window-up" },
+        ["K"] = { ":resize  10<CR>", "expand-window-up" },
         ["l"] = { ":NavigateRight<CR>", "window-right" },
-        ["L"] = { "<C-W>5>", "expand-window-right" },
+        ["L"] = { "<C-W>10>", "expand-window-right" },
         ["m"] = { ":NeoZoomToggle<CR>", "maximize-window" },
         ["n"] = { "<C-W>J", "move-window-far-down" },
         ["p"] = { ":NavigatePrevious<CR>", "window-previous" },
@@ -601,6 +610,7 @@ local leader_key_maps = {
         ["u"] = { "<C-W>x", "swap-window-next" },
         ["v"] = { "<C-W>v", "split-window-right" },
     },
+    ["y"] = { ":YankyRingHistory<CR>", "yank-ring-history" },
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -660,88 +670,15 @@ local local_leader_key_maps = {
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
-    -- NOTE: marks.nvim {{{
-    ----------------------------------------------------------------------
-    ["m"] = {
-        ["name"] = "+marks",
-        ["a"] = { ":MarksListAll<CR>", "list-all-marks" },
-        ["b"] = { ":MarksListBuf<CR>", "list-buf-marks" },
-        ["g"] = { ":MarksListGlobal<CR>", "list-global-marks" },
-        ["G"] = { ":MarksQFListGlobal<CR>", "qf-global-marks" },
-        ["h"] = { ":Telescope harpoon marks<CR>", "harpoon marks" },
-        ["q"] = { ":MarksQFListBuf<CR>", "qf-buf-marks" },
-        ["Q"] = { ":MarksQFListAll<CR>", "qf-all-marks" },
-        ["t"] = { ":MarksToggleSigns<CR>", "toggle-marks-signs" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: mind.nvim {{{
-    ----------------------------------------------------------------------
-    ["n"] = {
-        ["name"] = "+mind.nvim",
-        ["m"] = { ":MindOpenMain<CR>", "main" },
-        ["p"] = { ":MindOpenProject<CR>", "project" },
-        ["r"] = { ":MindReloadState<CR>", "reload" },
-        ["s"] = { ":MindOpenSmartProject<CR>", "smart-project" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: quickfix {{{
-    ----------------------------------------------------------------------
-    ["q"] = {
-        ["name"] = "+quickfix",
-        ["c"] = { ":cclose<CR>", "close" },
-        ["f"] = { ":ReplacerFiles<CR>", "replacer-files" },
-        ["l"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
-        ["n"] = { ":cnext<CR>", "next" },
-        ["o"] = { ":copen<CR>", "open" },
-        ["p"] = { ":cprev<CR>", "prev" },
-        ["r"] = { ":Replacer<CR>", "replacer" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: rest.nvim {{{
-    ----------------------------------------------------------------------
-    ["r"] = {
-        ["name"] = "+rest.nvim",
-        ["r"] = { "<Plug>RestNvim", "rest-open" },
-        ["p"] = { "<Plug>RestNvimPreview", "rest-with-preview" },
-        ["l"] = { "<Plug>RestNvimLast", "rest-open-last" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: spectre search and replace {{{
-    ----------------------------------------------------------------------
-    ["s"] = {
-        ["name"] = "+spectre-search",
-        ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
-        ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
-        ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
-        ["v"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
     -- NOTE: treesitter {{{
     ----------------------------------------------------------------------
     ["t"] = {
         ["name"] = "+treesitter",
         ["c"] = "doc-node-at-cursor",
         ["v"] = "visual-selection",
-        ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
     },
     -- }}}
     ----------------------------------------------------------------------
-    ["y"] = { ":YankyRingHistory<CR>", "yank-ring-history" },
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -750,6 +687,7 @@ local local_leader_key_maps = {
 -- NOTE: visual mode keymaps {{{
 ----------------------------------------------------------------------
 local visual_mode_leader_key_maps = {
+    ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
     ["r"] = {
         ["name"] = "+refactor",
         ["f"] = { ":ExtractSelectedFunc<CR>", "extract-function" },
