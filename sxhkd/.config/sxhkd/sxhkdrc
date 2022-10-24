@@ -246,14 +246,25 @@ alt + y
 #-------------------------------------------------------------------------------
 # NOTE: scratchpads {{{
 #-------------------------------------------------------------------------------
-super + o
-    i3run --summon --title my_terminal -- kitty --title my_terminal,my_terminal
+# >> system monitor -> bottom
+super + b
+    i3run --summon --title monitor -- kitty --title monitor -e btm
 
+# >> version control -> lazygit
+super + g
+    i3run --summon --title version-control -- kitty --title version-control -e lazygit
+
+# >> music plaer -> cmus
 super + m
     i3run --summon --title cmus -- kitty --title cmus -e cmus
 
-super + b
-    i3run --summon --title monitor -- kitty --title monitor -e btm
+# >> terminal -> kitty
+super + o
+    i3run --summon --title kitty-terminal -- kitty --title kitty-terminal,kitty-terminal
+
+# >> file manager -> ranger
+super + r
+    i3run --summon --title file-manager -- kitty --title file-manager -e ranger
 #}}}
 #-------------------------------------------------------------------------------
 

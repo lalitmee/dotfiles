@@ -413,6 +413,7 @@ eval "$(starship init zsh)"
 # NOTE: sourcing zsh_profile {{{
 # -------------------------------------------------------------------
 source ~/.zsh_profile
+source ~/awesome-functions
 # }}}
 # -------------------------------------------------------------------
 
