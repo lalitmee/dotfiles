@@ -12,54 +12,54 @@ local tabname = function(tabid)
     return vim.api.nvim_tabpage_get_number(tabid)
 end
 local line = {
-    hl = { fg = palette.yellow, bg = palette.cobalt_bg },
-    layout = "active_wins_at_tail",
+    hl = { fg = palette.yellow, bg = palette.cursor_line },
+    layout = "active_tab_with_wins",
     head = {
         { cwd, hl = { fg = palette.black, bg = palette.yellow } },
-        { "", hl = { fg = palette.yellow, bg = palette.cobalt_bg } },
+        { "", hl = { fg = palette.yellow, bg = palette.cursor_line } },
     },
     active_tab = {
         label = function(tabid)
             return {
                 "  " .. tabname(tabid) .. " ",
-                hl = { fg = palette.yellow, bg = palette.cursor_hover, style = "bold" },
+                hl = { fg = palette.yellow, bg = palette.darker_blue, style = "bold" },
             }
         end,
-        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
-        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        left_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
+        right_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
     },
     inactive_tab = {
         label = function(tabid)
             return {
                 "  " .. tabname(tabid) .. " ",
-                hl = { fg = palette.yellow, bg = palette.cursor_hover, style = "bold" },
+                hl = { fg = palette.yellow, bg = palette.darker_blue, style = "bold" },
             }
         end,
-        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
-        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        left_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
+        right_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
     },
     top_win = {
         label = function(winid)
             return {
                 "  " .. filename.unique(winid) .. " ",
-                hl = { fg = palette.yellow, bg = palette.cursor_hover },
+                hl = { fg = palette.yellow, bg = palette.darker_blue },
             }
         end,
-        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
-        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        left_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
+        right_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
     },
     win = {
         label = function(winid)
             return {
                 "  " .. filename.unique(winid) .. " ",
-                hl = { fg = palette.yellow, bg = palette.cursor_hover },
+                hl = { fg = palette.yellow, bg = palette.darker_blue },
             }
         end,
-        left_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
-        right_sep = { "", hl = { fg = palette.cursor_hover, bg = palette.cobalt_bg } },
+        left_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
+        right_sep = { "", hl = { fg = palette.darker_blue, bg = palette.cursor_line } },
     },
     tail = {
-        { "", hl = { fg = palette.yellow, bg = palette.cobalt_bg } },
+        { "", hl = { fg = palette.yellow, bg = palette.cursor_line } },
         { "  ", hl = { fg = palette.black, bg = palette.yellow } },
     },
 }
