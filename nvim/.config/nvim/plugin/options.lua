@@ -5,6 +5,7 @@
 local fn = vim.fn
 local api = vim.api
 local opt = vim.opt
+local o = vim.o
 local g = vim.g
 local executable = lk.executable
 
@@ -83,38 +84,42 @@ opt.shortmess = {
 ----------------------------------------------------------------------
 -- NOTE: timings {{{
 ----------------------------------------------------------------------
-opt.updatetime = 300
-opt.timeout = true
-opt.timeoutlen = 500
-opt.ttimeoutlen = 10
+o.updatetime = 300
+o.timeout = true
+o.timeoutlen = 500
+o.ttimeoutlen = 10
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: window splitting and buffers {{{
 ----------------------------------------------------------------------
-opt.number = true
-opt.relativenumber = true
-opt.hidden = true
-opt.splitbelow = true
-opt.splitright = true
+o.number = true
+o.relativenumber = true
+o.hidden = true
+o.splitbelow = true
+o.splitright = true
 -- opt.splitkeep = "cursor"
-opt.eadirection = "hor"
+o.eadirection = "hor"
 -- exclude usetab as we do not want to jump to buffers in already open tabs
 -- do not use split or vsplit to ensure we don't open any new windows
-opt.switchbuf = "useopen,uselast"
+o.switchbuf = "useopen,uselast"
 opt.fillchars = {
-    -- vert = "▕", -- alternatives │
-    eob = "~", -- suppress ~ at EndOfBuffer
     diff = "╱", -- alternatives = ⣿ ░ ─
-    msgsep = "‾",
+    eob = " ",
+    fold = " ",
+    foldclose = "",
+    foldopen = "",
+    foldsep = " ",
     horiz = "━",
-    horizup = "┻",
     horizdown = "┳",
-    vert = "┃",
+    horizup = "┻",
+    msgsep = "‾",
+    -- vert = "┃",
+    vert = "▕", -- alternatives │
+    verthoriz = "╋",
     vertleft = "┫",
     vertright = "┣",
-    verthoriz = "╋",
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -157,11 +162,10 @@ opt.formatoptions = opt.formatoptions
 -- NOTE: folds {{{
 ----------------------------------------------------------------------
 -- opt.foldtext = 'v:lua.as.folds()'
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.foldopen = opt.foldopen + "search"
-opt.foldlevel = 99
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldlevel = 99
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
 -- }}}
 ----------------------------------------------------------------------
 
@@ -170,10 +174,10 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("rg") then
-    opt.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
+    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
     opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
-    opt.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
+    o.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
     opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 -- }}}
@@ -182,9 +186,9 @@ end
 ----------------------------------------------------------------------
 -- NOTE: Wild and file globbing stuff in command mode {{{
 ----------------------------------------------------------------------
-opt.wildcharm = fn.char2nr(api.nvim_replace_termcodes([[<C-Z>]], true, true, true))
-opt.wildmode = "longest:full,full" -- Shows a menu bar as opposed to an enormous list
-opt.wildignorecase = true -- Ignore case when completing file names and directories
+o.wildcharm = fn.char2nr(api.nvim_replace_termcodes([[<C-Z>]], true, true, true))
+o.wildmode = "longest:full,full" -- Shows a menu bar as opposed to an enormous list
+o.wildignorecase = true -- Ignore case when completing file names and directories
 -- Binary
 opt.wildignore = {
     "*.aux",
@@ -212,25 +216,25 @@ opt.wildignore = {
     ".DS_Store",
     "tags.lock",
 }
-opt.wildoptions = "pum"
-opt.pumblend = 3 -- Make popup window translucent
+o.wildoptions = "pum"
+o.pumblend = 3 -- Make popup window translucent
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: display {{{
 ----------------------------------------------------------------------
-opt.inccommand = "split"
+o.inccommand = "split"
 -- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
-opt.cursorline = true
-opt.cursorcolumn = false
-opt.conceallevel = 2
-opt.breakindentopt = "sbr"
-opt.linebreak = true -- lines wrap at words rather than random characters
-opt.synmaxcol = 1024 -- don't syntax highlight long lines
-opt.signcolumn = "yes:2"
-opt.ruler = false
-opt.cmdheight = 1 -- Set command line height to two lines
+o.cursorline = true
+o.cursorcolumn = false
+o.conceallevel = 2
+o.breakindentopt = "sbr"
+o.linebreak = true -- lines wrap at words rather than random characters
+o.synmaxcol = 1024 -- don't syntax highlight long lines
+o.signcolumn = "yes:2"
+o.ruler = false
+o.cmdheight = 1 -- Set command line height to two lines
 -- NOTE: it was putting eol characters in dressinginput
 -- opt.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
 --- This is used to handle markdown code blocks where the language might
@@ -251,7 +255,7 @@ vim.g.markdown_fenced_languages = {
 ----------------------------------------------------------------------
 -- NOTE: list chars {{{
 ----------------------------------------------------------------------
-opt.list = true -- invisible chars
+o.list = true -- invisible chars
 opt.listchars = {
     eol = nil,
     tab = "│ ",
@@ -265,13 +269,13 @@ opt.listchars = {
 ----------------------------------------------------------------------
 -- NOTE: indentation {{{
 ----------------------------------------------------------------------
-opt.wrap = true
-opt.wrapmargin = 2
-opt.textwidth = 80
-opt.autoindent = true
-opt.smartindent = true
-opt.shiftround = true
-opt.expandtab = true
+o.wrap = true
+o.wrapmargin = 2
+o.textwidth = 80
+o.autoindent = true
+o.smartindent = true
+o.shiftround = true
+o.expandtab = true
 -- }}}
 ----------------------------------------------------------------------
 
@@ -279,22 +283,22 @@ opt.expandtab = true
 -- NOTE: general {{{
 ----------------------------------------------------------------------
 -- opt.debug = "msg"
-opt.joinspaces = false
-opt.gdefault = true
-opt.pumheight = 15
-opt.confirm = true -- make vim prompt me to save before doing destructive things
+o.joinspaces = false
+o.gdefault = true
+o.pumheight = 15
+o.confirm = true -- make vim prompt me to save before doing destructive things
 opt.completeopt = {
     "menu",
     "menuone",
     "noselect",
     "noinsert",
 }
-opt.hlsearch = true
-opt.autowriteall = true -- automatically :write before running commands and changing files
+o.hlsearch = true
+o.autowriteall = true -- automatically :write before running commands and changing files
 opt.clipboard = { "unnamedplus" }
-opt.laststatus = 3
-opt.showtabline = 2
-opt.termguicolors = true
+o.laststatus = 3
+o.showtabline = 2
+o.termguicolors = true
 -- }}}
 ----------------------------------------------------------------------
 
@@ -304,26 +308,26 @@ opt.termguicolors = true
 -- emoji is true by default but makes (n)vim treat all emoji as double width
 -- which breaks rendering so we turn this off.
 -- CREDIT: https://www.youtube.com/watch?v=F91VWOelFNE
-opt.emoji = false
+o.emoji = false
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: title {{{
 ----------------------------------------------------------------------
-opt.titleold = fn.fnamemodify(vim.loop.os_getenv("SHELL"), ":t")
-opt.title = true
-opt.titlelen = 70
+o.titleold = fn.fnamemodify(vim.loop.os_getenv("SHELL"), ":t")
+o.title = true
+o.titlelen = 70
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: utilities {{{
 ----------------------------------------------------------------------
-opt.lazyredraw = true
-opt.showmode = false
-opt.showmatch = true
-opt.showcmd = true
+o.lazyredraw = true
+o.showmode = false
+o.showmatch = true
+o.showcmd = true
 opt.sessionoptions = {
     "globals",
     "buffers",
@@ -337,7 +341,7 @@ opt.sessionoptions = {
     "winpos",
 }
 opt.viewoptions = { "cursor", "folds" } -- save/restore just these (with `:{mk,load}view`)
-opt.virtualedit = "block" -- allow cursor to move where there is no text in visual block mode
+opt.virtualedit = { "block" } -- allow cursor to move where there is no text in visual block mode
 -- }}}
 ----------------------------------------------------------------------
 
@@ -350,24 +354,24 @@ opt.virtualedit = "block" -- allow cursor to move where there is no text in visu
 -- add f0 so file marks aren't stored
 -- @credit: wincent
 opt.shada = { "!", "'1000", "<50", "s10", "h" }
-opt.maxmempattern = 5000
+o.maxmempattern = 5000
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: backup and swaps {{{
 ----------------------------------------------------------------------
-opt.backup = false
-opt.writebackup = false
+o.backup = false
+o.writebackup = false
 if fn.isdirectory(vim.o.undodir) == 0 then
     fn.mkdir(vim.o.undodir, "p")
 end
-opt.undofile = true
-opt.swapfile = false
+o.undofile = true
+o.swapfile = false
 -- The // at the end tells Vim to use the absolute path to the file to create the swap file.
 -- This will ensure that swap file name is unique, so there are no collisions between files
 -- with the same name from different directories.
-opt.directory = fn.stdpath("data") .. "/swap//"
+o.directory = fn.stdpath("data") .. "/swap//"
 if fn.isdirectory(vim.o.directory) == 0 then
     fn.mkdir(vim.o.directory, "p")
 end
@@ -377,13 +381,13 @@ end
 ----------------------------------------------------------------------
 -- NOTE: match and search {{{
 ----------------------------------------------------------------------
-opt.ignorecase = true
-opt.smartcase = true
-opt.wrapscan = true -- Searches wrap around the end of the file
+o.ignorecase = true
+o.smartcase = true
+o.wrapscan = true -- Searches wrap around the end of the file
 -- opt.scrolloff = 999
-opt.scrolloff = 10
-opt.visualbell = false
-opt.errorbells = false
+o.scrolloff = 10
+o.visualbell = false
+o.errorbells = false
 -- opt.colorcolumn = "80"
 -- }}}
 ----------------------------------------------------------------------
@@ -392,8 +396,8 @@ opt.errorbells = false
 -- NOTE: spell {{{
 ----------------------------------------------------------------------
 opt.spellsuggest:prepend({ 12 })
-opt.spelloptions = "camel"
-opt.spellcapcheck = "" -- don't check for capital letters at start of sentence
+opt.spelloptions = { "camel" }
+o.spellcapcheck = "" -- don't check for capital letters at start of sentence
 opt.fileformats = { "unix", "mac", "dos" }
 -- }}}
 ----------------------------------------------------------------------
@@ -401,8 +405,8 @@ opt.fileformats = { "unix", "mac", "dos" }
 ----------------------------------------------------------------------
 -- NOTE: mouse {{{
 ----------------------------------------------------------------------
-opt.mouse = "a"
-opt.mousefocus = true
+o.mouse = "a"
+o.mousefocus = true
 -- }}}
 ----------------------------------------------------------------------
 
@@ -410,24 +414,24 @@ opt.mousefocus = true
 -- NOTE: vim {{{
 ----------------------------------------------------------------------
 -- these only read ".vim" files
-opt.secure = true -- Disable autocmd etc for project local vimrc files.
-opt.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
+o.secure = true -- Disable autocmd etc for project local vimrc files.
+o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: vim cmds {{{
 ----------------------------------------------------------------------
-vim.cmd([[
-  set t_vb=
-  set path+=**
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set re=1
-  set t_ZH=[3m
-  set t_ZR=[23m
-  set t_ut=
-]])
+opt.path:append("**")
+o.regexpengine = 1
+-- vim.cmd([[
+--   set t_vb=
+--   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+--   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+--   set t_ZH=[3m
+--   set t_ZR=[23m
+--   set t_ut=
+-- ]])
 -- }}}
 ----------------------------------------------------------------------
 
