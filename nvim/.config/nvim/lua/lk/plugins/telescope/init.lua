@@ -116,7 +116,6 @@ telescope.setup({
         scroll_strategy = "cycle",
         color_devicons = true,
         dynamic_preview_title = true,
-        path_display = { "absolute", "truncate" },
         buffer_previewer_maker = new_maker,
         set_env = {
             ["COLORTERM"] = "truecolor",
@@ -149,10 +148,6 @@ telescope.setup({
                 ["p"] = action_layout.toggle_preview,
                 ["y"] = actions.move_to_top,
             },
-        },
-        borderchars = {
-            { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-            preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
         },
         file_ignore_patterns = {
             "%.otf",

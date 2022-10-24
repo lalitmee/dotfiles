@@ -250,6 +250,13 @@ require("packer").startup({
                         require("telescope").load_extension("howdoi")
                     end,
                 },
+                {
+                    "nvim-telescope/telescope-github.nvim",
+                    after = "telescope.nvim",
+                    config = function()
+                        require("telescope").load_extension("gh")
+                    end,
+                },
             },
         })
 

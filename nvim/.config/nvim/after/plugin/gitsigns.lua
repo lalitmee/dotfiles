@@ -42,7 +42,7 @@ signs.setup({
     sign_priority = 6,
     update_debounce = 200,
     status_formatter = nil,
-    current_line_blame = true,
+    current_line_blame = false,
     current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = "eol",
