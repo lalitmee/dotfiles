@@ -169,10 +169,7 @@ require("packer").startup({
         })
 
         -- yank history after paste with `<C-n>` and `<C-p>`
-        use({
-            "gbprod/yanky.nvim",
-            requires = { "nvim-telescope/telescope.nvim" },
-        })
+        use({ "gbprod/yanky.nvim" })
 
         -- undo tree
         use({ "mbbill/undotree" })
@@ -475,22 +472,13 @@ require("packer").startup({
         })
 
         -- magit for neovim in lua
-        use({
-            "TimUntersberger/neogit",
-            requires = { "nvim-lua/plenary.nvim" },
-        })
+        use({ "TimUntersberger/neogit" })
 
         -- gitsigns in lua
-        use({
-            "lewis6991/gitsigns.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
-        })
+        use({ "lewis6991/gitsigns.nvim" })
 
         -- git lens in vim
-        use({
-            "sindrets/diffview.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
-        })
+        use({ "sindrets/diffview.nvim" })
         -- }}}
         ------------------------------------------------------------------------
 
@@ -500,21 +488,10 @@ require("packer").startup({
         use({ "nanozuki/tabby.nvim" })
 
         -- lualine.nvim
-        use({
-            "nvim-lualine/lualine.nvim",
-            after = "nvim-web-devicons",
-        })
+        use({ "nvim-lualine/lualine.nvim" })
 
         -- winbar component
-        use({
-            "SmiteshP/nvim-navic",
-            requires = "neovim/nvim-lspconfig",
-            config = function()
-                require("nvim-navic").setup({
-                    highlight = true,
-                })
-            end,
-        })
+        use({ "SmiteshP/nvim-navic" })
 
         -- }}}
         ------------------------------------------------------------------------
@@ -526,26 +503,15 @@ require("packer").startup({
         -- NOTE: tpope {{{
         ------------------------------------------------------------------------
         -- abbreviations
-        use({
-            "tpope/vim-abolish",
-        })
+        use({ "tpope/vim-abolish" })
 
         -- repeat using `.`
-        use({
-            "tpope/vim-repeat",
-            event = { "BufRead" },
-        })
+        use({ "tpope/vim-repeat" })
 
-        use({
-            "kylechui/nvim-surround",
-        })
+        use({ "kylechui/nvim-surround" })
 
         -- debug things
-        use({
-            "tpope/vim-scriptease",
-            ft = "help",
-            cmd = { "Messages", "Verbose", "Time" },
-        })
+        use({ "tpope/vim-scriptease" })
         -- }}}
         ------------------------------------------------------------------------
 
