@@ -208,6 +208,8 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: FUZZY SEARCH {{{
         ------------------------------------------------------------------------
+        use({ "ibhagwan/fzf-lua" })
+
         -- telescope.nvim
         use({
             "nvim-telescope/telescope.nvim",
@@ -338,11 +340,7 @@ require("packer").startup({
         -- NOTE: Format {{{
         ------------------------------------------------------------------------
         -- formatter in lua
-        use({
-            -- "mhartington/formatter.nvim",
-            "Hrle97/formatter.nvim",
-            branch = "fix/shellescape",
-        })
+        use({ "mhartington/formatter.nvim" })
 
         -- Tabularize for Vim
         use({
