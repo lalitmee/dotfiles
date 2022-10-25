@@ -226,6 +226,9 @@ alias wi="wikit"
 # dict alias
 alias d="dict"
 
+# lazygit
+# alias lg="lazygit"
+
 # git worktree aliases
 alias gwl="git worktree list"
 alias gwa="git worktree add"
