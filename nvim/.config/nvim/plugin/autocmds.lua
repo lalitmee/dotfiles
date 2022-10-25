@@ -70,13 +70,13 @@ augroup("terminal_au", {
             vim.cmd([[stopinsert]])
         end,
     },
-    -- {
-    --     event = { "TermClose" },
-    --     pattern = { "*" },
-    --     command = function()
-    --         vim.cmd([[execute 'bdelete! ' . expand('<abuf>')]])
-    --     end,
-    -- },
+    {
+        event = { "FileType" },
+        pattern = { "fzf" },
+        command = function()
+            vim.cmd([[tunmap <buffer> <ESC>]])
+        end,
+    },
 })
 -- }}}
 ----------------------------------------------------------------------
