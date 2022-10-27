@@ -1,0 +1,180 @@
+#!/usr/bin/env zsh
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# alias for dooit
+alias dt="dooit"
+
+# output in a url
+alias tb="nc termbin.com 9999"
+
+# cht.sh
+alias ch="cht.sh"
+
+alias ciu="caniuse"
+alias iu="is-up"
+alias aw="awesome-hub"
+alias st="speed"
+
+# alias for fzf get the output
+alias f="| fzf"
+alias fk="fkill"
+alias procs="procs | fzf -d 40%"
+
+# gitmoji aliases
+alias gm="gitmoji -s"
+alias gml="gitmoji -l | fzf -d 40%"
+
+# alias for system
+# alias s="sudo reboot"
+
+#alias for imgur-uploader
+alias img="imgur-uploader"
+
+#alias for speedtest
+alias speed="speedtest-cli"
+
+# for ls replacement with exa
+# alias ls="exa"
+alias ls="lsd" # possible values are: lsd, colorls, exa, ls
+alias cat="bat"
+alias c="clear"
+
+# hacker-new client
+alias hn="haxor-news"
+
+# # alias for cheatsheet command
+# alias cheat="cheatsheet"
+
+# for finding swap files
+alias swps="find . -name .\*.sw[op]"
+
+# wikit alias
+alias wi="wikit"
+
+# dict alias
+alias d="dict"
+
+# lazygit
+# alias lg="lazygit"
+
+# git worktree aliases
+alias gwl="git worktree list"
+alias gwa="git worktree add"
+alias gwo="git worktree lock"
+alias gwm="git worktree move"
+alias gwp="git worktree prune"
+alias gwr="git worktree remove"
+alias gwu="git worktree unlock"
+
+# aliases for updating and installing packages
+alias aptl="apt list | fzf"
+alias brewl="brew list | fzf"
+alias fix="sudo apt-fast install -f -y"
+alias install="sudo apt-fast install -y"
+alias purge="sudo apt-fast purge -y"
+alias remove="sudo apt-fast autoremove -y"
+alias snapi="sudo snap install"
+alias snapl="snap list | fzf"
+alias snapr="sudo snap remove"
+alias snapu="sudo snap refresh"
+alias upd="sudo apt-fast update -y"
+alias update="
+sudo apt-fast update -y &&
+sudo apt-fast upgrade -y &&
+sudo flatpak update -y &&
+snapu &&
+bubc
+"
+alias updg="sudo apt-fast dist-upgrade -y"
+alias upg="sudo apt-fast upgrade -y"
+
+# aliases for editing and sourcing zshrc
+alias ze="nvim ~/.zshrc"
+alias zs="source ~/.zshrc"
+
+# alias for emacs
+alias db="doom build"
+alias dc="doom clean"
+alias dd="doom doctor"
+alias dp="doom purge"
+alias ds="doom sync"
+alias du="doom upgrade"
+alias es="emacs --with-profile spacemacs"
+alias ed="emacs --with-profile doom-emacs"
+
+alias m="man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man"
+
+# aliases for some terminal programmes
+alias hw="how2"
+alias hi="howdoi"
+alias wb="wikit -b"
+alias wk="wikit"
+alias wt="curl wttr.in"
+alias yt="youtube-dl"
+
+# alias for gui nvims
+alias gvim="~/goneovim/goneovim &"
+alias lpc="~/Desktop/Softwares/editors/lapce &"
+alias glm="glrnvim"
+alias neovide="~/Desktop/Softwares/editors/neovide/neovide &"
+alias oni="${HOME}/Applications/Onivim2-x86_64-master_8bbaf25b07ff2ac4dc6c74823d5a69bc.AppImage"
+
+# alias for sublime command
+alias at="atom ."
+alias ci="code-insiders ."
+alias co="code ."
+alias o="oni ."
+alias sb="subl ."
+alias vi="nvim"
+alias vim="nvim"
+alias gv="gvim"
+alias nv="neovide"
+
+# common aliases
+alias a="alias | fzf -d 40%"
+alias h="history | fzf -d 40%"
+alias hs="history | grep"
+alias myip="curl http://ipecho.net/plain; echo"
+alias rm="rm -i"
+alias rmnode="rm -rf node_modules"
+alias rmpack="rm -rf package-lock.json"
+alias rmyarn="rm -rf yarn.lock"
+
+# make aliases for building neovim from source
+alias mc="sudo make clean && sudo make distclean"
+alias mr="make CMAKE_BUILD_TYPE=Release"
+alias mi="sudo make install"
+
+# alias for duckduckgo from terminal
+alias sd="ddgr"
+
+# alias for taskwarrior
+alias to="task"
+alias tt="taskwarrior-tui"
+
+# vim remote send stuff
+# alias g="vim --remote-silent"
+
+# alias for colorls
+alias lc='colorls -lA --sd'
+
+# aliases for npm
+alias npd='npm run dev'
+
+# alias for running tmux with screen-256color
+# alias tmux="env TERM=alacritty tmux -2"
+
+# aliases for sound fix
+alias goodaudio="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') a2dp-sink"
+alias headset="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') headset-head-unit"
+
+# >> change wallpaper aliases
+alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpapers/*"

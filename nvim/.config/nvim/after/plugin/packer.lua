@@ -26,7 +26,7 @@ augroup("PackerSetupInit", {
     {
         event = { "BufEnter" },
         description = "Open a repository from an authorname/repository string",
-        buffer = 0,
+        pattern = { "*.lua" },
         command = function()
             lk.nnoremap("gf", function()
                 local repo = fn.expand("<cfile>")
@@ -44,7 +44,7 @@ augroup("PackerSetupInit", {
         pattern = { "PackerCompileDone" },
         description = "Notify when packer compile done",
         command = function()
-            packer_notify("Packer compile complete", nil)
+            packer_notify("Packer compile complete", 2)
         end,
     },
     {
@@ -52,7 +52,7 @@ augroup("PackerSetupInit", {
         pattern = { "PackerCompelete" },
         description = "Notify when packer completes the job",
         command = function()
-            packer_notify("Packer has done the job", nil)
+            packer_notify("Packer has done the job", 2)
         end,
     },
 })
