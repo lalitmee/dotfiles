@@ -256,6 +256,13 @@ require("packer").startup({
                         require("telescope").load_extension("gh")
                     end,
                 },
+                {
+                    "nvim-telescope/telescope-live-grep-args.nvim",
+                    after = "telescope.nvim",
+                    config = function()
+                        require("telescope").load_extension("live_grep_args")
+                    end,
+                },
             },
         })
 
@@ -485,8 +492,6 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: STATUS AND TAB LINES {{{
         ------------------------------------------------------------------------
-        use({ "nanozuki/tabby.nvim" })
-
         -- lualine.nvim
         use({ "nvim-lualine/lualine.nvim" })
 

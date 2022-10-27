@@ -297,7 +297,7 @@ o.hlsearch = true
 o.autowriteall = true -- automatically :write before running commands and changing files
 opt.clipboard = { "unnamedplus" }
 o.laststatus = 3
-o.showtabline = 2
+o.showtabline = 0
 o.termguicolors = true
 -- }}}
 ----------------------------------------------------------------------
