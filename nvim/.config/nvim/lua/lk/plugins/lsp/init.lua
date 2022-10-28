@@ -86,7 +86,6 @@ local servers = {
     cssls = true,
     dockerls = true,
     emmet_ls = true,
-    -- eslint = true,
     gopls = true,
     jsonls = true,
     pyright = true,
