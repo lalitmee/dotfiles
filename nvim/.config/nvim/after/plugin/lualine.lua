@@ -87,10 +87,18 @@ lualine.setup({
                 },
             },
         },
-        lualine_b = {},
+        lualine_b = {
+            {
+                "branch",
+                icon = "",
+                color = {
+                    gui = "bold",
+                },
+            },
+        },
         lualine_c = {
-            -- { "%=", type = "stl" },
-            { "filetype", icon_only = true },
+            { "%=", type = "stl" },
+            { "filetype", icon_only = true, padding = { left = 1, right = 0 } },
             {
                 "filename",
                 path = 1,
@@ -114,20 +122,13 @@ lualine.setup({
         },
         lualine_y = {
             {
-                "branch",
-                icon = "",
+                "progress",
                 color = {
                     gui = "bold",
                 },
             },
         },
         lualine_z = {
-            {
-                "progress",
-                color = {
-                    gui = "bold",
-                },
-            },
             {
                 "location",
                 color = {
@@ -136,33 +137,8 @@ lualine.setup({
             },
         },
     },
-    -- tabline = {
-    --     lualine_c = {
-    --         -- {
-    --         --     "buffers",
-    --         --     mode = 2,
-    --         --     buffers_color = { active = "lualine_b_normal" },
-    --         -- },
-    --         { "filetype", icon_only = true },
-    --         { "filename", path = 1 },
-    --     },
-    --     lualine_z = {
-    --         {
-    --             "tabs",
-    --             tabs_color = { active = "lualine_b_normal" },
-    --         },
-    --     },
-    -- },
     winbar = {
         lualine_c = {
-            -- {
-            --     "filetype",
-            --     icon_only = true,
-            -- },
-            -- {
-            --     "filename",
-            --     path = 1,
-            -- },
             { get_winbar },
         },
         lualine_z = {},
