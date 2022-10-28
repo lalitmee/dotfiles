@@ -4,5 +4,9 @@ if not ok then
 end
 
 fzf_lua.setup({
-    fzf_opts = {}
+    fzf_opts = {},
+    grep = {
+        rg_glob = true,
+        rg_opts = "--hidden --column --line-number --no-heading" .. " --color=always --smart-case -g '!.git'",
+    },
 })
