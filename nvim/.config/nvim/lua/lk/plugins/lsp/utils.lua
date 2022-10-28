@@ -64,6 +64,9 @@ M.fmt_on_save = function(client, buf)
       buffer = buf,
       command = function()
         vim.lsp.buf.format({
+          filter = function(cli)
+            return cli.name == "null-ls"
+          end,
           timeout_ms = 3000,
           buffer = buf,
         })
@@ -78,7 +81,7 @@ end
 -- NOTE: capabilities {{{
 ----------------------------------------------------------------------
 M.capabilities = function(client, bufnr)
-  client.server_capabilities.document_formatting = false
+  -- client.server_capabilities.document_formatting = false
   if client.server_capabilities.goto_definition == true then
     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
   end
