@@ -21,7 +21,6 @@ require("mason-lspconfig").setup({
         "clangd",
         "dockerls",
         "emmet_ls",
-        "eslint",
         "gopls",
         "jsonls",
         "pyright",

@@ -7,7 +7,7 @@ local fmt = string.format
 
 -- function to return string for require plugins using path
 local function conf(name)
-    if name == "signature" then
+    if name == "null-ls" then
         return fmt("R('lk.plugins.lsp.%s')", name)
     end
     return fmt("R('lk.plugins.%s')", name)
@@ -98,9 +98,6 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: general {{{
         ----------------------------------------------------------------------------
-        -- trim whitespaces
-        use({ "cappyzawa/trim.nvim" })
-
         -- -- new UI paradigm
         -- use({
         --     "folke/noice.nvim",
@@ -386,6 +383,10 @@ require("packer").startup({
                 { "onsails/lspkind.nvim" },
                 { "j-hui/fidget.nvim" },
                 { "folke/neodev.nvim" },
+                {
+                    "jose-elias-alvarez/null-ls.nvim",
+                    config = conf("null-ls"),
+                },
             },
         })
         -- }}}
@@ -404,7 +405,6 @@ require("packer").startup({
                 },
                 {
                     "nvim-treesitter/playground",
-                    cmd = { "TSPlaygroundToggle" },
                     after = { "nvim-treesitter" },
                 },
                 {
@@ -492,6 +492,9 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: STATUS AND TAB LINES {{{
         ------------------------------------------------------------------------
+        -- tabline
+        use({ "nanozuki/tabby.nvim" })
+
         -- lualine.nvim
         use({ "nvim-lualine/lualine.nvim" })
 
