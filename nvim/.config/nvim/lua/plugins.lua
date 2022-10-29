@@ -188,9 +188,6 @@ require("packer").startup({
         -- toggle relative line numbers automatically
         use({ "sitiom/nvim-numbertoggle" })
 
-        -- quick scope for lines in lua
-        use({ "jinh0/eyeliner.nvim" })
-
         -- easymotion using lua
         use({ "ggandor/leap.nvim" })
 
