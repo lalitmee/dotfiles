@@ -84,24 +84,6 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
-    -- NOTE: c is for code with lspconfig {{{
-    ----------------------------------------------------------------------
-    ["c"] = {
-        ["name"] = "+telescope-lsp",
-        ["a"] = { ":LspCodeActions<CR>", "code-action" },
-        ["d"] = { ":Telescope lsp_definitions<CR>", "definitions" },
-        ["e"] = { ":Telescope diagnostic<CR>", "diagnostic" },
-        ["f"] = { ":Telescope lsp_references<CR>", "references" },
-        ["i"] = { ":Telescope lsp_implementations<CR>", "implementations" },
-        ["s"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "dynamic-workspace-symbols" },
-        ["t"] = { ":Telescope lsp_type_definitions<CR>", "type-definitions" },
-        ["w"] = { ":Telescope lsp_document_symbols<CR>", "document-symbols" },
-        ["W"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
     -- NOTE: d is for dap {{{
     ----------------------------------------------------------------------
     ["d"] = {
@@ -126,13 +108,13 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["e"] = {
         ["name"] = "+errors",
-        ["d"] = { ":DiagList<CR>", "buffer-diagnostics-quickfix" },
-        ["D"] = { ":DiagListAll<CR>", "workspace-diagnostics-quickfix" },
+        ["b"] = { ":TroubleToggle document_diagnostics<CR>", "buffer-diagnostics-quickfix" },
         ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnostics" },
         ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnostics" },
-        ["o"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
         ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnostics" },
+        ["q"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
         ["v"] = { ":ShowLineDiagnosticInFlot<CR>", "diagnostic-float-preview" },
+        ["w"] = { ":TroubleToggle workspace_diagnostics<CR>", "workspace-diagnostics-quickfix" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -205,11 +187,6 @@ local leader_key_maps = {
     ["h"] = {
         ["name"] = "+highlight",
         ["h"] = { ":TSHighlightCapturesUnderCursor<CR>", "show-highlights-info" },
-        ["t"] = {
-            ["name"] = "+todo-comments",
-            ["q"] = { ":TodoQuickFix<CR>", "todos-quickfix" },
-            ["t"] = { ":TodoTelescope<CR>", "todos-telescope" },
-        },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -263,59 +240,18 @@ local leader_key_maps = {
     ["l"] = {
         ["name"] = "+lsp",
         ["a"] = { ":LspCodeActions<CR>", "code-action" },
-        ["A"] = { ":LspRangeCodeActions<CR>", "range-code-action" },
-        ["e"] = {
-            ["name"] = "+diagnostics",
-            ["a"] = { ":LspGetAllDiagnostics<CR>", "all-diagnostics" },
-            ["l"] = { ":LspShowLineDiagnostics<CR>", "show-line-diagnostics" },
-            ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnostic" },
-            ["N"] = { ":LspGetNextDiagnostic<CR>", "get-next-diagnostic" },
-            ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnostic" },
-            ["P"] = { ":LspGetPrevDiagnostic<CR>", "get-prev-diagnostic" },
-        },
-        ["f"] = {
-            ["name"] = "+formatting",
-            ["f"] = { ":LspFormatting<CR>", "formatting" },
-            ["r"] = { ":LspRangeFormatting<CR>", "range-formatting" },
-            ["s"] = { ":LspFormattingSync<CR>", "formatting-sync" },
-        },
-        ["g"] = {
-            ["name"] = "+definitions/references",
-            ["c"] = { ":LspClearReferences<CR>", "clear-references" },
-            ["d"] = { ":LspDefinition<CR>", "definition" },
-            ["i"] = { ":LspDeclaration<CR>", "declaration" },
-            ["r"] = { ":LspReferences<CR>", "references" },
-            ["t"] = { ":LspTypeDefinition<CR>", "type-definition" },
-        },
+        ["b"] = { ":LspRangeCodeActions<CR>", "range-code-action" },
+        ["c"] = { ":LspRename<CR>", "rename" },
+        ["d"] = { ":LspDefinition<CR>", "definition" },
+        ["D"] = { ":LspDeclaration<CR>", "declaration" },
         ["h"] = { ":LspHover<CR>", "hover-doc" },
-        ["H"] = { ":LspDocumentHighlight<CR>", "document-highlight" },
-        ["o"] = { ":LspOutGoingCalls<CR>", "outgoing-calls" },
         ["i"] = { ":LspInfo<CR>", "lsp-info" },
-        ["I"] = { ":Mason<CR>", "lsp-installer-info" },
-        ["r"] = { ":LspRename<CR>", "rename" },
-        ["v"] = {
-            ["name"] = "+vista",
-            ["f"] = { ":Vista finder<CR>", "finder" },
-            ["F"] = { ":Vista finder!<CR>", "finder!" },
-            ["g"] = { ":Vista ctags<CR>", "ctags" },
-            ["G"] = { ":Vista finder skim:ctags<CR>", "skim:ctags" },
-            ["i"] = { ":Vista info<CR>", "info" },
-            ["I"] = { ":Vista info+<CR>", "info+" },
-            ["j"] = { ":Vista focus<CR>", "focus" },
-            ["n"] = { ":Vista nvim_lsp<CR>", "nvim-lsp" },
-            ["s"] = { ":Vista show<CR>", "show" },
-            ["t"] = { ":Vista!!<CR>", "toggle-vista" },
-        },
+        ["I"] = { ":LspImplementation<CR>", "implementation" },
+        ["m"] = { ":Mason<CR>", "lsp-installer-info" },
+        ["r"] = { ":LspReferences<CR>", "references" },
         ["s"] = { ":LspDocumentSymbols<CR>", "document-symbols" },
-        ["S"] = { ":LspWorkspaceSymbols<CR>", "document-symbols" },
-        ["y"] = { ":LspImplementation<CR>", "implementation" },
-        ["w"] = {
-            ["name"] = "+workspace",
-            ["a"] = { ":LspAddToWorkspaceFolder<CR>", "add-folder-to-workspace" },
-            ["l"] = { ":LspListWorkspaceFolders<CR>", "list-workspace-folders" },
-            ["r"] = { ":LspRemoveWorkspaceFolder<CR>", "remove-workspace-folder" },
-            ["s"] = { ":LspWorkspaceSymbols<CR>", "workspace-symbols" },
-        },
+        ["t"] = { ":LspTypeDefinition<CR>", "type-definition" },
+        ["w"] = { ":LspWorkspaceSymbols<CR>", "workspace-symbols" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -330,12 +266,12 @@ local leader_key_maps = {
         ["d"] = { ":Telescope lsp_definitions<CR>", "lsp-definitions" },
         ["e"] = { ":Telescope diagnostics<CR>", "lsp-diagnostics" },
         ["f"] = { ":Telescope lsp_references<CR>", "references" },
-        ["j"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
         ["l"] = { ":LogVariable<CR>", "log-var" },
         ["r"] = { ":LspRename<CR>", "rename-symbol" },
         ["t"] = { ":Telescope treesitter<CR>", "treesitter-symbols" },
-        ["w"] = { ":Telescope lsp_document_symbols<CR>", "buffer-symbols" },
-        ["W"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "workspace-symbols" },
+        ["s"] = { ":Telescope lsp_document_symbols<CR>", "buffer-symbols" },
+        ["w"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "workspace-symbols" },
+        ["W"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
     },
     -- }}}
     ----------------------------------------------------------------------

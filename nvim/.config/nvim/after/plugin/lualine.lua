@@ -38,6 +38,7 @@ local winbar_excluded_filetypes = {
     "Outline",
     "OverseerList",
     "Trouble",
+    "Trouble",
     "alpha",
     "checkhealth",
     "dap-repl",
@@ -106,8 +107,6 @@ lualine.setup({
                     gui = "bold",
                 },
             },
-        },
-        lualine_x = {
             {
                 "diagnostics",
                 sources = { "nvim_diagnostic" },
@@ -118,6 +117,8 @@ lualine.setup({
                     info = " ",
                 },
             },
+        },
+        lualine_x = {
             { get_trailing_whitespace },
         },
         lualine_y = {

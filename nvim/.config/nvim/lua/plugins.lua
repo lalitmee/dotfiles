@@ -51,6 +51,7 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: UI and Beautify {{{
         ----------------------------------------------------------------------------
+        -- minimap
         use({ "gorbit99/codewindow.nvim" })
 
         -- highlights of unused functions, variables, parameters, and more
@@ -386,6 +387,7 @@ require("packer").startup({
                     "jose-elias-alvarez/null-ls.nvim",
                     config = conf("null-ls"),
                 },
+                { "folke/lsp-trouble.nvim" },
             },
         })
         -- }}}

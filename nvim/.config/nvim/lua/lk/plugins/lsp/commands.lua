@@ -4,51 +4,17 @@ local command = lk.command
 -- NOTE: lsp settings {{{
 ----------------------------------------------------------------------
 command("ReloadLSP", function()
-  vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
-  vim.cmd([[edit]])
+    vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
+    vim.cmd([[edit]])
 end, {})
 
 command("LogLSP", function()
-  local path = vim.lsp.get_log_path()
-  vim.cmd("edit " .. path)
+    local path = vim.lsp.get_log_path()
+    vim.cmd("edit " .. path)
 end, {})
 
 command("DebugLSP", function()
-  print(vim.inspect(vim.lsp.get_active_clients()))
-end, {})
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: formatting {{{
-----------------------------------------------------------------------
-command("Format", function()
-  vim.lsp.buf.formatting_sync(nil, 1000)
-end, {})
-
-command("LspFormattingSync", function()
-  vim.lsp.buf.formatting_sync({}, 100)
-end, {})
-
-command("LspRangeFormatting", function()
-  vim.lsp.buf.range_formatting()
-end, {})
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: workspace folders {{{
-----------------------------------------------------------------------
-command("LspAddToWorkspaceFolder", function()
-  vim.lsp.buf.add_workspace_folder()
-end, {})
-
-command("LspWorkspaceFolders", function()
-  vim.lsp.buf.list_workspace_folders()
-end, {})
-
-command("LspRemoveWorkspaceFolder", function()
-  vim.lsp.buf.remove_workspace_folder()
+    print(vim.inspect(vim.lsp.get_active_clients()))
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -57,11 +23,11 @@ end, {})
 -- NOTE: code actions {{{
 ----------------------------------------------------------------------
 command("LspCodeActions", function()
-  vim.lsp.buf.code_action()
+    vim.lsp.buf.code_action()
 end, {})
 
 command("LspRangeCodeAction", function()
-  vim.lsp.buf.range_code_action()
+    vim.lsp.buf.range_code_action()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -70,22 +36,22 @@ end, {})
 -- NOTE: declaration & references {{{
 ----------------------------------------------------------------------
 command("LspClearReferences", function()
-  vim.lsp.buf.clear_references()
+    vim.lsp.buf.clear_references()
 end, {})
 
 command("LspReferences", function()
-  vim.lsp.buf.references()
-  vim.lsp.buf.clear_references()
+    vim.lsp.buf.references()
+    vim.lsp.buf.clear_references()
 end, {})
 
 command("LspDeclaration", function()
-  vim.lsp.buf.declaration()
-  vim.lsp.buf.clear_references()
+    vim.lsp.buf.declaration()
+    vim.lsp.buf.clear_references()
 end, {})
 
 command("LspDefinition", function()
-  vim.lsp.buf.definition()
-  vim.lsp.buf.clear_references()
+    vim.lsp.buf.definition()
+    vim.lsp.buf.clear_references()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -94,47 +60,47 @@ end, {})
 -- NOTE: document related {{{
 ----------------------------------------------------------------------
 command("LspDocumentHighlight", function()
-  vim.lsp.buf.document_highlight()
+    vim.lsp.buf.document_highlight()
 end, {})
 
 command("LspDocumentSymbols", function()
-  vim.lsp.buf.document_symbol()
+    vim.lsp.buf.document_symbol()
 end, {})
 
 command("LspDocumentFormatting", function()
-  vim.lsp.buf.formatting()
+    vim.lsp.buf.formatting()
 end, {})
 
 command("LspHover", function()
-  vim.lsp.buf.hover()
+    vim.lsp.buf.hover()
 end, {})
 
 command("LspSignatureHelp", function()
-  vim.lsp.buf.signature_help()
+    vim.lsp.buf.signature_help()
 end, {})
 
 command("LspImplementation", function()
-  vim.lsp.buf.implementation()
+    vim.lsp.buf.implementation()
 end, {})
 
 command("LspIncomingCalls", function()
-  vim.lsp.buf.incoming_calls()
+    vim.lsp.buf.incoming_calls()
 end, {})
 
 command("LspOutgoingCalls", function()
-  vim.lsp.buf.outgoing_calls()
+    vim.lsp.buf.outgoing_calls()
 end, {})
 
 command("LspRename", function()
-  vim.lsp.buf.rename()
+    vim.lsp.buf.rename()
 end, {})
 
 command("LspTypeDefinition", function()
-  vim.lsp.buf.type_definition()
+    vim.lsp.buf.type_definition()
 end, {})
 
 command("LspWorkspaceSymbols", function()
-  vim.lsp.buf.workspace_symbol()
+    vim.lsp.buf.workspace_symbol()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -145,50 +111,50 @@ end, {})
 -- Go to the next diagnostic, but prefer going to errors first
 -- In general, I pretty much never want to go to the next hint
 local severity_levels = {
-  vim.diagnostic.severity.ERROR,
-  vim.diagnostic.severity.WARN,
-  vim.diagnostic.severity.INFO,
-  vim.diagnostic.severity.HINT,
+    vim.diagnostic.severity.ERROR,
+    vim.diagnostic.severity.WARN,
+    vim.diagnostic.severity.INFO,
+    vim.diagnostic.severity.HINT,
 }
 
 local get_highest_error_severity = function()
-  for _, level in ipairs(severity_levels) do
-    local diags = vim.diagnostic.get(0, { severity = { min = level } })
-    if #diags > 0 then
-      return level, diags
+    for _, level in ipairs(severity_levels) do
+        local diags = vim.diagnostic.get(0, { severity = { min = level } })
+        if #diags > 0 then
+            return level, diags
+        end
     end
-  end
 end
 
 command("LspGetAllDiagnostics", function()
-  vim.diagnostic.get()
+    vim.diagnostic.get()
 end, {})
 
 command("LspGotoNextDiagnostic", function()
-  vim.diagnostic.goto_next({
-    severity = get_highest_error_severity(),
-    wrap = true,
-    float = true,
-  })
+    vim.diagnostic.goto_next({
+        severity = get_highest_error_severity(),
+        wrap = true,
+        float = true,
+    })
 end, {})
 
 command("LspGotoPrevDiagnostic", function()
-  vim.diagnostic.goto_prev({
-    severity = get_highest_error_severity(),
-    wrap = true,
-    float = true,
-  })
+    vim.diagnostic.goto_prev({
+        severity = get_highest_error_severity(),
+        wrap = true,
+        float = true,
+    })
 end, {})
 
 command("ShowLineDiagnosticInFlot", function()
-  vim.diagnostic.open_float(0, {
-    scope = "line",
-  })
+    vim.diagnostic.open_float(0, {
+        scope = "line",
+    })
 end, {})
 
 -- loclist
 command("LspSetLoclist", function()
-  vim.diagnostic.setloclist()
+    vim.diagnostic.setloclist()
 end, {})
 -- }}}
 ----------------------------------------------------------------------

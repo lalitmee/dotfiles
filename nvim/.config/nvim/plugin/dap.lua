@@ -69,8 +69,10 @@ require("nvim-dap-virtual-text").setup({
     show_stop_reason = true,
 
     -- experimental features:
-    virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-    all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+    -- position of virtual text, see `:h nvim_buf_set_extmark()`
+    virt_text_pos = "eol",
+    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+    all_frames = false,
 })
 -- }}}
 ----------------------------------------------------------------------
@@ -234,50 +236,50 @@ local command = lk.command
 
 command("DapContinue", function()
     dap.continue()
-end)
+end, {})
 
 command("DapStepOver", function()
     dap.step_over()
-end)
+end, {})
 
 command("DapStepInto", function()
     dap.step_into()
-end)
+end, {})
 
 command("DapStepOut", function()
     dap.step_out()
-end)
+end, {})
 
 command("DapToggleBreakpoint", function()
     dap.toggle_breakpoint()
-end)
+end, {})
 
 command("DapSetBreakpointCond", function()
     dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end)
+end, {})
 
 command("DapSetLogpoint", function()
     dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-end)
+end, {})
 
 command("DapReplOpen", function()
     dap.repl_open()
-end)
+end, {})
 
 command("DapRunLast", function()
     dap.run_last()
-end)
+end, {})
 
 ----------------------------------------------------------------------
 -- NOTE: osv commands {{{
 ----------------------------------------------------------------------
 command("OsvLaunch", function()
     require("osv").launch()
-end)
+end, {})
 
 command("OsvRunThis", function()
     require("osv").run_this()
-end)
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
