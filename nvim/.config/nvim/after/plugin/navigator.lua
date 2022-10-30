@@ -1,6 +1,6 @@
 local ok, navigator = lk.require("Navigator")
 if not ok then
-  return
+    return
 end
 
 navigator.setup()
@@ -11,24 +11,24 @@ navigator.setup()
 local command = lk.command
 
 command("NavigateLeft", function()
-  navigator.left()
-end)
+    navigator.left()
+end, {})
 
 command("NavigateDown", function()
-  navigator.down()
-end)
+    navigator.down()
+end, {})
 
 command("NavigateUp", function()
-  navigator.up()
-end)
+    navigator.up()
+end, {})
 
 command("NavigateRight", function()
-  navigator.right()
-end)
+    navigator.right()
+end, {})
 
 command("NavigatePrevious", function()
-  navigator.previous()
-end)
+    navigator.previous()
+end, {})
 
 -- }}}
 ----------------------------------------------------------------------
