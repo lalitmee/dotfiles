@@ -43,8 +43,6 @@ g.enable_treesitter_ft = {
     "lua",
     "markdown",
     "markdown_inline",
-    "norg",
-    "org",
     "python",
     "scss",
     "typescript",
@@ -324,7 +322,7 @@ o.titlelen = 70
 ----------------------------------------------------------------------
 -- NOTE: utilities {{{
 ----------------------------------------------------------------------
-o.lazyredraw = true
+o.lazyredraw = false
 o.showmode = false
 o.showmatch = true
 o.showcmd = true
