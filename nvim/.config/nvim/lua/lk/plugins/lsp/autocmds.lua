@@ -4,19 +4,19 @@ local fmt = string.format
 local M = {}
 
 local FEATURES = {
-  DIAGNOSTICS = { name = "diagnostics" },
-  CODELENS = { name = "codelens", provider = "codeLensProvider" },
-  FORMATTING = { name = "formatting", provider = "documentFormattingProvider" },
-  REFERENCES = { name = "references", provider = "documentHighlightProvider" },
+    DIAGNOSTICS = { name = "diagnostics" },
+    CODELENS = { name = "codelens", provider = "codeLensProvider" },
+    FORMATTING = { name = "formatting", provider = "documentFormattingProvider" },
+    REFERENCES = { name = "references", provider = "documentHighlightProvider" },
 }
 
 ---@param bufnr integer
 ---@param capability string
 ---@return table[]
 local function clients_by_capability(bufnr, capability)
-  return vim.tbl_filter(function(c)
-    return c.server_capabilities[capability]
-  end, lsp.get_active_clients({ buffer = bufnr }))
+    return vim.tbl_filter(function(c)
+        return c.server_capabilities[capability]
+    end, lsp.get_active_clients({ buffer = bufnr }))
 end
 
 --- Create augroups for each LSP feature and track which capabilities each client
@@ -26,36 +26,36 @@ end
 ---@param events table
 ---@return fun(feature: table, commands: fun(string): Autocommand[])
 local function augroup_factory(bufnr, client, events)
-  return function(feature, commands)
-    local provider, name = feature.provider, feature.name
-    if not provider or client.server_capabilities[provider] then
-      events[name].group_id = lk.augroup(fmt("LspCommands_%d_%s", bufnr, name), commands(provider))
-      table.insert(events[name].clients, client.id)
+    return function(feature, commands)
+        local provider, name = feature.provider, feature.name
+        if not provider or client.server_capabilities[provider] then
+            events[name].group_id = lk.augroup(fmt("LspCommands_%d_%s", bufnr, name), commands(provider))
+            table.insert(events[name].clients, client.id)
+        end
     end
-  end
 end
 
 local function formatting_filter(client)
-  local exceptions = ({
-    sql = { "sqls" },
-    lua = { "sumneko_lua" },
-    proto = { "null-ls" },
-  })[vim.bo.filetype]
+    local exceptions = ({
+        sql = { "sqls" },
+        lua = { "sumneko_lua" },
+        proto = { "null-ls" },
+    })[vim.bo.filetype]
 
-  if not exceptions then
-    return true
-  end
-  return not vim.tbl_contains(exceptions, client.name)
+    if not exceptions then
+        return true
+    end
+    return not vim.tbl_contains(exceptions, client.name)
 end
 
 ---@param opts table<string, any>
 local function format(opts)
-  opts = opts or {}
-  vim.lsp.buf.format({
-    bufnr = opts.bufnr,
-    async = opts.async,
-    filter = formatting_filter,
-  })
+    opts = opts or {}
+    vim.lsp.buf.format({
+        bufnr = opts.bufnr,
+        async = opts.async,
+        filter = formatting_filter,
+    })
 end
 
 --- Autocommands are created per buffer per feature, i.e. if buffer 8 attaches an LSP server
@@ -74,83 +74,93 @@ end
 ---@param client table<string, any>
 ---@param bufnr number
 M.setup_autocommands = function(client, bufnr)
-  if not client then
-    local msg = fmt("Unable to setup LSP autocommands, client for %d is missing", bufnr)
-    return vim.notify(msg, 4, { title = "LSP Setup" })
-  end
+    if not client then
+        local msg = fmt("Unable to setup LSP autocommands, client for %d is missing", bufnr)
+        return vim.notify(msg, 4, { title = "LSP Setup" })
+    end
 
-  local events = vim.F.if_nil(vim.b.lsp_events, {
-    [FEATURES.CODELENS.name] = { clients = {}, group_id = nil },
-    [FEATURES.FORMATTING.name] = { clients = {}, group_id = nil },
-    [FEATURES.DIAGNOSTICS.name] = { clients = {}, group_id = nil },
-    [FEATURES.REFERENCES.name] = { clients = {}, group_id = nil },
-  })
+    local events = vim.F.if_nil(vim.b.lsp_events, {
+        [FEATURES.CODELENS.name] = { clients = {}, group_id = nil },
+        [FEATURES.FORMATTING.name] = { clients = {}, group_id = nil },
+        [FEATURES.DIAGNOSTICS.name] = { clients = {}, group_id = nil },
+        [FEATURES.REFERENCES.name] = { clients = {}, group_id = nil },
+    })
 
-  local augroup = augroup_factory(bufnr, client, events)
+    local augroup = augroup_factory(bufnr, client, events)
 
-  -- augroup(FEATURES.DIAGNOSTICS, function()
-  --   return {
-  --     {
-  --       event = { "CursorHold" },
-  --       buffer = bufnr,
-  --       desc = "LSP: Show diagnostics",
-  --       command = function(args)
-  --         vim.diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
-  --       end,
-  --     },
-  --   }
-  -- end)
+    augroup(FEATURES.DIAGNOSTICS, function()
+        return {
+            {
+                event = { "CursorHold" },
+                buffer = bufnr,
+                desc = "LSP: Show diagnostics",
+                command = function(args)
+                    vim.diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
+                end,
+            },
+            {
+                event = { "BufEnter" },
+                pattern = { "*.env" },
+                desc = "LSP: Disable Diagnostics for .env file",
+                command = function(args)
+                    vim.notify(vim.inspect(args))
+                    vim.diagnostic.disable(args.buf)
+                end,
+            },
+        }
+    end)
 
-  -- augroup(FEATURES.FORMATTING, function(provider)
-  --   return {
-  --     {
-  --       event = "BufWritePre",
-  --       buffer = bufnr,
-  --       desc = "LSP: Format on save",
-  --       command = function(args)
-  --         if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
-  --           local clients = clients_by_capability(args.buf, provider)
-  --           format({ bufnr = args.buf, async = #clients == 1 })
-  --         end
-  --       end,
-  --     },
-  --   }
-  -- end)
+    -- augroup(FEATURES.FORMATTING, function(provider)
+    --   return {
+    --     {
+    --       event = "BufWritePre",
+    --       buffer = bufnr,
+    --       desc = "LSP: Format on save",
+    --       command = function(args)
+    --         if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
+    --           local clients = clients_by_capability(args.buf, provider)
+    --           format({ bufnr = args.buf, async = #clients == 1 })
+    --         end
+    --       end,
+    --     },
+    --   }
+    -- end)
 
-  augroup(FEATURES.CODELENS, function()
-    return {
-      {
-        event = { "BufEnter", "CursorHold", "InsertLeave" },
-        desc = "LSP: Code Lens",
-        buffer = bufnr,
-        command = function()
-          lsp.codelens.refresh()
-        end,
-      },
-    }
-  end)
+    augroup(FEATURES.CODELENS, function()
+        return {
+            {
+                event = { "BufEnter", "CursorHold", "InsertLeave" },
+                desc = "LSP: Code Lens",
+                buffer = bufnr,
+                command = function()
+                    lsp.codelens.refresh()
+                end,
+            },
+        }
+    end)
 
-  augroup(FEATURES.REFERENCES, function()
-    return {
-      {
-        event = { "CursorHold", "CursorHoldI" },
-        buffer = bufnr,
-        desc = "LSP: References",
-        command = function()
-          lsp.buf.document_highlight()
-        end,
-      },
-      {
-        event = "CursorMoved",
-        desc = "LSP: References Clear",
-        buffer = bufnr,
-        command = function()
-          lsp.buf.clear_references()
-        end,
-      },
-    }
-  end)
-  vim.b[bufnr].lsp_events = events
+    augroup(FEATURES.REFERENCES, function()
+        return {
+            {
+                event = { "CursorHold", "CursorHoldI" },
+                buffer = bufnr,
+                desc = "LSP: References",
+                command = function()
+                    lsp.buf.document_highlight()
+                end,
+            },
+            {
+                event = "CursorMoved",
+                desc = "LSP: References Clear",
+                buffer = bufnr,
+                command = function()
+                    lsp.buf.clear_references()
+                end,
+            },
+        }
+    end)
+
+    vim.b[bufnr].lsp_events = events
 end
 
 return M
