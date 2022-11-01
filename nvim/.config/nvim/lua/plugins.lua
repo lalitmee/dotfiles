@@ -657,21 +657,12 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- debugger attach protocol
         use({
-            "mfussenegger/nvim-dap",
+            "rcarriga/nvim-dap-ui",
             config = conf("dap"),
             requires = {
-                {
-                    "jbyuki/one-small-step-for-vimkind",
-                    after = "nvim-dap",
-                },
-                {
-                    "rcarriga/nvim-dap-ui",
-                    after = "nvim-dap",
-                },
-                {
-                    "theHamsta/nvim-dap-virtual-text",
-                    after = "nvim-dap",
-                },
+                { "jbyuki/one-small-step-for-vimkind" },
+                { "mfussenegger/nvim-dap" },
+                { "theHamsta/nvim-dap-virtual-text" },
             },
         })
         -- }}}
