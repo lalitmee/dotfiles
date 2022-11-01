@@ -146,11 +146,14 @@ require("packer").startup({
         -- better quick-fix winodw
         use({
             "kevinhwang91/nvim-bqf",
-            config = conf("nvim-bqf"),
+            config = conf("bqf"),
         })
 
         -- prettify quickfix windows for neovim
-        use({ "https://gitlab.com/yorickpeterse/nvim-pqf.git" })
+        use({
+            "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+            config = conf("pqf"),
+        })
 
         -- makes quickfix list editable
         use({
@@ -441,7 +444,7 @@ require("packer").startup({
                 { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
                 { "tzachar/cmp-tabnine", run = "./install.sh", after = "nvim-cmp" },
             },
-            config = conf("nvim-cmp"),
+            config = conf("cmp"),
         })
 
         use({
