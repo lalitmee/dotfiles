@@ -57,6 +57,7 @@ require("packer").startup({
         use({
             "zbirenbaum/neodim",
             config = conf("neodim"),
+            after = { "nvim-treesitter" },
         })
 
         -- improve default neovim UI
@@ -119,6 +120,18 @@ require("packer").startup({
         use({
             "folke/which-key.nvim",
             config = conf("which-key"),
+        })
+
+        -- session management
+        use({
+            "rmagatti/session-lens",
+            after = { "telescope.nvim", "auto-session" },
+            cmd = { "SearchSession" },
+            requires = {
+                "rmagatti/auto-session",
+                event = { "VimEnter" },
+            },
+            config = conf("sessions"),
         })
 
         -- Colorizer for showing the colors
@@ -209,7 +222,7 @@ require("packer").startup({
         use({ "mbbill/undotree" })
 
         -- interactively swap so many things
-        use({ "mizlan/iswap.nvim" })
+        use({ "mizlan/iswap.nvim", after = { "nvim-treesitter" } })
 
         ----------------------------------------------------------------------------
         -- NOTE: Search {{{
@@ -253,7 +266,7 @@ require("packer").startup({
                 {
                     "nvim-telescope/telescope-frecency.nvim",
                     requires = { "kkharji/sqlite.lua" },
-                    after = "telescope.nvim",
+                    after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("frecency")
                     end,
@@ -261,14 +274,14 @@ require("packer").startup({
                 {
                     "nvim-telescope/telescope-fzf-native.nvim",
                     run = "make",
-                    after = "telescope.nvim",
+                    after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("fzf")
                     end,
                 },
                 {
                     "nvim-telescope/telescope-ui-select.nvim",
-                    after = "telescope.nvim",
+                    after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("ui-select")
                     end,
@@ -282,21 +295,21 @@ require("packer").startup({
                 },
                 {
                     "zane-/howdoi.nvim",
-                    after = "telescope.nvim",
+                    after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("howdoi")
                     end,
                 },
                 {
                     "nvim-telescope/telescope-github.nvim",
-                    after = "telescope.nvim",
+                    after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("gh")
                     end,
                 },
                 {
                     "nvim-telescope/telescope-live-grep-args.nvim",
-                    after = "telescope.nvim",
+                    after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("live_grep_args")
                     end,
@@ -458,6 +471,7 @@ require("packer").startup({
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
             config = conf("treesitter"),
+            event = { "VimEnter" },
             requires = {
                 {
                     "nvim-treesitter/nvim-treesitter-textobjects",
