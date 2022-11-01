@@ -37,6 +37,7 @@ end
 
 local function formatting_filter(client)
     local exceptions = ({
+        js = { "tsserver" },
         sql = { "sqls" },
         lua = { "sumneko_lua" },
         proto = { "null-ls" },
@@ -103,28 +104,27 @@ M.setup_autocommands = function(client, bufnr)
                 pattern = { "*.env" },
                 desc = "LSP: Disable Diagnostics for .env file",
                 command = function(args)
-                    vim.notify(vim.inspect(args))
                     vim.diagnostic.disable(args.buf)
                 end,
             },
         }
     end)
 
-    -- augroup(FEATURES.FORMATTING, function(provider)
-    --   return {
-    --     {
-    --       event = "BufWritePre",
-    --       buffer = bufnr,
-    --       desc = "LSP: Format on save",
-    --       command = function(args)
-    --         if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
-    --           local clients = clients_by_capability(args.buf, provider)
-    --           format({ bufnr = args.buf, async = #clients == 1 })
-    --         end
-    --       end,
-    --     },
-    --   }
-    -- end)
+    augroup(FEATURES.FORMATTING, function(provider)
+        return {
+            {
+                event = "BufWritePre",
+                buffer = bufnr,
+                desc = "LSP: Format on save",
+                command = function(args)
+                    if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
+                        local clients = clients_by_capability(args.buf, provider)
+                        format({ bufnr = args.buf, async = #clients == 1 })
+                    end
+                end,
+            },
+        }
+    end)
 
     augroup(FEATURES.CODELENS, function()
         return {
