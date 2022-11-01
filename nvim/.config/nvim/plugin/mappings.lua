@@ -4,9 +4,9 @@
 local map = lk.map
 local nmap = lk.nmap
 local nnoremap = lk.nnoremap
+local xnoremap = lk.xnoremap
 
 local map_opts = { noremap = true, silent = true }
-local map_expr_opts = { expr = true }
 
 ----------------------------------------------------------------------
 -- NOTE: movements {{{
@@ -181,22 +181,20 @@ map("v", "<cr>", [[zf]], map_opts)
 -- }}}
 ----------------------------------------------------------------------
 
-----------------------------------------------------------------------
--- NOTE: shortcuts {{{
-----------------------------------------------------------------------
--- -- count number of lines in visual mode
--- map('v', 'L', [[g<C-g>]], map_opts)
--- }}}
-----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--  NOTE: macro over a visual range {{{
+--------------------------------------------------------------------------------
+-- TODO: converting this to lua does not work for some obscure reason.
+vim.cmd([[
+  function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+  endfunction
+]])
 
-----------------------------------------------------------------------
--- NOTE: external {{{
-----------------------------------------------------------------------
--- -- Complextras.nvim configuration
--- map("i", "<C-x><C-m>", [[<c-r>=luaeval("require('complextras').complete_matching_line()")<cr>]], map_opts)
--- map("i", "<C-x><C-d>", [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<cr>]], map_opts)
+xnoremap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>", { silent = false })
 -- }}}
-----------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 -- }}}
 ----------------------------------------------------------------------
