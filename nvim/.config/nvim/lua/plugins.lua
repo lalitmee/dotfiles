@@ -256,17 +256,11 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: General {{{
         ----------------------------------------------------------------------------
-        -- restor last editing cursor position
-        use({ "farmergreg/vim-lastplace" })
-
         -- smooth scrolling in neovim
         use({ "karb94/neoscroll.nvim" })
 
         -- delete buffers without distubing layout
         use({ "famiu/bufdelete.nvim" })
-
-        -- beautiful buffer switcher
-        use({ "toppair/reach.nvim" })
 
         -- auto pairs
         use({ "windwp/nvim-autopairs" })
