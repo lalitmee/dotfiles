@@ -129,8 +129,8 @@ local custom_init = function(client)
 end
 
 local function get_server_config(name)
-    local ok, cmp_nvim_lsp = lk.require("cmp_nvim_lsp")
-    if not ok then
+    local cmp_nvim_lsp_ok, cmp_nvim_lsp = lk.require("cmp_nvim_lsp")
+    if not cmp_nvim_lsp_ok then
         return nil
     end
     local conf = servers[name]
@@ -155,8 +155,8 @@ end
 ----------------------------------------------------------------------
 -- NOTE: setting servers {{{
 ----------------------------------------------------------------------
-local ok, lsp = lk.require("lspconfig")
-if not ok then
+local lsp_ok, lsp = lk.require("lspconfig")
+if not lsp_ok then
     return
 end
 for name, config in pairs(servers) do
