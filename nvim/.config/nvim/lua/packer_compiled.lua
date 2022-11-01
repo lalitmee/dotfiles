@@ -431,11 +431,6 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/nvim-notify",
     url = "https://github.com/rcarriga/nvim-notify"
   },
-  ["nvim-numbertoggle"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-numbertoggle",
-    url = "https://github.com/sitiom/nvim-numbertoggle"
-  },
   ["nvim-pqf.git"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/nvim-pqf.git",
@@ -570,11 +565,6 @@ _G.packer_plugins = {
     only_cond = false,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/opt/startuptime.vim",
     url = "https://github.com/tweekmonster/startuptime.vim"
-  },
-  ["stay-in-place.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/stay-in-place.nvim",
-    url = "https://github.com/gbprod/stay-in-place.nvim"
   },
   ["tabby.nvim"] = {
     loaded = true,
