@@ -197,6 +197,7 @@ local leader_key_maps = {
     ["i"] = {
         ["name"] = "+insert-text",
         ["c"] = { ":PickColor<CR>", "color-picker" },
+        ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
         ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
         ["i"] = { ":PickEverything<CR>", "everything" },
         ["m"] = { ":MindOpenMain<CR>", "mind-open" },
@@ -614,13 +615,6 @@ local local_leader_key_maps = {
 ----------------------------------------------------------------------
 local visual_mode_leader_key_maps = {
     ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
-    ["r"] = {
-        ["name"] = "+refactor",
-        ["f"] = { ":ExtractSelectedFunc<CR>", "extract-function" },
-        ["r"] = { ":RefactorsList", "refactors-list" },
-        ["v"] = { ":DebugPrintVarBelow", "print-var-below" },
-        ["V"] = { ":DebugPrintVarAbove", "print-var-above" },
-    },
     ["z"] = { ":TZNarrow<CR>", "narrow-code" },
 }
 -- }}}

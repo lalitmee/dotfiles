@@ -211,7 +211,7 @@ require("packer").startup({
             requires = {
                 {
                     "nvim-telescope/telescope-frecency.nvim",
-                    requires = { "tami5/sqlite.lua" },
+                    requires = { "kkharji/sqlite.lua" },
                     after = "telescope.nvim",
                     config = function()
                         require("telescope").load_extension("frecency")
