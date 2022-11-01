@@ -401,7 +401,6 @@ require("packer").startup({
                 "rafamadriz/friendly-snippets",
                 "honza/vim-snippets",
             },
-            config = conf("luasnip"),
         })
         -- }}}
         ------------------------------------------------------------------------
