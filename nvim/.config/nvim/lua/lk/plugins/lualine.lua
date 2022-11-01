@@ -60,6 +60,7 @@ local winbar_excluded_filetypes = {
     "spectre_panel",
     "startify",
     "toggleterm",
+    "fugitive",
 }
 
 lualine.setup({
