@@ -193,41 +193,23 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["i"] = {
         ["name"] = "+insert-text",
+        ["a"] = { ":AttemptNew<CR>", "new-scratch-buffer" },
+        ["b"] = { ":AttemptRenameBuf<CR>", "rename-scratch-buffer" },
         ["c"] = { ":PickColor<CR>", "color-picker" },
-        ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
+        ["d"] = { ":AttemptDeleteBuf<CR>", "delete-scratch-buffer" },
+        ["D"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
         ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
+        ["E"] = { ":AttemptNewExtension<CR>", "new-extension-scratch-buffer" },
+        ["f"] = { ":Telescope attempt<CR>", "find-scratch-buffers" },
         ["i"] = { ":PickEverything<CR>", "everything" },
         ["m"] = { ":MindOpenMain<CR>", "mind-open" },
         ["p"] = { ":MindOpenProject<CR>", "mind-project" },
-        ["r"] = { ":MindReloadState<CR>", "mind-reload-state" },
+        ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
+        ["R"] = { ":MindReloadState<CR>", "mind-reload-state" },
         ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
         ["w"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
         -- }}}
         ----------------------------------------------------------------------
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: j is for jupming {{{
-    ----------------------------------------------------------------------
-    ["j"] = {
-        ["name"] = "+jumping",
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: NOTE: k is for scratch buffers {{{
-    ----------------------------------------------------------------------
-    ["k"] = {
-        ["name"] = "+scratch-buffers",
-        ["a"] = { ":AttemptNew<CR>", "new-scratch-buffer" },
-        ["c"] = { ":AttemptRenameBuf<CR>", "rename-scratch-buffer" },
-        ["d"] = { ":AttemptDeleteBuf<CR>", "delete-scratch-buffer" },
-        ["e"] = { ":AttemptNewExtension<CR>", "new-extension-scratch-buffer" },
-        ["f"] = { ":Telescope attempt<CR>", "find-scratch-buffers" },
-        ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
     },
     -- }}}
     ----------------------------------------------------------------------
@@ -296,15 +278,6 @@ local leader_key_maps = {
         ["s"] = { ":PackerSync<CR>", "packer-sync" },
         ["S"] = { ":PackerStatus<CR>", "packages-status" },
         ["u"] = { ":PackerUpdate<CR>", "packer-update" },
-    },
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: o is for telescope.nvim {{{
-    ----------------------------------------------------------------------
-    ["o"] = {
-        ["name"] = "+org-mode",
     },
     -- }}}
     ----------------------------------------------------------------------
