@@ -139,9 +139,6 @@ require("packer").startup({
         -- matchit extended
         use({ "andymass/vim-matchup" })
 
-        -- keep the cursor where it is
-        use({ "gbprod/stay-in-place.nvim" })
-
         -- icon picker for neovim
         use({ "ziontee113/icon-picker.nvim" })
 
@@ -176,15 +173,10 @@ require("packer").startup({
         -- NOTE: Search {{{
         ----------------------------------------------------------------------------
         -- search and replace in the whole project
-        use({
-            "nvim-pack/nvim-spectre",
-        })
+        use({ "nvim-pack/nvim-spectre" })
 
         -- display search matches
         use({ "romainl/vim-cool" })
-
-        -- toggle relative line numbers automatically
-        use({ "sitiom/nvim-numbertoggle" })
 
         -- easymotion using lua
         use({ "ggandor/leap.nvim" })
