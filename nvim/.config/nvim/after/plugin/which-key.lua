@@ -48,7 +48,6 @@ local leader_key_maps = {
         ["g"] = { ":Glow<CR>", "markdown-glow" },
         ["i"] = { ":ISwapWith<CR>", "iswap-with" },
         ["I"] = { ":ISwap<CR>", "iswap" },
-        ["m"] = { ":MinimapToggle<CR>", "toggle-minimap" },
         ["o"] = { ":NeoTreeRevealToggle<CR>", "neo-tree-toggle" },
         ["p"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
         ["s"] = { ":StartupTime<CR>", "run-startup-time" },
