@@ -143,7 +143,7 @@ require("packer").startup({
         use({ "ziontee113/icon-picker.nvim" })
 
         -- color picker for neovim
-        use({ "ziontee113/color-picker.nvim" })
+        use({ "nvim-colortils/colortils.nvim" })
 
         -- scratch files in `/tmp` folder
         use({ "m-demare/attempt.nvim" })

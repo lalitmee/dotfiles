@@ -174,15 +174,15 @@ _G.packer_plugins = {
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/cobalt2.nvim",
     url = "/home/lalitmee/Desktop/Github/cobalt2.nvim"
   },
-  ["color-picker.nvim"] = {
-    loaded = true,
-    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/color-picker.nvim",
-    url = "https://github.com/ziontee113/color-picker.nvim"
-  },
   ["colorbuddy.nvim"] = {
     loaded = true,
     path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim",
     url = "https://github.com/tjdevries/colorbuddy.nvim"
+  },
+  ["colortils.nvim"] = {
+    loaded = true,
+    path = "/home/lalitmee/.local/share/nvim/site/pack/packer/start/colortils.nvim",
+    url = "https://github.com/nvim-colortils/colortils.nvim"
   },
   ["debugprint.nvim"] = {
     loaded = true,
@@ -629,7 +629,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-telescope/telescope-ui-select.nvim"
   },
   ["telescope.nvim"] = {
-    after = { "git-worktree.nvim", "telescope-dap.nvim", "telescope-frecency.nvim", "telescope-fzf-native.nvim", "howdoi.nvim", "telescope-live-grep-args.nvim", "telescope-github.nvim", "telescope-ui-select.nvim" },
+    after = { "telescope-live-grep-args.nvim", "telescope-dap.nvim", "howdoi.nvim", "git-worktree.nvim", "telescope-ui-select.nvim", "telescope-frecency.nvim", "telescope-fzf-native.nvim", "telescope-github.nvim" },
     config = { "R('lk.plugins.telescope')" },
     loaded = true,
     only_config = true,
@@ -741,61 +741,61 @@ time([[Config for telescope.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-cmp ]]
-vim.cmd [[ packadd cmp_luasnip ]]
 vim.cmd [[ packadd cmp-tabnine ]]
-vim.cmd [[ packadd cmp-buffer ]]
 vim.cmd [[ packadd cmp-path ]]
+vim.cmd [[ packadd cmp_luasnip ]]
+vim.cmd [[ packadd cmp-buffer ]]
 vim.cmd [[ packadd nvim-dap ]]
-vim.cmd [[ packadd nvim-dap-virtual-text ]]
 vim.cmd [[ packadd nvim-dap-ui ]]
+vim.cmd [[ packadd nvim-dap-virtual-text ]]
 vim.cmd [[ packadd one-small-step-for-vimkind ]]
+vim.cmd [[ packadd Comment.nvim ]]
+vim.cmd [[ packadd nvim-treesitter ]]
+vim.cmd [[ packadd nvim-treesitter-textobjects ]]
+vim.cmd [[ packadd nvim-ts-rainbow ]]
+vim.cmd [[ packadd nvim-ts-context-commentstring ]]
+vim.cmd [[ packadd playground ]]
+vim.cmd [[ packadd nvim-treesitter-context ]]
 vim.cmd [[ packadd telescope-github.nvim ]]
 
 -- Config for: telescope-github.nvim
 try_loadstring("\27LJ\2\nG\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\agh\19load_extension\14telescope\frequire\0", "config", "telescope-github.nvim")
-
-vim.cmd [[ packadd telescope-ui-select.nvim ]]
-
--- Config for: telescope-ui-select.nvim
-try_loadstring("\27LJ\2\nN\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\14ui-select\19load_extension\14telescope\frequire\0", "config", "telescope-ui-select.nvim")
-
-vim.cmd [[ packadd telescope-live-grep-args.nvim ]]
-
--- Config for: telescope-live-grep-args.nvim
-try_loadstring("\27LJ\2\nS\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\19live_grep_args\19load_extension\14telescope\frequire\0", "config", "telescope-live-grep-args.nvim")
 
 vim.cmd [[ packadd howdoi.nvim ]]
 
 -- Config for: howdoi.nvim
 try_loadstring("\27LJ\2\nK\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\vhowdoi\19load_extension\14telescope\frequire\0", "config", "howdoi.nvim")
 
-vim.cmd [[ packadd telescope-fzf-native.nvim ]]
+vim.cmd [[ packadd git-worktree.nvim ]]
 
--- Config for: telescope-fzf-native.nvim
-try_loadstring("\27LJ\2\nH\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\bfzf\19load_extension\14telescope\frequire\0", "config", "telescope-fzf-native.nvim")
+-- Config for: git-worktree.nvim
+try_loadstring("\27LJ\2\nQ\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\17git_worktree\19load_extension\14telescope\frequire\0", "config", "git-worktree.nvim")
+
+vim.cmd [[ packadd telescope-live-grep-args.nvim ]]
+
+-- Config for: telescope-live-grep-args.nvim
+try_loadstring("\27LJ\2\nS\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\19live_grep_args\19load_extension\14telescope\frequire\0", "config", "telescope-live-grep-args.nvim")
 
 vim.cmd [[ packadd telescope-frecency.nvim ]]
 
 -- Config for: telescope-frecency.nvim
 try_loadstring("\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\rfrecency\19load_extension\14telescope\frequire\0", "config", "telescope-frecency.nvim")
 
+vim.cmd [[ packadd telescope-fzf-native.nvim ]]
+
+-- Config for: telescope-fzf-native.nvim
+try_loadstring("\27LJ\2\nH\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\bfzf\19load_extension\14telescope\frequire\0", "config", "telescope-fzf-native.nvim")
+
 vim.cmd [[ packadd telescope-dap.nvim ]]
 
 -- Config for: telescope-dap.nvim
 try_loadstring("\27LJ\2\nH\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\bdap\19load_extension\14telescope\frequire\0", "config", "telescope-dap.nvim")
 
-vim.cmd [[ packadd git-worktree.nvim ]]
+vim.cmd [[ packadd telescope-ui-select.nvim ]]
 
--- Config for: git-worktree.nvim
-try_loadstring("\27LJ\2\nQ\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\17git_worktree\19load_extension\14telescope\frequire\0", "config", "git-worktree.nvim")
+-- Config for: telescope-ui-select.nvim
+try_loadstring("\27LJ\2\nN\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\14ui-select\19load_extension\14telescope\frequire\0", "config", "telescope-ui-select.nvim")
 
-vim.cmd [[ packadd Comment.nvim ]]
-vim.cmd [[ packadd nvim-treesitter ]]
-vim.cmd [[ packadd nvim-treesitter-textobjects ]]
-vim.cmd [[ packadd nvim-ts-rainbow ]]
-vim.cmd [[ packadd nvim-ts-context-commentstring ]]
-vim.cmd [[ packadd nvim-treesitter-context ]]
-vim.cmd [[ packadd playground ]]
 time([[Sequenced loading]], false)
 
 -- Command lazy-loads
@@ -808,18 +808,18 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType yaml ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "yaml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType javascript ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "javascript" }, _G.packer_plugins)]]
-vim.cmd [[au FileType html ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "html" }, _G.packer_plugins)]]
-vim.cmd [[au FileType dockerfile ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "dockerfile" }, _G.packer_plugins)]]
-vim.cmd [[au FileType go ++once lua require("packer.load")({'go.nvim', 'nvim-lspconfig'}, { ft = "go" }, _G.packer_plugins)]]
-vim.cmd [[au FileType typescript ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "typescript" }, _G.packer_plugins)]]
-vim.cmd [[au FileType lua ++once lua require("packer.load")({'cmp-nvim-lua', 'nvim-lspconfig'}, { ft = "lua" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vim ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "vim" }, _G.packer_plugins)]]
 vim.cmd [[au FileType css ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "css" }, _G.packer_plugins)]]
+vim.cmd [[au FileType javascript ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "javascript" }, _G.packer_plugins)]]
+vim.cmd [[au FileType go ++once lua require("packer.load")({'nvim-lspconfig', 'go.nvim'}, { ft = "go" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType yaml ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "yaml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType typescript ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "typescript" }, _G.packer_plugins)]]
 vim.cmd [[au FileType json ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "json" }, _G.packer_plugins)]]
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'glow.nvim', 'markdown-preview.nvim', 'nvim-lspconfig'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vim ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "vim" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lua ++once lua require("packer.load")({'nvim-lspconfig', 'cmp-nvim-lua'}, { ft = "lua" }, _G.packer_plugins)]]
 vim.cmd [[au FileType bash ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "bash" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'markdown-preview.nvim', 'nvim-lspconfig', 'glow.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType dockerfile ++once lua require("packer.load")({'nvim-lspconfig'}, { ft = "dockerfile" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
