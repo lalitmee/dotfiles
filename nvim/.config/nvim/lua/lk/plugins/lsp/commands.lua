@@ -134,7 +134,7 @@ command("LspGotoNextDiagnostic", function()
     vim.diagnostic.goto_next({
         severity = get_highest_error_severity(),
         wrap = true,
-        float = true,
+        float = false,
     })
 end, {})
 
@@ -142,7 +142,7 @@ command("LspGotoPrevDiagnostic", function()
     vim.diagnostic.goto_prev({
         severity = get_highest_error_severity(),
         wrap = true,
-        float = true,
+        float = false,
     })
 end, {})
 
