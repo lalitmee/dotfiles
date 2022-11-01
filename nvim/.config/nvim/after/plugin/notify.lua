@@ -5,16 +5,6 @@ if not ok then
     return
 end
 
--- NOTE: vim.log.levels
--- {
---   DEBUG = 1,
---   ERROR = 4,
---   INFO = 2,
---   OFF = 5,
---   TRACE = 0,
---   WARN = 3
--- }
-
 notify.setup({
     background_colour = "ColorColumn",
     timeout = 3000,

@@ -296,7 +296,7 @@ o.autowriteall = true -- automatically :write before running commands and changi
 opt.clipboard = { "unnamedplus" }
 o.laststatus = 3
 o.showtabline = 2
-o.termguicolors = true
+o.tgc = true
 -- }}}
 ----------------------------------------------------------------------
 
