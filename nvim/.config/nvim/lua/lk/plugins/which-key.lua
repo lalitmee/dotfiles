@@ -32,7 +32,6 @@ local leader_key_maps = {
     ["2"] = { ":HarpoonGotoTerm 2<CR>", "terminal-2" },
     ["3"] = { ":HarpoonGotoTerm 3<CR>", "terminal-3" },
     ["4"] = { ":HarpoonGotoTerm 4<CR>", "terminal-4" },
-    ["x"] = { ":q<CR>", "close-window" },
     -- }}}
     ----------------------------------------------------------------------
 
@@ -67,12 +66,12 @@ local leader_key_maps = {
         ["a"] = { ":bfirst<CR>", "first-buffer" },
         ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
         ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
-        ["C"] = { ":BufOnly<CR>", "close-all-but-current" },
         ["d"] = { ":Bdelete<CR>", "delete-buffer" },
         ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "search-buffer-lines" },
         ["m"] = { ":Telescope marks<CR>", "telescope-marks" },
         ["M"] = { ":delm!<CR>", "delete-marks" },
         ["n"] = { ":bn<CR>", "next-buffer" },
+        ["o"] = { ":BufOnly<CR>", "close-all-but-current" },
         ["p"] = { ":bp<CR>", "prev-buffer" },
         ["r"] = { ":e<CR>", "refresh-buffer" },
         ["R"] = { ":bufdo :e<CR>", "refresh-loaded-buffers" },

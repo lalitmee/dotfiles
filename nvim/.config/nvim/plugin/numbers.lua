@@ -20,7 +20,7 @@ local number_filetype_exclusions = {
     "log",
     "man",
     "dap-repl",
-    "markdown",
+    -- "markdown",
     "vimwiki",
     "vim-plug",
     "gitcommit",
@@ -42,7 +42,7 @@ local number_filetype_exclusions = {
 
 local number_buftype_exclusions = {
     "prompt",
-    "terminal",
+    -- "terminal",
     "help",
     "nofile",
     "acwrite",
