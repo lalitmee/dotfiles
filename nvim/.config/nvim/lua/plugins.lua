@@ -561,9 +561,6 @@ require("packer").startup({
             cmd = { "Neogit" },
         })
 
-        -- tpope's git
-        use({ "tpope/vim-fugitive" })
-
         -- gitsigns in lua
         use({
             "lewis6991/gitsigns.nvim",
