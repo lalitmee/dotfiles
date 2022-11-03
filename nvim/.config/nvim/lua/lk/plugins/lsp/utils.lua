@@ -40,7 +40,7 @@ M.mappings = function()
     -- NOTE: using this somehow goes into telescope with two definitions so not
     -- using this for now until I figure out why it was happening
     -- nmap("gd", "<cmd>Telescope lsp_definitions<CR>", map_opts)
-    nmap("gd", "<cmd>LspDefinition<CR>", map_opts)
+    nmap("gd", vim.lsp.buf.definition, map_opts)
     nmap("ge", "<cmd>Telescope diagnostics<CR>", map_opts)
     nmap("gr", "<cmd>Telescope lsp_references<CR>", map_opts)
     nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", map_opts)

@@ -94,7 +94,7 @@ o.ttimeoutlen = 10
 ----------------------------------------------------------------------
 o.number = true
 o.relativenumber = true
-o.hidden = true
+o.hidden = false
 o.splitbelow = true
 o.splitright = true
 o.splitkeep = "screen"
