@@ -40,7 +40,7 @@ vim.diagnostic.config({
     float = {
         show_header = true,
         border = "rounded",
-        source = "always",
+        source = "if_many",
         format = function(diag)
             if not diag.code and not diag.user_data then
                 return diag.message
