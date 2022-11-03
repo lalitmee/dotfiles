@@ -20,7 +20,6 @@ local action_utils = require("telescope.actions.utils")
 local action_layout = require("telescope.actions.layout")
 local previewers = require("telescope.previewers")
 local themes = require("telescope.themes")
-local icons = require("nvim-nonicons")
 
 local function get_border(opts)
     return vim.tbl_deep_extend("force", opts or {}, {
@@ -197,17 +196,17 @@ telescope.setup({
         live_grep = {
             file_ignore_patterns = { ".git/" },
         },
-        current_buffer_fuzzy_find = dropdown({
-            previewer = false,
-        }),
+        -- current_buffer_fuzzy_find = dropdown({
+        --     previewer = false,
+        -- }),
         lsp_code_actions = {
             theme = "cursor",
         },
         colorscheme = {
-            enable_preview = true,
+            -- enable_preview = true,
         },
         find_files = {
-            find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+            -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
             hidden = true,
         },
         git_bcommits = {
