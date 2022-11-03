@@ -239,12 +239,6 @@ require("packer").startup({
         -- display search matches
         use({ "romainl/vim-cool" })
 
-        -- easymotion using lua
-        use({
-            "ggandor/leap.nvim",
-            config = conf("leap"),
-        })
-
         -- Navigations
         use({
             "ThePrimeagen/harpoon",
