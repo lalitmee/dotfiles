@@ -103,6 +103,10 @@ command("ToggleHarpoonMenu", function()
     require("harpoon.ui").toggle_quick_menu()
 end, {})
 
+command("ToggleHarpoonCmdMenu", function()
+    require("harpoon.cmd-ui").toggle_quick_menu()
+end, {})
+
 -- }}}
 ----------------------------------------------------------------------
 

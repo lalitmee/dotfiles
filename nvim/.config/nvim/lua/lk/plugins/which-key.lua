@@ -222,7 +222,6 @@ local leader_key_maps = {
     ["l"] = {
         ["name"] = "+lsp",
         ["a"] = { ":LspCodeActions<CR>", "code-action" },
-        ["b"] = { ":LspRangeCodeActions<CR>", "range-code-action" },
         ["c"] = { ":LspRename<CR>", "rename" },
         ["d"] = { ":LspDefinition<CR>", "definition" },
         ["D"] = { ":LspDeclaration<CR>", "declaration" },

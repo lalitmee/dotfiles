@@ -94,7 +94,7 @@ o.ttimeoutlen = 10
 ----------------------------------------------------------------------
 o.number = true
 o.relativenumber = true
-o.hidden = false
+o.hidden = true
 o.splitbelow = true
 o.splitright = true
 o.splitkeep = "screen"
@@ -335,7 +335,7 @@ opt.sessionoptions = {
     "tabpages",
     "help",
     "winsize",
-    "terminal",
+    -- "terminal",
     "winpos",
 }
 opt.viewoptions = { "cursor", "folds" } -- save/restore just these (with `:{mk,load}view`)
