@@ -52,7 +52,7 @@ nnoremap("<C-Right>", [[:bn<cr>]])
 nnoremap("<C-Left>", [[:bp<cr>]])
 
 -- alternate file mapping
-map("n", "<bs>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], map_opts)
+map("n", "<BS>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], map_opts)
 
 -- NOTE: this was creating problem with <C-I>
 -- circular window movements

@@ -47,12 +47,11 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping({ i = s_tab }),
     },
     sources = cmp.config.sources({
-        { name = "cmp_tabnine" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
+        { name = "cmp_tabnine" },
         { name = "path" },
-        { name = "orgmode" },
     }, {
         { name = "buffer" },
     }),

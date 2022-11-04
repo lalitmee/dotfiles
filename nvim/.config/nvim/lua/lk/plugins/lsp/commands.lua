@@ -22,7 +22,9 @@ end, {})
 ----------------------------------------------------------------------
 -- NOTE: code actions {{{
 ----------------------------------------------------------------------
-command("LspCodeActions", vim.lsp.buf.code_action, {})
+command("LspCodeActions", function()
+    vim.lsp.buf.code_action()
+end, {})
 -- }}}
 ----------------------------------------------------------------------
 
@@ -47,7 +49,9 @@ command("LspSignatureHelp", vim.lsp.buf.signature_help, {})
 command("LspImplementation", vim.lsp.buf.implementation, {})
 command("LspIncomingCalls", vim.lsp.buf.incoming_calls, {})
 command("LspOutgoingCalls", vim.lsp.buf.outgoing_calls, {})
-command("LspRename", vim.lsp.buf.rename, {})
+command("LspRename", function()
+    vim.lsp.buf.rename()
+end, {})
 command("LspTypeDefinition", vim.lsp.buf.type_definition, {})
 command("LspWorkspaceSymbols", vim.lsp.buf.workspace_symbol, {})
 -- }}}
@@ -74,6 +78,7 @@ local get_highest_error_severity = function()
     end
 end
 
+command("LspDiagnosticDisable", vim.diagnostic.disable, {})
 command("LspGetAllDiagnostics", vim.diagnostic.get, {})
 command("LspGotoNextDiagnostic", function()
     vim.diagnostic.goto_next({

@@ -84,30 +84,18 @@ lualine.setup({
                 fmt = function(str)
                     return "<" .. str:sub(1, 1) .. ">"
                 end,
-                color = {
-                    gui = "bold",
-                },
             },
         },
         lualine_b = {
             {
                 "branch",
                 icon = "",
-                color = {
-                    gui = "bold",
-                },
             },
         },
         lualine_c = {
             { "%=", type = "stl" },
             { "filetype", icon_only = true, padding = { left = 1, right = 0 } },
-            {
-                "filename",
-                path = 1,
-                color = {
-                    gui = "bold",
-                },
-            },
+            { "filename", path = 1 },
             {
                 "diagnostics",
                 sources = { "nvim_diagnostic" },
@@ -123,20 +111,10 @@ lualine.setup({
             { get_trailing_whitespace },
         },
         lualine_y = {
-            {
-                "progress",
-                color = {
-                    gui = "bold",
-                },
-            },
+            { "progress" },
         },
         lualine_z = {
-            {
-                "location",
-                color = {
-                    gui = "bold",
-                },
-            },
+            { "location" },
         },
     },
     winbar = {

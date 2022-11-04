@@ -9,9 +9,18 @@ local t, i, c, d, f, s, sn =
 ----------------------------------------------------------------------
 -- NOTE: helper functions {{{
 ----------------------------------------------------------------------
+local firstToUpper = function(str)
+    return (str[1]:sub(1, 1):upper() .. str[1]:sub(2))
+end
+
 -- repeat the same word
-local same = function(index)
+local same = function(index, words)
+    words = words or {}
+    local first_char_capital = words.first
     return f(function(args)
+        if first_char_capital then
+            return firstToUpper(args[1])
+        end
         return args[1]
     end, { index })
 end
