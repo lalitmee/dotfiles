@@ -9,7 +9,7 @@
 " set guifont=InconsolataLGC\ Nerd\ Font\ Mono:h8
 " set guifont=Inconsolata\ Nerd\ Font\ Mono:h8
 " set guifont=JetbrainsMonoMedium\ Nerd\ Font\ Mono:h8
-set guifont=JetbrainsMono\ Nerd\ Font:h10
+" set guifont=JetbrainsMono\ Nerd\ Font:h10
 " set guifont=MesloLGM\ Nerd\ Font\ Mono:h8
 " set guifont=Hack\ Nerd\ Font\ Mono:h8
 " set guifont=Monego\ Ligatures:h8
@@ -17,7 +17,7 @@ set guifont=JetbrainsMono\ Nerd\ Font:h10
 " set guifont=MonoLisa\ Nerd\ Font:h9
 " set guifont=Monofur\ Nerd\ Font\ Mono:h8
 " set guifont=Operator\ Mono\ Book:h8
-" set guifont=Operator\ Mono\ Lig\ Book:h8
+set guifont=Operator\ Mono\ Lig\ Book:h10
 " set guifont=OverpassMono\ Nerd\ Font:h8
 " set guifont=SauceCodePro\ Nerd\ Font:h8
 " set guifont=SpaceMono\ Nerd\ Font\ Mono:h8
