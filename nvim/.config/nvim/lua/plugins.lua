@@ -170,6 +170,13 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: ACTIONS {{{
         ------------------------------------------------------------------------
+        -- take images of the code or buffers
+        use({
+            "narutoxy/silicon.lua",
+            config = conf("silicon"),
+            cmd = { "Silicon", "SiliconCopy", "SiliconBuf" },
+        })
+
         -- neozoom
         use({
             "nyngwang/NeoZoom.lua",
