@@ -165,6 +165,12 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: ACTIONS {{{
         ------------------------------------------------------------------------
+        -- surround plugin same as tpope's but in lua
+        use({
+            "kylechui/nvim-surround",
+            config = conf("surround"),
+        })
+
         -- take images of the code or buffers
         use({
             "narutoxy/silicon.lua",
@@ -619,11 +625,6 @@ require("packer").startup({
 
         -- repeat using `.`
         use({ "tpope/vim-repeat" })
-
-        use({
-            "kylechui/nvim-surround",
-            config = conf("surround"),
-        })
 
         -- debug things
         use({ "tpope/vim-scriptease" })
