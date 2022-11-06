@@ -53,13 +53,6 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: UI and Beautify {{{
         ----------------------------------------------------------------------------
-        -- highlights of unused functions, variables, parameters, and more
-        use({
-            "zbirenbaum/neodim",
-            config = conf("neodim"),
-            after = { "nvim-treesitter" },
-        })
-
         -- improve default neovim UI
         use({
             "stevearc/dressing.nvim",

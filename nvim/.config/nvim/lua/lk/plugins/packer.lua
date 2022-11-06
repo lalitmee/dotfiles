@@ -23,22 +23,22 @@ augroup("PackerSetupInit", {
             vim.api.nvim_command("PackerCompile")
         end,
     },
-    -- {
-    --     event = { "BufEnter" },
-    --     description = "Open a repository from an authorname/repository string",
-    --     pattern = { "*.lua" },
-    --     command = function()
-    --         lk.nnoremap("gf", function()
-    --             local repo = fn.expand("<cfile>")
-    --             if not repo or #vim.split(repo, "/") ~= 2 then
-    --                 return vim.cmd([[norm! gf]])
-    --             end
-    --             local url = fmt("https://www.github.com/%s", repo)
-    --             fn.jobstart("xdg-open " .. url)
-    --             vim.notify(fmt("Opening %s at %s", repo, url), 2, { title = fmt(" [plugin] %s", repo) })
-    --         end)
-    --     end,
-    -- },
+    {
+        event = { "BufEnter" },
+        description = "Open a repository from an authorname/repository string",
+        pattern = { "*.lua" },
+        command = function()
+            lk.nnoremap("gf", function()
+                local repo = fn.expand("<cfile>")
+                if not repo or #vim.split(repo, "/") ~= 2 then
+                    return vim.cmd([[norm! gf]])
+                end
+                local url = fmt("https://www.github.com/%s", repo)
+                fn.jobstart("xdg-open " .. url)
+                vim.notify(fmt("Opening %s at %s", repo, url), 2, { title = fmt(" [plugin] %s", repo) })
+            end)
+        end,
+    },
     {
         event = { "User" },
         pattern = { "PackerCompileDone" },
