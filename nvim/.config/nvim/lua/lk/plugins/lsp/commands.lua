@@ -78,7 +78,12 @@ local get_highest_error_severity = function()
     end
 end
 
-command("LspDiagnosticDisable", vim.diagnostic.disable, {})
+command("LspDiagnosticEnable", function()
+    vim.diagnostic.enable()
+end, {})
+command("LspDiagnosticDisable", function()
+    vim.diagnostic.disable()
+end, {})
 command("LspGetAllDiagnostics", vim.diagnostic.get, {})
 command("LspGotoNextDiagnostic", function()
     vim.diagnostic.goto_next({

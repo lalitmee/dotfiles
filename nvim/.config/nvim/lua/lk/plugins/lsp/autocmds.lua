@@ -90,20 +90,20 @@ M.setup_autocommands = function(client, bufnr)
 
     augroup(FEATURES.DIAGNOSTICS, function()
         return {
-            {
-                event = { "CursorHold" },
-                buffer = bufnr,
-                desc = "LSP: Show diagnostics",
-                command = function(args)
-                    vim.diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
-                end,
-            },
+            -- {
+            --     event = { "CursorHold" },
+            --     buffer = bufnr,
+            --     desc = "LSP: Show diagnostics",
+            --     command = function(args)
+            --         vim.diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
+            --     end,
+            -- },
             {
                 event = { "BufEnter" },
-                pattern = { "*.env" },
+                pattern = { ".env" },
                 desc = "LSP: Disable Diagnostics for .env file",
-                command = function(args)
-                    vim.diagnostic.disable(args.buf)
+                command = function()
+                    vim.diagnostic.disable(0)
                 end,
             },
         }
