@@ -59,7 +59,6 @@ capabilities.textDocument.foldingRange = {
 --------------------------------------------------------------------------------
 local ok, neodev = lk.require("neodev")
 if not ok then
-    vim.notify("Something wrong with [neodev]", 2, { title = "[neodev]" })
     return
 end
 neodev.setup({
