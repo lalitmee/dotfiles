@@ -49,7 +49,7 @@ M.mappings = function()
     nmap("gD", vim.lsp.buf.declaration, map_opts)
     nmap("gy", vim.lsp.buf.type_definition, map_opts)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
-    nmap("gi", vim.lsp.buf.implementation, map_opts)
+    nmap("gz", vim.lsp.buf.implementation, map_opts)
 end
 -- }}}
 ----------------------------------------------------------------------
