@@ -131,6 +131,7 @@ require("packer").startup({
         use({
             "NvChad/nvim-colorizer.lua",
             config = conf("colorizer"),
+            cmd = { "ColorizerToggle" },
         })
 
         ----------------------------------------------------------------------
@@ -152,6 +153,7 @@ require("packer").startup({
         use({
             "gabrielpoca/replacer.nvim",
             config = conf("replacer"),
+            cmd = { "Replacer", "ReplacerFiles" },
         })
         -- }}}
         ----------------------------------------------------------------------
@@ -173,7 +175,8 @@ require("packer").startup({
         -- neozoom
         use({
             "nyngwang/NeoZoom.lua",
-            config = conf("zoom"),
+            config = conf("neozoom"),
+            cmd = { "NeoZoomToggle" },
         })
 
         -- matchit extended
@@ -183,18 +186,21 @@ require("packer").startup({
         use({
             "ziontee113/icon-picker.nvim",
             config = conf("icon-picker"),
+            cmd = { "PickEverything" },
         })
 
         -- color picker for neovim
         use({
             "nvim-colortils/colortils.nvim",
             config = conf("colortils"),
+            cmd = { "Colortils" },
         })
 
         -- scratch files in `/tmp` folder
         use({
             "m-demare/attempt.nvim",
             config = conf("attempt"),
+            cmd = { "AttemptNew", "AttemptNewExtension" },
         })
 
         -- cycle folds
@@ -222,10 +228,16 @@ require("packer").startup({
         })
 
         -- undo tree
-        use({ "mbbill/undotree" })
+        use({
+            "mbbill/undotree",
+            cmd = { "UndotreeToggle" },
+        })
 
         -- interactively swap so many things
-        use({ "mizlan/iswap.nvim", after = { "nvim-treesitter" } })
+        use({
+            "mizlan/iswap.nvim",
+            after = { "nvim-treesitter" },
+        })
 
         ----------------------------------------------------------------------------
         -- NOTE: Search {{{
