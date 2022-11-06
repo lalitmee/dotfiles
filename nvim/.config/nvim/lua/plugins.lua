@@ -179,9 +179,6 @@ require("packer").startup({
             cmd = { "NeoZoomToggle" },
         })
 
-        -- matchit extended
-        use({ "andymass/vim-matchup" })
-
         -- icon picker for neovim
         use({
             "ziontee113/icon-picker.nvim",
