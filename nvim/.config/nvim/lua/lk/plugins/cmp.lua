@@ -88,7 +88,7 @@ cmp.setup({
             menu = {
                 cmp_tabnine = "[TBN]",
                 buffer = "[BUF]",
-                cmdline = "[CMD]",
+                -- cmdline = "[CMD]",
                 luasnip = "[SNIP]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[API]",
@@ -101,33 +101,33 @@ cmp.setup({
 -- }}}
 ----------------------------------------------------------------------
 
-----------------------------------------------------------------------
--- NOTE: cmp cmdline setup {{{
-----------------------------------------------------------------------
-local search_sources = {
-    sources = cmp.config.sources({
-        {
-            name = "buffer",
-            options = { keyword_pattern = [=[[^[:blank:]].*]=] },
-        },
-    }),
-}
+-- ----------------------------------------------------------------------
+-- -- NOTE: cmp cmdline setup {{{
+-- ----------------------------------------------------------------------
+-- local search_sources = {
+--     sources = cmp.config.sources({
+--         {
+--             name = "buffer",
+--             options = { keyword_pattern = [=[[^[:blank:]].*]=] },
+--         },
+--     }),
+-- }
 
-cmp.setup.cmdline("/", search_sources)
-cmp.setup.cmdline("?", search_sources)
-cmp.setup.cmdline(":", {
-    sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-})
+-- cmp.setup.cmdline("/", search_sources)
+-- cmp.setup.cmdline("?", search_sources)
+-- cmp.setup.cmdline(":", {
+--     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+-- })
 
--- Set configuration for specific filetype.
-cmp.setup.filetype("gitcommit", {
-    sources = cmp.config.sources({
-        { name = "cmp_git" },
-    }, {
-        { name = "buffer" },
-    }),
-})
--- }}}
-----------------------------------------------------------------------
+-- -- Set configuration for specific filetype.
+-- cmp.setup.filetype("gitcommit", {
+--     sources = cmp.config.sources({
+--         { name = "cmp_git" },
+--     }, {
+--         { name = "buffer" },
+--     }),
+-- })
+-- -- }}}
+-- ----------------------------------------------------------------------
 
 -- vim:foldmethod=marker

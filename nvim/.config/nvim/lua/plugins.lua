@@ -446,7 +446,6 @@ require("packer").startup({
             "hrsh7th/nvim-cmp",
             requires = {
                 { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-                { "hrsh7th/cmp-cmdline", after = "nvim-cmp", event = { "CmdlineEnter" } },
                 { "hrsh7th/cmp-nvim-lsp" },
                 { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp", ft = { "lua" } },
                 { "hrsh7th/cmp-path", after = "nvim-cmp" },
