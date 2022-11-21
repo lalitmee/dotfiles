@@ -88,7 +88,6 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         use({
             "yamatsum/nvim-nonicons",
-            branch = "feat/lua",
             requires = { "kyazdani42/nvim-web-devicons" },
             config = conf("devicons"),
         })
@@ -105,6 +104,7 @@ require("packer").startup({
         --     requires = {
         --         "MunifTanjim/nui.nvim",
         --     },
+        --     config = conf("noice"),
         -- })
 
         -- TODO: I may try to remove this in the future, I don't think I get anything
