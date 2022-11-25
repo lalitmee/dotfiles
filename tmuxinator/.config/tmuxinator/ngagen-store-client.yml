@@ -5,6 +5,5 @@ root: ~/Desktop/koinearth/ngagen/ngagen-store-client-webapp-service
 
 windows:
   - Editor: ls
-  - Server: npd
   - Caddy: cd ~/Desktop/koinearth/ngagen/caddyfiles/store-client && caddy run
   - Extra: quote
