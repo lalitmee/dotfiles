@@ -208,6 +208,7 @@ local leader_key_maps = {
         ["i"] = { ":PickEverything<CR>", "everything" },
         ["m"] = { ":MindOpenMain<CR>", "mind-open" },
         ["p"] = { ":MindOpenProject<CR>", "mind-project" },
+        ["q"] = { ":MindClose<CR>", "mind-close" },
         ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
         ["R"] = { ":MindReloadState<CR>", "mind-reload-state" },
         ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
