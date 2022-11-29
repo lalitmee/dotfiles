@@ -335,6 +335,12 @@ require("packer").startup({
         ----------------------------------------------------------------------------
         -- NOTE: General {{{
         ----------------------------------------------------------------------------
+        -- helping in reading
+        use({
+            "nullchilly/fsread.nvim",
+            cmd = { "FSToggle" },
+        })
+
         -- smooth scrolling in neovim
         use({
             "karb94/neoscroll.nvim",
@@ -354,7 +360,12 @@ require("packer").startup({
         use({ "wellle/targets.vim" })
 
         -- split and join
-        use({ "AndrewRadev/splitjoin.vim" })
+        use({
+            "Wansmer/treesj",
+            config = conf("treesj"),
+            cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+            keys = { "gS", "gJ" },
+        })
 
         -- sorting in vim
         use({ "christoomey/vim-sort-motion" })
@@ -523,7 +534,10 @@ require("packer").startup({
         use({ "baskerville/vim-sxhkdrc" })
 
         -- emmet vim
-        use({ "mattn/emmet-vim" })
+        use({
+            "mattn/emmet-vim",
+            config = conf("emmet"),
+        })
 
         -- golang support
         use({ "ray-x/go.nvim", ft = "go" })
@@ -610,6 +624,13 @@ require("packer").startup({
             config = conf("navic"),
         })
 
+        -- TODO: add it back when https://github.com/utilyre/barbecue.nvim/issues/22
+        --       is fixed
+        -- use({
+        --     "utilyre/barbecue.nvim",
+        --     config = conf("barbecue"),
+        -- })
+
         -- }}}
         ------------------------------------------------------------------------
 
@@ -641,7 +662,8 @@ require("packer").startup({
             "nvim-neo-tree/neo-tree.nvim",
             branch = "v2.x",
             requires = {
-                "MunifTanjim/nui.nvim",
+                { "MunifTanjim/nui.nvim" },
+                { "s1n7ax/nvim-window-picker", tag = "v1.*" },
             },
             config = conf("neo-tree"),
         })

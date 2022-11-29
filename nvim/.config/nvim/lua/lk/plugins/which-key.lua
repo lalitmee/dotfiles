@@ -385,7 +385,7 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
-    -- NOTE: S is for sessions {{{
+    -- NOTE: S is for system {{{
     ----------------------------------------------------------------------
     ["S"] = {
         ["name"] = "+sessions",
@@ -405,6 +405,7 @@ local leader_key_maps = {
     ----------------------------------------------------------------------
     ["t"] = {
         ["name"] = "+toggle",
+        ["j"] = { ":TSJToggle<CR>", "treesj-toggle" },
         ["g"] = {
             ["name"] = "+git",
             ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
@@ -420,6 +421,7 @@ local leader_key_maps = {
             ["e"] = { ":NeoTreeRevealToggle<CR>", "reveal-toggle" },
             ["v"] = { ":NeoTreeRevealInSplitToggle<CR>", "split-toggle" },
         },
+        ["p"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
         ["s"] = {
             ["name"] = "+scrolloff",
             ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },

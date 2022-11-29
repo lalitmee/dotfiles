@@ -9,8 +9,8 @@ local l = vim.log.levels
 -- NOTE: print contents of the table {{{
 -----------------------------------------------------------------------------
 P = function(v)
-  print(vim.inspect(v))
-  return v
+    print(vim.inspect(v))
+    return v
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -23,10 +23,10 @@ end
 _G.__lk_global_callbacks = __lk_global_callbacks or {}
 
 _G.lk = {
-  _store = __lk_global_callbacks,
+    _store = __lk_global_callbacks,
 
-  -- for UI elements like the winbar and statusline that need global references
-  ui = {},
+    -- for UI elements like the winbar and statusline that need global references
+    ui = {},
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -39,24 +39,24 @@ _G.lk = {
 ---@param o table
 ---@return fun(lhs: string, rhs: string|function, opts: table|nil) 'create a mapping'
 local function make_mapper(mode, o)
-  -- copy the opts table as extends will mutate the opts table passed in otherwise
-  local parent_opts = vim.deepcopy(o)
-  ---Create a mapping
-  ---@param lhs string
-  ---@param rhs string|function
-  ---@param opts table
-  return function(lhs, rhs, opts)
-    -- If the label is all that was passed in, set the opts automagically
-    opts = type(opts) == "string" and { label = opts } or opts and vim.deepcopy(opts) or {}
-    if opts.label then
-      local ok, wk = lk.require("which-key", { silent = true })
-      if ok then
-        wk.register({ [lhs] = opts.label }, { mode = mode })
-      end
-      opts.label = nil
+    -- copy the opts table as extends will mutate the opts table passed in otherwise
+    local parent_opts = vim.deepcopy(o)
+    ---Create a mapping
+    ---@param lhs string
+    ---@param rhs string|function
+    ---@param opts table
+    return function(lhs, rhs, opts)
+        -- If the label is all that was passed in, set the opts automagically
+        opts = type(opts) == "string" and { label = opts } or opts and vim.deepcopy(opts) or {}
+        if opts.label then
+            local ok, wk = lk.require("which-key", { silent = true })
+            if ok then
+                wk.register({ [lhs] = opts.label }, { mode = mode })
+            end
+            opts.label = nil
+        end
+        vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("keep", opts, parent_opts))
     end
-    vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("keep", opts, parent_opts))
-  end
 end
 
 local map_opts = { remap = true, silent = true }
@@ -96,12 +96,12 @@ lk.snoremap = make_mapper("s", noremap_opts)
 lk.cnoremap = make_mapper("c", { silent = false })
 
 local function get_defaults(mode)
-  return { noremap = true, silent = not mode == "c" }
+    return { noremap = true, silent = not mode == "c" }
 end
 
 function lk.map(mode, lhs, rhs, opts)
-  opts = opts or get_defaults(mode)
-  vim.keymap.set(mode, lhs, rhs, opts)
+    opts = opts or get_defaults(mode)
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -111,135 +111,135 @@ end
 -----------------------------------------------------------------------------
 -- Consistent store of various UI items to reuse throughout my config
 lk.style = {
-  icons = {
-    lsp = {
-      error = "",
-      hint = "",
-      info = "",
-      warn = "",
+    icons = {
+        lsp = {
+            error = "",
+            hint = "",
+            info = "",
+            warn = "",
+        },
+        notify = {
+            debug = "",
+            error = "",
+            info = "",
+            trace = "🖉",
+            warn = "",
+        },
+        kind = {
+            Class = "",
+            Color = "",
+            Constant = "",
+            Constructor = "",
+            Default = "",
+            Enum = "了",
+            EnumMember = "",
+            Event = "",
+            Field = "",
+            File = "",
+            Folder = "",
+            Function = "",
+            Interface = "ﰮ",
+            Keyword = "",
+            Method = "ƒ",
+            Module = "",
+            Operator = "○",
+            Property = "",
+            Reference = "",
+            Snippet = "﬌",
+            Struct = "",
+            Text = "",
+            TypeParameter = "⅀",
+            Unit = "",
+            Value = "",
+            Variable = "",
+        },
+        git = {
+            Add = " ",
+            Mod = " ",
+            Remove = " ",
+            Ignore = " ",
+            Rename = " ",
+            Diff = " ",
+            Repo = " ",
+        },
+        documents = {
+            File = " ",
+            Files = " ",
+            Folder = " ",
+            OpenFolder = " ",
+        },
+        ui = {
+            BigCircle = " ",
+            BigUnfilledCircle = " ",
+            BookMark = " ",
+            Bug = " ",
+            Calendar = " ",
+            Check = " ",
+            ChevronRight = "",
+            Circle = " ",
+            Close = " ",
+            Code = " ",
+            Comment = " ",
+            Dashboard = " ",
+            Fire = " ",
+            Gear = " ",
+            History = " ",
+            Lightbulb = " ",
+            List = " ",
+            Lock = " ",
+            NewFile = " ",
+            Note = " ",
+            Package = " ",
+            Pencil = " ",
+            Project = " ",
+            Search = " ",
+            SignIn = " ",
+            Table = " ",
+            Telescope = " ",
+        },
+        misc = {
+            ellipsis = "…",
+            up = "⇡",
+            down = "⇣",
+            line = "ℓ", -- ''
+            indent = "Ξ",
+            tab = "⇥",
+            bug = "", -- 'ﴫ'
+            question = "",
+            lock = "",
+            circle = "",
+            project = "",
+            dashboard = "",
+            history = "",
+            comment = "",
+            robot = "ﮧ",
+            lightbulb = "",
+            search = "",
+            code = "",
+            telescope = "",
+            gear = "",
+            package = "",
+            list = "",
+            sign_in = "",
+            check = "",
+            fire = "",
+            note = "",
+            bookmark = "",
+            pencil = "",
+            tools = "",
+            caret_right = "",
+            chevron_right = "",
+            double_chevron_right = "»",
+            table = "",
+            calendar = "",
+            block = "▌",
+        },
     },
-    notify = {
-      debug = "",
-      error = "",
-      info = "",
-      trace = "🖉",
-      warn = "",
+    border = {
+        line = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+        rounded = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        rectangle = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
     },
-    kind = {
-      Class = "",
-      Color = "",
-      Constant = "",
-      Constructor = "",
-      Default = "",
-      Enum = "了",
-      EnumMember = "",
-      Event = "",
-      Field = "",
-      File = "",
-      Folder = "",
-      Function = "",
-      Interface = "ﰮ",
-      Keyword = "",
-      Method = "ƒ",
-      Module = "",
-      Operator = "○",
-      Property = "",
-      Reference = "",
-      Snippet = "﬌",
-      Struct = "",
-      Text = "",
-      TypeParameter = "⅀",
-      Unit = "",
-      Value = "",
-      Variable = "",
-    },
-    git = {
-      Add = " ",
-      Mod = " ",
-      Remove = " ",
-      Ignore = " ",
-      Rename = " ",
-      Diff = " ",
-      Repo = " ",
-    },
-    documents = {
-      File = " ",
-      Files = " ",
-      Folder = " ",
-      OpenFolder = " ",
-    },
-    ui = {
-      BigCircle = " ",
-      BigUnfilledCircle = " ",
-      BookMark = " ",
-      Bug = " ",
-      Calendar = " ",
-      Check = " ",
-      ChevronRight = "",
-      Circle = " ",
-      Close = " ",
-      Code = " ",
-      Comment = " ",
-      Dashboard = " ",
-      Fire = " ",
-      Gear = " ",
-      History = " ",
-      Lightbulb = " ",
-      List = " ",
-      Lock = " ",
-      NewFile = " ",
-      Note = " ",
-      Package = " ",
-      Pencil = " ",
-      Project = " ",
-      Search = " ",
-      SignIn = " ",
-      Table = " ",
-      Telescope = " ",
-    },
-    misc = {
-      ellipsis = "…",
-      up = "⇡",
-      down = "⇣",
-      line = "ℓ", -- ''
-      indent = "Ξ",
-      tab = "⇥",
-      bug = "", -- 'ﴫ'
-      question = "",
-      lock = "",
-      circle = "",
-      project = "",
-      dashboard = "",
-      history = "",
-      comment = "",
-      robot = "ﮧ",
-      lightbulb = "",
-      search = "",
-      code = "",
-      telescope = "",
-      gear = "",
-      package = "",
-      list = "",
-      sign_in = "",
-      check = "",
-      fire = "",
-      note = "",
-      bookmark = "",
-      pencil = "",
-      tools = "",
-      caret_right = "",
-      chevron_right = "",
-      double_chevron_right = "»",
-      table = "",
-      calendar = "",
-      block = "▌",
-    },
-  },
-  border = {
-    line = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
-    rounded = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-    rectangle = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
-  },
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -267,12 +267,12 @@ lk.style = {
 -- NOTE: Debugging {{{
 -----------------------------------------------------------------------------
 RELOAD = function(...)
-  return require("plenary.reload").reload_module(...)
+    return require("plenary.reload").reload_module(...)
 end
 
 R = function(name)
-  RELOAD(name)
-  return require(name)
+    RELOAD(name)
+    return require(name)
 end
 
 -- inspect the contents of an object very quickly
@@ -282,8 +282,8 @@ end
 -- in commandline: :lua dump(vim.loop)
 ---@vararg any
 function P(...)
-  local objects = vim.tbl_map(vim.inspect, { ... })
-  print(unpack(objects))
+    local objects = vim.tbl_map(vim.inspect, { ... })
+    print(unpack(objects))
 end
 
 -- inspect the contents of an object very quickly in your code or from the command-line:
@@ -292,8 +292,8 @@ end
 -- in commandline: :lua dump(vim.loop)
 ---@vararg any
 function _G.dump(...)
-  local objects = vim.tbl_map(vim.inspect, { ... })
-  print(unpack(objects))
+    local objects = vim.tbl_map(vim.inspect, { ... })
+    print(unpack(objects))
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -306,15 +306,15 @@ local installed
 ---@param plugin_name string
 ---@return boolean
 function lk.plugin_installed(plugin_name)
-  if not installed then
-    local dirs = fn.expand(fn.stdpath("data") .. "/site/pack/packer/start/*", true, true)
-    local opt = fn.expand(fn.stdpath("data") .. "/site/pack/packer/opt/*", true, true)
-    vim.list_extend(dirs, opt)
-    installed = vim.tbl_map(function(path)
-      return fn.fnamemodify(path, ":t")
-    end, dirs)
-  end
-  return vim.tbl_contains(installed, plugin_name)
+    if not installed then
+        local dirs = fn.expand(fn.stdpath("data") .. "/site/pack/packer/start/*", true, true)
+        local opt = fn.expand(fn.stdpath("data") .. "/site/pack/packer/opt/*", true, true)
+        vim.list_extend(dirs, opt)
+        installed = vim.tbl_map(function(path)
+            return fn.fnamemodify(path, ":t")
+        end, dirs)
+    end
+    return vim.tbl_contains(installed, plugin_name)
 end
 
 ---NOTE: this plugin returns the currently loaded state of a plugin given
@@ -323,30 +323,30 @@ end
 ---@param plugin_name string
 ---@return boolean?
 function _G.plugin_loaded(plugin_name)
-  local plugins = _G.packer_plugins or {}
-  return plugins[plugin_name] and plugins[plugin_name].loaded
+    local plugins = _G.packer_plugins or {}
+    return plugins[plugin_name] and plugins[plugin_name].loaded
 end
 
 function lk.total_plugins()
-  local base_path = fn.stdpath("data") .. "/site/pack/packer/"
-  local start = vim.split(fn.globpath(base_path .. "start", "*"), "\n")
-  local opt = vim.split(fn.globpath(base_path .. "opt", "*"), "\n")
-  local start_count = vim.tbl_count(start)
-  local opt_count = vim.tbl_count(opt)
-  return {
-    total = start_count + opt_count,
-    start = start_count,
-    lazy = opt_count,
-  }
+    local base_path = fn.stdpath("data") .. "/site/pack/packer/"
+    local start = vim.split(fn.globpath(base_path .. "start", "*"), "\n")
+    local opt = vim.split(fn.globpath(base_path .. "opt", "*"), "\n")
+    local start_count = vim.tbl_count(start)
+    local opt_count = vim.tbl_count(opt)
+    return {
+        total = start_count + opt_count,
+        start = start_count,
+        lazy = opt_count,
+    }
 end
 
 function _G.packer_notify(msg, level)
-  vim.notify(msg, level, { title = "Packer" })
+    vim.notify(msg, level, { title = "Packer" })
 end
 
 function _G.plugin_loaded(plugin_name)
-  local plugins = _G.packer_plugins or {}
-  return plugins[plugin_name] and plugins[plugin_name].loaded
+    local plugins = _G.packer_plugins or {}
+    return plugins[plugin_name] and plugins[plugin_name].loaded
 end
 
 -- }}}
@@ -356,59 +356,59 @@ end
 -- NOTE: Utils {{{
 -----------------------------------------------------------------------------
 function lk.is_empty(item)
-  if not item then
-    return true
-  end
-  local item_type = type(item)
-  if item_type == "string" then
-    return item == ""
-  elseif item_type == "table" then
-    return vim.tbl_isempty(item)
-  end
+    if not item then
+        return true
+    end
+    local item_type = type(item)
+    if item_type == "string" then
+        return item == ""
+    elseif item_type == "table" then
+        return vim.tbl_isempty(item)
+    end
 end
 
 function lk._create(f)
-  table.insert(lk._store, f)
-  return #lk._store
+    table.insert(lk._store, f)
+    return #lk._store
 end
 
 function lk._execute(id, args)
-  lk._store[id](args)
+    lk._store[id](args)
 end
 
 ---Check if a cmd is executable
 ---@param e string
 ---@return boolean
 function lk.executable(e)
-  return fn.executable(e) > 0
+    return fn.executable(e) > 0
 end
 
 ---Echo a msg to the commandline
 ---@param msg string | table
 ---@param hl string
 function lk.echomsg(msg, hl)
-  hl = hl or "Title"
-  local msg_type = type(msg)
-  assert(
-    msg_type ~= "string" or msg_type ~= "table",
-    fmt("message should be a string or list of strings not a %s", msg_type)
-  )
-  if msg_type == "string" then
-    msg = { { msg, hl } }
-  end
-  vim.api.nvim_echo(msg, true, {})
+    hl = hl or "Title"
+    local msg_type = type(msg)
+    assert(
+        msg_type ~= "string" or msg_type ~= "table",
+        fmt("message should be a string or list of strings not a %s", msg_type)
+    )
+    if msg_type == "string" then
+        msg = { { msg, hl } }
+    end
+    vim.api.nvim_echo(msg, true, {})
 end
 
 -- https://stackoverflow.com/questions/1283388/lua-merge-tables
 function lk.deep_merge(t1, t2)
-  for k, v in pairs(t2) do
-    if (type(v) == "table") and (type(t1[k] or false) == "table") then
-      lk.deep_merge(t1[k], t2[k])
-    else
-      t1[k] = v
+    for k, v in pairs(t2) do
+        if (type(v) == "table") and (type(t1[k] or false) == "table") then
+            lk.deep_merge(t1[k], t2[k])
+        else
+            t1[k] = v
+        end
     end
-  end
-  return t1
+    return t1
 end
 
 --- Usage:
@@ -416,42 +416,42 @@ end
 --- 2. At the bottom of the file call `stop()`
 --- 3. Restart neovim, the newly created log file should open
 function lk.profile(filename)
-  local base = "/tmp/config/profile/"
-  fn.mkdir(base, "p")
-  local success, profile = pcall(require, "plenary.profile.lua_profiler")
-  if not success then
-    vim.api.nvim_echo({ "Plenary is not installed.", "Title" }, true, {})
-  end
-  profile.start()
-  return function()
-    profile.stop()
-    local logfile = base .. filename .. ".log"
-    profile.report(logfile)
-    vim.defer_fn(function()
-      vim.cmd("tabedit " .. logfile)
-    end, 1000)
-  end
+    local base = "/tmp/config/profile/"
+    fn.mkdir(base, "p")
+    local success, profile = pcall(require, "plenary.profile.lua_profiler")
+    if not success then
+        vim.api.nvim_echo({ "Plenary is not installed.", "Title" }, true, {})
+    end
+    profile.start()
+    return function()
+        profile.stop()
+        local logfile = base .. filename .. ".log"
+        profile.report(logfile)
+        vim.defer_fn(function()
+            vim.cmd("tabedit " .. logfile)
+        end, 1000)
+    end
 end
 
 ---check if a certain feature/version/commit exists in nvim
 ---@param feature string
 ---@return boolean
 function lk.has(feature)
-  return vim.fn.has(feature) > 0
+    return vim.fn.has(feature) > 0
 end
 
 ---Check if directory exists using vim's isdirectory function
 ---@param path string
 ---@return boolean
 function lk.is_dir(path)
-  return fn.isdirectory(path) > 0
+    return fn.isdirectory(path) > 0
 end
 
 ---Check if a vim variable usually a number is truthy or not
 ---@param value integer
 function lk.truthy(value)
-  assert(type(value) == "number", fmt("Value should be a number but you passed %s", value))
-  return value > 0
+    assert(type(value) == "number", fmt("Value should be a number but you passed %s", value))
+    return value > 0
 end
 
 ---Find an item in a list
@@ -460,32 +460,32 @@ end
 ---@param matcher fun(arg: T):boolean
 ---@return T
 function lk.find(haystack, matcher)
-  local found
-  for _, needle in ipairs(haystack) do
-    if matcher(needle) then
-      found = needle
-      break
+    local found
+    for _, needle in ipairs(haystack) do
+        if matcher(needle) then
+            found = needle
+            break
+        end
     end
-  end
-  return found
+    return found
 end
 
 ---Determine if a value of any type is empty
 ---@param item any
 ---@return boolean
 function lk.empty(item)
-  if not item then
-    return true
-  end
-  local item_type = type(item)
-  if item_type == "string" then
-    return item == ""
-  elseif item_type == "number" then
-    return item <= 0
-  elseif item_type == "table" then
-    return vim.tbl_isempty(item)
-  end
-  return false
+    if not item then
+        return true
+    end
+    local item_type = type(item)
+    if item_type == "string" then
+        return item == ""
+    elseif item_type == "number" then
+        return item <= 0
+    elseif item_type == "table" then
+        return vim.tbl_isempty(item)
+    end
+    return false
 end
 
 ---check if a mapping already exists
@@ -493,35 +493,35 @@ end
 ---@param mode string
 ---@return boolean
 function lk.has_map(lhs, mode)
-  mode = mode or "n"
-  return vim.fn.maparg(lhs, mode) ~= ""
+    mode = mode or "n"
+    return vim.fn.maparg(lhs, mode) ~= ""
 end
 
 function lk.has_value(tab, val)
-  for _, value in ipairs(tab) do
-    if value == val then
-      return true
+    for _, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
     end
-  end
 
-  return false
+    return false
 end
 
 ---Reload lua modules
 ---@param path string
 ---@param recursive string
 function lk.invalidate(path, recursive)
-  if recursive then
-    for key, value in pairs(package.loaded) do
-      if key ~= "_G" and value and fn.match(key, path) ~= -1 then
-        package.loaded[key] = nil
-        require(key)
-      end
+    if recursive then
+        for key, value in pairs(package.loaded) do
+            if key ~= "_G" and value and fn.match(key, path) ~= -1 then
+                package.loaded[key] = nil
+                require(key)
+            end
+        end
+    else
+        package.loaded[path] = nil
+        require(path)
     end
-  else
-    package.loaded[path] = nil
-    require(path)
-  end
 end
 
 ----------------------------------------------------------------------
@@ -532,8 +532,8 @@ end
 ---@param rhs string|fun(args: string, fargs: table, bang: boolean)
 ---@param opts table
 function lk.command(name, rhs, opts)
-  opts = opts or {}
-  api.nvim_create_user_command(name, rhs, opts)
+    opts = opts or {}
+    api.nvim_create_user_command(name, rhs, opts)
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -545,11 +545,11 @@ end
 ---@param path string path relative to the nvim directory
 ---@param prefix boolean?
 function lk.source(path, prefix)
-  if not prefix then
-    vim.cmd(fmt("source %s", path))
-  else
-    vim.cmd(fmt("source %s/%s", vim.g.vim_dir, path))
-  end
+    if not prefix then
+        vim.cmd(fmt("source %s", path))
+    else
+        vim.cmd(fmt("source %s/%s", vim.g.vim_dir, path))
+    end
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -562,15 +562,15 @@ end
 ---@param opts table?
 ---@return boolean, any
 function lk.require(module, opts)
-  opts = opts or { silent = false }
-  local ok, result = pcall(require, module)
-  if not ok and not opts.silent then
-    if opts.message then
-      result = opts.message .. "\n" .. result
+    opts = opts or { silent = false }
+    local ok, result = pcall(require, module)
+    if not ok and not opts.silent then
+        if opts.message then
+            result = opts.message .. "\n" .. result
+        end
+        vim.notify(result, l.ERROR, { title = fmt("Error requiring: %s", module) })
     end
-    vim.notify(result, l.ERROR, { title = fmt("Error requiring: %s", module) })
-  end
-  return ok, result
+    return ok, result
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -595,21 +595,21 @@ end
 ---@param commands Autocommand[]
 ---@return number
 function lk.augroup(name, commands)
-  local id = api.nvim_create_augroup(name, { clear = true })
-  for _, autocmd in ipairs(commands) do
-    local is_callback = type(autocmd.command) == "function"
-    api.nvim_create_autocmd(autocmd.event, {
-      group = id,
-      pattern = autocmd.pattern,
-      desc = autocmd.description,
-      callback = is_callback and autocmd.command or nil,
-      command = not is_callback and autocmd.command or nil,
-      once = autocmd.once,
-      nested = autocmd.nested,
-      buffer = autocmd.buffer,
-    })
-  end
-  return id
+    local id = api.nvim_create_augroup(name, { clear = true })
+    for _, autocmd in ipairs(commands) do
+        local is_callback = type(autocmd.command) == "function"
+        api.nvim_create_autocmd(autocmd.event, {
+            group = id,
+            pattern = autocmd.pattern,
+            desc = autocmd.description,
+            callback = is_callback and autocmd.command or nil,
+            command = not is_callback and autocmd.command or nil,
+            once = autocmd.once,
+            nested = autocmd.nested,
+            buffer = autocmd.buffer,
+        })
+    end
+    return id
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -623,25 +623,25 @@ end
 ---@return boolean, any
 ---@overload fun(fun: function, ...): boolean, any
 function lk.wrap_err(msg, func, ...)
-  local args = { ... }
-  if type(msg) == "function" then
-    args, func, msg = { func, unpack(args) }, msg, nil
-  end
-  return xpcall(func, function(err)
-    msg = msg and fmt("%s:\n%s", msg, err) or err
-    vim.schedule(function()
-      vim.notify(msg, l.ERROR, { title = "ERROR" })
-    end)
-  end, unpack(args))
+    local args = { ... }
+    if type(msg) == "function" then
+        args, func, msg = { func, unpack(args) }, msg, nil
+    end
+    return xpcall(func, function(err)
+        msg = msg and fmt("%s:\n%s", msg, err) or err
+        vim.schedule(function()
+            vim.notify(msg, l.ERROR, { title = "ERROR" })
+        end)
+    end, unpack(args))
 end
 
 ---@generic T : table
 ---@param callback fun(T, key: string | number): T
 ---@param list T[]
 function lk.foreach(callback, list)
-  for k, v in pairs(list) do
-    callback(v, k)
-  end
+    for k, v in pairs(list) do
+        callback(v, k)
+    end
 end
 
 ----------------------------------------------------------------------
@@ -649,21 +649,21 @@ end
 ----------------------------------------------------------------------
 -- set qflist and open
 function lk.qf_populate(lines, mode)
-  if mode == nil or type(mode) == "table" then
-    lines = core.foreach(lines, function(item)
-      return {
-        filename = item,
-        lnum = 1,
-        col = 1,
-        text = item,
-      }
-    end)
-    mode = "r"
-  end
+    if mode == nil or type(mode) == "table" then
+        lines = core.foreach(lines, function(item)
+            return {
+                filename = item,
+                lnum = 1,
+                col = 1,
+                text = item,
+            }
+        end)
+        mode = "r"
+    end
 
-  vim.fn.setqflist(lines, mode)
+    vim.fn.setqflist(lines, mode)
 
-  vim.cmd([[
+    vim.cmd([[
         copen
         setlocal nobuflisted
         setlocal number
@@ -676,12 +676,12 @@ end
 ----------------------------------------------------------------------
 
 function lk.get_buf_option(opt)
-  local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
-  if not status_ok then
-    return nil
-  else
-    return buf_option
-  end
+    local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
+    if not status_ok then
+        return nil
+    else
+        return buf_option
+    end
 end
 
 --- Convert a list or map of items into a value by iterating all it's fields and transforming
@@ -692,25 +692,25 @@ end
 ---@param accum T
 ---@return T
 function lk.fold(callback, list, accum)
-  for k, v in pairs(list) do
-    accum = callback(accum, v, k)
-    assert(accum, "The accumulator must be returned on each iteration")
-  end
-  return accum
+    for k, v in pairs(list) do
+        accum = callback(accum, v, k)
+        assert(accum, "The accumulator must be returned on each iteration")
+    end
+    return accum
 end
 
 ---Check whether or not the location or quickfix list is open
 ---@return boolean
 function lk.is_vim_list_open()
-  for _, win in ipairs(api.nvim_list_wins()) do
-    local buf = api.nvim_win_get_buf(win)
-    local location_list = fn.getloclist(0, { filewinid = 0 })
-    local is_loc_list = location_list.filewinid > 0
-    if vim.bo[buf].filetype == "qf" or is_loc_list then
-      return true
+    for _, win in ipairs(api.nvim_list_wins()) do
+        local buf = api.nvim_win_get_buf(win)
+        local location_list = fn.getloclist(0, { filewinid = 0 })
+        local is_loc_list = location_list.filewinid > 0
+        if vim.bo[buf].filetype == "qf" or is_loc_list then
+            return true
+        end
     end
-  end
-  return false
+    return false
 end
 
 ----------------------------------------------------------------------
@@ -720,30 +720,30 @@ end
 ---@param list_type '"quickfix"' | '"location"'
 ---@return string?
 local function toggle_list(list_type)
-  local is_location_target = list_type == "location"
-  local cmd = is_location_target and { "lclose", "lopen" } or { "cclose", "copen" }
-  local is_open = lk.is_vim_list_open()
-  if is_open then
-    return vim.cmd[cmd[1]]()
-  end
-  local list = is_location_target and fn.getloclist(0) or fn.getqflist()
-  if vim.tbl_isempty(list) then
-    local msg_prefix = (is_location_target and "Location" or "QuickFix")
-    return vim.notify(msg_prefix .. " List is Empty.", vim.log.levels.WARN)
-  end
+    local is_location_target = list_type == "location"
+    local cmd = is_location_target and { "lclose", "lopen" } or { "cclose", "copen" }
+    local is_open = lk.is_vim_list_open()
+    if is_open then
+        return vim.cmd[cmd[1]]()
+    end
+    local list = is_location_target and fn.getloclist(0) or fn.getqflist()
+    if vim.tbl_isempty(list) then
+        local msg_prefix = (is_location_target and "Location" or "QuickFix")
+        return vim.notify(msg_prefix .. " List is Empty.", l.WARN)
+    end
 
-  local winnr = fn.winnr()
-  vim.cmd[cmd[2]]()
-  if fn.winnr() ~= winnr then
-    vim.cmd.wincmd("p")
-  end
+    local winnr = fn.winnr()
+    vim.cmd[cmd[2]]()
+    if fn.winnr() ~= winnr then
+        vim.cmd.wincmd("p")
+    end
 end
 
 function lk.toggle_qf_list()
-  toggle_list("quickfix")
+    toggle_list("quickfix")
 end
 function lk.toggle_loc_list()
-  toggle_list("location")
+    toggle_list("location")
 end
 -- }}}
 ----------------------------------------------------------------------
