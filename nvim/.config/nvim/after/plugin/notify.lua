@@ -40,3 +40,5 @@ vim.notify = function(msg, ...)
 
     notify_filter(msg, ...)
 end
+
+lk.command("NotifyDismiss", notify.dismiss, {})

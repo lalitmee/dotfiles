@@ -6,7 +6,7 @@ local fn = vim.fn
 ---@param msg string to be shown
 ---@param type number of the vim.log.levels
 local packer_notify = function(msg, type)
-    local msg_type = type or 2
+    local msg_type = type or vim.log.levels.INFO
     vim.notify(msg, msg_type, { title = " Packer" })
 end
 
