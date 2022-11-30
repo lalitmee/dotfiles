@@ -213,8 +213,6 @@ local leader_key_maps = {
         ["R"] = { ":MindReloadState<CR>", "mind-reload-state" },
         ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
         ["w"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
-        -- }}}
-        ----------------------------------------------------------------------
     },
     -- }}}
     ----------------------------------------------------------------------
