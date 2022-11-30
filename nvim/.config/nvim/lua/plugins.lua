@@ -265,10 +265,11 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: FUZZY SEARCH {{{
         ------------------------------------------------------------------------
-        use({
-            "ibhagwan/fzf-lua",
-            config = conf("fzf"),
-        })
+        -- NOTE: will see if I need this later
+        -- use({
+        --     "ibhagwan/fzf-lua",
+        --     config = conf("fzf"),
+        -- })
 
         -- telescope.nvim
         use({

@@ -46,11 +46,11 @@ RestoreWindowGeometry = false
 ## In MacOS,
 # FontFamily = "Monaco"
 ## In Linux
-FontFamily = "Operator Mono Lig Book"
+FontFamily = "JetBrainsMono Nerd Font"
 ## In Windows
 # FontFamily = "Windows"
 ## Fontsize is
-FontSize = 11
+FontSize = 10
 ## letterspace is
 # Letterspace = 0
 
