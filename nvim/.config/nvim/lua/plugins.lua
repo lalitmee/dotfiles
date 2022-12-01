@@ -658,6 +658,16 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: Explorers {{{
         ------------------------------------------------------------------------
+        -- dirbuf
+        use({
+            "elihunter173/dirbuf.nvim",
+            cmd = { "Dirbuf", "DirbufSync" },
+            keys = { { "n", "-" } },
+            config = function()
+                vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
+            end,
+        })
+
         -- neo-tree
         use({
             "nvim-neo-tree/neo-tree.nvim",
