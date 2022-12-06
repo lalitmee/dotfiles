@@ -601,6 +601,12 @@ require("packer").startup({
             "sindrets/diffview.nvim",
             config = conf("diffview"),
         })
+
+        -- for interacting with github
+        use({
+            "pwntester/octo.nvim",
+            config = conf("octo"),
+        })
         -- }}}
         ------------------------------------------------------------------------
 
