@@ -4,7 +4,10 @@ if not dressing_ok then
 end
 
 dressing.setup({
-    input = { insert_only = false, winblend = 2 },
+    input = {
+        insert_only = false,
+        win_options = { winblend = 2 },
+    },
     select = {
         winblend = 2,
         telescope = require("telescope.themes").get_cursor({
