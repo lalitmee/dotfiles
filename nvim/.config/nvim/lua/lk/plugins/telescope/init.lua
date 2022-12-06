@@ -252,6 +252,7 @@ telescope.setup({
                 { "~/", max_depth = 7 },
             },
             hidden_files = true,
+            order_by = "recent",
         },
     },
 })

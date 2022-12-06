@@ -4,7 +4,7 @@ local fn = vim.fn
 local diagnostic = vim.diagnostic
 
 --------------------------------------------------------------------------------
--- NOTE: definition handler {{{
+-- NOTE: go to definition {{{
 -- Jump directly to the first available definition every time.
 --------------------------------------------------------------------------------
 lsp.handlers["textDocument/definition"] = function(_, result)
@@ -23,7 +23,7 @@ end
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- NOTE: publish diagnostics handler {{{
+-- NOTE: diagnostics {{{
 --------------------------------------------------------------------------------
 vim.diagnostic.config({
     underline = true,
@@ -161,7 +161,7 @@ end
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- NOTE: hover handler {{{
+-- NOTE: hover {{{
 --------------------------------------------------------------------------------
 local max_width = math.max(math.floor(vim.o.columns * 0.7), 100)
 local max_height = math.max(math.floor(vim.o.lines * 0.3), 30)
@@ -175,7 +175,7 @@ lsp.handlers["textDocument/hover"] = lsp.with(
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
--- NOTE: signature help handler {{{
+-- NOTE: signature help {{{
 --------------------------------------------------------------------------------
 lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, {
     border = "rounded",
@@ -302,4 +302,4 @@ vim.lsp.buf.rename = qf_rename
 -- }}}
 ----------------------------------------------------------------------
 
--- vim:foldmethod=marker
+-- vim:fdm=marker
