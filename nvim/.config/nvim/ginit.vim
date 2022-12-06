@@ -1,7 +1,7 @@
 " set guifont=BlexMono\ Nerd\ Font\ Mono:h8
 " set guifont=Cascadia\ Code:h8
 " set guifont=CaskaydiaCove\ Nerd\ Font:h8
-" set guifont=CodeNewRoman\ Nerd\ Font\ Mono:h12
+set guifont=CodeNewRoman\ Nerd\ Font:h12
 " set guifont=Consolas\ NF:h8
 " set guifont=FantasqueSansMono\ Nerd\ Font:h8
 " set guifont=FiraCode\ Nerd\ Font\ Mono:h8
@@ -9,7 +9,7 @@
 " set guifont=InconsolataLGC\ Nerd\ Font\ Mono:h8
 " set guifont=Inconsolata\ Nerd\ Font\ Mono:h8
 " set guifont=JetbrainsMonoMedium\ Nerd\ Font\ Mono:h8
-set guifont=JetbrainsMono\ Nerd\ Font:h10
+" set guifont=JetbrainsMono\ Nerd\ Font:h10
 " set guifont=MesloLGM\ Nerd\ Font\ Mono:h8
 " set guifont=Hack\ Nerd\ Font\ Mono:h8
 " set guifont=Monego\ Ligatures:h8
