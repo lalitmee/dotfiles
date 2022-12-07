@@ -613,16 +613,20 @@ require("packer").startup({
         ------------------------------------------------------------------------
         -- NOTE: STATUS AND TAB LINES {{{
         ------------------------------------------------------------------------
-        -- tabline
-        use({
-            "nanozuki/tabby.nvim",
-            config = conf("tabby"),
-        })
-
         -- lualine.nvim
         use({
             "nvim-lualine/lualine.nvim",
             config = conf("lualine"),
+        })
+
+        -- tabline
+        use({
+            "nanozuki/tabby.nvim",
+            requires = {
+                "tiagovla/scope.nvim",
+                "nvim-lualine/lualine.nvim",
+            },
+            config = conf("tabby"),
         })
 
         -- winbar component
