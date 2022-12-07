@@ -134,6 +134,7 @@ local leader_key_maps = {
         ["h"] = { ":Telescope frecency<CR>", "frecency" },
         ["i"] = { ":Telescope find_files theme=ivy<CR>", "ivy-theme-files" },
         ["m"] = { ":ToggleHarpoonMenu<CR>", "quick-menu" },
+        ["M"] = { ":Telescope harpoon marks<CR>", "telescope-harpoon-marks" },
         ["n"] = { ":HarpoonNextMark<CR>", "next-mark" },
         ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
         ["p"] = { ":HarpoonPrevMark<CR>", "prev-mark" },

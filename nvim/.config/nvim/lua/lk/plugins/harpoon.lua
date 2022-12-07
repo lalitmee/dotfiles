@@ -6,6 +6,9 @@ end
 local command = lk.command
 
 harpoon.setup({
+    menu = {
+        width = vim.api.nvim_win_get_width(0) - 100,
+    },
     enter_on_sendcmd = true,
     mark_branch = true,
     save_on_toggle = true,
