@@ -195,6 +195,11 @@ telescope.setup({
         }),
         live_grep = {
             file_ignore_patterns = { ".git/" },
+            mappings = {
+                i = {
+                    ["<c-f>"] = require("telescope.actions").to_fuzzy_refine,
+                },
+            },
         },
         -- current_buffer_fuzzy_find = dropdown({
         --     previewer = false,
@@ -320,6 +325,19 @@ command("TelescopeInstalledPlugins", function()
     builtin.find_files({
         cwd = vim.fn.stdpath("data") .. "/site/pack/packer/start/",
     })
+end, {})
+
+command("TelescopeFuzzyLiveGrep", function()
+    vim.g.grep_string_mode = true
+    vim.ui.input({
+        prompt = "Grep string",
+        default = vim.fn.expand("<cword>"),
+    }, function(value)
+        if value ~= nil then
+            require("telescope.builtin").grep_string({ search = value })
+        end
+        vim.g.grep_string_mode = false
+    end)
 end, {})
 
 -- }}}
