@@ -24,3 +24,5 @@ require("colorbuddy").colorscheme("cobalt2")
 -- vim.api.nvim_command([[colorscheme catppuccin]])
 -- -- }}}
 -- --------------------------------------------------------------------------------
+
+-- vim:fdm=marker
