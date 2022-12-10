@@ -614,19 +614,12 @@ require("packer").startup({
         -- NOTE: STATUS AND TAB LINES {{{
         ------------------------------------------------------------------------
         -- lualine.nvim
-        use({
-            "nvim-lualine/lualine.nvim",
-            config = conf("lualine"),
-        })
+        use({ "nvim-lualine/lualine.nvim" })
 
         -- tabline
         use({
             "nanozuki/tabby.nvim",
-            requires = {
-                "tiagovla/scope.nvim",
-                "nvim-lualine/lualine.nvim",
-            },
-            config = conf("tabby"),
+            requires = { "tiagovla/scope.nvim" },
         })
 
         -- winbar component
@@ -634,13 +627,6 @@ require("packer").startup({
             "SmiteshP/nvim-navic",
             config = conf("navic"),
         })
-
-        -- TODO: add it back when https://github.com/utilyre/barbecue.nvim/issues/22
-        --       is fixed
-        -- use({
-        --     "utilyre/barbecue.nvim",
-        --     config = conf("barbecue"),
-        -- })
 
         -- }}}
         ------------------------------------------------------------------------

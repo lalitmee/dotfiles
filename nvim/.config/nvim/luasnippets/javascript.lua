@@ -103,11 +103,11 @@ return {
     --  NOTE: useSelector {{{
     --------------------------------------------------------------------------------
     s(
-        { trig = "useS", name = "useSelector with getResourceSelector" },
+        { trig = "useS", name = "useSelector with getResourceDataSelector" },
         fmt(
             [[
         const {{ data: {}Data, isFetching: is{}DataFetching, error: is{}DataError }} =
-            useSelector(state => getResourceSelector(state, {}, {}))
+            useSelector(state => getResourceDataSelector(state, {}, {}))
         ]],
             {
                 i(1, "state"),

@@ -17,6 +17,11 @@ local hl_tabline_sel = util.extract_nvim_hl("lualine_a_normal")
 local hl_tabline = util.extract_nvim_hl("lualine_b_normal")
 local hl_tabline_fill = util.extract_nvim_hl("lualine_c_normal")
 
+-- local palette = require("cobalt2.palette")
+-- local hl_tabline_sel = { bg = palette.yellow, fg = palette.black }
+-- local hl_tabline = { bg = palette.darker_blue, fg = palette.black }
+-- local hl_tabline_fill = { bg = palette.cursor_line, fg = palette.black }
+
 --------------------------------------------------------------------------------
 --  NOTE: icons and separators {{{
 --------------------------------------------------------------------------------
