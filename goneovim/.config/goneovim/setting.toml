@@ -46,7 +46,8 @@ RestoreWindowGeometry = false
 ## In MacOS,
 # FontFamily = "Monaco"
 ## In Linux
-FontFamily = "CodeNewRoman Nerd Font"
+# FontFamily = "CodeNewRoman Nerd Font"
+FontFamily = "Iosevka"
 ## In Windows
 # FontFamily = "Windows"
 ## Fontsize is
