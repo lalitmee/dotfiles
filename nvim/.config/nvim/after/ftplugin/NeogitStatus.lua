@@ -1,7 +1,7 @@
-local opt = vim.opt
+local opt = vim.opt_local
 
 opt.fillchars = {
-  eob = [[\]], -- suppress ~ at EndOfBuffer
+    eob = [[\]], -- suppress ~ at EndOfBuffer
 }
 
 opt.foldenable = false

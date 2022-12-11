@@ -1,4 +1,4 @@
-local opt = vim.opt
+local opt = vim.opt_local
 
 opt.expandtab = true
 opt.foldlevel = 99

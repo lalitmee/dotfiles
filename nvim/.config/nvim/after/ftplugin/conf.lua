@@ -1,4 +1,4 @@
-local opt = vim.opt
+local opt = vim.opt_local
 
 opt.formatoptions = opt.formatoptions - "o" -- don't continue comments on `o` and `O`
 opt.expandtab = true
