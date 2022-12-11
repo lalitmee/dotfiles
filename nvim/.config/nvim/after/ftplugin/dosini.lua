@@ -1,4 +1,4 @@
-local opt = vim.opt
+local opt = vim.opt_local
 
 ----------------------------------------------------------------------
 -- NOTE: options {{{

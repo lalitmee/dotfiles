@@ -1,5 +1,5 @@
 local nnoremap = lk.nnoremap
-local opt = vim.opt
+local opt = vim.opt_local
 
 local map_opts = { silent = true, buffer = 0 }
 
