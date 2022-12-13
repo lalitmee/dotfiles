@@ -672,7 +672,6 @@ local local_leader_key_maps = {
 ----------------------------------------------------------------------
 local visual_mode_leader_key_maps = {
     ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
-    ["z"] = { ":TZNarrow<CR>", "narrow-code" },
 }
 -- }}}
 ----------------------------------------------------------------------
