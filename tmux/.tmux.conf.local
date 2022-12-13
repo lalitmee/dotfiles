@@ -423,6 +423,10 @@ setw -g mode-keys vi
 #-------------------------------------------------------------------------------
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
+# tmux like i3
+set -g @plugin 'jabirali/tmux-tilish'
+set -g @tilish-dmenu 'on'
+
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
 

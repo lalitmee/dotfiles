@@ -1,6 +1,10 @@
 local ok, overseer = lk.require("overseer")
 if not ok then
-  return
+    return
 end
 
-overseer.setup()
+overseer.setup({
+    templates = {
+        { "builtin", { "user.cpp_build", "user.run_script" } },
+    },
+})
