@@ -56,6 +56,12 @@ lualine.setup({
         },
         lualine_b = {
             {
+                "branch",
+                icon = "",
+            },
+        },
+        lualine_c = {
+            {
                 "filetype",
                 icon_only = true,
                 padding = { left = 1, right = 0 },
@@ -63,12 +69,7 @@ lualine.setup({
             {
                 "filename",
                 path = 1,
-                color = {
-                    gui = "bold",
-                },
             },
-        },
-        lualine_c = {
             {
                 "diagnostics",
                 sources = { "nvim_diagnostic" },
@@ -85,13 +86,7 @@ lualine.setup({
             { get_trailing_whitespace },
         },
         lualine_y = {
-            {
-                "branch",
-                icon = "",
-                color = {
-                    gui = "bold",
-                },
-            },
+            { "progress" },
         },
         lualine_z = {
             { "location", color = { gui = "bold" } },
