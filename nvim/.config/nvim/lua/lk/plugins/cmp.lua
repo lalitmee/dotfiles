@@ -47,10 +47,17 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping({ i = s_tab }),
     },
     sources = cmp.config.sources({
-        { name = "nvim_lsp" },
+        {
+            name = "nvim_lsp",
+            keyword_length = 3,
+            max_item_count = 30,
+        },
         { name = "nvim_lua" },
         { name = "luasnip" },
-        { name = "cmp_tabnine" },
+        {
+            name = "cmp_tabnine",
+            keyword_length = 3,
+        },
         { name = "path" },
     }, {
         { name = "buffer" },
