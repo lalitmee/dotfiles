@@ -652,14 +652,14 @@ local local_leader_key_maps = {
     },
     ["w"] = {
         ["name"] = "+tabs",
-        ["a"] = { ":tabnew<CR>", "new-tab" },
-        ["c"] = { ":tabclose<CR>", "close-tab" },
+        ["c"] = { ":tabnew<CR>", "new-tab" },
         ["f"] = { ":tabfirst<CR>", "first-tab" },
         ["j"] = { ":-tabmove<CR>", "move-tab-to-previous-position" },
         ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
         ["l"] = { ":tablast<CR>", "last-tab" },
         ["n"] = { ":tabnext<CR>", "next-tab" },
         ["p"] = { ":tabprevious<CR>", "previous-tab" },
+        ["q"] = { ":tabclose<CR>", "close-tab" },
     },
     -- }}}
     ----------------------------------------------------------------------
