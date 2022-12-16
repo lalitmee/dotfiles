@@ -132,6 +132,8 @@ VI_MODE_SET_CURSOR=true
 # -------------------------------------------------------------------
 # NOTE: user configurations {{{
 # -------------------------------------------------------------------
+export OPENAI_API_KEY=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
+
 export TERM="xterm-256color"
 
 if [[ $TERM == xterm ]]; then

@@ -342,12 +342,6 @@ require("packer").startup({
             cmd = { "FSToggle" },
         })
 
-        -- smooth scrolling in neovim
-        use({
-            "karb94/neoscroll.nvim",
-            config = conf("neoscroll"),
-        })
-
         -- delete buffers without distubing layout
         use({ "famiu/bufdelete.nvim" })
 
@@ -733,8 +727,8 @@ require("packer").startup({
         -- NOTE: entertainment {{{
         ----------------------------------------------------------------------
         use({
-            "terror/chatgpt.nvim",
-            run = "pip3 install -r requirements.txt",
+            "jackMort/ChatGPT.nvim",
+            config = conf("ChatGPT"),
         })
         -- }}}
         ----------------------------------------------------------------------
