@@ -38,8 +38,8 @@ nmap("<C-k>", [[<cmd>NavigateUp<cr>]], map_opts)
 -- map("n", "q:", [[:q]], map_opts) -- NOTE: making q slow
 
 -- tab operations
-nnoremap("<M-Right>", [[:tabnext<CR>]])
-nnoremap("<M-Left>", [[:tabprevious<CR>]])
+nnoremap("<M-Right>", vim.cmd.tabnext)
+nnoremap("<M-Left>", vim.cmd.tabprevious)
 
 -- from here https://gist.github.com/romainl/0f589e07a079ea4b7a77fd66ef16ebee
 vim.cmd([[
@@ -48,8 +48,8 @@ vim.cmd([[
 ]])
 
 -- buffers next and previous
-nnoremap("<C-Right>", [[:bn<cr>]])
-nnoremap("<C-Left>", [[:bp<cr>]])
+nnoremap("<C-Right>", vim.cmd.bnext)
+nnoremap("<C-Left>", vim.cmd.bprevious)
 
 -- alternate file mapping
 map("n", "<BS>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], map_opts)
@@ -86,8 +86,8 @@ map("i", "!", [[!<c-g>u]], map_opts)
 map("i", "?", [[?<c-g>u]], map_opts)
 
 -- moving text up and down
-map("i", "<C-k>", [[<esc>:m .-2<cr>==]], map_opts)
-map("i", "<C-j>", [[<esc>:m .+1<cr>==]], map_opts)
+-- map("i", "<C-k>", [[<esc>:m .-2<cr>==]], map_opts)
+-- map("i", "<C-j>", [[<esc>:m .+1<cr>==]], map_opts)
 map("v", "J", [[:m '>+1<cr>gv=gv]], map_opts)
 map("v", "K", [[:m '<-2<cr>gv=gv]], map_opts)
 
@@ -100,6 +100,14 @@ map("n", "cN", [[*``cgN]], map_opts)
 map("c", "w!!", [[%!sudo tee > /dev/null %]], map_opts)
 -- }}}
 ----------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: scrolling {{{
+--------------------------------------------------------------------------------
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
+-- }}}
+--------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: search {{{
