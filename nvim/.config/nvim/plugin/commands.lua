@@ -8,17 +8,17 @@ local fn = vim.fn
 local PACKER_COMPILED_PATH = fn.stdpath("cache") .. "/packer/packer_compiled.lua"
 
 command("PackerCompiledEdit", function()
-  vim.cmd(fmt("edit %s", PACKER_COMPILED_PATH))
+    vim.cmd(fmt("edit %s", PACKER_COMPILED_PATH))
 end, {})
 
 command("PackerCompiledDelete", function()
-  vim.fn.delete(PACKER_COMPILED_PATH)
-  packer_notify(fmt("Deleted %s", PACKER_COMPILED_PATH))
+    vim.fn.delete(PACKER_COMPILED_PATH)
+    packer_notify(fmt("Deleted %s", PACKER_COMPILED_PATH))
 end, {})
 
 if not vim.g.packer_compiled_loaded and vim.loop.fs_stat(PACKER_COMPILED_PATH) then
-  lk.source(PACKER_COMPILED_PATH)
-  vim.g.packer_compiled_loaded = true
+    lk.source(PACKER_COMPILED_PATH)
+    vim.g.packer_compiled_loaded = true
 end
 
 -- }}}
@@ -35,15 +35,15 @@ command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]], {}
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
 command("TelescopeNotifyHistory", function()
-  require("telescope").extensions.notify.notify()
+    require("telescope").extensions.notify.notify()
 end, {})
 
 command("ReloadConfigTelescope", function()
-  require("lk/utils/reload").reload()
+    require("lk/utils/reload").reload()
 end, {})
 
 command("ReloadModule", function(args)
-  require("lk/utils/reload").reload_module(args)
+    require("lk/utils/reload").reload_module(args)
 end, {})
 
 -- }}}
@@ -53,7 +53,7 @@ end, {})
 -- NOTE: config commands {{{
 ----------------------------------------------------------------------
 command("ReloadConfig", function()
-  require("lk/utils/reload").reload_config()
+    require("lk/utils/reload").reload_config()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -62,7 +62,7 @@ end, {})
 -- NOTE: gh commands {{{
 ----------------------------------------------------------------------
 command("BrowseRepo", function()
-  vim.cmd([[silent !gh o]])
+    vim.cmd([[silent !gh o]])
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -71,7 +71,7 @@ end, {})
 -- NOTE: log variable {{{
 ----------------------------------------------------------------------
 command("LogVariable", function()
-  Log_var()
+    Log_var()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -80,7 +80,7 @@ end, {})
 -- NOTE: neovim utility commands {{{
 ----------------------------------------------------------------------
 command("ToggleBackground", function()
-  vim.o.background = vim.o.background == "dark" and "light" or "dark"
+    vim.o.background = vim.o.background == "dark" and "light" or "dark"
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -92,26 +92,26 @@ end, {})
 -- https://stackoverflow.com/questions/11634804/vim-auto-resize-focused-window
 
 local auto_resize = function()
-  local auto_resize_on = false
-  return function(args)
-    if not auto_resize_on then
-      local factor = args and tonumber(args) or 70
-      local fraction = factor / 10
-      -- NOTE: mutating &winheight/&winwidth are key to how
-      -- this functionality works, the API fn equivalents do
-      -- not work the same way
-      vim.cmd(fmt("let &winheight=&lines * %d / 10 ", fraction))
-      vim.cmd(fmt("let &winwidth=&columns * %d / 10 ", fraction))
-      auto_resize_on = true
-      vim.notify("Auto resize ON")
-    else
-      vim.cmd("let &winheight=30")
-      vim.cmd("let &winwidth=30")
-      vim.cmd("wincmd =")
-      auto_resize_on = false
-      vim.notify("Auto resize OFF")
+    local auto_resize_on = false
+    return function(args)
+        if not auto_resize_on then
+            local factor = args and tonumber(args) or 70
+            local fraction = factor / 10
+            -- NOTE: mutating &winheight/&winwidth are key to how
+            -- this functionality works, the API fn equivalents do
+            -- not work the same way
+            vim.cmd(fmt("let &winheight=&lines * %d / 10 ", fraction))
+            vim.cmd(fmt("let &winwidth=&columns * %d / 10 ", fraction))
+            auto_resize_on = true
+            vim.notify("Auto resize ON")
+        else
+            vim.cmd("let &winheight=30")
+            vim.cmd("let &winwidth=30")
+            vim.cmd("wincmd =")
+            auto_resize_on = false
+            vim.notify("Auto resize OFF")
+        end
     end
-  end
 end
 command("AutoResize", auto_resize(), { nargs = "?" })
 -- }}}
@@ -121,7 +121,7 @@ command("AutoResize", auto_resize(), { nargs = "?" })
 -- NOTE: open help in new tab {{{
 ----------------------------------------------------------------------
 command("HelpTab", function()
-  vim.cmd([[tab help]])
+    vim.cmd([[tab help]])
 end, { nargs = "?", complete = "help" })
 -- }}}
 ----------------------------------------------------------------------
@@ -130,10 +130,24 @@ end, { nargs = "?", complete = "help" })
 -- NOTE: compile {{{
 ----------------------------------------------------------------------
 command("CompileAndRun", function()
-  require("lk/utils/compiler").compile_and_run()
+    require("lk/utils/compiler").compile_and_run()
 end, {})
 
 -- }}}
 ----------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: git jump {{{
+--------------------------------------------------------------------------------
+-- command("Jump", function(args)
+--     vim.fn.system("git jump s" .. vim.fn.expand(args))
+-- end, { nargs = "*", bar = true })
+
+vim.cmd([[
+command! -bar -nargs=* Jump cexpr system('git jump ' . expand(<q-args>))
+]])
+
+-- }}}
+--------------------------------------------------------------------------------
 
 -- vim:foldmethod=marker
