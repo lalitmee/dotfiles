@@ -231,10 +231,7 @@ require("packer").startup({
         })
 
         -- undo tree
-        use({
-            "mbbill/undotree",
-            cmd = { "UndotreeToggle" },
-        })
+        use({ "mbbill/undotree" })
 
         -- interactively swap so many things
         use({
@@ -325,6 +322,13 @@ require("packer").startup({
                     after = { "telescope.nvim" },
                     config = function()
                         require("telescope").load_extension("live_grep_args")
+                    end,
+                },
+                {
+                    "debugloop/telescope-undo.nvim",
+                    after = "telescope.nvim",
+                    config = function()
+                        require("telescope").load_extension("undo")
                     end,
                 },
             },

@@ -42,10 +42,8 @@ nnoremap("<M-Right>", vim.cmd.tabnext)
 nnoremap("<M-Left>", vim.cmd.tabprevious)
 
 -- from here https://gist.github.com/romainl/0f589e07a079ea4b7a77fd66ef16ebee
-vim.cmd([[
-  nnoremap <silent> <expr> gt ":tabnext +" . v:count1 . '<CR>'
-  nnoremap <silent> <expr> gT ":tabnext -" . v:count1 . '<CR>'
-]])
+nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']], { silent = true, expr = true })
+nnoremap("gT", [[":tabnext -" . v:count1 . '<CR>']], { silent = true, expr = true })
 
 -- buffers next and previous
 nnoremap("<C-Right>", vim.cmd.bnext)
@@ -120,7 +118,7 @@ map("n", "N", [[Nzzzv]], map_opts)
 nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 
 -- go to search and replace mode
-map("n", "<C-s>", [[:%s/]], map_opts)
+map("n", "<C-s>", [[:%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>]], map_opts)
 
 -- clear highlighted search
 map("n", "<cr>", [[:noh<cr>]], map_opts)

@@ -47,6 +47,7 @@ local leader_key_maps = {
         ["e"] = { ":NeoTreeFocusToggle<CR>", "neo-tree-toggle" },
         ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
         ["g"] = { ":Glow<CR>", "markdown-glow" },
+        ["h"] = { ":ChatGPT<CR>", "chatgpt" },
         ["i"] = { ":ISwapWith<CR>", "iswap-with" },
         ["I"] = { ":ISwap<CR>", "iswap" },
         ["l"] = { ":SearchSession<CR>", "search-sessions" },
