@@ -51,8 +51,10 @@ local leader_key_maps = {
         ["i"] = { ":ISwapWith<CR>", "iswap-with" },
         ["I"] = { ":ISwap<CR>", "iswap" },
         ["l"] = { ":SearchSession<CR>", "search-sessions" },
+        ["m"] = { ":ChatGPTActAs<CR>", "chatgp-act-as" },
         ["o"] = { ":NeoTreeRevealToggle<CR>", "neo-tree-toggle" },
         ["p"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
+        ["r"] = { ":ChatGPTEditWithInstructions<CR>", "chatgpt-edit-instruction" },
         ["s"] = { ":StartupTime<CR>", "run-startup-time" },
         ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
     },
@@ -526,6 +528,7 @@ local leader_key_maps = {
     ["u"] = {
         ["name"] = "+undo",
         ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
+        ["t"] = { ":Telescope undo<CR>", "telescope-undo" },
     },
     -- }}}
     ----------------------------------------------------------------------
