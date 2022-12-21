@@ -27,10 +27,10 @@ local hl_tabline_fill = util.extract_nvim_hl("lualine_c_normal")
 --------------------------------------------------------------------------------
 local space_between = " "
 local separators = {
-    right = " ",
     -- right = "",
-    left = "",
     -- left = "",
+    right = " ",
+    left = "",
 }
 local icons = {
     tab = { active = "  ", inactive = "  " },
@@ -62,14 +62,22 @@ end
 local tab_label = function(id, icon)
     return {
         icon .. tabname(id) .. space_between,
-        hl = { fg = hl_tabline_sel.bg, bg = hl_tabline.bg, style = "bold" },
+        hl = {
+            fg = hl_tabline_sel.bg,
+            bg = hl_tabline.bg,
+            style = "bold",
+        },
     }
 end
 
 local win_label = function(id, icon)
     return {
         icon .. filename.unique(id) .. space_between,
-        hl = { fg = hl_tabline_sel.bg, bg = hl_tabline.bg, style = "bold" },
+        hl = {
+            fg = hl_tabline_sel.bg,
+            bg = hl_tabline.bg,
+            style = "bold",
+        },
     }
 end
 
@@ -80,8 +88,21 @@ local line = {
     hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg },
     layout = "active_tab_with_wins",
     head = {
-        { cwd, hl = { fg = hl_tabline_sel.fg, bg = hl_tabline_sel.bg } },
-        { separators.right, hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
+        {
+            cwd,
+            hl = {
+                fg = hl_tabline_sel.fg,
+                bg = hl_tabline_sel.bg,
+                style = "bold",
+            },
+        },
+        {
+            separators.right,
+            hl = {
+                fg = hl_tabline_sel.bg,
+                bg = hl_tabline_fill.bg,
+            },
+        },
     },
     active_tab = {
         label = function(tabid)
@@ -112,8 +133,21 @@ local line = {
         right_sep = right_sep(),
     },
     tail = {
-        { separators.left, hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg } },
-        { icons.tail, hl = { fg = hl_tabline_sel.fg, bg = hl_tabline_sel.bg } },
+        {
+            separators.left,
+            hl = {
+                fg = hl_tabline_sel.bg,
+                bg = hl_tabline_fill.bg,
+            },
+        },
+        {
+            icons.tail,
+            hl = {
+                fg = hl_tabline_sel.fg,
+                bg = hl_tabline_sel.bg,
+                style = "bold",
+            },
+        },
     },
 }
 
