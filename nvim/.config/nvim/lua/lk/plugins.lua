@@ -1,60 +1,4 @@
 return {
-    { "lewis6991/impatient.nvim" },
-    {
-        "tweekmonster/startuptime.vim",
-        cmd = "StartupTime",
-    },
-    { "nvim-lua/plenary.nvim" },
-    { "rcarriga/nvim-notify" },
-    {
-        "lalitmee/cobalt2.nvim",
-        dependencies = "tjdevries/colorbuddy.nvim",
-    },
-    {
-        "NvChad/nvim-colorizer.lua",
-        cmd = { "ColorizerToggle" },
-    },
-    {
-        "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-        enabled = false,
-        config = function()
-            require("pqf").setup()
-        end,
-    },
-    {
-        "kylechui/nvim-surround",
-        config = function()
-            require("nvim-surround").setup()
-        end,
-    },
-    {
-        "ziontee113/icon-picker.nvim",
-        config = function()
-            require("icon-picker")
-        end,
-        cmd = { "PickEverything" },
-    },
-    {
-        "nvim-colortils/colortils.nvim",
-        cmd = { "Colortils" },
-        config = function()
-            require("colortils").setup()
-        end,
-    },
-    {
-        "wakatime/vim-wakatime",
-        event = { "VimEnter" },
-    },
-    { "mbbill/undotree" },
-    { "mizlan/iswap.nvim" },
-    { "romainl/vim-cool" },
-    {
-        "nullchilly/fsread.nvim",
-        cmd = { "FSToggle" },
-    },
-    { "famiu/bufdelete.nvim" },
-    { "wellle/targets.vim" },
-    { "christoomey/vim-sort-motion" },
     {
         "L3MON4D3/LuaSnip",
         dependencies = {
@@ -62,32 +6,51 @@ return {
             "honza/vim-snippets",
         },
     },
-    { "mhartington/formatter.nvim" },
-    {
-        "godlygeek/tabular",
-        cmd = { "Tabularize" },
-    },
-    {
-        "danymat/neogen",
-        cmd = { "Neogen" },
-        config = function()
-            require("neogen").setup({
-                snippet_engine = "luasnip",
-            })
-        end,
-    },
-    { "baskerville/vim-sxhkdrc" },
-    { "mattn/emmet-vim" },
-    { "ray-x/go.nvim", ft = "go" },
     {
         "andrewferrier/debugprint.nvim",
         config = function()
             require("debugprint").setup()
         end,
     },
+    { "NvChad/nvim-colorizer.lua", cmd = { "ColorizerToggle" } },
     {
-        "ellisonleao/glow.nvim",
-        ft = "markdown",
+        "SmiteshP/nvim-navic",
+        config = function()
+            require("nvim-navic").setup({ highlight = true })
+        end,
+    },
+    {
+        "ThePrimeagen/git-worktree.nvim",
+        after = "telescope.nvim",
+        config = function()
+            require("telescope").load_extension("git_worktree")
+        end,
+    },
+    { "ThePrimeagen/vim-be-good" },
+    { "baskerville/vim-sxhkdrc" },
+    { "christoomey/vim-sort-motion" },
+    {
+        "danymat/neogen",
+        cmd = { "Neogen" },
+        config = function()
+            require("neogen").setup({ snippet_engine = "luasnip" })
+        end,
+    },
+    { "ellisonleao/glow.nvim", ft = "markdown" },
+    { "famiu/bufdelete.nvim" },
+    {
+        "gaoDean/autolist.nvim",
+        config = function()
+            require("autolist").setup({ enable = true, enabled_filetypes = { "markdown", "text", "norg" } })
+        end,
+    },
+    { "godlygeek/tabular", cmd = { "Tabularize" } },
+    {
+        "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+        enabled = false,
+        config = function()
+            require("pqf").setup()
+        end,
     },
     {
         "iamcco/markdown-preview.nvim",
@@ -97,12 +60,47 @@ return {
         ft = "markdown",
     },
     {
-        "ThePrimeagen/git-worktree.nvim",
-        after = "telescope.nvim",
+        "jackMort/ChatGPT.nvim",
         config = function()
-            require("telescope").load_extension("git_worktree")
+            require("chatgpt").setup()
         end,
     },
+    {
+        "kylechui/nvim-surround",
+        config = function()
+            require("nvim-surround").setup()
+        end,
+    },
+    { "lalitmee/cobalt2.nvim", dependencies = "tjdevries/colorbuddy.nvim" },
+    { "lewis6991/impatient.nvim" },
+    { "mattn/emmet-vim" },
+    { "mbbill/undotree" },
+    { "mhartington/formatter.nvim" },
+    { "mizlan/iswap.nvim" },
+    { "nullchilly/fsread.nvim", cmd = { "FSToggle" } },
+    {
+        "nvim-colortils/colortils.nvim",
+        cmd = { "Colortils" },
+        config = function()
+            require("colortils").setup()
+        end,
+    },
+    { "nvim-lua/plenary.nvim" },
+    {
+        "phaazon/mind.nvim",
+        config = function()
+            require("mind").setup({ ui = { width = 80 } })
+        end,
+    },
+    {
+        "pwntester/octo.nvim",
+        config = function()
+            require("octo").setup()
+        end,
+    },
+    { "ray-x/go.nvim", ft = "go" },
+    { "rcarriga/nvim-notify" },
+    { "romainl/vim-cool" },
     {
         "sindrets/diffview.nvim",
         config = function()
@@ -115,46 +113,18 @@ return {
             })
         end,
     },
-    {
-        "pwntester/octo.nvim",
-        config = function()
-            require("octo").setup()
-        end,
-    },
-    {
-        "SmiteshP/nvim-navic",
-        config = function()
-            require("nvim-navic").setup({
-                highlight = true,
-            })
-        end,
-    },
-    { "ThePrimeagen/vim-be-good" },
     { "tpope/vim-abolish" },
     { "tpope/vim-repeat" },
     { "tpope/vim-scriptease" },
+    { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
+    { "wakatime/vim-wakatime", event = { "VimEnter" } },
+    { "wellle/targets.vim" },
     {
-        "phaazon/mind.nvim",
+        "ziontee113/icon-picker.nvim",
         config = function()
-            require("mind").setup({
-                ui = { width = 80 },
-            })
+            require("icon-picker")
         end,
-    },
-    {
-        "gaoDean/autolist.nvim",
-        config = function()
-            require("autolist").setup({
-                enable = true,
-                enabled_filetypes = { "markdown", "text", "norg" },
-            })
-        end,
-    },
-    {
-        "jackMort/ChatGPT.nvim",
-        config = function()
-            require("chatgpt").setup()
-        end,
+        cmd = { "PickEverything" },
     },
 }
 

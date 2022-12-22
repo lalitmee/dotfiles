@@ -103,6 +103,7 @@
   "vim-abolish": { "branch": "master", "commit": "3f0c8faadf0c5b68bcf40785c1c42e3731bfa522" },
   "vim-be-good": { "branch": "master", "commit": "c290810728a4f75e334b07dc0f3a4cdea908d351" },
   "vim-cool": { "branch": "master", "commit": "471b72095378cbe14f51bc5d9f679e97c541a498" },
+  "vim-matchup": { "branch": "master", "commit": "db5120dd9887c988de7cd973ddb951e465d413e5" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-scriptease": { "branch": "master", "commit": "18511d389675d773994215ddb572ccdc2b72f52b" },
   "vim-snippets": { "branch": "master", "commit": "8c917944354552c1263159a4a218ad924969be0c" },

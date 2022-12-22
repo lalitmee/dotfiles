@@ -24,6 +24,12 @@ local M = {
             "nvim-treesitter/nvim-treesitter-context",
             after = { "nvim-treesitter" },
         },
+        {
+            "andymass/vim-matchup",
+            config = function()
+                vim.g.matchup_matchparen_offscreen = { method = "popup" }
+            end,
+        },
     },
 }
 
