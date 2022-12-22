@@ -134,14 +134,6 @@ return {
     { "tpope/vim-repeat" },
     { "tpope/vim-scriptease" },
     {
-        "elihunter173/dirbuf.nvim",
-        cmd = { "Dirbuf", "DirbufSync" },
-        keys = { { "n", "-" } },
-        config = function()
-            vim.cmd([[autocmd VimEnter * autocmd! dirbuf]])
-        end,
-    },
-    {
         "phaazon/mind.nvim",
         config = function()
             require("mind").setup({
