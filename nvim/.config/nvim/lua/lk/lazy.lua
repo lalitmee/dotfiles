@@ -21,7 +21,7 @@ end
 
 -- load lazy
 require("lazy").setup("lk.plugins", {
-    defaults = { lazy = true },
+    -- defaults = { lazy = true },
     -- dev = { patterns = jit.os:find("Windows") and {} or { "folke" } },
     -- install = { colorscheme = { "tokyonight", "habamax" } },
     checker = { enabled = true },
@@ -39,6 +39,6 @@ require("lazy").setup("lk.plugins", {
             },
         },
     },
-    debug = true,
+    debug = false,
 })
 -- vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")

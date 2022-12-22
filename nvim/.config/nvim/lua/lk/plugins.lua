@@ -135,7 +135,7 @@ return {
     {
         "SmiteshP/nvim-navic",
         config = function()
-            require("navic").setup({
+            require("nvim-navic").setup({
                 highlight = true,
             })
         end,

@@ -1,6 +1,9 @@
 local M = {
     "nanozuki/tabby.nvim",
-    dependencies = { "tiagovla/scope.nvim" },
+    dependencies = {
+        "tiagovla/scope.nvim",
+        "nvim-lualine/lualine.nvim",
+    },
 }
 
 function M.config()
