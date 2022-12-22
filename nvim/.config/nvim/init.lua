@@ -35,20 +35,20 @@ function R(name)
     return require(name)
 end
 
--- packer plugins
-R("plugins")
-
 -- globals
 R("lk/globals")
+
+-- packer plugins
+R("lk/lazy")
 
 -- -- core
 -- R("lk/core")
 
--- disable builtin
-R("lk/disable_builtin")
+-- -- disable builtin
+-- R("lk/disable_builtin")
 
--- pakcer_compliled
-R("packer_compiled")
+-- -- pakcer_compliled
+-- R("packer_compiled")
 -- }}}
 ----------------------------------------------------------------------
 

@@ -1,97 +1,130 @@
-----------------------------------------------------------------------
--- NOTE: treesitter settings {{{
-----------------------------------------------------------------------
-local parsers = require("nvim-treesitter.parsers")
-
-----------------------------------------------------------------------
--- NOTE: treesitter setup {{{
-----------------------------------------------------------------------
-require("nvim-treesitter.configs").setup({
-    ensure_installed = vim.g.enable_treesitter_ft,
-    -- Auto install parsers, if missing, for the current buffer
-    auto_install = false,
-    highlight = { enable = true },
-    rainbow = {
-        enable = true,
-        extended_mode = true,
-    },
-    matchup = { enable = true },
-    autotag = { enable = true },
-    indent = { enable = true, disable = { "css" } },
-    playground = { enable = true, updatetime = 25, persist_queries = false },
-    context_commentstring = { enable = true, enable_autocmd = false },
-    query_linter = {
-        enable = true,
-        use_virtual_text = true,
-        lint_events = { "BufWrite", "CursorHold" },
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<localleader>tv",
-            node_incremental = "<localleader>tv",
-            scope_incremental = "]v",
-            node_decremental = "[v",
+local M = {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    event = { "VimEnter" },
+    dependencies = {
+        {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            after = "nvim-treesitter",
+        },
+        {
+            "nvim-treesitter/playground",
+            after = { "nvim-treesitter" },
+            cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
+        },
+        {
+            "JoosepAlviste/nvim-ts-context-commentstring",
+            after = { "nvim-treesitter", "Comment.nvim" },
+        },
+        {
+            "p00f/nvim-ts-rainbow",
+            after = { "nvim-treesitter" },
+        },
+        {
+            "nvim-treesitter/nvim-treesitter-context",
+            after = { "nvim-treesitter" },
         },
     },
-    textobjects = {
-        lookahead = true,
-        select = {
+}
+
+function M.config()
+    ----------------------------------------------------------------------
+    -- NOTE: treesitter settings {{{
+    ----------------------------------------------------------------------
+    local parsers = require("nvim-treesitter.parsers")
+
+    ----------------------------------------------------------------------
+    -- NOTE: treesitter setup {{{
+    ----------------------------------------------------------------------
+    require("nvim-treesitter.configs").setup({
+        ensure_installed = vim.g.enable_treesitter_ft,
+        -- Auto install parsers, if missing, for the current buffer
+        auto_install = false,
+        highlight = { enable = true },
+        rainbow = {
+            enable = true,
+            extended_mode = true,
+        },
+        matchup = { enable = true },
+        autotag = { enable = true },
+        indent = { enable = true, disable = { "css" } },
+        playground = { enable = true, updatetime = 25, persist_queries = false },
+        context_commentstring = { enable = true, enable_autocmd = false },
+        query_linter = {
+            enable = true,
+            use_virtual_text = true,
+            lint_events = { "BufWrite", "CursorHold" },
+        },
+        incremental_selection = {
             enable = true,
             keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-                ["aC"] = "@conditional.outer",
-                ["iC"] = "@conditional.inner",
+                init_selection = "<localleader>tv",
+                node_incremental = "<localleader>tv",
+                scope_incremental = "]v",
+                node_decremental = "[v",
             },
         },
-        swap = {
-            enable = true,
-            swap_next = { ["[w"] = "@parameter.inner" },
-            swap_previous = { ["]w"] = "@parameter.inner" },
-        },
-        move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = { ["]m"] = "@function.outer", ["]c"] = "@class.outer" },
-            goto_next_end = { ["]M"] = "@function.outer", ["]C"] = "@class.outer" },
-            goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[c"] = "@class.outer",
+        textobjects = {
+            lookahead = true,
+            select = {
+                enable = true,
+                keymaps = {
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
+                    ["aC"] = "@conditional.outer",
+                    ["iC"] = "@conditional.inner",
+                },
             },
-            goto_previous_end = { ["[M"] = "@function.outer", ["[C"] = "@class.outer" },
-        },
-        tree_docs = {
-            enable = true,
-            keymaps = {
-                doc_node_at_cursor = "<localleader>tc",
-                doc_all_in_range = "<localleader>tc",
+            swap = {
+                enable = true,
+                swap_next = { ["[w"] = "@parameter.inner" },
+                swap_previous = { ["]w"] = "@parameter.inner" },
+            },
+            move = {
+                enable = true,
+                set_jumps = true,
+                goto_next_start = { ["]m"] = "@function.outer", ["]c"] = "@class.outer" },
+                goto_next_end = { ["]M"] = "@function.outer", ["]C"] = "@class.outer" },
+                goto_previous_start = {
+                    ["[m"] = "@function.outer",
+                    ["[c"] = "@class.outer",
+                },
+                goto_previous_end = { ["[M"] = "@function.outer", ["[C"] = "@class.outer" },
+            },
+            tree_docs = {
+                enable = true,
+                keymaps = {
+                    doc_node_at_cursor = "<localleader>tc",
+                    doc_all_in_range = "<localleader>tc",
+                },
+            },
+            lsp_interop = {
+                enable = true,
+                peek_definition_code = {
+                    ["df"] = "@function.outer",
+                    ["dF"] = "@class.outer",
+                },
             },
         },
-        lsp_interop = {
-            enable = true,
-            peek_definition_code = {
-                ["df"] = "@function.outer",
-                ["dF"] = "@class.outer",
-            },
-        },
-    },
-})
--- }}}
-----------------------------------------------------------------------
+    })
+    -- }}}
+    ----------------------------------------------------------------------
 
-----------------------------------------------------------------------
--- NOTE: octo settings {{{
--- this is to allow markdown highlighting in octo buffers
-----------------------------------------------------------------------
-local parser_config = parsers.get_parser_configs()
-parser_config.markdown.filetype_to_parsername = "octo"
--- }}}
-----------------------------------------------------------------------
+    ----------------------------------------------------------------------
+    -- NOTE: octo settings {{{
+    -- this is to allow markdown highlighting in octo buffers
+    ----------------------------------------------------------------------
+    local parser_config = parsers.get_parser_configs()
+    parser_config.markdown.filetype_to_parsername = "octo"
+    -- }}}
+    ----------------------------------------------------------------------
 
--- }}}
-----------------------------------------------------------------------
+    -- }}}
+    ----------------------------------------------------------------------
+end
+
+return M
 
 -- vim:foldmethod=marker

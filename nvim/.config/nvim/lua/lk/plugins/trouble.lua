@@ -1,10 +1,16 @@
-local ok, trouble = lk.require("trouble")
-if not ok then
-    return
+local M = { "folke/trouble.nvim" }
+
+function M.config()
+    local ok, trouble = lk.require("trouble")
+    if not ok then
+        return
+    end
+
+    trouble.setup({
+        padding = false,
+        auto_close = true,
+        use_diagnostic_signs = true,
+    })
 end
 
-trouble.setup({
-    padding = false,
-    auto_close = true,
-    use_diagnostic_signs = true,
-})
+return M

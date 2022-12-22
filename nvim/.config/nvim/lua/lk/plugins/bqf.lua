@@ -1,19 +1,27 @@
-local ok, bqf = lk.require("bqf")
-if not ok then
-    return
-end
+local M = {
+    "kevinhwang91/nvim-bqf",
+}
 
-bqf.setup({
-    auto_enable = true,
-    preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
-    filter = {
-        fzf = {
-            extra_opts = {
-                "--bind",
-                "ctrl-s:select-all,ctrl-d:deselect-all",
-                "--prompt",
-                "Filter > ",
+function M.config()
+    local ok, bqf = lk.require("bqf")
+    if not ok then
+        return
+    end
+
+    bqf.setup({
+        auto_enable = true,
+        preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
+        filter = {
+            fzf = {
+                extra_opts = {
+                    "--bind",
+                    "ctrl-s:select-all,ctrl-d:deselect-all",
+                    "--prompt",
+                    "Filter > ",
+                },
             },
         },
-    },
-})
+    })
+end
+
+return M
