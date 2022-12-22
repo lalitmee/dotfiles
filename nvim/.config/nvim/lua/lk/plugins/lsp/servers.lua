@@ -23,13 +23,13 @@ local sumneko_lua = function()
                     globals = { "vim", "describe", "it", "before_each", "after_each", "packer_plugins" },
                 },
                 completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
-                -- workspace = {
-                --   -- Make the server aware of Neovim runtime files
-                --   library = vim.api.nvim_get_runtime_file("", true),
-                --   maxPreload = 2000,
-                --   preloadFileSize = 5000,
-                --   checkThirdParty = false,
-                -- },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    -- library = vim.api.nvim_get_runtime_file("", true),
+                    -- maxPreload = 2000,
+                    -- preloadFileSize = 5000,
+                    checkThirdParty = false,
+                },
                 telemetry = { enable = false },
             },
         },

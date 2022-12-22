@@ -84,7 +84,9 @@ end
 -- NOTE: capabilities {{{
 ----------------------------------------------------------------------
 M.capabilities = function(client, bufnr)
-    client.server_capabilities.semanticTokensProvider = nil
+    if client.server_capabilities.semanticTokensProvider then
+        client.server_capabilities.semanticTokensProvider = nil
+    end
     client.server_capabilities.document_formatting = false
     if client.server_capabilities.goto_definition == true then
         vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
