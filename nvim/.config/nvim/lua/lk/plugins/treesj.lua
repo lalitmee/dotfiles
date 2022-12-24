@@ -1,7 +1,7 @@
 local M = {
     "Wansmer/treesj",
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
-    keys = { "gS", "gJ" },
+    keys = { "J", "gS", "gJ" },
 }
 
 function M.config()
@@ -16,6 +16,7 @@ function M.config()
 
     lk.nnoremap("gS", [[<cmd>TSJSplit<CR>]], opts)
     lk.nnoremap("gJ", [[<cmd>TSJJoin<CR>]], opts)
+    lk.nnoremap("J", [[<cmd>TSJToggle<CR>]], opts)
 end
 
 return M

@@ -1,5 +1,6 @@
 local M = {
     "rcarriga/nvim-dap-ui",
+    cmd = { "DapToggleBreakpoint" },
     dependencies = {
         { "jbyuki/one-small-step-for-vimkind" },
         { "mfussenegger/nvim-dap" },
@@ -136,10 +137,10 @@ function M.config()
                 return "127.0.0.1"
             end,
             port = function()
-                -- local val = tonumber(vim.fn.input('Port: '))
-                -- assert(val, "Please provide a port number")
-                local val = 54231
-                return val
+                local val = tonumber(vim.fn.input({ prompt = "Port:" }))
+                assert(val, "Please provide a port number")
+                -- local val = 54231
+                -- return val
             end,
         },
     }

@@ -1,6 +1,7 @@
-local M = { "ibhagwan/fzf-lua" }
-
-M.enabled = false
+local M = {
+    "ibhagwan/fzf-lua",
+    cmd = { "FzfLua" },
+}
 
 function M.config()
     local ok, fzf_lua = lk.require("fzf-lua")

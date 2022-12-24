@@ -1,5 +1,12 @@
 local M = {
     "numToStr/Navigator.nvim",
+    cmd = {
+        "NavigateDown",
+        "NavigateLeft",
+        "NavigatePrevious",
+        "NavigateRight",
+        "NavigateUp",
+    },
 }
 
 function M.config()

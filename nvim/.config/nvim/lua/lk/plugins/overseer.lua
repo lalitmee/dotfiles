@@ -1,5 +1,17 @@
 local M = {
     "stevearc/overseer.nvim",
+    cmd = {
+        "OverseerBuild",
+        "OverseerDeleteBundle",
+        "OverseerLoadBundle",
+        "OverseerOpen",
+        "OverseerQuickAction",
+        "OverseerRun",
+        "OverseerRunCmd",
+        "OverseerSaveBundle",
+        "OverseerTaskAction",
+        "OverseerToggle",
+    },
 }
 
 function M.config()

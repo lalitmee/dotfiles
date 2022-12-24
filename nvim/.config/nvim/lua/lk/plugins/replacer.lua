@@ -1,6 +1,9 @@
 local M = {
     "gabrielpoca/replacer.nvim",
-    cmd = { "Replacer", "ReplacerFiles" },
+    cmd = {
+        "Replacer",
+        "ReplacerFiles",
+    },
 }
 
 function M.config()

@@ -1,5 +1,11 @@
 local M = {
     "nvim-pack/nvim-spectre",
+    cmd = {
+        "SpectreOpen",
+        "SpectreCurWord",
+        "SpectreVisual",
+        "SpectreCurFileSearch",
+    },
 }
 
 function M.config()

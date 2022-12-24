@@ -1,4 +1,7 @@
-local M = { "folke/trouble.nvim" }
+local M = {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+}
 
 function M.config()
     local ok, trouble = lk.require("trouble")

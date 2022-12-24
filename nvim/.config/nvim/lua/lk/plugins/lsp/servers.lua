@@ -20,9 +20,19 @@ local sumneko_lua = function()
             Lua = {
                 format = { enable = false },
                 diagnostics = {
-                    globals = { "vim", "describe", "it", "before_each", "after_each" },
+                    globals = {
+                        "vim",
+                        "describe",
+                        "it",
+                        "before_each",
+                        "after_each",
+                        "require",
+                    },
                 },
-                completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
+                completion = {
+                    keywordSnippet = "Replace",
+                    callSnippet = "Replace",
+                },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     -- library = vim.api.nvim_get_runtime_file("", true),
@@ -30,7 +40,9 @@ local sumneko_lua = function()
                     -- preloadFileSize = 5000,
                     checkThirdParty = false,
                 },
-                telemetry = { enable = false },
+                telemetry = {
+                    enable = false,
+                },
             },
         },
     }

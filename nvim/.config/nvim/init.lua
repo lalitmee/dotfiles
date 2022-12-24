@@ -3,18 +3,14 @@
 -- │                 Created By: Lalit Kumar                  │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- impatient
-pcall(require, "impatient")
-pcall(function()
-    require("impatient").enable_profile()
-end)
-
 ----------------------------------------------------------------------
--- NOTE: leaders {{{
+-- NOTE: globals {{{
 ----------------------------------------------------------------------
 -- mapping leader and localleader keys
 vim.g.mapleader = " " -- NOTE: leader is `<space>`
 vim.g.maplocalleader = "," -- NOTE: local leader is ,
+vim.g.os = vim.loop.os_uname().sysname
+vim.g.open_command = vim.g.os == "Darwin" and "open" or "xdg-open"
 -- }}}
 ----------------------------------------------------------------------
 

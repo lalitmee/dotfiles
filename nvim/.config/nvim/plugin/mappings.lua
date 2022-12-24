@@ -1,6 +1,9 @@
 ----------------------------------------------------------------------
 -- NOTE: mappings {{{
 ----------------------------------------------------------------------
+local fmt = string.format
+local fn = vim.fn
+
 local map = lk.map
 local nmap = lk.nmap
 local nnoremap = lk.nnoremap
@@ -199,6 +202,40 @@ vim.cmd([[
 ]])
 
 xnoremap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>", { silent = false })
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: opening links {{{
+--------------------------------------------------------------------------------
+local function open(path)
+    fn.jobstart({ vim.g.open_command, path }, { detach = true })
+    vim.notify(fmt("Opening %s", path))
+end
+
+--------------------------------------------------------------------------------
+--  NOTE: gx - netrw opening links {{{
+--------------------------------------------------------------------------------
+local function open_link()
+    local file = fn.expand("<cfile>")
+    if not file or fn.isdirectory(file) > 0 then
+        return vim.cmd.edit(file)
+    end
+
+    if file:match("http[s]?://") then
+        return open(file)
+    end
+
+    -- consider anything that looks like string/string a github link
+    local plugin_url_regex = "[%a%d%-%.%_]*%/[%a%d%-%.%_]*"
+    local link = string.match(file, plugin_url_regex)
+    if link then
+        return open(fmt("https://www.github.com/%s", link))
+    end
+end
+nnoremap("gx", open_link)
+-- }}}
+--------------------------------------------------------------------------------
 -- }}}
 --------------------------------------------------------------------------------
 

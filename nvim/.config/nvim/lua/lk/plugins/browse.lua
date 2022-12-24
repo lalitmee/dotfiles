@@ -1,5 +1,13 @@
 local M = {
     "lalitmee/browse.nvim",
+    cmd = {
+        "Browse",
+        "BrowseBookmarks",
+        "BrowseInputSearch",
+        "BrowseDevdocsSearch",
+        "BrowseDevdocsFiletypeSearch",
+        "BrowseMdnSearch",
+    },
 }
 
 function M.config()
