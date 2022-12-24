@@ -84,7 +84,7 @@ end
 -- NOTE: capabilities {{{
 ----------------------------------------------------------------------
 M.capabilities = function(client, bufnr)
-    if client.server_capabilities.semanticTokensProvider ~= nil then
+    if client.server_capabilities.semanticTokensProvider then
         client.server_capabilities.semanticTokensProvider = nil
     end
     client.server_capabilities.document_formatting = false
