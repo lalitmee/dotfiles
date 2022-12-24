@@ -1,6 +1,6 @@
 local M = {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    build = ":TSUpdate",
     event = "BufReadPost",
     dependencies = {
         { "JoosepAlviste/nvim-ts-context-commentstring" },
@@ -10,12 +10,6 @@ local M = {
         {
             "nvim-treesitter/playground",
             cmd = { "TSPlaygroundToggle" },
-        },
-        {
-            "andymass/vim-matchup",
-            config = function()
-                vim.g.matchup_matchparen_offscreen = { method = "popup" }
-            end,
         },
     },
 }

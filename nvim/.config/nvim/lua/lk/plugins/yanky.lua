@@ -1,5 +1,7 @@
 local M = {
     "gbprod/yanky.nvim",
+    event = "VeryLazy",
+    dependencies = { "kkharji/sqlite.lua" },
 }
 
 function M.config()

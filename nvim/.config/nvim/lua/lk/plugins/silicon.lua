@@ -1,6 +1,10 @@
 local M = {
     "narutoxy/silicon.lua",
-    cmd = { "Silicon", "SiliconCopy", "SiliconBuf" },
+    cmd = {
+        "Silicon",
+        "SiliconCopy",
+        "SiliconBuf",
+    },
 }
 
 function M.config()

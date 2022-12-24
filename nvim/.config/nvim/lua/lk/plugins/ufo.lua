@@ -1,6 +1,7 @@
 local M = {
     "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
+    dependencies = { "kevinhwang91/promise-async" },
+    event = "BufReadPost",
 }
 
 function M.config()
@@ -11,8 +12,8 @@ function M.config()
     vim.o.foldlevel = 99
     vim.o.foldenable = true
 
-    lk.nnoremap("zR", ufo.openAllFolds, "open all folds")
-    lk.nnoremap("zM", ufo.closeAllFolds, "close all folds")
+    lk.nnoremap("zR", ufo.openAllFolds, { desc = "open all folds" })
+    lk.nnoremap("zM", ufo.closeAllFolds, { desc = "close all folds" })
 
     ufo.setup({
         open_fold_hl_timeout = 0,

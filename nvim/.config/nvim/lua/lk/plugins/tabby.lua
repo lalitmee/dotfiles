@@ -4,6 +4,7 @@ local M = {
         "tiagovla/scope.nvim",
         "nvim-lualine/lualine.nvim",
     },
+    event = { "VimEnter" },
 }
 
 function M.config()

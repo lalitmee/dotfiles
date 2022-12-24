@@ -1,5 +1,6 @@
 local M = {
     "anuvyklack/pretty-fold.nvim",
+    event = { "BufReadPost" },
 }
 
 function M.config()

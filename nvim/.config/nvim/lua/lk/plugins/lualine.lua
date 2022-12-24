@@ -1,4 +1,7 @@
-local M = { "nvim-lualine/lualine.nvim" }
+local M = {
+    "nvim-lualine/lualine.nvim",
+    event = { "VeryLazy" },
+}
 
 function M.config()
     local ok, lualine = lk.require("lualine")

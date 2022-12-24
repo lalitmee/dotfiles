@@ -1,6 +1,9 @@
 local M = {
     "m-demare/attempt.nvim",
-    cmd = { "AttemptNew", "AttemptNewExtension" },
+    cmd = {
+        "AttemptNew",
+        "AttemptNewExtension",
+    },
 }
 
 function M.config()

@@ -5,6 +5,11 @@ local M = {
         { "MunifTanjim/nui.nvim" },
         { "s1n7ax/nvim-window-picker" },
     },
+    cmd = {
+        "NeoTreeFocusToggle",
+        "NeoTreeRevealToggle",
+        "NeoTreeRevealInSplitToggle",
+    },
 }
 
 function M.config()

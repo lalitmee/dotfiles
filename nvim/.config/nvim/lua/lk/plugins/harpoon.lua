@@ -1,5 +1,18 @@
 local M = {
     "ThePrimeagen/harpoon",
+    cmd = {
+        "HarpoonAddFile",
+        "HarpoonGotoFile",
+        "HarpoonGotoTerm",
+        "HarpoonGotoTmux",
+        "HarpoonNextMark",
+        "HarpoonPrevMark",
+        "HarpoonRemoveFile",
+        "HarpoonSendCmdToTerm",
+        "HarpoonSendCmdToTmux",
+        "ToggleHarpoonCmdMenu",
+        "ToggleHarpoonMenu",
+    },
 }
 
 function M.config()

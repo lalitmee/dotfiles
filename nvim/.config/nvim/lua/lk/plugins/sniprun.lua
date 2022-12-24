@@ -1,6 +1,7 @@
 local M = {
     "michaelb/sniprun",
     build = "bash ./install.sh",
+    cmd = { "Sniprun" },
 }
 
 function M.config()

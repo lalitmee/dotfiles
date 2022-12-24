@@ -1,6 +1,7 @@
 -- improve default neovim UI
 local M = {
     "stevearc/dressing.nvim",
+    event = { "VeryLazy" },
 }
 
 function M.config()

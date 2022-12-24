@@ -9,3 +9,4 @@ windows:
   - tjdevries: cd tjdevries && gst
   - akinsho: cd akinsho && gst
   - williamboman: cd williamboman && gst
+  - folke: cd folke && gst
