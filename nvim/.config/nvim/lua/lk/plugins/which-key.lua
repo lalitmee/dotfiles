@@ -280,7 +280,6 @@ function M.config()
             ["i"] = { ":Lazy install<CR>", "lazy-install" },
             ["l"] = { ":lua Save_and_execute()<CR>", "save-and-execute" },
             ["m"] = { ":ReloadModule ", "realod-module" },
-            ["p"] = { ":TelescopeInstalledPlugins<CR>", "installed-plugins" },
             ["P"] = { ":Lazy profile<CR>", "lazy-profile" },
             ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
             ["r"] = { ":ReloadConfig<CR>", "realod-config" },

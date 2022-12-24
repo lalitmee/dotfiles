@@ -170,7 +170,6 @@ function M.config()
                     "describe",
                     "it",
                     "lk",
-                    "packer_plugins",
                     "vim",
                     "RELOAD",
                     "R",

@@ -20,7 +20,7 @@ local sumneko_lua = function()
             Lua = {
                 format = { enable = false },
                 diagnostics = {
-                    globals = { "vim", "describe", "it", "before_each", "after_each", "packer_plugins" },
+                    globals = { "vim", "describe", "it", "before_each", "after_each" },
                 },
                 completion = { keywordSnippet = "Replace", callSnippet = "Replace" },
                 workspace = {

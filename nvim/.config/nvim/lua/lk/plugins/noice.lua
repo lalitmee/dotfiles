@@ -21,7 +21,6 @@ function M.config()
                 filter = {
                     event = "msg_show",
                     find = "%d+L, %d+B",
-                    kind = "search_count",
                 },
                 view = "mini",
                 skip = true,

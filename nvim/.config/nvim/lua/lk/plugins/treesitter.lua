@@ -1,28 +1,15 @@
 local M = {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = { "VimEnter" },
+    event = "BufReadPost",
     dependencies = {
-        {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            after = "nvim-treesitter",
-        },
+        { "JoosepAlviste/nvim-ts-context-commentstring" },
+        { "nvim-treesitter/nvim-treesitter-context" },
+        { "nvim-treesitter/nvim-treesitter-textobjects" },
+        { "p00f/nvim-ts-rainbow" },
         {
             "nvim-treesitter/playground",
-            after = { "nvim-treesitter" },
-            cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
-        },
-        {
-            "JoosepAlviste/nvim-ts-context-commentstring",
-            after = { "nvim-treesitter", "Comment.nvim" },
-        },
-        {
-            "p00f/nvim-ts-rainbow",
-            after = { "nvim-treesitter" },
-        },
-        {
-            "nvim-treesitter/nvim-treesitter-context",
-            after = { "nvim-treesitter" },
+            cmd = { "TSPlaygroundToggle" },
         },
         {
             "andymass/vim-matchup",
@@ -53,9 +40,19 @@ function M.config()
         },
         matchup = { enable = true },
         autotag = { enable = true },
-        indent = { enable = true, disable = { "css" } },
-        playground = { enable = true, updatetime = 25, persist_queries = false },
-        context_commentstring = { enable = true, enable_autocmd = false },
+        indent = {
+            enable = true,
+            disable = { "css" },
+        },
+        playground = {
+            enable = true,
+            updatetime = 25,
+            persist_queries = false,
+        },
+        context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+        },
         query_linter = {
             enable = true,
             use_virtual_text = true,
@@ -85,19 +82,32 @@ function M.config()
             },
             swap = {
                 enable = true,
-                swap_next = { ["[w"] = "@parameter.inner" },
-                swap_previous = { ["]w"] = "@parameter.inner" },
+                swap_next = {
+                    ["[w"] = "@parameter.inner",
+                },
+                swap_previous = {
+                    ["]w"] = "@parameter.inner",
+                },
             },
             move = {
                 enable = true,
                 set_jumps = true,
-                goto_next_start = { ["]m"] = "@function.outer", ["]c"] = "@class.outer" },
-                goto_next_end = { ["]M"] = "@function.outer", ["]C"] = "@class.outer" },
+                goto_next_start = {
+                    ["]m"] = "@function.outer",
+                    ["]c"] = "@class.outer",
+                },
+                goto_next_end = {
+                    ["]M"] = "@function.outer",
+                    ["]C"] = "@class.outer",
+                },
                 goto_previous_start = {
                     ["[m"] = "@function.outer",
                     ["[c"] = "@class.outer",
                 },
-                goto_previous_end = { ["[M"] = "@function.outer", ["[C"] = "@class.outer" },
+                goto_previous_end = {
+                    ["[M"] = "@function.outer",
+                    ["[C"] = "@class.outer",
+                },
             },
             tree_docs = {
                 enable = true,

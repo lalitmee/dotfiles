@@ -376,12 +376,6 @@ function M.config()
         })
     end, {})
 
-    command("TelescopeInstalledPlugins", function()
-        builtin.find_files({
-            cwd = vim.fn.stdpath("data") .. "/site/pack/packer/start/",
-        })
-    end, {})
-
     command("TelescopeFuzzyLiveGrep", function()
         vim.g.grep_string_mode = true
         vim.ui.input({
