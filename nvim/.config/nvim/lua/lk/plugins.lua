@@ -1,5 +1,8 @@
 return {
-    { "nvim-lua/plenary.nvim" },
+    {
+        "nvim-lua/plenary.nvim",
+        event = { "VeryLazy" },
+    },
     {
         "andrewferrier/debugprint.nvim",
         keys = { "g?" },
@@ -38,7 +41,10 @@ return {
             require("telescope").load_extension("git_worktree")
         end,
     },
-    { "ThePrimeagen/vim-be-good" },
+    {
+        "ThePrimeagen/vim-be-good",
+        cmd = { "VimBeGood" },
+    },
     { "baskerville/vim-sxhkdrc" },
     {
         "christoomey/vim-sort-motion",
@@ -102,6 +108,7 @@ return {
     },
     {
         "kylechui/nvim-surround",
+        event = { "VeryLazy" },
         config = function()
             require("nvim-surround").setup()
         end,
@@ -109,8 +116,8 @@ return {
     {
         "lalitmee/cobalt2.nvim",
         dependencies = "tjdevries/colorbuddy.nvim",
+        event = { "VimEnter" },
     },
-    { "mattn/emmet-vim" },
     {
         "mbbill/undotree",
         cmd = { "UndotreeToggle" },
@@ -154,8 +161,14 @@ return {
         "ray-x/go.nvim",
         ft = "go",
     },
-    { "rcarriga/nvim-notify" },
-    { "romainl/vim-cool" },
+    {
+        "rcarriga/nvim-notify",
+        event = { "VeryLazy" },
+    },
+    {
+        "romainl/vim-cool",
+        event = { "VeryLazy" },
+    },
     {
         "sindrets/diffview.nvim",
         cmd = {
@@ -177,8 +190,14 @@ return {
             })
         end,
     },
-    { "tpope/vim-abolish" },
-    { "tpope/vim-repeat" },
+    {
+        "tpope/vim-abolish",
+        event = { "VeryLazy" },
+    },
+    {
+        "tpope/vim-repeat",
+        event = { "VeryLazy" },
+    },
     {
         "tpope/vim-scriptease",
         cmd = { "Message", "Verbose" },
@@ -191,7 +210,10 @@ return {
         "wakatime/vim-wakatime",
         event = { "VimEnter" },
     },
-    { "wellle/targets.vim" },
+    {
+        "wellle/targets.vim",
+        event = { "VeryLazy" },
+    },
     {
         "ziontee113/icon-picker.nvim",
         config = function()
