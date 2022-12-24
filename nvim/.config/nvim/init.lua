@@ -24,7 +24,7 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 -- globals
 require("lk/globals")
 
--- packer plugins
+-- plugins
 require("lk/lazy")
 
 -- }}}
