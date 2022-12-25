@@ -3,9 +3,6 @@ local M = {
 }
 
 function M.config()
-    ----------------------------------------------------------------------
-    -- NOTE: which-key mappings {{{
-    ----------------------------------------------------------------------
     local wk = require("which-key")
 
     vim.o.timeoutlen = 500
@@ -17,32 +14,34 @@ function M.config()
     wk.setup({
         show_help = false,
         triggers = "auto",
-        plugins = { spelling = true, marks = false, registers = false },
-        key_labels = { ["<leader>"] = "SPC" },
+        plugins = {
+            spelling = true,
+            marks = false,
+            registers = false,
+        },
+        key_labels = {
+            ["<space>"] = "SPC",
+            ["<cr>"] = "RET",
+            ["<tab>"] = "TAB",
+        },
         layout = { spacing = 10 },
+        window = {
+            border = "rounded",
+            winblend = 10,
+        },
     })
 
-    ----------------------------------------------------------------------
-    -- NOTE: leader key mappings {{{
-    ----------------------------------------------------------------------
     local leader_key_maps = {
-        ----------------------------------------------------------------------
-        -- NOTE: direct mappings {{{
-        ----------------------------------------------------------------------
         [":"] = { ":Telescope commands<CR>", "commands" },
         ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
-        ["<TAB>"] = { ":tabnext<CR>", "next-tab" },
         ["/"] = { ":Telescope live_grep<CR>", "search-project" },
+        ["]"] = { ":S/<c-r><c-w>//<left>", "replace-all" },
+        ["["] = { ":%S/<c-r><c-w>//c<left><left>", "replace-current" },
         ["1"] = { ":HarpoonGotoTerm 1<CR>", "terminal-1" },
         ["2"] = { ":HarpoonGotoTerm 2<CR>", "terminal-2" },
         ["3"] = { ":HarpoonGotoTerm 3<CR>", "terminal-3" },
         ["4"] = { ":HarpoonGotoTerm 4<CR>", "terminal-4" },
-        -- }}}
-        ----------------------------------------------------------------------
 
-        ----------------------------------------------------------------------
-        -- NOTE: a is for actions {{{
-        ----------------------------------------------------------------------
         ["a"] = {
             ["name"] = "+actions",
             ["/"] = { ":SpectreOpen<CR>", "spectre-open" },
@@ -57,18 +56,13 @@ function M.config()
             ["I"] = { ":ISwap<CR>", "iswap" },
             ["l"] = { ":SearchSession<CR>", "search-sessions" },
             ["m"] = { ":ChatGPTActAs<CR>", "chatgp-act-as" },
+            ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
             ["o"] = { ":NeoTreeRevealToggle<CR>", "neo-tree-toggle" },
             ["p"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
             ["r"] = { ":ChatGPTEditWithInstructions<CR>", "chatgpt-edit-instruction" },
             ["s"] = { ":StartupTime<CR>", "run-startup-time" },
             ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: b is for buffers {{{
-        ----------------------------------------------------------------------
         ["b"] = {
             ["name"] = "+buffers",
             ["a"] = { ":bfirst<CR>", "first-buffer" },
@@ -87,12 +81,16 @@ function M.config()
             ["w"] = { ":Bwipeout<CR>", "close-buffer-and-window" },
             ["z"] = { ":blast<CR>", "first-buffer" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: d is for dap {{{
-        ----------------------------------------------------------------------
+        ["c"] = {
+            ["name"] = "+ChatGPT",
+            ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
+            ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
+            ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
+            ["g"] = { ":ChatGPTRun grammar_correction<CR>", "chatgpt-grammar-correction" },
+            ["o"] = { ":ChatGPTRun optimize_code<CR>", "chatgpt-optimize-code" },
+            ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
+            ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
+        },
         ["d"] = {
             ["name"] = "+dap",
             ["a"] = { ":DapStepOut<CR>", "step-out" },
@@ -107,12 +105,6 @@ function M.config()
             ["j"] = { ":OsvLaunch<CR>", "lua-launch" },
             ["k"] = { ":OsvRunThis<CR>", "lua-run-this" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: e is for error/warnings using lspconfig {{{
-        ----------------------------------------------------------------------
         ["e"] = {
             ["name"] = "+errors",
             ["b"] = { ":TroubleToggle document_diagnostics<CR>", "buffer-diagnostics-quickfix" },
@@ -125,12 +117,6 @@ function M.config()
             ["v"] = { ":ShowLineDiagnosticInFlot<CR>", "diagnostic-float-preview" },
             ["w"] = { ":TroubleToggle workspace_diagnostics<CR>", "workspace-diagnostics-quickfix" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: f is for files {{{
-        ----------------------------------------------------------------------
         ["f"] = {
             ["name"] = "+files",
             ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
@@ -152,12 +138,6 @@ function M.config()
             ["t"] = { ":Telescope filetypes<CR>", "file-types" },
             ["q"] = { ":wq<CR>", "save-and-quit" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: g is for git {{{
-        ----------------------------------------------------------------------
         ["g"] = {
             ["name"] = "+git",
             ["/"] = { ":Telescope git_status<CR>", "git-status" },
@@ -188,22 +168,10 @@ function M.config()
             ["w"] = { ":Gitsigns stage_buffer<CR>", "stage-buffer" },
             ["x"] = { ":Gitsigns reset_hunk<CR>", "reset-hunk" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: h is for highlight {{{
-        ----------------------------------------------------------------------
         ["h"] = {
             ["name"] = "+highlight",
             ["h"] = { ":TSHighlightCapturesUnderCursor<CR>", "show-highlights-info" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: i is for insert {{{
-        ----------------------------------------------------------------------
         ["i"] = {
             ["name"] = "+insert-text",
             ["a"] = { ":AttemptNew<CR>", "new-scratch-buffer" },
@@ -215,61 +183,40 @@ function M.config()
             ["E"] = { ":AttemptNewExtension<CR>", "new-extension-scratch-buffer" },
             ["f"] = { ":Telescope attempt<CR>", "find-scratch-buffers" },
             ["i"] = { ":PickEverything<CR>", "everything" },
-            ["m"] = { ":MindOpenMain<CR>", "mind-open" },
-            ["p"] = { ":MindOpenProject<CR>", "mind-project" },
-            ["q"] = { ":MindClose<CR>", "mind-close" },
             ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
-            ["R"] = { ":MindReloadState<CR>", "mind-reload-state" },
-            ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
             ["w"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: l is for lspconfig {{{
-        ----------------------------------------------------------------------
         ["l"] = {
             ["name"] = "+lsp",
             ["a"] = { ":LspCodeActions<CR>", "code-action" },
-            ["c"] = { ":LspRename<CR>", "rename" },
             ["d"] = { ":LspDefinition<CR>", "definition" },
             ["D"] = { ":LspDeclaration<CR>", "declaration" },
             ["h"] = { ":LspHover<CR>", "hover-doc" },
             ["i"] = { ":LspInfo<CR>", "lsp-info" },
             ["I"] = { ":LspImplementation<CR>", "implementation" },
             ["m"] = { ":Mason<CR>", "lsp-installer-info" },
-            ["r"] = { ":LspReferences<CR>", "references" },
+            ["r"] = { ":LspRename<CR>", "rename" },
+            ["R"] = { ":LspReferences<CR>", "references" },
             ["s"] = { ":LspDocumentSymbols<CR>", "document-symbols" },
             ["t"] = { ":LspTypeDefinition<CR>", "type-definition" },
             ["w"] = { ":LspWorkspaceSymbols<CR>", "workspace-symbols" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: m is for major mode using lspconfig {{{
-        ----------------------------------------------------------------------
         ["m"] = {
-            ["name"] = "+major-mode",
-            ["a"] = { ":LspCodeActions<CR>", "code-actions" },
-            ["c"] = { ":MakeTags<CR>", "make-ctags" },
-            ["d"] = { ":Telescope lsp_definitions<CR>", "lsp-definitions" },
-            ["e"] = { ":Telescope diagnostics<CR>", "lsp-diagnostics" },
-            ["f"] = { ":Telescope lsp_references<CR>", "references" },
-            ["l"] = { ":LogVariable<CR>", "log-var" },
-            ["r"] = { ":LspRename<CR>", "rename-symbol" },
-            ["t"] = { ":Telescope treesitter<CR>", "treesitter-symbols" },
-            ["s"] = { ":Telescope lsp_document_symbols<CR>", "buffer-symbols" },
-            ["w"] = { ":Telescope lsp_dynamic_workspace_symbols<CR>", "workspace-symbols" },
-            ["W"] = { ":Telescope lsp_workspace_symbols<CR>", "workspace-symbols" },
+            ["name"] = "+mind.nvim",
+            ["a"] = { ":MindCreateInSmart", "create-in-smart" },
+            ["A"] = { ":MindCreateInMain<CR>", "create-in-main" },
+            ["c"] = { ":MindCopyFromSmart", "copy-from-smart" },
+            ["C"] = { ":MindCopyFromMain<CR>", "copy-from-main" },
+            ["i"] = { ":MindInitializeProject<CR>", "initialize-project" },
+            ["j"] = { ":MindJournal<CR>", "jorunal" },
+            ["m"] = { ":MindOpenMain<CR>", "mind-open" },
+            ["O"] = { ":MindOpenFromSmart", "open-from-smart" },
+            ["o"] = { ":MindOpenFromMain<CR>", "open-from-main" },
+            ["p"] = { ":MindOpenProject<CR>", "mind-project" },
+            ["q"] = { ":MindClose<CR>", "mind-close" },
+            ["r"] = { ":MindReloadState<CR>", "mind-reload-state" },
+            ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: n is for neovim {{{
-        ----------------------------------------------------------------------
         ["n"] = {
             ["name"] = "+neovim",
             ["d"] = { ":Lazy clean<CR>", "clean-packages" },
@@ -287,12 +234,6 @@ function M.config()
             ["S"] = { ":Lazy<CR>", "packages-status" },
             ["u"] = { ":Lazy update<CR>", "lazy-update" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: o is for octo.nvim {{{
-        ----------------------------------------------------------------------
         ["o"] = {
             ["name"] = "+octo.nvim",
             ["a"] = {
@@ -371,12 +312,6 @@ function M.config()
                 ["u"] = { ":Octo thread unresolve<CR>", "unresolve" },
             },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: p is for project {{{
-        ----------------------------------------------------------------------
         ["p"] = {
             ["name"] = "+project",
             ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
@@ -388,12 +323,6 @@ function M.config()
             ["s"] = { ":Telescope live_grep<CR>", "project-search" },
             ["w"] = { ":Telescope grep_string<CR>", "string-search" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: q is for quit/close {{{
-        ----------------------------------------------------------------------
         ["q"] = {
             ["name"] = "+quickfix",
             ["c"] = { ":cclose<CR>", "close" },
@@ -405,12 +334,6 @@ function M.config()
             ["q"] = { ":qall<CR>", "quit-neovim" },
             ["r"] = { ":Replacer<CR>", "replacer" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: r is for runner {{{
-        ----------------------------------------------------------------------
         ["r"] = {
             ["name"] = "+build-and-run",
             ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
@@ -431,12 +354,6 @@ function M.config()
             ["s"] = { ":SnipRun<CR>", "snip-run" },
             ["S"] = { ":SnipClose<CR>", "snip-close" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: s is for search {{{
-        ----------------------------------------------------------------------
         ["s"] = {
             ["name"] = "+search",
             ["/"] = { ":Telescope command_history<CR>", "history" },
@@ -470,12 +387,6 @@ function M.config()
             ["y"] = { ":Telescope yank_history<CR>", "yank-history" },
             ['"'] = { ":Telescope registers<CR>", "registers" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: S is for system {{{
-        ----------------------------------------------------------------------
         ["S"] = {
             ["name"] = "+sessions",
             ["b"] = { ":ChangeSystemBackground<CR>", "change-system-background" },
@@ -486,12 +397,6 @@ function M.config()
             ["t"] = { ":lua Notify_current_datetime()<CR>", "current-date-time" },
             ["y"] = { ":lua Yank_current_file_name()<CR>", "yank-current-file-name" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: t is for toggle/tabs/terminal {{{
-        ----------------------------------------------------------------------
         ["t"] = {
             ["name"] = "+toggle",
             ["j"] = { ":TSJToggle<CR>", "treesj-toggle" },
@@ -521,23 +426,11 @@ function M.config()
             ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
             ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: u is for undo {{{
-        ----------------------------------------------------------------------
         ["u"] = {
             ["name"] = "+undo",
             ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
             ["t"] = { ":Telescope undo<CR>", "telescope-undo" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: v is for vim/neovim {{{
-        ----------------------------------------------------------------------
         ["v"] = {
             ["name"] = "+vim",
             ["/"] = { ":Telescope command_history<CR>", "commands-history" },
@@ -557,12 +450,6 @@ function M.config()
             ["t"] = { ":Telescope tagstack<CR>", "tag-stack" },
             ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: w is for window {{{
-        ----------------------------------------------------------------------
         ["w"] = {
             ["name"] = "+windows",
             ["2"] = { "<C-W>v", "layout-double-columns" },
@@ -591,18 +478,8 @@ function M.config()
         },
         ["y"] = { ":YankyRingHistory<CR>", "yank-ring-history" },
     }
-    -- }}}
-    ----------------------------------------------------------------------
-    -- }}}
-    ----------------------------------------------------------------------
 
-    ----------------------------------------------------------------------
-    -- NOTE: local leader key mappings {{{
-    ----------------------------------------------------------------------
     local local_leader_key_maps = {
-        ----------------------------------------------------------------------
-        -- NOTE: harpoon go to file {{{
-        ----------------------------------------------------------------------
         ["1"] = { ":HarpoonGotoFile 1<CR>", "goto-file-1" },
         ["2"] = { ":HarpoonGotoFile 2<CR>", "goto-file-2" },
         ["3"] = { ":HarpoonGotoFile 3<CR>", "goto-file-3" },
@@ -612,12 +489,6 @@ function M.config()
         ["7"] = { ":HarpoonGotoFile 7<CR>", "goto-file-7" },
         ["8"] = { ":HarpoonGotoFile 8<CR>", "goto-file-8" },
         ["9"] = { ":HarpoonGotoFile 9<CR>", "goto-file-9" },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: browse  {{{
-        ----------------------------------------------------------------------
         ["b"] = {
             ["name"] = "+browse",
             ["b"] = { ":Browse<CR>", "browse" },
@@ -627,16 +498,7 @@ function M.config()
             ["i"] = { ":BrowseInputSearch<CR>", "input-search" },
             ["m"] = { ":BrowseMdnSearch<CR>", "mdn-search" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ["]"] = "replace-all", -- coming from  `plugins/abolish.lua`
-        ["["] = "replace-current", -- coming from `plugins/abolish.lua`
         ["d"] = { ":Neogen<CR>", "doc-this" },
-
-        ----------------------------------------------------------------------
-        -- NOTE: loclist {{{
-        ----------------------------------------------------------------------
         ["l"] = {
             ["name"] = "+loclist",
             ["c"] = { ":lclose<CR>", "close" },
@@ -645,12 +507,6 @@ function M.config()
             ["o"] = { ":lopen<CR>", "open" },
             ["p"] = { ":lprev<CR>", "prev" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: treesitter {{{
-        ----------------------------------------------------------------------
         ["t"] = {
             ["name"] = "+treesitter",
             ["c"] = "doc-node-at-cursor",
@@ -667,28 +523,30 @@ function M.config()
             ["p"] = { ":tabprevious<CR>", "previous-tab" },
             ["q"] = { ":tabclose<CR>", "close-tab" },
         },
-        -- }}}
-        ----------------------------------------------------------------------
     }
-    -- }}}
-    ----------------------------------------------------------------------
 
-    ----------------------------------------------------------------------
-    -- NOTE: visual mode keymaps {{{
-    ----------------------------------------------------------------------
     local visual_mode_leader_key_maps = {
         ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
+        ["a"] = {
+            ["name"] = "+actions",
+            ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
+        },
+        ["c"] = {
+            ["name"] = "+ChatGPT",
+            ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
+            ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
+            ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
+            ["g"] = { ":ChatGPTRun grammar_correction<CR>", "chatgpt-grammar-correction" },
+            ["o"] = { ":ChatGPTRun optimize_code<CR>", "chatgpt-optimize-code" },
+            ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
+            ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
+        },
+        ["["] = { '"zy:%S/<c-r><c-o>"//c<left><left>', "abolish-replace" },
     }
-    -- }}}
-    ----------------------------------------------------------------------
 
     wk.register(local_leader_key_maps, { prefix = "<localleader>" })
     wk.register(leader_key_maps, { prefix = "<leader>" })
     wk.register(visual_mode_leader_key_maps, { prefix = "<leader>", mode = "v" })
-    -- }}}
-    ----------------------------------------------------------------------
 end
 
 return M
-
--- vim:foldmethod=marker
