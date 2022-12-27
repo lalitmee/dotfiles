@@ -35,7 +35,7 @@
   "howdoi.nvim": { "branch": "main", "commit": "b39740a123d7a09213cdfd77e635705bda94c8a9" },
   "icon-picker.nvim": { "branch": "master", "commit": "0f3b2648f6f8e788bc8dfe37bc9bb18b565cfc3c" },
   "iswap.nvim": { "branch": "master", "commit": "16cec32fe27dafd5372ffb9da659c070aa21859e" },
-  "lazy.nvim": { "branch": "main", "commit": "b5b2ab6b6c3e721a528e46045db3e40a4e12b3c5" },
+  "lazy.nvim": { "branch": "main", "commit": "0f3782c06657cb33c031bf92ae6692d8b47d83f2" },
   "lsp-trouble.nvim": { "branch": "main", "commit": "897542f90050c3230856bc6e45de58b94c700bbf" },
   "lspkind.nvim": { "branch": "master", "commit": "c68b3a003483cf382428a43035079f78474cd11e" },
   "lualine.nvim": { "branch": "master", "commit": "fffbcb829288c3ca366f17cdb8d46aefb5c1d6f3" },
