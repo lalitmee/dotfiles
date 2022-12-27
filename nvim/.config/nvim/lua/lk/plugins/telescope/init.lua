@@ -4,50 +4,50 @@ local M = {
         {
             "nvim-telescope/telescope-frecency.nvim",
             dependencies = { "kkharji/sqlite.lua" },
-            config = function()
+            init = function()
                 require("telescope").load_extension("frecency")
             end,
         },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
-            config = function()
+            init = function()
                 require("telescope").load_extension("fzf")
             end,
         },
         {
             "nvim-telescope/telescope-ui-select.nvim",
-            config = function()
+            init = function()
                 require("telescope").load_extension("ui-select")
             end,
         },
         {
             "nvim-telescope/telescope-dap.nvim",
-            config = function()
+            init = function()
                 require("telescope").load_extension("dap")
             end,
         },
         {
             "zane-/howdoi.nvim",
-            config = function()
+            init = function()
                 require("telescope").load_extension("howdoi")
             end,
         },
         {
             "nvim-telescope/telescope-github.nvim",
-            config = function()
+            init = function()
                 require("telescope").load_extension("gh")
             end,
         },
         {
             "nvim-telescope/telescope-live-grep-args.nvim",
-            config = function()
+            init = function()
                 require("telescope").load_extension("live_grep_args")
             end,
         },
         {
             "debugloop/telescope-undo.nvim",
-            config = function()
+            init = function()
                 require("telescope").load_extension("undo")
             end,
         },
