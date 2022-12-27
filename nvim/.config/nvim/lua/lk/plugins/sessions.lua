@@ -1,9 +1,9 @@
 local M = {
-    "rmagatti/session-lens",
-    cmd = { "SearchSession" },
+    "rmagatti/auto-session",
+    event = { "VimEnter" },
     dependencies = {
-        "rmagatti/auto-session",
-        event = { "VimEnter" },
+        "rmagatti/session-lens",
+        cmd = { "SearchSession" },
     },
 }
 

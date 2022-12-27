@@ -144,10 +144,6 @@ return {
         cmd = { "UndotreeToggle" },
     },
     {
-        "mhartington/formatter.nvim",
-        cmd = { "FormatWrite" },
-    },
-    {
         "mizlan/iswap.nvim",
         cmd = { "ISwapWith", "ISwap" },
     },
@@ -232,8 +228,11 @@ return {
     {
         "andymass/vim-matchup",
         event = "BufReadPost",
-        config = function()
-            vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+        init = function()
+            vim.g.matchup_matchparen_offscreen = {
+                method = "popup",
+                border = "rounded",
+            }
         end,
     },
 }
