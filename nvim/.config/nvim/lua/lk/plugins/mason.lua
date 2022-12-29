@@ -1,6 +1,7 @@
 local M = {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
+    event = { "VimEnter" },
 }
 
 function M.config()

@@ -11,16 +11,15 @@ module.exports = {
     // default font size in pixels for all tabs
     fontSize: 12,
     // font family with optional fallbacks
-    fontFamily:
-      'MonoLisa Nerd Font, Operator Mono Lig Book, CaskaydiaCove Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+    fontFamily: "JetBrainsMono Nerd Font, monospace",
     // default font weight: 'normal' or 'bold'
-    fontWeight: 600,
+    fontWeight: 500,
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: "normal",
     // line height as a relative unit
     lineHeight: 1.2,
     // letter spacing as a relative unit
-    letterSpacing: 0,
+    letterSpacing: 0.5,
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: "rgba(248,28,229,0.8)",
     // terminal text color under BLOCK cursor

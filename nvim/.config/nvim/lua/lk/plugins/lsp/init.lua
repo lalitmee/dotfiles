@@ -1,7 +1,7 @@
 local M = {
     "neovim/nvim-lspconfig",
     ft = vim.g.enable_lspconfig_ft,
-    module = "lspconfig",
+    event = "VimEnter",
     dependencies = {
         { "onsails/lspkind.nvim" },
         { "j-hui/fidget.nvim" },
