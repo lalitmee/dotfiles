@@ -1,5 +1,6 @@
 local M = {
     "lalitmee/browse.nvim",
+    dev = true,
     cmd = {
         "Browse",
         "BrowseBookmarks",

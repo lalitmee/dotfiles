@@ -14,7 +14,9 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- load lazy
 require("lazy").setup("lk.plugins", {
-    -- defaults = { lazy = true },
+    defaults = {
+        lazy = true,
+    },
     dev = {
         path = "~/Desktop/Github",
     },

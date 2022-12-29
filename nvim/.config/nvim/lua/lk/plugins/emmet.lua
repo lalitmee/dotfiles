@@ -1,5 +1,6 @@
 local M = {
     "mattn/emmet-vim",
+    cmd = { "EmmetInstall" },
 }
 
 function M.init()
