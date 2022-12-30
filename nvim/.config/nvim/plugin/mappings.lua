@@ -113,6 +113,11 @@ nnoremap("<C-u>", "<C-u>zz")
 ----------------------------------------------------------------------
 -- NOTE: search {{{
 ----------------------------------------------------------------------
+-- search within selection
+-- first select part of the text in which you want to search something and then
+-- press the key to start search and it will search only in the selected text
+map("x", "/", "<Esc>/\\%V")
+
 -- keeping it centered
 map("n", "n", [[nzzzv]], map_opts)
 map("n", "N", [[Nzzzv]], map_opts)
