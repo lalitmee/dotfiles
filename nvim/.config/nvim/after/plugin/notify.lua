@@ -30,6 +30,7 @@ notify.setup({
 vim.notify = notify
 
 local notify_filter = vim.notify
+---@diagnostic disable-next-line: duplicate-set-field
 vim.notify = function(msg, ...)
     if msg:match("warning: multiple different client offset_encodings") then
         return
