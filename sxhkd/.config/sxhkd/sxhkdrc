@@ -27,6 +27,9 @@ super + n
 super + shift + n
    ~/goneovim/goneovim
 
+super + shift + o
+   emacs
+
 #}}}
 #-------------------------------------------------------------------------------
 

@@ -1,3 +1,3 @@
 ;; for doom-emacs as default
-(("doom-emacs"   . ((user-emacs-directory . "~/Desktop/Github/doom-emacs")))
+(("doomemacs"   . ((user-emacs-directory . "~/Desktop/Github/doomemacs")))
   ("spacemacs"   . ((user-emacs-directory . "~/Desktop/Github/spacemacs"))))

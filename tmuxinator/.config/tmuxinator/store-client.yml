@@ -1,6 +1,6 @@
-# /home/lalitmee/.config/tmuxinator/ngagen-store-client.yml
+# /home/lalitmee/.config/tmuxinator/store-client.yml
 
-name: ngagen-store-client
+name: store-client
 root: ~/Desktop/koinearth/ngagen/ngagen-store-client-webapp-service
 
 windows:
