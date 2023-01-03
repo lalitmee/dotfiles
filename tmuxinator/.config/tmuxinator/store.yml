@@ -1,0 +1,9 @@
+# /home/lalitmee/.config/tmuxinator/store.yml
+
+name: store
+root: ~/Desktop/koinearth/ngagen/ngagen-store-webapp-service
+
+windows:
+  - editor: vi
+  - notes: echo 'take notes'
+  - extras: quote
