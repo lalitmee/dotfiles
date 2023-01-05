@@ -58,16 +58,6 @@ return {
         cmd = { "Bdelete" },
     },
     {
-        "gaoDean/autolist.nvim",
-        ft = { "markdown", "text", "norg" },
-        config = function()
-            require("autolist").setup({
-                enable = true,
-                enabled_filetypes = { "markdown", "text", "norg" },
-            })
-        end,
-    },
-    {
         "godlygeek/tabular",
         cmd = { "Tabularize" },
     },

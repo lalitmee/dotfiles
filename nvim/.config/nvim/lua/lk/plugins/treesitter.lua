@@ -6,6 +6,7 @@ local M = {
         { "JoosepAlviste/nvim-ts-context-commentstring" },
         { "nvim-treesitter/nvim-treesitter-context" },
         { "nvim-treesitter/nvim-treesitter-textobjects" },
+        { "p00f/nvim-ts-rainbow" },
         {
             "nvim-treesitter/playground",
             cmd = { "TSPlaygroundToggle" },
@@ -27,6 +28,10 @@ function M.config()
         -- Auto install parsers, if missing, for the current buffer
         auto_install = false,
         highlight = { enable = true },
+        rainbow = {
+            enable = true,
+            extended_mode = true,
+        },
         matchup = { enable = true },
         autotag = { enable = true },
         indent = {
