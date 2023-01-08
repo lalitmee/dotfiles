@@ -3,10 +3,22 @@ local M = {
     build = ":TSUpdate",
     event = "BufReadPost",
     dependencies = {
-        { "JoosepAlviste/nvim-ts-context-commentstring" },
-        { "nvim-treesitter/nvim-treesitter-context" },
-        { "nvim-treesitter/nvim-treesitter-textobjects" },
-        { "p00f/nvim-ts-rainbow" },
+        {
+            "JoosepAlviste/nvim-ts-context-commentstring",
+            ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        },
+        {
+            "nvim-treesitter/nvim-treesitter-context",
+            event = { "BufReadPost" },
+        },
+        {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            event = { "BufReadPost" },
+        },
+        {
+            "mrjones2014/nvim-ts-rainbow",
+            event = { "BufReadPost" },
+        },
         {
             "nvim-treesitter/playground",
             cmd = { "TSPlaygroundToggle" },

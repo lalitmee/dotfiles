@@ -14,7 +14,7 @@ super + shift + Return
 #    hyper
 
 super + shift + f
-    nautilus
+    thunar
 #}}}
 #-------------------------------------------------------------------------------
 
