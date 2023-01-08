@@ -6,23 +6,15 @@ All of my dotfiles are here. 👍
 
 ### neovim
 
-![neovim](./media/neovim.png "neovim")
+![neovim](https://user-images.githubusercontent.com/10762218/211184769-4103f1c0-7feb-4876-bad6-bc4b82030dce.png)
 
 ```log
-Total Time:   33.125 -- Flawless Victory
+Total Time:   11.543 -- Flawless Victory
 ```
 
-I have around 120+ plugins and this start-up time is using [tweekmonster/startuptime.vim](https://github.com/tweekmonster/startuptime.vim).
-I use [packer](https://github.com/wbthomason/packer.nvim) with lazy-loading
+I have total of 117 plugins and this start-up time is using [tweekmonster/startuptime.vim](https://github.com/tweekmonster/startuptime.vim).
+I am using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ### tmux
 
-![tmux](./media/tmux.png "tmux")
-
-### kitty
-
-![kitty](./media/kitty.png "kitty")
-
-### alacritty
-
-![alacritty](./media/alacritty.png "alacritty")
+![tmux](https://user-images.githubusercontent.com/10762218/211184993-cd405706-1947-4e90-a909-9e28064f085e.png)
