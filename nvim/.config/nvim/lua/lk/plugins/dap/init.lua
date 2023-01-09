@@ -4,6 +4,7 @@ local M = {
     dependencies = {
         { "jbyuki/one-small-step-for-vimkind" },
         { "mfussenegger/nvim-dap" },
+        { "mxsdev/nvim-dap-vscode-js" },
         { "theHamsta/nvim-dap-virtual-text" },
     },
 }
@@ -310,6 +311,8 @@ function M.config()
     dap.defaults.fallback.force_external_terminal = true
     -- }}}
     ----------------------------------------------------------------------
+
+    require("lk.plugins.dap.typescript")
 end
 
 return M

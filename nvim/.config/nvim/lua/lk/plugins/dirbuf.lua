@@ -6,6 +6,7 @@ local M = {
         "<cmd>Dirbuf<cr>",
         desc = "open dirbuf",
     },
+    enabled = false,
 }
 
 function M.config()
