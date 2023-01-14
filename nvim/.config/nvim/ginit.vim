@@ -7,7 +7,7 @@
 " set guifont=JetbrainsMonoMedium\ Nerd\ Font\ Mono:h12
 " set guifont=JetbrainsMono\ Nerd\ Font:h10
 " set guifont=MonoLisa:h10
-set guifont=MonoLisa\ Nerd\ Font:h10
-" set guifont=Operator\ Mono\ Lig\ Book:h11
+" set guifont=MonoLisa\ Nerd\ Font:h10
+set guifont=Operator\ Mono\ Lig\ Book:h11
 " set guifont=OverpassMono\ Nerd\ Font:h12
 " set guifont=SauceCodePro\ Nerd\ Font:h12
