@@ -20,3 +20,8 @@ mode.select = "SELECT"
 
 [editor.file-picker]
 hidden = false
+
+[keys.normal]
+C-p = ["move_line_up", "scroll_up"]
+C-n = ["move_line_down", "scroll_down"]
+esc = ["collapse_selection", "keep_primary_selection"]
