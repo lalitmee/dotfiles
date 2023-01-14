@@ -5,17 +5,11 @@ root: ~/Desktop/koinearth/marketsn/marketsN-VDP-webApp
 
 windows:
   - Editor: ls
-  - Git: ls
-  - Cmus: cmus
   - Servers:
       layout: even-horizontal
       panes:
-        - cd ../../marketsN-VDP-webApp && npmst
-        - cd ../../worktrees/marketsn-webapp-service-nextjs/test-env && yd
+        - npmst
+        - cd ../worktrees/marketsn-webapp-service-nextjs/test-env && yd
   - Caddy:
-      - cd ../..
+      - cd ..
       - caddy run
-  - Extras:
-      - clear
-      - cd
-      - quote

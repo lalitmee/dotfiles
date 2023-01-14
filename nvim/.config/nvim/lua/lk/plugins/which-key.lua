@@ -404,7 +404,7 @@ function M.config()
             ['"'] = { ":Telescope registers<CR>", "registers" },
         },
         ["S"] = {
-            ["name"] = "+sessions",
+            ["name"] = "+system",
             ["b"] = { ":ChangeSystemBackground<CR>", "change-system-background" },
             ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
             ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },

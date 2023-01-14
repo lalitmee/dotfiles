@@ -119,6 +119,7 @@ return {
         "lalitmee/cobalt2.nvim",
         dependencies = "tjdevries/colorbuddy.nvim",
         event = { "VimEnter" },
+        lazy = true,
     },
     {
         "mbbill/undotree",
@@ -215,6 +216,13 @@ return {
                 method = "popup",
                 border = "rounded",
             }
+        end,
+    },
+    {
+        "antonk52/markdowny.nvim",
+        ft = { "markdown", "text" },
+        config = function()
+            require("markdowny").setup()
         end,
     },
 }

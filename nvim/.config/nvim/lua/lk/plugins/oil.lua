@@ -10,6 +10,12 @@ end
 
 function M.config()
     require("oil").setup({
+        columns = {
+            "icon",
+            -- "permissions",
+            -- "size",
+            -- "mtime",
+        },
         float = {
             padding = 5,
             max_height = 100,

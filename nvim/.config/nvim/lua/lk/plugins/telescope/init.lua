@@ -51,6 +51,18 @@ local M = {
                 require("telescope").load_extension("undo")
             end,
         },
+        {
+            "danielvolchek/tailiscope.nvim",
+            ft = {
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+            },
+            init = function()
+                require("telescope").load_extension("tailiscope")
+            end,
+        },
     },
 }
 
