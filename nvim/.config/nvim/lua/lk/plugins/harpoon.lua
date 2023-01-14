@@ -26,7 +26,7 @@ function M.config()
     harpoon.setup({
         menu = {
             width = vim.api.nvim_win_get_width(0) - 150,
-            height = vim.api.nvim_win_get_height(0) - 30,
+            height = vim.api.nvim_win_get_height(0) - 38,
         },
         enter_on_sendcmd = true,
         mark_branch = true,
