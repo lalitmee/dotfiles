@@ -372,7 +372,7 @@ function M.config()
         },
         ["s"] = {
             ["name"] = "+search",
-            ["/"] = { ":Telescope command_history<CR>", "history" },
+            ["/"] = { ":Telescope search_history<CR>", "search-history" },
             [":"] = { ":Telescope commands<CR>", "commands" },
             ["a"] = { ":Telescope<CR>", "telescope-all-options" },
             ["b"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
@@ -449,10 +449,11 @@ function M.config()
         },
         ["v"] = {
             ["name"] = "+vim",
-            ["/"] = { ":Telescope command_history<CR>", "commands-history" },
+            ["/"] = { ":Telescope search_history<CR>", "search-history" },
             [":"] = { ":Telescope commands<CR>", "commands" },
             ["a"] = { ":Telescope autocommands<CR>", "autocommands" },
             ["c"] = { ":Telescope colorscheme<CR>", "colorschemes" },
+            ["C"] = { ":Telescope command_history<CR>", "command-history" },
             ["d"] = { ":Messages<CR>", "messages" },
             ["f"] = { ":Telescope filetypes<CR>", "filetypes" },
             ["h"] = { ":Telescope help_tags<CR>", "help-tags" },

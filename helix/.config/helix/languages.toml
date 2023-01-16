@@ -2,4 +2,6 @@
 name = "javascript"
 scope = "source.javascript"
 auto-format = true
-file-types = ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+file-types = ["javascript", "js", "javascriptreact", "jsx", "typescript", "ts", "typescriptreact", "tsx"]
+language-server = {command = "typescript-language-server", args = ["--stdio"]}
+formatter = {command = "prettierd", args = ["--stdin"]}

@@ -63,6 +63,13 @@ local M = {
                 require("telescope").load_extension("tailiscope")
             end,
         },
+        {
+            "danielfalk/smart-open.nvim",
+            init = function()
+                require("telescope").load_extension("smart_open")
+            end,
+            dependencies = { "kkharji/sqlite.lua" },
+        },
     },
 }
 

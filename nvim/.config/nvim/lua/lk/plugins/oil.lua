@@ -18,8 +18,8 @@ function M.config()
         },
         float = {
             padding = 5,
-            max_height = 100,
-            max_width = 150,
+            max_height = 120,
+            max_width = 160,
         },
         view_options = {
             show_hidden = true,
