@@ -249,8 +249,8 @@ values."
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator SSm"
                                ;; "JetBrainsMono Nerd Font"
-                               ;; "SauceCodePro Nerd Font"
-                               "MonoLisa"
+                               "SauceCodePro Nerd Font"
+                               ;; "MonoLisa"
                                :size 13
                                :weight medium
                                :powerline-scale 1.3)

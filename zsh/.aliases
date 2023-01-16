@@ -74,27 +74,29 @@ alias gwp="git worktree prune"
 alias gwr="git worktree remove"
 alias gwu="git worktree unlock"
 
+# integrating nala
+alias apt="sudo nala"
+
 # aliases for updating and installing packages
 alias aptl="apt list | fzf"
 alias brewl="brew list | fzf"
-alias fix="sudo apt-fast install -f -y"
-alias install="sudo apt-fast install -y"
-alias purge="sudo apt-fast purge -y"
-alias remove="sudo apt-fast autoremove -y"
+alias fix="apt install -f -y"
+alias install="apt install -y"
+alias purge="apt purge -y"
+alias remove="apt autoremove -y"
 alias snapi="sudo snap install"
 alias snapl="snap list | fzf"
 alias snapr="sudo snap remove"
 alias snapu="sudo snap refresh"
-alias upd="sudo apt-fast update -y"
+alias upd="apt update"
 alias update="
-sudo apt-fast update -y &&
-sudo apt-fast upgrade -y &&
-sudo flatpak update -y &&
+apt upgrade -y &&
+sudo flatpak update &&
 snapu &&
 bubc
 "
-alias updg="sudo apt-fast dist-upgrade -y"
-alias upg="sudo apt-fast upgrade -y"
+alias updg="apt dist-upgrade -y"
+alias upg="apt upgrade -y"
 
 # aliases for editing and sourcing zshrc
 alias ze="nvim ~/.zshrc"
