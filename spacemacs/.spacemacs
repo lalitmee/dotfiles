@@ -134,7 +134,7 @@ values."
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
      (wakatime :variables
                ;; use the actual wakatime path
-               wakatime-cli-path "/home/lalitme/.wakatime/wakatime-cli")
+               wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime-cli")
 
      )
    ;; List of additional packages that will be installed without being
@@ -251,7 +251,7 @@ values."
                                ;; "JetBrainsMono Nerd Font"
                                "SauceCodePro Nerd Font"
                                ;; "MonoLisa"
-                               :size 13
+                               :size 14
                                :weight medium
                                :powerline-scale 1.3)
    ;; The leader key

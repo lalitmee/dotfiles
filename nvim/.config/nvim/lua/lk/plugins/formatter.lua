@@ -37,7 +37,7 @@ function M.config()
     ----------------------------------------------------------------------
     -- NOTE: rustfmt {{{
     ----------------------------------------------------------------------
-    local rustfmt = require("formatter.filetypes.rust")
+    local rustfmt = require("formatter.filetypes.rust").rustfmt
     -- }}}
     ----------------------------------------------------------------------
 

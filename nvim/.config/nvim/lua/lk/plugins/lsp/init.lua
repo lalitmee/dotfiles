@@ -8,6 +8,7 @@ local M = {
         { "folke/neodev.nvim" },
         { "jose-elias-alvarez/null-ls.nvim" },
         { "folke/lsp-trouble.nvim" },
+        { "simrat39/rust-tools.nvim" },
     },
 }
 
@@ -204,6 +205,9 @@ function M.config()
             },
         },
     })
+
+    local rt = require("rust-tools")
+    rt.setup()
 end
 
 return M

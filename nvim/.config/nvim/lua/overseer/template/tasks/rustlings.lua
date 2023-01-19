@@ -1,13 +1,10 @@
 return {
-    name = "run script",
+    name = "rustlings watch",
     builder = function()
-        local file = vim.fn.expand("%:p")
-        local cmd = { file }
-        if vim.bo.filetype == "go" then
-            cmd = { "go", "run", file }
-        end
         return {
-            cmd = cmd,
+            cmd = "rustlings watch",
+            cwd = vim.fn.getcwd(),
+            name = "rustlings watch",
             components = {
                 { "on_output_quickfix", set_diagnostics = true },
                 "on_result_diagnostics",
@@ -15,7 +12,8 @@ return {
             },
         }
     end,
+    desc = "Run the rustlings exercies",
     condition = {
-        filetype = { "sh", "python", "go" },
+        filetype = { "rs" },
     },
 }
