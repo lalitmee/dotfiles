@@ -14,6 +14,7 @@ local M = {
             "tzachar/cmp-tabnine",
             build = "./install.sh",
         },
+        { "roobert/tailwindcss-colorizer-cmp.nvim" },
     },
 }
 
@@ -125,6 +126,9 @@ function M.config()
         },
         experimental = { native_menu = false, ghost_text = false },
     })
+    require("cmp").config.formatting = {
+        format = require("tailwindcss-colorizer-cmp").formatter,
+    }
     -- }}}
     ----------------------------------------------------------------------
 

@@ -21,10 +21,13 @@ function M.config()
     end
 
     overseer.setup({
-        templates = {
-            { "builtin", { "user.cpp_build", "user.run_script" } },
-        },
+        -- templates = {
+        --     { "builtin", "tasks" },
+        -- },
     })
+    overseer.load_template("tasks.rustlings")
+    overseer.load_template("tasks.run_script")
+    overseer.load_template("tasks.cpp_build")
 end
 
 return M
