@@ -64,8 +64,10 @@ function M.config()
                 behavior = cmp.ConfirmBehavior.Insert,
                 select = true,
             }),
-            ["<Tab>"] = cmp.mapping({ i = tab }),
-            ["<S-Tab>"] = cmp.mapping({ i = s_tab }),
+            -- ["<Tab>"] = cmp.mapping({ i = tab }),
+            -- ["<S-Tab>"] = cmp.mapping({ i = s_tab }),
+            ["<Tab>"] = nil,
+            ["<S-Tab>"] = nil,
         },
         sources = cmp.config.sources({
             {
