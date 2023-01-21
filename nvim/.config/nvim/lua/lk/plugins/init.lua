@@ -147,6 +147,7 @@ return {
     {
         "ray-x/go.nvim",
         ft = "go",
+        enabled = false,
     },
     {
         "rcarriga/nvim-notify",
@@ -224,5 +225,10 @@ return {
         config = function()
             require("markdowny").setup()
         end,
+    },
+    {
+        "ckolkey/ts-node-action",
+        dependencies = { "nvim-treesitter" },
+        opts = {},
     },
 }
