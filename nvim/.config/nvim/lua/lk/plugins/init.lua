@@ -190,6 +190,10 @@ return {
         cmd = { "Messages", "Verbose" },
     },
     {
+        "tpope/vim-sleuth",
+        event = { "BufEnter" },
+    },
+    {
         "tweekmonster/startuptime.vim",
         cmd = "StartupTime",
     },
@@ -227,7 +231,17 @@ return {
     },
     {
         "ckolkey/ts-node-action",
+        event = { "VeryLazy" },
         dependencies = { "nvim-treesitter" },
-        opts = {},
+        init = function()
+            lk.nnoremap("<leader>k", require("ts-node-action").node_action, { desc = "Trigger Node Action" })
+        end,
+    },
+    {
+        "LeonHeidelbach/trailblazer.nvim",
+        event = { "VeryLazy" },
+        config = function()
+            require("trailblazer").setup()
+        end,
     },
 }

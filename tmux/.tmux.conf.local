@@ -517,7 +517,7 @@ bind c new-window -c '#{current_pane_path}'
 bind-key n break-pane -d
 
 # run cht.sh from tmux
-bind-key -r i run-shell "tmux neww bash -c \"~/.local/bin/tmux-cht.sh\""
+bind-key -r i run-shell "tmux neww bash -c \"~/.local/bin/tmux-cht\""
 
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"

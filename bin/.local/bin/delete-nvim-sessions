@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd ~/.local/share/nvim/sessions/ || exit
+find . | fzf -m | xargs -I {} rm -rf {}

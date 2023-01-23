@@ -3,7 +3,6 @@ local M = {
     ft = vim.g.enable_lspconfig_ft,
     event = "VimEnter",
     dependencies = {
-        { "onsails/lspkind.nvim" },
         { "j-hui/fidget.nvim" },
         { "folke/neodev.nvim" },
         { "jose-elias-alvarez/null-ls.nvim" },

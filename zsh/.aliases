@@ -119,7 +119,6 @@ alias hw="how2"
 alias hi="howdoi"
 alias wb="wikit -b"
 alias wk="wikit"
-alias wt="curl wttr.in"
 alias yt="youtube-dl"
 
 # alias for gui nvims
