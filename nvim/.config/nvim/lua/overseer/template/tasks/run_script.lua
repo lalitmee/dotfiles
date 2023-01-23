@@ -9,6 +9,9 @@ return {
         if vim.bo.filetype == "python" then
             cmd = { "python", file }
         end
+        if vim.bo.filetype == "sh" then
+            cmd = { "bash", file }
+        end
         return {
             cmd = cmd,
             components = {

@@ -111,6 +111,7 @@ function M.config()
                 },
             },
             lualine_x = {
+                { "overseer" },
                 { get_active_lsp_clients },
                 { get_trailing_whitespace },
             },

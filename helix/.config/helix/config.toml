@@ -1,4 +1,4 @@
-theme = "kanagawa"
+theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"
@@ -25,3 +25,14 @@ hidden = false
 C-p = ["move_line_up", "scroll_up"]
 C-n = ["move_line_down", "scroll_down"]
 esc = ["collapse_selection", "keep_primary_selection"]
+
+[editor.lsp]
+display-messages = true
+
+[editor.indent-guides]
+render = true
+character = "▏" # Some characters that work well: "╎", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.whitespace]
+render = "none"
