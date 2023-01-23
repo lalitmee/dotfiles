@@ -5,5 +5,3 @@ lk.augroup("help_au", {
         command = [[ :wincmd K | resize 40]],
     },
 })
-
-lk.nnoremap("q", [[<cmd>q<cr>]], { silent = true })

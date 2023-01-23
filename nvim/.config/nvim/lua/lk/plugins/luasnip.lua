@@ -73,8 +73,8 @@ function M.config()
         },
         snip_env = {
             fmt = fmt,
-            m = extras.match,
-            r = extras.rep,
+            match = extras.match,
+            rep = extras.rep,
             t = t,
             f = f,
             c = c,

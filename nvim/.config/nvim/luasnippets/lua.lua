@@ -5,10 +5,10 @@ local s = env["s"]
 local t = env["t"]
 local i = env["i"]
 local c = env["c"]
-local r = env["r"]
 local f = env["f"]
 local d = env["d"]
 local fmt = env["fmt"]
+local rep = env["rep"]
 
 local fn = vim.fn
 
@@ -17,7 +17,7 @@ return {
     s("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
 
     -- require
-    s("locr", fmt("local {} = require('{}')", { i(1, "name"), r(1) })),
+    s("locr", fmt("local {} = require('{}')", { i(1, "name"), rep(1) })),
 
     -- note
     s("note", fmt("-- NOTE: {}", { i(1, "description") })),
@@ -78,5 +78,5 @@ return {
             }),
         })
     ),
-    s("re", fmt('local {}, {} = lk.require("{}")', { i(1, "ok"), i(2, "package"), r(2, "pacakge") })),
+    s("re", fmt('local {}, {} = lk.require("{}")', { i(1, "ok"), i(2, "package"), rep(2, "pacakge") })),
 }

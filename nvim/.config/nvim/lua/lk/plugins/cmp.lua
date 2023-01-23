@@ -2,6 +2,7 @@ local M = {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter" },
     dependencies = {
+        { "onsails/lspkind.nvim" },
         { "hrsh7th/cmp-buffer" },
         { "hrsh7th/cmp-nvim-lsp" },
         {
@@ -54,6 +55,10 @@ function M.config()
     end
 
     cmp.setup({
+        window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+        },
         mapping = {
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-e>"] = cmp.mapping.close(),
@@ -114,11 +119,9 @@ function M.config()
         },
         formatting = {
             format = lspkind.cmp_format({
-                with_text = true,
                 menu = {
                     cmp_tabnine = "[TBN]",
                     buffer = "[BUF]",
-                    -- cmdline = "[CMD]",
                     luasnip = "[SNIP]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[API]",
@@ -126,7 +129,7 @@ function M.config()
                 },
             }),
         },
-        experimental = { native_menu = false, ghost_text = false },
+        experimental = { ghost_text = false },
     })
     require("cmp").config.formatting = {
         format = require("tailwindcss-colorizer-cmp").formatter,

@@ -272,9 +272,23 @@ augroup("ginit_au", {
 augroup("quit_q", {
     {
         event = { "FileType" },
-        pattern = { "oil" },
+        pattern = { "oil", "help", "log", "qf", "startuptime" },
         command = function()
             lk.nnoremap("q", [[:q<cr>]])
+        end,
+    },
+    {
+        event = { "BufEnter" },
+        pattern = { "*.scriptease-verbose", "startup-log.txt" },
+        command = function()
+            lk.nnoremap("q", ":bd<cr>")
+        end,
+    },
+    {
+        event = { "FileType" },
+        pattern = { "checkhealth" },
+        command = function()
+            lk.nnoremap("q", ":bd | tabclose<cr>")
         end,
     },
 })

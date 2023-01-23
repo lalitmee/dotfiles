@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 git clone https://gitlab.com/dwt1/shell-color-scripts.git
-cd shell-color-scripts
+cd shell-color-scripts || exit
 sudo rm -rf /opt/shell-color-scripts || return 1
 sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
 sudo cp -rf colorscripts/* /opt/shell-color-scripts/colorscripts
