@@ -1,72 +1,82 @@
---- @diagnostic disable: undefined-global
+local session = require("luasnip.session")
+
+local env = session.config.snip_env
+local s = env["s"]
+local t = env["t"]
+local i = env["i"]
+local c = env["c"]
+local r = env["r"]
+local f = env["f"]
+local d = env["d"]
+local fmt = env["fmt"]
 
 local fn = vim.fn
 
 return {
-  -- local var
-  s("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
+    -- local var
+    s("loc", fmt("local {} = {}", { i(1, "name"), i(2, "module/package") })),
 
-  -- require
-  s("locr", fmt("local {} = require('{}')", { i(1, "name"), r(1) })),
+    -- require
+    s("locr", fmt("local {} = require('{}')", { i(1, "name"), r(1) })),
 
-  -- note
-  s("note", fmt("-- NOTE: {}", { i(1, "description") })),
+    -- note
+    s("note", fmt("-- NOTE: {}", { i(1, "description") })),
 
-  -- todo
-  s("todo", fmt("-- TODO: {}", { i(1, "description") })),
+    -- todo
+    s("todo", fmt("-- TODO: {}", { i(1, "description") })),
 
-  -- require
-  s(
-    {
-      trig = "req",
-      name = "require module",
-      dscr = "Require a module and set the import to the last word",
-    },
-    fmt([[local {} = require("{}")]], {
-      f(function(import_name)
-        local parts = vim.split(import_name[1][1], ".", true)
-        return parts[#parts] or ""
-      end, { 1 }),
-      i(1),
-    })
-  ),
-  s(
-    {
-      trig = "use",
-      name = "packer use",
-      dscr = {
-        "packer use plugin block",
-        "e.g.",
-        "use {'author/plugin'}",
-      },
-    },
-    fmt([[use {{"{}"{}}}]], {
-      d(1, function()
-        -- Get the author and URL in the clipboard and auto populate the author and project
-        local default = s("", { i(1, "author"), t("/"), i(2, "plugin") })
-        local clip = fn.getreg("*")
-        if not vim.startswith(clip, "https://github.com/") then
-          return default
-        end
-        local parts = vim.split(clip, "/")
-        if #parts < 2 then
-          return default
-        end
-        local author, project = parts[#parts - 1], parts[#parts]
-        return s("", { t(author .. "/" .. project) })
-      end),
-      c(2, {
-        fmt(
-          [[
+    -- require
+    s(
+        {
+            trig = "req",
+            name = "require module",
+            dscr = "Require a module and set the import to the last word",
+        },
+        fmt([[local {} = require("{}")]], {
+            f(function(import_name)
+                local parts = vim.split(import_name[1][1], ".")
+                return parts[#parts] or ""
+            end, { 1 }),
+            i(1),
+        })
+    ),
+    s(
+        {
+            trig = "use",
+            name = "packer use",
+            dscr = {
+                "packer use plugin block",
+                "e.g.",
+                "use {'author/plugin'}",
+            },
+        },
+        fmt([[use {{"{}"{}}}]], {
+            d(1, function()
+                -- Get the author and URL in the clipboard and auto populate the author and project
+                local default = s("", { i(1, "author"), t("/"), i(2, "plugin") })
+                local clip = fn.getreg("*")
+                if not vim.startswith(clip, "https://github.com/") then
+                    return default
+                end
+                local parts = vim.split(clip, "/")
+                if #parts < 2 then
+                    return default
+                end
+                local author, project = parts[#parts - 1], parts[#parts]
+                return s("", { t(author .. "/" .. project) })
+            end),
+            c(2, {
+                fmt(
+                    [[
               , config = function()
                 require("{}").setup()
               end
           ]],
-          { i(1, "module") }
-        ),
-        t(""),
-      }),
-    })
-  ),
-  s("re", fmt('local {}, {} = lk.require("{}")', { i(1, "ok"), i(2, "package"), r(2, "pacakge") })),
+                    { i(1, "module") }
+                ),
+                t(""),
+            }),
+        })
+    ),
+    s("re", fmt('local {}, {} = lk.require("{}")', { i(1, "ok"), i(2, "package"), r(2, "pacakge") })),
 }

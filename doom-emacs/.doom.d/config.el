@@ -29,8 +29,8 @@
 ;; (setq doom-font (font-spec :family "CodeNewRoman Nerd Font" :size 16))
 ;; (setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 16 :weight 'semi-bold))
 ;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'semi-bold))
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 14 :weight 'semi-bold))
-;; (setq doom-font (font-spec :family "MonoLisa Nerd Font" :size 14))
+;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 14 :weight 'semi-bold))
+(setq doom-font (font-spec :family "MonoLisa Nerd Font" :size 14))
 ;; (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14))
 
 (custom-set-faces!

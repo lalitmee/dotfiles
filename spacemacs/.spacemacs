@@ -248,8 +248,8 @@ values."
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator SSm"
-                               ;; "JetBrainsMono Nerd Font"
-                               "SauceCodePro Nerd Font"
+                               "JetBrainsMono Nerd Font"
+                               ;; "SauceCodePro Nerd Font"
                                ;; "MonoLisa"
                                :size 14
                                :weight medium

@@ -1,4 +1,13 @@
----@diagnostic disable: undefined-global
+local session = require("luasnip.session")
+
+local env = session.config.snip_env
+local s = env["s"]
+local t = env["t"]
+local i = env["i"]
+local c = env["c"]
+local fmt = env["fmt"]
+local sn = env["sn"]
+local same = env["same"]
 
 return {
     --------------------------------------------------------------------------------

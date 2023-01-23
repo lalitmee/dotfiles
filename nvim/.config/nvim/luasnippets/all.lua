@@ -1,44 +1,52 @@
----@diagnostic disable: undefined-global
+local session = require("luasnip.session")
+
+local env = session.config.snip_env
+local s = env["s"]
+local t = env["t"]
+local i = env["i"]
+local c = env["c"]
+local f = env["f"]
+local fmt = env["fmt"]
 
 return {
-  s({ trig = "td", name = "TODO" }, {
-    c(1, {
-      t("TODO: "),
-      t("NOTE: "),
-      t("WARN: "),
-      t("FIXME: "),
-      t("HACK: "),
-      t("BUG: "),
+    s({ trig = "td", name = "TODO" }, {
+        c(1, {
+            t("TODO: "),
+            t("NOTE: "),
+            t("WARN: "),
+            t("FIXME: "),
+            t("HACK: "),
+            t("BUG: "),
+        }),
+        i(0),
     }),
-    i(0),
-  }),
-  s(
-    { trig = "hr", name = "Header" },
-    fmt(
-      [[
+    s(
+        { trig = "hr", name = "Header" },
+        fmt(
+            [[
             {1}
             {2} {3}
             {1}
             {4}
           ]],
-      {
-        f(function()
-          local comment = string.format(vim.bo.commentstring:gsub(" ", "") or "#%s", "-")
-          local col = vim.bo.textwidth or 80
-          return comment .. string.rep("-", col - #comment)
-        end),
-        f(function()
-          return vim.bo.commentstring:gsub("%%s", "")
-        end),
-        i(1, "HEADER"),
-        i(0),
-      }
-    )
-  ),
-  s(
-    { trig = "cbox", name = "comment box" },
-    fmt(
-      [[
+            {
+                f(function()
+                    local comment = string.format(vim.bo.commentstring:gsub(" ", "") or "#%s", "-")
+                    local col = vim.bo.textwidth or 80
+                    return comment .. string.rep("-", col - #comment)
+                end),
+                f(function()
+                    return vim.bo.commentstring:gsub("%%s", "")
+                end),
+                i(1, "HEADER"),
+                i(0),
+            }
+        )
+    ),
+    s(
+        { trig = "cbox", name = "comment box" },
+        fmt(
+            [[
             {1}
             {2} {3}{4} {5}
             {1}
@@ -46,37 +54,37 @@ return {
             {1}
             {7}
           ]],
-      {
-        f(function()
-          local comment = string.format(vim.bo.commentstring:gsub(" ", "") or "#%s", "-")
-          local col = vim.bo.textwidth or 80
-          return comment .. string.rep("-", col - #comment)
-        end),
-        f(function()
-          return vim.bo.commentstring:gsub("%%s", "")
-        end),
-        t("NOTE: "),
-        i(1, "description"),
-        t("{{{"),
-        t("}}}"),
-        i(0),
-      }
-    )
-  ),
-  s(
-    { trig = "fdm", name = "fold method marker comment" },
-    fmt(
-      [[
+            {
+                f(function()
+                    local comment = string.format(vim.bo.commentstring:gsub(" ", "") or "#%s", "-")
+                    local col = vim.bo.textwidth or 80
+                    return comment .. string.rep("-", col - #comment)
+                end),
+                f(function()
+                    return vim.bo.commentstring:gsub("%%s", "")
+                end),
+                t("NOTE: "),
+                i(1, "description"),
+                t("{{{"),
+                t("}}}"),
+                i(0),
+            }
+        )
+    ),
+    s(
+        { trig = "fdm", name = "fold method marker comment" },
+        fmt(
+            [[
       {1}{2}
       ]],
-      {
-        f(function()
-          return vim.bo.commentstring:gsub("%%s", "")
-        end),
-        t("vim:fdm=marker"),
-      }
-    )
-  ),
+            {
+                f(function()
+                    return vim.bo.commentstring:gsub("%%s", "")
+                end),
+                t("vim:fdm=marker"),
+            }
+        )
+    ),
 }
 
 --   ls.parser.parse_s(
@@ -91,7 +99,8 @@ return {
 -- ${$TM_FILENAME_BASE} --  TM_FILENAME_BASE The filename of the current document without its extensions
 -- ${$TM_DIRECTORY} --  TM_DIRECTORY The directory of the current document
 -- ${$TM_FILEPATH} --  TM_FILEPATH The full file path of the current document
--- ${$RELATIVE_FILEPATH} --  RELATIVE_FILEPATH The relative (to the opened workspace or folder) file path of the current document
+-- ${$RELATIVE_FILEPATH} --  RELATIVE_FILEPATH The relative (to the opened workspace or folder) file path of the current
+-- document
 -- ${$CLIPBOARD} --  CLIPBOARD The contents of your clipboard
 -- ${$WORKSPACE_NAME} --  WORKSPACE_NAME The name of the opened workspace or folder
 -- ${$WORKSPACE_FOLDER} --  WORKSPACE_FOLDER The path of the opened workspace or folder
