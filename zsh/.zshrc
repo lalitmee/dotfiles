@@ -295,3 +295,4 @@ eval "$(pyenv virtualenv-init -)"
 # -------------------------------------------------------------------
 
 # vim:foldmethod=marker
+source '/home/linuxbrew/.linuxbrew/opt/autoenv/activate.sh'
