@@ -1,0 +1,4 @@
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["fmt", "-", "stdin"] }
