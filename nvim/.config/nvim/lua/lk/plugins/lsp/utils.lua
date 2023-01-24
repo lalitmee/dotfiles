@@ -18,7 +18,7 @@ M.on_attach = function(client, bufnr)
     autocmds.setup_autocommands(client, bufnr)
 
     -- mappings
-    M.mappings()
+    M.mappings(client)
 
     -- capabilities
     M.capabilities(client, bufnr)
@@ -32,7 +32,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: mappings {{{
 ----------------------------------------------------------------------
-M.mappings = function()
+M.mappings = function(client)
     local nmap = lk.nmap
     local imap = lk.imap
 
@@ -45,7 +45,9 @@ M.mappings = function()
     nmap("gr", "<cmd>Telescope lsp_references<CR>", map_opts)
     nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", map_opts)
     nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", map_opts)
-    nmap("K", vim.lsp.buf.hover, map_opts)
+    if client.name ~= "rust_analyzer" then
+        nmap("K", vim.lsp.buf.hover, map_opts)
+    end
     nmap("gD", vim.lsp.buf.declaration, map_opts)
     nmap("gy", vim.lsp.buf.type_definition, map_opts)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
