@@ -9,6 +9,10 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# alias for fonts
+alias fonts="fc-list | cut -d \":\" -f 2- | fzf"
+alias kitty-fonts="kitty +list-fonts --psnames | grep \"^\w\" | fzf"
+
 # alias for dooit
 alias dt="dooit"
 

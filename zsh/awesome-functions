@@ -366,6 +366,31 @@ fzf-man() {
 	fi
 }
 
+fman() {
+    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+}
+
+fzf-man-widget() {
+  batman="man {1} | col -bx | bat --language=man --plain --color always --theme=\"Monokai Extended\""
+   man -k . | sort \
+   | awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' \
+   | fzf  \
+      -q "$1" \
+      --ansi \
+      --tiebreak=begin \
+      --prompt=' Man > '  \
+      --preview-window '50%,rounded,<50(up,85%,border-bottom)' \
+      --preview "${batman}" \
+      --bind "enter:execute(man {1})" \
+      --bind "alt-c:+change-preview(cht.sh {1})+change-prompt(ﯽ Cheat > )" \
+      --bind "alt-m:+change-preview(${batman})+change-prompt( Man > )" \
+      --bind "alt-t:+change-preview(tldr --color=always {1})+change-prompt(ﳁ TLDR > )"
+  zle reset-prompt
+}
+# `Ctrl-H` keybinding to launch the widget (this widget works only on zsh, don't know how to do it on bash and fish (additionaly pressing`ctrl-backspace` will trigger the widget to be executed too because both share the same keycode)
+bindkey '^h' fzf-man-widget
+zle -N fzf-man-widget
+
 # Eval commands on the fly within fzf
 fzf-eval(){
 echo | fzf -q "$*" --preview-window=up:99% --preview="eval {q}"
@@ -498,6 +523,176 @@ fzf-rm() {
     echo $files | xargs -I '{}' rm {} #we use xargs to capture filenames with spaces in them properly
   else
     command rm "$@"
+  fi
+}
+
+# Delete multiple files with FZF
+rmf() {
+    ls | fzf -m | xargs -I {} rm {}
+}
+# }}}
+# -------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#  tmux
+#-------------------------------------------------------------------------------
+tmuxkillf () {
+    local sessions
+    sessions="$(tmux ls|fzf --exit-0 --multi)"  || return $?
+    local i
+    for i in "${(f@)sessions}"
+    do
+        [[ $i =~ '([^:]*):.*' ]] && {
+            echo "Killing $match[1]"
+            tmux kill-session -t "$match[1]"
+        }
+    done
+}
+
+# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+# `tm` will allow you to select your tmux session via fzf.
+# `tm irc` will attach to the irc session (if it exists), else it will create it.
+tm() {
+  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+  if [ $1 ]; then
+    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+  fi
+  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+}
+
+# fs [FUZZY PATTERN] - Select selected tmux session
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fs() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
+}
+
+# ftpane - switch pane
+ftpane() {
+  local panes current_window current_pane target target_window target_pane
+  panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
+  current_pane=$(tmux display-message -p '#I:#P')
+  current_window=$(tmux display-message -p '#I')
+
+  target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --reverse) || return
+
+  target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
+  target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
+
+  if [[ $current_window -eq $target_window ]]; then
+    tmux select-pane -t ${target_window}.${target_pane}
+  else
+    tmux select-pane -t ${target_window}.${target_pane} &&
+    tmux select-window -t $target_window
+  fi
+}
+
+# -------------------------------------------------------------------
+# NOTE: flatpak {{{
+# -------------------------------------------------------------------
+# CLR=$(for i in {0..7}; do echo "tput setaf $i"; done)
+BLK=\$(tput setaf 0); RED=\$(tput setaf 1); GRN=\$(tput setaf 2); YLW=\$(tput setaf 3); BLU=\$(tput setaf 4);
+MGN=\$(tput setaf 5); CYN=\$(tput setaf 6); WHT=\$(tput setaf 7); BLD=\$(tput bold); RST=\$(tput sgr0);
+
+AWK_VAR="awk -v BLK=${BLK} -v RED=${RED} -v GRN=${GRN} -v YLW=${YLW} -v BLU=${BLU} -v MGN=${MGN} -v CYN=${CYN} -v WHT=${WHT} -v BLD=${BLD} -v RST=${RST}"
+
+# Searches only from flathub repository
+fzf-flatpak-install-widget() {
+  flatpak remote-ls flathub --cached --columns=app,name,description \
+  | awk -v cyn=$(tput setaf 6) -v blu=$(tput setaf 4) -v bld=$(tput bold) -v res=$(tput sgr0) \
+  '{
+    app_info="";
+    for(i=2;i<=NF;i++){
+      app_info=cyn app_info" "$i
+    };
+    print blu bld $2" -" res app_info "|" $1
+    }' \
+  | column -t -s "|" -R 3 \
+  | fzf \
+    --ansi \
+    --with-nth=1.. \
+    --prompt="Install > " \
+    --preview-window "nohidden,40%,<50(down,50%,border-rounded)" \
+    --preview "flatpak --system remote-info flathub {-1} | $AWK_VAR -F\":\" '{print YLW BLD \$1 RST WHT \$2}'" \
+    --bind "enter:execute(flatpak install flathub {-1})" # when pressed enter it doesn't showing the key pressed but it is reading the input
+  zle reset-prompt
+}
+bindkey '^[f^[i' fzf-flatpak-install-widget #alt-f + alt-i
+zle -N fzf-flatpak-install-widget
+
+fzf-flatpak-uninstall-widget() {
+  touch /tmp/uns
+  flatpak list --columns=application,name \
+  | awk -v cyn=$(tput setaf 6) -v blu=$(tput setaf 4) -v bld=$(tput bold) -v res=$(tput sgr0)  \
+  '{
+    app_id="";
+    for(i=2;i<=NF;i++){
+      app_id" "$i
+    };
+    print bld cyn $2 " - " res blu $1
+   }' \
+  | column -t \
+  | fzf \
+    --ansi \
+    --with-nth=1.. \
+    --prompt="  Uninstall > " \
+    --header="M-u: Uninstall | M-r: Run" \
+    --header-first \
+    --preview-window "nohidden,50%,<50(up,50%,border-rounded)" \
+    --preview  "flatpak info {3} | $AWK_VAR -F\":\" '{print RED BLD  \$1 RST \$2}'" \
+    --bind "alt-r:change-prompt(Run > )+execute-silent(touch /tmp/run && rm -r /tmp/uns)" \
+    --bind "alt-u:change-prompt(Uninstall > )+execute-silent(touch /tmp/uns && rm -r /tmp/run)" \
+    --bind "enter:execute(
+    if [ -f /tmp/uns ]; then
+      flatpak uninstall {3};
+    elif [ -f /tmp/run ]; then
+      flatpak run {3};
+    fi
+    )" # same as the install one but when pressed  entered the message is something like this
+# "Proceed with these changes to the system installation? [Y/n]:" but it will uninstall the selected app weird but idk y
+  rm -f /tmp/{uns,run} &> /dev/null
+  zle reset-prompt
+}
+bindkey '^[f^[u' fzf-flatpak-uninstall-widget #alt-f + alt-u
+zle -N fzf-flatpak-uninstall-widget
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: homebrew {{{
+# -------------------------------------------------------------------
+# Install (one or multiple) selected application(s)
+# using "brew search" as source input
+# mnemonic [B]rew [I]nstall [P]ackage
+bip() {
+  local inst=$(brew search "$@" | fzf -m)
+
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do; brew install $prog; done;
+  fi
+}
+# Update (one or multiple) selected application(s)
+# mnemonic [B]rew [U]pdate [P]ackage
+bup() {
+  local upd=$(brew leaves | fzf -m)
+
+  if [[ $upd ]]; then
+    for prog in $(echo $upd);
+    do; brew upgrade $prog; done;
+  fi
+}
+# Delete (one or multiple) selected application(s)
+# mnemonic [B]rew [C]lean [P]ackage (e.g. uninstall)
+bcp() {
+  local uninst=$(brew leaves | fzf -m)
+
+  if [[ $uninst ]]; then
+    for prog in $(echo $uninst);
+    do; brew uninstall $prog; done;
   fi
 }
 # }}}

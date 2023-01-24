@@ -45,6 +45,7 @@ g.enable_treesitter_ft = {
     "markdown_inline",
     "python",
     "scss",
+    "toml",
     "typescript",
     "vim",
     "yaml",

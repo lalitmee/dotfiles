@@ -55,6 +55,13 @@ function M.config()
     -- }}}
     --------------------------------------------------------------------------------
 
+    --------------------------------------------------------------------------------
+    --  NOTE: toml {{{
+    --------------------------------------------------------------------------------
+    local taplo_fmt = require("formatter.filetypes.toml").taplo
+    -- }}}
+    --------------------------------------------------------------------------------
+
     ----------------------------------------------------------------------
     -- NOTE: styluafmt {{{
     ----------------------------------------------------------------------
@@ -78,24 +85,25 @@ function M.config()
         filetype = {
             c = { clang_format },
             cpp = { clang_format },
+            css = { prettier },
+            graphql = { prettier },
+            html = { prettier },
             javascript = { prettier },
             javascriptreact = { prettier },
-            typescript = { prettier },
-            typescriptreact = { prettier },
-            css = { prettier },
-            less = { prettier },
-            sass = { prettier },
-            scss = { prettier },
             json = { prettier },
-            graphql = { prettier },
+            less = { prettier },
+            lua = { styluafmt },
             markdown = { prettier },
             python = { black },
+            rust = { rustfmt },
+            sass = { prettier },
+            scss = { prettier },
+            sh = { shfmt },
+            toml = { taplo_fmt },
+            typescript = { prettier },
+            typescriptreact = { prettier },
             vue = { prettier },
             yaml = { prettier },
-            html = { prettier },
-            rust = { rustfmt },
-            lua = { styluafmt },
-            sh = { shfmt },
             ["*"] = {
                 require("formatter.filetypes.any").remove_trailing_whitespace,
             },

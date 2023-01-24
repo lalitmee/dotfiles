@@ -243,5 +243,6 @@ return {
         config = function()
             require("trailblazer").setup()
         end,
+        enabled = false,
     },
 }
