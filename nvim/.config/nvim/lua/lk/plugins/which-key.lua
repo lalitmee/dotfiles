@@ -332,6 +332,7 @@ function M.config()
             ["name"] = "+project",
             ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
             ["f"] = { ":Telescope find_files<cr>", "find-files" },
+            ["l"] = { ":Telescope smart_open<cr>", "smart-open-files" },
             ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
             ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
             ["h"] = { ":Telescope frecency workspace=CWD<CR>", "cwd-frecency" },
