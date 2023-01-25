@@ -20,7 +20,8 @@ lk.augroup("fugitive_au", {
 
             -- rebase always
             vim.keymap.set("n", "<leader>P", function()
-                vim.cmd.Git({ "pull", "--rebase" })
+                -- vim.cmd.Git({ "pull", "--rebase" })
+                vim.cmd([[Git pull --rebase]])
             end, opts)
 
             -- NOTE: It allows me to easily set the branch i am pushing and any tracking
