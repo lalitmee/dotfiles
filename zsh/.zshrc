@@ -72,6 +72,7 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     aliases
+    autoenv
     brew
     colored-man-pages
     command-not-found
@@ -105,7 +106,6 @@ plugins=(
     yarn
     zoxide
     zsh-autosuggestions
-    # zsh-syntax-highlighting
     zsh-wakatime
 )
 
@@ -113,6 +113,9 @@ plugins=(
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
+
+# autoenv
+source '/home/linuxbrew/.linuxbrew/opt/autoenv/activate.sh'
 
 # }}}
 # -------------------------------------------------------------------
@@ -295,4 +298,3 @@ eval "$(pyenv virtualenv-init -)"
 # -------------------------------------------------------------------
 
 # vim:foldmethod=marker
-source '/home/linuxbrew/.linuxbrew/opt/autoenv/activate.sh'
