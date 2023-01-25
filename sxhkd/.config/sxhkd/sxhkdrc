@@ -28,7 +28,7 @@ super + shift + n
    ~/goneovim/goneovim
 
 super + shift + o
-   emacs
+   flatpak run org.gnu.emacs
 
 #}}}
 #-------------------------------------------------------------------------------
