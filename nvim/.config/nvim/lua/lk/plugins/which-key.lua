@@ -536,14 +536,14 @@ function M.config()
         },
         ["w"] = {
             ["name"] = "+tabs",
-            ["c"] = { ":tabnew<CR>", "new-tab" },
+            ["a"] = { ":tabnew<CR>", "new-tab" },
+            ["c"] = { ":tabclose<CR>", "close-tab" },
             ["f"] = { ":tabfirst<CR>", "first-tab" },
             ["j"] = { ":-tabmove<CR>", "move-tab-to-previous-position" },
             ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
             ["l"] = { ":tablast<CR>", "last-tab" },
             ["n"] = { ":tabnext<CR>", "next-tab" },
             ["p"] = { ":tabprevious<CR>", "previous-tab" },
-            ["q"] = { ":tabclose<CR>", "close-tab" },
         },
     }
 

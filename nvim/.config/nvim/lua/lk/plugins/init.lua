@@ -277,6 +277,15 @@ return {
         "ThePrimeagen/vim-be-good",
         cmd = { "VimBeGood" },
     },
+    {
+        "boltlessengineer/bufterm.nvim",
+        -- cmd = { "BufTermEnter" },
+        event = { "VeryLazy" },
+        config = function()
+            require("bufterm").setup()
+        end,
+        enabled = false,
+    },
     -- }}}
     --------------------------------------------------------------------------------
 
