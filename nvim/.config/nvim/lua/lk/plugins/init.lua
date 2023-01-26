@@ -210,6 +210,10 @@ return {
     --  NOTE: tpope {{{
     --------------------------------------------------------------------------------
     {
+        "tpope/vim-dispatch",
+        cmd = { "Dispatch", "Focus", "Make", "Start" },
+    },
+    {
         "tpope/vim-eunuch",
         cmd = {
             "Cfind",
