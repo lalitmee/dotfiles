@@ -14,12 +14,12 @@
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "cmp-tabnine": { "branch": "main", "commit": "ee1341c53e7b82f55c6e83287828f652c2ac35e1" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
-  "cobalt2.nvim": { "branch": "master", "commit": "502e13c4237552d10d543556f0289c9549c63f75" },
+  "cobalt2.nvim": { "branch": "master", "commit": "aa642915ac1db89f22c3691f110c081309e74570" },
   "codeium.vim": { "branch": "main", "commit": "5aced5bbb81b89e66a09989fa16484cab2466b65" },
   "colorbuddy.nvim": { "branch": "master", "commit": "cdb5b0654d3cafe61d2a845e15b2b4b0e78e752a" },
   "colortils.nvim": { "branch": "main", "commit": "4f4d89ccaac8e544c18ab7101e718604a5cdd6b0" },
   "debugprint.nvim": { "branch": "main", "commit": "3a1a265e0adc3422aa2f00a8b49b436f913110ac" },
-  "diffview.nvim": { "branch": "main", "commit": "7de7334ef61a3f3806b1616c2d785b8bbf080060" },
+  "diffview.nvim": { "branch": "main", "commit": "cc01af090d7c7a113032ed82fda6fe0abcccc506" },
   "dressing.nvim": { "branch": "master", "commit": "4436d6f41e2f6b8ada57588acd1a9f8b3d21453c" },
   "emmet-vim": { "branch": "master", "commit": "def5d57a1ae5afb1b96ebe83c4652d1c03640f4d" },
   "fidget.nvim": { "branch": "main", "commit": "44585a0c0085765195e6961c15529ba6c5a2a13b" },
@@ -121,6 +121,7 @@
   "vim-sort-motion": { "branch": "master", "commit": "c8782be8f7da414c6442b3ba4b6abb0345d392d9" },
   "vim-sxhkdrc": { "branch": "master", "commit": "7b8abc305ba346c3af7d57da0ebec2b2f2d3f5b0" },
   "vim-wakatime": { "branch": "master", "commit": "b487cccc0e920e4fdf84f72d2fc1c86ef8dc3bdc" },
+  "virt-column.nvim": { "branch": "master", "commit": "93b40ea038f676f5a72d7d1f2336fe7b051fc0ce" },
   "which-key.nvim": { "branch": "main", "commit": "684e96c5e8477f1ee9b3f2e9a12d802fd12c5531" },
   "yanky.nvim": { "branch": "main", "commit": "7909ff03d073d53859d9507fca79f785cf1d47ef" }
 }

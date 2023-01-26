@@ -198,4 +198,12 @@ return {
             require("magic-bang").setup()
         end,
     },
+    {
+        -- "xiyaowong/virtcolumn.nvim",
+        "lukas-reineke/virt-column.nvim",
+        event = { "VimEnter" },
+        config = function()
+            require("virt-column").setup()
+        end,
+    },
 }
