@@ -30,7 +30,7 @@ alias st="speed"
 # alias for fzf get the output
 alias f="| fzf"
 alias fk="fkill"
-alias procs="procs | fzf -d 40%"
+# alias procs="procs | fzf -d 40%"
 
 # gitmoji aliases
 alias gm="gitmoji -s"
@@ -96,7 +96,6 @@ alias upd="apt update"
 alias update="
 apt upgrade -y &&
 sudo flatpak update &&
-snapu &&
 bubc
 "
 alias updg="apt dist-upgrade -y"
@@ -174,12 +173,9 @@ alias lc='colorls -lA --sd'
 # aliases for npm
 alias npd='npm run dev'
 
-# alias for running tmux with screen-256color
-# alias tmux="env TERM=alacritty tmux -2"
-
 # aliases for sound fix
-alias goodaudio="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') a2dp-sink"
-alias headset="pactl set-card-profile $(pactl list cards |grep 'Name: bluez' |awk '{print $2}') headset-head-unit"
+alias goodaudio="pactl set-card-profile $(pactl list cards | grep 'Name: bluez' | awk '{print $2}') a2dp-sink"
+alias headset="pactl set-card-profile $(pactl list cards | grep 'Name: bluez' | awk '{print $2}') headset-head-unit"
 
 # >> change wallpaper aliases
 alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpapers/*"

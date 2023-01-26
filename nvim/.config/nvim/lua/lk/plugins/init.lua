@@ -36,7 +36,10 @@ return {
         "ThePrimeagen/vim-be-good",
         cmd = { "VimBeGood" },
     },
-    { "baskerville/vim-sxhkdrc" },
+    {
+        "baskerville/vim-sxhkdrc",
+        event = { "VeryLazy" },
+    },
     {
         "christoomey/vim-sort-motion",
         event = { "VeryLazy" },
@@ -77,38 +80,6 @@ return {
         cmd = { "MarkdownPreviewToggle" },
     },
     {
-        "jackMort/ChatGPT.nvim",
-        cmd = {
-            "ChatGPT",
-            "ChatGPTRun",
-            "ChatGPTActAs",
-            "ChatGPTEditWithInstructions",
-        },
-        init = function()
-            lk.command("ChatGPTRun", function(opts)
-                require("chatgpt").run_action(opts)
-            end, {
-                nargs = "*",
-                range = true,
-                complete = function()
-                    local match = {
-                        "add_tests",
-                        "docstring",
-                        "fix_bugs",
-                        "grammar_correction",
-                        "optimize_code",
-                        "summarize",
-                        "translate",
-                    }
-                    return match
-                end,
-            })
-        end,
-        config = function()
-            require("chatgpt").setup()
-        end,
-    },
-    {
         "kylechui/nvim-surround",
         event = { "VeryLazy" },
         config = function()
@@ -146,7 +117,6 @@ return {
     {
         "ray-x/go.nvim",
         ft = "go",
-        enabled = false,
     },
     {
         "rcarriga/nvim-notify",
@@ -155,27 +125,6 @@ return {
     {
         "romainl/vim-cool",
         event = { "VeryLazy" },
-    },
-    {
-        "sindrets/diffview.nvim",
-        cmd = {
-            "DiffviewOpen",
-            "DiffviewFileHistory",
-            "DiffviewLog",
-        },
-        config = function()
-            require("diffview").setup({
-                enhanced_diff_hl = true,
-                key_bindings = {
-                    file_panel = {
-                        q = "<Cmd>DiffviewClose<CR>",
-                    },
-                    view = {
-                        q = "<Cmd>DiffviewClose<CR>",
-                    },
-                },
-            })
-        end,
     },
     {
         "tpope/vim-abolish",
@@ -188,10 +137,6 @@ return {
     {
         "tpope/vim-scriptease",
         cmd = { "Messages", "Verbose" },
-    },
-    {
-        "tpope/vim-sleuth",
-        event = { "BufEnter" },
     },
     {
         "tweekmonster/startuptime.vim",
@@ -214,7 +159,7 @@ return {
     },
     {
         "andymass/vim-matchup",
-        event = "BufReadPost",
+        event = { "BufReadPost" },
         init = function()
             vim.g.matchup_matchparen_offscreen = {
                 method = "popup",
@@ -225,6 +170,7 @@ return {
     {
         "antonk52/markdowny.nvim",
         ft = { "markdown", "text" },
+        keys = { "<C-b>", "<C-k>", "<C-i>" },
         config = function()
             require("markdowny").setup()
         end,
@@ -244,5 +190,12 @@ return {
             require("trailblazer").setup()
         end,
         enabled = false,
+    },
+    { -- will add bang(#!) like this on running `:Bang`
+        "susensio/magic-bang.nvim",
+        cmd = { "Bang" },
+        config = function()
+            require("magic-bang").setup()
+        end,
     },
 }
