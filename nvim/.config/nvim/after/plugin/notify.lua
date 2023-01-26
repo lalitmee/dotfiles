@@ -6,14 +6,14 @@ if not ok then
 end
 
 notify.setup({
-    background_colour = "ColorColumn",
+    -- background_colour = "NormalFloat",
     timeout = 3000,
-    stages = "fade_in_slide_out",
+    stages = "slide",
     max_width = function()
-        return math.floor(vim.o.columns * 0.8)
+        return math.floor(vim.go.columns * 0.8)
     end,
     max_height = function()
-        return math.floor(vim.o.lines * 0.8)
+        return math.floor(vim.go.lines * 0.8)
     end,
     on_open = function(win)
         if api.nvim_win_is_valid(win) then

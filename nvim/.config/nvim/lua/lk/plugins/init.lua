@@ -1,7 +1,66 @@
 return {
+    --------------------------------------------------------------------------------
+    --  NOTE: must {{{
+    --------------------------------------------------------------------------------
     {
         "nvim-lua/plenary.nvim",
         event = { "VeryLazy" },
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: UI {{{
+    --------------------------------------------------------------------------------
+    {
+        "rcarriga/nvim-notify",
+        event = { "VeryLazy" },
+    },
+    {
+        -- "xiyaowong/virtcolumn.nvim",
+        "lukas-reineke/virt-column.nvim",
+        event = { "VimEnter" },
+        config = function()
+            require("virt-column").setup()
+        end,
+    },
+    {
+        url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+        ft = "qf",
+        config = function()
+            require("pqf").setup()
+        end,
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: actions {{{
+    --------------------------------------------------------------------------------
+    {
+        "andymass/vim-matchup",
+        event = { "BufReadPost" },
+        init = function()
+            vim.g.matchup_matchparen_offscreen = {
+                method = "popup",
+                border = "rounded",
+            }
+        end,
+    },
+    {
+        "ckolkey/ts-node-action",
+        event = { "VeryLazy" },
+        dependencies = { "nvim-treesitter" },
+        init = function()
+            lk.nnoremap("<leader>k", require("ts-node-action").node_action, { desc = "Trigger Node Action" })
+        end,
+    },
+    { -- will add bang(#!) like this on running `:Bang`
+        "susensio/magic-bang.nvim",
+        cmd = { "Bang" },
+        config = function()
+            require("magic-bang").setup()
+        end,
     },
     {
         "andrewferrier/debugprint.nvim",
@@ -14,6 +73,164 @@ return {
         "NvChad/nvim-colorizer.lua",
         cmd = { "ColorizerToggle" },
     },
+    {
+        "christoomey/vim-sort-motion",
+        event = { "VeryLazy" },
+    },
+    {
+        "famiu/bufdelete.nvim",
+        cmd = { "Bdelete" },
+    },
+    {
+        "godlygeek/tabular",
+        cmd = { "Tabularize" },
+    },
+    {
+        "danymat/neogen",
+        cmd = { "Neogen" },
+        config = function()
+            require("neogen").setup({ snippet_engine = "luasnip" })
+        end,
+    },
+    {
+        "kylechui/nvim-surround",
+        event = { "VeryLazy" },
+        config = function()
+            require("nvim-surround").setup()
+        end,
+    },
+    {
+        "mbbill/undotree",
+        cmd = { "UndotreeToggle" },
+    },
+    {
+        "mizlan/iswap.nvim",
+        cmd = { "ISwapWith", "ISwap" },
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: motions {{{
+    --------------------------------------------------------------------------------
+    {
+        "wellle/targets.vim",
+        event = { "VeryLazy" },
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: languages {{{
+    --------------------------------------------------------------------------------
+    {
+        "baskerville/vim-sxhkdrc",
+        event = { "VeryLazy" },
+    },
+    {
+        "antonk52/markdowny.nvim",
+        ft = { "markdown", "text" },
+        keys = { "<C-b>", "<C-k>", "<C-i>" },
+        config = function()
+            require("markdowny").setup()
+        end,
+    },
+    {
+        "ellisonleao/glow.nvim",
+        ft = "markdown",
+        cmd = { "Glow" },
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+        ft = "markdown",
+        cmd = { "MarkdownPreviewToggle" },
+    },
+    {
+        "ray-x/go.nvim",
+        ft = "go",
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: colorschemes {{{
+    --------------------------------------------------------------------------------
+    {
+        "lalitmee/cobalt2.nvim",
+        dependencies = "tjdevries/colorbuddy.nvim",
+        event = { "VimEnter" },
+        lazy = true,
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: enhancements {{{
+    --------------------------------------------------------------------------------
+    {
+        "nvim-colortils/colortils.nvim",
+        cmd = { "Colortils" },
+        config = function()
+            require("colortils").setup()
+        end,
+    },
+    {
+        "tweekmonster/startuptime.vim",
+        cmd = "StartupTime",
+    },
+    {
+        "wakatime/vim-wakatime",
+        event = { "VimEnter" },
+    },
+    {
+        "ziontee113/icon-picker.nvim",
+        config = function()
+            require("icon-picker")
+        end,
+        cmd = { "PickEverything" },
+    },
+    {
+        "pwntester/octo.nvim",
+        cmd = { "Octo" },
+        config = function()
+            require("octo").setup()
+        end,
+    },
+    {
+        "romainl/vim-cool",
+        event = { "VeryLazy" },
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: tpope {{{
+    --------------------------------------------------------------------------------
+    {
+        "tpope/vim-abolish",
+        event = { "VeryLazy" },
+    },
+    {
+        "tpope/vim-repeat",
+        event = { "VeryLazy" },
+    },
+    {
+        "tpope/vim-scriptease",
+        cmd = { "Messages", "Verbose" },
+    },
+    {
+        "tpope/vim-unimpaired",
+        event = { "VeryLazy" },
+    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: ThePrimeagen {{{
+    --------------------------------------------------------------------------------
     {
         "ThePrimeagen/git-worktree.nvim",
         keys = {
@@ -36,153 +253,12 @@ return {
         "ThePrimeagen/vim-be-good",
         cmd = { "VimBeGood" },
     },
-    {
-        "baskerville/vim-sxhkdrc",
-        event = { "VeryLazy" },
-    },
-    {
-        "christoomey/vim-sort-motion",
-        event = { "VeryLazy" },
-    },
-    {
-        "danymat/neogen",
-        cmd = { "Neogen" },
-        config = function()
-            require("neogen").setup({ snippet_engine = "luasnip" })
-        end,
-    },
-    {
-        "ellisonleao/glow.nvim",
-        ft = "markdown",
-        cmd = { "Glow" },
-    },
-    {
-        "famiu/bufdelete.nvim",
-        cmd = { "Bdelete" },
-    },
-    {
-        "godlygeek/tabular",
-        cmd = { "Tabularize" },
-    },
-    {
-        url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-        ft = "qf",
-        config = function()
-            require("pqf").setup()
-        end,
-    },
-    {
-        "iamcco/markdown-preview.nvim",
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-        ft = "markdown",
-        cmd = { "MarkdownPreviewToggle" },
-    },
-    {
-        "kylechui/nvim-surround",
-        event = { "VeryLazy" },
-        config = function()
-            require("nvim-surround").setup()
-        end,
-    },
-    {
-        "lalitmee/cobalt2.nvim",
-        dependencies = "tjdevries/colorbuddy.nvim",
-        event = { "VimEnter" },
-        lazy = true,
-    },
-    {
-        "mbbill/undotree",
-        cmd = { "UndotreeToggle" },
-    },
-    {
-        "mizlan/iswap.nvim",
-        cmd = { "ISwapWith", "ISwap" },
-    },
-    {
-        "nvim-colortils/colortils.nvim",
-        cmd = { "Colortils" },
-        config = function()
-            require("colortils").setup()
-        end,
-    },
-    {
-        "pwntester/octo.nvim",
-        cmd = { "Octo" },
-        config = function()
-            require("octo").setup()
-        end,
-    },
-    {
-        "ray-x/go.nvim",
-        ft = "go",
-    },
-    {
-        "rcarriga/nvim-notify",
-        event = { "VeryLazy" },
-    },
-    {
-        "romainl/vim-cool",
-        event = { "VeryLazy" },
-    },
-    {
-        "tpope/vim-abolish",
-        event = { "VeryLazy" },
-    },
-    {
-        "tpope/vim-repeat",
-        event = { "VeryLazy" },
-    },
-    {
-        "tpope/vim-scriptease",
-        cmd = { "Messages", "Verbose" },
-    },
-    {
-        "tweekmonster/startuptime.vim",
-        cmd = "StartupTime",
-    },
-    {
-        "wakatime/vim-wakatime",
-        event = { "VimEnter" },
-    },
-    {
-        "wellle/targets.vim",
-        event = { "VeryLazy" },
-    },
-    {
-        "ziontee113/icon-picker.nvim",
-        config = function()
-            require("icon-picker")
-        end,
-        cmd = { "PickEverything" },
-    },
-    {
-        "andymass/vim-matchup",
-        event = { "BufReadPost" },
-        init = function()
-            vim.g.matchup_matchparen_offscreen = {
-                method = "popup",
-                border = "rounded",
-            }
-        end,
-    },
-    {
-        "antonk52/markdowny.nvim",
-        ft = { "markdown", "text" },
-        keys = { "<C-b>", "<C-k>", "<C-i>" },
-        config = function()
-            require("markdowny").setup()
-        end,
-    },
-    {
-        "ckolkey/ts-node-action",
-        event = { "VeryLazy" },
-        dependencies = { "nvim-treesitter" },
-        init = function()
-            lk.nnoremap("<leader>k", require("ts-node-action").node_action, { desc = "Trigger Node Action" })
-        end,
-    },
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: disabled {{{
+    --------------------------------------------------------------------------------
     {
         "LeonHeidelbach/trailblazer.nvim",
         event = { "VeryLazy" },
@@ -191,19 +267,8 @@ return {
         end,
         enabled = false,
     },
-    { -- will add bang(#!) like this on running `:Bang`
-        "susensio/magic-bang.nvim",
-        cmd = { "Bang" },
-        config = function()
-            require("magic-bang").setup()
-        end,
-    },
-    {
-        -- "xiyaowong/virtcolumn.nvim",
-        "lukas-reineke/virt-column.nvim",
-        event = { "VimEnter" },
-        config = function()
-            require("virt-column").setup()
-        end,
-    },
+    -- }}}
+    --------------------------------------------------------------------------------
 }
+
+-- vim:fdm=marker
