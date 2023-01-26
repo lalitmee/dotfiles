@@ -7,6 +7,8 @@ end
 local clangd = get_server_options("clangd")
 local sumneko_lua = get_server_options("sumneko_lua")
 local rust_analyzer = get_server_options("rust_analyzer")
+local tsserver = get_server_options("tsserver")
+local gopls = get_server_options("gopls")
 
 return {
     bashls = true,
@@ -14,13 +16,13 @@ return {
     cssls = true,
     dockerls = true,
     emmet_ls = true,
-    gopls = true,
+    gopls = gopls,
     jsonls = true,
     pyright = true,
     remark_ls = true,
     rust_analyzer = rust_analyzer,
     sumneko_lua = sumneko_lua,
     tailwindcss = true,
-    tsserver = true,
+    tsserver = tsserver,
     vimls = true,
 }
