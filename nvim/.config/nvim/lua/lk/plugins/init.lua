@@ -38,6 +38,15 @@ return {
     --  NOTE: actions {{{
     --------------------------------------------------------------------------------
     {
+        "jghauser/fold-cycle.nvim",
+        config = function()
+            require("fold-cycle").setup()
+            lk.nnoremap("<CR>", function()
+                require("fold-cycle").open()
+            end)
+        end,
+    },
+    {
         "andymass/vim-matchup",
         event = { "BufReadPost" },
         init = function()
@@ -277,14 +286,12 @@ return {
         "ThePrimeagen/vim-be-good",
         cmd = { "VimBeGood" },
     },
-    {
+    { -- treat terminal windows as buffers so that :bd! can work
         "boltlessengineer/bufterm.nvim",
-        -- cmd = { "BufTermEnter" },
         event = { "VeryLazy" },
         config = function()
             require("bufterm").setup()
         end,
-        enabled = false,
     },
     -- }}}
     --------------------------------------------------------------------------------

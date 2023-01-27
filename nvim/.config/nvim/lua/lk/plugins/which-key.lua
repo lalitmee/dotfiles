@@ -70,6 +70,7 @@ function M.config()
             ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
             ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
             ["d"] = { ":Bdelete<CR>", "delete-buffer" },
+            ["D"] = { ":Bdelete!<CR>", "delete-buffer-without-prompt" },
             ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "search-buffer-lines" },
             ["m"] = { ":Telescope marks<CR>", "telescope-marks" },
             ["M"] = { ":delm!<CR>", "delete-marks" },
