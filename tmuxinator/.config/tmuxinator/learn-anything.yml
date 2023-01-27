@@ -10,3 +10,4 @@ windows:
   - golang: cd golang && ls
   - javascript: cd javascript && ls
   - python: cd python && ls
+  - rust: cd ~/Desktop/Github/rustlings && ls

@@ -43,7 +43,7 @@ augroup("terminal_au", {
         event = { "TermOpen" },
         pattern = { "term://*" },
         command = function()
-            if vim.bo.filetype == "" or vim.bo.filetype == "toggleterm" then
+            if vim.bo.filetype == "" or vim.bo.filetype == "toggleterm" or vim.bo.filetype == "BufTerm" then
                 local opts = { silent = false, buffer = 0 }
                 tnoremap("<esc>", [[<C-\><C-n>]], opts)
                 tnoremap("jk", [[<C-\><C-n>]], opts)
