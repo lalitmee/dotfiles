@@ -23,6 +23,7 @@ return {
     rust_analyzer = rust_analyzer,
     sumneko_lua = sumneko_lua,
     tailwindcss = true,
+    taplo = true,
     tsserver = tsserver,
     vimls = true,
 }
