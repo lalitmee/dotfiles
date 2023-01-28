@@ -138,7 +138,7 @@ VI_MODE_SET_CURSOR=true
 export TERM="xterm-256color"
 
 if [[ $TERM == xterm ]]; then
-    TERM=screen-256color;
+    TERM=screen-256color
 fi
 
 # You may need to manually set your language environment
@@ -160,13 +160,13 @@ declare -A pomo_options
 pomo_options["work"]="45"
 pomo_options["break"]="10"
 
-pomodoro () {
-  if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
-  val=$1
-  echo $val | lolcat
-  timer ${pomo_options["$val"]}m
-  spd-say "'$val' session done"
-  fi
+pomodoro() {
+    if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
+        val=$1
+        echo $val | lolcat
+        timer ${pomo_options["$val"]}m
+        spd-say "'$val' session done"
+    fi
 }
 
 alias wo="pomodoro 'work'"
@@ -234,7 +234,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 # -------------------------------------------------------------------
 # NOTE: kill port {{{
 # -------------------------------------------------------------------
-killport () {
+killport() {
     PID=$(sudo lsof -t -i:$1)
     sudo kill -9 ${PID}
 }
@@ -267,7 +267,7 @@ source ~/.openai
 # NOTE: auto start tmux {{{
 # start tmux while starting new terminal
 # -------------------------------------------------------------------
-_not_inside_tmux() { [[ -z "$TMUX" ]] }
+_not_inside_tmux() { [[ -z "$TMUX" ]]; }
 
 ensure_tmux_is_running() {
     if _not_inside_tmux; then
@@ -283,8 +283,8 @@ ensure_tmux_is_running
 # NOTE: time zsh {{{
 # -------------------------------------------------------------------
 timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+    shell=${1-$SHELL}
+    for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 # }}}
 # -------------------------------------------------------------------

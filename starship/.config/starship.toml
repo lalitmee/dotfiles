@@ -1,47 +1,116 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$nodejs\
+$cmd_duration $jobs $time\
+$line_break\
+$character"""
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
+# make things go to the right side
+[fill]
+symbol = " "
+
 #-------------------------------------------------------------------------------
-#  NOTE: character {{{
+#  NOTE: propmpt char {{{
 #-------------------------------------------------------------------------------
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[➜](bold red)"
+success_symbol = "[](bold green)"
+error_symbol = "[](bold red)"
+vicmd_symbol = "[](bold yellow)"
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: time {{{
-#-------------------------------------------------------------------------------
-[time]
-disabled = true
-format = '🕙[\[ $time \]]($style) '
-time_format = "%I:%M %p"
-utc_time_offset = "-5"
-time_range = "10:00:00-14:00:00"
-use_12hr= true
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: directory {{{
+#  NOTE: dir {{{
 #-------------------------------------------------------------------------------
 [directory]
-# truncation_length = 8
-# truncation_symbol = "…/"
+style = "bold blue"
+read_only = " "
+truncation_length = 4
+truncate_to_repo = false
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#  NOTE: jobs {{{
+#-------------------------------------------------------------------------------
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#  NOTE: memory {{{
+#-------------------------------------------------------------------------------
+[memory_usage]
+symbol = " "
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#  NOTE: time and duration {{{
+#-------------------------------------------------------------------------------
+[time]
+disabled = false
+style = "bold white"
+format = ' [ $time]($style) '
+use_12hr = true
+
+[cmd_duration]
+min_time = 1
+format = " [ $duration]($style)"
+style = "yellow"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#  NOTE: git {{{
+#-------------------------------------------------------------------------------
+[git_metrics]
+disabled = false
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "bright-black"
+
+[git_status]
+ahead = "↑${count}"
+diverged = "↕↑${ahead_count}↓${behind_count}"
+behind = "↓${count}"
+style = "cyan"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 #  NOTE: packages and languages {{{
 #-------------------------------------------------------------------------------
-[dotnet]
-disabled = true
+[rust]
+symbol = " "
 
-[python]
+[nodejs]
+format = "[$symbol($version )]($style)"
+
+[dotnet]
 disabled = true
 
 [package]
@@ -50,33 +119,12 @@ disabled = true
 [ruby]
 disabled = true
 
-[rust]
-disabled = true
-
-[nodejs]
-disabled = true
-
 [java]
-disabled = true
-
-[golang]
 disabled = true
 
 [aws]
 disabled = true
-# }}}
-#-------------------------------------------------------------------------------
 
-#-------------------------------------------------------------------------------
-#  NOTE: git {{{
-#-------------------------------------------------------------------------------
-[git_branch]
-symbol = " "
-
-[git_status]
-ahead = "↑${count}"
-diverged = "↕↑${ahead_count}↓${behind_count}"
-behind = "↓${count}"
 # }}}
 #-------------------------------------------------------------------------------
 
