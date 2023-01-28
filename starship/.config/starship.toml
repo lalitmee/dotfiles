@@ -26,9 +26,9 @@ symbol = " "
 #  NOTE: propmpt char {{{
 #-------------------------------------------------------------------------------
 [character]
-success_symbol = "[](bold green)"
-error_symbol = "[](bold red)"
-vicmd_symbol = "[](bold yellow)"
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+vicmd_symbol = "[](bold yellow)"
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -98,6 +98,9 @@ style = "cyan"
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
+
+[git_commit]
+disabled = false
 # }}}
 #-------------------------------------------------------------------------------
 
