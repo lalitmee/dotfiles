@@ -158,6 +158,11 @@ return {
         cmd = { "MarkdownPreviewToggle" },
     },
     {
+        "dhruvasagar/vim-table-mode",
+        -- ft = { "markdown", "txt" },
+        cmd = { "TableModeToggle" },
+    },
+    {
         "ray-x/go.nvim",
         ft = "go",
     },
