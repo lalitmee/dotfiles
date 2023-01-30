@@ -70,6 +70,12 @@ local M = {
             end,
             dependencies = { "kkharji/sqlite.lua" },
         },
+        {
+            "tsakirist/telescope-lazy.nvim",
+            init = function()
+                require("telescope").load_extension("lazy")
+            end,
+        },
     },
 }
 
@@ -141,27 +147,25 @@ function M.config()
     local Job = require("plenary.job")
     local new_maker = function(filepath, bufnr, opts)
         filepath = vim.fn.expand(filepath)
-        Job
-            :new({
-                command = "file",
-                args = { "--mime-type", "-b", filepath },
-                on_exit = function(j)
-                    local mime_class = vim.split(j:result()[1], "/")[1]
-                    local mime_type = j:result()[1]
-                    if
-                        mime_class == "text"
-                        or (mime_class == "application" and mime_type ~= "application/x-pie-executable")
-                    then
-                        previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                    else
-                        -- maybe we want to write something to the buffer here
-                        vim.schedule(function()
-                            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
-                        end)
-                    end
-                end,
-            })
-            :sync()
+        Job:new({
+            command = "file",
+            args = { "--mime-type", "-b", filepath },
+            on_exit = function(j)
+                local mime_class = vim.split(j:result()[1], "/")[1]
+                local mime_type = j:result()[1]
+                if
+                    mime_class == "text"
+                    or (mime_class == "application" and mime_type ~= "application/x-pie-executable")
+                then
+                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
+                else
+                    -- maybe we want to write something to the buffer here
+                    vim.schedule(function()
+                        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+                    end)
+                end
+            end,
+        }):sync()
     end
     -- }}}
     --------------------------------------------------------------------------------
@@ -333,6 +337,7 @@ function M.config()
                 hidden_files = true,
                 order_by = "recent",
             },
+            lazy = {},
         },
     })
     -- }}}
