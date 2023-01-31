@@ -7,6 +7,8 @@ local M = {
     event = { "VimEnter" },
 }
 
+M.enabled = false
+
 function M.config()
     local ok, tabby = lk.require("tabby")
     if not ok then
