@@ -2,3 +2,20 @@
 name = "toml"
 auto-format = true
 formatter = { command = "taplo", args = ["fmt", "-", "stdin"] }
+
+[[language]]
+name = "javascript"
+formatter = { command = "prettierd", args = ["stdin"] }
+auto-format = true
+
+[[language]]
+name = "python"
+indent = { tab-width = 4, unit = " " }
+language-server = { command = "pyright-langserver", args = ["--stdio"] }
+formatter = { command = "black", args = ["-"] }
+auto-format = true
+config = {}
+
+[[language]]
+name = "rust"
+auto-format = true
