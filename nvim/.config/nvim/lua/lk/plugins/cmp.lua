@@ -75,6 +75,7 @@ function M.config()
             ["<S-Tab>"] = nil,
         },
         sources = cmp.config.sources({
+            { name = "codeium" },
             {
                 name = "nvim_lsp",
                 keyword_length = 3,
@@ -120,8 +121,9 @@ function M.config()
         formatting = {
             format = lspkind.cmp_format({
                 menu = {
-                    cmp_tabnine = "[TBN]",
                     buffer = "[BUF]",
+                    cmp_tabnine = "[TBN]",
+                    codeium = "[AI]",
                     luasnip = "[SNIP]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[API]",
