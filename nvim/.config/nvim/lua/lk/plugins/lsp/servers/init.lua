@@ -19,7 +19,7 @@ return {
     gopls = gopls,
     jsonls = true,
     pyright = true,
-    remark_ls = true,
+    remark_ls = false,
     rust_analyzer = rust_analyzer,
     sumneko_lua = sumneko_lua,
     tailwindcss = true,
