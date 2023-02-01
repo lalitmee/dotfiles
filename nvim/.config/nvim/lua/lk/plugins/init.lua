@@ -48,21 +48,15 @@ return {
     },
     {
         "andymass/vim-matchup",
-        event = { "BufReadPost" },
-        init = function()
-            vim.g.matchup_matchparen_offscreen = {
-                method = "popup",
-                border = "rounded",
-            }
+        event = "BufReadPost",
+        config = function()
+            vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,
     },
     {
         "ckolkey/ts-node-action",
         event = { "VeryLazy" },
         dependencies = { "nvim-treesitter" },
-        init = function()
-            lk.nnoremap("<leader>k", require("ts-node-action").node_action, { desc = "Trigger Node Action" })
-        end,
     },
     { -- will add bang(#!) like this on running `:Bang`
         "susensio/magic-bang.nvim",

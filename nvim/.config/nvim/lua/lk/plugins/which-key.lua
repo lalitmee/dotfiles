@@ -249,6 +249,7 @@ function M.config()
             ["w"] = { ":HopWord<CR>", "word" },
             ["W"] = { ":HopWordMW<CR>", "word-mw" },
         },
+        ["k"] = { require("ts-node-action").node_action, "Trigger Node Action" },
         ["l"] = {
             ["name"] = "+lsp",
             ["a"] = { ":LspCodeActions<CR>", "code-action" },

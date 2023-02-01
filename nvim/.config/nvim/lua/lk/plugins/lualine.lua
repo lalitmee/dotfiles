@@ -23,7 +23,7 @@ function M.config()
     --  NOTE: active lsp clients {{{
     --------------------------------------------------------------------------------
     local function get_active_lsp_clients()
-        local bufnr = vim.api.nvim_get_current_buf()
+        local bufnr = vim.fn.bufnr(0)
         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
         local active_clients = {}
         for _, client in ipairs(clients) do
@@ -33,22 +33,6 @@ function M.config()
     end
     -- }}}
     --------------------------------------------------------------------------------
-
-    -- --------------------------------------------------------------------------------
-    -- --  NOTE: battery charging {{{
-    -- --------------------------------------------------------------------------------
-    -- local function get_animated_battery()
-    --     local battery_states = {
-    --         "",
-    --         "",
-    --         "",
-    --         "",
-    --         "",
-    --     }
-    --     return battery_states[os.date("%S") % #battery_states + 1]
-    -- end
-    -- -- }}}
-    -- --------------------------------------------------------------------------------
 
     ----------------------------------------------------------------------
     -- NOTE: setup {{{
