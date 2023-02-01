@@ -1,3 +1,4 @@
+-- NOTE: from here https://github.com/akinsho/dotfiles
 if not vim.o.statuscolumn then
     return
 end
