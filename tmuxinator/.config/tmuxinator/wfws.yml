@@ -1,17 +1,15 @@
 # /home/lalit/.config/tmuxinator/wfws.yml
 
 name: wfws
-root: ~/Desktop/koinearth/marketsn/worktrees/wf-webapp-service
+root: ~/Desktop/koinearth/marketsn/wf-webapp-service
 
 windows:
   - Editor: ls
-  - Git: ls
-  - Cmus: cmus
   - Servers:
       layout: even-horizontal
       panes:
-        - cd ../../wf-webapp-service && npmst
-        - cd ../../worktrees/marketsn-webapp-service-nextjs/test-env && yd
+        - cd npmst
+        - cd ../marketsn-webapp-service-nextjs && npd
   - Caddy:
       - cd ../..
       - caddy run
