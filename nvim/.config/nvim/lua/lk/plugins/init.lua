@@ -177,6 +177,7 @@ return {
         dependencies = "tjdevries/colorbuddy.nvim",
         event = { "VimEnter" },
         lazy = true,
+        dev = true,
     },
     -- }}}
     --------------------------------------------------------------------------------
