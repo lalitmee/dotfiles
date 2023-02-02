@@ -4,12 +4,7 @@ local M = {
 }
 
 function M.config()
-    local ok, fzf_lua = lk.require("fzf-lua")
-    if not ok then
-        return
-    end
-
-    fzf_lua.setup({
+    require("fzf-lua").setup({
         fzf_opts = {},
         grep = {
             rg_glob = true,

@@ -4,12 +4,7 @@ local M = {
 }
 
 function M.config()
-    local ok, bqf = lk.require("bqf")
-    if not ok then
-        return
-    end
-
-    bqf.setup({
+    require("bqf").setup({
         auto_enable = true,
         preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
         filter = {

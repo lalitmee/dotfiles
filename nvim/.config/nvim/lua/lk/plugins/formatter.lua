@@ -5,12 +5,8 @@ local M = {
     enabled = false,
 }
 
-function M.config()
-    local ok, formatter = lk.require("formatter")
-    if not ok then
-        return
-    end
-
+M.config = function()
+    local formatter = require("formatter")
     local util = require("formatter.util")
 
     ----------------------------------------------------------------------

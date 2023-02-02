@@ -5,12 +5,7 @@ local M = {
 }
 
 function M.config()
-    local ok, mason = lk.require("mason")
-    if not ok then
-        return
-    end
-
-    mason.setup({
+    require("mason").setup({
         ui = {
             border = "rounded",
             icons = {

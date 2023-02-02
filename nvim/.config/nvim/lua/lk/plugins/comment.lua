@@ -4,12 +4,7 @@ local M = {
 }
 
 function M.config()
-    local status_ok, comment = lk.require("Comment")
-    if not status_ok then
-        return
-    end
-
-    comment.setup({
+    require("Comment").setup({
         ignore = "^$",
         pre_hook = function(ctx)
             local U = require("Comment.utils")

@@ -4,12 +4,7 @@ local M = {
 }
 
 function M.config()
-    local ok, signs = lk.require("gitsigns")
-    if not ok then
-        return
-    end
-
-    signs.setup({
+    require("gitsigns").setup({
         signs = {
             add = {
                 hl = "GitSignsAdd",

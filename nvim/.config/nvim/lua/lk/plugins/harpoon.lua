@@ -16,14 +16,9 @@ local M = {
 }
 
 function M.config()
-    local ok, harpoon = lk.require("harpoon")
-    if not ok then
-        return
-    end
-
     local command = lk.command
 
-    harpoon.setup({
+    require("harpoon").setup({
         menu = {
             width = vim.api.nvim_win_get_width(0) - 150,
             height = vim.api.nvim_win_get_height(0) - 38,

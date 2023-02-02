@@ -1,27 +1,23 @@
 -- improve default neovim UI
 local M = {
     "stevearc/dressing.nvim",
-    init = function()
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.select = function(...)
-            require("lazy").load({ plugins = { "dressing.nvim" } })
-            return vim.ui.select(...)
-        end
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.input = function(...)
-            require("lazy").load({ plugins = { "dressing.nvim" } })
-            return vim.ui.input(...)
-        end
-    end,
     event = { "VeryLazy" },
 }
 
-function M.config()
-    local dressing_ok, dressing = lk.require("dressing")
-    if not dressing_ok then
-        return
+M.init = function()
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
     end
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+    end
+end
 
+M.config = function()
     -- NOTE: the limit is half the max lines because this is the cursor theme so
     -- unless the cursor is at the top or bottom it realistically most often will
     -- only have half the screen available
@@ -32,7 +28,7 @@ function M.config()
         return (results <= (LIMIT - PADDING) and results + PADDING or LIMIT)
     end
 
-    dressing.setup({
+    require("dressing").setup({
         input = {
             insert_only = false,
             win_options = { winblend = 2 },

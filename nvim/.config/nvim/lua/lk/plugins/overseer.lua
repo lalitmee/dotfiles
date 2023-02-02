@@ -15,10 +15,7 @@ local M = {
 }
 
 function M.config()
-    local ok, overseer = lk.require("overseer")
-    if not ok then
-        return
-    end
+    local overseer = require("overseer")
 
     overseer.setup({
         -- templates = {

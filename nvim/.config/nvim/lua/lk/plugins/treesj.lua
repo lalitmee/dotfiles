@@ -5,17 +5,13 @@ local M = {
 }
 
 function M.config()
-    local ok, treesj = lk.require("treesj")
-    if not ok then
-        return
-    end
+    require("treesj").setup({})
 
-    treesj.setup({})
-
+    local nnoremap = lk.nnoremap
     local opts = { silent = true }
 
-    lk.nnoremap("gS", [[<cmd>TSJSplit<CR>]], opts)
-    lk.nnoremap("gJ", [[<cmd>TSJJoin<CR>]], opts)
+    nnoremap("gS", [[<cmd>TSJSplit<CR>]], opts)
+    nnoremap("gJ", [[<cmd>TSJJoin<CR>]], opts)
 end
 
 return M

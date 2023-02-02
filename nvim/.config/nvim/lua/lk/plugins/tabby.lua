@@ -8,18 +8,6 @@ local M = {
 }
 
 function M.config()
-    local ok, tabby = lk.require("tabby")
-    if not ok then
-        return
-    end
-
-    local scope_ok, scope = lk.require("scope")
-    if not scope_ok then
-        return
-    end
-
-    scope.setup()
-
     local filename = require("tabby.filename")
     local palette = require("cobalt2.palette")
 
@@ -156,7 +144,8 @@ function M.config()
         },
     }
 
-    tabby.setup({ tabline = line })
+    require("tabby").setup({ tabline = line })
+    require("scope").setup()
 end
 
 return M

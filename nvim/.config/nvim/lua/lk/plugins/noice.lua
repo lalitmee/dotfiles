@@ -6,11 +6,6 @@ local M = {
 M.enabled = false
 
 function M.config()
-    local ok, noice = lk.require("noice")
-    if not ok then
-        return
-    end
-
     -- noice.setup({
     --     lsp = {
     --         override = {
@@ -62,7 +57,7 @@ function M.config()
     --     },
     -- })
 
-    noice.setup({
+    require("noice").setup({
         popupmenu = {
             -- backend = "cmp",
         },

@@ -59,10 +59,7 @@ function M.config()
         },
     }
 
-    local ok, browse = lk.require("browse")
-    if not ok then
-        return
-    end
+    local browse = require("browse")
 
     browse.setup({
         provider = "duckduckgo", -- google or bing
