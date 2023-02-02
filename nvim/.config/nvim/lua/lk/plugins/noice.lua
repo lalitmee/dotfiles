@@ -5,7 +5,7 @@ local M = {
 
 M.enabled = false
 
-function M.config()
+ M.config = function()
     -- noice.setup({
     --     lsp = {
     --         override = {

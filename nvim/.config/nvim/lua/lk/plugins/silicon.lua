@@ -7,7 +7,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local silicon = require("silicon")
 
     silicon.setup({

@@ -7,7 +7,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local ls = require("luasnip")
     local types = require("luasnip.util.types")
     local extras = require("luasnip.extras")

@@ -4,7 +4,7 @@ local M = {
     cmd = { "Sniprun" },
 }
 
-function M.config()
+ M.config = function()
     require("sniprun").setup({
         display = { "Terminal" },
         display_options = {

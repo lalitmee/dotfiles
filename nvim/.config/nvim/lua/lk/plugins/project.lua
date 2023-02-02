@@ -2,7 +2,7 @@ local M = {
     "ahmedkhalf/project.nvim",
 }
 
-function M.config()
+ M.config = function()
     require("project_nvim").setup({
         detection_methods = { "pattern", "lsp" },
         show_hidden = true,

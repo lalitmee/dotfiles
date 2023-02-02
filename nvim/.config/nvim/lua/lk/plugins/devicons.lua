@@ -3,7 +3,7 @@ local M = {
     dependencies = { "kyazdani42/nvim-web-devicons" },
 }
 
-function M.config()
+ M.config = function()
     require("nvim-web-devicons").setup({
         get_icons = require("nvim-nonicons"),
     })

@@ -3,7 +3,7 @@ local M = {
     cmd = { "NeoZoomToggle" },
 }
 
-function M.config()
+ M.config = function()
     require("neo-zoom").setup({
         width_ratio = 0.9,
         height_ratio = 1,

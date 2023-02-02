@@ -8,7 +8,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local spectre = require("spectre")
 
     spectre.setup({

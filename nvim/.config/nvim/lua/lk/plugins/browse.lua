@@ -11,7 +11,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local bookmarks = {
         ["work"] = {
             ["name"] = "work related",

@@ -11,7 +11,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local fn = vim.fn
     local icons = lk.style.icons.lsp
     local lsp_utils = require("lk.plugins.lsp.utils")

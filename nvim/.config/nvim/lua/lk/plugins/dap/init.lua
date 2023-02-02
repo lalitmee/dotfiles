@@ -9,7 +9,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local dap = require("dap")
     local dapui = require("dapui")
 

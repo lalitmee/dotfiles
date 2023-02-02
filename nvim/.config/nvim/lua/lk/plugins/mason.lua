@@ -4,7 +4,7 @@ local M = {
     event = { "VimEnter" },
 }
 
-function M.config()
+ M.config = function()
     require("mason").setup({
         ui = {
             border = "rounded",

@@ -3,7 +3,7 @@ local M = {
     event = { "VeryLazy" },
 }
 
-function M.config()
+ M.config = function()
     vim.keymap.set("i", "<Tab>", function()
         return vim.fn["codeium#Accept"]()
     end, { expr = true })

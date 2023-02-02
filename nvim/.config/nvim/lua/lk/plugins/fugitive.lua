@@ -3,6 +3,6 @@ local M = {
     cmd = { "Git" },
 }
 
-function M.config() end
+ M.config = function() end
 
 return M

@@ -9,7 +9,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local navigator = require("Navigator")
 
     navigator.setup()

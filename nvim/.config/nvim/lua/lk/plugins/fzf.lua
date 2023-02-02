@@ -3,7 +3,7 @@ local M = {
     cmd = { "FzfLua" },
 }
 
-function M.config()
+ M.config = function()
     require("fzf-lua").setup({
         fzf_opts = {},
         grep = {
