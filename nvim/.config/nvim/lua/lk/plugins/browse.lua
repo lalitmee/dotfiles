@@ -13,7 +13,6 @@ local M = {
 
 function M.config()
     local bookmarks = {
-        "https://github.com/lukas-reineke/indent-blankline.nvim",
         ["work"] = {
             ["name"] = "work related",
             ["github_pulls"] = "https://github.com/pulls",
