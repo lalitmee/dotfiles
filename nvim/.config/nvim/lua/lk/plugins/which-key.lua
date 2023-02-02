@@ -420,6 +420,7 @@ function M.config()
                 ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
                 ["t"] = { ":OverseerToggle<CR>", "toggle" },
             },
+            ["r"] = { ":Telescope refactoring refactors<CR>", "list-refactors" },
             ["s"] = { ":SnipRun<CR>", "snip-run" },
             ["S"] = { ":SnipClose<CR>", "snip-close" },
         },
@@ -596,6 +597,10 @@ function M.config()
     }
 
     local visual_mode_leader_key_maps = {
+        ["r"] = {
+            ["name"] = "+refators",
+            ["r"] = { "<esc>:Telescope refactoring refactors<CR>", "list-refactors" },
+        },
         ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
         ["a"] = {
             ["name"] = "+actions",

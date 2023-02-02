@@ -68,6 +68,7 @@ return {
     {
         "andrewferrier/debugprint.nvim",
         keys = { "g?" },
+        cmd = { "DeleteDebugPrints" },
         config = function()
             require("debugprint").setup()
         end,
@@ -173,7 +174,7 @@ return {
     --  NOTE: colorschemes {{{
     --------------------------------------------------------------------------------
     {
-        "lalitmee/cobalt2.nvim",
+        dir = "~/Desktop/Github/cobalt2.nvim",
         dependencies = "tjdevries/colorbuddy.nvim",
         event = { "VimEnter" },
         lazy = true,
