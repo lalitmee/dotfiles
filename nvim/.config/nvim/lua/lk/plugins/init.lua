@@ -174,11 +174,8 @@ return {
     --  NOTE: colorschemes {{{
     --------------------------------------------------------------------------------
     {
-        dir = "~/Desktop/Github/cobalt2.nvim",
-        dependencies = "tjdevries/colorbuddy.nvim",
-        event = { "VimEnter" },
-        lazy = true,
-        dev = true,
+        "lalitmee/cobalt2.nvim",
+        dependencies = { "tjdevries/colorbuddy.nvim" },
     },
     -- }}}
     --------------------------------------------------------------------------------

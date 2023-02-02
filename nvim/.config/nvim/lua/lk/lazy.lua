@@ -19,7 +19,7 @@ require("lazy").setup("lk.plugins", {
     },
     dev = {
         path = "~/Desktop/Github",
-        patterns = { "lalitmee" },
+        patterns = {},
     },
     checker = {
         enabled = true,
