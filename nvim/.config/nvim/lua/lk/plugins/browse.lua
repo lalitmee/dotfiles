@@ -1,5 +1,5 @@
 local M = {
-    "lalitmee/browse.nvim",
+    dir = "~/Desktop/Github/browse.nvim",
     dev = true,
     cmd = {
         "Browse",
@@ -13,42 +13,51 @@ local M = {
 
 function M.config()
     local bookmarks = {
-        -- work
-        "https://github.com/koinearth/B2BOrdersWorkflowServer",
-        "https://github.com/koinearth/marketsn-api-service",
-        "https://github.com/koinearth/marketsn-pdf-service",
-        "https://github.com/koinearth/marketsn-pwa-service",
-        "https://github.com/koinearth/marketsn-webapp-service-nextjs",
-        "https://github.com/koinearth/wf-pwa-service",
-        "https://github.com/koinearth/wf-webapp-service",
-        "https://github.com/pulls",
-        "https://mui.com/components/material-icons/#material-icons",
-        "https://v4.mui.com/",
-        "https://mui.com/",
+        "https://github.com/lukas-reineke/indent-blankline.nvim",
+        ["work"] = {
+            ["name"] = "work related",
+            ["github_pulls"] = "https://github.com/pulls",
+            ["mui"] = "https://mui.com/",
+            ["mui-icons"] = "https://mui.com/components/material-icons/#material-icons",
+            ["v4-mui"] = "https://v4.mui.com/",
+        },
 
-        -- mine
-        "https://github.com/lalitmee/browse.nvim",
-        "https://github.com/lalitmee/cobalt2.nvim",
-        "https://github.com/lalitmee/dNotes",
-        "https://github.com/lalitmee/dotfiles",
+        -- personal
+        ["lalitmee"] = {
+            ["name"] = "personal repositories",
+            ["browse.nvim"] = "https://github.com/lalitmee/browse.nvim",
+            ["cobalt2.nvim"] = "https://github.com/lalitmee/cobalt2.nvim",
+            ["dNotes"] = "https://github.com/lalitmee/dNotes",
+            ["dotfiles"] = "https://github.com/lalitmee/dotfiles",
+        },
 
         -- neovim related
-        "https://github.com/elihunter173/dirbuf.nvim",
-        "https://github.com/kyazdani42/nvim-tree.lua",
-        "https://github.com/neovim/neovim",
-        "https://github.com/nvim-lualine/lualine.nvim",
-        "https://github.com/nvim-telescope/telescope.nvim",
-        "https://github.com/nvim-treesitter/nvim-treesitter",
-        "https://github.com/phaazon/hop.nvim",
-        "https://github.com/rockerBOO/awesome-neovim",
-        "https://github.com/tamago324/lir.nvim",
-        "https://neovim.discourse.group/",
+        ["neovim"] = {
+            ["name"] = "most visited repositories for neovim",
+            ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
+            ["lualine"] = "https://github.com/nvim-lualine/lualine.nvim",
+            ["neovim"] = "https://github.com/neovim/neovim",
+            ["nvim-treesitter"] = "https://github.com/nvim-treesitter/nvim-treesitter",
+            ["telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
+        },
 
         -- configs
-        "https://github.com/ThePrimeagen/.dotfiles",
-        "https://github.com/akinsho/dotfiles",
-        "https://github.com/tjdevries/config_manager",
-        "https://github.com/whatsthatsmell/dots",
+        ["configs"] = {
+            ["name"] = "dotfiles repositories of my favourites",
+            ["ThePrimeagen"] = "https://github.com/ThePrimeagen/.dotfiles",
+            ["akinsho"] = "https://github.com/akinsho/dotfiles",
+            ["tjdevries"] = "https://github.com/tjdevries/config_manager",
+            ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
+        },
+
+        -- aliases
+        ["github"] = {
+            ["name"] = "search github from neovim",
+            ["code_search"] = "https://github.com/search?q=%s&type=code",
+            ["repo_search"] = "https://github.com/search?q=%s&type=repositories",
+            ["issues_search"] = "https://github.com/search?q=%s&type=issues",
+            ["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
+        },
     }
 
     local ok, browse = lk.require("browse")
@@ -57,9 +66,8 @@ function M.config()
     end
 
     browse.setup({
-        -- provider = "brave",
-        provider = "duckduckgo",
-        -- provider = "google",
+        provider = "duckduckgo", -- google or bing
+        bookmarks = bookmarks,
     })
 
     ----------------------------------------------------------------------
@@ -68,11 +76,11 @@ function M.config()
     local command = lk.command
 
     command("Browse", function()
-        browse.browse({ bookmarks = bookmarks })
+        browse.browse()
     end, {})
 
     command("BrowseBookmarks", function()
-        browse.open_bookmarks({ bookmarks = bookmarks })
+        browse.open_bookmarks()
     end, {})
 
     command("BrowseInputSearch", function()
