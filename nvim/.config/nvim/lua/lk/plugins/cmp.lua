@@ -20,11 +20,7 @@ local M = {
 }
 
 function M.config()
-    local cmp_ok, cmp = lk.require("cmp")
-    if not cmp_ok then
-        return
-    end
-
+    local cmp = require("cmp")
     local lspkind = require("lspkind")
     local luasnip = require("luasnip")
 

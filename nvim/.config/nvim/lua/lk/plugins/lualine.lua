@@ -4,11 +4,6 @@ local M = {
 }
 
 function M.config()
-    local ok, lualine = lk.require("lualine")
-    if not ok then
-        return
-    end
-
     ----------------------------------------------------------------------
     -- NOTE: trailing whitespaces {{{
     ----------------------------------------------------------------------
@@ -37,7 +32,7 @@ function M.config()
     ----------------------------------------------------------------------
     -- NOTE: setup {{{
     ----------------------------------------------------------------------
-    lualine.setup({
+    require("lualine").setup({
         options = {
             theme = "cobalt2",
             globalstatus = true,

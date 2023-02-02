@@ -8,10 +8,7 @@ local M = {
 }
 
 function M.config()
-    local ok, silicon = lk.require("silicon")
-    if not ok then
-        return
-    end
+    local silicon = require("silicon")
 
     silicon.setup({
         font = "JetBrains Mono",

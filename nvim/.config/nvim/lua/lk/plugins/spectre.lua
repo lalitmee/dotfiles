@@ -9,12 +9,8 @@ local M = {
 }
 
 function M.config()
-    local ok, spectre = lk.require("spectre")
-    if not ok then
-        return
-    end
+    local spectre = require("spectre")
 
-    -- setup function
     spectre.setup({
         default = {
             find = {

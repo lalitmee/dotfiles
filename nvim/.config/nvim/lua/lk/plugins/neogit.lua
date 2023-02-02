@@ -4,10 +4,7 @@ local M = {
 }
 
 function M.config()
-    local ok, neogit = lk.require("neogit")
-    if not ok then
-        return
-    end
+    local neogit = require("neogit")
 
     ----------------------------------------------------------------------
     -- NOTE: setup {{{

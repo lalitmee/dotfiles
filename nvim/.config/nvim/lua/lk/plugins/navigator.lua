@@ -10,10 +10,7 @@ local M = {
 }
 
 function M.config()
-    local ok, navigator = lk.require("Navigator")
-    if not ok then
-        return
-    end
+    local navigator = require("Navigator")
 
     navigator.setup()
 

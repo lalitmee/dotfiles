@@ -80,10 +80,7 @@ local M = {
 }
 
 function M.config()
-    local status_ok, telescope = lk.require("telescope")
-    if not status_ok then
-        return
-    end
+    local telescope = require("telescope")
 
     local should_reload = true
     local reloader = function()

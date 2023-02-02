@@ -4,10 +4,7 @@ local M = {
 }
 
 function M.config()
-    local ok, auto_pairs = lk.require("nvim-autopairs")
-    if not ok then
-        return
-    end
+    local auto_pairs = require("nvim-autopairs")
 
     auto_pairs.setup({
         disable_filetype = { "TelescopePrompt", "vim" },

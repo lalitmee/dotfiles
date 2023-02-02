@@ -10,15 +10,8 @@ local M = {
 }
 
 function M.config()
-    local dap_status_ok, dap = lk.require("dap")
-    if not dap_status_ok then
-        return
-    end
-
-    local dap_ui_status_ok, dapui = lk.require("dapui")
-    if not dap_ui_status_ok then
-        return
-    end
+    local dap = require("dap")
+    local dapui = require("dapui")
 
     ----------------------------------------------------------------------
     -- NOTE: dap ui setup {{{

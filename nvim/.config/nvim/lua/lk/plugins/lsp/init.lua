@@ -71,11 +71,7 @@ function M.config()
     --------------------------------------------------------------------------------
     --  NOTE: neodev setup {{{
     --------------------------------------------------------------------------------
-    local ok, neodev = lk.require("neodev")
-    if not ok then
-        return
-    end
-    neodev.setup({
+    require("neodev").setup({
         library = { plugins = { "plenary.nvim" } },
     })
     -- }}}
@@ -95,10 +91,7 @@ function M.config()
     end
 
     local function get_server_config(name)
-        local cmp_nvim_lsp_ok, cmp_nvim_lsp = lk.require("cmp_nvim_lsp")
-        if not cmp_nvim_lsp_ok then
-            return nil
-        end
+        local cmp_nvim_lsp = require("cmp_nvim_lsp")
         local conf = servers[name]
         local conf_type = type(conf)
         local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
@@ -121,13 +114,9 @@ function M.config()
     ----------------------------------------------------------------------
     -- NOTE: setting servers {{{
     ----------------------------------------------------------------------
-    local lsp_ok, lsp = lk.require("lspconfig")
-    if not lsp_ok then
-        return
-    end
     for name, config in pairs(servers) do
         if config then
-            lsp[name].setup(get_server_config(name))
+            require("lspconfig")[name].setup(get_server_config(name))
         end
     end
 

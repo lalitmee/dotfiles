@@ -7,10 +7,7 @@ local M = {
 }
 
 function M.config()
-    local ok, attempt = lk.require("attempt")
-    if not ok then
-        return
-    end
+    local attempt = require("attempt")
 
     ----------------------------------------------------------------------
     -- NOTE: attempt setup {{{

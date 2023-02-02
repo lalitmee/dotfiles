@@ -7,10 +7,7 @@ local M = {
 }
 
 function M.config()
-    local ok, replacer = lk.require("replacer")
-    if not ok then
-        return
-    end
+    local replacer = require("replacer")
 
     ----------------------------------------------------------------------
     -- NOTE: replacer.nvim commands {{{

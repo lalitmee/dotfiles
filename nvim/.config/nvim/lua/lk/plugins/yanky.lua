@@ -5,15 +5,10 @@ local M = {
 }
 
 function M.config()
-    local ok, yanky = lk.require("yanky")
-    if not ok then
-        return
-    end
-
     ----------------------------------------------------------------------
     -- NOTE: setup {{{
     ----------------------------------------------------------------------
-    yanky.setup({
+    require("yanky").setup({
         highlight = {
             timer = 40,
         },

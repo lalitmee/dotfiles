@@ -12,17 +12,14 @@ local M = {
     },
 }
 
-function M.config()
-    local ok, neo_tree = lk.require("neo-tree")
-    if not ok then
-        return
-    end
+M.enabled = false
 
+M.config = function()
     local path_config = {
         show_path = "relative", -- "none", "relative", "absolute"
     }
 
-    neo_tree.setup({
+    require("neo-tree").setup({
         popup_border_style = "rounded",
         window = {
             position = "float",
