@@ -6,7 +6,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local replacer = require("replacer")
 
     ----------------------------------------------------------------------

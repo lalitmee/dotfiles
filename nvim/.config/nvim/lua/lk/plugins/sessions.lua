@@ -7,7 +7,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local actions = require("telescope.actions")
 
     -- session-lens

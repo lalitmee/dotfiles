@@ -3,7 +3,7 @@ local M = {
     cmd = { "Neogit" },
 }
 
-function M.config()
+ M.config = function()
     local neogit = require("neogit")
 
     ----------------------------------------------------------------------

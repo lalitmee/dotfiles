@@ -7,7 +7,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     require("mind").setup({
         ui = { width = 40 },
         keymaps = {
@@ -32,7 +32,7 @@ function M.config()
     })
 end
 
-function M.init()
+ M.init = function()
     -- create a new entry in Journal if it doesn't exist otherwise edit it
     lk.command("MindJournal", function()
         require("mind").wrap_main_tree_fn(function(args)

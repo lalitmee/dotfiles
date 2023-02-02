@@ -4,7 +4,7 @@ local M = {
     event = "BufReadPost",
 }
 
-function M.config()
+ M.config = function()
     local ufo = require("ufo")
 
     vim.opt.sessionoptions:append("folds")

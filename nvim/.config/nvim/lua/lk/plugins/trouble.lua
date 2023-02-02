@@ -3,7 +3,7 @@ local M = {
     cmd = { "TroubleToggle", "Trouble" },
 }
 
-function M.config()
+ M.config = function()
     require("trouble").setup({
         padding = false,
         auto_close = true,

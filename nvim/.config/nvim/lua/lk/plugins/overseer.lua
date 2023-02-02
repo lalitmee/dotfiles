@@ -14,7 +14,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local overseer = require("overseer")
 
     overseer.setup({

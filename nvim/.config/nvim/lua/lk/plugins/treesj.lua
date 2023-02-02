@@ -4,7 +4,7 @@ local M = {
     keys = { "gS", "gJ" },
 }
 
-function M.config()
+ M.config = function()
     require("treesj").setup({})
 
     local nnoremap = lk.nnoremap

@@ -7,7 +7,7 @@ local M = {
     event = { "VimEnter" },
 }
 
-function M.config()
+ M.config = function()
     local filename = require("tabby.filename")
     local palette = require("cobalt2.palette")
 

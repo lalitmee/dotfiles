@@ -3,7 +3,7 @@ local M = {
     event = "VeryLazy",
 }
 
-function M.config()
+ M.config = function()
     local wk = require("which-key")
 
     vim.o.timeoutlen = 500

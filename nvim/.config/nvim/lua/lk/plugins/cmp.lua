@@ -19,7 +19,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
     local luasnip = require("luasnip")

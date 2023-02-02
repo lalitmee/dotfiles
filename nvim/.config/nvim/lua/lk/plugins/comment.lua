@@ -3,7 +3,7 @@ local M = {
     event = { "VeryLazy" },
 }
 
-function M.config()
+ M.config = function()
     require("Comment").setup({
         ignore = "^$",
         pre_hook = function(ctx)

@@ -15,7 +15,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local command = lk.command
 
     require("harpoon").setup({

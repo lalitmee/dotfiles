@@ -3,7 +3,7 @@ local M = {
     event = "InsertEnter",
 }
 
-function M.config()
+ M.config = function()
     local auto_pairs = require("nvim-autopairs")
 
     auto_pairs.setup({

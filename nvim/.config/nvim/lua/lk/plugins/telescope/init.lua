@@ -79,7 +79,7 @@ local M = {
     },
 }
 
-function M.config()
+ M.config = function()
     local telescope = require("telescope")
 
     local should_reload = true

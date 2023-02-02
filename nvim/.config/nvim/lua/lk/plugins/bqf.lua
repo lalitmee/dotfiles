@@ -3,7 +3,7 @@ local M = {
     ft = "qf",
 }
 
-function M.config()
+ M.config = function()
     require("bqf").setup({
         auto_enable = true,
         preview = { auto_previw = true, win_height = 25, win_vheight = 25 },

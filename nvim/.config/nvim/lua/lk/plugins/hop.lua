@@ -4,11 +4,11 @@ local M = {
     cmd = { "HopAnywhere" },
 }
 
-function M.config()
+ M.config = function()
     require("hop").setup()
 end
 
-function M.init()
+ M.init = function()
     local hop = require("hop")
     local directions = require("hop.hint").HintDirection
     local map = lk.map

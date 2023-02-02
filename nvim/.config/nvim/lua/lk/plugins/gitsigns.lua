@@ -3,7 +3,7 @@ local M = {
     event = "BufReadPre",
 }
 
-function M.config()
+ M.config = function()
     require("gitsigns").setup({
         signs = {
             add = {
