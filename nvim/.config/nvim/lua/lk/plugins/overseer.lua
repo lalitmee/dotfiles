@@ -20,9 +20,6 @@ M.config = function()
     overseer.setup({
         templates = { "tasks" },
     })
-    -- overseer.load_template("tasks.rustlings")
-    -- overseer.load_template("tasks.run_script")
-    -- overseer.load_template("tasks.cpp_build")
 
     --------------------------------------------------------------------------------
     --  NOTE: recipes {{{
