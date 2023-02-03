@@ -6,7 +6,7 @@ All of my dotfiles are here. 👍
 
 ### neovim
 
-![neovim](https://user-images.githubusercontent.com/10762218/211184769-4103f1c0-7feb-4876-bad6-bc4b82030dce.png)
+![neovim](https://user-images.githubusercontent.com/10762218/216720123-b7b7456f-f245-477d-a287-b580c55d2534.png)
 
 ```log
 Total Time:   11.543 -- Flawless Victory
@@ -17,4 +17,4 @@ I am using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ### tmux
 
-![tmux](https://user-images.githubusercontent.com/10762218/211184993-cd405706-1947-4e90-a909-9e28064f085e.png)
+![tmux](https://user-images.githubusercontent.com/10762218/216720167-176b70d3-1b99-4a33-aac5-44954f6377b4.png)
