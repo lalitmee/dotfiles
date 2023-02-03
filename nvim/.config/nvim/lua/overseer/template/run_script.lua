@@ -15,7 +15,7 @@ return {
         return {
             cmd = cmd,
             components = {
-                { "on_output_quickfix", set_diagnostics = true },
+                { "on_output_quickfix", set_diagnostics = true, open = true },
                 "on_result_diagnostics",
                 "default",
             },
