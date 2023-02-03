@@ -5,12 +5,12 @@ return {
         local cmd = { file }
         if vim.bo.filetype == "go" then
             cmd = { "go", "run", file }
-        end
-        if vim.bo.filetype == "python" then
+        elseif vim.bo.filetype == "python" then
             cmd = { "python", file }
-        end
-        if vim.bo.filetype == "sh" then
+        elseif vim.bo.filetype == "sh" then
             cmd = { "bash", file }
+        elseif vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript" then
+            cmd = { "node", file }
         end
         return {
             cmd = cmd,
@@ -22,6 +22,12 @@ return {
         }
     end,
     condition = {
-        filetype = { "sh", "python", "go" },
+        filetype = {
+            "sh",
+            "python",
+            "go",
+            "javascript",
+            "typescript",
+        },
     },
 }
