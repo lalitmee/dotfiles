@@ -4,7 +4,7 @@ local M = {
     cmd = { "HopAnywhere" },
 }
 
-M.enabled = false
+-- M.enabled = false
 
 M.config = function()
     require("hop").setup()

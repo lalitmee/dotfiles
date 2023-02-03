@@ -9,6 +9,8 @@ return {
             cmd = { "python", file }
         elseif vim.bo.filetype == "sh" then
             cmd = { "bash", file }
+        elseif vim.bo.filetype == "lua" then
+            cmd = { "lua", file }
         elseif vim.bo.filetype == "javascript" or vim.bo.filetype == "typescript" then
             cmd = { "node", file }
         end
@@ -23,10 +25,11 @@ return {
     end,
     condition = {
         filetype = {
-            "sh",
-            "python",
             "go",
             "javascript",
+            "lua",
+            "python",
+            "sh",
             "typescript",
         },
     },
