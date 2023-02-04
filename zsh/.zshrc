@@ -298,3 +298,5 @@ eval "$(pyenv virtualenv-init -)"
 # -------------------------------------------------------------------
 
 # vim:foldmethod=marker
+
+source /home/lalitmee/.config/broot/launcher/bash/br

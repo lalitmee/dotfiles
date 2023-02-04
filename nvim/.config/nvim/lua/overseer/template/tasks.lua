@@ -1,1 +1,8 @@
-return { "cpp_build", "run_script", "rustlings" }
+return {
+    "build_on_save",
+    "cpp_build",
+    "go_build",
+    "node_build",
+    "python_build",
+    "rustlings",
+}

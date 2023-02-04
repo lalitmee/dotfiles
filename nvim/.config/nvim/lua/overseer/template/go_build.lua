@@ -1,11 +1,11 @@
 return {
-    name = "rustlings watch",
+    name = "go build",
     builder = function()
         return {
-            cmd = "rustlings ",
-            args = { "watch" },
+            cmd = "go",
+            args = { "build" },
             cwd = vim.fn.getcwd(),
-            name = "rustlings watch",
+            name = "go build",
             components = {
                 { "on_output_quickfix", set_diagnostics = true, open = true },
                 "on_result_diagnostics",
@@ -13,8 +13,8 @@ return {
             },
         }
     end,
-    desc = "Run the rustlings exercies",
+    desc = "Builds the project",
     condition = {
-        filetype = { "rust" },
+        filetype = { "go" },
     },
 }

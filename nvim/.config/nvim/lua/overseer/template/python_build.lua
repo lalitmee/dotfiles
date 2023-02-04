@@ -1,11 +1,12 @@
 return {
-    name = "rustlings watch",
+    name = "python build",
     builder = function()
+        local file = vim.fn.expand("%:p")
         return {
-            cmd = "rustlings ",
-            args = { "watch" },
+            cmd = { "python" },
+            args = { file },
             cwd = vim.fn.getcwd(),
-            name = "rustlings watch",
+            name = "python build",
             components = {
                 { "on_output_quickfix", set_diagnostics = true, open = true },
                 "on_result_diagnostics",
@@ -13,8 +14,8 @@ return {
             },
         }
     end,
-    desc = "Run the rustlings exercies",
+    desc = "build python file",
     condition = {
-        filetype = { "rust" },
+        filetype = { "python" },
     },
 }
