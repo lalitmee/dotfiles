@@ -258,3 +258,5 @@ let $config = {
     }
   ]
 }
+
+source /home/lalitmee/.config/broot/launcher/nushell/br

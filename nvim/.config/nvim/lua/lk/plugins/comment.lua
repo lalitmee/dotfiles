@@ -3,7 +3,7 @@ local M = {
     event = { "VeryLazy" },
 }
 
- M.config = function()
+M.config = function()
     require("Comment").setup({
         ignore = "^$",
         pre_hook = function(ctx)
@@ -25,6 +25,7 @@ local M = {
 
     local comment_ft = require("Comment.ft")
     comment_ft.set("lua", { "--%s", "--[[%s]]" })
+    comment_ft.set("kdl", { "//%s" })
 end
 
 return M

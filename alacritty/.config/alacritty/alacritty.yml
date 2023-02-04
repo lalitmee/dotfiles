@@ -5,7 +5,6 @@
 # set by alacritty itself.
 env:
   TERM: xterm-256color
-  WINIT_X11_SCALE_FACTOR: "1.0"
 
 window:
   # Window dimensions (changes require restart)
@@ -29,8 +28,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 10
-    y: 10
+    x: 2
+    y: 2
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
 
@@ -80,20 +79,26 @@ window:
 # Font configuration
 font:
   normal:
-    family: JetBrainsMono Nerd Font
-    style: Regular
-
+    family: SauceCodePro Nerd Font
+    style: Medium
   bold:
-    family: JetBrainsMono Nerd Font
+    family: SauceCodePro Nerd Font
     style: Bold
-
   italic:
-    family: JetBrainsMono Nerd Font
+    family: SauceCodePro Nerd Font
     style: Italic
-
   bold_italic:
-    family: JetBrainsMono Nerd Font
-    style: Bolt Italic
+    family: SauceCodePro Nerd Font
+    style: Bold Italic
+
+  # normal:
+  #   family: OperatorMono Lig Book
+  # bold:
+  #   family: OperatorMono Lig Book
+  # italic:
+  #   family: OperatorMono Lig Book
+  # bold_italic:
+  #   family: OperatorMono Lig Book
 
   size: 10
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -551,7 +556,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-window.opacity: 0.9
+window.opacity: 0.5
 #selection:
 #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 

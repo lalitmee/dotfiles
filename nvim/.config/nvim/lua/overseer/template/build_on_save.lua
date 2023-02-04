@@ -1,5 +1,5 @@
 return {
-    name = "run script",
+    name = "build on save",
     builder = function()
         local file = vim.fn.expand("%:p")
         local cmd = { file }
