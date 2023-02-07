@@ -300,3 +300,5 @@ eval "$(pyenv virtualenv-init -)"
 # vim:foldmethod=marker
 
 source /home/lalitmee/.config/broot/launcher/bash/br
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
