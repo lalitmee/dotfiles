@@ -26,6 +26,8 @@ local M = {
     },
 }
 
+-- M.enabled = false
+
 M.config = function()
     ----------------------------------------------------------------------
     -- NOTE: treesitter settings {{{
@@ -38,8 +40,7 @@ M.config = function()
     require("nvim-treesitter.configs").setup({
         ensure_installed = vim.g.enable_treesitter_ft,
         -- Auto install parsers, if missing, for the current buffer
-        sync_install = true,
-        auto_install = true,
+        auto_install = false,
         highlight = { enable = true },
         rainbow = {
             enable = true,
