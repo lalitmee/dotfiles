@@ -1,6 +1,7 @@
 local M = {
     "nvim-pack/nvim-spectre",
     cmd = {
+        "Spectre",
         "SpectreOpen",
         "SpectreCurWord",
         "SpectreVisual",
@@ -8,7 +9,7 @@ local M = {
     },
 }
 
- M.config = function()
+M.config = function()
     local spectre = require("spectre")
 
     spectre.setup({
