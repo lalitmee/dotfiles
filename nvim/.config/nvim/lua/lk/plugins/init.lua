@@ -53,11 +53,6 @@ return {
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,
     },
-    {
-        "ckolkey/ts-node-action",
-        event = { "VeryLazy" },
-        dependencies = { "nvim-treesitter" },
-    },
     { -- will add bang(#!) like this on running `:Bang`
         "susensio/magic-bang.nvim",
         cmd = { "Bang" },
