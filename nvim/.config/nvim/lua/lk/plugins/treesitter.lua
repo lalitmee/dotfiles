@@ -5,28 +5,31 @@ local M = {
     dependencies = {
         {
             "JoosepAlviste/nvim-ts-context-commentstring",
-            ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+            ft = {
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+            },
         },
         {
             "nvim-treesitter/nvim-treesitter-context",
-            event = { "BufReadPost" },
+            event = "BufReadPost",
         },
         {
             "nvim-treesitter/nvim-treesitter-textobjects",
-            event = { "BufReadPost" },
+            event = "BufReadPost",
         },
         {
             "mrjones2014/nvim-ts-rainbow",
-            event = { "BufReadPost" },
+            event = "BufReadPost",
         },
         {
             "nvim-treesitter/playground",
-            cmd = { "TSPlaygroundToggle" },
+            cmd = "TSPlaygroundToggle",
         },
     },
 }
-
--- M.enabled = false
 
 M.config = function()
     ----------------------------------------------------------------------
@@ -39,6 +42,7 @@ M.config = function()
     ----------------------------------------------------------------------
     require("nvim-treesitter.configs").setup({
         ensure_installed = vim.g.enable_treesitter_ft,
+        sync_install = true,
         -- Auto install parsers, if missing, for the current buffer
         auto_install = false,
         highlight = { enable = true },
