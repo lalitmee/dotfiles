@@ -1,17 +1,16 @@
 local M = {
     "neovim/nvim-lspconfig",
     ft = vim.g.enable_lspconfig_ft,
-    event = "VimEnter",
+    event = { "VimEnter" },
     dependencies = {
         { "j-hui/fidget.nvim" },
         { "folke/neodev.nvim" },
         { "jose-elias-alvarez/null-ls.nvim" },
-        { "folke/lsp-trouble.nvim" },
         { "simrat39/rust-tools.nvim" },
     },
 }
 
- M.config = function()
+M.config = function()
     local fn = vim.fn
     local icons = lk.style.icons.lsp
     local lsp_utils = require("lk.plugins.lsp.utils")

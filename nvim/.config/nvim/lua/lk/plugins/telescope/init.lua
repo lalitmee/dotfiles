@@ -1,5 +1,6 @@
 local M = {
     "nvim-telescope/telescope.nvim",
+    cmd = { "Telescope" },
     dependencies = {
         {
             "nvim-telescope/telescope-frecency.nvim",
@@ -79,7 +80,7 @@ local M = {
     },
 }
 
- M.config = function()
+M.config = function()
     local telescope = require("telescope")
 
     local should_reload = true

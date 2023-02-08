@@ -186,10 +186,6 @@ return {
         end,
     },
     {
-        "tweekmonster/startuptime.vim",
-        cmd = "StartupTime",
-    },
-    {
         "wakatime/vim-wakatime",
         event = { "VimEnter" },
     },
