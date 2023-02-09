@@ -6,12 +6,14 @@ local M = {
         { "mfussenegger/nvim-dap" },
         { "mxsdev/nvim-dap-vscode-js" },
         { "theHamsta/nvim-dap-virtual-text" },
+        { "nvim-telescope/telescope-dap.nvim" },
     },
 }
 
- M.config = function()
+M.config = function()
     local dap = require("dap")
     local dapui = require("dapui")
+    require("telescope").load_extension("dap")
 
     ----------------------------------------------------------------------
     -- NOTE: dap ui setup {{{

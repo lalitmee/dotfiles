@@ -23,12 +23,6 @@ local M = {
             end,
         },
         {
-            "nvim-telescope/telescope-dap.nvim",
-            init = function()
-                require("telescope").load_extension("dap")
-            end,
-        },
-        {
             "zane-/howdoi.nvim",
             init = function()
                 require("telescope").load_extension("howdoi")
