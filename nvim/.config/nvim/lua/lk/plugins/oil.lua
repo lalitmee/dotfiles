@@ -4,11 +4,12 @@ local M = {
     cmd = { "Oil" },
 }
 
- M.init = function()
+M.init = function()
+    lk.command("OilFloat", require("oil").open_float, {})
     vim.keymap.set("n", "-", require("oil").open_float, { desc = "Open parent directory" })
 end
 
- M.config = function()
+M.config = function()
     require("oil").setup({
         columns = {
             "icon",
