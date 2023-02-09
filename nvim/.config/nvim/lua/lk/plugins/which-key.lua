@@ -1,6 +1,6 @@
 local M = {
     "folke/which-key.nvim",
-    event = "VeryLazy",
+    keys = { " ", "," },
 }
 
 M.config = function()
