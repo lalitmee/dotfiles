@@ -15,16 +15,9 @@ return {
     {
         -- "xiyaowong/virtcolumn.nvim",
         "lukas-reineke/virt-column.nvim",
-        event = { "VimEnter" },
+        event = { "BufReadPost" },
         config = function()
             require("virt-column").setup()
-        end,
-    },
-    {
-        url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-        ft = "qf",
-        config = function()
-            require("pqf").setup()
         end,
     },
     -- }}}
@@ -35,6 +28,7 @@ return {
     --------------------------------------------------------------------------------
     {
         "jghauser/fold-cycle.nvim",
+        keys = { "<CR>" },
         config = function()
             require("fold-cycle").setup()
             lk.nnoremap("<CR>", function()
@@ -58,7 +52,7 @@ return {
     },
     {
         "andrewferrier/debugprint.nvim",
-        keys = { "g?" },
+        keys = { "g?", { "g?", mode = "v" } },
         cmd = { "DeleteDebugPrints" },
         config = function()
             require("debugprint").setup()
@@ -70,7 +64,7 @@ return {
     },
     {
         "christoomey/vim-sort-motion",
-        event = { "VeryLazy" },
+        keys = { "gs", { "gs", mode = "v" } },
     },
     {
         "famiu/bufdelete.nvim",
@@ -89,7 +83,7 @@ return {
     },
     {
         "kylechui/nvim-surround",
-        event = { "VeryLazy" },
+        keys = { "ds", "ys" },
         config = function()
             require("nvim-surround").setup()
         end,
@@ -116,29 +110,26 @@ return {
     --------------------------------------------------------------------------------
 
     --------------------------------------------------------------------------------
-    --  NOTE: lsp {{{
-    --------------------------------------------------------------------------------
-    -- }}}
-    --------------------------------------------------------------------------------
-
-    --------------------------------------------------------------------------------
     --  NOTE: languages {{{
     --------------------------------------------------------------------------------
     {
         "baskerville/vim-sxhkdrc",
-        event = { "VeryLazy" },
+        ft = { "sxhkdrc" },
     },
     {
         "antonk52/markdowny.nvim",
         ft = { "markdown", "text" },
-        keys = { "<C-b>", "<C-k>", "<C-i>" },
+        keys = {
+            { "<C-b>", mode = "v" },
+            { "<C-k>", mode = "v" },
+            { "<C-i>", mode = "v" },
+        },
         config = function()
             require("markdowny").setup()
         end,
     },
     {
         "ellisonleao/glow.nvim",
-        ft = "markdown",
         cmd = { "Glow" },
     },
     {
@@ -146,12 +137,10 @@ return {
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
-        ft = "markdown",
         cmd = { "MarkdownPreviewToggle" },
     },
     {
         "dhruvasagar/vim-table-mode",
-        -- ft = { "markdown", "txt" },
         cmd = { "TableModeToggle" },
     },
     {
@@ -219,7 +208,7 @@ return {
     },
     {
         "tpope/vim-repeat",
-        event = { "VeryLazy" },
+        keys = { "." },
     },
     {
         "tpope/vim-scriptease",
@@ -227,7 +216,7 @@ return {
     },
     {
         "tpope/vim-unimpaired",
-        event = { "VeryLazy" },
+        keys = { "[", "]" },
     },
     -- }}}
     --------------------------------------------------------------------------------
@@ -269,7 +258,7 @@ return {
         config = function()
             require("trailblazer").setup()
         end,
-        enabled = false,
+        -- enabled = false,
     },
     -- }}}
     --------------------------------------------------------------------------------
