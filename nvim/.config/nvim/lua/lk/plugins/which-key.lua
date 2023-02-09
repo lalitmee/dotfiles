@@ -3,7 +3,7 @@ local M = {
     event = "VeryLazy",
 }
 
- M.config = function()
+M.config = function()
     local wk = require("which-key")
 
     vim.o.timeoutlen = 500
@@ -49,7 +49,7 @@ local M = {
             ["a"] = { ":SaveSession<CR>", "save-session" },
             ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
             ["d"] = { ":DeleteSession<CR>", "delete-session" },
-            ["e"] = { ":NeoTreeFocusToggle<CR>", "neo-tree-toggle" },
+            ["e"] = { ":Oil<CR>", "oil" },
             ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
             ["g"] = { ":Glow<CR>", "markdown-glow" },
             ["h"] = { ":ChatGPT<CR>", "chatgpt" },
@@ -58,7 +58,7 @@ local M = {
             ["l"] = { ":SearchSession<CR>", "search-sessions" },
             ["m"] = { ":ChatGPTActAs<CR>", "chatgp-act-as" },
             ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
-            ["o"] = { ":NeoTreeRevealToggle<CR>", "neo-tree-toggle" },
+            ["o"] = { ":OilFloat<CR>", "oil-float" },
             ["p"] = { ":MarkdownPreviewToggle<CR>", "markdown-preview-toggle" },
             ["r"] = { ":ChatGPTEditWithInstructions<CR>", "chatgpt-edit-instruction" },
             ["s"] = { ":StartupTime<CR>", "run-startup-time" },
@@ -479,12 +479,6 @@ local M = {
                 ["w"] = { ":Gitsigns toggle_word_diff<CR>", "toggle-word-diff" },
             },
             ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
-            ["n"] = {
-                ["name"] = "+nvim-tree",
-                ["f"] = { ":NeoTreeFocusToggle<CR>", "focus-toggle" },
-                ["e"] = { ":NeoTreeRevealToggle<CR>", "reveal-toggle" },
-                ["v"] = { ":NeoTreeRevealInSplitToggle<CR>", "split-toggle" },
-            },
             ["p"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
             ["s"] = {
                 ["name"] = "+scrolloff",
