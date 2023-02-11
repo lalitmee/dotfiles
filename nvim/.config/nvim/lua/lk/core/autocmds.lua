@@ -279,7 +279,8 @@ augroup("quit_q", {
     },
     {
         event = { "BufEnter" },
-        pattern = { "*.scriptease-verbose", "startup-log.txt" },
+        -- buffer = 0,
+        pattern = { "scriptease-verbose", "startup-log" },
         command = function()
             lk.nnoremap("q", ":bd<cr>")
         end,

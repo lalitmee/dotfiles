@@ -1,0 +1,8 @@
+require("lk.core.autocmds")
+require("lk.core.commands")
+require("lk.core.functions")
+require("lk.core.lorem-picsum")
+require("lk.core.mappings")
+require("lk.core.numbers")
+require("lk.core.options")
+require("lk.core.statuscolumn")

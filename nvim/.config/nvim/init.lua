@@ -20,6 +20,9 @@ vim.g.open_command = vim.g.os == "Darwin" and "open" or "xdg-open"
 -- globals
 require("lk/globals")
 
+-- core
+require("lk/core")
+
 -- plugins
 require("lk/lazy")
 
