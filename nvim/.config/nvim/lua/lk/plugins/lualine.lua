@@ -1,9 +1,9 @@
 local M = {
     "nvim-lualine/lualine.nvim",
-    event = { "VimEnter" },
+    event = { "BufEnter" },
 }
 
- M.config = function()
+M.config = function()
     ----------------------------------------------------------------------
     -- NOTE: trailing whitespaces {{{
     ----------------------------------------------------------------------
