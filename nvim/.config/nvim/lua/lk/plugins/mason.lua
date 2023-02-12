@@ -4,7 +4,7 @@ local M = {
     event = { "VimEnter" },
 }
 
- M.config = function()
+M.config = function()
     require("mason").setup({
         ui = {
             border = "rounded",
@@ -27,7 +27,7 @@ local M = {
             "jsonls",
             "pyright",
             "rust_analyzer",
-            "sumneko_lua",
+            "lua_ls",
             "tsserver",
             "vimls",
         },
