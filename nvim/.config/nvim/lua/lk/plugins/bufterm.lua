@@ -3,6 +3,8 @@ local M = { -- treat terminal windows as buffers so that :bd! can work
     event = { "VeryLazy" },
 }
 
+M.enabled = false
+
 M.config = function()
     require("bufterm").setup()
 

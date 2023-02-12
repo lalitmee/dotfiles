@@ -113,6 +113,11 @@ return {
     --  NOTE: languages {{{
     --------------------------------------------------------------------------------
     {
+        "python-mode/python-mode",
+        ft = "python",
+        branch = "develop",
+    },
+    {
         "baskerville/vim-sxhkdrc",
         ft = { "sxhkdrc" },
     },

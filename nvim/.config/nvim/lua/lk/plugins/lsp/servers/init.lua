@@ -5,7 +5,7 @@ local function get_server_options(name)
 end
 
 local clangd = get_server_options("clangd")
-local sumneko_lua = get_server_options("sumneko_lua")
+local lua_ls = get_server_options("lua_ls")
 local rust_analyzer = get_server_options("rust_analyzer")
 local tsserver = get_server_options("tsserver")
 local gopls = get_server_options("gopls")
@@ -21,7 +21,7 @@ return {
     pyright = true,
     remark_ls = false,
     rust_analyzer = rust_analyzer,
-    sumneko_lua = sumneko_lua,
+    lua_ls = lua_ls,
     tailwindcss = true,
     taplo = true,
     tsserver = tsserver,
