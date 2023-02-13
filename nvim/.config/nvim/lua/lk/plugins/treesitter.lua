@@ -54,7 +54,7 @@ M.config = function()
         autotag = { enable = true },
         indent = {
             enable = true,
-            disable = { "css" },
+            disable = { "css", "python" },
         },
         playground = {
             enable = true,

@@ -113,9 +113,8 @@ return {
     --  NOTE: languages {{{
     --------------------------------------------------------------------------------
     {
-        "python-mode/python-mode",
+        "Vimjas/vim-python-pep8-indent",
         ft = "python",
-        branch = "develop",
     },
     {
         "baskerville/vim-sxhkdrc",

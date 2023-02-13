@@ -8,7 +8,7 @@ return {
             cwd = vim.fn.getcwd(),
             name = "node build",
             components = {
-                { "on_output_quickfix", set_diagnostics = true, open = true },
+                { "on_output_quickfix", set_diagnostics = true, open = false },
                 "on_result_diagnostics",
                 "default",
             },

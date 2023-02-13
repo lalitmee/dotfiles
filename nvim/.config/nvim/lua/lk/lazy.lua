@@ -22,7 +22,7 @@ require("lazy").setup("lk.plugins", {
         patterns = {},
     },
     checker = {
-        enabled = true,
+        enabled = false,
     },
     performance = {
         cache = {
