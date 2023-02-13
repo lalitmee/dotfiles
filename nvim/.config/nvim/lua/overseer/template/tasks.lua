@@ -1,5 +1,5 @@
 return {
-    "build_on_save",
+    -- "build_on_save",
     "cpp_build",
     "go_build",
     "node_build",
