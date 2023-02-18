@@ -134,6 +134,7 @@ return {
     },
     {
         "ellisonleao/glow.nvim",
+        ft = "markdown",
         cmd = { "Glow" },
     },
     {
@@ -141,7 +142,8 @@ return {
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
-        cmd = { "MarkdownPreviewToggle" },
+        ft = "markdown",
+        cmd = { "MarkdownPreview" },
     },
     {
         "dhruvasagar/vim-table-mode",

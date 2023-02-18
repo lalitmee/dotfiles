@@ -45,7 +45,10 @@ M.config = function()
         sync_install = true,
         -- Auto install parsers, if missing, for the current buffer
         auto_install = false,
-        highlight = { enable = true },
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = { "org" },
+        },
         rainbow = {
             enable = true,
             extended_mode = true,
