@@ -54,6 +54,7 @@ g.enable_treesitter_ft = {
     "lua",
     "markdown",
     "markdown_inline",
+    "org",
     "python",
     "regex",
     "rust",
