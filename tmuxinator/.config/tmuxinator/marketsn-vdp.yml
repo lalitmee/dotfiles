@@ -9,7 +9,7 @@ windows:
       layout: even-horizontal
       panes:
         - npmst
-        - cd ../worktrees/marketsn-webapp-service-nextjs/test-env && yd
+        - cd ../marketsn-webapp-service-nextjs && yd
   - Caddy:
       - cd ..
       - caddy run

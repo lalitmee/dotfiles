@@ -8,10 +8,10 @@ windows:
   - Servers:
       layout: even-horizontal
       panes:
-        - cd npmst
+        - npmst
         - cd ../marketsn-webapp-service-nextjs && npd
   - Caddy:
-      - cd ../..
+      - cd ..
       - caddy run
   - Extras:
       - clear
