@@ -20,10 +20,12 @@ g.enable_lspconfig_ft = {
     "go",
     "html",
     "javascript",
+    "javascriptreact",
     "json",
     "lua",
     "markdown",
     "typescript",
+    "typescriptreact",
     "vim",
     "yaml",
 }

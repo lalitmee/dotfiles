@@ -6,6 +6,7 @@ local M = {
         "ChatGPTActAs",
         "ChatGPTEditWithInstructions",
     },
+    dependencies = { "MunifTanjim/nui.nvim" },
 }
 
 M.init = function()
