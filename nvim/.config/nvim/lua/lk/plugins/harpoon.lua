@@ -15,13 +15,13 @@ local M = {
     },
 }
 
- M.config = function()
+M.config = function()
     local command = lk.command
 
     require("harpoon").setup({
         menu = {
-            width = vim.api.nvim_win_get_width(0) - 150,
-            height = vim.api.nvim_win_get_height(0) - 38,
+            width = vim.api.nvim_win_get_width(0) - 100,
+            height = vim.api.nvim_win_get_height(0) - 25,
         },
         enter_on_sendcmd = true,
         mark_branch = true,
