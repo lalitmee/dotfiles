@@ -60,7 +60,10 @@ M.config = function()
             ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
             ["o"] = { ":OilFloat<CR>", "oil-float" },
             ["p"] = { ":MarkdownPreview<CR>", "markdown-preview" },
-            ["r"] = { ":ChatGPTEditWithInstructions<CR>", "chatgpt-edit-instruction" },
+            ["r"] = {
+                ":ChatGPTEditWithInstructions<CR>",
+                "chatgpt-edit-instruction",
+            },
             ["s"] = { ":StartupTime<CR>", "run-startup-time" },
             ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
         },
@@ -71,7 +74,10 @@ M.config = function()
             ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
             ["d"] = { ":Bdelete<CR>", "delete-buffer" },
             ["D"] = { ":Bdelete!<CR>", "delete-buffer-without-prompt" },
-            ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "search-buffer-lines" },
+            ["l"] = {
+                ":Telescope current_buffer_fuzzy_find<CR>",
+                "search-buffer-lines",
+            },
             ["m"] = { ":Telescope marks<CR>", "telescope-marks" },
             ["M"] = { ":delm!<CR>", "delete-marks" },
             ["n"] = { ":bn<CR>", "next-buffer" },
@@ -88,8 +94,14 @@ M.config = function()
             ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
             ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
             ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
-            ["g"] = { ":ChatGPTRun grammar_correction<CR>", "chatgpt-grammar-correction" },
-            ["o"] = { ":ChatGPTRun optimize_code<CR>", "chatgpt-optimize-code" },
+            ["g"] = {
+                ":ChatGPTRun grammar_correction<CR>",
+                "chatgpt-grammar-correction",
+            },
+            ["o"] = {
+                ":ChatGPTRun optimize_code<CR>",
+                "chatgpt-optimize-code",
+            },
             ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
             ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
         },
@@ -97,10 +109,16 @@ M.config = function()
             ["name"] = "+dap",
             [":"] = { ":Telescope dap commands<CR>", "dap-commands" },
             ["a"] = { ":DapStepOut<CR>", "step-out" },
-            ["b"] = { ":Telescope dap list_breakpoints<CR>", "dap-list-breakpoints" },
+            ["b"] = {
+                ":Telescope dap list_breakpoints<CR>",
+                "dap-list-breakpoints",
+            },
             ["c"] = { ":DapContinue<CR>", "continue" },
             ["d"] = { ":DapToggleBreakpoint<CR>", "toggle-breakpoint" },
-            ["e"] = { ":Telescope dap configurations<CR>", "dap-configurations" },
+            ["e"] = {
+                ":Telescope dap configurations<CR>",
+                "dap-configurations",
+            },
             ["f"] = { ":Telescope dap frames<CR>", "dap-frames" },
             ["i"] = { ":DapStepInto<CR>", "step-into" },
             ["j"] = { ":OsvLaunch<CR>", "lua-launch" },
@@ -114,28 +132,46 @@ M.config = function()
         },
         ["e"] = {
             ["name"] = "+errors",
-            ["b"] = { ":TroubleToggle document_diagnostics<CR>", "buffer-diagnostics-quickfix" },
+            ["b"] = {
+                ":TroubleToggle document_diagnostics<CR>",
+                "buffer-diagnostics-quickfix",
+            },
             ["d"] = { ":LspDiagnosticDisable<CR>", "disable-diagnostic" },
             ["e"] = { ":LspDiagnosticEnable<CR>", "enable-diagnostic" },
             ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnostics" },
             ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnostics" },
             ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnostics" },
             ["q"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
-            ["v"] = { ":ShowLineDiagnosticInFlot<CR>", "diagnostic-float-preview" },
-            ["w"] = { ":TroubleToggle workspace_diagnostics<CR>", "workspace-diagnostics-quickfix" },
+            ["v"] = {
+                ":ShowLineDiagnosticInFlot<CR>",
+                "diagnostic-float-preview",
+            },
+            ["w"] = {
+                ":TroubleToggle workspace_diagnostics<CR>",
+                "workspace-diagnostics-quickfix",
+            },
         },
         ["f"] = {
             ["name"] = "+files",
             ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
             ["c"] = { ":TelescopeEditDotfiles<CR>", "dotfiles" },
-            ["d"] = { ":Telescope find_files theme=dropdown<CR>", "with-dropdown" },
+            ["d"] = {
+                ":Telescope find_files theme=dropdown<CR>",
+                "with-dropdown",
+            },
             ["e"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
             ["f"] = { ":Telescope find_files<CR>", "files" },
             ["g"] = { ":Telescope git_files<CR>", "git-files" },
             ["h"] = { ":Telescope frecency<CR>", "frecency" },
-            ["i"] = { ":Telescope find_files theme=ivy<CR>", "ivy-theme-files" },
+            ["i"] = {
+                ":Telescope find_files theme=ivy<CR>",
+                "ivy-theme-files",
+            },
             ["m"] = { ":ToggleHarpoonMenu<CR>", "quick-menu" },
-            ["M"] = { ":Telescope harpoon marks<CR>", "telescope-harpoon-marks" },
+            ["M"] = {
+                ":Telescope harpoon marks<CR>",
+                "telescope-harpoon-marks",
+            },
             ["n"] = { ":HarpoonNextMark<CR>", "next-mark" },
             ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
             ["p"] = { ":HarpoonPrevMark<CR>", "prev-mark" },
@@ -149,7 +185,10 @@ M.config = function()
             ["name"] = "+git",
             ["/"] = { ":Telescope git_status<CR>", "git-status" },
             [";"] = { ":Gitsigns diffthis<CR>", "diffthis" },
-            ["a"] = { ":Telescope git_worktree create_git_worktree<CR>", "create-worktree" },
+            ["a"] = {
+                ":Telescope git_worktree create_git_worktree<CR>",
+                "create-worktree",
+            },
             ["b"] = { ":Telescope git_branches<CR>", "checkout" },
             ["c"] = { ":Telescope git_commits<CR>", "git-commits" },
             ["C"] = { ":Telescope git_bcommits<CR>", "git-buffer-commits" },
@@ -160,7 +199,10 @@ M.config = function()
             ["g"] = { ":Git<CR>", "git-status" },
             ["h"] = {
                 ["name"] = "+gh",
-                ["f"] = { ":Telescope gh pull_request_files<CR>", "gh-pr-files" },
+                ["f"] = {
+                    ":Telescope gh pull_request_files<CR>",
+                    "gh-pr-files",
+                },
                 ["g"] = { ":Telescope gh gist<CR>", "gh-gist" },
                 ["I"] = { ":Telescope gh issues<CR>", "gh-issues" },
                 ["P"] = { ":Telescope gh pull_request<CR>", "gh-pr" },
@@ -207,21 +249,33 @@ M.config = function()
                     ["t"] = { "<cmd>GHToggleThread<cr>", "Toggle" },
                 },
             },
-            ["l"] = { ":Telescope git_worktree git_worktrees<CR>", "list-worktrees" },
+            ["l"] = {
+                ":Telescope git_worktree git_worktrees<CR>",
+                "list-worktrees",
+            },
             ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
             ["n"] = { ":Gitsigns next_hunk<CR>", "next-hunk" },
             ["o"] = {
                 ["name"] = "+octo.nvim",
                 ["a"] = {
                     ["name"] = "+reaction",
-                    ["c"] = { ":Octo reaction confused<CR>", "react-confused" },
-                    ["d"] = { ":Octo reaction thumbs_down<CR>", "react-thumbs_down" },
+                    ["c"] = {
+                        ":Octo reaction confused<CR>",
+                        "react-confused",
+                    },
+                    ["d"] = {
+                        ":Octo reaction thumbs_down<CR>",
+                        "react-thumbs_down",
+                    },
                     ["e"] = { ":Octo reaction eyes<CR>", "react-eyes" },
                     ["h"] = { ":Octo reaction heart<CR>", "react-heart" },
                     ["l"] = { ":Octo reaction laugh<CR>", "react-laugh" },
                     ["r"] = { ":Octo reaction rocket<CR>", "react-rocket" },
                     ["t"] = { ":Octo reaction tada<CR>", "react-tada" },
-                    ["u"] = { ":Octo reaction thumbs_up<CR>", "react-thumbs_up" },
+                    ["u"] = {
+                        ":Octo reaction thumbs_up<CR>",
+                        "react-thumbs_up",
+                    },
                 },
                 ["c"] = {
                     ["name"] = "+comment",
@@ -301,7 +355,10 @@ M.config = function()
         },
         ["h"] = {
             ["name"] = "+highlight",
-            ["h"] = { ":TSHighlightCapturesUnderCursor<CR>", "show-highlights-info" },
+            ["h"] = {
+                ":TSHighlightCapturesUnderCursor<CR>",
+                "show-highlights-info",
+            },
         },
         ["i"] = {
             ["name"] = "+insert-text",
@@ -311,7 +368,10 @@ M.config = function()
             ["d"] = { ":AttemptDeleteBuf<CR>", "delete-scratch-buffer" },
             ["D"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
             ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
-            ["E"] = { ":AttemptNewExtension<CR>", "new-extension-scratch-buffer" },
+            ["E"] = {
+                ":AttemptNewExtension<CR>",
+                "new-extension-scratch-buffer",
+            },
             ["f"] = { ":Telescope attempt<CR>", "find-scratch-buffers" },
             ["i"] = { ":PickEverything<CR>", "everything" },
             ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
@@ -395,7 +455,10 @@ M.config = function()
             ["l"] = { ":Telescope smart_open<cr>", "smart-open-files" },
             ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
             ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-            ["h"] = { ":Telescope frecency workspace=CWD<CR>", "cwd-frecency" },
+            ["h"] = {
+                ":Telescope frecency workspace=CWD<CR>",
+                "cwd-frecency",
+            },
             ["p"] = { ":Telescope projects<CR>", "projects" },
             ["s"] = { ":Telescope live_grep<CR>", "project-search" },
             ["w"] = { ":Telescope grep_string<CR>", "string-search" },
@@ -428,7 +491,10 @@ M.config = function()
                 ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
                 ["t"] = { ":OverseerToggle<CR>", "toggle" },
             },
-            ["r"] = { ":Telescope refactoring refactors<CR>", "list-refactors" },
+            ["r"] = {
+                ":Telescope refactoring refactors<CR>",
+                "list-refactors",
+            },
             ["s"] = { ":SnipRun<CR>", "snip-run" },
             ["S"] = { ":SnipClose<CR>", "snip-close" },
         },
@@ -448,7 +514,10 @@ M.config = function()
             ["h"] = { ":Telescope howdoi<CR>", "howdoi" },
             ["H"] = { ":Telescope command_history<CR>", "command-history" },
             ["i"] = { ":Telescope luasnip<CR>", "snippets" },
-            ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
+            ["l"] = {
+                ":Telescope current_buffer_fuzzy_find<CR>",
+                "telescope-buffer-lines",
+            },
             ["m"] = { ":Telescope man_pages<CR>", "man-pages" },
             ["M"] = { ":Telescope keymaps<CR>", "keymaps" },
             ["n"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
@@ -467,24 +536,45 @@ M.config = function()
         },
         ["S"] = {
             ["name"] = "+system",
-            ["b"] = { ":ChangeSystemBackground<CR>", "change-system-background" },
-            ["c"] = { ":lua Get_current_working_directory()<CR>", "current-working-directory" },
-            ["f"] = { ":lua Show_current_file_path()<CR>", "show-current-file-path" },
+            ["b"] = {
+                ":ChangeSystemBackground<CR>",
+                "change-system-background",
+            },
+            ["c"] = {
+                ":lua Get_current_working_directory()<CR>",
+                "current-working-directory",
+            },
+            ["f"] = {
+                ":lua Show_current_file_path()<CR>",
+                "show-current-file-path",
+            },
             ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
             ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
-            ["t"] = { ":lua Notify_current_datetime()<CR>", "current-date-time" },
-            ["y"] = { ":lua Yank_current_file_name()<CR>", "yank-current-file-name" },
+            ["t"] = {
+                ":lua Notify_current_datetime()<CR>",
+                "current-date-time",
+            },
+            ["y"] = {
+                ":lua Yank_current_file_name()<CR>",
+                "yank-current-file-name",
+            },
         },
         ["t"] = {
             ["name"] = "+toggle",
             ["j"] = { ":TSJToggle<CR>", "treesj-toggle" },
             ["g"] = {
                 ["name"] = "+git",
-                ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
+                ["b"] = {
+                    ":Gitsigns toggle_current_line_blame<CR>",
+                    "toggle-blame",
+                },
                 ["l"] = { ":Gitsigns toggle_linehl<CR>", "toggle-linehl" },
                 ["n"] = { ":Gitsigns toggle_numhl<CR>", "toggle-numhl" },
                 ["s"] = { ":Gitsigns toggle_signs<CR>", "toggle-signs" },
-                ["w"] = { ":Gitsigns toggle_word_diff<CR>", "toggle-word-diff" },
+                ["w"] = {
+                    ":Gitsigns toggle_word_diff<CR>",
+                    "toggle-word-diff",
+                },
             },
             ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
             ["p"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
@@ -566,7 +656,10 @@ M.config = function()
             ["name"] = "+browse",
             ["b"] = { ":Browse<CR>", "browse" },
             ["l"] = { ":BrowseBookmarks<CR>", "bookmarks" },
-            ["d"] = { ":BrowseDevdocsFiletypeSearch<CR>", "devdocs-filetype-search" },
+            ["d"] = {
+                ":BrowseDevdocsFiletypeSearch<CR>",
+                "devdocs-filetype-search",
+            },
             ["D"] = { ":BrowseDevdocsSearch<CR>", "devdocs-search" },
             ["i"] = { ":BrowseInputSearch<CR>", "input-search" },
             ["m"] = { ":BrowseMdnSearch<CR>", "mdn-search" },
@@ -601,7 +694,10 @@ M.config = function()
     local visual_mode_leader_key_maps = {
         ["r"] = {
             ["name"] = "+refators",
-            ["r"] = { "<esc>:Telescope refactoring refactors<CR>", "list-refactors" },
+            ["r"] = {
+                "<esc>:Telescope refactoring refactors<CR>",
+                "list-refactors",
+            },
         },
         ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
         ["a"] = {
@@ -613,8 +709,14 @@ M.config = function()
             ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
             ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
             ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
-            ["g"] = { ":ChatGPTRun grammar_correction<CR>", "chatgpt-grammar-correction" },
-            ["o"] = { ":ChatGPTRun optimize_code<CR>", "chatgpt-optimize-code" },
+            ["g"] = {
+                ":ChatGPTRun grammar_correction<CR>",
+                "chatgpt-grammar-correction",
+            },
+            ["o"] = {
+                ":ChatGPTRun optimize_code<CR>",
+                "chatgpt-optimize-code",
+            },
             ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
             ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
         },
@@ -623,7 +725,10 @@ M.config = function()
 
     wk.register(local_leader_key_maps, { prefix = "<localleader>" })
     wk.register(leader_key_maps, { prefix = "<leader>" })
-    wk.register(visual_mode_leader_key_maps, { prefix = "<leader>", mode = "v" })
+    wk.register(visual_mode_leader_key_maps, {
+        prefix = "<leader>",
+        mode = "v",
+    })
 end
 
 return M
