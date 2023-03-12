@@ -244,10 +244,6 @@ return {
         "tpope/vim-scriptease",
         cmd = { "Messages", "Verbose" },
     },
-    {
-        "tpope/vim-unimpaired",
-        keys = { "[", "]" },
-    },
     -- }}}
     --------------------------------------------------------------------------------
 
