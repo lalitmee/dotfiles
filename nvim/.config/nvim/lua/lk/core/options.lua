@@ -87,7 +87,9 @@ opt.shortmess = {
     O = true, -- file-read message overwrites previous
     T = true, -- truncate non-file messages in middle
     f = true, -- (file x of x) instead of just (x of x
-    F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
+
+    -- NOTE: this breaks autocommand messages
+    F = true, -- Don't give file info when editing a file,
     s = true,
     S = false,
     c = true,
@@ -142,7 +144,8 @@ opt.fillchars = {
 ----------------------------------------------------------------------
 -- NOTE: diff {{{
 ----------------------------------------------------------------------
--- Use in vertical diff mode, blank lines to keep sides aligned, Ignore whitespace changes
+-- Use in vertical diff mode, blank lines to keep sides aligned,
+-- Ignore whitespace changes
 opt.diffopt = opt.diffopt
     + {
         "vertical",
@@ -189,7 +192,8 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("rg") then
-    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --no-heading --vimgrep --follow $*]]
+    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" 
+    --no-heading --vimgrep --follow $*]]
     opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
     o.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]
@@ -201,9 +205,13 @@ end
 ----------------------------------------------------------------------
 -- NOTE: Wild and file globbing stuff in command mode {{{
 ----------------------------------------------------------------------
-o.wildcharm = fn.char2nr(api.nvim_replace_termcodes([[<C-Z>]], true, true, true))
-o.wildmode = "longest:full,full" -- Shows a menu bar as opposed to an enormous list
-o.wildignorecase = true -- Ignore case when completing file names and directories
+-- NOTE: I don't know the use of this yet, but it's a nice feature
+-- o.wildcharm =
+-- fn.char2nr(api.nvim_replace_termcodes([[<C-Z>]], true, true, true))
+-- Shows a menu bar as opposed to an enormous list
+o.wildmode = "longest:full,full"
+-- Ignore case when completing file names and directories
+o.wildignorecase = true
 -- Binary
 opt.wildignore = {
     "*.aux",
@@ -240,7 +248,8 @@ o.pumblend = 3 -- Make popup window translucent
 -- NOTE: display {{{
 ----------------------------------------------------------------------
 o.inccommand = "split"
--- This is from the help docs, it enables mode shapes, "Cursor" highlight, and blinking
+-- This is from the help docs, it enables mode shapes,
+-- "Cursor" highlight, and blinking
 o.cursorline = true
 o.cursorcolumn = false
 o.conceallevel = 2
@@ -309,7 +318,8 @@ opt.completeopt = {
     "noinsert",
 }
 o.hlsearch = true
-o.autowriteall = true -- automatically :write before running commands and changing files
+-- automatically :write before running commands and changing files
+o.autowriteall = true
 opt.clipboard = { "unnamedplus" }
 o.laststatus = 3
 o.showtabline = 2
@@ -355,8 +365,10 @@ opt.sessionoptions = {
     -- "terminal",
     "winpos",
 }
-opt.viewoptions = { "cursor", "folds" } -- save/restore just these (with `:{mk,load}view`)
-opt.virtualedit = { "block" } -- allow cursor to move where there is no text in visual block mode
+-- save/restore just these (with `:{mk,load}view`)
+opt.viewoptions = { "cursor", "folds" }
+-- allow cursor to move where there is no text in visual block mode
+opt.virtualedit = { "block" }
 -- }}}
 ----------------------------------------------------------------------
 
@@ -378,17 +390,17 @@ o.maxmempattern = 5000
 ----------------------------------------------------------------------
 o.backup = false
 o.writebackup = false
-if fn.isdirectory(vim.o.undodir) == 0 then
-    fn.mkdir(vim.o.undodir, "p")
+if fn.isdirectory(o.undodir) == 0 then
+    fn.mkdir(o.undodir, "p")
 end
 o.undofile = true
 o.swapfile = false
--- The // at the end tells Vim to use the absolute path to the file to create the swap file.
--- This will ensure that swap file name is unique, so there are no collisions between files
--- with the same name from different directories.
+-- The // at the end tells Vim to use the absolute path to the file to create
+-- the swap file. This will ensure that swap file name is unique, so there are
+-- no collisions between files with the same name from different directories.
 o.directory = fn.stdpath("data") .. "/swap//"
-if fn.isdirectory(vim.o.directory) == 0 then
-    fn.mkdir(vim.o.directory, "p")
+if fn.isdirectory(o.directory) == 0 then
+    fn.mkdir(o.directory, "p")
 end
 -- }}}
 ----------------------------------------------------------------------
