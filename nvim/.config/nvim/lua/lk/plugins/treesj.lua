@@ -2,9 +2,10 @@ local M = {
     "Wansmer/treesj",
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     keys = { "gS", "gJ" },
+    enabled = false,
 }
 
- M.config = function()
+M.config = function()
     require("treesj").setup({})
 
     local nnoremap = lk.nnoremap

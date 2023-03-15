@@ -62,6 +62,7 @@ g.enable_treesitter_ft = {
     "rust",
     "scss",
     "toml",
+    "tsx",
     "typescript",
     "vim",
     "yaml",
