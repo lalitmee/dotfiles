@@ -1,12 +1,20 @@
 local M = {
     "Wansmer/treesj",
-    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+    cmd = {
+        "TSJToggle",
+        "TSJSplit",
+        "TSJJoin",
+    },
     keys = { "gS", "gJ" },
-    enabled = false,
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+    },
 }
 
 M.config = function()
-    require("treesj").setup({})
+    require("treesj").setup({
+        use_defaul_keymaps = true,
+    })
 
     local nnoremap = lk.nnoremap
     local opts = { silent = true }
