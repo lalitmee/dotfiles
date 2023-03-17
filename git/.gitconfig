@@ -118,9 +118,9 @@
 [delta]
     line-numbers = true
     syntax-theme = cobalt2
-    side-by-side = false
-
+    side-by-side = true
     file-modified-label = modified:
+    navigate = true
 
 [interactive]
     diffFilter = delta --color-only
