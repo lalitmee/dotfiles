@@ -16,7 +16,14 @@ return {
         "m4xshen/smartcolumn.nvim",
         event = { "BufReadPost" },
         config = function()
-            require("smartcolumn").setup()
+            require("smartcolumn").setup({
+                disabled_filetypes = {
+                    "toggleterm",
+                    "lazy",
+                    "mason",
+                    "help",
+                },
+            })
         end,
     },
     -- }}}
