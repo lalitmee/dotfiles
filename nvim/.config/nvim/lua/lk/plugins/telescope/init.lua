@@ -230,10 +230,8 @@ M.config = function()
             layout_strategy = "horizontal",
             layout_config = {
                 width = 0.95,
-                height = 0.85,
-                -- preview_cutoff = 120,
+                height = 0.95,
                 prompt_position = "top",
-
                 horizontal = {
                     preview_width = function(_, cols, _)
                         if cols > 200 then
