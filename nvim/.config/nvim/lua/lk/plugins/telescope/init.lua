@@ -226,26 +226,56 @@ M.config = function()
                 "build",
                 "node_modules",
             },
+
+            layout_strategy = "horizontal",
             layout_config = {
-                width = 0.90,
-                height = 0.90,
+                width = 0.95,
+                height = 0.85,
+                -- preview_cutoff = 120,
                 prompt_position = "top",
+
                 horizontal = {
-                    width_padding = 0.11,
-                    height_padding = 0.13,
-                    preview_width = 0.56,
+                    preview_width = function(_, cols, _)
+                        if cols > 200 then
+                            return math.floor(cols * 0.4)
+                        else
+                            return math.floor(cols * 0.6)
+                        end
+                    end,
                 },
+
                 vertical = {
-                    width_padding = 0.4,
-                    height_padding = 0.8,
+                    width = 0.9,
+                    height = 0.95,
                     preview_height = 0.5,
                 },
+
                 flex = {
                     horizontal = {
-                        preview_width = 0.8,
+                        preview_width = 0.9,
                     },
                 },
             },
+            -- layout_config = {
+            --     width = 0.90,
+            --     height = 0.90,
+            --     prompt_position = "top",
+            --     horizontal = {
+            --         width_padding = 0.11,
+            --         height_padding = 0.13,
+            --         preview_width = 0.56,
+            --     },
+            --     vertical = {
+            --         width_padding = 0.4,
+            --         height_padding = 0.8,
+            --         preview_height = 0.5,
+            --     },
+            --     flex = {
+            --         horizontal = {
+            --             preview_width = 0.8,
+            --         },
+            --     },
+            -- },
             file_previewer = previewers.vim_buffer_cat.new,
             grep_previewer = previewers.vim_buffer_vimgrep.new,
             qflist_previewer = previewers.vim_buffer_qflist.new,
@@ -490,6 +520,44 @@ M.config = function()
     lk.command("ChangeSystemBackground", function()
         set_wallpaper()
     end, {})
+    -- }}}
+    --------------------------------------------------------------------------------
+
+    --------------------------------------------------------------------------------
+    --  NOTE: git hunks {{{
+    --------------------------------------------------------------------------------
+    local git_hunks = function()
+        require("telescope.pickers")
+            .new({
+                finder = require("telescope.finders").new_oneshot_job({ "git-jump", "diff" }, {
+                    entry_maker = function(line)
+                        local filename, lnum_string = line:match("([^:]+):(%d+).*")
+
+                        -- I couldn't find a way to use grep in new_oneshot_job so we have to filter here.
+                        -- return nil if filename is /dev/null because this means the file was deleted.
+                        if filename:match("^/dev/null") then
+                            return nil
+                        end
+
+                        return {
+                            value = filename,
+                            display = line,
+                            ordinal = line,
+                            filename = filename,
+                            lnum = tonumber(lnum_string),
+                        }
+                    end,
+                }),
+                sorter = require("telescope.sorters").get_generic_fuzzy_sorter(),
+                previewer = require("telescope.config").values.grep_previewer({}),
+                results_title = "Git hunks",
+                prompt_title = "Git hunks",
+                layout_strategy = "flex",
+            }, {})
+            :find()
+    end
+
+    lk.command("GitHunks", git_hunks, {})
     -- }}}
     --------------------------------------------------------------------------------
 end

@@ -8,7 +8,7 @@ local M = {
         shade_terminals = true,
         start_in_insert = true,
         persist_size = true,
-        direction = "split",
+        direction = "float",
         float_opts = { border = "curved" },
     },
 }

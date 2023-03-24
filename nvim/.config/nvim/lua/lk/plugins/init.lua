@@ -119,6 +119,11 @@ return {
     --  NOTE: languages {{{
     ---------------------------------------------------------------------------
     {
+        "NMAC427/guess-indent.nvim",
+        event = { "VeryLazy" },
+        opts = {},
+    },
+    {
         "Vimjas/vim-python-pep8-indent",
         ft = "python",
     },

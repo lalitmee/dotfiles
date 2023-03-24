@@ -1,6 +1,6 @@
 local M = {
     "liangxianzhe/nap.nvim",
-    keys = { ",", ";" },
+    keys = { "]", "[" },
 }
 
 M.config = function()
