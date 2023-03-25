@@ -444,6 +444,7 @@ M.config = function()
             ["s"] = { ":Lazy sync<CR>", "lazy-sync" },
             ["S"] = { ":Lazy<CR>", "packages-status" },
             ["u"] = { ":Lazy update<CR>", "lazy-update" },
+            ["U"] = { ":UrlView lazy<CR>", "url-view-lazy" },
         },
         ["o"] = {
             ["name"] = "+org-mode",

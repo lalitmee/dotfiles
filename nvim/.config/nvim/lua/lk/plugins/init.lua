@@ -33,6 +33,11 @@ return {
     --  NOTE: actions {{{
     ---------------------------------------------------------------------------
     {
+        "axieax/urlview.nvim",
+        cmd = { "UrlView" },
+        opts = {},
+    },
+    {
         "jghauser/fold-cycle.nvim",
         keys = { "<CR>" },
         config = function()
