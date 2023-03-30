@@ -362,19 +362,11 @@ M.config = function()
         },
         ["i"] = {
             ["name"] = "+insert-text",
-            ["a"] = { ":AttemptNew<CR>", "new-scratch-buffer" },
-            ["b"] = { ":AttemptRenameBuf<CR>", "rename-scratch-buffer" },
             ["c"] = { ":PickColor<CR>", "color-picker" },
-            ["d"] = { ":AttemptDeleteBuf<CR>", "delete-scratch-buffer" },
             ["D"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
             ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
-            ["E"] = {
-                ":AttemptNewExtension<CR>",
-                "new-extension-scratch-buffer",
-            },
             ["f"] = { ":Telescope attempt<CR>", "find-scratch-buffers" },
             ["i"] = { ":PickEverything<CR>", "everything" },
-            ["r"] = { ":AttemptRun<CR>", "run-scratch-buffer" },
             ["w"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
         },
         ["j"] = {
@@ -673,6 +665,15 @@ M.config = function()
             ["n"] = { ":lnext<CR>", "next" },
             ["o"] = { ":lopen<CR>", "open" },
             ["p"] = { ":lprev<CR>", "prev" },
+        },
+        ["s"] = {
+            ["name"] = "+scratch",
+            ["c"] = { ":ScratchCheckConfig<CR>", "check-config" },
+            ["e"] = { ":ScratchEditConfig<CR>", "edit-config" },
+            ["f"] = { ":ScratchOpenFzf<CR>", "scratch-open-fzf" },
+            ["n"] = { ":ScratchWithName<CR>", "scratch-with-name" },
+            ["o"] = { ":ScratchOpen<CR>", "scratch-open" },
+            ["s"] = { ":Scratch<CR>", "scratch" },
         },
         ["t"] = {
             ["name"] = "+treesitter",

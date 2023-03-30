@@ -33,6 +33,17 @@ return {
     --  NOTE: actions {{{
     ---------------------------------------------------------------------------
     {
+        "LintaoAmons/scratch.nvim",
+        cmd = {
+            "ScratchCheckConfig",
+            "ScratchEditConfig",
+            "Scratch",
+            "ScratchOpen",
+            "ScratchWithName",
+            "ScratchOpenFzf",
+        },
+    },
+    {
         "axieax/urlview.nvim",
         cmd = { "UrlView" },
         opts = {},
