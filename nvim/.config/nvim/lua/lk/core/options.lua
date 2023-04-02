@@ -323,7 +323,7 @@ o.hlsearch = true
 o.autowriteall = true
 opt.clipboard = { "unnamedplus" }
 o.laststatus = 3
-o.showtabline = 2
+o.showtabline = 0
 o.tgc = true
 -- }}}
 ----------------------------------------------------------------------
