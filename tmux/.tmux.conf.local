@@ -442,6 +442,10 @@ setw -g mode-keys vi
 #-------------------------------------------------------------------------------
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
+# catppuccin theme
+# set -g @plugin 'catppuccin/tmux'
+# set -g @catppuccin_flavour 'latte'
+
 # # tmux like i3
 # set -g @plugin 'jabirali/tmux-tilish'
 # set -g @tilish-dmenu 'on'
