@@ -47,7 +47,6 @@ g.enable_treesitter_ft = {
     "gomod",
     "gosum",
     "gowork",
-    "help",
     "html",
     "javascript",
     "jsdoc",
