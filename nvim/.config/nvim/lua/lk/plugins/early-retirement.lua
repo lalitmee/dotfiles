@@ -21,4 +21,5 @@ return {
         -- uses vim.notify for plugins like nvim-notify
         notificationOnAutoClose = false,
     },
+    enabled = false,
 }

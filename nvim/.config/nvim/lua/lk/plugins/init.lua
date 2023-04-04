@@ -193,7 +193,7 @@ return {
     --  NOTE: colorschemes {{{
     ---------------------------------------------------------------------------
     {
-        "lalitmee/cobalt2.nvim",
+        dir = "~/Desktop/Github/cobalt2.nvim",
         event = { "ColorSchemePre" },
         dependencies = { "tjdevries/colorbuddy.nvim" },
         init = function()
