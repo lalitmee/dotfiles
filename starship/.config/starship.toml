@@ -15,6 +15,8 @@ $cmd_duration $jobs $time\
 $line_break\
 $character"""
 
+command_timeout = 5000
+
 # Inserts a blank line between shell prompts
 add_newline = true
 

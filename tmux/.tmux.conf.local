@@ -425,7 +425,8 @@ set -g prefix C-a
 bind C-a send-prefix
 
 # reducing escape time
-set -g escape-time 10
+set -g escape-time 0
+set -g status-interval 0
 
 set -ga terminal-overrides ",xterm-256color:Tc"
 
@@ -442,13 +443,13 @@ setw -g mode-keys vi
 #-------------------------------------------------------------------------------
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
-# catppuccin theme
-# set -g @plugin 'catppuccin/tmux'
-# set -g @catppuccin_flavour 'latte'
-
 # # tmux like i3
 # set -g @plugin 'jabirali/tmux-tilish'
 # set -g @tilish-dmenu 'on'
+
+# # catppuccin theme
+# set -g @plugin 'catppuccin/tmux'
+# set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
 
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
