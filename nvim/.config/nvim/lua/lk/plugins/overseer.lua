@@ -12,6 +12,7 @@ local M = {
         "OverseerTaskAction",
         "OverseerToggle",
     },
+    -- enabled = false,
 }
 
 M.config = function()

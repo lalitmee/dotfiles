@@ -2,7 +2,7 @@ local M = {
     "mhartington/formatter.nvim",
     event = { "BufWritePost" },
     cmd = { "FormatWrite" },
-    enabled = false,
+    -- enabled = false,
 }
 
 M.config = function()

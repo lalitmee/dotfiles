@@ -1,6 +1,7 @@
 local M = {
     "sbdchd/neoformat",
     cmd = { "Neoformat" },
+    enabled = false,
 }
 
 M.init = function()
