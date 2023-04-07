@@ -64,6 +64,7 @@ g.enable_treesitter_ft = {
     "tsx",
     "typescript",
     "vim",
+    "vimdoc",
     "yaml",
 }
 -- }}}
