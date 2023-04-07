@@ -451,6 +451,9 @@ setw -g mode-keys vi
 # set -g @plugin 'catppuccin/tmux'
 # set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
 
+# # vscode dark theme
+# set -g @plugin 'khanghh/tmux-dark-plus-theme'
+
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
 

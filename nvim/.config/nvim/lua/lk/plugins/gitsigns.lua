@@ -3,7 +3,7 @@ local M = {
     event = "BufReadPre",
 }
 
- M.config = function()
+M.config = function()
     require("gitsigns").setup({
         signs = {
             add = {
@@ -37,7 +37,7 @@ local M = {
                 linehl = "GitSignsChangeLn",
             },
         },
-        numhl = false,
+        numhl = true,
         linehl = false,
         watch_gitdir = { interval = 1000 },
         sign_priority = 6,

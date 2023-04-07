@@ -132,10 +132,10 @@ values."
              ranger-cleanup-eagerly t
              ranger-cleanup-on-disable t
              ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
-     (wakatime :variables
-               ;; use the actual wakatime path
-               wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime-cli")
-
+     ;; (wakatime :variables
+     ;;           ;; use the actual wakatime path
+     ;;           wakatime-cli-path "~/.local/bin/wakatime")
+     wakatime
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -248,9 +248,9 @@ values."
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator SSm"
-                               "JetBrainsMono Nerd Font"
-                               ;; "SauceCodePro Nerd Font"
-                               ;; "MonoLisa"
+                               ;; "JetBrainsMono Nerd Font"
+                               "SauceCodePro Nerd Font"
+                               ;; "Ubuntu Mono"
                                :size 14
                                :weight medium
                                :powerline-scale 1.3)

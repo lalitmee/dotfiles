@@ -82,11 +82,12 @@ M.config = function()
                     "diagnostics",
                     sources = { "nvim_diagnostic" },
                     symbols = {
-                        error = "",
-                        warn = "",
-                        hint = "",
-                        info = "",
+                        error = "E:",
+                        warn = "W:",
+                        hint = "H:",
+                        info = "I:",
                     },
+                    always_visible = false,
                 },
             },
             lualine_x = {
