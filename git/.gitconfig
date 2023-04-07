@@ -7,12 +7,8 @@
     name = Lalit Kumar
 
 [credential]
-    helper = 
-    helper = /usr/local/bin/git-credential-manager
-
-[credential "https://dev.azure.com"]
-    useHttpPath = true
-
+	credentialStore = cache
+	useHttpPath = true
 [advice]
     statusHints = true
 
