@@ -297,15 +297,32 @@ eval "$(pyenv virtualenv-init -)"
 # }}}
 # -------------------------------------------------------------------
 
-# vim:foldmethod=marker
+# -------------------------------------------------------------------
+# NOTE: emacs {{{
+# -------------------------------------------------------------------
+export EMACS="/usr/bin/flatpak run org.gnu.emacs"
+# }}}
+# -------------------------------------------------------------------
 
-# source /home/lalitmee/.config/broot/launcher/bash/br
-
+# -------------------------------------------------------------------
+# NOTE: rbenv {{{
+# -------------------------------------------------------------------
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-source '/home/linuxbrew/.linuxbrew/opt/autoenv/activate.sh'
+# }}}
+# -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: nvm {{{
+# -------------------------------------------------------------------
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# }}}
+# -------------------------------------------------------------------
+
+# source /home/lalitmee/.config/broot/launcher/bash/br
+# source '/home/linuxbrew/.linuxbrew/opt/autoenv/activate.sh'
+
+# vim:foldmethod=marker

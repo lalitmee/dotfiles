@@ -192,56 +192,57 @@ return {
     ---------------------------------------------------------------------------
     --  NOTE: colorschemes {{{
     ---------------------------------------------------------------------------
-    -- {
-    --     "catppuccin/nvim",
-    --     event = { "ColorSchemePre" },
-    --     name = "catppuccin",
-    --     init = function()
-    --         require("catppuccin").setup({
-    --             flavour = "mocha", -- latte, frappe, macchiato, mocha
-    --             background = { -- :h background
-    --                 light = "latte",
-    --                 dark = "mocha",
-    --             },
-    --             transparent_background = true,
-    --             show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-    --             term_colors = true,
-    --             dim_inactive = {
-    --                 enabled = false,
-    --                 shade = "dark",
-    --                 percentage = 0.15,
-    --             },
-    --             no_italic = false, -- Force no italic
-    --             no_bold = false, -- Force no bold
-    --             styles = {
-    --                 comments = { "italic" },
-    --                 conditionals = { "italic" },
-    --                 loops = {},
-    --                 functions = {},
-    --                 keywords = { "italic" },
-    --                 strings = {},
-    --                 variables = {},
-    --                 numbers = {},
-    --                 booleans = {},
-    --                 properties = {},
-    --                 types = {},
-    --                 operators = {},
-    --             },
-    --             color_overrides = {},
-    --             custom_highlights = {},
-    --             integrations = {
-    --                 cmp = true,
-    --                 gitsigns = true,
-    --                 nvimtree = true,
-    --                 telescope = true,
-    --                 notify = true,
-    --                 mini = false,
-    --             },
-    --         })
+    {
+        "catppuccin/nvim",
+        event = { "ColorSchemePre" },
+        name = "catppuccin",
+        init = function()
+            require("catppuccin").setup({
+                flavour = "mocha", -- latte, frappe, macchiato, mocha
+                background = { -- :h background
+                    light = "latte",
+                    dark = "mocha",
+                },
+                transparent_background = true,
+                show_end_of_buffer = false, -- show the '~' characters after the end of buffers
+                term_colors = true,
+                dim_inactive = {
+                    enabled = false,
+                    shade = "dark",
+                    percentage = 0.15,
+                },
+                no_italic = false, -- Force no italic
+                no_bold = false, -- Force no bold
+                styles = {
+                    comments = { "italic" },
+                    conditionals = { "italic" },
+                    loops = {},
+                    functions = {},
+                    keywords = { "italic" },
+                    strings = {},
+                    variables = {},
+                    numbers = {},
+                    booleans = {},
+                    properties = {},
+                    types = {},
+                    operators = {},
+                },
+                color_overrides = {},
+                custom_highlights = {},
+                integrations = {
+                    cmp = true,
+                    gitsigns = true,
+                    nvimtree = true,
+                    telescope = true,
+                    notify = true,
+                    mini = false,
+                },
+            })
 
-    --         vim.cmd.colorscheme("catppuccin")
-    --     end,
-    -- },
+            vim.cmd.colorscheme("catppuccin")
+        end,
+        enabled = false,
+    },
     {
         dir = "~/Desktop/Github/cobalt2.nvim",
         event = { "ColorSchemePre" },
@@ -279,6 +280,27 @@ return {
         end,
         dev = true,
     },
+    {
+        "Mofiqul/vscode.nvim",
+        event = { "ColorSchemePre" },
+        init = function()
+            local c = require("vscode.colors").get_colors()
+            require("vscode").setup({
+                transparent = true,
+                italic_comments = true,
+                color_overrides = {
+                    vscLineNumber = "#FFFFFF",
+                },
+                group_overrides = {
+                    Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
+                    Normal = { fg = c.vscFront, bg = "NONE" },
+                },
+            })
+            require("vscode").load()
+        end,
+        enabled = false,
+    },
+
     -- }}}
     ---------------------------------------------------------------------------
 

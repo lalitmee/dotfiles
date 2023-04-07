@@ -178,7 +178,7 @@ M.config = function()
                 "--smart-case",
                 "--trim",
             },
-            winblend = 5,
+            winblend = 0,
             prompt_prefix = "   ", --   
             selection_strategy = "reset",
             sorting_strategy = "ascending",
