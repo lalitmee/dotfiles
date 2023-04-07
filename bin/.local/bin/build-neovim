@@ -1,16 +1,26 @@
 #!/usr/bin/env bash
 
-#Build and install neovim for Debian
-#See: https://neovim.io/
-#See: https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start
+# Build and install neovim for Debian
+# See: https://neovim.io/
+# See: https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start
 
-#Save current dir
+# Save current dir
 pushd . > /dev/null || exit
 
-#Install dependencies
-echo "Installing dependencies..."
-sudo apt-get update
-sudo apt-get install -y \
+gum_style() {
+    gum style \
+      --align center --width 100 \
+      --border rounded --border-foreground 212 \
+      --margin "0" --padding "1 2" \
+      --bold \
+      "$(gum style --foreground 212 "$1")"
+}
+
+# Install dependencies
+gum_style 'Installing dependencies...'
+
+sudo nala update
+sudo nala install -y \
   autoconf \
   automake \
   cmake \
@@ -23,29 +33,26 @@ sudo apt-get install -y \
   libunibilium4 \
   ninja-build \
   pkg-config \
-  python-pip \
   python3-pip \
   software-properties-common \
   unzip
 
-echo "Installing python3-neovim..."
+gum_style "Installing python3-neovim..."
 # Enable use of python plugins
 # Note: python neovim module was renamed to pynvim
 # https://github.com/neovim/neovim/wiki/Following-HEAD#steps-to-update-pynvim-formerly-neovim-python-package
 # pip uninstall pynvim neovim
 # pip3 uninstall pynvim neovim
-pip install setuptools
-pip install --upgrade pynvim
 pip3 install setuptools
 pip3 install --upgrade pynvim
 
-echo "Installing rust neovim..."
-sudo gem install neovim
+gum_style "Installing ruby neovim..."
+gem install neovim
 
-echo "Installing nodejs neovim..."
+gum_style "Installing node.js neovim..."
 npm install -g neovim
 
-echo "creating neovim directory and cloning repo..."
+gum_style "creating neovim directory and cloning repo..."
 #Get or update neovim github repo
 mkdir -p ~/Desktop/Github/neovim
 cd ~/Desktop/Github || exit
@@ -53,32 +60,29 @@ if [ ! -e ~/Desktop/Github/neovim ]; then
   git clone https://github.com/neovim/neovim
 else
   cd neovim || exit
-  echo "Updating neovim repo..."
+  gum_style "Updating neovim repo..."
   git pull origin
 fi
 
-echo "checking out to master neovim..."
+gum_style "Checking out to master neovim..."
 cd ~/Desktop/Github/neovim || exit
 git checkout master
 
-echo "removing old build..."
-#Remove old build dir and .deps dir
+gum_style "Removing old build..."
+# Remove old build dir and .deps dir
 rm -rf build/
 rm -rf .deps/
 sudo make clean && sudo make distclean
 
-echo "building neovim..."
+gum_style "Building neovim..."
 # Build and install neovim
 make CMAKE_BUILD_TYPE=Release
 
-echo "installing neovim..."
+gum_style "Installing neovim..."
 sudo make install
-
-# Enable use of ruby plugins
-# sudo gem install neovim
 
 #Restore dir
 popd > /dev/null || exit
 
-echo "nvim command: $(command -v nvim)"
-echo "nvim command: $(ls -al "$(command -v nvim)")"
+gum_style "nvim command: $(command -v nvim)"
+gum_style "nvim command: $(ls -al "$(command -v nvim)")"
