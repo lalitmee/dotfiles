@@ -9,6 +9,8 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias please="gum input --password | sudo -nS"
+
 # rust tools aliases
 alias cp="xcp"
 alias rm="rip"

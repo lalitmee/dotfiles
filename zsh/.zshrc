@@ -264,19 +264,19 @@ source ~/.openai
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: auto start tmux {{{
-# start tmux while starting new terminal
-# -------------------------------------------------------------------
-_not_inside_tmux() { [[ -z "$TMUX" ]]; }
+# # NOTE: auto start tmux {{{
+# # start tmux while starting new terminal
+# # -------------------------------------------------------------------
+# _not_inside_tmux() { [[ -z "$TMUX" ]]; }
 
-ensure_tmux_is_running() {
-    if _not_inside_tmux; then
-        ~/dotfiles/zsh/tat
-    fi
-}
+# ensure_tmux_is_running() {
+#     if _not_inside_tmux; then
+#         ~/dotfiles/zsh/tat
+#     fi
+# }
 
-ensure_tmux_is_running
-# }}}
+# ensure_tmux_is_running
+# # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
