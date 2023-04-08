@@ -26,8 +26,6 @@ M.config = function()
             ["mui-icons"] = "https://mui.com/components/material-icons/#material-icons",
             ["v4-mui"] = "https://v4.mui.com/",
             ["npm_search"] = "https://npmjs.com/search?q=%s",
-            ["store-client"] = "https://github.com/koinearth/ngagen-store-client-webapp-service",
-            ["marketsn-vdp"] = "https://github.com/koinearth/marketsn-vdp-webapp",
         },
         ["lalitmee"] = {
             ["name"] = "personal repositories",

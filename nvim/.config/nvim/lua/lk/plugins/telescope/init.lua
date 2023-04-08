@@ -97,7 +97,16 @@ M.config = function()
         return vim.tbl_deep_extend("force", opts or {}, {
             borderchars = {
                 { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-                preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                preview = {
+                    "─",
+                    "│",
+                    "─",
+                    "│",
+                    "╭",
+                    "╮",
+                    "╯",
+                    "╰",
+                },
             },
         })
     end
@@ -123,9 +132,11 @@ M.config = function()
         -- otherwise window config of previewer subsumed
         actions.close(prompt_bufnr)
         for _, e in ipairs(entries) do
-            if vim.tbl_isempty(vim.tbl_filter(function(b)
-                return b == e[1]
-            end, bufs)) then
+            if
+                vim.tbl_isempty(vim.tbl_filter(function(b)
+                    return b == e[1]
+                end, bufs))
+            then
                 vim.cmd(string.format("e %s", e[1]))
             end
         end
@@ -139,25 +150,36 @@ M.config = function()
     local Job = require("plenary.job")
     local new_maker = function(filepath, bufnr, opts)
         filepath = vim.fn.expand(filepath)
-        Job:new({
-            command = "file",
-            args = { "--mime-type", "-b", filepath },
-            on_exit = function(j)
-                local mime_class = vim.split(j:result()[1], "/")[1]
-                local mime_type = j:result()[1]
-                if
-                    mime_class == "text"
-                    or (mime_class == "application" and mime_type ~= "application/x-pie-executable")
-                then
-                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                else
-                    -- maybe we want to write something to the buffer here
-                    vim.schedule(function()
-                        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
-                    end)
-                end
-            end,
-        }):sync()
+        Job
+            :new({
+                command = "file",
+                args = { "--mime-type", "-b", filepath },
+                on_exit = function(j)
+                    local mime_class = vim.split(j:result()[1], "/")[1]
+                    local mime_type = j:result()[1]
+                    if
+                        mime_class == "text"
+                        or (
+                            mime_class == "application"
+                            and mime_type ~= "application/x-pie-executable"
+                        )
+                    then
+                        previewers.buffer_previewer_maker(filepath, bufnr, opts)
+                    else
+                        -- maybe we want to write something to the buffer here
+                        vim.schedule(function()
+                            vim.api.nvim_buf_set_lines(
+                                bufnr,
+                                0,
+                                -1,
+                                false,
+                                { "BINARY" }
+                            )
+                        end)
+                    end
+                end,
+            })
+            :sync()
     end
     -- }}}
     --------------------------------------------------------------------------------
@@ -198,7 +220,8 @@ M.config = function()
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<C-n>"] = actions.move_selection_next,
-                    ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                    ["<C-o>"] = actions.send_selected_to_qflist
+                        + actions.open_qflist,
                     ["<C-p>"] = actions.move_selection_previous,
                     ["<C-y>"] = actions.move_to_top,
                     ["<M-o>"] = action_layout.toggle_prompt_position,
@@ -213,7 +236,8 @@ M.config = function()
                     ["e"] = actions.move_to_bottom,
                     ["j"] = actions.move_selection_next,
                     ["k"] = actions.move_selection_previous,
-                    ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
+                    ["o"] = actions.send_selected_to_qflist
+                        + actions.open_qflist,
                     ["p"] = action_layout.toggle_preview,
                     ["y"] = actions.move_to_top,
                 },
@@ -340,11 +364,15 @@ M.config = function()
             frecency = {
                 default_workspace = "CWD",
                 show_unindexed = false, -- Show all files or only those that have been indexed
-                ignore_patterns = { "*.git/*", "*/tmp/*", "*node_modules/*", "*vendor/*" },
+                ignore_patterns = {
+                    "*.git/*",
+                    "*/tmp/*",
+                    "*node_modules/*",
+                    "*vendor/*",
+                },
                 workspaces = {
                     ["nvim"] = "/home/lalitmee/.config/nvim/plugged",
                     ["dotf"] = "/home/lalitmee/dotfiles",
-                    ["work"] = "/home/lalitmee/Desktop/koinearth",
                     ["git"] = "/home/lalitmee/Desktop/Github",
                     ["conf"] = "/home/lalitmee/.config",
                     ["data"] = "/home/lalitmee/.local/share",
@@ -439,7 +467,11 @@ M.config = function()
     ----------------------------------------------------------------------
     -- NOTE: mappings {{{
     ----------------------------------------------------------------------
-    lk.cmap("<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", { noremap = false, nowait = true })
+    lk.cmap(
+        "<c-r><c-r>",
+        "<Plug>(TelescopeFuzzyCommandSearch)",
+        { noremap = false, nowait = true }
+    )
     -- }}}
     ----------------------------------------------------------------------
 
@@ -475,7 +507,10 @@ M.config = function()
 
     local function select_background(prompt_bufnr, map)
         local function set_the_background(close)
-            local content = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
+            local content =
+                require("telescope.actions.state").get_selected_entry(
+                    prompt_bufnr
+                )
             set_background(content.cwd .. "/" .. content.value)
             if close then
                 require("telescope.actions").close(prompt_bufnr)
@@ -513,7 +548,8 @@ M.config = function()
         end
     end
 
-    local set_wallpaper = image_selector("< Wallpapers > ", "~/Desktop/Wallpapers/")
+    local set_wallpaper =
+        image_selector("< Wallpapers > ", "~/Desktop/Wallpapers/")
 
     lk.command("ChangeSystemBackground", function()
         set_wallpaper()
@@ -527,25 +563,29 @@ M.config = function()
     local git_hunks = function()
         require("telescope.pickers")
             .new({
-                finder = require("telescope.finders").new_oneshot_job({ "git-jump", "diff" }, {
-                    entry_maker = function(line)
-                        local filename, lnum_string = line:match("([^:]+):(%d+).*")
+                finder = require("telescope.finders").new_oneshot_job(
+                    { "git-jump", "diff" },
+                    {
+                        entry_maker = function(line)
+                            local filename, lnum_string =
+                                line:match("([^:]+):(%d+).*")
 
-                        -- I couldn't find a way to use grep in new_oneshot_job so we have to filter here.
-                        -- return nil if filename is /dev/null because this means the file was deleted.
-                        if filename:match("^/dev/null") then
-                            return nil
-                        end
+                            -- I couldn't find a way to use grep in new_oneshot_job so we have to filter here.
+                            -- return nil if filename is /dev/null because this means the file was deleted.
+                            if filename:match("^/dev/null") then
+                                return nil
+                            end
 
-                        return {
-                            value = filename,
-                            display = line,
-                            ordinal = line,
-                            filename = filename,
-                            lnum = tonumber(lnum_string),
-                        }
-                    end,
-                }),
+                            return {
+                                value = filename,
+                                display = line,
+                                ordinal = line,
+                                filename = filename,
+                                lnum = tonumber(lnum_string),
+                            }
+                        end,
+                    }
+                ),
                 sorter = require("telescope.sorters").get_generic_fuzzy_sorter(),
                 previewer = require("telescope.config").values.grep_previewer({}),
                 results_title = "Git hunks",

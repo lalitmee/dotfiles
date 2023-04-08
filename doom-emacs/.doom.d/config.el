@@ -101,9 +101,7 @@
 
 ;; projectile projects
 (setq projectile-project-search-path '(("~/" . 1)
-                                       "~/Desktop/Github"
-                                       ("~/Desktop/koinearth/marketsn" . 1)
-                                       ("~/Desktop/koinearth/ngagen" . 1)))
+                                       "~/Desktop/Github"))
 
 ;; TAGS file large warning
 (setq large-file-warning-threshold nil)

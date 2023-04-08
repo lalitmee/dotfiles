@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/ ~/Desktop/Github ~/Desktop/koinearth ~/Desktop/koinearth/marketsn ~/Desktop/koinearth/ngagen -mindepth 1 -maxdepth 2 -type d | fzf)
+    selected=$(find ~/ ~/Documents/Quartic-Workspace/python ~/Desktop/Github -mindepth 1 -maxdepth 2 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -18,7 +18,7 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     exit 0
 fi
 
-if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
     tmux new-session -ds "$selected_name" -c "$selected"
 fi
 

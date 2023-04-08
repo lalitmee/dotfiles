@@ -1,9 +1,0 @@
-# /home/lalitmee/.config/tmuxinator/store-client.yml
-
-name: store-client
-root: ~/Desktop/koinearth/ngagen/ngagen-store-client-webapp-service
-
-windows:
-  - Editor: ls
-  - Caddy: cd ~/Desktop/koinearth/ngagen/caddyfiles/store-client && caddy run
-  - Extra: quote
