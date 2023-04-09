@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+theme=$(gum choose "cobalt2" "vscode" "catppuccin")
+
+echo $theme
