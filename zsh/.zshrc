@@ -71,39 +71,18 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    aliases
-    autoenv
-    brew
-    colored-man-pages
-    command-not-found
-    common-aliases
-    debian
     docker
     docker-compose
-    dotenv
-    extract
     fast-syntax-highlighting
     fzf-tab
     fzf-zsh-plugin
-    gem
     gh
     git
-    git-auto-fetch
-    git-extras
-    gitfast
-    golang
-    history
-    last-working-dir
-    node
     npm
-    ripgrep
-    rust
-    sprunge
     sudo
     tmux
     tmuxinator
     vi-mode
-    yarn
     zoxide
     zsh-autosuggestions
     zsh-wakatime
@@ -113,9 +92,6 @@ plugins=(
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
-
-# autoenv
-source '/home/linuxbrew/.linuxbrew/opt/autoenv/activate.sh'
 
 # }}}
 # -------------------------------------------------------------------
@@ -148,8 +124,6 @@ export LC_CTYPE=en_US.UTF-8
 # export CPPFLAGS="-I$(brew --prefix openssl)/include"
 # export CFLAGS="-I$(brew --prefix openssl)/include"
 # export LDFLAGS="-L$(brew --prefix openssl)/lib"
-# export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/libnsl/lib/pkgconfig"
-# export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 # }}}
 # -------------------------------------------------------------------
 
@@ -184,42 +158,7 @@ source ~/.aliases
 # -------------------------------------------------------------------
 # NOTE: fzf {{{
 # -------------------------------------------------------------------
-# fzf path settings
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# great functions for fzf from
-# https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
-[ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
-
-export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all'
-
-# # gruvbox color for fzf
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-#     --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
-#     --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
-
-# # dracula theme for fzf
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-#     --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
-#     --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
-#     --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
-#     --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-
-# # nord color for fzf
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-#     --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
-#     --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
-#     --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
-#     --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
-
-# cobalt2 color for fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#00aaff,bg:#193549,hl:#ffc600
---color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
---color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
---color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
+source ~/.fzf-config
 # }}}
 # -------------------------------------------------------------------
 
