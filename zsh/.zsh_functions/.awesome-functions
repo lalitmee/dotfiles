@@ -2,10 +2,10 @@
 
 # NOTE: from https://gist.github.com/joelpalmer/7f92a5a337097f25f6dc8eaeb831028b
 
-#look up synonym - (word)
+# look up synonym - (word)
 # slow and buggy
 syn() {
-    curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$1" | jq '.[].meanings[].definitions[].synonyms[]'
+    curl -s "https://api.dictionaryapi.dev/api/v2/entries/en/$1" | jq '.[].meanings[].synonyms[]'
 }
 
 # zd - use zoxide & FZF to find and go to directory
@@ -707,4 +707,3 @@ open-line() {
 
 # }}}
 # -------------------------------------------------------------------
-
