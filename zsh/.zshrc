@@ -184,6 +184,9 @@ source ~/.zsh_profile
 
 # awesome zsh functions
 source ~/.zsh_functions/.awesome-functions
+
+# keybindings
+source ~/.zsh-keybindings
 # }}}
 # -------------------------------------------------------------------
 
