@@ -447,12 +447,9 @@ setw -g mode-keys vi
 # set -g @plugin 'jabirali/tmux-tilish'
 # set -g @tilish-dmenu 'on'
 
-# # catppuccin theme
-# set -g @plugin 'catppuccin/tmux'
-# set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
-
-# # vscode dark theme
-# set -g @plugin 'khanghh/tmux-dark-plus-theme'
+# catppuccin theme
+set -g @plugin 'catppuccin/tmux'
+set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
 
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
@@ -475,7 +472,7 @@ set -g @plugin 'ChanderG/tmux-notify'
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
 TMUX_FZF_LAUNCH_KEY="C-o"
-TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl-a:select-all,ctrl-d:deselect-all --color=fg:#00aaff,bg:#193549,hl:#ffc600 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600"
+# TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl-a:select-all,ctrl-d:deselect-all --color=fg:#00aaff,bg:#193549,hl:#ffc600 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600"
 
 # tmux-modal
 set -g @plugin 'whame/tmux-modal'
