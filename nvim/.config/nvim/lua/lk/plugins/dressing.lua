@@ -31,10 +31,10 @@ M.config = function()
     require("dressing").setup({
         input = {
             insert_only = false,
-            win_options = { winblend = 2 },
+            win_options = { winblend = 0 },
         },
         select = {
-            winblend = 2,
+            winblend = 0,
             get_config = function(opts)
                 -- center the picker for treesitter prompts
                 if opts.kind == "codeaction" then

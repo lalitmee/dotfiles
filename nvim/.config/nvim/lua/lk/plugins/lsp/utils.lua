@@ -95,7 +95,11 @@ M.capabilities = function(client, bufnr)
     end
 
     if client.server_capabilities.document_formatting == true then
-        vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+        vim.api.nvim_buf_set_option(
+            bufnr,
+            "formatexpr",
+            "v:lua.vim.lsp.formatexpr()"
+        )
         -- Add this <leader> bound mapping so formatting the entire document is easier.
         map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.format()<CR>", map_opts)
     end

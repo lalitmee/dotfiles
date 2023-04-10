@@ -28,7 +28,7 @@ M.config = function()
         layout = { spacing = 10 },
         window = {
             border = "rounded",
-            winblend = 10,
+            winblend = 0,
         },
     })
 
