@@ -42,6 +42,7 @@ return {
             "ScratchWithName",
             "ScratchOpenFzf",
         },
+        enabled = false,
     },
     {
         "axieax/urlview.nvim",
@@ -68,9 +69,7 @@ return {
     { -- will add bang(#!) like this on running `:Bang`
         "susensio/magic-bang.nvim",
         cmd = { "Bang" },
-        config = function()
-            require("magic-bang").setup()
-        end,
+        opts = {},
     },
     {
         "andrewferrier/debugprint.nvim",
@@ -79,9 +78,7 @@ return {
             { "g?", mode = "v" },
         },
         cmd = { "DeleteDebugPrints" },
-        config = function()
-            require("debugprint").setup()
-        end,
+        opts = {},
     },
     {
         "NvChad/nvim-colorizer.lua",
@@ -112,9 +109,7 @@ return {
     {
         "kylechui/nvim-surround",
         keys = { "ds", "ys" },
-        config = function()
-            require("nvim-surround").setup()
-        end,
+        opts = {},
     },
     {
         "mbbill/undotree",
@@ -161,9 +156,7 @@ return {
             { "<C-k>", mode = "v" },
             { "<C-i>", mode = "v" },
         },
-        config = function()
-            require("markdowny").setup()
-        end,
+        opts = {},
     },
     {
         "ellisonleao/glow.nvim",
@@ -290,9 +283,7 @@ return {
     {
         "nvim-colortils/colortils.nvim",
         cmd = { "Colortils" },
-        config = function()
-            require("colortils").setup()
-        end,
+        opts = {},
     },
     {
         "wakatime/vim-wakatime",
@@ -308,9 +299,7 @@ return {
     {
         "pwntester/octo.nvim",
         cmd = { "Octo" },
-        config = function()
-            require("octo").setup()
-        end,
+        opts = {},
     },
     {
         "romainl/vim-cool",
