@@ -18,7 +18,8 @@ M.config = function()
     require("lk.highlights").plugin("lspconfig", {
         { LspInfoBorder = { link = "FloatBorder" } },
     })
-    require("lspconfig.ui.windows").default_options.border = lk.style.border.rounded
+    require("lspconfig.ui.windows").default_options.border =
+        lk.style.border.rounded
 
     ----------------------------------------------------------------------
     -- NOTE: automatic setting up commands and handlers {{{
@@ -93,9 +94,13 @@ M.config = function()
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
         local conf = servers[name]
         local conf_type = type(conf)
-        local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
+        local config = conf_type == "table" and conf
+            or conf_type == "function" and conf()
+            or {}
         config.flags = { debounce_text_changes = 500 }
-        config.capabilities = config.capabilities or capabilities or vim.lsp.protocol.make_client_capabilities()
+        config.capabilities = config.capabilities
+            or capabilities
+            or vim.lsp.protocol.make_client_capabilities()
         cmp_nvim_lsp.default_capabilities(config.capabilities)
         config = vim.tbl_deep_extend("force", {
             on_init = custom_init,
@@ -198,9 +203,19 @@ M.config = function()
         server = {
             on_attach = function(_, bufnr)
                 -- Hover actions
-                vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+                vim.keymap.set(
+                    "n",
+                    "K",
+                    rt.hover_actions.hover_actions,
+                    { buffer = bufnr }
+                )
                 -- Code action groups
-                vim.keymap.set("n", "<Leader>la", rt.code_action_group.code_action_group, { buffer = bufnr })
+                vim.keymap.set(
+                    "n",
+                    "<Leader>la",
+                    rt.code_action_group.code_action_group,
+                    { buffer = bufnr }
+                )
             end,
         },
     })

@@ -1,0 +1,8 @@
+# /home/lenovo/.config/tmuxinator/quartic.yml
+
+name: quartic
+root: ~/Documents/
+
+windows:
+  - docker: cd quartic_developer_setup && sudo docker-compose up
+  - workspace: cd Quartic-Workspace/python/ContexAlyze && gst
