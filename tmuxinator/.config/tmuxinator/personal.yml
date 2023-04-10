@@ -1,0 +1,8 @@
+# /home/lenovo/.config/tmuxinator/personal.yml
+
+name: personal
+root: ~/
+
+windows:
+  - dotfiles: cd dotfiles
+  - notes: cd ~/Desktop/Github/dNotes
