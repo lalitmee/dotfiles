@@ -101,8 +101,7 @@ alias snapu="sudo snap refresh"
 alias upd="apt update"
 alias update="
 apt upgrade -y &&
-sudo flatpak update &&
-bubc
+sudo flatpak update
 "
 alias updg="apt dist-upgrade -y"
 alias upg="apt upgrade -y"
