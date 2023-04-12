@@ -234,7 +234,7 @@ return {
 
             vim.cmd.colorscheme("catppuccin")
         end,
-        -- enabled = false,
+        enabled = false,
     },
     {
         dir = "~/Desktop/Github/cobalt2.nvim",
@@ -244,7 +244,7 @@ return {
             require("colorbuddy").colorscheme("cobalt2")
         end,
         dev = true,
-        enabled = false,
+        -- enabled = false,
     },
     -- }}}
     ---------------------------------------------------------------------------
