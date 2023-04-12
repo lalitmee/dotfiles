@@ -447,9 +447,9 @@ setw -g mode-keys vi
 # set -g @plugin 'jabirali/tmux-tilish'
 # set -g @tilish-dmenu 'on'
 
-# # catppuccin theme
-# set -g @plugin 'catppuccin/tmux'
-# set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
+# catppuccin theme
+set -g @plugin 'catppuccin/tmux'
+set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
 
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
@@ -535,7 +535,7 @@ bind c new-window -c '#{current_pane_path}'
 bind-key n break-pane -d
 
 # run cht.sh from tmux
-bind-key -r i run-shell "tmux neww bash -c \"~/.local/bin/tmux-cht\""
+bind-key -r i run-shell "tmux neww bash -c \"~/.config/bin/tmux-cht\""
 
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
@@ -547,14 +547,7 @@ bind-key q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 # tmux sessionizer
-bind-key -r f run-shell "tmux neww tmux-sessionizer"
-
-
-bind-key 0 run "tmux split-window -l 12 'bash -ci ftpane'"
-
-# fzf-locate
-bind-key -n 'M-`' run "tmux split-window -p 40 'tmux send-keys -t #{pane_id} \"$(locate / | fzf -m | paste -sd\\  -)\"'"
-
+bind-key -r o run-shell "tmux neww tmux-sessionizer"
 # }}}
 #-------------------------------------------------------------------------------
 

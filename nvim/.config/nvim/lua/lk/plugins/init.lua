@@ -45,11 +45,6 @@ return {
         enabled = false,
     },
     {
-        "axieax/urlview.nvim",
-        cmd = { "UrlView" },
-        opts = {},
-    },
-    {
         "jghauser/fold-cycle.nvim",
         keys = { "<CR>" },
         config = function()
@@ -234,7 +229,7 @@ return {
 
             vim.cmd.colorscheme("catppuccin")
         end,
-        enabled = false,
+        -- enabled = false,
     },
     {
         dir = "~/Desktop/Github/cobalt2.nvim",
@@ -244,7 +239,20 @@ return {
             require("colorbuddy").colorscheme("cobalt2")
         end,
         dev = true,
-        -- enabled = false,
+        enabled = false,
+    },
+    {
+        "Mofiqul/vscode.nvim",
+        event = { "ColorSchemePre" },
+        init = function()
+            require("vscode").setup({
+                transparent = true,
+                italic_comments = true,
+                disable_nvimtree_bg = true,
+            })
+            require("vscode").load()
+        end,
+        enabled = false,
     },
     -- }}}
     ---------------------------------------------------------------------------
