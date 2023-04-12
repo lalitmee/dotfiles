@@ -6,7 +6,12 @@ local M = {
 
 M.init = function()
     lk.command("OilFloat", require("oil").open_float, {})
-    vim.keymap.set("n", "-", require("oil").open_float, { desc = "Open parent directory" })
+    vim.keymap.set(
+        "n",
+        "-",
+        require("oil").open_float,
+        { desc = "Open parent directory" }
+    )
 end
 
 M.config = function()
@@ -18,6 +23,9 @@ M.config = function()
             -- "mtime",
         },
         float = {
+            win_options = {
+                winblend = 0,
+            },
             padding = 5,
             max_height = 120,
             max_width = 160,
