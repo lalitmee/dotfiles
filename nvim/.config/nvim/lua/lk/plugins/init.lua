@@ -145,7 +145,7 @@ return {
     },
     {
         "antonk52/markdowny.nvim",
-        ft = { "markdown", "text" },
+        ft = { "markdown" },
         keys = {
             { "<C-b>", mode = "v" },
             { "<C-k>", mode = "v" },
@@ -154,21 +154,12 @@ return {
         opts = {},
     },
     {
-        "ellisonleao/glow.nvim",
-        ft = "markdown",
-        cmd = { "Glow" },
-    },
-    {
         "iamcco/markdown-preview.nvim",
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
         ft = "markdown",
         cmd = { "MarkdownPreview" },
-    },
-    {
-        "dhruvasagar/vim-table-mode",
-        cmd = { "TableModeToggle" },
     },
     {
         "ray-x/go.nvim",

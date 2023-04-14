@@ -78,6 +78,7 @@ plugins=(
     fzf-zsh-plugin
     gh
     git
+    last-working-dir
     npm
     sudo
     tmux

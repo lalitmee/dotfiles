@@ -3,10 +3,9 @@ local M = {
     ft = vim.g.enable_lspconfig_ft,
     event = { "VimEnter" },
     dependencies = {
-        { "j-hui/fidget.nvim" },
         { "folke/neodev.nvim" },
         { "jose-elias-alvarez/null-ls.nvim" },
-        { "simrat39/rust-tools.nvim" },
+        { "simrat39/rust-tools.nvim", ft = "rust" },
     },
 }
 
@@ -183,20 +182,6 @@ M.config = function()
     })
     -- }}}
     --------------------------------------------------------------------------------
-
-    require("fidget").setup({
-        text = {
-            spinner = "bouncing_bar",
-        },
-        window = {
-            blend = 0,
-        },
-        sources = {
-            ["null-ls"] = {
-                ignore = true,
-            },
-        },
-    })
 
     local rt = require("rust-tools")
     rt.setup({
