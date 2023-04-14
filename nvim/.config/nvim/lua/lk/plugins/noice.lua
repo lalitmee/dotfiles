@@ -14,7 +14,12 @@ local M = {
                 help = { title = "" },
                 input = { title = "" },
                 IncRename = { title = "" },
-                substitute = { pattern = "^:%%?s/", icon = " ", ft = "regex", title = "" },
+                substitute = {
+                    pattern = "^:%%?s/",
+                    icon = " ",
+                    ft = "regex",
+                    title = "",
+                },
             },
         },
         lsp = {
@@ -72,7 +77,10 @@ local M = {
                     padding = { 0, 1 },
                 },
                 win_options = {
-                    winhighlight = { Normal = "Normal", FloatBorder = "FloatBorder" },
+                    winhighlight = {
+                        Normal = "Normal",
+                        FloatBorder = "FloatBorder",
+                    },
                 },
             },
             confirm = {
@@ -91,7 +99,7 @@ local M = {
                     any = {
                         -- { event = "msg_show", find = "written" },
                         { event = "msg_show", find = "%d+ lines, %d+ bytes" },
-                        { event = "msg_show", kind = "search_count" },
+                        -- { event = "msg_show", kind = "search_count" },
                         { event = "msg_show", find = "%d+L, %d+B" },
                         { event = "msg_show", find = "^Hunk %d+ of %d" },
                         -- TODO: investigate the source of this LSP message and disable it happens in typescript files
@@ -179,6 +187,6 @@ local M = {
     },
 }
 
-M.enabled = false
+-- M.enabled = false
 
 return M
