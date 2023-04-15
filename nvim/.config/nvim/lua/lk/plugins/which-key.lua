@@ -635,6 +635,7 @@ M.config = function()
     }
 
     local local_leader_key_maps = {
+        ["/"] = { ":FzfLua live_grep<CR>", "fzf-live-grep" },
         ["1"] = { ":HarpoonGotoFile 1<CR>", "goto-file-1" },
         ["2"] = { ":HarpoonGotoFile 2<CR>", "goto-file-2" },
         ["3"] = { ":HarpoonGotoFile 3<CR>", "goto-file-3" },
@@ -657,6 +658,12 @@ M.config = function()
             ["m"] = { ":BrowseMdnSearch<CR>", "mdn-search" },
         },
         ["d"] = { ":Neogen<CR>", "doc-this" },
+        ["f"] = {
+            ["name"] = "+fzf-lua",
+            ["a"] = { ":FzfLua builtin<CR>", "builtins" },
+            ["f"] = { ":FzfLua files<CR>", "files" },
+            ["r"] = { ":FzfLua live_grep_resume<CR>", "live-grep-resume" },
+        },
         ["l"] = {
             ["name"] = "+loclist",
             ["c"] = { ":lclose<CR>", "close" },
