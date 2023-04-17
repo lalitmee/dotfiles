@@ -11,11 +11,19 @@ local M = {
         },
         { "hrsh7th/cmp-path" },
         { "saadparwaiz1/cmp_luasnip" },
+        -- {
+        --     "tzachar/cmp-tabnine",
+        --     build = "./install.sh",
+        -- },
         {
-            "tzachar/cmp-tabnine",
-            build = "./install.sh",
+            "roobert/tailwindcss-colorizer-cmp.nvim",
+            ft = {
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+            },
         },
-        { "roobert/tailwindcss-colorizer-cmp.nvim" },
     },
 }
 
@@ -59,8 +67,14 @@ M.config = function()
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-e>"] = cmp.mapping.close(),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-            ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+            ["<C-n>"] = cmp.mapping(
+                cmp.mapping.select_next_item(),
+                { "i", "c" }
+            ),
+            ["<C-p>"] = cmp.mapping(
+                cmp.mapping.select_prev_item(),
+                { "i", "c" }
+            ),
             ["<CR>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Insert,
                 select = true,
@@ -93,8 +107,10 @@ M.config = function()
                 cmp.config.compare.exact,
                 cmp.config.compare.score,
                 function(entry1, entry2)
-                    local _, entry1_under = entry1.completion_item.label:find("^_+")
-                    local _, entry2_under = entry2.completion_item.label:find("^_+")
+                    local _, entry1_under =
+                        entry1.completion_item.label:find("^_+")
+                    local _, entry2_under =
+                        entry2.completion_item.label:find("^_+")
                     entry1_under = entry1_under or 0
                     entry2_under = entry2_under or 0
                     if entry1_under > entry2_under then
