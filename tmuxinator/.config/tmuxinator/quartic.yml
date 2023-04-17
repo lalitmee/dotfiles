@@ -4,6 +4,6 @@ name: quartic
 root: ~/Documents/
 
 windows:
-  - docker: cd quartic_developer_setup && sudo docker-compose up
+  - docker: cd quartic_developer_setup
   - container: sudo docker exec -it quartic_local_setup bash
   - workspace: cd Quartic-Workspace/python/ContexAlyze && gst

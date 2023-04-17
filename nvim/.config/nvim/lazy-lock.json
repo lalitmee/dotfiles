@@ -12,7 +12,6 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
   "cmp-nvim-lua": { "branch": "main", "commit": "f12408bdb54c39c23e67cab726264c10db33ada8" },
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
-  "cmp-tabnine": { "branch": "main", "commit": "380a11420752ac1c2d8fbb344454ff7f955b912c" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "codeium.vim": { "branch": "main", "commit": "1dc5aff16f906e221b7b73668ed8d8bfc40ecd6b" },
   "colortils.nvim": { "branch": "main", "commit": "180a459fd142a39c1c6488e7a22de0aa93ce0578" },
