@@ -1,9 +1,10 @@
 local M = {
     "TimUntersberger/neogit",
     cmd = { "Neogit" },
+    enabled = false,
 }
 
- M.config = function()
+M.config = function()
     local neogit = require("neogit")
 
     ----------------------------------------------------------------------
