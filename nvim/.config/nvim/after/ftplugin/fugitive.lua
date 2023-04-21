@@ -20,6 +20,9 @@ lk.augroup("fugitive_au", {
             end, opts)
 
             lk.nnoremap("<leader>t", ":Git push -u origin ", opts)
+
+            -- easy mapping to toggling diff
+            lk.nmap("<TAB>", "=", { buffer = bufnr, remap = true })
         end,
     },
 })

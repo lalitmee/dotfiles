@@ -1,9 +1,33 @@
 # /home/lenovo/.config/tmuxinator/quartic.yml
 
 name: quartic
-root: ~/Documents/
+session_name: quartic-workspace
+on_project_start: sudo docker restart 36e5dd728389
 
 windows:
-  - docker: cd quartic_developer_setup
-  - container: sudo docker exec -it quartic_local_setup bash
-  - workspace: cd Quartic-Workspace/python/ContexAlyze && gst
+  - "docker-exec":
+      layout: 5fc1,237x43,0,0{114x43,0,0,43,122x43,115,0[122x13,115,0,52,122x13,115,14,55,122x15,115,28,56]}
+      # layout: main-vertical
+      panes:
+        - "docker":
+            - z /home/lenovo/Documents/Quartic-Workspace
+        - "docker exec main":
+            - "sudo docker exec -it quartic_local_setup bash"
+            - clear
+            - cd workspace/python/ContexAlyze/react_frontend
+            - BROWSER=none node scripts/start.js
+        - "docker exec qnnect":
+            - "sudo docker exec -it quartic_local_setup bash"
+            - clear
+            - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend
+            - BROWSER=none node scripts/start.js
+        - "docker exec assetharbour":
+            - "sudo docker exec -it quartic_local_setup bash"
+            - clear
+            - cd workspace/python/ContexAlyze/assetharbour/react_frontend
+            - BROWSER=none node scripts/start.js
+  - "ContexAlyze":
+    layout: main-vertical
+    panes:
+      - clear
+      - echo "hello"
