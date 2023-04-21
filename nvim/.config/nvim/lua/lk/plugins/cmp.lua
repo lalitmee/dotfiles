@@ -24,6 +24,11 @@ local M = {
                 "typescriptreact",
             },
         },
+        {
+            "jcdickinson/codeium.nvim",
+            event = { "InsertEnter" },
+            config = true,
+        },
     },
 }
 

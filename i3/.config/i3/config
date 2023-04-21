@@ -55,6 +55,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 for_window [class=.*] border pixel 3
 default_border pixel 1
 default_floating_border pixel 1
+
+for_window [class="ulauncher"] border pixel 0
 # }}}
 #-------------------------------------------------------------------------------
 

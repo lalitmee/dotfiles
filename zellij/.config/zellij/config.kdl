@@ -359,7 +359,7 @@ themes {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "tokyo-night-storm"
+theme "catppuccin-mocha"
 
 // The name of the default layout to load on startup
 // Default: "default"
