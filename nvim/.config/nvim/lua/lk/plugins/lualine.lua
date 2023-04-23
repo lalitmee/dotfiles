@@ -41,10 +41,14 @@ M.config = function()
         },
         sections = {
             lualine_a = {
-                -- {
-                --     "searchcount",
-                --     color = "lualine_b_normal",
-                -- },
+                {
+                    "searchcount",
+                    color = "lualine_b_normal",
+                },
+                {
+                    "selectioncount",
+                    color = "lualine_b_normal",
+                },
                 {
                     "mode",
                     fmt = function(str)
@@ -69,6 +73,7 @@ M.config = function()
                 },
             },
             lualine_c = {
+                { "%=", type = "stl" },
                 {
                     "filetype",
                     icon_only = true,

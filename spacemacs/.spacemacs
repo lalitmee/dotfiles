@@ -248,9 +248,9 @@ values."
                                ;; "Ubuntu Mono Nerd Font"
                                ;; "OperatorMono Nerd Font"
                                ;; "Operator SSm"
-                               ;; "JetBrainsMono Nerd Font"
-                               "SauceCodePro Nerd Font"
-                               ;; "Ubuntu Mono"
+                               "JetBrainsMono Nerd Font"
+                               ;; "SauceCodePro Nerd Font"
+                               ;; "Iosevka"
                                :size 14
                                :weight medium
                                :powerline-scale 1.3)

@@ -26,7 +26,11 @@ _G.lk = {
     _store = __lk_global_callbacks,
 
     -- for UI elements like the winbar and statusline that need global references
-    ui = {},
+    ui = {
+        winbar = { enable = false },
+        statuscolumn = { enable = true },
+        foldtext = { enable = false },
+    },
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -47,7 +51,9 @@ local function make_mapper(mode, o)
     ---@param opts table
     return function(lhs, rhs, opts)
         -- If the label is all that was passed in, set the opts automagically
-        opts = type(opts) == "string" and { label = opts } or opts and vim.deepcopy(opts) or {}
+        opts = type(opts) == "string" and { label = opts }
+            or opts and vim.deepcopy(opts)
+            or {}
         if opts.label then
             local ok, wk = lk.require("which-key", { silent = true })
             if ok then
@@ -55,7 +61,12 @@ local function make_mapper(mode, o)
             end
             opts.label = nil
         end
-        vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("keep", opts, parent_opts))
+        vim.keymap.set(
+            mode,
+            lhs,
+            rhs,
+            vim.tbl_extend("keep", opts, parent_opts)
+        )
     end
 end
 
@@ -240,6 +251,14 @@ lk.style = {
         rounded = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
         rectangle = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
     },
+    separators = {
+        left_thin_block = "▏",
+        right_thin_block = "▕",
+        vert_bottom_half_block = "▄",
+        vert_top_half_block = "▀",
+        right_block = "🮉",
+        light_shade_block = "░",
+    },
 }
 -- }}}
 ----------------------------------------------------------------------
@@ -396,7 +415,10 @@ end
 ---Check if a vim variable usually a number is truthy or not
 ---@param value integer
 function lk.truthy(value)
-    assert(type(value) == "number", fmt("Value should be a number but you passed %s", value))
+    assert(
+        type(value) == "number",
+        fmt("Value should be a number but you passed %s", value)
+    )
     return value > 0
 end
 
@@ -514,7 +536,11 @@ function lk.require(module, opts)
         if opts.message then
             result = opts.message .. "\n" .. result
         end
-        vim.notify(result, l.ERROR, { title = fmt("Error requiring: %s", module) })
+        vim.notify(
+            result,
+            l.ERROR,
+            { title = fmt("Error requiring: %s", module) }
+        )
     end
     return ok, result
 end
@@ -632,15 +658,19 @@ end
 
 --- Convert a list or map of items into a value by iterating all it's fields and transforming
 --- them with a callback
----@generic T : table
----@param callback fun(T, T, key: string | number): T
+---@generic T, S
+---@param callback fun(acc: S, item: T, key: string | number): S
 ---@param list T[]
----@param accum T
----@return T
+---@param accum S?
+---@return S
 function lk.fold(callback, list, accum)
+    accum = accum or {}
     for k, v in pairs(list) do
         accum = callback(accum, v, k)
-        assert(accum, "The accumulator must be returned on each iteration")
+        assert(
+            accum ~= nil,
+            "The accumulator must be returned on each iteration"
+        )
     end
     return accum
 end
@@ -667,7 +697,8 @@ end
 ---@return string?
 local function toggle_list(list_type)
     local is_location_target = list_type == "location"
-    local cmd = is_location_target and { "lclose", "lopen" } or { "cclose", "copen" }
+    local cmd = is_location_target and { "lclose", "lopen" }
+        or { "cclose", "copen" }
     local is_open = lk.is_vim_list_open()
     if is_open then
         return vim.cmd[cmd[1]]()
@@ -693,5 +724,28 @@ function lk.toggle_loc_list()
 end
 -- }}}
 ----------------------------------------------------------------------
+
+---Determine if a value of any type is empty
+---@param item any
+---@return boolean?
+function lk.falsy(item)
+    if not item then
+        return true
+    end
+    local item_type = type(item)
+    if item_type == "boolean" then
+        return not item
+    end
+    if item_type == "string" then
+        return item == ""
+    end
+    if item_type == "number" then
+        return item <= 0
+    end
+    if item_type == "table" then
+        return vim.tbl_isempty(item)
+    end
+    return item ~= nil
+end
 
 -- vim:foldmethod=marker
