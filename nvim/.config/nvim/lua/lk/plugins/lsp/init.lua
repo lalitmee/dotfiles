@@ -41,10 +41,10 @@ M.config = function()
         })
     end
 
-    sign({ highlight = "DiagnosticSignError", icon = icons.error })
-    sign({ highlight = "DiagnosticSignWarn", icon = icons.warn })
-    sign({ highlight = "DiagnosticSignInfo", icon = icons.info })
-    sign({ highlight = "DiagnosticSignHint", icon = icons.hint })
+    sign({ highlight = "DiagnosticSignError", icon = "E" })
+    sign({ highlight = "DiagnosticSignWarn", icon = "W" })
+    sign({ highlight = "DiagnosticSignInfo", icon = "I" })
+    sign({ highlight = "DiagnosticSignHint", icon = "H" })
     -- }}}
     ----------------------------------------------------------------------
 
