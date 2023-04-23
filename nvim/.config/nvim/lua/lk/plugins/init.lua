@@ -131,6 +131,11 @@ return {
     --  NOTE: languages {{{
     ---------------------------------------------------------------------------
     {
+        "lukas-reineke/headlines.nvim",
+        ft = { "org", "norg", "markdown" },
+        config = true,
+    },
+    {
         "NMAC427/guess-indent.nvim",
         event = { "VeryLazy" },
         opts = {},
