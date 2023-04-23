@@ -183,8 +183,8 @@ opt.formatoptions = opt.formatoptions
 -- opt.foldtext = 'v:lua.as.folds()'
 opt.foldopen = opt.foldopen + "search"
 o.foldlevel = 99
-o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldmethod = "manual"
+-- o.foldexpr = "nvim_treesitter#foldexpr()"
 -- }}}
 ----------------------------------------------------------------------
 
@@ -193,7 +193,7 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("rg") then
-    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" 
+    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}"
     --no-heading --vimgrep --follow $*]]
     opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
