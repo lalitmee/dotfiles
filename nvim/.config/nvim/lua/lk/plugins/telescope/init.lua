@@ -71,6 +71,10 @@ local M = {
                 require("telescope").load_extension("lazy")
             end,
         },
+        {
+            "prochri/telescope-all-recent.nvim",
+            dependencies = { "kkharji/sqlite.lua" },
+        },
     },
 }
 
@@ -388,6 +392,8 @@ M.config = function()
             lazy = {},
         },
     })
+    -- NOTE: this requires to be loaded after telescope
+    require("telescope-all-recent").setup({})
     -- }}}
     ----------------------------------------------------------------------
 
