@@ -97,8 +97,7 @@ M.config = function()
             or conf_type == "function" and conf()
             or {}
         config.flags = { debounce_text_changes = 500 }
-        config.capabilities =
-            lk.deep_merge(config.capabilities or {}, capabilities)
+        config.capabilities = capabilities or {}
         cmp_nvim_lsp.default_capabilities(config.capabilities)
         config = vim.tbl_deep_extend("force", {
             on_init = custom_init,

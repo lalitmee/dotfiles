@@ -1,7 +1,9 @@
 local M = {
     "kevinhwang91/nvim-ufo",
-    dependencies = { "kevinhwang91/promise-async" },
     event = "BufReadPost",
+    dependencies = {
+        "kevinhwang91/promise-async",
+    },
 }
 
 M.config = function()
@@ -33,6 +35,7 @@ M.config = function()
     end, { desc = "preview fold" })
 
     ufo.setup({
+        close_fold_kinds = { "imports" },
         open_fold_hl_timeout = 0,
         provider_selector = function()
             return { "treesitter", "indent" }
