@@ -1,6 +1,6 @@
 local M = {
     "folke/which-key.nvim",
-    keys = { " ", "," },
+    event = { "VeryLazy" },
 }
 
 M.config = function()
@@ -487,6 +487,18 @@ M.config = function()
                 ":Telescope refactoring refactors<CR>",
                 "list-refactors",
             },
+            ["b"] = {
+                "<Cmd>lua require('refactoring').refactor('Extract Block')<CR>",
+                "extract-block",
+            },
+            ["bf"] = {
+                "<Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>",
+                "extract-block-to-file",
+            },
+            ["i"] = {
+                "<Cmd>lua require('refactoring').refactor('Inline Variable')<CR>",
+                "inline-variable",
+            },
             ["s"] = { ":SnipRun<CR>", "snip-run" },
             ["S"] = { ":SnipClose<CR>", "snip-close" },
         },
@@ -705,6 +717,22 @@ M.config = function()
             ["r"] = {
                 "<esc>:Telescope refactoring refactors<CR>",
                 "list-refactors",
+            },
+            ["e"] = {
+                "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>",
+                "extract-function",
+            },
+            ["f"] = {
+                "<Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>",
+                "extract-function-to-file",
+            },
+            ["v"] = {
+                "<Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>",
+                "extract-variable",
+            },
+            ["i"] = {
+                "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>",
+                "inline-variable",
             },
         },
         ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
