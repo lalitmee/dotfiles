@@ -13,21 +13,11 @@ windows:
             - z /home/lenovo/Documents/Quartic-Workspace
         - "docker exec main":
             - "sudo docker exec -it quartic_local_setup bash"
-            - clear
-            - cd workspace/python/ContexAlyze/react_frontend
-            - BROWSER=none node scripts/start.js
         - "docker exec qnnect":
             - "sudo docker exec -it quartic_local_setup bash"
-            - clear
-            - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend
-            - BROWSER=none node scripts/start.js
         - "docker exec assetharbour":
             - "sudo docker exec -it quartic_local_setup bash"
-            - clear
-            - cd workspace/python/ContexAlyze/assetharbour/react_frontend
-            - BROWSER=none node scripts/start.js
   - "ContexAlyze":
     layout: main-vertical
     panes:
       - clear
-      - echo "hello"
