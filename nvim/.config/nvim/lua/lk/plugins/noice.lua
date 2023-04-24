@@ -30,7 +30,7 @@ local M = {
                 },
             },
             signature = {
-                enabled = true,
+                enabled = false,
                 opts = {
                     position = { row = 2 },
                 },
@@ -97,15 +97,23 @@ local M = {
                 opts = { skip = true },
                 filter = {
                     any = {
-                        -- { event = "msg_show", find = "written" },
+                        { event = "msg_show", find = "written" },
                         { event = "msg_show", find = "%d+ lines, %d+ bytes" },
-                        -- { event = "msg_show", kind = "search_count" },
+                        { event = "msg_show", kind = "search_count" },
                         { event = "msg_show", find = "%d+L, %d+B" },
                         { event = "msg_show", find = "^Hunk %d+ of %d" },
                         -- TODO: investigate the source of this LSP message and disable it happens in typescript files
                         { event = "notify", find = "No information available" },
                     },
                 },
+            },
+            {
+                view = "notify",
+                filter = {
+                    -- Hover when cursor not on anything
+                    find = "No information available",
+                },
+                opts = { skip = true },
             },
             {
                 view = "vsplit",
