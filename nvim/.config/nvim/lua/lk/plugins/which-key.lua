@@ -707,6 +707,7 @@ M.config = function()
             ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
             ["l"] = { ":tablast<CR>", "last-tab" },
             ["n"] = { ":tabnext<CR>", "next-tab" },
+            ["o"] = { ":Telescope telescope-tabs list_tabs<CR>", "list-tabs" },
             ["p"] = { ":tabprevious<CR>", "previous-tab" },
         },
     }
