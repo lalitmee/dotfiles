@@ -8,6 +8,8 @@ export NVIM_LOG_FILE_PATH="$HOME/.logs/nvim"
 export PATH="$HOME/cargo/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export DENO_INSTALL="/home/lenovo/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 
 # -------------------------------------------------------------------
 # NOTE: pyenv {{{
