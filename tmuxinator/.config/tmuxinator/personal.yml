@@ -4,5 +4,7 @@ name: personal
 root: ~/
 
 windows:
-  - dotfiles: cd dotfiles
-  - notes: cd ~/Desktop/Github/dNotes
+  - dotfiles: z dotfiles
+  - notes: z ~/Desktop/Github/dNotes
+  - cobalt2.nvim: z ~/Desktop/Github/cobalt2.nvim
+  - learn: z ~/Desktop/Github/learn
