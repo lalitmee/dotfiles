@@ -1,7 +1,12 @@
 local M = {
     "nanozuki/tabby.nvim",
     dependencies = {
-        "tiagovla/scope.nvim",
+        {
+            "tiagovla/scope.nvim",
+            init = function()
+                require("telescope").load_extension("scope")
+            end,
+        },
         "nvim-lualine/lualine.nvim",
     },
     event = { "VimEnter" },
@@ -47,11 +52,17 @@ M.config = function()
     end
 
     local left_sep = function()
-        return { separators.left, hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } }
+        return {
+            separators.left,
+            hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg },
+        }
     end
 
     local right_sep = function()
-        return { separators.right, hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg } }
+        return {
+            separators.right,
+            hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg },
+        }
     end
 
     local tab_label = function(id, icon)

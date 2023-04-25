@@ -4,19 +4,11 @@ local M = {
 }
 
 M.config = function()
-    ----------------------------------------------------------------------
-    -- NOTE: trailing whitespaces {{{
-    ----------------------------------------------------------------------
     local function get_trailing_whitespace()
         local space = vim.fn.search([[\s\+$]], "nwc")
         return space ~= 0 and "TW:" .. space or ""
     end
-    -- }}}
-    ----------------------------------------------------------------------
 
-    --------------------------------------------------------------------------------
-    --  NOTE: active lsp clients {{{
-    --------------------------------------------------------------------------------
     local function get_active_lsp_clients()
         local bufnr = vim.fn.bufnr(0)
         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
@@ -26,12 +18,7 @@ M.config = function()
         end
         return table.concat(active_clients, ", ")
     end
-    -- }}}
-    --------------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------
-    -- NOTE: setup {{{
-    ----------------------------------------------------------------------
     require("lualine").setup({
         options = {
             theme = "auto",
@@ -114,10 +101,6 @@ M.config = function()
             "toggleterm",
         },
     })
-    -- }}}
-    ----------------------------------------------------------------------
 end
 
 return M
-
--- vim:foldmethod=marker
