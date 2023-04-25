@@ -2,7 +2,9 @@
 
 name: quartic
 session_name: quartic-workspace
-on_project_start: sudo docker restart 36e5dd728389
+on_project_start: docker restart 36e5dd728389
+
+pre_window:
 
 windows:
   - "docker-exec":
@@ -12,12 +14,17 @@ windows:
         - "docker":
             - z /home/lenovo/Documents/Quartic-Workspace
         - "docker exec main":
-            - "sudo docker exec -it quartic_local_setup bash"
+            - "docker exec -it quartic_local_setup bash"
+            - cd workspace/python/ContexAlyze/react_frontend
+            - BROWSER=none node scripts/start.js
         - "docker exec qnnect":
-            - "sudo docker exec -it quartic_local_setup bash"
+            - "docker exec -it quartic_local_setup bash"
+            - cd workspace/python/ContexAlyze/assetharbour/react_frontend
+            - BROWSER=none node scripts/start.js
         - "docker exec assetharbour":
-            - "sudo docker exec -it quartic_local_setup bash"
+            - "docker exec -it quartic_local_setup bash"
+            - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend
+            - BROWSER=none node scripts/start.js
   - "ContexAlyze":
-    layout: main-vertical
     panes:
-      - clear
+      - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
