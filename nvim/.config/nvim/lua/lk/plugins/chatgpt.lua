@@ -31,7 +31,11 @@ M.init = function()
 end
 
 M.config = function()
-    require("chatgpt").setup()
+    require("chatgpt").setup({
+        popup_input = {
+            submit = "<Enter>",
+        },
+    })
 end
 
 return M
