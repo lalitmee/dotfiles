@@ -3,6 +3,7 @@
   "Comment.nvim": { "branch": "master", "commit": "a89339ffbee677ab0521a483b6dac7e2e67c907e" },
   "LuaSnip": { "branch": "master", "commit": "e77fa9ad0b1f4fc6cddf54e51047e17e90c7d7ed" },
   "Navigator.nvim": { "branch": "master", "commit": "91d86506ac2a039504d5205d32a1d4bc7aa57072" },
+  "NeoComposer.nvim": { "branch": "main", "commit": "a85782bd7968eb462da03cbc2c186bc236f0b3c6" },
   "NeoZoom.lua": { "branch": "main", "commit": "33a45965f99b24a8e7da98f9c976285f946689fe" },
   "auto-session": { "branch": "main", "commit": "f391aba10ee61927a1cceb9ea3a9dde501e87e9e" },
   "autolist.nvim": { "branch": "main", "commit": "0936e384b10315f65b8ef3bf1be938314d23a528" },

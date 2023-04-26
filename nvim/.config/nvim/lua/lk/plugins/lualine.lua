@@ -29,6 +29,10 @@ M.config = function()
         sections = {
             lualine_a = {
                 {
+                    require("NeoComposer.ui").status_recording,
+                    color = "lualine_b_normal",
+                },
+                {
                     "searchcount",
                     color = "lualine_b_normal",
                 },

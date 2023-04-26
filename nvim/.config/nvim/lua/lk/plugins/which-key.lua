@@ -581,6 +581,7 @@ M.config = function()
                 },
             },
             ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
+            ["m"] = { ":Telescope macros<CR>", "neo-composer-macros" },
             ["p"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
             ["s"] = {
                 ["name"] = "+scrolloff",
