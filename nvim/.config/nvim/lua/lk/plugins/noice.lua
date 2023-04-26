@@ -195,6 +195,6 @@ local M = {
     },
 }
 
--- M.enabled = false
+M.enabled = false
 
 return M
