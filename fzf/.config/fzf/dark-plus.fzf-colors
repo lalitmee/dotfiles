@@ -1,0 +1,55 @@
+# FZF color settings
+fzf_default_fg=15
+fzf_default_bg=236
+fzf_current=39,236
+fzf_current_match=39,236,bold
+fzf_highlight=33,236
+fzf_border=244
+fzf_query=33,236,bold
+
+# Preview window color settings
+fzf_preview_border=244
+fzf_preview_bg=236
+fzf_preview_fg=15
+fzf_preview_window=,bg:244,border:236
+fzf_preview_info=244
+
+# Selected item color settings
+fzf_selected_bg=39
+fzf_selected_fg=236
+fzf_selected_match=39,bold
+
+# Match colors to Visual Studio Code Dark+ theme
+black=0
+red=124
+green=87
+yellow=214
+blue=81
+magenta=211
+cyan=31
+white=255
+bright_black=66
+bright_red=232
+bright_green=193
+bright_yellow=230
+bright_blue=116
+bright_magenta=214
+bright_cyan=113
+bright_white=255
+
+fzf_color_black=$black
+fzf_color_red=$red
+fzf_color_green=$green
+fzf_color_yellow=$yellow
+fzf_color_blue=$blue
+fzf_color_magenta=$magenta
+fzf_color_cyan=$cyan
+fzf_color_white=$white
+fzf_color_bright_black=$bright_black
+fzf_color_bright_red=$bright_red
+fzf_color_bright_green=$bright_green
+fzf_color_bright_yellow=$bright_yellow
+fzf_color_bright_blue=$bright_blue
+fzf_color_bright_magenta=$bright_magenta
+fzf_color_bright_cyan=$bright_cyan
+fzf_color_bright_white=$bright_white
