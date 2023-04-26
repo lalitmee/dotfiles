@@ -92,6 +92,11 @@ M.config = function()
             },
             lualine_z = {
                 { "location", color = { gui = "bold" } },
+                {
+                    require("lazy.status").updates,
+                    cond = require("lazy.status").has_updates,
+                    color = "lualine_b_normal",
+                },
             },
         },
         extensions = {
