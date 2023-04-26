@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/Desktop/Wallpapers/ -type f | fzf-ueberzogen.sh)
+    selected=$(find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf)
 fi
 
 if [[ -z $selected ]]; then
