@@ -636,6 +636,7 @@ M.config = function()
             ["L"] = { "<C-W>10>", "expand-window-right" },
             ["m"] = { ":NeoZoomToggle<CR>", "maximize-window" },
             ["n"] = { "<C-W>J", "move-window-far-down" },
+            ["o"] = { ":only<CR>", "close-other-windows-except-this" },
             ["p"] = { ":NavigatePrevious<CR>", "window-previous" },
             ["r"] = { "<C-W>r", "window-swap" },
             ["s"] = { "<C-W>s", "split-window-below" },
