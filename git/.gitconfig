@@ -1,5 +1,5 @@
 [credential "https://github.com"]
-    helper = 
+    helper =
     helper = !/usr/bin/gh auth git-credential
 
 [user]
@@ -179,10 +179,6 @@
     log = delta
     reflog = delta
     show = delta
-
-[user]
-    email = lalitkumar.meena.lk@gmail.com
-    name = Lalit Kumar
 
 [gpg]
     program = gpg2
