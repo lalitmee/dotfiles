@@ -5,18 +5,29 @@ local M = {
     build = ":Neorg sync-parsers",
     opts = {
         load = {
-            ["core.defaults"] = {}, -- Loads default behaviour
-            ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-            ["core.norg.dirman"] = { -- Manages Neorg workspaces
+            ["core.defaults"] = {},
+            ["core.concealer"] = {},
+            ["core.keybinds"] = {},
+            ["core.integrations.telescope"] = {},
+            ["core.completion"] = {
+                config = {
+                    engine = "nvim-cmp",
+                },
+            },
+            ["core.dirman"] = {
                 config = {
                     workspaces = {
                         notes = "~/Desktop/Github/notes",
+                        ["work-notes"] = "~/Documents/notes",
                     },
                 },
             },
         },
     },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-neorg/neorg-telescope" },
+    },
 }
 
 return M
