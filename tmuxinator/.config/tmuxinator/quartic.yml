@@ -30,6 +30,6 @@ windows:
             - clear
             - BROWSER=none node scripts/start.js
   - "ContexAlyze":
-    panes:
-      - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
-      - clear
+      panes:
+        - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
+        - clear
