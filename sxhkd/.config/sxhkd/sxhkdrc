@@ -159,7 +159,7 @@ super + shift + period
     systemctl suspend
 
 super + shift + x
-    i3lock
+    lockscreen
 
 #-------------------------------------------------------------------------------
 # toggle layouts
