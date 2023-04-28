@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+gum style \
+  --align center --width 100 \
+  --border rounded --border-foreground 212 \
+  --margin "0" --padding "1 2" \
+  --bold \
+  "$(gum style --foreground 212 "$1")"
