@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Path to the kitty.conf file
+config_file="$HOME/.config/kitty/kitty.conf"
+
+# Get the list of available fonts from kitty
+fonts=$(kitty +list-fonts --psnames | grep "^\w")
+
+# Use fzf to prompt the user to select a font
+selected_font=$(echo "$fonts" | fzf)
+
+# If a font was selected, update the kitty.conf file with the new font
+if [[ -n "$selected_font" ]]; then
+    sed -i "s/^font_family.*/font_family     $selected_font/" "$config_file"
+    gum_style "Font updated to $(gum style --foreground 215 "$selected_font")"
+
+    # Reload kitty configuration
+    kill -SIGUSR1 $(pgrep kitty)
+fi
