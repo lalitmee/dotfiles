@@ -22,7 +22,7 @@ add_newline = true
 
 # make things go to the right side
 [fill]
-symbol = "-"
+symbol = "- - "
 
 #-------------------------------------------------------------------------------
 #  NOTE: propmpt char {{{
