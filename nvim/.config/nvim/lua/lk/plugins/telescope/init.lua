@@ -367,7 +367,6 @@ M.config = function()
                 num_answers = 3,
                 explain_answer = true,
             },
-            media_files = { find_cmd = "rg" },
             ["ui-select"] = {
                 require("telescope.themes").get_dropdown({}),
             },
@@ -561,7 +560,7 @@ M.config = function()
     end
 
     local set_wallpaper =
-        image_selector("< Wallpapers > ", "~/Desktop/Wallpapers/")
+        image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
 
     lk.command("ChangeSystemBackground", function()
         set_wallpaper()
