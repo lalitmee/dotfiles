@@ -61,11 +61,6 @@ return {
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,
     },
-    { -- will add bang(#!) like this on running `:Bang`
-        "susensio/magic-bang.nvim",
-        cmd = { "Bang" },
-        opts = {},
-    },
     {
         "andrewferrier/debugprint.nvim",
         keys = {
