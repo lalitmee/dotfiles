@@ -5,16 +5,7 @@
 # See: https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start
 
 # Save current dir
-pushd . > /dev/null || exit
-
-gum_style() {
-    gum style \
-      --align center --width 100 \
-      --border rounded --border-foreground 212 \
-      --margin "0" --padding "1 2" \
-      --bold \
-      "$(gum style --foreground 212 "$1")"
-}
+pushd . >/dev/null || exit
 
 # Install dependencies
 gum_style 'Installing dependencies...'
@@ -82,7 +73,7 @@ gum_style "Installing neovim..."
 sudo make install
 
 #Restore dir
-popd > /dev/null || exit
+popd >/dev/null || exit
 
 gum_style "nvim command: $(command -v nvim)"
 gum_style "nvim command: $(ls -al "$(command -v nvim)")"
