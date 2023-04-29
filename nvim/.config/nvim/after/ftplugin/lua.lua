@@ -79,4 +79,7 @@ opt.foldlevel = 99
 -- }}}
 ----------------------------------------------------------------------
 
+-- NOTE: fixes red bracket in the hover window
+vim.cmd([[highlight! def link luaParenError NormalFloat]])
+
 -- vim:foldmethod=marker
