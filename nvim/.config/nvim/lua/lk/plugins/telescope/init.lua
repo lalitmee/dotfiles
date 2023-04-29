@@ -82,6 +82,10 @@ local M = {
             end,
         },
     },
+    init = function()
+        require("telescope").load_extension("messages")
+        require("telescope").load_extension("dotfiles")
+    end,
 }
 
 M.config = function()
