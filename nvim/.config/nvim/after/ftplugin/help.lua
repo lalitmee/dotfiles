@@ -9,3 +9,6 @@ lk.augroup("help_au", {
         end,
     },
 })
+
+-- NOTE: enable code highlighting for help
+vim.treesitter.start()
