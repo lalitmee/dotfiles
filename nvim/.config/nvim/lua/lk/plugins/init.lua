@@ -33,18 +33,6 @@ return {
     --  NOTE: actions {{{
     ---------------------------------------------------------------------------
     {
-        "LintaoAmons/scratch.nvim",
-        cmd = {
-            "ScratchCheckConfig",
-            "ScratchEditConfig",
-            "Scratch",
-            "ScratchOpen",
-            "ScratchWithName",
-            "ScratchOpenFzf",
-        },
-        enabled = false,
-    },
-    {
         "jghauser/fold-cycle.nvim",
         keys = { "<CR>" },
         config = function()
