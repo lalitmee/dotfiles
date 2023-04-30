@@ -1,4 +1,4 @@
-local M = {
+return {
     "nvim-neorg/neorg",
     cmd = { "Neorg" },
     ft = "norg",
@@ -31,5 +31,3 @@ local M = {
         { "nvim-neorg/neorg-telescope" },
     },
 }
-
-return M
