@@ -184,7 +184,6 @@ M.config = function()
             ------------------
             cda.eslint_d,
             cda.shellcheck,
-            require("typescript.extensions.null-ls.code-actions"),
         },
         -- on_attach = function(client, bufnr)
         --     -- U.fmt_on_save(client, bufnr)
