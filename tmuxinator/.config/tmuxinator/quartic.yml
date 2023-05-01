@@ -32,4 +32,3 @@ windows:
   - "ContexAlyze":
       panes:
         - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
-        - clear

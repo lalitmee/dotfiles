@@ -22,7 +22,18 @@ M.init = function()
             if api.nvim_win_is_valid(win) then
                 vim.api.nvim_win_set_config(
                     win,
-                    { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" } }
+                    {
+                        border = {
+                            "╭",
+                            "─",
+                            "╮",
+                            "│",
+                            "╯",
+                            "─",
+                            "╰",
+                            "│",
+                        },
+                    }
                 )
             end
         end,
@@ -42,6 +53,9 @@ M.init = function()
             return
         end
         if msg:match("character_offset must be called") then
+            return
+        end
+        if msg:match("No information available") then
             return
         end
 
