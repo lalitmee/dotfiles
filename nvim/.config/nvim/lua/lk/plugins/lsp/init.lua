@@ -10,16 +10,6 @@ local M = {
         },
         { "jose-elias-alvarez/null-ls.nvim" },
         {
-            "jose-elias-alvarez/typescript.nvim",
-            ft = {
-                "javascript",
-                "typescript",
-                "javascriptreact",
-                "typescriptreact",
-            },
-            opts = {},
-        },
-        {
             "simrat39/rust-tools.nvim",
             ft = "rust",
         },

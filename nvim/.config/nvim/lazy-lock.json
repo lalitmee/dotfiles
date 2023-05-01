@@ -108,7 +108,6 @@
   "trouble.nvim": { "branch": "main", "commit": "d56bfc0c501ced4002a57cb60433362fb2ce9c4d" },
   "ts-node-action": { "branch": "master", "commit": "0440eaa24e2334aa593b38ab4e42c8efa8dd187b" },
   "tsc.nvim": { "branch": "main", "commit": "08ea7a3e6939e661d0e68b95abd9b2ea4e4fd03c" },
-  "typescript.nvim": { "branch": "main", "commit": "f66d4472606cb24615dfb7dbc6557e779d177624" },
   "undotree": { "branch": "master", "commit": "485f01efde4e22cb1ce547b9e8c9238f36566f21" },
   "vim-abolish": { "branch": "master", "commit": "cb3dcb220262777082f63972298d57ef9e9455ec" },
   "vim-be-good": { "branch": "master", "commit": "c290810728a4f75e334b07dc0f3a4cdea908d351" },
