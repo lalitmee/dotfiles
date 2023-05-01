@@ -4,9 +4,30 @@ local M = {
     event = { "VimEnter" },
     dependencies = {
         { "j-hui/fidget.nvim" },
-        { "folke/neodev.nvim" },
+        {
+            "folke/neodev.nvim",
+            ft = "lua",
+        },
         { "jose-elias-alvarez/null-ls.nvim" },
-        { "simrat39/rust-tools.nvim", ft = "rust" },
+        {
+            "jose-elias-alvarez/typescript.nvim",
+            ft = {
+                "javascript",
+                "typescript",
+                "javascriptreact",
+                "typescriptreact",
+            },
+            opts = {},
+        },
+        {
+            "simrat39/rust-tools.nvim",
+            ft = "rust",
+        },
+        {
+            "dmmulroy/tsc.nvim",
+            cmd = { "TSC" },
+            opts = {},
+        },
     },
 }
 
@@ -173,6 +194,7 @@ M.config = function()
             ------------------
             cda.eslint_d,
             cda.shellcheck,
+            require("typescript.extensions.null-ls.code-actions"),
         },
         -- on_attach = function(client, bufnr)
         --     -- U.fmt_on_save(client, bufnr)
