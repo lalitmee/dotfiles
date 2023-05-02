@@ -24,11 +24,6 @@ local M = {
                 "typescriptreact",
             },
         },
-        {
-            "jcdickinson/codeium.nvim",
-            event = { "InsertEnter" },
-            config = true,
-        },
     },
 }
 
@@ -90,7 +85,6 @@ M.config = function()
             ["<S-Tab>"] = nil,
         },
         sources = cmp.config.sources({
-            { name = "codeium" },
             {
                 name = "nvim_lsp",
                 keyword_length = 3,
@@ -140,7 +134,6 @@ M.config = function()
                 menu = {
                     buffer = "[BUF]",
                     cmp_tabnine = "[TBN]",
-                    codeium = "[AI]",
                     luasnip = "[SNIP]",
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[API]",
