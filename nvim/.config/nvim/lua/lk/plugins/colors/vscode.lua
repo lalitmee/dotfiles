@@ -1,6 +1,7 @@
 return {
     "Mofiqul/vscode.nvim",
-    event = { "ColorSchemePre" },
+    lazy = false,
+    priority = 1000,
     init = function()
         require("vscode").setup({
             transparent = true,
