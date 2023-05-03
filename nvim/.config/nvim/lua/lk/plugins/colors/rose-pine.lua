@@ -1,6 +1,7 @@
 local M = {
     "rose-pine/neovim",
-    event = { "ColorSchemePre" },
+    lazy = false,
+    priority = 1000,
     name = "rose-pine",
     init = function()
         require("rose-pine").setup({
