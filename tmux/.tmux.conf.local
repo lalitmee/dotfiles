@@ -480,6 +480,9 @@ TMUX_FZF_LAUNCH_KEY="C-o"
 # tmux-modal
 set -g @plugin 'whame/tmux-modal'
 
+# easier pane management
+set -g @plugin 'tmux-plugins/tmux-pain-control'
+
 # manage sessions more quickly
 set -g @plugin 'tmux-plugins/tmux-sessionist'
 
@@ -511,11 +514,11 @@ bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 #  NOTE: window management {{{
 #-------------------------------------------------------------------------------
 # for split window
-bind-key '-' split-window -v -c '#{current_pane_path}'
-bind-key '\' split-window -h -c '#{current_pane_path}'
+bind-key '-' split-window -v -c '#{pane_current_path}'
+bind-key '\' split-window -h -c '#{pane_current_path}'
 
 # create new window with the current directory path
-bind c new-window -c '#{current_pane_path}'
+bind c new-window -c '#{pane_current_path}'
 
 # # Fine adjustment (1 or 2 cursor cells per bump)
 # bind -n S-Left resize-pane -L 2
