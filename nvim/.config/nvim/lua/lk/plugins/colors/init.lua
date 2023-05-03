@@ -1,6 +1,7 @@
 return {
     "catppuccin/nvim",
-    event = { "ColorSchemePre" },
+    lazy = false,
+    priority = 1000,
     name = "catppuccin",
     init = function()
         require("catppuccin").setup({
@@ -53,5 +54,4 @@ return {
 
         vim.cmd.colorscheme("catppuccin")
     end,
-    -- enabled = false,
 }

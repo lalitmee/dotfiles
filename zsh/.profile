@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/profile.pre.bash" ]] && builtin source "$HOME/.fig/shell/profile.pre.bash"
 #!/usr/bin zsh
 
 # ~/.profile: executed by the command interpreter for login shells.
@@ -27,3 +29,6 @@ fi
 if [ -d "$HOME/.config/bin" ] ; then
     PATH="$HOME/.config/bin:$PATH"
 fi
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/profile.post.bash" ]] && builtin source "$HOME/.fig/shell/profile.post.bash"

@@ -31,14 +31,18 @@ end
 --------------------------------------------------------------------------------
 vim.diagnostic.config({
     underline = true,
-    -- virtual_text = {
-    --     severity = nil,
-    --     source = "if_many",
-    --     format = function(d)
-    --         return d.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-    --     end,
-    -- },
-    virtual_text = false,
+    virtual_text = {
+        severity = nil,
+        source = "if_many",
+        format = function(d)
+            return d.message
+                :gsub("\n", " ")
+                :gsub("\t", " ")
+                :gsub("%s+", " ")
+                :gsub("^%s+", "")
+        end,
+    },
+    -- virtual_text = false,
     signs = true,
 
     float = {
