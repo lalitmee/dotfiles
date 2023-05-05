@@ -1,5 +1,4 @@
-local command = lk.command
-local augroup = lk.augroup
+local command, augroup = lk.command, lk.augroup
 
 return {
     "TimUntersberger/neogit",
