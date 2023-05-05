@@ -63,9 +63,13 @@ local function buf_only()
             deleted = deleted + 1
         end
     end
-    vim.notify(fmt("%s deleted buffer(s), %s modified buffer(s)", deleted, modified), 2, {
-        title = " BufOnly",
-    })
+    vim.notify(
+        fmt("%s deleted buffer(s), %s modified buffer(s)", deleted, modified),
+        2,
+        {
+            title = " BufOnly",
+        }
+    )
 end
 
 lk.command("BufOnly", buf_only, {})
