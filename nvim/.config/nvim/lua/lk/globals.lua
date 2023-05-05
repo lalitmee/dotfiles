@@ -1,5 +1,3 @@
-local core = require("lk/utils/core")
-
 local fn = vim.fn
 local api = vim.api
 local fmt = string.format
@@ -622,14 +620,14 @@ end
 -- set qflist and open
 function lk.qf_populate(lines, mode)
     if mode == nil or type(mode) == "table" then
-        lines = core.foreach(lines, function(item)
+        lines = lk.foreach(function(item)
             return {
                 filename = item,
                 lnum = 1,
                 col = 1,
                 text = item,
             }
-        end)
+        end, lines)
         mode = "r"
     end
 

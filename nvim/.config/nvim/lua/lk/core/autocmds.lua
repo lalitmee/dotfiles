@@ -273,12 +273,40 @@ augroup("ginit_au", {
 --------------------------------------------------------------------------------
 --  NOTE: quit on q {{{
 --------------------------------------------------------------------------------
-augroup("quit_q", {
+augroup("quit_q_au", {
     {
         event = { "FileType" },
-        pattern = { "oil", "help", "log", "qf", "startuptime" },
-        command = function()
-            lk.nnoremap("q", [[:q<cr>]])
+        pattern = {
+            "OverseerForm",
+            "OverseerList",
+            "checkhealth",
+            "floggraph",
+            "fugitive",
+            "git",
+            "gitcommit",
+            "help",
+            "log",
+            "lspinfo",
+            "man",
+            "neotest-output",
+            "neotest-summary",
+            "oil",
+            "qf",
+            "query",
+            "spectre_panel",
+            "startuptime",
+            "toggleterm",
+            "tsplayground",
+            "vim",
+        },
+        callback = function(event)
+            vim.bo[event.buf].buflisted = false
+            vim.keymap.set(
+                "n",
+                "q",
+                "<cmd>close<cr>",
+                { buffer = event.buf, silent = true }
+            )
         end,
     },
     {
@@ -287,13 +315,6 @@ augroup("quit_q", {
         pattern = { "scriptease-verbose", "startup-log" },
         command = function()
             lk.nnoremap("q", ":bd<cr>")
-        end,
-    },
-    {
-        event = { "FileType" },
-        pattern = { "checkhealth" },
-        command = function()
-            lk.nnoremap("q", ":bd | tabclose<cr>")
         end,
     },
 })
@@ -326,7 +347,7 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
     end,
 })
 
-vim.keymap.set("n", "<Leader>bu", function()
+vim.keymap.set("n", "<leader>bu", function()
     local curbufnr = vim.api.nvim_get_current_buf()
     local buflist = vim.api.nvim_list_bufs()
     for _, bufnr in ipairs(buflist) do
@@ -354,6 +375,19 @@ augroup("RestoreCursor_au", {
         if mark[1] > 0 and mark[1] <= lcount then
             pcall(vim.api.nvim_win_set_cursor, 0, mark)
         end
+    end,
+})
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: format options {{{
+--------------------------------------------------------------------------------
+augroup("format_options_au", {
+    event = "BufWinEnter",
+    pattern = { "*" },
+    callback = function()
+        vim.cmd("set formatoptions-=o")
     end,
 })
 -- }}}
