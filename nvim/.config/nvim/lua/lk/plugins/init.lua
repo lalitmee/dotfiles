@@ -61,6 +61,7 @@ return {
     {
         "NvChad/nvim-colorizer.lua",
         cmd = { "ColorizerToggle" },
+        config = true,
     },
     {
         "christoomey/vim-sort-motion",
