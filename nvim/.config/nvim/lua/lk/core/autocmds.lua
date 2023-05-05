@@ -43,7 +43,11 @@ augroup("terminal_au", {
         event = { "TermOpen" },
         pattern = { "term://*" },
         command = function()
-            if vim.bo.filetype == "" or vim.bo.filetype == "toggleterm" or vim.bo.filetype == "BufTerm" then
+            if
+                vim.bo.filetype == ""
+                or vim.bo.filetype == "toggleterm"
+                or vim.bo.filetype == "BufTerm"
+            then
                 local opts = { silent = false, buffer = 0 }
                 tnoremap("<esc>", [[<C-\><C-n>]], opts)
                 tnoremap("jk", [[<C-\><C-n>]], opts)
@@ -326,11 +330,32 @@ vim.keymap.set("n", "<Leader>bu", function()
     local curbufnr = vim.api.nvim_get_current_buf()
     local buflist = vim.api.nvim_list_bufs()
     for _, bufnr in ipairs(buflist) do
-        if vim.bo[bufnr].buflisted and bufnr ~= curbufnr and (vim.fn.getbufvar(bufnr, "bufpersist") ~= 1) then
+        if
+            vim.bo[bufnr].buflisted
+            and bufnr ~= curbufnr
+            and (vim.fn.getbufvar(bufnr, "bufpersist") ~= 1)
+        then
             vim.cmd("bd " .. tostring(bufnr))
         end
     end
 end, { silent = true, desc = "Close unused buffers" })
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: go to last location in the buffer {{{
+--------------------------------------------------------------------------------
+augroup("RestoreCursor_au", {
+    event = { "BufReadPost" },
+    pattern = { "*" },
+    callback = function()
+        local mark = vim.api.nvim_buf_get_mark(0, '"')
+        local lcount = vim.api.nvim_buf_line_count(0)
+        if mark[1] > 0 and mark[1] <= lcount then
+            pcall(vim.api.nvim_win_set_cursor, 0, mark)
+        end
+    end,
+})
 -- }}}
 --------------------------------------------------------------------------------
 
