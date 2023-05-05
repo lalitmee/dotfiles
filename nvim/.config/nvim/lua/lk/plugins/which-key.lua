@@ -731,6 +731,7 @@ M.config = function()
             ["n"] = { ":tabnext<CR>", "next-tab" },
             ["o"] = { ":Telescope telescope-tabs list_tabs<CR>", "list-tabs" },
             ["p"] = { ":tabprevious<CR>", "previous-tab" },
+            ["r"] = { ":TabRename<Space>", "rename-tab" },
         },
     }
 
