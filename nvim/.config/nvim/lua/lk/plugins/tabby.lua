@@ -1,12 +1,6 @@
 local M = {
     "nanozuki/tabby.nvim",
     dependencies = {
-        {
-            "tiagovla/scope.nvim",
-            init = function()
-                require("telescope").load_extension("scope")
-            end,
-        },
         "nvim-lualine/lualine.nvim",
     },
     event = { "VimEnter" },
@@ -158,7 +152,6 @@ M.config = function()
     }
 
     require("tabby").setup({ tabline = line })
-    require("scope").setup()
 end
 
 return M
