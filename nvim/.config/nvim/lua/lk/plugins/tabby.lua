@@ -1,25 +1,14 @@
 local M = {
     "nanozuki/tabby.nvim",
-    dependencies = {
-        "nvim-lualine/lualine.nvim",
-    },
     event = { "VimEnter" },
 }
 
-M.enabled = false
+-- M.enabled = false
 
 M.config = function()
-    local filename = require("tabby.filename")
+    vim.opt.showtabline = 2
     local palette = require("cobalt2.palette")
 
-    local hl_tabline_sel = { bg = palette.yellow, fg = palette.black }
-    local hl_tabline = { bg = palette.darker_blue, fg = palette.black }
-    local hl_tabline_fill = { bg = palette.cursor_line, fg = palette.black }
-
-    --------------------------------------------------------------------------------
-    --  NOTE: icons and separators {{{
-    --------------------------------------------------------------------------------
-    local space_between = " "
     local separators = {
         -- right = "",
         -- left = "",
@@ -27,131 +16,65 @@ M.config = function()
         left = "",
     }
     local icons = {
-        tab = { active = "  ", inactive = "  " },
-        win = { top = "  ", normal = "  " },
+        tab = { active = "", inactive = "" },
+        win = { top = "", normal = "" },
         tail = "  ",
     }
-    -- }}}
-    --------------------------------------------------------------------------------
 
-    --------------------------------------------------------------------------------
-    --  NOTE: utilities {{{
-    --------------------------------------------------------------------------------
-    local cwd = function()
-        return " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " "
-    end
-
-    local tabname = function(tabid)
-        return vim.api.nvim_tabpage_get_number(tabid)
-    end
-
-    local left_sep = function()
-        return {
-            separators.left,
-            hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg },
-        }
-    end
-
-    local right_sep = function()
-        return {
-            separators.right,
-            hl = { fg = hl_tabline.bg, bg = hl_tabline_fill.bg },
-        }
-    end
-
-    local tab_label = function(id, icon)
-        return {
-            icon .. tabname(id) .. space_between,
-            hl = {
-                fg = hl_tabline_sel.bg,
-                bg = hl_tabline.bg,
-                style = "bold",
-            },
-        }
-    end
-
-    local win_label = function(id, icon)
-        return {
-            icon .. filename.unique(id) .. space_between,
-            hl = {
-                fg = hl_tabline_sel.bg,
-                bg = hl_tabline.bg,
-                style = "bold",
-            },
-        }
-    end
-
-    -- }}}
-    --------------------------------------------------------------------------------
-
-    local line = {
-        hl = { fg = hl_tabline_sel.bg, bg = hl_tabline_fill.bg },
-        layout = "active_tab_with_wins",
-        head = {
-            {
-                cwd,
-                hl = {
-                    fg = hl_tabline_sel.fg,
-                    bg = hl_tabline_sel.bg,
-                    style = "bold",
-                },
-            },
-            {
-                separators.right,
-                hl = {
-                    fg = hl_tabline_sel.bg,
-                    bg = hl_tabline_fill.bg,
-                },
-            },
+    local theme = {
+        line = { fg = palette.black, bg = palette.cursor_line },
+        head = { fg = palette.black, bg = palette.yellow, style = "bold" },
+        current_tab = {
+            fg = palette.yellow,
+            bg = palette.darker_blue,
+            style = "bold",
         },
-        active_tab = {
-            label = function(tabid)
-                return tab_label(tabid, icons.tab.active)
-            end,
-            left_sep = left_sep(),
-            right_sep = right_sep(),
-        },
-        inactive_tab = {
-            label = function(tabid)
-                return tab_label(tabid, icons.tab.inactive)
-            end,
-            left_sep = left_sep(),
-            right_sep = right_sep(),
-        },
-        top_win = {
-            label = function(winid)
-                return win_label(winid, icons.win.top)
-            end,
-            left_sep = left_sep(),
-            right_sep = right_sep(),
-        },
-        win = {
-            label = function(winid)
-                return win_label(winid, icons.win.normal)
-            end,
-            left_sep = left_sep(),
-            right_sep = right_sep(),
-        },
-        tail = {
-            {
-                separators.left,
-                hl = {
-                    fg = hl_tabline_sel.bg,
-                    bg = hl_tabline_fill.bg,
-                },
-            },
-            {
-                icons.tail,
-                hl = {
-                    fg = hl_tabline_sel.fg,
-                    bg = hl_tabline_sel.bg,
-                    style = "bold",
-                },
-            },
-        },
+        tab = { fg = palette.white, bg = palette.darker_blue },
+        win = { fg = palette.white, bg = palette.darker_blue },
+        tail = { fg = palette.black, bg = palette.yellow, style = "bold" },
     }
 
-    require("tabby").setup({ tabline = line })
+    local line = function(line)
+        local cwd = " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " "
+        return {
+            {
+                { cwd, hl = theme.head },
+                line.sep(separators.right, theme.head, theme.line),
+            },
+            line.tabs().foreach(function(tab)
+                local hl = tab.is_current() and theme.current_tab or theme.tab
+                return {
+                    line.sep(separators.left, hl, theme.line),
+                    tab.is_current() and icons.tab.active or icons.tab.inactive,
+                    string.format("%s:", tab.number()),
+                    tab.name(),
+                    line.sep(separators.right, hl, theme.line),
+                    margin = " ",
+                    hl = hl,
+                }
+            end),
+            line.spacer(),
+            line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+                return {
+                    line.sep(separators.left, theme.win, theme.line),
+                    win.is_current() and icons.win.top or icons.win.normal,
+                    win.buf_name(),
+                    line.sep(separators.right, theme.win, theme.line),
+                    margin = " ",
+                    hl = theme.win,
+                }
+            end),
+            {
+                line.sep(separators.left, theme.tail, theme.line),
+                { icons.tail, hl = theme.tail },
+            },
+            hl = theme.line,
+        }
+    end
+
+    require("tabby.tabline").set(line, {
+        buf_name = { mode = "unique" },
+    })
 end
 
 return M
