@@ -78,13 +78,6 @@ return {
         cmd = { "Tabularize" },
     },
     {
-        "danymat/neogen",
-        cmd = { "Neogen" },
-        config = function()
-            require("neogen").setup({ snippet_engine = "luasnip" })
-        end,
-    },
-    {
         "kylechui/nvim-surround",
         keys = { "ds", "ys" },
         opts = {},
