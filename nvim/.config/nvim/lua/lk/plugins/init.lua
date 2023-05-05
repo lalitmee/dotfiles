@@ -192,10 +192,6 @@ return {
     --  NOTE: tpope {{{
     ---------------------------------------------------------------------------
     {
-        "tpope/vim-abolish",
-        event = { "VeryLazy" },
-    },
-    {
         "tpope/vim-repeat",
         keys = { "." },
     },
