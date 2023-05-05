@@ -251,15 +251,17 @@ end, { silent = true, desc = "Close unused buffers" })
 --  NOTE: go to last location in the buffer {{{
 --------------------------------------------------------------------------------
 augroup("RestoreCursor_au", {
-    event = { "BufReadPost" },
-    pattern = { "*" },
-    callback = function()
-        local mark = vim.api.nvim_buf_get_mark(0, '"')
-        local lcount = vim.api.nvim_buf_line_count(0)
-        if mark[1] > 0 and mark[1] <= lcount then
-            pcall(vim.api.nvim_win_set_cursor, 0, mark)
-        end
-    end,
+    {
+        event = { "BufReadPost" },
+        pattern = { "*" },
+        command = function()
+            local mark = vim.api.nvim_buf_get_mark(0, '"')
+            local lcount = vim.api.nvim_buf_line_count(0)
+            if mark[1] > 0 and mark[1] <= lcount then
+                pcall(vim.api.nvim_win_set_cursor, 0, mark)
+            end
+        end,
+    },
 })
 -- }}}
 --------------------------------------------------------------------------------
@@ -268,11 +270,13 @@ augroup("RestoreCursor_au", {
 --  NOTE: format options {{{
 --------------------------------------------------------------------------------
 augroup("format_options_au", {
-    event = "BufWinEnter",
-    pattern = { "*" },
-    callback = function()
-        vim.cmd("set formatoptions-=o")
-    end,
+    {
+        event = "BufWinEnter",
+        pattern = { "*" },
+        command = function()
+            vim.cmd("set formatoptions-=o")
+        end,
+    },
 })
 -- }}}
 --------------------------------------------------------------------------------
@@ -283,20 +287,40 @@ augroup("format_options_au", {
 -- Prevent entering buffers in insert mode.
 --------------------------------------------------------------------------------
 augroup("insert_au", {
-    event = { "WinLeave" },
-    pattern = { "TelescopePrompt", "DressingInput" },
-    command = function()
-        if
-            -- vim.bo.ft == "TelescopePrompt" and
-            vim.fn.mode() == "i"
-        then
-            vim.api.nvim_feedkeys(
-                vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
-                "i",
-                false
-            )
-        end
-    end,
+    {
+        event = { "WinLeave" },
+        pattern = { "TelescopePrompt", "DressingInput" },
+        command = function()
+            if
+                -- vim.bo.ft == "TelescopePrompt"
+                -- or vim.bo.ft == "DressingInput" and
+                vim.fn.mode() == "i"
+            then
+                vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                    "i",
+                    false
+                )
+            end
+        end,
+    },
+    {
+        event = { "WinEnter" },
+        pattern = { "*" },
+        command = function()
+            if
+                -- vim.bo.ft == "TelescopePrompt"
+                -- or vim.bo.ft == "DressingInput" and
+                vim.fn.mode() == "i"
+            then
+                vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                    "i",
+                    false
+                )
+            end
+        end,
+    },
 })
 -- }}}
 --------------------------------------------------------------------------------
