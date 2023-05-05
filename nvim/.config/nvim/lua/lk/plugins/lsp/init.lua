@@ -83,7 +83,13 @@ M.config = function()
     --  NOTE: neodev setup {{{
     ----------------------------------------------------------------------
     require("neodev").setup({
-        library = { plugins = { "plenary.nvim" } },
+        library = {
+            plugins = {
+                "plenary.nvim",
+                "neotest",
+                types = true,
+            },
+        },
     })
     -- }}}
     ----------------------------------------------------------------------
