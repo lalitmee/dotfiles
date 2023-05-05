@@ -183,7 +183,7 @@ augroup("quit_q_au", {
             "tsplayground",
             "vim",
         },
-        callback = function(event)
+        command = function(event)
             vim.bo[event.buf].buflisted = false
             vim.keymap.set(
                 "n",
@@ -272,6 +272,30 @@ augroup("format_options_au", {
     pattern = { "*" },
     callback = function()
         vim.cmd("set formatoptions-=o")
+    end,
+})
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: prevent opening things in insert mode {{{
+-- telescope and dressing input are doing this right now
+-- Prevent entering buffers in insert mode.
+--------------------------------------------------------------------------------
+augroup("insert_au", {
+    event = { "WinLeave" },
+    pattern = { "TelescopePrompt", "DressingInput" },
+    command = function()
+        if
+            -- vim.bo.ft == "TelescopePrompt" and
+            vim.fn.mode() == "i"
+        then
+            vim.api.nvim_feedkeys(
+                vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                "i",
+                false
+            )
+        end
     end,
 })
 -- }}}
