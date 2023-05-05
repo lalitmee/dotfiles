@@ -99,7 +99,6 @@
     remote = green
 
 [color "diff"]
-
     meta = yellow bold
     frag = magenta bold # line info
     old = red # deletions
@@ -140,6 +139,10 @@
     # Detect copies as well as renames.
     renames = copies
     colorMoved = zebra
+    tool = nvimdiff
+
+[difftool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd L\"
 
 [fetch]
     prune = true
@@ -161,12 +164,10 @@
     diffFilter = delta --color-only
 
 [merge]
-    tool = nvimdiff4
-    summary = true
-    verbosity = 1
+    tool = nvimdiff
 
-[mergetool "nvimdiff4"]
-    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd J\"
 
 [pull]
     rebase = true
