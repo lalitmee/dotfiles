@@ -1,12 +1,13 @@
 # /home/lenovo/.config/tmuxinator/quartic.yml
 
 name: quartic
+root: /home/lenovo/Documents/Quartic-Workspace
 session_name: quartic-workspace
-on_project_start: docker restart 36e5dd728389
+on_project_start: docker restart 444b3704b4c0
 
 windows:
   - "docker-exec":
-      layout: d4d4,189x42,0,0{90x42,0,0[90x12,0,0,0,90x14,0,13,7,90x14,0,28,8],98x42,91,0[98x12,91,0,2,98x13,91,13,3,98x15,91,27,4]}
+      layout: 6732,237x50,0,0{114x50,0,0[114x15,0,0,0,114x17,0,16,2,114x16,0,34,3],122x50,115,0[122x15,115,0,4,122x17,115,16,5,122x16,115,34,6]}
       panes:
         - "docker exec main":
             - "docker exec -it quartic_local_setup bash"
