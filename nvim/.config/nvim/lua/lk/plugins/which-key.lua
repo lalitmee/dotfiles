@@ -670,7 +670,28 @@ M.config = function()
             ["i"] = { ":BrowseInputSearch<CR>", "input-search" },
             ["m"] = { ":BrowseMdnSearch<CR>", "mdn-search" },
         },
-        ["d"] = { ":Neogen<CR>", "doc-this" },
+        ["d"] = {
+            ["name"] = "+docstrings",
+            ["d"] = { ":Neogen<CR>", "doc-this" },
+            ["c"] = {
+                function()
+                    require("neogen").generate({ type = "class" })
+                end,
+                "doc-this-class",
+            },
+            ["f"] = {
+                function()
+                    require("neogen").generate({ type = "class" })
+                end,
+                "doc-this-function",
+            },
+            ["t"] = {
+                function()
+                    require("neogen").generate({ type = "class" })
+                end,
+                "doc-this-type",
+            },
+        },
         ["f"] = {
             ["name"] = "+fzf-lua",
             ["a"] = { ":FzfLua builtin<CR>", "builtins" },
