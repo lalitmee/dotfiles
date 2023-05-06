@@ -705,5 +705,14 @@ open-line() {
     vi $(rg --hidden --line-number . | fzf --delimiter ':' --preview 'bat --color=always --highlight-line {2} {1}' | awk -F ':' '{print "+"$2" "$1}')
 }
 
+timezsh() {
+    shell=${1-$SHELL}
+    for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+killport() {
+    PID=$(sudo lsof -t -i:$1)
+    sudo kill -9 ${PID}
+}
 # }}}
 # -------------------------------------------------------------------
