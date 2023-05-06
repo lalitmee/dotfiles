@@ -1,4 +1,4 @@
-# zmodload zsh/zprof
+zmodload zsh/zprof
 
 # -------------------------------------------------------------------
 # NOTE: oh-my-zsh {{{
@@ -78,9 +78,7 @@ plugins=(
     fzf-zsh-plugin
     gh
     git
-    last-working-dir
     npm
-    sudo
     tmux
     tmuxinator
     vi-mode
@@ -144,17 +142,6 @@ pomodoro() {
     fi
 }
 
-alias wo="pomodoro 'work'"
-alias br="pomodoro 'break'"
-# }}}
-# -------------------------------------------------------------------
-
-
-# -------------------------------------------------------------------
-# NOTE: automatically loaded {{{
-# -------------------------------------------------------------------
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 # }}}
 # -------------------------------------------------------------------
 
@@ -172,22 +159,19 @@ killport() {
 # NOTE: sourcing some of the other things {{{
 # -------------------------------------------------------------------
 # aliases
-source ~/.aliases
+[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
 # fzf config
-source ~/.fzf-config
+[[ -f ~/.fzf_config ]] && source ~/.fzf_config
 
 # openai api key
-source ~/.openai
-
-# zsh profile
-source ~/.zsh_profile
+[[ -f ~/.openai ]] && source ~/.openai
 
 # awesome zsh functions
-source ~/.zsh_functions/.awesome-functions
+[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
 
 # keybindings
-source ~/.zsh-keybindings
+[[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
 # }}}
 # -------------------------------------------------------------------
 
@@ -227,6 +211,35 @@ timezsh() {
     shell=${1-$SHELL}
     for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: starship prompt {{{
+# -------------------------------------------------------------------
+[[ -x $(command -v starship) ]] && eval "$(starship init zsh)"
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: zoxide {{{
+# -------------------------------------------------------------------
+[[ -x $(command -v zoxide) ]] && eval "$(zoxide init zsh)"
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: pyenv {{{
+# -------------------------------------------------------------------
+[[ -x $(command -v pyenv) ]] && eval "$(pyenv init -)"
+[[ -x $(command -v pyenv-virtualenv-init) ]] && eval "$(pyenv virtualenv-init -)"
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: rbenv {{{
+# -------------------------------------------------------------------
+[[ -x $(command -v rbenv) ]] && eval "$(rbenv init -)"
 # }}}
 # -------------------------------------------------------------------
 
