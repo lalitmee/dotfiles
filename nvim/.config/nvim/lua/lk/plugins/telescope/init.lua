@@ -81,15 +81,6 @@ local M = {
                 require("telescope-tabs").setup()
             end,
         },
-        {
-            "tiagovla/scope.nvim",
-            init = function()
-                require("telescope").load_extension("scope")
-            end,
-            config = function()
-                require("scope").setup()
-            end,
-        },
     },
     init = function()
         require("telescope").load_extension("messages")
