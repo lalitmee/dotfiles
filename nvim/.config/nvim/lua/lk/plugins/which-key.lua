@@ -658,6 +658,21 @@ M.config = function()
         ["7"] = { ":HarpoonGotoFile 7<CR>", "goto-file-7" },
         ["8"] = { ":HarpoonGotoFile 8<CR>", "goto-file-8" },
         ["9"] = { ":HarpoonGotoFile 9<CR>", "goto-file-9" },
+        ["a"] = {
+            ["name"] = "+ai/chatgpt",
+            ["a"] = { ":ChatGPT<CR>", "chatgpt" },
+            ["b"] = { ":Backseat<CR>", "backseat" },
+            ["c"] = { ":BackseatClear<CR>", "backseat-clear" },
+            ["e"] = {
+                ":ChatGPTEditWithInstructions<CR>",
+                "chatgpt-edit-with-instruction",
+            },
+            ["k"] = { ":BackseatAsk<CR>", "backseat-ask" },
+            ["l"] = { ":BackseatClearLine<CR>", "backseat-clear-line" },
+            ["r"] = { ":ChatGPTRun<CR>", "chatgpt-run" },
+            ["s"] = { ":ChatGPTActAs<CR>", "chatgpt-act-as" },
+        },
+
         ["b"] = {
             ["name"] = "+browse",
             ["b"] = { ":Browse<CR>", "browse" },
