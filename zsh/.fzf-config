@@ -7,18 +7,26 @@
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
 [ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
 
-export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' "
-export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all'
+export FZF_DEFAULT_COMMAND='rg \
+    --hidden --ignore node_modules \
+    --follow --glob "!.git/*"'
+export FZF_CTRL_R_OPTS="--preview \
+    'echo {}' --preview-window down:3:hidden:wrap \
+    --bind '?:toggle-preview' \
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
+    --header 'Press CTRL-Y to copy command into clipboard' "
+export FZF_DEFAULT_OPTS='--layout=reverse \
+    --inline-info --height=100% \
+    --bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all'
 
-# cobalt2 color
+# cobalt2
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=fg:#00aaff,bg:#193549,hl:#ffc600
 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
 
-# # catppuccin theme
+# # catppuccin
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS" \
 # --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 # --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
@@ -37,3 +45,10 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 # 	--color=border:#403d52,header:#31748f,gutter:#191724
 # 	--color=spinner:#f6c177,info:#9ccfd8,separator:#403d52
 # 	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
+
+# # rose-pine
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+# --color=fg:#eceff4,bg:#1e222a,hl:#bd93f9
+# --color=fg+:#eceff4,bg+:#2e3440,hl+:#bd93f9
+# --color=info:#d8dee9,prompt:#ff6e6e,pointer:#bd93f9
+# --color=marker:#f1fa8c,spinner:#bd93f9,header:#bd93f9'
