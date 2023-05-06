@@ -3,7 +3,7 @@ local command, augroup = lk.command, lk.augroup
 return {
     "TimUntersberger/neogit",
     cmd = { "Neogit" },
-    enabled = false,
+    -- enabled = false,
     config = function()
         local neogit = require("neogit")
 

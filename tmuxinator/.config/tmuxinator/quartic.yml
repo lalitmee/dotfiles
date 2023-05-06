@@ -42,3 +42,7 @@ windows:
   - "ContexAlyze":
       panes:
         - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
+
+  - "react-corelibs":
+      panes:
+        - z /home/lenovo/Documents/Quartic-Workspace/python/react-corelibs
