@@ -8,7 +8,16 @@ local M = {
             "folke/neodev.nvim",
             ft = "lua",
         },
-        { "jose-elias-alvarez/null-ls.nvim" },
+        {
+            "jose-elias-alvarez/null-ls.nvim",
+            ft = {
+                "javascript",
+                "javascriptreact",
+                "lua",
+                "typescript",
+                "typescriptreact",
+            },
+        },
         {
             "simrat39/rust-tools.nvim",
             ft = "rust",
