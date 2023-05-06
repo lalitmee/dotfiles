@@ -110,19 +110,9 @@ VI_MODE_SET_CURSOR=true
 # -------------------------------------------------------------------
 # NOTE: user configurations {{{
 # -------------------------------------------------------------------
-export TERM="xterm-256color"
-
 if [[ $TERM == xterm ]]; then
     TERM=screen-256color
 fi
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-
-# export CPPFLAGS="-I$(brew --prefix openssl)/include"
-# export CFLAGS="-I$(brew --prefix openssl)/include"
-# export LDFLAGS="-L$(brew --prefix openssl)/lib"
 # }}}
 # -------------------------------------------------------------------
 
@@ -142,16 +132,6 @@ pomodoro() {
     fi
 }
 
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: kill port {{{
-# -------------------------------------------------------------------
-killport() {
-    PID=$(sudo lsof -t -i:$1)
-    sudo kill -9 ${PID}
-}
 # }}}
 # -------------------------------------------------------------------
 
@@ -192,29 +172,6 @@ killport() {
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: colored man pages {{{
-# -------------------------------------------------------------------
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: time zsh {{{
-# -------------------------------------------------------------------
-timezsh() {
-    shell=${1-$SHELL}
-    for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
-}
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
 # NOTE: starship prompt {{{
 # -------------------------------------------------------------------
 [[ -x $(command -v starship) ]] && eval "$(starship init zsh)"
@@ -243,5 +200,4 @@ timezsh() {
 # }}}
 # -------------------------------------------------------------------
 
-# zprof
 # vim:foldmethod=marker

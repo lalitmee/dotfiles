@@ -67,7 +67,6 @@ for_window [class="xdg-desktop-portal-gnome"] floating enable
 # }}}
 #-------------------------------------------------------------------------------
 
-
 #-------------------------------------------------------------------------------
 #  NOTE: including files {{{
 #-------------------------------------------------------------------------------
@@ -77,6 +76,7 @@ include $HOME/.config/i3/scratchpads.conf
 include $HOME/.config/i3/autostart/workspaces.conf
 include $HOME/.config/i3/autostart/applications.conf
 include $HOME/.config/i3/autostart/xrandr.conf
+include $HOME/.config/i3/keybindings/volume.conf
 # }}}
 #-------------------------------------------------------------------------------
 
