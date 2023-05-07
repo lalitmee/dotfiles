@@ -1,0 +1,15 @@
+#!/bin/bash
+
+ueberzug layer --no-stdin --silent --use-escape-codes &
+UB_PID=$!
+
+# sleep some time for U++ startup
+sleep 0.2
+
+export SOCKET=/tmp/ueberzug-$UB_PID.socket
+export X=$(($(tput cols) / 2 + 1))
+
+# run fzf with preview
+fzf --preview="ueberzug cmd -s $SOCKET -i fzfpreview -a add -x $X -y 1 --max-width $FZF_PREVIEW_COLUMNS --max-height $FZF_PREVIEW_LINES -f {}" --reverse "$@"
+
+kill -TERM $UB_PID
