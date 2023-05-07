@@ -78,7 +78,6 @@ plugins=(
     fzf-zsh-plugin
     gh
     git
-    npm
     tmux
     tmuxinator
     vi-mode
