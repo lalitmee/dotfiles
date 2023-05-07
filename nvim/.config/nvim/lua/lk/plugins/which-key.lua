@@ -545,19 +545,6 @@ M.config = function()
             ["r"] = { ":ChatGPTRun<CR>", "chatgpt-run" },
             ["s"] = { ":ChatGPTActAs<CR>", "chatgpt-act-as" },
         },
-
-        ["b"] = {
-            ["name"] = "+browse",
-            ["b"] = { ":Browse<CR>", "browse" },
-            ["l"] = { ":BrowseBookmarks<CR>", "bookmarks" },
-            ["d"] = {
-                ":BrowseDevdocsFiletypeSearch<CR>",
-                "devdocs-filetype-search",
-            },
-            ["D"] = { ":BrowseDevdocsSearch<CR>", "devdocs-search" },
-            ["i"] = { ":BrowseInputSearch<CR>", "input-search" },
-            ["m"] = { ":BrowseMdnSearch<CR>", "mdn-search" },
-        },
         ["d"] = {
             ["name"] = "+docstrings",
             ["d"] = { ":Neogen<CR>", "doc-this" },
