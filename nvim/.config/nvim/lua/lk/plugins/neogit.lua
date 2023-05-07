@@ -25,25 +25,25 @@ return {
         end
 
         augroup("neogit_au", {
-            {
-                event = { "User" },
-                pattern = { "NeogitStatusRefreshed" },
-                command = function()
-                    neogit_notify("status has been reloaded")
-                end,
-            },
+            -- {
+            --     event = { "User" },
+            --     pattern = { "NeogitStatusRefreshed" },
+            --     command = function()
+            --         neogit_notify("status has been reloaded")
+            --     end,
+            -- },
             {
                 event = { "User" },
                 pattern = { "NeogitCommitComplete" },
                 command = function()
-                    neogit_notify("commited successfully")
+                    neogit_notify("Commited Successfully")
                 end,
             },
             {
                 event = { "User" },
                 pattern = { "NeogitPushComplete" },
                 command = function()
-                    neogit_notify("pushed successfully")
+                    neogit_notify("Pushed Successfully")
                 end,
             },
             {
