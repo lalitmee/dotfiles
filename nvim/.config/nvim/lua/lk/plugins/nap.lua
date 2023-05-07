@@ -11,8 +11,5 @@ return {
 
         -- gitsigns mapping
         require("nap").operator("h", require("nap").gitsigns())
-
-        -- illuminate mapping
-        require("nap").operator("r", require("nap").illuminate())
     end,
 }
