@@ -1,5 +1,3 @@
-zmodload zsh/zprof
-
 # -------------------------------------------------------------------
 # NOTE: oh-my-zsh {{{
 # -------------------------------------------------------------------
@@ -78,7 +76,6 @@ plugins=(
     fzf-zsh-plugin
     gh
     git
-    tmux
     tmuxinator
     vi-mode
     zoxide
