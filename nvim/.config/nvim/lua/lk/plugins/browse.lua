@@ -16,6 +16,26 @@ return {
                 ["mdn"] = "https://developer.mozilla.org/search?q=%s",
                 ["devdocs.io"] = "https://devdocs.io/search?q=%s",
                 ["learnxinyminutes"] = "https://learnxinyminutes.com/docs/%s",
+
+                -- TODO: use these
+                -- # rust std docs find:  rustup doc get result or search
+                -- rds() {
+                --     local query
+                --     query=$1
+                --     rustup doc --std $1 || (echo "Searching..." && open "https://doc.rust-lang.org/std/?search=$query")
+                -- }
+
+                -- # rust core doc find:  rustup doc get result or search
+                -- rdc() {
+                --     local query
+                --     query=$1
+                --     rustup doc --core $1 || (echo "Searching..." && open "https://doc.rust-lang.org/core/?search=$query")
+                -- }
+
+                -- # search the cargo docs
+                -- cargodocs() {
+                --     open "https://doc.rust-lang.org/cargo/index.html?search=$1"
+                -- }
             },
             ["work"] = {
                 ["name"] = "work related",

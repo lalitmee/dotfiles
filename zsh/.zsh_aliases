@@ -168,7 +168,7 @@ alias goodaudio="pactl set-card-profile $(pactl list cards | grep 'Name: bluez' 
 alias headset="pactl set-card-profile $(pactl list cards | grep 'Name: bluez' | awk '{print $2}') headset-head-unit"
 
 # >> change wallpaper aliases
-alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Wallpapers/*"
+alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/wallpapers/*"
 
 # -------------------------------------------------------------------
 # NOTE: from tjdevries {{{
