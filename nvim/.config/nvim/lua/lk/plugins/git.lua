@@ -19,7 +19,8 @@ return {
     },
     config = function()
         require("igs").setup()
-
+    end,
+    init = function()
         local wk = require("which-key")
         wk.register({
             ["g"] = {
