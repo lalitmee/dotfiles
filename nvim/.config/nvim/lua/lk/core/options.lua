@@ -355,16 +355,18 @@ o.showmode = false
 o.showmatch = true
 o.showcmd = true
 opt.sessionoptions = {
-    "globals",
     "buffers",
     "curdir",
+    "folds",
+    "globals",
     "help",
-    "winpos",
+    "help",
+    "localoptions",
     "tabpages",
-    "help",
-    "winsize",
-    -- "terminal",
+    "terminal",
     "winpos",
+    "winpos",
+    "winsize",
 }
 -- save/restore just these (with `:{mk,load}view`)
 opt.viewoptions = { "cursor", "folds" }
