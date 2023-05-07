@@ -25,7 +25,7 @@ require("lazy").setup("lk.plugins", {
         notify = false,
     },
     checker = {
-        enabled = true,
+        enabled = false,
     },
     performance = {
         cache = {
