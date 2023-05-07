@@ -72,10 +72,6 @@ local M = {
             end,
         },
         {
-            "prochri/telescope-all-recent.nvim",
-            dependencies = { "kkharji/sqlite.lua" },
-        },
-        {
             "LukasPietzschmann/telescope-tabs",
             init = function()
                 require("telescope-tabs").setup()
@@ -401,8 +397,6 @@ M.config = function()
             lazy = {},
         },
     })
-    -- NOTE: this requires to be loaded after telescope
-    require("telescope-all-recent").setup({})
     -- }}}
     ----------------------------------------------------------------------
 
@@ -410,7 +404,6 @@ M.config = function()
     -- NOTE: load extensions {{{
     ----------------------------------------------------------------------
     -- projects extension
-    require("telescope").load_extension("projects")
 
     -- }}}
     ----------------------------------------------------------------------
