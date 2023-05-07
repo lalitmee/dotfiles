@@ -4,6 +4,12 @@
 
 # zd - use zoxide & FZF to find and go to directory
 # Not sure why zoxide query -i with FZF doesn't CD
+
+# CD into {dir} and then exag
+cde() {
+    cd $1
+}
+
 zd() {
     local dir
     dir=$(zoxide query -l | fzf )
