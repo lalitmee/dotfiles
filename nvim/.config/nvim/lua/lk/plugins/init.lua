@@ -165,11 +165,6 @@ return {
         cmd = { "PickEverything" },
     },
     {
-        "pwntester/octo.nvim",
-        cmd = { "Octo" },
-        opts = {},
-    },
-    {
         "romainl/vim-cool",
         event = { "VeryLazy" },
     },
