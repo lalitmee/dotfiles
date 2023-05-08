@@ -559,7 +559,7 @@ M.config = function()
     local set_wallpaper =
         image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
 
-    lk.command("ChangeSystemBackground", function()
+    lk.command("SetWallpaper", function()
         set_wallpaper()
     end, {})
     -- }}}
