@@ -76,4 +76,28 @@ lk.command("BufOnly", buf_only, {})
 -- }}}
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+--  NOTE: get current working directory {{{
+--------------------------------------------------------------------------------
+local function get_working_directory()
+    vim.notify(vim.fn.getcwd(), 2, { title = " Current Working Directory" })
+end
+
+lk.command("WorkingDirectory", get_working_directory, {})
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: file path {{{
+--------------------------------------------------------------------------------
+local function file_path()
+    local path = vim.fn.expand("%:p")
+    vim.cmd(fmt("let @+ = '%s'", path))
+    vim.notify(path, 2, { title = " File Path Copied to Clipboard" })
+end
+
+lk.command("FilePath", file_path, {})
+-- }}}
+--------------------------------------------------------------------------------
+
 -- vim:foldmethod=marker
