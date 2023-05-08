@@ -1,3 +1,11 @@
+# zmodload zsh/zprof
+
+# Download Znap, if it's not there yet.
+[[ -r ~/.oh-my-zsh/custom/plugins/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/.oh-my-zsh/custom/plugins/znap
+source "$ZSH/custom/plugins/znap/znap.zsh"
+
 # -------------------------------------------------------------------
 # NOTE: oh-my-zsh {{{
 # -------------------------------------------------------------------
@@ -5,7 +13,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -69,17 +76,16 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    docker
-    docker-compose
     fast-syntax-highlighting
     fzf-tab
     fzf-zsh-plugin
-    gh
     git
     tmuxinator
-    vi-mode
     zoxide
     zsh-autosuggestions
+    zsh-lazyload
+    zsh-nvm
+    vi-mode
     zsh-wakatime
 )
 
@@ -170,30 +176,31 @@ pomodoro() {
 # -------------------------------------------------------------------
 # NOTE: starship prompt {{{
 # -------------------------------------------------------------------
-[[ -x $(command -v starship) ]] && eval "$(starship init zsh)"
+znap eval starship 'starship init zsh --print-full-init'
+znap prompt
 # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # NOTE: zoxide {{{
 # -------------------------------------------------------------------
-[[ -x $(command -v zoxide) ]] && eval "$(zoxide init zsh)"
+znap eval zoxide 'eval "$( zoxide init zsh )"'
 # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # NOTE: pyenv {{{
 # -------------------------------------------------------------------
-[[ -x $(command -v pyenv) ]] && eval "$(pyenv init -)"
-[[ -x $(command -v pyenv-virtualenv-init) ]] && eval "$(pyenv virtualenv-init -)"
+znap eval pyenv 'eval "$( pyenv init - )"'
 # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # NOTE: rbenv {{{
 # -------------------------------------------------------------------
-[[ -x $(command -v rbenv) ]] && eval "$(rbenv init -)"
+znap eval rbenv 'eval "$( rbenv init - )"'
 # }}}
 # -------------------------------------------------------------------
 
+# zprof
 # vim:foldmethod=marker
