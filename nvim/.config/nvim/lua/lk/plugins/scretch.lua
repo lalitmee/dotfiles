@@ -13,7 +13,9 @@ local M = {
 
 M.config = function()
     local scretch = require("scretch")
-    scretch.setup()
+    scretch.setup({
+        scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
+    })
 
     lk.command("Scretch", function()
         scretch.new()
