@@ -9,7 +9,7 @@ return {
         "<localleader>bl",
         "<localleader>bm",
     },
-    config = function()
+    init = function()
         local bookmarks = {
             ["docs"] = {
                 ["name"] = "docs for everything",
