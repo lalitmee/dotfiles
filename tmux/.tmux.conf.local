@@ -454,6 +454,7 @@ bind-key J run-shell "~/.tmux/plugins/t-smart-tmux-session-manager/bin/t"
 
 # vim-tmux-navigator
 set -g @plugin 'christoomey/vim-tmux-navigator'
+bind C-l send-keys 'C-l' # remapping neovim key for clearing screen
 
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
