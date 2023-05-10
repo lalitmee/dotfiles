@@ -497,67 +497,89 @@ _q_/_<Esc>_: Exit Hydra
     }
 end
 
-local function side_scroll_menu()
-    return {
-        name = "Side scroll",
-        mode = "n",
-        hint = [[
-        Side Scroll Menu
-^
-_h_: Next Fold
-_l_: Previous Fold
-
-_H_: Open All Folds
-_L_: Close All Folds
-
-^
-^ ^  _q_/_<Esc>_: Exit Hydra
-    ]],
-        body = "<A-s>",
-        config = {
-            hint = hint_opts,
-        },
-        heads = {
-            { "h", "5zh" },
-            { "l", "5zl", { desc = "←/→" } },
-            { "H", "zH" },
-            { "L", "zL", { desc = "half screen ←/→" } },
-            { "q", nil, { desc = "quit", exit = true, nowait = true } },
-            { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
-        },
-    }
-end
-
 local function window_menu()
     return {
         name = "Window management",
         config = {
             color = "pink",
             invoke_on_body = true,
-            hint = hint_opts,
+            hint = {
+                border = "rounded",
+                position = "bottom",
+            },
         },
         mode = "n",
         hint = [[
-                                                Window Menu
+                                      Windows
 
-_s_: Split Horizontally     _v_: Split Vertically       _=_: Equalize               _c_: Close Window
-
-_j_: Increase Height        _k_: Decrease Height        _h_: Increase Width         _l_: Decrease Width
-^
-^ ^                                     _<Esc>_: Exit Hydra
+layout:      _2_: Two Columns
+move:        _a_: Far Left         _;_: Far Right        _i_: Far Up        _n_: Far Down
+             _t_: Split to Tab
+split:       _s_: Horizontally     _v_: Vertically
+resize:      _J_: Down             _K_: Up               _H_: Left            _L_: Right
+             _e_: Auto Resize      _=_: Equalize         _m_: Maximize        _o_: Only
+swap:        _r_: Swap             _u_: Next Window
+height:      _j_: Increase         _k_: Decrease
+width:       _h_: Increase         _l_: Decrease
+^ ^          _d_: Close Window     _<Esc>_: Exit Hydra
     ]],
         body = "<A-w>",
         heads = {
+            {
+                "2",
+                "<C-W>v",
+                { desc = "layout-double-columns", nowait = true },
+            },
+            {
+                ";",
+                "<C-W>L",
+                { desc = "move-window-far-right", nowait = true },
+            },
+            { "=", "<C-W>=", { desc = "balance-windows", nowait = true } },
+            { "a", "<C-W>H", { desc = "move-window-far-left", nowait = true } },
+            { "d", "<C-W>c", { desc = "delete-window", nowait = true } },
+            { "e", ":AutoResize<CR>", { desc = "auto-resize", nowait = true } },
+            { "H", "<C-W>10<", { desc = "expand-window-left", nowait = true } },
+            { "i", "<C-W>K", { desc = "move-window-far-top", nowait = true } },
+            {
+                "J",
+                ":resize +10<CR>",
+                { desc = "expand-window-below", nowait = true },
+            },
+            {
+                "K",
+                ":resize  10<CR>",
+                { desc = "expand-window-up", nowait = true },
+            },
+            {
+                "L",
+                "<C-W>10>",
+                { desc = "expand-window-right", nowait = true },
+            },
+            {
+                "m",
+                ":NeoZoomToggle<CR>",
+                { desc = "maximize-window", nowait = true },
+            },
+            { "n", "<C-W>J", { desc = "move-window-far-down", nowait = true } },
+            {
+                "o",
+                ":only<CR>",
+                { desc = "close-other-windows-except-this", nowait = true },
+            },
+            { "r", "<C-W>r", { desc = "window-swap", nowait = true } },
+            { "t", "<C-W>T", { desc = "move-split-to-tab", nowait = true } },
+            { "u", "<C-W>x", { desc = "swap-window-next", nowait = true } },
+            { "v", "<C-W>v", { desc = "split-window-right", nowait = true } },
             -- Split
-            { "s", "<C-w>s", { desc = "split horizontally" } },
-            { "v", "<C-w>v", { desc = "split vertically" } },
-            { "c", "<C-w>c", { desc = "close window" } },
+            { "s", "<C-w>s", { desc = "split horizontally", nowait = true } },
+            { "v", "<C-w>v", { desc = "split vertically", nowait = true } },
             -- Size
-            { "j", "2<C-w>+", { desc = "increase height" } },
-            { "k", "2<C-w>-", { desc = "decrease height" } },
-            { "h", "5<C-w>>", { desc = "increase width" } },
-            { "l", "5<C-w><", { desc = "decrease width" } },
-            { "=", "<C-w>=", { desc = "equalize" } },
+            { "j", "2<C-w>+", { desc = "increase height", nowait = true } },
+            { "k", "2<C-w>-", { desc = "decrease height", nowait = true } },
+            { "h", "5<C-w>>", { desc = "increase width", nowait = true } },
+            { "l", "5<C-w><", { desc = "decrease width", nowait = true } },
+            { "=", "<C-w>=", { desc = "equalize", nowait = true } },
             --
             { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
         },
@@ -575,7 +597,6 @@ local M = {
         hydra(gitsigns_menu())
         hydra(lsp_menu())
         hydra(quick_menu())
-        hydra(side_scroll_menu())
         hydra(window_menu())
     end,
 }

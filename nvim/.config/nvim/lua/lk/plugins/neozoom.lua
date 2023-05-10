@@ -1,14 +1,15 @@
-local M = {
+return {
     "nyngwang/NeoZoom.lua",
     cmd = { "NeoZoomToggle" },
+    config = function()
+        require("neo-zoom").setup({
+            winopts = {
+                border = "rounded",
+                offset = {
+                    height = 0.9,
+                    width = 220,
+                },
+            },
+        })
+    end,
 }
-
- M.config = function()
-    require("neo-zoom").setup({
-        width_ratio = 0.9,
-        height_ratio = 1,
-        border = "rounded",
-    })
-end
-
-return M
