@@ -1,10 +1,17 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # zmodload zsh/zprof
 
 # Download Znap, if it's not there yet.
 [[ -r ~/.oh-my-zsh/custom/plugins/znap/znap.zsh ]] ||
     git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git ~/.oh-my-zsh/custom/plugins/znap
-source "$ZSH/custom/plugins/znap/znap.zsh"
+    https://github.com/marlonrichert/zsh-snap.git ~/.oh-my-zsh/custom/plugins/znap
+    source "$ZSH/custom/plugins/znap/znap.zsh"
 
 # -------------------------------------------------------------------
 # NOTE: oh-my-zsh {{{
@@ -18,7 +25,7 @@ source "$ZSH/custom/plugins/znap/znap.zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -43,13 +50,13 @@ export UPDATE_ZSH_DAYS=5
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
+export DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+export ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+export COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -76,16 +83,18 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    colored-man-pages
     fast-syntax-highlighting
     fzf-tab
     fzf-zsh-plugin
     git
+    tmux
     tmuxinator
+    vi-mode
     zoxide
     zsh-autosuggestions
     zsh-lazyload
     zsh-nvm
-    vi-mode
     zsh-wakatime
 )
 
@@ -140,6 +149,9 @@ pomodoro() {
 # -------------------------------------------------------------------
 # NOTE: sourcing some of the other things {{{
 # -------------------------------------------------------------------
+# p10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
@@ -173,13 +185,13 @@ pomodoro() {
 # # }}}
 # -------------------------------------------------------------------
 
-# -------------------------------------------------------------------
-# NOTE: starship prompt {{{
-# -------------------------------------------------------------------
-znap eval starship "starship init zsh --print-full-init"
-znap prompt
-# }}}
-# -------------------------------------------------------------------
+# # -------------------------------------------------------------------
+# # NOTE: starship prompt {{{
+# # -------------------------------------------------------------------
+# znap eval starship "starship init zsh --print-full-init"
+# znap prompt
+# # }}}
+# # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # NOTE: zoxide {{{
