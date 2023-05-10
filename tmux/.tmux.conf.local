@@ -447,6 +447,11 @@ setw -g mode-keys vi
 # set -g @plugin 'catppuccin/tmux'
 # set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
 
+# sessions using zoxide and fzf
+set -g @plugin 'joshmedeski/t-smart-tmux-session-manager'
+set -g @t-fzf-prompt '> '
+bind-key J run-shell "~/.tmux/plugins/t-smart-tmux-session-manager/bin/t"
+
 # vim-tmux-navigator
 set -g @plugin 'christoomey/vim-tmux-navigator'
 
@@ -491,6 +496,11 @@ set -g @plugin 'schasse/tmux-jump'
 #-------------------------------------------------------------------------------
 #  NOTE: keybindings {{{
 #-------------------------------------------------------------------------------
+# skip "kill-pane 1? (y/n)" prompt
+bind-key x kill-pane
+
+# don't exit from tmux when closing a session
+set -g detach-on-destroy off
 
 #-------------------------------------------------------------------------------
 #  window

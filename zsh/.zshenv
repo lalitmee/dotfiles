@@ -65,6 +65,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
+
+# t-smart-session-manager
+export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 # }}}
 # -------------------------------------------------------------------
 
