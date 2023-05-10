@@ -7,6 +7,13 @@ return {
         "<C-l>",
         "<C-/>",
     },
+    cmd = {
+        "TmuxNavigateLeft",
+        "TmuxNavigateDown",
+        "TmuxNavigateUp",
+        "TmuxNavigateRight",
+        "TmuxNavigatePrevious",
+    },
     init = function()
         local wk = require("which-key")
         wk.register({

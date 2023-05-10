@@ -8,9 +8,9 @@ npm run compile
 ```
 --]=]
 
-local ok_dap, dap = lk.safe_require("dap")
-local ok_dap_utils, dap_utils = lk.safe_require("dap.utils")
-local ok_dap_vscode_js, dap_vscode_js = lk.safe_require("dap-vscode-js")
+local ok_dap, dap = lk.require("dap")
+local ok_dap_utils, dap_utils = lk.require("dap.utils")
+local ok_dap_vscode_js, dap_vscode_js = lk.require("dap-vscode-js")
 
 if not (ok_dap and ok_dap_utils and ok_dap_vscode_js) then
     return
