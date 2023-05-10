@@ -245,7 +245,8 @@ if [ -n "$1" ]; then
     $MAN "$@"
     return $?
 else
-    $MAN -k . | fzf --reverse --preview="echo {1,2} | sed 's/ (/./' | sed -E 's/\)\s*$//' | xargs $MAN" | awk '{print $1 "." $2}' | tr -d '()' | xargs -r $MAN
+    batman="man {1} | col -bx | bat --language=man --plain --color always --theme=\"Monokai Extended\""
+    $MAN -k . | fzf --reverse --preview="$batman" | awk '{print $1 "." $2}' | tr -d '()' | xargs -r $MAN
     return $?
 fi
 }

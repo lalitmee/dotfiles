@@ -443,16 +443,9 @@ setw -g mode-keys vi
 #-------------------------------------------------------------------------------
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
-# # tmux like i3
-# set -g @plugin 'jabirali/tmux-tilish'
-# set -g @tilish-dmenu 'on'
-
 # # catppuccin theme
 # set -g @plugin 'catppuccin/tmux'
 # set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
-
-# # dark-plus theme
-# set -g @plugin 'khanghh/tmux-dark-plus-theme'
 
 # vim-tmux-navigator
 set -g @plugin 'christoomey/vim-tmux-navigator'
