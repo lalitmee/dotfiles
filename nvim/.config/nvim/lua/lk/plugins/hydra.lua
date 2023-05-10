@@ -1,46 +1,519 @@
-local M = {
-    "anuvyklack/hydra.nvim",
-    event = { "VeryLazy" },
+local border = lk.style.border.rounded
+local hint_opts = {
+    border = border,
+    position = "bottom",
 }
 
-M.config = function()
-    local Hydra = require("hydra")
-    local border = lk.style.border.rounded
+local function gitsigns_menu()
+    local gitsigns = require("gitsigns")
 
-    local hint_opts = {
-        position = "bottom",
-        border = border,
-        type = "window",
-    }
+    local hint = [[
+ _J_: Next hunk   _s_: Stage Hunk        _d_: Show Deleted   _b_: Blame Line
+ _K_: Prev hunk   _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
+ ^ ^              _S_: Stage Buffer      ^ ^                 _/_: Show Base File
+ ^
+ ^ ^              _<Enter>_: Neogit              _q_: Exit
+]]
 
-    Hydra({
-        name = "Folds",
-        mode = "n",
-        body = "<leader>z",
-        color = "teal",
+    return {
+        name = "Git",
+        hint = hint,
         config = {
+            color = "pink",
             invoke_on_body = true,
             hint = hint_opts,
-            -- on_enter = function()
-            --     vim.cmd("BeaconOff")
-            -- end,
-            -- on_exit = function()
-            --     vim.cmd("BeaconOn")
-            -- end,
+            on_enter = function()
+                vim.cmd("mkview")
+                vim.cmd("silent! %foldopen!")
+                vim.bo.modifiable = false
+                gitsigns.toggle_signs(true)
+                gitsigns.toggle_linehl(true)
+            end,
+            on_exit = function()
+                local cursor_pos = vim.api.nvim_win_get_cursor(0)
+                vim.cmd("loadview")
+                vim.api.nvim_win_set_cursor(0, cursor_pos)
+                vim.cmd("normal zv")
+                gitsigns.toggle_signs(false)
+                gitsigns.toggle_linehl(false)
+                gitsigns.toggle_deleted(false)
+            end,
+        },
+        body = "<A-g>",
+        heads = {
+            {
+                "J",
+                function()
+                    if vim.wo.diff then
+                        return "]c"
+                    end
+                    vim.schedule(function()
+                        gitsigns.next_hunk()
+                    end)
+                    return "<Ignore>"
+                end,
+                { expr = true, desc = "Next Hunk" },
+            },
+            {
+                "K",
+                function()
+                    if vim.wo.diff then
+                        return "[c"
+                    end
+                    vim.schedule(function()
+                        gitsigns.prev_hunk()
+                    end)
+                    return "<Ignore>"
+                end,
+                { expr = true, desc = "Prev Hunk" },
+            },
+            {
+                "s",
+                ":Gitsigns stage_hunk<CR>",
+                { silent = true, desc = "Stage Hunk" },
+            },
+            { "u", gitsigns.undo_stage_hunk, { desc = "Undo Last Stage" } },
+            { "S", gitsigns.stage_buffer, { desc = "Stage Buffer" } },
+            { "p", gitsigns.preview_hunk, { desc = "Preview Hunk" } },
+            {
+                "d",
+                gitsigns.toggle_deleted,
+                { nowait = true, desc = "Toggle Deleted" },
+            },
+            { "b", gitsigns.blame_line, { desc = "Blame" } },
+            {
+                "B",
+                function()
+                    gitsigns.blame_line({ full = true })
+                end,
+                { desc = "Blame Show Full" },
+            },
+            { "/", gitsigns.show, { exit = true, desc = "Show Base File" } }, -- show the base of the file
+            { "<Enter>", "<Cmd>Neogit<CR>", { exit = true, desc = "Neogit" } },
+            { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
+        },
+    }
+end
+
+local function dap_menu()
+    local dap = require("dap")
+    local dapui = require("dapui")
+    local dap_widgets = require("dap.ui.widgets")
+
+    local hint = [[
+ _t_: Toggle Breakpoint             _R_: Run to Cursor
+ _s_: Start                         _E_: Evaluate Input
+ _c_: Continue                      _C_: Conditional Breakpoint
+ _b_: Step Back                     _U_: Toggle UI
+ _d_: Disconnect                    _S_: Scopes
+ _e_: Evaluate                      _X_: Close
+ _g_: Get Session                   _i_: Step Into
+ _h_: Hover Variables               _o_: Step Over
+ _r_: Toggle REPL                   _u_: Step Out
+ _x_: Terminate                     _p_: Pause
+ ^ ^               _q_: Quit
+]]
+
+    return {
+        name = "Debug",
+        hint = hint,
+        config = {
+            color = "pink",
+            invoke_on_body = true,
+            hint = {
+                border = "rounded",
+                position = "middle-right",
+            },
+        },
+        mode = "n",
+        body = "<A-d>",
+        heads = {
+            {
+                "C",
+                function()
+                    dap.set_breakpoint(vim.fn.input("[Condition] > "))
+                end,
+                desc = "Conditional Breakpoint",
+            },
+            {
+                "E",
+                function()
+                    dapui.eval(vim.fn.input("[Expression] > "))
+                end,
+                desc = "Evaluate Input",
+            },
+            {
+                "R",
+                function()
+                    dap.run_to_cursor()
+                end,
+                desc = "Run to Cursor",
+            },
+            {
+                "S",
+                function()
+                    dap_widgets.scopes()
+                end,
+                desc = "Scopes",
+            },
+            {
+                "U",
+                function()
+                    dapui.toggle()
+                end,
+                desc = "Toggle UI",
+            },
+            {
+                "X",
+                function()
+                    dap.close()
+                end,
+                desc = "Quit",
+            },
+            {
+                "b",
+                function()
+                    dap.step_back()
+                end,
+                desc = "Step Back",
+            },
+            {
+                "c",
+                function()
+                    dap.continue()
+                end,
+                desc = "Continue",
+            },
+            {
+                "d",
+                function()
+                    dap.disconnect()
+                end,
+                desc = "Disconnect",
+            },
+            {
+                "e",
+                function()
+                    dapui.eval()
+                end,
+                mode = { "n", "v" },
+                desc = "Evaluate",
+            },
+            {
+                "g",
+                function()
+                    dap.session()
+                end,
+                desc = "Get Session",
+            },
+            {
+                "h",
+                function()
+                    dap_widgets.hover()
+                end,
+                desc = "Hover Variables",
+            },
+            {
+                "i",
+                function()
+                    dap.step_into()
+                end,
+                desc = "Step Into",
+            },
+            {
+                "o",
+                function()
+                    dap.step_over()
+                end,
+                desc = "Step Over",
+            },
+            {
+                "p",
+                function()
+                    dap.pause.toggle()
+                end,
+                desc = "Pause",
+            },
+            {
+                "r",
+                function()
+                    dap.repl.toggle()
+                end,
+                desc = "Toggle REPL",
+            },
+            {
+                "s",
+                function()
+                    dap.continue()
+                end,
+                desc = "Start",
+            },
+            {
+                "t",
+                function()
+                    dap.toggle_breakpoint()
+                end,
+                desc = "Toggle Breakpoint",
+            },
+            {
+                "u",
+                function()
+                    dap.step_out()
+                end,
+                desc = "Step Out",
+            },
+            {
+                "x",
+                function()
+                    dap.terminate()
+                end,
+                desc = "Terminate",
+            },
+            { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
+        },
+    }
+end
+
+local function lsp_menu()
+    local cmd = require("hydra.keymap-util").cmd
+    return {
+        name = "LSP Mode",
+        mode = { "n" },
+        config = {
+            color = "pink",
+            invoke_on_body = true,
+            hint = {
+                type = "window",
+                position = "bottom-right",
+                border = "rounded",
+                show_name = true,
+            },
+        },
+        hint = [[
+    LSP
+^
+Common Actions
+- _h_: Show Hover Doc
+- _f_: Format Buffer
+- _a_: Code Actions
+- _s_: Jump to Definition
+- _d_: Show Diagnostics
+- _w_: Show Workspace Diagnostics
+^
+Help
+- _e_: Show Declarations
+- _D_: Show Type Definition
+- _j_: Show Sig Help
+- _o_: Show Implementation
+- _r_: Show References
+^
+_;_/_q_/_<Esc>_: Exit Hydra
+]],
+        body = "<A-l>",
+        heads = {
+            {
+                "s",
+                cmd("TroubleToggle lsp_definitions"),
+                { desc = "Jump to Definition", silent = true },
+            },
+            {
+                "h",
+                vim.lsp.buf.hover,
+                { desc = "Show Hover Doc", silent = true },
+            },
+            {
+                "o",
+                cmd("TroubleToggle lsp_implementations"),
+                { desc = "Show Implementations", silent = true },
+            },
+            {
+                "j",
+                vim.lsp.buf.signature_help,
+                { desc = "Show Sig Help", silent = true },
+            },
+            {
+                "r",
+                cmd("TroubleToggle lsp_references"),
+                { desc = "Show References", silent = true },
+            },
+            {
+                "f",
+                function()
+                    vim.lsp.buf.format({ async = true })
+                end,
+                { desc = "Format Buffer", silent = true },
+            },
+            {
+                "a",
+                vim.lsp.buf.code_action,
+                { desc = "Show Code Actions", silent = true },
+            },
+            {
+                "d",
+                cmd("TroubleToggle document_diagnostics"),
+                { desc = "Show Diagnostics", silent = true },
+            },
+            {
+                "w",
+                cmd("TroubleToggle workspace_diagnostics"),
+                { desc = "Show Workspace Diagnostics", silent = true },
+            },
+            {
+                "D",
+                cmd("TroubleToggle lsp_definitions"),
+                { desc = "Show Type Definition", silent = true },
+            },
+            {
+                "e",
+                vim.lsp.buf.declaration,
+                { desc = "Show Declaration", silent = true },
+            },
+            { ";", nil, { desc = "quit", exit = true, nowait = true } },
+            { "q", nil, { desc = "quit", exit = true, nowait = true } },
+            { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
+        },
+    }
+end
+
+local function quick_menu()
+    local cmd = require("hydra.keymap-util").cmd
+    return {
+        name = "Quick Menu",
+        mode = { "n" },
+        hint = [[
+                                        Quick Menu
+^
+_f_: Show Terminal (float)      _v_: Open Terminal (vertical)       _h_: Open Terminal (horizontal)
+
+_q_: Open Quickfix              _l_: Open Loaction List        ^ ^
+^
+^ ^                                 _<Esc>_: Exit Hydra
+    ]],
+        config = {
+            color = "pink",
+            invoke_on_body = true,
+            hint = {
+                type = "window",
+                position = "bottom",
+                border = "rounded",
+                show_name = true,
+            },
+        },
+        body = "<A-M>",
+        heads = {
+            {
+                "t",
+                cmd("Telescope help_tags"),
+                { desc = "Open Help Tags", silent = true },
+            },
+            {
+                "k",
+                require("telescope.builtin").keymaps,
+                { desc = "Open Neovim Keymaps", silent = true },
+            },
+            {
+                "c",
+                cmd("Telescope commands"),
+                { desc = "Open Available Telescope Commands", silent = true },
+            },
+            {
+                "m",
+                cmd("Telescope man_pages"),
+                { desc = "Opens Man Pages", silent = true },
+            },
+
+            {
+                "q",
+                cmd("TroubleToggle quickfix"),
+                { desc = "Opens Quickfix", silent = true },
+            },
+            {
+                "l",
+                cmd("TroubleToggle loclist"),
+                { desc = "Opens Location List", silent = true },
+            },
+
+            {
+                "f",
+                cmd("ToggleTerm direction=float"),
+                { desc = "Floating Terminal", silent = true },
+            },
+            {
+                "v",
+                cmd("ToggleTerm direction=vertical"),
+                { desc = "Vertical Terminal", silent = true },
+            },
+            {
+                "h",
+                cmd("ToggleTerm direction=horizontal"),
+                { desc = "Horizontal Terminal", silent = true },
+            },
+            { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
+        },
+    }
+end
+
+local function folds_menu()
+    return {
+        name = "Folds",
+        mode = "n",
+        hint = [[
+Folds
+------
+
+_j_: Next Fold
+_k_: Previous Fold
+_l_: Open All Folds
+_h_: Close All Folds
+
+_q_/_<Esc>_: Exit Hydra
+
+]],
+        body = "<A-f>",
+        color = "pink",
+        config = {
+            invoke_on_body = true,
+            hint = {
+                border = "rounded",
+                position = "middle-right",
+            },
         },
         heads = {
             { "j", "zj", { desc = "next fold" } },
             { "k", "zk", { desc = "previous fold" } },
-            { "l", require("fold-cycle").open_all, { desc = "open folds underneath" } },
-            { "h", require("fold-cycle").close_all, { desc = "close folds underneath" } },
-            { "<Esc>", nil, { exit = true, desc = "Quit" } },
+            {
+                "l",
+                require("fold-cycle").open_all,
+                { desc = "open folds underneath" },
+            },
+            {
+                "h",
+                require("fold-cycle").close_all,
+                { desc = "close folds underneath" },
+            },
+            { "q", nil, { desc = "quit", exit = true, nowait = true } },
+            { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
         },
-    })
+    }
+end
 
-    Hydra({
+local function side_scroll_menu()
+    return {
         name = "Side scroll",
         mode = "n",
-        body = "z",
+        hint = [[
+        Side Scroll Menu
+^
+_h_: Next Fold
+_l_: Previous Fold
+
+_H_: Open All Folds
+_L_: Close All Folds
+
+^
+^ ^  _q_/_<Esc>_: Exit Hydra
+    ]],
+        body = "<A-s>",
         config = {
             hint = hint_opts,
         },
@@ -49,22 +522,36 @@ M.config = function()
             { "l", "5zl", { desc = "←/→" } },
             { "H", "zH" },
             { "L", "zL", { desc = "half screen ←/→" } },
+            { "q", nil, { desc = "quit", exit = true, nowait = true } },
+            { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
         },
-    })
+    }
+end
 
-    Hydra({
+local function window_menu()
+    return {
         name = "Window management",
         config = {
-            invoke_on_body = false,
+            color = "pink",
+            invoke_on_body = true,
             hint = hint_opts,
         },
         mode = "n",
-        body = "<C-w>",
+        hint = [[
+                                                Window Menu
+
+_s_: Split Horizontally     _v_: Split Vertically       _=_: Equalize               _c_: Close Window
+
+_j_: Increase Height        _k_: Decrease Height        _h_: Increase Width         _l_: Decrease Width
+^
+^ ^                                     _<Esc>_: Exit Hydra
+    ]],
+        body = "<A-w>",
         heads = {
             -- Split
             { "s", "<C-w>s", { desc = "split horizontally" } },
             { "v", "<C-w>v", { desc = "split vertically" } },
-            { "q", "<C-w>c", { desc = "close window" } },
+            { "c", "<C-w>c", { desc = "close window" } },
             -- Size
             { "j", "2<C-w>+", { desc = "increase height" } },
             { "k", "2<C-w>-", { desc = "decrease height" } },
@@ -72,226 +559,25 @@ M.config = function()
             { "l", "5<C-w><", { desc = "decrease width" } },
             { "=", "<C-w>=", { desc = "equalize" } },
             --
-            { "<Esc>", nil, { exit = true } },
+            { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
         },
-    })
-
-    local ok, gitsigns = pcall(require, "gitsigns")
-    if ok then
-        local hint = [[
- _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
- _K_: prev hunk   _u_: undo stage hunk   _p_: preview hunk   _B_: blame show full 
- ^ ^              _S_: stage buffer      ^ ^                 _/_: show base file
- ^
- ^ ^              _<Enter>_: Neogit              _q_: exit
-]]
-
-        -- Hydra({
-        --     name = "Git Mode",
-        --     hint = hint,
-        --     config = {
-        --         color = "pink",
-        --         invoke_on_body = true,
-        --         hint = hint_opts,
-        --         on_enter = function()
-        --             gitsigns.toggle_linehl(true)
-        --             gitsigns.toggle_deleted(true)
-        --         end,
-        --         on_exit = function()
-        --             gitsigns.toggle_linehl(false)
-        --             gitsigns.toggle_deleted(false)
-        --         end,
-        --     },
-        --     mode = { "n", "x" },
-        --     body = "<localleader>g",
-        --     heads = {
-        --         {
-        --             "J",
-        --             function()
-        --                 if vim.wo.diff then
-        --                     return "]c"
-        --                 end
-        --                 vim.schedule(function()
-        --                     gitsigns.next_hunk()
-        --                 end)
-        --                 return "<Ignore>"
-        --             end,
-        --             { expr = true },
-        --         },
-        --         {
-        --             "K",
-        --             function()
-        --                 if vim.wo.diff then
-        --                     return "[c"
-        --                 end
-        --                 vim.schedule(function()
-        --                     gitsigns.prev_hunk()
-        --                 end)
-        --                 return "<Ignore>"
-        --             end,
-        --             { expr = true },
-        --         },
-        --         { "s", ":Gitsigns stage_hunk<CR>", { silent = true } },
-        --         { "u", gitsigns.undo_stage_hunk },
-        --         { "S", gitsigns.stage_buffer },
-        --         { "p", gitsigns.preview_hunk },
-        --         { "d", gitsigns.toggle_deleted, { nowait = true } },
-        --         { "b", gitsigns.blame_line },
-        --         {
-        --             "B",
-        --             function()
-        --                 gitsigns.blame_line({ full = true })
-        --             end,
-        --         },
-        --         { "/", gitsigns.show, { exit = true } }, -- show the base of the file
-        --         { "<Enter>", "<cmd>Neogit<CR>", { exit = true } },
-        --         { "q", nil, { exit = true, nowait = true } },
-        --     },
-        -- })
-        local bufnr = vim.api.nvim_get_current_buf()
-        Hydra({
-            name = "Git",
-            hint = hint,
-            config = {
-                buffer = bufnr,
-                color = "red",
-                invoke_on_body = true,
-                hint = {
-                    border = "rounded",
-                },
-                on_key = function()
-                    vim.wait(50)
-                end,
-                on_enter = function()
-                    vim.cmd("mkview")
-                    vim.cmd("silent! %foldopen!")
-                    gitsigns.toggle_signs(true)
-                    gitsigns.toggle_linehl(true)
-                end,
-                on_exit = function()
-                    local cursor_pos = vim.api.nvim_win_get_cursor(0)
-                    vim.cmd("loadview")
-                    vim.api.nvim_win_set_cursor(0, cursor_pos)
-                    vim.cmd("normal zv")
-                    gitsigns.toggle_signs(false)
-                    gitsigns.toggle_linehl(false)
-                    gitsigns.toggle_deleted(false)
-                end,
-            },
-            mode = { "n", "x" },
-            body = "<localleader>g",
-            heads = {
-                {
-                    "J",
-                    function()
-                        if vim.wo.diff then
-                            return "]c"
-                        end
-                        vim.schedule(function()
-                            gitsigns.next_hunk()
-                        end)
-                        return "<Ignore>"
-                    end,
-                    { expr = true, desc = "next hunk" },
-                },
-                {
-                    "K",
-                    function()
-                        if vim.wo.diff then
-                            return "[c"
-                        end
-                        vim.schedule(function()
-                            gitsigns.prev_hunk()
-                        end)
-                        return "<Ignore>"
-                    end,
-                    { expr = true, desc = "prev hunk" },
-                },
-                {
-                    "s",
-                    function()
-                        local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
-                        if mode == "V" then -- visual-line mode
-                            local esc = vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
-                            vim.api.nvim_feedkeys(esc, "x", false) -- exit visual mode
-                            vim.cmd("'<,'>Gitsigns stage_hunk")
-                        else
-                            vim.cmd("Gitsigns stage_hunk")
-                        end
-                    end,
-                    { desc = "stage hunk" },
-                },
-                { "u", gitsigns.undo_stage_hunk, { desc = "undo last stage" } },
-                { "S", gitsigns.stage_buffer, { desc = "stage buffer" } },
-                { "p", gitsigns.preview_hunk, { desc = "preview hunk" } },
-                { "d", gitsigns.toggle_deleted, { nowait = true, desc = "toggle deleted" } },
-                { "b", gitsigns.blame_line, { desc = "blame" } },
-                {
-                    "B",
-                    function()
-                        gitsigns.blame_line({ full = true })
-                    end,
-                    { desc = "blame show full" },
-                },
-                { "/", gitsigns.show, { exit = true, desc = "show base file" } }, -- show the base of the file
-                {
-                    "<Enter>",
-                    function()
-                        vim.cmd("Neogit")
-                    end,
-                    { exit = true, desc = "Neogit" },
-                },
-                { "q", nil, { exit = true, nowait = true, desc = "exit" } },
-            },
-        })
-    end
-
-    local function run(method, args)
-        return function()
-            local dap = require("dap")
-            if dap[method] then
-                dap[method](args)
-            end
-        end
-    end
-
-    local hint = [[
- _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
- _i_: step into   _x_: Quit             ^ ^                 ^ ^
- _o_: step out    _X_: Stop             ^ ^
- _c_: to cursor   _C_: Close UI
- ^
- ^ ^              _q_: exit
-]]
-
-    Hydra({
-        hint = hint,
-        config = {
-            color = "pink",
-            invoke_on_body = true,
-            hint = hint_opts,
-        },
-        name = "dap",
-        mode = { "n", "x" },
-        body = "<leader>dh",
-        heads = {
-            { "n", run("step_over"), { silent = true } },
-            { "i", run("step_into"), { silent = true } },
-            { "o", run("step_out"), { silent = true } },
-            { "c", run("run_to_cursor"), { silent = true } },
-            { "s", run("continue"), { silent = true } },
-            { "x", run("disconnect", { terminateDebuggee = false }), { exit = true, silent = true } },
-            { "X", run("close"), { silent = true } },
-            {
-                "C",
-                ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>",
-                { silent = true },
-            },
-            { "b", run("toggle_breakpoint"), { silent = true } },
-            { "K", ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
-            { "q", nil, { exit = true, nowait = true } },
-        },
-    })
+    }
 end
+
+local M = {
+    "anuvyklack/hydra.nvim",
+    event = { "VeryLazy" },
+    init = function()
+        local hydra = require("hydra")
+
+        hydra(dap_menu())
+        hydra(folds_menu())
+        hydra(gitsigns_menu())
+        hydra(lsp_menu())
+        hydra(quick_menu())
+        hydra(side_scroll_menu())
+        hydra(window_menu())
+    end,
+}
 
 return M
