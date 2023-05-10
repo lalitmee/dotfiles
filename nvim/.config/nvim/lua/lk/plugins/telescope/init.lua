@@ -269,7 +269,7 @@ M.config = function()
                 horizontal = {
                     preview_width = function(_, cols, _)
                         if cols > 200 then
-                            return math.floor(cols * 0.5)
+                            return math.floor(cols * 0.6)
                         else
                             return math.floor(cols * 0.5)
                         end
@@ -288,26 +288,6 @@ M.config = function()
                     },
                 },
             },
-            -- layout_config = {
-            --     width = 0.90,
-            --     height = 0.90,
-            --     prompt_position = "top",
-            --     horizontal = {
-            --         width_padding = 0.11,
-            --         height_padding = 0.13,
-            --         preview_width = 0.56,
-            --     },
-            --     vertical = {
-            --         width_padding = 0.4,
-            --         height_padding = 0.8,
-            --         preview_height = 0.5,
-            --     },
-            --     flex = {
-            --         horizontal = {
-            --             preview_width = 0.8,
-            --         },
-            --     },
-            -- },
             file_previewer = previewers.vim_buffer_cat.new,
             grep_previewer = previewers.vim_buffer_vimgrep.new,
             qflist_previewer = previewers.vim_buffer_qflist.new,
