@@ -13,10 +13,6 @@ return {
         enabled = false,
     },
     {
-        "tpope/vim-fugitive",
-        cmd = { "Git" },
-    },
-    {
         "tpope/vim-abolish",
         event = { "VeryLazy" },
         config = function()
