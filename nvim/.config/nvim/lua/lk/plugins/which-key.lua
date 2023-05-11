@@ -528,14 +528,6 @@ M.config = function()
             ["f"] = { ":FzfLua files<CR>", "files" },
             ["r"] = { ":FzfLua live_grep_resume<CR>", "live-grep-resume" },
         },
-        ["l"] = {
-            ["name"] = "+loclist",
-            ["c"] = { ":lclose<CR>", "close" },
-            ["l"] = { ":Telescope loclist<CR>", "fuzzy-loclist" },
-            ["n"] = { ":lnext<CR>", "next" },
-            ["o"] = { ":lopen<CR>", "open" },
-            ["p"] = { ":lprev<CR>", "prev" },
-        },
         ["s"] = {
             ["name"] = "+scratch",
             ["a"] = { ":Scretch<CR>", "new-scratch" },
