@@ -261,7 +261,7 @@ M.config = function()
                 "node_modules",
             },
 
-            layout_strategy = "horizontal",
+            layout_strategy = "flex",
             layout_config = {
                 width = 0.95,
                 height = 0.95,
@@ -306,6 +306,8 @@ M.config = function()
                 },
             }),
             live_grep = {
+                -- find_command = { "rg", "--vimgrep", "--strip-cwd-prefix" },
+                path_display = { "smart" },
                 file_ignore_patterns = { ".git/" },
                 mappings = {
                     i = {
@@ -323,6 +325,7 @@ M.config = function()
                 -- enable_preview = true,
             },
             find_files = {
+                path_display = { "smart" },
                 -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
                 hidden = true,
             },
