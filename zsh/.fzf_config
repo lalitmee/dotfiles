@@ -13,10 +13,10 @@ export FZF_DEFAULT_OPTS='--layout=reverse --inline-info --height=100% --bind=ctr
 
 # cobalt2
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#00aaff,bg:#193549,hl:#ffc600
+--color=fg:#ffffff,bg:#193549,hl:#ffc600
 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
---color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00
---color=marker:#ff628c,spinner:#ffc600,header:#ffc600'
+--color=info:#9e9e9e,prompt:#ff628c,pointer:#ff9a00
+--color=marker:#FF628C,spinner:#ffc600,header:#ff628c'
 
 # # catppuccin
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS" \
