@@ -46,6 +46,7 @@
   "mason-lspconfig.nvim": { "branch": "main", "commit": "cec0e6dd534ade486b5eeb59ebcfa8d51c3e8c5e" },
   "mason.nvim": { "branch": "main", "commit": "057ac5ca159c83e302a55bd839a96ff1ea2396db" },
   "mind.nvim": { "branch": "master", "commit": "002137dd7cf97865ebd01b6a260209d2daf2da66" },
+  "monorepo.nvim": { "branch": "main", "commit": "e980b237aa95383e582c4601d140712ff8bca08e" },
   "nap.nvim": { "branch": "main", "commit": "3eac558f7ac28af505b1eed0401e5c971e1c9533" },
   "neoai.nvim": { "branch": "main", "commit": "b90180e30d143afb71490b92b08c1e9121d4416a" },
   "neodev.nvim": { "branch": "main", "commit": "6498a07601702349c31909005bb333003e4687d4" },
