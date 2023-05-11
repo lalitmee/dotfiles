@@ -322,13 +322,11 @@ M.config = function()
         ["q"] = {
             ["name"] = "+quickfix",
             ["c"] = { ":cclose<CR>", "close" },
-            ["f"] = { ":ReplacerFiles<CR>", "replacer-files" },
             ["l"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
             ["n"] = { ":cnext<CR>", "next" },
             ["o"] = { ":copen<CR>", "open" },
             ["p"] = { ":cprev<CR>", "prev" },
             ["q"] = { ":qall<CR>", "quit-neovim" },
-            ["r"] = { ":Replacer<CR>", "replacer" },
         },
         ["r"] = {
             ["name"] = "+build-and-run",

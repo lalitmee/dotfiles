@@ -32,25 +32,26 @@ local replacer = {
         "Replacer",
         "ReplacerFiles",
     },
-    config = function()
+    init = function()
+        local wk = require("which-key")
         local replacer = require("replacer")
 
-        ----------------------------------------------------------------------
-        -- NOTE: replacer.nvim commands {{{
-        ----------------------------------------------------------------------
-        local command = lk.command
-
-        -- this can rename or replace everything in quickfix
-        command("ReplacerFiles", function()
-            replacer.run()
-        end, {})
-
-        -- this will not rename or move file names
-        command("Replacer", function()
-            replacer.run({ rename_files = false })
-        end, {})
-        -- }}}
-        ----------------------------------------------------------------------
+        wk.register({
+            ["q"] = {
+                ["f"] = {
+                    function()
+                        replacer.run()
+                    end,
+                    "replacer-files",
+                },
+                ["r"] = {
+                    function()
+                        replacer.run({ rename_files = false })
+                    end,
+                    "replacer",
+                },
+            },
+        }, { mode = "n", prefix = "<leader>" })
     end,
 }
 
