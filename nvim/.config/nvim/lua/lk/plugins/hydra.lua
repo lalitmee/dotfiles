@@ -10,7 +10,8 @@ local function gitsigns_menu()
     local hint = [[
  _J_: Next hunk   _s_: Stage Hunk        _d_: Show Deleted   _b_: Blame Line
  _K_: Prev hunk   _u_: Undo Last Stage   _p_: Preview Hunk   _B_: Blame Show Full
- ^ ^              _S_: Stage Buffer      ^ ^                 _/_: Show Base File
+ _X_: Reset Hunk  _S_: Stage Buffer      _f_: Select Hunk    _r_: Refresh
+ ^ ^              _U_: Reset Buffer      _/_: Show Base File
  ^
  ^ ^              _<Enter>_: Neogit              _q_: Exit
 ]]
@@ -39,8 +40,17 @@ local function gitsigns_menu()
                 gitsigns.toggle_deleted(false)
             end,
         },
-        body = "<A-g>",
+        body = "<leader>gh",
         heads = {
+            { "/", gitsigns.show, { exit = true, desc = "Show Base File" } }, -- show the base of the file
+            { "<Enter>", "<Cmd>Neogit<CR>", { exit = true, desc = "Neogit" } },
+            {
+                "B",
+                function()
+                    gitsigns.blame_line({ full = true })
+                end,
+                { desc = "Blame Show Full" },
+            },
             {
                 "J",
                 function()
@@ -67,30 +77,25 @@ local function gitsigns_menu()
                 end,
                 { expr = true, desc = "Prev Hunk" },
             },
+            { "S", gitsigns.stage_buffer, { desc = "Stage Buffer" } },
+            { "U", gitsigns.reset_buffer, { desc = "Reset Buffer" } },
+            { "X", gitsigns.reset_hunk, { desc = "Reset Hunk" } }, -- show the base of the file
+            { "b", gitsigns.blame_line, { desc = "Blame" } },
+            {
+                "d",
+                gitsigns.toggle_deleted,
+                { nowait = true, desc = "Toggle Deleted" },
+            },
+            { "f", gitsigns.select_hunk, { desc = "Select Hunk" } },
+            { "p", gitsigns.preview_hunk, { desc = "Preview Hunk" } },
+            { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
+            { "r", gitsigns.refresh, { desc = "Refresh" } },
             {
                 "s",
                 ":Gitsigns stage_hunk<CR>",
                 { silent = true, desc = "Stage Hunk" },
             },
             { "u", gitsigns.undo_stage_hunk, { desc = "Undo Last Stage" } },
-            { "S", gitsigns.stage_buffer, { desc = "Stage Buffer" } },
-            { "p", gitsigns.preview_hunk, { desc = "Preview Hunk" } },
-            {
-                "d",
-                gitsigns.toggle_deleted,
-                { nowait = true, desc = "Toggle Deleted" },
-            },
-            { "b", gitsigns.blame_line, { desc = "Blame" } },
-            {
-                "B",
-                function()
-                    gitsigns.blame_line({ full = true })
-                end,
-                { desc = "Blame Show Full" },
-            },
-            { "/", gitsigns.show, { exit = true, desc = "Show Base File" } }, -- show the base of the file
-            { "<Enter>", "<Cmd>Neogit<CR>", { exit = true, desc = "Neogit" } },
-            { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
         },
     }
 end

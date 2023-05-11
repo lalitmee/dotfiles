@@ -198,18 +198,10 @@ M.config = function()
                 },
             },
             ["g"] = { ":Neogit<CR>", "status" },
-            ["h"] = {
-                ["name"] = "+hunks",
-                ["a"] = { ":Gitsigns stage_hunk<CR>", "stage-hunk" },
-                ["n"] = { ":Gitsigns next_hunk<CR>", "next-hunk" },
-                ["p"] = { ":Gitsigns prev_hunk<CR>", "prev-hunk" },
-                ["r"] = { ":Gitsigns refresh<CR>", "refresh" },
-                ["s"] = { ":Gitsigns stage_buffer<CR>", "stage-buffer" },
-                ["h"] = { ":Gitsigns select_hunk<CR>", "select-hunk" },
-                ["u"] = { ":Gitsigns reset_buffer<CR>", "reset-buffer" },
-                ["v"] = { ":Gitsigns preview_hunk<CR>", "preview-hunk" },
-                ["x"] = { ":Gitsigns reset_hunk<CR>", "reset-hunk" },
-            },
+            -- moved to Hydra
+            -- ["h"] = {
+            --     ["name"] = "+hunks",
+            -- },
             ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
             ["O"] = { ":BrowseRepo<CR>", "open-repo" },
             ["s"] = { ":Git<CR>", "git-status" },
@@ -530,28 +522,6 @@ M.config = function()
             ["r"] = { ":ChatGPTRun<CR>", "chatgpt-run" },
             ["s"] = { ":ChatGPTActAs<CR>", "chatgpt-act-as" },
         },
-        ["d"] = {
-            ["name"] = "+docstrings",
-            ["d"] = { ":Neogen<CR>", "doc-this" },
-            ["c"] = {
-                function()
-                    require("neogen").generate({ type = "class" })
-                end,
-                "doc-this-class",
-            },
-            ["f"] = {
-                function()
-                    require("neogen").generate({ type = "class" })
-                end,
-                "doc-this-function",
-            },
-            ["t"] = {
-                function()
-                    require("neogen").generate({ type = "class" })
-                end,
-                "doc-this-type",
-            },
-        },
         ["f"] = {
             ["name"] = "+fzf-lua",
             ["a"] = { ":FzfLua builtin<CR>", "builtins" },
@@ -576,9 +546,7 @@ M.config = function()
             ["n"] = { ":ScretchNamed<CR>", "scratch-with-name" },
         },
         ["t"] = {
-            ["name"] = "+treesitter",
-            ["c"] = "doc-node-at-cursor",
-            ["v"] = "visual-selection",
+            -- it is reserved for neorg keybindings
         },
         ["w"] = {
             ["name"] = "+tabs",

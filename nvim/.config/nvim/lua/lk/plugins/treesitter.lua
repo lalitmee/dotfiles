@@ -76,8 +76,8 @@ M.config = function()
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = "<localleader>tv",
-                node_incremental = "<localleader>tv",
+                init_selection = "[s",
+                node_incremental = "]s",
                 scope_incremental = "]v",
                 node_decremental = "[v",
             },
@@ -98,10 +98,10 @@ M.config = function()
             swap = {
                 enable = true,
                 swap_next = {
-                    ["[w"] = "@parameter.inner",
+                    ["]w"] = "@parameter.inner",
                 },
                 swap_previous = {
-                    ["]w"] = "@parameter.inner",
+                    ["[w"] = "@parameter.inner",
                 },
             },
             move = {
@@ -109,33 +109,34 @@ M.config = function()
                 set_jumps = true,
                 goto_next_start = {
                     ["]m"] = "@function.outer",
-                    ["]c"] = "@class.outer",
+                    ["]k"] = "@class.outer",
                 },
                 goto_next_end = {
                     ["]M"] = "@function.outer",
-                    ["]C"] = "@class.outer",
+                    ["]K"] = "@class.outer",
                 },
                 goto_previous_start = {
                     ["[m"] = "@function.outer",
-                    ["[c"] = "@class.outer",
+                    ["[k"] = "@class.outer",
                 },
                 goto_previous_end = {
                     ["[M"] = "@function.outer",
-                    ["[C"] = "@class.outer",
+                    ["[K"] = "@class.outer",
                 },
             },
             tree_docs = {
                 enable = true,
                 keymaps = {
-                    doc_node_at_cursor = "<localleader>tc",
-                    doc_all_in_range = "<localleader>tc",
+                    doc_node_at_cursor = "<localleader>da",
+                    doc_all_in_range = "<localleader>dr",
                 },
             },
             lsp_interop = {
                 enable = true,
+                border = "rounded",
                 peek_definition_code = {
-                    ["df"] = "@function.outer",
-                    ["dF"] = "@class.outer",
+                    ["<localleader>dv"] = "@function.outer",
+                    ["<localleader>dV"] = "@class.outer",
                 },
             },
         },
@@ -154,6 +155,19 @@ M.config = function()
 
     -- }}}
     ----------------------------------------------------------------------
+end
+
+M.init = function()
+    local wk = require("which-key")
+    wk.register({
+        ["d"] = {
+            ["name"] = "+docstrings",
+            ["a"] = "doc-node-at-cursor",
+            ["r"] = "doc-all-in-range",
+            ["v"] = "peek-function-definition",
+            ["V"] = "peek-class-definition",
+        },
+    }, { mode = { "n", "v" }, prefix = "<localleader>" })
 end
 
 return M
