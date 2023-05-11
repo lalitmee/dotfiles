@@ -33,16 +33,6 @@ return {
     --  NOTE: actions {{{
     ---------------------------------------------------------------------------
     {
-        "jghauser/fold-cycle.nvim",
-        keys = { "<CR>" },
-        config = function()
-            require("fold-cycle").setup()
-            lk.nnoremap("<CR>", function()
-                require("fold-cycle").open()
-            end)
-        end,
-    },
-    {
         "andymass/vim-matchup",
         event = "BufReadPost",
         config = function()
