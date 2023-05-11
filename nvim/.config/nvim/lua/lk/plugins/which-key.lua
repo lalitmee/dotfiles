@@ -467,7 +467,6 @@ M.config = function()
             ["k"] = { ":Telescope keymaps<CR>", "keymaps" },
             ["l"] = { ":Telescope loclist<CR>", "loclist" },
             ["m"] = { ":Telescope marks<CR>", "marks" },
-            ["o"] = { ":Telescope vim_options<CR>", "options" },
             ["r"] = { ":Telescope registers<CR>", "vim-registers" },
             ["t"] = { ":Telescope tagstack<CR>", "tag-stack" },
             ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
