@@ -5,6 +5,7 @@
   "LuaSnip": { "branch": "master", "commit": "b4bc24c4925aeb05fd47d2ee9b24b7f73f5d7e32" },
   "NeoComposer.nvim": { "branch": "main", "commit": "a22f5a5d7ff590f59cdeb0bf67fc617327452263" },
   "NeoZoom.lua": { "branch": "main", "commit": "610c57346b9cfe86e90fcf1b5e6a94a6a0266d27" },
+  "advanced-git-search.nvim": { "branch": "main", "commit": "5637d80861e253a8621450eb58621009e1307deb" },
   "auto-session": { "branch": "main", "commit": "21033c6815f249a7839c3a85fc8a6b44d74925c9" },
   "autolist.nvim": { "branch": "main", "commit": "0936e384b10315f65b8ef3bf1be938314d23a528" },
   "backseat.nvim": { "branch": "main", "commit": "3bb2781cdbf9b26c60e9ba45bfb22625e235c142" },
