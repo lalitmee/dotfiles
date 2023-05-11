@@ -1,488 +1,472 @@
 local command, augroup = lk.command, lk.augroup
 
-local function neogit()
-    return {
-        "TimUntersberger/neogit",
-        cmd = { "Neogit" },
-        -- enabled = false,
-        config = function()
-            local neogit = require("neogit")
+local neogit = {
+    "TimUntersberger/neogit",
+    cmd = { "Neogit" },
+    -- enabled = false,
+    config = function()
+        -- setup
+        require("neogit").setup({
+            disable_commit_confirmation = true,
+            integrations = { diffview = true },
+        })
 
-            -- setup
-            neogit.setup({
-                disable_commit_confirmation = true,
-                integrations = { diffview = true },
-            })
+        -- commands
+        command("Neogit", function()
+            require("neogit").open()
+        end, {})
 
-            -- commands
-            command("Neogit", function()
-                neogit.open()
-            end, {})
+        -- autocmds
+        local neogit_notify = function(msg, type)
+            local msg_type = type or "info"
+            vim.notify(msg, msg_type, { title = " Neogit" })
+        end
 
-            -- autocmds
-            local neogit_notify = function(msg, type)
-                local msg_type = type or "info"
-                vim.notify(msg, msg_type, { title = " Neogit" })
-            end
+        augroup("neogit_au", {
+            -- {
+            --     event = { "User" },
+            --     pattern = { "NeogitStatusRefreshed" },
+            --     command = function()
+            --         neogit_notify("status has been reloaded")
+            --     end,
+            -- },
+            {
+                event = { "User" },
+                pattern = { "NeogitCommitComplete" },
+                command = function()
+                    neogit_notify("Commited Successfully")
+                end,
+            },
+            {
+                event = { "User" },
+                pattern = { "NeogitPushComplete" },
+                command = function()
+                    neogit_notify("Pushed Successfully")
+                end,
+            },
+            {
+                event = { "User" },
+                pattern = { "NeogitPushComplete" },
+                command = function()
+                    require("neogit").close()
+                end,
+            },
+        })
+    end,
+}
 
-            augroup("neogit_au", {
-                -- {
-                --     event = { "User" },
-                --     pattern = { "NeogitStatusRefreshed" },
-                --     command = function()
-                --         neogit_notify("status has been reloaded")
-                --     end,
-                -- },
-                {
-                    event = { "User" },
-                    pattern = { "NeogitCommitComplete" },
-                    command = function()
-                        neogit_notify("Commited Successfully")
-                    end,
-                },
-                {
-                    event = { "User" },
-                    pattern = { "NeogitPushComplete" },
-                    command = function()
-                        neogit_notify("Pushed Successfully")
-                    end,
-                },
-                {
-                    event = { "User" },
-                    pattern = { "NeogitPushComplete" },
-                    command = function()
-                        require("neogit").close()
-                    end,
-                },
-            })
-        end,
-    }
-end
+local fugitive = {
+    "tpope/vim-fugitive",
+    cmd = { "Git" },
+}
 
-local function fugitive()
-    return {
-        "tpope/vim-fugitive",
-        cmd = { "Git" },
-    }
-end
-
-local function advanced_git_search()
-    return {
-        "aaronhallaert/advanced-git-search.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
+local advanced_git_search = {
+    "aaronhallaert/advanced-git-search.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["g"] = {
+                ["f"] = {
+                    ["name"] = "+find-anything",
+                    ["c"] = {
+                        ":Telescope advanced_git_search diff_commit_file<CR>",
+                        "file-commits",
+                    },
                     ["f"] = {
-                        ["name"] = "+find-anything",
-                        ["c"] = {
-                            ":Telescope advanced_git_search diff_commit_file<CR>",
-                            "file-commits",
-                        },
-                        ["f"] = {
-                            ":Telescope advanced_git_search search_log_content_file<CR>",
-                            "file-log",
-                        },
-                        ["l"] = {
-                            ":Telescope advanced_git_search diff_commit_line<CR>",
-                            "line-commits",
-                        },
-                        ["L"] = {
-                            ":Telescope advanced_git_search search_log_content<CR>",
-                            "log",
-                        },
+                        ":Telescope advanced_git_search search_log_content_file<CR>",
+                        "file-log",
+                    },
+                    ["l"] = {
+                        ":Telescope advanced_git_search diff_commit_line<CR>",
+                        "line-commits",
+                    },
+                    ["L"] = {
+                        ":Telescope advanced_git_search search_log_content<CR>",
+                        "log",
                     },
                 },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
-    }
-end
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
 
-local function igs()
-    return {
-        "rmagatti/igs.nvim",
-        keys = {
-            -- quickfix
-            "<leader>gqA",
-            "<leader>gqD",
-            "<leader>gqM",
-            "<leader>gqS",
-            "<leader>gqa",
-            "<leader>gqc",
-            "<leader>gqd",
-            "<leader>gqm",
-            "<leader>gqs",
+local igs = {
+    "rmagatti/igs.nvim",
+    keys = {
+        -- quickfix
+        "<leader>gqA",
+        "<leader>gqD",
+        "<leader>gqM",
+        "<leader>gqS",
+        "<leader>gqa",
+        "<leader>gqc",
+        "<leader>gqd",
+        "<leader>gqm",
+        "<leader>gqs",
 
-            -- edit
-            "<leader>gea",
-            "<leader>gem",
-            "<leader>ges",
-        },
-        config = function()
-            require("igs").setup()
-        end,
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["q"] = {
-                        ["name"] = "+quickfix",
-                        ["a"] = {
-                            function()
-                                require("igs").qf_all()
-                            end,
-                            "all-files",
-                        },
-                        ["A"] = {
-                            function()
-                                require("igs").qf_all({ all_changes = true })
-                            end,
-                            "all-changes",
-                        },
+        -- edit
+        "<leader>gea",
+        "<leader>gem",
+        "<leader>ges",
+    },
+    config = function()
+        require("igs").setup()
+    end,
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["g"] = {
+                ["q"] = {
+                    ["name"] = "+quickfix",
+                    ["a"] = {
+                        function()
+                            require("igs").qf_all()
+                        end,
+                        "all-files",
+                    },
+                    ["A"] = {
+                        function()
+                            require("igs").qf_all({ all_changes = true })
+                        end,
+                        "all-changes",
+                    },
+                    ["c"] = {
+                        function()
+                            require("igs").qf_conflicts()
+                        end,
+                        "conflicts",
+                    },
+                    ["d"] = {
+                        function()
+                            require("igs").qf_diff_branch({
+                                all_changes = true,
+                            })
+                        end,
+                        "diff-branch-changes",
+                    },
+                    ["D"] = {
+                        function()
+                            require("igs").qf_diff_branch({
+                                all_changes = false,
+                            })
+                        end,
+                        "diff-branch",
+                    },
+                    ["m"] = {
+                        function()
+                            require("igs").qf_modified()
+                        end,
+                        "modified-files",
+                    },
+                    ["M"] = {
+                        function()
+                            require("igs").qf_modified({
+                                all_changes = true,
+                            })
+                        end,
+                        "modified-changes",
+                    },
+                    ["s"] = {
+                        function()
+                            require("igs").qf_added()
+                        end,
+                        "staged-files",
+                    },
+                    ["S"] = {
+                        function()
+                            require("igs").qf_added({ all_changes = true })
+                        end,
+                        "staged-changes",
+                    },
+                },
+                ["e"] = {
+                    ["name"] = "+edit",
+                    ["a"] = {
+                        function()
+                            require("igs").edit_all()
+                        end,
+                        "all-files",
+                    },
+                    ["m"] = {
+                        function()
+                            require("igs").edit_modified()
+                        end,
+                        "modifed-files",
+                    },
+                    ["s"] = {
+                        function()
+                            require("igs").edit_added()
+                        end,
+                        "added-files",
+                    },
+                },
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
+
+local gitsigns = {
+    "lewis6991/gitsigns.nvim",
+    event = "BufReadPre",
+    config = function()
+        require("gitsigns").setup({
+            signs = {
+                add = {
+                    hl = "GitSignsAdd",
+                    text = "│",
+                    numhl = "GitSignsAddNr",
+                    linehl = "GitSignsAddLn",
+                },
+                change = {
+                    hl = "GitSignsChange",
+                    text = "│",
+                    numhl = "GitSignsChangeNr",
+                    linehl = "GitSignsChangeLn",
+                },
+                delete = {
+                    hl = "GitSignsDelete",
+                    text = "_",
+                    numhl = "GitSignsDeleteNr",
+                    linehl = "GitSignsDeleteLn",
+                },
+                topdelete = {
+                    hl = "GitSignsDelete",
+                    text = "‾",
+                    numhl = "GitSignsDeleteNr",
+                    linehl = "GitSignsDeleteLn",
+                },
+                changedelete = {
+                    hl = "GitSignsChange",
+                    text = "~",
+                    numhl = "GitSignsChangeNr",
+                    linehl = "GitSignsChangeLn",
+                },
+            },
+            numhl = true,
+            linehl = false,
+            watch_gitdir = { interval = 1000 },
+            sign_priority = 6,
+            update_debounce = 200,
+            status_formatter = nil,
+            current_line_blame = false,
+            current_line_blame_opts = {
+                virt_text = true,
+                virt_text_pos = "eol",
+                delay = 500,
+            },
+            preview_config = {
+                border = "rounded",
+            },
+            current_line_blame_formatter = "   <author>, <author_time:%R> - <summary>",
+        })
+    end,
+}
+
+local octo = {
+    "pwntester/octo.nvim",
+    cmd = { "Octo" },
+    config = true,
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["g"] = {
+                ["o"] = {
+                    ["name"] = "+octo.nvim",
+                    ["a"] = {
+                        ["name"] = "+reaction",
                         ["c"] = {
-                            function()
-                                require("igs").qf_conflicts()
-                            end,
-                            "conflicts",
+                            ":Octo reaction confused<CR>",
+                            "react-confused",
                         },
                         ["d"] = {
-                            function()
-                                require("igs").qf_diff_branch({
-                                    all_changes = true,
-                                })
-                            end,
-                            "diff-branch-changes",
+                            ":Octo reaction thumbs_down<CR>",
+                            "react-thumbs_down",
                         },
-                        ["D"] = {
-                            function()
-                                require("igs").qf_diff_branch({
-                                    all_changes = false,
-                                })
-                            end,
-                            "diff-branch",
-                        },
-                        ["m"] = {
-                            function()
-                                require("igs").qf_modified()
-                            end,
-                            "modified-files",
-                        },
-                        ["M"] = {
-                            function()
-                                require("igs").qf_modified({
-                                    all_changes = true,
-                                })
-                            end,
-                            "modified-changes",
-                        },
-                        ["s"] = {
-                            function()
-                                require("igs").qf_added()
-                            end,
-                            "staged-files",
-                        },
-                        ["S"] = {
-                            function()
-                                require("igs").qf_added({ all_changes = true })
-                            end,
-                            "staged-changes",
-                        },
-                    },
-                    ["e"] = {
-                        ["name"] = "+edit",
-                        ["a"] = {
-                            function()
-                                require("igs").edit_all()
-                            end,
-                            "all-files",
-                        },
-                        ["m"] = {
-                            function()
-                                require("igs").edit_modified()
-                            end,
-                            "modifed-files",
-                        },
-                        ["s"] = {
-                            function()
-                                require("igs").edit_added()
-                            end,
-                            "added-files",
-                        },
-                    },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
-    }
-end
-
-local function gitsigns()
-    return {
-        "lewis6991/gitsigns.nvim",
-        event = "BufReadPre",
-        config = function()
-            require("gitsigns").setup({
-                signs = {
-                    add = {
-                        hl = "GitSignsAdd",
-                        text = "│",
-                        numhl = "GitSignsAddNr",
-                        linehl = "GitSignsAddLn",
-                    },
-                    change = {
-                        hl = "GitSignsChange",
-                        text = "│",
-                        numhl = "GitSignsChangeNr",
-                        linehl = "GitSignsChangeLn",
-                    },
-                    delete = {
-                        hl = "GitSignsDelete",
-                        text = "_",
-                        numhl = "GitSignsDeleteNr",
-                        linehl = "GitSignsDeleteLn",
-                    },
-                    topdelete = {
-                        hl = "GitSignsDelete",
-                        text = "‾",
-                        numhl = "GitSignsDeleteNr",
-                        linehl = "GitSignsDeleteLn",
-                    },
-                    changedelete = {
-                        hl = "GitSignsChange",
-                        text = "~",
-                        numhl = "GitSignsChangeNr",
-                        linehl = "GitSignsChangeLn",
-                    },
-                },
-                numhl = true,
-                linehl = false,
-                watch_gitdir = { interval = 1000 },
-                sign_priority = 6,
-                update_debounce = 200,
-                status_formatter = nil,
-                current_line_blame = false,
-                current_line_blame_opts = {
-                    virt_text = true,
-                    virt_text_pos = "eol",
-                    delay = 500,
-                },
-                preview_config = {
-                    border = "rounded",
-                },
-                current_line_blame_formatter = "   <author>, <author_time:%R> - <summary>",
-            })
-        end,
-    }
-end
-
-local function octo()
-    return {
-        "pwntester/octo.nvim",
-        cmd = { "Octo" },
-        config = true,
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["o"] = {
-                        ["name"] = "+octo.nvim",
-                        ["a"] = {
-                            ["name"] = "+reaction",
-                            ["c"] = {
-                                ":Octo reaction confused<CR>",
-                                "react-confused",
-                            },
-                            ["d"] = {
-                                ":Octo reaction thumbs_down<CR>",
-                                "react-thumbs_down",
-                            },
-                            ["e"] = { ":Octo reaction eyes<CR>", "react-eyes" },
-                            ["h"] = {
-                                ":Octo reaction heart<CR>",
-                                "react-heart",
-                            },
-                            ["l"] = {
-                                ":Octo reaction laugh<CR>",
-                                "react-laugh",
-                            },
-                            ["r"] = {
-                                ":Octo reaction rocket<CR>",
-                                "react-rocket",
-                            },
-                            ["t"] = { ":Octo reaction tada<CR>", "react-tada" },
-                            ["u"] = {
-                                ":Octo reaction thumbs_up<CR>",
-                                "react-thumbs_up",
-                            },
-                        },
-                        ["c"] = {
-                            ["name"] = "+comment",
-                            ["a"] = { ":Octo comment add<CR>", "add" },
-                            ["d"] = { ":Octo comment delete<CR>", "delete" },
-                        },
-                        ["g"] = { ":Octo gist list<CR>", "list-gist" },
-                        ["i"] = {
-                            ["name"] = "+issues",
-                            ["a"] = { ":Octo issue create<CR>", "create" },
-                            ["b"] = { ":Octo issue browser<CR>", "browser" },
-                            ["c"] = { ":Octo issue close<CR>", "close" },
-                            ["e"] = { ":Octo issue edit<CR>", "edit" },
-                            ["l"] = { ":Octo issue list<CR>", "list" },
-                            ["o"] = { ":Octo issue reopen<CR>", "reopen" },
-                            ["r"] = { ":Octo issue reload<CR>", "reload" },
-                            ["s"] = { ":Octo issue search<CR>", "search" },
-                            ["u"] = { ":Octo issue url<CR>", "url" },
+                        ["e"] = { ":Octo reaction eyes<CR>", "react-eyes" },
+                        ["h"] = {
+                            ":Octo reaction heart<CR>",
+                            "react-heart",
                         },
                         ["l"] = {
-                            ["name"] = "+label",
-                            ["a"] = { ":Octo label add<CR>", "add" },
-                            ["c"] = { ":Octo label create<CR>", "create" },
-                            ["r"] = { ":Octo label remove<CR>", "remove" },
-                        },
-                        ["p"] = {
-                            ["name"] = "+pull-requests",
-                            ["a"] = { ":Octo pr create<CR>", "create" },
-                            ["b"] = { ":Octo pr browser<CR>", "browser" },
-                            ["c"] = { ":Octo pr checkout<CR>", "checkout" },
-                            ["C"] = { ":Octo pr close<CR>", "close" },
-                            ["d"] = { ":Octo pr diff<CR>", "diff" },
-                            ["D"] = { ":Octo pr checks<CR>", "checks" },
-                            ["e"] = { ":Octo pr edit<CR>", "edit" },
-                            ["g"] = { ":Octo pr commits<CR>", "commits" },
-                            ["h"] = { ":Octo pr changes<CR>", "changes" },
-                            ["l"] = { ":Octo pr list<CR>", "list" },
-                            ["m"] = { ":Octo pr merge<CR>", "merge" },
-                            ["o"] = { ":Octo pr reopen<CR>", "reopen" },
-                            ["r"] = { ":Octo pr reload<CR>", "reload" },
-                            ["R"] = { ":Octo pr ready<CR>", "ready" },
-                            ["s"] = { ":Octo pr search<CR>", "search" },
-                            ["u"] = { ":Octo pr url<CR>", "url" },
+                            ":Octo reaction laugh<CR>",
+                            "react-laugh",
                         },
                         ["r"] = {
-                            ["name"] = "+repositories",
-                            ["b"] = { ":Octo repo browser<CR>", "browser" },
-                            ["f"] = { ":Octo repo fork<CR>", "fork" },
-                            ["l"] = { ":Octo repo list<CR>", "list" },
-                            ["u"] = { ":Octo repo url<CR>", "url" },
+                            ":Octo reaction rocket<CR>",
+                            "react-rocket",
                         },
-                        ["R"] = {
-                            ["name"] = "+review",
-                            ["a"] = { ":Octo reviewer add<CR>", "add-reviewer" },
-                            ["b"] = { ":Octo review start<CR>", "start-review" },
-                            ["c"] = {
-                                ":Octo review comments<CR>",
-                                "comments-review",
-                            },
-                            ["d"] = {
-                                ":Octo review discard<CR>",
-                                "discard-review",
-                            },
-                            ["r"] = {
-                                ":Octo review resume<CR>",
-                                "resume-review",
-                            },
-                            ["s"] = {
-                                ":Octo review submit<CR>",
-                                "submit-review",
-                            },
-                        },
-                        ["t"] = {
-                            ["name"] = "+thread",
-                            ["r"] = { ":Octo thread resolve<CR>", "resolve" },
-                            ["u"] = {
-                                ":Octo thread unresolve<CR>",
-                                "unresolve",
-                            },
+                        ["t"] = { ":Octo reaction tada<CR>", "react-tada" },
+                        ["u"] = {
+                            ":Octo reaction thumbs_up<CR>",
+                            "react-thumbs_up",
                         },
                     },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
-    }
-end
-
-local function gh_nvim()
-    return {
-        "ldelossa/gh.nvim",
-        dependencies = { "ldelossa/litee.nvim" },
-        cmd = {
-            "GHOpenIssue",
-            "GHOpenPR",
-            "GHSearchIssues",
-            "GHSearchPRs",
-        },
-        config = function()
-            require("litee.lib").setup()
-            require("litee.gh").setup()
-        end,
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["H"] = {
-                        ["name"] = "+gh.nvim",
-                        ["f"] = {
-                            ":Telescope gh pull_request_files<CR>",
-                            "gh-pr-files",
-                        },
-                        ["g"] = { ":Telescope gh gist<CR>", "gh-gist" },
-                        ["I"] = { ":Telescope gh issues<CR>", "gh-issues" },
-                        ["P"] = { ":Telescope gh pull_request<CR>", "gh-pr" },
+                    ["c"] = {
+                        ["name"] = "+comment",
+                        ["a"] = { ":Octo comment add<CR>", "add" },
+                        ["d"] = { ":Octo comment delete<CR>", "delete" },
+                    },
+                    ["g"] = { ":Octo gist list<CR>", "list-gist" },
+                    ["i"] = {
+                        ["name"] = "+issues",
+                        ["a"] = { ":Octo issue create<CR>", "create" },
+                        ["b"] = { ":Octo issue browser<CR>", "browser" },
+                        ["c"] = { ":Octo issue close<CR>", "close" },
+                        ["e"] = { ":Octo issue edit<CR>", "edit" },
+                        ["l"] = { ":Octo issue list<CR>", "list" },
+                        ["o"] = { ":Octo issue reopen<CR>", "reopen" },
+                        ["r"] = { ":Octo issue reload<CR>", "reload" },
+                        ["s"] = { ":Octo issue search<CR>", "search" },
+                        ["u"] = { ":Octo issue url<CR>", "url" },
+                    },
+                    ["l"] = {
+                        ["name"] = "+label",
+                        ["a"] = { ":Octo label add<CR>", "add" },
+                        ["c"] = { ":Octo label create<CR>", "create" },
+                        ["r"] = { ":Octo label remove<CR>", "remove" },
+                    },
+                    ["p"] = {
+                        ["name"] = "+pull-requests",
+                        ["a"] = { ":Octo pr create<CR>", "create" },
+                        ["b"] = { ":Octo pr browser<CR>", "browser" },
+                        ["c"] = { ":Octo pr checkout<CR>", "checkout" },
+                        ["C"] = { ":Octo pr close<CR>", "close" },
+                        ["d"] = { ":Octo pr diff<CR>", "diff" },
+                        ["D"] = { ":Octo pr checks<CR>", "checks" },
+                        ["e"] = { ":Octo pr edit<CR>", "edit" },
+                        ["g"] = { ":Octo pr commits<CR>", "commits" },
+                        ["h"] = { ":Octo pr changes<CR>", "changes" },
+                        ["l"] = { ":Octo pr list<CR>", "list" },
+                        ["m"] = { ":Octo pr merge<CR>", "merge" },
+                        ["o"] = { ":Octo pr reopen<CR>", "reopen" },
+                        ["r"] = { ":Octo pr reload<CR>", "reload" },
+                        ["R"] = { ":Octo pr ready<CR>", "ready" },
+                        ["s"] = { ":Octo pr search<CR>", "search" },
+                        ["u"] = { ":Octo pr url<CR>", "url" },
+                    },
+                    ["r"] = {
+                        ["name"] = "+repositories",
+                        ["b"] = { ":Octo repo browser<CR>", "browser" },
+                        ["f"] = { ":Octo repo fork<CR>", "fork" },
+                        ["l"] = { ":Octo repo list<CR>", "list" },
+                        ["u"] = { ":Octo repo url<CR>", "url" },
+                    },
+                    ["R"] = {
+                        ["name"] = "+review",
+                        ["a"] = { ":Octo reviewer add<CR>", "add-reviewer" },
+                        ["b"] = { ":Octo review start<CR>", "start-review" },
                         ["c"] = {
-                            ["name"] = "+Commits",
-                            ["c"] = { "<cmd>GHCloseCommit<cr>", "Close" },
-                            ["e"] = { "<cmd>GHExpandCommit<cr>", "Expand" },
-                            ["o"] = { "<cmd>GHOpenToCommit<cr>", "Open To" },
-                            ["p"] = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
-                            ["z"] = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
+                            ":Octo review comments<CR>",
+                            "comments-review",
                         },
-                        ["i"] = {
-                            ["name"] = "+Issues",
-                            ["p"] = { "<cmd>GHPreviewIssue<cr>", "Preview" },
-                        },
-                        ["l"] = {
-                            ["name"] = "+Litee",
-                            ["t"] = { "<cmd>LTPanel<cr>", "Toggle Panel" },
+                        ["d"] = {
+                            ":Octo review discard<CR>",
+                            "discard-review",
                         },
                         ["r"] = {
-                            ["name"] = "+Review",
-                            ["b"] = { "<cmd>GHStartReview<cr>", "Begin" },
-                            ["c"] = { "<cmd>GHCloseReview<cr>", "Close" },
-                            ["d"] = { "<cmd>GHDeleteReview<cr>", "Delete" },
-                            ["e"] = { "<cmd>GHExpandReview<cr>", "Expand" },
-                            ["s"] = { "<cmd>GHSubmitReview<cr>", "Submit" },
-                            ["z"] = { "<cmd>GHCollapseReview<cr>", "Collapse" },
+                            ":Octo review resume<CR>",
+                            "resume-review",
                         },
-                        ["p"] = {
-                            ["name"] = "+Pull Request",
-                            ["c"] = { "<cmd>GHClosePR<cr>", "Close" },
-                            ["d"] = { "<cmd>GHPRDetails<cr>", "Details" },
-                            ["e"] = { "<cmd>GHExpandPR<cr>", "Expand" },
-                            ["o"] = { "<cmd>GHOpenPR<cr>", "Open" },
-                            ["p"] = { "<cmd>GHPopOutPR<cr>", "PopOut" },
-                            ["r"] = { "<cmd>GHRefreshPR<cr>", "Refresh" },
-                            ["t"] = { "<cmd>GHOpenToPR<cr>", "Open To" },
-                            ["z"] = { "<cmd>GHCollapsePR<cr>", "Collapse" },
+                        ["s"] = {
+                            ":Octo review submit<CR>",
+                            "submit-review",
                         },
-                        ["t"] = {
-                            ["name"] = "+Threads",
-                            ["c"] = { "<cmd>GHCreateThread<cr>", "Create" },
-                            ["n"] = { "<cmd>GHNextThread<cr>", "Next" },
-                            ["t"] = { "<cmd>GHToggleThread<cr>", "Toggle" },
+                    },
+                    ["t"] = {
+                        ["name"] = "+thread",
+                        ["r"] = { ":Octo thread resolve<CR>", "resolve" },
+                        ["u"] = {
+                            ":Octo thread unresolve<CR>",
+                            "unresolve",
                         },
                     },
                 },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
-    }
-end
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
+
+local gh_nvim = {
+    "ldelossa/gh.nvim",
+    dependencies = { "ldelossa/litee.nvim" },
+    cmd = {
+        "GHOpenIssue",
+        "GHOpenPR",
+        "GHSearchIssues",
+        "GHSearchPRs",
+    },
+    config = function()
+        require("litee.lib").setup()
+        require("litee.gh").setup()
+    end,
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["g"] = {
+                ["H"] = {
+                    ["name"] = "+gh.nvim",
+                    ["f"] = {
+                        ":Telescope gh pull_request_files<CR>",
+                        "gh-pr-files",
+                    },
+                    ["g"] = { ":Telescope gh gist<CR>", "gh-gist" },
+                    ["I"] = { ":Telescope gh issues<CR>", "gh-issues" },
+                    ["P"] = { ":Telescope gh pull_request<CR>", "gh-pr" },
+                    ["c"] = {
+                        ["name"] = "+Commits",
+                        ["c"] = { "<cmd>GHCloseCommit<cr>", "Close" },
+                        ["e"] = { "<cmd>GHExpandCommit<cr>", "Expand" },
+                        ["o"] = { "<cmd>GHOpenToCommit<cr>", "Open To" },
+                        ["p"] = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
+                        ["z"] = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
+                    },
+                    ["i"] = {
+                        ["name"] = "+Issues",
+                        ["p"] = { "<cmd>GHPreviewIssue<cr>", "Preview" },
+                    },
+                    ["l"] = {
+                        ["name"] = "+Litee",
+                        ["t"] = { "<cmd>LTPanel<cr>", "Toggle Panel" },
+                    },
+                    ["r"] = {
+                        ["name"] = "+Review",
+                        ["b"] = { "<cmd>GHStartReview<cr>", "Begin" },
+                        ["c"] = { "<cmd>GHCloseReview<cr>", "Close" },
+                        ["d"] = { "<cmd>GHDeleteReview<cr>", "Delete" },
+                        ["e"] = { "<cmd>GHExpandReview<cr>", "Expand" },
+                        ["s"] = { "<cmd>GHSubmitReview<cr>", "Submit" },
+                        ["z"] = { "<cmd>GHCollapseReview<cr>", "Collapse" },
+                    },
+                    ["p"] = {
+                        ["name"] = "+Pull Request",
+                        ["c"] = { "<cmd>GHClosePR<cr>", "Close" },
+                        ["d"] = { "<cmd>GHPRDetails<cr>", "Details" },
+                        ["e"] = { "<cmd>GHExpandPR<cr>", "Expand" },
+                        ["o"] = { "<cmd>GHOpenPR<cr>", "Open" },
+                        ["p"] = { "<cmd>GHPopOutPR<cr>", "PopOut" },
+                        ["r"] = { "<cmd>GHRefreshPR<cr>", "Refresh" },
+                        ["t"] = { "<cmd>GHOpenToPR<cr>", "Open To" },
+                        ["z"] = { "<cmd>GHCollapsePR<cr>", "Collapse" },
+                    },
+                    ["t"] = {
+                        ["name"] = "+Threads",
+                        ["c"] = { "<cmd>GHCreateThread<cr>", "Create" },
+                        ["n"] = { "<cmd>GHNextThread<cr>", "Next" },
+                        ["t"] = { "<cmd>GHToggleThread<cr>", "Toggle" },
+                    },
+                },
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
 
 return {
-    advanced_git_search(),
-    fugitive(),
-    gh_nvim(),
-    gitsigns(),
-    igs(),
-    neogit(),
-    octo(),
+    advanced_git_search,
+    fugitive,
+    gh_nvim,
+    gitsigns,
+    igs,
+    neogit,
+    octo,
 }
