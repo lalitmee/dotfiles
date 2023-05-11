@@ -64,7 +64,19 @@ local neoai = {
     },
 }
 
+local backseat = {
+    "james1236/backseat.nvim",
+    cmd = {
+        "Backseat",
+        "BackseatAsk",
+        "BackseatClear",
+        "BackseatClearLine",
+    },
+    config = true,
+}
+
 return {
+    backseat,
     chatgpt_nvim,
     neoai,
 }
