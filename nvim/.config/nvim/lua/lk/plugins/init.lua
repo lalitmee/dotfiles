@@ -40,15 +40,6 @@ return {
         end,
     },
     {
-        "andrewferrier/debugprint.nvim",
-        keys = {
-            "g?",
-            { "g?", mode = "v" },
-        },
-        cmd = { "DeleteDebugPrints" },
-        opts = {},
-    },
-    {
         "NvChad/nvim-colorizer.lua",
         cmd = { "ColorizerToggle" },
         config = true,
