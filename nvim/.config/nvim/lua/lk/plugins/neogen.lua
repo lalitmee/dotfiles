@@ -37,4 +37,32 @@ return {
             },
         },
     },
+    init = function()
+        local neogen = require("neogen")
+        local wk = require("which-key")
+        wk.register({
+            ["d"] = {
+                ["name"] = "+docstrings",
+                ["d"] = { ":Neogen<CR>", "doc-this" },
+                ["c"] = {
+                    function()
+                        neogen.generate({ type = "class" })
+                    end,
+                    "doc-this-class",
+                },
+                ["f"] = {
+                    function()
+                        neogen.generate({ type = "class" })
+                    end,
+                    "doc-this-function",
+                },
+                ["t"] = {
+                    function()
+                        neogen.generate({ type = "class" })
+                    end,
+                    "doc-this-type",
+                },
+            },
+        }, { mode = "n", prefix = "<localleader>" })
+    end,
 }
