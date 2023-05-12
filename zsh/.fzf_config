@@ -20,7 +20,7 @@ export FZF_CTRL_R_OPTS=$FZF_CTRL_R_OPTS"
 --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
 --header 'Press CTRL-Y to copy command into clipboard' "
 
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+export FZF_DEFAULT_OPTS='
 --layout=reverse
 --inline-info
 --height=100%
