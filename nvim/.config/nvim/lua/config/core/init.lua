@@ -1,0 +1,8 @@
+require("config.core.autocmds")
+require("config.core.commands")
+require("config.core.functions")
+require("config.core.lorem-picsum")
+require("config.core.mappings")
+require("config.core.numbers")
+require("config.core.options")
+require("config.core.statuscolumn")

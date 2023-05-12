@@ -18,13 +18,13 @@ vim.g.open_command = vim.g.os == "Darwin" and "open" or "xdg-open"
 -- NOTE: sourcing {{{
 ----------------------------------------------------------------------
 -- globals
-require("lk/globals")
+require("globals")
 
 -- core
-require("lk/core")
+require("config/core")
 
 -- plugins
-require("lk/lazy")
+require("config/lazy")
 
 -- }}}
 ----------------------------------------------------------------------

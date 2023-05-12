@@ -65,7 +65,7 @@ local lsp = {
     },
     config = function()
         local fn = vim.fn
-        local lsp_utils = require("lk.plugins.lsp.utils")
+        local lsp_utils = require("plugins.lsp.utils")
 
         require("lspconfig.ui.windows").default_options.border =
             lk.style.border.rounded
@@ -73,8 +73,8 @@ local lsp = {
         ----------------------------------------------------------------------
         -- NOTE: automatic setting up commands and handlers {{{
         ----------------------------------------------------------------------
-        require("lk.plugins.lsp.commands")
-        require("lk.plugins.lsp.handlers")
+        require("plugins.lsp.commands")
+        require("plugins.lsp.handlers")
         -- }}}
         ----------------------------------------------------------------------
 
@@ -139,7 +139,7 @@ local lsp = {
         ----------------------------------------------------------------------
         -- NOTE: get servers config {{{
         ----------------------------------------------------------------------
-        local servers = require("lk.plugins.lsp.servers")
+        local servers = require("plugins.lsp.servers")
 
         local custom_init = function(client)
             client.config.flags = client.config.flags or {}
@@ -185,7 +185,7 @@ local lsp = {
         --  NOTE: null-ls {{{
         ----------------------------------------------------------------------
         local nls = require("null-ls")
-        -- local U = require("lk.plugins.lsp.utils")
+        -- local U = require("plugins.lsp.utils")
 
         local fmt = nls.builtins.formatting
         local dgn = nls.builtins.diagnostics
