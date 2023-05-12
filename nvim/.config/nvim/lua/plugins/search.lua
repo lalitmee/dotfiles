@@ -50,6 +50,11 @@ local spectre = {
         local spectre = require("spectre")
 
         spectre.setup({
+            highlight = {
+                ui = "Normal",
+                search = "DiffDelete",
+                replace = "DiffAdd",
+            },
             default = {
                 find = {
                     options = { "ignore-case", "hidden", "line-number" },
