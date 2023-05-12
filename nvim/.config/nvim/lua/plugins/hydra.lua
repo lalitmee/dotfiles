@@ -26,7 +26,7 @@ local function gitsigns_menu()
             on_enter = function()
                 vim.cmd("mkview")
                 vim.cmd("silent! %foldopen!")
-                vim.bo.modifiable = false
+                vim.bo.modifiable = true
                 gitsigns.toggle_signs(true)
                 gitsigns.toggle_linehl(true)
             end,
