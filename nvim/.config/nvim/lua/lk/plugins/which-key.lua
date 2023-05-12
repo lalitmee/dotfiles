@@ -201,17 +201,6 @@ M.config = function()
             ["O"] = { ":BrowseRepo<CR>", "open-repo" },
             ["s"] = { ":Git<CR>", "git-status" },
             ["t"] = { ":Telescope git_stash<CR>", "git-stash" },
-            ["w"] = {
-                ["name"] = "+worktree",
-                ["a"] = {
-                    ":Telescope git_worktree create_git_worktree<CR>",
-                    "create-worktree",
-                },
-                ["l"] = {
-                    ":Telescope git_worktree git_worktrees<CR>",
-                    "list-worktrees",
-                },
-            },
         },
         ["h"] = {
             ["name"] = "+highlight",
