@@ -40,11 +40,6 @@ return {
         end,
     },
     {
-        "NvChad/nvim-colorizer.lua",
-        cmd = { "ColorizerToggle" },
-        config = true,
-    },
-    {
         "christoomey/vim-sort-motion",
         keys = {
             "gs",
@@ -81,11 +76,6 @@ return {
     {
         "NMAC427/guess-indent.nvim",
         event = { "VeryLazy" },
-        opts = {},
-    },
-    {
-        "nvim-colortils/colortils.nvim",
-        cmd = { "Colortils" },
         opts = {},
     },
     {
