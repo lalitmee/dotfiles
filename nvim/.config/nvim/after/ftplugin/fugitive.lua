@@ -1,3 +1,5 @@
+vim.opt_local.splitbelow = false
+
 lk.augroup("fugitive_au", {
     {
         event = { "BufWinEnter" },
