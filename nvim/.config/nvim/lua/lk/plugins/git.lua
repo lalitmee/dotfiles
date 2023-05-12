@@ -472,15 +472,17 @@ local worktrees = {
 
         local wk = require("which-key")
         wk.register({
-            ["w"] = {
-                ["name"] = "+worktree",
-                ["a"] = {
-                    ":Telescope git_worktree create_git_worktree<CR>",
-                    "create-worktree",
-                },
-                ["l"] = {
-                    ":Telescope git_worktree git_worktrees<CR>",
-                    "list-worktrees",
+            ["g"] = {
+                ["w"] = {
+                    ["name"] = "+worktree",
+                    ["a"] = {
+                        ":Telescope git_worktree create_git_worktree<CR>",
+                        "create-worktree",
+                    },
+                    ["l"] = {
+                        ":Telescope git_worktree git_worktrees<CR>",
+                        "list-worktrees",
+                    },
                 },
             },
         }, { mode = "n", prefix = "<leader>" })
