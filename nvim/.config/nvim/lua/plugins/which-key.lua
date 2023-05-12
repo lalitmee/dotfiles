@@ -33,9 +33,9 @@ M.config = function()
     })
 
     local leader_key_maps = {
-        [":"] = { ":Telescope commands<CR>", "commands" },
-        ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
-        ["/"] = { ":Telescope live_grep<CR>", "search-project" },
+        [":"] = { ":FzfLua commands<CR>", "commands" },
+        ["<leader>"] = { ":FzfLua files<CR>", "find-files" },
+        ["/"] = { ":FzfLua live_grep<CR>", "search-project" },
         ["]"] = { ":S/<c-r><c-w>//<left>", "replace-all" },
         ["["] = { ":%S/<c-r><c-w>//c<left><left>", "replace-current" },
         ["1"] = { ":HarpoonGotoTerm 1<CR>", "terminal-1" },
@@ -151,7 +151,7 @@ M.config = function()
                 "with-dropdown",
             },
             ["e"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
-            ["f"] = { ":Telescope find_files<CR>", "files" },
+            ["f"] = { ":FzfLua files<CR>", "files" },
             ["g"] = { ":Telescope git_files<CR>", "git-files" },
             ["h"] = { ":Telescope frecency<CR>", "frecency" },
             ["i"] = {
@@ -281,7 +281,7 @@ M.config = function()
         ["p"] = {
             ["name"] = "+project",
             ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
-            ["f"] = { ":Telescope find_files<cr>", "find-files" },
+            ["f"] = { ":FzfLua files<cr>", "find-files" },
             ["l"] = { ":Telescope smart_open<cr>", "smart-open-files" },
             ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
             ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
@@ -290,7 +290,7 @@ M.config = function()
                 "cwd-frecency",
             },
             ["p"] = { ":Telescope projects<CR>", "projects" },
-            ["s"] = { ":Telescope live_grep<CR>", "project-search" },
+            ["s"] = { ":FzfLua live_grep<CR>", "project-search" },
             ["w"] = { ":Telescope grep_string<CR>", "string-search" },
         },
         ["q"] = {
@@ -365,7 +365,7 @@ M.config = function()
             ["c"] = { ":Telescope git_commits<CR>", "commits" },
             ["C"] = { ":Telescope git_bcommits<CR>", "buffer-commits" },
             ["d"] = { ":Telescope git_files<CR>", "git-files" },
-            ["f"] = { ":Telescope find_files<CR>", "files" },
+            ["f"] = { ":FzfLua files<CR>", "files" },
             ["F"] = { ":Telescope filetypes<CR>", "file-types" },
             ["g"] = { ":Telescope git_status<CR>", "modified-git-files" },
             ["h"] = { ":Telescope howdoi<CR>", "howdoi" },
@@ -381,7 +381,7 @@ M.config = function()
             ["s"] = { ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
             ["S"] = { ":Telescope colorscheme<CR>", "color-schemes" },
             ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
-            ["p"] = { ":Telescope live_grep<CR>", "live-grep" },
+            ["p"] = { ":FzfLua live_grep<CR>", "live-grep" },
             ["P"] = { ":Telescope live_grep_args<CR>", "live-grep-args" },
             ["r"] = { ":Telescope resume<CR>", "resume-search" },
             ["R"] = { ":Telescope reloader<CR>", "reloaders" },
