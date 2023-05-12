@@ -1,7 +1,7 @@
 local fmt = string.format
 
 local function get_server_options(name)
-    return require(fmt("lk.plugins.lsp.servers.%s", name))
+    return require(fmt("plugins.lsp.servers.%s", name))
 end
 
 local clangd = get_server_options("clangd")

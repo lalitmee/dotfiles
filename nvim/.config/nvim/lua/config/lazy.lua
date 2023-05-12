@@ -13,7 +13,7 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 -- load lazy
-require("lazy").setup("lk.plugins", {
+require("lazy").setup("plugins", {
     defaults = {
         lazy = true,
     },

@@ -4,7 +4,11 @@ local fmt = string.format
 ----------------------------------------------------------------------
 -- NOTE: buffer commands {{{
 ----------------------------------------------------------------------
-command("Todo", [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]], {})
+command(
+    "Todo",
+    [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]],
+    {}
+)
 -- }}}
 ----------------------------------------------------------------------
 
@@ -16,11 +20,11 @@ command("TelescopeNotifyHistory", function()
 end, {})
 
 command("ReloadConfigTelescope", function()
-    require("lk/utils/reload").reload()
+    require("utils/reload").reload()
 end, {})
 
 command("ReloadModule", function(args)
-    require("lk/utils/reload").reload_module(args)
+    require("utils/reload").reload_module(args)
 end, {})
 
 -- }}}
@@ -30,7 +34,7 @@ end, {})
 -- NOTE: config commands {{{
 ----------------------------------------------------------------------
 command("ReloadConfig", function()
-    require("lk/utils/reload").reload_config()
+    require("utils/reload").reload_config()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -107,7 +111,7 @@ end, { nargs = "?", complete = "help" })
 -- NOTE: compile {{{
 ----------------------------------------------------------------------
 command("CompileAndRun", function()
-    require("lk/utils/compiler").compile_and_run()
+    require("utils/compiler").compile_and_run()
 end, {})
 
 -- }}}

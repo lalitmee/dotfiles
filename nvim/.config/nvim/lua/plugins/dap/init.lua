@@ -307,7 +307,7 @@ M.config = function()
     -- }}}
     ----------------------------------------------------------------------
 
-    require("lk.plugins.dap.typescript")
+    require("plugins.dap.typescript")
 end
 
 return M

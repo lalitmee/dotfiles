@@ -6,7 +6,7 @@ local map_opts = { noremap = false, silent = true }
 ----------------------------------------------------------------------
 -- NOTE: servers config {{{
 ----------------------------------------------------------------------
-local autocmds = require("lk.plugins.lsp.autocmds")
+local autocmds = require("plugins.lsp.autocmds")
 -- }}}
 ----------------------------------------------------------------------
 

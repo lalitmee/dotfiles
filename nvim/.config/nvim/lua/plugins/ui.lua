@@ -1,6 +1,58 @@
 local api = vim.api
 local border, L = lk.style.border.rounded, vim.log.levels
 
+local dressing = {
+    "stevearc/dressing.nvim",
+    event = { "VeryLazy" },
+    init = function()
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.select = function(...)
+            require("lazy").load({ plugins = { "dressing.nvim" } })
+            return vim.ui.select(...)
+        end
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.input = function(...)
+            require("lazy").load({ plugins = { "dressing.nvim" } })
+            return vim.ui.input(...)
+        end
+    end,
+    config = function()
+        -- NOTE: the limit is half the max lines because this is the cursor theme so
+        -- unless the cursor is at the top or bottom it realistically most often will
+        -- only have half the screen available
+        local function get_height(self, _, max_lines)
+            local results = #self.finder.results
+            local PADDING = 4 -- this represents the size of the telescope window
+            local LIMIT = math.floor(max_lines / 2)
+            return (results <= (LIMIT - PADDING) and results + PADDING or LIMIT)
+        end
+
+        require("dressing").setup({
+            input = {
+                insert_only = false,
+                win_options = { winblend = 0 },
+            },
+            select = {
+                winblend = 0,
+                get_config = function(opts)
+                    -- center the picker for treesitter prompts
+                    if opts.kind == "codeaction" then
+                        return {
+                            backend = "telescope",
+                            telescope = require("telescope.themes").get_cursor({
+                                layout_config = { height = get_height },
+                            }),
+                        }
+                    end
+                end,
+                telescope = require("telescope.themes").get_dropdown({
+                    layout_config = { height = get_height },
+                }),
+            },
+        })
+    end,
+}
+
 local noice = {
     "folke/noice.nvim",
     event = { "VeryLazy" },
@@ -285,6 +337,7 @@ local devicons = {
 
 return {
     devicons,
+    dressing,
     noice,
     nvim_notify,
     smartcolumn,
