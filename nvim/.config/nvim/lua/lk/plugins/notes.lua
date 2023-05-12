@@ -209,8 +209,16 @@ local mind_nvim = {
     end,
 }
 
+local flote = {
+    "JellyApple102/flote.nvim",
+    cmd = { "Flote" },
+    config = true,
+    enabled = false,
+}
+
 return {
-    orgmode,
+    flote,
     mind_nvim,
     neorg,
+    orgmode,
 }
