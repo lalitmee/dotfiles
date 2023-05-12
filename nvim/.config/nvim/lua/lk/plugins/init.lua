@@ -76,24 +76,6 @@ return {
     --  NOTE: ThePrimeagen {{{
     ---------------------------------------------------------------------------
     {
-        "ThePrimeagen/git-worktree.nvim",
-        keys = {
-            {
-                "<leader>ga",
-                "<cmd>Telescope git_worktree create_git_worktree<cr>",
-                desc = "create-git-worktree",
-            },
-            {
-                "<leader>gl",
-                "<cmd>Telescope git_worktree git_worktrees<cr>",
-                desc = "list-worktrees",
-            },
-        },
-        config = function()
-            require("telescope").load_extension("git_worktree")
-        end,
-    },
-    {
         "ThePrimeagen/vim-be-good",
         cmd = { "VimBeGood" },
     },
