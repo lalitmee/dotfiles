@@ -1,6 +1,6 @@
 local M = {
     "ahmedkhalf/project.nvim",
-    key = { "<leader>pp" },
+    keys = { "<leader>pp" },
     dependencies = {
         "nvim-telescope/telescope.nvim",
     },
