@@ -15,7 +15,7 @@ return {
     {
         "NMAC427/guess-indent.nvim",
         event = { "VeryLazy" },
-        opts = {},
+        config = true,
     },
     {
         "wakatime/vim-wakatime",
