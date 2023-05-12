@@ -461,6 +461,32 @@ local gh_nvim = {
     end,
 }
 
+local worktrees = {
+    "ThePrimeagen/git-worktree.nvim",
+    keys = {
+        "<leader>gwa",
+        "<leader>gwl",
+    },
+    init = function()
+        require("telescope").load_extension("git_worktree")
+
+        local wk = require("which-key")
+        wk.register({
+            ["w"] = {
+                ["name"] = "+worktree",
+                ["a"] = {
+                    ":Telescope git_worktree create_git_worktree<CR>",
+                    "create-worktree",
+                },
+                ["l"] = {
+                    ":Telescope git_worktree git_worktrees<CR>",
+                    "list-worktrees",
+                },
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
+
 return {
     advanced_git_search,
     fugitive,
@@ -469,4 +495,5 @@ return {
     igs,
     neogit,
     octo,
+    worktrees,
 }
