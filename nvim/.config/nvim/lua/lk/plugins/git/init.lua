@@ -489,6 +489,28 @@ local worktrees = {
     end,
 }
 
+local diffview = {
+    "sindrets/diffview.nvim",
+    cmd = {
+        "DiffviewOpen",
+        "DiffviewFileHistory",
+        "DiffviewLog",
+    },
+    config = function()
+        require("diffview").setup({
+            enhanced_diff_hl = true,
+            key_bindings = {
+                file_panel = {
+                    q = "<Cmd>DiffviewClose<CR>",
+                },
+                view = {
+                    q = "<Cmd>DiffviewClose<CR>",
+                },
+            },
+        })
+    end,
+}
+
 return {
     advanced_git_search,
     fugitive,
@@ -498,4 +520,5 @@ return {
     neogit,
     octo,
     worktrees,
+    diffview,
 }
