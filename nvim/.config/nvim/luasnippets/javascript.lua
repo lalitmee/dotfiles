@@ -15,8 +15,14 @@ local snippets = {
 
     s({ trig = "body", name = "body tag" }, fmt("<body>{}</body>", { i(1) })),
     s({ trig = "head", name = "head tag" }, fmt("<head>{}</head>", { i(1) })),
-    s({ trig = "article", name = "article tag" }, fmt("<article>{}</article>", { i(1) })),
-    s({ trig = "section", name = "section tag" }, fmt("<section>{}</section>", { i(1) })),
+    s(
+        { trig = "article", name = "article tag" },
+        fmt("<article>{}</article>", { i(1) })
+    ),
+    s(
+        { trig = "section", name = "section tag" },
+        fmt("<section>{}</section>", { i(1) })
+    ),
     s({ trig = "nav", name = "nav tag" }, fmt("<nav>{}</nav>", { i(1) })),
     s({ trig = "h1", name = "h1 tag" }, fmt("<h1>{}</h1>", { i(1) })),
     s({ trig = "h2", name = "h2 tag" }, fmt("<h2>{}</h2>", { i(1) })),
@@ -27,8 +33,14 @@ local snippets = {
     s({ trig = "div", name = "div tag" }, fmt("<div>{}</div>", { i(1) })),
     s({ trig = "p", name = "p tag" }, fmt("<p>{}</p>", { i(1) })),
     s({ trig = "b", name = "b tag" }, fmt("<b>{}</b>", { i(1) })),
-    s({ trig = "strong", name = "strong tag" }, fmt("<strong>{}</strong>", { i(1) })),
-    s({ trig = "img", name = "img tag" }, fmt([[<img src="{}" alt="{}" />]], { i(1, "image"), i(2, "alt-value") })),
+    s(
+        { trig = "strong", name = "strong tag" },
+        fmt("<strong>{}</strong>", { i(1) })
+    ),
+    s(
+        { trig = "img", name = "img tag" },
+        fmt([[<img src="{}" alt="{}" />]], { i(1, "image"), i(2, "alt-value") })
+    ),
     s({ trig = "br", name = "br tag" }, t("<br />")),
     s({ trig = "hr", name = "br tag" }, t("<hr />")),
 
@@ -138,6 +150,10 @@ local snippets = {
                 i(2, "initalState"),
             }
         )
+    ),
+    s(
+        { trig = "ftodo", name = "todo for removing FF" },
+        t("// TODO: removing this while removing FF")
     ),
 }
 

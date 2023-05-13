@@ -33,6 +33,24 @@ local nvim_ufo = {
         end, { desc = "preview fold" })
 
         ufo.setup({
+            fold_virt_text_handler = function(virt_text, lnum, end_lnum, width)
+                local suffix = " {...} ┣━━"
+                local lines = ("┫ %d lines ┣━━"):format(end_lnum - lnum)
+
+                local cur_width = 0
+                for _, section in ipairs(virt_text) do
+                    cur_width = cur_width + vim.fn.strdisplaywidth(section[1])
+                end
+
+                suffix = suffix
+                    .. ("━"):rep(
+                        width - cur_width - vim.fn.strdisplaywidth(lines) - 10
+                    )
+
+                table.insert(virt_text, { suffix, "Normal" })
+                table.insert(virt_text, { lines, "Normal" })
+                return virt_text
+            end,
             close_fold_kinds = { "imports" },
             open_fold_hl_timeout = 0,
             provider_selector = function()
@@ -45,30 +63,29 @@ local nvim_ufo = {
 local pretty_folds = {
     "anuvyklack/pretty-fold.nvim",
     event = { "BufReadPost" },
-    config = function()
-        require("pretty-fold").setup({
-            keep_indentation = false,
-            fill_char = "━",
-            sections = {
-                left = {
-                    "━ ",
-                    function()
-                        return string.rep("*", vim.v.foldlevel)
-                    end,
-                    " ━┫",
-                    "content",
-                    "┣",
-                },
-                right = {
-                    "┫ ",
-                    "number_of_folded_lines",
-                    ": ",
-                    "percentage",
-                    " ┣━━",
-                },
+    opts = {
+        keep_indentation = false,
+        fill_char = "━",
+        sections = {
+            left = {
+                "━ ",
+                function()
+                    return string.rep("*", vim.v.foldlevel)
+                end,
+                " ━┫",
+                "content",
+                "┣",
             },
-        })
-    end,
+            right = {
+                "┫ ",
+                "number_of_folded_lines",
+                ": ",
+                "percentage",
+                " ┣━━",
+            },
+        },
+    },
+    enabled = false,
 }
 
 local fold_cycle = {

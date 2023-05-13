@@ -2,11 +2,15 @@ local M = {
     "rcarriga/nvim-dap-ui",
     cmd = { "DapToggleBreakpoint" },
     dependencies = {
+        { "jay-babu/mason-nvim-dap.nvim" },
         { "jbyuki/one-small-step-for-vimkind" },
         { "mfussenegger/nvim-dap" },
-        { "mxsdev/nvim-dap-vscode-js" },
-        { "theHamsta/nvim-dap-virtual-text" },
+        {
+            "mxsdev/nvim-dap-vscode-js",
+            build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+        },
         { "nvim-telescope/telescope-dap.nvim" },
+        { "theHamsta/nvim-dap-virtual-text" },
     },
 }
 
@@ -14,6 +18,22 @@ M.config = function()
     local dap = require("dap")
     local dapui = require("dapui")
     require("telescope").load_extension("dap")
+
+    require("dap-vscode-js").setup({
+        -- node_path = "node",
+        -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug",
+        -- debugger_cmd = { "js-debug-adapter" },
+        adapters = {
+            "pwa-node",
+            "pwa-chrome",
+            "pwa-msedge",
+            "node-terminal",
+            "pwa-extensionHost",
+        }, -- which adapters to register in nvim-dap
+        -- log_file_path = "(stdpath cache)/dap_vscode_js.log"
+        -- log_file_level = false
+        -- log_console_level = vim.log.levels.ERROR
+    })
 
     ----------------------------------------------------------------------
     -- NOTE: dap ui setup {{{
@@ -89,11 +109,16 @@ M.config = function()
     ----------------------------------------------------------------------
     local icons = lk.style.icons
 
+    vim.fn.sign_define("DapBreakpoint", {
+        text = icons.ui.Bug,
+        texthl = "DiagnosticSignError",
+        linehl = "",
+        numhl = "",
+    })
     vim.fn.sign_define(
-        "DapBreakpoint",
-        { text = icons.ui.Bug, texthl = "DiagnosticSignError", linehl = "", numhl = "" }
+        "DapBreakpointCondition",
+        { text = "ü", texthl = "", linehl = "", numhl = "" }
     )
-    vim.fn.sign_define("DapBreakpointCondition", { text = "ü", texthl = "", linehl = "", numhl = "" })
     vim.fn.sign_define("DapStopped", { text = "ඞ", texthl = "Error" })
     -- }}}
     ----------------------------------------------------------------------
@@ -308,8 +333,7 @@ M.config = function()
     ----------------------------------------------------------------------
 
     require("plugins.dap.typescript")
+    require("mason-nvim-dap").setup()
 end
 
 return M
-
--- vim:foldmethod=marker
