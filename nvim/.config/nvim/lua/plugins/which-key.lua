@@ -340,9 +340,10 @@ M.config = function()
         },
         ["s"] = {
             ["name"] = "+search-and-replace",
-            ["s"] = { ":SpectreOpen<CR>", "spectre-open" },
-            ["f"] = { ":SpectreCurFileSearch<CR>", "spectre-file-search" },
-            ["w"] = { ":SpectreCurWord<CR>", "spectre-current-word-search" },
+            ["s"] = { ":SpectreOpen<CR>", "open" },
+            ["f"] = { ":SpectreCurFileSearch<CR>", "file-search" },
+            ["r"] = { ":FzfLua resume<CR>", "live-grep-resume" },
+            ["w"] = { ":SpectreCurWord<CR>", "current-word-search" },
         },
         ["S"] = {
             ["name"] = "+system",
