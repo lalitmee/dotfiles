@@ -323,6 +323,7 @@ local smartcolumn = {
             "help",
         },
     },
+    enabled = false,
 }
 
 local devicons = {

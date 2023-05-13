@@ -1,5 +1,7 @@
 local command, augroup = lk.command, lk.augroup
 
+-- local Job = require("plenary.job")
+
 local neogit = {
     "TimUntersberger/neogit",
     cmd = { "Neogit" },
@@ -467,8 +469,41 @@ local worktrees = {
         "<leader>gwa",
         "<leader>gwl",
     },
+    -- cmd = {
+    --     "CreateWorktree",
+    -- },
     init = function()
         require("telescope").load_extension("git_worktree")
+
+        -- lk.command("CreateWorktree", function(args)
+        --     local path = args["fargs"][1]
+        --     local branch = args["fargs"][2]
+        --     local from = args["fargs"][3]
+        --     require("git-worktree").create_worktree(path, branch, from)
+        -- end, {
+        --     nargs = "*",
+        --     complete = function(_, line)
+        --         local l = vim.split(line, "%s+")
+        --         print("DEBUGPRINT[3]: init.lua:486: line=" .. vim.inspect(line))
+        --         print("DEBUGPRINT[2]: init.lua:486: l=" .. vim.inspect(l))
+        --         local n = #l - 3
+        --         print("DEBUGPRINT[1]: init.lua:487: n=" .. vim.inspect(n))
+        --         if n == 3 then
+        --             local stdout, _ = Job
+        --                 :new({
+        --                     command = "git",
+        --                     args = { "branch", "--format", "%(refname:short)" },
+        --                     cwd = vim.fn.getcwd(),
+        --                 })
+        --                 :sync()
+        --             local branches = {}
+        --             for _, branch in ipairs(stdout) do
+        --                 table.insert(branches, branch)
+        --             end
+        --             return branches
+        --         end
+        --     end,
+        -- })
 
         local wk = require("which-key")
         wk.register({
