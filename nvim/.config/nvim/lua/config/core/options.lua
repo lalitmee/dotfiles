@@ -129,15 +129,14 @@ opt.fillchars = {
     foldclose = "",
     foldopen = "",
     foldsep = " ",
-    horiz = "━",
-    horizdown = "┳",
-    horizup = "┻",
     msgsep = "‾",
-    -- vert = "┃",
-    vert = "▕", -- alternatives │
-    verthoriz = "╋",
-    vertleft = "┫",
-    vertright = "┣",
+    vert = "│", -- alternatives ▕ ┃
+    horiz = "─", -- ━
+    verthoriz = "┼", -- ╋
+    vertleft = "┤", -- ┫
+    vertright = "├", -- ┣
+    horizdown = "┬", -- ┳
+    horizup = "┴", -- ┻
 }
 -- }}}
 ----------------------------------------------------------------------
