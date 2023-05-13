@@ -55,6 +55,11 @@ local spectre = {
                     options = { "ignore-case", "hidden", "line-number" },
                 },
             },
+            highlight = {
+                ui = "String",
+                search = "DiffDelete",
+                replace = "DiffChange",
+            },
         })
 
         ----------------------------------------------------------------------
