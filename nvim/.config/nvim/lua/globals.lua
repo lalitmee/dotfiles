@@ -745,5 +745,3 @@ function lk.falsy(item)
     end
     return item ~= nil
 end
-
--- vim:foldmethod=marker

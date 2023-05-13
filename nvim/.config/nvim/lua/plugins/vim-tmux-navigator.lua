@@ -5,7 +5,6 @@ return {
         "<C-j>",
         "<C-k>",
         "<C-l>",
-        "<C-/>",
     },
     cmd = {
         "TmuxNavigateLeft",
