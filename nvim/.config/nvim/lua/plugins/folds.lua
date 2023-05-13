@@ -97,6 +97,7 @@ local fold_cycle = {
             require("fold-cycle").open()
         end)
     end,
+    enabled = false,
 }
 
 return {

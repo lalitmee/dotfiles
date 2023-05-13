@@ -5,4 +5,5 @@ return {
         require("telescope").load_extension("macros")
     end,
     opts = {},
+    enabled = false,
 }

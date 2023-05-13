@@ -23,25 +23,8 @@ local M = {
             end,
         },
         {
-            "zane-/howdoi.nvim",
-            init = function()
-                require("telescope").load_extension("howdoi")
-            end,
-        },
-        {
-            "nvim-telescope/telescope-github.nvim",
-            init = function()
-                require("telescope").load_extension("gh")
-            end,
-        },
-        {
-            "nvim-telescope/telescope-live-grep-args.nvim",
-            init = function()
-                require("telescope").load_extension("live_grep_args")
-            end,
-        },
-        {
             "debugloop/telescope-undo.nvim",
+            keys = { "<leader>uu" },
             init = function()
                 require("telescope").load_extension("undo")
             end,
@@ -57,9 +40,11 @@ local M = {
             init = function()
                 require("telescope").load_extension("tailiscope")
             end,
+            enabled = false,
         },
         {
             "danielfalk/smart-open.nvim",
+            keys = { "<leader>pl" },
             init = function()
                 require("telescope").load_extension("smart_open")
             end,
@@ -67,14 +52,9 @@ local M = {
         },
         {
             "tsakirist/telescope-lazy.nvim",
+            keys = { "<leader>np" },
             init = function()
                 require("telescope").load_extension("lazy")
-            end,
-        },
-        {
-            "LukasPietzschmann/telescope-tabs",
-            init = function()
-                require("telescope-tabs").setup()
             end,
         },
     },
@@ -96,7 +76,6 @@ M.config = function()
     end
     reloader()
 
-    local builtin = require("telescope.builtin")
     local actions = require("telescope.actions")
     local action_utils = require("telescope.actions.utils")
     local action_layout = require("telescope.actions.layout")
@@ -128,7 +107,7 @@ M.config = function()
     end
 
     --------------------------------------------------------------------------------
-    --  NOTE: action to open entried in the results {{{
+    --  NOTE: action to open entried in the results
     --------------------------------------------------------------------------------
     local open_entries = function(prompt_bufnr)
         local bufs = vim.tbl_map(function(b)
@@ -151,11 +130,9 @@ M.config = function()
             end
         end
     end
-    -- }}}
-    --------------------------------------------------------------------------------
 
     --------------------------------------------------------------------------------
-    --  NOTE: maker for buffers list {{{
+    --  NOTE: maker for buffers list
     --------------------------------------------------------------------------------
     local Job = require("plenary.job")
     local new_maker = function(filepath, bufnr, opts)
@@ -195,7 +172,7 @@ M.config = function()
     --------------------------------------------------------------------------------
 
     ----------------------------------------------------------------------
-    -- NOTE: setup {{{
+    -- NOTE: setup
     ----------------------------------------------------------------------
     telescope.setup({
         defaults = {
@@ -346,9 +323,8 @@ M.config = function()
             reloader = dropdown({}),
         },
         extensions = {
-            howdoi = {
-                num_answers = 3,
-                explain_answer = true,
+            undo = {
+                side_by_side = false,
             },
             ["ui-select"] = {
                 require("telescope.themes").get_dropdown({}),
@@ -380,217 +356,10 @@ M.config = function()
             lazy = {},
         },
     })
-    -- }}}
-    ----------------------------------------------------------------------
 
-    ----------------------------------------------------------------------
-    -- NOTE: load extensions {{{
-    ----------------------------------------------------------------------
-    -- projects extension
-
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: custom commands {{{
-    ----------------------------------------------------------------------
-    local command = lk.command
-
-    command("TelescopeEditNeovim", function()
-        builtin.find_files({
-            prompt_title = "~ neovim ~",
-            cwd = "~/.config/nvim",
-
-            layout_strategy = "horizontal",
-            layout_defaults = {
-                horizontal = {
-                    width_padding = 0.11,
-                    height_padding = 0.13,
-                    preview_width = 0.56,
-                },
-                vertical = {
-                    width_padding = 0.4,
-                    height_padding = 0.8,
-                    preview_height = 0.5,
-                },
-            },
-        })
-    end, {})
-
-    command("TelescopeEditDotfiles", function()
-        builtin.find_files({
-            prompt_title = "~ dotfiles ~",
-            hidden = true,
-            cwd = "~/dotfiles",
-
-            layout_strategy = "horizontal",
-            layout_defaults = {
-                horizontal = {
-                    width_padding = 0.11,
-                    height_padding = 0.13,
-                    preview_width = 0.56,
-                },
-                vertical = {
-                    width_padding = 0.4,
-                    height_padding = 0.8,
-                    preview_height = 0.5,
-                },
-            },
-        })
-    end, {})
-
-    command("TelescopeFuzzyLiveGrep", function()
-        vim.g.grep_string_mode = true
-        vim.ui.input({
-            prompt = "Grep string",
-            default = vim.fn.expand("<cword>"),
-        }, function(value)
-            if value ~= nil then
-                require("telescope.builtin").grep_string({ search = value })
-            end
-            vim.g.grep_string_mode = false
-        end)
-    end, {})
-
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: mappings {{{
-    ----------------------------------------------------------------------
-    lk.cmap(
-        "<c-r><c-r>",
-        "<Plug>(TelescopeFuzzyCommandSearch)",
-        { noremap = false, nowait = true }
-    )
-    -- }}}
-    ----------------------------------------------------------------------
-
-    ----------------------------------------------------------------------
-    -- NOTE: autocmds {{{
-    ----------------------------------------------------------------------
-    lk.augroup("telescope_au", {
-        {
-            event = { "Filetype" },
-            pattern = { "TelescopeResults" },
-            command = function()
-                vim.cmd([[setlocal notfoldenable]])
-            end,
-        },
-        {
-            event = { "User" },
-            pattern = { "TelescopePreviewerLoaded" },
-            command = function()
-                vim.cmd([[setlocal wrap]])
-            end,
-        },
-    })
-    -- }}}
-    ----------------------------------------------------------------------
-
-    --------------------------------------------------------------------------------
-    --  NOTE: wallpaper selector {{{
-    --------------------------------------------------------------------------------
-    local function set_background(content)
-        print(content)
-        vim.fn.system("feh --bg-scale " .. content)
-    end
-
-    local function select_background(prompt_bufnr, map)
-        local function set_the_background(close)
-            local content =
-                require("telescope.actions.state").get_selected_entry(
-                    prompt_bufnr
-                )
-            set_background(content.cwd .. "/" .. content.value)
-            if close then
-                require("telescope.actions").close(prompt_bufnr)
-            end
-        end
-
-        map("i", "<C-n>", function()
-            actions.move_selection_next(prompt_bufnr)
-            set_the_background()
-        end)
-
-        map("i", "<C-p>", function()
-            actions.move_selection_previous(prompt_bufnr)
-            set_the_background()
-        end)
-
-        map("i", "<CR>", function()
-            set_the_background(true)
-        end)
-    end
-
-    local function image_selector(prompt, cwd)
-        return function()
-            require("telescope.builtin").find_files({
-                prompt_title = prompt,
-                cwd = cwd,
-
-                attach_mappings = function(prompt_bufnr, map)
-                    select_background(prompt_bufnr, map)
-                    -- Please continue mapping (attaching additional key maps):
-                    -- Ctrl+n/p to move up and down the list.
-                    return true
-                end,
-            })
-        end
-    end
-
-    local set_wallpaper =
-        image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
-
-    lk.command("SetWallpaper", function()
-        set_wallpaper()
-    end, {})
-    -- }}}
-    --------------------------------------------------------------------------------
-
-    --------------------------------------------------------------------------------
-    --  NOTE: git hunks {{{
-    --------------------------------------------------------------------------------
-    local git_hunks = function()
-        require("telescope.pickers")
-            .new({
-                finder = require("telescope.finders").new_oneshot_job(
-                    { "git-jump", "diff" },
-                    {
-                        entry_maker = function(line)
-                            local filename, lnum_string =
-                                line:match("([^:]+):(%d+).*")
-
-                            -- I couldn't find a way to use grep in new_oneshot_job so we have to filter here.
-                            -- return nil if filename is /dev/null because this means the file was deleted.
-                            if filename:match("^/dev/null") then
-                                return nil
-                            end
-
-                            return {
-                                value = filename,
-                                display = line,
-                                ordinal = line,
-                                filename = filename,
-                                lnum = tonumber(lnum_string),
-                            }
-                        end,
-                    }
-                ),
-                sorter = require("telescope.sorters").get_generic_fuzzy_sorter(),
-                previewer = require("telescope.config").values.grep_previewer({}),
-                results_title = "Git hunks",
-                prompt_title = "Git hunks",
-                layout_strategy = "flex",
-            }, {})
-            :find()
-    end
-
-    lk.command("GitHunks", git_hunks, {})
-    -- }}}
-    --------------------------------------------------------------------------------
+    require("plugins.telescope.autocmds")
+    require("plugins.telescope.commands")
+    require("plugins.telescope.mappings")
 end
 
 return M
-
--- vim:foldmethod=marker

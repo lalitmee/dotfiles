@@ -337,6 +337,14 @@ local virt_column = {
     event = { "VeryLazy" },
 }
 
+local status_column = {
+    "luukvbaal/statuscol.nvim",
+    event = { "VeryLazy" },
+    config = function()
+        require("statuscol").setup()
+    end,
+}
+
 local devicons = {
     "yamatsum/nvim-nonicons",
     dependencies = { "kyazdani42/nvim-web-devicons" },
@@ -354,5 +362,6 @@ return {
     noice,
     nvim_notify,
     smart_column,
+    status_column,
     virt_column,
 }
