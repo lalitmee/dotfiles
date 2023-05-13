@@ -27,10 +27,6 @@ local lualine = {
             sections = {
                 lualine_a = {
                     {
-                        require("NeoComposer.ui").status_recording,
-                        color = "lualine_b_normal",
-                    },
-                    {
                         "searchcount",
                         color = "lualine_b_normal",
                     },
@@ -85,7 +81,6 @@ local lualine = {
                     },
                 },
                 lualine_x = {
-                    { "overseer" },
                     { get_active_lsp_clients },
                     { get_trailing_whitespace },
                 },
@@ -94,11 +89,6 @@ local lualine = {
                 },
                 lualine_z = {
                     { "location", color = { gui = "bold" } },
-                    {
-                        require("lazy.status").updates,
-                        cond = require("lazy.status").has_updates,
-                        color = "lualine_b_normal",
-                    },
                 },
             },
             extensions = {

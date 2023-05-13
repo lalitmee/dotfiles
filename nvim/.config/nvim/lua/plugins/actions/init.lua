@@ -27,11 +27,14 @@ return {
         opts = {},
     },
     {
-        "mbbill/undotree",
-        cmd = { "UndotreeToggle" },
-    },
-    {
         "mizlan/iswap.nvim",
         cmd = { "ISwapWith", "ISwap" },
+    },
+    {
+        "kevinhwang91/nvim-fundo",
+        dependencies = { "kevinhwang91/promise-async" },
+        build = function()
+            require("fundo").install()
+        end,
     },
 }

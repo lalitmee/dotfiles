@@ -51,6 +51,7 @@ M.config = function()
             ["D"] = { ":SessionDelete<CR>", "delete-current-session" },
             ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
             ["l"] = { ":Autosession search<CR>", "search-sessions" },
+            ["m"] = { ":Telescope messages messages<CR>", "search-messages" },
             ["n"] = { ":Notifications<CR>", "notifications" },
             ["p"] = { ":MarkdownPreview<CR>", "markdown-preview" },
             ["t"] = { ":StartupTime<CR>", "run-startup-time" },
@@ -123,10 +124,6 @@ M.config = function()
         },
         ["e"] = {
             ["name"] = "+errors",
-            ["b"] = {
-                ":TroubleToggle document_diagnostics<CR>",
-                "buffer-diagnostics-quickfix",
-            },
             ["d"] = { ":LspDiagnosticDisable<CR>", "disable-diagnostic" },
             ["e"] = { ":LspDiagnosticEnable<CR>", "enable-diagnostic" },
             ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnostics" },
@@ -136,10 +133,6 @@ M.config = function()
             ["v"] = {
                 ":ShowLineDiagnosticInFlot<CR>",
                 "diagnostic-float-preview",
-            },
-            ["w"] = {
-                ":TroubleToggle workspace_diagnostics<CR>",
-                "workspace-diagnostics-quickfix",
             },
         },
         ["f"] = {
@@ -198,6 +191,7 @@ M.config = function()
             --     ["name"] = "+hunks",
             -- },
             ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
+            ["n"] = { ":GitHunks<CR>", "git-hunks" },
             ["O"] = { ":BrowseRepo<CR>", "open-repo" },
             ["s"] = { ":Git<CR>", "git-status" },
             ["t"] = { ":Telescope git_stash<CR>", "git-stash" },
@@ -280,6 +274,7 @@ M.config = function()
         },
         ["p"] = {
             ["name"] = "+project",
+            ["/"] = { ":Telescope live_grep_args<CR>", "live-grep-args" },
             ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
             ["f"] = { ":FzfLua files<cr>", "find-files" },
             ["l"] = { ":Telescope smart_open<cr>", "smart-open-files" },
@@ -369,8 +364,7 @@ M.config = function()
             ["f"] = { ":FzfLua files<CR>", "files" },
             ["F"] = { ":Telescope filetypes<CR>", "file-types" },
             ["g"] = { ":Telescope git_status<CR>", "modified-git-files" },
-            ["h"] = { ":Telescope howdoi<CR>", "howdoi" },
-            ["H"] = { ":Telescope command_history<CR>", "command-history" },
+            ["h"] = { ":Telescope command_history<CR>", "command-history" },
             ["i"] = { ":Telescope luasnip<CR>", "snippets" },
             ["l"] = {
                 ":Telescope current_buffer_fuzzy_find<CR>",
@@ -394,8 +388,7 @@ M.config = function()
         },
         ["u"] = {
             ["name"] = "+undo",
-            ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
-            ["t"] = { ":Telescope undo<CR>", "telescope-undo" },
+            ["u"] = { ":Telescope undo<CR>", "telescope-undo" },
         },
         ["v"] = {
             ["name"] = "+vim",
@@ -517,7 +510,6 @@ M.config = function()
             ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
             ["l"] = { ":tablast<CR>", "last-tab" },
             ["n"] = { ":tabnext<CR>", "next-tab" },
-            ["o"] = { ":Telescope telescope-tabs list_tabs<CR>", "list-tabs" },
             ["p"] = { ":tabprevious<CR>", "previous-tab" },
             ["r"] = { ":TabRename<Space>", "rename-tab" },
         },

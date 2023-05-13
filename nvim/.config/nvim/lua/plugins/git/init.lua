@@ -406,15 +406,8 @@ local gh_nvim = {
         local wk = require("which-key")
         wk.register({
             ["g"] = {
-                ["H"] = {
+                ["a"] = {
                     ["name"] = "+gh.nvim",
-                    ["f"] = {
-                        ":Telescope gh pull_request_files<CR>",
-                        "gh-pr-files",
-                    },
-                    ["g"] = { ":Telescope gh gist<CR>", "gh-gist" },
-                    ["I"] = { ":Telescope gh issues<CR>", "gh-issues" },
-                    ["P"] = { ":Telescope gh pull_request<CR>", "gh-pr" },
                     ["c"] = {
                         ["name"] = "+Commits",
                         ["c"] = { "<cmd>GHCloseCommit<cr>", "Close" },

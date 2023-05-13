@@ -280,7 +280,6 @@ local function dap_menu()
 end
 
 local function lsp_menu()
-    local cmd = require("hydra.keymap-util").cmd
     return {
         name = "LSP Mode",
         mode = { "n" },
@@ -318,7 +317,7 @@ _;_/_q_/_<Esc>_: Exit Hydra
         heads = {
             {
                 "s",
-                cmd("TroubleToggle lsp_definitions"),
+                vim.lsp.buf.definition,
                 { desc = "Jump to Definition", silent = true },
             },
             {
@@ -328,7 +327,7 @@ _;_/_q_/_<Esc>_: Exit Hydra
             },
             {
                 "o",
-                cmd("TroubleToggle lsp_implementations"),
+                vim.lsp.buf.implementation,
                 { desc = "Show Implementations", silent = true },
             },
             {
@@ -338,7 +337,7 @@ _;_/_q_/_<Esc>_: Exit Hydra
             },
             {
                 "r",
-                cmd("TroubleToggle lsp_references"),
+                vim.lsp.buf.references,
                 { desc = "Show References", silent = true },
             },
             {
@@ -355,17 +354,17 @@ _;_/_q_/_<Esc>_: Exit Hydra
             },
             {
                 "d",
-                cmd("TroubleToggle document_diagnostics"),
+                vim.diagnostic.open_float,
                 { desc = "Show Diagnostics", silent = true },
             },
             {
                 "w",
-                cmd("TroubleToggle workspace_diagnostics"),
+                vim.diagnostic.show,
                 { desc = "Show Workspace Diagnostics", silent = true },
             },
             {
                 "D",
-                cmd("TroubleToggle lsp_definitions"),
+                vim.lsp.buf.definition,
                 { desc = "Show Type Definition", silent = true },
             },
             {
@@ -429,12 +428,12 @@ _q_: Open Quickfix              _l_: Open Loaction List        ^ ^
 
             {
                 "q",
-                cmd("TroubleToggle quickfix"),
+                cmd("Telescope quickfix"),
                 { desc = "Opens Quickfix", silent = true },
             },
             {
                 "l",
-                cmd("TroubleToggle loclist"),
+                cmd("Telescope loclist"),
                 { desc = "Opens Location List", silent = true },
             },
 
@@ -486,16 +485,8 @@ _q_/_<Esc>_: Exit Hydra
         heads = {
             { "j", "zj", { desc = "next fold" } },
             { "k", "zk", { desc = "previous fold" } },
-            {
-                "l",
-                require("fold-cycle").open_all,
-                { desc = "open folds underneath" },
-            },
-            {
-                "h",
-                require("fold-cycle").close_all,
-                { desc = "close folds underneath" },
-            },
+            { "l", "zr", { desc = "open folds underneath" } },
+            { "h", "zm", { desc = "close folds underneath" } },
             { "q", nil, { desc = "quit", exit = true, nowait = true } },
             { "<Esc>", nil, { desc = "quit", exit = true, nowait = true } },
         },
