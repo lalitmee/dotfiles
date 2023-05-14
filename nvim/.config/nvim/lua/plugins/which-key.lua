@@ -54,7 +54,6 @@ M.config = function()
             ["m"] = { ":Telescope messages messages<CR>", "search-messages" },
             ["n"] = { ":Notifications<CR>", "notifications" },
             ["p"] = { ":MarkdownPreview<CR>", "markdown-preview" },
-            ["t"] = { ":StartupTime<CR>", "run-startup-time" },
             ["s"] = { ":SessionSave<CR>", "save-session" },
             ["S"] = { ":SessionRestore<CR>", "restore-session" },
             ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
