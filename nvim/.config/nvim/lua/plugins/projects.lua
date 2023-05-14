@@ -36,6 +36,7 @@ local conduct_nvim = {
         "ConductProjectDeleteSession",
         "ConductProjectRenameSession",
     },
+    enabled = false,
 }
 
 local monorepo_nvim = {
