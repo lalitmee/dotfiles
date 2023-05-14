@@ -10,6 +10,7 @@ local project_nvim = {
     config = function()
         require("project_nvim").setup({
             detection_methods = { "pattern", "lsp" },
+            patterns = { ".git" },
             show_hidden = true,
             -- show the message on changing the directory
             silent_chdir = false,
