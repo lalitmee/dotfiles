@@ -99,7 +99,6 @@
   "smart-open.nvim": { "branch": "main", "commit": "f9d51ad69b0ab3a01b61d3d5176367e540407f6e" },
   "sniprun": { "branch": "master", "commit": "05676989e801ad72c69c14a186ae5a8a3390b055" },
   "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
-  "startuptime.vim": { "branch": "master", "commit": "dfa57f522d6f61793fe5fea65bca7484751b8ca2" },
   "statuscol.nvim": { "branch": "main", "commit": "7ee8d982331019fec3a90ec87b98d6b4405cacbe" },
   "tabby.nvim": { "branch": "main", "commit": "8bbd8b15c15b69057260170355b8e7adcca1c11a" },
   "tabular": { "branch": "master", "commit": "339091ac4dd1f17e225fe7d57b48aff55f99b23a" },
