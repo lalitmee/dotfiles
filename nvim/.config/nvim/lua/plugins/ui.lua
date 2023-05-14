@@ -343,6 +343,7 @@ local status_column = {
     config = function()
         require("statuscol").setup()
     end,
+    enabled = false,
 }
 
 local devicons = {
