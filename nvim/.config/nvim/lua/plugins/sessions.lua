@@ -3,6 +3,20 @@ local possession = {
     event = { "VimEnter" },
     init = function()
         require("telescope").load_extension("possession")
+        local wk = require("which-key")
+        wk.register({
+            ["x"] = {
+                ["name"] = "+possession",
+                ["c"] = { ":PossessionClose<CR>", "close" },
+                ["d"] = { ":PossessionDelete<CR>", "delete" },
+                ["l"] = { ":PossessionLoad<CR>", "load" },
+                ["m"] = { ":PossessionMigrate<CR>", "migrate" },
+                ["o"] = { ":Telescope possession list<CR>", "search" },
+                ["p"] = { ":PossessionShow<CR>", "show" },
+                ["r"] = { ":PossessionRename<Space>", "rename" },
+                ["s"] = { ":PossessionSave<Space>", "save" },
+            },
+        }, { mode = "n", prefix = "<leader>" })
     end,
     config = function()
         require("possession").setup({
@@ -20,6 +34,21 @@ local possession = {
 local auto_session = {
     "rmagatti/auto-session",
     event = { "VimEnter" },
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["a"] = {
+                ["d"] = {
+                    ":Autosession delete<CR>",
+                    "delete-session-telescope",
+                },
+                ["D"] = { ":SessionDelete<CR>", "delete-current-session" },
+                ["l"] = { ":Autosession search<CR>", "search-sessions" },
+                ["s"] = { ":SessionSave<CR>", "save-session" },
+                ["S"] = { ":SessionRestore<CR>", "restore-session" },
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
     config = function()
         local function save_tabby_tab_names()
             local cmds = {}
