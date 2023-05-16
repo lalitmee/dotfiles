@@ -91,18 +91,22 @@ local snippets = {
         { trig = "rfc", name = "react functional component" },
         fmt(
             [[
-      function {} ({}) {{
-        return (
-          {}
-        )
-      }}
+                import React from 'react'
 
-      export default {}
-      ]],
+                function {} ({}) {{
+                    return (
+                        <div>
+                            {}
+                        </div>
+                    )
+                }}
+
+                export default {}
+            ]],
             {
                 i(1, "Component"),
                 i(2, "props"),
-                i(3, "<div></div>"),
+                i(3, "children"),
                 same(1),
             }
         )

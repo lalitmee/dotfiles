@@ -22,7 +22,7 @@ return {
     marksman = true,
     rust_analyzer = rust_analyzer,
     lua_ls = lua_ls,
-    tailwindcss = true,
+    tailwindcss = false,
     taplo = true,
     tsserver = tsserver,
     vimls = true,
