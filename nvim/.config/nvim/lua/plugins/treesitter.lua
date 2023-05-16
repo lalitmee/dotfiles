@@ -23,6 +23,7 @@ local M = {
         {
             "mrjones2014/nvim-ts-rainbow",
             event = "BufReadPost",
+            enabled = false,
         },
         {
             "nvim-treesitter/playground",
