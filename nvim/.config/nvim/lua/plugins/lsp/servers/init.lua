@@ -8,7 +8,9 @@ local clangd = get_server_options("clangd")
 local gopls = get_server_options("gopls")
 local lua_ls = get_server_options("lua_ls")
 local rust_analyzer = get_server_options("rust_analyzer")
-local tsserver = get_server_options("tsserver")
+
+-- NOTE: not using this as this may be consuming more memory
+-- local tsserver = get_server_options("tsserver")
 
 return {
     bashls = true,
@@ -24,6 +26,6 @@ return {
     lua_ls = lua_ls,
     tailwindcss = false,
     taplo = true,
-    tsserver = tsserver,
+    tsserver = true,
     vimls = true,
 }

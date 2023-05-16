@@ -23,7 +23,12 @@ return {
     },
     {
         "kylechui/nvim-surround",
-        keys = { "ds", "ys" },
+        keys = {
+            "ds",
+            "ys",
+            "cs",
+            { "ys", mode = "v" },
+        },
         opts = {},
     },
     {
