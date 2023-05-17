@@ -28,7 +28,7 @@ local possession = {
             },
         })
     end,
-    -- enabled = false,
+    enabled = false,
 }
 
 local auto_session = {

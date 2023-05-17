@@ -1,4 +1,5 @@
-local command, augroup = lk.command, lk.augroup
+local augroup = lk.augroup
+local command = lk.command
 
 -- local Job = require("plenary.job")
 
@@ -65,6 +66,12 @@ local fugitive = {
 local advanced_git_search = {
     "aaronhallaert/advanced-git-search.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
+    keys = {
+        "<leader>gfc",
+        "<leader>gff",
+        "<leader>gfl",
+        "<leader>gfL",
+    },
     init = function()
         local wk = require("which-key")
         wk.register({
@@ -524,19 +531,13 @@ local diffview = {
         "DiffviewFileHistory",
         "DiffviewLog",
     },
-    config = function()
-        require("diffview").setup({
-            enhanced_diff_hl = true,
-            key_bindings = {
-                file_panel = {
-                    q = "<Cmd>DiffviewClose<CR>",
-                },
-                view = {
-                    q = "<Cmd>DiffviewClose<CR>",
-                },
-            },
-        })
-    end,
+    opts = {
+        enhanced_diff_hl = true,
+        key_bindings = {
+            file_panel = { q = "<Cmd>DiffviewClose<CR>" },
+            view = { q = "<Cmd>DiffviewClose<CR>" },
+        },
+    },
 }
 
 return {

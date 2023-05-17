@@ -12,10 +12,10 @@ local nvim_cmp = {
             "hrsh7th/cmp-nvim-lua",
             ft = { "lua" },
         },
-        -- {
-        --     "tzachar/cmp-tabnine",
-        --     build = "./install.sh",
-        -- },
+        {
+            "tzachar/cmp-tabnine",
+            build = "./install.sh",
+        },
         {
             "roobert/tailwindcss-colorizer-cmp.nvim",
             ft = {
@@ -51,10 +51,12 @@ local nvim_cmp = {
             completion = {
                 completeopt = "menu,menuone,noinsert",
             },
+
             window = {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
             },
+
             mapping = {
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-n>"] = cmp.mapping(
@@ -214,6 +216,7 @@ local codeium = {
             TelescopePrompt = false,
         }
     end,
+    enabled = false,
 }
 
 return {
