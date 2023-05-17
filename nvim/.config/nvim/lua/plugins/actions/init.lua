@@ -27,7 +27,6 @@ return {
             "ds",
             "ys",
             "cs",
-            { "ys", mode = "v" },
         },
         opts = {},
     },

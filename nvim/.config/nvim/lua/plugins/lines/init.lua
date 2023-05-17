@@ -99,6 +99,7 @@ local lualine = {
             },
         })
     end,
+    enabled = false,
 }
 local tabby = {
     "nanozuki/tabby.nvim",

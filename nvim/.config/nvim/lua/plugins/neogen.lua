@@ -52,13 +52,13 @@ return {
                 },
                 ["f"] = {
                     function()
-                        neogen.generate({ type = "class" })
+                        neogen.generate({ type = "func" })
                     end,
                     "doc-this-function",
                 },
                 ["t"] = {
                     function()
-                        neogen.generate({ type = "class" })
+                        neogen.generate({ type = "type" })
                     end,
                     "doc-this-type",
                 },
