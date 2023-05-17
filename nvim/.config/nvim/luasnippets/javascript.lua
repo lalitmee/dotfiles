@@ -162,27 +162,27 @@ local snippets = {
 }
 
 local autosnippets = {
-    s( -- for loop with dynamic variables
-        { trig = "for([%w_]+)", regTrig = true },
-        fmt(
-            [[
-          for({} = 1; {} <= {}; {}++) {{
-            {}
-          }}
-          {}
-        ]],
-            {
-                d(1, function(_, snip)
-                    return sn(1, i(1, snip.captures[1]))
-                end),
-                rep(1),
-                c(2, { i(1, "num"), sn(1, { i("arr"), t(".length") }) }),
-                rep(1),
-                i(3, "// TODO"),
-                i(4),
-            }
-        )
-    ),
+    -- s( -- for loop with dynamic variables
+    --     { trig = "for([%w_]+)", regTrig = true },
+    --     fmt(
+    --         [[
+    --       for({} = 1; {} <= {}; {}++) {{
+    --         {}
+    --       }}
+    --       {}
+    --     ]],
+    --         {
+    --             d(1, function(_, snip)
+    --                 return sn(1, i(1, snip.captures[1]))
+    --             end),
+    --             rep(1),
+    --             c(2, { i(1, "num"), sn(1, { i("arr"), t(".length") }) }),
+    --             rep(1),
+    --             i(3, "// TODO"),
+    --             i(4),
+    --         }
+    --     )
+    -- ),
 }
 
 return snippets, autosnippets
