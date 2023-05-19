@@ -15,6 +15,7 @@ local nvim_cmp = {
         {
             "tzachar/cmp-tabnine",
             build = "./install.sh",
+            enabled = false,
         },
         {
             "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -31,32 +32,19 @@ local nvim_cmp = {
         local cmp = require("cmp")
         local lspkind = require("lspkind")
         local luasnip = require("luasnip")
-        local neogen = require("neogen")
         local compare = require("cmp.config.compare")
 
         -- Don't show the dumb matching stuff.
         vim.opt.shortmess:append("c")
 
-        local has_words_before = function()
-            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0
-                and vim.api
-                        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-                        :sub(col, col)
-                        :match("%s")
-                    == nil
-        end
-
         cmp.setup({
             completion = {
                 completeopt = "menu,menuone,noinsert",
             },
-
             window = {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
             },
-
             mapping = {
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-n>"] = cmp.mapping(
@@ -91,40 +79,6 @@ local nvim_cmp = {
                         end
                     end,
                 }),
-                -- ["<C-j>"] = cmp.mapping(function(fallback)
-                --     -- if cmp.visible() then
-                --     --     cmp.select_next_item()
-                --     -- else
-                --     if luasnip.expand_or_jumpable() then
-                --         luasnip.expand_or_jump()
-                --     elseif neogen.jumpable() then
-                --         neogen.jump_next()
-                --     elseif has_words_before() then
-                --         cmp.complete()
-                --     else
-                --         fallback()
-                --     end
-                -- end, {
-                --     "i",
-                --     "s",
-                --     "c",
-                -- }),
-                -- ["<C-k>"] = cmp.mapping(function(fallback)
-                --     -- if cmp.visible() then
-                --     --     cmp.select_prev_item()
-                --     -- else
-                --     if luasnip.jumpable(-1) then
-                --         luasnip.jump(-1)
-                --     elseif neogen.jumpable(true) then
-                --         neogen.jump_prev()
-                --     else
-                --         fallback()
-                --     end
-                -- end, {
-                --     "i",
-                --     "s",
-                --     "c",
-                -- }),
             },
             sources = cmp.config.sources({
                 {
