@@ -34,6 +34,7 @@ local chatgpt_nvim = {
             },
         })
     end,
+    enabled = false,
 }
 
 local neoai = {
@@ -62,6 +63,7 @@ local neoai = {
     opts = {
         open_api_key_env = vim.env.OPEN_API_KEY,
     },
+    enabled = false,
 }
 
 local backseat = {
@@ -73,6 +75,7 @@ local backseat = {
         "BackseatClearLine",
     },
     config = true,
+    enabled = false,
 }
 
 return {
