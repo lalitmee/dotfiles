@@ -1,5 +1,4 @@
 local M = {}
-local map = lk.map
 
 local map_opts = { noremap = false, silent = true }
 
@@ -103,23 +102,27 @@ end
 -- NOTE: capabilities {{{
 ----------------------------------------------------------------------
 M.capabilities = function(client, bufnr)
-    if client.server_capabilities.semanticTokensProvider then
-        vim.lsp.semantic_tokens.stop(bufnr, client.id)
-    end
+    client.server_capabilities.semanticTokensProvider = nil
+    -- if client.name == "tsserver" then
+    --     client.server_capabilities.semanticTokensProvider = nil
+    -- elseif client.server_capabilities.semanticTokensProvider then
+    --     vim.lsp.semantic_tokens.stop(bufnr, client.id)
+    -- end
     client.server_capabilities.document_formatting = false
-    if client.server_capabilities.goto_definition == true then
-        vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-    end
+    -- if client.server_capabilities.goto_definition == true then
+    --     vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+    -- end
 
-    if client.server_capabilities.document_formatting == true then
-        vim.api.nvim_buf_set_option(
-            bufnr,
-            "formatexpr",
-            "v:lua.vim.lsp.formatexpr()"
-        )
-        -- Add this <leader> bound mapping so formatting the entire document is easier.
-        map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.format()<CR>", map_opts)
-    end
+    -- NOTE: using `formatter.nvim` to format
+    -- if client.server_capabilities.document_formatting == true then
+    --     vim.api.nvim_buf_set_option(
+    --         bufnr,
+    --         "formatexpr",
+    --         "v:lua.vim.lsp.formatexpr()"
+    --     )
+    --     -- Add this <leader> bound mapping so formatting the entire document is easier.
+    --     map("n", "<leader>gq", "<cmd>lua vim.lsp.buf.format()<CR>", map_opts)
+    -- end
 end
 -- }}}
 ----------------------------------------------------------------------
