@@ -104,13 +104,27 @@ local lsp = {
         ----------------------------------------------------------------------
         -- NOTE: capabilities {{{
         ----------------------------------------------------------------------
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(
-            vim.lsp.protocol.make_client_capabilities()
-        )
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport =
             true
+        capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
+        -- Completion configuration
+        vim.tbl_deep_extend(
+            "force",
+            capabilities,
+            require("cmp_nvim_lsp").default_capabilities()
+        )
+        capabilities.textDocument.completion.completionItem.insertReplaceSupport =
+            false
+
+        capabilities.textDocument.codeLens = { dynamicRegistration = false }
         capabilities.textDocument.completion.completionItem.resolveSupport = {
-            properties = { "documentation", "detail", "additionalTextEdits" },
+            properties = {
+                "documentation",
+                "detail",
+                "additionalTextEdits",
+            },
         }
         capabilities.textDocument.foldingRange = {
             dynamicRegistration = false,
@@ -152,7 +166,6 @@ local lsp = {
         end
 
         local function get_server_config(name)
-            local cmp_nvim_lsp = require("cmp_nvim_lsp")
             local conf = servers[name]
             local conf_type = type(conf)
             local config = conf_type == "table" and conf
@@ -160,7 +173,6 @@ local lsp = {
                 or {}
             config.flags = { debounce_text_changes = 500 }
             config.capabilities = capabilities or {}
-            cmp_nvim_lsp.default_capabilities(config.capabilities)
             config = vim.tbl_deep_extend("force", {
                 on_init = custom_init,
                 on_attach = lsp_utils.on_attach,
