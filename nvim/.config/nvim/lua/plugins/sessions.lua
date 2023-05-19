@@ -18,17 +18,15 @@ local possession = {
             },
         }, { mode = "n", prefix = "<leader>" })
     end,
-    config = function()
-        require("possession").setup({
-            silent = true,
-            autosave = {
-                current = true, -- or fun(name): boolean
-                on_load = true,
-                on_quit = true,
-            },
-        })
-    end,
-    enabled = false,
+    opts = {
+        silent = true,
+        autosave = {
+            current = true, -- or fun(name): boolean
+            on_load = true,
+            on_quit = true,
+        },
+    },
+    -- enabled = false,
 }
 
 local auto_session = {

@@ -1,4 +1,4 @@
-return {
+local vim_tmux_navigator = {
     "christoomey/vim-tmux-navigator",
     keys = {
         "<C-h>",
@@ -25,4 +25,30 @@ return {
             },
         }, { mode = "n", prefix = "<leader>" })
     end,
+    enabled = false,
+}
+
+local navigator = {
+    "numToStr/Navigator.nvim",
+    event = { "VeryLazy" },
+    opts = {
+        auto_save = "all",
+    },
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["w"] = {
+                ["h"] = { ":NavigatorLeft<CR>", "window-left" },
+                ["j"] = { ":NavigatorDown<CR>", "window-down" },
+                ["k"] = { ":NavigatorUp<CR>", "window-up" },
+                ["l"] = { ":NavigatorRight<CR>", "window-right" },
+                ["p"] = { ":NavigatorPrevious<CR>", "window-previous" },
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
+
+return {
+    vim_tmux_navigator,
+    navigator,
 }

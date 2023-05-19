@@ -41,4 +41,21 @@ return {
             require("fundo").install()
         end,
     },
+    {
+        "Pocco81/auto-save.nvim",
+        event = { "VeryLazy" },
+        cmd = { "ASToggle" },
+        opts = {
+            enabled = true,
+        },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["a"] = {
+                    ["s"] = { ":ASToggle<CR>", "toggle-auto-save" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
+        enabled = false,
+    },
 }
