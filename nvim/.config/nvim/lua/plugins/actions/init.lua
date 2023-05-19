@@ -1,3 +1,26 @@
+local genghis = {
+    "chrisgrieser/nvim-genghis",
+    dependencies = "stevearc/dressing.nvim",
+    init = function()
+        local genghis = require("genghis")
+        local wk = require("which-key")
+        wk.register({
+                --stylua: ignore
+                ["S"] = {
+                    ["a"] = { function() genghis.createNewFile() end, "create-file" },
+                    ["c"] = { function() genghis.duplicateFile() end, "duplicate-file" },
+                    ["d"] = { function() genghis.trashFile() end, "trash-file" },
+                    ["f"] = { function() genghis.copyFilepath() end, "copy-file-path" },
+                    ["m"] = { function() genghis.renameFile() end, "move-and-rename-file" },
+                    ["n"] = { function() genghis.copyFilename() end, "copy-file-name" },
+                    ["r"] = { function() genghis.renameFile() end, "rename-file" },
+                    ["s"] = { function() genghis.moveSelectionToNewFile() end, "move-selection-to-file" },
+                    ["x"] = { function() genghis.chmodx() end, "make-executable" },
+                },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
+
 local autolist = {
     "gaoDean/autolist.nvim",
     ft = {
@@ -65,4 +88,5 @@ return {
         cmd = { "ISwapWith", "ISwap" },
     },
     autolist,
+    genghis,
 }

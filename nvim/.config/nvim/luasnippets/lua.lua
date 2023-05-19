@@ -25,6 +25,9 @@ return {
     -- todo
     s("todo", fmt("-- TODO: {}", { i(1, "description") })),
 
+    -- stylua ignore
+    s("stn", t("-- stylua: ignore")),
+
     -- require
     s(
         {
@@ -106,12 +109,15 @@ return {
                     t("<localleader>"),
                 }),
                 c(3, {
-                    fmt([[
+                    fmt(
+                        [[
                     [{1}] = {{{2}}}
-                    ]], {
-                        i(1, 'key'),
-                        i(2, 'value'),
-                    }),
+                    ]],
+                        {
+                            i(1, "key"),
+                            i(2, "value"),
+                        }
+                    ),
                     t(""),
                 }),
             }

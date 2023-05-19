@@ -18,44 +18,15 @@ local browse = {
     init = function()
         local wk = require("which-key")
         wk.register({
+            -- stylua: ignore
             ["b"] = {
                 ["name"] = "+browse",
-                ["b"] = {
-                    function()
-                        require("browse").browse()
-                    end,
-                    "browse",
-                },
-                ["l"] = {
-                    function()
-                        require("browse").open_bookmarks()
-                    end,
-                    "bookmarks",
-                },
-                ["d"] = {
-                    function()
-                        require("browse").devdocs.search_with_filetype()
-                    end,
-                    "devdocs-filetype-search",
-                },
-                ["D"] = {
-                    function()
-                        require("browse").devdocs.search()
-                    end,
-                    "devdocs-search",
-                },
-                ["i"] = {
-                    function()
-                        require("browse").input_search()
-                    end,
-                    "input-search",
-                },
-                ["m"] = {
-                    function()
-                        require("browse").mdn.search()
-                    end,
-                    "mdn-search",
-                },
+                ["b"] = { function() require("browse").browse() end, "browse" },
+                ["d"] = { function() require("browse").devdocs.search() end, "devdocs-search" },
+                ["f"] = { function() require("browse").devdocs.search_with_filetype() end, "devdocs-filetype-search" },
+                ["i"] = { function() require("browse").input_search() end, "input-search" },
+                ["l"] = { function() require("browse").open_bookmarks() end, "bookmarks" },
+                ["m"] = { function() require("browse").mdn.search() end, "mdn-search" },
             },
         }, { mode = "n", prefix = "<localleader>" })
     end,

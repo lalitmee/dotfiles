@@ -41,27 +41,13 @@ return {
         local neogen = require("neogen")
         local wk = require("which-key")
         wk.register({
+            -- stylua: ignore
             ["d"] = {
                 ["name"] = "+docstrings",
                 ["d"] = { ":Neogen<CR>", "doc-this" },
-                ["c"] = {
-                    function()
-                        neogen.generate({ type = "class" })
-                    end,
-                    "doc-this-class",
-                },
-                ["f"] = {
-                    function()
-                        neogen.generate({ type = "func" })
-                    end,
-                    "doc-this-function",
-                },
-                ["t"] = {
-                    function()
-                        neogen.generate({ type = "type" })
-                    end,
-                    "doc-this-type",
-                },
+                ["c"] = { function() neogen.generate({ type = "class" }) end, "doc-this-class" },
+                ["f"] = { function() neogen.generate({ type = "func" }) end, "doc-this-function" },
+                ["t"] = { function() neogen.generate({ type = "type" }) end, "doc-this-type" },
             },
         }, { mode = "n", prefix = "<localleader>" })
     end,
