@@ -330,7 +330,8 @@ M.config = function()
         },
         ["S"] = {
             ["name"] = "+system",
-            ["b"] = { ":SetWallpaper<CR>", "change-system-background" },
+            ["b"] = { ":Bottom<CR>", "bottom" },
+            ["B"] = { ":SetWallpaper<CR>", "change-system-background" },
             ["c"] = {
                 ":WorkingDirectory<CR>",
                 "current-working-directory",
