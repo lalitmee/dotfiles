@@ -1,9 +1,11 @@
+local fn = vim.fn
+
 local mason = {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
         "williamboman/mason.nvim",
     },
-    event = { "VimEnter" },
+    event = { "VeryLazy" },
     config = function()
         require("mason").setup({
             ui = {
@@ -38,7 +40,7 @@ local mason = {
 local lsp = {
     "neovim/nvim-lspconfig",
     ft = vim.g.enable_lspconfig_ft,
-    event = { "VimEnter" },
+    event = { "VeryLazy" },
     dependencies = {
         { "j-hui/fidget.nvim" },
         {
@@ -47,13 +49,6 @@ local lsp = {
         },
         {
             "jose-elias-alvarez/null-ls.nvim",
-            ft = {
-                "javascript",
-                "javascriptreact",
-                "lua",
-                "typescript",
-                "typescriptreact",
-            },
             dependencies = { "jay-babu/mason-null-ls.nvim" },
         },
         {
@@ -64,10 +59,10 @@ local lsp = {
             "dmmulroy/tsc.nvim",
             cmd = { "TSC" },
             opts = {},
+            enabled = false,
         },
     },
     config = function()
-        local fn = vim.fn
         local lsp_utils = require("plugins.lsp.utils")
 
         require("lspconfig.ui.windows").default_options.border =
