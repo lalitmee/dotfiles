@@ -119,5 +119,6 @@
   "vim-wakatime": { "branch": "master", "commit": "02be9238319937e04afea73fd0fc7da5413ee041" },
   "virtcolumn.nvim": { "branch": "main", "commit": "cd9485d64a0763c5572272e03d70cbff1f91fde0" },
   "which-key.nvim": { "branch": "main", "commit": "5a6c954a5a46023c19acc03a8b6d7c3e57964fc5" },
-  "yanky.nvim": { "branch": "main", "commit": "158fa758b5365a5a545acac4e7a9bad1c130c6d4" }
+  "yanky.nvim": { "branch": "main", "commit": "158fa758b5365a5a545acac4e7a9bad1c130c6d4" },
+  "zoxide.vim": { "branch": "master", "commit": "7582d5441f68c46b8fbd42a8721cde0c0dfe344b" }
 }

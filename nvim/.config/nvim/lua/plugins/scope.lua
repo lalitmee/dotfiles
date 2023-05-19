@@ -1,6 +1,6 @@
 return {
     "tiagovla/scope.nvim",
-    event = { "VeryLazy" },
+    event = { "TabEnter" },
     dependencies = {
         "nvim-telescope/telescope.nvim",
     },
