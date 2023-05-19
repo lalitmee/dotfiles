@@ -35,9 +35,8 @@ local function gitsigns_menu()
                 vim.cmd("loadview")
                 vim.api.nvim_win_set_cursor(0, cursor_pos)
                 vim.cmd("normal zv")
-                gitsigns.toggle_signs(false)
+                gitsigns.toggle_signs(true)
                 gitsigns.toggle_linehl(false)
-                gitsigns.toggle_deleted(false)
             end,
         },
         body = "<leader>gh",

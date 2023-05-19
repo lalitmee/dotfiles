@@ -47,43 +47,20 @@ local monorepo_nvim = {
         "<leader>pp",
         "<leader>pt",
     },
+    config = true,
     init = function()
-        require("monorepo").setup()
-
+        local monorepo = require("monorepo")
         local wk = require("which-key")
+
         wk.register({
+            -- stylua: ignore
             ["p"] = {
-                ["a"] = {
-                    function()
-                        require("monorepo").add_project()
-                    end,
-                    "add-project",
-                },
                 ["m"] = { ":Telescope monorepo<cr>", "monorepo" },
-                ["n"] = {
-                    function()
-                        require("monorepo").next_project()
-                    end,
-                    "next-project",
-                },
-                ["P"] = {
-                    function()
-                        require("monorepo").previous_project()
-                    end,
-                    "previous-project",
-                },
-                ["r"] = {
-                    function()
-                        require("monorepo").remove_project()
-                    end,
-                    "remove-project",
-                },
-                ["t"] = {
-                    function()
-                        require("monorepo").toggle_project()
-                    end,
-                    "toggle-project",
-                },
+                ["a"] = { function() monorepo.add_project() end, "add-project" },
+                ["n"] = { function() monorepo.next_project() end, "next-project" },
+                ["P"] = { function() monorepo.previous_project() end, "previous-project" },
+                ["r"] = { function() monorepo.remove_project() end, "remove-project" },
+                ["t"] = { function() monorepo.toggle_project() end, "toggle-project" },
             },
         }, { mode = "n", prefix = "<leader>" })
     end,

@@ -37,10 +37,10 @@ map(
 )
 
 -- tmux movements
-nmap("<C-h>", [[<cmd>NavigateLeft<cr>]], map_opts)
-nmap("<C-l>", [[<cmd>NavigateRight<cr>]], map_opts)
-nmap("<C-j>", [[<cmd>NavigateDown<cr>]], map_opts)
-nmap("<C-k>", [[<cmd>NavigateUp<cr>]], map_opts)
+nmap("<C-h>", [[<cmd>NavigatorLeft<cr>]], map_opts)
+nmap("<C-l>", [[<cmd>NavigatorRight<cr>]], map_opts)
+nmap("<C-j>", [[<cmd>NavigatorDown<cr>]], map_opts)
+nmap("<C-k>", [[<cmd>NavigatorUp<cr>]], map_opts)
 -- }}}
 ----------------------------------------------------------------------
 

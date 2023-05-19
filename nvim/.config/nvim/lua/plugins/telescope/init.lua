@@ -22,6 +22,7 @@ local M = {
             init = function()
                 require("telescope").load_extension("ui-select")
             end,
+            enabled = false,
         },
         {
             "debugloop/telescope-undo.nvim",
