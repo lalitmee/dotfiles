@@ -1,33 +1,3 @@
-local vim_tmux_navigator = {
-    "christoomey/vim-tmux-navigator",
-    keys = {
-        "<C-h>",
-        "<C-j>",
-        "<C-k>",
-        "<C-l>",
-    },
-    cmd = {
-        "TmuxNavigateLeft",
-        "TmuxNavigateDown",
-        "TmuxNavigateUp",
-        "TmuxNavigateRight",
-        "TmuxNavigatePrevious",
-    },
-    init = function()
-        local wk = require("which-key")
-        wk.register({
-            ["w"] = {
-                ["h"] = { ":<C-U>TmuxNavigateLeft<CR>", "window-left" },
-                ["j"] = { ":<C-U>TmuxNavigateDown<CR>", "window-down" },
-                ["k"] = { ":<C-U>TmuxNavigateUp<CR>", "window-up" },
-                ["l"] = { ":<C-U>TmuxNavigateRight<CR>", "window-right" },
-                ["p"] = { ":<C-U>TmuxNavigatePrevious<CR>", "window-previous" },
-            },
-        }, { mode = "n", prefix = "<leader>" })
-    end,
-    enabled = false,
-}
-
 local navigator = {
     "numToStr/Navigator.nvim",
     event = { "VeryLazy" },
@@ -48,7 +18,41 @@ local navigator = {
     end,
 }
 
+local buffer_manager = {
+    "j-morano/buffer_manager.nvim",
+    event = { "VeryLazy" },
+    opts = {
+        width = 137,
+        height = 22,
+    },
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["b"] = {
+                ["m"] = {
+                    function()
+                        require("buffer_manager.ui").toggle_quick_menu()
+                    end,
+                    "buffer-menu",
+                },
+                ["n"] = {
+                    function()
+                        require("buffer_manager.ui").nav_next()
+                    end,
+                    "buffer-next",
+                },
+                ["p"] = {
+                    function()
+                        require("buffer_manager.ui").nav_prev()
+                    end,
+                    "buffer-previous",
+                },
+            },
+        }, { mode = "n", prefix = "<leader>" })
+    end,
+}
+
 return {
-    vim_tmux_navigator,
+    buffer_manager,
     navigator,
 }
