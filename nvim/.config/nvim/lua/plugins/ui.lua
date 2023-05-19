@@ -27,10 +27,15 @@ local dressing = {
             return (results <= (LIMIT - PADDING) and results + PADDING or LIMIT)
         end
 
+        local theme = require("telescope.themes").get_dropdown({
+            layout_config = { height = get_height },
+        })
+
         require("dressing").setup({
             input = {
                 insert_only = false,
                 win_options = { winblend = 0 },
+                title_pos = "center",
             },
             select = {
                 winblend = 0,
@@ -39,15 +44,11 @@ local dressing = {
                     if opts.kind == "codeaction" then
                         return {
                             backend = "telescope",
-                            telescope = require("telescope.themes").get_cursor({
-                                layout_config = { height = get_height },
-                            }),
+                            telescope = theme,
                         }
                     end
                 end,
-                telescope = require("telescope.themes").get_dropdown({
-                    layout_config = { height = get_height },
-                }),
+                telescope = theme,
             },
         })
     end,
