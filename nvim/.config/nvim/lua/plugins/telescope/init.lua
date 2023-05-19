@@ -8,6 +8,7 @@ local M = {
             init = function()
                 require("telescope").load_extension("frecency")
             end,
+            enabled = false,
         },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
@@ -47,6 +48,16 @@ local M = {
             keys = { "<leader>pl" },
             init = function()
                 require("telescope").load_extension("smart_open")
+
+                local wk = require("which-key")
+                wk.register({
+                    ["f"] = {
+                        ["h"] = { ":Telescope smart_open<CR>", "smart-open" },
+                    },
+                    ["p"] = {
+                        ["l"] = { ":Telescope smart_open<CR>", "smart-open" },
+                    },
+                }, { mode = "n", prefix = "<leader>" })
             end,
             dependencies = { "kkharji/sqlite.lua" },
         },
