@@ -6,14 +6,6 @@ return {
         "nvim-lua/plenary.nvim",
         event = { "VeryLazy" },
     },
-    { -- trying this for sometime
-        "nathom/filetype.nvim",
-        lazy = false,
-        init = function()
-            vim.g.did_load_filetypes = 1 --disable loading normal filetypes
-        end,
-        -- enabled = false
-    },
     -- }}}
     ---------------------------------------------------------------------------
 
