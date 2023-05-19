@@ -516,11 +516,11 @@ M.config = function()
                 "<esc>:Telescope refactoring refactors<CR>",
                 "list-refactors",
             },
-            ["e"] = {
+            ["f"] = {
                 "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>",
                 "extract-function",
             },
-            ["f"] = {
+            ["F"] = {
                 "<Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>",
                 "extract-function-to-file",
             },
