@@ -327,4 +327,23 @@ augroup("insert_au", {
 -- }}}
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+--  to make `vim-matchup` work in jsx
+--------------------------------------------------------------------------------
+augroup("vim_matchup_au", {
+    {
+        event = { "FileType" },
+        pattern = { "javascript" },
+        command = function()
+            vim.cmd([[
+                function! JsxHotfix()
+                    setlocal matchpairs=(:),{:},[:],<:>
+                    let b:match_words = '<\@<=\([^/][^ \t>]*\)\g{hlend}[^>]*\%(/\@<!>\|$\):<\@<=/\1>'
+                endfunction
+                let g:matchup_hotfix = { 'javascript': 'JsxHotfix' }
+            ]])
+        end,
+    },
+})
+
 -- vim:foldmethod=marker

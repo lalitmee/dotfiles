@@ -54,7 +54,7 @@ local autolist = {
 return {
     {
         "andymass/vim-matchup",
-        event = "BufReadPost",
+        event = { "VeryLazy" },
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,

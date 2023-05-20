@@ -313,26 +313,6 @@ local nvim_notify = {
     end,
 }
 
-local smart_column = {
-    "m4xshen/smartcolumn.nvim",
-    event = { "BufReadPost" },
-    opts = {
-        disabled_filetypes = {
-            "toggleterm",
-            "lazy",
-            "mason",
-            "help",
-        },
-    },
-    enabled = false,
-}
-
-local neo_column = {
-    "ecthelionvi/NeoColumn.nvim",
-    event = { "BufReadPost" },
-    opts = {},
-}
-
 local virt_column = {
     "xiyaowong/virtcolumn.nvim",
     event = { "VeryLazy" },
@@ -360,10 +340,8 @@ local devicons = {
 return {
     devicons,
     dressing,
-    neo_column,
     noice,
     nvim_notify,
-    smart_column,
     status_column,
     virt_column,
 }

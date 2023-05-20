@@ -3,6 +3,9 @@
 -- │                 Created By: Lalit Kumar                  │
 -- ╰──────────────────────────────────────────────────────────╯
 
+-- NOTE: globals should be the first thing to load
+require("globals")
+
 ----------------------------------------------------------------------
 -- NOTE: globals {{{
 ----------------------------------------------------------------------
@@ -17,14 +20,12 @@ vim.g.open_command = vim.g.os == "Darwin" and "open" or "xdg-open"
 ----------------------------------------------------------------------
 -- NOTE: sourcing {{{
 ----------------------------------------------------------------------
--- globals
-require("globals")
 
 -- core
-require("config/core")
+R("config/core")
 
 -- plugins
-require("config/lazy")
+R("config/lazy")
 
 -- }}}
 ----------------------------------------------------------------------

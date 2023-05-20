@@ -370,6 +370,7 @@ local worktrees = {
             },
         }, { mode = "n", prefix = "<leader>" })
     end,
+    enabled = false,
 }
 
 local diffview = {
