@@ -4,10 +4,6 @@ return {
         ft = "python",
     },
     {
-        "baskerville/vim-sxhkdrc",
-        ft = { "sxhkdrc" },
-    },
-    {
         "antonk52/markdowny.nvim",
         ft = { "markdown" },
         keys = {

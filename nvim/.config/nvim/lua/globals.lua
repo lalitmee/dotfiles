@@ -283,8 +283,24 @@ lk.style = {
 ----------------------------------------------------------------------
 -- NOTE: Debugging {{{
 -----------------------------------------------------------------------------
+local ok, plenary_reload = pcall(require, "plenary.reload")
+local reloader = require
+if ok then
+    reloader = plenary_reload.reload_module
+end
+
+P = function(v)
+    print(vim.inspect(v))
+    return v
+end
+
 RELOAD = function(...)
-    return require("plenary.reload").reload_module(...)
+    local ok, plenary_reload = pcall(require, "plenary.reload")
+    if ok then
+        reloader = plenary_reload.reload_module
+    end
+
+    return reloader(...)
 end
 
 R = function(name)
@@ -292,16 +308,16 @@ R = function(name)
     return require(name)
 end
 
--- inspect the contents of an object very quickly
--- in your code or from the command-line:
--- USAGE:
--- in lua: dump({1, 2, 3})
--- in commandline: :lua dump(vim.loop)
----@vararg any
-function P(...)
-    local objects = vim.tbl_map(vim.inspect, { ... })
-    print(unpack(objects))
-end
+-- -- inspect the contents of an object very quickly
+-- -- in your code or from the command-line:
+-- -- USAGE:
+-- -- in lua: dump({1, 2, 3})
+-- -- in commandline: :lua dump(vim.loop)
+-- ---@vararg any
+-- function P(...)
+--     local objects = vim.tbl_map(vim.inspect, { ... })
+--     print(unpack(objects))
+-- end
 
 -- inspect the contents of an object very quickly in your code or from the command-line:
 -- usage:

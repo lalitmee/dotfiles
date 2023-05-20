@@ -9,7 +9,9 @@ opt.tabstop = 2
 opt.textwidth = 80
 opt.foldlevel = 99
 
--- Automatically end a self-closing tag when pressing /
+--------------------------------------------------------------------------------
+--  Automatically end a self-closing tag when pressing /
+--------------------------------------------------------------------------------
 vim.keymap.set("i", "/", function()
     local node = vim.treesitter.get_node()
     if not node then
@@ -48,7 +50,9 @@ vim.keymap.set("i", "/", function()
     return "/"
 end, { expr = true, buffer = true })
 
--- Inside an attribute: <button type| pressing = -> <button type="|"
+--------------------------------------------------------------------------------
+--  Inside an attribute: <button type| pressing = -> <button type="|"
+--------------------------------------------------------------------------------
 vim.keymap.set("i", "=", function()
     local cursor = vim.api.nvim_win_get_cursor(0)
     local left_of_cursor_range = { cursor[1] - 1, cursor[2] - 1 }
