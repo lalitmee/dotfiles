@@ -5,6 +5,7 @@ local function get_server_options(name)
 end
 
 local clangd = get_server_options("clangd")
+local emmet_ls = get_server_options("emmet_ls")
 local gopls = get_server_options("gopls")
 local lua_ls = get_server_options("lua_ls")
 local rust_analyzer = get_server_options("rust_analyzer")
@@ -17,7 +18,7 @@ return {
     clangd = clangd,
     cssls = true,
     dockerls = true,
-    emmet_ls = true,
+    emmet_ls = emmet_ls,
     gopls = gopls,
     jsonls = true,
     pyright = true,
