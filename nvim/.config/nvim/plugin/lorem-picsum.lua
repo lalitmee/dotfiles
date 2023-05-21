@@ -11,12 +11,15 @@ local function append_lorem_picsum_url()
     if width and height then
         local curl = require("plenary.curl")
 
-        local res = curl.get("https://picsum.photos/" .. width .. "/" .. height, {})
+        local res =
+            curl.get("https://picsum.photos/" .. width .. "/" .. height, {})
         local url = res and res.headers[3]:sub(11)
 
         local cursor = vim.api.nvim_win_get_cursor(0)
         local line = vim.api.nvim_get_current_line()
-        local nline = line:sub(0, cursor[2] + 1) .. url .. line:sub(cursor[2] + 2)
+        local nline = line:sub(0, cursor[2] + 1)
+            .. url
+            .. line:sub(cursor[2] + 2)
 
         vim.api.nvim_set_current_line(nline)
         vim.api.nvim_win_set_cursor(0, { cursor[1], cursor[2] + url:len() })
@@ -57,7 +60,9 @@ local function append_random_string()
 
         local cursor = vim.api.nvim_win_get_cursor(0)
         local line = vim.api.nvim_get_current_line()
-        local nline = line:sub(0, cursor[2] + 1) .. str .. line:sub(cursor[2] + 2)
+        local nline = line:sub(0, cursor[2] + 1)
+            .. str
+            .. line:sub(cursor[2] + 2)
 
         vim.api.nvim_set_current_line(nline)
         vim.api.nvim_win_set_cursor(0, { cursor[1], cursor[2] + str:len() })
