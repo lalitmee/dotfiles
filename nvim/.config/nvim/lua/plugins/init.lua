@@ -13,11 +13,6 @@ return {
     --  NOTE: enhancements {{{
     ---------------------------------------------------------------------------
     {
-        "NMAC427/guess-indent.nvim",
-        event = { "VeryLazy" },
-        config = true,
-    },
-    {
         "wakatime/vim-wakatime",
         event = { "VimEnter" },
     },
