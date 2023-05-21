@@ -3,7 +3,7 @@
 name: quartic
 root: /home/lenovo/Documents/Quartic-Workspace
 session_name: quartic-workspace
-on_project_start: docker restart 444b3704b4c0
+on_project_start: docker restart 51b627b1af4a
 
 windows:
   - "docker-exec":

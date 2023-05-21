@@ -1,8 +1,6 @@
 R("config.core.autocmds")
 R("config.core.commands")
 R("config.core.functions")
-R("config.core.lorem-picsum")
 R("config.core.mappings")
 R("config.core.numbers")
 R("config.core.options")
-R("config.core.statuscolumn")
