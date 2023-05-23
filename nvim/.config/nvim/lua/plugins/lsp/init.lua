@@ -213,11 +213,11 @@ local lsp = {
                 fmt.trim_whitespace,
                 fmt.tidy,
                 fmt.trim_newlines,
-                fmt.eslint_d,
+                fmt.eslint,
                 -----------------
                 -- DIAGNOSTICS --
                 -----------------
-                dgn.eslint_d,
+                dgn.eslint,
                 dgn.shellcheck,
                 dgn.luacheck.with({
                     extra_args = {
@@ -239,7 +239,7 @@ local lsp = {
                 ------------------
                 -- CODE ACTIONS --
                 ------------------
-                cda.eslint_d,
+                cda.eslint,
                 cda.shellcheck,
                 cda.refactoring,
             },
@@ -296,6 +296,6 @@ local lsp = {
 }
 
 return {
-    mason,
     lsp,
+    mason,
 }
