@@ -241,6 +241,7 @@ local lsp = {
                 ------------------
                 cda.eslint_d,
                 cda.shellcheck,
+                cda.refactoring,
             },
             -- on_attach = function(client, bufnr)
             --     -- U.fmt_on_save(client, bufnr)
