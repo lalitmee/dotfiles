@@ -1,6 +1,5 @@
 local genghis = {
     "chrisgrieser/nvim-genghis",
-    dependencies = "stevearc/dressing.nvim",
     init = function()
         local genghis = require("genghis")
         local wk = require("which-key")
