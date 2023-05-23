@@ -18,7 +18,7 @@ return {
     clangd = clangd,
     cssls = true,
     dockerls = true,
-    emmet_ls = emmet_ls,
+    emmet_ls = false,
     gopls = gopls,
     jsonls = true,
     pyright = true,

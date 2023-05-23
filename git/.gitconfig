@@ -186,3 +186,6 @@
 
 [init]
     defaultBranch = master
+[safe]
+	directory = /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
+	directory = /home/lenovo/Documents/Quartic-Workspace/python/GraphQLServer
