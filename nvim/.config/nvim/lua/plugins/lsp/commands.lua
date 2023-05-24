@@ -43,7 +43,9 @@ command("LspDefinition", vim.lsp.buf.definition, {})
 ----------------------------------------------------------------------
 command("LspDocumentHighlight", vim.lsp.buf.document_highlight, {})
 command("LspDocumentSymbols", vim.lsp.buf.document_symbol, {})
-command("LspFormat", vim.lsp.buf.format, {})
+command("LspFormat", function()
+    vim.lsp.buf.format({ bufnr = 0 })
+end, {})
 command("LspHover", vim.lsp.buf.hover, {})
 command("LspSignatureHelp", vim.lsp.buf.signature_help, {})
 command("LspImplementation", vim.lsp.buf.implementation, {})
@@ -89,17 +91,17 @@ command("LspGotoNextDiagnostic", function()
     vim.diagnostic.goto_next({
         severity = get_highest_error_severity(),
         wrap = true,
-        float = false,
+        float = true,
     })
 end, {})
 command("LspGotoPrevDiagnostic", function()
     vim.diagnostic.goto_prev({
         severity = get_highest_error_severity(),
         wrap = true,
-        float = false,
+        float = true,
     })
 end, {})
-command("ShowLineDiagnosticInFlot", function()
+command("ShowLineDiagnosticInFloat", function()
     vim.diagnostic.open_float({ scope = "line" })
 end, {})
 

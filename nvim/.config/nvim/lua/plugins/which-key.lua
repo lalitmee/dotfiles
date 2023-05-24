@@ -47,6 +47,7 @@ M.config = function()
             ["name"] = "+actions",
             ["a"] = { ":FzfLua builtin<CR>", "fzf-lua-builtin" },
             ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
+            ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
             ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
             ["m"] = { ":Telescope messages messages<CR>", "search-messages" },
             ["n"] = { ":Notifications<CR>", "notifications" },
@@ -125,7 +126,7 @@ M.config = function()
             ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnostics" },
             ["q"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
             ["v"] = {
-                ":ShowLineDiagnosticInFlot<CR>",
+                ":ShowLineDiagnosticInFloat<CR>",
                 "diagnostic-float-preview",
             },
         },
@@ -171,7 +172,8 @@ M.config = function()
                 ["name"] = "+diff",
                 ["c"] = { ":DiffviewClose<CR>", "diffview-close" },
                 ["d"] = { ":Gitsigns diffthis<CR>", "diffthis" },
-                ["f"] = { ":DiffviewFileHistory<CR>", "diffview-file-history" },
+                ["f"] = { ":DiffviewFileHistory %<CR>", "current-file-history" },
+                ["F"] = { ":DiffviewFileHistory<CR>", "diffview-file-history" },
                 ["o"] = { ":DiffviewOpen<CR>", "diffview-open" },
                 ["w"] = {
                     ":Gitsigns toggle_word_diff<CR>",
@@ -462,7 +464,6 @@ M.config = function()
                 ["s"] = { ":Gitsigns toggle_signs<CR>", "toggle-signs" },
             },
             ["m"] = { ":Telescope macros<CR>", "neo-composer-macros" },
-            ["p"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
             ["s"] = {
                 ["name"] = "+scrolloff",
                 ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },

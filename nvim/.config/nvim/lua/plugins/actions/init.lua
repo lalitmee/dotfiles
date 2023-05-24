@@ -1,3 +1,9 @@
+local undotree = {
+    "mbbill/undotree",
+    cmd = { "UndotreeToggle" },
+    enabled = false,
+}
+
 local genghis = {
     "chrisgrieser/nvim-genghis",
     init = function()
@@ -41,12 +47,7 @@ local autolist = {
         autolist.create_mapping_hook("n", ">>", autolist.indent)
         autolist.create_mapping_hook("n", "<<", autolist.indent)
         autolist.create_mapping_hook("n", "<C-r>", autolist.force_recalculate)
-        autolist.create_mapping_hook(
-            "n",
-            "<leader>x",
-            autolist.invert_entry,
-            ""
-        )
+        autolist.create_mapping_hook("n", "<leader>x", autolist.invert_entry, "")
     end,
 }
 
@@ -88,4 +89,5 @@ return {
     },
     autolist,
     genghis,
+    undotree,
 }
