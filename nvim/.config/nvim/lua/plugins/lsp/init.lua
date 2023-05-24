@@ -76,12 +76,6 @@ local lsp = {
 
         require("lspconfig.ui.windows").default_options.border = lk.style.border.rounded
 
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: capabilities {{{
-        ----------------------------------------------------------------------
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
         capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
@@ -102,16 +96,7 @@ local lsp = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
         }
-        -- }}}
-        ----------------------------------------------------------------------
 
-        ----------------------------------------------------------------------
-        -- NOTE: servers {{{
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        --  NOTE: neodev setup {{{
-        ----------------------------------------------------------------------
         require("neodev").setup({
             library = {
                 plugins = {
@@ -121,15 +106,7 @@ local lsp = {
                 },
             },
         })
-        -- }}}
-        ----------------------------------------------------------------------
 
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: get servers config {{{
-        ----------------------------------------------------------------------
         local servers = require("plugins.lsp.servers")
 
         local custom_init = function(client)
@@ -153,20 +130,12 @@ local lsp = {
             }, config)
             return config
         end
-        -- }}}
-        ----------------------------------------------------------------------
 
-        ----------------------------------------------------------------------
-        -- NOTE: setting servers {{{
-        ----------------------------------------------------------------------
         for name, config in pairs(servers) do
             if config then
                 require("lspconfig")[name].setup(get_server_config(name))
             end
         end
-
-        -- }}}
-        ----------------------------------------------------------------------
     end,
 }
 
