@@ -1,5 +1,4 @@
 local fn = vim.fn
-local api = vim.api
 local fmt = string.format
 local l = vim.log.levels
 
@@ -49,9 +48,7 @@ local function make_mapper(mode, o)
     ---@param opts table
     return function(lhs, rhs, opts)
         -- If the label is all that was passed in, set the opts automagically
-        opts = type(opts) == "string" and { label = opts }
-            or opts and vim.deepcopy(opts)
-            or {}
+        opts = type(opts) == "string" and { label = opts } or opts and vim.deepcopy(opts) or {}
         if opts.label then
             local ok, wk = lk.require("which-key", { silent = true })
             if ok then
@@ -59,12 +56,7 @@ local function make_mapper(mode, o)
             end
             opts.label = nil
         end
-        vim.keymap.set(
-            mode,
-            lhs,
-            rhs,
-            vim.tbl_extend("keep", opts, parent_opts)
-        )
+        vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("keep", opts, parent_opts))
     end
 end
 
@@ -283,9 +275,9 @@ lk.style = {
 ----------------------------------------------------------------------
 -- NOTE: Debugging {{{
 -----------------------------------------------------------------------------
-local ok, plenary_reload = pcall(require, "plenary.reload")
+local plenary_ok, plenary_reload = pcall(require, "plenary.reload")
 local reloader = require
-if ok then
+if plenary_ok then
     reloader = plenary_reload.reload_module
 end
 
@@ -295,9 +287,9 @@ P = function(v)
 end
 
 RELOAD = function(...)
-    local ok, plenary_reload = pcall(require, "plenary.reload")
+    local ok, plenary_reloader = pcall(require, "plenary.reload")
     if ok then
-        reloader = plenary_reload.reload_module
+        reloader = plenary_reloader.reload_module
     end
 
     return reloader(...)
@@ -429,10 +421,7 @@ end
 ---Check if a vim variable usually a number is truthy or not
 ---@param value integer
 function lk.truthy(value)
-    assert(
-        type(value) == "number",
-        fmt("Value should be a number but you passed %s", value)
-    )
+    assert(type(value) == "number", fmt("Value should be a number but you passed %s", value))
     return value > 0
 end
 
@@ -515,7 +504,7 @@ end
 ---@param opts table
 function lk.command(name, rhs, opts)
     opts = opts or {}
-    api.nvim_create_user_command(name, rhs, opts)
+    vim.api.nvim_create_user_command(name, rhs, opts)
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -550,11 +539,7 @@ function lk.require(module, opts)
         if opts.message then
             result = opts.message .. "\n" .. result
         end
-        vim.notify(
-            result,
-            l.ERROR,
-            { title = fmt("Error requiring: %s", module) }
-        )
+        vim.notify(result, l.ERROR, { title = fmt("Error requiring: %s", module) })
     end
     return ok, result
 end
@@ -581,10 +566,10 @@ end
 ---@param commands Autocommand[]
 ---@return number
 function lk.augroup(name, commands)
-    local id = api.nvim_create_augroup(name, { clear = true })
+    local id = vim.api.nvim_create_augroup(name, { clear = true })
     for _, autocmd in ipairs(commands) do
         local is_callback = type(autocmd.command) == "function"
-        api.nvim_create_autocmd(autocmd.event, {
+        vim.api.nvim_create_autocmd(autocmd.event, {
             group = id,
             pattern = autocmd.pattern,
             desc = autocmd.description,
@@ -681,10 +666,7 @@ function lk.fold(callback, list, accum)
     accum = accum or {}
     for k, v in pairs(list) do
         accum = callback(accum, v, k)
-        assert(
-            accum ~= nil,
-            "The accumulator must be returned on each iteration"
-        )
+        assert(accum ~= nil, "The accumulator must be returned on each iteration")
     end
     return accum
 end
@@ -692,8 +674,8 @@ end
 ---Check whether or not the location or quickfix list is open
 ---@return boolean
 function lk.is_vim_list_open()
-    for _, win in ipairs(api.nvim_list_wins()) do
-        local buf = api.nvim_win_get_buf(win)
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
         local location_list = fn.getloclist(0, { filewinid = 0 })
         local is_loc_list = location_list.filewinid > 0
         if vim.bo[buf].filetype == "qf" or is_loc_list then
@@ -711,8 +693,7 @@ end
 ---@return string?
 local function toggle_list(list_type)
     local is_location_target = list_type == "location"
-    local cmd = is_location_target and { "lclose", "lopen" }
-        or { "cclose", "copen" }
+    local cmd = is_location_target and { "lclose", "lopen" } or { "cclose", "copen" }
     local is_open = lk.is_vim_list_open()
     if is_open then
         return vim.cmd[cmd[1]]()

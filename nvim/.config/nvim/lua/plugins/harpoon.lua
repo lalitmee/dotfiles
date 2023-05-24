@@ -17,14 +17,16 @@ local harpoon = {
         local command = lk.command
 
         require("harpoon").setup({
-            menu = {
-                width = vim.api.nvim_win_get_width(0) - 100,
-                height = vim.api.nvim_win_get_height(0) - 25,
+            global_settings = {
+                menu = {
+                    width = vim.api.nvim_win_get_width(0) - 100,
+                    height = vim.api.nvim_win_get_height(0) - 25,
+                },
+                enter_on_sendcmd = true,
+                mark_branch = true,
+                save_on_toggle = true,
+                tmux_autoclose_windows = true,
             },
-            enter_on_sendcmd = true,
-            mark_branch = true,
-            save_on_toggle = true,
-            tmux_autoclose_windows = true,
         })
 
         ----------------------------------------------------------------------

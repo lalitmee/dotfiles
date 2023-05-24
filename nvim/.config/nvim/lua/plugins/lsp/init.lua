@@ -1,5 +1,3 @@
-local fn = vim.fn
-
 local lspsaga = {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",
@@ -20,9 +18,7 @@ local lspsaga = {
 
 local mason = {
     "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-        "williamboman/mason.nvim",
-    },
+    dependencies = { "williamboman/mason.nvim" },
     event = { "VeryLazy" },
     config = function()
         require("mason").setup({
@@ -60,18 +56,9 @@ local lsp = {
     ft = vim.g.enable_lspconfig_ft,
     event = { "VeryLazy" },
     dependencies = {
-        { "j-hui/fidget.nvim" },
         {
             "folke/neodev.nvim",
             ft = "lua",
-        },
-        {
-            "jose-elias-alvarez/null-ls.nvim",
-            dependencies = { "jay-babu/mason-null-ls.nvim" },
-        },
-        {
-            "simrat39/rust-tools.nvim",
-            ft = "rust",
         },
         {
             "dmmulroy/tsc.nvim",
@@ -81,36 +68,14 @@ local lsp = {
         },
     },
     config = function()
+        require("plugins.lsp.handlers")
+        require("plugins.lsp.diagnostics")
+        require("plugins.lsp.commands")
+
         local lsp_utils = require("plugins.lsp.utils")
 
-        require("lspconfig.ui.windows").default_options.border =
-            lk.style.border.rounded
+        require("lspconfig.ui.windows").default_options.border = lk.style.border.rounded
 
-        ----------------------------------------------------------------------
-        -- NOTE: automatic setting up commands and handlers {{{
-        ----------------------------------------------------------------------
-        require("plugins.lsp.commands")
-        require("plugins.lsp.handlers")
-        -- }}}
-        ----------------------------------------------------------------------
-
-        ----------------------------------------------------------------------
-        -- NOTE: diagnostic signs {{{
-        ----------------------------------------------------------------------
-        local function sign(opts)
-            fn.sign_define(opts.highlight, {
-                text = opts.icon,
-                texthl = opts.highlight,
-                numhl = opts.highlight .. "Nr",
-                culhl = opts.highlight .. "CursorNr",
-                linehl = opts.highlight .. "Line",
-            })
-        end
-
-        sign({ highlight = "DiagnosticSignError", icon = "E" })
-        sign({ highlight = "DiagnosticSignWarn", icon = "W" })
-        sign({ highlight = "DiagnosticSignInfo", icon = "I" })
-        sign({ highlight = "DiagnosticSignHint", icon = "H" })
         -- }}}
         ----------------------------------------------------------------------
 
@@ -118,18 +83,12 @@ local lsp = {
         -- NOTE: capabilities {{{
         ----------------------------------------------------------------------
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities.textDocument.completion.completionItem.snippetSupport =
-            true
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
         capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
         -- Completion configuration
-        vim.tbl_deep_extend(
-            "force",
-            capabilities,
-            require("cmp_nvim_lsp").default_capabilities()
-        )
-        capabilities.textDocument.completion.completionItem.insertReplaceSupport =
-            false
+        vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+        capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
         capabilities.textDocument.codeLens = { dynamicRegistration = false }
         capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -181,9 +140,7 @@ local lsp = {
         local function get_server_config(name)
             local conf = servers[name]
             local conf_type = type(conf)
-            local config = conf_type == "table" and conf
-                or conf_type == "function" and conf()
-                or {}
+            local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
             config.flags = { debounce_text_changes = 500 }
             config.capabilities = capabilities or {}
             config = vim.tbl_deep_extend("force", {
@@ -210,10 +167,14 @@ local lsp = {
 
         -- }}}
         ----------------------------------------------------------------------
+    end,
+}
 
-        ----------------------------------------------------------------------
-        --  NOTE: null-ls {{{
-        ----------------------------------------------------------------------
+local null_ls = {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "LspAttach" },
+    dependencies = { "jay-babu/mason-null-ls.nvim" },
+    config = function()
         local nls = require("null-ls")
         -- local U = require("plugins.lsp.utils")
 
@@ -228,14 +189,21 @@ local lsp = {
                 ----------------
                 -- FORMATTING --
                 ----------------
-                fmt.trim_whitespace,
+                fmt.black,
+                fmt.clang_format,
+                fmt.eslint_d,
+                fmt.prettierd,
+                fmt.rustfmt,
+                fmt.shfmt,
+                fmt.stylua,
+                fmt.taplo,
                 fmt.tidy,
                 fmt.trim_newlines,
-                fmt.eslint,
+                fmt.trim_whitespace,
                 -----------------
                 -- DIAGNOSTICS --
                 -----------------
-                dgn.eslint,
+                dgn.eslint_d,
                 dgn.shellcheck,
                 dgn.luacheck.with({
                     extra_args = {
@@ -257,21 +225,36 @@ local lsp = {
                 ------------------
                 -- CODE ACTIONS --
                 ------------------
-                cda.eslint,
+                cda.eslint_d,
                 cda.shellcheck,
                 cda.refactoring,
             },
-            -- on_attach = function(client, bufnr)
-            --     -- U.fmt_on_save(client, bufnr)
-            --     U.mappings()
-            -- end,
+            on_attach = function(client, bufnr)
+                if client.supports_method("textDocument/formatting") then
+                    lk.augroup("null_ls_au", {
+                        {
+                            event = { "BufWritePre" },
+                            buffer = bufnr,
+                            command = function()
+                                vim.lsp.buf.format({
+                                    bufnr = bufnr,
+                                    filter = function(lsp_client)
+                                        return lsp_client.name == "null-ls"
+                                    end,
+                                })
+                            end,
+                        },
+                    })
+                end
+            end,
         })
-        -- }}}
-        ----------------------------------------------------------------------
+    end,
+}
 
-        ----------------------------------------------------------------------
-        --  fidget
-        ----------------------------------------------------------------------
+local fidget = {
+    "j-hui/fidget.nvim",
+    event = { "LspAttach" },
+    config = function()
         require("fidget").setup({
             text = {
                 spinner = "bouncing_bar",
@@ -280,33 +263,24 @@ local lsp = {
                 blend = 0,
             },
             sources = {
-                ["null-ls"] = {
-                    ignore = true,
-                },
+                ["null-ls"] = { ignore = true },
             },
         })
+    end,
+}
 
-        ----------------------------------------------------------------------
-        --  rust-tools
-        ----------------------------------------------------------------------
+local rust_tools = {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    config = function()
         local rt = require("rust-tools")
         rt.setup({
             server = {
                 on_attach = function(_, bufnr)
                     -- Hover actions
-                    vim.keymap.set(
-                        "n",
-                        "K",
-                        rt.hover_actions.hover_actions,
-                        { buffer = bufnr }
-                    )
+                    vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
                     -- Code action groups
-                    vim.keymap.set(
-                        "n",
-                        "<Leader>la",
-                        rt.code_action_group.code_action_group,
-                        { buffer = bufnr }
-                    )
+                    vim.keymap.set("n", "<Leader>la", rt.code_action_group.code_action_group, { buffer = bufnr })
                 end,
             },
         })
@@ -314,7 +288,10 @@ local lsp = {
 }
 
 return {
+    fidget,
     lsp,
-    mason,
     lspsaga,
+    mason,
+    null_ls,
+    rust_tools,
 }
