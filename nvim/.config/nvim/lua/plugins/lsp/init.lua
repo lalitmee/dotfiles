@@ -15,6 +15,7 @@ local lspsaga = {
             enable = true,
         },
     },
+    enabled = false,
 }
 
 local mason = {

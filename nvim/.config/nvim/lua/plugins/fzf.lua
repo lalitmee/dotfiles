@@ -17,6 +17,7 @@ return {
                 rg_opts = "--hidden --column --line-number --no-heading"
                     .. " --color=always --smart-case -g '!.git'",
             },
+            file_ignore_patterns = { "node_modules", ".git" },
         })
     end,
 }
