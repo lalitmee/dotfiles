@@ -173,10 +173,15 @@ local lsp = {
 local null_ls = {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "LspAttach" },
-    dependencies = { "jay-babu/mason-null-ls.nvim" },
+    dependencies = {
+        "jay-babu/mason-null-ls.nvim",
+        {
+            "lukas-reineke/lsp-format.nvim",
+            config = true,
+        },
+    },
     config = function()
         local nls = require("null-ls")
-        -- local U = require("plugins.lsp.utils")
 
         local fmt = nls.builtins.formatting
         local dgn = nls.builtins.diagnostics
@@ -231,20 +236,22 @@ local null_ls = {
             },
             on_attach = function(client, bufnr)
                 if client.supports_method("textDocument/formatting") then
-                    lk.augroup("null_ls_au", {
-                        {
-                            event = { "BufWritePre" },
-                            buffer = bufnr,
-                            command = function()
-                                vim.lsp.buf.format({
-                                    bufnr = bufnr,
-                                    filter = function(lsp_client)
-                                        return lsp_client.name == "null-ls"
-                                    end,
-                                })
-                            end,
-                        },
-                    })
+                    -- lk.augroup("null_ls_au", {
+                    --     {
+                    --         event = { "BufWritePre" },
+                    --         buffer = bufnr,
+                    --         command = function()
+                    --             vim.lsp.buf.format({
+                    --                 bufnr = bufnr,
+                    --                 filter = function(lsp_client)
+                    --                     return lsp_client.name == "null-ls"
+                    --                 end,
+                    --             })
+                    --         end,
+                    --     },
+                    -- })
+
+                    require("lsp-format").on_attach(client)
                 end
             end,
         })
