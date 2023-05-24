@@ -56,7 +56,8 @@ M.mappings = function(client)
 
     -- fzf-lua
     nmap("ga", "<cmd>FzfLua lsp_code_actions<CR>", map_opts)
-    nmap("gd", "<cmd>FzfLua lsp_definitions<CR>", map_opts)
+    -- nmap("gd", "<cmd>FzfLua lsp_definitions<CR>", map_opts)
+    nmap("gd", "<cmd>Lspsaga goto_definition<CR>", map_opts)
     nmap("ge", "<cmd>FzfLua lsp_document_diagnostics<CR>", map_opts)
     nmap("gE", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", map_opts)
     nmap("gl", "<cmd>FzfLua lsp_finder<CR>", map_opts)

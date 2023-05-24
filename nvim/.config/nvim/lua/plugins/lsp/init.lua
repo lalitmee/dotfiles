@@ -1,5 +1,22 @@
 local fn = vim.fn
 
+local lspsaga = {
+    "glepnir/lspsaga.nvim",
+    event = "LspAttach",
+    opts = {
+        symbol_in_winbar = {
+            enable = true,
+            separator = "  ",
+        },
+        ui = {
+            border = "rounded",
+        },
+        beacon = {
+            enable = true,
+        },
+    },
+}
+
 local mason = {
     "williamboman/mason-lspconfig.nvim",
     dependencies = {
@@ -298,4 +315,5 @@ local lsp = {
 return {
     lsp,
     mason,
+    lspsaga,
 }
