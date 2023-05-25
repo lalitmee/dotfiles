@@ -18,6 +18,7 @@ local project_nvim = {
             scope_chdir = "tab",
         })
     end,
+    enabled = false,
 }
 
 local conduct_nvim = {

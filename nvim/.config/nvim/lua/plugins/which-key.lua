@@ -49,6 +49,7 @@ M.config = function()
             ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
             ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
             ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
+            ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
             ["m"] = { ":Telescope messages messages<CR>", "search-messages" },
             ["n"] = { ":Notifications<CR>", "notifications" },
             ["o"] = { ":Oil<CR>", "file-browser" },

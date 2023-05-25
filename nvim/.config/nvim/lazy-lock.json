@@ -80,7 +80,6 @@
   "playground": { "branch": "master", "commit": "2b81a018a49f8e476341dfcb228b7b808baba68b" },
   "plenary.nvim": { "branch": "master", "commit": "6aeb98daac98ade8346e107b3eef47c5eaf1ffdb" },
   "possession.nvim": { "branch": "master", "commit": "4d26053da4cfb4a8d6b9405abe1b854524dd8bda" },
-  "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "promise-async": { "branch": "main", "commit": "e94f35161b8c5d4a4ca3b6ff93dd073eb9214c0e" },
   "refactoring.nvim": { "branch": "master", "commit": "5062dc5f444ad4d5513d1a7c485aa24a334b005d" },
   "replacer.nvim": { "branch": "master", "commit": "50d284f9dbd7cae0cc638fc695969d6e7bed3e11" },
@@ -96,6 +95,7 @@
   "telescope-dap.nvim": { "branch": "master", "commit": "313d2ea12ae59a1ca51b62bf01fc941a983d9c9c" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "580b6c48651cabb63455e97d7e131ed557b8c7e2" },
   "telescope-lazy.nvim": { "branch": "main", "commit": "62b325696f33e338a820abe623bebc92ebf1786b" },
+  "telescope-zoxide": { "branch": "main", "commit": "68966349aa1b8e9ade403e18479ecf79447389a7" },
   "telescope.nvim": { "branch": "master", "commit": "9609686a8cd5d75d03ba96775e8517932a0342c0" },
   "toggleterm.nvim": { "branch": "main", "commit": "a44313fb28ed9bc9837c2b99dec1c6eed3a4f47f" },
   "treesj": { "branch": "main", "commit": "b1e2976c2d7ba922371cc7f3ab08b75136c27231" },
@@ -113,6 +113,5 @@
   "vim-wakatime": { "branch": "master", "commit": "02be9238319937e04afea73fd0fc7da5413ee041" },
   "virtcolumn.nvim": { "branch": "main", "commit": "cd9485d64a0763c5572272e03d70cbff1f91fde0" },
   "which-key.nvim": { "branch": "main", "commit": "e271c28118998c93a14d189af3395812a1aa646c" },
-  "yanky.nvim": { "branch": "main", "commit": "4b4a36b49062992a353f44c3e95187952e319b29" },
-  "zoxide.vim": { "branch": "master", "commit": "cc5b702cacbcbb4192b2a619c0f9cf6ab6e76936" }
+  "yanky.nvim": { "branch": "main", "commit": "4b4a36b49062992a353f44c3e95187952e319b29" }
 }
