@@ -34,6 +34,12 @@ local M = {
                 require("telescope").load_extension("lazy")
             end,
         },
+        {
+            "jvgrootveld/telescope-zoxide",
+            init = function()
+                require("telescope").load_extension("zoxide")
+            end,
+        },
     },
     init = function()
         require("telescope").load_extension("messages")
