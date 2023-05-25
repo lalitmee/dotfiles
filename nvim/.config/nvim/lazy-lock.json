@@ -94,6 +94,7 @@
   "tabular": { "branch": "master", "commit": "339091ac4dd1f17e225fe7d57b48aff55f99b23a" },
   "targets.vim": { "branch": "master", "commit": "642d3a4ce306264b05ea3219920b13ea80931767" },
   "telescope-dap.nvim": { "branch": "master", "commit": "313d2ea12ae59a1ca51b62bf01fc941a983d9c9c" },
+  "telescope-frecency.nvim": { "branch": "master", "commit": "0a4a521471141ae3c94ff0ebcffcaff3c3aad147" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "580b6c48651cabb63455e97d7e131ed557b8c7e2" },
   "telescope-lazy.nvim": { "branch": "main", "commit": "62b325696f33e338a820abe623bebc92ebf1786b" },
   "telescope.nvim": { "branch": "master", "commit": "9609686a8cd5d75d03ba96775e8517932a0342c0" },
