@@ -23,18 +23,8 @@ map("n", "H", [[0]], map_opts)
 map("n", "L", [[$]], map_opts)
 
 -- jumplist mutations
-map(
-    "n",
-    "j",
-    [[(v:count > 5 ? "m'" . v:count : "") . 'j']],
-    { noremap = true, expr = true }
-)
-map(
-    "n",
-    "k",
-    [[(v:count > 5 ? "m'" . v:count : "") . 'k']],
-    { noremap = true, expr = true }
-)
+map("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { noremap = true, expr = true })
+map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { noremap = true, expr = true })
 
 -- tmux movements
 nmap("<C-h>", [[<cmd>NavigatorLeft<cr>]], map_opts)
@@ -55,28 +45,15 @@ nnoremap("<M-Right>", vim.cmd.tabnext)
 nnoremap("<M-Left>", vim.cmd.tabprevious)
 
 -- from here https://gist.github.com/romainl/0f589e07a079ea4b7a77fd66ef16ebee
-nnoremap(
-    "gt",
-    [[":tabnext +" . v:count1 . '<CR>']],
-    { silent = true, expr = true }
-)
-nnoremap(
-    "gT",
-    [[":tabnext -" . v:count1 . '<CR>']],
-    { silent = true, expr = true }
-)
+nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']], { silent = true, expr = true })
+nnoremap("gT", [[":tabnext -" . v:count1 . '<CR>']], { silent = true, expr = true })
 
 -- buffers next and previous
 nnoremap("<C-Right>", vim.cmd.bnext)
 nnoremap("<C-Left>", vim.cmd.bprevious)
 
 -- alternate file mapping
-map(
-    "n",
-    "<BS>",
-    [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]],
-    map_opts
-)
+map("n", "<BS>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], map_opts)
 
 -- NOTE: this was creating problem with <C-I>
 -- circular window movements
@@ -98,17 +75,10 @@ map("n", "<localleader>p", [["+p]], { noremap = true })
 -- NOTE: text edits {{{
 ----------------------------------------------------------------------
 -- repeat n number of times
-vim.cmd(
-    [[nnoremap <silent> . :<C-u>execute "norm! " . repeat(".", v:count1)<CR>]]
-)
+vim.cmd([[nnoremap <silent> . :<C-u>execute "norm! " . repeat(".", v:count1)<CR>]])
 
 -- keep cursor in same position while using `J`
-map(
-    "n",
-    "J",
-    [[:let p=getpos('.')<bar>join<bar>call setpos('.', p)<cr>]],
-    map_opts
-)
+map("n", "J", [[:let p=getpos('.')<bar>join<bar>call setpos('.', p)<cr>]], map_opts)
 
 -- undo breakpoints
 map("i", ",", [[,<c-g>u]], map_opts)
@@ -156,12 +126,7 @@ map("n", "N", [[Nzzzv]], map_opts)
 nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 
 -- go to search and replace mode
-map(
-    "n",
-    "<C-s>",
-    [[:%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    map_opts
-)
+map("n", "<C-s>", [[:%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>]], map_opts)
 
 -- clear highlighted search
 map("n", "<cr>", [[:noh<cr>]], map_opts)
@@ -170,10 +135,7 @@ map("n", "<cr>", [[:noh<cr>]], map_opts)
 map("n", "Q", [[@='n.'<cr>]], map_opts)
 
 -- <c-l> for syntax highlight and more
-nnoremap(
-    "<A-S-l>",
-    [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>]]
-)
+nnoremap("<A-S-l>", [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>]])
 -- }}}
 ----------------------------------------------------------------------
 
@@ -217,12 +179,7 @@ map("t", "<expr>", [[<A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi']], map_opts)
 -- NOTE: transpose characters `xp` {{{
 -- picked from http://vimcasts.org/episodes/creating-repeatable-mappings-with-repeat-vim/
 ----------------------------------------------------------------------
-map(
-    "n",
-    "<Plug>TransposeCharacters xp",
-    [[:call repeat#set("\<Plug>TransposeCharacters")<cr>]],
-    map_opts
-)
+map("n", "<Plug>TransposeCharacters xp", [[:call repeat#set("\<Plug>TransposeCharacters")<cr>]], map_opts)
 map("n", "cp", [[<Plug>TransposeCharacters]])
 -- }}}
 ----------------------------------------------------------------------
@@ -249,11 +206,7 @@ vim.cmd([[
   endfunction
 ]])
 
-xnoremap(
-    "@",
-    ":<C-u>call ExecuteMacroOverVisualRange()<CR>",
-    { silent = false }
-)
+xnoremap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>", { silent = false })
 -- }}}
 --------------------------------------------------------------------------------
 

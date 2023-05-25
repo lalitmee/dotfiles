@@ -4,7 +4,7 @@ return {
     "akinsho/toggleterm.nvim",
     event = "VeryLazy",
     opts = {
-        open_mapping = [[<c-\>]],
+        open_mapping = [[<M-\>]],
         shade_filetypes = {},
         direction = "float",
         autochdir = true,
