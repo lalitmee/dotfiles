@@ -1,7 +1,6 @@
 local undotree = {
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },
-    enabled = false,
 }
 
 local genghis = {
@@ -51,43 +50,55 @@ local autolist = {
     end,
 }
 
+local matchup = {
+    "andymass/vim-matchup",
+    event = { "VeryLazy" },
+    config = function()
+        vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+    end,
+}
+
+local sort_motion = {
+    "christoomey/vim-sort-motion",
+    keys = {
+        "gs",
+        { "gs", mode = "v" },
+    },
+}
+
+local bufdele = {
+    "famiu/bufdelete.nvim",
+    cmd = { "Bdelete" },
+}
+
+local tabular = {
+    "godlygeek/tabular",
+    cmd = { "Tabularize" },
+}
+
+local surround = {
+    "kylechui/nvim-surround",
+    keys = {
+        "ds",
+        "ys",
+        "cs",
+    },
+    opts = {},
+}
+
+local iswap = {
+    "mizlan/iswap.nvim",
+    cmd = { "ISwapWith", "ISwap" },
+}
+
 return {
-    {
-        "andymass/vim-matchup",
-        event = { "VeryLazy" },
-        config = function()
-            vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
-        end,
-    },
-    {
-        "christoomey/vim-sort-motion",
-        keys = {
-            "gs",
-            { "gs", mode = "v" },
-        },
-    },
-    {
-        "famiu/bufdelete.nvim",
-        cmd = { "Bdelete" },
-    },
-    {
-        "godlygeek/tabular",
-        cmd = { "Tabularize" },
-    },
-    {
-        "kylechui/nvim-surround",
-        keys = {
-            "ds",
-            "ys",
-            "cs",
-        },
-        opts = {},
-    },
-    {
-        "mizlan/iswap.nvim",
-        cmd = { "ISwapWith", "ISwap" },
-    },
     autolist,
+    bufdele,
     genghis,
+    iswap,
+    matchup,
+    sort_motion,
+    surround,
+    tabular,
     undotree,
 }
