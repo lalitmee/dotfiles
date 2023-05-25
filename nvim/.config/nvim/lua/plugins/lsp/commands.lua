@@ -110,4 +110,21 @@ command("LspSetLoclist", vim.diagnostic.setloclist, {})
 -- }}}
 ----------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+--  NOTE: workspace folder {{{
+--------------------------------------------------------------------------------
+command("LspAddWorkspaceFolder", function(args)
+    local path = args["args"]
+    vim.lsp.buf.add_workspace_folder(path)
+end, { nargs = 1, complete = "dir" })
+command("LspListWorkspaceFolders", function()
+    P(vim.lsp.buf.list_workspace_folders())
+end, {})
+command("LspRemoveWorkspaceFolder", function(args)
+    local path = args["args"]
+    vim.lsp.buf.remove_workspace_folder(path)
+end, { nargs = 1, complete = "dir" })
+-- }}}
+--------------------------------------------------------------------------------
+
 -- vim:foldmethod=marker

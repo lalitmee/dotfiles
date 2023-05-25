@@ -3,46 +3,11 @@ local M = {
     cmd = { "Telescope" },
     dependencies = {
         {
-            "nvim-telescope/telescope-frecency.nvim",
-            dependencies = { "kkharji/sqlite.lua" },
-            init = function()
-                require("telescope").load_extension("frecency")
-            end,
-            enabled = false,
-        },
-        {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
             init = function()
                 require("telescope").load_extension("fzf")
             end,
-        },
-        {
-            "nvim-telescope/telescope-ui-select.nvim",
-            init = function()
-                require("telescope").load_extension("ui-select")
-            end,
-            enabled = false,
-        },
-        {
-            "debugloop/telescope-undo.nvim",
-            keys = { "<leader>uu" },
-            init = function()
-                require("telescope").load_extension("undo")
-            end,
-        },
-        {
-            "danielvolchek/tailiscope.nvim",
-            ft = {
-                "javascript",
-                "javascriptreact",
-                "typescript",
-                "typescriptreact",
-            },
-            init = function()
-                require("telescope").load_extension("tailiscope")
-            end,
-            enabled = false,
         },
         {
             "danielfalk/smart-open.nvim",
@@ -133,11 +98,9 @@ M.config = function()
         -- otherwise window config of previewer subsumed
         actions.close(prompt_bufnr)
         for _, e in ipairs(entries) do
-            if
-                vim.tbl_isempty(vim.tbl_filter(function(b)
-                    return b == e[1]
-                end, bufs))
-            then
+            if vim.tbl_isempty(vim.tbl_filter(function(b)
+                return b == e[1]
+            end, bufs)) then
                 vim.cmd(string.format("e %s", e[1]))
             end
         end
@@ -149,36 +112,25 @@ M.config = function()
     local Job = require("plenary.job")
     local new_maker = function(filepath, bufnr, opts)
         filepath = vim.fn.expand(filepath)
-        Job
-            :new({
-                command = "file",
-                args = { "--mime-type", "-b", filepath },
-                on_exit = function(j)
-                    local mime_class = vim.split(j:result()[1], "/")[1]
-                    local mime_type = j:result()[1]
-                    if
-                        mime_class == "text"
-                        or (
-                            mime_class == "application"
-                            and mime_type ~= "application/x-pie-executable"
-                        )
-                    then
-                        previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                    else
-                        -- maybe we want to write something to the buffer here
-                        vim.schedule(function()
-                            vim.api.nvim_buf_set_lines(
-                                bufnr,
-                                0,
-                                -1,
-                                false,
-                                { "BINARY" }
-                            )
-                        end)
-                    end
-                end,
-            })
-            :sync()
+        Job:new({
+            command = "file",
+            args = { "--mime-type", "-b", filepath },
+            on_exit = function(j)
+                local mime_class = vim.split(j:result()[1], "/")[1]
+                local mime_type = j:result()[1]
+                if
+                    mime_class == "text"
+                    or (mime_class == "application" and mime_type ~= "application/x-pie-executable")
+                then
+                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
+                else
+                    -- maybe we want to write something to the buffer here
+                    vim.schedule(function()
+                        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+                    end)
+                end
+            end,
+        }):sync()
     end
     -- }}}
     --------------------------------------------------------------------------------
@@ -219,8 +171,7 @@ M.config = function()
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
                     ["<C-n>"] = actions.move_selection_next,
-                    ["<C-o>"] = actions.send_selected_to_qflist
-                        + actions.open_qflist,
+                    ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     ["<C-p>"] = actions.move_selection_previous,
                     ["<C-y>"] = actions.move_to_top,
                     ["<M-o>"] = action_layout.toggle_prompt_position,
@@ -235,8 +186,7 @@ M.config = function()
                     ["e"] = actions.move_to_bottom,
                     ["j"] = actions.move_selection_next,
                     ["k"] = actions.move_selection_previous,
-                    ["o"] = actions.send_selected_to_qflist
-                        + actions.open_qflist,
+                    ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
                     ["p"] = action_layout.toggle_preview,
                     ["y"] = actions.move_to_top,
                 },
@@ -335,28 +285,8 @@ M.config = function()
             reloader = dropdown({}),
         },
         extensions = {
-            undo = {
-                side_by_side = false,
-            },
             ["ui-select"] = {
                 require("telescope.themes").get_dropdown({}),
-            },
-            frecency = {
-                default_workspace = "CWD",
-                show_unindexed = false, -- Show all files or only those that have been indexed
-                ignore_patterns = {
-                    "*.git/*",
-                    "*/tmp/*",
-                    "*node_modules/*",
-                    "*vendor/*",
-                },
-                workspaces = {
-                    ["nvim"] = "/home/lalitmee/.config/nvim/plugged",
-                    ["dotf"] = "/home/lalitmee/dotfiles",
-                    ["git"] = "/home/lalitmee/Desktop/Github",
-                    ["conf"] = "/home/lalitmee/.config",
-                    ["data"] = "/home/lalitmee/.local/share",
-                },
             },
             project = {
                 base_dirs = {

@@ -1,3 +1,4 @@
+R("config.core.abbreviations")
 R("config.core.autocmds")
 R("config.core.commands")
 R("config.core.functions")
