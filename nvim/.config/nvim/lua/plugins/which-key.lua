@@ -53,6 +53,7 @@ M.config = function()
             ["n"] = { ":Notifications<CR>", "notifications" },
             ["o"] = { ":Oil<CR>", "file-browser" },
             ["p"] = { ":MarkdownPreview<CR>", "markdown-preview" },
+            ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
             ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
         },
         ["b"] = {
@@ -370,10 +371,6 @@ M.config = function()
             ["t"] = { ":Telescope treesitter<CR>", "treesitter" },
             ["T"] = { ":Telescope tags<CR>", "project-tags" },
             ["y"] = { ":Telescope yank_history<CR>", "yank-history" },
-        },
-        ["u"] = {
-            ["name"] = "+undo",
-            ["u"] = { ":Telescope undo<CR>", "telescope-undo" },
         },
         ["v"] = {
             ["name"] = "+vim",
