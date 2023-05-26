@@ -78,13 +78,13 @@ confirm_exit() {
 }
 
 # Confirm and execute
-confirm_run () {	
+confirm_run () {
 	selected="$(confirm_exit)"
 	if [[ "$selected" == "$yes" ]]; then
         ${1} && ${2} && ${3}
     else
         exit
-    fi	
+    fi
 }
 
 # Execute Command
@@ -94,7 +94,7 @@ run_cmd() {
 	elif [[ "$1" == '--opt2' ]]; then
 		confirm_run 'kill -9 -1'
 	elif [[ "$1" == '--opt3' ]]; then
-		confirm_run 'mpc -q pause' 'amixer set Master mute' 'systemctl suspend'
+		confirm_run 'systemctl suspend'
 	elif [[ "$1" == '--opt4' ]]; then
 		confirm_run 'systemctl hibernate'
 	elif [[ "$1" == '--opt5' ]]; then
@@ -126,4 +126,3 @@ case ${chosen} in
 		run_cmd --opt6
         ;;
 esac
-
