@@ -60,14 +60,13 @@ M.config = function()
         ["b"] = {
             ["name"] = "+buffers",
             ["a"] = { ":bfirst<CR>", "first-buffer" },
-            ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
+            ["b"] = { ":FzfLua buffers<CR>", "fzf-buffers" },
+            ["B"] = { ":Telescope buffers<CR>", "telescope-buffers" },
             ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
             ["d"] = { ":Bdelete<CR>", "delete-buffer" },
             ["D"] = { ":Bdelete!<CR>", "delete-buffer-without-prompt" },
-            ["l"] = {
-                ":Telescope current_buffer_fuzzy_find<CR>",
-                "search-buffer-lines",
-            },
+            ["l"] = { ":FzfLua blines<CR>", "fzf-buffer-lines" },
+            ["L"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
             ["M"] = { ":delm!<CR>", "delete-marks" },
             ["n"] = { ":bn<CR>", "next-buffer" },
             ["o"] = { ":BufOnly<CR>", "close-all-but-current" },
@@ -327,9 +326,9 @@ M.config = function()
         },
         ["s"] = {
             ["name"] = "+search-and-replace",
-            ["s"] = { ":SpectreOpen<CR>", "open" },
             ["f"] = { ":SpectreCurFileSearch<CR>", "file-search" },
             ["r"] = { ":FzfLua resume<CR>", "live-grep-resume" },
+            ["s"] = { ":SpectreOpen<CR>", "open" },
             ["w"] = { ":SpectreCurWord<CR>", "current-word-search" },
         },
         ["S"] = {
