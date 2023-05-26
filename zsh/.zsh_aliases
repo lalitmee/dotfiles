@@ -75,6 +75,10 @@ alias d="dict"
 # lazygit
 # alias lg="lazygit"
 
+# git aliases
+alias gcn="git commit --no-verify"
+alias gpn="git push --no-verify"
+
 # git worktree aliases
 alias gwl="git worktree list"
 alias gwa="git worktree add"
@@ -134,7 +138,7 @@ alias vi="nvim"
 alias vim="nvim"
 
 # common aliases
-alias a="alias | fzf -d 40%"
+alias a="fzf-aliases-functions"
 alias h="history | fzf -d 40%"
 alias hs="history | grep"
 alias myip="curl http://ipecho.net/plain; echo"
