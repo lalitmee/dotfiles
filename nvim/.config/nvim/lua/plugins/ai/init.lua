@@ -78,8 +78,17 @@ local backseat = {
     enabled = false,
 }
 
+local code_explain = {
+    "mthbernardes/codeexplain.nvim",
+    cmd = "CodeExplain",
+    build = function()
+        vim.cmd([[silent UpdateRemotePlugins]])
+    end,
+}
+
 return {
     backseat,
     chatgpt_nvim,
     neoai,
+    code_explain,
 }

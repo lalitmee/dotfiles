@@ -1,16 +1,17 @@
 local M = {
-    "rcarriga/nvim-dap-ui",
+    "mfussenegger/nvim-dap",
     cmd = { "DapToggleBreakpoint" },
     dependencies = {
-        { "jay-babu/mason-nvim-dap.nvim" },
-        { "jbyuki/one-small-step-for-vimkind" },
-        { "mfussenegger/nvim-dap" },
+        "jay-babu/mason-nvim-dap.nvim",
+        "jbyuki/one-small-step-for-vimkind",
+        "rcarriga/nvim-dap-ui",
+        "nvim-telescope/telescope-dap.nvim",
+        "theHamsta/nvim-dap-virtual-text",
         {
-            "mxsdev/nvim-dap-vscode-js",
-            build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+            "microsoft/vscode-js-debug",
+            version = "1.x",
+            build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
         },
-        { "nvim-telescope/telescope-dap.nvim" },
-        { "theHamsta/nvim-dap-virtual-text" },
     },
 }
 
@@ -20,19 +21,8 @@ M.config = function()
     require("telescope").load_extension("dap")
 
     require("dap-vscode-js").setup({
-        -- node_path = "node",
-        -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug",
-        -- debugger_cmd = { "js-debug-adapter" },
-        adapters = {
-            "pwa-node",
-            "pwa-chrome",
-            "pwa-msedge",
-            "node-terminal",
-            "pwa-extensionHost",
-        }, -- which adapters to register in nvim-dap
-        -- log_file_path = "(stdpath cache)/dap_vscode_js.log"
-        -- log_file_level = false
-        -- log_console_level = vim.log.levels.ERROR
+        debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+        adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
     })
 
     ----------------------------------------------------------------------
@@ -115,10 +105,7 @@ M.config = function()
         linehl = "",
         numhl = "",
     })
-    vim.fn.sign_define(
-        "DapBreakpointCondition",
-        { text = "ü", texthl = "", linehl = "", numhl = "" }
-    )
+    vim.fn.sign_define("DapBreakpointCondition", { text = "ü", texthl = "", linehl = "", numhl = "" })
     vim.fn.sign_define("DapStopped", { text = "ඞ", texthl = "Error" })
     -- }}}
     ----------------------------------------------------------------------
@@ -127,20 +114,72 @@ M.config = function()
     -- NOTE: dap listeners {{{
     ----------------------------------------------------------------------
     dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
+        dapui.open({ reset = true })
     end
-    dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-    end
-    dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-    end
+    dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+    dap.listeners.before.event_exited["dapui_config"] = dapui.close
     -- }}}
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
     -- NOTE: dap adapters {{{
     ----------------------------------------------------------------------
+
+    for _, language in ipairs({ "typescript", "javascript", "svelte" }) do
+        dap.configurations[language] = {
+            -- attach to a node process that has been started with
+            -- `--inspect` for longrunning tasks or `--inspect-brk` for short tasks
+            -- npm script -> `node --inspect-brk ./node_modules/.bin/vite dev`
+            {
+                -- use nvim-dap-vscode-js's pwa-node debug adapter
+                type = "pwa-node",
+                -- attach to an already running node process with --inspect flag
+                -- default port: 9222
+                request = "attach",
+                -- allows us to pick the process using a picker
+                processId = require("dap.utils").pick_process,
+                -- name of the debug action you have to select for this config
+                name = "Attach debugger to existing `node --inspect` process",
+                -- for compiled languages like TypeScript or Svelte.js
+                sourceMaps = true,
+                -- resolve source maps in nested locations while ignoring node_modules
+                resolveSourceMapLocations = {
+                    "${workspaceFolder}/**",
+                    "!**/node_modules/**",
+                },
+                -- path to src in vite based projects (and most other projects as well)
+                cwd = "${workspaceFolder}/src",
+                -- we don't want to debug code inside node_modules, so skip it!
+                skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
+            },
+            {
+                type = "pwa-chrome",
+                name = "Launch Chrome to debug client",
+                request = "launch",
+                url = "http://localhost:5173",
+                sourceMaps = true,
+                protocol = "inspector",
+                port = 9222,
+                webRoot = "${workspaceFolder}/src",
+                -- skip files from vite's hmr
+                skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/client/*", "**/src/*" },
+            },
+            -- only if language is javascript, offer this debug action
+            language == "javascript"
+                    and {
+                        -- use nvim-dap-vscode-js's pwa-node debug adapter
+                        type = "pwa-node",
+                        -- launch a new process to attach the debugger to
+                        request = "launch",
+                        -- name of the debug action you have to select for this config
+                        name = "Launch file in new node process",
+                        -- launch current file
+                        program = "${file}",
+                        cwd = "${workspaceFolder}",
+                    }
+                or nil,
+        }
+    end
 
     ----------------------------------------------------------------------
     -- NOTE: lua adapter {{{
@@ -265,58 +304,91 @@ M.config = function()
     ----------------------------------------------------------------------
 
     ----------------------------------------------------------------------
-    -- NOTE: dap commands {{{
+    -- NOTE: dap mappings {{{
     ----------------------------------------------------------------------
-    local command = lk.command
-
-    command("DapContinue", function()
-        dap.continue()
-    end, {})
-
-    command("DapStepOver", function()
-        dap.step_over()
-    end, {})
-
-    command("DapStepInto", function()
-        dap.step_into()
-    end, {})
-
-    command("DapStepOut", function()
-        dap.step_out()
-    end, {})
-
-    command("DapToggleBreakpoint", function()
-        dap.toggle_breakpoint()
-    end, {})
-
-    command("DapSetBreakpointCond", function()
-        dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-    end, {})
-
-    command("DapSetLogpoint", function()
-        dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-    end, {})
-
-    command("DapReplOpen", function()
-        dap.repl_open()
-    end, {})
-
-    command("DapRunLast", function()
-        dap.run_last()
-    end, {})
-
-    ----------------------------------------------------------------------
-    -- NOTE: osv commands {{{
-    ----------------------------------------------------------------------
-    command("OsvLaunch", function()
-        require("osv").launch()
-    end, {})
-
-    command("OsvRunThis", function()
-        require("osv").run_this()
-    end, {})
-    -- }}}
-    ----------------------------------------------------------------------
+    local wk = require("which-key")
+    wk.register({
+        ["d"] = {
+            ["name"] = "+dap",
+            [":"] = { ":Telescope dap commands<CR>", "dap-commands" },
+            ["a"] = {
+                function()
+                    dap.step_out()
+                end,
+                "step-out",
+            },
+            ["b"] = {
+                ":Telescope dap list_breakpoints<CR>",
+                "dap-list-breakpoints",
+            },
+            ["c"] = {
+                function()
+                    dap.continue()
+                end,
+                "continue",
+            },
+            ["d"] = {
+                function()
+                    dap.toggle_breakpoint()
+                end,
+                "toggle-breakpoint",
+            },
+            ["e"] = {
+                ":Telescope dap configurations<CR>",
+                "dap-configurations",
+            },
+            ["f"] = { ":Telescope dap frames<CR>", "dap-frames" },
+            ["i"] = {
+                function()
+                    dap.step_into()
+                end,
+                "step-into",
+            },
+            ["j"] = {
+                function()
+                    require("osv").launch()
+                end,
+                "lua-launch",
+            },
+            ["k"] = {
+                function()
+                    require("osv").run_this()
+                end,
+                "lua-run-this",
+            },
+            ["l"] = {
+                function()
+                    dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+                end,
+                "log-point",
+            },
+            ["o"] = {
+                function()
+                    dap.step_over()
+                end,
+                "step-over",
+            },
+            ["r"] = {
+                function()
+                    dap.repl_open()
+                end,
+                "open-repl",
+            },
+            ["s"] = {
+                function()
+                    dap.run_last()
+                end,
+                "run-last",
+            },
+            ["t"] = {
+                function()
+                    dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+                end,
+                "breakpoint-condition",
+            },
+            ["v"] = { ":Telescope dap variables<CR>", "dap-variables" },
+        },
+    }, { mode = "n", prefix = "<leader>" })
 
     -- }}}
     ----------------------------------------------------------------------
@@ -332,7 +404,6 @@ M.config = function()
     -- }}}
     ----------------------------------------------------------------------
 
-    require("plugins.dap.typescript")
     require("mason-nvim-dap").setup()
 end
 

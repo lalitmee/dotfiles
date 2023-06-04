@@ -15,38 +15,12 @@ windows:
             - "docker exec -it quartic_local_setup bash"
             - cd workspace/python/ContexAlyze/react_frontend
             - clear
-            # - BROWSER=none node scripts/start.js
-            - npm start
+            - BROWSER=none node scripts/start.js
         - "docker exec qnnect":
             - "docker exec -it quartic_local_setup bash"
-            - cd workspace/python/ContexAlyze/assetharbour/react_frontend
+            - cd workspace/python/ContexAlyze/accounts/react_frontend
             - clear
-            # - BROWSER=none node scripts/start.js
-            - npm start
-        # - "docker exec assetharbour":
-        #     - "docker exec -it quartic_local_setup bash"
-        #     - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend
-        #     - clear
-        #     - BROWSER=none node scripts/start.js
-        # - "docker exec productharbour":
-        #     - "docker exec -it quartic_local_setup bash"
-        #     - cd workspace/python/ContexAlyze/productharbour/react_frontend
-        #     - clear
-        #     - BROWSER=none node scripts/start.js
-        # - "docker exec quarticview":
-        #     - "docker exec -it quartic_local_setup bash"
-        #     - cd workspace/python/ContexAlyze/quarticview/react_frontend
-        #     - clear
-        #     - BROWSER=none node scripts/start.js
-        # - "docker exec accounts":
-        #     - "docker exec -it quartic_local_setup bash"
-        #     - cd workspace/python/ContexAlyze/accounts/react_frontend
-        #     - clear
-        #     - BROWSER=none node scripts/start.js
+            - BROWSER=none node scripts/start.js
   - "ContexAlyze":
       panes:
-        - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
-
-  - "react-corelibs":
-      panes:
-        - z /home/lenovo/Documents/Quartic-Workspace/python/react-corelibs
+        - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze && vi

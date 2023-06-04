@@ -11,6 +11,7 @@ local M = {
         },
         {
             "danielfalk/smart-open.nvim",
+            branch = "0.2.x",
             keys = { "<leader>pl" },
             init = function()
                 require("telescope").load_extension("smart_open")
@@ -25,7 +26,10 @@ local M = {
                     },
                 }, { mode = "n", prefix = "<leader>" })
             end,
-            dependencies = { "kkharji/sqlite.lua" },
+            dependencies = {
+                "kkharji/sqlite.lua",
+                "nvim-telescope/telescope-fzy-native.nvim",
+            },
         },
         {
             "tsakirist/telescope-lazy.nvim",
@@ -291,6 +295,12 @@ M.config = function()
             reloader = dropdown({}),
         },
         extensions = {
+            smart_open = {
+                show_scores = false,
+                ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*" },
+                match_algorithm = "fzy",
+                disable_devicons = false,
+            },
             ["ui-select"] = {
                 require("telescope.themes").get_dropdown({}),
             },
