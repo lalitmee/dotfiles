@@ -100,6 +100,7 @@ local lsp = {
         require("neodev").setup({
             library = {
                 plugins = {
+                    "nvim-dap-ui",
                     "plenary.nvim",
                     "neotest",
                     types = true,
