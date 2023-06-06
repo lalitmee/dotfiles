@@ -1,18 +1,6 @@
 local M = {
     "stevearc/overseer.nvim",
-    cmd = {
-        "OverseerBuild",
-        "OverseerDeleteBundle",
-        "OverseerLoadBundle",
-        "OverseerOpen",
-        "OverseerQuickAction",
-        "OverseerRun",
-        "OverseerRunCmd",
-        "OverseerSaveBundle",
-        "OverseerTaskAction",
-        "OverseerToggle",
-    },
-    -- enabled = false,
+    event = { "VeryLazy" },
 }
 
 M.config = function()
@@ -21,38 +9,28 @@ M.config = function()
     overseer.setup({
         templates = { "tasks" },
     })
+end
 
-    --------------------------------------------------------------------------------
-    --  NOTE: recipes {{{
-    --------------------------------------------------------------------------------
-    -- NOTE: asynchronous :Grep command
-    vim.api.nvim_create_user_command("OGrep", function(params)
-        local args = vim.fn.expandcmd(params.args)
-        -- Insert args at the '$*' in the grepprg
-        local cmd, num_subs = vim.o.grepprg:gsub("%$%*", args)
-        if num_subs == 0 then
-            cmd = cmd .. " " .. args
-        end
-        local task = overseer.new_task({
-            cmd = cmd,
-            name = "grep " .. args,
-            components = {
-                {
-                    "on_output_quickfix",
-                    errorformat = vim.o.grepformat,
-                    open = not params.bang,
-                    open_height = 8,
-                    items_only = true,
-                },
-                -- We don't care to keep this around as long as most tasks
-                { "on_complete_dispose", timeout = 30 },
-                "default",
+M.init = function()
+    local wk = require("which-key")
+    wk.register({
+        ["r"] = {
+            ["o"] = {
+                ["name"] = "+overseer",
+                ["a"] = { ":OverseerTaskAction<CR>", "task-action" },
+                ["b"] = { ":OverseerBuild<CR>", "build" },
+                ["c"] = { ":OverseerClose<CR>", "close" },
+                ["d"] = { ":OverseerDeleteBundle<CR>", "delete-bundle" },
+                ["f"] = { ":OverseerRunCmd<CR>", "run-cmd" },
+                ["l"] = { ":OverseerLoadBundle<CR>", "load-bundle" },
+                ["o"] = { ":OverseerOpen<CR>", "open" },
+                ["q"] = { ":OverseerQuickAction<CR>", "quick-action" },
+                ["r"] = { ":OverseerRun<CR>", "run" },
+                ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
+                ["t"] = { ":OverseerToggle<CR>", "toggle" },
             },
-        })
-        task:start()
-    end, { nargs = "*", bang = true })
-    -- }}}
-    --------------------------------------------------------------------------------
+        },
+    }, { mode = "n", prefix = "<leader>" })
 end
 
 return M

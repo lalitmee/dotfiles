@@ -103,8 +103,8 @@ local lsp = {
                     "nvim-dap-ui",
                     "plenary.nvim",
                     "neotest",
-                    types = true,
                 },
+                types = true,
             },
         })
 
