@@ -192,8 +192,7 @@ o.foldmethod = "manual"
 ----------------------------------------------------------------------
 -- Use faster grep alternatives if possible
 if executable("rg") then
-    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}"
-    --no-heading --vimgrep --follow $*]]
+    o.grepprg = [[rg --hidden --glob "!*{.git,node_modules,build,tags}" --follow $*]]
     opt.grepformat = opt.grepformat ^ { "%f:%l:%c:%m" }
 elseif executable("ag") then
     o.grepprg = [[ag --hidden --nogroup --nocolor --vimgrep]]

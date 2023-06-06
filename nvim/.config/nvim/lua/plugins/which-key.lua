@@ -266,20 +266,6 @@ M.config = function()
         ["r"] = {
             ["name"] = "+build-and-run",
             ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
-            ["o"] = {
-                ["name"] = "+overseer",
-                ["a"] = { ":OverseerTaskAction<CR>", "task-action" },
-                ["b"] = { ":OverseerBuild<CR>", "build" },
-                ["c"] = { ":OverseerClose<CR>", "close" },
-                ["d"] = { ":OverseerDeleteBundle<CR>", "delete-bundle" },
-                ["f"] = { ":OverseerRunCmd<CR>", "run-cmd" },
-                ["l"] = { ":OverseerLoadBundle<CR>", "load-bundle" },
-                ["o"] = { ":OverseerOpen<CR>", "open" },
-                ["q"] = { ":OverseerQuickAction<CR>", "quick-action" },
-                ["r"] = { ":OverseerRun<CR>", "run" },
-                ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
-                ["t"] = { ":OverseerToggle<CR>", "toggle" },
-            },
             ["r"] = {
                 ":Telescope refactoring refactors<CR>",
                 "list-refactors",
