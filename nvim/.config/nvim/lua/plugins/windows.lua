@@ -17,11 +17,6 @@ return {
                     wo = { signcolumn = "yes:2" },
                 },
                 {
-                    ft = "fugitive",
-                    size = { height = 0.5 },
-                    wo = { signcolumn = "yes:2" },
-                },
-                {
                     ft = "gitcommit",
                     size = { height = 0.5 },
                     wo = { signcolumn = "yes:2" },
@@ -38,6 +33,11 @@ return {
             },
 
             right = {
+                {
+                    ft = "fugitive",
+                    size = { width = 0.5 },
+                    wo = { signcolumn = "yes:2" },
+                },
                 {
                     ft = "spectre_panel",
                     size = { width = 0.5 },

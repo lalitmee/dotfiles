@@ -1,5 +1,11 @@
 return {
     {
+        "axkirillov/hbac.nvim",
+        cmd = { "Hbac" },
+        opts = {},
+    },
+
+    {
         "mbbill/undotree",
         cmd = { "UndotreeToggle" },
     },
