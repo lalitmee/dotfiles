@@ -14,6 +14,9 @@ local lualine = {
             for _, client in ipairs(clients) do
                 table.insert(active_clients, client.name)
             end
+            if active_clients[1] == nil then
+                return ""
+            end
             return "[" .. table.concat(active_clients, ", ") .. "]"
         end
 
