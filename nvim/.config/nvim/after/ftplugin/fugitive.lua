@@ -5,7 +5,6 @@ lk.augroup("fugitive_au", {
         event = { "BufWinEnter" },
         buffer = 0,
         command = function()
-            vim.cmd([[:wincmd K | resize 30]])
             vim.cmd([[:norm 4j]])
             local bufnr = vim.api.nvim_get_current_buf()
             local opts = { buffer = bufnr, remap = false }

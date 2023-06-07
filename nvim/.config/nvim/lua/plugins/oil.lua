@@ -2,10 +2,6 @@ return {
     "stevearc/oil.nvim",
     keys = { "-" },
     cmd = { "Oil" },
-    init = function()
-        lk.command("OilFloat", require("oil").open_float, {})
-        vim.keymap.set("n", "-", require("oil").open_float, { desc = "Open parent directory" })
-    end,
     config = function()
         require("oil").setup({
             columns = { "icon" },
@@ -22,5 +18,14 @@ return {
             },
             skip_confirm_for_simple_edits = true,
         })
+    end,
+    init = function()
+        local wk = require("which-key")
+        wk.register({
+            ["a"] = {
+                ["o"] = { ":Oil<CR>", "file-browser" },
+                ["e"] = { ":Oil --float<CR>", "file-browser" },
+            },
+        }, { mode = "n", prefix = "<leader>" })
     end,
 }

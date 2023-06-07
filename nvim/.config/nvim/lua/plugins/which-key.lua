@@ -52,7 +52,6 @@ M.config = function()
             ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
             ["m"] = { ":Telescope messages messages<CR>", "search-messages" },
             ["n"] = { ":Notifications<CR>", "notifications" },
-            ["o"] = { ":Oil<CR>", "file-browser" },
             ["p"] = { ":MarkdownPreview<CR>", "markdown-preview" },
             ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
             ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
