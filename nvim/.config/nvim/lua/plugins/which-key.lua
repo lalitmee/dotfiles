@@ -56,6 +56,7 @@ M.config = function()
             ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
             ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
         },
+
         ["b"] = {
             ["name"] = "+buffers",
             ["a"] = { ":bfirst<CR>", "first-buffer" },
@@ -76,23 +77,26 @@ M.config = function()
             ["w"] = { ":Bwipeout<CR>", "close-buffer-and-window" },
             ["z"] = { ":blast<CR>", "first-buffer" },
         },
+
         ["c"] = {
             ["name"] = "+ChatGPT",
-            ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
+            ["a"] = { ":ChatGPTRun add_tests<CR>", "add-tests" },
+            ["b"] = { ":Backseat<CR>", "backseat" },
             ["c"] = { ":ChatGPT<CR>", "chatgpt" },
-            ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
-            ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
-            ["g"] = {
-                ":ChatGPTRun grammar_correction<CR>",
-                "chatgpt-grammar-correction",
-            },
-            ["o"] = {
-                ":ChatGPTRun optimize_code<CR>",
-                "chatgpt-optimize-code",
-            },
-            ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
-            ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
+            ["d"] = { ":ChatGPTRun docstring<CR>", "docstring" },
+            ["e"] = { ":ChatGPTEditWithInstructions<CR>", "edit-instructions" },
+            ["f"] = { ":ChatGPTRun fix_bugs<CR>", "fix-bugs" },
+            ["g"] = { ":ChatGPTRun grammar_correction<CR>", "grammar-correction" },
+            ["h"] = { ":ChatGPTActAs<CR>", "act-as" },
+            ["k"] = { ":BackseatAsk<CR>", "backseat-ask" },
+            ["l"] = { ":BackseatClearLine<CR>", "backseat-clear-line" },
+            ["o"] = { ":ChatGPTRun optimize_code<CR>", "optimize-code" },
+            ["r"] = { ":ChatGPTRun<CR>", "chatgpt-run" },
+            ["s"] = { ":ChatGPTRun summarize<CR>", "summarize" },
+            ["t"] = { ":ChatGPTRun translate<CR>", "translate" },
+            ["x"] = { ":BackseatClear<CR>", "backseat-clear" },
         },
+
         ["e"] = {
             ["name"] = "+errors",
             ["d"] = { ":LspDiagnosticDisable<CR>", "disable-diagnostic" },
@@ -106,6 +110,7 @@ M.config = function()
                 "diagnostic-float-preview",
             },
         },
+
         ["f"] = {
             ["name"] = "+files",
             ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
@@ -135,6 +140,7 @@ M.config = function()
             ["t"] = { ":Telescope filetypes<CR>", "file-types" },
             ["q"] = { ":wq<CR>", "save-and-quit" },
         },
+
         ["g"] = {
             ["name"] = "+git",
             ["/"] = { ":Telescope git_status<CR>", "git-status" },
@@ -167,6 +173,7 @@ M.config = function()
             ["s"] = { ":Git<CR>", "git-status" },
             ["t"] = { ":Telescope git_stash<CR>", "git-stash" },
         },
+
         ["h"] = {
             ["name"] = "+highlight",
             ["h"] = {
@@ -174,6 +181,7 @@ M.config = function()
                 "show-highlights-info",
             },
         },
+
         ["i"] = {
             ["name"] = "+insert-text",
             ["c"] = { ":PickColor<CR>", "color-picker" },
@@ -187,10 +195,12 @@ M.config = function()
             ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
             ["w"] = { ":ISwapWith<CR>", "swap-with" },
         },
+
         ["k"] = {
             require("ts-node-action").node_action,
             "Trigger Node Action",
         },
+
         ["l"] = {
             ["name"] = "+lsp",
             ["a"] = { ":LspCodeActions<CR>", "code-action" },
@@ -206,6 +216,7 @@ M.config = function()
             ["t"] = { ":LspTypeDefinition<CR>", "type-definition" },
             ["w"] = { ":LspWorkspaceSymbols<CR>", "workspace-symbols" },
         },
+
         ["m"] = {
             ["name"] = "+mind.nvim",
             ["a"] = { ":MindCreateInSmart", "create-in-smart" },
@@ -222,27 +233,27 @@ M.config = function()
             ["r"] = { ":MindReloadState<CR>", "mind-reload-state" },
             ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
         },
+
         ["n"] = {
             ["name"] = "+neovim",
-            ["d"] = { ":Lazy clean<CR>", "clean-packages" },
-            ["e"] = { ":e $HOME/.config/nvim/init.lua<CR>", "edit-config" },
-            ["g"] = { ":e ~/.config/nvim/ginit.vim<CR>", "edit-gui" },
-            ["G"] = { ":so ~/.config/nvim/ginit.vim<CR>", "reload-gui" },
-            ["H"] = { ":checkhealth<CR>", "check-health" },
+            ["a"] = { ":Telescope lazy<CR>", "telescope-lazy" },
+            ["h"] = { ":checkhealth<CR>", "check-health" },
+            ["p"] = { ":Lazy profile<CR>", "lazy-profile" },
+            ["o"] = { ":Lazy<CR>", "packages-status" },
+            ["c"] = { ":Lazy clean<CR>", "clean-packages" },
+            ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
             ["i"] = { ":Lazy install<CR>", "lazy-install" },
             ["l"] = { ":lua Save_and_execute()<CR>", "save-and-execute" },
             ["m"] = { ":ReloadModule ", "realod-module" },
-            ["p"] = { ":Telescope lazy<CR>", "telescope-lazy" },
-            ["P"] = { ":Lazy profile<CR>", "lazy-profile" },
-            ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
-            ["r"] = { ":ReloadConfig<CR>", "realod-config" },
             ["s"] = { ":Lazy sync<CR>", "lazy-sync" },
-            ["S"] = { ":Lazy<CR>", "packages-status" },
+            ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
             ["u"] = { ":Lazy update<CR>", "lazy-update" },
         },
+
         ["o"] = {
             ["name"] = "+org-mode",
         },
+
         ["p"] = {
             ["name"] = "+project",
             ["/"] = { ":Telescope live_grep_args<CR>", "live-grep-args" },
@@ -254,6 +265,7 @@ M.config = function()
             ["s"] = { ":FzfLua live_grep<CR>", "project-search" },
             ["w"] = { ":Telescope grep_string<CR>", "string-search" },
         },
+
         ["q"] = {
             ["name"] = "+quickfix",
             ["c"] = { ":cclose<CR>", "close" },
@@ -263,6 +275,7 @@ M.config = function()
             ["p"] = { ":cprev<CR>", "prev" },
             ["q"] = { ":qall<CR>", "quit-neovim" },
         },
+
         ["r"] = {
             ["name"] = "+build-and-run",
             ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
@@ -285,6 +298,7 @@ M.config = function()
             ["s"] = { ":SnipRun<CR>", "snip-run" },
             ["S"] = { ":SnipClose<CR>", "snip-close" },
         },
+
         ["s"] = {
             ["name"] = "+search-and-replace",
             ["f"] = { ":SpectreCurFileSearch<CR>", "file-search" },
@@ -292,18 +306,7 @@ M.config = function()
             ["s"] = { ":SpectreOpen<CR>", "open" },
             ["w"] = { ":SpectreCurWord<CR>", "current-word-search" },
         },
-        ["S"] = {
-            ["name"] = "+system",
-            ["b"] = { ":Bottom<CR>", "bottom" },
-            ["B"] = { ":SetWallpaper<CR>", "change-system-background" },
-            ["c"] = {
-                ":WorkingDirectory<CR>",
-                "current-working-directory",
-            },
-            ["f"] = { ":FilePath<CR>", "copy-file-path" },
-            ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
-            ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
-        },
+
         ["t"] = {
             ["name"] = "+telescope",
             ["a"] = { ":Telescope<CR>", "telescope-all-options" },
@@ -333,6 +336,7 @@ M.config = function()
             ["T"] = { ":Telescope tags<CR>", "project-tags" },
             ["y"] = { ":Telescope yank_history<CR>", "yank-history" },
         },
+
         ["v"] = {
             ["name"] = "+vim",
             ["/"] = { ":Telescope search_history<CR>", "search-history" },
@@ -352,6 +356,7 @@ M.config = function()
             ["t"] = { ":Telescope tagstack<CR>", "tag-stack" },
             ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
         },
+
         ["w"] = {
             ["name"] = "+windows",
             ["2"] = { "<C-W>v", "layout-double-columns" },
@@ -374,6 +379,7 @@ M.config = function()
             ["u"] = { "<C-W>x", "swap-window-next" },
             ["v"] = { "<C-W>v", "split-window-right" },
         },
+
         ["y"] = { ":YankyRingHistory<CR>", "yank-ring-history" },
     }
 
@@ -388,20 +394,17 @@ M.config = function()
         ["7"] = { ":HarpoonGotoFile 7<CR>", "goto-file-7" },
         ["8"] = { ":HarpoonGotoFile 8<CR>", "goto-file-8" },
         ["9"] = { ":HarpoonGotoFile 9<CR>", "goto-file-9" },
+
         ["a"] = {
-            ["name"] = "+ai/chatgpt",
-            ["a"] = { ":ChatGPT<CR>", "chatgpt" },
-            ["b"] = { ":Backseat<CR>", "backseat" },
-            ["c"] = { ":BackseatClear<CR>", "backseat-clear" },
-            ["e"] = {
-                ":ChatGPTEditWithInstructions<CR>",
-                "chatgpt-edit-with-instruction",
-            },
-            ["k"] = { ":BackseatAsk<CR>", "backseat-ask" },
-            ["l"] = { ":BackseatClearLine<CR>", "backseat-clear-line" },
-            ["r"] = { ":ChatGPTRun<CR>", "chatgpt-run" },
-            ["s"] = { ":ChatGPTActAs<CR>", "chatgpt-act-as" },
+            ["name"] = "+system-actions",
+            ["b"] = { ":Bottom<CR>", "bottom" },
+            ["c"] = { ":WorkingDirectory<CR>", "cwd" },
+            ["f"] = { ":FilePath<CR>", "copy-file-path" },
+            ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
+            ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
+            ["w"] = { ":SetWallpaper<CR>", "change-system-background" },
         },
+
         ["c"] = {
             ["name"] = "+toggle",
             ["j"] = { ":TSJToggle<CR>", "treesj-toggle" },
@@ -425,12 +428,14 @@ M.config = function()
             ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
             ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
         },
+
         ["f"] = {
             ["name"] = "+fzf-lua",
             ["a"] = { ":FzfLua builtin<CR>", "builtins" },
             ["f"] = { ":FzfLua files<CR>", "files" },
             ["r"] = { ":FzfLua live_grep_resume<CR>", "live-grep-resume" },
         },
+
         ["s"] = {
             ["name"] = "+scratch",
             ["a"] = { ":Scretch<CR>", "new-scratch" },
@@ -440,9 +445,11 @@ M.config = function()
             ["l"] = { ":ScretchLast<CR>", "last-scratch" },
             ["n"] = { ":ScretchNamed<CR>", "scratch-with-name" },
         },
+
         ["t"] = {
             -- it is reserved for neorg keybindings
         },
+
         ["w"] = {
             ["name"] = "+tabs",
             ["a"] = { ":tabnew<CR>", "new-tab" },
@@ -481,11 +488,14 @@ M.config = function()
                 "inline-variable",
             },
         },
+
         ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
+
         ["a"] = {
             ["name"] = "+actions",
             ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
         },
+
         ["c"] = {
             ["name"] = "+ChatGPT",
             ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
@@ -502,6 +512,7 @@ M.config = function()
             ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
             ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
         },
+
         ["["] = { '"zy:%S/<c-r><c-o>"//c<left><left>', "abolish-replace" },
     }
 

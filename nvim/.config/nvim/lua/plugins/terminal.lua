@@ -46,6 +46,13 @@ return {
             on_open = float_handler,
         })
 
+        local lazydocker = Terminal:new({
+            cmd = "lazydocker",
+            hidden = true,
+            direction = "float",
+            on_open = float_handler,
+        })
+
         local bottom = Terminal:new({
             cmd = "btm",
             hidden = true,
@@ -56,6 +63,9 @@ return {
             end,
         })
 
+        lk.command("LazyDocker", function()
+            lazydocker:toggle()
+        end, {})
         lk.command("LazyGit", function()
             lazygit:toggle()
         end, {})
