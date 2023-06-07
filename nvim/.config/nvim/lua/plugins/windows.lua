@@ -6,9 +6,6 @@ return {
         "folke/edgy.nvim",
         event = "VeryLazy",
         opts = {
-            ----------------------------------------------------------------------
-            --                           top windows                            --
-            ----------------------------------------------------------------------
             top = {
                 {
                     ft = "help",
@@ -31,9 +28,6 @@ return {
                 },
             },
 
-            ----------------------------------------------------------------------
-            --                          bottom windows                          --
-            ----------------------------------------------------------------------
             bottom = {
                 {
                     ft = "NeogitPopup",
@@ -43,16 +37,23 @@ return {
                 { ft = "qf", title = "QuickFix" },
             },
 
-            ----------------------------------------------------------------------
-            --                          right windows                           --
-            ----------------------------------------------------------------------
             right = {
                 {
                     ft = "spectre_panel",
-                    size = { height = 0.4 },
+                    size = { width = 0.5 },
                     wo = { signcolumn = "yes:2" },
                 },
+                {
+                    ft = "oil",
+                    size = { width = 0.5 },
+                    wo = { signcolumn = "yes:2" },
+                    filter = function(_, win)
+                        return vim.api.nvim_win_get_config(win).relative == ""
+                    end,
+                },
             },
+
+            left = {},
 
             animate = {
                 enabled = false,
