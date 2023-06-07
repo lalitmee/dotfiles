@@ -1,6 +1,38 @@
 return {
 
     ----------------------------------------------------------------------
+    --                           comment.nvim                           --
+    ----------------------------------------------------------------------
+    {
+        "numToStr/Comment.nvim",
+        event = { "VeryLazy" },
+        config = function()
+            require("Comment").setup({
+                ignore = "^$",
+                pre_hook = function(ctx)
+                    local U = require("Comment.utils")
+
+                    local location = nil
+                    if ctx.ctype == U.ctype.blockwise then
+                        location = require("ts_context_commentstring.utils").get_cursor_location()
+                    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+                        location = require("ts_context_commentstring.utils").get_visual_start_location()
+                    end
+
+                    return require("ts_context_commentstring.internal").calculate_commentstring({
+                        key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
+                        location = location,
+                    })
+                end,
+            })
+
+            local comment_ft = require("Comment.ft")
+            comment_ft.set("lua", { "--%s", "--[[%s]]" })
+            comment_ft.set("kdl", { "//%s" })
+        end,
+    },
+
+    ----------------------------------------------------------------------
     --                          comment frame                           --
     ----------------------------------------------------------------------
     {
@@ -78,6 +110,60 @@ return {
                 Rule("then", "end", "lua"):end_wise(function(opts)
                     return string.match(opts.line, "^%s*if") ~= nil
                 end),
+            })
+        end,
+    },
+
+    ----------------------------------------------------------------------
+    --                             nvim-ufo                             --
+    ----------------------------------------------------------------------
+    {
+        "kevinhwang91/nvim-ufo",
+        event = "BufReadPost",
+        dependencies = {
+            "kevinhwang91/promise-async",
+        },
+        config = function()
+            local ufo = require("ufo")
+
+            vim.opt.sessionoptions:append("folds")
+            vim.o.foldcolumn = "0"
+            vim.o.foldlevel = 99
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+
+            lk.nnoremap("zR", ufo.openAllFolds, { desc = "open all folds" })
+            lk.nnoremap("zM", ufo.closeAllFolds, { desc = "close all folds" })
+            lk.nnoremap("zr", require("ufo").openFoldsExceptKinds, { desc = "open folds except kinds" })
+            lk.nnoremap("zm", require("ufo").closeFoldsWith, { desc = "close folds with" })
+            lk.nnoremap("zk", function()
+                local winid = require("ufo").peekFoldedLinesUnderCursor()
+                if not winid then
+                    vim.lsp.buf.hover()
+                end
+            end, { desc = "preview fold" })
+
+            ufo.setup({
+                fold_virt_text_handler = function(virt_text, lnum, end_lnum, width)
+                    local suffix = " {...} ┣━━"
+                    local lines = ("┫ %d lines ┣━━"):format(end_lnum - lnum)
+
+                    local cur_width = 0
+                    for _, section in ipairs(virt_text) do
+                        cur_width = cur_width + vim.fn.strdisplaywidth(section[1])
+                    end
+
+                    suffix = suffix .. ("━"):rep(width - cur_width - vim.fn.strdisplaywidth(lines) - 10)
+
+                    table.insert(virt_text, { suffix, "Normal" })
+                    table.insert(virt_text, { lines, "Normal" })
+                    return virt_text
+                end,
+                close_fold_kinds = { "imports" },
+                open_fold_hl_timeout = 0,
+                provider_selector = function()
+                    return { "treesitter", "indent" }
+                end,
             })
         end,
     },
