@@ -4,7 +4,9 @@ return {
         event = { "InsertEnter" },
         dependencies = {
             "onsails/lspkind.nvim",
-            "hrsh7th/cmp-buffer",
+            "tzachar/fuzzy.nvim",
+            "tzachar/cmp-fuzzy-buffer",
+            "tzachar/cmp-fuzzy-path",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
@@ -16,7 +18,7 @@ return {
             {
                 "tzachar/cmp-tabnine",
                 build = "./install.sh",
-                enabled = false,
+                -- enabled = false,
             },
             {
                 "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -69,6 +71,11 @@ return {
                         keyword_length = 3,
                         max_item_count = 30,
                     },
+                    {
+                        name = "fuzzy_buffer",
+                        keyword_length = 3,
+                    },
+                    { name = "fuzzy_path" },
                     { name = "nvim_lua" },
                     { name = "luasnip" },
                     {
@@ -76,8 +83,6 @@ return {
                         keyword_length = 3,
                     },
                     { name = "path" },
-                }, {
-                    { name = "buffer" },
                 }),
                 sorting = {
                     priority_weight = 2,
@@ -100,7 +105,7 @@ return {
                 formatting = {
                     format = lspkind.cmp_format({
                         menu = {
-                            buffer = "[BUF]",
+                            fuzzy_buffer = "[BUF]",
                             cmp_tabnine = "[TBN]",
                             luasnip = "[SNIP]",
                             nvim_lsp = "[LSP]",
@@ -115,21 +120,20 @@ return {
             --     format = require("tailwindcss-colorizer-cmp").formatter,
             -- }
 
-            -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-            -- cmp.setup.cmdline({ "/", "?" }, {
-            --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = {
-            --         { name = "buffer" },
-            --     },
-            -- })
+            -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+            cmp.setup.cmdline({ "/", "?" }, {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "fuzzy_buffer" },
+                },
+            })
+
             -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
             -- cmp.setup.cmdline(":", {
             --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = cmp.config.sources({
-            --         { name = "path" },
-            --     }, {
-            --         { name = "cmdline" },
-            --     }),
+            --     sources = {
+            --         { name = "fuzzy_path" },
+            --     },
             -- })
 
             -- -- Set configuration for specific filetype.
