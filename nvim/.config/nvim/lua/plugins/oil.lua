@@ -23,8 +23,8 @@ return {
         local wk = require("which-key")
         wk.register({
             ["a"] = {
-                ["o"] = { ":Oil<CR>", "file-browser" },
-                ["e"] = { ":Oil --float<CR>", "file-browser" },
+                ["e"] = { ":Oil<CR>", "file-browser" },
+                ["o"] = { ":Oil --float<CR>", "file-browser" },
             },
         }, { mode = "n", prefix = "<leader>" })
     end,
