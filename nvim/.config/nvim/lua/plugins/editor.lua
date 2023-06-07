@@ -175,6 +175,20 @@ return {
         "gbprod/yanky.nvim",
         event = "VeryLazy",
         dependencies = { "kkharji/sqlite.lua" },
+        init = function()
+            vim.g.clipboard = {
+                name = "xsel_override",
+                copy = {
+                    ["+"] = "xsel --input --clipboard",
+                    ["*"] = "xsel --input --primary",
+                },
+                paste = {
+                    ["+"] = "xsel --output --clipboard",
+                    ["*"] = "xsel --output --primary",
+                },
+                cache_enabled = 1,
+            }
+        end,
         config = function()
             ----------------------------------------------------------------------
             -- NOTE: setup {{{
@@ -182,6 +196,9 @@ return {
             require("yanky").setup({
                 highlight = {
                     timer = 40,
+                },
+                system_clipboard = {
+                    sync_with_ring = false,
                 },
             })
 
