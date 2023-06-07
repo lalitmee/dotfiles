@@ -33,6 +33,13 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=info:#9e9e9e,prompt:#ff628c,pointer:#ff9a00
 --color=marker:#FF628C,spinner:#ffc600,header:#ff628c'
 
+# # tokyonight
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+# --color=fg:#c0caf5,bg:#1a1b26,hl:#61afef
+# --color=fg+:#c0caf5,bg+:#1a1b26,hl+:#61afef
+# --color=info:#c0caf5,prompt:#ff79c6,pointer:#f1fa8c
+# --color=marker:#FF79C6,spinner:#50fa7b,header:#ff79c6'
+
 # # catppuccin
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS" \
 # --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
