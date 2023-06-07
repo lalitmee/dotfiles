@@ -204,23 +204,8 @@ local null_ls = {
                 cda.shellcheck,
                 cda.refactoring,
             },
-            on_attach = function(client, bufnr)
+            on_attach = function(client)
                 if client.supports_method("textDocument/formatting") then
-                    -- lk.augroup("null_ls_au", {
-                    --     {
-                    --         event = { "BufWritePre" },
-                    --         buffer = bufnr,
-                    --         command = function()
-                    --             vim.lsp.buf.format({
-                    --                 bufnr = bufnr,
-                    --                 filter = function(lsp_client)
-                    --                     return lsp_client.name == "null-ls"
-                    --                 end,
-                    --             })
-                    --         end,
-                    --     },
-                    -- })
-
                     require("lsp-format").on_attach(client)
                 end
             end,
