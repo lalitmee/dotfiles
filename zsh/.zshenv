@@ -24,6 +24,7 @@ export TERM="xterm-256color"
 # NOTE: editor {{{
 # -------------------------------------------------------------------
 export EDITOR="nvim"
+export VISUAL="nvr --remote-wait +'set bufhidden=wipe'"
 export GIT_EDITOR="nvim"
 export NVIM_LOG_FILE_PATH="$HOME/.logs/nvim"
 # }}}

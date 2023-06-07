@@ -80,6 +80,7 @@ M.config = function()
         ["c"] = {
             ["name"] = "+ChatGPT",
             ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
+            ["c"] = { ":ChatGPT<CR>", "chatgpt" },
             ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
             ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
             ["g"] = {

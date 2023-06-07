@@ -1,94 +1,59 @@
-local chatgpt_nvim = {
-    "jackMort/ChatGPT.nvim",
-    cmd = {
-        "ChatGPT",
-        "ChatGPTRun",
-        "ChatGPTActAs",
-        "ChatGPTEditWithInstructions",
-    },
-    dependencies = { "MunifTanjim/nui.nvim" },
-    init = function()
-        lk.command("ChatGPTRun", function(opts)
-            require("chatgpt").run_action(opts)
-        end, {
-            nargs = "*",
-            range = true,
-            complete = function()
-                local match = {
-                    "add_tests",
-                    "docstring",
-                    "fix_bugs",
-                    "grammar_correction",
-                    "optimize_code",
-                    "summarize",
-                    "translate",
-                }
-                return match
-            end,
-        })
-    end,
-    config = function()
-        require("chatgpt").setup({
+return {
+    ----------------------------------------------------------------------
+    --                           ChatGPT.nvim                           --
+    ----------------------------------------------------------------------
+    {
+        "jackMort/ChatGPT.nvim",
+        cmd = {
+            "ChatGPT",
+            "ChatGPTRun",
+            "ChatGPTActAs",
+            "ChatGPTEditWithInstructions",
+        },
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
             popup_input = {
                 submit = "<Enter>",
             },
-        })
-    end,
-    enabled = false,
-}
+        },
+    },
 
-local neoai = {
-    "Bryley/neoai.nvim",
-    dependencies = {
-        "MunifTanjim/nui.nvim",
+    ----------------------------------------------------------------------
+    --                          backseat.nvim                           --
+    ----------------------------------------------------------------------
+    {
+        "james1236/backseat.nvim",
+        cmd = {
+            "Backseat",
+            "BackseatAsk",
+            "BackseatClear",
+            "BackseatClearLine",
+        },
+        config = true,
     },
-    cmd = {
-        "NeoAI",
-        "NeoAIOpen",
-        "NeoAIClose",
-        "NeoAIToggle",
-        "NeoAIContext",
-        "NeoAIContextOpen",
-        "NeoAIContextClose",
-        "NeoAIInject",
-        "NeoAIInjectCode",
-        "NeoAIInjectContext",
-        "NeoAIInjectContextCode",
-        "NeoAIShortcut",
-    },
-    keys = {
-        { "<leader>as", desc = "Summarize Text" },
-        { "<leader>ag", desc = "Generate Git Message" },
-    },
-    opts = {
-        open_api_key_env = vim.env.OPEN_API_KEY,
-    },
-    enabled = false,
-}
 
-local backseat = {
-    "james1236/backseat.nvim",
-    cmd = {
-        "Backseat",
-        "BackseatAsk",
-        "BackseatClear",
-        "BackseatClearLine",
+    ----------------------------------------------------------------------
+    --                         codeexplain.nvim                         --
+    ----------------------------------------------------------------------
+    {
+        "mthbernardes/codeexplain.nvim",
+        cmd = { "CodeExplain" },
+        build = function()
+            vim.cmd([[silent UpdateRemotePlugins]])
+        end,
     },
-    config = true,
-    enabled = false,
-}
 
-local code_explain = {
-    "mthbernardes/codeexplain.nvim",
-    cmd = "CodeExplain",
-    build = function()
-        vim.cmd([[silent UpdateRemotePlugins]])
-    end,
-}
-
-return {
-    backseat,
-    chatgpt_nvim,
-    neoai,
-    code_explain,
+    ----------------------------------------------------------------------
+    --                           CodeGPT.nvim                           --
+    ----------------------------------------------------------------------
+    {
+        "dpayne/CodeGPT.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        cmd = { "Chat" },
+        config = function()
+            require("codegpt.config")
+        end,
+    },
 }
