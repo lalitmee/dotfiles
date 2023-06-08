@@ -3,7 +3,6 @@
 ----------------------------------------------------------------------
 
 local fn = vim.fn
-local api = vim.api
 local opt = vim.opt
 local o = vim.o
 local g = vim.g
@@ -339,7 +338,7 @@ o.emoji = false
 ----------------------------------------------------------------------
 -- NOTE: title {{{
 ----------------------------------------------------------------------
-o.titleold = fn.fnamemodify(vim.loop.os_getenv("SHELL"), ":t")
+o.titleold = fn.fnamemodify(vim.uv.os_getenv("SHELL"), ":t")
 o.title = true
 o.titlelen = 70
 -- }}}

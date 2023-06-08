@@ -13,6 +13,9 @@ local rust_analyzer = get_server_options("rust_analyzer")
 -- local tsserver = get_server_options("tsserver")
 
 return {
+    -- NOTE: using `typescript.nvim`
+    -- tsserver = true,
+
     bashls = true,
     clangd = clangd,
     cssls = true,
@@ -20,12 +23,11 @@ return {
     emmet_ls = false,
     gopls = gopls,
     jsonls = true,
-    pyright = true,
-    marksman = true,
-    rust_analyzer = rust_analyzer,
     lua_ls = lua_ls,
+    marksman = true,
+    pyright = true,
+    rust_analyzer = rust_analyzer,
     tailwindcss = false,
     taplo = true,
-    tsserver = true,
     vimls = true,
 }

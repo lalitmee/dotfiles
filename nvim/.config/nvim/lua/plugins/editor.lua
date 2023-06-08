@@ -6,10 +6,9 @@ return {
             "onsails/lspkind.nvim",
             "tzachar/fuzzy.nvim",
             "tzachar/cmp-fuzzy-buffer",
-            "tzachar/cmp-fuzzy-path",
             "hrsh7th/cmp-path",
+            "dmitmel/cmp-cmdline-history",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
             {
                 "hrsh7th/cmp-nvim-lua",
@@ -44,10 +43,12 @@ return {
                 completion = {
                     completeopt = "menu,menuone,noinsert",
                 },
+
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
                 },
+
                 mapping = {
                     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
@@ -65,25 +66,27 @@ return {
                         select = true,
                     }),
                 },
+
                 sources = cmp.config.sources({
                     {
                         name = "nvim_lsp",
-                        keyword_length = 3,
+                        keyword_length = 5,
                         max_item_count = 30,
                     },
-                    {
-                        name = "fuzzy_buffer",
-                        keyword_length = 3,
-                    },
-                    { name = "fuzzy_path" },
                     { name = "nvim_lua" },
                     { name = "luasnip" },
                     {
                         name = "cmp_tabnine",
-                        keyword_length = 3,
+                        keyword_length = 5,
                     },
+                    {
+                        name = "fuzzy_buffer",
+                        keyword_length = 5,
+                    },
+                    { name = "fuzzy_path" },
                     { name = "path" },
                 }),
+
                 sorting = {
                     priority_weight = 2,
                     comparators = {
@@ -97,11 +100,13 @@ return {
                         compare.order,
                     },
                 },
+
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
                     end,
                 },
+
                 formatting = {
                     format = lspkind.cmp_format({
                         menu = {
@@ -114,27 +119,23 @@ return {
                         },
                     }),
                 },
+
                 experimental = { ghost_text = false },
             })
             -- require("cmp").config.formatting = {
             --     format = require("tailwindcss-colorizer-cmp").formatter,
             -- }
 
-            -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline({ "/", "?" }, {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "fuzzy_buffer" },
-                },
-            })
-
-            -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-            -- cmp.setup.cmdline(":", {
-            --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = {
-            --         { name = "fuzzy_path" },
-            --     },
-            -- })
+            for _, cmd_type in ipairs({ ":", "/", "?", "@" }) do
+                cmp.setup.cmdline(cmd_type, {
+                    mapping = cmp.mapping.preset.cmdline(),
+                    sources = {
+                        { name = "cmdline_history" },
+                        { name = "path" },
+                        { name = "fuzzy_buffer" },
+                    },
+                })
+            end
 
             -- -- Set configuration for specific filetype.
             -- cmp.setup.filetype("gitcommit", {
@@ -328,7 +329,9 @@ return {
                 end
             end)
 
-            vim.keymap.set("i", "<c-u>", require("luasnip.extras.select_choice"))
+            vim.keymap.set("i", "<c-u>", function()
+                require("luasnip.extras.select_choice")()
+            end)
             -- }}}
         end,
     },
