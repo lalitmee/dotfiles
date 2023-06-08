@@ -240,8 +240,11 @@ return {
                     require("typescript.extensions.null-ls.code-actions"),
                 },
                 on_attach = function(client)
-                    if client.supports_method("textDocument/formatting") then
-                        require("lsp-format").on_attach(client)
+                    local buffer_name = vim.fn.expand("%:t")
+                    if buffer_name ~= "COMMIT_EDITMSG" then
+                        if client.supports_method("textDocument/formatting") then
+                            require("lsp-format").on_attach(client)
+                        end
                     end
                 end,
             })
