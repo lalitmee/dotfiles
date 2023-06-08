@@ -56,8 +56,16 @@ M.mappings = function(client)
 
     -- fzf-lua
     nmap("ga", "<cmd>FzfLua lsp_code_actions<CR>", map_opts)
-    -- nmap("gd", "<cmd>FzfLua lsp_definitions<CR>", map_opts)
     nmap("gd", function()
+        if client.name == "tsserver" then
+            vim.cmd("TypescriptGoToSourceDefinition")
+        else
+            require("fzf-lua").lsp_definitions({
+                jump_to_single_result = true,
+            })
+        end
+    end, map_opts)
+    nmap("<C-]>", function()
         require("fzf-lua").lsp_definitions({
             jump_to_single_result = true,
             jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
@@ -76,6 +84,20 @@ M.mappings = function(client)
     nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", map_opts)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
     nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
+
+    -- lspsaga
+    -- Diagnostic jump
+    -- You can use <C-o> to jump back to your previous location
+    nmap("[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+    nmap("]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+
+    -- Diagnostic jump with filters such as only jumping to an error
+    nmap("[E", function()
+        require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end)
+    nmap("]E", function()
+        require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end)
 end
 -- }}}
 ----------------------------------------------------------------------
