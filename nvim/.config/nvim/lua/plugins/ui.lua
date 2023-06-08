@@ -1,11 +1,7 @@
-local api = vim.api
 local border, L = lk.style.border.rounded, vim.log.levels
 
 return {
-    ----------------------------------------------------------------------
-    --                          dressing.nvim                           --
-    ----------------------------------------------------------------------
-    {
+    { --[[ dressing ]]
         "stevearc/dressing.nvim",
         event = { "VeryLazy" },
         init = function()
@@ -58,10 +54,7 @@ return {
         end,
     },
 
-    ----------------------------------------------------------------------
-    --                            noice.nvim                            --
-    ----------------------------------------------------------------------
-    {
+    { --[[ noice ]]
         "folke/noice.nvim",
         event = { "VeryLazy" },
         opts = {
@@ -163,7 +156,6 @@ return {
                             { event = "msg_show", kind = "search_count" },
                             { event = "msg_show", find = "%d+L, %d+B" },
                             { event = "msg_show", find = "^Hunk %d+ of %d" },
-                            -- TODO: investigate the source of this LSP message and disable it happens in typescript files
                             { event = "notify", find = "No information available" },
                         },
                     },
@@ -257,10 +249,7 @@ return {
         enabled = false,
     },
 
-    ----------------------------------------------------------------------
-    --                              notify                              --
-    ----------------------------------------------------------------------
-    {
+    { --[[ notify ]]
         "rcarriga/nvim-notify",
         event = { "VeryLazy" },
         init = function()
@@ -277,7 +266,7 @@ return {
                     return math.floor(vim.go.lines * 0.8)
                 end,
                 on_open = function(win)
-                    if api.nvim_win_is_valid(win) then
+                    if vim.api.nvim_win_is_valid(win) then
                         vim.api.nvim_win_set_config(win, {
                             border = {
                                 "╭",
@@ -321,18 +310,12 @@ return {
         end,
     },
 
-    ----------------------------------------------------------------------
-    --                         virtical column                          --
-    ----------------------------------------------------------------------
-    {
+    { --[[ virtcolumn ]]
         "xiyaowong/virtcolumn.nvim",
         event = { "VeryLazy" },
     },
 
-    ----------------------------------------------------------------------
-    --                              icons                               --
-    ----------------------------------------------------------------------
-    {
+    { --[[ devicons ]]
         "kyazdani42/nvim-web-devicons",
         config = true,
     },

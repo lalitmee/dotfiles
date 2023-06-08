@@ -529,7 +529,7 @@ return {
         end,
     },
 
-    { --[[ sort motion ]]
+    { --[[ sort ]]
         "christoomey/vim-sort-motion",
         keys = {
             "gs",
@@ -540,5 +540,476 @@ return {
     { --[[ bufdelete ]]
         "famiu/bufdelete.nvim",
         cmd = { "Bdelete" },
+    },
+
+    { --[[ hop ]]
+        "phaazon/hop.nvim",
+        branch = "v2",
+        cmd = {
+            "HopPattern",
+            "HopChar1AC",
+            "HopChar1BC",
+            "HopChar1",
+            "HopChar2",
+            "HopLineStart",
+            "HopLine",
+            "HopChar2AC",
+            "HopChar2BC",
+            "HopWord",
+            "HopWordMW",
+        },
+        config = true,
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["j"] = {
+                    ["name"] = "+jump",
+                    ["/"] = { ":HopPattern<CR>", "pattern" },
+                    ["a"] = { ":HopAnywhere<CR>", "anywhere" },
+                    ["f"] = { ":HopChar1AC<CR>", "char1-ac" },
+                    ["F"] = { ":HopChar1BC<CR>", "char1-bc" },
+                    ["j"] = { ":HopChar1<CR>", "char1" },
+                    ["k"] = { ":HopChar2<CR>", "char2" },
+                    ["l"] = { ":HopLineStart<CR>", "line-start" },
+                    ["L"] = { ":HopLine<CR>", "line" },
+                    ["t"] = { ":HopChar2AC<CR>", "char2-ac" },
+                    ["T"] = { ":HopChar2BC<CR>", "char2-bc" },
+                    ["w"] = { ":HopWord<CR>", "word" },
+                    ["W"] = { ":HopWordMW<CR>", "word-mw" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
+    },
+
+    { --[[ spectre ]]
+        "nvim-pack/nvim-spectre",
+        cmd = {
+            "Spectre",
+            "SpectreOpen",
+            "SpectreCurWord",
+            "SpectreVisual",
+            "SpectreCurFileSearch",
+        },
+        config = function()
+            local spectre = require("spectre")
+
+            spectre.setup({
+                default = {
+                    find = {
+                        options = { "ignore-case", "hidden", "line-number" },
+                    },
+                },
+                highlight = {
+                    ui = "String",
+                    search = "DiffDelete",
+                    replace = "DiffChange",
+                },
+            })
+
+            ----------------------------------------------------------------------
+            -- NOTE: commands {{{
+            ----------------------------------------------------------------------
+            local command = lk.command
+
+            command("SpectreOpen", function()
+                spectre.open()
+            end, {})
+
+            command("SpectreCurWord", function()
+                spectre.open_visual({ select_word = true })
+            end, {})
+
+            command("SpectreVisual", function()
+                spectre.open_visual()
+            end, { range = "%" })
+
+            command("SpectreCurFileSearch", function()
+                spectre.open_file_search()
+            end, { range = "%" })
+
+            -- }}}
+            ----------------------------------------------------------------------
+        end,
+    },
+
+    { --[[ vim-cool ]]
+        "romainl/vim-cool",
+        event = { "VeryLazy" },
+    },
+
+    { --[[ neo-composer ]]
+        "ecthelionvi/NeoComposer.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        init = function()
+            require("telescope").load_extension("macros")
+        end,
+        opts = {},
+        enabled = false,
+    },
+
+    { --[[ oil ]]
+        "stevearc/oil.nvim",
+        keys = { "-" },
+        cmd = { "Oil" },
+        config = function()
+            require("oil").setup({
+                columns = { "icon" },
+                float = {
+                    win_options = {
+                        winblend = 0,
+                    },
+                    padding = 5,
+                    max_height = 120,
+                    max_width = 160,
+                },
+                view_options = {
+                    show_hidden = true,
+                },
+                skip_confirm_for_simple_edits = true,
+            })
+        end,
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["a"] = {
+                    ["e"] = { ":Oil<CR>", "file-browser" },
+                    ["o"] = { ":Oil --float<CR>", "file-browser" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
+    },
+
+    { --[[ bqf ]]
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
+        dependencies = {
+            url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+            ft = "qf",
+            config = true,
+        },
+        opts = {
+            auto_enable = true,
+            preview = { auto_previw = true, win_height = 25, win_vheight = 25 },
+            filter = {
+                fzf = {
+                    extra_opts = {
+                        "--bind",
+                        "ctrl-s:select-all,ctrl-d:deselect-all",
+                        "--prompt",
+                        "Filter > ",
+                    },
+                },
+            },
+        },
+    },
+
+    { --[[ replacer ]]
+        "gabrielpoca/replacer.nvim",
+        cmd = { "Replacer", "ReplacerFiles" },
+        init = function()
+            local wk = require("which-key")
+            local replacer = require("replacer")
+
+            wk.register({
+                ["q"] = {
+                    ["f"] = {
+                        function()
+                            replacer.run()
+                        end,
+                        "replacer-files",
+                    },
+                    ["r"] = {
+                        function()
+                            replacer.run({ rename_files = false })
+                        end,
+                        "replacer",
+                    },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
+    },
+
+    { --[[ targets ]]
+        "wellle/targets.vim",
+        event = { "VeryLazy" },
+    },
+
+    { --[[ repeat ]]
+        "tpope/vim-repeat",
+        keys = { "." },
+    },
+
+    { --[[ scrptease ]]
+        "tpope/vim-scriptease",
+        cmd = { "Messages", "Verbose" },
+    },
+
+    { --[[ unimpaired ]]
+        "tpope/vim-unimpaired",
+        event = "VeryLazy",
+        enabled = false,
+    },
+
+    { --[[ abolish ]]
+        "tpope/vim-abolish",
+        cmd = { "Abolish", "Subvert", "S" },
+        enabled = false,
+    },
+
+    { --[[ lualine ]]
+        "nvim-lualine/lualine.nvim",
+        event = { "BufEnter" },
+        config = function()
+            local function get_trailing_whitespace()
+                local space = vim.fn.search([[\s\+$]], "nwc")
+                return space ~= 0 and "TW:" .. space or ""
+            end
+
+            local function get_active_lsp_clients()
+                local bufnr = vim.fn.bufnr(0)
+                local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+                local active_clients = {}
+                for _, client in ipairs(clients) do
+                    table.insert(active_clients, client.name)
+                end
+                if active_clients[1] == nil then
+                    return ""
+                end
+                return "[" .. table.concat(active_clients, ", ") .. "]"
+            end
+
+            require("lualine").setup({
+                options = {
+                    theme = "auto",
+                    globalstatus = true,
+                    section_separators = { left = "", right = "" },
+                    component_separators = { left = "", right = "" },
+                },
+                sections = {
+                    lualine_a = {
+                        {
+                            "searchcount",
+                            color = "lualine_b_normal",
+                        },
+                        {
+                            "selectioncount",
+                            color = "lualine_b_normal",
+                        },
+                        {
+                            "mode",
+                            fmt = function(str)
+                                return "<" .. str:sub(1, 1) .. ">"
+                            end,
+                            color = {
+                                gui = "bold",
+                            },
+                        },
+                    },
+                    lualine_b = {
+                        {
+                            "branch",
+                            icon = "",
+                            fmt = function(str)
+                                if vim.api.nvim_strwidth(str) > 40 then
+                                    return ("%s…"):format(str:sub(1, 39))
+                                end
+
+                                return str
+                            end,
+                        },
+                    },
+                    lualine_c = {
+                        { "%=", type = "stl" },
+                        {
+                            "filetype",
+                            icon_only = true,
+                            padding = { left = 1, right = 0 },
+                        },
+                        {
+                            "filename",
+                            path = 1,
+                        },
+                        {
+                            "diagnostics",
+                            sources = { "nvim_diagnostic" },
+                            symbols = {
+                                error = "E:",
+                                warn = "W:",
+                                hint = "H:",
+                                info = "I:",
+                            },
+                            always_visible = false,
+                        },
+                    },
+                    lualine_x = {
+                        { get_active_lsp_clients },
+                        { get_trailing_whitespace },
+                    },
+                    lualine_y = {
+                        { "progress" },
+                    },
+                    lualine_z = {
+                        { "location", color = { gui = "bold" } },
+                    },
+                },
+                extensions = {
+                    "man",
+                    "nvim-tree",
+                    "quickfix",
+                    "toggleterm",
+                },
+            })
+        end,
+    },
+
+    { --[[ tabby ]]
+        "nanozuki/tabby.nvim",
+        event = { "VimEnter" },
+        config = function()
+            vim.opt.showtabline = 2
+            local palette = require("cobalt2.palette")
+
+            local separators = {
+                -- right = "",
+                -- left = "",
+                right = " ",
+                left = "",
+            }
+            local icons = {
+                tab = { active = "", inactive = "" },
+                win = { top = "", normal = "" },
+                tail = "  ",
+            }
+
+            local theme = {
+                line = { fg = palette.black, bg = palette.cursor_line },
+                head = { fg = palette.black, bg = palette.yellow, style = "bold" },
+                current_tab = {
+                    fg = palette.yellow,
+                    bg = palette.darker_blue,
+                    style = "bold",
+                },
+                tab = { fg = palette.white, bg = palette.darker_blue },
+                win = { fg = palette.white, bg = palette.darker_blue },
+                tail = { fg = palette.black, bg = palette.yellow, style = "bold" },
+            }
+
+            local line = function(line)
+                local cwd = " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " "
+                return {
+                    {
+                        { cwd, hl = theme.head },
+                        line.sep(separators.right, theme.head, theme.line),
+                    },
+                    line.tabs().foreach(function(tab)
+                        local hl = tab.is_current() and theme.current_tab or theme.tab
+                        return {
+                            line.sep(separators.left, hl, theme.line),
+                            tab.is_current() and icons.tab.active or icons.tab.inactive,
+                            string.format("%s:", tab.number()),
+                            tab.name(),
+                            line.sep(separators.right, hl, theme.line),
+                            margin = " ",
+                            hl = hl,
+                        }
+                    end),
+                    line.spacer(),
+                    line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+                        return {
+                            line.sep(separators.left, theme.win, theme.line),
+                            win.is_current() and icons.win.top or icons.win.normal,
+                            win.buf_name(),
+                            line.sep(separators.right, theme.win, theme.line),
+                            margin = " ",
+                            hl = theme.win,
+                        }
+                    end),
+                    {
+                        line.sep(separators.left, theme.tail, theme.line),
+                        { icons.tail, hl = theme.tail },
+                    },
+                    hl = theme.line,
+                }
+            end
+
+            require("tabby.tabline").set(line, {
+                buf_name = { mode = "unique" },
+            })
+        end,
+    },
+
+    { --[[ scope.nvim ]]
+        "tiagovla/scope.nvim",
+        event = { "TabEnter" },
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+        init = function()
+            require("telescope").load_extension("scope")
+        end,
+        config = true,
+    },
+
+    { --[[ edgy ]]
+        "folke/edgy.nvim",
+        event = "VeryLazy",
+        opts = {
+            top = {
+                {
+                    ft = "help",
+                    size = { height = 45 },
+                    -- only show help buffers
+                    filter = function(buf)
+                        return vim.bo[buf].buftype == "help"
+                    end,
+                    wo = { signcolumn = "yes:2" },
+                },
+                {
+                    ft = "gitcommit",
+                    size = { height = 0.5 },
+                    wo = { signcolumn = "yes:2" },
+                },
+            },
+
+            bottom = {
+                {
+                    ft = "NeogitPopup",
+                    size = { height = 0.4 },
+                    wo = { signcolumn = "yes:2" },
+                },
+                {
+                    ft = "qf",
+                    title = "QuickFix",
+                    size = { height = 0.4 },
+                },
+            },
+
+            right = {
+                {
+                    ft = "fugitive",
+                    size = { width = 0.5 },
+                    wo = { signcolumn = "yes:2" },
+                },
+                {
+                    ft = "spectre_panel",
+                    size = { width = 0.5 },
+                    wo = { signcolumn = "yes:2" },
+                },
+                {
+                    ft = "oil",
+                    size = { width = 0.5 },
+                    wo = { signcolumn = "yes:2" },
+                    filter = function(_, win)
+                        return vim.api.nvim_win_get_config(win).relative == ""
+                    end,
+                },
+            },
+
+            left = {},
+
+            animate = {
+                enabled = false,
+            },
+        },
     },
 }

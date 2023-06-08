@@ -14,23 +14,26 @@ local map_opts = { noremap = true, silent = true }
 ----------------------------------------------------------------------
 -- NOTE: movements {{{
 ----------------------------------------------------------------------
-nnoremap("0", "^")
-nnoremap("^", "0")
-
 -- behave vim
 map("n", "Y", [[y$]], map_opts)
 map("n", "H", [[0]], map_opts)
 map("n", "L", [[$]], map_opts)
 
 -- jumplist mutations
-map("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { noremap = true, expr = true })
-map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { noremap = true, expr = true })
+map("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { expr = true })
+map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { expr = true })
 
 -- tmux movements
 nmap("<C-h>", [[<cmd>NavigatorLeft<cr>]], map_opts)
 nmap("<C-l>", [[<cmd>NavigatorRight<cr>]], map_opts)
 nmap("<C-j>", [[<cmd>NavigatorDown<cr>]], map_opts)
 nmap("<C-k>", [[<cmd>NavigatorUp<cr>]], map_opts)
+
+nnoremap("0", "^")
+nnoremap("^", "0")
+
+nnoremap("j", "gj")
+nnoremap("k", "gk")
 -- }}}
 ----------------------------------------------------------------------
 
