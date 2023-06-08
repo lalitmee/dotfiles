@@ -29,7 +29,11 @@ return {
                     size = { height = 0.4 },
                     wo = { signcolumn = "yes:2" },
                 },
-                { ft = "qf", title = "QuickFix" },
+                {
+                    ft = "qf",
+                    title = "QuickFix",
+                    size = { height = 0.4 },
+                },
             },
 
             right = {
