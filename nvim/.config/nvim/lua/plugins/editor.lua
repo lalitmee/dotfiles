@@ -719,23 +719,53 @@ return {
     { --[[ lualine ]]
         "nvim-lualine/lualine.nvim",
         event = { "BufEnter" },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["a"] = {
+                    ["s"] = {
+                        function()
+                            require("lualine").refresh({ scope = "all" })
+                        end,
+                        "refresh-lualine",
+                    },
+                    ["r"] = {
+                        ":LualineRenameTab<space>",
+                        "rename-lualine-tab",
+                    },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         config = function()
             local function get_trailing_whitespace()
                 local space = vim.fn.search([[\s\+$]], "nwc")
                 return space ~= 0 and "TW:" .. space or ""
             end
 
-            local function get_active_lsp_clients()
-                local bufnr = vim.fn.bufnr(0)
-                local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-                local active_clients = {}
-                for _, client in ipairs(clients) do
-                    table.insert(active_clients, client.name)
+            local function get_mixed_indent()
+                local space_pat = [[\v^ +]]
+                local tab_pat = [[\v^\t+]]
+                local space_indent = vim.fn.search(space_pat, "nwc")
+                local tab_indent = vim.fn.search(tab_pat, "nwc")
+                local mixed = (space_indent > 0 and tab_indent > 0)
+                local mixed_same_line
+                if not mixed then
+                    mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], "nwc")
+                    mixed = mixed_same_line > 0
                 end
-                if active_clients[1] == nil then
+                if not mixed then
                     return ""
                 end
-                return "[" .. table.concat(active_clients, ", ") .. "]"
+                if mixed_same_line ~= nil and mixed_same_line > 0 then
+                    return "MI:" .. mixed_same_line
+                end
+                local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
+                local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
+                if space_indent_cnt > tab_indent_cnt then
+                    return "MI:" .. tab_indent
+                else
+                    return "MI:" .. space_indent
+                end
             end
 
             require("lualine").setup({
@@ -770,11 +800,7 @@ return {
                             "branch",
                             icon = "",
                             fmt = function(str)
-                                if vim.api.nvim_strwidth(str) > 40 then
-                                    return ("%s…"):format(str:sub(1, 39))
-                                end
-
-                                return str
+                                return str:sub(1, 20)
                             end,
                         },
                     },
@@ -787,7 +813,7 @@ return {
                         },
                         {
                             "filename",
-                            path = 1,
+                            path = 4,
                         },
                         {
                             "diagnostics",
@@ -802,19 +828,25 @@ return {
                         },
                     },
                     lualine_x = {
-                        { get_active_lsp_clients },
                         { get_trailing_whitespace },
+                        { get_mixed_indent },
                     },
                     lualine_y = {
-                        { "progress" },
+                        { "tabs", mode = 1 },
                     },
                     lualine_z = {
-                        { "location", color = { gui = "bold" } },
+                        { "progress" },
                     },
                 },
                 extensions = {
+                    "fugitive",
+                    "fzf",
+                    "lazy",
                     "man",
+                    "mundo",
+                    "nvim-dap-ui",
                     "nvim-tree",
+                    "overseer",
                     "quickfix",
                     "toggleterm",
                 },

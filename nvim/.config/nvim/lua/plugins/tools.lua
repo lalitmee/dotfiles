@@ -14,6 +14,17 @@ return {
 
     { --[[ genghis ]]
         "chrisgrieser/nvim-genghis",
+        cmd = {
+            "Chmodx",
+            "CopyFilename",
+            "CopyFilepath",
+            "Duplicate",
+            "Move",
+            "New",
+            "NewFromSelection",
+            "Rename",
+            "Trash",
+        },
         init = function()
             local wk = require("which-key")
             wk.register({
