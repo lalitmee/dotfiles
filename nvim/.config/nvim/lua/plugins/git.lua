@@ -26,10 +26,10 @@ return {
 
             augroup("neogit_au", {
                 -- {
-                --     event = { "User" },
-                --     pattern = { "NeogitStatusRefreshed" },
+                --     event = { "BufRead" },
+                --     pattern = { "NeogitCommitMessage" },
                 --     command = function()
-                --         neogit_notify("status has been reloaded")
+                --         vim.cmd([[set filetype=gitcommit]])
                 --     end,
                 -- },
                 {

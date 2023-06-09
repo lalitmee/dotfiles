@@ -122,6 +122,7 @@ return {
                     { name = "cmp_git" },
                 }, {
                     { name = "buffer" },
+                    { name = "luasnip" },
                 }),
             })
         end,
@@ -939,6 +940,11 @@ return {
             },
 
             right = {
+                -- {
+                --     ft = "NeogitStatus",
+                --     size = { width = 0.5 },
+                --     wo = { signcolumn = "yes:2" },
+                -- },
                 {
                     ft = "fugitive",
                     size = { width = 0.5 },
