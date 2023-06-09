@@ -16,6 +16,7 @@ return {
                 enable = true,
             },
         },
+        enabled = false,
     },
 
     { --[[ mason ]]
