@@ -1,12 +1,6 @@
 local fn = vim.fn
 
 return {
-    { --[[ hbac ]]
-        "axkirillov/hbac.nvim",
-        cmd = { "Hbac" },
-        opts = {},
-    },
-
     { --[[ undotree ]]
         "mbbill/undotree",
         cmd = { "UndotreeToggle" },
