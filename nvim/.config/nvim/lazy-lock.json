@@ -95,7 +95,6 @@
   "scope.nvim": { "branch": "main", "commit": "066bdcf97a8634560428241c9176b9e6ef038055" },
   "scretch.nvim": { "branch": "main", "commit": "93b05dcb0ddd1eb5a7d94058a4f6177c7dea9e7c" },
   "smart-open.nvim": { "branch": "0.2.x", "commit": "a09a8c08d70387b43bf1db606014f20d99eb2266" },
-  "sniprun": { "branch": "master", "commit": "83791b87a8ede5275a2c060605bf1fec782205cc" },
   "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
   "tabular": { "branch": "master", "commit": "339091ac4dd1f17e225fe7d57b48aff55f99b23a" },
   "tailwindcss-colorizer-cmp.nvim": { "branch": "main", "commit": "65565c62963579897d28390dbd1ba8fb15ba545f" },

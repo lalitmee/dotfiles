@@ -263,20 +263,6 @@ return {
         end,
     },
 
-    { --[[ sniprun ]]
-        "michaelb/sniprun",
-        build = "bash ./install.sh",
-        cmd = { "Sniprun" },
-        config = function()
-            require("sniprun").setup({
-                display = { "Terminal" },
-                display_options = {
-                    terminal_width = 100,
-                },
-            })
-        end,
-    },
-
     { --[[ neozoom ]]
         "nyngwang/NeoZoom.lua",
         cmd = { "NeoZoomToggle" },
