@@ -15,22 +15,25 @@ return {
     { --[[ genghis ]]
         "chrisgrieser/nvim-genghis",
         init = function()
-            local genghis = require("genghis")
             local wk = require("which-key")
             wk.register({
-                --stylua: ignore
-                ["S"] = {
-                    ["a"] = { function() genghis.createNewFile() end, "create-file" },
-                    ["c"] = { function() genghis.duplicateFile() end, "duplicate-file" },
-                    ["d"] = { function() genghis.trashFile() end, "trash-file" },
-                    ["f"] = { function() genghis.copyFilepath() end, "copy-file-path" },
-                    ["m"] = { function() genghis.renameFile() end, "move-and-rename-file" },
-                    ["n"] = { function() genghis.copyFilename() end, "copy-file-name" },
-                    ["r"] = { function() genghis.renameFile() end, "rename-file" },
-                    ["s"] = { function() genghis.moveSelectionToNewFile() end, "move-selection-to-file" },
-                    ["x"] = { function() genghis.chmodx() end, "make-executable" },
+                ["a"] = {
+                    ["a"] = { ":New<cr>", "create-file" },
+                    ["d"] = { ":Trash<cr>", "trash-file" },
+                    ["f"] = { ":CopyFilepath<cr>", "copy-file-path" },
+                    ["m"] = { ":Move<cr>", "move-and-rename-file" },
+                    ["n"] = { ":CopyFilename<cr>", "copy-file-name" },
+                    ["r"] = { ":Rename<cr>", "rename-file" },
+                    ["s"] = { ":Duplicate<cr>", "duplicate-file" },
+                    ["x"] = { ":Chmodx<cr>", "make-executable" },
                 },
-            }, { mode = "n", prefix = "<leader>" })
+            }, { mode = "n", prefix = "<localleader>" })
+
+            wk.register({
+                ["a"] = {
+                    ["s"] = { ":NewFromSelection<cr>", "move-selection-to-file" },
+                },
+            }, { mode = "x", prefix = "<localleader>" })
         end,
     },
 

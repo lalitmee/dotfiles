@@ -293,16 +293,17 @@ return {
             local notify_filter = vim.notify
             ---@diagnostic disable-next-line: duplicate-set-field
             vim.notify = function(msg, ...)
-                if msg:match("warning: multiple different client offset_encodings") then
-                    return
+                if type(msg) == "string" then
+                    if msg:match("warning: multiple different client offset_encodings") then
+                        return
+                    end
+                    if msg:match("character_offset must be called") then
+                        return
+                    end
+                    if msg:match("No information available") then
+                        return
+                    end
                 end
-                if msg:match("character_offset must be called") then
-                    return
-                end
-                if msg:match("No information available") then
-                    return
-                end
-
                 notify_filter(msg, ...)
             end
 
