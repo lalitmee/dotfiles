@@ -4,16 +4,16 @@ return {
         event = "VeryLazy",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
-            { "hrsh7th/cmp-cmdline", enabled = false },
-            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "hrsh7th/cmp-buffer",
             "onsails/lspkind.nvim",
+            "petertriho/cmp-git",
             "roobert/tailwindcss-colorizer-cmp.nvim",
             "saadparwaiz1/cmp_luasnip",
-            "tzachar/cmp-fuzzy-buffer",
             "tzachar/fuzzy.nvim",
-            "petertriho/cmp-git",
+            { "hrsh7th/cmp-cmdline", enabled = false },
         },
         config = function()
             local cmp = require("cmp")
@@ -56,8 +56,7 @@ return {
                     { name = "nvim_lsp", keyword_length = 3 },
                     { name = "nvim_lua", keyword_length = 3 },
                     { name = "luasnip" },
-                    { name = "fuzzy_buffer", keyword_length = 3 },
-                    { name = "fuzzy_path" },
+                    { name = "buffer", keyword_length = 3 },
                     { name = "path" },
                     { name = "nvim_lsp_signature_help" },
                 }),
@@ -85,7 +84,7 @@ return {
                 formatting = {
                     format = lspkind.cmp_format({
                         menu = {
-                            fuzzy_buffer = "[BUF]",
+                            buffer = "[BUF]",
                             luasnip = "[SNIP]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
@@ -102,9 +101,16 @@ return {
 
             cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "fuzzy_buffer" },
-                },
+                sources = cmp.config.sources({
+                    {
+                        name = "buffer",
+                        option = {
+                            get_bufnrs = function()
+                                return vim.api.nvim_list_bufs()
+                            end,
+                        },
+                    },
+                }),
             })
 
             -- cmp.setup.cmdline(":", {
