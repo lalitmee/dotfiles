@@ -767,11 +767,13 @@ return {
         dev = true,
         keys = {
             "<localleader>bb",
+            "<localleader>bc",
             "<localleader>bd",
             "<localleader>bD",
             "<localleader>bi",
             "<localleader>bl",
             "<localleader>bm",
+            "<localleader>bs",
         },
         config = function()
             local bookmarks = {
@@ -846,6 +848,12 @@ return {
                         end,
                         "browse",
                     },
+                    ["c"] = {
+                        function()
+                            require("utils.cht").cht()
+                        end,
+                        "cheatsheet",
+                    },
                     ["d"] = {
                         function()
                             require("browse").devdocs.search()
@@ -875,6 +883,12 @@ return {
                             require("browse").mdn.search()
                         end,
                         "mdn-search",
+                    },
+                    ["s"] = {
+                        function()
+                            require("utils.cht").stack_overflow()
+                        end,
+                        "stackoverflow",
                     },
                 },
             }, { mode = "n", prefix = "<localleader>" })
