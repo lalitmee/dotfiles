@@ -32,8 +32,8 @@ nmap("<C-k>", [[<cmd>NavigatorUp<cr>]], map_opts)
 nnoremap("0", "^")
 nnoremap("^", "0")
 
-nnoremap("j", "gj")
-nnoremap("k", "gk")
+nnoremap("j", "gj", { nowait = true })
+nnoremap("k", "gk", { nowait = true })
 -- }}}
 ----------------------------------------------------------------------
 

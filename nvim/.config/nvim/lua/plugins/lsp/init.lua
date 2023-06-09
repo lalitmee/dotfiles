@@ -6,7 +6,7 @@ return {
         event = "LspAttach",
         opts = {
             symbol_in_winbar = {
-                enable = true,
+                enable = false,
                 separator = "  ",
             },
             ui = {

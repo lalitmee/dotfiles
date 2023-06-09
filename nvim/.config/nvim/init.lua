@@ -12,7 +12,7 @@ require("globals")
 -- mapping leader and localleader keys
 vim.g.mapleader = " " -- NOTE: leader is `<space>`
 vim.g.maplocalleader = "," -- NOTE: local leader is ,
-vim.g.os = vim.loop.os_uname().sysname
+vim.g.os = vim.uv.os_uname().sysname
 vim.g.open_command = vim.g.os == "Darwin" and "open" or "xdg-open"
 -- }}}
 ----------------------------------------------------------------------
@@ -21,10 +21,10 @@ vim.g.open_command = vim.g.os == "Darwin" and "open" or "xdg-open"
 -- NOTE: sourcing {{{
 ----------------------------------------------------------------------
 -- core
-R("config/core")
+require("config/core")
 
 -- plugins
-R("config/lazy")
+require("config/lazy")
 -- }}}
 ----------------------------------------------------------------------
 

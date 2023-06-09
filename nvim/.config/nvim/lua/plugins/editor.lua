@@ -1,34 +1,20 @@
 return {
     { -- [[ nvim-cmp ]]
         "hrsh7th/nvim-cmp",
-        event = { "InsertEnter" },
+        event = "VeryLazy",
         dependencies = {
-            "onsails/lspkind.nvim",
-            "tzachar/fuzzy.nvim",
-            "tzachar/cmp-fuzzy-buffer",
-            "hrsh7th/cmp-path",
             "dmitmel/cmp-cmdline-history",
             "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-path",
+            { "hrsh7th/cmp-cmdline", enabled = false },
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "onsails/lspkind.nvim",
+            "roobert/tailwindcss-colorizer-cmp.nvim",
             "saadparwaiz1/cmp_luasnip",
-            {
-                "hrsh7th/cmp-nvim-lua",
-                ft = { "lua" },
-            },
-            {
-                "tzachar/cmp-tabnine",
-                build = "./install.sh",
-                -- enabled = false,
-            },
-            {
-                "roobert/tailwindcss-colorizer-cmp.nvim",
-                ft = {
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                },
-                enabled = false,
-            },
+            "tzachar/cmp-fuzzy-buffer",
+            "tzachar/fuzzy.nvim",
+            "petertriho/cmp-git",
         },
         config = function()
             local cmp = require("cmp")
@@ -68,23 +54,13 @@ return {
                 },
 
                 sources = cmp.config.sources({
-                    {
-                        name = "nvim_lsp",
-                        keyword_length = 5,
-                        max_item_count = 30,
-                    },
-                    { name = "nvim_lua" },
+                    { name = "nvim_lsp", keyword_length = 3 },
+                    { name = "nvim_lua", keyword_length = 3 },
                     { name = "luasnip" },
-                    {
-                        name = "cmp_tabnine",
-                        keyword_length = 5,
-                    },
-                    {
-                        name = "fuzzy_buffer",
-                        keyword_length = 5,
-                    },
+                    { name = "fuzzy_buffer", keyword_length = 3 },
                     { name = "fuzzy_path" },
                     { name = "path" },
+                    { name = "nvim_lsp_signature_help" },
                 }),
 
                 sorting = {
@@ -111,7 +87,6 @@ return {
                     format = lspkind.cmp_format({
                         menu = {
                             fuzzy_buffer = "[BUF]",
-                            cmp_tabnine = "[TBN]",
                             luasnip = "[SNIP]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
@@ -122,29 +97,34 @@ return {
 
                 experimental = { ghost_text = false },
             })
-            -- require("cmp").config.formatting = {
-            --     format = require("tailwindcss-colorizer-cmp").formatter,
-            -- }
+            require("cmp").config.formatting = {
+                format = require("tailwindcss-colorizer-cmp").formatter,
+            }
 
-            for _, cmd_type in ipairs({ ":", "/", "?", "@" }) do
-                cmp.setup.cmdline(cmd_type, {
-                    mapping = cmp.mapping.preset.cmdline(),
-                    sources = {
-                        { name = "cmdline_history" },
-                        { name = "path" },
-                        { name = "fuzzy_buffer" },
-                    },
-                })
-            end
+            cmp.setup.cmdline({ "/", "?" }, {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "fuzzy_buffer" },
+                },
+            })
 
-            -- -- Set configuration for specific filetype.
-            -- cmp.setup.filetype("gitcommit", {
-            --     sources = cmp.config.sources({
-            --         { name = "cmp_git" },
-            --     }, {
-            --         { name = "buffer" },
-            --     }),
-            -- })
+            cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = "path" },
+                }, {
+                    { name = "cmdline_history" },
+                }),
+            })
+
+            -- Set configuration for specific filetype.
+            cmp.setup.filetype("gitcommit", {
+                sources = cmp.config.sources({
+                    { name = "cmp_git" },
+                }, {
+                    { name = "buffer" },
+                }),
+            })
         end,
     },
 
@@ -414,7 +394,7 @@ return {
 
     { --[[ ufo ]]
         "kevinhwang91/nvim-ufo",
-        event = "BufReadPost",
+        event = { "VeryLazy" },
         dependencies = {
             "kevinhwang91/promise-async",
         },
@@ -701,32 +681,6 @@ return {
                 },
             },
         },
-    },
-
-    { --[[ replacer ]]
-        "gabrielpoca/replacer.nvim",
-        cmd = { "Replacer", "ReplacerFiles" },
-        init = function()
-            local wk = require("which-key")
-            local replacer = require("replacer")
-
-            wk.register({
-                ["q"] = {
-                    ["f"] = {
-                        function()
-                            replacer.run()
-                        end,
-                        "replacer-files",
-                    },
-                    ["r"] = {
-                        function()
-                            replacer.run({ rename_files = false })
-                        end,
-                        "replacer",
-                    },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
     },
 
     { --[[ targets ]]

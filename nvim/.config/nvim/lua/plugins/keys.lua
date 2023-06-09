@@ -398,6 +398,7 @@ return {
                     ["name"] = "+system-actions",
                     ["b"] = { ":Bottom<CR>", "bottom" },
                     ["c"] = { ":WorkingDirectory<CR>", "cwd" },
+                    ["d"] = { ":LazyDocker<CR>", "docker" },
                     ["f"] = { ":FilePath<CR>", "copy-file-path" },
                     ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
                     ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
