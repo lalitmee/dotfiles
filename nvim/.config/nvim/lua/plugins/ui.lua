@@ -246,7 +246,7 @@ return {
                 bottom_search = false,
             },
         },
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ notify ]]
