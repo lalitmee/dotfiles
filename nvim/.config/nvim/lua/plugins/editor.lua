@@ -3,7 +3,6 @@ return {
         "hrsh7th/nvim-cmp",
         event = "VeryLazy",
         dependencies = {
-            "dmitmel/cmp-cmdline-history",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
@@ -108,14 +107,14 @@ return {
                 },
             })
 
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline_history" },
-                }),
-            })
+            -- cmp.setup.cmdline(":", {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = cmp.config.sources({
+            --         { name = "path" },
+            --     }, {
+            --         { name = "cmdline" },
+            --     }),
+            -- })
 
             -- Set configuration for specific filetype.
             cmp.setup.filetype("gitcommit", {
@@ -817,6 +816,7 @@ return {
     },
 
     { --[[ tabby ]]
+        enabled = false,
         "nanozuki/tabby.nvim",
         event = { "VimEnter" },
         config = function()

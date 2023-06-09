@@ -2,17 +2,6 @@ local command = lk.command
 local fmt = string.format
 
 ----------------------------------------------------------------------
--- NOTE: buffer commands {{{
-----------------------------------------------------------------------
-command(
-    "Todo",
-    [[noautocmd silent! grep! 'TODO\|FIXME\|BUG\|HACK' | copen]],
-    {}
-)
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
 command("TelescopeNotifyHistory", function()
@@ -35,24 +24,6 @@ end, {})
 ----------------------------------------------------------------------
 command("ReloadConfig", function()
     require("utils/reload").reload_config()
-end, {})
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: gh commands {{{
-----------------------------------------------------------------------
-command("BrowseRepo", function()
-    vim.cmd([[silent !gh o]])
-end, {})
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: log variable {{{
-----------------------------------------------------------------------
-command("LogVariable", function()
-    Log_var()
 end, {})
 -- }}}
 ----------------------------------------------------------------------
@@ -120,14 +91,44 @@ end, {})
 --------------------------------------------------------------------------------
 --  NOTE: git jump {{{
 --------------------------------------------------------------------------------
--- command("Jump", function(args)
---     vim.fn.system("git jump s" .. vim.fn.expand(args))
--- end, { nargs = "*", bar = true })
-
 vim.cmd([[
 command! -bar -nargs=* Jump cexpr system('git jump ' . expand(<q-args>))
 ]])
+-- }}}
+--------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+--  NOTE: BufOnly {{{
+--------------------------------------------------------------------------------
+lk.command("BufOnly", function()
+    local del_non_modifiable = vim.g.bufonly_delete_non_modifiable or false
+    local cur = vim.api.nvim_get_current_buf()
+    local deleted, modified = 0, 0
+    for _, n in ipairs(vim.api.nvim_list_bufs()) do
+        -- If the iter buffer is modified one, then don't do anything
+        if vim.api.nvim_get_option_value("modified", { buf = n }) then
+            -- iter is not equal to current buffer
+            -- iter is modifiable or del_non_modifiable == true
+            -- `modifiable` check is needed as it will prevent closing file tree ie. NERD_tree
+            modified = modified + 1
+        elseif n ~= cur and (vim.api.nvim_get_option_value("modifiable", { buf = n }) or del_non_modifiable) then
+            vim.api.nvim_buf_delete(n, {})
+            deleted = deleted + 1
+        end
+    end
+    vim.notify(fmt("%s deleted buffer(s), %s modified buffer(s)", deleted, modified), 2, {
+        title = " BufOnly",
+    })
+end, {})
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: get current working directory {{{
+--------------------------------------------------------------------------------
+lk.command("WorkingDirectory", function()
+    vim.notify(vim.fn.getcwd(), 2, { title = " Current Working Directory" })
+end, {})
 -- }}}
 --------------------------------------------------------------------------------
 

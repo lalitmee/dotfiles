@@ -166,9 +166,20 @@ return {
                     -- ["h"] = {
                     --     ["name"] = "+hunks",
                     -- },
+                    ["j"] = {
+                        ["name"] = "+git-jump",
+                        ["d"] = { ":Jump diff<cr>", "diff" },
+                        ["m"] = { ":Jump merge<cr>", "merge" },
+                        ["s"] = { ":Jump grep<space>", "grep" },
+                    },
                     ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
                     ["n"] = { ":GitHunks<CR>", "git-hunks" },
-                    ["O"] = { ":BrowseRepo<CR>", "open-repo" },
+                    ["O"] = {
+                        function()
+                            vim.cmd([[silent !gh o]])
+                        end,
+                        "open-repo",
+                    },
                     ["s"] = { ":Git<CR>", "git-status" },
                     ["t"] = { ":Telescope git_stash<CR>", "git-stash" },
                 },
@@ -242,7 +253,29 @@ return {
                     ["c"] = { ":Lazy clean<CR>", "clean-packages" },
                     ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
                     ["i"] = { ":Lazy install<CR>", "lazy-install" },
-                    ["l"] = { ":lua Save_and_execute()<CR>", "save-and-execute" },
+                    ["l"] = {
+                        function()
+                            local filetype = vim.bo.filetype
+                            local filepath = vim.fn.expand("%")
+                            if filetype == "lua" then
+                                vim.cmd([[
+                                    silent! write
+                                    luafile %
+                                ]])
+                            elseif filetype == "vim" then
+                                vim.cmd([[
+                                    silent! write
+                                    source %
+                                ]])
+                            else
+                                vim.cmd([[
+                                    silent! write
+                                ]])
+                            end
+                            vim.notify(filepath, 2, { title = " Save and Execute" })
+                        end,
+                        "save-and-execute",
+                    },
                     ["m"] = { ":ReloadModule ", "realod-module" },
                     ["s"] = { ":Lazy sync<CR>", "lazy-sync" },
                     ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
@@ -398,8 +431,7 @@ return {
                     ["name"] = "+system-actions",
                     ["b"] = { ":Bottom<CR>", "bottom" },
                     ["c"] = { ":WorkingDirectory<CR>", "cwd" },
-                    ["d"] = { ":LazyDocker<CR>", "docker" },
-                    ["f"] = { ":FilePath<CR>", "copy-file-path" },
+                    ["l"] = { ":LazyDocker<CR>", "docker" },
                     ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
                     ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
                     ["w"] = { ":SetWallpaper<CR>", "change-system-background" },

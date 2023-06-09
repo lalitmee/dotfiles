@@ -116,5 +116,5 @@ return {
             }
         )
     ),
-    s("no", fmt("vim.notify({})", { i(1, "var") })),
+    s("no", fmt("vim.notify(P({}))", { i(1, "var") })),
 }
