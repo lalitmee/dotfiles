@@ -645,26 +645,6 @@ return {
         end,
     },
 
-    { --[[ buffer-manager ]]
-        "j-morano/buffer_manager.nvim",
-        event = { "VeryLazy" },
-        opts = {
-            width = 137,
-            height = 22,
-        },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-            -- stylua: ignore
-            ["b"] = {
-                ["m"] = { function() require("buffer_manager.ui").toggle_quick_menu() end, "buffer-menu" },
-                ["n"] = { function() require("buffer_manager.ui").nav_next() end, "buffer-next" },
-                ["p"] = { function() require("buffer_manager.ui").nav_prev() end, "buffer-previous" },
-            },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
-    },
-
     { --[[ harpoon ]]
         "ThePrimeagen/harpoon",
         cmd = {
