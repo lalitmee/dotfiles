@@ -85,19 +85,8 @@ M.mappings = function(client)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
     nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
 
-    -- lspsaga
-    -- Diagnostic jump
-    -- You can use <C-o> to jump back to your previous location
-    nmap("[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-    nmap("]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-
-    -- Diagnostic jump with filters such as only jumping to an error
-    nmap("[E", function()
-        require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end)
-    nmap("]E", function()
-        require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end)
+    nmap("[e", "<cmd>LspGotoPrevDiagnostic<CR>")
+    nmap("]e", "<cmd>LspGotoNextDiagnostic<CR>")
 end
 -- }}}
 ----------------------------------------------------------------------
