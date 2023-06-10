@@ -503,6 +503,8 @@ set -g @plugin 'schasse/tmux-jump'
 #  NOTE: split table {{{
 #-------------------------------------------------------------------------------
 bind -T root C-b switch-client -T split
+# status on and off
+bind -T split C-b set-option status
 bind -T split '"' splitw -d
 bind -T split % splitw -hd
 bind -T split t splitw -f man tmux
@@ -518,6 +520,7 @@ bind -T split_f k splitw -fb
 bind -T split_f l splitw -hf
 # }}}
 #-------------------------------------------------------------------------------
+
 
 # skip "kill-pane 1? (y/n)" prompt
 bind-key x kill-pane
