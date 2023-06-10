@@ -7,14 +7,14 @@ vim.g.do_filetype_lua = 1
 vim.filetype.add({
     extension = {
         lock = "yaml",
-        pn = "potion",
         md = "markdown",
         snippets = "snippets",
         conf = "conf",
         gitcommit = "gitcommit",
+        tmux = "conf",
     },
     filename = {
-        [".gitignore"] = "conf",
+        [".gitignore"] = "gitconfig",
         Podfile = "ruby",
         Brewfile = "ruby",
         Caddyfile = "conf",
@@ -22,14 +22,8 @@ vim.filetype.add({
         [".env"] = "sh",
     },
     pattern = {
-        ["*.gradle"] = "groovy",
         [".*git/config"] = "gitconfig", -- Included in the plugin
         ["*.env.*"] = "env",
-        ["*.conf"] = "conf",
         [".{jscs,jshint,eslint,babel}rc"] = "json",
-        ["*.md"] = "markdown",
-
-        -- somehow this is not working
-        [".*/%.git/COMMIT_EDITMSG"] = "gitcommit",
     },
 })
