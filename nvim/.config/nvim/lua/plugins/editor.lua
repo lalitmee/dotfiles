@@ -317,7 +317,6 @@ return {
             local auto_pairs = require("nvim-autopairs")
             local Rule = require("nvim-autopairs.rule")
             local ts_conds = require("nvim-autopairs.ts-conds")
-            local cond = require("nvim-autopairs.conds")
 
             auto_pairs.setup({
                 enable_abbr = true,
@@ -827,7 +826,7 @@ return {
                         { "tabs", mode = 1 },
                     },
                     lualine_z = {
-                        { "progress" },
+                        { "progress", color = { gui = "bold" } },
                     },
                 },
                 extensions = {
