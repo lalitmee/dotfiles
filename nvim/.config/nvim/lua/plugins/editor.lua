@@ -312,13 +312,15 @@ return {
 
     { --[[ auto-pairs ]]
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
+        event = "VeryLazy",
         config = function()
             local auto_pairs = require("nvim-autopairs")
             local Rule = require("nvim-autopairs.rule")
             local ts_conds = require("nvim-autopairs.ts-conds")
+            local cond = require("nvim-autopairs.conds")
 
             auto_pairs.setup({
+                enable_abbr = true,
                 check_ts = true,
                 enable_moveright = true,
                 disable_filetype = { "TelescopePrompt", "vim" },
@@ -343,7 +345,26 @@ return {
                         brackets[3][1] .. brackets[3][2],
                     }, pair)
                 end),
+
+                -- rule for iabbrev
+                Rule(" ", " ")
+                    :with_pair(cond.done())
+                    :replace_endpair(function(opts)
+                        local pair = opts.line:sub(opts.col - 1, opts.col)
+                        if vim.tbl_contains({ "()", "{}", "[]" }, pair) then
+                            return " " -- it return space here
+                        end
+                        return "" -- return empty
+                    end)
+                    :with_move(cond.none())
+                    :with_cr(cond.none())
+                    :with_del(function(opts)
+                        local col = vim.api.nvim_win_get_cursor(0)[2]
+                        local context = opts.line:sub(col - 1, col + 2)
+                        return vim.tbl_contains({ "(  )", "{  }", "[  ]" }, context)
+                    end),
             })
+
             for _, bracket in pairs(brackets) do
                 auto_pairs.add_rules({
                     Rule(bracket[1] .. " ", " " .. bracket[2])
@@ -677,7 +698,7 @@ return {
 
     { --[[ scrptease ]]
         "tpope/vim-scriptease",
-        cmd = { "Messages", "Verbose" },
+        cmd = { "Messages", "Runtime", "Scriptnames", "Time", "Verbose" },
     },
 
     { --[[ unimpaired ]]
@@ -689,7 +710,7 @@ return {
     { --[[ abolish ]]
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
-        enabled = false,
+        keys = { "crs", "crm", "crc", "cru", "cr-", "cr." },
     },
 
     { --[[ lualine ]]
