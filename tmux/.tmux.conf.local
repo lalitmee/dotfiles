@@ -498,6 +498,27 @@ set -g @plugin 'schasse/tmux-jump'
 #-------------------------------------------------------------------------------
 #  NOTE: keybindings {{{
 #-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#  NOTE: split table {{{
+#-------------------------------------------------------------------------------
+bind -T root C-b switch-client -T split
+bind -T split '"' splitw -d
+bind -T split % splitw -hd
+bind -T split t splitw -f man tmux
+bind -T split q kill-pane -t '#{bottom}'
+bind -T split m command-prompt -p 'man page name:' "splitw -f man '%%'"
+bind -T split s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
+
+# switch between full window split
+bind -T split f switch-client -T split_f
+bind -T split_f h splitw -hfb
+bind -T split_f j splitw -f
+bind -T split_f k splitw -fb
+bind -T split_f l splitw -hf
+# }}}
+#-------------------------------------------------------------------------------
+
 # skip "kill-pane 1? (y/n)" prompt
 bind-key x kill-pane
 
