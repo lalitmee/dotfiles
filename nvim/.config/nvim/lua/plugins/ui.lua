@@ -58,25 +58,8 @@ return {
         "folke/noice.nvim",
         event = { "VeryLazy" },
         opts = {
-            cmdline = {
-                format = {
-                    cmdline = { title = "" },
-                    lua = { title = "" },
-                    search_down = { title = "" },
-                    search_up = { title = "" },
-                    filter = { title = "" },
-                    help = { title = "" },
-                    input = { title = "" },
-                    IncRename = { title = "" },
-                    substitute = {
-                        pattern = "^:%%?s/",
-                        icon = " ",
-                        ft = "regex",
-                        title = "",
-                    },
-                },
-            },
             lsp = {
+                progress = { enabled = true },
                 documentation = {
                     opts = {
                         border = { style = border },
@@ -108,23 +91,29 @@ return {
                 },
                 cmdline_popup = {
                     position = {
-                        row = 5,
+                        row = 10,
                         col = "50%",
                     },
                     size = {
                         width = 80,
                         height = "auto",
                     },
+                    win_options = {
+                        winhighlight = {
+                            Normal = "NormalFloat",
+                            FloatBorder = "FloatBorder",
+                        },
+                    },
                 },
                 popupmenu = {
                     relative = "editor",
                     position = {
-                        row = 8,
+                        row = 13,
                         col = "50%",
                     },
                     size = {
                         width = 80,
-                        height = 10,
+                        height = "auto",
                     },
                     border = {
                         style = "rounded",
@@ -133,7 +122,7 @@ return {
                     win_options = {
                         winhighlight = {
                             Normal = "Normal",
-                            FloatBorder = "FloatBorder",
+                            FloatBorder = "DiagnosticSignInfo",
                         },
                     },
                 },
@@ -234,13 +223,20 @@ return {
                         },
                     },
                 },
+                {
+                    filter = {
+                        event = "notify",
+                        min_height = 15,
+                    },
+                    view = "split",
+                },
             },
             commands = {
                 history = { view = "vsplit" },
             },
             presets = {
                 inc_rename = true,
-                command_palette = true,
+                command_palette = false,
                 long_message_to_split = true,
                 lsp_doc_border = true,
                 bottom_search = false,

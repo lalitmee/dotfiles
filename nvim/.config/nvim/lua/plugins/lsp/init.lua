@@ -266,6 +266,7 @@ return {
                 ["null-ls"] = { ignore = true },
             },
         },
+        enabled = false,
     },
 
     { --[[ rust-tools ]]

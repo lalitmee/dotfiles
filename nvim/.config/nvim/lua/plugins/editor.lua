@@ -13,7 +13,6 @@ return {
             "roobert/tailwindcss-colorizer-cmp.nvim",
             "saadparwaiz1/cmp_luasnip",
             "tzachar/fuzzy.nvim",
-            { "hrsh7th/cmp-cmdline", enabled = false },
         },
         config = function()
             local cmp = require("cmp")
@@ -98,29 +97,6 @@ return {
             require("cmp").config.formatting = {
                 format = require("tailwindcss-colorizer-cmp").formatter,
             }
-
-            cmp.setup.cmdline({ "/", "?" }, {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    {
-                        name = "buffer",
-                        option = {
-                            get_bufnrs = function()
-                                return vim.api.nvim_list_bufs()
-                            end,
-                        },
-                    },
-                }),
-            })
-
-            -- cmp.setup.cmdline(":", {
-            --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = cmp.config.sources({
-            --         { name = "path" },
-            --     }, {
-            --         { name = "cmdline" },
-            --     }),
-            -- })
 
             -- Set configuration for specific filetype.
             cmp.setup.filetype("gitcommit", {
