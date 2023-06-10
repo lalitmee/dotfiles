@@ -512,6 +512,12 @@ bind -T split q kill-pane -t '#{bottom}'
 bind -T split m command-prompt -p 'man page name:' "splitw -f man '%%'"
 bind -T split s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
 
+# percentage splits
+bind -T split h splitw -hbp 40
+bind -T split j splitw -p 30
+bind -T split k splitw -bp 30
+bind -T split l splitw -hp 40
+
 # switch between full window split
 bind -T split f switch-client -T split_f
 bind -T split_f h splitw -hfb
