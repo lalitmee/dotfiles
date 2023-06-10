@@ -763,18 +763,9 @@ return {
     },
 
     { --[[ browse ]]
-        dir = "~/Desktop/Github/browse.nvim",
+        "lalitmee/browse.nvim",
         dev = true,
-        keys = {
-            "<localleader>bb",
-            "<localleader>bc",
-            "<localleader>bd",
-            "<localleader>bD",
-            "<localleader>bi",
-            "<localleader>bl",
-            "<localleader>bm",
-            "<localleader>bs",
-        },
+        lazy = false,
         config = function()
             local bookmarks = {
                 ["docs"] = {
@@ -840,8 +831,7 @@ return {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["b"] = {
-                    ["name"] = "+browse",
+                ["s"] = {
                     ["b"] = {
                         function()
                             require("browse").browse()
@@ -891,7 +881,7 @@ return {
                         "stackoverflow",
                     },
                 },
-            }, { mode = "n", prefix = "<localleader>" })
+            }, { mode = "n", prefix = "<leader>" })
         end,
     },
 }

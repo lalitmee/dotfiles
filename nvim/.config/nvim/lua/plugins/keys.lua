@@ -339,9 +339,9 @@ return {
 
                 ["s"] = {
                     ["name"] = "+search-and-replace",
-                    ["f"] = { ":SpectreCurFileSearch<CR>", "file-search" },
+                    ["/"] = { ":SpectreCurFileSearch<CR>", "file-search" },
                     ["r"] = { ":FzfLua resume<CR>", "live-grep-resume" },
-                    ["s"] = { ":SpectreOpen<CR>", "open" },
+                    ["o"] = { ":SpectreOpen<CR>", "open" },
                     ["w"] = { ":SpectreCurWord<CR>", "current-word-search" },
                 },
 
