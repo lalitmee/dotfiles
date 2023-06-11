@@ -714,16 +714,13 @@ return {
             local wk = require("which-key")
             wk.register({
                 ["a"] = {
-                    ["s"] = {
-                        function()
-                            require("lualine").refresh({ scope = "all" })
-                        end,
-                        "refresh-lualine",
-                    },
-                    ["r"] = {
-                        ":LualineRenameTab<space>",
-                        "rename-lualine-tab",
-                    },
+                    -- ["s"] = {
+                    --     function()
+                    --         require("lualine").refresh({ scope = "all" })
+                    --     end,
+                    --     "refresh-lualine",
+                    -- },
+                    ["r"] = { ":LualineRenameTab<space>", "rename-lualine-tab" },
                 },
             }, { mode = "n", prefix = "<leader>" })
         end,
