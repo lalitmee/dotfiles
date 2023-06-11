@@ -18,6 +18,7 @@ lk.augroup("quit_q_au", {
             "oil",
             "qf",
             "query",
+            "redir_output",
             "spectre_panel",
             "startuptime",
             "toggleterm",
@@ -26,20 +27,20 @@ lk.augroup("quit_q_au", {
         },
         command = function(event)
             vim.bo[event.buf].buflisted = false
-            vim.keymap.set(
-                "n",
-                "q",
-                "<cmd>close<cr>",
-                { buffer = event.buf, silent = true }
-            )
+            vim.keymap.set("n", "q", "<cmd>close<cr>", {
+                buffer = event.buf,
+                silent = true,
+            })
         end,
     },
     {
         event = { "BufEnter" },
-        -- buffer = 0,
-        pattern = { "scriptease-verbose", "startup-log" },
-        command = function()
-            lk.nnoremap("q", ":bd<cr>")
+        pattern = { "*.scriptease-verbose" },
+        command = function(args)
+            vim.keymap.set("n", "q", "<cmd>bd<cr>", {
+                buffer = args.buf,
+                silent = true,
+            })
         end,
     },
 })

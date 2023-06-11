@@ -27,7 +27,7 @@ function! Redir(cmd, rng, start, end)
   endif
   vnew
   let w:scratch = 1
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+  setlocal filetype=redir_output buftype=nofile bufhidden=wipe nobuflisted noswapfile
   call setline(1, output)
 endfunction
 

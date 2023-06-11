@@ -516,7 +516,7 @@ return {
 
     { --[[ bufdelete ]]
         "famiu/bufdelete.nvim",
-        cmd = { "Bdelete" },
+        cmd = { "Bdelete", "Bwipeout" },
     },
 
     { --[[ hop ]]
