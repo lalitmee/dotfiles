@@ -250,7 +250,7 @@ nnoremap("gx", open_link)
 --------------------------------------------------------------------------------
 --  NOTE: auto-indent on going in insert mode {{{
 --------------------------------------------------------------------------------
-vim.keymap.set("n", "i", function()
+lk.nmap("i", function()
     if #vim.fn.getline(".") == 0 then
         return [["_cc]]
     else
@@ -271,7 +271,7 @@ lk.nnoremap("<C-g>", "<cmd>LazyGit<cr>", { silent = true })
 -- NOTE: smart dd {{{
 -- if pressed on an empty line it doesn't copy that
 ----------------------------------------------------------------------
-lk.map("n", "dd", function()
+lk.nmap("dd", function()
     if vim.api.nvim_get_current_line():match("^%s*$") then
         return '"_dd'
     else

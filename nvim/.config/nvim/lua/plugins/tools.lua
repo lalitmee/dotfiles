@@ -946,4 +946,15 @@ return {
             end
         end,
     },
+
+    { --[[ mini.basics ]]
+        "echasnovski/mini.basics",
+        version = "*",
+        event = "VeryLazy",
+        opts = {
+            options = {
+                win_borders = "rounded",
+            },
+        },
+    },
 }
