@@ -609,6 +609,17 @@ return {
         end,
     },
 
+    { --[[ muren ]]
+        "AckslD/muren.nvim",
+        cmd = { "MurenToggle" },
+        opts = {
+            patterns_width = 50,
+            patterns_height = 20,
+            options_width = 30,
+            preview_height = 20,
+        },
+    },
+
     { --[[ vim-cool ]]
         "romainl/vim-cool",
         event = { "VeryLazy" },
