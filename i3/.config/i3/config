@@ -36,13 +36,6 @@ floating_modifier $mod
 #-------------------------------------------------------------------------------
 #  NOTE: status bar {{{
 #-------------------------------------------------------------------------------
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# bar {
-#     position bottom
-#     status_command i3blocks
-# }
-
 # show polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # }}}
@@ -52,9 +45,9 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #  NOTE: borders {{{
 #-------------------------------------------------------------------------------
 # Or any other numeric value for "0"
-for_window [class=.*] border pixel 3
-default_border pixel 1
-default_floating_border pixel 1
+for_window [class="^.*"] border pixel 2
+default_border pixel 2
+default_floating_border pixel 2
 
 for_window [class="ulauncher"] border pixel 0
 # }}}
