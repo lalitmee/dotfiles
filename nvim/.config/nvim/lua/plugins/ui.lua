@@ -36,6 +36,15 @@ return {
                     insert_only = false,
                     win_options = { winblend = 0 },
                     title_pos = "center",
+                    get_config = function(opts)
+                        if opts.kind == "browse" then
+                            return {
+                                relative = "editor",
+                                max_width = { 140, 0.9 },
+                                min_width = { 40, 0.4 },
+                            }
+                        end
+                    end,
                 },
                 select = {
                     winblend = 0,
