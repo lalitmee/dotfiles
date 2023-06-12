@@ -715,7 +715,35 @@ return {
     { --[[ abolish ]]
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
-        keys = { "crs", "crm", "crc", "cru", "cr-", "cr." },
+        keys = {
+            "crs",
+            "crm",
+            "crc",
+            "cru",
+            "cr-",
+            "cr.",
+            {
+                "<localleader>[",
+                ":S/<C-R><C-W>//<LEFT>",
+                mode = "n",
+                silent = false,
+                desc = "abolish: replace word under the cursor (line)",
+            },
+            {
+                "<localleader>]",
+                ":%S/<C-r><C-w>//c<left><left>",
+                mode = "n",
+                silent = false,
+                desc = "abolish: replace word under the cursor (file)",
+            },
+            {
+                "<localleader>[",
+                [["zy:'<'>S/<C-r><C-o>"//c<left><left>]],
+                mode = "x",
+                silent = false,
+                desc = "abolish: replace word under the cursor (visual)",
+            },
+        },
     },
 
     { --[[ lualine ]]

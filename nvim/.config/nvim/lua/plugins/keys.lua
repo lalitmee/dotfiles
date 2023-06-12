@@ -35,8 +35,6 @@ return {
                 [":"] = { ":FzfLua commands<CR>", "commands" },
                 ["<leader>"] = { ":FzfLua files<CR>", "find-files" },
                 ["/"] = { ":FzfLua live_grep<CR>", "search-project" },
-                ["]"] = { ":S/<c-r><c-w>//<left>", "replace-all" },
-                ["["] = { ":%S/<c-r><c-w>//c<left><left>", "replace-current" },
 
                 ["1"] = { ":HarpoonGotoFile 1<CR>", "goto-file-1" },
                 ["2"] = { ":HarpoonGotoFile 2<CR>", "goto-file-2" },
@@ -520,8 +518,6 @@ return {
                     ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
                     ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
                 },
-
-                ["["] = { '"zy:%S/<c-r><c-o>"//c<left><left>', "abolish-replace" },
             }
 
             wk.register(local_leader_key_maps, { prefix = "<localleader>" })
