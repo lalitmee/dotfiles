@@ -5,7 +5,14 @@ return {
     { --[[ neogit ]]
         "TimUntersberger/neogit",
         cmd = { "Neogit" },
-        -- enabled = false,
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["g"] = {
+                    ["s"] = { ":Neogit<CR>", "status" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         config = function()
             -- setup
             require("neogit").setup({
@@ -60,6 +67,15 @@ return {
     { --[[ fugitive ]]
         "tpope/vim-fugitive",
         cmd = { "Git" },
+        enabled = false,
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["g"] = {
+                    ["s"] = { ":Git<CR>", "git-status" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
     },
 
     { --[[ gitsigns ]]
