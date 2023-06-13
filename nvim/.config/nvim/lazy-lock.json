@@ -122,6 +122,7 @@
   "vim-scriptease": { "branch": "master", "commit": "18511d389675d773994215ddb572ccdc2b72f52b" },
   "vim-snippets": { "branch": "master", "commit": "76e35f37aa9e47a8b7f2909de222844ae38c7007" },
   "vim-sort-motion": { "branch": "master", "commit": "c8782be8f7da414c6442b3ba4b6abb0345d392d9" },
+  "vim-sxhkdrc": { "branch": "master", "commit": "7b8abc305ba346c3af7d57da0ebec2b2f2d3f5b0" },
   "vim-wakatime": { "branch": "master", "commit": "018fa9a80c27ccf2a8967b9e27890372e5c2fb4f" },
   "virtcolumn.nvim": { "branch": "main", "commit": "cd9485d64a0763c5572272e03d70cbff1f91fde0" },
   "vscode-js-debug": { "branch": "main", "commit": "5f238bdf4d48e3db45e0cb4d4e0f9e6e4ab9240e" },

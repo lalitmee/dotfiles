@@ -19,6 +19,7 @@ vim.filetype.add({
         Brewfile = "ruby",
         Caddyfile = "conf",
         lfrc = "sh",
+        sxhkdrc = "sxhkdrc",
         [".env"] = "sh",
     },
     pattern = {
