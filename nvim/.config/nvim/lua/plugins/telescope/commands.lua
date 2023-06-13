@@ -98,14 +98,13 @@ end, {})
 --  NOTE: wallpaper selector
 --------------------------------------------------------------------------------
 local function set_background(content)
-    print(content)
+    vim.notify(string.format('Wallpaper set to "%s', content), vim.log.levels.INFO, { title = "Wallpaper" })
     vim.fn.system("feh --bg-scale " .. content)
 end
 
 local function select_background(prompt_bufnr, map)
     local function set_the_background(close)
-        local content =
-            require("telescope.actions.state").get_selected_entry(prompt_bufnr)
+        local content = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
         set_background(content.cwd .. "/" .. content.value)
         if close then
             actions.close(prompt_bufnr)
@@ -143,8 +142,7 @@ local function image_selector(prompt, cwd)
     end
 end
 
-local set_wallpaper =
-    image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
+local set_wallpaper = image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
 
 lk.command("SetWallpaper", function()
     set_wallpaper()
