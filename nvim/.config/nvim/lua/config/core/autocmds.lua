@@ -32,11 +32,7 @@ augroup("insert_au", {
         event = { "WinLeave" },
         pattern = { "TelescopePrompt", "DressingInput" },
         command = function()
-            if
-                -- vim.bo.ft == "TelescopePrompt"
-                -- or vim.bo.ft == "DressingInput" and
-                vim.fn.mode() == "i"
-            then
+            if vim.fn.mode() == "i" then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
             end
         end,
@@ -45,11 +41,7 @@ augroup("insert_au", {
         event = { "WinEnter" },
         pattern = { "*" },
         command = function()
-            if
-                -- vim.bo.ft == "TelescopePrompt"
-                -- or vim.bo.ft == "DressingInput" and
-                vim.fn.mode() == "i"
-            then
+            if vim.fn.mode() == "i" then
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
             end
         end,

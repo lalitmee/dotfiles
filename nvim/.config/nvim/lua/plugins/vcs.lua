@@ -33,20 +33,6 @@ return {
                     end,
                 },
                 {
-                    event = { "BufRead" },
-                    pattern = { "NeogitStatus" },
-                    command = function()
-                        vim.notify(P("neogit in insert mode"))
-                        if vim.fn.mode() == "i" then
-                            vim.api.nvim_feedkeys(
-                                vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
-                                "i",
-                                false
-                            )
-                        end
-                    end,
-                },
-                {
                     event = { "User" },
                     pattern = { "NeogitCommitComplete" },
                     command = function()
