@@ -8,11 +8,7 @@ augroup("terminal_au", {
         event = { "TermOpen" },
         pattern = { "term://*" },
         command = function()
-            if
-                vim.bo.filetype == ""
-                or vim.bo.filetype == "toggleterm"
-                or vim.bo.filetype == "BufTerm"
-            then
+            if vim.bo.filetype == "" or vim.bo.filetype == "toggleterm" or vim.bo.filetype == "BufTerm" then
                 tnoremap("<esc>", [[<C-\><C-n>]], opts)
                 tnoremap("jk", [[<C-\><C-n>]], opts)
                 tnoremap("<C-h>", [[<C-\><C-n><C-W>h]], opts)
@@ -22,6 +18,7 @@ augroup("terminal_au", {
                 tnoremap("<BS>", [[<BS>]], opts)
             end
             vim.cmd([[startinsert]])
+            vim.opt_local.signcolumn = "no"
         end,
     },
     {

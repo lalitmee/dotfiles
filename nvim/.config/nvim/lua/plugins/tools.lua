@@ -207,7 +207,6 @@ return {
         end,
         opts = {
             open_mapping = [[<C-\>]],
-            shade_filetypes = {},
             direction = "float",
             autochdir = true,
             persist_mode = true,
@@ -220,11 +219,12 @@ return {
                 width = 220,
                 height = 45,
             },
+            shade_terminals = false,
             size = function(term)
                 if term.direction == "horizontal" then
-                    return 15
+                    return 20
                 elseif term.direction == "vertical" then
-                    return math.floor(vim.o.columns * 0.4)
+                    return math.floor(vim.o.columns * 0.5)
                 end
             end,
         },
