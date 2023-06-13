@@ -293,4 +293,9 @@ return {
             }, { mode = "n", prefix = "<localleader>" })
         end,
     },
+
+    { --[[ vim-sxhkdrc ]]
+        "baskerville/vim-sxhkdrc",
+        event = "BufRead sxhkdrc",
+    },
 }
