@@ -501,6 +501,23 @@ return {
     { --[[ matchup ]]
         "andymass/vim-matchup",
         event = { "VeryLazy" },
+        init = function()
+            lk.augroup("vim_matchup_au", {
+                {
+                    event = { "FileType" },
+                    pattern = { "javascript" },
+                    command = function()
+                        vim.cmd([[
+                            function! JsxHotfix()
+                                setlocal matchpairs=(:),{:},[:],<:>
+                                let b:match_words = '<\@<=\([^/][^ \t>]*\)\g{hlend}[^>]*\%(/\@<!>\|$\):<\@<=/\1>'
+                            endfunction
+                            let g:matchup_hotfix = { 'javascript': 'JsxHotfix' }
+                        ]])
+                    end,
+                },
+            })
+        end,
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,

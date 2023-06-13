@@ -55,29 +55,3 @@ augroup("insert_au", {
         end,
     },
 })
-
-augroup("filetype_au", {
-    {
-        event = { "FileType" },
-        pattern = { "NeogitCommitMessage" },
-        command = function()
-            vim.cmd([[set ft=gitcommit]])
-        end,
-    },
-})
-
-augroup("vim_matchup_au", {
-    {
-        event = { "FileType" },
-        pattern = { "javascript" },
-        command = function()
-            vim.cmd([[
-                function! JsxHotfix()
-                    setlocal matchpairs=(:),{:},[:],<:>
-                    let b:match_words = '<\@<=\([^/][^ \t>]*\)\g{hlend}[^>]*\%(/\@<!>\|$\):<\@<=/\1>'
-                endfunction
-                let g:matchup_hotfix = { 'javascript': 'JsxHotfix' }
-            ]])
-        end,
-    },
-})
