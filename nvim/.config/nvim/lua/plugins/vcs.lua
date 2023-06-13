@@ -6,24 +6,17 @@ return {
         "TimUntersberger/neogit",
         cmd = { "Neogit" },
         init = function()
+            -- commands
+            command("Neogit", function()
+                require("neogit").open()
+            end, {})
+
             local wk = require("which-key")
             wk.register({
                 ["g"] = {
                     ["s"] = { ":Neogit<CR>", "status" },
                 },
             }, { mode = "n", prefix = "<leader>" })
-        end,
-        config = function()
-            -- setup
-            require("neogit").setup({
-                disable_commit_confirmation = true,
-                integrations = { diffview = true },
-            })
-
-            -- commands
-            command("Neogit", function()
-                require("neogit").open()
-            end, {})
 
             -- autocmds
             local neogit_notify = function(msg, type)
@@ -32,13 +25,27 @@ return {
             end
 
             augroup("neogit_au", {
-                -- {
-                --     event = { "BufRead" },
-                --     pattern = { "NeogitCommitMessage" },
-                --     command = function()
-                --         vim.cmd([[set filetype=gitcommit]])
-                --     end,
-                -- },
+                {
+                    event = { "FileType" },
+                    pattern = { "NeogitCommitMessage" },
+                    command = function()
+                        vim.cmd([[set ft=gitcommit]])
+                    end,
+                },
+                {
+                    event = { "BufRead" },
+                    pattern = { "NeogitStatus" },
+                    command = function()
+                        vim.notify(P("neogit in insert mode"))
+                        if vim.fn.mode() == "i" then
+                            vim.api.nvim_feedkeys(
+                                vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                                "i",
+                                false
+                            )
+                        end
+                    end,
+                },
                 {
                     event = { "User" },
                     pattern = { "NeogitCommitComplete" },
@@ -62,6 +69,10 @@ return {
                 },
             })
         end,
+        opts = {
+            disable_commit_confirmation = true,
+            integrations = { diffview = true },
+        },
     },
 
     { --[[ fugitive ]]
