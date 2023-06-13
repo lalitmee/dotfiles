@@ -49,12 +49,7 @@ return {
                 ["a"] = {
                     ["name"] = "+actions",
                     ["a"] = { ":FzfLua builtin<CR>", "fzf-lua-builtin" },
-                    ["b"] = { ":Bottom<CR>", "bottom" },
                     ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
-                    ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
-                    ["D"] = { ":LazyDocker<CR>", "docker" },
-                    ["f"] = { ":Notifications<CR>", "notifications" },
-                    ["h"] = { ":sp | te<CR>", "horizontal-split-terminal" },
                     ["k"] = { ":WorkingDirectory<CR>", "cwd" },
                     ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
                     ["m"] = { ":MarkdownPreview<CR>", "markdown-preview" },
@@ -63,7 +58,6 @@ return {
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
                     ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
                     ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
-                    ["v"] = { ":vs | te<CR>", "vertical-split-terminal" },
                     ["w"] = { ":SetWallpaper<CR>", "change-system-background" },
                 },
 
@@ -286,6 +280,7 @@ return {
                         "save-and-execute",
                     },
                     ["m"] = { ":ReloadModule<space>", "realod-module" },
+                    ["n"] = { ":Notifications<CR>", "notifications" },
                     ["r"] = { ":Redir Notifications<CR>", "redir-notifications" },
                     ["s"] = { ":Lazy sync<CR>", "lazy-sync" },
                     ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
