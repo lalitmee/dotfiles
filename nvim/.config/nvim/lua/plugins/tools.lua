@@ -192,6 +192,19 @@ return {
     { --[[ toggleterm ]]
         "akinsho/toggleterm.nvim",
         event = "VeryLazy",
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["a"] = {
+                    ["b"] = { ":Bottom<CR>", "bottom" },
+                    ["d"] = { ":LazyDocker<CR>", "lazydocker" },
+                    ["g"] = { ":LazyGit<CR>", "lazygit" },
+                    ["h"] = { ":ToggleTerm direction=horizontal<CR>", "horizontal-terminal" },
+                    ["i"] = { ":ChatGPTSh<CR>", "chatgpt" },
+                    ["v"] = { ":ToggleTerm direction=vertical<CR>", "vertical-terminal" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             open_mapping = [[<C-\>]],
             shade_filetypes = {},
@@ -227,6 +240,14 @@ return {
 
             local Terminal = require("toggleterm.terminal").Terminal
 
+            local chatgpt = Terminal:new({
+                cmd = "chatgpt -i",
+                dir = "git_dir",
+                hidden = true,
+                direction = "float",
+                on_open = float_handler,
+            })
+
             local lazygit = Terminal:new({
                 cmd = "lazygit",
                 dir = "git_dir",
@@ -260,6 +281,9 @@ return {
             end, {})
             lk.command("Bottom", function()
                 bottom:toggle()
+            end, {})
+            lk.command("ChatGPTSh", function()
+                chatgpt:toggle()
             end, {})
         end,
     },
