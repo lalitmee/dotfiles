@@ -172,7 +172,6 @@ return {
                             "toggle-word-diff",
                         },
                     },
-                    ["g"] = { ":Neogit<CR>", "status" },
                     -- moved to Hydra
                     -- ["h"] = {
                     --     ["name"] = "+hunks",
@@ -191,7 +190,6 @@ return {
                         end,
                         "open-repo",
                     },
-                    ["s"] = { ":Git<CR>", "git-status" },
                     ["t"] = { ":Telescope git_stash<CR>", "git-stash" },
                 },
 
