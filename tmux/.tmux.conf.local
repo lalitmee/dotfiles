@@ -503,7 +503,9 @@ bind -T root C-b switch-client -T split
 bind -T split C-b set-option status
 bind -T split '"' splitw -d
 bind -T split % splitw -hd
-bind -T split t splitw -f man tmux
+bind -T split c splitw -hfp 45 'chatgpt -i'
+bind -T split C splitw -fp 45 'chatgpt -i'
+bind -T split t splitw -f 'man tmux'
 bind -T split q kill-pane -t '#{bottom}'
 bind -T split m command-prompt -p 'man page name:' "splitw -f man '%%'"
 bind -T split s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
