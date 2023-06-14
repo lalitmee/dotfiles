@@ -452,10 +452,9 @@ set -g @plugin 'joshmedeski/t-smart-tmux-session-manager'
 set -g @t-fzf-prompt '> '
 bind-key J run-shell "~/.tmux/plugins/t-smart-tmux-session-manager/bin/t"
 
-# # vim-tmux-navigator
-# set -g @plugin 'christoomey/vim-tmux-navigator'
-# bind C-l send-keys 'C-l' # remapping neovim key for clearing screen
-# unbind -n C-\\
+# tmux pomodoro
+set -g @plugin 'olimorris/tmux-pomodoro-plus'
+set -g status-right "#{pomodoro_status}"
 
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
@@ -471,9 +470,6 @@ set -g @plugin 'fcsonline/tmux-thumbs'
 
 # tmux search content
 set -g @plugin 'tmux-plugins/tmux-copycat'
-
-# notify when any process in tmux finishes
-set -g @plugin 'ChanderG/tmux-notify'
 
 # tmux-fzf
 set -g @plugin 'sainnhe/tmux-fzf'
