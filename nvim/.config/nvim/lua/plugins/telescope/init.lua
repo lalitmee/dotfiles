@@ -243,7 +243,7 @@ M.config = function()
         },
         pickers = {
             buffers = dropdown({
-                path_display = { "smart" },
+                path_display = { "absolute" },
                 previewer = false,
                 sort_mru = true,
                 sort_lastused = true,
@@ -256,7 +256,7 @@ M.config = function()
             }),
             live_grep = {
                 -- find_command = { "rg", "--vimgrep", "--strip-cwd-prefix" },
-                path_display = { "smart" },
+                path_display = { "absolute" },
                 file_ignore_patterns = { ".git/" },
                 mappings = {
                     i = {
@@ -274,7 +274,7 @@ M.config = function()
                 -- enable_preview = true,
             },
             find_files = {
-                path_display = { "smart" },
+                path_display = { "absolute" },
                 -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
                 hidden = true,
             },

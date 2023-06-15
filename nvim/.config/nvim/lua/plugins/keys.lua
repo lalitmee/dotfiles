@@ -32,9 +32,9 @@ return {
             })
 
             local leader_key_maps = {
-                [":"] = { ":FzfLua commands<CR>", "commands" },
-                ["<leader>"] = { ":FzfLua files<CR>", "find-files" },
-                ["/"] = { ":FzfLua live_grep<CR>", "search-project" },
+                [":"] = { ":Telescope commands<CR>", "commands" },
+                ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
+                ["/"] = { ":Telescope live_grep<CR>", "search-project" },
 
                 ["1"] = { ":HarpoonGotoFile 1<CR>", "goto-file-1" },
                 ["2"] = { ":HarpoonGotoFile 2<CR>", "goto-file-2" },
@@ -64,13 +64,13 @@ return {
                 ["b"] = {
                     ["name"] = "+buffers",
                     ["a"] = { ":bfirst<CR>", "first-buffer" },
-                    ["b"] = { ":FzfLua buffers<CR>", "fzf-buffers" },
-                    ["B"] = { ":Telescope buffers<CR>", "telescope-buffers" },
+                    ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
+                    ["B"] = { ":FzfLua buffers<CR>", "fzf-buffers" },
                     ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
                     ["d"] = { ":Bdelete<CR>", "delete-buffer" },
                     ["D"] = { ":Bdelete!<CR>", "delete-buffer-without-prompt" },
-                    ["l"] = { ":FzfLua blines<CR>", "fzf-buffer-lines" },
-                    ["L"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
+                    ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
+                    ["L"] = { ":FzfLua blines<CR>", "fzf-buffer-lines" },
                     ["M"] = { ":delm!<CR>", "delete-marks" },
                     ["n"] = { ":bn<CR>", "next-buffer" },
                     ["o"] = { ":BufOnly<CR>", "close-all-but-current" },
@@ -124,7 +124,8 @@ return {
                         "with-dropdown",
                     },
                     ["e"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
-                    ["f"] = { ":FzfLua files<CR>", "files" },
+                    ["f"] = { ":Telescope find_files<CR>", "files" },
+                    ["F"] = { ":FzfLua files<CR>", "files" },
                     ["g"] = { ":Telescope git_files<CR>", "git-files" },
                     ["i"] = {
                         ":Telescope find_files theme=ivy<CR>",
@@ -295,11 +296,11 @@ return {
                     ["name"] = "+project",
                     ["/"] = { ":Telescope live_grep_args<CR>", "live-grep-args" },
                     ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
-                    ["f"] = { ":FzfLua files<cr>", "find-files" },
+                    ["f"] = { ":Telescope find_files<cr>", "find-files" },
                     ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
                     ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
                     ["p"] = { ":Telescope projects<CR>", "projects" },
-                    ["s"] = { ":FzfLua live_grep<CR>", "project-search" },
+                    ["s"] = { ":Telescope live_grep<CR>", "project-search" },
                     ["w"] = { ":Telescope grep_string<CR>", "string-search" },
                 },
 
@@ -339,7 +340,7 @@ return {
                 ["s"] = {
                     ["name"] = "+search-and-replace",
                     ["/"] = { ":SpectreCurFileSearch<CR>", "file-search" },
-                    ["r"] = { ":FzfLua resume<CR>", "live-grep-resume" },
+                    ["r"] = { ":Telescope resume<CR>", "live-grep-resume" },
                     ["o"] = { ":SpectreOpen<CR>", "open" },
                     ["w"] = { ":SpectreCurWord<CR>", "current-word-search" },
                 },
