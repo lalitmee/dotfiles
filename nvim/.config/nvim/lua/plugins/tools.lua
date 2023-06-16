@@ -617,7 +617,6 @@ return {
 
     { --[[ fzf-lua ]]
         "ibhagwan/fzf-lua",
-        lazy = false,
         opts = {
             winopts = {
                 width = 0.95,
@@ -628,6 +627,7 @@ return {
                 },
             },
             fzf_opts = {},
+            files = { git_icons = false },
             grep = {
                 rg_glob = true,
                 rg_opts = "--hidden --column --line-number --no-heading" .. " --color=always --smart-case -g '!.git'",
@@ -790,7 +790,6 @@ return {
     { --[[ browse ]]
         "lalitmee/browse.nvim",
         dev = true,
-        lazy = false,
         config = function()
             local bookmarks = {
                 ["docs"] = {
@@ -824,6 +823,7 @@ return {
                     ["neovim"] = "https://github.com/neovim/neovim",
                     ["nvim-treesitter"] = "https://github.com/nvim-treesitter/nvim-treesitter",
                     ["telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
+                    ["fzf-lua"] = "https://github.com/ibhagwan/fzf-lua",
                 },
                 ["configs"] = {
                     ["name"] = "dotfiles repositories of my favourites",
