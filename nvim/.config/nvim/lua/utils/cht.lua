@@ -14,8 +14,8 @@ local function cht_on_open(term)
     vim.cmd("stopinsert")
     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
     vim.api.nvim_buf_set_name(term.bufnr, "cheatsheet-" .. term.bufnr)
-    vim.api.nvim_buf_set_option(term.bufnr, "filetype", "cheat")
-    vim.api.nvim_buf_set_option(term.bufnr, "syntax", lang)
+    vim.api.nvim_set_option_value("filetype", "cheat", { buf = term.bufnr })
+    vim.api.nvim_set_option_value("syntax", lang, { buf = term.bufnr })
 end
 
 local function cht_on_exit(_)
@@ -24,7 +24,7 @@ end
 
 function M.open_term(cmd, opts)
     opts = opts or {}
-    opts.size = opts.size or vim.o.columns * 0.5
+    opts.size = opts.size or vim.api.nvim_get_option_value("columns", { scope = "local" }) * 0.5
     opts.direction = opts.direction or "float"
     opts.on_open = opts.on_open or default_on_open
     opts.on_exit = opts.on_exit or nil
@@ -44,8 +44,12 @@ end
 function M.cht()
     local buf = vim.api.nvim_get_current_buf()
     lang = ""
-    file_type = vim.api.nvim_buf_get_option(buf, "filetype")
-    vim.ui.input({ prompt = "cht.sh input: ", default = file_type .. " " }, function(input)
+    file_type = vim.api.nvim_get_option_value("filetype", { buf = buf })
+    vim.ui.input({
+        prompt = "cht.sh input: ",
+        default = file_type .. " ",
+        kind = "browse",
+    }, function(input)
         local cmd = ""
         if input == "" or not input then
             return
@@ -77,8 +81,12 @@ end
 
 function M.stack_overflow()
     local buf = vim.api.nvim_get_current_buf()
-    file_type = vim.api.nvim_buf_get_option(buf, "filetype")
-    vim.ui.input({ prompt = "so input: ", default = file_type .. " " }, function(input)
+    file_type = vim.api.nvim_get_option_value("filetype", { buf = buf })
+    vim.ui.input({
+        prompt = "so input: ",
+        default = file_type .. " ",
+        kind = "browse",
+    }, function(input)
         local cmd = ""
         if input == "" or not input then
             return
