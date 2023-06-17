@@ -11,7 +11,8 @@ end
 -- 1. vim-relativity
 -- 2. numbers.vim - https://github.com/myusuf3/numbers.vim/blob/master/plugin/numbers.vim
 
-local api = vim.api
+local command = lk.command
+local augroup = lk.augroup
 local M = {}
 
 local number_filetype_exclusions = {
@@ -67,7 +68,7 @@ end
 local function is_blocked()
     local win_type = vim.fn.win_gettype()
 
-    if not api.nvim_buf_is_valid(0) and not api.nvim_buf_is_loaded(0) then
+    if not vim.api.nvim_buf_is_valid(0) and not vim.api.nvim_buf_is_loaded(0) then
         return true
     end
 
@@ -124,16 +125,16 @@ local function disable_relative_number()
     end
 end
 
-lk.command("ToggleRelativeNumber", function()
+command("ToggleRelativeNumber", function()
     is_enabled = not is_enabled
     if is_enabled then
         enable_relative_number()
     else
         disable_relative_number()
     end
-end, {})
+end)
 
-lk.augroup("ToggleRelativeLineNumbers", {
+augroup("ToggleRelativeLineNumbers", {
     {
         event = { "BufEnter", "FileType", "FocusGained", "InsertLeave" },
         pattern = { "*" },

@@ -501,7 +501,7 @@ end
 ---Create an nvim command
 ---@param name any
 ---@param rhs string|fun(args: string, fargs: table, bang: boolean)
----@param opts table
+---@param opts table?
 function lk.command(name, rhs, opts)
     opts = opts or {}
     vim.api.nvim_create_user_command(name, rhs, opts)

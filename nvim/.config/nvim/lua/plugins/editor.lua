@@ -1,3 +1,5 @@
+local command = lk.command
+
 return {
     { -- [[ nvim-cmp ]]
         "hrsh7th/nvim-cmp",
@@ -253,9 +255,9 @@ return {
 
             -- NOTE: custom snippets created in `lua` format
             require("luasnip.loaders.from_lua").lazy_load()
-            lk.command("LuaSnipEdit", function()
+            command("LuaSnipEdit", function()
                 require("luasnip.loaders.from_lua").edit_snippet_files()
-            end, {})
+            end)
             -- }}}
 
             -- NOTE: key mappings {{{
@@ -603,15 +605,14 @@ return {
             ----------------------------------------------------------------------
             -- NOTE: commands {{{
             ----------------------------------------------------------------------
-            local command = lk.command
 
             command("SpectreOpen", function()
                 spectre.open()
-            end, {})
+            end)
 
             command("SpectreCurWord", function()
                 spectre.open_visual({ select_word = true })
-            end, {})
+            end)
 
             command("SpectreVisual", function()
                 spectre.open_visual()
@@ -740,21 +741,21 @@ return {
             "cr-",
             "cr.",
             {
-                "<localleader>[",
+                "<leader>[",
                 ":S/<C-R><C-W>//<LEFT>",
                 mode = "n",
                 silent = false,
                 desc = "abolish: replace word under the cursor (line)",
             },
             {
-                "<localleader>]",
+                "<leader>]",
                 ":%S/<C-r><C-w>//c<left><left>",
                 mode = "n",
                 silent = false,
                 desc = "abolish: replace word under the cursor (file)",
             },
             {
-                "<localleader>[",
+                "<leader>[",
                 [["zy:'<'>S/<C-r><C-o>"//c<left><left>]],
                 mode = "x",
                 silent = false,

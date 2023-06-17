@@ -1,6 +1,7 @@
 local api = vim.api
 local fn = vim.fn
 local diagnostic = vim.diagnostic
+local command = lk.command
 
 local function sign(opts)
     fn.sign_define(opts.highlight, {
@@ -25,7 +26,7 @@ vim.diagnostic.config({
         -- format = function(d)
         --     return d.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
         -- end,
-        format = nil
+        format = nil,
     },
     -- virtual_text = false,
     signs = true,
@@ -141,5 +142,5 @@ do
                 end,
             })
     end
-    lk.command("LspDiagnostics", smart_quickfix_diagnostics, {})
+    command("LspDiagnostics", smart_quickfix_diagnostics)
 end
