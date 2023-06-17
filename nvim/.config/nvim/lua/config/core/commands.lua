@@ -6,15 +6,15 @@ local fmt = string.format
 ----------------------------------------------------------------------
 command("TelescopeNotifyHistory", function()
     require("telescope").extensions.notify.notify()
-end, {})
+end)
 
 command("ReloadConfigTelescope", function()
     require("utils/reload").reload()
-end, {})
+end)
 
 command("ReloadModule", function(args)
     require("utils/reload").reload_module(args)
-end, {})
+end)
 
 -- }}}
 ----------------------------------------------------------------------
@@ -24,7 +24,7 @@ end, {})
 ----------------------------------------------------------------------
 command("ReloadConfig", function()
     require("utils/reload").reload_config()
-end, {})
+end)
 -- }}}
 ----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ end, {})
 ----------------------------------------------------------------------
 command("ToggleBackground", function()
     vim.o.background = vim.o.background == "dark" and "light" or "dark"
-end, {})
+end)
 -- }}}
 ----------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ end, { nargs = "?", complete = "help" })
 ----------------------------------------------------------------------
 command("CompileAndRun", function()
     require("utils/compiler").compile_and_run()
-end, {})
+end)
 
 -- }}}
 ----------------------------------------------------------------------
@@ -100,7 +100,7 @@ command! -bar -nargs=* Jump cexpr system('git jump ' . expand(<q-args>))
 --------------------------------------------------------------------------------
 --  NOTE: BufOnly {{{
 --------------------------------------------------------------------------------
-lk.command("BufOnly", function()
+command("BufOnly", function()
     local del_non_modifiable = vim.g.bufonly_delete_non_modifiable or false
     local cur = vim.api.nvim_get_current_buf()
     local deleted, modified = 0, 0
@@ -119,16 +119,16 @@ lk.command("BufOnly", function()
     vim.notify(fmt("%s deleted buffer(s), %s modified buffer(s)", deleted, modified), 2, {
         title = " BufOnly",
     })
-end, {})
+end)
 -- }}}
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 --  NOTE: get current working directory {{{
 --------------------------------------------------------------------------------
-lk.command("WorkingDirectory", function()
+command("WorkingDirectory", function()
     vim.notify(vim.fn.getcwd(), 2, { title = " Current Working Directory" })
-end, {})
+end)
 -- }}}
 --------------------------------------------------------------------------------
 

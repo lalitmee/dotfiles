@@ -298,4 +298,29 @@ return {
         "baskerville/vim-sxhkdrc",
         event = "BufRead sxhkdrc",
     },
+
+    { --[[ sg.nvim ]]
+        "sourcegraph/sg.nvim",
+        event = "VeryLazy",
+        keys = {
+            {
+                "<leader>sg",
+                function()
+                    require("sg.telescope").fuzzy_search_results()
+                end,
+                desc = "sg-fuzzy-search",
+            },
+            {
+                "<leader>sR",
+                function()
+                    require("sg.telescope").sg_references()
+                end,
+                desc = "sg-references-search",
+            },
+        },
+        build = "cargo build --workspace",
+        opts = {
+            on_attach = require("plugins.lsp.utils").on_attach,
+        },
+    },
 }

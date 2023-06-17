@@ -1,3 +1,4 @@
+local command = lk.command
 local border, L = lk.style.border.rounded, vim.log.levels
 
 return {
@@ -312,7 +313,7 @@ return {
                 notify_filter(msg, ...)
             end
 
-            lk.command("NotifyDismiss", notify.dismiss, {})
+            command("NotifyDismiss", notify.dismiss, {})
         end,
     },
 

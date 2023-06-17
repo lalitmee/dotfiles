@@ -1,3 +1,4 @@
+local command = lk.command
 local fn = vim.fn
 
 return {
@@ -273,18 +274,18 @@ return {
                 end,
             })
 
-            lk.command("LazyDocker", function()
+            command("LazyDocker", function()
                 lazydocker:toggle()
-            end, {})
-            lk.command("LazyGit", function()
+            end)
+            command("LazyGit", function()
                 lazygit:toggle()
-            end, {})
-            lk.command("Bottom", function()
+            end)
+            command("Bottom", function()
                 bottom:toggle()
-            end, {})
-            lk.command("ChatGPTSh", function()
+            end)
+            command("ChatGPTSh", function()
                 chatgpt:toggle()
-            end, {})
+            end)
         end,
     },
 
@@ -391,7 +392,7 @@ return {
 
         init = function()
             -- create a new entry in Journal if it doesn't exist otherwise edit it
-            lk.command("MindJournal", function()
+            command("MindJournal", function()
                 require("mind").wrap_main_tree_fn(function(args)
                     local tree = args.get_tree()
                     local path = vim.fn.strftime("/Journal/%Y/%b/%d")
@@ -403,33 +404,33 @@ return {
                     require("mind.commands").open_data(tree, node, args.data_dir, args.save_tree, args.opts)
                     args.save_tree()
                 end)
-            end, {})
+            end)
 
-            lk.command("MindOpenFromMain", function()
+            command("MindOpenFromMain", function()
                 require("mind").wrap_main_tree_fn(function(args)
                     require("mind.commands").open_data_index(args.get_tree(), args.data_dir, args.save_tree, args.opts)
                 end)
-            end, {})
+            end)
 
-            lk.command("MindOpenFromSmart", function()
+            command("MindOpenFromSmart", function()
                 require("mind").wrap_smart_project_tree_fn(function(args)
                     require("mind.commands").open_data_index(args.get_tree(), args.data_dir, args.save_tree, args.opts)
                 end)
-            end, {})
+            end)
 
-            lk.command("MindCopyFromMain", function()
+            command("MindCopyFromMain", function()
                 require("mind").wrap_main_tree_fn(function(args)
                     require("mind.commands").copy_node_link_index(args.get_tree(), nil, args.opts)
                 end)
-            end, {})
+            end)
 
-            lk.command("MindCopyFromMain", function()
+            command("MindCopyFromMain", function()
                 require("mind").wrap_smart_project_tree_fn(function(args)
                     require("mind.commands").copy_node_link_index(args.get_tree(), nil, args.opts)
                 end)
-            end, {})
+            end)
 
-            lk.command("MindCreateInSmart", function()
+            command("MindCreateInSmart", function()
                 require("mind").wrap_smart_project_tree_fn(function(args)
                     require("mind.commands").create_node_index(
                         args.get_tree(),
@@ -438,9 +439,9 @@ return {
                         args.opts
                     )
                 end)
-            end, {})
+            end)
 
-            lk.command("MindCreateInMain", function()
+            command("MindCreateInMain", function()
                 require("mind").wrap_main_tree_fn(function(args)
                     require("mind.commands").create_node_index(
                         args.get_tree(),
@@ -449,9 +450,9 @@ return {
                         args.opts
                     )
                 end)
-            end, {})
+            end)
 
-            lk.command("MindInitializeProject", function()
+            command("MindInitializeProject", function()
                 vim.notify("initializing project tree")
                 require("mind").wrap_smart_project_tree_fn(function(args)
                     local tree = args.get_tree()
@@ -477,7 +478,7 @@ return {
 
                     args.save_tree()
                 end)
-            end, {})
+            end)
         end,
     },
 
@@ -571,24 +572,24 @@ return {
                 scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
             })
 
-            lk.command("Scretch", function()
+            command("Scretch", function()
                 scretch.new()
-            end, {})
-            lk.command("ScretchNamed", function()
+            end)
+            command("ScretchNamed", function()
                 scretch.new_named()
-            end, {})
-            lk.command("ScretchLast", function()
+            end)
+            command("ScretchLast", function()
                 scretch.last()
-            end, {})
-            lk.command("ScretchSearch", function()
+            end)
+            command("ScretchSearch", function()
                 scretch.search()
-            end, {})
-            lk.command("ScretchGrep", function()
+            end)
+            command("ScretchGrep", function()
                 scretch.grep()
-            end, {})
-            lk.command("ScretchExplore", function()
+            end)
+            command("ScretchExplore", function()
                 scretch.explore()
-            end, {})
+            end)
         end,
     },
 
@@ -672,8 +673,6 @@ return {
             "ToggleHarpoonMenu",
         },
         config = function()
-            local command = lk.command
-
             require("harpoon").setup({
                 global_settings = {
                     menu = {
@@ -702,7 +701,7 @@ return {
             --------------------------------------------------------------------------------
             command("HarpoonAddFile", function()
                 require("harpoon.mark").add_file()
-            end, {})
+            end)
 
             command("HarpoonGotoFile", function(args)
                 local number = tonumber(args["args"])
@@ -713,7 +712,7 @@ return {
 
             command("HarpoonRemoveFile", function()
                 require("harpoon.mark").rm_file()
-            end, {})
+            end)
             -- }}}
             --------------------------------------------------------------------------------
 
@@ -766,21 +765,21 @@ return {
             --------------------------------------------------------------------------------
             command("HarpoonNextMark", function()
                 require("harpoon.ui").nav_next()
-            end, {})
+            end)
 
             command("HarpoonPrevMark", function()
                 require("harpoon.ui").nav_prev()
-            end, {})
+            end)
             -- }}}
             --------------------------------------------------------------------------------
 
             command("ToggleHarpoonMenu", function()
                 require("harpoon.ui").toggle_quick_menu()
-            end, {})
+            end)
 
             command("ToggleHarpoonCmdMenu", function()
                 require("harpoon.cmd-ui").toggle_quick_menu()
-            end, {})
+            end)
 
             -- }}}
             ----------------------------------------------------------------------

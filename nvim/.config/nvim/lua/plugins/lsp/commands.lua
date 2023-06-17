@@ -6,16 +6,16 @@ local command = lk.command
 command("ReloadLSP", function()
     vim.lsp.stop_client(vim.lsp.get_active_clients(), true)
     vim.cmd([[edit]])
-end, {})
+end)
 
 command("LogLSP", function()
     local path = vim.lsp.get_log_path()
     vim.cmd("edit " .. path)
-end, {})
+end)
 
 command("DebugLSP", function()
     print(vim.inspect(vim.lsp.get_active_clients()))
-end, {})
+end)
 -- }}}
 ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ end, {})
 ----------------------------------------------------------------------
 command("LspCodeActions", function()
     vim.lsp.buf.code_action()
-end, {})
+end)
 -- }}}
 ----------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ command("LspDocumentHighlight", vim.lsp.buf.document_highlight, {})
 command("LspDocumentSymbols", vim.lsp.buf.document_symbol, {})
 command("LspFormat", function()
     vim.lsp.buf.format({ bufnr = 0 })
-end, {})
+end)
 command("LspHover", vim.lsp.buf.hover, {})
 command("LspSignatureHelp", vim.lsp.buf.signature_help, {})
 command("LspImplementation", vim.lsp.buf.implementation, {})
@@ -53,7 +53,7 @@ command("LspIncomingCalls", vim.lsp.buf.incoming_calls, {})
 command("LspOutgoingCalls", vim.lsp.buf.outgoing_calls, {})
 command("LspRename", function()
     vim.lsp.buf.rename()
-end, {})
+end)
 command("LspTypeDefinition", vim.lsp.buf.type_definition, {})
 command("LspWorkspaceSymbols", vim.lsp.buf.workspace_symbol, {})
 -- }}}
@@ -82,10 +82,10 @@ end
 
 command("LspDiagnosticEnable", function()
     vim.diagnostic.enable()
-end, {})
+end)
 command("LspDiagnosticDisable", function()
     vim.diagnostic.disable()
-end, {})
+end)
 command("LspGetAllDiagnostics", vim.diagnostic.get, {})
 command("LspGotoNextDiagnostic", function()
     vim.diagnostic.goto_next({
@@ -93,17 +93,17 @@ command("LspGotoNextDiagnostic", function()
         wrap = true,
         float = true,
     })
-end, {})
+end)
 command("LspGotoPrevDiagnostic", function()
     vim.diagnostic.goto_prev({
         severity = get_highest_error_severity(),
         wrap = true,
         float = true,
     })
-end, {})
+end)
 command("ShowLineDiagnosticInFloat", function()
     vim.diagnostic.open_float({ scope = "line" })
-end, {})
+end)
 
 -- loclist
 command("LspSetLoclist", vim.diagnostic.setloclist, {})
@@ -119,7 +119,7 @@ command("LspAddWorkspaceFolder", function(args)
 end, { nargs = 1, complete = "dir" })
 command("LspListWorkspaceFolders", function()
     P(vim.lsp.buf.list_workspace_folders())
-end, {})
+end)
 command("LspRemoveWorkspaceFolder", function(args)
     local path = args["args"]
     vim.lsp.buf.remove_workspace_folder(path)

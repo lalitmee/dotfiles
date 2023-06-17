@@ -26,7 +26,7 @@ command("TelescopeEditNeovim", function()
             },
         },
     })
-end, {})
+end)
 
 command("TelescopeEditDotfiles", function()
     builtin.find_files({
@@ -48,7 +48,7 @@ command("TelescopeEditDotfiles", function()
             },
         },
     })
-end, {})
+end)
 
 command("TelescopeFuzzyLiveGrep", function()
     vim.g.grep_string_mode = true
@@ -61,7 +61,7 @@ command("TelescopeFuzzyLiveGrep", function()
         end
         vim.g.grep_string_mode = false
     end)
-end, {})
+end)
 
 command("GitHunks", function()
     pickers
@@ -92,7 +92,7 @@ command("GitHunks", function()
             layout_strategy = "flex",
         }, {})
         :find()
-end, {})
+end)
 
 --------------------------------------------------------------------------------
 --  NOTE: wallpaper selector
@@ -144,6 +144,6 @@ end
 
 local set_wallpaper = image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
 
-lk.command("SetWallpaper", function()
+command("SetWallpaper", function()
     set_wallpaper()
-end, {})
+end)
