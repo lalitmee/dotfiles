@@ -447,35 +447,8 @@ return {
         event = "VeryLazy",
         dependencies = { "kkharji/sqlite.lua" },
         init = function()
-            vim.g.clipboard = {
-                name = "xsel_override",
-                copy = {
-                    ["+"] = "xsel --input --clipboard",
-                    ["*"] = "xsel --input --primary",
-                },
-                paste = {
-                    ["+"] = "xsel --output --clipboard",
-                    ["*"] = "xsel --output --primary",
-                },
-                cache_enabled = 1,
-            }
-        end,
-        config = function()
-            -- NOTE: setup {{{
-            require("yanky").setup({
-                highlight = {
-                    timer = 40,
-                },
-                system_clipboard = {
-                    sync_with_ring = false,
-                },
-            })
-
-            -- yanky extension
             require("telescope").load_extension("yank_history")
-            -- }}}
 
-            -- NOTE: mappings {{{
             local nmap = lk.nmap
             local xmap = lk.xmap
 
@@ -496,8 +469,15 @@ return {
             -- cycle mappings
             nmap("<c-n>", "<Plug>(YankyCycleForward)", {})
             nmap("<c-p>", "<Plug>(YankyCycleBackward)", {})
-            -- }}}
         end,
+        config = {
+            highlight = {
+                timer = 40,
+            },
+            system_clipboard = {
+                sync_with_ring = false,
+            },
+        },
     },
 
     { --[[ matchup ]]
