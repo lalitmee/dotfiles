@@ -179,13 +179,13 @@ return {
                     },
                     ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
                     ["n"] = { ":GitHunks<CR>", "git-hunks" },
-                    ["O"] = {
+                    ["o"] = {
                         function()
                             vim.cmd([[silent !gh o]])
                         end,
                         "open-repo",
                     },
-                    ["t"] = { ":Telescope git_stash<CR>", "git-stash" },
+                    ["z"] = { ":Telescope git_stash<CR>", "git-stash" },
                 },
 
                 ["h"] = {
