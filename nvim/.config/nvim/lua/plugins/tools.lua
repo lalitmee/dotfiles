@@ -217,15 +217,15 @@ return {
             float_opts = {
                 border = lk.style.border.rounded,
                 winblend = 3,
-                width = 220,
-                height = 45,
+                width = 230,
+                height = 48,
             },
             shade_terminals = false,
             size = function(term)
                 if term.direction == "horizontal" then
                     return 20
                 elseif term.direction == "vertical" then
-                    return math.floor(vim.o.columns * 0.5)
+                    return math.floor(vim.api.nvim_get_option_value("columns") * 0.5)
                 end
             end,
         },
@@ -247,6 +247,10 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
+                float_opts = {
+                    width = 240,
+                    height = 48,
+                },
             })
 
             local lazygit = Terminal:new({
@@ -255,6 +259,10 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
+                float_opts = {
+                    width = 240,
+                    height = 48,
+                },
             })
 
             local lazydocker = Terminal:new({
@@ -262,6 +270,10 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
+                float_opts = {
+                    width = 240,
+                    height = 48,
+                },
             })
 
             local bottom = Terminal:new({
@@ -269,9 +281,10 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                size = function()
-                    return math.floor(vim.o.columns * 0.95)
-                end,
+                float_opts = {
+                    width = 240,
+                    height = 48,
+                },
             })
 
             command("LazyDocker", function()
