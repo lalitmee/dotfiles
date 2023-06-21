@@ -127,5 +127,5 @@
   "virtcolumn.nvim": { "branch": "main", "commit": "cd9485d64a0763c5572272e03d70cbff1f91fde0" },
   "vscode-js-debug": { "branch": "main", "commit": "5f238bdf4d48e3db45e0cb4d4e0f9e6e4ab9240e" },
   "which-key.nvim": { "branch": "main", "commit": "d871f2b664afd5aed3dc1d1573bef2fb24ce0484" },
-  "yanky.nvim": { "branch": "main", "commit": "16884855e65931cdec3937d60bfb942530535e9c" }
+  "yanky.nvim": { "branch": "main", "commit": "b12561386a25645adb7504e0e6a8c5dc8b31e6da" }
 }
