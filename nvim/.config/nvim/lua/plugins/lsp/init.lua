@@ -87,6 +87,11 @@ return {
                 opts = {},
                 enabled = false,
             },
+            {
+                "lvimuser/lsp-inlayhints.nvim",
+                event = "LspAttach",
+                opts = {},
+            },
         },
         config = function()
             require("plugins.lsp.handlers")

@@ -24,6 +24,9 @@ M.on_attach = function(client, bufnr)
 
     -- -- navic
     -- M.navic(client, bufnr)
+
+    -- inlay-hints
+    require("lsp-inlayhints").on_attach(client, bufnr)
 end
 -- }}}
 ----------------------------------------------------------------------
@@ -129,9 +132,9 @@ M.capabilities = function(client, bufnr)
     if client.server_capabilities.document_formatting then
         client.server_capabilities.document_formatting = false
     end
-    if client.server_capabilities.inlayHintProvider then
-        vim.lsp.buf.inlay_hint(bufnr, true)
-    end
+    -- if client.server_capabilities.inlayHintProvider then
+    --     vim.lsp.buf.inlay_hint(bufnr, true)
+    -- end
     if client.server_capabilities.goto_definition == true then
         vim.api.nvim_set_option_value("tagfunc", "v:lua.vim.lsp.tagfunc", { buf = bufnr })
     end
