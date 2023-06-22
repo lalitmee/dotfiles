@@ -39,53 +39,53 @@ M.mappings = function(client)
     -- NOTE: using this somehow goes into telescope with two definitions so not
     -- using this for now until I figure out why it was happening
 
-    -- --telescope
-    -- nmap("gd", "<cmd>Telescope lsp_definitions<CR>", map_opts)
-    -- -- nmap("gd", vim.lsp.buf.definition, map_opts)
-    -- nmap("ge", "<cmd>Telescope diagnostics<CR>", map_opts)
-    -- nmap("gr", "<cmd>Telescope lsp_references<CR>", map_opts)
-    -- nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", map_opts)
-    -- nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", map_opts)
-    -- if client.name ~= "rust_analyzer" then
-    --     nmap("K", vim.lsp.buf.hover, map_opts)
-    -- end
-    -- nmap("gD", vim.lsp.buf.declaration, map_opts)
-    -- nmap("gy", vim.lsp.buf.type_definition, map_opts)
-    -- imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
-    -- nmap("gz", vim.lsp.buf.implementation, map_opts)
-
-    -- fzf-lua
-    nmap("ga", "<cmd>FzfLua lsp_code_actions<CR>", map_opts)
-    nmap("gd", function()
-        if client.name == "tsserver" then
-            vim.cmd("TypescriptGoToSourceDefinition")
-        else
-            require("fzf-lua").lsp_definitions({
-                jump_to_single_result = true,
-            })
-        end
-    end, map_opts)
-    nmap("<C-]>", function()
-        require("fzf-lua").lsp_definitions({
-            jump_to_single_result = true,
-            jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
-        })
-    end, map_opts)
-    nmap("ge", "<cmd>FzfLua lsp_document_diagnostics<CR>", map_opts)
-    nmap("gE", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", map_opts)
-    nmap("gl", "<cmd>FzfLua lsp_finder<CR>", map_opts)
-    nmap("gr", function()
-        require("fzf-lua").lsp_references({ include_declaration = false })
-    end, map_opts)
-    nmap("gw", "<cmd>FzfLua lsp_document_symbols<CR>", map_opts)
-    nmap("gW", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", map_opts)
+    --telescope
+    nmap("gd", "<cmd>Telescope lsp_definitions<CR>", map_opts)
+    -- nmap("gd", vim.lsp.buf.definition, map_opts)
+    nmap("ge", "<cmd>Telescope diagnostics<CR>", map_opts)
+    nmap("gr", "<cmd>Telescope lsp_references<CR>", map_opts)
+    nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", map_opts)
+    nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", map_opts)
     if client.name ~= "rust_analyzer" then
         nmap("K", vim.lsp.buf.hover, map_opts)
     end
-    nmap("gD", "<cmd>FzfLua lsp_declarations", map_opts)
-    nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", map_opts)
+    nmap("gD", vim.lsp.buf.declaration, map_opts)
+    nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", map_opts)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
-    nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
+    nmap("gz", vim.lsp.buf.implementation, map_opts)
+
+    -- -- fzf-lua
+    -- nmap("ga", "<cmd>FzfLua lsp_code_actions<CR>", map_opts)
+    -- nmap("gd", function()
+    --     if client.name == "tsserver" then
+    --         vim.cmd("TypescriptGoToSourceDefinition")
+    --     else
+    --         require("fzf-lua").lsp_definitions({
+    --             jump_to_single_result = true,
+    --         })
+    --     end
+    -- end, map_opts)
+    -- nmap("<C-]>", function()
+    --     require("fzf-lua").lsp_definitions({
+    --         jump_to_single_result = true,
+    --         jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
+    --     })
+    -- end, map_opts)
+    -- nmap("ge", "<cmd>FzfLua lsp_document_diagnostics<CR>", map_opts)
+    -- nmap("gE", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", map_opts)
+    -- nmap("gl", "<cmd>FzfLua lsp_finder<CR>", map_opts)
+    -- nmap("gr", function()
+    --     require("fzf-lua").lsp_references({ include_declaration = false })
+    -- end, map_opts)
+    -- nmap("gw", "<cmd>FzfLua lsp_document_symbols<CR>", map_opts)
+    -- nmap("gW", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", map_opts)
+    -- if client.name ~= "rust_analyzer" then
+    --     nmap("K", vim.lsp.buf.hover, map_opts)
+    -- end
+    -- nmap("gD", "<cmd>FzfLua lsp_declarations", map_opts)
+    -- nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", map_opts)
+    -- imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
+    -- nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
 
     nmap("[e", "<cmd>LspGotoPrevDiagnostic<CR>")
     nmap("]e", "<cmd>LspGotoNextDiagnostic<CR>")

@@ -60,34 +60,20 @@ return {
         event = { "VeryLazy" },
         dependencies = {
             {
-                "jose-elias-alvarez/typescript.nvim",
+                "pmizio/typescript-tools.nvim",
                 opts = {
-                    server = {
-                        on_attach = lsp_utils.on_attach,
-                        settings = {
-                            javascript = {
-                                inlayHints = {
-                                    includeInlayEnumMemberValueHints = true,
-                                    includeInlayFunctionLikeReturnTypeHints = true,
-                                    includeInlayFunctionParameterTypeHints = true,
-                                    includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                                    includeInlayPropertyDeclarationTypeHints = true,
-                                    includeInlayVariableTypeHints = true,
-                                },
-                            },
-                            typescript = {
-                                inlayHints = {
-                                    includeInlayEnumMemberValueHints = true,
-                                    includeInlayFunctionLikeReturnTypeHints = true,
-                                    includeInlayFunctionParameterTypeHints = true,
-                                    includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                                    includeInlayPropertyDeclarationTypeHints = true,
-                                    includeInlayVariableTypeHints = true,
-                                },
-                            },
+                    on_attach = lsp_utils.on_attach,
+                    settings = {
+                        tsserver_file_preferences = {
+                            includeInlayEnumMemberValueHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayVariableTypeHints = true,
                         },
+                        tsserver_format_options = {},
                     },
                 },
             },
@@ -236,9 +222,6 @@ return {
                     cda.eslint_d,
                     cda.shellcheck,
                     cda.refactoring,
-
-                    -- typescript.nvim
-                    require("typescript.extensions.null-ls.code-actions"),
                 },
                 on_attach = function(client)
                     local buffer_name = vim.fn.expand("%:t")
