@@ -200,7 +200,7 @@ return {
             -- get the file name of the current file
             local filename = function()
                 return f(function(_, snip)
-                    local name = vim.split(snip.snippet.env.TM_FILENAME, ".", true)
+                    local name = vim.split(snip.snippet.env.TM_FILENAME, ".")
                     return name[1] or ""
                 end)
             end
@@ -515,45 +515,126 @@ return {
 
     { --[[ bufdelete ]]
         "famiu/bufdelete.nvim",
-        cmd = { "Bdelete", "Bwipeout" },
+        cmd = { "Bdelete", "Bwipyout" },
     },
 
-    { --[[ hop ]]
-        "phaazon/hop.nvim",
-        branch = "v2",
-        cmd = {
-            "HopPattern",
-            "HopChar1AC",
-            "HopChar1BC",
-            "HopChar1",
-            "HopChar2",
-            "HopLineStart",
-            "HopLine",
-            "HopChar2AC",
-            "HopChar2BC",
-            "HopWord",
-            "HopWordMW",
+    { --[[ flash.nvim ]]
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            {
+                "r",
+                mode = "o",
+                function()
+                    require("flash").remote()
+                end,
+                desc = "Remote Flash",
+            },
         },
-        config = true,
         init = function()
             local wk = require("which-key")
+            local flash = require("flash")
             wk.register({
                 ["j"] = {
                     ["name"] = "+jump",
-                    ["/"] = { ":HopPattern<CR>", "pattern" },
-                    ["a"] = { ":HopAnywhere<CR>", "anywhere" },
-                    ["f"] = { ":HopChar1AC<CR>", "char1-ac" },
-                    ["F"] = { ":HopChar1BC<CR>", "char1-bc" },
-                    ["j"] = { ":HopChar1<CR>", "char1" },
-                    ["k"] = { ":HopChar2<CR>", "char2" },
-                    ["l"] = { ":HopLineStart<CR>", "line-start" },
-                    ["L"] = { ":HopLine<CR>", "line" },
-                    ["t"] = { ":HopChar2AC<CR>", "char2-ac" },
-                    ["T"] = { ":HopChar2BC<CR>", "char2-bc" },
-                    ["w"] = { ":HopWord<CR>", "word" },
-                    ["W"] = { ":HopWordMW<CR>", "word-mw" },
+                    ["d"] = {
+                        function()
+                            -- highlights diagnostics and open float after
+                            -- choosing the label
+                            flash.jump({
+                                matcher = function(win)
+                                    ---@param diag Diagnostic
+                                    return vim.tbl_map(function(diag)
+                                        return {
+                                            pos = { diag.lnum + 1, diag.col },
+                                            end_pos = { diag.end_lnum + 1, diag.end_col - 1 },
+                                        }
+                                    end, vim.diagnostic.get(
+                                        vim.api.nvim_win_get_buf(win)
+                                    ))
+                                end,
+                                action = function(match, state)
+                                    vim.api.nvim_win_call(match.win, function()
+                                        vim.api.nvim_win_set_cursor(match.win, match.pos)
+                                        vim.diagnostic.open_float()
+                                        vim.api.nvim_win_set_cursor(match.win, state.pos)
+                                    end)
+                                end,
+                            })
+                        end,
+                        "diagnostics",
+                    },
+                    ["j"] = {
+                        function()
+                            flash.jump()
+                        end,
+                        "jump",
+                    },
+                    ["l"] = {
+                        function()
+                            flash.jump({
+                                search = { mode = "search" },
+                                highlight = { label = { after = { 0, 0 } } },
+                                pattern = "^",
+                            })
+                        end,
+                        "line",
+                    },
+                    ["r"] = {
+                        function()
+                            flash.remote()
+                        end,
+                        "remote",
+                    },
+                    ["s"] = {
+                        function()
+                            flash.jump({
+                                search = {
+                                    mode = function(str)
+                                        return "\\<" .. str
+                                    end,
+                                },
+                            })
+                        end,
+                        "beginning-of-words",
+                    },
+                    ["t"] = {
+                        function()
+                            flash.treesitter()
+                        end,
+                        "treesitter",
+                    },
+                    ["w"] = {
+                        function()
+                            flash.jump({
+                                pattern = vim.fn.expand("<cword>"),
+                            })
+                        end,
+                        "current-word",
+                    },
+                    ["W"] = {
+                        function()
+                            flash.jump({
+                                pattern = ".", -- initialize pattern with any char
+                                search = {
+                                    mode = function(pattern)
+                                        -- remove leading dot
+                                        if pattern:sub(1, 1) == "." then
+                                            pattern = pattern:sub(2)
+                                        end
+                                        -- return word pattern and proper skip pattern
+                                        return ([[\v<%s\w*>]]):format(pattern), ([[\v<%s]]):format(pattern)
+                                    end,
+                                },
+                                -- select the range
+                                jump = { pos = "range" },
+                            })
+                        end,
+                        "select-word",
+                    },
                 },
-            }, { mode = "n", prefix = "<leader>" })
+            }, { mode = { "n", "v", "x", "o" }, prefix = "<leader>" })
         end,
     },
 

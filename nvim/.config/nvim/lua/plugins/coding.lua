@@ -318,7 +318,7 @@ return {
                 desc = "sg-references-search",
             },
         },
-        build = "cargo build --workspace",
+        build = "cargo build --workspace && cargo build --bin sg-cody",
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
