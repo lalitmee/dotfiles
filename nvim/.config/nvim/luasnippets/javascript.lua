@@ -124,10 +124,7 @@ local snippets = {
             }
         )
     ),
-    s(
-        { trig = "ftodo", name = "todo for removing FF" },
-        t("// TODO: removing this while removing FF")
-    ),
+    s({ trig = "ftodo", name = "todo for removing FF" }, t("// TODO: removing this while removing FF")),
 }
 
 local autosnippets = {
