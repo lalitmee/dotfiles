@@ -1,3 +1,4 @@
+local augroup = lk.augroup
 local command = lk.command
 local fn = vim.fn
 
@@ -54,17 +55,38 @@ return {
         },
         config = true,
         init = function()
-            local autolist = require("autolist")
-            autolist.create_mapping_hook("i", "<CR>", autolist.new)
-            autolist.create_mapping_hook("i", "<Tab>", autolist.indent)
-            autolist.create_mapping_hook("i", "<S-Tab>", autolist.indent, "<C-D>")
-            autolist.create_mapping_hook("n", "dd", autolist.force_recalculate)
-            autolist.create_mapping_hook("n", "o", autolist.new)
-            autolist.create_mapping_hook("n", "O", autolist.new_before)
-            autolist.create_mapping_hook("n", ">>", autolist.indent)
-            autolist.create_mapping_hook("n", "<<", autolist.indent)
-            autolist.create_mapping_hook("n", "<C-r>", autolist.force_recalculate)
-            autolist.create_mapping_hook("n", "<leader>x", autolist.invert_entry, "")
+            augroup("autolist_au", {
+                {
+                    event = { "FileType" },
+                    pattern = {
+                        "gitcommit",
+                        "markdown",
+                        "plaintex",
+                        "tex",
+                        "text",
+                    },
+                    command = function()
+                        local map = lk.map
+                        map("i", "<tab>", "<cmd>AutolistTab<cr>")
+                        map("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>")
+                        map("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>")
+                        map("n", "o", "o<cmd>AutolistNewBullet<cr>")
+                        map("n", "O", "O<cmd>AutolistNewBulletBefore<cr>")
+                        map("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>")
+                        map("n", "<C-r>", "<cmd>AutolistRecalculate<cr>")
+
+                        -- cycle list types with dot-repeat
+                        map("n", "<localleader>cn", require("autolist").cycle_next_dr, { expr = true })
+                        map("n", "<localleader>cp", require("autolist").cycle_prev_dr, { expr = true })
+
+                        -- functions to recalculate list on edit
+                        map("n", ">>", ">><cmd>AutolistRecalculate<cr>")
+                        map("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
+                        map("n", "dd", "dd<cmd>AutolistRecalculate<cr>")
+                        map("v", "d", "d<cmd>AutolistRecalculate<cr>")
+                    end,
+                },
+            })
         end,
     },
 
