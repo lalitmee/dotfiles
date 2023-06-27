@@ -91,6 +91,19 @@ return {
                 "lvimuser/lsp-inlayhints.nvim",
                 event = "LspAttach",
                 opts = {},
+                init = function()
+                    local wk = require("which-key")
+                    wk.register({
+                        ["l"] = {
+                            ["h"] = {
+                                function()
+                                    require("lsp-inlayhints").toggle()
+                                end,
+                                "lsp-inlayhints-toggle",
+                            },
+                        },
+                    }, { mode = "n", prefix = "<leader>" })
+                end,
             },
         },
         config = function()

@@ -562,13 +562,16 @@ return {
     { --[[ monorepo ]]
         "imNel/monorepo.nvim",
         keys = {
+            "<leader>pa",
             "<leader>pm",
             "<leader>pn",
             "<leader>pp",
+            "<leader>pr",
             "<leader>pt",
         },
         config = true,
         init = function()
+            require("telescope").load_extension("monorepo")
             local monorepo = require("monorepo")
             local wk = require("which-key")
 
