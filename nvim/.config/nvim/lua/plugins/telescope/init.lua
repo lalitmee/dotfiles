@@ -242,9 +242,9 @@ M.config = function()
             qflist_previewer = previewers.vim_buffer_qflist.new,
         },
         pickers = {
-            buffers = dropdown({
+            buffers = {
                 path_display = { "absolute" },
-                previewer = false,
+                previewer = true,
                 sort_mru = true,
                 sort_lastused = true,
                 show_all_buffers = true,
@@ -253,7 +253,7 @@ M.config = function()
                     i = { ["<c-d>"] = "delete_buffer" },
                     n = { ["d"] = "delete_buffer" },
                 },
-            }),
+            },
             live_grep = {
                 -- find_command = { "rg", "--vimgrep", "--strip-cwd-prefix" },
                 path_display = { "absolute" },
