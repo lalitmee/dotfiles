@@ -3,7 +3,7 @@ local command = lk.command
 
 return {
     { --[[ neogit ]]
-        "TimUntersberger/neogit",
+        "NeogitOrg/neogit",
         cmd = { "Neogit" },
         init = function()
             -- commands
