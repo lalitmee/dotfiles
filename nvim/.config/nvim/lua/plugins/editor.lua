@@ -589,7 +589,7 @@ return {
                         function()
                             flash.jump({
                                 search = { mode = "search" },
-                                highlight = { label = { after = { 0, 0 } } },
+                                label = { after = { 0, 0 } },
                                 pattern = "^",
                             })
                         end,
