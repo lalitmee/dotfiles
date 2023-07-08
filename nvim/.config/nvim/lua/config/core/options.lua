@@ -451,7 +451,7 @@ o.exrc = true -- Allow project local vimrc files example .nvimrc see :h exrc
 -- NOTE: vim cmds {{{
 ----------------------------------------------------------------------
 opt.path:append("**")
-o.regexpengine = 1
+o.regexpengine = 0
 -- vim.cmd([[
 --   set t_vb=
 --   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
