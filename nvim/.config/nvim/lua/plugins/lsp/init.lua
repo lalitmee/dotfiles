@@ -91,6 +91,7 @@ return {
                         tsserver_format_options = {},
                     },
                 },
+                enabled = false
             },
             {
                 "folke/neodev.nvim",
