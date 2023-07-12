@@ -15,13 +15,11 @@ return {
             "petertriho/cmp-git",
             "roobert/tailwindcss-colorizer-cmp.nvim",
             "saadparwaiz1/cmp_luasnip",
-            "tzachar/fuzzy.nvim",
         },
         config = function()
             local cmp = require("cmp")
             local lspkind = require("lspkind")
             local luasnip = require("luasnip")
-            local compare = require("cmp.config.compare")
 
             -- Don't show the dumb matching stuff.
             vim.opt.shortmess:append("c")
@@ -803,11 +801,6 @@ return {
         },
     },
 
-    { --[[ targets ]]
-        "wellle/targets.vim",
-        event = { "VeryLazy" },
-    },
-
     { --[[ repeat ]]
         "tpope/vim-repeat",
         keys = { "." },
@@ -1080,6 +1073,7 @@ return {
             require("telescope").load_extension("scope")
         end,
         config = true,
+        enabled = false,
     },
 
     { --[[ edgy ]]

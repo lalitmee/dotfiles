@@ -174,7 +174,19 @@ return {
 
     { --[[ oversser ]]
         "stevearc/overseer.nvim",
-        event = { "VeryLazy" },
+        cmd = {
+            "OverseerTaskAction",
+            "OverseerBuild",
+            "OverseerClose",
+            "OverseerDeleteBundle",
+            "OverseerRunCmd",
+            "OverseerLoadBundle",
+            "OverseerOpen",
+            "OverseerQuickAction",
+            "OverseerRun",
+            "OverseerSaveBundle",
+            "OverseerToggle",
+        },
         init = function()
             local wk = require("which-key")
             wk.register({
@@ -196,13 +208,9 @@ return {
                 },
             }, { mode = "n", prefix = "<leader>" })
         end,
-        config = function()
-            local overseer = require("overseer")
-
-            overseer.setup({
-                templates = { "tasks" },
-            })
-        end,
+        opts = {
+            templates = { "tasks" },
+        },
     },
 
     { --[[ neotest ]]
