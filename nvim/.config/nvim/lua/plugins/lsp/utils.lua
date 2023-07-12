@@ -25,8 +25,8 @@ M.on_attach = function(client, bufnr)
     -- -- navic
     -- M.navic(client, bufnr)
 
-    -- inlay-hints
-    require("lsp-inlayhints").on_attach(client, bufnr)
+    -- -- inlay-hints
+    -- require("lsp-inlayhints").on_attach(client, bufnr)
 end
 -- }}}
 ----------------------------------------------------------------------
