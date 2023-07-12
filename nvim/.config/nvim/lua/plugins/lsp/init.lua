@@ -91,7 +91,7 @@ return {
                         tsserver_format_options = {},
                     },
                 },
-                enabled = false
+                enabled = false,
             },
             {
                 "folke/neodev.nvim",
@@ -120,6 +120,7 @@ return {
                         },
                     }, { mode = "n", prefix = "<leader>" })
                 end,
+                enbaled = false,
             },
         },
         config = function()
