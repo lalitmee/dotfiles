@@ -49,8 +49,6 @@ return {
         ft = {
             "gitcommit",
             "markdown",
-            "plaintex",
-            "tex",
             "text",
         },
         config = true,
@@ -61,8 +59,6 @@ return {
                     pattern = {
                         "gitcommit",
                         "markdown",
-                        "plaintex",
-                        "tex",
                         "text",
                     },
                     command = function()
@@ -88,6 +84,7 @@ return {
                 },
             })
         end,
+        enabled = false,
     },
 
     { --[[ tabular ]]
@@ -591,42 +588,44 @@ return {
             "nvim-telescope/telescope.nvim",
             "nvim-lua/plenary.nvim",
         },
+        enabled = false,
     },
 
     { --[[ scretch ]]
         "Sonicfury/scretch.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
-        cmd = {
-            "Scretch",
-            "ScretchNamed",
-            "ScretchLast",
-            "ScretchSearch",
-            "ScretchGrep",
-            "ScretchExplore",
+        keys = {
+            "<localleader>sa",
+            "<localleader>se",
+            "<localleader>sf",
+            "<localleader>sg",
+            "<localleader>sl",
+            "<localleader>sn",
         },
+        init = function()
+            local scretch = require("scretch")
+            local wk = require("which-key")
+            -- stylua: ignore
+            wk.register({
+                ["s"] = {
+                    ["name"] = "+scratch",
+                    ["a"] = { function() scretch.new() end, "new-scratch" },
+                    ["e"] = { function() scretch.explore() end, "scratch-explore" },
+                    ["f"] = { function() scretch.search() end, "search-scratch" },
+                    ["g"] = { function() scretch.grep() end, "scratch-grep" },
+                    ["l"] = { function() scretch.last() end, "last-scratch" },
+                    ["n"] = { function() scretch.new_named() end, "scratch-with-name" },
+                },
+            }, { mode = "n", prefix = "<localleader>" })
+        end,
         config = function()
             local scretch = require("scretch")
             scretch.setup({
                 scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
             })
 
-            command("Scretch", function()
-                scretch.new()
-            end)
             command("ScretchNamed", function()
                 scretch.new_named()
-            end)
-            command("ScretchLast", function()
-                scretch.last()
-            end)
-            command("ScretchSearch", function()
-                scretch.search()
-            end)
-            command("ScretchGrep", function()
-                scretch.grep()
-            end)
-            command("ScretchExplore", function()
-                scretch.explore()
             end)
         end,
     },
@@ -1006,16 +1005,5 @@ return {
                 end
             end
         end,
-    },
-
-    { --[[ mini.basics ]]
-        "echasnovski/mini.basics",
-        version = "*",
-        event = "VeryLazy",
-        opts = {
-            options = {
-                win_borders = "rounded",
-            },
-        },
     },
 }

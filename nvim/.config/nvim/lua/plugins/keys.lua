@@ -398,24 +398,31 @@ return {
                 ["w"] = {
                     ["name"] = "+windows",
                     ["2"] = { "<C-W>v", "layout-double-columns" },
-                    [";"] = { "<C-W>L", "move-window-far-right" },
+                    ["<"] = { "<C-W>H", "move-window-far-left" },
                     ["="] = { "<C-W>=", "balance-windows" },
-                    ["a"] = { "<C-W>H", "move-window-far-left" },
+                    [">"] = { "<C-W>L", "move-window-far-right" },
+                    ["H"] = { "<C-W>10<", "expand-window-left" },
+                    ["J"] = { "<C-W>J", "move-window-far-down" },
+                    ["K"] = { "<C-W>K", "move-window-far-top" },
+                    ["L"] = { "<C-W>10>", "expand-window-right" },
+                    ["a"] = { ":tabnew<CR>", "new-tab" },
+                    ["c"] = { ":tabclose<CR>", "close-tab" },
                     ["d"] = { "<C-W>c", "delete-window" },
                     ["e"] = { ":AutoResize<CR>", "auto-resize" },
-                    ["H"] = { "<C-W>10<", "expand-window-left" },
-                    ["i"] = { "<C-W>K", "move-window-far-top" },
-                    ["J"] = { ":resize +10<CR>", "expand-window-below" },
-                    ["K"] = { ":resize  10<CR>", "expand-window-up" },
-                    ["L"] = { "<C-W>10>", "expand-window-right" },
+                    ["f"] = { ":tabfirst<CR>", "first-tab" },
+                    ["j"] = { ":-tabmove<CR>", "move-tab-to-previous-position" },
+                    ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
+                    ["l"] = { ":tablast<CR>", "last-tab" },
                     ["m"] = { ":NeoZoomToggle<CR>", "maximize-window" },
-                    ["n"] = { "<C-W>J", "move-window-far-down" },
+                    ["n"] = { ":tabnext<CR>", "next-tab" },
                     ["o"] = { ":only<CR>", "close-other-windows-except-this" },
-                    ["r"] = { "<C-W>r", "window-swap" },
+                    ["p"] = { ":tabprevious<CR>", "previous-tab" },
+                    ["r"] = { ":TabRename<Space>", "rename-tab" },
                     ["s"] = { "<C-W>s", "split-window-below" },
                     ["t"] = { "<C-W>T", "move-split-to-tab" },
                     ["u"] = { "<C-W>x", "swap-window-next" },
                     ["v"] = { "<C-W>v", "split-window-right" },
+                    ["w"] = { "<C-W>r", "window-swap" },
                 },
 
                 -- x is occupied by possession
@@ -430,37 +437,8 @@ return {
                 ["3"] = { ":HarpoonGotoTerm 3<CR>", "terminal-3" },
                 ["4"] = { ":HarpoonGotoTerm 4<CR>", "terminal-4" },
 
-                ["a"] = {
-                    ["name"] = "+system-actions",
-                    ["n"] = { "<Plug>(SpotifySkip)", "skip-current-song" },
-                    ["p"] = { "<Plug>(SpotifyPrev)", "prev-song" },
-                },
-
-                ["s"] = {
-                    ["name"] = "+scratch",
-                    ["a"] = { ":Scretch<CR>", "new-scratch" },
-                    ["e"] = { ":ScretchExplore<CR>", "scratch-explore" },
-                    ["f"] = { ":ScretchSearch<CR>", "search-scratch" },
-                    ["g"] = { ":ScretchGrep<CR>", "scratch-grep" },
-                    ["l"] = { ":ScretchLast<CR>", "last-scratch" },
-                    ["n"] = { ":ScretchNamed<CR>", "scratch-with-name" },
-                },
-
                 ["t"] = {
                     -- it is reserved for neorg keybindings
-                },
-
-                ["w"] = {
-                    ["name"] = "+tabs",
-                    ["a"] = { ":tabnew<CR>", "new-tab" },
-                    ["c"] = { ":tabclose<CR>", "close-tab" },
-                    ["f"] = { ":tabfirst<CR>", "first-tab" },
-                    ["j"] = { ":-tabmove<CR>", "move-tab-to-previous-position" },
-                    ["k"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
-                    ["l"] = { ":tablast<CR>", "last-tab" },
-                    ["n"] = { ":tabnext<CR>", "next-tab" },
-                    ["p"] = { ":tabprevious<CR>", "previous-tab" },
-                    ["r"] = { ":TabRename<Space>", "rename-tab" },
                 },
             }
 
