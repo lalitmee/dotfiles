@@ -1,5 +1,5 @@
 XTerm*faceName: Incolosta
-XTerm*faceSize: 13 
+XTerm*faceSize: 13
 xterm*boldFont: terminus-12
 xterm*loginShell: true
 xterm*vt100*geometry: 79x25
@@ -60,3 +60,6 @@ xterm*rightScrollBar: true
 
 ! Do not scroll when there is new input e.g. tail -f /var/syslog
 xterm*scrollTtyOutput: false
+
+! Cursor Pointer
+Xcursor.size: 10
