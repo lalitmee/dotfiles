@@ -1,0 +1,33 @@
+[
+  {
+    "border": "pixel",
+    "floating": "auto_off",
+    "fullscreen_mode": 0,
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "type": "con",
+    "nodes": [
+      {
+        "border": "pixel",
+        "current_border_width": 2,
+        "floating": "auto_off",
+        "geometry": {
+          "height": 1036,
+          "width": 444,
+          "x": 1466,
+          "y": 34
+        },
+        "marks": [],
+        "name": "Today: Todoist",
+        "percent": 1,
+        "swallows": [
+          {
+            "instance": "^todoist$"
+          }
+        ],
+        "type": "con"
+      }
+    ]
+  }
+]

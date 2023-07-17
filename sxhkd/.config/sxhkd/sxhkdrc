@@ -59,6 +59,10 @@ super + shift + u
 
 super + shift + s
    flameshot gui
+
+super + shift + w
+   ~/.config/i3/layout-manager.sh
+
 #}}}
 #-------------------------------------------------------------------------------
 
