@@ -867,15 +867,6 @@ return {
         },
     },
 
-    {
-        "tomiis4/BufferTabs.nvim",
-        cmd = "BufferTabsToggle",
-        opts = {
-            show_all = true,
-            horizontal = "right",
-        },
-    },
-
     { --[[ lualine ]]
         "nvim-lualine/lualine.nvim",
         event = { "BufEnter" },
