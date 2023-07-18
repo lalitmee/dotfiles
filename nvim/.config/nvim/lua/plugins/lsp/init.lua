@@ -78,6 +78,9 @@ return {
                 "pmizio/typescript-tools.nvim",
                 opts = {
                     on_attach = lsp_utils.on_attach,
+                    -- root_dir = function(fname)
+                    --     return require("lspconfig.util").root_pattern(".git", 'package.json', 'jsconfig.json')(fname)
+                    -- end,
                     settings = {
                         tsserver_file_preferences = {
                             includeInlayEnumMemberValueHints = true,

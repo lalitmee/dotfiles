@@ -138,9 +138,11 @@ return {
             { "nvim-treesitter/nvim-treesitter" },
         },
         init = function()
-            local refactoring = require("refactoring")
             require("telescope").load_extension("refactoring")
+
+            local refactoring = require("refactoring")
             local wk = require("which-key")
+
             wk.register({
             -- stylua: ignore
             ["r"] = {
@@ -300,6 +302,7 @@ return {
                 },
             }, { mode = "n", prefix = "<localleader>" })
         end,
+        enabled = false
     },
 
     { --[[ vim-sxhkdrc ]]
@@ -330,5 +333,6 @@ return {
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
+        enabled = false
     },
 }
