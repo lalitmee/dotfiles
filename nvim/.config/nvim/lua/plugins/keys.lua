@@ -48,7 +48,7 @@ return {
 
                 ["a"] = {
                     ["name"] = "+actions",
-                    ["a"] = { ":FzfLua builtin<CR>", "fzf-lua-builtin" },
+                    ["a"] = { ":FzfLua<space>", "fzf-lua-builtin" },
                     ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
                     ["k"] = { ":WorkingDirectory<CR>", "cwd" },
                     ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
