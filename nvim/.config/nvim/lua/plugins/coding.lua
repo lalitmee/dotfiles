@@ -132,40 +132,48 @@ return {
 
     { --[[ refactoring ]]
         "ThePrimeagen/refactoring.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "nvim-treesitter/nvim-treesitter" },
+        keys = {
+            {
+                "<leader>rd",
+                function()
+                    require("refactoring").debug.cleanup()
+                end,
+                mode = { "n", "v" },
+                desc = "delete-print-var",
+            },
+            {
+                "<leader>rk",
+                function()
+                    require("refactoring").debug.printf({ below = false })
+                end,
+                mode = { "n", "v" },
+                desc = "printf-above",
+            },
+            {
+                "<leader>rj",
+                function()
+                    require("refactoring").debug.printf()
+                end,
+                mode = { "n", "v" },
+                desc = "printf-below",
+            },
+            {
+                "<leader>rp",
+                function()
+                    require("refactoring").debug.print_var()
+                end,
+                mode = { "n", "v" },
+                desc = "print-var",
+            },
+            {
+                "<leader>rr",
+                function()
+                    require("refactoring").select_refactor()
+                end,
+                mode = { "n", "v" },
+                desc = "list-refactors",
+            },
         },
-        init = function()
-            require("telescope").load_extension("refactoring")
-
-            local refactoring = require("refactoring")
-            local wk = require("which-key")
-
-            wk.register({
-                -- stylua: ignore
-                ["r"] = {
-                    name = "+debug",
-                    ["d"] = { function() refactoring.debug.cleanup() end, "delete-print-var" },
-                    ["k"] = { function() refactoring.debug.printf({ below = false }) end, "printf-above" },
-                    ["j"] = { function() refactoring.debug.printf() end, "printf-below" },
-                    ["p"] = { function() refactoring.debug.print_var() end, "print-var" },
-                    ["r"] = { function() refactoring.select_refactor() end, "list-refactors" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-
-            wk.register({
-                -- stylua: ignore
-                ["r"] = {
-                    ["name"] = "+refators",
-                    ["k"] = { function() refactoring.debug.printf({ below = false }) end, "printf-above" },
-                    ["j"] = { function() refactoring.debug.printf() end, "printf-below" },
-                    ["p"] = { function() refactoring.debug.print_var() end, "print-var" },
-                    ["r"] = { function() refactoring.select_refactor() end, "list-refactors" },
-                },
-            }, { mode = "v", prefix = "<leader>" })
-        end,
         opts = {
             print_var_statements = {
                 javascript = {
