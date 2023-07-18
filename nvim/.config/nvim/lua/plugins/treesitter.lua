@@ -178,21 +178,17 @@ return {
             "TSJSplit",
             "TSJJoin",
         },
-        keys = { "gS", "gJ" },
+        keys = {
+            { "gS", "<cmd>TSJSplit<CR>", desc = "split" },
+            { "gJ", "<cmd>TSJJoin<CR>", desc = "join" },
+        },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
-        config = function()
-            require("treesj").setup({
-                use_defaul_keymaps = true,
-            })
-
-            local nnoremap = lk.nnoremap
-            local opts = { silent = true }
-
-            nnoremap("gS", [[<cmd>TSJSplit<CR>]], opts)
-            nnoremap("gJ", [[<cmd>TSJJoin<CR>]], opts)
-        end,
+        opts = {
+            max_join_length = 200,
+            use_defaul_keymaps = true,
+        },
     },
 
     { --[[ ts-node-action ]]
