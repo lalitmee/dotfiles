@@ -144,24 +144,48 @@ return {
             local wk = require("which-key")
 
             wk.register({
-            -- stylua: ignore
-            ["r"] = {
-                name = "+debug",
-                ["k"] = { function() refactoring.debug.printf({ below = false }) end, "printf-above" },
-                ["a"] = { function() refactoring.debug.print_var({ normal = true }) end, "print-var-normal" },
-                ["p"] = { function() refactoring.debug.print_var({}) end, "print-var" },
-                ["d"] = { function() refactoring.debug.cleanup({}) end, "print-var" },
-            },
+                -- stylua: ignore
+                ["r"] = {
+                    name = "+debug",
+                    ["d"] = { function() refactoring.debug.cleanup() end, "delete-print-var" },
+                    ["k"] = { function() refactoring.debug.printf({ below = false }) end, "printf-above" },
+                    ["j"] = { function() refactoring.debug.printf() end, "printf-below" },
+                    ["p"] = { function() refactoring.debug.print_var() end, "print-var" },
+                    ["r"] = { function() refactoring.select_refactor() end, "list-refactors" },
+                },
             }, { mode = "n", prefix = "<leader>" })
 
             wk.register({
-            -- stylua: ignore
-            ["r"] = {
-                ["p"] = { function() refactoring.debug.print_var({}) end, "print-var" },
-            },
+                -- stylua: ignore
+                ["r"] = {
+                    ["name"] = "+refators",
+                    ["k"] = { function() refactoring.debug.printf({ below = false }) end, "printf-above" },
+                    ["j"] = { function() refactoring.debug.printf() end, "printf-below" },
+                    ["p"] = { function() refactoring.debug.print_var() end, "print-var" },
+                    ["r"] = { function() refactoring.select_refactor() end, "list-refactors" },
+                },
             }, { mode = "v", prefix = "<leader>" })
         end,
-        config = true,
+        opts = {
+            print_var_statements = {
+                javascript = {
+                    "console.log('%s', %s)",
+                    "console.log('%s', { %s })",
+                },
+                javascriptreact = {
+                    "console.log('%s', %s)",
+                    "console.log('%s', { %s })",
+                },
+                typescript = {
+                    "console.log('%s', %s)",
+                    "console.log('%s', { %s })",
+                },
+                typescriptreact = {
+                    "console.log('%s', %s)",
+                    "console.log('%s', { %s })",
+                },
+            },
+        },
     },
 
     { --[[ debugprint ]]
@@ -302,7 +326,7 @@ return {
                 },
             }, { mode = "n", prefix = "<localleader>" })
         end,
-        enabled = false
+        enabled = false,
     },
 
     { --[[ vim-sxhkdrc ]]
@@ -333,6 +357,6 @@ return {
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
-        enabled = false
+        enabled = false,
     },
 }
