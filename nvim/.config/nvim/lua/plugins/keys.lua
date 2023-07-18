@@ -317,24 +317,6 @@ return {
                 ["r"] = {
                     ["name"] = "+build-and-run",
                     ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
-                    ["r"] = {
-                        ":Telescope refactoring refactors<CR>",
-                        "list-refactors",
-                    },
-                    ["b"] = {
-                        "<Cmd>lua require('refactoring').refactor('Extract Block')<CR>",
-                        "extract-block",
-                    },
-                    ["bf"] = {
-                        "<Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>",
-                        "extract-block-to-file",
-                    },
-                    ["i"] = {
-                        "<Cmd>lua require('refactoring').refactor('Inline Variable')<CR>",
-                        "inline-variable",
-                    },
-                    ["s"] = { ":SnipRun<CR>", "snip-run" },
-                    ["S"] = { ":SnipClose<CR>", "snip-close" },
                 },
 
                 ["s"] = {
@@ -443,30 +425,6 @@ return {
             }
 
             local visual_mode_leader_key_maps = {
-                ["r"] = {
-                    ["name"] = "+refators",
-                    ["r"] = {
-                        "<esc>:Telescope refactoring refactors<CR>",
-                        "list-refactors",
-                    },
-                    ["f"] = {
-                        "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>",
-                        "extract-function",
-                    },
-                    ["F"] = {
-                        "<Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>",
-                        "extract-function-to-file",
-                    },
-                    ["v"] = {
-                        "<Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>",
-                        "extract-variable",
-                    },
-                    ["i"] = {
-                        "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>",
-                        "inline-variable",
-                    },
-                },
-
                 ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
 
                 ["a"] = {
