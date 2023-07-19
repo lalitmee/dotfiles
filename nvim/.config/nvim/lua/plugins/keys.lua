@@ -57,7 +57,6 @@ return {
                     ["o"] = { ":Telescope messages messages<CR>", "search-messages" },
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
                     ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
-                    ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
                     ["w"] = { ":SetWallpaper<CR>", "change-system-background" },
                 },
 
