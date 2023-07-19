@@ -57,7 +57,10 @@ return {
         end,
         opts = {
             disable_commit_confirmation = true,
-            integrations = { diffview = true },
+            integrations = {
+                telescope = true,
+                diffview = true,
+            },
         },
     },
 
