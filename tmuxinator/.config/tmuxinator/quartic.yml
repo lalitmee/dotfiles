@@ -18,7 +18,8 @@ windows:
             - BROWSER=none node scripts/start.js
         - "docker exec qnnect":
             - "docker exec -it quartic_local_setup bash"
-            - cd workspace/python/ContexAlyze/accounts/react_frontend
+            - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend
+            # - cd workspace/python/ContexAlyze/accounts/react_frontend
             - clear
             - BROWSER=none node scripts/start.js
   - "ContexAlyze":
