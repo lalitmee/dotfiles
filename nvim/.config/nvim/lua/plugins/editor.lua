@@ -338,8 +338,8 @@ return {
             multiline_keymap = "<localleader>cC",
         },
         keys = {
-            "<localleader>cc",
-            "<localleader>cC",
+            { "<localleader>cc", desc = "comment-frame" },
+            { "<localleader>cC", desc = "multiline-comment-frame" },
         },
     },
 
