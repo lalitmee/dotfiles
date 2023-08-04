@@ -31,24 +31,24 @@ return {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["a"] = {
+                ["f"] = {
                     ["name"] = "+actions",
-                    ["a"] = { ":New<cr>", "create-file" },
-                    ["d"] = { ":Trash<cr>", "trash-file" },
-                    ["f"] = { ":CopyFilepath<cr>", "copy-file-path" },
-                    ["m"] = { ":Move<cr>", "move-and-rename-file" },
-                    ["n"] = { ":CopyFilename<cr>", "copy-file-name" },
-                    ["r"] = { ":Rename<cr>", "rename-file" },
-                    ["s"] = { ":Duplicate<cr>", "duplicate-file" },
-                    ["x"] = { ":Chmodx<cr>", "make-executable" },
+                    ["A"] = { ":New<cr>", "create-file" },
+                    ["D"] = { ":Trash<cr>", "trash-file" },
+                    ["y"] = { ":CopyFilepath<cr>", "copy-file-path" },
+                    ["J"] = { ":Move<cr>", "move-and-rename-file" },
+                    ["N"] = { ":CopyFilename<cr>", "copy-file-name" },
+                    ["R"] = { ":Rename<cr>", "rename-file" },
+                    ["S"] = { ":Duplicate<cr>", "duplicate-file" },
+                    ["X"] = { ":Chmodx<cr>", "make-executable" },
                 },
-            }, { mode = "n", prefix = "<localleader>" })
+            }, { mode = "n", prefix = "<leader>" })
 
             wk.register({
-                ["a"] = {
-                    ["s"] = { ":NewFromSelection<cr>", "move-selection-to-file" },
+                ["f"] = {
+                    ["S"] = { ":NewFromSelection<cr>", "move-selection-to-file" },
                 },
-            }, { mode = "x", prefix = "<localleader>" })
+            }, { mode = "x", prefix = "<leader>" })
         end,
     },
 
@@ -148,7 +148,7 @@ return {
                 on_quit = true,
             },
         },
-        -- enabled = false,
+        enabled = false,
     },
 
     { --[[ auto-session ]]
@@ -614,16 +614,9 @@ return {
                 },
             }, { mode = "n", prefix = "<localleader>" })
         end,
-        config = function()
-            local scretch = require("scretch")
-            scretch.setup({
-                scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
-            })
-
-            command("ScretchNamed", function()
-                scretch.new_named()
-            end)
-        end,
+        opts = {
+            scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
+        },
     },
 
     { --[[ firenvim ]]
