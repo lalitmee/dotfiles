@@ -344,27 +344,37 @@ return {
 
     { --[[ sg.nvim ]]
         "sourcegraph/sg.nvim",
-        event = "VeryLazy",
+        cmd = {
+            "CodyAsk",
+            "CodyChat",
+            "CodyContext",
+            "CodyDo",
+            "CodyExplain",
+            "CodyHistory",
+            "CodyToggle",
+        },
         keys = {
             {
                 "<leader>sg",
-                function()
-                    require("sg.telescope").fuzzy_search_results()
-                end,
-                desc = "sg-fuzzy-search",
+                "<cmd>SourcegraphSearch<CR>",
+                desc = "sourcegraph-search",
             },
             {
-                "<leader>sR",
+                "<leader>sL",
+                "<cmd>SourcegraphLink<CR>",
+                desc = "sourcegraph-link",
+            },
+            {
+                "<leader>sF",
                 function()
-                    require("sg.telescope").sg_references()
+                    require("sg.extensions.telescope").fuzzy_search_results()
                 end,
-                desc = "sg-references-search",
+                desc = "sourcegraph-fuzzy-search",
             },
         },
-        build = "cargo build --workspace && cargo build --bin sg-cody",
+        build = "nvim -l build/init.lua",
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
-        enabled = false,
     },
 }
