@@ -35,14 +35,12 @@ return {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["d"] = {
+                ["l"] = {
                     ["name"] = "+docstrings",
-                    ["a"] = "doc-node-at-cursor",
-                    ["r"] = "doc-all-in-range",
-                    ["v"] = "peek-function-definition",
-                    ["V"] = "peek-class-definition",
+                    ["f"] = "peek-function-definition",
+                    ["c"] = "peek-class-definition",
                 },
-            }, { mode = { "n", "v" }, prefix = "<localleader>" })
+            }, { mode = { "n", "v" }, prefix = "<leader>" })
         end,
         config = function()
             ----------------------------------------------------------------------
@@ -137,19 +135,12 @@ return {
                             ["[K"] = "@class.outer",
                         },
                     },
-                    tree_docs = {
-                        enable = true,
-                        keymaps = {
-                            doc_node_at_cursor = "<localleader>da",
-                            doc_all_in_range = "<localleader>dr",
-                        },
-                    },
                     lsp_interop = {
                         enable = true,
                         border = "rounded",
                         peek_definition_code = {
-                            ["<localleader>dv"] = "@function.outer",
-                            ["<localleader>dV"] = "@class.outer",
+                            ["<leader>lf"] = "@function.outer",
+                            ["<leader>lc"] = "@class.outer",
                         },
                     },
                 },
