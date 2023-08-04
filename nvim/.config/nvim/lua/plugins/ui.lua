@@ -317,11 +317,6 @@ return {
         end,
     },
 
-    { --[[ virtcolumn ]]
-        "xiyaowong/virtcolumn.nvim",
-        event = { "VeryLazy" },
-    },
-
     { --[[ devicons ]]
         "kyazdani42/nvim-web-devicons",
         config = true,
