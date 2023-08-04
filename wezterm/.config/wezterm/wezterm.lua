@@ -11,8 +11,15 @@ if wezterm.config_builder then
 end
 
 -- This is where you actually apply your config choices
+
+-- default is true, has more "native" look
+config.use_fancy_tab_bar = false
 config.enable_tab_bar = false
 
+config.tab_bar_at_bottom = true
+config.freetype_load_target = "HorizontalLcd"
+
+config.enable_scroll_bar = false
 config.window_padding = {
     left = 0,
     right = 0,
@@ -20,12 +27,19 @@ config.window_padding = {
     bottom = 0,
 }
 
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.7
 
 -- For example, changing the color scheme:
-config.color_scheme = "Cobalt2"
+-- config.color_scheme = "Cobalt2"
 
-config.font = wezterm.font("Operator Mono Lig Book")
+-- Set background to same color as neovim
+config.colors = {}
+config.colors.background = "#193549"
+
+config.font = wezterm.font_with_fallback({
+    "Operator Mono Lig Book",
+    "nonicons",
+})
 config.font_size = 11
 
 -- and finally, return the configuration to wezterm
