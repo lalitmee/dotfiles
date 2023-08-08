@@ -56,6 +56,8 @@ local snippets = {
         }
     ),
 
+    s({ trig = "imr", name = "import react" }, t("import React from 'react'")),
+
     s( -- react functional component
         { trig = "rfc", name = "react functional component" },
         fmt(
@@ -97,6 +99,7 @@ local snippets = {
             }
         )
     ),
+
     s( -- useEffect
         { trig = "useE", name = "useEffect with dependency" },
         fmt(
@@ -111,6 +114,7 @@ local snippets = {
             }
         )
     ),
+
     s( -- usestate
         { trig = "usest", name = "useState with repeat" },
         fmt(
@@ -124,6 +128,7 @@ local snippets = {
             }
         )
     ),
+
     s({ trig = "ftodo", name = "todo for removing FF" }, t("// TODO: removing this while removing FF")),
 }
 
