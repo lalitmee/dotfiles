@@ -157,7 +157,7 @@ return {
                 DressingInput = false,
             }
         end,
-        -- enabled = false,
+        enabled = false,
     },
 
     { --[[ comment.nvim ]]
@@ -344,6 +344,7 @@ return {
     },
 
     { --[[ auto-pairs ]]
+        enabled = false,
         "windwp/nvim-autopairs",
         event = "VeryLazy",
         config = function()
@@ -420,6 +421,13 @@ return {
                 end),
             })
         end,
+    },
+
+    { --[[ mini.pairs ]]
+        "echasnovski/mini.pairs",
+        version = "*",
+        config = true,
+        event = "VeryLazy",
     },
 
     { --[[ ufo ]]
@@ -869,22 +877,12 @@ return {
 
     { --[[ lualine ]]
         "nvim-lualine/lualine.nvim",
-        event = { "BufEnter" },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["a"] = {
-                    -- ["s"] = {
-                    --     function()
-                    --         require("lualine").refresh({ scope = "all" })
-                    --     end,
-                    --     "refresh-lualine",
-                    -- },
-                    ["r"] = { ":LualineRenameTab<space>", "rename-lualine-tab" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
+        event = "VeryLazy",
+        keys = {
+            { "<leader>ar", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
+        },
         config = function()
+            local telescope_extension = { sections = { lualine_a = { "filetype" } }, filetypes = { "TelescopePrompt" } }
             local function get_trailing_whitespace()
                 local space = vim.fn.search([[\s\+$]], "nwc")
                 return space ~= 0 and "TW:" .. space or ""
@@ -997,6 +995,7 @@ return {
                     "overseer",
                     "quickfix",
                     "toggleterm",
+                    telescope_extension,
                 },
             })
         end,
@@ -1005,7 +1004,7 @@ return {
     { --[[ tabby ]]
         enabled = false,
         "nanozuki/tabby.nvim",
-        event = { "VimEnter" },
+        event = "VeryLazy",
         config = function()
             vim.opt.showtabline = 2
             local palette = require("cobalt2.palette")
