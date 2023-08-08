@@ -26,14 +26,6 @@ return {
         config = true,
     },
 
-    { --[[ code-explain ]]
-        "mthbernardes/codeexplain.nvim",
-        cmd = { "CodeExplain" },
-        build = function()
-            vim.cmd([[silent UpdateRemotePlugins]])
-        end,
-    },
-
     { --[[ codegpt ]]
         "dpayne/CodeGPT.nvim",
         dependencies = {
