@@ -207,20 +207,16 @@ return {
 
     { --[[ toggleterm ]]
         "akinsho/toggleterm.nvim",
-        event = "VeryLazy",
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["a"] = {
-                    ["b"] = { ":Bottom<CR>", "bottom" },
-                    ["d"] = { ":LazyDocker<CR>", "lazydocker" },
-                    ["g"] = { ":LazyGit<CR>", "lazygit" },
-                    ["h"] = { ":ToggleTerm direction=horizontal<CR>", "horizontal-terminal" },
-                    ["i"] = { ":ChatGPTSh<CR>", "chatgpt" },
-                    ["v"] = { ":ToggleTerm direction=vertical<CR>", "vertical-terminal" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
+        keys = {
+            [[<C-\>]],
+            { "<leader>ab", ":Bottom<CR>", desc = "bottom" },
+            { "<leader>ad", ":LazyDocker<CR>", desc = "lazydocker" },
+            { "<leader>ag", ":LazyGit<CR>", desc = "lazygit" },
+            { "<leader>ah", ":ToggleTerm direction=horizontal<CR>", desc = "horizontal-terminal" },
+            { "<leader>ai", ":ChatGPTSh<CR>", desc = "chatgpt" },
+            { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "vertical-terminal" },
+        },
+        cmd = { "ToggleTerm" },
         opts = {
             open_mapping = [[<C-\>]],
             direction = "float",

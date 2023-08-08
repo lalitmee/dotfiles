@@ -1,3 +1,4 @@
+" set guifont=Berkeley\ Mono\ Trial:h10
 " set guifont=BlexMono\ Nerd\ Font\ Mono:h10
 " set guifont=Cascadia\ Code:h12
 " set guifont=CaskaydiaCove\ Nerd\ Font:h12
