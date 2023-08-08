@@ -447,11 +447,6 @@ setw -g mode-keys vi
 # set -g @plugin 'catppuccin/tmux'
 # set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
 
-# sessions using zoxide and fzf
-set -g @plugin 'joshmedeski/t-smart-tmux-session-manager'
-set -g @t-fzf-prompt '> '
-bind-key J run-shell "~/.tmux/plugins/t-smart-tmux-session-manager/bin/t"
-
 # tmux pomodoro
 set -g @plugin 'olimorris/tmux-pomodoro-plus'
 set -g @pomodoro_mins 45
