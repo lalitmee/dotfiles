@@ -94,7 +94,7 @@ return {
                         tsserver_format_options = {},
                     },
                 },
-                enabled = false,
+                -- enabled = false,
             },
             {
                 "folke/neodev.nvim",
@@ -275,7 +275,8 @@ return {
 
     { --[[ fidget ]]
         "j-hui/fidget.nvim",
-        event = { "LspAttach" },
+        tag = "legacy",
+        event = "LspAttach",
         opts = {
             text = {
                 spinner = "bouncing_bar",
@@ -287,7 +288,7 @@ return {
                 ["null-ls"] = { ignore = true },
             },
         },
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ rust-tools ]]
