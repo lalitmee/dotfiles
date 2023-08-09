@@ -209,12 +209,12 @@ return {
         "akinsho/toggleterm.nvim",
         keys = {
             [[<C-\>]],
-            { "<leader>ab", ":Bottom<CR>", desc = "bottom" },
-            { "<leader>ad", ":LazyDocker<CR>", desc = "lazydocker" },
-            { "<leader>ag", ":LazyGit<CR>", desc = "lazygit" },
-            { "<leader>ah", ":ToggleTerm direction=horizontal<CR>", desc = "horizontal-terminal" },
-            { "<leader>ai", ":ChatGPTSh<CR>", desc = "chatgpt" },
-            { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "vertical-terminal" },
+            { "<leader>ab", ":Bottom<CR>", desc = "bottom", silent = true },
+            { "<leader>ad", ":LazyDocker<CR>", desc = "lazydocker", silent = true },
+            { "<leader>ag", ":LazyGit<CR>", desc = "lazygit", silent = true },
+            { "<leader>ah", ":ToggleTerm direction=horizontal<CR>", desc = "horizontal-terminal", silent = true },
+            { "<leader>ai", ":ChatGPTSh<CR>", desc = "chatgpt", silent = true },
+            { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "vertical-terminal", silent = true },
         },
         cmd = { "ToggleTerm" },
         opts = {

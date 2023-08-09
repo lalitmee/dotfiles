@@ -78,9 +78,12 @@ return {
                 "pmizio/typescript-tools.nvim",
                 opts = {
                     on_attach = lsp_utils.on_attach,
-                    -- root_dir = function(fname)
-                    --     return require("lspconfig.util").root_pattern(".git", 'package.json', 'jsconfig.json')(fname)
-                    -- end,
+                    root_dir = function(fname)
+                        -- return require("lspconfig.util").root_pattern(".git", "package.json", "jsconfig.json")(fname)
+
+                        -- NOTE: want to have only one `tsserver` running for a monorepo project
+                        return require("lspconfig.util").root_pattern(".git")(fname)
+                    end,
                     settings = {
                         tsserver_file_preferences = {
                             includeInlayEnumMemberValueHints = true,
