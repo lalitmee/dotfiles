@@ -36,16 +36,6 @@ return {
                 ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
                 ["/"] = { ":Telescope live_grep<CR>", "search-project" },
 
-                ["1"] = { ":HarpoonGotoFile 1<CR>", "goto-file-1" },
-                ["2"] = { ":HarpoonGotoFile 2<CR>", "goto-file-2" },
-                ["3"] = { ":HarpoonGotoFile 3<CR>", "goto-file-3" },
-                ["4"] = { ":HarpoonGotoFile 4<CR>", "goto-file-4" },
-                ["5"] = { ":HarpoonGotoFile 5<CR>", "goto-file-5" },
-                ["6"] = { ":HarpoonGotoFile 6<CR>", "goto-file-6" },
-                ["7"] = { ":HarpoonGotoFile 7<CR>", "goto-file-7" },
-                ["8"] = { ":HarpoonGotoFile 8<CR>", "goto-file-8" },
-                ["9"] = { ":HarpoonGotoFile 9<CR>", "goto-file-9" },
-
                 ["a"] = {
                     ["name"] = "+actions",
                     ["a"] = { ":FzfLua<space>", "fzf-lua-builtin" },

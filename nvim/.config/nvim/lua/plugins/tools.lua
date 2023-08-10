@@ -681,6 +681,17 @@ return {
 
     { --[[ harpoon ]]
         "ThePrimeagen/harpoon",
+        keys = {
+            { "<leader>1", ":HarpoonGotoFile 1<CR>", desc = "goto-file-1", silent = true },
+            { "<leader>2", ":HarpoonGotoFile 2<CR>", desc = "goto-file-2", silent = true },
+            { "<leader>3", ":HarpoonGotoFile 3<CR>", desc = "goto-file-3", silent = true },
+            { "<leader>4", ":HarpoonGotoFile 4<CR>", desc = "goto-file-4", silent = true },
+            { "<leader>5", ":HarpoonGotoFile 5<CR>", desc = "goto-file-5", silent = true },
+            { "<leader>6", ":HarpoonGotoFile 6<CR>", desc = "goto-file-6", silent = true },
+            { "<leader>7", ":HarpoonGotoFile 7<CR>", desc = "goto-file-7", silent = true },
+            { "<leader>8", ":HarpoonGotoFile 8<CR>", desc = "goto-file-8", silent = true },
+            { "<leader>9", ":HarpoonGotoFile 9<CR>", desc = "goto-file-9", silent = true },
+        },
         cmd = {
             "HarpoonAddFile",
             "HarpoonGotoFile",
@@ -694,26 +705,8 @@ return {
             "ToggleHarpoonCmdMenu",
             "ToggleHarpoonMenu",
         },
-        config = function()
-            require("harpoon").setup({
-                global_settings = {
-                    menu = {
-                        width = vim.api.nvim_win_get_width(0) - 100,
-                        height = vim.api.nvim_win_get_height(0) - 25,
-                    },
-                    enter_on_sendcmd = true,
-                    mark_branch = true,
-                    save_on_toggle = true,
-                    tmux_autoclose_windows = true,
-                },
-            })
-
-            ----------------------------------------------------------------------
-            -- NOTE: load telescope extension {{{
-            ----------------------------------------------------------------------
+        init = function()
             require("telescope").load_extension("harpoon")
-            -- }}}
-            ----------------------------------------------------------------------
 
             ----------------------------------------------------------------------
             -- NOTE: harpoon commands {{{
@@ -805,6 +798,20 @@ return {
 
             -- }}}
             ----------------------------------------------------------------------
+        end,
+        config = function()
+            require("harpoon").setup({
+                global_settings = {
+                    menu = {
+                        width = vim.api.nvim_win_get_width(0) - 100,
+                        height = vim.api.nvim_win_get_height(0) - 25,
+                    },
+                    enter_on_sendcmd = true,
+                    mark_branch = true,
+                    save_on_toggle = true,
+                    tmux_autoclose_windows = true,
+                },
+            })
         end,
     },
 
