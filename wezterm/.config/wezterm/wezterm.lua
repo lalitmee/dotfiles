@@ -12,6 +12,24 @@ end
 
 -- This is where you actually apply your config choices
 
+config.window_background_opacity = 0.9
+
+-- For example, changing the color scheme:
+config.color_scheme = "Cobalt2"
+
+-- -- Set background to same color as neovim
+config.colors = {}
+config.colors.background = "#193549"
+
+config.font = wezterm.font_with_fallback({
+    -- "Operator Mono Lig Book",
+    -- "Iosevka Monaco",
+    -- "BlexMono Nerd Font",
+    -- "CaskaydiaCove Nerd Font",
+    "MonoLisa Nerd Font",
+})
+config.font_size = 9
+
 -- default is true, has more "native" look
 config.use_fancy_tab_bar = false
 config.enable_tab_bar = false
@@ -27,20 +45,7 @@ config.window_padding = {
     bottom = 0,
 }
 
-config.window_background_opacity = 0.7
-
--- For example, changing the color scheme:
--- config.color_scheme = "Cobalt2"
-
--- Set background to same color as neovim
-config.colors = {}
-config.colors.background = "#193549"
-
-config.font = wezterm.font_with_fallback({
-    "Operator Mono Lig Book",
-    "nonicons",
-})
-config.font_size = 11
+-- config.window_close_confirmation = false
 
 -- and finally, return the configuration to wezterm
 return config
