@@ -228,8 +228,8 @@ return {
             float_opts = {
                 border = lk.style.border.rounded,
                 winblend = 3,
-                width = 230,
-                height = 48,
+                width = 240,
+                height = 52,
             },
             shade_terminals = false,
             size = function(term)
@@ -252,16 +252,15 @@ return {
 
             local Terminal = require("toggleterm.terminal").Terminal
 
+            local float_opts = { width = 240, height = 52 }
+
             local chatgpt = Terminal:new({
                 cmd = "chatgpt -i",
                 dir = "git_dir",
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = {
-                    width = 240,
-                    height = 48,
-                },
+                float_opts = float_opts,
             })
 
             local lazygit = Terminal:new({
@@ -270,10 +269,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = {
-                    width = 240,
-                    height = 48,
-                },
+                float_opts = float_opts,
             })
 
             local lazydocker = Terminal:new({
@@ -281,10 +277,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = {
-                    width = 240,
-                    height = 48,
-                },
+                float_opts = float_opts,
             })
 
             local bottom = Terminal:new({
@@ -292,10 +285,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = {
-                    width = 240,
-                    height = 48,
-                },
+                float_opts = float_opts,
             })
 
             command("LazyDocker", function()
