@@ -124,6 +124,11 @@ return {
     { --[[ transparent ]]
         "xiyaowong/transparent.nvim",
         lazy = false,
-        opts = {},
+        opts = {
+            extra_groups = {
+                "NormalFloat",
+            },
+        },
+        enabled = false,
     },
 }
