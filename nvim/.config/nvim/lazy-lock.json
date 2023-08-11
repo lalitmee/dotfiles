@@ -92,6 +92,7 @@
   "telescope.nvim": { "branch": "master", "commit": "2d92125620417fbea82ec30303823e3cd69e90e8" },
   "toggle-lsp-diagnostics.nvim": { "branch": "main", "commit": "a896a95851fe5c5adf71a50030d60f8fa488fa7e" },
   "toggleterm.nvim": { "branch": "main", "commit": "12cba0a1967b4f3f31903484dec72a6100dcf515" },
+  "transparent.nvim": { "branch": "main", "commit": "4cf97fc0b1c4a88cf246b2f6facb735a536a558e" },
   "treesj": { "branch": "main", "commit": "00b382dc81eefaf42ad50a521e368f9057815bfb" },
   "ts-node-action": { "branch": "master", "commit": "bb1377868a2cdb7cb12da4f09b7f57cbaa516961" },
   "typescript-tools.nvim": { "branch": "master", "commit": "3b05146d96b7c3d86e5f540d9ac871823e318d5a" },
