@@ -120,4 +120,10 @@ return {
         cmd = { "Colortils" },
         opts = {},
     },
+
+    { --[[ transparent ]]
+        "xiyaowong/transparent.nvim",
+        lazy = false,
+        opts = {},
+    },
 }
