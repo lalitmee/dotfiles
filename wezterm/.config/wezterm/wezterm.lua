@@ -24,11 +24,12 @@ config.colors.background = "#193549"
 config.font = wezterm.font_with_fallback({
     -- "Operator Mono Lig Book",
     -- "Iosevka Monaco",
+    "Iosevka",
     -- "BlexMono Nerd Font",
     -- "CaskaydiaCove Nerd Font",
-    "MonoLisa Nerd Font",
+    -- "MonoLisa Nerd Font",
 })
-config.font_size = 9
+config.font_size = 10
 
 -- default is true, has more "native" look
 config.use_fancy_tab_bar = false
