@@ -72,6 +72,10 @@ return {
                 },
 
                 ["c"] = {
+                    ["name"] = "+cody",
+                },
+
+                ["C"] = {
                     ["name"] = "+ChatGPT",
                     ["a"] = { ":ChatGPTRun add_tests<CR>", "add-tests" },
                     ["b"] = { ":Backseat<CR>", "backseat" },
@@ -421,7 +425,7 @@ return {
                     ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
                 },
 
-                ["c"] = {
+                ["C"] = {
                     ["name"] = "+ChatGPT",
                     ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
                     ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
