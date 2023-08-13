@@ -363,6 +363,12 @@ return {
                 end,
                 desc = "sourcegraph-fuzzy-search",
             },
+            {
+                "<leader>cd",
+                "<cmd>CodyDo add docstring<CR>",
+                desc = "docstring",
+                mode = { "n", "x" },
+            },
         },
         build = "nvim -l build/init.lua",
         opts = {
