@@ -53,7 +53,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
-                    { name = "nvim_lsp", keyword_length = 3 },
+                    { name = "nvim_lsp" },
                     { name = "nvim_lua", keyword_length = 3 },
                     { name = "luasnip" },
                     { name = "buffer", keyword_length = 3 },
@@ -157,7 +157,7 @@ return {
                 DressingInput = false,
             }
         end,
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ comment.nvim ]]
