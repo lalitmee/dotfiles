@@ -44,6 +44,12 @@ local M = {
                 require("telescope").load_extension("zoxide")
             end,
         },
+        {
+            "nvim-telescope/telescope-live-grep-args.nvim",
+            init = function()
+                require("telescope").load_extension("live_grep_args")
+            end,
+        },
     },
     init = function()
         require("telescope").load_extension("messages")
@@ -68,6 +74,8 @@ M.config = function()
     local action_layout = require("telescope.actions.layout")
     local previewers = require("telescope.previewers")
     local themes = require("telescope.themes")
+
+    local lga_actions = require("telescope-live-grep-args.actions")
 
     local function get_border(opts)
         return vim.tbl_deep_extend("force", opts or {}, {
@@ -178,8 +186,8 @@ M.config = function()
                     ["<C-Up>"] = actions.cycle_history_prev,
                     ["<C-b>"] = open_entries,
                     ["<C-e>"] = actions.move_to_bottom,
-                    ["<C-j>"] = actions.move_selection_next,
-                    ["<C-k>"] = actions.move_selection_previous,
+                    -- ["<C-j>"] = actions.move_selection_next,
+                    -- ["<C-k>"] = actions.move_selection_previous,
                     ["<C-n>"] = actions.move_selection_next,
                     ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     ["<C-p>"] = actions.move_selection_previous,
@@ -187,6 +195,8 @@ M.config = function()
                     ["<M-o>"] = action_layout.toggle_prompt_position,
                     ["<M-p>"] = action_layout.toggle_preview,
                     ["<M-v>"] = action_layout.toggle_mirror,
+                    ["<C-k>"] = lga_actions.quote_prompt(),
+                    ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
                     ["<esc>"] = actions.close,
                 },
                 n = {
@@ -295,6 +305,15 @@ M.config = function()
             reloader = dropdown({}),
         },
         extensions = {
+            live_grep_args = {
+                auto_quoting = true,
+                mappings = {
+                    i = {
+                        ["<C-k>"] = lga_actions.quote_prompt(),
+                        ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+                    },
+                },
+            },
             smart_open = {
                 show_scores = false,
                 ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*" },
