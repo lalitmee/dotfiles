@@ -21,14 +21,9 @@ config.color_scheme = "Cobalt2"
 config.colors = {}
 config.colors.background = "#193549"
 
-config.font = wezterm.font_with_fallback({
-    -- "Operator Mono Lig Book",
-    -- "Iosevka Monaco",
-    "Iosevka",
-    -- "BlexMono Nerd Font",
-    -- "CaskaydiaCove Nerd Font",
-    -- "MonoLisa Nerd Font",
-})
+config.font = wezterm.font("Operator Mono Lig Book", { weight = "Medium" })
+config.cell_width = 1.1
+config.line_height = 1.1
 config.font_size = 10
 
 -- default is true, has more "native" look
