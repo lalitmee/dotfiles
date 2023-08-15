@@ -171,14 +171,14 @@ super + shift + x
 super + f
     i3-msg fullscreen toggle
 
-super + backslash
-    i3-msg splith
-
-super + minus
-    i3-msg splitv
-
 super + e
     i3-msg layout toggle splith splitv tabbed stacking
+
+super + v
+    i3-msg splith
+
+super + s
+    i3-msg splitv
 
 super + space
     i3-msg focus mode_toggle
@@ -187,7 +187,7 @@ super + shift + space
     i3fyra --float
 
 super + z
-    i3zen --workspace zen
+    i3zen --width 95 --height 95 --workspace zen
 
 super + shift + z
     workspace zen
