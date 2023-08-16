@@ -344,31 +344,25 @@ return {
             "CodyExplain",
             "CodyHistory",
             "CodyToggle",
+            "CodyFloat",
         },
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>sg",
-                "<cmd>SourcegraphSearch<CR>",
-                desc = "sourcegraph-search",
-            },
-            {
-                "<leader>sL",
-                "<cmd>SourcegraphLink<CR>",
-                desc = "sourcegraph-link",
-            },
+            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
+            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
             {
                 "<leader>sF",
-                function()
-                    require("sg.extensions.telescope").fuzzy_search_results()
-                end,
+                function() require("sg.extensions.telescope").fuzzy_search_results() end,
                 desc = "sourcegraph-fuzzy-search",
             },
-            {
-                "<leader>cd",
-                "<cmd>CodyDo add docstring<CR>",
-                desc = "docstring",
-                mode = { "n", "x" },
-            },
+            { "<leader>cd", "<cmd>CodyDo<space>", desc = "cody-do", mode = { "n", "x" } },
+            { "<leader>ca", "<cmd>CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
+            { "<leader>cc", "<cmd>CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
+            { "<leader>cf", "<cmd>CodyFloat<CR>", desc = "cody-float", mode = { "n", "x" } },
+            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
+            { "<leader>cT", "<cmd>CodyTask<CR>", desc = "cody-task", mode = { "n", "x" } },
+            { "<leader>ch", "<cmd>CodyHistory<CR>", desc = "cody-history", mode = { "n", "x" } },
+            { "<leader>cC", "<cmd>CodyContext<CR>", desc = "cody-context", mode = { "n", "x" } },
         },
         build = "nvim -l build/init.lua",
         opts = {
