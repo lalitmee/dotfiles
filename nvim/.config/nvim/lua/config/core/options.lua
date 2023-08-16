@@ -416,7 +416,7 @@ o.scrolloff = 10
 o.scrollback = 100000
 o.visualbell = false
 o.errorbells = false
--- opt.colorcolumn = "80"
+opt.colorcolumn = ""
 -- }}}
 ----------------------------------------------------------------------
 
