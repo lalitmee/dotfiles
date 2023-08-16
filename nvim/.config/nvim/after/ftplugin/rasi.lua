@@ -3,7 +3,7 @@ local opt = vim.opt_local
 ----------------------------------------------------------------------
 -- NOTE: options {{{
 ----------------------------------------------------------------------
-opt.colorcolumn = { "80" }
+opt.colorcolumn = { }
 opt.expandtab = true
 opt.formatoptions = opt.formatoptions - "o" -- don't continue comments on `o` and `O`
 opt.shiftwidth = 4

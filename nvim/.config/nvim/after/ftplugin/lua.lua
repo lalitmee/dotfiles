@@ -68,7 +68,7 @@ nnoremap("gK", hover_doc, { buffer = 0 })
 ----------------------------------------------------------------------
 -- NOTE: options {{{
 ----------------------------------------------------------------------
-opt.colorcolumn = { "80" }
+opt.colorcolumn = { }
 opt.expandtab = true
 opt.formatoptions = opt.formatoptions - "o" -- don't continue comments on `o` and `O`
 opt.shiftwidth = 4

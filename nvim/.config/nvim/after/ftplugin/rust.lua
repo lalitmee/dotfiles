@@ -1,6 +1,6 @@
 local opt = vim.opt_local
 
-opt.colorcolumn = { "80" }
+opt.colorcolumn = { }
 opt.formatoptions = opt.formatoptions - "o" -- don't continue comments on `o` and `O`
 opt.expandtab = true
 opt.shiftwidth = 4
