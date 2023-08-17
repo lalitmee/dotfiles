@@ -229,14 +229,14 @@ return {
                 border = lk.style.border.rounded,
                 winblend = 3,
                 width = 240,
-                height = 52,
+                height = 50,
             },
             shade_terminals = false,
             size = function(term)
                 if term.direction == "horizontal" then
                     return 20
                 elseif term.direction == "vertical" then
-                    return math.floor(vim.api.nvim_get_option_value("columns") * 0.5)
+                    return math.floor(vim.api.nvim_get_option_value("columns", { scope = "local" }) * 0.5)
                 end
             end,
         },
@@ -672,6 +672,13 @@ return {
     { --[[ harpoon ]]
         "ThePrimeagen/harpoon",
         keys = {
+            -- terminal
+            { "<localleader>1", ":HarpoonGotoTerm 1<CR>", "terminal-1", silent = true },
+            { "<localleader>2", ":HarpoonGotoTerm 2<CR>", "terminal-2", silent = true },
+            { "<localleader>3", ":HarpoonGotoTerm 3<CR>", "terminal-3", silent = true },
+            { "<localleader>4", ":HarpoonGotoTerm 4<CR>", "terminal-4", silent = true },
+
+            -- file
             { "<leader>1", ":HarpoonGotoFile 1<CR>", desc = "goto-file-1", silent = true },
             { "<leader>2", ":HarpoonGotoFile 2<CR>", desc = "goto-file-2", silent = true },
             { "<leader>3", ":HarpoonGotoFile 3<CR>", desc = "goto-file-3", silent = true },
@@ -681,32 +688,66 @@ return {
             { "<leader>7", ":HarpoonGotoFile 7<CR>", desc = "goto-file-7", silent = true },
             { "<leader>8", ":HarpoonGotoFile 8<CR>", desc = "goto-file-8", silent = true },
             { "<leader>9", ":HarpoonGotoFile 9<CR>", desc = "goto-file-9", silent = true },
+
+            {
+                "<leader>fa",
+                function()
+                    require("harpoon.mark").add_file()
+                end,
+                desc = "add-file",
+                silent = true,
+            },
+            {
+                "<leader>fm",
+                function()
+                    require("harpoon.ui").toggle_quick_menu()
+                end,
+                desc = "toggle-harpoon",
+                silent = true,
+            },
+            {
+                "<leader>fn",
+                function()
+                    require("harpoon.ui").nav_next()
+                end,
+                desc = "next-mark",
+                silent = true,
+            },
+            {
+                "<leader>fp",
+                function()
+                    require("harpoon.ui").nav_prev()
+                end,
+                desc = "prev-mark",
+                silent = true,
+            },
+            {
+                "<leader>fr",
+                function()
+                    require("harpoon.mark").rm_file()
+                end,
+                desc = "remove-file",
+                silent = true,
+            },
+            {
+                "<leader>aj",
+                function()
+                    require("harpoon.cmd-ui").toggle_quick_menu()
+                end,
+                desc = "toggle-harpoon-cmd-menu",
+                silent = true,
+            },
+
+            { "<leader>fM", ":Telescope harpoon marks<CR>", desc = "telescope-harpoon", silent = true },
         },
         cmd = {
-            "HarpoonAddFile",
-            "HarpoonGotoFile",
-            "HarpoonGotoTerm",
             "HarpoonGotoTmux",
-            "HarpoonNextMark",
-            "HarpoonPrevMark",
-            "HarpoonRemoveFile",
             "HarpoonSendCmdToTerm",
             "HarpoonSendCmdToTmux",
             "ToggleHarpoonCmdMenu",
-            "ToggleHarpoonMenu",
         },
         init = function()
             require("telescope").load_extension("harpoon")
-
-            ----------------------------------------------------------------------
-            -- NOTE: harpoon commands {{{
-            ----------------------------------------------------------------------
-            --------------------------------------------------------------------------------
-            --  NOTE: file navigations {{{
-            --------------------------------------------------------------------------------
-            command("HarpoonAddFile", function()
-                require("harpoon.mark").add_file()
-            end)
 
             command("HarpoonGotoFile", function(args)
                 local number = tonumber(args["args"])
@@ -715,15 +756,6 @@ return {
                 nargs = 1,
             })
 
-            command("HarpoonRemoveFile", function()
-                require("harpoon.mark").rm_file()
-            end)
-            -- }}}
-            --------------------------------------------------------------------------------
-
-            --------------------------------------------------------------------------------
-            --  NOTE: terminal {{{
-            --------------------------------------------------------------------------------
             command("HarpoonGotoTerm", function(args)
                 local number = tonumber(args["args"])
                 require("harpoon.term").gotoTerminal(number)
@@ -740,12 +772,7 @@ return {
             end, {
                 nargs = 1,
             })
-            -- }}}
-            --------------------------------------------------------------------------------
 
-            --------------------------------------------------------------------------------
-            --  NOTE: tmux {{{
-            --------------------------------------------------------------------------------
             command("HarpoonGotoTmux", function(args)
                 local number = tonumber(args["args"])
                 require("harpoon.tmux").gotoTerminal(number)
@@ -762,47 +789,19 @@ return {
             end, {
                 nargs = 1,
             })
-            -- }}}
-            --------------------------------------------------------------------------------
-
-            --------------------------------------------------------------------------------
-            --  NOTE: marks navigation {{{
-            --------------------------------------------------------------------------------
-            command("HarpoonNextMark", function()
-                require("harpoon.ui").nav_next()
-            end)
-
-            command("HarpoonPrevMark", function()
-                require("harpoon.ui").nav_prev()
-            end)
-            -- }}}
-            --------------------------------------------------------------------------------
-
-            command("ToggleHarpoonMenu", function()
-                require("harpoon.ui").toggle_quick_menu()
-            end)
-
-            command("ToggleHarpoonCmdMenu", function()
-                require("harpoon.cmd-ui").toggle_quick_menu()
-            end)
-
-            -- }}}
-            ----------------------------------------------------------------------
         end,
-        config = function()
-            require("harpoon").setup({
-                global_settings = {
-                    menu = {
-                        width = vim.api.nvim_win_get_width(0) - 100,
-                        height = vim.api.nvim_win_get_height(0) - 25,
-                    },
-                    enter_on_sendcmd = true,
-                    mark_branch = true,
-                    save_on_toggle = true,
-                    tmux_autoclose_windows = true,
+        opts = {
+            global_settings = {
+                menu = {
+                    width = vim.api.nvim_win_get_width(0) - 100,
+                    height = vim.api.nvim_win_get_height(0) - 25,
                 },
-            })
-        end,
+                enter_on_sendcmd = true,
+                mark_branch = true,
+                save_on_toggle = true,
+                tmux_autoclose_windows = true,
+            },
+        },
     },
 
     { --[[ browse ]]
