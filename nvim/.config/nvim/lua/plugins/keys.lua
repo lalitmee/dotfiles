@@ -110,7 +110,6 @@ return {
 
                 ["f"] = {
                     ["name"] = "+files",
-                    ["a"] = { ":HarpoonAddFile<CR>", "add-file" },
                     ["c"] = { ":TelescopeEditDotfiles<CR>", "dotfiles" },
                     ["d"] = {
                         ":Telescope find_files theme=dropdown<CR>",
@@ -124,15 +123,7 @@ return {
                         ":Telescope find_files theme=ivy<CR>",
                         "ivy-theme-files",
                     },
-                    ["m"] = { ":ToggleHarpoonMenu<CR>", "quick-menu" },
-                    ["M"] = {
-                        ":Telescope harpoon marks<CR>",
-                        "telescope-harpoon-marks",
-                    },
-                    ["n"] = { ":HarpoonNextMark<CR>", "next-mark" },
                     ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
-                    ["p"] = { ":HarpoonPrevMark<CR>", "prev-mark" },
-                    ["r"] = { ":HarpoonRemoveFile<CR>", "remove-file" },
                     ["s"] = { ":w<CR>", "save-buffer" },
                     ["S"] = { ":wa<CR>", "save-all-buffers" },
                     ["t"] = { ":Telescope filetypes<CR>", "file-types" },
@@ -407,10 +398,6 @@ return {
 
             local local_leader_key_maps = {
                 ["/"] = { ":FzfLua live_grep<CR>", "fzf-live-grep" },
-                ["1"] = { ":HarpoonGotoTerm 1<CR>", "terminal-1" },
-                ["2"] = { ":HarpoonGotoTerm 2<CR>", "terminal-2" },
-                ["3"] = { ":HarpoonGotoTerm 3<CR>", "terminal-3" },
-                ["4"] = { ":HarpoonGotoTerm 4<CR>", "terminal-4" },
 
                 ["t"] = {
                     -- it is reserved for neorg keybindings
