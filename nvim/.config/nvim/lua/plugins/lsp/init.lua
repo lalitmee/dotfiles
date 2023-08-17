@@ -60,21 +60,6 @@ return {
         event = { "VeryLazy" },
         dependencies = {
             {
-                "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-                cmd = { "ToggleDiag" },
-                init = function()
-                    local wk = require("which-key")
-                    wk.register({
-                        ["l"] = {
-                            ["e"] = { ":ToggleDiag<cr>", "toggle-lsp-diagnostics" },
-                        },
-                    }, { mode = "n", prefix = "<leader>" })
-                end,
-                config = function()
-                    require("toggle_lsp_diagnostics").init()
-                end,
-            },
-            {
                 "pmizio/typescript-tools.nvim",
                 opts = {
                     on_attach = lsp_utils.on_attach,
