@@ -82,9 +82,11 @@ end
 
 command("LspDiagnosticEnable", function()
     vim.diagnostic.enable()
+    vim.notify("LSP diagnostics enabled", vim.log.levels.INFO)
 end)
 command("LspDiagnosticDisable", function()
     vim.diagnostic.disable()
+    vim.notify("LSP diagnostics disabled", vim.log.levels.INFO)
 end)
 command("LspGetAllDiagnostics", vim.diagnostic.get, {})
 command("LspGotoNextDiagnostic", function()
