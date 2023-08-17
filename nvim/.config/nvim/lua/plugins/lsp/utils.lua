@@ -92,6 +92,22 @@ M.mappings = function(client)
 
     nmap("[e", "<cmd>LspGotoPrevDiagnostic<CR>")
     nmap("]e", "<cmd>LspGotoNextDiagnostic<CR>")
+
+    if client.name == "typescript-tools" then
+        local wk = require("which-key")
+        wk.register({
+            ["l"] = {
+                ["name"] = "+major-mode",
+                ["a"] = { "<cmd>TSToolsFixAll<cr>", "fix-all" },
+                ["d"] = { "<cmd>TSToolsGoToSourceDefinition<cr>", "go-to-source-definition" },
+                ["i"] = { "<cmd>TSToolsRemoveUnused<cr>", "remove-unused" },
+                ["m"] = { "<cmd>TSToolsAddMissingImports<cr>", "add-missing-imports" },
+                ["o"] = { "<cmd>TSToolsOrganizeImports<cr>", "organize-imports" },
+                ["s"] = { "<cmd>TSToolsSortImports<cr>", "sort-imports" },
+                ["u"] = { "<cmd>TSToolsRemoveUnusedImports<cr>", "remove-unused-imports" },
+            },
+        }, { mode = "n", prefix = "<localleader>" })
+    end
 end
 -- }}}
 ----------------------------------------------------------------------
