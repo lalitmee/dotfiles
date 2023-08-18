@@ -6,22 +6,25 @@ session_name: quartic-workspace
 on_project_start: docker restart 02a9f28f169f
 
 windows:
-  - "docker logs": docker logs --follow 02a9f28f169f
+  - "docker": dev
+
   - "docker-exec":
       # layout: 6732,237x50,0,0{114x50,0,0[114x15,0,0,0,114x17,0,16,2,114x16,0,34,3],122x50,115,0[122x15,115,0,4,122x17,115,16,5,122x16,115,34,6]}
       layout: even-horizontal
       panes:
         - "docker exec main":
-            - "docker exec -it quartic_local_setup bash"
-            - cd workspace/python/ContexAlyze/react_frontend
-            - clear
+            - dev
+            - cd workspace/python/ContexAlyze/react_frontend && clear
             - BROWSER=none node scripts/start.js
         - "docker exec qnnect":
-            - "docker exec -it quartic_local_setup bash"
-            - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend
-            # - cd workspace/python/ContexAlyze/accounts/react_frontend
-            - clear
+            - dev
+            - cd workspace/python/ContexAlyze/qnnect_v2/react_frontend && clear
             - BROWSER=none node scripts/start.js
+
   - "ContexAlyze":
       panes:
-        - z /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze && vi
+        - z ContexAlyze && vi
+
+  - "react-corelibs": z react-corelibs
+
+  - "proxy-server": z quartic-proxy-server
