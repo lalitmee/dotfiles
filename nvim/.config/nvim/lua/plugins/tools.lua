@@ -17,39 +17,17 @@ return {
 
     { --[[ genghis ]]
         "chrisgrieser/nvim-genghis",
-        cmd = {
-            "Chmodx",
-            "CopyFilename",
-            "CopyFilepath",
-            "Duplicate",
-            "Move",
-            "New",
-            "NewFromSelection",
-            "Rename",
-            "Trash",
+        keys = {
+            { "<leader>fA", ":New<cr>", desc = "create-file", silent = true },
+            { "<leader>fD", ":Trash<cr>", desc = "trash-file", silent = true },
+            { "<leader>fy", ":CopyFilepath<cr>", desc = "copy-file-path", silent = true },
+            { "<leader>fJ", ":Move<cr>", desc = "move-and-rename-file", silent = true },
+            { "<leader>fN", ":CopyFilename<cr>", desc = "copy-file-name", silent = true },
+            { "<leader>fR", ":Rename<cr>", desc = "rename-file", silent = true },
+            { "<leader>fS", ":Duplicate<cr>", desc = "duplicate-file", silent = true },
+            { "<leader>fX", ":Chmodx<cr>", desc = "make-executable", silent = true },
+            { "<leader>fS", ":NewFromSelection<cr>", desc = "move-selection-to-file", silent = true, mode = "x" },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["f"] = {
-                    ["name"] = "+actions",
-                    ["A"] = { ":New<cr>", "create-file" },
-                    ["D"] = { ":Trash<cr>", "trash-file" },
-                    ["y"] = { ":CopyFilepath<cr>", "copy-file-path" },
-                    ["J"] = { ":Move<cr>", "move-and-rename-file" },
-                    ["N"] = { ":CopyFilename<cr>", "copy-file-name" },
-                    ["R"] = { ":Rename<cr>", "rename-file" },
-                    ["S"] = { ":Duplicate<cr>", "duplicate-file" },
-                    ["X"] = { ":Chmodx<cr>", "make-executable" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-
-            wk.register({
-                ["f"] = {
-                    ["S"] = { ":NewFromSelection<cr>", "move-selection-to-file" },
-                },
-            }, { mode = "x", prefix = "<leader>" })
-        end,
     },
 
     { --[[ autolist ]]
@@ -553,7 +531,7 @@ return {
         init = function()
             require("telescope").load_extension("monorepo")
         end,
-        -- enabled = false,
+        enabled = false,
     },
 
     { --[[ scretch ]]
@@ -831,41 +809,43 @@ return {
             --         ["vim_porn"] = "https://www.reddit.com/r/vimporn",
             --     },
             -- }
+
             local bookmarks = {
-                ["cargo"] = "https://doc.rust-lang.org/cargo/index.html?search=%s",
-                ["devdocs.io"] = "https://devdocs.io/search?q=%s",
-                ["learnxinyminutes"] = "https://learnxinyminutes.com/docs/%s",
-                ["mdn"] = "https://developer.mozilla.org/search?q=%s",
-                ["rust:core"] = "https://doc.rust-lang.org/core/?search=%s",
-                ["rust:std"] = "https://doc.rust-lang.org/std/?search=%s",
-                ["github_pulls"] = "https://github.com/pulls",
-                ["mui"] = "https://mui.com/",
-                ["mui-icons"] = "https://mui.com/components/material-icons/#material-icons",
-                ["v4-mui"] = "https://v4.mui.com/",
-                ["npm_search"] = "https://npmjs.com/search?q=%s",
-                ["browse.nvim"] = "https://github.com/lalitmee/browse.nvim",
-                ["cobalt2.nvim"] = "https://github.com/lalitmee/cobalt2.nvim",
-                ["dNotes"] = "https://github.com/lalitmee/dNotes",
-                ["dotfiles"] = "https://github.com/lalitmee/dotfiles",
-                ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
-                ["lualine"] = "https://github.com/nvim-lualine/lualine.nvim",
-                ["neovim_github"] = "https://github.com/neovim/neovim",
-                ["nvim-treesitter"] = "https://github.com/nvim-treesitter/nvim-treesitter",
-                ["telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
-                ["fzf-lua"] = "https://github.com/ibhagwan/fzf-lua",
                 ["ThePrimeagen"] = "https://github.com/ThePrimeagen/.dotfiles",
                 ["akinsho"] = "https://github.com/akinsho/dotfiles",
-                ["tjdevries"] = "https://github.com/tjdevries/config_manager",
-                ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
+                ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
+                ["browse.nvim"] = "https://github.com/lalitmee/browse.nvim",
+                ["cargo"] = "https://doc.rust-lang.org/cargo/index.html?search=%s",
+                ["cobalt2.nvim"] = "https://github.com/lalitmee/cobalt2.nvim",
                 ["code_search"] = "https://github.com/search?q=%s&type=code",
-                ["repo_search"] = "https://github.com/search?q=%s&type=repositories",
+                ["dNotes"] = "https://github.com/lalitmee/dNotes",
+                ["devdocs.io"] = "https://devdocs.io/search?q=%s",
+                ["dotfiles"] = "https://github.com/lalitmee/dotfiles",
+                ["fzf-lua"] = "https://github.com/ibhagwan/fzf-lua",
+                ["github_pulls"] = "https://github.com/pulls",
                 ["issues_search"] = "https://github.com/search?q=%s&type=issues",
-                ["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
-                ["reddit_query"] = "https://www.reddit.com/search?q=%s",
-                ["reddit_community_query"] = "https://www.reddit.com/search?q=%s&type=sr",
+                ["learnxinyminutes"] = "https://learnxinyminutes.com/docs/%s",
+                ["lualine"] = "https://github.com/nvim-lualine/lualine.nvim",
+                ["mdn"] = "https://developer.mozilla.org/search?q=%s",
+                ["mui"] = "https://mui.com/",
+                ["mui-icons"] = "https://mui.com/components/material-icons/#material-icons",
+                ["neovim_github"] = "https://github.com/neovim/neovim",
                 ["neovim_reddit"] = "https://www.reddit.com/r/neovim",
-                ["workspaces"] = "https://www.reddit.com/r/workspaces",
+                ["npm_search"] = "https://npmjs.com/search?q=%s",
+                ["nvim-treesitter"] = "https://github.com/nvim-treesitter/nvim-treesitter",
+                ["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
+                ["reddit_community_query"] = "https://www.reddit.com/search?q=%s&type=sr",
+                ["reddit_query"] = "https://www.reddit.com/search?q=%s",
+                ["repo_search"] = "https://github.com/search?q=%s&type=repositories",
+                ["rust:core"] = "https://doc.rust-lang.org/core/?search=%s",
+                ["rust:std"] = "https://doc.rust-lang.org/std/?search=%s",
+                ["telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
+                ["tjdevries"] = "https://github.com/tjdevries/config_manager",
+                ["v4-mui"] = "https://v4.mui.com/",
                 ["vim_porn"] = "https://www.reddit.com/r/vimporn",
+                ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
+                ["workspaces"] = "https://www.reddit.com/r/workspaces",
+                ["bootstrap"] = "https://getbootstrap.com",
             }
             require("browse").setup({
                 provider = "duckduckgo", -- google or bing
