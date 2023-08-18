@@ -6,6 +6,7 @@ local d = env["d"]
 local t = env["t"]
 local i = env["i"]
 local c = env["c"]
+local f = env["f"]
 local fmt = env["fmt"]
 local sn = env["sn"]
 local same = env["same"]
@@ -128,32 +129,37 @@ local snippets = {
             }
         )
     ),
-
-    s({ trig = "ftodo", name = "todo for removing FF" }, t("// TODO: remove this while removing FF")),
 }
 
 local autosnippets = {
-    -- s( -- for loop with dynamic variables
-    --     { trig = "for([%w_]+)", regTrig = true },
-    --     fmt(
-    --         [[
-    --       for({} = 1; {} <= {}; {}++) {{
-    --         {}
-    --       }}
-    --       {}
-    --     ]],
-    --         {
-    --             d(1, function(_, snip)
-    --                 return sn(1, i(1, snip.captures[1]))
-    --             end),
-    --             rep(1),
-    --             c(2, { i(1, "num"), sn(1, { i("arr"), t(".length") }) }),
-    --             rep(1),
-    --             i(3, "// TODO"),
-    --             i(4),
-    --         }
-    --     )
-    -- ),
+    s( -- for loop with dynamic variables
+        { trig = "for(%a)-", regTrig = true },
+        fmt(
+            [[
+                for(let {} = 1; {} <= {}; {}++) {{
+                    {}
+                }}
+                {}
+            ]],
+            {
+                d(1, function(_, snip)
+                    return sn(1, i(1, snip.captures[1]))
+                end),
+                rep(1),
+                i(2, "num"),
+                rep(1),
+                i(3, "// TODO"),
+                i(4),
+            }
+        )
+    ),
+
+    s({ trig = "ftodo(%d%d%d%d)", regTrig = true, name = "todo for removing FF" }, {
+        t("// TODO: remove this while removing FF QPD_"),
+        f(function(_, snip)
+            return snip.captures[1]
+        end),
+    }),
 }
 
 return snippets, autosnippets
