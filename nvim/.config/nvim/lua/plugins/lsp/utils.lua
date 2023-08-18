@@ -97,16 +97,15 @@ M.mappings = function(client)
         local wk = require("which-key")
         wk.register({
             ["l"] = {
-                ["name"] = "+major-mode",
-                ["a"] = { "<cmd>TSToolsFixAll<cr>", "fix-all" },
-                ["d"] = { "<cmd>TSToolsGoToSourceDefinition<cr>", "go-to-source-definition" },
-                ["i"] = { "<cmd>TSToolsRemoveUnused<cr>", "remove-unused" },
-                ["m"] = { "<cmd>TSToolsAddMissingImports<cr>", "add-missing-imports" },
+                ["e"] = { "<cmd>TSToolsAddMissingImports<cr>", "add-missing-imports" },
+                ["j"] = { "<cmd>TSToolsFixAll<cr>", "fix-all" },
+                ["g"] = { "<cmd>TSToolsGoToSourceDefinition<cr>", "go-to-source-definition" },
                 ["o"] = { "<cmd>TSToolsOrganizeImports<cr>", "organize-imports" },
-                ["s"] = { "<cmd>TSToolsSortImports<cr>", "sort-imports" },
+                ["O"] = { "<cmd>TSToolsSortImports<cr>", "sort-imports" },
                 ["u"] = { "<cmd>TSToolsRemoveUnusedImports<cr>", "remove-unused-imports" },
+                ["x"] = { "<cmd>TSToolsRemoveUnused<cr>", "remove-unused" },
             },
-        }, { mode = "n", prefix = "<localleader>" })
+        }, { mode = "n", prefix = "<leader>" })
     end
 end
 -- }}}
