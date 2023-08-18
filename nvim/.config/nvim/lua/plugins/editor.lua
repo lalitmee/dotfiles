@@ -569,111 +569,122 @@ return {
                 end,
                 desc = "Toggle Flash Search",
             },
+            {
+                "<leader>jd",
+                function()
+                    -- highlights diagnostics and open float after
+                    -- choosing the label
+                    require("flash").jump({
+                        matcher = function(win)
+                            ---@param diag Diagnostic
+                            return vim.tbl_map(function(diag)
+                                return {
+                                    pos = { diag.lnum + 1, diag.col },
+                                    end_pos = { diag.end_lnum + 1, diag.end_col - 1 },
+                                }
+                            end, vim.diagnostic.get(vim.api.nvim_win_get_buf(win)))
+                        end,
+                        action = function(match, state)
+                            vim.api.nvim_win_call(match.win, function()
+                                vim.api.nvim_win_set_cursor(match.win, match.pos)
+                                vim.diagnostic.open_float()
+                                vim.api.nvim_win_set_cursor(match.win, state.pos)
+                            end)
+                        end,
+                    })
+                end,
+                desc = "diagnostics",
+                silent = true,
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>jj",
+                function()
+                    require("flash").jump()
+                end,
+                desc = "jump",
+                silent = true,
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>jl",
+                function()
+                    require("flash").jump({
+                        search = { mode = "search" },
+                        label = { after = { 0, 0 } },
+                        pattern = "^",
+                    })
+                end,
+                desc = "line",
+                silent = true,
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>jr",
+                function()
+                    require("flash").remote()
+                end,
+                desc = "remote",
+                silent = true,
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>js",
+                function()
+                    require("flash").jump({
+                        search = {
+                            mode = function(str)
+                                return "\\<" .. str
+                            end,
+                        },
+                    })
+                end,
+                desc = "beginning-of-words",
+                silent = true,
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>jt",
+                function()
+                    require("flash").treesitter()
+                end,
+                desc = "treesitter",
+                silent = true,
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>jw",
+                function()
+                    require("flash").jump({
+                        pattern = vim.fn.expand("<cword>"),
+                    })
+                end,
+                desc = "current-word",
+                mode = { "n", "v", "x", "o" },
+            },
+            {
+                "<leader>jW",
+                function()
+                    require("flash").jump({
+                        pattern = ".", -- initialize pattern with any char
+                        search = {
+                            mode = function(pattern)
+                                -- remove leading dot
+                                if pattern:sub(1, 1) == "." then
+                                    pattern = pattern:sub(2)
+                                end
+                                -- return word pattern and proper skip pattern
+                                return ([[\v<%s\w*>]]):format(pattern), ([[\v<%s]]):format(pattern)
+                            end,
+                        },
+                        -- select the range
+                        jump = { pos = "range" },
+                    })
+                end,
+                desc = "select-word",
+                mode = { "n", "v", "x", "o" },
+            },
         },
-        init = function()
-            local wk = require("which-key")
-            local flash = require("flash")
-            wk.register({
-                ["j"] = {
-                    ["name"] = "+jump",
-                    ["d"] = {
-                        function()
-                            -- highlights diagnostics and open float after
-                            -- choosing the label
-                            flash.jump({
-                                matcher = function(win)
-                                    ---@param diag Diagnostic
-                                    return vim.tbl_map(function(diag)
-                                        return {
-                                            pos = { diag.lnum + 1, diag.col },
-                                            end_pos = { diag.end_lnum + 1, diag.end_col - 1 },
-                                        }
-                                    end, vim.diagnostic.get(
-                                        vim.api.nvim_win_get_buf(win)
-                                    ))
-                                end,
-                                action = function(match, state)
-                                    vim.api.nvim_win_call(match.win, function()
-                                        vim.api.nvim_win_set_cursor(match.win, match.pos)
-                                        vim.diagnostic.open_float()
-                                        vim.api.nvim_win_set_cursor(match.win, state.pos)
-                                    end)
-                                end,
-                            })
-                        end,
-                        "diagnostics",
-                    },
-                    ["j"] = {
-                        function()
-                            flash.jump()
-                        end,
-                        "jump",
-                    },
-                    ["l"] = {
-                        function()
-                            flash.jump({
-                                search = { mode = "search" },
-                                label = { after = { 0, 0 } },
-                                pattern = "^",
-                            })
-                        end,
-                        "line",
-                    },
-                    ["r"] = {
-                        function()
-                            flash.remote()
-                        end,
-                        "remote",
-                    },
-                    ["s"] = {
-                        function()
-                            flash.jump({
-                                search = {
-                                    mode = function(str)
-                                        return "\\<" .. str
-                                    end,
-                                },
-                            })
-                        end,
-                        "beginning-of-words",
-                    },
-                    ["t"] = {
-                        function()
-                            flash.treesitter()
-                        end,
-                        "treesitter",
-                    },
-                    ["w"] = {
-                        function()
-                            flash.jump({
-                                pattern = vim.fn.expand("<cword>"),
-                            })
-                        end,
-                        "current-word",
-                    },
-                    ["W"] = {
-                        function()
-                            flash.jump({
-                                pattern = ".", -- initialize pattern with any char
-                                search = {
-                                    mode = function(pattern)
-                                        -- remove leading dot
-                                        if pattern:sub(1, 1) == "." then
-                                            pattern = pattern:sub(2)
-                                        end
-                                        -- return word pattern and proper skip pattern
-                                        return ([[\v<%s\w*>]]):format(pattern), ([[\v<%s]]):format(pattern)
-                                    end,
-                                },
-                                -- select the range
-                                jump = { pos = "range" },
-                            })
-                        end,
-                        "select-word",
-                    },
-                },
-            }, { mode = { "n", "v", "x", "o" }, prefix = "<leader>" })
-        end,
     },
 
     { --[[ spectre ]]
