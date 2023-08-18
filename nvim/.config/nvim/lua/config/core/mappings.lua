@@ -5,7 +5,6 @@ local fmt = string.format
 local fn = vim.fn
 
 local map = lk.map
-local nmap = lk.nmap
 local nnoremap = lk.nnoremap
 local xnoremap = lk.xnoremap
 
@@ -22,12 +21,6 @@ map("n", "L", [[$]], map_opts)
 -- jumplist mutations
 map("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { expr = true })
 map("n", "k", [[(v:count > 5 ? "m'" . v:count : "") . 'k']], { expr = true })
-
--- tmux movements
-nmap("<C-h>", [[<cmd>NavigatorLeft<cr>]], map_opts)
-nmap("<C-l>", [[<cmd>NavigatorRight<cr>]], map_opts)
-nmap("<C-j>", [[<cmd>NavigatorDown<cr>]], map_opts)
-nmap("<C-k>", [[<cmd>NavigatorUp<cr>]], map_opts)
 
 nnoremap("0", "^")
 nnoremap("^", "0")

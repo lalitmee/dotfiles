@@ -402,6 +402,10 @@ return {
                 ["t"] = {
                     -- it is reserved for neorg keybindings
                 },
+
+                ["s"] = {
+                    ["name"] = "+scratch",
+                },
             }
 
             local visual_mode_leader_key_maps = {

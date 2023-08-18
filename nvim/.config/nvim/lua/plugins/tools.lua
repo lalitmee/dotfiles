@@ -540,66 +540,34 @@ return {
 
     { --[[ monorepo ]]
         "imNel/monorepo.nvim",
+        -- stylua: ignore
         keys = {
-            "<leader>pa",
-            "<leader>pm",
-            "<leader>pn",
-            "<leader>pp",
-            "<leader>pr",
-            "<leader>pt",
+            { "<leader>pm", ":Telescope monorepo<cr>", desc = "monorepo", silent = true },
+            { "<leader>pa", function() require("monorepo").add_project() end, desc = "add", silent = true },
+            { "<leader>pn", function() require("monorepo").next_project() end, desc = "next", silent = true },
+            { "<leader>pP", function() require("monorepo").previous_project() end, desc = "previous", silent = true },
+            { "<leader>pr", function() require("monorepo").remove_project() end, desc = "remove", silent = true },
+            { "<leader>pt", function() require("monorepo").toggle_project() end, desc = "toggle", silent = true },
         },
         config = true,
         init = function()
             require("telescope").load_extension("monorepo")
-            local monorepo = require("monorepo")
-            local wk = require("which-key")
-
-            wk.register({
-            -- stylua: ignore
-            ["p"] = {
-                ["m"] = { ":Telescope monorepo<cr>", "monorepo" },
-                ["a"] = { function() monorepo.add_project() end, "add-project" },
-                ["n"] = { function() monorepo.next_project() end, "next-project" },
-                ["P"] = { function() monorepo.previous_project() end, "previous-project" },
-                ["r"] = { function() monorepo.remove_project() end, "remove-project" },
-                ["t"] = { function() monorepo.toggle_project() end, "toggle-project" },
-            },
-            }, { mode = "n", prefix = "<leader>" })
         end,
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            "nvim-lua/plenary.nvim",
-        },
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ scretch ]]
         "Sonicfury/scretch.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
+        -- stylua: ignore
         keys = {
-            "<localleader>sa",
-            "<localleader>se",
-            "<localleader>sf",
-            "<localleader>sg",
-            "<localleader>sl",
-            "<localleader>sn",
+            { "<localleader>sa", function() require("scretch").new() end, desc = "new-scratch" },
+            { "<localleader>se", function() require("scretch").explore() end, desc = "scratch-explore" },
+            { "<localleader>sf", function() require("scretch").search() end, desc = "search-scratch" },
+            { "<localleader>sg", function() require("scretch").grep() end, desc = "scratch-grep" },
+            { "<localleader>sl", function() require("scretch").last() end, desc = "last-scratch" },
+            { "<localleader>sn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
         },
-        init = function()
-            local scretch = require("scretch")
-            local wk = require("which-key")
-            -- stylua: ignore
-            wk.register({
-                ["s"] = {
-                    ["name"] = "+scratch",
-                    ["a"] = { function() scretch.new() end, "new-scratch" },
-                    ["e"] = { function() scretch.explore() end, "scratch-explore" },
-                    ["f"] = { function() scretch.search() end, "search-scratch" },
-                    ["g"] = { function() scretch.grep() end, "scratch-grep" },
-                    ["l"] = { function() scretch.last() end, "last-scratch" },
-                    ["n"] = { function() scretch.new_named() end, "scratch-with-name" },
-                },
-            }, { mode = "n", prefix = "<localleader>" })
-        end,
         opts = {
             scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
         },
@@ -651,22 +619,20 @@ return {
 
     { --[[ navigator ]]
         "numToStr/Navigator.nvim",
-        event = { "VeryLazy" },
+        keys = {
+            { "<C-h>", "<cmd>NavigatorLeft<cr>" },
+            { "<C-l>", "<cmd>NavigatorRight<cr>" },
+            { "<C-j>", "<cmd>NavigatorDown<cr>" },
+            { "<C-k>", "<cmd>NavigatorUp<cr>" },
+            { "<leader>wh", ":NavigatorLeft<CR>", desc = "window-left" },
+            { "<leader>wj", ":NavigatorDown<CR>", desc = "window-down" },
+            { "<leader>wk", ":NavigatorUp<CR>", desc = "window-up" },
+            { "<leader>wl", ":NavigatorRight<CR>", desc = "window-right" },
+            { "<leader>wp", ":NavigatorPrevious<CR>", desc = "window-previous" },
+        },
         opts = {
             auto_save = "all",
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["w"] = {
-                    ["h"] = { ":NavigatorLeft<CR>", "window-left" },
-                    ["j"] = { ":NavigatorDown<CR>", "window-down" },
-                    ["k"] = { ":NavigatorUp<CR>", "window-up" },
-                    ["l"] = { ":NavigatorRight<CR>", "window-right" },
-                    ["p"] = { ":NavigatorPrevious<CR>", "window-previous" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
     },
 
     { --[[ harpoon ]]
