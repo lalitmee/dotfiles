@@ -137,123 +137,77 @@ return {
 
     { --[[ octo ]]
         "pwntester/octo.nvim",
-        cmd = { "Octo" },
         config = true,
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["a"] = {
-                        ["name"] = "+reaction",
-                        ["c"] = {
-                            ":Octo reaction confused<CR>",
-                            "react-confused",
-                        },
-                        ["d"] = {
-                            ":Octo reaction thumbs_down<CR>",
-                            "react-thumbs_down",
-                        },
-                        ["e"] = { ":Octo reaction eyes<CR>", "react-eyes" },
-                        ["h"] = {
-                            ":Octo reaction heart<CR>",
-                            "react-heart",
-                        },
-                        ["l"] = {
-                            ":Octo reaction laugh<CR>",
-                            "react-laugh",
-                        },
-                        ["r"] = {
-                            ":Octo reaction rocket<CR>",
-                            "react-rocket",
-                        },
-                        ["t"] = { ":Octo reaction tada<CR>", "react-tada" },
-                        ["u"] = {
-                            ":Octo reaction thumbs_up<CR>",
-                            "react-thumbs_up",
-                        },
-                    },
-                    ["C"] = {
-                        ["name"] = "+comment",
-                        ["a"] = { ":Octo comment add<CR>", "add" },
-                        ["d"] = { ":Octo comment delete<CR>", "delete" },
-                    },
-                    ["g"] = { ":Octo gist list<CR>", "list-gist" },
-                    ["i"] = {
-                        ["name"] = "+issues",
-                        ["a"] = { ":Octo issue create<CR>", "create" },
-                        ["b"] = { ":Octo issue browser<CR>", "browser" },
-                        ["c"] = { ":Octo issue close<CR>", "close" },
-                        ["e"] = { ":Octo issue edit<CR>", "edit" },
-                        ["l"] = { ":Octo issue list<CR>", "list" },
-                        ["o"] = { ":Octo issue reopen<CR>", "reopen" },
-                        ["r"] = { ":Octo issue reload<CR>", "reload" },
-                        ["s"] = { ":Octo issue search<CR>", "search" },
-                        ["u"] = { ":Octo issue url<CR>", "url" },
-                    },
-                    ["l"] = {
-                        ["name"] = "+label",
-                        ["a"] = { ":Octo label add<CR>", "add" },
-                        ["c"] = { ":Octo label create<CR>", "create" },
-                        ["r"] = { ":Octo label remove<CR>", "remove" },
-                    },
-                    ["p"] = {
-                        ["name"] = "+pull-requests",
-                        ["a"] = { ":Octo pr create<CR>", "create" },
-                        ["b"] = { ":Octo pr browser<CR>", "browser" },
-                        ["c"] = { ":Octo pr checkout<CR>", "checkout" },
-                        ["C"] = { ":Octo pr close<CR>", "close" },
-                        ["d"] = { ":Octo pr diff<CR>", "diff" },
-                        ["D"] = { ":Octo pr checks<CR>", "checks" },
-                        ["e"] = { ":Octo pr edit<CR>", "edit" },
-                        ["g"] = { ":Octo pr commits<CR>", "commits" },
-                        ["h"] = { ":Octo pr changes<CR>", "changes" },
-                        ["l"] = { ":Octo pr list<CR>", "list" },
-                        ["m"] = { ":Octo pr merge<CR>", "merge" },
-                        ["o"] = { ":Octo pr reopen<CR>", "reopen" },
-                        ["r"] = { ":Octo pr reload<CR>", "reload" },
-                        ["R"] = { ":Octo pr ready<CR>", "ready" },
-                        ["s"] = { ":Octo pr search<CR>", "search" },
-                        ["u"] = { ":Octo pr url<CR>", "url" },
-                    },
-                    ["r"] = {
-                        ["name"] = "+review",
-                        ["a"] = { ":Octo reviewer add<CR>", "add-reviewer" },
-                        ["b"] = { ":Octo review start<CR>", "start-review" },
-                        ["c"] = {
-                            ":Octo review comments<CR>",
-                            "comments-review",
-                        },
-                        ["d"] = {
-                            ":Octo review discard<CR>",
-                            "discard-review",
-                        },
-                        ["r"] = {
-                            ":Octo review resume<CR>",
-                            "resume-review",
-                        },
-                        ["s"] = {
-                            ":Octo review submit<CR>",
-                            "submit-review",
-                        },
-                    },
-                    ["R"] = {
-                        ["name"] = "+repositories",
-                        ["b"] = { ":Octo repo browser<CR>", "browser" },
-                        ["f"] = { ":Octo repo fork<CR>", "fork" },
-                        ["l"] = { ":Octo repo list<CR>", "list" },
-                        ["u"] = { ":Octo repo url<CR>", "url" },
-                    },
-                    ["t"] = {
-                        ["name"] = "+thread",
-                        ["r"] = { ":Octo thread resolve<CR>", "resolve" },
-                        ["u"] = {
-                            ":Octo thread unresolve<CR>",
-                            "unresolve",
-                        },
-                    },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
+        keys = {
+            -- action
+            { "<leader>gac", ":Octo reaction confused<CR>", desc = "react-confused", silent = true },
+            { "<leader>gad", ":Octo reaction thumbs_down<CR>", desc = "react-thumbs_down", silent = true },
+            { "<leader>gae", ":Octo reaction eyes<CR>", desc = "react-eyes", silent = true },
+            { "<leader>gah", ":Octo reaction heart<CR>", desc = "react-heart", silent = true },
+            { "<leader>gal", ":Octo reaction laugh<CR>", desc = "react-laugh", silent = true },
+            { "<leader>gar", ":Octo reaction rocket<CR>", desc = "react-rocket", silent = true },
+            { "<leader>gat", ":Octo reaction tada<CR>", desc = "react-tada", silent = true },
+            { "<leader>gau", ":Octo reaction thumbs_up<CR>", desc = "react-thumbs_up", silent = true },
+
+            -- comment
+            { "<leader>gCa", ":Octo comment add<CR>", desc = "add", silent = true },
+            { "<leader>gCd", ":Octo comment delete<CR>", desc = "delete", silent = true },
+
+            -- gist
+            { "<leader>gg", ":Octo gist list<CR>", desc = "list-gist", silent = true },
+
+            -- issues
+            { "<leader>gia", ":Octo issue create<CR>", desc = "create", silent = true },
+            { "<leader>gib", ":Octo issue browser<CR>", desc = "browser", silent = true },
+            { "<leader>gic", ":Octo issue close<CR>", desc = "close", silent = true },
+            { "<leader>gie", ":Octo issue edit<CR>", desc = "edit", silent = true },
+            { "<leader>gil", ":Octo issue list<CR>", desc = "list", silent = true },
+            { "<leader>gio", ":Octo issue reopen<CR>", desc = "reopen", silent = true },
+            { "<leader>gir", ":Octo issue reload<CR>", desc = "reload", silent = true },
+            { "<leader>gis", ":Octo issue search<CR>", desc = "search", silent = true },
+            { "<leader>giu", ":Octo issue url<CR>", desc = "url", silent = true },
+
+            -- label
+            { "<leader>gla", ":Octo label add<CR>", desc = "add", silent = true },
+            { "<leader>glc", ":Octo label create<CR>", desc = "create", silent = true },
+            { "<leader>glr", ":Octo label remove<CR>", desc = "remove", silent = true },
+
+            -- pull request
+            { "<leader>gpa", ":Octo pr create<CR>", desc = "create", silent = true },
+            { "<leader>gpb", ":Octo pr browser<CR>", desc = "browser", silent = true },
+            { "<leader>gpc", ":Octo pr checkout<CR>", desc = "checkout", silent = true },
+            { "<leader>gpC", ":Octo pr close<CR>", desc = "close", silent = true },
+            { "<leader>gpd", ":Octo pr diff<CR>", desc = "diff", silent = true },
+            { "<leader>gpD", ":Octo pr checks<CR>", desc = "checks", silent = true },
+            { "<leader>gpe", ":Octo pr edit<CR>", desc = "edit", silent = true },
+            { "<leader>gpg", ":Octo pr commits<CR>", desc = "commits", silent = true },
+            { "<leader>gph", ":Octo pr changes<CR>", desc = "changes", silent = true },
+            { "<leader>gpl", ":Octo pr list<CR>", desc = "list", silent = true },
+            { "<leader>gpm", ":Octo pr merge<CR>", desc = "merge", silent = true },
+            { "<leader>gpo", ":Octo pr reopen<CR>", desc = "reopen", silent = true },
+            { "<leader>gpr", ":Octo pr reload<CR>", desc = "reload", silent = true },
+            { "<leader>gpR", ":Octo pr ready<CR>", desc = "ready", silent = true },
+            { "<leader>gps", ":Octo pr search<CR>", desc = "search", silent = true },
+            { "<leader>gpu", ":Octo pr url<CR>", desc = "url", silent = true },
+
+            -- review
+            { "<leader>gra", ":Octo reviewer add<CR>", desc = "add-reviewer", silent = true },
+            { "<leader>grb", ":Octo review start<CR>", desc = "start-review", silent = true },
+            { "<leader>grc", ":Octo review comments<CR>", desc = "comments-review", silent = true },
+            { "<leader>grd", ":Octo review discard<CR>", desc = "discard-review", silent = true },
+            { "<leader>grr", ":Octo review resume<CR>", desc = "resume-review", silent = true },
+            { "<leader>grs", ":Octo review submit<CR>", desc = "submit-review", silent = true },
+
+            -- repo
+            { "<leader>gRb", ":Octo repo browser<CR>", desc = "browser", silent = true },
+            { "<leader>gRf", ":Octo repo fork<CR>", desc = "fork", silent = true },
+            { "<leader>gRl", ":Octo repo list<CR>", desc = "list", silent = true },
+            { "<leader>gRu", ":Octo repo url<CR>", desc = "url", silent = true },
+
+            -- thread
+            { "<leader>gtr", ":Octo thread resolve<CR>", desc = "resolve", silent = true },
+            { "<leader>gtu", ":Octo thread unresolve<CR>", desc = "unresolve", silent = true },
+        },
     },
 
     { --[[ worktree ]]
