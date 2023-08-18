@@ -133,13 +133,12 @@ local snippets = {
 
 local autosnippets = {
     s( -- for loop with dynamic variables
-        { trig = "for(%a)-", regTrig = true },
+        { trig = "for([%w_]+) ", regTrig = true },
         fmt(
             [[
-                for(let {} = 1; {} <= {}; {}++) {{
+                for (let {} = 1; {} <= {}; {}++) {{
                     {}
                 }}
-                {}
             ]],
             {
                 d(1, function(_, snip)
@@ -149,7 +148,6 @@ local autosnippets = {
                 i(2, "num"),
                 rep(1),
                 i(3, "// TODO"),
-                i(4),
             }
         )
     ),
