@@ -483,31 +483,23 @@ return {
 
     { --[[ yanky ]]
         "gbprod/yanky.nvim",
-        event = "VeryLazy",
+        keys = {
+            { "<c-n>", "<Plug>(YankyCycleForward)", mode = { "n" } },
+            { "<c-p>", "<Plug>(YankyCycleBackward)", mode = { "n" } },
+            { "P", "<Plug>(YankyPutBefore)", mode = { "n" } },
+            { "P", "<Plug>(YankyPutBefore)", mode = { "x" } },
+            { "gP", "<Plug>(YankyGPutBefore)", mode = { "n" } },
+            { "gP", "<Plug>(YankyGPutBefore)", mode = { "x" } },
+            { "gp", "<Plug>(YankyGPutAfter)", mode = { "n" } },
+            { "gp", "<Plug>(YankyGPutAfter)", mode = { "x" } },
+            { "p", "<Plug>(YankyPutAfter)", mode = { "n" } },
+            { "p", "<Plug>(YankyPutAfter)", mode = { "x" } },
+            { "y", "<Plug>(YankyYank)", mode = { "n" } },
+            { "y", "<Plug>(YankyYank)", mode = { "x" } },
+        },
         dependencies = { "kkharji/sqlite.lua" },
         init = function()
             require("telescope").load_extension("yank_history")
-
-            local nmap = lk.nmap
-            local xmap = lk.xmap
-
-            -- put mappings
-            nmap("P", "<Plug>(YankyPutBefore)", {})
-            nmap("gP", "<Plug>(YankyGPutBefore)", {})
-            nmap("gp", "<Plug>(YankyGPutAfter)", {})
-            nmap("p", "<Plug>(YankyPutAfter)", {})
-            xmap("P", "<Plug>(YankyPutBefore)", {})
-            xmap("gP", "<Plug>(YankyGPutBefore)", {})
-            xmap("gp", "<Plug>(YankyGPutAfter)", {})
-            xmap("p", "<Plug>(YankyPutAfter)", {})
-
-            -- yanking mappings
-            nmap("y", "<Plug>(YankyYank)", {})
-            xmap("y", "<Plug>(YankyYank)", {})
-
-            -- cycle mappings
-            nmap("<c-n>", "<Plug>(YankyCycleForward)", {})
-            nmap("<c-p>", "<Plug>(YankyCycleBackward)", {})
         end,
         config = {
             highlight = {
