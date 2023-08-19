@@ -103,27 +103,20 @@ return {
     { --[[ possession ]]
         "jedrzejboczar/possession.nvim",
         event = { "VimEnter" },
-        init = function()
-            require("telescope").load_extension("possession")
-            local wk = require("which-key")
-            wk.register({
-                ["x"] = {
-                    ["name"] = "+possession",
-                    ["c"] = { ":PossessionClose<CR>", "close" },
-                    ["d"] = { ":PossessionDelete<Space>", "delete" },
-                    ["l"] = { ":PossessionLoad<Space>", "load" },
-                    ["m"] = { ":PossessionMigrate<Space>", "migrate" },
-                    ["o"] = { ":Telescope possession list<CR>", "search" },
-                    ["p"] = { ":PossessionShow<Space>", "show" },
-                    ["r"] = { ":PossessionRename<Space>", "rename" },
-                    ["s"] = { ":PossessionSave<Space>", "save" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
+        keys = {
+            { "<leader>xc", ":PossessionClose<CR>", desc = "close", silent = true },
+            { "<leader>xd", ":PossessionDelete<Space>", desc = "delete", silent = true },
+            { "<leader>xl", ":PossessionLoad<Space>", desc = "load", silent = true },
+            { "<leader>xm", ":PossessionMigrate<Space>", desc = "migrate", silent = true },
+            { "<leader>xo", ":Telescope possession list<CR>", desc = "search", silent = true },
+            { "<leader>xp", ":PossessionShow<Space>", desc = "show", silent = true },
+            { "<leader>xr", ":PossessionRename<Space>", desc = "rename", silent = true },
+            { "<leader>xs", ":PossessionSave<Space>", desc = "save", silent = true },
+        },
         opts = {
             silent = true,
             autosave = {
-                current = true, -- or fun(name): boolean
+                current = true,
                 on_load = true,
                 on_quit = true,
             },
@@ -745,6 +738,64 @@ return {
     { --[[ browse ]]
         "lalitmee/browse.nvim",
         dev = true,
+        keys = {
+            {
+                "<leader>sb",
+                function()
+                    require("browse").browse()
+                end,
+                desc = "browse",
+            },
+            {
+                "<leader>sc",
+                function()
+                    require("utils.cht").cht()
+                end,
+                desc = "cheatsheet",
+            },
+            {
+                "<leader>sd",
+                function()
+                    require("browse").devdocs.search()
+                end,
+                desc = "devdocs-search",
+            },
+            {
+                "<leader>sf",
+                function()
+                    require("browse").devdocs.search_with_filetype()
+                end,
+                desc = "devdocs-filetype-search",
+            },
+            {
+                "<leader>si",
+                function()
+                    require("browse").input_search()
+                end,
+                desc = "input-search",
+            },
+            {
+                "<leader>sl",
+                function()
+                    require("browse").open_bookmarks()
+                end,
+                desc = "bookmarks",
+            },
+            {
+                "<leader>sm",
+                function()
+                    require("browse").mdn.search()
+                end,
+                desc = "mdn-search",
+            },
+            {
+                "<leader>ss",
+                function()
+                    require("utils.cht").stack_overflow()
+                end,
+                desc = "stackoverflow",
+            },
+        },
         config = function()
             -- local bookmarks = {
             --     ["docs"] = {
@@ -845,61 +896,6 @@ return {
                 provider = "duckduckgo", -- google or bing
                 bookmarks = bookmarks,
             })
-        end,
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["s"] = {
-                    ["b"] = {
-                        function()
-                            require("browse").browse()
-                        end,
-                        "browse",
-                    },
-                    ["c"] = {
-                        function()
-                            require("utils.cht").cht()
-                        end,
-                        "cheatsheet",
-                    },
-                    ["d"] = {
-                        function()
-                            require("browse").devdocs.search()
-                        end,
-                        "devdocs-search",
-                    },
-                    ["f"] = {
-                        function()
-                            require("browse").devdocs.search_with_filetype()
-                        end,
-                        "devdocs-filetype-search",
-                    },
-                    ["i"] = {
-                        function()
-                            require("browse").input_search()
-                        end,
-                        "input-search",
-                    },
-                    ["l"] = {
-                        function()
-                            require("browse").open_bookmarks()
-                        end,
-                        "bookmarks",
-                    },
-                    ["m"] = {
-                        function()
-                            require("browse").mdn.search()
-                        end,
-                        "mdn-search",
-                    },
-                    ["s"] = {
-                        function()
-                            require("utils.cht").stack_overflow()
-                        end,
-                        "stackoverflow",
-                    },
-                },
-            }, { mode = "n", prefix = "<leader>" })
         end,
     },
 

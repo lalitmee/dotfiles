@@ -1,23 +1,13 @@
 local augroup = lk.augroup
-local command = lk.command
 
 return {
     { --[[ neogit ]]
         "NeogitOrg/neogit",
         cmd = { "Neogit" },
+        keys = {
+            { "<leader>gs", ":Neogit<CR>", desc = "status", silent = true },
+        },
         init = function()
-            -- commands
-            command("Neogit", function()
-                require("neogit").open()
-            end)
-
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["s"] = { ":Neogit<CR>", "status" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-
             -- autocmds
             local neogit_notify = function(msg, type)
                 local msg_type = type or "info"
@@ -67,72 +57,65 @@ return {
     { --[[ fugitive ]]
         "tpope/vim-fugitive",
         cmd = { "Git" },
+        keys = {
+            { "<leader>gs", ":Git<CR>", desc = "git-status", silent = true },
+        },
         enabled = false,
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["s"] = { ":Git<CR>", "git-status" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
     },
 
     { --[[ gitsigns ]]
         "lewis6991/gitsigns.nvim",
-        event = { "VeryLazy" },
-        config = function()
-            require("gitsigns").setup({
-                signs = {
-                    add = {
-                        hl = "GitSignsAdd",
-                        text = "│",
-                        numhl = "GitSignsAddNr",
-                        linehl = "GitSignsAddLn",
-                    },
-                    change = {
-                        hl = "GitSignsChange",
-                        text = "│",
-                        numhl = "GitSignsChangeNr",
-                        linehl = "GitSignsChangeLn",
-                    },
-                    delete = {
-                        hl = "GitSignsDelete",
-                        text = "_",
-                        numhl = "GitSignsDeleteNr",
-                        linehl = "GitSignsDeleteLn",
-                    },
-                    topdelete = {
-                        hl = "GitSignsDelete",
-                        text = "‾",
-                        numhl = "GitSignsDeleteNr",
-                        linehl = "GitSignsDeleteLn",
-                    },
-                    changedelete = {
-                        hl = "GitSignsChange",
-                        text = "~",
-                        numhl = "GitSignsChangeNr",
-                        linehl = "GitSignsChangeLn",
-                    },
+        event = "BufReadPost",
+        opts = {
+            signs = {
+                add = {
+                    hl = "GitSignsAdd",
+                    text = "│",
+                    numhl = "GitSignsAddNr",
+                    linehl = "GitSignsAddLn",
                 },
-                numhl = true,
-                linehl = false,
-                watch_gitdir = { interval = 1000 },
-                sign_priority = 6,
-                update_debounce = 200,
-                status_formatter = nil,
-                current_line_blame = false,
-                current_line_blame_opts = {
-                    virt_text = true,
-                    virt_text_pos = "eol",
-                    delay = 500,
+                change = {
+                    hl = "GitSignsChange",
+                    text = "│",
+                    numhl = "GitSignsChangeNr",
+                    linehl = "GitSignsChangeLn",
                 },
-                preview_config = {
-                    border = "rounded",
+                delete = {
+                    hl = "GitSignsDelete",
+                    text = "_",
+                    numhl = "GitSignsDeleteNr",
+                    linehl = "GitSignsDeleteLn",
                 },
-                current_line_blame_formatter = "   <author>, <author_time:%R> - <summary>",
-            })
-        end,
+                topdelete = {
+                    hl = "GitSignsDelete",
+                    text = "‾",
+                    numhl = "GitSignsDeleteNr",
+                    linehl = "GitSignsDeleteLn",
+                },
+                changedelete = {
+                    hl = "GitSignsChange",
+                    text = "~",
+                    numhl = "GitSignsChangeNr",
+                    linehl = "GitSignsChangeLn",
+                },
+            },
+            numhl = true,
+            linehl = false,
+            watch_gitdir = { interval = 1000 },
+            sign_priority = 6,
+            update_debounce = 200,
+            status_formatter = nil,
+            current_line_blame = false,
+            current_line_blame_opts = {
+                virt_text = true,
+                virt_text_pos = "eol",
+                delay = 500,
+            },
+            preview_config = {
+                border = "rounded",
+            },
+            current_line_blame_formatter = "   <author>, <author_time:%R> - <summary>",
+        },
     },
 
     { --[[ octo ]]
@@ -213,28 +196,21 @@ return {
     { --[[ worktree ]]
         "ThePrimeagen/git-worktree.nvim",
         keys = {
-            "<leader>gwa",
-            "<leader>gwl",
+            {
+                "<leader>gwa",
+                ":Telescope git_worktree create_git_worktree<CR>",
+                desc = "create-worktree",
+                silent = true,
+            },
+            {
+                "<leader>gwl",
+                ":Telescope git_worktree git_worktrees<CR>",
+                desc = "list-worktrees",
+                silent = true,
+            },
         },
         init = function()
             require("telescope").load_extension("git_worktree")
-
-            local wk = require("which-key")
-            wk.register({
-                ["g"] = {
-                    ["w"] = {
-                        ["name"] = "+worktree",
-                        ["a"] = {
-                            ":Telescope git_worktree create_git_worktree<CR>",
-                            "create-worktree",
-                        },
-                        ["l"] = {
-                            ":Telescope git_worktree git_worktrees<CR>",
-                            "list-worktrees",
-                        },
-                    },
-                },
-            }, { mode = "n", prefix = "<leader>" })
         end,
         enabled = false,
     },

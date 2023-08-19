@@ -247,6 +247,72 @@ return {
             "haydenmeade/neotest-jest",
         },
         cmd = { "Neotest" },
+        keys = {
+            {
+                "<leader>rf",
+                function()
+                    require("neotest").run.run(vim.fn.expand("%"))
+                end,
+                desc = "run-file",
+                silent = true,
+            },
+            {
+                "<leader>rF",
+                function()
+                    require("neotest").run.run({ vim.fn.expand("%"), concurrent = false })
+                end,
+                desc = "run-file-sync",
+                silent = true,
+            },
+            {
+                "<leader>rn",
+                function()
+                    require("neotest").jump.prev({ status = "failed" })
+                end,
+                desc = "next-failed",
+                silent = true,
+            },
+            {
+                "<leader>ro",
+                function()
+                    require("neotest").output.open({ enter = true, short = false })
+                end,
+                desc = "open",
+                silent = true,
+            },
+            {
+                "<leader>rp",
+                function()
+                    require("neotest").jump.next({ status = "failed" })
+                end,
+                desc = "prev-failed",
+                silent = true,
+            },
+            {
+                "<leader>rq",
+                function()
+                    require("neotest").run.stop({ interactive = true })
+                end,
+                desc = "cancel",
+                silent = true,
+            },
+            {
+                "<leader>rr",
+                function()
+                    require("neotest").run.run()
+                end,
+                desc = "nearest",
+                silent = true,
+            },
+            {
+                "<leader>rt",
+                function()
+                    require("neotest").summary.toggle()
+                end,
+                desc = "toggle-summary",
+                silent = true,
+            },
+        },
         config = function()
             local namespace = vim.api.nvim_create_namespace("neotest")
             vim.diagnostic.config({
@@ -279,50 +345,6 @@ return {
                     force_default = true,
                 },
             })
-        end,
-        init = function()
-            local function neotest()
-                return require("neotest")
-            end
-            local function open()
-                neotest().output.open({ enter = true, short = false })
-            end
-            local function run_file()
-                neotest().run.run(vim.fn.expand("%"))
-            end
-            local function run_file_sync()
-                neotest().run.run({ vim.fn.expand("%"), concurrent = false })
-            end
-            local function nearest()
-                neotest().run.run()
-            end
-            local function next_failed()
-                neotest().jump.prev({ status = "failed" })
-            end
-            local function prev_failed()
-                neotest().jump.next({ status = "failed" })
-            end
-            local function toggle_summary()
-                neotest().summary.toggle()
-            end
-            local function cancel()
-                neotest().run.stop({ interactive = true })
-            end
-
-            local wk = require("which-key")
-            wk.register({
-                ["n"] = {
-                    ["name"] = "+neotest",
-                    ["f"] = { run_file, "run-file" },
-                    ["F"] = { run_file_sync, "run-file-sync" },
-                    ["n"] = { next_failed, "next-failed" },
-                    ["o"] = { open, "open" },
-                    ["p"] = { prev_failed, "prev-failed" },
-                    ["q"] = { cancel, "cancel" },
-                    ["r"] = { nearest, "nearest" },
-                    ["t"] = { toggle_summary, "toggle-summary" },
-                },
-            }, { mode = "n", prefix = "<localleader>" })
         end,
         enabled = false,
     },
