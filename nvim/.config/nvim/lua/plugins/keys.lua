@@ -43,7 +43,6 @@ return {
                     ["k"] = { ":WorkingDirectory<CR>", "cwd" },
                     ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
                     ["n"] = { ":!playerctl previous -p spotify<CR>", "spotify-prev" },
-                    ["o"] = { ":Telescope messages messages<CR>", "search-messages" },
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
                     ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
                     ["w"] = { ":SetWallpaper<CR>", "change-system-background" },
@@ -187,7 +186,6 @@ return {
                     ["p"] = { ":PickEverything<CR>", "everything" },
                     ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
                 },
-
 
                 ["l"] = {
                     ["name"] = "+lsp",
