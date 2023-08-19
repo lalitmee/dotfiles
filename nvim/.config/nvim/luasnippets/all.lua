@@ -10,6 +10,9 @@ local fmt = env["fmt"]
 
 return {
     s({ trig = "td", name = "TODO" }, {
+        f(function()
+            return vim.bo.commentstring:gsub("%%s", " ")
+        end),
         c(1, {
             t("TODO: "),
             t("NOTE: "),
