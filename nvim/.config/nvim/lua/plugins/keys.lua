@@ -41,7 +41,6 @@ return {
                     ["a"] = { ":FzfLua<space>", "fzf-lua-builtin" },
                     ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
                     ["k"] = { ":WorkingDirectory<CR>", "cwd" },
-                    ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
                     ["n"] = { ":!playerctl previous -p spotify<CR>", "spotify-prev" },
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
                     ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
@@ -222,7 +221,6 @@ return {
 
                 ["n"] = {
                     ["name"] = "+neovim",
-                    ["a"] = { ":Telescope lazy<CR>", "telescope-lazy" },
                     ["h"] = { ":checkhealth<CR>", "check-health" },
                     ["p"] = { ":Lazy profile<CR>", "lazy-profile" },
                     ["o"] = { ":Lazy<CR>", "packages-status" },
@@ -266,7 +264,6 @@ return {
 
                 ["p"] = {
                     ["name"] = "+project",
-                    ["/"] = { ":Telescope live_grep_args<CR>", "live-grep-args" },
                     ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
                     ["f"] = { ":Telescope find_files<cr>", "find-files" },
                     ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
@@ -321,7 +318,6 @@ return {
                     ["s"] = { ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
                     ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
                     ["p"] = { ":Telescope live_grep<CR>", "live-grep" },
-                    ["P"] = { ":Telescope live_grep_args<CR>", "live-grep-args" },
                     ["r"] = { ":Telescope resume<CR>", "resume-search" },
                     ["R"] = { ":Telescope reloader<CR>", "reloaders" },
                     ["t"] = { ":Telescope treesitter<CR>", "treesitter" },
