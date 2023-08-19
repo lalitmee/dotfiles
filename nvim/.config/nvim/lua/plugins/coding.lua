@@ -46,9 +46,9 @@ return {
         "antonk52/markdowny.nvim",
         ft = { "markdown" },
         keys = {
-            { "<C-b>", mode = "v" },
-            { "<C-k>", mode = "v" },
-            { "<C-i>", mode = "v" },
+            { "<C-b>", mode = { "v", "n" } },
+            { "<C-k>", mode = { "v", "n" } },
+            { "<C-i>", mode = { "v", "n" } },
         },
         opts = {},
     },
@@ -58,8 +58,9 @@ return {
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
-        ft = "markdown",
-        cmd = { "MarkdownPreview" },
+        keys = {
+            { "<leader>am", ":MarkdownPreview<CR>", desc = "markdown-preview", silent = true },
+        },
     },
 
     { --[[ go ]]
@@ -69,7 +70,38 @@ return {
 
     { --[[ neogen ]]
         "danymat/neogen",
-        cmd = { "Neogen" },
+        keys = {
+            {
+                "<localleader>dd",
+                ":Neogen<CR>",
+                desc = "doc-this",
+                silent = true,
+            },
+            {
+                "<localleader>dc",
+                function()
+                    require("neogen").generate({ type = "class" })
+                end,
+                desc = "doc-this-class",
+                silent = true,
+            },
+            {
+                "<localleader>df",
+                function()
+                    require("neogen").generate({ type = "func" })
+                end,
+                desc = "doc-this-function",
+                silent = true,
+            },
+            {
+                "<localleader>dt",
+                function()
+                    require("neogen").generate({ type = "type" })
+                end,
+                desc = "doc-this-type",
+                silent = true,
+            },
+        },
         opts = {
             snippet_engine = "luasnip",
             enabled = true,
@@ -106,20 +138,6 @@ return {
                 },
             },
         },
-        init = function()
-            local neogen = require("neogen")
-            local wk = require("which-key")
-            wk.register({
-            -- stylua: ignore
-            ["d"] = {
-                ["name"] = "+docstrings",
-                ["d"] = { ":Neogen<CR>", "doc-this" },
-                ["c"] = { function() neogen.generate({ type = "class" }) end, "doc-this-class" },
-                ["f"] = { function() neogen.generate({ type = "func" }) end, "doc-this-function" },
-                ["t"] = { function() neogen.generate({ type = "type" }) end, "doc-this-type" },
-            },
-            }, { mode = "n", prefix = "<localleader>" })
-        end,
     },
 
     { --[[ refactoring ]]
@@ -196,44 +214,24 @@ return {
         },
         cmd = { "DeleteDebugPrints" },
         opts = {},
+        enabled = false,
     },
 
     { --[[ oversser ]]
         "stevearc/overseer.nvim",
-        cmd = {
-            "OverseerTaskAction",
-            "OverseerBuild",
-            "OverseerClose",
-            "OverseerDeleteBundle",
-            "OverseerRunCmd",
-            "OverseerLoadBundle",
-            "OverseerOpen",
-            "OverseerQuickAction",
-            "OverseerRun",
-            "OverseerSaveBundle",
-            "OverseerToggle",
+        keys = {
+            { "<leader>roa", ":OverseerTaskAction<CR>", desc = "task-action", silent = true },
+            { "<leader>rob", ":OverseerBuild<CR>", desc = "build", silent = true },
+            { "<leader>roc", ":OverseerClose<CR>", desc = "close", silent = true },
+            { "<leader>rod", ":OverseerDeleteBundle<CR>", desc = "delete-bundle", silent = true },
+            { "<leader>rof", ":OverseerRunCmd<CR>", desc = "run-cmd", silent = true },
+            { "<leader>rol", ":OverseerLoadBundle<CR>", desc = "load-bundle", silent = true },
+            { "<leader>roo", ":OverseerOpen<CR>", desc = "open", silent = true },
+            { "<leader>roq", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
+            { "<leader>ror", ":OverseerRun<CR>", desc = "run", silent = true },
+            { "<leader>ros", ":OverseerSaveBundle ", desc = "save-bundle", silent = true },
+            { "<leader>rot", ":OverseerToggle<CR>", desc = "toggle", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["r"] = {
-                    ["o"] = {
-                        ["name"] = "+overseer",
-                        ["a"] = { ":OverseerTaskAction<CR>", "task-action" },
-                        ["b"] = { ":OverseerBuild<CR>", "build" },
-                        ["c"] = { ":OverseerClose<CR>", "close" },
-                        ["d"] = { ":OverseerDeleteBundle<CR>", "delete-bundle" },
-                        ["f"] = { ":OverseerRunCmd<CR>", "run-cmd" },
-                        ["l"] = { ":OverseerLoadBundle<CR>", "load-bundle" },
-                        ["o"] = { ":OverseerOpen<CR>", "open" },
-                        ["q"] = { ":OverseerQuickAction<CR>", "quick-action" },
-                        ["r"] = { ":OverseerRun<CR>", "run" },
-                        ["s"] = { ":OverseerSaveBundle ", "save-bundle" },
-                        ["t"] = { ":OverseerToggle<CR>", "toggle" },
-                    },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             templates = { "tasks" },
         },

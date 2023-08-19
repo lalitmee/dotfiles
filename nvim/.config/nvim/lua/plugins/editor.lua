@@ -521,7 +521,7 @@ return {
 
     { --[[ matchup ]]
         "andymass/vim-matchup",
-        event = "VeryLazy",
+        event = "BufReadPost",
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,
@@ -750,7 +750,7 @@ return {
 
     { --[[ vim-cool ]]
         "romainl/vim-cool",
-        event = { "VeryLazy" },
+        keys = { "/" },
     },
 
     { --[[ neo-composer ]]
