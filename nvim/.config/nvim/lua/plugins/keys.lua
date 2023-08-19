@@ -42,7 +42,6 @@ return {
                     ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
                     ["k"] = { ":WorkingDirectory<CR>", "cwd" },
                     ["l"] = { ":Telescope zoxide list<CR>", "zoxide-list" },
-                    ["m"] = { ":MarkdownPreview<CR>", "markdown-preview" },
                     ["n"] = { ":!playerctl previous -p spotify<CR>", "spotify-prev" },
                     ["o"] = { ":Telescope messages messages<CR>", "search-messages" },
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
