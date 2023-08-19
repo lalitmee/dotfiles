@@ -61,6 +61,25 @@ return {
         dependencies = {
             {
                 "pmizio/typescript-tools.nvim",
+                keys = {
+                    { "<leader>le", "<cmd>TSToolsAddMissingImports<cr>", desc = "add-missing-imports", silent = true },
+                    { "<leader>lj", "<cmd>TSToolsFixAll<cr>", desc = "fix-all", silent = true },
+                    {
+                        "<leader>lg",
+                        "<cmd>TSToolsGoToSourceDefinition<cr>",
+                        desc = "go-to-source-definition",
+                        silent = true,
+                    },
+                    { "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", desc = "organize-imports", silent = true },
+                    { "<leader>lO", "<cmd>TSToolsSortImports<cr>", desc = "sort-imports", silent = true },
+                    {
+                        "<leader>lu",
+                        "<cmd>TSToolsRemoveUnusedImports<cr>",
+                        desc = "remove-unused-imports",
+                        silent = true,
+                    },
+                    { "<leader>lx", "<cmd>TSToolsRemoveUnused<cr>", desc = "remove-unused", silent = true },
+                },
                 opts = {
                     on_attach = lsp_utils.on_attach,
                     root_dir = function(fname)
@@ -98,19 +117,15 @@ return {
                 "lvimuser/lsp-inlayhints.nvim",
                 event = "LspAttach",
                 opts = {},
-                init = function()
-                    local wk = require("which-key")
-                    wk.register({
-                        ["l"] = {
-                            ["h"] = {
-                                function()
-                                    require("lsp-inlayhints").toggle()
-                                end,
-                                "lsp-inlayhints-toggle",
-                            },
-                        },
-                    }, { mode = "n", prefix = "<leader>" })
-                end,
+                keys = {
+                    {
+                        "<leader>lh",
+                        function()
+                            require("lsp-inlayhints").toggle()
+                        end,
+                        desc = "lsp-inlayhints-toggle",
+                    },
+                },
                 enbaled = false,
             },
         },

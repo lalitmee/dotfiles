@@ -4,6 +4,10 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "BufReadPost",
+        keys = {
+            { "<leader>lf", desc = "peek-function-definition", mode = { "n", "v" } },
+            { "<leader>lc", desc = "peek-class-definition", mode = { "n", "v" } },
+        },
         dependencies = {
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
@@ -32,25 +36,7 @@ return {
                 cmd = "TSPlaygroundToggle",
             },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["l"] = {
-                    ["name"] = "+docstrings",
-                    ["f"] = "peek-function-definition",
-                    ["c"] = "peek-class-definition",
-                },
-            }, { mode = { "n", "v" }, prefix = "<leader>" })
-        end,
         config = function()
-            ----------------------------------------------------------------------
-            -- NOTE: treesitter settings {{{
-            ----------------------------------------------------------------------
-            local parsers = require("nvim-treesitter.parsers")
-
-            ----------------------------------------------------------------------
-            -- NOTE: treesitter setup {{{
-            ----------------------------------------------------------------------
             require("nvim-treesitter.configs").setup({
                 ensure_installed = vim.g.enable_treesitter_ft,
                 sync_install = true,
@@ -145,20 +131,10 @@ return {
                     },
                 },
             })
-            -- }}}
-            ----------------------------------------------------------------------
 
-            ----------------------------------------------------------------------
-            -- NOTE: octo settings {{{
-            -- this is to allow markdown highlighting in octo buffers
-            ----------------------------------------------------------------------
+            local parsers = require("nvim-treesitter.parsers")
             local parser_config = parsers.get_parser_configs()
             parser_config.markdown.filetype_to_parsername = "octo"
-            -- }}}
-            ----------------------------------------------------------------------
-
-            -- }}}
-            ----------------------------------------------------------------------
         end,
     },
 

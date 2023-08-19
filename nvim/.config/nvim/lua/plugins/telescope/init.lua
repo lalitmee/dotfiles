@@ -156,7 +156,6 @@ return {
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-v>"] = action_layout.toggle_mirror,
                             ["<C-k>"] = lga_actions.quote_prompt(),
-                            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
                             ["<esc>"] = actions.close,
                         },
                         n = {
