@@ -185,19 +185,10 @@ return {
                     ["c"] = { ":PickColor<CR>", "color-picker" },
                     ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
                     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
-                    ["i"] = { ":ISwap<CR>", "iswap" },
                     ["p"] = { ":PickEverything<CR>", "everything" },
-                    ["l"] = { ":ISwapWithLeft<CR>", "swap-with-left" },
-                    ["n"] = { ":ISwapNode<CR>", "swap-nodes" },
-                    ["r"] = { ":ISwapWithRight<CR>", "swap-with-right" },
                     ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
-                    ["w"] = { ":ISwapWith<CR>", "swap-with" },
                 },
 
-                ["k"] = {
-                    require("ts-node-action").node_action,
-                    "Trigger Node Action",
-                },
 
                 ["l"] = {
                     ["name"] = "+lsp",

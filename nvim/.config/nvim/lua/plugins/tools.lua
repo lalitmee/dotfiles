@@ -6,12 +6,7 @@ return {
         "mbbill/undotree",
         cmd = { "UndotreeToggle" },
         keys = {
-            {
-                "<leader>au",
-                ":UndotreeToggle<CR>",
-                desc = "undo-tree",
-                silent = true,
-            },
+            { "<leader>au", ":UndotreeToggle<CR>", desc = "undo-tree", silent = true },
         },
     },
 
@@ -73,17 +68,19 @@ return {
 
     { --[[ surround ]]
         "kylechui/nvim-surround",
-        keys = {
-            "ds",
-            "ys",
-            "cs",
-        },
+        keys = { "ds", "ys", "cs" },
         opts = {},
     },
 
     { --[[ iswap ]]
         "mizlan/iswap.nvim",
-        cmd = { "ISwapWith", "ISwap" },
+        keys = {
+            { "<leader>ii", ":ISwap<CR>", desc = "iswap", silent = true },
+            { "<leader>il", ":ISwapWithLeft<CR>", desc = "swap-with-left", silent = true },
+            { "<leader>in", ":ISwapNode<CR>", desc = "swap-nodes", silent = true },
+            { "<leader>ir", ":ISwapWithRight<CR>", desc = "swap-with-right", silent = true },
+            { "<leader>iw", ":ISwapWith<CR>", desc = "swap-with", silent = true },
+        },
     },
 
     { --[[ nap ]]
@@ -137,21 +134,13 @@ return {
     { --[[ auto-session ]]
         "rmagatti/auto-session",
         event = { "VimEnter" },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["a"] = {
-                    ["d"] = {
-                        ":Autosession delete<CR>",
-                        "delete-session-telescope",
-                    },
-                    ["D"] = { ":SessionDelete<CR>", "delete-current-session" },
-                    ["l"] = { ":Autosession search<CR>", "search-sessions" },
-                    ["s"] = { ":SessionSave<CR>", "save-session" },
-                    ["S"] = { ":SessionRestore<CR>", "restore-session" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
+        keys = {
+            { "<leader>ad", ":Autosession delete<CR>", desc = "delete-session-telescope", silent = true },
+            { "<leader>aD", ":SessionDelete<CR>", desc = "delete-current-session", silent = true },
+            { "<leader>al", ":Autosession search<CR>", desc = "search-sessions", silent = true },
+            { "<leader>as", ":SessionSave<CR>", desc = "save-session", silent = true },
+            { "<leader>aS", ":SessionRestore<CR>", desc = "restore-session", silent = true },
+        },
         config = function()
             local function save_tabby_tab_names()
                 local cmds = {}
