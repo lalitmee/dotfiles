@@ -731,7 +731,9 @@ return {
 
     { --[[ muren ]]
         "AckslD/muren.nvim",
-        cmd = { "MurenToggle" },
+        keys = {
+            { "<leader>sj", "<CMD>MurenToggle<CR>", desc = "toggle-muren", silent = true },
+        },
         opts = {
             patterns_width = 50,
             patterns_height = 20,
@@ -810,6 +812,10 @@ return {
     { --[[ scrptease ]]
         "tpope/vim-scriptease",
         cmd = { "Messages", "Runtime", "Scriptnames", "Time", "Verbose" },
+        keys = {
+            { "<leader>hm", ":Messages<CR>", desc = "messages", silent = true },
+            { "<leader>hv", ":Verbose<space>", desc = "verbose", silent = true },
+        },
     },
 
     { --[[ unimpaired ]]

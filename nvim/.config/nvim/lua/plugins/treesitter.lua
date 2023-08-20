@@ -7,6 +7,7 @@ return {
         keys = {
             { "<leader>lf", desc = "peek-function-definition", mode = { "n", "v" } },
             { "<leader>lc", desc = "peek-class-definition", mode = { "n", "v" } },
+            { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "show-highlights-info", silent = true },
         },
         dependencies = {
             {
