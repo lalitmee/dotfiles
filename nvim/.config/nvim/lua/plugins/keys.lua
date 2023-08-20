@@ -170,11 +170,7 @@ return {
                 },
 
                 ["h"] = {
-                    ["name"] = "+highlight",
-                    ["h"] = {
-                        ":TSHighlightCapturesUnderCursor<CR>",
-                        "show-highlights-info",
-                    },
+                    ["name"] = "+help",
                 },
 
                 ["i"] = {
