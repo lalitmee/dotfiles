@@ -132,32 +132,39 @@ local snippets = {
 }
 
 local autosnippets = {
-    s( -- for loop with dynamic variables
-        { trig = "for([%w_]+) ", regTrig = true },
-        fmt(
-            [[
-                for (let {} = 1; {} <= {}; {}++) {{
-                    {}
-                }}
-            ]],
-            {
-                d(1, function(_, snip)
-                    return sn(1, i(1, snip.captures[1]))
-                end),
-                rep(1),
-                i(2, "num"),
-                rep(1),
-                i(3, "// TODO"),
-            }
-        )
-    ),
+    -- s( -- for loop with dynamic variables
+    --     { trig = "for([%w_]+)", regTrig = true },
+    --     fmt(
+    --         [[
+    --             for (let {} = 1; {} <= {}; {}++) {{
+    --                 {}
+    --             }}
+    --         ]],
+    --         {
+    --             d(1, function(_, snip)
+    --                 return sn(1, i(1, snip.captures[1]))
+    --             end),
+    --             rep(1),
+    --             i(2, "num"),
+    --             rep(1),
+    --             i(3, "// TODO"),
+    --         }
+    --     )
+    -- ),
 
-    s({ trig = "ftodo(%d%d%d%d)", regTrig = true, name = "todo for removing FF" }, {
-        t("// TODO: remove this while removing FF QPD_"),
-        f(function(_, snip)
-            return snip.captures[1]
-        end),
-    }),
+    s(
+        { trig = "ff(%d%d%d%d)", regTrig = true, name = "todo for removing FF" },
+        fmt([[// TODO: {} while removing QPD_{}]], {
+            c(1, {
+                t("remove this"),
+                t("remove this block"),
+                t("rename this without `New`"),
+            }),
+            f(function(_, snip)
+                return snip.captures[1]
+            end),
+        })
+    ),
 }
 
 return snippets, autosnippets
