@@ -356,16 +356,6 @@ return {
 
     { --[[ sg.nvim ]]
         "sourcegraph/sg.nvim",
-        cmd = {
-            "CodyAsk",
-            "CodyChat",
-            "CodyContext",
-            "CodyDo",
-            "CodyExplain",
-            "CodyHistory",
-            "CodyToggle",
-            "CodyFloat",
-        },
         keys = {
             {
                 "<leader>sg",
@@ -404,7 +394,7 @@ return {
             },
             {
                 "<leader>cf",
-                "<cmd>CodyFloat<CR>",
+                ":CodyFloat<space>",
                 desc = "cody-float",
                 mode = { "n", "x" },
             },
