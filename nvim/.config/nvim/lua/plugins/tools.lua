@@ -26,6 +26,7 @@ return {
     },
 
     { --[[ autolist ]]
+        enabled = false,
         "gaoDean/autolist.nvim",
         ft = {
             "gitcommit",
@@ -745,6 +746,7 @@ return {
                     require("browse").browse()
                 end,
                 desc = "browse",
+                mode = { "n", "x" },
             },
             {
                 "<leader>sc",
@@ -773,6 +775,7 @@ return {
                     require("browse").input_search()
                 end,
                 desc = "input-search",
+                mode = { "n", "x" },
             },
             {
                 "<leader>sl",
@@ -780,6 +783,7 @@ return {
                     require("browse").open_bookmarks()
                 end,
                 desc = "bookmarks",
+                mode = { "n", "x" },
             },
             {
                 "<leader>sm",
@@ -787,6 +791,7 @@ return {
                     require("browse").mdn.search()
                 end,
                 desc = "mdn-search",
+                mode = { "n", "x" },
             },
             {
                 "<leader>ss",

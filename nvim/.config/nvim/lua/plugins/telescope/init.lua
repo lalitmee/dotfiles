@@ -2,6 +2,14 @@ return {
     { --[[ telescope.nvim ]]
         "nvim-telescope/telescope.nvim",
         cmd = { "Telescope" },
+        keys = {
+
+            -- project
+            { "<leader>pf", ":Telescope find_files<cr>", desc = "find-files", silent = true },
+            { "<leader>pg", ":Telescope git_files<CR>", desc = "find-git-files", silent = true },
+            { "<leader>ps", ":Telescope live_grep<CR>", desc = "project-search", silent = true },
+            { "<leader>pw", ":Telescope grep_string<CR>", desc = "string-search", silent = true, mode = { "n", "v" } },
+        },
         dependencies = {
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
