@@ -53,10 +53,10 @@ return {
                 },
 
                 sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lua", keyword_length = 3 },
+                    { name = "nvim_lsp", keyword_length = 1 },
+                    { name = "nvim_lua", keyword_length = 1 },
                     { name = "luasnip" },
-                    { name = "buffer", keyword_length = 3 },
+                    { name = "buffer", keyword_length = 1 },
                     { name = "path" },
                     { name = "nvim_lsp_signature_help" },
                 }),
@@ -318,7 +318,7 @@ return {
 
             -- <c-l> is selecting within a list of options.
             -- This is useful for choice nodes (introduced in the forthcoming episode 2)
-            vim.keymap.set("i", "<c-l>", function()
+            vim.keymap.set({ "i", "s" }, "<c-l>", function()
                 if ls.choice_active() then
                     ls.change_choice(1)
                 end
@@ -513,7 +513,7 @@ return {
 
     { --[[ matchup ]]
         "andymass/vim-matchup",
-        event = "BufReadPost",
+        event = "BufRead",
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,
@@ -681,52 +681,53 @@ return {
 
     { --[[ spectre ]]
         "nvim-pack/nvim-spectre",
-        cmd = {
-            "Spectre",
-            "SpectreOpen",
-            "SpectreCurWord",
-            "SpectreVisual",
-            "SpectreCurFileSearch",
+        keys = {
+            {
+                "<leader>s/",
+                function()
+                    require("spectre").open_file_search()
+                end,
+                desc = "file-search",
+                silent = true,
+            },
+            {
+                "<leader>so",
+                function()
+                    require("spectre").open()
+                end,
+                desc = "open",
+                silent = true,
+            },
+            {
+                "<leader>sw",
+                function()
+                    require("spectre").open_visual({ select_word = true })
+                end,
+                desc = "current-word-search",
+                silent = true,
+            },
+            {
+                "<leader>so",
+                function()
+                    require("spectre").open_visual()
+                end,
+                desc = "spectre-visual-search",
+                silent = true,
+                mode = "v",
+            },
         },
-        config = function()
-            local spectre = require("spectre")
-
-            spectre.setup({
-                default = {
-                    find = {
-                        options = { "ignore-case", "hidden", "line-number" },
-                    },
+        opts = {
+            default = {
+                find = {
+                    options = { "ignore-case", "hidden", "line-number" },
                 },
-                highlight = {
-                    ui = "String",
-                    search = "DiffDelete",
-                    replace = "DiffChange",
-                },
-            })
-
-            ----------------------------------------------------------------------
-            -- NOTE: commands {{{
-            ----------------------------------------------------------------------
-
-            command("SpectreOpen", function()
-                spectre.open()
-            end)
-
-            command("SpectreCurWord", function()
-                spectre.open_visual({ select_word = true })
-            end)
-
-            command("SpectreVisual", function()
-                spectre.open_visual()
-            end, { range = "%" })
-
-            command("SpectreCurFileSearch", function()
-                spectre.open_file_search()
-            end, { range = "%" })
-
-            -- }}}
-            ----------------------------------------------------------------------
-        end,
+            },
+            highlight = {
+                ui = "String",
+                search = "DiffDelete",
+                replace = "DiffChange",
+            },
+        },
     },
 
     { --[[ muren ]]

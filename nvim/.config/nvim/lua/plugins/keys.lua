@@ -260,13 +260,6 @@ return {
 
                 ["p"] = {
                     ["name"] = "+project",
-                    ["b"] = { ":Telescope buffers<CR>", "find-buffers" },
-                    ["f"] = { ":Telescope find_files<cr>", "find-files" },
-                    ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
-                    ["g"] = { ":Telescope git_files<CR>", "find-git-files" },
-                    ["p"] = { ":Telescope projects<CR>", "projects" },
-                    ["s"] = { ":Telescope live_grep<CR>", "project-search" },
-                    ["w"] = { ":Telescope grep_string<CR>", "string-search" },
                 },
 
                 ["q"] = {
@@ -286,10 +279,7 @@ return {
 
                 ["s"] = {
                     ["name"] = "+search-and-replace",
-                    ["/"] = { ":SpectreCurFileSearch<CR>", "file-search" },
                     ["r"] = { ":Telescope resume<CR>", "live-grep-resume" },
-                    ["o"] = { ":SpectreOpen<CR>", "open" },
-                    ["w"] = { ":SpectreCurWord<CR>", "current-word-search" },
                 },
 
                 ["t"] = {
@@ -305,10 +295,7 @@ return {
                     ["g"] = { ":Telescope git_status<CR>", "modified-git-files" },
                     ["h"] = { ":Telescope command_history<CR>", "command-history" },
                     ["i"] = { ":Telescope luasnip<CR>", "snippets" },
-                    ["l"] = {
-                        ":Telescope current_buffer_fuzzy_find<CR>",
-                        "telescope-buffer-lines",
-                    },
+                    ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
                     ["m"] = { ":Telescope man_pages<CR>", "man-pages" },
                     ["n"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
                     ["s"] = { ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
@@ -389,11 +376,35 @@ return {
             }
 
             local visual_mode_leader_key_maps = {
-                ["s"] = { ":SpectreVisual<CR>", "spectre-visual-search" },
-
                 ["a"] = {
                     ["name"] = "+actions",
                     ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
+                },
+
+                ["n"] = {
+                    ["l"] = {
+                        function()
+                            local filetype = vim.bo.filetype
+                            local filepath = vim.fn.expand("%")
+                            if filetype == "lua" then
+                                vim.cmd([[
+                                    silent! write
+                                    luafile %
+                                    ]])
+                            elseif filetype == "vim" then
+                                vim.cmd([[
+                                    silent! write
+                                    source %
+                                    ]])
+                            else
+                                vim.cmd([[
+                                    silent! write
+                                    ]])
+                            end
+                            vim.notify(filepath, 2, { title = " Save and Execute" })
+                        end,
+                        "save-and-execute",
+                    },
                 },
 
                 ["C"] = {
