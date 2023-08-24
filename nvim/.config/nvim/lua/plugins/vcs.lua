@@ -230,4 +230,13 @@ return {
             },
         },
     },
+
+    { --[[ openingh ]]
+        "almo7aya/openingh.nvim",
+        keys = {
+            { "<leader>gO", ":OpenInGHRepo<CR>", desc = "open-github-repository", silent = true },
+            { "<leader>gf", ":OpenInGHFile<CR>", desc = "open-file-github", silent = true },
+            { "<leader>gL", ":OpenInGHFileLines<CR>", desc = "open-lines-github", silent = true, mode = { "n", "v" } },
+        },
+    },
 }

@@ -72,6 +72,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "cfc8824cc1db316a276b36517f093baccb8e799a" },
   "octo.nvim": { "branch": "master", "commit": "22328c578bc013fa4b0cef3d00af35efe0c0f256" },
   "oil.nvim": { "branch": "master", "commit": "bfa0e8705eb83a0724aed6d5dc9d21aa62a8986b" },
+  "openingh.nvim": { "branch": "main", "commit": "2719e5759ecf4b9a2d492fbf52d03d2e6fc6126a" },
   "org-bullets.nvim": { "branch": "main", "commit": "6e0d60e901bb939eb526139cb1f8d59065132fd9" },
   "orgmode": { "branch": "master", "commit": "6b6eb8eabbed4d95568fd1f5374a3dff7ed51a3b" },
   "overseer.nvim": { "branch": "master", "commit": "020f63d4cb97f54b61caa533ad9d176c543ef0ab" },
