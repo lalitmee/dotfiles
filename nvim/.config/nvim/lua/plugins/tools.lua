@@ -861,6 +861,8 @@ return {
             -- }
 
             local bookmarks = {
+                ["i3wm-docs"] = "https://i3wm.org/docs/",
+                ["i3wm-discussions"] = "https://github.com/i3/i3/discussions",
                 ["ThePrimeagen"] = "https://github.com/ThePrimeagen/.dotfiles",
                 ["akinsho"] = "https://github.com/akinsho/dotfiles",
                 ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
