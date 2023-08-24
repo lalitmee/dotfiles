@@ -21,9 +21,9 @@ config.color_scheme = "Cobalt2"
 config.colors = {}
 config.colors.background = "#193549"
 
-config.font = wezterm.font("Operator Mono Lig Book", { weight = "Medium" })
-config.cell_width = 1.1
-config.line_height = 1.1
+config.font = wezterm.font("IosevkaMonaco Nerd Font", { weight = "Medium" })
+config.cell_width = 1.0
+config.line_height = 1.0
 config.font_size = 10
 
 -- default is true, has more "native" look
