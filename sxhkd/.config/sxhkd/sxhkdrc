@@ -14,7 +14,7 @@ super + shift + Return
 #    hyper
 
 super + shift + f
-    thunar
+    ~/.config/i3/scripts/launchfm
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -259,20 +259,16 @@ super + b
 
 # >> version control -> lazygit
 super + g
-    i3run --summon --title version-control -- kitty --title version-control -e lazygit
+    i3run --instance slack -- slack
 
-# >> music plaer -> cmus
+# >> music plaer -> spotify
 super + m
-    i3run --summon --title cmus -- kitty --title cmus -e cmus
+    i3run --instance spotify -- spotify
 
 # >> terminal -> kitty
 super + o
-    i3run --summon --title kitty-terminal -- kitty --title kitty-terminal,kitty-terminal
-
-# >> file manager -> ranger
-super + r
-    i3run --summon --title file-manager -- kitty --title file-manager -e ranger
-#}}}
+    i3run --instance kitty-scratchpad -- kitty
+#}}}```
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
