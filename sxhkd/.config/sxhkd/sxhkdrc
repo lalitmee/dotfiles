@@ -19,12 +19,6 @@ super + shift + Return
 #-------------------------------------------------------------------------------
 # NOTE: editors {{{
 #-------------------------------------------------------------------------------
-super + n
-   ~/Desktop/Softwares/editors/neovide/neovide
-
-super + shift + n
-   ~/goneovim/goneovim
-
 super + shift + o
    flatpak run org.gnu.emacs
 
@@ -242,6 +236,10 @@ alt + y
 #-------------------------------------------------------------------------------
 # NOTE: scratchpads {{{
 #-------------------------------------------------------------------------------
+# editor -> neovide
+super + n
+    i3run --summon --instance neovide -- neovide
+
 # >> system monitor -> bottom
 super + b
     i3run --summon --title monitor -- kitty --title monitor -e btm
@@ -261,6 +259,14 @@ super + m
 # >> file-manager -> Thunar
 super + t
     i3run --class Thunar --summon --command thunar
+
+# >> station
+super + a
+    i3run --class Station --summon --instance station
+
+# >> sticky-notes -> xpad
+super + x
+    i3run --class xpad --summon --command xpad
 #}}}```
 #-------------------------------------------------------------------------------
 
