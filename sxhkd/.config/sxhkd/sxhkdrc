@@ -13,8 +13,6 @@ super + shift + Return
 # super + shift + Return
 #    hyper
 
-super + shift + f
-    ~/.config/i3/scripts/launchfm
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -39,23 +37,23 @@ super + shift + o
 super + d
    ~/.config/rofi/launchers/type-1/launcher.sh
 
-super + shift + v
-   ~/.config/rofi/applets/bin/volume.sh
+# super + shift + v
+#    ~/.config/rofi/applets/bin/volume.sh
 
-super + shift + b
-   ~/.config/rofi/applets/bin/battery.sh
+# super + shift + b
+#    ~/.config/rofi/applets/bin/battery.sh
 
 super + shift + m
    ~/.config/rofi/applets/bin/mpd.sh
 
-super + shift + a
-   ~/.config/rofi/applets/bin/apps.sh
+# super + shift + a
+#    ~/.config/rofi/applets/bin/apps.sh
 
 super + p
    ~/.config/rofi/applets/bin/powermenu.sh
 
-super + shift + u
-   ~/.config/rofi/applets/bin/quicklinks.sh
+# super + shift + u
+#    ~/.config/rofi/applets/bin/quicklinks.sh
 
 super + shift + s
    flameshot gui
@@ -69,20 +67,11 @@ super + shift + w
 #-------------------------------------------------------------------------------
 # NOTE: applications {{{
 #-------------------------------------------------------------------------------
-super + shift + f
-    firefox
+# super + shift + f
+#     firefox
 
-super + shift + b
-    brave-browser
-
-ctrl + space
-    ulauncher
-
-alt + t
-    todoist
-
-ctrl + alt + n
-    termite 'ncmpcpp' -e ncmpcpp
+# super + shift + b
+#     brave-browser
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -257,17 +246,21 @@ alt + y
 super + b
     i3run --summon --title monitor -- kitty --title monitor -e btm
 
-# >> version control -> lazygit
+# >> terminal -> kitty
+super + o
+    i3run --summon --title kitty-terminal -- kitty --title kitty-terminal,kitty-terminal
+
+# >> slack
 super + g
-    i3run --instance slack -- slack
+    i3run --summon --instance slack -- slack
 
 # >> music plaer -> spotify
 super + m
-    i3run --instance spotify -- spotify
+    i3run --summon --instance spotify -- spotify
 
-# >> terminal -> kitty
-super + o
-    i3run --instance kitty-scratchpad -- kitty
+# >> file-manager -> Thunar
+super + t
+    i3run --class Thunar --summon --command thunar
 #}}}```
 #-------------------------------------------------------------------------------
 
