@@ -266,7 +266,7 @@ super + a
 
 # >> sticky-notes -> xpad
 super + x
-    i3run --class xpad --summon --command xpad
+    i3run --class xpad --summon --mouse --command xpad
 #}}}```
 #-------------------------------------------------------------------------------
 
