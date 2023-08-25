@@ -37,8 +37,8 @@ super + d
 # super + shift + b
 #    ~/.config/rofi/applets/bin/battery.sh
 
-super + shift + m
-   ~/.config/rofi/applets/bin/mpd.sh
+# super + shift + m
+#    ~/.config/rofi/applets/bin/mpd.sh
 
 # super + shift + a
 #    ~/.config/rofi/applets/bin/apps.sh
@@ -267,6 +267,10 @@ super + a
 # >> sticky-notes -> xpad
 super + x
     i3run --class xpad --summon --mouse --command xpad
+
+# >> sticky-notes -> xpad
+super + shift + m
+    i3run --summon --instance work-notes -- kitty --instance work-notes -e nvim ~/Desktop/Github/notes/notes/index.md
 #}}}```
 #-------------------------------------------------------------------------------
 
