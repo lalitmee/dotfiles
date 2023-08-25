@@ -1,0 +1,23 @@
+decorations 1
+height 500
+width 500
+confirm_destroy 1
+edit_lock 0
+sticky_on_start 1
+tray_enabled 1
+tray_click_configuration 1
+back NULL
+use_back 0
+text NULL
+use_text 0
+fontname Iosevka Monaco Expanded 12
+toolbar 1
+auto_hide_toolbar 1
+scrollbar 1
+buttons New, Delete, Separator, Cut, Copy, Paste, Separator, Undo, Redo
+autostart_wait_systray 1
+autostart_delay 0
+autostart_new_pad 0
+autostart_display_pads 2
+hide_from_taskbar 0
+hide_from_task_switcher 0
