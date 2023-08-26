@@ -358,70 +358,24 @@ return {
         "sourcegraph/sg.nvim",
         keys = {
             {
-                "<leader>sg",
-                "<cmd>SourcegraphSearch<CR>",
-                desc = "sourcegraph-search",
-            },
-            {
-                "<leader>sL",
-                "<cmd>SourcegraphLink<CR>",
-                desc = "sourcegraph-link",
-            },
-            {
                 "<leader>sF",
                 function()
                     require("sg.extensions.telescope").fuzzy_search_results()
                 end,
                 desc = "sourcegraph-fuzzy-search",
             },
-            {
-                "<leader>cd",
-                ":CodyDo<space>",
-                desc = "cody-do",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>ca",
-                ":CodyAsk<space>",
-                desc = "cody-ask",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>cc",
-                "<cmd>CodyChat<CR>",
-                desc = "cody-chat",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>cf",
-                ":CodyFloat<space>",
-                desc = "cody-float",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>ct",
-                "<cmd>CodyToggle<CR>",
-                desc = "cody-toggle",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>cT",
-                "<cmd>CodyTask<CR>",
-                desc = "cody-task",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>ch",
-                "<cmd>CodyHistory<CR>",
-                desc = "cody-history",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>cC",
-                "<cmd>CodyContext<CR>",
-                desc = "cody-context",
-                mode = { "n", "x" },
-            },
+            { "<leader>cC", "<cmd>CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
+            { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
+            { "<leader>cc", "<cmd>CodyContext<CR>", desc = "cody-context", mode = { "n", "x" } },
+            { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
+            { "<leader>cf", ":CodyFloat<space>", desc = "cody-float", mode = { "n", "x" } },
+            { "<leader>cn", "<cmd>CodyTaskNext<CR>", desc = "cody-task-next", mode = { "n", "x" } },
+            { "<leader>cp", "<cmd>CodyTaskPrev<CR>", desc = "cody-task-prev", mode = { "n", "x" } },
+            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
+            { "<leader>cv", "<cmd>CodyTaskView<CR>", desc = "cody-task-view", mode = { "n", "x" } },
+            { "<leader>cy", "<cmd>CodyTaskAccept<CR>", desc = "cody-task-accept", mode = { "n", "x" } },
+            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
+            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
         },
         build = "nvim -l build/init.lua",
         opts = {
