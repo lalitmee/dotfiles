@@ -21,7 +21,7 @@ config.color_scheme = "Cobalt2"
 config.colors = {}
 config.colors.background = "#193549"
 
-config.font = wezterm.font("Fira Code", { weight = "Regular" })
+config.font = wezterm.font("Monaco", { weight = "Regular" })
 config.cell_width = 1.0
 config.line_height = 1.0
 config.font_size = 10
