@@ -55,7 +55,15 @@ return {
                 sources = cmp.config.sources({
                     { name = "nvim_lsp", keyword_length = 1 },
                     { name = "nvim_lua", keyword_length = 1 },
-                    { name = "luasnip" },
+                    {
+                        name = "luasnip",
+                        group_index = 1,
+                        option = { use_show_condition = true },
+                        entry_filter = function()
+                            local context = require("cmp.config.context")
+                            return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
+                        end,
+                    },
                     { name = "buffer", keyword_length = 1 },
                     { name = "path" },
                     { name = "nvim_lsp_signature_help" },
