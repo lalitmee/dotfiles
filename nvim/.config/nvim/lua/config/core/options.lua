@@ -348,7 +348,7 @@ o.titlelen = 70
 -- NOTE: utilities {{{
 ----------------------------------------------------------------------
 o.lazyredraw = false
-o.showmode = false
+o.showmode = true -- using this for `hardtime.nvim`
 o.showmatch = true
 o.showcmd = true
 opt.sessionoptions = {
