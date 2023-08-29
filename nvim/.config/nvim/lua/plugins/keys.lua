@@ -99,10 +99,7 @@ return {
                     ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnostics" },
                     ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnostics" },
                     ["q"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
-                    ["v"] = {
-                        ":ShowLineDiagnosticInFloat<CR>",
-                        "diagnostic-float-preview",
-                    },
+                    ["v"] = { ":ShowLineDiagnosticInFloat<CR>", "diagnostic-float-preview" },
                 },
 
                 ["f"] = {
@@ -375,62 +372,8 @@ return {
                 },
             }
 
-            local visual_mode_leader_key_maps = {
-                ["a"] = {
-                    ["name"] = "+actions",
-                    ["n"] = { ":NeuralPrompt<CR>", "neural-prompt" },
-                },
-
-                ["n"] = {
-                    ["l"] = {
-                        function()
-                            local filetype = vim.bo.filetype
-                            local filepath = vim.fn.expand("%")
-                            if filetype == "lua" then
-                                vim.cmd([[
-                                    silent! write
-                                    luafile %
-                                    ]])
-                            elseif filetype == "vim" then
-                                vim.cmd([[
-                                    silent! write
-                                    source %
-                                    ]])
-                            else
-                                vim.cmd([[
-                                    silent! write
-                                    ]])
-                            end
-                            vim.notify(filepath, 2, { title = " Save and Execute" })
-                        end,
-                        "save-and-execute",
-                    },
-                },
-
-                ["C"] = {
-                    ["name"] = "+ChatGPT",
-                    ["a"] = { ":ChatGPTRun add_tests<CR>", "chatgpt-add-tests" },
-                    ["d"] = { ":ChatGPTRun docstring<CR>", "chatgpt-docstring" },
-                    ["f"] = { ":ChatGPTRun fix_bugs<CR>", "chatgpt-fix-bugs" },
-                    ["g"] = {
-                        ":ChatGPTRun grammar_correction<CR>",
-                        "chatgpt-grammar-correction",
-                    },
-                    ["o"] = {
-                        ":ChatGPTRun optimize_code<CR>",
-                        "chatgpt-optimize-code",
-                    },
-                    ["s"] = { ":ChatGPTRun summarize<CR>", "chatgpt-summarize" },
-                    ["t"] = { ":ChatGPTRun translate<CR>", "chatgpt-translate" },
-                },
-            }
-
-            wk.register(local_leader_key_maps, { prefix = "<localleader>" })
-            wk.register(leader_key_maps, { prefix = "<leader>" })
-            wk.register(visual_mode_leader_key_maps, {
-                prefix = "<leader>",
-                mode = "v",
-            })
+            wk.register(local_leader_key_maps, { prefix = "<localleader>", mode = { "n", "v" } })
+            wk.register(leader_key_maps, { prefix = "<leader>", mode = { "n", "v" } })
         end,
     },
 
