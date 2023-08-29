@@ -11,6 +11,6 @@
 " set guifont=MonoLisa:h10
 " set guifont=Monaco:h10
 " set guifont=MonoLisa\ Nerd\ Font:h9
-set guifont=Operator\ Mono\ Lig\ Book:h11
+" set guifont=Operator\ Mono\ Lig\ Book:h11
 " set guifont=OverpassMono\ Nerd\ Font:h10
 " set guifont=SauceCodePro\ Nerd\ Font:h10
