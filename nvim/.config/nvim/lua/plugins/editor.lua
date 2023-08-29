@@ -1080,7 +1080,6 @@ return {
             require("telescope").load_extension("scope")
         end,
         config = true,
-        enabled = false,
     },
 
     { --[[ edgy ]]
