@@ -129,6 +129,32 @@ local snippets = {
             }
         )
     ),
+
+    -- test cases snippets
+    s(
+        { trig = "mocks", name = "create mocks for the test case" },
+        fmt(
+            [[
+        const {} = [
+            {{
+                request: {{
+                    query: {}
+                    variables: {{{}}},
+                }},
+                result: {{
+                    data: {{{}}}
+                }}
+            }},
+        ]
+        ]],
+            {
+                i(1, "mocks"),
+                i(2, "query"),
+                i(3, "variables"),
+                i(4, "data"),
+            }
+        )
+    ),
 }
 
 local autosnippets = {
