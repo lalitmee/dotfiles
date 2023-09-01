@@ -40,7 +40,7 @@ return {
                     ["name"] = "+actions",
                     ["a"] = { ":FzfLua<space>", "fzf-lua-builtin" },
                     ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
-                    ["k"] = { ":WorkingDirectory<CR>", "cwd" },
+                    ["k"] = { ":WorkingDirectory<CR>", "current-working-directory" },
                     ["n"] = { ":!playerctl previous -p spotify<CR>", "spotify-prev" },
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
                     ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
