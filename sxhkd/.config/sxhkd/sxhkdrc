@@ -240,6 +240,10 @@ alt + y
 super + n
     i3run --summon --instance neovide -- neovide
 
+# terminal -> wezterm
+super + w
+    i3run --summon --instance wezterm-terminal -- flatpak run org.wezfurlong.wezterm
+
 # >> system monitor -> bottom
 super + b
     i3run --summon --title monitor -- kitty --title monitor -e btm
@@ -251,6 +255,10 @@ super + o
 # >> slack
 super + g
     i3run --summon --instance slack -- slack
+
+# password manager -> 1password
+super + shift + g
+    i3run --summon --instance 1password -- 1password
 
 # >> music plaer -> spotify
 super + m
