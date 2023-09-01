@@ -302,7 +302,6 @@ return {
                     ["R"] = { ":Telescope reloader<CR>", "reloaders" },
                     ["t"] = { ":Telescope treesitter<CR>", "treesitter" },
                     ["T"] = { ":Telescope tags<CR>", "project-tags" },
-                    ["y"] = { ":Telescope yank_history<CR>", "yank-history" },
                 },
 
                 ["v"] = {
@@ -356,8 +355,6 @@ return {
                 },
 
                 -- x is occupied by possession
-
-                ["y"] = { ":YankyRingHistory<CR>", "yank-ring-history" },
             }
 
             local local_leader_key_maps = {
