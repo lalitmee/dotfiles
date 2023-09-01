@@ -443,9 +443,17 @@ setw -g mode-keys vi
 #-------------------------------------------------------------------------------
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
+
 # # catppuccin theme
 # set -g @plugin 'catppuccin/tmux'
 # set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
+
+# # rose-pine theme
+# set -g @plugin 'rose-pine/tmux'
+# set -g @rose_pine_variant 'main'
+
+# # vscode theme
+# set -g @plugin 'khanghh/tmux-dark-plus-theme'
 
 # tmux pomodoro
 set -g @plugin 'olimorris/tmux-pomodoro-plus'
