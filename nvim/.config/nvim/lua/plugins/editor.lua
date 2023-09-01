@@ -504,6 +504,8 @@ return {
             { "p", "<Plug>(YankyPutAfter)", mode = { "x" } },
             { "y", "<Plug>(YankyYank)", mode = { "n" } },
             { "y", "<Plug>(YankyYank)", mode = { "x" } },
+            { "<leader>ay", ":YankyRingHistory<CR>", desc = "yank-ring-history", mode = { "n", "x" } },
+            { "<leader>ty", ":Telescope yank_history<CR>", desc = "yank-history", mode = { "n", "x" } },
         },
         dependencies = { "kkharji/sqlite.lua" },
         init = function()
