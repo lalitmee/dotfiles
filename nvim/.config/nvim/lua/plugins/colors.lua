@@ -10,6 +10,7 @@ return {
                 require("colorbuddy").colorscheme("cobalt2")
             end,
             dev = true,
+            -- enabled = false,
         },
 
         { --[[ catppuccin ]]
@@ -90,7 +91,10 @@ return {
                 require("vscode").setup({
                     transparent = true,
                     italic_comments = true,
-                    disable_nvimtree_bg = true,
+
+                    group_overrides = {
+                        NormalFloat = { bg = nil },
+                    },
                 })
                 require("vscode").load()
             end,
