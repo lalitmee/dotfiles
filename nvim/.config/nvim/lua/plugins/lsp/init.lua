@@ -261,6 +261,7 @@ return {
                     -- CODE ACTIONS --
                     ------------------
                     cda.eslint_d,
+                    cda.eslint,
                     cda.shellcheck,
                     cda.refactoring,
                 },
