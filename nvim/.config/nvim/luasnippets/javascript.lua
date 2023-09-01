@@ -1,3 +1,4 @@
+local ls = require("luasnip")
 local session = require("luasnip.session")
 
 local env = session.config.snip_env
@@ -152,6 +153,100 @@ local snippets = {
                 i(2, "query"),
                 i(3, "variables"),
                 i(4, "data"),
+            }
+        )
+    ),
+
+    s(
+        { trig = "imrt", name = "import inital things for test case" },
+        t({
+            'import { MockedProvider } from "@apollo/client/testing";',
+            'import "@testing-library/jest-dom/extend-expect";',
+            'import { render } from "@testing-library/react";',
+            'import React from "react";',
+        })
+    ),
+
+    -- s(
+    --     { trig = "caf", name = "create smart function" },
+    --     fmt(
+    --         [[
+    --             const {} = ({}) => {}
+    --         ]],
+    --         {
+    --             i(1, "name"),
+    --             i(2, "args"),
+    --             c(3, {
+    --                 i(1, "// TODO: function body"),
+    --                 sn(1, {
+    --                     t({ "{", "" }),
+    --                     i(1, "\n// TODO: function body\n"),
+    --                     t({ "", "}" }),
+    --                 }),
+    --             }),
+    --         }
+    --     )
+    -- ),
+
+    s(
+        { trig = "tid", name = "add attribute for test id" },
+        fmt(
+            [[
+            data-testid={id}
+            ]],
+            {
+                id = i(1, "TEST_ID"),
+            }
+        )
+    ),
+
+    s(
+        { trig = "befo", name = "before each or before all" },
+        fmt(
+            [[
+                {}(() => {{
+                {}
+                }})
+            ]],
+            {
+                c(1, {
+                    t("beforeEach"),
+                    t("beforeAll"),
+                }),
+                i(2, "// TODO: body"),
+            }
+        )
+    ),
+
+    s(
+        { trig = "bfa", name = "before all" },
+        fmt(
+            [[
+                beforeAll(() => {{
+                    {}
+                }})
+            ]],
+            {
+                i(1, "// TODO: body"),
+            }
+        )
+    ),
+
+    s(
+        { trig = "cst", name = "export const object" },
+        fmt(
+            [[
+                {} const {} = {{
+                    {}
+                }}
+            ]],
+            {
+                c(1, {
+                    t("export"),
+                    t(""),
+                }),
+                i(2, "name"),
+                i(3, "// TODO: body"),
             }
         )
     ),

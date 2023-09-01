@@ -189,18 +189,22 @@ return {
                 javascript = {
                     "console.log('%s', %s)",
                     "console.log('%s', { %s })",
+                    "console.log('%s', prettyDOM(%s))",
                 },
                 javascriptreact = {
                     "console.log('%s', %s)",
                     "console.log('%s', { %s })",
+                    "console.log('%s', prettyDOM(%s))",
                 },
                 typescript = {
                     "console.log('%s', %s)",
                     "console.log('%s', { %s })",
+                    "console.log('%s', prettyDOM(%s))",
                 },
                 typescriptreact = {
                     "console.log('%s', %s)",
                     "console.log('%s', { %s })",
+                    "console.log('%s', prettyDOM(%s))",
                 },
             },
         },
