@@ -139,11 +139,15 @@ local snippets = {
         const {} = [
             {{
                 request: {{
-                    query: {}
-                    variables: {{{}}},
+                    query: {},
+                    variables: {{
+                        {}
+                    }},
                 }},
                 result: {{
-                    data: {{{}}}
+                    data: {{
+                        {}
+                    }},
                 }}
             }},
         ]
