@@ -346,7 +346,6 @@ return {
                     ["n"] = { ":tabnext<CR>", "next-tab" },
                     ["o"] = { ":only<CR>", "close-other-windows-except-this" },
                     ["p"] = { ":tabprevious<CR>", "previous-tab" },
-                    ["r"] = { ":TabRename<Space>", "rename-tab" },
                     ["s"] = { "<C-W>s", "split-window-below" },
                     ["t"] = { "<C-W>T", "move-split-to-tab" },
                     ["u"] = { "<C-W>x", "swap-window-next" },
@@ -358,8 +357,6 @@ return {
             }
 
             local local_leader_key_maps = {
-                ["/"] = { ":FzfLua live_grep<CR>", "fzf-live-grep" },
-
                 ["t"] = {
                     -- it is reserved for neorg keybindings
                 },
