@@ -90,8 +90,8 @@ M.mappings = function(client)
     -- imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
     -- nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
 
-    nmap("[e", "<cmd>LspGotoPrevDiagnostic<CR>")
-    nmap("]e", "<cmd>LspGotoNextDiagnostic<CR>")
+    nmap("[d", "<cmd>LspGotoPrevDiagnostic<CR>")
+    nmap("]d", "<cmd>LspGotoNextDiagnostic<CR>")
 end
 -- }}}
 ----------------------------------------------------------------------

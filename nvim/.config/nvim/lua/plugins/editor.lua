@@ -548,14 +548,6 @@ return {
         opts = {},
         keys = {
             {
-                "r",
-                mode = "o",
-                function()
-                    require("flash").remote()
-                end,
-                desc = "Remote Flash",
-            },
-            {
                 "R",
                 mode = { "o", "x" },
                 function()
@@ -831,20 +823,22 @@ return {
 
     { --[[ unimpaired ]]
         "tpope/vim-unimpaired",
-        event = "VeryLazy",
-        enabled = false,
+        keys = {
+            { "]", mode = { "n", "o", "x" } },
+            { "[", mode = { "n", "o", "x" } },
+        },
     },
 
     { --[[ abolish ]]
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
         keys = {
-            "crs",
-            "crm",
-            "crc",
-            "cru",
-            "cr-",
-            "cr.",
+            { "crs" },
+            { "crm" },
+            { "crc" },
+            { "cru" },
+            { "cr-" },
+            { "cr." },
             {
                 "<leader>[",
                 ":S/<C-R><C-W>//<LEFT>",
@@ -873,7 +867,7 @@ return {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
         keys = {
-            { "<leader>ar", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
+            { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
         },
         config = function()
             local telescope_extension = { sections = { lualine_a = { "filetype" } }, filetypes = { "TelescopePrompt" } }

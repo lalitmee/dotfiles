@@ -100,6 +100,7 @@ return {
             require("nap").operator("h", require("nap").gitsigns())
             require("nap").operator("f", false)
         end,
+        enabled = false,
     },
 
     { --[[ possession ]]
@@ -565,6 +566,10 @@ return {
 
     { --[[ fzf-lua ]]
         "ibhagwan/fzf-lua",
+        keys = {
+            { "<leader>a/", ":FzfLua live_grep<CR>", desc = "fzf-live-grep", silent = true },
+            { "<leader>ar", ":FzfLua live_grep_resume<CR>", desc = "fzf-live-grep-resume", silent = true },
+        },
         opts = {
             winopts = {
                 width = 0.95,
