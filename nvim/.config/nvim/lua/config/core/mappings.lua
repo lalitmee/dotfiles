@@ -37,8 +37,8 @@ nnoremap("k", "gk", { nowait = true })
 -- map("n", "q:", [[:q]], map_opts) -- NOTE: making q slow
 
 -- tab operations
-nnoremap("<M-Right>", vim.cmd.tabnext)
-nnoremap("<M-Left>", vim.cmd.tabprevious)
+nnoremap("]<Tab>", vim.cmd.tabnext)
+nnoremap("[<Tab>", vim.cmd.tabprevious)
 
 -- from here https://gist.github.com/romainl/0f589e07a079ea4b7a77fd66ef16ebee
 nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']], { silent = true, expr = true })
