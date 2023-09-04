@@ -279,6 +279,11 @@ super + x
 # >> sticky-notes -> xpad
 super + shift + m
     i3run --summon --instance work-notes -- kitty --instance work-notes -e nvim ~/Desktop/Github/notes/notes/index.md
+
+# >> communication -> telegram
+super + u
+    i3run --class TelegramDesktop --summon --instance telegram-desktop --command telegram-desktop
+
 #}}}```
 #-------------------------------------------------------------------------------
 
