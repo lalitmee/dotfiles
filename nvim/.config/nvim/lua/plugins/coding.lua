@@ -244,10 +244,7 @@ return {
     { --[[ neotest ]]
         "nvim-neotest/neotest",
         dependencies = {
-            {
-                "rcarriga/neotest-plenary",
-                dependencies = "nvim-lua/plenary.nvim",
-            },
+            "rcarriga/neotest-plenary",
             "haydenmeade/neotest-jest",
         },
         cmd = { "Neotest" },
@@ -277,11 +274,11 @@ return {
                 silent = true,
             },
             {
-                "<leader>ro",
+                "<leader>rO",
                 function()
                     require("neotest").output.open({ enter = true, short = false })
                 end,
-                desc = "open",
+                desc = "open-neotest-output",
                 silent = true,
             },
             {
@@ -330,23 +327,18 @@ return {
                 discovery = { enabled = true },
                 diagnostic = { enabled = true },
                 floating = { border = lk.style.border.rounded },
-                quickfix = { enabled = false, open = true },
+                quickfix = { enabled = true, open = true },
                 adapters = {
                     require("neotest-jest")({
-                        jestCommand = "npm test --",
+                        jestCommand = "npm run test",
                         env = { CI = true },
                         cwd = function()
                             return vim.fn.getcwd()
                         end,
                     }),
                 },
-                -- overseer.nvim
                 consumers = {
                     overseer = require("neotest.consumers.overseer"),
-                },
-                overseer = {
-                    enabled = true,
-                    force_default = true,
                 },
             })
         end,
