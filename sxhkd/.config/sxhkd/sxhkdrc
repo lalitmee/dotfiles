@@ -170,7 +170,7 @@ super + shift + space
     i3fyra --float
 
 super + z
-    i3zen --width 95 --height 95 --workspace zen
+    i3zen --width 98 --height 98 --workspace zen
 
 super + shift + z
     workspace zen
