@@ -351,4 +351,14 @@ return {
             require("telescope").load_extension("live_grep_args")
         end,
     },
+
+    { --[[ telescope-luasnip ]]
+        "benfowler/telescope-luasnip.nvim",
+        keys = {
+            { "<leader>ia", ":Telescope luasnip<CR>", desc = "luasnip-snippets", silent = true },
+        },
+        init = function()
+            require("telescope").load_extension("luasnip")
+        end,
+    },
 }
