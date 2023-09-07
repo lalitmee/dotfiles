@@ -262,11 +262,13 @@ return {
                 ["q"] = {
                     ["name"] = "+quickfix",
                     ["c"] = { ":cclose<CR>", "close" },
-                    ["l"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
+                    ["h"] = { ":colder<CR>", "older" },
+                    ["l"] = { ":cnewer<CR>", "newer" },
                     ["n"] = { ":cnext<CR>", "next" },
                     ["o"] = { ":copen<CR>", "open" },
                     ["p"] = { ":cprev<CR>", "prev" },
                     ["q"] = { ":qall<CR>", "quit-neovim" },
+                    ["t"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
                 },
 
                 ["r"] = {
