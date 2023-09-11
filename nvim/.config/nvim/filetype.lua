@@ -20,11 +20,11 @@ vim.filetype.add({
         Caddyfile = "conf",
         lfrc = "sh",
         sxhkdrc = "sxhkdrc",
-        [".env"] = "sh",
+        [".env"] = "conf",
     },
     pattern = {
         [".*git/config"] = "gitconfig", -- Included in the plugin
-        ["*.env.*"] = "env",
+        ["*.env.*"] = "conf",
         [".{jscs,jshint,eslint,babel}rc"] = "json",
     },
 })
