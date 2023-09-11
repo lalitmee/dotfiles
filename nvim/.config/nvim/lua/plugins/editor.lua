@@ -711,7 +711,7 @@ return {
             {
                 "<leader>so",
                 function()
-                    require("spectre").open_visual()
+                    require("spectre").open_visual({ select_word = true })
                 end,
                 desc = "spectre-visual-search",
                 silent = true,
@@ -747,7 +747,7 @@ return {
 
     { --[[ vim-cool ]]
         "romainl/vim-cool",
-        keys = { "/", "*", "#" },
+        keys = { "/", "*", "#", ":" },
     },
 
     { --[[ neo-composer ]]
