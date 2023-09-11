@@ -281,8 +281,10 @@ local autosnippets = {
         { trig = "ff(%d%d%d%d)", regTrig = true, name = "todo for removing FF" },
         fmt([[// TODO: {} while removing QPD_{}]], {
             c(1, {
-                t("remove this"),
+                t("delete this file"),
+                t("fix this"),
                 t("remove this block"),
+                t("remove this"),
                 t("rename this without `New`"),
             }),
             f(function(_, snip)
