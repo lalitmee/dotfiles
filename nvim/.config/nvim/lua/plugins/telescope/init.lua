@@ -313,7 +313,7 @@ return {
         keys = {
             { "<leader>pl", ":Telescope smart_open<CR>", desc = "smart-open", silent = true },
         },
-        init = function()
+        config = function()
             require("telescope").load_extension("smart_open")
         end,
         dependencies = {
@@ -327,7 +327,7 @@ return {
         keys = {
             { "<leader>na", ":Telescope lazy<CR>", desc = "telescope-lazy", silent = true },
         },
-        init = function()
+        config = function()
             require("telescope").load_extension("lazy")
         end,
     },
@@ -337,7 +337,7 @@ return {
         keys = {
             { "<leader>al", ":Telescope zoxide list<CR>", desc = "zoxide-list", silent = true },
         },
-        init = function()
+        config = function()
             require("telescope").load_extension("zoxide")
         end,
     },
@@ -347,7 +347,7 @@ return {
         keys = {
             { "<leader>p/", ":Telescope live_grep_args<CR>", desc = "live-grep-args", silent = true },
         },
-        init = function()
+        config = function()
             require("telescope").load_extension("live_grep_args")
         end,
     },
@@ -357,8 +357,18 @@ return {
         keys = {
             { "<leader>ia", ":Telescope luasnip<CR>", desc = "luasnip-snippets", silent = true },
         },
-        init = function()
+        config = function()
             require("telescope").load_extension("luasnip")
+        end,
+    },
+
+    {
+        "piersolenski/telescope-import.nvim",
+        keys = {
+            { "<leader>pi", ":Telescope import<CR>", desc = "telescope-import", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("import")
         end,
     },
 }
