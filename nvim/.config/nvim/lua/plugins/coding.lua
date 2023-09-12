@@ -373,7 +373,6 @@ return {
             { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
             { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
         },
-        build = "nvim -l build/init.lua",
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
