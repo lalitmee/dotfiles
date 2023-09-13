@@ -282,10 +282,12 @@ local autosnippets = {
         fmt([[// TODO: {} while removing QPD_{}]], {
             c(1, {
                 t("delete this file"),
+                t("delete this line"),
                 t("fix this"),
                 t("remove this block"),
                 t("remove this"),
                 t("rename this without `New`"),
+                sn(1, { t("rename this to "), i(1, "newName") }),
             }),
             f(function(_, snip)
                 return snip.captures[1]
