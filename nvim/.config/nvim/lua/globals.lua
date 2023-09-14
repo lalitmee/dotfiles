@@ -552,13 +552,13 @@ end
 -- NOTE: autocommand creator {{{
 ----------------------------------------------------------------------
 ---@class Autocommand
----@field description string
+---@field description? string
 ---@field event  string[] list of autocommand events
 ---@field pattern string[] list of autocommand patterns
 ---@field command string | function
----@field nested  boolean
----@field once    boolean
----@field buffer  number
+---@field nested?  boolean
+---@field once?    boolean
+---@field buffer?  number
 
 ---Create an autocommand
 ---returns the group ID so that it can be cleared or manipulated.
