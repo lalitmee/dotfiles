@@ -56,7 +56,7 @@ wk.register({
                 M.toggle("relativenumber", true)
                 M.toggle("number")
             end,
-            "toggle-relativenumber",
+            "toggle-relative-number",
         },
         ["d"] = { M.toggle_diagnostics, "toggle-diagnostics" },
         ["c"] = {
@@ -64,15 +64,12 @@ wk.register({
                 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
                 M.toggle("conceallevel", false, { 0, conceallevel })
             end,
-            "toggle-conceallevel",
+            "toggle-conceal-level",
         },
         ["j"] = { ":TSJToggle<CR>", "treesj-toggle" },
         ["g"] = {
             ["name"] = "+git",
-            ["b"] = {
-                ":Gitsigns toggle_current_line_blame<CR>",
-                "toggle-blame",
-            },
+            ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
             ["l"] = { ":Gitsigns toggle_linehl<CR>", "toggle-linehl" },
             ["n"] = { ":Gitsigns toggle_numhl<CR>", "toggle-numhl" },
             ["s"] = { ":Gitsigns toggle_signs<CR>", "toggle-signs" },
