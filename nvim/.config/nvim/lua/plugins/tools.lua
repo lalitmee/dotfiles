@@ -628,6 +628,7 @@ return {
             { "<localleader>2", ":HarpoonGotoTerm 2<CR>", "terminal-2", silent = true },
             { "<localleader>3", ":HarpoonGotoTerm 3<CR>", "terminal-3", silent = true },
             { "<localleader>4", ":HarpoonGotoTerm 4<CR>", "terminal-4", silent = true },
+            { "<localleader>5", ":HarpoonGotoTerm 5<CR>", "terminal-5", silent = true },
 
             -- file
             { "<leader>1", ":HarpoonGotoFile 1<CR>", desc = "goto-file-1", silent = true },
@@ -635,10 +636,6 @@ return {
             { "<leader>3", ":HarpoonGotoFile 3<CR>", desc = "goto-file-3", silent = true },
             { "<leader>4", ":HarpoonGotoFile 4<CR>", desc = "goto-file-4", silent = true },
             { "<leader>5", ":HarpoonGotoFile 5<CR>", desc = "goto-file-5", silent = true },
-            { "<leader>6", ":HarpoonGotoFile 6<CR>", desc = "goto-file-6", silent = true },
-            { "<leader>7", ":HarpoonGotoFile 7<CR>", desc = "goto-file-7", silent = true },
-            { "<leader>8", ":HarpoonGotoFile 8<CR>", desc = "goto-file-8", silent = true },
-            { "<leader>9", ":HarpoonGotoFile 9<CR>", desc = "goto-file-9", silent = true },
 
             {
                 "<leader>fa",
@@ -690,12 +687,6 @@ return {
             },
 
             { "<leader>fM", ":Telescope harpoon marks<CR>", desc = "telescope-harpoon", silent = true },
-        },
-        cmd = {
-            "HarpoonGotoTmux",
-            "HarpoonSendCmdToTerm",
-            "HarpoonSendCmdToTmux",
-            "ToggleHarpoonCmdMenu",
         },
         init = function()
             require("telescope").load_extension("harpoon")
