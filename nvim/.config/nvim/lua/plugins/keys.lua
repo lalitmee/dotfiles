@@ -157,7 +157,7 @@ return {
                     },
                     ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
                     ["n"] = { ":GitHunks<CR>", "git-hunks" },
-                    ["o"] = {
+                    ["O"] = {
                         function()
                             vim.cmd([[silent !gh o]])
                         end,
@@ -396,7 +396,7 @@ return {
 ]]
 
                 return {
-                    name = "Git",
+                    name = "gitsigns",
                     hint = hint,
                     config = {
                         color = "pink",
