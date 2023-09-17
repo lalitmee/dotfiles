@@ -182,6 +182,7 @@ return {
             { "<leader>ag", ":LazyGit<CR>", desc = "lazygit", silent = true },
             { "<leader>ah", ":ToggleTerm direction=horizontal<CR>", desc = "horizontal-terminal", silent = true },
             { "<leader>ai", ":ChatGPTSh<CR>", desc = "chatgpt", silent = true },
+            { "<leader>af", ":GhDash<CR>", desc = "gh-dash", silent = true },
             { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "vertical-terminal", silent = true },
         },
         cmd = { "ToggleTerm" },
@@ -231,6 +232,15 @@ return {
                 float_opts = float_opts,
             })
 
+            local gh_dash = Terminal:new({
+                cmd = "gh dash",
+                dir = "git_dir",
+                hidden = true,
+                direction = "float",
+                on_open = float_handler,
+                float_opts = float_opts,
+            })
+
             local lazygit = Terminal:new({
                 cmd = "lazygit",
                 dir = "git_dir",
@@ -267,6 +277,9 @@ return {
             end)
             command("ChatGPTSh", function()
                 chatgpt:toggle()
+            end)
+            command("GhDash", function()
+                gh_dash:toggle()
             end)
         end,
     },
