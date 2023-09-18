@@ -200,7 +200,42 @@ return {
         end,
     },
 
+    { --[[ conform.nvim ]]
+        "stevearc/conform.nvim",
+        event = { "BufWritePre" },
+        init = function()
+            lk.augroup("conform_au", {
+                {
+                    event = { "BufWritePre" },
+                    pattern = { "*" },
+                    command = function(args)
+                        require("conform").format({ bufnr = args.buf })
+                    end,
+                },
+            })
+        end,
+        opts = {
+            format_on_save = {
+                timeout_ms = 500,
+                lsp_fallback = true,
+            },
+            formatters_by_ft = {
+                ["*"] = { "trim_newlines", "trim_whitespace" },
+                go = { "gofmt", "goimports", "golines" },
+                javascript = { "eslint_d", "prettierd" },
+                lua = { "stylua" },
+                rust = { "rustfmt" },
+                sh = { "shfmt" },
+                toml = { "taplo" },
+                typescript = { "eslint_d", "prettierd" },
+                yaml = { "yamlfmt" },
+            },
+        },
+        enabled = false,
+    },
+
     { --[[ null-ls ]]
+        -- enabled = false,
         "jose-elias-alvarez/null-ls.nvim",
         event = { "LspAttach" },
         dependencies = {
