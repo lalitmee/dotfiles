@@ -301,6 +301,7 @@ return {
     },
 
     { --[[ orgmode ]]
+        enabled = false,
         "nvim-orgmode/orgmode",
         ft = { "org" },
         dependencies = {
