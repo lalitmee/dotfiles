@@ -235,8 +235,7 @@ return {
     },
 
     { --[[ null-ls ]]
-        -- enabled = false,
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         event = { "LspAttach" },
         dependencies = {
             "jay-babu/mason-null-ls.nvim",
