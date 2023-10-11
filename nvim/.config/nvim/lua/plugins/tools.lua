@@ -700,10 +700,11 @@ return {
                 silent = true,
             },
 
-            { "<leader>fM", ":Telescope harpoon marks<CR>", desc = "telescope-harpoon", silent = true },
+            -- { "<leader>fM", ":Telescope harpoon marks<CR>", desc = "telescope-harpoon", silent = true },
         },
         init = function()
-            require("telescope").load_extension("harpoon")
+            -- NOTE: slowing the startup time
+            -- require("telescope").load_extension("harpoon")
 
             command("HarpoonGotoFile", function(args)
                 local number = tonumber(args["args"])
