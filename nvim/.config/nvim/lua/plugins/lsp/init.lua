@@ -19,39 +19,40 @@ return {
         enabled = false,
     },
 
+    {
+        "williamboman/mason.nvim",
+        event = "BufEnter",
+        opts = {
+            ui = {
+                border = "rounded",
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗",
+                },
+            },
+        },
+    },
+
     { --[[ mason ]]
         "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-        event = { "VeryLazy" },
-        config = function()
-            require("mason").setup({
-                ui = {
-                    border = "rounded",
-                    icons = {
-                        package_installed = "✓",
-                        package_pending = "➜",
-                        package_uninstalled = "✗",
-                    },
-                },
-            })
-
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "bashls",
-                    "cssls",
-                    "clangd",
-                    "dockerls",
-                    "emmet_ls",
-                    "gopls",
-                    "jsonls",
-                    "pyright",
-                    "rust_analyzer",
-                    "lua_ls",
-                    "tsserver",
-                    "vimls",
-                },
-            })
-        end,
+        event = { "BufEnter" },
+        opts = {
+            ensure_installed = {
+                "bashls",
+                "cssls",
+                "clangd",
+                "dockerls",
+                "emmet_ls",
+                "gopls",
+                "jsonls",
+                "pyright",
+                "rust_analyzer",
+                "lua_ls",
+                "tsserver",
+                "vimls",
+            },
+        },
     },
 
     { --[[ lspconfig ]]
