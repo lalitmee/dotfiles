@@ -747,7 +747,7 @@ return {
 
     { --[[ vim-cool ]]
         "romainl/vim-cool",
-        keys = { "/", "*", "#", ":" },
+        event = "BufRead",
     },
 
     { --[[ neo-composer ]]
