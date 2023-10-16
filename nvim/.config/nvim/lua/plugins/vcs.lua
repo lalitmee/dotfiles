@@ -144,10 +144,10 @@ return {
                 silent = true,
             },
         },
-        init = function()
+        config = function()
+            require("git-worktree").setup()
             require("telescope").load_extension("git_worktree")
         end,
-        enabled = false,
     },
 
     { --[[ diffview ]]
@@ -164,40 +164,5 @@ return {
                 view = { q = "<Cmd>DiffviewClose<CR>" },
             },
         },
-    },
-
-    {
-        "ldelossa/gh.nvim",
-        dependencies = { "ldelossa/litee.nvim" },
-        keys = {
-            { "<leader>gecc", "<cmd>GHCloseCommit<cr>", desc = "commit-Close", silent = true },
-            { "<leader>gece", "<cmd>GHExpandCommit<cr>", desc = "commit-Expand", silent = true },
-            { "<leader>geco", "<cmd>GHOpenToCommit<cr>", desc = "commit-Open To", silent = true },
-            { "<leader>gecp", "<cmd>GHPopOutCommit<cr>", desc = "commit-Pop Out", silent = true },
-            { "<leader>gecz", "<cmd>GHCollapseCommit<cr>", desc = "commit-Collapse", silent = true },
-            { "<leader>geip", "<cmd>GHPreviewIssue<cr>", desc = "issue-Preview", silent = true },
-            { "<leader>gelt", "<cmd>LTPanel<cr>", desc = "Toggle Panel", silent = true },
-            { "<leader>gerb", "<cmd>GHStartReview<cr>", desc = "review-Begin", silent = true },
-            { "<leader>gerc", "<cmd>GHCloseReview<cr>", desc = "review-Close", silent = true },
-            { "<leader>gerd", "<cmd>GHDeleteReview<cr>", desc = "review-Delete", silent = true },
-            { "<leader>gere", "<cmd>GHExpandReview<cr>", desc = "review-Expand", silent = true },
-            { "<leader>gers", "<cmd>GHSubmitReview<cr>", desc = "review-Submit", silent = true },
-            { "<leader>gerz", "<cmd>GHCollapseReview<cr>", desc = "review-Collapse", silent = true },
-            { "<leader>gepc", "<cmd>GHClosePR<cr>", desc = "pr-Close", silent = true },
-            { "<leader>gepd", "<cmd>GHPRDetails<cr>", desc = "pr-Details", silent = true },
-            { "<leader>gepe", "<cmd>GHExpandPR<cr>", desc = "pr-Expand", silent = true },
-            { "<leader>gepo", "<cmd>GHOpenPR<cr>", desc = "pr-Open", silent = true },
-            { "<leader>gepp", "<cmd>GHPopOutPR<cr>", desc = "pr-PopOut", silent = true },
-            { "<leader>gepr", "<cmd>GHRefreshPR<cr>", desc = "pr-Refresh", silent = true },
-            { "<leader>gept", "<cmd>GHOpenToPR<cr>", desc = "pr-Open To", silent = true },
-            { "<leader>gepz", "<cmd>GHCollapsePR<cr>", desc = "pr-Collapse", silent = true },
-            { "<leader>getc", "<cmd>GHCreateThread<cr>", desc = "thread-Create", silent = true },
-            { "<leader>getn", "<cmd>GHNextThread<cr>", desc = "thread-Next", silent = true },
-            { "<leader>gett", "<cmd>GHToggleThread<cr>", desc = "thread-Toggle", silent = true },
-        },
-        config = function()
-            require("litee.lib").setup()
-            require("litee.gh").setup()
-        end,
     },
 }

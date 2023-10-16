@@ -1,5 +1,6 @@
 return {
     { --[[ chatgpt ]]
+        enabled = false,
         "jackMort/ChatGPT.nvim",
         cmd = {
             "ChatGPT",
@@ -15,18 +16,8 @@ return {
         },
     },
 
-    { --[[ backseat ]]
-        "james1236/backseat.nvim",
-        cmd = {
-            "Backseat",
-            "BackseatAsk",
-            "BackseatClear",
-            "BackseatClearLine",
-        },
-        config = true,
-    },
-
     { --[[ codegpt ]]
+        enabled = false,
         "dpayne/CodeGPT.nvim",
         dependencies = {
             "MunifTanjim/nui.nvim",
@@ -69,6 +60,7 @@ return {
     },
 
     { --[[ neogen ]]
+        enabled = false,
         "danymat/neogen",
         keys = {
             {

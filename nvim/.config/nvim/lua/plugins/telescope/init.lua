@@ -14,15 +14,11 @@ return {
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
-                init = function()
+                config = function()
                     require("telescope").load_extension("fzf")
                 end,
             },
         },
-        init = function()
-            require("telescope").load_extension("messages")
-            require("telescope").load_extension("dotfiles")
-        end,
         config = function()
             local telescope = require("telescope")
 
@@ -300,6 +296,10 @@ return {
                     lazy = {},
                 },
             })
+
+            -- loading extensions
+            require("telescope").load_extension("messages")
+            require("telescope").load_extension("dotfiles")
 
             require("plugins.telescope.autocmds")
             require("plugins.telescope.commands")

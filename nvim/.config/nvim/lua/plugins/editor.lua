@@ -507,18 +507,18 @@ return {
             { "<leader>ay", ":YankyRingHistory<CR>", desc = "yank-ring-history", mode = { "n", "x" } },
             { "<leader>ty", ":Telescope yank_history<CR>", desc = "yank-history", mode = { "n", "x" } },
         },
-        dependencies = { "kkharji/sqlite.lua" },
-        init = function()
+        dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
+        config = function()
+            require("yanky").setup({
+                highlight = {
+                    timer = 40,
+                },
+                system_clipboard = {
+                    sync_with_ring = false,
+                },
+            })
             require("telescope").load_extension("yank_history")
         end,
-        config = {
-            highlight = {
-                timer = 40,
-            },
-            system_clipboard = {
-                sync_with_ring = false,
-            },
-        },
     },
 
     { --[[ matchup ]]
@@ -753,10 +753,10 @@ return {
     { --[[ neo-composer ]]
         "ecthelionvi/NeoComposer.nvim",
         dependencies = { "kkharji/sqlite.lua" },
-        init = function()
+        config = function()
+            require("NeoComposer").setup()
             require("telescope").load_extension("macros")
         end,
-        opts = {},
         enabled = false,
     },
 

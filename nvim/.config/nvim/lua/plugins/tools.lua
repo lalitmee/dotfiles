@@ -483,9 +483,6 @@ return {
         dependencies = {
             "nvim-telescope/telescope.nvim",
         },
-        init = function()
-            require("telescope").load_extension("projects")
-        end,
         config = function()
             require("project_nvim").setup({
                 detection_methods = { "pattern", "lsp" },
@@ -496,6 +493,7 @@ return {
                 -- change to the directory of the file in the current tab
                 scope_chdir = "tab",
             })
+            require("telescope").load_extension("projects")
         end,
         enabled = false,
     },
@@ -530,8 +528,8 @@ return {
             { "<leader>pr", function() require("monorepo").remove_project() end, desc = "remove", silent = true },
             { "<leader>pt", function() require("monorepo").toggle_project() end, desc = "toggle", silent = true },
         },
-        config = true,
-        init = function()
+        config = function()
+            require("monorepo").setup()
             require("telescope").load_extension("monorepo")
         end,
         enabled = false,
