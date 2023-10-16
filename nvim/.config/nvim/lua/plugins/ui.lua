@@ -68,6 +68,9 @@ return {
         -- enabled = false,
         "folke/noice.nvim",
         event = { "VeryLazy" },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
         opts = {
             lsp = {
                 progress = { enabled = true },

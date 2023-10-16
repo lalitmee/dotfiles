@@ -172,7 +172,7 @@ return {
 
                 ["i"] = {
                     ["name"] = "+insert-text",
-                    ["c"] = { ":PickColor<CR>", "color-picker" },
+                    ["c"] = { ":Colortils<CR>", "color-picker" },
                     ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
                     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
                     ["p"] = { ":PickEverything<CR>", "everything" },

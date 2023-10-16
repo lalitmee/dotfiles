@@ -124,15 +124,4 @@ return {
         cmd = { "Colortils" },
         opts = {},
     },
-
-    { --[[ transparent ]]
-        "xiyaowong/transparent.nvim",
-        lazy = false,
-        opts = {
-            extra_groups = {
-                "NormalFloat",
-            },
-        },
-        enabled = false,
-    },
 }
