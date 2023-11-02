@@ -10,7 +10,7 @@ back NULL
 use_back 0
 text NULL
 use_text 0
-fontname Fira Code 12
+fontname Berkeley Mono Trial 12
 toolbar 1
 auto_hide_toolbar 1
 scrollbar 1
