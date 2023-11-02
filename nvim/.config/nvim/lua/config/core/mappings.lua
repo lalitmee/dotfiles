@@ -122,7 +122,7 @@ map("n", "N", [[Nzzzv]], map_opts)
 nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
 
 -- go to search and replace mode
-map("n", "<C-s>", [[:%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>]], map_opts)
+map("n", "<C-s>", [[:%s/<C-r><C-w>/<C-r><C-w>/<Left>]], map_opts)
 
 -- clear highlighted search
 map("n", "<cr>", [[:noh<cr>]], map_opts)
