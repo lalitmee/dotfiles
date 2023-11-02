@@ -202,17 +202,6 @@ return {
         },
     },
 
-    { --[[ debugprint ]]
-        "andrewferrier/debugprint.nvim",
-        keys = {
-            "g?",
-            { "g?", mode = "v" },
-        },
-        cmd = { "DeleteDebugPrints" },
-        opts = {},
-        enabled = false,
-    },
-
     { --[[ oversser ]]
         "stevearc/overseer.nvim",
         keys = {
