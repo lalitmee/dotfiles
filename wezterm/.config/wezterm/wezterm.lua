@@ -12,19 +12,21 @@ end
 
 -- This is where you actually apply your config choices
 
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.8
+config.text_background_opacity = 0.8
 
 -- For example, changing the color scheme:
 config.color_scheme = "Cobalt2"
 
 -- -- Set background to same color as neovim
-config.colors = {}
-config.colors.background = "#193549"
+-- config.colors = {}
+-- config.colors.background = "#193549"
 
+-- config.font = wezterm.font("Operator Mono Lig", { weight = "Regular" })
 config.font = wezterm.font("Monaco", { weight = "Regular" })
-config.cell_width = 1.0
-config.line_height = 1.0
-config.font_size = 10
+-- config.cell_width = 1.0
+-- config.line_height = 1.0
+config.font_size = 12
 
 -- default is true, has more "native" look
 config.use_fancy_tab_bar = false
