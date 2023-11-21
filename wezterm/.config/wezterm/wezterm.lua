@@ -18,12 +18,14 @@ config.text_background_opacity = 0.8
 -- For example, changing the color scheme:
 config.color_scheme = "Cobalt2"
 
--- -- Set background to same color as neovim
--- config.colors = {}
--- config.colors.background = "#193549"
+-- Set background to same color as neovim
+config.colors = {}
+config.colors.background = "#193549"
 
--- config.font = wezterm.font("Operator Mono Lig", { weight = "Regular" })
-config.font = wezterm.font("Monaco", { weight = "Regular" })
+config.font = wezterm.font("Operator Mono Lig Book", { weight = "Regular" })
+-- config.font = wezterm.font("Monaspace Argon", { weight = "Regular" })
+-- config.font = wezterm.font("Monaspace Krypton", { weight = "Regular" })
+-- config.font = wezterm.font("Monaspace Neon", { weight = "Regular" })
 -- config.cell_width = 1.0
 -- config.line_height = 1.0
 config.font_size = 12
