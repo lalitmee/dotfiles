@@ -18,6 +18,9 @@ return {
                     "typescript",
                     "typescriptreact",
                 },
+                config = function()
+                    vim.g.skip_ts_context_commentstring_module = true
+                end,
             },
             {
                 "nvim-treesitter/nvim-treesitter-context",
@@ -61,10 +64,6 @@ return {
                     enable = true,
                     updatetime = 25,
                     persist_queries = false,
-                },
-                context_commentstring = {
-                    enable = true,
-                    enable_autocmd = false,
                 },
                 query_linter = {
                     enable = true,
