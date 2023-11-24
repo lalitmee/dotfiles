@@ -23,9 +23,6 @@ config.colors = {}
 config.colors.background = "#193549"
 
 config.font = wezterm.font("Operator Mono Lig Book", { weight = "Regular" })
--- config.font = wezterm.font("Monaspace Argon", { weight = "Regular" })
--- config.font = wezterm.font("Monaspace Krypton", { weight = "Regular" })
--- config.font = wezterm.font("Monaspace Neon", { weight = "Regular" })
 -- config.cell_width = 1.0
 -- config.line_height = 1.0
 config.font_size = 12
