@@ -33,7 +33,7 @@ lsp.handlers["window/showMessage"] = function(_, result, ctx)
     local client = lsp.get_client_by_id(ctx.client_id)
     local lvl = ({ "ERROR", "WARN", "INFO", "DEBUG" })[result.type]
     vim.notify(result.message, lvl, {
-        title = "LSP | " .. client.name,
+        title = "LSP | " .. (client and client.name or ""),
         timeout = 8000,
         keep = function()
             return lvl == "ERROR" or lvl == "WARN"
@@ -45,8 +45,7 @@ lsp.handlers["textDocument/implementation"] = function()
     local params = lsp.util.make_position_params(nil, "utf-8")
 
     lsp.buf_request(0, "textDocument/implementation", params, function(err, result, ctx, config)
-        local bufnr = ctx.bufnr
-        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+        local ft = vim.api.nvim_get_option_value("filetype")
         if ft == "go" then
             local new_result = vim.tbl_filter(function(v)
                 return not string.find(v.uri, "mock_")
@@ -57,7 +56,7 @@ lsp.handlers["textDocument/implementation"] = function()
             end
         end
 
-        lsp.handlers["textDocument/implementation"](err, result, ctx, config)
+        lsp.handlers["textDocument/implementation"]()
         vim.cmd([[normal! zz]])
     end)
 end

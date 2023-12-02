@@ -31,6 +31,22 @@ return {
                 },
             })
 
+            local severity_levels = {
+                vim.diagnostic.severity.ERROR,
+                vim.diagnostic.severity.WARN,
+                vim.diagnostic.severity.INFO,
+                vim.diagnostic.severity.HINT,
+            }
+
+            local get_highest_error_severity = function()
+                for _, level in ipairs(severity_levels) do
+                    local diags = vim.diagnostic.get(0, { severity = { min = level } })
+                    if #diags > 0 then
+                        return level, diags
+                    end
+                end
+            end
+
             local leader_key_maps = {
                 [":"] = { ":Telescope commands<CR>", "commands" },
                 ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
@@ -93,13 +109,48 @@ return {
 
                 ["e"] = {
                     ["name"] = "+errors",
-                    ["d"] = { ":LspDiagnosticDisable<CR>", "disable-diagnostic" },
-                    ["e"] = { ":LspDiagnosticEnable<CR>", "enable-diagnostic" },
+                    ["d"] = {
+                        function()
+                            vim.diagnostic.disable()
+                            vim.notify("LSP diagnostics disabled", vim.log.levels.INFO)
+                        end,
+                        "disable-diagnostic",
+                    },
+                    ["e"] = {
+                        function()
+                            vim.diagnostic.enable()
+                            vim.notify("LSP diagnostics enabled", vim.log.levels.INFO)
+                        end,
+                        "enable-diagnostic",
+                    },
                     ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnostics" },
-                    ["n"] = { ":LspGotoNextDiagnostic<CR>", "next-diagnostics" },
-                    ["p"] = { ":LspGotoPrevDiagnostic<CR>", "prev-diagnostics" },
+                    ["n"] = {
+                        function()
+                            vim.diagnostic.goto_next({
+                                severity = get_highest_error_severity(),
+                                wrap = true,
+                                float = true,
+                            })
+                        end,
+                        "next-diagnostics",
+                    },
+                    ["p"] = {
+                        function()
+                            vim.diagnostic.goto_prev({
+                                severity = get_highest_error_severity(),
+                                wrap = true,
+                                float = true,
+                            })
+                        end,
+                        "prev-diagnostics",
+                    },
                     ["q"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
-                    ["v"] = { ":ShowLineDiagnosticInFloat<CR>", "diagnostic-float-preview" },
+                    ["v"] = {
+                        function()
+                            vim.diagnostic.open_float({ scope = "line" })
+                        end,
+                        "diagnostic-float-preview",
+                    },
                 },
 
                 ["f"] = {
@@ -179,20 +230,22 @@ return {
                     ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
                 },
 
+                -- stylua: ignore
                 ["l"] = {
                     ["name"] = "+lsp",
-                    ["a"] = { ":LspCodeActions<CR>", "code-action" },
-                    ["d"] = { ":LspDefinition<CR>", "definition" },
-                    ["D"] = { ":LspDeclaration<CR>", "declaration" },
-                    ["h"] = { ":LspHover<CR>", "hover-doc" },
+                    ["a"] = { function() vim.lsp.buf.code_action() end, "code-action" },
+                    ["d"] = { function() vim.lsp.buf.definition() end, "definition" },
+                    ["D"] = { function() vim.lsp.buf.declaration() end, "declaration" },
+                    ["h"] = { function() vim.lsp.buf.hover() end, "hover-doc" },
                     ["i"] = { ":LspInfo<CR>", "lsp-info" },
-                    ["I"] = { ":LspImplementation<CR>", "implementation" },
+                    ["I"] = { function() vim.lsp.buf.implementation() end, "implementation" },
+                    ["l"] = { function()  vim.cmd("edit " .. vim.lsp.get_log_path()) end, "lsp-log" },
                     ["m"] = { ":Mason<CR>", "lsp-installer-info" },
-                    ["r"] = { ":LspRename<CR>", "rename" },
-                    ["R"] = { ":LspReferences<CR>", "references" },
-                    ["s"] = { ":LspDocumentSymbols<CR>", "document-symbols" },
-                    ["t"] = { ":LspTypeDefinition<CR>", "type-definition" },
-                    ["w"] = { ":LspWorkspaceSymbols<CR>", "workspace-symbols" },
+                    ["r"] = { function() vim.lsp.buf.rename() end, "rename" },
+                    ["R"] = { function() vim.lsp.buf.references() end, "references" },
+                    ["s"] = { function() vim.lsp.buf.document_symbol() end, "document-symbols" },
+                    ["t"] = { function() vim.lsp.buf.type_definition() end, "type-definition" },
+                    ["w"] = { function() vim.lsp.buf.workspace_symbol() end, "workspace-symbols" },
                 },
 
                 ["m"] = {
