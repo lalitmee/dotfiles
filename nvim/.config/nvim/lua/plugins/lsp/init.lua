@@ -253,37 +253,96 @@ return {
     { --[[ conform.nvim ]]
         "stevearc/conform.nvim",
         event = { "BufWritePre" },
-        init = function()
+        keys = {
+            { "<leader>bf", "<cmd>Format<cr>", desc = "format", silent = true },
+            { "<leader>be", "<cmd>FormatEnable<cr>", desc = "format-enable", silent = true },
+            { "<leader>bk", "<cmd>FormatDisable<cr>", desc = "format-disable", silent = true },
+        },
+        config = function()
+            local slow_format_filetypes = {}
+            require("conform").setup({
+                formatters_by_ft = {
+                    ["*"] = { "trim_newlines", "trim_whitespace" },
+                    go = { "gofmt", "goimports", "golines" },
+                    javascript = { "eslint_d", "prettierd" },
+                    javascriptreact = { "eslint_d", "prettierd" },
+                    lua = { "stylua" },
+                    rust = { "rustfmt" },
+                    sh = { "shfmt" },
+                    toml = { "taplo" },
+                    typescript = { "eslint_d", "prettierd" },
+                    typescriptreact = { "eslint_d", "prettierd" },
+                    yaml = { "yamlfmt" },
+                },
+                format_on_save = function(bufnr)
+                    -- Disable with a global or buffer-local variable
+                    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                        return
+                    end
+
+                    if slow_format_filetypes[vim.bo[bufnr].filetype] then
+                        return
+                    end
+                    local function on_format(err)
+                        if err and err:match("timeout$") then
+                            slow_format_filetypes[vim.bo[bufnr].filetype] = true
+                        end
+                    end
+
+                    return { timeout_ms = 200, lsp_fallback = true }, on_format
+                end,
+
+                format_after_save = function(bufnr)
+                    if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+                        return
+                    end
+                    return { lsp_fallback = true }
+                end,
+            })
+
+            lk.command("Format", function(args)
+                local count = args["count"]
+                local line1 = args["line1"]
+                local line2 = args["line2"]
+                local range = nil
+                if count ~= -1 then
+                    local end_line = vim.api.nvim_buf_get_lines(0, line2 - 1, line2, true)[1]
+                    range = {
+                        start = { line1, 0 },
+                        ["end"] = { line2, end_line:len() },
+                    }
+                end
+                require("conform").format({ async = true, lsp_fallback = true, range = range })
+            end, { range = true })
+
+            lk.command("FormatDisable", function(args)
+                local bang = args["bang"]
+                if bang then
+                    -- `FormatDisable!` will disable formatting just for this buffer
+                    vim.b.disable_autoformat = true
+                    vim.notify("Formatting is disabled for this buffer")
+                else
+                    vim.g.disable_autoformat = true
+                    vim.notify("Formatting is disabled globally")
+                end
+            end, { desc = "Disable autoformat-on-save", bang = true })
+
+            lk.command("FormatEnable", function()
+                vim.b.disable_autoformat = false
+                vim.g.disable_autoformat = false
+                vim.notify("Formatting is enabled")
+            end, { desc = "Re-enable autoformat-on-save" })
+
             lk.augroup("conform_au", {
                 {
                     event = { "BufWritePre" },
                     pattern = { "*" },
-                    command = function(args)
-                        require("conform").format({ bufnr = args.buf })
+                    command = function()
+                        vim.cmd("Format")
                     end,
                 },
             })
         end,
-        opts = {
-            format_on_save = {
-                timeout_ms = 500,
-                lsp_fallback = true,
-            },
-            formatters_by_ft = {
-                ["*"] = { "trim_newlines", "trim_whitespace" },
-                go = { "gofmt", "goimports", "golines" },
-                javascript = { "eslint_d", "prettierd" },
-                javascriptreact = { "eslint_d", "prettierd" },
-                lua = { "stylua" },
-                rust = { "rustfmt" },
-                sh = { "shfmt" },
-                toml = { "taplo" },
-                typescript = { "eslint_d", "prettierd" },
-                typescriptreact = { "eslint_d", "prettierd" },
-                yaml = { "yamlfmt" },
-            },
-        },
-        -- enabled = false,
     },
 
     { --[[ null-ls ]]
