@@ -224,15 +224,17 @@ return {
                 ["*"] = { "trim_newlines", "trim_whitespace" },
                 go = { "gofmt", "goimports", "golines" },
                 javascript = { "eslint_d", "prettierd" },
+                javascriptreact = { "eslint_d", "prettierd" },
                 lua = { "stylua" },
                 rust = { "rustfmt" },
                 sh = { "shfmt" },
                 toml = { "taplo" },
                 typescript = { "eslint_d", "prettierd" },
+                typescriptreact = { "eslint_d", "prettierd" },
                 yaml = { "yamlfmt" },
             },
         },
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ null-ls ]]
@@ -295,8 +297,7 @@ return {
                     ------------------
                     -- CODE ACTIONS --
                     ------------------
-                    cda.eslint_d,
-                    cda.eslint,
+                    -- cda.eslint_d,
                     cda.shellcheck,
                     cda.refactoring,
                 },
@@ -310,6 +311,7 @@ return {
                 end,
             })
         end,
+        enabled = false,
     },
 
     { --[[ fidget ]]
