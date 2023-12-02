@@ -870,7 +870,6 @@ return {
             { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
         },
         config = function()
-            local telescope_extension = { sections = { lualine_a = { "filetype" } }, filetypes = { "TelescopePrompt" } }
             local function get_trailing_whitespace()
                 local space = vim.fn.search([[\s\+$]], "nwc")
                 return space ~= 0 and "TW:" .. space or ""
@@ -972,19 +971,7 @@ return {
                         { "progress", color = { gui = "bold" } },
                     },
                 },
-                extensions = {
-                    "fugitive",
-                    "fzf",
-                    "lazy",
-                    "man",
-                    "mundo",
-                    "nvim-dap-ui",
-                    "nvim-tree",
-                    "overseer",
-                    "quickfix",
-                    "toggleterm",
-                    telescope_extension,
-                },
+                extensions = { "lazy", "man", "quickfix", "toggleterm" },
             })
         end,
     },

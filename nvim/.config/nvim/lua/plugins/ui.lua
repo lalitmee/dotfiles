@@ -319,6 +319,7 @@ return {
 
             command("NotifyDismiss", notify.dismiss, {})
         end,
+        enabled = false,
     },
 
     { --[[ devicons ]]
