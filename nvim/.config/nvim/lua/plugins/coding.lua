@@ -358,4 +358,30 @@ return {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
     },
+
+    { --[[ wtf.nvim ]]
+        "piersolenski/wtf.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        opts = {},
+        keys = {
+            {
+                "<leader>ea",
+                mode = { "n", "x" },
+                function()
+                    require("wtf").ai()
+                end,
+                desc = "Debug diagnostic with AI",
+            },
+            {
+                "<leader>es",
+                mode = { "n" },
+                function()
+                    require("wtf").search()
+                end,
+                desc = "Search diagnostic with Google",
+            },
+        },
+    },
 }
