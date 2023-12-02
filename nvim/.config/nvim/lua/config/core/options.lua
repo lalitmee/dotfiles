@@ -47,6 +47,7 @@ g.enable_treesitter_ft = {
     "gosum",
     "gowork",
     "html",
+    "http",
     "javascript",
     "jsdoc",
     "json",

@@ -384,4 +384,43 @@ return {
             },
         },
     },
+
+    {
+        "rest-nvim/rest.nvim",
+        ft = { "http" },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        keys = {
+            {
+                "<leader>rh",
+                "<Plug>RestNvim",
+                silent = true,
+                desc = "run request under cursor",
+            },
+            {
+                "<leader>rv",
+                "<Plug>RestNvimPreview",
+                silent = true,
+                desc = "preview request curl command",
+            },
+            {
+                "<leader>rl",
+                "<Plug>RestNvimLast",
+                silent = true,
+                desc = "re-run last request",
+            },
+        },
+        config = function()
+            require("rest-nvim").setup({
+                stay_in_current_window_after_split = true,
+                jump_to_request = false,
+                highlight = {
+                    enabled = true,
+                    timeout = 150,
+                },
+                result = {
+                    show_curl_command = false,
+                },
+            })
+        end,
+    },
 }
