@@ -87,10 +87,20 @@ M.mappings = function(client)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
     nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
 
-    -- stylua: ignore
-    nmap("[d", function() vim.diagnostic.goto_prev({ float = false }) end)
-    -- stylua: ignore
-    nmap("]d", function() vim.diagnostic.goto_next({ float = false }) end)
+    nmap("[d", function()
+        vim.diagnostic.goto_prev({
+            severity = lk.get_highest_error_severity(),
+            wrap = true,
+            float = true,
+        })
+    end)
+    nmap("]d", function()
+        vim.diagnostic.goto_next({
+            severity = lk.get_highest_error_severity(),
+            wrap = true,
+            float = true,
+        })
+    end)
 end
 -- }}}
 ----------------------------------------------------------------------

@@ -742,3 +742,24 @@ function lk.falsy(item)
     end
     return item ~= nil
 end
+
+--------------------------------------------------------------------------------
+--  NOTE: diagnostic {{{
+--------------------------------------------------------------------------------
+local severity_levels = {
+    vim.diagnostic.severity.ERROR,
+    vim.diagnostic.severity.WARN,
+    vim.diagnostic.severity.INFO,
+    vim.diagnostic.severity.HINT,
+}
+
+lk.get_highest_error_severity = function()
+    for _, level in ipairs(severity_levels) do
+        local diags = vim.diagnostic.get(0, { severity = { min = level } })
+        if #diags > 0 then
+            return level, diags
+        end
+    end
+end
+-- }}}
+--------------------------------------------------------------------------------
