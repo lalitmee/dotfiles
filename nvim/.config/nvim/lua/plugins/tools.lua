@@ -648,6 +648,10 @@ return {
             { "<leader>3", ":HarpoonGotoFile 3<CR>", desc = "goto-file-3", silent = true },
             { "<leader>4", ":HarpoonGotoFile 4<CR>", desc = "goto-file-4", silent = true },
             { "<leader>5", ":HarpoonGotoFile 5<CR>", desc = "goto-file-5", silent = true },
+            { "<leader>6", ":HarpoonGotoFile 6<CR>", desc = "goto-file-6", silent = true },
+            { "<leader>7", ":HarpoonGotoFile 7<CR>", desc = "goto-file-7", silent = true },
+            { "<leader>8", ":HarpoonGotoFile 8<CR>", desc = "goto-file-8", silent = true },
+            { "<leader>9", ":HarpoonGotoFile 9<CR>", desc = "goto-file-9", silent = true },
 
             {
                 "<leader>fa",
