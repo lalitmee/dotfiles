@@ -31,22 +31,6 @@ return {
                 },
             })
 
-            local severity_levels = {
-                vim.diagnostic.severity.ERROR,
-                vim.diagnostic.severity.WARN,
-                vim.diagnostic.severity.INFO,
-                vim.diagnostic.severity.HINT,
-            }
-
-            local get_highest_error_severity = function()
-                for _, level in ipairs(severity_levels) do
-                    local diags = vim.diagnostic.get(0, { severity = { min = level } })
-                    if #diags > 0 then
-                        return level, diags
-                    end
-                end
-            end
-
             local leader_key_maps = {
                 [":"] = { ":Telescope commands<CR>", "commands" },
                 ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
@@ -127,7 +111,7 @@ return {
                     ["n"] = {
                         function()
                             vim.diagnostic.goto_next({
-                                severity = get_highest_error_severity(),
+                                severity = lk.get_highest_error_severity(),
                                 wrap = true,
                                 float = true,
                             })
@@ -137,7 +121,7 @@ return {
                     ["p"] = {
                         function()
                             vim.diagnostic.goto_prev({
-                                severity = get_highest_error_severity(),
+                                severity = lk.get_highest_error_severity(),
                                 wrap = true,
                                 float = true,
                             })
