@@ -5,12 +5,18 @@ return {
             format = { enable = false },
             diagnostics = {
                 globals = {
-                    "vim",
+                    "P",
+                    "R",
+                    "RELOAD",
+                    "__lk_global_callbacks",
+                    "after_each",
+                    "before_each",
                     "describe",
                     "it",
-                    "before_each",
-                    "after_each",
+                    "lk",
                     "require",
+                    "vim",
+                    "vim",
                 },
             },
             completion = {

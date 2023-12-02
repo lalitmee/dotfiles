@@ -133,7 +133,6 @@ return {
         config = function()
             require("plugins.lsp.handlers")
             require("plugins.lsp.diagnostics")
-            require("plugins.lsp.commands")
 
             require("lspconfig.ui.windows").default_options.border = lk.style.border.rounded
 
@@ -198,6 +197,56 @@ return {
                     require("lspconfig")[name].setup(get_server_config(name))
                 end
             end
+        end,
+    },
+
+    {
+        "mfussenegger/nvim-lint",
+        event = { "VeryLazy" },
+        config = function()
+            local lint = require("lint")
+            local luacheck = lint.linters.luacheck
+            luacheck.args = {
+                "--globals",
+                "P",
+                "__lk_global_callbacks",
+                "after_each",
+                "before_each",
+                "describe",
+                "it",
+                "lk",
+                "vim",
+                "RELOAD",
+                "R",
+                "--std",
+                "luajit",
+            }
+            lint.linters_by_ft = {
+                ["*"] = { "typos", "woke" },
+                [".env"] = { "dotenv_linter" },
+                css = { "stylelint" },
+                go = { "golangcilint" },
+                html = { "tidy" },
+                javascript = { "eslint_d" },
+                json = { "jsonlint" },
+                lua = { "luacheck" },
+                markdown = { "vale" },
+                python = { "bandit", "pylint", "pydocstyle" },
+                sh = { "shellcheck" },
+                typescript = { "eslint_d" },
+                yaml = { "yamllint" },
+                zsh = { "zsh" },
+            }
+
+            lk.augroup("nvim_lint_au", {
+                {
+                    event = { "BufWritePost", "BufReadPost", "InsertLeave" },
+                    pattern = { "*" },
+                    command = function()
+                        lint.try_lint()
+                    end,
+                },
+            })
         end,
     },
 
