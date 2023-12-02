@@ -39,9 +39,6 @@ M.mappings = function(client)
     local imap = lk.imap
 
     -- lsp mapping for the client
-    -- NOTE: using this somehow goes into telescope with two definitions so not
-    -- using this for now until I figure out why it was happening
-
     -- --telescope
     -- nmap("gd", "<cmd>Telescope lsp_definitions<CR>", map_opts)
     -- -- nmap("gd", vim.lsp.buf.definition, map_opts)
@@ -90,8 +87,10 @@ M.mappings = function(client)
     imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
     nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
 
-    nmap("[d", "<cmd>LspGotoPrevDiagnostic<CR>")
-    nmap("]d", "<cmd>LspGotoNextDiagnostic<CR>")
+    -- stylua: ignore
+    nmap("[d", function() vim.diagnostic.goto_prev({ float = false }) end)
+    -- stylua: ignore
+    nmap("]d", function() vim.diagnostic.goto_next({ float = false }) end)
 end
 -- }}}
 ----------------------------------------------------------------------
