@@ -294,6 +294,9 @@ return {
                         order_by = "recent",
                     },
                     lazy = {},
+                    import = {
+                        insert_at_top = false,
+                    },
                 },
             })
 
