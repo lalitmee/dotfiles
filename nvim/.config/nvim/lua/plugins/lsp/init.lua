@@ -248,6 +248,7 @@ return {
                 },
             })
         end,
+        enabled = false,
     },
 
     { --[[ conform.nvim ]]
@@ -343,6 +344,7 @@ return {
                 },
             })
         end,
+        enabled = false,
     },
 
     { --[[ null-ls ]]
@@ -405,7 +407,7 @@ return {
                     ------------------
                     -- CODE ACTIONS --
                     ------------------
-                    -- cda.eslint_d,
+                    cda.eslint_d,
                     cda.shellcheck,
                     cda.refactoring,
                 },
@@ -419,7 +421,6 @@ return {
                 end,
             })
         end,
-        enabled = false,
     },
 
     { --[[ fidget ]]
