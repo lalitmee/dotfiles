@@ -9,6 +9,7 @@ lk.augroup("quit_q_au", {
             "fugitive",
             "git",
             "gitcommit",
+            "harpoon",
             "help",
             "log",
             "lspinfo",
