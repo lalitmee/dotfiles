@@ -42,6 +42,9 @@ config.window_padding = {
     bottom = 0,
 }
 
+-- NOTE: refer to this comment https://github.com/wez/wezterm/issues/3774#issuecomment-1629689265
+config.freetype_load_flags = "NO_HINTING"
+
 -- config.window_close_confirmation = false
 
 -- and finally, return the configuration to wezterm
