@@ -711,29 +711,86 @@ return {
 
     { --[[ harpoon ]]
         "ThePrimeagen/harpoon",
+        branch = "harpoon2",
         keys = {
-            -- terminal
-            { "<localleader>1", ":HarpoonGotoTerm 1<CR>", "terminal-1", silent = true },
-            { "<localleader>2", ":HarpoonGotoTerm 2<CR>", "terminal-2", silent = true },
-            { "<localleader>3", ":HarpoonGotoTerm 3<CR>", "terminal-3", silent = true },
-            { "<localleader>4", ":HarpoonGotoTerm 4<CR>", "terminal-4", silent = true },
-            { "<localleader>5", ":HarpoonGotoTerm 5<CR>", "terminal-5", silent = true },
-
             -- file
-            { "<leader>1", ":HarpoonGotoFile 1<CR>", desc = "goto-file-1", silent = true },
-            { "<leader>2", ":HarpoonGotoFile 2<CR>", desc = "goto-file-2", silent = true },
-            { "<leader>3", ":HarpoonGotoFile 3<CR>", desc = "goto-file-3", silent = true },
-            { "<leader>4", ":HarpoonGotoFile 4<CR>", desc = "goto-file-4", silent = true },
-            { "<leader>5", ":HarpoonGotoFile 5<CR>", desc = "goto-file-5", silent = true },
-            { "<leader>6", ":HarpoonGotoFile 6<CR>", desc = "goto-file-6", silent = true },
-            { "<leader>7", ":HarpoonGotoFile 7<CR>", desc = "goto-file-7", silent = true },
-            { "<leader>8", ":HarpoonGotoFile 8<CR>", desc = "goto-file-8", silent = true },
-            { "<leader>9", ":HarpoonGotoFile 9<CR>", desc = "goto-file-9", silent = true },
+            {
+                "<leader>1",
+                function()
+                    require("harpoon"):list():select(1)
+                end,
+                desc = "goto-file-1",
+                silent = true,
+            },
+            {
+                "<leader>2",
+                function()
+                    require("harpoon"):list():select(2)
+                end,
+                desc = "goto-file-2",
+                silent = true,
+            },
+            {
+                "<leader>3",
+                function()
+                    require("harpoon"):list():select(3)
+                end,
+                desc = "goto-file-3",
+                silent = true,
+            },
+            {
+                "<leader>4",
+                function()
+                    require("harpoon"):list():select(4)
+                end,
+                desc = "goto-file-4",
+                silent = true,
+            },
+            {
+                "<leader>5",
+                function()
+                    require("harpoon"):list():select(5)
+                end,
+                desc = "goto-file-5",
+                silent = true,
+            },
+            {
+                "<leader>6",
+                function()
+                    require("harpoon"):list():select(6)
+                end,
+                desc = "goto-file-6",
+                silent = true,
+            },
+            {
+                "<leader>7",
+                function()
+                    require("harpoon"):list():select(7)
+                end,
+                desc = "goto-file-7",
+                silent = true,
+            },
+            {
+                "<leader>8",
+                function()
+                    require("harpoon"):list():select(8)
+                end,
+                desc = "goto-file-8",
+                silent = true,
+            },
+            {
+                "<leader>9",
+                function()
+                    require("harpoon"):list():select(9)
+                end,
+                desc = "goto-file-9",
+                silent = true,
+            },
 
             {
                 "<leader>fa",
                 function()
-                    require("harpoon.mark").add_file()
+                    require("harpoon"):list():append()
                 end,
                 desc = "add-file",
                 silent = true,
@@ -741,103 +798,29 @@ return {
             {
                 "<leader>fm",
                 function()
-                    require("harpoon.ui").toggle_quick_menu()
+                    require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
                 end,
                 desc = "toggle-harpoon",
                 silent = true,
             },
-            {
-                "<leader>fn",
-                function()
-                    require("harpoon.ui").nav_next()
-                end,
-                desc = "next-mark",
-                silent = true,
-            },
-            {
-                "<leader>fp",
-                function()
-                    require("harpoon.ui").nav_prev()
-                end,
-                desc = "prev-mark",
-                silent = true,
-            },
-            {
-                "<leader>fr",
-                function()
-                    require("harpoon.mark").rm_file()
-                end,
-                desc = "remove-file",
-                silent = true,
-            },
-            {
-                "<leader>aj",
-                function()
-                    require("harpoon.cmd-ui").toggle_quick_menu()
-                end,
-                desc = "toggle-harpoon-cmd-menu",
-                silent = true,
-            },
-
-            -- { "<leader>fM", ":Telescope harpoon marks<CR>", desc = "telescope-harpoon", silent = true },
         },
-        init = function()
-            -- NOTE: slowing the startup time
-            -- require("telescope").load_extension("harpoon")
+        config = function()
+            local harpoon = require("harpoon")
 
-            command("HarpoonGotoFile", function(args)
-                local number = tonumber(args["args"])
-                require("harpoon.ui").nav_file(number)
-            end, {
-                nargs = 1,
-            })
-
-            command("HarpoonGotoTerm", function(args)
-                local number = tonumber(args["args"])
-                require("harpoon.term").gotoTerminal(number)
-            end, {
-                nargs = 1,
-            })
-
-            command("HarpoonSendCmdToTerm", function(args)
-                local argsString = args["args"]
-                local numberAndCmd = vim.split(argsString, " ")
-                local number = tonumber(numberAndCmd[1])
-                local cmd = numberAndCmd[2]
-                require("harpoon.term").sendCommand(number, cmd)
-            end, {
-                nargs = 1,
-            })
-
-            command("HarpoonGotoTmux", function(args)
-                local number = tonumber(args["args"])
-                require("harpoon.tmux").gotoTerminal(number)
-            end, {
-                nargs = 1,
-            })
-
-            command("HarpoonSendCmdToTmux", function(args)
-                local argsString = args["args"]
-                local numberAndCmd = vim.split(argsString, " ")
-                local number = tonumber(numberAndCmd[1])
-                local cmd = numberAndCmd[2]
-                require("harpoon.tmux").sendCommand(number, cmd)
-            end, {
-                nargs = 1,
-            })
+            harpoon:setup()
         end,
-        opts = {
-            global_settings = {
-                menu = {
-                    width = vim.api.nvim_win_get_width(0) - 100,
-                    height = vim.api.nvim_win_get_height(0) - 25,
-                },
-                enter_on_sendcmd = true,
-                mark_branch = true,
-                save_on_toggle = true,
-                tmux_autoclose_windows = true,
-            },
-        },
+        -- opts = {
+        --     global_settings = {
+        --         menu = {
+        --             width = vim.api.nvim_win_get_width(0) - 100,
+        --             height = vim.api.nvim_win_get_height(0) - 25,
+        --         },
+        --         enter_on_sendcmd = true,
+        --         mark_branch = true,
+        --         save_on_toggle = true,
+        --         tmux_autoclose_windows = true,
+        --     },
+        -- },
     },
 
     { --[[ browse ]]
