@@ -1,3 +1,5 @@
+local leet_arg = "leetcode.nvim"
+
 return {
     { --[[ chatgpt ]]
         enabled = false,
@@ -422,5 +424,45 @@ return {
                 },
             })
         end,
+    },
+
+    {
+        "kawre/leetcode.nvim",
+        lazy = leet_arg ~= vim.fn.argv()[1],
+        keys = {
+            { "<leader>cla", "<cmd>Leet<cr>", silent = true, mode = { "n" }, desc = "Leet menu" },
+            { "<leader>clb", "<cmd>Leet lang<cr>", silent = true, mode = { "n" }, desc = "Leet lang" },
+            { "<leader>clc", "<cmd>Leet console<cr>", silent = true, mode = { "n" }, desc = "Leet console" },
+            { "<leader>cld", "<cmd>Leet desc toggle<cr>", silent = true, mode = { "n" }, desc = "Leet desc toggle" },
+            { "<leader>cle", "<cmd>Leet desc status<cr>", silent = true, mode = { "n" }, desc = "Leet desc status" },
+            { "<leader>cli", "<cmd>Leet info<cr>", silent = true, mode = { "n" }, desc = "Leet info" },
+            { "<leader>clj", "<cmd>Leet random<cr>", silent = true, mode = { "n" }, desc = "Leet random" },
+            { "<leader>clk", "<cmd>Leet daily<cr>", silent = true, mode = { "n" }, desc = "Leet daily" },
+            { "<leader>cll", "<cmd>Leet list<cr>", silent = true, mode = { "n" }, desc = "Leet list" },
+            {
+                "<leader>clo",
+                "<cmd>Leet cookie delete<cr>",
+                silent = true,
+                mode = { "n" },
+                desc = "Leet cookie delete",
+            },
+            { "<leader>clr", "<cmd>Leet run<cr>", silent = true, mode = { "n" }, desc = "Leet run" },
+            { "<leader>cls", "<cmd>Leet submit<cr>", silent = true, mode = { "n" }, desc = "Leet submit" },
+            { "<leader>clf", "<cmd>Leet tabs<cr>", silent = true, mode = { "n" }, desc = "Leet tabs" },
+            { "<leader>clt", "<cmd>Leet test<cr>", silent = true, mode = { "n" }, desc = "Leet test" },
+            {
+                "<leader>clu",
+                "<cmd>Leet cookie update<cr>",
+                silent = true,
+                mode = { "n" },
+                desc = "Leet cookie update",
+            },
+            { "<leader>clU", "<cmd>Leet cache update<cr>", silent = true, mode = { "n" }, desc = "Leet cache update" },
+        },
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
+            arg = leet_arg,
+        },
+        -- enabled = false,
     },
 }
