@@ -15,7 +15,7 @@
     {
       "class": "^Station$",
       "instance": "^station$",
-      "machine": "^lalit\\-quartic\\-ai$",
+      "machine": "pop-os",
       "title": "^Station$",
       "window_role": "^browser\\-window$"
     }
