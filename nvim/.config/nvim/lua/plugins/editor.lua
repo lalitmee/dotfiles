@@ -67,18 +67,6 @@ return {
 
                     ["<C-e>"] = cmp.mapping.abort(),
 
-                    -- Cody completion
-                    -- not sure if this is working or not
-                    ["<c-a>"] = cmp.mapping({
-                        i = cmp.mapping.complete({
-                            config = {
-                                sources = {
-                                    { name = "cody" },
-                                },
-                            },
-                        }),
-                    }),
-
                     ["<CR>"] = cmp.mapping.confirm({
                         behavior = cmp.ConfirmBehavior.Insert,
                         select = true,
