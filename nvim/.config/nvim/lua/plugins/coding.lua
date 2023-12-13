@@ -344,11 +344,25 @@ return {
                 end,
                 desc = "sourcegraph-fuzzy-search",
             },
-            { "<leader>cC", "<cmd>CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
+            {
+                "<leader>cc",
+                function()
+                    require("sg.cody.commands").toggle()
+                end,
+                desc = "cody-chat",
+                mode = { "n", "x" },
+            },
+            {
+                "<leader>cN",
+                function()
+                    local name = vim.fn.input("chat name: ")
+                    require("sg.cody.commands").chat(name)
+                end,
+                desc = "named-cody-chat",
+                mode = { "n", "x" },
+            },
             { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
-            { "<leader>cc", "<cmd>CodyContext<CR>", desc = "cody-context", mode = { "n", "x" } },
             { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
-            { "<leader>cf", ":CodyFloat<space>", desc = "cody-float", mode = { "n", "x" } },
             { "<leader>cn", "<cmd>CodyTaskNext<CR>", desc = "cody-task-next", mode = { "n", "x" } },
             { "<leader>cp", "<cmd>CodyTaskPrev<CR>", desc = "cody-task-prev", mode = { "n", "x" } },
             { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
