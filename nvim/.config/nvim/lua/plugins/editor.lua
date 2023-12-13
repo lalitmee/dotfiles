@@ -6,15 +6,13 @@ return {
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
             "petertriho/cmp-git",
-            "roobert/tailwindcss-colorizer-cmp.nvim",
-            "saadparwaiz1/cmp_luasnip",
+            { "roobert/tailwindcss-colorizer-cmp.nvim", ft = { "javascript" } },
+            { "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
         },
         config = function()
             local cmp = require("cmp")
@@ -44,8 +42,43 @@ return {
                     ["<S-Tab>"] = nil,
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<c-space>"] = cmp.mapping({
+                        i = cmp.mapping.complete(),
+                        c = function(
+                            _ --[[fallback]]
+                        )
+                            if cmp.visible() then
+                                if not cmp.confirm({ select = true }) then
+                                    return
+                                end
+                            else
+                                cmp.complete()
+                            end
+                        end,
+                    }),
+
+                    ["<M-y>"] = cmp.mapping(
+                        cmp.mapping.confirm({
+                            behavior = cmp.ConfirmBehavior.Replace,
+                            select = false,
+                        }),
+                        { "i", "c" }
+                    ),
+
                     ["<C-e>"] = cmp.mapping.abort(),
+
+                    -- Cody completion
+                    -- not sure if this is working or not
+                    ["<c-a>"] = cmp.mapping({
+                        i = cmp.mapping.complete({
+                            config = {
+                                sources = {
+                                    { name = "cody" },
+                                },
+                            },
+                        }),
+                    }),
+
                     ["<CR>"] = cmp.mapping.confirm({
                         behavior = cmp.ConfirmBehavior.Insert,
                         select = true,
@@ -53,6 +86,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
+                    { name = "cody" },
                     { name = "nvim_lsp", keyword_length = 1 },
                     { name = "nvim_lua", keyword_length = 1 },
                     {
@@ -64,9 +98,8 @@ return {
                             return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
                         end,
                     },
-                    { name = "buffer", keyword_length = 1 },
+                    { name = "buffer", keyword_length = 5 },
                     { name = "path" },
-                    { name = "nvim_lsp_signature_help" },
                 }),
 
                 -- NOTE: copied from TJ
@@ -107,6 +140,7 @@ return {
                     format = lspkind.cmp_format({
                         menu = {
                             buffer = "[BUF]",
+                            cody = "[CODY]",
                             luasnip = "[SNIP]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
@@ -121,23 +155,23 @@ return {
                 format = require("tailwindcss-colorizer-cmp").formatter,
             }
 
-            -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline({ "/", "?" }, {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
+            -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+            -- cmp.setup.cmdline({ "/", "?" }, {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = {
+            --         { name = "buffer" },
+            --     },
+            -- })
 
-            -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline" },
-                }),
-            })
+            -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+            -- cmp.setup.cmdline(":", {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = cmp.config.sources({
+            --         { name = "path" },
+            --     }, {
+            --         { name = "cmdline" },
+            --     }),
+            -- })
 
             -- Set configuration for specific filetype.
             cmp.setup.filetype("gitcommit", {
@@ -152,6 +186,7 @@ return {
     },
 
     { --[[ codeium ]]
+        enabled = false,
         "Exafunction/codeium.vim",
         event = { "InsertEnter" },
         cmd = { "Codeium" },
