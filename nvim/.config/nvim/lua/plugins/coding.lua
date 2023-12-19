@@ -480,4 +480,64 @@ return {
         },
         -- enabled = false,
     },
+
+    {
+        "krivahtoo/silicon.nvim",
+        build = "./install.sh",
+        cmd = { "Silicon" },
+        opts = {
+            font = "Fira Code",
+            -- theme = "Cobalt2",
+            output = {
+                path = "~/Desktop/Github/",
+            },
+            watermark = {
+                text = " @lalitmee",
+            },
+            window_title = function()
+                return vim.fn.fnamemodify(vim.fn.bufname(vim.fn.bufnr()), ":~:.")
+            end,
+        },
+    },
+
+    {
+        "narutoxy/silicon.lua",
+        keys = {
+            {
+                "<leader>xv",
+                function()
+                    require("silicon").visualise_api({ to_clip = true })
+                end,
+                mode = { "v" },
+                desc = "visual selection",
+            },
+            {
+                "<leader>xh",
+                function()
+                    require("silicon").visualise_api({ to_clip = true, show_buf = true })
+                end,
+                mode = { "v" },
+                desc = "whole buffer with visual selection highlighted",
+            },
+            {
+                "<leader>xb",
+                function()
+                    require("silicon").visualise_api({ to_clip = true, visible = true })
+                end,
+                desc = "visible portion of buffer",
+            },
+            {
+                "<leader>xl",
+                function()
+                    require("silicon").visualise_api({ to_clip = true })
+                end,
+                desc = "current buffer line",
+            },
+        },
+        opts = {
+            output = "/home/lalitmee/Pictures/code-screenshots/SILICON_$year-$month-$date-$time.png",
+            -- font = "Fira Code",
+            font = "Source Code Pro",
+        },
+    },
 }
