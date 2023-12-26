@@ -160,7 +160,7 @@ pomodoro () {
 # fzf config
 [[ -f ~/.fzf_config ]] && source ~/.fzf_config
 
-# openai api key
+# secrete tokens
 [[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
 
 # awesome zsh functions
