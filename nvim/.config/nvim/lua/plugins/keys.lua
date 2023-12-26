@@ -210,7 +210,6 @@ return {
                     ["c"] = { ":Colortils<CR>", "color-picker" },
                     ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
                     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
-                    ["p"] = { ":PickEverything<CR>", "everything" },
                     ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
                 },
 
