@@ -482,62 +482,17 @@ return {
     },
 
     {
-        "krivahtoo/silicon.nvim",
-        build = "./install.sh",
-        cmd = { "Silicon" },
-        opts = {
-            font = "Fira Code",
-            -- theme = "Cobalt2",
-            output = {
-                path = "~/Desktop/Github/",
-            },
-            watermark = {
-                text = " @lalitmee",
-            },
-            window_title = function()
-                return vim.fn.fnamemodify(vim.fn.bufname(vim.fn.bufnr()), ":~:.")
-            end,
-        },
-    },
-
-    {
-        "narutoxy/silicon.lua",
+        "gera2ld/ai.nvim",
+        cmd = { "GeminiDefine", "GeminiDefineV", "GeminiTranslate", "GeminiAsk" },
         keys = {
-            {
-                "<leader>xv",
-                function()
-                    require("silicon").visualise_api({ to_clip = true })
-                end,
-                mode = { "v" },
-                desc = "visual selection",
-            },
-            {
-                "<leader>xh",
-                function()
-                    require("silicon").visualise_api({ to_clip = true, show_buf = true })
-                end,
-                mode = { "v" },
-                desc = "whole buffer with visual selection highlighted",
-            },
-            {
-                "<leader>xb",
-                function()
-                    require("silicon").visualise_api({ to_clip = true, visible = true })
-                end,
-                desc = "visible portion of buffer",
-            },
-            {
-                "<leader>xl",
-                function()
-                    require("silicon").visualise_api({ to_clip = true })
-                end,
-                desc = "current buffer line",
-            },
+            { "<leader>cga", ":GeminiAsk<cr>", silent = true, desc = "gemini-ask", mode = { "n", "v" } },
+            { "<leader>cgd", ":GeminiDefine<cr>", silent = true, desc = "gemini-define", mode = { "n", "v" } },
+            { "<leader>cgt", ":GeminiTranslate<cr>", silent = true, desc = "gemini-translate", mode = { "n", "v" } },
+            { "<leader>cgv", ":GeminiDefineV<cr>", silent = true, desc = "gemini-define-visual", mode = { "n", "v" } },
         },
         opts = {
-            output = "/home/lalitmee/Pictures/code-screenshots/SILICON_$year-$month-$date-$time.png",
-            -- font = "Fira Code",
-            font = "Source Code Pro",
+            api_key = os.getenv("GEMINI_API_KEY"),
+            locale = "en",
         },
     },
 }
