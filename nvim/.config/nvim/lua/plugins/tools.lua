@@ -1079,7 +1079,7 @@ return {
         enabled = false,
     },
 
-    {
+    { --[[ text-case ]]
         "johmsalas/text-case.nvim",
         config = function()
             require("textcase").setup({})
@@ -1087,6 +1087,97 @@ return {
         end,
         keys = {
             { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
+        },
+    },
+
+    { --[[ carbon-now ]]
+        "ellisonleao/carbon-now.nvim",
+        cmd = { "CarbonNow" },
+        keys = {
+            {
+                "<leader>xp",
+                ":CarbonNow<CR>",
+                mode = { "v" },
+                silent = true,
+                desc = "carbon-now-visual",
+            },
+            {
+                "<leader>xg",
+                ":CarbonNow<space>",
+                silent = true,
+                mode = { "n" },
+                desc = "carbon-from-gist",
+            },
+        },
+        opts = {
+            options = {
+                bg = "#32597D",
+                font_family = "Source Code Pro",
+                theme = "vscode",
+                window_theme = "boxy",
+                drop_shadow = true,
+            },
+        },
+    },
+
+    {
+        "TobinPalmer/rayso.nvim",
+        cmd = { "Rayso" },
+        keys = {
+            {
+                "<leader>xr",
+                ":Rayso<CR>",
+                silent = true,
+                desc = "ray.so",
+                mode = { "v" },
+            },
+        },
+        opts = {
+            open_cmd = "xdg-open",
+            options = {
+                theme = "midnight",
+            },
+        },
+    },
+
+    { --[[ silicon.lua ]]
+        "narutoxy/silicon.lua",
+        keys = {
+            {
+                "<leader>xv",
+                function()
+                    require("silicon").visualise_api({ to_clip = true })
+                end,
+                mode = { "v" },
+                desc = "visual selection",
+            },
+            {
+                "<leader>xh",
+                function()
+                    require("silicon").visualise_api({ to_clip = true, show_buf = true })
+                end,
+                mode = { "v" },
+                desc = "whole buffer with visual selection highlighted",
+            },
+            {
+                "<leader>xb",
+                function()
+                    require("silicon").visualise_api({ to_clip = true, visible = true })
+                end,
+                desc = "visible portion of buffer",
+            },
+            {
+                "<leader>xl",
+                function()
+                    require("silicon").visualise_api({ to_clip = true })
+                end,
+                desc = "current buffer line",
+            },
+        },
+        config = {
+            -- output = "/home/lalitmee/Desktop/Github/code-screenshots/SILICON_$year-$month-$date-$time.png",
+            output = "SILICON_$year-$month-$date-$time.png",
+            font = "Source Code Pro",
         },
     },
 }
