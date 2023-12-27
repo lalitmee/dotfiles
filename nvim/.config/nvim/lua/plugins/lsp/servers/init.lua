@@ -22,7 +22,7 @@ return {
     marksman = true,
     pyright = true,
     rust_analyzer = rust_analyzer,
-    tailwindcss = false,
+    tailwindcss = true,
     taplo = true,
     -- tsserver = tsserver,
     vimls = true,

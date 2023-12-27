@@ -11,7 +11,6 @@ return {
             "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
             "petertriho/cmp-git",
-            { "roobert/tailwindcss-colorizer-cmp.nvim", ft = { "javascript" } },
             { "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
         },
         config = function()
@@ -139,9 +138,6 @@ return {
 
                 experimental = { ghost_text = false },
             })
-            require("cmp").config.formatting = {
-                format = require("tailwindcss-colorizer-cmp").formatter,
-            }
 
             -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
             -- cmp.setup.cmdline({ "/", "?" }, {
