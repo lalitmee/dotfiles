@@ -51,6 +51,7 @@ return {
                 "lua_ls",
                 "tsserver",
                 "vimls",
+                "tailwindcss",
             },
         },
     },
