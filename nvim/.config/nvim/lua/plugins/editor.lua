@@ -10,8 +10,7 @@ return {
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
-            "petertriho/cmp-git",
-            { "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
+            "saadparwaiz1/cmp_luasnip",
         },
         config = function()
             local cmp = require("cmp")
