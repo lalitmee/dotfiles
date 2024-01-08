@@ -1,5 +1,36 @@
 local command = lk.command
 
+local function get_trailing_whitespace()
+    local space = vim.fn.search([[\s\+$]], "nwc")
+    return space ~= 0 and "TW:" .. space or ""
+end
+
+local function get_mixed_indent()
+    local space_pat = [[\v^ +]]
+    local tab_pat = [[\v^\t+]]
+    local space_indent = vim.fn.search(space_pat, "nwc")
+    local tab_indent = vim.fn.search(tab_pat, "nwc")
+    local mixed = (space_indent > 0 and tab_indent > 0)
+    local mixed_same_line
+    if not mixed then
+        mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], "nwc")
+        mixed = mixed_same_line > 0
+    end
+    if not mixed then
+        return ""
+    end
+    if mixed_same_line ~= nil and mixed_same_line > 0 then
+        return "MI:" .. mixed_same_line
+    end
+    local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
+    local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
+    if space_indent_cnt > tab_indent_cnt then
+        return "MI:" .. tab_indent
+    else
+        return "MI:" .. space_indent
+    end
+end
+
 return {
     { -- [[ nvim-cmp ]]
         "hrsh7th/nvim-cmp",
@@ -916,111 +947,78 @@ return {
         keys = {
             { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
         },
-        config = function()
-            local function get_trailing_whitespace()
-                local space = vim.fn.search([[\s\+$]], "nwc")
-                return space ~= 0 and "TW:" .. space or ""
-            end
-
-            local function get_mixed_indent()
-                local space_pat = [[\v^ +]]
-                local tab_pat = [[\v^\t+]]
-                local space_indent = vim.fn.search(space_pat, "nwc")
-                local tab_indent = vim.fn.search(tab_pat, "nwc")
-                local mixed = (space_indent > 0 and tab_indent > 0)
-                local mixed_same_line
-                if not mixed then
-                    mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], "nwc")
-                    mixed = mixed_same_line > 0
-                end
-                if not mixed then
-                    return ""
-                end
-                if mixed_same_line ~= nil and mixed_same_line > 0 then
-                    return "MI:" .. mixed_same_line
-                end
-                local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
-                local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
-                if space_indent_cnt > tab_indent_cnt then
-                    return "MI:" .. tab_indent
-                else
-                    return "MI:" .. space_indent
-                end
-            end
-
-            require("lualine").setup({
-                options = {
-                    theme = "auto",
-                    globalstatus = true,
-                    section_separators = { left = "", right = "" },
-                    component_separators = { left = "", right = "" },
-                },
-                sections = {
-                    lualine_a = {
-                        {
-                            "searchcount",
-                            color = "lualine_b_normal",
-                        },
-                        {
-                            "selectioncount",
-                            color = "lualine_b_normal",
-                        },
-                        {
-                            "mode",
-                            fmt = function(str)
-                                return "<" .. str:sub(1, 1) .. ">"
-                            end,
-                            color = {
-                                gui = "bold",
-                            },
-                        },
+        opts = {
+            options = {
+                theme = "auto",
+                globalstatus = true,
+                section_separators = { left = "", right = "" },
+                component_separators = { left = "", right = "" },
+            },
+            sections = {
+                lualine_a = {
+                    {
+                        "searchcount",
+                        color = "lualine_b_normal",
                     },
-                    lualine_b = {
-                        {
-                            "branch",
-                            icon = "",
-                            fmt = function(str)
-                                return str:sub(1, 20)
-                            end,
-                        },
+                    {
+                        "selectioncount",
+                        color = "lualine_b_normal",
                     },
-                    lualine_c = {
-                        { "%=", type = "stl" },
-                        {
-                            "filetype",
-                            icon_only = true,
-                            padding = { left = 1, right = 0 },
+                    {
+                        "mode",
+                        fmt = function(str)
+                            return "<" .. str:sub(1, 1) .. ">"
+                        end,
+                        color = {
+                            gui = "bold",
                         },
-                        {
-                            "filename",
-                            path = 4,
-                        },
-                        {
-                            "diagnostics",
-                            sources = { "nvim_diagnostic" },
-                            symbols = {
-                                error = "E:",
-                                warn = "W:",
-                                hint = "H:",
-                                info = "I:",
-                            },
-                            always_visible = false,
-                        },
-                    },
-                    lualine_x = {
-                        { get_trailing_whitespace },
-                        { get_mixed_indent },
-                    },
-                    lualine_y = {
-                        { "tabs", mode = 1 },
-                    },
-                    lualine_z = {
-                        { "progress", color = { gui = "bold" } },
                     },
                 },
-                extensions = { "lazy", "man", "quickfix", "toggleterm" },
-            })
-        end,
+                lualine_b = {
+                    {
+                        "branch",
+                        icon = "",
+                        fmt = function(str)
+                            return str:sub(1, 20)
+                        end,
+                    },
+                },
+                lualine_c = {
+                    { "%=", type = "stl" },
+                    {
+                        "filetype",
+                        icon_only = true,
+                        padding = { left = 1, right = 0 },
+                    },
+                    {
+                        "filename",
+                        path = 4,
+                    },
+                    {
+                        "diagnostics",
+                        sources = { "nvim_diagnostic" },
+                        symbols = {
+                            error = "E:",
+                            warn = "W:",
+                            hint = "H:",
+                            info = "I:",
+                        },
+                        always_visible = false,
+                    },
+                },
+                lualine_x = {
+                    { get_trailing_whitespace },
+                    { get_mixed_indent },
+                },
+                lualine_y = {
+                    { "tabs", mode = 1 },
+                },
+                lualine_z = {
+                    { "progress", color = { gui = "bold" } },
+                },
+            },
+            extensions = { "lazy", "man", "quickfix", "toggleterm" },
+        },
     },
 
     { --[[ tabby ]]
