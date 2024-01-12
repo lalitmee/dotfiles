@@ -63,39 +63,12 @@ return {
     },
 
     { --[[ neogen ]]
-        enabled = false,
         "danymat/neogen",
         keys = {
-            {
-                "<localleader>dd",
-                ":Neogen<CR>",
-                desc = "doc-this",
-                silent = true,
-            },
-            {
-                "<localleader>dc",
-                function()
-                    require("neogen").generate({ type = "class" })
-                end,
-                desc = "doc-this-class",
-                silent = true,
-            },
-            {
-                "<localleader>df",
-                function()
-                    require("neogen").generate({ type = "func" })
-                end,
-                desc = "doc-this-function",
-                silent = true,
-            },
-            {
-                "<localleader>dt",
-                function()
-                    require("neogen").generate({ type = "type" })
-                end,
-                desc = "doc-this-type",
-                silent = true,
-            },
+            { "<leader>dd", "<cmd>Neogen<CR>", desc = "doc-this", silent = true },
+            { "<leader>dc", "<cmd>Neogen class<cr>", desc = "doc-this-class", silent = true },
+            { "<leader>df", "<cmd>Neogen func<cr>", desc = "doc-this-function", silent = true },
+            { "<leader>dt", "<cmd>Neogen type<cr>", desc = "doc-this-type", silent = true },
         },
         opts = {
             snippet_engine = "luasnip",

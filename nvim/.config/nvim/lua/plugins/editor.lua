@@ -103,7 +103,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
-                    { name = "cody" },
+                    -- { name = "cody" },
                     { name = "nvim_lsp", keyword_length = 1 },
                     { name = "nvim_lua", keyword_length = 1 },
                     {
@@ -251,7 +251,7 @@ return {
         event = { "InsertEnter" },
         dependencies = {
             "rafamadriz/friendly-snippets",
-            "honza/vim-snippets",
+            -- "honza/vim-snippets",
         },
         config = function()
             local ls = require("luasnip")
