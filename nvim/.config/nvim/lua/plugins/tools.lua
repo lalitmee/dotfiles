@@ -50,19 +50,30 @@ return {
     { --[[ nap ]]
         "liangxianzhe/nap.nvim",
         keys = { "]", "[" },
-        config = function()
-            require("nap").setup({
-                next_prefix = "]",
-                prev_prefix = "[",
-                next_repeat = "]",
-                prev_repeat = "[",
-            })
-
-            -- gitsigns mapping
-            require("nap").operator("h", require("nap").gitsigns())
-            require("nap").operator("f", false)
-        end,
-        enabled = false,
+        opts = {
+            next_prefix = "]",
+            prev_prefix = "[",
+            next_repeat = "<C-n>",
+            prev_repeat = "<C-p>",
+            operators = {
+                ["h"] = {
+                    next = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Next hunk" } },
+                    prev = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Previous hunk" } },
+                },
+                ["<Tab>"] = {
+                    next = { rhs = "<cmd>tabnext<cr>", opts = { desc = "Next tab" } },
+                    prev = { rhs = "<cmd>tabprevious<cr>", opts = { desc = "Previous tab" } },
+                },
+                ["<Space>"] = {
+                    next = { rhs = [[<cmd>call append(line("."), [""])<CR>]], opts = { desc = "Empty line below" } },
+                    prev = { rhs = [[<cmd>call append(line(".")-1, [""])<CR>]], opts = { desc = "Empty line above" } },
+                },
+                ["e"] = {
+                    next = { rhs = [[<cmd>m .+1<CR>]], opts = { desc = "Move line down" } },
+                    prev = { rhs = [[<cmd>m .-2<CR>]], opts = { desc = "Move line up" } },
+                },
+            },
+        },
     },
 
     { --[[ toggleterm ]]
@@ -886,6 +897,71 @@ return {
             -- output = "/home/lalitmee/Desktop/Github/code-screenshots/SILICON_$year-$month-$date-$time.png",
             output = "SILICON_$year-$month-$date-$time.png",
             font = "Source Code Pro",
+        },
+    },
+
+    { --[[ trouble ]]
+        "folke/trouble.nvim",
+        keys = {
+            {
+                "<leader>xL",
+                function()
+                    require("trouble").toggle("loclist")
+                end,
+                desc = "trouble loclist",
+            },
+            {
+                "<leader>xd",
+                function()
+                    require("trouble").toggle("document_diagnostics")
+                end,
+                desc = "trouble document diagnostics",
+            },
+            {
+                "<leader>xq",
+                function()
+                    require("trouble").toggle("quickfix")
+                end,
+                desc = "trouble quickfix",
+            },
+            {
+                "<leader>xr",
+                function()
+                    require("trouble").toggle("lsp_references")
+                end,
+                desc = "trouble lsp references",
+            },
+            {
+                "<leader>xw",
+                function()
+                    require("trouble").toggle("workspace_diagnostics")
+                end,
+                desc = "trouble workspace diagnostics",
+            },
+            {
+                "<leader>xx",
+                function()
+                    require("trouble").toggle()
+                end,
+                desc = "trouble toggle",
+            },
+            {
+                "<leader>xn",
+                function()
+                    require("trouble").next({ skip_groups = true, jump = true })
+                end,
+                desc = "trouble toggle",
+            },
+            {
+                "<leader>xp",
+                function()
+                    require("trouble").previous({ skip_groups = true, jump = true })
+                end,
+                desc = "trouble toggle",
+            },
+        },
+        opts = {
+            height = 20,
         },
     },
 }

@@ -485,7 +485,6 @@ return {
         version = "*",
         config = true,
         event = "VeryLazy",
-        enabled = false,
     },
 
     { --[[ ufo ]]
@@ -906,6 +905,7 @@ return {
             { "]", mode = { "n", "o", "x" } },
             { "[", mode = { "n", "o", "x" } },
         },
+        enabled = false,
     },
 
     { --[[ abolish ]]
