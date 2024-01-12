@@ -34,7 +34,7 @@ end
 return {
     { -- [[ nvim-cmp ]]
         "hrsh7th/nvim-cmp",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { "VeryLazy" },
         dependencies = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-nvim-lsp",
@@ -485,6 +485,7 @@ return {
         version = "*",
         config = true,
         event = "VeryLazy",
+        enabled = false,
     },
 
     { --[[ ufo ]]
