@@ -443,6 +443,11 @@ setw -g mode-keys vi
 #-------------------------------------------------------------------------------
 #  NOTE: plugins {{{
 #-------------------------------------------------------------------------------
+# # dracula theme
+# set -g @plugin 'dracula/tmux'
+
+# # nord theme
+# set -g @plugin "nordtheme/tmux"
 
 # # catppuccin theme
 # set -g @plugin 'catppuccin/tmux'
