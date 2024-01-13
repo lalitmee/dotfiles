@@ -260,6 +260,7 @@ return {
     },
 
     { --[[ notify ]]
+        enabled = false,
         "rcarriga/nvim-notify",
         event = { "VeryLazy" },
         init = function()
