@@ -839,7 +839,7 @@ return {
         },
     },
 
-    {
+    { --[[ rayso.nvim ]]
         "TobinPalmer/rayso.nvim",
         cmd = { "Rayso" },
         keys = {

@@ -160,6 +160,7 @@ return {
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-v>"] = action_layout.toggle_mirror,
                             ["<c-t>"] = trouble.open_with_trouble,
+                            ["<esc>"] = actions.close,
                         },
                         n = {
                             ["<Down>"] = actions.cycle_history_next,

@@ -794,7 +794,7 @@ return {
         },
     },
 
-    {
+    { --[[ ssr.nvim ]]
         "cshuaimin/ssr.nvim",
         keys = {
             {
