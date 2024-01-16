@@ -788,6 +788,7 @@ return {
                 end
             end
         end,
+        enabled = false,
     },
 
     { --[[ hardtime ]]
