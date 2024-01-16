@@ -15,7 +15,7 @@ return {
     clangd = clangd,
     cssls = true,
     dockerls = true,
-    emmet_ls = false,
+    emmet_ls = true,
     gopls = gopls,
     jsonls = true,
     lua_ls = lua_ls,
