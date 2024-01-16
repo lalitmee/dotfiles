@@ -2,15 +2,21 @@ local leet_arg = "leetcode.nvim"
 
 return {
     { --[[ chatgpt ]]
-        enabled = false,
         "jackMort/ChatGPT.nvim",
-        cmd = {
-            "ChatGPT",
-            "ChatGPTRun",
-            "ChatGPTActAs",
-            "ChatGPTEditWithInstructions",
-        },
         dependencies = { "MunifTanjim/nui.nvim" },
+        keys = {
+            { "<localleader>ca", ":ChatGPTRun add_tests<CR>", desc = "add-tests" },
+            { "<localleader>cc", ":ChatGPT<CR>", desc = "chatgpt" },
+            { "<localleader>cd", ":ChatGPTRun docstring<CR>", desc = "docstring" },
+            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>", desc = "edit-instructions" },
+            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>", desc = "fix-bugs" },
+            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "grammar-correction" },
+            { "<localleader>ch", ":ChatGPTActAs<CR>", desc = "act-as" },
+            { "<localleader>co", ":ChatGPTRun optimize_code<CR>", desc = "optimize-code" },
+            { "<localleader>cr", ":ChatGPTRun<CR>", desc = "chatgpt-run" },
+            { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize" },
+            { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate" },
+        },
         opts = {
             popup_input = {
                 submit = "<Enter>",
@@ -18,16 +24,17 @@ return {
         },
     },
 
-    { --[[ codegpt ]]
-        enabled = false,
-        "dpayne/CodeGPT.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
+    {
+        "james1236/backseat.nvim",
+        keys = {
+            { "<localleader>cb", ":Backseat<CR>", desc = "backseat" },
+            { "<localleader>ck", ":BackseatAsk<CR>", desc = "backseat-ask" },
+            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "backseat-clear-line" },
+            { "<localleader>cx", ":BackseatClear<CR>", desc = "backseat-clear" },
         },
-        cmd = { "Chat" },
-        config = function()
-            require("codegpt.config")
-        end,
+        opts = {
+            openai_api_key = os.getenv("OPENAI_API_KEY"),
+        },
     },
 
     { --[[ python-indent ]]
@@ -354,7 +361,10 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
-        opts = {},
+        opts = {
+            openai_api_key = os.getenv("OPENAI_API_KEY"),
+            popup_type = "vertical",
+        },
         keys = {
             {
                 "<leader>ea",
