@@ -388,18 +388,6 @@ return {
         end,
     },
 
-    { --[[ comment frame ]]
-        "s1n7ax/nvim-comment-frame",
-        opts = {
-            keymap = "<localleader>cc",
-            multiline_keymap = "<localleader>cC",
-        },
-        keys = {
-            { "<localleader>cc", desc = "comment-frame" },
-            { "<localleader>cC", desc = "multiline-comment-frame" },
-        },
-    },
-
     { --[[ auto-pairs ]]
         enabled = false,
         "windwp/nvim-autopairs",
