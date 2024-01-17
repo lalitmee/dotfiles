@@ -74,10 +74,6 @@ return {
 
                 ["C"] = {
                     ["name"] = "+ChatGPT",
-                    ["b"] = { ":Backseat<CR>", "backseat" },
-                    ["k"] = { ":BackseatAsk<CR>", "backseat-ask" },
-                    ["l"] = { ":BackseatClearLine<CR>", "backseat-clear-line" },
-                    ["x"] = { ":BackseatClear<CR>", "backseat-clear" },
                 },
 
                 ["e"] = {
