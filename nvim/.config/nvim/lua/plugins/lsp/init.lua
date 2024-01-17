@@ -373,7 +373,11 @@ return {
                     -- FORMATTING --
                     ----------------
                     fmt.black,
-                    fmt.clang_format,
+                    fmt.clang_format.with({
+                        extra_args = {
+                            "--style=file:" .. vim.fn.expand("$PWD/.clang-format"),
+                        },
+                    }),
                     fmt.eslint_d,
                     fmt.prettierd,
                     fmt.rustfmt,
