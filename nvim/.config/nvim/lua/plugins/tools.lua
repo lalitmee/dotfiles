@@ -282,12 +282,12 @@ return {
         dependencies = { "nvim-telescope/telescope.nvim" },
         -- stylua: ignore
         keys = {
-            { "<localleader>sa", function() require("scretch").new() end, desc = "new-scratch" },
-            { "<localleader>se", function() require("scretch").explore() end, desc = "scratch-explore" },
-            { "<localleader>sf", function() require("scretch").search() end, desc = "search-scratch" },
-            { "<localleader>sg", function() require("scretch").grep() end, desc = "scratch-grep" },
-            { "<localleader>sl", function() require("scretch").last() end, desc = "last-scratch" },
-            { "<localleader>sn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
+            { "<leader>za", function() require("scretch").new() end, desc = "new-scratch" },
+            { "<leader>ze", function() require("scretch").explore() end, desc = "scratch-explore" },
+            { "<leader>zf", function() require("scretch").search() end, desc = "search-scratch" },
+            { "<leader>zg", function() require("scretch").grep() end, desc = "scratch-grep" },
+            { "<leader>zl", function() require("scretch").last() end, desc = "last-scratch" },
+            { "<leader>zn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
         },
         opts = {
             scretch_dir = vim.fn.stdpath("data") .. "/scretch/",

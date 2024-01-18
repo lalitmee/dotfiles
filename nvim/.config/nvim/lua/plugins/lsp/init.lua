@@ -58,7 +58,6 @@ return {
 
     { --[[ lspconfig ]]
         "neovim/nvim-lspconfig",
-        ft = vim.g.enable_lspconfig_ft,
         event = { "VeryLazy" },
         dependencies = {
             {
