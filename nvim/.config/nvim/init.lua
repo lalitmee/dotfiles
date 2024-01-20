@@ -9,10 +9,11 @@ require("globals")
 ----------------------------------------------------------------------
 -- NOTE: globals {{{
 ----------------------------------------------------------------------
+
 -- mapping leader and localleader keys
 vim.g.mapleader = " " -- NOTE: leader is `<space>`
 vim.g.maplocalleader = "," -- NOTE: local leader is ,
-vim.g.open_command = "xdg-open"
+
 -- }}}
 ----------------------------------------------------------------------
 
@@ -20,10 +21,10 @@ vim.g.open_command = "xdg-open"
 -- NOTE: sourcing {{{
 ----------------------------------------------------------------------
 -- core
-require("config/core")
+require("core")
 
 -- plugins
-require("config/lazy")
+require("lazy_init")
 -- }}}
 ----------------------------------------------------------------------
 

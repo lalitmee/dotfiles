@@ -1,0 +1,7 @@
+require("core.abbreviations")
+require("core.autocmds")
+require("core.commands")
+require("core.functions")
+require("core.mappings")
+require("core.numbers")
+require("core.options")

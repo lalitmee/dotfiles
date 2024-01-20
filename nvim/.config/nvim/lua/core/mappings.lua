@@ -194,7 +194,7 @@ xnoremap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>", { silent = false }
 --  NOTE: opening links {{{
 --------------------------------------------------------------------------------
 local function open(path)
-    fn.jobstart({ vim.g.open_command, path }, { detach = true })
+    fn.jobstart({ require("utils.oslib").get_open_cmd(), path }, { detach = true })
     vim.notify(fmt("Opening %s", path))
 end
 
