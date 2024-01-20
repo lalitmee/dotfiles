@@ -965,4 +965,20 @@ return {
             height = 20,
         },
     },
+
+    {
+        "ThePrimeagen/vim-apm",
+        keys = {
+            {
+                "<leader>ax",
+                function()
+                    require("vim-apm"):toggle_monitor()
+                end,
+                desc = "toggle vim apm",
+            },
+        },
+        config = function()
+            require("vim-apm"):setup({})
+        end,
+    },
 }
