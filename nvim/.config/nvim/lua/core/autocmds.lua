@@ -26,7 +26,6 @@ augroup("ginit_au", {
 
 -- telescope and dressing input are doing this right now
 -- Prevent entering buffers in insert mode.
---------------------------------------------------------------------------------
 augroup("insert_au", {
     {
         event = { "WinLeave" },
