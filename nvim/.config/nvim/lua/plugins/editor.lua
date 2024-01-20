@@ -1,36 +1,5 @@
 local command = lk.command
 
-local function get_trailing_whitespace()
-    local space = vim.fn.search([[\s\+$]], "nwc")
-    return space ~= 0 and "TW:" .. space or ""
-end
-
-local function get_mixed_indent()
-    local space_pat = [[\v^ +]]
-    local tab_pat = [[\v^\t+]]
-    local space_indent = vim.fn.search(space_pat, "nwc")
-    local tab_indent = vim.fn.search(tab_pat, "nwc")
-    local mixed = (space_indent > 0 and tab_indent > 0)
-    local mixed_same_line
-    if not mixed then
-        mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], "nwc")
-        mixed = mixed_same_line > 0
-    end
-    if not mixed then
-        return ""
-    end
-    if mixed_same_line ~= nil and mixed_same_line > 0 then
-        return "MI:" .. mixed_same_line
-    end
-    local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
-    local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
-    if space_indent_cnt > tab_indent_cnt then
-        return "MI:" .. tab_indent
-    else
-        return "MI:" .. space_indent
-    end
-end
-
 return {
     { -- [[ nvim-cmp ]]
         "hrsh7th/nvim-cmp",
@@ -494,7 +463,7 @@ return {
             lk.nnoremap("zM", ufo.closeAllFolds, { desc = "close all folds" })
             lk.nnoremap("zr", require("ufo").openFoldsExceptKinds, { desc = "open folds except kinds" })
             lk.nnoremap("zm", require("ufo").closeFoldsWith, { desc = "close folds with" })
-            lk.nnoremap("zk", function()
+            lk.nnoremap("zK", function()
                 local winid = require("ufo").peekFoldedLinesUnderCursor()
                 if not winid then
                     vim.lsp.buf.hover()
@@ -517,7 +486,7 @@ return {
                     table.insert(virt_text, { lines, "Normal" })
                     return virt_text
                 end,
-                close_fold_kinds = { "imports" },
+                close_fold_kinds = { "imports", "comment" },
                 open_fold_hl_timeout = 0,
                 provider_selector = function()
                     return { "treesitter", "indent" }
@@ -545,17 +514,17 @@ return {
             { "<leader>ty", ":Telescope yank_history<CR>", desc = "yank-history", mode = { "n", "x" } },
         },
         dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
-        config = function()
-            require("yanky").setup({
-                highlight = {
-                    timer = 40,
-                },
-                system_clipboard = {
-                    sync_with_ring = false,
-                },
-            })
+        init = function()
             require("telescope").load_extension("yank_history")
         end,
+        opts = {
+            highlight = {
+                timer = 40,
+            },
+            system_clipboard = {
+                sync_with_ring = false,
+            },
+        },
     },
 
     { --[[ matchup ]]
@@ -996,8 +965,8 @@ return {
                     },
                 },
                 lualine_x = {
-                    { get_trailing_whitespace },
-                    { get_mixed_indent },
+                    { require("utils.lualine").get_trailing_whitespace },
+                    { require("utils.lualine").get_mixed_indent },
                 },
                 lualine_y = {
                     { "tabs", mode = 1 },
