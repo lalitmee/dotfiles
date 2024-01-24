@@ -24,7 +24,7 @@ return {
         },
     },
 
-    {
+    { --[[ backseat ]]
         "james1236/backseat.nvim",
         keys = {
             { "<localleader>cb", ":Backseat<CR>", desc = "backseat" },
@@ -40,6 +40,7 @@ return {
     { --[[ python-indent ]]
         "Vimjas/vim-python-pep8-indent",
         ft = "python",
+        enabled = false,
     },
 
     { --[[ markdowny ]]
@@ -385,7 +386,7 @@ return {
         },
     },
 
-    {
+    { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         ft = { "http" },
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -424,7 +425,7 @@ return {
         end,
     },
 
-    {
+    { --[[ leetcode.nvim ]]
         "kawre/leetcode.nvim",
         lazy = leet_arg ~= vim.fn.argv()[1],
         keys = {
@@ -464,7 +465,7 @@ return {
         -- enabled = false,
     },
 
-    {
+    { --[[ gemini-ai ]]
         "gera2ld/ai.nvim",
         cmd = { "GeminiDefine", "GeminiDefineV", "GeminiTranslate", "GeminiAsk" },
         keys = {
