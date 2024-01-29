@@ -5,13 +5,10 @@ super + Escape
     pkill -USR1 -x sxhkd
 
 super + Return
-   kitty
+   wezterm
 
 super + shift + Return
-   alacritty
-
-# super + shift + Return
-#    hyper
+   kitty
 
 #}}}
 #-------------------------------------------------------------------------------
