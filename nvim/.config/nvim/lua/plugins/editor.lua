@@ -513,10 +513,7 @@ return {
             { "<leader>ay", ":YankyRingHistory<CR>", desc = "yank-ring-history", mode = { "n", "x" } },
             { "<leader>ty", ":Telescope yank_history<CR>", desc = "yank-history", mode = { "n", "x" } },
         },
-        dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
-        init = function()
-            require("telescope").load_extension("yank_history")
-        end,
+        dependencies = { "kkharji/sqlite.lua" },
         opts = {
             highlight = {
                 timer = 40,
@@ -525,6 +522,10 @@ return {
                 sync_with_ring = false,
             },
         },
+        config = function(_, opts)
+            require("yanky").setup(opts)
+            require("telescope").load_extension("yank_history")
+        end,
     },
 
     { --[[ matchup ]]
