@@ -45,7 +45,7 @@ config.window_padding = {
 -- NOTE: refer to this comment https://github.com/wez/wezterm/issues/3774#issuecomment-1629689265
 config.freetype_load_flags = "NO_HINTING"
 
--- config.window_close_confirmation = false
+config.window_close_confirmation = "NeverPrompt"
 
 -- and finally, return the configuration to wezterm
 return config
