@@ -980,7 +980,6 @@ return {
     },
 
     { --[[ tabby ]]
-        enabled = false,
         "nanozuki/tabby.nvim",
         event = "VeryLazy",
         config = function()
@@ -1054,6 +1053,7 @@ return {
                 buf_name = { mode = "unique" },
             })
         end,
+        enabled = false,
     },
 
     { --[[ scope.nvim ]]
