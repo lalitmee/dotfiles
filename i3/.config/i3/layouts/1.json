@@ -2,51 +2,30 @@
   {
     "border": "pixel",
     "floating": "auto_off",
-    "fullscreen_mode": 0,
     "layout": "splith",
     "marks": [],
-    "percent": 0.266666666666667,
+    "percent": 1,
     "type": "con",
     "nodes": [
       {
         "border": "pixel",
-        "floating": "auto_off",
-        "layout": "splith",
+        "current_border_width": 2,
+        "floating": "user_off",
+        "geometry": {
+          "height": 1036,
+          "width": 1900,
+          "x": 1932,
+          "y": 36
+        },
         "marks": [],
+        "name": "",
         "percent": 1,
-        "type": "con",
-        "nodes": [
+        "swallows": [
           {
-            "border": "pixel",
-            "floating": "auto_off",
-            "layout": "splith",
-            "marks": [],
-            "percent": 1,
-            "type": "con",
-            "nodes": [
-              {
-                "border": "pixel",
-                "current_border_width": 2,
-                "floating": "user_off",
-                "geometry": {
-                  "height": 1036,
-                  "width": 1900,
-                  "x": 1932,
-                  "y": 36
-                },
-                "marks": [],
-                "name": "",
-                "percent": 1,
-                "swallows": [
-                  {
-                    "instance": "^slack$"
-                  }
-                ],
-                "type": "con"
-              }
-            ]
+            "instance": "^slack$"
           }
-        ]
+        ],
+        "type": "con"
       }
     ]
   }

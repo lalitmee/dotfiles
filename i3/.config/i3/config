@@ -54,11 +54,10 @@ exec_always --no-startup-id /usr/bin/lxappearance -n Pop
 #  NOTE: borders {{{
 #-------------------------------------------------------------------------------
 # Or any other numeric value for "0"
-for_window [class="^.*"] border pixel 2
 default_border pixel 2
 default_floating_border pixel 2
 
-for_window [class="ulauncher"] border pixel 0
+# for_window [class="ulauncher"] border pixel 0
 # }}}
 #-------------------------------------------------------------------------------
 
