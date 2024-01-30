@@ -4,7 +4,7 @@ local border, L = lk.style.border.rounded, vim.log.levels
 return {
     { --[[ dressing ]]
         "stevearc/dressing.nvim",
-        event = { "VeryLazy" },
+        event = "VeryLazy",
         init = function()
             ---@diagnostic disable-next-line: duplicate-set-field
             vim.ui.select = function(...)
@@ -18,20 +18,6 @@ return {
             end
         end,
         config = function()
-            -- NOTE: the limit is half the max lines because this is the cursor theme so
-            -- unless the cursor is at the top or bottom it realistically most often will
-            -- only have half the screen available
-            local function get_height(self, _, max_lines)
-                local results = #self.finder.results
-                local PADDING = 4 -- this represents the size of the telescope window
-                local LIMIT = math.floor(max_lines / 2)
-                return (results <= (LIMIT - PADDING) and results + PADDING or LIMIT)
-            end
-
-            local theme = require("telescope.themes").get_dropdown({
-                layout_config = { height = get_height },
-            })
-
             require("dressing").setup({
                 input = {
                     insert_only = false,
@@ -47,19 +33,7 @@ return {
                         end
                     end,
                 },
-                select = {
-                    winblend = 0,
-                    get_config = function(opts)
-                        -- center the picker for treesitter prompts
-                        if opts.kind == "codeaction" then
-                            return {
-                                backend = "telescope",
-                                telescope = theme,
-                            }
-                        end
-                    end,
-                    telescope = theme,
-                },
+                select = { winblend = 0 },
             })
         end,
     },
