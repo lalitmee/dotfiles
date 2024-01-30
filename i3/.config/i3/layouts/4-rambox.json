@@ -1,24 +1,34 @@
-{
-  "border": "pixel",
-  "current_border_width": 2,
-  "floating": "auto_off",
-  "geometry": {
-    "height": 1044,
-    "width": 1908,
-    "x": 1926,
-    "y": 30
-  },
-  "marks": [],
-  "name": "Rambox",
-  "percent": 1,
-  "swallows": [
-    {
-      "class": "^rambox$",
-      "instance": "^rambox$",
-      "machine": "^pop\\-os$",
-      "title": "^Rambox$",
-      "window_role": "^browser\\-window$"
-    }
-  ],
-  "type": "con"
-}
+[
+  {
+    "border": "pixel",
+    "floating": "auto_off",
+    "fullscreen_mode": 0,
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "type": "con",
+    "nodes": [
+      {
+        "border": "pixel",
+        "current_border_width": 2,
+        "floating": "auto_off",
+        "geometry": {
+          "height": 1036,
+          "width": 1900,
+          "x": 0,
+          "y": 0
+        },
+        "marks": [],
+        "name": "Rambox",
+        "percent": 1,
+        "swallows": [
+          {
+            "class": "^rambox$",
+            "instance": "^rambox$"
+          }
+        ],
+        "type": "con"
+      }
+    ]
+  }
+]
