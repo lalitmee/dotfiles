@@ -19,24 +19,25 @@ return {
         enabled = false,
     },
 
-    {
-        "williamboman/mason.nvim",
+    { --[[ mason ]]
+        "williamboman/mason-lspconfig.nvim",
         event = "BufEnter",
-        opts = {
-            ui = {
-                border = "rounded",
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗",
+        dependencies = {
+            {
+                "williamboman/mason.nvim",
+                event = "BufEnter",
+                opts = {
+                    ui = {
+                        border = "rounded",
+                        icons = {
+                            package_installed = "✓",
+                            package_pending = "➜",
+                            package_uninstalled = "✗",
+                        },
+                    },
                 },
             },
         },
-    },
-
-    { --[[ mason ]]
-        "williamboman/mason-lspconfig.nvim",
-        event = { "BufEnter" },
         opts = {
             ensure_installed = {
                 "bashls",

@@ -189,25 +189,26 @@ return {
     { --[[ comment.nvim ]]
         "numToStr/Comment.nvim",
         event = { "VeryLazy" },
-        config = function()
-            require("Comment").setup({
-                ignore = "^$",
-                pre_hook = function(ctx)
-                    local U = require("Comment.utils")
+        opts = {
+            ignore = "^$",
+            pre_hook = function(ctx)
+                local U = require("Comment.utils")
 
-                    local location = nil
-                    if ctx.ctype == U.ctype.blockwise then
-                        location = require("ts_context_commentstring.utils").get_cursor_location()
-                    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                        location = require("ts_context_commentstring.utils").get_visual_start_location()
-                    end
+                local location = nil
+                if ctx.ctype == U.ctype.blockwise then
+                    location = require("ts_context_commentstring.utils").get_cursor_location()
+                elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+                    location = require("ts_context_commentstring.utils").get_visual_start_location()
+                end
 
-                    return require("ts_context_commentstring.internal").calculate_commentstring({
-                        key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
-                        location = location,
-                    })
-                end,
-            })
+                return require("ts_context_commentstring.internal").calculate_commentstring({
+                    key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
+                    location = location,
+                })
+            end,
+        },
+        config = function(_, opts)
+            require("Comment").setup(opts)
 
             local comment_ft = require("Comment.ft")
             comment_ft.set("lua", { "--%s", "--[[%s]]" })
@@ -217,7 +218,7 @@ return {
 
     { --[[ luasnip ]]
         "L3MON4D3/LuaSnip",
-        event = { "InsertEnter" },
+        event = "InsertEnter",
         dependencies = {
             "rafamadriz/friendly-snippets",
             -- "honza/vim-snippets",
@@ -442,11 +443,12 @@ return {
         version = "*",
         config = true,
         event = "VeryLazy",
+        enabled = false,
     },
 
     { --[[ ufo ]]
         "kevinhwang91/nvim-ufo",
-        event = { "VeryLazy" },
+        event = "BufRead",
         dependencies = {
             "kevinhwang91/promise-async",
         },
@@ -551,8 +553,6 @@ return {
 
     { --[[ flash.nvim ]]
         "folke/flash.nvim",
-        event = "VeryLazy",
-        opts = {},
         keys = {
             {
                 "R",
@@ -686,6 +686,7 @@ return {
                 mode = { "n", "v", "x", "o" },
             },
         },
+        opts = {},
     },
 
     { --[[ spectre ]]
@@ -902,7 +903,7 @@ return {
 
     { --[[ lualine ]]
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
+        event = "BufEnter",
         keys = {
             { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
         },
