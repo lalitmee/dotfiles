@@ -721,6 +721,7 @@ return {
                 ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
                 ["workspaces"] = "https://www.reddit.com/r/workspaces",
                 ["bootstrap"] = "https://getbootstrap.com",
+                ["pkg.go.dev"] = "https://pkg.go.dev/search?q=%s",
             }
             require("browse").setup({
                 provider = "duckduckgo", -- google or bing
