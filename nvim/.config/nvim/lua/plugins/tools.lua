@@ -526,20 +526,29 @@ return {
         config = function()
             local harpoon = require("harpoon")
 
-            harpoon:setup()
+            harpoon:setup({
+                settings = {
+                    save_on_toggle = true,
+                    sync_on_ui_close = true,
+                },
+            })
+
+            harpoon:extend({
+                UI_CREATE = function(cx)
+                    vim.keymap.set("n", "<C-v>", function()
+                        harpoon.ui:select_menu_item({ vsplit = true })
+                    end, { buffer = cx.bufnr })
+
+                    vim.keymap.set("n", "<C-x>", function()
+                        harpoon.ui:select_menu_item({ split = true })
+                    end, { buffer = cx.bufnr })
+
+                    vim.keymap.set("n", "<C-t>", function()
+                        harpoon.ui:select_menu_item({ tabedit = true })
+                    end, { buffer = cx.bufnr })
+                end,
+            })
         end,
-        -- opts = {
-        --     global_settings = {
-        --         menu = {
-        --             width = vim.api.nvim_win_get_width(0) - 100,
-        --             height = vim.api.nvim_win_get_height(0) - 25,
-        --         },
-        --         enter_on_sendcmd = true,
-        --         mark_branch = true,
-        --         save_on_toggle = true,
-        --         tmux_autoclose_windows = true,
-        --     },
-        -- },
     },
 
     { --[[ browse ]]
