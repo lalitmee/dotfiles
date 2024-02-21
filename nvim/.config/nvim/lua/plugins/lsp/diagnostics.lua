@@ -120,8 +120,7 @@ do
             return
         end
 
-        diagnostic.setqflist({ open = false, title = TITLE })
-        lk.toggle_qf_list()
+        diagnostic.setqflist({ open = true, title = TITLE })
 
         if not lk.is_vim_list_open() and id then
             api.nvim_del_autocmd(id)
@@ -135,7 +134,7 @@ do
                     if not lk.is_vim_list_open() or fn.getqflist({ title = 0 }).title ~= TITLE then
                         return
                     end
-                    diagnostic.setqflist({ open = false, title = TITLE })
+                    diagnostic.setqflist({ open = true, title = TITLE })
                     if #fn.getqflist() == 0 then
                         lk.toggle_qf_list()
                     end

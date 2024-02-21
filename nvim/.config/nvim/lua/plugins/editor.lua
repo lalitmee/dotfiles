@@ -443,7 +443,7 @@ return {
         version = "*",
         config = true,
         event = "VeryLazy",
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ ufo ]]
