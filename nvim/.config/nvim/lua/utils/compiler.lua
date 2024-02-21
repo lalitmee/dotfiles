@@ -5,9 +5,7 @@ local l = vim.log.levels
 local term_wrapper = function(command, file)
     vim.cmd("vsplit")
     vim.cmd("term " .. fmt(command, file))
-    vim.cmd(
-        "setl nobuflisted nornu nonu nocursorline scrolloff=0 signcolumn=no laststatus=0"
-    )
+    vim.cmd("setl nobuflisted nornu nonu nocursorline scrolloff=0 signcolumn=no laststatus=0")
     vim.cmd("silent! file CompileAndRun")
     vim.cmd("startinsert")
     vim.cmd("au WinLeave * set laststatus=2")

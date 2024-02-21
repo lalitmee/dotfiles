@@ -1,0 +1,194 @@
+// vim:ts=4:sw=4:et
+{
+    // workspace with 0 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": 0.25,
+    "type": "workspace",
+    "floating_nodes": [
+        {
+            // floating_con with 1 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "marks": [],
+            "percent": null,
+            "rect": {
+               "height": 1040,
+               "width": 1904,
+               "x": 12,
+               "y": 36
+            },
+            "type": "floating_con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 2,
+                    "floating": "user_on",
+                    "geometry": {
+                       "height": 1036,
+                       "width": 1900,
+                       "x": 1932,
+                       "y": 36
+                    },
+                    "marks": [],
+                    "name": "* showandtell - Gophers - Slack",
+                    "percent": 1,
+                    "swallows": [
+                       {
+                       // "class": "^Slack$",
+                       // "instance": "^slack$",
+                       // "machine": "^pop\\-os$",
+                       // "title": "^\\*\\ showandtell\\ \\-\\ Gophers\\ \\-\\ Slack$",
+                       // "window_role": "^browser\\-window$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+
+{
+    // workspace with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": 0.25,
+    "type": "workspace",
+    "nodes": [
+        {
+            // splith split container with 1 children
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "marks": [],
+            "percent": 1,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 2,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 504,
+                       "width": 800,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "marks": [],
+                    "name": "pop-os ❐ dotfiles ● 1 nvim",
+                    "percent": 1,
+                    "swallows": [
+                       {
+                       // "class": "^org\\.wezfurlong\\.wezterm$",
+                       // "instance": "^org\\.wezfurlong\\.wezterm$",
+                       // "title": "^pop\\-os\\ \\❐\\ dotfiles\\ \\●\\ 1\\ nvim$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+
+{
+    // workspace with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "fullscreen_mode": 1,
+    "layout": "splith",
+    "marks": [],
+    "percent": 0.25,
+    "type": "workspace",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1044,
+               "width": 1908,
+               "x": 6,
+               "y": 30
+            },
+            "marks": [],
+            "name": "Rambox",
+            "percent": 1,
+            "swallows": [
+               {
+               // "class": "^rambox$",
+               // "instance": "^rambox$",
+               // "machine": "^pop\\-os$",
+               // "title": "^Rambox$",
+               // "window_role": "^browser\\-window$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // workspace with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "marks": [],
+    "percent": 0.25,
+    "type": "workspace",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1036,
+               "width": 1900,
+               "x": 1930,
+               "y": 34
+            },
+            "marks": [],
+            "name": "brave-browser",
+            "percent": 1,
+            "swallows": [
+               {
+               // "title": "^brave\\-browser$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1044,
+       "width": 1908,
+       "x": 6,
+       "y": 30
+    },
+    "marks": [],
+    "name": "Rambox",
+    "percent": 1,
+    "swallows": [
+       {
+       // "class": "^rambox$",
+       // "instance": "^rambox$",
+       // "machine": "^pop\\-os$",
+       // "title": "^Rambox$",
+       // "window_role": "^browser\\-window$"
+       }
+    ],
+    "type": "con"
+}
+

@@ -1,3 +1,19 @@
+# -------------------------------------------------------------------
+# NOTE: auto start tmux {{{
+# start tmux while starting new terminal
+# -------------------------------------------------------------------
+_not_inside_tmux() { [[ -z "$TMUX" ]]; }
+
+ensure_tmux_is_running() {
+    if _not_inside_tmux; then
+        ~/.tat
+    fi
+}
+
+ensure_tmux_is_running
+# }}}
+
+# -------------------------------------------------------------------
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -160,7 +176,7 @@ pomodoro () {
 # fzf config
 [[ -f ~/.fzf_config ]] && source ~/.fzf_config
 
-# openai api key
+# secrete tokens
 [[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
 
 # awesome zsh functions
@@ -169,22 +185,6 @@ pomodoro () {
 # keybindings
 [[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
 # }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# # NOTE: auto start tmux {{{
-# # start tmux while starting new terminal
-# # -------------------------------------------------------------------
-# _not_inside_tmux() { [[ -z "$TMUX" ]]; }
-
-# ensure_tmux_is_running() {
-#     if _not_inside_tmux; then
-#         ~/.tat
-#     fi
-# }
-
-# ensure_tmux_is_running
-# # }}}
 # -------------------------------------------------------------------
 
 # # -------------------------------------------------------------------
@@ -219,3 +219,6 @@ znap eval rbenv "rbenv init -"
 # zprof
 
 # vim:foldmethod=marker
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh

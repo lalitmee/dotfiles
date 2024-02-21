@@ -1,0 +1,9 @@
+#!/bin/bash
+bat_files="/sys/class/power_supply/BAT0"
+capacity=$(cat "${bat_files}/capacity")
+echo "${capacity}"
+
+notify-send \
+	--icon=/usr/local/share/icons/battery_capacity.png \
+	"Battery Capacity" \
+	"${capacity}% battery remaining"

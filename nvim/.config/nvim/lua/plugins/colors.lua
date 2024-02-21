@@ -2,15 +2,24 @@ return {
     { --[[ colorschemes ]]
 
         { --[[ cobalt2 ]]
-            dir = "~/Desktop/Github/cobalt2.nvim",
+            "lalitmee/cobalt2.nvim",
+            dev = true,
             lazy = false,
             priority = 1000,
             dependencies = { "tjdevries/colorbuddy.nvim" },
-            init = function()
+            config = function()
                 require("colorbuddy").colorscheme("cobalt2")
             end,
-            dev = true,
             -- enabled = false,
+        },
+
+        {
+            "lifepillar/vim-gruvbox8",
+            lazy = false,
+            config = function()
+                vim.cmd("colorscheme gruvbox8")
+            end,
+            enabled = false,
         },
 
         { --[[ catppuccin ]]

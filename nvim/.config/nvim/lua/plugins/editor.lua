@@ -3,17 +3,13 @@ local command = lk.command
 return {
     { -- [[ nvim-cmp ]]
         "hrsh7th/nvim-cmp",
-        event = { "InsertEnter", "CmdlineEnter" },
+        event = { "VeryLazy" },
         dependencies = {
             "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
-            "petertriho/cmp-git",
-            "roobert/tailwindcss-colorizer-cmp.nvim",
             "saadparwaiz1/cmp_luasnip",
         },
         config = function()
@@ -44,8 +40,31 @@ return {
                     ["<S-Tab>"] = nil,
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<c-space>"] = cmp.mapping({
+                        i = cmp.mapping.complete(),
+                        c = function(
+                            _ --[[fallback]]
+                        )
+                            if cmp.visible() then
+                                if not cmp.confirm({ select = true }) then
+                                    return
+                                end
+                            else
+                                cmp.complete()
+                            end
+                        end,
+                    }),
+
+                    ["<M-y>"] = cmp.mapping(
+                        cmp.mapping.confirm({
+                            behavior = cmp.ConfirmBehavior.Replace,
+                            select = false,
+                        }),
+                        { "i", "c" }
+                    ),
+
                     ["<C-e>"] = cmp.mapping.abort(),
+
                     ["<CR>"] = cmp.mapping.confirm({
                         behavior = cmp.ConfirmBehavior.Insert,
                         select = true,
@@ -53,6 +72,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
+                    -- { name = "cody" },
                     { name = "nvim_lsp", keyword_length = 1 },
                     { name = "nvim_lua", keyword_length = 1 },
                     {
@@ -64,9 +84,8 @@ return {
                             return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
                         end,
                     },
-                    { name = "buffer", keyword_length = 1 },
+                    { name = "buffer", keyword_length = 5 },
                     { name = "path" },
-                    { name = "nvim_lsp_signature_help" },
                 }),
 
                 -- NOTE: copied from TJ
@@ -107,6 +126,7 @@ return {
                     format = lspkind.cmp_format({
                         menu = {
                             buffer = "[BUF]",
+                            cody = "[CODY]",
                             luasnip = "[SNIP]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
@@ -117,27 +137,24 @@ return {
 
                 experimental = { ghost_text = false },
             })
-            require("cmp").config.formatting = {
-                format = require("tailwindcss-colorizer-cmp").formatter,
-            }
 
-            -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline({ "/", "?" }, {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
+            -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+            -- cmp.setup.cmdline({ "/", "?" }, {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = {
+            --         { name = "buffer" },
+            --     },
+            -- })
 
-            -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline" },
-                }),
-            })
+            -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+            -- cmp.setup.cmdline(":", {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = cmp.config.sources({
+            --         { name = "path" },
+            --     }, {
+            --         { name = "cmdline" },
+            --     }),
+            -- })
 
             -- Set configuration for specific filetype.
             cmp.setup.filetype("gitcommit", {
@@ -152,6 +169,7 @@ return {
     },
 
     { --[[ codeium ]]
+        enabled = false,
         "Exafunction/codeium.vim",
         event = { "InsertEnter" },
         cmd = { "Codeium" },
@@ -171,25 +189,26 @@ return {
     { --[[ comment.nvim ]]
         "numToStr/Comment.nvim",
         event = { "VeryLazy" },
-        config = function()
-            require("Comment").setup({
-                ignore = "^$",
-                pre_hook = function(ctx)
-                    local U = require("Comment.utils")
+        opts = {
+            ignore = "^$",
+            pre_hook = function(ctx)
+                local U = require("Comment.utils")
 
-                    local location = nil
-                    if ctx.ctype == U.ctype.blockwise then
-                        location = require("ts_context_commentstring.utils").get_cursor_location()
-                    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                        location = require("ts_context_commentstring.utils").get_visual_start_location()
-                    end
+                local location = nil
+                if ctx.ctype == U.ctype.blockwise then
+                    location = require("ts_context_commentstring.utils").get_cursor_location()
+                elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+                    location = require("ts_context_commentstring.utils").get_visual_start_location()
+                end
 
-                    return require("ts_context_commentstring.internal").calculate_commentstring({
-                        key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
-                        location = location,
-                    })
-                end,
-            })
+                return require("ts_context_commentstring.internal").calculate_commentstring({
+                    key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
+                    location = location,
+                })
+            end,
+        },
+        config = function(_, opts)
+            require("Comment").setup(opts)
 
             local comment_ft = require("Comment.ft")
             comment_ft.set("lua", { "--%s", "--[[%s]]" })
@@ -199,10 +218,10 @@ return {
 
     { --[[ luasnip ]]
         "L3MON4D3/LuaSnip",
-        event = { "InsertEnter" },
+        event = "InsertEnter",
         dependencies = {
             "rafamadriz/friendly-snippets",
-            "honza/vim-snippets",
+            -- "honza/vim-snippets",
         },
         config = function()
             local ls = require("luasnip")
@@ -339,18 +358,6 @@ return {
         end,
     },
 
-    { --[[ comment frame ]]
-        "s1n7ax/nvim-comment-frame",
-        opts = {
-            keymap = "<localleader>cc",
-            multiline_keymap = "<localleader>cC",
-        },
-        keys = {
-            { "<localleader>cc", desc = "comment-frame" },
-            { "<localleader>cC", desc = "multiline-comment-frame" },
-        },
-    },
-
     { --[[ auto-pairs ]]
         enabled = false,
         "windwp/nvim-autopairs",
@@ -436,11 +443,12 @@ return {
         version = "*",
         config = true,
         event = "VeryLazy",
+        -- enabled = false,
     },
 
     { --[[ ufo ]]
         "kevinhwang91/nvim-ufo",
-        event = { "VeryLazy" },
+        event = "BufRead",
         dependencies = {
             "kevinhwang91/promise-async",
         },
@@ -457,7 +465,7 @@ return {
             lk.nnoremap("zM", ufo.closeAllFolds, { desc = "close all folds" })
             lk.nnoremap("zr", require("ufo").openFoldsExceptKinds, { desc = "open folds except kinds" })
             lk.nnoremap("zm", require("ufo").closeFoldsWith, { desc = "close folds with" })
-            lk.nnoremap("zk", function()
+            lk.nnoremap("zK", function()
                 local winid = require("ufo").peekFoldedLinesUnderCursor()
                 if not winid then
                     vim.lsp.buf.hover()
@@ -480,7 +488,7 @@ return {
                     table.insert(virt_text, { lines, "Normal" })
                     return virt_text
                 end,
-                close_fold_kinds = { "imports" },
+                close_fold_kinds = { "imports", "comment" },
                 open_fold_hl_timeout = 0,
                 provider_selector = function()
                     return { "treesitter", "indent" }
@@ -507,16 +515,17 @@ return {
             { "<leader>ay", ":YankyRingHistory<CR>", desc = "yank-ring-history", mode = { "n", "x" } },
             { "<leader>ty", ":Telescope yank_history<CR>", desc = "yank-history", mode = { "n", "x" } },
         },
-        dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
-        config = function()
-            require("yanky").setup({
-                highlight = {
-                    timer = 40,
-                },
-                system_clipboard = {
-                    sync_with_ring = false,
-                },
-            })
+        dependencies = { "kkharji/sqlite.lua" },
+        opts = {
+            highlight = {
+                timer = 40,
+            },
+            system_clipboard = {
+                sync_with_ring = false,
+            },
+        },
+        config = function(_, opts)
+            require("yanky").setup(opts)
             require("telescope").load_extension("yank_history")
         end,
     },
@@ -544,8 +553,6 @@ return {
 
     { --[[ flash.nvim ]]
         "folke/flash.nvim",
-        event = "VeryLazy",
-        opts = {},
         keys = {
             {
                 "R",
@@ -679,6 +686,7 @@ return {
                 mode = { "n", "v", "x", "o" },
             },
         },
+        opts = {},
     },
 
     { --[[ spectre ]]
@@ -742,6 +750,35 @@ return {
             patterns_height = 20,
             options_width = 30,
             preview_height = 20,
+        },
+    },
+
+    { --[[ ssr.nvim ]]
+        "cshuaimin/ssr.nvim",
+        keys = {
+            {
+                "<leader>se",
+                function()
+                    require("ssr").open()
+                end,
+                mode = { "n", "v" },
+                desc = "open ssr",
+            },
+        },
+        opts = {
+            border = "rounded",
+            min_width = 50,
+            min_height = 5,
+            max_width = 120,
+            max_height = 25,
+            adjust_window = true,
+            keymaps = {
+                close = "q",
+                next_match = "n",
+                prev_match = "N",
+                replace_confirm = "<cr>",
+                replace_all = "<leader><cr>",
+            },
         },
     },
 
@@ -827,6 +864,7 @@ return {
             { "]", mode = { "n", "o", "x" } },
             { "[", mode = { "n", "o", "x" } },
         },
+        enabled = false,
     },
 
     { --[[ abolish ]]
@@ -865,119 +903,85 @@ return {
 
     { --[[ lualine ]]
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
+        event = "BufEnter",
         keys = {
             { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
         },
-        config = function()
-            local function get_trailing_whitespace()
-                local space = vim.fn.search([[\s\+$]], "nwc")
-                return space ~= 0 and "TW:" .. space or ""
-            end
-
-            local function get_mixed_indent()
-                local space_pat = [[\v^ +]]
-                local tab_pat = [[\v^\t+]]
-                local space_indent = vim.fn.search(space_pat, "nwc")
-                local tab_indent = vim.fn.search(tab_pat, "nwc")
-                local mixed = (space_indent > 0 and tab_indent > 0)
-                local mixed_same_line
-                if not mixed then
-                    mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], "nwc")
-                    mixed = mixed_same_line > 0
-                end
-                if not mixed then
-                    return ""
-                end
-                if mixed_same_line ~= nil and mixed_same_line > 0 then
-                    return "MI:" .. mixed_same_line
-                end
-                local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
-                local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
-                if space_indent_cnt > tab_indent_cnt then
-                    return "MI:" .. tab_indent
-                else
-                    return "MI:" .. space_indent
-                end
-            end
-
-            require("lualine").setup({
-                options = {
-                    theme = "auto",
-                    globalstatus = true,
-                    section_separators = { left = "", right = "" },
-                    component_separators = { left = "", right = "" },
-                },
-                sections = {
-                    lualine_a = {
-                        {
-                            "searchcount",
-                            color = "lualine_b_normal",
-                        },
-                        {
-                            "selectioncount",
-                            color = "lualine_b_normal",
-                        },
-                        {
-                            "mode",
-                            fmt = function(str)
-                                return "<" .. str:sub(1, 1) .. ">"
-                            end,
-                            color = {
-                                gui = "bold",
-                            },
-                        },
+        opts = {
+            options = {
+                theme = "auto",
+                globalstatus = true,
+                section_separators = { left = "", right = "" },
+                component_separators = { left = "", right = "" },
+            },
+            sections = {
+                lualine_a = {
+                    {
+                        "searchcount",
+                        color = "lualine_b_normal",
                     },
-                    lualine_b = {
-                        {
-                            "branch",
-                            icon = "",
-                            fmt = function(str)
-                                return str:sub(1, 20)
-                            end,
-                        },
+                    {
+                        "selectioncount",
+                        color = "lualine_b_normal",
                     },
-                    lualine_c = {
-                        { "%=", type = "stl" },
-                        {
-                            "filetype",
-                            icon_only = true,
-                            padding = { left = 1, right = 0 },
+                    {
+                        "mode",
+                        fmt = function(str)
+                            return "<" .. str:sub(1, 1) .. ">"
+                        end,
+                        color = {
+                            gui = "bold",
                         },
-                        {
-                            "filename",
-                            path = 4,
-                        },
-                        {
-                            "diagnostics",
-                            sources = { "nvim_diagnostic" },
-                            symbols = {
-                                error = "E:",
-                                warn = "W:",
-                                hint = "H:",
-                                info = "I:",
-                            },
-                            always_visible = false,
-                        },
-                    },
-                    lualine_x = {
-                        { get_trailing_whitespace },
-                        { get_mixed_indent },
-                    },
-                    lualine_y = {
-                        { "tabs", mode = 1 },
-                    },
-                    lualine_z = {
-                        { "progress", color = { gui = "bold" } },
                     },
                 },
-                extensions = { "lazy", "man", "quickfix", "toggleterm" },
-            })
-        end,
+                lualine_b = {
+                    {
+                        "branch",
+                        icon = "",
+                        fmt = function(str)
+                            return str:sub(1, 20)
+                        end,
+                    },
+                },
+                lualine_c = {
+                    { "%=", type = "stl" },
+                    {
+                        "filetype",
+                        icon_only = true,
+                        padding = { left = 1, right = 0 },
+                    },
+                    {
+                        "filename",
+                        path = 4,
+                    },
+                    {
+                        "diagnostics",
+                        sources = { "nvim_diagnostic" },
+                        symbols = {
+                            error = "E:",
+                            warn = "W:",
+                            hint = "H:",
+                            info = "I:",
+                        },
+                        always_visible = false,
+                    },
+                },
+                lualine_x = {
+                    { require("utils.lualine").get_trailing_whitespace },
+                    { require("utils.lualine").get_mixed_indent },
+                },
+                lualine_y = {
+                    { "tabs", mode = 1 },
+                },
+                lualine_z = {
+                    { "progress", color = { gui = "bold" } },
+                },
+            },
+            extensions = { "lazy", "man", "quickfix", "toggleterm" },
+        },
     },
 
     { --[[ tabby ]]
-        enabled = false,
         "nanozuki/tabby.nvim",
         event = "VeryLazy",
         config = function()
@@ -1051,6 +1055,7 @@ return {
                 buf_name = { mode = "unique" },
             })
         end,
+        enabled = false,
     },
 
     { --[[ scope.nvim ]]
@@ -1060,6 +1065,7 @@ return {
     },
 
     { --[[ edgy ]]
+        enabled = false,
         "folke/edgy.nvim",
         event = "VeryLazy",
         opts = {

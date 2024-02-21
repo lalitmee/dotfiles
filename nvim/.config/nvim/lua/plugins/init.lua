@@ -14,6 +14,13 @@ return {
         config = function()
             require("icon-picker")
         end,
-        cmd = { "PickEverything" },
+        keys = {
+            {
+                "<leader>ip",
+                "<cmd>PickEverything<cr>",
+                silent = true,
+                desc = "insert-icons",
+            },
+        },
     },
 }

@@ -38,6 +38,7 @@ return {
             local themes = require("telescope.themes")
 
             local lga_actions = require("telescope-live-grep-args.actions")
+            local trouble = require("trouble.providers.telescope")
 
             local function get_border(opts)
                 return vim.tbl_deep_extend("force", opts or {}, {
@@ -150,8 +151,7 @@ return {
                             ["<C-Up>"] = actions.cycle_history_prev,
                             ["<C-b>"] = open_entries,
                             ["<C-e>"] = actions.move_to_bottom,
-                            -- ["<C-j>"] = actions.move_selection_next,
-                            -- ["<C-k>"] = actions.move_selection_previous,
+                            ["<C-k>"] = lga_actions.quote_prompt(),
                             ["<C-n>"] = actions.move_selection_next,
                             ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
                             ["<C-p>"] = actions.move_selection_previous,
@@ -159,12 +159,13 @@ return {
                             ["<M-o>"] = action_layout.toggle_prompt_position,
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-v>"] = action_layout.toggle_mirror,
-                            ["<C-k>"] = lga_actions.quote_prompt(),
+                            ["<c-t>"] = trouble.open_with_trouble,
                             ["<esc>"] = actions.close,
                         },
                         n = {
                             ["<Down>"] = actions.cycle_history_next,
                             ["<Up>"] = actions.cycle_history_prev,
+                            ["<c-t>"] = trouble.open_with_trouble,
                             ["<esc>"] = actions.close,
                             ["e"] = actions.move_to_bottom,
                             ["j"] = actions.move_selection_next,
