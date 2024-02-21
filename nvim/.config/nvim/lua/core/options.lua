@@ -9,68 +9,6 @@ local g = vim.g
 local executable = lk.executable
 
 ----------------------------------------------------------------------
--- NOTE: filetypes for lspconfig and treesitter {{{
-----------------------------------------------------------------------
--- NOTE: lspconfig
-g.enable_lspconfig_ft = {
-    "bash",
-    "css",
-    "dockerfile",
-    "go",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "lua",
-    "markdown",
-    "typescript",
-    "typescriptreact",
-    "vim",
-    "yaml",
-}
-
--- NOTE: treesitter
-g.enable_treesitter_ft = {
-    "bash",
-    "c",
-    "comment",
-    "cpp",
-    "css",
-    "diff",
-    "dockerfile",
-    "git_rebase",
-    "gitattributes",
-    "gitcommit",
-    "gitignore",
-    "go",
-    "gomod",
-    "gosum",
-    "gowork",
-    "html",
-    "http",
-    "javascript",
-    "jsdoc",
-    "json",
-    "kdl",
-    "lua",
-    "markdown",
-    "markdown_inline",
-    "org",
-    "python",
-    "regex",
-    "rust",
-    "scss",
-    "toml",
-    "tsx",
-    "typescript",
-    "vim",
-    "vimdoc",
-    "yaml",
-}
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
 -- NOTE: python hosts {{{
 ----------------------------------------------------------------------
 g.python3_host_prog = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
@@ -339,7 +277,7 @@ o.emoji = false
 ----------------------------------------------------------------------
 -- NOTE: title {{{
 ----------------------------------------------------------------------
-o.titleold = fn.fnamemodify(vim.uv.os_getenv("SHELL"), ":t")
+-- o.titleold = fn.fnamemodify(vim.uv.os_getenv("SHELL"), ":t")
 o.title = true
 o.titlelen = 70
 -- }}}
@@ -412,8 +350,8 @@ end
 o.ignorecase = true
 o.smartcase = true
 o.wrapscan = true -- Searches wrap around the end of the file
--- opt.scrolloff = 999
-o.scrolloff = 10
+o.scrolloff = 999
+-- o.scrolloff = 10
 o.scrollback = 100000
 o.visualbell = false
 o.errorbells = false

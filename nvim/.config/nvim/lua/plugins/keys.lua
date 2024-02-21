@@ -74,21 +74,6 @@ return {
 
                 ["C"] = {
                     ["name"] = "+ChatGPT",
-                    ["a"] = { ":ChatGPTRun add_tests<CR>", "add-tests" },
-                    ["b"] = { ":Backseat<CR>", "backseat" },
-                    ["c"] = { ":ChatGPT<CR>", "chatgpt" },
-                    ["d"] = { ":ChatGPTRun docstring<CR>", "docstring" },
-                    ["e"] = { ":ChatGPTEditWithInstructions<CR>", "edit-instructions" },
-                    ["f"] = { ":ChatGPTRun fix_bugs<CR>", "fix-bugs" },
-                    ["g"] = { ":ChatGPTRun grammar_correction<CR>", "grammar-correction" },
-                    ["h"] = { ":ChatGPTActAs<CR>", "act-as" },
-                    ["k"] = { ":BackseatAsk<CR>", "backseat-ask" },
-                    ["l"] = { ":BackseatClearLine<CR>", "backseat-clear-line" },
-                    ["o"] = { ":ChatGPTRun optimize_code<CR>", "optimize-code" },
-                    ["r"] = { ":ChatGPTRun<CR>", "chatgpt-run" },
-                    ["s"] = { ":ChatGPTRun summarize<CR>", "summarize" },
-                    ["t"] = { ":ChatGPTRun translate<CR>", "translate" },
-                    ["x"] = { ":BackseatClear<CR>", "backseat-clear" },
                 },
 
                 ["e"] = {
@@ -210,7 +195,6 @@ return {
                     ["c"] = { ":Colortils<CR>", "color-picker" },
                     ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
                     ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
-                    ["p"] = { ":PickEverything<CR>", "everything" },
                     ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
                 },
 

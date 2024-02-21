@@ -165,4 +165,20 @@ return {
             },
         },
     },
+
+    {
+        "towry/commit-msg-sg.nvim",
+        dependencies = { "sourcegraph/sg.nvim" },
+        cmd = { "WriteGitCommitMessage" },
+        ft = "gitcommit",
+        keys = {
+            {
+                "<leader>gcr",
+                "<cmd>WriteGitCommitMessage<cr>",
+                silent = true,
+                desc = "write git commit using Cody",
+            },
+        },
+        opts = {},
+    },
 }

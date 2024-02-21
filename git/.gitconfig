@@ -3,7 +3,7 @@
     helper = !/usr/bin/gh auth git-credential
 
 [user]
-    email = lalit@quartic.ai
+	email = lalitkumar.meena.lk@gmail.com
     name = Lalit Kumar
 
 [credential]
@@ -187,5 +187,5 @@
 [init]
     defaultBranch = master
 [safe]
-	directory = /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
-	directory = /home/lenovo/Documents/Quartic-Workspace/python/GraphQLServer
+	; directory = /home/lenovo/Documents/Quartic-Workspace/python/ContexAlyze
+	; directory = /home/lenovo/Documents/Quartic-Workspace/python/GraphQLServer

@@ -46,7 +46,7 @@ RestoreWindowGeometry = false
 ## In MacOS,
 # FontFamily = "Monaco"
 ## In Linux
-FontFamily = "Operator Mono Lig Book"
+FontFamily = "FiraCode Nerd Font"
 ## In Windows
 # FontFamily = "Windows"
 ## Fontsize is

@@ -1,5 +1,5 @@
 local lsp = vim.lsp
-local methods = vim.lsp.protocol.Methods
+-- local methods = vim.lsp.protocol.Methods
 
 local max_width = math.max(math.floor(vim.o.columns * 0.7), 100)
 local max_height = math.max(math.floor(vim.o.lines * 0.3), 30)
@@ -196,5 +196,5 @@ local function enhanced_float_handler(handler)
     end
 end
 
-vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
-vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)
+-- vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
+-- vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)

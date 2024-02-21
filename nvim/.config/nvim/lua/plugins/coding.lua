@@ -1,14 +1,22 @@
+local leet_arg = "leetcode.nvim"
+
 return {
     { --[[ chatgpt ]]
-        enabled = false,
         "jackMort/ChatGPT.nvim",
-        cmd = {
-            "ChatGPT",
-            "ChatGPTRun",
-            "ChatGPTActAs",
-            "ChatGPTEditWithInstructions",
-        },
         dependencies = { "MunifTanjim/nui.nvim" },
+        keys = {
+            { "<localleader>ca", ":ChatGPTRun add_tests<CR>", desc = "add-tests" },
+            { "<localleader>cc", ":ChatGPT<CR>", desc = "chatgpt" },
+            { "<localleader>cd", ":ChatGPTRun docstring<CR>", desc = "docstring" },
+            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>", desc = "edit-instructions" },
+            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>", desc = "fix-bugs" },
+            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "grammar-correction" },
+            { "<localleader>ch", ":ChatGPTActAs<CR>", desc = "act-as" },
+            { "<localleader>co", ":ChatGPTRun optimize_code<CR>", desc = "optimize-code" },
+            { "<localleader>cr", ":ChatGPTRun<CR>", desc = "chatgpt-run" },
+            { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize" },
+            { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate" },
+        },
         opts = {
             popup_input = {
                 submit = "<Enter>",
@@ -16,21 +24,23 @@ return {
         },
     },
 
-    { --[[ codegpt ]]
-        enabled = false,
-        "dpayne/CodeGPT.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
+    { --[[ backseat ]]
+        "james1236/backseat.nvim",
+        keys = {
+            { "<localleader>cb", ":Backseat<CR>", desc = "backseat" },
+            { "<localleader>ck", ":BackseatAsk<CR>", desc = "backseat-ask" },
+            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "backseat-clear-line" },
+            { "<localleader>cx", ":BackseatClear<CR>", desc = "backseat-clear" },
         },
-        cmd = { "Chat" },
-        config = function()
-            require("codegpt.config")
-        end,
+        opts = {
+            openai_api_key = os.getenv("OPENAI_API_KEY"),
+        },
     },
 
     { --[[ python-indent ]]
         "Vimjas/vim-python-pep8-indent",
         ft = "python",
+        enabled = false,
     },
 
     { --[[ markdowny ]]
@@ -46,12 +56,13 @@ return {
 
     { --[[ markdown-preview ]]
         "iamcco/markdown-preview.nvim",
+        ft = "markdown",
+        keys = {
+            { "<leader>am", "<cmd>MarkdownPreview<cr>", desc = "markdown-preview", silent = true },
+        },
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
-        keys = {
-            { "<leader>am", ":MarkdownPreview<CR>", desc = "markdown-preview", silent = true },
-        },
     },
 
     { --[[ go ]]
@@ -60,39 +71,12 @@ return {
     },
 
     { --[[ neogen ]]
-        enabled = false,
         "danymat/neogen",
         keys = {
-            {
-                "<localleader>dd",
-                ":Neogen<CR>",
-                desc = "doc-this",
-                silent = true,
-            },
-            {
-                "<localleader>dc",
-                function()
-                    require("neogen").generate({ type = "class" })
-                end,
-                desc = "doc-this-class",
-                silent = true,
-            },
-            {
-                "<localleader>df",
-                function()
-                    require("neogen").generate({ type = "func" })
-                end,
-                desc = "doc-this-function",
-                silent = true,
-            },
-            {
-                "<localleader>dt",
-                function()
-                    require("neogen").generate({ type = "type" })
-                end,
-                desc = "doc-this-type",
-                silent = true,
-            },
+            { "<leader>dd", "<cmd>Neogen<CR>", desc = "doc-this", silent = true },
+            { "<leader>dc", "<cmd>Neogen class<cr>", desc = "doc-this-class", silent = true },
+            { "<leader>df", "<cmd>Neogen func<cr>", desc = "doc-this-function", silent = true },
+            { "<leader>dt", "<cmd>Neogen type<cr>", desc = "doc-this-type", silent = true },
         },
         opts = {
             snippet_engine = "luasnip",
@@ -341,11 +325,25 @@ return {
                 end,
                 desc = "sourcegraph-fuzzy-search",
             },
-            { "<leader>cC", "<cmd>CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
+            {
+                "<leader>cc",
+                function()
+                    require("sg.cody.commands").toggle()
+                end,
+                desc = "cody-chat",
+                mode = { "n", "x" },
+            },
+            {
+                "<leader>cN",
+                function()
+                    local name = vim.fn.input("chat name: ")
+                    require("sg.cody.commands").chat(name)
+                end,
+                desc = "named-cody-chat",
+                mode = { "n", "x" },
+            },
             { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
-            { "<leader>cc", "<cmd>CodyContext<CR>", desc = "cody-context", mode = { "n", "x" } },
             { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
-            { "<leader>cf", ":CodyFloat<space>", desc = "cody-float", mode = { "n", "x" } },
             { "<leader>cn", "<cmd>CodyTaskNext<CR>", desc = "cody-task-next", mode = { "n", "x" } },
             { "<leader>cp", "<cmd>CodyTaskPrev<CR>", desc = "cody-task-prev", mode = { "n", "x" } },
             { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
@@ -364,7 +362,10 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
-        opts = {},
+        opts = {
+            openai_api_key = os.getenv("OPENAI_API_KEY"),
+            popup_type = "vertical",
+        },
         keys = {
             {
                 "<leader>ea",
@@ -385,7 +386,7 @@ return {
         },
     },
 
-    {
+    { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         ft = { "http" },
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -422,5 +423,60 @@ return {
                 },
             })
         end,
+    },
+
+    { --[[ leetcode.nvim ]]
+        "kawre/leetcode.nvim",
+        lazy = leet_arg ~= vim.fn.argv()[1],
+        keys = {
+            { "<leader>cla", "<cmd>Leet<cr>", silent = true, mode = { "n" }, desc = "Leet menu" },
+            { "<leader>clb", "<cmd>Leet lang<cr>", silent = true, mode = { "n" }, desc = "Leet lang" },
+            { "<leader>clc", "<cmd>Leet console<cr>", silent = true, mode = { "n" }, desc = "Leet console" },
+            { "<leader>cld", "<cmd>Leet desc toggle<cr>", silent = true, mode = { "n" }, desc = "Leet desc toggle" },
+            { "<leader>cle", "<cmd>Leet desc status<cr>", silent = true, mode = { "n" }, desc = "Leet desc status" },
+            { "<leader>cli", "<cmd>Leet info<cr>", silent = true, mode = { "n" }, desc = "Leet info" },
+            { "<leader>clj", "<cmd>Leet random<cr>", silent = true, mode = { "n" }, desc = "Leet random" },
+            { "<leader>clk", "<cmd>Leet daily<cr>", silent = true, mode = { "n" }, desc = "Leet daily" },
+            { "<leader>cll", "<cmd>Leet list<cr>", silent = true, mode = { "n" }, desc = "Leet list" },
+            {
+                "<leader>clo",
+                "<cmd>Leet cookie delete<cr>",
+                silent = true,
+                mode = { "n" },
+                desc = "Leet cookie delete",
+            },
+            { "<leader>clr", "<cmd>Leet run<cr>", silent = true, mode = { "n" }, desc = "Leet run" },
+            { "<leader>cls", "<cmd>Leet submit<cr>", silent = true, mode = { "n" }, desc = "Leet submit" },
+            { "<leader>clf", "<cmd>Leet tabs<cr>", silent = true, mode = { "n" }, desc = "Leet tabs" },
+            { "<leader>clt", "<cmd>Leet test<cr>", silent = true, mode = { "n" }, desc = "Leet test" },
+            {
+                "<leader>clu",
+                "<cmd>Leet cookie update<cr>",
+                silent = true,
+                mode = { "n" },
+                desc = "Leet cookie update",
+            },
+            { "<leader>clU", "<cmd>Leet cache update<cr>", silent = true, mode = { "n" }, desc = "Leet cache update" },
+        },
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {
+            arg = leet_arg,
+        },
+        -- enabled = false,
+    },
+
+    { --[[ gemini-ai ]]
+        "gera2ld/ai.nvim",
+        cmd = { "GeminiDefine", "GeminiDefineV", "GeminiTranslate", "GeminiAsk" },
+        keys = {
+            { "<leader>cga", ":GeminiAsk<cr>", silent = true, desc = "gemini-ask", mode = { "n", "v" } },
+            { "<leader>cgd", ":GeminiDefine<cr>", silent = true, desc = "gemini-define", mode = { "n", "v" } },
+            { "<leader>cgt", ":GeminiTranslate<cr>", silent = true, desc = "gemini-translate", mode = { "n", "v" } },
+            { "<leader>cgv", ":GeminiDefineV<cr>", silent = true, desc = "gemini-define-visual", mode = { "n", "v" } },
+        },
+        opts = {
+            api_key = os.getenv("GEMINI_API_KEY"),
+            locale = "en",
+        },
     },
 }

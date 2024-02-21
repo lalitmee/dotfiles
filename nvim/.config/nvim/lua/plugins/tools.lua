@@ -25,44 +25,6 @@ return {
         },
     },
 
-    { --[[ autolist ]]
-        "gaoDean/autolist.nvim",
-        ft = {
-            "gitcommit",
-            "markdown",
-            "text",
-        },
-        init = function()
-            local enabled_filetypes = {
-                "gitcommit",
-                "markdown",
-                "text",
-            }
-            if vim.tbl_contains(enabled_filetypes, vim.bo.filetype) then
-                vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>")
-                vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>")
-                vim.keymap.set("i", "<c-t>", "<c-t><cmd>AutolistRecalculate<cr>")
-                vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>")
-                vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>")
-                vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>")
-                vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>")
-                vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>")
-
-                -- Cycle list types with dot-repeat
-                vim.keymap.set("n", "<localleader>ln", require("autolist").cycle_next_dr, { expr = true })
-                vim.keymap.set("n", "<localleader>lp", require("autolist").cycle_prev_dr, { expr = true })
-
-                -- Recalculate on edit
-                vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>")
-                vim.keymap.set("n", "<<", "<<<cmd>AutolistRecalculate<cr>")
-                vim.keymap.set("n", "dd", "dd<cmd>AutolistRecalculate<cr>")
-                vim.keymap.set("v", "d", "d<cmd>AutolistRecalculate<cr>")
-            end
-        end,
-        config = true,
-        -- enabled = false,
-    },
-
     { --[[ tabular ]]
         "godlygeek/tabular",
         cmd = { "Tabularize" },
@@ -88,89 +50,30 @@ return {
     { --[[ nap ]]
         "liangxianzhe/nap.nvim",
         keys = { "]", "[" },
-        config = function()
-            require("nap").setup({
-                next_prefix = "]",
-                prev_prefix = "[",
-                next_repeat = "]",
-                prev_repeat = "[",
-            })
-
-            -- gitsigns mapping
-            require("nap").operator("h", require("nap").gitsigns())
-            require("nap").operator("f", false)
-        end,
-        enabled = false,
-    },
-
-    { --[[ possession ]]
-        "jedrzejboczar/possession.nvim",
-        event = { "VimEnter" },
-        keys = {
-            { "<leader>xc", ":PossessionClose<CR>", desc = "close", silent = true },
-            { "<leader>xd", ":PossessionDelete<Space>", desc = "delete", silent = true },
-            { "<leader>xl", ":PossessionLoad<Space>", desc = "load", silent = true },
-            { "<leader>xm", ":PossessionMigrate<Space>", desc = "migrate", silent = true },
-            { "<leader>xo", ":Telescope possession list<CR>", desc = "search", silent = true },
-            { "<leader>xp", ":PossessionShow<Space>", desc = "show", silent = true },
-            { "<leader>xr", ":PossessionRename<Space>", desc = "rename", silent = true },
-            { "<leader>xs", ":PossessionSave<Space>", desc = "save", silent = true },
-        },
         opts = {
-            silent = true,
-            autosave = {
-                current = true,
-                on_load = true,
-                on_quit = true,
+            next_prefix = "]",
+            prev_prefix = "[",
+            next_repeat = "<C-n>",
+            prev_repeat = "<C-p>",
+            operators = {
+                ["h"] = {
+                    next = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Next hunk" } },
+                    prev = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Previous hunk" } },
+                },
+                ["<Tab>"] = {
+                    next = { rhs = "<cmd>tabnext<cr>", opts = { desc = "Next tab" } },
+                    prev = { rhs = "<cmd>tabprevious<cr>", opts = { desc = "Previous tab" } },
+                },
+                ["<Space>"] = {
+                    next = { rhs = [[<cmd>call append(line("."), [""])<CR>]], opts = { desc = "Empty line below" } },
+                    prev = { rhs = [[<cmd>call append(line(".")-1, [""])<CR>]], opts = { desc = "Empty line above" } },
+                },
+                ["e"] = {
+                    next = { rhs = [[<cmd>m .+1<CR>]], opts = { desc = "Move line down" } },
+                    prev = { rhs = [[<cmd>m .-2<CR>]], opts = { desc = "Move line up" } },
+                },
             },
         },
-        enabled = false,
-    },
-
-    { --[[ auto-session ]]
-        "rmagatti/auto-session",
-        event = { "VimEnter" },
-        keys = {
-            { "<leader>ad", ":Autosession delete<CR>", desc = "delete-session-telescope", silent = true },
-            { "<leader>aD", ":SessionDelete<CR>", desc = "delete-current-session", silent = true },
-            { "<leader>al", ":Autosession search<CR>", desc = "search-sessions", silent = true },
-            { "<leader>as", ":SessionSave<CR>", desc = "save-session", silent = true },
-            { "<leader>aS", ":SessionRestore<CR>", desc = "restore-session", silent = true },
-        },
-        config = function()
-            local function save_tabby_tab_names()
-                local cmds = {}
-                for _, t in pairs(vim.api.nvim_list_tabpages()) do
-                    local tabname = require("tabby.feature.tab_name").get_raw(t)
-                    if tabname ~= "" then
-                        table.insert(
-                            cmds,
-                            'pcall(require("tabby.feature.tab_name").set, '
-                                .. t
-                                .. ', "'
-                                .. tabname:gsub('"', '\\"')
-                                .. '")'
-                        )
-                    end
-                end
-
-                if #cmds == 0 then
-                    return ""
-                end
-
-                return "lua " .. table.concat(cmds, ";")
-            end
-            require("auto-session").setup({
-                auto_save_enabled = true,
-                auto_restore_enabled = true,
-                auto_session_use_git_branch = true,
-                save_extra_cmds = {
-                    -- tabby: tabs name
-                    save_tabby_tab_names,
-                },
-            })
-        end,
-        enabled = false,
     },
 
     { --[[ toggleterm ]]
@@ -353,130 +256,6 @@ return {
         },
     },
 
-    { --[[ mind ]]
-        "phaazon/mind.nvim",
-        cmd = {
-            "MindOpenMain",
-            "MindOpenProject",
-            "MindOpenSmartProject",
-        },
-        config = function()
-            require("mind").setup({
-                ui = { width = 40 },
-                keymaps = {
-                    normal = {
-                        T = function(args)
-                            require("mind.ui").with_cursor(function(line)
-                                local tree = args.get_tree()
-                                local node = require("mind.node").get_node_by_line(tree, line)
-
-                                if node.icon == nil or node.icon == " " then
-                                    node.icon = " "
-                                elseif node.icon == " " then
-                                    node.icon = " "
-                                end
-
-                                args.save_tree()
-                                require("mind.ui").rerender(tree, args.opts)
-                            end)
-                        end,
-                    },
-                },
-            })
-        end,
-
-        init = function()
-            -- create a new entry in Journal if it doesn't exist otherwise edit it
-            command("MindJournal", function()
-                require("mind").wrap_main_tree_fn(function(args)
-                    local tree = args.get_tree()
-                    local path = vim.fn.strftime("/Journal/%Y/%b/%d")
-                    local _, node = require("mind.node").get_node_by_path(tree, path, true)
-                    if node == nil then
-                        vim.notify("cannot open journal 🙁", vim.log.levels.WARN)
-                        return
-                    end
-                    require("mind.commands").open_data(tree, node, args.data_dir, args.save_tree, args.opts)
-                    args.save_tree()
-                end)
-            end)
-
-            command("MindOpenFromMain", function()
-                require("mind").wrap_main_tree_fn(function(args)
-                    require("mind.commands").open_data_index(args.get_tree(), args.data_dir, args.save_tree, args.opts)
-                end)
-            end)
-
-            command("MindOpenFromSmart", function()
-                require("mind").wrap_smart_project_tree_fn(function(args)
-                    require("mind.commands").open_data_index(args.get_tree(), args.data_dir, args.save_tree, args.opts)
-                end)
-            end)
-
-            command("MindCopyFromMain", function()
-                require("mind").wrap_main_tree_fn(function(args)
-                    require("mind.commands").copy_node_link_index(args.get_tree(), nil, args.opts)
-                end)
-            end)
-
-            command("MindCopyFromMain", function()
-                require("mind").wrap_smart_project_tree_fn(function(args)
-                    require("mind.commands").copy_node_link_index(args.get_tree(), nil, args.opts)
-                end)
-            end)
-
-            command("MindCreateInSmart", function()
-                require("mind").wrap_smart_project_tree_fn(function(args)
-                    require("mind.commands").create_node_index(
-                        args.get_tree(),
-                        require("mind.node").MoveDir.INSIDE_END,
-                        args.save_tree,
-                        args.opts
-                    )
-                end)
-            end)
-
-            command("MindCreateInMain", function()
-                require("mind").wrap_main_tree_fn(function(args)
-                    require("mind.commands").create_node_index(
-                        args.get_tree(),
-                        require("mind.node").MoveDir.INSIDE_END,
-                        args.save_tree,
-                        args.opts
-                    )
-                end)
-            end)
-
-            command("MindInitializeProject", function()
-                vim.notify("initializing project tree")
-                require("mind").wrap_smart_project_tree_fn(function(args)
-                    local tree = args.get_tree()
-                    local mind_node = require("mind.node")
-
-                    local _, tasks = mind_node.get_node_by_path(tree, "/Tasks", true)
-                    tasks.icon = "陼"
-
-                    local _, backlog = mind_node.get_node_by_path(tree, "/Tasks/Backlog", true)
-                    backlog.icon = " "
-
-                    local _, on_going = mind_node.get_node_by_path(tree, "/Tasks/On-going", true)
-                    on_going.icon = " "
-
-                    local _, done = mind_node.get_node_by_path(tree, "/Tasks/Done", true)
-                    done.icon = " "
-
-                    local _, cancelled = mind_node.get_node_by_path(tree, "/Tasks/Cancelled", true)
-                    cancelled.icon = " "
-
-                    local _, notes = mind_node.get_node_by_path(tree, "/Notes", true)
-                    notes.icon = " "
-
-                    args.save_tree()
-                end)
-            end)
-        end,
-    },
-
     { --[[ project ]]
         "ahmedkhalf/project.nvim",
         keys = { "<leader>pp" },
@@ -498,81 +277,21 @@ return {
         enabled = false,
     },
 
-    { --[[ conduct ]]
-        "aaditeynair/conduct.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = {
-            "ConductNewProject",
-            "ConductLoadProject",
-            "ConductLoadLastProject",
-            "ConductLoadProjectConfig",
-            "ConductReloadProjectConfig",
-            "ConductDeleteProject",
-            "ConductRenameProject",
-            "ConductProjectNewSession",
-            "ConductProjectLoadSession",
-            "ConductProjectDeleteSession",
-            "ConductProjectRenameSession",
-        },
-        enabled = false,
-    },
-
-    { --[[ monorepo ]]
-        "imNel/monorepo.nvim",
-        -- stylua: ignore
-        keys = {
-            { "<leader>pm", ":Telescope monorepo<cr>", desc = "monorepo", silent = true },
-            { "<leader>pa", function() require("monorepo").add_project() end, desc = "add", silent = true },
-            { "<leader>pn", function() require("monorepo").next_project() end, desc = "next", silent = true },
-            { "<leader>pP", function() require("monorepo").previous_project() end, desc = "previous", silent = true },
-            { "<leader>pr", function() require("monorepo").remove_project() end, desc = "remove", silent = true },
-            { "<leader>pt", function() require("monorepo").toggle_project() end, desc = "toggle", silent = true },
-        },
-        config = function()
-            require("monorepo").setup()
-            require("telescope").load_extension("monorepo")
-        end,
-        enabled = false,
-    },
-
     { --[[ scretch ]]
         "Sonicfury/scretch.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
         -- stylua: ignore
         keys = {
-            { "<localleader>sa", function() require("scretch").new() end, desc = "new-scratch" },
-            { "<localleader>se", function() require("scretch").explore() end, desc = "scratch-explore" },
-            { "<localleader>sf", function() require("scretch").search() end, desc = "search-scratch" },
-            { "<localleader>sg", function() require("scretch").grep() end, desc = "scratch-grep" },
-            { "<localleader>sl", function() require("scretch").last() end, desc = "last-scratch" },
-            { "<localleader>sn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
+            { "<leader>za", function() require("scretch").new() end, desc = "new-scratch" },
+            { "<leader>ze", function() require("scretch").explore() end, desc = "scratch-explore" },
+            { "<leader>zf", function() require("scretch").search() end, desc = "search-scratch" },
+            { "<leader>zg", function() require("scretch").grep() end, desc = "scratch-grep" },
+            { "<leader>zl", function() require("scretch").last() end, desc = "last-scratch" },
+            { "<leader>zn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
         },
         opts = {
             scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
         },
-    },
-
-    { --[[ firenvim ]]
-        "glacambre/firenvim",
-        lazy = false,
-        cond = not not vim.g.started_by_firenvim,
-        build = function()
-            require("lazy").load({ plugins = "firenvim", wait = true })
-            vim.fn["firenvim#install"](0)
-        end,
-        config = function()
-            vim.api.nvim_create_autocmd({ "UIEnter" }, {
-                callback = function()
-                    local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
-                    if client ~= nil and client.name == "Firenvim" then
-                        vim.o.laststatus = 0
-                        vim.o.showtabline = 0
-                        vim.o.number = false
-                    end
-                end,
-            })
-        end,
-        enabled = false,
     },
 
     { --[[ fzf-lua ]]
@@ -985,6 +704,7 @@ return {
                 ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
                 ["workspaces"] = "https://www.reddit.com/r/workspaces",
                 ["bootstrap"] = "https://getbootstrap.com",
+                ["pkg.go.dev"] = "https://pkg.go.dev/search?q=%s",
             }
             require("browse").setup({
                 provider = "duckduckgo", -- google or bing
@@ -1052,6 +772,7 @@ return {
                 end
             end
         end,
+        enabled = false,
     },
 
     { --[[ hardtime ]]
@@ -1060,5 +781,188 @@ return {
         dependencies = { "MunifTanjim/nui.nvim" },
         opts = {},
         enabled = false,
+    },
+
+    { --[[ text-case ]]
+        "johmsalas/text-case.nvim",
+        config = function()
+            require("textcase").setup({})
+            require("telescope").load_extension("textcase")
+        end,
+        keys = {
+            { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
+        },
+    },
+
+    { --[[ carbon-now ]]
+        "ellisonleao/carbon-now.nvim",
+        cmd = { "CarbonNow" },
+        keys = {
+            {
+                "<leader>xp",
+                ":CarbonNow<CR>",
+                mode = { "v" },
+                silent = true,
+                desc = "carbon-now-visual",
+            },
+            {
+                "<leader>xg",
+                ":CarbonNow<space>",
+                silent = true,
+                mode = { "n" },
+                desc = "carbon-from-gist",
+            },
+        },
+        opts = {
+            options = {
+                bg = "#32597D",
+                font_family = "Source Code Pro",
+                theme = "vscode",
+                window_theme = "boxy",
+                drop_shadow = true,
+            },
+        },
+    },
+
+    { --[[ rayso.nvim ]]
+        "TobinPalmer/rayso.nvim",
+        cmd = { "Rayso" },
+        keys = {
+            {
+                "<leader>xr",
+                ":Rayso<CR>",
+                silent = true,
+                desc = "ray.so",
+                mode = { "v" },
+            },
+        },
+        opts = {
+            open_cmd = "xdg-open",
+            options = {
+                theme = "midnight",
+            },
+        },
+    },
+
+    { --[[ silicon.lua ]]
+        "narutoxy/silicon.lua",
+        keys = {
+            {
+                "<leader>xv",
+                function()
+                    require("silicon").visualise_api({ to_clip = true })
+                end,
+                mode = { "v" },
+                desc = "visual selection",
+            },
+            {
+                "<leader>xh",
+                function()
+                    require("silicon").visualise_api({ to_clip = true, show_buf = true })
+                end,
+                mode = { "v" },
+                desc = "whole buffer with visual selection highlighted",
+            },
+            {
+                "<leader>xb",
+                function()
+                    require("silicon").visualise_api({ to_clip = true, visible = true })
+                end,
+                desc = "visible portion of buffer",
+            },
+            {
+                "<leader>xl",
+                function()
+                    require("silicon").visualise_api({ to_clip = true })
+                end,
+                desc = "current buffer line",
+            },
+        },
+        config = {
+            -- output = "/home/lalitmee/Desktop/Github/code-screenshots/SILICON_$year-$month-$date-$time.png",
+            output = "SILICON_$year-$month-$date-$time.png",
+            font = "Source Code Pro",
+        },
+    },
+
+    { --[[ trouble ]]
+        "folke/trouble.nvim",
+        keys = {
+            {
+                "<leader>xL",
+                function()
+                    require("trouble").toggle("loclist")
+                end,
+                desc = "trouble loclist",
+            },
+            {
+                "<leader>xd",
+                function()
+                    require("trouble").toggle("document_diagnostics")
+                end,
+                desc = "trouble document diagnostics",
+            },
+            {
+                "<leader>xq",
+                function()
+                    require("trouble").toggle("quickfix")
+                end,
+                desc = "trouble quickfix",
+            },
+            {
+                "<leader>xr",
+                function()
+                    require("trouble").toggle("lsp_references")
+                end,
+                desc = "trouble lsp references",
+            },
+            {
+                "<leader>xw",
+                function()
+                    require("trouble").toggle("workspace_diagnostics")
+                end,
+                desc = "trouble workspace diagnostics",
+            },
+            {
+                "<leader>xx",
+                function()
+                    require("trouble").toggle()
+                end,
+                desc = "trouble toggle",
+            },
+            {
+                "<leader>xn",
+                function()
+                    require("trouble").next({ skip_groups = true, jump = true })
+                end,
+                desc = "trouble toggle",
+            },
+            {
+                "<leader>xp",
+                function()
+                    require("trouble").previous({ skip_groups = true, jump = true })
+                end,
+                desc = "trouble toggle",
+            },
+        },
+        opts = {
+            height = 20,
+        },
+    },
+
+    {
+        "ThePrimeagen/vim-apm",
+        keys = {
+            {
+                "<leader>ax",
+                function()
+                    require("vim-apm"):toggle_monitor()
+                end,
+                desc = "toggle vim apm",
+            },
+        },
+        config = function()
+            require("vim-apm"):setup({})
+        end,
     },
 }

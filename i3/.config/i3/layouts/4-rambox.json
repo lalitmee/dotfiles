@@ -15,16 +15,16 @@
         "geometry": {
           "height": 1036,
           "width": 1900,
-          "x": 1930,
-          "y": 34
+          "x": 0,
+          "y": 0
         },
         "marks": [],
-        "name": "brave-browser",
+        "name": "Rambox",
         "percent": 1,
         "swallows": [
           {
-            "class": "^Brave\\-browser$",
-            "instance": "^brave\\-browser$"
+            "class": "^rambox$",
+            "instance": "^rambox$"
           }
         ],
         "type": "con"

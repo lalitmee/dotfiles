@@ -19,24 +19,25 @@ return {
         enabled = false,
     },
 
-    {
-        "williamboman/mason.nvim",
+    { --[[ mason ]]
+        "williamboman/mason-lspconfig.nvim",
         event = "BufEnter",
-        opts = {
-            ui = {
-                border = "rounded",
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗",
+        dependencies = {
+            {
+                "williamboman/mason.nvim",
+                event = "BufEnter",
+                opts = {
+                    ui = {
+                        border = "rounded",
+                        icons = {
+                            package_installed = "✓",
+                            package_pending = "➜",
+                            package_uninstalled = "✗",
+                        },
+                    },
                 },
             },
         },
-    },
-
-    { --[[ mason ]]
-        "williamboman/mason-lspconfig.nvim",
-        event = { "BufEnter" },
         opts = {
             ensure_installed = {
                 "bashls",
@@ -51,13 +52,13 @@ return {
                 "lua_ls",
                 "tsserver",
                 "vimls",
+                "tailwindcss",
             },
         },
     },
 
     { --[[ lspconfig ]]
         "neovim/nvim-lspconfig",
-        ft = vim.g.enable_lspconfig_ft,
         event = { "VeryLazy" },
         dependencies = {
             {
@@ -372,7 +373,11 @@ return {
                     -- FORMATTING --
                     ----------------
                     fmt.black,
-                    fmt.clang_format,
+                    fmt.clang_format.with({
+                        extra_args = {
+                            "--style=file:" .. vim.fn.expand("$PWD/.clang-format"),
+                        },
+                    }),
                     fmt.eslint_d,
                     fmt.prettierd,
                     fmt.rustfmt,

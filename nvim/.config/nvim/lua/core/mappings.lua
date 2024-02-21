@@ -36,25 +36,9 @@ nnoremap("k", "gk", { nowait = true })
 -- stop that stupid window from popping up
 -- map("n", "q:", [[:q]], map_opts) -- NOTE: making q slow
 
--- tab operations
-nnoremap("]<Tab>", vim.cmd.tabnext)
-nnoremap("[<Tab>", vim.cmd.tabprevious)
-
--- from here https://gist.github.com/romainl/0f589e07a079ea4b7a77fd66ef16ebee
-nnoremap("gt", [[":tabnext +" . v:count1 . '<CR>']], { silent = true, expr = true })
-nnoremap("gT", [[":tabnext -" . v:count1 . '<CR>']], { silent = true, expr = true })
-
--- buffers next and previous
-nnoremap("<C-Right>", vim.cmd.bnext)
-nnoremap("<C-Left>", vim.cmd.bprevious)
-
 -- alternate file mapping
 map("n", "<BS>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<cr>]], map_opts)
 
--- NOTE: this was creating problem with <C-I>
--- circular window movements
--- map('n', '<c-tab>', [[<C-w>w]], map_opts)
--- map('n', '<s-tab>', [[<C-w>W]])
 -- }}}
 ----------------------------------------------------------------------
 
@@ -210,7 +194,7 @@ xnoremap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>", { silent = false }
 --  NOTE: opening links {{{
 --------------------------------------------------------------------------------
 local function open(path)
-    fn.jobstart({ vim.g.open_command, path }, { detach = true })
+    fn.jobstart({ require("utils.oslib").get_open_cmd(), path }, { detach = true })
     vim.notify(fmt("Opening %s", path))
 end
 
@@ -255,5 +239,20 @@ end, { expr = true })
 
 -- }}}
 ----------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--  NOTE: center search {{{
+--------------------------------------------------------------------------------
+local function cetner_search()
+    local cmd_type = vim.fn.getcmdtype()
+    if cmd_type == "/" or cmd_type == "?" then
+        return [[<CR>zz]]
+    end
+    return [[<CR>]]
+end
+
+vim.keymap.set("c", [[<CR>]], cetner_search, { silent = true, expr = true })
+-- }}}
+--------------------------------------------------------------------------------
 
 -- vim:foldmethod=marker

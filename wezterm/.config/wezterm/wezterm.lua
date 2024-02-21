@@ -23,6 +23,7 @@ config.colors = {}
 config.colors.background = "#193549"
 
 config.font = wezterm.font("Operator Mono Lig Book", { weight = "Regular" })
+-- config.font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" })
 -- config.cell_width = 1.0
 -- config.line_height = 1.0
 config.font_size = 12
@@ -45,7 +46,9 @@ config.window_padding = {
 -- NOTE: refer to this comment https://github.com/wez/wezterm/issues/3774#issuecomment-1629689265
 config.freetype_load_flags = "NO_HINTING"
 
--- config.window_close_confirmation = false
+config.window_close_confirmation = "NeverPrompt"
+
+config.audible_bell = "Disabled"
 
 -- and finally, return the configuration to wezterm
 return config
