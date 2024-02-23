@@ -14,11 +14,6 @@ cde() {
 # NOTE: zoxide {{{
 # -------------------------------------------------------------------
 
-# fow z command to work
-z() {
-    __zoxide_z "$@"
-}
-
 # switch dirs using zoxide and fzf
 zd() {
     local dir
