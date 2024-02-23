@@ -53,8 +53,8 @@ return {
         opts = {
             next_prefix = "]",
             prev_prefix = "[",
-            next_repeat = "<C-n>",
-            prev_repeat = "<C-p>",
+            next_repeat = "<C-j>",
+            prev_repeat = "<C-k>",
             operators = {
                 ["h"] = {
                     next = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Next hunk" } },
