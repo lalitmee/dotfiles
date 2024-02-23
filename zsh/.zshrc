@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # -------------------------------------------------------------------
 # NOTE: auto start tmux {{{
 # start tmux while starting new terminal
@@ -21,7 +23,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# zmodload zsh/zprof
 
 # Download Znap, if it's not there yet.
 [[ -r ~/.oh-my-zsh/custom/plugins/znap/znap.zsh ]] ||
@@ -216,9 +217,10 @@ znap eval rbenv "rbenv init -"
 # }}}
 # -------------------------------------------------------------------
 
-# zprof
-
-# vim:foldmethod=marker
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
+
+# zprof
+
+# vim:foldmethod=marker
