@@ -128,7 +128,7 @@ return {
                         desc = "lsp-inlayhints-toggle",
                     },
                 },
-                enbaled = false,
+                enabled = false,
             },
         },
         config = function()

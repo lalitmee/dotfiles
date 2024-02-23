@@ -887,7 +887,7 @@ return {
                 desc = "current buffer line",
             },
         },
-        config = {
+        opts = {
             -- output = "/home/lalitmee/Desktop/Github/code-screenshots/SILICON_$year-$month-$date-$time.png",
             output = "SILICON_$year-$month-$date-$time.png",
             font = "Source Code Pro",
