@@ -10,12 +10,24 @@ cde() {
     cd $1
 }
 
+# -------------------------------------------------------------------
+# NOTE: zoxide {{{
+# -------------------------------------------------------------------
+
+# fow z command to work
+z() {
+    __zoxide_z "$@"
+}
+
+# switch dirs using zoxide and fzf
 zd() {
     local dir
     dir=$(zoxide query -l | fzf )
     cde $dir
 }
 
+# }}}
+# -------------------------------------------------------------------
 
 # --- Github CLI goodness ---
 # select and go to gh issue on web
