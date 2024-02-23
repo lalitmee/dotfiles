@@ -57,13 +57,9 @@ M.mappings = function(client)
     -- fzf-lua
     nmap("ga", "<cmd>FzfLua lsp_code_actions<CR>", map_opts)
     nmap("gd", function()
-        if client.name == "typescript-tools" then
-            vim.cmd("TSToolsGoToSourceDefinition")
-        else
-            require("fzf-lua").lsp_definitions({
-                jump_to_single_result = true,
-            })
-        end
+        require("fzf-lua").lsp_definitions({
+            jump_to_single_result = true,
+        })
     end, map_opts)
     nmap("<C-]>", function()
         require("fzf-lua").lsp_definitions({
