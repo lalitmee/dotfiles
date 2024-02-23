@@ -141,6 +141,7 @@ return {
                     ["s"] = { ":w<CR>", "save-buffer" },
                     ["S"] = { ":wa<CR>", "save-all-buffers" },
                     ["t"] = { ":Telescope filetypes<CR>", "file-types" },
+                    ["w"] = { ":noau w<CR>", "save-buffer-no-format" },
                     ["q"] = { ":wq<CR>", "save-and-quit" },
                 },
 
