@@ -100,8 +100,8 @@ return {
             float_opts = {
                 border = lk.style.border.rounded,
                 winblend = 3,
-                width = 240,
-                height = 50,
+                width = 175,
+                height = 45,
             },
             shade_terminals = false,
             size = function(term)
@@ -124,7 +124,7 @@ return {
 
             local Terminal = require("toggleterm.terminal").Terminal
 
-            local float_opts = { width = 240, height = 52 }
+            local float_opts = { width = 175, height = 45 }
 
             local chatgpt = Terminal:new({
                 cmd = "chatgpt -i",
