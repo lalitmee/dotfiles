@@ -73,7 +73,19 @@ return {
 
                 sources = cmp.config.sources({
                     -- { name = "cody" },
-                    { name = "nvim_lsp", keyword_length = 1 },
+                    {
+                        name = "nvim_lsp",
+                        keyword_length = 1,
+                        entry_filter = function(entry)
+                            if
+                                entry:get_kind() == require("cmp.types").lsp.CompletionItemKind.Snippet
+                                and entry.source:get_debug_name() == "nvim_lsp:emmet_ls"
+                            then
+                                return false
+                            end
+                            return true
+                        end,
+                    },
                     { name = "nvim_lua", keyword_length = 1 },
                     {
                         name = "luasnip",

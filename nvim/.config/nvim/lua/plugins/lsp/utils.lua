@@ -1,3 +1,4 @@
+
 local M = {}
 
 local map_opts = { noremap = false, silent = true }
@@ -34,7 +35,7 @@ end
 ----------------------------------------------------------------------
 -- NOTE: mappings {{{
 ----------------------------------------------------------------------
-M.mappings = function(client)
+M.mappings = function(client, bufnr)
     local nmap = lk.nmap
     local imap = lk.imap
 
@@ -97,6 +98,30 @@ M.mappings = function(client)
             float = true,
         })
     end)
+
+    -- if client.name == "emmet_ls" then
+    --     wk.register({
+    --         ["<c-s>"] = {
+    --             [","] = {
+    --                 function()
+    --                     client.request(
+    --                         "textDocument/completion",
+    --                         vim.lsp.util.make_position_params(),
+    --                         function(_, result)
+    --                             local textEdit = result[1].textEdit
+    --                             local snip_string = textEdit.newText
+    --                             textEdit.newText = ""
+    --                             vim.lsp.util.apply_text_edits({ textEdit }, bufnr, client.offset_encoding)
+    --                             require("luasnip").lsp_expand(snip_string)
+    --                         end,
+    --                         bufnr
+    --                     )
+    --                 end,
+    --                 "Expand emmet",
+    --             },
+    --         },
+    --     }, { mode = "i", noremap = true, buffer = bufnr })
+    -- end
 end
 -- }}}
 ----------------------------------------------------------------------
