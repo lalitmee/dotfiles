@@ -48,10 +48,22 @@ return {
         opts = {
             disable_commit_confirmation = true,
             integrations = {
-                telescope = true,
+                telescope = false,
                 diffview = true,
             },
         },
+    },
+
+    { --[[ gitlinker.nvim ]]
+        "linrongbin16/gitlinker.nvim",
+        -- stylua: ignore
+        keys = {
+            { "<leader>gl", "<cmd>GitLink<cr>", mode = { "n", "v" }, silent = true, desc = "Copy git permlink to clipboard" },
+            { "<leader>gL", "<cmd>GitLink!<cr>", mode = { "n", "v" }, silent = true, desc = "Open git permlink in browser" },
+            { "<leader>ga", "<cmd>GitLink blame<cr>", mode = { "n", "v" }, silent = true, desc = "Copy git blame link to clipboard" },
+            { "<leader>gA", "<cmd>GitLink! blame<cr>", mode = { "n", "v" }, silent = true, desc = "Open git blame link in browser" },
+        },
+        opts = {},
     },
 
     { --[[ fugitive ]]
