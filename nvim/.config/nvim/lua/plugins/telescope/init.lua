@@ -298,6 +298,11 @@ return {
                     import = {
                         insert_at_top = false,
                     },
+                    helpgrep = {
+                        ignore_paths = {
+                            vim.fn.stdpath("state") .. "/lazy/readme",
+                        },
+                    },
                 },
             })
 
@@ -374,5 +379,43 @@ return {
         config = function()
             require("telescope").load_extension("import")
         end,
+    },
+    {
+        "Snikimonkd/telescope-git-conflicts.nvim",
+        keys = {
+            { "<leader>gjc", ":Telescope conflicts<CR>", desc = "telescope-conflicts", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("conflicts")
+        end,
+    },
+    {
+        "jonarrien/telescope-cmdline.nvim",
+        keys = {
+            { "<leader>a:", ":Telescope cmdline<CR>", desc = "telescope-cmdline", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("cmdline")
+        end,
+    },
+    {
+        "catgoose/telescope-helpgrep.nvim",
+        keys = {
+            { "<leader>a/", ":Telescope helpgrep<CR>", desc = "telescope-cmdline", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("helpgrep")
+        end,
+    },
+    {
+        "ryanmsnyder/toggleterm-manager.nvim",
+        dependencies = {
+            "akinsho/toggleterm.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+        keys = {
+            { "<leader>at", ":Telescope toggleterm_manager<CR>", desc = "telescope-toggleterm-manager", silent = true },
+        },
+        config = true,
     },
 }
