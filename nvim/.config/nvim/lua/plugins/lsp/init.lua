@@ -229,12 +229,14 @@ return {
                 go = { "golangcilint" },
                 html = { "tidy" },
                 javascript = { "eslint_d" },
+                javascriptreact = { "eslint_d" },
                 json = { "jsonlint" },
                 lua = { "luacheck" },
                 markdown = { "vale" },
                 python = { "bandit", "pylint", "pydocstyle" },
                 sh = { "shellcheck" },
                 typescript = { "eslint_d" },
+                typescriptreact = { "eslint_d" },
                 yaml = { "yamllint" },
                 zsh = { "zsh" },
             }
@@ -260,20 +262,24 @@ return {
             { "<leader>be", "<cmd>FormatEnable<cr>", desc = "format-enable", silent = true },
             { "<leader>bk", "<cmd>FormatDisable<cr>", desc = "format-disable", silent = true },
         },
+        init = function()
+            vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+        end,
         config = function()
-            local slow_format_filetypes = {}
+            local slow_format_filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
             require("conform").setup({
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
                     go = { "gofmt", "goimports", "golines" },
-                    javascript = { "eslint_d", "prettierd" },
-                    javascriptreact = { "eslint_d", "prettierd" },
+                    svg = { "prettierd" },
+                    javascript = { "prettierd" },
+                    javascriptreact = { "prettierd" },
                     lua = { "stylua" },
                     rust = { "rustfmt" },
                     sh = { "shfmt" },
                     toml = { "taplo" },
-                    typescript = { "eslint_d", "prettierd" },
-                    typescriptreact = { "eslint_d", "prettierd" },
+                    typescript = { "prettierd" },
+                    typescriptreact = { "prettierd" },
                     yaml = { "yamlfmt" },
                 },
                 format_on_save = function(bufnr)
@@ -303,37 +309,34 @@ return {
             })
 
             lk.command("Format", function(args)
-                local count = args["count"]
-                local line1 = args["line1"]
-                local line2 = args["line2"]
                 local range = nil
-                if count ~= -1 then
-                    local end_line = vim.api.nvim_buf_get_lines(0, line2 - 1, line2, true)[1]
+                if args.count ~= -1 then
+                    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
                     range = {
-                        start = { line1, 0 },
-                        ["end"] = { line2, end_line:len() },
+                        start = { args.line1, 0 },
+                        ["end"] = { args.line2, end_line:len() },
                     }
                 end
                 require("conform").format({ async = true, lsp_fallback = true, range = range })
             end, { range = true })
 
-            lk.command("FormatDisable", function(args)
-                local bang = args["bang"]
-                if bang then
-                    -- `FormatDisable!` will disable formatting just for this buffer
+            vim.api.nvim_create_user_command("FormatDisable", function(args)
+                if args.bang then
+                    -- FormatDisable! will disable formatting just for this buffer
                     vim.b.disable_autoformat = true
-                    vim.notify("Formatting is disabled for this buffer")
                 else
                     vim.g.disable_autoformat = true
-                    vim.notify("Formatting is disabled globally")
                 end
-            end, { desc = "Disable autoformat-on-save", bang = true })
-
-            lk.command("FormatEnable", function()
+            end, {
+                desc = "Disable autoformat-on-save",
+                bang = true,
+            })
+            vim.api.nvim_create_user_command("FormatEnable", function()
                 vim.b.disable_autoformat = false
                 vim.g.disable_autoformat = false
-                vim.notify("Formatting is enabled")
-            end, { desc = "Re-enable autoformat-on-save" })
+            end, {
+                desc = "Re-enable autoformat-on-save",
+            })
 
             lk.augroup("conform_au", {
                 {
@@ -345,7 +348,7 @@ return {
                 },
             })
         end,
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ null-ls ]]
@@ -426,6 +429,7 @@ return {
                 end,
             })
         end,
+        enabled = false,
     },
 
     { --[[ fidget ]]
