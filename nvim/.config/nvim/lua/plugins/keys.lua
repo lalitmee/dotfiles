@@ -43,6 +43,7 @@ return {
                     ["k"] = { ":WorkingDirectory<CR>", "current-working-directory" },
                     ["n"] = { ":!playerctl previous -p spotify<CR>", "spotify-prev" },
                     ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
+                    ["q"] = { ":Telescope macros<CR>", "macros" },
                     ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
                     ["w"] = { ":SetWallpaper<CR>", "change-system-background" },
                 },
