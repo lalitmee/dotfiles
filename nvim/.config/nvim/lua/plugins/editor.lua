@@ -801,12 +801,12 @@ return {
 
     { --[[ neo-composer ]]
         "ecthelionvi/NeoComposer.nvim",
+        event = "VeryLazy",
         dependencies = { "kkharji/sqlite.lua" },
         config = function()
             require("NeoComposer").setup()
             require("telescope").load_extension("macros")
         end,
-        enabled = false,
     },
 
     { --[[ oil ]]
