@@ -1,4 +1,3 @@
-
 local M = {}
 
 local map_opts = { noremap = false, silent = true }
@@ -35,54 +34,35 @@ end
 ----------------------------------------------------------------------
 -- NOTE: mappings {{{
 ----------------------------------------------------------------------
-M.mappings = function(client, bufnr)
+local function extend_map_opts(tbl)
+    local merged_table = vim.tbl_deep_extend("keep", map_opts, tbl)
+    return merged_table
+end
+
+M.mappings = function(client)
     local nmap = lk.nmap
     local imap = lk.imap
 
-    -- lsp mapping for the client
-    -- --telescope
-    -- nmap("gd", "<cmd>Telescope lsp_definitions<CR>", map_opts)
-    -- -- nmap("gd", vim.lsp.buf.definition, map_opts)
-    -- nmap("ge", "<cmd>Telescope diagnostics<CR>", map_opts)
-    -- nmap("gr", "<cmd>Telescope lsp_references<CR>", map_opts)
-    -- nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", map_opts)
-    -- nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", map_opts)
-    -- if client.name ~= "rust_analyzer" then
-    --     nmap("K", vim.lsp.buf.hover, map_opts)
-    -- end
-    -- nmap("gD", vim.lsp.buf.declaration, map_opts)
-    -- nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", map_opts)
-    -- imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
-    -- nmap("gz", vim.lsp.buf.implementation, map_opts)
-
-    -- fzf-lua
-    nmap("ga", "<cmd>FzfLua lsp_code_actions<CR>", map_opts)
-    nmap("gd", function()
-        require("fzf-lua").lsp_definitions({
-            jump_to_single_result = true,
-        })
-    end, map_opts)
-    nmap("<C-]>", function()
-        require("fzf-lua").lsp_definitions({
-            jump_to_single_result = true,
-            jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
-        })
-    end, map_opts)
-    nmap("ge", "<cmd>FzfLua lsp_document_diagnostics<CR>", map_opts)
-    nmap("gE", "<cmd>FzfLua lsp_workspace_diagnostics<CR>", map_opts)
-    nmap("gl", "<cmd>FzfLua lsp_finder<CR>", map_opts)
-    nmap("gr", function()
-        require("fzf-lua").lsp_references({ include_declaration = false })
-    end, map_opts)
-    nmap("gw", "<cmd>FzfLua lsp_document_symbols<CR>", map_opts)
-    nmap("gW", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", map_opts)
+    nmap("gd", "<cmd>Telescope lsp_definitions<CR>", extend_map_opts({ desc = "go-to-definition" }))
+    nmap("ge", function()
+        require("telescope.builtin").diagnostics({ bufnr = 0 })
+    end, extend_map_opts({ desc = "go-to-diagnostics" }))
+    nmap("gE", "<cmd>Telescope diagnostics<CR>", extend_map_opts({ desc = "go-to-diagnostics" }))
+    nmap("gr", "<cmd>Telescope lsp_references<CR>", extend_map_opts({ desc = "go-to-refrences" }))
+    nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", extend_map_opts({ desc = "go-to-document-symbols" }))
+    nmap(
+        "gW",
+        "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",
+        extend_map_opts({ desc = "go-to-dynamic-workspace-symbols" })
+    )
+    nmap("ga", "<cmd>Telescope lsp_workspace_symbols<CR>", extend_map_opts({ desc = "go-to-workspace-symbols" }))
     if client.name ~= "rust_analyzer" then
         nmap("K", vim.lsp.buf.hover, map_opts)
     end
-    nmap("gD", "<cmd>FzfLua lsp_declarations<CR>", map_opts)
-    nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", map_opts)
-    imap("<C-h>", vim.lsp.buf.signature_help, map_opts)
-    nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", map_opts)
+    nmap("gD", "<cmd>FzfLua lsp_declarations<CR>", extend_map_opts({ desc = "Go to Declarations" }))
+    nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", extend_map_opts({ desc = "Go to Type Definitions" }))
+    imap("<C-h>", vim.lsp.buf.signature_help, extend_map_opts({ desc = "Show Signature Help" }))
+    nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", extend_map_opts({ desc = "Go To Implementations" }))
 
     nmap("[d", function()
         vim.diagnostic.goto_prev({
@@ -98,30 +78,6 @@ M.mappings = function(client, bufnr)
             float = true,
         })
     end)
-
-    -- if client.name == "emmet_ls" then
-    --     wk.register({
-    --         ["<c-s>"] = {
-    --             [","] = {
-    --                 function()
-    --                     client.request(
-    --                         "textDocument/completion",
-    --                         vim.lsp.util.make_position_params(),
-    --                         function(_, result)
-    --                             local textEdit = result[1].textEdit
-    --                             local snip_string = textEdit.newText
-    --                             textEdit.newText = ""
-    --                             vim.lsp.util.apply_text_edits({ textEdit }, bufnr, client.offset_encoding)
-    --                             require("luasnip").lsp_expand(snip_string)
-    --                         end,
-    --                         bufnr
-    --                     )
-    --                 end,
-    --                 "Expand emmet",
-    --             },
-    --         },
-    --     }, { mode = "i", noremap = true, buffer = bufnr })
-    -- end
 end
 -- }}}
 ----------------------------------------------------------------------
