@@ -238,18 +238,11 @@ return {
                             },
                         },
                     },
-                    -- current_buffer_fuzzy_find = dropdown({
-                    --     previewer = false,
-                    -- }),
-                    lsp_code_actions = {
-                        theme = "cursor",
-                    },
                     colorscheme = {
                         -- enable_preview = true,
                     },
                     find_files = {
-                        path_display = { "absolute" },
-                        -- find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+                        path_display = { "absolute", "truncate" },
                         hidden = true,
                     },
                     git_bcommits = {
@@ -267,6 +260,15 @@ return {
                         },
                     },
                     reloader = dropdown({}),
+
+                    --------------------------------------------------------------------------------
+                    --  NOTE: lsp pickers {{{
+                    --------------------------------------------------------------------------------
+                    lsp_references = {
+                        path_display = { "smart" },
+                    },
+                    -- }}}
+                    --------------------------------------------------------------------------------
                 },
                 extensions = {
                     live_grep_args = {
