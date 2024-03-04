@@ -338,6 +338,7 @@ return {
                     ["C"] = { ":Telescope command_history<CR>", "command-history" },
                     ["d"] = { ":Messages<CR>", "messages" },
                     ["f"] = { ":Telescope filetypes<CR>", "filetypes" },
+                    ["g"] = { ":Telescope helpgrep<CR>", "help-grep" },
                     ["h"] = { ":Telescope help_tags<CR>", "help-tags" },
                     ["H"] = { ":Telescope highlights<CR>", "highlights" },
                     ["j"] = { ":Telescope jumplist<CR>", "jumplist" },
