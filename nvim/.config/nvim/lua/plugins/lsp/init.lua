@@ -110,12 +110,6 @@ return {
                 ft = "lua",
             },
             {
-                "dmmulroy/tsc.nvim",
-                cmd = { "TSC" },
-                opts = {},
-                enabled = false,
-            },
-            {
                 "lvimuser/lsp-inlayhints.nvim",
                 event = "LspAttach",
                 opts = {},
@@ -129,6 +123,17 @@ return {
                     },
                 },
                 enabled = false,
+            },
+            {
+                "OlegGulevskyy/better-ts-errors.nvim",
+                event = "VeryLazy",
+                dependencies = { "MunifTanjim/nui.nvim" },
+                config = {
+                    keymaps = {
+                        toggle = "<leader>et",
+                        go_to_definition = "<leader>ex",
+                    },
+                },
             },
         },
         config = function()
