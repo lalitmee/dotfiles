@@ -240,6 +240,7 @@ return {
             local types = require("luasnip.util.types")
             local extras = require("luasnip.extras")
             local fmt = require("luasnip.extras.fmt").fmt
+            local fmta = require("luasnip.extras.fmt").fmta
 
             local t, i, c, d, f, s, sn =
                 ls.text_node,
@@ -302,6 +303,7 @@ return {
                 },
                 snip_env = {
                     fmt = fmt,
+                    fmta = fmta,
                     match = extras.match,
                     rep = extras.rep,
                     t = t,
@@ -326,7 +328,7 @@ return {
             -- NOTE: custom snippets created in `lua` format
             require("luasnip.loaders.from_lua").lazy_load()
             command("LuaSnipEdit", function()
-                require("luasnip.loaders.from_lua").edit_snippet_files()
+                require("luasnip.loaders").edit_snippet_files()
             end)
             -- }}}
 
