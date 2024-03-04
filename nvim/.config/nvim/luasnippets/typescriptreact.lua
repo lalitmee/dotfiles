@@ -9,6 +9,7 @@ local i = env["i"]
 local c = env["c"]
 local f = env["f"]
 local fmt = env["fmt"]
+local fmta = env["fmta"]
 local sn = env["sn"]
 local same = env["same"]
 local rep = env["rep"]
@@ -251,6 +252,21 @@ local snippets = {
                 }),
                 i(2, "name"),
                 i(3, "// TODO: body"),
+            }
+        )
+    ),
+
+    s(
+        { trig = "int", name = "interface" },
+        fmta(
+            [[
+                interface <name> {
+                    <body>
+               }
+            ]],
+            {
+                name = i(1, "Component"),
+                body = i(2, "body"),
             }
         )
     ),
