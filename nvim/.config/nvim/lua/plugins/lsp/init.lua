@@ -41,18 +41,18 @@ return {
         opts = {
             ensure_installed = {
                 "bashls",
-                "cssls",
                 "clangd",
+                "cssls",
                 "dockerls",
                 "emmet_ls",
                 "gopls",
                 "jsonls",
+                "lua_ls",
                 "pyright",
                 "rust_analyzer",
-                "lua_ls",
+                "tailwindcss",
                 "tsserver",
                 "vimls",
-                "tailwindcss",
             },
         },
     },
@@ -286,6 +286,7 @@ return {
                     typescript = { "prettierd" },
                     typescriptreact = { "prettierd" },
                     yaml = { "yamlfmt" },
+                    markdown = { "prettierd", "mdformat", "markdownlint" },
                 },
                 format_on_save = function(bufnr)
                     -- Disable with a global or buffer-local variable
