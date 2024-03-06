@@ -230,7 +230,7 @@ return {
                     },
                     live_grep = {
                         -- find_command = { "rg", "--vimgrep", "--strip-cwd-prefix" },
-                        path_display = { "absolute" },
+                        path_display = { "absolute", "truncate" },
                         file_ignore_patterns = { ".git/" },
                         mappings = {
                             i = {
