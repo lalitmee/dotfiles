@@ -1,19 +1,12 @@
--- local function iabbrev(lhs, rhs)
---     vim.keymap.set("ia", lhs, rhs)
--- end
+--------------------------------------------------------------------------------
+--  cmdline abbreviations
+--------------------------------------------------------------------------------
+vim.cmd([[ca wq execute "Format sync" <bar> wq]])
 
--- local function cabbrev(lhs, rhs)
---     vim.keymap.set("ca", lhs, rhs)
--- end
-
--- ----------------------------------------------------------------------
--- --                    command line abbreviations                    --
--- ----------------------------------------------------------------------
--- cabbrev("wq", [[execute "Format sync" <bar> wq]])
-
--- ----------------------------------------------------------------------
--- --                       normal abbreviations                       --
--- ----------------------------------------------------------------------
--- iabbrev("teh", "the")
--- iabbrev("tihs", "this")
--- iabbrev("funciton", "function")
+--------------------------------------------------------------------------------
+--  insert mode abbreviations
+--------------------------------------------------------------------------------
+vim.cmd([[ia teh the]])
+vim.cmd([[ia tihs this]])
+vim.cmd([[ia funciton function]])
+vim.cmd([[ia cosnt const]])
