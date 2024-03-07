@@ -25,7 +25,10 @@ return {
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
-                -- library = vim.api.nvim_get_runtime_file("", true),
+                library = {
+                    "${3rd}/luv/library",
+                    vim.api.nvim_get_runtime_file("", true),
+                },
                 -- maxPreload = 2000,
                 -- preloadFileSize = 5000,
                 checkThirdParty = false,
