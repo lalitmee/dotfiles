@@ -140,7 +140,7 @@ return {
         },
     },
 
-    { --[[ worktree ]]
+    { --[[ git-worktree.nvim ]]
         "ThePrimeagen/git-worktree.nvim",
         keys = {
             {
@@ -157,7 +157,29 @@ return {
             },
         },
         config = function()
-            require("git-worktree").setup()
+            local Job = require("plenary.job")
+            local Worktree = require("git-worktree")
+
+            Worktree.setup()
+
+            Worktree.on_tree_change(function(op, path, upstream)
+                if op == Worktree.Operations.Switch then
+                    Job:new({ "yarn", "dev" }):start()
+                end
+
+                if op == Worktree.Operations.Create then
+                    local install = Job:new({
+                        "yarn",
+                    })
+                    local run = Job:new({
+                        "yarn",
+                        "dev",
+                    })
+                    install:and_then_on_success(run)
+                    install:start()
+                end
+            end)
+
             require("telescope").load_extension("git_worktree")
         end,
     },

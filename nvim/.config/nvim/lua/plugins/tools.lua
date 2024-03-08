@@ -101,7 +101,7 @@ return {
                 border = lk.style.border.rounded,
                 winblend = 3,
                 width = 175,
-                height = 45,
+                height = 49,
             },
             shade_terminals = false,
             size = function(term)
@@ -551,7 +551,7 @@ return {
         end,
     },
 
-    { --[[ browse ]]
+    { --[[ browse.nvim ]]
         "lalitmee/browse.nvim",
         dev = true,
         keys = {
