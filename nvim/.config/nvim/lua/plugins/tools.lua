@@ -101,7 +101,7 @@ return {
                 border = lk.style.border.rounded,
                 winblend = 3,
                 width = 175,
-                height = 49,
+                height = 47,
             },
             shade_terminals = false,
             size = function(term)

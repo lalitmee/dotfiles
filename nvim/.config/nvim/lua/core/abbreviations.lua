@@ -1,12 +1,19 @@
 --------------------------------------------------------------------------------
 --  cmdline abbreviations
 --------------------------------------------------------------------------------
-vim.cmd([[ca wq execute "Format sync" <bar> wq]])
+vim.cmd([[
+    ca wq execute "Format sync" <bar> wq
+    ca grpe grep
+    ca Ggrpe Ggrep
+    ca GIt Git
+]])
 
 --------------------------------------------------------------------------------
 --  insert mode abbreviations
 --------------------------------------------------------------------------------
-vim.cmd([[ia teh the]])
-vim.cmd([[ia tihs this]])
-vim.cmd([[ia funciton function]])
-vim.cmd([[ia cosnt const]])
+vim.cmd([[
+    ia teh the
+    ia tihs this
+    ia funciton function
+    ia cosnt const
+]])
