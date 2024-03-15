@@ -11,6 +11,7 @@ return {
             "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
             "saadparwaiz1/cmp_luasnip",
+            "sourcegraph/sg.nvim",
         },
         config = function()
             local cmp = require("cmp")
@@ -63,6 +64,15 @@ return {
                         { "i", "c" }
                     ),
 
+                    -- Cody completion
+                    ["<C-a>"] = cmp.mapping.complete({
+                        config = {
+                            sources = {
+                                { name = "cody" },
+                            },
+                        },
+                    }),
+
                     ["<C-e>"] = cmp.mapping.abort(),
 
                     ["<CR>"] = cmp.mapping.confirm({
@@ -72,7 +82,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
-                    -- { name = "cody" },
+                    { name = "cody" },
                     {
                         name = "nvim_lsp",
                         keyword_length = 1,
@@ -502,7 +512,12 @@ return {
                     table.insert(virt_text, { lines, "Normal" })
                     return virt_text
                 end,
-                close_fold_kinds = { "imports", "comment" },
+                close_fold_kinds_for_ft = {
+                    javascript = { "imports", "comment" },
+                    javascriptreact = { "imports", "comment" },
+                    typescript = { "imports", "comment" },
+                    typescriptreact = { "imports", "comment" },
+                },
                 open_fold_hl_timeout = 0,
                 provider_selector = function()
                     return { "treesitter", "indent" }

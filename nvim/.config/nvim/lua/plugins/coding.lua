@@ -464,19 +464,4 @@ return {
         },
         -- enabled = false,
     },
-
-    { --[[ gemini-ai ]]
-        "gera2ld/ai.nvim",
-        cmd = { "GeminiDefine", "GeminiDefineV", "GeminiTranslate", "GeminiAsk" },
-        keys = {
-            { "<leader>cga", ":GeminiAsk<cr>", silent = true, desc = "gemini-ask", mode = { "n", "v" } },
-            { "<leader>cgd", ":GeminiDefine<cr>", silent = true, desc = "gemini-define", mode = { "n", "v" } },
-            { "<leader>cgt", ":GeminiTranslate<cr>", silent = true, desc = "gemini-translate", mode = { "n", "v" } },
-            { "<leader>cgv", ":GeminiDefineV<cr>", silent = true, desc = "gemini-define-visual", mode = { "n", "v" } },
-        },
-        opts = {
-            api_key = os.getenv("GEMINI_API_KEY"),
-            locale = "en",
-        },
-    },
 }
