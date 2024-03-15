@@ -25,6 +25,7 @@ return {
     rust_analyzer = rust_analyzer,
     tailwindcss = true,
     taplo = true,
+    theme_check = true,
     -- tsserver = tsserver,
     vimls = true,
 }
