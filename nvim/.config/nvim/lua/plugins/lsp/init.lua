@@ -271,22 +271,28 @@ return {
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
         end,
         config = function()
-            local slow_format_filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
+            local slow_format_filetypes = {
+                -- "javascript",
+                -- "javascriptreact",
+                -- "typescript",
+                -- "typescriptreact",
+            }
             require("conform").setup({
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
                     go = { "gofmt", "goimports", "golines" },
                     svg = { "prettierd" },
-                    javascript = { "prettierd" },
-                    javascriptreact = { "prettierd" },
+                    javascript = { "eslint_d", "prettierd" },
+                    javascriptreact = { "eslint_d", "prettierd" },
                     lua = { "stylua" },
                     rust = { "rustfmt" },
                     sh = { "shfmt" },
                     toml = { "taplo" },
-                    typescript = { "prettierd" },
-                    typescriptreact = { "prettierd" },
+                    typescript = { "eslint_d", "prettierd" },
+                    typescriptreact = { "eslint_d", "prettierd" },
                     yaml = { "yamlfmt" },
                     markdown = { "prettierd", "mdformat", "markdownlint" },
+                    liquid = { "curylint" },
                 },
                 format_on_save = function(bufnr)
                     -- Disable with a global or buffer-local variable
@@ -346,10 +352,16 @@ return {
 
             lk.augroup("conform_au", {
                 {
-                    event = { "BufWritePre" },
+                    event = { "BufWritePost" },
                     pattern = { "*" },
-                    command = function()
-                        vim.cmd("Format")
+                    command = function(args)
+                        require("conform").format({ async = true, lsp_fallback = true, buf = args.buf }, function(err)
+                            if not err then
+                                vim.api.nvim_buf_call(args.buf, function()
+                                    vim.cmd.update()
+                                end)
+                            end
+                        end)
                     end,
                 },
             })
