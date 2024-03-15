@@ -1,13 +1,13 @@
 # XDG configuration home
 if [[ -z $XDG_CONFIG_HOME ]]
 then
-   export XDG_CONFIG_HOME=$HOME/.config
+    export XDG_CONFIG_HOME=$HOME/.config
 fi
 
 # XDG data home
 if [[ -z $XDG_DATA_HOME ]]
 then
-   export XDG_DATA_HOME=$HOME/.local/share
+    export XDG_DATA_HOME=$HOME/.local/share
 fi
 
 # -------------------------------------------------------------------
@@ -76,9 +76,16 @@ export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 # NOTE: nvm {{{
 # -------------------------------------------------------------------
 export NVM_LAZY_LOAD=true
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# NOTE: for linux
+# export NVM_DIR="$HOME/.config/nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# NOTE: for mac
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 # }}}
 # -------------------------------------------------------------------
 
@@ -89,5 +96,14 @@ export NVM_DIR="$HOME/.config/nvm"
 if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
     . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
 fi
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: ruby for mac {{{
+# -------------------------------------------------------------------
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 # }}}
 # -------------------------------------------------------------------
