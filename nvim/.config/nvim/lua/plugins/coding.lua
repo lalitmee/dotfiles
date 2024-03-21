@@ -386,10 +386,18 @@ return {
         },
     },
 
+    { --[[ luarocks.nvim ]]
+        "vhyrro/luarocks.nvim",
+        event = "VeryLazy",
+        opts = {
+            rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
+        },
+    },
+
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         ft = { "http" },
-        dependencies = { "nvim-lua/plenary.nvim" },
+        dependencies = { "luarocks.nvim" },
         keys = {
             {
                 "<leader>rh",
