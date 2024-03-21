@@ -203,3 +203,11 @@ alias avv="ansible-vault view"
 alias ave="ansible-vault edit"
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: nvm aliases {{{
+# -------------------------------------------------------------------
+alias node='unalias node ; unalias npm ; nvm use default ; node $@'
+alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
+# }}}
+# -------------------------------------------------------------------
