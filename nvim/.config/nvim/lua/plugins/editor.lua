@@ -11,7 +11,6 @@ return {
             "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
             "saadparwaiz1/cmp_luasnip",
-            "sourcegraph/sg.nvim",
         },
         config = function()
             local cmp = require("cmp")
