@@ -392,6 +392,7 @@ return {
         opts = {
             rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
         },
+        enabled = false,
     },
 
     { --[[ rest.nvim ]]
