@@ -218,23 +218,6 @@ return {
                     ["w"] = { function() vim.lsp.buf.workspace_symbol() end, "workspace-symbols" },
                 },
 
-                ["m"] = {
-                    ["name"] = "+mind.nvim",
-                    ["a"] = { ":MindCreateInSmart", "create-in-smart" },
-                    ["A"] = { ":MindCreateInMain<CR>", "create-in-main" },
-                    ["c"] = { ":MindCopyFromSmart", "copy-from-smart" },
-                    ["C"] = { ":MindCopyFromMain<CR>", "copy-from-main" },
-                    ["i"] = { ":MindInitializeProject<CR>", "initialize-project" },
-                    ["j"] = { ":MindJournal<CR>", "jorunal" },
-                    ["m"] = { ":MindOpenMain<CR>", "mind-open" },
-                    ["O"] = { ":MindOpenFromSmart", "open-from-smart" },
-                    ["o"] = { ":MindOpenFromMain<CR>", "open-from-main" },
-                    ["p"] = { ":MindOpenProject<CR>", "mind-project" },
-                    ["q"] = { ":MindClose<CR>", "mind-close" },
-                    ["r"] = { ":MindReloadState<CR>", "mind-reload-state" },
-                    ["s"] = { ":MindOpenSmartProject<CR>", "mind-smart-project" },
-                },
-
                 ["n"] = {
                     ["name"] = "+neovim",
                     ["h"] = { ":checkhealth<CR>", "check-health" },
@@ -385,10 +368,6 @@ return {
             local local_leader_key_maps = {
                 ["t"] = {
                     -- it is reserved for neorg keybindings
-                },
-
-                ["s"] = {
-                    ["name"] = "+scratch",
                 },
             }
 

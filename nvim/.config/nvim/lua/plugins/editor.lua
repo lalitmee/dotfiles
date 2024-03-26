@@ -714,6 +714,12 @@ return {
                 mode = { "n", "v", "x", "o" },
             },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["j"] = { name = "+jump" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {},
     },
 

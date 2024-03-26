@@ -279,18 +279,23 @@ return {
 
     { --[[ scretch ]]
         "Sonicfury/scretch.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" },
         -- stylua: ignore
         keys = {
-            { "<leader>za", function() require("scretch").new() end, desc = "new-scratch" },
-            { "<leader>ze", function() require("scretch").explore() end, desc = "scratch-explore" },
-            { "<leader>zf", function() require("scretch").search() end, desc = "search-scratch" },
-            { "<leader>zg", function() require("scretch").grep() end, desc = "scratch-grep" },
-            { "<leader>zl", function() require("scretch").last() end, desc = "last-scratch" },
-            { "<leader>zn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
+            { "<leader>ma", function() require("scretch").new() end, desc = "new-scratch" },
+            { "<leader>me", function() require("scretch").explore() end, desc = "scratch-explore" },
+            { "<leader>mf", function() require("scretch").search() end, desc = "search-scratch" },
+            { "<leader>mg", function() require("scretch").grep() end, desc = "scratch-grep" },
+            { "<leader>ml", function() require("scretch").last() end, desc = "last-scratch" },
+            { "<leader>mn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["m"] = { name = "+scratchpad/notes" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
-            scretch_dir = vim.fn.stdpath("data") .. "/scretch/",
+            scretch_dir = vim.env.HOME .. "/Desktop/Github/notes/",
         },
     },
 
@@ -391,6 +396,18 @@ return {
                 silent = true,
             },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["o"] = {
+                    name = "+fzf",
+                    b = { name = "+buffers" },
+                    f = { name = "+files" },
+                    l = { name = "+lsp" },
+                    s = { name = "+search" },
+                },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             winopts = {
                 width = 0.95,
@@ -954,12 +971,18 @@ return {
                 desc = "trouble toggle",
             },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["x"] = { name = "+trouble" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             height = 20,
         },
     },
 
-    {
+    { --[[ vim-apm ]]
         "ThePrimeagen/vim-apm",
         keys = {
             {
