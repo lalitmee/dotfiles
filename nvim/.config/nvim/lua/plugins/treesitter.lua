@@ -68,6 +68,7 @@ return {
                     "lua",
                     "markdown",
                     "markdown_inline",
+                    "norg",
                     "org",
                     "python",
                     "query",

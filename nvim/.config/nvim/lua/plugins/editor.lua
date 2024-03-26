@@ -81,6 +81,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
+                    { name = "neorg" },
                     { name = "cody" },
                     {
                         name = "nvim_lsp",
@@ -149,6 +150,7 @@ return {
                             buffer = "[BUF]",
                             cody = "[CODY]",
                             luasnip = "[SNIP]",
+                            neorg = "[NORG]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
                             path = "[PATH]",
