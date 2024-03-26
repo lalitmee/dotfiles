@@ -43,17 +43,6 @@ return {
         enabled = false,
     },
 
-    { --[[ markdowny ]]
-        "antonk52/markdowny.nvim",
-        ft = { "markdown" },
-        keys = {
-            { "<C-b>", mode = { "v", "n" } },
-            { "<C-k>", mode = { "v", "n" } },
-            { "<C-i>", mode = { "v", "n" } },
-        },
-        opts = {},
-    },
-
     { --[[ markdown-preview ]]
         "iamcco/markdown-preview.nvim",
         ft = "markdown",
@@ -78,6 +67,12 @@ return {
             { "<leader>df", "<cmd>Neogen func<cr>", desc = "doc-this-function", silent = true },
             { "<leader>dt", "<cmd>Neogen type<cr>", desc = "doc-this-type", silent = true },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["d"] = { name = "+docstring" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             snippet_engine = "luasnip",
             enabled = true,
@@ -201,6 +196,12 @@ return {
             { "<leader>ros", ":OverseerSaveBundle ", desc = "save-bundle", silent = true },
             { "<leader>rot", ":OverseerToggle<CR>", desc = "toggle", silent = true },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["ro"] = { name = "+build" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             templates = { "tasks" },
         },
@@ -468,6 +469,12 @@ return {
             { "<leader>clU", "<cmd>Leet cache update<cr>", silent = true, mode = { "n" }, desc = "Leet cache update" },
         },
         dependencies = { "MunifTanjim/nui.nvim" },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["cl"] = { name = "+leetcode" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             arg = leet_arg,
         },

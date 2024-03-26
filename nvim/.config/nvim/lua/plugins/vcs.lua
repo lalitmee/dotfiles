@@ -156,6 +156,12 @@ return {
                 silent = true,
             },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["gw"] = { name = "+worktree" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         config = function()
             local Job = require("plenary.job")
             local Worktree = require("git-worktree")
