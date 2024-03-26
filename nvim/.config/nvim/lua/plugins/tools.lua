@@ -204,7 +204,6 @@ return {
     },
 
     { --[[ orgmode ]]
-        enabled = false,
         "nvim-orgmode/orgmode",
         ft = { "org" },
         dependencies = {
@@ -224,17 +223,20 @@ return {
 
     { --[[ neorg ]]
         "nvim-neorg/neorg",
-        cmd = { "Neorg" },
+        lazy = false,
         ft = "norg",
-        build = ":Neorg sync-parsers",
+        version = "*",
         opts = {
             load = {
+                ["core.highlights"] = {},
+                ["core.mode"] = {},
                 ["core.defaults"] = {},
                 ["core.clipboard"] = {},
                 ["core.clipboard.code-blocks"] = {},
                 ["core.concealer"] = {},
                 ["core.keybinds"] = {},
                 ["core.integrations.telescope"] = {},
+                ["core.integrations.treesitter"] = {},
                 ["core.completion"] = {
                     config = {
                         engine = "nvim-cmp",
