@@ -199,7 +199,7 @@ return {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["ro"] = { name = "+build" },
+                ["ro"] = { name = "+overseer.nvim" },
             }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
@@ -387,51 +387,38 @@ return {
         },
     },
 
-    { --[[ luarocks.nvim ]]
+    {
         "vhyrro/luarocks.nvim",
-        event = "VeryLazy",
+        priority = 1000,
         opts = {
-            rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
+            rocks = {
+                "nvim-nio",
+                "mimetypes",
+                "xml2lua",
+                "lua-curl",
+            },
         },
-        enabled = false,
     },
 
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         ft = { "http" },
         dependencies = { "luarocks.nvim" },
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>rh",
-                "<Plug>RestNvim",
-                silent = true,
-                desc = "run request under cursor",
-            },
-            {
-                "<leader>rv",
-                "<Plug>RestNvimPreview",
-                silent = true,
-                desc = "preview request curl command",
-            },
-            {
-                "<leader>rl",
-                "<Plug>RestNvimLast",
-                silent = true,
-                desc = "re-run last request",
-            },
+            { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "run-request" },
+            { "<leader>rhl", ":Rest run last<CR>", silent = true, desc = "run-last-request" },
+            { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "env" },
+            { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "logs" },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["rh"] = { name = "+rest.nvim" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         config = function()
-            require("rest-nvim").setup({
-                stay_in_current_window_after_split = true,
-                jump_to_request = false,
-                highlight = {
-                    enabled = true,
-                    timeout = 150,
-                },
-                result = {
-                    show_curl_command = false,
-                },
-            })
+            require("rest-nvim").setup()
         end,
     },
 
