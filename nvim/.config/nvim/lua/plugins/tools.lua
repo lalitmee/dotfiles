@@ -281,12 +281,15 @@ return {
         "Sonicfury/scretch.nvim",
         -- stylua: ignore
         keys = {
-            { "<leader>ma", function() require("scretch").new() end, desc = "new-scratch" },
-            { "<leader>me", function() require("scretch").explore() end, desc = "scratch-explore" },
-            { "<leader>mf", function() require("scretch").search() end, desc = "search-scratch" },
-            { "<leader>mg", function() require("scretch").grep() end, desc = "scratch-grep" },
-            { "<leader>ml", function() require("scretch").last() end, desc = "last-scratch" },
-            { "<leader>mn", function() require("scretch").new_named() end, desc = "scratch-with-name" },
+            { "<leader>ma", function() require("scretch").new() end, desc = "new" },
+            { "<leader>mat", function() require("scretch").save_as_template() end, desc = "save-as-template" },
+            { "<leader>me", function() require("scretch").explore() end, desc = "explore" },
+            { "<leader>met", function() require("scretch").edit_template() end, desc = "edit-template" },
+            { "<leader>mf", function() require("scretch").search() end, desc = "search" },
+            { "<leader>mft", function() require("scretch").new_from_template() end, desc = "from-template" },
+            { "<leader>mg", function() require("scretch").grep() end, desc = "grep" },
+            { "<leader>ml", function() require("scretch").last() end, desc = "last" },
+            { "<leader>mn", function() require("scretch").new_named() end, desc = "with-name" },
         },
         init = function()
             local wk = require("which-key")
@@ -296,6 +299,7 @@ return {
         end,
         opts = {
             scretch_dir = vim.env.HOME .. "/Desktop/Github/notes/",
+            templte_dir = vim.env.HOME .. "/Desktop/Github/notes/templates/",
         },
     },
 
