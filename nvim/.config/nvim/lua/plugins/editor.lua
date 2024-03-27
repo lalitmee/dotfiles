@@ -82,6 +82,7 @@ return {
 
                 sources = cmp.config.sources({
                     { name = "neorg" },
+                    { name = "orgmode" },
                     { name = "cody" },
                     {
                         name = "nvim_lsp",
@@ -153,6 +154,7 @@ return {
                             neorg = "[NORG]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
+                            orgmode = "[ORG]",
                             path = "[PATH]",
                         },
                     }),

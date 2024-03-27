@@ -216,8 +216,8 @@ return {
             require("orgmode").setup_ts_grammar()
         end,
         opts = {
-            org_agenda_files = { "~/org" },
-            org_default_notes_file = "~/Desktop/Github/dNotes/notes/index.org",
+            org_agenda_files = { "~/Desktop/Github/todos/**/*" },
+            org_default_notes_file = "~/Desktop/Github/second-brain/notes/index.org",
         },
     },
 
@@ -308,104 +308,30 @@ return {
     { --[[ fzf-lua ]]
         "ibhagwan/fzf-lua",
         cmd = { "FzfLua" },
+        -- stylua: ignore
         keys = {
             "<C-]>",
             "gd",
-            {
-                "<leader>o/",
-                ":FzfLua live_grep<CR>",
-                desc = "fzf-live-grep",
-                silent = true,
-            },
-            {
-                "<leader>obL",
-                ":FzfLua lines<CR>",
-                desc = "fzf-lines",
-                silent = true,
-            },
-            {
-                "<leader>obb",
-                ":FzfLua buffers<CR>",
-                desc = "fzf-buffers",
-                silent = true,
-            },
-            {
-                "<leader>obl",
-                ":FzfLua blines<CR>",
-                desc = "fzf-buffer-lines",
-                silent = true,
-            },
-            {
-                "<leader>off",
-                ":FzfLua files<CR>",
-                desc = "fzf-files",
-                silent = true,
-            },
-            {
-                "<leader>ole",
-                ":FzfLua lsp_document_diagnostics<CR>",
-                desc = "fzf-lsp-document-diagnostics",
-                silent = true,
-            },
-            {
-                "<leader>olE",
-                ":FzfLua lsp_workspace_diagnostics<CR>",
-                desc = "fzf-lsp-workspace-diagnostics",
-                silent = true,
-            },
-            {
-                "<leader>oll",
-                ":FzfLua lsp_finder<CR>",
-                desc = "fzf-lsp-finder",
-                silent = true,
-            },
-            {
-                "<leader>olr",
-                ":FzfLua lsp_references<CR>",
-                desc = "fzf-lsp-references",
-                silent = true,
-            },
-            {
-                "<leader>olw",
-                ":FzfLua lsp_document_symbols<CR>",
-                desc = "fzf-lsp-document-symbols",
-                silent = true,
-            },
-            {
-                "<leader>olW",
-                ":FzfLua lsp_workspace_symbols<CR>",
-                desc = "fzf-lsp-workspace-symbols",
-                silent = true,
-            },
-            {
-                "<leader>ols",
-                ":FzfLua lsp_live_workspace_symbols<CR>",
-                desc = "fzf-lsp-live-workspace-symbols",
-                silent = true,
-            },
-            {
-                "<leader>osR",
-                ":FzfLua live_grep_resume<CR>",
-                desc = "fzf-live-grep-resume",
-                silent = true,
-            },
-            {
-                "<leader>osr",
-                ":FzfLua resume<CR>",
-                desc = "fzf-resume",
-                silent = true,
-            },
-            {
-                "<leader>osr",
-                ":FzfLua resume<CR>",
-                desc = "fzf-resume",
-                silent = true,
-            },
+            { "<leader>F/", ":FzfLua live_grep<CR>", desc = "fzf-live-grep", silent = true },
+            { "<leader>FbL", ":FzfLua lines<CR>", desc = "fzf-lines", silent = true },
+            { "<leader>Fbb", ":FzfLua buffers<CR>", desc = "fzf-buffers", silent = true },
+            { "<leader>Fbl", ":FzfLua blines<CR>", desc = "fzf-buffer-lines", silent = true },
+            { "<leader>Fff", ":FzfLua files<CR>", desc = "fzf-files", silent = true },
+            { "<leader>Fle", ":FzfLua lsp_document_diagnostics<CR>", desc = "fzf-lsp-document-diagnostics", silent = true },
+            { "<leader>FlE", ":FzfLua lsp_workspace_diagnostics<CR>", desc = "fzf-lsp-workspace-diagnostics", silent = true },
+            { "<leader>Fll", ":FzfLua lsp_finder<CR>", desc = "fzf-lsp-finder", silent = true },
+            { "<leader>Flr", ":FzfLua lsp_references<CR>", desc = "fzf-lsp-references", silent = true },
+            { "<leader>Flw", ":FzfLua lsp_document_symbols<CR>", desc = "fzf-lsp-document-symbols", silent = true },
+            { "<leader>FlW", ":FzfLua lsp_workspace_symbols<CR>", desc = "fzf-lsp-workspace-symbols", silent = true },
+            { "<leader>Fls", ":FzfLua lsp_live_workspace_symbols<CR>", desc = "fzf-lsp-live-workspace-symbols", silent = true },
+            { "<leader>FsR", ":FzfLua live_grep_resume<CR>", desc = "fzf-live-grep-resume", silent = true },
+            { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
+            { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
         },
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["o"] = {
+                ["F"] = {
                     name = "+fzf",
                     b = { name = "+buffers" },
                     f = { name = "+files" },
