@@ -149,12 +149,14 @@ return {
                         i = {
                             ["<C-Down>"] = actions.cycle_history_next,
                             ["<C-Up>"] = actions.cycle_history_prev,
+                            ["<C-a>"] = actions.cycle_previewers_prev,
                             ["<C-b>"] = open_entries,
                             ["<C-e>"] = actions.move_to_bottom,
                             ["<C-k>"] = lga_actions.quote_prompt(),
                             ["<C-n>"] = actions.move_selection_next,
                             ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
                             ["<C-p>"] = actions.move_selection_previous,
+                            ["<C-s>"] = actions.cycle_previewers_next,
                             ["<C-y>"] = actions.move_to_top,
                             ["<M-o>"] = action_layout.toggle_prompt_position,
                             ["<M-p>"] = action_layout.toggle_preview,
@@ -280,6 +282,13 @@ return {
                             },
                         },
                     },
+                    frecency = {
+                        workspaces = {
+                            ["dots"] = "~/dotfiles",
+                            ["work"] = "~/Desktop/work",
+                            ["git"] = "~/Desktop/Github",
+                        },
+                    },
                     smart_open = {
                         show_scores = false,
                         ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*" },
@@ -315,6 +324,16 @@ return {
             require("plugins.telescope.autocmds")
             require("plugins.telescope.commands")
             require("plugins.telescope.mappings")
+        end,
+    },
+
+    { --[[ telescope-frecency ]]
+        "nvim-telescope/telescope-frecency.nvim",
+        keys = {
+            { "<leader>pr", ":Telescope frecency<CR>", desc = "frecency", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("frecency")
         end,
     },
 
@@ -373,7 +392,7 @@ return {
         end,
     },
 
-    {
+    { --[[ telescope-import ]]
         "piersolenski/telescope-import.nvim",
         keys = {
             { "<leader>pi", ":Telescope import<CR>", desc = "telescope-import", silent = true },
@@ -382,42 +401,36 @@ return {
             require("telescope").load_extension("import")
         end,
     },
-    {
-        "Snikimonkd/telescope-git-conflicts.nvim",
-        keys = {
-            { "<leader>gjc", ":Telescope conflicts<CR>", desc = "telescope-conflicts", silent = true },
-        },
-        config = function()
-            require("telescope").load_extension("conflicts")
-        end,
-    },
-    {
-        "jonarrien/telescope-cmdline.nvim",
-        keys = {
-            { "<leader>a:", ":Telescope cmdline<CR>", desc = "telescope-cmdline", silent = true },
-        },
-        config = function()
-            require("telescope").load_extension("cmdline")
-        end,
-    },
-    {
+
+    { --[[ telescope-helpgrep ]]
         "catgoose/telescope-helpgrep.nvim",
         keys = {
-            { "<leader>a/", ":Telescope helpgrep<CR>", desc = "telescope-cmdline", silent = true },
+            { "<leader>a/", ":Telescope helpgrep<CR>", desc = "helpgrep", silent = true },
         },
         config = function()
             require("telescope").load_extension("helpgrep")
         end,
     },
-    {
+
+    { --[[ toggleterm-manager ]]
         "ryanmsnyder/toggleterm-manager.nvim",
         dependencies = {
             "akinsho/toggleterm.nvim",
             "nvim-telescope/telescope.nvim",
         },
         keys = {
-            { "<leader>at", ":Telescope toggleterm_manager<CR>", desc = "telescope-toggleterm-manager", silent = true },
+            { "<leader>at", ":Telescope toggleterm_manager<CR>", desc = "toggleterm-manager", silent = true },
         },
         config = true,
+    },
+
+    { --[[ telescope-http ]]
+        "barrett-ruth/telescope-http.nvim",
+        keys = {
+            { "<leader>sh", ":Telescope http list<CR>", desc = "http-codes", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("http")
+        end,
     },
 }
