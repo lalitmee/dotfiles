@@ -214,6 +214,10 @@ return {
         },
         init = function()
             require("orgmode").setup_ts_grammar()
+            local wk = require("which-key")
+            wk.register({
+                ["o"] = { name = "+org" },
+            }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
             org_agenda_files = { "~/Desktop/Github/todos/**/*" },
@@ -283,20 +287,20 @@ return {
         "Sonicfury/scretch.nvim",
         -- stylua: ignore
         keys = {
-            { "<leader>ma", function() require("scretch").new() end, desc = "new" },
-            { "<leader>mat", function() require("scretch").save_as_template() end, desc = "save-as-template" },
-            { "<leader>me", function() require("scretch").explore() end, desc = "explore" },
-            { "<leader>met", function() require("scretch").edit_template() end, desc = "edit-template" },
-            { "<leader>mf", function() require("scretch").search() end, desc = "search" },
-            { "<leader>mft", function() require("scretch").new_from_template() end, desc = "from-template" },
-            { "<leader>mg", function() require("scretch").grep() end, desc = "grep" },
-            { "<leader>ml", function() require("scretch").last() end, desc = "last" },
-            { "<leader>mn", function() require("scretch").new_named() end, desc = "with-name" },
+            { "<leader>ka", function() require("scretch").new() end, desc = "new" },
+            { "<leader>kat", function() require("scretch").save_as_template() end, desc = "save-as-template" },
+            { "<leader>ke", function() require("scretch").explore() end, desc = "explore" },
+            { "<leader>ket", function() require("scretch").edit_template() end, desc = "edit-template" },
+            { "<leader>kf", function() require("scretch").search() end, desc = "search" },
+            { "<leader>kft", function() require("scretch").new_from_template() end, desc = "from-template" },
+            { "<leader>kg", function() require("scretch").grep() end, desc = "grep" },
+            { "<leader>kl", function() require("scretch").last() end, desc = "last" },
+            { "<leader>kn", function() require("scretch").new_named() end, desc = "with-name" },
         },
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["m"] = { name = "+scratchpad/notes" },
+                ["k"] = { name = "+scratchpad/notes" },
             }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
@@ -928,5 +932,29 @@ return {
         config = function()
             require("vim-apm"):setup({})
         end,
+    },
+
+    { --[[ marks.nvim ]]
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        -- stylua: ignore
+        keys = {
+            { "<leader>qa", ":MarksQFListAll<cr>", desc = "list-all-marks-qf", silent = true },
+            { "<leader>qb", ":MarksQFListBuf<cr>", desc = "list-buf-marks-qf", silent = true },
+            { "<leader>qg", ":MarksQFListGlobal<cr>", desc = "list-global-marks-qf", silent = true },
+            { "<leader>ma", ":MarksListAll<cr>", desc = "list-all-marks", silent = true },
+            { "<leader>mb", ":MarksListBuf<cr>", desc = "list-buf-marks", silent = true },
+            { "<leader>mg", ":MarksListGlobal<cr>", desc = "list-global-marks", silent = true },
+            { "<leader>mt", ":MarksToggleSigns<cr>", desc = "toggle-signs", silent = true },
+        },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["m"] = { name = "+marks" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
+        opts = {
+            excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "toggleterm" },
+        },
     },
 }

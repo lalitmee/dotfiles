@@ -4,11 +4,13 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "BufReadPost",
+
         keys = {
             { "<leader>lf", desc = "peek-function-definition", mode = { "n", "v" } },
             { "<leader>lc", desc = "peek-class-definition", mode = { "n", "v" } },
             { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "show-highlights-info", silent = true },
         },
+
         dependencies = {
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
@@ -40,6 +42,20 @@ return {
                 cmd = "TSPlaygroundToggle",
             },
         },
+
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["s"] = {
+                    name = "+node-selection",
+                    s = "start",
+                    i = "node++",
+                    c = "scope++",
+                    d = "node--",
+                },
+            }, { mode = "n", prefix = "<localleader>" })
+        end,
+
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
@@ -202,7 +218,7 @@ return {
         "ckolkey/ts-node-action",
         -- stylua: ignore
         keys = {
-            { "<leader>uk", function()require("ts-node-action").node_action()end, desc = "Trigger Node Action", silent = true },
+            { "<leader>tk", function()require("ts-node-action").node_action()end, desc = "Trigger Node Action", silent = true },
         },
         config = function()
             local helpers = require("ts-node-action.helpers")

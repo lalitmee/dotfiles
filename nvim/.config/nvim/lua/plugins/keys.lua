@@ -69,14 +69,6 @@ return {
                     ["z"] = { ":blast<CR>", "first-buffer" },
                 },
 
-                ["c"] = {
-                    ["name"] = "+cody",
-                },
-
-                ["C"] = {
-                    ["name"] = "+ChatGPT",
-                },
-
                 ["e"] = {
                     ["name"] = "+errors",
                     ["d"] = {
@@ -203,6 +195,7 @@ return {
                 -- stylua: ignore
                 ["l"] = {
                     ["name"] = "+lsp",
+                    ["/"] = { ":Telescope tags<CR>", "project-tags" },
                     ["a"] = { function() vim.lsp.buf.code_action() end, "code-action" },
                     ["d"] = { function() vim.lsp.buf.definition() end, "definition" },
                     ["D"] = { function() vim.lsp.buf.declaration() end, "declaration" },
@@ -215,16 +208,16 @@ return {
                     ["R"] = { function() vim.lsp.buf.references() end, "references" },
                     ["s"] = { function() vim.lsp.buf.document_symbol() end, "document-symbols" },
                     ["t"] = { function() vim.lsp.buf.type_definition() end, "type-definition" },
+                    ["T"] = { ":Telescope treesitter<CR>", "treesitter-symbols" },
                     ["w"] = { function() vim.lsp.buf.workspace_symbol() end, "workspace-symbols" },
                 },
 
                 ["n"] = {
                     ["name"] = "+neovim",
-                    ["h"] = { ":checkhealth<CR>", "check-health" },
-                    ["p"] = { ":Lazy profile<CR>", "lazy-profile" },
-                    ["o"] = { ":Lazy<CR>", "packages-status" },
+                    ["/"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
                     ["c"] = { ":Lazy clean<CR>", "clean-packages" },
                     ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
+                    ["h"] = { ":checkhealth<CR>", "check-health" },
                     ["i"] = { ":Lazy install<CR>", "lazy-install" },
                     ["l"] = {
                         function()
@@ -251,10 +244,13 @@ return {
                     },
                     ["m"] = { ":ReloadModule<space>", "realod-module" },
                     ["n"] = { ":Notifications<CR>", "notifications" },
+                    ["o"] = { ":Lazy<CR>", "packages-status" },
+                    ["p"] = { ":Lazy profile<CR>", "lazy-profile" },
                     ["r"] = { ":Redir Notifications<CR>", "redir-notifications" },
                     ["s"] = { ":Lazy sync<CR>", "lazy-sync" },
                     ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
                     ["u"] = { ":Lazy update<CR>", "lazy-update" },
+                    ["x"] = { ":Telescope reloader<CR>", "reloaders" },
                 },
 
                 ["o"] = {
@@ -267,13 +263,6 @@ return {
 
                 ["q"] = {
                     ["name"] = "+quickfix",
-                    ["c"] = { ":cclose<CR>", "close" },
-                    ["h"] = { ":colder<CR>", "older" },
-                    ["l"] = { ":cnewer<CR>", "newer" },
-                    ["n"] = { ":cnext<CR>", "next" },
-                    ["o"] = { ":copen<CR>", "open" },
-                    ["p"] = { ":cprev<CR>", "prev" },
-                    ["q"] = { ":qall<CR>", "quit-neovim" },
                     ["t"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
                 },
 
@@ -284,32 +273,12 @@ return {
 
                 ["s"] = {
                     ["name"] = "+search-and-replace",
+                    ["a"] = { ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
                     ["r"] = { ":Telescope resume<CR>", "live-grep-resume" },
                 },
 
                 ["t"] = {
-                    ["name"] = "+telescope",
-                    ["a"] = { ":Telescope<CR>", "telescope-all-options" },
-                    ["b"] = { ":Telescope current_buffer_tags<CR>", "buffer-tags" },
-                    ["B"] = { ":Telescope builtin<CR>", "builtins" },
-                    ["c"] = { ":Telescope git_commits<CR>", "commits" },
-                    ["C"] = { ":Telescope git_bcommits<CR>", "buffer-commits" },
-                    ["d"] = { ":Telescope git_files<CR>", "git-files" },
-                    ["f"] = { ":Telescope find_files<CR>", "files" },
-                    ["F"] = { ":Telescope filetypes<CR>", "file-types" },
-                    ["g"] = { ":Telescope git_status<CR>", "modified-git-files" },
-                    ["h"] = { ":Telescope command_history<CR>", "command-history" },
-                    ["i"] = { ":Telescope luasnip<CR>", "snippets" },
-                    ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
-                    ["m"] = { ":Telescope man_pages<CR>", "man-pages" },
-                    ["n"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
-                    ["s"] = { ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
-                    ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
-                    ["p"] = { ":Telescope live_grep<CR>", "live-grep" },
-                    ["r"] = { ":Telescope resume<CR>", "resume-search" },
-                    ["R"] = { ":Telescope reloader<CR>", "reloaders" },
-                    ["t"] = { ":Telescope treesitter<CR>", "treesitter" },
-                    ["T"] = { ":Telescope tags<CR>", "project-tags" },
+                    ["name"] = "+toggle",
                 },
 
                 ["v"] = {
@@ -328,6 +297,7 @@ return {
                     ["k"] = { ":Telescope keymaps<CR>", "keymaps" },
                     ["l"] = { ":Telescope loclist<CR>", "loclist" },
                     ["m"] = { ":Telescope marks<CR>", "marks" },
+                    ["M"] = { ":Telescope man_pages<CR>", "man-pages" },
                     ["r"] = { ":Telescope registers<CR>", "vim-registers" },
                     ["t"] = { ":Telescope tagstack<CR>", "tag-stack" },
                     ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
