@@ -37,7 +37,7 @@ end
 
 local wk = require("which-key")
 wk.register({
-    ["u"] = {
+    ["t"] = {
         ["name"] = "+toggle",
         ["s"] = {
             function()

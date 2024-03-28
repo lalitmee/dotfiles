@@ -17,6 +17,12 @@ return {
             { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize" },
             { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate" },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["c"] = { name = "+chatgpt" },
+            }, { mode = "n", prefix = "<localleader>" })
+        end,
         opts = {
             popup_input = {
                 submit = "<Enter>",
@@ -38,9 +44,10 @@ return {
     },
 
     { --[[ python-indent ]]
-        "Vimjas/vim-python-pep8-indent",
-        ft = "python",
-        enabled = false,
+        "NMAC427/guess-indent.nvim",
+        event = { "BufReadPre" },
+        cmd = { "GuessIndent" },
+        opts = {},
     },
 
     { --[[ markdown-preview ]]
@@ -353,6 +360,12 @@ return {
             { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
             { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["c"] = { name = "+cody" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
