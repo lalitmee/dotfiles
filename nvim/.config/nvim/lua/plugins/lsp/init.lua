@@ -206,7 +206,7 @@ return {
         end,
     },
 
-    {
+    { --[[ nvim-lint ]]
         "mfussenegger/nvim-lint",
         event = { "VeryLazy" },
         config = function()
@@ -256,7 +256,7 @@ return {
                 },
             })
         end,
-        enabled = false,
+        -- enabled = false,
     },
 
     { --[[ conform.nvim ]]
@@ -399,5 +399,11 @@ return {
                 end,
             },
         },
+    },
+
+    { --[[ tailwind-tools ]]
+        "luckasRanarison/tailwind-tools.nvim",
+        ft = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        opts = {},
     },
 }
