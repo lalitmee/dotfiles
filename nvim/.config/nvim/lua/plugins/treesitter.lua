@@ -200,15 +200,9 @@ return {
 
     { --[[ ts-node-action ]]
         "ckolkey/ts-node-action",
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>k",
-                function()
-                    require("ts-node-action").node_action()
-                end,
-                desc = "Trigger Node Action",
-                silent = true,
-            },
+            { "<leader>uk", function()require("ts-node-action").node_action()end, desc = "Trigger Node Action", silent = true },
         },
         config = function()
             local helpers = require("ts-node-action.helpers")
