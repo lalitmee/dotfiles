@@ -288,11 +288,11 @@ return {
         -- stylua: ignore
         keys = {
             { "<leader>ka", function() require("scretch").new() end, desc = "new" },
-            { "<leader>kat", function() require("scretch").save_as_template() end, desc = "save-as-template" },
-            { "<leader>ke", function() require("scretch").explore() end, desc = "explore" },
-            { "<leader>ket", function() require("scretch").edit_template() end, desc = "edit-template" },
-            { "<leader>kf", function() require("scretch").search() end, desc = "search" },
-            { "<leader>kft", function() require("scretch").new_from_template() end, desc = "from-template" },
+            { "<leader>kt", function() require("scretch").save_as_template() end, desc = "save-as-template" },
+            { "<leader>k/", function() require("scretch").explore() end, desc = "explore" },
+            { "<leader>ke", function() require("scretch").edit_template() end, desc = "edit-template" },
+            { "<leader>ks", function() require("scretch").search() end, desc = "search" },
+            { "<leader>kf", function() require("scretch").new_from_template() end, desc = "from-template" },
             { "<leader>kg", function() require("scretch").grep() end, desc = "grep" },
             { "<leader>kl", function() require("scretch").last() end, desc = "last" },
             { "<leader>kn", function() require("scretch").new_named() end, desc = "with-name" },
