@@ -3,6 +3,7 @@ local augroup = lk.augroup
 return {
     { --[[ neogit ]]
         "NeogitOrg/neogit",
+        branch = "nightly",
         cmd = { "Neogit" },
         keys = {
             { "<leader>gs", ":Neogit<CR>", desc = "status", silent = true },
