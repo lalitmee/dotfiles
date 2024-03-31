@@ -87,6 +87,7 @@ return {
             { "<leader>ai", ":ChatGPTSh<CR>", desc = "chatgpt", silent = true },
             { "<leader>af", ":GhDash<CR>", desc = "gh-dash", silent = true },
             { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "vertical-terminal", silent = true },
+            { "<leader>gt", ":Tig<CR>", desc = "tig", silent = true },
         },
         cmd = { "ToggleTerm" },
         opts = {
@@ -169,6 +170,14 @@ return {
                 float_opts = float_opts,
             })
 
+            local tig = Terminal:new({
+                cmd = "tig",
+                hidden = true,
+                direction = "float",
+                on_open = float_handler,
+                float_opts = float_opts,
+            })
+
             command("LazyDocker", function()
                 lazydocker:toggle()
             end)
@@ -183,6 +192,9 @@ return {
             end)
             command("GhDash", function()
                 gh_dash:toggle()
+            end)
+            command("Tig", function()
+                tig:toggle()
             end)
         end,
     },
