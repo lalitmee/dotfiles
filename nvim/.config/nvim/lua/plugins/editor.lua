@@ -988,7 +988,7 @@ return {
         "nvim-lualine/lualine.nvim",
         event = "BufEnter",
         keys = {
-            { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab" },
+            { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab", silent = true },
         },
         opts = {
             options = {
