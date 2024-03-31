@@ -5,17 +5,17 @@ return {
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
-            { "<localleader>ca", ":ChatGPTRun add_tests<CR>", desc = "add-tests" },
-            { "<localleader>cc", ":ChatGPT<CR>", desc = "chatgpt" },
-            { "<localleader>cd", ":ChatGPTRun docstring<CR>", desc = "docstring" },
-            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>", desc = "edit-instructions" },
-            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>", desc = "fix-bugs" },
-            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "grammar-correction" },
-            { "<localleader>ch", ":ChatGPTActAs<CR>", desc = "act-as" },
-            { "<localleader>co", ":ChatGPTRun optimize_code<CR>", desc = "optimize-code" },
-            { "<localleader>cr", ":ChatGPTRun<CR>", desc = "chatgpt-run" },
-            { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize" },
-            { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate" },
+            { "<localleader>ca", ":ChatGPTRun add_tests<CR>", desc = "add-tests", silent = true },
+            { "<localleader>cc", ":ChatGPT<CR>", desc = "chatgpt", silent = true },
+            { "<localleader>cd", ":ChatGPTRun docstring<CR>", desc = "docstring", silent = true },
+            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>", desc = "edit-instructions", silent = true },
+            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>", desc = "fix-bugs", silent = true },
+            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "grammar-correction", silent = true },
+            { "<localleader>ch", ":ChatGPTActAs<CR>", desc = "act-as", silent = true },
+            { "<localleader>co", ":ChatGPTRun optimize_code<CR>", desc = "optimize-code", silent = true },
+            { "<localleader>cr", ":ChatGPTRun<CR>", desc = "chatgpt-run", silent = true },
+            { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize", silent = true },
+            { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate", silent = true },
         },
         init = function()
             local wk = require("which-key")
@@ -33,10 +33,10 @@ return {
     { --[[ backseat ]]
         "james1236/backseat.nvim",
         keys = {
-            { "<localleader>cb", ":Backseat<CR>", desc = "backseat" },
-            { "<localleader>ck", ":BackseatAsk<CR>", desc = "backseat-ask" },
-            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "backseat-clear-line" },
-            { "<localleader>cx", ":BackseatClear<CR>", desc = "backseat-clear" },
+            { "<localleader>cb", ":Backseat<CR>", desc = "backseat", silent = true },
+            { "<localleader>ck", ":BackseatAsk<CR>", desc = "backseat-ask", silent = true },
+            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "backseat-clear-line", silent = true },
+            { "<localleader>cx", ":BackseatClear<CR>", desc = "backseat-clear", silent = true },
         },
         opts = {
             openai_api_key = os.getenv("OPENAI_API_KEY"),
