@@ -262,15 +262,14 @@ return {
                     config = {
                         workspaces = {
                             notes = "~/Desktop/Github/notes",
-                            ["work-notes"] = "~/Documents/notes",
                         },
                     },
                 },
             },
         },
         dependencies = {
-            { "nvim-lua/plenary.nvim" },
             { "nvim-neorg/neorg-telescope" },
+            { "luarocks.nvim" },
         },
     },
 
