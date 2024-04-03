@@ -225,7 +225,6 @@ return {
             },
         },
         init = function()
-            require("orgmode").setup_ts_grammar()
             local wk = require("which-key")
             wk.register({
                 ["o"] = { name = "+org" },
@@ -238,6 +237,7 @@ return {
     },
 
     { --[[ neorg ]]
+        enabled = false,
         "nvim-neorg/neorg",
         lazy = false,
         ft = "norg",
