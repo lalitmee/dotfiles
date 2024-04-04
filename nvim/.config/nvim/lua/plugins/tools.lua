@@ -770,6 +770,19 @@ return {
         },
     },
 
+    { --[[ codesnap ]]
+        "mistricky/codesnap.nvim",
+        build = "make build_generator",
+        cmd = { "CodeSnap" },
+        keys = {
+            { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "codesnap", silent = true },
+            { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "codesnap-save", silent = true },
+        },
+        opts = {
+            save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots/screenshot.png",
+        },
+    },
+
     { --[[ carbon-now ]]
         "ellisonleao/carbon-now.nvim",
         cmd = { "CarbonNow" },
