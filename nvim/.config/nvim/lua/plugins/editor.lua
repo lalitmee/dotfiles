@@ -194,19 +194,31 @@ return {
     },
 
     { --[[ codeium ]]
-        enabled = false,
-        "Exafunction/codeium.vim",
-        event = { "InsertEnter" },
-        cmd = { "Codeium" },
-        init = function()
-            vim.keymap.set("i", "<Tab>", function()
-                return vim.fn["codeium#Accept"]()
-            end, { expr = true, silent = true })
+        "monkoose/neocodeium",
+        event = "VeryLazy",
+        cmd = { "NeoCodeium" },
+        config = function()
+            local neocodeium = require("neocodeium")
+            neocodeium.setup()
 
-            vim.g.codeium_filetypes = {
-                TelescopePrompt = false,
-                DressingInput = false,
-            }
+            vim.keymap.set("i", "<Tab>", function()
+                neocodeium.accept()
+            end)
+            vim.keymap.set("i", "<A-w>", function()
+                neocodeium.accept_word()
+            end)
+            vim.keymap.set("i", "<A-a>", function()
+                neocodeium.accept_line()
+            end)
+            vim.keymap.set("i", "<A-e>", function()
+                neocodeium.cycle_or_complete()
+            end)
+            vim.keymap.set("i", "<A-r>", function()
+                neocodeium.cycle_or_complete(-1)
+            end)
+            vim.keymap.set("i", "<A-c>", function()
+                neocodeium.clear()
+            end)
         end,
         -- enabled = false,
     },
