@@ -11,8 +11,11 @@ local executable = lk.executable
 ----------------------------------------------------------------------
 -- NOTE: python hosts {{{
 ----------------------------------------------------------------------
-g.python3_host_prog = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
-g.python_host_prog = "/home/lalitmee/.pyenv/versions/neovim2/bin/python"
+if vim.g.is_mac then
+    g.python3_host_prog = "/opt/homebrew/bin/python3"
+elseif vim.g.is_linux then
+    g.python3_host_prog = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
+end
 -- }}}
 ----------------------------------------------------------------------
 
