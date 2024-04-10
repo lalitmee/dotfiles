@@ -128,7 +128,7 @@ return {
                 "OlegGulevskyy/better-ts-errors.nvim",
                 event = "VeryLazy",
                 dependencies = { "MunifTanjim/nui.nvim" },
-                config = {
+                opts = {
                     keymaps = {
                         toggle = "<leader>et",
                         go_to_definition = "<leader>ex",
@@ -256,7 +256,7 @@ return {
                 },
             })
         end,
-        -- enabled = false,
+        enabled = false,
     },
 
     { --[[ conform.nvim ]]
@@ -276,8 +276,15 @@ return {
                 "javascriptreact",
                 "typescript",
                 "typescriptreact",
+                "liquid",
             }
             require("conform").setup({
+                formatters = {
+                    curlylint = {
+                        command = "curlylint",
+                        args = { "-f", "stylish" },
+                    },
+                },
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
                     go = { "gofmt", "goimports", "golines" },
@@ -404,6 +411,19 @@ return {
     { --[[ tailwind-tools ]]
         "luckasRanarison/tailwind-tools.nvim",
         ft = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        opts = {},
+        opts = {
+            custom_filetypes = {
+                "astro",
+                "css",
+                "html",
+                "javascript",
+                "javascriptreact",
+                "svelte",
+                "tsx",
+                "typescript",
+                "typescriptreact",
+                "vue",
+            },
+        },
     },
 }
