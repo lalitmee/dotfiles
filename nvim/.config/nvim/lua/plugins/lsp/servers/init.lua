@@ -9,7 +9,7 @@ local gopls = get_server_options("gopls")
 local lua_ls = get_server_options("lua_ls")
 local rust_analyzer = get_server_options("rust_analyzer")
 local emmet_ls = get_server_options("emmet_ls")
--- local tsserver = get_server_options("tsserver")
+local tailwindcss = get_server_options("tailwindcss")
 
 return {
     bashls = true,
@@ -23,7 +23,7 @@ return {
     marksman = true,
     pyright = true,
     rust_analyzer = rust_analyzer,
-    tailwindcss = true,
+    tailwindcss = tailwindcss,
     taplo = true,
     theme_check = true,
     -- tsserver = tsserver,
