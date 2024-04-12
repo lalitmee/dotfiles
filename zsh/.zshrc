@@ -111,7 +111,6 @@ plugins=(
     zoxide
     zsh-autosuggestions
     zsh-lazyload
-    zsh-nvm
     zsh-wakatime
 )
 

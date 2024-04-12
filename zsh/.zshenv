@@ -73,23 +73,6 @@ export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: nvm {{{
-# -------------------------------------------------------------------
-export NVM_LAZY_LOAD=true
-
-# NOTE: for linux
-# export NVM_DIR="$HOME/.config/nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-# NOTE: for mac
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" --no-use  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
 # NOTE: s search {{{
 # for s-search from the terminal
 # -------------------------------------------------------------------
