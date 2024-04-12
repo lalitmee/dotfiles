@@ -372,9 +372,6 @@ return {
             },
             file_ignore_patterns = { "node_modules", ".git" },
         },
-        -- looks like the repository is not there that's why disabling it for
-        -- now.
-        enabled = false,
     },
 
     { --[[ navigator ]]
