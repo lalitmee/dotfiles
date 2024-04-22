@@ -199,7 +199,12 @@ return {
         cmd = { "NeoCodeium" },
         config = function()
             local neocodeium = require("neocodeium")
-            neocodeium.setup()
+            neocodeium.setup({
+                filetypes = {
+                    TelescopePrompt = false,
+                    DressingInput = false,
+                },
+            })
 
             vim.keymap.set("i", "<Tab>", function()
                 neocodeium.accept()
