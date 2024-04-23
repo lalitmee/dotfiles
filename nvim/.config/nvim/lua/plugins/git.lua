@@ -142,7 +142,8 @@ return {
     },
 
     { --[[ git-worktree.nvim ]]
-        "ThePrimeagen/git-worktree.nvim",
+        "polarmutex/git-worktree.nvim",
+        branch = "v2",
         keys = {
             {
                 "<leader>gwa",
@@ -152,7 +153,7 @@ return {
             },
             {
                 "<leader>gwl",
-                ":Telescope git_worktree git_worktrees<CR>",
+                ":Telescope git_worktree git_worktree<CR>",
                 desc = "list-worktrees",
                 silent = true,
             },
@@ -164,28 +165,9 @@ return {
             }, { mode = "n", prefix = "<leader>" })
         end,
         config = function()
-            local Job = require("plenary.job")
             local Worktree = require("git-worktree")
 
             Worktree.setup()
-
-            Worktree.on_tree_change(function(op, path, upstream)
-                if op == Worktree.Operations.Switch then
-                    Job:new({ "yarn", "dev" }):start()
-                end
-
-                if op == Worktree.Operations.Create then
-                    local install = Job:new({
-                        "yarn",
-                    })
-                    local run = Job:new({
-                        "yarn",
-                        "dev",
-                    })
-                    install:and_then_on_success(run)
-                    install:start()
-                end
-            end)
 
             require("telescope").load_extension("git_worktree")
         end,
