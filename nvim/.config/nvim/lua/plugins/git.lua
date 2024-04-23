@@ -142,8 +142,7 @@ return {
     },
 
     { --[[ git-worktree.nvim ]]
-        "polarmutex/git-worktree.nvim",
-        branch = "v2",
+        "lalitmee/git-worktree.nvim",
         keys = {
             {
                 "<leader>gwa",
