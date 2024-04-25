@@ -854,6 +854,7 @@ return {
 
     { --[[ oil ]]
         "stevearc/oil.nvim",
+        cmd = { "Oil" },
         keys = {
             { "<leader>ae", ":Oil<CR>", desc = "file-browser", silent = true },
             { "<leader>ao", ":Oil --float<CR>", desc = "file-browser-float", silent = true },

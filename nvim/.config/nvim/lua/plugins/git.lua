@@ -142,6 +142,7 @@ return {
     },
 
     { --[[ git-worktree.nvim ]]
+        enabled = false,
         "lalitmee/git-worktree.nvim",
         keys = {
             {
@@ -169,6 +170,38 @@ return {
             Worktree.setup()
 
             require("telescope").load_extension("git_worktree")
+        end,
+    },
+
+    { --[[ g-worktree.nvim ]]
+        "Mohanbarman/g-worktree.nvim",
+        keys = {
+            {
+                "<leader>gwa",
+                ":Telescope g_worktree create<CR>",
+                desc = "create-worktree",
+                silent = true,
+            },
+            {
+                "<leader>gwl",
+                ":Telescope g_worktree list<CR>",
+                desc = "list-worktrees",
+                silent = true,
+            },
+        },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                ["gw"] = { name = "+worktree" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
+        config = function()
+            require("g-worktree").setup({
+                base_dir_pattern = "../{git_dir_name}-worktrees/{branch_name}",
+                post_create_cmd = "Oil --float",
+            })
+
+            require("telescope").load_extension("g_worktree")
         end,
     },
 
