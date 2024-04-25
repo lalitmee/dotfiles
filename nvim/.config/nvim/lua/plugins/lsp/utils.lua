@@ -118,6 +118,12 @@ M.capabilities = function(client, bufnr)
     if client.server_capabilities.document_formatting then
         client.server_capabilities.document_formatting = false
     end
+    if client.server_capabilities.documentFormattingProvider then
+        client.server_capabilities.documentFormattingProvider = false
+    end
+    if client.server_capabilities.documentRangeFormattingProvider then
+        client.server_capabilities.documentRangeFormattingProvider = false
+    end
     -- if client.server_capabilities.inlayHintProvider then
     --     vim.lsp.buf.inlay_hint(bufnr, true)
     -- end
