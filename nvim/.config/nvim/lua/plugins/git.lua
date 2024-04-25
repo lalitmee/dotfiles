@@ -198,7 +198,7 @@ return {
         config = function()
             require("g-worktree").setup({
                 base_dir_pattern = "../{git_dir_name}-worktrees/{branch_name}",
-                post_create_cmd = "Oil --float",
+                post_create_cmd = "",
             })
 
             require("telescope").load_extension("g_worktree")
