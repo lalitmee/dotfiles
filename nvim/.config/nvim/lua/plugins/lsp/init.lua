@@ -298,7 +298,7 @@ return {
                     typescript = { "prettierd" },
                     typescriptreact = { "prettierd" },
                     yaml = { "yamlfmt" },
-                    markdown = { "prettierd", "mdformat", "markdownlint" },
+                    markdown = { "mdformat", "markdownlint" },
                     liquid = { "curlylint" },
                 },
                 format_on_save = function(bufnr)
