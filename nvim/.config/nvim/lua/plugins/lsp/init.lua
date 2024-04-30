@@ -288,18 +288,18 @@ return {
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
                     go = { "gofmt", "goimports", "golines" },
-                    svg = { "prettierd" },
                     javascript = { "prettierd" },
                     javascriptreact = { "prettierd" },
+                    liquid = { "curlylint" },
                     lua = { "stylua" },
+                    markdown = { "mdformat", "markdownlint" },
                     rust = { "rustfmt" },
                     sh = { "shfmt" },
+                    svg = { "prettierd" },
                     toml = { "taplo" },
                     typescript = { "prettierd" },
                     typescriptreact = { "prettierd" },
                     yaml = { "yamlfmt" },
-                    markdown = { "mdformat", "markdownlint" },
-                    liquid = { "curlylint" },
                 },
                 format_on_save = function(bufnr)
                     -- Disable with a global or buffer-local variable
