@@ -842,16 +842,6 @@ return {
         event = "BufRead",
     },
 
-    { --[[ neo-composer ]]
-        "ecthelionvi/NeoComposer.nvim",
-        event = "VeryLazy",
-        dependencies = { "kkharji/sqlite.lua" },
-        config = function()
-            require("NeoComposer").setup()
-            require("telescope").load_extension("macros")
-        end,
-    },
-
     { --[[ oil ]]
         "stevearc/oil.nvim",
         cmd = { "Oil" },
