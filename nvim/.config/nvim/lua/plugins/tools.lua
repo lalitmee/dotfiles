@@ -317,7 +317,7 @@ return {
         opts = {
             scretch_dir = vim.env.HOME .. "/Desktop/Github/notes/",
             templte_dir = vim.env.HOME .. "/Desktop/Github/notes/templates/",
-            default_type = "md",
+            default_type = "org",
         },
     },
 
