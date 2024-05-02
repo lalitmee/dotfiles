@@ -74,7 +74,6 @@ wk.register({
             ["n"] = { ":Gitsigns toggle_numhl<CR>", "toggle-numhl" },
             ["s"] = { ":Gitsigns toggle_signs<CR>", "toggle-signs" },
         },
-        ["m"] = { ":Telescope macros<CR>", "neo-composer-macros" },
         ["o"] = {
             ["name"] = "+scrolloff",
             ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },
