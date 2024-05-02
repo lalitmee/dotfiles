@@ -132,7 +132,9 @@ M.setup_autocommands = function(client, bufnr)
                 desc = "LSP: Code Lens",
                 buffer = bufnr,
                 command = function()
-                    lsp.codelens.refresh()
+                    if #clients_by_capability(bufnr, "codeLensProvider") then
+                        lsp.codelens.refresh()
+                    end
                 end,
             },
         }
