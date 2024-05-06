@@ -247,6 +247,10 @@ return {
                         path_display = { "absolute", "truncate" },
                         hidden = true,
                     },
+                    oldfiles = {
+                        path_display = { "absolute", "truncate" },
+                        hidden = true,
+                    },
                     git_bcommits = {
                         layout_config = {
                             horizontal = {
