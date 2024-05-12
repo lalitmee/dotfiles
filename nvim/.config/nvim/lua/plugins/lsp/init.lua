@@ -302,7 +302,6 @@ return {
                     yaml = { "yamlfmt" },
                 },
                 format_on_save = function(bufnr)
-                    -- Disable with a global or buffer-local variable
                     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                         return
                     end
@@ -357,21 +356,21 @@ return {
                 desc = "Re-enable autoformat-on-save",
             })
 
-            lk.augroup("conform_au", {
-                {
-                    event = { "BufWritePost" },
-                    pattern = { "*" },
-                    command = function(args)
-                        require("conform").format({ async = true, lsp_fallback = true, buf = args.buf }, function(err)
-                            if not err then
-                                vim.api.nvim_buf_call(args.buf, function()
-                                    vim.cmd.update()
-                                end)
-                            end
-                        end)
-                    end,
-                },
-            })
+            -- lk.augroup("conform_au", {
+            --     {
+            --         event = { "BufWritePost" },
+            --         pattern = { "*" },
+            --         command = function(args)
+            --             require("conform").format({ async = true, lsp_fallback = true, buf = args.buf }, function(err)
+            --                 if not err then
+            --                     vim.api.nvim_buf_call(args.buf, function()
+            --                         vim.cmd.update()
+            --                     end)
+            --                 end
+            --             end)
+            --         end,
+            --     },
+            -- })
         end,
         -- enabled = false,
     },
