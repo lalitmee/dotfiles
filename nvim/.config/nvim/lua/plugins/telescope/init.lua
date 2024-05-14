@@ -186,6 +186,11 @@ return {
                         "node_modules",
                     },
 
+                    history = {
+                        path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
+                        limit = 100,
+                    },
+
                     layout_strategy = "flex",
                     layout_config = {
                         width = 0.95,
@@ -354,6 +359,15 @@ return {
             "kkharji/sqlite.lua",
             "nvim-telescope/telescope-fzy-native.nvim",
         },
+    },
+
+    {
+        "nvim-telescope/telescope-smart-history.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        event = "VeryLazy",
+        config = function()
+            require("telescope").load_extension("smart_history")
+        end,
     },
 
     { --[[ telescope-lazy ]]
