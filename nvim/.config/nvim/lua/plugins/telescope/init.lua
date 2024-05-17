@@ -361,7 +361,7 @@ return {
         },
     },
 
-    {
+    { --[[ telescope-smart-history ]]
         "nvim-telescope/telescope-smart-history.nvim",
         dependencies = { "kkharji/sqlite.lua" },
         event = "VeryLazy",
