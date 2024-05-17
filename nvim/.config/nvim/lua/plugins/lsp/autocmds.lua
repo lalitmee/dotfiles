@@ -16,7 +16,7 @@ local FEATURES = {
 local function clients_by_capability(bufnr, capability)
     return vim.tbl_filter(function(c)
         return c.server_capabilities[capability]
-    end, lsp.get_active_clients({ buffer = bufnr }))
+    end, lsp.get_clients({ buffer = bufnr }))
 end
 
 --- Create augroups for each LSP feature and track which capabilities each client
