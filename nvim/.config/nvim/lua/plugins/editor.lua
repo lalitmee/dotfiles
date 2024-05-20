@@ -626,7 +626,6 @@ return {
                     -- choosing the label
                     require("flash").jump({
                         matcher = function(win)
-                            ---@param diag Diagnostic
                             return vim.tbl_map(function(diag)
                                 return {
                                     pos = { diag.lnum + 1, diag.col },
@@ -741,7 +740,13 @@ return {
                 ["j"] = { name = "+jump" },
             }, { mode = "n", prefix = "<leader>" })
         end,
-        opts = {},
+        opts = {
+            modes = {
+                search = {
+                    enabled = true,
+                },
+            },
+        },
     },
 
     { --[[ spectre ]]
