@@ -173,7 +173,7 @@ return {
                     ["n"] = { ":GitHunks<CR>", "git-hunks" },
                     ["O"] = {
                         function()
-                            vim.cmd([[silent !gh o]])
+                            vim.cmd([[silent !gh repo view --web]])
                         end,
                         "open-repo",
                     },
