@@ -1,6 +1,8 @@
 local command = lk.command
 local fn = vim.fn
 
+local float_dimensions_opts = { width = 200, height = 50 }
+
 return {
     { --[[ undotree ]]
         "mbbill/undotree",
@@ -98,12 +100,10 @@ return {
             insert_mappings = false,
             start_in_insert = true,
             winbar = { enabled = lk.ui.winbar.enable },
-            float_opts = {
+            float_opts = vim.tbl_extend("keep", {
                 border = lk.style.border.rounded,
                 winblend = 3,
-                width = 175,
-                height = 47,
-            },
+            }, float_dimensions_opts),
             shade_terminals = false,
             size = function(term)
                 if term.direction == "horizontal" then
@@ -125,15 +125,13 @@ return {
 
             local Terminal = require("toggleterm.terminal").Terminal
 
-            local float_opts = { width = 175, height = 45 }
-
             local chatgpt = Terminal:new({
                 cmd = "chatgpt -i",
                 dir = "git_dir",
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = float_opts,
+                float_opts = float_dimensions_opts,
             })
 
             local gh_dash = Terminal:new({
@@ -142,7 +140,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = float_opts,
+                float_opts = float_dimensions_opts,
             })
 
             local lazygit = Terminal:new({
@@ -151,7 +149,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = float_opts,
+                float_opts = float_dimensions_opts,
             })
 
             local lazydocker = Terminal:new({
@@ -159,7 +157,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = float_opts,
+                float_opts = float_dimensions_opts,
             })
 
             local bottom = Terminal:new({
@@ -167,7 +165,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = float_opts,
+                float_opts = float_dimensions_opts,
             })
 
             local tig = Terminal:new({
@@ -175,7 +173,7 @@ return {
                 hidden = true,
                 direction = "float",
                 on_open = float_handler,
-                float_opts = float_opts,
+                float_opts = float_dimensions_opts,
             })
 
             command("LazyDocker", function()
