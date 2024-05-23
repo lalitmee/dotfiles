@@ -133,6 +133,9 @@ return {
                         "--column",
                         "--smart-case",
                         "--trim",
+                        "--glob=!yarn.lock",
+                        "--glob=!package-lock.json",
+                        "--glob=!**/.git",
                     },
                     winblend = 0,
                     prompt_prefix = "   ", --   
