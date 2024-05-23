@@ -873,10 +873,9 @@ return {
 
     { --[[ bqf ]]
         "kevinhwang91/nvim-bqf",
-        ft = "qf",
+        event = "VeryLazy",
         dependencies = {
             url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-            ft = "qf",
             config = true,
         },
         opts = {
