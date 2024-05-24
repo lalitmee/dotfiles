@@ -203,6 +203,7 @@ return {
                 filetypes = {
                     TelescopePrompt = false,
                     DressingInput = false,
+                    ["chatgpt-input"] = false,
                 },
             })
 
