@@ -12,8 +12,8 @@ end
 
 -- This is where you actually apply your config choices
 
-config.window_background_opacity = 0.8
-config.text_background_opacity = 0.8
+-- config.window_background_opacity = 0.8
+-- config.text_background_opacity = 0.8
 
 -- For example, changing the color scheme:
 config.color_scheme = "Cobalt2"
