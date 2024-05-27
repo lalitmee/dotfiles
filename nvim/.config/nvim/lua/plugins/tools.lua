@@ -229,8 +229,8 @@ return {
             }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
-            org_agenda_files = { "~/Desktop/Github/todos/**/*" },
-            org_default_notes_file = "~/Desktop/Github/second-brain/notes/index.org",
+            org_agenda_files = { "~/Desktop/Github/notes/*.org", "~/Desktop/Github/todos/inbox.org" },
+            org_default_notes_file = "~/Desktop/Github/todos/inbox.org",
         },
     },
 
