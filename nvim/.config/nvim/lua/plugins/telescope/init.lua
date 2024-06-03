@@ -38,7 +38,7 @@ return {
             local themes = require("telescope.themes")
 
             local lga_actions = require("telescope-live-grep-args.actions")
-            local trouble = require("trouble.providers.telescope")
+            local trouble = require("trouble.sources.telescope")
 
             local function get_border(opts)
                 return vim.tbl_deep_extend("force", opts or {}, {
@@ -164,13 +164,13 @@ return {
                             ["<M-o>"] = action_layout.toggle_prompt_position,
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-v>"] = action_layout.toggle_mirror,
-                            ["<c-t>"] = trouble.open_with_trouble,
+                            ["<c-t>"] = trouble.open,
                             ["<esc>"] = actions.close,
                         },
                         n = {
                             ["<Down>"] = actions.cycle_history_next,
                             ["<Up>"] = actions.cycle_history_prev,
-                            ["<c-t>"] = trouble.open_with_trouble,
+                            ["<c-t>"] = trouble.open,
                             ["<esc>"] = actions.close,
                             ["e"] = actions.move_to_bottom,
                             ["j"] = actions.move_selection_next,
