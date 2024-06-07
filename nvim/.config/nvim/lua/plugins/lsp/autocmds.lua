@@ -125,20 +125,20 @@ M.setup_autocommands = function(client, bufnr)
     --     }
     -- end)
 
-    augroup(FEATURES.CODELENS, function()
-        return {
-            {
-                event = { "BufEnter", "CursorHold", "InsertLeave" },
-                desc = "LSP: Code Lens",
-                buffer = bufnr,
-                command = function()
-                    if #clients_by_capability(bufnr, "codeLensProvider") then
-                        lsp.codelens.refresh()
-                    end
-                end,
-            },
-        }
-    end)
+    -- augroup(FEATURES.CODELENS, function()
+    --     return {
+    --         {
+    --             event = { "BufEnter", "CursorHold", "InsertLeave" },
+    --             desc = "LSP: Code Lens",
+    --             buffer = bufnr,
+    --             command = function()
+    --                 if #clients_by_capability(bufnr, "codeLensProvider") then
+    --                     lsp.codelens.refresh()
+    --                 end
+    --             end,
+    --         },
+    --     }
+    -- end)
 
     augroup(FEATURES.REFERENCES, function()
         return {
