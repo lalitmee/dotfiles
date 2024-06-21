@@ -483,14 +483,6 @@ return {
         end,
     },
 
-    { --[[ mini.pairs ]]
-        "echasnovski/mini.pairs",
-        version = "*",
-        config = true,
-        event = "VeryLazy",
-        enabled = false,
-    },
-
     { --[[ ufo ]]
         "kevinhwang91/nvim-ufo",
         event = "BufRead",
