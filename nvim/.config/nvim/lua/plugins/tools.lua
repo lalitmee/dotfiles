@@ -234,43 +234,6 @@ return {
         },
     },
 
-    { --[[ neorg ]]
-        enabled = false,
-        "nvim-neorg/neorg",
-        lazy = false,
-        ft = "norg",
-        version = "*",
-        opts = {
-            load = {
-                ["core.highlights"] = {},
-                ["core.mode"] = {},
-                ["core.defaults"] = {},
-                ["core.clipboard"] = {},
-                ["core.clipboard.code-blocks"] = {},
-                ["core.concealer"] = {},
-                ["core.keybinds"] = {},
-                ["core.integrations.telescope"] = {},
-                ["core.integrations.treesitter"] = {},
-                ["core.completion"] = {
-                    config = {
-                        engine = "nvim-cmp",
-                    },
-                },
-                ["core.dirman"] = {
-                    config = {
-                        workspaces = {
-                            notes = "~/Desktop/Github/notes",
-                        },
-                    },
-                },
-            },
-        },
-        dependencies = {
-            { "nvim-neorg/neorg-telescope" },
-            { "luarocks.nvim" },
-        },
-    },
-
     { --[[ project ]]
         "ahmedkhalf/project.nvim",
         keys = { "<leader>pp" },
