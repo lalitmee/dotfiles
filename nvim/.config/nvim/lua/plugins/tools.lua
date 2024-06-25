@@ -82,6 +82,7 @@ return {
         "akinsho/toggleterm.nvim",
         keys = {
             [[<C-\>]],
+            { "<leader>a/", ":Serpl<CR>", desc = "search-and-replace", silent = true },
             { "<leader>ab", ":Bottom<CR>", desc = "bottom", silent = true },
             { "<leader>ad", ":LazyDocker<CR>", desc = "lazydocker", silent = true },
             { "<leader>ag", ":LazyGit<CR>", desc = "lazygit", silent = true },
@@ -124,6 +125,15 @@ return {
             end
 
             local Terminal = require("toggleterm.terminal").Terminal
+
+            local serpl = Terminal:new({
+                cmd = "serpl",
+                dir = "git_dir",
+                hidden = true,
+                direction = "float",
+                on_open = float_handler,
+                float_opts = float_dimensions_opts,
+            })
 
             local chatgpt = Terminal:new({
                 cmd = "chatgpt -i",
@@ -176,6 +186,9 @@ return {
                 float_opts = float_dimensions_opts,
             })
 
+            command("Serpl", function()
+                serpl:toggle()
+            end)
             command("LazyDocker", function()
                 lazydocker:toggle()
             end)
