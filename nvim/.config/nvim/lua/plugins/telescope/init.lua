@@ -426,7 +426,7 @@ return {
     { --[[ telescope-helpgrep ]]
         "catgoose/telescope-helpgrep.nvim",
         keys = {
-            { "<leader>a/", ":Telescope helpgrep<CR>", desc = "helpgrep", silent = true },
+            { "<leader>vg", ":Telescope helpgrep<CR>", desc = "helpgrep", silent = true },
         },
         config = function()
             require("telescope").load_extension("helpgrep")
