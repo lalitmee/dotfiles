@@ -559,9 +559,8 @@ return {
 
     { --[[ flash.nvim ]]
         "folke/flash.nvim",
+        event = "VeryLazy",
         keys = {
-            "/",
-            "?",
             {
                 "R",
                 mode = { "o", "x" },
