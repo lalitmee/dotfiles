@@ -3,7 +3,6 @@ return {
         "nvim-telescope/telescope.nvim",
         cmd = { "Telescope" },
         keys = {
-
             -- project
             { "<leader>pf", ":Telescope find_files<cr>", desc = "find-files", silent = true },
             { "<leader>pg", ":Telescope git_files<CR>", desc = "find-git-files", silent = true },
@@ -118,6 +117,30 @@ return {
             -- }}}
             --------------------------------------------------------------------------------
 
+            --------------------------------------------------------------------------------
+            --  NOTE: flash in telescope {{{
+            --------------------------------------------------------------------------------
+            local function flash(prompt_bufnr)
+                require("flash").jump({
+                    pattern = "^",
+                    label = { after = { 0, 0 } },
+                    search = {
+                        mode = "search",
+                        exclude = {
+                            function(win)
+                                return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+                            end,
+                        },
+                    },
+                    action = function(match)
+                        local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+                        picker:set_selection(match.pos[1] - 1)
+                    end,
+                })
+            end
+            -- }}}
+            --------------------------------------------------------------------------------
+
             ----------------------------------------------------------------------
             -- NOTE: setup
             ----------------------------------------------------------------------
@@ -159,11 +182,11 @@ return {
                             ["<C-n>"] = actions.move_selection_next,
                             ["<C-o>"] = actions.send_selected_to_qflist + actions.open_qflist,
                             ["<C-p>"] = actions.move_selection_previous,
-                            ["<C-s>"] = actions.cycle_previewers_next,
                             ["<C-y>"] = actions.move_to_top,
                             ["<M-o>"] = action_layout.toggle_prompt_position,
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-v>"] = action_layout.toggle_mirror,
+                            ["<c-s>"] = flash,
                             ["<c-t>"] = trouble.open,
                             ["<esc>"] = actions.close,
                         },
@@ -172,12 +195,13 @@ return {
                             ["<Up>"] = actions.cycle_history_prev,
                             ["<c-t>"] = trouble.open,
                             ["<esc>"] = actions.close,
-                            ["e"] = actions.move_to_bottom,
-                            ["j"] = actions.move_selection_next,
-                            ["k"] = actions.move_selection_previous,
-                            ["o"] = actions.send_selected_to_qflist + actions.open_qflist,
-                            ["p"] = action_layout.toggle_preview,
-                            ["y"] = actions.move_to_top,
+                            e = actions.move_to_bottom,
+                            j = actions.move_selection_next,
+                            k = actions.move_selection_previous,
+                            o = actions.send_selected_to_qflist + actions.open_qflist,
+                            p = action_layout.toggle_preview,
+                            s = flash,
+                            y = actions.move_to_top,
                         },
                     },
                     file_ignore_patterns = {
