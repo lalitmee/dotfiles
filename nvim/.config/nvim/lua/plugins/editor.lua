@@ -560,6 +560,8 @@ return {
     { --[[ flash.nvim ]]
         "folke/flash.nvim",
         keys = {
+            "/",
+            "?",
             {
                 "R",
                 mode = { "o", "x" },
