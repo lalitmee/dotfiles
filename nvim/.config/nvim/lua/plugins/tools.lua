@@ -688,99 +688,16 @@ return {
             { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "codesnap", silent = true },
             { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "codesnap-save", silent = true },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.register({
+                x = { name = "codesnap" },
+            }, { mode = "n", prefix = "<leader>" })
+        end,
         opts = {
             save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots/screenshot.png",
-        },
-    },
-
-    { --[[ carbon-now ]]
-        "ellisonleao/carbon-now.nvim",
-        cmd = { "CarbonNow" },
-        keys = {
-            {
-                "<leader>xp",
-                ":CarbonNow<CR>",
-                mode = { "v" },
-                silent = true,
-                desc = "carbon-now-visual",
-            },
-            {
-                "<leader>xg",
-                ":CarbonNow<space>",
-                silent = true,
-                mode = { "n" },
-                desc = "carbon-from-gist",
-            },
-        },
-        opts = {
-            options = {
-                bg = "#32597D",
-                font_family = "Source Code Pro",
-                theme = "vscode",
-                window_theme = "boxy",
-                drop_shadow = true,
-            },
-        },
-    },
-
-    { --[[ rayso.nvim ]]
-        "TobinPalmer/rayso.nvim",
-        cmd = { "Rayso" },
-        keys = {
-            {
-                "<leader>xr",
-                ":Rayso<CR>",
-                silent = true,
-                desc = "ray.so",
-                mode = { "v" },
-            },
-        },
-        opts = {
-            open_cmd = "xdg-open",
-            options = {
-                theme = "midnight",
-            },
-        },
-    },
-
-    { --[[ silicon.lua ]]
-        "narutoxy/silicon.lua",
-        keys = {
-            {
-                "<leader>xv",
-                function()
-                    require("silicon").visualise_api({ to_clip = true })
-                end,
-                mode = { "v" },
-                desc = "visual selection",
-            },
-            {
-                "<leader>xh",
-                function()
-                    require("silicon").visualise_api({ to_clip = true, show_buf = true })
-                end,
-                mode = { "v" },
-                desc = "whole buffer with visual selection highlighted",
-            },
-            {
-                "<leader>xb",
-                function()
-                    require("silicon").visualise_api({ to_clip = true, visible = true })
-                end,
-                desc = "visible portion of buffer",
-            },
-            {
-                "<leader>xl",
-                function()
-                    require("silicon").visualise_api({ to_clip = true })
-                end,
-                desc = "current buffer line",
-            },
-        },
-        opts = {
-            -- output = "/home/lalitmee/Desktop/Github/code-screenshots/SILICON_$year-$month-$date-$time.png",
-            output = "SILICON_$year-$month-$date-$time.png",
-            font = "Source Code Pro",
+            code_font_family = "Operator Mono",
+            has_line_number = true,
         },
     },
 
@@ -788,58 +705,58 @@ return {
         "folke/trouble.nvim",
         keys = {
             {
-                "<leader>xL",
-                function()
-                    require("trouble").toggle("loclist")
-                end,
-                desc = "trouble loclist",
-            },
-            {
-                "<leader>xd",
+                "<leader>qd",
                 function()
                     require("trouble").toggle("document_diagnostics")
                 end,
                 desc = "trouble document diagnostics",
             },
             {
-                "<leader>xq",
+                "<leader>ql",
                 function()
-                    require("trouble").toggle("quickfix")
+                    require("trouble").toggle("loclist")
                 end,
-                desc = "trouble quickfix",
+                desc = "trouble loclist",
             },
             {
-                "<leader>xr",
-                function()
-                    require("trouble").toggle("lsp_references")
-                end,
-                desc = "trouble lsp references",
-            },
-            {
-                "<leader>xw",
-                function()
-                    require("trouble").toggle("workspace_diagnostics")
-                end,
-                desc = "trouble workspace diagnostics",
-            },
-            {
-                "<leader>xx",
-                function()
-                    require("trouble").toggle()
-                end,
-                desc = "trouble toggle",
-            },
-            {
-                "<leader>xn",
+                "<leader>qn",
                 function()
                     require("trouble").next({ skip_groups = true, jump = true })
                 end,
                 desc = "trouble toggle",
             },
             {
-                "<leader>xp",
+                "<leader>qp",
                 function()
                     require("trouble").previous({ skip_groups = true, jump = true })
+                end,
+                desc = "trouble toggle",
+            },
+            {
+                "<leader>qq",
+                function()
+                    require("trouble").toggle("quickfix")
+                end,
+                desc = "trouble quickfix",
+            },
+            {
+                "<leader>qr",
+                function()
+                    require("trouble").toggle("lsp_references")
+                end,
+                desc = "trouble lsp references",
+            },
+            {
+                "<leader>qw",
+                function()
+                    require("trouble").toggle("workspace_diagnostics")
+                end,
+                desc = "trouble workspace diagnostics",
+            },
+            {
+                "<leader>qx",
+                function()
+                    require("trouble").toggle()
                 end,
                 desc = "trouble toggle",
             },
@@ -847,7 +764,7 @@ return {
         init = function()
             local wk = require("which-key")
             wk.register({
-                ["x"] = { name = "+trouble" },
+                q = { name = "+trouble" },
             }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
@@ -876,9 +793,9 @@ return {
         event = "VeryLazy",
         -- stylua: ignore
         keys = {
-            { "<leader>qa", ":MarksQFListAll<cr>", desc = "list-all-marks-qf", silent = true },
-            { "<leader>qb", ":MarksQFListBuf<cr>", desc = "list-buf-marks-qf", silent = true },
-            { "<leader>qg", ":MarksQFListGlobal<cr>", desc = "list-global-marks-qf", silent = true },
+            { "<leader>ml", ":MarksQFListAll<cr>", desc = "list-all-marks-qf", silent = true },
+            { "<leader>mq", ":MarksQFListBuf<cr>", desc = "list-buf-marks-qf", silent = true },
+            { "<leader>mL", ":MarksQFListGlobal<cr>", desc = "list-global-marks-qf", silent = true },
             { "<leader>ma", ":MarksListAll<cr>", desc = "list-all-marks", silent = true },
             { "<leader>mb", ":MarksListBuf<cr>", desc = "list-buf-marks", silent = true },
             { "<leader>mg", ":MarksListGlobal<cr>", desc = "list-global-marks", silent = true },
