@@ -323,7 +323,7 @@ return {
             local wk = require("which-key")
             wk.register({
                 ["c"] = { name = "+cody" },
-            }, { mode = "n", prefix = "<leader>" })
+            }, { mode = { "n", "x", "v" }, prefix = "<leader>" })
         end,
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
