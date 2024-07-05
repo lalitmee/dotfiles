@@ -284,38 +284,15 @@ return {
 
     { --[[ sg.nvim ]]
         "sourcegraph/sg.nvim",
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>sF",
-                function()
-                    require("sg.extensions.telescope").fuzzy_search_results()
-                end,
-                desc = "sourcegraph-fuzzy-search",
-            },
-            {
-                "<leader>cc",
-                function()
-                    require("sg.cody.commands").toggle()
-                end,
-                desc = "cody-chat",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>cN",
-                function()
-                    local name = vim.fn.input("chat name: ")
-                    require("sg.cody.commands").chat(name)
-                end,
-                desc = "named-cody-chat",
-                mode = { "n", "x" },
-            },
             { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
+            { "<leader>cc", ":CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
             { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
-            { "<leader>cn", "<cmd>CodyTaskNext<CR>", desc = "cody-task-next", mode = { "n", "x" } },
-            { "<leader>cp", "<cmd>CodyTaskPrev<CR>", desc = "cody-task-prev", mode = { "n", "x" } },
+            { "<leader>ce", ":CodyExplain<CR>", desc = "cody-explain", mode = { "n", "x" } },
+            { "<leader>cn", function() local name = vim.fn.input("chat name: ") require("sg.cody.commands").chat(name) end, desc = "named-cody-chat", mode = { "n", "x" } },
             { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
-            { "<leader>cv", "<cmd>CodyTaskView<CR>", desc = "cody-task-view", mode = { "n", "x" } },
-            { "<leader>cy", "<cmd>CodyTaskAccept<CR>", desc = "cody-task-accept", mode = { "n", "x" } },
+            { "<leader>sF", function() require("sg.extensions.telescope").fuzzy_search_results() end, desc = "sourcegraph-fuzzy-search" },
             { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
             { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
         },
