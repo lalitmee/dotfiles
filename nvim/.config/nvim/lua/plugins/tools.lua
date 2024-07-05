@@ -58,9 +58,13 @@ return {
             next_repeat = "<C-j>",
             prev_repeat = "<C-k>",
             operators = {
+                ["q"] = {
+                    next = { rhs = "<cmd>QNext<CR>", opts = { desc = "Next QF Item" } },
+                    prev = { rhs = "<cmd>QPrev<CR>", opts = { desc = "Previous QF Item" } },
+                },
                 ["h"] = {
-                    next = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Next hunk" } },
-                    prev = { rhs = "<cmd>Gitsigns next_hunk", opts = { desc = "Previous hunk" } },
+                    next = { rhs = "<cmd>Gitsigns next_hunk<CR>", opts = { desc = "Next hunk" } },
+                    prev = { rhs = "<cmd>Gitsigns next_hunk<CR>", opts = { desc = "Previous hunk" } },
                 },
                 ["<Tab>"] = {
                     next = { rhs = "<cmd>tabnext<cr>", opts = { desc = "Next tab" } },

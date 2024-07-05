@@ -852,6 +852,24 @@ return {
         },
     },
 
+    {
+        "stevearc/qf_helper.nvim",
+        event = "VeryLazy",
+        cmd = {
+            "QNext",
+            "QPrev",
+            "QFToggle",
+            "LLToggle",
+        },
+        keys = {
+            { "<leader>ql", ":LLToggle!<space>", desc = "loclist-toggle-!", silent = true },
+            { "<leader>ql<leader>", ":LLToggle<CR>", desc = "loclist-toggle", silent = true },
+            { "<leader>qq", ":QFToggle!<CR>", desc = "quifkfix-toggle-!", silent = true },
+            { "<leader>qq<leader>", ":QFToggle<CR>", desc = "quifkfix-toggle", silent = true },
+        },
+        opts = {},
+    },
+
     { --[[ repeat ]]
         "tpope/vim-repeat",
         keys = { "." },
