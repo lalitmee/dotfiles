@@ -260,13 +260,17 @@ local snippets = {
         { trig = "int", name = "interface" },
         fmta(
             [[
-                interface <name> {
+                <export>interface <name> {
                     <body>
                }
             ]],
             {
-                name = i(1, "Component"),
-                body = i(2, "body"),
+                export = c(1, {
+                    t("export "),
+                    t(""),
+                }),
+                name = i(2, "Component"),
+                body = i(3, "type: string;"),
             }
         )
     ),
