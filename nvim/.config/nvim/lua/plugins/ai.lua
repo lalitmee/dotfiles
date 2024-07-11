@@ -59,10 +59,15 @@ return {
                 return vim.fn["codeium#Clear"]()
             end, { expr = true, silent = true })
 
+            vim.g.codeium_filetypes_disabled_by_default = true
+
             vim.g.codeium_filetypes = {
-                TelescopePrompt = false,
-                DressingInput = false,
-                ["chatgpt-input"] = false,
+                lua = true,
+                javascript = true,
+                javascriptreact = true,
+                typescript = true,
+                typescriptreact = true,
+                python = true,
             }
         end,
     },
