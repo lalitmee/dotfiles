@@ -83,7 +83,6 @@ return {
                 sources = cmp.config.sources({
                     { name = "neorg" },
                     { name = "orgmode" },
-                    { name = "cody" },
                     {
                         name = "nvim_lsp",
                         keyword_length = 1,
@@ -149,7 +148,6 @@ return {
                     format = lspkind.cmp_format({
                         menu = {
                             buffer = "[BUF]",
-                            cody = "[CODY]",
                             luasnip = "[SNIP]",
                             neorg = "[NORG]",
                             nvim_lsp = "[LSP]",
