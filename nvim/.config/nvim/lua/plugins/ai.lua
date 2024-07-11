@@ -41,7 +41,7 @@ return {
         },
     },
 
-    {
+    { --[[ codeium ]]
         "Exafunction/codeium.vim",
         event = "BufEnter",
         config = function()
