@@ -1,6 +1,7 @@
 return {
     { --[[ which-key ]]
         "folke/which-key.nvim",
+        version = "v2.1.0",
         event = { "VeryLazy" },
         config = function()
             local wk = require("which-key")
