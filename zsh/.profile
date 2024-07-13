@@ -27,4 +27,3 @@ fi
 if [ -d "$HOME/.config/bin" ]; then
     PATH="$HOME/.config/bin:$PATH"
 fi
-. "$HOME/.cargo/env"

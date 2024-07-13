@@ -34,7 +34,7 @@ export NVIM_LOG_FILE_PATH="$HOME/.logs/nvim"
 # NOTE: exporting path {{{
 # -------------------------------------------------------------------
 # rofi
-export PATH=$HOME/.config/rofi/scripts:$PATH
+export PATH="$HOME/.config/rofi/scripts:$PATH"
 
 # doom-emacs
 export PATH="$HOME/.config/emacs/bin:$PATH"
@@ -68,7 +68,11 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 # t-smart-session-manager
-export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
+export PATH="$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH"
+
+# atuin
+export PATH="$HOME/.atuin/bin$PATH"
+. "$HOME/.atuin/bin/env"
 # }}}
 # -------------------------------------------------------------------
 
