@@ -12,7 +12,7 @@
   "cmp-nvim-lua": { "branch": "main", "commit": "f12408bdb54c39c23e67cab726264c10db33ada8" },
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
-  "codecompanion.nvim": { "branch": "main", "commit": "ab040343ba0bb4dce08b072a7eab5f5ef4529824" },
+  "codecompanion.nvim": { "branch": "main", "commit": "7366cd064bebf41c402e6461d7eb935cd9ee2c5d" },
   "codeium.vim": { "branch": "main", "commit": "e0342fde9474fdd0a36ff9692fe0031b7611a19f" },
   "codesnap.nvim": { "branch": "main", "commit": "06d8e345e7be43a5b2bd67a86a3993da91c59781" },
   "colorbuddy.nvim": { "branch": "master", "commit": "cdb5b0654d3cafe61d2a845e15b2b4b0e78e752a" },
