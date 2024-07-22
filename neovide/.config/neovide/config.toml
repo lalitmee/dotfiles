@@ -1,0 +1,8 @@
+[font]
+normal = [
+  "Operator Mono Lig Book",
+  # "MonoLisa Nerd Font",
+  # "JetBrainsMono Nerd Font",
+  # "FiraCode Nerd Font",
+] # Will use the bundled Fira Code Nerd Font by default
+size = 11.0

@@ -1,6 +1,6 @@
 if vim.g.neovide then
     -- font
-    vim.o.guifont = "Operator Mono Lig Book:h12"
+    vim.o.guifont = "Operator Mono Lig Book:h11"
 
     -- floating blur
     vim.g.neovide_floating_blur_amount_x = 2.0
