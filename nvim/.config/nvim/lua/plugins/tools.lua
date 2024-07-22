@@ -707,63 +707,16 @@ return {
 
     { --[[ trouble ]]
         "folke/trouble.nvim",
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>qd",
-                function()
-                    require("trouble").toggle("document_diagnostics")
-                end,
-                desc = "trouble document diagnostics",
-            },
-            {
-                "<leader>ql",
-                function()
-                    require("trouble").toggle("loclist")
-                end,
-                desc = "trouble loclist",
-            },
-            {
-                "<leader>qn",
-                function()
-                    require("trouble").next({ skip_groups = true, jump = true })
-                end,
-                desc = "trouble toggle",
-            },
-            {
-                "<leader>qp",
-                function()
-                    require("trouble").previous({ skip_groups = true, jump = true })
-                end,
-                desc = "trouble toggle",
-            },
-            {
-                "<leader>qq",
-                function()
-                    require("trouble").toggle("quickfix")
-                end,
-                desc = "trouble quickfix",
-            },
-            {
-                "<leader>qr",
-                function()
-                    require("trouble").toggle("lsp_references")
-                end,
-                desc = "trouble lsp references",
-            },
-            {
-                "<leader>qw",
-                function()
-                    require("trouble").toggle("workspace_diagnostics")
-                end,
-                desc = "trouble workspace diagnostics",
-            },
-            {
-                "<leader>qx",
-                function()
-                    require("trouble").toggle()
-                end,
-                desc = "trouble toggle",
-            },
+            { "<leader>qd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "trouble document diagnostics" },
+            { "<leader>ql", "<cmd>TroubleToggle loclist<cr>", desc = "trouble loclist" },
+            { "<leader>qn", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "trouble toggle" },
+            { "<leader>qp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "trouble toggle" },
+            { "<leader>qq", "<cmd>TroubleToggle quickfix<cr>", desc = "trouble quickfix" },
+            { "<leader>qr", "<cmd>TroubleToggle lsp_references<cr>", desc = "trouble lsp references" },
+            { "<leader>qw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "trouble workspace diagnostics" },
+            { "<leader>qx", "<cmd>TroubleToggle<cr>", desc = "trouble toggle" },
         },
         init = function()
             local wk = require("which-key")
