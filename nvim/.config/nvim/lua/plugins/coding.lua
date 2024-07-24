@@ -287,14 +287,17 @@ return {
         -- stylua: ignore
         keys = {
             { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
-            { "<leader>cc", ":CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
+            { "<leader>cc", ":CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" }, silent = true },
             { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
-            { "<leader>ce", ":CodyExplain<CR>", desc = "cody-explain", mode = { "n", "x" } },
+            { "<leader>ce", ":CodyExplain<CR>", desc = "cody-explain", mode = { "n", "x" }, silent = true },
             { "<leader>cn", function() local name = vim.fn.input("chat name: ") require("sg.cody.commands").chat(name) end, desc = "named-cody-chat", mode = { "n", "x" } },
-            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
+            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" }, silent = true },
             { "<leader>sF", function() require("sg.extensions.telescope").fuzzy_search_results() end, desc = "sourcegraph-fuzzy-search" },
-            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
-            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
+            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" , silent = true },
+            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search", silent = true },
+
+            -- specific tasks
+            { "<leader>cs", ":CodyTask add docstring<CR>", desc = "cody-task", mode = { "n", "x", "v" }, silent = true },
         },
         init = function()
             local wk = require("which-key")
