@@ -815,4 +815,15 @@ return {
         lazy = false,
         priority = 1001,
     },
+
+    { --[[ http-codes ]]
+        "barrett-ruth/http-codes.nvim",
+        dependencies = "nvim-telescope/telescope.nvim",
+        keys = {
+            { "<leader>sh", ":HTTPCodes<CR>", desc = "http-codes", silent = true },
+        },
+        opts = {
+            use = "telescope",
+        },
+    },
 }

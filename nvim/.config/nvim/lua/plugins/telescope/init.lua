@@ -468,14 +468,4 @@ return {
         },
         config = true,
     },
-
-    { --[[ telescope-http ]]
-        "barrett-ruth/telescope-http.nvim",
-        keys = {
-            { "<leader>sh", ":Telescope http list<CR>", desc = "http-codes", silent = true },
-        },
-        config = function()
-            require("telescope").load_extension("http")
-        end,
-    },
 }
