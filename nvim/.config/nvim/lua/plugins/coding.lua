@@ -20,6 +20,14 @@ return {
         end,
     },
 
+    { --[[ markdown: making markdown files beautiful ]]
+        "MeanderingProgrammer/markdown.nvim",
+        ft = "markdown",
+        main = "render-markdown",
+        cmd = { "RenderMarkdown" },
+        opts = {},
+    },
+
     { --[[ go ]]
         "ray-x/go.nvim",
         ft = "go",

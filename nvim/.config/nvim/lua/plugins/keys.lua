@@ -280,6 +280,7 @@ return {
 
                 ["t"] = {
                     ["name"] = "+toggle",
+                    ["m"] = { ":RenderMarkdown toggle<CR>", "render-markdown-toggle" },
                 },
 
                 ["v"] = {
