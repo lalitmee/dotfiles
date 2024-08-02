@@ -290,6 +290,7 @@ return {
                     go = { "gofmt", "goimports", "golines" },
                     javascript = { "prettierd" },
                     javascriptreact = { "prettierd" },
+                    json = { "prettierd" },
                     liquid = { "curlylint" },
                     lua = { "stylua" },
                     markdown = { "mdformat", "markdownlint" },
