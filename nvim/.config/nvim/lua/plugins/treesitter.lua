@@ -59,6 +59,7 @@ return {
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
+                    "angular",
                     "bash",
                     "c",
                     "comment",
