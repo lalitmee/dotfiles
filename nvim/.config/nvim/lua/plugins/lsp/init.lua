@@ -287,7 +287,9 @@ return {
                 },
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
+                    css = { "prettierd" },
                     go = { "gofmt", "goimports", "golines" },
+                    html = { "prettierd" },
                     javascript = { "prettierd" },
                     javascriptreact = { "prettierd" },
                     json = { "prettierd" },
@@ -295,6 +297,7 @@ return {
                     lua = { "stylua" },
                     markdown = { "mdformat", "markdownlint" },
                     rust = { "rustfmt" },
+                    scss = { "prettierd" },
                     sh = { "shfmt" },
                     svg = { "prettierd" },
                     toml = { "taplo" },
