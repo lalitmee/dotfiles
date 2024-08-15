@@ -274,6 +274,23 @@ local snippets = {
             }
         )
     ),
+
+    s(
+        { trig = "hook", name = "custom hook" },
+        fmta(
+            [[
+                <export> function use<name> (<args>) {
+                    <body>
+               }
+            ]],
+            {
+                export = i(1, "export default"),
+                name = i(2, "HookName"),
+                args = i(3, "args"),
+                body = i(4, "// TODO: body"),
+            }
+        )
+    ),
 }
 
 local autosnippets = {
