@@ -169,17 +169,19 @@ return {
             "OverseerToggle",
         },
         keys = {
+            { "<leader>ro<leader>", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
             { "<leader>roa", ":OverseerTaskAction<CR>", desc = "task-action", silent = true },
             { "<leader>rob", ":OverseerBuild<CR>", desc = "build", silent = true },
-            { "<leader>roc", ":OverseerClose<CR>", desc = "close", silent = true },
+            { "<leader>roc", ":OverseerRunCmd<CR>", desc = "run-cmd", silent = true },
             { "<leader>rod", ":OverseerDeleteBundle<CR>", desc = "delete-bundle", silent = true },
-            { "<leader>rof", ":OverseerRunCmd<CR>", desc = "run-cmd", silent = true },
             { "<leader>rol", ":OverseerLoadBundle<CR>", desc = "load-bundle", silent = true },
             { "<leader>roo", ":OverseerOpen<CR>", desc = "open", silent = true },
-            { "<leader>roq", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
+            { "<leader>roq", ":OverseerClose<CR>", desc = "close", silent = true },
             { "<leader>ror", ":OverseerRun<CR>", desc = "run", silent = true },
             { "<leader>ros", ":OverseerSaveBundle ", desc = "save-bundle", silent = true },
-            { "<leader>rot", ":OverseerToggle<CR>", desc = "toggle", silent = true },
+            { "<leader>roj", ":OverseerToggle bottom<CR>", desc = "toggle-on-bottom", silent = true },
+            { "<leader>roh", ":OverseerToggle left<CR>", desc = "toggle-on-left", silent = true },
+            { "<leader>ro;", ":OverseerToggle right<CR>", desc = "toggle-on-right", silent = true },
         },
         init = function()
             local wk = require("which-key")
