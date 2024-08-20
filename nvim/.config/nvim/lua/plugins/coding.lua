@@ -157,6 +157,17 @@ return {
 
     { --[[ oversser ]]
         "stevearc/overseer.nvim",
+        cmd = {
+            "OverseerBuild",
+            "OverseerClose",
+            "OverseerDeleteBundle",
+            "OverseerLoadBundle",
+            "OverseerOpen",
+            "OverseerQuickAction",
+            "OverseerRun",
+            "OverseerTaskAction",
+            "OverseerToggle",
+        },
         keys = {
             { "<leader>roa", ":OverseerTaskAction<CR>", desc = "task-action", silent = true },
             { "<leader>rob", ":OverseerBuild<CR>", desc = "build", silent = true },

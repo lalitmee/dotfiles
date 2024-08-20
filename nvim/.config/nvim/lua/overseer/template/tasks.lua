@@ -6,4 +6,5 @@ return {
     "node_build",
     "python_build",
     "rustlings",
+    "yarn_tsc_watch",
 }
