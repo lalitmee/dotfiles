@@ -895,12 +895,12 @@ return {
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
         keys = {
-            { "crs", mode = { "n", "x" } },
-            { "crm", mode = { "n", "x" } },
-            { "crc", mode = { "n", "x" } },
-            { "cru", mode = { "n", "x" } },
-            { "cr-", mode = { "n", "x" } },
-            { "cr.", mode = { "n", "x" } },
+            { "crs", mode = { "n", "x", "o", "v" } },
+            { "crm", mode = { "n", "x", "o", "v" } },
+            { "crc", mode = { "n", "x", "o", "v" } },
+            { "cru", mode = { "n", "x", "o", "v" } },
+            { "cr-", mode = { "n", "x", "o", "v" } },
+            { "cr.", mode = { "n", "x", "o", "v" } },
             {
                 "<leader>[",
                 ":S/<C-R><C-W>//<LEFT>",
