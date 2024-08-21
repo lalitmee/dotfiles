@@ -1,3 +1,10 @@
+local tsc_errorformat = {
+    "%E%f:%l:%c: error %m", -- Error: file, line, column, message
+    "%E%f:%l:%c - error %m", -- Another common error format (seen in newer versions)
+    "%C%m", -- Continued error messages
+    "%-G%.%#", -- Ignore any other lines
+}
+
 return {
     name = "yarn-tsc-watch",
     builder = function()
@@ -7,15 +14,33 @@ return {
             cwd = vim.fn.getcwd(),
             name = "yarn-tsc-watch",
             components = {
-                { "on_output_quickfix", set_diagnostics = true, open = true },
-                { "on_result_diagnostics", remove_on_restart = true },
-                { "on_result_diagnostics_quickfix", close = true },
-                -- { "on_result_diagnostics_trouble", close = true },
+                {
+                    "on_output_quickfix",
+                    set_diagnostics = true,
+                    open = false,
+                    errorformat = table.concat(tsc_errorformat, ","),
+                    open_on_match = true,
+                    close = true,
+                },
+                {
+                    "on_result_diagnostics",
+                    remove_on_restart = true,
+                },
+                {
+                    "on_result_diagnostics_quickfix",
+                    close = true,
+                    open = true,
+                    set_empty_result = true,
+                },
+                {
+                    "on_result_notify",
+                    system = "unfocused",
+                },
                 "default",
             },
         }
     end,
-    desc = "Run Package Manager (yarn tsc-watch)",
+    desc = "Run TypeScript compiler in watch mode (yarn tsc-watch)",
     condition = {
         callback = function()
             return vim.fn.filereadable("package.json") == 1
