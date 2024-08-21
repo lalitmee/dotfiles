@@ -10,7 +10,7 @@ return {
                 { "on_output_quickfix", set_diagnostics = true, open = true },
                 { "on_result_diagnostics", remove_on_restart = true },
                 { "on_result_diagnostics_quickfix", close = true },
-                { "on_result_diagnostics_trouble", close = true },
+                -- { "on_result_diagnostics_trouble", close = true },
                 "default",
             },
         }
