@@ -8,5 +8,6 @@ return {
     "rust.rustlings",
     "yarn.build",
     "yarn.dev",
+    "yarn.install",
     "yarn.tsc_watch",
 }
