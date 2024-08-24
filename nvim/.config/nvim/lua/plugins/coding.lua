@@ -376,7 +376,6 @@ return {
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         ft = { "http" },
-        dependencies = { "luarocks.nvim" },
         -- stylua: ignore
         keys = {
             { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "run-request" },
