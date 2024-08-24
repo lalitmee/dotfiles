@@ -291,6 +291,36 @@ local snippets = {
             }
         )
     ),
+
+    s(
+        { trig = "atom", name = "jotai atom hook" }, -- Snippet trigger and name
+        fmta([[ <atom> ]], {
+            atom = c(1, {
+                fmta( -- Choice 1: useAtom with destructuring
+                    [[const [<value>, set<setValue>] = useAtom(<atomName>);]],
+                    {
+                        value = i(1, "value"), -- Insert node for the first value
+                        setValue = i(2, same(2, { first = true })), -- Function node to capitalize first letter of `value`
+                        atomName = i(3, "atomName"), -- Insert node for the atom name
+                    }
+                ),
+                fmta( -- Choice 2: useAtomValue
+                    [[ const <value> = useAtomValue(<atomName>); ]],
+                    {
+                        value = i(1, "value"), -- Insert node for the value
+                        atomName = i(2, "atomName"), -- Insert node for the atom name
+                    }
+                ),
+                fmta( -- Choice 3: useSetAtom
+                    [[const <setValue> = useSetAtom(<atomName>);]],
+                    {
+                        setValue = i(1, "setValue"), -- Insert node for the setter
+                        atomName = i(2, "atomName"), -- Insert node for the atom name
+                    }
+                ),
+            }),
+        })
+    ),
 }
 
 local autosnippets = {
