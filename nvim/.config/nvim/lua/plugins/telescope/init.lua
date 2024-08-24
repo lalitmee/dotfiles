@@ -366,7 +366,12 @@ return {
     { --[[ telescope-frecency ]]
         "nvim-telescope/telescope-frecency.nvim",
         keys = {
-            { "<leader>pr", ":Telescope frecency<CR>", desc = "frecency", silent = true },
+            {
+                "<leader>pr",
+                ":Telescope frecency path_display={'absolute','truncate'}<CR>",
+                desc = "frecency",
+                silent = true,
+            },
         },
         config = function()
             require("telescope").load_extension("frecency")
