@@ -349,6 +349,7 @@ return {
     },
 
     { --[[ hydra ]]
+        enabled = false,
         "anuvyklack/hydra.nvim",
         keys = { "<leader>gh" },
         init = function()
