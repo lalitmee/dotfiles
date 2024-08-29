@@ -288,6 +288,7 @@ return {
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
                     css = { "prettierd" },
+                    dart = { "dart_format" },
                     go = { "gofmt", "goimports", "golines" },
                     html = { "prettierd" },
                     javascript = { "prettierd" },
@@ -428,5 +429,13 @@ return {
                 "vue",
             },
         },
+    },
+
+    { --[[ flutter-tools ]]
+        "akinsho/flutter-tools.nvim",
+        init = function()
+            require("telescope").load_extension("flutter")
+        end,
+        config = true,
     },
 }
