@@ -117,7 +117,8 @@ return {
 
     { --[[ git-worktree.nvim ]]
         enabled = false,
-        "lalitmee/git-worktree.nvim",
+        "polarmutex/git-worktree.nvim",
+        version = "^2",
         keys = {
             {
                 "<leader>gwa",
@@ -139,10 +140,6 @@ return {
             }, { mode = "n", prefix = "<leader>" })
         end,
         config = function()
-            local Worktree = require("git-worktree")
-
-            Worktree.setup()
-
             require("telescope").load_extension("git_worktree")
         end,
     },
