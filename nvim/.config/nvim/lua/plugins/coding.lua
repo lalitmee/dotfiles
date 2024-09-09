@@ -20,7 +20,7 @@ return {
         end,
     },
 
-    { --[[ markdown: making markdown files beautiful ]]
+    { --[[ markdown.nvim: making markdown files beautiful ]]
         "MeanderingProgrammer/markdown.nvim",
         ft = "markdown",
         main = "render-markdown",
