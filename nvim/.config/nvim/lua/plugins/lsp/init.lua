@@ -1,6 +1,19 @@
 local lsp_utils = require("plugins.lsp.utils")
 
 return {
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "Bilal2453/luvit-meta", lazy = true },
+
     { --[[ lspsaga ]]
         "glepnir/lspsaga.nvim",
         event = "LspAttach",
@@ -106,10 +119,6 @@ return {
                 -- enabled = false,
             },
             {
-                "folke/neodev.nvim",
-                ft = "lua",
-            },
-            {
                 "lvimuser/lsp-inlayhints.nvim",
                 event = "LspAttach",
                 opts = {},
@@ -162,17 +171,6 @@ return {
                 dynamicRegistration = false,
                 lineFoldingOnly = true,
             }
-
-            require("neodev").setup({
-                library = {
-                    plugins = {
-                        "nvim-dap-ui",
-                        "plenary.nvim",
-                        "neotest",
-                    },
-                    types = true,
-                },
-            })
 
             local servers = require("plugins.lsp.servers")
 
