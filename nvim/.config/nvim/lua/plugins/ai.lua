@@ -82,6 +82,7 @@ return {
             { "<localleader>at", ":CodeCompanionToggle<CR>", desc = "code-companion-toggle", silent = true },
             { "<localleader>as", ":CodeCompanionActions<CR>", desc = "code-companion-actions", silent = true },
         },
+        -- TODO: add config for adapters and use `Gemini` for the default adapter
         opts = {},
     },
 }
