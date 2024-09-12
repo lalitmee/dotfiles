@@ -64,7 +64,6 @@ return {
                 "pyright",
                 "rust_analyzer",
                 "tailwindcss",
-                "tsserver",
                 "vimls",
             },
         },
