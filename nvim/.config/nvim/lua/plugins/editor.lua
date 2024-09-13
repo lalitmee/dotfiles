@@ -192,6 +192,7 @@ return {
     },
 
     { --[[ comment.nvim ]]
+        enabled = false,
         "numToStr/Comment.nvim",
         event = { "VeryLazy" },
         opts = {
