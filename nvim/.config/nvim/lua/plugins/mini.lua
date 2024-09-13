@@ -34,6 +34,7 @@ return {
     },
 
     { --[[ mini.indentscope ]]
+        enabled = false,
         "echasnovski/mini.indentscope",
         event = "VeryLazy",
         opts = {
