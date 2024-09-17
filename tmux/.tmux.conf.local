@@ -479,8 +479,8 @@ set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 # tmux open for opening anything
 set -g @plugin 'tmux-plugins/tmux-open'
 
-# tmux thumbs for copy and paste
-set -g @plugin 'fcsonline/tmux-thumbs'
+# # tmux thumbs for copy and paste
+# set -g @plugin 'fcsonline/tmux-thumbs'
 
 # tmux search content
 set -g @plugin 'tmux-plugins/tmux-copycat'
