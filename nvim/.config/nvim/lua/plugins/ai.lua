@@ -46,14 +46,20 @@ return {
         event = "BufEnter",
         config = function()
             vim.g.codeium_filetypes_disabled_by_default = true
-
             vim.g.codeium_filetypes = {
-                lua = true,
+                c = true,
+                cpp = true,
+                gitcommit = true,
+                go = true,
                 javascript = true,
                 javascriptreact = true,
+                lua = true,
+                python = true,
+                rust = true,
                 typescript = true,
                 typescriptreact = true,
-                python = true,
+                vim = true,
+                yaml = true,
             }
         end,
     },
