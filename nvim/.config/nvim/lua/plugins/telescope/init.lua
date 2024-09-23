@@ -159,6 +159,7 @@ return {
                         "--glob=!yarn.lock",
                         "--glob=!package-lock.json",
                         "--glob=!**/.git",
+                        "--ignore", -- Respect .gitignore and other ignore files
                     },
                     winblend = 0,
                     prompt_prefix = "   ", --   

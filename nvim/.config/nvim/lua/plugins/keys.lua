@@ -124,7 +124,7 @@ return {
                         "with-dropdown",
                     },
                     ["e"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
-                    ["f"] = { ":Telescope find_files<CR>", "files" },
+                    ["f"] = { ":TelescopeProjectFiles<CR>", "files" },
                     ["F"] = { ":FzfLua files<CR>", "files" },
                     ["g"] = { ":Telescope git_files<CR>", "git-files" },
                     ["i"] = {
