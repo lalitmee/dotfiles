@@ -1202,4 +1202,10 @@ return {
             },
         },
     },
+
+    { --[[ quicker.nvim ]]
+        "stevearc/quicker.nvim",
+        event = "FileType qf",
+        opts = {},
+    },
 }
