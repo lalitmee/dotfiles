@@ -687,8 +687,11 @@ return {
     { --[[ codesnap ]]
         "mistricky/codesnap.nvim",
         build = "make build_generator",
-        cmd = { "CodeSnap" },
+        -- stylua: ignore
         keys = {
+            { "<leader>xa", ":CodeSnapASCII<CR>", mode = { "n", "v" }, desc = "codesnap-ascii", silent = true },
+            { "<leader>xh", ":CodeSnapHighlight<CR>", mode = { "n", "v" }, desc = "codesnap-highlight", silent = true },
+            { "<leader>xH", ":CodeSnapSaveHighlight<CR>", mode = { "n", "v" }, desc = "codesnap-save-highlight", silent = true },
             { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "codesnap", silent = true },
             { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "codesnap-save", silent = true },
         },
@@ -699,9 +702,12 @@ return {
             }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
-            save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots/screenshot.png",
-            code_font_family = "Operator Mono",
+            save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots",
+            -- code_font_family = "MonoLisa Nerd Font",
+            -- code_font_family = "JetBrainsMono Nerd Font",
+            code_font_family = "SauceCodePro Nerd Font",
             has_line_number = true,
+            watermark = "",
         },
     },
 
