@@ -108,3 +108,18 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 export PATH=$HOME/development/flutter/bin:$PATH
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: android-studio {{{
+# -------------------------------------------------------------------
+# for running android studio from anywhere
+export PATH=$HOME/android-studio/bin:$PATH
+
+# for setting the tools of android sdk
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+# }}}
+# -------------------------------------------------------------------
