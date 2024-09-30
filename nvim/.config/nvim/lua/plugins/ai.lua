@@ -89,6 +89,18 @@ return {
             { "<localleader>as", ":CodeCompanionActions<CR>", desc = "code-companion-actions", silent = true },
         },
         -- TODO: add config for adapters and use `Gemini` for the default adapter
-        opts = {},
+        opts = {
+            strategies = {
+                chat = {
+                    adapter = "gemini",
+                },
+                inline = {
+                    adapter = "gemini",
+                },
+                agent = {
+                    adapter = "gemini",
+                },
+            },
+        },
     },
 }
