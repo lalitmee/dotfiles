@@ -7,11 +7,7 @@
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
 [[ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ]] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
 
-export FZF_DEFAULT_COMMAND='rg
---hidden
---ignore node_modules
---follow
---glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 
 export FZF_CTRL_R_OPTS=$FZF_CTRL_R_OPTS"
 --preview 'echo {}'
