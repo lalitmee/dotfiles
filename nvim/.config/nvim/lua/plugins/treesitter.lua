@@ -4,13 +4,12 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "BufReadPost",
-
+        cmd = "TSInstall",
         keys = {
             { "<leader>lf", desc = "peek-function-definition", mode = { "n", "v" } },
             { "<leader>lc", desc = "peek-class-definition", mode = { "n", "v" } },
             { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "show-highlights-info", silent = true },
         },
-
         dependencies = {
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
@@ -67,6 +66,7 @@ return {
                     "css",
                     "diff",
                     "dockerfile",
+                    "editorconfig",
                     "git_rebase",
                     "gitattributes",
                     "gitcommit",
