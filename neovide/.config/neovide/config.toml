@@ -5,4 +5,9 @@ normal = [
   # "JetBrainsMono Nerd Font",
   # "FiraCode Nerd Font",
 ] # Will use the bundled Fira Code Nerd Font by default
-size = 11.0
+
+# for macbook
+size = 14.0
+
+# # for linux
+# size = 14.0
