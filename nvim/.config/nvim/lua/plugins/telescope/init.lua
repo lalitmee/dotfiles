@@ -1,7 +1,7 @@
 return {
     { --[[ telescope.nvim ]]
         "nvim-telescope/telescope.nvim",
-        commit = "057ee0f8783872635bc9bc9249a4448da9f99123",
+        tag = "0.1.8",
         cmd = { "Telescope" },
         keys = {
             -- project
