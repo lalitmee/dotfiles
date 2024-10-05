@@ -468,4 +468,14 @@ return {
         },
         config = true,
     },
+
+    {
+        "nvim-telescope/telescope-project.nvim",
+        keys = {
+            { "<leader>pp", ":Telescope project<CR>", desc = "projects", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("project")
+        end,
+    },
 }
