@@ -1,0 +1,9 @@
+# /home/lenovo/.config/tmuxinator/workspace.yml
+
+name: workspace
+root: ~/
+
+windows:
+  - dotfiles: z dotfiles
+  - notes: z ~/Desktop/Github/notes
+  - learn: z ~/Desktop/Github/learn
