@@ -1,7 +1,7 @@
 return {
     { --[[ telescope.nvim ]]
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
+        -- tag = "0.1.8",
         cmd = { "Telescope" },
         keys = {
             -- project
@@ -18,6 +18,7 @@ return {
                     require("telescope").load_extension("fzf")
                 end,
             },
+            { "nvim-treesitter/nvim-treesitter" },
         },
         config = function()
             local telescope = require("telescope")
