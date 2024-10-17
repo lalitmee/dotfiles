@@ -190,11 +190,9 @@ return {
                 },
             })
 
-            local parsers = require("nvim-treesitter.parsers")
-            local parser_config = parsers.get_parser_configs()
-
-            -- octo markdown
-            parser_config.markdown.filetype_to_parsername = "octo"
+            -- registering parsers for other filetypes
+            vim.treesitter.language.register("markdown", "octo")
+            vim.treesitter.language.register("bash", "zsh")
         end,
     },
 
