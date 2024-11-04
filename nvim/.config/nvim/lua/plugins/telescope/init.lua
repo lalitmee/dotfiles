@@ -393,6 +393,7 @@ return {
     },
 
     { --[[ telescope-smart-history ]]
+        enabled = false,
         "nvim-telescope/telescope-smart-history.nvim",
         dependencies = { "kkharji/sqlite.lua" },
         event = "VeryLazy",
