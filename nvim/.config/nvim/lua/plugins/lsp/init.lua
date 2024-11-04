@@ -429,6 +429,7 @@ return {
     },
 
     { --[[ flutter-tools ]]
+        enabled = false,
         "akinsho/flutter-tools.nvim",
         init = function()
             require("telescope").load_extension("flutter")
