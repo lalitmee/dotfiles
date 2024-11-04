@@ -4,3 +4,5 @@ config
 tmuxinator
 GTM
 treesitter
+yml
+configs
