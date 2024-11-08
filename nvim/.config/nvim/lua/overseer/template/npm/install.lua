@@ -1,10 +1,10 @@
 return {
-    name = "yarn-install",
+    name = "npm-install",
     builder = function()
         return {
-            cmd = "yarn",
+            cmd = "npm",
             cwd = vim.fn.getcwd(),
-            name = "yarn-install",
+            name = "npm-install",
             components = {
                 { "on_complete_notify", on_change = true },
                 "on_result_diagnostics",
@@ -12,7 +12,7 @@ return {
             },
         }
     end,
-    desc = "Run Package Manager (yarn install)",
+    desc = "Run Package Manager (npm install)",
     condition = {
         callback = function()
             return vim.fn.filereadable("package.json") == 1
