@@ -10,4 +10,8 @@ return {
     "yarn.dev",
     "yarn.install",
     "yarn.tsc_watch",
+    "npm.build",
+    "npm.start",
+    "npm.install",
+    "npm.tsc_watch",
 }
