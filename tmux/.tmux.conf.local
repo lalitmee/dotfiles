@@ -585,7 +585,7 @@ bind c new-window -c '#{pane_current_path}'
 bind-key n break-pane -d
 
 # run cht.sh from tmux
-bind-key -r i run-shell 'tmux neww tmux-cht'
+bind-key -r i run-shell "tmux neww tmux-cht"
 
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
@@ -598,6 +598,9 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 
 # tmux sessionizer
 bind-key -r o run-shell "tmux neww tmux-sessionizer"
+
+# tmux popup with shell
+bind-key -r m run-shell "tmux-popup"
 
 # }}}
 #-------------------------------------------------------------------------------
