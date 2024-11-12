@@ -599,8 +599,34 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 # tmux sessionizer
 bind-key -r o run-shell "tmux neww tmux-sessionizer"
 
+
+#-------------------------------------------------------------------------------
+#  NOTE: tmux popup keybindings {{{
+# tmux popup from u/KevinHwang91 from reddit discussion
+#-------------------------------------------------------------------------------
 # tmux popup with shell
-bind-key -r m run-shell "tmux-popup"
+bind-key M run-shell "tmux-popup"
+
+bind-key m if-shell -F '#{==:#{session_name},floating}' {
+    detach-client
+} {
+    set -gF '@last_session_name' '#S'
+    popup -d '#{pane_current_path}' -xC -yC -w80% -h80% -E 'tmux new -A -s floating'
+}
+
+bind ! if-shell -F '#{!=:#{session_name},floating}' {
+    break-pane
+} {
+    run-shell 'bash -c "tmux break-pane -s floating -t \"$(tmux show -gvq '@last_session_name'):\""'
+}
+
+bind @ if-shell -F '#{!=:#{session_name},floating}' {
+    break-pane -d
+} {
+    run-shell 'bash -c "tmux break-pane -d -s floating -t \"$(tmux show -gvq '@last_session_name'):\""'
+}
+# }}}
+#-------------------------------------------------------------------------------
 
 # }}}
 #-------------------------------------------------------------------------------
