@@ -2,15 +2,23 @@ local command = lk.command
 
 return {
     { -- [[ nvim-cmp ]]
-        "hrsh7th/nvim-cmp",
+        -- "hrsh7th/nvim-cmp",
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp", -- Otherwise highlighting gets messed up
         event = { "VeryLazy" },
         dependencies = {
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-path",
+            -- "hrsh7th/cmp-buffer",
+            -- "hrsh7th/cmp-nvim-lsp",
+            -- "hrsh7th/cmp-nvim-lua",
+            -- "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
             "saadparwaiz1/cmp_luasnip",
+
+            { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+            { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+            { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+            { "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
+            "https://codeberg.org/FelipeLema/cmp-async-path", -- not by me, but better than cmp-path
         },
         config = function()
             local cmp = require("cmp")
@@ -107,7 +115,7 @@ return {
                         end,
                     },
                     { name = "buffer", keyword_length = 5 },
-                    { name = "path" },
+                    { name = "async_path" },
                 }),
 
                 -- NOTE: copied from TJ
