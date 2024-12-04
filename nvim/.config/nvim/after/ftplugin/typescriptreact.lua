@@ -8,6 +8,7 @@ opt.softtabstop = 2
 opt.tabstop = 2
 opt.textwidth = 80
 opt.foldlevel = 99
+opt.commentstring = "// %s"
 
 --------------------------------------------------------------------------------
 --  Automatically end a self-closing tag when pressing /
