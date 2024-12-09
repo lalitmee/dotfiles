@@ -377,23 +377,6 @@ return {
         -- enabled = false,
     },
 
-    { --[[ fidget ]]
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        event = "LspAttach",
-        opts = {
-            text = {
-                spinner = "bouncing_bar",
-            },
-            window = {
-                blend = 0,
-            },
-            sources = {
-                ["null-ls"] = { ignore = true },
-            },
-        },
-    },
-
     { --[[ rust-tools ]]
         "simrat39/rust-tools.nvim",
         ft = "rust",
