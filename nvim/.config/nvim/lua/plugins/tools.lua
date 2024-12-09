@@ -12,21 +12,6 @@ return {
         },
     },
 
-    { --[[ genghis ]]
-        "chrisgrieser/nvim-genghis",
-        keys = {
-            { "<leader>fA", ":New<cr>", desc = "create-file", silent = true },
-            { "<leader>fD", ":Trash<cr>", desc = "trash-file", silent = true },
-            { "<leader>fy", ":CopyFilepath<cr>", desc = "copy-file-path", silent = true },
-            { "<leader>fJ", ":Move<cr>", desc = "move-and-rename-file", silent = true },
-            { "<leader>fN", ":CopyFilename<cr>", desc = "copy-file-name", silent = true },
-            { "<leader>fR", ":Rename<cr>", desc = "rename-file", silent = true },
-            { "<leader>fS", ":Duplicate<cr>", desc = "duplicate-file", silent = true },
-            { "<leader>fX", ":Chmodx<cr>", desc = "make-executable", silent = true },
-            { "<leader>fS", ":NewFromSelection<cr>", desc = "move-selection-to-file", silent = true, mode = "x" },
-        },
-    },
-
     { --[[ tabular ]]
         "godlygeek/tabular",
         cmd = { "Tabularize" },
@@ -686,6 +671,7 @@ return {
     },
 
     { --[[ vim-apm ]]
+        enabled = false,
         "ThePrimeagen/vim-apm",
         keys = {
             {
@@ -702,6 +688,7 @@ return {
     },
 
     { --[[ marks.nvim ]]
+        enabled = false,
         "chentoast/marks.nvim",
         event = "VeryLazy",
         -- stylua: ignore
