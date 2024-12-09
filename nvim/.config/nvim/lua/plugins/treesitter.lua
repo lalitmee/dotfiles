@@ -12,18 +12,6 @@ return {
         },
         dependencies = {
             {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                ft = {
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                },
-                config = function()
-                    vim.g.skip_ts_context_commentstring_module = true
-                end,
-            },
-            {
                 "nvim-treesitter/nvim-treesitter-context",
                 event = "BufReadPost",
             },
