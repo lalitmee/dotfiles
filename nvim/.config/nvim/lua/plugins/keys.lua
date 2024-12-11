@@ -55,18 +55,14 @@ return {
                     ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
                     ["B"] = { ":FzfLua buffers<CR>", "fzf-buffers" },
                     ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
-                    ["d"] = { ":Bdelete<CR>", "delete-buffer" },
-                    ["D"] = { ":Bdelete!<CR>", "delete-buffer-without-prompt" },
                     ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
                     ["L"] = { ":FzfLua blines<CR>", "fzf-buffer-lines" },
                     ["M"] = { ":delm!<CR>", "delete-marks" },
                     ["n"] = { ":bn<CR>", "next-buffer" },
-                    ["o"] = { ":BufOnly<CR>", "close-all-but-current" },
                     ["p"] = { ":bp<CR>", "prev-buffer" },
                     ["r"] = { ":e<CR>", "refresh-buffer" },
                     ["R"] = { ":bufdo :e<CR>", "refresh-loaded-buffers" },
                     ["v"] = { ":vnew<CR>", "new-empty-buffer-vertically" },
-                    ["w"] = { ":Bwipeout<CR>", "close-buffer-and-window" },
                     ["z"] = { ":blast<CR>", "first-buffer" },
                 },
 
@@ -215,9 +211,7 @@ return {
 
                 ["n"] = {
                     ["name"] = "+neovim",
-                    ["/"] = { ":TelescopeNotifyHistory<CR>", "notify-history" },
                     ["c"] = { ":Lazy clean<CR>", "clean-packages" },
-                    ["d"] = { ":NotifyDismiss<CR>", "notify-dismiss" },
                     ["h"] = { ":checkhealth<CR>", "check-health" },
                     ["i"] = { ":Lazy install<CR>", "lazy-install" },
                     ["l"] = {

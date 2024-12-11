@@ -8,6 +8,7 @@ return {
                     "P",
                     "R",
                     "RELOAD",
+                    "Snacks",
                     "__lk_global_callbacks",
                     "after_each",
                     "before_each",
