@@ -19,6 +19,12 @@ return function(opts)
             ["c"] = "*.c",
             ["r"] = "*.rs",
             ["g"] = "*.go",
+            ["j"] = "*.js",
+            ["t"] = "*.ts",
+            ["jt"] = "*.{js,ts}",
+            ["jx"] = "*.jsx",
+            ["tx"] = "*.tsx",
+            ["jtx"] = "*.{jsx,tsx}",
         }
     opts.pattern = opts.pattern or "%s"
 

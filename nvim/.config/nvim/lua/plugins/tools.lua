@@ -401,38 +401,6 @@ return {
                 desc = "goto-file-5",
                 silent = true,
             },
-            {
-                "<leader>6",
-                function()
-                    require("harpoon"):list():select(6)
-                end,
-                desc = "goto-file-6",
-                silent = true,
-            },
-            {
-                "<leader>7",
-                function()
-                    require("harpoon"):list():select(7)
-                end,
-                desc = "goto-file-7",
-                silent = true,
-            },
-            {
-                "<leader>8",
-                function()
-                    require("harpoon"):list():select(8)
-                end,
-                desc = "goto-file-8",
-                silent = true,
-            },
-            {
-                "<leader>9",
-                function()
-                    require("harpoon"):list():select(9)
-                end,
-                desc = "goto-file-9",
-                silent = true,
-            },
 
             {
                 "<leader>fa",
