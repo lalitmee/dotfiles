@@ -1006,7 +1006,7 @@ return {
                     },
                     {
                         "filename",
-                        path = 4,
+                        path = 3,
                     },
                     {
                         "diagnostics",
