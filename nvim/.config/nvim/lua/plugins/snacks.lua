@@ -79,7 +79,7 @@ return {
                 wo = { wrap = true }, -- Wrap notifications
             },
         },
-        scroll = {},
+        -- scroll = {},
     },
     -- NOTE: there is some error with `Snacks.toggle`, will try this later on
     -- init = function()
