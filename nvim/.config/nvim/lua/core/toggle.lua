@@ -37,53 +37,22 @@ end
 
 local wk = require("which-key")
 wk.add({
-    { "<leader>t", group = "+toggle" },
-    {
-        "<leader>ts",
-        function()
-            M.toggle("spell")
-        end,
-        desc = "toggle-spell",
-    },
-    {
-        "<leader>tw",
-        function()
-            M.toggle("wrap")
-        end,
-        desc = "toggle-wrap",
-    },
-    {
-        "<leader>tl",
-        function()
-            M.toggle("relativenumber", true)
-            M.toggle("number")
-        end,
-        desc = "toggle-relative-number",
-    },
-    { "<leader>td", M.toggle_diagnostics, desc = "toggle-diagnostics" },
-    {
-        "<leader>tc",
-        function()
-            local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-            M.toggle("conceallevel", false, { 0, conceallevel })
-        end,
-        desc = "toggle-conceal-level",
-    },
-    { "<leader>tj", ":TSJToggle<CR>", desc = "treesj-toggle" },
+    { "<leader>t", group = "toggle" },
+    { "<leader>tj", ":TSJToggle<CR>", desc = "Treesj Toggle" },
 
-    { "<leader>tg", group = "+git" },
-    { "<leader>tgb", ":Gitsigns toggle_current_line_blame<CR>", desc = "toggle-blame" },
-    { "<leader>tgl", ":Gitsigns toggle_linehl<CR>", desc = "toggle-linehl" },
-    { "<leader>tgn", ":Gitsigns toggle_numhl<CR>", desc = "toggle-numhl" },
-    { "<leader>tgs", ":Gitsigns toggle_signs<CR>", desc = "toggle-signs" },
+    { "<leader>tg", group = "gitsigns" },
+    { "<leader>tgb", ":Gitsigns toggle_current_line_blame<CR>", desc = "Toggle Current Line Blame" },
+    { "<leader>tgl", ":Gitsigns toggle_linehl<CR>", desc = "Toggle Line Highlight" },
+    { "<leader>tgn", ":Gitsigns toggle_numhl<CR>", desc = "Toggle Number Highlight" },
+    { "<leader>tgs", ":Gitsigns toggle_signs<CR>", desc = "Toggle Signs" },
 
-    { "<leader>o", group = "+scrolloff" },
-    { "<leader>tot", ":set scrolloff=10<CR>", desc = "scrolloff=10" },
-    { "<leader>toh", ":set scrolloff=5<CR>", desc = "scrolloff=5" },
-    { "<leader>ton", ":set scrolloff=999<CR>", desc = "scrolloff=999" },
+    { "<leader>to", group = "scrolloff" },
+    { "<leader>tot", ":set scrolloff=10<CR>", desc = "Scrolloff=10" },
+    { "<leader>toh", ":set scrolloff=5<CR>", desc = "Scrolloff=5" },
+    { "<leader>ton", ":set scrolloff=999<CR>", desc = "Scrolloff=999" },
 
-    { "<leader>tt", ":TSPlaygroundToggle<CR>", desc = "playground" },
-    { "<leader>tu", ":UndotreeToggle<CR>", desc = "undo-tree" },
+    { "<leader>tt", ":TSPlaygroundToggle<CR>", desc = "Treesitter Playground" },
+    { "<leader>tu", ":UndotreeToggle<CR>", desc = "Undotree" },
 })
 
 return M
