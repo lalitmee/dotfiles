@@ -15,12 +15,6 @@ return {
             { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize", silent = true },
             { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["c"] = { name = "+chatgpt" },
-            }, { mode = "n", prefix = "<localleader>" })
-        end,
         opts = {
             popup_input = {
                 submit = "<Enter>",
@@ -66,12 +60,6 @@ return {
 
     { --[[ codecompanion ]]
         "olimorris/codecompanion.nvim",
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["a"] = { name = "+code-companion" },
-            }, { mode = "n", prefix = "<localleader>" })
-        end,
         cmd = {
             "CodeCompanion",
             "CodeCompanionWithBuffers",

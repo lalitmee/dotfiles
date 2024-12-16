@@ -83,38 +83,38 @@ return {
     ),
     s("re", fmt('local {}, {} = lk.require("{}")', { i(1, "ok"), i(2, "package"), rep(2, "pacakge") })),
 
-    s(
-        "wk",
-        fmt(
-            [[
-                local wk = require("which-key")
-                wk.register({{
-                    {3}
-                }}, {{ mode = "{1}", prefix = "{2}" }})
-            ]],
-            {
-                c(1, {
-                    t("n"),
-                    t("v"),
-                }),
-                c(2, {
-                    t("<leader>"),
-                    t("<localleader>"),
-                }),
-                c(3, {
-                    fmt(
-                        [[
-                    [{1}] = {{{2}}}
-                    ]],
-                        {
-                            i(1, "key"),
-                            i(2, "value"),
-                        }
-                    ),
-                    t(""),
-                }),
-            }
-        )
-    ),
+    -- s(
+    --     "wk",
+    --     fmt(
+    --         [[
+    --             local wk = require("which-key")
+    --             wk.register({{
+    --                 {3}
+    --             }}, {{ mode = "{1}", prefix = "{2}" }})
+    --         ]],
+    --         {
+    --             c(1, {
+    --                 t("n"),
+    --                 t("v"),
+    --             }),
+    --             c(2, {
+    --                 t("<leader>"),
+    --                 t("<localleader>"),
+    --             }),
+    --             c(3, {
+    --                 fmt(
+    --                     [[
+    --                 [{1}] = {{{2}}}
+    --                 ]],
+    --                     {
+    --                         i(1, "key"),
+    --                         i(2, "value"),
+    --                     }
+    --                 ),
+    --                 t(""),
+    --             }),
+    --         }
+    --     )
+    -- ),
     s("no", fmt("vim.notify(P({}))", { i(1, "var") })),
 }
