@@ -114,12 +114,11 @@ return {
 
                 ["f"] = {
                     ["name"] = "+files",
-                    ["c"] = { ":TelescopeEditDotfiles<CR>", "dotfiles" },
-                    ["d"] = {
+                    ["c"] = {
                         ":Telescope find_files theme=dropdown<CR>",
                         "with-dropdown",
                     },
-                    ["e"] = { ":TelescopeEditNeovim<CR>", "neovim-config" },
+                    ["d"] = { ":TelescopeEditDotfiles<CR>", "dotfiles" },
                     ["f"] = { ":TelescopeProjectFiles<CR>", "files" },
                     ["F"] = { ":FzfLua files<CR>", "files" },
                     ["g"] = { ":Telescope git_files<CR>", "git-files" },
@@ -212,6 +211,7 @@ return {
                 ["n"] = {
                     ["name"] = "+neovim",
                     ["c"] = { ":Lazy clean<CR>", "clean-packages" },
+                    ["e"] = { ":TelescopeEditNeovim<CR>", "edit-neovim-config" },
                     ["h"] = { ":checkhealth<CR>", "check-health" },
                     ["i"] = { ":Lazy install<CR>", "lazy-install" },
                     ["l"] = {
