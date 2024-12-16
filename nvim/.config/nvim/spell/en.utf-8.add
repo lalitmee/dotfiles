@@ -26,3 +26,6 @@ multigrep
 esc
 autostart
 nvm
+lualine
+NES
+FC
