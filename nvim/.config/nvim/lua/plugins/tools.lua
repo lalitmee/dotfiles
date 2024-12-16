@@ -217,7 +217,7 @@ return {
 
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
-        ft = { "org" },
+        event = "VeryLazy",
         dependencies = {
             {
                 "akinsho/org-bullets.nvim",
