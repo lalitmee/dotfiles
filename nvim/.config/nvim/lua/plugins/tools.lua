@@ -224,12 +224,6 @@ return {
                 config = true,
             },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["o"] = { name = "+org" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             org_agenda_files = { "~/Desktop/Github/notes/*.org", "~/Desktop/Github/todos/inbox.org" },
             org_default_notes_file = "~/Desktop/Github/todos/inbox.org",
@@ -271,12 +265,6 @@ return {
             { "<leader>kl", function() require("scretch").last() end, desc = "last" },
             { "<leader>kn", function() require("scretch").new_named() end, desc = "with-name" },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["k"] = { name = "+scratchpad/notes" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             scretch_dir = vim.env.HOME .. "/Desktop/Github/notes/",
             templte_dir = vim.env.HOME .. "/Desktop/Github/notes/templates/",
@@ -307,18 +295,6 @@ return {
             { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
             { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["F"] = {
-                    name = "+fzf",
-                    b = { name = "+buffers" },
-                    f = { name = "+files" },
-                    l = { name = "+lsp" },
-                    s = { name = "+search" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             winopts = {
                 width = 0.95,
@@ -598,12 +574,6 @@ return {
             { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "codesnap", silent = true },
             { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "codesnap-save", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                x = { name = "codesnap" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots",
             -- code_font_family = "MonoLisa Nerd Font",
@@ -627,12 +597,6 @@ return {
             { "<leader>qw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "trouble workspace diagnostics" },
             { "<leader>qx", "<cmd>TroubleToggle<cr>", desc = "trouble toggle" },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                q = { name = "+trouble" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             height = 20,
         },
@@ -669,12 +633,6 @@ return {
             { "<leader>mg", ":MarksListGlobal<cr>", desc = "list-global-marks", silent = true },
             { "<leader>mt", ":MarksToggleSigns<cr>", desc = "toggle-signs", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["m"] = { name = "+marks" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "toggleterm" },
         },

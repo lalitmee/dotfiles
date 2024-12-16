@@ -121,12 +121,6 @@ return {
                 silent = true,
             },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["gw"] = { name = "+worktree" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         config = function()
             require("telescope").load_extension("git_worktree")
         end,
@@ -148,12 +142,6 @@ return {
                 silent = true,
             },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["gw"] = { name = "+worktree" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         config = function()
             require("g-worktree").setup({
                 base_dir_pattern = "../{git_dir_name}-worktrees/{branch_name}",

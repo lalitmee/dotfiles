@@ -41,12 +41,6 @@ return {
             { "<leader>df", "<cmd>Neogen func<cr>", desc = "doc-this-function", silent = true },
             { "<leader>dt", "<cmd>Neogen type<cr>", desc = "doc-this-type", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["d"] = { name = "+docstring" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             snippet_engine = "luasnip",
             enabled = true,
@@ -183,12 +177,6 @@ return {
             { "<leader>roh", ":OverseerToggle left<CR>", desc = "toggle-on-left", silent = true },
             { "<leader>ro;", ":OverseerToggle right<CR>", desc = "toggle-on-right", silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["ro"] = { name = "+overseer.nvim" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             templates = { "tasks" },
         },
@@ -320,12 +308,6 @@ return {
             -- specific tasks
             { "<leader>cs", ":CodyTask add docstring<CR>", desc = "cody-task", mode = { "n", "x", "v" }, silent = true },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["c"] = { name = "+cody" },
-            }, { mode = { "n", "x", "v" }, prefix = "<leader>" })
-        end,
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
         },
@@ -383,12 +365,6 @@ return {
             { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "env" },
             { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "logs" },
         },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["rh"] = { name = "+rest.nvim" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         config = function()
             require("rest-nvim").setup()
         end,
@@ -428,12 +404,6 @@ return {
             { "<leader>clU", "<cmd>Leet cache update<cr>", silent = true, mode = { "n" }, desc = "Leet cache update" },
         },
         dependencies = { "MunifTanjim/nui.nvim" },
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["cl"] = { name = "+leetcode" },
-            }, { mode = "n", prefix = "<leader>" })
-        end,
         opts = {
             arg = leet_arg,
         },

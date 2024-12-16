@@ -36,53 +36,54 @@ function M.toggle_diagnostics()
 end
 
 local wk = require("which-key")
-wk.register({
-    ["t"] = {
-        ["name"] = "+toggle",
-        ["s"] = {
-            function()
-                M.toggle("spell")
-            end,
-            "toggle-spell",
-        },
-        ["w"] = {
-            function()
-                M.toggle("wrap")
-            end,
-            "toggle-wrap",
-        },
-        ["l"] = {
-            function()
-                M.toggle("relativenumber", true)
-                M.toggle("number")
-            end,
-            "toggle-relative-number",
-        },
-        ["d"] = { M.toggle_diagnostics, "toggle-diagnostics" },
-        ["c"] = {
-            function()
-                local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-                M.toggle("conceallevel", false, { 0, conceallevel })
-            end,
-            "toggle-conceal-level",
-        },
-        ["j"] = { ":TSJToggle<CR>", "treesj-toggle" },
-        ["g"] = {
-            ["name"] = "+git",
-            ["b"] = { ":Gitsigns toggle_current_line_blame<CR>", "toggle-blame" },
-            ["l"] = { ":Gitsigns toggle_linehl<CR>", "toggle-linehl" },
-            ["n"] = { ":Gitsigns toggle_numhl<CR>", "toggle-numhl" },
-            ["s"] = { ":Gitsigns toggle_signs<CR>", "toggle-signs" },
-        },
-        ["o"] = {
-            ["name"] = "+scrolloff",
-            ["t"] = { ":set scrolloff=10<CR>", "scrolloff=10" },
-            ["h"] = { ":set scrolloff=5<CR>", "scrolloff=5" },
-            ["n"] = { ":set scrolloff=999<CR>", "scrolloff=999" },
-        },
-        ["t"] = { ":TSPlaygroundToggle<CR>", "playground" },
-        ["u"] = { ":UndotreeToggle<CR>", "undo-tree" },
+wk.add({
+    { "<leader>t", group = "+toggle" },
+    {
+        "<leader>ts",
+        function()
+            M.toggle("spell")
+        end,
+        desc = "toggle-spell",
     },
-}, { mode = "n", prefix = "<leader>" })
+    {
+        "<leader>tw",
+        function()
+            M.toggle("wrap")
+        end,
+        desc = "toggle-wrap",
+    },
+    {
+        "<leader>tl",
+        function()
+            M.toggle("relativenumber", true)
+            M.toggle("number")
+        end,
+        desc = "toggle-relative-number",
+    },
+    { "<leader>td", M.toggle_diagnostics, desc = "toggle-diagnostics" },
+    {
+        "<leader>tc",
+        function()
+            local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+            M.toggle("conceallevel", false, { 0, conceallevel })
+        end,
+        desc = "toggle-conceal-level",
+    },
+    { "<leader>tj", ":TSJToggle<CR>", desc = "treesj-toggle" },
+
+    { "<leader>tg", group = "+git" },
+    { "<leader>tgb", ":Gitsigns toggle_current_line_blame<CR>", desc = "toggle-blame" },
+    { "<leader>tgl", ":Gitsigns toggle_linehl<CR>", desc = "toggle-linehl" },
+    { "<leader>tgn", ":Gitsigns toggle_numhl<CR>", desc = "toggle-numhl" },
+    { "<leader>tgs", ":Gitsigns toggle_signs<CR>", desc = "toggle-signs" },
+
+    { "<leader>o", group = "+scrolloff" },
+    { "<leader>tot", ":set scrolloff=10<CR>", desc = "scrolloff=10" },
+    { "<leader>toh", ":set scrolloff=5<CR>", desc = "scrolloff=5" },
+    { "<leader>ton", ":set scrolloff=999<CR>", desc = "scrolloff=999" },
+
+    { "<leader>tt", ":TSPlaygroundToggle<CR>", desc = "playground" },
+    { "<leader>tu", ":UndotreeToggle<CR>", desc = "undo-tree" },
+})
 
 return M

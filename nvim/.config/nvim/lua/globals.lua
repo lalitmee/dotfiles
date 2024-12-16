@@ -49,13 +49,13 @@ local function make_mapper(mode, o)
     return function(lhs, rhs, opts)
         -- If the label is all that was passed in, set the opts automagically
         opts = type(opts) == "string" and { label = opts } or opts and vim.deepcopy(opts) or {}
-        if opts.label then
-            local ok, wk = lk.require("which-key", { silent = true })
-            if ok then
-                wk.register({ [lhs] = opts.label }, { mode = mode })
-            end
-            opts.label = nil
-        end
+        -- if opts.label then
+        --     local ok, wk = lk.require("which-key", { silent = true })
+        --     if ok then
+        --         wk.register({ [lhs] = opts.label }, { mode = mode })
+        --     end
+        --     opts.label = nil
+        -- end
         vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("keep", opts, parent_opts))
     end
 end

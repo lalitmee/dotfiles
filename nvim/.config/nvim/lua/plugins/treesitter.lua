@@ -30,19 +30,6 @@ return {
             },
         },
 
-        init = function()
-            local wk = require("which-key")
-            wk.register({
-                ["s"] = {
-                    name = "+node-selection",
-                    s = "start",
-                    i = "node++",
-                    c = "scope++",
-                    d = "node--",
-                },
-            }, { mode = "n", prefix = "<localleader>" })
-        end,
-
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
