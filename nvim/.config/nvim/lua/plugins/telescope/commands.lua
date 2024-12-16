@@ -29,7 +29,7 @@ end)
 
 command("TelescopeEditNeovim", function()
     builtin.find_files({
-        prompt_title = "~ neovim ~",
+        prompt_title = "~ neovim config ~",
         cwd = "~/.config/nvim",
 
         layout_strategy = "horizontal",
