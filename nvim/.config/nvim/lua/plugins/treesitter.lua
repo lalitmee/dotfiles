@@ -4,26 +4,13 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "BufReadPost",
-
+        cmd = "TSInstall",
         keys = {
             { "<leader>lf", desc = "peek-function-definition", mode = { "n", "v" } },
             { "<leader>lc", desc = "peek-class-definition", mode = { "n", "v" } },
             { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "show-highlights-info", silent = true },
         },
-
         dependencies = {
-            {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                ft = {
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                },
-                config = function()
-                    vim.g.skip_ts_context_commentstring_module = true
-                end,
-            },
             {
                 "nvim-treesitter/nvim-treesitter-context",
                 event = "BufReadPost",
@@ -59,6 +46,7 @@ return {
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
+                    "angular",
                     "bash",
                     "c",
                     "comment",
@@ -66,6 +54,7 @@ return {
                     "css",
                     "diff",
                     "dockerfile",
+                    "editorconfig",
                     "git_rebase",
                     "gitattributes",
                     "gitcommit",
@@ -189,11 +178,9 @@ return {
                 },
             })
 
-            local parsers = require("nvim-treesitter.parsers")
-            local parser_config = parsers.get_parser_configs()
-
-            -- octo markdown
-            parser_config.markdown.filetype_to_parsername = "octo"
+            -- registering parsers for other filetypes
+            vim.treesitter.language.register("markdown", "octo")
+            vim.treesitter.language.register("bash", "zsh")
         end,
     },
 

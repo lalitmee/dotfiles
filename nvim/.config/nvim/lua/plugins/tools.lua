@@ -12,21 +12,6 @@ return {
         },
     },
 
-    { --[[ genghis ]]
-        "chrisgrieser/nvim-genghis",
-        keys = {
-            { "<leader>fA", ":New<cr>", desc = "create-file", silent = true },
-            { "<leader>fD", ":Trash<cr>", desc = "trash-file", silent = true },
-            { "<leader>fy", ":CopyFilepath<cr>", desc = "copy-file-path", silent = true },
-            { "<leader>fJ", ":Move<cr>", desc = "move-and-rename-file", silent = true },
-            { "<leader>fN", ":CopyFilename<cr>", desc = "copy-file-name", silent = true },
-            { "<leader>fR", ":Rename<cr>", desc = "rename-file", silent = true },
-            { "<leader>fS", ":Duplicate<cr>", desc = "duplicate-file", silent = true },
-            { "<leader>fX", ":Chmodx<cr>", desc = "make-executable", silent = true },
-            { "<leader>fS", ":NewFromSelection<cr>", desc = "move-selection-to-file", silent = true, mode = "x" },
-        },
-    },
-
     { --[[ tabular ]]
         "godlygeek/tabular",
         cmd = { "Tabularize" },
@@ -232,7 +217,7 @@ return {
 
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
-        ft = { "org" },
+        event = "VeryLazy",
         dependencies = {
             {
                 "akinsho/org-bullets.nvim",
@@ -416,38 +401,6 @@ return {
                 desc = "goto-file-5",
                 silent = true,
             },
-            {
-                "<leader>6",
-                function()
-                    require("harpoon"):list():select(6)
-                end,
-                desc = "goto-file-6",
-                silent = true,
-            },
-            {
-                "<leader>7",
-                function()
-                    require("harpoon"):list():select(7)
-                end,
-                desc = "goto-file-7",
-                silent = true,
-            },
-            {
-                "<leader>8",
-                function()
-                    require("harpoon"):list():select(8)
-                end,
-                desc = "goto-file-8",
-                silent = true,
-            },
-            {
-                "<leader>9",
-                function()
-                    require("harpoon"):list():select(9)
-                end,
-                desc = "goto-file-9",
-                silent = true,
-            },
 
             {
                 "<leader>fa",
@@ -497,67 +450,16 @@ return {
     { --[[ browse.nvim ]]
         "lalitmee/browse.nvim",
         dev = true,
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>sb",
-                function()
-                    require("browse").browse()
-                end,
-                desc = "browse",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>sc",
-                function()
-                    require("utils.cht").cht()
-                end,
-                desc = "cheatsheet",
-            },
-            {
-                "<leader>sd",
-                function()
-                    require("browse").devdocs.search()
-                end,
-                desc = "devdocs-search",
-            },
-            {
-                "<leader>sf",
-                function()
-                    require("browse").devdocs.search_with_filetype()
-                end,
-                desc = "devdocs-filetype-search",
-            },
-            {
-                "<leader>si",
-                function()
-                    require("browse").input_search()
-                end,
-                desc = "input-search",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>sl",
-                function()
-                    require("browse").open_bookmarks()
-                end,
-                desc = "bookmarks",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>sm",
-                function()
-                    require("browse").mdn.search()
-                end,
-                desc = "mdn-search",
-                mode = { "n", "x" },
-            },
-            {
-                "<leader>ss",
-                function()
-                    require("utils.cht").stack_overflow()
-                end,
-                desc = "stackoverflow",
-            },
+            { "<leader>sb", function() require("browse").browse() end, desc = "browse", mode = { "n", "x" } },
+            { "<leader>sc", function() require("utils.cht").cht() end, desc = "cheatsheet" },
+            { "<leader>sd", function() require("browse").devdocs.search() end, desc = "devdocs-search" },
+            { "<leader>sf", function() require("browse").devdocs.search_with_filetype() end, desc = "devdocs-filetype-search" },
+            { "<leader>si", function() require("browse").input_search() end, desc = "input-search", mode = { "n", "x" } },
+            { "<leader>sl", function() require("browse").open_bookmarks() end, desc = "bookmarks", mode = { "n", "x" } },
+            { "<leader>sm", function() require("browse").mdn.search() end, desc = "mdn-search", mode = { "n", "x" } },
+            { "<leader>ss", function() require("utils.cht").stack_overflow() end, desc = "stackoverflow" },
         },
         config = function()
             -- local bookmarks = {
@@ -661,6 +563,7 @@ return {
             require("browse").setup({
                 provider = "duckduckgo", -- google or bing
                 bookmarks = bookmarks,
+                persist_grouped_bookmarks_query = true,
             })
         end,
     },
@@ -687,8 +590,11 @@ return {
     { --[[ codesnap ]]
         "mistricky/codesnap.nvim",
         build = "make build_generator",
-        cmd = { "CodeSnap" },
+        -- stylua: ignore
         keys = {
+            { "<leader>xa", ":CodeSnapASCII<CR>", mode = { "n", "v" }, desc = "codesnap-ascii", silent = true },
+            { "<leader>xh", ":CodeSnapHighlight<CR>", mode = { "n", "v" }, desc = "codesnap-highlight", silent = true },
+            { "<leader>xH", ":CodeSnapSaveHighlight<CR>", mode = { "n", "v" }, desc = "codesnap-save-highlight", silent = true },
             { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "codesnap", silent = true },
             { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "codesnap-save", silent = true },
         },
@@ -699,71 +605,27 @@ return {
             }, { mode = "n", prefix = "<leader>" })
         end,
         opts = {
-            save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots/screenshot.png",
-            code_font_family = "Operator Mono",
+            save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots",
+            -- code_font_family = "MonoLisa Nerd Font",
+            -- code_font_family = "JetBrainsMono Nerd Font",
+            code_font_family = "SauceCodePro Nerd Font",
             has_line_number = true,
+            watermark = "",
         },
     },
 
     { --[[ trouble ]]
         "folke/trouble.nvim",
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>qd",
-                function()
-                    require("trouble").toggle("document_diagnostics")
-                end,
-                desc = "trouble document diagnostics",
-            },
-            {
-                "<leader>ql",
-                function()
-                    require("trouble").toggle("loclist")
-                end,
-                desc = "trouble loclist",
-            },
-            {
-                "<leader>qn",
-                function()
-                    require("trouble").next({ skip_groups = true, jump = true })
-                end,
-                desc = "trouble toggle",
-            },
-            {
-                "<leader>qp",
-                function()
-                    require("trouble").previous({ skip_groups = true, jump = true })
-                end,
-                desc = "trouble toggle",
-            },
-            {
-                "<leader>qq",
-                function()
-                    require("trouble").toggle("quickfix")
-                end,
-                desc = "trouble quickfix",
-            },
-            {
-                "<leader>qr",
-                function()
-                    require("trouble").toggle("lsp_references")
-                end,
-                desc = "trouble lsp references",
-            },
-            {
-                "<leader>qw",
-                function()
-                    require("trouble").toggle("workspace_diagnostics")
-                end,
-                desc = "trouble workspace diagnostics",
-            },
-            {
-                "<leader>qx",
-                function()
-                    require("trouble").toggle()
-                end,
-                desc = "trouble toggle",
-            },
+            { "<leader>qd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "trouble document diagnostics" },
+            { "<leader>ql", "<cmd>TroubleToggle loclist<cr>", desc = "trouble loclist" },
+            { "<leader>qn", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "trouble toggle" },
+            { "<leader>qp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "trouble toggle" },
+            { "<leader>qq", "<cmd>TroubleToggle quickfix<cr>", desc = "trouble quickfix" },
+            { "<leader>qr", "<cmd>TroubleToggle lsp_references<cr>", desc = "trouble lsp references" },
+            { "<leader>qw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "trouble workspace diagnostics" },
+            { "<leader>qx", "<cmd>TroubleToggle<cr>", desc = "trouble toggle" },
         },
         init = function()
             local wk = require("which-key")
@@ -777,6 +639,7 @@ return {
     },
 
     { --[[ vim-apm ]]
+        enabled = false,
         "ThePrimeagen/vim-apm",
         keys = {
             {
@@ -793,6 +656,7 @@ return {
     },
 
     { --[[ marks.nvim ]]
+        enabled = false,
         "chentoast/marks.nvim",
         event = "VeryLazy",
         -- stylua: ignore
@@ -861,5 +725,16 @@ return {
         },
         lazy = false,
         priority = 1001,
+    },
+
+    { --[[ http-codes ]]
+        "barrett-ruth/http-codes.nvim",
+        dependencies = "nvim-telescope/telescope.nvim",
+        keys = {
+            { "<leader>sh", ":HTTPCodes<CR>", desc = "http-codes", silent = true },
+        },
+        opts = {
+            use = "telescope",
+        },
     },
 }

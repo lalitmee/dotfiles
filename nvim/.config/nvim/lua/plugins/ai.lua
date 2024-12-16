@@ -46,14 +46,20 @@ return {
         event = "BufEnter",
         config = function()
             vim.g.codeium_filetypes_disabled_by_default = true
-
             vim.g.codeium_filetypes = {
-                lua = true,
+                c = true,
+                cpp = true,
+                gitcommit = true,
+                go = true,
                 javascript = true,
                 javascriptreact = true,
+                lua = true,
+                python = true,
+                rust = true,
                 typescript = true,
                 typescriptreact = true,
-                python = true,
+                vim = true,
+                yaml = true,
             }
         end,
     },
@@ -82,6 +88,19 @@ return {
             { "<localleader>at", ":CodeCompanionToggle<CR>", desc = "code-companion-toggle", silent = true },
             { "<localleader>as", ":CodeCompanionActions<CR>", desc = "code-companion-actions", silent = true },
         },
-        opts = {},
+        -- TODO: add config for adapters and use `Gemini` for the default adapter
+        opts = {
+            strategies = {
+                chat = {
+                    adapter = "gemini",
+                },
+                inline = {
+                    adapter = "gemini",
+                },
+                agent = {
+                    adapter = "gemini",
+                },
+            },
+        },
     },
 }

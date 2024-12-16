@@ -2,15 +2,23 @@ local command = lk.command
 
 return {
     { -- [[ nvim-cmp ]]
-        "hrsh7th/nvim-cmp",
+        -- "hrsh7th/nvim-cmp",
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp", -- Otherwise highlighting gets messed up
         event = { "VeryLazy" },
         dependencies = {
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-path",
+            -- "hrsh7th/cmp-buffer",
+            -- "hrsh7th/cmp-nvim-lsp",
+            -- "hrsh7th/cmp-nvim-lua",
+            -- "hrsh7th/cmp-path",
             "onsails/lspkind.nvim",
             "saadparwaiz1/cmp_luasnip",
+
+            { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+            { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+            { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+            { "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
+            "https://codeberg.org/FelipeLema/cmp-async-path", -- not by me, but better than cmp-path
         },
         config = function()
             local cmp = require("cmp")
@@ -107,7 +115,7 @@ return {
                         end,
                     },
                     { name = "buffer", keyword_length = 5 },
-                    { name = "path" },
+                    { name = "async_path" },
                 }),
 
                 -- NOTE: copied from TJ
@@ -191,34 +199,11 @@ return {
         end,
     },
 
-    { --[[ comment.nvim ]]
-        "numToStr/Comment.nvim",
-        event = { "VeryLazy" },
-        opts = {
-            ignore = "^$",
-            pre_hook = function(ctx)
-                local U = require("Comment.utils")
-
-                local location = nil
-                if ctx.ctype == U.ctype.blockwise then
-                    location = require("ts_context_commentstring.utils").get_cursor_location()
-                elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                    location = require("ts_context_commentstring.utils").get_visual_start_location()
-                end
-
-                return require("ts_context_commentstring.internal").calculate_commentstring({
-                    key = ctx.ctype == U.ctype.linewise and "__default" or "__multiline",
-                    location = location,
-                })
-            end,
-        },
-        config = function(_, opts)
-            require("Comment").setup(opts)
-
-            local comment_ft = require("Comment.ft")
-            comment_ft.set("lua", { "--%s", "--[[%s]]" })
-            comment_ft.set("kdl", { "//%s" })
-        end,
+    { -- [[ ts-comments.nvim ]]
+        "folke/ts-comments.nvim",
+        opts = {},
+        event = "VeryLazy",
+        enabled = vim.fn.has("nvim-0.10.0") == 1,
     },
 
     { --[[ luasnip ]]
@@ -895,12 +880,12 @@ return {
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
         keys = {
-            { "crs", mode = { "n", "x" } },
-            { "crm", mode = { "n", "x" } },
-            { "crc", mode = { "n", "x" } },
-            { "cru", mode = { "n", "x" } },
-            { "cr-", mode = { "n", "x" } },
-            { "cr.", mode = { "n", "x" } },
+            { "crs", mode = { "n", "x", "o", "v" } },
+            { "crm", mode = { "n", "x", "o", "v" } },
+            { "crc", mode = { "n", "x", "o", "v" } },
+            { "cru", mode = { "n", "x", "o", "v" } },
+            { "cr-", mode = { "n", "x", "o", "v" } },
+            { "cr.", mode = { "n", "x", "o", "v" } },
             {
                 "<leader>[",
                 ":S/<C-R><C-W>//<LEFT>",
@@ -1021,7 +1006,7 @@ return {
                     },
                     {
                         "filename",
-                        path = 4,
+                        path = 3,
                     },
                     {
                         "diagnostics",
@@ -1200,5 +1185,11 @@ return {
                 enabled = false,
             },
         },
+    },
+
+    { --[[ quicker.nvim ]]
+        "stevearc/quicker.nvim",
+        event = "FileType qf",
+        opts = {},
     },
 }

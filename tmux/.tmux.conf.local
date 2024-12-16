@@ -479,8 +479,8 @@ set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 # tmux open for opening anything
 set -g @plugin 'tmux-plugins/tmux-open'
 
-# tmux thumbs for copy and paste
-set -g @plugin 'fcsonline/tmux-thumbs'
+# # tmux thumbs for copy and paste
+# set -g @plugin 'fcsonline/tmux-thumbs'
 
 # tmux search content
 set -g @plugin 'tmux-plugins/tmux-copycat'
@@ -585,7 +585,7 @@ bind c new-window -c '#{pane_current_path}'
 bind-key n break-pane -d
 
 # run cht.sh from tmux
-bind-key -r i run-shell "tmux neww bash -c \"~/.config/bin/tmux-cht\""
+bind-key -r i run-shell "tmux neww tmux-cht"
 
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
@@ -598,6 +598,35 @@ bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-m
 
 # tmux sessionizer
 bind-key -r o run-shell "tmux neww tmux-sessionizer"
+
+
+#-------------------------------------------------------------------------------
+#  NOTE: tmux popup keybindings {{{
+# tmux popup from u/KevinHwang91 from reddit discussion
+#-------------------------------------------------------------------------------
+# tmux popup with shell
+bind-key M run-shell "tmux-popup"
+
+bind-key m if-shell -F '#{==:#{session_name},floating}' {
+    detach-client
+} {
+    set -gF '@last_session_name' '#S'
+    popup -d '#{pane_current_path}' -xC -yC -w80% -h80% -E 'tmux new -A -s floating'
+}
+
+bind ! if-shell -F '#{!=:#{session_name},floating}' {
+    break-pane
+} {
+    run-shell 'bash -c "tmux break-pane -s floating -t \"$(tmux show -gvq '@last_session_name'):\""'
+}
+
+bind @ if-shell -F '#{!=:#{session_name},floating}' {
+    break-pane -d
+} {
+    run-shell 'bash -c "tmux break-pane -d -s floating -t \"$(tmux show -gvq '@last_session_name'):\""'
+}
+# }}}
+#-------------------------------------------------------------------------------
 
 # }}}
 #-------------------------------------------------------------------------------

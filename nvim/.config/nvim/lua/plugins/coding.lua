@@ -20,6 +20,14 @@ return {
         end,
     },
 
+    { --[[ markdown.nvim: making markdown files beautiful ]]
+        "MeanderingProgrammer/markdown.nvim",
+        ft = "markdown",
+        main = "render-markdown",
+        cmd = { "RenderMarkdown" },
+        opts = {},
+    },
+
     { --[[ go ]]
         "ray-x/go.nvim",
         ft = "go",
@@ -149,18 +157,31 @@ return {
 
     { --[[ oversser ]]
         "stevearc/overseer.nvim",
+        cmd = {
+            "OverseerBuild",
+            "OverseerClose",
+            "OverseerDeleteBundle",
+            "OverseerLoadBundle",
+            "OverseerOpen",
+            "OverseerQuickAction",
+            "OverseerRun",
+            "OverseerTaskAction",
+            "OverseerToggle",
+        },
         keys = {
+            { "<leader>ro<leader>", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
             { "<leader>roa", ":OverseerTaskAction<CR>", desc = "task-action", silent = true },
             { "<leader>rob", ":OverseerBuild<CR>", desc = "build", silent = true },
-            { "<leader>roc", ":OverseerClose<CR>", desc = "close", silent = true },
+            { "<leader>roc", ":OverseerRunCmd<CR>", desc = "run-cmd", silent = true },
             { "<leader>rod", ":OverseerDeleteBundle<CR>", desc = "delete-bundle", silent = true },
-            { "<leader>rof", ":OverseerRunCmd<CR>", desc = "run-cmd", silent = true },
             { "<leader>rol", ":OverseerLoadBundle<CR>", desc = "load-bundle", silent = true },
             { "<leader>roo", ":OverseerOpen<CR>", desc = "open", silent = true },
-            { "<leader>roq", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
+            { "<leader>roq", ":OverseerClose<CR>", desc = "close", silent = true },
             { "<leader>ror", ":OverseerRun<CR>", desc = "run", silent = true },
             { "<leader>ros", ":OverseerSaveBundle ", desc = "save-bundle", silent = true },
-            { "<leader>rot", ":OverseerToggle<CR>", desc = "toggle", silent = true },
+            { "<leader>roj", ":OverseerToggle bottom<CR>", desc = "toggle-on-bottom", silent = true },
+            { "<leader>roh", ":OverseerToggle left<CR>", desc = "toggle-on-left", silent = true },
+            { "<leader>ro;", ":OverseerToggle right<CR>", desc = "toggle-on-right", silent = true },
         },
         init = function()
             local wk = require("which-key")
@@ -287,14 +308,17 @@ return {
         -- stylua: ignore
         keys = {
             { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
-            { "<leader>cc", ":CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" } },
+            { "<leader>cc", ":CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" }, silent = true },
             { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
-            { "<leader>ce", ":CodyExplain<CR>", desc = "cody-explain", mode = { "n", "x" } },
+            { "<leader>ce", ":CodyExplain<CR>", desc = "cody-explain", mode = { "n", "x" }, silent = true },
             { "<leader>cn", function() local name = vim.fn.input("chat name: ") require("sg.cody.commands").chat(name) end, desc = "named-cody-chat", mode = { "n", "x" } },
-            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" } },
+            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" }, silent = true },
             { "<leader>sF", function() require("sg.extensions.telescope").fuzzy_search_results() end, desc = "sourcegraph-fuzzy-search" },
-            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" },
-            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search" },
+            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" , silent = true },
+            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search", silent = true },
+
+            -- specific tasks
+            { "<leader>cs", ":CodyTask add docstring<CR>", desc = "cody-task", mode = { "n", "x", "v" }, silent = true },
         },
         init = function()
             local wk = require("which-key")
@@ -352,7 +376,6 @@ return {
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         ft = { "http" },
-        dependencies = { "luarocks.nvim" },
         -- stylua: ignore
         keys = {
             { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "run-request" },

@@ -45,7 +45,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #-------------------------------------------------------------------------------
 #  NOTE: cursor theme {{{
 #-------------------------------------------------------------------------------
-exec_always --no-startup-id /usr/bin/lxappearance -n Pop
+exec_always --no-startup-id /usr/bin/lxappearance -n Yaru-dark
 # }}}
 #-------------------------------------------------------------------------------
 
