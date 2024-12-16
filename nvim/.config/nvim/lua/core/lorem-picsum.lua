@@ -23,7 +23,7 @@ local function append_lorem_picsum_url()
     end
 end
 
-command("LoremPicsum", append_lorem_picsum_url, {})
+command("LoremPicsumUrl", append_lorem_picsum_url, {})
 
 local charset = {} -- [0-9a-zA-Z]
 do
@@ -64,6 +64,6 @@ local function append_random_string()
     end
 end
 
-command("RandomString", function()
+command("LoremPicsumText", function()
     append_random_string()
 end)

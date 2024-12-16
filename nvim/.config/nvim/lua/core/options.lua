@@ -337,6 +337,7 @@ if fn.isdirectory(o.undodir) == 0 then
 end
 o.undofile = true
 o.swapfile = false
+o.autoread = true
 -- The // at the end tells Vim to use the absolute path to the file to create
 -- the swap file. This will ensure that swap file name is unique, so there are
 -- no collisions between files with the same name from different directories.

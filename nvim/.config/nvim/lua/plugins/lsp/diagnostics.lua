@@ -3,21 +3,6 @@ local fn = vim.fn
 local diagnostic = vim.diagnostic
 local command = lk.command
 
-local function sign(opts)
-    fn.sign_define(opts.highlight, {
-        text = opts.icon,
-        texthl = opts.highlight,
-        numhl = opts.highlight .. "Nr",
-        culhl = opts.highlight .. "CursorNr",
-        linehl = opts.highlight .. "Line",
-    })
-end
-
-sign({ highlight = "DiagnosticSignError", icon = "E" })
-sign({ highlight = "DiagnosticSignWarn", icon = "W" })
-sign({ highlight = "DiagnosticSignInfo", icon = "I" })
-sign({ highlight = "DiagnosticSignHint", icon = "H" })
-
 vim.diagnostic.config({
     underline = true,
     virtual_text = {

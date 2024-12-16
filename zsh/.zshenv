@@ -101,3 +101,34 @@ export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/config
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: flutter {{{
+# -------------------------------------------------------------------
+export PATH=$HOME/development/flutter/bin:$PATH
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: android-studio {{{
+# -------------------------------------------------------------------
+# for running android studio from anywhere
+export PATH=$HOME/android-studio/bin:$PATH
+
+# for setting the tools of android sdk
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: nvm {{{
+# -------------------------------------------------------------------
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# }}}
+# -------------------------------------------------------------------

@@ -201,5 +201,7 @@ alias br="pomodoro 'break'"
 alias avc="ansible-vault create"
 alias avv="ansible-vault view"
 alias ave="ansible-vault edit"
+alias avs="ansible-vault encrypt"
+alias avd="ansible-vault decrypt"
 # }}}
 # -------------------------------------------------------------------

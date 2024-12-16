@@ -227,13 +227,13 @@ nnoremap("gx", open_link)
 --------------------------------------------------------------------------------
 --  NOTE: auto-indent on going in insert mode {{{
 --------------------------------------------------------------------------------
-lk.nmap("i", function()
+vim.keymap.set("n", "i", function()
     if #vim.fn.getline(".") == 0 then
         return [["_cc]]
     else
         return "i"
     end
-end, { expr = true })
+end, { expr = true, noremap = true, silent = true })
 -- }}}
 --------------------------------------------------------------------------------
 

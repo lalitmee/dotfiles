@@ -1,6 +1,19 @@
 local lsp_utils = require("plugins.lsp.utils")
 
 return {
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "Bilal2453/luvit-meta", lazy = true },
+
     { --[[ lspsaga ]]
         "glepnir/lspsaga.nvim",
         event = "LspAttach",
@@ -51,7 +64,6 @@ return {
                 "pyright",
                 "rust_analyzer",
                 "tailwindcss",
-                "tsserver",
                 "vimls",
             },
         },
@@ -106,10 +118,6 @@ return {
                 -- enabled = false,
             },
             {
-                "folke/neodev.nvim",
-                ft = "lua",
-            },
-            {
                 "lvimuser/lsp-inlayhints.nvim",
                 event = "LspAttach",
                 opts = {},
@@ -162,17 +170,6 @@ return {
                 dynamicRegistration = false,
                 lineFoldingOnly = true,
             }
-
-            require("neodev").setup({
-                library = {
-                    plugins = {
-                        "nvim-dap-ui",
-                        "plenary.nvim",
-                        "neotest",
-                    },
-                    types = true,
-                },
-            })
 
             local servers = require("plugins.lsp.servers")
 
@@ -287,13 +284,18 @@ return {
                 },
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
+                    css = { "prettierd" },
+                    dart = { "dart_format" },
                     go = { "gofmt", "goimports", "golines" },
+                    html = { "prettierd" },
                     javascript = { "prettierd" },
                     javascriptreact = { "prettierd" },
+                    json = { "prettierd" },
                     liquid = { "curlylint" },
                     lua = { "stylua" },
                     markdown = { "mdformat", "markdownlint" },
                     rust = { "rustfmt" },
+                    scss = { "prettierd" },
                     sh = { "shfmt" },
                     svg = { "prettierd" },
                     toml = { "taplo" },
@@ -375,23 +377,6 @@ return {
         -- enabled = false,
     },
 
-    { --[[ fidget ]]
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        event = "LspAttach",
-        opts = {
-            text = {
-                spinner = "bouncing_bar",
-            },
-            window = {
-                blend = 0,
-            },
-            sources = {
-                ["null-ls"] = { ignore = true },
-            },
-        },
-    },
-
     { --[[ rust-tools ]]
         "simrat39/rust-tools.nvim",
         ft = "rust",
@@ -424,5 +409,14 @@ return {
                 "vue",
             },
         },
+    },
+
+    { --[[ flutter-tools ]]
+        enabled = false,
+        "akinsho/flutter-tools.nvim",
+        init = function()
+            require("telescope").load_extension("flutter")
+        end,
+        config = true,
     },
 }

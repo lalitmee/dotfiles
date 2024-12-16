@@ -1,363 +1,324 @@
 return {
     { --[[ which-key ]]
         "folke/which-key.nvim",
+        -- version = "v2.1.0",
         event = { "VeryLazy" },
-        config = function()
+        opts = {},
+        init = function()
             local wk = require("which-key")
 
-            vim.o.timeoutlen = 500
+            local leader_key_maps = {
+                [":"] = { ":Telescope commands<CR>", "commands" },
+                ["<leader>"] = { ":Telescope find_files<CR>", "find-files" },
+                ["/"] = { ":Telescope live_grep<CR>", "search-project" },
 
-            local presets = require("which-key.plugins.presets")
-            presets.objects["a("] = nil
-            presets.operators["g"] = nil
-
-            wk.setup({
-                show_help = false,
-                triggers = "auto",
-                plugins = {
-                    spelling = true,
-                    marks = false,
-                    registers = false,
-                },
-                key_labels = {
-                    ["<space>"] = "SPC",
-                    ["<cr>"] = "RET",
-                    ["<tab>"] = "TAB",
-                },
-                layout = { spacing = 10 },
-                window = {
-                    border = "rounded",
-                    winblend = 0,
-                },
-            })
-
-            wk.add({
-                { "<leader>:", ":Telescope commands<CR>", "commands" },
-                { "<leader><leader>", ":Telescope find_files<CR>", "find-files" },
-                { "<leader>/", ":Telescope live_grep<CR>", "search-project" },
-
-                { "<leader>a", group = "actions" },
-                { "<leader>aa", ":FzfLua<space>", "fzf-lua-builtin" },
-                { "<leader>ac", ":ColorizerToggle<CR>", "toggle-colorizer" },
-                { "<leader>ak", ":WorkingDirectory<CR>", "current-working-directory" },
-                { "<leader>an", ":!playerctl previous -p spotify<CR>", "spotify-prev" },
-                { "<leader>ap", ":!playerctl next -p spotify<CR>", "spotify-next" },
-                { "<leader>aq", ":Telescope macros<CR>", "macros" },
-                { "<leader>as", ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
-                { "<leader>aw", ":SetWallpaper<CR>", "change-system-background" },
-
-                { "<leader>b", group = "buffers" },
-                { "<leader>ba", ":bfirst<CR>", "first-buffer" },
-                { "<leader>bb", ":Telescope buffers<CR>", "telescope-buffers" },
-                { "<leader>bB", ":FzfLua buffers<CR>", "fzf-buffers" },
-                { "<leader>bc", ":vnew<CR>", "new-empty-buffer-vert" },
-                { "<leader>bd", ":Bdelete<CR>", "delete-buffer" },
-                { "<leader>bD", ":Bdelete!<CR>", "delete-buffer-without-prompt" },
-                { "<leader>bl", ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
-                { "<leader>bL", ":FzfLua blines<CR>", "fzf-buffer-lines" },
-                { "<leader>bM", ":delm!<CR>", "delete-marks" },
-                { "<leader>bn", ":bn<CR>", "next-buffer" },
-                { "<leader>bo", ":BufOnly<CR>", "close-all-but-current" },
-                { "<leader>bp", ":bp<CR>", "prev-buffer" },
-                { "<leader>br", ":e<CR>", "refresh-buffer" },
-                { "<leader>bR", ":bufdo :e<CR>", "refresh-loaded-buffers" },
-                { "<leader>bv", ":vnew<CR>", "new-empty-buffer-vertically" },
-                { "<leader>bw", ":Bwipeout<CR>", "close-buffer-and-window" },
-                { "<leader>bz", ":blast<CR>", "first-buffer" },
-
-                { "<leader>e", group = "+errors" },
-                {
-                    "<leader>ed",
-                    function()
-                        vim.diagnostic.disable()
-                        vim.notify("LSP diagnostics disabled", vim.log.levels.INFO)
-                    end,
-                    "disable-diagnostic",
-                },
-                {
-                    "<leader>ee",
-                    function()
-                        vim.diagnostic.enable()
-                        vim.notify("LSP diagnostics enabled", vim.log.levels.INFO)
-                    end,
-                    "enable-diagnostic",
-                },
-                { "<leader>el", ":Telescope diagnostics<CR>", "workspace-diagnostics" },
-                {
-                    "<leader>en",
-                    function()
-                        vim.diagnostic.goto_next({
-                            severity = lk.get_highest_error_severity(),
-                            wrap = true,
-                            float = true,
-                        })
-                    end,
-                    "next-diagnostics",
-                },
-                {
-                    "<leader>ep",
-                    function()
-                        vim.diagnostic.goto_prev({
-                            severity = lk.get_highest_error_severity(),
-                            wrap = true,
-                            float = true,
-                        })
-                    end,
-                    "prev-diagnostics",
-                },
-                { "<leader>eq", ":LspDiagnostics<CR>", "quickfix-diagnostics" },
-                {
-                    "<leader>ev",
-                    function()
-                        vim.diagnostic.open_float({ scope = "line" })
-                    end,
-                    "diagnostic-float-preview",
+                ["a"] = {
+                    ["name"] = "+actions",
+                    ["a"] = { ":FzfLua<space>", "fzf-lua-builtin" },
+                    ["c"] = { ":ColorizerToggle<CR>", "toggle-colorizer" },
+                    ["k"] = { ":WorkingDirectory<CR>", "current-working-directory" },
+                    ["n"] = { ":!playerctl previous -p spotify<CR>", "spotify-prev" },
+                    ["p"] = { ":!playerctl next -p spotify<CR>", "spotify-next" },
+                    ["q"] = { ":Telescope macros<CR>", "macros" },
+                    ["s"] = { ":!playerctl play-pause -p spotify<CR>", "spotify-play-pause" },
+                    ["w"] = { ":SetWallpaper<CR>", "change-system-background" },
                 },
 
-                { "<leader>f", group = "+files" },
-                { "<leader>fc", ":TelescopeEditDotfiles<CR>", "dotfiles" },
-                { "<leader>fd", ":Telescope find_files theme=dropdown<CR>", "with-dropdown" },
-                { "<leader>fe", ":TelescopeEditNeovim<CR>", "neovim-config" },
-                { "<leader>ff", ":Telescope find_files<CR>", "files" },
-                { "<leader>fF", ":FzfLua files<CR>", "files" },
-                { "<leader>fg", ":Telescope git_files<CR>", "git-files" },
-                { "<leader>fi", ":Telescope find_files theme=ivy<CR>", "ivy-theme-files" },
-                { "<leader>fo", ":Telescope oldfiles<CR>", "old-files" },
-                { "<leader>fs", ":w<CR>", "save-buffer" },
-                { "<leader>fS", ":wa<CR>", "save-all-buffers" },
-                { "<leader>ft", ":Telescope filetypes<CR>", "file-types" },
-                { "<leader>fw", ":noau w<CR>", "save-buffer-no-format" },
-                { "<leader>fq", ":wq<CR>", "save-and-quit" },
-
-                { "<leader>g", group = "+git" },
-                { "<leader>g/", ":Telescope git_status<CR>", "git-status" },
-                { "<leader>gb", ":Telescope git_branches<CR>", "checkout" },
-
-                { "<leader>gc", group = "+commit" },
-                { "<leader>gcc", ":Telescope git_commits<CR>", "git-commits" },
-                { "<leader>gcb", ":Telescope git_bcommits<CR>", "git-buffer-commits" },
-
-                { "<leader>gd", group = "+diff" },
-                { "<leader>gdc", ":DiffviewClose<CR>", "diffview-close" },
-                { "<leader>gdd", ":Gitsigns diffthis<CR>", "diffthis" },
-                { "<leader>gdf", ":DiffviewFileHistory %<CR>", "current-file-history" },
-                { "<leader>gdF", ":DiffviewFileHistory<CR>", "diffview-file-history" },
-                { "<leader>gdo", ":DiffviewOpen<CR>", "diffview-open" },
-                { "<leader>gdw", ":Gitsigns toggle_word_diff<CR>", "toggle-word-diff" },
-
-                { "<leader>gj", group = "+git-jump" },
-                { "<leader>gjd", ":Jump diff<cr>", "diff" },
-                { "<leader>gjm", ":Jump merge<cr>", "merge" },
-                { "<leader>gjs", ":Jump grep<space>", "grep" },
-
-                { "<leader>gm", ":Gitsigns blame_line<CR>", "blame-line" },
-                { "<leader>gn", ":GitHunks<CR>", "git-hunks" },
-                {
-                    "<leader>gO",
-                    function()
-                        vim.cmd([[silent !gh repo view --web]])
-                    end,
-                    "open-repo",
+                ["b"] = {
+                    ["name"] = "+buffers",
+                    ["a"] = { ":bfirst<CR>", "first-buffer" },
+                    ["b"] = { ":Telescope buffers<CR>", "telescope-buffers" },
+                    ["B"] = { ":FzfLua buffers<CR>", "fzf-buffers" },
+                    ["c"] = { ":vnew<CR>", "new-empty-buffer-vert" },
+                    ["l"] = { ":Telescope current_buffer_fuzzy_find<CR>", "telescope-buffer-lines" },
+                    ["L"] = { ":FzfLua blines<CR>", "fzf-buffer-lines" },
+                    ["M"] = { ":delm!<CR>", "delete-marks" },
+                    ["n"] = { ":bn<CR>", "next-buffer" },
+                    ["p"] = { ":bp<CR>", "prev-buffer" },
+                    ["r"] = { ":e<CR>", "refresh-buffer" },
+                    ["R"] = { ":bufdo :e<CR>", "refresh-loaded-buffers" },
+                    ["v"] = { ":vnew<CR>", "new-empty-buffer-vertically" },
+                    ["z"] = { ":blast<CR>", "first-buffer" },
                 },
-                { "<leader>gz", ":Telescope git_stash<CR>", "git-stash" },
 
-                { "<leader>i", group = "+insert-text" },
-                { "<leader>ic", ":Colortils<CR>", "color-picker" },
-                { "<leader>id", ":DeleteDebugPrints<CR>", "delete-debug-prints" },
-                { "<leader>ie", ":LuaSnipEdit<CR>", "edit-snippets" },
-                { "<leader>is", ":Telescope spell_suggest<CR>", "spell_suggest" },
+                ["e"] = {
+                    ["name"] = "+errors",
+                    ["d"] = {
+                        function()
+                            vim.diagnostic.disable()
+                            vim.notify("LSP diagnostics disabled", vim.log.levels.INFO)
+                        end,
+                        "disable-diagnostic",
+                    },
+                    ["e"] = {
+                        function()
+                            vim.diagnostic.enable()
+                            vim.notify("LSP diagnostics enabled", vim.log.levels.INFO)
+                        end,
+                        "enable-diagnostic",
+                    },
+                    ["l"] = { ":Telescope diagnostics<CR>", "workspace-diagnostics" },
+                    ["n"] = {
+                        function()
+                            vim.diagnostic.goto_next({
+                                severity = lk.get_highest_error_severity(),
+                                wrap = true,
+                                float = true,
+                            })
+                        end,
+                        "next-diagnostics",
+                    },
+                    ["p"] = {
+                        function()
+                            vim.diagnostic.goto_prev({
+                                severity = lk.get_highest_error_severity(),
+                                wrap = true,
+                                float = true,
+                            })
+                        end,
+                        "prev-diagnostics",
+                    },
+                    ["q"] = { ":LspDiagnostics<CR>", "quickfix-diagnostics" },
+                    ["v"] = {
+                        function()
+                            vim.diagnostic.open_float({ scope = "line" })
+                        end,
+                        "diagnostic-float-preview",
+                    },
+                },
+
+                ["f"] = {
+                    ["name"] = "+files",
+                    ["c"] = {
+                        ":Telescope find_files theme=dropdown<CR>",
+                        "with-dropdown",
+                    },
+                    ["d"] = { ":TelescopeEditDotfiles<CR>", "dotfiles" },
+                    ["f"] = { ":TelescopeProjectFiles<CR>", "files" },
+                    ["F"] = { ":FzfLua files<CR>", "files" },
+                    ["g"] = { ":Telescope git_files<CR>", "git-files" },
+                    ["i"] = {
+                        ":Telescope find_files theme=ivy<CR>",
+                        "ivy-theme-files",
+                    },
+                    ["o"] = { ":Telescope oldfiles<CR>", "old-files" },
+                    ["s"] = { ":w<CR>", "save-buffer" },
+                    ["S"] = { ":wa<CR>", "save-all-buffers" },
+                    ["t"] = { ":Telescope filetypes<CR>", "file-types" },
+                    ["w"] = { ":noau w<CR>", "save-buffer-no-format" },
+                    ["q"] = { ":wq<CR>", "save-and-quit" },
+                },
+
+                ["g"] = {
+                    ["name"] = "+git",
+                    ["/"] = { ":Telescope git_status<CR>", "git-status" },
+                    ["b"] = { ":Telescope git_branches<CR>", "checkout" },
+                    ["c"] = {
+                        ["name"] = "+commit",
+                        ["c"] = { ":Telescope git_commits<CR>", "git-commits" },
+                        ["b"] = { ":Telescope git_bcommits<CR>", "git-buffer-commits" },
+                    },
+                    ["d"] = {
+                        ["name"] = "+diff",
+                        ["c"] = { ":DiffviewClose<CR>", "diffview-close" },
+                        ["d"] = { ":Gitsigns diffthis<CR>", "diffthis" },
+                        ["f"] = { ":DiffviewFileHistory %<CR>", "current-file-history" },
+                        ["F"] = { ":DiffviewFileHistory<CR>", "diffview-file-history" },
+                        ["o"] = { ":DiffviewOpen<CR>", "diffview-open" },
+                        ["w"] = {
+                            ":Gitsigns toggle_word_diff<CR>",
+                            "toggle-word-diff",
+                        },
+                    },
+                    -- moved to Hydra
+                    -- ["h"] = {
+                    --     ["name"] = "+hunks",
+                    -- },
+                    ["j"] = {
+                        ["name"] = "+git-jump",
+                        ["d"] = { ":Jump diff<cr>", "diff" },
+                        ["m"] = { ":Jump merge<cr>", "merge" },
+                        ["s"] = { ":Jump grep<space>", "grep" },
+                    },
+                    ["m"] = { ":Gitsigns blame_line<CR>", "blame-line" },
+                    ["n"] = { ":GitHunks<CR>", "git-hunks" },
+                    ["O"] = {
+                        function()
+                            vim.cmd([[silent !gh repo view --web]])
+                        end,
+                        "open-repo",
+                    },
+                    ["z"] = { ":Telescope git_stash<CR>", "git-stash" },
+                },
+
+                ["h"] = {
+                    ["name"] = "+help",
+                },
+
+                ["i"] = {
+                    ["name"] = "+insert-text",
+                    ["c"] = { ":Colortils<CR>", "color-picker" },
+                    ["d"] = { ":DeleteDebugPrints<CR>", "delete-debug-prints" },
+                    ["e"] = { ":LuaSnipEdit<CR>", "edit-snippets" },
+                    ["s"] = { ":Telescope spell_suggest<CR>", "spell_suggest" },
+                },
 
                 -- stylua: ignore
-            {"<leader>l" , group = "+lsp"},
-                { "<leader>l/", ":Telescope tags<CR>", "project-tags" },
-                {
-                    "<leader>la",
-                    function()
-                        vim.lsp.buf.code_action()
-                    end,
-                    "code-action",
-                },
-                {
-                    "<leader>ld",
-                    function()
-                        vim.lsp.buf.definition()
-                    end,
-                    "definition",
-                },
-                {
-                    "<leader>lD",
-                    function()
-                        vim.lsp.buf.declaration()
-                    end,
-                    "declaration",
-                },
-                {
-                    "<leader>lh",
-                    function()
-                        vim.lsp.buf.hover()
-                    end,
-                    "hover-doc",
-                },
-                { "<leader>li", ":LspInfo<CR>", "lsp-info" },
-                {
-                    "<leader>lI",
-                    function()
-                        vim.lsp.buf.implementation()
-                    end,
-                    "implementation",
-                },
-                {
-                    "<leader>ll",
-                    function()
-                        vim.cmd("edit " .. vim.lsp.get_log_path())
-                    end,
-                    "lsp-log",
-                },
-                { "<leader>lm", ":Mason<CR>", "lsp-installer-info" },
-                {
-                    "<leader>lr",
-                    function()
-                        vim.lsp.buf.rename()
-                    end,
-                    "rename",
-                },
-                {
-                    "<leader>lR",
-                    function()
-                        vim.lsp.buf.references()
-                    end,
-                    "references",
-                },
-                {
-                    "<leader>ls",
-                    function()
-                        vim.lsp.buf.document_symbol()
-                    end,
-                    "document-symbols",
-                },
-                {
-                    "<leader>lt",
-                    function()
-                        vim.lsp.buf.type_definition()
-                    end,
-                    "type-definition",
-                },
-                { "<leader>lT", ":Telescope treesitter<CR>", "treesitter-symbols" },
-                {
-                    "<leader>lw",
-                    function()
-                        vim.lsp.buf.workspace_symbol()
-                    end,
-                    "workspace-symbols",
+                ["l"] = {
+                    ["name"] = "+lsp",
+                    ["/"] = { ":Telescope tags<CR>", "project-tags" },
+                    ["a"] = { function() vim.lsp.buf.code_action() end, "code-action" },
+                    ["d"] = { function() vim.lsp.buf.definition() end, "definition" },
+                    ["D"] = { function() vim.lsp.buf.declaration() end, "declaration" },
+                    ["h"] = { function() vim.lsp.buf.hover() end, "hover-doc" },
+                    ["i"] = { ":LspInfo<CR>", "lsp-info" },
+                    ["I"] = { function() vim.lsp.buf.implementation() end, "implementation" },
+                    ["l"] = { function()  vim.cmd("edit " .. vim.lsp.get_log_path()) end, "lsp-log" },
+                    ["m"] = { ":Mason<CR>", "lsp-installer-info" },
+                    ["r"] = { function() vim.lsp.buf.rename() end, "rename" },
+                    ["R"] = { function() vim.lsp.buf.references() end, "references" },
+                    ["s"] = { function() vim.lsp.buf.document_symbol() end, "document-symbols" },
+                    ["t"] = { function() vim.lsp.buf.type_definition() end, "type-definition" },
+                    ["T"] = { ":Telescope treesitter<CR>", "treesitter-symbols" },
+                    ["w"] = { function() vim.lsp.buf.workspace_symbol() end, "workspace-symbols" },
                 },
 
-                { "<leader>n", group = "+neovim" },
-                { "<leader>n/", ":TelescopeNotifyHistory<CR>", "notify-history" },
-                { "<leader>nc", ":Lazy clean<CR>", "clean-packages" },
-                { "<leader>nd", ":NotifyDismiss<CR>", "notify-dismiss" },
-                { "<leader>nh", ":checkhealth<CR>", "check-health" },
-                { "<leader>ni", ":Lazy install<CR>", "lazy-install" },
-                {
-                    "<leader>nl",
-                    function()
-                        local filetype = vim.bo.filetype
-                        local filepath = vim.fn.expand("%")
-                        if filetype == "lua" then
-                            vim.cmd([[
+                ["n"] = {
+                    ["name"] = "+neovim",
+                    ["c"] = { ":Lazy clean<CR>", "clean-packages" },
+                    ["e"] = { ":TelescopeEditNeovim<CR>", "edit-neovim-config" },
+                    ["h"] = { ":checkhealth<CR>", "check-health" },
+                    ["i"] = { ":Lazy install<CR>", "lazy-install" },
+                    ["l"] = {
+                        function()
+                            local filetype = vim.bo.filetype
+                            local filepath = vim.fn.expand("%")
+                            if filetype == "lua" then
+                                vim.cmd([[
                                     silent! write
                                     luafile %
                                 ]])
-                        elseif filetype == "vim" then
-                            vim.cmd([[
+                            elseif filetype == "vim" then
+                                vim.cmd([[
                                     silent! write
                                     source %
                                 ]])
-                        else
-                            vim.cmd([[
+                            else
+                                vim.cmd([[
                                     silent! write
                                 ]])
-                        end
-                        vim.notify(filepath, 2, { title = " Save and Execute" })
-                    end,
-                    "save-and-execute",
+                            end
+                            vim.notify(filepath, 2, { title = " Save and Execute" })
+                        end,
+                        "save-and-execute",
+                    },
+                    ["m"] = { ":ReloadModule<space>", "realod-module" },
+                    ["n"] = { ":Notifications<CR>", "notifications" },
+                    ["o"] = { ":Lazy<CR>", "packages-status" },
+                    ["p"] = { ":Lazy profile<CR>", "lazy-profile" },
+                    ["r"] = { ":Redir Notifications<CR>", "redir-notifications" },
+                    ["s"] = { ":Lazy sync<CR>", "lazy-sync" },
+                    ["t"] = { ":ReloadConfigTelescope<CR>", "realod-modules" },
+                    ["u"] = { ":Lazy update<CR>", "lazy-update" },
+                    ["x"] = { ":Telescope reloader<CR>", "reloaders" },
                 },
-                { "<leader>nm", ":ReloadModule<space>", "realod-module" },
-                { "<leader>nn", ":Notifications<CR>", "notifications" },
-                { "<leader>no", ":Lazy<CR>", "packages-status" },
-                { "<leader>np", ":Lazy profile<CR>", "lazy-profile" },
-                { "<leader>nr", ":Redir Notifications<CR>", "redir-notifications" },
-                { "<leader>ns", ":Lazy sync<CR>", "lazy-sync" },
-                { "<leader>nt", ":ReloadConfigTelescope<CR>", "realod-modules" },
-                { "<leader>nu", ":Lazy update<CR>", "lazy-update" },
-                { "<leader>nx", ":Telescope reloader<CR>", "reloaders" },
 
-                { "<leader>o", group = "+org-mode" },
+                ["o"] = {
+                    ["name"] = "+org-mode",
+                },
 
-                { "<leader>p", group = "+project" },
+                ["p"] = {
+                    ["name"] = "+project",
+                },
 
-                { "<leader>q", group = "+quickfix" },
-                { "<leader>qt", ":Telescope quickfix<CR>", "telescope-quickfix" },
+                ["q"] = {
+                    ["name"] = "+quickfix",
+                    ["t"] = { ":Telescope quickfix<CR>", "telescope-quickfix" },
+                },
 
-                { "<leader>r", group = "+build-and-run" },
-                { "<leader>rc", ":CompileAndRun<CR>", "compile-and-run" },
+                ["r"] = {
+                    ["name"] = "+build-and-run",
+                    ["c"] = { ":CompileAndRun<CR>", "compile-and-run" },
+                },
 
-                { "<leader>s", group = "+search-and-replace" },
-                { "<leader>sa", ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
-                { "<leader>sr", ":Telescope resume<CR>", "live-grep-resume" },
+                ["s"] = {
+                    ["name"] = "+search-and-replace",
+                    ["a"] = { ":TelescopeFuzzyLiveGrep<CR>", "fuzzy-live-grep" },
+                    ["r"] = { ":Telescope resume<CR>", "live-grep-resume" },
+                },
 
-                { "<leader>t", group = "+toggle" },
+                ["t"] = {
+                    ["name"] = "+toggle",
+                    ["m"] = { ":RenderMarkdown toggle<CR>", "render-markdown-toggle" },
+                },
 
-                { "<leader>v", group = "+vim" },
-                { "<leader>v/", ":Telescope search_history<CR>", "search-history" },
-                { "<leader>v:", ":Telescope commands<CR>", "commands" },
-                { "<leader>va", ":Telescope autocommands<CR>", "autocommands" },
-                { "<leader>vc", ":Telescope colorscheme<CR>", "colorschemes" },
-                { "<leader>vC", ":Telescope command_history<CR>", "command-history" },
-                { "<leader>vd", ":Messages<CR>", "messages" },
-                { "<leader>vf", ":Telescope filetypes<CR>", "filetypes" },
-                { "<leader>vg", ":Telescope helpgrep<CR>", "help-grep" },
-                { "<leader>vh", ":Telescope help_tags<CR>", "help-tags" },
-                { "<leader>vH", ":Telescope highlights<CR>", "highlights" },
-                { "<leader>vj", ":Telescope jumplist<CR>", "jumplist" },
-                { "<leader>vk", ":Telescope keymaps<CR>", "keymaps" },
-                { "<leader>vl", ":Telescope loclist<CR>", "loclist" },
-                { "<leader>vm", ":Telescope marks<CR>", "marks" },
-                { "<leader>vM", ":Telescope man_pages<CR>", "man-pages" },
-                { "<leader>vr", ":Telescope registers<CR>", "vim-registers" },
-                { "<leader>vt", ":Telescope tagstack<CR>", "tag-stack" },
-                { "<leader>vv", ":Telescope vim_options<CR>", "vim-options" },
+                ["v"] = {
+                    ["name"] = "+vim",
+                    ["/"] = { ":Telescope search_history<CR>", "search-history" },
+                    [":"] = { ":Telescope commands<CR>", "commands" },
+                    ["a"] = { ":Telescope autocommands<CR>", "autocommands" },
+                    ["c"] = { ":Telescope colorscheme<CR>", "colorschemes" },
+                    ["C"] = { ":Telescope command_history<CR>", "command-history" },
+                    ["d"] = { ":Messages<CR>", "messages" },
+                    ["f"] = { ":Telescope filetypes<CR>", "filetypes" },
+                    ["g"] = { ":Telescope helpgrep<CR>", "help-grep" },
+                    ["h"] = { ":Telescope help_tags<CR>", "help-tags" },
+                    ["H"] = { ":Telescope highlights<CR>", "highlights" },
+                    ["j"] = { ":Telescope jumplist<CR>", "jumplist" },
+                    ["k"] = { ":Telescope keymaps<CR>", "keymaps" },
+                    ["l"] = { ":Telescope loclist<CR>", "loclist" },
+                    ["m"] = { ":Telescope marks<CR>", "marks" },
+                    ["M"] = { ":Telescope man_pages<CR>", "man-pages" },
+                    ["r"] = { ":Telescope registers<CR>", "vim-registers" },
+                    ["t"] = { ":Telescope tagstack<CR>", "tag-stack" },
+                    ["v"] = { ":Telescope vim_options<CR>", "vim-options" },
+                },
 
-                { "<leader>w", group = "+windows" },
-                { "<leader>w2", "<C-W>v", "layout-double-columns" },
-                { "<leader>w<", "<C-W>H", "move-window-far-left" },
-                { "<leader>w=", "<C-W>=", "balance-windows" },
-                { "<leader>w>", "<C-W>L", "move-window-far-right" },
-                { "<leader>wH", "<C-W>10<", "expand-window-left" },
-                { "<leader>wJ", "<C-W>J", "move-window-far-down" },
-                { "<leader>wK", "<C-W>K", "move-window-far-top" },
-                { "<leader>wL", "<C-W>10>", "expand-window-right" },
-                { "<leader>wa", ":tabnew<CR>", "new-tab" },
-                { "<leader>wc", ":tabclose<CR>", "close-tab" },
-                { "<leader>wd", "<C-W>c", "delete-window" },
-                { "<leader>we", ":AutoResize<CR>", "auto-resize" },
-                { "<leader>wf", ":tabfirst<CR>", "first-tab" },
-                { "<leader>w-", ":-tabmove<CR>", "move-tab-to-previous-position" },
-                { "<leader>w+", ":+tabmove<CR>", "move-tab-to-next-position" },
-                { "<leader>wT", ":tablast<CR>", "last-tab" },
-                { "<leader>wm", ":NeoZoomToggle<CR>", "maximize-window" },
-                { "<leader>wn", ":tabnext<CR>", "next-tab" },
-                { "<leader>wo", ":only<CR>", "close-other-windows-except-this" },
-                { "<leader>wp", ":tabprevious<CR>", "previous-tab" },
-                { "<leader>ws", "<C-W>s", "split-window-below" },
-                { "<leader>wt", "<C-W>T", "move-split-to-tab" },
-                { "<leader>wu", "<C-W>x", "swap-window-next" },
-                { "<leader>wv", "<C-W>v", "split-window-right" },
-                { "<leader>ww", "<C-W>r", "window-swap" },
-            })
+                ["w"] = {
+                    ["name"] = "+windows",
+                    ["2"] = { "<C-W>v", "layout-double-columns" },
+                    ["<"] = { "<C-W>H", "move-window-far-left" },
+                    ["="] = { "<C-W>=", "balance-windows" },
+                    [">"] = { "<C-W>L", "move-window-far-right" },
+                    ["H"] = { "<C-W>10<", "expand-window-left" },
+                    ["J"] = { "<C-W>J", "move-window-far-down" },
+                    ["K"] = { "<C-W>K", "move-window-far-top" },
+                    ["L"] = { "<C-W>10>", "expand-window-right" },
+                    ["a"] = { ":tabnew<CR>", "new-tab" },
+                    ["c"] = { ":tabclose<CR>", "close-tab" },
+                    ["d"] = { "<C-W>c", "delete-window" },
+                    ["e"] = { ":AutoResize<CR>", "auto-resize" },
+                    ["f"] = { ":tabfirst<CR>", "first-tab" },
+                    ["-"] = { ":-tabmove<CR>", "move-tab-to-previous-position" },
+                    ["+"] = { ":+tabmove<CR>", "move-tab-to-next-position" },
+                    ["T"] = { ":tablast<CR>", "last-tab" },
+                    ["m"] = { ":NeoZoomToggle<CR>", "maximize-window" },
+                    ["n"] = { ":tabnext<CR>", "next-tab" },
+                    ["o"] = { ":only<CR>", "close-other-windows-except-this" },
+                    ["p"] = { ":tabprevious<CR>", "previous-tab" },
+                    ["s"] = { "<C-W>s", "split-window-below" },
+                    ["t"] = { "<C-W>T", "move-split-to-tab" },
+                    ["u"] = { "<C-W>x", "swap-window-next" },
+                    ["v"] = { "<C-W>v", "split-window-right" },
+                    ["w"] = { "<C-W>r", "window-swap" },
+                },
+
+                -- x is occupied by possession
+            }
+
+            local local_leader_key_maps = {
+                ["t"] = {
+                    -- it is reserved for neorg keybindings
+                },
+            }
+
+            wk.register(local_leader_key_maps, { prefix = "<localleader>", mode = { "n", "v" } })
+            wk.register(leader_key_maps, { prefix = "<leader>", mode = { "n", "v" } })
         end,
     },
 
     { --[[ hydra ]]
+        enabled = false,
         "anuvyklack/hydra.nvim",
         keys = { "<leader>gh" },
         init = function()
@@ -646,5 +607,11 @@ return {
             -- hydra(dap_menu())
             hydra(gitsigns_menu())
         end,
+    },
+
+    {
+        "meznaric/key-analyzer.nvim",
+        cmd = "KeyAnalyzer",
+        opts = {},
     },
 }

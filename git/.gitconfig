@@ -4,7 +4,7 @@
 
 [user]
 	email = lalitkumar.meena.lk@gmail.com
-    name = Lalit Kumar
+	name = Lalit Kumar
 
 [credential]
 	credentialStore = cache
