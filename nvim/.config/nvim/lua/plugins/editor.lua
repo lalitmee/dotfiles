@@ -1169,4 +1169,10 @@ return {
         event = "FileType qf",
         opts = {},
     },
+
+    { --[[ beacon.nvim ]]
+        "danilamihailov/beacon.nvim",
+        event = "BufEnter",
+        opts = {},
+    },
 }
