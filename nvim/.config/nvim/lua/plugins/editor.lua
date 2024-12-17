@@ -873,34 +873,17 @@ return {
     { --[[ abolish ]]
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
+        -- stylua: ignore
         keys = {
-            { "crs", mode = { "n", "x", "o", "v" } },
-            { "crm", mode = { "n", "x", "o", "v" } },
-            { "crc", mode = { "n", "x", "o", "v" } },
-            { "cru", mode = { "n", "x", "o", "v" } },
-            { "cr-", mode = { "n", "x", "o", "v" } },
-            { "cr.", mode = { "n", "x", "o", "v" } },
-            {
-                "<leader>[",
-                ":S/<C-R><C-W>//<LEFT>",
-                mode = "n",
-                silent = false,
-                desc = "abolish: replace word under the cursor (line)",
-            },
-            {
-                "<leader>]",
-                ":%S/<C-r><C-w>//c<left><left>",
-                mode = "n",
-                silent = false,
-                desc = "abolish: replace word under the cursor (file)",
-            },
-            {
-                "<leader>[",
-                [["zy:'<'>S/<C-r><C-o>"//c<left><left>]],
-                mode = "x",
-                silent = false,
-                desc = "abolish: replace word under the cursor (visual)",
-            },
+            { "crs", desc = 'snake-case', mode = { "n", "x", "o", "v" } },
+            { "crm", desc = 'mixed-case', mode = { "n", "x", "o", "v" } },
+            { "crc", desc = 'camel-case', mode = { "n", "x", "o", "v" } },
+            { "cru", desc = 'upper-case', mode = { "n", "x", "o", "v" } },
+            { "cr-", desc = 'dash-case', mode = { "n", "x", "o", "v" } },
+            { "cr.", desc = 'dot-case', mode = { "n", "x", "o", "v" } },
+            { "<leader>sl", ":S/<C-R><C-W>//<LEFT>", mode = "n", silent = false, desc = "Replace Word <cursor> (line)" },
+            { "<leader>sf", ":%S/<C-r><C-w>//c<left><left>", mode = "n", silent = false, desc = "Replace Word <cursor> (file)" },
+            { "<leader>sv", [["zy:'<'>S/<C-r><C-o>"//c<left><left>]], mode = "x", silent = false, desc = "Replace Word <cursor> (visual)" },
         },
         config = function()
             vim.cmd([[
