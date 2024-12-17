@@ -34,11 +34,11 @@ return {
 
     { --[[ mason ]]
         "williamboman/mason-lspconfig.nvim",
-        event = "BufEnter",
+        event = "BufReadPre",
         dependencies = {
             {
                 "williamboman/mason.nvim",
-                event = "BufEnter",
+                event = "BufReadPre",
                 opts = {
                     ui = {
                         border = "rounded",
@@ -71,7 +71,7 @@ return {
 
     { --[[ lspconfig ]]
         "neovim/nvim-lspconfig",
-        event = { "VeryLazy" },
+        event = "BufReadPre",
         dependencies = {
             {
                 "pmizio/typescript-tools.nvim",
@@ -131,17 +131,6 @@ return {
                     },
                 },
                 enabled = false,
-            },
-            {
-                "OlegGulevskyy/better-ts-errors.nvim",
-                event = "VeryLazy",
-                dependencies = { "MunifTanjim/nui.nvim" },
-                opts = {
-                    keymaps = {
-                        toggle = "<leader>et",
-                        go_to_definition = "<leader>ex",
-                    },
-                },
             },
         },
         config = function()
