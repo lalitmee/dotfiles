@@ -102,8 +102,10 @@ map("x", "/", "<Esc>/\\%V")
 map("n", "n", [[nzzzv]], map_opts)
 map("n", "N", [[Nzzzv]], map_opts)
 
--- clear search pressing ESC two times
-nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>")
+-- NOTE: not needed as I am using using `romainl/vim-cool` that is working for
+-- me better than this and also this is now showing as a keymap after updating
+-- which-key.nvim
+-- nnoremap("<Esc><Esc>", ":<C-u>nohlsearch<cr>") -- clear search pressing ESC two times
 
 -- go to search and replace mode
 map("n", "<C-s>", [[:%s/<C-r><C-w>/<C-r><C-w>/<Left>]], map_opts)
