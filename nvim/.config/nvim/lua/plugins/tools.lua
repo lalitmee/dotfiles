@@ -428,14 +428,14 @@ return {
         dev = true,
         -- stylua: ignore
         keys = {
-            { "<leader>sb", function() require("browse").browse() end, desc = "browse", mode = { "n", "x" } },
-            { "<leader>sc", function() require("utils.cht").cht() end, desc = "cheatsheet" },
-            { "<leader>sd", function() require("browse").devdocs.search() end, desc = "devdocs-search" },
-            { "<leader>sf", function() require("browse").devdocs.search_with_filetype() end, desc = "devdocs-filetype-search" },
-            { "<leader>si", function() require("browse").input_search() end, desc = "input-search", mode = { "n", "x" } },
-            { "<leader>sl", function() require("browse").open_bookmarks() end, desc = "bookmarks", mode = { "n", "x" } },
-            { "<leader>sm", function() require("browse").mdn.search() end, desc = "mdn-search", mode = { "n", "x" } },
-            { "<leader>ss", function() require("utils.cht").stack_overflow() end, desc = "stackoverflow" },
+            { "<localleader>bb", function() require("browse").browse() end, desc = "browse", mode = { "n", "x" } },
+            { "<localleader>bc", function() require("utils.cht").cht() end, desc = "cheatsheet" },
+            { "<localleader>bd", function() require("browse").devdocs.search() end, desc = "devdocs-search" },
+            { "<localleader>bf", function() require("browse").devdocs.search_with_filetype() end, desc = "devdocs-filetype-search" },
+            { "<localleader>bi", function() require("browse").input_search() end, desc = "input-search", mode = { "n", "x" } },
+            { "<localleader>bl", function() require("browse").open_bookmarks() end, desc = "bookmarks", mode = { "n", "x" } },
+            { "<localleader>bm", function() require("browse").mdn.search() end, desc = "mdn-search", mode = { "n", "x" } },
+            { "<localleader>bs", function() require("utils.cht").stack_overflow() end, desc = "stackoverflow" },
         },
         config = function()
             -- local bookmarks = {
