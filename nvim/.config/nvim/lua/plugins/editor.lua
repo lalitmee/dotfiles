@@ -782,7 +782,7 @@ return {
         event = "BufRead",
     },
 
-    { --[[ oil ]]
+    { --[[ oil.nvim ]]
         "stevearc/oil.nvim",
         cmd = { "Oil" },
         keys = {
@@ -806,7 +806,7 @@ return {
         },
     },
 
-    { --[[ bqf ]]
+    { --[[ nvim-bqf ]]
         "kevinhwang91/nvim-bqf",
         event = "VeryLazy",
         dependencies = {
@@ -829,7 +829,7 @@ return {
         },
     },
 
-    {
+    { --[[ qf_helper ]]
         "stevearc/qf_helper.nvim",
         event = "VeryLazy",
         cmd = {
@@ -847,12 +847,12 @@ return {
         opts = {},
     },
 
-    { --[[ repeat ]]
+    { --[[ vim-repeat ]]
         "tpope/vim-repeat",
         keys = { "." },
     },
 
-    { --[[ scrptease ]]
+    { --[[ scriptease ]]
         "tpope/vim-scriptease",
         cmd = { "Messages", "Runtime", "Scriptnames", "Time", "Verbose" },
         keys = {
