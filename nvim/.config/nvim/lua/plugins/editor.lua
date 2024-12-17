@@ -5,7 +5,7 @@ return {
         -- "hrsh7th/nvim-cmp",
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp", -- Otherwise highlighting gets messed up
-        event = { "VeryLazy" },
+        event = "InsertEnter",
         dependencies = {
             -- "hrsh7th/cmp-buffer",
             -- "hrsh7th/cmp-nvim-lsp",
