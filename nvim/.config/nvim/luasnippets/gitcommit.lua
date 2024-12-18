@@ -13,4 +13,9 @@ return {
         trig = "sp",
         name = "add spell words commit message",
     }, t("chore(spell): add more words to spell file")),
+
+    s({
+        trig = "pk",
+        name = "update package lock file",
+    }, t("chore(lockfile): update packages")),
 }
