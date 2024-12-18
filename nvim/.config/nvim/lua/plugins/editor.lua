@@ -984,7 +984,7 @@ return {
                     },
                     {
                         "filename",
-                        path = 3,
+                        path = 1,
                     },
                     {
                         "diagnostics",
