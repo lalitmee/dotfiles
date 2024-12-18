@@ -425,7 +425,6 @@ return {
 
     { --[[ browse.nvim ]]
         "lalitmee/browse.nvim",
-        dev = true,
         -- stylua: ignore
         keys = {
             { "<localleader>bb", function() require("browse").browse() end, desc = "browse", mode = { "n", "x" } },
