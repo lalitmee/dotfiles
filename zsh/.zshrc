@@ -115,6 +115,7 @@ plugins=(
     zsh-autosuggestions
     zsh-lazyload
     zsh-wakatime
+    zsh-nvm
 )
 
 # zsh completions
