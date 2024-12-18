@@ -431,7 +431,6 @@ return {
     },
 
     { --[[ ufo ]]
-        enabled = false,
         "kevinhwang91/nvim-ufo",
         event = "BufRead",
         dependencies = {
