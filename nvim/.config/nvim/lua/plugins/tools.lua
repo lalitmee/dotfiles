@@ -293,14 +293,13 @@ return {
             { "<leader>Fls", ":FzfLua lsp_live_workspace_symbols<CR>", desc = "fzf-lsp-live-workspace-symbols", silent = true },
             { "<leader>FsR", ":FzfLua live_grep_resume<CR>", desc = "fzf-live-grep-resume", silent = true },
             { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
-            { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
         },
         opts = {
             winopts = {
                 width = 0.95,
                 height = 0.95,
                 preview = {
-                    title_align = "center",
+                    title_pos = "center",
                     scrollbar = "border",
                 },
             },
