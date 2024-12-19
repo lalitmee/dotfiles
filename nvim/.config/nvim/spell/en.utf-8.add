@@ -37,3 +37,6 @@ zsh
 statusline
 firefox
 gitcommit
+keymaps
+fzf
+lua
