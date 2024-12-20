@@ -156,9 +156,6 @@ fi
 # aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
-# fzf config
-[[ -f ~/.fzf_config ]] && source ~/.fzf_config
-
 # secrete tokens
 [[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
 
