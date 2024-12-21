@@ -1,18 +1,39 @@
 #!/usr/bin/env bash
 
+# Define the directories to search
+search_dirs=(
+	~/Desktop/Github
+	~/Desktop/work
+)
+
+# Filter out non-existent directories
+valid_dirs=()
+for dir in "${search_dirs[@]}"; do
+	[[ -d "$dir" ]] && valid_dirs+=("$dir")
+done
+
+if [[ ${#valid_dirs[@]} -eq 0 ]]; then
+	echo "No valid directories to search."
+	exit 1
+fi
+
+# Search for directories using fzf
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	selected=$(find ~/Desktop/Github ~/Desktop/work -mindepth 1 -maxdepth 2 -type d | fzf)
+	selected=$(find "${valid_dirs[@]}" -mindepth 1 -maxdepth 2 -type d 2>/dev/null | fzf)
 fi
 
+# Exit if nothing is selected
 if [[ -z $selected ]]; then
 	exit 0
 fi
 
+# Generate a session name and check if tmux is running
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
+# Start a new tmux session or attach to an existing one
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
 	tmux new-session -s "$selected_name" -c "$selected"
 	exit 0
