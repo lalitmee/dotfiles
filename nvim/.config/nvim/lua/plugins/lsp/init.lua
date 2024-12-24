@@ -73,6 +73,7 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
+            -- { "saghen/blink.cmp" },
             {
                 "pmizio/typescript-tools.nvim",
                 keys = {
@@ -145,6 +146,7 @@ return {
 
             -- Completion configuration
             vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+            -- vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
             capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
             capabilities.textDocument.codeLens = { dynamicRegistration = false }

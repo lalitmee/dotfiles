@@ -2,6 +2,7 @@ local command = lk.command
 
 return {
     { -- [[ nvim-cmp ]]
+        -- enabled = false,
         -- "hrsh7th/nvim-cmp",
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp", -- Otherwise highlighting gets messed up
@@ -197,6 +198,54 @@ return {
                 }),
             })
         end,
+    },
+
+    { -- [[ blink.cmp ]]
+        enabled = false,
+        "saghen/blink.cmp",
+        ft = { "TelescopePrompt", "DressingInput" },
+        event = { "InsertEnter", "CmdlineEnter" },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            { "echasnovski/mini.icons", version = "*" },
+        },
+        version = "*",
+        opts = {
+            keymap = { preset = "default" },
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = "mono",
+            },
+            sources = {
+                default = { "lsp", "path", "snippets", "buffer" },
+            },
+            enabled = function()
+                return not vim.tbl_contains({ "TelescopePrompt", "DressingInput" }, vim.bo.filetype)
+                    and vim.bo.buftype ~= "prompt"
+                    and vim.b.completion ~= false
+            end,
+            completion = {
+                menu = {
+                    draw = {
+                        components = {
+                            kind_icon = {
+                                ellipsis = false,
+                                text = function(ctx)
+                                    local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                                    return kind_icon
+                                end,
+                                -- Optionally, you may also use the highlights from mini.icons
+                                highlight = function(ctx)
+                                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                                    return hl
+                                end,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        opts_extend = { "sources.default" },
     },
 
     { -- [[ ts-comments.nvim ]]
