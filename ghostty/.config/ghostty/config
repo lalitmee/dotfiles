@@ -1,0 +1,16 @@
+shell-integration = zsh
+
+background = #193549
+theme = Cobalt2
+
+font-family = Operator Mono Lig
+font-size = 11
+
+gtk-titlebar = false
+gtk-tabs-location = bottom
+gtk-wide-tabs = false
+gtk-adwaita = false
+
+window-decoration = false
+
+confirm-close-surface = false
