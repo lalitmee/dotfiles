@@ -1,0 +1,33 @@
+[
+  {
+    "border": "pixel",
+    "floating": "auto_off",
+    "fullscreen_mode": 0,
+    "layout": "splith",
+    "marks": [],
+    "percent": 0.216494845360825,
+    "type": "con",
+    "nodes": [
+      {
+        "border": "none",
+        "current_border_width": 2,
+        "floating": "auto_off",
+        "geometry": {
+          "height": 600,
+          "width": 1000,
+          "x": 0,
+          "y": 0
+        },
+        "marks": [],
+        "name": "lalitmee ❐ workspace ● 1 dotfiles",
+        "percent": 1,
+        "swallows": [
+          {
+            "instance": "^ghostty$"
+          }
+        ],
+        "type": "con"
+      }
+    ]
+  }
+]
