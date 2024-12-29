@@ -5,10 +5,10 @@ super + Escape
     pkill -USR1 -x sxhkd
 
 super + Return
-   wezterm
+   ghostty
 
-super + shift + Return
-   kitty
+#super + shift + Return
+#   wezterm
 
 #}}}
 #-------------------------------------------------------------------------------
