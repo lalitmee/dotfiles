@@ -1,6 +1,8 @@
 shell-integration = zsh
 
 background = #193549
+background-opacity = 0.8
+background-blur-radius = 20
 theme = Cobalt2
 
 font-family = Operator Mono Lig
@@ -14,3 +16,6 @@ gtk-adwaita = false
 window-decoration = false
 
 confirm-close-surface = false
+
+# Keybinds
+keybind = super+r=reload_config
