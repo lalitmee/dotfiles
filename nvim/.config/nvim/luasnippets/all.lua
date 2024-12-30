@@ -14,12 +14,12 @@ return {
             return vim.bo.commentstring:gsub("%%s", "")
         end),
         c(1, {
-            t("TODO: "),
-            t("NOTE: "),
-            t("WARN: "),
-            t("FIXME: "),
-            t("HACK: "),
-            t("BUG: "),
+            t(" TODO: "),
+            t(" NOTE: "),
+            t(" WARN: "),
+            t(" FIXME: "),
+            t(" HACK: "),
+            t(" BUG: "),
         }),
         i(0),
     }),

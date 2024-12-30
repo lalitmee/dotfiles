@@ -1032,7 +1032,7 @@ return {
                     },
                     {
                         "filename",
-                        path = 1,
+                        path = 4,
                     },
                     {
                         "diagnostics",
