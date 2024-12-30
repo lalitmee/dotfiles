@@ -38,6 +38,14 @@ return {
         dependencies = {
             {
                 "williamboman/mason.nvim",
+                cmd = {
+                    "Mason",
+                    "MasonInstall",
+                    "MasonUninstall",
+                    "MasonUninstallAll",
+                    "MasonLog",
+                    "MasonUpdate",
+                },
                 event = "BufReadPre",
                 opts = {
                     ui = {
