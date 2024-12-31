@@ -335,7 +335,6 @@ return {
                     desc = "save-and-execute",
                 },
                 { "<leader>nm", ":ReloadModule<space>", desc = "realod-module" },
-                { "<leader>nn", ":Notifications<CR>", desc = "notifications" },
                 { "<leader>no", ":Lazy<CR>", desc = "packages-status" },
                 { "<leader>np", ":Lazy profile<CR>", desc = "lazy-profile" },
                 { "<leader>nr", ":Redir Notifications<CR>", desc = "redir-notifications" },
@@ -373,6 +372,9 @@ return {
                 --------------------------------------------------------------------------------
                 { "<leader>r", group = "run" },
                 { "<leader>rc", ":CompileAndRun<CR>", desc = "compile-and-run" },
+
+                { "<leader>ro", group = "overseer" },
+                { "<leader>rh", group = "http" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
