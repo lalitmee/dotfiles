@@ -11,23 +11,9 @@ return {
             { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "show-highlights-info", silent = true },
         },
         dependencies = {
-            {
-                "nvim-treesitter/nvim-treesitter-context",
-                event = "BufReadPost",
-            },
-            {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                event = "BufReadPost",
-            },
-            {
-                "mrjones2014/nvim-ts-rainbow",
-                event = "BufReadPost",
-                enabled = false,
-            },
-            {
-                "nvim-treesitter/playground",
-                cmd = "TSPlaygroundToggle",
-            },
+            { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPost" },
+            { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPost" },
+            { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
         },
 
         config = function()
