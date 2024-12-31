@@ -91,4 +91,62 @@ return {
             },
         },
     },
+
+    { --[[ wtf.nvim ]]
+        "piersolenski/wtf.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        opts = {
+            openai_api_key = os.getenv("OPENAI_API_KEY"),
+            popup_type = "vertical",
+        },
+        keys = {
+            {
+                "<leader>ea",
+                mode = { "n", "x" },
+                function()
+                    require("wtf").ai()
+                end,
+                desc = "Debug diagnostic with AI",
+            },
+            {
+                "<leader>es",
+                mode = { "n" },
+                function()
+                    require("wtf").search()
+                end,
+                desc = "Search diagnostic with Google",
+            },
+            {
+                "<leader>eh",
+                function()
+                    require("wtf").history()
+                end,
+                desc = "Populate the quickfix list with previous chat history",
+            },
+            {
+                "<leader>eg",
+                function()
+                    require("wtf").grep_history()
+                end,
+                desc = "Grep previous chat history with Telescope",
+            },
+        },
+    },
+
+    { --[[ avante.nvim ]]
+        enabled = false,
+        "yetone/avante.nvim",
+        dependencies = {
+            "stevearc/dressing.nvim",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+        },
+        build = "make",
+        event = "VeryLazy",
+        opts = {
+            provider = "openai",
+        },
+    },
 }
