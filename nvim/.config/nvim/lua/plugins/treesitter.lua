@@ -188,7 +188,7 @@ return {
         },
         opts = {
             max_join_length = 500,
-            use_defaul_keymaps = true,
+            use_default_keymaps = false,
         },
     },
 
