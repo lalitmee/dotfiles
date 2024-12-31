@@ -18,6 +18,7 @@ return {
 
         config = function()
             require("nvim-treesitter.configs").setup({
+
                 ensure_installed = {
                     "angular",
                     "bash",
@@ -62,33 +63,42 @@ return {
                     "xml",
                     "yaml",
                 },
+
                 sync_install = true,
                 -- Auto install parsers, if missing, for the current buffer
                 auto_install = false,
+
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = { "org" },
                 },
+
                 rainbow = {
                     enable = true,
                     extended_mode = true,
                 },
+
                 matchup = { enable = true },
+
                 autotag = { enable = true },
+
                 indent = {
                     enable = true,
                     disable = { "css", "python" },
                 },
+
                 playground = {
                     enable = true,
                     updatetime = 25,
                     persist_queries = false,
                 },
+
                 query_linter = {
                     enable = true,
                     use_virtual_text = true,
                     lint_events = { "BufWrite", "CursorHold" },
                 },
+
                 incremental_selection = {
                     enable = true,
                     keymaps = {
@@ -98,8 +108,10 @@ return {
                         node_decremental = "<localleader>sd",
                     },
                 },
+
                 textobjects = {
                     lookahead = true,
+
                     select = {
                         enable = true,
                         keymaps = {
@@ -111,6 +123,7 @@ return {
                             ["iC"] = "@conditional.inner",
                         },
                     },
+
                     swap = {
                         enable = true,
                         swap_next = {
@@ -120,6 +133,7 @@ return {
                             ["[w"] = "@parameter.inner",
                         },
                     },
+
                     move = {
                         enable = true,
                         set_jumps = true,
@@ -140,6 +154,7 @@ return {
                             ["[K"] = "@class.outer",
                         },
                     },
+
                     lsp_interop = {
                         enable = true,
                         border = "rounded",
@@ -172,7 +187,7 @@ return {
             "nvim-treesitter/nvim-treesitter",
         },
         opts = {
-            max_join_length = 200,
+            max_join_length = 500,
             use_defaul_keymaps = true,
         },
     },

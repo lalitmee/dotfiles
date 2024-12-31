@@ -657,12 +657,53 @@ return {
     },
 
     { --[[ demicolon.nvim ]]
+        enabled = false,
         "mawkler/demicolon.nvim",
-        keys = { ";", ",", "t", "f", "T", "F", "]", "[", "]d", "[d", "[c", "]c" },
         dependencies = {
+            "jinh0/eyeliner.nvim",
             "nvim-treesitter/nvim-treesitter",
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
+        keys = { ";", ",", "t", "f", "T", "F", "]", "[", "]d", "[d" },
+        config = function()
+            require("demicolon").setup({
+                keymaps = {
+                    horizontal_motions = false,
+                },
+            })
+
+            local function eyeliner_jump(key)
+                local forward = vim.list_contains({ "t", "f" }, key)
+                return function()
+                    require("eyeliner").highlight({ forward = forward })
+                    return require("demicolon.jump").horizontal_jump(key)()
+                end
+            end
+
+            local nxo = { "n", "x", "o" }
+            local opts = { expr = true }
+
+            vim.keymap.set(nxo, "f", eyeliner_jump("f"), opts)
+            vim.keymap.set(nxo, "F", eyeliner_jump("F"), opts)
+            vim.keymap.set(nxo, "t", eyeliner_jump("t"), opts)
+            vim.keymap.set(nxo, "T", eyeliner_jump("T"), opts)
+        end,
+    },
+
+    { --[[ eyeliner.nvim ]]
+        enabled = false,
+        "jinh0/eyeliner.nvim",
+        keys = { "t", "f", "T", "F" },
+        opts = {
+            highlight_on_key = true,
+            dim = true,
+            default_keymaps = false,
+        },
+    },
+
+    { --[[ orphans.nvim ]]
+        "ZWindL/orphans.nvim",
+        cmd = "Orphans",
         opts = {},
     },
 }

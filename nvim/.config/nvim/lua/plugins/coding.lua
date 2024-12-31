@@ -149,7 +149,7 @@ return {
         },
     },
 
-    { --[[ oversser ]]
+    { --[[ oversser.nvim ]]
         "stevearc/overseer.nvim",
         cmd = {
             "OverseerBuild",
@@ -163,6 +163,7 @@ return {
             "OverseerToggle",
         },
         keys = {
+            { "<leader>ro", group = "overseer" },
             { "<leader>ro<leader>", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
             { "<leader>roa", ":OverseerTaskAction<CR>", desc = "task-action", silent = true },
             { "<leader>rob", ":OverseerBuild<CR>", desc = "build", silent = true },
@@ -357,6 +358,9 @@ return {
 
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
+        dependencies = {
+            { "j-hui/fidget.nvim", opts = {} },
+        },
         ft = { "http" },
         -- stylua: ignore
         keys = {
@@ -365,9 +369,7 @@ return {
             { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "env" },
             { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "logs" },
         },
-        config = function()
-            require("rest-nvim").setup()
-        end,
+        config = function() end,
     },
 
     { --[[ leetcode.nvim ]]
