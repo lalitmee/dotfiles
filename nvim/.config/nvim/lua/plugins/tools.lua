@@ -655,4 +655,14 @@ return {
             use = "telescope",
         },
     },
+
+    { --[[ demicolon.nvim ]]
+        "mawkler/demicolon.nvim",
+        keys = { ";", ",", "t", "f", "T", "F", "]", "[", "]d", "[d", "[c", "]c" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        },
+        opts = {},
+    },
 }
