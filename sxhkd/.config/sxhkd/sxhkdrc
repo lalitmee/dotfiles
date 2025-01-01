@@ -17,8 +17,8 @@ super + Return
 # NOTE: editors {{{
 #-------------------------------------------------------------------------------
 # editor -> emacs
-super + shift + o
-    i3run --summon --instance emacs -- emacs
+# super + shift + o
+#     i3run --summon --instance emacs -- emacs
 
 #}}}
 #-------------------------------------------------------------------------------
@@ -249,24 +249,16 @@ super + n
     i3run --summon --instance neovide -- neovide
 
 # terminal -> wezterm
-super + w
-    i3run --summon --instance terminal -- ghostty
+super + o
+    i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
 
 # >> system monitor -> bottom
 super + b
-    i3run --summon --title monitor -- ghostty --title monitor -e btm
-
-# >> terminal -> kitty
-super + o
-    i3run --summon --title kitty-terminal -- kitty --title kitty-terminal,kitty-terminal
-
-# >> slack
-super + g
-    i3run --summon --instance slack -- slack
+    i3run --summon --title monitor -- ghostty --title=monitor -e btm
 
 # password manager -> 1password
 super + shift + g
-    i3run --summon --instance 1password -- 1password
+    i3run --summon --instance bitwarden -- flatpak run com.bitwarden.desktop
 
 # >> music plaer -> spotify
 super + m
@@ -276,17 +268,13 @@ super + m
 super + t
     i3run --class Thunar --summon --command thunar
 
-# >> station
-super + a
-    i3run --class Station --summon --instance station
-
 # >> sticky-notes -> xpad
 super + x
     i3run --class xpad --summon --mouse --command xpad
 
 # >> sticky-notes -> xpad
 super + shift + m
-    i3run --summon --instance work-notes -- kitty --instance work-notes -e nvim ~/Desktop/Github/notes/notes/index.md
+    i3run --summon --title work-notes -- ghostty --title=work-notes -e nvim ~/Desktop/Github/notes/inbox.org
 
 # >> communication -> telegram
 super + u
