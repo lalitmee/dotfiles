@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 # Build and install neovim for Debian
 # See: https://neovim.io/
@@ -12,21 +12,21 @@ gum_style 'Installing dependencies...'
 
 sudo nala update
 sudo nala install -y \
-  autoconf \
-  automake \
-  cmake \
-  g++ \
-  gettext \
-  libncurses5-dev \
-  libtool \
-  libtool-bin \
-  libunibilium-dev \
-  libunibilium4 \
-  ninja-build \
-  pkg-config \
-  python3-pip \
-  software-properties-common \
-  unzip
+	autoconf \
+	automake \
+	cmake \
+	g++ \
+	gettext \
+	libncurses5-dev \
+	libtool \
+	libtool-bin \
+	libunibilium-dev \
+	libunibilium4 \
+	ninja-build \
+	pkg-config \
+	python3-pip \
+	software-properties-common \
+	unzip
 
 gum_style "Installing python3-neovim..."
 # Enable use of python plugins
@@ -48,11 +48,11 @@ gum_style "creating neovim directory and cloning repo..."
 mkdir -p ~/Desktop/Github/neovim
 cd ~/Desktop/Github || exit
 if [ ! -e ~/Desktop/Github/neovim ]; then
-  git clone https://github.com/neovim/neovim
+	git clone https://github.com/neovim/neovim
 else
-  cd neovim || exit
-  gum_style "Updating neovim repo..."
-  git pull origin
+	cd neovim || exit
+	gum_style "Updating neovim repo..."
+	git pull origin
 fi
 
 gum_style "Checking out to master neovim..."
