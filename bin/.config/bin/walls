@@ -1,47 +1,47 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 random_wallpaper() {
-    find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | shuf -n1
+	find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | shuf -n1
 }
 
 select_wallpaper() {
-    find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf --preview='ueberzug tmux {}'
+	find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf --preview='ueberzug tmux {}'
 }
 
 if [[ $# -eq 1 ]]; then
-    case $1 in
-    r)
-        selected=$(random_wallpaper)
-        feh --bg-scale "$selected" &
-        ;;
-    s)
-        selected=$(select_wallpaper)
-        feh --bg-scale "$selected" &
-        ;;
-    *)
-        echo "Invalid option: $1"
-        echo "Usage: $0 [r|s]"
-        exit 1
-        ;;
-    esac
+	case $1 in
+	r)
+		selected=$(random_wallpaper)
+		feh --bg-scale "$selected" &
+		;;
+	s)
+		selected=$(select_wallpaper)
+		feh --bg-scale "$selected" &
+		;;
+	*)
+		echo "Invalid option: $1"
+		echo "Usage: $0 [r|s]"
+		exit 1
+		;;
+	esac
 else
-    selected=$(echo -e "random\nselection" | fzf)
+	selected=$(echo -e "random\nselection" | fzf)
 
-    case $selected in
-    random)
-        selected=$(random_wallpaper)
-        feh --bg-scale "$selected" &
-        ;;
-    selection)
-        selected=$(select_wallpaper)
-        feh --bg-scale "$selected" &
-        ;;
-    *) exit 0 ;;
-    esac
+	case $selected in
+	random)
+		selected=$(random_wallpaper)
+		feh --bg-scale "$selected" &
+		;;
+	selection)
+		selected=$(select_wallpaper)
+		feh --bg-scale "$selected" &
+		;;
+	*) exit 0 ;;
+	esac
 fi
 
 if [[ -z $selected ]]; then
-    exit 0
+	exit 0
 fi
 
 feh --bg-scale "$selected"
