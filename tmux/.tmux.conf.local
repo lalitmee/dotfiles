@@ -432,6 +432,8 @@ set-option -sa terminal-overrides ",xterm*:Tc"
 
 set -g default-terminal "xterm-256color"
 
+set -g default-command "exec /bin/zsh"
+
 set-option -g base-index 1
 set-option -g renumber-windows on
 # Use vim keybindings in copy mode
