@@ -12,9 +12,17 @@ local executable = lk.executable
 -- NOTE: python hosts {{{
 ----------------------------------------------------------------------
 if vim.g.is_mac then
-    g.python3_host_prog = "/opt/homebrew/bin/python3"
+    local mac_python_path = "/opt/homebrew/bin/python3"
+    if vim.fn.filereadable(mac_python_path) then
+        g.python3_host_prog = mac_python_path
+    end
 elseif vim.g.is_linux then
-    g.python3_host_prog = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
+    local linux_python_path = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
+    if vim.fn.filereadable(linux_python_path) then
+        g.python3_host_prog = linux_python_path
+    end
+else
+    print("Warning: Unsupported OS. Please set g.python3_host_prog manually.")
 end
 -- }}}
 ----------------------------------------------------------------------
