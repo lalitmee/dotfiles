@@ -63,6 +63,20 @@ return {
                     next = { rhs = [[<cmd>m .+1<CR>]], opts = { desc = "Move line down" } },
                     prev = { rhs = [[<cmd>m .-2<CR>]], opts = { desc = "Move line up" } },
                 },
+                ["t"] = {
+                    next = {
+                        rhs = function()
+                            require("todo-comments").jump_next()
+                        end,
+                        opts = { desc = "Move line down" },
+                    },
+                    prev = {
+                        rhs = function()
+                            require("todo-comments").jump_next()
+                        end,
+                        opts = { desc = "Move line up" },
+                    },
+                },
             },
         },
     },
@@ -588,14 +602,14 @@ return {
         "folke/trouble.nvim",
         -- stylua: ignore
         keys = {
-            { "<leader>qd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "trouble document diagnostics" },
-            { "<leader>ql", "<cmd>TroubleToggle loclist<cr>", desc = "trouble loclist" },
-            { "<leader>qn", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "trouble toggle" },
-            { "<leader>qp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "trouble toggle" },
-            { "<leader>qq", "<cmd>TroubleToggle quickfix<cr>", desc = "trouble quickfix" },
-            { "<leader>qr", "<cmd>TroubleToggle lsp_references<cr>", desc = "trouble lsp references" },
-            { "<leader>qw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "trouble workspace diagnostics" },
-            { "<leader>qx", "<cmd>TroubleToggle<cr>", desc = "trouble toggle" },
+            { "<leader>qd", "<cmd>Trouble document_diagnostics<cr>", desc = "Trouble Document Diagnostics" },
+            { "<leader>ql", "<cmd>Trouble loclist<cr>", desc = "Trouble Loclist" },
+            { "<leader>qn", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "Trouble Next" },
+            { "<leader>qp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "Trouble Prev" },
+            { "<leader>qq", "<cmd>Trouble quickfix<cr>", desc = "Trouble Quickfix" },
+            { "<leader>qr", "<cmd>Trouble lsp_references<cr>", desc = "Trouble Lsp References" },
+            { "<leader>qw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "Trouble Workspace Diagnostics" },
+            { "<leader>qx", "<cmd>Trouble<cr>", desc = "Trouble Toggle" },
         },
         opts = {
             height = 20,
@@ -704,6 +718,29 @@ return {
     { --[[ orphans.nvim ]]
         "ZWindL/orphans.nvim",
         cmd = "Orphans",
+        opts = {},
+    },
+
+    { --[[ todo-comments.nvim ]]
+        "folke/todo-comments.nvim",
+        cmd = {
+            "TodoTrouble",
+            "TodoTelescope",
+            "TodoQuickFix",
+            "TodoLocList",
+            "TodoFzfLua",
+        },
+        keys = {
+            { "<leader>qa", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
+            { "<leader>qt", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
+            { "<leader>qf", "<cmd>TodoTelescope keywords=TODO,FIX<cr>", desc = "TODO/FIX Telescope" },
+            { "<leader>qe", "<cmd>TodoTelescope keywords=ERROR,WARN<cr>", desc = "ERROR/WARN Telescope" },
+            { "<leader>qN", "<cmd>TodoTelescope keywords=NOTE<cr>", desc = "NOTE Telescope" },
+            { "<leader>qP", "<cmd>TodoTelescope keywords=PERF<cr>", desc = "PERF Telescope" },
+            { "<leader>qh", "<cmd>TodoTelescope keywords=HACK<cr>", desc = "HACK Telescope" },
+            { "<leader>q/", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
+        },
+        dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
     },
 }

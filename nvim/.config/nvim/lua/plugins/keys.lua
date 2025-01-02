@@ -363,7 +363,7 @@ return {
                 --  NOTE: <leader>q -> quickfix {{{
                 --------------------------------------------------------------------------------
                 { "<leader>q", group = "quickfix" },
-                { "<leader>qt", ":Telescope quickfix<CR>", desc = "telescope-quickfix" },
+                { "<leader>q/", ":Telescope quickfix<CR>", desc = "Telescope Quickfix" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
