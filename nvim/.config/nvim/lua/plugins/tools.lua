@@ -598,21 +598,38 @@ return {
         },
     },
 
-    { --[[ trouble ]]
+    { --[[ trouble.nvim ]]
         "folke/trouble.nvim",
-        -- stylua: ignore
         keys = {
-            { "<leader>qd", "<cmd>Trouble document_diagnostics<cr>", desc = "Trouble Document Diagnostics" },
-            { "<leader>ql", "<cmd>Trouble loclist<cr>", desc = "Trouble Loclist" },
-            { "<leader>qn", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "Trouble Next" },
-            { "<leader>qp", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "Trouble Prev" },
-            { "<leader>qq", "<cmd>Trouble quickfix<cr>", desc = "Trouble Quickfix" },
-            { "<leader>qr", "<cmd>Trouble lsp_references<cr>", desc = "Trouble Lsp References" },
-            { "<leader>qw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "Trouble Workspace Diagnostics" },
-            { "<leader>qx", "<cmd>Trouble<cr>", desc = "Trouble Toggle" },
+            { "<leader>qx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+            {
+                "<leader>qX",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Buffer Diagnostics (Trouble)",
+            },
+            {
+                "<leader>qs",
+                "<cmd>Trouble symbols toggle focus=false<cr>",
+                desc = "Symbols (Trouble)",
+            },
+            {
+                "<leader>ql",
+                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+                desc = "LSP Definitions / references / ... (Trouble)",
+            },
+            {
+                "<leader>qL",
+                "<cmd>Trouble loclist toggle<cr>",
+                desc = "Location List (Trouble)",
+            },
+            {
+                "<leader>qQ",
+                "<cmd>Trouble qflist toggle<cr>",
+                desc = "Quickfix List (Trouble)",
+            },
         },
         opts = {
-            height = 20,
+            focus = true,
         },
     },
 
@@ -738,7 +755,7 @@ return {
             { "<leader>qN", "<cmd>TodoTelescope keywords=NOTE<cr>", desc = "NOTE Telescope" },
             { "<leader>qP", "<cmd>TodoTelescope keywords=PERF<cr>", desc = "PERF Telescope" },
             { "<leader>qh", "<cmd>TodoTelescope keywords=HACK<cr>", desc = "HACK Telescope" },
-            { "<leader>q/", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
+            { "<leader>qq", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
         },
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
