@@ -5,7 +5,7 @@ return { --[[ snacks.nvim ]]
     -- stylua: ignore
     keys = {
         -- bufdelete
-        { "<leader>bd", function() Snacks.bufdelete() end, desc = "delete-buffer", silent = true },
+        { "<leader>bd", function()Snacks.bufdelete()end, desc = "delete-buffer", silent = true,  },
         { "<leader>bD", function() Snacks.bufdelete.all() end, desc = "delete-all-buffers", silent = true },
         { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "delete-other-buffers", silent = true },
 
@@ -13,10 +13,8 @@ return { --[[ snacks.nvim ]]
         { "<leader>ge", function() Snacks.git.blame_line() end, desc = "git-blame", silent = true },
         { "<leader>gr", function() Snacks.git.get_root() end, desc = "git-root", silent = true },
 
-        -- gitbrowse
+        -- gitbrowse, lazygit
         { "<leader>ga", function() Snacks.gitbrowse() end, desc = "git-browse", silent = true },
-
-        -- lazygit
         { "<leader>gl", function() Snacks.lazygit.open() end, desc = "lazygit", silent = true },
         { "<leader>gL", function() Snacks.lazygit.log() end, desc = "lazygit-log-view", silent = true },
         { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "lazygit-log-file", silent = true },
@@ -25,8 +23,10 @@ return { --[[ snacks.nvim ]]
         { "<leader>nd", function() Snacks.notifier.hide() end, desc = "hide-notifier", silent = true },
         { "<leader>nn", function() Snacks.notifier.show_history() end, desc = "show-notifier-history", silent = true },
 
-        { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-        { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+        -- scratch
+        { "<leader>k.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+        { "<leader>k/", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+        { "<leader>kc", function() Snacks.scratch.open({ ft = "markdown", name = "notes" }) end, desc = "Notes Scratch Buffer" },
 
         -- neovim news
         {
@@ -34,6 +34,7 @@ return { --[[ snacks.nvim ]]
             desc = "Neovim News",
             function()
                 Snacks.win({
+                    style = {},
                     file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
                     width = 0.6,
                     height = 0.6,
@@ -46,7 +47,7 @@ return { --[[ snacks.nvim ]]
                     },
                 })
             end,
-        }
+        },
     },
     opts = {
         bigfile = { enabled = true },
