@@ -17,7 +17,6 @@
   "codeium.vim": { "branch": "main", "commit": "d152e6cd3d814a44f36447bb0d21d51f6787fe9c" },
   "codesnap.nvim": { "branch": "main", "commit": "6400480aa6cc366cbd931146c429aaa64680dab9" },
   "colorbuddy.nvim": { "branch": "master", "commit": "cdb5b0654d3cafe61d2a845e15b2b4b0e78e752a" },
-  "colorful-menu.nvim": { "branch": "master", "commit": "a97b34537803bb8dd713cc5c19e97311a81945dc" },
   "colortils.nvim": { "branch": "main", "commit": "9ec6db0a1dc381acb04be715f17f636909d2dcce" },
   "conform.nvim": { "branch": "master", "commit": "990d37017e193fe40bdabf058e598e76f5e7d929" },
   "demicolon.nvim": { "branch": "main", "commit": "ef47d03e863d4a02c97bb16ce60b9624edb76d26" },
