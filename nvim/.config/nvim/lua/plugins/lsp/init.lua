@@ -155,8 +155,8 @@ return {
             capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
             -- Completion configuration
-            vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-            -- vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+            -- vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+            vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
             capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
             capabilities.textDocument.codeLens = { dynamicRegistration = false }

@@ -2,7 +2,7 @@ local command = lk.command
 
 return {
     { -- [[ nvim-cmp ]]
-        -- enabled = false,
+        enabled = false,
         -- "hrsh7th/nvim-cmp",
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp", -- Otherwise highlighting gets messed up
@@ -20,6 +20,7 @@ return {
             { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
             { "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
             "https://codeberg.org/FelipeLema/cmp-async-path", -- not by me, but better than cmp-path
+            -- { "xzbdmw/colorful-menu.nvim", config = {} },
         },
         config = function()
             local cmp = require("cmp")
@@ -201,13 +202,15 @@ return {
     },
 
     { -- [[ blink.cmp ]]
-        enabled = false,
+        -- enabled = false,
         "saghen/blink.cmp",
         ft = { "TelescopePrompt", "DressingInput" },
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
+            "L3MON4D3/LuaSnip",
             "rafamadriz/friendly-snippets",
             { "echasnovski/mini.icons", version = "*" },
+            -- { "xzbdmw/colorful-menu.nvim", config = {} },
         },
         version = "*",
         opts = {
@@ -217,7 +220,7 @@ return {
                 nerd_font_variant = "mono",
             },
             sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
+                default = { "lsp", "path", "luasnip", "buffer" },
             },
             enabled = function()
                 return not vim.tbl_contains({ "TelescopePrompt", "DressingInput" }, vim.bo.filetype)
@@ -243,6 +246,21 @@ return {
                         },
                     },
                 },
+            },
+
+            snippets = {
+                expand = function(snippet)
+                    require("luasnip").lsp_expand(snippet)
+                end,
+                active = function(filter)
+                    if filter and filter.direction then
+                        return require("luasnip").jumpable(filter.direction)
+                    end
+                    return require("luasnip").in_snippet()
+                end,
+                jump = function(direction)
+                    require("luasnip").jump(direction)
+                end,
             },
         },
         opts_extend = { "sources.default" },
