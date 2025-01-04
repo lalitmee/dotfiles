@@ -21,10 +21,6 @@ require("lazy").setup("plugins", {
     defaults = {
         lazy = true,
     },
-    dev = {
-        path = "~/Desktop/Github",
-        patterns = { "lalitmee" },
-    },
     change_detection = {
         notify = false,
     },
