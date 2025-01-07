@@ -1,7 +1,7 @@
 shell-integration = zsh
 
 background = #193549
-background-opacity = 0.8
+background-opacity = 0.9
 background-blur-radius = 20
 theme = Cobalt2
 
