@@ -220,7 +220,7 @@ return {
                 nerd_font_variant = "mono",
             },
             sources = {
-                default = { "lsp", "path", "luasnip", "buffer" },
+                default = { "lsp", "path", "snippets", "buffer" },
             },
             enabled = function()
                 return not vim.tbl_contains({ "TelescopePrompt", "DressingInput" }, vim.bo.filetype)
@@ -249,6 +249,7 @@ return {
             },
 
             snippets = {
+                preset = "luasnip",
                 expand = function(snippet)
                     require("luasnip").lsp_expand(snippet)
                 end,
