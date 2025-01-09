@@ -1,4 +1,7 @@
 shell-integration = zsh
+shell-integration-features = no-cursor
+
+cursor-style = block
 
 background = #193549
 background-opacity = 0.9
@@ -14,6 +17,7 @@ gtk-wide-tabs = false
 gtk-adwaita = false
 
 window-decoration = false
+# macos-titlebar-style = transparent
 
 confirm-close-surface = false
 
