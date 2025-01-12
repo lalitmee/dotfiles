@@ -249,7 +249,6 @@ return {
             },
 
             snippets = {
-                preset = "luasnip",
                 expand = function(snippet)
                     require("luasnip").lsp_expand(snippet)
                 end,
