@@ -186,6 +186,8 @@ znap eval zoxide "zoxide init zsh"
 # NOTE: pyenv {{{
 # -------------------------------------------------------------------
 znap eval pyenv "pyenv init -"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
 # }}}
 # -------------------------------------------------------------------
 
