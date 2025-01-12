@@ -17,7 +17,7 @@ if vim.g.is_mac then
         g.python3_host_prog = mac_python_path
     end
 elseif vim.g.is_linux then
-    local linux_python_path = "/home/lalitmee/.pyenv/versions/neovim3/bin/python"
+    local linux_python_path = "/home/lalitmee/.pyenv/versions/neovim/bin/python"
     if vim.fn.filereadable(linux_python_path) then
         g.python3_host_prog = linux_python_path
     end
