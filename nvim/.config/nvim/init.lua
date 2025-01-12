@@ -23,6 +23,9 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 -- plugins
 require("lazy_init")
 
+-- utils
+require("utils")
+
 -- core
 require("core")
 
