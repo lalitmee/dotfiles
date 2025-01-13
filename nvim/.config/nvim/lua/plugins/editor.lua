@@ -229,6 +229,7 @@ return {
             end,
             completion = {
                 menu = {
+                    border = "rounded",
                     draw = {
                         components = {
                             kind_icon = {
@@ -244,6 +245,11 @@ return {
                                 end,
                             },
                         },
+                    },
+                },
+                documentation = {
+                    window = {
+                        border = "rounded",
                     },
                 },
             },
