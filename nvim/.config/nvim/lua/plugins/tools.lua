@@ -1,7 +1,7 @@
 local command = lk.command
 local fn = vim.fn
 
-local float_dimensions_opts = { width = 200, height = 50 }
+local float_dimensions_opts = { width = vim.o.columns, height = vim.o.lines - 3 }
 
 return {
     { --[[ undotree ]]
