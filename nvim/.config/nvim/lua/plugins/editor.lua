@@ -227,6 +227,7 @@ return {
                     and vim.bo.buftype ~= "prompt"
                     and vim.b.completion ~= false
             end,
+
             completion = {
                 list = {
                     selection = {
@@ -263,6 +264,11 @@ return {
                 },
             },
 
+            signature = {
+                enabled = true,
+                window = { border = "rounded" },
+            },
+
             snippets = {
                 expand = function(snippet)
                     require("luasnip").lsp_expand(snippet)
@@ -276,10 +282,6 @@ return {
                 jump = function(direction)
                     require("luasnip").jump(direction)
                 end,
-            },
-
-            signature = {
-                enabled = true,
             },
         },
         opts_extend = { "sources.default" },
