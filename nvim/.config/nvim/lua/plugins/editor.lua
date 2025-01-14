@@ -228,6 +228,14 @@ return {
                     and vim.b.completion ~= false
             end,
             completion = {
+                list = {
+                    selection = {
+                        preselect = true,
+                        auto_insert = function(ctx)
+                            return ctx.mode == "cmdline"
+                        end,
+                    },
+                },
                 menu = {
                     border = "rounded",
                     draw = {
@@ -248,6 +256,7 @@ return {
                     },
                 },
                 documentation = {
+                    auto_show = true,
                     window = {
                         border = "rounded",
                     },
@@ -267,6 +276,10 @@ return {
                 jump = function(direction)
                     require("luasnip").jump(direction)
                 end,
+            },
+
+            signature = {
+                enabled = true,
             },
         },
         opts_extend = { "sources.default" },
