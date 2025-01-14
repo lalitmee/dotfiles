@@ -207,10 +207,9 @@ return {
         ft = { "TelescopePrompt", "DressingInput" },
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets",
             { "echasnovski/mini.icons", version = "*" },
-            -- { "xzbdmw/colorful-menu.nvim", config = {} },
+            "niuiic/blink-cmp-rg.nvim",
+            "L3MON4D3/LuaSnip",
         },
         version = "*",
         opts = {
@@ -220,7 +219,31 @@ return {
                 nerd_font_variant = "mono",
             },
             sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
+                default = { "snippets", "lsp", "buffer", "path", "ripgrep" },
+                providers = {
+                    ripgrep = {
+                        module = "blink-cmp-rg",
+                        name = "RG",
+                        opts = {
+                            prefix_min_len = 3,
+                            get_command = function(_, prefix)
+                                return {
+                                    "rg",
+                                    "--no-config",
+                                    "--json",
+                                    "--word-regexp",
+                                    "--ignore-case",
+                                    "--",
+                                    prefix .. "[\\w_-]+",
+                                    vim.fs.root(0, ".git") or vim.fn.getcwd(),
+                                }
+                            end,
+                            get_prefix = function(context)
+                                return context.line:sub(1, context.cursor[2]):match("[%w_-]+$") or ""
+                            end,
+                        },
+                    },
+                },
             },
             enabled = function()
                 return not vim.tbl_contains({ "TelescopePrompt", "DressingInput" }, vim.bo.filetype)
@@ -240,6 +263,7 @@ return {
                 menu = {
                     border = "rounded",
                     draw = {
+                        columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
                         components = {
                             kind_icon = {
                                 ellipsis = false,
