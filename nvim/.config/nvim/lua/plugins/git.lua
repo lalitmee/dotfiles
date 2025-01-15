@@ -5,7 +5,7 @@ return {
         "NeogitOrg/neogit",
         cmd = { "Neogit" },
         keys = {
-            { "<leader>gs", ":Neogit<CR>", desc = "status", silent = true },
+            { "<leader>gs", ":Neogit<CR>", desc = "Status", silent = true },
         },
         init = function()
             -- autocmds
@@ -58,7 +58,7 @@ return {
         "tpope/vim-fugitive",
         cmd = { "Git" },
         keys = {
-            { "<leader>gs", ":Git<CR>", desc = "git-status", silent = true },
+            { "<leader>gs", ":Git<CR>", desc = "Git Status", silent = true },
         },
         enabled = false,
     },
@@ -96,7 +96,7 @@ return {
     { --[[ octo ]]
         "pwntester/octo.nvim",
         keys = {
-            { "<leader>go", ":Octo<CR>", desc = "octo", silent = true },
+            { "<leader>go", ":Octo<CR>", desc = "Octo", silent = true },
         },
         opts = {
             enable_builtin = true,
@@ -111,13 +111,13 @@ return {
             {
                 "<leader>gwa",
                 ":Telescope git_worktree create_git_worktree<CR>",
-                desc = "create-worktree",
+                desc = "Create Worktree",
                 silent = true,
             },
             {
                 "<leader>gwl",
                 ":Telescope git_worktree git_worktree<CR>",
-                desc = "list-worktrees",
+                desc = "List Worktrees",
                 silent = true,
             },
         },
@@ -132,13 +132,13 @@ return {
             {
                 "<leader>gwa",
                 ":Telescope g_worktree create<CR>",
-                desc = "create-worktree",
+                desc = "Create Worktree",
                 silent = true,
             },
             {
                 "<leader>gwl",
                 ":Telescope g_worktree list<CR>",
-                desc = "list-worktrees",
+                desc = "List Worktrees",
                 silent = true,
             },
         },

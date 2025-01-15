@@ -43,19 +43,19 @@ M.mappings = function(client)
     local nmap = lk.nmap
     local imap = lk.imap
 
-    nmap("gd", "<cmd>Telescope lsp_definitions<CR>", extend_map_opts({ desc = "go-to-definition" }))
+    nmap("gd", "<cmd>Telescope lsp_definitions<CR>", extend_map_opts({ desc = "Go To Definition" }))
     nmap("ge", function()
         require("telescope.builtin").diagnostics({ bufnr = 0 })
-    end, extend_map_opts({ desc = "go-to-diagnostics" }))
-    nmap("gE", "<cmd>Telescope diagnostics<CR>", extend_map_opts({ desc = "go-to-diagnostics" }))
-    nmap("gr", "<cmd>Telescope lsp_references<CR>", extend_map_opts({ desc = "go-to-refrences" }))
-    nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", extend_map_opts({ desc = "go-to-document-symbols" }))
+    end, extend_map_opts({ desc = "Go To Diagnostics" }))
+    nmap("gE", "<cmd>Telescope diagnostics<CR>", extend_map_opts({ desc = "Go To Diagnostics" }))
+    nmap("gr", "<cmd>Telescope lsp_references<CR>", extend_map_opts({ desc = "Go To Refrences" }))
+    nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", extend_map_opts({ desc = "Go To Document Symbols" }))
     nmap(
         "gW",
         "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",
         extend_map_opts({ desc = "go-to-dynamic-workspace-symbols" })
     )
-    nmap("ga", "<cmd>Telescope lsp_workspace_symbols<CR>", extend_map_opts({ desc = "go-to-workspace-symbols" }))
+    nmap("ga", "<cmd>Telescope lsp_workspace_symbols<CR>", extend_map_opts({ desc = "Go To Workspace Symbols" }))
     if client.name ~= "rust_analyzer" then
         nmap("K", vim.lsp.buf.hover, map_opts)
     end

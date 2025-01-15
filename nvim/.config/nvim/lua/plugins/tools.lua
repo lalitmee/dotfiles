@@ -8,7 +8,7 @@ return {
         "mbbill/undotree",
         cmd = { "UndotreeToggle" },
         keys = {
-            { "<leader>au", ":UndotreeToggle<CR>", desc = "undo-tree", silent = true },
+            { "<leader>au", ":UndotreeToggle<CR>", desc = "Undo Tree", silent = true },
         },
     },
 
@@ -26,11 +26,11 @@ return {
     { --[[ iswap ]]
         "mizlan/iswap.nvim",
         keys = {
-            { "<leader>ii", ":ISwap<CR>", desc = "iswap", silent = true },
-            { "<leader>il", ":ISwapWithLeft<CR>", desc = "swap-with-left", silent = true },
-            { "<leader>in", ":ISwapNode<CR>", desc = "swap-nodes", silent = true },
-            { "<leader>ir", ":ISwapWithRight<CR>", desc = "swap-with-right", silent = true },
-            { "<leader>iw", ":ISwapWith<CR>", desc = "swap-with", silent = true },
+            { "<leader>ii", ":ISwap<CR>", desc = "Iswap", silent = true },
+            { "<leader>il", ":ISwapWithLeft<CR>", desc = "Swap With Left", silent = true },
+            { "<leader>in", ":ISwapNode<CR>", desc = "Swap Nodes", silent = true },
+            { "<leader>ir", ":ISwapWithRight<CR>", desc = "Swap With Right", silent = true },
+            { "<leader>iw", ":ISwapWith<CR>", desc = "Swap With", silent = true },
         },
     },
 
@@ -85,15 +85,15 @@ return {
         "akinsho/toggleterm.nvim",
         keys = {
             [[<C-\>]],
-            { "<leader>a/", ":Serpl<CR>", desc = "search-and-replace", silent = true },
-            { "<leader>ab", ":Bottom<CR>", desc = "bottom", silent = true },
-            { "<leader>ad", ":LazyDocker<CR>", desc = "lazydocker", silent = true },
-            { "<leader>ag", ":LazyGit<CR>", desc = "lazygit", silent = true },
-            { "<leader>ah", ":ToggleTerm direction=horizontal<CR>", desc = "horizontal-terminal", silent = true },
-            { "<leader>ai", ":ChatGPTSh<CR>", desc = "chatgpt", silent = true },
-            { "<leader>af", ":GhDash<CR>", desc = "gh-dash", silent = true },
-            { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "vertical-terminal", silent = true },
-            { "<leader>gt", ":Tig<CR>", desc = "tig", silent = true },
+            { "<leader>a/", ":Serpl<CR>", desc = "Search And Replace", silent = true },
+            { "<leader>ab", ":Bottom<CR>", desc = "Bottom", silent = true },
+            { "<leader>ad", ":LazyDocker<CR>", desc = "Lazydocker", silent = true },
+            { "<leader>ag", ":LazyGit<CR>", desc = "Lazygit", silent = true },
+            { "<leader>ah", ":ToggleTerm direction=horizontal<CR>", desc = "Horizontal Terminal", silent = true },
+            { "<leader>ai", ":ChatGPTSh<CR>", desc = "Chatgpt", silent = true },
+            { "<leader>af", ":GhDash<CR>", desc = "Gh Dash", silent = true },
+            { "<leader>av", ":ToggleTerm direction=vertical<CR>", desc = "Vertical Terminal", silent = true },
+            { "<leader>gt", ":Tig<CR>", desc = "Tig", silent = true },
         },
         cmd = { "ToggleTerm" },
         opts = {
@@ -293,20 +293,20 @@ return {
         keys = {
             "<C-]>",
             "gd",
-            { "<leader>F/", ":FzfLua live_grep<CR>", desc = "fzf-live-grep", silent = true },
-            { "<leader>FbL", ":FzfLua lines<CR>", desc = "fzf-lines", silent = true },
-            { "<leader>Fbb", ":FzfLua buffers<CR>", desc = "fzf-buffers", silent = true },
-            { "<leader>Fbl", ":FzfLua blines<CR>", desc = "fzf-buffer-lines", silent = true },
-            { "<leader>Fff", ":FzfLua files<CR>", desc = "fzf-files", silent = true },
-            { "<leader>Fle", ":FzfLua lsp_document_diagnostics<CR>", desc = "fzf-lsp-document-diagnostics", silent = true },
-            { "<leader>FlE", ":FzfLua lsp_workspace_diagnostics<CR>", desc = "fzf-lsp-workspace-diagnostics", silent = true },
-            { "<leader>Fll", ":FzfLua lsp_finder<CR>", desc = "fzf-lsp-finder", silent = true },
-            { "<leader>Flr", ":FzfLua lsp_references<CR>", desc = "fzf-lsp-references", silent = true },
-            { "<leader>Flw", ":FzfLua lsp_document_symbols<CR>", desc = "fzf-lsp-document-symbols", silent = true },
-            { "<leader>FlW", ":FzfLua lsp_workspace_symbols<CR>", desc = "fzf-lsp-workspace-symbols", silent = true },
+            { "<leader>F/", ":FzfLua live_grep<CR>", desc = "Fzf Live Grep", silent = true },
+            { "<leader>FbL", ":FzfLua lines<CR>", desc = "Fzf Lines", silent = true },
+            { "<leader>Fbb", ":FzfLua buffers<CR>", desc = "Fzf Buffers", silent = true },
+            { "<leader>Fbl", ":FzfLua blines<CR>", desc = "Fzf Buffer Lines", silent = true },
+            { "<leader>Fff", ":FzfLua files<CR>", desc = "Fzf Files", silent = true },
+            { "<leader>Fle", ":FzfLua lsp_document_diagnostics<CR>", desc = "Fzf Lsp Document Diagnostics", silent = true },
+            { "<leader>FlE", ":FzfLua lsp_workspace_diagnostics<CR>", desc = "Fzf Lsp Workspace Diagnostics", silent = true },
+            { "<leader>Fll", ":FzfLua lsp_finder<CR>", desc = "Fzf Lsp Finder", silent = true },
+            { "<leader>Flr", ":FzfLua lsp_references<CR>", desc = "Fzf Lsp References", silent = true },
+            { "<leader>Flw", ":FzfLua lsp_document_symbols<CR>", desc = "Fzf Lsp Document Symbols", silent = true },
+            { "<leader>FlW", ":FzfLua lsp_workspace_symbols<CR>", desc = "Fzf Lsp Workspace Symbols", silent = true },
             { "<leader>Fls", ":FzfLua lsp_live_workspace_symbols<CR>", desc = "fzf-lsp-live-workspace-symbols", silent = true },
-            { "<leader>FsR", ":FzfLua live_grep_resume<CR>", desc = "fzf-live-grep-resume", silent = true },
-            { "<leader>Fsr", ":FzfLua resume<CR>", desc = "fzf-resume", silent = true },
+            { "<leader>FsR", ":FzfLua live_grep_resume<CR>", desc = "Fzf Live Grep Resume", silent = true },
+            { "<leader>Fsr", ":FzfLua resume<CR>", desc = "Fzf Resume", silent = true },
         },
         opts = {
             winopts = {
@@ -334,11 +334,11 @@ return {
             { "<C-l>", "<cmd>NavigatorRight<cr>", silent = true },
             { "<C-j>", "<cmd>NavigatorDown<cr>", silent = true },
             { "<C-k>", "<cmd>NavigatorUp<cr>", silent = true },
-            { "<leader>wh", ":NavigatorLeft<CR>", desc = "window-left", silent = true },
-            { "<leader>wj", ":NavigatorDown<CR>", desc = "window-down", silent = true },
-            { "<leader>wk", ":NavigatorUp<CR>", desc = "window-up", silent = true },
-            { "<leader>wl", ":NavigatorRight<CR>", desc = "window-right", silent = true },
-            { "<leader>wp", ":NavigatorPrevious<CR>", desc = "window-previous", silent = true },
+            { "<leader>wh", ":NavigatorLeft<CR>", desc = "Window Left", silent = true },
+            { "<leader>wj", ":NavigatorDown<CR>", desc = "Window Down", silent = true },
+            { "<leader>wk", ":NavigatorUp<CR>", desc = "Window Up", silent = true },
+            { "<leader>wl", ":NavigatorRight<CR>", desc = "Window Right", silent = true },
+            { "<leader>wp", ":NavigatorPrevious<CR>", desc = "Window Previous", silent = true },
         },
         opts = {
             auto_save = "all",
@@ -357,7 +357,7 @@ return {
                 function()
                     require("harpoon"):list():select(1)
                 end,
-                desc = "goto-file-1",
+                desc = "Goto File 1",
                 silent = true,
             },
             {
@@ -365,7 +365,7 @@ return {
                 function()
                     require("harpoon"):list():select(2)
                 end,
-                desc = "goto-file-2",
+                desc = "Goto File 2",
                 silent = true,
             },
             {
@@ -373,7 +373,7 @@ return {
                 function()
                     require("harpoon"):list():select(3)
                 end,
-                desc = "goto-file-3",
+                desc = "Goto File 3",
                 silent = true,
             },
             {
@@ -381,7 +381,7 @@ return {
                 function()
                     require("harpoon"):list():select(4)
                 end,
-                desc = "goto-file-4",
+                desc = "Goto File 4",
                 silent = true,
             },
             {
@@ -389,7 +389,7 @@ return {
                 function()
                     require("harpoon"):list():select(5)
                 end,
-                desc = "goto-file-5",
+                desc = "Goto File 5",
                 silent = true,
             },
 
@@ -398,7 +398,7 @@ return {
                 function()
                     require("harpoon"):list():add()
                 end,
-                desc = "add-file",
+                desc = "Add File",
                 silent = true,
             },
             {
@@ -406,7 +406,7 @@ return {
                 function()
                     require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
                 end,
-                desc = "toggle-harpoon",
+                desc = "Toggle Harpoon",
                 silent = true,
             },
         },
@@ -442,14 +442,14 @@ return {
         "lalitmee/browse.nvim",
         -- stylua: ignore
         keys = {
-            { "<localleader>bb", function() require("browse").browse() end, desc = "browse", mode = { "n", "x" } },
-            { "<localleader>bc", function() require("utils.cht").cht() end, desc = "cheatsheet" },
-            { "<localleader>bd", function() require("browse").devdocs.search() end, desc = "devdocs-search" },
-            { "<localleader>bf", function() require("browse").devdocs.search_with_filetype() end, desc = "devdocs-filetype-search" },
-            { "<localleader>bi", function() require("browse").input_search() end, desc = "input-search", mode = { "n", "x" } },
-            { "<localleader>bl", function() require("browse").open_bookmarks() end, desc = "bookmarks", mode = { "n", "x" } },
-            { "<localleader>bm", function() require("browse").mdn.search() end, desc = "mdn-search", mode = { "n", "x" } },
-            { "<localleader>bs", function() require("utils.cht").stack_overflow() end, desc = "stackoverflow" },
+            { "<localleader>bb", function() require("browse").browse() end, desc = "Browse", mode = { "n", "x" } },
+            { "<localleader>bc", function() require("utils.cht").cht() end, desc = "Cheatsheet" },
+            { "<localleader>bd", function() require("browse").devdocs.search() end, desc = "Devdocs Search" },
+            { "<localleader>bf", function() require("browse").devdocs.search_with_filetype() end, desc = "Devdocs Filetype Search" },
+            { "<localleader>bi", function() require("browse").input_search() end, desc = "Input Search", mode = { "n", "x" } },
+            { "<localleader>bl", function() require("browse").open_bookmarks() end, desc = "Bookmarks", mode = { "n", "x" } },
+            { "<localleader>bm", function() require("browse").mdn.search() end, desc = "Mdn Search", mode = { "n", "x" } },
+            { "<localleader>bs", function() require("utils.cht").stack_overflow() end, desc = "Stackoverflow" },
         },
         config = function()
             -- local bookmarks = {
@@ -582,11 +582,11 @@ return {
         build = "make build_generator",
         -- stylua: ignore
         keys = {
-            { "<leader>xa", ":CodeSnapASCII<CR>", mode = { "n", "v" }, desc = "codesnap-ascii", silent = true },
-            { "<leader>xh", ":CodeSnapHighlight<CR>", mode = { "n", "v" }, desc = "codesnap-highlight", silent = true },
-            { "<leader>xH", ":CodeSnapSaveHighlight<CR>", mode = { "n", "v" }, desc = "codesnap-save-highlight", silent = true },
-            { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "codesnap", silent = true },
-            { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "codesnap-save", silent = true },
+            { "<leader>xa", ":CodeSnapASCII<CR>", mode = { "n", "v" }, desc = "Codesnap Ascii", silent = true },
+            { "<leader>xh", ":CodeSnapHighlight<CR>", mode = { "n", "v" }, desc = "Codesnap Highlight", silent = true },
+            { "<leader>xH", ":CodeSnapSaveHighlight<CR>", mode = { "n", "v" }, desc = "Codesnap Save Highlight", silent = true },
+            { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "Codesnap", silent = true },
+            { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "Codesnap Save", silent = true },
         },
         opts = {
             save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots",
@@ -656,13 +656,13 @@ return {
         event = "VeryLazy",
         -- stylua: ignore
         keys = {
-            { "<leader>ml", ":MarksQFListAll<cr>", desc = "list-all-marks-qf", silent = true },
-            { "<leader>mq", ":MarksQFListBuf<cr>", desc = "list-buf-marks-qf", silent = true },
-            { "<leader>mL", ":MarksQFListGlobal<cr>", desc = "list-global-marks-qf", silent = true },
-            { "<leader>ma", ":MarksListAll<cr>", desc = "list-all-marks", silent = true },
-            { "<leader>mb", ":MarksListBuf<cr>", desc = "list-buf-marks", silent = true },
-            { "<leader>mg", ":MarksListGlobal<cr>", desc = "list-global-marks", silent = true },
-            { "<leader>mt", ":MarksToggleSigns<cr>", desc = "toggle-signs", silent = true },
+            { "<leader>ml", ":MarksQFListAll<cr>", desc = "List All Marks Qf", silent = true },
+            { "<leader>mq", ":MarksQFListBuf<cr>", desc = "List Buf Marks Qf", silent = true },
+            { "<leader>mL", ":MarksQFListGlobal<cr>", desc = "List Global Marks Qf", silent = true },
+            { "<leader>ma", ":MarksListAll<cr>", desc = "List All Marks", silent = true },
+            { "<leader>mb", ":MarksListBuf<cr>", desc = "List Buf Marks", silent = true },
+            { "<leader>mg", ":MarksListGlobal<cr>", desc = "List Global Marks", silent = true },
+            { "<leader>mt", ":MarksToggleSigns<cr>", desc = "Toggle Signs", silent = true },
         },
         opts = {
             excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "toggleterm" },
@@ -680,7 +680,7 @@ return {
         "barrett-ruth/http-codes.nvim",
         dependencies = "nvim-telescope/telescope.nvim",
         keys = {
-            { "<leader>sh", ":HTTPCodes<CR>", desc = "http-codes", silent = true },
+            { "<leader>sh", ":HTTPCodes<CR>", desc = "Http Codes", silent = true },
         },
         opts = {
             use = "telescope",

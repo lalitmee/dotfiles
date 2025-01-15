@@ -3,17 +3,17 @@ return {
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
-            { "<localleader>ca", ":ChatGPTRun add_tests<CR>", desc = "add-tests", silent = true },
-            { "<localleader>cc", ":ChatGPT<CR>", desc = "chatgpt", silent = true },
-            { "<localleader>cd", ":ChatGPTRun docstring<CR>", desc = "docstring", silent = true },
-            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>", desc = "edit-instructions", silent = true },
-            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>", desc = "fix-bugs", silent = true },
-            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "grammar-correction", silent = true },
-            { "<localleader>ch", ":ChatGPTActAs<CR>", desc = "act-as", silent = true },
-            { "<localleader>co", ":ChatGPTRun optimize_code<CR>", desc = "optimize-code", silent = true },
-            { "<localleader>cr", ":ChatGPTRun<CR>", desc = "chatgpt-run", silent = true },
-            { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "summarize", silent = true },
-            { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "translate", silent = true },
+            { "<localleader>ca", ":ChatGPTRun add_tests<CR>", desc = "Add Tests", silent = true },
+            { "<localleader>cc", ":ChatGPT<CR>", desc = "Chatgpt", silent = true },
+            { "<localleader>cd", ":ChatGPTRun docstring<CR>", desc = "Docstring", silent = true },
+            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>", desc = "Edit Instructions", silent = true },
+            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>", desc = "Fix Bugs", silent = true },
+            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction", silent = true },
+            { "<localleader>ch", ":ChatGPTActAs<CR>", desc = "Act As", silent = true },
+            { "<localleader>co", ":ChatGPTRun optimize_code<CR>", desc = "Optimize Code", silent = true },
+            { "<localleader>cr", ":ChatGPTRun<CR>", desc = "Chatgpt Run", silent = true },
+            { "<localleader>cs", ":ChatGPTRun summarize<CR>", desc = "Summarize", silent = true },
+            { "<localleader>ct", ":ChatGPTRun translate<CR>", desc = "Translate", silent = true },
         },
         opts = {
             popup_input = {
@@ -25,10 +25,10 @@ return {
     { --[[ backseat ]]
         "james1236/backseat.nvim",
         keys = {
-            { "<localleader>cb", ":Backseat<CR>", desc = "backseat", silent = true },
-            { "<localleader>ck", ":BackseatAsk<CR>", desc = "backseat-ask", silent = true },
-            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "backseat-clear-line", silent = true },
-            { "<localleader>cx", ":BackseatClear<CR>", desc = "backseat-clear", silent = true },
+            { "<localleader>cb", ":Backseat<CR>", desc = "Backseat", silent = true },
+            { "<localleader>ck", ":BackseatAsk<CR>", desc = "Backseat Ask", silent = true },
+            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "Backseat Clear Line", silent = true },
+            { "<localleader>cx", ":BackseatClear<CR>", desc = "Backseat Clear", silent = true },
         },
         opts = {
             openai_api_key = os.getenv("OPENAI_API_KEY"),
@@ -72,12 +72,12 @@ return {
             "CodeCompanionActions",
         },
         keys = {
-            { "<localleader>ac", ":CodeCompanion<CR>", desc = "code-companion", silent = true },
-            { "<localleader>ab", ":CodeCompanionWithBuffers<CR>", desc = "code-companion-with-buffers", silent = true },
-            { "<localleader>aw", ":CodeCompanionChat<CR>", desc = "code-companion-chat", silent = true },
-            { "<localleader>aa", ":CodeCompanionAdd<CR>", desc = "code-companion-add", silent = true },
-            { "<localleader>at", ":CodeCompanionToggle<CR>", desc = "code-companion-toggle", silent = true },
-            { "<localleader>as", ":CodeCompanionActions<CR>", desc = "code-companion-actions", silent = true },
+            { "<localleader>ac", ":CodeCompanion<CR>", desc = "Code Companion", silent = true },
+            { "<localleader>ab", ":CodeCompanionWithBuffers<CR>", desc = "Code Companion With Buffers", silent = true },
+            { "<localleader>aw", ":CodeCompanionChat<CR>", desc = "Code Companion Chat", silent = true },
+            { "<localleader>aa", ":CodeCompanionAdd<CR>", desc = "Code Companion Add", silent = true },
+            { "<localleader>at", ":CodeCompanionToggle<CR>", desc = "Code Companion Toggle", silent = true },
+            { "<localleader>as", ":CodeCompanionActions<CR>", desc = "Code Companion Actions", silent = true },
         },
         -- TODO: add config for adapters and use `Gemini` for the default adapter
         opts = {
