@@ -45,7 +45,7 @@ return {
     { --[[ telescope-frecency ]]
         "nvim-telescope/telescope-frecency.nvim",
         keys = {
-            { "<leader>pr", ":Telescope frecency<CR>", desc = "frecency", silent = true },
+            { "<leader>pr", ":Telescope frecency<CR>", desc = "Frecency", silent = true },
         },
         config = function()
             require("telescope").load_extension("frecency")
@@ -56,7 +56,7 @@ return {
         "danielfalk/smart-open.nvim",
         branch = "0.2.x",
         keys = {
-            { "<leader>pl", ":Telescope smart_open<CR>", desc = "smart-open", silent = true },
+            { "<leader>pl", ":Telescope smart_open<CR>", desc = "Smart Open", silent = true },
         },
         config = function()
             require("telescope").load_extension("smart_open")
@@ -80,7 +80,7 @@ return {
     { --[[ telescope-lazy ]]
         "tsakirist/telescope-lazy.nvim",
         keys = {
-            { "<leader>na", ":Telescope lazy<CR>", desc = "telescope-lazy", silent = true },
+            { "<leader>na", ":Telescope lazy<CR>", desc = "Telescope Lazy", silent = true },
         },
         config = function()
             require("telescope").load_extension("lazy")
@@ -90,7 +90,7 @@ return {
     { --[[ telescope-zoxide ]]
         "jvgrootveld/telescope-zoxide",
         keys = {
-            { "<leader>al", ":Telescope zoxide list<CR>", desc = "zoxide-list", silent = true },
+            { "<leader>al", ":Telescope zoxide list<CR>", desc = "Zoxide List", silent = true },
         },
         config = function()
             require("telescope").load_extension("zoxide")
@@ -100,7 +100,7 @@ return {
     { --[[ telescope-live-grep-args ]]
         "nvim-telescope/telescope-live-grep-args.nvim",
         keys = {
-            { "<leader>p/", ":Telescope live_grep_args<CR>", desc = "live-grep-args", silent = true },
+            { "<leader>p/", ":Telescope live_grep_args<CR>", desc = "Live Grep Args", silent = true },
         },
         config = function()
             require("telescope").load_extension("live_grep_args")
@@ -110,7 +110,7 @@ return {
     { --[[ telescope-luasnip ]]
         "benfowler/telescope-luasnip.nvim",
         keys = {
-            { "<leader>ia", ":Telescope luasnip<CR>", desc = "luasnip-snippets", silent = true },
+            { "<leader>ia", ":Telescope luasnip<CR>", desc = "Luasnip Snippets", silent = true },
         },
         config = function()
             require("telescope").load_extension("luasnip")
@@ -120,7 +120,7 @@ return {
     { --[[ telescope-import ]]
         "piersolenski/telescope-import.nvim",
         keys = {
-            { "<leader>pi", ":Telescope import<CR>", desc = "telescope-import", silent = true },
+            { "<leader>pi", ":Telescope import<CR>", desc = "Telescope Import", silent = true },
         },
         config = function()
             require("telescope").load_extension("import")
@@ -130,7 +130,7 @@ return {
     { --[[ telescope-helpgrep ]]
         "catgoose/telescope-helpgrep.nvim",
         keys = {
-            { "<leader>vg", ":Telescope helpgrep<CR>", desc = "helpgrep", silent = true },
+            { "<leader>vg", ":Telescope helpgrep<CR>", desc = "Helpgrep", silent = true },
         },
         config = function()
             require("telescope").load_extension("helpgrep")
@@ -141,7 +141,7 @@ return {
         "ryanmsnyder/toggleterm-manager.nvim",
         dependencies = { "akinsho/toggleterm.nvim" },
         keys = {
-            { "<leader>at", ":Telescope toggleterm_manager<CR>", desc = "toggleterm-manager", silent = true },
+            { "<leader>at", ":Telescope toggleterm_manager<CR>", desc = "Toggleterm Manager", silent = true },
         },
         config = true,
     },
@@ -149,7 +149,7 @@ return {
     {
         "nvim-telescope/telescope-project.nvim",
         keys = {
-            { "<leader>pp", ":Telescope project<CR>", desc = "projects", silent = true },
+            { "<leader>pp", ":Telescope project<CR>", desc = "Projects", silent = true },
         },
         config = function()
             require("telescope").load_extension("project")

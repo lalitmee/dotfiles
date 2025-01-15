@@ -13,7 +13,7 @@ return {
         "iamcco/markdown-preview.nvim",
         ft = "markdown",
         keys = {
-            { "<leader>am", "<cmd>MarkdownPreview<cr>", desc = "markdown-preview", silent = true },
+            { "<leader>am", "<cmd>MarkdownPreview<cr>", desc = "Markdown Preview", silent = true },
         },
         build = function()
             vim.fn["mkdp#util#install"]()
@@ -36,10 +36,10 @@ return {
     { --[[ neogen ]]
         "danymat/neogen",
         keys = {
-            { "<leader>dd", "<cmd>Neogen<CR>", desc = "doc-this", silent = true },
-            { "<leader>dc", "<cmd>Neogen class<cr>", desc = "doc-this-class", silent = true },
-            { "<leader>df", "<cmd>Neogen func<cr>", desc = "doc-this-function", silent = true },
-            { "<leader>dt", "<cmd>Neogen type<cr>", desc = "doc-this-type", silent = true },
+            { "<leader>dd", "<cmd>Neogen<CR>", desc = "Doc This", silent = true },
+            { "<leader>dc", "<cmd>Neogen class<cr>", desc = "Doc This Class", silent = true },
+            { "<leader>df", "<cmd>Neogen func<cr>", desc = "Doc This Function", silent = true },
+            { "<leader>dt", "<cmd>Neogen type<cr>", desc = "Doc This Type", silent = true },
         },
         opts = {
             snippet_engine = "luasnip",
@@ -88,7 +88,7 @@ return {
                     require("refactoring").debug.cleanup()
                 end,
                 mode = { "n", "v" },
-                desc = "delete-print-var",
+                desc = "Delete Print Var",
             },
             {
                 "<leader>rk",
@@ -96,7 +96,7 @@ return {
                     require("refactoring").debug.printf({ below = false })
                 end,
                 mode = { "n", "v" },
-                desc = "printf-above",
+                desc = "Printf Above",
             },
             {
                 "<leader>rj",
@@ -104,7 +104,7 @@ return {
                     require("refactoring").debug.printf()
                 end,
                 mode = { "n", "v" },
-                desc = "printf-below",
+                desc = "Printf Below",
             },
             {
                 "<leader>rp",
@@ -112,7 +112,7 @@ return {
                     require("refactoring").debug.print_var()
                 end,
                 mode = { "n", "v" },
-                desc = "print-var",
+                desc = "Print Var",
             },
             {
                 "<leader>rr",
@@ -120,7 +120,7 @@ return {
                     require("refactoring").select_refactor()
                 end,
                 mode = { "n", "v" },
-                desc = "list-refactors",
+                desc = "List Refactors",
             },
         },
         opts = {
@@ -164,19 +164,19 @@ return {
         },
         keys = {
             { "<leader>ro", group = "overseer" },
-            { "<leader>ro<leader>", ":OverseerQuickAction<CR>", desc = "quick-action", silent = true },
-            { "<leader>roa", ":OverseerTaskAction<CR>", desc = "task-action", silent = true },
-            { "<leader>rob", ":OverseerBuild<CR>", desc = "build", silent = true },
-            { "<leader>roc", ":OverseerRunCmd<CR>", desc = "run-cmd", silent = true },
-            { "<leader>rod", ":OverseerDeleteBundle<CR>", desc = "delete-bundle", silent = true },
-            { "<leader>rol", ":OverseerLoadBundle<CR>", desc = "load-bundle", silent = true },
-            { "<leader>roo", ":OverseerOpen<CR>", desc = "open", silent = true },
-            { "<leader>roq", ":OverseerClose<CR>", desc = "close", silent = true },
-            { "<leader>ror", ":OverseerRun<CR>", desc = "run", silent = true },
-            { "<leader>ros", ":OverseerSaveBundle ", desc = "save-bundle", silent = true },
-            { "<leader>roj", ":OverseerToggle bottom<CR>", desc = "toggle-on-bottom", silent = true },
-            { "<leader>roh", ":OverseerToggle left<CR>", desc = "toggle-on-left", silent = true },
-            { "<leader>ro;", ":OverseerToggle right<CR>", desc = "toggle-on-right", silent = true },
+            { "<leader>ro<leader>", ":OverseerQuickAction<CR>", desc = "Quick Action", silent = true },
+            { "<leader>roa", ":OverseerTaskAction<CR>", desc = "Task Action", silent = true },
+            { "<leader>rob", ":OverseerBuild<CR>", desc = "Build", silent = true },
+            { "<leader>roc", ":OverseerRunCmd<CR>", desc = "Run Cmd", silent = true },
+            { "<leader>rod", ":OverseerDeleteBundle<CR>", desc = "Delete Bundle", silent = true },
+            { "<leader>rol", ":OverseerLoadBundle<CR>", desc = "Load Bundle", silent = true },
+            { "<leader>roo", ":OverseerOpen<CR>", desc = "Open", silent = true },
+            { "<leader>roq", ":OverseerClose<CR>", desc = "Close", silent = true },
+            { "<leader>ror", ":OverseerRun<CR>", desc = "Run", silent = true },
+            { "<leader>ros", ":OverseerSaveBundle ", desc = "Save Bundle", silent = true },
+            { "<leader>roj", ":OverseerToggle bottom<CR>", desc = "Toggle On Bottom", silent = true },
+            { "<leader>roh", ":OverseerToggle left<CR>", desc = "Toggle On Left", silent = true },
+            { "<leader>ro;", ":OverseerToggle right<CR>", desc = "Toggle On Right", silent = true },
         },
         opts = {
             templates = { "tasks" },
@@ -196,7 +196,7 @@ return {
                 function()
                     require("neotest").run.run(vim.fn.expand("%"))
                 end,
-                desc = "run-file",
+                desc = "Run File",
                 silent = true,
             },
             {
@@ -204,7 +204,7 @@ return {
                 function()
                     require("neotest").run.run({ vim.fn.expand("%"), concurrent = false })
                 end,
-                desc = "run-file-sync",
+                desc = "Run File Sync",
                 silent = true,
             },
             {
@@ -212,7 +212,7 @@ return {
                 function()
                     require("neotest").jump.prev({ status = "failed" })
                 end,
-                desc = "next-failed",
+                desc = "Next Failed",
                 silent = true,
             },
             {
@@ -220,7 +220,7 @@ return {
                 function()
                     require("neotest").output.open({ enter = true, short = false })
                 end,
-                desc = "open-neotest-output",
+                desc = "Open Neotest Output",
                 silent = true,
             },
             {
@@ -228,7 +228,7 @@ return {
                 function()
                     require("neotest").jump.next({ status = "failed" })
                 end,
-                desc = "prev-failed",
+                desc = "Prev Failed",
                 silent = true,
             },
             {
@@ -236,7 +236,7 @@ return {
                 function()
                     require("neotest").run.stop({ interactive = true })
                 end,
-                desc = "cancel",
+                desc = "Cancel",
                 silent = true,
             },
             {
@@ -244,7 +244,7 @@ return {
                 function()
                     require("neotest").run.run()
                 end,
-                desc = "nearest",
+                desc = "Nearest",
                 silent = true,
             },
             {
@@ -252,7 +252,7 @@ return {
                 function()
                     require("neotest").summary.toggle()
                 end,
-                desc = "toggle-summary",
+                desc = "Toggle Summary",
                 silent = true,
             },
         },
@@ -296,18 +296,18 @@ return {
         "sourcegraph/sg.nvim",
         -- stylua: ignore
         keys = {
-            { "<leader>ca", ":CodyAsk<space>", desc = "cody-ask", mode = { "n", "x" } },
-            { "<leader>cc", ":CodyChat<CR>", desc = "cody-chat", mode = { "n", "x" }, silent = true },
-            { "<leader>cd", ":CodyTask<space>", desc = "cody-task", mode = { "n", "x" } },
-            { "<leader>ce", ":CodyExplain<CR>", desc = "cody-explain", mode = { "n", "x" }, silent = true },
-            { "<leader>cn", function() local name = vim.fn.input("chat name: ") require("sg.cody.commands").chat(name) end, desc = "named-cody-chat", mode = { "n", "x" } },
-            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "cody-toggle", mode = { "n", "x" }, silent = true },
-            { "<leader>sF", function() require("sg.extensions.telescope").fuzzy_search_results() end, desc = "sourcegraph-fuzzy-search" },
-            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "sourcegraph-link" , silent = true },
-            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "sourcegraph-search", silent = true },
+            { "<leader>ca", ":CodyAsk<space>", desc = "Cody Ask", mode = { "n", "x" } },
+            { "<leader>cc", ":CodyChat<CR>", desc = "Cody Chat", mode = { "n", "x" }, silent = true },
+            { "<leader>cd", ":CodyTask<space>", desc = "Cody Task", mode = { "n", "x" } },
+            { "<leader>ce", ":CodyExplain<CR>", desc = "Cody Explain", mode = { "n", "x" }, silent = true },
+            { "<leader>cn", function() local name = vim.fn.input("chat name: ") require("sg.cody.commands").chat(name) end, desc = "Named Cody Chat", mode = { "n", "x" } },
+            { "<leader>ct", "<cmd>CodyToggle<CR>", desc = "Cody Toggle", mode = { "n", "x" }, silent = true },
+            { "<leader>sF", function() require("sg.extensions.telescope").fuzzy_search_results() end, desc = "Sourcegraph Fuzzy Search" },
+            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "Sourcegraph Link" , silent = true },
+            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "Sourcegraph Search", silent = true },
 
             -- specific tasks
-            { "<leader>cs", ":CodyTask add docstring<CR>", desc = "cody-task", mode = { "n", "x", "v" }, silent = true },
+            { "<leader>cs", ":CodyTask add docstring<CR>", desc = "Cody Task", mode = { "n", "x", "v" }, silent = true },
         },
         opts = {
             on_attach = require("plugins.lsp.utils").on_attach,
@@ -322,10 +322,10 @@ return {
         ft = { "http" },
         -- stylua: ignore
         keys = {
-            { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "run-request" },
-            { "<leader>rhl", ":Rest run last<CR>", silent = true, desc = "run-last-request" },
-            { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "env" },
-            { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "logs" },
+            { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "Run Request" },
+            { "<leader>rhl", ":Rest run last<CR>", silent = true, desc = "Run Last Request" },
+            { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "Env" },
+            { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "Logs" },
         },
         config = function() end,
     },

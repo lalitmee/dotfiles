@@ -87,23 +87,23 @@ return {
             {
                 "pmizio/typescript-tools.nvim",
                 keys = {
-                    { "<leader>le", "<cmd>TSToolsAddMissingImports<cr>", desc = "add-missing-imports", silent = true },
-                    { "<leader>lj", "<cmd>TSToolsFixAll<cr>", desc = "fix-all", silent = true },
+                    { "<leader>le", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add Missing Imports", silent = true },
+                    { "<leader>lj", "<cmd>TSToolsFixAll<cr>", desc = "Fix All", silent = true },
                     {
                         "<leader>lg",
                         "<cmd>TSToolsGoToSourceDefinition<cr>",
-                        desc = "go-to-source-definition",
+                        desc = "Go To Source Definition",
                         silent = true,
                     },
-                    { "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", desc = "organize-imports", silent = true },
-                    { "<leader>lO", "<cmd>TSToolsSortImports<cr>", desc = "sort-imports", silent = true },
+                    { "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", desc = "Organize Imports", silent = true },
+                    { "<leader>lO", "<cmd>TSToolsSortImports<cr>", desc = "Sort Imports", silent = true },
                     {
                         "<leader>lu",
                         "<cmd>TSToolsRemoveUnusedImports<cr>",
-                        desc = "remove-unused-imports",
+                        desc = "Remove Unused Imports",
                         silent = true,
                     },
-                    { "<leader>lx", "<cmd>TSToolsRemoveUnused<cr>", desc = "remove-unused", silent = true },
+                    { "<leader>lx", "<cmd>TSToolsRemoveUnused<cr>", desc = "Remove Unused", silent = true },
                 },
                 opts = {
                     on_attach = lsp_utils.on_attach,
@@ -138,7 +138,7 @@ return {
                         function()
                             require("lsp-inlayhints").toggle()
                         end,
-                        desc = "lsp-inlayhints-toggle",
+                        desc = "Lsp Inlayhints Toggle",
                     },
                 },
                 enabled = false,
@@ -261,9 +261,9 @@ return {
         "stevearc/conform.nvim",
         event = { "BufWritePre" },
         keys = {
-            { "<leader>bf", "<cmd>Format<cr>", desc = "format", silent = true },
-            { "<leader>be", "<cmd>FormatEnable<cr>", desc = "format-enable", silent = true },
-            { "<leader>bk", "<cmd>FormatDisable<cr>", desc = "format-disable", silent = true },
+            { "<leader>bf", "<cmd>Format<cr>", desc = "Format", silent = true },
+            { "<leader>be", "<cmd>FormatEnable<cr>", desc = "Format Enable", silent = true },
+            { "<leader>bk", "<cmd>FormatDisable<cr>", desc = "Format Disable", silent = true },
         },
         init = function()
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

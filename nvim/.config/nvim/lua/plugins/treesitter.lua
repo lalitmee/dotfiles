@@ -6,9 +6,9 @@ return {
         event = "BufReadPost",
         cmd = "TSInstall",
         keys = {
-            { "<leader>lf", desc = "peek-function-definition", mode = { "n", "v" } },
-            { "<leader>lc", desc = "peek-class-definition", mode = { "n", "v" } },
-            { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "show-highlights-info", silent = true },
+            { "<leader>lf", desc = "Peek Function Definition", mode = { "n", "v" } },
+            { "<leader>lc", desc = "Peek Class Definition", mode = { "n", "v" } },
+            { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "Show Highlights Info", silent = true },
         },
         dependencies = {
             { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPost" },
@@ -180,8 +180,8 @@ return {
             "TSJJoin",
         },
         keys = {
-            { "gS", "<cmd>TSJSplit<CR>", desc = "split" },
-            { "gJ", "<cmd>TSJJoin<CR>", desc = "join" },
+            { "gS", "<cmd>TSJSplit<CR>", desc = "Split" },
+            { "gJ", "<cmd>TSJJoin<CR>", desc = "Join" },
         },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",

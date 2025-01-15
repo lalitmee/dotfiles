@@ -2,26 +2,27 @@ return { --[[ snacks.nvim ]]
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+
     -- stylua: ignore
     keys = {
         -- bufdelete
-        { "<leader>bd", function()Snacks.bufdelete()end, desc = "delete-buffer", silent = true,  },
-        { "<leader>bD", function() Snacks.bufdelete.all() end, desc = "delete-all-buffers", silent = true },
-        { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "delete-other-buffers", silent = true },
+        { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer", silent = true },
+        { "<leader>bD", function() Snacks.bufdelete.all() end, desc = "Delete All Buffers", silent = true },
+        { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers", silent = true },
 
         -- git
-        { "<leader>ge", function() Snacks.git.blame_line() end, desc = "git-blame", silent = true },
-        { "<leader>gr", function() Snacks.git.get_root() end, desc = "git-root", silent = true },
+        { "<leader>ge", function() Snacks.git.blame_line() end, desc = "Git Blame", silent = true },
+        { "<leader>gr", function() Snacks.git.get_root() end, desc = "Git Root", silent = true },
 
         -- gitbrowse, lazygit
-        { "<leader>ga", function() Snacks.gitbrowse() end, desc = "git-browse", silent = true },
-        { "<leader>gl", function() Snacks.lazygit.open() end, desc = "lazygit", silent = true },
-        { "<leader>gL", function() Snacks.lazygit.log() end, desc = "lazygit-log-view", silent = true },
-        { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "lazygit-log-file", silent = true },
+        { "<leader>ga", function() Snacks.gitbrowse() end, desc = "Git Browse", silent = true },
+        { "<leader>gl", function() Snacks.lazygit.open() end, desc = "Lazygit", silent = true },
+        { "<leader>gL", function() Snacks.lazygit.log() end, desc = "Lazygit Log View", silent = true },
+        { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Log File", silent = true },
 
         -- notifier
-        { "<leader>nd", function() Snacks.notifier.hide() end, desc = "hide-notifier", silent = true },
-        { "<leader>nn", function() Snacks.notifier.show_history() end, desc = "show-notifier-history", silent = true },
+        { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Hide Notifier", silent = true },
+        { "<leader>nn", function() Snacks.notifier.show_history() end, desc = "Show Notifier History", silent = true },
 
         -- scratch
         { "<leader>k.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
@@ -49,6 +50,7 @@ return { --[[ snacks.nvim ]]
             end,
         },
     },
+
     opts = {
         bigfile = { enabled = true },
         dashboard = { enabled = false },

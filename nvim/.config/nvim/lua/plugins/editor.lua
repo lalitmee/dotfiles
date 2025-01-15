@@ -294,6 +294,7 @@ return {
             },
 
             snippets = {
+                preset = "luasnip",
                 expand = function(snippet)
                     require("luasnip").lsp_expand(snippet)
                 end,
@@ -613,8 +614,8 @@ return {
             { "p", "<Plug>(YankyPutAfter)", mode = { "x" } },
             { "y", "<Plug>(YankyYank)", mode = { "n" } },
             { "y", "<Plug>(YankyYank)", mode = { "x" } },
-            { "<leader>ay", ":YankyRingHistory<CR>", desc = "yank-ring-history", mode = { "n", "x" } },
-            { "<leader>ty", ":Telescope yank_history<CR>", desc = "yank-history", mode = { "n", "x" } },
+            { "<leader>ay", ":YankyRingHistory<CR>", desc = "Yank Ring History", mode = { "n", "x" } },
+            { "<leader>ty", ":Telescope yank_history<CR>", desc = "Yank History", mode = { "n", "x" } },
         },
         dependencies = { "kkharji/sqlite.lua" },
         opts = {
@@ -688,7 +689,7 @@ return {
                 function()
                     require("flash").jump()
                 end,
-                desc = "jump",
+                desc = "Jump",
                 silent = true,
                 mode = { "n", "v", "x", "o" },
             },
@@ -702,7 +703,7 @@ return {
                         pattern = "^",
                     })
                 end,
-                desc = "line",
+                desc = "Line",
                 silent = true,
                 mode = { "n", "v", "x", "o" },
             },
@@ -712,7 +713,7 @@ return {
                 function()
                     require("flash").remote()
                 end,
-                desc = "remote",
+                desc = "Remote",
                 silent = true,
                 mode = { "n", "v", "x", "o" },
             },
@@ -722,7 +723,7 @@ return {
                 function()
                     require("flash").treesitter()
                 end,
-                desc = "treesitter",
+                desc = "Treesitter",
                 silent = true,
                 mode = { "n", "v", "x", "o" },
             },
@@ -732,7 +733,7 @@ return {
                 function()
                     require("flash").jump({ pattern = vim.fn.expand("<cword>") })
                 end,
-                desc = "current-word",
+                desc = "Current Word",
                 mode = { "n", "v", "x", "o" },
             },
 
@@ -747,7 +748,7 @@ return {
                         },
                     })
                 end,
-                desc = "beginning-of-words",
+                desc = "Beginning Of Words",
                 silent = true,
                 mode = { "n", "v", "x", "o" },
             },
@@ -771,7 +772,7 @@ return {
                         jump = { pos = "range" },
                     })
                 end,
-                desc = "select-word",
+                desc = "Select Word",
                 mode = { "n", "v", "x", "o" },
             },
 
@@ -798,7 +799,7 @@ return {
                         end,
                     })
                 end,
-                desc = "diagnostics",
+                desc = "Diagnostics",
                 silent = true,
                 mode = { "n", "v", "x", "o" },
             },
@@ -849,7 +850,7 @@ return {
                         end,
                     })
                 end,
-                desc = "2-char-jump",
+                desc = "2 Char Jump",
                 mode = { "n", "v", "x", "o" },
             },
         },
@@ -873,7 +874,7 @@ return {
                 function()
                     require("spectre").open_file_search()
                 end,
-                desc = "file-search",
+                desc = "File Search",
                 silent = true,
             },
             {
@@ -881,7 +882,7 @@ return {
                 function()
                     require("spectre").open()
                 end,
-                desc = "open",
+                desc = "Open",
                 silent = true,
             },
             {
@@ -889,7 +890,7 @@ return {
                 function()
                     require("spectre").open_visual({ select_word = true })
                 end,
-                desc = "current-word-search",
+                desc = "Current Word Search",
                 silent = true,
             },
             {
@@ -897,7 +898,7 @@ return {
                 function()
                     require("spectre").open_visual({ select_word = true })
                 end,
-                desc = "spectre-visual-search",
+                desc = "Spectre Visual Search",
                 silent = true,
                 mode = "v",
             },
@@ -919,7 +920,7 @@ return {
     { --[[ muren ]]
         "AckslD/muren.nvim",
         keys = {
-            { "<leader>sj", "<CMD>MurenToggle<CR>", desc = "toggle-muren", silent = true },
+            { "<leader>sj", "<CMD>MurenToggle<CR>", desc = "Toggle Muren", silent = true },
         },
         opts = {
             patterns_width = 50,
@@ -967,8 +968,8 @@ return {
         "stevearc/oil.nvim",
         cmd = { "Oil" },
         keys = {
-            { "<leader>ae", ":Oil<CR>", desc = "file-browser", silent = true },
-            { "<leader>ao", ":Oil --float<CR>", desc = "file-browser-float", silent = true },
+            { "<leader>ae", ":Oil<CR>", desc = "File Browser", silent = true },
+            { "<leader>ao", ":Oil --float<CR>", desc = "File Browser Float", silent = true },
         },
         opts = {
             columns = { "icon" },
@@ -1021,9 +1022,9 @@ return {
         },
         keys = {
             { "<leader>ql", ":LLToggle!<space>", desc = "loclist-toggle-!", silent = true },
-            { "<leader>ql<leader>", ":LLToggle<CR>", desc = "loclist-toggle", silent = true },
+            { "<leader>ql<leader>", ":LLToggle<CR>", desc = "Loclist Toggle", silent = true },
             { "<leader>qq", ":QFToggle!<CR>", desc = "quifkfix-toggle-!", silent = true },
-            { "<leader>qq<leader>", ":QFToggle<CR>", desc = "quifkfix-toggle", silent = true },
+            { "<leader>qq<leader>", ":QFToggle<CR>", desc = "Quifkfix Toggle", silent = true },
         },
         opts = {},
     },
@@ -1037,8 +1038,8 @@ return {
         "tpope/vim-scriptease",
         cmd = { "Messages", "Runtime", "Scriptnames", "Time", "Verbose" },
         keys = {
-            { "<leader>hm", ":Messages<CR>", desc = "messages", silent = true },
-            { "<leader>hv", ":Verbose<space>", desc = "verbose", silent = true },
+            { "<leader>hm", ":Messages<CR>", desc = "Messages", silent = true },
+            { "<leader>hv", ":Verbose<space>", desc = "Verbose", silent = true },
         },
     },
 
@@ -1054,17 +1055,34 @@ return {
     { --[[ abolish ]]
         "tpope/vim-abolish",
         cmd = { "Abolish", "Subvert", "S" },
-        -- stylua: ignore
         keys = {
-            { "crs", desc = 'snake-case', mode = { "n", "x", "o", "v" } },
-            { "crm", desc = 'mixed-case', mode = { "n", "x", "o", "v" } },
-            { "crc", desc = 'camel-case', mode = { "n", "x", "o", "v" } },
-            { "cru", desc = 'upper-case', mode = { "n", "x", "o", "v" } },
-            { "cr-", desc = 'dash-case', mode = { "n", "x", "o", "v" } },
-            { "cr.", desc = 'dot-case', mode = { "n", "x", "o", "v" } },
-            { "<leader>sl", ":S/<C-R><C-W>//<LEFT>", mode = "n", silent = false, desc = "Replace Word <cursor> (line)" },
-            { "<leader>sf", ":%S/<C-r><C-w>//c<left><left>", mode = "n", silent = false, desc = "Replace Word <cursor> (file)" },
-            { "<leader>sv", [["zy:'<'>S/<C-r><C-o>"//c<left><left>]], mode = "x", silent = false, desc = "Replace Word <cursor> (visual)" },
+            { "crs", desc = "Snake Case", mode = { "n", "x", "o", "v" } },
+            { "crm", desc = "Mixed Case", mode = { "n", "x", "o", "v" } },
+            { "crc", desc = "Camel Case", mode = { "n", "x", "o", "v" } },
+            { "cru", desc = "Upper Case", mode = { "n", "x", "o", "v" } },
+            { "cr-", desc = "Dash Case", mode = { "n", "x", "o", "v" } },
+            { "cr.", desc = "Dot Case", mode = { "n", "x", "o", "v" } },
+            {
+                "<leader>sl",
+                ":S/<C-R><C-W>//<LEFT>",
+                mode = "n",
+                silent = false,
+                desc = "Replace Word <cursor> (line)",
+            },
+            {
+                "<leader>sf",
+                ":%S/<C-r><C-w>//c<left><left>",
+                mode = "n",
+                silent = false,
+                desc = "Replace Word <cursor> (file)",
+            },
+            {
+                "<leader>sv",
+                [["zy:'<'>S/<C-r><C-o>"//c<left><left>]],
+                mode = "x",
+                silent = false,
+                desc = "Replace Word <cursor> (visual)",
+            },
         },
         config = function()
             vim.cmd([[
@@ -1117,7 +1135,7 @@ return {
         "nvim-lualine/lualine.nvim",
         event = "BufEnter",
         keys = {
-            { "<leader>wr", ":LualineRenameTab<space>", desc = "rename-lualine-tab", silent = true },
+            { "<leader>wr", ":LualineRenameTab<space>", desc = "Rename Lualine Tab", silent = true },
         },
         opts = {
             options = {
