@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-
-
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 
 export FZF_CTRL_R_OPTS=$FZF_CTRL_R_OPTS"
