@@ -3,6 +3,7 @@ return {
     builder = function()
         return {
             cmd = "npm",
+            args = { "install" },
             cwd = vim.fn.getcwd(),
             name = "npm-install",
             components = {
