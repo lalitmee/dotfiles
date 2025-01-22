@@ -199,7 +199,7 @@ o.inccommand = "split"
 -- This is from the help docs, it enables mode shapes,
 -- "Cursor" highlight, and blinking
 
-o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20"
+o.guicursor = "n-v-c-i:block,r-cr-o:hor20"
 o.cursorline = true
 o.cursorcolumn = false
 o.conceallevel = 2
