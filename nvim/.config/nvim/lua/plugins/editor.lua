@@ -208,7 +208,7 @@ return {
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             { "echasnovski/mini.icons", version = "*" },
-            "niuiic/blink-cmp-rg.nvim",
+            "mikavilpas/blink-ripgrep.nvim",
             "L3MON4D3/LuaSnip",
         },
         version = "*",
@@ -222,25 +222,13 @@ return {
                 default = { "snippets", "lsp", "buffer", "path", "ripgrep" },
                 providers = {
                     ripgrep = {
-                        module = "blink-cmp-rg",
+                        module = "blink-ripgrep",
                         name = "RG",
+                        score_offset = -999,
                         opts = {
-                            prefix_min_len = 3,
-                            get_command = function(_, prefix)
-                                return {
-                                    "rg",
-                                    "--no-config",
-                                    "--json",
-                                    "--word-regexp",
-                                    "--ignore-case",
-                                    "--",
-                                    prefix .. "[\\w_-]+",
-                                    vim.fs.root(0, ".git") or vim.fn.getcwd(),
-                                }
-                            end,
-                            get_prefix = function(context)
-                                return context.line:sub(1, context.cursor[2]):match("[%w_-]+$") or ""
-                            end,
+                            future_features = {
+                                kill_previous_searches = true,
+                            },
                         },
                     },
                 },
