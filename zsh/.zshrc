@@ -110,7 +110,7 @@ plugins=(
     git
     tmux
     tmuxinator
-    vi-mode
+    zsh-vi-mode
     zoxide
     zsh-autosuggestions
     zsh-lazyload
@@ -123,15 +123,6 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
 
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: zsh plugins settings {{{
-# -------------------------------------------------------------------
-# vi-mode settings
-VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
-VI_MODE_SET_CURSOR=true
 # }}}
 # -------------------------------------------------------------------
 
@@ -164,6 +155,9 @@ fi
 
 # keybindings
 [[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
+
+# plugins config
+[[ -f ~/.plugins-config/init.zsh ]] && source ~/.plugins-config/init.zsh
 # }}}
 # -------------------------------------------------------------------
 
