@@ -52,6 +52,7 @@ return { --[[ snacks.nvim ]]
     },
 
     opts = {
+        scope = { enabled = true },
         bigfile = { enabled = true },
         dashboard = { enabled = false },
         notifier = {

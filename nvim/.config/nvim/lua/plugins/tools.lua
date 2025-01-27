@@ -77,6 +77,20 @@ return {
                         opts = { desc = "Move line up" },
                     },
                 },
+                ["j"] = {
+                    next = {
+                        rhs = function()
+                            Snacks.words.jump(1, true)
+                        end,
+                        opts = { desc = "Next Word" },
+                    },
+                    prev = {
+                        rhs = function()
+                            Snacks.words.jump(-1, true)
+                        end,
+                        opts = { desc = "Previous Word" },
+                    },
+                },
             },
         },
     },
