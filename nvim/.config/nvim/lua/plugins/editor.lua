@@ -208,12 +208,18 @@ return {
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             { "echasnovski/mini.icons", version = "*" },
-            "mikavilpas/blink-ripgrep.nvim",
             "L3MON4D3/LuaSnip",
+            "mikavilpas/blink-ripgrep.nvim",
+            {
+                "Kaiser-Yang/blink-cmp-dictionary",
+                dependencies = { "nvim-lua/plenary.nvim" },
+            },
         },
         version = "*",
         opts = {
-            keymap = { preset = "default" },
+            keymap = {
+                preset = "default",
+            },
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = "mono",
@@ -223,13 +229,19 @@ return {
                 providers = {
                     ripgrep = {
                         module = "blink-ripgrep",
-                        name = "RG",
+                        name = "Rg",
                         score_offset = -999,
                         opts = {
                             future_features = {
                                 kill_previous_searches = true,
                             },
                         },
+                    },
+                    dictionary = {
+                        module = "blink-cmp-dictionary",
+                        name = "Dict",
+                        min_keyword_length = 3,
+                        opts = {},
                     },
                 },
             },
@@ -240,6 +252,7 @@ return {
             end,
 
             completion = {
+
                 list = {
                     selection = {
                         preselect = true,
@@ -248,6 +261,7 @@ return {
                         end,
                     },
                 },
+
                 menu = {
                     border = "rounded",
                     draw = {
@@ -268,11 +282,16 @@ return {
                         },
                     },
                 },
+
                 documentation = {
                     auto_show = true,
                     window = {
                         border = "rounded",
                     },
+                },
+
+                trigger = {
+                    prefetch_on_insert = false,
                 },
             },
 
