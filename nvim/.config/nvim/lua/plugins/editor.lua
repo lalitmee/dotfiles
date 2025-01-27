@@ -210,6 +210,7 @@ return {
             { "echasnovski/mini.icons", version = "*" },
             "L3MON4D3/LuaSnip",
             "mikavilpas/blink-ripgrep.nvim",
+            "moyiz/blink-emoji.nvim",
             {
                 "Kaiser-Yang/blink-cmp-dictionary",
                 dependencies = { "nvim-lua/plenary.nvim" },
@@ -242,6 +243,12 @@ return {
                         name = "Dict",
                         min_keyword_length = 3,
                         opts = {},
+                    },
+                    emoji = {
+                        module = "blink-emoji",
+                        name = "Emoji",
+                        score_offset = 15,
+                        opts = { insert = true },
                     },
                 },
             },
