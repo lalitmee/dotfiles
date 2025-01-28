@@ -64,3 +64,5 @@ src
 csp
 url
 pdp
+wildcard
+whitelist
