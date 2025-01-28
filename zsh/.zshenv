@@ -101,6 +101,13 @@ append_to_path "$PYENV_ROOT/bin"
 # atuin
 append_to_path "$HOME/.atuin/bin"
 [[ -f "$HOME/.atuin/bin/env" ]] && source "$HOME/.atuin/bin/env"
+
+# fnm
+FNM_PATH="$HOME/.local/share/fnm"
+append_to_path "$FNM_PATH"
+if [[ -d "$FNM_PATH" ]]; then
+    eval "$(fnm env)"
+fi
 # }}}
 # -------------------------------------------------------------------
 
@@ -149,13 +156,5 @@ append_to_path "$HOME/Android/Sdk/emulator"
 append_to_path "$HOME/Android/Sdk/tools"
 append_to_path "$HOME/Android/Sdk/tools/bin"
 append_to_path "$HOME/Android/Sdk/platform-tools"
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
-# NOTE: nvm {{{
-# -------------------------------------------------------------------
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
 # }}}
 # -------------------------------------------------------------------
