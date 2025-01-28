@@ -293,7 +293,7 @@ return {
 
                     -- NOTE: by colorful-menu.nvim
                     draw = {
-                        columns = { { "kind_icon", gap = 2 }, { "label", gap = 2 }, { "source_name" } },
+                        columns = { { "kind_icon" }, { "label" }, { "source_name" } },
                         components = {
                             label = {
                                 text = function(ctx)
