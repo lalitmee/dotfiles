@@ -115,7 +115,7 @@ plugins=(
     zsh-autosuggestions
     zsh-lazyload
     zsh-wakatime
-    zsh-nvm
+    # zsh-nvm
 )
 
 # zsh completions
@@ -198,6 +198,14 @@ znap eval rbenv "rbenv init -"
 znap eval atuin "atuin init zsh"
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: fnm {{{
+# -------------------------------------------------------------------
+znap eval fnm 'fnm env --use-on-cd --shell zsh'
+# }}}
+# -------------------------------------------------------------------
+
 
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
