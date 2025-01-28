@@ -17,7 +17,8 @@ return {
                     "lk",
                     "require",
                     "vim",
-                    "vim",
+                    "_dd",
+                    "_bt",
                 },
             },
             completion = {
