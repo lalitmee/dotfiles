@@ -207,6 +207,7 @@ return {
         ft = { "TelescopePrompt", "DressingInput" },
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
+            { "xzbdmw/colorful-menu.nvim", config = {} },
             { "echasnovski/mini.icons", version = "*" },
             "L3MON4D3/LuaSnip",
             "mikavilpas/blink-ripgrep.nvim",
@@ -271,19 +272,35 @@ return {
 
                 menu = {
                     border = "rounded",
+                    -- NOTE: by blink.cmp for mini.icon
+                    -- draw = {
+                    --     columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
+                    --     components = {
+                    --         kind_icon = {
+                    --             ellipsis = false,
+                    --             text = function(ctx)
+                    --                 local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                    --                 return kind_icon
+                    --             end,
+                    --             -- Optionally, you may also use the highlights from mini.icons
+                    --             highlight = function(ctx)
+                    --                 local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                    --                 return hl
+                    --             end,
+                    --         },
+                    --     },
+                    -- },
+
+                    -- NOTE: by colorful-menu.nvim
                     draw = {
-                        columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
+                        columns = { { "kind_icon", gap = 2 }, { "label", gap = 2 }, { "source_name" } },
                         components = {
-                            kind_icon = {
-                                ellipsis = false,
+                            label = {
                                 text = function(ctx)
-                                    local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-                                    return kind_icon
+                                    return require("colorful-menu").blink_components_text(ctx)
                                 end,
-                                -- Optionally, you may also use the highlights from mini.icons
                                 highlight = function(ctx)
-                                    local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                                    return hl
+                                    return require("colorful-menu").blink_components_highlight(ctx)
                                 end,
                             },
                         },
