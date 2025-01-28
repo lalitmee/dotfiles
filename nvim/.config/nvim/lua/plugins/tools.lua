@@ -279,7 +279,21 @@ return {
         enabled = false,
     },
 
-    { --[[ scretch ]]
+    { --[[ scratch.nvim ]]
+        "LintaoAmons/scratch.nvim",
+        -- stylua: ignore
+        keys = {
+            { "<leader>kA", [[<cmd>Scratch<cr>]], desc = "New Scratch" },
+            { "<leader>kN", [[<cmd>ScratchWithName<cr>]], desc = "New Named Scratch" },
+            { "<leader>ko", [[<cmd>ScratchOpen<cr>]], desc = "Open Scratch" },
+            { "<leader>kF", [[<cmd>ScratchOpenFzf<cr>]], desc = "Open Scratch Fzf" },
+        },
+        opts = {
+            file_picker = "telescope",
+        },
+    },
+
+    { --[[ scretch.nvim ]]
         "Sonicfury/scretch.nvim",
         -- stylua: ignore
         keys = {
