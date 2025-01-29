@@ -157,7 +157,6 @@ return {
                 --  NOTE: <leader>g -> git {{{
                 --------------------------------------------------------------------------------
                 { "<leader>g", group = "git" },
-                { "<leader>g/", ":Telescope git_status<CR>", desc = "Git Status" },
                 { "<leader>gb", ":Telescope git_branches<CR>", desc = "Checkout" },
 
                 { "<leader>gc", group = "commit" },
