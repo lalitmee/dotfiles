@@ -996,6 +996,29 @@ return {
         opts = {},
     },
 
+    { --[[ nvim-treesitter ]]
+        "mangelozzi/rgflow.nvim",
+        keys = {
+            {
+                "<leader>rg",
+                function()
+                    require("rgflow").open()
+                end,
+                desc = "Open RgFlow",
+                silent = true,
+            },
+        },
+        opts = {
+            cmd_flags = "--smart-case --fixed-strings --ignore --max-columns 200",
+            -- Mappings to trigger RgFlow functions
+            default_trigger_mappings = true,
+            -- These mappings are only active when the RgFlow UI (panel) is open
+            default_ui_mappings = true,
+            -- QuickFix window only mapping
+            default_quickfix_mappings = true,
+        },
+    },
+
     { --[[ muren ]]
         "AckslD/muren.nvim",
         keys = {

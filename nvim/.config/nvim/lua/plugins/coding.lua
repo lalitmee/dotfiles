@@ -85,18 +85,18 @@ return {
             {
                 "<leader>rd",
                 function()
+                    require("refactoring").debug.print_var()
+                end,
+                mode = { "n", "v" },
+                desc = "Print Var",
+            },
+            {
+                "<leader>rD",
+                function()
                     require("refactoring").debug.cleanup()
                 end,
                 mode = { "n", "v" },
                 desc = "Delete Print Var",
-            },
-            {
-                "<leader>rk",
-                function()
-                    require("refactoring").debug.printf({ below = false })
-                end,
-                mode = { "n", "v" },
-                desc = "Printf Above",
             },
             {
                 "<leader>rj",
@@ -107,12 +107,12 @@ return {
                 desc = "Printf Below",
             },
             {
-                "<leader>rp",
+                "<leader>rk",
                 function()
-                    require("refactoring").debug.print_var()
+                    require("refactoring").debug.printf({ below = false })
                 end,
                 mode = { "n", "v" },
-                desc = "Print Var",
+                desc = "Printf Above",
             },
             {
                 "<leader>rr",
