@@ -1,0 +1,622 @@
+[
+  {
+    "settings": {
+      "disableAll": false,
+      "exposeIframes": false,
+      "exposeStyleName": false,
+      "keepAlive": 0,
+      "keepAliveIdle": false,
+      "keepAliveCache": false,
+      "newStyleAsUsercss": false,
+      "openEditInWindow": false,
+      "openEditInWindow.popup": false,
+      "patchCsp": false,
+      "show-badge": true,
+      "styleViaASS": false,
+      "styleViaXhr": false,
+      "urlInstaller": true,
+      "windowPosition": {},
+      "compactWidth": 850,
+      "config.autosave": true,
+      "schemeSwitcher.enabled": "system",
+      "schemeSwitcher.nightStart": "18:00",
+      "schemeSwitcher.nightEnd": "06:00",
+      "popup.enabledFirst": true,
+      "popup.stylesFirst": true,
+      "popup.autoResort": false,
+      "popup.borders": false,
+      "popup.findSort": "w",
+      "manage.onlyEnabled": false,
+      "manage.onlyLocal": false,
+      "manage.onlyUsercss": false,
+      "manage.onlyEnabled.invert": false,
+      "manage.onlyLocal.invert": false,
+      "manage.onlyUsercss.invert": false,
+      "manage.actions.expanded": false,
+      "manage.backup.expanded": true,
+      "manage.filters.expanded": true,
+      "manage.links.expanded": true,
+      "manage.minColumnWidth": 750,
+      "manage.newUI": true,
+      "manage.newUI.favicons": true,
+      "manage.newUI.faviconsGray": false,
+      "manage.newUI.targets": 3,
+      "manage.newUI.sort": "title,asc",
+      "manage.searchMode": "meta",
+      "editor.options": {},
+      "editor.toc.expanded": true,
+      "editor.options.expanded": true,
+      "editor.options.style.expanded": true,
+      "editor.lint.expanded": true,
+      "editor.publish.expanded": true,
+      "editor.lineWrapping": true,
+      "editor.smartIndent": true,
+      "editor.indentWithTabs": false,
+      "editor.tabSize": 4,
+      "editor.keyMap": "sublime",
+      "editor.theme": "default",
+      "editor.beautify": {
+        "selector_separator_newline": true,
+        "newline_before_open_brace": false,
+        "newline_after_open_brace": true,
+        "newline_between_properties": true,
+        "newline_before_close_brace": true,
+        "newline_between_rules": false,
+        "preserve_newlines": true,
+        "end_with_newline": false,
+        "indent_conditional": true,
+        "indent_mozdoc": true,
+        "space_around_combinator": true,
+        "space_around_cmp": false
+      },
+      "editor.beautify.hotkey": "Shift-Ctrl-I",
+      "editor.lintDelay": 300,
+      "editor.linter": "csslint",
+      "editor.lintReportDelay": 500,
+      "editor.matchHighlight": "token",
+      "editor.autoCloseBrackets": true,
+      "editor.autocompleteOnTyping": true,
+      "editor.contextDelete": false,
+      "editor.selectByTokens": true,
+      "editor.arrowKeysTraverse": true,
+      "editor.appliesToLineWidget": true,
+      "editor.autosaveDraft": 10,
+      "editor.livePreview": true,
+      "editor.livePreview.delay": 0.2,
+      "editor.targetsFirst": true,
+      "editor.colorpicker": true,
+      "editor.colorpicker.hexUppercase": false,
+      "editor.colorpicker.hotkey": "",
+      "editor.colorpicker.color": "",
+      "editor.colorpicker.maxHeight": 300,
+      "hotkey._execute_browser_action": "",
+      "hotkey.openManage": "",
+      "hotkey.styleDisableAll": "",
+      "sync.enabled": "google",
+      "iconset": -1,
+      "badgeDisabled": "#8B0000",
+      "badgeNormal": "#006666",
+      "headerWidth.edit": 280,
+      "headerWidth.install": 280,
+      "headerWidth.manage": 280,
+      "popup.search.globals": false,
+      "popupWidth": 246,
+      "popupWidthMax": 280,
+      "updateInterval": 24,
+      "updateOnlyEnabled": false
+    },
+    "order": {
+      "main": [],
+      "prio": []
+    }
+  },
+  {
+    "enabled": true,
+    "installDate": 1706821492607,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           127.0.0.1 - Feb 2024\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n@-moz-document domain(\"127.0.0.1\") {\n    /* Insert code here... */\n    #file-editor .CodeMirror-lines,\n    #file-editor .CodeMirror-gutters {\n        font-family: 'Operator Mono Lig Book' !important;\n    }\n}",
+    "usercssData": {
+      "name": "127.0.0.1 - Feb 2024",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "127.0.0.1 - Feb 2024",
+    "updateDate": 1706821774501,
+    "_id": "572c3d0c-37fb-4196-92f8-f617f73d89a8",
+    "_rev": 1706821774501,
+    "id": 2
+  },
+  {
+    "enabled": true,
+    "installDate": 1706564292168,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           go.dev - Jan 2024\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n@-moz-document domain(\"go.dev\") {\n    /* Insert code here... */\n    #blog pre,\n    #blog code,\n    code,\n    pre,\n    textarea.code {\n        font-family: 'Operator Mono Lig' !important;\n        font-size: 1rem !important;\n    }\n}",
+    "usercssData": {
+      "name": "go.dev - Jan 2024",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "go.dev - Jan 2024",
+    "updateDate": 1706564597503,
+    "_id": "1b9f5185-9ae7-4da9-b8e5-53c8188457b0",
+    "_rev": 1706564597503,
+    "id": 3
+  },
+  {
+    "enabled": true,
+    "installDate": 1705350133120,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           learnxinyminutes.com - Jan 2024\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n\n@-moz-document domain(\"learnxinyminutes.com\") {\n    /* Insert code here... */\n    pre {\n        font-family: 'Operator Mono Lig' !important;\n    }\n}",
+    "usercssData": {
+      "name": "learnxinyminutes.com - Jan 2024",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "learnxinyminutes.com - Jan 2024",
+    "updateDate": 1712727008230,
+    "_id": "bde7f57c-06c7-4b12-9a24-8e03d924aa3c",
+    "_rev": 1712727008231,
+    "id": 4
+  },
+  {
+    "enabled": true,
+    "installDate": 1705349472356,
+    "name": "hackerrank.com - Jan 2024",
+    "sections": [
+      {
+        "code": ".monaco-editor {\n    font-family: 'Operator Mono Lig Book' !important;\n    --monaco-monospace-font: 'Operator Mono Lig Book' !important;\n}",
+        "domains": ["hackerrank.com"]
+      }
+    ],
+    "updateDate": 1705349600179,
+    "_id": "1d3dd34a-7274-4539-98b0-a65021833e79",
+    "_rev": 1705349600179,
+    "id": 5
+  },
+  {
+    "enabled": true,
+    "installDate": 1705339286231,
+    "name": "boot.dev - Jan 2024",
+    "sections": [
+      {
+        "code": "pre,\ncode,\n.cm-editor,\n.ͼo.cm-editor .cm-scroller,\n.cm-tooltip\n{\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 1rem !important;\n}",
+        "domains": ["boot.dev"]
+      }
+    ],
+    "updateDate": 1705339449017,
+    "_id": "5e69cf58-ee52-4127-a87d-c69450b9f450",
+    "_rev": 1705339449017,
+    "id": 6
+  },
+  {
+    "enabled": true,
+    "installDate": 1705315905445,
+    "name": "javascript.info - Jan 2024",
+    "sections": [
+      {
+        "code": "code[class*=\"language-\"],\npre[class*=\"language-\"], code {\n    /* font-family: 'Operator Mono Lig Book' !important; */\n    font: 15px/20px 'Operator Mono Lig Book' !important;\n}",
+        "domains": ["javascript.info"]
+      }
+    ],
+    "updateDate": 1705316117969,
+    "_id": "3a72834a-612b-4fcb-9058-be512bb9dd4f",
+    "_rev": 1705316117969,
+    "id": 7
+  },
+  {
+    "enabled": true,
+    "installDate": 1677580942602,
+    "name": "playcode.io",
+    "sections": [
+      {
+        "code": ".view-lines, .console, .line-numbers {\n    font-family: 'Monaco' !important\n}",
+        "domains": ["playcode.io"]
+      }
+    ],
+    "updateDate": 1705138254019,
+    "_id": "ce7b7562-6d89-4241-b0ee-8b5b211a3d4f",
+    "_rev": 1705138254019,
+    "id": 8
+  },
+  {
+    "enabled": true,
+    "installDate": 1703957138916,
+    "name": "www.codechef.com - Dec 2023",
+    "sections": [
+      {
+        "code": ".ace_scroller {\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 1.1rem !important;\n}",
+        "domains": ["www.codechef.com"]
+      }
+    ],
+    "updateDate": 1703957912525,
+    "_id": "e0a73eb5-9d39-4c98-b88c-ffbc455b529d",
+    "_rev": 1703957912525,
+    "id": 9
+  },
+  {
+    "enabled": true,
+    "installDate": 1703956195255,
+    "name": "onecompiler.com - Dec 2023",
+    "sections": [
+      {
+        "code": "#oc_ace,\n.ace_scroller,\npre,\ntextarea {\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 16px !important;\n}",
+        "domains": ["onecompiler.com"]
+      }
+    ],
+    "updateDate": 1703956525908,
+    "_id": "352f4fb7-954a-4eef-937c-085e4cc8d2d7",
+    "_rev": 1703956525909,
+    "id": 10
+  },
+  {
+    "enabled": true,
+    "installDate": 1678973871941,
+    "name": "dev.to",
+    "sections": [
+      {
+        "code": ".text-style {\n   font-family: 'Ubuntu Mono' !important\n}",
+        "domains": ["dev.to"]
+      }
+    ],
+    "updateDate": 1678973871941,
+    "_id": "ec1f9ece-b510-4072-ae85-bebc1ef89c9a",
+    "_rev": 1678973871941,
+    "id": 11
+  },
+  {
+    "enabled": true,
+    "installDate": 1678622072632,
+    "name": "developer.mozilla.org",
+    "sections": [
+      {
+        "code": ".cm-scroller {\n    font-family: 'Operator Mono Lig Book' !important;\n}",
+        "domains": ["developer.mozilla.org"]
+      }
+    ],
+    "updateDate": 1678622567353,
+    "_id": "1d30959b-565b-4b10-9ac5-ed4f5c7da9dd",
+    "_rev": 1678622567353,
+    "id": 12
+  },
+  {
+    "enabled": true,
+    "installDate": 1678621372498,
+    "name": "replit.com",
+    "sections": [
+      {
+        "code": ".cm-content,\n.cm-gutterElement,\n.xterm-cursor-layer,\n.xterm-text-layer {\n    font-family: 'Operator Mono Lig Book' !important;\n}",
+        "domains": ["replit.com"]
+      }
+    ],
+    "updateDate": 1678621839951,
+    "_id": "276050c6-e247-4ba1-a87e-669a36bc0558",
+    "_rev": 1678621839951,
+    "id": 13
+  },
+  {
+    "enabled": true,
+    "installDate": 1676974766437,
+    "name": "chat.openai.com",
+    "sections": [
+      {
+        "code": "code, pre {\n    font-family: 'Operator Mono Lig' !important\n}",
+        "urlPrefixes": ["https://chatgpt.com/"]
+      }
+    ],
+    "updateDate": 1737458437845,
+    "_id": "87efaad9-8cf1-42da-8dba-7ca2dc28ec1c",
+    "_rev": 1737458437845,
+    "id": 14
+  },
+  {
+    "enabled": true,
+    "installDate": 1674543203550,
+    "name": "geeksforgeeks.org",
+    "sections": [
+      {
+        "code": "pre {\n    font-family: Operator Mono Lig Book !important\n}",
+        "domains": ["geeksforgeeks.org"]
+      }
+    ],
+    "updateDate": 1674543298865,
+    "_id": "0a66b4b1-2bf8-429b-8dc9-7dfbe00d8ff4",
+    "_rev": 1674543298865,
+    "id": 16
+  },
+  {
+    "enabled": true,
+    "installDate": 1660027044168,
+    "name": "mail.google.com",
+    "sections": [
+      {
+        "code": ".asa div {\n\n}",
+        "domains": ["mail.google.com"]
+      }
+    ],
+    "updateDate": 1665637805287,
+    "_id": "f039405e-becd-4334-976e-1b7446b9c33b",
+    "_rev": 1665637805287,
+    "id": 18
+  },
+  {
+    "enabled": true,
+    "installDate": 1703967904273,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           learn.svelte.dev - Dec 2023\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n@-moz-document domain(\"learn.svelte.dev\") {\n    /* Insert code here... */\n    .editor-container,\n    .cm-gutters,\n    .cm-line,\n    .cm-tooltip {\n        font-family: 'Operator Mono Lig Book' !important;\n        font-size: 16px !important;\n    }\n}",
+    "usercssData": {
+      "name": "learn.svelte.dev - Dec 2023",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "learn.svelte.dev - Dec 2023",
+    "updateDate": 1704019862206,
+    "_id": "f02fdfe2-2542-4262-9de2-038f5abf5120",
+    "_rev": 1704019862206,
+    "id": 20
+  },
+  {
+    "enabled": true,
+    "updateUrl": "https://userstyles.world/style/13939/stylus-page-style",
+    "installDate": 1702541593344,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           <Stylus> - Dec 2023\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n@-moz-document regexp(\"^\\\\w+-extension://.+\") {\n    /* Insert code here... */\n    #header {\n        font-size: 14px !important;\n    }\n\n    .CodeMirror-scroll,\n    .CodeMirror-hints {\n/*         font-family: 'Operator Mono Lig Book' !important; */\n/*         font-family: 'Monaco' !important; */\n        font-family: 'Operator Mono Lig' !important;\n        font-size: 14px !important;\n    }\n}",
+    "usercssData": {
+      "name": "<Stylus> - Dec 2023",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "<Stylus> - Dec 2023",
+    "updateDate": 1708718294266,
+    "_id": "d93d309b-1512-4228-9ff7-989920cf4a15",
+    "_rev": 1708718294266,
+    "updatable": true,
+    "id": 21
+  },
+  {
+    "enabled": true,
+    "installDate": 1702541221153,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           www.hackerearth.com - Dec 2023\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n@-moz-document domain(\"www.hackerearth.com\") {\n    /* Insert code here... */\n    .monaco-editor,\n    .line-numbers,\n    .lines-content {\n        font-family: 'Operator Mono Lig Book' !important;\n        font-size: 14px;\n    }\n}",
+    "usercssData": {
+      "name": "www.hackerearth.com - Dec 2023",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "www.hackerearth.com - Dec 2023",
+    "updateDate": 1702541536803,
+    "_id": "199c75f4-f30b-4884-b59a-352498567f57",
+    "_rev": 1702541536804,
+    "id": 22
+  },
+  {
+    "enabled": true,
+    "installDate": 1659792435581,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           mail.google.com - 8/6/2022, 6:56:57 PM\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n\n@-moz-document domain(\"mail.google.com\") {\n    /* Insert code here... */\n    }",
+    "usercssData": {
+      "name": "mail.google.com - 8/6/2022, 6:56:57 PM",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "mail.google.com - 8/6/2022, 6:56:57 PM",
+    "updateDate": 1665637784035,
+    "_id": "09bbc7bf-a420-44af-8bb8-bcaea0dbcf85",
+    "_rev": 1736277004359,
+    "id": 23
+  },
+  {
+    "enabled": true,
+    "installDate": 1700052644246,
+    "name": "stag.quartic.ai/graphql/ - Nov 2023",
+    "sections": [
+      {
+        "code": ".graphiql-container .CodeMirror,\n.div.graphiql-explorer-root {\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 14px !important;\n}\n\n#query-MyQuery,\n#mutation-MyMutation {\n    font-size: 14px;\n    font-family: \"Operator Mono Lig Book\";\n}\n\n.graphiql-explorer-node {\n    margin-bottom: .2rem;\n}",
+        "urlPrefixes": ["https://stag.quartic.ai/graphql/"]
+      }
+    ],
+    "updateDate": 1700052644246,
+    "_id": "16f570f2-909c-4dfa-aff2-ac7c6aa59e6f",
+    "_rev": 1700052644246,
+    "id": 24
+  },
+  {
+    "enabled": true,
+    "installDate": 1692552820098,
+    "name": "localhost",
+    "sections": [
+      {
+        "code": ".graphiql-container .CodeMirror,\n.div.graphiql-explorer-root {\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 14px !important;\n}\n\n#query-MyQuery,\n#mutation-MyMutation {\n    font-size: 14px;\n    font-family: \"Operator Mono Lig Book\";\n}\n\n.graphiql-explorer-node {\n    margin-bottom: .2rem;\n}",
+        "urlPrefixes": ["http://localhost:8070/graphql/"]
+      }
+    ],
+    "updateDate": 1692552820098,
+    "_id": "f6057071-45ed-4fcc-a65e-427d957ddcd8",
+    "_rev": 1692552820098,
+    "id": 25
+  },
+  {
+    "enabled": true,
+    "installDate": 1692552579001,
+    "name": "localhost",
+    "sections": [
+      {
+        "code": ".graphiql-container .CodeMirror,\n.div.graphiql-explorer-root {\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 14px !important;\n}\n\n#query-MyQuery,\n#mutation-MyMutation {\n    font-size: 14px;\n    font-family: \"Operator Mono Lig Book\";\n}\n\n.graphiql-explorer-node {\n    margin-bottom: .2rem;\n}",
+        "urlPrefixes": ["http://localhost:9900/graphql/"]
+      }
+    ],
+    "updateDate": 1692552846018,
+    "_id": "1d1b5aee-8e1d-4fd9-b2ea-7a2c7ca6eb37",
+    "_rev": 1692552846018,
+    "id": 26
+  },
+  {
+    "enabled": true,
+    "installDate": 1692367213608,
+    "name": "getbootstrap.com",
+    "sections": [
+      {
+        "code": "code,\npre {\n    font-size: 91% !important;\n}",
+        "domains": ["getbootstrap.com"]
+      }
+    ],
+    "updateDate": 1692367223687,
+    "_id": "cfcf12f4-f70c-4510-8546-17e39b821ddd",
+    "_rev": 1692367223687,
+    "id": 27
+  },
+  {
+    "enabled": true,
+    "installDate": 1687011785882,
+    "name": "sourcegraph.com",
+    "sections": [
+      {
+        "code": "pre,\ncode,\n.d-inline-block,\n.cm-line,\n.cm-gutter {\n    font-family: 'Operator Mono Lig' !important;\n    font-size: 14px;\n}",
+        "domains": ["sourcegraph.com"]
+      }
+    ],
+    "updateDate": 1709791003440,
+    "_id": "cf13441a-d13e-46ad-8cb0-4be6c4dbf805",
+    "_rev": 1709791003440,
+    "id": 28
+  },
+  {
+    "enabled": true,
+    "installDate": 1686579835981,
+    "name": "localhost",
+    "sections": [
+      {
+        "code": "body,\ntd,\ninput,\nselect,\ntextarea,\na {\n    font-family: 'Segoe UI' !important;\n    font-size: 13px;\n}\n\n#wrapper {\n    width: 1080px;\n}\n\n.status > span {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 2px;\n}",
+        "urlPrefixes": ["http://localhost:9003/"]
+      }
+    ],
+    "updateDate": 1686642810039,
+    "_id": "9db80c52-0b75-4fa8-acd9-9c0a475760ae",
+    "_rev": 1686642810039,
+    "id": 29
+  },
+  {
+    "enabled": true,
+    "installDate": 1684422095226,
+    "name": "0.0.0.0",
+    "sections": [
+      {
+        "code": ".graphiql-container .CodeMirror,\n.div.graphiql-explorer-root {\n    font-family: 'Operator Mono Lig Book' !important;\n    font-size: 14px !important;\n}\n\n#query-MyQuery,\n#mutation-MyMutation {\n    font-size: 14px;\n    font-family: \"Operator Mono Lig Book\";\n}\n\n.graphiql-explorer-node {\n    margin-bottom: .2rem;\n}",
+        "urlPrefixes": ["http://0.0.0.0:8070/graphql/"]
+      }
+    ],
+    "updateDate": 1692552783610,
+    "_id": "235bc06d-bc81-4cf8-afba-1f90c552dfb7",
+    "_rev": 1692552783610,
+    "id": 30
+  },
+  {
+    "enabled": true,
+    "installDate": 1681900226078,
+    "name": "replit.com",
+    "sections": [
+      {
+        "code": ".cm-content {\n    font-family: 'Operator Mono Lig Book' !important;\n}",
+        "domains": ["replit.com"]
+      }
+    ],
+    "updateDate": 1681900351395,
+    "_id": "7bc3ceed-b530-4482-9109-a8c6767e8c83",
+    "_rev": 1681900351395,
+    "id": 32
+  },
+  {
+    "enabled": true,
+    "installDate": 1708664884429,
+    "sections": [
+      {
+        "code": ""
+      }
+    ],
+    "sourceCode": "/* ==UserStyle==\n@name           github.com - Feb 2024\n@namespace      github.com/openstyles/stylus\n@version        1.0.0\n@description    A new userstyle\n@author         Me\n==/UserStyle== */\n@-moz-document domain(\"github.com\") {\n    /* Insert code here... */\n    #header {\n        font-size: 14px !important;\n    }\n    pre,\n    code,\n    kbd,\n    .blob-num,\n    .blob-code,\n    .blob-code-marker,\n    .react-code-text,\n    .text-mono,\n    .react-blob-print-hide,\n    .diff-table,\n    .blob-code-inner {\n        font-family: 'Operator Mono Lig' !important;\n/*         font-size: 14px !important; */\n    }\n}",
+    "usercssData": {
+      "name": "github.com - Feb 2024",
+      "namespace": "github.com/openstyles/stylus",
+      "version": "1.0.0",
+      "description": "A new userstyle",
+      "author": "Me"
+    },
+    "author": "Me",
+    "description": "A new userstyle",
+    "name": "github.com - Feb 2024",
+    "updateDate": 1713887886161,
+    "_id": "390f94b7-8d41-49e0-a0b9-b4e5c5be602e",
+    "_rev": 1714676536118,
+    "id": 34
+  },
+  {
+    "enabled": false,
+    "installDate": 1716483423682,
+    "name": "gemini.google.com - May 2024",
+    "sections": [
+      {
+        "code": "code, pre {\n    font-family: 'Operator Mono Lig Book' !important;\n}",
+        "domains": ["gemini.google.com"]
+      }
+    ],
+    "updateDate": 1716483423682,
+    "_id": "458278d6-e233-439e-b9fb-b1abba1cd8ae",
+    "_rev": 1723102025684,
+    "id": 36
+  }
+]
