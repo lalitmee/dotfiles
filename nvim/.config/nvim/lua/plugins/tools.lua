@@ -821,7 +821,7 @@ return {
         opts = {},
     },
 
-    {
+    { --[[ memento.nvim ]]
         "gaborvecsei/memento.nvim",
         -- stylua: ignore
         keys = {
