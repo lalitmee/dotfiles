@@ -43,26 +43,41 @@ return {
             next_repeat = "<C-j>",
             prev_repeat = "<C-k>",
             operators = {
+                ["tq"] = {
+                    next = { rhs = "<cmd>QFToggle<CR>", opts = { desc = "Toggle QF Helper" } },
+                    prev = { rhs = "<cmd>QFToggle<CR>", opts = { desc = "Toggle QF Helper" } },
+                },
+
+                ["tl"] = {
+                    next = { rhs = "<cmd>LLToggle<CR>", opts = { desc = "Toggle LL Helper" } },
+                    prev = { rhs = "<cmd>LLToggle<CR>", opts = { desc = "Toggle LL Helper" } },
+                },
+
                 ["q"] = {
                     next = { rhs = "<cmd>QNext<CR>", opts = { desc = "Next QF Item" } },
                     prev = { rhs = "<cmd>QPrev<CR>", opts = { desc = "Previous QF Item" } },
                 },
+
                 ["h"] = {
                     next = { rhs = "<cmd>Gitsigns next_hunk<CR>", opts = { desc = "Next hunk" } },
                     prev = { rhs = "<cmd>Gitsigns next_hunk<CR>", opts = { desc = "Previous hunk" } },
                 },
+
                 ["<Tab>"] = {
                     next = { rhs = "<cmd>tabnext<cr>", opts = { desc = "Next tab" } },
                     prev = { rhs = "<cmd>tabprevious<cr>", opts = { desc = "Previous tab" } },
                 },
+
                 ["<Space>"] = {
                     next = { rhs = [[<cmd>call append(line("."), [""])<CR>]], opts = { desc = "Empty line below" } },
                     prev = { rhs = [[<cmd>call append(line(".")-1, [""])<CR>]], opts = { desc = "Empty line above" } },
                 },
+
                 ["e"] = {
                     next = { rhs = [[<cmd>m .+1<CR>]], opts = { desc = "Move line down" } },
                     prev = { rhs = [[<cmd>m .-2<CR>]], opts = { desc = "Move line up" } },
                 },
+
                 ["t"] = {
                     next = {
                         rhs = function()
@@ -77,6 +92,7 @@ return {
                         opts = { desc = "Move line up" },
                     },
                 },
+
                 ["j"] = {
                     next = {
                         rhs = function()
@@ -636,14 +652,9 @@ return {
                 desc = "Buffer Diagnostics (Trouble)",
             },
             {
-                "<leader>qs",
+                "<leader>qw",
                 "<cmd>Trouble symbols toggle focus=false<cr>",
                 desc = "Symbols (Trouble)",
-            },
-            {
-                "<leader>ql",
-                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-                desc = "LSP Definitions / references / ... (Trouble)",
             },
             {
                 "<leader>qL",
@@ -786,6 +797,27 @@ return {
             { "<leader>qq", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
         },
         dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {},
+    },
+
+    { --[[ persistence.nvim ]]
+        "folke/persistence.nvim",
+        event = "BufReadPre",
+
+        -- stylua: ignore
+        keys = {
+            -- load the session for the current directory
+            { "<leader>qs", function() require("persistence").load() end, desc = "Load Session" },
+
+            -- select a session to load
+            { "<leader>qo", function() require("persistence").select() end, desc = "Select Session" },
+
+            -- load the last session
+            { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Load Last Session" },
+
+            -- stop Persistence => session won't be saved on exit
+            { "<leader>qd", function() require("persistence").stop() end, desc = "Stop Session" },
+        },
         opts = {},
     },
 }
