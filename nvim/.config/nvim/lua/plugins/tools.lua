@@ -820,4 +820,19 @@ return {
         },
         opts = {},
     },
+
+    {
+        "gaborvecsei/memento.nvim",
+        -- stylua: ignore
+        keys = {
+            { "<leader>bh", function() require("memento").toggle() end, desc = "Toggle Buffers History" },
+            { "<leader>bH", function() require("memento").clear_history() end, desc = "Clear Buffers History" },
+        },
+        config = function()
+            vim.g.memento_history = 20
+            vim.g.memento_shorten_path = false
+            vim.g.memento_window_width = 120
+            vim.g.memento_window_height = 30
+        end,
+    },
 }
