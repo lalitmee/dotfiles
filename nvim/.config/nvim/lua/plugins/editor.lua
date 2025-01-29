@@ -645,8 +645,8 @@ return {
             { "p", "<Plug>(YankyPutAfter)", mode = { "x" } },
             { "y", "<Plug>(YankyYank)", mode = { "n" } },
             { "y", "<Plug>(YankyYank)", mode = { "x" } },
-            { "<leader>ay", ":YankyRingHistory<CR>", desc = "Yank Ring History", mode = { "n", "x" } },
-            { "<leader>ty", ":Telescope yank_history<CR>", desc = "Yank History", mode = { "n", "x" } },
+            { "<leader>ay", ":YankyRingHistory<CR>", desc = "Yank Ring History" },
+            { "<leader>ty", ":Telescope yank_history<CR>", desc = "Yank History" },
         },
         dependencies = { "kkharji/sqlite.lua" },
         opts = {
@@ -901,7 +901,7 @@ return {
         "nvim-pack/nvim-spectre",
         keys = {
             {
-                "<leader>s/",
+                "<leader>ss/",
                 function()
                     require("spectre").open_file_search()
                 end,
@@ -909,7 +909,7 @@ return {
                 silent = true,
             },
             {
-                "<leader>so",
+                "<leader>sso",
                 function()
                     require("spectre").open()
                 end,
@@ -917,19 +917,11 @@ return {
                 silent = true,
             },
             {
-                "<leader>sw",
+                "<leader>ssw",
                 function()
                     require("spectre").open_visual({ select_word = true })
                 end,
                 desc = "Current Word Search",
-                silent = true,
-            },
-            {
-                "<leader>so",
-                function()
-                    require("spectre").open_visual({ select_word = true })
-                end,
-                desc = "Spectre Visual Search",
                 silent = true,
                 mode = "v",
             },
@@ -946,6 +938,62 @@ return {
                 replace = "DiffChange",
             },
         },
+    },
+
+    { --[[ grug-far ]]
+        "MagicDuck/grug-far.nvim",
+        event = "VeryLazy",
+        keys = {
+            {
+                "<leader>sc/",
+                function()
+                    require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } })
+                end,
+                desc = "File Search",
+                silent = true,
+            },
+            {
+                "<leader>sco",
+                function()
+                    require("grug-far").toggle_instance({ instanceName = "far", staticTitle = "Find and Replace" })
+                end,
+                desc = "Open",
+                silent = true,
+            },
+            {
+                "<leader>scw",
+                function()
+                    require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
+                end,
+                desc = "Current Word Search",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<leader>sce",
+                function()
+                    require("grug-far").open({ engine = "astgrep" })
+                end,
+                desc = "AST Grep Engine",
+                silent = true,
+            },
+            {
+                "<leader>sct",
+                function()
+                    require("grug-far").open({ transient = true })
+                end,
+                desc = "Transient",
+                silent = true,
+            },
+            {
+                "<leader>scs",
+                [[:<C-u>lua require('grug-far').with_visual_selection({ prefills = { paths = vim.fn.expand("%") } })<CR>]],
+                desc = "Current File Search With Visual Selection",
+                silent = true,
+                mode = { "n", "v" },
+            },
+        },
+        opts = {},
     },
 
     { --[[ muren ]]
@@ -1016,6 +1064,29 @@ return {
                 show_hidden = true,
             },
             skip_confirm_for_simple_edits = true,
+            keymaps = {
+                gs = {
+                    callback = function()
+                        -- get the current directory
+                        local prefills = { paths = require("oil").get_current_dir() }
+
+                        local grug_far = require("grug-far")
+                        -- instance check
+                        if not grug_far.has_instance("explorer") then
+                            grug_far.open({
+                                instanceName = "explorer",
+                                prefills = prefills,
+                                staticTitle = "Find and Replace from Explorer",
+                            })
+                        else
+                            grug_far.open_instance("explorer")
+                            -- updating the prefills without clearing the search and other fields
+                            grug_far.update_instance_prefills("explorer", prefills, false)
+                        end
+                    end,
+                    desc = "Oil: Search in directory",
+                },
+            },
         },
     },
 
@@ -1399,7 +1470,7 @@ return {
         cmd = "RipSubstitute",
         keys = {
             {
-                "<leader>ss",
+                "<leader>s/",
                 function()
                     require("rip-substitute").sub()
                 end,
