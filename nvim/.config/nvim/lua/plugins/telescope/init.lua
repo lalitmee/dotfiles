@@ -215,10 +215,10 @@ return {
                     initial_tab = 1,
                     tabs = {
                         { name = "Grep", tele_func = require("telescope.builtin").live_grep },
-                        -- {
-                        --     name = "Grep Args",
-                        --     tele_func = require("telescope.extension.live_grep_args").live_grep_args,
-                        -- },
+                        {
+                            name = "Grep Args",
+                            tele_func = require("telescope").extensions.live_grep_args.live_grep_args,
+                        },
                     },
                 },
 
