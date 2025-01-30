@@ -48,16 +48,6 @@ augroup("insert_au", {
     },
 })
 
-augroup("filetype_au", {
-    {
-        event = { "FileType" },
-        pattern = { "chatgpt-input" },
-        command = function()
-            require("cmp").setup.buffer({ enabled = false })
-        end,
-    },
-})
-
 augroup("quit_q_au", {
     {
         event = { "FileType" },
