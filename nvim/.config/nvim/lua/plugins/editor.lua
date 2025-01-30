@@ -204,7 +204,6 @@ return {
     { -- [[ blink.cmp ]]
         -- enabled = false,
         "saghen/blink.cmp",
-        ft = { "TelescopePrompt", "DressingInput" },
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             { "xzbdmw/colorful-menu.nvim", config = {} },
@@ -254,7 +253,10 @@ return {
                 },
             },
             enabled = function()
-                return not vim.tbl_contains({ "TelescopePrompt", "DressingInput" }, vim.bo.filetype)
+                return not vim.tbl_contains(
+                        { "TelescopePrompt", "DressingInput", "chatgpt-input" },
+                        vim.bo.filetype
+                    )
                     and vim.bo.buftype ~= "prompt"
                     and vim.b.completion ~= false
             end,
