@@ -23,10 +23,11 @@ return {
     },
 
     { --[[ backseat ]]
+        enabled = false,
         "james1236/backseat.nvim",
         keys = {
             { "<localleader>cb", ":Backseat<CR>", desc = "Backseat", silent = true },
-            { "<localleader>ck", ":BackseatAsk<CR>", desc = "Backseat Ask", silent = true },
+            { "<localleader>ck", ":BackseatAsk<space>", desc = "Backseat Ask", silent = true },
             { "<localleader>cl", ":BackseatClearLine<CR>", desc = "Backseat Clear Line", silent = true },
             { "<localleader>cx", ":BackseatClear<CR>", desc = "Backseat Clear", silent = true },
         },
