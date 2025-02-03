@@ -37,6 +37,7 @@ return {
     },
 
     { --[[ codeium ]]
+        -- enabled = false,
         "Exafunction/codeium.vim",
         event = "BufEnter",
         config = function()
@@ -151,6 +152,24 @@ return {
         event = "VeryLazy",
         opts = {
             provider = "openai",
+        },
+    },
+
+    { --[[ copilot ]]
+        enabled = false,
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        opts = {
+            suggestions = {
+                auto_trigger = true,
+                keymap = {
+                    accept = "<Tab>",
+                    next = "<C-n>",
+                    prev = "<C-p>",
+                    dismiss = "<C-]>",
+                },
+            },
         },
     },
 }
