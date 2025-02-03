@@ -215,6 +215,10 @@ return {
                 "Kaiser-Yang/blink-cmp-dictionary",
                 dependencies = { "nvim-lua/plenary.nvim" },
             },
+            {
+                "fang2hou/blink-copilot",
+                opts = {},
+            },
         },
         version = "*",
         opts = {
@@ -224,13 +228,28 @@ return {
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = "mono",
+                kind_icons = {
+                    Copilot = "",
+                },
             },
+
             sources = {
-                default = { "snippets", "lsp", "buffer", "path", "ripgrep" },
+                default = { "copilot", "lsp", "snippets", "buffer", "ripgrep", "path" },
                 providers = {
+                    copilot = {
+                        module = "blink-copilot",
+                        name = "Copilot",
+                        score_offset = 100,
+                        async = true,
+                        opts = {
+                            max_completions = 3,
+                            max_attempts = 4,
+                        },
+                    },
+
                     ripgrep = {
                         module = "blink-ripgrep",
-                        name = "Rg",
+                        name = "Ripgrep",
                         score_offset = -999,
                         opts = {
                             future_features = {
@@ -238,12 +257,14 @@ return {
                             },
                         },
                     },
+
                     dictionary = {
                         module = "blink-cmp-dictionary",
                         name = "Dict",
                         min_keyword_length = 3,
                         opts = {},
                     },
+
                     emoji = {
                         module = "blink-emoji",
                         name = "Emoji",

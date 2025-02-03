@@ -6,6 +6,7 @@
   "avante.nvim": { "branch": "main", "commit": "9abbec4c5b580b514184990490dea74d0cdc27cc" },
   "backseat.nvim": { "branch": "main", "commit": "3bb2781cdbf9b26c60e9ba45bfb22625e235c142" },
   "blink-cmp-dictionary": { "branch": "master", "commit": "07cc2e49bb52ebff4e8b83d1801ad6441edf90a2" },
+  "blink-copilot": { "branch": "main", "commit": "02daaf13654e78a6ec63401446d07f8c624f513b" },
   "blink-emoji.nvim": { "branch": "master", "commit": "81e6c080d1e64c9ef548534c51147fd8063481c8" },
   "blink-ripgrep.nvim": { "branch": "main", "commit": "519ac7894113f6a7b517b157c26e31fbd58a0de5" },
   "blink.cmp": { "branch": "main", "commit": "b6f11a0aa33e601c469a126e3ed6e35208fe3ea3" },

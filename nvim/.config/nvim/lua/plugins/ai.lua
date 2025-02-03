@@ -37,7 +37,6 @@ return {
     },
 
     { --[[ codeium ]]
-        -- enabled = false,
         "Exafunction/codeium.vim",
         event = "BufEnter",
         config = function()
@@ -155,20 +154,25 @@ return {
         },
     },
 
-    { --[[ copilot ]]
-        enabled = false,
+    { -- [[ copilot.lua ]]
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
+        build = ":Copilot auth",
         event = "InsertEnter",
         opts = {
-            suggestions = {
-                auto_trigger = true,
+            suggestion = {
+                enabled = false,
                 keymap = {
                     accept = "<Tab>",
                     next = "<C-n>",
                     prev = "<C-p>",
                     dismiss = "<C-]>",
                 },
+            },
+            panel = { enabled = false },
+            filetypes = {
+                markdown = true,
+                help = true,
             },
         },
     },
