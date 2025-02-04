@@ -1,6 +1,17 @@
 #!/usr/bin/env zsh
 
-bindkey -s '^o' 'tmux-sessionizer^M'
+# -------------------------------------------------------------------
+# NOTE: tmux-sessionizer {{{
+# -------------------------------------------------------------------
+# Register the widget with ZLE
+zle -N tmux_sessionizer_widget
+
+# Bind ^o (Ctrl + O) to the tmux-sessionizer widget
+bindkey -M emacs '^o' tmux_sessionizer_widget
+bindkey -M vicmd '^o' tmux_sessionizer_widget
+bindkey -M viins '^o' tmux_sessionizer_widget
+# }}}
+# -------------------------------------------------------------------
 
 # make terminal command navigation sane again
 bindkey "^[[1;5C" forward-word                      # [Ctrl-right] - forward one word
@@ -24,13 +35,3 @@ bindkey -M viins "^F" vi-forward-word               # [Ctrl-f] - move to next wo
 bindkey -M viins "^E" vi-add-eol                    # [Ctrl-e] - move to end of line
 bindkey "^J" history-beginning-search-forward
 bindkey "^K" history-beginning-search-backward
-
-# -------------------------------------------------------------------
-# NOTE: sesh {{{
-# -------------------------------------------------------------------
-zle     -N             sesh-sessions
-bindkey -M emacs '\es' sesh-sessions
-bindkey -M vicmd '\es' sesh-sessions
-bindkey -M viins '\es' sesh-sessions
-# }}}
-# -------------------------------------------------------------------
