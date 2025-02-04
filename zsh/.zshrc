@@ -157,7 +157,7 @@ fi
 [[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
 
 # plugins config
-[[ -f ~/.plugins-config/init.zsh ]] && source ~/.plugins-config/init.zsh
+[[ -f ~/.zsh_plugins_config/init.zsh ]] && source ~/.zsh_plugins_config/init.zsh
 # }}}
 # -------------------------------------------------------------------
 
