@@ -83,7 +83,7 @@ return {
         "ThePrimeagen/refactoring.nvim",
         keys = {
             {
-                "<leader>rd",
+                "<leader>rp",
                 function()
                     require("refactoring").debug.print_var()
                 end,
@@ -91,7 +91,7 @@ return {
                 desc = "Print Var",
             },
             {
-                "<leader>rD",
+                "<leader>rd",
                 function()
                     require("refactoring").debug.cleanup()
                 end,
