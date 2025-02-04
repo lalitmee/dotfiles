@@ -16,8 +16,8 @@ gtk-tabs-location = bottom
 gtk-wide-tabs = false
 gtk-adwaita = false
 
-window-decoration = false
-# macos-titlebar-style = transparent
+# window-decoration = false
+macos-titlebar-style = transparent
 
 confirm-close-surface = false
 
