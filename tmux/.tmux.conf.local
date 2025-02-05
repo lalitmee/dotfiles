@@ -503,6 +503,13 @@ set -g @plugin 'tmux-plugins/tmux-sessionist'
 set -g @plugin 'wfxr/tmux-fzf-url'
 set -g @fzf-url-bind 'U'
 
+# open things using fzf
+set -g @plugin 'alberti42/tmux-fzf-links'
+set-option -g @fzf-links-key "C-b"
+set-option -g @fzf-links-python "/opt/homebrew/bin/python3"
+set-option -g @fzf-links-editor-open-cmd "tmux new-window -n 'nvim' /opt/homebrew/bin/nvim +%line '%file'"
+set-option -g @fzf-links-browser-open-cmd "open '%url'"
+
 # easymotion like jumping in tmux
 set -g @plugin 'schasse/tmux-jump'
 
