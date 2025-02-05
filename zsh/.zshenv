@@ -79,9 +79,9 @@ append_to_path "$HOME/cargo/bin"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # go
+export GOPATH="$HOME/go"
 append_to_path "$GOROOT/bin"
 append_to_path "$GOPATH/bin"
-export GOPATH="$HOME/go"
 
 # # deno
 # export DENO_INSTALL="$HOME/.deno"
