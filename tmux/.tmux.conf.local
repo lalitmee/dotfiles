@@ -614,7 +614,7 @@ bind-key -r o run-shell "tmux neww tmux-sessionizer"
 # tmux popup from u/KevinHwang91 from reddit discussion
 #-------------------------------------------------------------------------------
 # tmux popup with shell
-bind-key M run-shell "tmux-popup"
+bind-key M run-shell "tmux-notes-popup"
 
 bind-key m if-shell -F '#{==:#{session_name},floating}' {
     detach-client
