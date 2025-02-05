@@ -493,9 +493,6 @@ set -g @plugin 'sainnhe/tmux-fzf'
 TMUX_FZF_LAUNCH_KEY="C-o"
 TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl-a:select-all,ctrl-d:deselect-all --color=fg:#00aaff,bg:#193549,hl:#ffc600 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600"
 
-# tmux-modal
-set -g @plugin 'whame/tmux-modal'
-
 # manage sessions more quickly
 set -g @plugin 'tmux-plugins/tmux-sessionist'
 
