@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Ghostty
+Exec=/home/lalitmee/Desktop/Github/ghostty/zig-out/bin/ghostty
+Icon=/home/lalitmee/Desktop/Github/ghostty/images/icons/icon_256.png
+Terminal=false
+Type=Application
+Categories=System;Terminal;
+StartupWMClass=ghostty
