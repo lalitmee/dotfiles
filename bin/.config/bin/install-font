@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Define font directory
+FONT_DIR="$HOME/Desktop/Github/fonts"
+
+# Define system-wide font directory
+USER_FONT_DIR="$HOME/.local/share/fonts"
+
+# Check if the directory exists, create it if it doesn't
+mkdir -p "$USER_FONT_DIR"
+
+# List all fonts (otf and ttf) in the fonts folder, including nested directories
+fonts=$(find "$FONT_DIR" -type f \( -iname "*.otf" -o -iname "*.ttf" \))
+
+# Use fzf to select multiple fonts
+selected_fonts=$(echo "$fonts" | fzf --multi --preview 'echo {}' --preview-window=up:50%:wrap)
+
+# Check if any fonts were selected
+if [ -z "$selected_fonts" ]; then
+  echo "No fonts selected. Exiting."
+  exit 1
+fi
+
+# Copy selected fonts to the font directory
+echo "$selected_fonts" | while read -r font; do
+  cp "$font" "$USER_FONT_DIR"
+done
+
+# Refresh font cache (for Ubuntu)
+fc-cache -fv
+
+echo "Fonts installed successfully in $USER_FONT_DIR"
