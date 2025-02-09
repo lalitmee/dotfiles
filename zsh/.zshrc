@@ -207,6 +207,14 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 # }}}
 # -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: linuxbrew {{{
+# -------------------------------------------------------------------
+# Load Homebrew shell environment if it's installed
+znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# }}}
+# -------------------------------------------------------------------
+
 
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.

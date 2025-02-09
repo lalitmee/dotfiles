@@ -108,6 +108,10 @@ append_to_path "$FNM_PATH"
 if [[ -d "$FNM_PATH" ]]; then
     eval "$(fnm env)"
 fi
+
+# Homebrew
+append_to_path "/home/linuxbrew/.linuxbrew/bin"
+
 # }}}
 # -------------------------------------------------------------------
 
