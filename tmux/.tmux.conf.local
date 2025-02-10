@@ -440,6 +440,11 @@ set-option -g renumber-windows on
 # Use vim keybindings in copy mode
 setw -g mode-keys vi
 
+# allow transparency
+set-option -g pane-border-style bg=default
+set-option -g window-style bg=default
+set-option -g window-active-style bg=default
+
 # }}}
 #-------------------------------------------------------------------------------
 
