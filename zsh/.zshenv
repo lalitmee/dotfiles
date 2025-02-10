@@ -105,9 +105,6 @@ append_to_path "$HOME/.atuin/bin"
 # fnm
 FNM_PATH="$HOME/.local/share/fnm"
 append_to_path "$FNM_PATH"
-if [[ -d "$FNM_PATH" ]]; then
-    eval "$(fnm env)"
-fi
 
 # Homebrew
 append_to_path "/home/linuxbrew/.linuxbrew/bin"
