@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Directory containing the install scripts
+INSTALL_DIR="$HOME/dotfiles/scripts/install"
+
+# Check if fzf is installed, install if not
+if ! command -v fzf &>/dev/null; then
+    gum_style "fzf not found, installing..."
+    sudo apt-get install -y fzf
+fi
+
+# List files in the directory, ignoring .sh and .zsh extensions, and select with fzf
+selected_scripts=$(find "$INSTALL_DIR" -type f ! -name "*.sh" ! -name "*.zsh" | fzf -m)
+
+# Run selected scripts
+if [ -n "$selected_scripts" ]; then
+    for script in $selected_scripts; do
+        gum_style "Running $script..."
+        bash "$script"
+    done
+else
+    gum_style "No scripts selected. Exiting..."
+    exit 1
+fi
