@@ -1,8 +1,58 @@
 #!/bin/zsh
 
+# Define configurable variables
+border_color="#00AAFF"  # Set the border color to equivalent of #00AAFF
+text_color="#FFC600"    # Set the text color to equivalent of #FFC600
+min_width=80
+max_width=90  # Reduced the maximum width to 90 for a more compact border
+gum_width=100  # Gum width for outer border
+
+# Function to create styled message with dynamic borders
+gum_style() {
+    local message="$1"
+    local text_length=${#message}  # Get message length
+    local width
+
+    # Set width to at least min_width, but not more than max_width
+    if (( text_length < min_width )); then
+        width=$min_width
+    elif (( text_length > max_width )); then
+        width=$max_width
+    else
+        width=$text_length
+    fi
+
+    # Create a string of `=` with length adjusted to the message length
+    local base_border
+    base_border=$(printf '%*s' "$width" | tr ' ' '=')
+
+    # Initialize the border line and start adding `=` with `#` after every 3 `=`
+    local border_line=""
+    local i=0
+
+    # Create the border in blocks of 3 `=` and `#`
+    while [ $i -lt $((width - 3)) ]; do
+        border_line+="${base_border:$i:3}#"
+        i=$((i + 3))
+    done
+
+    # Add remaining `=` to the border if necessary without the `#` at the end
+    border_line+="${base_border:$i}"
+
+    # Ensure the border doesn't exceed the width and remove the trailing `#` if it exists
+    border_line="${border_line:0:$width}"
+    border_line="${border_line%"#"}"  # Remove any trailing `#`
+
+    # Add the necessary border lines and handle the last one properly
+    gum style --align center --width "$width" "$(gum style --foreground "$border_color" "$border_line")"
+    gum style --align center --width "$width" "$(gum style --foreground "$text_color" " $message ")"
+    gum style --align center --width "$width" "$(gum style --foreground "$border_color" "$border_line")"
+}
+
+# Print outer border with Gum's rounded border
 gum style \
-	--align center --width 100 \
-	--border rounded --border-foreground 212 \
-	--margin "0" --padding "1 2" \
+	--align center --width "$gum_width" \
+	--border rounded --border-foreground "$border_color" \
+	--margin "0" --padding "1 0" \
 	--bold \
-	"$(gum style --foreground 212 "$1")"
+	"$(gum style --foreground "$text_color" "$(gum_style "$1")")"
