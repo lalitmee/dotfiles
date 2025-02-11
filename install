@@ -1,5 +1,15 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
+# Set default values for variables if they are not set
+if [[ -z $STOW_FOLDERS ]]; then
+    STOW_FOLDERS="bat,bin,fzf,git,lsd,nvim,ripgrep,rofi,s,stylua,tmux,tmuxinator,vimium,zsh"
+fi
+
+if [[ -z $DOTFILES ]]; then
+    DOTFILES=$HOME/dotfiles
+fi
+
+# Navigate to dotfiles directory and stow the folders
 pushd $DOTFILES
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do

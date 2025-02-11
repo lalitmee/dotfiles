@@ -1,0 +1,61 @@
+#!/bin/zsh
+
+# Set -e and -o pipefail for error handling
+set -e
+set -o pipefail
+
+# Color variables
+COLORS=(
+    RED="#FF0000"
+    GREEN="#00FF00"
+    BLUE="#0000FF"
+    YELLOW="#FFFF00"
+    CYAN="#00FFFF"
+    MAGENTA="#FF00FF"
+)
+
+# Function to install gum
+install_gum() {
+    echo "Installing gum..."
+    curl -sS https://github.com/charmbracelet/gum/releases/download/v0.9.1/gum_0.9.1_linux_amd64.tar.gz | tar xz -C /tmp
+    sudo mv /tmp/gum /usr/local/bin
+    echo "Gum installed."
+}
+
+# Function to install fzf
+install_fzf() {
+    echo "Installing fzf..."
+    sudo apt install -y fzf
+    echo "fzf installed."
+}
+
+# Function to install gnu-stow
+install_stow() {
+    echo "Installing gnu-stow..."
+    sudo apt install -y stow
+    echo "gnu-stow installed."
+}
+
+# Function to install basic utilities
+install_basic_utilities() {
+    echo "Installing basic utilities..."
+    sudo apt update
+    sudo apt install -y curl git vim zsh wget unzip
+    echo "Basic utilities installed."
+}
+
+# Function to choose which folder to stow
+choose_and_stow() {
+    echo "Choosing folder to stow..."
+    folder=$(find . -type d -name "*" | fzf --preview 'ls {}' --height 40% --border)
+    echo "Stowing $folder..."
+    stow $folder
+    echo "$folder stowed successfully!"
+}
+
+# Install gum, fzf, basic utilities, gnu-stow, and then stow dotfiles
+install_gum
+install_fzf
+install_basic_utilities
+install_stow
+choose_and_stow
