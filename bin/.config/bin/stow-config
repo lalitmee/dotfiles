@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Define dotfiles repository URL
+DOTFILES_REPO="https://github.com/lalitmee/dotfiles.git"
+DOTFILES_DIR="$HOME/dotfiles"
+
+# Check if fzf is installed
+if ! command -v fzf &>/dev/null; then
+    gum_style "fzf not found, installing..."
+    sudo apt-get install -y fzf
+else
+    gum_style "fzf is already installed."
+fi
+
+# Check if dotfiles directory exists
+if [ ! -d "$DOTFILES_DIR" ]; then
+    gum_style "$DOTFILES_DIR not found. Cloning the repository..."
+    git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
+else
+    gum_style "$DOTFILES_DIR already exists."
+fi
+
+# Select the folder using fzf
+selected_folder=$(find $DOTFILES_DIR -mindepth 1 -maxdepth 1 -type d | fzf)
+
+# If a folder was selected, run stow
+if [ -n "$selected_folder" ]; then
+    folder_name=$(basename "$selected_folder")
+    stow -D "$folder_name" && stow "$folder_name"
+else
+    gum_style "No folder selected. Exiting..."
+    exit 1
+fi
