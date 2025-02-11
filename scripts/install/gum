@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+# Load utility functions
+source "$(dirname "$0")/utils.zsh"
+
+gum_style "Starting gum installation..."
+
+# Ensure required dependencies
+ensure_dependency "curl"
+
+# Create keyrings directory
+execute_command \
+    "sudo mkdir -p /etc/apt/keyrings" \
+    "Created /etc/apt/keyrings directory." \
+    "Failed to create /etc/apt/keyrings directory."
+
+# Add Charm GPG key
+execute_command \
+    "curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg" \
+    "Charm GPG key added successfully." \
+    "Failed to add Charm GPG key."
+
+# Add Charm repository
+execute_command \
+    "echo 'deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *' | sudo tee /etc/apt/sources.list.d/charm.list > /dev/null" \
+    "Charm repository added successfully." \
+    "Failed to add Charm repository."
+
+# Update package list
+execute_command \
+    "sudo apt update" \
+    "Package list updated successfully." \
+    "Failed to update package list."
+
+# Install gum
+execute_command \
+    "sudo apt install -y gum" \
+    "gum installed successfully." \
+    "Failed to install gum."
+
+# Verify installation
+verify_installation "gum"
+
+gum_style "gum installation completed successfully!"
