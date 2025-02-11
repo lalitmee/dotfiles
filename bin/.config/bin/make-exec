@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Define the directory where executable files are stored
+BIN_DIR="$HOME/dotfiles/bin/.config/bin"
+
+# Check if fzf is installed, install if not
+if ! command -v fzf &>/dev/null; then
+    gum_style "fzf not found, installing..."
+    sudo apt-get install -y fzf
+fi
+
+# Find non-executable files and list them using fzf with multi-selection enabled
+non_executable_files=$(find "$BIN_DIR" -type f ! -executable)
+
+if [ -n "$non_executable_files" ]; then
+    selected_files=$(echo "$non_executable_files" | fzf -m)
+
+    # If files are selected, make them executable
+    if [ -n "$selected_files" ]; then
+        for file in $selected_files; do
+            chmod +x "$file"
+            gum_style "Made $file executable."
+        done
+    else
+        gum_style "No files selected. Exiting..."
+        exit 1
+    fi
+else
+    gum_style "All files are already executable. Exiting..."
+fi
