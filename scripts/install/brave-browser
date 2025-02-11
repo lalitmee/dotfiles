@@ -1,0 +1,38 @@
+#!/bin/zsh
+
+# Load utility functions
+source "$(dirname "$0")/utils.zsh"
+
+gum_style "Starting Brave Browser installation..."
+
+# Ensure curl is installed
+ensure_dependency "curl"
+
+# Add Brave Browser GPG key
+execute_command \
+    "sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg" \
+    "Brave GPG key added successfully." \
+    "Failed to add Brave GPG key."
+
+# Add Brave repository
+execute_command \
+    "echo 'deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main' | sudo tee /etc/apt/sources.list.d/brave-browser-release.list > /dev/null" \
+    "Brave repository added successfully." \
+    "Failed to add Brave repository."
+
+# Update package list
+execute_command \
+    "sudo apt update" \
+    "Package list updated successfully." \
+    "Failed to update package list."
+
+# Install Brave Browser
+execute_command \
+    "sudo apt install -y brave-browser" \
+    "Brave Browser installed successfully." \
+    "Failed to install Brave Browser."
+
+# Verify installation
+verify_installation "brave-browser"
+
+gum_style "Brave Browser installation completed successfully!"
