@@ -68,17 +68,14 @@ return {
             "CodeCompanion",
             "CodeCompanionWithBuffers",
             "CodeCompanionChat",
-            "CodeCompanionAdd",
-            "CodeCompanionToggle",
             "CodeCompanionActions",
         },
+        -- stylua: ignore
         keys = {
-            { "<localleader>ac", ":CodeCompanion<CR>", desc = "Code Companion", silent = true },
-            { "<localleader>ab", ":CodeCompanionWithBuffers<CR>", desc = "Code Companion With Buffers", silent = true },
-            { "<localleader>aw", ":CodeCompanionChat<CR>", desc = "Code Companion Chat", silent = true },
-            { "<localleader>aa", ":CodeCompanionAdd<CR>", desc = "Code Companion Add", silent = true },
-            { "<localleader>at", ":CodeCompanionToggle<CR>", desc = "Code Companion Toggle", silent = true },
-            { "<localleader>as", ":CodeCompanionActions<CR>", desc = "Code Companion Actions", silent = true },
+            { "<leader>ca", ":CodeCompanionActions<CR>", desc = "Code Companion Actions", silent = true, mode = { "n", "v" } },
+            { "<leader>cc", ":CodeCompanionChat<CR>", desc = "Code Companion Chat", silent = true, mode = { "n", "v" } },
+            { "<leader>cd", ":CodeCompanionCmd<CR>", desc = "Code Companion Cmd", silent = true, mode = { "n", "v" } },
+            { "<leader>ci", ":CodeCompanion<CR>", desc = "Code Companion (Inline)", silent = true, mode = { "n", "v" } },
         },
         init = function()
             vim.cmd([[cab cc CodeCompanion]])
@@ -87,13 +84,13 @@ return {
         opts = {
             strategies = {
                 chat = {
-                    adapter = "gemini",
+                    adapter = "anthropic",
                 },
                 inline = {
-                    adapter = "gemini",
+                    adapter = "anthropic",
                 },
                 agent = {
-                    adapter = "gemini",
+                    adapter = "anthropic",
                 },
             },
         },
@@ -178,5 +175,21 @@ return {
                 help = true,
             },
         },
+    },
+
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        dependencies = {
+            "zbirenbaum/copilot.lua",
+        },
+        build = "make tiktoken",
+        cmd = {
+            "CopilotChat",
+            "CopilotChatToggle",
+        },
+        keys = {
+            { "<leader>cg", ":CopilotChatToggle<CR>", desc = "Github Copilot Chat Toggle", silent = true },
+        },
+        opts = {},
     },
 }
