@@ -10,3 +10,10 @@ opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.tabstop = 4
 opt.spell = true
+
+vim.keymap.set(
+    "n",
+    "<leader>cc",
+    ":CodeCompanion /commit<CR>",
+    { desc = "Generate Commit Msg (CodeCompanion)", buffer = true }
+)
