@@ -62,7 +62,7 @@ return {
         end,
     },
 
-    { --[[ codecompanion ]]
+    { --[[ codecompanion.nvim ]]
         "olimorris/codecompanion.nvim",
         cmd = {
             "CodeCompanion",
@@ -80,6 +80,9 @@ return {
             { "<localleader>at", ":CodeCompanionToggle<CR>", desc = "Code Companion Toggle", silent = true },
             { "<localleader>as", ":CodeCompanionActions<CR>", desc = "Code Companion Actions", silent = true },
         },
+        init = function()
+            vim.cmd([[cab cc CodeCompanion]])
+        end,
         -- TODO: add config for adapters and use `Gemini` for the default adapter
         opts = {
             strategies = {
