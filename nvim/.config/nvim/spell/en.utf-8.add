@@ -71,3 +71,6 @@ folke
 qf
 localleader
 Neovim's
+args
+iglob
+init
