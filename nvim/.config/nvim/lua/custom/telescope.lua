@@ -199,7 +199,6 @@ M.setup = function()
                 limit = 100,
             },
 
-            layout_strategy = "flex",
             layout_config = {
                 width = 0.95,
                 height = 0.95,
