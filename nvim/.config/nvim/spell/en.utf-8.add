@@ -74,3 +74,5 @@ Neovim's
 args
 iglob
 init
+textwidth
+keymap
