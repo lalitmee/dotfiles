@@ -159,23 +159,19 @@ return {
     { --[[ telescope-undo.nvim ]]
         "debugloop/telescope-undo.nvim",
         keys = {
-            {
-                "<leader>au",
-
-                -- NOTE: the settings are not working from telescope extensions
-                -- table, that's why had to call like this
-                function()
-                    require("telescope").extensions.undo.undo({
-                        side_by_side = true,
-                        layout_strategy = "vertical",
-                        layout_config = { preview_height = 0.8 },
-                    })
-                end,
-                desc = "Telescope Undo",
-                silent = true,
+            { "<leader>au", ":Telescope undo<CR>", desc = "Telescope Undo", silent = true },
+        },
+        opts = {
+            extensions = {
+                undo = {
+                    side_by_side = true,
+                    layout_strategy = "vertical",
+                    layout_config = { preview_height = 0.8 },
+                },
             },
         },
-        config = function()
+        config = function(_, opts)
+            require("telescope").setup(opts)
             require("telescope").load_extension("undo")
         end,
     },
