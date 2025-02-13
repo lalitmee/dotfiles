@@ -15,7 +15,7 @@ return {
             wk.add({
                 { "<leader>:", ":Telescope commands<CR>", desc = "Commands" },
                 { "<leader><leader>", ":Telescope find_files<CR>", desc = "Find Files" },
-                { "<leader>/", ":Telescope live_grep<CR>", desc = "Search Project" },
+                { "<leader>/", ":Telescope live_grep_args<CR>", desc = "Search Project" },
 
                 --------------------------------------------------------------------------------
                 --  NOTE: <leader>a -> actions {{{
