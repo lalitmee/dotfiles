@@ -14,6 +14,10 @@ opt.spell = true
 vim.keymap.set(
     "n",
     "<leader>cc",
-    ":CodeCompanion /commit<CR>",
-    { desc = "Generate Commit Msg (CodeCompanion)", buffer = true }
+    ":CodeCompanion /commit Generate commit message using best practices that are followed for the textwidth for the subject and body of the commit<CR>",
+    {
+        desc = "Generate Commit Msg (CodeCompanion)",
+        buffer = true,
+        silent = true,
+    }
 )
