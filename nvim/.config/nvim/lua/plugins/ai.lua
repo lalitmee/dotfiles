@@ -84,13 +84,13 @@ return {
         opts = {
             strategies = {
                 chat = {
-                    adapter = "anthropic",
+                    adapter = "openai",
                 },
                 inline = {
-                    adapter = "anthropic",
+                    adapter = "openai",
                 },
                 agent = {
-                    adapter = "anthropic",
+                    adapter = "openai",
                 },
             },
         },
