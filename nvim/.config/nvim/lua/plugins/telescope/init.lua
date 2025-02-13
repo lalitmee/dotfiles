@@ -42,7 +42,7 @@ return {
         end,
     },
 
-    { --[[ telescope-frecency ]]
+    { --[[ telescope-frecency.nvim ]]
         "nvim-telescope/telescope-frecency.nvim",
         keys = {
             { "<leader>pr", ":Telescope frecency<CR>", desc = "Frecency", silent = true },
@@ -67,7 +67,7 @@ return {
         },
     },
 
-    { --[[ telescope-smart-history ]]
+    { --[[ telescope-smart-history.nvim ]]
         enabled = false,
         "nvim-telescope/telescope-smart-history.nvim",
         dependencies = { "kkharji/sqlite.lua" },
@@ -77,7 +77,7 @@ return {
         end,
     },
 
-    { --[[ telescope-lazy ]]
+    { --[[ telescope-lazy.nvim ]]
         "tsakirist/telescope-lazy.nvim",
         keys = {
             { "<leader>na", ":Telescope lazy<CR>", desc = "Telescope Lazy", silent = true },
@@ -97,7 +97,7 @@ return {
         end,
     },
 
-    { --[[ telescope-live-grep-args ]]
+    { --[[ telescope-live-grep-args.nvim ]]
         "nvim-telescope/telescope-live-grep-args.nvim",
         keys = {
             { "<leader>p/", ":Telescope live_grep_args<CR>", desc = "Live Grep Args", silent = true },
@@ -107,7 +107,7 @@ return {
         end,
     },
 
-    { --[[ telescope-luasnip ]]
+    { --[[ telescope-luasnip.nvim ]]
         "benfowler/telescope-luasnip.nvim",
         keys = {
             { "<leader>ia", ":Telescope luasnip<CR>", desc = "Luasnip Snippets", silent = true },
@@ -117,7 +117,7 @@ return {
         end,
     },
 
-    { --[[ telescope-import ]]
+    { --[[ telescope-import.nvim ]]
         "piersolenski/telescope-import.nvim",
         keys = {
             { "<leader>pi", ":Telescope import<CR>", desc = "Telescope Import", silent = true },
@@ -127,7 +127,7 @@ return {
         end,
     },
 
-    { --[[ telescope-helpgrep ]]
+    { --[[ telescope-helpgrep.nvim ]]
         "catgoose/telescope-helpgrep.nvim",
         keys = {
             { "<leader>vg", ":Telescope helpgrep<CR>", desc = "Helpgrep", silent = true },
@@ -137,7 +137,7 @@ return {
         end,
     },
 
-    { --[[ toggleterm-manager ]]
+    { --[[ toggleterm-manager.nvim ]]
         "ryanmsnyder/toggleterm-manager.nvim",
         dependencies = { "akinsho/toggleterm.nvim" },
         keys = {
@@ -146,7 +146,7 @@ return {
         config = true,
     },
 
-    {
+    { --[[ telescope-project.nvim ]]
         "nvim-telescope/telescope-project.nvim",
         keys = {
             { "<leader>pp", ":Telescope project<CR>", desc = "Projects", silent = true },
@@ -156,7 +156,17 @@ return {
         end,
     },
 
-    {
+    { --[[ telescope-undo.nvim ]]
+        "debugloop/telescope-undo.nvim",
+        keys = {
+            { "<leader>au", ":Telescope undo<cr>", desc = "Telescope Undo", silent = true },
+        },
+        config = function()
+            require("telescope").load_extension("undo")
+        end,
+    },
+
+    { --[[ search.nvim ]]
         "FabianWirth/search.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
         keys = {
