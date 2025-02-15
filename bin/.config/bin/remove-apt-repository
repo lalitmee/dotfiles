@@ -1,0 +1,38 @@
+#!/bin/zsh
+
+# Load utility functions
+source "$(dirname "$0")/utils.zsh"
+
+gum_style "Fetching list of added repositories..."
+
+# List available repositories
+repo_files=$(ls /etc/apt/sources.list.d/*.list 2>/dev/null)
+
+if [[ -z "$repo_files" ]]; then
+    gum_style "No additional repositories found."
+    exit 0
+fi
+
+# Select repositories to remove using fzf
+selected_repos=$(echo "$repo_files" | fzf --multi --prompt="Select repositories to remove: " --preview="cat {}")
+
+if [[ -z "$selected_repos" ]]; then
+    gum_style "No repository selected."
+    exit 0
+fi
+
+# Remove selected repositories
+for repo in $selected_repos; do
+    execute_command \
+        "sudo rm -f $repo" \
+        "Removed repository: $repo" \
+        "Failed to remove repository: $repo"
+done
+
+# Update package list
+execute_command \
+    "sudo apt update" \
+    "Package list updated successfully." \
+    "Failed to update package list."
+
+gum_style "Selected repositories removed successfully!"
