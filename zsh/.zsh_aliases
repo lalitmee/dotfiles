@@ -106,6 +106,7 @@ alias upd="apt update"
 alias update="
 apt upgrade -y &&
 sudo flatpak update
+sudo snap refresh
 "
 alias updg="apt dist-upgrade -y"
 alias upg="apt upgrade -y"
