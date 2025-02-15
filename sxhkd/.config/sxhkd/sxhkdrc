@@ -264,7 +264,7 @@ super + shift + g
 super + m
     i3run --summon --instance spotify -- spotify
 
-# >> terminal music plaer -> cmust
+# >> terminal music plaer -> cmus
 super + shift + m
     i3run --summon --title terminal-music-player -- ghostty --title=terminal-music-player -e cmus
 
