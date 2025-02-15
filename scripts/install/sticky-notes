@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+# Load utility functions
+source "$(dirname "$0")/utils.zsh"
+
+gum_style "Starting Xpad installation..."
+
+# Update package list
+execute_command \
+    "sudo apt update" \
+    "Package list updated successfully." \
+    "Failed to update package list."
+
+# Install Xpad
+execute_command \
+    "sudo apt install -y xpad" \
+    "Xpad installed successfully." \
+    "Failed to install Xpad."
+
+# Verify installation
+verify_installation "xpad"
+
+gum_style "Xpad installation completed successfully!"
