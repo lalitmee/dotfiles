@@ -274,11 +274,11 @@ super + g
 
 # >> file-manager -> Thunar
 super + d
-    i3run --class Thunar --summon --command thunar
+    i3run --class Thunar --summon -- thunar
 
 # >> sticky-notes -> xpad
 super + comma
-    i3run --class xpad --summon --command xpad
+    i3run --class xpad --summon -- xpad
 
 # >> floating-notes -> ghostty
 super + shift + n
@@ -286,7 +286,7 @@ super + shift + n
 
 # >> communication -> telegram
 super + u
-    i3run --class TelegramDesktop --summon --instance telegram-desktop --command telegram-desktop
+    i3run --class TelegramDesktop --summon --instance telegram-desktop -- telegram-desktop
 
 #}}}```
 #-------------------------------------------------------------------------------
