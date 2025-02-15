@@ -264,6 +264,10 @@ super + shift + g
 super + m
     i3run --summon --instance spotify -- spotify
 
+# >> terminal music plaer -> cmust
+super + shift + m
+    i3run --summon --title terminal-music-player -- ghostty --title=terminal-music-player -e cmus
+
 # >> todo tracker -> todoist
 super + g
     i3run --summon --instance todoist -- todoist
@@ -273,12 +277,12 @@ super + d
     i3run --class Thunar --summon --command thunar
 
 # >> sticky-notes -> xpad
-super + x
-    i3run --class xpad --summon --mouse --command xpad
+super + comma
+    i3run --class xpad --summon --command xpad
 
-# >> sticky-notes -> xpad
-super + shift + m
-    i3run --summon --title work-notes -- ghostty --title=work-notes -e nvim ~/Desktop/Github/notes/inbox.org
+# >> floating-notes -> ghostty
+super + shift + n
+    i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Desktop/Github/notes/inbox.org
 
 # >> communication -> telegram
 super + u
