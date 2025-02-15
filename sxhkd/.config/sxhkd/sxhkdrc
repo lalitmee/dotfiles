@@ -26,7 +26,7 @@ super + Return
 #-------------------------------------------------------------------------------
 # NOTE: rofi/dmenu {{{
 #-------------------------------------------------------------------------------
-super + d
+super + o
    ~/.config/rofi/launchers/type-1/launcher.sh
 
 # super + shift + v
@@ -249,7 +249,7 @@ super + n
     i3run --summon --instance neovide -- neovide
 
 # terminal -> wezterm
-super + o
+super + t
     i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
 
 # >> system monitor -> bottom
@@ -264,8 +264,12 @@ super + shift + g
 super + m
     i3run --summon --instance spotify -- spotify
 
+# >> todo tracker -> todoist
+super + g
+    i3run --summon --instance todoist -- todoist
+
 # >> file-manager -> Thunar
-super + t
+super + d
     i3run --class Thunar --summon --command thunar
 
 # >> sticky-notes -> xpad
