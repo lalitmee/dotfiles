@@ -12,19 +12,7 @@
     },
     {
       "passKeys": "",
-      "pattern": "https?://replit.com/*"
-    },
-    {
-      "passKeys": "",
       "pattern": "https?://www.hackerrank.com/*"
-    },
-    {
-      "passKeys": "",
-      "pattern": "https?://www.hackerrank.com/*"
-    },
-    {
-      "passKeys": "",
-      "pattern": "https?://www.codewars.com/*"
     },
     {
       "passKeys": "",
