@@ -256,6 +256,10 @@ super + t
 super + b
     i3run --summon --title monitor -- ghostty --title=monitor -e btm
 
+# >> bluetooth manager -> blueman-manager
+super + shift + b
+    i3run --class blueman-manager --summon -- blueman-manager
+
 # password manager -> 1password
 super + shift + g
     i3run --summon --instance bitwarden -- flatpak run com.bitwarden.desktop
