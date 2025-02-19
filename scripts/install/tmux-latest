@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+# Load utility functions
+source "$(dirname "$0")/utils.zsh"
+
+set -e
+
+# Dependencies (using ensure_dependency from utils.zsh)
+ensure_dependency "git"
+ensure_dependency "automake"
+ensure_dependency "build-essential"  # Installs gcc, make, etc.
+ensure_dependency "pkg-config"
+ensure_dependency "libevent-dev"
+ensure_dependency "libncurses5-dev"
+ensure_dependency "byacc"
+
+# Temporary directory (using a more robust approach)
+TMP_DIR=$(mktemp -d)  # Creates a unique temporary directory
+trap 'rm -rf "$TMP_DIR"' EXIT  # Automatically remove the temp dir on exit (even on error)
+
+# Clone tmux (using execute_command from utils.zsh)
+execute_command \
+    "git clone https://github.com/tmux/tmux.git \"$TMP_DIR/tmux\"" \
+    "Tmux cloned successfully." \
+    "Failed to clone tmux."
+
+cd "$TMP_DIR/tmux" || { gum_style "Error: Could not enter temp directory"; exit 1; } #Handle cd failure
+
+# Build and install tmux (using execute_command)
+execute_command \
+    "./autogen.sh" \
+    "autogen.sh executed." \
+    "Failed to execute autogen.sh."
+
+execute_command \
+    "./configure" \
+    "configure executed." \
+    "Failed to execute configure."
+
+execute_command \
+    "make" \
+    "make executed." \
+    "Failed to execute make."
+
+execute_command \
+    "sudo make install" \
+    "tmux installed successfully." \
+    "Failed to install tmux."
+
+cd - || { gum_style "Error: Could not change directory back"; exit 1; }
+
+gum_style "Tmux installation completed."
+
+# Cleanup is handled by the trap command
