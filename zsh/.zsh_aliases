@@ -13,7 +13,6 @@ alias please="gum input --password | sudo -nS"
 
 # rust tools aliases
 alias cp="xcp"
-alias rm="rip"
 
 # alias for fonts
 alias fonts="fc-list | cut -d \":\" -f 2- | fzf"
