@@ -33,7 +33,7 @@ return {
             },
 
             sources = {
-                default = { "lsp", "copilot", "snippets", "buffer", "ripgrep", "path" },
+                default = { "snippets", "copilot", "lsp", "buffer", "ripgrep", "path" },
                 providers = {
                     copilot = {
                         module = "blink-copilot",
