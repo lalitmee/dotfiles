@@ -1,80 +1,80 @@
 gui:
-  # stuff relating to the UI
-  windowSize: "normal" # one of 'normal' | 'half' | 'full' default is 'normal'
-  scrollHeight: 2 # how many lines you scroll by
-  scrollPastBottom: true # enable scrolling past the bottom
-  sidePanelWidth: 0.3333 # number from 0 to 1
-  expandFocusedSidePanel: false
-  mainPanelSplitMode: "flexible" # one of 'horizontal' | 'flexible' | 'vertical'
-  language: "auto" # one of 'auto' | 'en' | 'zh' | 'pl' | 'nl' | 'ja' | 'ko'
-  timeFormat: "02 Jan 06 15:04 MST" # https://pkg.go.dev/time#Time.Format
-  theme:
-    activeBorderColor:
-      - green
-      - bold
-    inactiveBorderColor:
-      - white
-    optionsTextColor:
-      - blue
-    selectedLineBgColor:
-      - blue # set to `default` to have no background colour
-    selectedRangeBgColor:
-      - blue
-    cherryPickedCommitBgColor:
-      - cyan
-    cherryPickedCommitFgColor:
-      - blue
-    unstagedChangesColor:
-      - red
-    defaultFgColor:
-      - default
-  commitLength:
-    show: true
-  mouseEvents: true
-  skipDiscardChangeWarning: false
-  skipStashWarning: false
-  showFileTree: true # for rendering changes files in a tree format
-  showListFooter: true # for seeing the '5 of 20' message in list panels
-  showRandomTip: true
-  showBottomLine: true # for hiding the bottom information line (unless it has important information to tell you)
-  showCommandLog: true
-  showIcons: false
-  commandLogSize: 8
-  splitDiff: "auto" # one of 'auto' | 'always'
-  skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
+    # stuff relating to the UI
+    screenMode: "normal" # one of 'normal' | 'half' | 'full' default is 'normal'
+    scrollHeight: 2 # how many lines you scroll by
+    scrollPastBottom: true # enable scrolling past the bottom
+    sidePanelWidth: 0.3333 # number from 0 to 1
+    expandFocusedSidePanel: false
+    mainPanelSplitMode: "flexible" # one of 'horizontal' | 'flexible' | 'vertical'
+    language: "auto" # one of 'auto' | 'en' | 'zh' | 'pl' | 'nl' | 'ja' | 'ko'
+    timeFormat: "02 Jan 06 15:04 MST" # https://pkg.go.dev/time#Time.Format
+    theme:
+        activeBorderColor:
+            - green
+            - bold
+        inactiveBorderColor:
+            - white
+        optionsTextColor:
+            - blue
+        selectedLineBgColor:
+            - blue # set to `default` to have no background colour
+        selectedRangeBgColor:
+            - blue
+        cherryPickedCommitBgColor:
+            - cyan
+        cherryPickedCommitFgColor:
+            - blue
+        unstagedChangesColor:
+            - red
+        defaultFgColor:
+            - default
+    commitLength:
+        show: true
+    mouseEvents: true
+    skipDiscardChangeWarning: false
+    skipStashWarning: false
+    showFileTree: true # for rendering changes files in a tree format
+    showListFooter: true # for seeing the '5 of 20' message in list panels
+    showRandomTip: true
+    showBottomLine: true # for hiding the bottom information line (unless it has important information to tell you)
+    showCommandLog: true
+    showIcons: false
+    commandLogSize: 8
+    splitDiff: "auto" # one of 'auto' | 'always'
+    skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
 git:
-  paging:
-    # colorArg: always
-    pager: delta
-    # useConfig: false
-  commit:
-    signOff: false
-    verbose: default # one of 'default' | 'always' | 'never'
-  merging:
-    # only applicable to unix users
-    manualCommit: false
-    # extra args passed to `git merge`, e.g. --no-ff
-    args: ""
-  log:
-    # one of date-order, author-date-order, topo-order or default.
-    # topo-order makes it easier to read the git log graph, but commits may not
-    # appear chronologically. See https://git-scm.com/docs/git-log#_commit_ordering
-    order: "topo-order"
-    # one of always, never, when-maximised
-    # this determines whether the git graph is rendered in the commits panel
-    showGraph: "when-maximised"
-    # displays the whole git graph by default in the commits panel (equivalent to passing the `--all` argument to `git log`)
-    showWholeGraph: false
-  skipHookPrefix: WIP
-  autoFetch: true
-  autoRefresh: true
-  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
-  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium"
-  overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
-  disableForcePushing: false
-  parseEmoji: false
-  diffContextSize: 3 # how many lines of context are shown around a change in diffs
+    paging:
+        # colorArg: always
+        pager: delta
+        # useConfig: false
+    commit:
+        signOff: false
+        verbose: default # one of 'default' | 'always' | 'never'
+    merging:
+        # only applicable to unix users
+        manualCommit: false
+        # extra args passed to `git merge`, e.g. --no-ff
+        args: ""
+    log:
+        # one of date-order, author-date-order, topo-order or default.
+        # topo-order makes it easier to read the git log graph, but commits may not
+        # appear chronologically. See https://git-scm.com/docs/git-log#_commit_ordering
+        order: "topo-order"
+        # one of always, never, when-maximised
+        # this determines whether the git graph is rendered in the commits panel
+        showGraph: "when-maximised"
+        # displays the whole git graph by default in the commits panel (equivalent to passing the `--all` argument to `git log`)
+        showWholeGraph: false
+    skipHookPrefix: WIP
+    autoFetch: true
+    autoRefresh: true
+    branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+    allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium"
+    overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
+    disableForcePushing: false
+    parseEmoji: false
+    diffContextSize: 3 # how many lines of context are shown around a change in diffs
 os:
-  editCommand: "nvim" # see 'Configuring File Editing' section
-  editCommandTemplate: ""
-  openCommand: "nvim"
+    editCommand: "nvim" # see 'Configuring File Editing' section
+    editCommandTemplate: ""
+    openCommand: "nvim"
