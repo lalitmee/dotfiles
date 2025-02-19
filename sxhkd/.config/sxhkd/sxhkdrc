@@ -258,7 +258,7 @@ super + b
 
 # >> bluetooth manager -> blueman-manager
 super + shift + b
-    i3run --class blueman-manager --summon -- blueman-manager
+    i3run --class Blueman-manager --summon -- blueman-manager
 
 # password manager -> 1password
 super + shift + g
