@@ -109,17 +109,21 @@ augroup("terminal_au", {
                 tnoremap("<C-l>", [[<C-\><C-n><C-W>l]], opts)
                 tnoremap("<BS>", [[<BS>]], opts)
             end
-            vim.cmd([[startinsert]])
+            --  NOTE: this was putting cursor after overseer commands in insert
+            --  mode
+            -- vim.cmd([[startinsert]])
             vim.opt_local.signcolumn = "no"
         end,
     },
-    {
-        event = { "TermEnter" },
-        pattern = { "term://*" },
-        command = function()
-            vim.cmd([[startinsert]])
-        end,
-    },
+    --  NOTE: this was putting cursor after overseer commands in insert
+    --  mode
+    -- {
+    --     event = { "TermEnter" },
+    --     pattern = { "term://*" },
+    --     command = function()
+    --         vim.cmd([[startinsert]])
+    --     end,
+    -- },
     {
         event = { "TermLeave", "TermClose" },
         pattern = { "term://*" },
