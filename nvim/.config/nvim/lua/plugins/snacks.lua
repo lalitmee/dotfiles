@@ -83,7 +83,15 @@ return { --[[ snacks.nvim ]]
                 wo = { wrap = true }, -- Wrap notifications
             },
         },
-        -- scroll = {},
+        -- scroll = {
+        --     enabled = true,
+        -- },
+        image = {
+            enabled = true,
+        },
+        picker = {
+            enabled = true,
+        },
     },
     init = function()
         vim.api.nvim_create_autocmd("User", {
