@@ -139,6 +139,10 @@ M.setup = function()
                 "--glob=!yarn.lock",
                 "--glob=!package-lock.json",
                 "--glob=!**/.git",
+                "--glob=!**/.nx",
+                "--glob=!**/dist",
+                "--glob=!**/build",
+                "--glob=!**/node_modules",
                 "--ignore", -- Respect .gitignore and other ignore files
             },
             winblend = 0,
@@ -258,6 +262,17 @@ M.setup = function()
             find_files = {
                 path_display = { "absolute", "truncate" },
                 hidden = true,
+                find_command = {
+                    "rg",
+                    "--files",
+                    "--hidden",
+                    "--glob=!**/.git",
+                    "--glob=!**/.nx",
+                    "--glob=!**/dist",
+                    "--glob=!**/build",
+                    "--glob=!**/node_modules",
+                    "--ignore", -- Respect .gitignore and other ignore files
+                },
             },
             oldfiles = {
                 path_display = { "absolute", "truncate" },
