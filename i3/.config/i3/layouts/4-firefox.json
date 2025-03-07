@@ -5,29 +5,38 @@
     "fullscreen_mode": 0,
     "layout": "splith",
     "marks": [],
-    "percent": null,
+    "percent": 0.2,
     "type": "con",
     "nodes": [
       {
         "border": "pixel",
-        "current_border_width": 2,
         "floating": "auto_off",
-        "geometry": {
-          "height": 1036,
-          "width": 1900,
-          "x": 0,
-          "y": 0
-        },
+        "layout": "splith",
         "marks": [],
-        "name": "Firefox",
         "percent": 1,
-        "swallows": [
+        "type": "con",
+        "nodes": [
           {
-            "class": "^firefox$",
-            "instance": "^Navigator$"
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+              "height": 1042,
+              "width": 949,
+              "x": 0,
+              "y": 0
+            },
+            "marks": [],
+            "name": "(746) Wheels on the Bus + More Nursery Rhymes & Kids Songs - CoComelon - YouTube — Mozilla Firefox",
+            "percent": 1,
+            "swallows": [
+              {
+                "instance": "^Navigator$"
+              }
+            ],
+            "type": "con"
           }
-        ],
-        "type": "con"
+        ]
       }
     ]
   }
