@@ -186,9 +186,23 @@ return {
         cmd = {
             "CopilotChat",
             "CopilotChatToggle",
+            "CopilotChatPrompts",
         },
         keys = {
-            { "<leader>cg", ":CopilotChatToggle<CR>", desc = "Github Copilot Chat Toggle", silent = true },
+            {
+                "<leader>cg",
+                ":CopilotChatToggle<CR>",
+                desc = "Github Copilot Chat Toggle",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<leader>cp",
+                ":CopilotChatPrompts<CR>",
+                desc = "Github Copilot Chat Toggle",
+                silent = true,
+                mode = { "n", "v" },
+            },
         },
         opts = {},
     },
