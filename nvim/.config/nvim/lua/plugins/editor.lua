@@ -910,7 +910,7 @@ return {
             },
             skip_confirm_for_simple_edits = true,
             keymaps = {
-                gs = {
+                gr = {
                     callback = function()
                         -- get the current directory
                         local prefills = { paths = require("oil").get_current_dir() }
