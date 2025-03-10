@@ -187,6 +187,7 @@ return {
             "CopilotChat",
             "CopilotChatToggle",
             "CopilotChatPrompts",
+            "CopilotChatCommit",
         },
         keys = {
             {
