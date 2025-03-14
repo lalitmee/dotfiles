@@ -200,7 +200,7 @@ return {
             {
                 "<leader>cp",
                 ":CopilotChatPrompts<CR>",
-                desc = "Github Copilot Chat Toggle",
+                desc = "Github Copilot Chat Prompts",
                 silent = true,
                 mode = { "n", "v" },
             },
