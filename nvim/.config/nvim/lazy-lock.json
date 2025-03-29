@@ -41,6 +41,7 @@
   "hererocks": { "branch": "master", "commit": "c9c5444dea1e07e005484014a8231aa667be30b6" },
   "http-codes.nvim": { "branch": "main", "commit": "77aea3a73d5f3134089941ebf6d4172af34a4a8d" },
   "iswap.nvim": { "branch": "master", "commit": "e02cc91f2a8feb5c5a595767d208c54b6e3258ec" },
+  "json-to-types.nvim": { "branch": "main", "commit": "e8dcc6ac710c59fcac354255a835f72916171ba8" },
   "key-analyzer.nvim": { "branch": "main", "commit": "72d301fb8843c19d8e69e16e0a0b42256edc25cc" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "lazydev.nvim": { "branch": "main", "commit": "2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c" },
