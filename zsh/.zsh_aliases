@@ -15,7 +15,7 @@ alias please="gum input --password | sudo -nS"
 alias cp="xcp"
 
 # alias for fonts
-alias fonts="fc-list | cut -d \":\" -f 2- | fzf"
+alias fonts="fc-list | cut -d ":" -f2 | sort -u | fzf --prompt=\"Select a font: \" --height=40% --border --ansi"
 alias kitty-fonts="kitty +list-fonts --psnames | grep \"^\w\" | fzf"
 
 # alias for dooit
