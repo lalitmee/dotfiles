@@ -16,4 +16,5 @@ vim.cmd([[
     ia tihs this
     ia funciton function
     ia cosnt const
+    ia cusotmer customer
 ]])
