@@ -719,55 +719,12 @@ return {
         },
     },
 
-    { --[[ spectre ]]
-        "nvim-pack/nvim-spectre",
-        keys = {
-            {
-                "<leader>ss/",
-                function()
-                    require("spectre").open_file_search()
-                end,
-                desc = "File Search",
-                silent = true,
-            },
-            {
-                "<leader>sso",
-                function()
-                    require("spectre").open()
-                end,
-                desc = "Open",
-                silent = true,
-            },
-            {
-                "<leader>ssw",
-                function()
-                    require("spectre").open_visual({ select_word = true })
-                end,
-                desc = "Current Word Search",
-                silent = true,
-                mode = "v",
-            },
-        },
-        opts = {
-            default = {
-                find = {
-                    options = { "ignore-case", "hidden", "line-number" },
-                },
-            },
-            highlight = {
-                ui = "String",
-                search = "DiffDelete",
-                replace = "DiffChange",
-            },
-        },
-    },
-
     { --[[ grug-far ]]
         "MagicDuck/grug-far.nvim",
         event = "VeryLazy",
         keys = {
             {
-                "<leader>sc/",
+                "<leader>ss/",
                 function()
                     require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } })
                 end,
@@ -775,7 +732,7 @@ return {
                 silent = true,
             },
             {
-                "<leader>sco",
+                "<leader>sso",
                 function()
                     require("grug-far").toggle_instance({ instanceName = "far", staticTitle = "Find and Replace" })
                 end,
@@ -783,7 +740,7 @@ return {
                 silent = true,
             },
             {
-                "<leader>scw",
+                "<leader>ssw",
                 function()
                     require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
                 end,
@@ -792,7 +749,7 @@ return {
                 mode = { "n", "v" },
             },
             {
-                "<leader>sce",
+                "<leader>sse",
                 function()
                     require("grug-far").open({ engine = "astgrep" })
                 end,
@@ -800,7 +757,7 @@ return {
                 silent = true,
             },
             {
-                "<leader>sct",
+                "<leader>sst",
                 function()
                     require("grug-far").open({ transient = true })
                 end,
@@ -808,7 +765,7 @@ return {
                 silent = true,
             },
             {
-                "<leader>scs",
+                "<leader>sss",
                 [[:<C-u>lua require('grug-far').with_visual_selection({ prefills = { paths = vim.fn.expand("%") } })<CR>]],
                 desc = "Current File Search With Visual Selection",
                 silent = true,
