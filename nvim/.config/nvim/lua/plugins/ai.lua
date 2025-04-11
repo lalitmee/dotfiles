@@ -205,6 +205,8 @@ return {
                 mode = { "n", "v" },
             },
         },
-        opts = {},
+        opts = {
+            model = "gpt-4o",
+        },
     },
 }
