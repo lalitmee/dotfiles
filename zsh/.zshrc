@@ -138,28 +138,6 @@ fi
 # }}}
 # -------------------------------------------------------------------
 
-# -------------------------------------------------------------------
-# NOTE: sourcing some of the other things {{{
-# -------------------------------------------------------------------
-# p10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# aliases
-[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
-
-# secrete tokens
-[[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
-
-# awesome zsh functions
-[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
-
-# keybindings
-[[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
-
-# plugins config
-[[ -f ~/.zsh_plugins_config/init.zsh ]] && source ~/.zsh_plugins_config/init.zsh
-# }}}
-# -------------------------------------------------------------------
 
 # # -------------------------------------------------------------------
 # # NOTE: starship prompt {{{
@@ -194,13 +172,6 @@ znap eval rbenv "rbenv init -"
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: atuin {{{
-# -------------------------------------------------------------------
-znap eval atuin "atuin init zsh"
-# }}}
-# -------------------------------------------------------------------
-
-# -------------------------------------------------------------------
 # NOTE: fnm {{{
 # -------------------------------------------------------------------
 eval "$(fnm env --use-on-cd --shell zsh)"
@@ -215,10 +186,38 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 # }}}
 # -------------------------------------------------------------------
 
-
+# # -------------------------------------------------------------------
+# # NOTE: atuin {{{
+# # -------------------------------------------------------------------
+znap eval atuin "atuin init zsh"
+# # }}}
+# # -------------------------------------------------------------------
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
+
+# -------------------------------------------------------------------
+# NOTE: sourcing some of the other things {{{
+# -------------------------------------------------------------------
+# p10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# aliases
+[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+
+# secrete tokens
+[[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
+
+# awesome zsh functions
+[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
+
+# keybindings
+[[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
+
+# plugins config
+[[ -f ~/.zsh_plugins_config/init.zsh ]] && source ~/.zsh_plugins_config/init.zsh
+# }}}
+# -------------------------------------------------------------------
 
 # zprof
 
