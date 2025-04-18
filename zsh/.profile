@@ -27,3 +27,8 @@ fi
 if [ -d "$HOME/.config/bin" ]; then
     PATH="$HOME/.config/bin:$PATH"
 fi
+
+# source Atuin environment setup if it exists
+if [ -f "$HOME/.atuin/bin/env" ]; then
+    . "$HOME/.atuin/bin/env"
+fi

@@ -163,7 +163,7 @@ append_to_path "$HOME/Android/Sdk/platform-tools"
 # -------------------------------------------------------------------
 # NOTE: neovim as man pager {{{
 # -------------------------------------------------------------------
-# export MANPAGER='nvim +Man!'
-export PAGER='nvimpager'
+export MANPAGER='nvim +Man!'
+# export PAGER='nvimpager'
 # }}}
 # -------------------------------------------------------------------
