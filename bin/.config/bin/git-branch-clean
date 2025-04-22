@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Get current branch
+CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+# Helper to fetch branches and preview last commit
+branch_preview() {
+	git log -n 1 --color=always --oneline --decorate "$1"
+}
+
+# Exclude main/master/current branches
+filter_protected() {
+	grep -vE "^\*?\s*(main|master|$CURRENT_BRANCH)$"
+}
+
+# Choose between local or remote
+BRANCH_TYPE=$(printf "local\nremote" | fzf --prompt="Branch type to delete: ")
+
+if [[ "$BRANCH_TYPE" == "local" ]]; then
+	BRANCHES=$(git branch --format="%(refname:short)" |
+		filter_protected |
+		fzf --multi --preview="branch_preview {}" --prompt="Select local branches to delete: ")
+
+	if [[ -z "$BRANCHES" ]]; then
+		echo "No local branches selected."
+		exit 0
+	fi
+
+	echo "The following local branches will be deleted:"
+	echo "$BRANCHES"
+	read -rp "Proceed? [y/N] " CONFIRM
+	if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+		echo "$BRANCHES" | xargs -n 1 git branch -D
+	else
+		echo "Aborted."
+	fi
+
+elif [[ "$BRANCH_TYPE" == "remote" ]]; then
+	REMOTE=$(git remote | fzf --prompt="Choose remote: ")
+	BRANCHES=$(git branch -r --format="%(refname:short)" |
+		grep "^$REMOTE/" |
+		sed "s|^$REMOTE/||" |
+		filter_protected |
+		fzf --multi --preview="branch_preview $REMOTE/{}" --prompt="Select remote branches to delete: ")
+
+	if [[ -z "$BRANCHES" ]]; then
+		echo "No remote branches selected."
+		exit 0
+	fi
+
+	echo "The following remote branches will be deleted from $REMOTE:"
+	echo "$BRANCHES"
+	read -rp "Proceed? [y/N] " CONFIRM
+	if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+		echo "$BRANCHES" | xargs -n 1 -I {} git push "$REMOTE" --delete "{}"
+	else
+		echo "Aborted."
+	fi
+fi
