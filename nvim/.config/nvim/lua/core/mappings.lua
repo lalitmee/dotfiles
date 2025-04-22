@@ -123,6 +123,10 @@ map("n", "Q", [[@='n.'<cr>]], map_opts)
 
 -- <c-l> for syntax highlight and more
 nnoremap("<A-S-l>", [[:nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>]])
+
+-- Use very magic mode by default for search
+map("n", "/", "/\\v", { noremap = true })
+map("v", "/", "/\\v", { noremap = true })
 -- }}}
 ----------------------------------------------------------------------
 
