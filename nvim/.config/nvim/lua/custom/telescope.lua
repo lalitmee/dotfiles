@@ -358,6 +358,7 @@ end
 M.custom_extensions = function()
     require("telescope").load_extension("messages")
     require("telescope").load_extension("dotfiles")
+    require("telescope").load_extension("git_hunks")
 end
 
 return M
