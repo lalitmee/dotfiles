@@ -10,6 +10,17 @@ local xnoremap = lk.xnoremap
 
 local map_opts = { noremap = true, silent = true }
 
+--------------------------------------------------------------------------------
+-- NOTE: editing {{{
+--------------------------------------------------------------------------------
+-- Automatically add semicolon or comma at the end of the line in INSERT and NORMAL modes
+map("i", ";;", "<ESC>A;")
+map("i", ",,", "<ESC>A,")
+map("n", ";;", "A;<ESC>")
+map("n", ",,", "A,<ESC>")
+-- }}}
+--------------------------------------------------------------------------------
+
 ----------------------------------------------------------------------
 -- NOTE: movements {{{
 ----------------------------------------------------------------------
@@ -262,7 +273,7 @@ local function cetner_search()
     return [[<CR>]]
 end
 
-vim.keymap.set("c", [[<CR>]], cetner_search, { silent = true, expr = true })
+map("c", [[<CR>]], cetner_search, { silent = true, expr = true })
 -- }}}
 --------------------------------------------------------------------------------
 
