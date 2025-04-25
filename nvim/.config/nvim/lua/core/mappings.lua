@@ -194,6 +194,15 @@ map("n", "cp", [[<Plug>TransposeCharacters]])
 map("n", "<cr>", [[@=(foldlevel('.')?'za':"\<Space>")<cr>]], map_opts)
 -- create folds using visual select and then press <cr>
 map("v", "<cr>", [[zf]], map_opts)
+
+-- -- <CR>: Close all folds, go to top, toggle fold under cursor, refresh
+-- vim.keymap.set("n", "<CR>", "zMggza<C-l>", { noremap = true })
+--
+-- -- <C-s>: Jump to next fold and open it, refresh
+-- vim.keymap.set("n", "<C-s>", "zjzo<C-l>", { noremap = true })
+--
+-- -- <C-h>: Close current fold and refresh
+-- vim.keymap.set("n", "<C-h>", "zc<C-l>", { noremap = true })
 -- }}}
 ----------------------------------------------------------------------
 
