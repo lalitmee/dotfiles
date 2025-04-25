@@ -107,6 +107,13 @@ return {
                         opts = { desc = "Previous Word" },
                     },
                 },
+
+                ["f"] = {
+                    -- Close current fold, jump to next, open it, refresh screen
+                    next = { rhs = [[zczjzo<C-l>]], opts = { desc = "next fold" } },
+                    -- Close current fold, jump to previous, open it, jump to match, go to line start, refresh
+                    prev = { rhs = [[zczkzo%0<C-l>]], opts = { desc = "previous fold" } },
+                },
             },
         },
     },
