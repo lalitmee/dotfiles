@@ -800,6 +800,7 @@ return {
             { "<leader>qf", "<cmd>TodoTelescope keywords=TODO,FIX<cr>", desc = "TODO/FIX Telescope" },
             { "<leader>qe", "<cmd>TodoTelescope keywords=ERROR,WARN<cr>", desc = "ERROR/WARN Telescope" },
             { "<leader>qN", "<cmd>TodoTelescope keywords=NOTE<cr>", desc = "NOTE Telescope" },
+            { "<leader>qF", "<cmd>TodoTelescope keywords=FIXME<cr>", desc = "FIXME Telescope" },
             { "<leader>qP", "<cmd>TodoTelescope keywords=PERF<cr>", desc = "PERF Telescope" },
             { "<leader>qh", "<cmd>TodoTelescope keywords=HACK<cr>", desc = "HACK Telescope" },
             { "<leader>qq", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
