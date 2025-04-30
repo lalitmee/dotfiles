@@ -9,10 +9,12 @@ return {
     "npm.dev",
     "npm.install",
     "npm.start",
+    "npm.budgets",
     "npm.tsc_watch",
     "rust.rustlings",
     "yarn.build",
     "yarn.dev",
     "yarn.install",
+    "yarn.budgets",
     "yarn.tsc_watch",
 }
