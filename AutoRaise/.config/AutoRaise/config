@@ -1,0 +1,15 @@
+# #AutoRaise config file
+# pollMillis=50
+# delay=1
+# focusDelay=0
+# warpX=0.5
+# warpY=0.1
+# scale=2
+# altTaskSwitcher=true
+# ignoreSpaceChanged=false
+# invertIgnoreApps=false
+# ignoreApps=""
+# ignoreTitles="\\s\\| Microsoft Teams,"
+# stayFocusedBundleIds=""
+# disableKey=""
+# mouseDelta=0.1
