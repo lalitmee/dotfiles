@@ -1013,18 +1013,19 @@ return {
                 Abolish restraunt{,s}                         restaurant{}
                 Abolish seperat{e,es,ed,ing,ely,ion,ions,or}  separat{}
                 Abolish segument{,s,ed,ation}                 segment{}
+                Abolish pattners patterns
+                Abolish configur{atoin,ation,atoin,artion,aiton,ration} configuration
+                Abolish confi[g]*ur[aeiou]*tion configuration
+                Abolish funct{in,ion,oin} function
+                Abolish respositories repositories
+                Abolish preson{,a,al,ality} person{}
+                Abolish feild{,s,ing} field{}
+                Abolish beleive{,d,ing} believe{}
+
+                " snippets
                 Abolish scflead     supercalifragilisticexpialidocious
                 Abolish Tqbf        The quick, brown fox jumps over the lazy dog
                 Abolish Lidsa       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-
-                Abolish pattners patterns
-                Abolish configuratoin configuration
-
-                Abolish functoin function
-                Abolish funtcion function
-                Abolish functin function
-
-                Abolish respositories repositories
             ]])
         end,
     },
@@ -1281,5 +1282,10 @@ return {
             },
         },
         opts = {},
+    },
+
+    { --[[ bloat.nvim ]]
+        "dundalek/bloat.nvim",
+        cmd = "Bloat",
     },
 }
