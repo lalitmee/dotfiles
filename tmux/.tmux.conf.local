@@ -518,7 +518,7 @@ set -g @plugin 'schasse/tmux-jump'
 # missing floating pane for tmux
 set -g @plugin 'omerxx/tmux-floax'
 set -g @floax-bind 'h'
-set -g @floax-border-color 'blue'
+set -g @floax-border-color '#FFFFFF'
 # }}}
 #-------------------------------------------------------------------------------
 
