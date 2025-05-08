@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Dependency Checks
+
+if ! command -v rg &>/dev/null; then
+	echo "ripgrep (rg) is not installed. Please install it."
+	exit 1
+fi
+
+if ! command -v fzf &>/dev/null; then
+	echo "fzf is not installed. Please install it."
+	exit 1
+fi
+
+if ! command -v nvim &>/dev/null; then
+	echo "Neovim (nvim) is not installed. Please install it."
+	exit 1
+fi
+
+# Search using ripgrep and pipe to fzf
+selection=$(rg --color=always --line-number --no-heading --hidden \
+	--glob '!.*' \
+	--glob '!node_modules/**' \
+	--glob '!build/**' \
+	--glob '!tests/**' \
+	--glob '!__stories__/**' \
+	--glob '!*.test.tsx' \
+	--glob '!*.cy.js' \
+	--glob '!*.stories.tsx' \
+	--glob '!changelog.md' \
+	--glob '!CHANGELOG.md' \
+	--glob '!Changelog.md' \
+	--glob '!CHANGELOG.MD' \
+	--glob '!ChAnGeLoG.md' \
+	'.' . | fzf --ansi --delimiter : --nth 1,2,3 \
+	--prompt "Search lines: " \
+	--header "Type to filter, select to open in nvim")
+
+# Exit silently if nothing selected
+[ -z "$selection" ] && exit 0
+
+# Open selected file in Neovim at line
+echo "$selection" | awk -F: '{printf "+%s\t%s\n", $2, $1}' | xargs -r -d $'\t' -n2 nvim
