@@ -4,6 +4,7 @@ return {
         { --[[ cobalt2 ]]
             "lalitmee/cobalt2.nvim",
             dependencies = { "tjdevries/colorbuddy.nvim", tag = "v1.0.0" },
+            dev = true,
             -- enabled = false,
         },
 

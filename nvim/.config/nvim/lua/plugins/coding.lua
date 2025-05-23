@@ -366,6 +366,12 @@ return {
         dependencies = { "MunifTanjim/nui.nvim" },
         opts = {
             arg = leet_arg,
+            lang = "python3",
+            theme = {
+                ["normal"] = {
+                    fg = "#EA4AAA",
+                },
+            },
         },
         -- enabled = false,
     },

@@ -1,0 +1,33 @@
+[
+  {
+    "border": "pixel",
+    "floating": "auto_off",
+    "fullscreen_mode": 0,
+    "layout": "splith",
+    "marks": [],
+    "percent": null,
+    "type": "con",
+    "nodes": [
+      {
+        "border": "none",
+        "current_border_width": 2,
+        "floating": "auto_off",
+        "geometry": {
+          "height": 1046,
+          "width": 1910,
+          "x": 5,
+          "y": 29
+        },
+        "marks": [],
+        "name": "What's New in Vivaldi - Vivaldi",
+        "percent": 1,
+        "swallows": [
+          {
+            "instance": "^vivaldi-stable$"
+          }
+        ],
+        "type": "con"
+      }
+    ]
+  }
+]
