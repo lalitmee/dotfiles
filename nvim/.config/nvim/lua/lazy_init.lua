@@ -14,6 +14,11 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- load lazy
 require("lazy").setup("plugins", {
+    dev = {
+        path = "~/Desktop/GitHub", -- path to your local plugins
+        patterns = { "lalitmee" }, -- For example {"folke"}
+        fallback = true, -- Fallback to git when local plugin doesn't exist
+    },
     rocks = {
         enabled = true,
         hererocks = true,
