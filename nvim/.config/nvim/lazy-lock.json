@@ -35,7 +35,7 @@
   "guess-indent.nvim": { "branch": "main", "commit": "84a4987ff36798c2fc1169cbaff67960aed9776f" },
   "hardtime.nvim": { "branch": "main", "commit": "b2c6f64091985336bb745e1f36bb063ffd4e35f4" },
   "harpoon": { "branch": "fix_initialization", "commit": "a60333828a5d54467a2fd6e62f5683880817d1b1" },
-  "hererocks": { "branch": "master", "commit": "c9c5444dea1e07e005484014a8231aa667be30b6" },
+  "hererocks": { "branch": "master", "commit": "344c46ed54df9a4dbc2d2bf510dcd9a9d90497bf" },
   "http-codes.nvim": { "branch": "main", "commit": "77aea3a73d5f3134089941ebf6d4172af34a4a8d" },
   "iswap.nvim": { "branch": "master", "commit": "e02cc91f2a8feb5c5a595767d208c54b6e3258ec" },
   "json-to-types.nvim": { "branch": "main", "commit": "e8dcc6ac710c59fcac354255a835f72916171ba8" },
