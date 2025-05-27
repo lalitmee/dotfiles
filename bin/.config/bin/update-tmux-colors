@@ -1,0 +1,14 @@
+#!/bin/bash
+
+bg="$1"
+fg="$2"
+
+if [ -z "$bg" ] || [ -z "$fg" ]; then
+  echo "Usage: $0 <bg-color> <fg-color>"
+  exit 1
+fi
+
+tmux set-option -g status-style "bg=$bg,fg=$fg"
+tmux set-option -g message-style "bg=$bg,fg=$fg"
+tmux set-option -g pane-border-style "fg=$fg"
+tmux set-option -g pane-active-border-style "fg=$fg"
