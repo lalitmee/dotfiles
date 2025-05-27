@@ -1,3 +1,5 @@
+require("plugins.colors.util")
+
 return {
     { --[[ colorschemes ]]
 
