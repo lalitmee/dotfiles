@@ -1,0 +1,2 @@
+* Download location
+  /home/lalitmee/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads/
