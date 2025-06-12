@@ -223,7 +223,8 @@ alias fkz="source ~/.fzf/shell/key-bindings.zsh"
 # -------------------------------------------------------------------
 # NOTE: python alias {{{
 # -------------------------------------------------------------------
-alias python="python3"
-alias pip="pip3"
+# this was interfering with pyenv and pyenv-virtualenv
+# alias python="python3"
+# alias pip="pip3"
 # }}}
 # -------------------------------------------------------------------

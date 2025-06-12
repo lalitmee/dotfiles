@@ -295,6 +295,7 @@ return {
                     liquid = { "curlylint" },
                     lua = { "stylua" },
                     markdown = { "mdformat", "markdownlint" },
+                    python = { "black" },
                     rust = { "rustfmt" },
                     scss = { "prettierd" },
                     sh = { "shfmt" },
