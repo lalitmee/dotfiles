@@ -397,10 +397,8 @@ return {
     },
 
     { --[[ harpoon ]]
-        "kimabrandt-flx/harpoon",
-        -- "ThePrimeagen/harpoon",
-        -- branch = "harpoon2",
-        branch = "fix_initialization",
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
         keys = {
             -- file
             {
