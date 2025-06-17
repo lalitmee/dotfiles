@@ -199,6 +199,10 @@ znap eval atuin "atuin init zsh"
 # -------------------------------------------------------------------
 # NOTE: sourcing some of the other things {{{
 # -------------------------------------------------------------------
+
+# Source fzf PATH setup (from ~/.fzf.zsh)
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
 # p10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
