@@ -1,9 +1,5 @@
-# Setup fzf
-# ---------
-if [[ ! "$PATH" == */Users/lalit.kumar1/.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/Users/lalit.kumar1/.fzf/bin"
-fi
-
+# source <(fzf --zsh)
+#
 # if [[ -n "${FZF_PATH}" && ! "$PATH" == *${FZF_PATH}/bin* ]]; then
 #   export PATH="$PATH:${FZF_PATH}/bin"
 # fi
@@ -20,4 +16,11 @@ fi
 #   source "${FZF_PATH}/shell/key-bindings.zsh" 2>/dev/null
 # fi
 
-source <(fzf --zsh)
+# Setup fzf PATH using $HOME
+if [[ ! "$PATH" == *"$HOME"/.fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
+fi
+
+# Ensure FZF_PATH is defined using $HOME
+# This variable points to the fzf installation directory.
+export FZF_PATH="$HOME/.fzf"
