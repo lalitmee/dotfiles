@@ -14,68 +14,69 @@ return {
         },
         opts = {
             org_agenda_files = {
-                "~/Desktop/Work/notes/tracker/todos.org", -- work todo
-                "~/Desktop/Github/todos/inbox.org", -- personal todo
+                "~/Desktop/Work/second-brain/**/*", -- work todo
+                "~/Desktop/Github/second-brain/**/*", -- personal todo
             },
-            org_default_notes_file = "~/Desktop/Github/notes/inbox.org",
+            org_default_notes_file = "~/Desktop/Github/second-brain/notes/inbox.org",
 
-            agenda = {
-                -- Show 14 days in the agenda view
-                span = 14,
+            -- Set the agenda to show a 14-day span
+            org_agenda_span = 14,
 
-                -- Start the week on Monday
-                start_on_weekday = 1,
+            -- Set the agenda week to start on Monday
+            org_agenda_start_on_weekday = 1,
 
-                -- Define custom views that will appear when you open the agenda
-                custom_commands = {
-                    -- The 'a' key will be our main, default view
-                    a = {
-                        name = "📅 Agenda & All Tasks",
-                        config = {
-                            -- Show the daily/weekly agenda
-                            { "agenda", chcia = true },
-                            -- Show all tasks that are NOT done
-                            { "alltodo", chcia = true },
+            org_agenda_custom_commands = {
+                -- CHANGED: Key is now 'A' (Shift+a) to avoid conflict with default 'a'
+                A = {
+                    description = "📅 Agenda & All Tasks (Global)",
+                    types = {
+                        { type = "agenda" },
+                        { type = "tags_todo" },
+                    },
+                },
+                w = {
+                    description = "💼 Work Focus",
+                    types = {
+                        {
+                            type = "agenda",
+                            org_agenda_files = { "~/Desktop/Work/second-brain/**/*" },
+                        },
+                        {
+                            type = "tags_todo",
+                            org_agenda_files = { "~/Desktop/Work/second-brain/**/*" },
                         },
                     },
-
-                    -- The 'w' key for a focused "Work" view
-                    w = {
-                        name = "💼 Work Focus",
-                        config = {
-                            -- Show the agenda...
-                            { "agenda" },
-                            -- ...but only for items tagged with :WORK:
-                            { "tags", tags = "WORK" },
+                },
+                p = {
+                    description = "🏠 Personal Focus",
+                    types = {
+                        {
+                            type = "agenda",
+                            org_agenda_files = { "~/Desktop/Github/second-brain/**/*" },
+                        },
+                        {
+                            type = "tags_todo",
+                            org_agenda_files = { "~/Desktop/Github/second-brain/**/*" },
                         },
                     },
-
-                    -- The 'b' key to see what's blocked or waiting
-                    b = {
-                        name = "❗ Blocked / Waiting",
-                        config = {
-                            -- Search for all headlines with a TODO state of "BLOCKED" OR "WAITING"
-                            -- The "/" character acts as an OR operator in the matcher.
-                            { "todo", matcher = "BLOCKED/WAITING" },
-                        },
+                },
+                -- CHANGED: Key is now 'T' (Shift+t) to avoid conflict with default 't'
+                T = {
+                    description = "📋 Triage / Planning",
+                    types = {
+                        { type = "tags_todo", match = "BACKLOG" },
                     },
-
-                    -- The 'p' key to review high-level projects
-                    p = {
-                        name = "📁 Projects Overview",
-                        config = {
-                            -- Show all items that are currently in the "PROJ" state
-                            { "todo", matcher = "PROJ" },
-                        },
+                },
+                i = {
+                    description = "🚀 In Progress View",
+                    types = {
+                        { type = "tags_todo", match = "IN-PROGRESS/IN-REVIEW/TESTING" },
                     },
-
-                    -- The 'n' key for "Next Actions"
-                    n = {
-                        name = "⚡ Next Actions",
-                        config = {
-                            -- Show all tasks in the "NEXT" state
-                            { "todo", matcher = "NEXT" },
-                        },
+                },
+                b = {
+                    description = "❗ Blocked / Waiting",
+                    types = {
+                        { type = "tags_todo", match = "BLOCKED/WAITING" },
                     },
                 },
             },
@@ -192,22 +193,22 @@ return {
                         p = {
                             description = "Project",
                             template = "* %? :IDEA:PROJECT:",
-                            target = "~/Desktop/Github/notes/ideas/project.org",
+                            target = "~/Desktop/Github/second-brain/ideas/project.org",
                         },
                         a = {
                             description = "Application",
                             template = "* %? :IDEA:APPLICATION:",
-                            target = "~/Desktop/Github/notes/ideas/application.org",
+                            target = "~/Desktop/Github/second-brain/ideas/application.org",
                         },
                         n = {
                             description = "Neovim",
                             template = "* %? :IDEA:NEOVIM:",
-                            target = "~/Desktop/Github/notes/ideas/neovim.org",
+                            target = "~/Desktop/Github/second-brain/ideas/neovim.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* %? :IDEA:WORK:",
-                            target = "~/Desktop/Work/notes/ideas/inbox.org",
+                            template = "* %? :IDEA:",
+                            target = "~/Desktop/Work/second-brain/ideas/inbox.org",
                         },
                     },
                 },
@@ -216,18 +217,18 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* TODO %? :PERSONAL:\n  SCHEDULED: %U\n  DEADLINE: %t",
-                            target = "~/Desktop/Github/todos/inbox.org",
+                            template = "* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            target = "~/Desktop/Github/second-brain/agenda/todos.org",
                         },
                         n = {
                             description = "Neovim",
-                            template = "* TODO %? :NEOVIM:\n  SCHEDULED: %U\n  DEADLINE: %t",
-                            target = "~/Desktop/Github/todos/nvim/index.org",
+                            template = "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            target = "~/Desktop/Github/second-brain/agenda/todos.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* TODO %? :WORK:\n  SCHEDULED: %U\n  DEADLINE: %t",
-                            target = "~/Desktop/Work/notes/tracker/todos.org",
+                            template = "* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            target = "~/Desktop/Work/second-brain/agenda/todos.org",
                         },
                     },
                 },
@@ -236,13 +237,13 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* %T %? :PERSONAL:NOTE:\n\n%i",
-                            target = "~/Desktop/Github/notes/inbox.org",
+                            template = "* %T %? :NOTE:\n\n%i",
+                            target = "~/Desktop/Github/second-brain/notes/inbox.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* %T %? :WORK:NOTE:\n\n%i",
-                            target = "~/Desktop/Work/notes/tracker/notes.org",
+                            template = "* %T %? :NOTE:\n\n%i",
+                            target = "~/Desktop/Work/second-brain/notes/inbox.org",
                         },
                     },
                 },
@@ -251,13 +252,13 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "\n** %U :PERSONAL:JOURNAL:\n\n%?",
-                            target = "file+datetree ~/Desktop/Github/notes/journal.org",
+                            template = "\n** %U :JOURNAL:\n\n%?",
+                            target = "file+datetree ~/Desktop/Github/second-brain/journal/inbox.org",
                         },
                         w = {
                             description = "Work",
-                            template = "\n** %U :WORK:JOURNAL:\n\n%?",
-                            target = "file+datetree ~/Desktop/Work/notes/journal.org",
+                            template = "\n** %U :JOURNAL:\n\n%?",
+                            target = "file+datetree ~/Desktop/Work/second-brain/journal/inbox.org",
                         },
                     },
                 },
@@ -266,13 +267,13 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* MEETING with %? :MEETING:PERSONAL:\n  SCHEDULED: %U",
-                            target = "~/Desktop/Github/notes/meets.org",
+                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %U",
+                            target = "~/Desktop/Github/second-brain/agenda/calls.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* MEETING with %? :MEETING:WORK:\n  SCHEDULED: %U",
-                            target = "~/Desktop/Work/notes/tracker/meets.org",
+                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %U",
+                            target = "~/Desktop/Work/second-brain/agenda/calls.org",
                         },
                     },
                 },
@@ -281,13 +282,13 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* CALL with %? :PHONE:PERSONAL:\n  SCHEDULED: %U",
-                            target = "~/Desktop/Github/notes/meets.org",
+                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %U",
+                            target = "~/Desktop/Github/second-brain/agenda/calls.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* CALL with %? :PHONE:WORK:\n  SCHEDULED: %U",
-                            target = "~/Desktop/Work/notes/tracker/meets.org",
+                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %U",
+                            target = "~/Desktop/Work/second-brain/agenda/calls.org",
                         },
                     },
                 },
@@ -296,13 +297,13 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* NEXT %? :PERSONAL:HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
-                            target = "~/Desktop/Github/notes/habits.org",
+                            template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            target = "~/Desktop/Github/second-brain/agenda/habits.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* NEXT %? :WORK:HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
-                            target = "~/Desktop/Work/notes/tracker/habits.org",
+                            template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            target = "~/Desktop/Work/second-brain/agenda/habits.org",
                         },
                     },
                 },
@@ -311,7 +312,7 @@ return {
                     subtemplates = {
                         r = {
                             description = "Useful resource links",
-                            template = "- [[%^{Link||}][%^{Description}]] :LINK:",
+                            template = "  - [[%^{Link||}][%^{Description}]] :LINK:",
                             headline = "Useful resource links",
                             target = "~/Desktop/Github/second-brain/vocabulary/links.org",
                         },
