@@ -266,21 +266,6 @@ return {
         end,
     },
 
-    { --[[ orgmode ]]
-        "nvim-orgmode/orgmode",
-        event = "BufReadPre",
-        dependencies = {
-            {
-                "akinsho/org-bullets.nvim",
-                config = true,
-            },
-        },
-        opts = {
-            org_agenda_files = { "~/Desktop/Github/notes/*.org", "~/Desktop/Github/todos/inbox.org" },
-            org_default_notes_file = "~/Desktop/Github/todos/inbox.org",
-        },
-    },
-
     { --[[ project ]]
         "ahmedkhalf/project.nvim",
         keys = { "<leader>pp" },
