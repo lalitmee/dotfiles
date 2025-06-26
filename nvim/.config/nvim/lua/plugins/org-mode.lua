@@ -26,7 +26,6 @@ return {
             org_agenda_start_on_weekday = 1,
 
             org_agenda_custom_commands = {
-                -- CHANGED: Key is now 'A' (Shift+a) to avoid conflict with default 'a'
                 A = {
                     description = "📅 Agenda & All Tasks (Global)",
                     types = {
@@ -188,125 +187,141 @@ return {
 
             org_capture_templates = {
                 i = {
+
                     description = "Idea",
                     subtemplates = {
                         p = {
                             description = "Project",
-                            template = "* %? :IDEA:PROJECT:",
+                            template = "\n* %? :IDEA:PROJECT:",
                             target = "~/Desktop/Github/second-brain/ideas/project.org",
                         },
                         a = {
                             description = "Application",
-                            template = "* %? :IDEA:APPLICATION:",
+                            template = "\n* %? :IDEA:APPLICATION:",
                             target = "~/Desktop/Github/second-brain/ideas/application.org",
                         },
                         n = {
                             description = "Neovim",
-                            template = "* %? :IDEA:NEOVIM:",
+                            template = "\n* %? :IDEA:NEOVIM:",
                             target = "~/Desktop/Github/second-brain/ideas/neovim.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* %? :IDEA:",
+                            template = "\n* %? :IDEA:",
                             target = "~/Desktop/Work/second-brain/ideas/inbox.org",
                         },
                     },
                 },
+
                 t = {
                     description = "Task",
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "\n* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Github/second-brain/agenda/todos.org",
                         },
                         n = {
                             description = "Neovim",
-                            template = "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "\n* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Github/second-brain/agenda/todos.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "\n* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Work/second-brain/agenda/todos.org",
                         },
                     },
                 },
+
                 n = {
                     description = "Note",
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* %T %? :NOTE:\n\n%i",
+                            template = "\n* %^{Title} :NOTE:\n  %U\n\n%?",
                             target = "~/Desktop/Github/second-brain/notes/inbox.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* %T %? :NOTE:\n\n%i",
+                            template = "\n* %^{Title} :NOTE:\n  %U\n\n%?",
                             target = "~/Desktop/Work/second-brain/notes/inbox.org",
                         },
                     },
                 },
+
                 j = {
                     description = "Journal",
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "\n** %U :JOURNAL:\n\n%?",
-                            target = "file+datetree ~/Desktop/Github/second-brain/journal/inbox.org",
+                            target = "~/Desktop/Github/second-brain/journal/inbox.org",
+                            template = "\n**** [%<%I:%M %p>] %?\n\n",
+                            datetree = {
+                                tree_type = "day",
+                                reversed = true,
+                            },
                         },
                         w = {
                             description = "Work",
-                            template = "\n** %U :JOURNAL:\n\n%?",
-                            target = "file+datetree ~/Desktop/Work/second-brain/journal/inbox.org",
+                            target = "~/Desktop/Github/second-brain/journal/inbox.org",
+                            template = "\n**** [%<%I:%M %p>] %?\n\n",
+                            datetree = {
+                                tree_type = "day",
+                                reversed = true,
+                            },
                         },
                     },
                 },
+
                 m = {
                     description = "Meeting",
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %U",
+                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %t",
                             target = "~/Desktop/Github/second-brain/agenda/calls.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %U",
+                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %t",
                             target = "~/Desktop/Work/second-brain/agenda/calls.org",
                         },
                     },
                 },
+
                 p = {
                     description = "Phone Call",
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %U",
+                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %t",
                             target = "~/Desktop/Github/second-brain/agenda/calls.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %U",
+                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %t",
                             target = "~/Desktop/Work/second-brain/agenda/calls.org",
                         },
                     },
                 },
+
                 h = {
                     description = "Habit",
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "\n* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Desktop/Github/second-brain/agenda/habits.org",
                         },
                         w = {
                             description = "Work",
-                            template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "\n* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Desktop/Work/second-brain/agenda/habits.org",
                         },
                     },
                 },
+
                 l = {
                     description = "Link",
                     subtemplates = {
