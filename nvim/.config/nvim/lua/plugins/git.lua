@@ -51,6 +51,12 @@ return {
                 telescope = true,
                 diffview = true,
             },
+            signs = {
+                -- { CLOSED, OPENED }
+                hunk = { "", "" },
+                item = { "▷", "▽" }, -- >, ›, », V
+                section = { "▷", "▽" }, -- >, ›, », V
+            },
         },
     },
 
