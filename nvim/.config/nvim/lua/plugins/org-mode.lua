@@ -124,6 +124,7 @@ return {
                 -------------------------------------------------------------------------
                 -- Use the vibrant Cobalt2 yellow for creative/new items
                 IDEA = ":foreground #ffc600 :weight bold",
+                RAW = ":foreground #af87ff :slant italic",
                 PROJECT = ":foreground #ffc600",
                 APPLICATION = ":foreground #ffc600",
 
@@ -179,7 +180,6 @@ return {
             },
 
             org_special_keyword_faces = {
-                -- Use a dim grey to make these keywords recede into the background
                 SCHEDULED = ":foreground #8a8a8a",
                 DEADLINE = ":foreground #8a8a8a",
                 CLOSED = ":foreground #8a8a8a",
@@ -187,9 +187,13 @@ return {
 
             org_capture_templates = {
                 i = {
-
                     description = "Idea",
                     subtemplates = {
+                        i = {
+                            description = "Raw Idea",
+                            template = "\n* %? :IDEA:RAW:",
+                            target = "~/Desktop/Github/second-brain/ideas/inbox.org",
+                        },
                         p = {
                             description = "Project",
                             template = "\n* %? :IDEA:PROJECT:",
@@ -207,7 +211,7 @@ return {
                         },
                         w = {
                             description = "Work",
-                            template = "\n* %? :IDEA:",
+                            template = "\n* %? :IDEA:WORK:",
                             target = "~/Desktop/Work/second-brain/ideas/inbox.org",
                         },
                     },
@@ -228,7 +232,7 @@ return {
                         },
                         w = {
                             description = "Work",
-                            template = "\n* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "\n* TODO %? :TASK:WORK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Work/second-brain/agenda/todos.org",
                         },
                     },
@@ -244,7 +248,7 @@ return {
                         },
                         w = {
                             description = "Work",
-                            template = "\n* %^{Title} :NOTE:\n  %U\n\n%?",
+                            template = "\n* %^{Title} :NOTE:WORK:\n  %U\n\n%?",
                             target = "~/Desktop/Work/second-brain/notes/inbox.org",
                         },
                     },
@@ -265,7 +269,7 @@ return {
                         w = {
                             description = "Work",
                             target = "~/Desktop/Github/second-brain/journal/inbox.org",
-                            template = "\n**** [%<%I:%M %p>] %?\n\n",
+                            template = "\n**** [%<%I:%M %p>] %? :WORK:\n\n",
                             datetree = {
                                 tree_type = "day",
                                 reversed = true,
@@ -284,7 +288,7 @@ return {
                         },
                         w = {
                             description = "Work",
-                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %t",
+                            template = "* MEETING with %? :MEETING:WORK:\n  SCHEDULED: %t",
                             target = "~/Desktop/Work/second-brain/agenda/calls.org",
                         },
                     },
@@ -300,7 +304,7 @@ return {
                         },
                         w = {
                             description = "Work",
-                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %t",
+                            template = "* CALL with %? :PHONE:WORK:\n  SCHEDULED: %t",
                             target = "~/Desktop/Work/second-brain/agenda/calls.org",
                         },
                     },
@@ -316,7 +320,7 @@ return {
                         },
                         w = {
                             description = "Work",
-                            template = "\n* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "\n* NEXT %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Desktop/Work/second-brain/agenda/habits.org",
                         },
                     },
