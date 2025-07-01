@@ -63,6 +63,7 @@ augroup("quit_q_au", {
             "log",
             "lspinfo",
             "man",
+            "man",
             "neotest-output",
             "neotest-summary",
             "oil",
@@ -77,7 +78,7 @@ augroup("quit_q_au", {
         },
         command = function(event)
             vim.bo[event.buf].buflisted = false
-            vim.keymap.set("n", "q", "<cmd>close<cr>", {
+            vim.keymap.set("n", "q", "<cmd>q<cr>", {
                 buffer = event.buf,
                 silent = true,
             })
