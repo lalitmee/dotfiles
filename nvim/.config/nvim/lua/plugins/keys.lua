@@ -352,6 +352,12 @@ return {
                 --  NOTE: <leader>o -> org {{{
                 --------------------------------------------------------------------------------
                 { "<leader>o", group = "org-mode" },
+                { "<leader>ob", group = "org tangle" },
+                { "<leader>od", group = "org dates" },
+                { "<leader>oi", group = "org insert" },
+                { "<leader>ol", group = "org links" },
+                { "<leader>on", group = "org notes" },
+                { "<leader>ox", group = "org clock" },
                 -- }}}
                 --------------------------------------------------------------------------------
 

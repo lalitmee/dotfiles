@@ -1,12 +1,13 @@
 {
-    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-    "Lua.workspace.library": [
-        "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/nightly",
-        "/usr/local/share/nvim/runtime",
-        "/home/lalitmee/.local/share/nvim/site/pack/packer/start/plenary.nvim",
-        "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/nightly",
-        "/usr/local/share/nvim/runtime",
-        "/home/lalitmee/.local/share/nvim/site/pack/packer/start/plenary.nvim",
-        "${3rd}/luassert/library"
-    ]
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "Lua.workspace.library": [
+    "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/nightly",
+    "/usr/local/share/nvim/runtime",
+    "/home/lalitmee/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    "/home/lalitmee/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/nightly",
+    "/usr/local/share/nvim/runtime",
+    "/home/lalitmee/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    "${3rd}/luassert/library"
+  ],
+  "diagnostics.globals": ["vim"]
 }

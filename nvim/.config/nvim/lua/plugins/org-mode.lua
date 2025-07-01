@@ -1,15 +1,26 @@
 return {
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
-        event = "BufReadPre",
+        ft = "org",
         keys = {
-            { "<leader>oa", "<cmd>Org agenda<cr>", desc = "Org Agenda" },
-            { "<leader>oc", "<cmd>Org capture<cr>", desc = "Org Capture" },
+            { "<leader>oa", "<cmd>Org agenda<cr>", desc = "org agenda" },
+            { "<leader>oc", "<cmd>Org capture<cr>", desc = "org capture" },
+            { "<leader>ow", "<cmd>Org agenda w<cr>", desc = "org work agenda" },
+            { "<leader>op", "<cmd>Org agenda p<cr>", desc = "org personal agenda" },
         },
         dependencies = {
             {
                 "akinsho/org-bullets.nvim",
-                config = true,
+                opts = {
+                    concealcursor = true,
+                    symbols = {
+                        checkboxes = {
+                            half = { "", "@org.checkbox.halfchecked" },
+                            done = { "✓", "@org.checkbox.checked" },
+                            todo = { " ", "@org.checkbox" },
+                        },
+                    },
+                },
             },
         },
         opts = {
@@ -82,22 +93,26 @@ return {
 
             org_todo_keywords = {
                 -- 1. PLANNING & TRIAGE STAGES
-                "BACKLOG",
-                "TODO",
+                "BACKLOG(b)",
+                "TODO(t)",
+
                 -- 2. ACTIVE DEVELOPMENT STAGES
-                "IN-PROGRESS",
-                "IN-REVIEW",
-                "TESTING",
+                "IN-PROGRESS(p)", -- "p" for "progress"
+                "IN-REVIEW(r)", -- "r" for "review"
+                "TESTING(e)", -- "e" from "t**e**sting"
+
                 -- 3. WAITING / PAUSED STAGES
-                "BLOCKED",
-                "WAITING",
-                "ON-HOLD",
+                "BLOCKED(l)", -- "l" from "b**l**ocked"
+                "WAITING(w)",
+                "ON-HOLD(h)",
+
                 -- SEPARATOR
                 "|",
+
                 -- 5. TERMINAL STAGES
-                "DONE",
-                "CANCELLED",
-                "REJECTED",
+                "DONE(d)",
+                "CANCELLED(c)",
+                "REJECTED(j)", -- "j" from "re**j**ected"
             },
 
             org_todo_keyword_faces = {
@@ -191,28 +206,33 @@ return {
                     subtemplates = {
                         i = {
                             description = "Raw Idea",
-                            template = "\n* %? :IDEA:RAW:",
+                            template = "* %? :IDEA:RAW:",
                             target = "~/Desktop/Github/second-brain/ideas/inbox.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         p = {
                             description = "Project",
-                            template = "\n* %? :IDEA:PROJECT:",
+                            template = "* %? :IDEA:PROJECT:",
                             target = "~/Desktop/Github/second-brain/ideas/project.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         a = {
                             description = "Application",
-                            template = "\n* %? :IDEA:APPLICATION:",
+                            template = "* %? :IDEA:APPLICATION:",
                             target = "~/Desktop/Github/second-brain/ideas/application.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         n = {
                             description = "Neovim",
-                            template = "\n* %? :IDEA:NEOVIM:",
+                            template = "* %? :IDEA:NEOVIM:",
                             target = "~/Desktop/Github/second-brain/ideas/neovim.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
-                            template = "\n* %? :IDEA:WORK:",
+                            template = "* %? :IDEA:WORK:",
                             target = "~/Desktop/Work/second-brain/ideas/inbox.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -222,18 +242,21 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "\n* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Github/second-brain/agenda/todos.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         n = {
                             description = "Neovim",
-                            template = "\n* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Github/second-brain/agenda/todos.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
-                            template = "\n* TODO %? :TASK:WORK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "* TODO %? :TASK:WORK:\n  SCHEDULED: %U\n  DEADLINE: %t",
                             target = "~/Desktop/Work/second-brain/agenda/todos.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -243,13 +266,15 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "\n* %^{Title} :NOTE:\n  %U\n\n%?",
+                            template = "* %^{Title} :NOTE:\n  %U\n\n%?",
                             target = "~/Desktop/Github/second-brain/notes/inbox.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
-                            template = "\n* %^{Title} :NOTE:WORK:\n  %U\n\n%?",
+                            template = "* %^{Title} :NOTE:WORK:\n  %U\n\n%?",
                             target = "~/Desktop/Work/second-brain/notes/inbox.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -260,20 +285,16 @@ return {
                         p = {
                             description = "Personal",
                             target = "~/Desktop/Github/second-brain/journal/inbox.org",
-                            template = "\n**** [%<%I:%M %p>] %?\n\n",
-                            datetree = {
-                                tree_type = "day",
-                                reversed = true,
-                            },
+                            template = "**** [%<%I:%M %p>] %?",
+                            datetree = { tree_type = "day", reversed = true },
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
                             target = "~/Desktop/Github/second-brain/journal/inbox.org",
-                            template = "\n**** [%<%I:%M %p>] %? :WORK:\n\n",
-                            datetree = {
-                                tree_type = "day",
-                                reversed = true,
-                            },
+                            template = "**** [%<%I:%M %p>] %? :WORK:",
+                            datetree = { tree_type = "day", reversed = true },
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -285,11 +306,13 @@ return {
                             description = "Personal",
                             template = "* MEETING with %? :MEETING:\n  SCHEDULED: %t",
                             target = "~/Desktop/Github/second-brain/agenda/calls.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
                             template = "* MEETING with %? :MEETING:WORK:\n  SCHEDULED: %t",
                             target = "~/Desktop/Work/second-brain/agenda/calls.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -301,11 +324,13 @@ return {
                             description = "Personal",
                             template = "* CALL with %? :PHONE:\n  SCHEDULED: %t",
                             target = "~/Desktop/Github/second-brain/agenda/calls.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
                             template = "* CALL with %? :PHONE:WORK:\n  SCHEDULED: %t",
                             target = "~/Desktop/Work/second-brain/agenda/calls.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -315,13 +340,15 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "\n* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Desktop/Github/second-brain/agenda/habits.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
-                            template = "\n* NEXT %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "* NEXT %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Desktop/Work/second-brain/agenda/habits.org",
+                            properties = { empty_lines = { before = 1 } },
                         },
                     },
                 },
@@ -339,5 +366,24 @@ return {
                 },
             },
         },
+        config = function(_, opts)
+            require("orgmode").setup(opts)
+
+            local set_cr_mapping = function()
+                vim.keymap.set("i", "<CR>", '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
+                    silent = true,
+                    buffer = true,
+                })
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "org",
+                callback = set_cr_mapping,
+            })
+
+            if vim.bo.filetype == "org" then
+                set_cr_mapping()
+            end
+        end,
     },
 }
