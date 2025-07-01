@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd ~/Desktop/Github/second-brain || exit 1
+
+# Only commit if there are actual changes
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  git add .
+  git commit -m "auto: backup changes on $(date '+%Y-%m-%d %H:%M:%S')"
+  git push
+fi
