@@ -242,19 +242,19 @@ return {
                     subtemplates = {
                         p = {
                             description = "Personal",
-                            template = "* TODO %? :TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "* TODO %? :TASK:\n  SCHEDULED: %U DEADLINE: %t",
                             target = "~/Desktop/Github/second-brain/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         n = {
                             description = "Neovim",
-                            template = "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U DEADLINE: %t",
                             target = "~/Desktop/Github/second-brain/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "Work",
-                            template = "* TODO %? :TASK:WORK:\n  SCHEDULED: %U\n  DEADLINE: %t",
+                            template = "* TODO %? :TASK:WORK:\n  SCHEDULED: %U DEADLINE: %t",
                             target = "~/Desktop/Work/second-brain/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
