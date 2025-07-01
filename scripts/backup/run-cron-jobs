@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Resolve user's home directory (works on both macOS and Linux)
+HOME_DIR="$HOME"
+LOG_DIR="$HOME_DIR/dotfiles/scripts/logs"
+BACKUP_SCRIPT="$HOME_DIR/dotfiles/scripts/backup/second-brain"
+LOG_FILE="$LOG_DIR/second-brain.log"
+
+# 1. Run backup
+/bin/bash "$BACKUP_SCRIPT" >> "$LOG_FILE" 2>&1
+
+# 2. Rotate logs weekly
+if [ "$(date +%u)" -eq 7 ] && [ "$(date +%H)" -eq 0 ]; then
+  mv "$LOG_FILE" "$LOG_DIR/second-brain-$(date +%F).log"
+  touch "$LOG_FILE"
+fi
+
+# 3. Cleanup logs monthly (1st day of month at 00:00)
+if [ "$(date +%d)" -eq 01 ] && [ "$(date +%H)" -eq 0 ]; then
+  find "$LOG_DIR" -name "second-brain-*.log" -mtime +30 -delete
+fi
