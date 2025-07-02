@@ -1,8 +1,1 @@
-# 🧠 Backup personal second-brain every hour
-0 * * * * /bin/bash ~/dotfiles/scripts/backup/second-brain >> ~/dotfiles/scripts/logs/second-brain.log 2>&1
-
-# 🔁 Rotate logs weekly
-@weekly mv ~/dotfiles/scripts/logs/second-brain.log ~/dotfiles/scripts/logs/second-brain-$(date +\%F).log && touch ~/dotfiles/scripts/logs/second-brain.log
-
-# 🧹 Cleanup logs older than 30 days
-@monthly find ~/dotfiles/scripts/logs -name "second-brain-*.log" -mtime +30 -delete
+0 * * * * /bin/bash /Users/lalit.kumar1/dotfiles/scripts/backup/run-cron-jobs >> /Users/lalit.kumar1/dotfiles/scripts/logs/second-brain.log 2>&1
