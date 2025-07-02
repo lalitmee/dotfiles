@@ -2,6 +2,9 @@
 
 cd ~/Desktop/Github/second-brain || exit 1
 
+# Pull latest changes first
+git pull --rebase
+
 # Only commit if there are actual changes
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git add .
