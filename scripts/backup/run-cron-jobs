@@ -5,6 +5,12 @@ LOG_DIR="$HOME/dotfiles/scripts/logs"
 BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/second-brain"
 LOG_FILE="$LOG_DIR/second-brain.log"
 
+# Log timestamp + horizontal rule
+{
+  echo "🕒 Run started at: $(date '+%Y-%m-%d %H:%M:%S')"
+  echo "------------------------------------------------------------"
+} >> "$LOG_FILE"
+
 # 1. Run the backup script
 /bin/bash "$BACKUP_SCRIPT" >> "$LOG_FILE" 2>&1
 
