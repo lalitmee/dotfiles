@@ -368,22 +368,16 @@ return {
         },
         config = function(_, opts)
             require("orgmode").setup(opts)
-
-            local set_cr_mapping = function()
-                vim.keymap.set("i", "<CR>", '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
-                    silent = true,
-                    buffer = true,
-                })
-            end
-
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = "org",
-                callback = set_cr_mapping,
+            require("org-bullets").setup({
+                concealcursor = true,
+                symbols = {
+                    checkboxes = {
+                        half = { "", "@org.checkbox.halfchecked" },
+                        done = { "✓", "@org.checkbox.checked" },
+                        todo = { " ", "@org.checkbox" },
+                    },
+                },
             })
-
-            if vim.bo.filetype == "org" then
-                set_cr_mapping()
-            end
         end,
     },
 }

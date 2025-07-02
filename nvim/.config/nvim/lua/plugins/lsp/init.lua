@@ -83,7 +83,6 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
-            -- { "saghen/blink.cmp" },
             {
                 "pmizio/typescript-tools.nvim",
                 keys = {
@@ -126,7 +125,6 @@ return {
                         tsserver_format_options = {},
                     },
                 },
-                -- enabled = false,
             },
             {
                 "lvimuser/lsp-inlayhints.nvim",

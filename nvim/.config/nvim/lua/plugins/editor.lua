@@ -445,9 +445,13 @@ return {
                     typescriptreact = { "imports", "comment" },
                 },
                 open_fold_hl_timeout = 0,
-                provider_selector = function()
+                provider_selector = function(_, filetype, _)
+                    if filetype == "org" then
+                        return nil
+                    end
                     return { "treesitter", "indent" }
                 end,
+                disable_filetype = { "org" },
             })
         end,
     },
