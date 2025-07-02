@@ -22,6 +22,8 @@ return {
                     },
                 },
             },
+
+            { "danilshvalov/org-modern.nvim" },
         },
         opts = {
             org_agenda_files = {
@@ -367,6 +369,26 @@ return {
             },
         },
         config = function(_, opts)
+            local Menu = require("org-modern.menu")
+
+            opts.ui = opts.ui or {}
+            opts.ui.menu = {
+                handler = function(data)
+                    Menu:new({
+                        window = {
+                            margin = { 1, 0, 1, 0 },
+                            padding = { 0, 1, 0, 1 },
+                            title_pos = "center",
+                            border = "single",
+                            zindex = 1000,
+                        },
+                        icons = {
+                            separator = "➜",
+                        },
+                    }):open(data)
+                end,
+            }
+
             require("orgmode").setup(opts)
             require("org-bullets").setup({
                 concealcursor = true,
@@ -375,6 +397,21 @@ return {
                         half = { "", "@org.checkbox.halfchecked" },
                         done = { "✓", "@org.checkbox.checked" },
                         todo = { " ", "@org.checkbox" },
+                    },
+                },
+            })
+
+            require("blink.cmp").setup({
+                sources = {
+                    per_filetype = {
+                        org = { "orgmode" },
+                    },
+                    providers = {
+                        orgmode = {
+                            name = "Orgmode",
+                            module = "orgmode.org.autocompletion.blink",
+                            fallbacks = { "buffer" },
+                        },
                     },
                 },
             })
