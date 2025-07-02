@@ -2,3 +2,17 @@
  1 file changed, 3 insertions(+)
 To https://github.com/lalitmee/second-brain.git
    a8f4b9c..b6f6d29  master -> master
+[master fe7f641] auto: backup changes on 2025-07-02 14:57:46
+ 1 file changed, 22 insertions(+), 10 deletions(-)
+To github-personal:lalitmee/second-brain.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'github-personal:lalitmee/second-brain.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
