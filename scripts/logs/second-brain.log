@@ -16,3 +16,21 @@ fatal: Unable to read current working directory: Operation not permitted
 fatal: Unable to read current working directory: Operation not permitted
 fatal: Unable to read current working directory: Operation not permitted
 fatal: Unable to read current working directory: Operation not permitted
+From github-personal:lalitmee/second-brain
+   a8f4b9c..b6f6d29  master     -> origin/master
+Rebasing (1/1)Auto-merging agenda/todos.org
+CONFLICT (content): Merge conflict in agenda/todos.org
+error: could not apply fe7f641... auto: backup changes on 2025-07-02 14:57:46
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply fe7f641... auto: backup changes on 2025-07-02 14:57:46
+[detached HEAD 3a35dfa] auto: backup changes on 2025-07-02 15:01:48
+ 1 file changed, 24 insertions(+), 10 deletions(-)
+fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use
+
+    git push origin HEAD:<name-of-remote-branch>
+

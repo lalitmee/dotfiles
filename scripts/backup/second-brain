@@ -1,13 +1,21 @@
 #!/bin/bash
 
-cd ~/Desktop/Github/second-brain || exit 1
+# Use explicit HOME path in cron-safe way
+REPO_DIR="${HOME}/Desktop/Github/second-brain"
 
-# Pull latest changes first
+cd "$REPO_DIR" || {
+  echo "❌ Failed to cd into $REPO_DIR"
+  exit 1
+}
+
+# Pull latest changes before pushing new ones
 git pull --rebase
 
-# Only commit if there are actual changes
+# Only commit if there are actual changes (working tree or staged)
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git add .
   git commit -m "auto: backup changes on $(date '+%Y-%m-%d %H:%M:%S')"
   git push
+else
+  echo "✅ No changes to commit"
 fi
