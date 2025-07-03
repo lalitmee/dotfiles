@@ -614,9 +614,13 @@ bind-key q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 # bind-key C-b send-keys 'tat && exit' 'C-m'
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
-# tmux sessionizer
+# tmux-sessionizer
 bind-key -r o run-shell "tmux neww tmux-sessionizer"
 
+# tmuxinator-sessionizer
+bind-key -r C-t run-shell "tmux neww tmuxinator-sessionizer"
+
+# search lines using fzf and open that line in the editor
 bind-key -r C-o run-shell "tmux neww tsnv"
 
 #-------------------------------------------------------------------------------
