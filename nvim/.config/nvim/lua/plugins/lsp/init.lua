@@ -204,7 +204,7 @@ return {
 
     { --[[ nvim-lint ]]
         "mfussenegger/nvim-lint",
-        event = { "VeryLazy" },
+        event = "VeryLazy",
         config = function()
             local lint = require("lint")
             local luacheck = lint.linters.luacheck
@@ -245,7 +245,22 @@ return {
             lk.augroup("nvim_lint_au", {
                 {
                     event = { "BufWritePost", "BufReadPost", "InsertLeave" },
-                    pattern = { "*" },
+                    pattern = {
+                        ".env",
+                        "css",
+                        "html",
+                        "javascript",
+                        "javascriptreact",
+                        "json",
+                        "lua",
+                        "markdown",
+                        "python",
+                        "sh",
+                        "typescript",
+                        "typescriptreact",
+                        "yaml",
+                        "zsh",
+                    },
                     command = function()
                         lint.try_lint()
                     end,
