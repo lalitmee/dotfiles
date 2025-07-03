@@ -357,7 +357,7 @@ return {
                 { "<leader>oi", group = "org insert" },
                 { "<leader>ol", group = "org links" },
                 { "<leader>on", group = "org notes" },
-                { "<leader>os", group = "org telescope" },
+                { "<leader>os", group = "org toggle" },
                 { "<leader>ox", group = "org clock" },
                 -- }}}
                 --------------------------------------------------------------------------------
