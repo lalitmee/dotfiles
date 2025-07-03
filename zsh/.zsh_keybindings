@@ -5,12 +5,18 @@
 # -------------------------------------------------------------------
 # Register the widget with ZLE
 zle -N tmux_sessionizer_widget
+zle -N tmuxinator_sessionizer_widget
 zle -N fzf_search_widget
 
 # Bind ^o (Ctrl + O) to the tmux-sessionizer widget
 bindkey -M emacs '^o' tmux_sessionizer_widget
 bindkey -M vicmd '^o' tmux_sessionizer_widget
 bindkey -M viins '^o' tmux_sessionizer_widget
+
+# Bind ^o (Ctrl + O) to the tmux-sessionizer widget
+bindkey -M emacs '^t' tmuxinator_sessionizer_widget
+bindkey -M emacs '^t' tmuxinator_sessionizer_widget
+bindkey -M emacs '^t' tmuxinator_sessionizer_widget
 
 # Bind ^o (Ctrl + O) to the tmux-sessionizer widget
 bindkey -M emacs '^f' fzf_search_widget

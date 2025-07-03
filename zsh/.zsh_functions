@@ -362,13 +362,20 @@ function sesh-sessions() {
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: tmux-sessionizer {{{
+# NOTE: custom widgets {{{
 # -------------------------------------------------------------------
-# Define the widget for tmux-sessionizer
+
+# tmux-sessionizer
 tmux_sessionizer_widget() {
   tmux-sessionizer
 }
 
+# tmuxinator-sessionizer
+tmuxinator_sessionizer_widget() {
+  tmuxinator-sessionizer
+}
+
+# search and open in neovim
 fzf_search_widget() {
     tsnv
 }
