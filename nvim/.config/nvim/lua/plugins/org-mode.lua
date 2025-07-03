@@ -9,7 +9,7 @@ return {
             { "<leader>op", "<cmd>Org agenda p<cr>", desc = "org personal agenda" },
         },
         dependencies = {
-            {
+            { --[[ org-bullets.nvim ]]
                 "akinsho/org-bullets.nvim",
                 opts = {
                     concealcursor = true,
@@ -23,7 +23,28 @@ return {
                 },
             },
 
-            { "danilshvalov/org-modern.nvim" },
+            { --[[ org-modern.nvim ]]
+                "danilshvalov/org-modern.nvim",
+            },
+
+            { --[[ org-list.nvim ]]
+                "hamidi-dev/org-list.nvim",
+                dependencies = {
+                    "tpope/vim-repeat",
+                },
+                opts = {
+                    mapping = {
+                        key = "<leader>osl",
+                        desc = "org list toggle",
+                    },
+
+                    checkbox_toggle = {
+                        enabled = true,
+                        key = "<leader>osc",
+                        desc = "org list checkbox toggle",
+                    },
+                },
+            },
         },
         opts = {
             org_agenda_files = {

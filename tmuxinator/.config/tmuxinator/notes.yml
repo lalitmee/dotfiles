@@ -1,8 +1,0 @@
-# /home/lalitmee/.config/tmuxinator/notes.yml
-
-name: notes
-root: ~/Desktop/Github
-
-windows:
-  - dNotes: cd dNotes && ls
-  - work-notes: cd work-notes && gst
