@@ -21,7 +21,6 @@ ctrl + space
 #}}}
 #-------------------------------------------------------------------------------
 
-
 #-------------------------------------------------------------------------------
 # NOTE: editors {{{
 #-------------------------------------------------------------------------------
@@ -303,6 +302,33 @@ super + u
 
 #}}}```
 #-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+#NOTE: custom scripts {{{
+#-------------------------------------------------------------------------------
+
+# Start Pomodoro
+super + alt + p
+    ~/.config/polybar/scripts/pomodoro.sh --click-left
+
+# Start Break
+super + alt + b
+    ~/.config/polybar/scripts/pomodoro.sh --click-middle
+
+# Cancel Timer
+super + alt + c
+    ~/.config/polybar/scripts/pomodoro.sh --click-right
+
+# Add time (+1 min)
+super + alt + Up
+    ~/.config/polybar/scripts/pomodoro.sh --add
+
+# Subtract time (-1 min)
+super + alt + Down
+    ~/.config/polybar/scripts/pomodoro.sh --sub
+#}}}
+#-------------------------------------------------------------------------------
+
 
 #-------------------------------------------------------------------------------
 # NOTE: testing {{{

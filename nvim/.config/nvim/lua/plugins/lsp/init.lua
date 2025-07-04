@@ -1,3 +1,5 @@
+local data_path = vim.fn.stdpath("data")
+local shfmt_path = data_path .. "/mason/packages/shfmt/shfmt_v3.11.0_linux_amd64"
 local lsp_utils = require("plugins.lsp.utils")
 
 return {
@@ -294,6 +296,10 @@ return {
                     curlylint = {
                         command = "curlylint",
                         args = { "-f", "stylish" },
+                    },
+                    shfmt = {
+                        command = "shfmt",
+                        prepend_args = { "-i", "4", "-ci", "-sr" },
                     },
                 },
                 formatters_by_ft = {
