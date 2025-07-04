@@ -300,6 +300,10 @@ super + shift + n
 super + u
     i3run --class TelegramDesktop --summon --instance telegram-desktop -- telegram-desktop
 
+# >> productivity -> gnome-pomodoro
+super + shift + p
+    i3run --class gnome-pomodoro --summon -- gnome-pomodoro
+
 #}}}```
 #-------------------------------------------------------------------------------
 
