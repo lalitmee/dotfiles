@@ -470,13 +470,16 @@ set-option -g window-active-style bg=default
 
 # tmux pomodoro
 set -g @plugin 'olimorris/tmux-pomodoro-plus'
-set -g @pomodoro_mins 45
+set -g @pomodoro_mins 25
 set -g @pomodoro_break_mins 5
 set -g @pomodoro_repeat true
 set -g @pomodoro_notifications 'on'
 set -g @pomodoro_sound 'on'
 set -g @pomodoro_granularity 'on'
 set -g status-interval 1
+set -g @pomodoro_on " 🍅 "
+set -g @pomodoro_complete " ✔︎  "
+set -g @pomodoro_pause " ⏸︎  "
 
 # basic tmux settings everyone can agree on
 set -g @plugin 'tmux-plugins/tmux-sensible'
