@@ -22,22 +22,8 @@ return {
         },
     },
 
-    { --[[ backseat ]]
-        enabled = false,
-        "james1236/backseat.nvim",
-        keys = {
-            { "<localleader>cb", ":Backseat<CR>", desc = "Backseat", silent = true },
-            { "<localleader>ck", ":BackseatAsk<space>", desc = "Backseat Ask", silent = true },
-            { "<localleader>cl", ":BackseatClearLine<CR>", desc = "Backseat Clear Line", silent = true },
-            { "<localleader>cx", ":BackseatClear<CR>", desc = "Backseat Clear", silent = true },
-        },
-        opts = {
-            openai_api_key = os.getenv("OPENAI_API_KEY"),
-        },
-    },
-
     { --[[ codeium ]]
-        "Exafunction/codeium.vim",
+        "Exafunction/windsurf.vim",
         event = "BufEnter",
         config = function()
             vim.g.codeium_filetypes_disabled_by_default = true
@@ -80,17 +66,16 @@ return {
         init = function()
             vim.cmd([[cab cc CodeCompanion]])
         end,
-        -- TODO: add config for adapters and use `Gemini` for the default adapter
         opts = {
             strategies = {
                 chat = {
-                    adapter = "openai",
+                    adapter = "copilot",
                 },
                 inline = {
-                    adapter = "openai",
+                    adapter = "copilot",
                 },
                 agent = {
-                    adapter = "openai",
+                    adapter = "copilot",
                 },
             },
         },
@@ -177,7 +162,7 @@ return {
         },
     },
 
-    {
+    { --[[ copilot-chat.nvim ]]
         "CopilotC-Nvim/CopilotChat.nvim",
         dependencies = {
             "zbirenbaum/copilot.lua",
@@ -206,7 +191,11 @@ return {
             },
         },
         opts = {
-            model = "gpt-4o",
+            -- model = "gpt-4o",
+            model = "gpt-4o-mini",
+            -- model = "gemini-2.0-flash-001",
+            -- model = "claude-3.7-sonnet",
+            -- model = "claude-3.7-sonnet-thought",
         },
     },
 }
