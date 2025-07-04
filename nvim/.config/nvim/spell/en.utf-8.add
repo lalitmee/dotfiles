@@ -142,6 +142,10 @@ Ctrl
 autoshare
 autoupdate
 unstaged
+<<<<<<< HEAD
 codeium
 gpt
 spellfile
+=======
+Polybar
+>>>>>>> f92adcdf (chore(spell): add more words to spell file)
