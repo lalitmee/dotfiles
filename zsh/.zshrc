@@ -110,11 +110,9 @@ plugins=(
     tmux
     tmuxinator
     zsh-vi-mode
-    zoxide
     zsh-autosuggestions
     zsh-lazyload
     zsh-wakatime
-    # zsh-nvm
 )
 
 # zsh completions
@@ -149,7 +147,9 @@ fi
 # -------------------------------------------------------------------
 # NOTE: zoxide {{{
 # -------------------------------------------------------------------
-znap eval zoxide "zoxide init zsh"
+# znap eval zoxide "zoxide init zsh"
+# znap eval zoxide "zoxide init zsh --cmd cd"
+eval "$(zoxide init zsh)"
 # }}}
 # -------------------------------------------------------------------
 
@@ -218,6 +218,7 @@ znap eval atuin "atuin init zsh"
 [[ -f ~/.zsh_plugins_config/init.zsh ]] && source ~/.zsh_plugins_config/init.zsh
 # }}}
 # -------------------------------------------------------------------
+
 
 # zprof
 
