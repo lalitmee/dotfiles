@@ -1,5 +1,3 @@
-local data_path = vim.fn.stdpath("data")
-local shfmt_path = data_path .. "/mason/packages/shfmt/shfmt_v3.11.0_linux_amd64"
 local lsp_utils = require("plugins.lsp.utils")
 
 return {
@@ -14,6 +12,7 @@ return {
             },
         },
     },
+
     { "Bilal2453/luvit-meta", lazy = true },
 
     { --[[ lspsaga ]]
@@ -60,6 +59,7 @@ return {
                     },
                 },
             },
+            { "neovim/nvim-lspconfig" },
         },
         opts = {
             ensure_installed = {
@@ -77,6 +77,9 @@ return {
                 "tailwindcss",
                 "taplo",
                 "vimls",
+            },
+            automatic_enable = {
+                exclude = { "lua_ls" },
             },
         },
     },
