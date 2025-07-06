@@ -359,6 +359,10 @@ return {
                 { "<leader>on", group = "org notes" },
                 { "<leader>os", group = "org toggle" },
                 { "<leader>ox", group = "org clock" },
+                { "<localleader>n", group = "org roam" },
+                { "<localleader>na", group = "alias" },
+                { "<localleader>nd", group = "dailies" },
+                { "<localleader>no", group = "origin" },
                 -- }}}
                 --------------------------------------------------------------------------------
 

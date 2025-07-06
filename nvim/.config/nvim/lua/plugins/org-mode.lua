@@ -45,20 +45,6 @@ return {
                     },
                 },
             },
-
-            {
-                "chipsenkbeil/org-roam.nvim",
-                tag = "0.1.1",
-                dependencies = {
-                    {
-                        "nvim-orgmode/orgmode",
-                        tag = "0.3.7",
-                    },
-                },
-                opts = {
-                    directory = "~/Desktop/Github/notes",
-                },
-            },
         },
         opts = {
             org_agenda_files = {
@@ -66,6 +52,8 @@ return {
                 "~/Desktop/Github/second-brain/**/*", -- personal todo
             },
             org_default_notes_file = "~/Desktop/Github/second-brain/notes/inbox.org",
+
+            org_archive_location = "~/Desktop/Github/second-brain/archive/inbox.org::",
 
             -- Set the agenda to show a 14-day span
             org_agenda_span = 14,
@@ -451,5 +439,26 @@ return {
                 },
             })
         end,
+    },
+
+    {
+        "chipsenkbeil/org-roam.nvim",
+        tag = "0.1.1",
+        dependencies = {
+            {
+                "nvim-orgmode/orgmode",
+                tag = "0.3.7",
+            },
+        },
+        event = "VeryLazy",
+        keys = {
+            { "<localleader>n" },
+        },
+        opts = {
+            directory = "~/Desktop/Github/notes",
+            bindings = {
+                prefix = "<localleader>n",
+            },
+        },
     },
 }
