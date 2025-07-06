@@ -97,15 +97,10 @@ alias fix="apt install -f -y"
 alias install="apt install -y"
 alias purge="apt purge -y"
 alias remove="apt autoremove -y"
-alias snapi="sudo snap install"
-alias snapl="snap list | fzf"
-alias snapr="sudo snap remove"
-alias snapu="sudo snap refresh"
 alias upd="apt update"
 alias update="
 apt upgrade -y &&
 sudo flatpak update
-sudo snap refresh
 "
 alias updg="apt dist-upgrade -y"
 alias upg="apt upgrade -y"
