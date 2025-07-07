@@ -14,8 +14,8 @@ LOG_FILE="$LOG_DIR/second-brain.log"
 # 1. Run the backup script
 /bin/bash "$BACKUP_SCRIPT" >> "$LOG_FILE" 2>&1
 
-# 2. Rotate logs weekly (Sunday at 00:00)
-if [[ "$(date +%u)" == 7 && "$(date +%H)" == 0 ]]; then
+# 2. Rotate logs weekly (Monday at 12:00)
+if [[ "$(date +%u)" == 1 && "$(date +%H)" == 12 ]]; then
   mv "$LOG_FILE" "$LOG_DIR/second-brain-$(date +%F).log"
   touch "$LOG_FILE"
 fi

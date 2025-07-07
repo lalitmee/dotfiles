@@ -1,0 +1,739 @@
+[master b6f6d29] auto: backup changes on 2025-07-02 01:00:01
+ 1 file changed, 3 insertions(+)
+To https://github.com/lalitmee/second-brain.git
+   a8f4b9c..b6f6d29  master -> master
+[master fe7f641] auto: backup changes on 2025-07-02 14:57:46
+ 1 file changed, 22 insertions(+), 10 deletions(-)
+To github-personal:lalitmee/second-brain.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'github-personal:lalitmee/second-brain.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+From github-personal:lalitmee/second-brain
+   a8f4b9c..b6f6d29  master     -> origin/master
+Rebasing (1/1)Auto-merging agenda/todos.org
+CONFLICT (content): Merge conflict in agenda/todos.org
+error: could not apply fe7f641... auto: backup changes on 2025-07-02 14:57:46
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply fe7f641... auto: backup changes on 2025-07-02 14:57:46
+[detached HEAD 3a35dfa] auto: backup changes on 2025-07-02 15:01:48
+ 1 file changed, 24 insertions(+), 10 deletions(-)
+fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use
+
+    git push origin HEAD:<name-of-remote-branch>
+
+Already up to date.
+✅ No changes to commit
+🕒 Run started at: 2025-07-02 15:18:21
+------------------------------------------------------------
+📦 Backup attempt at: 2025-07-02 15:18:21
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-02 15:19:19
+📦 Backup attempt at: 2025-07-02 15:19:19
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-02 23:00:01
+ Backup attempt at: 2025-07-02 23:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 00:00:02
+📦 Backup attempt at: 2025-07-03 00:00:02
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+[master 8502873] auto: backup changes on 2025-07-03 00:00:02
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+To https://github.com/lalitmee/second-brain.git
+   505383c..8502873  master -> master
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 01:00:02
+📦 Backup attempt at: 2025-07-03 01:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-02 16:00:00
+📦 Backup attempt at: 2025-07-02 16:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-02 17:00:00
+📦 Backup attempt at: 2025-07-02 17:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 12:00:00
+📦 Backup attempt at: 2025-07-03 12:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 02:00:01
+📦 Backup attempt at: 2025-07-03 02:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 03:00:01
+📦 Backup attempt at: 2025-07-03 03:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 04:00:01
+📦 Backup attempt at: 2025-07-03 04:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 05:00:01
+📦 Backup attempt at: 2025-07-03 05:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 06:00:01
+📦 Backup attempt at: 2025-07-03 06:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 07:00:01
+📦 Backup attempt at: 2025-07-03 07:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 08:00:01
+📦 Backup attempt at: 2025-07-03 08:00:01
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+[master 79436ff] auto: backup changes on 2025-07-03 08:00:01
+ 1 file changed, 3 insertions(+)
+To https://github.com/lalitmee/second-brain.git
+   8502873..79436ff  master -> master
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 09:00:01
+📦 Backup attempt at: 2025-07-03 09:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 10:00:01
+📦 Backup attempt at: 2025-07-03 10:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 11:00:01
+📦 Backup attempt at: 2025-07-03 11:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 12:00:01
+📦 Backup attempt at: 2025-07-03 12:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 13:00:01
+📦 Backup attempt at: 2025-07-03 13:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 14:00:01
+📦 Backup attempt at: 2025-07-03 14:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 15:00:01
+📦 Backup attempt at: 2025-07-03 15:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 16:00:01
+📦 Backup attempt at: 2025-07-03 16:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 17:00:01
+📦 Backup attempt at: 2025-07-03 17:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 18:00:01
+📦 Backup attempt at: 2025-07-03 18:00:01
+From https://github.com/lalitmee/second-brain
+   79436ff..27617eb  master     -> origin/master
+Updating 79436ff..27617eb
+Fast-forward
+ agenda/todos.org | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 19:00:01
+📦 Backup attempt at: 2025-07-03 19:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 20:00:01
+📦 Backup attempt at: 2025-07-03 20:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 21:00:01
+📦 Backup attempt at: 2025-07-03 21:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 22:00:01
+📦 Backup attempt at: 2025-07-03 22:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 23:00:01
+📦 Backup attempt at: 2025-07-03 23:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 00:00:01
+📦 Backup attempt at: 2025-07-04 00:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 01:00:01
+📦 Backup attempt at: 2025-07-04 01:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 02:00:02
+📦 Backup attempt at: 2025-07-04 02:00:02
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+[master a5ad9c1] auto: backup changes on 2025-07-04 02:00:02
+ 1 file changed, 3 insertions(+)
+To https://github.com/lalitmee/second-brain.git
+   27617eb..a5ad9c1  master -> master
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 03:00:01
+📦 Backup attempt at: 2025-07-04 03:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 04:00:01
+📦 Backup attempt at: 2025-07-04 04:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 05:00:01
+📦 Backup attempt at: 2025-07-04 05:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 06:00:01
+📦 Backup attempt at: 2025-07-04 06:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 07:00:01
+📦 Backup attempt at: 2025-07-04 07:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 08:00:01
+📦 Backup attempt at: 2025-07-04 08:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 09:00:01
+📦 Backup attempt at: 2025-07-04 09:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 10:00:01
+📦 Backup attempt at: 2025-07-04 10:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 13:00:00
+📦 Backup attempt at: 2025-07-03 13:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 15:00:00
+📦 Backup attempt at: 2025-07-03 15:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 16:01:55
+📦 Backup attempt at: 2025-07-03 16:01:55
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 17:00:00
+📦 Backup attempt at: 2025-07-03 17:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-03 18:00:00
+📦 Backup attempt at: 2025-07-03 18:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 12:00:00
+📦 Backup attempt at: 2025-07-04 12:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 11:00:01
+📦 Backup attempt at: 2025-07-04 11:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 12:00:01
+📦 Backup attempt at: 2025-07-04 12:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 13:00:01
+📦 Backup attempt at: 2025-07-04 13:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 14:00:01
+📦 Backup attempt at: 2025-07-04 14:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 15:00:01
+📦 Backup attempt at: 2025-07-04 15:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 16:00:01
+📦 Backup attempt at: 2025-07-04 16:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 17:00:01
+📦 Backup attempt at: 2025-07-04 17:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 18:00:01
+📦 Backup attempt at: 2025-07-04 18:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 19:00:01
+📦 Backup attempt at: 2025-07-04 19:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 20:00:01
+📦 Backup attempt at: 2025-07-04 20:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 21:00:02
+📦 Backup attempt at: 2025-07-04 21:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 22:00:01
+📦 Backup attempt at: 2025-07-04 22:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 23:00:01
+📦 Backup attempt at: 2025-07-04 23:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 00:00:02
+📦 Backup attempt at: 2025-07-05 00:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 01:00:01
+📦 Backup attempt at: 2025-07-05 01:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 02:00:01
+📦 Backup attempt at: 2025-07-05 02:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 03:00:01
+📦 Backup attempt at: 2025-07-05 03:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 04:00:01
+📦 Backup attempt at: 2025-07-05 04:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 05:00:01
+📦 Backup attempt at: 2025-07-05 05:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 06:00:01
+📦 Backup attempt at: 2025-07-05 06:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 07:00:01
+📦 Backup attempt at: 2025-07-05 07:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 08:00:01
+📦 Backup attempt at: 2025-07-05 08:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 09:00:01
+📦 Backup attempt at: 2025-07-05 09:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 10:00:01
+📦 Backup attempt at: 2025-07-05 10:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 11:00:01
+📦 Backup attempt at: 2025-07-05 11:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 12:00:01
+📦 Backup attempt at: 2025-07-05 12:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 13:00:01
+📦 Backup attempt at: 2025-07-05 13:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 14:00:01
+📦 Backup attempt at: 2025-07-05 14:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 15:00:01
+📦 Backup attempt at: 2025-07-05 15:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 16:00:01
+📦 Backup attempt at: 2025-07-05 16:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 17:00:01
+📦 Backup attempt at: 2025-07-05 17:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 18:00:01
+📦 Backup attempt at: 2025-07-05 18:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 19:00:01
+📦 Backup attempt at: 2025-07-05 19:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 20:00:01
+📦 Backup attempt at: 2025-07-05 20:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 21:00:01
+📦 Backup attempt at: 2025-07-05 21:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 22:00:01
+📦 Backup attempt at: 2025-07-05 22:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 23:00:02
+📦 Backup attempt at: 2025-07-05 23:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 00:00:01
+📦 Backup attempt at: 2025-07-06 00:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 01:00:01
+📦 Backup attempt at: 2025-07-06 01:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 02:00:01
+📦 Backup attempt at: 2025-07-06 02:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 03:00:02
+📦 Backup attempt at: 2025-07-06 03:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 04:00:01
+📦 Backup attempt at: 2025-07-06 04:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 05:00:01
+📦 Backup attempt at: 2025-07-06 05:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 06:00:01
+📦 Backup attempt at: 2025-07-06 06:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 07:00:02
+📦 Backup attempt at: 2025-07-06 07:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 08:00:01
+📦 Backup attempt at: 2025-07-06 08:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 09:00:01
+📦 Backup attempt at: 2025-07-06 09:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 10:00:01
+📦 Backup attempt at: 2025-07-06 10:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 11:00:01
+📦 Backup attempt at: 2025-07-06 11:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 12:00:02
+📦 Backup attempt at: 2025-07-06 12:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 13:00:01
+📦 Backup attempt at: 2025-07-06 13:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 14:00:01
+📦 Backup attempt at: 2025-07-06 14:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 15:00:01
+📦 Backup attempt at: 2025-07-06 15:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 16:00:01
+📦 Backup attempt at: 2025-07-06 16:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 17:00:01
+📦 Backup attempt at: 2025-07-06 17:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 18:00:01
+📦 Backup attempt at: 2025-07-06 18:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 19:00:01
+📦 Backup attempt at: 2025-07-06 19:00:02
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 20:00:01
+📦 Backup attempt at: 2025-07-06 20:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 21:00:01
+📦 Backup attempt at: 2025-07-06 21:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 22:00:01
+📦 Backup attempt at: 2025-07-06 22:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 23:00:01
+📦 Backup attempt at: 2025-07-06 23:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-07 00:00:01
+📦 Backup attempt at: 2025-07-07 00:00:01
+Already up to date.
+✅ No changes to commit
+------------------------------------------------------------
+🕒 Run started at: 2025-07-07 01:00:01
+📦 Backup attempt at: 2025-07-07 01:00:01
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+[master bccb9cc] auto: backup changes on 2025-07-07 01:00:01
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+To https://github.com/lalitmee/second-brain.git
+   a5ad9c1..bccb9cc  master -> master
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 13:00:00
+📦 Backup attempt at: 2025-07-04 13:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 15:00:00
+📦 Backup attempt at: 2025-07-04 15:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 16:00:00
+📦 Backup attempt at: 2025-07-04 16:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 17:00:00
+📦 Backup attempt at: 2025-07-04 17:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-04 18:00:01
+📦 Backup attempt at: 2025-07-04 18:00:01
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-05 20:00:00
+📦 Backup attempt at: 2025-07-05 20:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-06 19:00:00
+📦 Backup attempt at: 2025-07-06 19:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+>>>>>>> 1d8c4210 (feat: Update AI plugins and configurations)
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-07 12:00:00
+📦 Backup attempt at: 2025-07-07 12:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-07 13:00:00
+📦 Backup attempt at: 2025-07-07 13:00:00
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
+------------------------------------------------------------
+🕒 Run started at: 2025-07-07 15:00:01
+📦 Backup attempt at: 2025-07-07 15:00:01
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+✅ Backup committed and pushed
