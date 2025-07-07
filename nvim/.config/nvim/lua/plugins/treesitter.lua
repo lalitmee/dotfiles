@@ -2,8 +2,22 @@ return {
 
     { --[[ treesitter ]]
         "nvim-treesitter/nvim-treesitter",
+        branch = "master",
         build = ":TSUpdate",
-        event = "BufReadPost",
+        ft = {
+            "go",
+            "javascript",
+            "json",
+            "lua",
+            "markdown",
+            "python",
+            "rust",
+            "tsx",
+            "typescript",
+            "vim",
+            "gitcommit",
+            "yaml",
+        },
         cmd = "TSInstall",
         keys = {
             { "<leader>lf", desc = "Peek Function Definition", mode = { "n", "v" } },
@@ -18,7 +32,6 @@ return {
 
         config = function()
             require("nvim-treesitter.configs").setup({
-
                 ensure_installed = {
                     "angular",
                     "bash",
