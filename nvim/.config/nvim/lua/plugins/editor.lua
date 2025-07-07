@@ -7,7 +7,6 @@ return {
         dependencies = {
             { "xzbdmw/colorful-menu.nvim", config = {} },
             { "echasnovski/mini.icons", version = "*" },
-            "L3MON4D3/LuaSnip",
             "mikavilpas/blink-ripgrep.nvim",
             "moyiz/blink-emoji.nvim",
             {

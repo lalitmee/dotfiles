@@ -34,7 +34,6 @@ return {
                     require("telescope").load_extension("fzf")
                 end,
             },
-            { "nvim-treesitter/nvim-treesitter" },
         },
         config = function()
             require("custom.telescope").setup()
