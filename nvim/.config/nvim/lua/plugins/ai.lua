@@ -1,5 +1,5 @@
 return {
-    { --[[ chatgpt ]]
+    { --[[ chatgpt.nvim ]]
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
@@ -22,7 +22,7 @@ return {
         },
     },
 
-    { --[[ codeium ]]
+    { --[[ windsurf.nvim ]]
         "Exafunction/windsurf.vim",
         event = "BufEnter",
         config = function()
@@ -90,52 +90,14 @@ return {
             openai_api_key = os.getenv("OPENAI_API_KEY"),
             popup_type = "vertical",
         },
+        -- stylua: ignore
         keys = {
-            {
-                "<leader>ea",
-                mode = { "n", "x" },
-                function()
-                    require("wtf").ai()
-                end,
-                desc = "Debug diagnostic with AI",
-            },
-            {
-                "<leader>es",
-                mode = { "n" },
-                function()
-                    require("wtf").search()
-                end,
-                desc = "Search diagnostic with Google",
-            },
-            {
-                "<leader>eh",
-                function()
-                    require("wtf").history()
-                end,
-                desc = "Populate the quickfix list with previous chat history",
-            },
-            {
-                "<leader>eg",
-                function()
-                    require("wtf").grep_history()
-                end,
-                desc = "Grep previous chat history with Telescope",
-            },
-        },
-    },
-
-    { --[[ avante.nvim ]]
-        enabled = false,
-        "yetone/avante.nvim",
-        dependencies = {
-            "stevearc/dressing.nvim",
-            "nvim-lua/plenary.nvim",
-            "MunifTanjim/nui.nvim",
-        },
-        build = "make",
-        event = "VeryLazy",
-        opts = {
-            provider = "openai",
+            { "<leader>ea", function() require("wtf").diagnose() end, desc = "Debug diagnostic with AI", mode = { "n", "x" } },
+            { "<leader>ef", function() require("wtf").fix() end, desc = "Fix diagnostic with AI", mode = { "n", "x" } },
+            { "<leader>es", function() require("wtf").search() end, desc = "Search diagnostic with Google" },
+            { "<leader>em", function() require("wtf").pick_provider() end, desc = "Pick provider" },
+            { "<leader>eh", function() require("wtf").history() end, desc = "Populate the quickfix list with previous chat history" },
+            { "<leader>eg", function() require("wtf").grep_history() end, desc = "Grep previous chat history with Telescope" },
         },
     },
 
@@ -191,11 +153,63 @@ return {
             },
         },
         opts = {
-            -- model = "gpt-4o",
-            model = "gpt-4o-mini",
+            model = "gpt-4o",
+            -- model = "gpt-4o-mini",
             -- model = "gemini-2.0-flash-001",
             -- model = "claude-3.7-sonnet",
             -- model = "claude-3.7-sonnet-thought",
+        },
+    },
+
+    { --[[ avante.nvim ]]
+        "yetone/avante.nvim",
+        build = "make",
+        version = false,
+        cmd = {
+            "AvanteAsk",
+            "AvanteChat",
+            "AvanteInput",
+            "AvanteChatNew",
+            "AvanteToggle",
+        },
+        keys = {
+            { "<localleader>aa", ":AvanteAsk<CR>", desc = "Avante Ask", silent = true, mode = { "n", "v" } },
+            { "<localleader>ac", ":AvanteChat<CR>", desc = "Avante Chat", silent = true, mode = { "n", "v" } },
+            { "<localleader>ai", ":AvanteInput<CR>", desc = "Avante Input", silent = true, mode = { "n", "v" } },
+            { "<localleader>an", ":AvanteChatNew<CR>", desc = "Avante Chat", silent = true, mode = { "n", "v" } },
+            { "<localleader>at", ":AvanteToggle<CR>", desc = "Avante Toggle", silent = true, mode = { "n", "v" } },
+        },
+        opts = {
+            provider = "copilot",
+            selector = {
+                provider = "telescope",
+                provider_opts = {},
+                exclude_auto_select = {},
+            },
+            input = {
+                provider = "dressing",
+                provider_opts = {},
+            },
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            {
+                -- support for image pasting
+                "HakonHarnes/img-clip.nvim",
+                event = "VeryLazy",
+                opts = {
+                    -- recommended settings
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true,
+                        },
+                        -- required for Windows users
+                        use_absolute_path = true,
+                    },
+                },
+            },
         },
     },
 }

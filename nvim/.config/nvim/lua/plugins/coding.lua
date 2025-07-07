@@ -294,28 +294,6 @@ return {
         event = "BufRead sxhkdrc",
     },
 
-    { --[[ sg.nvim ]]
-        "sourcegraph/sg.nvim",
-        -- stylua: ignore
-        keys = {
-            { "<localleader>aa", ":CodyAsk<space>", desc = "Cody Ask", mode = { "n", "x" } },
-            { "<localleader>ac", ":CodyChat<CR>", desc = "Cody Chat", mode = { "n", "x" }, silent = true },
-            { "<localleader>ad", ":CodyTask<space>", desc = "Cody Task", mode = { "n", "x" } },
-            { "<localleader>ae", ":CodyExplain<CR>", desc = "Cody Explain", mode = { "n", "x" }, silent = true },
-            { "<localleader>an", function() local name = vim.fn.input("chat name: ") require("sg.cody.commands").chat(name) end, desc = "Named Cody Chat", mode = { "n", "x" } },
-            { "<localleader>at", "<cmd>CodyToggle<CR>", desc = "Cody Toggle", mode = { "n", "x" }, silent = true },
-            { "<leader>sF", function() require("sg.extensions.telescope").fuzzy_search_results() end, desc = "Sourcegraph Fuzzy Search" },
-            { "<leader>sL", "<cmd>SourcegraphLink<CR>", desc = "Sourcegraph Link" , silent = true },
-            { "<leader>sg", "<cmd>SourcegraphSearch<CR>", desc = "Sourcegraph Search", silent = true },
-
-            -- specific tasks
-            { "<localleader>cs", ":CodyTask add docstring<CR>", desc = "Cody Task", mode = { "n", "x", "v" }, silent = true },
-        },
-        opts = {
-            on_attach = require("plugins.lsp.utils").on_attach,
-        },
-    },
-
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
         dependencies = {
@@ -387,7 +365,7 @@ return {
         opts = {},
     },
 
-    {
+    { --[[ json-to-types.nvim ]]
         "Redoxahmii/json-to-types.nvim",
         build = "sh install.sh npm",
         ft = "json",
@@ -396,11 +374,13 @@ return {
                 "<leader>cU",
                 "<CMD>ConvertJSONtoLang typescript<CR>",
                 desc = "Convert JSON to TS",
+                mode = { "n", "v" },
             },
             {
                 "<leader>ct",
                 "<CMD>ConvertJSONtoLangBuffer typescript<CR>",
                 desc = "Convert JSON to TS Buffer",
+                mode = { "n", "v" },
             },
         },
     },
