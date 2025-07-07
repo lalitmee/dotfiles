@@ -254,5 +254,3 @@ return {
         end,
     },
 }
-
--- vim:foldmethod=marker
