@@ -190,6 +190,9 @@ return {
                 provider = "dressing",
                 provider_opts = {},
             },
+            windows = {
+                width = 40,
+            },
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
