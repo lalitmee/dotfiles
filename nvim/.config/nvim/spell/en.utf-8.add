@@ -146,7 +146,12 @@ unstaged
 codeium
 gpt
 spellfile
+<<<<<<< HEAD
 =======
 Polybar
 >>>>>>> f92adcdf (chore(spell): add more words to spell file)
 codeium
+=======
+CTA
+px
+>>>>>>> 1d8c4210 (feat: Update AI plugins and configurations)
