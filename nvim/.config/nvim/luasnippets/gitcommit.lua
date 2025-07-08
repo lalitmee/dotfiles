@@ -21,6 +21,11 @@ return {
     }, t("chore(lockfile): update packages")),
 
     s({
+        trig = "sl",
+        name = "update second brain backup logs",
+    }, t("chore(second-brain): update second brain backup logs")),
+
+    s({
         trig = "gtodo",
         name = "git commit for todo",
     }, c(1, { t("feat(todo): add work todo"), t("feat(todo): add personal todo") })),
