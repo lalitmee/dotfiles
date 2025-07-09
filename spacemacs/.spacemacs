@@ -462,7 +462,7 @@ you should place your code here."
   ;; project project search path
   (setq projectile-project-search-path
         '("~/"
-          "~/Desktop/Github"))
+          "~/Projects/Personal/Github"))
 
   ;; ranger
   (setq ranger-show-dotfiles t)

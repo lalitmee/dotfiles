@@ -12,4 +12,4 @@ source <(fzf --zsh)
 
 # Source other fzf-related scripts that you use, like fzf-git.sh.
 # These should also come after the main fzf integration.
-[[ -f ~/Desktop/Github/fzf-git.sh/fzf-git.sh ]] && source ~/Desktop/Github/fzf-git.sh/fzf-git.sh
+[[ -f ~/Projects/Personal/Github/fzf-git.sh/fzf-git.sh ]] && source ~/Projects/Personal/Github/fzf-git.sh/fzf-git.sh

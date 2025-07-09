@@ -294,7 +294,7 @@ super + comma
 
 # >> floating-notes -> ghostty
 super + shift + n
-    i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Desktop/Github/notes/inbox.org
+    i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/notes/inbox.org
 
 # >> communication -> telegram
 super + u

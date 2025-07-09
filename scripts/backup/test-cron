@@ -1,0 +1,22 @@
+#!/bin/bash
+
+REPO="$HOME/Projects/Personal/Github/second-brain"
+LOG="$HOME/dotfiles/scripts/logs/test-cron-git.log"
+
+{
+  echo "------------------------------------------------------------"
+  echo "🧪 Git test at: $(date)"
+  echo "🔍 USER: $(whoami)"
+  echo "📁 Attempting to cd into: $REPO"
+
+  if cd "$REPO" 2>/dev/null; then
+    echo "✅ Successfully cd'ed into $REPO"
+    echo "📂 Current directory: $(pwd)"
+
+    echo "🔄 git status output:"
+    git status
+  else
+    echo "❌ Failed to cd into $REPO"
+    ls -ld "$REPO"
+  fi
+} >> "$LOG" 2>&1

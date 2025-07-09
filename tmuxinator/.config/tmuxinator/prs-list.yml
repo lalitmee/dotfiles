@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/prs-list.yml
 
 name: prs-list
-root: ~/Desktop/Github/prs-merged-since
+root: ~/Projects/Personal/Github/prs-merged-since
 
 windows:
   - editor: ls

@@ -163,7 +163,7 @@ alias lc='colorls -lA --sd'
 alias npd='npm run dev'
 
 # >> change wallpaper aliases
-alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Desktop/Github/wallpapers/*"
+alias random_wallpaper="feh -FD3600 --randomize --bg-fill $HOME/Projects/Personal/Github/wallpapers/*"
 
 # -------------------------------------------------------------------
 # NOTE: from tjdevries {{{

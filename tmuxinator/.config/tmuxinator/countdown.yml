@@ -1,7 +1,7 @@
 # /home/lalit/.config/tmuxinator/countdown.yml
 
 name: countdown
-root: ~/Desktop/Github/countdown-timer
+root: ~/Projects/Personal/Github/countdown-timer
 
 windows:
   - Editor: gst

@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/plugins.yml
 
 name: plugins
-root: ~/Desktop/Github
+root: ~/Projects/Personal/Github
 
 windows:
   - browse.nvim: cd browse.nvim
