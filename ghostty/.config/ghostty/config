@@ -8,8 +8,8 @@ background-opacity = 0.7
 background-blur-radius = 20
 theme = Cobalt2
 
-font-family = BlexMono Nerd Font Mono
-# font-family = Operator Mono Lig
+font-family = Operator Mono Lig
+# font-family = BlexMono Nerd Font Mono
 # font-family = Iosevka Nerd Font
 font-size = 11
 
