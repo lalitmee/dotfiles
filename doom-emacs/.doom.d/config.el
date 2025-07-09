@@ -101,7 +101,7 @@
 
 ;; projectile projects
 (setq projectile-project-search-path '(("~/" . 1)
-                                       "~/Desktop/Github"))
+                                       "~/Projects/Personal/Github"))
 
 ;; TAGS file large warning
 (setq large-file-warning-threshold nil)

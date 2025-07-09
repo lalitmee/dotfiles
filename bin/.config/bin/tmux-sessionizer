@@ -2,8 +2,8 @@
 
 # Define the directories to search
 search_dirs=(
-    ~/Desktop/Github
-    ~/Desktop/work
+    ~/Projects/Personal/Github
+    ~/Projects/Work
     ~
 )
 

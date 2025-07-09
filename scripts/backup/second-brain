@@ -1,24 +1,37 @@
 #!/bin/bash
 
-REPO_DIR="$HOME/Desktop/Github/second-brain"
+echo "🔍 USER: $(whoami) | PWD: $(pwd) | HOSTNAME: $(hostname)"
 
-cd "$REPO_DIR" || {
-  echo "❌ Failed to cd into $REPO_DIR"
+REPO_DIR="$HOME/Projects/Personal/Github/second-brain"
+
+# 1. Try to cd into the repo, exit on failure
+if ! cd "$REPO_DIR" 2>/dev/null; then
+  echo "❌ ERROR: Failed to cd into $REPO_DIR"
   exit 1
-}
+fi
 
-# Print timestamp inside this script for clarity (it also goes to the main log)
 echo "📦 Backup attempt at: $(date '+%Y-%m-%d %H:%M:%S')"
 
-# Pull latest changes first
-git pull --rebase
+# 2. Git pull, check for errors
+if ! git pull --rebase 2>&1 | tee /tmp/git-pull.log | grep -qv "fatal:"; then
+  echo "❌ ERROR: Git pull failed"
+  cat /tmp/git-pull.log
+  exit 1
+fi
 
-# Only commit if there are actual changes
+# 3. Check for actual changes
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git add .
-  git commit -m "auto: backup changes on $(date '+%Y-%m-%d %H:%M:%S')"
-  git push
-  echo "✅ Backup committed and pushed"
+
+  if git commit -m "auto: backup changes on $(date '+%Y-%m-%d %H:%M:%S')" >/dev/null 2>&1; then
+    if git push >/dev/null 2>&1; then
+      echo "✅ Backup committed and pushed"
+    else
+      echo "❌ ERROR: Git push failed"
+    fi
+  else
+    echo "❌ ERROR: Git commit failed"
+  fi
 else
   echo "✅ No changes to commit"
 fi

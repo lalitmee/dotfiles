@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define font directory
-FONT_DIR="$HOME/Desktop/Github/fonts"
+FONT_DIR="$HOME/Projects/Personal/Github/fonts"
 
 # Define system-wide font directory
 USER_FONT_DIR="$HOME/.local/share/fonts"

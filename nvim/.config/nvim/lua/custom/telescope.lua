@@ -317,8 +317,8 @@ M.setup = function()
                 path_display = { "absolute", "truncate" },
                 workspaces = {
                     ["dots"] = "~/dotfiles",
-                    ["work"] = "~/Desktop/work",
-                    ["git"] = "~/Desktop/Github",
+                    ["work"] = "~/Projects/Work",
+                    ["git"] = "~/Projects/Personal/Github",
                 },
             },
             smart_open = {

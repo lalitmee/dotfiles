@@ -1,11 +1,11 @@
 #!/bin/zsh
 
 random_wallpaper() {
-	find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | shuf -n1
+	find ~/Projects/Personal/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | shuf -n1
 }
 
 select_wallpaper() {
-	find ~/Desktop/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf --preview='ueberzug tmux {}'
+	find ~/Projects/Personal/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf --preview='ueberzug tmux {}'
 }
 
 if [[ $# -eq 1 ]]; then

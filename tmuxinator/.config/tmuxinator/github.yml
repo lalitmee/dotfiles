@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/github.yml
 
 name: github
-root: ~/Desktop/Github
+root: ~/Projects/Personal/Github
 
 windows:
   - neovim: cd neovim && gst

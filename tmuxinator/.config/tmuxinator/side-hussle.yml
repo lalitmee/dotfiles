@@ -1,7 +1,7 @@
 # /home/lalitmee/.config/tmuxinator/side-hussle.yml
 
 name: side-hussle
-root: ~/Desktop/work/side-hussle
+root: ~/Projects/Work/side-hussle
 
 windows:
   - editor: ls

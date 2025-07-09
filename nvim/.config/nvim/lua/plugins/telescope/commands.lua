@@ -154,7 +154,7 @@ local function image_selector(prompt, cwd)
     end
 end
 
-local set_wallpaper = image_selector("< Wallpapers > ", "~/Desktop/Github/wallpapers/")
+local set_wallpaper = image_selector("< Wallpapers > ", "~/Projects/Personal/Github/wallpapers/")
 
 command("SetWallpaper", function()
     set_wallpaper()

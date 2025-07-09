@@ -316,8 +316,8 @@ return {
             { "<leader>kn", function() require("scretch").new_named() end, desc = "With Name" },
         },
         opts = {
-            scretch_dir = vim.env.HOME .. "/Desktop/Github/notes/",
-            templte_dir = vim.env.HOME .. "/Desktop/Github/notes/templates/",
+            scretch_dir = vim.env.HOME .. "/Projects/Personal/Github/notes/",
+            templte_dir = vim.env.HOME .. "/Projects/Personal/Github/notes/templates/",
             default_type = "org",
         },
     },
@@ -623,7 +623,7 @@ return {
             { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "Codesnap Save", silent = true },
         },
         opts = {
-            save_path = vim.env.HOME .. "/Desktop/Github/code-screenshots",
+            save_path = vim.env.HOME .. "/Projects/Personal/Github/code-screenshots",
             -- code_font_family = "MonoLisa Nerd Font",
             -- code_font_family = "JetBrainsMono Nerd Font",
             code_font_family = "SauceCodePro Nerd Font",

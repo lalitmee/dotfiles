@@ -186,7 +186,7 @@ vf() {
 # search notes and open it in nvim
 vn() {
     local note
-    note=$(fd . "$HOME/Desktop/Github/dNotes" | fzf)
+    note=$(fd . "$HOME/Projects/Personal/Github/dNotes" | fzf)
     if [[ -n $note ]]
     then
         nvim $note
