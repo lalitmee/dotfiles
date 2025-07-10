@@ -423,6 +423,5 @@ fatal: not a git repository (or any of the parent directories): .git
 ✅ No changes to commit
 ------------------------------------------------------------
 🕒 Run started at: 2025-07-10 12:00:00
-🔍 USER: lalit.kumar1 | PWD: /Users/lalit.kumar1 | HOSTNAME: 17-M-LJLKXDXHK9
 📦 Backup attempt at: 2025-07-10 12:00:00
 ❌ ERROR: Git push failed
