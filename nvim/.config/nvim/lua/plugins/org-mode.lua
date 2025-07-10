@@ -1,6 +1,7 @@
 return {
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
+        event = "VeryLazy",
         ft = "org",
         cmd = "Org",
         keys = {
