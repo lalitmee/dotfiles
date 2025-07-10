@@ -1,26 +1,35 @@
 #!/bin/bash
 
-# Define paths
-LOG_DIR="$HOME/dotfiles/scripts/logs"
-BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/second-brain"
-LOG_FILE="$LOG_DIR/second-brain.log"
+# Validate argument
+BRAIN="$1" # personal or work
+if [[ "$BRAIN" != "personal" && "$BRAIN" != "work" ]]; then
+  echo "❌ ERROR: Please specify 'personal' or 'work' as the first argument"
+  exit 1
+fi
 
-# Log timestamp + horizontal rule
+# Log setup
+LOG_DIR="$HOME/dotfiles/scripts/logs"
+LOG_FILE="$LOG_DIR/second-brain-$BRAIN.log"
+BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/second-brain"
+
+# Ensure log directory exists
+mkdir -p "$LOG_DIR"
+
+# 1. Timestamped log entry
 {
   echo "------------------------------------------------------------"
   echo "🕒 Run started at: $(date '+%Y-%m-%d %H:%M:%S')"
 } >> "$LOG_FILE"
 
-# 1. Run the backup script
-/bin/bash "$BACKUP_SCRIPT" "$1" >> "$LOG_FILE" 2>&1
+# 2. Run the actual backup
+/bin/bash "$BACKUP_SCRIPT" "$BRAIN" >> "$LOG_FILE" 2>&1
 
-# 2. Rotate logs weekly (Monday at 12:00)
+# 3. Rotate and Cleanup logs (Monday at 12:00)
 if [[ "$(date +%u)" == 1 && "$(date +%H)" == 12 ]]; then
-  mv "$LOG_FILE" "$LOG_DIR/second-brain-$(date +%F).log"
+  # Rotate current log
+  mv "$LOG_FILE" "$LOG_DIR/second-brain-$BRAIN-$(date +%F).log"
   touch "$LOG_FILE"
-fi
 
-# 3. Cleanup logs monthly (1st day of month at 00:00)
-if [[ "$(date +%d)" == 01 && "$(date +%H)" == 0 ]]; then
-  find "$LOG_DIR" -name "second-brain-*.log" -mtime +30 -delete
+  # Cleanup older than 30 days
+  find "$LOG_DIR" -name "second-brain-$BRAIN-*.log" -mtime +30 -delete
 fi
