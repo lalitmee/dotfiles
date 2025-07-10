@@ -2,6 +2,7 @@ return {
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
         ft = "org",
+        cmd = "Org",
         keys = {
             { "<leader>oa", "<cmd>Org agenda<cr>", desc = "org agenda" },
             { "<leader>oc", "<cmd>Org capture<cr>", desc = "org capture" },
@@ -11,6 +12,7 @@ return {
         dependencies = {
             { --[[ org-bullets.nvim ]]
                 "akinsho/org-bullets.nvim",
+                after = "nvim-orgmode/orgmode",
                 opts = {
                     concealcursor = true,
                     symbols = {
@@ -25,10 +27,12 @@ return {
 
             { --[[ org-modern.nvim ]]
                 "danilshvalov/org-modern.nvim",
+                after = "nvim-orgmode/orgmode",
             },
 
             { --[[ org-list.nvim ]]
                 "hamidi-dev/org-list.nvim",
+                after = "nvim-orgmode/orgmode",
                 dependencies = {
                     "tpope/vim-repeat",
                 },
@@ -48,7 +52,7 @@ return {
         },
         opts = {
             org_agenda_files = {
-                "~/Projects/Work/second-brain/**/*", -- work todo
+                "~/Projects/Work/Github/second-brain/**/*", -- work todo
                 "~/Projects/Personal/Github/second-brain/**/*", -- personal todo
             },
             org_default_notes_file = "~/Projects/Personal/Github/second-brain/notes/inbox.org",
@@ -74,11 +78,11 @@ return {
                     types = {
                         {
                             type = "agenda",
-                            org_agenda_files = { "~/Projects/Work/second-brain/**/*" },
+                            org_agenda_files = { "~/Projects/Work/Github/second-brain/**/*" },
                         },
                         {
                             type = "tags_todo",
-                            org_agenda_files = { "~/Projects/Work/second-brain/**/*" },
+                            org_agenda_files = { "~/Projects/Work/Github/second-brain/**/*" },
                         },
                     },
                 },
@@ -256,7 +260,7 @@ return {
                         w = {
                             description = "Work",
                             template = "* %? :IDEA:WORK:",
-                            target = "~/Projects/Work/second-brain/ideas/inbox.org",
+                            target = "~/Projects/Work/Github/second-brain/ideas/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -280,7 +284,7 @@ return {
                         w = {
                             description = "Work",
                             template = "* TODO %? :TASK:WORK:\n  SCHEDULED: %U DEADLINE: %t",
-                            target = "~/Projects/Work/second-brain/agenda/todos.org",
+                            target = "~/Projects/Work/Github/second-brain/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -298,7 +302,7 @@ return {
                         w = {
                             description = "Work",
                             template = "* %^{Title} :NOTE:WORK:\n  %U\n\n%?",
-                            target = "~/Projects/Work/second-brain/notes/inbox.org",
+                            target = "~/Projects/Work/Github/second-brain/notes/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -336,7 +340,7 @@ return {
                         w = {
                             description = "Work",
                             template = "* MEETING with %? :MEETING:WORK:\n  SCHEDULED: %t",
-                            target = "~/Projects/Work/second-brain/agenda/calls.org",
+                            target = "~/Projects/Work/Github/second-brain/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -354,7 +358,7 @@ return {
                         w = {
                             description = "Work",
                             template = "* CALL with %? :PHONE:WORK:\n  SCHEDULED: %t",
-                            target = "~/Projects/Work/second-brain/agenda/calls.org",
+                            target = "~/Projects/Work/Github/second-brain/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -372,7 +376,7 @@ return {
                         w = {
                             description = "Work",
                             template = "* NEXT %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
-                            target = "~/Projects/Work/second-brain/agenda/habits.org",
+                            target = "~/Projects/Work/Github/second-brain/agenda/habits.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
