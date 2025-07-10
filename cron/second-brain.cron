@@ -1,9 +1,9 @@
 # personal-brain backup
-0 * * * * /bin/bash /Users/lalit.kumar1/dotfiles/scripts/backup/run-cron-jobs personal >> /Users/lalit.kumar1/dotfiles/scripts/logs/second-brain.log 2>&1
+0 * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs personal >> /home/lalitmee/dotfiles/scripts/logs/second-brain-personal.log 2>&1
 
 # work-brain backup
-0 * * * * /bin/bash /Users/lalit.kumar1/dotfiles/scripts/backup/run-cron-jobs work >> /Users/lalit.kumar1/dotfiles/scripts/logs/second-brain.log 2>&1
+0 * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs work >> /home/lalitmee/dotfiles/scripts/logs/second-brain-work.log 2>&1
 
-# * * * * * /bin/bash /Users/lalit.kumar1/dotfiles/scripts/test/test-home
+# * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/test/test-home
 
-# * * * * * /bin/bash /Users/lalit.kumar1/dotfiles/scripts/backup/test-cron
+# * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/test-cron

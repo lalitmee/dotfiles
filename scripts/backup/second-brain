@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Brain repo paths
 PERSONAL_BRAIN_DIR="$HOME/Projects/Personal/Github/second-brain"
 WORK_BRAIN_DIR="$HOME/Projects/Work/Github/second-brain"
 
@@ -10,15 +11,15 @@ if [[ "$BRAIN" != "personal" && "$BRAIN" != "work" ]]; then
   exit 1
 fi
 
+# Select the correct directory
 if [[ "$BRAIN" == "personal" ]]; then
   TARGET_DIR="$PERSONAL_BRAIN_DIR"
-elif [[ "$BRAIN" == "work" ]]; then
+else
   TARGET_DIR="$WORK_BRAIN_DIR"
 fi
 
 echo "------------------------------------------------------------"
 echo "🧠 $BRAIN backup started at: $(date '+%Y-%m-%d %H:%M:%S')"
-echo "🔍 USER: $(whoami) | HOSTNAME: $(hostname) | DIR: $TARGET_DIR"
 
 # 1. Try to cd into the brain directory
 if ! cd "$TARGET_DIR" 2>/dev/null; then
@@ -26,14 +27,17 @@ if ! cd "$TARGET_DIR" 2>/dev/null; then
   exit 1
 fi
 
-# 2. Pull latest changes
-if ! git pull --rebase 2>&1 | tee /tmp/git-pull-$BRAIN.log | grep -qv "fatal:"; then
+# 2. Abort any unfinished rebase (to prevent stuck state)
+git rebase --abort 2>/dev/null
+
+# 3. Pull latest changes without rebase to avoid interaction
+if ! git pull --no-rebase 2>&1 | tee "/tmp/git-pull-$BRAIN.log" | grep -qv "fatal:"; then
   echo "❌ ERROR: Git pull failed"
-  cat /tmp/git-pull-$BRAIN.log
+  cat "/tmp/git-pull-$BRAIN.log"
   exit 1
 fi
 
-# 3. Only commit and push if there are actual changes
+# 4. Only commit and push if there are actual changes
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git add .
 
