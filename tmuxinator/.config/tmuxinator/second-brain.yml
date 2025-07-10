@@ -4,5 +4,5 @@ name: second-brain
 root: ~/Desktop/
 
 windows:
-  - work: cd ~/Projects/Work/second-brain/
+  - work: cd ~/Projects/Work/Github/second-brain/ && gst
   - mine: cd ~/Projects/Personal/Github/second-brain/ && gst

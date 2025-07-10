@@ -1,37 +1,51 @@
 #!/bin/bash
 
-echo "🔍 USER: $(whoami) | PWD: $(pwd) | HOSTNAME: $(hostname)"
+PERSONAL_BRAIN_DIR="$HOME/Projects/Personal/Github/second-brain"
+WORK_BRAIN_DIR="$HOME/Projects/Work/Github/second-brain"
 
-REPO_DIR="$HOME/Projects/Personal/Github/second-brain"
+BRAIN="$1" # expects 'personal' or 'work'
 
-# 1. Try to cd into the repo, exit on failure
-if ! cd "$REPO_DIR" 2>/dev/null; then
-  echo "❌ ERROR: Failed to cd into $REPO_DIR"
+if [[ "$BRAIN" != "personal" && "$BRAIN" != "work" ]]; then
+  echo "❌ ERROR: Please specify 'personal' or 'work' as the first argument"
   exit 1
 fi
 
-echo "📦 Backup attempt at: $(date '+%Y-%m-%d %H:%M:%S')"
+if [[ "$BRAIN" == "personal" ]]; then
+  TARGET_DIR="$PERSONAL_BRAIN_DIR"
+elif [[ "$BRAIN" == "work" ]]; then
+  TARGET_DIR="$WORK_BRAIN_DIR"
+fi
 
-# 2. Git pull, check for errors
-if ! git pull --rebase 2>&1 | tee /tmp/git-pull.log | grep -qv "fatal:"; then
+echo "------------------------------------------------------------"
+echo "🧠 $BRAIN backup started at: $(date '+%Y-%m-%d %H:%M:%S')"
+echo "🔍 USER: $(whoami) | HOSTNAME: $(hostname) | DIR: $TARGET_DIR"
+
+# 1. Try to cd into the brain directory
+if ! cd "$TARGET_DIR" 2>/dev/null; then
+  echo "❌ ERROR: Failed to cd into $TARGET_DIR"
+  exit 1
+fi
+
+# 2. Pull latest changes
+if ! git pull --rebase 2>&1 | tee /tmp/git-pull-$BRAIN.log | grep -qv "fatal:"; then
   echo "❌ ERROR: Git pull failed"
-  cat /tmp/git-pull.log
+  cat /tmp/git-pull-$BRAIN.log
   exit 1
 fi
 
-# 3. Check for actual changes
+# 3. Only commit and push if there are actual changes
 if ! git diff --quiet || ! git diff --cached --quiet; then
   git add .
 
-  if git commit -m "auto: backup changes on $(date '+%Y-%m-%d %H:%M:%S')" >/dev/null 2>&1; then
+  if git commit -m "auto: $BRAIN backup on $(date '+%Y-%m-%d %H:%M:%S')" >/dev/null 2>&1; then
     if git push >/dev/null 2>&1; then
-      echo "✅ Backup committed and pushed"
+      echo "✅ $BRAIN backup committed and pushed"
     else
-      echo "❌ ERROR: Git push failed"
+      echo "❌ ERROR: Git push failed for $BRAIN"
     fi
   else
-    echo "❌ ERROR: Git commit failed"
+    echo "❌ ERROR: Git commit failed for $BRAIN"
   fi
 else
-  echo "✅ No changes to commit"
+  echo "✅ No changes to commit in $BRAIN brain"
 fi
