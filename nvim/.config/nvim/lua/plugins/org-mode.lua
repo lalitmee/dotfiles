@@ -13,7 +13,6 @@ return {
         dependencies = {
             { --[[ org-bullets.nvim ]]
                 "akinsho/org-bullets.nvim",
-                after = "nvim-orgmode/orgmode",
                 opts = {
                     concealcursor = true,
                     symbols = {
@@ -28,12 +27,10 @@ return {
 
             { --[[ org-modern.nvim ]]
                 "danilshvalov/org-modern.nvim",
-                after = "nvim-orgmode/orgmode",
             },
 
             { --[[ org-list.nvim ]]
                 "hamidi-dev/org-list.nvim",
-                after = "nvim-orgmode/orgmode",
                 dependencies = {
                     "tpope/vim-repeat",
                 },
@@ -418,17 +415,6 @@ return {
             }
 
             require("orgmode").setup(opts)
-            require("org-bullets").setup({
-                concealcursor = true,
-                symbols = {
-                    checkboxes = {
-                        half = { "", "@org.checkbox.halfchecked" },
-                        done = { "✓", "@org.checkbox.checked" },
-                        todo = { " ", "@org.checkbox" },
-                    },
-                },
-            })
-
             require("blink.cmp").setup({
                 sources = {
                     per_filetype = {
