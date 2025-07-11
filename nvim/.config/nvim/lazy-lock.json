@@ -4,7 +4,6 @@
   "LuaSnip": { "branch": "master", "commit": "66b5c2707e624dcd2cd3605676c64a2efe47e9d1" },
   "Navigator.nvim": { "branch": "master", "commit": "91d86506ac2a039504d5205d32a1d4bc7aa57072" },
   "NeoZoom.lua": { "branch": "main", "commit": "c97a0197548c1e9b559e4fa41ab3f7782c93e613" },
-  "augment.vim": { "branch": "main", "commit": "97418c9dfc1918fa9bdd23863ea3d2e49130727f" },
   "avante.nvim": { "branch": "main", "commit": "4892b7cde59fca8948b1be279584bb43c04af7c7" },
   "blink-cmp-dictionary": { "branch": "master", "commit": "43b701fe9728a704bc63e4667c5d8b398bf129b2" },
   "blink-copilot": { "branch": "main", "commit": "bdc45bbbed2ec252b3a29f4adecf031e157b5573" },
