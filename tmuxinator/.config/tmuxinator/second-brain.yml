@@ -1,8 +1,8 @@
 # /home/lalitmee/.config/tmuxinator/second-brain.yml
 
 name: second-brain
-root: ~/Desktop/
+root: ~/Projects/
 
 windows:
-  - work: cd ~/Projects/Work/Github/second-brain/ && gst
-  - mine: cd ~/Projects/Personal/Github/second-brain/ && gst
+  - work: cd Work/Github/second-brain/ && gst
+  - mine: cd Personal/Github/second-brain/ && gst
