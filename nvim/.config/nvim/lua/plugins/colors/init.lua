@@ -9,9 +9,6 @@ return {
             dev = true,
             lazy = false,
             priority = 1000,
-            init = function()
-                require("colorbuddy").colorscheme("cobalt2")
-            end,
             -- enabled = false,
         },
 

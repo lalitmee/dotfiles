@@ -66,3 +66,6 @@ require("lazy").setup("plugins", {
         backdrop = 100,
     },
 })
+
+-- load colorscheme
+vim.cmd.colorscheme("cobalt2")
