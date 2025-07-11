@@ -36,6 +36,8 @@ Abolish {c,m}arraige{,s}                                             {}arriage{}
 Abolish {les,compar,compari}sion{,s}                                 {les,compari,compari}son{}
 Abolish {pattner,pattren,patten}{,s,ed}                              pattern{}
 Abolish {respositor,repostor,repositer}{y,ies}                       repository{}
+Abolish cusotmer{,s}                                                 customer{}
+Abolish sytsem{,s,ic,atically}                                       system{}
 
 " snippets
 Abolish scflead     supercalifragilisticexpialidocious
