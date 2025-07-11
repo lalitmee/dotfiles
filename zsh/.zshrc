@@ -102,16 +102,11 @@ export COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    colored-man-pages
-    fast-syntax-highlighting
-    fzf-tab
-    fzf-zsh-plugin
     git
-    tmux
-    tmuxinator
-    zsh-vi-mode
+    fast-syntax-highlighting
     zsh-autosuggestions
-    zsh-lazyload
+    zsh-vi-mode
+    fzf-tab
     zsh-wakatime
 )
 
@@ -191,9 +186,6 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 znap eval atuin "atuin init zsh"
 # # }}}
 # # -------------------------------------------------------------------
-
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
 
 # -------------------------------------------------------------------
 # NOTE: sourcing some of the other things {{{
