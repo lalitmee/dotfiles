@@ -215,17 +215,4 @@ return {
             },
         },
     },
-
-    {
-        "augmentcode/augment.vim",
-        cmd = "Augment",
-        keys = {
-            { "<localleader>aA", ":Augment chat<CR>", desc = "Augment chat", silent = true },
-            { "<localleader>aT", ":Augment chat-toggle<CR>", desc = "Augment chat toggle", silent = true },
-            { "<localleader>aN", ":Augment chat-new<CR>", desc = "Augment new chat", silent = true },
-        },
-        config = function()
-            vim.g.augment_workspace_folders = { "~/dotfiles" }
-        end,
-    },
 }
