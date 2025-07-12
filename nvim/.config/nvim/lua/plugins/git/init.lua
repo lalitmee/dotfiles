@@ -110,14 +110,15 @@ return {
     },
 
     { --[[ git-worktree.nvim ]]
-        enabled = false,
         "polarmutex/git-worktree.nvim",
         version = "^2",
         keys = {
             {
                 "<leader>gwa",
-                ":Telescope git_worktree create_git_worktree<CR>",
-                desc = "Create Worktree",
+                function()
+                    require("plugins.git.worktree.telescope").create_worktree_picker()
+                end,
+                desc = "Create Worktree (with Branch Picker)",
                 silent = true,
             },
             {
@@ -126,35 +127,17 @@ return {
                 desc = "List Worktrees",
                 silent = true,
             },
+            {
+                "<leader>gwd",
+                function()
+                    require("plugins.git.worktree.telescope").delete_worktree_picker()
+                end,
+                desc = "Delete Worktree",
+            },
         },
         config = function()
             require("telescope").load_extension("git_worktree")
-        end,
-    },
-
-    { --[[ g-worktree.nvim ]]
-        "Mohanbarman/g-worktree.nvim",
-        keys = {
-            {
-                "<leader>gwa",
-                ":Telescope g_worktree create<CR>",
-                desc = "Create Worktree",
-                silent = true,
-            },
-            {
-                "<leader>gwl",
-                ":Telescope g_worktree list<CR>",
-                desc = "List Worktrees",
-                silent = true,
-            },
-        },
-        config = function()
-            require("g-worktree").setup({
-                base_dir_pattern = "../{git_dir_name}-worktrees/{branch_name}",
-                post_create_cmd = "",
-            })
-
-            require("telescope").load_extension("g_worktree")
+            require("plugins.git.worktree.hooks")
         end,
     },
 
