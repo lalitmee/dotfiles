@@ -169,3 +169,5 @@ NYSAPP
 autocmd
 mcphub
 mcp
+worktree
+worktrees
