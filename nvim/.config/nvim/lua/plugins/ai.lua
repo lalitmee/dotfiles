@@ -226,6 +226,12 @@ return {
             "nvim-lua/plenary.nvim",
         },
         build = "npm install -g mcp-hub@latest",
+        cmd = {
+            "MCPHub",
+        },
+        keys = {
+            { "<localleader>am", ":MCPHub<CR>", desc = "MCP Hub", silent = true, mode = { "n", "v" } },
+        },
         opts = {},
     },
 }
