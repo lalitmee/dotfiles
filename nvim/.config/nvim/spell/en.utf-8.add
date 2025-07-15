@@ -174,3 +174,5 @@ worktrees
 gitignore
 npmignore
 dweb
+quickfix
+toggleterm
