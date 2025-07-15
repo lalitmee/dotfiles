@@ -616,6 +616,11 @@ bind -T layout-mode "o" run-shell "sesh connect \"$(
 bind -T layout-mode "C-o" display-popup -E -w 50% "sesh connect \"$(
  sesh list -i | gum filter --limit 1 --no-sort --fuzzy --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
 )\""
+
+# ------------------
+# sesh last for last session
+# ------------------
+bind -T layout-mode "S" run-shell "sesh last"
 # }}}
 #-------------------------------------------------------------------------------
 # }}}

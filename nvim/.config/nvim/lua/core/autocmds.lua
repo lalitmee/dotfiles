@@ -226,35 +226,38 @@ set_cursorline("FileType", false, "TelescopePrompt")
 --  NOTE: lastplace {{{
 -- adapted from https://github.com/ethanholz/nvim-lastplace/blob/main/lua/nvim-lastplace/init.lua
 --------------------------------------------------------------------------------
-local ignore_buftype = { "quickfix", "nofile", "help" }
+local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "toggleterm" }
 local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" }
 
-local function run()
+local function restore_cursor_position()
     vim.schedule(function()
-        if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
+        -- Skip if in terminal mode
+        if vim.fn.mode():match("t") then
             return
         end
 
-        if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
-            -- reset cursor to first line
-            vim.cmd.normal({ "gg", bang = true })
+        local buftype = vim.bo.buftype
+        local filetype = vim.bo.filetype
+
+        if vim.tbl_contains(ignore_buftype, buftype) or vim.tbl_contains(ignore_filetype, filetype) then
             return
         end
 
-        if vim.fn.line(".") > 1 then
+        -- Don't interfere if the cursor has already moved
+        if vim.api.nvim_win_get_cursor(0)[1] > 1 then
             return
         end
 
         local last_line = vim.fn.line([['"]])
-        local buff_last_line = vim.fn.line("$")
+        local buffer_last_line = vim.fn.line("$")
 
-        if last_line > 0 and last_line <= buff_last_line then
+        if last_line > 0 and last_line <= buffer_last_line then
             local win_last_line = vim.fn.line("w$")
             local win_first_line = vim.fn.line("w0")
 
-            if win_last_line == buff_last_line then
+            if win_last_line == buffer_last_line then
                 vim.cmd.normal({ [[g`"]], bang = true })
-            elseif buff_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
+            elseif buffer_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
                 vim.cmd.normal({ [[g`"zz]], bang = true })
             else
                 vim.cmd.normal({ [[G'"<c-e>]], bang = true })
@@ -263,9 +266,12 @@ local function run()
     end)
 end
 
-vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
-    group = vim.api.nvim_create_augroup("nvim-lastplace", {}),
-    callback = run,
+vim.api.nvim_create_autocmd("BufReadPost", {
+    group = vim.api.nvim_create_augroup("nvim-lastplace", { clear = true }),
+    callback = restore_cursor_position,
 })
+--------------------------------------------------------------------------------
 -- }}}
 --------------------------------------------------------------------------------
+
+-- vim:fdm=marker
