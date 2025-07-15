@@ -171,3 +171,6 @@ mcphub
 mcp
 worktree
 worktrees
+gitignore
+npmignore
+dweb
