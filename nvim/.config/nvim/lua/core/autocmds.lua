@@ -63,7 +63,6 @@ augroup("quit_q_au", {
             "log",
             "lspinfo",
             "man",
-            "man",
             "neotest-output",
             "neotest-summary",
             "oil",
@@ -158,7 +157,7 @@ augroup("filetype_options_au", {
         event = { "BufWinEnter" },
         pattern = { "*" },
         command = function()
-            vim.cmd("set formatoptions-=o")
+            vim.opt_local.formatoptions:append("o")
         end,
     },
     {
@@ -231,40 +230,37 @@ local ignore_buftype = { "quickfix", "nofile", "help" }
 local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" }
 
 local function run()
-    if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
-        return
-    end
-
-    if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
-        -- reset cursor to first line
-        vim.cmd.normal({ "gg", bang = true })
-        return
-    end
-
-    -- If a line has already been specified on the command line, we are done
-    --   nvim file +num
-    if vim.fn.line(".") > 1 then
-        return
-    end
-
-    local last_line = vim.fn.line([['"]])
-    local buff_last_line = vim.fn.line("$")
-
-    -- If the last line is set and the less than the last line in the buffer
-    if last_line > 0 and last_line <= buff_last_line then
-        local win_last_line = vim.fn.line("w$")
-        local win_first_line = vim.fn.line("w0")
-        -- Check if the last line of the buffer is the same as the win
-        if win_last_line == buff_last_line then
-            -- Set line to last line edited
-            vim.cmd.normal({ [[g`"]], bang = true })
-        -- Try to center
-        elseif buff_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
-            vim.cmd.normal({ [[g`"zz]], bang = true })
-        else
-            vim.cmd.normal({ [[G'"<c-e>]], bang = true })
+    vim.schedule(function()
+        if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
+            return
         end
-    end
+
+        if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
+            -- reset cursor to first line
+            vim.cmd.normal({ "gg", bang = true })
+            return
+        end
+
+        if vim.fn.line(".") > 1 then
+            return
+        end
+
+        local last_line = vim.fn.line([['"]])
+        local buff_last_line = vim.fn.line("$")
+
+        if last_line > 0 and last_line <= buff_last_line then
+            local win_last_line = vim.fn.line("w$")
+            local win_first_line = vim.fn.line("w0")
+
+            if win_last_line == buff_last_line then
+                vim.cmd.normal({ [[g`"]], bang = true })
+            elseif buff_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
+                vim.cmd.normal({ [[g`"zz]], bang = true })
+            else
+                vim.cmd.normal({ [[G'"<c-e>]], bang = true })
+            end
+        end
+    end)
 end
 
 vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
