@@ -4,6 +4,8 @@ local config = require("git-worktree.config")
 local update_on_switch = Hooks.builtins.update_current_buffer_on_switch
 local uv = vim.uv
 
+local installed_node_modules = {}
+
 -- Reusable: copy file if exists and missing in target
 local function copy_file_if_needed(src, dest)
     if vim.fn.filereadable(src) == 1 and vim.fn.filereadable(dest) == 0 then
@@ -37,13 +39,17 @@ end
 
 -- Reusable: install node_modules if package.json exists and node_modules is missing
 local function ensure_node_modules(path)
+    if installed_node_modules[path] then
+        return -- already handled
+    end
+
     local pkg = path .. "/package.json"
     if vim.fn.filereadable(pkg) == 1 then
         local nm = path .. "/node_modules"
         if vim.fn.isdirectory(nm) == 0 then
+            installed_node_modules[path] = true -- ✅ mark before async
             vim.notify("📦 Installing node_modules in " .. path, vim.log.levels.INFO)
 
-            -- Create the task
             local task = overseer.new_task({
                 name = "yarn install (" .. path .. ")",
                 cmd = "yarn",
@@ -59,7 +65,6 @@ local function ensure_node_modules(path)
                 env = { CI = "false" },
             })
 
-            -- Start the task
             task:start()
         end
     end

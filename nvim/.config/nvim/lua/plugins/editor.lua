@@ -987,7 +987,7 @@ return {
         },
     },
 
-    { --[[ lualine ]]
+    { --[[ lualine.nvim ]]
         "nvim-lualine/lualine.nvim",
         event = "BufEnter",
         keys = {
