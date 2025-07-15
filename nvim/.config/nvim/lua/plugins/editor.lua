@@ -1025,7 +1025,7 @@ return {
                         "branch",
                         icon = "",
                         fmt = function(str)
-                            return str:sub(1, 20)
+                            return str:sub(1, 30)
                         end,
                     },
                 },
