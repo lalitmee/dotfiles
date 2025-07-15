@@ -530,33 +530,94 @@ set -g @floax-border-color '#FFFFFF'
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: split table {{{
+# NOTE: prefix table {{{
 #-------------------------------------------------------------------------------
-bind -T root C-b switch-client -T split
+
+bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+#  NOTE: split table <C-b> => layout-mode {{{
+#-------------------------------------------------------------------------------
+bind -T root C-b switch-client -T layout-mode
+
+#-------------------------------------------------------------------------------
+# NOTE: general {{{
+#-------------------------------------------------------------------------------
+
 # status on and off
-bind -T split C-b set-option status
-bind -T split '"' splitw -d
-bind -T split % splitw -hd
-bind -T split ? list-keys -T split
-bind -T split c splitw -hfp 45 'chatgpt -i'
-bind -T split C splitw -fp 45 'chatgpt -i'
-bind -T split t splitw -f 'man tmux'
-bind -T split q kill-pane -t '#{bottom}'
-bind -T split m command-prompt -p 'man page name:' "splitw -f man '%%'"
-bind -T split s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
+bind -T layout-mode C-b set-option status
+bind -T layout-mode '"' splitw -d
+bind -T layout-mode % splitw -hd
+bind -T layout-mode ? list-keys -T split
+bind -T layout-mode c splitw -hfp 45 'chatgpt -i'
+bind -T layout-mode C splitw -fp 45 'chatgpt -i'
+bind -T layout-mode t splitw -f 'man tmux'
+bind -T layout-mode q kill-pane -t '#{bottom}'
+bind -T layout-mode m command-prompt -p 'man page name:' "splitw -f man '%%'"
+bind -T layout-mode s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
 
-# percentage splits
-bind -T split h splitw -hbp 40
-bind -T split l splitw -hp 40
-bind -T split j splitw -p 30
-bind -T split k splitw -bp 30
+# }}}
+#-------------------------------------------------------------------------------
 
-# switch between full window split
-bind -T split f switch-client -T split_f
-bind -T split_f h splitw -hfb
-bind -T split_f j splitw -f
-bind -T split_f k splitw -fb
-bind -T split_f l splitw -hf
+
+#-------------------------------------------------------------------------------
+# NOTE: percentage splits {{{
+#-------------------------------------------------------------------------------
+
+bind -T layout-mode h splitw -hbp 40
+bind -T layout-mode l splitw -hp 40
+bind -T layout-mode j splitw -p 30
+bind -T layout-mode k splitw -bp 30
+
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: switch between full window split {{{
+#-------------------------------------------------------------------------------
+
+bind -T layout-mode f switch-client -T split-full-w
+bind -T prefix-1-split h splitw -hfb
+bind -T prefix-1-split j splitw -f
+bind -T prefix-1-split k splitw -fb
+bind -T prefix-1-split l splitw -hf
+
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: sesh {{{
+#-------------------------------------------------------------------------------
+
+# -----------------------
+# using fzf-tmux for sesh
+# -----------------------
+bind -T layout-mode "o" run-shell "sesh connect \"$(
+  sesh list --icons | fzf-tmux -p 80%,70% \
+    --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+    --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+    --bind 'tab:down,btab:up' \
+    --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
+    --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
+    --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
+    --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
+    --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+    --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
+    --preview-window 'right:55%' \
+    --preview 'sesh preview {}'
+)\""
+
+# ------------------
+# using gum for sesh
+# ------------------
+bind -T layout-mode "C-o" display-popup -E -w 50% "sesh connect \"$(
+ sesh list -i | gum filter --limit 1 --no-sort --fuzzy --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
+)\""
+# }}}
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -638,36 +699,6 @@ bind-key m run-shell "tmux-scratch-popup"
 # }}}
 #-------------------------------------------------------------------------------
 
-#-------------------------------------------------------------------------------
-# NOTE: sesh {{{
-#-------------------------------------------------------------------------------
-
-# -----------------------
-# using fzf-tmux for sesh
-# -----------------------
-bind -T split "o" run-shell "sesh connect \"$(
-  sesh list --icons | fzf-tmux -p 80%,70% \
-    --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
-    --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-    --bind 'tab:down,btab:up' \
-    --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
-    --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
-    --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
-    --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
-    --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-    --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
-    --preview-window 'right:55%' \
-    --preview 'sesh preview {}'
-)\""
-
-# ------------------
-# using gum for sesh
-# ------------------
-bind -T split "C-o" display-popup -E -w 50% "sesh connect \"$(
- sesh list -i | gum filter --limit 1 --no-sort --fuzzy --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
-)\""
-# }}}
-#-------------------------------------------------------------------------------
 
 # }}}
 #-------------------------------------------------------------------------------
