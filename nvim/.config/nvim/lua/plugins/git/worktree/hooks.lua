@@ -1,3 +1,4 @@
+local overseer = require("overseer")
 local Hooks = require("git-worktree.hooks")
 local config = require("git-worktree.config")
 local update_on_switch = Hooks.builtins.update_current_buffer_on_switch
@@ -40,24 +41,26 @@ local function ensure_node_modules(path)
     if vim.fn.filereadable(pkg) == 1 then
         local nm = path .. "/node_modules"
         if vim.fn.isdirectory(nm) == 0 then
-            vim.notify("Installing node_modules in " .. path, vim.log.levels.INFO)
-            uv.spawn(
-                "yarn",
-                {
-                    args = { "install" },
-                    cwd = path,
+            vim.notify("📦 Installing node_modules in " .. path, vim.log.levels.INFO)
+
+            -- Create the task
+            local task = overseer.new_task({
+                name = "yarn install (" .. path .. ")",
+                cmd = "yarn",
+                args = { "install" },
+                cwd = path,
+                strategy = "toggleterm",
+                components = {
+                    "default",
+                    "on_output_quickfix",
+                    "on_exit_set_status",
+                    "on_complete_notify",
                 },
-                vim.schedule_wrap(function(code, signal)
-                    if code == 0 then
-                        vim.notify("✅ yarn install succeeded in " .. path, vim.log.levels.INFO)
-                    else
-                        vim.notify(
-                            "❌ yarn install failed (" .. tostring(code) .. ") in " .. path,
-                            vim.log.levels.ERROR
-                        )
-                    end
-                end)
-            )
+                env = { CI = "false" },
+            })
+
+            -- Start the task
+            task:start()
         end
     end
 end
