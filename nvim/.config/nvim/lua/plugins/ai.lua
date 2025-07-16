@@ -22,32 +22,6 @@ return {
         },
     },
 
-    { --[[ windsurf.nvim ]]
-        "Exafunction/windsurf.vim",
-        event = "BufEnter",
-        config = function()
-            vim.g.codeium_filetypes_disabled_by_default = true
-            vim.g.codeium_filetypes = {
-                c = true,
-                cpp = true,
-                gitcommit = true,
-                go = true,
-                javascript = true,
-                javascriptreact = true,
-                lua = true,
-                python = true,
-                rust = true,
-                typescript = true,
-                typescriptreact = true,
-                vim = true,
-                yaml = true,
-            }
-            vim.keymap.set("i", "<Tab>", function()
-                return vim.fn["codeium#Accept"]()
-            end, { expr = true, silent = true })
-        end,
-    },
-
     { --[[ codecompanion.nvim ]]
         "olimorris/codecompanion.nvim",
         cmd = {
@@ -112,7 +86,8 @@ return {
         event = "InsertEnter",
         opts = {
             suggestion = {
-                enabled = false,
+                enabled = true,
+                auto_trigger = true,
                 keymap = {
                     accept = "<Tab>",
                     next = "<C-n>",
@@ -126,6 +101,23 @@ return {
                 help = true,
             },
         },
+        config = function(_, opts)
+            require("copilot").setup(opts)
+
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "BlinkCmpMenuOpen",
+                callback = function()
+                    vim.b.copilot_suggestion_hidden = true
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "BlinkCmpMenuClose",
+                callback = function()
+                    vim.b.copilot_suggestion_hidden = false
+                end,
+            })
+        end,
     },
 
     { --[[ copilot-chat.nvim ]]
@@ -139,6 +131,7 @@ return {
             "CopilotChatToggle",
             "CopilotChatPrompts",
             "CopilotChatCommit",
+            "CopilotChatAgents",
         },
         keys = {
             {
@@ -158,11 +151,152 @@ return {
         },
         opts = {
             model = "gpt-4o",
-            -- model = "gpt-4o-mini",
-            -- model = "gemini-2.0-flash-001",
-            -- model = "claude-3.7-sonnet",
-            -- model = "claude-3.7-sonnet-thought",
         },
+        config = function(_, opts)
+            opts = opts or {}
+
+            opts.providers = {
+                openai = {
+                    prepare_input = require("CopilotChat.config.providers").copilot.prepare_input,
+                    prepare_output = require("CopilotChat.config.providers").copilot.prepare_output,
+
+                    get_url = function()
+                        return "https://api.openai.com/v1/chat/completions"
+                    end,
+
+                    get_headers = function()
+                        local api_key = assert(os.getenv("OPENAI_API_KEY"), "OPENAI_API_KEY env var not set")
+                        return {
+                            Authorization = "Bearer " .. api_key,
+                            ["Content-Type"] = "application/json",
+                        }
+                    end,
+
+                    get_models = function(headers)
+                        local response, err =
+                            require("CopilotChat.utils").curl_get("https://api.openai.com/v1/models", {
+                                headers = headers,
+                                json_response = true,
+                            })
+                        if err then
+                            error(err)
+                        end
+                        return vim.iter(response.body.data)
+                            :filter(function(model)
+                                local exclude_patterns = {
+                                    "audio",
+                                    "babbage",
+                                    "dall%-e",
+                                    "davinci",
+                                    "embedding",
+                                    "image",
+                                    "moderation",
+                                    "realtime",
+                                    "transcribe",
+                                    "tts",
+                                    "whisper",
+                                }
+                                for _, pattern in ipairs(exclude_patterns) do
+                                    if model.id:match(pattern) then
+                                        return false
+                                    end
+                                end
+                                return true
+                            end)
+                            :map(function(model)
+                                return {
+                                    id = model.id,
+                                    name = model.id,
+                                }
+                            end)
+                            :totable()
+                    end,
+
+                    embed = function(inputs, headers)
+                        local response, err =
+                            require("CopilotChat.utils").curl_post("https://api.openai.com/v1/embeddings", {
+                                headers = headers,
+                                json_request = true,
+                                json_response = true,
+                                body = {
+                                    model = "text-embedding-3-small",
+                                    input = inputs,
+                                },
+                            })
+                        if err then
+                            error(err)
+                        end
+                        return response.body.data
+                    end,
+                },
+
+                gemini = {
+                    prepare_input = require("CopilotChat.config.providers").copilot.prepare_input,
+                    prepare_output = require("CopilotChat.config.providers").copilot.prepare_output,
+
+                    get_headers = function()
+                        local api_key = assert(os.getenv("GEMINI_API_KEY"), "GEMINI_API_KEY env not set")
+                        return {
+                            Authorization = "Bearer " .. api_key,
+                            ["Content-Type"] = "application/json",
+                        }
+                    end,
+
+                    get_models = function(headers)
+                        local response, err = require("CopilotChat.utils").curl_get(
+                            "https://generativelanguage.googleapis.com/v1beta/openai/models",
+                            {
+                                headers = headers,
+                                json_response = true,
+                            }
+                        )
+
+                        if err then
+                            error(err)
+                        end
+
+                        return vim.tbl_map(function(model)
+                            local id = model.id:gsub("^models/", "")
+                            return {
+                                id = id,
+                                name = id,
+                                streaming = true,
+                                tools = true,
+                            }
+                        end, response.body.data)
+                    end,
+
+                    embed = function(inputs, headers)
+                        local response, err = require("CopilotChat.utils").curl_post(
+                            "https://generativelanguage.googleapis.com/v1beta/openai/embeddings",
+                            {
+                                headers = headers,
+                                json_request = true,
+                                json_response = true,
+                                body = {
+                                    input = inputs,
+                                    model = "text-embedding-004",
+                                },
+                            }
+                        )
+
+                        if err then
+                            error(err)
+                        end
+
+                        return response.body.data
+                    end,
+
+                    get_url = function()
+                        return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+                    end,
+                },
+            }
+
+            opts.provider = "gemini"
+
+            require("CopilotChat").setup(opts)
+        end,
     },
 
     { --[[ avante.nvim ]]
