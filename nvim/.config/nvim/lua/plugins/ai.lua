@@ -104,19 +104,8 @@ return {
         config = function(_, opts)
             require("copilot").setup(opts)
 
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "BlinkCmpMenuOpen",
-                callback = function()
-                    vim.b.copilot_suggestion_hidden = true
-                end,
-            })
-
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "BlinkCmpMenuClose",
-                callback = function()
-                    vim.b.copilot_suggestion_hidden = false
-                end,
-            })
+            vim.g.copilot_hide_during_completion = false
+            vim.g.copilot_settings = { selectedCompletionModel = "gpt-4.1-copilot" }
         end,
     },
 
@@ -128,10 +117,11 @@ return {
         build = "make tiktoken",
         cmd = {
             "CopilotChat",
-            "CopilotChatToggle",
-            "CopilotChatPrompts",
-            "CopilotChatCommit",
             "CopilotChatAgents",
+            "CopilotChatCommit",
+            "CopilotChatModels",
+            "CopilotChatPrompts",
+            "CopilotChatToggle",
         },
         keys = {
             {
@@ -150,16 +140,21 @@ return {
             },
         },
         opts = {
-            -- model = "gpt-4o",
-            model = "gemini-2.5-pro",
+            model = "gpt-4o",
+            -- model = "gemini-2.5-pro",
         },
         config = function(_, opts)
+            local Providers = require("CopilotChat.config.providers")
+
             opts = opts or {}
 
             opts.providers = {
+                github_models = {
+                    disabled = true,
+                },
                 openai = {
-                    prepare_input = require("CopilotChat.config.providers").copilot.prepare_input,
-                    prepare_output = require("CopilotChat.config.providers").copilot.prepare_output,
+                    prepare_input = Providers.copilot.prepare_input,
+                    prepare_output = Providers.copilot.prepare_output,
 
                     get_url = function()
                         return "https://api.openai.com/v1/chat/completions"
@@ -232,8 +227,8 @@ return {
                 },
 
                 gemini = {
-                    prepare_input = require("CopilotChat.config.providers").copilot.prepare_input,
-                    prepare_output = require("CopilotChat.config.providers").copilot.prepare_output,
+                    prepare_input = Providers.copilot.prepare_input,
+                    prepare_output = Providers.copilot.prepare_output,
 
                     get_headers = function()
                         local api_key = assert(os.getenv("GEMINI_API_KEY"), "GEMINI_API_KEY env not set")
