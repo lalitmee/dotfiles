@@ -596,8 +596,10 @@ return {
         "m4xshen/hardtime.nvim",
         event = "VeryLazy",
         dependencies = { "MunifTanjim/nui.nvim" },
+        keys = {
+            { "<leader>tv", ":HardTime toggle<CR>", desc = "Hardtime Toggle", silent = true },
+        },
         opts = {},
-        -- enabled = false,
     },
 
     { --[[ text-case ]]
@@ -850,7 +852,6 @@ return {
             { "<leader>qh", "<cmd>TodoTelescope keywords=HACK<cr>", desc = "HACK Telescope" },
             { "<leader>qq", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
         },
-        dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
     },
 
