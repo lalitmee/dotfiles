@@ -115,6 +115,9 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
 
+# Load p10k prompt first (no output)
+[[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+
 # }}}
 # -------------------------------------------------------------------
 
@@ -168,7 +171,8 @@ znap eval rbenv "rbenv init -"
 # -------------------------------------------------------------------
 # NOTE: fnm {{{
 # -------------------------------------------------------------------
-eval "$(fnm env --use-on-cd --shell zsh)"
+# Then load fnm silently
+eval "$(fnm env --use-on-cd --shell zsh)" >/dev/null 2>&1
 # }}}
 # -------------------------------------------------------------------
 
@@ -190,9 +194,6 @@ znap eval atuin "atuin init zsh"
 # -------------------------------------------------------------------
 # NOTE: sourcing some of the other things {{{
 # -------------------------------------------------------------------
-
-# p10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
