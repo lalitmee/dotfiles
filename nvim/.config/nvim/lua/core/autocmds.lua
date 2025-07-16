@@ -227,7 +227,7 @@ set_cursorline("FileType", false, "TelescopePrompt")
 -- adapted from https://github.com/ethanholz/nvim-lastplace/blob/main/lua/nvim-lastplace/init.lua
 --------------------------------------------------------------------------------
 local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "toggleterm" }
-local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" }
+local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "TelescopePrompt", "oil" }
 
 local function restore_cursor_position()
     vim.schedule(function()
