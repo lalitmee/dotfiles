@@ -185,3 +185,5 @@ auth
 hardtime
 backend
 gemini
+copilotchat
+autocommand
