@@ -150,7 +150,8 @@ return {
             },
         },
         opts = {
-            model = "gpt-4o",
+            -- model = "gpt-4o",
+            model = "gemini-2.5-pro",
         },
         config = function(_, opts)
             opts = opts or {}
@@ -292,8 +293,6 @@ return {
                     end,
                 },
             }
-
-            opts.provider = "gemini"
 
             require("CopilotChat").setup(opts)
         end,
