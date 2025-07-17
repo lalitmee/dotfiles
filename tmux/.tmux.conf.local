@@ -682,7 +682,7 @@ bind c new-window -c '#{pane_current_path}'
 bind-key n break-pane -d
 
 # run cht.sh from tmux
-bind-key -r i run-shell "tmux neww tmux-cht"
+bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
 # Prompted join-pane
 bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
@@ -694,10 +694,10 @@ bind-key q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 # tmux-sessionizer
-bind-key -r o run-shell "tmux neww tmux-sessionizer"
+bind-key -r o run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
 
 # tmuxinator-sessionizer
-bind-key -r C-t run-shell "tmux neww tmuxinator-sessionizer"
+bind-key -r C-t run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
 
 # search lines using fzf and open that line in the editor
 bind-key -r C-o run-shell "tmux neww tsnv"
@@ -707,13 +707,12 @@ bind-key -r C-o run-shell "tmux neww tsnv"
 # tmux popup from u/KevinHwang91 from reddit discussion
 #-------------------------------------------------------------------------------
 # tmux notes popup with shell
-bind-key M run-shell "tmux-notes-popup"
+bind-key M run-shell "~/.config/tmux/scripts/notes-popup.sh"
 
 # tmux scratch popup with shell
-bind-key m run-shell "tmux-scratch-popup"
+bind-key m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 # }}}
 #-------------------------------------------------------------------------------
-
 
 # }}}
 #-------------------------------------------------------------------------------
