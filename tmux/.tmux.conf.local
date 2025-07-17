@@ -501,9 +501,6 @@ set -g @plugin 'tmux-plugins/tmux-copycat'
 # TMUX_FZF_LAUNCH_KEY="C-o"
 # TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl-a:select-all,ctrl-d:deselect-all --color=fg:#00aaff,bg:#193549,hl:#ffc600 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600"
 
-# manage sessions more quickly
-set -g @plugin 'tmux-plugins/tmux-sessionist'
-
 # open urls using fzf
 set -g @plugin 'wfxr/tmux-fzf-url'
 set -g @fzf-url-bind 'U'
@@ -533,7 +530,11 @@ set -g @floax-border-color '#FFFFFF'
 # NOTE: prefix table {{{
 #-------------------------------------------------------------------------------
 
+# search keybindings
 bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
+
+# git pull and merge
+bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 # }}}
 #-------------------------------------------------------------------------------
 
