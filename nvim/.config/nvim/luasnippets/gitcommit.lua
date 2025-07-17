@@ -29,4 +29,21 @@ return {
         trig = "gtodo",
         name = "git commit for todo",
     }, c(1, { t("feat(todo): add work todo"), t("feat(todo): add personal todo") })),
+
+    s(
+        {
+            trig = "nes",
+            name = "initial commit for fe-core package",
+        },
+        fmta(
+            [[
+            feat(<package>): initial commit
+
+            copy of nykaa's package
+        ]],
+            {
+                package = i(1, "package"),
+            }
+        )
+    ),
 }
