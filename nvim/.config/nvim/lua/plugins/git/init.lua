@@ -72,6 +72,14 @@ return {
     { --[[ gitsigns ]]
         "lewis6991/gitsigns.nvim",
         event = "BufReadPost",
+        keys = {
+            { "<localleader>gS", ":Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true },
+            { "<localleader>gu", ":Gitsigns undo_stage_hunk<CR>", desc = "undo stage Hunk", silent = true },
+            { "<localleader>gv", ":Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true },
+            { "<localleader>gV", ":Gitsigns preview_hunk_inline<CR>", desc = "preview hunk inline", silent = true },
+            { "<localleader>gx", ":Gitsigns reset_hunk<CR>", desc = "discard hunk", silent = true },
+            { "<localleader>gX", ":Gitsigns reset_buffer<CR>", desc = "discard buffer", silent = true },
+        },
         opts = {
             signs = {
                 add = { text = "│" },
