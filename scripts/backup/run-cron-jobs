@@ -7,29 +7,33 @@ if [[ "$BRAIN" != "personal" && "$BRAIN" != "work" ]]; then
   exit 1
 fi
 
-# Log setup
-LOG_DIR="$HOME/dotfiles/scripts/logs"
-LOG_FILE="$LOG_DIR/second-brain-$BRAIN.log"
+# Path to the backup script
 BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/second-brain"
 
-# Ensure log directory exists
-mkdir -p "$LOG_DIR"
+### The lines below have been commented out or modified to disable logging ###
 
-# 1. Timestamped log entry
-{
-  echo "============================================================"
-  echo "🕒 Run started at: $(date '+%Y-%m-%d %H:%M:%S')"
-} >> "$LOG_FILE"
+# # Log setup
+# LOG_DIR="$HOME/dotfiles/scripts/logs"
+# LOG_FILE="$LOG_DIR/second-brain-$BRAIN.log"
 
-# 2. Run the actual backup
-/bin/bash "$BACKUP_SCRIPT" "$BRAIN" >> "$LOG_FILE" 2>&1
+# # Ensure log directory exists
+# mkdir -p "$LOG_DIR"
 
-# 3. Rotate and Cleanup logs (Monday at 12:00)
-if [[ "$(date +%u)" == 1 && "$(date +%H)" == 12 ]]; then
-  # Rotate current log
-  mv "$LOG_FILE" "$LOG_DIR/second-brain-$BRAIN-$(date +%F).log"
-  touch "$LOG_FILE"
+# # 1. Timestamped log entry
+# {
+#   echo "============================================================"
+#   echo "🕒 Run started at: $(date '+%Y-%m-%d %H:%M:%S')"
+# } >> "$LOG_FILE"
 
-  # Cleanup older than 30 days
-  find "$LOG_DIR" -name "second-brain-$BRAIN-*.log" -mtime +30 -delete
-fi
+# 2. Run the actual backup (without redirecting to a log file)
+/bin/bash "$BACKUP_SCRIPT" "$BRAIN"
+
+# # 3. Rotate and Cleanup logs (Monday at 12:00)
+# if [[ "$(date +%u)" == 1 && "$(date +%H)" == 12 ]]; then
+#   # Rotate current log
+#   mv "$LOG_FILE" "$LOG_DIR/second-brain-$BRAIN-$(date +%F).log"
+#   touch "$LOG_FILE"
+#
+#   # Cleanup older than 30 days
+#   find "$LOG_DIR" -name "second-brain-$BRAIN-*.log" -mtime +30 -delete
+# fi
