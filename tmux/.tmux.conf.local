@@ -416,315 +416,370 @@ tmux_conf_update_plugins_on_reload=true
 # "$@"
 # # /!\ do not remove the previous line
 
+# =============================================================================
+#  NOTE: 1. SETTINGS {{{
+# General behavior, appearance, and environment settings for tmux.
+# =============================================================================
+
 #-------------------------------------------------------------------------------
-#  NOTE: settings {{{
+# --- NOTE: Main Settings {{{
 #-------------------------------------------------------------------------------
 
-unbind C-b
+# Set the prefix to C-a, which is more accessible than C-b.
 set -g prefix C-a
+
+# Unbind the default C-b prefix.
+unbind C-b
+
+# Allow sending C-a to applications by pressing it twice.
 bind C-a send-prefix
 
-# reducing escape time
+# Reduce escape key delay for faster responsiveness, especially in Vim/Neovim.
 set -g escape-time 0
-set -g status-interval 0
 
-set-option -sa terminal-overrides ",xterm*:Tc"
-
-# set -g default-terminal "xterm-256color"
-set -g default-terminal "tmux-256color"
-
-set -g default-command "exec /bin/zsh"
-
+# Start window numbering at 1 instead of 0.
 set-option -g base-index 1
+
+# Automatically renumber windows after one is closed.
 set-option -g renumber-windows on
-# Use vim keybindings in copy mode
+
+# Use vi keybindings in copy mode.
 setw -g mode-keys vi
 
-# allow transparency
+# Set Zsh as the default shell for new windows and panes.
+set -g default-command "exec /bin/zsh"
+
+# Do not exit tmux when the last session is closed.
+set -g detach-on-destroy off
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Terminal & Colors {{{
+#-------------------------------------------------------------------------------
+
+# Enable True Color support for modern terminals.
+set-option -sa terminal-overrides ",xterm*:Tc"
+
+# Set the default terminal type for tmux itself.
+set -g default-terminal "tmux-256color"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Transparency {{{
+#-------------------------------------------------------------------------------
+
+# Allow for a transparent background if the terminal emulator supports it.
 set-option -g pane-border-style bg=default
 set-option -g window-style bg=default
 set-option -g window-active-style bg=default
 
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+# =============================================================================
+# }}}
+# =============================================================================
+
+# =============================================================================
+#  NOTE: 2. PLUGINS {{{
+# =============================================================================
+
+# Managed by TPM (Tmux Plugin Manager).
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Themes (enable one) {{{
+#-------------------------------------------------------------------------------
+
+# set -g @plugin 'dracula/tmux'
+# set -g @plugin "nordtheme/tmux"
+# set -g @plugin 'catppuccin/tmux'
+# set -g @catppuccin_flavour 'mocha'
+# set -g @plugin 'rose-pine/tmux'
+# set -g @rose_pine_variant 'main'
+# set -g @plugin 'khanghh/tmux-dark-plus-theme'
+
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: plugins {{{
+# --- NOTE: Pomodoro Timer {{{
 #-------------------------------------------------------------------------------
-# # dracula theme
-# set -g @plugin 'dracula/tmux'
-
-# # nord theme
-# set -g @plugin "nordtheme/tmux"
-
-# # catppuccin theme
-# set -g @plugin 'catppuccin/tmux'
-# set -g @catppuccin_flavour 'mocha' # or frappe, macchiato, latte
-
-# # rose-pine theme
-# set -g @plugin 'rose-pine/tmux'
-# set -g @rose_pine_variant 'main'
-
-# # vscode theme
-# set -g @plugin 'khanghh/tmux-dark-plus-theme'
-
-# tmux pomodoro
 set -g @plugin 'olimorris/tmux-pomodoro-plus'
+
+# Set pomodoro duration to 25 minutes.
 set -g @pomodoro_mins 25
+
+# Set break duration to 5 minutes.
 set -g @pomodoro_break_mins 5
+
+# Automatically repeat the pomodoro cycle.
 set -g @pomodoro_repeat true
+
+# Enable desktop notifications.
 set -g @pomodoro_notifications 'on'
+
+# Enable sound notifications.
 set -g @pomodoro_sound 'on'
+
+# Use a more granular (per-second) countdown.
 set -g @pomodoro_granularity 'on'
+
+# Update the status bar every second for the timer.
 set -g status-interval 1
+
+# Set custom icons for different pomodoro states.
 set -g @pomodoro_on " 🍅 "
 set -g @pomodoro_complete " ✔︎  "
 set -g @pomodoro_pause " ⏸︎  "
 
-# basic tmux settings everyone can agree on
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Core & Utility Plugins {{{
+#-------------------------------------------------------------------------------
+
+# Load sensible default settings that most users agree on.
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# better mouse support in tmux
+# Provides better, more intuitive mouse support.
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 
-# tmux open for opening anything
+# Open highlighted text or URLs with the 'o' key in copy mode.
 set -g @plugin 'tmux-plugins/tmux-open'
 
-# # tmux thumbs for copy and paste
-# set -g @plugin 'fcsonline/tmux-thumbs'
-
-# tmux search content
+# Provides hints to search and jump to text matches.
 set -g @plugin 'tmux-plugins/tmux-copycat'
 
-# # tmux-fzf
-# set -g @plugin 'sainnhe/tmux-fzf'
-# TMUX_FZF_LAUNCH_KEY="C-o"
-# TMUX_FZF_OPTIONS="--layout=reverse --inline-info -p -w 80% -h 80% -m --bind=ctrl-a:select-all,ctrl-d:deselect-all --color=fg:#00aaff,bg:#193549,hl:#ffc600 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600 --color=info:#FF9D00,prompt:#ff628c,pointer:#ff9a00 --color=marker:#ff628c,spinner:#ffc600,header:#ffc600"
-
-# open urls using fzf
-set -g @plugin 'wfxr/tmux-fzf-url'
-set -g @fzf-url-bind 'U'
-
-# open things using fzf
-set -g @plugin 'alberti42/tmux-fzf-links'
-set-option -g @fzf-links-key "C-b"
-set-option -g @fzf-links-python "/opt/homebrew/bin/python3"
-set-option -g @fzf-links-editor-open-cmd "tmux new-window -n 'nvim' /opt/homebrew/bin/nvim +%line '%file'"
-set-option -g @fzf-links-browser-open-cmd "open '%url'"
-
-# easymotion like jumping in tmux
+# Vim-style Easymotion-like navigation for jumping to text.
 set -g @plugin 'schasse/tmux-jump'
 
-# missing floating pane for tmux
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: FZF URL Opener {{{
+#-------------------------------------------------------------------------------
+
+set -g @plugin 'wfxr/tmux-fzf-url'
+
+# Set the keybinding to open the URL finder.
+set -g @fzf-url-bind 'U'
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: FZF Links Opener {{{
+#-------------------------------------------------------------------------------
+
+set -g @plugin 'alberti42/tmux-fzf-links'
+
+# Set the keybinding to open the file/link finder.
+set-option -g @fzf-links-key "C-b"
+
+# Specify the python executable path.
+set-option -g @fzf-links-python "/opt/homebrew/bin/python3"
+
+# Define how to open files in Neovim at the correct line.
+set-option -g @fzf-links-editor-open-cmd "tmux new-window -n 'nvim' /opt/homebrew/bin/nvim +%line '%file'"
+
+# Define how to open URLs in the default browser.
+set-option -g @fzf-links-browser-open-cmd "open '%url'"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Floax (Floating Panes) {{{
+#-------------------------------------------------------------------------------
+
 set -g @plugin 'omerxx/tmux-floax'
+
+# Set the keybinding to toggle a floating pane.
 set -g @floax-bind 'h'
+
+# Set the border color for floating panes.
 set -g @floax-border-color '#FFFFFF'
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-#  NOTE: keybindings {{{
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# NOTE: prefix table <C-a> => prefix {{{
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# NOTE: features using display-popup {{{
-#-------------------------------------------------------------------------------
-
-# search keybindings
-bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
-
-# git pull and merge
-bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
+# =============================================================================
+# }}}
+# =============================================================================
+
+# =============================================================================
+#  NOTE: 3. KEYBINDINGS {{{
+# =============================================================================
+
 #-------------------------------------------------------------------------------
+# --- NOTE: Global Bindings (No Prefix) {{{
+#           For bindings that work everywhere without the tmux prefix.
+#-------------------------------------------------------------------------------
+
+# Smart pane switching with awareness of Vim splits.
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
+
+# Navigate left.
+bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+
+# Navigate down.
+bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+
+# Navigate up.
+bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+
+# Navigate right.
+bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: split table <C-b> => layout-mode {{{
+# --- NOTE: Custom Mode Trigger {{{
+#           Enter a custom 'layout-mode' by pressing C-b (without prefix).
 #-------------------------------------------------------------------------------
 bind -T root C-b switch-client -T layout-mode
-
-#-------------------------------------------------------------------------------
-# NOTE: general {{{
-#-------------------------------------------------------------------------------
-
-# status on and off
-bind -T layout-mode C-b set-option status
-bind -T layout-mode '"' splitw -d
-bind -T layout-mode % splitw -hd
-bind -T layout-mode ? list-keys -T split
-bind -T layout-mode c splitw -hfp 45 'chatgpt -i'
-bind -T layout-mode C splitw -fp 45 'chatgpt -i'
-bind -T layout-mode t splitw -f 'man tmux'
-bind -T layout-mode q kill-pane -t '#{bottom}'
-bind -T layout-mode m command-prompt -p 'man page name:' "splitw -f man '%%'"
-bind -T layout-mode s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
-
-# }}}
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# NOTE: percentage splits {{{
-#-------------------------------------------------------------------------------
-
-bind -T layout-mode h splitw -hbp 40
-bind -T layout-mode l splitw -hp 40
-bind -T layout-mode j splitw -p 30
-bind -T layout-mode k splitw -bp 30
-
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: switch between full window split {{{
+# --- NOTE: Prefix Mode Bindings (C-a) {{{
+#           All bindings that are triggered after pressing the prefix key.
 #-------------------------------------------------------------------------------
 
-bind -T layout-mode f switch-client -T split-full-w
-bind -T prefix-1-split h splitw -hfb
-bind -T prefix-1-split j splitw -f
-bind -T prefix-1-split k splitw -fb
-bind -T prefix-1-split l splitw -hf
-
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# NOTE: sesh {{{
-#-------------------------------------------------------------------------------
-
-# -----------------------
-# using fzf-tmux for sesh
-# -----------------------
-bind -T layout-mode "o" run-shell "sesh connect \"$(
-  sesh list --icons | fzf-tmux -p 80%,70% \
-    --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
-    --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-    --bind 'tab:down,btab:up' \
-    --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
-    --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
-    --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
-    --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
-    --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-    --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
-    --preview-window 'right:55%' \
-    --preview 'sesh preview {}'
-)\""
-
-# ------------------
-# using gum for sesh
-# ------------------
-bind -T layout-mode "C-o" display-popup -E -w 50% "sesh connect \"$(
- sesh list -i | gum filter --limit 1 --no-sort --fuzzy --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
-)\""
-
-# ------------------
-# sesh last for last session
-# ------------------
-bind -T layout-mode "S" run-shell "sesh last"
-# }}}
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-
-# skip "kill-pane 1? (y/n)" prompt
-bind-key x kill-pane
-
-# don't exit from tmux when closing a session
-set -g detach-on-destroy off
-
-#-------------------------------------------------------------------------------
-#  navigations
-#-------------------------------------------------------------------------------
-# Smart pane switching with awareness of Vim splits.
-# See: https://github.com/christoomey/vim-tmux-navigator
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
-bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
-bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
-bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
-bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
-# tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-# if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-#     "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
-# if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-#     "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
-
-bind-key -T copy-mode-vi 'C-h' select-pane -L
-bind-key -T copy-mode-vi 'C-j' select-pane -D
-bind-key -T copy-mode-vi 'C-k' select-pane -U
-bind-key -T copy-mode-vi 'C-l' select-pane -R
-# bind-key -T copy-mode-vi 'C-\' select-pane -l
-
-#-------------------------------------------------------------------------------
-#  window
-#-------------------------------------------------------------------------------
-# for split window
-bind-key '-' split-window -v -c '#{pane_current_path}'
-bind-key '\' split-window -h -c '#{pane_current_path}'
-# create new window with the current directory path
+# Create a new window in the same directory as the current pane.
 bind c new-window -c '#{pane_current_path}'
 
-#-------------------------------------------------------------------------------
-#  session
-#-------------------------------------------------------------------------------
-# send current pane to next window
-bind-key n break-pane -d
+# Split the current pane horizontally.
+bind '-' split-window -v -c '#{pane_current_path}'
 
-# run cht.sh from tmux
+# Split the current pane vertically.
+bind '\' split-window -h -c '#{pane_current_path}'
+
+# Kill the current pane without confirmation.
+bind x kill-pane
+
+# Move the current pane to its own new window.
+bind n break-pane -d
+
+# Prompt to join a pane from another window/session.
+bind j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
+
+# Prompt to swap the current pane with another.
+bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
+
+# Kill the entire current session.
+bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
+
+# Launch the git helper script in a popup.
+bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
+
+# Launch the cht.sh helper script in a popup.
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
-# Prompted join-pane
-bind-key j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
+# Launch the notes popup script.
+bind M run-shell "~/.config/tmux/scripts/notes-popup.sh"
 
-# Easily swap a pane (targeted by pane number) with the current pane
-bind-key q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
+# Launch the scratchpad popup script.
+bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 
-# bind-key C-b send-keys 'tat && exit' 'C-m'
-bind-key K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
+# Launch a script for session management (e.g., tmux-sessionizer).
+bind o run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
 
-# tmux-sessionizer
-bind-key -r o run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
+# Launch a script for tmuxinator session management.
+bind C-t run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
 
-# tmuxinator-sessionizer
-bind-key -r C-t run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
-
-# search lines using fzf and open that line in the editor
-bind-key -r C-o run-shell "tmux neww tsnv"
-
-#-------------------------------------------------------------------------------
-#  NOTE: tmux popup keybindings {{{
-# tmux popup from u/KevinHwang91 from reddit discussion
-#-------------------------------------------------------------------------------
-# tmux notes popup with shell
-bind-key M run-shell "~/.config/tmux/scripts/notes-popup.sh"
-
-# tmux scratch popup with shell
-bind-key m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
-# }}}
-#-------------------------------------------------------------------------------
-
+# Launch a script to search lines in files and open in editor.
+bind C-o run-shell "tmux neww tsnv"
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  NOTE: theming {{{
+# --- NOTE: Layout Mode Bindings (C-b) {{{
+#           All bindings that work after pressing C-b (without prefix).
 #-------------------------------------------------------------------------------
-# source-file ~/dotfiles/tmux/tmux-themes/spaceduck/basic.conf
-# source-file ~/dotfiles/tmux/tmux-themes/tokyonight_night.conf
-# source-file ~/dotfiles/tmux/tmux-themes/catppuccin.conf
-# source-file ~/dotfiles/tmux/tmux-themes/cobalt2.conf
+
+# Toggle the status bar on/off.
+bind -T layout-mode C-b set-option status
+
+# Split window horizontally.
+bind -T layout-mode '"' splitw -d
+
+# Split window vertically.
+bind -T layout-mode % splitw -hd
+
+# Kill the bottom-most pane.
+bind -T layout-mode q kill-pane -t '#{bottom}'
+
+# Split with a 40% horizontal pane to the left.
+bind -T layout-mode h splitw -hbp 40
+
+# Split with a 40% horizontal pane to the right.
+bind -T layout-mode l splitw -hp 40
+
+# Split with a 30% vertical pane below.
+bind -T layout-mode j splitw -p 30
+
+# Split with a 30% vertical pane above.
+bind -T layout-mode k splitw -bp 30
+
+#-------------------------------------------------------------------------------
+# NOTE: sesh keybindings {{{
+#-------------------------------------------------------------------------------
+
+# Launch fzf-based sesh script.
+bind -T layout-mode "o" run-shell "~/.config/tmux/scripts/sesh/fzf.sh"
+
+# Launch gum-based sesh script in a popup.
+bind -T layout-mode "C-o" display-popup -E -w 50% "sh ~/.config/tmux/scripts/sesh/gum.sh"
+
+# Connect to the last session.
+bind -T layout-mode "S" run-shell "sesh last"
+
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
+
+# List all bindings for this mode.
+bind -T layout-mode ? list-keys -T split
+
+# Open the tmux man page in a new split.
+bind -T layout-mode t splitw -f 'man tmux'
+
+# Prompt for a man page to open in a new split.
+bind -T layout-mode m command-prompt -p 'man page name:' "splitw -f man '%%'"
+
+# Prompt for a man page and a search term.
+bind -T layout-mode s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Copy Mode Bindings {{{
+#-------------------------------------------------------------------------------
+# Custom pane navigation while in vi copy mode.
+bind -T copy-mode-vi 'C-h' select-pane -L
+bind -T copy-mode-vi 'C-j' select-pane -D
+bind -T copy-mode-vi 'C-k' select-pane -U
+bind -T copy-mode-vi 'C-l' select-pane -R
+# }}}
+#-------------------------------------------------------------------------------
+
+# }}}
+# =============================================================================
 
 # vim:fdm=marker
