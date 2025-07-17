@@ -157,7 +157,7 @@ augroup("filetype_options_au", {
         event = { "BufWinEnter" },
         pattern = { "*" },
         command = function()
-            vim.opt_local.formatoptions:append("o")
+            vim.opt_local.formatoptions:remove("o")
         end,
     },
     {
