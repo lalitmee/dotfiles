@@ -686,6 +686,9 @@ bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 # Launch the git helper script in a popup.
+bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
+
+# Launch the git helper script in a popup.
 bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 
 # Launch the cht.sh helper script in a popup.
@@ -745,7 +748,7 @@ bind -T layout-mode k splitw -bp 30
 bind -T layout-mode "o" run-shell "~/.config/tmux/scripts/sesh/fzf.sh"
 
 # Launch gum-based sesh script in a popup.
-bind -T layout-mode "C-o" display-popup -E -w 50% "sh ~/.config/tmux/scripts/sesh/gum.sh"
+bind -T layout-mode "C-o" display-popup -E -w 50% "~/.config/tmux/scripts/sesh/gum.sh"
 
 # Connect to the last session.
 bind -T layout-mode "S" run-shell "sesh last"
@@ -754,8 +757,34 @@ bind -T layout-mode "S" run-shell "sesh last"
 # }}}
 #-------------------------------------------------------------------------------
 
-# List all bindings for this mode.
-bind -T layout-mode ? list-keys -T split
+#-------------------------------------------------------------------------------
+# --- NOTE: Unified Ask/Search Popup {{{
+#-------------------------------------------------------------------------------
+
+# A set of keybindings that use a single script to perform different actions.
+# The script path is hardcoded to ensure compatibility.
+
+# Bind 'a' to ask the AI.
+bind -T layout-mode a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
+
+# Bind 'c' to start an interactive AI chat session.
+bind -T layout-mode c display-popup -w 80% -h 70% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
+
+# Bind 's' to perform a site-specific search.
+bind -T layout-mode s display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh site'"
+
+# Bind '/' to perform a general web search.
+bind -T layout-mode / display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh search'"
+
+# Bind 'd' for a "Ducky" search (opens top result in browser).
+bind -T layout-mode d display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
+
+# Bind 'b' for a browser !bang search.
+bind -T layout-mode b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
 # Open the tmux man page in a new split.
 bind -T layout-mode t splitw -f 'man tmux'
@@ -764,7 +793,7 @@ bind -T layout-mode t splitw -f 'man tmux'
 bind -T layout-mode m command-prompt -p 'man page name:' "splitw -f man '%%'"
 
 # Prompt for a man page and a search term.
-bind -T layout-mode s command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
+bind -T layout-mode M command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
 # }}}
 #-------------------------------------------------------------------------------
 
