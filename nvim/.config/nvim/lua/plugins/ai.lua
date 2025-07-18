@@ -24,6 +24,9 @@ return {
 
     { --[[ codecompanion.nvim ]]
         "olimorris/codecompanion.nvim",
+        dependencies = {
+            "ravitemer/mcphub.nvim",
+        },
         cmd = {
             "CodeCompanion",
             "CodeCompanionWithBuffers",
@@ -43,13 +46,24 @@ return {
         opts = {
             strategies = {
                 chat = {
-                    adapter = "copilot",
+                    adapter = "gemini",
                 },
                 inline = {
-                    adapter = "copilot",
+                    adapter = "gemini",
                 },
                 agent = {
-                    adapter = "copilot",
+                    adapter = "gemini",
+                },
+            },
+
+            extensions = {
+                mcphub = {
+                    callback = "mcphub.extensions.codecompanion",
+                    opts = {
+                        make_vars = true,
+                        make_slash_commands = true,
+                        show_result_in_chat = true,
+                    },
                 },
             },
         },
@@ -140,7 +154,7 @@ return {
             },
         },
         opts = {
-            model = "gpt-4o",
+            -- model = "gpt-4o",
             -- model = "gemini-2.5-pro",
         },
         config = function(_, opts)
@@ -230,6 +244,10 @@ return {
                     prepare_input = Providers.copilot.prepare_input,
                     prepare_output = Providers.copilot.prepare_output,
 
+                    get_url = function()
+                        return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+                    end,
+
                     get_headers = function()
                         local api_key = assert(os.getenv("GEMINI_API_KEY"), "GEMINI_API_KEY env not set")
                         return {
@@ -281,10 +299,6 @@ return {
                         end
 
                         return response.body.data
-                    end,
-
-                    get_url = function()
-                        return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
                     end,
                 },
             }
