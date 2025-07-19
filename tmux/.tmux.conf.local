@@ -554,49 +554,40 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 # Provides better, more intuitive mouse support.
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 
-# Open highlighted text or URLs with the 'o' key in copy mode.
-set -g @plugin 'tmux-plugins/tmux-open'
-
 # Provides hints to search and jump to text matches.
 set -g @plugin 'tmux-plugins/tmux-copycat'
 
 # Vim-style Easymotion-like navigation for jumping to text.
 set -g @plugin 'schasse/tmux-jump'
 
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# --- NOTE: FZF URL Opener {{{
-#-------------------------------------------------------------------------------
-
-set -g @plugin 'wfxr/tmux-fzf-url'
-
-# Set the keybinding to open the URL finder.
-set -g @fzf-url-bind 'U'
+# Provides a better way to yank (copy) text to the system clipboard.
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# --- NOTE: FZF Links Opener {{{
+# --- NOTE: FZF Links Opener (Cross-Platform) {{{
 #-------------------------------------------------------------------------------
 
 set -g @plugin 'alberti42/tmux-fzf-links'
 
 # Set the keybinding to open the file/link finder.
-set-option -g @fzf-links-key "C-b"
+set-option -g @fzf-links-key "O"
 
-# Specify the python executable path.
-set-option -g @fzf-links-python "/opt/homebrew/bin/python3"
+# Dynamically find the python3 executable. `command -v` searches your $PATH.
+# This works on both macOS (finding the brew version) and Linux.
+set-option -g @fzf-links-python "$(command -v python3)"
 
-# Define how to open files in Neovim at the correct line.
-set-option -g @fzf-links-editor-open-cmd "tmux new-window -n 'nvim' /opt/homebrew/bin/nvim +%line '%file'"
+# Dynamically find the path to nvim and use it in the open command.
+set-option -g @fzf-links-editor-open-cmd "tmux new-window -n 'nvim' $(command -v nvim) +%line '%file'"
 
-# Define how to open URLs in the default browser.
-set-option -g @fzf-links-browser-open-cmd "open '%url'"
+# Use if-shell to detect the OS and set the correct browser opener command.
+# `uname -s` returns "Darwin" for macOS and "Linux" for Linux.
+if-shell "uname -s | grep -q Darwin" \
+    "set-option -g @fzf-links-browser-open-cmd \"open '%url'\"" \
+    "set-option -g @fzf-links-browser-open-cmd \"xdg-open '%url'\""
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -609,10 +600,13 @@ set-option -g @fzf-links-browser-open-cmd "open '%url'"
 set -g @plugin 'omerxx/tmux-floax'
 
 # Set the keybinding to toggle a floating pane.
-set -g @floax-bind 'h'
+set -g @floax-bind 'f'
+set -g @floax-width '85%'
+set -g @floax-height '85%'
 
 # Set the border color for floating panes.
-set -g @floax-border-color '#FFFFFF'
+set -g @floax-border-color '#00AAFF'
+set -g @floax-text-color '#FFC600'
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -695,7 +689,19 @@ bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
 # Launch the notes popup script.
-bind M run-shell "~/.config/tmux/scripts/notes-popup.sh"
+bind C-m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
+
+# Bind 'n' to open the notes manager with a context prompt.
+bind a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh notes personal'"
+bind A display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh notes work'"
+
+# Bind 'm' to open the scratchpad manager with a context prompt.
+bind m display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh scratch personal'"
+bind M display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh scratch work'"
+
+# Bind 't' to open the daily todos with a context prompt.
+bind t display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos personal'"
+bind T display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos work'"
 
 # Launch the scratchpad popup script.
 bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
