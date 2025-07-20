@@ -792,14 +792,13 @@ bind -T layout-mode b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/
 # }}}
 #-------------------------------------------------------------------------------
 
-# Open the tmux man page in a new split.
-bind -T layout-mode t splitw -f 'man tmux'
+# Open the tmux man page in a new window.
+bind -T layout-mode t new-window 'man tmux'
 
-# Prompt for a man page to open in a new split.
-bind -T layout-mode m command-prompt -p 'man page name:' "splitw -f man '%%'"
-
-# Prompt for a man page and a search term.
-bind -T layout-mode M command-prompt -p 'man page name:','search term:' "splitw -f man '%%'; send-keys / %2 Enter"
+# --- Unified Documentation Browser ---
+# Replaces the old 'man' bindings with a single, powerful fzf-based script.
+# This binding should be in your 'layout-mode' or 'prefix' table as you prefer.
+bind -T layout-mode m display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/doc-finder.sh"
 # }}}
 #-------------------------------------------------------------------------------
 
