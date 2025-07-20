@@ -711,6 +711,12 @@ bind C-t run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
 
 # Launch a script to search lines in files and open in editor.
 bind C-o run-shell "tmux neww tsnv"
+
+# --- Project Runner ---
+# An fzf-based script to run package.json commands.
+bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner.sh'"
+
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
