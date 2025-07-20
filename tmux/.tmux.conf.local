@@ -688,9 +688,6 @@ bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 # Launch the cht.sh helper script in a popup.
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
-# Launch the notes popup script.
-bind C-m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
-
 # Bind 'n' to open the notes manager with a context prompt.
 bind a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh notes personal'"
 bind A display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh notes work'"
