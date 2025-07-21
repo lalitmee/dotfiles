@@ -462,4 +462,16 @@ return {
             },
         },
     },
+
+    { --[[ org-super-agenda.nvim ]]
+        "hamidi-dev/org-super-agenda.nvim",
+        dependencies = {
+            "nvim-orgmode/orgmode",
+        },
+        cmd = "OrgSuperAgenda",
+        keys = {
+            { "<leader>o.", "<cmd>OrgSuperAgenda<cr>", desc = "org super agenda" },
+        },
+        opts = {},
+    },
 }
