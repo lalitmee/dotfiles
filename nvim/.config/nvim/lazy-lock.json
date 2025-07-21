@@ -76,6 +76,7 @@
   "org-list.nvim": { "branch": "master", "commit": "2d6f2985e0312daabb6d06725746f5b8c2e5a002" },
   "org-modern.nvim": { "branch": "main", "commit": "c024900b7ee78a0274036025569b47001ef3e6aa" },
   "org-roam.nvim": { "branch": "main", "commit": "cf00a0b3797ee3370c2ca2bdedbc04b2f5309a1e" },
+  "org-super-agenda.nvim": { "branch": "main", "commit": "5ac67f283544359ab67ed7e9016f882643693503" },
   "orgmode": { "branch": "master", "commit": "94886d6dda708ab2a4b3e33662d846d5e7d4f06f" },
   "orphans.nvim": { "branch": "main", "commit": "35f995fbb04b679b7d829072d7209a2117c15adf" },
   "overseer.nvim": { "branch": "master", "commit": "fe7b2f9ba263e150ab36474dfc810217b8cf7400" },
