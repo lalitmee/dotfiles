@@ -600,7 +600,7 @@ if-shell "uname -s | grep -q Darwin" \
 set -g @plugin 'omerxx/tmux-floax'
 
 # Set the keybinding to toggle a floating pane.
-set -g @floax-bind 'm'
+set -g @floax-bind 'C-\'
 set -g @floax-width '85%'
 set -g @floax-height '85%'
 
@@ -700,8 +700,8 @@ bind M display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-
 bind t display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos personal'"
 bind T display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos work'"
 
-# # Launch the scratchpad popup script.
-# bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
+# Launch the scratchpad popup script.
+bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 
 # Launch a script for session management (e.g., tmux-sessionizer).
 bind o run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
