@@ -704,13 +704,27 @@ bind T display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-
 bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 
 # Launch a script for session management (e.g., tmux-sessionizer).
-bind o run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
+bind N run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
 
 # Launch a script for tmuxinator session management.
-bind C-t run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
+bind U run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
 
-# Launch a script to search lines in files and open in editor.
-bind C-o run-shell "tmux neww tsnv"
+#-------------------------------------------------------------------------------
+# NOTE: sesh keybindings {{{
+#-------------------------------------------------------------------------------
+
+# Launch fzf-based sesh script.
+bind "o" run-shell "~/.config/tmux/scripts/sesh/fzf.sh"
+
+# Launch gum-based sesh script in a popup.
+bind "C-o" display-popup -E -w 50% "~/.config/tmux/scripts/sesh/gum.sh"
+
+# Connect to the last session.
+bind "S" run-shell "sesh last"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
 # --- Project Runner ---
 # An fzf-based script to run package.json commands.
@@ -749,22 +763,8 @@ bind -T layout-mode j splitw -p 30
 # Split with a 30% vertical pane above.
 bind -T layout-mode k splitw -bp 30
 
-#-------------------------------------------------------------------------------
-# NOTE: sesh keybindings {{{
-#-------------------------------------------------------------------------------
-
-# Launch fzf-based sesh script.
-bind -T layout-mode "o" run-shell "~/.config/tmux/scripts/sesh/fzf.sh"
-
-# Launch gum-based sesh script in a popup.
-bind -T layout-mode "C-o" display-popup -E -w 50% "~/.config/tmux/scripts/sesh/gum.sh"
-
-# Connect to the last session.
-bind -T layout-mode "S" run-shell "sesh last"
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
+# Launch a script to search lines in files and open in editor.
+bind -T layout-mode C-o run-shell "tmux neww tsnv"
 
 #-------------------------------------------------------------------------------
 # --- NOTE: Unified Ask/Search Popup {{{
