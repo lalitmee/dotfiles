@@ -4,9 +4,4 @@ name: dotfiles
 root: ~/Projects/Personal/Github/configs
 
 windows:
-  - lalitmee: cd ~/dotfiles && gst
-  - ThePrimeagen: cd ThePrimeagen_dots && gst
-  - tjdevries: cd tjdevries && gst
-  - akinsho: cd akinsho && gst
-  - williamboman: cd williamboman && gst
-  - folke: cd folke && gst
+  - mine: cd ~/dotfiles && gst
