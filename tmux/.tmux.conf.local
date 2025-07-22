@@ -700,6 +700,7 @@ bind M display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-
 bind t display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos personal'"
 bind T display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos work'"
 
+
 # Launch the scratchpad popup script.
 bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 
@@ -795,8 +796,22 @@ bind -T layout-mode b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/
 # }}}
 #-------------------------------------------------------------------------------
 
-# Open the tmux man page in a new window.
-bind -T layout-mode t new-window 'man tmux'
+#-------------------------------------------------------------------------------
+# NOTE: todo toggle {{{
+#-------------------------------------------------------------------------------
+
+# Toggle daily Personal todo in a Neovim popup (explicitly personal)
+bind -T layout-mode t run-shell "~/.config/tmux/scripts/todo.sh personal"
+
+# Toggle daily Work todo in a Neovim popup
+bind -T layout-mode T run-shell "~/.config/tmux/scripts/todo.sh work"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+# # Open the tmux man page in a new window.
+# bind -T layout-mode t new-window 'man tmux'
 
 # --- Unified Documentation Browser ---
 # Replaces the old 'man' bindings with a single, powerful fzf-based script.
