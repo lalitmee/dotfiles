@@ -57,12 +57,20 @@ return {
         keys = {
             { "<leader>pl", ":Telescope smart_open<CR>", desc = "Smart Open", silent = true },
         },
-        config = function()
+        opts = {
+            extensions = {
+                smart_open = {
+                    match_algorithm = "fzf",
+                },
+            },
+        },
+        config = function(_, opts)
+            require("telescope").setup(opts)
             require("telescope").load_extension("smart_open")
         end,
         dependencies = {
             "kkharji/sqlite.lua",
-            "nvim-telescope/telescope-fzy-native.nvim",
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
     },
 
