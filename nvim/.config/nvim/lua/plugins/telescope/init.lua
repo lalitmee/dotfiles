@@ -42,6 +42,7 @@ return {
     },
 
     { --[[ telescope-frecency.nvim ]]
+        enabled = false,
         "nvim-telescope/telescope-frecency.nvim",
         keys = {
             { "<leader>pr", ":Telescope frecency<CR>", desc = "Frecency", silent = true },
