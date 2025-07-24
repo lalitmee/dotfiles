@@ -105,7 +105,6 @@ plugins=(
     git
     fast-syntax-highlighting
     zsh-autosuggestions
-    zsh-vi-mode
     fzf-tab
     zsh-wakatime
 )
@@ -133,6 +132,26 @@ fi
 # }}}
 # -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: sourcing some of the other things {{{
+# -------------------------------------------------------------------
+
+# aliases
+[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+
+# secrete tokens
+[[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
+
+# awesome zsh functions
+[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
+
+# keybindings
+[[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
+
+# plugins config
+[[ -f ~/.zsh_plugins_config/init.zsh ]] && source ~/.zsh_plugins_config/init.zsh
+# }}}
+# -------------------------------------------------------------------
 
 # # -------------------------------------------------------------------
 # # NOTE: starship prompt {{{
@@ -184,31 +203,17 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 # }}}
 # -------------------------------------------------------------------
 
-# # -------------------------------------------------------------------
-# # NOTE: atuin {{{
-# # -------------------------------------------------------------------
-znap eval atuin "atuin init zsh"
-# # }}}
-# # -------------------------------------------------------------------
-
 # -------------------------------------------------------------------
-# NOTE: sourcing some of the other things {{{
+# NOTE: atuin {{{
 # -------------------------------------------------------------------
+# This line loads Atuin and defines the `atuin-search` widgets
+eval "$(atuin init zsh)"
 
-# aliases
-[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
-
-# secrete tokens
-[[ -f ~/.secret-tokens ]] && source ~/.secret-tokens
-
-# awesome zsh functions
-[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
-
-# keybindings
-[[ -f ~/.zsh_keybindings ]] && source ~/.zsh_keybindings
-
-# plugins config
-[[ -f ~/.zsh_plugins_config/init.zsh ]] && source ~/.zsh_plugins_config/init.zsh
+# --- FORCE ATUIN BINDING ---
+# This block runs LAST, ensuring Atuin wins the fight for Ctrl+R
+bindkey -M emacs '^R' atuin-search
+bindkey -M viins '^R' atuin-search-viins
+bindkey -M vicmd '^R' atuin-search
 # }}}
 # -------------------------------------------------------------------
 
