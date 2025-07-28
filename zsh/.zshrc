@@ -217,6 +217,30 @@ bindkey -M vicmd '^R' atuin-search
 # }}}
 # -------------------------------------------------------------------
 
+# -------------------------------------------------------------------
+# NOTE: dynamic REPOSITORY_PATH variable {{{
+# -------------------------------------------------------------------
+
+# Function to update the REPOSITORY_PATH variable
+update_repo_path() {
+  # Check if we are in a git repository
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    # If in a repo, set the path
+    export REPOSITORY_PATH=$(git rev-parse --show-toplevel)
+  else
+    # If not in a repo, set to an empty string
+    export REPOSITORY_PATH=""
+  fi
+}
+
+# Add the function to the precmd_functions hook array, ensuring it's loaded
+autoload -U add-zsh-hook
+add-zsh-hook precmd update_repo_path
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
 
 # zprof
 
