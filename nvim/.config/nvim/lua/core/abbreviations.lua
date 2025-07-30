@@ -6,6 +6,7 @@ vim.cmd([[
     ca grpe grep
     ca Ggrpe Ggrep
     ca GIt Git
+    ca cup cdo update
 ]])
 
 --------------------------------------------------------------------------------
