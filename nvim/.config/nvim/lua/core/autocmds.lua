@@ -3,6 +3,7 @@ local augroup = lk.augroup
 
 local opts = { silent = false, buffer = 0 }
 
+-- Highlight on yank: briefly highlights yanked text for visual feedback.
 augroup("yank_au", {
     {
         -- don't execute silently in case of errors
@@ -17,6 +18,7 @@ augroup("yank_au", {
     },
 })
 
+-- Auto-source ginit.vim after saving it.
 augroup("ginit_au", {
     {
         event = { "BufWritePost" },
@@ -27,27 +29,8 @@ augroup("ginit_au", {
     },
 })
 
-augroup("insert_au", {
-    {
-        event = { "WinLeave" },
-        pattern = { "TelescopePrompt", "DressingInput" },
-        command = function()
-            if vim.fn.mode() == "i" then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
-            end
-        end,
-    },
-    {
-        event = { "WinEnter" },
-        pattern = { "*" },
-        command = function()
-            if vim.fn.mode() == "i" then
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
-            end
-        end,
-    },
-})
-
+-- Set up 'q' to quit for special buffers and unlist them from buffer list.
+-- For *.scriptease-verbose, 'q' closes the buffer.
 augroup("quit_q_au", {
     {
         event = { "FileType" },
@@ -95,6 +78,8 @@ augroup("quit_q_au", {
     },
 })
 
+-- Terminal keymaps and settings: custom mappings for terminal buffers,
+-- disables signcolumn, and handles terminal mode transitions.
 augroup("terminal_au", {
     {
         event = { "TermOpen" },
@@ -142,6 +127,7 @@ augroup("terminal_au", {
     },
 })
 
+-- Reload kitty.conf and send signal to kitty terminal after saving.
 augroup("kitty_au", {
     {
         event = { "BufWritePost" },
@@ -152,6 +138,8 @@ augroup("kitty_au", {
     },
 })
 
+-- Filetype-specific options: disables 'o' in formatoptions for all buffers,
+-- disables spell checking in checkhealth.
 augroup("filetype_options_au", {
     {
         event = { "BufWinEnter" },
@@ -193,6 +181,7 @@ local function clear_commandline()
     end
 end
 
+-- Automatically clear commandline messages after a delay.
 augroup("commandline_au", {
     {
         event = { "CmdlineLeave", "CmdlineChanged" },
