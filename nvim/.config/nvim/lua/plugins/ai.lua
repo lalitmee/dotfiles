@@ -322,7 +322,7 @@ return {
             { "<localleader>aa", ":AvanteAsk<CR>", desc = "Avante Ask", silent = true, mode = { "n", "v" } },
             { "<localleader>ac", ":AvanteChat<CR>", desc = "Avante Chat", silent = true, mode = { "n", "v" } },
             { "<localleader>ai", ":AvanteInput<CR>", desc = "Avante Input", silent = true, mode = { "n", "v" } },
-            { "<localleader>an", ":AvanteChatNew<CR>", desc = "Avante Chat", silent = true, mode = { "n", "v" } },
+            { "<localleader>an", ":AvanteChatNew<CR>", desc = "Avante Chat New", silent = true, mode = { "n", "v" } },
             { "<localleader>at", ":AvanteToggle<CR>", desc = "Avante Toggle", silent = true, mode = { "n", "v" } },
         },
         opts = {
