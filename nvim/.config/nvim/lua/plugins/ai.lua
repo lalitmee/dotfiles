@@ -318,12 +318,21 @@ return {
             "AvanteChatNew",
             "AvanteToggle",
         },
+        -- stylua: ignore
         keys = {
+            { "<localleader>aI", ":AvanteSwitchInputProvider<CR>", desc = "Avante Switch Input Provider", silent = true, mode = { "n", "v" } },
+            { "<localleader>aM", ":AvanteModels<CR>", desc = "Avante Models", silent = true, mode = { "n", "v" } },
+            { "<localleader>aP", ":AvanteSwitchProvider<CR>", desc = "Avante Switch Provider", silent = true, mode = { "n", "v" } },
             { "<localleader>aa", ":AvanteAsk<CR>", desc = "Avante Ask", silent = true, mode = { "n", "v" } },
+            { "<localleader>ab", ":AvanteBuild<CR>", desc = "Avante Build", silent = true, mode = { "n", "v" } },
             { "<localleader>ac", ":AvanteChat<CR>", desc = "Avante Chat", silent = true, mode = { "n", "v" } },
+            { "<localleader>ah", ":AvanteHistory<CR>", desc = "Avante History", silent = true, mode = { "n", "v" } },
             { "<localleader>ai", ":AvanteInput<CR>", desc = "Avante Input", silent = true, mode = { "n", "v" } },
             { "<localleader>an", ":AvanteChatNew<CR>", desc = "Avante Chat New", silent = true, mode = { "n", "v" } },
+            { "<localleader>ar", ":AvanteClear<CR>", desc = "Avante Clear", silent = true, mode = { "n", "v" } },
+            { "<localleader>as", ":AvanteShowRepoMap<CR>", desc = "Avante Show Repo Map", silent = true, mode = { "n", "v" } },
             { "<localleader>at", ":AvanteToggle<CR>", desc = "Avante Toggle", silent = true, mode = { "n", "v" } },
+            { "<localleader>ax", ":AvanteStop<CR>", desc = "Avante Stop", silent = true, mode = { "n", "v" } },
         },
         opts = {
             provider = "copilot",
