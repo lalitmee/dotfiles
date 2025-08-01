@@ -43,7 +43,7 @@ function M.create_worktree_picker()
                     prompt_title = "Create Worktree",
                     finder = finders.new_table({ results = branches }),
                     sorter = conf.generic_sorter({}),
-                    attach_mappings = function(_, map)
+                    attach_mappings = function()
                         actions.select_default:replace(function(bufnr)
                             local branch = action_state.get_selected_entry()[1]
                             actions.close(bufnr)
@@ -102,40 +102,61 @@ function M.delete_worktree_picker()
 
             pickers
                 .new({}, {
-                    prompt_title = "Delete Worktree",
+                    prompt_title = "Delete Worktree (<c-d> to force)",
                     finder = finders.new_table({ results = items }),
                     sorter = conf.generic_sorter({}),
-                    attach_mappings = function(_, map)
-                        actions.select_default:replace(function(bufnr)
+                    attach_mappings = function(bufnr, map)
+                        -- Default action: SAFE delete
+                        local function safe_delete()
                             local entry = action_state.get_selected_entry()[1]
-                            actions.close(bufnr)
-
                             local branch, path = entry:match("^(%S+)%s+(.+)$")
+
                             if vim.fn.getcwd() == path then
                                 return vim.notify("Cannot delete current worktree", vim.log.levels.WARN)
                             end
 
-                            -- check for uncommitted changes
+                            actions.close(bufnr)
+                            -- Check for uncommitted changes
                             Job
                                 :new({
                                     command = "git",
                                     args = { "-C", path, "status", "--porcelain" },
-                                    on_exit = function(j2)
+                                    on_exit = function(j)
                                         vim.schedule(function()
-                                            if #j2:result() > 0 then
+                                            if #j:result() > 0 then
                                                 vim.notify(
-                                                    "Uncommitted changes present, aborting",
+                                                    "Uncommitted changes. Use <c-d> to force delete.",
                                                     vim.log.levels.ERROR
                                                 )
                                             else
-                                                git_wt.delete_worktree(path, false)
+                                                git_wt.delete_worktree(path, false) -- force = false
                                                 vim.notify("Deleted worktree: " .. branch, vim.log.levels.INFO)
                                             end
                                         end)
                                     end,
                                 })
                                 :start()
-                        end)
+                        end
+
+                        -- New action: FORCE delete
+                        local function force_delete()
+                            local entry = action_state.get_selected_entry()[1]
+                            local branch, path = entry:match("^(%S+)%s+(.+)$")
+
+                            if vim.fn.getcwd() == path then
+                                return vim.notify("Cannot delete current worktree", vim.log.levels.WARN)
+                            end
+
+                            actions.close(bufnr)
+                            git_wt.delete_worktree(path, true) -- force = true
+                            vim.notify("Force-deleted worktree: " .. branch, vim.log.levels.WARN)
+                        end
+
+                        -- Set the mappings
+                        actions.select_default:replace(safe_delete)
+                        map("i", "<c-d>", force_delete)
+                        map("n", "<c-d>", force_delete)
+
                         return true
                     end,
                 })
