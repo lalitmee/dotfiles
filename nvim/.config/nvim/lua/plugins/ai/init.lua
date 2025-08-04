@@ -31,11 +31,14 @@ return {
             "franco-ruggeri/codecompanion-spinner.nvim",
             "jinzhongjia/codecompanion-gitcommit.nvim",
         },
+        ft = { "gitcommit" },
         cmd = {
             "CodeCompanion",
             "CodeCompanionWithBuffers",
             "CodeCompanionChat",
             "CodeCompanionActions",
+            "CodeCompanionGitCommit",
+            "CCGitCommit",
         },
         -- stylua: ignore
         keys = {
@@ -79,12 +82,10 @@ return {
                 gitcommit = {
                     callback = "codecompanion._extensions.gitcommit",
                     opts = {
-                        -- Basic configuration
-                        adapter = "openai", -- LLM adapter
-                        model = "gpt-4", -- Model name
-                        languages = { "English", "Chinese", "Japanese", "French" }, -- Supported languages
+                        adapter = "openai",
+                        model = "gpt-4.1",
+                        languages = { "English" },
 
-                        -- File filtering (optional)
                         exclude_files = {
                             "*.pb.go",
                             "*.min.js",
