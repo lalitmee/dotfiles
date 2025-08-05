@@ -106,8 +106,8 @@ M.plugins = {
         "olimorris/codecompanion.nvim",
         dependencies = {
             "ravitemer/mcphub.nvim",
-            "franco-ruggeri/codecompanion-spinner.nvim",
             "jinzhongjia/codecompanion-gitcommit.nvim",
+            "franco-ruggeri/codecompanion-spinner.nvim",
         },
         ft = { "gitcommit" },
         cmd = {
@@ -132,9 +132,22 @@ M.plugins = {
             local adapters = get_adapters()
             local default_adapter = "copilot" -- fallback
 
-            -- Check if user has a preferred adapter
+            -- Check if user has a preferred adapter and if it's available
+            -- Falls back to dynamic selection if preferred adapter is not available
             if config.agent_preferences.codecompanion.preferred_adapter then
-                default_adapter = config.agent_preferences.codecompanion.preferred_adapter
+                local preferred = config.agent_preferences.codecompanion.preferred_adapter
+                if adapters[preferred] then
+                    default_adapter = preferred
+                else
+                    -- Preferred adapter not available, fall back to dynamic selection
+                    if adapters.openai then
+                        default_adapter = "openai"
+                    elseif adapters.anthropic then
+                        default_adapter = "anthropic"
+                    elseif adapters.gemini then
+                        default_adapter = "gemini"
+                    end
+                end
             else
                 -- Use dynamic selection: Prefer OpenAI if available, then Anthropic, then Gemini, then copilot
                 if adapters.openai then
@@ -175,8 +188,8 @@ M.plugins = {
                     gitcommit = {
                         callback = "codecompanion._extensions.gitcommit",
                         opts = {
-                            adapter = "openai", -- Original: used "openai" for gitcommit (different from strategies)
-                            model = "gpt-4.1", -- Original: used "gpt-4.1" for gitcommit
+                            adapter = "openai",
+                            model = "gpt-4.1",
                             languages = { "English" },
                             exclude_files = config.exclude_files,
                             buffer = {
