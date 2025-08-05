@@ -304,6 +304,10 @@ return {
                         command = "shfmt",
                         prepend_args = { "-i", "4", "-ci", "-sr" },
                     },
+                    mdformat = {
+                        command = "mdformat",
+                        args = { "--number", "false" },
+                    },
                 },
                 formatters_by_ft = {
                     ["*"] = { "trim_newlines", "trim_whitespace" },
@@ -316,7 +320,7 @@ return {
                     json = { "prettierd" },
                     liquid = { "curlylint" },
                     lua = { "stylua" },
-                    markdown = { "mdformat", "markdownlint" },
+                    markdown = { "markdownlint", "mdformat" },
                     python = { "black" },
                     rust = { "rustfmt" },
                     scss = { "prettierd" },
