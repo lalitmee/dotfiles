@@ -5,6 +5,8 @@ return {
         branch = "master",
         build = ":TSUpdate",
         ft = {
+            "codecompanion",
+            "gitcommit",
             "go",
             "javascript",
             "json",
@@ -15,7 +17,6 @@ return {
             "tsx",
             "typescript",
             "vim",
-            "gitcommit",
             "yaml",
         },
         cmd = "TSInstall",
