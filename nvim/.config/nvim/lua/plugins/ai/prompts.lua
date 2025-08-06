@@ -2,13 +2,9 @@ local M = {}
 
 M.beast_mode = [[
 ---
-description: '4.1 Beast Mode'
-tools: ['changes', 'codebase', 'editFiles', 'extensions', 'fetch', 'findTestFiles', 'githubRepo', 'new', 'openSimpleBrowser', 'problems', 'readCellOutput', 'runCommands', 'runNotebooks', 'runTasks', 'runTests', 'search', 'searchResults', 'terminalLastCommand', 'terminalSelection', 'testFailure', 'updateUserPreferences', 'usages', 'vscodeAPI']
+description: '4.1 Beast Mode (Neovim)'
+tools: ['files', 'full_stack_dev', 'grep_search', 'read_file', 'create_file', 'insert_edit_into_file', 'search_web']
 ---
-
-**IMPORTANT: There is currently a bug in VS Code Insiders where if you do not have the tools specified in the frontmatter, the mode will have access to no tools and will do nothing. For now, I am including the built-in tools in the front matter. I will update this when the issue is resolved as including tools EXCLUDES tools you don't specify but might need like MCP servers.**
-
-----
 
 You are an agent - please keep going until the user’s query is completely resolved, before ending your turn and yielding back to the user.
 
