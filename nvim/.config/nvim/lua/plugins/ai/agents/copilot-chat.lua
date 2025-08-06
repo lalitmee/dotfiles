@@ -26,22 +26,27 @@ local function get_providers()
                 }
             end,
             get_models = function(headers)
-                local response, err = require("CopilotChat.utils").curl_get(
-                    "https://api.openai.com/v1/models",
-                    {
-                        headers = headers,
-                        json_response = true,
-                    }
-                )
+                local response, err = require("CopilotChat.utils").curl_get("https://api.openai.com/v1/models", {
+                    headers = headers,
+                    json_response = true,
+                })
                 if err then
                     error(err)
                 end
                 return vim.iter(response.body.data)
                     :filter(function(model)
                         local exclude_patterns = {
-                            "audio", "babbage", "dall%-e", "davinci",
-                            "embedding", "image", "moderation", "realtime",
-                            "transcribe", "tts", "whisper",
+                            "audio",
+                            "babbage",
+                            "dall%-e",
+                            "davinci",
+                            "embedding",
+                            "image",
+                            "moderation",
+                            "realtime",
+                            "transcribe",
+                            "tts",
+                            "whisper",
                         }
                         for _, pattern in ipairs(exclude_patterns) do
                             if model.id:match(pattern) then
@@ -59,18 +64,15 @@ local function get_providers()
                     :totable()
             end,
             embed = function(inputs, headers)
-                local response, err = require("CopilotChat.utils").curl_post(
-                    "https://api.openai.com/v1/embeddings",
-                    {
-                        headers = headers,
-                        json_request = true,
-                        json_response = true,
-                        body = {
-                            model = "text-embedding-3-small",
-                            input = inputs,
-                        },
-                    }
-                )
+                local response, err = require("CopilotChat.utils").curl_post("https://api.openai.com/v1/embeddings", {
+                    headers = headers,
+                    json_request = true,
+                    json_response = true,
+                    body = {
+                        model = "text-embedding-3-small",
+                        input = inputs,
+                    },
+                })
                 if err then
                     error(err)
                 end
@@ -174,6 +176,12 @@ M.plugins = {
         "CopilotC-Nvim/CopilotChat.nvim",
         dependencies = {
             "zbirenbaum/copilot.lua",
+            {
+                "Davidyz/VectorCode",
+                version = "*",
+                dependencies = { "nvim-lua/plenary.nvim" },
+                cmd = "VectorCode",
+            },
         },
         build = "make tiktoken",
         cmd = {
@@ -208,6 +216,23 @@ M.plugins = {
 
             -- Use dynamic provider management
             opts.providers = get_providers()
+
+            local vectorcode_ctx = require("vectorcode.integrations.copilotchat").make_context_provider({
+                prompt_header = "Here are relevant files from the repository:",
+                prompt_footer = "\nConsider this context when answering:",
+                skip_empty = true,
+            })
+
+            opts.contexts = {
+                vectorcode = vectorcode_ctx,
+            }
+
+            opts.prompts = {
+                Explain = {
+                    prompt = "Explain the following code in detail:\n$input",
+                    context = { "selection", "vectorcode" },
+                },
+            }
 
             require("CopilotChat").setup(opts)
         end,

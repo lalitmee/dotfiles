@@ -108,6 +108,12 @@ M.plugins = {
             "ravitemer/mcphub.nvim",
             "jinzhongjia/codecompanion-gitcommit.nvim",
             "franco-ruggeri/codecompanion-spinner.nvim",
+            {
+                "Davidyz/VectorCode",
+                version = "*",
+                dependencies = { "nvim-lua/plenary.nvim" },
+                cmd = "VectorCode",
+            },
         },
         ft = { "gitcommit" },
         cmd = {
@@ -176,6 +182,40 @@ M.plugins = {
                     },
                 },
                 extensions = {
+                    vectorcode = {
+                        opts = {
+                            tool_group = {
+                                -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
+                                enabled = true,
+                                -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
+                                -- if you use @vectorcode_vectorise, it'll be very handy to include
+                                -- `file_search` here.
+                                extras = {},
+                                collapse = true, -- whether the individual tools should be shown in the chat
+                            },
+                            tool_opts = {
+                                ["*"] = {},
+                                ls = {},
+                                vectorise = {},
+                                query = {
+                                    max_num = { chunk = -1, document = -1 },
+                                    default_num = { chunk = 50, document = 10 },
+                                    include_stderr = false,
+                                    use_lsp = false,
+                                    no_duplicate = true,
+                                    chunk_mode = true,
+                                    summarise = {
+                                        enabled = false,
+                                        adapter = nil,
+                                        query_augmented = true,
+                                    },
+                                },
+                                files_ls = {},
+                                files_rm = {},
+                            },
+                        },
+                    },
+
                     mcphub = {
                         callback = "mcphub.extensions.codecompanion",
                         opts = {
