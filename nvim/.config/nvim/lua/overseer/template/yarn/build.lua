@@ -1,11 +1,11 @@
 return {
-    name = "yarn-build",
+    name = "yarn-run-build",
     builder = function()
         return {
             cmd = "yarn",
-            args = { "build" },
+            args = { "run", "build" },
             cwd = vim.fn.getcwd(),
-            name = "yarn-build",
+            name = "yarn-run-build",
             components = {
                 { "on_complete_notify", on_change = true },
                 "on_result_diagnostics",
@@ -13,7 +13,7 @@ return {
             },
         }
     end,
-    desc = "Run Package Manager (yarn build)",
+    desc = "Run Package Manager (yarn run build)",
     condition = {
         callback = function()
             return vim.fn.filereadable("package.json") == 1

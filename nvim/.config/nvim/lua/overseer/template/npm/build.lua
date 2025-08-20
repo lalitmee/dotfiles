@@ -1,11 +1,11 @@
 return {
-    name = "npm-build",
+    name = "npm-run-build",
     builder = function()
         return {
             cmd = "npm",
-            args = { "build" },
+            args = { "run", "build" },
             cwd = vim.fn.getcwd(),
-            name = "npm-build",
+            name = "npm-run-build",
             components = {
                 { "on_complete_notify", on_change = true },
                 "on_result_diagnostics",
@@ -13,7 +13,7 @@ return {
             },
         }
     end,
-    desc = "Run Package Manager (npm build)",
+    desc = "Run Package Manager (npm run build)",
     condition = {
         callback = function()
             return vim.fn.filereadable("package.json") == 1
