@@ -107,7 +107,6 @@ M.plugins = {
         dependencies = {
             "ravitemer/mcphub.nvim",
             "jinzhongjia/codecompanion-gitcommit.nvim",
-            "franco-ruggeri/codecompanion-spinner.nvim",
             {
                 "Davidyz/VectorCode",
                 version = "*",
@@ -132,44 +131,51 @@ M.plugins = {
             { "<leader>ci", ":CodeCompanion<CR>",        desc = "Code Companion (Inline)", silent = true, mode = { "n", "v" } },
         },
         init = function()
+            -- require("plugins.ai.spinners.fidget").setup()
+            require("plugins.ai.spinners.cursor-relative").setup()
+            -- require("plugins.ai.spinners.snacks-notifier").setup()
+            require("plugins.ai.spinners.advanced-snacks-notifier").setup()
             vim.cmd([[cab cc CodeCompanion]])
         end,
         opts = function()
-            local adapters = get_adapters()
+            local http_adapters = get_adapters()
             local default_adapter = "copilot" -- fallback
 
             -- Check if user has a preferred adapter and if it's available
             -- Falls back to dynamic selection if preferred adapter is not available
             if config.agent_preferences.codecompanion.preferred_adapter then
                 local preferred = config.agent_preferences.codecompanion.preferred_adapter
-                if adapters[preferred] then
+                if http_adapters[preferred] then
                     default_adapter = preferred
                 else
                     -- Preferred adapter not available, fall back to dynamic selection
-                    if adapters.openai then
+                    if http_adapters.openai then
                         default_adapter = "openai"
-                    elseif adapters.anthropic then
+                    elseif http_adapters.anthropic then
                         default_adapter = "anthropic"
-                    elseif adapters.gemini then
+                    elseif http_adapters.gemini then
                         default_adapter = "gemini"
                     end
                 end
             else
                 -- Use dynamic selection: Prefer OpenAI if available, then Anthropic, then Gemini, then copilot
-                if adapters.openai then
+                if http_adapters.openai then
                     default_adapter = "openai"
-                elseif adapters.anthropic then
+                elseif http_adapters.anthropic then
                     default_adapter = "anthropic"
-                elseif adapters.gemini then
+                elseif http_adapters.gemini then
                     default_adapter = "gemini"
                 end
             end
 
             return {
-                opts = {
-                    system_prompt = prompts.beast_mode,
+                adapters = {
+                    http = vim.tbl_extend("force", http_adapters, {
+                        opts = {
+                            system_prompt = prompts.beast_mode,
+                        },
+                    }),
                 },
-                adapters = adapters,
                 strategies = {
                     chat = {
                         adapter = default_adapter,
@@ -224,7 +230,6 @@ M.plugins = {
                             show_result_in_chat = true,
                         },
                     },
-                    spinner = {},
                     gitcommit = {
                         callback = "codecompanion._extensions.gitcommit",
                         opts = {
