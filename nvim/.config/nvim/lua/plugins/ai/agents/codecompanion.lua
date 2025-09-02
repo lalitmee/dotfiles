@@ -144,10 +144,8 @@ M.plugins = {
             { "<leader>ci", ":CodeCompanion<CR>",        desc = "Code Companion (Inline)", silent = true, mode = { "n", "v" } },
         },
         init = function()
-            -- require("plugins.ai.spinners.fidget").setup()
+            require("plugins.ai.spinners.snacks-notifier").setup()
             require("plugins.ai.spinners.cursor-relative").setup()
-            -- require("plugins.ai.spinners.snacks-notifier").setup()
-            require("plugins.ai.spinners.advanced-snacks-notifier").setup()
             vim.cmd([[cab cc CodeCompanion]])
         end,
         opts = function()
