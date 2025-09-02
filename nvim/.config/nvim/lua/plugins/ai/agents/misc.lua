@@ -35,17 +35,83 @@ M.plugins = {
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
-            { "<localleader>ca", ":ChatGPTRun add_tests<CR>",          desc = "Add Tests",          silent = true },
-            { "<localleader>cc", ":ChatGPT<CR>",                       desc = "Chatgpt",            silent = true },
-            { "<localleader>cd", ":ChatGPTRun docstring<CR>",          desc = "Docstring",          silent = true },
-            { "<localleader>ce", ":ChatGPTEditWithInstructions<CR>",   desc = "Edit Instructions",  silent = true },
-            { "<localleader>cf", ":ChatGPTRun fix_bugs<CR>",           desc = "Fix Bugs",           silent = true },
-            { "<localleader>cg", ":ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction", silent = true },
-            { "<localleader>ch", ":ChatGPTActAs<CR>",                  desc = "Act As",             silent = true },
-            { "<localleader>co", ":ChatGPTRun optimize_code<CR>",      desc = "Optimize Code",      silent = true },
-            { "<localleader>cr", ":ChatGPTRun<CR>",                    desc = "Chatgpt Run",        silent = true },
-            { "<localleader>cs", ":ChatGPTRun summarize<CR>",          desc = "Summarize",          silent = true },
-            { "<localleader>ct", ":ChatGPTRun translate<CR>",          desc = "Translate",          silent = true },
+            {
+                "<localleader>ca",
+                ":ChatGPTRun add_tests<CR>",
+                desc = "Add Tests",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>cc",
+                ":ChatGPT<CR>",
+                desc = "Chatgpt",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>cd",
+                ":ChatGPTRun docstring<CR>",
+                desc = "Docstring",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>ce",
+                ":ChatGPTEditWithInstructions<CR>",
+                desc = "Edit Instructions",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>cf",
+                ":ChatGPTRun fix_bugs<CR>",
+                desc = "Fix Bugs",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>cg",
+                ":ChatGPTRun grammar_correction<CR>",
+                desc = "Grammar Correction",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>ch",
+                ":ChatGPTActAs<CR>",
+                desc = "Act As",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>co",
+                ":ChatGPTRun optimize_code<CR>",
+                desc = "Optimize Code",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>cr",
+                ":ChatGPTRun<CR>",
+                desc = "Chatgpt Run",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>cs",
+                ":ChatGPTRun summarize<CR>",
+                desc = "Summarize",
+                silent = true,
+                mode = { "n", "v" },
+            },
+            {
+                "<localleader>ct",
+                ":ChatGPTRun translate<CR>",
+                desc = "Translate",
+                silent = true,
+                mode = { "n", "v" },
+            },
         },
         opts = {
             popup_input = {
@@ -68,8 +134,8 @@ M.plugins = {
                 -- Filter to only include the preferred provider
                 local preferred_providers = {}
                 if providers[config.agent_preferences.wtf.preferred_provider] then
-                    preferred_providers[config.agent_preferences.wtf.preferred_provider] = providers
-                    [config.agent_preferences.wtf.preferred_provider]
+                    preferred_providers[config.agent_preferences.wtf.preferred_provider] =
+                        providers[config.agent_preferences.wtf.preferred_provider]
                 end
                 providers = preferred_providers
             end
