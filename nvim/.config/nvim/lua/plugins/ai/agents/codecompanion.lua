@@ -61,6 +61,19 @@ local function get_adapters()
         end
     end
 
+    -- Add OpenAI adapter if API key is available
+    if config.api_keys.openai and config.api_keys.openai ~= "" then
+        adapters.openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+                schema = {
+                    model = {
+                        default = config.default_models.openai,
+                    },
+                },
+            })
+        end
+    end
+
     -- Add Tavily adapter if API key is available
     if config.api_keys.tavily and config.api_keys.tavily ~= "" then
         adapters.tavily = function()
@@ -138,43 +151,43 @@ M.plugins = {
             vim.cmd([[cab cc CodeCompanion]])
         end,
         opts = function()
-            local http_adapters = get_adapters()
+            local adapters = get_adapters()
             local default_adapter = "copilot" -- fallback
 
             -- Check if user has a preferred adapter and if it's available
             -- Falls back to dynamic selection if preferred adapter is not available
             if config.agent_preferences.codecompanion.preferred_adapter then
                 local preferred = config.agent_preferences.codecompanion.preferred_adapter
-                if http_adapters[preferred] then
+                if adapters[preferred] then
                     default_adapter = preferred
                 else
                     -- Preferred adapter not available, fall back to dynamic selection
-                    if http_adapters.openai then
+                    if adapters.openai then
                         default_adapter = "openai"
-                    elseif http_adapters.anthropic then
+                    elseif adapters.anthropic then
                         default_adapter = "anthropic"
-                    elseif http_adapters.gemini then
+                    elseif adapters.gemini then
                         default_adapter = "gemini"
                     end
                 end
             else
                 -- Use dynamic selection: Prefer OpenAI if available, then Anthropic, then Gemini, then copilot
-                if http_adapters.openai then
+                if adapters.openai then
                     default_adapter = "openai"
-                elseif http_adapters.anthropic then
+                elseif adapters.anthropic then
                     default_adapter = "anthropic"
-                elseif http_adapters.gemini then
+                elseif adapters.gemini then
                     default_adapter = "gemini"
                 end
             end
 
             return {
                 adapters = {
-                    http = vim.tbl_extend("force", http_adapters, {
-                        opts = {
-                            system_prompt = prompts.beast_mode,
-                        },
-                    }),
+                    http = (function()
+                        local http = vim.tbl_extend("force", {}, adapters)
+                        http.opts = { system_prompt = prompts.beast_mode }
+                        return http
+                    end)(),
                 },
                 strategies = {
                     chat = {

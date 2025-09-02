@@ -85,16 +85,16 @@ M.alternative_models = {
 -- - preferred_adapter = nil -> Use dynamic selection (best available)
 M.agent_preferences = {
     codecompanion = {
-        preferred_adapter = "gemini",       -- Uses Gemini for strategies (chat, inline, agent)
-        preferred_model = "gemini-2.5-pro", -- Uses Gemini 2.5 Pro model
+        preferred_adapter = "copilot_4o", -- Uses Gemini for strategies (chat, inline, agent)
+        preferred_model = "gpt-4.1", -- Uses Gemini 2.5 Pro model
     },
     copilot_chat = {
-        preferred_provider = "copilot",     -- Uses Copilot provider
+        preferred_provider = "copilot", -- Uses Copilot provider
         preferred_model = "gemini-2.5-pro", -- Uses Gemini 2.5 Pro model
     },
     avante = {
         preferred_provider = "openai", -- Original: used "openai" for beast_mode
-        preferred_model = "gpt-4.1",   -- Original: used "gpt-4.1" for beast_mode
+        preferred_model = "gpt-4.1", -- Original: used "gpt-4.1" for beast_mode
     },
     wtf = {
         preferred_provider = "openai", -- Original: used "openai" provider
