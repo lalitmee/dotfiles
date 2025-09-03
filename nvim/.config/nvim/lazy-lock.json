@@ -14,6 +14,7 @@
   "browse.nvim": { "branch": "main", "commit": "1ccf8705668216d8a311d31e87246b494b8eb571" },
   "bufdelete.nvim": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "codecompanion-gitcommit.nvim": { "branch": "main", "commit": "e237b9901d64074fa84f74c1b20892303e3e1830" },
+  "codecompanion-history.nvim": { "branch": "main", "commit": "b9f1afb77f1a8805e686f89ac38338a9ca588579" },
   "codecompanion.nvim": { "branch": "main", "commit": "2b5aea7a371af96a08e984b42795ce8f5ae70e49" },
   "codesnap.nvim": { "branch": "main", "commit": "be6d6b9a3b5e6999edbda76b16dace03d9bfcd3d" },
   "colorbuddy.nvim": { "branch": "master", "commit": "cdb5b0654d3cafe61d2a845e15b2b4b0e78e752a" },
