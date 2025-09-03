@@ -83,11 +83,11 @@ local event_handlers = {
     ["CodeCompanionContextChanged"] = { type = "update" },
 
     -- Tools lifecycle
-    ["CodeCompanionToolsStarted"] = { type = "tools_start", msg = " Running tools..." },
-    ["CodeCompanionToolsFinished"] = { type = "tools_finish", msg = "Processing..." },
+    ["CodeCompanionToolsStarted"] = { type = "update", msg = " Running tools..." },
+    ["CodeCompanionToolsFinished"] = { type = "tools_flush", msg = "Processing..." },
     ["CodeCompanionToolAdded"] = { type = "update" },
-    ["CodeCompanionToolStarted"] = { type = "update" },
-    ["CodeCompanionToolFinished"] = { type = "update" },
+    ["CodeCompanionToolStarted"] = { type = "tools_inc", msg = " Running tools..." },
+    ["CodeCompanionToolFinished"] = { type = "tools_dec", msg = "Processing..." },
 
     -- Inline strategy (treat as updates; request events will cover long-running states)
     ["CodeCompanionInlineStarted"] = { type = "update", msg = "Inline..." },
@@ -120,6 +120,9 @@ function M.setup()
                 return
             end
 
+            -- Track whether we were active before applying this event
+            local was_active = is_active()
+
             -- Counters
             if handler.type == "request_start" then
                 state.request_count = state.request_count + 1
@@ -127,12 +130,14 @@ function M.setup()
                 state.close_token = state.close_token + 1 -- cancel any pending close
             elseif handler.type == "request_finish" then
                 state.request_count = math.max(0, state.request_count - 1)
-            elseif handler.type == "tools_start" then
+            elseif handler.type == "tools_inc" then
                 state.tools_count = state.tools_count + 1
                 state.active = true
                 state.close_token = state.close_token + 1 -- cancel any pending close
-            elseif handler.type == "tools_finish" then
+            elseif handler.type == "tools_dec" then
                 state.tools_count = math.max(0, state.tools_count - 1)
+            elseif handler.type == "tools_flush" then
+                state.tools_count = 0
             elseif handler.type == "diff_start" then
                 state.diff_count = state.diff_count + 1
                 state.active = true
@@ -142,9 +147,18 @@ function M.setup()
             elseif handler.type == "finish_chat" then
                 -- Ensure no lingering spinner if chat declares done/stopped
                 state.request_count = 0
+                state.tools_count = 0
+                state.diff_count = 0
             end
 
             local active_now = is_active()
+
+            -- If we transitioned from active to inactive on this event, close now regardless of event type
+            if was_active and not active_now then
+                update_notification("Done!", true, nil)
+                reset_state()
+                return
+            end
             local source_is_true_finish = (handler.type == "request_finish" or handler.type == "finish_chat")
             local can_close = source_is_true_finish and not active_now
 
@@ -193,11 +207,30 @@ function M.setup()
                 message = type(handler.msg) == "function" and handler.msg(args) or handler.msg
             end
 
-            -- For non-closing finish events (tools_finish/diff_finish/request_finish while others active),
-            -- keep the base computed status; do NOT show "Done!"
+            -- For non-closing finish events or updates, show current status; do NOT show "Done!"
             update_notification(message, false, opts or handler.opts)
         end,
     })
+
+    -- local debug_group = vim.api.nvim_create_augroup("CodeCompanionHooks", { clear = true })
+    --
+    -- vim.api.nvim_create_autocmd({ "User" }, {
+    --     pattern = "CodeCompanion*",
+    --     group = debug_group,
+    --     callback = function(request)
+    --         vim.notify(
+    --             string.format(
+    --                 "Event: %s | Requests: %d | Tools: %d | Diffs: %d",
+    --                 request.match,
+    --                 state.request_count,
+    --                 state.tools_count,
+    --                 state.diff_count
+    --             ),
+    --             vim.log.levels.DEBUG,
+    --             { title = "CodeCompanion Event Debug" }
+    --         )
+    --     end,
+    -- })
 end
 
 return M
