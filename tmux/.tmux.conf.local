@@ -818,6 +818,33 @@ bind -T layout-mode g run-shell "$HOME/.config/tmux/scripts/lazygit.sh '#{pane_c
 # }}}
 #-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# NOTE: Open the current pane's buffer in Neovim {{{
+#-------------------------------------------------------------------------------
+
+# Capture visible scrollback
+bind -T layout-mode e run "
+  f=\$(mktemp /tmp/tmux-edit.XXXXXX) && \
+  tmux capture-pane -S 0 -p -J > \$f && \
+  tmux new-window \
+    -n 'hist-#{session_name}:#{window_index}.#{pane_index}' \
+    \"sh -c 'trap \\\"rm -f \$f\\\" EXIT; nvim \$f'\"
+"
+
+# Capture full scrollback
+bind -T layout-mode E run "
+  f=\$(mktemp /tmp/tmux-edit.XXXXXX) && \
+  tmux capture-pane -S - -p -J > \$f && \
+  tmux new-window \
+    -n 'hist-#{session_name}:#{window_index}.#{pane_index}' \
+    \"sh -c 'trap \\\"rm -f \$f\\\" EXIT; nvim \$f'\"
+"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
 
 # # Open the tmux man page in a new window.
 # bind -T layout-mode t new-window 'man tmux'
