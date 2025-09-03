@@ -9,21 +9,77 @@ local state = {
     close_token = 0,
 }
 
+local EventHandlerType = {
+    UPDATE = "update",
+    REQUEST_START = "request_start",
+    REQUEST_FINISH = "request_finish",
+    TOOLS_INCREMENT = "tools_inc",
+    TOOLS_DECREMENT = "tools_dec",
+    TOOLS_FLUSH = "tools_flush",
+    DIFF_START = "diff_start",
+    DIFF_FINISH = "diff_finish",
+    FINISH_CHAT = "finish_chat",
+}
+
+local StatusIcon = {
+    DONE = "",
+    THINKING = "🤖",
+    RUNNING_TOOLS = "",
+    REVIEW_CHANGES = "",
+    RECEIVING = "",
+    CHAT_READY = "",
+    CHAT_OPENED = "",
+    CHAT_HIDDEN = "",
+    CHAT_CLOSED = "",
+    STOPPED = "",
+    CHANGE_ACCEPTED = "",
+    CHANGE_REJECTED = "",
+    CLEARED = "",
+}
+
+local StatusMessage = {
+    DONE = "Done!",
+    THINKING = "Thinking...",
+    RUNNING_TOOLS = "Running tools...",
+    REVIEW_CHANGES = "Action Required: Review Changes",
+    RECEIVING = "Receiving response...",
+    PROCESSING = "Processing...",
+    CHAT_READY = "Chat ready",
+    CHAT_OPENED = "Chat opened",
+    CHAT_HIDDEN = "Chat hidden",
+    CHAT_CLOSED = "Chat closed",
+    STOPPED = "Stopped",
+    CLEARED = "Chat cleared",
+    INLINE = "Inline...",
+    INLINE_DONE = "Inline done",
+    CHANGE_ACCEPTED = "Change accepted.",
+    CHANGE_REJECTED = "Change rejected.",
+}
+
 local function is_active()
     return (state.request_count > 0) or (state.tools_count > 0) or (state.diff_count > 0)
 end
 
+local function with_icon(icon, msg)
+    -- Use one space for emoji, two for glyphs
+    if icon == StatusIcon.THINKING then
+        return string.format("%s %s", icon, msg)
+    else
+        return string.format("%s  %s", icon, msg)
+    end
+end
+
 local function get_status_message()
     if state.diff_count > 0 then
-        return " Action Required: Review Changes", nil
+        return with_icon(StatusIcon.REVIEW_CHANGES, StatusMessage.REVIEW_CHANGES), nil
     end
     if state.tools_count > 0 then
-        return " Running tools...", nil
+        return with_icon(StatusIcon.RUNNING_TOOLS, StatusMessage.RUNNING_TOOLS), nil
     end
     if state.request_count > 0 then
-        return "🤖 Thinking...", nil
+        return with_icon(StatusIcon.THINKING, StatusMessage.THINKING), nil
     end
-    return "Done!", nil
+    return with_icon(StatusIcon.DONE, StatusMessage.DONE), nil
 end
 
 local function update_notification(message, is_done, custom_opts)
@@ -40,7 +96,7 @@ local function update_notification(message, is_done, custom_opts)
     }
 
     if is_done then
-        opts.icon = " "
+        opts.icon = ""
         opts.timeout = 2000
     elseif custom_opts.icon then
         opts.icon = custom_opts.icon .. " "
@@ -67,46 +123,79 @@ local function reset_state()
     state.close_token = state.close_token + 1
 end
 
+local function handler(type, icon, msg, opts)
+    return { type = type, msg = icon and with_icon(icon, msg) or nil, opts = opts }
+end
+
 local event_handlers = {
     -- Chat lifecycle (updates only)
-    ["CodeCompanionChatCreated"] = { type = "update", msg = "Chat ready" },
-    ["CodeCompanionChatOpened"] = { type = "update", msg = "Chat opened" },
-    ["CodeCompanionChatHidden"] = { type = "update", msg = "Chat hidden" },
-    ["CodeCompanionChatClosed"] = { type = "update", msg = "Chat closed" },
-    ["CodeCompanionChatSubmitted"] = { type = "update", msg = "Thinking..." },
-    ["CodeCompanionChatDone"] = { type = "finish_chat", msg = "Done!" },
-    ["CodeCompanionChatStopped"] = { type = "finish_chat", msg = "Stopped" },
-    ["CodeCompanionChatCleared"] = { type = "update", msg = "Chat cleared" },
-    ["CodeCompanionChatAdapter"] = { type = "update" },
-    ["CodeCompanionChatModel"] = { type = "update" },
-    ["CodeCompanionChatPin"] = { type = "update" },
-    ["CodeCompanionContextChanged"] = { type = "update" },
+    ["CodeCompanionChatCreated"] = handler(EventHandlerType.UPDATE, StatusIcon.CHAT_READY, StatusMessage.CHAT_READY),
+    ["CodeCompanionChatOpened"] = handler(EventHandlerType.UPDATE, StatusIcon.CHAT_OPENED, StatusMessage.CHAT_OPENED),
+    ["CodeCompanionChatHidden"] = handler(EventHandlerType.UPDATE, StatusIcon.CHAT_HIDDEN, StatusMessage.CHAT_HIDDEN),
+    ["CodeCompanionChatClosed"] = handler(EventHandlerType.UPDATE, StatusIcon.CHAT_CLOSED, StatusMessage.CHAT_CLOSED),
+    ["CodeCompanionChatSubmitted"] = handler(EventHandlerType.UPDATE, StatusIcon.THINKING, StatusMessage.THINKING),
+    ["CodeCompanionChatDone"] = handler(EventHandlerType.FINISH_CHAT, StatusIcon.DONE, StatusMessage.DONE),
+    ["CodeCompanionChatStopped"] = handler(EventHandlerType.FINISH_CHAT, StatusIcon.STOPPED, StatusMessage.STOPPED),
+    ["CodeCompanionChatCleared"] = handler(EventHandlerType.UPDATE, StatusIcon.CLEARED, StatusMessage.CLEARED),
+    ["CodeCompanionChatAdapter"] = handler(EventHandlerType.UPDATE),
+    ["CodeCompanionChatModel"] = handler(EventHandlerType.UPDATE),
+    ["CodeCompanionChatPin"] = handler(EventHandlerType.UPDATE),
+    ["CodeCompanionContextChanged"] = handler(EventHandlerType.UPDATE),
 
     -- Tools lifecycle
-    ["CodeCompanionToolsStarted"] = { type = "update", msg = " Running tools..." },
-    ["CodeCompanionToolsFinished"] = { type = "tools_flush", msg = "Processing..." },
-    ["CodeCompanionToolAdded"] = { type = "update" },
-    ["CodeCompanionToolStarted"] = { type = "tools_inc", msg = " Running tools..." },
-    ["CodeCompanionToolFinished"] = { type = "tools_dec", msg = "Processing..." },
+    ["CodeCompanionToolsStarted"] = handler(
+        EventHandlerType.UPDATE,
+        StatusIcon.RUNNING_TOOLS,
+        StatusMessage.RUNNING_TOOLS
+    ),
+    ["CodeCompanionToolsFinished"] = handler(
+        EventHandlerType.TOOLS_FLUSH,
+        StatusIcon.RECEIVING,
+        StatusMessage.PROCESSING
+    ),
+    ["CodeCompanionToolAdded"] = handler(EventHandlerType.UPDATE),
+    ["CodeCompanionToolStarted"] = handler(
+        EventHandlerType.TOOLS_INCREMENT,
+        StatusIcon.RUNNING_TOOLS,
+        StatusMessage.RUNNING_TOOLS
+    ),
+    ["CodeCompanionToolFinished"] = handler(
+        EventHandlerType.TOOLS_DECREMENT,
+        StatusIcon.RECEIVING,
+        StatusMessage.PROCESSING
+    ),
 
     -- Inline strategy (treat as updates; request events will cover long-running states)
-    ["CodeCompanionInlineStarted"] = { type = "update", msg = "Inline..." },
-    ["CodeCompanionInlineFinished"] = { type = "update", msg = "Inline done" },
+    ["CodeCompanionInlineStarted"] = handler(EventHandlerType.UPDATE, StatusIcon.THINKING, StatusMessage.INLINE),
+    ["CodeCompanionInlineFinished"] = handler(EventHandlerType.UPDATE, StatusIcon.DONE, StatusMessage.INLINE_DONE),
 
     -- Request lifecycle
-    ["CodeCompanionRequestStarted"] = { type = "request_start", msg = "Thinking..." },
-    ["CodeCompanionRequestStreaming"] = { type = "update", msg = "Receiving response..." },
-    ["CodeCompanionRequestFinished"] = { type = "request_finish", msg = "Done!" },
+    ["CodeCompanionRequestStarted"] = handler(
+        EventHandlerType.REQUEST_START,
+        StatusIcon.THINKING,
+        StatusMessage.THINKING
+    ),
+    ["CodeCompanionRequestStreaming"] = handler(EventHandlerType.UPDATE, StatusIcon.RECEIVING, StatusMessage.RECEIVING),
+    ["CodeCompanionRequestFinished"] = handler(EventHandlerType.REQUEST_FINISH, StatusIcon.DONE, StatusMessage.DONE),
 
     -- Diff lifecycle
-    ["CodeCompanionDiffAttached"] = {
-        type = "diff_start",
-        msg = "Action Required: Review Changes",
-        opts = { icon = "", hl_group = "WarningMsg" },
-    },
-    ["CodeCompanionDiffDetached"] = { type = "diff_finish", msg = "Done!" },
-    ["CodeCompanionDiffAccepted"] = { type = "update", msg = "Change accepted." },
-    ["CodeCompanionDiffRejected"] = { type = "update", msg = "Change rejected." },
+    ["CodeCompanionDiffAttached"] = handler(
+        EventHandlerType.DIFF_START,
+        StatusIcon.REVIEW_CHANGES,
+        StatusMessage.REVIEW_CHANGES,
+        { icon = StatusIcon.REVIEW_CHANGES, hl_group = "WarningMsg" }
+    ),
+    ["CodeCompanionDiffDetached"] = handler(EventHandlerType.DIFF_FINISH, StatusIcon.DONE, StatusMessage.DONE),
+    ["CodeCompanionDiffAccepted"] = handler(
+        EventHandlerType.UPDATE,
+        StatusIcon.CHANGE_ACCEPTED,
+        StatusMessage.CHANGE_ACCEPTED
+    ),
+    ["CodeCompanionDiffRejected"] = handler(
+        EventHandlerType.UPDATE,
+        StatusIcon.CHANGE_REJECTED,
+        StatusMessage.CHANGE_REJECTED
+    ),
 }
 
 function M.setup()
@@ -124,27 +213,27 @@ function M.setup()
             local was_active = is_active()
 
             -- Counters
-            if handler.type == "request_start" then
+            if handler.type == EventHandlerType.REQUEST_START then
                 state.request_count = state.request_count + 1
                 state.active = true
                 state.close_token = state.close_token + 1 -- cancel any pending close
-            elseif handler.type == "request_finish" then
+            elseif handler.type == EventHandlerType.REQUEST_FINISH then
                 state.request_count = math.max(0, state.request_count - 1)
-            elseif handler.type == "tools_inc" then
+            elseif handler.type == EventHandlerType.TOOLS_INCREMENT then
                 state.tools_count = state.tools_count + 1
                 state.active = true
                 state.close_token = state.close_token + 1 -- cancel any pending close
-            elseif handler.type == "tools_dec" then
+            elseif handler.type == EventHandlerType.TOOLS_DECREMENT then
                 state.tools_count = math.max(0, state.tools_count - 1)
-            elseif handler.type == "tools_flush" then
+            elseif handler.type == EventHandlerType.TOOLS_FLUSH then
                 state.tools_count = 0
-            elseif handler.type == "diff_start" then
+            elseif handler.type == EventHandlerType.DIFF_START then
                 state.diff_count = state.diff_count + 1
                 state.active = true
                 state.close_token = state.close_token + 1 -- cancel any pending close
-            elseif handler.type == "diff_finish" then
+            elseif handler.type == EventHandlerType.DIFF_FINISH then
                 state.diff_count = math.max(0, state.diff_count - 1)
-            elseif handler.type == "finish_chat" then
+            elseif handler.type == EventHandlerType.FINISH_CHAT then
                 -- Ensure no lingering spinner if chat declares done/stopped
                 state.request_count = 0
                 state.tools_count = 0
@@ -155,19 +244,21 @@ function M.setup()
 
             -- If we transitioned from active to inactive on this event, close now regardless of event type
             if was_active and not active_now then
-                update_notification("Done!", true, nil)
+                update_notification(with_icon(StatusIcon.DONE, StatusMessage.DONE), true, nil)
                 reset_state()
                 return
             end
-            local source_is_true_finish = (handler.type == "request_finish" or handler.type == "finish_chat")
+            local source_is_true_finish = (
+                handler.type == EventHandlerType.REQUEST_FINISH or handler.type == EventHandlerType.FINISH_CHAT
+            )
             local can_close = source_is_true_finish and not active_now
 
             -- Do not show notifications for non-active updates or non-request finishes when nothing is active
             if not active_now then
-                if handler.type == "update" then
+                if handler.type == EventHandlerType.UPDATE then
                     return
                 end
-                if handler.type ~= "request_finish" and handler.type ~= "finish_chat" then
+                if handler.type ~= EventHandlerType.REQUEST_FINISH and handler.type ~= EventHandlerType.FINISH_CHAT then
                     return
                 end
             end
@@ -178,7 +269,7 @@ function M.setup()
                 state.close_token = this_token
                 vim.defer_fn(function()
                     if state.close_token == this_token and not is_active() then
-                        update_notification("Done!", true, nil)
+                        update_notification(with_icon(StatusIcon.DONE, StatusMessage.DONE), true, nil)
                         reset_state()
                     end
                 end, 200)
