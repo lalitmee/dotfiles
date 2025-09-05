@@ -1,116 +1,37 @@
 local M = {}
-local config = require("plugins.ai.config")
+local notify = require("plugins.ai.utils.notifications")
+local config = require("plugins.ai.codecompanion.config")
 local prompts = require("plugins.ai.prompts")
 
 -- CodeCompanion-specific adapter management
 local function get_adapters()
-    local adapters = {
-        copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {
-                schema = {
-                    model = {
-                        default = config.default_models.copilot,
-                    },
-                },
-            })
-        end,
-        copilot_4o = function()
-            return require("codecompanion.adapters").extend("copilot", {
-                schema = {
-                    model = {
-                        default = config.default_models.openai,
-                    },
-                },
-            })
-        end,
-    }
-
-    -- Add BigModel adapter if API key is available
-    if config.api_keys.ai_key and config.api_keys.ai_key ~= "" then
-        adapters.bigmodel = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-                env = {
-                    url = "https://open.bigmodel.cn/api/paas/",
-                    api_key = config.api_keys.ai_key,
-                    chat_url = "/v4/chat/completions",
-                },
-                schema = {
-                    model = {
-                        default = config.default_models.bigmodel,
-                    },
-                },
-            })
+    local adapters = {}
+    for name, opts in pairs(config.adapters) do
+        if opts.enabled then
+            local api_key = config.api_keys[name] or config.api_keys[opts.api_key or name]
+            if api_key or name == "copilot" or name == "copilot_4o" then
+                adapters[name] = function()
+                    local adapter_type = name
+                    if name == "copilot_4o" then
+                        adapter_type = "copilot"
+                    end
+                    return require("codecompanion.adapters").extend(adapter_type, {
+                        schema = {
+                            model = {
+                                default = config.default_models[name] or config.default_models.copilot,
+                            },
+                        },
+                    })
+                end
+            else
+                notify.warn(
+                    "CodeCompanion",
+                    "CodeCompanion adapter '" .. name .. "' is enabled but missing API key!",
+                    vim.log.levels.WARN
+                )
+            end
         end
     end
-
-    -- Add OpenRouter adapter if API key is available
-    if config.api_keys.openrouter and config.api_keys.openrouter ~= "" then
-        adapters.openrouter = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-                env = {
-                    url = "https://openrouter.ai/api",
-                    api_key = config.api_keys.openrouter,
-                    chat_url = "/v1/chat/completions",
-                },
-                schema = {
-                    model = {
-                        default = config.default_models.openrouter,
-                    },
-                },
-            })
-        end
-    end
-
-    -- Add OpenAI adapter if API key is available
-    if config.api_keys.openai and config.api_keys.openai ~= "" then
-        adapters.openai = function()
-            return require("codecompanion.adapters").extend("openai", {
-                schema = {
-                    model = {
-                        default = config.default_models.openai,
-                    },
-                },
-            })
-        end
-    end
-
-    -- Add Tavily adapter if API key is available
-    if config.api_keys.tavily and config.api_keys.tavily ~= "" then
-        adapters.tavily = function()
-            return require("codecompanion.adapters").extend("tavily", {
-                env = {
-                    api_key = config.api_keys.tavily,
-                },
-            })
-        end
-    end
-
-    -- Add Gemini adapter if API key is available
-    if config.api_keys.gemini and config.api_keys.gemini ~= "" then
-        adapters.gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
-                schema = {
-                    model = {
-                        default = config.default_models.gemini,
-                    },
-                },
-            })
-        end
-    end
-
-    -- Add Anthropic adapter if API key is available
-    if config.api_keys.anthropic and config.api_keys.anthropic ~= "" then
-        adapters.anthropic = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-                schema = {
-                    model = {
-                        default = config.default_models.anthropic,
-                    },
-                },
-            })
-        end
-    end
-
     return adapters
 end
 
@@ -136,6 +57,7 @@ M.plugins = {
             "CodeCompanionActions",
             "CodeCompanionGitCommit",
             "CCGitCommit",
+            "CodeCompanionCheckHealth",
         },
         -- stylua: ignore
         keys = {
@@ -148,35 +70,45 @@ M.plugins = {
             require("plugins.ai.spinners.snacks-notifier").setup()
             require("plugins.ai.spinners.cursor-relative").setup()
             vim.cmd([[cab cc CodeCompanion]])
+            vim.api.nvim_create_user_command("CodeCompanionCheckHealth", function()
+                require("plugins.ai.codecompanion.config").check_health()
+            end, { desc = "Check CodeCompanion adapter configuration health" })
         end,
         opts = function()
             local adapters = get_adapters()
             local default_adapter = "copilot" -- fallback
 
-            -- Check if user has a preferred adapter and if it's available
-            -- Falls back to dynamic selection if preferred adapter is not available
-            if config.agent_preferences.codecompanion.preferred_adapter then
-                local preferred = config.agent_preferences.codecompanion.preferred_adapter
+            -- Preferred adapter/model selection logic
+            -- 1. Use preferred adapter if enabled and configured
+            -- 2. If not, fall back to first available adapter in priority order
+            -- 3. Notify user if preferred adapter is set but not enabled/configured
+            local preferred = config.agent_preferences.preferred_adapter
+            if preferred then
                 if adapters[preferred] then
                     default_adapter = preferred
                 else
-                    -- Preferred adapter not available, fall back to dynamic selection
-                    if adapters.openai then
-                        default_adapter = "openai"
-                    elseif adapters.anthropic then
-                        default_adapter = "anthropic"
-                    elseif adapters.gemini then
-                        default_adapter = "gemini"
+                    notify.warn(
+                        "CodeCompanion",
+                        "CodeCompanion preferred adapter '"
+                            .. preferred
+                            .. "' is not enabled or misconfigured. Falling back to available adapter.",
+                        vim.log.levels.WARN
+                    )
+                    local priority = { "openai", "anthropic", "gemini", "copilot" }
+                    for _, name in ipairs(priority) do
+                        if adapters[name] then
+                            default_adapter = name
+                            break
+                        end
                     end
                 end
             else
-                -- Use dynamic selection: Prefer OpenAI if available, then Anthropic, then Gemini, then copilot
-                if adapters.openai then
-                    default_adapter = "openai"
-                elseif adapters.anthropic then
-                    default_adapter = "anthropic"
-                elseif adapters.gemini then
-                    default_adapter = "gemini"
+                local priority = { "openai", "anthropic", "gemini", "copilot" }
+                for _, name in ipairs(priority) do
+                    if adapters[name] then
+                        default_adapter = name
+                        break
+                    end
                 end
             end
 

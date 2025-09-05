@@ -1,140 +1,93 @@
 local M = {}
-local config = require("plugins.ai.config")
+local config = require("plugins.ai.copilot-chat.config")
 local prompts = require("plugins.ai.prompts")
+local notify = require("plugins.ai.utils.notifications")
+local health = require("plugins.ai.utils.health")
 
--- CopilotChat-specific provider management
+-- CopilotChat-specific provider management using enable/disable flags
 local function get_providers()
     local Providers = require("CopilotChat.config.providers")
-    local providers = {
-        github_models = {
-            disabled = true,
-        },
-    }
+    local providers = {}
 
-    -- Add OpenAI provider if API key is available
-    if config.api_keys.openai and config.api_keys.openai ~= "" then
-        providers.openai = {
-            prepare_input = Providers.copilot.prepare_input,
-            prepare_output = Providers.copilot.prepare_output,
-            get_url = function()
-                return "https://api.openai.com/v1/chat/completions"
-            end,
-            get_headers = function()
-                return {
-                    Authorization = "Bearer " .. config.api_keys.openai,
-                    ["Content-Type"] = "application/json",
-                }
-            end,
-            get_models = function(headers)
-                local response, err = require("CopilotChat.utils").curl_get("https://api.openai.com/v1/models", {
-                    headers = headers,
-                    json_response = true,
-                })
-                if err then
-                    error(err)
-                end
-                return vim.iter(response.body.data)
-                    :filter(function(model)
-                        local exclude_patterns = {
-                            "audio",
-                            "babbage",
-                            "dall%-e",
-                            "davinci",
-                            "embedding",
-                            "image",
-                            "moderation",
-                            "realtime",
-                            "transcribe",
-                            "tts",
-                            "whisper",
-                        }
-                        for _, pattern in ipairs(exclude_patterns) do
-                            if model.id:match(pattern) then
-                                return false
-                            end
-                        end
-                        return true
-                    end)
-                    :map(function(model)
-                        return {
-                            id = model.id,
-                            name = model.id,
-                        }
-                    end)
-                    :totable()
-            end,
-            embed = function(inputs, headers)
-                local response, err = require("CopilotChat.utils").curl_post("https://api.openai.com/v1/embeddings", {
-                    headers = headers,
-                    json_request = true,
-                    json_response = true,
-                    body = {
-                        model = "text-embedding-3-small",
-                        input = inputs,
-                    },
-                })
-                if err then
-                    error(err)
-                end
-                return response.body.data
-            end,
-        }
-    end
-
-    -- Add Gemini provider if API key is available
-    if config.api_keys.gemini and config.api_keys.gemini ~= "" then
-        providers.gemini = {
-            prepare_input = Providers.copilot.prepare_input,
-            prepare_output = Providers.copilot.prepare_output,
-            get_url = function()
-                return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
-            end,
-            get_headers = function()
-                return {
-                    Authorization = "Bearer " .. config.api_keys.gemini,
-                    ["Content-Type"] = "application/json",
-                }
-            end,
-            get_models = function(headers)
-                local response, err = require("CopilotChat.utils").curl_get(
-                    "https://generativelanguage.googleapis.com/v1beta/openai/models",
-                    {
-                        headers = headers,
-                        json_response = true,
+    for name, opts in pairs(config.providers) do
+        if opts.enabled then
+            local api_key = config.api_keys[name]
+            if name == "github_models" or api_key then
+                if name == "openai" then
+                    providers.openai = {
+                        prepare_input = Providers.copilot.prepare_input,
+                        prepare_output = Providers.copilot.prepare_output,
+                        get_url = function()
+                            return "https://api.openai.com/v1/chat/completions"
+                        end,
+                        get_headers = function()
+                            return {
+                                Authorization = "Bearer " .. api_key,
+                                ["Content-Type"] = "application/json",
+                            }
+                        end,
+                        get_models = function()
+                            return { "gpt-4.1", "gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo" }
+                        end,
+                        embed = function()
+                            return {
+                                get_url = function()
+                                    return "https://api.openai.com/v1/embeddings"
+                                end,
+                                get_headers = function()
+                                    return {
+                                        Authorization = "Bearer " .. api_key,
+                                        ["Content-Type"] = "application/json",
+                                    }
+                                end,
+                                get_model = function()
+                                    return "text-embedding-3-small"
+                                end,
+                            }
+                        end,
                     }
-                )
-                if err then
-                    error(err)
-                end
-                return vim.tbl_map(function(model)
-                    local id = model.id:gsub("^models/", "")
-                    return {
-                        id = id,
-                        name = id,
-                        streaming = true,
-                        tools = true,
+                elseif name == "gemini" then
+                    providers.gemini = {
+                        prepare_input = Providers.copilot.prepare_input,
+                        prepare_output = Providers.copilot.prepare_output,
+                        get_url = function()
+                            return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+                        end,
+                        get_headers = function()
+                            return {
+                                Authorization = "Bearer " .. api_key,
+                                ["Content-Type"] = "application/json",
+                            }
+                        end,
+                        get_models = function()
+                            return { "gemini-2.5-pro", "gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash" }
+                        end,
+                        embed = function()
+                            return {
+                                get_url = function()
+                                    return "https://generativelanguage.googleapis.com/v1beta/models/embedding-001:embedContent"
+                                end,
+                                get_headers = function()
+                                    return {
+                                        Authorization = "Bearer " .. api_key,
+                                        ["Content-Type"] = "application/json",
+                                    }
+                                end,
+                                get_model = function()
+                                    return "embedding-001"
+                                end,
+                            }
+                        end,
                     }
-                end, response.body.data)
-            end,
-            embed = function(inputs, headers)
-                local response, err = require("CopilotChat.utils").curl_post(
-                    "https://generativelanguage.googleapis.com/v1beta/openai/embeddings",
-                    {
-                        headers = headers,
-                        json_request = true,
-                        json_response = true,
-                        body = {
-                            input = inputs,
-                            model = "text-embedding-004",
-                        },
+                elseif name == "github_models" then
+                    providers.github_models = {
+                        disabled = true,
                     }
-                )
-                if err then
-                    error(err)
                 end
-                return response.body.data
-            end,
-        }
+            else
+                notify.provider_missing_key("CopilotChat", name)
+            end
+        end
     end
 
     return providers
@@ -191,6 +144,7 @@ M.plugins = {
             "CopilotChatModels",
             "CopilotChatPrompts",
             "CopilotChatToggle",
+            "CopilotChatCheckHealth",
         },
         keys = {
             {
@@ -208,6 +162,16 @@ M.plugins = {
                 mode = { "n", "v" },
             },
         },
+        init = function()
+            -- Setup spinner integration
+            require("plugins.ai.spinners.snacks-notifier").setup()
+            require("plugins.ai.spinners.cursor-relative").setup()
+
+            -- Create health check command
+            vim.api.nvim_create_user_command("CopilotChatCheckHealth", function()
+                config.check_health()
+            end, { desc = "Check CopilotChat provider configuration health" })
+        end,
         opts = {
             system_prompt = prompts.beast_mode,
         },
@@ -217,6 +181,18 @@ M.plugins = {
             -- Use dynamic provider management
             opts.providers = get_providers()
 
+            -- Preferred provider selection logic
+            local preferred = config.preferences.preferred_provider or "openai"
+            if not opts.providers[preferred] then
+                notify.provider_fallback("CopilotChat", preferred, "available provider")
+                for name, _ in pairs(opts.providers) do
+                    preferred = name
+                    break
+                end
+            end
+            opts.provider = preferred
+
+            -- VectorCode integration for enhanced context
             local vectorcode_ctx = require("vectorcode.integrations.copilotchat").make_context_provider({
                 prompt_header = "Here are relevant files from the repository:",
                 prompt_footer = "\nConsider this context when answering:",
@@ -230,6 +206,18 @@ M.plugins = {
             opts.prompts = {
                 Explain = {
                     prompt = "Explain the following code in detail:\n$input",
+                    context = { "selection", "vectorcode" },
+                },
+                Review = {
+                    prompt = "Review the following code and provide feedback:\n$input",
+                    context = { "selection", "vectorcode" },
+                },
+                Fix = {
+                    prompt = "Fix the following code issues:\n$input",
+                    context = { "selection", "vectorcode" },
+                },
+                Optimize = {
+                    prompt = "Optimize the following code for better performance:\n$input",
                     context = { "selection", "vectorcode" },
                 },
             }

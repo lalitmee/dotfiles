@@ -34,4 +34,13 @@ if #agents_dir_candidates > 0 then
     end
 end
 
+-- Setup AI Dashboard commands after all agents are loaded
+vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyDone",
+    callback = function()
+        local dashboard = require("plugins.ai.utils.dashboard")
+        dashboard.setup()
+    end,
+})
+
 return agents
