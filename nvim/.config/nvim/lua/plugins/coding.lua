@@ -83,7 +83,7 @@ return {
 
     { --[[ refactoring ]]
         "ThePrimeagen/refactoring.nvim",
-        branch = "develop",
+        branch = "master",
         keys = {
             {
                 "<leader>rp",
