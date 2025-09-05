@@ -1,26 +1,22 @@
 local M = {}
-local config = require("plugins.ai.config")
+local config = require("plugins.ai.avante.config")
 local prompts = require("plugins.ai.prompts")
+local notify = require("plugins.ai.utils.notifications")
+local health = require("plugins.ai.utils.health")
 
--- Avante-specific provider management
+-- Avante-specific provider management using enable/disable flags
 local function get_providers()
-    local providers = {
-        copilot = "copilot",
-    }
+    local providers = {}
 
-    -- Add OpenAI provider if API key is available
-    if config.api_keys.openai and config.api_keys.openai ~= "" then
-        providers.openai = "openai"
-    end
-
-    -- Add Anthropic provider if API key is available
-    if config.api_keys.anthropic and config.api_keys.anthropic ~= "" then
-        providers.anthropic = "anthropic"
-    end
-
-    -- Add Gemini provider if API key is available
-    if config.api_keys.gemini and config.api_keys.gemini ~= "" then
-        providers.gemini = "gemini"
+    for name, opts in pairs(config.providers) do
+        if opts.enabled then
+            local api_key = config.api_keys[name] or config.api_keys[opts.api_key or name]
+            if api_key or name == "copilot" then
+                providers[name] = name
+            else
+                notify.provider_missing_key("Avante", name)
+            end
+        end
     end
 
     return providers
@@ -37,6 +33,7 @@ M.plugins = {
             "AvanteInput",
             "AvanteChatNew",
             "AvanteToggle",
+            "AvanteCheckHealth",
         },
         -- stylua: ignore
         keys = {
@@ -54,21 +51,45 @@ M.plugins = {
             { "<localleader>at", ":AvanteToggle<CR>",              desc = "Avante Toggle",                silent = true, mode = { "n", "v" } },
             { "<localleader>ax", ":AvanteStop<CR>",                desc = "Avante Stop",                  silent = true, mode = { "n", "v" } },
         },
+        init = function()
+            -- Setup spinner integration
+            require("plugins.ai.spinners.snacks-notifier").setup()
+            require("plugins.ai.spinners.cursor-relative").setup()
+
+            -- Create health check command
+            vim.api.nvim_create_user_command("AvanteCheckHealth", function()
+                config.check_health()
+            end, { desc = "Check Avante provider configuration health" })
+        end,
         opts = function()
             local providers = get_providers()
             local default_provider = "copilot" -- fallback
 
-            -- Check if user has a preferred provider
-            if config.agent_preferences.avante.preferred_provider then
-                default_provider = config.agent_preferences.avante.preferred_provider
+            -- Preferred provider/model selection logic
+            -- 1. Use preferred provider if enabled and configured
+            -- 2. If not, fall back to first available provider in priority order
+            -- 3. Notify user if preferred provider is set but not enabled/configured
+            local preferred = config.preferences.preferred_provider
+            if preferred then
+                if providers[preferred] then
+                    default_provider = preferred
+                else
+                    notify.provider_fallback("Avante", preferred, "available provider")
+                    local priority = { "openai", "anthropic", "gemini", "copilot" }
+                    for _, name in ipairs(priority) do
+                        if providers[name] then
+                            default_provider = name
+                            break
+                        end
+                    end
+                end
             else
-                -- Use dynamic selection: Prefer OpenAI if available, then Anthropic, then Gemini, otherwise use copilot
-                if providers.openai then
-                    default_provider = "openai"
-                elseif providers.anthropic then
-                    default_provider = "anthropic"
-                elseif providers.gemini then
-                    default_provider = "gemini"
+                local priority = { "openai", "anthropic", "gemini", "copilot" }
+                for _, name in ipairs(priority) do
+                    if providers[name] then
+                        default_provider = name
+                        break
+                    end
                 end
             end
 
@@ -90,13 +111,15 @@ M.plugins = {
                     beast_mode = {
                         prompt = prompts.beast_mode,
                         icon = "🔥",
-                        provider = config.agent_preferences.avante.preferred_provider
+                        provider = config.preferences.preferred_provider
                             or (providers.openai and "openai")
                             or (providers.anthropic and "anthropic")
+                            or (providers.gemini and "gemini")
                             or default_provider,
-                        model = config.agent_preferences.avante.preferred_model
+                        model = config.preferences.preferred_model
                             or (providers.openai and config.default_models.openai)
                             or (providers.anthropic and config.default_models.anthropic)
+                            or (providers.gemini and config.default_models.gemini)
                             or config.default_models.openai,
                     },
                     default = {
@@ -123,6 +146,13 @@ M.plugins = {
                         use_absolute_path = true,
                     },
                 },
+            },
+            {
+                -- VectorCode integration for enhanced context
+                "Davidyz/VectorCode",
+                version = "*",
+                dependencies = { "nvim-lua/plenary.nvim" },
+                cmd = "VectorCode",
             },
         },
     },
