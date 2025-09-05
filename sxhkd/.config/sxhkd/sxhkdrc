@@ -28,6 +28,10 @@ ctrl + space
 # super + shift + o
 #     i3run --summon --instance emacs -- emacs
 
+# editor -> vscode
+super + shift + c
+    code
+
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -142,7 +146,7 @@ super + ctrl + {Left,Down,Up,Right}
 #-------------------------------------------------------------------------------
 # NOTE: reload, restart, exit, kill, suspend and lock {{{
 #-------------------------------------------------------------------------------
-super + shift + c
+super + r
     i3-msg reload
 
 super + shift + r
