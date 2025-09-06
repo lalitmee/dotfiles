@@ -1,42 +1,73 @@
--- Legacy AI Configuration (Compatibility Layer)
+-- Shared AI Configuration
 --
--- This file provides backward compatibility for any code that still references
--- the old global AI configuration. New code should use individual agent configs
--- or the shared configuration base directly.
---
--- DEPRECATED: This file is maintained for backward compatibility only.
--- Use plugins.ai.shared.config for new implementations.
+-- This file contains shared configuration used across AI tools:
+-- - API key management from environment variables
+-- - Default models for each provider
+-- - Common exclude patterns and settings
 
-local shared = require("plugins.ai.shared.config")
+local M = {}
 
--- Re-export shared configuration for backward compatibility
-local M = {
-    api_keys = shared.api_keys,
-    exclude_files = shared.exclude_files,
-    window_settings = shared.window_settings,
-    default_models = shared.default_models,
-    alternative_models = shared.alternative_models,
+M.icons = {
+    USER = "",
+    BOT = "",
 }
 
--- Legacy agent preferences mapping (for backward compatibility)
--- These map to the new standardized agent configurations
-M.agent_preferences = {
-    codecompanion = {
-        preferred_provider = "copilot_4o", -- Standardized from preferred_adapter
-        preferred_model = shared.default_models.copilot_4o,
-    },
-    copilot_chat = {
-        preferred_provider = "openai", -- Standardized naming
-        preferred_model = shared.default_models.openai,   -- Updated to use shared config
-    },
-    avante = {
-        preferred_provider = "openai",
-        preferred_model = shared.default_models.openai,
-    },
-    wtf = {
-        preferred_provider = "openai",
-        preferred_model = shared.default_models.openai,
-    },
+-- Helper function to safely get environment variables
+local function get_env_key(key)
+    local value = os.getenv(key)
+    return value and value ~= "" and value or nil
+end
+
+-- API Keys Management - Single source of truth
+M.api_keys = {
+    openai = get_env_key("OPENAI_API_KEY"),
+    anthropic = get_env_key("ANTHROPIC_API_KEY"),
+    gemini = get_env_key("GEMINI_API_KEY"),
+    github = get_env_key("GITHUB_PERSONAL_ACCESS_TOKEN"),
+    tavily = get_env_key("TAVILY_API_KEY"),
+    openrouter = get_env_key("OPENROUTER_API_KEY"),
+}
+
+-- Default models for each provider
+M.default_models = {
+    openai = "gpt-4o",
+    anthropic = "claude-3-5-sonnet-20241022",
+    gemini = "gemini-1.5-pro",
+    github = "gpt-4o",
+    copilot = "claude-3-5-sonnet-20241022",
+    copilot_4o = "gpt-4o",
+}
+
+-- Alternative models for fallbacks
+M.alternative_models = {
+    openai = { "gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo" },
+    anthropic = { "claude-3-5-sonnet-20241022", "claude-3-5-haiku-20241022", "claude-3-opus-20240229" },
+    gemini = { "gemini-1.5-pro", "gemini-1.5-flash", "gemini-1.0-pro" },
+}
+
+-- Common exclude patterns for AI tools
+M.exclude_files = {
+    "*.pb.go",
+    "*.min.js",
+    "*.min.css",
+    "package-lock.json",
+    "yarn.lock",
+    "*.log",
+    "dist/*",
+    "build/*",
+    ".next/*",
+    "node_modules/*",
+    "vendor/*",
+    "*.generated.*",
+    "*gen.go",
+}
+
+-- Providers that don't require API keys
+M.special_providers = {
+    copilot = true,
+    copilot_4o = true,
+    github_models = true,
+    gemini_cli = true,
 }
 
 return M

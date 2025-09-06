@@ -1,25 +1,29 @@
-local M = {}
+-- Miscellaneous AI Tools
+--
+-- This file contains additional AI tools that complement CodeCompanion:
+-- - GitHub Copilot for inline completions
+-- - ChatGPT.nvim for additional chat functionality
+-- - WTF.nvim for error diagnosis
+-- - MCPHub.nvim for MCP protocol integration
+
 local config = require("plugins.ai.config")
 
--- WTF.nvim-specific provider management
+-- WTF.nvim provider configuration
 local function get_wtf_providers()
     local providers = {}
 
-    -- Add OpenAI provider if API key is available
     if config.api_keys.openai and config.api_keys.openai ~= "" then
         providers.openai = {
             api_key = config.api_keys.openai,
         }
     end
 
-    -- Add Anthropic provider if API key is available
     if config.api_keys.anthropic and config.api_keys.anthropic ~= "" then
         providers.anthropic = {
             api_key = config.api_keys.anthropic,
         }
     end
 
-    -- Add Gemini provider if API key is available
     if config.api_keys.gemini and config.api_keys.gemini ~= "" then
         providers.gemini = {
             api_key = config.api_keys.gemini,
@@ -29,7 +33,8 @@ local function get_wtf_providers()
     return providers
 end
 
-M.plugins = {
+return {
+    -- GitHub Copilot for inline code completions
     {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
@@ -54,13 +59,12 @@ M.plugins = {
         },
         config = function(_, opts)
             require("copilot").setup(opts)
-
             vim.g.copilot_hide_during_completion = false
-            vim.g.copilot_settings = { selectedCompletionModel = "gpt-4.1-copilot" }
+            vim.g.copilot_settings = { selectedCompletionModel = "gpt-4o" }
         end,
     },
 
-    -- ChatGPT.nvim
+    -- ChatGPT.nvim for additional chat functionality
     {
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
@@ -150,29 +154,16 @@ M.plugins = {
         },
     },
 
-    -- WTF.nvim
+    -- WTF.nvim for error diagnosis and fixing
     {
         "piersolenski/wtf.nvim",
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
         opts = function()
-            local providers = get_wtf_providers()
-
-            -- Check if user has a preferred provider
-            if config.agent_preferences.wtf and config.agent_preferences.wtf.preferred_provider then
-                -- Filter to only include the preferred provider
-                local preferred_providers = {}
-                if providers[config.agent_preferences.wtf.preferred_provider] then
-                    preferred_providers[config.agent_preferences.wtf.preferred_provider] =
-                        providers[config.agent_preferences.wtf.preferred_provider]
-                end
-                providers = preferred_providers
-            end
-
             return {
-                providers = providers,
-                popup_type = config.window_settings.popup_type,
+                providers = get_wtf_providers(),
+                popup_type = "vertical",
             }
         end,
         keys = {
@@ -223,7 +214,7 @@ M.plugins = {
         },
     },
 
-    -- MCPHub.nvim
+    -- MCPHub.nvim for MCP protocol integration
     {
         "ravitemer/mcphub.nvim",
         dependencies = {
@@ -239,5 +230,3 @@ M.plugins = {
         opts = {},
     },
 }
-
-return M.plugins
