@@ -1250,4 +1250,17 @@ return {
             -- },
         },
     },
+
+    { --[[ better-goto-file.nvim ]]
+        "ve5li/better-goto-file.nvim",
+        keys = {
+            "gf",
+            "gF",
+            "<C-w>f",
+            "<C-w>F",
+            "<C-w>gf",
+            "<C-w>gF",
+        },
+        opts = {},
+    },
 }
