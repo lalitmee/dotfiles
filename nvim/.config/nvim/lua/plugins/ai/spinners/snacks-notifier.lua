@@ -102,7 +102,7 @@ local function update_notification(message, is_done, custom_opts)
         opts.dismiss = false
         opts.opts = function(notif)
             local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-            notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] .. " "
+            notif.icon = spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] .. ""
         end
     end
 

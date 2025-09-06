@@ -7,11 +7,6 @@
 
 local M = {}
 
-M.icons = {
-    USER = "",
-    BOT = "",
-}
-
 -- Helper function to safely get environment variables
 local function get_env_key(key)
     local value = os.getenv(key)
