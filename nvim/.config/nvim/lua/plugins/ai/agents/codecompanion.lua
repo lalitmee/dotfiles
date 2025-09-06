@@ -143,7 +143,7 @@ M.plugins = {
                     end)(),
                     acp = {
                         gemini_cli = function()
-                            return require("codecompanion.adapters").extend("gemini_cli", {
+                            return require("codecompanion.adapters.acp").extend("gemini_cli", {
                                 env = {
                                     GEMINI_API_KEY = config.api_keys.gemini
                                         or "cmd:op read op://personal/Gemini_API/credential --no-newline",
@@ -151,26 +151,9 @@ M.plugins = {
                             })
                         end,
                         claude_code = function()
-                            return require("codecompanion.adapters").extend("anthropic", {
-                                name = "claude_code",
-                                formatted_name = "Claude Code",
+                            return require("codecompanion.adapters.acp").extend("claude_code", {
                                 env = {
                                     ANTHROPIC_API_KEY = config.api_keys.anthropic,
-                                },
-                                schema = {
-                                    model = {
-                                        order = 1,
-                                        mapping = "parameters",
-                                        type = "enum",
-                                        desc = "The Claude model to use",
-                                        default = "claude-sonnet-4-20250514",
-                                        choices = {
-                                            "claude-sonnet-4-20250514",
-                                            "claude-3-5-sonnet-20241022",
-                                            "claude-3-5-haiku-20241022",
-                                            "claude-3-opus-20240229",
-                                        },
-                                    },
                                 },
                             })
                         end,
@@ -180,9 +163,16 @@ M.plugins = {
                     chat = {
                         adapter = default_provider,
                         roles = {
-                            ---The header name for your messages
-                            ---@type string
-                            user = "lalitmee",
+                            user = "  lalitmee",
+                            llm = function(adapter)
+                                return "  CodeCompanion (" .. adapter.formatted_name .. ")"
+                            end,
+                        },
+                        tools = {
+                            opts = {
+                                auto_submit_errors = true,
+                                auto_submit_success = true,
+                            },
                         },
                     },
                     inline = {
@@ -239,8 +229,6 @@ M.plugins = {
                     gitcommit = {
                         callback = "codecompanion._extensions.gitcommit",
                         opts = {
-                            adapter = "openai",
-                            model = "gpt-4.1",
                             languages = { "English" },
                             exclude_files = config.exclude_files,
                             buffer = {
@@ -286,12 +274,13 @@ M.plugins = {
                                 duplicate = { n = "<C-y>", i = "<C-y>" },
                             },
                             ---Automatically generate titles for new chats
-                            auto_generate_title = true,
+                            -- Dynamically disabled for ACP adapters
+                            auto_generate_title = true, -- Will be controlled by runtime check
                             title_generation_opts = {
                                 ---Adapter for generating titles (defaults to current chat adapter)
-                                adapter = nil, -- "copilot"
+                                adapter = "openai", -- "copilot"
                                 ---Model for generating titles (defaults to current chat model)
-                                model = nil, -- "gpt-4o"
+                                model = "gpt-5", -- "gpt-4o"
                                 ---Number of user prompts after which to refresh the title (0 to disable)
                                 refresh_every_n_prompts = 0, -- e.g., 3 to refresh after every 3rd user prompt
                                 ---Maximum number of times to refresh the title (default: 3)
@@ -314,9 +303,11 @@ M.plugins = {
                             -- Summary system
                             summary = {
                                 -- Keymap to generate summary for current chat (default: "gcs")
-                                create_summary_keymap = "gcs",
+                                -- Dynamically disabled for ACP adapters
+                                create_summary_keymap = "gcs", -- Will be controlled by runtime check
                                 -- Keymap to browse summaries (default: "gbs")
-                                browse_summaries_keymap = "gbs",
+                                -- Dynamically disabled for ACP adapters
+                                browse_summaries_keymap = "gbs", -- Will be controlled by runtime check
 
                                 generation_opts = {
                                     adapter = nil, -- defaults to current chat adapter
@@ -353,9 +344,72 @@ M.plugins = {
         end,
         config = function(_, opts)
             require("codecompanion").setup(opts)
+
+            -- ACP adapter detection function
+            local function is_acp_adapter(adapter_name)
+                local acp_adapters = { gemini_cli = true, claude_code = true }
+                return acp_adapters[adapter_name] or false
+            end
+
+            -- Get current active adapter
+            local function get_current_adapter()
+                local cc_config = require("codecompanion.config")
+                return cc_config.options
+                    and cc_config.options.strategies
+                    and cc_config.options.strategies.chat
+                    and cc_config.options.strategies.chat.adapter
+            end
+
+            -- Function to check adapter type and show warnings
+            local function check_and_warn_acp()
+                local current_adapter = get_current_adapter()
+                if current_adapter and is_acp_adapter(current_adapter) then
+                    notify.warn(
+                        "CodeCompanion",
+                        "Using ACP adapter '"
+                            .. current_adapter
+                            .. "'. Note: Title generation, summaries, and some history features are disabled for ACP adapters.",
+                        vim.log.levels.WARN
+                    )
+                    return true
+                end
+                return false
+            end
+
+            -- ACP adapter warning system
+            vim.api.nvim_create_augroup("CodeCompanion_ACP_Guard", { clear = true })
+
+            -- Show warning when opening chat with ACP adapter
+            vim.api.nvim_create_autocmd("User", {
+                group = "CodeCompanion_ACP_Guard",
+                pattern = "CodeCompanionChatOpened",
+                callback = function()
+                    check_and_warn_acp()
+                end,
+            })
+
+            -- Also check when submitting
+            vim.api.nvim_create_autocmd("User", {
+                group = "CodeCompanion_ACP_Guard",
+                pattern = "CodeCompanionRequest*",
+                callback = function()
+                    check_and_warn_acp()
+                end,
+            })
+
             vim.api.nvim_create_user_command("CodeCompanionCheckHealth", function()
                 require("plugins.ai.codecompanion.config").check_health()
             end, { desc = "Check CodeCompanion adapter configuration health" })
+
+            -- Debug command to check current adapter
+            vim.api.nvim_create_user_command("CodeCompanionDebugAdapter", function()
+                local current_adapter = get_current_adapter()
+                local is_acp = is_acp_adapter(current_adapter)
+                notify.info(
+                    "CodeCompanion",
+                    "Current adapter: " .. (current_adapter or "none") .. " | ACP: " .. tostring(is_acp)
+                )
+            end, { desc = "Debug current CodeCompanion adapter" })
         end,
     },
 }

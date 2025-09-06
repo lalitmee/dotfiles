@@ -37,11 +37,17 @@ local M = shared.create_agent_config({
     -- Agent preferences: Set preferred provider/model or leave nil for dynamic selection.
     -- Note: Standardized from "preferred_adapter" to "preferred_provider"
     preferences = {
-        -- preferred_provider = "anthropic",
-        preferred_provider = "anthropic",
+        -- preferred_provider = "claude_code",
         preferred_model = "claude-sonnet-4-20250514",
+        preferred_provider = "anthropic",
+        -- preferred_model = "claude-3-5-sonnet-20241022",
+        -- preferred_provider = "openai",
+        -- preferred_model = "gpt-4.1",
     },
 })
+
+-- Expose exclude_files for gitcommit extension
+M.exclude_files = shared.exclude_files
 
 -- Utility: Check config health and notify user of issues.
 -- Usage: :CodeCompanionCheckHealth
