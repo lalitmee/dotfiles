@@ -1,103 +1,41 @@
-local M = {}
-
--- API Keys Management
-M.api_keys = {
-    openai = os.getenv("OPENAI_API_KEY"),
-    anthropic = os.getenv("ANTHROPIC_API_KEY"),
-    gemini = os.getenv("GEMINI_API_KEY"),
-    github = os.getenv("GITHUB_PERSONAL_ACCESS_TOKEN"),
-    tavily = os.getenv("TAVILY_API_KEY"),
-    openrouter = os.getenv("OPENROUTER_API_KEY"),
-    ai_key = os.getenv("AI_KEY"),
-}
-
--- Common exclude patterns
-M.exclude_files = {
-    "*.pb.go",
-    "*.min.js",
-    "*.min.css",
-    "package-lock.json",
-    "yarn.lock",
-    "*.log",
-    "dist/*",
-    "build/*",
-    ".next/*",
-    "node_modules/*",
-    "vendor/*",
-    "*.generated.*",
-    "*gen.go",
-}
-
--- Common window settings
-M.window_settings = {
-    width = 40,
-    popup_type = "vertical",
-}
-
--- Default models for each provider
-M.default_models = {
-    openai = "gpt-4.1",
-    anthropic = "claude-3.5-sonnet",
-    gemini = "gemini-2.5-pro",
-    github = "gpt-4.1-copilot",
-    tavily = "tavily-search",
-    openrouter = "openrouter/horizon-alpha",
-    copilot = "claude-sonnet-4",
-    bigmodel = "glm-4.5",
-}
-
--- Alternative models for each provider (useful for fallbacks or different use cases)
-M.alternative_models = {
-    openai = {
-        "gpt-4o",
-        "gpt-4o-mini",
-        "gpt-4-turbo",
-        "gpt-3.5-turbo",
-    },
-    anthropic = {
-        "claude-3.5-haiku",
-        "claude-3-opus",
-        "claude-3-sonnet",
-    },
-    gemini = {
-        "gemini-2.0-flash",
-        "gemini-1.5-pro",
-        "gemini-1.5-flash",
-    },
-    openrouter = {
-        "openrouter/mistral-7b-instruct",
-        "openrouter/llama-3.1-8b-instruct",
-        "openrouter/codellama-34b-instruct",
-    },
-}
-
--- Agent-specific preferences (override dynamic selection)
--- Set to nil to use dynamic selection, or specify your preferred adapter/model
+-- Legacy AI Configuration (Compatibility Layer)
 --
--- HOW TO USE:
--- 1. Set preferred_adapter/provider to force a specific provider
--- 2. Set preferred_model to force a specific model
--- 3. Set to nil to use dynamic selection (default behavior)
+-- This file provides backward compatibility for any code that still references
+-- the old global AI configuration. New code should use individual agent configs
+-- or the shared configuration base directly.
 --
--- EXAMPLES:
--- - preferred_adapter = "copilot" -> Always use Copilot
--- - preferred_adapter = "openai" -> Always use OpenAI
--- - preferred_adapter = nil -> Use dynamic selection (best available)
+-- DEPRECATED: This file is maintained for backward compatibility only.
+-- Use plugins.ai.shared.config for new implementations.
+
+local shared = require("plugins.ai.shared.config")
+
+-- Re-export shared configuration for backward compatibility
+local M = {
+    api_keys = shared.api_keys,
+    exclude_files = shared.exclude_files,
+    window_settings = shared.window_settings,
+    default_models = shared.default_models,
+    alternative_models = shared.alternative_models,
+}
+
+-- Legacy agent preferences mapping (for backward compatibility)
+-- These map to the new standardized agent configurations
 M.agent_preferences = {
     codecompanion = {
-        preferred_adapter = "copilot_4o", -- Uses Gemini for strategies (chat, inline, agent)
-        preferred_model = "gpt-4.1", -- Uses Gemini 2.5 Pro model
+        preferred_provider = "copilot_4o", -- Standardized from preferred_adapter
+        preferred_model = shared.default_models.copilot_4o,
     },
     copilot_chat = {
-        preferred_provider = "copilot", -- Uses Copilot provider
-        preferred_model = "gemini-2.5-pro", -- Uses Gemini 2.5 Pro model
+        preferred_provider = "openai", -- Standardized naming
+        preferred_model = shared.default_models.openai,   -- Updated to use shared config
     },
     avante = {
-        preferred_provider = "openai", -- Original: used "openai" for beast_mode
-        preferred_model = "gpt-4.1", -- Original: used "gpt-4.1" for beast_mode
+        preferred_provider = "openai",
+        preferred_model = shared.default_models.openai,
     },
     wtf = {
-        preferred_provider = "openai", -- Original: used "openai" provider
+        preferred_provider = "openai",
+        preferred_model = shared.default_models.openai,
     },
 }
 

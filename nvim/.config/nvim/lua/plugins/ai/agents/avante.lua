@@ -25,6 +25,32 @@ end
 M.plugins = {
     {
         "yetone/avante.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            {
+                -- support for image pasting
+                "HakonHarnes/img-clip.nvim",
+                opts = {
+                    -- recommended settings
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true,
+                        },
+                        -- required for Windows users
+                        use_absolute_path = true,
+                    },
+                },
+            },
+            {
+                -- VectorCode integration for enhanced context
+                "Davidyz/VectorCode",
+                version = "*",
+                dependencies = { "nvim-lua/plenary.nvim" },
+                cmd = "VectorCode",
+            },
+        },
         build = "make",
         version = false,
         cmd = {
@@ -55,11 +81,6 @@ M.plugins = {
             -- Setup spinner integration
             require("plugins.ai.spinners.snacks-notifier").setup()
             require("plugins.ai.spinners.cursor-relative").setup()
-
-            -- Create health check command
-            vim.api.nvim_create_user_command("AvanteCheckHealth", function()
-                config.check_health()
-            end, { desc = "Check Avante provider configuration health" })
         end,
         opts = function()
             local providers = get_providers()
@@ -129,32 +150,13 @@ M.plugins = {
                 },
             }
         end,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            {
-                -- support for image pasting
-                "HakonHarnes/img-clip.nvim",
-                opts = {
-                    -- recommended settings
-                    default = {
-                        embed_image_as_base64 = false,
-                        prompt_for_file_name = false,
-                        drag_and_drop = {
-                            insert_mode = true,
-                        },
-                        -- required for Windows users
-                        use_absolute_path = true,
-                    },
-                },
-            },
-            {
-                -- VectorCode integration for enhanced context
-                "Davidyz/VectorCode",
-                version = "*",
-                dependencies = { "nvim-lua/plenary.nvim" },
-                cmd = "VectorCode",
-            },
-        },
+        config = function(_, opts)
+            require("avante").setup(opts)
+            -- Create health check command
+            vim.api.nvim_create_user_command("AvanteCheckHealth", function()
+                config.check_health()
+            end, { desc = "Check Avante provider configuration health" })
+        end,
     },
 }
 

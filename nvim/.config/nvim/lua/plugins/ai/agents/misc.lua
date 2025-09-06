@@ -130,7 +130,7 @@ M.plugins = {
             local providers = get_wtf_providers()
 
             -- Check if user has a preferred provider
-            if config.agent_preferences.wtf.preferred_provider then
+            if config.agent_preferences.wtf and config.agent_preferences.wtf.preferred_provider then
                 -- Filter to only include the preferred provider
                 local preferred_providers = {}
                 if providers[config.agent_preferences.wtf.preferred_provider] then

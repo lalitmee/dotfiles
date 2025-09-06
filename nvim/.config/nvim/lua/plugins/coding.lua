@@ -23,11 +23,35 @@ return {
     },
 
     { --[[ markdown.nvim: making markdown files beautiful ]]
-        "MeanderingProgrammer/markdown.nvim",
-        ft = "markdown",
-        main = "render-markdown",
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        ft = { "markdown", "codecompanion" },
         cmd = { "RenderMarkdown" },
-        opts = {},
+        opts = {
+            render_modes = true,
+            sign = {
+                enabled = false,
+            },
+            latex = { enabled = false },
+            overrides = {
+                filetype = {
+                    codecompanion = {
+                        html = {
+                            tag = {
+                                buf = { icon = " ", highlight = "CodeCompanionChatIcon" },
+                                file = { icon = " ", highlight = "CodeCompanionChatIcon" },
+                                group = { icon = " ", highlight = "CodeCompanionChatIcon" },
+                                help = { icon = "󰘥 ", highlight = "CodeCompanionChatIcon" },
+                                image = { icon = " ", highlight = "CodeCompanionChatIcon" },
+                                symbols = { icon = " ", highlight = "CodeCompanionChatIcon" },
+                                tool = { icon = "󰯠 ", highlight = "CodeCompanionChatIcon" },
+                                url = { icon = "󰌹 ", highlight = "CodeCompanionChatIcon" },
+                            },
+                        },
+                    },
+                },
+            },
+        },
     },
 
     { --[[ go ]]
