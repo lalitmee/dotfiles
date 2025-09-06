@@ -166,11 +166,6 @@ M.plugins = {
             -- Setup spinner integration
             require("plugins.ai.spinners.snacks-notifier").setup()
             require("plugins.ai.spinners.cursor-relative").setup()
-
-            -- Create health check command
-            vim.api.nvim_create_user_command("CopilotChatCheckHealth", function()
-                config.check_health()
-            end, { desc = "Check CopilotChat provider configuration health" })
         end,
         opts = {
             system_prompt = prompts.beast_mode,
@@ -223,6 +218,11 @@ M.plugins = {
             }
 
             require("CopilotChat").setup(opts)
+
+            -- Create health check command
+            vim.api.nvim_create_user_command("CopilotChatCheckHealth", function()
+                config.check_health()
+            end, { desc = "Check CopilotChat provider configuration health" })
         end,
     },
 }

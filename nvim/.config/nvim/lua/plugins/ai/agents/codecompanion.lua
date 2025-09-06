@@ -3,18 +3,43 @@ local notify = require("plugins.ai.utils.notifications")
 local config = require("plugins.ai.codecompanion.config")
 local prompts = require("plugins.ai.prompts")
 
--- CodeCompanion-specific adapter management
-local function get_adapters()
-    local adapters = {}
-    for name, opts in pairs(config.adapters) do
+-- CodeCompanion-specific provider management (standardized from adapters)
+local function get_providers()
+    local providers = {}
+    for name, opts in pairs(config.providers) do
         if opts.enabled then
             local api_key = config.api_keys[name] or config.api_keys[opts.api_key or name]
-            if api_key or name == "copilot" or name == "copilot_4o" then
-                adapters[name] = function()
+            if api_key or config.special_providers[name] then
+                providers[name] = function()
                     local adapter_type = name
+
+                    -- Handle special adapter mappings
                     if name == "copilot_4o" then
                         adapter_type = "copilot"
+                    elseif name == "claude_code" then
+                        -- Use built-in anthropic adapter with Claude Code configuration
+                        return require("codecompanion.adapters").extend("anthropic", {
+                            name = "claude_code",
+                            formatted_name = "Claude Code",
+                            schema = {
+                                model = {
+                                    order = 1,
+                                    mapping = "parameters",
+                                    type = "enum",
+                                    desc = "The Claude model to use",
+                                    default = "claude-sonnet-4-20250514",
+                                    choices = {
+                                        "claude-sonnet-4-20250514",
+                                        "claude-3-5-sonnet-20241022",
+                                        "claude-3-5-haiku-20241022",
+                                        "claude-3-opus-20240229",
+                                    },
+                                },
+                            },
+                        })
                     end
+
+                    -- Use built-in CodeCompanion adapters for standard providers
                     return require("codecompanion.adapters").extend(adapter_type, {
                         schema = {
                             model = {
@@ -26,13 +51,13 @@ local function get_adapters()
             else
                 notify.warn(
                     "CodeCompanion",
-                    "CodeCompanion adapter '" .. name .. "' is enabled but missing API key!",
+                    "CodeCompanion provider '" .. name .. "' is enabled but missing API key!",
                     vim.log.levels.WARN
                 )
             end
         end
     end
-    return adapters
+    return providers
 end
 
 M.plugins = {
@@ -70,43 +95,40 @@ M.plugins = {
             require("plugins.ai.spinners.snacks-notifier").setup()
             require("plugins.ai.spinners.cursor-relative").setup()
             vim.cmd([[cab cc CodeCompanion]])
-            vim.api.nvim_create_user_command("CodeCompanionCheckHealth", function()
-                require("plugins.ai.codecompanion.config").check_health()
-            end, { desc = "Check CodeCompanion adapter configuration health" })
         end,
         opts = function()
-            local adapters = get_adapters()
-            local default_adapter = "copilot" -- fallback
+            local providers = get_providers()
+            local default_provider = "copilot" -- fallback
 
-            -- Preferred adapter/model selection logic
-            -- 1. Use preferred adapter if enabled and configured
-            -- 2. If not, fall back to first available adapter in priority order
-            -- 3. Notify user if preferred adapter is set but not enabled/configured
-            local preferred = config.agent_preferences.preferred_adapter
+            -- Preferred provider/model selection logic
+            -- 1. Use preferred provider if enabled and configured
+            -- 2. If not, fall back to first available provider in priority order
+            -- 3. Notify user if preferred provider is set but not enabled/configured
+            local preferred = config.preferences.preferred_provider
             if preferred then
-                if adapters[preferred] then
-                    default_adapter = preferred
+                if providers[preferred] then
+                    default_provider = preferred
                 else
                     notify.warn(
                         "CodeCompanion",
-                        "CodeCompanion preferred adapter '"
+                        "CodeCompanion preferred provider '"
                             .. preferred
-                            .. "' is not enabled or misconfigured. Falling back to available adapter.",
+                            .. "' is not enabled or misconfigured. Falling back to available provider.",
                         vim.log.levels.WARN
                     )
-                    local priority = { "openai", "anthropic", "gemini", "copilot" }
+                    local priority = { "claude_code", "anthropic", "openai", "gemini", "copilot" }
                     for _, name in ipairs(priority) do
-                        if adapters[name] then
-                            default_adapter = name
+                        if providers[name] then
+                            default_provider = name
                             break
                         end
                     end
                 end
             else
-                local priority = { "openai", "anthropic", "gemini", "copilot" }
+                local priority = { "claude_code", "anthropic", "openai", "gemini", "copilot" }
                 for _, name in ipairs(priority) do
-                    if adapters[name] then
-                        default_adapter = name
+                    if providers[name] then
+                        default_provider = name
                         break
                     end
                 end
@@ -115,20 +137,59 @@ M.plugins = {
             return {
                 adapters = {
                     http = (function()
-                        local http = vim.tbl_extend("force", {}, adapters)
+                        local http = vim.tbl_extend("force", {}, providers)
                         http.opts = { system_prompt = prompts.beast_mode }
                         return http
                     end)(),
+                    acp = {
+                        gemini_cli = function()
+                            return require("codecompanion.adapters").extend("gemini_cli", {
+                                env = {
+                                    GEMINI_API_KEY = config.api_keys.gemini
+                                        or "cmd:op read op://personal/Gemini_API/credential --no-newline",
+                                },
+                            })
+                        end,
+                        claude_code = function()
+                            return require("codecompanion.adapters").extend("anthropic", {
+                                name = "claude_code",
+                                formatted_name = "Claude Code",
+                                env = {
+                                    ANTHROPIC_API_KEY = config.api_keys.anthropic,
+                                },
+                                schema = {
+                                    model = {
+                                        order = 1,
+                                        mapping = "parameters",
+                                        type = "enum",
+                                        desc = "The Claude model to use",
+                                        default = "claude-sonnet-4-20250514",
+                                        choices = {
+                                            "claude-sonnet-4-20250514",
+                                            "claude-3-5-sonnet-20241022",
+                                            "claude-3-5-haiku-20241022",
+                                            "claude-3-opus-20240229",
+                                        },
+                                    },
+                                },
+                            })
+                        end,
+                    },
                 },
                 strategies = {
                     chat = {
-                        adapter = default_adapter,
+                        adapter = default_provider,
+                        roles = {
+                            ---The header name for your messages
+                            ---@type string
+                            user = "lalitmee",
+                        },
                     },
                     inline = {
-                        adapter = default_adapter,
+                        adapter = default_provider,
                     },
                     agent = {
-                        adapter = default_adapter,
+                        adapter = default_provider,
                     },
                 },
                 extensions = {
@@ -204,7 +265,7 @@ M.plugins = {
                     },
 
                     history = {
-                        enabled = true,
+                        enabled = true, -- Re-enabled with compatible adapter approach
                         opts = {
                             -- Keymap to open history from chat buffer (default: gh)
                             keymap = "gh",
@@ -289,6 +350,12 @@ M.plugins = {
                     },
                 },
             }
+        end,
+        config = function(_, opts)
+            require("codecompanion").setup(opts)
+            vim.api.nvim_create_user_command("CodeCompanionCheckHealth", function()
+                require("plugins.ai.codecompanion.config").check_health()
+            end, { desc = "Check CodeCompanion adapter configuration health" })
         end,
     },
 }
