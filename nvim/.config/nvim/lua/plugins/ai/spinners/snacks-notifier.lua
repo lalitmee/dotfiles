@@ -23,9 +23,9 @@ local EventHandlerType = {
 
 local StatusIcon = {
     DONE = "",
-    THINKING = "🤖",
+    THINKING = lk.style.icons.ui.Bot,
     RUNNING_TOOLS = "",
-    REVIEW_CHANGES = "",
+    REVIEW_CHANGES = lk.style.icons.ui.User,
     RECEIVING = "",
     CHAT_READY = "",
     CHAT_OPENED = "",
@@ -61,12 +61,7 @@ local function is_active()
 end
 
 local function with_icon(icon, msg)
-    -- Use one space for emoji, two for glyphs
-    if icon == StatusIcon.THINKING then
-        return string.format("%s %s", icon, msg)
-    else
-        return string.format("%s  %s", icon, msg)
-    end
+    return string.format("%s  %s", icon, msg)
 end
 
 local function get_status_message()
