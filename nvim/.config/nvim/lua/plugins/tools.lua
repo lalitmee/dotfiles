@@ -599,7 +599,16 @@ return {
         keys = {
             { "<leader>tv", ":HardTime toggle<CR>", desc = "Hardtime Toggle", silent = true },
         },
-        opts = {},
+        opts = {
+            disabled_filetypes = {
+                codecompanion = true,
+                harpoon = true,
+                lazy = true,
+                mason = true,
+                toggleterm = true,
+                undotree = true,
+            },
+        },
     },
 
     { --[[ text-case ]]
