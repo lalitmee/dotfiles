@@ -1234,4 +1234,20 @@ return {
         "dundalek/bloat.nvim",
         cmd = "Bloat",
     },
+
+    { --[[ jumppack.nvim ]]
+        "suliatis/Jumppack.nvim",
+        -- stylua: ignore
+        keys = {
+            -- { "<leader>jo", function() require("Jumppack").start({ offset = -1 }) end, desc = "Jumppack Back", silent = true },
+            -- { "<leader>ji", function() require("Jumppack").start({ offset = 1 }) end, desc = "Jumppack Forward", silent = true },
+            "<C-o>",
+            "<C-i>",
+        },
+        opts = {
+            -- options = {
+            --     global_mappings = false,
+            -- },
+        },
+    },
 }
