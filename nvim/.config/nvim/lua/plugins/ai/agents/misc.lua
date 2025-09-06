@@ -30,6 +30,36 @@ local function get_wtf_providers()
 end
 
 M.plugins = {
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        build = ":Copilot auth",
+        event = "InsertEnter",
+        opts = {
+            suggestion = {
+                enabled = true,
+                auto_trigger = true,
+                keymap = {
+                    accept = "<Tab>",
+                    next = "<C-n>",
+                    prev = "<C-p>",
+                    dismiss = "<C-]>",
+                },
+            },
+            panel = { enabled = false },
+            filetypes = {
+                markdown = true,
+                help = true,
+            },
+        },
+        config = function(_, opts)
+            require("copilot").setup(opts)
+
+            vim.g.copilot_hide_during_completion = false
+            vim.g.copilot_settings = { selectedCompletionModel = "gpt-4.1-copilot" }
+        end,
+    },
+
     -- ChatGPT.nvim
     {
         "jackMort/ChatGPT.nvim",

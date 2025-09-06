@@ -33,7 +33,7 @@ M.api_keys = {
 -- Model versions for easier management
 M.model_versions = {
     latest = {
-        openai = "gpt-4o", -- Updated to latest stable model
+        openai = "gpt-5", -- Updated to latest stable model
         anthropic = "claude-sonnet-4-20250514",
         gemini = "gemini-2.5-pro",
         github = "gpt-4o", -- Updated for consistency
@@ -41,7 +41,7 @@ M.model_versions = {
         copilot_4o = "gpt-4o", -- Updated for consistency
     },
     legacy = {
-        openai = "gpt-4-turbo",
+        openai = "gpt-4o",
         anthropic = "claude-3.5-sonnet",
         gemini = "gemini-1.5-pro",
     },
@@ -116,6 +116,8 @@ M.special_providers = {
     copilot = true,
     copilot_4o = true,
     github_models = true,
+    gemini_cli = true,
+    claude_code = true,
 }
 
 -- Environment validation utility
