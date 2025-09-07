@@ -625,20 +625,26 @@ set -g @floax-text-color '#FFC600'
 #           For bindings that work everywhere without the tmux prefix.
 #-------------------------------------------------------------------------------
 
-# Smart pane switching with awareness of Vim splits.
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?)(diff)?$'"
+# Smart pane switching with awareness of Vim/Neovim splits.
+# Enhanced regex to detect nvim, vim, and other vim-like editors
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?|l?n?vim?x?|vim|nvim)(diff)?$'"
 
-# Navigate left.
-bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+# Enhanced smart pane navigation with Vim/Neovim awareness
+# Navigate left - send to vim if vim is running, otherwise navigate panes
+bind -T root 'C-h' if-shell "$is_vim" 'send-keys C-h' 'select-pane -L'
 
-# Navigate down.
-bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+# Navigate down - send to vim if vim is running, otherwise navigate panes
+bind -T root 'C-j' if-shell "$is_vim" 'send-keys C-j' 'select-pane -D'
 
-# Navigate up.
-bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+# Navigate up - send to vim if vim is running, otherwise navigate panes
+bind -T root 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
 
-# Navigate right.
-bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+# Navigate right - send to vim if vim is running, otherwise navigate panes
+bind -T root 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
+
+# Disable default prefix bindings that conflict with global navigation
+unbind C-h
+unbind C-l
 # }}}
 #-------------------------------------------------------------------------------
 
