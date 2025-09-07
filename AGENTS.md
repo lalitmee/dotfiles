@@ -39,6 +39,7 @@
 - **References**: Include issue numbers when applicable (#123)
 - **Auto-Commit Policy**: NEVER commit changes automatically - always ask user first
 - **Exception**: Context files (AGENTS.md, README.md, etc.) can be committed automatically
+- **Communication**: Do not provide explanations or commentary during work
 
 **Examples**:
 ```
@@ -66,6 +67,8 @@ docs(conventions): update installation instructions
 - **Show changes first**: Use `git diff` or `git status` to show what will be committed
 - **Respect user decisions**: If user says "no" to committing, leave changes unstaged
 - **Follow conventions**: Use proper formatting, scopes, and imperative mood
+- **No explanations**: Do not provide commentary or explanations during work
+- **Silent execution**: Perform tasks without describing actions or reasoning
 
 ### Error Handling
 - Check for required variables before use: `[[ -z $VARIABLE ]] && echo "Error"`
