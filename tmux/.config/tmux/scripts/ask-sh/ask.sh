@@ -34,8 +34,8 @@ case "$action" in
     "ai")
         query=$(gum input --prompt="Ask AI > " --placeholder="Your question for the AI...")
         if [[ -n $query ]]; then
-            gum spin --spinner dot --title "Asking AI..." -- "${AI_COMMAND[@]}" "$query"
-            read -r -p "Press Enter to close..." < /dev/tty
+            gum spin --spinner dot --title "Asking AI..." -- \
+                "${AI_COMMAND[@]}" "$query" | gum pager --soft-wrap
         fi
         ;;
 
