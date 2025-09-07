@@ -37,6 +37,7 @@
 - **Scope**: Optional context in parentheses (feat(scope):) for related changes
 - **Bullet Points**: Use `-` for body content, keep each point concise
 - **References**: Include issue numbers when applicable (#123)
+- **Auto-Commit Policy**: NEVER commit changes automatically - always ask user first
 
 **Examples**:
 ```
@@ -58,6 +59,12 @@ docs(conventions): update installation instructions
 - Document troubleshooting section
 - Add FAQ for common issues
 ```
+
+**Important Workflow Notes**:
+- **Always ask before committing**: "Would you like me to commit these changes?"
+- **Show changes first**: Use `git diff` or `git status` to show what will be committed
+- **Respect user decisions**: If user says "no" to committing, leave changes unstaged
+- **Follow conventions**: Use proper formatting, scopes, and imperative mood
 
 ### Error Handling
 - Check for required variables before use: `[[ -z $VARIABLE ]] && echo "Error"`
