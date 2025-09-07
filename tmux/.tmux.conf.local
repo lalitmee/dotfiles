@@ -626,8 +626,8 @@ set -g @floax-text-color '#FFC600'
 #-------------------------------------------------------------------------------
 
 # Smart pane switching with awareness of Vim/Neovim splits.
-# Enhanced regex to detect nvim, vim, and other vim-like editors
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?|l?n?vim?x?|vim|nvim)(diff)?$'"
+# Specific regex to detect only vim and neovim processes
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?((n?vim|vim|view|nvim|vimdiff|nvimdiff)(diff)?)$'"
 
 # Smart pane switching with awareness of Vim/Neovim splits.
 # Navigate left - send to vim if vim is running, otherwise navigate panes
@@ -733,13 +733,13 @@ bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runne
 bind-key C-i switch-client -T ai-tools
 
 # Gemini
-bind-key -T ai-tools g run-shell "~/.config/tmux/scripts/ai/tool.sh gemini"
+bind-key -T ai-tools g display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh gemini'"
 
 # OpenCode
-bind-key -T ai-tools o run-shell "~/.config/tmux/scripts/ai/tool.sh opencode"
+bind-key -T ai-tools o display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh opencode'"
 
 # Claude
-bind-key -T ai-tools c run-shell "~/.config/tmux/scripts/ai/tool.sh claude"
+bind-key -T ai-tools c display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh claude'"
 
 # update the ai-tools
 bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
