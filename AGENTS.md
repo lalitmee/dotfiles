@@ -38,6 +38,7 @@
 - **Bullet Points**: Use `-` for body content, keep each point concise
 - **References**: Include issue numbers when applicable (#123)
 - **Auto-Commit Policy**: NEVER commit changes automatically - always ask user first
+- **Exception**: Context files (AGENTS.md, README.md, etc.) can be committed automatically
 
 **Examples**:
 ```
