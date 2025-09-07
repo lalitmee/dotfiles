@@ -43,13 +43,15 @@ if [ -z "$TMUX" ]; then
 fi
 
 # Use fzf to let user select the launch mode
-MODE=$(echo -e "popup\nsplit\nwindow" | fzf --prompt="Select AI tool launch mode: " --height=10 --border --header="Choose how to open $TOOL:")
+MODE=$(echo -e "popup\nsplit\nwindow" | fzf --prompt="Select AI tool launch mode: " --height=100% --header="Choose how to open $TOOL:")
 
 # Exit if no selection made
 if [ -z "$MODE" ]; then
     tmux display-message "AI tool launch cancelled"
     exit 0
 fi
+
+
 
 # --- Tool Definitions ---
 # Each case defines the title of the popup and the command to be executed.
