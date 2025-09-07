@@ -1,12 +1,28 @@
 #!/usr/bin/env zsh
 
-# A script to launch a specific AI CLI tool with user-selected tmux mode.
+# A script to launch a specific AI CLI tool with a user-selected tmux mode.
 # It is designed to be called from a tmux keybinding.
 #
 # Usage: ai-tool <tool_name>
 # e.g.,   ai-tool gemini
 
 set -e
+
+# --- Helper function to check if a command exists ---
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# 1. Dependency Check
+if ! command_exists fzf; then
+    # Use a simple echo since this is a critical, pre-flight check
+    echo "❌ Critical Error: 'fzf' is not installed. Please install it to use this script."
+    # Use tmux display-message if possible to show the error without a popup
+    if [ -n "$TMUX" ]; then
+        tmux display-message "❌ Error: fzf is not installed. Please install it."
+    fi
+    exit 1
+fi
 
 # --- Configuration ---
 POPUP_WIDTH="85%"
@@ -65,21 +81,76 @@ esac
 
 # --- Execution ---
 # The final command wraps the tool's command in a new shell instance.
-# The `read` command keeps the session open after the main command exits,
-# allowing you to read the output before it vanishes.
-FULL_COMMAND="$SHELL -c 'echo \"🚀 Launching $PANE_TITLE...\"; echo; $COMMAND; echo; read -n 1 -s -r -p \"✨ AI session finished. Press any key to close...\"'"
+# Clear terminal, show launching message, run command, show closing message
+FULL_COMMAND="$SHELL -c '
+# Function to cleanup on exit
+cleanup() {
+    # Kill any background processes
+    if [ ! -z \"\$TOOL_PID\" ]; then
+        kill -TERM \$TOOL_PID 2>/dev/null || true
+    fi
+    exit
+}
+
+# Set up signal handlers
+trap cleanup INT TERM EXIT
+
+echo \"🚀 Launching $PANE_TITLE...\"
+sleep 1
+clear
+
+# Handle different tools appropriately
+if [ \"$TOOL\" = \"gemini\" ] || [ \"$TOOL\" = \"claude\" ]; then
+    # Run interactive AI tools in the foreground
+    $COMMAND
+else
+    # For other tools, run in background with process control
+    $COMMAND &
+    TOOL_PID=\$!
+    wait \$TOOL_PID 2>/dev/null || true
+fi
+
+echo
+echo \"✨ AI session finished. Press any key to close...\"
+read -k 1
+'"
 
 # Execute based on selected mode
 case "$MODE" in
     popup)
-        # Launch in tmux popup (original behavior)
-        tmux popup \
-            -d '#{pane_current_path}' \
-            -w "$POPUP_WIDTH" \
-            -h "$POPUP_HEIGHT" \
-            -E \
-            -T "$PANE_TITLE" \
-            "$FULL_COMMAND" || true
+        # Run command directly in the current popup (always the case now)
+        # Function to cleanup on exit
+        cleanup() {
+            # Kill any background processes
+            if [ ! -z "$TOOL_PID" ]; then
+                kill -TERM $TOOL_PID 2>/dev/null || true
+            fi
+            exit
+        }
+
+        # Set up signal handlers
+        trap cleanup INT TERM EXIT
+
+        echo "🚀 Launching $PANE_TITLE..."
+        sleep 1
+        clear
+
+        # For interactive commands like Gemini and Claude, run in foreground
+        if [ "$TOOL" = "gemini" ] || [ "$TOOL" = "claude" ]; then
+            # Run interactive AI tools in the foreground
+            $COMMAND
+        else
+            # For other tools, run in background with process control
+            $COMMAND &
+            TOOL_PID=$!
+
+            # Wait for the command to finish
+            wait $TOOL_PID 2>/dev/null || true
+        fi
+
+        echo
+        echo "✨ AI session finished. Press any key to close..."
+        read -k 1
         ;;
 
     split)
