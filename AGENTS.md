@@ -29,6 +29,36 @@
 - Use absolute paths when possible
 - Document complex configurations
 
+### Git Commit Conventions
+- **Subject Line**: 50 characters max, imperative mood (e.g., "Add feature" not "Added feature")
+- **Body Lines**: 72 characters max per line
+- **Blank Line**: Always separate subject from body with blank line
+- **Type Prefix**: Use conventional prefixes (feat:, fix:, docs:, refactor:, etc.)
+- **Scope**: Optional context in parentheses (feat(scope):) for related changes
+- **Bullet Points**: Use `-` for body content, keep each point concise
+- **References**: Include issue numbers when applicable (#123)
+
+**Examples**:
+```
+feat(tmux): add dark mode toggle to settings page
+
+- Implement CSS variables for theme switching
+- Add toggle button to header component
+- Store preference in localStorage
+- Update existing components to use theme variables
+
+Closes #123
+```
+
+```
+docs(conventions): update installation instructions
+
+- Add step-by-step setup guide
+- Include system requirements
+- Document troubleshooting section
+- Add FAQ for common issues
+```
+
 ### Error Handling
 - Check for required variables before use: `[[ -z $VARIABLE ]] && echo "Error"`
 - Use `>/dev/null 2>&1` to suppress output when appropriate
