@@ -1,0 +1,7 @@
+Key	Description
+n	Tmux sessionizer (new session)
+t	Tmuxinator (manage sessions)
+f	Sesh fuzzy finder
+g	Sesh gum interface
+l	Last session
+q	Quit table

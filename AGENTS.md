@@ -261,3 +261,69 @@ C-a b → Enter second-brain table
   - `C-b`: Enter layout mode ✅
 - **Syntax Validation**: Configuration loads without errors ✅
 - **Functionality**: All table modes and scripts working correctly ✅
+
+## Tmux Help System Implementation
+
+### Overview
+A modular help system that displays keybindings in beautiful gum tables instead of simple status messages. Provides better discoverability and user experience for complex keybinding tables.
+
+### Architecture
+```
+~/.config/tmux/scripts/help/
+├── help.sh              # Main help dispatcher script
+├── README.md           # Documentation
+├── tables/
+│   ├── ai-tools.txt    # AI tools keybindings
+│   ├── second-brain.txt # Second brain keybindings
+│   ├── layout-mode.txt # Layout mode keybindings
+│   ├── session-mgmt.txt # Session management keybindings
+│   └── global.txt      # Global keybindings
+└── templates/          # Future templates
+```
+
+### Keybindings
+- `C-a C-i ?` → AI tools help popup
+- `C-a b ?` → Second brain help popup
+- `C-b ?` → Layout mode help popup
+- `C-a S ?` → Session management help popup
+- `C-a H` → Global help popup
+
+### Implementation Details
+- **Modular Design**: Each help table is a separate `.txt` file with tab-separated values
+- **Beautiful UI**: Uses `gum table` with tmux cobalt2 theme colors
+- **Error Handling**: Checks for gum availability and valid table files
+- **Popup Interface**: Non-blocking help display with appropriate sizing
+- **Easy Maintenance**: Simple text files for content updates
+
+### Maintenance Guidelines
+**When making keybinding changes:**
+1. Update the corresponding `.txt` file in `tables/` directory
+2. Test the help display: `~/.config/tmux/scripts/help/help.sh <table-name>`
+3. Ensure table formatting is correct (tab-separated values)
+4. Update AGENTS.md documentation if adding new tables or changing structure
+
+### Dependencies
+- **gum**: Required for table display
+  - macOS: `brew install gum`
+  - Linux: Check package manager or https://github.com/charmbracelet/gum
+
+### File Format
+Help tables use tab-separated values with header row:
+```
+Key	Description
+g	Gemini AI assistant
+o	OpenCode AI assistant
+q	Quit table
+```
+
+### Color Scheme
+Matches tmux cobalt2 theme:
+- Header: Yellow text (#FFC600) on dark blue background (#0d3a58)
+- Body: White text (#e4e4e4) on dark background (#080808)
+- Border: Blue (#0050a4) rounded border
+
+### Testing
+- **Syntax**: `tmux source ~/.tmux.conf.local`
+- **Functionality**: Test each help binding in tmux session
+- **Content**: Verify table formatting with `./help.sh <table-name>`
+- **Dependencies**: Ensure gum is installed and accessible

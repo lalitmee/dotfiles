@@ -1,0 +1,14 @@
+Key	Description
+C-a c	New window
+C-a -	Horizontal split
+C-a \	Vertical split
+C-a x	Kill pane
+C-a z	Zoom pane
+C-a ?	Search keybindings
+C-a i	Cheat sheets (cht.sh)
+C-a g	Git popup
+C-a S	Session management
+C-a C-i	AI tools
+C-a b	Second brain
+C-b	Layout mode
+C-h/j/k/l	Smart pane navigation
