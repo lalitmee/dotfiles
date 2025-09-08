@@ -642,9 +642,6 @@ bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
 # Navigate right - send to vim if vim is running, otherwise navigate panes
 bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
 
-# Disable default prefix bindings that conflict with global navigation
-unbind C-h
-unbind C-l
 # }}}
 #-------------------------------------------------------------------------------
 
