@@ -230,3 +230,13 @@ alias fkz="source ~/.fzf/shell/key-bindings.zsh"
 alias n="fnm use"
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: AI cli {{{
+# -------------------------------------------------------------------
+
+# Alias for opencode to bypass self-signed certificate errors
+alias opencode='NODE_TLS_REJECT_UNAUTHORIZED=0 \opencode'
+
+# }}}
+# -------------------------------------------------------------------
