@@ -1,0 +1,12 @@
+Key	Description
+v	Vertical split
+H	Horizontal split
+a	AI ask assistant
+c	AI chat session
+s	Site-specific search
+/	Web search
+g	LazyGit interface
+t	Todo (personal)
+T	Todo (work)
+m	Documentation browser
+q	Quit table

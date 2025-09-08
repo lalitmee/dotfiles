@@ -1,0 +1,6 @@
+Key	Description
+g	Gemini AI assistant
+o	OpenCode AI assistant
+c	Claude AI assistant
+u	Update AI tools
+q	Quit table

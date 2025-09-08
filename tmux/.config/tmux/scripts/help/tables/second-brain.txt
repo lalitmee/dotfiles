@@ -1,0 +1,8 @@
+Key	Description
+n	Notes (personal)
+N	Notes (work)
+s	Scratch (personal)
+S	Scratch (work)
+t	Todos (personal)
+T	Todos (work)
+q	Quit table
