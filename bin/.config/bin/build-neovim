@@ -4,14 +4,25 @@
 # See: https://neovim.io/
 # See: https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start
 
+# Source utilities
+SCRIPT_DIR="$(dirname "$(dirname "$(dirname "$(dirname "$0")")")")/scripts/install"
+if [[ -f "$SCRIPT_DIR/utils.zsh" ]]; then
+    source "$SCRIPT_DIR/utils.zsh"
+else
+    echo "Warning: utils.zsh not found, using basic echo"
+    gum_style() {
+        echo "$1"
+    }
+fi
+
 # Save current dir
 pushd . >/dev/null || exit
 
 # Install dependencies
 gum_style 'Installing dependencies...'
 
-sudo nala update
-sudo nala install -y \
+sudo apt update
+sudo apt install -y \
 	autoconf \
 	automake \
 	cmake \
@@ -32,23 +43,43 @@ gum_style "Installing python3-neovim..."
 # Enable use of python plugins
 # Note: python neovim module was renamed to pynvim
 # https://github.com/neovim/neovim/wiki/Following-HEAD#steps-to-update-pynvim-formerly-neovim-python-package
-# pip uninstall pynvim neovim
-# pip3 uninstall pynvim neovim
-pip3 install setuptools
-pip3 install --upgrade pynvim
+if command -v pipx >/dev/null 2>&1; then
+    pipx install pynvim 2>/dev/null || echo "Warning: pynvim pipx install failed"
+else
+    echo "Warning: pipx not found, trying pip3 with --break-system-packages"
+    pip3 install setuptools --break-system-packages 2>/dev/null || echo "Warning: setuptools install failed"
+    pip3 install --upgrade pynvim --break-system-packages 2>/dev/null || echo "Warning: pynvim install failed"
+fi
 
 gum_style "Installing ruby neovim..."
-gem install neovim
+if command -v gem >/dev/null 2>&1; then
+    # Try to install with sudo if it's system Ruby
+    if gem install neovim 2>/dev/null; then
+        echo "Ruby neovim support installed successfully"
+    else
+        echo "Trying with sudo for system Ruby..."
+        sudo gem install neovim 2>/dev/null || echo "Warning: Ruby neovim install failed"
+    fi
+else
+    echo "Warning: gem not found, skipping ruby neovim support"
+fi
 
 gum_style "Installing node.js neovim..."
-npm install -g neovim
+if command -v npm >/dev/null 2>&1; then
+    npm install -g neovim 2>/dev/null || echo "Warning: Node.js neovim install failed"
+else
+    echo "Warning: npm not found, skipping node neovim support"
+fi
 
 gum_style "creating neovim directory and cloning repo..."
 #Get or update neovim github repo
-mkdir -p ~/Desktop/Github/neovim
-cd ~/Desktop/Github || exit
-if [ ! -e ~/Desktop/Github/neovim ]; then
-	git clone https://github.com/neovim/neovim
+NEOVIM_DIR="$HOME/Projects/Personal/Github/neovim"
+mkdir -p "$NEOVIM_DIR"
+cd "$HOME/Projects/Personal/Github" || exit
+if [ ! -d "$NEOVIM_DIR" ] || [ ! -d "$NEOVIM_DIR/.git" ]; then
+	gum_style "Cloning neovim repository..."
+	rm -rf "$NEOVIM_DIR"
+	git clone https://github.com/neovim/neovim "$NEOVIM_DIR"
 else
 	cd neovim || exit
 	gum_style "Updating neovim repo..."
@@ -56,7 +87,7 @@ else
 fi
 
 gum_style "Checking out to master neovim..."
-cd ~/Desktop/Github/neovim || exit
+cd "$NEOVIM_DIR" || exit
 git checkout master
 
 gum_style "Removing old build..."
