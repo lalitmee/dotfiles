@@ -47,7 +47,7 @@ show_help_table() {
         exit 1
     fi
 
-        # Display the table with styling
+    # Display the table with styling (removed --padding which isn't supported in all gum versions)
     cat "$table_file" | gum table \
         --separator=$'\t' \
         --header.foreground="$HEADER_FG" \
@@ -56,12 +56,11 @@ show_help_table() {
         --cell.background="$BODY_BG" \
         --border.foreground="$BORDER_FG" \
         --border="rounded" \
-        --padding="1 2" \
         --print
 
     # Wait for user to press any key to close
     echo ""
-    gum style --foreground="$HEADER_FG" --background="$BODY_BG" --padding="0 1" "Press any key to close..."
+    gum style --foreground="$HEADER_FG" --background="$BODY_BG" "Press any key to close..."
     read -n 1 -s
 }
 

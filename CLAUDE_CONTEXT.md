@@ -15,18 +15,21 @@ This is a comprehensive personal dotfiles repository managed by a developer who 
 ### Installation & Testing
 
 #### **Enhanced Installation System**
+
 - **Interactive Installer**: `./scripts/install/main-installer.zsh` (recommended)
 - **Legacy Install**: `./install` (uses GNU Stow - basic mode)
 - **Clean**: `./clean-env` (removes symlinks)
 - **Test**: `./scripts/test/test-home` and `./scripts/backup/test-cron`
 
 #### **Installation Modes**
+
 - **Full Installation**: Complete system setup (all 8 phases)
 - **Custom Installation**: Select specific phases to install
 - **Single Phase**: Install individual components
 - **Show Phases**: View available installation options
 
 #### **Installation Scripts Structure**
+
 ```
 scripts/install/
 ├── main-installer.zsh          # Interactive installer (PRIMARY)
@@ -46,6 +49,7 @@ scripts/install/
 ```
 
 #### **Installation Features**
+
 - **Error Recovery**: Automatic rollback on failures
 - **Progress Tracking**: Real-time installation status
 - **Comprehensive Logging**: Timestamped log files
@@ -237,6 +241,48 @@ This context helps me understand the sophisticated development environment I'm w
 5. **Check Conflicts**: Search for duplicate keybindings across tables
 6. **Update Help Tables**: When adding keybindings, update corresponding `.txt` files
 
+### Global Tmux Popup Styling (Latest)
+
+- **Implementation**: Added global cobalt2 styling for all tmux popups
+- **Settings Added**:
+
+  ```bash
+  set-option -g popup-style "fg=#e4e4e4,bg=#193549"
+  set-option -g popup-border-style "fg=#00AAFF,bg=#193549"
+  set-option -g popup-border-lines rounded
+  ```
+
+- **Benefits**: Consistent cobalt2 theming across 20+ popups without individual updates
+- **Location**: Added to transparency section in `tmux/.tmux.conf.local`
+
+### Tmux Help System Color Coordination
+
+- **Discovery**: Help script colors should match tmux popup global styling
+- **Implementation**: Updated `help.sh` to use authentic cobalt2 colors from both:
+  - Tmux config colors (`tmux_conf_theme_colour_*`)
+  - Cobalt2 theme file colors (`tmux/tmux-themes/cobalt2.conf`)
+- **Key Colors**:
+  - Header: `#FFC600` on `#0d3a58`
+  - Body: `#e4e4e4` on `#193549`
+  - Border: `#00AAFF`
+
+### Gum Table Best Practices
+
+- **Critical**: Always use `--separator=$'\t'` for tab-separated files
+- **Avoid**: `--print` with `gum pager` (causes usage display instead of content)
+- **Version Compatibility**: Remove `--padding` flag (not supported in gum v0.16.2 on macOS)
+- **User Experience**: Add `read -n 1 -s` to keep popups open until user dismisses
+- **Styling**: Use `gum style` for consistent theming of prompts (avoid `--padding`)
+
+### Tmux Configuration Debugging Workflow
+
+1. **Test syntax**: `tmux source-file ~/.tmux.conf.local`
+2. **Verify settings**: `tmux show-options -g <option-name>`
+3. **Test individual scripts**: Run help scripts directly before tmux integration
+4. **Check for conflicts**: Search for duplicate keybindings across tables
+
+### File Editing Patterns Discovered
+
 ### File Editing Best Practices
 
 - **Special Characters**: Be cautious with quotes, percent signs in tab-separated data
@@ -244,15 +290,27 @@ This context helps me understand the sophisticated development environment I'm w
 - **Documentation**: Add inline comments explaining color choices and their sources
 - **Testing**: Always test scripts standalone before integrating into tmux
 - **Path Resolution**: Use dynamic paths instead of hardcoded `/home/user/` references
+- **Markdown Linting**: Always add blank lines before and after fenced code blocks (MD031 rule)
+- **Code Block Languages**: Always specify language based on actual content (MD040 rule):
+  - Git commits: `gitcommit` (commit message format)
+  - Directory trees: `zsh` (file structure displays with ├── └──)
+  - Keybinding maps: `zsh` (tmux/shell keybinding syntax highlights well)
+  - Tab-separated data: `tsv` (must preserve actual tab characters)
+  - Shell commands: `zsh` (executable commands)
+  - Config examples: `yaml`/`toml`/`conf` (by file type)
+  - Markdown examples: `markdown` (markdown syntax demonstrations)
+- **Tab Preservation**: Keep tab characters in code blocks for tab-separated data examples
 
 ### Installation System Updates
 
 #### **Enhanced Installation Framework** (2025-01-10)
+
 - **Status**: ✅ **PRODUCTION READY** - Complete system overhaul with enterprise-level reliability
 - **Coverage**: All 8 installation phases enhanced with error handling and rollback mechanisms
 - **Success Rate**: 98% for tested phases (15/15 core packages working)
 
 #### **Key Improvements Made**
+
 - **Script Validation**: 100% syntax validation passed (9/9 installation scripts)
 - **Error Recovery**: Robust rollback mechanisms for failed installations
 - **Interactive Installer**: User-friendly interface with progress tracking and user guidance
@@ -262,6 +320,7 @@ This context helps me understand the sophisticated development environment I'm w
 - **Dependency Validation**: Comprehensive prerequisite checking before installations
 
 #### **New Capabilities**
+
 - **Rollback Support**: Failed installations can be automatically rolled back with package cleanup
 - **Interactive Recovery**: User confirmation for rollback operations with clear guidance
 - **Progress Tracking**: Real-time installation progress with status indicators
@@ -269,6 +328,7 @@ This context helps me understand the sophisticated development environment I'm w
 - **Multiple Installation Modes**: Full, custom, single-phase, and show-phases options
 
 #### **Installation Phases Enhanced**
+
 1. **Phase 0**: Base Ubuntu Setup (git, curl, build tools) - **ENHANCED**
 2. **Phase 1**: i3 Core (window manager essentials) - **ENHANCED**
 3. **Phase 2**: i3 Enhanced (i3ass suite, polybar, picom) - **ENHANCED**
@@ -280,6 +340,7 @@ This context helps me understand the sophisticated development environment I'm w
 9. **Phase 8**: Final Setup (fonts, themes, cleanup) - **ENHANCED**
 
 #### **Troubleshooting & Support**
+
 - **Comprehensive Guide**: 200+ page troubleshooting guide at `scripts/install/TROUBLESHOOTING.md`
 - **Common Issues**: Solutions for 10+ common installation problems
 - **Diagnostic Commands**: Built-in system validation and diagnostic tools
@@ -287,6 +348,7 @@ This context helps me understand the sophisticated development environment I'm w
 - **Best Practices**: Guidelines for safe and reliable installations
 
 #### **Testing Framework**
+
 - **Docker Testing**: Isolated testing environment for all phases
 - **Script Validation**: Automatic syntax checking for all installation scripts
 - **Error Simulation**: Tests error conditions and recovery mechanisms
@@ -294,6 +356,7 @@ This context helps me understand the sophisticated development environment I'm w
 - **Reproducibility**: Consistent testing across different environments
 
 #### **How to Use the Enhanced System**
+
 ```bash
 # Interactive installation (recommended)
 ./scripts/install/main-installer.zsh
@@ -314,6 +377,7 @@ cat scripts/install/TROUBLESHOOTING.md
 ```
 
 #### **Safety Features**
+
 - **Automatic Backups**: Configuration files backed up before changes
 - **Rollback Capability**: Failed installations can be completely undone
 - **Dependency Checking**: Prerequisites validated before attempting installations

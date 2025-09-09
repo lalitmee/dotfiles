@@ -45,7 +45,7 @@ cd ~/dotfiles
 
 **Example**:
 
-```
+```gitcommit
 feat(tmux): add dark mode toggle to settings page
 
 - Implement CSS variables for theme switching

@@ -694,7 +694,7 @@ bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 bind-key -r F run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
 
 # Global help popup
-bind-key H display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
+bind H display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
 
 # Launch the git helper script in a popup.
 bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
@@ -762,7 +762,7 @@ bind-key -T ai-tools c display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/sc
 bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
 
 # Help for AI tools
-bind-key -T ai-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/help/help.sh ai-tools"
+bind -T ai-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/help/help.sh ai-tools"
 bind-key -T ai-tools q switch-client -T root
 #-------------------------------------------------------------------------------
 # }}}
@@ -790,7 +790,7 @@ bind-key -T second-brain T display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/
 bind-key -T second-brain q switch-client -T root
 
 # Help for second-brain
-bind-key -T second-brain ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmux/scripts/help/help.sh second-brain"
+bind -T second-brain ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmux/scripts/help/help.sh second-brain"
 
 #-------------------------------------------------------------------------------
 # }}}
