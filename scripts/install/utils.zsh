@@ -3,6 +3,17 @@
 set -e  # Exit on error
 set -o pipefail  # Catch errors in piped commands
 
+# Function to style output using gum (if available) or echo as fallback
+gum_style() {
+    local message="$1"
+
+    if command -v gum >/dev/null 2>&1; then
+        echo "$message" | gum style --foreground 39
+    else
+        echo "$message"
+    fi
+}
+
 # Function to execute a command and handle errors
 execute_command() {
     local cmd="$1"
