@@ -27,14 +27,16 @@ local providers = {
 
 -- User preferences
 local preferences = {
-    preferred_provider = "anthropic",
-    preferred_model = "claude-3-5-haiku-20241022",
+    -- preferred_provider = "anthropic",
+    -- preferred_model = "claude-3-5-haiku-20241022",
     -- preferred_provider = "anthropic",
     -- preferred_model = "claude-3-5-sonnet-20241022",
     -- preferred_provider = "gemini",
     -- preferred_model = "gemini-2.5-flash",
     -- preferred_provider = "openai",
     -- preferred_model = "gpt-4o",
+    preferred_provider = "openrouter",
+    preferred_model = "claude-3-5-sonnet-20241022",
 }
 
 -- Beast mode prompt for advanced AI assistance
