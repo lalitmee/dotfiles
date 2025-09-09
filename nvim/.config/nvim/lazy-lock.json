@@ -11,7 +11,6 @@
   "blink-ripgrep.nvim": { "branch": "main", "commit": "a1f01a9bccc3746b1492392ee7f72be3386df3ff" },
   "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
   "bloat.nvim": { "branch": "master", "commit": "f90bef655ac40fecbaae53e10db1cf7894d090b1" },
-  "browse.nvim": { "branch": "main", "commit": "1ccf8705668216d8a311d31e87246b494b8eb571" },
   "bufdelete.nvim": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "codecompanion-gitcommit.nvim": { "branch": "main", "commit": "052580477cfec497c1ac9ca76e0e0f06e09ca102" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "eb99d256352144cf3b6a1c45608ec25544a0813d" },
