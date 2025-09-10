@@ -1,6 +1,10 @@
 Key	Description
 v	Vertical split
 H	Horizontal split
+h	Split left (40%)
+j	Split down (30%)
+k	Split up (30%)
+l	Split right (40%)
 a	AI ask assistant
 c	AI chat session
 s	Site-specific search

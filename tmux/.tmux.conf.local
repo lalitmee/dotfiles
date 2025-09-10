@@ -809,25 +809,25 @@ bind -T second-brain ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmu
 bind -T layout-mode C-b set-option status
 
 # Split window horizontally (easier to press than ").
-bind -T layout-mode v splitw -d
+bind -T layout-mode v splitw -d -c '#{pane_current_path}'
 
 # Split window vertically (easier to press than %).
-bind -T layout-mode H splitw -hd
+bind -T layout-mode H splitw -hd -c '#{pane_current_path}'
 
 # Kill the bottom-most pane.
 bind -T layout-mode q kill-pane -t '#{bottom}'
 
 # Split with a 40% horizontal pane to the left.
-bind -T layout-mode h splitw -hbp 40
+bind -T layout-mode h splitw -hbp 40 -c '#{pane_current_path}'
 
 # Split with a 40% horizontal pane to the right.
-bind -T layout-mode l splitw -hp 40
+bind -T layout-mode l splitw -hp 40 -c '#{pane_current_path}'
 
 # Split with a 30% vertical pane below.
-bind -T layout-mode j splitw -p 30
+bind -T layout-mode j splitw -p 30 -c '#{pane_current_path}'
 
 # Split with a 30% vertical pane above.
-bind -T layout-mode k splitw -bp 30
+bind -T layout-mode k splitw -bp 30 -c '#{pane_current_path}'
 
 # Launch a script to search lines in files and open in editor.
 bind -T layout-mode C-o run-shell "tmux neww tsnv"
