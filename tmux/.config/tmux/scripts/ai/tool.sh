@@ -29,9 +29,12 @@ POPUP_WIDTH="85%"
 POPUP_HEIGHT="80%"
 TOOL="$1"
 
+# Get the current pane's working directory
+CURRENT_PATH=$(tmux display-message -p "#{pane_current_path}")
+
 if [ -z "$TOOL" ]; then
     echo "Usage: $0 <tool_name>" >&2
-    echo "Available tools: gemini, opencode, claude" >&2
+    echo "Available tools: gemini, opencode, claude, codex" >&2
     exit 1
 fi
 
@@ -75,6 +78,12 @@ case "$TOOL" in
         COMMAND="claude"
         ;;
 
+    codex)
+        PANE_TITLE="🚀 GitHub Codex"
+        # Replace with the actual command for your codex client
+        COMMAND="codex"
+        ;;
+
     *)
         tmux display-message "Error: Unknown AI tool '$TOOL'"
         exit 1
@@ -101,8 +110,11 @@ echo \"🚀 Launching $PANE_TITLE...\"
 sleep 1
 clear
 
+# Change to the current pane directory
+cd \"$CURRENT_PATH\" 2>/dev/null || true
+
 # Handle different tools appropriately
-if [ \"$TOOL\" = \"gemini\" ] || [ \"$TOOL\" = \"claude\" ]; then
+if [ \"$TOOL\" = \"gemini\" ] || [ \"$TOOL\" = \"claude\" ] || [ \"$TOOL\" = \"codex\" ]; then
     # Run interactive AI tools in the foreground
     $COMMAND
 else
@@ -137,8 +149,11 @@ case "$MODE" in
         sleep 1
         clear
 
+        # Change to the current pane's directory
+        cd "$CURRENT_PATH" 2>/dev/null || true
+
         # For interactive commands like Gemini and Claude, run in foreground
-        if [ "$TOOL" = "gemini" ] || [ "$TOOL" = "claude" ]; then
+        if [ "$TOOL" = "gemini" ] || [ "$TOOL" = "claude" ] || [ "$TOOL" = "codex" ]; then
             # Run interactive AI tools in the foreground
             $COMMAND
         else
