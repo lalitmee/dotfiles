@@ -54,7 +54,13 @@ execute_command \
     "Failed to install Arc theme."
 
 # Create post-installation script
-cat > ~/post-install-setup.sh << 'EOF'
+POST_INSTALL_SCRIPT="$HOME/post-install-setup.sh"
+if [[ -f "$POST_INSTALL_SCRIPT" ]]; then
+    gum_style "⚠️ Post-installation script already exists, backing up..."
+    mv "$POST_INSTALL_SCRIPT" "${POST_INSTALL_SCRIPT}.backup.$(date +%Y%m%d_%H%M%S)"
+fi
+
+cat > "$POST_INSTALL_SCRIPT" << 'EOF'
 #!/bin/bash
 echo "Post-Installation Setup Script"
 echo "=============================="

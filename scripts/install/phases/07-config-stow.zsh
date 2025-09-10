@@ -10,6 +10,17 @@ gum_style "Creating symlinks for your dotfiles..."
 # Define dotfiles directory
 DOTFILES_DIR="$(dirname "$(dirname "$(dirname "$0")")")"
 
+# Validate dotfiles directory exists
+if [[ ! -d "$DOTFILES_DIR" ]]; then
+    gum_style "❌ Error: Dotfiles directory not found at $DOTFILES_DIR"
+    exit 1
+fi
+
+# Validate we're in a git repository
+if [[ ! -d "$DOTFILES_DIR/.git" ]]; then
+    gum_style "⚠️ Warning: Dotfiles directory is not a git repository"
+fi
+
 # Define active stow packages based on installed tools
 STOW_PACKAGES_CORE="i3 i3-layout-manager sxhkd polybar picom rofi"
 STOW_PACKAGES_TERMINAL="ghostty zsh"
@@ -108,17 +119,19 @@ stow_package() {
     gum_style "🔗 Stowing $package..."
 
     # Change to dotfiles directory for stowing
-    cd "$DOTFILES_DIR" || {
-        gum_style "❌ Error: Could not change to dotfiles directory"
+    if ! cd "$DOTFILES_DIR"; then
+        gum_style "❌ Error: Could not change to dotfiles directory $DOTFILES_DIR"
         return 1
-    }
+    fi
 
-    # Stow the package
-    if stow -v "$package" 2>/dev/null; then
+    # Stow the package with error handling
+    if stow -v "$package" 2>&1; then
         gum_style "✅ Successfully stowed $package"
         return 0
     else
-        gum_style "❌ Failed to stow $package"
+        STOW_EXIT_CODE=$?
+        gum_style "❌ Failed to stow $package (exit code: $STOW_EXIT_CODE)"
+        gum_style "💡 This might be due to existing files. Try: rm -rf ~/$package && cd $DOTFILES_DIR && stow $package"
         return 1
     fi
 }
@@ -127,7 +140,10 @@ stow_package() {
 gum_style "📦 Creating backups of existing configurations..."
 
 BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d_%H%M%S)"
-mkdir -p "$BACKUP_DIR"
+if ! mkdir -p "$BACKUP_DIR"; then
+    gum_style "❌ Error: Could not create backup directory $BACKUP_DIR"
+    exit 1
+fi
 
 # Backup common config locations
 for config_dir in .config .local/share .local/bin; do
