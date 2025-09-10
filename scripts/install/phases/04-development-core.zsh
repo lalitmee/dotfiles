@@ -126,8 +126,17 @@ execute_command \
     "Failed to install neovim build dependencies."
 
 # Install neovim from source
+# Determine the correct path to build-neovim script
+DOTFILES_DIR="$(dirname "$(dirname "$(dirname "$0")")")"
+BUILD_NEOVIM_SCRIPT="$DOTFILES_DIR/bin/.config/bin/build-neovim"
+
+if [[ ! -f "$BUILD_NEOVIM_SCRIPT" ]]; then
+    gum_style "❌ Error: build-neovim script not found at $BUILD_NEOVIM_SCRIPT"
+    exit 1
+fi
+
 execute_command \
-    "/home/testuser/dotfiles/bin/.config/bin/build-neovim" \
+    "$BUILD_NEOVIM_SCRIPT" \
     "neovim built and installed successfully from source." \
     "Failed to build neovim from source."
 

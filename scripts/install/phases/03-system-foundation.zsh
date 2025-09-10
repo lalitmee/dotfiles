@@ -10,13 +10,22 @@ gum_style "Installing core productivity tools..."
 # Ensure cargo is available
 if ! command -v cargo &> /dev/null; then
     gum_style "❌ Cargo not found. Please ensure Phase 0 completed successfully."
+    gum_style "💡 Try running Phase 0 first: ./scripts/install/phases/00-base-ubuntu.zsh"
     exit 1
 fi
 
 # Ensure Go is available
 if ! command -v go &> /dev/null; then
     gum_style "❌ Go not found. Please ensure Phase 0 completed successfully."
+    gum_style "💡 Try running Phase 0 first: ./scripts/install/phases/00-base-ubuntu.zsh"
     exit 1
+fi
+
+# Check available disk space (minimum 2GB)
+AVAILABLE_SPACE=$(df "$HOME" | tail -1 | awk '{print $4}')
+if [[ $AVAILABLE_SPACE -lt 2097152 ]]; then  # 2GB in KB
+    gum_style "⚠️ Warning: Low disk space detected. At least 2GB recommended."
+    gum_style "Available: $(($AVAILABLE_SPACE / 1024))MB"
 fi
 
 # Set up PATH for cargo and go

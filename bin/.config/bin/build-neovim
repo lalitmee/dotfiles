@@ -74,16 +74,35 @@ fi
 gum_style "creating neovim directory and cloning repo..."
 #Get or update neovim github repo
 NEOVIM_DIR="$HOME/Projects/Personal/Github/neovim"
-mkdir -p "$NEOVIM_DIR"
-cd "$HOME/Projects/Personal/Github" || exit
+
+# Create parent directory if it doesn't exist
+mkdir -p "$(dirname "$NEOVIM_DIR")" || {
+    gum_style "❌ Error: Could not create parent directory for neovim"
+    exit 1
+}
+
+# Navigate to parent directory
+cd "$(dirname "$NEOVIM_DIR")" || {
+    gum_style "❌ Error: Could not navigate to $(dirname "$NEOVIM_DIR")"
+    exit 1
+}
+
 if [ ! -d "$NEOVIM_DIR" ] || [ ! -d "$NEOVIM_DIR/.git" ]; then
 	gum_style "Cloning neovim repository..."
 	rm -rf "$NEOVIM_DIR"
-	git clone https://github.com/neovim/neovim "$NEOVIM_DIR"
+	if ! git clone https://github.com/neovim/neovim "$NEOVIM_DIR"; then
+	    gum_style "❌ Error: Failed to clone neovim repository"
+	    exit 1
+	fi
 else
-	cd neovim || exit
+	cd neovim || {
+	    gum_style "❌ Error: Could not navigate to neovim directory"
+	    exit 1
+	}
 	gum_style "Updating neovim repo..."
-	git pull origin
+	if ! git pull origin; then
+	    gum_style "⚠️ Warning: Failed to update neovim repo, continuing with existing version"
+	fi
 fi
 
 gum_style "Checking out to master neovim..."

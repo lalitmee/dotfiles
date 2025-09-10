@@ -55,3 +55,35 @@ ensure_dependency() {
         gum_style "$package is already installed."
     fi
 }
+
+# Function to detect Ubuntu/Debian version
+detect_os_version() {
+    if [[ -f /etc/os-release ]]; then
+        . /etc/os-release
+        if [[ "$ID" == "ubuntu" ]]; then
+            echo "ubuntu_${VERSION_ID//./}"
+        elif [[ "$ID" == "debian" ]]; then
+            echo "debian_${VERSION_CODENAME}"
+        else
+            echo "unknown"
+        fi
+    else
+        echo "unknown"
+    fi
+}
+
+# Function to detect system architecture
+detect_architecture() {
+    local arch=$(uname -m)
+    case $arch in
+        x86_64)
+            echo "amd64"
+            ;;
+        aarch64|arm64)
+            echo "arm64"
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}

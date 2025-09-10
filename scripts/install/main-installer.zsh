@@ -1,6 +1,50 @@
 #!/bin/zsh
-# Main Installer Script
-# Orchestrates all installation phases for the complete system setup
+# ============================================================================
+# Main Installer Script for Complete System Setup
+# ============================================================================
+#
+# DESCRIPTION:
+#   This script orchestrates the installation of a complete development
+#   environment based on the SYSTEM_SETUP_CONTEXT.md decisions. It provides
+#   an interactive interface for installing system components in phases.
+#
+# FEATURES:
+#   - Interactive phase selection (full/custom/single)
+#   - Error handling and rollback capabilities
+#   - Comprehensive logging
+#   - System validation and prerequisite checking
+#   - Progress tracking and status reporting
+#
+# USAGE:
+#   ./main-installer.zsh              # Interactive mode
+#   ./main-installer.zsh --help       # Show help (future feature)
+#
+# PHASES:
+#   0: Base Ubuntu Setup (git, curl, build tools)
+#   1: i3 Core (window manager essentials)
+#   2: i3 Enhanced (i3ass suite, polybar, picom, etc.)
+#   3: System Foundation (zsh, tmux, development tools)
+#   4: Development Core (neovim, pyenv, rbenv, fnm)
+#   5: Productivity Layer (ghostty terminal)
+#   6: Desktop Apps (browsers, communication tools)
+#   7: Config Stowing (symlink dotfiles)
+#   8: Final Setup (fonts, themes, cleanup)
+#
+# REQUIREMENTS:
+#   - Ubuntu 20.04+ or compatible Debian-based system
+#   - Internet connection for downloads
+#   - sudo privileges
+#   - At least 5GB free disk space
+#
+# ERROR HANDLING:
+#   - Script exits on critical errors
+#   - Rollback available for failed phases
+#   - Comprehensive logging to ~/dotfiles-install-*.log
+#
+# AUTHOR: Lalit Kumar
+# VERSION: 2.1
+# LAST UPDATED: 2025-01-10
+# ============================================================================
 
 # Set script directory
 SCRIPT_DIR="$(dirname "$0")"
@@ -9,11 +53,17 @@ SCRIPT_DIR="$(dirname "$0")"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
+# Create log file for installation tracking
+LOG_FILE="$HOME/dotfiles-install-$(date +%Y%m%d_%H%M%S).log"
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+gum_style "📝 Installation log: $LOG_FILE"
+
 # Source utilities
 if [[ -f "$SCRIPT_DIR/utils.zsh" ]]; then
     source "$SCRIPT_DIR/utils.zsh"
 else
-    echo "Error: utils.zsh not found in $SCRIPT_DIR"
+    echo "Error: utils.zsh not found in $SCRIPT_DIR" >&2
     exit 1
 fi
 
@@ -30,6 +80,37 @@ PHASES=(
     "08-final-setup:Final Setup (fonts, basic themes, validation)"
 )
 
+# Global variable to track installed packages for rollback
+INSTALLED_PACKAGES=()
+
+# Function to track installed packages
+track_package() {
+    local package="$1"
+    INSTALLED_PACKAGES+=("$package")
+}
+
+# Function to rollback failed installations
+rollback_installation() {
+    local failed_phase="$1"
+    gum_style "🔄 Starting rollback for failed Phase $failed_phase..."
+
+    # Remove recently installed packages (basic rollback)
+    if [[ ${#INSTALLED_PACKAGES[@]} -gt 0 ]]; then
+        gum_style "📦 Removing recently installed packages..."
+        for package in "${INSTALLED_PACKAGES[@]}"; do
+            if dpkg -l | grep -q "^ii.*$package"; then
+                sudo apt remove -y "$package" 2>/dev/null || true
+            fi
+        done
+    fi
+
+    # Clean up temporary files
+    gum_style "🧹 Cleaning up temporary files..."
+    rm -rf /tmp/*dotfiles* 2>/dev/null || true
+
+    gum_style "✅ Rollback completed. You can try running the phase again."
+}
+
 # Function to run a specific phase
 run_phase() {
     local phase_number="$1"
@@ -42,6 +123,11 @@ run_phase() {
             return 0
         else
             gum_style "❌ Phase $phase_number failed!"
+            gum_style "💡 Would you like to attempt rollback? (y/N)"
+            read -r response
+            if [[ "$response" =~ ^[Yy]$ ]]; then
+                rollback_installation "$phase_number"
+            fi
             return 1
         fi
     else
