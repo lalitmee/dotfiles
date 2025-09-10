@@ -301,6 +301,17 @@ This context helps me understand the sophisticated development environment I'm w
   - Markdown examples: `markdown` (markdown syntax demonstrations)
 - **Tab Preservation**: Keep tab characters in code blocks for tab-separated data examples
 
+### Tmux Layout Mode Directory Inheritance Fix
+
+- **Issue**: Layout-mode split commands (`C-b j/k/h/l`) weren't inheriting current directory from Neovim
+- **Root Cause**: Missing `-c '#{pane_current_path}'` parameter in `splitw` commands
+- **Fix Applied**: Added current path parameter to all layout-mode split bindings:
+  - `j` (split down 30%), `k` (split up 30%)
+  - `h` (split left 40%), `l` (split right 40%)
+  - `v` (vertical split), `H` (horizontal split)
+- **Result**: All splits now inherit current working directory from active pane
+- **Help Updated**: Added missing split keybindings to layout-mode help table
+
 ### Installation System Updates
 
 #### **Enhanced Installation Framework** (2025-01-10)
@@ -389,5 +400,6 @@ cat scripts/install/TROUBLESHOOTING.md
 - **Help Tables**: Update `.txt` files in `tables/` when adding new keybindings
 - **Color Updates**: Sync changes between tmux config and help script colors
 - **Popup Styling**: Global popup settings automatically apply to new popups
-- **Script Testing**: Test with actual data before deploying to tmux keybindings
 - **Installation**: Use enhanced system with rollback support for any updates
+- **Script Testing**: Always test with actual data before deploying to tmux keybindings
+- **Directory Inheritance**: Always include `-c '#{pane_current_path}'` in split/new-window commands
