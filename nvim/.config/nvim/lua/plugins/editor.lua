@@ -978,7 +978,7 @@ return {
 
     { --[[ lualine.nvim ]]
         "nvim-lualine/lualine.nvim",
-        event = "BufEnter",
+        event = "UIEnter",
         keys = {
             { "<leader>wr", ":LualineRenameTab<space>", desc = "Rename Lualine Tab", silent = true },
         },

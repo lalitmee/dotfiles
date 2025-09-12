@@ -125,6 +125,10 @@ end
 return {
     "olimorris/codecompanion.nvim",
     dependencies = {
+        {
+            "j-hui/fidget.nvim",
+            opts = {},
+        },
         "ravitemer/mcphub.nvim",
         "ravitemer/codecompanion-history.nvim",
         "jinzhongjia/codecompanion-gitcommit.nvim",
@@ -133,6 +137,22 @@ return {
             version = "*",
             dependencies = { "nvim-lua/plenary.nvim" },
             cmd = "VectorCode",
+        },
+        {
+            "hakonharnes/img-clip.nvim",
+            keys = {
+                {
+                    "<localleader>p",
+                    "<cmd>PasteImage<CR>",
+                    desc = "Paste Image from system's Clipboard",
+                    silent = true,
+                },
+            },
+            opts = {},
+        },
+        {
+            "codecompanion-spinners.nvim",
+            dev = true,
         },
     },
     ft = { "gitcommit" },
@@ -157,9 +177,6 @@ return {
         { "<leader>ci", ":CodeCompanion<CR>", desc = "Code Companion (Inline)", silent = true, mode = { "n", "v" } },
     },
     init = function()
-        -- Setup UI spinners
-        require("plugins.ai.spinners.snacks-notifier").setup()
-        require("plugins.ai.spinners.cursor-relative").setup()
         vim.cmd([[cab cc CodeCompanion]])
     end,
     opts = function()
@@ -214,6 +231,18 @@ return {
                 },
             },
             extensions = {
+                spinner = {
+                    enabled = true,
+                    opts = {
+                        -- style = "cursor-relative",
+                        -- style = "native",
+                        -- style = "lualine",
+                        -- style = "fidget",
+                        style = "snacks",
+                        -- style = "none",
+                    },
+                },
+
                 -- VectorCode integration for enhanced context
                 vectorcode = {
                     opts = {
