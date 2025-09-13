@@ -567,6 +567,8 @@ set -g @plugin 'tmux-plugins/tmux-copycat'
 
 # Vim-style Easymotion-like navigation for jumping to text.
 set -g @plugin 'schasse/tmux-jump'
+# Change tmux-jump keybinding to avoid conflict with join-pane
+set -g @jump-key 'J'
 
 # Provides a better way to yank (copy) text to the system clipboard.
 set -g @plugin 'tmux-plugins/tmux-yank'
@@ -691,7 +693,7 @@ bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 # Launch the keybinding search script (original function)
-bind-key -r F run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
+bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
 
 # Global help popup
 bind H display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
