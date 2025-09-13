@@ -192,14 +192,32 @@ return {
                 end)(),
                 acp = {
                     gemini_cli = function()
-                        return require("codecompanion.adapters.acp").extend("gemini_cli", {
+                        return require("codecompanion.adapters").extend("gemini_cli", {
+                            commands = {
+                                flash = {
+                                    "gemini",
+                                    "--experimental-acp",
+                                    "-m",
+                                    "gemini-2.5-flash",
+                                },
+                                pro = {
+                                    "gemini",
+                                    "--experimental-acp",
+                                    "-m",
+                                    "gemini-2.5-pro",
+                                },
+                            },
+                            defaults = {
+                                auth_method = "oauth-personal", -- "oauth-personal" | "gemini-api-key" | "vertex-ai"
+                            },
+
                             env = {
                                 GEMINI_API_KEY = config.api_keys.gemini,
                             },
                         })
                     end,
                     claude_code = function()
-                        return require("codecompanion.adapters.acp").extend("claude_code", {
+                        return require("codecompanion.adapters").extend("claude_code", {
                             env = {
                                 ANTHROPIC_API_KEY = config.api_keys.anthropic,
                             },
