@@ -13,4 +13,5 @@ g	LazyGit interface
 t	Todo (personal)
 T	Todo (work)
 m	Documentation browser
+?	Help
 q	Quit table

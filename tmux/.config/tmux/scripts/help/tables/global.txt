@@ -3,6 +3,9 @@ C-a c	New window
 C-a -	Horizontal split
 C-a \	Vertical split
 C-a x	Kill pane
+C-a n	Break pane to window
+C-a j	Join pane from window
+C-a J	Jump to text (tmux-jump)
 C-a z	Zoom pane
 C-a ?	Search keybindings
 C-a i	Cheat sheets (cht.sh)
