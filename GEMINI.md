@@ -168,6 +168,65 @@ Based on our recent interaction, here are key principles for configuring Zsh, sp
 2.  **Command-Specific Rules**: Some `fzf-tab` completions (like for `zoxide`'s `z` command) require at least one active `zstyle` rule for their specific completion group (e.g., `:fzf-tab:complete:z:*`) to function. If no flags are needed, an empty rule like `zstyle ':fzf-tab:complete:z:*' fzf-flags ''` should be used to ensure `fzf-tab` engages.
 3.  **Layout Control**: To make the completion menu appear below the prompt (instead of full-screen), the global style `zstyle ':fzf-tab:*' fzf-down 'yes'` should be used. This is preferable to managing height with `fzf-flags`.
 
+### Z Command Completion - Current Solution
+
+**Problem**: No tab completions when pressing tab after the `z` command from zoxide.
+
+**Root Cause Identified**: fzf-tab plugin had compatibility issues and was not loading properly, causing completion system conflicts.
+
+**Final Solution Applied**:
+- **Fixed fzf-tab loading order** - Load before oh-my-zsh plugins that wrap widgets
+- **Proper zstyle configuration** for z command completion
+- **Manual completion registration** for z command
+- **Correct initialization sequence**: zoxide → compdef → fzf-tab
+
+**Configuration Details**:
+```zsh
+# fzf-tab global settings
+zstyle ':fzf-tab:*' fzf-down 'yes'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls -la $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-flags '--height=40%'
+
+# Initialize zoxide first
+eval "$(zoxide init zsh)"
+
+# Register completion for z command BEFORE fzf-tab loads
+compdef '_files -/' z
+
+# Load fzf-tab BEFORE oh-my-zsh (critical for proper loading)
+source ~/.oh-my-zsh/custom/plugins/Aloxaf/fzf-tab/fzf-tab.zsh
+
+# Then load oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+```
+
+**How to Use**:
+1. Type `z ` (with space)
+2. Press `Ctrl+G` instead of `Tab`
+3. Select directory from fzf interface
+4. Press Enter to execute
+
+**Expected Behavior**:
+- `z ` + `Ctrl+G` shows fzf interface with directory previews
+- Arrow keys navigate, Enter selects
+- Preview pane shows directory contents
+- Selected directory is inserted into command line
+
+**Alternative**: If you prefer tab completion, you can try reinstalling fzf-tab or using a different completion plugin.
+
+### Additional Fix for Tmux Integration
+
+**Problem**: z command completion worked in new tmux windows but failed in subsequent windows.
+
+**Root Cause**: Tmux was running zsh with `default-command "exec /bin/zsh"`, which prevented interactive shell initialization and .zshrc sourcing.
+
+**Solution Applied**:
+- Added `set -g default-command "${SHELL}"` to tmux configuration
+- This ensures zsh runs as an interactive shell, properly sourcing .zshrc
+- Location: `tmux/.tmux.conf.local` in the shell configuration section
+
+**Result**: fzf-tab configurations now persist across all tmux windows and panes.
+
 ## My Problem-Solving Workflow
 
 To reduce unnecessary back-and-forth and improve efficiency, I will adhere to the following workflow:
