@@ -1,0 +1,9 @@
+# /home/lalitmee/.config/tmuxinator/neovim-plugins.yml
+
+name: neovim-plugins
+root: ~/Projects/Personal/Github
+
+windows:
+  - cobalt2.nvim: cd cobalt2.nvim
+  - browse.nvim: cd browse.nvim
+  - codecompanion-spinners.nvim: cd codecompanion-spinners.nvim
