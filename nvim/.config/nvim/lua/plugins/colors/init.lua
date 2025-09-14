@@ -4,24 +4,25 @@ return {
     { --[[ colorschemes ]]
 
         { --[[ cobalt2 ]]
+            -- enabled = false,
             "lalitmee/cobalt2.nvim",
             dependencies = { "tjdevries/colorbuddy.nvim", tag = "v1.0.0" },
             dev = true,
             lazy = false,
             priority = 1000,
-            -- enabled = false,
         },
 
         {
+            enabled = false,
             "lifepillar/vim-gruvbox8",
             lazy = false,
             config = function()
                 vim.cmd("colorscheme gruvbox8")
             end,
-            enabled = false,
         },
 
         { --[[ catppuccin ]]
+            enabled = false,
             "catppuccin/nvim",
             lazy = false,
             priority = 1000,
@@ -54,7 +55,6 @@ return {
 
                 vim.cmd.colorscheme("catppuccin")
             end,
-            enabled = false,
         },
 
         { --[[ rose-pine ]]
@@ -92,6 +92,7 @@ return {
         },
 
         { --[[ vscode ]]
+            enabled = false,
             "Mofiqul/vscode.nvim",
             lazy = false,
             priority = 1000,
@@ -106,10 +107,10 @@ return {
                 })
                 require("vscode").load()
             end,
-            enabled = false,
         },
 
         { --[[ tokyonight ]]
+            enabled = false,
             "folke/tokyonight.nvim",
             lazy = false,
             priority = 1000,
@@ -117,10 +118,10 @@ return {
             init = function()
                 vim.cmd.colorscheme("tokyonight")
             end,
-            enabled = false,
         },
 
-        {
+        { --[[ github theme ]]
+            enabled = false,
             "projekt0n/github-nvim-theme",
             name = "github-theme",
             lazy = false,
@@ -130,7 +131,6 @@ return {
 
                 vim.cmd("colorscheme github_dark")
             end,
-            enabled = false,
         },
     },
 
