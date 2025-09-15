@@ -40,8 +40,8 @@ return {
         opts = {
             next_prefix = "]",
             prev_prefix = "[",
-            next_repeat = "<C-j>",
-            prev_repeat = "<C-k>",
+            next_repeat = "]]",
+            prev_repeat = "[[",
             operators = {
                 ["tq"] = {
                     next = { rhs = "<cmd>QFToggle<CR>", opts = { desc = "Toggle QF Helper" } },
