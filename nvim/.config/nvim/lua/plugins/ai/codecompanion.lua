@@ -126,7 +126,7 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
         {
-            "j-hui/fidget.nvim",
+            "lazymaniac/codecompanion-reasoning.nvim",
             opts = {},
         },
         "ravitemer/mcphub.nvim",
@@ -259,6 +259,11 @@ return {
                         style = "snacks",
                         -- style = "none",
                     },
+                },
+
+                reasoning = {
+                    callback = "codecompanion._extensions.reasoning",
+                    opts = { enabled = true },
                 },
 
                 -- VectorCode integration for enhanced context
