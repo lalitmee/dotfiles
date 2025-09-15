@@ -151,7 +151,7 @@ return {
             opts = {},
         },
         {
-            "codecompanion-spinners.nvim",
+            "lalitmee/codecompanion-spinners.nvim",
             dev = true,
         },
     },
