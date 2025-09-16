@@ -34,7 +34,7 @@ CURRENT_PATH=$(tmux display-message -p "#{pane_current_path}")
 
 if [ -z "$TOOL" ]; then
     echo "Usage: $0 <tool_name>" >&2
-    echo "Available tools: gemini, opencode, claude, codex" >&2
+    echo "Available tools: gemini, opencode, claude, codex, qwen" >&2
     exit 1
 fi
 
@@ -84,6 +84,12 @@ case "$TOOL" in
         COMMAND="codex"
         ;;
 
+    qwen)
+        PANE_TITLE="🧠 Qwen Code"
+        # Replace with the actual command for your qwen client
+        COMMAND="qwen"
+        ;;
+
     *)
         tmux display-message "Error: Unknown AI tool '$TOOL'"
         exit 1
@@ -114,7 +120,7 @@ clear
 cd \"$CURRENT_PATH\" 2>/dev/null || true
 
 # Handle different tools appropriately
-if [ \"$TOOL\" = \"gemini\" ] || [ \"$TOOL\" = \"claude\" ] || [ \"$TOOL\" = \"codex\" ]; then
+if [ \"$TOOL\" = \"gemini\" ] || [ \"$TOOL\" = \"claude\" ] || [ \"$TOOL\" = \"codex\" ] || [ \"$TOOL\" = \"qwen\" ]; then
     # Run interactive AI tools in the foreground
     $COMMAND
 else
@@ -153,7 +159,7 @@ case "$MODE" in
         cd "$CURRENT_PATH" 2>/dev/null || true
 
         # For interactive commands like Gemini and Claude, run in foreground
-        if [ "$TOOL" = "gemini" ] || [ "$TOOL" = "claude" ] || [ "$TOOL" = "codex" ]; then
+        if [ "$TOOL" = "gemini" ] || [ "$TOOL" = "claude" ] || [ "$TOOL" = "codex" ] || [ "$TOOL" = "qwen" ]; then
             # Run interactive AI tools in the foreground
             $COMMAND
         else

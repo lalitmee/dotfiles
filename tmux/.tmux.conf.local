@@ -781,6 +781,9 @@ bind-key -T ai-tools c display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/sc
 # Codex
 bind-key -T ai-tools x display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh codex'"
 
+# Qwen
+bind-key -T ai-tools w display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh qwen'"
+
 # update the ai-tools
 bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
 
