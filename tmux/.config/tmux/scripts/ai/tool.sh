@@ -16,7 +16,7 @@ command_exists() {
 # 1. Dependency Check
 if ! command_exists fzf; then
     # Use a simple echo since this is a critical, pre-flight check
-    echo "❌ Critical Error: 'fzf' is not installed. Please install it to use this script."
+    gum_style "❌ Critical Error: 'fzf' is not installed. Please install it to use this script."
     # Use tmux display-message if possible to show the error without a popup
     if [ -n "$TMUX" ]; then
         tmux display-message "❌ Error: fzf is not installed. Please install it."
@@ -33,15 +33,15 @@ TOOL="$1"
 CURRENT_PATH=$(tmux display-message -p "#{pane_current_path}")
 
 if [ -z "$TOOL" ]; then
-    echo "Usage: $0 <tool_name>" >&2
-    echo "Available tools: gemini, opencode, claude, codex, qwen" >&2
+    gum_style "Usage: $0 <tool_name>" >&2
+    gum_style "Available tools: gemini, opencode, claude, codex, qwen" >&2
     exit 1
 fi
 
 # --- Mode Selection ---
 # Check if we are inside a tmux session
 if [ -z "$TMUX" ]; then
-    echo "Error: This script must be run from within a tmux session" >&2
+    gum_style "Error: This script must be run from within a tmux session" >&2
     exit 1
 fi
 
@@ -112,7 +112,7 @@ cleanup() {
 # Set up signal handlers
 trap cleanup INT TERM EXIT
 
-echo \"🚀 Launching $PANE_TITLE...\"
+gum_style \"🚀 Launching $PANE_TITLE...\"
 sleep 1
 clear
 
@@ -131,7 +131,7 @@ else
 fi
 
 echo
-echo \"✨ AI session finished. Press any key to close...\"
+gum_style \"✨ AI session finished. Press any key to close...\"
 read -k 1
 '"
 
@@ -151,7 +151,7 @@ case "$MODE" in
         # Set up signal handlers
         trap cleanup INT TERM EXIT
 
-        echo "🚀 Launching $PANE_TITLE..."
+        gum_style "🚀 Launching $PANE_TITLE..."
         sleep 1
         clear
 
@@ -172,7 +172,7 @@ case "$MODE" in
         fi
 
         echo
-        echo "✨ AI session finished. Press any key to close..."
+        gum_style "✨ AI session finished. Press any key to close..."
         read -k 1
         ;;
 
