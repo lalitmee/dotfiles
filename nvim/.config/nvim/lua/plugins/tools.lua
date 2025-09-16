@@ -893,4 +893,15 @@ return {
         },
         opts = {},
     },
+
+    {
+        "laktak/tome",
+        cmd = { "TomePlayBook" },
+        keys = {
+            "<leader>bt",
+            "<cmd>TomePlayBook<cr>",
+            desc = "Tome Playbook",
+            silent = true,
+        },
+    },
 }
