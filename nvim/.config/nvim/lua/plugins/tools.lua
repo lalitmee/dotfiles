@@ -894,14 +894,14 @@ return {
         opts = {},
     },
 
-    {
+    { --[[ tome ]]
         "laktak/tome",
         cmd = { "TomePlayBook" },
         keys = {
-            "<leader>bt",
-            "<cmd>TomePlayBook<cr>",
-            desc = "Tome Playbook",
-            silent = true,
+            { "<leader>bt", "<cmd>TomePlayBook<cr>", desc = "Tome Playbook", silent = true },
+            { "<localleader>p", "<Plug>(TomePlayLine)", desc = "Tome Play Line", silent = true },
+            { "<localleader>P", "<Plug>(TomePlayParagraph)", desc = "Tome Play Paragraph", silent = true },
+            { "<localleader>p", "<Plug>(TomePlaySelection)", desc = "Tome Play Selection", silent = true, mode = "x" },
         },
     },
 }
