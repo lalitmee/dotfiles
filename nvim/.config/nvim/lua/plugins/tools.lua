@@ -898,7 +898,15 @@ return {
         "laktak/tome",
         cmd = { "TomePlayBook", "TomeScratchPad" },
         keys = {
-            { "<leader>bt", "<cmd>TomePlayBook<cr>", desc = "Tome Playbook", silent = true },
+            {
+                "<leader>bt",
+                function()
+                    vim.cmd("TomePlayBook")
+                    vim.notify("Enabled Playbook", vim.log.levels.INFO, { title = "Tome" })
+                end,
+                desc = "Tome Playbook",
+                silent = true,
+            },
             { "<localleader>p", "<Plug>(TomePlayLine)", desc = "Tome Play Line", silent = true },
             { "<localleader>P", "<Plug>(TomePlayParagraph)", desc = "Tome Play Paragraph", silent = true },
             { "<localleader>p", "<Plug>(TomePlaySelection)", desc = "Tome Play Selection", silent = true, mode = "x" },
