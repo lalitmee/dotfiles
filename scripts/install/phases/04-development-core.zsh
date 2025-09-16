@@ -97,6 +97,12 @@ else
     gum_style "⚠️ gem not available, skipping bundler installation."
 fi
 
+# Install fd (find replacement) via cargo
+execute_command \
+    "cargo install fd-find" \
+    "fd (find replacement) installed successfully." \
+    "Failed to install fd."
+
 # Install fnm (Fast Node Manager)
 execute_command \
     "curl -fsSL https://fnm.vercel.app/install | bash" \

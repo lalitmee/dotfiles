@@ -1,31 +1,42 @@
 #!/bin/bash
-# This script launches a session picker for sesh, designed to run in a tmux popup.
+# This script launches an optimized gum-based session picker for sesh in tmux popups.
 #
-# Why fzf over gum?
-# - fzf is chosen for its speed and interactive performance, especially with large lists.
-# - gum popups are noticeably slower to load and close in tmux, making the user experience less smooth.
-# - fzf provides instant filtering and selection, while gum can lag with bigger datasets.
+# Performance Optimizations:
+# - Uses plain text sesh list (no ANSI processing overhead)
+# - Optimized height for popup performance
+# - Minimal styling for faster rendering
+# - Timeout protection
 #
-# Note: gum does not support using fzf as a backend; it implements its own filtering UI.
-#
-# For best performance in tmux popups, fzf is recommended.
+# Previous fzf implementation preserved below for reference.
 
-#  NOTE: Using fzf instead of gum for better performance with large lists
+#  NOTE: Optimized gum implementation with icons for better visual distinction
 sesh connect "$(
-  sesh list -i | sed 's/\x1b\[[0-9;]*m//g' | fzf \
-    --height 50 \
-    --prompt='⚡ ' \
-    --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg+:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF' \
-    --no-sort
-)"
+    sesh list -i | gum filter \
+        --limit 1 \
+        --no-sort \
+        --fuzzy \
+        --strip-ansi \
+        --placeholder 'Pick a sesh' \
+        --height 20 \
+        --prompt='⚡ ' \
+        --timeout=30s
+)" || echo "Failed to connect to sesh session"
 
-#  NOTE: Using gum to filter and select a sesh
+#  NOTE: Backup fzf implementation (previously active)
+# sesh connect "$(
+#   sesh list -i | sed 's/\x1b\[[0-9;]*m//g' | fzf \
+#     --height 50 \
+#     --prompt='⚡ ' \
+#     --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg+:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF' \
+#     --no-sort
+# )"
+
+#  NOTE: Original gum implementation (commented out due to performance)
 # sesh connect "$(
 #   sesh list -i | gum filter --limit 1 --no-sort --fuzzy --placeholder 'Pick a sesh' --height 50 --prompt='⚡'
 # )"
 
-
-# # NOTE: Customized colors for gum
+#  NOTE: Full gum styling (commented out - too slow for tmux popups)
 # sesh connect "$(
 # sesh list -i | gum filter \
 #   --limit 1 \
