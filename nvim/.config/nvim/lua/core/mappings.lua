@@ -58,9 +58,10 @@ map("n", "<BS>", [[:<c-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#'
 ----------------------------------------------------------------------
 -- NOTE: copy and paste {{{
 ----------------------------------------------------------------------
--- copy and pasting made easy
-map("n", "<localleader>y", [["+y]], { noremap = true })
-map("n", "<localleader>p", [["+p]], { noremap = true })
+
+-- NOTE: these are needed when I don't want to merge the clipboard with system
+-- map("n", "<localleader>y", [["+y]], { noremap = true })
+-- map("n", "<localleader>p", [["+p]], { noremap = true })
 
 -- duplicate current line and comment it
 map("n", "ycc", "yygccp", { remap = true })

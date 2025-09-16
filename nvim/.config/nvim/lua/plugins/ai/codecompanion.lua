@@ -142,7 +142,7 @@ return {
             "hakonharnes/img-clip.nvim",
             keys = {
                 {
-                    "<localleader>p",
+                    "<leader>cp",
                     "<cmd>PasteImage<CR>",
                     desc = "Paste Image from system's Clipboard",
                     silent = true,
