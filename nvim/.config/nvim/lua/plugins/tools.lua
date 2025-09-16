@@ -896,7 +896,7 @@ return {
 
     { --[[ tome ]]
         "laktak/tome",
-        cmd = { "TomePlayBook" },
+        cmd = { "TomePlayBook", "TomeScratchPad" },
         keys = {
             { "<leader>bt", "<cmd>TomePlayBook<cr>", desc = "Tome Playbook", silent = true },
             { "<localleader>p", "<Plug>(TomePlayLine)", desc = "Tome Play Line", silent = true },
