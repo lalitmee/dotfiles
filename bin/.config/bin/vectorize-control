@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# VectorCode control script - helper for managing vectorization
+
+case "${1:-help}" in
+    "help"|"-h"|"--help")
+        echo "VectorCode Control Script"
+        echo "Usage: vectorize-control [command]"
+        echo ""
+        echo "Commands:"
+        echo "  help          Show this help message"
+        echo "  trigger       Enable vectorization for next commit"
+        echo "  disable       Disable vectorization for next commit"
+        echo "  enable        Re-enable automatic vectorization"
+        echo "  status        Show current vectorization status"
+        echo "  list          List files that would be vectorized in auto mode"
+        echo "  clean         Remove all control files"
+        echo ""
+        echo "Environment variable method:"
+        echo "  VECTORIZE_ALL=1 git commit -m \"message\"  # Vectorize all files"
+        echo ""
+        echo "Examples:"
+        echo "  vectorize-control trigger && git commit -m \"Important changes\""
+        echo "  vectorize-control disable && git commit -m \"Minor changes\""
+        ;;
+    
+    "trigger")
+        touch .vectorize-trigger
+        echo "✅ Manual vectorization trigger set for next commit"
+        echo "   (Will vectorize all staged files)"
+        ;;
+    
+    "disable")
+        touch .vectorize-disable
+        echo "🚫 Vectorization disabled for next commit"
+        echo "   (Create .vectorize-trigger to override)"
+        ;;
+    
+    "enable")
+        rm -f .vectorize-disable
+        echo "✅ Automatic vectorization enabled"
+        ;;
+    
+    "status")
+        echo "VectorCode Status:"
+        if [ -f ".vectorize-disable" ]; then
+            echo "  ❌ Disabled (remove .vectorize-disable to enable)"
+        else
+            echo "  ✅ Enabled"
+        fi
+        
+        if [ -f ".vectorize-trigger" ]; then
+            echo "  🎯 Manual trigger set (will vectorize all files)"
+        else
+            echo "  ⚡ Auto mode (will vectorize high-value files only)"
+        fi
+        
+        if [ -d ".vectorcode" ]; then
+            echo "  📁 VectorCode project initialized"
+        else
+            echo "  📂 VectorCode project not initialized"
+        fi
+        ;;
+    
+    "list")
+        # Simulate what would be vectorized in auto mode
+        if [ -d ".git" ]; then
+            echo "Files that would be auto-vectorized:"
+            git diff --cached --name-only | while read file; do
+                case "$file" in
+                    src/*|lib/*|app/*|components/*|pages/*|routes/*)
+                        if [[ ! "$file" =~ (test|spec|__tests__|\.(test|spec)\.) ]]; then
+                            echo "  📄 $file"
+                        fi
+                        ;;
+                    */package.json|*/requirements*.txt|*/Dockerfile*|*/Makefile*)
+                        echo "  📦 $file"
+                        ;;
+                    *.md)
+                        if [[ "$file" =~ ^(README|docs/|CONTRIBUTING|CHANGELOG) ]]; then
+                            echo "  📝 $file"
+                        fi
+                        ;;
+                    *.py|*.js|*.ts|*.jsx|*.tsx|*.java|*.cpp|*.c|*.h|*.hpp|*.rs|*.go)
+                        if [[ "$file" =~ ^(src/|lib/|app/) ]] && [[ ! "$file" =~ (test|spec|__tests__|\.(test|spec)\.) ]]; then
+                            echo "  💻 $file"
+                        fi
+                        ;;
+                esac
+            done
+        else
+            echo "Not in a git repository"
+        fi
+        ;;
+    
+    "clean")
+        rm -f .vectorize-trigger .vectorize-disable
+        echo "🧹 Cleaned up control files"
+        ;;
+    
+    *)
+        echo "Unknown command: $1"
+        echo "Use 'vectorize-control help' for usage information"
+        exit 1
+        ;;
+esac
