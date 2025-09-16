@@ -628,13 +628,13 @@ set -g @floax-text-color '#FFC600'
 set -g @plugin 'laktak/tome'
 
 # Set the keybinding to open the Tome playbook.
-set -g @tome_key "C-t"
+set -g @tome_key 'C-t'
 
 # Set the keybinding to open the Tome scratchpad.
-set -g @tome_scratch_key "C-s"
+set -g @tome_scratch_key 'C-s'
 
 # Set the width and height of the Tome popup window.
-set -g @tome_height "10"
+set -g @tome_height '40'
 
 #-------------------------------------------------------------------------------
 # }}}
