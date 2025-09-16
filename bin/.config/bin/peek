@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# Call the real peek binary
+/usr/bin/peek.real "$@"
+
+# Determine output dir (default: ~/Videos)
+OUTDIR="${XDG_VIDEOS_DIR:-$HOME/Videos}"
+
+# Find latest MP4 or WebM recording
+latest=$(ls -t "$OUTDIR"/*.(mp4|webm)(N) 2>/dev/null | head -n 1)
+
+if [[ -n "$latest" ]]; then
+    ext="${latest##*.}"
+    tmpfile="${latest%.$ext}_noaudio.$ext"
+
+    # Strip audio
+    ffmpeg -y -i "$latest" -c copy -an "$tmpfile" \
+        && mv "$tmpfile" "$latest"
+fi
