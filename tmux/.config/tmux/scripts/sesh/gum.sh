@@ -9,17 +9,24 @@
 #
 # Previous fzf implementation preserved below for reference.
 
-#  NOTE: Optimized gum implementation with icons for better visual distinction
+#  NOTE: Optimized gum implementation with colored icons for better visual distinction
 sesh connect "$(
-    sesh list -i | gum filter \
+    sesh list --icons | gum filter \
         --limit 1 \
         --no-sort \
         --fuzzy \
-        --strip-ansi \
+        --no-strip-ansi \
         --placeholder 'Pick a sesh' \
         --height 40 \
         --prompt='⚡ ' \
-        --timeout=30s
+        --timeout=30s \
+        --indicator.foreground="#00AAFF" \
+        --match.foreground="#FFC600" \
+        --text.foreground="#FFFFFF" \
+        --prompt.foreground="#3AD900" \
+        --placeholder.foreground="#8fbfdc" \
+        --cursor-text.foreground="#FFFFFF" \
+        --cursor-text.background="#185294"
 )" || echo "Failed to connect to sesh session"
 
 #  NOTE: Backup fzf implementation (previously active)
