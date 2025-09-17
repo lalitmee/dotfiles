@@ -17,7 +17,7 @@ sesh connect "$(
         --fuzzy \
         --strip-ansi \
         --placeholder 'Pick a sesh' \
-        --height 20 \
+        --height 40 \
         --prompt='⚡ ' \
         --timeout=30s
 )" || echo "Failed to connect to sesh session"
