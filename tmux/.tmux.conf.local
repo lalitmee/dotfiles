@@ -742,10 +742,10 @@ bind U run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
 #-------------------------------------------------------------------------------
 
 # Launch fzf-based sesh script.
-bind "o" run-shell "~/.config/tmux/scripts/sesh/fzf.sh"
+bind "o" display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/fzf.sh"
 
 # Launch gum-based sesh script in a popup.
-bind "C-o" display-popup -E -w 50% "~/.config/tmux/scripts/sesh/gum.sh"
+bind "C-o" display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/gum.sh"
 
 # Connect to the last session.
 bind "S" run-shell "sesh last"
