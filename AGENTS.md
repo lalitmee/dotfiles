@@ -7,15 +7,22 @@
 - **Run basic test**: `./scripts/test/test-home` (logs HOME variable resolution)
 - **Test cron jobs**: `./scripts/backup/test-cron` (validates cron configurations)
 
+## User Environment
+
+- **Default Shell**: Zsh (configured in tmux as `set -g default-command "exec /bin/zsh"`)
+- **Preferred Shell Scripts**: Zsh-based scripts with `#!/usr/bin/env zsh` shebang
+- **Shell Configuration**: Primary configuration in `~/.zshrc`
+
 ## Code Style Guidelines
 
 ### Shell Scripts (.sh, .zsh)
 
+- **Default Shell**: Zsh (preferred over bash)
 - Use 4-space indentation (no tabs)
-- Use `#!/usr/bin/env bash` or `#!/usr/bin/env zsh` shebangs
+- Use `#!/usr/bin/env zsh` shebang (preferred) or `#!/usr/bin/env bash` for compatibility
 - Quote variables: `"$VARIABLE"`
 - Use `[[ ]]` for conditionals instead of `[ ]`
-- Check file existence before sourcing: `[[ -f ~/.file ]] && source ~/.file`
+- Check file existence before sourcing: `[[ -f ~/.zshrc ]] && source ~/.zshrc`
 - Use functions for reusable code blocks
 - Add descriptive comments with fold markers: `# vim:foldmethod=marker`
 
