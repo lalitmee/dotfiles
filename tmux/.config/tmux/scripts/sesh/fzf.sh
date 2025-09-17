@@ -22,7 +22,8 @@ else
 fi
 
 sesh connect "$(
-    sesh list --icons | fzf-tmux -p 50%,70% \
+    sesh list --icons | fzf \
+        --height 80% \
         --no-sort \
         --ansi \
         --border-label ' sesh ' \
@@ -34,5 +35,6 @@ sesh connect "$(
         --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
         --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
         --bind "ctrl-f:change-prompt(🔎  )+reload($DIR_CMD)" \
-        --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)'
+        --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
+        --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg+:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF'
 )"
