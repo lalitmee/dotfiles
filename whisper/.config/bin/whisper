@@ -1,0 +1,95 @@
+#!/usr/bin/env zsh
+
+# Function to send notifications
+notify_status() {
+    notify-send -u normal "Whisper" "$1"
+}
+
+notify_error() {
+    notify-send -u critical "Whisper Error" "$1"
+}
+
+# Debug log file
+DEBUG_LOG="/tmp/whisper_debug.log"
+echo "---" >> "$DEBUG_LOG"
+echo "Whisper script triggered at $(date)" >> "$DEBUG_LOG"
+
+# Check for required dependencies
+for cmd in xdotool notify-send sox; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo "Missing dependency: $cmd" >> "$DEBUG_LOG"
+        notify_error "Required command '$cmd' not found. Please install it."
+        exit 1
+    fi
+done
+
+# Check for python venv
+VENV_PYTHON="$HOME/dotfiles/.whisper-venv/bin/python3"
+if [[ ! -x "$VENV_PYTHON" ]]; then
+    echo "Missing venv python" >> "$DEBUG_LOG"
+    notify_error "Whisper venv not found. Run: python3 -m venv ~/dotfiles/.whisper-venv && ~/dotfiles/.whisper-venv/bin/pip install -U SpeechRecognition openai-whisper pyaudio torch"
+    exit 1
+fi
+
+# PID files and Recording file
+PYTHON_PID_FILE="/tmp/whisper.pid"
+REC_PID_FILE="/tmp/whisper_rec.pid"
+RECORDING_FILE="/tmp/full_whisper_session.wav"
+
+# Check if already recording
+if [[ -f "$PYTHON_PID_FILE" ]]; then
+    # --- STOP LOGIC ---
+    echo "Stop command received." >> "$DEBUG_LOG"
+
+    # Stop Python script
+    PYTHON_PID=$(cat "$PYTHON_PID_FILE")
+    if kill -0 "$PYTHON_PID" 2>/dev/null; then
+        kill "$PYTHON_PID"
+        echo "Stopped Python process (PID: $PYTHON_PID)." >> "$DEBUG_LOG"
+    else
+        echo "Python process (PID: $PYTHON_PID) was already stopped." >> "$DEBUG_LOG"
+    fi
+    rm -f "$PYTHON_PID_FILE"
+
+    # Stop sox recording
+    if [[ -f "$REC_PID_FILE" ]]; then
+        REC_PID=$(cat "$REC_PID_FILE")
+        if kill -0 "$REC_PID" 2>/dev/null; then
+            kill "$REC_PID"
+            echo "Stopped sox recording (PID: $REC_PID)." >> "$DEBUG_LOG"
+            notify_status "🎤 Stopped. Recording saved."
+        fi
+        rm -f "$REC_PID_FILE"
+    else
+        notify_status "🎤 Transcription stopped."
+    fi
+else
+    # --- START LOGIC ---
+    echo "Start command received." >> "$DEBUG_LOG"
+
+    ### SAFEGUARD ###
+    echo "Verifying default audio source..." >> "$DEBUG_LOG"
+    default_source=$(pactl info | grep 'Default Source' | awk '{print $3}')
+    if [[ "$default_source" != "noise_cancelled_source" ]]; then
+        echo "Error: Default source is '$default_source', not 'noise_cancelled_source'. Aborting." >> "$DEBUG_LOG"
+        notify_error "Default mic is not noise-cancelled. Run 'select-mic' first."
+        exit 1
+    fi
+    echo "Default source is correctly set to 'noise_cancelled_source'." >> "$DEBUG_LOG"
+    ### END SAFEGUARD ###
+
+    # Start background recording with sox
+    echo "Starting background recording to $RECORDING_FILE" >> "$DEBUG_LOG"
+    rec -q "$RECORDING_FILE" & 
+    REC_PID=$!
+    echo $REC_PID > "$REC_PID_FILE"
+    echo "Sox recording process started with PID: $REC_PID" >> "$DEBUG_LOG"
+
+    # Start Python transcription
+    notify_status "🎤 Listening... Speak now! (Whisper)"
+    nohup "$VENV_PYTHON" "$HOME/.config/bin/whisper-realtime" >> "$DEBUG_LOG" 2>&1 &
+    PYTHON_PID=$!
+    echo $PYTHON_PID > "$PYTHON_PID_FILE"
+    echo "Python process started with PID: $PYTHON_PID" >> "$DEBUG_LOG"
+fi
+echo "Whisper script finished at $(date)" >> "$DEBUG_LOG"

@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+# Plays back the last recorded whisper session.
+
+RECORDING_FILE="/tmp/full_whisper_session.wav"
+
+if [[ -f "$RECORDING_FILE" ]]; then
+    play "$RECORDING_FILE"
+else
+    notify-send "Whisper Playback" "No recording found at $RECORDING_FILE"
+fi

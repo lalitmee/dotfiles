@@ -15,3 +15,6 @@
 **/.vim/tmp/
 .log
 **/.mind/
+
+# Whisper Python virtual environment
+.whisper-venv/

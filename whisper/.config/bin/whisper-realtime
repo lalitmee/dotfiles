@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+
+import speech_recognition as sr
+import subprocess
+import sys
+import os
+import torch
+
+# --- Configuration ---
+MODEL = "medium.en"
+LANGUAGE = "en"
+PAUSE_THRESHOLD = 0.8
+ENERGY_THRESHOLD = 300
+PHRASE_TIMEOUT = 5
+PHRASE_TIME_LIMIT = 15
+
+# Function to type text using xdotool
+def type_text(text):
+    try:
+        subprocess.run(['xdotool', 'type', '--clearmodifiers', text], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error with xdotool: {e}", file=sys.stderr)
+    except FileNotFoundError:
+        print("xdotool not found. Please install it.", file=sys.stderr)
+
+def main():
+    use_cuda = torch.cuda.is_available()
+    print(f"CUDA available: {use_cuda}")
+    if use_cuda:
+        print(f"Using GPU: {torch.cuda.get_device_name(0)}")
+    else:
+        print("Using CPU for transcription.")
+
+    r = sr.Recognizer()
+    r.energy_threshold = ENERGY_THRESHOLD
+    r.pause_threshold = PAUSE_THRESHOLD
+    r.dynamic_energy_threshold = False
+
+    try:
+        with sr.Microphone() as source:
+            print("\nAdjusting for ambient noise... Please wait.")
+            r.adjust_for_ambient_noise(source, duration=1)
+            print(f"Listening... (Model: {MODEL}, Language: {LANGUAGE})")
+
+            while True:
+                try:
+                    audio = r.listen(source, timeout=PHRASE_TIMEOUT, phrase_time_limit=PHRASE_TIME_LIMIT)
+                    text = r.recognize_whisper(
+                        audio,
+                        model=MODEL,
+                        language=LANGUAGE
+                    )
+                    if text.strip():
+                        print(f"Recognized: {text}")
+                        type_text(text + " ")
+                except sr.WaitTimeoutError:
+                    pass
+                except sr.UnknownValueError:
+                    pass
+                except sr.RequestError as e:
+                    print(f"Could not request results from Whisper service; {e}")
+                    break
+                except KeyboardInterrupt:
+                    print("\nStopping listener.")
+                    break
+    except sr.RequestError as e:
+        print(f"Could not find a microphone; {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
