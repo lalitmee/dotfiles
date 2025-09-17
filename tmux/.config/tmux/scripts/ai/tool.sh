@@ -68,8 +68,8 @@ case "$TOOL" in
 
     opencode)
         PANE_TITLE="🧑‍💻 OpenCode"
-        # Replace with the actual command for opencode
-        COMMAND="opencode"
+        # Source zshrc to load aliases, then run opencode
+        COMMAND="NODE_TLS_REJECT_UNAUTHORIZED=0 opencode"
         ;;
 
     claude)
