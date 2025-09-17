@@ -1,0 +1,65 @@
+#!/usr/bin/env zsh
+
+# Script to select a physical microphone and enable noise-cancellation on it.
+
+# Check for required dependencies
+for cmd in pactl fzf jq notify-send; do
+    if ! command -v "$cmd" >/dev/null 2>&1;
+    then
+        notify-send -u critical "Mic Selector Error" "Required command '$cmd' not found. Please install it."
+        exit 1
+    fi
+done
+
+# Get physical sources (monitors are excluded) using a highly compatible jq query.
+sources=$(pactl -f json list sources | jq -r '.[] | select(.properties["device.class"] != "monitor") | (if .properties["device.description"] != null then .properties["device.description"] else .name end) + " -> " + .name')
+
+# Check if sources found
+if [[ -z "$sources" ]]; then
+    notify-send "Mic Selector" "No physical microphones found."
+    exit 1
+fi
+
+# Use fzf to select a physical microphone (without preview)
+selected=$(echo "$sources" | fzf \
+    --prompt="🎤 Select Physical Mic for Noise Cancellation: " \
+    --height=20% \
+    --layout=reverse \
+    --border \
+    --header="This will enable noise cancellation for the selected device."
+)
+
+# Exit if no selection was made
+if [[ -z "$selected" ]]; then
+    notify-send "Mic Selector" "No microphone selected. Action cancelled."
+    exit 0
+fi
+
+# --- Core Logic ---
+
+# 1. Extract info from selection
+physical_source_name=$(echo "$selected" | awk -F' -> ' '{print $2}')
+physical_source_desc=$(echo "$selected" | awk -F' -> ' '{print $1}')
+
+# 2. Unload any previous instance of the echo-cancel module to avoid conflicts
+module_index=$(pactl list modules short | grep "module-echo-cancel" | awk '{print $1}' | head -n 1)
+if [[ -n "$module_index" ]]; then
+    pactl unload-module "$module_index"
+fi
+
+# 3. Load the echo-cancel module, attached to the selected physical mic.
+new_module_index=$(pactl load-module module-echo-cancel aec_method=webrtc source_master="$physical_source_name" source_name=noise_cancelled_source)
+
+# Check if module loaded successfully
+if [[ $? -ne 0 ]] || [[ -z "$new_module_index" ]]; then
+    notify-send -u critical "Mic Selector Error" "Failed to load noise-cancellation module."
+    exit 1
+fi
+
+# 4. Set the new noise-cancelled source as the default
+if pactl set-default-source noise_cancelled_source; then
+    notify-send -u normal "Microphone Changed" "Noise cancellation enabled for:
+<b>$physical_source_desc</b>"
+else
+    notify-send -u critical "Mic Selector Error" "Failed to set new default source."
+fi

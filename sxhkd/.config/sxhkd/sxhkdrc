@@ -334,6 +334,10 @@ super + alt + Up
 # Subtract time (-1 min)
 super + alt + Down
     ~/.config/polybar/scripts/pomodoro.sh --sub
+
+# Voice-to-text toggle
+super + w
+    ~/.config/bin/whisper
 #}}}
 #-------------------------------------------------------------------------------
 

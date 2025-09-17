@@ -62,13 +62,11 @@ fi
 case "$TOOL" in
     gemini)
         PANE_TITLE="🤖 Google Gemini"
-        # Assuming gemini is installed and accessible in your PATH
         COMMAND="gemini"
         ;;
 
     opencode)
         PANE_TITLE="🧑‍💻 OpenCode"
-        # Source zshrc to load aliases, then run opencode
         COMMAND="NODE_TLS_REJECT_UNAUTHORIZED=0 opencode"
         ;;
 
