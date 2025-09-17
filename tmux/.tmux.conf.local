@@ -760,7 +760,7 @@ bind "S" run-shell "sesh last"
 
 # --- Project Runner ---
 # An fzf-based script to run package.json commands.
-bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner.sh'"
+bind C-r display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/runner.sh'"
 
 
 #-------------------------------------------------------------------------------
@@ -770,19 +770,19 @@ bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runne
 bind-key C-i switch-client -T ai-tools
 
 # Gemini
-bind-key -T ai-tools g display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh gemini'"
+bind-key -T ai-tools g display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh gemini'"
 
 # OpenCode
-bind-key -T ai-tools o display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh opencode'"
+bind-key -T ai-tools o display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh opencode'"
 
 # Claude
-bind-key -T ai-tools c display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh claude'"
+bind-key -T ai-tools c display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh claude'"
 
 # Codex
-bind-key -T ai-tools x display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh codex'"
+bind-key -T ai-tools x display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh codex'"
 
 # Qwen
-bind-key -T ai-tools w display-popup -w 85% -h 85% "zsh -l -c '~/.config/tmux/scripts/ai/tool.sh qwen'"
+bind-key -T ai-tools w display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh qwen'"
 
 # update the ai-tools
 bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
@@ -801,16 +801,16 @@ bind-key -T ai-tools q switch-client -T root
 bind-key b switch-client -T second-brain
 
 # Notes - personal and work contexts
-bind-key -T second-brain n display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh notes personal'"
-bind-key -T second-brain N display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh notes work'"
+bind-key -T second-brain n display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh notes personal'"
+bind-key -T second-brain N display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh notes work'"
 
 # Scratch - personal and work contexts
-bind-key -T second-brain s display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh scratch personal'"
-bind-key -T second-brain S display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh scratch work'"
+bind-key -T second-brain s display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh scratch personal'"
+bind-key -T second-brain S display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh scratch work'"
 
 # Todos - personal and work contexts
-bind-key -T second-brain t display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos personal'"
-bind-key -T second-brain T display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/second-brain.sh todos work'"
+bind-key -T second-brain t display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh todos personal'"
+bind-key -T second-brain T display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh todos work'"
 
 # Exit the second-brain table
 bind-key -T second-brain q switch-client -T root
@@ -869,22 +869,22 @@ bind -T layout-mode x display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/kil
 # The script path is hardcoded to ensure compatibility.
 
 # Bind 'a' to ask the AI.
-bind -T layout-mode a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
+bind -T layout-mode a display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
 
 # Bind 'c' to start an interactive AI chat session.
-bind -T layout-mode c display-popup -w 80% -h 70% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
+bind -T layout-mode c display-popup -w 80% -h 70% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
 
 # Bind 's' to perform a site-specific search.
-bind -T layout-mode s display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh site'"
+bind -T layout-mode s display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh site'"
 
 # Bind '/' to perform a general web search.
-bind -T layout-mode / display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh search'"
+bind -T layout-mode / display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh search'"
 
 # Bind 'd' for a "Ducky" search (opens top result in browser).
-bind -T layout-mode d display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
+bind -T layout-mode d display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
 
 # Bind 'b' for a browser !bang search.
-bind -T layout-mode b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
+bind -T layout-mode b display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
 
 #-------------------------------------------------------------------------------
 # }}}
