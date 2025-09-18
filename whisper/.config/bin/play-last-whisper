@@ -2,10 +2,21 @@
 
 # Plays back the last recorded whisper session.
 
-RECORDING_FILE="/tmp/full_whisper_session.wav"
+# Try new recording file first, then fall back to old one
+NEW_RECORDING="/tmp/whisper_session.wav"
+OLD_RECORDING="/tmp/full_whisper_session.wav"
 
-if [[ -f "$RECORDING_FILE" ]]; then
-    play "$RECORDING_FILE"
+if [[ -f "$NEW_RECORDING" ]]; then
+    RECORDING_FILE="$NEW_RECORDING"
+elif [[ -f "$OLD_RECORDING" ]]; then
+    RECORDING_FILE="$OLD_RECORDING"
 else
-    notify-send "Whisper Playback" "No recording found at $RECORDING_FILE"
+    notify-send "Whisper Playback" "No recording found"
+    echo "No recording files found at:"
+    echo "  $NEW_RECORDING"
+    echo "  $OLD_RECORDING"
+    exit 1
 fi
+
+echo "Playing: $RECORDING_FILE"
+play "$RECORDING_FILE"

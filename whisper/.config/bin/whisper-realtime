@@ -1,72 +1,306 @@
 #!/usr/bin/env python3
 
+import argparse
+import os
+import numpy as np
 import speech_recognition as sr
+import whisper
+import torch
 import subprocess
 import sys
-import os
-import torch
+import wave
+import audioop
+import signal
 
-# --- Configuration ---
-MODEL = "medium.en"
-LANGUAGE = "en"
-PAUSE_THRESHOLD = 0.8
-ENERGY_THRESHOLD = 300
-PHRASE_TIMEOUT = 5
-PHRASE_TIME_LIMIT = 15
+from datetime import datetime, timedelta
+from queue import Queue
+from time import sleep
+from sys import platform
 
-# Function to type text using xdotool
+
+# Global variables for signal handling
+recording_frames = []
+transcription = ['']
+
+
+def signal_handler(signum, frame):
+    """Handle termination signals to save recording before exit."""
+    print(f"\n\n🛑 Received signal {signum}, saving recording...")
+    if recording_frames:
+        print(f"💾 Saving recording... ({len(recording_frames)} audio frames)")
+        save_recording(recording_frames)
+    else:
+        print("💾 No audio frames to save.")
+
+    print("\n📄 Final Transcription:")
+    for line in transcription:
+        if line.strip():
+            print(f"  {line}")
+
+    sys.exit(0)
+
+
 def type_text(text):
+    """Type text using xdotool with proper error handling."""
     try:
-        subprocess.run(['xdotool', 'type', '--clearmodifiers', text], check=True)
+        # Clean the text and add a space
+        clean_text = text.strip()
+        if clean_text:
+            subprocess.run(['xdotool', 'type', '--clearmodifiers', clean_text + ' '],
+                         check=True, capture_output=True)
+            print(f"✓ Typed: {clean_text}")
     except subprocess.CalledProcessError as e:
-        print(f"Error with xdotool: {e}", file=sys.stderr)
+        print(f"✗ xdotool error: {e}", file=sys.stderr)
     except FileNotFoundError:
-        print("xdotool not found. Please install it.", file=sys.stderr)
+        print("✗ xdotool not found. Please install it.", file=sys.stderr)
+    except Exception as e:
+        print(f"✗ Unexpected error with xdotool: {e}", file=sys.stderr)
+
+
+def save_recording(frames, sample_rate=16000, filename="/tmp/whisper_session.wav"):
+    """Save the accumulated audio frames to a WAV file."""
+    if not frames:
+        print("No audio data to save.")
+        return
+
+    try:
+        # Combine all frames
+        audio_data = b''.join(frames)
+
+        # Create WAV file
+        with wave.open(filename, 'wb') as wav_file:
+            wav_file.setnchannels(1)  # Mono
+            wav_file.setsampwidth(2)  # 16-bit
+            wav_file.setframerate(sample_rate)
+            wav_file.writeframes(audio_data)
+
+        file_size = len(audio_data) / (sample_rate * 2)  # Rough duration in seconds
+        print(f"✓ Recording saved: {filename} ({file_size:.1f}s)")
+
+    except Exception as e:
+        print(f"✗ Failed to save recording: {e}", file=sys.stderr)
+
 
 def main():
+    global recording_frames, transcription
+
+    # Register signal handlers for graceful shutdown
+    signal.signal(signal.SIGTERM, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
+
+    parser = argparse.ArgumentParser(description="Real-time speech to text with typing")
+    parser.add_argument("--model", default="base", help="Model to use",
+                        choices=["tiny", "base", "small", "medium", "large"])
+    parser.add_argument("--non_english", action='store_true',
+                        help="Don't use the english model.")
+    parser.add_argument("--energy_threshold", default=50,
+                        help="Energy level for mic to detect.", type=int)
+    parser.add_argument("--record_timeout", default=2,
+                        help="How real time the recording is in seconds.", type=float)
+    parser.add_argument("--phrase_timeout", default=1.5,
+                        help="How much empty space between recordings before we "
+                             "consider it a new line in the transcription.", type=float)
+    parser.add_argument("--microphone", default='noise_cancelled_source',
+                        help="Microphone device name to use.", type=str)
+    parser.add_argument("--no-type", action='store_true',
+                        help="Don't type the text, just print to console.")
+    args = parser.parse_args()
+
+    print("🎤 Starting Whisper Real-Time Dictation", flush=True)
+    print(f"Model: {args.model}", flush=True)
+    print(f"Energy threshold: {args.energy_threshold}", flush=True)
+    print(f"Record timeout: {args.record_timeout}s", flush=True)
+    print(f"Phrase timeout: {args.phrase_timeout}s", flush=True)
+    print(f"Microphone: {args.microphone}", flush=True)
+    print(f"Typing enabled: {not args.no_type}", flush=True)
+    print("-" * 50, flush=True)
+
+    # Check CUDA availability
     use_cuda = torch.cuda.is_available()
-    print(f"CUDA available: {use_cuda}")
+    print(f"CUDA available: {use_cuda}", flush=True)
     if use_cuda:
-        print(f"Using GPU: {torch.cuda.get_device_name(0)}")
+        print(f"Using GPU: {torch.cuda.get_device_name(0)}", flush=True)
     else:
-        print("Using CPU for transcription.")
+        print("Using CPU for transcription.", flush=True)
 
-    r = sr.Recognizer()
-    r.energy_threshold = ENERGY_THRESHOLD
-    r.pause_threshold = PAUSE_THRESHOLD
-    r.dynamic_energy_threshold = False
+    # Reset global variables
+    recording_frames = []
+    transcription = ['']
 
+    # The last time a recording was retrieved from the queue.
+    phrase_time = None
+    # Thread safe Queue for passing data from the threaded recording callback.
+    data_queue = Queue()
+    # Bytes object which holds audio data for the current phrase
+    phrase_bytes = bytes()
+    # Recording parameters
+    recording_sample_rate = 16000
+    recording_channels = 1
+    # We use SpeechRecognizer to record our audio because it has a nice feature where it can detect when speech ends.
+    recorder = sr.Recognizer()
+    recorder.energy_threshold = args.energy_threshold
+    # Definitely do this, dynamic energy compensation lowers the energy threshold dramatically to a point where the SpeechRecognizer never stops recording.
+    recorder.dynamic_energy_threshold = False
+
+    # Setup microphone for Linux
+    if 'linux' in platform:
+        mic_name = args.microphone
+        print(f"Requested microphone: {mic_name}")
+
+        # List available microphones
+        mic_list = sr.Microphone.list_microphone_names()
+        print(f"Available microphones: {len(mic_list)}", flush=True)
+        for i, name in enumerate(mic_list):
+            print(f"  {i}: {name}", flush=True)
+
+        # For PulseAudio sources, we need to use the 'pulse' device
+        # which will use the default PulseAudio source
+        if mic_name == 'noise_cancelled_source':
+            print("✓ Using PulseAudio 'pulse' device (will use default PulseAudio source)", flush=True)
+            print("  Make sure your PulseAudio default source is set to noise_cancelled_source", flush=True)
+            source = sr.Microphone(sample_rate=16000, device_index=None)  # Use default
+        else:
+            # Try to find the specified microphone
+            source = None
+            for index, name in enumerate(mic_list):
+                if mic_name.lower() in name.lower():
+                    print(f"✓ Found microphone: {name}")
+                    source = sr.Microphone(sample_rate=16000, device_index=index)
+                    break
+
+            if source is None:
+                print(f"✗ Microphone '{mic_name}' not found!")
+                print("Available microphones:")
+                for index, name in enumerate(mic_list):
+                    print(f"  {index}: {name}")
+                return
+    else:
+        source = sr.Microphone(sample_rate=16000)
+
+    # Load / Download model
+    model_name = args.model
+    if args.model != "large" and not args.non_english:
+        model_name = model_name + ".en"
+
+    print(f"Loading Whisper model: {model_name}", flush=True)
     try:
-        with sr.Microphone() as source:
-            print("\nAdjusting for ambient noise... Please wait.")
-            r.adjust_for_ambient_noise(source, duration=1)
-            print(f"Listening... (Model: {MODEL}, Language: {LANGUAGE})")
-
-            while True:
-                try:
-                    audio = r.listen(source, timeout=PHRASE_TIMEOUT, phrase_time_limit=PHRASE_TIME_LIMIT)
-                    text = r.recognize_whisper(
-                        audio,
-                        model=MODEL,
-                        language=LANGUAGE
-                    )
-                    if text.strip():
-                        print(f"Recognized: {text}")
-                        type_text(text + " ")
-                except sr.WaitTimeoutError:
-                    pass
-                except sr.UnknownValueError:
-                    pass
-                except sr.RequestError as e:
-                    print(f"Could not request results from Whisper service; {e}")
-                    break
-                except KeyboardInterrupt:
-                    print("\nStopping listener.")
-                    break
-    except sr.RequestError as e:
-        print(f"Could not find a microphone; {e}")
+        audio_model = whisper.load_model(model_name)
+        print("✓ Model loaded successfully", flush=True)
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        print(f"✗ Failed to load model: {e}", flush=True)
+        return
+
+    record_timeout = args.record_timeout
+    phrase_timeout = args.phrase_timeout
+
+    transcription = ['']
+
+    # Adjust for ambient noise
+    print("Adjusting for ambient noise... Please wait 2 seconds.")
+    with source:
+        recorder.adjust_for_ambient_noise(source, duration=2)
+        print(f"✓ Energy threshold set to: {recorder.energy_threshold}")
+        print("✓ Microphone initialized successfully")
+    def record_callback(_, audio:sr.AudioData) -> None:
+        """
+        Threaded callback function to receive audio data when recordings finish.
+        audio: An AudioData containing the recorded bytes.
+        """
+        # Grab the raw bytes and push it into the thread safe queue.
+        data = audio.get_raw_data()
+        data_queue.put(data)
+
+        # Also save for recording (convert to mono if stereo)
+        if audio.sample_width == 2:  # 16-bit audio
+            # Convert stereo to mono if needed
+            if len(data) % 4 == 0:  # Likely stereo (2 channels * 2 bytes per sample)
+                data = audioop.tomono(data, 2, 0.5, 0.5)
+        recording_frames.append(data)
+        print(f"🎵 Audio frame captured: {len(data)} bytes", flush=True)
+
+    # Create a background thread that will pass us raw audio bytes.
+    # We could do this manually but SpeechRecognizer provides a nice helper.
+    recorder.listen_in_background(source, record_callback, phrase_time_limit=record_timeout)
+
+    # Cue the user that we're ready to go.
+    print("\n🎤 Ready! Start speaking...", flush=True)
+    print("Press Ctrl+C to stop\n", flush=True)
+    print("🎧 Listening for audio input...", flush=True)
+
+    print("🔄 Starting main listening loop...", flush=True)
+    loop_count = 0
+    while True:
+        try:
+            now = datetime.utcnow()
+            loop_count += 1
+            if loop_count % 50 == 0:  # Print status every 50 loops
+                print(f"🔄 Loop running... (frames: {len(recording_frames)})", end='\r', flush=True)
+
+            # Pull raw recorded audio from the queue.
+            if not data_queue.empty():
+                phrase_complete = False
+                # If enough time has passed between recordings, consider the phrase complete.
+                # Clear the current working audio buffer to start over with the new data.
+                if phrase_time and now - phrase_time > timedelta(seconds=phrase_timeout):
+                    phrase_bytes = bytes()
+                    phrase_complete = True
+                # This is the last time we received new audio data from the queue.
+                phrase_time = now
+
+                # Combine audio data from queue
+                audio_data = b''.join(data_queue.queue)
+                data_queue.queue.clear()
+
+                # Add the new audio data to the accumulated data for this phrase
+                phrase_bytes += audio_data
+
+                # Convert in-ram buffer to something the model can use directly without needing a temp file.
+                # Convert data from 16 bit wide integers to floating point with a width of 32 bits.
+                # Clamp the audio stream frequency to a PCM wavelength compatible default of 32768hz max.
+                audio_np = np.frombuffer(phrase_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+
+                # Read the transcription.
+                result = audio_model.transcribe(audio_np, fp16=torch.cuda.is_available())
+                text = result['text'].strip()
+
+                # Only process if we have actual text
+                if text:
+                    # If we detected a pause between recordings, add a new item to our transcription.
+                    # Otherwise edit the existing one.
+                    if phrase_complete:
+                        transcription.append(text)
+                        # Type the completed phrase
+                        if not args.no_type:
+                            type_text(text)
+                    else:
+                        transcription[-1] = text
+
+                    # Show current transcription status
+                    print(f"📝 {text}", end='\r')
+
+            else:
+                # Infinite loops are bad for processors, must sleep.
+                sleep(0.1)
+
+                # Periodic status update
+                if len(recording_frames) > 0:
+                    print(f"📊 Status: {len(recording_frames)} frames recorded", end='\r', flush=True)
+        except KeyboardInterrupt:
+            print("\n\n🛑 Stopping transcription...")
+            break
+        except Exception as e:
+            print(f"\n✗ Error during transcription: {e}")
+            continue
+
+    # Save the recording before exiting
+    print(f"\n💾 Saving recording... ({len(recording_frames)} audio frames)")
+    save_recording(recording_frames)
+
+    print("\n📄 Final Transcription:")
+    for line in transcription:
+        if line.strip():
+            print(f"  {line}")
+
 
 if __name__ == "__main__":
     main()

@@ -18,3 +18,4 @@
 
 # Whisper Python virtual environment
 .whisper-venv/
+__pycache__/
