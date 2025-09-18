@@ -27,7 +27,7 @@ sesh connect "$(
         --placeholder.foreground="#8fbfdc" \
         --cursor-text.foreground="#FFFFFF" \
         --cursor-text.background="#185294"
-)" || echo "Failed to connect to sesh session"
+)" < /dev/null || echo "Failed to connect to sesh session"
 
 #  NOTE: Backup fzf implementation (previously active)
 # sesh connect "$(
