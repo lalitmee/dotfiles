@@ -175,34 +175,27 @@ return {
                 lineFoldingOnly = true,
             }
 
+            local lsp_utils = require("plugins.lsp.utils")
             local servers = require("plugins.lsp.servers")
 
-            local custom_init = function(client)
-                client.config.flags = client.config.flags or {}
-                client.config.flags.allow_incremental_sync = true
-            end
+            -- Base configuration to apply to all servers
+            local base_config = {
+                on_attach = lsp_utils.on_attach,
+                capabilities = capabilities,
+            }
 
-            local function get_server_config(name)
-                local conf = servers[name]
-                local conf_type = type(conf)
-                local config = conf_type == "table" and conf or conf_type == "function" and conf() or {}
-                config.flags = { debounce_text_changes = 500 }
-                config.capabilities = capabilities or {}
-                config = vim.tbl_deep_extend("force", {
-                    on_init = custom_init,
-                    on_attach = lsp_utils.on_attach,
-                    capabilities = config.capabilities,
-                    flags = {
-                        debounce_text_changes = nil,
-                    },
-                }, config)
-                return config
-            end
+            -- Loop through all the servers defined in your `servers` directory
+            for server_name, server_config in pairs(servers) do
+                local final_config = base_config
 
-            for name, config in pairs(servers) do
-                if config then
-                    require("lspconfig")[name].setup(get_server_config(name))
+                -- If you have a custom config table for the server, merge it
+                if type(server_config) == "table" then
+                    final_config = vim.tbl_deep_extend("force", base_config, server_config)
                 end
+
+                -- Use the new, correct Neovim API
+                vim.lsp.config(server_name, final_config)
+                vim.lsp.enable(server_name)
             end
         end,
     },
