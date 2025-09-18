@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Robust sxhkd reload script
+# Sends USR1 signal to reload config, and restarts if it crashes
+
+# Send reload signal
+if pkill -USR1 -x sxhkd; then
+    # Wait a bit for reload to complete
+    sleep 0.2
+
+    # Check if sxhkd is still running
+    if ! pgrep -x sxhkd > /dev/null; then
+        notify-send -u critical "sxhkd" "Crashed on reload, restarting..."
+        echo "sxhkd crashed, restarting..."
+        sxhkd &
+        disown
+    else
+        notify-send -u normal "sxhkd" "Keybindings reloaded successfully"
+    fi
+else
+    notify-send -u critical "sxhkd" "sxhkd process not found, starting it..."
+    sxhkd &
+    disown
+fi

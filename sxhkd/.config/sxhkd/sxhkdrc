@@ -2,10 +2,10 @@
 # NOTE: must have {{{
 #-------------------------------------------------------------------------------
 super + Escape
-    pkill -USR1 -x sxhkd
+    ~/.config/bin/sxhkd-reload
 
 super + Return
-   ghostty
+    ghostty
 
 #super + shift + Return
 #   wezterm
@@ -39,7 +39,7 @@ super + shift + c
 # NOTE: rofi/dmenu {{{
 #-------------------------------------------------------------------------------
 super + o
-   ~/.config/rofi/launchers/type-1/launcher.sh
+    ~/.config/rofi/launchers/type-1/launcher.sh
 
 # super + shift + v
 #    ~/.config/rofi/applets/bin/volume.sh
@@ -112,7 +112,7 @@ XF86AudioStop
     playerctl stop
 
 alt + {h,j,k,l}
-   mpc {prev,next,play,pause}
+    mpc {prev,next,play,pause}
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -317,27 +317,31 @@ super + shift + p
 
 # Start Pomodoro
 super + alt + p
-    ~/.config/polybar/scripts/pomodoro.sh --click-left
+   ~/.config/polybar/scripts/pomodoro.sh --click-left
 
 # Start Break
 super + alt + b
-    ~/.config/polybar/scripts/pomodoro.sh --click-middle
+   ~/.config/polybar/scripts/pomodoro.sh --click-middle
 
 # Cancel Timer
 super + alt + c
-    ~/.config/polybar/scripts/pomodoro.sh --click-right
+   ~/.config/polybar/scripts/pomodoro.sh --click-right
 
 # Add time (+1 min)
 super + alt + Up
-    ~/.config/polybar/scripts/pomodoro.sh --add
+   ~/.config/polybar/scripts/pomodoro.sh --add
 
 # Subtract time (-1 min)
 super + alt + Down
-    ~/.config/polybar/scripts/pomodoro.sh --sub
+   ~/.config/polybar/scripts/pomodoro.sh --sub
 
 # Voice-to-text toggle
 super + w
-    ~/.config/bin/whisper
+    ~/.config/bin/whisper --model=base
+
+# Test davabase whisper toggle
+super + shift + d
+    ~/.config/bin/whisper-toggle --model=base --microphone=pulse
 #}}}
 #-------------------------------------------------------------------------------
 

@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import numpy as np
+import speech_recognition as sr
+import whisper
+import torch
+import subprocess
+import sys
+from datetime import datetime, timedelta
+from queue import Queue
+from time import sleep
+
+def type_text(text):
+    try:
+        clean_text = text.strip()
+        if clean_text:
+            subprocess.run(['xdotool', 'type', '--clearmodifiers', clean_text + ' '], check=True)
+            print(f"✓ Typed: {clean_text}")
+    except Exception as e:
+        print(f"✗ xdotool error: {e}", file=sys.stderr)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model", default="base", help="Model to use", choices=["tiny", "base", "small", "medium", "large"])
+    parser.add_argument("--energy_threshold", default=1000, help="Energy level for mic to detect.", type=int)
+    args = parser.parse_args()
+
+    print("Script starting...")
+    
+    try:
+        print("Initializing microphone...")
+        # Find the microphone index by name
+        mic_name = args.default_microphone
+        mic_list = sr.Microphone.list_microphone_names()
+        device_index = None
+        if mic_name == 'pulse':
+            # Special handling for pulse
+            pass
+        else:
+            for i, name in enumerate(mic_list):
+                if mic_name in name:
+                    device_index = i
+                    print(f"Found microphone '{mic_name}' at index {i}")
+                    break
+        
+        source = sr.Microphone(device_index=device_index, sample_rate=16000)
+        print("Microphone initialized.")
+    except Exception as e:
+        print(f"FATAL: Could not initialize microphone: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    recorder = sr.Recognizer()
+    recorder.energy_threshold = 1000
+    recorder.dynamic_energy_threshold = False
+
+    print("Loading audio model...")
+    audio_model = whisper.load_model(args.model)
+    print("Audio model loaded.")
+
+    data_queue = Queue()
+
+    def record_callback(_, audio: sr.AudioData):
+        data = audio.get_raw_data()
+        data_queue.put(data)
+
+    print("Starting background listening...")
+    recorder.listen_in_background(source, record_callback, phrase_time_limit=2)
+    print("Background listening started. Ready for speech.")
+
+    phrase_time = None
+    phrase_bytes = bytes()
+
+    while True:
+        try:
+            if not data_queue.empty():
+                now = datetime.utcnow()
+                if phrase_time and now - phrase_time > timedelta(seconds=3):
+                    phrase_bytes = bytes()
+                
+                phrase_time = now
+                
+                while not data_queue.empty():
+                    data = data_queue.get()
+                    phrase_bytes += data
+
+                audio_np = np.frombuffer(phrase_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+                result = audio_model.transcribe(audio_np, fp16=torch.cuda.is_available())
+                text = result['text'].strip()
+                print(f"Transcribed text: '{text}'")
+
+                if text:
+                    type_text(text)
+            else:
+                sleep(0.25)
+        except Exception as e:
+            print(f"ERROR in main loop: {e}", file=sys.stderr)
+            sleep(1)
+
+if __name__ == "__main__":
+    main()

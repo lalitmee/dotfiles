@@ -38,3 +38,6 @@ tqdm==4.67.1
 triton==3.4.0
 typing_extensions==4.15.0
 urllib3==2.5.0
+--extra-index-url https://download.pytorch.org/whl/cu116
+# For testing the latest changes from the whisper repository
+git+https://github.com/openai/whisper.git
