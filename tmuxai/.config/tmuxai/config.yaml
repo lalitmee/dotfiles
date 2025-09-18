@@ -1,0 +1,32 @@
+# Not only OpenRouter, you can use any OpenAI compatible API
+openrouter:
+  api_key: ${OPENROUTER_API_KEY}
+  model: mistralai/mistral-7b-instruct:free # A stable and reliable free model on OpenRouter
+  base_url: https://openrouter.ai/api/v1 # default base url
+
+# Azure OpenAI configuration
+# azure_openai:
+#   api_key: <your-azure-openai-api-key>
+#   api_base: https://your-resource.openai.azure.com/
+#   api_version: 2025-04-01-preview
+#   deployment_name: gpt-4o
+
+# OpenAI example
+# openrouter:
+#   api_key: sk-XXXXXXXXX
+#   model: o4-mini-2025-04-16
+#   base_url: https://api.openai.com/v1
+
+# Anthropic example
+# openrouter:
+#   api_key: sk-proj-XXX
+#   model:
+#   base_url: https://api.anthropic.com/v1
+
+# Local Ollama example
+# openrouter:
+#   api_key: api-key
+#   model: gemma3:1b
+#   base_url: http://localhost:11434/v1
+
+debug: false # Set to true to log full AI messages sent and received. Dest: ~/.config/tmuxai/debug/
