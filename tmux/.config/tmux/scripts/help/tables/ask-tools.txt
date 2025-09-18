@@ -1,0 +1,9 @@
+Key	Description
+a	AI ask - main AI interaction
+c	AI chat - interactive conversation
+s	Site search - search within websites
+/	Web search - general web search
+d	Ducky search - opens top result
+b	Bang search - browser !bang search
+?	Show this help
+q	Quit table

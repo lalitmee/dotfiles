@@ -722,6 +722,9 @@ bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 # Launch the cht.sh helper script in a popup.
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
+# Launch the project runner script in a popup.
+bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
+
 
 
 # Launch the scratchpad popup script.
@@ -756,12 +759,60 @@ bind "S" run-shell "sesh last"
 
 #-------------------------------------------------------------------------------
 # }}}
+#-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# NOTE: Ask-Tools {{{
+#-------------------------------------------------------------------------------
+# Create a dedicated key table for all ask.sh related functionality
+bind-key A switch-client -T ask-tools
 
-# --- Project Runner ---
-# An fzf-based script to run package.json commands.
-bind C-r display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/runner.sh'"
+# AI ask - main AI interaction
+bind-key -T ask-tools a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
 
+# AI chat - interactive AI conversation
+bind-key -T ask-tools c display-popup -w 80% -h 70% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
+
+# Site search - search within specific websites
+bind-key -T ask-tools s display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh site'"
+
+# Web search - general web search
+bind-key -T ask-tools / display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh search'"
+
+# Ducky search - opens top result in browser
+bind-key -T ask-tools d display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
+
+# Bang search - browser !bang search
+bind-key -T ask-tools b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
+
+# Help for ask-tools
+bind -T ask-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/help/help.sh ask-tools"
+
+# Exit the ask-tools table
+bind-key -T ask-tools q switch-client -T root
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Project Runner {{{
+#-------------------------------------------------------------------------------
+# An fzf-based script to run package.json commands and project tasks
+bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
+
+# Hook to maintain custom window names when tmux tries to rename them
+set-hook -g window-renamed 'run-shell "~/.config/tmux/scripts/runner/maintain-window-name.sh #{window_id}"'
+
+# Window naming controls to prevent tmux auto-renaming
+set -g allow-rename off
+set -g automatic-rename off
+setw -g automatic-rename off
+setw -g allow-rename off
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # NOTE: AI {{{
@@ -865,26 +916,8 @@ bind -T layout-mode x display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/kil
 # --- NOTE: Unified Ask/Search Popup {{{
 #-------------------------------------------------------------------------------
 
-# A set of keybindings that use a single script to perform different actions.
-# The script path is hardcoded to ensure compatibility.
-
-# Bind 'a' to ask the AI.
-bind -T layout-mode a display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
-
-# Bind 'c' to start an interactive AI chat session.
-bind -T layout-mode c display-popup -w 80% -h 70% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
-
-# Bind 's' to perform a site-specific search.
-bind -T layout-mode s display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh site'"
-
-# Bind '/' to perform a general web search.
-bind -T layout-mode / display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh search'"
-
-# Bind 'd' for a "Ducky" search (opens top result in browser).
-bind -T layout-mode d display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
-
-# Bind 'b' for a browser !bang search.
-bind -T layout-mode b display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
+# NOTE: These bindings have been moved to the ask-tools table (C-a A)
+# for easier access. The old layout-mode bindings have been removed.
 
 #-------------------------------------------------------------------------------
 # }}}

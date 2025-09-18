@@ -110,7 +110,137 @@ docs(conventions): update installation instructions
 - **Local Overrides**: ~/.tmux/.tmux.conf.local (primary customizations)
 - **Dotfiles Version**: ~/dotfiles/tmux/.tmux.conf.local (version controlled customizations)
 - **Theme Files**: ~/dotfiles/tmux/tmux-themes/ (collection of theme options)
+- **Scripts**: ~/.config/tmux/scripts/ (organized by functionality)
 - **Loading Order**: Base template → Local overrides → Dotfiles customizations (with inline theme)
+
+### Script Organization Structure
+
+```
+~/.config/tmux/scripts/
+├── ai/                    # AI assistant integrations
+├── ask-sh/               # Ask.sh search and AI tools
+├── cht-sh/              # cht.sh documentation tool
+├── help/                # Help system with tables
+├── runner/              # Project runner system ⭐ NEW
+├── sesh/                # Session management
+├── second-brain.sh      # Second-brain functionality
+├── todo.sh             # Todo management
+└── [other utilities]
+```
+
+### Project Runner System ⭐ NEW
+
+#### Overview
+- **Location**: `~/.config/tmux/scripts/runner/`
+- **Purpose**: Intelligent project runner with emoji-based naming and status tracking
+- **Keybinding**: `C-a C-r` → Launch project runner
+- **Technology**: Creates tmux windows with persistent emoji + script names
+
+#### Features
+- **Smart Process Detection**: Automatically detects long-running vs short processes
+- **Emoji-Based Naming**: Visual identification (🚀 dev, 🧪 test, 🔨 build, etc.)
+- **Status Tracking**: Real-time status updates (✅ completed, ❌ failed, ⏸️ paused)
+- **Window Persistence**: Maintains custom names despite tmux's automatic renaming
+- **Process Monitoring**: Background monitoring of running processes
+- **Registry System**: Tracks running processes across tmux sessions
+
+#### Window Naming Examples
+```
+🚀 dev          # Development server (long-running)
+🧪 test         # Test suite (short process)
+🔨 build        # Build process
+🔍 lint         # Linting
+📦 format       # Code formatting
+✅ dev          # Successfully completed
+❌ dev          # Failed with error
+⏸️  dev         # Paused/stopped
+```
+
+#### Architecture
+- **Main Script**: `runner.sh` - Interactive fzf interface for script selection
+- **Hook Script**: `maintain-window-name.sh` - tmux hook for name persistence
+- **Registry**: `/tmp/tmux-runner-registry-${USER}` - Process tracking
+- **Documentation**: `README.md` - Comprehensive system documentation
+
+#### Process Lifecycle
+1. **Script Selection**: User selects from package.json scripts via fzf
+2. **Emoji Assignment**: Script gets appropriate emoji based on type and special mappings
+3. **Window Creation**: Creates tmux window with emoji + script name
+4. **Process Launch**: Runs command in dedicated window
+5. **Status Monitoring**: Background process monitors and updates window name
+6. **Completion Handling**: Updates name when process finishes (✅/❌)
+
+#### Special Emoji Mappings
+```bash
+# Special scripts get specific emojis
+["test"]="🧪"      # Test suite
+["lint"]="🔍"      # Linting
+["build"]="🔨"     # Build process
+["deploy"]="🚀"    # Deployment
+["storybook"]="📚" # Storybook
+["docs"]="📖"      # Documentation
+```
+
+#### Long/Short Process Classification
+```bash
+# Long-running processes (create persistent windows)
+LONG_RUNNING_KEYWORDS=("dev" "start" "watch" "serve" "storybook")
+
+# Short processes (show completion status)
+# Everything else: build, test, lint, etc.
+```
+
+#### Status Emoji System
+```bash
+["running"]="✅"      # Process is actively running
+["stopped"]="⏹️"      # Process stopped normally
+["failed"]="❌"       # Process exited with error
+["paused"]="⏸️"       # Process paused/suspended
+["waiting"]="⏳"      # Process waiting/starting
+["completed"]="✅"    # Short process completed successfully
+```
+
+#### Multi-Layer Name Persistence
+1. **Immediate**: Set name when window is created
+2. **Wrapper Script**: Disable auto-renaming before command starts
+3. **Background Monitor**: Continuous checking and restoration (60+ seconds)
+4. **Hook System**: tmux-triggered restoration when renaming occurs
+
+#### Tmux Integration
+```tmux
+# Keybinding
+bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
+
+# Window naming controls
+set -g allow-rename off          # Prevent automatic window renaming
+set -g automatic-rename off      # Disable automatic window renaming
+setw -g automatic-rename off     # Also set for window-specific settings
+setw -g allow-rename off         # Also set for window-specific settings
+
+# Hook to maintain window names
+set-hook -g window-renamed 'run-shell "~/.config/tmux/scripts/runner/maintain-window-name.sh #{window_id}"'
+```
+
+#### Usage Workflow
+1. **Launch**: `C-a C-r` opens project runner
+2. **Select**: Choose script from fzf interface with yarn/npm toggle
+3. **Execute**: Creates window with emoji name (e.g., "🚀 dev")
+4. **Monitor**: Window name updates with status changes
+5. **Manage**: Use standard tmux commands to switch between windows
+
+#### Benefits
+- **Visual Clarity**: Instantly recognize what each window is running
+- **Status Awareness**: See process health at a glance
+- **No Conflicts**: Multiple processes can run simultaneously
+- **Persistent Naming**: Names survive despite tmux's auto-renaming
+- **Process Tracking**: Registry system tracks all running processes
+- **Error Visibility**: Failed processes clearly marked with ❌
+
+#### Dependencies
+- **jq**: JSON parsing for package.json scripts
+- **fzf**: Interactive script selection interface
+- **gum**: Styled output and status messages
+- **tmux**: Window creation and management
 
 ### Key Tables & Modes
 
