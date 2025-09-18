@@ -670,20 +670,19 @@ bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
 # Navigate right - send to vim if vim is running, otherwise navigate panes
 bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
 
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Custom Mode Trigger {{{
-#           Enter a custom 'layout-mode' by pressing C-b (without prefix).
-#-------------------------------------------------------------------------------
-bind -T root C-b switch-client -T layout-mode
-# }}}
+# --- NOTE: Prefix Mode {{{
+#           Parent block for all C-a prefix keybindings.
+#           These bindings are triggered after pressing the tmux prefix (C-a).
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Prefix Mode Bindings (C-a) {{{
-#           All bindings that are triggered after pressing the prefix key.
+# --- NOTE: Prefix - Window & Pane Management {{{
+#           Core window and pane creation, manipulation, and destruction.
 #-------------------------------------------------------------------------------
 
 # Create a new window in the same directory as the current pane.
@@ -710,11 +709,14 @@ bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 # Kill the entire current session.
 bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
-# Launch the keybinding search script (original function)
-bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
-# Global help popup
-bind H display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
+#-------------------------------------------------------------------------------
+# --- NOTE: Prefix - Script Launchers {{{
+#           Launch various helper scripts and tools.
+#-------------------------------------------------------------------------------
 
 # Launch the git helper script in a popup.
 bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
@@ -725,13 +727,40 @@ bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 # Launch the project runner script in a popup.
 bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
 
+# Hook to maintain custom window names when tmux tries to rename them
+set-hook -g window-renamed 'run-shell "~/.config/tmux/scripts/runner/maintain-window-name.sh #{window_id}"'
 
+# Window naming controls to prevent tmux auto-renaming
+set -g allow-rename off
+set -g automatic-rename off
+setw -g automatic-rename off
+setw -g allow-rename off
 
 # Launch the scratchpad popup script.
 bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 
 #-------------------------------------------------------------------------------
-# NOTE: SESSION MANAGEMENT {{
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Prefix - Help & Information {{{
+#           Help systems and information displays.
+#-------------------------------------------------------------------------------
+
+# Launch the keybinding search script (original function)
+bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
+
+# Global help popup
+bind H display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Prefix - Session Management {{{
+#           Session creation, switching, and management tools.
 #-------------------------------------------------------------------------------
 
 # Launch a script for session management (e.g., tmux-sessionizer).
@@ -739,10 +768,6 @@ bind N run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
 
 # Launch a script for tmuxinator session management.
 bind U run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
-
-#-------------------------------------------------------------------------------
-# NOTE: sesh keybindings {{{
-#-------------------------------------------------------------------------------
 
 # Launch fzf-based sesh script.
 bind "o" display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/fzf.sh"
@@ -762,16 +787,33 @@ bind "S" run-shell "sesh last"
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: Ask-Tools {{{
+# --- NOTE: Ask Mode {{{
+#           Parent block for all ask-tools functionality.
+#           Enter ask-tools mode by pressing C-a A.
 #-------------------------------------------------------------------------------
-# Create a dedicated key table for all ask.sh related functionality
+
+# Ask-tools mode trigger - Enter ask-tools mode by pressing C-a A
 bind-key A switch-client -T ask-tools
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Ask - AI Interactions {{{
+#           AI-powered conversation and assistance tools.
+#-------------------------------------------------------------------------------
 
 # AI ask - main AI interaction
 bind-key -T ask-tools a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
 
 # AI chat - interactive AI conversation
 bind-key -T ask-tools c display-popup -w 80% -h 70% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Ask - Search Operations {{{
+#           Web and site search functionality.
+#-------------------------------------------------------------------------------
 
 # Site search - search within specific websites
 bind-key -T ask-tools s display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh site'"
@@ -785,6 +827,15 @@ bind-key -T ask-tools d display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmu
 # Bang search - browser !bang search
 bind-key -T ask-tools b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
 
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Ask - Help & Navigation {{{
+#           Help system and table navigation.
+#-------------------------------------------------------------------------------
+
 # Help for ask-tools
 bind -T ask-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/help/help.sh ask-tools"
 
@@ -796,29 +847,22 @@ bind-key -T ask-tools q switch-client -T root
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: Project Runner {{{
-#-------------------------------------------------------------------------------
-# An fzf-based script to run package.json commands and project tasks
-bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
-
-# Hook to maintain custom window names when tmux tries to rename them
-set-hook -g window-renamed 'run-shell "~/.config/tmux/scripts/runner/maintain-window-name.sh #{window_id}"'
-
-# Window naming controls to prevent tmux auto-renaming
-set -g allow-rename off
-set -g automatic-rename off
-setw -g automatic-rename off
-setw -g allow-rename off
-
-#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: AI {{{
+# --- NOTE: AI Mode {{{
+#           Parent block for all AI tools functionality.
+#           Enter AI tools mode by pressing C-a C-i.
 #-------------------------------------------------------------------------------
-# Create a clear, non-conflicting key table for our AI commands
+
+# AI tools mode trigger - Enter AI tools mode by pressing C-a C-i
 bind-key C-i switch-client -T ai-tools
+
+#-------------------------------------------------------------------------------
+# --- NOTE: AI - AI Assistants {{{
+#           Direct access to various AI assistant tools.
+#-------------------------------------------------------------------------------
 
 # Gemini
 bind-key -T ai-tools g display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh gemini'"
@@ -835,33 +879,93 @@ bind-key -T ai-tools x display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scr
 # Qwen
 bind-key -T ai-tools w display-popup -w 85% -h 85% "zsh -lic '~/.config/tmux/scripts/ai/tool.sh qwen'"
 
-# update the ai-tools
-bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
-
-# Help for AI tools
-bind -T ai-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/help/help.sh ai-tools"
-bind-key -T ai-tools q switch-client -T root
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: Second-Brain {{{
+# --- NOTE: AI - Management {{{
+#           AI tools management and updates.
 #-------------------------------------------------------------------------------
-# Create a dedicated key table for all second-brain related functionality
+
+# Update the AI tools
+bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: AI - Help & Navigation {{{
+#           Help system and table navigation.
+#-------------------------------------------------------------------------------
+
+# Help for AI tools
+bind -T ai-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/help/help.sh ai-tools"
+
+# Exit the AI tools table
+bind-key -T ai-tools q switch-client -T root
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Second-Brain Mode {{{
+#           Parent block for all second-brain functionality.
+#           Enter second-brain mode by pressing C-a b.
+#-------------------------------------------------------------------------------
+
+# Second-brain mode trigger - Enter second-brain mode by pressing C-a b
 bind-key b switch-client -T second-brain
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Second-Brain - Notes {{{
+#           Personal and work note management.
+#-------------------------------------------------------------------------------
 
 # Notes - personal and work contexts
 bind-key -T second-brain n display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh notes personal'"
 bind-key -T second-brain N display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh notes work'"
 
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Second-Brain - Scratch {{{
+#           Personal and work scratch pad management.
+#-------------------------------------------------------------------------------
+
 # Scratch - personal and work contexts
 bind-key -T second-brain s display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh scratch personal'"
 bind-key -T second-brain S display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh scratch work'"
 
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Second-Brain - Todos {{{
+#           Personal and work todo management.
+#-------------------------------------------------------------------------------
+
 # Todos - personal and work contexts
 bind-key -T second-brain t display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh todos personal'"
 bind-key -T second-brain T display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/second-brain.sh todos work'"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Second-Brain - Help & Navigation {{{
+#           Help system and table navigation.
+#-------------------------------------------------------------------------------
 
 # Exit the second-brain table
 bind-key -T second-brain q switch-client -T root
@@ -878,8 +982,17 @@ bind -T second-brain ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmu
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Layout Mode Bindings (C-b) {{{
-#           All bindings that work after pressing C-b (without prefix).
+# --- NOTE: Layout Mode {{{
+#           Parent block for all layout-mode functionality.
+#           Enter layout-mode by pressing C-b (without prefix).
+#-------------------------------------------------------------------------------
+
+# Layout mode trigger - Enter layout-mode by pressing C-b (without prefix)
+bind -T root C-b switch-client -T layout-mode
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Layout Mode - Window Management {{{
+#           Basic window and pane creation/management bindings.
 #-------------------------------------------------------------------------------
 
 # Toggle the status bar on/off.
@@ -894,6 +1007,15 @@ bind -T layout-mode H splitw -hd -c '#{pane_current_path}'
 # Kill the bottom-most pane.
 bind -T layout-mode q kill-pane -t '#{bottom}'
 
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Layout Mode - Pane Splitting {{{
+#           Advanced pane splitting with specific size ratios.
+#-------------------------------------------------------------------------------
+
 # Split with a 40% horizontal pane to the left.
 bind -T layout-mode h splitw -hbp 40 -c '#{pane_current_path}'
 
@@ -906,6 +1028,15 @@ bind -T layout-mode j splitw -p 30 -c '#{pane_current_path}'
 # Split with a 30% vertical pane above.
 bind -T layout-mode k splitw -bp 30 -c '#{pane_current_path}'
 
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Layout Mode - File Operations {{{
+#           File and process management operations.
+#-------------------------------------------------------------------------------
+
 # Launch a script to search lines in files and open in editor.
 bind -T layout-mode C-o run-shell "tmux neww tsnv"
 
@@ -913,18 +1044,14 @@ bind -T layout-mode C-o run-shell "tmux neww tsnv"
 bind -T layout-mode x display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/kill-process.sh"
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Unified Ask/Search Popup {{{
-#-------------------------------------------------------------------------------
-
-# NOTE: These bindings have been moved to the ask-tools table (C-a A)
-# for easier access. The old layout-mode bindings have been removed.
-
-#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
+
+
 #-------------------------------------------------------------------------------
-# NOTE: todo toggle {{{
+# --- NOTE: Layout Mode - Todo Management {{{
+#           Personal and work todo management.
 #-------------------------------------------------------------------------------
 
 # Toggle daily Personal todo in a Neovim popup (explicitly personal)
@@ -938,15 +1065,19 @@ bind -T layout-mode T run-shell "~/.config/tmux/scripts/todo.sh work"
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: lazygit {{{
+# --- NOTE: Layout Mode - Git Operations {{{
+#           Git repository management.
 #-------------------------------------------------------------------------------
+
 bind -T layout-mode g run-shell "$HOME/.config/tmux/scripts/lazygit.sh '#{pane_current_path}'"
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-# NOTE: Open the current pane's buffer in Neovim {{{
+# --- NOTE: Layout Mode - Pane Buffer Editing {{{
+#           Edit pane scrollback history in Neovim.
 #-------------------------------------------------------------------------------
 
 # Capture visible scrollback
@@ -973,16 +1104,31 @@ bind -T layout-mode E run "
 
 
 
-# # Open the tmux man page in a new window.
-# bind -T layout-mode t new-window 'man tmux'
+#-------------------------------------------------------------------------------
+# --- NOTE: Layout Mode - Documentation {{{
+#           Access documentation and help systems.
+#-------------------------------------------------------------------------------
 
-# --- Unified Documentation Browser ---
-# Replaces the old 'man' bindings with a single, powerful fzf-based script.
-# This binding should be in your 'layout-mode' or 'prefix' table as you prefer.
+# Unified Documentation Browser - fzf-based script for finding and opening documentation
 bind -T layout-mode m display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/doc-finder.sh"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Layout Mode - Help {{{
+#           Help and information for layout mode.
+#-------------------------------------------------------------------------------
 
 # Help for layout mode
 bind -T layout-mode ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmux/scripts/help/help.sh layout-mode"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -996,6 +1142,11 @@ bind -T copy-mode-vi 'C-k' select-pane -U
 bind -T copy-mode-vi 'C-l' select-pane -R
 # }}}
 #-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
 
 #-------------------------------------------------------------------------------
 # }}}
