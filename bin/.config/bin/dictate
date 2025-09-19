@@ -1,0 +1,29 @@
+#!/bin/bash
+# Wrapper script to toggle nerd-dictation
+
+PID_FILE="/tmp/nerd-dictation.pid"
+VENV_PYTHON="$HOME/.venvs/nerd-dictation/bin/python"
+NERD_DICTATION_SCRIPT="$HOME/.local/bin/nerd-dictation"
+
+# Check if the process is still running, otherwise clean up PID file
+if [ -f "$PID_FILE" ]; then
+    PID=$(cat "$PID_FILE")
+    if ! ps -p "$PID" > /dev/null; then
+        # Process is not running, remove stale PID file
+        rm -f "$PID_FILE"
+    fi
+fi
+
+if [ -f "$PID_FILE" ]; then
+    # PID file exists, so the process should be running. Tell it to end.
+    "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" end
+    rm -f "$PID_FILE"
+    notify-send -i audio-input-microphone -u low -t 2000 "Dictation Stopped"
+else
+    # PID file does not exist. Start the process.
+    # The script will run in the background.
+    # We set a very long pause duration to achieve 'indefinite' listening.
+    dunstify -a "NerdDictation" -r 2593 "🎙️ Dictation Started..."
+    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" --vosk-model-dir=/home/lalitmee/.local/share/vosk/model begin &> /tmp/nerd-dictation.log &
+    echo $! > "$PID_FILE"
+fi
