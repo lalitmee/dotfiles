@@ -1,23 +1,40 @@
 #!/usr/bin/env bash
-# Robust sxhkd reload script
-# Sends USR1 signal to reload config, and restarts if it crashes
+# More robust sxhkd reload script
+# Sends USR1 signal to reload config, and restarts if it crashes.
 
-# Send reload signal
-if pkill -USR1 -x sxhkd; then
-    # Wait a bit for reload to complete
-    sleep 0.2
+sxhkd_pid=$(pgrep -x sxhkd)
 
-    # Check if sxhkd is still running
-    if ! pgrep -x sxhkd > /dev/null; then
+if [ -n "$sxhkd_pid" ]; then
+    # sxhkd is running, attempt to reload.
+    kill -USR1 "$sxhkd_pid"
+
+    # Poll for a short duration to see if the process dies.
+    # We'''ll check 5 times over 0.5 seconds.
+    crashed=false
+    for _ in {1..5}; do
+        if ! ps -p "$sxhkd_pid" > /dev/null; then
+            crashed=true
+            break
+        fi
+        sleep 0.1
+    done
+
+    if [ "$crashed" = true ]; then
         notify-send -u critical "sxhkd" "Crashed on reload, restarting..."
-        echo "sxhkd crashed, restarting..."
         sxhkd &
-        disown
+        # After attempting restart, check if it'''s actually running now.
+        sleep 0.1 # Give it a moment to start
+        if ! pgrep -x sxhkd > /dev/null; then
+             notify-send -u critical "sxhkd" "FATAL: Failed to restart. Check sxhkdrc."
+        else
+             disown
+        fi
     else
         notify-send -u normal "sxhkd" "Keybindings reloaded successfully"
     fi
 else
-    notify-send -u critical "sxhkd" "sxhkd process not found, starting it..."
+    # sxhkd process was not found, so start it.
+    notify-send -u critical "sxhkd" "sxhkd not running, starting it..."
     sxhkd &
     disown
 fi
