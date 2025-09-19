@@ -78,6 +78,7 @@ PHASES=(
     "06-desktop-apps:Desktop Apps (brave, firefox, slack, telegram, spotify, bitwarden)"
     "07-config-stow:Config Stowing (symlink dotfiles to home directory)"
     "08-final-setup:Final Setup (fonts, basic themes, validation)"
+    "09-nerd-dictation:Nerd Dictation Setup (Speech-to-Text)"
 )
 
 # Global variable to track installed packages for rollback

@@ -35,7 +35,7 @@ STOW_PACKAGES_DESKTOP="dunst"
 # - keyd: keyboard remapping (caps lock to escape/control)
 # To stow manually: cd $DOTFILES_DIR && stow <package>
 STOW_PACKAGES_APPS="thunar flameshot ulauncher blueman cbatticon unclutter xpad vimium"
-STOW_PACKAGES_TOOLS="stylua opencode"
+STOW_PACKAGES_TOOLS="stylua opencode nerd-dictation"
 
 # Combine all active packages
 STOW_PACKAGES="$STOW_PACKAGES_CORE $STOW_PACKAGES_TERMINAL $STOW_PACKAGES_DEV $STOW_PACKAGES_UTILS $STOW_PACKAGES_DESKTOP $STOW_PACKAGES_APPS $STOW_PACKAGES_TOOLS"

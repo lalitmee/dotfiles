@@ -213,7 +213,7 @@ super + shift + {Left,Down,Up,Right}
 super + Tab
     i3flip next
 
-super + Shift + Tab
+super + shift + Tab
     i3flip prev
 
 # Alt_L + Tab
