@@ -24,34 +24,21 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="base", help="Model to use", choices=["tiny", "base", "small", "medium", "large"])
     parser.add_argument("--energy_threshold", default=1000, help="Energy level for mic to detect.", type=int)
+    parser.add_argument("--default_microphone", default='pulse', help="Default microphone name for SpeechRecognition.", type=str)
     args = parser.parse_args()
 
     print("Script starting...")
     
     try:
-        print("Initializing microphone...")
-        # Find the microphone index by name
-        mic_name = args.default_microphone
-        mic_list = sr.Microphone.list_microphone_names()
-        device_index = None
-        if mic_name == 'pulse':
-            # Special handling for pulse
-            pass
-        else:
-            for i, name in enumerate(mic_list):
-                if mic_name in name:
-                    device_index = i
-                    print(f"Found microphone '{mic_name}' at index {i}")
-                    break
-        
-        source = sr.Microphone(device_index=device_index, sample_rate=16000)
+        print(f"Initializing microphone: {args.default_microphone}")
+        source = sr.Microphone(device_index=None if args.default_microphone == 'pulse' else [i for i, name in enumerate(sr.Microphone.list_microphone_names()) if args.default_microphone in name][0], sample_rate=16000)
         print("Microphone initialized.")
     except Exception as e:
         print(f"FATAL: Could not initialize microphone: {e}", file=sys.stderr)
         sys.exit(1)
 
     recorder = sr.Recognizer()
-    recorder.energy_threshold = 1000
+    recorder.energy_threshold = args.energy_threshold
     recorder.dynamic_energy_threshold = False
 
     print("Loading audio model...")
