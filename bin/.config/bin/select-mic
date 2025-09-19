@@ -37,17 +37,45 @@ fi
 
 # --- Core Logic ---
 
-# 1. Extract info from selection
+# 1. Extract source name from the first selection
 physical_source_name=$(echo "$selected" | awk -F' -> ' '{print $2}')
 physical_source_desc=$(echo "$selected" | awk -F' -> ' '{print $1}')
 
-# 2. Unload any previous instance of the echo-cancel module to avoid conflicts
+# 2. NEW: Port Detection & Selection
+# Get available ports for the selected source
+ports=$(pactl -f json list sources | jq -r --arg SOURCE_NAME "$physical_source_name" '.[] | select(.name == $SOURCE_NAME) | .ports[]? | select(.available != "no") | .name + " -> " + .description')
+
+# If more than one port is available, show a selection menu
+if [[ $(echo "$ports" | wc -l) -gt 1 ]]; then
+    selected_port=$(echo "$ports" | fzf \
+        --prompt="🎤 Select Port for '$physical_source_desc': " \
+        --height=20% \
+        --layout=reverse \
+        --border \
+        --header="This device has multiple microphones."
+    )
+
+    # Exit if no port was selected
+    if [[ -z "$selected_port" ]]; then
+        notify-send "Mic Selector" "No port selected. Action cancelled."
+        exit 0
+    fi
+
+    selected_port_name=$(echo "$selected_port" | awk -F' -> ' '{print $1}')
+
+    # 3. NEW: Set the selected port
+    pactl set-source-port "$physical_source_name" "$selected_port_name"
+    sleep 0.1 # Give a moment for the change to apply
+fi
+
+
+# 4. Unload any previous instance of the echo-cancel module to avoid conflicts
 module_index=$(pactl list modules short | grep "module-echo-cancel" | awk '{print $1}' | head -n 1)
 if [[ -n "$module_index" ]]; then
     pactl unload-module "$module_index"
 fi
 
-# 3. Load the echo-cancel module, attached to the selected physical mic.
+# 5. Load the echo-cancel module, attached to the selected physical mic.
 new_module_index=$(pactl load-module module-echo-cancel aec_method=webrtc source_master="$physical_source_name" source_name=noise_cancelled_source)
 
 # Check if module loaded successfully
@@ -56,7 +84,7 @@ if [[ $? -ne 0 ]] || [[ -z "$new_module_index" ]]; then
     exit 1
 fi
 
-# 4. Set the new noise-cancelled source as the default
+# 6. Set the new noise-cancelled source as the default
 if pactl set-default-source noise_cancelled_source; then
     notify-send -u normal "Microphone Changed" "Noise cancellation enabled for:
 <b>$physical_source_desc</b>"
