@@ -23,7 +23,7 @@ else
     # PID file does not exist. Start the process.
     # The script will run in the background.
     # We set a very long pause duration to achieve 'indefinite' listening.
-    dunstify -a "NerdDictation" -r 2593 "🎙️ Dictation Started..."
+    notify-send -a "NerdDictation" -r 2593 "🎙️ Dictation Started..."
     nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" --vosk-model-dir=/home/lalitmee/.local/share/vosk/model begin &> /tmp/nerd-dictation.log &
     echo $! > "$PID_FILE"
 fi

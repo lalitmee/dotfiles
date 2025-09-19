@@ -402,4 +402,20 @@ cat scripts/install/TROUBLESHOOTING.md
 - **Popup Styling**: Global popup settings automatically apply to new popups
 - **Installation**: Use enhanced system with rollback support for any updates
 - **Script Testing**: Always test with actual data before deploying to tmux keybindings
-- **Directory Inheritance**: Always include `-c '#{pane_current_path}'` in split/new-window commands
+    - **Directory Inheritance**: Always include `-c '#{pane_current_path}'` in split/new-window commands
+
+## Nerd Dictation Integration
+
+`nerd-dictation` is the user's primary tool for speech-to-text.
+
+### Overview
+- **Purpose**: A hackable, offline speech-to-text utility for Linux using the Vosk engine.
+- **GitHub**: `https://github.com/ideasman42/nerd-dictation`
+- **Keybinding**: `super + w` triggers the `~/.config/bin/dictate` toggle script.
+
+### Core Concepts
+- **Commands**: Controlled by `nerd-dictation <command>`, where commands are `begin`, `end`, `suspend`, `resume`.
+- **Toggle Script**: The `~/.config/bin/dictate` script manages the state (started/stopped) and calls the appropriate `begin` or `end` command. It uses a PID file (`/tmp/nerd-dictation.pid`) to track the running process.
+- **Configuration**: The main configuration file is `~/.config/nerd-dictation/config.ini`. This is where the path to the language model is set (`vosk_model_path`).
+- **Model Path**: The Vosk model is located at `~/.local/share/vosk/model`.
+- **Execution**: The `dictate` script explicitly calls `nerd-dictation begin --config "$HOME/.config/nerd-dictation/config.ini"` to ensure the correct configuration is loaded and to avoid issues with system-wide or outdated config files.
