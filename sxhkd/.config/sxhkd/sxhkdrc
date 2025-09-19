@@ -335,13 +335,9 @@ super + alt + Up
 super + alt + Down
    ~/.config/polybar/scripts/pomodoro.sh --sub
 
-# Voice-to-text toggle
+# Live Speech-to-Text (Nerd Dictation Toggle)
 super + w
-    ~/.config/bin/whisper --model=base
-
-# Test davabase whisper toggle
-super + shift + d
-    ~/.config/bin/whisper-toggle --model=base --microphone=pulse
+    ~/.config/bin/dictate
 #}}}
 #-------------------------------------------------------------------------------
 
