@@ -25,7 +25,6 @@ if [ -f "$PID_FILE" ]; then
     "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" end
     rm -f "$PID_FILE"
     # Use a "muted" icon for the stopped state
-    # notify "/usr/share/icons/Yaru/scalable/status/microphone-sensitivity-muted-symbolic.svg" "Speech To Text" "Not listening now..."
     notify "microphone-sensitivity-muted-symbolic" "Speech To Text" "Not listening now..."
 else
     # PID file does not exist. Start the process.
@@ -33,7 +32,6 @@ else
     # We set a very long pause duration to achieve 'indefinite' listening.
     # Use a standard microphone icon for the started state
     nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin &> /tmp/nerd-dictation.log &
-    # notify "/usr/share/icons/Yaru/scalable/status/audio-input-microphone-high-symbolic.svg" "Speech to Text" "Listening now..."
     notify "audio-input-microphone-high-symbolic" "Speech to Text" "Listening now..."
     echo $! > "$PID_FILE"
 fi
