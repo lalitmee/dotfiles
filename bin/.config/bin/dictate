@@ -5,6 +5,12 @@ PID_FILE="/tmp/nerd-dictation.pid"
 VENV_PYTHON="$HOME/.venvs/nerd-dictation/bin/python"
 NERD_DICTATION_SCRIPT="$HOME/.local/bin/nerd-dictation"
 
+# Updated notify function to accept an icon name
+notify() {
+    # Usage: notify <icon> <summary> <body>
+    notify-send -i "$1" -u low -t 2000 "$2" "$3"
+}
+
 # Check if the process is still running, otherwise clean up PID file
 if [ -f "$PID_FILE" ]; then
     PID=$(cat "$PID_FILE")
@@ -18,12 +24,14 @@ if [ -f "$PID_FILE" ]; then
     # PID file exists, so the process should be running. Tell it to end.
     "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" end
     rm -f "$PID_FILE"
-    notify-send -i audio-input-microphone -u low -t 2000 "Dictation Stopped"
+    # Use a "muted" icon for the stopped state
+    notify "/usr/share/icons/Yaru/scalable/status/microphone-sensitivity-muted-symbolic.svg" "Speech To Text" "Not listening now..."
 else
     # PID file does not exist. Start the process.
     # The script will run in the background.
     # We set a very long pause duration to achieve 'indefinite' listening.
-    notify-send -a "NerdDictation" -r 2593 "🎙️ Dictation Started..."
-    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" --vosk-model-dir=/home/lalitmee/.local/share/vosk/model begin &> /tmp/nerd-dictation.log &
+    # Use a standard microphone icon for the started state
+    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin &> /tmp/nerd-dictation.log &
+    notify "/usr/share/icons/Yaru/scalable/status/audio-input-microphone-high-symbolic.svg" "Speech to Text" "Listening now..."
     echo $! > "$PID_FILE"
 fi
