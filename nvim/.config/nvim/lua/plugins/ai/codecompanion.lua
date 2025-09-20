@@ -131,7 +131,10 @@ return {
         },
         "ravitemer/mcphub.nvim",
         "ravitemer/codecompanion-history.nvim",
-        "jinzhongjia/codecompanion-gitcommit.nvim",
+        {
+            "jinzhongjia/codecompanion-gitcommit.nvim",
+            commit = "052580477cfec497c1ac9ca76e0e0f06e09ca102",
+        },
         {
             "Davidyz/VectorCode",
             version = "*",

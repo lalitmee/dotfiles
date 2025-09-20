@@ -895,7 +895,7 @@ return {
     },
 
     { --[[ tome ]]
-        "laktak/tome",
+        "lalitmee/tome",
         cmd = { "TomePlayBook", "TomeScratchPad" },
         keys = {
             {
