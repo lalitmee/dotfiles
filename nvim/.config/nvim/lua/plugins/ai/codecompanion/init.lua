@@ -32,11 +32,11 @@ local preferences = {
     -- preferred_provider = "anthropic",
     -- preferred_model = "claude-3-5-sonnet-20241022",
     -- preferred_provider = "gemini",
-    -- preferred_model = "gemini-2.5-flash",
-    -- preferred_provider = "openai",
-    -- preferred_model = "gpt-4o",
-    preferred_provider = "openrouter",
-    preferred_model = "claude-3-5-sonnet-20241022",
+    -- preferred_model = "gemini-2.5-pro",
+    preferred_provider = "openai",
+    preferred_model = "gpt-4.1",
+    -- preferred_provider = "openrouter",
+    -- preferred_model = "claude-3-5-sonnet-20241022",
 }
 
 -- Beast mode prompt for advanced AI assistance
@@ -392,6 +392,15 @@ return {
                             notify = true,
                             index_on_startup = false,
                         },
+                    },
+                },
+            },
+            prompt_library = {
+                ["Custom Commit"] = {
+                    prompt = require("plugins.ai.codecompanion.commit"),
+                    description = "Generate git commit message and commit it",
+                    opts = {
+                        is_slash_cmd = true,
                     },
                 },
             },
