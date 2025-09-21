@@ -31,7 +31,7 @@ else
     # The script will run in the background.
     # We set a very long pause duration to achieve 'indefinite' listening.
     # Use a standard microphone icon for the started state
-    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin &> /tmp/nerd-dictation.log &
+    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin --vosk-model-dir="$HOME/.local/share/vosk/model-en-in" &> /tmp/nerd-dictation.log &
     notify "audio-input-microphone-high-symbolic" "Speech to Text" "Listening now..."
     echo $! > "$PID_FILE"
 fi
