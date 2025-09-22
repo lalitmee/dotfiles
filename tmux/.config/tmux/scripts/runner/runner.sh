@@ -45,8 +45,10 @@ if [[ ! -f "package.json" ]]; then
     exit 1
 fi
 
-yarn_cmd="jq -r '.scripts | keys[]' package.json | awk '{print \"yarn \" \$0}'"
-npm_cmd="jq -r '.scripts | keys[]' package.json | awk '{print \"npm run \" \$0}'"
+package_json_path=$(pwd)/package.json
+
+yarn_cmd="(echo 'yarn install'; jq -r '.scripts | keys[]' \"$package_json_path\" | awk '{print \"yarn \" \$0}')"
+npm_cmd="(echo 'npm install'; jq -r '.scripts | keys[]' \"$package_json_path\" | awk '{print \"npm run \" \$0}')"
 
 FZF_HEADER="───────────────────────────────────
   ✨ Project Runner ✨
