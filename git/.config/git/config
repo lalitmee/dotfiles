@@ -1,0 +1,410 @@
+#
+# ------------------
+# Git Configuration
+# ------------------
+#
+# This file is organized into alphabetized sections for readability and maintainability.
+# It follows the XDG Base Directory Specification by living in ~/.config/git/config.
+#
+
+#
+# Provides helpful hints for certain commands.
+#
+[advice]
+    # Show hints for commands like `git status` when applicable.
+    statusHints = true
+
+#
+# Command shortcuts to streamline common Git operations.
+#
+[alias]
+    # List all aliases.
+    aliases = config --get-regexp alias
+
+    # Amend the currently staged files to the latest commit without changing the commit message.
+    amend = commit --amend --reuse-message=HEAD
+
+    # View all local and remote branches.
+    branches = branch --all
+
+    # Clone a repository including all its submodules.
+    c = clone --recursive
+
+    # Commit all staged and unstaged changes with a message.
+    ca = !git add -A && git commit -av
+
+    # List contributors with the number of commits.
+    contributors = shortlog --summary --numbered
+
+    # Credit an author on the latest commit.
+    credit = "!f() { git commit --amend --author '$1 <$2>' -C HEAD; }; f"
+
+    # Show the diff between the latest commit and the current state.
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+    # Show the diff between the state N revisions ago and the current state.
+    di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
+    # Delete local branches that have already been merged into the current branch.
+    dm = "!git branch --merged | grep -v '*' | xargs -n 1 git branch -d"
+
+    # Find branches containing a specific commit.
+    fb = "!f() { git branch -a --contains $1; }; f"
+
+    # Find commits by searching for source code changes.
+    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+    # Find commits by searching commit messages.
+    fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+
+    # Find tags containing a specific commit.
+    ft = "!f() { git describe --always --contains $1; }; f"
+
+    # Switch to a branch, creating it if it doesn't exist.
+    go = "!f() { git switch -c \"$1\" 2> /dev/null || git switch \"$1\"; }; f"
+
+    # View abbreviated SHA, description, and history graph of the latest 20 commits.
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+    # View a detailed, custom-formatted history graph.
+    lg = log --graph --pretty=format:'%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(white)%s %C(magenta) [%an]%Creset' --date=short
+
+    # Pull in remote changes for the current repository and all its submodules.
+    p = pull --recurse-submodules
+
+    # Interactive rebase with the given number of latest commits.
+    reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+    # View remotes with their URLs.
+    remotes = remote --verbose
+
+    # Force-update a tag and push it to the remote.
+    retag = "!f() { git tag -f \"$1\" && git push --force origin refs/tags/\"$1\"; }; f"
+
+    # View the current working tree status in short format.
+    s = status -s
+
+    # View all tags.
+    tags = tag -l
+
+    # Show the user email for the current repository.
+    whoami = config user.email
+
+#
+# Settings for `git apply`.
+#
+[apply]
+    # Detect and fix whitespace errors when applying a patch.
+    whitespace = fix
+
+#
+# Settings for `git blame`.
+#
+[blame]
+    # In `git blame`, highlight recent changes in a different color.
+    coloring = highlightRecent
+    # Show dates in relative format (e.g., "2 weeks ago").
+    date = relative
+
+#
+# Default behavior for branches.
+#
+[branch]
+    # When creating a new branch, set it up to track the remote branch it was created from.
+    autosetupmerge = true
+    # In `git branch` command, sort branches by commit date in descending order.
+    sort = -committerdate
+
+#
+# Custom colors for `git blame`.
+#
+[color "blame"]
+    highlightRecent = "#080808" bold,1 year ago,"#e4e4e4",1 month ago,"#8a8a8a",7 days ago,"#00aaff"
+
+#
+# Custom colors for `git branch` using the Cobalt2 theme.
+#
+[color "branch"]
+    current  = "#ff00ff"
+    local    = "#8a8a8a"
+    remote   = "#ffc600"
+    upstream = "#5fff00"
+
+#
+# Custom colors for `git diff` using the Cobalt2 theme.
+#
+[color "diff"]
+    meta       = "#080808" bold
+    frag       = "#ff00ff"
+    context    = "#e4e4e4"
+    old        = "#d70000"
+    new        = "#5fff00"
+    whitespace = "#ffc600" reverse
+
+#
+# Custom colors for `git status` using the Cobalt2 theme.
+#
+[color "status"]
+    added = "#5fff00" bold
+    changed = "#d70000" bold
+    untracked = "#d70000" bold
+
+#
+# Custom colors for decorated output like in `git log --decorate`.
+#
+[color.decorate]
+    HEAD = "#d70000"
+    branch = "#00aaff"
+    tag = "#ffc600"
+    remoteBranch = "#ff00ff"
+
+#
+# Settings related to creating commits.
+#
+[commit]
+    # Specifies the path to the file to be used as a template for commit messages.
+    # template = ~/.config/git/template
+    # Show the full diff in the editor when writing a commit message.
+    verbose = true
+
+#
+# Core Git settings.
+#
+[core]
+    # Handle line endings by converting CRLF to LF on commit.
+    autocrlf = input
+    # Use maximum compression level to save network bandwidth, at the cost of CPU.
+    compression = 9
+    # Set the default editor for commit messages and interactive commands.
+    editor = nvim
+    # Specifies the path to the global gitignore file.
+    excludesfile = /home/lalitmee/.config/git/ignore
+    # Set the pager used to display multi-page output. `delta` is a modern diff viewer.
+    pager = delta
+    # Use an in-memory index to speed up operations in large repositories.
+    preloadindex = true
+
+#
+# Manages how Git handles user credentials.
+#
+[credential]
+    # Use an in-memory cache for credentials. Default timeout is 15 minutes.
+    credentialStore = cache
+    # Use the full path for credentials, which is necessary for some helpers.
+    useHttpPath = true
+
+#
+# Credential helper specific to GitHub.
+#
+[credential "https://github.com"]
+    # Use the GitHub CLI (`gh`) for authentication.
+    helper =
+    helper = !/usr/bin/gh auth git-credential
+
+#
+# Configuration for the `delta` pager.
+#
+[delta]
+    # Show line numbers.
+    line-numbers = true
+    # Use a side-by-side view for diffs.
+    side-by-side = true
+    # Set the syntax highlighting theme.
+    syntax-theme = cobalt2
+    # Customize the label for modified files.
+    file-modified-label = modified:
+    # Enable navigation hotkeys within delta.
+    navigate = true
+
+#
+# Default options for `git diff`.
+#
+[diff]
+    # Merge diff hunks that are close to each other for better context.
+    interHunkContext = 10
+    # Detect and track renames as copies.
+    renames = copies
+    # Use a specific color scheme to highlight moved code blocks.
+    colorMoved = zebra
+    # Set the default diff tool.
+    tool = nvimdiff
+
+#
+# Command for the 'nvimdiff' diff tool.
+#
+[difftool "nvimdiff"]
+    cmd = nvim -d "$LOCAL" "$REMOTE" -c "wincmd w" -c "wincmd L"
+
+#
+# Default options for `git fetch`.
+#
+[fetch]
+    # Before fetching, remove any remote-tracking references that no longer exist on the remote.
+    prune = true
+    # Perform consistency checks on fetched objects to prevent data corruption.
+    fsckObjects = true
+
+#
+# Configuration for Git Large File Storage (LFS).
+#
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+#
+# Default options for formatting patches.
+#
+[format]
+    # A custom format for `git format-patch`. Not used by log aliases directly.
+    pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(white)%s %C(magenta) [%an]%Creset
+
+#
+# Settings for the `git help` command.
+#
+[help]
+    # Automatically correct typos and run the intended command. '1' means a 0.1s delay.
+    autocorrect = 1
+
+#
+# Settings for `git init`.
+#
+[init]
+    # The default branch name to create when initializing a new repository.
+    defaultBranch = main
+
+#
+# Settings for interactive commands like `git add -i`.
+#
+[interactive]
+    # Use `delta` to display the diff in interactive mode.
+    diffFilter = delta --color-only
+
+#
+# Settings for `git log`.
+#
+[log]
+    # Abbreviate commit hashes in log output.
+    abbrevCommit = true
+
+#
+# Default options for `git merge`.
+#
+[merge]
+    # Set the default merge tool.
+    tool = nvimdiff
+
+#
+# Command for the 'nvimdiff' merge tool.
+#
+[mergetool "nvimdiff"]
+    cmd = nvim -d "$LOCAL" "$MERGED" "$BASE" "$REMOTE" -c "wincmd w" -c "wincmd J"
+
+#
+# Performance tuning for packing objects (e.g., during `git gc`).
+#
+[pack]
+    # Use all available CPU threads for packing.
+    threads = 0
+    # Use 1GB of memory for the pack window.
+    windowMemory = 1g
+    # Set the maximum size of a single packfile to 1GB.
+    packSizeLimit = 1g
+
+#
+# Specifies which pager to use for different Git commands.
+#
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+    # Disable the pager for `git branch` and `git tag` for quick output.
+    branch = false
+    tag = false
+
+#
+# Default behavior for `git pull`.
+#
+[pull]
+    # Use `rebase` instead of `merge` when pulling changes.
+    rebase = true
+
+#
+# Default behavior for `git push`.
+#
+[push]
+    # Automatically set up the remote tracking branch when pushing a new branch.
+    autoSetupRemote = true
+    # When `git push` is run without arguments, push the current branch to its upstream counterpart.
+    default = current
+    # Push tags that point to commits being pushed.
+    followTags = true
+
+#
+# Default behavior for `git rebase`.
+#
+[rebase]
+    # Automatically stash local changes before rebase and pop them after.
+    autoStash = true
+
+#
+# Settings for receiving objects (e.g., on a server).
+#
+[receive]
+    # Perform consistency checks on received objects.
+    fsckObjects = true
+
+#
+# Default options for `git status`.
+#
+[status]
+    # Show the branch and tracking info.
+    branch = true
+    # Use the short format by default.
+    short = true
+    # Show the number of stashed entries.
+    showStash = true
+    # Show all individual files in untracked directories.
+    showUntrackedFiles = all
+
+#
+# Default options for submodules.
+#
+[submodule]
+    # Fetch up to 16 submodules in parallel.
+    fetchJobs = 16
+
+#
+# Default options for `git tag`.
+#
+[tag]
+    # Sort tags by tagger date in descending order.
+    sort = -taggerdate
+
+#
+# Settings for data transfer operations.
+#
+[transfer]
+    # Perform consistency checks on transferred objects.
+    fsckObjects = true
+
+#
+# Your personal Git identity.
+#
+[user]
+    email = lalitkumar.meena.lk@gmail.com
+    name = Lalit Kumar
+
+#
+# URL rewriting for shorter clone commands.
+#
+[url "git@github.com:"]
+    insteadOf = "gh:"
+
+[url "git@github.com:lalitmee/"]
+    insteadOf = "lk:"
+
+[url "git@github.com-personal:lalitmee/"]
+    insteadOf = "lkp:"
