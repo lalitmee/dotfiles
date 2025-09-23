@@ -57,11 +57,11 @@ local preferences = {
     -- NOTE: Provider: openai {{{
     --------------------------------------------------------------------------------
 
-    -- preferred_provider = "openai",
-    -- preferred_model = "gpt-4.1",
-
     preferred_provider = "openai",
-    preferred_model = "gpt-5",
+    preferred_model = "gpt-4.1",
+
+    -- preferred_provider = "openai",
+    -- preferred_model = "gpt-5",
 
     --------------------------------------------------------------------------------
     -- }}}
@@ -174,6 +174,7 @@ return {
         {
             "jinzhongjia/codecompanion-gitcommit.nvim",
             commit = "052580477cfec497c1ac9ca76e0e0f06e09ca102",
+            cmd = { "CCGitCommit" },
         },
         {
             "Davidyz/VectorCode",
