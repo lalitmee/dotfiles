@@ -11,8 +11,8 @@ opt.softtabstop = 4
 opt.tabstop = 4
 opt.spell = true
 
-vim.keymap.set("n", "<leader>cc", [[:CopilotChatCommit<CR>]], {
-    desc = "Generate Commit Msg (Copilot)",
+vim.keymap.set("n", "<leader>cc", [[:CCGitCommit<CR>]], {
+    desc = "Generate Commit Msg (CodeCompanion.nvim)",
     buffer = true,
     silent = true,
 })
