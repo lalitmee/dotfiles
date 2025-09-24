@@ -165,7 +165,7 @@
     # Specifies the path to the file to be used as a template for commit messages.
     # template = ~/.config/git/template
     # Show the full diff in the editor when writing a commit message.
-    verbose = true
+    # verbose = true
 
 #
 # Core Git settings.
