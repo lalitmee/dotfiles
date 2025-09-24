@@ -37,6 +37,9 @@ return {
     -- GitHub Copilot for inline code completions
     {
         "zbirenbaum/copilot.lua",
+        dependencies = {
+            "copilotlsp-nvim/copilot-lsp",
+        },
         cmd = "Copilot",
         build = ":Copilot auth",
         event = "InsertEnter",
@@ -44,14 +47,15 @@ return {
             suggestion = {
                 enabled = true,
                 auto_trigger = true,
+                hide_during_completion = true,
                 keymap = {
-                    accept = "<Tab>",
+                    accept = "<C-y>",
                     next = "<C-n>",
                     prev = "<C-p>",
-                    dismiss = "<C-]>",
+                    dismiss = "<Esc>",
                 },
             },
-            panel = { enabled = false },
+            panel = { enabled = true },
             filetypes = {
                 markdown = true,
                 help = true,
@@ -59,8 +63,7 @@ return {
         },
         config = function(_, opts)
             require("copilot").setup(opts)
-            vim.g.copilot_hide_during_completion = false
-            vim.g.copilot_settings = { selectedCompletionModel = "gpt-4o" }
+            vim.g.copilot_settings = { selectedCompletionModel = "gpt-5" }
         end,
     },
 
