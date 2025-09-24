@@ -165,10 +165,6 @@ end
 return {
     "olimorris/codecompanion.nvim",
     dependencies = {
-        {
-            "lazymaniac/codecompanion-reasoning.nvim",
-            opts = {},
-        },
         "ravitemer/mcphub.nvim",
         "ravitemer/codecompanion-history.nvim",
         {
@@ -303,11 +299,6 @@ return {
                         style = "snacks",
                         -- style = "none",
                     },
-                },
-
-                reasoning = {
-                    callback = "codecompanion._extensions.reasoning",
-                    opts = { enabled = true },
                 },
 
                 -- VectorCode integration for enhanced context
