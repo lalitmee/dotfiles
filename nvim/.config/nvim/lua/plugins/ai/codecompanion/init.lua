@@ -170,12 +170,10 @@ return {
         {
             "jinzhongjia/codecompanion-gitcommit.nvim",
             commit = "052580477cfec497c1ac9ca76e0e0f06e09ca102",
-            cmd = { "CCGitCommit" },
         },
         {
             "Davidyz/VectorCode",
             version = "*",
-            dependencies = { "nvim-lua/plenary.nvim" },
             cmd = "VectorCode",
         },
         {
