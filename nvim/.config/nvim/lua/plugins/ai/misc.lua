@@ -52,10 +52,10 @@ return {
                     accept = "<Tab>",
                     next = "<C-n>",
                     prev = "<C-p>",
-                    dismiss = "<Esc>",
+                    dismiss = "<C-c>",
                 },
             },
-            panel = { enabled = true },
+            panel = { enabled = false },
             filetypes = {
                 markdown = true,
                 help = true,
