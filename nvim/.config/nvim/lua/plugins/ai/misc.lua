@@ -49,7 +49,7 @@ return {
                 auto_trigger = true,
                 hide_during_completion = true,
                 keymap = {
-                    accept = "<C-y>",
+                    accept = "<Tab>",
                     next = "<C-n>",
                     prev = "<C-p>",
                     dismiss = "<Esc>",
