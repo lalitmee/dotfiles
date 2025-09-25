@@ -9,7 +9,7 @@ C-a J	Jump to text (tmux-jump)
 C-a z	Zoom pane
 C-a ?	Search keybindings
 C-a i	Cheat sheets (cht.sh)
-C-a g	Git popup
+C-a g	LazyGit interface
 C-a S	Session management
 C-a C-i	AI tools
 C-a b	Second brain
