@@ -10,7 +10,27 @@
   },
 
   "ui": {
-    "theme": "Default",
+    "customThemes": {
+      "Cobalt2": {
+        "name": "Cobalt2",
+        "type": "custom",
+        "Background": "#193549",
+        "Foreground": "#FFFFFF",
+        "LightBlue": "#00AAFF",
+        "AccentBlue": "#0050a4",
+        "AccentPurple": "#FF80E1",
+        "AccentCyan": "#80FFBB",
+        "AccentGreen": "#3AD900",
+        "AccentYellow": "#FFC600",
+        "AccentRed": "#ee3a43",
+        "Comment": "#0088FF",
+        "Gray": "#8a8a8a",
+        "DiffAdded": "#3AD900",
+        "DiffRemoved": "#ee3a43",
+        "DiffModified": "#FF9D00"
+      }
+    },
+    "theme": "Cobalt2",
     "hideBanner": true,
     "hideTips": true
   },
