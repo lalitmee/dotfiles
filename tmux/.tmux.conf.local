@@ -418,7 +418,7 @@ tmux_conf_update_plugins_on_reload=true
 
 
 #-------------------------------------------------------------------------------
-#  NOTE: 1. SETTINGS {{{
+# --- NOTE: 1. SETTINGS {{{
 # General behavior, appearance, and environment settings for tmux.
 #-------------------------------------------------------------------------------
 
@@ -502,7 +502,7 @@ set-option -g popup-border-lines rounded
 
 
 #-------------------------------------------------------------------------------
-#  NOTE: 2. PLUGINS {{{
+# --- NOTE: 2. PLUGINS {{{
 #-------------------------------------------------------------------------------
 
 # Managed by TPM (Tmux Plugin Manager).
@@ -582,6 +582,12 @@ set -g @jump-key 'J'
 # Provides a better way to yank (copy) text to the system clipboard.
 set -g @plugin 'tmux-plugins/tmux-yank'
 
+# Automatically focus panes when switching windows or creating new panes.
+set -g @plugin 'graemedavidson/tmux-pane-focus'
+
+# Enhances copy and paste with visual hints and easy navigation.
+set -g @plugin 'Morantron/tmux-fingers'
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
@@ -635,7 +641,7 @@ set -g @floax-text-color '#FFC600'
 
 
 #-------------------------------------------------------------------------------
-# NOTE: Tome Playbook {{{
+# --- NOTE: Tome Playbook {{{
 #-------------------------------------------------------------------------------
 set -g @plugin 'laktak/tome'
 
@@ -654,12 +660,34 @@ set -g @tome_height '40'
 
 
 #-------------------------------------------------------------------------------
+# --- NOTE: Manage Spotify {{{
+#-------------------------------------------------------------------------------
+
+set -g @plugin 'xamut/tmux-spotify'
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Power Zoom {{{
+#       zoom and unzoom panes while preserving layout.
+#-------------------------------------------------------------------------------
+
+set -g @plugin 'jaclu/tmux-power-zoom'
+
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------------
-#  NOTE: 3. KEYBINDINGS {{{
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# --- NOTE: 3. KEYBINDINGS {{{
 #-------------------------------------------------------------------------------
 
 
@@ -724,12 +752,31 @@ bind j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
 bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 
 # Kill the entire current session.
-bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
+bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Prefix - Pane Resizing {{{
+#           Fine-grained control over pane dimensions.
+#-------------------------------------------------------------------------------
+
+# Set the default number of cells to resize panes by.
+set -g @resize-step 10
+
+# Override default H, J, K, L bindings to resize panes using the @resize-step value.
+# It prioritizes session-specific values set by the menu, falling back to the global default.
+bind -r H run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -L #{session_name}"
+bind -r J run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -D #{session_name}"
+bind -r K run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -U #{session_name}"
+bind -r L run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -R #{session_name}"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # --- NOTE: Prefix - Script Launchers {{{
@@ -771,7 +818,7 @@ bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/search-keybindings.sh"'
 
 # Global help popup
-bind H display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
+bind C-f display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/help/help.sh global"
 
 #-------------------------------------------------------------------------------
 # }}}

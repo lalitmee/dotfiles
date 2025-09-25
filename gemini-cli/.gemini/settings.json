@@ -1,14 +1,12 @@
 {
   "general": {
     "preferredEditor": "nvim",
-    "vimMode": true,
+    "vimMode": false,
     "autoUpdate": true,
-
     "checkpointing": {
       "enabled": true
     }
   },
-
   "ui": {
     "customThemes": {
       "Cobalt2": {
@@ -30,11 +28,10 @@
         "DiffModified": "#FF9D00"
       }
     },
-    "theme": "Cobalt2",
+    "theme": "Default",
     "hideBanner": true,
     "hideTips": true
   },
-
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
