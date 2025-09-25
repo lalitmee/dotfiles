@@ -38,6 +38,22 @@
     }
   },
   "mcpServers": {
+    "time": {
+      "command": "uvx",
+      "args": ["mcp-server-time"]
+    },
+
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"]
+    },
+
+    "git": {
+      "args": ["mcp-server-git", "--repository", "${REPOSITORY_PATH}"],
+      "command": "uvx",
+      "disabled": false
+    },
+
     "github": {
       "command": "docker",
       "args": [
@@ -51,6 +67,20 @@
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
+    },
+
+    "context7": {
+      "args": ["-y", "@upstash/context7-mcp"],
+      "command": "npx",
+      "disabled": false,
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "${DEFAULT_MINIMUM_TOKENS}"
+      }
+    },
+
+    "sequentialthinking": {
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "command": "npx"
     }
   }
 }

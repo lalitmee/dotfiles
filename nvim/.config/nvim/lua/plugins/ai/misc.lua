@@ -217,8 +217,7 @@ return {
         },
     },
 
-    -- MCPHub.nvim for MCP protocol integration
-    {
+    { -- [[ mcphub.nvim ]]
         "ravitemer/mcphub.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -228,7 +227,7 @@ return {
             "MCPHub",
         },
         keys = {
-            { "<localleader>am", ":MCPHub<CR>", desc = "MCP Hub", silent = true, mode = { "n", "v" } },
+            { "<leader>cm", ":MCPHub<CR>", desc = "MCP Hub", silent = true, mode = { "n", "v" } },
         },
         opts = {},
     },
