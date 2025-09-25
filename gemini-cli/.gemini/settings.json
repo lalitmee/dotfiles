@@ -1,0 +1,23 @@
+{
+  "general": {
+    "preferredEditor": "nvim",
+    "vimMode": true,
+    "autoUpdate": true,
+
+    "checkpointing": {
+      "enabled": true
+    }
+  },
+
+  "ui": {
+    "theme": "Default",
+    "hideBanner": true,
+    "hideTips": true
+  },
+
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  }
+}
