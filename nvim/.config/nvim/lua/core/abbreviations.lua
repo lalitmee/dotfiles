@@ -7,6 +7,7 @@ vim.cmd([[
     ca Ggrpe Ggrep
     ca GIt Git
     ca cup cdo update
+    ca es e ~/.secret-tokens
 ]])
 
 --------------------------------------------------------------------------------
