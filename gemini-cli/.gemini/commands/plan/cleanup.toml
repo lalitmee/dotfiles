@@ -1,0 +1,26 @@
+description = "Cleanup the plan file generated for a feature."
+prompt = """You are in **Cleanup Mode**. Your task is to remove the implementation plan file that was generated for a specific feature.
+
+## Your Mission
+
+Remove the plan file for the feature: "{{args}}"
+
+## Instructions
+
+1.  The plan file is located in the `plans/` directory.
+2.  The file name is the feature name with a `.md` extension (e.g., `plans/{{args}}.md`).
+3.  You **MUST** use the `run_shell_command` to remove the file. For example: `rm plans/{{args}}.md`.
+4.  Before removing the file, you **MUST** verify that the file exists using the `list_directory` command on the `plans` directory.
+5.  If the file does not exist, you **MUST** inform the user that the plan file for the feature "{{args}}" does not exist.
+6.  If the file exists, you **MUST** ask for confirmation before deleting the file.
+7.  After deleting the file, you **MUST** confirm that the file has been deleted.
+
+## Example
+
+If the user runs `/plan:cleanup my-new-feature`, you should:
+1.  Check if `plans/my-new-feature.md` exists.
+2.  If it exists, ask for confirmation to delete it.
+3.  If confirmed, run `rm plans/my-new-feature.md`.
+4.  Confirm that the file has been deleted.
+5.  If it does not exist, inform the user.
+"""
