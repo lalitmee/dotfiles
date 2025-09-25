@@ -36,7 +36,7 @@ else
 
     # If it is a git repo, create the popup running lazygit directly.
     # When you quit lazygit ('q'), this command finishes, and the popup closes.
-    tmux popup -d "$PANE_PATH" -xC -yC -w"95%" -h"95%" -E "lazygit"
+    tmux popup -d "$PANE_PATH" -xC -yC -w"100%" -h"100%" -E "lazygit"
 fi
 # }}}
 # -------------------------------------------------------------------
