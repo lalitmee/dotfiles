@@ -736,8 +736,8 @@ bind K run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 #           Launch various helper scripts and tools.
 #-------------------------------------------------------------------------------
 
-# Launch the git helper script in a popup.
-bind g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
+# Launch lazygit in a popup (toggle behavior).
+bind g run-shell "$HOME/.config/tmux/scripts/lazygit.sh '#{pane_current_path}'"
 
 # Launch the cht.sh helper script in a popup.
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
@@ -1110,7 +1110,7 @@ bind -T layout-mode T run-shell "~/.config/tmux/scripts/todo.sh work"
 #           Git repository management.
 #-------------------------------------------------------------------------------
 
-bind -T layout-mode g run-shell "$HOME/.config/tmux/scripts/lazygit.sh '#{pane_current_path}'"
+bind -T layout-mode g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git-pull-merge.sh"
 
 #-------------------------------------------------------------------------------
 # }}}

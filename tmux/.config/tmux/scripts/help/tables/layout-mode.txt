@@ -9,7 +9,7 @@ a	AI ask assistant
 c	AI chat session
 s	Site-specific search
 /	Web search
-g	LazyGit interface
+g	Git operations
 t	Todo (personal)
 T	Todo (work)
 m	Documentation browser
