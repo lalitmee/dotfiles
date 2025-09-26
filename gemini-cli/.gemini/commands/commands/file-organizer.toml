@@ -1,0 +1,95 @@
+description = "Intelligently organizes files in directories based on content type, date, and purpose with safe automation."
+
+prompt = """
+Organize and structure files in directory: {{args}}
+
+Please help organize files systematically:
+
+1. **Directory Analysis:**
+   - List all files and subdirectories: !{find "{{args}}" -type f | head -30}
+   - Check current directory structure: !{ls -la "{{args}}"}
+   - Identify file types and extensions: !{find "{{args}}" -type f | sed 's/.*\.//' | sort | uniq -c | sort -nr}
+   - Check file sizes and dates: !{ls -lah "{{args}}" | head -15}
+
+2. **File Classification:**
+   Categorize files by:
+   - **Document Types:** PDFs, Word docs, spreadsheets, presentations
+   - **Media Files:** Photos, videos, audio files
+   - **Archives:** ZIP, RAR, tar files
+   - **Code Files:** Source code, config files, scripts
+   - **Data Files:** CSV, JSON, databases
+   - **System Files:** Logs, temporary files, backups
+
+3. **Content Analysis:**
+   - Examine file contents where possible: !{file "{{args}}"/* | head -10}
+   - Check creation and modification dates
+   - Identify duplicate files: !{find "{{args}}" -type f -exec basename {} \; | sort | uniq -d | head -10}
+   - Look for naming patterns and conventions
+
+4. **Organization Strategy:**
+   Suggest folder structure based on:
+   - **By Type:** Documents/, Images/, Videos/, Code/
+   - **By Date:** 2024/, 2023/, Archive/
+   - **By Project:** Project-A/, Project-B/, Personal/
+   - **By Status:** Current/, Completed/, Draft/
+   - **Hybrid:** Combine approaches for optimal organization
+
+5. **Cleanup Opportunities:**
+   - Identify temporary files that can be deleted
+   - Find empty directories: !{find "{{args}}" -type d -empty}
+   - Locate large files that might need archiving
+   - Spot obvious junk files (.DS_Store, Thumbs.db, etc.)
+   - Check for outdated or obsolete files
+
+6. **Smart Suggestions:**
+   - Group related files together
+   - Suggest meaningful folder names
+   - Identify files that should be archived
+   - Recommend backup priorities
+   - Flag important files that need special handling
+
+7. **Safe Organization Commands:**
+   Generate safe file operations:
+   - Create directory structure first
+   - Use `mv` commands with full paths
+   - Include dry-run options for testing
+   - Handle filename conflicts gracefully
+   - Preserve important file attributes
+
+8. **Automation Script:**
+   Create a bash script that:
+   - Creates necessary directories
+   - Moves files to appropriate locations
+   - Handles name conflicts safely
+   - Logs all operations
+   - Provides undo capabilities
+
+9. **Quality Control:**
+   - Verify no files are lost during organization
+   - Check that permissions are preserved
+   - Ensure important files remain accessible
+   - Test that organization makes sense
+   - Validate against common file access patterns
+
+10. **Maintenance Plan:**
+    - Suggest ongoing organization rules
+    - Recommend regular cleanup schedules
+    - Provide templates for future file naming
+    - Create guidelines for team consistency
+
+Please provide:
+- Detailed organization plan with rationale
+- Safe commands to execute the organization
+- Backup recommendations before making changes
+- Maintenance suggestions for keeping organized
+
+Example output:
+```bash
+# Create directory structure
+mkdir -p "{{args}}"/Documents/{PDF,Word,Spreadsheets}
+mkdir -p "{{args}}"/Media/{Photos,Videos}
+
+# Organize files safely
+mv "{{args}}"/*.pdf "{{args}}"/Documents/PDF/
+```
+"""
