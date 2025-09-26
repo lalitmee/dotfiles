@@ -926,6 +926,9 @@ return {
     { --[[ wellness-break.nvim ]]
         "CodeGeek04/wellness-break.nvim",
         event = "VeryLazy",
-        opts = {},
+        opts = {
+            min_keystrokes = 800,
+            max_keystrokes = 1000,
+        },
     },
 }
