@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+if [[ -z "$REPOSITORY_PATH" ]]; then
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    export REPOSITORY_PATH=$(git rev-parse --show-toplevel)
+  fi
+fi
+
+if [[ -z "$REPOSITORY_PATH" ]]; then
+  echo "Error: REPOSITORY_PATH is not set and could not be determined from git." >&2
+  echo "Please run from within a git repository or set the REPOSITORY_PATH environment variable." >&2
+  exit 1
+fi
+
+echo "Running mcp-server-git from: $REPOSITORY_PATH"
+
+uvx mcp-server-git --repository="$REPOSITORY_PATH"
