@@ -1,7 +1,7 @@
 {
   "general": {
     "preferredEditor": "nvim",
-    "vimMode": false,
+    "vimMode": true,
     "autoUpdate": true,
     "checkpointing": {
       "enabled": true
@@ -94,8 +94,8 @@
     },
 
     "server-sequential-thinking": {
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
-      "command": "npx"
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
 
     "sequential-thinking": {
@@ -124,7 +124,7 @@
 
     "chrome-devtools": {
       "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
+      "args": ["-y", "chrome-devtools-mcp@latest"]
     },
 
     "figma-local-mcp": {
