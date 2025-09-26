@@ -1,30 +1,72 @@
 #!/bin/bash
 
-# Define the directory where executable files are stored
-BIN_DIR="$HOME/dotfiles/bin/.config/bin"
+# Define the directory to search and cache locations
+SEARCH_DIR="$HOME/dotfiles"
+CACHE_DIR="$HOME/.cache/make-exec"
+CACHE_FILE="$CACHE_DIR/scripts.list"
+HASH_FILE="$CACHE_DIR/files.hash"
 
-# Check if fzf is installed, install if not
+# Create cache directory if it doesn't exist
+mkdir -p "$CACHE_DIR"
+
+# --- Caching Logic ---
+
+# Function to calculate the current hash of files
+calculate_hash() {
+    find "$SEARCH_DIR" -type f -not -path '*/.git/*' -printf "%p%T@\n" | md5sum | awk '{print $1}'
+}
+
+# Get the current hash and the cached hash
+current_hash=$(calculate_hash)
+cached_hash=$(cat "$HASH_FILE" 2>/dev/null)
+
+# Check if cache is valid
+if [[ "$current_hash" == "$cached_hash" ]] && [[ -f "$CACHE_FILE" ]]; then
+    # Cache is valid, read from cache file
+    non_executable_scripts=$(cat "$CACHE_FILE")
+else
+    # Cache is invalid, re-scan and update cache
+    echo "Cache invalid, re-scanning for scripts..."
+    non_executable_scripts=$(find "$SEARCH_DIR" -type f ! -executable ! -path '*/.git/*' -print0 | \
+        xargs -0 -L1 sh -c '
+            file="$0"
+            if head -n1 "$file" | grep -q "^#!"; then
+                mime_type=$(file -b --mime-type "$file")
+                case "$mime_type" in
+                    text/x-shellscript|text/x-python|application/x-perl|text/x-ruby)
+                        echo "$file"
+                        ;;
+                esac
+            fi
+        ' 2>/dev/null)
+
+    # Update cache files
+    echo "$non_executable_scripts" > "$CACHE_FILE"
+    echo "$current_hash" > "$HASH_FILE"
+fi
+
+# --- End of Caching Logic ---
+
+# Check if fzf is installed
 if ! command -v fzf &>/dev/null; then
-    gum_style "fzf not found, installing..."
+    echo "fzf not found, installing..."
     sudo apt-get install -y fzf
 fi
 
-# Find non-executable files and list them using fzf with multi-selection enabled
-non_executable_files=$(find "$BIN_DIR" -type f ! -executable)
+if [ -n "$non_executable_scripts" ]; then
+    selected_files=$(echo "$non_executable_scripts" | fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all")
 
-if [ -n "$non_executable_files" ]; then
-    selected_files=$(echo "$non_executable_files" | fzf -m)
-
-    # If files are selected, make them executable
     if [ -n "$selected_files" ]; then
-        for file in $selected_files; do
+        echo "$selected_files" | while read -r file; do
             chmod +x "$file"
-            gum_style "Made $file executable."
+            echo "Made $file executable."
         done
+        # Invalidate cache after making files executable
+        calculate_hash > "$HASH_FILE"
     else
-        gum_style "No files selected. Exiting..."
+        echo "No files selected. Exiting..."
         exit 1
     fi
 else
-    gum_style "All files are already executable. Exiting..."
+    echo "All scripts are already executable. Exiting..."
 fi

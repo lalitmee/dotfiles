@@ -88,6 +88,11 @@
       }
     },
 
+    "server-sequential-thinking": {
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "command": "npx"
+    },
+
     "sequential-thinking": {
       "command": "uvx",
       "args": [
