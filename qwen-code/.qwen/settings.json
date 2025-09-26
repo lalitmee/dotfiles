@@ -1,6 +1,6 @@
 {
   "selectedAuthType": "qwen-oauth",
-  "theme": "Default",
+  "theme": "Shades of Purple",
   "contextFileName": ["CONTEXT.md", "GEMINI.md", "AGENTS.md"],
 
   "checkpointing": {
