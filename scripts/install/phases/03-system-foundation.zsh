@@ -35,11 +35,6 @@ export PATH="$HOME/go/bin:$PATH"
 # Also add to sudo PATH for commands that need it
 export SUDO_PATH="$PATH"
 
-# Install zsh
-execute_command \
-    "sudo apt install -y zsh" \
-    "zsh shell installed successfully." \
-    "Failed to install zsh."
 
 # Install oh-my-zsh (zsh framework)
 execute_command \
@@ -71,15 +66,15 @@ execute_command \
     "fzf (fuzzy finder) installed successfully." \
     "Failed to install fzf."
 
-# Install ripgrep via cargo
+# Install ripgrep via apt
 execute_command \
-    "cargo install ripgrep" \
+    "sudo apt install -y ripgrep" \
     "ripgrep installed successfully." \
     "Failed to install ripgrep."
 
-# Install bat via cargo
+# Install bat via apt
 execute_command \
-    "cargo install bat" \
+    "sudo apt install -y bat" \
     "bat (cat replacement) installed successfully." \
     "Failed to install bat."
 
@@ -89,17 +84,7 @@ execute_command \
     "lsd (ls replacement) installed successfully." \
     "Failed to install lsd."
 
-# Install stow (dotfile manager)
-execute_command \
-    "sudo apt install -y stow" \
-    "stow (dotfile manager) installed successfully." \
-    "Failed to install stow."
 
-# Install gum (TUI framework) via go
-execute_command \
-    "go install github.com/charmbracelet/gum@latest" \
-    "gum (TUI framework) installed successfully." \
-    "Failed to install gum."
 
 # Install zoxide via cargo
 execute_command \
@@ -118,6 +103,12 @@ execute_command \
     "sudo apt install -y python3-pip && pip3 install wakatime" \
     "wakatime (time tracking) installed successfully." \
     "Failed to install wakatime."
+
+# Install pre-commit for git hooks
+execute_command \
+    "pip3 install pre-commit" \
+    "pre-commit installed successfully." \
+    "Failed to install pre-commit."
 
 # Install serpl via cargo
 execute_command \

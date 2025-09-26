@@ -201,6 +201,17 @@ echo "  zshrc: $(readlink -f ~/.zshrc 2>/dev/null || echo 'Not linked')"
 echo "  nvim: $(readlink -f ~/.config/nvim 2>/dev/null || echo 'Not linked')"
 echo "  tmux: $(readlink -f ~/.tmux.conf 2>/dev/null || echo 'Not linked')"
 
+# Activate pre-commit hooks
+gum_style " activating Git Hooks..."
+if command -v pre-commit &> /dev/null; then
+    execute_command \
+        "cd \"$DOTFILES_DIR\" && pre-commit install" \
+        "pre-commit hooks activated successfully." \
+        "Failed to activate pre-commit hooks."
+else
+    gum_style "⚠️  pre-commit command not found, skipping hook activation."
+fi
+
 gum_style "✅ Phase 7: Config stowing completed!"
 gum_style "Your dotfiles are now symlinked to your home directory."
 echo ""
