@@ -122,6 +122,11 @@
       "args": ["-y", "crash-mcp"]
     },
 
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    },
+
     "figma-local-mcp": {
       "httpUrl": "http://127.0.0.1:3845/mcp"
     },
