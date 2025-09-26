@@ -60,6 +60,11 @@
       "args": ["mcp-server-fetch"]
     },
 
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+
     "git": {
       "command": "uvx",
       "args": ["mcp-server-git", "--repository", "${REPOSITORY_PATH}"]
@@ -102,6 +107,14 @@
         "portalocker",
         "mcp-sequential-thinking"
       ]
+    },
+
+    "mcp-sequentialthinking-tools": {
+      "command": "npx",
+      "args": ["-y", "mcp-sequentialthinking-tools"],
+      "env": {
+        "MAX_HISTORY_SIZE": "1000"
+      }
     },
 
     "crash": {

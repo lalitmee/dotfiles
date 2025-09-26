@@ -7,17 +7,11 @@ source "$(dirname "$0")/../utils.zsh"
 gum_style "🚀 Phase 0: Base Ubuntu Setup"
 gum_style "Installing essential prerequisites..."
 
-# Install git first (critical for cloning dotfiles)
+# Update package list before installing anything
 execute_command \
-    "sudo apt install -y git" \
-    "git installed successfully." \
-    "Failed to install git."
-
-# Install curl and wget (needed for many installations)
-execute_command \
-    "sudo apt install -y curl wget" \
-    "curl and wget installed successfully." \
-    "Failed to install curl and wget."
+    "sudo apt-get update" \
+    "Package list updated successfully." \
+    "Failed to update package list."
 
 # Install build essentials (needed for compiling some packages)
 execute_command \

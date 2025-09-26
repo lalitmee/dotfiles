@@ -47,7 +47,7 @@
 # ============================================================================
 
 # Set script directory
-SCRIPT_DIR="$(dirname "$0")"
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 # Set up PATH for installed tools (needed for gum and other tools)
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -115,20 +115,31 @@ rollback_installation() {
 # Function to run a specific phase
 run_phase() {
     local phase_number="$1"
+    local non_interactive_mode="$2" # New parameter
     local phase_script="$SCRIPT_DIR/phases/${phase_number}.zsh"
 
     if [[ -f "$phase_script" ]]; then
         gum_style "🔄 Starting Phase $phase_number..."
+        # In non-interactive mode, we need to make sure the phase script itself doesn't ask for input
+        # We can set an environment variable that the phase scripts can check
+        export NON_INTERACTIVE_MODE=$non_interactive_mode
         if "$phase_script"; then
             gum_style "✅ Phase $phase_number completed successfully!"
+            unset NON_INTERACTIVE_MODE
             return 0
         else
             gum_style "❌ Phase $phase_number failed!"
-            gum_style "💡 Would you like to attempt rollback? (y/N)"
-            read -r response
-            if [[ "$response" =~ ^[Yy]$ ]]; then
-                rollback_installation "$phase_number"
+            if [[ "$non_interactive_mode" != "true" ]]; then # Check if we are in interactive mode
+                gum_style "💡 Would you like to attempt rollback? (y/N)"
+                read -r response
+                if [[ "$response" =~ ^[Yy]$ ]]; then
+                    rollback_installation "$phase_number"
+                fi
+            else
+                # In non-interactive mode, automatically fail
+                gum_style "❌ Non-interactive phase failed. Exiting."
             fi
+            unset NON_INTERACTIVE_MODE
             return 1
         fi
     else
@@ -173,111 +184,159 @@ check_prerequisites() {
 
 # Main function
 main() {
+    # --- Argument Parsing ---
+    local NON_INTERACTIVE="false"
+    local PHASE_LIST=""
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            --non-interactive) NON_INTERACTIVE="true"; shift ;;
+            --phases=*) PHASE_LIST="${1#*=}"; shift ;;
+            *) echo "Unknown parameter passed: $1"; exit 1 ;;
+        esac
+    done
+    # --- End Argument Parsing ---
+
     # Check prerequisites
     check_prerequisites
 
-    # Show welcome message
-    gum_style "🚀 Welcome to the Complete System Setup Installer"
-    gum_style "This will install and configure your development environment based on your context file."
-    echo ""
-
-    # Show system information
-    show_system_info
-    echo ""
-
-    # Ask user what they want to do
-    local action=$(gum choose \
-        "full-install:Complete installation (all phases)" \
-        "custom-install:Custom installation (select phases)" \
-        "single-phase:Install single phase" \
-        "show-phases:Show available phases" \
-        "exit:Exit installer" \
-        --header "What would you like to do?")
-
-    case $action in
-        full-install*)
-            gum_style "🔄 Starting complete installation..."
-            for phase_info in "${PHASES[@]}"; do
-                local phase_number=$(echo "$phase_info" | cut -d: -f1)
-                if ! run_phase "$phase_number"; then
-                    gum_style "❌ Installation failed at Phase $phase_number"
-                    exit 1
-                fi
-            done
-            gum_style "🎉 Complete installation finished successfully!"
-            ;;
-
-        custom-install*)
-            gum_style "📋 Select phases to install:"
-            local selected_phases=$(printf '%s\n' "${PHASES[@]}" | \
-                gum choose --no-limit --header "Select phases to install:")
-
-            if [[ -z "$selected_phases" ]]; then
-                gum_style "❌ No phases selected. Exiting."
-                exit 1
-            fi
-
-            gum_style "🔄 Starting custom installation..."
-            for phase_info in "${selected_phases[@]}"; do
-                local phase_number=$(echo "$phase_info" | cut -d: -f1)
-                if ! run_phase "$phase_number"; then
-                    gum_style "❌ Installation failed at Phase $phase_number"
-                    exit 1
-                fi
-            done
-            gum_style "🎉 Custom installation finished successfully!"
-            ;;
-
-        single-phase*)
-            local selected_phase=$(printf '%s\n' "${PHASES[@]}" | \
-                gum choose --header "Select phase to install:")
-
-            if [[ -z "$selected_phase" ]]; then
-                gum_style "❌ No phase selected. Exiting."
-                exit 1
-            fi
-
-            local phase_number=$(echo "$selected_phase" | cut -d: -f1)
-            gum_style "🔄 Installing Phase $phase_number..."
-            if run_phase "$phase_number"; then
-                gum_style "✅ Phase $phase_number installed successfully!"
-            else
-                gum_style "❌ Phase $phase_number installation failed!"
-                exit 1
-            fi
-            ;;
-
-        show-phases*)
-            gum_style "📋 Available Installation Phases:"
-            echo ""
-            for phase_info in "${PHASES[@]}"; do
-                local phase_number=$(echo "$phase_info" | cut -d: -f1)
-                local phase_description=$(echo "$phase_info" | cut -d: -f2)
-                echo "  $phase_number: $phase_description"
-            done
-            echo ""
-            gum_style "Run this script again to start installation."
-            ;;
-
-        exit*)
-            gum_style "👋 Goodbye!"
-            exit 0
-            ;;
-
-        *)
-            gum_style "❌ Invalid selection. Exiting."
+    if [[ "$NON_INTERACTIVE" == "true" ]]; then
+        # --- Non-Interactive Mode ---
+        if [[ -z "$PHASE_LIST" ]]; then
+            echo "Error: --phases=<list> is required for non-interactive mode." >&2
             exit 1
-            ;;
-    esac
+        fi
 
-    # Post-installation message
-    echo ""
-    gum_style "🎉 Installation completed!"
-    gum_style "📝 Next steps:"
-    echo "  1. Log out and log back in to apply changes"
-    echo "  2. Run your dotfiles stow script: ./install"
-    echo "  3. Set up your git configuration from dotfiles"
-    echo "  4. Enjoy your new development environment!"
+        gum_style "🚀 Starting Non-Interactive Installation..."
+
+        # Convert comma-separated string to array
+        local phases_to_run=("${(s/,/)PHASE_LIST}")
+
+        for phase_number in "${phases_to_run[@]}"; do
+            # Validate phase exists
+            local found=false
+            for phase_info in "${PHASES[@]}"; do
+                if [[ "$(echo "$phase_info" | cut -d: -f1)" == "$phase_number" ]]; then
+                    found=true
+                    break
+                fi
+            done
+
+            if [[ "$found" == "true" ]]; then
+                if ! run_phase "$phase_number" "true"; then
+                    gum_style "❌ Non-interactive installation failed at Phase $phase_number"
+                    exit 1
+                fi
+            else
+                gum_style "⚠️ Warning: Phase '$phase_number' not found in definition list. Skipping."
+            fi
+        done
+        gum_style "🎉 Non-interactive installation finished successfully!"
+
+    else
+        # --- Interactive Mode ---
+        # Show welcome message
+        gum_style "🚀 Welcome to the Complete System Setup Installer"
+        gum_style "This will install and configure your development environment based on your context file."
+        echo ""
+
+        # Show system information
+        show_system_info
+        echo ""
+
+        # Ask user what they want to do
+        local action=$(gum choose \
+            "full-install:Complete installation (all phases)" \
+            "custom-install:Custom installation (select phases)" \
+            "single-phase:Install single phase" \
+            "show-phases:Show available phases" \
+            "exit:Exit installer" \
+            --header "What would you like to do?")
+
+        case $action in
+            full-install*)
+                gum_style "🔄 Starting complete installation..."
+                for phase_info in "${PHASES[@]}"; do
+                    local phase_number=$(echo "$phase_info" | cut -d: -f1)
+                    if ! run_phase "$phase_number" "false"; then
+                        gum_style "❌ Installation failed at Phase $phase_number"
+                        exit 1
+                    fi
+                done
+                gum_style "🎉 Complete installation finished successfully!"
+                ;;
+
+            custom-install*)
+                gum_style "📋 Select phases to install:"
+                local selected_phases=$(printf '%s\n' "${PHASES[@]}" | \
+                    gum choose --no-limit --header "Select phases to install:")
+
+                if [[ -z "$selected_phases" ]]; then
+                    gum_style "❌ No phases selected. Exiting."
+                    exit 1
+                fi
+
+                gum_style "🔄 Starting custom installation..."
+                for phase_info in "${selected_phases[@]}"; do
+                    local phase_number=$(echo "$phase_info" | cut -d: -f1)
+                    if ! run_phase "$phase_number" "false"; then
+                        gum_style "❌ Installation failed at Phase $phase_number"
+                        exit 1
+                    fi
+                done
+                gum_style "🎉 Custom installation finished successfully!"
+                ;;
+
+            single-phase*)
+                local selected_phase=$(printf '%s\n' "${PHASES[@]}" | \
+                    gum choose --header "Select phase to install:")
+
+                if [[ -z "$selected_phase" ]]; then
+                    gum_style "❌ No phase selected. Exiting."
+                    exit 1
+                fi
+
+                local phase_number=$(echo "$selected_phase" | cut -d: -f1)
+                gum_style "🔄 Installing Phase $phase_number..."
+                if ! run_phase "$phase_number" "false"; then
+                    gum_style "✅ Phase $phase_number installed successfully!"
+                else
+                    gum_style "❌ Phase $phase_number installation failed!"
+                    exit 1
+                fi
+                ;;
+
+            show-phases*)
+                gum_style "📋 Available Installation Phases:"
+                echo ""
+                for phase_info in "${PHASES[@]}"; do
+                    local phase_number=$(echo "$phase_info" | cut -d: -f1)
+                    local phase_description=$(echo "$phase_info" | cut -d: -f2)
+                    echo "  $phase_number: $phase_description"
+                done
+                echo ""
+                gum_style "Run this script again to start installation."
+                ;;
+
+            exit*)
+                gum_style "👋 Goodbye!"
+                exit 0
+                ;;
+
+            *)
+                gum_style "❌ Invalid selection. Exiting."
+                exit 1
+                ;;
+        esac
+
+        # Post-installation message
+        echo ""
+        gum_style "🎉 Installation completed!"
+        gum_style "📝 Next steps:"
+        echo "  1. Log out and log back in to apply changes"
+        echo "  2. Run your dotfiles stow script: ./install"
+        echo "  3. Set up your git configuration from dotfiles"
+        echo "  4. Enjoy your new development environment!"
+    fi
 }
 
 # Run main function

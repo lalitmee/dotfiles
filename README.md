@@ -1,5 +1,15 @@
 # dotfiles
 
+## Quick Start
+
+To set up your environment, clone this repository and run the main installer. It will guide you through the process and automatically configure all necessary tools and security hooks.
+
+```bash
+git clone https://github.com/lalitmee/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./install.sh
+```
+
 All of my dotfiles are here. 👍
 
 ## Screenshots

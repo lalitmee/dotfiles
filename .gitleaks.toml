@@ -1,0 +1,19 @@
+title = "Gitleaks configuration for dotfiles"
+
+[allowlist]
+description = "Allow common false positives in this dotfiles repository"
+
+# Use 'paths' to allowlist files based on their path.
+paths = [
+    '''.*\.md$''',  # Allow all markdown files
+    '''gemini-cli/.*security-audit\.toml$''',
+    '''tmux/.*/\.scraped-bangs-list$''',
+]
+
+# Use 'regexes' to allowlist specific patterns that are safe.
+regexes = [
+    '''\${[A-Z0-9_]+}''', # Allows placeholders like ${VAR_NAME}
+    '''get_env_key''',     # Allows the name of the lua helper function
+    '''sk-XXXXXXXXX''',    # Allows example keys from docs
+    '''sk-proj-XXX''',     # Allows example keys from docs
+]
