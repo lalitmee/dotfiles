@@ -933,19 +933,19 @@ bind-key C-i switch-client -T ai-tools
 #-------------------------------------------------------------------------------
 
 # Gemini
-bind-key -T ai-tools g display-popup -w 85% -h 85% "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh gemini'"
+bind-key -T ai-tools g display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh gemini'"
 
 # OpenCode
-bind-key -T ai-tools o display-popup -w 85% -h 85% "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh opencode'"
+bind-key -T ai-tools o display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh opencode'"
 
 # Claude
-bind-key -T ai-tools c display-popup -w 85% -h 85% "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh claude'"
+bind-key -T ai-tools c display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh claude'"
 
 # Codex
-bind-key -T ai-tools x display-popup -w 85% -h 85% "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh codex'"
+bind-key -T ai-tools x display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh codex'"
 
 # Qwen
-bind-key -T ai-tools w display-popup -w 85% -h 85% "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh qwen'"
+bind-key -T ai-tools w display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh qwen'"
 
 #-------------------------------------------------------------------------------
 # }}}
