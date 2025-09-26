@@ -152,6 +152,30 @@ execute_command \
     "lazygit installed successfully." \
     "Failed to install lazygit."
 
+# Install tig via apt
+execute_command \
+    "sudo apt install -y tig" \
+    "tig (git text-mode interface) installed successfully." \
+    "Failed to install tig."
+
+# Install GitHub CLI via apt
+execute_command \
+    "sudo apt install -y gh" \
+    "gh (GitHub CLI) installed successfully." \
+    "Failed to install gh."
+
+# Install lazydocker via go
+execute_command \
+    "go install github.com/jesseduffield/lazydocker@latest" \
+    "lazydocker installed successfully." \
+    "Failed to install lazydocker."
+
+# Install gh-dash via go
+execute_command \
+    "go install github.com/dlvhdr/gh-dash@latest" \
+    "gh-dash (GitHub dashboard) installed successfully." \
+    "Failed to install gh-dash."
+
 # Install development libraries (needed for various tools)
 execute_command \
     "sudo apt install -y libssl-dev libreadline-dev zlib1g-dev libsqlite3-dev libbz2-dev libffi-dev liblzma-dev" \

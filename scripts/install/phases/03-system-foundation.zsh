@@ -119,6 +119,18 @@ execute_command \
     "wakatime (time tracking) installed successfully." \
     "Failed to install wakatime."
 
+# Install serpl via cargo
+execute_command \
+    "cargo install serpl" \
+    "serpl (search and replace) installed successfully." \
+    "Failed to install serpl."
+
+# Install chatgpt via go
+execute_command \
+    "go install github.com/edofic/chatgpt-cli@latest" \
+    "chatgpt CLI installed successfully." \
+    "Failed to install chatgpt."
+
 # Install sesh via Go
 execute_command \
     "go install github.com/joshmedeski/sesh/v2@latest" \
