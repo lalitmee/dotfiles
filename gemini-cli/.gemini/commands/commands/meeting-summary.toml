@@ -1,0 +1,82 @@
+description = "Summarizes meeting notes, transcripts, or discussions into actionable insights and follow-up items."
+
+prompt = """
+Analyze and summarize the meeting content: {{args}}
+
+Please create a comprehensive meeting summary:
+
+1. **Content Analysis:**
+   - Read meeting notes, transcript, or discussion file
+   - Identify all participants and their roles
+   - Determine meeting type and purpose
+   - Extract key topics and agenda items discussed
+
+2. **Meeting Overview:**
+   - **Date & Time:** Extract or note meeting timing
+   - **Attendees:** List all participants and their roles
+   - **Meeting Type:** (Stand-up, planning, review, client call, etc.)
+   - **Duration:** Estimated or actual meeting length
+   - **Main Objective:** Primary purpose and goals
+
+3. **Key Discussion Points:**
+   Organize content into clear sections:
+   - **Decisions Made:** Final conclusions and agreements
+   - **Action Items:** Specific tasks with owners and deadlines
+   - **Open Questions:** Unresolved issues needing follow-up
+   - **Important Updates:** Status reports and announcements
+   - **Concerns Raised:** Problems or challenges discussed
+
+4. **Action Items Extraction:**
+   For each action item, identify:
+   - **Task Description:** What needs to be done
+   - **Assigned To:** Who is responsible
+   - **Due Date:** When it needs to be completed
+   - **Priority Level:** High/Medium/Low urgency
+   - **Dependencies:** What needs to happen first
+
+5. **Decision Log:**
+   - **Options Considered:** Alternatives that were discussed
+   - **Final Decision:** What was ultimately chosen
+   - **Rationale:** Why this decision was made
+   - **Impact:** Who/what will be affected
+   - **Implementation:** How the decision will be executed
+
+6. **Follow-up Requirements:**
+   - **Next Meeting:** Date and agenda items
+   - **Stakeholder Updates:** Who needs to be informed
+   - **Documentation:** What needs to be recorded or updated
+   - **Approvals Needed:** Sign-offs required before proceeding
+
+7. **Insights and Analysis:**
+   - **Key Themes:** Common topics or concerns
+   - **Potential Risks:** Issues that could cause problems
+   - **Opportunities:** Positive outcomes or improvements identified
+   - **Resource Needs:** Personnel, budget, or tools required
+
+8. **Communication Plan:**
+   - **Summary Distribution:** Who should receive the summary
+   - **Status Updates:** Regular reporting requirements
+   - **Escalation Path:** When to involve leadership
+   - **Documentation:** Where to store meeting records
+
+9. **Professional Formatting:**
+   Present as a clean, organized summary with:
+   - Clear headings and bullet points
+   - Concise, actionable language
+   - Proper formatting for easy scanning
+   - Professional tone and structure
+
+Please provide a comprehensive meeting summary that serves as a reliable record and enables effective follow-through on all discussed items.
+
+Example output format:
+## Meeting Summary: Project Planning Session
+**Date:** July 31, 2024  
+**Attendees:** John (PM), Sarah (Dev), Mike (Design)
+
+### Key Decisions:
+- Approved new feature timeline for Q4 release
+
+### Action Items:
+- [ ] Sarah: Complete API design by Aug 5
+- [ ] Mike: Create wireframes by Aug 3
+"""

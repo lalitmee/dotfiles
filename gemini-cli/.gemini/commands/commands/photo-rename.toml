@@ -1,0 +1,57 @@
+description = "Organizes and renames photos based on their visual content, date, and location metadata."
+
+prompt = """
+Analyze and rename photos in the specified directory: {{args}}
+
+Please help organize photos by following these steps:
+
+1. **Directory Analysis:**
+   - List all image files in the directory: !{find "{{args}}" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.heic" -o -iname "*.tiff" \) | head -20}
+   - Check directory structure and existing naming patterns
+   - Identify file creation dates: !{ls -la "{{args}}" | head -10}
+
+2. **Photo Content Analysis:**
+   For each photo, analyze and suggest names based on:
+   - Visual content (people, objects, scenes, activities)
+   - EXIF data for date, time, and location if available
+   - Seasonal or event context clues
+   - Group related photos together
+
+3. **Metadata Extraction:**
+   - Extract EXIF data: !{exiftool "{{args}}"/*.jpg 2>/dev/null | head -20 || echo "exiftool not available, using file dates"}
+   - Get creation dates and times
+   - Extract GPS coordinates if available
+   - Identify camera settings and device info
+
+4. **Naming Strategy:**
+   Create descriptive, organized filenames using format:
+   - `YYYY-MM-DD_Event-Description_001.jpg`  
+   - `2024-07-15_Beach-Vacation_Sunset_001.jpg`
+   - `2024-12-25_Christmas-Morning_Family_002.jpg`
+
+5. **Organization Suggestions:**
+   - Group photos by date/event
+   - Suggest folder structure if needed
+   - Identify duplicates or similar shots
+   - Recommend favorites or best shots
+
+6. **Safe Renaming Commands:**
+   Generate safe bash commands to rename files:
+   - Test commands first with echo
+   - Create backup suggestions
+   - Handle special characters properly
+   - Avoid overwriting existing files
+
+7. **Quality Assessment:**
+   - Identify blurry or poor quality images
+   - Suggest photos for deletion or separate processing
+   - Highlight exceptional or important photos
+
+Please provide:
+- Suggested new names for each photo with reasoning
+- Safe bash commands to perform the renaming
+- Organization recommendations
+- Quality assessment and curation suggestions
+
+Example: Rename IMG_1234.jpg to "2024-07-20_Birthday-Party_Cake-Cutting_001.jpg"
+"""

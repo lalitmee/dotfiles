@@ -1,0 +1,44 @@
+description = "Automatically generates comprehensive test cases for functions, classes, or modules with edge cases and best practices."
+
+prompt = """
+Generate comprehensive test cases for the specified code component: {{args}}
+
+Please follow these steps:
+
+1. **Code Analysis:**
+   - First, locate and analyze the target code
+   - Understand the function/class signature, parameters, and return types
+   - Identify all code paths and business logic
+   - Look for dependencies and external calls
+
+2. **Test Framework Detection:**
+   - Check what testing framework is being used: !{find . -name "package.json" -exec grep -l "jest\|mocha\|vitest\|cypress" {} \; | head -1}
+   - Examine existing test patterns: !{find . -name "*.test.*" -o -name "*.spec.*" | head -3}
+
+3. **Generate Test Cases:**
+   - **Happy path tests:** Normal use cases with valid inputs
+   - **Edge cases:** Boundary conditions, empty inputs, null/undefined values
+   - **Error cases:** Invalid inputs, exception handling
+   - **Integration tests:** If the code interacts with external dependencies
+   - **Performance tests:** If applicable for the code complexity
+
+4. **Test Structure:**
+   - Use the project's existing testing patterns and conventions
+   - Include proper setup/teardown if needed
+   - Add meaningful test descriptions
+   - Use appropriate assertions and matchers
+   - Include mock data where necessary
+
+5. **Code Coverage:**
+   - Ensure all branches and conditions are covered
+   - Include tests for private methods if they contain complex logic
+   - Add regression tests for known bug scenarios
+
+6. **Best Practices:**
+   - Follow the AAA pattern (Arrange, Act, Assert)
+   - Make tests independent and repeatable
+   - Use descriptive test names
+   - Include comments for complex test scenarios
+
+Please provide the complete test file with all generated test cases, including imports and setup code.
+"""

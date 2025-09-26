@@ -1,0 +1,95 @@
+description = "Analyzes tasks and priorities to create organized, actionable task lists with time estimates and urgency levels."
+
+prompt = """
+Analyze and prioritize the following tasks: {{args}}
+
+Please help organize and prioritize tasks effectively:
+
+1. **Task Input Analysis:**
+   - Parse individual tasks from the input
+   - Identify task types (work, personal, projects, maintenance)
+   - Extract any existing deadlines or time constraints
+   - Understand context and relationships between tasks
+
+2. **Task Categorization:**
+   Organize tasks by:
+   - **Work/Professional:** Job-related responsibilities
+   - **Personal:** Individual goals and activities  
+   - **Projects:** Multi-step initiatives with deliverables
+   - **Maintenance:** Routine upkeep and administration
+   - **Learning:** Skill development and education
+   - **Health/Wellness:** Physical and mental well-being
+
+3. **Priority Assessment:**
+   Evaluate each task using multiple criteria:
+   - **Urgency:** How time-sensitive is this task?
+   - **Importance:** How much impact does this have on goals?
+   - **Effort Required:** How much time/energy will this take?
+   - **Dependencies:** What other tasks rely on this being done?
+   - **Deadlines:** Are there external time constraints?
+
+4. **Eisenhower Matrix Classification:**
+   - **Quadrant 1:** Urgent + Important (Do First)
+   - **Quadrant 2:** Important + Not Urgent (Schedule)
+   - **Quadrant 3:** Urgent + Not Important (Delegate)
+   - **Quadrant 4:** Not Urgent + Not Important (Eliminate)
+
+5. **Time Estimation:**
+   For each task provide:
+   - **Estimated Duration:** How long will this take?
+   - **Complexity Level:** Simple/Medium/Complex
+   - **Optimal Time Slots:** Best times to work on this
+   - **Energy Requirements:** High/Medium/Low mental energy needed
+
+6. **Scheduling Recommendations:**
+   - **Today:** Most urgent and important tasks
+   - **This Week:** Tasks with approaching deadlines
+   - **This Month:** Important projects and initiatives
+   - **Backlog:** Lower priority items for later
+   - **Someday/Maybe:** Ideas and potential future tasks
+
+7. **Task Optimization:**
+   - **Batch Similar Tasks:** Group related activities
+   - **Identify Quick Wins:** Easy tasks for momentum
+   - **Break Down Large Tasks:** Split complex items into steps
+   - **Remove Duplicates:** Consolidate similar tasks
+   - **Eliminate Unnecessary:** Question if task is really needed
+
+8. **Actionable Output Format:**
+   Present as organized, scannable list:
+   ```
+   ## 🔥 TODAY (Urgent + Important)
+   - [ ] Task name [30min] [High energy] - Due: Today
+   
+   ## 📅 THIS WEEK (Important)  
+   - [ ] Task name [2hr] [Medium energy] - Due: Friday
+   
+   ## 📋 NEXT (Scheduled)
+   - [ ] Task name [45min] [Low energy] - Due: Next week
+   
+   ## 💡 IDEAS (Someday/Maybe)
+   - [ ] Task name [1hr] [Medium energy] - No deadline
+   ```
+
+9. **Context Switching Optimization:**
+   - Group tasks by location or tools needed
+   - Minimize context switches between different types of work
+   - Suggest optimal task sequences
+   - Identify tasks that work well together
+
+10. **Progress Tracking:**
+    - Suggest checkpoints and milestones
+    - Recommend review frequencies
+    - Provide completion criteria for each task
+    - Include celebration of completed items
+
+11. **Balance and Well-being:**
+    - Ensure mix of challenging and easy tasks
+    - Include breaks and buffer time
+    - Balance different life areas
+    - Prevent overcommitment and burnout
+
+Please provide a comprehensive, prioritized task list that enables productive and balanced task management.
+
+Example input: "Write presentation, call dentist, finish project proposal, exercise, grocery shopping, review budget, learn Python, clean garage"
+"""
