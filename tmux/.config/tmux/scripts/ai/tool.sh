@@ -128,9 +128,7 @@ else
     wait \$TOOL_PID 2>/dev/null || true
 fi
 
-echo
-gum_style \"✨ AI session finished. Press any key to close...\"
-read -k 1
+
 '"
 
 # Execute based on selected mode
@@ -169,10 +167,8 @@ case "$MODE" in
             wait $TOOL_PID 2>/dev/null || true
         fi
 
-        echo
-        gum_style "✨ AI session finished. Press any key to close..."
-        read -k 1
         ;;
+
 
     split)
         # Launch in a new split pane
