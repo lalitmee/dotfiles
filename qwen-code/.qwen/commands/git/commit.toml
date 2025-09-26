@@ -1,0 +1,35 @@
+# Invoked via: /git:commit
+description = "Generates a Git commit message based on staged changes."
+
+prompt = """
+## Mission: Write a Conventional Commit Message
+
+As an expert in writing Git commit messages, your task is to generate a commit message that follows the Conventional Commits specification.
+
+### Workflow:
+
+1. **Analyze the following staged changes and generate a concise and accurate commit message.**
+    **Diff:**
+    ```diff
+    !{git diff --staged}
+    ```
+2.  **Format:** Adhere strictly to the Conventional Commits specification (`<type>[optional scope]: <description>`).
+3.  **Content:**
+    *   If there are no staged changes, respond with the single phrase: `No changes to commit.`
+    *   Use bullet points in the commit body to list multiple changes for clarity.
+    *   If the changes introduce a breaking change, add a `BREAKING CHANGE:` footer in the commit body.
+4.  **Style:**
+    *   Keep the subject line concise (under 50 characters if possible).
+    *   The output should **only** be the raw commit message text, without any extra explanations, pleasantries, or markdown formatting.
+
+### Example Output:
+
+```
+feat(api): add new endpoint for user profiles
+
+- Implement GET /api/users/{id}/profile
+- Add corresponding database queries and tests
+
+BREAKING CHANGE: The user data structure has been modified.
+```
+"""
