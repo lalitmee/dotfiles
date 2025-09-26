@@ -912,4 +912,14 @@ return {
             { "<localleader>p", "<Plug>(TomePlaySelection)", desc = "Tome Play Selection", silent = true, mode = "x" },
         },
     },
+
+    { --[[ cloak.nvim ]]
+        "laytan/cloak.nvim",
+        event = "VeryLazy",
+        opts = {
+            patterns = {
+                file_pattern = { ".env.*", "credentials*", ".secret-tokens*" },
+            },
+        },
+    },
 }
