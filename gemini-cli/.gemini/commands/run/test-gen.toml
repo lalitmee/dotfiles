@@ -12,7 +12,7 @@ Please follow these steps:
    - Look for dependencies and external calls
 
 2. **Test Framework Detection:**
-   - Check what testing framework is being used: !{find . -name "package.json" -exec grep -l "jest\|mocha\|vitest\|cypress" {} \; | head -1}
+   - Check what testing framework is being used: !{find . -name "package.json" -exec grep -l "jest|mocha|vitest|cypress" {} ; | head -1}
    - Examine existing test patterns: !{find . -name "*.test.*" -o -name "*.spec.*" | head -3}
 
 3. **Generate Test Cases:**

@@ -6,7 +6,7 @@ Analyze and rename photos in the specified directory: {{args}}
 Please help organize photos by following these steps:
 
 1. **Directory Analysis:**
-   - List all image files in the directory: !{find "{{args}}" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.heic" -o -iname "*.tiff" \) | head -20}
+   - List all image files in the directory: !{find "{{args}}" -type f ( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.heic" -o -iname "*.tiff" ) | head -20}
    - Check directory structure and existing naming patterns
    - Identify file creation dates: !{ls -la "{{args}}" | head -10}
 
@@ -25,7 +25,7 @@ Please help organize photos by following these steps:
 
 4. **Naming Strategy:**
    Create descriptive, organized filenames using format:
-   - `YYYY-MM-DD_Event-Description_001.jpg`  
+   - `YYYY-MM-DD_Event-Description_001.jpg`
    - `2024-07-15_Beach-Vacation_Sunset_001.jpg`
    - `2024-12-25_Christmas-Morning_Family_002.jpg`
 
