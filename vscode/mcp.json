@@ -1,0 +1,42 @@
+{
+  "servers": {
+    "time": {
+      "command": "uvx",
+      "args": ["mcp-server-time"]
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "~/Projects/"]
+    },
+
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"]
+    },
+
+    "git": {
+      "command": "git-mcp-wrapper"
+    },
+
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "gallery": true,
+      "version": "0.0.1"
+    },
+
+    "figma-remote-mcp": {
+      "url": "https://mcp.figma.com/mcp",
+      "type": "http"
+    },
+
+    "upstash/context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "gallery": "https://api.mcp.github.com/v0/servers/dcec7705-b81b-4e0f-8615-8032604be7ad",
+      "version": "1.0.0"
+    }
+  },
+  "inputs": []
+}
