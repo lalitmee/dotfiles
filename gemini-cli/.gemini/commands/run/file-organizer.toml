@@ -8,7 +8,7 @@ Please help organize files systematically:
 1. **Directory Analysis:**
    - List all files and subdirectories: !{find "{{args}}" -type f | head -30}
    - Check current directory structure: !{ls -la "{{args}}"}
-   - Identify file types and extensions: !{find "{{args}}" -type f | sed 's/.*\.//' | sort | uniq -c | sort -nr}
+   - Identify file types and extensions: !{find "{{args}}" -type f | sed 's/.*.//' | sort | uniq -c | sort -nr}
    - Check file sizes and dates: !{ls -lah "{{args}}" | head -15}
 
 2. **File Classification:**
@@ -23,7 +23,7 @@ Please help organize files systematically:
 3. **Content Analysis:**
    - Examine file contents where possible: !{file "{{args}}"/* | head -10}
    - Check creation and modification dates
-   - Identify duplicate files: !{find "{{args}}" -type f -exec basename {} \; | sort | uniq -d | head -10}
+   - Identify duplicate files: !{find "{{args}}" -type f -exec basename {} ; | sort | uniq -d | head -10}
    - Look for naming patterns and conventions
 
 4. **Organization Strategy:**

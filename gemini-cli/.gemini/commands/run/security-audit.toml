@@ -10,7 +10,7 @@ Please perform the following security analysis:
    - Look for SQL injection, XSS, CSRF vulnerabilities
    - Check for insecure direct object references
    - Identify authentication and authorization issues
-   - Search for hardcoded secrets: !{grep -r "password\|secret\|key\|token" . --exclude-dir=node_modules --exclude-dir=.git | grep -v ".toml" | head -10}
+   - Search for hardcoded secrets: !{grep -r "password|secret|key|token" . --exclude-dir=node_modules --exclude-dir=.git | grep -v ".toml" | head -10}
 
 2. **Dependency Security:**
    - Check for known vulnerabilities in dependencies: !{npm audit --audit-level=moderate 2>/dev/null || echo "No package.json found or npm not available"}

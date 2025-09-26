@@ -44,7 +44,7 @@ Please conduct the following cleanup assessment:
 
 7. **Git Repository Cleanup:**
    - Check for large files in git history: !{git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | tail -10}
-   - Look for merged branches that can be deleted: !{git branch --merged | grep -v "main\|master\|develop" | head -10}
+   - Look for merged branches that can be deleted: !{git branch --merged | grep -v "main|master|develop" | head -10}
    - Identify stale branches: !{git for-each-ref --format='%(refname:short) %(committerdate:relative)' refs/heads | sort -k2 | head -10}
 
 8. **Performance Optimization Opportunities:**

@@ -6,7 +6,7 @@ Generate a comprehensive report from data in: {{args}}
 Please analyze the data and create a detailed report:
 
 1. **Data Discovery:**
-   - List all data files in the directory: !{find "{{args}}" -type f \( -name "*.csv" -o -name "*.json" -o -name "*.xlsx" -o -name "*.txt" -o -name "*.log" \) | head -15}
+   - List all data files in the directory: !{find "{{args}}" -type f ( -name "*.csv" -o -name "*.json" -o -name "*.xlsx" -o -name "*.txt" -o -name "*.log" ) | head -15}
    - Identify file types and formats
    - Check file sizes and dates: !{ls -lah "{{args}}" | head -10}
    - Sample file contents: !{head -5 "{{args}}"/*.csv 2>/dev/null || head -5 "{{args}}"/*.txt 2>/dev/null || echo "No readable data files found"}
