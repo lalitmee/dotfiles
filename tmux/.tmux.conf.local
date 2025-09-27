@@ -933,7 +933,7 @@ bind-key C-i switch-client -T ai-tools
 #-------------------------------------------------------------------------------
 
 # Gemini
-bind-key -T ai-tools g display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh gemini'"
+bind-key -T ai-tools g display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -ic '~/.config/tmux/scripts/ai/tool.sh"
 
 # OpenCode
 bind-key -T ai-tools o display-popup -w 85% -h 85% -E "REPOSITORY_PATH=$REPOSITORY_PATH zsh -lic '~/.config/tmux/scripts/ai/tool.sh opencode'"
