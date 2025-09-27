@@ -367,12 +367,12 @@ function sesh-sessions() {
 
 # tmux-sessionizer
 tmux_sessionizer_widget() {
-  tmux-sessionizer
+  ~/.config/tmux/scripts/tmux-sessionizer.sh
 }
 
 # tmuxinator-sessionizer
 tmuxinator_sessionizer_widget() {
-  tmuxinator-sessionizer
+  ~/.config/tmux/scripts/tmuxinator-sessionizer.sh
 }
 
 # search and open in neovim
