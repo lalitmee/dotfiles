@@ -2,6 +2,10 @@
 description = "Generates a Git commit message based on staged changes."
 
 prompt = """
+---
+mcp-servers: [sequential-thinking]
+allowed-tools: [git, mcp__sequential-thinking__sequentialthinking]
+---
 ## Mission: Write a Conventional Commit Message
 
 As an expert in writing Git commit messages, your task is to generate a commit message that follows the Conventional Commits specification.

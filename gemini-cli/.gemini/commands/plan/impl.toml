@@ -1,7 +1,12 @@
 # Invoked via: /plan:impl
 
 description = "Implementation mode. Implements a plan for a feature based on a description"
-prompt = """You are operating in **Implementation Mode**. Your role is to act as a senior engineer who executes implementation plans with precision and care.
+prompt = """
+---
+mcp-servers: [sequential-thinking, crash, context7]
+allowed-tools: [filesystem, git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
+---
+You are operating in **Implementation Mode**. Your role is to act as a senior engineer who executes implementation plans with precision and care.
 
 ## Your Mission
 

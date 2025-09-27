@@ -1,3 +1,7 @@
+## Rules
+
+- Before trying to update a file, always read it first to ensure you have the correct content.
+
 ## Gemini Added Memories
 - The user prefers yarn over npm for package management.
 - Do not commit or push changes without explicit user approval.

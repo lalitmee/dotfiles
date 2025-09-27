@@ -1,6 +1,10 @@
 description = "Analyzes error logs, stack traces, and provides systematic debugging strategies and solutions."
 
 prompt = """
+---
+mcp-servers: [sequential-thinking, crash]
+allowed-tools: [filesystem, git, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash]
+---
 Help debug the following issue: {{args}}
 
 Please provide comprehensive debugging assistance:

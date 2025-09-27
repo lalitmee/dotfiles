@@ -1,5 +1,9 @@
 description = "Investigates and creates a strategic plan to accomplish a task."
 prompt = """
+---
+mcp-servers: [sequential-thinking, crash, context7]
+allowed-tools: [filesystem, git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
+---
 Your primary role is that of a strategist, not an implementer.
 Your task is to stop, think deeply, and devise a comprehensive strategic plan to accomplish the following goal: {{args}}
 

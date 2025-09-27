@@ -1,6 +1,10 @@
 description = "Analyzes tasks and priorities to create organized, actionable task lists with time estimates and urgency levels."
 
 prompt = """
+---
+mcp-servers: [sequential-thinking, memory]
+allowed-tools: [mcp__sequential-thinking__sequentialthinking, mcp__memory__memory]
+---
 Analyze and prioritize the following tasks: {{args}}
 
 Please help organize and prioritize tasks effectively:

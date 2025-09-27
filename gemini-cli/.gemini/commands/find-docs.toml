@@ -1,6 +1,11 @@
 description = "Find relevant documentation and output GitHub URLs."
 
 prompt = """
+---
+mcp-servers: [sequential-thinking, crash, context7]
+allowed-tools: [git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
+---
+
 ## Mission: Find Relevant Documentation
 
 Your task is to find documentation files relevant to the user's question within the current git repository and provide a list of GitHub URLs to view them.
