@@ -29,24 +29,24 @@ fi
 # Aliases will not work here unless sourced, but direct commands are preferred.
 case "$TOOL" in
     gemini)
-        ICON="🤖"; PANE_TITLE="$ICON Gemini"
+        ICON="🤖"; PANE_TITLE="$ICON gemini"
         COMMAND="gemini"
         ;;
     opencode)
-        ICON="🧑‍💻"; PANE_TITLE="$ICON OpenCode"
+        ICON="🧑‍💻"; PANE_TITLE="$ICON openCode"
         # This command sets an environment variable just for this process.
         COMMAND="NODE_TLS_REJECT_UNAUTHORIZED=0 opencode"
         ;;
     claude)
-        ICON="✨"; PANE_TITLE="$ICON Claude"
+        ICON="✨"; PANE_TITLE="$ICON claude-code"
         COMMAND="claude"
         ;;
     codex)
-        ICON="🚀"; PANE_TITLE="$ICON Codex"
+        ICON="🚀"; PANE_TITLE="$ICON codex"
         COMMAND="codex"
         ;;
     qwen)
-        ICON="🧠"; PANE_TITLE="$ICON Qwen"
+        ICON="🧠"; PANE_TITLE="$ICON qwen"
         COMMAND="qwen"
         ;;
     *)
@@ -74,7 +74,8 @@ case "$MODE" in
         # For popup mode, we are already in the popup.
         # Replace the current shell process with the tool's process.
         # This is extremely efficient. When the tool exits, the popup will close.
-                    eval exec "$COMMAND"        ;;
+        eval exec "$COMMAND"
+        ;;
     split)
         # Tell tmux to create a new split and run the command within it.
         # This inherits the correct user environment.
