@@ -1,5 +1,9 @@
 description = "Reviews a pull request based on issue number."
 prompt = """
+---
+mcp-servers: [sequential-thinking, crash, context7]
+allowed-tools: [filesystem, git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
+---
 Please provide a detailed pull request review on GitHub issue: {{args}}.
 
 Follow these steps:

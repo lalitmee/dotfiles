@@ -1,5 +1,11 @@
 description = "Cleanup the plan file generated for a feature."
-prompt = """You are in **Cleanup Mode**. Your task is to remove the implementation plan file that was generated for a specific feature.
+prompt = """
+---
+mcp-servers: [sequential-thinking, crash, context7]
+allowed-tools: [filesystem, git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
+---
+
+You are in **Cleanup Mode**. Your task is to remove the implementation plan file that was generated for a specific feature.
 
 ## Your Mission
 

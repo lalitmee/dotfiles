@@ -1,6 +1,10 @@
 description = "Performs a comprehensive security audit of code changes, dependencies, and potential vulnerabilities."
 
 prompt = """
+---
+mcp-servers: []
+allowed-tools: [filesystem, git, fetch]
+---
 Conduct a thorough security audit for: {{args}}
 
 Please perform the following security analysis:

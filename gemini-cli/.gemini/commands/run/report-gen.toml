@@ -1,6 +1,10 @@
 description = "Generates comprehensive reports from data files and folders, with analysis and visualizations."
 
 prompt = """
+---
+mcp-servers: []
+allowed-tools: [filesystem]
+---
 Generate a comprehensive report from data in: {{args}}
 
 Please analyze the data and create a detailed report:

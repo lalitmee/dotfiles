@@ -1,6 +1,10 @@
 description = "Organizes and renames photos based on their visual content, date, and location metadata."
 
 prompt = """
+---
+mcp-servers: []
+allowed-tools: [filesystem]
+---
 Analyze and rename photos in the specified directory: {{args}}
 
 Please help organize photos by following these steps:

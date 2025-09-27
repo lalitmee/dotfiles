@@ -1,6 +1,7 @@
 description = "Generates TSDoc comments for a given JavaScript or TypeScript code snippet."
 
 prompt = """
+
 Generate comprehensive and accurate TSDoc comments for the following TypeScript code snippet.
 
 Ensure the comments:

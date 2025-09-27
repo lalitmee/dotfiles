@@ -1,6 +1,10 @@
 description = "Intelligently organizes files in directories based on content type, date, and purpose with safe automation."
 
 prompt = """
+---
+mcp-servers: []
+allowed-tools: [filesystem]
+---
 Organize and structure files in directory: {{args}}
 
 Please help organize files systematically:
