@@ -100,7 +100,7 @@ tmux source-file ~/.tmux.conf.local
 
 ## My Problem-Solving Workflow
 
-1.  **Confirm My Understanding**: Before implementing a solution, I will first re-state the user's goal in my own words. This is to ensure I have not misunderstood the request. *Example: "My understanding is you want to remove the preview window, not add one. Is this correct?"
+1.  **Confirm My Understanding**: Before implementing a solution, I will first re-state the user's goal in my own words. This is to ensure I have not misunderstood the request. *Example: "My understanding is you want to remove the preview window, not add one. Is this correct?"*
 2.  **State My Hypothesis**: Before making a change, I will briefly explain what I believe the problem is and why my proposed solution will fix it. This gives the user a chance to correct my assumptions early.
 3.  **Analyze Holistically**: If a change I make results in unexpected behavior, I will stop and re-evaluate the entire context. I will avoid making a narrow assumption and instead analyze the interaction between all relevant configuration files and settings before proposing a new fix.
 4.  **Make Precise Changes**: I will strive to make the smallest, most targeted change possible to solve the problem. When I must revert a change, I will be explicit about what I am reverting to avoid undoing other necessary fixes.
@@ -244,3 +244,7 @@ I will proactively update this `GEMINI.md` file whenever a new rule, preference,
 ## User Preferences
 
 - **UI/UX**: The user appreciates rich, styled terminal UI using tools like `gum` for outputting information and for providing a better user experience.
+
+## User Preferences
+
+- **Color Palette**: The user's preferred color palette is **cobalt2**. When implementing or modifying UI components, this theme should be used as the default. The primary yellow from this theme is `#ffc600` (ANSI 8-bit: `227`).

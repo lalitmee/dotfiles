@@ -929,6 +929,7 @@ return {
         opts = {
             min_keystrokes = 800,
             max_keystrokes = 1000,
+            break_duration = 10,
         },
     },
 }
