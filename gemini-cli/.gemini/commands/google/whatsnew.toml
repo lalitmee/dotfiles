@@ -44,4 +44,11 @@ Here is your workflow:
     *   If a product's release notes URL cannot be found in the source file, state that it's not in the curated list and use `google_web_search` to find the official feed. If found, proceed with step 3. Otherwise, state that the information could not be found.
 
 Please begin.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `fetch`
 """

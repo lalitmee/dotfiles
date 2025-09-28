@@ -41,6 +41,18 @@ There are several modes available:
 - Quote variables: `"$VARIABLE"`
 - Use `[[ ]]` for conditionals
 - Check file existence: `[[ -f ~/.file ]] && source ~/.file`
+- **Fold Markers**: Use fold markers for functions to improve readability and organization. Example:
+  ```zsh
+  # -------------------------------------------------------------------
+  # NOTE: my function {{{
+  # -------------------------------------------------------------------
+  my_function() {
+    # ...
+  }
+  # -------------------------------------------------------------------
+  # }}}
+  # -------------------------------------------------------------------
+  ```
 
 ### Lua Files (.lua)
 
@@ -235,7 +247,10 @@ To reduce unnecessary back-and-forth and improve efficiency, I will adhere to th
 2.  **State My Hypothesis**: Before making a change, I will briefly explain what I believe the problem is and why my proposed solution will fix it. This gives the user a chance to correct my assumptions early.
 3.  **Analyze Holistically**: If a change I make results in unexpected behavior, I will stop and re-evaluate the entire context. I will avoid making a narrow assumption and instead analyze the interaction between all relevant configuration files and settings before proposing a new fix.
 4.  **Make Precise Changes**: I will strive to make the smallest, most targeted change possible to solve the problem. When I must revert a change, I will be explicit about what I am reverting to avoid undoing other necessary fixes.
-5.  **Verify Permissions**: After creating a script that is meant to be executed, I will always verify and set its executable permissions (e.g., `chmod +x`).
+5.  **Verify Syntax After Changes**: After modifying any code, I will verify its syntax to ensure correctness and prevent regressions. For shell scripts, I will use `zsh -n` or `bash -n`.
+6.  **Verify Permissions**: After creating a script that is meant to be executed, I will always verify and set its executable permissions (e.g., `chmod +x`).
+7.  **Leverage User Feedback & Direct Simulation**: When debugging complex issues, especially those involving UI or shell interpretation, actively solicit user feedback on symptoms and consider their suggestions for debugging. If possible, simulate problematic commands directly using `run_shell_command` to observe exact output, rather than relying on assumptions or indirect debugging methods.
+8.  **Immediate Context Update**: Upon successful resolution of a problem, I will immediately update the relevant context files (e.g., `GEMINI.md`) with the solution and any new insights, to prevent re-debugging or loss of knowledge.
 
 ### Context Maintenance
 

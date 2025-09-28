@@ -11,7 +11,8 @@ RESET_COLOR=$'\033[0m'
 
 # 1. Dependency & Argument Check
 # =================================
-if ! command -v fzf >/dev/null 2>&1; then
+if ! command -v fzf >/dev/null 2>&1;
+then
     tmux display-message "❌ Error: fzf is not installed."
     exit 1
 fi
@@ -21,6 +22,14 @@ if [ -z "$TOOL" ]; then
     tmux display-message "❌ Usage: $0 <tool_name>"
     exit 1
 fi
+
+# Source shell functions
+if [[ -f ~/.zsh_functions ]]; then
+    source ~/.zsh_functions
+fi
+
+# Ensure REPOSITORY_PATH is set
+update_repo_path
 
 # 2. Tool Configuration
 # =======================

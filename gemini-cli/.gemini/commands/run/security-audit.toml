@@ -1,10 +1,5 @@
 description = "Performs a comprehensive security audit of code changes, dependencies, and potential vulnerabilities."
-
 prompt = """
----
-mcp-servers: []
-allowed-tools: [filesystem, git, fetch]
----
 Conduct a thorough security audit for: {{args}}
 
 Please perform the following security analysis:
@@ -65,4 +60,13 @@ Please perform the following security analysis:
    - Look for compliance with data protection regulations
 
 Please provide a comprehensive security report with prioritized findings and actionable remediation steps.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
+- `git`
+- `fetch`
 """

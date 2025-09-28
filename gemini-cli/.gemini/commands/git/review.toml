@@ -1,9 +1,5 @@
 description = "Reviews a pull request based on issue number."
 prompt = """
----
-mcp-servers: [sequential-thinking, crash, context7]
-allowed-tools: [filesystem, git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
----
 Please provide a detailed pull request review on GitHub issue: {{args}}.
 
 Follow these steps:
@@ -22,4 +18,17 @@ Follow these steps:
 
 Remember to use the GitHub CLI (`gh`) with the Shell tool for all
 GitHub-related tasks.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
+- `git`
+- `github`
+- `fetch`
+- `sequential-thinking`
+- `crash`
+- `context7`
 """

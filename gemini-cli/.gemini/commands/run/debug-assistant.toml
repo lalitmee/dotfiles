@@ -1,10 +1,5 @@
 description = "Analyzes error logs, stack traces, and provides systematic debugging strategies and solutions."
-
 prompt = """
----
-mcp-servers: [sequential-thinking, crash]
-allowed-tools: [filesystem, git, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash]
----
 Help debug the following issue: {{args}}
 
 Please provide comprehensive debugging assistance:
@@ -66,4 +61,14 @@ Please provide comprehensive debugging assistance:
    - Update error handling documentation
 
 Please provide a step-by-step debugging plan with specific commands, tools, and verification steps tailored to the error and technology stack.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
+- `git`
+- `sequential-thinking`
+- `crash`
 """

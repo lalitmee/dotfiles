@@ -90,4 +90,13 @@ You **MUST** format your answer as follows. Use markdown.
 5. Close the conversation.
 
 Remember: You are in explain mode only. Your job ends after you have answered the user's question.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
+- `context7`
+- `sequential-thinking`
 """
