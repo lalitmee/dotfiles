@@ -1,7 +1,5 @@
 description = "Generates TSDoc comments for a given JavaScript or TypeScript code snippet."
-
 prompt = """
-
 Generate comprehensive and accurate TSDoc comments for the following TypeScript code snippet.
 
 Ensure the comments:
@@ -17,4 +15,11 @@ Code:
 ```typescript
 {{args}}
 ```
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
 """

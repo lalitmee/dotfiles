@@ -11,7 +11,7 @@ cde() {
 }
 
 # -------------------------------------------------------------------
-# NOTE: zoxide {{{
+# NOTE: zoxide {{{ 
 # -------------------------------------------------------------------
 
 # switch dirs using zoxide and fzf
@@ -21,7 +21,7 @@ zd() {
     cde $dir
 }
 
-# }}}
+# }}} 
 # -------------------------------------------------------------------
 
 # --- Github CLI goodness ---
@@ -86,7 +86,7 @@ envs() {
 
 # see node processes
 nodes() {
-    #	ps -aef | Rg 'node' --colors 'match:fg:magenta'
+    #\tps -aef | Rg 'node' --colors 'match:fg:magenta'
     ps wup $(pgrep -x node)
 }
 
@@ -162,7 +162,7 @@ vh() {
     file=$(fvh $1)
     if [[ -n $file ]]
     then
-        nvim $file -c /$1 -c 'norm! n zz'
+        nvim $file -c "/$1" -c 'norm! n zz'
     fi
 }
 
@@ -173,13 +173,13 @@ vg() {
     file=$(fif $1)
     if [[ -n $file ]]
     then
-        nvim $file -c /$1 -c 'norm! n zz'
+        nvim $file -c "/$1" -c 'norm! n zz'
     fi
 }
 
 # find a file and open it fzf → fd → Vim -- no args, looks in cwd - rg to highlight etc
 vf() {
-    IFS=$'\n' files=($(fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 6 '$1' || rg --ignore-case --pretty --context 6 '$1' {}" --preview-window=right:60%  --query="$1" --multi --select-1 --exit-0))
+    IFS=$ '\n' files=($(fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 6 '$1' || rg --ignore-case --pretty --context 6 '$1' {}" --preview-window=right:60%  --query="$1" --multi --select-1 --exit-0))
     [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
 }
 
@@ -243,7 +243,7 @@ lgit() {
 }
 
 # -------------------------------------------------------------------
-# NOTE: awesome fzf functions {{{
+# NOTE: awesome fzf functions {{{ 
 # -------------------------------------------------------------------
 # Man without options will use fzf to select a page
 fzf-man() {
@@ -253,7 +253,7 @@ if [ -n "$1" ]; then
     return $?
 else
     batman="man {1} | col -bx | bat --language=man --plain --color always --theme=\"Monokai Extended\""
-    $MAN -k . | fzf --reverse --preview="$batman" | awk '{print $1 "." $2}' | tr -d '()' | xargs -r $MAN
+    $MAN -k . | fzf --reverse --preview="$batman" | awk '{print $1 "." $2}' | tr -d '()'
     return $?
 fi
 }
@@ -269,14 +269,9 @@ echo | fzf -q "$*" --preview-window=up:99% --preview="eval {q}"
 
 # Search list of your aliases and functions
 fzf-aliases-functions() {
-CMD=$(
-(
-(alias)
-(functions | grep "()" | cut -d ' ' -f1 | grep -v "^_" )
-) | fzf | cut -d '=' -f1
-);
-
-eval $CMD
+  local CMD
+  CMD=$({ alias; functions | grep "()" | cut -d ' ' -f1 | grep -v "^_" ;} | fzf | cut -d '=' -f1)
+  eval "$CMD"
 }
 
 # Search Environment Variables
@@ -301,11 +296,11 @@ fi
 rmf() {
     ls | fzf -m | xargs -I {} rm {}
 }
-# }}}
+# }}} 
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: my functions {{{
+# NOTE: my functions {{{ 
 # -------------------------------------------------------------------
 open-line() {
     vi $(rg --hidden --line-number . | fzf --delimiter ':' --preview 'bat --color=always --highlight-line {2} {1}' | awk -F ':' '{print "+"$2" "$1}')
@@ -320,11 +315,11 @@ killport() {
     PID=$(sudo lsof -t -i:$1)
     sudo kill -9 ${PID}
 }
-# }}}
+# }}} 
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: pomodoro {{{
+# NOTE: pomodoro {{{ 
 # -------------------------------------------------------------------
 # Requires https://github.com/caarlos0/timer to be installed. spd-say should ship with your distro
 
@@ -341,11 +336,11 @@ pomodoro () {
   spd-say "'$val' session done"
   fi
 }
-# }}}
+# }}} 
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: sesh: tmux session manager {{{
+# NOTE: sesh: tmux session manager {{{ 
 # -------------------------------------------------------------------
 function sesh-sessions() {
   {
@@ -358,11 +353,11 @@ function sesh-sessions() {
     sesh connect $session
   }
 }
-# }}}
+# }}} 
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: custom widgets {{{
+# NOTE: custom widgets {{{ 
 # -------------------------------------------------------------------
 
 # tmux-sessionizer
@@ -379,5 +374,23 @@ tmuxinator_sessionizer_widget() {
 fzf_search_widget() {
     tsnv
 }
+# }}} 
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: dynamic REPOSITORY_PATH variable {{{
+# -------------------------------------------------------------------
+# Function to update the REPOSITORY_PATH variable
+update_repo_path() {
+  # Check if we are in a git repository
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    # If in a repo, set the path
+    export REPOSITORY_PATH=$(git rev-parse --show-toplevel)
+  else
+    # If not in a repo, set to an empty string
+    export REPOSITORY_PATH=""
+  fi
+}
+# -------------------------------------------------------------------
 # }}}
 # -------------------------------------------------------------------

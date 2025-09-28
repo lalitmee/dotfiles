@@ -1,10 +1,5 @@
 description = "Automatically generates comprehensive test cases for functions, classes, or modules with edge cases and best practices."
-
 prompt = """
----
-mcp-servers: [crash, context7, sequential-thinking]
-allowed-tools: [filesystem, git, fetch, mcp__crash__crash, mcp__context7__context7, mcp__sequential-thinking__sequentialthinking]
----
 Generate comprehensive test cases for the specified code component: {{args}}
 
 Please follow these steps:
@@ -45,4 +40,11 @@ Please follow these steps:
    - Include comments for complex test scenarios
 
 Please provide the complete test file with all generated test cases, including imports and setup code.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
 """

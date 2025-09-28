@@ -1,10 +1,5 @@
 description = "Identifies and suggests cleanup opportunities including unused code, dependencies, and optimization possibilities."
-
 prompt = """
----
-mcp-servers: []
-allowed-tools: [filesystem, git]
----
 Perform comprehensive cleanup analysis for: {{args}}
 
 Please conduct the following cleanup assessment:
@@ -78,4 +73,12 @@ Please conduct the following cleanup assessment:
     - Include rollback procedures for safety
 
 Please provide a comprehensive cleanup plan with prioritized recommendations and safe execution steps.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
+- `git`
 """

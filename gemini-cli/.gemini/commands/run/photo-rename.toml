@@ -1,10 +1,5 @@
 description = "Organizes and renames photos based on their visual content, date, and location metadata."
-
 prompt = """
----
-mcp-servers: []
-allowed-tools: [filesystem]
----
 Analyze and rename photos in the specified directory: {{args}}
 
 Please help organize photos by following these steps:
@@ -58,4 +53,11 @@ Please provide:
 - Quality assessment and curation suggestions
 
 Example: Rename IMG_1234.jpg to "2024-07-20_Birthday-Party_Cake-Cutting_001.jpg"
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
 """

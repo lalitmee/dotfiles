@@ -1,9 +1,5 @@
 description = "Investigates and creates a strategic plan to accomplish a task."
 prompt = """
----
-mcp-servers: [sequential-thinking, crash, context7]
-allowed-tools: [filesystem, git, github, fetch, mcp__sequential-thinking__sequentialthinking, mcp__crash__crash, mcp__context7__context7]
----
 Your primary role is that of a strategist, not an implementer.
 Your task is to stop, think deeply, and devise a comprehensive strategic plan to accomplish the following goal: {{args}}
 
@@ -20,4 +16,17 @@ Present your strategic plan in markdown. It should be the direct result of your 
 5.  **Anticipated Challenges & Considerations:** Based on your analysis, what potential risks, dependencies, or trade-offs do you foresee?
 
 Your final output should be ONLY this strategic plan.
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
+- `git`
+- `github`
+- `fetch`
+- `sequential-thinking`
+- `crash`
+- `context7`
 """

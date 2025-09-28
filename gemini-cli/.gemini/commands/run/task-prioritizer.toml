@@ -1,10 +1,5 @@
 description = "Analyzes tasks and priorities to create organized, actionable task lists with time estimates and urgency levels."
-
 prompt = """
----
-mcp-servers: [sequential-thinking, memory]
-allowed-tools: [mcp__sequential-thinking__sequentialthinking, mcp__memory__memory]
----
 Analyze and prioritize the following tasks: {{args}}
 
 Please help organize and prioritize tasks effectively:
@@ -18,7 +13,7 @@ Please help organize and prioritize tasks effectively:
 2. **Task Categorization:**
    Organize tasks by:
    - **Work/Professional:** Job-related responsibilities
-   - **Personal:** Individual goals and activities  
+   - **Personal:** Individual goals and activities
    - **Projects:** Multi-step initiatives with deliverables
    - **Maintenance:** Routine upkeep and administration
    - **Learning:** Skill development and education
@@ -64,13 +59,13 @@ Please help organize and prioritize tasks effectively:
    ```
    ## 🔥 TODAY (Urgent + Important)
    - [ ] Task name [30min] [High energy] - Due: Today
-   
-   ## 📅 THIS WEEK (Important)  
+
+   ## 📅 THIS WEEK (Important)
    - [ ] Task name [2hr] [Medium energy] - Due: Friday
-   
+
    ## 📋 NEXT (Scheduled)
    - [ ] Task name [45min] [Low energy] - Due: Next week
-   
+
    ## 💡 IDEAS (Someday/Maybe)
    - [ ] Task name [1hr] [Medium energy] - No deadline
    ```
@@ -96,4 +91,12 @@ Please help organize and prioritize tasks effectively:
 Please provide a comprehensive, prioritized task list that enables productive and balanced task management.
 
 Example input: "Write presentation, call dentist, finish project proposal, exercise, grocery shopping, review budget, learn Python, clean garage"
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `memory`
+- `sequential-thinking`
 """

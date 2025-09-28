@@ -1,10 +1,5 @@
 description = "Intelligently organizes files in directories based on content type, date, and purpose with safe automation."
-
 prompt = """
----
-mcp-servers: []
-allowed-tools: [filesystem]
----
 Organize and structure files in directory: {{args}}
 
 Please help organize files systematically:
@@ -96,4 +91,11 @@ mkdir -p "{{args}}"/Media/{Photos,Videos}
 # Organize files safely
 mv "{{args}}"/*.pdf "{{args}}"/Documents/PDF/
 ```
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `filesystem`
 """

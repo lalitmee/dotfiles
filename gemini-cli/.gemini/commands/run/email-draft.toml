@@ -1,5 +1,4 @@
 description = "Drafts professional emails based on context, tone, and purpose with templates and suggestions."
-
 prompt = """
 Draft a professional email based on the following context: {{args}}
 
@@ -28,23 +27,23 @@ Please help create a well-crafted email:
    - Maintain professional tone throughout
 
 4. **Email Types & Templates:**
-   
+
    **Meeting Request:**
    - Purpose and agenda
    - Proposed times and duration
    - Meeting logistics (location/video link)
-   
+
    **Follow-up:**
    - Reference previous conversation
    - Action items and deadlines
    - Next steps
-   
+
    **Project Update:**
    - Progress summary
    - Key achievements
    - Challenges and solutions
    - Timeline updates
-   
+
    **Client Communication:**
    - Status updates
    - Deliverable information
@@ -79,4 +78,12 @@ Please help create a well-crafted email:
 Please provide a complete, professional email draft ready to send, along with subject line suggestions and any relevant alternatives or modifications.
 
 Example context: "Schedule a meeting with the marketing team to discuss Q4 campaign strategy, need it by next Friday, include budget discussion"
+
+## Available Tools
+
+To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+
+The tools available for this command are:
+- `memory`
+- `sequential-thinking`
 """
