@@ -74,7 +74,7 @@ return {
                 {
                     "<leader>ed",
                     function()
-                        vim.diagnostic.enable(false)
+                        vim.diagnostic.enable(true, { bufnr = 0 })
                         vim.notify("LSP diagnostics disabled", vim.log.levels.INFO)
                     end,
                     desc = "Disable Diagnostic",
@@ -82,7 +82,7 @@ return {
                 {
                     "<leader>ee",
                     function()
-                        vim.diagnostic.enable()
+                        vim.diagnostic.enable(true, { bufnr = 0 })
                         vim.notify("LSP diagnostics enabled", vim.log.levels.INFO)
                     end,
                     desc = "Enable Diagnostic",

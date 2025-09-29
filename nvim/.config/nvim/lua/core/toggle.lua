@@ -1,5 +1,4 @@
 local Util = require("lazy.core.util")
-
 local M = {}
 
 ---@param silent boolean?
@@ -27,10 +26,10 @@ local enabled = true
 function M.toggle_diagnostics()
     enabled = not enabled
     if enabled then
-        vim.diagnostic.enable()
+        vim.diagnostic.enable(true, { bufnr = 0 })
         Util.info("Enabled diagnostics", { title = "Diagnostics" })
     else
-        vim.diagnostic.disable()
+        vim.diagnostic.enable(false, { bufnr = 0 })
         Util.warn("Disabled diagnostics", { title = "Diagnostics" })
     end
 end
