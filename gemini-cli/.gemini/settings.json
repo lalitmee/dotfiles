@@ -1,5 +1,7 @@
 {
-  "model": "gemini-2.5-pro",
+  "model": {
+    "name": "gemini-2.5-pro"
+  },
   "general": {
     "preferredEditor": "nvim",
     "vimMode": true,
@@ -8,13 +10,15 @@
       "enabled": true
     }
   },
-
   "ui": {
     "theme": "Default",
     "hideBanner": true,
-    "hideTips": true
+    "hideTips": true,
+    "showMemoryUsage": true
   },
-
+  "ide": {
+    "enabled": true
+  },
   "tools": {
     "requireConfirmation": false,
     "shellCommand": {
@@ -24,71 +28,53 @@
       "requireConfirmation": false
     }
   },
-
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
     }
   },
-
   "context": {
     "fileName": ["CONTEXT.md", "GEMINI.md"]
   },
-
   "mcpServers": {
     "time": {
       "command": "uvx",
       "args": ["mcp-server-time"]
     },
-
     "filesystem": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "~/Projects/"]
     },
-
     "fetch": {
       "command": "uvx",
       "args": ["mcp-server-fetch"]
     },
-
     "memory": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
-
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git", "--repository", "${REPOSITORY_PATH}"]
+      "args": ["mcp-server-git", "--repository", "."]
     },
-
     "github": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      "httpUrl": "https://api.githubcopilot.com/mcp/",
+      "trust": true,
+      "headers": {
+        "Authorization": "Bearer $GITHUB_PERSONAL_ACCESS_TOKEN"
       }
     },
-
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"],
       "env": {
-        "DEFAULT_MINIMUM_TOKENS": "${DEFAULT_MINIMUM_TOKENS}"
+        "DEFAULT_MINIMUM_TOKENS": "6000"
       }
     },
-
     "server-sequential-thinking": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
-
     "sequential-thinking": {
       "command": "uvx",
       "args": [
@@ -99,7 +85,6 @@
         "mcp-sequential-thinking"
       ]
     },
-
     "mcp-sequentialthinking-tools": {
       "command": "npx",
       "args": ["-y", "mcp-sequentialthinking-tools"],
@@ -107,17 +92,14 @@
         "MAX_HISTORY_SIZE": "1000"
       }
     },
-
     "crash": {
       "command": "npx",
       "args": ["-y", "crash-mcp"]
     },
-
     "chrome-devtools": {
       "command": "npx",
       "args": ["-y", "chrome-devtools-mcp@latest"]
     },
-
     "figma-local-mcp": {
       "httpUrl": "http://127.0.0.1:3845/mcp"
     }
