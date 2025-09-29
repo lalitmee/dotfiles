@@ -100,10 +100,10 @@ M.setup_autocommands = function(client, bufnr)
             -- },
             {
                 event = { "BufEnter" },
-                pattern = { ".env" },
+                pattern = { "*.env" },
                 desc = "LSP: Disable Diagnostics for .env file",
                 command = function()
-                    vim.diagnostic.disable(0)
+                    vim.diagnostic.enable(false, { bufnr = bufnr })
                 end,
             },
         }
