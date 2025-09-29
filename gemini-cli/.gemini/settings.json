@@ -34,28 +34,46 @@
     }
   },
   "context": {
-    "fileName": ["CONTEXT.md", "GEMINI.md"]
+    "fileName": [
+      "CONTEXT.md",
+      "GEMINI.md"
+    ]
   },
   "mcpServers": {
     "time": {
       "command": "uvx",
-      "args": ["mcp-server-time"]
+      "args": [
+        "mcp-server-time"
+      ]
     },
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "~/Projects/"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "~/Projects/"
+      ]
     },
     "fetch": {
       "command": "uvx",
-      "args": ["mcp-server-fetch"]
+      "args": [
+        "mcp-server-fetch"
+      ]
     },
     "memory": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
     },
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git", "--repository", "."]
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "."
+      ]
     },
     "github": {
       "httpUrl": "https://api.githubcopilot.com/mcp/",
@@ -66,14 +84,20 @@
     },
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"],
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
       "env": {
         "DEFAULT_MINIMUM_TOKENS": "6000"
       }
     },
     "server-sequential-thinking": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
     },
     "sequential-thinking": {
       "command": "uvx",
@@ -87,18 +111,27 @@
     },
     "mcp-sequentialthinking-tools": {
       "command": "npx",
-      "args": ["-y", "mcp-sequentialthinking-tools"],
+      "args": [
+        "-y",
+        "mcp-sequentialthinking-tools"
+      ],
       "env": {
         "MAX_HISTORY_SIZE": "1000"
       }
     },
     "crash": {
       "command": "npx",
-      "args": ["-y", "crash-mcp"]
+      "args": [
+        "-y",
+        "crash-mcp"
+      ]
     },
     "chrome-devtools": {
       "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     },
     "figma-local-mcp": {
       "httpUrl": "http://127.0.0.1:3845/mcp"
