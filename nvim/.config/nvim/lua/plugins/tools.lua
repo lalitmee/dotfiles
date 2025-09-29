@@ -927,9 +927,9 @@ return {
         "CodeGeek04/wellness-break.nvim",
         event = "VeryLazy",
         opts = {
-            min_keystrokes = 800,
-            max_keystrokes = 1000,
-            break_duration = 10,
+            min_keystrokes = 1800,
+            max_keystrokes = 2000,
+            break_duration = 20,
         },
     },
 }
