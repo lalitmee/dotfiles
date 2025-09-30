@@ -947,6 +947,9 @@ bind-key -T ai-tools x display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/
 # Qwen
 bind-key -T ai-tools w display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ai/tool.sh qwen'"
 
+# Copilot
+bind-key -T ai-tools p display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/ai/tool.sh copilot'"
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
