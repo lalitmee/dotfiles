@@ -1,0 +1,51 @@
+#!/bin/bash
+# This script executes a Gemini CLI tool implementation by locating and running
+# tools/<function_name>/run.sh. It is designed to be used as the
+# tools.callCommand, which expects:
+# - JSON arguments on stdin
+# - JSON response on stdout
+#
+# Design notes:
+# - Anchors paths to this script's directory so invocation CWD does not matter.
+# - Validates the function name to prevent path traversal or unexpected chars.
+# - Emits machine-parseable JSON error messages on stderr and exits non-zero.
+# - Uses 'exec' to hand off to the tool script, preserving stdin/stdout streams.
+
+# Safety settings:
+# -e: exit on error; -u: error on unset vars; -o pipefail: fail on any pipe stage
+set -euo pipefail
+
+# Validate argument count: exactly one function name is required
+if [ $# -ne 1 ]; then
+  printf '{"error":"Function name is required as first argument"}\n' >&2
+  exit 1
+fi
+
+FUNCTION_NAME="$1"
+
+# Resolve script directory so behavior is independent of CWD. ${BASH_SOURCE[0]}
+# is robust to relative invocation paths.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TOOLS_ROOT="${SCRIPT_DIR}/tools"
+
+# Basic validation to avoid path traversal or unexpected characters. Allowed
+# characters mirror common tool names: alphanumerics, dot, underscore, dash.
+if ! [[ "$FUNCTION_NAME" =~ ^[A-Za-z0-9._-]+\$ ]]; then
+  printf '{"error":"Invalid function name: %s"}\n' "$FUNCTION_NAME" >&2
+  exit 1
+fi
+
+TOOL_DIR="${TOOLS_ROOT}/${FUNCTION_NAME}"
+RUN_SCRIPT="${TOOL_DIR}/run.sh"
+
+# Check if the tool's run script exists and is executable; otherwise provide a
+# clear error that includes the function name attempted.
+if [ ! -x "$RUN_SCRIPT" ]; then
+  printf '{"error":"Unknown or non-executable function: %s"}\n' "$FUNCTION_NAME" >&2
+  exit 1
+fi
+
+# Execute the tool's run script, passing stdin to it. Using 'exec' replaces the
+# current shell with the tool process. This ensures correct signal handling and
+# that stdout/stderr are directly the tool's outputs.
+exec "$RUN_SCRIPT"

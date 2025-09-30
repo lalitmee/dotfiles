@@ -1,0 +1,72 @@
+{
+  "name": "todowrite",
+  "description": "A tool for managing todo lists.",
+  "functions": [
+    {
+      "name": "create_todo_list",
+      "description": "Creates a new todo list for a task.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task_name": {
+            "type": "string",
+            "description": "The name of the task."
+          },
+          "todo_items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The initial list of todo items."
+          }
+        },
+        "required": ["task_name", "todo_items"]
+      }
+    },
+    {
+      "name": "update_todo_item",
+      "description": "Updates the status of a todo item.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task_name": {
+            "type": "string",
+            "description": "The name of the task."
+          },
+          "item_index": {
+            "type": "integer",
+            "description": "The index of the todo item to update."
+          },
+          "is_checked": {
+            "type": "boolean",
+            "description": "The new checked status of the todo item."
+          }
+        },
+        "required": ["task_name", "item_index", "is_checked"]
+      }
+    },
+    {
+      "name": "delete_todo_list",
+      "description": "Deletes the todo list for a completed task.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task_name": {
+            "type": "string",
+            "description": "The name of the task."
+          }
+        },
+        "required": ["task_name"]
+      }
+    },
+    {
+      "name": "list_todo_lists",
+      "description": "Lists all existing todo lists.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  ]
+}

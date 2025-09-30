@@ -26,7 +26,31 @@
     },
     "fileSystem": {
       "requireConfirmation": false
-    }
+    },
+    "allowed": [
+      "run_shell_command(git diff --staged)",
+      "run_shell_command(git status --porcelain)",
+      "run_shell_command(git diff)",
+      "run_shell_command(git ls-files --others --exclude-standard)"
+    ]
+  },
+  "mcp": {
+    "allowed": [
+      "time",
+      "filesystem",
+      "fetch",
+      "memory",
+      "git",
+      "github",
+      "context7",
+      "sequential-thinking",
+      "mcp-sequentialthinking-tools",
+      "crash",
+      "chrome-devtools",
+      "figma-local-mcp",
+      "server-sequential-thinking",
+      "todowrite"
+    ]
   },
   "security": {
     "auth": {
@@ -52,7 +76,8 @@
         "-y",
         "@modelcontextprotocol/server-filesystem",
         "~/Projects/"
-      ]
+      ],
+      "trust": true
     },
     "fetch": {
       "command": "uvx",
@@ -73,7 +98,8 @@
         "mcp-server-git",
         "--repository",
         "."
-      ]
+      ],
+      "trust": true
     },
     "github": {
       "httpUrl": "https://api.githubcopilot.com/mcp/",
