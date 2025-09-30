@@ -924,6 +924,7 @@ return {
     },
 
     { --[[ wellness-break.nvim ]]
+        enabled = false,
         "CodeGeek04/wellness-break.nvim",
         event = "VeryLazy",
         opts = {
