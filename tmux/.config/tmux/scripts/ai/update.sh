@@ -86,6 +86,7 @@ run_updates() {
     # 2. Update NPM Packages
     update_npm_package "@google/gemini-cli"
     update_npm_package "@anthropic-ai/claude-code"
+    update_npm_package "@github/copilot-cli"
 
     # 3. Update OpenCode
     gum_style "Checking for updates for: opencode..."

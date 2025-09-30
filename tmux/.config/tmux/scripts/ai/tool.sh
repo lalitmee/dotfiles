@@ -50,6 +50,10 @@ case "$TOOL" in
         ICON="🧠"; PANE_TITLE="$ICON qwen"
         COMMAND="qwen"
         ;;
+    copilot)
+        ICON=" "; PANE_TITLE="$ICON copilot"
+        COMMAND="copilot --banner"
+        ;;
     *)
         tmux display-message "❌ Error: Unknown AI tool '$TOOL'"
         exit 1
