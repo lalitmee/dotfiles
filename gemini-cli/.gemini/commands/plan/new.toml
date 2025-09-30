@@ -48,7 +48,7 @@ You have a suite of tools at your disposal. Use them to:
     - Ask the user for approval to create the detailed plan.
 
 5.  **Get Plan Filename:**
-    - Ask the user for a filename for the plan (e.g., `improve-slash-command`).
+    - Don't ask the user for a filename for the plan. You can name the file on the basis of the feature or task that the user is trying to plan for but try to keep the name of the file small (e.g., `improve-slash-command`).
 
 6.  **Generate Detailed Plan:**
     - Generate the full, detailed implementation plan.
