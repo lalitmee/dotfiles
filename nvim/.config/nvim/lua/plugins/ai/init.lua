@@ -9,6 +9,9 @@ return {
     -- Main AI assistant
     require("plugins.ai.codecompanion"),
 
+    -- folke's sidekick for enhanced AI interactions
+    require("plugins.ai.sidekick"),
+
     -- Additional AI tools
     require("plugins.ai.misc"),
 }
