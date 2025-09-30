@@ -23,14 +23,6 @@ if [ -z "$TOOL" ]; then
     exit 1
 fi
 
-# Source shell functions
-if [[ -f ~/.zsh_functions ]]; then
-    source ~/.zsh_functions
-fi
-
-# Ensure REPOSITORY_PATH is set
-update_repo_path
-
 # 2. Tool Configuration
 # =======================
 # Define the command and title for each tool.
