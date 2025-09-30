@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# This script discovers Gemini CLI tools by locating every tools/*/tool.json,
+# then emits a single JSON array to stdout. This is suitable for use as
+# tools.discoveryCommand in Gemini CLI configs (must output a JSON array).
+#
+# Behavior overview:
+# - Path resolution is anchored to this script's directory, so it is
+#   independent of the current working directory.
+# - Requires jq and fails fast with a clear error if missing.
+# - Produces deterministic output by sorting file paths (stable ordering).
+# - Validates and compacts each JSON, then aggregates with jq -s into one array.
+
+# Safety settings:
+# -e: exit on error; -u: error on unset vars; -o pipefail: fail on any pipe stage
+set -euo pipefail
+
+# Resolve script directory to make TOOL_DIR independent of CWD. Using
+# ${BASH_SOURCE[0]} ensures correctness even if the script is sourced or
+# invoked via a relative path.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TOOL_DIR="${SCRIPT_DIR}/tools"
+
+# Ensure jq exists. We write errors to stderr and preserve stdout for the
+# required JSON array output.
+if ! command -v jq >/dev/null 2>&1; then
+  echo "jq is required but not installed." >&2
+  exit 1
+fi
+
+# If the tools directory does not exist, emit an empty array to indicate
+# there are no tools to discover.
+if [ ! -d "$TOOL_DIR" ]; then
+  echo "[]"
+  exit 0
+fi
+
+# Find all tool.json files deterministically, validate each, then slurp into
+# a single array. We avoid null-delimited sorting for macOS portability and
+# rely on line-delimited paths. Spaces in paths are preserved; newlines in
+# filenames are not expected in this context.
+tool_files=$(find "$TOOL_DIR" -type f -name "tool.json" -print | LC_ALL=C sort)
+
+# If no tool.json files are found, still emit an empty array to conform to
+# the expected tools.discoveryCommand contract.
+if [ -z "$tool_files" ]; then
+  echo "[]"
+  exit 0
+fi
+
+# Read each discovered file, compact its JSON (one object per line), and
+# then aggregate them into a single array with jq -s. With 'set -o pipefail'
+# enabled, any invalid JSON will cause a non-zero exit.
+echo "$tool_files" | while IFS= read -r f;
+  jq -c . "$f"
+  done | jq -s '.'
