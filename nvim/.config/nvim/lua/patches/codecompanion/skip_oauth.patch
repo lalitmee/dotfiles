@@ -1,0 +1,43 @@
+diff --git a/lua/codecompanion/acp/init.lua b/lua/codecompanion/acp/init.lua
+index d9c8da4b..3e91352e 100644
+--- a/lua/codecompanion/acp/init.lua
++++ b/lua/codecompanion/acp/init.lua
+@@ -170,13 +170,25 @@ function Connection:connect_and_initialize()
+       end
+       methodId = methodId or (auth_methods[1] and auth_methods[1].id)
+
+-      if methodId then
++      -- Skip OAuth authentication if credentials already exist
++      local should_skip_auth = false
++      if methodId == "oauth-personal" then
++        local oauth_creds_path = self.adapter_modified.defaults.oauth_credentials_path
++        if oauth_creds_path and vim.uv.fs_stat(oauth_creds_path) then
++          log:debug("[acp::connect] Found existing OAuth credentials at %s, skipping authentication", oauth_creds_path)
++          should_skip_auth = true
++        end
++      end
++
++      if methodId and not should_skip_auth then
+         local ok = self:send_rpc_request(METHODS.AUTHENTICATE, { methodId = methodId })
+         if not ok then
+           log:error("[acp::connect_and_initialize] Failed to authenticate with method %s", methodId)
+           return nil
+         end
+         log:debug("[acp::connect_and_initialize] Authenticated using %s", methodId)
++      elseif should_skip_auth then
++        log:debug("[acp::connect] Skipped authentication for %s (existing credentials found)", methodId)
+       else
+         log:debug("[acp::connect_and_initialize] No compatible auth method; skipping authenticate")
+       end
+diff --git a/lua/codecompanion/adapters/acp/gemini_cli.lua b/lua/codecompanion/adapters/acp/gemini_cli.lua
+index 2bf341fe..bf7f8e77 100644
+--- a/lua/codecompanion/adapters/acp/gemini_cli.lua
++++ b/lua/codecompanion/adapters/acp/gemini_cli.lua
+@@ -25,6 +25,7 @@ return {
+   },
+   defaults = {
+     auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
++    oauth_credentials_path = vim.fs.abspath("~/.gemini/oauth_creds.json"),
+     mcpServers = {},
+     timeout = 20000, -- 20 seconds
+   },

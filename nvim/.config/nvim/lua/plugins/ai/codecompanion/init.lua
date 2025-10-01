@@ -49,6 +49,9 @@ local preferences = {
     -- preferred_provider = "gemini",
     -- preferred_model = "gemini-2.5-pro",
 
+    preferred_provider = "gemini_cli",
+    preferred_model = "gemini-2.5-pro",
+
     --------------------------------------------------------------------------------
     -- }}}
     --------------------------------------------------------------------------------
@@ -57,8 +60,8 @@ local preferences = {
     -- NOTE: Provider: openai {{{
     --------------------------------------------------------------------------------
 
-    preferred_provider = "openai",
-    preferred_model = "gpt-4.1",
+    -- preferred_provider = "openai",
+    -- preferred_model = "gpt-4.1",
 
     -- preferred_provider = "openai",
     -- preferred_model = "gpt-5",
@@ -164,6 +167,17 @@ end
 
 return {
     "olimorris/codecompanion.nvim",
+    build = function()
+        local plugin_path = vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim"
+        local patch_file = vim.fn.stdpath("config") .. "/patches/codecompanion/skip_oauth.patch"
+        vim.system({ "patch", "-d", plugin_path, "-p1", "-i", patch_file }, { text = true }, function(obj)
+            vim.schedule(function()
+                if obj.code == 0 then
+                    vim.notify("Patched codecompanion.nvim successfully", vim.log.levels.INFO)
+                end
+            end)
+        end)
+    end,
     dependencies = {
         "ravitemer/mcphub.nvim",
         "ravitemer/codecompanion-history.nvim",
