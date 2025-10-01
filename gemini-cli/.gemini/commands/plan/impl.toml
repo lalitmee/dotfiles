@@ -221,11 +221,9 @@ Your implementation is complete when:
 - **If blocked**: Stop and ask for guidance immediately
 - **Upon completion**: Provide final recitation confirming success criteria are met
 
-Remember: You are in implementation mode. Your job is to execute the plan precisely and completely, validate progress through recitation, and request approval for any plan modifications discovered during implementation.
+## Available Tools (**MUST** use as needed)
 
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
+**IMPORTANT NOTE:** To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
 
 The tools available for this command are:
 - `filesystem`
@@ -235,4 +233,32 @@ The tools available for this command are:
 - `sequential-thinking`
 - `crash`
 - `context7`
+
+## Final Things to be done
+
+If you are done with the implementation, please ensure the following tasks are completed:
+
+- [ ] Get final approval from the user that the implementation meets their expectations or not.
+
+### **If approved (complete)**:
+  - [ ] Mark the plan as complete in `{{plan_path}}` and inform the user that you are going to remove the `plans/{{plan_file}}` for the cleanup.
+  - [ ] Remove the plan file from `plans/{{plan_file}}` for cleanup and inform about the status.
+  - [ ] Provide a summary of the implementation and any important notes.
+  - [ ] Ask if there is anything else you can assist with and try to ask regarding the same feature or related features.
+
+### **If not approved (needs changes)**:
+  - [ ] Ask for specific feedback on what needs to be changed or improved.
+  - [ ] Document any feedback or required changes.
+  - [ ] Try to understand the feedback and ask clarifying questions if needed.
+  - [ ] If needed, do research or gather more context to address the feedback.
+  - [ ] Update the implementation based on the feedback.
+  - [ ] Update the plan file with next steps or revisions as needed.
+
+
+## Update Context
+
+- After completing the implementation, update the context files with any new information or changes made during the process.
+- **NOTE: Also make sure to ask the user if there is anything that needs to be added in the long term memory.**
+
+Remember: You are in implementation mode. Your job is to execute the plan precisely and completely, validate progress through recitation, and request approval for any plan modifications discovered during implementation.
 """
