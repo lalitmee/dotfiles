@@ -933,4 +933,12 @@ return {
             break_duration = 20,
         },
     },
+
+    { --[[ screenkey.nvim ]]
+        "NStefan002/screenkey.nvim",
+        keys = {
+            { "<leader>tr", ":Screenkey toggle<CR>", desc = "Screenkey Toggle", silent = true },
+            { "<leader>tR", ":Screenkey redraw<CR>", desc = "Screenkey Redraw", silent = true },
+        },
+    },
 }
