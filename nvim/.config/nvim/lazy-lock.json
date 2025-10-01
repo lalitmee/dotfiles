@@ -95,6 +95,7 @@
   "rust-tools.nvim": { "branch": "master", "commit": "676187908a1ce35ffcd727c654ed68d851299d3e" },
   "scope.nvim": { "branch": "main", "commit": "6b4208f017da9b122d69ddc5841e040dffe7313c" },
   "scratch.nvim": { "branch": "main", "commit": "1e78854fd3140411b231d5b6f9b3559b1ba5de77" },
+  "screenkey.nvim": { "branch": "main", "commit": "c4661983fa5b4aa8f69a0fe7a349bbb3fe5fdf69" },
   "scretch.nvim": { "branch": "main", "commit": "c37292af17af42091b3c58c53c56fe67705d684d" },
   "search.nvim": { "branch": "main", "commit": "7b8f2315d031be73e14bc2d82386dfac15952614" },
   "smart-open.nvim": { "branch": "0.2.x", "commit": "560d8f16e17977c8303db6f9660db58a4415ca41" },
