@@ -4,6 +4,14 @@
 # It uses 'gum' for styled output and displays a summary of version changes.
 # It will automatically run in a tmux popup if launched from within a tmux session.
 
+# --- Self-bootstrap when invoked from tmux without a TTY ---
+# If running inside tmux and not already in an update window, re-exec in a new tmux window
+# under a login/interactive zsh so PATH (npm/yarn) and other env are loaded properly.
+if [[ -n "$TMUX" && -z "$AI_UPDATE_IN_WINDOW" ]]; then
+    tmux new-window -n 'ai-update' "zsh -lic 'AI_UPDATE_IN_WINDOW=1 \"$0\"'"
+    exit 0
+fi
+
 # --- Main update logic is wrapped in a function ---
 run_updates() {
     set -e # Exit immediately if a command exits with a non-zero status.
