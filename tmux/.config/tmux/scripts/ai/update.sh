@@ -30,17 +30,6 @@ run_updates() {
         fi
     }
 
-    # --- Helper to get the version of the opencode binary ---
-    get_opencode_version() {
-        # We assume 'opencode --version' is the command to get the version.
-        if command_exists opencode; then
-            # Grab the first line of output, ignore errors, and fallback to "Unknown".
-            opencode --version 2> /dev/null | head -n 1 || echo "Unknown"
-        else
-            echo "Not Installed"
-        fi
-    }
-
     # 1. Dependency Check
     for cmd in gum gum_style; do
         if ! command_exists "$cmd"; then
@@ -87,29 +76,9 @@ run_updates() {
     update_npm_package "@google/gemini-cli"
     update_npm_package "@anthropic-ai/claude-code"
     update_npm_package "@github/copilot-cli"
+    update_npm_package "opencode-ai"
 
-    # 3. Update OpenCode
-    gum_style "Checking for updates for: opencode..."
-    local old_opencode_version=$(get_opencode_version)
-
-    if sh -c 'curl -fsSL https://opencode.ai/install | bash'; then
-        local new_opencode_version=$(get_opencode_version)
-        local status_icon="➡️" # Default: No Change
-
-        if [[ "$old_opencode_version" == "Not Installed" ]]; then
-            status_icon="✨" # Newly Installed
-        elif [[ "$old_opencode_version" != "$new_opencode_version" ]]; then
-            status_icon="⬆️" # Updated
-        fi
-
-        gum_style "✅ Success: opencode processed."
-        update_summary+=("opencode,$status_icon,$old_opencode_version,$new_opencode_version")
-    else
-        gum_style "❌ Error: The opencode update script encountered a problem. Check the output above."
-        update_summary+=("opencode,❌,$old_opencode_version,Update Failed")
-    fi
-
-    # 4. Display Final Summary Table
+    # 3. Display Final Summary Table
     echo
     gum_style "📊 Update Summary"
 
@@ -140,13 +109,5 @@ run_updates() {
     read -n 1 -s -r -p "Press any key to close..."
 }
 
-# --- Launcher Logic ---
-# The environment variable prevents an infinite loop of creating new windows.
-if [ -n "$TMUX" ] && [ -z "$IS_IN_CHILD_SESSION" ]; then
-    # We are in a tmux session and not already in a child session.
-    # Create a new window named "🤖 AI Updater" and run this script again inside it.
-    tmux new-window -n "🤖 AI Updater" "IS_IN_CHILD_SESSION=1 $0"
-else
-    # We are either not in tmux or already in the child session, so just run the updates.
-    run_updates
-fi
+# Run the updates
+run_updates
