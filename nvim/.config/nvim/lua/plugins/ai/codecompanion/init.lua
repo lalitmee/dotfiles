@@ -49,8 +49,8 @@ local preferences = {
     -- preferred_provider = "gemini",
     -- preferred_model = "gemini-2.5-pro",
 
-    preferred_provider = "gemini_cli",
-    preferred_model = "gemini-2.5-pro",
+    -- preferred_provider = "gemini_cli",
+    -- preferred_model = "gemini-2.5-pro",
 
     --------------------------------------------------------------------------------
     -- }}}
@@ -63,8 +63,8 @@ local preferences = {
     -- preferred_provider = "openai",
     -- preferred_model = "gpt-4.1",
 
-    -- preferred_provider = "openai",
-    -- preferred_model = "gpt-5",
+    preferred_provider = "openai",
+    preferred_model = "gpt-5",
 
     --------------------------------------------------------------------------------
     -- }}}
