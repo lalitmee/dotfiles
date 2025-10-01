@@ -944,7 +944,42 @@ return {
 
     { --[[ checkmate.nvim ]]
         "bngarren/checkmate.nvim",
+        dependencies = { "folke/snacks.nvim" },
         ft = "markdown",
-        opts = {},
+        keys = {
+            {
+                "<leader>T.",
+                function()
+                    local branch_name
+                    vim.fn.system("git rev-parse --is-inside-work-tree >/dev/null 2>&1")
+                    if vim.v.shell_error == 0 then
+                        branch_name = vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref HEAD"))
+                        if vim.v.shell_error ~= 0 or branch_name == "" then
+                            branch_name = "HEAD" -- Fallback for detached HEAD or new repo
+                        end
+                    else
+                        branch_name = "global"
+                    end
+
+                    -- Sanitize branch name for use in a filename
+                    local sanitized_branch_name = branch_name:gsub("[^%w_-]", "_")
+
+                    local data = vim.fn.stdpath("data")
+                    local root = data .. "/snacks/todo"
+                    vim.fn.mkdir(root, "p")
+                    local file = root .. "/todo-" .. sanitized_branch_name .. ".md"
+
+                    ---@diagnostic disable-next-line: missing-fields
+                    Snacks.scratch.open({
+                        ft = "markdown",
+                        file = file,
+                    })
+                end,
+                desc = "Toggle Branch Todo",
+            },
+        },
+        opts = {
+            files = { "todo.md", "**/todo-*.md" },
+        },
     },
 }
