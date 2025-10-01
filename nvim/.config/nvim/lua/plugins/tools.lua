@@ -981,6 +981,14 @@ return {
         },
         opts = {
             files = { "todo.md", "**/todo-*.md" },
+            todo_states = {
+                unchecked = {
+                    marker = "[ ]",
+                },
+                checked = {
+                    marker = "[x]",
+                },
+            },
         },
     },
 }
