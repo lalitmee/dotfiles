@@ -961,7 +961,7 @@ bind-key -T ai-tools p display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/
 #-------------------------------------------------------------------------------
 
 # Update the AI tools
-bind-key -T ai-tools u run-shell "~/.config/tmux/scripts/ai/update.sh"
+bind-key -T ai-tools u run-shell -b "~/.config/tmux/scripts/ai/update.sh"
 
 #-------------------------------------------------------------------------------
 # }}}
