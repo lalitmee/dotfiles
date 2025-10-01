@@ -914,6 +914,7 @@ return {
     },
 
     { --[[ cloak.nvim ]]
+        enabled = false,
         "laytan/cloak.nvim",
         event = "VeryLazy",
         opts = {
