@@ -989,6 +989,17 @@ return {
                     marker = "[x]",
                 },
             },
+            todo_count_formatter = function(completed, total)
+                if total > 4 then
+                    local percent = completed / total * 100
+                    local bar_length = 10
+                    local filled = math.floor(bar_length * percent / 100)
+                    local bar = string.rep("◼︎", filled) .. string.rep("◻︎", bar_length - filled)
+                    return string.format("%s", bar)
+                else
+                    return string.format("[%d/%d]", completed, total)
+                end
+            end,
         },
     },
 }
