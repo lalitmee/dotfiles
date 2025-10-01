@@ -989,15 +989,36 @@ return {
                     marker = "[x]",
                 },
             },
+            -- todo_states = {
+            --     -- Built-in states (cannot change markdown or type)
+            --     unchecked = { marker = "□" },
+            --     checked = { marker = "✔" },
+            --
+            --     -- Custom states
+            --     in_progress = {
+            --         marker = "◐",
+            --         markdown = ".", -- Saved as `- [.]`
+            --         type = "incomplete", -- Counts as "not done"
+            --         order = 50,
+            --     },
+            --     cancelled = {
+            --         marker = "✗",
+            --         markdown = "c", -- Saved as `- [c]`
+            --         type = "complete", -- Counts as "done"
+            --         order = 2,
+            --     },
+            --     on_hold = {
+            --         marker = "⏸",
+            --         markdown = "/", -- Saved as `- [/]`
+            --         type = "inactive", -- Ignored in counts
+            --         order = 100,
+            --     },
+            -- },
             todo_count_formatter = function(completed, total)
-                if total > 4 then
-                    local percent = completed / total * 100
-                    local bar_length = 10
-                    local filled = math.floor(bar_length * percent / 100)
-                    local bar = string.rep("◼︎", filled) .. string.rep("◻︎", bar_length - filled)
-                    return string.format("%s", bar)
-                else
+                if completed and total then
                     return string.format("[%d/%d]", completed, total)
+                else
+                    return ""
                 end
             end,
         },
