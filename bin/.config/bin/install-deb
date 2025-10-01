@@ -1,0 +1,79 @@
+#!/usr/bin/env zsh
+
+# ------------------------------------------------------------------
+# NOTE: Intelligent .deb installer {{{
+# ------------------------------------------------------------------
+
+set -e
+set -o pipefail
+
+# Source utilities
+source "$(dirname "$0")/utils.zsh"
+
+# ------------------------------------------------------------------
+# NOTE: Main function {{{
+# ------------------------------------------------------------------
+main() {
+    # Step 1: Select .deb file
+    local deb_file
+    deb_file=$(find "$HOME/Downloads" -name "*.deb" | fzf --prompt="Select a .deb file to install")
+
+    if [[ -z "$deb_file" ]]; then
+        gum_style "No file selected. Exiting."
+        exit 0
+    fi
+
+    # Step 2: Extract Package Information
+    local package_name
+    local new_version
+    package_name=$(dpkg-deb -I "$deb_file" | grep 'Package:' | awk '{print $2}')
+    new_version=$(dpkg-deb -I "$deb_file" | grep 'Version:' | awk '{print $2}')
+
+    local current_version
+    if dpkg -s "$package_name" &> /dev/null; then
+        current_version=$(dpkg -s "$package_name" | grep 'Version:' | awk '{print $2}')
+    else
+        current_version="N/A"
+    fi
+
+    # Step 3: Display Pre-installation Summary & Confirmation
+    gum_style "Package: $package_name"
+    gum_style "Current Version: $current_version"
+    gum_style "New Version: $new_version"
+
+    if ! gum confirm "Do you want to proceed with the installation?"; then
+        gum_style "Installation cancelled."
+        exit 0
+    fi
+
+    # Prime sudo
+    sudo -v
+
+    # Step 4 & 5: Installation and Outcome Handling
+    if gum spin --spinner dot --title "Installing $package_name..." -- sudo dpkg -i "$deb_file"; then
+        gum_style "✅ Installation successful!"
+        rm "$deb_file"
+        gum_style "Removed $deb_file."
+    else
+        gum_style "❌ Installation failed. Attempting to fix dependencies..."
+        # Prime sudo again in case the timestamp expired
+        sudo -v
+        if gum spin --spinner dot --title "Fixing dependencies..." -- sudo apt-get -f install -y; then
+            gum_style "✅ Dependencies fixed and installation complete!"
+            rm "$deb_file"
+            gum_style "Removed $deb_file."
+        else
+            gum_style "❌ Failed to fix dependencies. Please check the errors above."
+            exit 1
+        fi
+    fi
+}
+# ------------------------------------------------------------------
+# }}}
+# ------------------------------------------------------------------
+
+main
+
+# ------------------------------------------------------------------
+# }}}
+# ------------------------------------------------------------------
