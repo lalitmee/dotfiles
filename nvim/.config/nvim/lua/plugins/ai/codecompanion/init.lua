@@ -169,7 +169,7 @@ return {
         "ravitemer/codecompanion-history.nvim",
         {
             "jinzhongjia/codecompanion-gitcommit.nvim",
-            branch = "optimize",
+            tag = "0.0.17",
         },
         {
             "Davidyz/VectorCode",
