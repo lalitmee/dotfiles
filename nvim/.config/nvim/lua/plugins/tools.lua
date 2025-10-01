@@ -941,4 +941,10 @@ return {
             { "<leader>tR", ":Screenkey redraw<CR>", desc = "Screenkey Redraw", silent = true },
         },
     },
+
+    { --[[ checkmate.nvim ]]
+        "bngarren/checkmate.nvim",
+        ft = "markdown",
+        opts = {},
+    },
 }
