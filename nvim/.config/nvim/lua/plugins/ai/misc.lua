@@ -39,14 +39,13 @@ return {
         dependencies = {
             { -- [[ copilot-lsp ]]
                 "copilotlsp-nvim/copilot-lsp",
-                event = "InsertEnter",
                 keys = {
-                    { "<C-y>", desc = "Accept Copilot NES suggestion", mode = "n", silent = true },
+                    { "<tab>", desc = "Accept Copilot NES suggestion", mode = "n", silent = true },
                 },
                 init = function()
                     vim.g.copilot_nes_debounce = 500
                     vim.lsp.enable("copilot_ls")
-                    vim.keymap.set("n", "<C-y>", function()
+                    vim.keymap.set("n", "<tab>", function()
                         local bufnr = vim.api.nvim_get_current_buf()
                         local state = vim.b[bufnr].nes_state
                         if state then
