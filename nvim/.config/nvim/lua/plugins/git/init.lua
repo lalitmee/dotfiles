@@ -73,6 +73,19 @@ return {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPost",
         keys = {
+            { "<leader>g", group = "git" },
+            { "<leader>gc", group = "commit" },
+            { "<leader>gd", group = "diff" },
+            { "<leader>gdd", ":Gitsigns diffthis<CR>", desc = "Diffthis" },
+            { "<leader>gdw", ":Gitsigns toggle_word_diff<CR>", desc = "Toggle Word Diff" },
+            { "<leader>gj", group = "git-jump" },
+            { "<leader>gjd", ":Jump diff<cr>", desc = "Diff" },
+            { "<leader>gjm", ":Jump merge<cr>", desc = "Merge" },
+            { "<leader>gjs", ":Jump grep<space>", desc = "Grep" },
+            { "<leader>gm", ":Gitsigns blame_line<CR>", desc = "Blame Line" },
+            { "<leader>gn", ":GitHunks<CR>", desc = "Git Hunks" },
+            { "<leader>gO", function() vim.cmd([[silent !gh repo view --web]]) end, desc = "Open Repo" },
+            { "<localleader>g", group = "git" },
             { "<localleader>gS", ":Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true },
             { "<localleader>gu", ":Gitsigns undo_stage_hunk<CR>", desc = "undo stage Hunk", silent = true },
             { "<localleader>gv", ":Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true },
@@ -121,6 +134,7 @@ return {
         "polarmutex/git-worktree.nvim",
         version = "^2",
         keys = {
+            { "<leader>gw", group = "git-worktree" },
             {
                 "<leader>gwa",
                 function()
@@ -155,6 +169,12 @@ return {
             "DiffviewOpen",
             "DiffviewFileHistory",
             "DiffviewLog",
+        },
+        keys = {
+            { "<leader>gdc", ":DiffviewClose<CR>", desc = "Diffview Close" },
+            { "<leader>gdf", ":DiffviewFileHistory %<CR>", desc = "Current File History" },
+            { "<leader>gdF", ":DiffviewFileHistory<CR>", desc = "Diffview File History" },
+            { "<leader>gdo", ":DiffviewOpen<CR>", desc = "Diffview Open" },
         },
         opts = {
             enhanced_diff_hl = true,

@@ -28,6 +28,9 @@ return {
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         ft = { "markdown", "codecompanion" },
         cmd = { "RenderMarkdown" },
+        keys = {
+            { "<leader>tm", ":RenderMarkdown toggle<CR>", desc = "Render Markdown Toggle" },
+        },
         opts = {
             render_modes = true,
             sign = {
@@ -63,6 +66,7 @@ return {
     { --[[ neogen ]]
         "danymat/neogen",
         keys = {
+            { "<leader>d", group = "doc" },
             { "<leader>dd", "<cmd>Neogen<CR>", desc = "Doc This", silent = true },
             { "<leader>dc", "<cmd>Neogen class<cr>", desc = "Doc This Class", silent = true },
             { "<leader>df", "<cmd>Neogen func<cr>", desc = "Doc This Function", silent = true },
@@ -322,6 +326,9 @@ return {
 
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
+        keys = {
+            { "<leader>rh", group = "http" },
+        },
         dependencies = {
             { "j-hui/fidget.nvim", opts = {} },
         },
@@ -340,6 +347,7 @@ return {
         "kawre/leetcode.nvim",
         lazy = leet_arg ~= vim.fn.argv()[1],
         keys = {
+            { "<leader>cl", group = "leetcode" },
             { "<leader>cla", "<cmd>Leet<cr>", silent = true, mode = { "n" }, desc = "Leet menu" },
             { "<leader>clb", "<cmd>Leet lang<cr>", silent = true, mode = { "n" }, desc = "Leet lang" },
             { "<leader>clc", "<cmd>Leet console<cr>", silent = true, mode = { "n" }, desc = "Leet console" },

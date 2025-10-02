@@ -3,31 +3,126 @@ return { --[[ snacks.nvim ]]
     priority = 1000,
     lazy = false,
 
-    -- stylua: ignore
     keys = {
         -- bufdelete
-        { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer", silent = true },
-        { "<leader>bD", function() Snacks.bufdelete.all() end, desc = "Delete All Buffers", silent = true },
-        { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers", silent = true },
+        {
+            "<leader>bd",
+            function()
+                Snacks.bufdelete()
+            end,
+            desc = "Delete Buffer",
+            silent = true,
+        },
+        {
+            "<leader>bD",
+            function()
+                Snacks.bufdelete.all()
+            end,
+            desc = "Delete All Buffers",
+            silent = true,
+        },
+        {
+            "<leader>bo",
+            function()
+                Snacks.bufdelete.other()
+            end,
+            desc = "Delete Other Buffers",
+            silent = true,
+        },
 
         -- git
-        { "<leader>ge", function() Snacks.git.blame_line() end, desc = "Git Blame", silent = true },
-        { "<leader>gr", function() Snacks.git.get_root() end, desc = "Git Root", silent = true },
+        {
+            "<leader>ge",
+            function()
+                Snacks.git.blame_line()
+            end,
+            desc = "Git Blame",
+            silent = true,
+        },
+        {
+            "<leader>gr",
+            function()
+                Snacks.git.get_root()
+            end,
+            desc = "Git Root",
+            silent = true,
+        },
 
         -- gitbrowse, lazygit
-        { "<leader>ga", function() Snacks.gitbrowse() end, desc = "Git Browse", silent = true },
-        { "<leader>gl", function() Snacks.lazygit.open() end, desc = "Lazygit", silent = true },
-        { "<leader>gL", function() Snacks.lazygit.log() end, desc = "Lazygit Log View", silent = true },
-        { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Log File", silent = true },
+        {
+            "<leader>ga",
+            function()
+                Snacks.gitbrowse()
+            end,
+            desc = "Git Browse",
+            silent = true,
+        },
+        {
+            "<leader>gl",
+            function()
+                Snacks.lazygit.open()
+            end,
+            desc = "Lazygit",
+            silent = true,
+        },
+        {
+            "<leader>gL",
+            function()
+                Snacks.lazygit.log()
+            end,
+            desc = "Lazygit Log View",
+            silent = true,
+        },
+        {
+            "<leader>gf",
+            function()
+                Snacks.lazygit.log_file()
+            end,
+            desc = "Lazygit Log File",
+            silent = true,
+        },
 
         -- notifier
-        { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Hide Notifier", silent = true },
-        { "<leader>nn", function() Snacks.notifier.show_history() end, desc = "Show Notifier History", silent = true },
+        {
+            "<leader>nd",
+            function()
+                Snacks.notifier.hide()
+            end,
+            desc = "Hide Notifier",
+            silent = true,
+        },
+        {
+            "<leader>nn",
+            function()
+                Snacks.notifier.show_history()
+            end,
+            desc = "Show Notifier History",
+            silent = true,
+        },
 
         -- scratch
-        { "<leader>k.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-        { "<leader>k/", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-        { "<leader>kc", function() Snacks.scratch.open({ ft = "markdown", name = "notes" }) end, desc = "Notes Scratch Buffer" },
+        { "<leader>k", group = "scratch" },
+        {
+            "<leader>k.",
+            function()
+                Snacks.scratch()
+            end,
+            desc = "Toggle Scratch Buffer",
+        },
+        {
+            "<leader>k/",
+            function()
+                Snacks.scratch.select()
+            end,
+            desc = "Select Scratch Buffer",
+        },
+        {
+            "<leader>kc",
+            function()
+                Snacks.scratch.open({ ft = "markdown", name = "notes" })
+            end,
+            desc = "Notes Scratch Buffer",
+        },
 
         -- neovim news
         {

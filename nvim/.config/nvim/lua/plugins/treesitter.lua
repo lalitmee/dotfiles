@@ -21,6 +21,7 @@ return {
         },
         cmd = "TSInstall",
         keys = {
+            { "<localleader>s", group = "treesitter" },
             { "<leader>lf", desc = "Peek Function Definition", mode = { "n", "v" } },
             { "<leader>lc", desc = "Peek Class Definition", mode = { "n", "v" } },
             { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "Show Highlights Info", silent = true },

@@ -217,6 +217,7 @@ return {
         "CCGitCommit",
     },
     keys = {
+        { "<leader>c", group = "code-companion", mode = { "n", "v" } },
         {
             "<leader>ca",
             ":CodeCompanionActions<CR>",

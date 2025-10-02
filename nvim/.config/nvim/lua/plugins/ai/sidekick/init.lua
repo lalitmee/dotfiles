@@ -10,6 +10,7 @@ return {
             },
         },
         keys = {
+            { "<localleader>a", group = "sidekick", mode = { "n", "v" } },
             {
                 "<tab>",
                 function()

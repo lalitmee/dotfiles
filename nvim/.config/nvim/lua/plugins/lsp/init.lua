@@ -85,8 +85,23 @@ return {
     },
 
     { --[[ lspconfig ]]
-        "neovim/nvim-lspconfig",
         event = "BufReadPre",
+        keys = {
+            { "<leader>l", group = "lsp", mode = { "n", "v" } },
+            { "<leader>la", function() vim.lsp.buf.code_action() end, desc = "Code Action" },
+            { "<leader>ld", function() vim.lsp.buf.definition() end, desc = "Definition" },
+            { "<leader>lD", function() vim.lsp.buf.declaration() end, desc = "Declaration" },
+            { "<leader>lh", function() vim.lsp.buf.hover() end, desc = "Hover Doc" },
+            { "<leader>li", ":LspInfo<CR>", desc = "Lsp Info" },
+            { "<leader>lI", function() vim.lsp.buf.implementation() end, desc = "Implementation" },
+            { "<leader>ll", function() vim.cmd("edit " .. vim.lsp.get_log_path()) end, desc = "Lsp Log" },
+            { "<leader>lm", ":Mason<CR>", desc = "Lsp Installer Info" },
+            { "<leader>lr", function() vim.lsp.buf.rename() end, desc = "Rename" },
+            { "<leader>lR", function() vim.lsp.buf.references() end, desc = "References" },
+            { "<leader>ls", function() vim.lsp.buf.document_symbol() end, desc = "Document Symbols" },
+            { "<leader>lt", function() vim.lsp.buf.type_definition() end, desc = "Type Definition" },
+            { "<leader>lw", function() vim.lsp.buf.workspace_symbol() end, desc = "Workspace Symbols" },
+        },
         dependencies = {
             {
                 "pmizio/typescript-tools.nvim",
