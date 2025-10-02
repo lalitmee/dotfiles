@@ -165,9 +165,8 @@ return {
 
     { -- [[ ts-comments.nvim ]]
         "folke/ts-comments.nvim",
-        opts = {},
         event = "VeryLazy",
-        enabled = vim.fn.has("nvim-0.10.0") == 1,
+        opts = {},
     },
 
     { --[[ luasnip ]]
@@ -314,86 +313,6 @@ return {
                 require("luasnip.extras.select_choice")()
             end)
             -- }}}
-        end,
-    },
-
-    { --[[ auto-pairs ]]
-        enabled = false,
-        "windwp/nvim-autopairs",
-        event = "VeryLazy",
-        config = function()
-            local auto_pairs = require("nvim-autopairs")
-            local Rule = require("nvim-autopairs.rule")
-            local ts_conds = require("nvim-autopairs.ts-conds")
-
-            auto_pairs.setup({
-                enable_abbr = true,
-                check_ts = true,
-                enable_moveright = true,
-                disable_filetype = { "TelescopePrompt", "vim" },
-            })
-
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            local cmp = require("cmp")
-            cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-            -- Typing space when (|) -> ( | )
-            local brackets = {
-                { "(", ")" },
-                { "[", "]" },
-                { "{", "}" },
-            }
-            auto_pairs.add_rules({
-                Rule(" ", " "):with_pair(function(opts)
-                    local pair = opts.line:sub(opts.col - 1, opts.col)
-                    return vim.tbl_contains({
-                        brackets[1][1] .. brackets[1][2],
-                        brackets[2][1] .. brackets[2][2],
-                        brackets[3][1] .. brackets[3][2],
-                    }, pair)
-                end),
-
-                -- rule for iabbrev
-                Rule(" ", " "):replace_endpair(function(opts)
-                    local pair = opts.line:sub(opts.col - 1, opts.col)
-                    if vim.tbl_contains({ "()", "{}", "[]" }, pair) then
-                        return " " -- it return space here
-                    end
-                    return "" -- return empty
-                end):with_del(function(opts)
-                    local col = vim.api.nvim_win_get_cursor(0)[2]
-                    local context = opts.line:sub(col - 1, col + 2)
-                    return vim.tbl_contains({ "(  )", "{  }", "[  ]" }, context)
-                end),
-            })
-
-            for _, bracket in pairs(brackets) do
-                auto_pairs.add_rules({
-                    Rule(bracket[1] .. " ", " " .. bracket[2])
-                        :with_pair(function()
-                            return false
-                        end)
-                        :with_move(function(opts)
-                            return opts.prev_char:match(".%" .. bracket[2]) ~= nil
-                        end)
-                        :use_key(bracket[2]),
-                })
-            end
-
-            auto_pairs.add_rules({
-                -- Typing { when {| -> {{ | }} in Vue files
-                Rule("{{", "  }", "vue"):set_end_pair_length(2):with_pair(ts_conds.is_ts_node("text")),
-
-                -- Typing = when () -> () => {|}
-                Rule("%(.*%)%s*%=$", "> {}", { "typescript", "typescriptreact", "javascript", "vue" })
-                    :use_regex(true)
-                    :set_end_pair_length(1),
-
-                -- Typing n when the| -> then|end
-                Rule("then", "end", "lua"):end_wise(function(opts)
-                    return string.match(opts.line, "^%s*if") ~= nil
-                end),
-            })
         end,
     },
 
@@ -782,42 +701,6 @@ return {
         opts = {},
     },
 
-    { --[[ nvim-treesitter ]]
-        "mangelozzi/rgflow.nvim",
-        keys = {
-            {
-                "<leader>rg",
-                function()
-                    require("rgflow").open()
-                end,
-                desc = "Open RgFlow",
-                silent = true,
-            },
-        },
-        opts = {
-            cmd_flags = "--smart-case --fixed-strings --ignore --max-columns 200",
-            -- Mappings to trigger RgFlow functions
-            default_trigger_mappings = true,
-            -- These mappings are only active when the RgFlow UI (panel) is open
-            default_ui_mappings = true,
-            -- QuickFix window only mapping
-            default_quickfix_mappings = true,
-        },
-    },
-
-    { --[[ muren ]]
-        "AckslD/muren.nvim",
-        keys = {
-            { "<leader>sj", "<CMD>MurenToggle<CR>", desc = "Toggle Muren", silent = true },
-        },
-        opts = {
-            patterns_width = 50,
-            patterns_height = 20,
-            options_width = 30,
-            preview_height = 20,
-        },
-    },
-
     { --[[ ssr.nvim ]]
         "cshuaimin/ssr.nvim",
         keys = {
@@ -920,18 +803,6 @@ return {
                 },
             },
         },
-    },
-
-    { --[[ qf_helper ]]
-        "stevearc/qf_helper.nvim",
-        event = "VeryLazy",
-        cmd = {
-            "QNext",
-            "QPrev",
-            "QFToggle",
-            "LLToggle",
-        },
-        opts = {},
     },
 
     { --[[ vim-repeat ]]
@@ -1071,156 +942,10 @@ return {
         },
     },
 
-    { --[[ tabby ]]
-        "nanozuki/tabby.nvim",
-        event = "VeryLazy",
-        config = function()
-            vim.opt.showtabline = 2
-            local palette = require("cobalt2.palette")
-
-            local separators = {
-                -- right = "",
-                -- left = "",
-                right = " ",
-                left = "",
-            }
-            local icons = {
-                tab = { active = "", inactive = "" },
-                win = { top = "", normal = "" },
-                tail = "  ",
-            }
-
-            local theme = {
-                line = { fg = palette.black, bg = palette.cursor_line },
-                head = { fg = palette.black, bg = palette.yellow, style = "bold" },
-                current_tab = {
-                    fg = palette.yellow,
-                    bg = palette.darker_blue,
-                    style = "bold",
-                },
-                tab = { fg = palette.white, bg = palette.darker_blue },
-                win = { fg = palette.white, bg = palette.darker_blue },
-                tail = { fg = palette.black, bg = palette.yellow, style = "bold" },
-            }
-
-            local line = function(line)
-                local cwd = " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " "
-                return {
-                    {
-                        { cwd, hl = theme.head },
-                        line.sep(separators.right, theme.head, theme.line),
-                    },
-                    line.tabs().foreach(function(tab)
-                        local hl = tab.is_current() and theme.current_tab or theme.tab
-                        return {
-                            line.sep(separators.left, hl, theme.line),
-                            tab.is_current() and icons.tab.active or icons.tab.inactive,
-                            string.format("%s:", tab.number()),
-                            tab.name(),
-                            line.sep(separators.right, hl, theme.line),
-                            margin = " ",
-                            hl = hl,
-                        }
-                    end),
-                    line.spacer(),
-                    line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-                        return {
-                            line.sep(separators.left, theme.win, theme.line),
-                            win.is_current() and icons.win.top or icons.win.normal,
-                            win.buf_name(),
-                            line.sep(separators.right, theme.win, theme.line),
-                            margin = " ",
-                            hl = theme.win,
-                        }
-                    end),
-                    {
-                        line.sep(separators.left, theme.tail, theme.line),
-                        { icons.tail, hl = theme.tail },
-                    },
-                    hl = theme.line,
-                }
-            end
-
-            require("tabby.tabline").set(line, {
-                buf_name = { mode = "unique" },
-            })
-        end,
-        enabled = false,
-    },
-
     { --[[ scope.nvim ]]
         "tiagovla/scope.nvim",
         event = { "TabEnter" },
         config = true,
-    },
-
-    { --[[ edgy ]]
-        enabled = false,
-        "folke/edgy.nvim",
-        event = "VeryLazy",
-        opts = {
-            top = {
-                {
-                    ft = "help",
-                    size = { height = 45 },
-                    -- only show help buffers
-                    filter = function(buf)
-                        return vim.bo[buf].buftype == "help"
-                    end,
-                    wo = { signcolumn = "yes:2" },
-                },
-                {
-                    ft = "gitcommit",
-                    size = { height = 0.5 },
-                    wo = { signcolumn = "yes:2" },
-                },
-            },
-
-            bottom = {
-                {
-                    ft = "NeogitPopup",
-                    size = { height = 0.4 },
-                    wo = { signcolumn = "yes:2" },
-                },
-                {
-                    ft = "qf",
-                    title = "QuickFix",
-                    size = { height = 0.4 },
-                },
-            },
-
-            right = {
-                -- {
-                --     ft = "NeogitStatus",
-                --     size = { width = 0.5 },
-                --     wo = { signcolumn = "yes:2" },
-                -- },
-                {
-                    ft = "fugitive",
-                    size = { width = 0.5 },
-                    wo = { signcolumn = "yes:2" },
-                },
-                {
-                    ft = "spectre_panel",
-                    size = { width = 0.5 },
-                    wo = { signcolumn = "yes:2" },
-                },
-                {
-                    ft = "oil",
-                    size = { width = 0.5 },
-                    wo = { signcolumn = "yes:2" },
-                    filter = function(_, win)
-                        return vim.api.nvim_win_get_config(win).relative == ""
-                    end,
-                },
-            },
-
-            left = {},
-
-            animate = {
-                enabled = false,
-            },
-        },
     },
 
     { --[[ quicker.nvim ]]
@@ -1243,11 +968,6 @@ return {
             },
         },
         opts = {},
-    },
-
-    { --[[ bloat.nvim ]]
-        "dundalek/bloat.nvim",
-        cmd = "Bloat",
     },
 
     { --[[ jumppack.nvim ]]
