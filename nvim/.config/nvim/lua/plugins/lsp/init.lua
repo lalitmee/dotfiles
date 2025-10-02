@@ -77,6 +77,7 @@ return {
                 "tailwindcss",
                 "taplo",
                 "vimls",
+                "copilot",
             },
             automatic_enable = {
                 exclude = { "lua_ls" },
@@ -193,12 +194,6 @@ return {
                 },
                 opts = {
                     on_attach = lsp_utils.on_attach,
-                    root_dir = function(fname)
-                        -- return require("lspconfig.util").root_pattern(".git", "package.json", "jsconfig.json")(fname)
-
-                        -- NOTE: want to have only one `tsserver` running for a monorepo project
-                        return require("lspconfig.util").root_pattern(".git")(fname)
-                    end,
                     settings = {
                         tsserver_file_preferences = {
                             includeInlayEnumMemberValueHints = true,
@@ -234,8 +229,6 @@ return {
             require("plugins.lsp.handlers")
             require("plugins.lsp.diagnostics")
 
-            require("lspconfig.ui.windows").default_options.border = lk.style.border.rounded
-
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
             capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
@@ -258,8 +251,11 @@ return {
                 lineFoldingOnly = true,
             }
 
-            local lsp_utils = require("plugins.lsp.utils")
             local servers = require("plugins.lsp.servers")
+
+            vim.lsp.config("*", {
+                root_markers = { ".git" },
+            })
 
             -- Base configuration to apply to all servers
             local base_config = {

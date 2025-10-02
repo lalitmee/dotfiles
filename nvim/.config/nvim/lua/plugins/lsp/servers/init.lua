@@ -14,6 +14,7 @@ local tailwindcss = get_server_options("tailwindcss")
 return {
     bashls = true,
     clangd = clangd,
+    copilot = true,
     cssls = true,
     dockerls = true,
     emmet_ls = emmet_ls,
@@ -26,6 +27,7 @@ return {
     tailwindcss = tailwindcss,
     taplo = true,
     theme_check = false,
-    -- tsserver = tsserver,
     vimls = true,
+
+    -- tsserver = tsserver,
 }
