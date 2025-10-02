@@ -357,6 +357,7 @@ return {
                         make_vars = true, -- Convert MCP resources to #variables for prompts
                         -- MCP Prompts
                         make_slash_commands = true,
+                        make_prompt_library = true,
                     },
                 },
 
