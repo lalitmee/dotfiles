@@ -88,6 +88,7 @@ return {
     { --[[ lspconfig ]]
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
+        cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart", "LspCopilotSignIn" },
         keys = {
             { "<leader>l", group = "lsp", mode = { "n", "v" } },
             {
@@ -252,6 +253,8 @@ return {
             }
 
             local servers = require("plugins.lsp.servers")
+
+            vim.lsp.inline_completion.enable(true)
 
             vim.lsp.config("*", {
                 root_markers = { ".git" },

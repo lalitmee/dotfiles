@@ -1,6 +1,7 @@
 return {
     {
         "folke/sidekick.nvim",
+        event = "VeryLazy",
         cmd = { "Sidekick" },
         opts = {
             cli = {
