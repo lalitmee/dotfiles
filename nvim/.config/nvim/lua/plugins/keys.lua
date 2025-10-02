@@ -13,20 +13,14 @@ return {
             local wk = require("which-key")
 
             wk.add({
-                { "<leader>:", ":Telescope commands<CR>", desc = "Commands" },
-                { "<leader><leader>", ":Telescope find_files<CR>", desc = "Find Files" },
-                { "<leader>/", ":Telescope live_grep_args<CR>", desc = "Search Project" },
 
                 --------------------------------------------------------------------------------
                 --  NOTE: <leader>a -> actions {{{
                 --------------------------------------------------------------------------------
                 { "<leader>a", group = "actions" },
-                { "<leader>aa", ":FzfLua<space>", desc = "Fzf Lua Builtin" },
-                { "<leader>ac", ":ColorizerToggle<CR>", desc = "Toggle Colorizer" },
                 { "<leader>ak", ":WorkingDirectory<CR>", desc = "Current Working Directory" },
                 { "<leader>an", ":!playerctl previous -p spotify<CR>", desc = "Spotify Prev" },
                 { "<leader>ap", ":!playerctl next -p spotify<CR>", desc = "Spotify Next" },
-                { "<leader>aq", ":Telescope macros<CR>", desc = "Macros" },
                 { "<leader>as", ":!playerctl play-pause -p spotify<CR>", desc = "Spotify Play Pause" },
                 { "<leader>aw", ":SetWallpaper<CR>", desc = "Change System Background" },
                 -- }}}
@@ -37,11 +31,7 @@ return {
                 --------------------------------------------------------------------------------
                 { "<leader>b", group = "buffers" },
                 { "<leader>ba", ":bfirst<CR>", desc = "First Buffer" },
-                { "<leader>bb", ":Telescope buffers<CR>", desc = "Telescope Buffers" },
-                { "<leader>bB", ":FzfLua buffers<CR>", desc = "Fzf Buffers" },
                 { "<leader>bc", ":vnew<CR>", desc = "New Empty Buffer Vert" },
-                { "<leader>bl", ":Telescope current_buffer_fuzzy_find<CR>", desc = "Telescope Buffer Lines" },
-                { "<leader>bL", ":FzfLua blines<CR>", desc = "Fzf Buffer Lines" },
                 { "<leader>bM", ":delm!<CR>", desc = "Delete Marks" },
                 { "<leader>bn", ":bn<CR>", desc = "Next Buffer" },
                 { "<leader>bp", ":bp<CR>", desc = "Prev Buffer" },
@@ -51,21 +41,6 @@ return {
                 { "<leader>bz", ":blast<CR>", desc = "First Buffer" },
                 -- }}}
                 --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>c -> code-companion {{{
-                --------------------------------------------------------------------------------
-                { "<leader>c", group = "code-companion", mode = { "n", "v" } },
-                { "<leader>cl", group = "leetcode" },
-                -- }}}
-                ------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>d -> doc {{{
-                --------------------------------------------------------------------------------
-                { "<leader>d", group = "doc" },
-                -- }}}
-                ------------------------------------------------------------------------------
 
                 --------------------------------------------------------------------------------
                 --  NOTE: <leader>e -> errors {{{
@@ -87,7 +62,6 @@ return {
                     end,
                     desc = "Enable Diagnostic",
                 },
-                { "<leader>el", ":Telescope diagnostics<CR>", desc = "Workspace Diagnostics" },
                 {
                     "<leader>en",
                     function()
@@ -127,68 +101,10 @@ return {
                 --  NOTE: <leader>f -> files {{{
                 --------------------------------------------------------------------------------
                 { "<leader>f", group = "files" },
-                { "<leader>fc", ":Telescope find_files theme=dropdown<CR>", desc = "With Dropdown" },
-                { "<leader>fd", ":TelescopeEditDotfiles<CR>", desc = "Dotfiles" },
-                { "<leader>ff", ":TelescopeProjectFiles<CR>", desc = "Files" },
-                { "<leader>fF", ":FzfLua files<CR>", desc = "Files" },
-                { "<leader>fg", ":Telescope git_files<CR>", desc = "Git Files" },
-                { "<leader>fi", ":Telescope find_files theme=ivy<CR>", desc = "Ivy Theme Files" },
-                { "<leader>fo", ":Telescope oldfiles<CR>", desc = "Old Files" },
                 { "<leader>fs", ":w<CR>", desc = "Save Buffer" },
                 { "<leader>fS", ":wa<CR>", desc = "Save All Buffers" },
-                { "<leader>ft", ":Telescope filetypes<CR>", desc = "File Types" },
                 { "<leader>fw", ":noau w<CR>", desc = "Save Buffer No Format" },
                 { "<leader>fq", ":wq<CR>", desc = "Save And Quit" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>F -> fzf {{{
-                --------------------------------------------------------------------------------
-                { "<leader>F", group = "fzf" },
-                { "<leader>Fb", group = "buffers" },
-                { "<leader>Ff", group = "files" },
-                { "<leader>Fl", group = "lsp" },
-                { "<leader>Fs", group = "search" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>g -> git {{{
-                --------------------------------------------------------------------------------
-                { "<leader>g", group = "git" },
-                { "<leader>gb", ":Telescope git_branches<CR>", desc = "Checkout" },
-
-                { "<leader>gc", group = "commit" },
-                { "<leader>gcc", ":Telescope git_commits<CR>", desc = "Git Commits" },
-                { "<leader>gcb", ":Telescope git_bcommits<CR>", desc = "Git Buffer Commits" },
-
-                { "<leader>gd", group = "diff" },
-                { "<leader>gdc", ":DiffviewClose<CR>", desc = "Diffview Close" },
-                { "<leader>gdd", ":Gitsigns diffthis<CR>", desc = "Diffthis" },
-                { "<leader>gdf", ":DiffviewFileHistory %<CR>", desc = "Current File History" },
-                { "<leader>gdF", ":DiffviewFileHistory<CR>", desc = "Diffview File History" },
-                { "<leader>gdo", ":DiffviewOpen<CR>", desc = "Diffview Open" },
-                { "<leader>gdw", ":Gitsigns toggle_word_diff<CR>", desc = "Toggle Word Diff" },
-
-                { "<leader>gj", group = "git-jump" },
-                { "<leader>gjd", ":Jump diff<cr>", desc = "Diff" },
-                { "<leader>gjm", ":Jump merge<cr>", desc = "Merge" },
-                { "<leader>gjs", ":Jump grep<space>", desc = "Grep" },
-
-                { "<leader>gm", ":Gitsigns blame_line<CR>", desc = "Blame Line" },
-                { "<leader>gn", ":GitHunks<CR>", desc = "Git Hunks" },
-                {
-                    "<leader>gO",
-                    function()
-                        vim.cmd([[silent !gh repo view --web]])
-                    end,
-                    desc = "Open Repo",
-                },
-
-                { "<leader>gw", group = "git-worktree" },
-
-                { "<leader>gz", ":Telescope git_stash<CR>", desc = "Git Stash" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -203,122 +119,14 @@ return {
                 --  NOTE: <leader>i -> insert {{{
                 --------------------------------------------------------------------------------
                 { "<leader>i", group = "insert" },
-                { "<leader>ic", ":Colortils<CR>", desc = "Color Picker" },
-                { "<leader>id", ":DeleteDebugPrints<CR>", desc = "Delete Debug Prints" },
-                { "<leader>ie", ":LuaSnipEdit<CR>", desc = "Edit Snippets" },
-                { "<leader>is", ":Telescope spell_suggest<CR>", desc = "Spell_suggest" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>j -> jump {{{
-                --------------------------------------------------------------------------------
-                { "<leader>j", group = "jump", mode = { "n", "v" } },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>k -> scratch {{{
-                --------------------------------------------------------------------------------
-                { "<leader>k", group = "scratch" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>l -> lsp {{{
-                --------------------------------------------------------------------------------
-                { "<leader>l", group = "lsp", mode = { "n", "v" } },
-                { "<leader>l/", ":Telescope tags<CR>", desc = "Project Tags" },
-                {
-                    "<leader>la",
-                    function()
-                        vim.lsp.buf.code_action()
-                    end,
-                    desc = "Code Action",
-                },
-                {
-                    "<leader>ld",
-                    function()
-                        vim.lsp.buf.definition()
-                    end,
-                    desc = "Definition",
-                },
-                {
-                    "<leader>lD",
-                    function()
-                        vim.lsp.buf.declaration()
-                    end,
-                    desc = "Declaration",
-                },
-                {
-                    "<leader>lh",
-                    function()
-                        vim.lsp.buf.hover()
-                    end,
-                    desc = "Hover Doc",
-                },
-                { "<leader>li", ":LspInfo<CR>", desc = "Lsp Info" },
-                {
-                    "<leader>lI",
-                    function()
-                        vim.lsp.buf.implementation()
-                    end,
-                    desc = "Implementation",
-                },
-                {
-                    "<leader>ll",
-                    function()
-                        vim.cmd("edit " .. vim.lsp.get_log_path())
-                    end,
-                    desc = "Lsp Log",
-                },
-                { "<leader>lm", ":Mason<CR>", desc = "Lsp Installer Info" },
-                {
-                    "<leader>lr",
-                    function()
-                        vim.lsp.buf.rename()
-                    end,
-                    desc = "Rename",
-                },
-                {
-                    "<leader>lR",
-                    function()
-                        vim.lsp.buf.references()
-                    end,
-                    desc = "References",
-                },
-                {
-                    "<leader>ls",
-                    function()
-                        vim.lsp.buf.document_symbol()
-                    end,
-                    desc = "Document Symbols",
-                },
-                {
-                    "<leader>lt",
-                    function()
-                        vim.lsp.buf.type_definition()
-                    end,
-                    desc = "Type Definition",
-                },
-                { "<leader>lT", ":Telescope treesitter<CR>", desc = "Treesitter Symbols" },
-                {
-                    "<leader>lw",
-                    function()
-                        vim.lsp.buf.workspace_symbol()
-                    end,
-                    desc = "Workspace Symbols",
-                },
                 -- }}}
                 --------------------------------------------------------------------------------
 
                 --------------------------------------------------------------------------------
                 --  NOTE: <leader>n -> neovim {{{
                 --------------------------------------------------------------------------------
-
                 { "<leader>n", group = "neovim" },
                 { "<leader>nc", ":Lazy clean<CR>", desc = "Clean Packages" },
-                { "<leader>ne", ":TelescopeEditNeovim<CR>", desc = "Edit Neovim Config" },
                 { "<leader>nh", ":checkhealth<CR>", desc = "Check Health" },
                 { "<leader>ni", ":Lazy install<CR>", desc = "Lazy Install" },
                 {
@@ -342,27 +150,8 @@ return {
                 { "<leader>np", ":Lazy profile<CR>", desc = "Lazy Profile" },
                 { "<leader>nr", ":Redir Notifications<CR>", desc = "Redir Notifications" },
                 { "<leader>ns", ":Lazy sync<CR>", desc = "Lazy Sync" },
-                { "<leader>nt", ":ReloadConfigTelescope<CR>", desc = "Realod Modules" },
                 { "<leader>nu", ":Lazy update<CR>", desc = "Lazy Update" },
-                { "<leader>nx", ":Telescope reloader<CR>", desc = "Reloaders" },
-                -- }}}
-                --------------------------------------------------------------------------------
 
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>o -> org {{{
-                --------------------------------------------------------------------------------
-                { "<leader>o", group = "org-mode" },
-                { "<leader>ob", group = "org tangle" },
-                { "<leader>od", group = "org dates" },
-                { "<leader>oi", group = "org insert" },
-                { "<leader>ol", group = "org links" },
-                { "<leader>on", group = "org notes" },
-                { "<leader>os", group = "org toggle" },
-                { "<leader>ox", group = "org clock" },
-                { "<localleader>n", group = "org roam" },
-                { "<localleader>na", group = "alias" },
-                { "<localleader>nd", group = "dailies" },
-                { "<localleader>no", group = "origin" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -377,7 +166,7 @@ return {
                 --  NOTE: <leader>q -> quickfix {{{
                 --------------------------------------------------------------------------------
                 { "<leader>q", group = "quickfix" },
-                { "<leader>q/", ":Telescope quickfix<CR>", desc = "Telescope Quickfix" },
+
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -387,8 +176,6 @@ return {
                 { "<leader>r", group = "run", mode = { "n", "v" } },
                 { "<leader>rc", ":CompileAndRun<CR>", desc = "Compile And Run" },
 
-                { "<leader>ro", group = "overseer" },
-                { "<leader>rh", group = "http" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -396,15 +183,6 @@ return {
                 --  NOTE: <leader>s -> search-and-replace {{{
                 --------------------------------------------------------------------------------
                 { "<leader>s", group = "search-and-replace", mode = { "n", "v" } },
-                { "<leader>sa", ":TelescopeFuzzyLiveGrep<CR>", desc = "Fuzzy Live Grep" },
-                { "<leader>sr", ":Telescope resume<CR>", desc = "Live Grep Resume" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                -- NOTE: <leader>sc -> grug-far search  {{{
-                --------------------------------------------------------------------------------
-                { "<leader>ss", group = "grug-far-sar", mode = { "n", "v" } },
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -412,32 +190,6 @@ return {
                 --  NOTE: <leader>t -> toggle {{{
                 --------------------------------------------------------------------------------
                 { "<leader>t", group = "toggle" },
-                { "<leader>tm", ":RenderMarkdown toggle<CR>", desc = "Render Markdown Toggle" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>v -> vim {{{
-                --------------------------------------------------------------------------------
-                { "<leader>v", group = "vim" },
-                { "<leader>v/", ":Telescope search_history<CR>", desc = "Search History" },
-                { "<leader>v:", ":Telescope commands<CR>", desc = "Commands" },
-                { "<leader>va", ":Telescope autocommands<CR>", desc = "Autocommands" },
-                { "<leader>vc", ":Telescope colorscheme<CR>", desc = "Colorschemes" },
-                { "<leader>vC", ":Telescope command_history<CR>", desc = "Command History" },
-                { "<leader>vd", ":Messages<CR>", desc = "Messages" },
-                { "<leader>vf", ":Telescope filetypes<CR>", desc = "Filetypes" },
-                { "<leader>vg", ":Telescope helpgrep<CR>", desc = "Help Grep" },
-                { "<leader>vh", ":Telescope help_tags<CR>", desc = "Help Tags" },
-                { "<leader>vH", ":Telescope highlights<CR>", desc = "Highlights" },
-                { "<leader>vj", ":Telescope jumplist<CR>", desc = "Jumplist" },
-                { "<leader>vk", ":Telescope keymaps<CR>", desc = "Keymaps" },
-                { "<leader>vl", ":Telescope loclist<CR>", desc = "Loclist" },
-                { "<leader>vm", ":Telescope marks<CR>", desc = "Marks" },
-                { "<leader>vM", ":Telescope man_pages<CR>", desc = "Man Pages" },
-                { "<leader>vr", ":Telescope registers<CR>", desc = "Vim Registers" },
-                { "<leader>vt", ":Telescope tagstack<CR>", desc = "Tag Stack" },
-                { "<leader>vv", ":Telescope vim_options<CR>", desc = "Vim Options" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -461,7 +213,6 @@ return {
                 { "<leader>w-", ":-tabmove<CR>", desc = "Move Tab To Previous Position" },
                 { "<leader>w+", ":+tabmove<CR>", desc = "Move Tab To Next Position" },
                 { "<leader>wT", ":tablast<CR>", desc = "Last Tab" },
-                { "<leader>wm", ":NeoZoomToggle<CR>", desc = "Maximize Window" },
                 { "<leader>wn", ":tabnext<CR>", desc = "Next Tab" },
                 { "<leader>wo", ":only<CR>", desc = "Close Other Windows Except This" },
                 { "<leader>wp", ":tabprevious<CR>", desc = "Previous Tab" },
@@ -470,49 +221,6 @@ return {
                 { "<leader>wu", "<C-W>x", desc = "Swap Window Next" },
                 { "<leader>wv", "<C-W>v", desc = "Split Window Right" },
                 { "<leader>ww", "<C-W>r", desc = "Window Swap" },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <leader>x -> code-shots {{{
-                --------------------------------------------------------------------------------
-                { "<leader>x", group = "code-shots", mode = { "n", "v" } },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <localleader>a -> avante {{{
-                --------------------------------------------------------------------------------
-                { "<localleader>a", group = "avante", mode = { "n", "v" } },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <localleader>b -> browse {{{
-                --------------------------------------------------------------------------------
-                { "<localleader>b", group = "browse", mode = { "n", "x" } },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <localleader>c -> chatgpt {{{
-                --------------------------------------------------------------------------------
-                { "<localleader>c", group = "chatgpt", mode = { "n", "x" } },
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                -- NOTE: extra git {{{
-                --------------------------------------------------------------------------------
-                { "<localleader>g", group = "git" },
-                --------------------------------------------------------------------------------
-                -- }}}
-                --------------------------------------------------------------------------------
-
-                --------------------------------------------------------------------------------
-                --  NOTE: <localleader>s -> treesitter {{{
-                --------------------------------------------------------------------------------
-                { "<localleader>s", group = "treesitter" },
                 -- }}}
                 --------------------------------------------------------------------------------
             })

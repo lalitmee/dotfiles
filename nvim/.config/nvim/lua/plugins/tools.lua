@@ -253,6 +253,9 @@ return {
     { --[[ neozoom ]]
         "nyngwang/NeoZoom.lua",
         cmd = { "NeoZoomToggle" },
+        keys = {
+            { "<leader>wm", ":NeoZoomToggle<CR>", desc = "Maximize Window" },
+        },
         config = function()
             require("neo-zoom").setup({
                 winopts = {
@@ -325,22 +328,46 @@ return {
     { --[[ fzf-lua ]]
         "ibhagwan/fzf-lua",
         cmd = { "FzfLua" },
-        -- stylua: ignore
         keys = {
+            { "<leader>aa", ":FzfLua<space>", desc = "Fzf Lua Builtin" },
+            { "<leader>bB", ":FzfLua buffers<CR>", desc = "Fzf Buffers" },
+            { "<leader>bL", ":FzfLua blines<CR>", desc = "Fzf Buffer Lines" },
+            { "<leader>fF", ":FzfLua files<CR>", desc = "Files" },
             "<C-]>",
             "gd",
+
+            { "<leader>F", group = "fzf" },
+            { "<leader>Fb", group = "buffers" },
+            { "<leader>Ff", group = "files" },
+            { "<leader>Fl", group = "lsp" },
+            { "<leader>Fs", group = "search" },
             { "<leader>F/", ":FzfLua live_grep<CR>", desc = "Fzf Live Grep", silent = true },
             { "<leader>FbL", ":FzfLua lines<CR>", desc = "Fzf Lines", silent = true },
             { "<leader>Fbb", ":FzfLua buffers<CR>", desc = "Fzf Buffers", silent = true },
             { "<leader>Fbl", ":FzfLua blines<CR>", desc = "Fzf Buffer Lines", silent = true },
             { "<leader>Fff", ":FzfLua files<CR>", desc = "Fzf Files", silent = true },
-            { "<leader>Fle", ":FzfLua lsp_document_diagnostics<CR>", desc = "Fzf Lsp Document Diagnostics", silent = true },
-            { "<leader>FlE", ":FzfLua lsp_workspace_diagnostics<CR>", desc = "Fzf Lsp Workspace Diagnostics", silent = true },
+            {
+                "<leader>Fle",
+                ":FzfLua lsp_document_diagnostics<CR>",
+                desc = "Fzf Lsp Document Diagnostics",
+                silent = true,
+            },
+            {
+                "<leader>FlE",
+                ":FzfLua lsp_workspace_diagnostics<CR>",
+                desc = "Fzf Lsp Workspace Diagnostics",
+                silent = true,
+            },
             { "<leader>Fll", ":FzfLua lsp_finder<CR>", desc = "Fzf Lsp Finder", silent = true },
             { "<leader>Flr", ":FzfLua lsp_references<CR>", desc = "Fzf Lsp References", silent = true },
             { "<leader>Flw", ":FzfLua lsp_document_symbols<CR>", desc = "Fzf Lsp Document Symbols", silent = true },
             { "<leader>FlW", ":FzfLua lsp_workspace_symbols<CR>", desc = "Fzf Lsp Workspace Symbols", silent = true },
-            { "<leader>Fls", ":FzfLua lsp_live_workspace_symbols<CR>", desc = "fzf-lsp-live-workspace-symbols", silent = true },
+            {
+                "<leader>Fls",
+                ":FzfLua lsp_live_workspace_symbols<CR>",
+                desc = "fzf-lsp-live-workspace-symbols",
+                silent = true,
+            },
             { "<leader>FsR", ":FzfLua live_grep_resume<CR>", desc = "Fzf Live Grep Resume", silent = true },
             { "<leader>Fsr", ":FzfLua resume<CR>", desc = "Fzf Resume", silent = true },
         },
@@ -474,16 +501,68 @@ return {
 
     { --[[ browse.nvim ]]
         "lalitmee/browse.nvim",
-        -- stylua: ignore
         keys = {
-            { "<localleader>bb", function() require("browse").browse() end, desc = "Browse", mode = { "n", "x" } },
-            { "<localleader>bc", function() require("utils.cht").cht() end, desc = "Cheatsheet" },
-            { "<localleader>bd", function() require("browse").devdocs.search() end, desc = "Devdocs Search" },
-            { "<localleader>bf", function() require("browse").devdocs.search_with_filetype() end, desc = "Devdocs Filetype Search" },
-            { "<localleader>bi", function() require("browse").input_search() end, desc = "Input Search", mode = { "n", "x" } },
-            { "<localleader>bl", function() require("browse").open_bookmarks() end, desc = "Bookmarks", mode = { "n", "x" } },
-            { "<localleader>bm", function() require("browse").mdn.search() end, desc = "Mdn Search", mode = { "n", "x" } },
-            { "<localleader>bs", function() require("utils.cht").stack_overflow() end, desc = "Stackoverflow" },
+            { "<localleader>b", group = "browse", mode = { "n", "x" } },
+            {
+                "<localleader>bb",
+                function()
+                    require("browse").browse()
+                end,
+                desc = "Browse",
+                mode = { "n", "x" },
+            },
+            {
+                "<localleader>bc",
+                function()
+                    require("utils.cht").cht()
+                end,
+                desc = "Cheatsheet",
+            },
+            {
+                "<localleader>bd",
+                function()
+                    require("browse").devdocs.search()
+                end,
+                desc = "Devdocs Search",
+            },
+            {
+                "<localleader>bf",
+                function()
+                    require("browse").devdocs.search_with_filetype()
+                end,
+                desc = "Devdocs Filetype Search",
+            },
+            {
+                "<localleader>bi",
+                function()
+                    require("browse").input_search()
+                end,
+                desc = "Input Search",
+                mode = { "n", "x" },
+            },
+            {
+                "<localleader>bl",
+                function()
+                    require("browse").open_bookmarks()
+                end,
+                desc = "Bookmarks",
+                mode = { "n", "x" },
+            },
+            {
+                "<localleader>bm",
+                function()
+                    require("browse").mdn.search()
+                end,
+                desc = "Mdn Search",
+                mode = { "n", "x" },
+            },
+            {
+                "<localleader>bs",
+                function()
+                    require("utils.cht").stack_overflow()
+                end,
+                desc = "Stackoverflow",
+            },
         },
         config = function()
             -- local bookmarks = {
@@ -625,11 +704,17 @@ return {
     { --[[ codesnap ]]
         "mistricky/codesnap.nvim",
         build = "make build_generator",
-        -- stylua: ignore
         keys = {
+            { "<leader>x", group = "code-shots", mode = { "n", "v" } },
             { "<leader>xa", ":CodeSnapASCII<CR>", mode = { "n", "v" }, desc = "Codesnap Ascii", silent = true },
             { "<leader>xh", ":CodeSnapHighlight<CR>", mode = { "n", "v" }, desc = "Codesnap Highlight", silent = true },
-            { "<leader>xH", ":CodeSnapSaveHighlight<CR>", mode = { "n", "v" }, desc = "Codesnap Save Highlight", silent = true },
+            {
+                "<leader>xH",
+                ":CodeSnapSaveHighlight<CR>",
+                mode = { "n", "v" },
+                desc = "Codesnap Save Highlight",
+                silent = true,
+            },
             { "<leader>xs", ":CodeSnap<CR>", mode = { "n", "v" }, desc = "Codesnap", silent = true },
             { "<leader>xS", ":CodeSnapSave<CR>", mode = { "n", "v" }, desc = "Codesnap Save", silent = true },
         },

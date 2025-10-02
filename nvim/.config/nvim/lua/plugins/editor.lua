@@ -172,6 +172,9 @@ return {
 
     { --[[ luasnip ]]
         "L3MON4D3/LuaSnip",
+        keys = {
+            { "<leader>ie", ":LuaSnipEdit<CR>", desc = "Edit Snippets" },
+        },
         event = "InsertEnter",
         dependencies = {
             "rafamadriz/friendly-snippets",
@@ -512,6 +515,7 @@ return {
         "folke/flash.nvim",
         event = "VeryLazy",
         keys = {
+            { "<leader>j", group = "jump", mode = { "n", "v" } },
             {
                 "<leader>jc",
                 mode = { "n", "o", "x", "v" },
@@ -725,6 +729,7 @@ return {
         "MagicDuck/grug-far.nvim",
         event = "VeryLazy",
         keys = {
+            { "<leader>ss", group = "grug-far-sar", mode = { "n", "v" } },
             {
                 "<leader>ss/",
                 function()

@@ -137,12 +137,18 @@ return {
     { --[[ colorizer ]]
         "NvChad/nvim-colorizer.lua",
         cmd = { "ColorizerToggle" },
+        keys = {
+            { "<leader>ac", ":ColorizerToggle<CR>", desc = "Toggle Colorizer" },
+        },
         config = true,
     },
 
     { --[[ colortils ]]
         "nvim-colortils/colortils.nvim",
         cmd = { "Colortils" },
+        keys = {
+            { "<leader>ic", ":Colortils<CR>", desc = "Color Picker" },
+        },
         opts = {},
     },
 }

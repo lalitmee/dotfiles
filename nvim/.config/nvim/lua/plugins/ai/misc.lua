@@ -97,6 +97,7 @@ return {
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
+            { "<localleader>c", group = "chatgpt", mode = { "n", "x" } },
             {
                 "<localleader>ca",
                 ":ChatGPTRun add_tests<CR>",
