@@ -1291,4 +1291,14 @@ return {
         },
         opts = {},
     },
+
+    { --[[ neoscroll.nvim ]]
+        "karb94/neoscroll.nvim",
+        event = { "BufAdd", "BufRead" },
+        opts = {
+            duration_multiplier = 0.8,
+            hide_cursor = false,
+            easing = "linear",
+        },
+    },
 }
