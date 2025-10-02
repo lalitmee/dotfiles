@@ -20,13 +20,6 @@
     "enabled": true
   },
   "tools": {
-    "requireConfirmation": false,
-    "shellCommand": {
-      "requireConfirmation": false
-    },
-    "fileSystem": {
-      "requireConfirmation": false
-    },
     "allowed": [
       "run_shell_command(git diff --staged)",
       "run_shell_command(git status --porcelain)",
