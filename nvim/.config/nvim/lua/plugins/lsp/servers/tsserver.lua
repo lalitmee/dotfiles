@@ -1,5 +1,3 @@
-local root_pattern = require("lspconfig.util").root_pattern
-
 return {
     settings = {
         javascript = {
@@ -25,5 +23,5 @@ return {
             },
         },
     },
-    root_dir = root_pattern(".git"),
+    -- root_dir = root_pattern(".git"),
 }
