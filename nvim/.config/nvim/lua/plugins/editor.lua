@@ -1043,10 +1043,10 @@ return {
                         "diagnostics",
                         sources = { "nvim_diagnostic" },
                         symbols = {
-                            error = "E:",
-                            warn = "W:",
-                            hint = "H:",
-                            info = "I:",
+                            error = "E:", -- 
+                            warn = "W:", -- 
+                            hint = "H:", -- 
+                            info = "I:", -- 
                         },
                         always_visible = false,
                     },
