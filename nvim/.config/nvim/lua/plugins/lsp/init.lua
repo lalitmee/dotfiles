@@ -163,6 +163,7 @@ return {
             },
         },
         config = function()
+            require("plugins.lsp.keys")
             require("plugins.lsp.handlers")
             require("plugins.lsp.diagnostics")
 
