@@ -16,24 +16,16 @@ return {
             {
                 "<tab>",
                 function()
-                    -- if there is a next edit, jump to it, otherwise apply it if any
+                    -- If a sidekick suggestion is available, jump to or apply it.
                     if require("sidekick").nes_jump_or_apply() then
-                        return -- jumped or applied
+                        return "" -- Keypress handled, do nothing more.
                     end
-
-                    -- if you are using Neovim's native inline completions
-                    if vim.lsp.inline_completion.get() then
-                        return
-                    end
-
-                    -- any other things (like snippets) you want to do on <tab> go here.
-
-                    -- fall back to normal tab
-                    return "<tab>"
+                    -- If no suggestion, return an empty string to prevent fallback to <C-i>.
+                    return ""
                 end,
-                mode = { "i", "n" },
+                mode = "n", -- IMPORTANT: Only applies to normal mode.
                 expr = true,
-                desc = "Goto/Apply Next Edit Suggestion",
+                desc = "Sidekick: Goto/Apply Next Edit Suggestion",
             },
             {
                 "<c-.>",
