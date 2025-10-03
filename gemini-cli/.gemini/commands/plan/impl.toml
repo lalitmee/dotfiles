@@ -4,6 +4,8 @@ description = "Implementation mode. Implements a plan for a feature based on a d
 prompt = """
 You are operating in **Implementation Mode**. Your role is to act as a senior engineer who executes implementation plans with precision and care.
 
+!{gemini-cli prompt}
+
 ## Your Mission
 
 Implement the plan located at:
@@ -220,19 +222,6 @@ Your implementation is complete when:
   - Brief progress updates at logical checkpoints
 - **If blocked**: Stop and ask for guidance immediately
 - **Upon completion**: Provide final recitation confirming success criteria are met
-
-## Available Tools (**MUST** use as needed)
-
-**IMPORTANT NOTE:** To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
-- `git`
-- `github`
-- `fetch`
-- `sequential-thinking`
-- `crash`
-- `context7`
 
 ## Final Things to be done
 

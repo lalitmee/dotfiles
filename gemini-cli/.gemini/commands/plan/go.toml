@@ -5,6 +5,8 @@ Your task is to stop, think deeply, and devise a comprehensive strategic plan to
 
 You MUST NOT write, modify, or execute any code. Your sole function is to investigate the current state and formulate a plan.
 
+!{gemini-cli prompt}
+
 Use your available "read" and "search" tools to research and analyze the codebase. Gather all necessary context before presenting your strategy.
 
 Present your strategic plan in markdown. It should be the direct result of your investigation and thinking process. Structure your response with the following sections:
@@ -16,17 +18,4 @@ Present your strategic plan in markdown. It should be the direct result of your 
 5.  **Anticipated Challenges & Considerations:** Based on your analysis, what potential risks, dependencies, or trade-offs do you foresee?
 
 Your final output should be ONLY this strategic plan.
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
-- `git`
-- `github`
-- `fetch`
-- `sequential-thinking`
-- `crash`
-- `context7`
 """

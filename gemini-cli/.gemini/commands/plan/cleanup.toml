@@ -2,6 +2,8 @@ description = "Cleanup the plan file generated for a feature."
 prompt = """
 You are in **Cleanup Mode**. Your task is to remove the implementation plan file that was generated for a specific feature.
 
+!{gemini-cli prompt}
+
 ## Your Mission
 
 Remove the plan file for the feature: "{{args}}"
@@ -24,17 +26,4 @@ If the user runs `/plan:cleanup my-new-feature`, you should:
 3.  If confirmed, run `rm plans/my-new-feature.md`.
 4.  Confirm that the file has been deleted.
 5.  If it does not exist, inform the user.
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
-- `git`
-- `github`
-- `fetch`
-- `sequential-thinking`
-- `crash`
-- `context7`
 """

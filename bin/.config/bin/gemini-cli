@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+
+# -------------------------------------------------------------------
+# NOTE: Main execution {{{ 
+# -------------------------------------------------------------------
+main() {
+  local command="$1"
+  shift
+
+  case "$command" in
+    prompt) 
+      # -------------------------------------------------------------------
+      # NOTE: prompt {{{ 
+      # -------------------------------------------------------------------
+      local PROMPT_FILE="$HOME/.gemini/tools/prompt.md"
+
+      if [[ -r "$PROMPT_FILE" ]]; then
+        # Read and print the file line by line to avoid using 'cat'
+        # and any potential aliases to 'bat'.
+        while IFS= read -r line;
+        do
+          printf '%s\n' "$line"
+        done < "$PROMPT_FILE"
+      else
+        echo "Error: Prompt file not found or not readable at $PROMPT_FILE" >&2
+        exit 1
+      fi
+      # -------------------------------------------------------------------
+      # }}} 
+      # -------------------------------------------------------------------
+      ;;
+    *)
+      echo "Usage: $(basename "$0") <command>"
+      echo
+      echo "Commands:"
+      echo "  prompt    - Displays the content of the prompt file."
+      exit 1
+      ;;
+  esac
+}
+# -------------------------------------------------------------------
+# }}} 
+# -------------------------------------------------------------------
+
+main "$@"
