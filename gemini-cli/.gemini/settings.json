@@ -1,4 +1,5 @@
 {
+  "useWriteTodos": true,
   "model": {
     "name": "gemini-2.5-pro"
   },
@@ -88,24 +89,39 @@
   "inactiveMcpServers": {
     "time": {
       "command": "uvx",
-      "args": ["mcp-server-time"]
+      "args": [
+        "mcp-server-time"
+      ]
     },
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "~/Projects/"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "~/Projects/"
+      ],
       "trust": true
     },
     "fetch": {
       "command": "uvx",
-      "args": ["mcp-server-fetch"]
+      "args": [
+        "mcp-server-fetch"
+      ]
     },
     "memory": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
     },
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git", "--repository", "."],
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "."
+      ],
       "trust": true
     },
     "github": {
@@ -127,14 +143,20 @@
     },
     "mcp-sequentialthinking-tools": {
       "command": "npx",
-      "args": ["-y", "mcp-sequentialthinking-tools"],
+      "args": [
+        "-y",
+        "mcp-sequentialthinking-tools"
+      ],
       "env": {
         "MAX_HISTORY_SIZE": "1000"
       }
     },
     "chrome-devtools": {
       "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     }
   }
 }
