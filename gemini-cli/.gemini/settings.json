@@ -28,24 +28,6 @@
       "run_shell_command(git ls-files --others --exclude-standard)"
     ]
   },
-  "mcp": {
-    "allowed": [
-      "time",
-      "filesystem",
-      "fetch",
-      "memory",
-      "git",
-      "github",
-      "context7",
-      "sequential-thinking",
-      "mcp-sequentialthinking-tools",
-      "crash",
-      "chrome-devtools",
-      "figma-local-mcp",
-      "server-sequential-thinking",
-      "todowrite"
-    ]
-  },
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
