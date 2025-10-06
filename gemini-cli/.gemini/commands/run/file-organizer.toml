@@ -91,11 +91,4 @@ mkdir -p "{{args}}"/Media/{Photos,Videos}
 # Organize files safely
 mv "{{args}}"/*.pdf "{{args}}"/Documents/PDF/
 ```
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
 """

@@ -19,12 +19,7 @@ Follow these steps:
 Remember to use the GitHub CLI (`gh`) with the Shell tool for all
 GitHub-related tasks.
 
-## Available Tools
 
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
 - `git`
 - `github`
 - `fetch`

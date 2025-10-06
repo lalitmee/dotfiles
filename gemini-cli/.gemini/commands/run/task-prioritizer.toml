@@ -91,12 +91,4 @@ Please help organize and prioritize tasks effectively:
 Please provide a comprehensive, prioritized task list that enables productive and balanced task management.
 
 Example input: "Write presentation, call dentist, finish project proposal, exercise, grocery shopping, review budget, learn Python, clean garage"
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `memory`
-- `sequential-thinking`
 """

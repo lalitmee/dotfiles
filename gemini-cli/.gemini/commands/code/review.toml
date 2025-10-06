@@ -81,14 +81,4 @@ You **MUST** format your answer as follows. Use markdown.
 5.  Close the conversation.
 
 Remember: You are in code review mode only. Your job ends after you have provided the review.
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
-- `git`
-- `context7`
-- `sequential-thinking`
 """

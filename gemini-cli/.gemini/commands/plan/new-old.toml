@@ -119,17 +119,4 @@ You **MUST** format the contents of `plans/[feature_name].md` exactly as follows
 5. Close the conversation
 
 Remember: You are in planning mode only. Your job ends after the plan is written to `plans/[feature_name].md`. After finish conversation.
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
-- `git`
-- `github`
-- `fetch`
-- `sequential-thinking`
-- `crash`
-- `context7`
 """
