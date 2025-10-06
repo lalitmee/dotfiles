@@ -34,6 +34,12 @@ calculate_width() {
         fi
     fi
 
+    # --- FIX ---
+    # Ensure the calculated width never exceeds the terminal width minus padding
+    local max_allowed=$(( term_width - 4 ))
+    (( width > max_allowed )) && width=$max_allowed
+    # -------------
+
     # Ensure minimum usable width
     (( width < 20 )) && width=20
     echo "$width"
