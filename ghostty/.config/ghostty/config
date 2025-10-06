@@ -16,7 +16,6 @@ font-size = 11
 gtk-titlebar = false
 gtk-tabs-location = bottom
 gtk-wide-tabs = false
-gtk-adwaita = false
 
 # window-decoration = false
 macos-titlebar-style = transparent
