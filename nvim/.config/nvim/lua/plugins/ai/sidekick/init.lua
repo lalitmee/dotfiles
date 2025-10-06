@@ -16,15 +16,9 @@ return {
             {
                 "<tab>",
                 function()
-                    -- If a sidekick suggestion is available, jump to or apply it.
-                    if require("sidekick").nes_jump_or_apply() then
-                        return "" -- Keypress handled, do nothing more.
-                    end
-                    -- If no suggestion, return an empty string to prevent fallback to <C-i>.
-                    return ""
+                    require("sidekick").nes_jump_or_apply()
                 end,
-                mode = "n", -- IMPORTANT: Only applies to normal mode.
-                expr = true,
+                mode = "n",
                 desc = "Sidekick: Goto/Apply Next Edit Suggestion",
             },
             {
