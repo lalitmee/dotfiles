@@ -61,14 +61,4 @@ Please provide comprehensive debugging assistance:
    - Update error handling documentation
 
 Please provide a step-by-step debugging plan with specific commands, tools, and verification steps tailored to the error and technology stack.
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
-- `git`
-- `sequential-thinking`
-- `crash`
 """

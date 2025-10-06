@@ -78,12 +78,4 @@ Please help create a well-crafted email:
 Please provide a complete, professional email draft ready to send, along with subject line suggestions and any relevant alternatives or modifications.
 
 Example context: "Schedule a meeting with the marketing team to discuss Q4 campaign strategy, need it by next Friday, include budget discussion"
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `memory`
-- `sequential-thinking`
 """

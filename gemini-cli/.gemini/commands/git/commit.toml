@@ -93,17 +93,4 @@ fix(api): resolve data validation issues
 - fix null pointer exceptions in user data
 - improve input validation for API endpoints
 ```
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `git`
-- `filesystem`
-- `github`
-- `fetch`
-- `sequential-thinking`
-- `crash`
-- `context7`
 """

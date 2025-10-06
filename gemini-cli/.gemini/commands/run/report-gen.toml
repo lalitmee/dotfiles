@@ -60,11 +60,4 @@ Example outputs:
 - Sales increased 15% QoQ with strongest growth in Q3
 - Customer satisfaction scores show 85% positive rating
 - Top performing category: Electronics (40% of revenue)
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
 """

@@ -40,11 +40,4 @@ Please follow these steps:
    - Include comments for complex test scenarios
 
 Please provide the complete test file with all generated test cases, including imports and setup code.
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
 """

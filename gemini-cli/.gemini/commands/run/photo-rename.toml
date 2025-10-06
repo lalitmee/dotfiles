@@ -53,11 +53,4 @@ Please provide:
 - Quality assessment and curation suggestions
 
 Example: Rename IMG_1234.jpg to "2024-07-20_Birthday-Party_Cake-Cutting_001.jpg"
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `filesystem`
 """

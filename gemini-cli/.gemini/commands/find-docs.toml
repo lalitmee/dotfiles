@@ -26,14 +26,4 @@ Your task is to find documentation files relevant to the user's question within 
 ### QUESTION:
 
 {{args}}
-
-## Available Tools
-
-To complete the task, you have been granted access to the following tools. You are expected to use them as needed.
-
-The tools available for this command are:
-- `fetch`
-- `git`
-- `github`
-- `filesystem`
 """

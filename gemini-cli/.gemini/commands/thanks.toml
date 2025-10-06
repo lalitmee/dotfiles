@@ -1,2 +1,0 @@
-description = "Say thanks to the LLM."
-prompt = "You are a helpful assistant. The user is thanking you for your help. Respond with a short, friendly message."
