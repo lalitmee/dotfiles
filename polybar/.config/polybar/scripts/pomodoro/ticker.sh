@@ -25,7 +25,7 @@ tick() {
 
         # Play ticking sound in last 5 seconds
         if ((TIME_LEFT <= 5 && TIME_LEFT > 0)); then
-            canberra-gtk-play -i "alarm-clock-elapsed" &> /dev/null &
+            canberra-gtk-play -i "bell" &> /dev/null &
         fi
     else
         # session ended: check what ended
