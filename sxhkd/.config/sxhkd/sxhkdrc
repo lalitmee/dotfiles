@@ -317,23 +317,27 @@ super + shift + p
 
 # Start Pomodoro
 super + alt + p
-   ~/.config/polybar/scripts/pomodoro.sh --click-left
+   ~/.config/polybar/scripts/pomodoro/main.sh --click-left
 
 # Start Break
 super + alt + b
-   ~/.config/polybar/scripts/pomodoro.sh --click-middle
+   ~/.config/polybar/scripts/pomodoro/main.sh --click-middle
 
-# Cancel Timer
+# Toggle Pause
 super + alt + c
-   ~/.config/polybar/scripts/pomodoro.sh --click-right
+   ~/.config/polybar/scripts/pomodoro/main.sh --click-right
 
 # Add time (+1 min)
 super + alt + Up
-   ~/.config/polybar/scripts/pomodoro.sh --add
+   ~/.config/polybar/scripts/pomodoro/main.sh --add
 
 # Subtract time (-1 min)
 super + alt + Down
-   ~/.config/polybar/scripts/pomodoro.sh --sub
+    ~/.config/polybar/scripts/pomodoro/main.sh --sub
+
+# Reset Pomodoro Timer
+super + alt + r
+    ~/.config/polybar/scripts/pomodoro/main.sh --reset
 
 # Live Speech-to-Text (Nerd Dictation Toggle)
 super + w
