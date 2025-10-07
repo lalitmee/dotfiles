@@ -74,5 +74,20 @@ vim.fn.jobstart(
                 })
             end
         end,
+        on_stderr = function(_, data)
+            local stderr = table.concat(data, "\n")
+            if not stderr:find("mcp") and stderr:find("Error:") then
+                if spinner_timer then
+                    spinner_timer:stop()
+                    spinner_timer:close()
+                end
+                spinner_running = false
+
+                vim.notify("Gemini CLI error: " .. stderr, vim.log.levels.ERROR, {
+                    id = "gemini_commit_msg",
+                    title = "Gemini CLI",
+                })
+            end
+        end,
     }
 )
