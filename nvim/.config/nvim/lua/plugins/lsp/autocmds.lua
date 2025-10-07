@@ -103,7 +103,7 @@ M.setup_autocommands = function(client, bufnr)
                 pattern = { "*.env" },
                 desc = "LSP: Disable Diagnostics for .env file",
                 command = function()
-                    vim.diagnostic.enable(false, { bufnr = bufnr })
+                    vim.diagnostic.enable(false, { bufnr = vim.api.nvim_get_current_buf() })
                 end,
             },
         }
