@@ -3,5 +3,30 @@
   "theme": "catppuccin",
   "model": "grok-code-fast-1",
   "autoshare": false,
-  "autoupdate": true
+  "autoupdate": true,
+  "mcp": {
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "environment": {
+        "DEFAULT_MINIMUM_TOKENS": "6000"
+      }
+    },
+    "server-sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "crash": {
+      "type": "local",
+      "command": ["npx", "-y", "crash-mcp"]
+    },
+    "figma-local-mcp": {
+      "type": "remote",
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  }
 }

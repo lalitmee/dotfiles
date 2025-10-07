@@ -36,7 +36,7 @@ tick() {
                 duration=$SHORT_BREAK_SEC
                 label="Break"
             fi
-            notify-send "Pomodoro Done ✅" "Time for a $label ($(duration/60)) mins"
+            notify-send -i "coffee-symbolic" "Pomodoro Done ✅" "Time for a $label ($(duration/60)) mins"
             canberra-gtk-play -i complete &> /dev/null &
             {
                 echo 'STATUS="☕ '"$label\""
@@ -47,7 +47,7 @@ tick() {
 
         else
             # break done → back to work
-            notify-send "Break’s Over ⏰" "Time to get back to work 🔴"
+            notify-send -i "timer-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
             canberra-gtk-play -i complete &> /dev/null &
             {
                 echo 'STATUS="🔴 Working"'

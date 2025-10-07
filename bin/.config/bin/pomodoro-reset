@@ -1,0 +1,4 @@
+#!/bin/bash
+# Simple script to reset pomodoro state easily
+
+~/.config/polybar/scripts/pomodoro/main.sh --reset

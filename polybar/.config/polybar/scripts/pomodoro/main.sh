@@ -67,7 +67,7 @@ start_pomodoro() {
         echo "POMO_COUNT=$count"
     } > "$STATE_FILE"
 
-    notify-send "Pomodoro Started " "Focus for $WORK_MIN minutes"
+    notify-send -i "timer-symbolic" "Pomodoro Started " "Focus for $WORK_MIN minutes"
     play_sound
     log_session "Started Pomodoro ($((count + 1)))"
 }
@@ -86,7 +86,7 @@ start_break() {
         echo "POMO_COUNT=$count"
     } > "$STATE_FILE"
 
-    notify-send "$type Started " "Take a $mins-minute break"
+    notify-send -i "coffee-symbolic" "$type Started " "Take a $mins-minute break"
     play_sound
     log_session "Started $type ($mins min)"
 }
@@ -113,11 +113,11 @@ toggle_pause() {
         source "$STATE_FILE"
         if [[ "$PAUSED" == "1" ]]; then
             PAUSED=0
-            notify-send "Pomodoro Resumed ▶️"
+            notify-send -i "timer-symbolic" "Pomodoro Resumed ▶️"
             log_session "Resumed"
         else
             PAUSED=1
-            notify-send "Pomodoro Paused ⏸"
+            notify-send -i "media-playback-pause-symbolic" "Pomodoro Paused ⏸"
             log_session "Paused"
         fi
         {
@@ -137,7 +137,7 @@ reset_timer() {
         echo "PAUSED=0"
         echo "POMO_COUNT=0"
     } > "$STATE_FILE"
-    notify-send "Pomodoro Reset" "Timer and session counter cleared"
+    notify-send -i "timer-symbolic" "Pomodoro Reset" "Timer and session counter cleared"
     log_session "Reset timer"
 }
 
