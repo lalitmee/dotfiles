@@ -47,7 +47,7 @@ tick() {
 
         else
             # break done → back to work
-            notify-send -i "appointment-new-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
+            notify-send -i "alarm-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
             canberra-gtk-play -i complete &> /dev/null &
             {
                 echo 'STATUS="🔴 Working"'
