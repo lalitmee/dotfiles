@@ -22,6 +22,11 @@ tick() {
             echo "PAUSED=$PAUSED"
             echo "POMO_COUNT=${POMO_COUNT:-0}"
         } > "$STATE_FILE"
+
+        # Play ticking sound in last 5 seconds
+        if ((TIME_LEFT <= 5 && TIME_LEFT > 0)); then
+            canberra-gtk-play -i "alarm-clock-elapsed" &> /dev/null &
+        fi
     else
         # session ended: check what ended
         status_text="${STATUS#* }" # drop icon, keep text
