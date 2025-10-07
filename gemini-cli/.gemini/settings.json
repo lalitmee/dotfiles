@@ -14,8 +14,7 @@
   "ui": {
     "theme": "Default",
     "hideBanner": true,
-    "hideTips": true,
-    "showMemoryUsage": true
+    "hideTips": true
   },
   "ide": {
     "enabled": true
@@ -37,7 +36,8 @@
   "context": {
     "fileName": [
       "CONTEXT.md",
-      "GEMINI.md"
+      "GEMINI.md",
+      "AGENTS.md"
     ]
   },
   "mcpServers": {
