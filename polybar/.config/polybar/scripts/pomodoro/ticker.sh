@@ -11,6 +11,9 @@ tick() {
     [[ ! -f "$STATE_FILE" ]] && return
     source "$STATE_FILE"
 
+    # If reset to Ready state, do nothing
+    [[ "$STATUS" == *"Ready"* ]] && return
+
     # 1️⃣ If paused, do nothing at all
     [[ "${PAUSED:-0}" == "1" ]] && return
 
@@ -25,7 +28,7 @@ tick() {
 
         # Play ticking sound in last 5 seconds
         if ((TIME_LEFT <= 5 && TIME_LEFT > 0)); then
-            canberra-gtk-play -f "$HOME/dotfiles/clock-ticking-down.wav" &> /dev/null &
+            canberra-gtk-play -f "./clock-ticking-down.wav" &> /dev/null &
         fi
     else
         # session ended: check what ended
@@ -52,10 +55,10 @@ tick() {
 
         else
             # break done → back to work
-            notify-send -i "alarm-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
+            notify-send -i "appointment-new-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
             canberra-gtk-play -i complete &> /dev/null &
             {
-                echo 'STATUS="🔴 Working"'
+                echo 'STATUS="⏱ Working"'
                 echo "TIME_LEFT=$WORK_SEC"
                 echo "PAUSED=0"
                 echo "POMO_COUNT=${POMO_COUNT:-0}"

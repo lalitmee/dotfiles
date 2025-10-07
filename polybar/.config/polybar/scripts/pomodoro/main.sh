@@ -9,7 +9,7 @@ MAX_POMODOROS=4
 
 # 🧠 Play alert sound
 play_sound() {
-    canberra-gtk-play -i complete &> /dev/null &
+    canberra-gtk-play -i "${1:-complete}" &> /dev/null &
 }
 
 # 🧠 Log session
@@ -57,18 +57,19 @@ update_display() {
 
 # 🧠 Start a Pomodoro
 start_pomodoro() {
+    local work_min=${1:-$WORK_MIN}
     local count=0
     [[ -f "$STATE_FILE" ]] && source "$STATE_FILE" && count="${POMO_COUNT:-0}"
 
     {
-        echo 'STATUS=" Working"'
-        echo "TIME_LEFT=$((WORK_MIN * 60))"
+        echo 'STATUS="⏱ Working"'
+        echo "TIME_LEFT=$((work_min * 60))"
         echo "PAUSED=0"
         echo "POMO_COUNT=$count"
     } > "$STATE_FILE"
 
-    notify-send -i "appointment-new-symbolic" "Pomodoro Started " "Focus for $WORK_MIN minutes"
-    play_sound
+    notify-send -i "timer-symbolic" "Pomodoro Started ⏱" "Focus for $work_min minutes"
+    play_sound "complete"
     log_session "Started Pomodoro ($((count + 1)))"
 }
 
@@ -113,11 +114,13 @@ toggle_pause() {
         source "$STATE_FILE"
         if [[ "$PAUSED" == "1" ]]; then
             PAUSED=0
-            notify-send -i "appointment-new-symbolic" "Pomodoro Resumed ▶️"
+            notify-send -i "timer-symbolic" "Pomodoro Resumed ▶️" "Back to focused work - you've got this!"
+            play_sound "complete"
             log_session "Resumed"
         else
             PAUSED=1
-            notify-send -i "media-playback-pause-symbolic" "Pomodoro Paused ⏸"
+            notify-send -i "media-playback-pause-symbolic" "Pomodoro Paused ⏸" "Take a short break to recharge and maintain productivity!"
+            play_sound "bell"
             log_session "Paused"
         fi
         {
@@ -133,17 +136,18 @@ toggle_pause() {
 reset_timer() {
     {
         echo 'STATUS=" Ready"'
-        echo "TIME_LEFT=0"
+        echo "TIME_LEFT=$((WORK_MIN * 60))"
         echo "PAUSED=0"
         echo "POMO_COUNT=0"
     } > "$STATE_FILE"
-    notify-send -i "appointment-new-symbolic" "Pomodoro Reset" "Timer and session counter cleared"
+    notify-send -i "timer-symbolic" "Pomodoro Reset" "Timer and session counter cleared"
     log_session "Reset timer"
 }
 
 # 🧠 Handle CLI input
 case "$1" in
     --click-left) start_pomodoro ;;
+    --start-work) start_pomodoro "$2" ;;
     --click-middle) start_break $BREAK_MIN "${POMO_COUNT:-0}" ;;
     --click-right) toggle_pause ;;
     --add) adjust_time 1 ;;
