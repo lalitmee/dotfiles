@@ -577,19 +577,12 @@ set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 # Provides hints to search and jump to text matches.
 set -g @plugin 'tmux-plugins/tmux-copycat'
 
-# Vim-style Easymotion-like navigation for jumping to text.
-set -g @plugin 'schasse/tmux-jump'
-# Change tmux-jump keybinding to avoid conflict with join-pane
-set -g @jump-key 'J'
-
 # Provides a better way to yank (copy) text to the system clipboard.
 set -g @plugin 'tmux-plugins/tmux-yank'
 
-# Automatically focus panes when switching windows or creating new panes.
-set -g @plugin 'graemedavidson/tmux-pane-focus'
-
 # Enhances copy and paste with visual hints and easy navigation.
 set -g @plugin 'Morantron/tmux-fingers'
+set-option -g @fingers-key "F"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -751,25 +744,6 @@ bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 # }}}
 #-------------------------------------------------------------------------------
 
-
-#-------------------------------------------------------------------------------
-# --- NOTE: Prefix - Pane Resizing {{{
-#           Fine-grained control over pane dimensions.
-#-------------------------------------------------------------------------------
-
-# Set the default number of cells to resize panes by.
-set -g @resize-step 10
-
-# Override default H, J, K, L bindings to resize panes using the @resize-step value.
-# It prioritizes session-specific values set by the menu, falling back to the global default.
-bind -r H run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -L #{session_name}"
-bind -r J run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -D #{session_name}"
-bind -r K run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -U #{session_name}"
-bind -r L run-shell "$HOME/.config/tmux/scripts/resize-pane.sh -R #{session_name}"
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # --- NOTE: Prefix - Script Launchers {{{
