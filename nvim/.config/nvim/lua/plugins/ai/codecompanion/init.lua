@@ -369,8 +369,8 @@ return {
                         exclude_files = config.exclude_files,
                         buffer = {
                             enabled = true,
-                            keymap = "<leader>gc",
-                            auto_generate = true,
+                            keymap = "<leader>cc",
+                            auto_generate = false,
                             auto_generate_delay = 200,
                             skip_auto_generate_on_amend = true,
                         },
