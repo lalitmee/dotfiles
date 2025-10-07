@@ -25,7 +25,7 @@ tick() {
 
         # Play ticking sound in last 5 seconds
         if ((TIME_LEFT <= 5 && TIME_LEFT > 0)); then
-            canberra-gtk-play -i "bell" &> /dev/null &
+            canberra-gtk-play -f "$HOME/dotfiles/clock-ticking-down.wav" &> /dev/null &
         fi
     else
         # session ended: check what ended
