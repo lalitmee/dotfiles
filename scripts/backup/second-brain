@@ -39,7 +39,7 @@ fi
 
 # 4. Only commit and push if there are actual changes
 if ! git diff --quiet || ! git diff --cached --quiet; then
-  git add .
+  git add --all
 
   if git commit -m "auto: $BRAIN backup on $(date '+%Y-%m-%d %H:%M:%S')" >/dev/null 2>&1; then
     if git push >/dev/null 2>&1; then
