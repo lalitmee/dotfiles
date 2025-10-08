@@ -669,7 +669,7 @@ This context helps us understand the sophisticated development environment we're
 
 ### Gum Table Best Practices
 
-- **Critical**: Always use `--separator=$'\t'` for tab-separated files
+- **Critical**: Always use `--separator=$'	'` for tab-separated files
 - **Avoid**: `--print` with `gum pager` (causes usage display instead of content)
 - **Version Compatibility**: Remove `--padding` flag (not supported in gum v0.16.2 on macOS)
 - **User Experience**: Add `read -n 1 -s` to keep popups open until user dismisses

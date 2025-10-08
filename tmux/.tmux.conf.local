@@ -771,6 +771,9 @@ setw -g allow-rename off
 # Launch the scratchpad popup script.
 bind m run-shell "~/.config/tmux/scripts/scratch-popup.sh"
 
+# Launch the gh-dash popup script.
+bind G run-shell "~/.config/tmux/scripts/gh-dash-popup.sh"
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
