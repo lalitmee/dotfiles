@@ -46,10 +46,6 @@ return {
                 --  NOTE: <leader>f -> files {{{
                 --------------------------------------------------------------------------------
                 { "<leader>f", group = "files" },
-                { "<leader>fs", ":w<CR>", desc = "Save Buffer" },
-                { "<leader>fS", ":wa<CR>", desc = "Save All Buffers" },
-                { "<leader>fw", ":noau w<CR>", desc = "Save Buffer No Format" },
-                { "<leader>fq", ":wq<CR>", desc = "Save And Quit" },
                 -- }}}
                 --------------------------------------------------------------------------------
 

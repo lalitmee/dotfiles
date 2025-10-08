@@ -971,6 +971,7 @@ return {
     },
 
     { --[[ jumppack.nvim ]]
+        enabled = false,
         "suliatis/Jumppack.nvim",
         -- stylua: ignore
         keys = {

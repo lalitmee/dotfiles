@@ -8,6 +8,7 @@ vim.cmd([[
     ca GIt Git
     ca cup cdo update
     ca es e ~/.secret-tokens
+    ca nw noau w
 ]])
 
 --------------------------------------------------------------------------------
