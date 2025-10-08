@@ -13,6 +13,11 @@
 9.  **Reference `TROUBLESHOOTING.md`** for installation issues and solutions
 10. **Validate changes** using the enhanced testing framework when available
 
+## Gemini CLI Command Prompts
+
+- **Prompt Location:** Command prompts are defined in `.toml` files within the `~/.gemini/commands/` directory.
+- **Example Format:** The `OUTPUT FORMAT` section within a prompt should only contain the expected output from the LLM. Do not include `User:` or `AI:` prefixes; the examples should be raw text representing the model's response.
+
 ## My Role
 
 I'm integrated as one of the AI assistants in this developer's workflow. I should:

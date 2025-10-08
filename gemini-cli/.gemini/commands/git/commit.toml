@@ -77,7 +77,7 @@ type(scope): brief description
     *   **If the user says "no":**
         *   End the workflow.
 
-## REQUIRED EXAMPLES:
+## OUTPUT FORMAT:
 
 ```
 feat(auth): add OAuth2 integration
