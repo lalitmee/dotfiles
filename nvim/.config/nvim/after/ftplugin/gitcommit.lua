@@ -50,6 +50,7 @@ if not spinner_running then
 end
 
 -- Run gemini CLI with git diff piped to it
+local original_bufnr = vim.api.nvim_get_current_buf()
 vim.fn.jobstart(
     "git diff --cached | gemini --prompt 'Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. Include at least one bullet point 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message'",
     {
@@ -62,16 +63,25 @@ vim.fn.jobstart(
                 end
                 spinner_running = false
 
-                local output = table.concat(data, "\n")
-                local commit_message = output:gsub("^%s*(.-)%s*$", "%1")
+                -- Check if the original buffer is still valid and active
+                if vim.api.nvim_buf_is_valid(original_bufnr) and vim.api.nvim_get_current_buf() == original_bufnr then
+                    local output = table.concat(data, "\n")
+                    local commit_message = output:gsub("^%s*(.-)%s*$", "%1")
 
-                vim.api.nvim_buf_set_lines(0, 0, 0, false, vim.split(commit_message, "\n"))
+                    vim.api.nvim_buf_set_lines(original_bufnr, 0, 0, false, vim.split(commit_message, "\n"))
 
-                vim.notify("✨ Commit message generated and inserted into buffer!", vim.log.levels.INFO, {
-                    id = "gemini_commit_msg",
-                    title = "Gemini CLI",
-                    timeout = 2000,
-                })
+                    vim.notify("✨ Commit message generated and inserted into buffer!", vim.log.levels.INFO, {
+                        id = "gemini_commit_msg",
+                        title = "Gemini CLI",
+                        timeout = 2000,
+                    })
+                else
+                    vim.notify("Gitcommit buffer closed. Gemini response discarded.", vim.log.levels.WARN, {
+                        id = "gemini_commit_msg",
+                        title = "Gemini CLI",
+                        timeout = 5000,
+                    })
+                end
             end
         end,
         on_stderr = function(_, data)
