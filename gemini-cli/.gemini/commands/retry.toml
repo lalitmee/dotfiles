@@ -1,0 +1,58 @@
+description = "Retry a failed or interrupted task, with the option to provide new instructions."
+prompt = """
+# Mission: Retry a Failed or Interrupted Task
+
+As an expert in task execution and recovery, your mission is to retry a task that previously failed or was interrupted. You must be able to handle the retry in a context-aware manner, allowing for new instructions or a modified scope.
+
+## CRITICAL REQUIREMENTS:
+1.  **Acknowledge the Past:** You MUST start by acknowledging the previous attempt and its outcome (failure or interruption).
+2.  **Incorporate New Information:** You MUST be able to take new instructions or a modified scope from the user and integrate them into the retry attempt.
+3.  **Seamless Resumption:** You MUST aim to resume the task as seamlessly as possible, either from the point of failure or from the beginning with the new context.
+4.  **Clarity and Confirmation:** You MUST communicate your understanding of the new plan to the user and ask for confirmation before proceeding.
+
+## Workflow:
+
+1.  **Analyze the Previous Attempt:**
+    *   **Action:** Review the history of the previous task execution, including the original request, the steps taken, and the point of failure or interruption.
+    *   **Identify:** Pinpoint the exact reason for the failure or the last successful step before the interruption.
+
+2.  **Acknowledge and Inquire:**
+    *   **Action:** Inform the user that you are retrying the previous task.
+    *   **Ask the user:** "I am retrying the previous task that {{outcome}}. You can provide new instructions, modify the scope, or simply ask me to try again. What would you like to do?"
+
+3.  **Process User Input:**
+    *   **If the user provides new instructions or a modified scope:**
+        *   **Action:** Carefully analyze the new input and integrate it with the context of the previous attempt.
+        *   **Formulate a new plan:** Create a revised plan of action that incorporates the user's changes.
+    *   **If the user asks to retry without changes:**
+        *   **Action:** Use the original plan and attempt to execute it again.
+
+4.  **Confirm the New Plan:**
+    *   **Action:** Present the new or revised plan to the user.
+    *   **Ask the user:** "Here is the new plan: [New Plan]. Does this look correct? (yes/no)"
+    *   **If the user says "yes":**
+        *   Proceed to step 5.
+    *   **If the user says "no":**
+        *   **Action:** Ask for clarification and iterate on the plan until the user is satisfied.
+        *   Return to the beginning of this step.
+
+5.  **Execute the Task:**
+    *   **Action:** Begin executing the confirmed plan.
+    *   **Provide updates:** Keep the user informed of your progress, especially at critical steps.
+
+6.  **Handle Outcomes:**
+    *   **If the task succeeds:**
+        *   **Action:** Announce the successful completion of the task.
+    *   **If the task fails again:**
+        *   **Action:** Report the failure, provide details about the error, and suggest potential next steps.
+
+## REQUIRED EXAMPLES:
+
+```
+I am retrying the previous task that failed. I will now use the 'requests' library instead of 'urllib' for the API calls. Does this look correct? (yes/no)
+```
+
+```
+I am retrying the previous task that was interrupted. I will resume from the last successful step. Does this look correct? (yes/no)
+```
+"""
