@@ -38,6 +38,11 @@ When creating a new toggleable popup in tmux, the following workflow should be f
 4.  **Add the Keybinding**: Once approved, add the keybinding to `~/dotfiles/tmux/.tmux.conf.local`.
 5.  **Reload Tmux**: Instruct the user to reload their tmux configuration.
 
+## Gemini CLI Command Prompts
+
+- **Prompt Location:** Command prompts are defined in `.toml` files within the `~/.gemini/commands/` directory.
+- **Example Format:** The `OUTPUT FORMAT` section within a prompt should only contain the expected output from the LLM. Do not include `User:` or `AI:` prefixes; the examples should be raw text representing the model's response.
+
 ## User Preferences
 
 - **UI/UX**: The user appreciates rich, styled terminal UI using tools like `gum`.

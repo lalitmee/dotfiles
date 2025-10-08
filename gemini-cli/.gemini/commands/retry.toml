@@ -46,7 +46,7 @@ As an expert in task execution and recovery, your mission is to retry a task tha
     *   **If the task fails again:**
         *   **Action:** Report the failure, provide details about the error, and suggest potential next steps.
 
-## REQUIRED EXAMPLES:
+## OUTPUT FORMAT:
 
 ```
 I am retrying the previous task that failed. I will now use the 'requests' library instead of 'urllib' for the API calls. Does this look correct? (yes/no)
