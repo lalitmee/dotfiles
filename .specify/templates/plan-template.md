@@ -31,7 +31,10 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- **Clarity & Intent**: Does the plan confirm understanding of the user's goal?
+- **Safety & Confirmation**: Does the plan include steps for user confirmation before any destructive or significant changes?
+- **Rigorous Verification**: Does the plan account for testing and syntax validation?
+- **Knowledge Management**: Does the plan include tasks for updating relevant documentation (context files, help tables, etc.)?
 
 ## Project Structure
 
