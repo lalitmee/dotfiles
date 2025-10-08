@@ -662,6 +662,8 @@ return {
                 ["workspaces"] = "https://www.reddit.com/r/workspaces",
                 ["bootstrap"] = "https://getbootstrap.com",
                 ["pkg.go.dev"] = "https://pkg.go.dev/search?q=%s",
+                ["gemini-cli"] = "https://github.com/google-gemini/gemini-cli",
+                ["spec-kit"] = "https://github.com/github/spec-kit",
             }
             require("browse").setup({
                 provider = "duckduckgo", -- google or bing
