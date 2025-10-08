@@ -1,50 +1,60 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+- Version: 1.0.0 (from unversioned template)
+- Rationale: Initial versioning of the constitution based on established project guidelines from GEMINI.md and README.md.
+- Modified Principles:
+  - PRINCIPLE_1: Renamed and defined as "Clarity and Intent"
+  - PRINCIPLE_2: Renamed and defined as "Safety and User Confirmation"
+  - PRINCIPLE_3: Renamed and defined as "Holistic & Precise Changes"
+  - PRINCIPLE_4: Renamed and defined as "Rigorous Verification"
+  - PRINCIPLE_5: Renamed and defined as "Proactive Knowledge Management"
+- Added Sections:
+  - Agent Guidelines
+- Removed Sections:
+  - SECTION_2_NAME, SECTION_3_NAME (and their content)
+- Templates Requiring Updates:
+  - ✅ .specify/templates/plan-template.md (Updated constitution check gates)
+  - ✅ .specify/templates/tasks-template.md (Added note on constitutional alignment)
+  - ✅ .specify/templates/spec-template.md (Checked, no changes needed)
+- Follow-up TODOs:
+  - TODO(RATIFICATION_DATE): Determine original adoption date.
+-->
+# Dotfiles Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Clarity and Intent
+Before implementing a solution, the agent MUST re-state the user's goal to confirm understanding and briefly explain its hypothesis for the fix. This ensures alignment and prevents work on misunderstood requirements.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Safety and User Confirmation
+The agent MUST NEVER auto-commit changes (except for pure context updates). It MUST always ask for permission before committing. For complex or destructive actions, the agent MUST leverage user feedback and direct simulation to ensure safety.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Holistic & Precise Changes
+If a change results in unexpected behavior, the agent MUST stop and re-evaluate the entire context holistically. Changes MUST be as small and targeted as possible to solve the problem. Reversions MUST be explicit.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Rigorous Verification
+The agent MUST validate its work. This includes:
+- Verifying syntax after any code modification (`zsh -n`, `bash -n`, etc.).
+- Testing changes, especially for critical components like `tmux`.
+- Verifying and setting executable permissions for any new scripts.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Proactive Knowledge Management
+The agent MUST keep documentation and context files current. This includes:
+- Immediately updating context files (`GEMINI.md`, `AGENTS.md`) with new learnings, workflows, or solutions.
+- Updating `tmux` help tables when keybindings are changed.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Agent Guidelines
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Core Directives
+1.  **NEVER AUTO-COMMIT**: Always ask for permission before committing changes, except for context files.
+2.  **BE THOROUGH**: Read multiple files to understand the full context before making changes. Do not assume.
+3.  **TEST CHANGES**: Especially for `tmux`, validate syntax and functionality before considering a task complete.
+4.  **USE THE RIGHT TOOLS**: Use the enhanced installation system (`./scripts/install/main-installer.zsh`) for any system setup tasks.
+5.  **RESPECT CONVENTIONS**: Adhere strictly to the coding styles, naming conventions, and workflows outlined in the context files.
+6.  **UPDATE DOCUMENTATION**: When changing keybindings, update the `tmux` help tables.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other practices. All agent actions, pull requests, and reviews must verify compliance with these principles. Complexity or deviation must be explicitly justified.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Determine original adoption date. | **Last Amended**: 2025-10-07
