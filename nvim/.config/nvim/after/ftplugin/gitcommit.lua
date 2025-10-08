@@ -17,87 +17,97 @@ opt.softtabstop = 4
 opt.tabstop = 4
 opt.spell = true
 
--- Auto-generate commit message using Gemini CLI when opening gitcommit buffer
-local spinner_chars = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-local spinner_index = 1
-local spinner_running = false
-local spinner_timer = nil
+-- Configuration for the script
+local config = {
+    notification_id = "gemini_commit_msg",
+    notification_title = "Gemini CLI",
+    spinner_chars = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+    prompt = "Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. Include at least one bullet point (not more than 72 chars long) 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message 6. Use only lowercase letters for general text, but capitalize proper nouns, code (from diff) and acronyms",
+}
 
--- Function to update spinner
-local function update_spinner()
-    vim.notify("Generating commit message...", vim.log.levels.INFO, {
-        id = "gemini_commit_msg",
-        title = spinner_chars[spinner_index] .. " Gemini CLI",
-        timeout = false, -- Keep it visible
-    })
-    spinner_index = spinner_index % #spinner_chars + 1
+-- State management for the script
+local state = {
+    spinner_running = false,
+    spinner_timer = nil,
+    spinner_index = 1,
+    original_bufnr = vim.api.nvim_get_current_buf(),
+}
+
+-- Helper function for sending notifications
+local function notify(message, level, opts)
+    opts = opts or {}
+    opts.id = config.notification_id
+    opts.title = opts.title or config.notification_title
+    vim.notify(message, level, opts)
 end
 
--- Start spinner notification (only if not already running)
-if not spinner_running then
-    spinner_running = true
-    vim.notify("Generating commit message...", vim.log.levels.INFO, {
-        id = "gemini_commit_msg",
-        title = spinner_chars[1] .. " Gemini CLI",
+local spinner = {}
+
+function spinner.update()
+    notify("Generating commit message...", vim.log.levels.INFO, {
+        title = config.spinner_chars[state.spinner_index] .. " " .. config.notification_title,
         timeout = false,
     })
+    state.spinner_index = state.spinner_index % #config.spinner_chars + 1
+end
 
-    -- Start spinner timer (update every 100ms)
-    spinner_timer = vim.loop.new_timer()
-    if spinner_timer then
-        spinner_timer:start(0, 100, vim.schedule_wrap(update_spinner))
+function spinner.start()
+    if not state.spinner_running then
+        state.spinner_running = true
+        notify("Generating commit message...", vim.log.levels.INFO, {
+            title = config.spinner_chars[1] .. " " .. config.notification_title,
+            timeout = false,
+        })
+        state.spinner_timer = vim.loop.new_timer()
+        if state.spinner_timer then
+            state.spinner_timer:start(0, 100, vim.schedule_wrap(spinner.update))
+        end
     end
 end
 
--- Run gemini CLI with git diff piped to it
-local original_bufnr = vim.api.nvim_get_current_buf()
-vim.fn.jobstart(
-    "git diff --cached | gemini --prompt 'Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. Include at least one bullet point 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message'",
-    {
-        stdout_buffered = true,
-        on_stdout = function(_, data)
-            if spinner_running and data and #data > 0 then
-                if spinner_timer then
-                    spinner_timer:stop()
-                    spinner_timer:close()
-                end
-                spinner_running = false
+function spinner.stop()
+    if state.spinner_running then
+        if state.spinner_timer then
+            state.spinner_timer:stop()
+            state.spinner_timer:close()
+        end
+        state.spinner_running = false
+    end
+end
 
-                -- Check if the original buffer is still valid and active
-                if vim.api.nvim_buf_is_valid(original_bufnr) and vim.api.nvim_get_current_buf() == original_bufnr then
-                    local output = table.concat(data, "\n")
-                    local commit_message = output:gsub("^%s*(.-)%s*$", "%1")
+-- Start the spinner
+spinner.start()
 
-                    vim.api.nvim_buf_set_lines(original_bufnr, 0, 0, false, vim.split(commit_message, "\n"))
+-- Construct the command
+local command = string.format("git diff --cached | gemini --prompt '%s'", config.prompt)
 
-                    vim.notify("✨ Commit message generated and inserted into buffer!", vim.log.levels.INFO, {
-                        id = "gemini_commit_msg",
-                        title = "Gemini CLI",
-                        timeout = 2000,
-                    })
-                else
-                    vim.notify("Gitcommit buffer closed. Gemini response discarded.", vim.log.levels.WARN, {
-                        id = "gemini_commit_msg",
-                        title = "Gemini CLI",
-                        timeout = 5000,
-                    })
-                end
+vim.fn.jobstart(command, {
+    stdout_buffered = true,
+    on_stdout = function(_, data)
+        spinner.stop()
+        if data and #data > 0 then
+            if
+                vim.api.nvim_buf_is_valid(state.original_bufnr)
+                and vim.api.nvim_get_current_buf() == state.original_bufnr
+            then
+                local output = table.concat(data, "\n")
+                local commit_message = output:gsub("^%s*(.-)%s*$", "%1")
+                vim.api.nvim_buf_set_lines(state.original_bufnr, 0, 0, false, vim.split(commit_message, "\n"))
+                notify(
+                    "✨ Commit message generated and inserted into buffer!",
+                    vim.log.levels.INFO,
+                    { timeout = 2000 }
+                )
+            else
+                notify("Gitcommit buffer closed. Gemini response discarded.", vim.log.levels.WARN, { timeout = 5000 })
             end
-        end,
-        on_stderr = function(_, data)
-            local stderr = table.concat(data, "\n")
-            if not stderr:find("mcp") and stderr:find("Error:") then
-                if spinner_timer then
-                    spinner_timer:stop()
-                    spinner_timer:close()
-                end
-                spinner_running = false
-
-                vim.notify("Gemini CLI error: " .. stderr, vim.log.levels.ERROR, {
-                    id = "gemini_commit_msg",
-                    title = "Gemini CLI",
-                })
-            end
-        end,
-    }
-)
+        end
+    end,
+    on_stderr = function(_, data)
+        spinner.stop()
+        local stderr = table.concat(data, "\n")
+        if not stderr:find("mcp") and stderr:find("Error:") then
+            notify("Gemini CLI error: " .. stderr, vim.log.levels.ERROR)
+        end
+    end,
+})
