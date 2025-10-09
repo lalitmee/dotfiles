@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+
+# Script to toggle the Bluetooth headset profile between high-quality audio and dictation mode.
+
+# --- Configuration ---
+# The description of your headset as it appears in `pactl list cards`
+HEADSET_DESCRIPTION="Boult Audio Airbass"
+
+# --- Script Logic ---
+
+# Find the card name for the headset
+CARD_NAME=$(pactl list cards | grep -B 20 "$HEADSET_DESCRIPTION" | grep 'Name:' | awk '{print $2}' | head -n 1)
+
+# Check if the headset is connected
+if [[ -z "$CARD_NAME" ]]; then
+    notify-send -u normal "Headset Profile" "$HEADSET_DESCRIPTION not found."
+    exit 1
+fi
+
+# Get the active profile
+ACTIVE_PROFILE=$(pactl -f json list cards | jq -r --arg CARD_NAME "$CARD_NAME" '.[] | select(.name == $CARD_NAME) | .active_profile')
+
+# Toggle the profile
+if [[ "$ACTIVE_PROFILE" == "a2dp-sink" ]]; then
+    # Switch to headset profile for dictation
+    pactl set-card-profile "$CARD_NAME" headset-head-unit
+    notify-send -i microphone-sensitivity-high-symbolic -u normal "Headset Profile Changed" "Switched to <b>Dictation Mode</b> (HSP/HFP)."
+else
+    # Switch back to high-quality audio
+    pactl set-card-profile "$CARD_NAME" a2dp-sink
+    notify-send -i audio-headphones -u normal "Headset Profile Changed" "Switched to <b>High-Quality Audio</b> (A2DP)."
+fi
