@@ -86,28 +86,26 @@ vim.fn.jobstart(command, {
     on_stdout = function(_, data)
         spinner.stop()
         if data and #data > 0 then
-            if
-                vim.api.nvim_buf_is_valid(state.original_bufnr)
-                and vim.api.nvim_get_current_buf() == state.original_bufnr
-            then
+            if vim.api.nvim_buf_is_valid(state.original_bufnr) and vim.api.nvim_get_current_buf() == state.original_bufnr then
                 local output = table.concat(data, "\n")
                 local commit_message = output:gsub("^%s*(.-)%s*$", "%1")
                 vim.api.nvim_buf_set_lines(state.original_bufnr, 0, 0, false, vim.split(commit_message, "\n"))
-                notify(
-                    "✨ Commit message generated and inserted into buffer!",
-                    vim.log.levels.INFO,
-                    { timeout = 2000 }
-                )
+                notify("✨ Commit message generated and inserted into buffer!", vim.log.levels.INFO, { timeout = 2000 })
             else
                 notify("Gitcommit buffer closed. Gemini response discarded.", vim.log.levels.WARN, { timeout = 5000 })
             end
         end
     end,
     on_stderr = function(_, data)
-        spinner.stop()
         local stderr = table.concat(data, "\n")
+        -- Only stop the spinner and notify if a real error is detected.
         if not stderr:find("mcp") and stderr:find("Error:") then
+            spinner.stop()
             notify("Gemini CLI error: " .. stderr, vim.log.levels.ERROR)
         end
+    end,
+    on_exit = function()
+        -- Ensure the spinner is always stopped when the job exits.
+        spinner.stop()
     end,
 })
