@@ -1,5 +1,4 @@
 local opt = vim.opt_local
-local nnoremap = lk.nnoremap
 
 ----------------------------------------------------------------------
 -- NOTE: hover doc function {{{
@@ -61,14 +60,14 @@ local function hover_doc()
     keyword(nil, cb)
 end
 
-nnoremap("gK", hover_doc, { buffer = 0 })
+vim.keymap.set("n", "gK", hover_doc, { noremap = true, buffer = 0 })
 -- }}}
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- NOTE: options {{{
 ----------------------------------------------------------------------
-opt.colorcolumn = { }
+opt.colorcolumn = {}
 opt.expandtab = true
 opt.formatoptions = opt.formatoptions - "o" -- don't continue comments on `o` and `O`
 opt.shiftwidth = 4
