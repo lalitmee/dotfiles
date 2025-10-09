@@ -11,8 +11,12 @@ for cmd in pactl fzf jq notify-send; do
     fi
 done
 
-# Get physical sources (monitors are excluded) using a highly compatible jq query.
-sources=$(pactl -f json list sources | jq -r '.[] | select(.properties["device.class"] != "monitor") | (if .properties["device.description"] != null then .properties["device.description"] else .name end) + " -> " + .name')
+sources=$(pactl -f json list sources | jq -r '.[] | select(.name | test("\\.monitor$") | not) | select(.name != "noise_cancelled_source") | "[\(.properties["device.description"] // "N/A")]: (\(.name)) -> \(.name)"' | sort -u)
+
+# Fallback if jq fails or finds no sources
+if [[ -z "$sources" ]]; then
+    sources=$(pactl list short sources | awk '{print $2 " -> " $2}' | grep -v '.monitor$')
+fi
 
 # Check if sources found
 if [[ -z "$sources" ]]; then
