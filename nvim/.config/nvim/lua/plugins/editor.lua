@@ -433,8 +433,13 @@ return {
     { --[[ flash.nvim ]]
         "folke/flash.nvim",
         event = "VeryLazy",
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>j", group = "jump", mode = { "n", "v" } },
+            })
+        end,
         keys = {
-            { "<leader>j", group = "jump", mode = { "n", "v" } },
             {
                 "<leader>jc",
                 mode = { "n", "o", "x", "v" },
@@ -647,8 +652,13 @@ return {
     { --[[ grug-far ]]
         "MagicDuck/grug-far.nvim",
         event = "VeryLazy",
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>ss", group = "grug-far-sar", mode = { "n", "v" } },
+            })
+        end,
         keys = {
-            { "<leader>ss", group = "grug-far-sar", mode = { "n", "v" } },
             {
                 "<leader>ss/",
                 function()

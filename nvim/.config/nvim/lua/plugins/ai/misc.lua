@@ -69,7 +69,6 @@ return {
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
-            { "<localleader>c", group = "chatgpt", mode = { "n", "x" } },
             {
                 "<localleader>ca",
                 ":ChatGPTRun add_tests<CR>",
@@ -148,6 +147,12 @@ return {
                 mode = { "n", "v" },
             },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<localleader>c", group = "chatgpt", mode = { "n", "x" } },
+            })
+        end,
         opts = {
             popup_input = {
                 submit = "<Enter>",

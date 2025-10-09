@@ -217,7 +217,6 @@ return {
         "CCGitCommit",
     },
     keys = {
-        { "<leader>c", group = "code-companion", mode = { "n", "v" } },
         {
             "<leader>ca",
             ":CodeCompanionActions<CR>",
@@ -231,6 +230,11 @@ return {
     },
     init = function()
         vim.cmd([[cab cc CodeCompanion]])
+
+        local wk = require("which-key")
+        wk.add({
+            { "<leader>c", group = "code-companion", mode = { "n", "v" } },
+        })
     end,
     opts = function()
         local available_providers = get_available_providers()

@@ -11,8 +11,13 @@ return {
                 },
             },
         },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<localleader>a", group = "sidekick", mode = { "n", "v" } },
+            })
+        end,
         keys = {
-            { "<localleader>a", group = "sidekick", mode = { "n", "v" } },
             {
                 "<tab>",
                 function()

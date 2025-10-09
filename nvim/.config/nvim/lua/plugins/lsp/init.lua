@@ -89,8 +89,13 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart", "LspCopilotSignIn" },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>l", group = "lsp", mode = { "n", "v" } },
+            })
+        end,
         keys = {
-            { "<leader>l", group = "lsp", mode = { "n", "v" } },
             {
                 "<leader>la",
                 function()

@@ -64,8 +64,13 @@ return {
 
     { --[[ neogen ]]
         "danymat/neogen",
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>d", group = "doc" },
+            })
+        end,
         keys = {
-            { "<leader>d", group = "doc" },
             { "<leader>dd", "<cmd>Neogen<CR>", desc = "Doc This", silent = true },
             { "<leader>dc", "<cmd>Neogen class<cr>", desc = "Doc This Class", silent = true },
             { "<leader>df", "<cmd>Neogen func<cr>", desc = "Doc This Function", silent = true },
@@ -193,8 +198,13 @@ return {
             "OverseerTaskAction",
             "OverseerToggle",
         },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>ro", group = "overseer" },
+            })
+        end,
         keys = {
-            { "<leader>ro", group = "overseer" },
             { "<leader>ro<leader>", ":OverseerQuickAction<CR>", desc = "Quick Action", silent = true },
             { "<leader>roa", ":OverseerTaskAction<CR>", desc = "Task Action", silent = true },
             { "<leader>rob", ":OverseerBuild<CR>", desc = "Build", silent = true },
@@ -325,13 +335,16 @@ return {
 
     { --[[ rest.nvim ]]
         "rest-nvim/rest.nvim",
-        keys = {
-            { "<leader>rh", group = "http" },
-        },
         dependencies = {
             { "j-hui/fidget.nvim", opts = {} },
         },
         ft = { "http" },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>rh", group = "http" },
+            })
+        end,
         -- stylua: ignore
         keys = {
             { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "Run Request" },
@@ -345,8 +358,13 @@ return {
     { --[[ leetcode.nvim ]]
         "kawre/leetcode.nvim",
         lazy = leet_arg ~= vim.fn.argv()[1],
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>cl", group = "leetcode" },
+            })
+        end,
         keys = {
-            { "<leader>cl", group = "leetcode" },
             { "<leader>cla", "<cmd>Leet<cr>", silent = true, mode = { "n" }, desc = "Leet menu" },
             { "<leader>clb", "<cmd>Leet lang<cr>", silent = true, mode = { "n" }, desc = "Leet lang" },
             { "<leader>clc", "<cmd>Leet console<cr>", silent = true, mode = { "n" }, desc = "Leet console" },

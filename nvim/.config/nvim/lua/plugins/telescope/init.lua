@@ -3,6 +3,12 @@ return {
         "nvim-telescope/telescope.nvim",
         -- tag = "0.1.8",
         cmd = { "Telescope" },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>v", group = "vim" },
+            })
+        end,
         keys = {
             { "<leader>:", ":Telescope commands<CR>", desc = "Commands" },
             { "<leader><leader>", ":Telescope find_files<CR>", desc = "Find Files" },
@@ -33,7 +39,6 @@ return {
             { "<leader>sr", ":Telescope resume<CR>", desc = "Live Grep Resume" },
 
             -- vim
-            { "<leader>v", group = "vim" },
             { "<leader>v/", ":Telescope search_history<CR>", desc = "Search History" },
             { "<leader>v:", ":Telescope commands<CR>", desc = "Commands" },
             { "<leader>va", ":Telescope autocommands<CR>", desc = "Autocommands" },
