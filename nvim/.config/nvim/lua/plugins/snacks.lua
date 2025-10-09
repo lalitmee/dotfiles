@@ -101,7 +101,6 @@ return { --[[ snacks.nvim ]]
         },
 
         -- scratch
-        { "<leader>k", group = "scratch" },
         {
             "<leader>k.",
             function()
@@ -188,7 +187,12 @@ return { --[[ snacks.nvim ]]
             enabled = true,
         },
     },
+
     init = function()
+        local wk = require("which-key")
+        wk.add({
+            { "<leader>k", group = "scratch" },
+        })
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
             callback = function()

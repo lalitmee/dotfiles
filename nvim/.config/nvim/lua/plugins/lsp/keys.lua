@@ -1,7 +1,6 @@
 local wk = require("which-key")
 
 wk.add({
-    { "<leader>e", group = "errors", mode = { "n", "v" } },
     {
         "<leader>ed",
         function()

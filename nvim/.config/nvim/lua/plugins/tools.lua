@@ -119,6 +119,7 @@ return {
     },
 
     { --[[ toggleterm ]]
+        enabled = false,
         "akinsho/toggleterm.nvim",
         keys = {
             [[<C-\>]],
@@ -328,6 +329,17 @@ return {
     { --[[ fzf-lua ]]
         "ibhagwan/fzf-lua",
         cmd = { "FzfLua" },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>F", group = "fzf" },
+                { "<leader>Fb", group = "buffers" },
+                { "<leader>Ff", group = "files" },
+                { "<leader>Fl", group = "lsp" },
+                { "<leader>Fs", group = "search" },
+            })
+        end,
+
         keys = {
             { "<leader>aa", ":FzfLua<space>", desc = "Fzf Lua Builtin" },
             { "<leader>bB", ":FzfLua buffers<CR>", desc = "Fzf Buffers" },
@@ -336,11 +348,6 @@ return {
             "<C-]>",
             "gd",
 
-            { "<leader>F", group = "fzf" },
-            { "<leader>Fb", group = "buffers" },
-            { "<leader>Ff", group = "files" },
-            { "<leader>Fl", group = "lsp" },
-            { "<leader>Fs", group = "search" },
             { "<leader>F/", ":FzfLua live_grep<CR>", desc = "Fzf Live Grep", silent = true },
             { "<leader>FbL", ":FzfLua lines<CR>", desc = "Fzf Lines", silent = true },
             { "<leader>Fbb", ":FzfLua buffers<CR>", desc = "Fzf Buffers", silent = true },
@@ -501,8 +508,14 @@ return {
 
     { --[[ browse.nvim ]]
         "lalitmee/browse.nvim",
+        dev = true,
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<localleader>b", group = "browse" },
+            })
+        end,
         keys = {
-            { "<localleader>b", group = "browse", mode = { "n", "x" } },
             {
                 "<localleader>bb",
                 function()
@@ -624,46 +637,70 @@ return {
             -- }
 
             local bookmarks = {
-                ["i3wm-docs"] = "https://i3wm.org/docs/",
-                ["i3wm-discussions"] = "https://github.com/i3/i3/discussions",
-                ["ThePrimeagen"] = "https://github.com/ThePrimeagen/.dotfiles",
-                ["akinsho"] = "https://github.com/akinsho/dotfiles",
-                ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
-                ["browse.nvim"] = "https://github.com/lalitmee/browse.nvim",
-                ["cargo"] = "https://doc.rust-lang.org/cargo/index.html?search=%s",
-                ["cobalt2.nvim"] = "https://github.com/lalitmee/cobalt2.nvim",
-                ["code_search"] = "https://github.com/search?q=%s&type=code",
-                ["dNotes"] = "https://github.com/lalitmee/dNotes",
-                ["devdocs.io"] = "https://devdocs.io/search?q=%s",
-                ["dotfiles"] = "https://github.com/lalitmee/dotfiles",
-                ["fzf-lua"] = "https://github.com/ibhagwan/fzf-lua",
-                ["github_pulls"] = "https://github.com/pulls",
-                ["issues_search"] = "https://github.com/search?q=%s&type=issues",
-                ["learnxinyminutes"] = "https://learnxinyminutes.com/docs/%s",
-                ["lualine"] = "https://github.com/nvim-lualine/lualine.nvim",
-                ["mdn"] = "https://developer.mozilla.org/search?q=%s",
-                ["mui"] = "https://mui.com/",
-                ["mui-icons"] = "https://mui.com/components/material-icons/#material-icons",
-                ["neovim_github"] = "https://github.com/neovim/neovim",
-                ["neovim_reddit"] = "https://www.reddit.com/r/neovim",
-                ["npm_search"] = "https://npmjs.com/search?q=%s",
-                ["nvim-treesitter"] = "https://github.com/nvim-treesitter/nvim-treesitter",
-                ["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
-                ["reddit_community_query"] = "https://www.reddit.com/search?q=%s&type=sr",
-                ["reddit_query"] = "https://www.reddit.com/search?q=%s",
-                ["repo_search"] = "https://github.com/search?q=%s&type=repositories",
-                ["rust:core"] = "https://doc.rust-lang.org/core/?search=%s",
-                ["rust:std"] = "https://doc.rust-lang.org/std/?search=%s",
-                ["telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
-                ["tjdevries"] = "https://github.com/tjdevries/config_manager",
-                ["v4-mui"] = "https://v4.mui.com/",
-                ["vim_porn"] = "https://www.reddit.com/r/vimporn",
-                ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
-                ["workspaces"] = "https://www.reddit.com/r/workspaces",
-                ["bootstrap"] = "https://getbootstrap.com",
-                ["pkg.go.dev"] = "https://pkg.go.dev/search?q=%s",
-                ["gemini-cli"] = "https://github.com/google-gemini/gemini-cli",
-                ["spec-kit"] = "https://github.com/github/spec-kit",
+                ["work"] = {
+                    name = "Work",
+                    ["github_pulls"] = "https://github.com/pulls",
+                    ["mui"] = "https://mui.com/",
+                    ["mui-icons"] = "https://mui.com/components/material-icons/#material-icons",
+                    ["v4-mui"] = "https://v4.mui.com/",
+                    ["npm_search"] = "https://npmjs.com/search?q=%s",
+                    ["bootstrap"] = "https://getbootstrap.com",
+                },
+                ["dots"] = {
+                    name = "Dotfiles",
+                    ["ThePrimeagen"] = "https://github.com/ThePrimeagen/.dotfiles",
+                    ["akinsho"] = "https://github.com/akinsho/dotfiles",
+                    ["tjdevries"] = "https://github.com/tjdevries/config_manager",
+                    ["whatsthatsmell"] = "https://github.com/whatsthatsmell/dots",
+                    ["dotfiles"] = "https://github.com/lalitmee/dotfiles",
+                },
+                ["dev"] = {
+                    name = "Development",
+                    ["cargo"] = "https://doc.rust-lang.org/cargo/index.html?search=%s",
+                    ["rust:core"] = "https://doc.rust-lang.org/core/?search=%s",
+                    ["rust:std"] = "https://doc.rust-lang.org/std/?search=%s",
+                    ["pkg.go.dev"] = "https://pkg.go.dev/search?q=%s",
+                },
+                ["github"] = {
+                    name = "GitHub",
+                    ["code_search"] = "https://github.com/search?q=%s&type=code",
+                    ["issues_search"] = "https://github.com/search?q=%s&type=issues",
+                    ["pulls_search"] = "https://github.com/search?q=%s&type=pullrequests",
+                    ["repo_search"] = "https://github.com/search?q=%s&type=repositories",
+                    ["spec-kit"] = "https://github.com/github/spec-kit",
+                },
+                ["neovim"] = {
+                    name = "Neovim",
+                    ["awesome-neovim"] = "https://github.com/rockerBOO/awesome-neovim",
+                    ["browse.nvim"] = "https://github.com/lalitmee/browse.nvim",
+                    ["cobalt2.nvim"] = "https://github.com/lalitmee/cobalt2.nvim",
+                    ["fzf-lua"] = "https://github.com/ibhagwan/fzf-lua",
+                    ["lualine"] = "https://github.com/nvim-lualine/lualine.nvim",
+                    ["neovim_github"] = "https://github.com/neovim/neovim",
+                    ["nvim-treesitter"] = "https://github.com/nvim-treesitter/nvim-treesitter",
+                    ["telescope"] = "https://github.com/nvim-telescope/telescope.nvim",
+                },
+                ["ai-tools"] = {
+                    name = "AI Tools",
+                    ["gemini-cli"] = "https://github.com/google-gemini/gemini-cli",
+                },
+                ["docs"] = {
+                    name = "Documentation",
+                    ["devdocs.io"] = "https://devdocs.io/search?q=%s",
+                    ["learnxinyminutes"] = "https://learnxinyminutes.com/docs/%s",
+                    ["mdn"] = "https://developer.mozilla.org/search?q=%s",
+                    ["i3wm-docs"] = "https://i3wm.org/docs/",
+                },
+                ["misc"] = {
+                    name = "Miscellaneous",
+                    ["i3wm-discussions"] = "https://github.com/i3/i3/discussions",
+                    ["dNotes"] = "https://github.com/lalitmee/dNotes",
+                    ["neovim_reddit"] = "https://www.reddit.com/r/neovim",
+                    ["reddit_community_query"] = "https://www.reddit.com/search?q=%s&type=sr",
+                    ["reddit_query"] = "https://www.reddit.com/search?q=%s",
+                    ["vim_porn"] = "https://www.reddit.com/r/vimporn",
+                    ["workspaces"] = "https://www.reddit.com/r/workspaces",
+                },
             }
             require("browse").setup({
                 provider = "duckduckgo", -- google or bing
@@ -706,8 +743,13 @@ return {
     { --[[ codesnap ]]
         "mistricky/codesnap.nvim",
         build = "make build_generator",
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>x", group = "codesnap" },
+            })
+        end,
         keys = {
-            { "<leader>x", group = "code-shots", mode = { "n", "v" } },
             { "<leader>xa", ":CodeSnapASCII<CR>", mode = { "n", "v" }, desc = "Codesnap Ascii", silent = true },
             { "<leader>xh", ":CodeSnapHighlight<CR>", mode = { "n", "v" }, desc = "Codesnap Highlight", silent = true },
             {
@@ -1034,6 +1076,12 @@ return {
         "bngarren/checkmate.nvim",
         dependencies = { "folke/snacks.nvim" },
         ft = "markdown",
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>T", group = "todo" },
+            })
+        end,
         keys = {
             {
                 "<leader>T.",

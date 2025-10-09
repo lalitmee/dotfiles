@@ -164,6 +164,15 @@ return {
                 { "<leader>ww", "<C-W>r", desc = "Window Swap" },
                 -- }}}
                 --------------------------------------------------------------------------------
+
+                { "<leader>e", group = "errors" },
+                { "<leader>g", group = "git" },
+                { "<leader>gc", group = "commit" },
+                { "<leader>gd", group = "diff" },
+                { "<leader>gj", group = "git-jump" },
+                { "<leader>gjd", ":Jump diff<cr>", desc = "Diff" },
+                { "<leader>gjm", ":Jump merge<cr>", desc = "Merge" },
+                { "<leader>gjs", ":Jump grep<space>", desc = "Grep" },
             })
         end,
     },
