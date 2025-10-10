@@ -1,3 +1,5 @@
+# custom-shader = shaders/cursor_smear_fade.glsl
+
 shell-integration = zsh
 shell-integration-features = no-cursor
 

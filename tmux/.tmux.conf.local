@@ -656,11 +656,28 @@ set -g @tome_height '40'
 
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Power Zoom {{{
-#       zoom and unzoom panes while preserving layout.
+# --- NOTE: Tmux grimoire {{{
+#       toggleable shells, scratchpads, and utilities
 #-------------------------------------------------------------------------------
 
-set -g @plugin 'jaclu/tmux-power-zoom'
+set -g @plugin 'navahas/tmux-grimoire'
+
+set -g @grimoire-key "t"              # Summon the main shpell, or banish any active one
+set -g @ephemeral-grimoire-key "T"    # Summon an ephemeral shpell
+set -g @grimoire-kill-key "C"         # Banish the current shpell and erase its tmux window
+
+# Title
+set -g @grimoire-title ' grimoire '   # Plain text title
+set -g @grimoire-title ' 󱥭 '          # Nerd Font icon (if available)
+
+# Size
+set -g @grimoire-width '90%'          # Width as percentage
+set -g @grimoire-height '90%'         # Height as percentage
+
+# Position
+set -g @grimoire-position 'center'  # See position options below
+
+
 
 #-------------------------------------------------------------------------------
 # }}}
