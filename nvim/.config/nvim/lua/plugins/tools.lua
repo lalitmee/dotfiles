@@ -556,7 +556,15 @@ return {
             {
                 "<localleader>bl",
                 function()
-                    require("browse").open_bookmarks()
+                    require("browse").open_manual_bookmarks()
+                end,
+                desc = "Bookmarks",
+                mode = { "n", "x" },
+            },
+            {
+                "<localleader>bB",
+                function()
+                    require("browse").open_browser_bookmarks()
                 end,
                 desc = "Bookmarks",
                 mode = { "n", "x" },
@@ -577,7 +585,26 @@ return {
                 desc = "Stackoverflow",
             },
         },
-        config = function()
+        opts = {
+            provider = "duckduckgo", -- google or bing
+            persist_grouped_bookmarks_query = true,
+            browser_bookmarks = {
+                enabled = true,
+                browsers = {
+                    chrome = true,
+                    firefox = true,
+                    brave = true,
+                },
+                group_by_folder = true,
+                auto_detect = true,
+            },
+            themes = {
+                browse = "dropdown",
+                manual_bookmarks = "dropdown",
+                browser_bookmarks = nil, -- nil uses the default Telescope theme
+            },
+        },
+        config = function(_, opts)
             -- local bookmarks = {
             --     ["docs"] = {
             --         ["name"] = "docs for everything",
@@ -702,11 +729,9 @@ return {
                     ["workspaces"] = "https://www.reddit.com/r/workspaces",
                 },
             }
-            require("browse").setup({
-                provider = "duckduckgo", -- google or bing
-                bookmarks = bookmarks,
-                persist_grouped_bookmarks_query = true,
-            })
+            opts.bookmarks = vim.tbl_deep_extend("force", opts.bookmarks or {}, bookmarks)
+            opts = vim.tbl_deep_extend("force", opts or {}, opts)
+            require("browse").setup(opts)
         end,
     },
 
