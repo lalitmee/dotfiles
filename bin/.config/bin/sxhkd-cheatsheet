@@ -1,0 +1,31 @@
+#!/bin/bash
+
+sxhkdrc_file="$HOME/.config/sxhkd/sxhkdrc"
+
+# This function parses the sxhkdrc file and outputs '|' separated values
+get_keybinds() {
+    echo "SECTION|KEYBINDING|COMMAND"
+    awk '
+        # Handle section headers
+        /^# NOTE: (.+) {{{/ {
+            match($0, /# NOTE: (.+) {{{/, g); section=g[1]; next
+        }
+
+        # Skip all comments and blank lines
+        /^\s*#/ || /^\s*$/ { next }
+
+        # Process a keybinding line (must not start with whitespace)
+        /^\S/ {
+            key = $0
+            # Immediately get the next line, which is the command
+            getline cmd_line
+            # Trim leading whitespace from the command
+            sub(/^\s+/, "", cmd_line)
+            # Print the record
+            print section "|" key "|" cmd_line
+        }
+    ' "$sxhkdrc_file"
+}
+
+# Pipe the output through the 'column' command to create a table, then to rofi
+get_keybinds | column -t -s '|' | rofi -dmenu -i -p "Search Keybindings: " -theme "~/.config/rofi/cheatsheet.rasi" -font "Operator Mono Lig 11"
