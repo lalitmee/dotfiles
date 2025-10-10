@@ -346,6 +346,14 @@ super + alt + w
 # Live Speech-to-Text (Nerd Dictation Toggle)
 super + w
     ~/.config/bin/dictate
+
+# Toggle Headset Profile (for Dictation)
+super + ctrl + w
+    ~/.config/bin/toggle-headset-profile
+
+# Searchable Keybinding Cheatsheet
+super + ctrl + s
+    ~/.config/bin/sxhkd-cheatsheet
 #}}}
 #-------------------------------------------------------------------------------
 

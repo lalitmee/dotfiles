@@ -1,0 +1,51 @@
+* {
+    background-color: #193549;
+    border-color: #00AAFF;
+    text-color: #FFFFFF;
+}
+
+window {
+    width: 90%;
+}
+
+listview {
+    /* This color will show through the spacing, creating separators */
+    lines: 15;
+    columns: 1;
+}
+
+element {
+    /* This is the background for each row */
+    background-color: #193549;
+    padding: 8px;
+    border: 0;
+}
+
+element selected {
+    background-color: #185294;
+    text-color: #FFC600;
+    border: 0;
+}
+
+element-text selected {
+    background-color: #185294;
+    text-color: #FFC600;
+}
+
+element-icon selected {
+    background-color: #185294;
+}
+
+inputbar {
+    children: [prompt, entry];
+    padding: 8px;
+    border: 0;
+}
+
+prompt {
+    text-color: #00AAFF;
+}
+
+entry {
+    text-color: #FFFFFF;
+}
