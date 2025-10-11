@@ -517,14 +517,14 @@ return {
         end,
         cmd = {
             "Browse",
-            "BrowseManualBookmarks",
-            "BrowseBrowserBookmarks",
-            "BrowseSearch",
-            "DevdocsSearch",
-            "DevdocsFiletypeSearch",
-            "MdnSearch",
         },
         keys = {
+            {
+                "<localleader>ba",
+                "<cmd>Browse bookmarks<CR>",
+                desc = "All Bookmarks (manual + browser)",
+                mode = { "n", "x" },
+            },
             {
                 "<localleader>bb",
                 "<cmd>Browse<CR>",
@@ -540,36 +540,44 @@ return {
             },
             {
                 "<localleader>bd",
-                "<cmd>DevdocsSearch<CR>",
+                "<cmd>Browse devdocs<CR>",
                 desc = "Devdocs Search",
+                mode = { "n", "x" },
             },
             {
                 "<localleader>bf",
-                "<cmd>DevdocsFiletypeSearch<CR>",
+                "<cmd>Browse devdocs_ft<CR>",
                 desc = "Devdocs Filetype Search",
+                mode = { "n", "x" },
             },
             {
                 "<localleader>bi",
-                "<cmd>BrowseSearch<CR>",
+                "<cmd>Browse input<CR>",
                 desc = "Input Search",
                 mode = { "n", "x" },
             },
             {
                 "<localleader>bl",
-                "<cmd>BrowseManualBookmarks<CR>",
+                "<cmd>Browse bookmarks_manual<CR>",
                 desc = "Manual Bookmarks",
                 mode = { "n", "x" },
             },
             {
                 "<localleader>bB",
-                "<cmd>BrowseBrowserBookmarks<CR>",
+                "<cmd>Browse bookmarks_browser<CR>",
                 desc = "Browser Bookmarks",
                 mode = { "n", "x" },
             },
             {
                 "<localleader>bm",
-                "<cmd>MdnSearch<CR>",
+                "<cmd>Browse mdn<CR>",
                 desc = "Mdn Search",
+                mode = { "n", "x" },
+            },
+            {
+                "<localleader>bM",
+                "<cmd>Browse mdn_ft<CR>",
+                desc = "Mdn Filetype Search",
                 mode = { "n", "x" },
             },
             {
@@ -582,7 +590,7 @@ return {
         },
         opts = {
             provider = "duckduckgo", -- google or bing
-            persist_grouped_bookmarks_query = true,
+            persist_grouped_bookmarks_query = false,
             browser_bookmarks = {
                 enabled = true,
                 browsers = {
