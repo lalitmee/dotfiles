@@ -515,12 +515,19 @@ return {
                 { "<localleader>b", group = "browse" },
             })
         end,
+        cmd = {
+            "Browse",
+            "BrowseManualBookmarks",
+            "BrowseBrowserBookmarks",
+            "BrowseSearch",
+            "DevdocsSearch",
+            "DevdocsFiletypeSearch",
+            "MdnSearch",
+        },
         keys = {
             {
                 "<localleader>bb",
-                function()
-                    require("browse").browse()
-                end,
+                "<cmd>Browse<CR>",
                 desc = "Browse",
                 mode = { "n", "x" },
             },
@@ -533,47 +540,35 @@ return {
             },
             {
                 "<localleader>bd",
-                function()
-                    require("browse").devdocs.search()
-                end,
+                "<cmd>DevdocsSearch<CR>",
                 desc = "Devdocs Search",
             },
             {
                 "<localleader>bf",
-                function()
-                    require("browse").devdocs.search_with_filetype()
-                end,
+                "<cmd>DevdocsFiletypeSearch<CR>",
                 desc = "Devdocs Filetype Search",
             },
             {
                 "<localleader>bi",
-                function()
-                    require("browse").input_search()
-                end,
+                "<cmd>BrowseSearch<CR>",
                 desc = "Input Search",
                 mode = { "n", "x" },
             },
             {
                 "<localleader>bl",
-                function()
-                    require("browse").open_manual_bookmarks()
-                end,
-                desc = "Bookmarks",
+                "<cmd>BrowseManualBookmarks<CR>",
+                desc = "Manual Bookmarks",
                 mode = { "n", "x" },
             },
             {
                 "<localleader>bB",
-                function()
-                    require("browse").open_browser_bookmarks()
-                end,
-                desc = "Bookmarks",
+                "<cmd>BrowseBrowserBookmarks<CR>",
+                desc = "Browser Bookmarks",
                 mode = { "n", "x" },
             },
             {
                 "<localleader>bm",
-                function()
-                    require("browse").mdn.search()
-                end,
+                "<cmd>MdnSearch<CR>",
                 desc = "Mdn Search",
                 mode = { "n", "x" },
             },
@@ -602,6 +597,9 @@ return {
                 browse = "dropdown",
                 manual_bookmarks = "dropdown",
                 browser_bookmarks = nil, -- nil uses the default Telescope theme
+            },
+            bookmark_picker = {
+                show_nested = true,
             },
         },
         config = function(_, opts)
@@ -650,6 +648,12 @@ return {
                     name = "AI Tools",
                     ["gemini-cli"] = "https://github.com/google-gemini/gemini-cli",
                     ["spec-kit"] = "https://github.com/github/spec-kit",
+                    ["chatgpt-web"] = "https://chat.com",
+                    ["chatgpt-plus"] = "https://chat.openai.com/",
+                    ["claude"] = "https://claude.ai/",
+                    ["gemini"] = "https://gemini.google.com/",
+                    ["perplexity"] = "https://www.perplexity.ai/",
+                    ["opencode"] = "https://opencode.com/",
                 },
                 ["docs"] = {
                     name = "Documentation",
@@ -665,11 +669,10 @@ return {
                     name = "Miscellaneous",
                     ["i3wm-discussions"] = "https://github.com/i3/i3/discussions",
                     ["dNotes"] = "https://github.com/lalitmee/dNotes",
-                    ["neovim_reddit"] = "https://www.reddit.com/r/neovim",
-                    ["reddit_community_query"] = "https://www.reddit.com/search?q=%s&type=sr",
-                    ["reddit_query"] = "https://www.reddit.com/search?q=%s",
-                    ["vim_porn"] = "https://www.reddit.com/r/vimporn",
-                    ["workspaces"] = "https://www.reddit.com/r/workspaces",
+                    ["amazon.in"] = "https://www.amazon.in/s?k=%s",
+                    ["youtube"] = "https://www.youtube.com/results?search_query=%s",
+                    ["wikipedia"] = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
+                    ["stackoverflow"] = "https://stackoverflow.com/search?q=%s",
                 },
                 ["reddit"] = {
                     name = "Reddit",
