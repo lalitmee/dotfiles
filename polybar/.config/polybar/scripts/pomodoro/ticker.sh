@@ -57,11 +57,19 @@ tick() {
             # break done → back to work
             notify-send -i "appointment-new-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
             canberra-gtk-play -i complete &> /dev/null &
+
+            local new_pomo_count=${POMO_COUNT:-0}
+            # Check if the break that just ended was a long break
+            if [[ "$status_text" == "Long Break" ]]; then
+                # Reset the pomodoro count
+                new_pomo_count=0
+            fi
+
             {
                 echo 'STATUS="⏱ Working"'
                 echo "TIME_LEFT=$WORK_SEC"
                 echo "PAUSED=0"
-                echo "POMO_COUNT=${POMO_COUNT:-0}"
+                echo "POMO_COUNT=$new_pomo_count"
             } > "$STATE_FILE"
         fi
     fi

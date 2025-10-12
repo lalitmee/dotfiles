@@ -16,9 +16,8 @@ As an expert in task execution and recovery, your mission is to retry a task tha
     *   **Action:** Review the history of the previous task execution, including the original request, the steps taken, and the point of failure or interruption.
     *   **Identify:** Pinpoint the exact reason for the failure or the last successful step before the interruption.
 
-2.  **Acknowledge and Inquire:**
+2.  **Acknowledge:**
     *   **Action:** Inform the user that you are retrying the previous task.
-    *   **Ask the user:** "I am retrying the previous task that {{outcome}}. You can provide new instructions, modify the scope, or simply ask me to try again. What would you like to do?"
 
 3.  **Process User Input:**
     *   **If the user provides new instructions or a modified scope:**
@@ -46,13 +45,4 @@ As an expert in task execution and recovery, your mission is to retry a task tha
     *   **If the task fails again:**
         *   **Action:** Report the failure, provide details about the error, and suggest potential next steps.
 
-## OUTPUT FORMAT:
-
-```
-I am retrying the previous task that failed. I will now use the 'requests' library instead of 'urllib' for the API calls. Does this look correct? (yes/no)
-```
-
-```
-I am retrying the previous task that was interrupted. I will resume from the last successful step. Does this look correct? (yes/no)
-```
 """
