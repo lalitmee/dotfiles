@@ -1,24 +1,10 @@
+local treesitter_context_enabled = true
 return {
 
     { --[[ treesitter ]]
         "nvim-treesitter/nvim-treesitter",
         branch = "master",
         build = ":TSUpdate",
-        ft = {
-            "codecompanion",
-            "gitcommit",
-            "go",
-            "javascript",
-            "json",
-            "lua",
-            "markdown",
-            "python",
-            "rust",
-            "tsx",
-            "typescript",
-            "vim",
-            "yaml",
-        },
         cmd = "TSInstall",
         init = function()
             local wk = require("which-key")
@@ -32,7 +18,40 @@ return {
             { "<leader>hh", ":TSHighlightCapturesUnderCursor<CR>", desc = "Show Highlights Info", silent = true },
         },
         dependencies = {
-            { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPost" },
+            {
+                "nvim-treesitter/nvim-treesitter-context",
+                event = "BufReadPost",
+                keys = {
+                    {
+                        "<leader>tc",
+                        function()
+                            require("treesitter-context").toggle()
+                            treesitter_context_enabled = not treesitter_context_enabled
+                            if treesitter_context_enabled then
+                                vim.notify(
+                                    "Treesitter Context: Enabled",
+                                    vim.log.levels.INFO,
+                                    { title = "Treesitter Context" }
+                                )
+                            else
+                                vim.notify(
+                                    "Treesitter Context: Disabled",
+                                    vim.log.levels.WARN,
+                                    { title = "Treesitter Context" }
+                                )
+                            end
+                        end,
+                        desc = "Toggle Context",
+                        silent = true,
+                    },
+                },
+                config = function()
+                    require("treesitter-context").setup({
+                        max_lines = 1,
+                        separator = "─",
+                    })
+                end,
+            },
             { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPost" },
             { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
         },
