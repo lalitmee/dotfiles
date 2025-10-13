@@ -124,7 +124,7 @@ return {
         },
     },
 
-    { --[[ octo ]]
+    { --[[ octo.nvim ]]
         "pwntester/octo.nvim",
         keys = {
             { "<leader>go", ":Octo<CR>", desc = "Octo", silent = true },
