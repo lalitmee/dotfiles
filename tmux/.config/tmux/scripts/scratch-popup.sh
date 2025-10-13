@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-width=${2:-85%}
-height=${3:-85%}
+width=${2:-95%}
+height=${3:-95%}
 
 # Normalize session name: replace . and _ with -
 session_name=$(basename "$HOME" | tr '._' '-')
