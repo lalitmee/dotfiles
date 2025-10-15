@@ -774,7 +774,7 @@ bind g run-shell "$HOME/.config/tmux/scripts/popup/lazygit.sh '#{pane_current_pa
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
 # Launch the project runner script in a popup.
-bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/popup/runner/runner.sh'"
+bind C-r display-popup -w 90% -h 90% -E "zsh -lc '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
 # Hook to maintain custom window names when tmux tries to rename them
 set-hook -g window-renamed 'run-shell "~/.config/tmux/scripts/runner/maintain-window-name.sh #{window_id}"'
@@ -858,10 +858,10 @@ bind-key A switch-client -T ask-tools
 #-------------------------------------------------------------------------------
 
 # AI ask - main AI interaction
-bind-key -T ask-tools a display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
+bind-key -T ask-tools a display-popup -w 85% -h 85% -E "zsh -lc '~/.config/tmux/scripts/ask-sh/ask.sh ai'"
 
 # AI chat - interactive AI conversation
-bind-key -T ask-tools c display-popup -w 80% -h 70% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
+bind-key -T ask-tools c display-popup -w 80% -h 70% -E "zsh -lc '~/.config/tmux/scripts/ask-sh/ask.sh ai-chat'"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -874,16 +874,16 @@ bind-key -T ask-tools c display-popup -w 80% -h 70% -E "zsh -l -c '~/.config/tmu
 #-------------------------------------------------------------------------------
 
 # Site search - search within specific websites
-bind-key -T ask-tools s display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh site'"
+bind-key -T ask-tools s display-popup -w 85% -h 85% -E "zsh -lc '~/.config/tmux/scripts/ask-sh/ask.sh site'"
 
 # Web search - general web search
-bind-key -T ask-tools / display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh search'"
+bind-key -T ask-tools / display-popup -w 85% -h 85% -E "zsh -lc '~/.config/tmux/scripts/ask-sh/ask.sh search'"
 
 # Ducky search - opens top result in browser
-bind-key -T ask-tools d display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
+bind-key -T ask-tools d display-popup -w 85% -h 85% -E "zsh -lc '~/.config/tmux/scripts/ask-sh/ask.sh ducky'"
 
 # Bang search - browser !bang search
-bind-key -T ask-tools b display-popup -w 85% -h 85% -E "zsh -l -c '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
+bind-key -T ask-tools b display-popup -w 85% -h 85% -E "zsh -lc '~/.config/tmux/scripts/ask-sh/ask.sh bang'"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -986,84 +986,58 @@ bind-key -T ai-tools q switch-client -T root
 #-------------------------------------------------------------------------------
 # --- NOTE: Second-Brain Mode {{{
 #           Parent block for all second-brain functionality.
-#           Enter second-brain mode by pressing C-a b.
+#           Enter second-brain mode by pressing C-b.
 #-------------------------------------------------------------------------------
 
-# Second-brain mode trigger - Enter second-brain mode by pressing C-a b
-bind-key b switch-client -T second-brain
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: Second-Brain - Notes {{{
-#           Personal and work note management.
-#-------------------------------------------------------------------------------
-
-# Notes - personal and work contexts
-bind-key -T second-brain n display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
-bind-key -T second-brain N display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes work'"
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
+# Second-brain mode trigger
+bind-key C-b switch-client -T second-brain
 
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Second-Brain - Scratch {{{
-#           Personal and work scratch pad management.
-#-------------------------------------------------------------------------------
+# --- NOTE: Second-Brain Keybindings {{{
+# -------------------------------------------------------------------------------
 
-# Scratch - personal and work contexts
-bind-key -T second-brain s display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch personal'"
-bind-key -T second-brain S display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
+# Notes
+bind-key -T second-brain n run-shell "custom_shpell standard notes-personal 'nvim $HOME/Projects/Personal/Github/second-brain/notes/inbox.org'"
+bind-key -T second-brain N run-shell "custom_shpell standard notes-work 'nvim $HOME/Projects/Work/Github/second-brain/notes/inbox.org'"
 
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
+# Todos
+bind-key -T second-brain t run-shell "custom_shpell standard todos-personal 'nvim $HOME/Projects/Personal/Github/second-brain/agenda/todos.org'"
+bind-key -T second-brain T run-shell "custom_shpell standard todos-work 'nvim $HOME/Projects/Work/Github/second-brain/agenda/todos.org'"
 
+# Scratch
+bind-key -T second-brain s run-shell "custom_shpell standard scratch-personal 'nvim $HOME/Projects/Personal/Github/second-brain/scratch/1.txt'"
+bind-key -T second-brain S run-shell "custom_shpell standard scratch-work 'nvim $HOME/Projects/Work/Github/second-brain/scratch/1.txt'"
 
-#-------------------------------------------------------------------------------
-# --- NOTE: Second-Brain - Todos {{{
-#           Personal and work todo management.
-#-------------------------------------------------------------------------------
+# Old Workflow
+bind-key -T second-brain a display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
+bind-key -T second-brain A display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes work'"
+bind-key -T second-brain d display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos personal'"
+bind-key -T second-brain D display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos work'"
+bind-key -T second-brain k display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch personal'"
+bind-key -T second-brain K display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
 
-# Todos - personal and work contexts
-bind-key -T second-brain t display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos personal'"
-bind-key -T second-brain T display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos work'"
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: Second-Brain - Help & Navigation {{{
-#           Help system and table navigation.
-#-------------------------------------------------------------------------------
-
-# Exit the second-brain table
+# Exit second-brain mode
 bind-key -T second-brain q switch-client -T root
 
-# Help for second-brain
-bind -T second-brain ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmux/scripts/popup/help/help.sh second-brain"
-
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # }}}
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # }}}
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------------
 # --- NOTE: Layout Mode {{{
 #           Parent block for all layout-mode functionality.
-#           Enter layout-mode by pressing C-b (without prefix).
+#           Enter layout-mode by pressing C-l (without prefix).
 #-------------------------------------------------------------------------------
 
-# Layout mode trigger - Enter layout-mode by pressing C-b (without prefix)
-bind -T root C-b switch-client -T layout-mode
+# Layout mode trigger - Enter layout-mode by pressing C-l (without prefix)
+bind -T root C-l switch-client -T layout-mode
 
 
 #-------------------------------------------------------------------------------
