@@ -119,7 +119,6 @@ return {
     },
 
     { --[[ toggleterm ]]
-        enabled = false,
         "akinsho/toggleterm.nvim",
         keys = {
             [[<C-\>]],

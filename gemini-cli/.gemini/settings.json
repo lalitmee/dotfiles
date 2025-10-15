@@ -67,6 +67,13 @@
     },
     "figma-local-mcp": {
       "httpUrl": "http://127.0.0.1:3845/mcp"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     }
   },
   "inactiveMcpServers": {
@@ -133,13 +140,6 @@
       "env": {
         "MAX_HISTORY_SIZE": "1000"
       }
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest"
-      ]
     }
   }
 }
