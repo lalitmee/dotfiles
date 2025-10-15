@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # A function to handle cancellation gracefully
 abort() {

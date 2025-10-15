@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 # resize-pane.sh
 
 direction_flag="$1"

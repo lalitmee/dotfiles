@@ -92,7 +92,7 @@ C-a C-r  → Launch project runner
 ### Tmux Integration
 ```tmux
 # Keybinding
-bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
+bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
 # Window naming controls
 set -g allow-rename off

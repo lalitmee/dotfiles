@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # This script lists user processes, allows for multi-selection via fzf,
 # kills the selected processes, and displays a confirmation table using gum.
 

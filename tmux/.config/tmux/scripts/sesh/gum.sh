@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 # This script launches an optimized gum-based session picker for sesh in tmux popups.
 #
 # Performance Optimizations:

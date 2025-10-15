@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 width=${2:-95%}
 height=${3:-95%}

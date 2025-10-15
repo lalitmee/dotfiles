@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 # This script launches the fzf-tmux interface for sesh.
 
 # Detect OS and set appropriate directory exclusions
