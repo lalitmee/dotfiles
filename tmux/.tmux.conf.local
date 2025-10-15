@@ -1006,8 +1006,8 @@ bind-key -T second-brain t run-shell "custom_shpell standard todos-personal 'nvi
 bind-key -T second-brain T run-shell "custom_shpell standard todos-work 'nvim $HOME/Projects/Work/Github/second-brain/agenda/todos.org'"
 
 # Scratch
-bind-key -T second-brain s run-shell "custom_shpell standard scratch-personal 'nvim $HOME/Projects/Personal/Github/second-brain/scratch/1.txt'"
-bind-key -T second-brain S run-shell "custom_shpell standard scratch-work 'nvim $HOME/Projects/Work/Github/second-brain/scratch/1.txt'"
+bind-key -T second-brain s run-shell "custom_shpell standard scratch-personal 'nvim $HOME/Projects/Personal/Github/second-brain/scratch/inbox.org'"
+bind-key -T second-brain S run-shell "custom_shpell standard scratch-work 'nvim $HOME/Projects/Work/Github/second-brain/scratch/inbox.org'"
 
 # Old Workflow
 bind-key -T second-brain a display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
