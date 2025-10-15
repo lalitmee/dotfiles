@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # Tmux Help System - Modular popup help using gum tables
 # Usage: ./help.sh <table-name>
 # Example: ./help.sh ai-tools

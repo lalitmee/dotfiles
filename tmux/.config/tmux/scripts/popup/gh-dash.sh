@@ -1,6 +1,6 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-# ~/.config/tmux/scripts/gh-dash-popup.sh
+# ~/.config/tmux/scripts/popup/gh-dash.sh
 
 width=${1:-95%}
 height=${2:-95%}

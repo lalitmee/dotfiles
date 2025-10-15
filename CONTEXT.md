@@ -182,8 +182,8 @@ docs(conventions): update installation instructions
 ├── help/                # Help system with tables
 ├── runner/              # Project runner system ⭐ NEW
 ├── sesh/                # Session management
-├── second-brain.sh      # Second-brain functionality
-├── todo.sh             # Todo management
+├── popup/second-brain.sh      # Second-brain functionality
+├── popup/todo.sh             # Todo management
 └── [other utilities]
 ```
 
@@ -224,7 +224,7 @@ docs(conventions): update installation instructions
 #### Tmux Integration
 ```tmux
 # Keybinding
-bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/runner/runner.sh'"
+bind C-r display-popup -w 90% -h 90% -E "zsh -l -c '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
 # Window naming controls (inherited from main tmux config)
 set -g allow-rename off          # Prevent automatic window renaming
@@ -328,7 +328,7 @@ C-a b → Enter second-brain table
 ### Key Conflicts Resolved
 
 - **Fixed**: `a`, `m`, `t` conflicts between prefix and layout modes
-- **Consolidated**: Duplicate todo functionality (second-brain.sh vs todo.sh)
+- **Consolidated**: Duplicate todo functionality (popup/second-brain.sh vs popup/todo.sh)
 - **Preserved**: All other existing functionality remains intact
 
 ### Tmux Keybinding Patterns
@@ -490,7 +490,7 @@ A modular help system that displays keybindings in beautiful gum tables instead 
 **When making keybinding changes:**
 
 1. Update the corresponding `.txt` file in `tables/` directory
-2. Test the help display: `~/.config/tmux/scripts/help/help.sh <table-name>`
+2. Test the help display: `~/.config/tmux/scripts/popup/help/help.sh <table-name>`
 3. Ensure table formatting is correct (tab-separated values)
 4. Update AGENTS.md documentation if adding new tables or changing structure
 

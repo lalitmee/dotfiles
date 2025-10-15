@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # --- Configuration ---
 LANGUAGES_FILE="$HOME/.config/tmux/scripts/cht-sh/.cht-languages"

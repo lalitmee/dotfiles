@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 branch_name=$(basename "$1")
 session_name=$(tmux display-message -p "#S")

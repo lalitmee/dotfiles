@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Directory containing tmuxinator configurations
 tmuxinator_dir="$HOME/.config/tmuxinator"
