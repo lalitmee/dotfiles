@@ -20,6 +20,10 @@
     "enabled": true
   },
   "tools": {
+    "shell": {
+      "enableInteractiveShell": true
+    },
+
     "allowed": [
       "run_shell_command(gemini-cli)",
       "run_shell_command(git diff --staged)",
