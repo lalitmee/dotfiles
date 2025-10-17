@@ -19,19 +19,7 @@
   "ide": {
     "enabled": true
   },
-  "tools": {
-    "shell": {
-      "enableInteractiveShell": true
-    },
-
-    "allowed": [
-      "run_shell_command(gemini-cli)",
-      "run_shell_command(git diff --staged)",
-      "run_shell_command(git status --porcelain)",
-      "run_shell_command(git diff)",
-      "run_shell_command(git ls-files --others --exclude-standard)"
-    ]
-  },
+  "tools": {},
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
