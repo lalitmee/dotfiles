@@ -316,6 +316,10 @@ super + u
 super + shift + p
     i3run --class gnome-pomodoro --summon -- gnome-pomodoro
 
+# >> audio mixer -> alsamixer
+super + a
+    i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
+
 #}}}```
 #-------------------------------------------------------------------------------
 
