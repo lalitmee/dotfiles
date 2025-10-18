@@ -1036,8 +1036,8 @@ bind-key -T second-brain q switch-client -T root
 #           Enter layout-mode by pressing C-l (without prefix).
 #-------------------------------------------------------------------------------
 
-# Layout mode trigger - Enter layout-mode by pressing C-l (without prefix)
-bind -T prefix C-l switch-client -T layout-mode
+# Layout mode trigger - Enter layout-mode by pressing C-b (without prefix)
+bind -T root C-b switch-client -T layout-mode
 
 
 #-------------------------------------------------------------------------------
