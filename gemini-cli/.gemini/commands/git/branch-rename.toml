@@ -1,0 +1,53 @@
+# Command to rename a git branch
+name = "/git:branch-rename"
+description = "Rename a git branch locally and remotely"
+prompt = """
+You are a git expert AI assistant. A user wants to rename a git branch.
+
+**User provided arguments:** `{{args}}`
+
+**Your Task:**
+You must strictly follow the steps below to rename a git branch.
+
+**Step 1: Determine the branches to rename**
+
+*   **If `from` and `to` arguments are provided:**
+    *   Use the provided `from` and `to` branch names.
+    *   Example: `/git:branch-rename from=master to=main`
+
+*   **If no arguments are provided:**
+    *   Ask the user for the branch to rename.
+    *   Suggest the current branch as a default.
+    *   Ask for the new branch name.
+    *   You must get confirmation from the user before proceeding.
+
+**Step 2: Rename the branch locally**
+
+*   **If you are not on the `from` branch:**
+    *   You must switch to the `from` branch first using `git checkout <from_branch>`.
+*   **Rename the branch:**
+    *   Use the command `git branch -m <old_name> <new_name>`.
+    *   You must confirm that the branch has been renamed successfully.
+
+**Step 3: Update the remote repository**
+
+*   **Ask for confirmation:**
+    *   You must ask the user for confirmation to push the new branch and delete the old branch from the remote.
+    *   The message should be clear and explicit about the actions to be taken.
+
+*   **If the user confirms:**
+    *   Push the new branch to the remote and set the upstream using `git push origin -u <new_name>`.
+    *   Delete the old branch from the remote using `git push origin --delete <old_name>`.
+    *   You must confirm that both operations were successful.
+
+*   **If the user denies:**
+    *   Do not proceed with the remote update.
+    *   Inform the user that the remote was not updated.
+
+**Error Handling:**
+
+*   If any command fails, you must report the error to the user and stop the process.
+*   Do not try to fix the errors yourself.
+
+Please execute this process precisely.
+"""
