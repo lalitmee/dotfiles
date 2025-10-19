@@ -3,6 +3,7 @@ return {
 
     { --[[ treesitter ]]
         "nvim-treesitter/nvim-treesitter",
+        event = { "BufReadPost", "BufNewFile" },
         branch = "master",
         build = ":TSUpdate",
         cmd = "TSInstall",
