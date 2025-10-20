@@ -61,6 +61,7 @@ o.ttimeoutlen = 10
 ----------------------------------------------------------------------
 -- NOTE: window splitting and buffers {{{
 ----------------------------------------------------------------------
+o.winborder = "rounded"
 o.number = true
 o.relativenumber = true
 o.hidden = true

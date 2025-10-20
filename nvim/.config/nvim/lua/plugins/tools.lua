@@ -118,7 +118,7 @@ return {
         },
     },
 
-    { --[[ toggleterm ]]
+    { --[[ toggleterm.nvim ]]
         "akinsho/toggleterm.nvim",
         keys = {
             [[<C-\>]],
@@ -133,6 +133,12 @@ return {
             { "<localleader>tt", ":Tig<CR>", desc = "Tig", silent = true },
         },
         cmd = { "ToggleTerm" },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<localleader>t", group = "terminal" },
+            })
+        end,
         opts = {
             open_mapping = [[<C-\>]],
             direction = "float",
