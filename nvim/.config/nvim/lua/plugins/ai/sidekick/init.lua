@@ -9,6 +9,11 @@ return {
                     backend = "tmux",
                     enabled = true,
                 },
+                win = {
+                    split = {
+                        width = 85,
+                    },
+                },
             },
         },
         init = function()
