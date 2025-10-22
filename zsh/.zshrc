@@ -114,8 +114,13 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
 
-# Load p10k prompt first (no output)
-[[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+# ~/.zshrc — disable Powerlevel10k when Cursor Agent runs
+if [[ -n "$CURSOR_AGENT" ]]; then
+    # Skip theme initialization for better compatibility
+else
+    # Load p10k prompt first (no output)
+    [[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+fi
 
 # }}}
 # -------------------------------------------------------------------
