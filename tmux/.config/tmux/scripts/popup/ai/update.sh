@@ -57,13 +57,17 @@ run_updates() {
 
     # --- Helper function to update a global npm package ---
     update_npm_package() {
-        local package_name=$1
-        gum_style "Checking for updates for: $package_name..."
+        local package_name_with_tag=$1
+        # Extract the base package name by removing the tag (e.g., '@latest').
+        # This is crucial for checking the currently installed version.
+        local base_package_name=$(echo "$package_name_with_tag" | sed -E 's/@[^@]*$//')
 
-        local old_version=$(get_npm_version "$package_name")
+        gum_style "Checking for updates for: $package_name_with_tag..."
 
-        if npm install -g "$package_name"; then
-            local new_version=$(get_npm_version "$package_name")
+        local old_version=$(get_npm_version "$base_package_name")
+
+        if npm install -g "$package_name_with_tag"; then
+            local new_version=$(get_npm_version "$base_package_name")
             local status_icon="➡️" # Default: No Change
 
             if [[ "$old_version" == "Not Installed" ]]; then
@@ -72,11 +76,11 @@ run_updates() {
                 status_icon="⬆️" # Updated
             fi
 
-            gum_style "✅ Success: $package_name processed."
-            update_summary+=("$package_name,$status_icon,$old_version,$new_version")
+            gum_style "✅ Success: $package_name_with_tag processed."
+            update_summary+=("$base_package_name,$status_icon,$old_version,$new_version")
         else
-            gum_style "❌ Error: Failed to update $package_name. Check the output above."
-            update_summary+=("$package_name,❌,$old_version,Update Failed")
+            gum_style "❌ Error: Failed to update $package_name_with_tag. Check the output above."
+            update_summary+=("$base_package_name,❌,$old_version,Update Failed")
         fi
     }
 
