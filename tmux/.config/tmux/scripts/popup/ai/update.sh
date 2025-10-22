@@ -62,7 +62,7 @@ run_updates() {
 
         local old_version=$(get_npm_version "$package_name")
 
-        if npm install -g "$package_name@latest"; then
+        if npm install -g "$package_name"; then
             local new_version=$(get_npm_version "$package_name")
             local status_icon="➡️" # Default: No Change
 
@@ -82,9 +82,9 @@ run_updates() {
 
     # 2. Update NPM Packages
     update_npm_package "@google/gemini-cli@preview"
-    update_npm_package "@anthropic-ai/claude-code"
-    update_npm_package "@github/copilot"
-    update_npm_package "opencode-ai"
+    update_npm_package "@anthropic-ai/claude-code@latest"
+    update_npm_package "@github/copilot@latest"
+    update_npm_package "opencode-ai@latest"
 
     # 3. Display Final Summary Table
     echo
