@@ -187,7 +187,7 @@ return {
 
     { --[[ oversser.nvim ]]
         "stevearc/overseer.nvim",
-        tag = "1.6.0",
+        tag = "v1.6.0",
         cmd = {
             "OverseerBuild",
             "OverseerClose",
