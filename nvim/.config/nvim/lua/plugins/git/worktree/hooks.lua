@@ -84,23 +84,26 @@ local function ensure_node_modules(path)
             -- Mark install attempt immediately to avoid duplicate triggers
             installed_node_modules[path] = true
 
-            local task = overseer.new_task({
-                name = "yarn install (" .. path .. ")",
-                cmd = "yarn",
-                args = { "install" },
-                cwd = path,
-                strategy = "toggleterm",
-                components = {
-                    "default",
-                    "on_output_quickfix",
-                    "on_exit_set_status",
-                    "on_complete_notify",
-                },
-                env = { CI = "false" },
-            })
+            -- Defer the yarn install to avoid buffer conflicts after worktree switch
+            vim.defer_fn(function()
+                local task = overseer.new_task({
+                    name = "yarn install (" .. path .. ")",
+                    cmd = "yarn",
+                    args = { "install" },
+                    cwd = path,
+                    strategy = "terminal",
+                    components = {
+                        "default",
+                        { "on_output_quickfix", open = false },
+                        "on_exit_set_status",
+                        "on_complete_notify",
+                    },
+                    env = { CI = "false" },
+                })
 
-            running_installs[path] = task
-            task:start()
+                running_installs[path] = task
+                task:start()
+            end, 100) -- 100ms delay to ensure buffer operations are complete
         end
     end
 end
