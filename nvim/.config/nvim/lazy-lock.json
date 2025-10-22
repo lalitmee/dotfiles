@@ -1,7 +1,7 @@
 {
   "ChatGPT.nvim": { "branch": "main", "commit": "5b6d296eefc75331e2ff9f0adcffbd7d27862dd6" },
   "Jumppack.nvim": { "branch": "main", "commit": "c1bc410ef011afbd405e945a08ce200d59a0e537" },
-  "LuaSnip": { "branch": "master", "commit": "73813308abc2eaeff2bc0d3f2f79270c491be9d7" },
+  "LuaSnip": { "branch": "master", "commit": "ccf25a5452b8697a823de3e5ecda63ed3d723b79" },
   "Navigator.nvim": { "branch": "master", "commit": "91d86506ac2a039504d5205d32a1d4bc7aa57072" },
   "NeoZoom.lua": { "branch": "main", "commit": "c97a0197548c1e9b559e4fa41ab3f7782c93e613" },
   "VectorCode": { "branch": "main", "commit": "e4c17b5536482a3303392b7ecc0eb05f6255dd75" },
@@ -80,7 +80,7 @@
   "org-super-agenda.nvim": { "branch": "main", "commit": "da23a1fc10d69dfe29a4ff48f125c9eafb9a9bd1" },
   "orgmode": { "branch": "master", "commit": "94886d6dda708ab2a4b3e33662d846d5e7d4f06f" },
   "orphans.nvim": { "branch": "main", "commit": "35f995fbb04b679b7d829072d7209a2117c15adf" },
-  "overseer.nvim": { "branch": "master", "commit": "fe7b2f9ba263e150ab36474dfc810217b8cf7400" },
+  "overseer.nvim": { "branch": "master", "commit": "2c23513a4fd3a3be0459b3b62996fb0732c2fd7e" },
   "persistence.nvim": { "branch": "main", "commit": "51eef57272742b773468949f6bd0503ec3f83874" },
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
   "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
