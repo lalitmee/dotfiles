@@ -24,7 +24,7 @@ return {
         end,
         keys = {
             {
-                "<tab>",
+                "<leader>,",
                 function()
                     require("sidekick").nes_jump_or_apply()
                 end,
@@ -32,7 +32,7 @@ return {
                 desc = "Sidekick: Goto/Apply Next Edit Suggestion",
             },
             {
-                "<c-.>",
+                "<leader>.",
                 function()
                     require("sidekick.cli").focus()
                 end,
