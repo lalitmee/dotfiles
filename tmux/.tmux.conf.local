@@ -639,6 +639,7 @@ set -g @floax-text-color '#FFC600'
 #-------------------------------------------------------------------------------
 # --- NOTE: Tome Playbook {{{
 #-------------------------------------------------------------------------------
+
 set -g @plugin 'laktak/tome'
 
 # Set the keybinding to open the Tome playbook.
@@ -649,9 +650,6 @@ set -g @tome_scratch_key 'C-s'
 
 # Set the width and height of the Tome popup window.
 set -g @tome_size '40%'
-
-# Set the Tome playbook type and path.
-set -g @tome_playbook '.playbook.org'
 
 #-------------------------------------------------------------------------------
 # }}}
