@@ -648,7 +648,7 @@ set -g @tome_key 'C-t'
 set -g @tome_scratch_key 'C-s'
 
 # Set the width and height of the Tome popup window.
-set -g @tome_height '40'
+set -g @tome_size '40%'
 
 #-------------------------------------------------------------------------------
 # }}}
