@@ -650,6 +650,9 @@ set -g @tome_scratch_key 'C-s'
 # Set the width and height of the Tome popup window.
 set -g @tome_size '40%'
 
+# Set the Tome playbook type and path.
+set -g @tome_playbook '.playbook.org'
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
