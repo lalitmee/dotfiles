@@ -176,6 +176,9 @@ return { --[[ snacks.nvim ]]
             notification = {
                 wo = { wrap = true }, -- Wrap notifications
             },
+            scratch = {
+                border = "rounded",
+            },
         },
         -- scroll = {
         --     enabled = true,
