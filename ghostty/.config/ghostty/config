@@ -25,5 +25,7 @@ macos-titlebar-style = transparent
 
 confirm-close-surface = false
 
+auto-update = off
+
 # Keybinds
 keybind = super+r=reload_config

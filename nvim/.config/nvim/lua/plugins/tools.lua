@@ -34,7 +34,7 @@ return {
         },
     },
 
-    { --[[ nap ]]
+    { --[[ nap.nvim ]]
         "liangxianzhe/nap.nvim",
         keys = { "]", "[" },
         opts = {
@@ -43,42 +43,32 @@ return {
             next_repeat = "]]",
             prev_repeat = "[[",
             operators = {
-                ["tq"] = {
-                    next = { rhs = "<cmd>QFToggle<CR>", opts = { desc = "Toggle QF Helper" } },
-                    prev = { rhs = "<cmd>QFToggle<CR>", opts = { desc = "Toggle QF Helper" } },
-                },
-
-                ["tl"] = {
-                    next = { rhs = "<cmd>LLToggle<CR>", opts = { desc = "Toggle LL Helper" } },
-                    prev = { rhs = "<cmd>LLToggle<CR>", opts = { desc = "Toggle LL Helper" } },
-                },
-
-                ["q"] = {
+                ["q"] = { -- [[ QuickFix Next/Prev ]]
                     next = { rhs = "<cmd>QNext<CR>", opts = { desc = "Next QF Item" } },
                     prev = { rhs = "<cmd>QPrev<CR>", opts = { desc = "Previous QF Item" } },
                 },
 
-                ["h"] = {
+                ["h"] = { -- [[ Gitsigns Hunk Next/Prev ]]
                     next = { rhs = "<cmd>Gitsigns next_hunk<CR>", opts = { desc = "Next hunk" } },
                     prev = { rhs = "<cmd>Gitsigns next_hunk<CR>", opts = { desc = "Previous hunk" } },
                 },
 
-                ["<Tab>"] = {
+                ["<Tab>"] = { -- [[ Tab Next/Prev ]]
                     next = { rhs = "<cmd>tabnext<cr>", opts = { desc = "Next tab" } },
                     prev = { rhs = "<cmd>tabprevious<cr>", opts = { desc = "Previous tab" } },
                 },
 
-                ["<Space>"] = {
+                ["<Space>"] = { -- [[ Empty Line Next/Prev ]]
                     next = { rhs = [[<cmd>call append(line("."), [""])<CR>]], opts = { desc = "Empty line below" } },
                     prev = { rhs = [[<cmd>call append(line(".")-1, [""])<CR>]], opts = { desc = "Empty line above" } },
                 },
 
-                ["e"] = {
+                ["e"] = { -- [[ Move Line Next/Prev ]]
                     next = { rhs = [[<cmd>m .+1<CR>]], opts = { desc = "Move line down" } },
                     prev = { rhs = [[<cmd>m .-2<CR>]], opts = { desc = "Move line up" } },
                 },
 
-                ["t"] = {
+                ["t"] = { -- [[ Todo Comments Next/Prev ]]
                     next = {
                         rhs = function()
                             require("todo-comments").jump_next()
@@ -93,7 +83,7 @@ return {
                     },
                 },
 
-                ["j"] = {
+                ["j"] = { -- [[ Word Jump Next/Prev ]]
                     next = {
                         rhs = function()
                             Snacks.words.jump(1, true)
@@ -108,7 +98,7 @@ return {
                     },
                 },
 
-                ["f"] = {
+                ["f"] = { -- [[ Fold Next/Prev ]]
                     -- Close current fold, jump to next, open it, refresh screen
                     next = { rhs = [[zczjzo<C-l>]], opts = { desc = "next fold" } },
                     -- Close current fold, jump to previous, open it, jump to match, go to line start, refresh

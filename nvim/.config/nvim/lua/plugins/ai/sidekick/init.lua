@@ -37,7 +37,7 @@ return {
                     require("sidekick.cli").toggle()
                 end,
                 desc = "Sidekick Toggle",
-                mode = { "n", "t", "i", "x" },
+                mode = { "n", "x" },
             },
             { -- [[ Sidekick CLI Toggle With Focus ]] --
                 "<localleader>aa",

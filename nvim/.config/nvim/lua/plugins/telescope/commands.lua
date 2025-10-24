@@ -238,6 +238,13 @@ vim.api.nvim_create_user_command("GitBufferHunks", function()
     })
 end, {})
 
+local wk = require("which-key")
+wk.add({
+    { "<leader>gh", group = "git-hunks", desc = "Git Hunks" },
+    { "<leader>ghh", ":GitHunks<CR>", desc = "Git Hunks" },
+    { "<leader>ghb", ":GitBufferHunks<CR>", desc = "Git Hunks" },
+})
+
 -- }}}
 --------------------------------------------------------------------------------
 
