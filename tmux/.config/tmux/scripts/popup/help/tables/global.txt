@@ -1,17 +1,13 @@
 Key	Description
-C-a c	New window
-C-a -	Horizontal split
-C-a \	Vertical split
-C-a x	Kill pane
-C-a n	Break pane to window
-C-a j	Join pane from window
-C-a J	Jump to text (tmux-jump)
-C-a z	Zoom pane
-C-a ?	Search keybindings
-C-a i	Cheat sheets (cht.sh)
-C-a g	LazyGit interface
-C-a S	Session management
-C-a C-i	AI tools
-C-a b	Second brain
-C-b	Layout mode
-C-h/j/k/l	Smart pane navigation
+C-a A	Ask Tools
+C-a C-i	AI Tools
+C-a C-b	Second Brain
+C-b	Layout Mode
+C-a F	Fingers (search and copy text)
+C-a C-	tmux-floax (floating pane)
+C-a C-t	Tome (playbook)
+C-a C-s	Tome (scratchpad)
+C-a t	custom_shell (standard)
+C-a T	custom_shell (ephemeral)
+C-a K	Kill custom_shell sessions
+C-b C-g	Git Worktree
