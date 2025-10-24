@@ -658,20 +658,6 @@ set -g @grimoire-height '90%'         # Height as percentage
 # Position
 set -g @grimoire-position 'center'  # See position options below
 
-
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------
-# # NOTE: tmux-git-worktree {{{
-#-------------------------------------------------------------------------------
-
-set -g @plugin 'NigelGreenway/tmux-git-worktree'
-
-bind-key -T layout-mode C-g display-popup -E -w 80% -h 60% -d "#{pane_current_path}" "$HOME/.tmux/plugins/tmux-git-worktree/src/main"
-
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
@@ -798,7 +784,7 @@ bind G run-shell "~/.config/tmux/scripts/popup/gh-dash.sh"
 bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/popup/search-keybindings.sh"'
 
 # Global help popup
-bind C-f run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh global"
+bind / run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh global"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -824,6 +810,29 @@ bind "C-o" display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/gum.sh"
 
 # Connect to the last session.
 bind "S" run-shell "sesh last"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# # NOTE: Prefix - AI File Picker {{{
+#         File selection and insertion for AI tools and other utilities.
+#-------------------------------------------------------------------------------
+
+bind C-f display-popup -h 80% -w 80% -E "tmux-file-picker"
+
+# Use -g flag to show paths relative to git root
+bind C-g display-popup -h 80% -w 80% -E "tmux-file-picker -g"
+
+# # Use --zoxide to select from your frecent directories first
+# bind C-z display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide"
+#
+# # Use --zoxide with --dir-only to just insert the directory path
+# bind C-v display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --dir-only"
+#
+# # Combine --zoxide with --git-root
+# bind C-x display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --git-root"
 
 #-------------------------------------------------------------------------------
 # }}}
