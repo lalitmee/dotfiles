@@ -13,9 +13,8 @@ return {
         },
     },
 
-    { "Bilal2453/luvit-meta", lazy = true },
-
     { --[[ lspsaga ]]
+        enabled = false,
         "glepnir/lspsaga.nvim",
         event = "LspAttach",
         opts = {
@@ -30,7 +29,6 @@ return {
                 enable = true,
             },
         },
-        enabled = false,
     },
 
     { --[[ mason ]]

@@ -36,6 +36,7 @@ return {
 
             sources = {
                 default = {
+                    "lazydev",
                     "snippets",
                     "lsp",
                     "buffer",
@@ -44,6 +45,12 @@ return {
                 },
 
                 providers = {
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
+                    },
+
                     ripgrep = {
                         module = "blink-ripgrep",
                         name = "Ripgrep",
