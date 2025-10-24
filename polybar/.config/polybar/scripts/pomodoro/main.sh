@@ -2,7 +2,7 @@
 
 STATE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/pomodoro_state"
 LOG_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/pomodoro.log"
-WORK_MIN=25
+WORK_MIN=45
 BREAK_MIN=5
 LONG_BREAK_MIN=15
 MAX_POMODOROS=4

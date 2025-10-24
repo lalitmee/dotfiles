@@ -600,14 +600,16 @@ set-option -g @fingers-key "F"
 
 set -g @plugin 'omerxx/tmux-floax'
 
+set -g @floax-title 'scratchpad'
+
 # Set the keybinding to toggle a floating pane.
-set -g @floax-bind 'C-\'
-set -g @floax-width '85%'
-set -g @floax-height '85%'
+set -g @floax-bind 'm'
+set -g @floax-width '90%'
+set -g @floax-height '90%'
 
 # Set the border color for floating panes.
 set -g @floax-border-color '#00AAFF'
-set -g @floax-text-color '#FFC600'
+set -g @floax-text-color '#FFFFFF'
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -755,17 +757,8 @@ bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 # Launch the project runner script in a popup.
 bind C-r display-popup -w 90% -h 90% -E "zsh -lc '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
-# Hook to maintain custom window names when tmux tries to rename them
-set-hook -g window-renamed 'run-shell "~/.config/tmux/scripts/runner/maintain-window-name.sh #{window_id}"'
-
-# Window naming controls to prevent tmux auto-renaming
-set -g allow-rename off
-set -g automatic-rename off
-setw -g automatic-rename off
-setw -g allow-rename off
-
-# Launch the scratchpad popup script.
-bind m run-shell "~/.config/tmux/scripts/popup/scratch.sh"
+# # Launch the scratchpad popup script.
+# bind m run-shell "~/.config/tmux/scripts/popup/scratch.sh"
 
 # Launch the gh-dash popup script.
 bind G run-shell "~/.config/tmux/scripts/popup/gh-dash.sh"
