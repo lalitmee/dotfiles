@@ -1126,10 +1126,10 @@ bind -T layout-mode x display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/kil
 #-------------------------------------------------------------------------------
 
 # Toggle daily Personal todo in a Neovim popup (explicitly personal)
-bind -T layout-mode t run-shell "~/.config/tmux/scripts/popup/todo.sh personal"
+bind -T layout-mode t run-shell "custom_shpell standard daily-personal-todo '~/.config/tmux/scripts/popup/todo.sh personal'"
 
 # Toggle daily Work todo in a Neovim popup
-bind -T layout-mode T run-shell "~/.config/tmux/scripts/popup/todo.sh work"
+bind -T layout-mode T run-shell "custom_shpell standard daily-work-todo '~/.config/tmux/scripts/popup/todo.sh work'"
 
 #-------------------------------------------------------------------------------
 # }}}
