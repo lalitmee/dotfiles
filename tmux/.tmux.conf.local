@@ -437,7 +437,12 @@ unbind C-b
 bind C-a send-prefix
 
 # Reduce escape key delay for faster responsiveness, especially in Vim/Neovim.
-set -g escape-time 0
+# set -g escape-time 0
+
+# Both are required to stop getting the garbage characters in tmux session when it
+# attaches to a remote terminal from cursor or vscode
+set -sg escape-time 500
+set -g focus-events off
 
 # Start window numbering at 1 instead of 0.
 set-option -g base-index 1
