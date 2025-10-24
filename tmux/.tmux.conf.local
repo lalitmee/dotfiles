@@ -538,8 +538,11 @@ set-option -g popup-border-lines rounded
 #-------------------------------------------------------------------------------
 set -g @plugin 'olimorris/tmux-pomodoro-plus'
 
-# Set pomodoro duration to 25 minutes.
-set -g @pomodoro_mins 25
+# display format for pomodoro current/total in the status bar.
+set -g @pomodoro_interval_display " [%s/%s]"
+
+# Set pomodoro duration to 90 minutes.
+set -g @pomodoro_mins 90
 
 # Set break duration to 5 minutes.
 set -g @pomodoro_break_mins 5
@@ -579,42 +582,12 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 # Provides better, more intuitive mouse support.
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 
-# Provides hints to search and jump to text matches.
-set -g @plugin 'tmux-plugins/tmux-copycat'
-
 # Provides a better way to yank (copy) text to the system clipboard.
 set -g @plugin 'tmux-plugins/tmux-yank'
 
 # Enhances copy and paste with visual hints and easy navigation.
 set -g @plugin 'Morantron/tmux-fingers'
 set-option -g @fingers-key "F"
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: FZF Links Opener (Cross-Platform) {{{
-#-------------------------------------------------------------------------------
-
-set -g @plugin 'alberti42/tmux-fzf-links'
-
-# Set the keybinding to open the file/link finder.
-set-option -g @fzf-links-key "O"
-
-# Dynamically find the python3 executable. `command -v` searches your $PATH.
-# This works on both macOS (finding the brew version) and Linux.
-set-option -g @fzf-links-python "$(command -v python3)"
-
-# Dynamically find the path to nvim and use it in the open command.
-set-option -g @fzf-links-editor-open-cmd "tmux new-window -n 'nvim' $(command -v nvim) +%line '%file'"
-
-# Use if-shell to detect the OS and set the correct browser opener command.
-# `uname -s` returns "Darwin" for macOS and "Linux" for Linux.
-if-shell "uname -s | grep -q Darwin" \
-    "set-option -g @fzf-links-browser-open-cmd \"open '%url'\"" \
-    "set-option -g @fzf-links-browser-open-cmd \"xdg-open '%url'\""
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -672,7 +645,7 @@ set -g @plugin 'navahas/tmux-grimoire'
 
 set -g @grimoire-key "t"              # Summon the main shpell, or banish any active one
 set -g @ephemeral-grimoire-key "T"    # Summon an ephemeral shpell
-set -g @grimoire-kill-key "C"         # Banish the current shpell and erase its tmux window
+set -g @grimoire-kill-key "K"         # Banish the current shpell and erase its tmux window
 
 # Title
 set -g @grimoire-title ' grimoire '   # Plain text title
@@ -825,7 +798,7 @@ bind G run-shell "~/.config/tmux/scripts/popup/gh-dash.sh"
 bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/popup/search-keybindings.sh"'
 
 # Global help popup
-bind C-f display-popup -w 90 -h 25 -E "$HOME/.config/tmux/scripts/popup/help/help.sh global"
+bind C-f run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh global"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -916,7 +889,7 @@ bind-key -T ask-tools b display-popup -w 85% -h 85% -E "zsh -lc '~/.config/tmux/
 #-------------------------------------------------------------------------------
 
 # Help for ask-tools
-bind -T ask-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/popup/help/help.sh ask-tools"
+bind -T ask-tools ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh ask-tools"
 
 # Exit the ask-tools table
 bind-key -T ask-tools q switch-client -T root
@@ -988,7 +961,7 @@ bind-key -T ai-tools u run-shell -b "~/.config/tmux/scripts/popup/ai/update.sh"
 #-------------------------------------------------------------------------------
 
 # Help for AI tools
-bind -T ai-tools ? display-popup -w 70 -h 15 -E "$HOME/.config/tmux/scripts/popup/help/help.sh ai-tools"
+bind -T ai-tools ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh ai-tools"
 
 # Exit the AI tools table
 bind-key -T ai-tools q switch-client -T root
@@ -1039,6 +1012,10 @@ bind-key -T second-brain K display-popup -E "zsh -lic '~/.config/tmux/scripts/po
 
 # Exit second-brain mode
 bind-key -T second-brain q switch-client -T root
+
+# Help for second-brain
+bind -T second-brain ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh second-brain"
+
 
 # -------------------------------------------------------------------------------
 # }}}
@@ -1195,7 +1172,7 @@ bind -T layout-mode m display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/doc
 #-------------------------------------------------------------------------------
 
 # Help for layout mode
-bind -T layout-mode ? display-popup -w 90 -h 25 -x C -y C -E "$HOME/.config/tmux/scripts/popup/help/help.sh layout-mode"
+bind -T layout-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh layout-mode"
 
 #-------------------------------------------------------------------------------
 # }}}

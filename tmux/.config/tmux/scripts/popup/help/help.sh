@@ -35,7 +35,7 @@ show_help_table() {
     if [[ ! -f "$table_file" ]]; then
         echo "❌ Help table '$table_name' not found in $TABLES_DIR" >&2
         echo "Available tables:" >&2
-        ls -1 "$TABLES_DIR"/*.txt 2>/dev/null | sed 's|.*/||' | sed 's|\.txt$||' | sed 's/^/  - /' >&2
+        ls -1 "$TABLES_DIR"/*.txt 2>/dev/null | sed 's|.*/||g' | sed 's|\.txt$||g' | sed 's/^/  - /' >&2
         exit 1
     fi
 
@@ -47,21 +47,15 @@ show_help_table() {
         exit 1
     fi
 
-    # Display the table with styling (removed --padding which isn't supported in all gum versions)
-    cat "$table_file" | gum table \
-        --separator=$'\t' \
-        --header.foreground="$HEADER_FG" \
-        --header.background="$HEADER_BG" \
-        --cell.foreground="$BODY_FG" \
-        --cell.background="$BODY_BG" \
-        --border.foreground="$BORDER_FG" \
-        --border="rounded" \
-        --print
+    local tab_char=$(printf '\t')
+    local gum_command="cat '$table_file' | gum table --separator=\"$tab_char\" --header.foreground='$HEADER_FG' --header.background='$HEADER_BG' --cell.foreground='$BODY_FG' --cell.background='$BODY_BG' --border.foreground='$BORDER_FG' --border='rounded' --print; echo; gum style --foreground='$HEADER_FG' --background='$BODY_BG' 'Press any key to close...'; read -n 1 -s || true"
 
-    # Wait for user to press any key to close
-    echo ""
-    gum style --foreground="$HEADER_FG" --background="$BODY_BG" "Press any key to close..."
-    read -n 1 -s
+    # Get the width and height from environment variables, with defaults
+    WIDTH=30
+    HEIGHT=50
+
+    # Display the popup
+    tmux display-popup -w "${WIDTH}%" -h "${HEIGHT}%" -E "$gum_command"
 }
 
 # Main logic
