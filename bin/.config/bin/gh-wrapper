@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+if [[ -x /opt/homebrew/bin/gh ]]; then
+    exec /opt/homebrew/bin/gh "$@"
+else
+    exec /usr/bin/gh "$@"
+fi
