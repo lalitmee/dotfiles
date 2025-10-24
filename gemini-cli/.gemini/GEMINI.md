@@ -4,15 +4,22 @@
 
 - Before trying to update a file, always read it first to ensure you have the correct content.
 
-### Languages
+### Languages Rules
 
-#### Markdown
+#### Markdown Files
 
 - Always make sure to write the content in the following format:
   - Use headings, subheadings, bullet points, and numbered lists where appropriate.
   - There should be **ATLEAST** 1 empty line used to separate different sections for better readability and to avoid re-working on linting errors.
   - Use proper Markdown syntax for links, images, and other elements.
   - Ensure that code blocks are properly formatted with triple backticks and the correct language specified (**ALWAYS**).
+
+### Tmux Configuration Rules
+
+- When adding new key bindings, ensure they do not conflict with existing ones.
+- Use comments to explain the purpose of each key binding.
+- After making any changes to the tmux configuration, **ALWAYS** reload the
+  configuration to apply the changes.
 
 ## Gemini Added Memories
 
