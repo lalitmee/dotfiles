@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-HELP_DIR="$HOME/.config/tmux/scripts/help"
+HELP_DIR="$HOME/.config/tmux/scripts/popup/help"
 TABLES_DIR="$HELP_DIR/tables"
 SCRIPT_NAME=$(basename "$0")
 

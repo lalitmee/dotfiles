@@ -60,17 +60,18 @@ return {
         },
     },
 
-    { --[[ fugitive ]]
+    { --[[ vim-fugitive ]]
+        enabled = false,
         "tpope/vim-fugitive",
         cmd = { "Git" },
         keys = {
             { "<leader>gs", ":Git<CR>", desc = "Git Status", silent = true },
         },
-        enabled = false,
     },
 
-    { --[[ gitsigns ]]
+    { --[[ gitsigns.nvim ]]
         "lewis6991/gitsigns.nvim",
+        cmd = "Gitsigns",
         event = "BufReadPost",
         init = function()
             local wk = require("which-key")
@@ -82,7 +83,6 @@ return {
             { "<leader>gdd", ":Gitsigns diffthis<CR>", desc = "Diffthis" },
             { "<leader>gdw", ":Gitsigns toggle_word_diff<CR>", desc = "Toggle Word Diff" },
             { "<leader>gm", ":Gitsigns blame_line<CR>", desc = "Blame Line" },
-            { "<leader>gn", ":GitHunks<CR>", desc = "Git Hunks" },
             {
                 "<leader>gO",
                 function()
