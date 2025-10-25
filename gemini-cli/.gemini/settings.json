@@ -92,9 +92,22 @@
         "-y",
         "chrome-devtools-mcp@latest"
       ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
     }
   },
   "inactiveMcpServers": {
+    "gitmcp": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://gitmcp.io/{owner}/{repo}"
+      ]
+    },
     "time": {
       "command": "uvx",
       "args": [
