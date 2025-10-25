@@ -1,11 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env zsh
+
+source "$(dirname "$0")/config.sh"
 
 STATE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/pomodoro_state"
-
-WORK_SEC=1500       # 25 min
-SHORT_BREAK_SEC=300 # 5 min
-LONG_BREAK_SEC=900  # 15 min
-MAX_POMODOROS=4     # long break after 4 sessions
 
 tick() {
     [[ ! -f "$STATE_FILE" ]] && return
@@ -38,10 +35,10 @@ tick() {
             # work done → increment count & choose break
             POMO_COUNT=$(((${POMO_COUNT:-0} + 1)))
             if ((POMO_COUNT % MAX_POMODOROS == 0)); then
-                duration=$LONG_BREAK_SEC
+                duration=$((LONG_BREAK_MIN * 60))
                 label="Long Break"
             else
-                duration=$SHORT_BREAK_SEC
+                duration=$((BREAK_MIN * 60))
                 label="Break"
             fi
             notify-send -i "face-smile-symbolic" "Pomodoro Done ✅" "Time for a $label: $(duration/60) minutes"
@@ -67,7 +64,7 @@ tick() {
 
             {
                 echo 'STATUS="⏱ Working"'
-                echo "TIME_LEFT=$WORK_SEC"
+                echo "TIME_LEFT=$((WORK_MIN * 60))"
                 echo "PAUSED=0"
                 echo "POMO_COUNT=$new_pomo_count"
             } > "$STATE_FILE"
