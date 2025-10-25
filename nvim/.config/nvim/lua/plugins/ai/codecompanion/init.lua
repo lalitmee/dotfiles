@@ -266,6 +266,13 @@ return {
                             },
                             defaults = {
                                 auth_method = "oauth-personal", -- "oauth-personal" | "gemini-api-key" | "vertex-ai"
+                                oauth_credentials_path = vim.fs.abspath("~/.gemini/oauth_creds.json"),
+                            },
+                            handlers = {
+                                auth = function(self)
+                                    local oauth_credentials_path = self.defaults.oauth_credentials_path
+                                    return (oauth_credentials_path and vim.fn.filereadable(oauth_credentials_path)) == 1
+                                end,
                             },
 
                             env = {
