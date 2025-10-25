@@ -77,7 +77,6 @@
   "org-roam.nvim": { "branch": "main", "commit": "cf00a0b3797ee3370c2ca2bdedbc04b2f5309a1e" },
   "org-super-agenda.nvim": { "branch": "main", "commit": "da23a1fc10d69dfe29a4ff48f125c9eafb9a9bd1" },
   "orgmode": { "branch": "master", "commit": "94886d6dda708ab2a4b3e33662d846d5e7d4f06f" },
-  "orphans.nvim": { "branch": "main", "commit": "35f995fbb04b679b7d829072d7209a2117c15adf" },
   "overseer.nvim": { "branch": "master", "commit": "2c23513a4fd3a3be0459b3b62996fb0732c2fd7e" },
   "persistence.nvim": { "branch": "main", "commit": "51eef57272742b773468949f6bd0503ec3f83874" },
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
@@ -131,7 +130,6 @@
   "vim-sort-motion": { "branch": "master", "commit": "c8782be8f7da414c6442b3ba4b6abb0345d392d9" },
   "vim-sxhkdrc": { "branch": "master", "commit": "7b8abc305ba346c3af7d57da0ebec2b2f2d3f5b0" },
   "vim-wakatime": { "branch": "master", "commit": "d7973b157a632d1edeff01818f18d67e584eeaff" },
-  "wellness-break.nvim": { "branch": "main", "commit": "e31e30eaad9569a067688bd362ec10ee3bc510b0" },
   "which-key.nvim": { "branch": "main", "commit": "b4177e3eaf15fe5eb8357ebac2286d488be1ed00" },
   "wtf.nvim": { "branch": "main", "commit": "62437210d1da5a4343a74ab859b59c8ba0d682a2" },
   "yanky.nvim": { "branch": "main", "commit": "04775cc6e10ef038c397c407bc17f00a2f52b378" }
