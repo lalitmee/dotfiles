@@ -1,11 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env zsh
+
+source "$(dirname "$0")/config.sh"
 
 STATE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/pomodoro_state"
 LOG_FILE="${XDG_DATA_HOME:-$HOME/.local/share}/pomodoro.log"
-WORK_MIN=45
-BREAK_MIN=5
-LONG_BREAK_MIN=15
-MAX_POMODOROS=4
 
 # 🧠 Play alert sound
 play_sound() {
@@ -41,7 +39,7 @@ update_display() {
                 session_number=$count
             fi
 
-            session_info=" (${session_number}/${MAX_POMODOROS})"
+            session_info=" [${session_number}/${MAX_POMODOROS}]"
 
             if [[ "$PAUSED" == "1" ]]; then
                 echo " $status_text $mins:$secs$session_info"
