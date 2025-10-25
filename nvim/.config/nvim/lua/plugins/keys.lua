@@ -46,6 +46,10 @@ return {
                 --  NOTE: <leader>f -> files {{{
                 --------------------------------------------------------------------------------
                 { "<leader>f", group = "files" },
+                { "<leader>fs", ":w<CR>", desc = "Save" },
+                { "<leader>fS", ":wa<CR>", desc = "Save All" },
+                { "<leader>fw", ":noau w<CR>", desc = "Save Without Formatting" },
+                { "<leader>fW", ":noau wa<CR>", desc = "Save All Without Formatting" },
                 -- }}}
                 --------------------------------------------------------------------------------
 
