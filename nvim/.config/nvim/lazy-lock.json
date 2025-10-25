@@ -3,7 +3,6 @@
   "Jumppack.nvim": { "branch": "main", "commit": "c1bc410ef011afbd405e945a08ce200d59a0e537" },
   "LuaSnip": { "branch": "master", "commit": "ccf25a5452b8697a823de3e5ecda63ed3d723b79" },
   "Navigator.nvim": { "branch": "master", "commit": "91d86506ac2a039504d5205d32a1d4bc7aa57072" },
-  "NeoZoom.lua": { "branch": "main", "commit": "c97a0197548c1e9b559e4fa41ab3f7782c93e613" },
   "VectorCode": { "branch": "main", "commit": "e4c17b5536482a3303392b7ecc0eb05f6255dd75" },
   "better-goto-file.nvim": { "branch": "main", "commit": "6aec97210e3e00ef7fe9193699a72e192615a142" },
   "blink-cmp-dictionary": { "branch": "master", "commit": "944b3b215b01303672d4213758db7c5c5a1e3c92" },

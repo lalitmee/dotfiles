@@ -108,187 +108,8 @@ return {
         },
     },
 
-    { --[[ toggleterm.nvim ]]
-        "akinsho/toggleterm.nvim",
-        keys = {
-            [[<C-\>]],
-            { "<localleader>t/", ":Serpl<CR>", desc = "Search And Replace", silent = true },
-            { "<localleader>tb", ":Bottom<CR>", desc = "Bottom", silent = true },
-            { "<localleader>td", ":LazyDocker<CR>", desc = "Lazydocker", silent = true },
-            { "<localleader>tg", ":LazyGit<CR>", desc = "Lazygit", silent = true },
-            { "<localleader>th", ":ToggleTerm direction=horizontal<CR>", desc = "Horizontal Terminal", silent = true },
-            { "<localleader>ti", ":ChatGPTSh<CR>", desc = "Chatgpt", silent = true },
-            { "<localleader>tf", ":GhDash<CR>", desc = "Gh Dash", silent = true },
-            { "<localleader>tv", ":ToggleTerm direction=vertical<CR>", desc = "Vertical Terminal", silent = true },
-            { "<localleader>tt", ":Tig<CR>", desc = "Tig", silent = true },
-        },
-        cmd = { "ToggleTerm" },
-        init = function()
-            local wk = require("which-key")
-            wk.add({
-                { "<localleader>t", group = "terminal" },
-            })
-        end,
-        opts = {
-            open_mapping = [[<C-\>]],
-            direction = "float",
-            autochdir = true,
-            persist_mode = true,
-            insert_mappings = false,
-            start_in_insert = true,
-            winbar = { enabled = lk.ui.winbar.enable },
-            float_opts = vim.tbl_extend("keep", {
-                border = lk.style.border.rounded,
-                winblend = 3,
-            }, float_dimensions_opts),
-            shade_terminals = false,
-            size = function(term)
-                if term.direction == "horizontal" then
-                    return 20
-                elseif term.direction == "vertical" then
-                    return math.floor(vim.api.nvim_get_option_value("columns", { scope = "local" }) * 0.5)
-                end
-            end,
-        },
-        config = function(_, opts)
-            require("toggleterm").setup(opts)
-
-            local float_handler = function(term)
-                if not lk.falsy(fn.mapcheck("jk", "t")) then
-                    vim.keymap.del("t", "jk", { buffer = term.bufnr })
-                    vim.keymap.del("t", "<esc>", { buffer = term.bufnr })
-                end
-            end
-
-            local Terminal = require("toggleterm.terminal").Terminal
-
-            local serpl = Terminal:new({
-                cmd = "serpl",
-                dir = "git_dir",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            local chatgpt = Terminal:new({
-                cmd = "chatgpt -i",
-                dir = "git_dir",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            local gh_dash = Terminal:new({
-                cmd = "gh dash",
-                dir = "git_dir",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            local lazygit = Terminal:new({
-                cmd = "lazygit",
-                dir = "git_dir",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            local lazydocker = Terminal:new({
-                cmd = "lazydocker",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            local bottom = Terminal:new({
-                cmd = "btm",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            local tig = Terminal:new({
-                cmd = "tig",
-                hidden = true,
-                direction = "float",
-                on_open = float_handler,
-                float_opts = float_dimensions_opts,
-            })
-
-            command("Serpl", function()
-                serpl:toggle()
-            end)
-            command("LazyDocker", function()
-                lazydocker:toggle()
-            end)
-            command("LazyGit", function()
-                lazygit:toggle()
-            end)
-            command("Bottom", function()
-                bottom:toggle()
-            end)
-            command("ChatGPTSh", function()
-                chatgpt:toggle()
-            end)
-            command("GhDash", function()
-                gh_dash:toggle()
-            end)
-            command("Tig", function()
-                tig:toggle()
-            end)
-        end,
-    },
-
-    { --[[ neozoom ]]
-        "nyngwang/NeoZoom.lua",
-        cmd = { "NeoZoomToggle" },
-        keys = {
-            { "<leader>wm", ":NeoZoomToggle<CR>", desc = "Maximize Window" },
-        },
-        config = function()
-            require("neo-zoom").setup({
-                winopts = {
-                    border = "rounded",
-                    offset = {
-                        height = 0.9,
-                        width = 220,
-                    },
-                },
-            })
-        end,
-    },
-
-    { --[[ project ]]
-        "ahmedkhalf/project.nvim",
-        keys = { "<leader>pp" },
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-        },
-        config = function()
-            require("project_nvim").setup({
-                detection_methods = { "pattern", "lsp" },
-                patterns = { ".git" },
-                show_hidden = true,
-                -- show the message on changing the directory
-                silent_chdir = false,
-                -- change to the directory of the file in the current tab
-                scope_chdir = "tab",
-            })
-            require("telescope").load_extension("projects")
-        end,
-        enabled = false,
-    },
-
     { --[[ scratch.nvim ]]
         "LintaoAmons/scratch.nvim",
-        -- stylua: ignore
         keys = {
             { "<leader>kA", [[<cmd>Scratch<cr>]], desc = "New Scratch" },
             { "<leader>kN", [[<cmd>ScratchWithName<cr>]], desc = "New Named Scratch" },
@@ -297,11 +118,12 @@ return {
         },
         opts = {
             file_picker = "telescope",
+            scratch_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
         },
     },
 
     { --[[ scretch.nvim ]]
-        "Sonicfury/scretch.nvim",
+        "0xJohnnyboy/scretch.nvim",
         -- stylua: ignore
         keys = {
             { "<leader>ka", function() require("scretch").new() end, desc = "New" },
@@ -315,8 +137,8 @@ return {
             { "<leader>kn", function() require("scretch").new_named() end, desc = "With Name" },
         },
         opts = {
-            scretch_dir = vim.env.HOME .. "/Projects/Personal/Github/notes/",
-            templte_dir = vim.env.HOME .. "/Projects/Personal/Github/notes/templates/",
+            scretch_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
+            templte_dir = require("utils.oslib").get_second_brain_path() .. "/templates/scratch/",
             default_type = "org",
         },
     },
@@ -787,23 +609,6 @@ return {
         },
     },
 
-    { --[[ vim-apm ]]
-        enabled = false,
-        "ThePrimeagen/vim-apm",
-        keys = {
-            {
-                "<leader>ax",
-                function()
-                    require("vim-apm"):toggle_monitor()
-                end,
-                desc = "toggle vim apm",
-            },
-        },
-        config = function()
-            require("vim-apm"):setup({})
-        end,
-    },
-
     { --[[ marks.nvim ]]
         enabled = false,
         "chentoast/marks.nvim",
@@ -903,57 +708,6 @@ return {
         },
     },
 
-    { --[[ demicolon.nvim ]]
-        enabled = false,
-        "mawkler/demicolon.nvim",
-        dependencies = {
-            "jinh0/eyeliner.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-treesitter/nvim-treesitter-textobjects",
-        },
-        keys = { ";", ",", "t", "f", "T", "F", "]", "[", "]d", "[d" },
-        config = function()
-            require("demicolon").setup({
-                keymaps = {
-                    horizontal_motions = false,
-                },
-            })
-
-            local function eyeliner_jump(key)
-                local forward = vim.list_contains({ "t", "f" }, key)
-                return function()
-                    require("eyeliner").highlight({ forward = forward })
-                    return require("demicolon.jump").horizontal_jump(key)()
-                end
-            end
-
-            local nxo = { "n", "x", "o" }
-            local opts = { expr = true }
-
-            vim.keymap.set(nxo, "f", eyeliner_jump("f"), opts)
-            vim.keymap.set(nxo, "F", eyeliner_jump("F"), opts)
-            vim.keymap.set(nxo, "t", eyeliner_jump("t"), opts)
-            vim.keymap.set(nxo, "T", eyeliner_jump("T"), opts)
-        end,
-    },
-
-    { --[[ eyeliner.nvim ]]
-        enabled = false,
-        "jinh0/eyeliner.nvim",
-        keys = { "t", "f", "T", "F" },
-        opts = {
-            highlight_on_key = true,
-            dim = true,
-            default_keymaps = false,
-        },
-    },
-
-    { --[[ orphans.nvim ]]
-        "ZWindL/orphans.nvim",
-        cmd = "Orphans",
-        opts = {},
-    },
-
     { --[[ todo-comments.nvim ]]
         "folke/todo-comments.nvim",
         event = "VeryLazy",
@@ -1035,17 +789,6 @@ return {
             patterns = {
                 file_pattern = { ".env.*", "credentials*", ".secret-tokens*" },
             },
-        },
-    },
-
-    { --[[ wellness-break.nvim ]]
-        enabled = false,
-        "CodeGeek04/wellness-break.nvim",
-        event = "VeryLazy",
-        opts = {
-            min_keystrokes = 1800,
-            max_keystrokes = 2000,
-            break_duration = 20,
         },
     },
 
