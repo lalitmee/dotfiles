@@ -110,11 +110,6 @@ main() {
 		exit 1
 	fi
 
-	# --- Mode Detection ---
-	local at_prefix_mode=false
-	if pgrep -P "$pane_pid" -f ".*claude.*|node.*gemini" >/dev/null; then
-		at_prefix_mode=true
-	fi
 
 	local git_root
 	git_root=$(git rev-parse --show-toplevel 2>/dev/null || true)
@@ -128,13 +123,8 @@ main() {
 		# When using zoxide, output absolute path
 		local output_path="$search_dir"
 
-		# Format output for at_prefix_mode if needed
-		if $at_prefix_mode; then
-			tmux send-keys -t "$pane_id" "@$output_path "
-		else
-			printf -v escaped_path "%q" "$output_path"
-			tmux send-keys -t "$pane_id" "$escaped_path "
-		fi
+						# Format output to always use @ prefix
+		tmux send-keys -l -t "$pane_id" "@$output_path "
 		exit 0
 	fi
 
@@ -213,21 +203,11 @@ main() {
 
 	# --- Output Formatting ---
 	local files_oneline
-	if $at_prefix_mode; then
-		# Prefix each file with '@' and join with spaces
-		printf -v files_oneline "@%s " "${relative_paths[@]}"
-	else
-		# Shell-escape each file path and join with spaces
-		local escaped_paths=()
-		for path in "${relative_paths[@]}"; do
-			printf -v escaped_path "%q" "$path"
-			escaped_paths+=("$escaped_path")
-		done
-		files_oneline=$(printf "%s " "${escaped_paths[@]}")
-	fi
+	# Prefix each file with '@' and join with spaces
+	printf -v files_oneline "@%s " "${relative_paths[@]}"
 
-	# --- Send to Tmux ---
-	tmux send-keys -t "$pane_id" "$files_oneline"
+		# --- Send to Tmux ---
+	tmux send-keys -l -t "$pane_id" "$files_oneline"
 }
 
 main "$@"

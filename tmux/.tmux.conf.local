@@ -818,14 +818,14 @@ bind C-f display-popup -h 80% -w 80% -E "tmux-file-picker"
 # Use -g flag to show paths relative to git root
 bind C-g display-popup -h 80% -w 80% -E "tmux-file-picker -g"
 
-# # Use --zoxide to select from your frecent directories first
-# bind C-z display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide"
-#
-# # Use --zoxide with --dir-only to just insert the directory path
-# bind C-v display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --dir-only"
-#
-# # Combine --zoxide with --git-root
-# bind C-x display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --git-root"
+# Use --zoxide to select from your frecent directories first
+bind C-z display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide"
+
+# Use --zoxide with --dir-only to just insert the directory path
+bind C-v display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --dir-only"
+
+# Combine --zoxide with --git-root
+bind C-x display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --git-root"
 
 #-------------------------------------------------------------------------------
 # }}}
