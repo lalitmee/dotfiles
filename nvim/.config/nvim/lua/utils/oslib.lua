@@ -58,4 +58,12 @@ M.get_python = function()
     return python
 end
 
+M.get_second_brain_path = function()
+  if vim.env.HOME == "/home/lalitmee" then
+    return vim.env.HOME .. "/Projects/Personal/Github/second-brain"
+  else
+    return vim.env.HOME .. "/Projects/Work/Github/second-brain"
+  end
+end
+
 return M
