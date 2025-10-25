@@ -120,12 +120,6 @@
       ],
       "trust": true
     },
-    "fetch": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-fetch"
-      ]
-    },
     "memory": {
       "command": "npx",
       "args": [
@@ -168,13 +162,6 @@
       "env": {
         "MAX_HISTORY_SIZE": "1000"
       }
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest"
-      ]
     }
   }
 }
