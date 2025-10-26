@@ -106,35 +106,15 @@ return {
     { --[[ scratch.nvim ]]
         "LintaoAmons/scratch.nvim",
         keys = {
-            { "<leader>kA", [[<cmd>Scratch<cr>]], desc = "New Scratch" },
-            { "<leader>kN", [[<cmd>ScratchWithName<cr>]], desc = "New Named Scratch" },
+            { "<leader>ka", [[<cmd>Scratch<cr>]], desc = "New Scratch" },
+            { "<leader>kn", [[<cmd>ScratchWithName<cr>]], desc = "New Named Scratch" },
             { "<leader>ko", [[<cmd>ScratchOpen<cr>]], desc = "Open Scratch" },
-            { "<leader>kF", [[<cmd>ScratchOpenFzf<cr>]], desc = "Open Scratch Fzf" },
+            { "<leader>kf", [[<cmd>ScratchOpenFzf<cr>]], desc = "Grep in Scratch Files" },
         },
         opts = {
             file_picker = "telescope",
-            scratch_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
-        },
-    },
-
-    { --[[ scretch.nvim ]]
-        "0xJohnnyboy/scretch.nvim",
-        -- stylua: ignore
-        keys = {
-            { "<leader>ka", function() require("scretch").new() end, desc = "New" },
-            { "<leader>kt", function() require("scretch").save_as_template() end, desc = "Save As Template" },
-            { "<leader>ke", function() require("scretch").edit_template() end, desc = "Edit Template" },
-            { "<leader>kE", function() require("scretch").explore() end, desc = "Explore" },
-            { "<leader>ks", function() require("scretch").search() end, desc = "Search" },
-            { "<leader>kf", function() require("scretch").new_from_template() end, desc = "From Template" },
-            { "<leader>kg", function() require("scretch").grep() end, desc = "Grep" },
-            { "<leader>kl", function() require("scretch").last() end, desc = "Last" },
-            { "<leader>kn", function() require("scretch").new_named() end, desc = "With Name" },
-        },
-        opts = {
-            scretch_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
-            templte_dir = require("utils.oslib").get_second_brain_path() .. "/templates/scratch/",
-            default_type = "org",
+            filetypes = { "js", "json", "lua", "org", "sh", "ts", "txt" },
+            scratch_file_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
         },
     },
 
