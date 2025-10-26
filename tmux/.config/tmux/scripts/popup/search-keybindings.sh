@@ -21,8 +21,11 @@ tables=(
     confirm
     mode-tree
     resize-pane
-    layout-mode
     split-full-w
+    layout-mode
+    ask-tools
+    ai-tools
+    second-brain
 )
 
 # --- Dump all keybindings to file ---
@@ -36,7 +39,7 @@ for table in "${tables[@]}"; do
 done
 
 # --- Open FZF in tmux popup ---
-tmux display-popup -E -w 90% -h 80% "
+tmux display-popup -E -w 90% -h 90% "
     selected=\$(fzf --ansi \
         --prompt='🔍 Search tmux keybindings: ' \
         --exact \
