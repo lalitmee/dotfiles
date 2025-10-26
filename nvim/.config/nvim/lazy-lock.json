@@ -90,7 +90,6 @@
   "scope.nvim": { "branch": "main", "commit": "228aabdb1b9cc74f0c0ccec88e79873857236e49" },
   "scratch.nvim": { "branch": "main", "commit": "1e78854fd3140411b231d5b6f9b3559b1ba5de77" },
   "screenkey.nvim": { "branch": "main", "commit": "95f2fb19a75d19ca848049d9f98bbc2b6d665682" },
-  "scretch.nvim": { "branch": "main", "commit": "c37292af17af42091b3c58c53c56fe67705d684d" },
   "search.nvim": { "branch": "main", "commit": "7b8f2315d031be73e14bc2d82386dfac15952614" },
   "sidekick.nvim": { "branch": "main", "commit": "dc2710af65a542eb3010136d7664b626633f0229" },
   "smart-open.nvim": { "branch": "0.2.x", "commit": "560d8f16e17977c8303db6f9660db58a4415ca41" },
