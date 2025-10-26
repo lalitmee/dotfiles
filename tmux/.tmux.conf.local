@@ -774,7 +774,7 @@ bind G run-shell "~/.config/tmux/scripts/popup/gh-dash.sh"
 #-------------------------------------------------------------------------------
 
 # Launch the keybinding search script (original function)
-bind-key -r ? run-shell -b 'tmux run-shell "~/.config/tmux/scripts/popup/search-keybindings.sh"'
+bind-key -r ? run-shell "~/.config/tmux/scripts/popup/search-keybindings.sh"
 
 # Global help popup
 bind / run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh global"
