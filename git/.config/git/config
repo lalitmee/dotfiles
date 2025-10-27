@@ -192,13 +192,13 @@
     credentialStore = cache
     # Use the full path for credentials, which is necessary for some helpers.
     useHttpPath = true
-    helper = !gh-wrapper auth git-credential
+    helper = !$HOME/.config/bin/gh-wrapper auth git-credential
 
 #
 # Credential helper specific to GitHub.
 #
 [credential "https://github.com"]
-    helper = !gh-wrapper auth git-credential
+    helper = !$HOME/.config/bin/gh-wrapper auth git-credential
 
 #
 # Configuration for the `delta` pager.
