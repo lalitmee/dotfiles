@@ -172,6 +172,23 @@ docs(conventions): update installation instructions
 - **Scripts**: ~/.config/tmux/scripts/ (organized by functionality)
 - **Loading Order**: Base template → Local overrides → Dotfiles customizations (with inline theme)
 
+### Tmux display-popup Escaping Rules
+
+When using `tmux display-popup` with a multi-line string containing shell commands, it's crucial to handle shell expansions and quoting correctly to ensure commands are executed by the inner shell (the popup environment) rather than the outer shell (the script itself).
+
+- **Problem**: Variables and commands inside the popup string are evaluated by the *outer* shell, leading to errors if those variables are meant to be used inside the popup.
+- **Solution**: Escape dollar signs (`$`) and other special characters to preserve them as literal text for the inner shell.
+
+**Rules for Escaping:**
+
+1.  `$variable` in the outer shell should be `\$variable` in the popup string to be evaluated by the inner shell.
+2.  `$(command)` in the outer shell should be `\\$(command)` in the popup string.
+3.  Variables inside `awk` or `sed` patterns need to be escaped: `awk '{$1=...}'` becomes `awk '{\\$1=...}'`.
+4.  Double quotes inside the string must be escaped: `"text"` becomes `\\"text\\"`.
+5.  Do not over-escape. A single backslash is usually sufficient: `\$variable` is correct, `\\\\$variable` is not.
+
+**Key Question**: When writing a `tmux display-popup` command, always ask: "Should this `$` be evaluated by the outer shell or the inner shell?" If the answer is the inner shell, it needs a single backslash before it.
+
 ### Script Organization Structure
 
 ```

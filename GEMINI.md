@@ -13,6 +13,7 @@
 9.  **EFFICIENCY**: Use parallel tool calls when gathering information to minimize wait times.
 10. **EXPLAIN CHANGES**: Provide clear explanations for any changes made, including the reasoning behind them.
 11. **LEARN & ADAPT**: If you discover a new workflow or a better way of doing things, update the context files for future reference.
+12. **TMUX POPUP ESCAPING**: For `tmux display-popup` commands, refer to the escaping rules in `CONTEXT.md` to prevent nested shell evaluation issues.
 
 ## My Problem-Solving Workflow
 
