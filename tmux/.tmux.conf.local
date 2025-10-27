@@ -1005,12 +1005,12 @@ bind-key -T second-brain s run-shell "custom_shpell standard scratch-personal 'n
 bind-key -T second-brain S run-shell "custom_shpell standard scratch-work 'nvim $HOME/Projects/Work/Github/second-brain/scratch/inbox.org'"
 
 # Old Workflow
-bind-key -T second-brain a display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
-bind-key -T second-brain A display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes work'"
-bind-key -T second-brain d display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos personal'"
-bind-key -T second-brain D display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos work'"
-bind-key -T second-brain k display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch personal'"
-bind-key -T second-brain K display-popup -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
+bind-key -T second-brain a display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
+bind-key -T second-brain A display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes work'"
+bind-key -T second-brain d display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos personal'"
+bind-key -T second-brain D display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos work'"
+bind-key -T second-brain k display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch personal'"
+bind-key -T second-brain K display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
 
 # Exit second-brain mode
 bind-key -T second-brain q switch-client -T root
