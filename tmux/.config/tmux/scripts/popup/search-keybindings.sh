@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-
 set -euo pipefail
 
 TMP_DIR="/tmp/tmux"
@@ -30,6 +29,7 @@ tables=(
 
 # --- Dump all keybindings to file ---
 > "$TMP_KEYS_FILE"
+
 for table in "${tables[@]}"; do
     {
         echo "### Key Table: $table"
@@ -49,6 +49,7 @@ tmux display-popup -E -w 90% -h 90% "
         --cycle \
         --height=100% \
         < \"$TMP_KEYS_FILE\")
+
     code=\$?
 
     # Exit cleanly on ESC or empty input
@@ -56,11 +57,21 @@ tmux display-popup -E -w 90% -h 90% "
         exit 0
     fi
 
-    # Write selected line to a temp file
-    ts=\$(date +%s)
-    SELECTED_FILE=\"$TMP_DIR/selected-\$ts.txt\"
-    echo \"\$selected\" > \"\$SELECTED_FILE\"
+    # Extract the keybinding from the selected line
+    keybinding=\$(echo \"\$selected\" | awk '{\$1=\$2=\$3=\"\"; print \$0}' | sed 's/^[ \t]*//')
 
-    # Open in editor (fallback to vim)
-    \${EDITOR:-vim} \"\$SELECTED_FILE\"
+    # Search for the keybinding in the local config file
+    match=\$(grep -nF \"\$keybinding\" \"\$HOME/.tmux/.tmux.conf.local\" || true)
+
+    if [ -n \"\$match\" ]; then
+        # If found, open the config file at the correct line
+        line_number=\$(echo \"\$match\" | cut -d: -f1)
+        tmux new-window \"nvim +\$line_number \$HOME/.tmux/.tmux.conf.local\"
+    else
+        # Otherwise, fall back to the original behavior
+        ts=\$(date +%s)
+        SELECTED_FILE=\"$TMP_DIR/selected-\$ts.txt\"
+        echo \"\$selected\" > \"\$SELECTED_FILE\"
+        \${EDITOR:-vim} \"\$SELECTED_FILE\"
+    fi
 "

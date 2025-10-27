@@ -7,7 +7,7 @@
     "preferredEditor": "nvim",
     "vimMode": true,
     "disableAutoUpdate": true,
-    "enablePromptCompletion": true,
+    "enablePromptCompletion": false,
     "checkpointing": {
       "enabled": true
     }
