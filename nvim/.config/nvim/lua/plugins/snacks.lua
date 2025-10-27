@@ -116,9 +116,16 @@ return { --[[ snacks.nvim ]]
             desc = "Select Scratch Buffer",
         },
         {
-            "<leader>kc",
+            "<leader>kn",
             function()
-                Snacks.scratch.open({ ft = "markdown", name = "notes" })
+                Snacks.scratch.open({ icon = "󰎞 ", ft = "markdown", name = "Notes" })
+            end,
+            desc = "Notes Scratch Buffer",
+        },
+        {
+            "<leader>kt",
+            function()
+                Snacks.scratch.open({ icon = " ", ft = "markdown", name = "Todo" })
             end,
             desc = "Notes Scratch Buffer",
         },
@@ -129,7 +136,9 @@ return { --[[ snacks.nvim ]]
             desc = "Neovim News",
             function()
                 Snacks.win({
-                    style = {},
+                    style = {
+                        border = "rounded",
+                    },
                     file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
                     width = 0.6,
                     height = 0.6,
@@ -177,6 +186,8 @@ return { --[[ snacks.nvim ]]
                 wo = { wrap = true }, -- Wrap notifications
             },
             scratch = {
+                width = 120,
+                height = 30,
                 border = "rounded",
             },
         },
