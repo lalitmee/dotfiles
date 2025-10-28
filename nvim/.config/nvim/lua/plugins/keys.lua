@@ -472,10 +472,4 @@ return {
             hydra(gitsigns_menu())
         end,
     },
-
-    {
-        "meznaric/key-analyzer.nvim",
-        cmd = "KeyAnalyzer",
-        opts = {},
-    },
 }

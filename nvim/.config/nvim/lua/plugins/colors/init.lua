@@ -142,13 +142,4 @@ return {
         },
         config = true,
     },
-
-    { --[[ colortils ]]
-        "nvim-colortils/colortils.nvim",
-        cmd = { "Colortils" },
-        keys = {
-            { "<leader>ic", ":Colortils<CR>", desc = "Color Picker" },
-        },
-        opts = {},
-    },
 }
