@@ -1012,6 +1012,9 @@ bind-key -T second-brain D display-popup -w 90% -h 90% -E "zsh -lic '~/.config/t
 bind-key -T second-brain k display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch personal'"
 bind-key -T second-brain K display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
 
+# backup logs
+bind-key -T second-brain l run-shell "custom_shpell standard second-brain-backup-logs 'nvim $HOME/.local/share/second-brain/logs/'"
+
 # Exit second-brain mode
 bind-key -T second-brain q switch-client -T root
 
