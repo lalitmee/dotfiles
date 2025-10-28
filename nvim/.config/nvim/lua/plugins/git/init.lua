@@ -71,7 +71,6 @@ return {
 
     { --[[ gitsigns.nvim ]]
         "lewis6991/gitsigns.nvim",
-        cmd = "Gitsigns",
         event = "BufReadPost",
         init = function()
             local wk = require("which-key")

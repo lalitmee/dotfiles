@@ -23,5 +23,4 @@ return {
             },
         },
     },
-    -- root_dir = root_pattern(".git"),
 }

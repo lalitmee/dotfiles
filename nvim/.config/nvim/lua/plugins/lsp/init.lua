@@ -176,43 +176,6 @@ return {
         },
         dependencies = {
             {
-                "pmizio/typescript-tools.nvim",
-                keys = {
-                    { "<leader>le", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add Missing Imports", silent = true },
-                    { "<leader>lj", "<cmd>TSToolsFixAll<cr>", desc = "Fix All", silent = true },
-                    {
-                        "<leader>lg",
-                        "<cmd>TSToolsGoToSourceDefinition<cr>",
-                        desc = "Go To Source Definition",
-                        silent = true,
-                    },
-                    { "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", desc = "Organize Imports", silent = true },
-                    { "<leader>lO", "<cmd>TSToolsSortImports<cr>", desc = "Sort Imports", silent = true },
-                    {
-                        "<leader>lu",
-                        "<cmd>TSToolsRemoveUnusedImports<cr>",
-                        desc = "Remove Unused Imports",
-                        silent = true,
-                    },
-                    { "<leader>lx", "<cmd>TSToolsRemoveUnused<cr>", desc = "Remove Unused", silent = true },
-                },
-                opts = {
-                    on_attach = lsp_utils.on_attach,
-                    settings = {
-                        tsserver_file_preferences = {
-                            includeInlayEnumMemberValueHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                        },
-                        tsserver_format_options = {},
-                    },
-                },
-            },
-            {
                 "lvimuser/lsp-inlayhints.nvim",
                 event = "LspAttach",
                 opts = {},
@@ -494,25 +457,6 @@ return {
                     -- Code action groups
                     lk.nnoremap("<leader>la", require("rust-tools").action_group.code_action_group, { buffer = bufnr })
                 end,
-            },
-        },
-    },
-
-    { --[[ tailwind-tools ]]
-        "luckasRanarison/tailwind-tools.nvim",
-        ft = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        opts = {
-            custom_filetypes = {
-                "astro",
-                "css",
-                "html",
-                "javascript",
-                "javascriptreact",
-                "svelte",
-                "tsx",
-                "typescript",
-                "typescriptreact",
-                "vue",
             },
         },
     },
