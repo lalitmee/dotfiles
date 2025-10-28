@@ -41,10 +41,10 @@ tick() {
                 duration=$((BREAK_MIN * 60))
                 label="Break"
             fi
-            notify-send -i "face-smile-symbolic" "Pomodoro Done ✅" "Time for a $label: $(duration/60) minutes"
+            notify-send -i "face-smile-symbolic" "Pomodoro Done $ICON_NOTIFY_DONE" "Time for a $label: $(duration/60) minutes"
             canberra-gtk-play -i complete &> /dev/null &
             {
-                echo 'STATUS="☕ '"$label\""
+                echo "STATUS=\"$ICON_POLYBAR_COFFEE '"$label\""
                 echo "TIME_LEFT=$duration"
                 echo "PAUSED=0"
                 echo "POMO_COUNT=$POMO_COUNT"
@@ -52,7 +52,7 @@ tick() {
 
         else
             # break done → back to work
-            notify-send -i "appointment-new-symbolic" "Break's Over ⏰" "Time to get back to work 🔴"
+            notify-send -i "appointment-new-symbolic" "Break's Over $ICON_NOTIFY_ALARM" "Time to get back to work $ICON_NOTIFY_STOP"
             canberra-gtk-play -i complete &> /dev/null &
 
             local new_pomo_count=${POMO_COUNT:-0}
@@ -63,7 +63,7 @@ tick() {
             fi
 
             {
-                echo 'STATUS="⏱ Working"'
+                echo "STATUS=\"$ICON_POLYBAR_WORKING Working\""
                 echo "TIME_LEFT=$((WORK_MIN * 60))"
                 echo "PAUSED=0"
                 echo "POMO_COUNT=$new_pomo_count"
