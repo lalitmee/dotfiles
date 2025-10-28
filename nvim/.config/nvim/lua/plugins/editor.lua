@@ -987,36 +987,6 @@ return {
         opts = {},
     },
 
-    { --[[ jumppack.nvim ]]
-        enabled = false,
-        "suliatis/Jumppack.nvim",
-        -- stylua: ignore
-        keys = {
-            -- { "<leader>jo", function() require("Jumppack").start({ offset = -1 }) end, desc = "Jumppack Back", silent = true },
-            -- { "<leader>ji", function() require("Jumppack").start({ offset = 1 }) end, desc = "Jumppack Forward", silent = true },
-            "<C-o>",
-            "<C-i>",
-        },
-        opts = {
-            window = {
-                config = function()
-                    local height = math.floor(vim.o.lines * 0.5)
-                    local width = math.floor(vim.o.columns * 0.6)
-                    return {
-                        relative = "editor",
-                        row = math.floor((vim.o.lines - height) / 2),
-                        col = math.floor((vim.o.columns - width) / 2),
-                        width = width,
-                        height = height,
-                        border = "rounded",
-                        title = " Jumplist ",
-                        title_pos = "center",
-                    }
-                end,
-            },
-        },
-    },
-
     { --[[ better-goto-file.nvim ]]
         "ve5li/better-goto-file.nvim",
         keys = {

@@ -196,15 +196,6 @@ return {
         end,
     },
 
-    { --[[ toggleterm-manager.nvim ]]
-        "ryanmsnyder/toggleterm-manager.nvim",
-        dependencies = { "akinsho/toggleterm.nvim" },
-        keys = {
-            { "<leader>at", ":Telescope toggleterm_manager<CR>", desc = "Toggleterm Manager", silent = true },
-        },
-        config = true,
-    },
-
     { --[[ telescope-project.nvim ]]
         "nvim-telescope/telescope-project.nvim",
         keys = {
@@ -233,81 +224,5 @@ return {
             require("telescope").setup(opts)
             require("telescope").load_extension("undo")
         end,
-    },
-
-    { --[[ search.nvim ]]
-        "FabianWirth/search.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" },
-        keys = {
-            {
-                "<leader>st",
-                function()
-                    require("search").open()
-                end,
-                desc = "Telescope Search (Tabs Mode)",
-                silent = true,
-            },
-            {
-                "<leader>g/",
-                function()
-                    require("search").open({ collection = "git" })
-                end,
-                desc = "Telescope Git Collection Search",
-                silent = true,
-            },
-            {
-                "<leader>pa",
-                function()
-                    require("search").open({ collection = "grep" })
-                end,
-                desc = "Telescope Grep Collection Search",
-                silent = true,
-            },
-        },
-        opts = {
-            mappings = {
-                next = { { "L", "n" }, { "<Tab>", "n" }, { "<Tab>", "i" } },
-                prev = { { "H", "n" }, { "<S-Tab>", "n" }, { "<S-Tab>", "i" } },
-            },
-            append_tabs = {
-                {
-                    name = "Commits",
-                    tele_func = require("telescope.builtin").git_commits,
-                    available = function()
-                        return vim.fn.isdirectory(".git") == 1
-                    end,
-                },
-            },
-            collections = {
-                git = {
-                    initial_tab = 1,
-                    tabs = {
-                        { name = "Status", tele_func = require("telescope.builtin").git_status },
-                        { name = "Branches", tele_func = require("telescope.builtin").git_branches },
-                        { name = "Commits", tele_func = require("telescope.builtin").git_commits },
-                        { name = "Buffer Commits", tele_func = require("telescope.builtin").git_bcommits },
-                        { name = "Stashes", tele_func = require("telescope.builtin").git_stash },
-                    },
-                },
-
-                grep = {
-                    initial_tab = 1,
-                    tabs = {
-                        { name = "Grep", tele_func = require("telescope.builtin").live_grep },
-                        -- {
-                        --     name = "Grep Args",
-                        --     tele_func = require("telescope").extensions.live_grep_args.live_grep_args,
-                        -- },
-                    },
-                },
-
-                vim = {
-                    initial_tab = 1,
-                    tabs = {
-                        { name = "Options", tele_func = require("telescope.builtin").vim_options },
-                    },
-                },
-            },
-        },
     },
 }

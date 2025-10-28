@@ -408,15 +408,6 @@ return {
         -- enabled = false,
     },
 
-    { --[[ tsc.nvim ]]
-        "dmmulroy/tsc.nvim",
-        cmd = { "TSC" },
-        keys = {
-            { "<leader>et", "<cmd>TSC<cr>", silent = true, mode = { "n" }, desc = "TSC: Type Errors" },
-        },
-        opts = {},
-    },
-
     { --[[ json-to-types.nvim ]]
         "Redoxahmii/json-to-types.nvim",
         build = "sh install.sh npm",

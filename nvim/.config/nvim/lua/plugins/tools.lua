@@ -728,15 +728,6 @@ return {
         opts = {},
     },
 
-    { --[[ detour.nvim ]]
-        "carbon-steel/detour.nvim",
-        keys = {
-            { "<c-w><enter>", ":Detour<cr>", desc = "Detour", silent = true },
-            { "<c-w>.", ":DetourCurrentWindow<cr>", desc = "Detour Current Window", silent = true },
-        },
-        opts = {},
-    },
-
     { --[[ tome ]]
         "laktak/tome",
         cmd = { "TomePlayBook", "TomeScratchPad" },
