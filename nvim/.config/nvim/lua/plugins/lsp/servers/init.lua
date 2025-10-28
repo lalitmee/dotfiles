@@ -10,6 +10,7 @@ local lua_ls = get_server_options("lua_ls")
 local rust_analyzer = get_server_options("rust_analyzer")
 local emmet_ls = get_server_options("emmet_ls")
 local tailwindcss = get_server_options("tailwindcss")
+local ts_ls = get_server_options("ts_ls")
 
 return {
     bashls = true,
@@ -27,7 +28,6 @@ return {
     tailwindcss = tailwindcss,
     taplo = true,
     theme_check = false,
+    ts_ls = ts_ls,
     vimls = true,
-
-    -- tsserver = tsserver,
 }
