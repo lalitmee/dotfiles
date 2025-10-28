@@ -41,3 +41,6 @@ matches:
 
   - trigger: ":lalitk"
     replace: "lalitkumar.meena.lk@gmail.com"
+
+  - trigger: ":mt"
+    replace: "https://meet.google.com/ohe-sxjh-xok"
