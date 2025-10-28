@@ -3,80 +3,9 @@ local augroup = lk.augroup
 
 local opts = { silent = false, buffer = 0 }
 
--- Highlight on yank: briefly highlights yanked text for visual feedback.
-augroup("yank_au", {
-    {
-        -- don't execute silently in case of errors
-        event = { "TextYankPost" },
-        command = function()
-            vim.highlight.on_yank({
-                timeout = 40,
-                on_visual = false,
-                higroup = "IncSearch",
-            })
-        end,
-    },
-})
-
--- Auto-source ginit.vim after saving it.
-augroup("ginit_au", {
-    {
-        event = { "BufWritePost" },
-        pattern = { "ginit.vim" },
-        command = function()
-            vim.cmd([[so %]])
-        end,
-    },
-})
-
--- Set up 'q' to quit for special buffers and unlist them from buffer list.
--- For *.scriptease-verbose, 'q' closes the buffer.
-augroup("quit_q_au", {
-    {
-        event = { "FileType" },
-        pattern = {
-            "OverseerForm",
-            "OverseerList",
-            "checkhealth",
-            "floggraph",
-            "fugitive",
-            "git",
-            "gitcommit",
-            "help",
-            "log",
-            "lspinfo",
-            "man",
-            "neotest-output",
-            "neotest-summary",
-            "oil",
-            "qf",
-            "query",
-            "redir_output",
-            "spectre_panel",
-            "startuptime",
-            "toggleterm",
-            "tsplayground",
-            "vim",
-        },
-        command = function(event)
-            vim.bo[event.buf].buflisted = false
-            vim.keymap.set("n", "q", "<cmd>q<cr>", {
-                buffer = event.buf,
-                silent = true,
-            })
-        end,
-    },
-    {
-        event = { "BufEnter" },
-        pattern = { "*.scriptease-verbose" },
-        command = function(args)
-            vim.keymap.set("n", "q", "<cmd>bd<cr>", {
-                buffer = args.buf,
-                silent = true,
-            })
-        end,
-    },
-})
+--------------------------------------------------------------------------------
+-- -- NOTE: terminal autocmds {{{
+--------------------------------------------------------------------------------
 
 -- Terminal keymaps and settings: custom mappings for terminal buffers,
 -- disables signcolumn, and handles terminal mode transitions.
@@ -127,8 +56,23 @@ augroup("terminal_au", {
     },
 })
 
--- Reload kitty.conf and send signal to kitty terminal after saving.
-augroup("kitty_au", {
+--------------------------------------------------------------------------------
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- -- NOTE: reload config autocmds {{{
+--------------------------------------------------------------------------------
+
+-- Auto-reload configuration files after saving.
+augroup("reload_config_au", {
+    {
+        event = { "BufWritePost" },
+        pattern = { "ginit.vim" },
+        command = function()
+            vim.cmd([[so %]])
+        end,
+    },
     {
         event = { "BufWritePost" },
         pattern = { "kitty.conf" },
@@ -138,16 +82,16 @@ augroup("kitty_au", {
     },
 })
 
--- Filetype-specific options: disables 'o' in formatoptions for all buffers,
--- disables spell checking in checkhealth.
-augroup("filetype_options_au", {
-    {
-        event = { "BufWinEnter" },
-        pattern = { "*" },
-        command = function()
-            vim.opt_local.formatoptions:remove("o")
-        end,
-    },
+--------------------------------------------------------------------------------
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- -- NOTE: filetype autocmds {{{
+--------------------------------------------------------------------------------
+
+-- Filetype-specific options: disables spell checking in checkhealth.
+augroup("filetype_au", {
     {
         event = { "FileType" },
         pattern = { "checkhealth" },
@@ -155,12 +99,65 @@ augroup("filetype_options_au", {
             vim.o.spell = false
         end,
     },
+    {
+        event = { "FileType" },
+        pattern = {
+            "OverseerForm",
+            "OverseerList",
+            "checkhealth",
+            "floggraph",
+            "fugitive",
+            "git",
+            "gitcommit",
+            "help",
+            "log",
+            "lspinfo",
+            "man",
+            "neotest-output",
+            "neotest-summary",
+            "oil",
+            "qf",
+            "query",
+            "redir_output",
+            "spectre_panel",
+            "startuptime",
+            "toggleterm",
+            "tsplayground",
+            "vim",
+        },
+        command = function(event)
+            vim.bo[event.buf].buflisted = false
+            vim.keymap.set("n", "q", "<cmd>q<cr>", {
+                buffer = event.buf,
+                silent = true,
+            })
+        end,
+    },
+    {
+        event = { "BufEnter" },
+        pattern = { "*.scriptease-verbose" },
+        command = function(args)
+            vim.keymap.set("n", "q", "<cmd>bd<cr>", {
+                buffer = args.buf,
+                silent = true,
+            })
+        end,
+    },
+    {
+        event = { "BufWinEnter" },
+        pattern = { "*" },
+        command = function()
+            vim.opt_local.formatoptions:remove("o")
+        end,
+    },
 })
 
 --------------------------------------------------------------------------------
---  NOTE: clear commandline {{{
---- automatically clear commandline messages after a few seconds delay
---- source: http://unix.stackexchange.com/a/613645
+-- }}}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+-- -- NOTE: commandline autocmds {{{
 --------------------------------------------------------------------------------
 
 ---@return function
@@ -189,76 +186,107 @@ augroup("commandline_au", {
         command = clear_commandline(),
     },
 })
+
+--------------------------------------------------------------------------------
 -- }}}
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
---  NOTE: cursorline {{{
+-- -- NOTE: buffer autocmds {{{
 --------------------------------------------------------------------------------
-local group = vim.api.nvim_create_augroup("cursor_line_au", { clear = true })
-local set_cursorline = function(event, value, pattern)
-    vim.api.nvim_create_autocmd(event, {
-        group = group,
-        pattern = pattern,
-        callback = function()
-            vim.opt_local.cursorline = value
+
+-- Manage cursorline visibility based on window and file type.
+augroup("buffer_au", {
+    {
+        event = { "WinLeave" },
+        command = function()
+            vim.opt_local.cursorline = false
         end,
-    })
-end
-set_cursorline("WinLeave", false)
-set_cursorline("WinEnter", true)
-set_cursorline("FileType", false, "TelescopePrompt")
+    },
+    {
+        event = { "WinEnter" },
+        command = function()
+            vim.opt_local.cursorline = true
+        end,
+    },
+    {
+        event = { "FileType" },
+        pattern = { "TelescopePrompt" },
+        command = function()
+            vim.opt_local.cursorline = false
+        end,
+    },
+    {
+        event = { "BufReadPost" },
+        command = function()
+            local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "toggleterm" }
+            local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "TelescopePrompt", "oil" }
+
+            vim.schedule(function()
+                -- Skip if in terminal mode
+                if vim.fn.mode():match("t") then
+                    return
+                end
+
+                local buftype = vim.bo.buftype
+                local filetype = vim.bo.filetype
+
+                if vim.tbl_contains(ignore_buftype, buftype) or vim.tbl_contains(ignore_filetype, filetype) then
+                    return
+                end
+
+                -- Don't interfere if the cursor has already moved
+                if vim.api.nvim_win_get_cursor(0)[1] > 1 then
+                    return
+                end
+
+                local last_line = vim.fn.line([['']])
+                local buffer_last_line = vim.fn.line("$")
+
+                if last_line > 0 and last_line <= buffer_last_line then
+                    local win_last_line = vim.fn.line("w$")
+                    local win_first_line = vim.fn.line("w0")
+
+                    if win_last_line == buffer_last_line then
+                        vim.cmd.normal({ [[g`"]], bang = true })
+                    elseif buffer_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
+                        vim.cmd.normal({ [[g`"zz]], bang = true })
+                    else
+                        vim.cmd.normal({ [[G'"<c-e>]], bang = true })
+                    end
+                end
+            end)
+        end,
+    },
+    {
+        -- don't execute silently in case of errors
+        event = { "TextYankPost" },
+        command = function()
+            vim.highlight.on_yank({
+                timeout = 40,
+                on_visual = false,
+                higroup = "IncSearch",
+            })
+        end,
+    },
+})
+
+--------------------------------------------------------------------------------
 -- }}}
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
---  NOTE: lastplace {{{
--- adapted from https://github.com/ethanholz/nvim-lastplace/blob/main/lua/nvim-lastplace/init.lua
+-- -- NOTE: windows autocmds {{{
 --------------------------------------------------------------------------------
-local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "toggleterm" }
-local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "TelescopePrompt", "oil" }
 
-local function restore_cursor_position()
-    vim.schedule(function()
-        -- Skip if in terminal mode
-        if vim.fn.mode():match("t") then
-            return
-        end
-
-        local buftype = vim.bo.buftype
-        local filetype = vim.bo.filetype
-
-        if vim.tbl_contains(ignore_buftype, buftype) or vim.tbl_contains(ignore_filetype, filetype) then
-            return
-        end
-
-        -- Don't interfere if the cursor has already moved
-        if vim.api.nvim_win_get_cursor(0)[1] > 1 then
-            return
-        end
-
-        local last_line = vim.fn.line([['"]])
-        local buffer_last_line = vim.fn.line("$")
-
-        if last_line > 0 and last_line <= buffer_last_line then
-            local win_last_line = vim.fn.line("w$")
-            local win_first_line = vim.fn.line("w0")
-
-            if win_last_line == buffer_last_line then
-                vim.cmd.normal({ [[g`"]], bang = true })
-            elseif buffer_last_line - last_line > ((win_last_line - win_first_line) / 2) - 1 then
-                vim.cmd.normal({ [[g`"zz]], bang = true })
-            else
-                vim.cmd.normal({ [[G'"<c-e>]], bang = true })
-            end
-        end
-    end)
-end
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-    group = vim.api.nvim_create_augroup("nvim-lastplace", { clear = true }),
-    callback = restore_cursor_position,
+augroup("windows_au", {
+    {
+        event = { "VimResized", "TermEnter", "TermLeave" },
+        description = "Automatically resize splits, when terminal window is closed",
+        command = "wincmd =",
+    },
 })
+
 --------------------------------------------------------------------------------
 -- }}}
 --------------------------------------------------------------------------------
