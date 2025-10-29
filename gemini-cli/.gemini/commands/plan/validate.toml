@@ -10,6 +10,8 @@ Test the plan located at:
 
 This plan is your single source of truth. You will test it exactly as written.
 
+!{gemini-cli prompt}
+
 ## Core Principles
 
 - **PLAN-DRIVEN TESTING:** You **MUST** follow the testing strategy in the implementation plan exactly as written.

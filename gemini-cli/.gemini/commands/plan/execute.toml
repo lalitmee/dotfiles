@@ -10,6 +10,8 @@ Implement the plan located at:
 
 This plan is your single source of truth. You will implement it exactly as written.
 
+!{gemini-cli prompt}
+
 ## Core Principles
 
 - **PLAN-DRIVEN EXECUTION:** You **MUST** follow the implementation plan exactly as written.

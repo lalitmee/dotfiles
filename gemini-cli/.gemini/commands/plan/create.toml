@@ -8,6 +8,8 @@ Plan the implementation of the following feature:
 
 "{{args}}"
 
+!{gemini-cli prompt}
+
 ## Core Constraints
 
 - **READ-ONLY MANDATE:** You are **STRICTLY FORBIDDEN** from making any modifications to the codebase or the system.
