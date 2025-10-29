@@ -1,19 +1,64 @@
 #!/usr/bin/env zsh
 
-# Call the real peek binary
-/usr/bin/peek.real "$@"
+echo "=== Starting Peek ==="
 
-# Determine output dir (default: ~/Videos)
+# Determine output dir
 OUTDIR="${XDG_VIDEOS_DIR:-$HOME/Videos}"
 
-# Find latest MP4 or WebM recording
-latest=$(ls -t "$OUTDIR"/*.(mp4|webm)(N) 2>/dev/null | head -n 1)
+# Record the start time (before Peek runs)
+START_TIME=$(date +%s)
+echo "Session started at: $(date)"
 
-if [[ -n "$latest" ]]; then
-    ext="${latest##*.}"
-    tmpfile="${latest%.$ext}_noaudio.$ext"
+# Function to process videos
+process_videos() {
+    echo ""
+    echo "=== Processing recordings from this session ==="
 
-    # Strip audio
-    ffmpeg -y -i "$latest" -c copy -an "$tmpfile" \
-        && mv "$tmpfile" "$latest"
-fi
+    # Wait a moment for files to be fully written
+    sleep 2
+
+    # Find files created during this Peek session
+    local processed=0
+    for file in "$OUTDIR"/*.(mp4|webm)(N); do
+        [[ ! -f "$file" ]] && continue
+
+        # Get file modification time
+        file_mtime=$(stat -c %Y "$file" 2>/dev/null)
+
+        # Skip if file was created before Peek started
+        if [[ $file_mtime -lt $START_TIME ]]; then
+            continue
+        fi
+
+        echo "Processing: $file"
+        processed=1
+
+        # Check if has audio
+        if ffprobe -i "$file" -show_streams -select_streams a -loglevel error 2>/dev/null | grep -q "codec_type=audio"; then
+            echo "  → Removing audio..."
+            tmpfile="${file:r}_noaudio.${file:e}"
+
+            if ffmpeg -y -i "$file" -map 0:v:0 -c copy "$tmpfile" -loglevel error; then
+                mv "$tmpfile" "$file"
+                echo "  ✓ Audio removed"
+            else
+                echo "  ✗ FFmpeg failed"
+                rm -f "$tmpfile"
+            fi
+        else
+            echo "  → No audio stream found"
+        fi
+    done
+
+    [[ $processed -eq 0 ]] && echo "No new recordings found"
+    echo "=== Finished ==="
+}
+
+# Trap Ctrl+C and other signals to process videos before exiting
+trap 'process_videos; exit' INT TERM
+
+# Run Peek and wait for user to close it normally
+/usr/bin/peek.real "$@"
+
+# If Peek exits normally (window closed), also process videos
+process_videos
