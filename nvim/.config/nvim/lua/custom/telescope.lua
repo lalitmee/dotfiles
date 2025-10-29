@@ -194,7 +194,6 @@ M.setup = function()
                 "%.ttf",
                 "%.DS_Store",
                 "%.git",
-                "build",
                 "node_modules",
             },
 
