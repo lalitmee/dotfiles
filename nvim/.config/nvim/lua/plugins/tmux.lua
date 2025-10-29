@@ -16,7 +16,6 @@ return {
                     { cmd = "npm run dev", name = "npm-run-dev" },
                     { cmd = "npm install", name = "npm-install" },
                     { cmd = "npm run build", name = "npm-run-build" },
-                    { cmd = "yarn add %1", name = "yarn-add" },
                 },
             },
             session_name = "Neovim Terminals",
