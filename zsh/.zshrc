@@ -1,7 +1,7 @@
 # zmodload zsh/zprof
 
 # -------------------------------------------------------------------
-# NOTE: auto start tmux {{{
+# # NOTE: auto start tmux {{{
 # start tmux while starting new terminal
 # -------------------------------------------------------------------
 _not_inside_tmux() { [[ -z "$TMUX" ]]; }
@@ -33,7 +33,7 @@ fi
     source "$ZSH/custom/plugins/znap/znap.zsh"
 
 # -------------------------------------------------------------------
-# NOTE: oh-my-zsh {{{
+# # NOTE: oh-my-zsh {{{
 # -------------------------------------------------------------------
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -94,7 +94,7 @@ export COMPLETION_WAITING_DOTS="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # -------------------------------------------------------------------
-# NOTE: plugins {{{
+# # NOTE: plugins {{{
 # -------------------------------------------------------------------
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -130,7 +130,7 @@ fi
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: user configurations {{{
+# # NOTE: user configurations {{{
 # -------------------------------------------------------------------
 if [[ $TERM == xterm ]]; then
     TERM=screen-256color
@@ -139,7 +139,7 @@ fi
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: sourcing some of the other things {{{
+# # NOTE: sourcing some of the other things {{{
 # -------------------------------------------------------------------
 
 # aliases
@@ -168,7 +168,7 @@ fi
 # # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: zoxide {{{
+# # NOTE: zoxide {{{
 # -------------------------------------------------------------------
 # znap eval zoxide "zoxide init zsh"
 # znap eval zoxide "zoxide init zsh --cmd cd"
@@ -177,7 +177,7 @@ eval "$(zoxide init zsh)"
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: pyenv {{{
+# # NOTE: pyenv {{{
 # -------------------------------------------------------------------
 znap eval pyenv "pyenv init -"
 eval "$(pyenv init --path)"
@@ -187,14 +187,14 @@ eval "$(pyenv virtualenv-init -)"
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: rbenv {{{
+# # NOTE: rbenv {{{
 # -------------------------------------------------------------------
 znap eval rbenv "rbenv init -"
 # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: fnm {{{
+# # NOTE: fnm {{{
 # -------------------------------------------------------------------
 # Then load fnm silently
 eval "$(fnm env --use-on-cd --shell zsh)" >/dev/null 2>&1
@@ -202,7 +202,7 @@ eval "$(fnm env --use-on-cd --shell zsh)" >/dev/null 2>&1
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: linuxbrew {{{
+# # NOTE: linuxbrew {{{
 # -------------------------------------------------------------------
 # Load Homebrew shell environment if it's installed
 znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -210,7 +210,7 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: atuin {{{
+# # NOTE: atuin {{{
 # -------------------------------------------------------------------
 # This line loads Atuin and defines the `atuin-search` widgets
 eval "$(atuin init zsh)"
@@ -224,7 +224,7 @@ bindkey -M vicmd '^R' atuin-search
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
-# NOTE: dynamic REPOSITORY_PATH variable {{{
+# # NOTE: dynamic REPOSITORY_PATH variable {{{
 # -------------------------------------------------------------------
 
 # Add the function to the precmd_functions hook array, ensuring it's loaded
@@ -234,6 +234,19 @@ add-zsh-hook precmd update_repo_path
 # -------------------------------------------------------------------
 # }}}
 # -------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# # NOTE: Extend Limitations {{{
+#-------------------------------------------------------------------------------
+
+# Increase file descriptor limit on macOS only
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    ulimit -n 10240
+fi
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
 # zprof
 
