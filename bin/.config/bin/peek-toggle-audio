@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+# Toggle audio recording for Peek with notifications
+
+# Get current state
+current=$(gsettings get com.uploadedlobster.peek recording-capture-sound)
+
+if [[ "$current" == "true" ]]; then
+    gsettings set com.uploadedlobster.peek recording-capture-sound false
+    notify-send \
+        -i microphone-sensitivity-muted \
+        -u normal \
+        -t 2000 \
+        "Peek Audio: OFF" \
+        "Recordings will be silent"
+    echo "🔇 Peek audio recording: DISABLED"
+else
+    gsettings set com.uploadedlobster.peek recording-capture-sound true
+    notify-send \
+        -i microphone-sensitivity-high \
+        -u normal \
+        -t 2000 \
+        "Peek Audio: ON" \
+        "Recordings will include audio"
+    echo "🔊 Peek audio recording: ENABLED"
+fi
