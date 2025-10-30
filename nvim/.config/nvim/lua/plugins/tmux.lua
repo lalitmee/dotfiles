@@ -59,7 +59,7 @@ return {
                     mode = "v",
                 },
                 {
-                    "<localleader>to",
+                    "<localleader>ts",
                     function()
                         tmux_manager.switch_orientation()
                     end,
@@ -96,7 +96,7 @@ return {
                 },
 
                 {
-                    "<localleader>tf",
+                    "<localleader>to",
                     function()
                         tmux_manager.list_terms()
                     end,
