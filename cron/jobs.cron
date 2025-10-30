@@ -1,0 +1,33 @@
+#-------------------------------------------------------------------------------
+# # NOTE: old backup system {{{
+#-------------------------------------------------------------------------------
+
+# # personal-brain backup (on the hour)
+# 0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs personal >/dev/null 2>&1
+#
+# # work-brain backup (30 minutes after the hour)
+# 30 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs work >/dev/null 2>&1
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# # NOTE: new backup system {{{
+#-------------------------------------------------------------------------------
+
+# Backup for the 'personal-brain' group every 3 hours
+0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-job personal-brain >/dev/null 2>&1
+
+# Backup for the 'dotfiles' group every hour
+0 * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-job dotfiles >/dev/null 2>&1
+
+# * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/test/test-home
+
+# * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/test-cron
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+# vim:fdm=marker

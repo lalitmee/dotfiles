@@ -3,12 +3,12 @@
     {
       "name": "personal-second-brain",
       "path": "$HOME/Projects/Personal/Github/second-brain",
-      "group": "default"
+      "group": "personal-brain"
     },
     {
       "name": "work-second-brain",
       "path": "$HOME/Projects/Work/Github/second-brain",
-      "group": "default"
+      "group": "work-brain"
     },
     {
       "name": "dotfiles",
