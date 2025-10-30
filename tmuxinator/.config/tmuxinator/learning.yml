@@ -1,0 +1,7 @@
+# /home/lalitmee/.config/tmuxinator/learn-anything.yml
+
+name: learn-anything
+root: ~/Projects/Personal/Github/learn
+
+windows:
+  - Editor: gst

@@ -1,7 +1,0 @@
-# /home/lalitmee/.config/tmuxinator/dotfiles.yml
-
-name: dotfiles
-root: ~/dotfiles
-
-windows:
-  - mine: gst

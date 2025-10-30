@@ -1,7 +1,0 @@
-# /home/lalitmee/.config/tmuxinator/entertainment.yml
-
-name: entertainment
-root: ~/
-
-windows:
-  - Editor: ls

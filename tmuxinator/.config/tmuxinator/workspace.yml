@@ -4,6 +4,6 @@ name: workspace
 root: ~/
 
 windows:
-  - dotfiles: z dotfiles
+  - dotfiles: z ~/dotfiles
   - notes: z ~/Projects/Personal/Github/notes
   - learn: z ~/Projects/Personal/Github/learn
