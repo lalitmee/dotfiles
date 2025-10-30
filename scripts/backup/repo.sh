@@ -1,36 +1,34 @@
 #!/bin/bash
-# Brain repo paths
-PERSONAL_BRAIN_DIR="$HOME/Projects/Personal/Github/second-brain"
-WORK_BRAIN_DIR="$HOME/Projects/Work/Github/second-brain"
-BRAIN="$1" # expects 'personal' or 'work'
 
-if [[ "$BRAIN" != "personal" && "$BRAIN" != "work" ]]; then
-    echo "❌ ERROR: Please specify 'personal' or 'work' as the first argument"
+REPO_NAME="$1"
+CONFIG_FILE="$HOME/dotfiles/scripts/backup/config.json"
+
+if [[ -z "$REPO_NAME" ]]; then
+    echo "❌ ERROR: Please specify a repository name as the first argument"
     exit 1
 fi
 
-# Select the correct directory
-if [[ "$BRAIN" == "personal" ]]; then
-    TARGET_DIR="$PERSONAL_BRAIN_DIR"
-else
-    TARGET_DIR="$WORK_BRAIN_DIR"
+REPO_PATH=$(jq -r --arg name "$REPO_NAME" '.repositories[] | select(.name == $name) | .path' "$CONFIG_FILE")
+
+if [[ -z "$REPO_PATH" ]]; then
+    echo "❌ ERROR: Repository '$REPO_NAME' not found in $CONFIG_FILE"
+    exit 1
 fi
 
-# Log configuration
-LOG_DIR="$HOME/.local/share/second-brain/logs"
-SUCCESS_LOG="$LOG_DIR/backup-$BRAIN-success.log"
-ERROR_LOG="$LOG_DIR/backup-$BRAIN-error.log"
+# Expand the home directory
+REPO_PATH=$(eval echo "$REPO_PATH")
+
+LOG_DIR="$HOME/.local/share/backup-logs/$REPO_NAME"
+SUCCESS_LOG="$LOG_DIR/success.log"
+ERROR_LOG="$LOG_DIR/error.log"
 MAX_LOG_SIZE=$((5 * 1024 * 1024)) # 5 MB in bytes
 SUCCESS_RETENTION_DAYS=7
 ERROR_RETENTION_DAYS=30
 
-# Icon path for notifications
 ICON_PATH="$HOME/.config/icons/brain.png"
 
-# Create log directory if it doesn't exist
 mkdir -p "$LOG_DIR"
 
-# Function to rotate log if it exceeds size limit
 rotate_log_if_needed() {
     local log_file="$1"
     if [[ -f "$log_file" ]]; then
@@ -42,21 +40,13 @@ rotate_log_if_needed() {
     fi
 }
 
-# Function to cleanup old logs
 cleanup_old_logs() {
-    # Clean success logs older than 7 days
-    find "$LOG_DIR" -name "backup-*-success.log*" -type f -mtime +$SUCCESS_RETENTION_DAYS -delete 2> /dev/null
-
-    # Clean error logs older than 30 days
-    find "$LOG_DIR" -name "backup-*-error.log*" -type f -mtime +$ERROR_RETENTION_DAYS -delete 2> /dev/null
+    find "$LOG_DIR" -name "*.log*" -type f -mtime +$SUCCESS_RETENTION_DAYS -delete 2> /dev/null
 }
 
-# Function to start a new log session
 start_log_session() {
     local log_file="$1"
-
     rotate_log_if_needed "$log_file"
-
     {
         echo ""
         echo "============================================================"
@@ -65,31 +55,26 @@ start_log_session() {
     } >> "$log_file"
 }
 
-# Function to end log session
 end_log_session() {
     local log_file="$1"
     echo "============================================================" >> "$log_file"
 }
 
-# Function to log message (without separator)
 log_message() {
     local log_file="$1"
     local message="$2"
     echo "$message" >> "$log_file"
 }
 
-# Function to send notifications
 send_notification() {
     local title="$1"
     local message="$2"
-    local urgency="${3:-normal}" # low, normal, critical
+    local urgency="${3:-normal}"
     local icon="${4:-$ICON_PATH}"
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        # macOS notification
         osascript -e "display notification \"$message\" with title \"$title\" sound name \"default\""
     else
-        # Linux notification (tries notify-send first, then dunstify)
         if command -v notify-send &> /dev/null; then
             notify-send -u "$urgency" -i "$icon" "$title" "$message"
         elif command -v dunstify &> /dev/null; then
@@ -99,30 +84,24 @@ send_notification() {
 }
 
 echo "------------------------------------------------------------"
-echo "🧠 $BRAIN backup started at: $(date '+%Y-%m-%d %H:%M:%S')"
+echo "🧠 $REPO_NAME backup started at: $(date '+%Y-%m-%d %H:%M:%S')"
 
-# Start logging session
 start_log_session "$SUCCESS_LOG"
-
-# Run cleanup on each execution
 cleanup_old_logs
 
-# 1. Try to cd into the brain directory
-if ! cd "$TARGET_DIR" 2> /dev/null; then
-    ERROR_MSG="Failed to cd into $TARGET_DIR"
+if ! cd "$REPO_PATH" 2> /dev/null; then
+    ERROR_MSG="Failed to cd into $REPO_PATH"
     echo "❌ ERROR: $ERROR_MSG"
     start_log_session "$ERROR_LOG"
     log_message "$ERROR_LOG" "CD Failed: $ERROR_MSG"
     end_log_session "$ERROR_LOG"
     end_log_session "$SUCCESS_LOG"
-    send_notification "🧠 Second Brain Backup Failed" "$ERROR_MSG" "critical"
+    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG" "critical"
     exit 1
 fi
 
-# 2. Abort any unfinished rebase (to prevent stuck state)
 git rebase --abort 2> /dev/null
 
-# 3. Pull latest changes with rebase to avoid merge commits
 echo "📥 Pulling latest changes..."
 log_message "$SUCCESS_LOG" "Pull started..."
 
@@ -130,20 +109,19 @@ PULL_OUTPUT=$(git pull --rebase --no-edit 2>&1)
 PULL_STATUS=$?
 
 if [[ $PULL_STATUS -ne 0 ]]; then
-    ERROR_MSG="Git pull failed for $BRAIN brain"
+    ERROR_MSG="Git pull failed for $REPO_NAME"
     echo "❌ ERROR: $ERROR_MSG"
     start_log_session "$ERROR_LOG"
     log_message "$ERROR_LOG" "Pull Failed:"
     log_message "$ERROR_LOG" "$PULL_OUTPUT"
     end_log_session "$ERROR_LOG"
     end_log_session "$SUCCESS_LOG"
-    send_notification "🧠 Second Brain Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
+    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
     exit 1
 else
     log_message "$SUCCESS_LOG" "Pull completed successfully"
 fi
 
-# 4. Check for changes (modified, staged, OR untracked files)
 HAS_CHANGES=false
 if ! git diff --quiet || ! git diff --cached --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
     HAS_CHANGES=true
@@ -151,18 +129,18 @@ if ! git diff --quiet || ! git diff --cached --quiet || [ -n "$(git ls-files --o
     log_message "$SUCCESS_LOG" "Commit started..."
 
     git add --all
-    COMMIT_OUTPUT=$(git commit -m "auto: $BRAIN backup on $(date '+%Y-%m-%d %H:%M:%S')" 2>&1)
+    COMMIT_OUTPUT=$(git commit -m "auto: $REPO_NAME backup on $(date '+%Y-%m-%d %H:%M:%S')" 2>&1)
     COMMIT_STATUS=$?
 
     if [[ $COMMIT_STATUS -ne 0 ]]; then
-        ERROR_MSG="Git commit failed for $BRAIN brain"
+        ERROR_MSG="Git commit failed for $REPO_NAME"
         echo "❌ ERROR: $ERROR_MSG"
         start_log_session "$ERROR_LOG"
         log_message "$ERROR_LOG" "Commit Failed:"
         log_message "$ERROR_LOG" "$COMMIT_OUTPUT"
         end_log_session "$ERROR_LOG"
         end_log_session "$SUCCESS_LOG"
-        send_notification "🧠 Second Brain Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
+        send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
         exit 1
     else
         echo "✅ Changes committed"
@@ -173,7 +151,6 @@ else
     log_message "$SUCCESS_LOG" "No changes to commit"
 fi
 
-# 5. Check if we need to push (local is ahead of remote)
 if git rev-parse @{u} > /dev/null 2>&1; then
     LOCAL=$(git rev-parse @)
     REMOTE=$(git rev-parse @{u})
@@ -182,7 +159,6 @@ if git rev-parse @{u} > /dev/null 2>&1; then
         echo "📤 Local is ahead of remote, pushing..."
         log_message "$SUCCESS_LOG" "Push started..."
 
-        # Push with retry logic
         MAX_RETRIES=3
         RETRY_DELAY=5
         PUSH_SUCCESS=false
@@ -192,24 +168,24 @@ if git rev-parse @{u} > /dev/null 2>&1; then
             PUSH_STATUS=$?
 
             if [[ $PUSH_STATUS -eq 0 ]]; then
-                echo "✅ $BRAIN backup pushed successfully"
+                echo "✅ $REPO_NAME backup pushed successfully"
                 log_message "$SUCCESS_LOG" "Push successful"
                 PUSH_SUCCESS=true
-                send_notification "🧠 Second Brain Backup Success" "$BRAIN brain backed up successfully" "normal"
+                send_notification "🧠 $REPO_NAME Backup Success" "$REPO_NAME backed up successfully" "normal"
                 break
             else
                 if [ $i -lt $MAX_RETRIES ]; then
                     echo "⚠️  Push failed, retrying in ${RETRY_DELAY}s... (attempt $i/$MAX_RETRIES)"
                     sleep $RETRY_DELAY
                 else
-                    ERROR_MSG="Git push failed after $MAX_RETRIES attempts for $BRAIN brain"
+                    ERROR_MSG="Git push failed after $MAX_RETRIES attempts for $REPO_NAME"
                     echo "❌ ERROR: $ERROR_MSG"
                     start_log_session "$ERROR_LOG"
                     log_message "$ERROR_LOG" "Push Failed (after $MAX_RETRIES attempts):"
                     log_message "$ERROR_LOG" "$PUSH_OUTPUT"
                     end_log_session "$ERROR_LOG"
                     end_log_session "$SUCCESS_LOG"
-                    send_notification "🧠 Second Brain Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
+                    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
                     exit 1
                 fi
             fi
@@ -217,15 +193,14 @@ if git rev-parse @{u} > /dev/null 2>&1; then
     else
         echo "✅ Already up to date with remote"
         log_message "$SUCCESS_LOG" "Already up to date with remote"
-        # No notification when already up to date (reduces noise)
     fi
 else
-    WARNING_MSG="No upstream branch configured for $BRAIN brain"
+    WARNING_MSG="No upstream branch configured for $REPO_NAME"
     echo "⚠️  $WARNING_MSG, skipping push check"
     log_message "$SUCCESS_LOG" "$WARNING_MSG"
-    send_notification "🧠 Second Brain Warning" "$WARNING_MSG" "normal"
+    send_notification "🧠 $REPO_NAME Warning" "$WARNING_MSG" "normal"
 fi
 
-echo "✅ $BRAIN backup completed at: $(date '+%Y-%m-%d %H:%M:%S')"
+echo "✅ $REPO_NAME backup completed at: $(date '+%Y-%m-%d %H:%M:%S')"
 log_message "$SUCCESS_LOG" "Backup completed successfully"
 end_log_session "$SUCCESS_LOG"

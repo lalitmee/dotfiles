@@ -1,8 +1,11 @@
 # personal-brain backup (on the hour)
-0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs personal >/dev/null 2>&1
+# 0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs personal >/dev/null 2>&1
 
 # work-brain backup (30 minutes after the hour)
-30 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs work >/dev/null 2>&1
+# 30 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs work >/dev/null 2>&1
+
+# New backup system
+0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs >/dev/null 2>&1
 
 # * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/test/test-home
 
