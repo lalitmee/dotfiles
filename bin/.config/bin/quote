@@ -18,35 +18,13 @@ fi
 QUOTE_COLOR="#FFC600"
 AUTHOR_COLOR="#EE80E1"
 
-# --- Parse arguments ---
-while getopts ":s:t:r" opt; do
-  case $opt in
-    s)
-      SEARCH_STRING="$OPTARG"
-      ;;
-    t)
-      TAG="$OPTARG"
-      ;;
-    r)
-      RANDOM_QUOTE=true
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-    :)
-      echo "Option -$OPTARG requires an argument." >&2
-      exit 1
-      ;;
-  esac
-done
+# --- Functions ---
+fetch_quote() {
+  local api_url="https://zenquotes.io/api/random"
+  local quote_path=".[0].q"
+  local author_path=".[0].a"
 
-# Define the API endpoint
-if [ "$RANDOM_QUOTE" = true ]; then
-  # Get a random quote
-  API_URL="https://api.quotable.io/random"
   # --- Define our "Gemini-like" loading messages ---
-  # Using zsh array syntax
   declare -a loading_messages=(
       "Consulting the philosophers..."
       "Searching the ancient libraries..."
@@ -57,90 +35,27 @@ if [ "$RANDOM_QUOTE" = true ]; then
   )
 
   # Get a random message from the list
-  # zsh arrays are 1-indexed by default
   RANDOM_INDEX=$(( (RANDOM % ${#loading_messages[@]}) + 1 ))
   RANDOM_MESSAGE=${loading_messages[$RANDOM_INDEX]}
   temp_file=$(mktemp)
-  gum spin --spinner dot --title "$RANDOM_MESSAGE" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
+  gum spin --spinner dot --title "$RANDOM_MESSAGE" -- sh -c "curl -sk '$api_url' > '$temp_file'"
   http_response=$(cat "$temp_file")
   rm "$temp_file"
-elif [ -n "$SEARCH_STRING" ]; then
-  # Search for a quote
-  API_URL="https://api.quotable.io/random?query=$SEARCH_STRING"
-  temp_file=$(mktemp)
-  gum spin --spinner dot --title "Searching for: $SEARCH_STRING" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
-  http_response=$(cat "$temp_file")
-  rm "$temp_file"
-elif [ -n "$TAG" ]; then
-  # Get a quote by tag
-  API_URL="https://api.quotable.io/random?tags=$TAG"
-  temp_file=$(mktemp)
-  gum spin --spinner dot --title "Getting quote for tag: $TAG" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
-  http_response=$(cat "$temp_file")
-  rm "$temp_file"
-else
-  # Show interactive menu
-  CHOICE=$(gum choose "Get a random quote" "Search for a random quote by keyword" "Get a random quote by tag")
 
-  if [ $? -ne 0 ]; then
-    exit 0
-  fi
-
-  case $CHOICE in
-    "Get a random quote")
-      API_URL="https://api.quotable.io/random"
-      # --- Define our "Gemini-like" loading messages ---
-      # Using zsh array syntax
-      declare -a loading_messages=(
-          "Consulting the philosophers..."
-          "Searching the ancient libraries..."
-          "Polishing some wisdom..."
-          "Finding the perfect words..."
-          "Asking the universe for a sign..."
-          "Rummaging through the archives..."
-      )
-
-      # Get a random message from the list
-      # zsh arrays are 1-indexed by default
-      RANDOM_INDEX=$(( (RANDOM % ${#loading_messages[@]}) + 1 ))
-      RANDOM_MESSAGE=${loading_messages[$RANDOM_INDEX]}
-      temp_file=$(mktemp)
-      gum spin --spinner dot --title "$RANDOM_MESSAGE" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
-      http_response=$(cat "$temp_file")
-      rm "$temp_file"
-      ;;
-    "Search for a random quote by keyword")
-      SEARCH_STRING=$(gum input --placeholder "Enter a keyword to search")
-      API_URL="https://api.quotable.io/random?query=$SEARCH_STRING"
-      temp_file=$(mktemp)
-      gum spin --spinner dot --title "Searching for: $SEARCH_STRING" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
-      http_response=$(cat "$temp_file")
-      rm "$temp_file"
-      ;;
-    "Get a random quote by tag")
-      TAG=$(gum input --placeholder "Enter a tag to search")
-      API_URL="https://api.quotable.io/random?tags=$TAG"
-      temp_file=$(mktemp)
-      gum spin --spinner dot --title "Getting quote for tag: $TAG" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
-      http_response=$(cat "$temp_file")
-      rm "$temp_file"
-      ;;
-  esac
-fi
-
-if [ $? -eq 0 ] && [ -n "$http_response" ] && echo "$http_response" | jq -e . >/dev/null 2>&1; then
-    # Curl was successful and the response is valid JSON. Parse with 'jq'.
-    quote=$(echo "$http_response" | jq -r '.content')
-    author=$(echo "$http_response" | jq -r '.author')
+  if [ $? -eq 0 ] && [ -n "$http_response" ] && echo "$http_response" | jq -e . >/dev/null 2>&1; then
+    quote=$(echo "$http_response" | jq -r "$quote_path")
+    author=$(echo "$http_response" | jq -r "$author_path")
 
     if [ "$quote" != "null" ] && [ "$author" != "null" ] && [ -n "$quote" ] && [ -n "$author" ]; then
-        # Print the formatted output
-        quote_string="$quote\n\n-- $author"
-        /Users/lalit.kumar1/dotfiles/bin/.config/bin/gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
+      quote_string="$quote -- $author"
+      gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
     else
-        gum style --foreground "yellow" --bold "Warning: No results found."
+      gum style --foreground "yellow" --bold "Warning: No results found."
     fi
-else
-    # Curl failed or the response is not valid JSON.
+  else
     gum style --foreground "red" --bold "Error: Could not fetch quote."
-fi
+  fi
+}
+
+# --- Main execution ---
+fetch_quote
