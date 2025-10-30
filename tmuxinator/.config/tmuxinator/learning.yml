@@ -4,4 +4,4 @@ name: learn-anything
 root: ~/Projects/Personal/Github/learn
 
 windows:
-  - Editor: gst
+  - Editor: quote
