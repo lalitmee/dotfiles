@@ -64,12 +64,19 @@ create_border() {
 format_message() {
     local message="$1"
     local width="$2"
+    local quote_color="$3"
+    local author_color="$4"
 
     # Handle multi-line messages
     echo "$message" | while IFS= read -r line; do
         if [[ -n "$line" ]]; then
-            # Use gum's built-in width handling for word wrapping
-            gum style --foreground "$text_color" --width "$width" --align center " $line "
+            if [[ "$line" == --* ]]; then
+                # This is the author line
+                gum style --foreground "$author_color" --width "$width" --align left " $line "
+            else
+                # This is a quote line
+                gum style --foreground "$quote_color" --width "$width" --align center " $line "
+            fi
         else
             # Handle empty lines
             gum style --width "$width" --align center " "
@@ -81,13 +88,15 @@ format_message() {
 gum_style() {
     local message="$1"
     local width_arg="$2"
+    local quote_color="$3"
+    local author_color="$4"
 
     # Calculate optimal width
     local width=$(calculate_width "$message" "$width_arg")
 
     # Create styled components
     local top_border=$(create_border "$width")
-    local formatted_message=$(format_message "$message" "$width")
+    local formatted_message=$(format_message "$message" "$width" "$quote_color" "$author_color")
     local bottom_border=$(create_border "$width")
 
     # Combine all elements
@@ -97,16 +106,17 @@ gum_style() {
 # Main execution - Print outer border with Gum's rounded border
 main() {
     local message="$1"
-    local width_arg="$2"
+    local quote_color="$2"
+    local author_color="$3"
+    local width_arg="$4"
 
     if [[ -z "$message" ]]; then
-        echo "Usage: $0 <message> [width]"
-        echo "Example: $0 'Hello World' 50"
+        echo "Usage: $0 <message> <quote_color> <author_color> [width]"
         exit 1
     fi
 
     # Get the styled content
-    local styled_content=$(gum_style "$message" "$width_arg")
+    local styled_content=$(gum_style "$message" "$width_arg" "$quote_color" "$author_color")
 
     # Calculate outer width (content width + padding for rounded border)
     local content_width=$(calculate_width "$message" "$width_arg")
