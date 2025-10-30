@@ -6,5 +6,3 @@ root: ~/Projects/Personal/Github
 windows:
   - browse.nvim: cd browse.nvim
   - cobalt2.nvim: cd cobalt2.nvim
-  - palenight.nvim: cd palenight.nvim
-  - shades-of-purple.nvim: cd shades-of-purple.nvim

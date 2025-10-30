@@ -1,9 +1,0 @@
-# /home/lalitmee/.config/tmuxinator/side-hussle.yml
-
-name: side-hussle
-root: ~/Projects/Work/side-hussle
-
-windows:
-  - editor: ls
-  - server: bundle exec rails s
-  - logs: tail -f log/development.log
