@@ -1,0 +1,32 @@
+#!/bin/bash
+
+GROUP_NAME="$1"
+CONFIG_FILE="$HOME/dotfiles/scripts/backup/config.json"
+BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/repo.sh"
+
+if ! command -v jq &> /dev/null; then
+    echo "❌ ERROR: jq is not installed. Please install it to continue."
+    exit 1
+fi
+
+if [[ -z "$GROUP_NAME" ]]; then
+    REPO_NAMES=$(jq -r '.repositories[].name' "$CONFIG_FILE")
+    echo "================================================================================"
+    echo "Starting all backups"
+else
+    REPO_NAMES=$(jq -r --arg group "$GROUP_NAME" '.repositories[] | select(.group == $group) | .name' "$CONFIG_FILE")
+    echo "================================================================================"
+    echo "Starting backup for group: $GROUP_NAME"
+fi
+
+for repo_name in $REPO_NAMES; do
+    /bin/bash "$BACKUP_SCRIPT" "$repo_name"
+done
+
+if [[ -z "$GROUP_NAME" ]]; then
+    echo "Finished all backups"
+    echo "================================================================================"
+else
+    echo "Finished backup for group: $GROUP_NAME"
+    echo "================================================================================"
+fi
