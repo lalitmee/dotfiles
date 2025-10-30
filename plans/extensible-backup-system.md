@@ -1,10 +1,10 @@
 # Feature Implementation Plan: Extensible Backup System
 
 ## 📋 Todo Checklist
-- [ ] Create `scripts/backup/config.json`
-- [ ] Create `scripts/backup/repo.sh`
-- [ ] Make `scripts/backup/repo.sh` executable
-- [ ] Modify `scripts/backup/run-cron-jobs`
+- [ ] Modify `scripts/backup/config.json`
+- [ ] Modify `scripts/backup/repo.sh`
+- [ ] Modify `scripts/backup/run-cron-job`
+- [ ] Make `scripts/backup/run-cron-job` executable
 - [ ] Modify `cron/second-brain.cron`
 - [ ] Remove `scripts/backup/second-brain`
 - [ ] Final Review and Testing
@@ -20,9 +20,18 @@ The current architecture is not extensible. Adding a new repository to the backu
 ### Dependencies & Integration Points
 The backup scripts use `git` for version control and `notify-send` or `dunstify` for notifications on Linux, and `osascript` for notifications on macOS. The new system will also use `jq` to parse the JSON configuration file.
 
+### Notification System
+The user has noted that they only see urgent notifications. This is the desired behavior to reduce clutter. The `send_notification` function in the `repo.sh` script uses the `-u` flag to set the urgency level of the notification. The script sends notifications with the following urgencies:
+
+*   `critical` for failures (CD failed, pull failed, commit failed, push failed).
+*   `normal` for success.
+*   `normal` for warnings (no upstream branch).
+
+The user's notification daemon (e.g., `dunst`) is likely configured to only display notifications with a `critical` urgency level. This is why the user is only seeing urgent notifications. The current implementation already satisfies the user's requirement, so no changes are needed to the notification system.
+
 ### Backup Strategy: Sequential vs. Parallel
 
-The new backup system will back up repositories **sequentially**. This means that the `run-cron-jobs` script will iterate through the list of repositories in the `config.json` file and back them up one after another. As soon as one backup process finishes, the next one will begin, with no time interval in between.
+The new backup system will back up repositories **sequentially**. This means that the `run-cron-job` script will iterate through the list of repositories in the `config.json` file and back them up one after another. As soon as one backup process finishes, the next one will begin, with no time interval in between.
 
 **Why a Sequential Approach?**
 
@@ -45,32 +54,35 @@ While a sequential approach is the best choice for this use case, the system cou
 - `jq` must be installed on the system.
 
 ### Step-by-Step Implementation
-1. **Step 1**: Create `scripts/backup/config.json`
-   - Files to modify: `scripts/backup/config.json` (new file)
-   - Changes needed: Create a new JSON file with the following content. This file will store the configuration for the repositories to be backed up.
+1. **Step 1**: Modify `scripts/backup/config.json`
+   - Files to modify: `scripts/backup/config.json`
+   - Changes needed: Add a `group` property to each repository.
 
 ```json
 {
   "repositories": [
     {
       "name": "personal-second-brain",
-      "path": "$HOME/Projects/Personal/Github/second-brain"
+      "path": "$HOME/Projects/Personal/Github/second-brain",
+      "group": "default"
     },
     {
       "name": "work-second-brain",
-      "path": "$HOME/Projects/Work/Github/second-brain"
+      "path": "$HOME/Projects/Work/Github/second-brain",
+      "group": "default"
     },
     {
       "name": "dotfiles",
-      "path": "$HOME/dotfiles"
+      "path": "$HOME/dotfiles",
+      "group": "dotfiles"
     }
   ]
 }
 ```
 
-2. **Step 2**: Create `scripts/backup/repo.sh`
-   - Files to modify: `scripts/backup/repo.sh` (new file)
-   - Changes needed: Create a new shell script that will perform the backup for a single repository.
+2. **Step 2**: Modify `scripts/backup/repo.sh`
+   - Files to modify: `scripts/backup/repo.sh`
+   - Changes needed: Update the log formatting.
 
 ```bash
 #!/bin/bash
@@ -124,15 +136,15 @@ start_log_session() {
     rotate_log_if_needed "$log_file"
     {
         echo ""
-        echo "============================================================"
+        echo "--------------------------------------------------------------------------------"
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] Backup Run Started"
-        echo "------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
     } >> "$log_file"
 }
 
 end_log_session() {
     local log_file="$1"
-    echo "============================================================" >> "$log_file"
+    echo "--------------------------------------------------------------------------------" >> "$log_file"
 }
 
 log_message() {
@@ -148,7 +160,7 @@ send_notification() {
     local icon="${4:-$ICON_PATH}"
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        osascript -e "display notification "$message" with title "$title" sound name "default""
+        osascript -e "display notification \"$message\" with title \"$title\" sound name \"default\""
     else
         if command -v notify-send &> /dev/null; then
             notify-send -u "$urgency" -i "$icon" "$title" "$message"
@@ -158,7 +170,7 @@ send_notification() {
     fi
 }
 
-echo "------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------"
 echo "🧠 $REPO_NAME backup started at: $(date '+%Y-%m-%d %H:%M:%S')"
 
 start_log_session "$SUCCESS_LOG"
@@ -191,9 +203,7 @@ if [[ $PULL_STATUS -ne 0 ]]; then
     log_message "$ERROR_LOG" "$PULL_OUTPUT"
     end_log_session "$ERROR_LOG"
     end_log_session "$SUCCESS_LOG"
-    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG
-
-Check: $ERROR_LOG" "critical"
+    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
     exit 1
 else
     log_message "$SUCCESS_LOG" "Pull completed successfully"
@@ -217,9 +227,7 @@ if ! git diff --quiet || ! git diff --cached --quiet || [ -n "$(git ls-files --o
         log_message "$ERROR_LOG" "$COMMIT_OUTPUT"
         end_log_session "$ERROR_LOG"
         end_log_session "$SUCCESS_LOG"
-        send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG
-
-Check: $ERROR_LOG" "critical"
+        send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
         exit 1
     else
         echo "✅ Changes committed"
@@ -264,9 +272,7 @@ if git rev-parse @{u} > /dev/null 2>&1; then
                     log_message "$ERROR_LOG" "$PUSH_OUTPUT"
                     end_log_session "$ERROR_LOG"
                     end_log_session "$SUCCESS_LOG"
-                    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG
-
-Check: $ERROR_LOG" "critical"
+                    send_notification "🧠 $REPO_NAME Backup Failed" "$ERROR_MSG\n\nCheck: $ERROR_LOG" "critical"
                     exit 1
                 fi
             fi
@@ -285,20 +291,17 @@ fi
 echo "✅ $REPO_NAME backup completed at: $(date '+%Y-%m-%d %H:%M:%S')"
 log_message "$SUCCESS_LOG" "Backup completed successfully"
 end_log_session "$SUCCESS_LOG"
+echo "--------------------------------------------------------------------------------"
 ```
 
-3. **Step 3**: Make `scripts/backup/repo.sh` executable
-   - Files to modify: `scripts/backup/repo.sh`
-   - Changes needed: Make the script executable.
-   - Command: `chmod +x scripts/backup/repo.sh`
-
-4. **Step 4**: Modify `scripts/backup/run-cron-jobs`
-   - Files to modify: `scripts/backup/run-cron-jobs`
-   - Changes needed: Modify the script to read the configuration file and loop through the repositories, running the backups sequentially.
+3. **Step 3**: Modify `scripts/backup/run-cron-job`
+   - Files to modify: `scripts/backup/run-cron-job`
+   - Changes needed: Modify the script to accept an optional group name as an argument. If no argument is provided, it will back up all repositories.
 
 ```bash
 #!/bin/bash
 
+GROUP_NAME="$1"
 CONFIG_FILE="$HOME/dotfiles/scripts/backup/config.json"
 BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/repo.sh"
 
@@ -307,28 +310,52 @@ if ! command -v jq &> /dev/null; then
     exit 1
 fi
 
-REPO_NAMES=$(jq -r '.repositories[].name' "$CONFIG_FILE")
+if [[ -z "$GROUP_NAME" ]]; then
+    REPO_NAMES=$(jq -r '.repositories[].name' "$CONFIG_FILE")
+    echo "================================================================================"
+    echo "Starting all backups"
+else
+    REPO_NAMES=$(jq -r --arg group "$GROUP_NAME" '.repositories[] | select(.group == $group) | .name' "$CONFIG_FILE")
+    echo "================================================================================"
+    echo "Starting backup for group: $GROUP_NAME"
+fi
 
 for repo_name in $REPO_NAMES; do
-    echo "--- Starting backup for $repo_name ---"
     /bin/bash "$BACKUP_SCRIPT" "$repo_name"
-    echo "--- Finished backup for $repo_name ---"
 done
+
+if [[ -z "$GROUP_NAME" ]]; then
+    echo "Finished all backups"
+    echo "================================================================================"
+else
+    echo "Finished backup for group: $GROUP_NAME"
+    echo "================================================================================"
+fi
 ```
+
+4. **Step 4**: Make `scripts/backup/run-cron-job` executable
+   - Files to modify: `scripts/backup/run-cron-job`
+   - Changes needed: Make the script executable.
+   - Command: `chmod +x scripts/backup/run-cron-job`
 
 5. **Step 5**: Modify `cron/second-brain.cron`
    - Files to modify: `cron/second-brain.cron`
-   - Changes needed: Comment out the old cron jobs and add a new one for the new backup system.
+   - Changes needed: Comment out the old cron jobs and add new ones for the new backup system.
 
 ```cron
-# personal-brain backup (on the hour)
+# Old backup system
+# # personal-brain backup (on the hour)
 # 0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs personal >/dev/null 2>&1
-
-# work-brain backup (30 minutes after the hour)
+#
+# # work-brain backup (30 minutes after the hour)
 # 30 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs work >/dev/null 2>&1
 
 # New backup system
-0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-jobs >/dev/null 2>&1
+# Backup for the 'default' group every 3 hours
+0 */3 * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-job default >/dev/null 2>&1
+
+# Backup for the 'dotfiles' group every hour
+0 * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-job dotfiles >/dev/null 2>&1
 
 # * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/test/test-home
 
@@ -341,14 +368,15 @@ done
    - Command: `rm scripts/backup/second-brain`
 
 ### Testing Strategy
-- Run the `run-cron-jobs` script manually and check the logs for each repository in `$HOME/.local/share/backup-logs/`.
+- Run the `run-cron-job` script manually with a group name and check the logs for each repository in `$HOME/.local/share/backup-logs/`.
+- Run the `run-cron-job` script manually without any arguments and check the logs for each repository in `$HOME/.local/share/backup-logs/`.
 - Verify that the notifications are sent correctly.
-- Add a new repository to the `config.json` file and run the `run-cron-jobs` script again to ensure that the new repository is backed up.
-- Remove a repository from the `config.json` file and run the `run-cron-jobs` script again to ensure that the removed repository is no longer backed up.
+- Add a new repository to the `config.json` file with a new group and add a new cron job for it.
+- Remove a repository from the `config.json` file and verify that it is no longer backed up.
 
 ## 🎯 Success Criteria
-- The `dotfiles` repository is automatically backed up.
-- The backup system is easily extensible by modifying the `config.json` file.
+- The `dotfiles` repository is automatically backed up at a different interval than the `second-brain` repositories.
+- The backup system is easily extensible by modifying the `config.json` file and adding new cron jobs.
 - The old `second-brain` script is removed.
 - The cron job is updated to use the new backup system.
 - The new system is working as expected.
