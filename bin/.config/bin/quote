@@ -19,13 +19,16 @@ QUOTE_COLOR="#FFC600"
 AUTHOR_COLOR="#EE80E1"
 
 # --- Parse arguments ---
-while getopts ":s:t:" opt; do
+while getopts ":s:t:r" opt; do
   case $opt in
     s)
       SEARCH_STRING="$OPTARG"
       ;;
     t)
       TAG="$OPTARG"
+      ;;
+    r)
+      RANDOM_QUOTE=true
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -39,7 +42,29 @@ while getopts ":s:t:" opt; do
 done
 
 # Define the API endpoint
-if [ -n "$SEARCH_STRING" ]; then
+if [ "$RANDOM_QUOTE" = true ]; then
+  # Get a random quote
+  API_URL="https://api.quotable.io/random"
+  # --- Define our "Gemini-like" loading messages ---
+  # Using zsh array syntax
+  declare -a loading_messages=(
+      "Consulting the philosophers..."
+      "Searching the ancient libraries..."
+      "Polishing some wisdom..."
+      "Finding the perfect words..."
+      "Asking the universe for a sign..."
+      "Rummaging through the archives..."
+  )
+
+  # Get a random message from the list
+  # zsh arrays are 1-indexed by default
+  RANDOM_INDEX=$(( (RANDOM % ${#loading_messages[@]}) + 1 ))
+  RANDOM_MESSAGE=${loading_messages[$RANDOM_INDEX]}
+  temp_file=$(mktemp)
+  gum spin --spinner dot --title "$RANDOM_MESSAGE" -- sh -c "curl -sk '$API_URL' > '$temp_file'"
+  http_response=$(cat "$temp_file")
+  rm "$temp_file"
+elif [ -n "$SEARCH_STRING" ]; then
   # Search for a quote
   API_URL="https://api.quotable.io/random?query=$SEARCH_STRING"
   temp_file=$(mktemp)
@@ -108,14 +133,14 @@ if [ $? -eq 0 ] && [ -n "$http_response" ] && echo "$http_response" | jq -e . >/
     quote=$(echo "$http_response" | jq -r '.content')
     author=$(echo "$http_response" | jq -r '.author')
 
-    if [ -n "$quote" ] && [ -n "$author" ]; then
+    if [ "$quote" != "null" ] && [ "$author" != "null" ] && [ -n "$quote" ] && [ -n "$author" ]; then
         # Print the formatted output
         quote_string="$quote\n\n-- $author"
         /Users/lalit.kumar1/dotfiles/bin/.config/bin/gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
     else
-        gum style --foreground "9" --bold "Error: Could not find a quote."
+        gum style --foreground "yellow" --bold "Warning: No results found."
     fi
 else
     # Curl failed or the response is not valid JSON.
-    gum style --foreground "9" --bold "Error: Could not fetch quote."
+    gum style --foreground "red" --bold "Error: Could not fetch quote."
 fi
