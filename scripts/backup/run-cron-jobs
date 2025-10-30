@@ -1,39 +1,17 @@
 #!/bin/bash
 
-# Validate argument
-BRAIN="$1" # personal or work
-if [[ "$BRAIN" != "personal" && "$BRAIN" != "work" ]]; then
-  echo "❌ ERROR: Please specify 'personal' or 'work' as the first argument"
-  exit 1
+CONFIG_FILE="$HOME/dotfiles/scripts/backup/config.json"
+BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/repo.sh"
+
+if ! command -v jq &> /dev/null; then
+    echo "❌ ERROR: jq is not installed. Please install it to continue."
+    exit 1
 fi
 
-# Path to the backup script
-BACKUP_SCRIPT="$HOME/dotfiles/scripts/backup/second-brain"
+REPO_NAMES=$(jq -r '.repositories[].name' "$CONFIG_FILE")
 
-### The lines below have been commented out or modified to disable logging ###
-
-# # Log setup
-# LOG_DIR="$HOME/dotfiles/scripts/logs"
-# LOG_FILE="$LOG_DIR/second-brain-$BRAIN.log"
-
-# # Ensure log directory exists
-# mkdir -p "$LOG_DIR"
-
-# # 1. Timestamped log entry
-# {
-#   echo "============================================================"
-#   echo "🕒 Run started at: $(date '+%Y-%m-%d %H:%M:%S')"
-# } >> "$LOG_FILE"
-
-# 2. Run the actual backup (without redirecting to a log file)
-/bin/bash "$BACKUP_SCRIPT" "$BRAIN"
-
-# # 3. Rotate and Cleanup logs (Monday at 12:00)
-# if [[ "$(date +%u)" == 1 && "$(date +%H)" == 12 ]]; then
-#   # Rotate current log
-#   mv "$LOG_FILE" "$LOG_DIR/second-brain-$BRAIN-$(date +%F).log"
-#   touch "$LOG_FILE"
-#
-#   # Cleanup older than 30 days
-#   find "$LOG_DIR" -name "second-brain-$BRAIN-*.log" -mtime +30 -delete
-# fi
+for repo_name in $REPO_NAMES; do
+    echo "--- Starting backup for $repo_name ---"
+    /bin/bash "$BACKUP_SCRIPT" "$repo_name"
+    echo "--- Finished backup for $repo_name ---"
+done
