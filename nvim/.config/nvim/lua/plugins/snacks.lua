@@ -106,28 +106,28 @@ return { --[[ snacks.nvim ]]
             function()
                 Snacks.scratch()
             end,
-            desc = "Toggle Scratch Buffer",
+            desc = "Scratch: Toggle Buffer",
         },
         {
             "<leader>k/",
             function()
                 Snacks.scratch.select()
             end,
-            desc = "Select Scratch Buffer",
+            desc = "Scratch: Select Buffer",
         },
         {
             "<leader>kn",
             function()
                 Snacks.scratch.open({ icon = "󰎞 ", ft = "markdown", name = "Notes" })
             end,
-            desc = "Notes Scratch Buffer",
+            desc = "Scratch: Notes Buffer",
         },
         {
             "<leader>kt",
             function()
                 Snacks.scratch.open({ icon = " ", ft = "markdown", name = "Todo" })
             end,
-            desc = "Notes Scratch Buffer",
+            desc = "Scratch: Todos Buffer",
         },
 
         -- neovim news
