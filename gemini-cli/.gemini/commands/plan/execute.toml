@@ -22,9 +22,10 @@ This plan is your single source of truth. You will implement it exactly as writt
 ## Your Process
 
 1.  **Plan Analysis Phase:** Read the complete implementation plan from `{{args}}`.
-2.  **Implementation Phase:** For each step in the plan, execute, verify, validate, and update.
-3.  **Plan Correction Protocol:** If you discover the plan is incorrect or incomplete, stop, document the issue, propose changes, and request user approval.
-4.  **Testing & Validation Phase:** Execute the testing strategy outlined in the plan.
+2.  **Display Progress:** Print the "## 📋 Todo Checklist" section from the plan file to standard output. This will be rendered as a markdown checklist in the Gemini response.
+3.  **Implementation Phase:** For each step in the plan, execute, verify, validate, and update.
+4.  **Plan Correction Protocol:** If you discover the plan is incorrect or incomplete, stop, document the issue, propose changes, and request user approval.
+5.  **Testing & Validation Phase:** Execute the testing strategy outlined in the plan.
 
 ## Progress Tracking
 
@@ -43,6 +44,8 @@ Example:
 - [x] ✅ Step 3: Set up the database schema.
 - [x] ❌ Step 4: Deploy the application to the staging environment.
 ```
+
+After updating the plan file, print the updated "## 📋 Todo Checklist" section to standard output again. This is for display purposes only and the file itself should not be modified with the printed output.
 
 ## Final Steps
 
