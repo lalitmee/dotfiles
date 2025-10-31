@@ -51,7 +51,6 @@ wk.add({
     { "<leader>ton", ":set scrolloff=999<CR>", desc = "Scrolloff=999" },
 
     { "<leader>tt", ":TSPlaygroundToggle<CR>", desc = "Treesitter Playground" },
-    { "<leader>tu", ":UndotreeToggle<CR>", desc = "Undotree" },
 })
 
 return M
