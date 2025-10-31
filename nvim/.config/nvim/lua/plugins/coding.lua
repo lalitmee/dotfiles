@@ -326,7 +326,6 @@ return {
                 },
             })
         end,
-        enabled = false,
     },
 
     { --[[ vim-sxhkdrc ]]
