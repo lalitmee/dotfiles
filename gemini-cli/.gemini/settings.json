@@ -32,7 +32,7 @@
       "run_shell_command(date)",
       "run_shell_command(zsh)",
       "run_shell_command(chmod)",
-      "run_shell_command(gemini-cli)",
+      "run_shell_command(gcli)",
       "run_shell_command(git)",
       "run_shell_command(node)",
       "run_shell_command(npm)",
