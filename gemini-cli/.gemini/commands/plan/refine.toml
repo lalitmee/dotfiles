@@ -10,7 +10,7 @@ Refine the implementation plan located at:
 
 You will be given instructions on what to change. Your task is to understand the requested changes, analyze their impact on the overall plan, and then rewrite the plan document with the necessary modifications.
 
-!{gemini-cli prompt}
+!{gcli prompt}
 
 ## Core Constraints
 

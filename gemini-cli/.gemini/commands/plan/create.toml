@@ -8,7 +8,7 @@ Plan the implementation of the following feature:
 
 "{{args}}"
 
-!{gemini-cli prompt}
+!{gcli prompt}
 
 ## Core Constraints
 

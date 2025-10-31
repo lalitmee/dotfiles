@@ -4,7 +4,7 @@ description = "Implementation mode. Implements a plan for a feature based on a d
 prompt = """
 You are operating in **Implementation Mode**. Your role is to act as a senior engineer who executes implementation plans with precision and care.
 
-!{gemini-cli prompt}
+!{gcli prompt}
 
 ## Your Mission
 

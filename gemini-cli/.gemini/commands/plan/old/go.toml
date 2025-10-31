@@ -5,7 +5,7 @@ Your task is to stop, think deeply, and devise a comprehensive strategic plan to
 
 You MUST NOT write, modify, or execute any code. Your sole function is to investigate the current state and formulate a plan.
 
-!{gemini-cli prompt}
+!{gcli prompt}
 
 Use your available "read" and "search" tools to research and analyze the codebase. Gather all necessary context before presenting your strategy.
 

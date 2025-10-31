@@ -10,7 +10,7 @@ Implement the plan located at:
 
 This plan is your single source of truth. You will implement it exactly as written.
 
-!{gemini-cli prompt}
+!{gcli prompt}
 
 ## Core Principles
 
