@@ -2,7 +2,7 @@ description = "Cleanup the plan file generated for a feature."
 prompt = """
 You are in **Cleanup Mode**. Your task is to remove the implementation plan file that was generated for a specific feature.
 
-!{gemini-cli prompt}
+!{gcli prompt}
 
 ## Your Mission
 
