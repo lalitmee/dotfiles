@@ -181,6 +181,12 @@ return { --[[ snacks.nvim ]]
         quickfile = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = true },
+        scroll = {
+            -- it has some bug with my setup, when I reach to the bottom of a
+            -- file and then try to scroll up, it doesn't work and it seems that
+            -- its stuck at the bottom until I press gg to go to the top of the file
+            enabled = false,
+        },
         styles = {
             notification = {
                 wo = { wrap = true }, -- Wrap notifications
@@ -206,7 +212,25 @@ return { --[[ snacks.nvim ]]
         local wk = require("which-key")
         wk.add({
             { "<leader>k", group = "scratch" },
+
+            {
+                "<leader>jn",
+                function()
+                    Snacks.words.jump(1, true)
+                end,
+                desc = "Snacks: Jump to Word Reference Next",
+            },
         })
+
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "OilActionsPost",
+            callback = function(event)
+                if event.data.actions[1].type == "move" then
+                    Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
+                end
+            end,
+        })
+
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
             callback = function()

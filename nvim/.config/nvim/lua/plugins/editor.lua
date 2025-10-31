@@ -528,7 +528,7 @@ return {
             },
 
             {
-                "<leader>js",
+                "<leader>jb",
                 function()
                     require("flash").jump({
                         search = {
