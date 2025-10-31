@@ -1,10 +1,11 @@
 return {
-    { --[[ undotree ]]
-        "mbbill/undotree",
-        cmd = { "UndotreeToggle" },
+    {
+        "XXiaoA/atone.nvim",
+        cmd = "Atone",
         keys = {
-            { "<leader>tu", ":UndotreeToggle<CR>", desc = "Undo Tree", silent = true },
+            { "<leader>tu", ":Atone toggle<CR>", desc = "Atone: Undotree", silent = true },
         },
+        opts = {},
     },
 
     { --[[ tabular ]]
@@ -115,77 +116,6 @@ return {
             file_picker = "telescope",
             filetypes = { "js", "json", "lua", "org", "sh", "ts", "txt" },
             scratch_file_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
-        },
-    },
-
-    { --[[ fzf-lua ]]
-        "ibhagwan/fzf-lua",
-        cmd = { "FzfLua" },
-        init = function()
-            local wk = require("which-key")
-            wk.add({
-                { "<leader>F", group = "fzf" },
-                { "<leader>Fb", group = "buffers" },
-                { "<leader>Ff", group = "files" },
-                { "<leader>Fl", group = "lsp" },
-                { "<leader>Fs", group = "search" },
-            })
-        end,
-
-        keys = {
-            { "<leader>aa", ":FzfLua<space>", desc = "Fzf Lua Builtin" },
-            { "<leader>bB", ":FzfLua buffers<CR>", desc = "Fzf Buffers" },
-            { "<leader>bL", ":FzfLua blines<CR>", desc = "Fzf Buffer Lines" },
-            { "<leader>fF", ":FzfLua files<CR>", desc = "Files" },
-            "<C-]>",
-            "gd",
-
-            { "<leader>F/", ":FzfLua live_grep<CR>", desc = "Fzf Live Grep", silent = true },
-            { "<leader>FbL", ":FzfLua lines<CR>", desc = "Fzf Lines", silent = true },
-            { "<leader>Fbb", ":FzfLua buffers<CR>", desc = "Fzf Buffers", silent = true },
-            { "<leader>Fbl", ":FzfLua blines<CR>", desc = "Fzf Buffer Lines", silent = true },
-            { "<leader>Fff", ":FzfLua files<CR>", desc = "Fzf Files", silent = true },
-            {
-                "<leader>Fle",
-                ":FzfLua lsp_document_diagnostics<CR>",
-                desc = "Fzf Lsp Document Diagnostics",
-                silent = true,
-            },
-            {
-                "<leader>FlE",
-                ":FzfLua lsp_workspace_diagnostics<CR>",
-                desc = "Fzf Lsp Workspace Diagnostics",
-                silent = true,
-            },
-            { "<leader>Fll", ":FzfLua lsp_finder<CR>", desc = "Fzf Lsp Finder", silent = true },
-            { "<leader>Flr", ":FzfLua lsp_references<CR>", desc = "Fzf Lsp References", silent = true },
-            { "<leader>Flw", ":FzfLua lsp_document_symbols<CR>", desc = "Fzf Lsp Document Symbols", silent = true },
-            { "<leader>FlW", ":FzfLua lsp_workspace_symbols<CR>", desc = "Fzf Lsp Workspace Symbols", silent = true },
-            {
-                "<leader>Fls",
-                ":FzfLua lsp_live_workspace_symbols<CR>",
-                desc = "fzf-lsp-live-workspace-symbols",
-                silent = true,
-            },
-            { "<leader>FsR", ":FzfLua live_grep_resume<CR>", desc = "Fzf Live Grep Resume", silent = true },
-            { "<leader>Fsr", ":FzfLua resume<CR>", desc = "Fzf Resume", silent = true },
-        },
-        opts = {
-            winopts = {
-                width = 0.95,
-                height = 0.95,
-                preview = {
-                    title_pos = "center",
-                    scrollbar = "border",
-                },
-            },
-            fzf_opts = {},
-            files = { git_icons = false },
-            grep = {
-                rg_glob = true,
-                rg_opts = "--hidden --column --line-number --no-heading" .. " --color=always --smart-case -g '!.git'",
-            },
-            file_ignore_patterns = { "node_modules", ".git" },
         },
     },
 
