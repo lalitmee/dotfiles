@@ -749,22 +749,25 @@ bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 #-------------------------------------------------------------------------------
 
 # Launch lazygit in a popup (toggle behavior).
-bind g run-shell "$HOME/.config/tmux/scripts/popup/lazygit.sh '#{pane_current_path}'"
+bind g run-shell "custom_shpell standard lazygit \"lazygit -p '#{pane_current_path}'\""
 
 # Launch lazydocker in a custom shpell.
 bind D run-shell "custom_shpell standard lazydocker 'lazydocker'"
 
 # Launch the cht.sh helper script in a popup.
-bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
+bind i run-shell "custom_shpell ephemeral cht-sh '~/.config/tmux/scripts/cht-sh/cht.sh'"
 
 # Launch the project runner script in a popup.
-bind C-r display-popup -w 90% -h 90% -E "zsh -lc '~/.config/tmux/scripts/popup/runner/runner.sh'"
+bind C-r run-shell "custom_shpell ephemeral project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
 # # Launch the scratchpad popup script.
 # bind m run-shell "~/.config/tmux/scripts/popup/scratch.sh"
 
 # Launch the gh-dash popup script.
-bind G run-shell "~/.config/tmux/scripts/popup/gh-dash.sh"
+bind G run-shell "custom_shpell standard gh-dash 'gh dash'"
+
+# Launch the process viewer in a popup.
+bind p run-shell "custom_shpell standard process-viewer 'btm'"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -1186,6 +1189,70 @@ bind -T layout-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh l
 # }}}
 #-------------------------------------------------------------------------------
 
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Dev Mode {{{
+#           Parent block for all dev-mode functionality.
+#           Enter dev-mode by pressing C-a C-d.
+#-------------------------------------------------------------------------------
+
+# Dev mode trigger
+bind-key C-d switch-client -T dev-mode
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Dev Mode - Build/Test Runners {{{
+#-------------------------------------------------------------------------------
+
+# Example for a Rust project:
+bind -T dev-mode b run-shell "custom_shpell standard rust-build 'cargo build' --replay"
+
+# Example for a Node.js project:
+bind -T dev-mode t run-shell "custom_shpell standard node-test 'npm test' --replay"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+# Exit dev mode
+bind-key -T dev-mode q switch-client -T root
+
+# Help for dev mode
+bind -T dev-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh dev-mode"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Monitor Mode {{{
+#           Parent block for all monitor-mode functionality.
+#           Enter monitor-mode by pressing C-a C-m.
+#-------------------------------------------------------------------------------
+
+# Monitor mode trigger
+bind-key C-m switch-client -T monitor-mode
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Monitor Mode - Process Viewer {{{
+#-------------------------------------------------------------------------------
+
+bind -T monitor-mode b run-shell "custom_shpell standard process-viewer 'btm'"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+# Exit monitor mode
+bind-key -T monitor-mode q switch-client -T root
+
+# Help for monitor mode
+bind -T monitor-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh monitor-mode"
 
 #-------------------------------------------------------------------------------
 # }}}

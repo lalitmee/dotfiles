@@ -1,0 +1,4 @@
+Key	Description
+b	Process Viewer (btm)
+q	Quit monitor-mode
+?	Show help
