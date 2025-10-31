@@ -1,17 +1,15 @@
 Key	Description
-v	Vertical split
+a	AI ask assistant
+c	AI chat session
+g	Git Pull/Merge
 H	Horizontal split
 h	Split left (40%)
 j	Split down (30%)
 k	Split up (30%)
 l	Split right (40%)
-a	AI ask assistant
-c	AI chat session
-s	Site-specific search
-/	Web search
-g	Git operations
-t	Todo (personal)
-T	Todo (work)
 m	Documentation browser
+s	Site-specific search
+v	Vertical split
+/	Web search
 ?	Help
 q	Quit table
