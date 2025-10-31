@@ -1,0 +1,5 @@
+Key	Description
+b	Build Rust project
+t	Test Node.js project
+q	Quit dev-mode
+?	Show help

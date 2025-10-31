@@ -1,10 +1,11 @@
 # Feature Implementation Plan: Enhance Custom Shpell Usage (Refined)
 
 ## 📋 Todo Checklist
-- [ ] Refactor existing popup bindings to use `custom_shpell`.
-- [ ] Create a new `dev` table for `--replay` commands.
-- [ ] Suggest new `custom_shpell` bindings for a better workflow.
-- [ ] Final Review and Testing
+- [x] ✅ Refactor existing popup bindings to use `custom_shpell`.
+- [x] ✅ Create a new `dev` table for `--replay` commands.
+- [x] ✅ Create a help table for the new `dev` mode.
+- [x] ✅ Create a new `monitor` table.
+- [ ] ⏩ Final Review and Testing
 
 ## 🔍 Analysis & Investigation
 
@@ -50,8 +51,8 @@ The goal of this step is to unify the popup management by using `custom_shpell` 
 
   - **Project Runner:**
     - **Old:** `bind C-r display-popup -w 90% -h 90% -E "zsh -lc '~/.config/tmux/scripts/popup/runner/runner.sh'"`
-    - **New:** `bind C-r run-shell "custom_shpell ephemeral project-runner \"zsh -lc '~/.config/tmux/scripts/popup/runner/runner.sh'\""`
-    - **Reasoning:** Using `ephemeral` will run the script every time the key is pressed.
+    - **New:** `bind C-r run-shell "custom_shpell ephemeral project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"`
+    - **Reasoning:** You are correct, `custom_shpell` already provides an interactive popup shell, so calling `zsh -lc` is redundant. The `runner.sh` script has a shebang `#!/usr/bin/env zsh -i` which ensures it runs in an interactive shell, so we can call the script directly.
 
   - **gh-dash:**
     - **Old:** `bind G run-shell "~/.config/tmux/scripts/popup/gh-dash.sh"`
@@ -101,29 +102,88 @@ The goal of this step is to unify the popup management by using `custom_shpell` 
   #-------------------------------------------------------------------------------
   ```
 
-#### 3. Suggest New `custom_shpell` Bindings
+#### 3. Create Help Table for `dev-mode`
+
+- **File to create:** `tmux/.config/tmux/scripts/popup/help/tables/dev-mode.txt`
+
+- **Content:**
+
+  ```tsv
+  Key	Description
+  b	Build Rust project
+  t	Test Node.js project
+  q	Quit dev-mode
+  ?	Show help
+  ```
+
+#### 4. Create `monitor-mode` table
 
 - **Files to modify:** `tmux/.tmux.conf.local`
 
-- **New Bindings:**
+- **Changes needed:**
 
-  - **Process Viewer:**
-    - `bind p run-shell "custom_shpell standard process-viewer 'btm'"`
-    - **Reasoning:** A quick way to open a powerful process viewer in a popup.
+  - Add a new table for monitoring-related commands.
+
+  ```tmux
+  #-------------------------------------------------------------------------------
+  # --- NOTE: Monitor Mode {{{ 
+  #           Parent block for all monitor-mode functionality.
+  #           Enter monitor-mode by pressing C-a C-m.
+  #-------------------------------------------------------------------------------
+
+  # Monitor mode trigger
+  bind-key C-m switch-client -T monitor-mode
+
+  #-------------------------------------------------------------------------------
+  # --- NOTE: Monitor Mode - Process Viewer {{{ 
+  #-------------------------------------------------------------------------------
+
+  bind -T monitor-mode b run-shell "custom_shpell standard process-viewer 'btm'"
+
+  #-------------------------------------------------------------------------------
+  # }}} 
+  #-------------------------------------------------------------------------------
+
+  # Exit monitor mode
+  bind-key -T monitor-mode q switch-client -T root
+
+  # Help for monitor mode
+  bind -T monitor-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh monitor-mode"
+
+  #-------------------------------------------------------------------------------
+  # }}} 
+  #-------------------------------------------------------------------------------
+  ```
+
+#### 5. Create Help Table for `monitor-mode`
+
+- **File to create:** `tmux/.config/tmux/scripts/popup/help/tables/monitor-mode.txt`
+
+- **Content:**
+
+  ```tsv
+  Key	Description
+  b	Process Viewer (btm)
+  q	Quit monitor-mode
+  ?	Show help
+  ```
 
 ### For Future Consideration
 
 - **Markdown Preview**:
   - The following command can be used to preview markdown files in a terminal browser inside a popup. This requires `w3m` and `glow` to be installed.
   - `bind -T dev-mode m run-shell "custom_shpell standard markdown-preview 'w3m -T text/html <(glow -s dark your_file.md)'"`
-  - **Testing:** Before adding this to your configuration, you can test it by running the command directly in your shell.
+  - **Testing:** Before adding this to your configuration, you can test it by running the command directly in your shell. To do so, you first need to install `w3m` and `glow` by running `./scripts/install/phases/03-system-foundation.zsh`.
 
 ### Testing Strategy
 - After modifying the `tmux/.tmux.conf.local` file, reload the tmux configuration with `tmux source-file ~/.tmux.conf.local`.
 - Test each of the new and refactored keybindings to ensure they open the correct application in a popup.
 - For the `--replay` bindings in the new `dev-mode` table, test that the command is re-executed when the key is pressed again.
+- Test the new help table by pressing `C-a C-d ?`.
+- Test the new monitor mode and its help table by pressing `C-a C-m` and `C-a C-m ?`.
 
 ## 🎯 Success Criteria
 - The user has a more consistent and manageable tmux popup configuration.
-- The user has a new `dev` table for their development commands.
+- The user has a new `dev` table for their development commands with a corresponding help table.
+- The user has a new `monitor` table for their monitoring commands with a corresponding help table.
 - The user has new and useful `custom_shpell` bindings that enhance their workflow.
