@@ -1006,17 +1006,28 @@ bind-key -T second-brain N run-shell "custom_shpell standard notes-work 'nvim $H
 bind-key -T second-brain t run-shell "custom_shpell standard todos-personal 'nvim $HOME/Projects/Personal/Github/second-brain/agenda/todos.org'"
 bind-key -T second-brain T run-shell "custom_shpell standard todos-work 'nvim $HOME/Projects/Work/Github/second-brain/agenda/todos.org'"
 
+# Daily Todos
+bind-key -T second-brain d run-shell "custom_shpell standard daily-personal-todo 'nvim $HOME/Projects/Personal/Github/second-brain/agenda/daily/$(date +%Y-%m-%d).org'"
+bind-key -T second-brain D run-shell "custom_shpell standard daily-work-todo 'nvim $HOME/Projects/Work/Github/second-brain/agenda/daily/$(date +%Y-%m-%d).org'"
+
 # Scratch
 bind-key -T second-brain s run-shell "custom_shpell standard scratch-personal 'nvim $HOME/Projects/Personal/Github/second-brain/scratch/inbox.org'"
 bind-key -T second-brain S run-shell "custom_shpell standard scratch-work 'nvim $HOME/Projects/Work/Github/second-brain/scratch/inbox.org'"
 
+# Journal (persistent - daily entries)
+bind-key -T second-brain j run-shell "custom_shpell standard journal-personal 'nvim $HOME/Projects/Personal/Github/second-brain/journal/$(date +%Y-%m-%d).org'"
+bind-key -T second-brain J run-shell "custom_shpell standard journal-work 'nvim $HOME/Projects/Work/Github/second-brain/journal/$(date +%Y-%m-%d).org'"
+
 # Old Workflow
 bind-key -T second-brain a display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
 bind-key -T second-brain A display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes work'"
-bind-key -T second-brain d display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos personal'"
-bind-key -T second-brain D display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos work'"
+bind-key -T second-brain w display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos personal'"
+bind-key -T second-brain W display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh todos work'"
 bind-key -T second-brain k display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch personal'"
 bind-key -T second-brain K display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
+
+# Search notes (ephemeral)
+bind-key -T second-brain f run-shell "custom_shpell ephemeral search-notes 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/notes | fzf'"
 
 # backup logs
 bind-key -T second-brain l run-shell "custom_shpell standard backup-logs 'nvim $HOME/.local/share/backup-logs/'"
@@ -1102,22 +1113,6 @@ bind -T layout-mode C-o run-shell "tmux neww tsnv"
 
 # Kill a user process via fzf.
 bind -T layout-mode x display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/kill-process.sh"
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: Layout Mode - Todo Management {{{
-#           Personal and work todo management.
-#-------------------------------------------------------------------------------
-
-# Toggle daily Personal todo in a Neovim popup (explicitly personal)
-bind -T layout-mode t run-shell "custom_shpell standard daily-personal-todo '~/.config/tmux/scripts/popup/todo.sh personal'"
-
-# Toggle daily Work todo in a Neovim popup
-bind -T layout-mode T run-shell "custom_shpell standard daily-work-todo '~/.config/tmux/scripts/popup/todo.sh work'"
 
 #-------------------------------------------------------------------------------
 # }}}

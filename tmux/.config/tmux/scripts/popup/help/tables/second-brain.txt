@@ -1,8 +1,21 @@
 Key	Description
+a	Notes (personal old workflow)
+A	Notes (work old workflow)
+d	Todos Daily (personal)
+D	Todos Daily (work)
+f	Search notes
+j	Journal (personal)
+J	Journal (work)
+k	Scratch (personal old workflow)
+K	Scratch (work old workflow)
+l	Backup logs
 n	Notes (personal)
 N	Notes (work)
 s	Scratch (personal)
 S	Scratch (work)
 t	Todos (personal)
 T	Todos (work)
+w	Todos (personal old workflow)
+W	Todos (work old workflow)
 q	Quit table
+?	Show help
