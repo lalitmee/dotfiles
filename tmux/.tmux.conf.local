@@ -751,6 +751,9 @@ bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 # Launch lazygit in a popup (toggle behavior).
 bind g run-shell "$HOME/.config/tmux/scripts/popup/lazygit.sh '#{pane_current_path}'"
 
+# Launch lazydocker in a custom shpell.
+bind D run-shell "custom_shpell standard lazydocker 'lazydocker'"
+
 # Launch the cht.sh helper script in a popup.
 bind i display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/cht-sh/cht.sh"
 
