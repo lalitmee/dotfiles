@@ -49,6 +49,10 @@ return {
                 config = function()
                     require("treesitter-context").setup({
                         max_lines = 1,
+                        on_attach = function(buf)
+                            -- Don't attach to telescope buffers
+                            return vim.bo[buf].filetype ~= "TelescopePrompt"
+                        end,
                     })
                 end,
             },
