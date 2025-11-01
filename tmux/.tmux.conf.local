@@ -243,7 +243,7 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" ❐ #S "
-tmux_conf_theme_status_right="#{pomodoro_status} #{prefix}#{mouse}#{pairing}#{synchronized} | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{username}#{root} "
+tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized} | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{username}#{root} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -459,9 +459,6 @@ set -g default-command "exec /bin/zsh"
 # Do not exit tmux when the last session is closed.
 set -g detach-on-destroy off
 
-# Update the environment to include variables from the parent shell
-set-option -g update-environment "REPOSITORY_PATH"
-
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
@@ -527,45 +524,6 @@ set-option -g popup-border-lines rounded
 # set -g @plugin 'rose-pine/tmux'
 # set -g @rose_pine_variant 'main'
 # set -g @plugin 'khanghh/tmux-dark-plus-theme'
-
-#-------------------------------------------------------------------------------
-# }}}
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: Pomodoro Timer {{{
-#-------------------------------------------------------------------------------
-set -g @plugin 'olimorris/tmux-pomodoro-plus'
-
-# display format for pomodoro current/total in the status bar.
-set -g @pomodoro_interval_display " [%s/%s]"
-
-# Set pomodoro duration to 90 minutes.
-set -g @pomodoro_mins 90
-
-# Set break duration to 5 minutes.
-set -g @pomodoro_break_mins 5
-
-# Automatically repeat the pomodoro cycle.
-set -g @pomodoro_repeat true
-
-# Enable desktop notifications.
-set -g @pomodoro_notifications 'on'
-
-# Enable sound notifications.
-set -g @pomodoro_sound 'on'
-
-# Use a more granular (per-second) countdown.
-set -g @pomodoro_granularity 'on'
-
-# Update the status bar every second for the timer.
-set -g status-interval 1
-
-# Set custom icons for different pomodoro states.
-set -g @pomodoro_on " 🍅 "
-set -g @pomodoro_complete " ✔︎  "
-set -g @pomodoro_pause " ⏸︎  "
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -757,9 +715,6 @@ bind D run-shell "custom_shpell standard lazydocker 'lazydocker'"
 # Launch the cht.sh helper script in a popup.
 bind i run-shell "custom_shpell ephemeral cht-sh '~/.config/tmux/scripts/cht-sh/cht.sh'"
 
-# Launch the project runner script in a popup.
-bind C-r run-shell "custom_shpell ephemeral project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"
-
 # # Launch the scratchpad popup script.
 # bind m run-shell "~/.config/tmux/scripts/popup/scratch.sh"
 
@@ -814,24 +769,8 @@ bind "S" run-shell "sesh last"
 # }}}
 #-------------------------------------------------------------------------------
 
-#-------------------------------------------------------------------------------
-# # NOTE: Prefix - AI File Picker {{{
-#         File selection and insertion for AI tools and other utilities.
-#-------------------------------------------------------------------------------
 
-bind C-f display-popup -h 80% -w 80% -E "tmux-file-picker"
 
-# Use -g flag to show paths relative to git root
-bind C-g display-popup -h 80% -w 80% -E "tmux-file-picker -g"
-
-# Use --zoxide to select from your frecent directories first
-bind C-z display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide"
-
-# Use --zoxide with --dir-only to just insert the directory path
-bind C-v display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --dir-only"
-
-# Combine --zoxide with --git-root
-bind C-x display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --git-root"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -839,7 +778,53 @@ bind C-x display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --git-root"
 
 
 #-------------------------------------------------------------------------------
+# --- NOTE: File Picker Mode {{{
+#           Parent block for all file picker functionality.
+#           Enter file picker mode by pressing C-a C-f.
+#-------------------------------------------------------------------------------
+
+# File picker mode trigger
+bind-key C-f switch-client -T file-picker-mode
+
+#-------------------------------------------------------------------------------
+# --- NOTE: File Picker - Keybindings {{{
+#-------------------------------------------------------------------------------
+
+# Default file picker
+bind-key -T file-picker-mode f display-popup -h 80% -w 80% -E "tmux-file-picker"
+
+# Git root
+bind-key -T file-picker-mode g display-popup -h 80% -w 80% -E "tmux-file-picker -g"
+
+# Zoxide
+bind-key -T file-picker-mode z display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide"
+
+# Zoxide (directory only)
+bind-key -T file-picker-mode v display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --dir-only"
+
+# Zoxide (git root)
+bind-key -T file-picker-mode x display-popup -h 80% -w 80% -E "tmux-file-picker --zoxide --git-root"
+
+#-------------------------------------------------------------------------------
 # }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: File Picker - Help & Navigation {{{
+#-------------------------------------------------------------------------------
+
+# Help for file picker mode
+bind -T file-picker-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh file-picker-mode"
+
+# Exit file picker mode
+bind-key -T file-picker-mode q switch-client -T root
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# }}}\
 #-------------------------------------------------------------------------------
 
 
@@ -1208,6 +1193,12 @@ bind -T dev-mode b run-shell "custom_shpell standard rust-build 'cargo build' --
 
 # Example for a Node.js project:
 bind -T dev-mode t run-shell "custom_shpell standard node-test 'npm test' --replay"
+
+# espanso edit => global snippets
+bind -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso edit'"
+
+# Launch the project runner script in a popup.
+bind -T dev-mode r run-shell "custom_shpell ephemeral project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
 #-------------------------------------------------------------------------------
 # }}}
