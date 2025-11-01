@@ -1,0 +1,8 @@
+Key	Description
+f	Default file picker
+g	Git root
+z	Zoxide
+v	Zoxide (directory only)
+x	Zoxide (git root)
+?	Help
+q	Quit
