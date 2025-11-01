@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh -i
+#!/usr/bin/env -S zsh -i
 
 # -------------------------------------------------------------------
 # Prerequisites
@@ -47,8 +47,13 @@ fi
 
 package_json_path=$(pwd)/package.json
 
-yarn_cmd="(echo 'yarn install'; jq -r '.scripts | keys[]' \"$package_json_path\" | awk '{print \"yarn \" \$0}')"
-npm_cmd="(echo 'npm install'; jq -r '.scripts | keys[]' \"$package_json_path\" | awk '{print \"npm run \" \$0}')"
+get_yarn_scripts() {
+    (echo 'yarn install'; jq -r '.scripts | keys[]' "$package_json_path" | awk '{print "yarn " $0}')
+}
+
+get_npm_scripts() {
+    (echo 'npm install'; jq -r '.scripts | keys[]' "$package_json_path" | awk '{print "npm run " $0}')
+}
 
 FZF_HEADER="───────────────────────────────────
   ✨ Project Runner ✨
@@ -58,7 +63,9 @@ FZF_HEADER="──────────────────────�
   🔨 Short processes → Windows with completion status
 ───────────────────────────────────"
 
-selection=$(eval "$yarn_cmd" | fzf --prompt="Select a script to run > " --header="$FZF_HEADER" --header-first --height="100%" --layout=reverse --print-query --bind "ctrl-y:reload($yarn_cmd)" --bind "ctrl-j:reload($npm_cmd)")
+selection=$(get_yarn_scripts | fzf --prompt="yarn> " --header="$FZF_HEADER" --header-first --height="100%" --layout=reverse --print-query \
+    --bind 'ctrl-y:transform:[[ ! $FZF_PROMPT =~ yarn ]] && echo "change-prompt(yarn> )+reload(get_yarn_scripts)" || echo ""' \
+    --bind 'ctrl-j:transform:[[ ! $FZF_PROMPT =~ npm ]] && echo "change-prompt(npm> )+reload(get_npm_scripts)" || echo ""')
 
 if [[ -z $selection ]]; then
     exit 0
