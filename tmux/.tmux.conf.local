@@ -1185,17 +1185,11 @@ bind-key C-d switch-client -T dev-mode
 # --- NOTE: Dev Mode - Build/Test Runners {{{
 #-------------------------------------------------------------------------------
 
-# Example for a Rust project:
-bind -T dev-mode b run-shell "custom_shpell standard rust-build 'cargo build' --replay"
-
-# Example for a Node.js project:
-bind -T dev-mode t run-shell "custom_shpell standard node-test 'npm test' --replay"
-
 # espanso edit => global snippets
-bind -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso edit'"
+bind-key -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso edit'"
 
 # Launch the project runner script in a popup.
-bind -T dev-mode r run-shell "custom_shpell ephemeral project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"
+bind-key -T dev-mode r run-shell "custom_shpell standard project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"
 
 #-------------------------------------------------------------------------------
 # }}}
