@@ -47,25 +47,7 @@ fi
 
 package_json_path=$(pwd)/package.json
 
-get_yarn_scripts() {
-    (echo 'yarn install'; jq -r '.scripts | keys[]' "$package_json_path" | awk '{print "yarn " $0}')
-}
-
-get_npm_scripts() {
-    (echo 'npm install'; jq -r '.scripts | keys[]' "$package_json_path" | awk '{print "npm run " $0}')
-}
-
-FZF_HEADER="───────────────────────────────────
-  ✨ Project Runner ✨
-  Ctrl-Y: Yarn | Ctrl-J: Npm
-  Enter: Create Window | Type & press Enter for custom command
-  🚀 Long processes → Dedicated windows
-  🔨 Short processes → Windows with completion status
-───────────────────────────────────"
-
-selection=$(get_yarn_scripts | fzf --prompt="yarn> " --header="$FZF_HEADER" --header-first --height="100%" --layout=reverse --print-query \
-    --bind 'ctrl-y:transform:[[ ! $FZF_PROMPT =~ yarn ]] && echo "change-prompt(yarn> )+reload(get_yarn_scripts)" || echo ""' \
-    --bind 'ctrl-j:transform:[[ ! $FZF_PROMPT =~ npm ]] && echo "change-prompt(npm> )+reload(get_npm_scripts)" || echo ""')
+selection=$(/home/lalitmee/dotfiles/tmux/.config/tmux/scripts/popup/runner/get_all_scripts.sh | fzf --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query)
 
 if [[ -z $selection ]]; then
     exit 0
