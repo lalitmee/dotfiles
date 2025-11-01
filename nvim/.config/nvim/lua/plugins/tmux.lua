@@ -66,7 +66,7 @@ return {
                     desc = "Tmux: Switch Orientation",
                 },
                 {
-                    "<localleader>tn",
+                    "<localleader>tS",
                     function()
                         tmux_manager.switch_open_as()
                     end,
