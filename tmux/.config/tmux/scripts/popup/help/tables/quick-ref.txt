@@ -1,0 +1,7 @@
+Key	Description
+c	cht.sh cheat sheet
+m	man page viewer
+g	Git quick reference
+r	Regex tester
+?	Help for quick-ref mode
+q	Quit quick-ref mode

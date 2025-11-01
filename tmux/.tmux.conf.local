@@ -712,9 +712,6 @@ bind g run-shell "custom_shpell standard lazygit \"lazygit -p '#{pane_current_pa
 # Launch lazydocker in a custom shpell.
 bind D run-shell "custom_shpell standard lazydocker 'lazydocker'"
 
-# Launch the cht.sh helper script in a popup.
-bind i run-shell "custom_shpell ephemeral cht-sh '~/.config/tmux/scripts/cht-sh/cht.sh'"
-
 # # Launch the scratchpad popup script.
 # bind m run-shell "~/.config/tmux/scripts/popup/scratch.sh"
 
@@ -1243,6 +1240,54 @@ bind -T monitor-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh 
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------------------
+# --- NOTE: Quick Reference Mode {{{
+#           Parent block for all quick-ref functionality.
+#           Enter quick-ref mode by pressing C-a C-q.
+#------------------------------------------------------------------------------
+
+# Quick Reference mode trigger
+bind-key C-q switch-client -T quick-ref
+
+#------------------------------------------------------------------------------
+# --- NOTE: Quick Reference - Keybindings {{{
+#------------------------------------------------------------------------------
+
+# Launch the cht.sh helper script in a popup.
+bind-key -T quick-ref c run-shell "custom_shpell ephemeral cht-sh '~/.config/tmux/scripts/cht-sh/cht.sh'"
+
+# Man page viewer (ephemeral)
+bind-key -T quick-ref m run-shell "custom_shpell ephemeral manpage 'man zsh'"
+
+# Git quick reference
+bind-key -T quick-ref g run-shell "custom_shpell ephemeral git-help 'git help -a | less'"
+
+# Regex tester (ephemeral)
+bind-key -T quick-ref r run-shell "custom_shpell ephemeral regex-test 'python3 -c \"import re; help(re)\" | less'"
+
+#------------------------------------------------------------------------------
+# }}}
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# --- NOTE: Quick Reference - Help & Navigation {{{
+#------------------------------------------------------------------------------
+
+# Help for quick-ref mode
+bind-key -T quick-ref ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh quick-ref"
+
+# Exit quick-ref mode
+bind-key -T quick-ref q switch-client -T root
+
+#------------------------------------------------------------------------------
+# }}}
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# }}}
+#------------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------------
