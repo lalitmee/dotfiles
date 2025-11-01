@@ -29,7 +29,7 @@ return {
                     require("sidekick").nes_jump_or_apply()
                 end,
                 mode = "n",
-                desc = "Sidekick: Goto/Apply Next Edit Suggestion",
+                desc = "Sidekick: NES",
             },
             { -- [[ Sidekick Toggle ]] --
                 "<leader>.",
