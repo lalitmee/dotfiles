@@ -5,7 +5,7 @@ return { --[[ snacks.nvim ]]
 
     keys = {
         -- bufdelete
-        {
+        { -- [[ Delete Buffer ]]
             "<leader>bd",
             function()
                 Snacks.bufdelete()
@@ -13,7 +13,7 @@ return { --[[ snacks.nvim ]]
             desc = "Delete Buffer",
             silent = true,
         },
-        {
+        { -- [[ Delete All Buffers ]]
             "<leader>bD",
             function()
                 Snacks.bufdelete.all()
@@ -21,7 +21,7 @@ return { --[[ snacks.nvim ]]
             desc = "Delete All Buffers",
             silent = true,
         },
-        {
+        { -- [[ Delete Other Buffers ]]
             "<leader>bo",
             function()
                 Snacks.bufdelete.other()
@@ -31,7 +31,7 @@ return { --[[ snacks.nvim ]]
         },
 
         -- git
-        {
+        { -- [[ Git Blame Line ]]
             "<leader>ge",
             function()
                 Snacks.git.blame_line()
@@ -39,7 +39,7 @@ return { --[[ snacks.nvim ]]
             desc = "Git Blame",
             silent = true,
         },
-        {
+        { -- [[ Get Git Root ]]
             "<leader>gr",
             function()
                 Snacks.git.get_root()
@@ -49,7 +49,7 @@ return { --[[ snacks.nvim ]]
         },
 
         -- gitbrowse, lazygit
-        {
+        { -- [[ Git Browse ]]
             "<leader>ga",
             function()
                 Snacks.gitbrowse()
@@ -57,7 +57,7 @@ return { --[[ snacks.nvim ]]
             desc = "Git Browse",
             silent = true,
         },
-        {
+        { -- [[ Open Lazygit ]]
             "<leader>gl",
             function()
                 Snacks.lazygit.open()
@@ -65,7 +65,7 @@ return { --[[ snacks.nvim ]]
             desc = "Lazygit",
             silent = true,
         },
-        {
+        { -- [[ Lazygit Log View ]]
             "<leader>gL",
             function()
                 Snacks.lazygit.log()
@@ -73,7 +73,7 @@ return { --[[ snacks.nvim ]]
             desc = "Lazygit Log View",
             silent = true,
         },
-        {
+        { -- [[ Lazygit Log File ]]
             "<leader>gf",
             function()
                 Snacks.lazygit.log_file()
@@ -83,7 +83,7 @@ return { --[[ snacks.nvim ]]
         },
 
         -- notifier
-        {
+        { -- [[ Hide Notifier ]]
             "<leader>nd",
             function()
                 Snacks.notifier.hide()
@@ -91,7 +91,7 @@ return { --[[ snacks.nvim ]]
             desc = "Hide Notifier",
             silent = true,
         },
-        {
+        { -- [[ Show Notifier History ]]
             "<leader>nn",
             function()
                 Snacks.notifier.show_history()
@@ -101,28 +101,28 @@ return { --[[ snacks.nvim ]]
         },
 
         -- scratch
-        {
+        { -- [[ Toggle Scratch Buffer ]]
             "<leader>k.",
             function()
                 Snacks.scratch()
             end,
             desc = "Scratch: Toggle Buffer",
         },
-        {
+        { -- [[ Select Scratch Buffer ]]
             "<leader>k/",
             function()
                 Snacks.scratch.select()
             end,
             desc = "Scratch: Select Buffer",
         },
-        {
+        { -- [[ Scratch Notes Buffer ]]
             "<leader>kn",
             function()
                 Snacks.scratch.open({ icon = "󰎞 ", ft = "markdown", name = "Notes" })
             end,
             desc = "Scratch: Notes Buffer",
         },
-        {
+        { -- [[ Scratch Todos Buffer ]]
             "<leader>kt",
             function()
                 Snacks.scratch.open({ icon = " ", ft = "markdown", name = "Todo" })
@@ -130,8 +130,37 @@ return { --[[ snacks.nvim ]]
             desc = "Scratch: Todos Buffer",
         },
 
-        -- neovim news
-        {
+        -- github issues and prs
+        { -- [[ Open GitHub Issues (Current Repo) ]]
+            "<leader>gi",
+            function()
+                Snacks.picker.gh_issue()
+            end,
+            desc = "GitHub Issues (open)",
+        },
+        { -- [[ Open GitHub Issues (All Repos) ]]
+            "<leader>gI",
+            function()
+                Snacks.picker.gh_issue({ state = "all" })
+            end,
+            desc = "GitHub Issues (all)",
+        },
+        { -- [[ Open GitHub Pull Requests (Current Repo) ]]
+            "<leader>gp",
+            function()
+                Snacks.picker.gh_pr()
+            end,
+            desc = "GitHub Pull Requests (open)",
+        },
+        { -- [[ Open GitHub Pull Requests (All Repos) ]]
+            "<leader>gP",
+            function()
+                Snacks.picker.gh_pr({ state = "all" })
+            end,
+            desc = "GitHub Pull Requests (all)",
+        },
+
+        { -- [[ Neovim News ]]
             "<leader>N",
             desc = "Neovim News",
             function()
@@ -204,6 +233,9 @@ return { --[[ snacks.nvim ]]
             enabled = true,
         },
         picker = {
+            enabled = true,
+        },
+        gh = {
             enabled = true,
         },
     },
