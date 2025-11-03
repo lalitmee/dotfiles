@@ -24,7 +24,6 @@
     "shell": {
       "enableInteractiveShell": true
     },
-    "autoAccept": true,
     "allowed": [
       "run_shell_command(gcli prompt)",
       "run_shell_command(chmod)",
