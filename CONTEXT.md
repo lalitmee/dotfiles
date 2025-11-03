@@ -506,7 +506,7 @@ A modular help system that displays keybindings in beautiful gum tables instead 
 
 **When making keybinding changes:**
 
-1. Update the corresponding `.txt` file in `tables/` directory
+1. Update the corresponding `.txt` file in the `~/.config/tmux/scripts/help/tables/` directory. **Note the plural 'tables'**.
 2. Test the help display: `~/.config/tmux/scripts/popup/help/help.sh <table-name>`
 3. Ensure table formatting is correct (tab-separated values)
 4. Update AGENTS.md documentation if adding new tables or changing structure

@@ -1283,6 +1283,57 @@ bind-key -T quick-ref q switch-client -T root
 # }}}
 #------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# --- NOTE: Git Mode {{{1
+#           Parent block for all git-mode functionality.
+#           Enter git-mode by pressing C-a C-g.
+#-------------------------------------------------------------------------------
+
+# Git mode trigger
+bind-key C-g switch-client -T git-mode
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Git Mode - Keybindings {{{
+#-------------------------------------------------------------------------------
+
+# Launch the git worktree management script (interactive).
+bind-key -T git-mode w display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh"
+
+# Create a new worktree.
+bind-key -T git-mode c display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh create"
+
+# Switch to a worktree.
+bind-key -T git-mode s display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh switch"
+
+# Delete a worktree.
+bind-key -T git-mode d display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh delete"
+
+# Git Mode Logs
+bind-key -T git-mode l run-shell "custom_shpell standard git-logs 'nvim $HOME/.local/share/tmux/logs/git-worktree.log'"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Git Mode - Help & Navigation {{{
+#-------------------------------------------------------------------------------
+
+# Help for git mode
+bind-key -T git-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh git-mode"
+
+# Exit git mode
+bind-key -T git-mode q switch-client -T root
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# }}}1
+#-------------------------------------------------------------------------------
+
 
 #-------------------------------------------------------------------------------
 # --- NOTE: Copy Mode Bindings {{{
