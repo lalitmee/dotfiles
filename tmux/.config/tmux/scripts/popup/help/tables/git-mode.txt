@@ -1,0 +1,7 @@
+Key	Description
+w	Interactive worktree management
+c	Create a new worktree
+s	Switch to a worktree
+d	Delete a worktree
+q	Quit git mode
+?	Show help
