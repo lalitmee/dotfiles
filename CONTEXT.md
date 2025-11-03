@@ -1,5 +1,9 @@
 # Unified Context File - Dotfiles Repository
 
+
+
+
+
 ## Project Overview
 
 This is a comprehensive personal dotfiles repository managed by a developer who uses:
@@ -32,13 +36,8 @@ This is a comprehensive personal dotfiles repository managed by a developer who 
 
 ```
 scripts/install/
-├── basic-utilites
-├── brave-browser
-├── coding
-├── gum
-├── main-installer.zsh
-├── monaco-font
-├── phases/
+├── main-installer.zsh          # Interactive installer (PRIMARY)
+├── phases/                     # Individual installation phases
 │   ├── 00-base-ubuntu.zsh
 │   ├── 01-i3-core.zsh
 │   ├── 02-i3-enhanced.zsh
@@ -49,13 +48,18 @@ scripts/install/
 │   ├── 07-config-stow.zsh
 │   ├── 08-final-setup.zsh
 │   └── 09-nerd-dictation.zsh
-├── README.md
-├── spotify
-├── sticky-notes
-├── test-setup.zsh
-├── tmux-latest
-├── TROUBLESHOOTING.md
-└── utils.zsh
+├── utilities/
+│   ├── basic-utilites
+│   ├── brave-browser
+│   ├── coding
+│   ├── gum
+│   ├── monaco-font
+│   ├── spotify
+│   ├── sticky-notes
+│   └── tmux-latest
+├── test-setup.zsh             # Installation verification
+├── TROUBLESHOOTING.md         # Comprehensive troubleshooting guide
+└── utils.zsh                   # Shared utility functions
 ```
 
 #### **Installation Features**
@@ -69,11 +73,11 @@ scripts/install/
 
 ### Key Directories
 
-- `nvim/` - Neovim configuration with lazy.nvim (currently empty)
+- `nvim/` - Neovim configuration with lazy.nvim
 - `tmux/` - Tmux configuration with custom themes and scripts
-- `zsh/` - Zsh configuration and customizations (currently empty)
+- `zsh/` - Zsh configuration and customizations
 - `scripts/` - Utility scripts for installation, backup, and testing
-- `bin/` - Custom executable scripts (currently empty)
+- `bin/` - Custom executable scripts
 - Various tool configs: `alacritty/`, `kitty/`, `git/`, `lazygit/`, etc.
 
 ## Build/Test Commands
@@ -108,6 +112,13 @@ scripts/install/
 - Group related settings with comments
 - Use absolute paths when possible
 - Document complex configurations
+
+### Markdown Files
+
+- Use headings, subheadings, bullet points, and numbered lists where appropriate.
+- There should be **ATLEAST** 1 empty line used to separate different sections for better readability and to avoid re-working on linting errors.
+- Use proper Markdown syntax for links, images, and other elements.
+- Ensure that code blocks are properly formatted with triple backticks and the correct language specified (**ALWAYS**).
 
 ### Git Commit Conventions
 
@@ -205,25 +216,25 @@ When using `tmux display-popup` with a multi-line string containing shell comman
 ~/.config/tmux/scripts/
 ├── ask-sh/               # Ask.sh search and AI tools
 ├── cht-sh/              # cht.sh documentation tool
-├── ddg-bangs.sh
-├── doc-finder.sh
-├── git/
-├── git-pull-merge.sh
-├── help/
-├── kill-process.sh
-├── popup/
-│   ├── ai/
-│   ├── help/
-│   ├── notes.sh
-│   ├── runner/
-│   ├── scratch.sh
-│   ├── search-keybindings.sh
-│   └── second-brain.sh
-├── resize-pane.sh
-├── sesh/
-├── tmuxinator-sessionizer.sh
-├── tmux-sessionizer.sh
-└── windowizer.sh
+├── ddg-bangs.sh          # DuckDuckGo bangs search
+├── doc-finder.sh         # Document finder
+├── git/                  # Git related scripts
+├── git-pull-merge.sh     # Git pull and merge
+├── help/                 # Help system for keybindings
+├── kill-process.sh       # Kill process
+├── popup/                # Scripts for popup windows
+│   ├── ai/               # AI assistant integrations
+│   ├── help/             # Help system with tables
+│   ├── notes.sh          # Notes management
+│   ├── runner/           # Project runner system
+│   ├── scratch.sh        # Scratchpad
+│   ├── search-keybindings.sh # Search keybindings
+│   └── second-brain.sh   # Second brain functionality
+├── resize-pane.sh        # Resize pane
+├── sesh/                 # Session management
+├── tmuxinator-sessionizer.sh # Tmuxinator sessionizer
+├── tmux-sessionizer.sh   # Tmux sessionizer
+└── windowizer.sh         # Windowizer
 ```
 
 ### Project Runner System ⭐ NEW
@@ -859,3 +870,9 @@ cat scripts/install/TROUBLESHOOTING.md
 - **Configuration**: The main configuration file is `~/.config/nerd-dictation/config.ini`. This is where the path to the language model is set (`vosk_model_path`).
 - **Model Path**: The Vosk model is located at `~/.local/share/vosk/model`.
 - **Execution**: The `dictate` script explicitly calls `nerd-dictation begin --config "$HOME/.config/nerd-dictation/config.ini"` to ensure the correct configuration is loaded and to avoid issues with system-wide or outdated config files.
+
+### Troubleshooting
+
+- **`nerd-dictation` not found:** Ensure that the `nerd-dictation` script is in your `PATH`. You can check this by running `which nerd-dictation`. If it's not found, you may need to add the directory containing the script to your `PATH` environment variable.
+- **Model not found:** If you get an error about the model not being found, make sure that the `vosk_model_path` in your `~/.config/nerd-dictation/config.ini` file is pointing to the correct location of your Vosk model.
+- **Toggle script not working:** If the toggle script is not working, you can try running the `nerd-dictation` commands directly (`nerd-dictation begin` and `nerd-dictation end`) to see if the issue is with the toggle script or with `nerd-dictation` itself.
