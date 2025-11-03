@@ -4,6 +4,7 @@ C-a C-i	AI Tools
 C-a C-b	Second Brain
 C-b	Layout Mode
 C-a C-f	File Picker Mode
+C-a C-g	Git Worktree Mode
 C-a F	Fingers (search and copy text)
 C-a C-	tmux-floax (floating pane)
 C-a C-t	Tome (playbook)
