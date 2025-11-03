@@ -32,20 +32,30 @@ This is a comprehensive personal dotfiles repository managed by a developer who 
 
 ```
 scripts/install/
-├── main-installer.zsh          # Interactive installer (PRIMARY)
-├── utils.zsh                   # Shared utility functions
-├── TROUBLESHOOTING.md         # Comprehensive troubleshooting guide
-├── phases/                     # Individual installation phases
-│   ├── 00-base-ubuntu.zsh     # Base system setup
-│   ├── 01-i3-core.zsh         # i3 window manager core
-│   ├── 02-i3-enhanced.zsh     # i3 enhancements (polybar, picom)
-│   ├── 03-system-foundation.zsh # Shell, tmux, development tools
-│   ├── 04-development-core.zsh  # Neovim, version managers
-│   ├── 05-productivity-layer.zsh # Terminal (ghostty)
-│   ├── 06-desktop-apps.zsh    # Browsers, communication tools
-│   ├── 07-config-stow.zsh     # Symlink dotfiles
-│   └── 08-final-setup.zsh     # Fonts, themes, cleanup
-└── test-setup.zsh             # Installation verification
+├── basic-utilites
+├── brave-browser
+├── coding
+├── gum
+├── main-installer.zsh
+├── monaco-font
+├── phases/
+│   ├── 00-base-ubuntu.zsh
+│   ├── 01-i3-core.zsh
+│   ├── 02-i3-enhanced.zsh
+│   ├── 03-system-foundation.zsh
+│   ├── 04-development-core.zsh
+│   ├── 05-productivity-layer.zsh
+│   ├── 06-desktop-apps.zsh
+│   ├── 07-config-stow.zsh
+│   ├── 08-final-setup.zsh
+│   └── 09-nerd-dictation.zsh
+├── README.md
+├── spotify
+├── sticky-notes
+├── test-setup.zsh
+├── tmux-latest
+├── TROUBLESHOOTING.md
+└── utils.zsh
 ```
 
 #### **Installation Features**
@@ -59,11 +69,11 @@ scripts/install/
 
 ### Key Directories
 
-- `nvim/` - Neovim configuration with lazy.nvim
+- `nvim/` - Neovim configuration with lazy.nvim (currently empty)
 - `tmux/` - Tmux configuration with custom themes and scripts
-- `zsh/` - Zsh configuration and customizations
+- `zsh/` - Zsh configuration and customizations (currently empty)
 - `scripts/` - Utility scripts for installation, backup, and testing
-- `bin/` - Custom executable scripts
+- `bin/` - Custom executable scripts (currently empty)
 - Various tool configs: `alacritty/`, `kitty/`, `git/`, `lazygit/`, etc.
 
 ## Build/Test Commands
@@ -168,7 +178,7 @@ docs(conventions): update installation instructions
 - **Base Template**: gpakosz/.tmux (installed in ~/.tmux/)
 - **Local Overrides**: ~/.tmux/.tmux.conf.local (primary customizations)
 - **Dotfiles Version**: ~/dotfiles/tmux/.tmux.conf.local (version controlled customizations)
-- **Theme Files**: ~/dotfiles/tmux/tmux-themes/ (collection of theme options)
+- **Theme Files**: ~/dotfiles/tmux/.config/tmux/themes/ (collection of theme options)
 - **Scripts**: ~/.config/tmux/scripts/ (organized by functionality)
 - **Loading Order**: Base template → Local overrides → Dotfiles customizations (with inline theme)
 
@@ -193,15 +203,27 @@ When using `tmux display-popup` with a multi-line string containing shell comman
 
 ```
 ~/.config/tmux/scripts/
-├── ai/                    # AI assistant integrations
 ├── ask-sh/               # Ask.sh search and AI tools
 ├── cht-sh/              # cht.sh documentation tool
-├── help/                # Help system with tables
-├── runner/              # Project runner system ⭐ NEW
-├── sesh/                # Session management
-├── popup/second-brain.sh      # Second-brain functionality
-├── popup/todo.sh             # Todo management
-└── [other utilities]
+├── ddg-bangs.sh
+├── doc-finder.sh
+├── git/
+├── git-pull-merge.sh
+├── help/
+├── kill-process.sh
+├── popup/
+│   ├── ai/
+│   ├── help/
+│   ├── notes.sh
+│   ├── runner/
+│   ├── scratch.sh
+│   ├── search-keybindings.sh
+│   └── second-brain.sh
+├── resize-pane.sh
+├── sesh/
+├── tmuxinator-sessionizer.sh
+├── tmux-sessionizer.sh
+└── windowizer.sh
 ```
 
 ### Project Runner System ⭐ NEW
@@ -426,7 +448,7 @@ C-a b → Enter second-brain table
 
 #### 📋 Organization Features (v2.1)
 
-- **Vim Folding Markers**: `{{{1`, `{{{2`, `}}}` for code folding support
+- **Vim Folding Markers**: `{{{`, `{{{`, `}}}` for code folding support
 - **Comprehensive Documentation**: Inline comments explaining every section
 - **Standardized Keybindings**: Consistent `bind` usage throughout (no more `bind-key`)
 - **Table of Contents**: Quick navigation with line number references

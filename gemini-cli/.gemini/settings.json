@@ -26,15 +26,10 @@
     },
     "autoAccept": true,
     "allowed": [
-      "run_shell_command(pwd)",
-      "run_shell_command(ls)",
-      "run_shell_command(cat)",
-      "run_shell_command(date)",
-      "run_shell_command(zsh)",
+      "run_shell_command(gcli prompt)",
       "run_shell_command(chmod)",
-      "run_shell_command(gcli)",
+      "run_shell_command(ls)",
       "run_shell_command(git)",
-      "run_shell_command(node)",
       "run_shell_command(npm)",
       "run_shell_command(yarn)",
       "run_shell_command(npx)"
@@ -50,6 +45,14 @@
       "GEMINI.md",
       "AGENTS.md",
       "CONTEXT.md"
+    ]
+  },
+  "mcp": {
+    "allowed": [
+      "context7",
+      "crash",
+      "chrome-devtools",
+      "playwright"
     ]
   },
   "mcpServers": {
