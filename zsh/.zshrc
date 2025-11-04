@@ -105,6 +105,7 @@ plugins=(
     fast-syntax-highlighting
     fzf-tab
     git
+    tmux
     vi-mode
     zsh-autosuggestions
     zsh-wakatime
