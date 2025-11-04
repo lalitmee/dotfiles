@@ -191,7 +191,148 @@ return {
                 enabled = false,
             },
         },
-        config = function()
+        opts = {
+            servers = {
+                clangd = {
+                    cmd = {
+                        "clangd",
+                        "--background-index",
+                        "--suggest-missing-includes",
+                        "--clang-tidy",
+                        "--header-insertion=iwyu",
+                    },
+                    -- Required for lsp-status
+                    init_options = {
+                        clangdFileStatus = true,
+                    },
+                },
+                emmet_ls = {
+                    on_attach = function(client, bufnr)
+                        lsp_utils.on_attach(client, bufnr)
+                        vim.keymap.set("i", ",,", function()
+                            client.request("textDocument/completion", vim.lsp.util.make_position_params(), function(_, result)
+                                if result and result[1] and result[1].textEdit then
+                                    local textEdit = result[1].textEdit
+                                    local snip_string = textEdit.newText
+                                    textEdit.newText = ""
+                                    vim.lsp.util.apply_text_edits({ textEdit }, bufnr, client.offset_encoding)
+                                    require("luasnip").lsp_expand(snip_string)
+                                end
+                            end, bufnr)
+                        end, { buffer = bufnr })
+                    end,
+                },
+                gopls = {
+                    settings = {
+                        gopls = {
+                            hints = {
+                                assignVariableTypes = true,
+                                compositeLiteralFields = true,
+                                compositeLiteralTypes = true,
+                                constantValues = true,
+                                functionTypeParameters = true,
+                                parameterNames = true,
+                                rangeVariableTypes = true,
+                            },
+                        },
+                    },
+                },
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            hint = { enable = true },
+                            format = { enable = false },
+                            diagnostics = {
+                                globals = {
+                                    "P",
+                                    "R",
+                                    "RELOAD",
+                                    "Snacks",
+                                    "__lk_global_callbacks",
+                                    "after_each",
+                                    "before_each",
+                                    "describe",
+                                    "it",
+                                    "lk",
+                                    "require",
+                                    "vim",
+                                    "_dd",
+                                    "_bt",
+                                },
+                            },
+                            completion = {
+                                keywordSnippet = "Replace",
+                                callSnippet = "Replace",
+                            },
+                            workspace = {
+                                library = {
+                                    "${3rd}/luv/library",
+                                    vim.api.nvim_get_runtime_file("", true),
+                                },
+                                checkThirdParty = false,
+                            },
+                            telemetry = {
+                                enable = false,
+                            },
+                        },
+                    },
+                },
+                rust_analyzer = {
+                    inlayHints = { locationLinks = true },
+                    diagnostics = { enable = true, experimental = { enable = true } },
+                    hover = { actions = { enable = true } },
+                    procMacro = { enable = true },
+                    cargo = { allFeatures = true },
+                    checkOnSave = {
+                        command = "clippy",
+                        extraArgs = { "--no-deps" },
+                    },
+                },
+                tailwindcss = {
+                    filetypes = {
+                        "astro", "css", "html", "javascript", "javascriptreact", "scss",
+                        "svelte", "tsx", "typescript", "typescriptreact", "vue",
+                    },
+                },
+                tsserver = {
+                    settings = {
+                        javascript = {
+                            inlayHints = {
+                                includeInlayEnumMemberValueHints = true,
+                                includeInlayFunctionLikeReturnTypeHints = true,
+                                includeInlayFunctionParameterTypeHints = true,
+                                includeInlayParameterNameHints = "all",
+                                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                                includeInlayPropertyDeclarationTypeHints = true,
+                                includeInlayVariableTypeHints = true,
+                            },
+                        },
+                        typescript = {
+                            inlayHints = {
+                                includeInlayEnumMemberValueHints = true,
+                                includeInlayFunctionLikeReturnTypeHints = true,
+                                includeInlayFunctionParameterTypeHints = true,
+                                includeInlayParameterNameHints = "all",
+                                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                                includeInlayPropertyDeclarationTypeHints = true,
+                                includeInlayVariableTypeHints = true,
+                            },
+                        },
+                    },
+                },
+                bashls = {},
+                cssls = {},
+                dockerls = {},
+                jsonls = {},
+                marksman = {},
+                pyright = {},
+                taplo = {},
+                vimls = {},
+                copilot = {},
+            },
+            setup = {},
+        },
+        config = function(_, opts)
             require("plugins.lsp.keys")
             require("plugins.lsp.handlers")
             require("plugins.lsp.diagnostics")
@@ -218,13 +359,7 @@ return {
                 lineFoldingOnly = true,
             }
 
-            local servers = require("plugins.lsp.servers")
-
             vim.lsp.inline_completion.enable(true)
-
-            vim.lsp.config("*", {
-                root_markers = { ".git" },
-            })
 
             -- Base configuration to apply to all servers
             local base_config = {
@@ -232,18 +367,16 @@ return {
                 capabilities = capabilities,
             }
 
-            -- Loop through all the servers defined in your `servers` directory
-            for server_name, server_config in pairs(servers) do
-                local final_config = base_config
-
-                -- If you have a custom config table for the server, merge it
-                if type(server_config) == "table" then
-                    final_config = vim.tbl_deep_extend("force", base_config, server_config)
+            local lspconfig = require "lspconfig"
+            for server_name, server_opts in pairs(opts.servers) do
+                server_opts = vim.tbl_deep_extend("force", base_config, server_opts or {})
+                if opts.setup[server_name] then
+                    if opts.setup[server_name](server_name, server_opts) then
+                        goto continue
+                    end
                 end
-
-                -- Use the new, correct Neovim API
-                vim.lsp.config(server_name, final_config)
-                vim.lsp.enable(server_name)
+                lspconfig[server_name].setup(server_opts)
+                ::continue::
             end
         end,
     },
