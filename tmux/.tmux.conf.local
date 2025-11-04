@@ -1118,6 +1118,14 @@ bind -T layout-mode g display-popup -w 60% -h 70% -E "~/.config/tmux/scripts/git
 #           Edit pane scrollback history in Neovim.
 #-------------------------------------------------------------------------------
 
+# View/edit pane content in popup Neovim (Option+e)
+# Opens at your current scroll position for seamless continuation
+bind -n M-e display-popup -E -w 90% -h 90% "\
+  SCROLL=\$(tmux display-message -p '#{scroll_position}'); \
+  LINES=\$(tmux capture-pane -p -S - | wc -l); \
+  LINE=\$((LINES - SCROLL)); \
+  tmux capture-pane -p -S - | nvim +\${LINE} -"
+
 # Capture visible scrollback
 bind -T layout-mode e run "
   f=\$(mktemp /tmp/tmux-edit.XXXXXX) && \
