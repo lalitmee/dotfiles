@@ -177,4 +177,25 @@ end
 -- }}}
 ----------------------------------------------------------------------
 
+----------------------------------------------------------------------
+
+function M.check_node_version(required_version)
+    local handle = io.popen("node -v")
+    if not handle then
+        return false
+    end
+    local output = handle:read("*a")
+    handle:close()
+
+    if output then
+        local major_version = string.match(output, "v(%d+)")
+        if major_version and tonumber(major_version) >= required_version then
+            return true
+        end
+    end
+
+    return false
+end
+
 return M
+
