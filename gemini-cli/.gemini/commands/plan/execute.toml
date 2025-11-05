@@ -39,10 +39,10 @@ As you complete each step, update the todo checklist in the plan file with the f
 Example:
 
 ```markdown
-- ⏳ Step 1: Create the main application file.
-- ⏩ Step 2: Implement the user authentication flow.
-- ✅ Step 3: Set up the database schema.
-- ❌ Step 4: Deploy the application to the staging environment.
+- [ ] ⏳ Step 1: Create the main application file.
+- [ ] ⏩ Step 2: Implement the user authentication flow.
+- [x] ✅ Step 3: Set up the database schema.
+- [x] ❌ Step 4: Deploy the application to the staging environment.
 ```
 
 After updating the plan file, print the updated "## 📋 Todo Checklist" section to standard output again. This is for display purposes only and the file itself should not be modified with the printed output.

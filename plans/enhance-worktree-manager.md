@@ -6,6 +6,7 @@
 - [✅] Add a confirmation prompt before initiating the `fzf` file selection process.
 - [✅] Ensure automatically copied files are excluded from the `fzf` list.
 - [✅] Update function calls to reflect the new logic.
+- [✅] Fix `cp` command illegal arguments error on macOS.
 - [✅] Define a testing strategy to verify the new functionality.
 - [✅] Final Review and Testing.
 
@@ -35,20 +36,20 @@ The `create_worktree` function currently calls `_handle_file_copy` in a way that
 - The script should correctly identify a comprehensive list of environment file patterns.
 - The automatically copied environment files must be excluded from the list of files presented in the `fzf` popup to avoid redundant copying.
 - The confirmation prompt should be clear and allow the user to gracefully cancel the file copying process.
+- The `cp --parents` command is not available on macOS, causing an "illegal arguments" error. This needs to be replaced with a compatible alternative like `rsync -R`.
 
 ## 📝 Implementation Plan
 
 ### Prerequisites
-- Ensure `gum`, `fzf`, and `bat` are installed and available in the shell's `PATH`.
+- Ensure `gum`, `fzf`, `bat`, and `rsync` are installed and available in the shell's `PATH`.
 
 ### Step-by-Step Implementation
 
 1.  **Step 1: Modify the `_handle_file_copy` function**
     -   **Files to modify**: `~/.config/tmux/scripts/git/git-worktree.sh`
     -   **Changes needed**:
-        1.  **Automatically copy environment files**: Before the `fzf` command, add a section to find and copy environment files. A `find` command can be used to locate files matching patterns like `.env*`. These files will be copied to the target worktree path. A `gum spin` can be used to provide visual feedback during this process.
-        2.  **Exclude environment files from fzf**: Modify the `git ls-files` command that pipes into `fzf`. Add a `grep -v` to filter out the environment file patterns that were just copied.
-        3.  **Add confirmation prompt**: The existing `gum confirm` logic is sufficient, but it's currently bypassed. The `confirmation_needed` parameter should be removed, and the `gum confirm` should be unconditional.
+        1.  **Replace `cp --parents` with `rsync -R`**: The `cp --parents` command is not portable and fails on macOS. It will be replaced with `rsync -R` to ensure compatibility.
+        2.  **Handle filenames with spaces**: The script will be improved to correctly handle filenames that contain spaces by using `while read` loops.
 
     -   **Proposed Code Changes for `_handle_file_copy`**:
 
@@ -58,7 +59,9 @@ The `create_worktree` function currently calls `_handle_file_copy` in a way that
 
             # Automatically copy environment files
             gum spin --spinner dot --title "Copying environment files..." --show-output -- bash -c '
-                find . -maxdepth 1 -name ".env*" -exec cp --parents {} "'$target_worktree_path'/" \;
+                find . -maxdepth 1 -name ".env*" | while read -r file; do
+                    rsync -R "$file" "'$target_worktree_path'/"
+                done
             '
 
             if gum confirm "Do you want to select additional files to copy?"; then
@@ -67,8 +70,8 @@ The `create_worktree` function currently calls `_handle_file_copy` in a way that
 
                 if [ -n "$SELECTED_FILES" ]; then
                     gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
-                        for file in $SELECTED_FILES; do
-                            cp --parents "$file" "'$target_worktree_path'/"
+                        echo "$SELECTED_FILES" | while read -r file; do
+                            rsync -R "$file" "'$target_worktree_path'/"
                         done
                     '
                 fi
@@ -87,20 +90,19 @@ The `create_worktree` function currently calls `_handle_file_copy` in a way that
             -   Change `_handle_file_copy "$WORKTREE" true` to `_handle_file_copy "$WORKTREE"`.
 
 ### Testing Strategy
-1.  Create a temporary git repository for testing.
-2.  Inside the repository, create a few files, including environment files like `.env`, `.env.local`, and `.env.production`.
+1.  Create a temporary git repository for testing on a macOS machine.
+2.  Inside the repository, create a few files, including environment files like `.env`, `.env.local`, and a file with spaces in its name (e.g., `"my test file.txt"`).
 3.  Run the `git-worktree.sh create` command.
 4.  **Verification**:
-    -   Confirm that the script automatically copies the `.env*` files to the new worktree directory.
+    -   Confirm that the script runs without any `cp: illegal option` errors.
+    -   Confirm that the environment files and the file with spaces are copied correctly to the new worktree directory.
     -   Confirm that a prompt appears asking if you want to select additional files.
     -   If "Yes", confirm that the `fzf` window appears and that the `.env*` files are *not* in the list.
     -   Select a file from the `fzf` list and confirm it is copied to the new worktree.
-    -   If "No" at the confirmation prompt, confirm that the `fzf` window does not appear and no other files are copied.
-5.  Run the `switch_worktree` command and perform similar verifications.
 
 ## 🎯 Success Criteria
+- The `cp: illegal option` error is resolved on macOS.
 - When creating or switching to a worktree, all files matching the `.env*` pattern in the root of the repository are automatically copied to the worktree's root.
-- After the automatic copy, the user is prompted to confirm if they want to copy additional files.
-- If the user confirms, an `fzf` window appears, listing all files tracked by git *except* for the `.env*` files that were already copied.
-- If the user declines, the script proceeds without showing the `fzf` window.
+- Files with spaces in their names are copied correctly.
+- The user is prompted to confirm if they want to copy additional files.
 - The dependency installation process remains unaffected.
