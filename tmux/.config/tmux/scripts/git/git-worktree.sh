@@ -37,17 +37,22 @@ main_menu() {
 
 _handle_file_copy() {
     local target_worktree_path="$1"
-    local confirmation_needed="$2"
 
-    if [ "$confirmation_needed" = "false" ] || gum confirm "Copy files to $target_worktree_path?"; then
-        SELECTED_FILES=$(git ls-files | fzf --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+    # Automatically copy environment files
+    gum spin --spinner dot --title "Copying environment files..." --show-output -- bash -c '
+        find . -maxdepth 1 -name ".env*" -exec cp --parents {} "'$target_worktree_path'/" \;
+    '
+
+    if gum confirm "Do you want to select additional files to copy?"; then
+        # Exclude environment files from fzf list
+        SELECTED_FILES=$(git ls-files | grep -v ".env*" | fzf --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
 
         if [ -n "$SELECTED_FILES" ]; then
-            gum spin --spinner dot --title "Copying files..." --show-output -- bash -c '
-        for file in $SELECTED_FILES; do
-          cp --parents "$file" "$target_worktree_path/"
-        done
-      '
+            gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
+                for file in $SELECTED_FILES; do
+                    cp --parents "$file" "'$target_worktree_path'/"
+                done
+            '
         fi
     fi
 }
@@ -108,7 +113,7 @@ create_worktree() {
         git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME"
         log "Worktree for new branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
         tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME"
-        _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME" false
+        _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
         _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
         sleep 2
 
@@ -127,7 +132,7 @@ create_worktree() {
         log "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
         gum style --foreground "212" "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME"
         tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME"
-        _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME" false
+        _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
         _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
         sleep 2
     fi
@@ -147,7 +152,7 @@ switch_worktree() {
     if [ -n "$WORKTREE" ]; then
         log "Switching to worktree '$WORKTREE'."
         tmux new-window -c "$WORKTREE"
-        _handle_file_copy "$WORKTREE" true
+        _handle_file_copy "$WORKTREE"
         _handle_dependency_installation "$WORKTREE" true
     else
         log "Worktree switch cancelled."
