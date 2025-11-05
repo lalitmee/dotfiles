@@ -40,7 +40,9 @@ _handle_file_copy() {
 
     # Automatically copy environment files
     gum spin --spinner dot --title "Copying environment files..." --show-output -- bash -c '
-        find . -maxdepth 1 -name ".env*" -exec cp --parents {} "'$target_worktree_path'/" \;
+        find . -maxdepth 1 -name ".env*" | while read -r file; do
+            rsync -R "$file" "'$target_worktree_path'/"
+        done
     '
 
     if gum confirm "Do you want to select additional files to copy?"; then
@@ -49,8 +51,8 @@ _handle_file_copy() {
 
         if [ -n "$SELECTED_FILES" ]; then
             gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
-                for file in $SELECTED_FILES; do
-                    cp --parents "$file" "'$target_worktree_path'/"
+                echo "$SELECTED_FILES" | while read -r file; do
+                    rsync -R "$file" "'$target_worktree_path'/"
                 done
             '
         fi
@@ -80,9 +82,12 @@ _handle_dependency_installation() {
                 PACKAGE_MANAGER="npm" # Default to npm
             fi
 
+            local worktree_name=$(basename "$target_worktree_path")
+            local window_name="deps-$worktree_name"
+
             INSTALL_COMMAND="cd $target_worktree_path && $PACKAGE_MANAGER install"
-            tmux new-window -d -n "deps" "$INSTALL_COMMAND"
-            tmux display-message "Installing dependencies with $PACKAGE_MANAGER in a new window..."
+            tmux new-window -d -n "$window_name" "$INSTALL_COMMAND; read -p 'Press Enter to close...'"
+            tmux display-message "Installing dependencies with $PACKAGE_MANAGER in window '$window_name'..."
         fi
     fi
 }
@@ -101,6 +106,15 @@ create_worktree() {
     CREATE_OPTION=$(gum choose "Create new branch" "Select existing branch")
 
     if [ "$CREATE_OPTION" = "Create new branch" ]; then
+        BASE_BRANCH=$(git branch | gum filter --placeholder "Select a base branch for the new worktree")
+        BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/..//' | xargs)
+        if [ -z "$BASE_BRANCH" ]; then
+            log "Worktree creation failed: No base branch selected."
+            gum style --foreground "212" "No base branch selected. Exiting..."
+            sleep 2
+            exit 1
+        fi
+
         BRANCH_NAME=$(gum input --placeholder "Enter new branch name")
         if [ -z "$BRANCH_NAME" ]; then
             log "Worktree creation failed: Branch name was empty."
@@ -109,8 +123,8 @@ create_worktree() {
             exit 1
         fi
 
-        log "Creating worktree for new branch '$BRANCH_NAME'."
-        git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME"
+        log "Creating worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'."
+        git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME" "$BASE_BRANCH"
         log "Worktree for new branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
         tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME"
         _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
@@ -175,23 +189,26 @@ delete_worktree() {
     WORKTREE_TO_DELETE=$(echo "$FZF_OUTPUT" | tail -n1 | awk '{print $1}')
 
     if [ -n "$WORKTREE_TO_DELETE" ]; then
+        local DELETE_COMMAND
+        local WINDOW_NAME="deleting-worktree"
+
         if [ "$KEY" = "ctrl-d" ]; then
             log "Force deleting worktree '$WORKTREE_TO_DELETE'."
-            gum spin --spinner dot --title "Force deleting worktree..." --show-output -- git worktree remove --force "$WORKTREE_TO_DELETE"
-            log "Worktree '$WORKTREE_TO_DELETE' force deleted."
-            tmux display-message "Worktree '$WORKTREE_TO_DELETE' force deleted."
+            DELETE_COMMAND="gum spin --spinner dot --title \"Force deleting worktree '$WORKTREE_TO_DELETE'...\" --show-output -- git worktree remove --force \"$WORKTREE_TO_DELETE\""
+            tmux new-window -d -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
+            tmux display-message "Force deleting worktree in a new window..."
         else
             log "Deleting worktree '$WORKTREE_TO_DELETE'."
-            if ! git worktree remove "$WORKTREE_TO_DELETE"; then
+            if ! git worktree remove "$WORKTREE_TO_DELETE" > /dev/null 2>&1; then
                 log "Failed to delete worktree '$WORKTREE_TO_DELETE'. It may have modified files."
                 gum style --foreground "212" "Failed to delete worktree. It may have modified files. Use <C-d> to force delete."
                 sleep 3
             else
-                log "Worktree '$WORKTREE_TO_DELETE' deleted."
-                tmux display-message "Worktree '$WORKTREE_TO_DELETE' deleted."
+                DELETE_COMMAND="gum spin --spinner dot --title \"Deleting worktree '$WORKTREE_TO_DELETE'...\" --show-output -- git worktree remove \"$WORKTREE_TO_DELETE\""
+                tmux new-window -d -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
+                tmux display-message "Deleting worktree in a new window..."
             fi
         fi
-        sleep 2
     else
         log "Worktree deletion cancelled."
     fi
