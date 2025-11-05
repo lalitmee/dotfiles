@@ -1,3 +1,6 @@
+-- making `Compile` module available
+require("plugins.lsp.compile")
+
 local lsp_utils = require("plugins.lsp.utils")
 
 return {
