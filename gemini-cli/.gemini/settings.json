@@ -57,20 +57,13 @@
       "CONTEXT.md"
     ]
   },
-  "mcp": {
-    "allowed": [
-      "context7",
-      "crash",
-      "chrome-devtools",
-      "playwright"
-    ]
-  },
   "mcpServers": {
     "fetch": {
       "command": "uvx",
       "args": [
         "mcp-server-fetch"
-      ]
+      ],
+      "trust": true
     },
     "context7": {
       "command": "npx",
@@ -80,27 +73,31 @@
       ],
       "env": {
         "DEFAULT_MINIMUM_TOKENS": "6000"
-      }
+      },
+      "trust": true
     },
     "crash": {
       "command": "npx",
       "args": [
         "-y",
         "crash-mcp"
-      ]
+      ],
+      "trust": true
     },
     "chrome-devtools": {
       "command": "npx",
       "args": [
         "-y",
         "chrome-devtools-mcp@latest"
-      ]
+      ],
+      "trust": true
     },
     "playwright": {
       "command": "npx",
       "args": [
         "@playwright/mcp@latest"
-      ]
+      ],
+      "trust": true
     }
   },
   "inactiveMcpServers": {

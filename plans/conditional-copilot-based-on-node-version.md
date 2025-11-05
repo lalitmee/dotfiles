@@ -1,8 +1,8 @@
 # Feature Implementation Plan: Conditional Copilot based on Node Version
 
 ## 📋 Todo Checklist
-- [ ] Implement a parameterized node version check function in a global utility file
-- [ ] Integrate the function into the LSP servers configuration
+- [x] ✅ Implement a parameterized node version check function in a global utility file
+- [x] ✅ Implement the function into the LSP servers configuration
 - [ ] Final Review and Testing
 
 ## 🔍 Analysis & Investigation

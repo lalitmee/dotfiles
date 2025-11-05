@@ -1,4 +1,5 @@
 local fmt = string.format
+local utils = require("plugins.lsp.utils")
 
 local function get_server_options(name)
     return require(fmt("plugins.lsp.servers.%s", name))
@@ -15,7 +16,7 @@ local ts_ls = get_server_options("ts_ls")
 return {
     bashls = true,
     clangd = clangd,
-    copilot = true,
+    copilot = utils.check_node_version(22),
     cssls = true,
     dockerls = true,
     emmet_ls = emmet_ls,
