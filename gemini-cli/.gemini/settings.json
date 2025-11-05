@@ -16,9 +16,6 @@
     "hideBanner": true,
     "hideTips": true
   },
-  "ide": {
-    "enabled": true
-  },
   "tools": {
     "shell": {
       "enableInteractiveShell": true
@@ -54,61 +51,102 @@
     }
   },
   "context": {
-    "fileName": ["GEMINI.md", "AGENTS.md", "CONTEXT.md"]
+    "fileName": [
+      "GEMINI.md",
+      "AGENTS.md",
+      "CONTEXT.md"
+    ]
   },
   "mcp": {
-    "allowed": ["context7", "crash", "chrome-devtools", "playwright"]
+    "allowed": [
+      "context7",
+      "crash",
+      "chrome-devtools",
+      "playwright"
+    ]
   },
   "mcpServers": {
     "fetch": {
       "command": "uvx",
-      "args": ["mcp-server-fetch"]
+      "args": [
+        "mcp-server-fetch"
+      ]
     },
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"],
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
       "env": {
         "DEFAULT_MINIMUM_TOKENS": "6000"
       }
     },
     "crash": {
       "command": "npx",
-      "args": ["-y", "crash-mcp"]
+      "args": [
+        "-y",
+        "crash-mcp"
+      ]
     },
     "chrome-devtools": {
       "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     },
     "playwright": {
       "command": "npx",
-      "args": ["@playwright/mcp@latest"]
+      "args": [
+        "@playwright/mcp@latest"
+      ]
     }
   },
   "inactiveMcpServers": {
     "server-sequential-thinking": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
     },
     "gitmcp": {
       "command": "npx",
-      "args": ["mcp-remote", "https://gitmcp.io/{owner}/{repo}"]
+      "args": [
+        "mcp-remote",
+        "https://gitmcp.io/{owner}/{repo}"
+      ]
     },
     "time": {
       "command": "uvx",
-      "args": ["mcp-server-time"]
+      "args": [
+        "mcp-server-time"
+      ]
     },
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "~/Projects/"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "~/Projects/"
+      ],
       "trust": true
     },
     "memory": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
     },
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git", "--repository", "."],
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "."
+      ],
       "trust": true
     },
     "github": {
@@ -130,7 +168,10 @@
     },
     "mcp-sequentialthinking-tools": {
       "command": "npx",
-      "args": ["-y", "mcp-sequentialthinking-tools"],
+      "args": [
+        "-y",
+        "mcp-sequentialthinking-tools"
+      ],
       "env": {
         "MAX_HISTORY_SIZE": "1000"
       }
