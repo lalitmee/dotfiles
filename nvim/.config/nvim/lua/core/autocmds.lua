@@ -54,6 +54,13 @@ augroup("terminal_au", {
             tnoremap("<C-k>", "<Up>", opts)
         end,
     },
+    {
+        event = { "BufRead" },
+        pattern = { ".env", ".env.*" },
+        command = function()
+            vim.bo.filetype = "dosini"
+        end,
+    },
 })
 
 --------------------------------------------------------------------------------
