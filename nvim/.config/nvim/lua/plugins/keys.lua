@@ -19,9 +19,9 @@ return {
                 --------------------------------------------------------------------------------
                 { "<leader>a", group = "actions" },
                 { "<leader>ak", ":WorkingDirectory<CR>", desc = "Current Working Directory" },
-                { "<leader>an", ":!playerctl previous -p spotify<CR>", desc = "Spotify Prev" },
-                { "<leader>ap", ":!playerctl next -p spotify<CR>", desc = "Spotify Next" },
-                { "<leader>as", ":!playerctl play-pause -p spotify<CR>", desc = "Spotify Play Pause" },
+                { "<leader>an", ":!spotify-control previous<CR>", desc = "Spotify Prev" },
+                { "<leader>ap", ":!spotify-control next<CR>", desc = "Spotify Next" },
+                { "<leader>as", ":!spotify-control play-pause<CR>", desc = "Spotify Play Pause" },
                 { "<leader>aw", ":SetWallpaper<CR>", desc = "Change System Background" },
                 -- }}}
                 --------------------------------------------------------------------------------
