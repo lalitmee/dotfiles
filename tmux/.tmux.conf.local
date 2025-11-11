@@ -1342,6 +1342,49 @@ bind-key -T git-mode q switch-client -T root
 #-------------------------------------------------------------------------------
 
 
+#------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Spotify Mode {{{
+#           Parent block for all Spotify functionality.
+#           Enter Spotify mode by pressing C-a C-e.
+#-------------------------------------------------------------------------------
+
+# Spotify mode trigger
+bind-key C-e switch-client -T spotify-mode
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Spotify Mode - Keybindings {{{
+#-------------------------------------------------------------------------------
+
+bind -T spotify-mode p run-shell "~/.config/tmux/scripts/popup/spotify/play-pause.sh" \; display-message "Spotify: Play/Pause"
+bind -T spotify-mode n run-shell "~/.config/tmux/scripts/popup/spotify/next.sh" \; display-message "Spotify: Next"
+bind -T spotify-mode b run-shell "~/.config/tmux/scripts/popup/spotify/previous.sh" \; display-message "Spotify: Previous"
+bind -T spotify-mode + run-shell "~/.config/tmux/scripts/popup/spotify/volume-up.sh" \; display-message "Spotify: Volume Up"
+bind -T spotify-mode - run-shell "~/.config/tmux/scripts/popup/spotify/volume-down.sh" \; display-message "Spotify: Volume Down"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Spotify Mode - Help & Navigation {{{
+#-------------------------------------------------------------------------------
+
+# Help for Spotify mode
+bind -T spotify-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh spotify-mode"
+
+# Exit Spotify mode
+bind-key -T spotify-mode q switch-client -T root
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
