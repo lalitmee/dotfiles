@@ -19,31 +19,7 @@
   "tools": {
     "shell": {
       "enableInteractiveShell": true
-    },
-    "core": [
-      "list_directory",
-      "read_file",
-      "write_file",
-      "glob",
-      "search_file_content",
-      "replace",
-      "smart-edit",
-      "run_shell_command",
-      "web_fetch",
-      "google_web_search",
-      "ready_many_files",
-      "save_memory",
-      "write_todos"
-    ],
-    "allowed": [
-      "run_shell_command(gcli prompt)",
-      "run_shell_command(chmod)",
-      "run_shell_command(ls)",
-      "run_shell_command(git)",
-      "run_shell_command(npm)",
-      "run_shell_command(yarn)",
-      "run_shell_command(npx)"
-    ]
+    }
   },
   "security": {
     "auth": {
