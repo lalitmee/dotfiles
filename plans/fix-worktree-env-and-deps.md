@@ -1,10 +1,10 @@
 # Feature Implementation Plan: fix-worktree-env-and-deps
 
 ## 📋 Todo Checklist
-- [ ] Modify `_handle_file_copy` function in `~/.config/tmux/scripts/git/git-worktree.sh`.
-- [ ] Modify `_handle_dependency_installation` function in `~/.config/tmux/scripts/git/git-worktree.sh`.
-- [ ] Test the changes.
-- [ ] Final Review and Testing
+- [x] ✅ Modify `_handle_file_copy` function in `~/.config/tmux/scripts/git/git-worktree.sh`.
+- [x] ✅ Modify `_handle_dependency_installation` function in `~/.config/tmux/scripts/git/git-worktree.sh`.
+- [x] ✅ Test the changes.
+- [x] ✅ Final Review and Testing
 
 ## 🔍 Analysis & Investigation
 
@@ -34,7 +34,7 @@ The script uses `gum` for user interaction (menus, confirmations) and `fzf` for 
 ### Considerations & Challenges
 The main challenge is to modify the script to be more intelligent about when to perform certain actions, specifically:
 1.  **Dependency Installation:** Avoid asking for confirmation when it's clear that dependencies need to be installed (i.e., `node_modules` directory is missing).
-2.  **`.env` file copying:** Avoid overwriting existing `.env` files in the destination worktree and only copy if the source has `.env` files and the destination does not. The `rsync -R` command was also being used incorrectly.
+2.  **`.env` file copying:** The previous attempt to use `cp` failed. The original `rsync -R` command was also incorrect for root-level files. The refined plan will use `rsync` without the `-R` flag for `.env` files to ensure they are copied correctly without creating unwanted directory structures. It will also avoid overwriting existing `.env` files in the destination worktree.
 
 ## 📝 Implementation Plan
 
@@ -45,8 +45,8 @@ The main challenge is to modify the script to be more intelligent about when to 
 1. **Step 1**: Modify the `_handle_file_copy` function.
    - **Files to modify**: `~/.config/tmux/scripts/git/git-worktree.sh`
    - **Changes needed**:
-     - Replace the `gum spin` block for copying `.env` files with a loop that checks for the existence of each `.env` file in the target worktree before copying.
-     - Use `cp` instead of `rsync -R` for copying the `.env` files to avoid creating incorrect directory structures.
+     - Replace the logic for copying `.env` files with a loop that checks for the existence of each `.env` file in the target worktree before copying.
+     - Use `rsync` **without** the `-R` flag for copying the `.env` files. This will copy the files directly into the target directory.
 
 2. **Step 2**: Modify the `_handle_dependency_installation` function.
    - **Files to modify**: `~/.config/tmux/scripts/git/git-worktree.sh`
@@ -55,10 +55,14 @@ The main challenge is to modify the script to be more intelligent about when to 
      - If `node_modules` does not exist, force the `confirmation_needed` variable to `false` to ensure that dependencies are installed automatically without a prompt.
 
 ### Testing Strategy
-1.  **Create a new worktree:**
+1.  **Create a test worktree:**
+    - Create a test branch from `main` or `master`.
+    - Create a worktree for the test branch.
+    - Create a dummy `.env` file in the main worktree.
+2.  **Create a new worktree:**
     - Verify that dependencies are installed automatically.
-    - Verify that `.env` files from the main worktree are copied to the new worktree.
-2.  **Switch to a worktree:**
+    - Verify that the dummy `.env` file from the main worktree is copied to the new worktree.
+3.  **Switch to a worktree:**
     - **Scenario 1: `node_modules` and `.env` files exist.**
       - Verify that the script asks for confirmation before installing dependencies.
       - Verify that existing `.env` files are not overwritten.
@@ -71,8 +75,11 @@ The main challenge is to modify the script to be more intelligent about when to 
     - **Scenario 4: Neither `node_modules` nor `.env` files exist.**
       - Verify that dependencies are installed automatically.
       - Verify that `.env` files are copied from the source worktree.
+4.  **Cleanup:**
+    - Delete the test worktree and the test branch.
 
 ## 🎯 Success Criteria
 - Dependency installation is automatic and reliable when creating a new worktree or switching to a worktree without a `node_modules` directory.
 - `.env` files are correctly copied from the source worktree to the destination worktree only if they do not already exist in the destination.
 - The user is no longer prompted for actions that should be automatic.
+- The `cp` command error is resolved.
