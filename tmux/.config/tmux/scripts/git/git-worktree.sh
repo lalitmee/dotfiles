@@ -38,12 +38,17 @@ main_menu() {
 _handle_file_copy() {
     local target_worktree_path="$1"
 
-    # Automatically copy environment files
-    gum spin --spinner dot --title "Copying environment files..." --show-output -- bash -c '
-        find . -maxdepth 1 -name ".env*" | while read -r file; do
-            rsync -R "$file" "'$target_worktree_path'/"
-        done
-    '
+    log "Checking for .env files to copy to $target_worktree_path"
+    # Automatically copy environment files if they don't exist in the target
+    find . -maxdepth 1 -name ".env*" | while read -r source_file; do
+        local filename
+        filename=$(basename "$source_file")
+        local target_file="$target_worktree_path/$filename"
+        if [ ! -f "$target_file" ]; then
+            rsync "$source_file" "$target_file"
+            log "Copied '$filename' to '$target_worktree_path'"
+        fi
+    done
 
     if gum confirm "Do you want to select additional files to copy?"; then
         # Exclude environment files from fzf list
@@ -72,6 +77,11 @@ _handle_dependency_installation() {
     local confirmation_needed="$2"
 
     if [ -f "$target_worktree_path/package.json" ]; then
+        # If node_modules doesn't exist, force install without confirmation.
+        if [ ! -d "$target_worktree_path/node_modules" ]; then
+            confirmation_needed=false
+        fi
+
         if [ "$confirmation_needed" = "false" ] || gum confirm "Install dependencies in $target_worktree_path?"; then
             local PACKAGE_MANAGER
             if [ -f "$target_worktree_path/yarn.lock" ]; then

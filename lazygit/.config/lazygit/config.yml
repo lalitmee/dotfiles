@@ -43,10 +43,10 @@ gui:
   splitDiff: "auto" # one of 'auto' | 'always'
   skipRewordInEditorWarning: false # for skipping the confirmation before launching the reword editor
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-    # useConfig: false
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
+      # useConfig: false
   commit:
     signOff: false
     verbose: default # one of 'default' | 'always' | 'never'
