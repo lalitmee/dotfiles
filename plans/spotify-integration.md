@@ -2,7 +2,8 @@
 
 ## 📋 Todo Checklist
 - [x] ✅ Create `bin/spotify-control` script for cross-platform Spotify control.
-- [x] ✅ Update Neovim keybindings in `nvim/.config/nvim/lua/plugins/keys.lua` to use `spotify-control`.
+- [x] ✅ Create `nvim/.config/nvim/lua/core/spotify.lua` module for asynchronous Spotify control.
+- [x] ✅ Update Neovim keybindings in `nvim/.config/nvim/lua/plugins/keys.lua` to use Lua functions for Spotify control.
 - [x] ✅ Create `tmux/.config/tmux/scripts/popup/spotify/` directory and individual scripts for Spotify actions.
 - [x] ✅ Define new Tmux keybinding table for Spotify controls in `tmux/.tmux.conf.local`.
 - [x] ✅ Add keybindings to the new Tmux table to call the Spotify action scripts.
@@ -46,6 +47,7 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
 - **Volume control**: `spotify_player` might have its own volume control, or it might need to integrate with system-level volume control (e.g., `osascript` on macOS, `amixer` or `pactl` on Linux). This needs to be investigated.
 - **Tmux table design**: Choosing an intuitive keybinding for the new Spotify table and its actions.
 - **Help documentation**: Ensuring the new keybindings are well-documented in the Tmux help system.
+- **Neovim UI Blocking**: Directly executing shell commands in Neovim can block the UI. This needs to be addressed by using asynchronous execution and `vim.notify` for feedback.
 
 ## 📝 Implementation Plan
 
@@ -85,16 +87,66 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
             ```
         -   Make the script executable: `chmod +x bin/spotify-control`.
 
-2.  **Update Neovim keybindings.**
-    -   **Files to modify**: `nvim/.config/nvim/lua/plugins/keys.lua`
-    -   **Changes needed**:
-        -   Replace `playerctl` calls with calls to `spotify-control`.
-        -   Example:
-            ```lua
-            { "<leader>an", ":!spotify-control previous<CR>", desc = "Spotify Prev" },
-            { "<leader>ap", ":!spotify-control next<CR>", desc = "Spotify Next" },
-            { "<leader>as", ":!spotify-control play-pause<CR>", desc = "Spotify Play Pause" },
-            ```
+2.  **Implement Neovim Spotify control using Lua module.**
+    -   **New Step 2.1: Create `nvim/.config/nvim/lua/core/spotify.lua` module.**
+        -   **Files to modify**: `nvim/.config/nvim/lua/core/spotify.lua` (new file)
+        -   **Changes needed**:
+            *   Define Lua functions (e.g., `spotify.play_pause()`, `spotify.next()`, `spotify.previous()`, `spotify.volume_up()`, `spotify.volume_down()`).
+            *   These functions will execute `spotify-control <action>` asynchronously using `vim.fn.jobstart()`.
+            *   Implement `vim.notify` for success messages and error handling.
+            *   Example structure:
+                ```lua
+                local M = {}
+
+                local function run_spotify_control(action)
+                    local cmd = "spotify-control " .. action
+                    vim.fn.jobstart(cmd, {
+                        on_exit = function(job_id, code, event)
+                            if code == 0 then
+                                vim.notify("Spotify: " .. action .. " successful", vim.log.levels.INFO)
+                            else
+                                vim.notify("Spotify: " .. action .. " failed (code: " .. code .. ")", vim.log.levels.ERROR)
+                            end
+                        end,
+                        stdout_buffered = true,
+                        stderr_buffered = true,
+                    })
+                end
+
+                function M.play_pause()
+                    run_spotify_control("play-pause")
+                end
+
+                function M.next()
+                    run_spotify_control("next")
+                end
+
+                function M.previous()
+                    run_spotify_control("previous")
+                end
+
+                function M.volume_up()
+                    run_spotify_control("volume-up")
+                end
+
+                function M.volume_down()
+                    run_spotify_control("volume-down")
+                end
+
+                return M
+                ```
+    -   **Modified Step 2.2: Update Neovim keybindings in `nvim/.config/nvim/lua/plugins/keys.lua`.**
+        -   **Files to modify**: `nvim/.config/nvim/lua/plugins/keys.lua`
+        -   **Changes needed**:
+            *   Require the new `core.spotify` module.
+            *   Update the keybindings to call the Lua functions (e.g., `function() require("core.spotify").previous() end`).
+            *   Ensure `silent` is used in the keybinding definition (this is handled by the Lua function's asynchronous nature).
+            *   Example:
+                ```lua
+                { "<leader>an", function() require("core.spotify").previous() end, desc = "Spotify Prev" },
+                { "<leader>ap", function() require("core.spotify").next() end, desc = "Spotify Next" },
+                { "<leader>as", function() require("core.spotify").play_pause() end, desc = "Spotify Play Pause" },
+                ```
 
 3.  **Create Tmux Spotify scripts.**
     -   **Files to modify**:
@@ -158,6 +210,7 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
 3.  **Neovim integration testing**:
     -   Open Neovim on both macOS and Linux.
     -   Press `<leader>an`, `<leader>ap`, `<leader>as` and observe Spotify behavior.
+    -   Verify `vim.notify` messages for success and errors.
 4.  **Tmux integration testing**:
     -   Start a Tmux session on both macOS and Linux.
     -   Press `C-a C-e` to enter the Spotify controls table.
@@ -166,7 +219,8 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
 
 ## 🎯 Success Criteria
 - `spotify_player` is successfully installed and functional on both macOS and Linux.
-- Neovim keybindings (`<leader>an`, `<leader>ap`, `<leader>as`) control Spotify correctly on both macOS and Linux.
+- Neovim keybindings (`<leader>an`, `<leader>ap`, `<leader>as`) control Spotify correctly on both macOS and Linux, without hanging the UI.
+- `vim.notify` messages are displayed for Spotify control actions in Neovim.
 - A new Tmux keybinding table (`C-a C-e`) is created for Spotify controls.
 - Tmux keybindings within the Spotify table (`p`, `n`, `b`, `+`, `-`) control Spotify correctly on both macOS and Linux.
 - The Tmux help system (`C-a C-e ?`) displays the Spotify keybindings accurately.
