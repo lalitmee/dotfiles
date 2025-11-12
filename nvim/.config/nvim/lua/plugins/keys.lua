@@ -19,9 +19,9 @@ return {
                 --------------------------------------------------------------------------------
                 { "<leader>a", group = "actions" },
                 { "<leader>ak", ":WorkingDirectory<CR>", desc = "Current Working Directory" },
-                { "<leader>an", ":!spotify-control previous<CR>", desc = "Spotify Prev" },
-                { "<leader>ap", ":!spotify-control next<CR>", desc = "Spotify Next" },
-                { "<leader>as", ":!spotify-control play-pause<CR>", desc = "Spotify Play Pause" },
+                { "<leader>an", function() require("core.spotify").previous() end, desc = "Spotify Prev" },
+                { "<leader>ap", function() require("core.spotify").next() end, desc = "Spotify Next" },
+                { "<leader>as", function() require("core.spotify").play_pause() end, desc = "Spotify Play Pause" },
                 { "<leader>aw", ":SetWallpaper<CR>", desc = "Change System Background" },
                 -- }}}
                 --------------------------------------------------------------------------------
