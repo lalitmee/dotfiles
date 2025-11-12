@@ -19,10 +19,19 @@ return {
                 --------------------------------------------------------------------------------
                 { "<leader>a", group = "actions" },
                 { "<leader>ak", ":WorkingDirectory<CR>", desc = "Current Working Directory" },
-                { "<leader>an", function() require("core.spotify").previous() end, desc = "Spotify Prev" },
-                { "<leader>ap", function() require("core.spotify").next() end, desc = "Spotify Next" },
-                { "<leader>as", function() require("core.spotify").play_pause() end, desc = "Spotify Play Pause" },
                 { "<leader>aw", ":SetWallpaper<CR>", desc = "Change System Background" },
+                -- }}}
+                --------------------------------------------------------------------------------
+
+                --------------------------------------------------------------------------------
+                --  NOTE: <localleader>s -> spotify {{{
+                --------------------------------------------------------------------------------
+                { "<localleader>s", group = "spotify" },
+                { "<localleader>sp", function() require("core.spotify").previous() end, desc = "Spotify Previous" },
+                { "<localleader>sn", function() require("core.spotify").next() end, desc = "Spotify Next" },
+                { "<localleader>ss", function() require("core.spotify").play_pause() end, desc = "Spotify Play/Pause" },
+                { "<localleader>su", function() require("core.spotify").volume_up() end, desc = "Spotify Volume Up" },
+                { "<localleader>sd", function() require("core.spotify").volume_down() end, desc = "Spotify Volume Down" },
                 -- }}}
                 --------------------------------------------------------------------------------
 

@@ -4,19 +4,19 @@ local function run_spotify_control(action)
     local cmd = "spotify-control " .. action
     vim.fn.jobstart(cmd, {
         on_exit = function(job_id, code, event)
-            local stdout = vim.fn.jobget(job_id, "stdout")
-            local stderr = vim.fn.jobget(job_id, "stderr")
+            local stdout = event.stdout
+            local stderr = event.stderr
             if code == 0 then
-                vim.notify("Spotify: " .. action .. " successful", vim.log.levels.INFO)
+                vim.notify("Spotify: " .. action .. " successful", vim.log.levels.INFO, { title = "Spotify" })
             else
                 local error_msg = "Spotify: " .. action .. " failed (code: " .. code .. ")"
-                if #stdout > 0 then
+                if stdout and #stdout > 0 then
                     error_msg = error_msg .. "\nStdout: " .. table.concat(stdout, "\n")
                 end
-                if #stderr > 0 then
+                if stderr and #stderr > 0 then
                     error_msg = error_msg .. "\nStderr: " .. table.concat(stderr, "\n")
                 end
-                vim.notify(error_msg, vim.log.levels.ERROR)
+                vim.notify(error_msg, vim.log.levels.ERROR, { title = "Spotify" })
             end
         end,
         stdout_buffered = true,
