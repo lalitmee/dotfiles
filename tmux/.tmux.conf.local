@@ -1360,11 +1360,11 @@ bind-key C-e switch-client -T spotify-mode
 # --- NOTE: Spotify Mode - Keybindings {{{
 #-------------------------------------------------------------------------------
 
-bind -T spotify-mode p run-shell "~/.config/tmux/scripts/popup/spotify/previous.sh" \; display-message "Spotify: Previous"
-bind -T spotify-mode n run-shell "~/.config/tmux/scripts/popup/spotify/next.sh" \; display-message "Spotify: Next"
-bind -T spotify-mode s run-shell "~/.config/tmux/scripts/popup/spotify/play-pause.sh" \; display-message "Spotify: Play/Pause"
-bind -T spotify-mode u run-shell "~/.config/tmux/scripts/popup/spotify/volume-up.sh" \; display-message "Spotify: Volume Up"
-bind -T spotify-mode d run-shell "~/.config/tmux/scripts/popup/spotify/volume-down.sh" \; display-message "Spotify: Volume Down"
+bind -T spotify-mode p run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh previous"
+bind -T spotify-mode n run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh next"
+bind -T spotify-mode s run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh play-pause"
+bind -T spotify-mode u run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh volume-up"
+bind -T spotify-mode d run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh volume-down"
 
 #-------------------------------------------------------------------------------
 # }}}

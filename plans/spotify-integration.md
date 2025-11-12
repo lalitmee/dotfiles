@@ -7,7 +7,7 @@
 - [ ] Consolidate Tmux Spotify scripts into a single `spotify-action.sh` and implement system notifications.
 - [x] ✅ Define new Tmux keybinding table for Spotify controls in `tmux/.tmux.conf.local` with `p` for previous, `n` for next, `s` for play/pause, `u` for volume up, and `d` for volume down.
 - [x] ✅ Add keybindings to the new Tmux table to call the Spotify action scripts.
-- [x] ✅ Create `tmux/.config/tmux/scripts/help/tables/spotify.txt` for Spotify keybinding documentation.
+- [x] ✅ Create `tmux/.config/tmux/scripts/help/tables/spotify.txt` for Spotify keybinding documentation with `p` for previous, `n` for next, `s` for play/pause, `u` for volume up, and `d` for volume down.
 - [x] ✅ Update `tmux/.tmux.conf.local` to include the new help table.
 - [ ] Test Neovim Spotify keybindings on both macOS and Linux.
 - [ ] Test Tmux Spotify keybindings on both macOS and Linux.
@@ -19,7 +19,7 @@
 - **Neovim Keybindings**: `nvim/.config/nvim/lua/plugins/keys.lua` currently uses `playerctl` for Spotify control.
 - **Tmux Configuration**: `tmux/.tmux.conf.local` is the main configuration file for Tmux keybindings and table definitions.
 - **Tmux Scripts**: `tmux/.config/tmux/scripts/popup/` is the directory for popup-related scripts.
-- **Help Tables**: `tmux/.config/tmux/scripts/help/tables/` contains documentation for Tmux keybindings.
+- **Help Tables**: `tmux/.config/tmux/scripts/popup/help/tables/` contains documentation for Tmux keybindings.
 - **Bin Directory**: `bin/` is available for custom executable scripts.
 
 ### Current Architecture
@@ -230,7 +230,7 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
 
 5.  **Create and update Tmux help tables.**
     -   **Files to modify**:
-        -   `tmux/.config/tmux/scripts/help/tables/spotify-mode.txt` (new file)
+        -   `tmux/.config/tmux/scripts/popup/help/tables/spotify-mode.txt` (new file)
         -   `tmux/.tmux.conf.local` (to add help binding)
     -   **Changes needed**:
         -   Create `spotify-mode.txt` with tab-separated values for Spotify keybindings.
