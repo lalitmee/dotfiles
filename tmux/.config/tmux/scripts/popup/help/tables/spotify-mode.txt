@@ -1,0 +1,7 @@
+Key	Description
+p	Previous Track
+n	Next Track
+s	Play/Pause Spotify
+u	Volume Up
+d	Volume Down
+q	Quit Spotify Controls

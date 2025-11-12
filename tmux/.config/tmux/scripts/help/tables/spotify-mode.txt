@@ -1,7 +1,0 @@
-Key	Description
-p	Play/Pause Spotify
-n	Next Track
-b	Previous Track
-+	Volume Up
--	Volume Down
-q	Quit Spotify Controls

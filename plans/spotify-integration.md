@@ -3,9 +3,9 @@
 ## 📋 Todo Checklist
 - [x] ✅ Create `bin/spotify-control` script for cross-platform Spotify control.
 - [x] ✅ Create `nvim/.config/nvim/lua/core/spotify.lua` module for asynchronous Spotify control.
-- [x] ✅ Update Neovim keybindings in `nvim/.config/nvim/lua/plugins/keys.lua` to use Lua functions for Spotify control.
-- [x] ✅ Create `tmux/.config/tmux/scripts/popup/spotify/` directory and individual scripts for Spotify actions.
-- [x] ✅ Define new Tmux keybinding table for Spotify controls in `tmux/.tmux.conf.local`.
+- [x] ✅ Update Neovim keybindings in `nvim/.config/nvim/lua/plugins/keys.lua` to use Lua functions for Spotify control, including volume up/down and moving all Spotify keybindings to `<localleader>s` with the following assignments: `sp` for previous, `sn` for next, `ss` for play/pause, `su` for volume up, and `sd` for volume down.
+- [ ] Consolidate Tmux Spotify scripts into a single `spotify-action.sh` and implement system notifications.
+- [x] ✅ Define new Tmux keybinding table for Spotify controls in `tmux/.tmux.conf.local` with `p` for previous, `n` for next, `s` for play/pause, `u` for volume up, and `d` for volume down.
 - [x] ✅ Add keybindings to the new Tmux table to call the Spotify action scripts.
 - [x] ✅ Create `tmux/.config/tmux/scripts/help/tables/spotify.txt` for Spotify keybinding documentation.
 - [x] ✅ Update `tmux/.tmux.conf.local` to include the new help table.
@@ -48,6 +48,7 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
 - **Tmux table design**: Choosing an intuitive keybinding for the new Spotify table and its actions.
 - **Help documentation**: Ensuring the new keybindings are well-documented in the Tmux help system.
 - **Neovim UI Blocking**: Directly executing shell commands in Neovim can block the UI. This needs to be addressed by using asynchronous execution and `vim.notify` for feedback.
+- **Tmux UI Blocking**: `tmux display-message` blocks the UI. This needs to be replaced with system notifications.
 
 ## 📝 Implementation Plan
 
@@ -148,22 +149,66 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
                 { "<leader>as", function() require("core.spotify").play_pause() end, desc = "Spotify Play Pause" },
                 ```
 
-3.  **Create Tmux Spotify scripts.**
+3.  **Consolidate Tmux Spotify scripts and implement system notifications.**
     -   **Files to modify**:
-        -   `tmux/.config/tmux/scripts/popup/spotify/` (new directory)
-        -   `tmux/.config/tmux/scripts/popup/spotify/play-pause.sh` (new file)
-        -   `tmux/.config/tmux/scripts/popup/spotify/next.sh` (new file)
-        -   `tmux/.config/tmux/scripts/popup/spotify/previous.sh` (new file)
-        -   `tmux/.config/tmux/scripts/popup/spotify/volume-up.sh` (new file)
-        -   `tmux/.config/tmux/scripts/popup/spotify/volume-down.sh` (new file)
+        -   `tmux/.config/tmux/scripts/popup/spotify/spotify-action.sh` (new file, replaces multiple scripts)
+        -   `tmux/.config/tmux/scripts/popup/spotify/play-pause.sh` (delete)
+        -   `tmux/.config/tmux/scripts/popup/spotify/next.sh` (delete)
+        -   `tmux/.config/tmux/scripts/popup/spotify/previous.sh` (delete)
+        -   `tmux/.config/tmux/scripts/popup/spotify/volume-up.sh` (delete)
+        -   `tmux/.config/tmux/scripts/popup/spotify/volume-down.sh` (delete)
     -   **Changes needed**:
-        -   Each script will call `spotify-control` with the appropriate action.
-        -   Example for `play-pause.sh`:
+        -   Create a single script `spotify-action.sh` that takes an action as an argument.
+        -   Implement OS detection to send system notifications (macOS: `osascript`, Linux: `notify-send`) for success and error messages.
+        -   Fallback to `tmux display-message` if no system notification tool is available.
+        -   Example structure for `spotify-action.sh`:
             ```zsh
             #!/usr/bin/env zsh
-            spotify-control play-pause
+
+            ACTION=$1
+            MESSAGE=$2 # Optional message for notification
+
+            # Function to send system notifications
+            send_notification() {
+                local title="Spotify"
+                local message="$1"
+                if [[ "$(uname)" == "Darwin" ]]; then
+                    # macOS notification
+                    osascript -e "display notification \"${message}\" with title \"${title}\""
+                elif command -v notify-send &> /dev/null; then
+                    # Linux notification (requires notify-send)
+                    notify-send "${title}" "${message}"
+                else
+                    # Fallback to tmux display-message if no system notification tool
+                    tmux display-message "${title}: ${message}"
+                fi
+            }
+
+            # Check if spotify_player is installed
+            if ! command -v spotify_player &> /dev/null; then
+                send_notification "Error: spotify_player is not installed."
+                exit 1
+            fi
+
+            # Execute spotify_player command and capture output
+            OUTPUT=""
+            ERROR_CODE=0
+            case "$ACTION" in
+                play-pause) OUTPUT=$(spotify_player playback play-pause 2>&1); ERROR_CODE=$? ;;
+                next) OUTPUT=$(spotify_player playback next 2>&1); ERROR_CODE=$? ;;
+                previous) OUTPUT=$(spotify_player playback previous 2>&1); ERROR_CODE=$? ;;
+                volume-up) OUTPUT=$(spotify_player playback volume --offset 5 2>&1); ERROR_CODE=$? ;;
+                volume-down) OUTPUT=$(spotify_player playback volume --offset -- -5 2>&1); ERROR_CODE=$? ;;
+                *) send_notification "Unknown action: $ACTION"; exit 1 ;;
+            esac
+
+            if [[ $ERROR_CODE -eq 0 ]]; then
+                send_notification "Action: ${ACTION} successful."
+            else
+                send_notification "Action: ${ACTION} failed. Error: ${OUTPUT}"
+            fi
             ```
-        -   Make all scripts executable: `chmod +x`.
+        -   Make the script executable: `chmod +x tmux/.config/tmux/scripts/popup/spotify/spotify-action.sh`.
 
 4.  **Define new Tmux keybinding table and add keybindings.**
     -   **Files to modify**: `tmux/.tmux.conf.local`
@@ -175,14 +220,13 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
             # Spotify Controls Table
             bind C-e switch-client -T spotify-mode
 
-            bind -T spotify-mode p run-shell "~/.config/tmux/scripts/popup/spotify/play-pause.sh" \; display-message "Spotify: Play/Pause"
-            bind -T spotify-mode n run-shell "~/.config/tmux/scripts/popup/spotify/next.sh" \; display-message "Spotify: Next"
-            bind -T spotify-mode b run-shell "~/.config/tmux/scripts/popup/spotify/previous.sh" \; display-message "Spotify: Previous"
-            bind -T spotify-mode + run-shell "~/.config/tmux/scripts/popup/spotify/volume-up.sh" \; display-message "Spotify: Volume Up"
-            bind -T spotify-mode - run-shell "~/.config/tmux/scripts/popup/spotify/volume-down.sh" \; display-message "Spotify: Volume Down"
+            bind -T spotify-mode p run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh previous"
+            bind -T spotify-mode n run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh next"
+            bind -T spotify-mode s run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh play-pause"
+            bind -T spotify-mode u run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh volume-up"
+            bind -T spotify-mode d run-shell "~/.config/tmux/scripts/popup/spotify/spotify-action.sh volume-down"
             bind -T spotify-mode q switch-client -T root # Exit table
             ```
-        -   Consider using `display-popup` for a more interactive experience, similar to other existing popups. This would involve creating a `runner.sh` script in `tmux/.config/tmux/scripts/popup/spotify/` that uses `gum` to display options and execute the commands.
 
 5.  **Create and update Tmux help tables.**
     -   **Files to modify**:
@@ -192,14 +236,14 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
         -   Create `spotify-mode.txt` with tab-separated values for Spotify keybindings.
             ```tsv
             Key	Description
-            p	Play/Pause Spotify
+            p	Previous Track
             n	Next Track
-            b	Previous Track
-            +	Volume Up
-            -	Volume Down
+            s	Play/Pause Spotify
+            u	Volume Up
+            d	Volume Down
             q	Quit Spotify Controls
             ```
-        -   Add a keybinding to `tmux/.tmux.conf.local` to display this help table, e.g., `bind -T spotify-mode ? run-shell "~/.config/tmux/scripts/help/help.sh spotify-mode"`.
+        -   Add a keybinding to `tmux/.tmux.conf.local` to display this help table, e.g., `bind -T spotify-mode ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh spotify-mode"`.
 
 ### Testing Strategy
 1.  **`spotify_player` installation verification**:
@@ -209,19 +253,21 @@ The current Neovim setup relies on `playerctl`, which is primarily a Linux utili
     -   Execute `spotify-control play-pause`, `next`, `previous`, `volume-up`, `volume-down` directly on both macOS and Linux to verify cross-platform logic and command execution.
 3.  **Neovim integration testing**:
     -   Open Neovim on both macOS and Linux.
-    -   Press `<leader>an`, `<leader>ap`, `<leader>as` and observe Spotify behavior.
+    -   Press `<localleader>sp` (Spotify Previous), `<localleader>sn` (Spotify Next), `<localleader>ss` (Spotify Play/Pause), `<localleader>su` (Spotify Volume Up), and `<localleader>sd` (Spotify Volume Down) and observe if Spotify responds correctly.
     -   Verify `vim.notify` messages for success and errors.
 4.  **Tmux integration testing**:
     -   Start a Tmux session on both macOS and Linux.
     -   Press `C-a C-e` to enter the Spotify controls table.
-    -   Press `p`, `n`, `b`, `+`, `-` and observe Spotify behavior.
-    -   Press `C-a C-e ?` to verify the help table is displayed correctly.
+    -   Press `p` (Spotify Previous), `n` (Spotify Next), `s` (Spotify Play/Pause), `u` (Spotify Volume Up), and `d` (Spotify Volume Down) and observe Spotify behavior.
+    -   Verify system notifications appear for both successful actions and any potential errors, instead of `tmux display-message`.
+    -   Press `C-a C-e ?` to verify the help table is displayed correctly with the updated key assignments.
 
 ## 🎯 Success Criteria
 - `spotify_player` is successfully installed and functional on both macOS and Linux.
-- Neovim keybindings (`<leader>an`, `<leader>ap`, `<leader>as`) control Spotify correctly on both macOS and Linux, without hanging the UI.
+- Neovim keybindings (`<localleader>sp`, `<localleader>sn`, `<localleader>ss`, `<localleader>su`, `<localleader>sd`) control Spotify correctly on both macOS and Linux, without hanging the UI.
 - `vim.notify` messages are displayed for Spotify control actions in Neovim.
-- A new Tmux keybinding table (`C-a C-e`) is created for Spotify controls.
-- Tmux keybindings within the Spotify table (`p`, `n`, `b`, `+`, `-`) control Spotify correctly on both macOS and Linux.
+- A single `spotify-action.sh` script handles all Tmux Spotify control actions.
+- Tmux keybindings within the Spotify table (`C-a C-e p`, `C-a C-e n`, `C-a C-e s`, `C-a C-e u`, `C-a C-e d`) control Spotify correctly on both macOS and Linux.
+- System notifications are used for Tmux Spotify actions on macOS and Linux, with `tmux display-message` as a fallback.
 - The Tmux help system (`C-a C-e ?`) displays the Spotify keybindings accurately.
 - The solution is robust and handles cases where Spotify is not running or `spotify_player` is not available (graceful error messages).
