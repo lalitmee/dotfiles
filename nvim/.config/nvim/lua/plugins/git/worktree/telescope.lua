@@ -47,10 +47,10 @@ function M.create_worktree_picker()
                     prompt_title = "Create Worktree",
                     finder = finders.new_table({ results = branches }),
                     sorter = conf.generic_sorter({}),
-                    attach_mappings = function(_, bufnr)
+                    attach_mappings = function(prompt_bufnr, map)
                         actions.select_default:replace(function()
                             local branch = action_state.get_selected_entry()[1]
-                            actions.close(bufnr)
+                            actions.close(prompt_bufnr)
 
                             local name, parent = get_repo_info()
                             local root = Path:new(parent):joinpath(name .. "-worktrees")
@@ -95,7 +95,7 @@ function M.delete_worktree_picker()
     fetch_worktrees(function(wts)
         vim.schedule(function()
             if vim.tbl_isempty(wts) then
-                vim.notify("No worktrees to delete", vim.log.levels.INFO)
+                vim.notify("No worktrees to delete", vim.log.levels.INFO, { title = "Git Worktree" })
                 return
             end
 
@@ -130,7 +130,7 @@ function M.delete_worktree_picker()
                             local branch = selection.value.branch
 
                             if vim.fn.getcwd() == path then
-                                return vim.notify("Cannot delete current worktree", vim.log.levels.WARN)
+                                return vim.notify("Cannot delete current worktree", vim.log.levels.WARN, { title = "Git Worktree" })
                             end
 
                             actions.close(bufnr)
@@ -144,11 +144,12 @@ function M.delete_worktree_picker()
                                             if #j:result() > 0 then
                                                 vim.notify(
                                                     "Uncommitted changes. Use <c-d> to force delete.",
-                                                    vim.log.levels.ERROR
+                                                    vim.log.levels.ERROR,
+                                                    { title = "Git Worktree" }
                                                 )
                                             else
                                                 git_wt.delete_worktree(path, false) -- force = false
-                                                vim.notify("Deleted worktree: " .. branch, vim.log.levels.INFO)
+                                                vim.notify("Deleted worktree: " .. branch, vim.log.levels.INFO, { title = "Git Worktree" })
                                             end
                                         end)
                                     end,
@@ -163,12 +164,12 @@ function M.delete_worktree_picker()
                             local branch = selection.value.branch
 
                             if vim.fn.getcwd() == path then
-                                return vim.notify("Cannot delete current worktree", vim.log.levels.WARN)
+                                return vim.notify("Cannot delete current worktree", vim.log.levels.WARN, { title = "Git Worktree" })
                             end
 
                             actions.close(bufnr)
                             git_wt.delete_worktree(path, true) -- force = true
-                            vim.notify("Force-deleted worktree: " .. branch, vim.log.levels.WARN)
+                            vim.notify("Force-deleted worktree: " .. branch, vim.log.levels.WARN, { title = "Git Worktree" })
                         end
 
                         -- Set the mappings

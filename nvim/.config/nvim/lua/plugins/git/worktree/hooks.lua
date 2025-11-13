@@ -27,7 +27,7 @@ local function copy_file_if_needed(src, dest)
         assert(uv.fs_write(out_fd, data, 0))
         uv.fs_close(out_fd)
 
-        vim.notify("📋 Copied " .. vim.fn.fnamemodify(src, ":t") .. " to " .. dest, vim.log.levels.INFO)
+        vim.notify("📋 Copied " .. vim.fn.fnamemodify(src, ":t") .. " to " .. dest, vim.log.levels.INFO, { title = "Git Worktree" })
     end
 end
 
@@ -70,7 +70,7 @@ local function ensure_node_modules(path)
     if running_installs[path] then
         local task = running_installs[path]
         if task:is_running() then
-            vim.notify("🛑 Cancelling previous yarn install in " .. path, vim.log.levels.WARN)
+            vim.notify("🛑 Cancelling previous yarn install in " .. path, vim.log.levels.WARN, { title = "Git Worktree" })
             task:dispose()
         end
     end
@@ -79,7 +79,7 @@ local function ensure_node_modules(path)
     if vim.fn.filereadable(pkg) == 1 then
         local nm = path .. "/node_modules"
         if vim.fn.isdirectory(nm) == 0 then
-            vim.notify("📦 Installing node_modules in " .. path, vim.log.levels.INFO)
+            vim.notify("📦 Installing node_modules in " .. path, vim.log.levels.INFO, { title = "Git Worktree" })
 
             -- Mark install attempt immediately to avoid duplicate triggers
             installed_node_modules[path] = true
@@ -149,7 +149,7 @@ end)
 -- - Runs `yarn install` if needed.
 -- ---------------------------------------------------------------------------
 Hooks.register(Hooks.type.SWITCH, function(new_path, prev_path)
-    vim.notify("Moved from " .. prev_path .. " to " .. new_path)
+    vim.notify("Moved from " .. prev_path .. " to " .. new_path, vim.log.levels.INFO, { title = "Git Worktree" })
     update_on_switch(new_path, prev_path)
 
     wipe_non_worktree_buffers(new_path)
