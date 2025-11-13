@@ -6,11 +6,10 @@ return {
         lazy = false,
         branch = "master",
         build = ":TSUpdate",
-        cmd = "TSInstall",
         init = function()
             local wk = require("which-key")
             wk.add({
-                { "<localleader>s", group = "treesitter" },
+                { "<localleader>h", group = "treesitter" },
             })
         end,
         keys = {
@@ -144,10 +143,10 @@ return {
                 incremental_selection = {
                     enable = true,
                     keymaps = {
-                        init_selection = "<localleader>ss",
-                        node_incremental = "<localleader>si",
-                        scope_incremental = "<localleader>sc",
-                        node_decremental = "<localleader>sd",
+                        init_selection = "<localleader>hs",
+                        node_incremental = "<localleader>hi",
+                        scope_incremental = "<localleader>hc",
+                        node_decremental = "<localleader>hd",
                     },
                 },
 
