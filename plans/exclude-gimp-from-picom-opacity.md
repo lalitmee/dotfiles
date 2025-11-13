@@ -1,60 +1,90 @@
 # Feature Implementation Plan: Exclude Gimp from Picom Opacity
 
 ## 📋 Todo Checklist
-- [ ] ⏩ Verify Gimp's window class using `xprop`. (Skipped, assuming 'Gimp')
-- [x] ✅ Modify the `picom.conf` file to add the new opacity rule.
-- [x] ✅ Restart Picom to apply the changes.
-- [x] ✅ Final Review and Testing. (Skipped, manual verification required)
+- [ ] ⏩ **Investigate GIMP Window Properties**: Use `xprop` to identify the correct window properties for GIMP's main window, menus, and dialogs.
+- [ ] 📝 **Update `picom.conf`**: Add new, evidence-based opacity rules to your `picom.conf`.
+- [ ] 🔄 **Restart Picom**: Apply the new configuration.
+- [ ] ✅ **Final Review and Testing**: Verify that GIMP and all its components are fully opaque.
 
 ## 🔍 Analysis & Investigation
 
-### Codebase Structure
-The relevant file is `picom/.config/picom.conf`, which is the configuration file for the Picom compositor.
+### The Core Problem
+The previous plan made an assumption about the window properties of GIMP's menus and dialogs. As you correctly pointed out, these can vary between GIMP versions, desktop environments, and window managers. The key to solving this is to **not assume** and instead use tools to find the exact properties of the windows on your system.
 
-### Current Architecture
-The configuration file uses a simple key-value format, with some values being arrays of strings. The `opacity-rule` key holds an array of rules that determine the opacity of different windows based on their properties, such as window class.
+### The Tool for the Job: `xprop`
+`xprop` is a command-line utility that displays window and font properties of an X server. It is the right tool to get the information we need to create the correct `picom` rules.
 
-### Dependencies & Integration Points
-The change requires `xprop` to be installed to identify the window class of Gimp. It also requires restarting the Picom process for the changes to take effect.
+### Properties to Look For
+When you use `xprop`, you should look for the following properties:
+*   `WM_CLASS(STRING)`: This will give you the window class. It's usually a good starting point.
+*   `_NET_WM_WINDOW_TYPE(ATOM)`: This is very useful for identifying specific types of windows, like menus, toolbars, and dialogs.
+*   `WM_WINDOW_ROLE(STRING)`: This can also be used to differentiate between different windows of the same application.
 
-### Considerations & Challenges
-The main challenge is correctly identifying the window class of Gimp. Different versions or installations of Gimp might have different window classes. It's also important to add the rule with the correct syntax to the `opacity-rule` array.
+## 📝 Implementation Plan: An Evidence-Based Approach
 
-## 📝 Implementation Plan
+This plan will guide you through the process of finding the correct window properties for your GIMP installation and creating the appropriate `picom` rules.
 
-### Prerequisites
-- `xprop` command-line utility needs to be installed.
-- Gimp should be running to use `xprop` on it.
+### Step 1: Investigate with `xprop`
 
-### Step-by-Step Implementation
-1. **Step 1**: Open a terminal and run the following command:
-   ```bash
-   xprop WM_CLASS
-   ```
-   Your cursor will change to a crosshair. Click on the Gimp window to get its window class. The output will be something like `WM_CLASS(STRING) = "gimp", "Gimp"`. The second string, "Gimp", is the one we need.
+You will need to run `xprop` multiple times to get the properties of the different GIMP windows.
 
-2. **Step 2**: Open the `picom/.config/picom.conf` file and locate the `opacity-rule` section.
+1.  **Main GIMP Window:**
+    *   Open a terminal and run `xprop`.
+    *   Your cursor will turn into a crosshair. Click on the main GIMP window (the one with the image).
+    *   Look at the output in the terminal. Find the lines for `WM_CLASS`, `_NET_WM_WINDOW_TYPE`, and `WM_WINDOW_ROLE`.
+    *   Save this output to a text file for later reference.
 
-3. **Step 3**: Add the following rule to the `opacity-rule` array. This rule sets the opacity to 100% (fully opaque) for any window with the class "Gimp".
-   ```
-   "100:class_g = 'Gimp'"
-   ```
-   The modified `opacity-rule` section should look like this:
-   ```
-   opacity-rule = [
-     "100:class_g = 'Gimp'",
-     "85:class_g = 'Rofi'",
-     "90:class_g = 'kitty' && focused",
-     "80:class_g = 'kitty' && !focused",
-     "90:class_g = 'Alacritty' && focused",
-     "80:class_g = 'Alacritty' && !focused"
-   ];
-   ```
+2.  **GIMP Menus:**
+    *   Run `xprop` again.
+    *   This is the tricky part: you need to click on a menu popup (e.g., the "File" menu). You might need to be quick.
+    *   Again, look for `WM_CLASS`, `_NET_WM_WINDOW_TYPE`, and `WM_WINDOW_ROLE` in the output.
+    *   You will likely see something like `_NET_WM_WINDOW_TYPE_DROPDOWN_MENU` or `_NET_WM_WINDOW_TYPE_POPUP_MENU`. This is the key to targeting the menus.
+    *   Save this output.
 
-4. **Step 4**: Restart Picom to apply the changes. You can do this by killing the current picom process and starting it again, or by using a keybinding if you have one set up in your window manager.
+3.  **GIMP Dialogs:**
+    *   Run `xprop` one more time.
+    *   Open a dialog in GIMP (e.g., "File" > "Open...").
+    *   Click on the dialog window with the `xprop` crosshair.
+    *   Look for the same properties as before. You might see `_NET_WM_WINDOW_TYPE_DIALOG`.
+    *   Save this output.
+
+### Step 2: Construct Your `opacity-rule`
+
+Now that you have the actual properties from your system, you can construct the `opacity-rule` in your `picom/.config/picom.conf` file.
+
+Here is an example of how you might construct the rules based on the information you gathered. **Do not copy this blindly. Use the values you found with `xprop`.**
+
+Let's say you found the following:
+*   **Main Window:** `WM_CLASS(STRING) = "gimp", "Gimp"`
+*   **Menu:** `_NET_WM_WINDOW_TYPE(ATOM) = _NET_WM_WINDOW_TYPE_DROPDOWN_MENU`
+*   **Dialog:** `_NET_WM_WINDOW_TYPE(ATOM) = _NET_WM_WINDOW_TYPE_DIALOG`
+
+Your `opacity-rule` section in `picom.conf` would look something like this:
+
+```
+opacity-rule = [
+  # Rules for GIMP based on your xprop investigation
+  "100:class_g = 'Gimp'",
+  "100:_NET_WM_WINDOW_TYPE = '_NET_WM_WINDOW_TYPE_DROPDOWN_MENU'",
+  "100:_NET_WM_WINDOW_TYPE = '_NET_WM_WINDOW_TYPE_DIALOG'",
+
+  # Your other rules
+  "85:class_g = 'Rofi'",
+  "90:class_g = 'kitty' && focused",
+  "80:class_g = 'kitty' && !focused",
+  "90:class_g = 'Alacritty' && focused",
+  "80:class_g = 'Alacritty' && !focused"
+];
+```
+
+You might find other properties that are more specific to your setup. The goal is to add a `"100:..."` rule for each type of GIMP window that you want to be fully opaque.
+
+### Step 3: Restart Picom
+
+Restart Picom to apply the changes. You can do this by killing the current picom process (`pkill picom`) and starting it again, or by using a keybinding if you have one set up in your window manager.
 
 ### Testing Strategy
-After restarting Picom, open Gimp and verify that it is fully opaque and not affected by the opacity rules applied to other windows.
+After restarting Picom, open Gimp. Open various menus, dialogs, and tool windows. Verify that all parts of the GIMP application are now fully opaque. If some parts are still transparent, repeat Step 1 for those parts and add a new rule in Step 2.
 
 ## 🎯 Success Criteria
-Gimp is successfully excluded from Picom's opacity rules and appears fully opaque.
+You have successfully identified the correct window properties for your GIMP installation and have created `picom` rules that make all parts of GIMP fully opaque. You have done this without making assumptions, using an evidence-based approach.
