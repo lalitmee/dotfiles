@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    create_picker_theme = "dropdown",
+}
 
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
@@ -39,12 +41,14 @@ function M.create_worktree_picker()
     fetch_branches(function(branches)
         vim.schedule(function()
             pickers
-                .new({}, {
+                .new({
+                    theme = M.create_picker_theme,
+                }, {
                     prompt_title = "Create Worktree",
                     finder = finders.new_table({ results = branches }),
                     sorter = conf.generic_sorter({}),
-                    attach_mappings = function()
-                        actions.select_default:replace(function(bufnr)
+                    attach_mappings = function(_, bufnr)
+                        actions.select_default:replace(function()
                             local branch = action_state.get_selected_entry()[1]
                             actions.close(bufnr)
 
@@ -95,21 +99,35 @@ function M.delete_worktree_picker()
                 return
             end
 
-            -- format entries
-            local items = vim.tbl_map(function(wt)
-                return wt.branch .. "    " .. wt.path
-            end, wts)
+            local max_branch_len = 0
+            for _, wt in ipairs(wts) do
+                if #wt.branch > max_branch_len then
+                    max_branch_len = #wt.branch
+                end
+            end
+
+            local entry_maker = function(entry)
+                return {
+                    value = entry,
+                    display = string.format("%-" .. max_branch_len .. "s    %s", entry.branch, entry.path),
+                    ordinal = entry.branch,
+                }
+            end
 
             pickers
                 .new({}, {
                     prompt_title = "Delete Worktree (<c-d> to force)",
-                    finder = finders.new_table({ results = items }),
+                    finder = finders.new_table({
+                        results = wts,
+                        entry_maker = entry_maker,
+                    }),
                     sorter = conf.generic_sorter({}),
                     attach_mappings = function(bufnr, map)
                         -- Default action: SAFE delete
                         local function safe_delete()
-                            local entry = action_state.get_selected_entry()[1]
-                            local branch, path = entry:match("^(%S+)%s+(.+)$")
+                            local selection = action_state.get_selected_entry()
+                            local path = selection.value.path
+                            local branch = selection.value.branch
 
                             if vim.fn.getcwd() == path then
                                 return vim.notify("Cannot delete current worktree", vim.log.levels.WARN)
@@ -140,8 +158,9 @@ function M.delete_worktree_picker()
 
                         -- New action: FORCE delete
                         local function force_delete()
-                            local entry = action_state.get_selected_entry()[1]
-                            local branch, path = entry:match("^(%S+)%s+(.+)$")
+                            local selection = action_state.get_selected_entry()
+                            local path = selection.value.path
+                            local branch = selection.value.branch
 
                             if vim.fn.getcwd() == path then
                                 return vim.notify("Cannot delete current worktree", vim.log.levels.WARN)
