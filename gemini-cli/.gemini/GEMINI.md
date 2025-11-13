@@ -22,9 +22,9 @@
   configuration to apply the changes.
 
 ## Gemini Added Memories
-
 - The user prefers yarn over npm for package management.
 - Do not commit or push changes without explicit user approval.
 - The user wants me to ask for confirmation before making any changes to their projects.
 - The user prefers to use fold markers for functions in shell scripts.
 - After modifying any code, I must verify the syntax to ensure correctness and prevent regressions.
+- The user prefers an iterative approach to problem-solving: trying a simple solution first and then refining it, rather than implementing a comprehensive solution from the start.
