@@ -11,7 +11,7 @@ return {
         end,
         keys = {
             { "<leader>:", ":Telescope commands<CR>", desc = "Commands" },
-            { "<leader><leader>", ":Telescope find_files<CR>", desc = "Find Files" },
+            -- { "<leader><leader>", ":Telescope find_files<CR>", desc = "Find Files" },
             { "<leader>/", ":Telescope live_grep_args<CR>", desc = "Search Project" },
             { "<leader>bb", ":Telescope buffers<CR>", desc = "Telescope Buffers" },
             { "<leader>bl", ":Telescope current_buffer_fuzzy_find<CR>", desc = "Telescope Buffer Lines" },

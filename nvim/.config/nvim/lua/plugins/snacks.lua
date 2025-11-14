@@ -160,6 +160,14 @@ return { --[[ snacks.nvim ]]
             desc = "GitHub Pull Requests (all)",
         },
 
+        {
+            "<leader><leader>",
+            function()
+                Snacks.picker.smart()
+            end,
+            desc = "Find Files",
+        },
+
         { -- [[ Neovim News ]]
             "<leader>N",
             desc = "Neovim News",
