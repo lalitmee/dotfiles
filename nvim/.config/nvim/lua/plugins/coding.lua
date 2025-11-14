@@ -226,6 +226,7 @@ return {
     },
 
     { --[[ neotest ]]
+        enabled = false,
         "nvim-neotest/neotest",
         dependencies = {
             "rcarriga/neotest-plenary",
