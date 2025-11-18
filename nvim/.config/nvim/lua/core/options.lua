@@ -365,8 +365,8 @@ end
 o.ignorecase = true
 o.smartcase = true
 o.wrapscan = true -- Searches wrap around the end of the file
-o.scrolloff = 999
--- o.scrolloff = 10
+-- o.scrolloff = 999
+o.scrolloff = 10
 o.scrollback = 100000
 o.visualbell = false
 o.errorbells = false
