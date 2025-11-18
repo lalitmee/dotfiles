@@ -14,6 +14,16 @@
       "name": "dotfiles",
       "path": "$HOME/dotfiles",
       "group": "dotfiles"
+    },
+    {
+      "name": "browse.nvim",
+      "path": "$HOME/Projects/Personal/Github/browse.nvim",
+      "group": "browse-nvim"
+    },
+    {
+      "name": "cobalt2.nvim",
+      "path": "$HOME/Projects/Personal/Github/cobalt2.nvim",
+      "group": "cobalt2-nvim"
     }
   ]
 }
