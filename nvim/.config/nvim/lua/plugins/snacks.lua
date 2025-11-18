@@ -219,10 +219,7 @@ return { --[[ snacks.nvim ]]
         statuscolumn = { enabled = true },
         words = { enabled = true },
         scroll = {
-            -- it has some bug with my setup, when I reach to the bottom of a
-            -- file and then try to scroll up, it doesn't work and it seems that
-            -- its stuck at the bottom until I press gg to go to the top of the file
-            enabled = false,
+            enabled = true,
         },
         styles = {
             notification = {
