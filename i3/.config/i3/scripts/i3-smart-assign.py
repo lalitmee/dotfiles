@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import i3ipc
 import json
 import os
@@ -48,8 +49,8 @@ def on_window_new(i3, event, assignments):
 if __name__ == "__main__":
     i3 = i3ipc.Connection()
     assignments = load_assignments()
-    
+
     # The lambda function is used to pass the assignments dictionary to the callback
     i3.on(i3ipc.Event.WINDOW_NEW, lambda i3, event: on_window_new(i3, event, assignments))
-    
+
     i3.main()
