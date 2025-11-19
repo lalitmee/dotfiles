@@ -364,8 +364,21 @@ super + ctrl + w
     ~/.config/bin/toggle-headset-profile
 
 # Searchable Keybinding Cheatsheet
-super + ctrl + s
+super + alt + s
     ~/.config/bin/sxhkd-cheatsheet
+
+#-------------------------------------------------------------------------------
+# NOTE: wallpaper changer {{{
+#-------------------------------------------------------------------------------
+# random wallpaper
+super + ctrl + r
+    ~/.config/bin/walls r
+
+# select wallpaper
+super + ctrl + s
+    ghostty -e ~/.config/bin/walls s
+#}}}
+#-------------------------------------------------------------------------------
 #}}}
 #-------------------------------------------------------------------------------
 
