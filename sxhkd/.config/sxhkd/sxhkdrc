@@ -376,7 +376,7 @@ super + ctrl + r
 
 # select wallpaper
 super + ctrl + s
-    ghostty -e ~/.config/bin/walls s
+    i3run --summon --title wallpaper-selector -- ghostty --title=wallpaper-selector -e ~/.config/bin/walls s
 #}}}
 #-------------------------------------------------------------------------------
 #}}}
