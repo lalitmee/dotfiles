@@ -6,23 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Lalit Kumar"
-      user-mail-address "lalitkumar.meena.lk@gmail.com"
-      command-line-default-directory "~/"         ; set default directory to home
-      +doom-dashboard-pwd-policy "~/"
-      default-directory "~/"
-      ns-use-proxy-icon nil                       ; empty title
-      frame-title-format '"\n"                    ; use a new-line to make sure rezising info is on the next line
-      undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
-      which-key-idle-delay 0.3                    ; Show key binding help quicker
-      which-key-idle-secondary-delay 0
-      shell-file-name "/bin/sh"       ; Use Bash as default shell for running term which is faster
-      vterm-always-compile-module t               ; Compile the vterm-module when needed without asking
-      vterm-shell "/usr/bin/zsh")
-
+;; (setq user-full-name "John Doe"
+;;       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -30,15 +15,14 @@
 ;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
 ;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "OperatorMono Lig" :size 14)
-      doom-variable-pitch-font (font-spec :family "Ubuntu Mono" :size 13)
-      doom-big-font (font-spec :family "MonoLisa" :size 24))
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -48,19 +32,11 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
-
-(after! doom-themes
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t))
-
-(custom-set-faces!
-  '(font-lock-comment-face :slant italic)
-  '(font-lock-keyword-face :slant italic))
+(setq doom-theme 'doom-one)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -98,23 +74,3 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
-;; projectile projects
-(setq projectile-project-search-path '(("~/" . 1)
-                                       "~/Projects/Personal/Github"))
-
-;; TAGS file large warning
-(setq large-file-warning-threshold nil)
-
-;; lua diagnostics global keywords
-(after! lsp-mode
-  (setq lsp-lua-diagnostics-globals ["vim"]))
-
-;; org bullets mode
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
-(use-package! wakatime-mode
-  :hook (after-init . global-wakatime-mode)
-  :config
-  (setq wakatime-cli-path "/home/linuxbrew/.linuxbrew/bin/wakatime-cli"
-        wakatime-python-bin "/home/lalitmee/.pyenv/shims/python"))
