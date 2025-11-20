@@ -710,32 +710,12 @@ return {
             {
                 "<leader>T.",
                 function()
-                    local branch_name
-                    vim.fn.system("git rev-parse --is-inside-work-tree >/dev/null 2>&1")
-                    if vim.v.shell_error == 0 then
-                        branch_name = vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref HEAD"))
-                        if vim.v.shell_error ~= 0 or branch_name == "" then
-                            branch_name = "HEAD" -- Fallback for detached HEAD or new repo
-                        end
-                    else
-                        branch_name = "global"
-                    end
-
-                    -- Sanitize branch name for use in a filename
-                    local sanitized_branch_name = branch_name:gsub("[^%w_-]", "_")
-
-                    local data = vim.fn.stdpath("data")
-                    local root = data .. "/snacks/todo"
-                    vim.fn.mkdir(root, "p")
-                    local file = root .. "/todo-" .. sanitized_branch_name .. ".md"
-
-                    Snacks.scratch.open({
-                        icon = " ",
-                        ft = "markdown",
-                        file = file,
-                    })
+                    -- Get the dynamic file path from our new utility function
+                    local todo_file = require("utils.oslib").get_project_todo_path()
+                    -- Use the Snacks API to open the specific file
+                    Snacks.scratch.open({ icon = " ", ft = "markdown", file = todo_file })
                 end,
-                desc = "Toggle Branch Todo",
+                desc = "Toggle Project/Branch Todo",
             },
         },
         opts = {

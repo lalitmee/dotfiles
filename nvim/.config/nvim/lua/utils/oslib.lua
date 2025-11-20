@@ -66,4 +66,43 @@ M.get_second_brain_path = function()
   end
 end
 
+M.get_project_todo_path = function()
+    -- 1. Determine base path based on Work/Personal environment
+    local todo_root
+    if vim.env.HOME == "/home/lalitmee" then
+        todo_root = vim.env.HOME .. "/Project/Personal/Github/todos"
+    else
+        todo_root = vim.env.HOME .. "/Projects/Work/Github/todos"
+    end
+
+    -- 2. Get project name from the current working directory's name
+    local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    if not project_name or project_name == "" then
+        project_name = "global" -- Fallback if not in a project
+    end
+
+    local project_todo_path = todo_root .. "/" .. project_name
+
+    -- 3. Get current git branch name
+    local branch_name
+    vim.fn.system("git rev-parse --is-inside-work-tree >/dev/null 2>&1")
+    if vim.v.shell_error == 0 then
+        branch_name = vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref HEAD"))
+        if vim.v.shell_error ~= 0 or branch_name == "" then
+            branch_name = "main" -- Fallback for detached HEAD or new repo
+        end
+    else
+        branch_name = "global" -- Fallback if not a git repository
+    end
+
+    -- 4. Sanitize branch name for use in a filename
+    local sanitized_branch_name = branch_name:gsub("[^%w_-]", "_")
+
+    -- 5. Ensure the directory structure exists
+    vim.fn.mkdir(project_todo_path, "p")
+
+    -- 6. Return the final, full file path with the "todo-" prefix
+    return project_todo_path .. "/todo-" .. sanitized_branch_name .. ".md"
+end
+
 return M
