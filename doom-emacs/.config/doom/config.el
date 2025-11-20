@@ -24,8 +24,17 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14 :weight 'normal)
-     doom-variable-pitch-font (font-spec :family "MonoLisa Nerd Font" :size 13))
+(setq doom-font (font-spec :family "MonoLisa Nerd Font" :size 14 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "MonoLisa Nerd Font" :size 13))
+
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  ;; '(font-lock-keyword-face :slant italic)
+  '(italic :family "MonoLisa Nerd Font" :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -101,3 +110,6 @@
   (setq org-hide-leading-stars t)
   (setq org-startup-with-inline-images t)
   (setq org-image-actual-width 300))
+
+;; Disable quit confirmation popup
+(setq confirm-kill-emacs nil)
