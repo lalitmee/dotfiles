@@ -447,6 +447,91 @@ return {
                     },
                 },
             })
+
+            --------------------------------------------------------------------------------
+            -- -- NOTE: Just a little bit of code that uses Treesitter to handle different {{{
+            --          org action when the "Enter" key is pressed (toggle TODO, toggle
+            --          checkbox, open dates and links)
+            --          https://gist.github.com/andreadev-it/413e6ed62eefa7e2f85e7a611e962f60
+            --------------------------------------------------------------------------------
+
+            local org_mappings = require("orgmode.org.mappings")
+
+            -- This function will be used instead of treesitter to find links
+            local find_link = function()
+                return org_mappings._get_link_under_cursor()
+            end
+
+            -- You can find the type (the key in this table) by using the plugin Treesitter Playground
+            -- For the value, you can open an org file and type ":map" to show all keybindings. The values
+            -- should match what you find as the parameter for the "require('orgmode').action()" function.
+            -- If treesitter does not support a specific type of object, you can still include it in this
+            -- list by creating a function and using it as a key of this table. The function should return
+            -- something when it finds what it's looking for, while it should return `nil` if it didn't find
+            -- anything.
+            local type_to_action = {
+                [find_link] = "org_mappings.open_at_point",
+                timestamp = "org_mappings.change_date",
+                headline = "org_mappings.todo_next_state",
+                listitem = "org_mappings.toggle_checkbox",
+                list = "org_mappings.toggle_checkbox",
+                _default = "org_mappings.open_at_point",
+            }
+
+            local function get_action_from_type()
+                local ts_utils = require("nvim-treesitter.ts_utils")
+                local cur_node = ts_utils.get_node_at_cursor()
+                local cur_row = cur_node ~= nil and cur_node:range()
+
+                while cur_node ~= nil do
+                    local nodetype = cur_node:type()
+
+                    for identifier, action in pairs(type_to_action) do
+                        if type(identifier) == "function" then
+                            if identifier() ~= nil then
+                                return action
+                            end
+                        elseif nodetype == identifier and identifier ~= "_default" then
+                            return action
+                        end
+                    end
+
+                    cur_node = cur_node:parent()
+                    if cur_node == nil then
+                        break
+                    elseif cur_node:range() ~= cur_row then
+                        break
+                    end
+                end
+
+                return type_to_action._default
+            end
+
+            local function toggle_org_item()
+                local org = require("orgmode")
+
+                local action = get_action_from_type()
+
+                if action ~= nil then
+                    org.action(action)
+                end
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "org",
+                callback = function()
+                    vim.api.nvim_buf_set_keymap(0, "n", "<cr>", "", {
+                        callback = function()
+                            toggle_org_item()
+                        end,
+                        noremap = true,
+                    })
+                end,
+            })
+
+            --------------------------------------------------------------------------------
+            -- }}}
+            --------------------------------------------------------------------------------
         end,
     },
 
