@@ -15,6 +15,27 @@ end
 -- module export
 local M = {}
 
+-- Helper function to determine the type of workspace (work/personal) based on the current working directory.
+M.get_workspace_type = function()
+    local current_cwd = vim.fn.getcwd()
+    local work_projects_base = vim.env.HOME .. "/Projects/Work"
+    if current_cwd:find(work_projects_base, 1, true) then -- `1, true` for plain string search at the beginning
+        return "work"
+    else
+        return "personal"
+    end
+end
+
+-- Helper function to determine the base project root based on user
+M.get_project_root_path = function()
+    local workspace_type = M.get_workspace_type()
+    if workspace_type == "work" then
+        return vim.env.HOME .. "/Projects/Work/Github"
+    else
+        return vim.env.HOME .. "/Projects/Personal/Github"
+    end
+end
+
 M.get_open_cmd = function()
     return vim.g.open_command
 end
@@ -59,21 +80,12 @@ M.get_python = function()
 end
 
 M.get_second_brain_path = function()
-  if vim.env.HOME == "/home/lalitmee" then
-    return vim.env.HOME .. "/Projects/Personal/Github/second-brain"
-  else
-    return vim.env.HOME .. "/Projects/Work/Github/second-brain"
-  end
+    return M.get_project_root_path() .. "/second-brain"
 end
 
 M.get_project_todo_path = function()
     -- 1. Determine base path based on Work/Personal environment
-    local todo_root
-    if vim.env.HOME == "/home/lalitmee" then
-        todo_root = vim.env.HOME .. "/Project/Personal/Github/todos"
-    else
-        todo_root = vim.env.HOME .. "/Projects/Work/Github/todos"
-    end
+    local todo_root = M.get_project_root_path() .. "/todos"
 
     -- 2. Get project name from the current working directory's name
     local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
@@ -103,6 +115,12 @@ M.get_project_todo_path = function()
 
     -- 6. Return the final, full file path with the "todo-" prefix
     return project_todo_path .. "/todo-" .. sanitized_branch_name .. ".md"
+end
+
+M.get_todos_root_path = function()
+    local todos_root_path = M.get_project_root_path() .. "/todos"
+    vim.fn.mkdir(todos_root_path, "p")
+    return todos_root_path
 end
 
 return M
