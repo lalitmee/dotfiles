@@ -83,9 +83,15 @@ M.get_second_brain_path = function()
     return M.get_project_root_path() .. "/second-brain"
 end
 
+M.get_todos_root_path = function()
+    local todos_root_path = M.get_project_root_path() .. "/todos"
+    vim.fn.mkdir(todos_root_path, "p")
+    return todos_root_path
+end
+
 M.get_project_todo_path = function()
     -- 1. Determine base path based on Work/Personal environment
-    local todo_root = M.get_project_root_path() .. "/todos"
+    local todo_root = M.get_todos_root_path()
 
     -- 2. Get project name from the current working directory's name
     local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
@@ -115,12 +121,6 @@ M.get_project_todo_path = function()
 
     -- 6. Return the final, full file path with the "todo-" prefix
     return project_todo_path .. "/todo-" .. sanitized_branch_name .. ".md"
-end
-
-M.get_todos_root_path = function()
-    local todos_root_path = M.get_project_root_path() .. "/todos"
-    vim.fn.mkdir(todos_root_path, "p")
-    return todos_root_path
 end
 
 return M
