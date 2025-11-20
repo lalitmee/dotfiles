@@ -713,7 +713,7 @@ return {
                     -- Get the dynamic file path from our new utility function
                     local todo_file = require("utils.oslib").get_project_todo_path()
                     -- Use the Snacks API to open the specific file
-                    Snacks.scratch.open({ icon = " ", ft = "markdown", file = todo_file })
+                    Snacks.scratch.open({ icon = " ", ft = "markdown", name = "Todo", file = todo_file })
                 end,
                 desc = "Toggle Project/Branch Todo",
             },
