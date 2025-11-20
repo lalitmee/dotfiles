@@ -12,21 +12,17 @@
         "DEFAULT_MINIMUM_TOKENS": "6000"
       }
     },
-    "server-sequential-thinking": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    },
     "crash": {
       "type": "local",
       "command": ["npx", "-y", "crash-mcp"]
     },
-    "figma-local-mcp": {
-      "type": "remote",
-      "url": "http://127.0.0.1:3845/mcp"
+    "chrome-devtools": {
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "type": "local"
+    },
+    "playwright": {
+      "command": ["npx", "-y", "@playwright/mcp@latest"],
+      "type": "local"
     }
   }
 }
