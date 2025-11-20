@@ -1,0 +1,463 @@
+#!/usr/bin/env python3
+"""
+Markdown Linting Error Fixer
+
+Fixes common markdown linting errors automatically.
+"""
+
+import sys
+import re
+from pathlib import Path
+from typing import List, Tuple, Optional
+
+
+def read_file(filepath: Path) -> List[str]:
+    """Read markdown file and return lines."""
+    with open(filepath, 'r', encoding='utf-8') as f:
+        return f.readlines()
+
+
+def write_file(filepath: Path, lines: List[str]) -> None:
+    """Write lines to file."""
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.writelines(lines)
+
+
+def detect_language(code_content: str) -> str:
+    """Detect programming language from code block content."""
+    if not code_content.strip():
+        return 'text'
+
+    content_lower = code_content.lower()
+    first_line = code_content.strip().split('\n')[0] if code_content.strip() else ''
+
+    if re.search(r'#!/usr/bin/env\s+(python|python3)', first_line) or \
+       re.search(r'#!/usr/bin/python', first_line) or \
+       re.search(r'\bdef\s+\w+\s*\(', code_content) or \
+       re.search(r'\bimport\s+\w+|\bfrom\s+\w+\s+import', code_content) or \
+       re.search(r'\bclass\s+\w+', code_content) or \
+       re.search(r'if\s+__name__\s*==\s*["\']__main__["\']', code_content):
+        return 'python'
+
+    if re.search(r'#!/bin/(bash|sh|zsh)', first_line) or \
+       re.search(r'\$\{?\w+\}?', code_content) or \
+       re.search(r'\becho\s+', content_lower) or \
+       re.search(r'if\s+\[', code_content) or \
+       re.search(r'\bfunction\s+\w+\s*\(', code_content) or \
+       re.search(r'^\w+\(\)\s*\{', code_content, re.MULTILINE):
+        return 'bash'
+
+    if re.search(r'function\s+\w+\s*\(|const\s+\w+\s*=|let\s+\w+\s*=|var\s+\w+\s*=', code_content) or \
+       re.search(r'=>\s*\{?|=>\s*\w+', code_content) or \
+       re.search(r'import\s+.*from|export\s+(default\s+)?', code_content) or \
+       re.search(r'console\.(log|error|warn)', code_content) or \
+       re.search(r'\.(then|catch|async|await)', code_content):
+        return 'javascript'
+
+    if re.search(r'interface\s+\w+|type\s+\w+\s*=|:\s*\w+', code_content) or \
+       (re.search(r'function\s+\w+\s*\(|const\s+\w+\s*:', code_content) and \
+        re.search(r':\s*\w+', code_content)):
+        return 'typescript'
+
+    if re.search(r'^\s*\{', code_content) and re.search(r'^\s*\}', code_content) and \
+       re.search(r'["\']\w+["\']\s*:', code_content):
+        return 'json'
+
+    if re.search(r'^\w+:\s*$|^---$|^-\s+\w+', code_content, re.MULTILINE) or \
+       re.search(r'^\s*\w+:\s*\w+', code_content, re.MULTILINE):
+        return 'yaml'
+
+    if re.search(r'<html|<div|<script|<body|<head', content_lower) or \
+       re.search(r'<!DOCTYPE', content_lower):
+        return 'html'
+
+    if re.search(r'\w+\s*\{[^}]*\}|@media|@import|@keyframes', code_content):
+        return 'css'
+
+    if re.search(r'\bSELECT\s+.*\bFROM\b|\bCREATE\s+TABLE\b|\bINSERT\s+INTO\b|\bUPDATE\s+\w+\s+SET\b', content_lower):
+        return 'sql'
+
+    if re.search(r'package\s+\w+|func\s+\w+\s*\(|import\s+\(', code_content):
+        return 'go'
+
+    if re.search(r'public\s+class\s+\w+|import\s+java\.', code_content):
+        return 'java'
+
+    if re.search(r'#include\s*<|int\s+main\s*\(|printf\s*\(', code_content):
+        return 'c'
+
+    if re.search(r'#include\s*<|int\s+main\s*\(|std::|using\s+namespace\s+std', code_content):
+        return 'cpp'
+
+    if re.search(r'\bfn\s+\w+\s*\(|let\s+\w+\s*:|use\s+\w+::', code_content):
+        return 'rust'
+
+    if re.search(r'\bdef\s+\w+|class\s+\w+|require\s+["\']', code_content) and \
+       not re.search(r'\bimport\s+\w+|\bfrom\s+\w+\s+import', code_content):
+        return 'ruby'
+
+    if re.search(r'<\?php|<\?=', code_content) or \
+       (re.search(r'\$\w+', code_content) and re.search(r'function\s+\w+\s*\(', code_content)):
+        return 'php'
+
+    if re.search(r'^#!', first_line):
+        return 'bash'
+
+    return 'text'
+
+
+def fix_trailing_spaces(lines: List[str]) -> Tuple[List[str], int]:
+    """Remove trailing spaces from lines."""
+    fixed = []
+    count = 0
+    for line in lines:
+        original = line
+        if line.endswith('\n'):
+            line = line.rstrip() + '\n'
+        else:
+            line = line.rstrip()
+        if line != original:
+            count += 1
+        fixed.append(line)
+    return fixed, count
+
+
+def fix_multiple_blanks(lines: List[str]) -> Tuple[List[str], int]:
+    """Replace multiple blank lines with single blank line."""
+    if not lines:
+        return lines, 0
+
+    fixed = []
+    count = 0
+    prev_blank = False
+
+    for line in lines:
+        is_blank = line.strip() == ''
+        if is_blank and prev_blank:
+            count += 1
+            continue
+        fixed.append(line)
+        prev_blank = is_blank
+
+    while len(fixed) > 1 and fixed[-1].strip() == '' and fixed[-2].strip() == '':
+        fixed.pop()
+        count += 1
+
+    return fixed, count
+
+
+def fix_fence_blanks(lines: List[str]) -> Tuple[List[str], int]:
+    """Add blank lines around fenced code blocks."""
+    fixed = []
+    count = 0
+    in_code_block = False
+    fence_pattern = re.compile(r'^```')
+
+    for i, line in enumerate(lines):
+        is_fence = fence_pattern.match(line)
+
+        if is_fence and not in_code_block:
+            if i > 0 and fixed and fixed[-1].strip() != '':
+                fixed.append('\n')
+                count += 1
+            fixed.append(line)
+            in_code_block = True
+        elif is_fence and in_code_block:
+            fixed.append(line)
+            in_code_block = False
+            if i + 1 < len(lines) and lines[i + 1].strip() != '':
+                fixed.append('\n')
+                count += 1
+        else:
+            fixed.append(line)
+
+    return fixed, count
+
+
+def fix_list_blanks(lines: List[str]) -> Tuple[List[str], int]:
+    """Add blank lines around lists."""
+    fixed = []
+    count = 0
+    list_pattern = re.compile(r'^(\s*)([-*+]|\d+\.)\s+')
+    in_list = False
+
+    for i, line in enumerate(lines):
+        is_list_item = list_pattern.match(line)
+        is_blank = line.strip() == ''
+
+        if is_list_item and not in_list:
+            if i > 0 and fixed and fixed[-1].strip() != '':
+                fixed.append('\n')
+                count += 1
+            fixed.append(line)
+            in_list = True
+        elif is_list_item:
+            fixed.append(line)
+        elif in_list and is_blank:
+            if i + 1 < len(lines) and list_pattern.match(lines[i + 1]):
+                fixed.append(line)
+            else:
+                fixed.append(line)
+                in_list = False
+        else:
+            if in_list:
+                if not is_blank:
+                    fixed.append('\n')
+                    count += 1
+                in_list = False
+            fixed.append(line)
+
+    return fixed, count
+
+
+def fix_bare_urls(lines: List[str]) -> Tuple[List[str], int]:
+    """Convert bare URLs to angle brackets."""
+    url_pattern = re.compile(r'(?<!\]\()(https?://[^\s\)]+|www\.[^\s\)]+)')
+    fixed = []
+    count = 0
+
+    for line in lines:
+        def replace_url(match):
+            nonlocal count
+            url = match.group(1)
+            start = match.start()
+            if start > 0 and line[start-1] in '(<[':
+                return match.group(0)
+            count += 1
+            return f'<{url}>'
+
+        fixed_line = url_pattern.sub(replace_url, line)
+        fixed.append(fixed_line)
+
+    return fixed, count
+
+
+def fix_emphasis_headings(lines: List[str]) -> Tuple[List[str], int]:
+    """Convert emphasis-only lines to headings if appropriate."""
+    emphasis_pattern = re.compile(r'^(\*{1,2}|_{1,2})(.+?)\1\s*$')
+    heading_pattern = re.compile(r'^#+\s+')
+    fixed = []
+    count = 0
+
+    for i, line in enumerate(lines):
+        match = emphasis_pattern.match(line)
+        if match and not heading_pattern.match(line):
+            if i + 1 < len(lines):
+                next_line = lines[i + 1].strip()
+                if next_line and not heading_pattern.match(next_line):
+                    content = match.group(2).strip()
+                    fixed.append(f'## {content}\n')
+                    count += 1
+                    continue
+        fixed.append(line)
+
+    return fixed, count
+
+
+def fix_code_language(lines: List[str]) -> Tuple[List[str], int]:
+    """Add language to fenced code blocks without language."""
+    fence_pattern = re.compile(r'^```(\w*)$')
+    fixed = []
+    count = 0
+    in_code_block = False
+    code_block_lines = []
+
+    for i, line in enumerate(lines):
+        match = fence_pattern.match(line)
+        if match:
+            if not in_code_block:
+                if not match.group(1):
+                    in_code_block = True
+                    code_block_lines = []
+                else:
+                    fixed.append(line)
+            else:
+                code_content = ''.join(code_block_lines)
+                detected_lang = detect_language(code_content)
+                fixed.append(f'```{detected_lang}\n')
+                fixed.extend(code_block_lines)
+                fixed.append(line)
+                count += 1
+                in_code_block = False
+                code_block_lines = []
+        else:
+            if in_code_block:
+                code_block_lines.append(line)
+            else:
+                fixed.append(line)
+
+    if in_code_block:
+        code_content = ''.join(code_block_lines)
+        detected_lang = detect_language(code_content)
+        fixed.append(f'```{detected_lang}\n')
+        fixed.extend(code_block_lines)
+        count += 1
+
+    return fixed, count
+
+
+def fix_duplicate_headings(lines: List[str]) -> Tuple[List[str], int]:
+    """Make duplicate headings unique."""
+    heading_pattern = re.compile(r'^(#+)\s+(.+)$')
+    heading_counts = {}
+    fixed = []
+    count = 0
+
+    for line in lines:
+        match = heading_pattern.match(line)
+        if match:
+            level = len(match.group(1))
+            text = match.group(2).strip()
+
+            if text in heading_counts:
+                heading_counts[text] += 1
+                text = f"{text} ({heading_counts[text]})"
+                fixed.append(f"{'#' * level} {text}\n")
+                count += 1
+            else:
+                heading_counts[text] = 1
+                fixed.append(line)
+        else:
+            fixed.append(line)
+
+    return fixed, count
+
+
+def fix_heading_blanks(lines: List[str]) -> Tuple[List[str], int]:
+    """Add blank lines around headings."""
+    heading_pattern = re.compile(r'^#+\s+')
+    fixed = []
+    count = 0
+
+    for i, line in enumerate(lines):
+        is_heading = heading_pattern.match(line)
+        is_blank = line.strip() == ''
+
+        if is_heading:
+            prev_is_blank = fixed and fixed[-1].strip() == '' if fixed else False
+            next_is_blank = i + 1 < len(lines) and lines[i + 1].strip() == ''
+
+            if not prev_is_blank and fixed:
+                fixed.append('\n')
+                count += 1
+            fixed.append(line)
+            if not next_is_blank and i + 1 < len(lines):
+                fixed.append('\n')
+                count += 1
+        else:
+            fixed.append(line)
+
+    return fixed, count
+
+
+def fix_heading_punctuation(lines: List[str]) -> Tuple[List[str], int]:
+    """Remove trailing punctuation from headings."""
+    heading_pattern = re.compile(r'^(#+)\s+(.+)$')
+    punctuation_pattern = re.compile(r'[.,:;!?]+$')
+    fixed = []
+    count = 0
+
+    for line in lines:
+        match = heading_pattern.match(line)
+        if match:
+            level = len(match.group(1))
+            text = match.group(2).rstrip()
+
+            if punctuation_pattern.search(text):
+                text = punctuation_pattern.sub('', text).rstrip()
+                fixed.append(f"{'#' * level} {text}\n")
+                count += 1
+            else:
+                fixed.append(line)
+        else:
+            fixed.append(line)
+
+    return fixed, count
+
+
+def main():
+    """Main function."""
+    if len(sys.argv) < 2:
+        print("Usage: fix-md-lint.py <markdown-file>")
+        sys.exit(1)
+
+    filepath = Path(sys.argv[1])
+
+    if not filepath.exists():
+        print(f"Error: File not found: {filepath}")
+        sys.exit(1)
+
+    try:
+        lines = read_file(filepath)
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        sys.exit(1)
+
+    original_lines = lines.copy()
+    fixes_applied = {}
+
+    lines, count = fix_trailing_spaces(lines)
+    if count > 0:
+        fixes_applied['trailing_spaces'] = count
+
+    lines, count = fix_multiple_blanks(lines)
+    if count > 0:
+        fixes_applied['multiple_blanks'] = count
+
+    lines, count = fix_fence_blanks(lines)
+    if count > 0:
+        fixes_applied['fence_blanks'] = count
+
+    lines, count = fix_list_blanks(lines)
+    if count > 0:
+        fixes_applied['list_blanks'] = count
+
+    lines, count = fix_bare_urls(lines)
+    if count > 0:
+        fixes_applied['bare_urls'] = count
+
+    lines, count = fix_emphasis_headings(lines)
+    if count > 0:
+        fixes_applied['emphasis_headings'] = count
+
+    lines, count = fix_code_language(lines)
+    if count > 0:
+        fixes_applied['code_language'] = count
+
+    lines, count = fix_duplicate_headings(lines)
+    if count > 0:
+        fixes_applied['duplicate_headings'] = count
+
+    lines, count = fix_heading_blanks(lines)
+    if count > 0:
+        fixes_applied['heading_blanks'] = count
+
+    lines, count = fix_heading_punctuation(lines)
+    if count > 0:
+        fixes_applied['heading_punctuation'] = count
+
+    lines, count = fix_multiple_blanks(lines)
+    if count > 0:
+        fixes_applied['multiple_blanks'] = fixes_applied.get('multiple_blanks', 0) + count
+
+    if lines != original_lines:
+        try:
+            backup_path = filepath.with_suffix(filepath.suffix + '.bak')
+            write_file(backup_path, original_lines)
+            write_file(filepath, lines)
+
+            print(f"Fixed {filepath}")
+            print("Fixes applied:")
+            for fix_type, count in fixes_applied.items():
+                print(f"  - {fix_type}: {count}")
+            print(f"Backup saved to: {backup_path}")
+        except Exception as e:
+            print(f"Error writing file: {e}")
+            sys.exit(1)
+    else:
+        print("No fixes needed.")
+
+
+if __name__ == "__main__":
+    main()
+
