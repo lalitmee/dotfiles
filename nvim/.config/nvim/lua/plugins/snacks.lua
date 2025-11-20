@@ -125,7 +125,9 @@ return { --[[ snacks.nvim ]]
         { -- [[ Scratch Todos Buffer ]]
             "<leader>kt",
             function()
-                Snacks.scratch.open({ icon = " ", ft = "markdown", name = "Todo" })
+                -- Get the dynamic file path from our new utility function
+                local todo_file = require("utils.oslib").get_project_todo_path()
+                Snacks.scratch.open({ icon = " ", ft = "markdown", name = "Todo", file = todo_file })
             end,
             desc = "Scratch: Todos Buffer",
         },
