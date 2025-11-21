@@ -1,7 +1,22 @@
 {
-    "slack": ["slack", "Slack"],
-    "brave-browser": ["brave-browser", "Brave-browser"],
-    "ghostty": ["ghostty", "com.mitchellh.ghostty"],
-    "vivaldi": ["vivaldi-stable", "Vivaldi-stable"],
-    "spotify": ["spotify", "Spotify"]
+    "slack": {
+        "classes": ["slack", "Slack"],
+        "workspace": "1"
+    },
+    "brave-browser": {
+        "classes": ["brave-browser", "Brave-browser"],
+        "workspace": "2"
+    },
+    "ghostty": {
+        "classes": ["ghostty", "com.mitchellh.ghostty"],
+        "workspace": "3"
+    },
+    "vivaldi": {
+        "classes": ["vivaldi-stable", "Vivaldi-stable"],
+        "workspace": "4"
+    },
+    "spotify": {
+        "classes": ["spotify", "Spotify"],
+        "workspace": "5"
+    }
 }

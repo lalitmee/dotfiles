@@ -38,16 +38,25 @@ def load_assignments():
         logger.error(f"Error loading assignments: {e}")
         return {}
 
-def get_windows_by_class(i3, class_names):
+def get_windows_by_class(i3, assignment_data):
     """
-    Get all windows that match any of the given class names.
+    Get all windows that match the class names in assignment_data.
     """
     windows = []
+    
+    # Extract class names from assignment_data
+    if isinstance(assignment_data, dict) and 'classes' in assignment_data:
+        class_names = assignment_data['classes']
+    elif isinstance(assignment_data, list):
+        class_names = assignment_data
+    else:
+        class_names = [assignment_data]
+    
     for con in i3.get_tree().leaves():
         if con.window_class:
             window_class_lower = con.window_class.lower()
             for class_name in class_names:
-                if window_class_lower == class_name.lower():
+                if isinstance(class_name, str) and window_class_lower == class_name.lower():
                     windows.append(con)
                     break
     return windows
@@ -55,19 +64,25 @@ def get_windows_by_class(i3, class_names):
 def find_matching_assignment(window_class, assignments):
     """
     Find which assignment key matches the given window class.
-    Returns (assignment_key, workspace) or (None, None).
+    Returns (assignment_key, assignment_data) or (None, None).
     """
     window_class_lower = window_class.lower()
     
-    for assignment_key, class_names in assignments.items():
-        if isinstance(class_names, list):
-            for class_name in class_names:
+    for assignment_key, assignment_data in assignments.items():
+        if isinstance(assignment_data, dict) and 'classes' in assignment_data:
+            # New format: {"classes": [...], "workspace": "..."}
+            for class_name in assignment_data['classes']:
                 if window_class_lower == class_name.lower():
-                    return assignment_key, class_names
-        else:
-            # Handle old format (string)
-            if window_class_lower == class_names.lower():
-                return assignment_key, [class_names]
+                    return assignment_key, assignment_data
+        elif isinstance(assignment_data, list):
+            # Old format: {"key": ["class1", "class2"]}
+            for class_name in assignment_data:
+                if window_class_lower == class_name.lower():
+                    return assignment_key, assignment_data
+        elif isinstance(assignment_data, str):
+            # Handle very old format (string)
+            if window_class_lower == assignment_data.lower():
+                return assignment_key, [assignment_data]
     
     return None, None
 
@@ -84,14 +99,14 @@ def on_window_new(i3, event, assignments):
 
     logger.info(f"New window: class='{window_class}', title='{window_title}'")
     
-    # Find matching assignment
-    assignment_key, class_names = find_matching_assignment(window_class, assignments)
+# Find matching assignment
+    assignment_key, assignment_data = find_matching_assignment(window_class, assignments)
     
     if assignment_key:
         logger.info(f"Found assignment: '{assignment_key}' matches class '{window_class}'")
         
         # Check if there are other windows of the same class already open
-        windows = get_windows_by_class(i3, class_names)
+        windows = get_windows_by_class(i3, assignment_data)
         logger.debug(f"Found {len(windows)} windows for class '{window_class}'")
         
         # Fix: Count windows BEFORE the current one is added
@@ -100,9 +115,11 @@ def on_window_new(i3, event, assignments):
         
         if len(existing_windows) == 0:
             # This is the first window of its class, move it
-            workspace = assignments[assignment_key]
-            if isinstance(workspace, list):
-                workspace = workspace[0]  # Take first workspace if it's a list
+            if isinstance(assignment_data, dict) and 'workspace' in assignment_data:
+                workspace = assignment_data['workspace']
+            else:
+                # Fallback for old format
+                workspace = assignment_key
             
             logger.info(f"Moving first '{window_class}' window to workspace '{workspace}'")
             try:
