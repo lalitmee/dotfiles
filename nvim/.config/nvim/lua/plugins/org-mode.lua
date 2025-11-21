@@ -15,6 +15,7 @@ return {
                 { "<leader>ol", group = "org links" },
                 { "<leader>on", group = "org notes" },
                 { "<leader>os", group = "org toggle" },
+                { "<leader>oT", group = "org table" },
                 { "<leader>ox", group = "org clock" },
                 { "<localleader>n", group = "org roam" },
                 { "<localleader>na", group = "alias" },
@@ -27,6 +28,8 @@ return {
             { "<leader>oc", "<cmd>Org capture<cr>", desc = "org capture" },
             { "<leader>ow", "<cmd>Org agenda w<cr>", desc = "org work agenda" },
             { "<leader>op", "<cmd>Org agenda p<cr>", desc = "org personal agenda" },
+            { "<leader>oTa", "<cmd>EasyAlign|<cr>", desc = "org table align", mode = "v" },
+            { "<leader>oTl", "<cmd>lua align_org_table()<cr>", desc = "org table align (lua)", mode = "v" },
         },
         dependencies = {
             { --[[ org-bullets.nvim ]]
@@ -64,6 +67,11 @@ return {
                         desc = "org list checkbox toggle",
                     },
                 },
+            },
+
+            { --[[ vim-easy-align for table alignment ]]
+                "junegunn/vim-easy-align",
+                event = "VeryLazy",
             },
         },
         opts = {
@@ -431,6 +439,51 @@ return {
                     }):open(data)
                 end,
             }
+
+            --------------------------------------------------------------------------------
+            -- Custom org table alignment function
+            --------------------------------------------------------------------------------
+            _G.align_org_table = function()
+                local start_line = vim.fn.line("'<")
+                local end_line = vim.fn.line("'>")
+                local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+                
+                -- Calculate column widths
+                local columns = {}
+                for _, line in ipairs(lines) do
+                    local cells = {}
+                    for cell in line:gmatch("[^|]+") do
+                        table.insert(cells, cell:match("^%s*(.-)%s*$") or "")
+                    end
+                    for i, cell in ipairs(cells) do
+                        columns[i] = math.max(columns[i] or 0, vim.fn.strdisplaywidth(cell))
+                    end
+                end
+                
+                -- Rebuild aligned table
+                local aligned_lines = {}
+                for _, line in ipairs(lines) do
+                    local cells = {}
+                    for cell in line:gmatch("[^|]+") do
+                        table.insert(cells, cell:match("^%s*(.-)%s*$") or "")
+                    end
+                    
+                    local aligned_line = "|"
+                    for i, cell in ipairs(cells) do
+                        aligned_line = aligned_line .. " " .. cell .. string.rep(" ", columns[i] - vim.fn.strdisplaywidth(cell)) .. " |"
+                    end
+                    table.insert(aligned_lines, aligned_line)
+                end
+                
+                vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, aligned_lines)
+            end
+
+            --------------------------------------------------------------------------------
+            -- -- NOTE: Just a little bit of code that uses Treesitter to handle different {{{
+            --          org action when the "Enter" key is pressed (toggle TODO, toggle
+            --          checkbox, open dates and links)
+            --          https://gist.github.com/andreadev-it/413e6ed62eefa7e2f85e7a611e962f60
+            --------------------------------------------------------------------------------
 
             require("orgmode").setup(opts)
             require("blink.cmp").setup({
