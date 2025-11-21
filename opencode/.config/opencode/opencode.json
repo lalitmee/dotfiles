@@ -4,6 +4,12 @@
   "model": "grok-code-fast-1",
   "autoshare": false,
   "autoupdate": true,
+  "tui": {
+    "scroll_speed": 5,
+    "scroll_acceleration": {
+      "enabled": true
+    }
+  },
   "mcp": {
     "context7": {
       "type": "local",
