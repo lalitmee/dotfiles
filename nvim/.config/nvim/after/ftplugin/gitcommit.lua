@@ -79,7 +79,7 @@ end
 spinner.start()
 
 -- Construct the command
-local command = string.format([[git diff --cached | gemini --prompt "%s"]], config.prompt)
+local command = string.format([[git diff --cached | gemini -o text "%s"]], config.prompt)
 
 vim.fn.jobstart(command, {
     stdout_buffered = true,
