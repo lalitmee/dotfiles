@@ -2,12 +2,15 @@ bash
 c
 cpp
 css
+elisp
 gdb
 golang
 haskell
 html
 javascript
+json
 lua
+markdown
 nodejs
 php
 python
@@ -15,7 +18,5 @@ rust
 solidity
 tmux
 typescript
-zsh
 vim
-elisp
-markdown
+zsh
