@@ -102,10 +102,11 @@
 
 (after! org
   ;; Prettier org-bullets
-  (setq org-bullets-bullet-list '("◉" "○" "●" "○" "●"))
+  ;; (setq org-bullets-bullet-list '("◉" "○" "●" "○" "●"))
+  (setq org-bullets-bullet-list '("◉" "✿" "✚" "✸" "❀" "○")) ; "●" "▷" "🞛" "◈" "✖"
 
   ;; Other useful settings
-  (setq org-ellipsis " ▼")
+  (setq org-ellipsis " ▾") ; ↴, ▼, ▶, ⤵, ▾
   (setq org-log-done 'time)
   (setq org-hide-leading-stars t)
   (setq org-startup-with-inline-images t)
