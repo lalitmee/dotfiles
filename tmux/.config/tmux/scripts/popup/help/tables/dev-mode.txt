@@ -1,5 +1,6 @@
 Key	Description
 b	Build Rust project
 t	Test Node.js project
+a	Manage apt repositories
 q	Quit dev-mode
 ?	Show help

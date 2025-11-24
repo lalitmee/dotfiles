@@ -23,8 +23,10 @@
 4.  **Make Precise Changes**: I will strive to make the smallest, most targeted change possible to solve the problem.
 5.  **Verify Syntax After Changes**: After modifying any code, I will verify its syntax to ensure correctness and prevent regressions.
 6.  **Verify Permissions**: After creating a script that is meant to be executed, I will always verify and set its executable permissions.
-7.  **Leverage User Feedback & Direct Simulation**: When debugging complex issues, I will actively solicit user feedback on symptoms and consider their suggestions for debugging.
-8.  **Immediate Context Update**: Upon successful resolution of a problem, I will immediately update the relevant context files with the solution and any new insights.
+7.  **Use Debugging Logs**: When building tmux, zsh, or dotfiles features, always include debugging logs to identify errors and mistakes during initial testing runs.
+8.  **Stability Confirmation**: Continue debugging until stable, then get user confirmation before removing logs.
+9.  **Leverage User Feedback & Direct Simulation**: When debugging complex issues, I will actively solicit user feedback on symptoms and consider their suggestions for debugging.
+10. **Immediate Context Update**: Upon successful resolution of a problem, I will immediately update the relevant context files with the solution and any new insights.
 
 ## Tmux Popup Workflow
 

@@ -1202,6 +1202,8 @@ bind-key -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso 
 
 # Launch the project runner script in a popup.
 bind-key -T dev-mode r run-shell "custom_shpell standard project-runner '~/.config/tmux/scripts/popup/runner/runner.sh'"
+# Launch the apt repository manager in a popup.
+bind-key -T dev-mode a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/apt-repo-manager.sh"
 
 #-------------------------------------------------------------------------------
 # }}}
