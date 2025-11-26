@@ -8,11 +8,74 @@ if ! command -v spotify_player &> /dev/null; then
     exit 1
 fi
 
+# Note: For robust operation and automatic token refresh, run 'spotify_player -d &' in background
+
+# Function to display current track info
+display_current_track() {
+    local playback
+    playback=$(spotify_player get key playback 2>/dev/null)
+    if [ $? -eq 0 ]; then
+        local track=$(echo "$playback" | jq -r '.item.name // empty')
+        local artist=$(echo "$playback" | jq -r '.item.artists[0].name // empty')
+        local album=$(echo "$playback" | jq -r '.item.album.name // empty')
+        if [ -n "$track" ] && [ -n "$artist" ]; then
+            echo "Now playing: $track by $artist from $album"
+        fi
+    fi
+}
+
+# Function to display play-pause status
+display_play_pause_status() {
+    local playback
+    playback=$(spotify_player get key playback 2>/dev/null)
+    if [ $? -eq 0 ]; then
+        local track=$(echo "$playback" | jq -r '.item.name // empty')
+        local artist=$(echo "$playback" | jq -r '.item.artists[0].name // empty')
+        local is_playing=$(echo "$playback" | jq -r '.is_playing // false')
+        if [ -n "$track" ] && [ -n "$artist" ]; then
+            if [ "$is_playing" = "true" ]; then
+                echo "▶️ Now playing: $track by $artist"
+            else
+                echo "⏸️ Paused: $track by $artist"
+            fi
+        fi
+    fi
+}
+
+# Function to run command with error handling
+run_command() {
+    local cmd="$1"
+    if eval "$cmd" 2>/dev/null; then
+        return 0
+    else
+        echo "Error: Command failed. Authentication may have expired. Run 'spotify_player authenticate' or start daemon with 'spotify_player -d &' for persistent session."
+        return 1
+    fi
+}
+
 case "$ACTION" in
-    play-pause) spotify_player playback play-pause ;;
-    next) spotify_player playback next ;;
-    previous) spotify_player playback previous ;;
-    volume-up) spotify_player playback volume --offset 5 ;;
-    volume-down) spotify_player playback volume --offset -- -5 ;;
-    *) echo "Unknown action: $ACTION" ;;
+    play-pause)
+        if run_command "spotify_player playback play-pause"; then
+            display_play_pause_status
+        fi
+        ;;
+    next)
+        if run_command "spotify_player playback next"; then
+            display_current_track
+        fi
+        ;;
+    previous)
+        if run_command "spotify_player playback previous"; then
+            display_current_track
+        fi
+        ;;
+    volume-up)
+        run_command "spotify_player playback volume --offset 5"
+        ;;
+    volume-down)
+        run_command "spotify_player playback volume --offset -- -5"
+        ;;
+    *)
+        echo "Unknown action: $ACTION"
+        ;;
 esac
