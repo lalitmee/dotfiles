@@ -19,6 +19,21 @@ send_notification() {
     fi
 }
 
+# Function to get current playback status
+get_playback_status() {
+    spotify_player get key playback 2>/dev/null | jq -r '
+        if .item.name and .item.artists[0].name then
+            if .is_playing == true then
+                "▶️ Now playing: \(.item.name) by \(.item.artists[0].name)"
+            else
+                "⏸️ Paused: \(.item.name) by \(.item.artists[0].name)"
+            end
+        else
+            empty
+        end
+    ' 2>/dev/null
+}
+
 # Check if spotify_player is installed
 if ! command -v spotify_player &> /dev/null; then
     send_notification "Error: spotify_player is not installed."
@@ -38,7 +53,19 @@ case "$ACTION" in
 esac
 
 if [[ $ERROR_CODE -eq 0 ]]; then
-    send_notification "Action: ${ACTION} successful."
+    case "$ACTION" in
+        play-pause)
+            STATUS=$(get_playback_status)
+            if [[ -n "$STATUS" ]]; then
+                send_notification "$STATUS"
+            else
+                send_notification "Playback toggled"
+            fi
+            ;;
+        *)
+            send_notification "Action: ${ACTION} successful."
+            ;;
+    esac
 else
     send_notification "Action: ${ACTION} failed. Error: ${OUTPUT}"
 fi
