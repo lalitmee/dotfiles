@@ -69,10 +69,10 @@ export UPDATE_ZSH_DAYS=5
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-export DISABLE_AUTO_TITLE="true"
+# export DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-export ENABLE_CORRECTION="true"
+# export ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 export COMPLETION_WAITING_DOTS="true"
