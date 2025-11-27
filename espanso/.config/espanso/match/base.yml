@@ -39,8 +39,17 @@ matches:
 
   # And much more! For more information, visit the docs: https://espanso.org/docs/
 
-  - trigger: ":lalitk"
+  - trigger: ":lalitkumar."
     replace: "lalitkumar.meena.lk@gmail.com"
 
   - trigger: ":mt"
     replace: "https://meet.google.com/ohe-sxjh-xok"
+
+  - trigger: ":addrb"
+    replace: "518/A, 18th C Main Rd, Sector 3, HSR Layout, Bengaluru, Karnataka, 560102"
+
+  - trigger: ":lmob"
+    replace: "9712618438"
+
+  - trigger: ":amob"
+    replace: "7970270736"
