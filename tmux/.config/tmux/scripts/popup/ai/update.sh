@@ -38,6 +38,19 @@ run_updates() {
         fi
     }
 
+    # --- Helper to get version of non-npm tools ---
+    get_crush_version() {
+        crush --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
+    }
+
+    get_plandex_version() {
+        plandex version 2>/dev/null | head -1 || echo "Unknown"
+    }
+
+    get_kiro_version() {
+        kiro-cli --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
+    }
+
     # 1. Dependency Check
     for cmd in gum gum_style; do
         if ! command_exists "$cmd"; then
@@ -84,38 +97,89 @@ run_updates() {
         fi
     }
 
-    # 2. Update NPM Packages
-    update_npm_package "@google/gemini-cli@preview"
-    update_npm_package "@anthropic-ai/claude-code@latest"
-    update_npm_package "@github/copilot@latest"
-    update_npm_package "opencode-ai@latest"
-    update_npm_package "@vibe-kit/grok-cli@latest"
+    # Check update mode
+    UPDATE_MODE="${1:-all}"  # Default to 'all' if no parameter
+
+    # 2. Update NPM Packages (Non-interactive)
+    if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
+        update_npm_package "@google/gemini-cli@preview"
+        update_npm_package "@anthropic-ai/claude-code@latest"
+        update_npm_package "@github/copilot@latest"
+        update_npm_package "opencode-ai@latest"
+        update_npm_package "@vibe-kit/grok-cli@latest"
+    fi
 
     # 2.5 Update Non-NPM Tools
-    gum_style "🔄 Updating non-npm tools..."
+    if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
+        gum_style "🔄 Updating non-interactive tools..."
 
-    # Plandex: Re-run install script
-    if command_exists plandex; then
-        gum_style "Updating Plandex..."
-        curl -sL https://plandex.ai/install.sh | bash
-    else
-        gum_style "Plandex not installed, skipping update."
+        # Crush: Re-install via go (non-interactive)
+        if command_exists crush; then
+            old_version=$(get_crush_version)
+            gum_style "Updating Crush..."
+            if go install github.com/charmbracelet/crush@latest; then
+                new_version=$(get_crush_version)
+                status_icon="➡️" # Default: No Change
+                if [[ "$old_version" != "$new_version" ]]; then
+                    status_icon="⬆️" # Updated
+                fi
+                gum_style "✅ Success: Crush updated."
+                update_summary+=("crush,$status_icon,$old_version,$new_version")
+            else
+                gum_style "❌ Error: Failed to update Crush."
+                update_summary+=("crush,❌,$old_version,Update Failed")
+            fi
+        else
+            gum_style "Crush not installed, skipping update."
+        fi
     fi
 
-    # Crush: Re-install via go
-    if command_exists crush; then
-        gum_style "Updating Crush..."
-        go install github.com/charmbracelet/crush@latest
-    else
-        gum_style "Crush not installed, skipping update."
-    fi
+    if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--interactive" ]]; then
+        gum_style "🔄 Updating interactive tools (may require user input)..."
 
-    # Kiro: Re-run install script
-    if command_exists kiro-cli; then
-        gum_style "Updating Kiro CLI..."
-        curl -fsSL https://cli.kiro.dev/install | bash
-    else
-        gum_style "Kiro CLI not installed, skipping update."
+        # Plandex: Re-run install script (requires sudo)
+        if command_exists plandex; then
+            old_version=$(get_plandex_version)
+            gum_style "Updating Plandex (may require sudo password)..."
+            if curl -sL https://plandex.ai/install.sh | bash; then
+                new_version=$(get_plandex_version)
+                status_icon="➡️" # Default: No Change
+                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
+                    status_icon="✨" # Newly Installed
+                elif [[ "$old_version" != "$new_version" ]]; then
+                    status_icon="⬆️" # Updated
+                fi
+                gum_style "✅ Success: Plandex updated."
+                update_summary+=("plandex,$status_icon,$old_version,$new_version")
+            else
+                gum_style "❌ Error: Failed to update Plandex."
+                update_summary+=("plandex,❌,$old_version,Update Failed")
+            fi
+        else
+            gum_style "Plandex not installed, skipping update."
+        fi
+
+        # Kiro: Re-run install script (may prompt for confirmation)
+        if command_exists kiro-cli; then
+            old_version=$(get_kiro_version)
+            gum_style "Updating Kiro CLI (may prompt for confirmation)..."
+            if curl -fsSL https://cli.kiro.dev/install | bash; then
+                new_version=$(get_kiro_version)
+                status_icon="➡️" # Default: No Change
+                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
+                    status_icon="✨" # Newly Installed
+                elif [[ "$old_version" != "$new_version" ]]; then
+                    status_icon="⬆️" # Updated
+                fi
+                gum_style "✅ Success: Kiro CLI updated."
+                update_summary+=("kiro-cli,$status_icon,$old_version,$new_version")
+            else
+                gum_style "❌ Error: Failed to update Kiro CLI."
+                update_summary+=("kiro-cli,❌,$old_version,Update Failed")
+            fi
+        else
+            gum_style "Kiro CLI not installed, skipping update."
+        fi
     fi
 
     # 3. Display Final Summary Table
