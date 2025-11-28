@@ -89,6 +89,34 @@ run_updates() {
     update_npm_package "@anthropic-ai/claude-code@latest"
     update_npm_package "@github/copilot@latest"
     update_npm_package "opencode-ai@latest"
+    update_npm_package "@vibe-kit/grok-cli@latest"
+
+    # 2.5 Update Non-NPM Tools
+    gum_style "🔄 Updating non-npm tools..."
+
+    # Plandex: Re-run install script
+    if command_exists plandex; then
+        gum_style "Updating Plandex..."
+        curl -sL https://plandex.ai/install.sh | bash
+    else
+        gum_style "Plandex not installed, skipping update."
+    fi
+
+    # Crush: Re-install via go
+    if command_exists crush; then
+        gum_style "Updating Crush..."
+        go install github.com/charmbracelet/crush@latest
+    else
+        gum_style "Crush not installed, skipping update."
+    fi
+
+    # Kiro: Re-run install script
+    if command_exists kiro-cli; then
+        gum_style "Updating Kiro CLI..."
+        curl -fsSL https://cli.kiro.dev/install | bash
+    else
+        gum_style "Kiro CLI not installed, skipping update."
+    fi
 
     # 3. Display Final Summary Table
     echo
