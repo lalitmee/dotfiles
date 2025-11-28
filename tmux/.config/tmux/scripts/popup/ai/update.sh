@@ -8,7 +8,17 @@
 # If running inside tmux and not already in an update window, re-exec in a new tmux window
 # under a login/interactive zsh so PATH (npm/yarn) and other env are loaded properly.
 if [[ -n "$TMUX" && -z "$AI_UPDATE_IN_WINDOW" ]]; then
-    tmux new-window -n 'ai-update' "zsh -lic 'AI_UPDATE_IN_WINDOW=1 \"$0\"'"
+    # Set window name based on update mode
+    if [[ "$UPDATE_MODE" == "--non-interactive" ]]; then
+        WINDOW_NAME="ai-update-auto"
+    elif [[ "$UPDATE_MODE" == "--interactive" ]]; then
+        WINDOW_NAME="ai-update-manual"
+    else
+        WINDOW_NAME="ai-update"
+    fi
+
+    # Preserve environment variables and arguments
+    tmux new-window -n "$WINDOW_NAME" "zsh -lic \"AI_UPDATE_IN_WINDOW=1 UPDATE_MODE='$UPDATE_MODE' '$0'\""
     exit 0
 fi
 
@@ -97,8 +107,8 @@ run_updates() {
         fi
     }
 
-    # Check update mode
-    UPDATE_MODE="${1:-all}"  # Default to 'all' if no parameter
+    # Check update mode (prefer environment variable over command line args)
+    UPDATE_MODE="${UPDATE_MODE:-${1:-all}}"  # Env var takes precedence, then arg, then 'all'
 
     # 2. Update NPM Packages (Non-interactive)
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
@@ -120,9 +130,11 @@ run_updates() {
             if go install github.com/charmbracelet/crush@latest; then
                 new_version=$(get_crush_version)
                 status_icon="➡️" # Default: No Change
+
                 if [[ "$old_version" != "$new_version" ]]; then
                     status_icon="⬆️" # Updated
                 fi
+
                 gum_style "✅ Success: Crush updated."
                 update_summary+=("crush,$status_icon,$old_version,$new_version")
             else
@@ -196,21 +208,35 @@ run_updates() {
         summary_string+="$row\n"
     done
 
-    # Pipe the CSV data into gum table. Removed the --widths flag for compatibility.
-    if ! echo -e "$summary_string" | gum table; then
-        gum_style "⚠️  Warning: Could not display summary table."
-        echo
-        gum_style "Debug Info: The following data caused the error:"
-        echo "----------------------------------------------------"
-        echo -e "$summary_string"
-        echo "----------------------------------------------------"
-        gum_style "Check for extra commas or special characters in the data above."
+    # Display the summary table
+    gum_style "📊 Update Summary"
+    echo
+
+    if [[ ${#update_summary[@]} -gt 1 ]]; then
+        # Always show text table format (more reliable in tmux)
+        echo "┌─────────────────────────────────────────────────────────────┐"
+        printf "│ %-20s │ %-6s │ %-12s │ %-12s │\n" "Tool" "Status" "Old Version" "New Version"
+        echo "├─────────────────────────────────────────────────────────────┤"
+
+        for row in "${update_summary[@]}"; do
+            if [[ "$row" != "Tool,Status,Old Version,New Version" ]]; then
+                IFS=',' read -r tool update_status old_ver new_ver <<< "$row"
+                printf "│ %-20s │ %-6s │ %-12s │ %-12s │\n" "$tool" "$update_status" "$old_ver" "$new_ver"
+            fi
+        done
+
+        echo "└─────────────────────────────────────────────────────────────┘"
+    else
+        gum_style "ℹ️  No updates were processed."
     fi
 
     gum_style "✨ Update process complete. ✨"
 
     echo
-    read -n 1 -s -r -p "Press any key to close..."
+    # Only wait for user input if running interactively (not in tmux window)
+    if [[ -z "$AI_UPDATE_IN_WINDOW" && -t 0 ]]; then
+        read -n 1 -s -r -p "Press any key to close..."
+    fi
 }
 
 # Run the updates
