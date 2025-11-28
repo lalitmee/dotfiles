@@ -947,10 +947,10 @@ bind-key -T ai-tools p display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/
 #-------------------------------------------------------------------------------
 
 # Update the AI tools (non-interactive - npm + crush)
-bind-key -T ai-tools u run-shell -b "~/.config/tmux/scripts/popup/ai/update.sh --non-interactive"
+bind-key -T ai-tools u run-shell -b "UPDATE_MODE=--non-interactive ~/.config/tmux/scripts/popup/ai/update.sh"
 
 # Update the AI tools (interactive - plandex + kiro)
-bind-key -T ai-tools U run-shell -b "~/.config/tmux/scripts/popup/ai/update.sh --interactive"
+bind-key -T ai-tools U run-shell -b "UPDATE_MODE=--interactive ~/.config/tmux/scripts/popup/ai/update.sh"
 
 #-------------------------------------------------------------------------------
 # }}}
