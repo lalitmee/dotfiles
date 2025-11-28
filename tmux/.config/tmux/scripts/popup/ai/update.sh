@@ -233,9 +233,15 @@ run_updates() {
     gum_style "✨ Update process complete. ✨"
 
     echo
-    # Only wait for user input if running interactively (not in tmux window)
-    if [[ -z "$AI_UPDATE_IN_WINDOW" && -t 0 ]]; then
-        read -n 1 -s -r -p "Press any key to close..."
+    # Wait for user input so they can see the results
+    echo
+    if [[ -n "$AI_UPDATE_IN_WINDOW" ]]; then
+        gum_style "Results displayed above. Window will auto-close in 30 seconds."
+        gum_style "Use Ctrl+C or tmux commands to close immediately if needed."
+        sleep 30
+    elif [[ -t 0 ]]; then
+        gum_style "Press any key to close..."
+        read -n 1 -s -r 2>/dev/null || true
     fi
 }
 
