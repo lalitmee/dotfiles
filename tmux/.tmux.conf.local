@@ -921,10 +921,19 @@ bind-key -T ai-tools c display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/
 # Codex
 bind-key -T ai-tools x display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh codex'"
 
-# Qwen
-bind-key -T ai-tools w display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh qwen'"
 
 # Copilot
+# Plandex
+bind-key -T ai-tools d display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh plandex'"
+
+# Crush
+bind-key -T ai-tools s display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh crush'"
+
+# Kiro
+bind-key -T ai-tools k display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh kiro'"
+
+# Grok CLI
+bind-key -T ai-tools r display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh grok'"
 bind-key -T ai-tools p display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh copilot'"
 
 #-------------------------------------------------------------------------------

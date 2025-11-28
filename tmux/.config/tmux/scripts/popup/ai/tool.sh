@@ -46,13 +46,25 @@ case "$TOOL" in
         ICON="🚀"; PANE_TITLE="$ICON codex"
         COMMAND="codex"
         ;;
-    qwen)
-        ICON="🧠"; PANE_TITLE="$ICON qwen"
-        COMMAND="qwen"
-        ;;
     copilot)
         ICON=" "; PANE_TITLE="$ICON copilot"
         COMMAND="copilot --banner"
+        ;;
+    plandex)
+        ICON="📋"; PANE_TITLE="$ICON plandex"
+        COMMAND="plandex"
+        ;;
+    crush)
+        ICON="💖"; PANE_TITLE="$ICON crush"
+        COMMAND="crush"
+        ;;
+    kiro)
+        ICON="🤖"; PANE_TITLE="$ICON kiro"
+        COMMAND="kiro-cli"
+        ;;
+    grok)
+        ICON="🧠"; PANE_TITLE="$ICON grok-cli"
+        COMMAND="grok-cli"
         ;;
     *)
         tmux display-message "❌ Error: Unknown AI tool '$TOOL'"
