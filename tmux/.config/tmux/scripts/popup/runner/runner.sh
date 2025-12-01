@@ -46,8 +46,17 @@ if [[ ! -f "package.json" ]]; then
 fi
 
 package_json_path=$(pwd)/package.json
+export package_json_path
 
-selection=$(/home/lalitmee/dotfiles/tmux/.config/tmux/scripts/popup/runner/get_all_scripts.sh | fzf --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query)
+# Source the functions for script retrieval
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+source "$SCRIPT_DIR/functions.sh"
+
+selection=$(get_all_scripts | fzf --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query \
+    --bind "ctrl-y:reload(source $SCRIPT_DIR/functions.sh && get_yarn_scripts)" \
+    --bind "ctrl-j:reload(source $SCRIPT_DIR/functions.sh && get_npm_scripts)" \
+    --bind "ctrl-a:reload(source $SCRIPT_DIR/functions.sh && get_all_scripts)" \
+    --header "Ctrl-y: yarn only | Ctrl-j: npm only | Ctrl-a: all scripts")
 
 if [[ -z $selection ]]; then
     exit 0

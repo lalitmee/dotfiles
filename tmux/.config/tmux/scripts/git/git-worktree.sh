@@ -76,7 +76,9 @@ _handle_dependency_installation() {
     local target_worktree_path="$1"
     local confirmation_needed="$2"
 
+    log "Checking for package.json in $target_worktree_path"
     if [ -f "$target_worktree_path/package.json" ]; then
+        log "Found package.json, checking node_modules"
         # If node_modules doesn't exist, force install without confirmation.
         if [ ! -d "$target_worktree_path/node_modules" ]; then
             confirmation_needed=false
@@ -84,21 +86,34 @@ _handle_dependency_installation() {
 
         if [ "$confirmation_needed" = "false" ] || gum confirm "Install dependencies in $target_worktree_path?"; then
             local PACKAGE_MANAGER
+            local INSTALL_CMD
             if [ -f "$target_worktree_path/yarn.lock" ]; then
                 PACKAGE_MANAGER="yarn"
+                # Check yarn version to use appropriate install command
+                YARN_VERSION=$(yarn --version 2>/dev/null | cut -d. -f1)
+                if [ "$YARN_VERSION" = "1" ]; then
+                    INSTALL_CMD="yarn install --frozen-lockfile"
+                else
+                    INSTALL_CMD="yarn install --immutable"
+                fi
             elif [ -f "$target_worktree_path/package-lock.json" ]; then
                 PACKAGE_MANAGER="npm"
+                INSTALL_CMD="npm ci"
             else
                 PACKAGE_MANAGER="npm" # Default to npm
+                INSTALL_CMD="npm install"
             fi
 
+            log "Installing dependencies with $INSTALL_CMD in $target_worktree_path"
             local worktree_name=$(basename "$target_worktree_path")
             local window_name="deps-$worktree_name"
 
-            INSTALL_COMMAND="cd $target_worktree_path && $PACKAGE_MANAGER install"
-            tmux new-window -d -n "$window_name" "$INSTALL_COMMAND; read -p 'Press Enter to close...'"
+            log "Running tmux command: tmux new-window -c $target_worktree_path -n $window_name zsh -c 'source ~/.zshrc; $INSTALL_CMD; echo \"Press Enter to close...\"; read'"
+            tmux new-window -c "$target_worktree_path" -n "$window_name" "zsh -c 'source ~/.zshrc; $INSTALL_CMD; echo \"Press Enter to close...\"; read'"
             tmux display-message "Installing dependencies with $PACKAGE_MANAGER in window '$window_name'..."
         fi
+    else
+        log "No package.json found in $target_worktree_path"
     fi
 }
 
