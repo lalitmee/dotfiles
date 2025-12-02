@@ -12,11 +12,12 @@ local rust_analyzer = get_server_options("rust_analyzer")
 local emmet_ls = get_server_options("emmet_ls")
 local tailwindcss = get_server_options("tailwindcss")
 local ts_ls = get_server_options("ts_ls")
+local copilot = get_server_options("copilot")
 
 return {
     bashls = true,
     clangd = clangd,
-    copilot = utils.check_node_version(22),
+    copilot = copilot,
     cssls = true,
     dockerls = true,
     emmet_ls = emmet_ls,

@@ -1,0 +1,23 @@
+return {
+    cmd = { "copilot-language-server", "--stdio" },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "lua",
+        "python",
+        "rust",
+        "go",
+        "html",
+        "css",
+        "scss",
+        "json",
+        "yaml",
+        "markdown",
+        "sh",
+        "zsh",
+        "bash",
+    },
+    root_markers = { ".git" },
+}
