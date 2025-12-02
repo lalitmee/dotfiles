@@ -221,7 +221,9 @@ return {
 
             local servers = require("plugins.lsp.servers")
 
-            vim.lsp.inline_completion.enable(true)
+            if vim.lsp.inline_completion then
+                vim.lsp.inline_completion.enable(true)
+            end
 
             vim.lsp.config("*", {
                 root_markers = { ".git" },
