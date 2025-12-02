@@ -1,5 +1,9 @@
 # zmodload zsh/zprof
 
+unsetopt INC_APPEND_HISTORY
+unsetopt SHARE_HISTORY
+SAVEHIST=0
+
 # -------------------------------------------------------------------
 # # NOTE: auto start tmux {{{
 # start tmux while starting new terminal
@@ -241,7 +245,7 @@ add-zsh-hook precmd update_repo_path
 
 # Increase file descriptor limit on macOS only
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    ulimit -n 20480
+    ulimit -n 40480
 fi
 
 #-------------------------------------------------------------------------------

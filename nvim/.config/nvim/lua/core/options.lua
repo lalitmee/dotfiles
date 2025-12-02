@@ -292,7 +292,7 @@ o.emoji = false
 -- NOTE: title {{{
 ----------------------------------------------------------------------
 -- o.titleold = fn.fnamemodify(vim.uv.os_getenv("SHELL"), ":t")
-o.title = true
+o.title = false
 o.titlelen = 70
 -- }}}
 ----------------------------------------------------------------------
