@@ -469,10 +469,10 @@ set -g detach-on-destroy off
 #-------------------------------------------------------------------------------
 
 # Enable True Color support for modern terminals.
-set-option -sa terminal-overrides ",xterm*:Tc"
+# set-option -sa terminal-overrides ",xterm*:Tc"
 
 # Set the default terminal type for tmux itself.
-set -g default-terminal "tmux-256color"
+# set -g default-terminal "tmux-256color"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -1139,7 +1139,7 @@ bind -n M-e display-popup -E -w 90% -h 90% "\
   LINES=\$(tmux capture-pane -p -S - | wc -l); \
   LINE=\$((LINES - SCROLL)); \
   tmux capture-pane -p -S - > \$f; \
-  nvim +\${LINE} \$f; \
+  nvim +'set binary noeol' +\${LINE} \$f; \
   rm -f \$f"
 
 # Capture visible scrollback in new window
@@ -1214,6 +1214,7 @@ bind-key -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso 
 
 # Launch the project runner script in a popup.
 bind-key -T dev-mode r display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/runner/runner.sh"
+
 # Launch the apt repository manager in a popup.
 bind-key -T dev-mode a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/apt-repo-manager.sh"
 

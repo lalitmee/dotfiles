@@ -1,4 +1,4 @@
-#!/usr/bin/env -S zsh -i
+#!/usr/bin/env zsh
 
 SCRIPT_DIR=$(dirname "${(%):-%x}")
 source "$SCRIPT_DIR/functions.sh"
