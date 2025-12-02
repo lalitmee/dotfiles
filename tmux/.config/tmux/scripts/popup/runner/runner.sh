@@ -81,6 +81,7 @@ cat > "$temp_script" <<EOF
     echo "Running: $command_to_run"
     echo "Directory: $current_pane_path"
     echo "───────────────────────────────────"
+    cd "$current_pane_path"
     $command_to_run
     exit_code=\$?
 
