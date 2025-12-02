@@ -45,18 +45,15 @@ if [[ ! -f "package.json" ]]; then
     exit 1
 fi
 
-package_json_path=$(pwd)/package.json
-export package_json_path
+current_pane_path=$(tmux display-message -p '#{pane_current_path}' 2>/dev/null || pwd)
+package_json_path="$current_pane_path/package.json"
+export package_json_path current_pane_path
 
 # Source the functions for script retrieval
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source "$SCRIPT_DIR/functions.sh"
 
-selection=$(get_all_scripts | fzf --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query \
-    --bind "ctrl-y:reload(source $SCRIPT_DIR/functions.sh && get_yarn_scripts)" \
-    --bind "ctrl-j:reload(source $SCRIPT_DIR/functions.sh && get_npm_scripts)" \
-    --bind "ctrl-a:reload(source $SCRIPT_DIR/functions.sh && get_all_scripts)" \
-    --header "Ctrl-y: yarn only | Ctrl-j: npm only | Ctrl-a: all scripts")
+selection=$(get_all_scripts | fzf --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query)
 
 if [[ -z $selection ]]; then
     exit 0
@@ -82,6 +79,7 @@ cat > "$temp_script" <<EOF
     tmux setw allow-rename off 2>/dev/null
     trap 'echo ""; echo "Process interrupted. Press Enter to close the window."; read; exit' INT
     echo "Running: $command_to_run"
+    echo "Directory: $current_pane_path"
     echo "───────────────────────────────────"
     $command_to_run
     exit_code=\$?
