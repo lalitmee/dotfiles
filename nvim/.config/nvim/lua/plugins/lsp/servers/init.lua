@@ -1,5 +1,4 @@
 local fmt = string.format
-local utils = require("plugins.lsp.utils")
 
 local function get_server_options(name)
     return require(fmt("plugins.lsp.servers.%s", name))
@@ -11,13 +10,11 @@ local lua_ls = get_server_options("lua_ls")
 local rust_analyzer = get_server_options("rust_analyzer")
 local emmet_ls = get_server_options("emmet_ls")
 local tailwindcss = get_server_options("tailwindcss")
-local ts_ls = get_server_options("ts_ls")
-local copilot = get_server_options("copilot")
 
 return {
-    bashls = true,
+    bashls = false,
     clangd = clangd,
-    copilot = copilot,
+    copilot = true,
     cssls = true,
     dockerls = true,
     emmet_ls = emmet_ls,
@@ -30,6 +27,7 @@ return {
     tailwindcss = tailwindcss,
     taplo = true,
     theme_check = false,
-    ts_ls = ts_ls,
+    ts_ls = false,
+    tsgo = true,
     vimls = true,
 }

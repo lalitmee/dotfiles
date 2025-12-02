@@ -389,13 +389,7 @@ return {
                         end
                     end
 
-                    -- Increase timeout for stylua since it can be slow
-                    local timeout = 200
-                    if vim.bo[bufnr].filetype == "lua" then
-                        timeout = 1000
-                    end
-
-                    return { timeout_ms = timeout, lsp_fallback = true }, on_format
+                    return { timeout_ms = 200, lsp_fallback = true }, on_format
                 end,
 
                 format_after_save = function(bufnr)

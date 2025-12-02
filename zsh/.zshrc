@@ -121,11 +121,8 @@ source $ZSH/oh-my-zsh.sh
 #     # Skip theme initialization for better compatibility
 # else
 #     # Load p10k prompt first (no output)
-#     [[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+[[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
 # fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # }}}
 # -------------------------------------------------------------------
