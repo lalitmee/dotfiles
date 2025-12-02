@@ -80,9 +80,7 @@ return {
                 "vimls",
                 "copilot",
             },
-            automatic_enable = {
-                exclude = { "lua_ls" },
-            },
+            automatic_enable = false,
         },
     },
 
@@ -237,16 +235,18 @@ return {
 
             -- Loop through all the servers defined in your `servers` directory
             for server_name, server_config in pairs(servers) do
-                local final_config = base_config
+                if server_config ~= false then
+                    local final_config = base_config
 
-                -- If you have a custom config table for the server, merge it
-                if type(server_config) == "table" then
-                    final_config = vim.tbl_deep_extend("force", base_config, server_config)
+                    -- If you have a custom config table for the server, merge it
+                    if type(server_config) == "table" then
+                        final_config = vim.tbl_deep_extend("force", base_config, server_config)
+                    end
+
+                    -- Use the new, correct Neovim API
+                    vim.lsp.config(server_name, final_config)
+                    vim.lsp.enable(server_name)
                 end
-
-                -- Use the new, correct Neovim API
-                vim.lsp.config(server_name, final_config)
-                vim.lsp.enable(server_name)
             end
         end,
     },
