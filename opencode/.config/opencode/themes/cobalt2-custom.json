@@ -53,7 +53,7 @@
     },
     "secondary": {
       "dark": "light_pink",
-      "light": "pink"
+      "light": "yellow"
     },
     "accent": {
       "dark": "yellow",
@@ -88,12 +88,12 @@
       "light": "white"
     },
     "backgroundPanel": {
-      "dark": "darkest_grey",
-      "light": "lightest_grey"
+      "dark": "cobalt_bg",
+      "light": "cursor_line"
     },
     "backgroundElement": {
-      "dark": "darker_grey",
-      "light": "lighter_grey"
+      "dark": "cursor_line",
+      "light": "cobalt_bg"
     },
     "border": {
       "dark": "dark_grey",
