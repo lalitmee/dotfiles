@@ -70,7 +70,7 @@ detect_and_install_deps() {
 # Get current installed tmux version
 get_current_version() {
     if command -v tmux >/dev/null 2>&1; then
-        tmux -V | awk '{print $2}' | tr -d '\n'
+        tmux -V | awk '{print $2}' | tr -d '\n\r'
     else
         echo "none"
     fi
@@ -81,15 +81,15 @@ get_latest_version() {
     if $next; then
         echo "next"
     else
-        git ls-remote --tags https://github.com/tmux/tmux.git 2>/dev/null | grep -v 'next' | sed 's|.*refs/tags/||' | sort -V | tail -1 | tr -d '\n'
+        git ls-remote --tags https://github.com/tmux/tmux.git 2>/dev/null | grep -v 'next' | grep -v '\^{}' | sed 's|.*refs/tags/||' | sort -V | tail -1 | tr -d '\n\r'
     fi
 }
 
 # Main execution
 detect_and_install_deps
 
-current_version=$(get_current_version)
-latest_version=$(get_latest_version)
+    current_version=$(get_current_version)
+    latest_version=$(get_latest_version)
 
     if ! $next && [[ "$current_version" == "$latest_version" ]]; then
         command gum_style "tmux is already the latest stable version ($latest_version)" "" "" ""
