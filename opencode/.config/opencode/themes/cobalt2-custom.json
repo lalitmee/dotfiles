@@ -132,12 +132,12 @@
       "light": "red"
     },
     "diffAddedBg": {
-      "dark": "darkest_green",
-      "light": "lightest_green"
+      "dark": "cursor_line",
+      "light": "cursor_hover"
     },
     "diffRemovedBg": {
-      "dark": "dirty_pink",
-      "light": "lightest_pink"
+      "dark": "cursor_line",
+      "light": "cursor_hover"
     },
     "diffContextBg": {
       "dark": "subtle_bg",
