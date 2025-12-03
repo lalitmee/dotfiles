@@ -1,0 +1,180 @@
+#!/usr/bin/env zsh
+
+# Install latest tmux from source
+# See: https://github.com/tmux/tmux
+
+# Source utilities
+SCRIPT_DIR="$(dirname "$(dirname "$(dirname "$(dirname "$0")")")")/scripts/install"
+if [[ -f "$SCRIPT_DIR/utils.zsh" ]]; then
+    source "$SCRIPT_DIR/utils.zsh"
+else
+    echo "Warning: utils.zsh not found, using basic echo"
+    gum_style() {
+        echo "$1"
+    }
+fi
+
+# Save current dir
+pushd . >/dev/null || exit
+
+# Detect OS and install dependencies
+detect_and_install_deps() {
+    gum_style 'Detecting OS and installing dependencies...'
+
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        # macOS
+        if ! command -v brew >/dev/null 2>&1; then
+            gum_style "❌ Homebrew not found. Please install Homebrew first: https://brew.sh/"
+            exit 1
+        fi
+        brew install \
+            libevent \
+            ncurses \
+            pkg-config \
+            bison \
+            autoconf \
+            automake \
+            git
+    elif command -v apt >/dev/null 2>&1; then
+        # Debian/Ubuntu
+        sudo apt update
+        sudo apt install -y \
+            libevent-dev \
+            libncurses-dev \
+            build-essential \
+            pkg-config \
+            bison \
+            autoconf \
+            automake \
+            git
+    elif command -v dnf >/dev/null 2>&1; then
+        # Fedora/RHEL
+        sudo dnf install -y \
+            libevent-devel \
+            ncurses-devel \
+            gcc \
+            make \
+            pkgconfig \
+            bison \
+            autoconf \
+            automake \
+            git
+    elif command -v pacman >/dev/null 2>&1; then
+        # Arch
+        sudo pacman -S --noconfirm \
+            libevent \
+            ncurses \
+            gcc \
+            make \
+            pkg-config \
+            bison \
+            autoconf \
+            automake \
+            git
+    else
+        gum_style "❌ Unsupported OS. Please install dependencies manually: libevent, ncurses, build tools, pkg-config, bison, autoconf, automake, git"
+        exit 1
+    fi
+}
+
+# Get current installed tmux version
+get_current_version() {
+    if command -v tmux >/dev/null 2>&1; then
+        tmux -V | awk '{print $2}'
+    else
+        echo "none"
+    fi
+}
+
+# Get latest tmux version from GitHub tags
+get_latest_version() {
+    git ls-remote --tags https://github.com/tmux/tmux.git 2>/dev/null | \
+        grep -o 'refs/tags/[0-9]\+\.[0-9]\+' | \
+        sed 's|refs/tags/||' | \
+        sort -V | \
+        tail -1
+}
+
+# Main function
+main() {
+    detect_and_install_deps
+
+    local current_version=$(get_current_version)
+    local latest_version=$(get_latest_version)
+
+    if [[ "$current_version" == "$latest_version" ]]; then
+        gum_style "tmux is already the latest version ($latest_version)"
+        exit 0
+    fi
+
+    gum_style "Installing tmux $latest_version (current: $current_version)..."
+
+    # Setup tmux directory
+    TMUX_DIR="$HOME/Projects/Personal/Github/tmux"
+    mkdir -p "$(dirname "$TMUX_DIR")" || {
+        gum_style "❌ Error: Could not create parent directory for tmux"
+        exit 1
+    }
+
+    cd "$(dirname "$TMUX_DIR")" || {
+        gum_style "❌ Error: Could not navigate to $(dirname "$TMUX_DIR")"
+        exit 1
+    }
+
+    if [[ ! -d "$TMUX_DIR" ]] || [[ ! -d "$TMUX_DIR/.git" ]]; then
+        gum_style "Cloning tmux repository..."
+        rm -rf "$TMUX_DIR"
+        git clone https://github.com/tmux/tmux "$TMUX_DIR" || {
+            gum_style "❌ Error: Failed to clone tmux repository"
+            exit 1
+        }
+    else
+        cd tmux || {
+            gum_style "❌ Error: Could not navigate to tmux directory"
+            exit 1
+        }
+        gum_style "Updating tmux repo..."
+        git pull origin master || {
+            gum_style "⚠️ Warning: Failed to update tmux repo, continuing with existing version"
+        }
+    fi
+
+    cd "$TMUX_DIR" || exit
+
+    gum_style "Building tmux..."
+    sh autogen.sh || {
+        gum_style "❌ Error: autogen.sh failed"
+        exit 1
+    }
+
+    ./configure --prefix=/usr/local || {
+        gum_style "❌ Error: configure failed"
+        exit 1
+    }
+
+    make || {
+        gum_style "❌ Error: make failed"
+        exit 1
+    }
+
+    gum_style "Installing tmux..."
+    sudo make install || {
+        gum_style "❌ Error: make install failed"
+        exit 1
+    }
+
+    # Verify
+    if command -v /usr/local/bin/tmux >/dev/null 2>&1; then
+        local installed_version=$(/usr/local/bin/tmux -V | awk '{print $2}')
+        gum_style "✅ tmux $installed_version installed successfully at /usr/local/bin/tmux"
+    else
+        gum_style "❌ Error: tmux not found after install"
+        exit 1
+    fi
+}
+
+# Restore dir
+trap 'popd >/dev/null' EXIT
+
+main</content>
+<parameter name="filePath">bin/.config/bin/install-tmux

@@ -112,7 +112,7 @@
       "light": "green"
     },
     "diffRemoved": {
-      "dark": "red",
+      "dark": "darker_red",
       "light": "red"
     },
     "diffContext": {
@@ -120,40 +120,40 @@
       "light": "grey"
     },
     "diffHunkHeader": {
-      "dark": "grey",
-      "light": "grey"
+      "dark": "darker_blue",
+      "light": "blue"
     },
     "diffHighlightAdded": {
       "dark": "light_green",
       "light": "light_green"
     },
     "diffHighlightRemoved": {
-      "dark": "dark_red",
-      "light": "dark_red"
+      "dark": "darker_red",
+      "light": "red"
     },
     "diffAddedBg": {
-      "dark": "subtle_bg",
+      "dark": "darkest_green",
       "light": "lightest_green"
     },
     "diffRemovedBg": {
-      "dark": "aubergine",
-      "light": "darker_red"
+      "dark": "dirty_pink",
+      "light": "lightest_pink"
     },
     "diffContextBg": {
-      "dark": "darkest_grey",
-      "light": "lightest_grey"
+      "dark": "subtle_bg",
+      "light": "subtle_bg"
     },
     "diffLineNumber": {
       "dark": "light_grey",
       "light": "dark_grey"
     },
     "diffAddedLineNumberBg": {
-      "dark": "subtle_bg",
+      "dark": "darkest_green",
       "light": "lightest_green"
     },
     "diffRemovedLineNumberBg": {
-      "dark": "aubergine",
-      "light": "darker_red"
+      "dark": "darker_red",
+      "light": "red"
     },
     "markdownText": {
       "dark": "white",
