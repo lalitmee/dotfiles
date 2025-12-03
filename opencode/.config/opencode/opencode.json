@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "catppuccin",
+  "theme": "cobalt2-custom",
   "model": "grok-code-fast-1",
   "autoshare": false,
   "autoupdate": true,
