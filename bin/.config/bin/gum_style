@@ -24,11 +24,12 @@ calculate_width() {
         local max_allowed=$(( term_width - 4 ))
         width=$(( width_arg > max_allowed ? max_allowed : width_arg ))
     else
-        # Auto-calculate based on message and terminal
+        # Auto-calculate based on message and terminal, use full available width
+        local max_width=$(( term_width - 10 ))
         if (( msg_length < 40 )); then
             width=60
-        elif (( msg_length > term_width - 10 )); then
-            width=$(( term_width - 10 ))
+        elif (( msg_length > max_width )); then
+            width=$max_width
         else
             width=$msg_length
         fi
