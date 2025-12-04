@@ -244,9 +244,9 @@ add-zsh-hook precmd update_repo_path
 #-------------------------------------------------------------------------------
 
 # Increase file descriptor limit on macOS only
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    ulimit -n 40480
-fi
+# if [[ "$OSTYPE" == "darwin"* ]]; then
+#     ulimit -n 40480
+# fi
 
 #-------------------------------------------------------------------------------
 # }}}
