@@ -31,6 +31,7 @@ M.default_models = {
     github = "gpt-4o",
     copilot = "claude-3-5-sonnet-20241022",
     copilot_4o = "gpt-4o",
+    ollama = "llama3.2",
 }
 
 -- Alternative models for fallbacks
@@ -63,6 +64,7 @@ M.special_providers = {
     copilot_4o = true,
     github_models = true,
     gemini_cli = true,
+    ollama = true,
 }
 
 return M

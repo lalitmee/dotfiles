@@ -9,10 +9,14 @@
 -- - MCPHub integration for tool extensions
 -- - UI spinners for better user experience
 
+-- This checks if you are on your personal Linux machine
+local is_personal_machine = vim.fn.expand("$HOME") == "/home/lalitmee"
+
 local config = require("plugins.ai.config")
 
 -- Provider configuration with enable/disable flags
 local providers = {
+    ollama = { enabled = true },
     copilot = { enabled = true },
     copilot_4o = { enabled = true },
     openai = { enabled = true },
@@ -63,7 +67,7 @@ local preferences = {
     -- preferred_provider = "openai",
     -- preferred_model = "gpt-4.1",
 
-    preferred_provider = "openai",
+    preferred_provider = is_personal_machine and "ollama" or "openai",
     preferred_model = "gpt-5",
 
     --------------------------------------------------------------------------------
@@ -129,6 +133,22 @@ local function get_available_providers()
                     -- Handle special adapter mappings
                     if name == "copilot_4o" then
                         adapter_type = "copilot"
+                    end
+
+                    if name == "ollama" then
+                        return require("codecompanion.adapters").extend("ollama", {
+                            env = {
+                                url = "http://127.0.0.1:11434",
+                            },
+                            headers = {
+                                ["Content-Type"] = "application/json; charset=utf-8",
+                            },
+                            schema = {
+                                model = {
+                                    default = config.default_models.ollama,
+                                },
+                            },
+                        })
                     end
 
                     -- Use built-in CodeCompanion adapters
