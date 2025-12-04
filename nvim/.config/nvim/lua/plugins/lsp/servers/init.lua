@@ -26,7 +26,7 @@ return {
     rust_analyzer = rust_analyzer,
     tailwindcss = tailwindcss,
     taplo = true,
-    ts_ls = false,
-    tsgo = true,
+    ts_ls = true,
+    tsgo = false,
     vimls = false,
 }
