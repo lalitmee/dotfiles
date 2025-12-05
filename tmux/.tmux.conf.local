@@ -1335,7 +1335,7 @@ bind-key -T git-mode s display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/gi
 # Delete a worktree.
 bind-key -T git-mode d display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh delete"
 
- # Git Worktree AI Logs (detailed AI naming process)
+ # Git Worktree Logs
  bind-key -T git-mode l run-shell "custom_shpell standard worktree-logs 'nvim $HOME/.local/share/tmux/logs/git-worktree.log'"
 
 #-------------------------------------------------------------------------------
