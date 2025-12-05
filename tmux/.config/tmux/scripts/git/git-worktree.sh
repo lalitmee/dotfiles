@@ -1,14 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-# Ensure PATH includes common gemini installation locations
+# Ensure PATH includes common installation locations
 export PATH="$HOME/.local/state/fnm_multishells/*/bin:$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
-
-# Flag to disable AI naming (set to 1 to disable)
-DISABLE_AI_NAMING=${DISABLE_AI_NAMING:-0}
 
 LOG_DIR="$HOME/.local/share/tmux/logs"
 LOG_FILE="$LOG_DIR/git-worktree.log"
-CACHE_FILE="$LOG_DIR/git-worktree-cache.txt"
 
 # Ensure the log directory exists
 mkdir -p "$LOG_DIR"
@@ -18,38 +14,7 @@ log() {
     echo "$(date +'%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
 }
 
-# Cache management functions
-get_cached_window_name() {
-    local branch_name="$1"
-    if [[ -f "$CACHE_FILE" ]]; then
-        # Look for the branch in cache (format: branch_name=window_name)
-        local cached_name
-        cached_name=$(grep "^${branch_name}=" "$CACHE_FILE" 2>/dev/null | cut -d'=' -f2)
-        if [[ -n "$cached_name" ]]; then
-            log "Found cached window name for branch '$branch_name': '$cached_name'"
-            echo "$cached_name"
-            return 0
-        fi
-    fi
-    return 1  # Not found in cache
-}
 
-cache_window_name() {
-    local branch_name="$1"
-    local window_name="$2"
-
-    # Ensure cache directory exists
-    mkdir -p "$LOG_DIR"
-
-    # Remove existing entry for this branch (if any)
-    if [[ -f "$CACHE_FILE" ]]; then
-        sed -i.bak "/^${branch_name}=/d" "$CACHE_FILE" && rm -f "${CACHE_FILE}.bak"
-    fi
-
-    # Add new entry
-    echo "${branch_name}=${window_name}" >> "$CACHE_FILE"
-    log "Cached window name for branch '$branch_name': '$window_name'"
-}
 
 # Cross-platform timeout function (works on Linux and macOS)
 # Usage: timeout_seconds command args...
@@ -86,7 +51,7 @@ timeout_seconds() {
     fi
 }
 
-# Generate window name from branch name using Gemini AI with caching
+# Generate window name from branch name (fast, clean fallback naming)
 generate_window_name() {
     local branch_name="$1"
 
@@ -102,100 +67,17 @@ generate_window_name() {
         return
     fi
 
-    # Check cache first
-    local cached_name
-    if cached_name=$(get_cached_window_name "$branch_name"); then
-        echo "$cached_name"
-        return
-    fi
+    # Fast, clean fallback naming (JIRA-free)
+    # Helper function to clean JIRA codes from a name
+    clean_jira() {
+        local name="$1"
+        # Remove JIRA patterns and clean up extra dashes/slashes
+        echo "$name" | sed 's/[A-Z][A-Z0-9]*-[0-9][0-9]*//g' | sed 's/[-/]\+/ /g' | sed 's/^ *//' | sed 's/ *$//' | sed 's/ /-/g' | sed 's/^-*//' | sed 's/-*$//'
+    }
 
-    # Try to use Gemini AI to generate a meaningful name (unless disabled)
-    if [[ $DISABLE_AI_NAMING -eq 0 ]]; then
-        log "Checking for Gemini CLI with PATH: $PATH"
-
-        # Check multiple possible locations for gemini CLI
-        GEMINI_CMD=""
-        if command -v gemini &> /dev/null; then
-            # Get the full path to gemini
-            GEMINI_CMD=$(command -v gemini)
-            log "Found gemini at: $GEMINI_CMD"
-        elif [[ -e "/Users/lalit.kumar1/.local/state/fnm_multishells/50899_1764946590486/bin/gemini" ]]; then
-            GEMINI_CMD="/Users/lalit.kumar1/.local/state/fnm_multishells/50899_1764946590486/bin/gemini"
-            log "Found gemini at fnm path: $GEMINI_CMD"
-        elif [[ -e "$HOME/.local/bin/gemini" ]]; then
-            GEMINI_CMD="$HOME/.local/bin/gemini"
-            log "Found gemini at ~/.local/bin: $GEMINI_CMD"
-        elif [[ -e "/usr/local/bin/gemini" ]]; then
-            GEMINI_CMD="/usr/local/bin/gemini"
-            log "Found gemini at /usr/local/bin: $GEMINI_CMD"
-        elif [[ -e "/opt/homebrew/bin/gemini" ]]; then
-            GEMINI_CMD="/opt/homebrew/bin/gemini"
-            log "Found gemini at /opt/homebrew/bin: $GEMINI_CMD"
-        else
-            log "Gemini CLI not found in any standard location"
-        fi
-
-        if [[ -n "$GEMINI_CMD" ]]; then
-            log "Will use Gemini command: $GEMINI_CMD"
-        local ai_response ai_name exit_code
-
-        # Add 60-second timeout to account for Gemini CLI startup time (cross-platform)
-        # Set environment variables for non-interactive mode
-        export NODE_TLS_REJECT_UNAUTHORIZED="0"
-        log "Executing: $GEMINI_CMD with branch: $branch_name"
-        ai_response=$(timeout_seconds 60 env PATH="$PATH" NODE_TLS_REJECT_UNAUTHORIZED="0" $GEMINI_CMD "Generate a short tmux window name (max 15 chars) for git branch: $branch_name. Remove JIRA codes like NYS-1232. Return only the name." --output-format json 2>&1)
-        exit_code=$?
-
-        if [[ $exit_code -eq 124 ]]; then
-            log "AI request timed out after 10 seconds"
-        elif [[ $exit_code -ne 0 ]]; then
-            log "AI command failed with exit code $exit_code"
-        else
-            # Try to extract the response from JSON
-            ai_name=$(echo "$ai_response" | jq -r '.response' 2>/dev/null | tr -d '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | cut -c1-15)
-
-            # Filter out Gemini CLI greeting messages
-            if [[ "$ai_name" == "Hello! I'm read"* || "$ai_response" == *"Hello! I'm ready to help"* ]]; then
-                ai_name=""
-            fi
-
-            # If we got an empty response, try alternative extraction
-            if [[ -z "$ai_name" ]]; then
-                ai_name=$(echo "$ai_response" | grep -o '"response":\s*"[^"]*"' | cut -d'"' -f4 | tr -d '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | cut -c1-15)
-                if [[ "$ai_name" == "Hello! I'm read"* ]]; then
-                    ai_name=""
-                fi
-            fi
-
-            # Validate the AI-generated name
-            if [[ -n "$ai_name" && "$ai_name" != "null" && ${#ai_name} -le 15 ]]; then
-                # Remove any special characters that might break tmux
-                ai_name=$(echo "$ai_name" | sed 's/[^a-zA-Z0-9_-]//g')
-                log "Sanitized AI name: '$ai_name'"
-
-                if [[ -n "$ai_name" ]]; then
-                    log "AI successfully generated window name: $ai_name"
-                    # Cache the successful AI-generated name
-                    cache_window_name "$branch_name" "$ai_name"
-                    echo "$ai_name"
-                    return
-                else
-                    log "AI name became empty after sanitization"
-                fi
-            else
-                log "AI name validation failed - name: '$ai_name', length: ${#ai_name}"
-            fi
-        fi
-
-        log "AI name generation failed, falling back to simple naming"
-        else
-            log "Gemini CLI not found, falling back to simple naming"
-        fi
-    fi
-
-    # Fallback: Simple naming logic (NO CACHING for fallbacks)
     if [[ "$branch_name" == feature/* ]]; then
-        local feature_name="${branch_name#feature/}"
+        local feature_part="${branch_name#feature/}"
+        local feature_name=$(clean_jira "$feature_part")
         if [[ ${#feature_name} -gt 12 ]]; then
             feature_name="${feature_name%%-*}"
             if [[ ${#feature_name} -gt 12 ]]; then
@@ -204,7 +86,8 @@ generate_window_name() {
         fi
         echo "$feature_name"
     elif [[ "$branch_name" == bugfix/* ]]; then
-        local bug_name="${branch_name#bugfix/}"
+        local bug_part="${branch_name#bugfix/}"
+        local bug_name=$(clean_jira "$bug_part")
         if [[ ${#bug_name} -gt 12 ]]; then
             bug_name="${bug_name%%-*}"
             if [[ ${#bug_name} -gt 12 ]]; then
@@ -213,7 +96,8 @@ generate_window_name() {
         fi
         echo "$bug_name"
     elif [[ "$branch_name" == hotfix/* ]]; then
-        local hotfix_name="${branch_name#hotfix/}"
+        local hotfix_part="${branch_name#hotfix/}"
+        local hotfix_name=$(clean_jira "$hotfix_part")
         if [[ ${#hotfix_name} -gt 12 ]]; then
             hotfix_name="${hotfix_name%%-*}"
             if [[ ${#hotfix_name} -gt 12 ]]; then
@@ -222,7 +106,8 @@ generate_window_name() {
         fi
         echo "$hotfix_name"
     elif [[ "$branch_name" == release/* ]]; then
-        local release_name="${branch_name#release/}"
+        local release_part="${branch_name#release/}"
+        local release_name=$(clean_jira "$release_part")
         if [[ ${#release_name} -gt 12 ]]; then
             release_name="${release_name%%-*}"
             if [[ ${#release_name} -gt 12 ]]; then
@@ -231,8 +116,8 @@ generate_window_name() {
         fi
         echo "$release_name"
     else
-        # For other branches, use the name as-is but truncate if needed
-        local fallback_name="$branch_name"
+        # For other branches, clean JIRA codes and truncate if needed
+        local fallback_name=$(clean_jira "$branch_name")
         if [[ ${#fallback_name} -gt 15 ]]; then
             fallback_name="${fallback_name:0:15}"
         fi

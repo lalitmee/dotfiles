@@ -3,6 +3,6 @@ w	Interactive worktree management
 c	Create a new worktree
 s	Switch to a worktree
 d	Delete a worktree
-l	View AI naming logs (detailed process)
+l	View worktree logs
 q	Quit git mode
 ?	Show help
