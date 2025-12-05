@@ -221,7 +221,7 @@ return { --[[ snacks.nvim ]]
         statuscolumn = { enabled = true },
         words = { enabled = true },
         scroll = {
-            enabled = true,
+            enabled = false,
         },
         styles = {
             notification = {
