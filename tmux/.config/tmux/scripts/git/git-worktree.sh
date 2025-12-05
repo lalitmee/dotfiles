@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Ensure PATH includes common gemini installation locations
+export PATH="$HOME/.local/state/fnm_multishells/*/bin:$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
+
+# Flag to disable AI naming (set to 1 to disable)
+DISABLE_AI_NAMING=${DISABLE_AI_NAMING:-0}
+
 LOG_DIR="$HOME/.local/share/tmux/logs"
 LOG_FILE="$LOG_DIR/git-worktree.log"
 CACHE_FILE="$LOG_DIR/git-worktree-cache.txt"
@@ -103,18 +109,42 @@ generate_window_name() {
         return
     fi
 
-    # Try to use Gemini AI to generate a meaningful name
-    if command -v gemini &> /dev/null; then
-        log "Using Gemini AI to generate window name for branch: $branch_name"
+    # Try to use Gemini AI to generate a meaningful name (unless disabled)
+    if [[ $DISABLE_AI_NAMING -eq 0 ]]; then
+        log "Checking for Gemini CLI with PATH: $PATH"
+
+        # Check multiple possible locations for gemini CLI
+        GEMINI_CMD=""
+        if command -v gemini &> /dev/null; then
+            # Get the full path to gemini
+            GEMINI_CMD=$(command -v gemini)
+            log "Found gemini at: $GEMINI_CMD"
+        elif [[ -e "/Users/lalit.kumar1/.local/state/fnm_multishells/50899_1764946590486/bin/gemini" ]]; then
+            GEMINI_CMD="/Users/lalit.kumar1/.local/state/fnm_multishells/50899_1764946590486/bin/gemini"
+            log "Found gemini at fnm path: $GEMINI_CMD"
+        elif [[ -e "$HOME/.local/bin/gemini" ]]; then
+            GEMINI_CMD="$HOME/.local/bin/gemini"
+            log "Found gemini at ~/.local/bin: $GEMINI_CMD"
+        elif [[ -e "/usr/local/bin/gemini" ]]; then
+            GEMINI_CMD="/usr/local/bin/gemini"
+            log "Found gemini at /usr/local/bin: $GEMINI_CMD"
+        elif [[ -e "/opt/homebrew/bin/gemini" ]]; then
+            GEMINI_CMD="/opt/homebrew/bin/gemini"
+            log "Found gemini at /opt/homebrew/bin: $GEMINI_CMD"
+        else
+            log "Gemini CLI not found in any standard location"
+        fi
+
+        if [[ -n "$GEMINI_CMD" ]]; then
+            log "Will use Gemini command: $GEMINI_CMD"
         local ai_response ai_name exit_code
 
-        # Add 10-second timeout to prevent delays in window creation (cross-platform)
-        log "Making AI request with 10-second timeout..."
-        ai_response=$(timeout_seconds 10 gemini "Generate a concise tmux window name (max 15 chars) for this git branch: $branch_name. Return only the name, no explanation." --output-format json 2>&1)
+        # Add 60-second timeout to account for Gemini CLI startup time (cross-platform)
+        # Set environment variables for non-interactive mode
+        export NODE_TLS_REJECT_UNAUTHORIZED="0"
+        log "Executing: $GEMINI_CMD with branch: $branch_name"
+        ai_response=$(timeout_seconds 60 env PATH="$PATH" NODE_TLS_REJECT_UNAUTHORIZED="0" $GEMINI_CMD "Generate a short tmux window name (max 15 chars) for git branch: $branch_name. Remove JIRA codes like NYS-1232. Return only the name." --output-format json 2>&1)
         exit_code=$?
-
-        log "AI command exit code: $exit_code"
-        log "AI raw response: '$ai_response'"
 
         if [[ $exit_code -eq 124 ]]; then
             log "AI request timed out after 10 seconds"
@@ -123,7 +153,19 @@ generate_window_name() {
         else
             # Try to extract the response from JSON
             ai_name=$(echo "$ai_response" | jq -r '.response' 2>/dev/null | tr -d '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | cut -c1-15)
-            log "Extracted AI name from JSON: '$ai_name'"
+
+            # Filter out Gemini CLI greeting messages
+            if [[ "$ai_name" == "Hello! I'm read"* || "$ai_response" == *"Hello! I'm ready to help"* ]]; then
+                ai_name=""
+            fi
+
+            # If we got an empty response, try alternative extraction
+            if [[ -z "$ai_name" ]]; then
+                ai_name=$(echo "$ai_response" | grep -o '"response":\s*"[^"]*"' | cut -d'"' -f4 | tr -d '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | cut -c1-15)
+                if [[ "$ai_name" == "Hello! I'm read"* ]]; then
+                    ai_name=""
+                fi
+            fi
 
             # Validate the AI-generated name
             if [[ -n "$ai_name" && "$ai_name" != "null" && ${#ai_name} -le 15 ]]; then
@@ -146,13 +188,12 @@ generate_window_name() {
         fi
 
         log "AI name generation failed, falling back to simple naming"
-    else
-        log "Gemini CLI not found, falling back to simple naming"
+        else
+            log "Gemini CLI not found, falling back to simple naming"
+        fi
     fi
 
     # Fallback: Simple naming logic (NO CACHING for fallbacks)
-    log "Using fallback naming logic for branch: $branch_name (NOT CACHED)"
-
     if [[ "$branch_name" == feature/* ]]; then
         local feature_name="${branch_name#feature/}"
         if [[ ${#feature_name} -gt 12 ]]; then
@@ -161,7 +202,6 @@ generate_window_name() {
                 feature_name="${feature_name:0:12}"
             fi
         fi
-        log "Fallback name for feature branch: $feature_name (NOT CACHED)"
         echo "$feature_name"
     elif [[ "$branch_name" == bugfix/* ]]; then
         local bug_name="${branch_name#bugfix/}"
@@ -171,7 +211,6 @@ generate_window_name() {
                 bug_name="${bug_name:0:12}"
             fi
         fi
-        log "Fallback name for bugfix branch: $bug_name (NOT CACHED)"
         echo "$bug_name"
     elif [[ "$branch_name" == hotfix/* ]]; then
         local hotfix_name="${branch_name#hotfix/}"
@@ -181,7 +220,6 @@ generate_window_name() {
                 hotfix_name="${hotfix_name:0:12}"
             fi
         fi
-        log "Fallback name for hotfix branch: $hotfix_name (NOT CACHED)"
         echo "$hotfix_name"
     elif [[ "$branch_name" == release/* ]]; then
         local release_name="${branch_name#release/}"
@@ -191,7 +229,6 @@ generate_window_name() {
                 release_name="${release_name:0:12}"
             fi
         fi
-        log "Fallback name for release branch: $release_name (NOT CACHED)"
         echo "$release_name"
     else
         # For other branches, use the name as-is but truncate if needed
@@ -199,7 +236,6 @@ generate_window_name() {
         if [[ ${#fallback_name} -gt 15 ]]; then
             fallback_name="${fallback_name:0:15}"
         fi
-        log "Fallback name for other branch: $fallback_name (NOT CACHED)"
         echo "$fallback_name"
     fi
 }
