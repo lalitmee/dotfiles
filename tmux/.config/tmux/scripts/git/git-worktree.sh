@@ -2,6 +2,7 @@
 
 LOG_DIR="$HOME/.local/share/tmux/logs"
 LOG_FILE="$LOG_DIR/git-worktree.log"
+CACHE_FILE="$LOG_DIR/git-worktree-cache.txt"
 
 # Ensure the log directory exists
 mkdir -p "$LOG_DIR"
@@ -11,84 +12,196 @@ log() {
     echo "$(date +'%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
 }
 
-# Generate window name from branch name using Option 1: Branch Type Prefixes
+# Cache management functions
+get_cached_window_name() {
+    local branch_name="$1"
+    if [[ -f "$CACHE_FILE" ]]; then
+        # Look for the branch in cache (format: branch_name=window_name)
+        local cached_name
+        cached_name=$(grep "^${branch_name}=" "$CACHE_FILE" 2>/dev/null | cut -d'=' -f2)
+        if [[ -n "$cached_name" ]]; then
+            log "Found cached window name for branch '$branch_name': '$cached_name'"
+            echo "$cached_name"
+            return 0
+        fi
+    fi
+    return 1  # Not found in cache
+}
+
+cache_window_name() {
+    local branch_name="$1"
+    local window_name="$2"
+
+    # Ensure cache directory exists
+    mkdir -p "$LOG_DIR"
+
+    # Remove existing entry for this branch (if any)
+    if [[ -f "$CACHE_FILE" ]]; then
+        sed -i.bak "/^${branch_name}=/d" "$CACHE_FILE" && rm -f "${CACHE_FILE}.bak"
+    fi
+
+    # Add new entry
+    echo "${branch_name}=${window_name}" >> "$CACHE_FILE"
+    log "Cached window name for branch '$branch_name': '$window_name'"
+}
+
+# Cross-platform timeout function (works on Linux and macOS)
+# Usage: timeout_seconds command args...
+timeout_seconds() {
+    local timeout_duration="$1"
+    shift
+
+    # Use timeout command if available (Linux)
+    if command -v timeout &> /dev/null; then
+        timeout "$timeout_duration" "$@"
+        return $?
+    fi
+
+    # Fallback for macOS and other systems without timeout
+    local pid
+    ("$@") &
+    pid=$!
+
+    # Wait for the process with timeout
+    local count=0
+    while kill -0 "$pid" 2>/dev/null && [ $count -lt $timeout_duration ]; do
+        sleep 1
+        ((count++))
+    done
+
+    # If process is still running, kill it
+    if kill -0 "$pid" 2>/dev/null; then
+        kill "$pid" 2>/dev/null
+        wait "$pid" 2>/dev/null
+        return 124  # Same exit code as GNU timeout
+    else
+        wait "$pid" 2>/dev/null
+        return $?
+    fi
+}
+
+# Generate window name from branch name using Gemini AI with caching
 generate_window_name() {
     local branch_name="$1"
 
-    # Handle main/master branches
+    # Handle main/master branches (keep simple)
     if [[ "$branch_name" == "main" || "$branch_name" == "master" ]]; then
         echo "main"
         return
     fi
 
-    # Handle develop branch
+    # Handle develop branch (keep simple)
     if [[ "$branch_name" == "develop" ]]; then
         echo "develop"
         return
     fi
 
-    # Handle feature branches
+    # Check cache first
+    local cached_name
+    if cached_name=$(get_cached_window_name "$branch_name"); then
+        echo "$cached_name"
+        return
+    fi
+
+    # Try to use Gemini AI to generate a meaningful name
+    if command -v gemini &> /dev/null; then
+        log "Using Gemini AI to generate window name for branch: $branch_name"
+        local ai_response ai_name exit_code
+
+        # Add 10-second timeout to prevent delays in window creation (cross-platform)
+        log "Making AI request with 10-second timeout..."
+        ai_response=$(timeout_seconds 10 gemini "Generate a concise tmux window name (max 15 chars) for this git branch: $branch_name. Return only the name, no explanation." --output-format json 2>&1)
+        exit_code=$?
+
+        log "AI command exit code: $exit_code"
+        log "AI raw response: '$ai_response'"
+
+        if [[ $exit_code -eq 124 ]]; then
+            log "AI request timed out after 10 seconds"
+        elif [[ $exit_code -ne 0 ]]; then
+            log "AI command failed with exit code $exit_code"
+        else
+            # Try to extract the response from JSON
+            ai_name=$(echo "$ai_response" | jq -r '.response' 2>/dev/null | tr -d '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | cut -c1-15)
+            log "Extracted AI name from JSON: '$ai_name'"
+
+            # Validate the AI-generated name
+            if [[ -n "$ai_name" && "$ai_name" != "null" && ${#ai_name} -le 15 ]]; then
+                # Remove any special characters that might break tmux
+                ai_name=$(echo "$ai_name" | sed 's/[^a-zA-Z0-9_-]//g')
+                log "Sanitized AI name: '$ai_name'"
+
+                if [[ -n "$ai_name" ]]; then
+                    log "AI successfully generated window name: $ai_name"
+                    # Cache the successful AI-generated name
+                    cache_window_name "$branch_name" "$ai_name"
+                    echo "$ai_name"
+                    return
+                else
+                    log "AI name became empty after sanitization"
+                fi
+            else
+                log "AI name validation failed - name: '$ai_name', length: ${#ai_name}"
+            fi
+        fi
+
+        log "AI name generation failed, falling back to simple naming"
+    else
+        log "Gemini CLI not found, falling back to simple naming"
+    fi
+
+    # Fallback: Simple naming logic (NO CACHING for fallbacks)
+    log "Using fallback naming logic for branch: $branch_name (NOT CACHED)"
+
     if [[ "$branch_name" == feature/* ]]; then
         local feature_name="${branch_name#feature/}"
-        # Truncate if too long, keep first 12 chars or up to first dash
         if [[ ${#feature_name} -gt 12 ]]; then
             feature_name="${feature_name%%-*}"
             if [[ ${#feature_name} -gt 12 ]]; then
                 feature_name="${feature_name:0:12}"
             fi
         fi
-        echo "feat/$feature_name"
-        return
-    fi
-
-    # Handle bugfix/bug branches
-    if [[ "$branch_name" == bugfix/* || "$branch_name" == bug/* ]]; then
+        log "Fallback name for feature branch: $feature_name (NOT CACHED)"
+        echo "$feature_name"
+    elif [[ "$branch_name" == bugfix/* ]]; then
         local bug_name="${branch_name#bugfix/}"
-        bug_name="${bug_name#bug/}"
-        # Truncate if too long, keep first 12 chars or up to first dash
         if [[ ${#bug_name} -gt 12 ]]; then
             bug_name="${bug_name%%-*}"
             if [[ ${#bug_name} -gt 12 ]]; then
                 bug_name="${bug_name:0:12}"
             fi
         fi
-        echo "bug/$bug_name"
-        return
-    fi
-
-    # Handle hotfix branches
-    if [[ "$branch_name" == hotfix/* ]]; then
+        log "Fallback name for bugfix branch: $bug_name (NOT CACHED)"
+        echo "$bug_name"
+    elif [[ "$branch_name" == hotfix/* ]]; then
         local hotfix_name="${branch_name#hotfix/}"
-        # Truncate if too long, keep first 12 chars or up to first dash
         if [[ ${#hotfix_name} -gt 12 ]]; then
             hotfix_name="${hotfix_name%%-*}"
             if [[ ${#hotfix_name} -gt 12 ]]; then
                 hotfix_name="${hotfix_name:0:12}"
             fi
         fi
-        echo "hot/$hotfix_name"
-        return
-    fi
-
-    # Handle release branches
-    if [[ "$branch_name" == release/* ]]; then
+        log "Fallback name for hotfix branch: $hotfix_name (NOT CACHED)"
+        echo "$hotfix_name"
+    elif [[ "$branch_name" == release/* ]]; then
         local release_name="${branch_name#release/}"
-        # Truncate if too long, keep first 12 chars or up to first dash
         if [[ ${#release_name} -gt 12 ]]; then
             release_name="${release_name%%-*}"
             if [[ ${#release_name} -gt 12 ]]; then
                 release_name="${release_name:0:12}"
             fi
         fi
-        echo "rel/$release_name"
-        return
+        log "Fallback name for release branch: $release_name (NOT CACHED)"
+        echo "$release_name"
+    else
+        # For other branches, use the name as-is but truncate if needed
+        local fallback_name="$branch_name"
+        if [[ ${#fallback_name} -gt 15 ]]; then
+            fallback_name="${fallback_name:0:15}"
+        fi
+        log "Fallback name for other branch: $fallback_name (NOT CACHED)"
+        echo "$fallback_name"
     fi
-
-    # For other branches, use the name as-is but truncate if needed
-    if [[ ${#branch_name} -gt 15 ]]; then
-        branch_name="${branch_name:0:15}"
-    fi
-    echo "$branch_name"
 }
 
 # Check if we are in a git repository
