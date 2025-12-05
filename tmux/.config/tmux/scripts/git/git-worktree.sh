@@ -11,6 +11,86 @@ log() {
     echo "$(date +'%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
 }
 
+# Generate window name from branch name using Option 1: Branch Type Prefixes
+generate_window_name() {
+    local branch_name="$1"
+
+    # Handle main/master branches
+    if [[ "$branch_name" == "main" || "$branch_name" == "master" ]]; then
+        echo "main"
+        return
+    fi
+
+    # Handle develop branch
+    if [[ "$branch_name" == "develop" ]]; then
+        echo "develop"
+        return
+    fi
+
+    # Handle feature branches
+    if [[ "$branch_name" == feature/* ]]; then
+        local feature_name="${branch_name#feature/}"
+        # Truncate if too long, keep first 12 chars or up to first dash
+        if [[ ${#feature_name} -gt 12 ]]; then
+            feature_name="${feature_name%%-*}"
+            if [[ ${#feature_name} -gt 12 ]]; then
+                feature_name="${feature_name:0:12}"
+            fi
+        fi
+        echo "feat/$feature_name"
+        return
+    fi
+
+    # Handle bugfix/bug branches
+    if [[ "$branch_name" == bugfix/* || "$branch_name" == bug/* ]]; then
+        local bug_name="${branch_name#bugfix/}"
+        bug_name="${bug_name#bug/}"
+        # Truncate if too long, keep first 12 chars or up to first dash
+        if [[ ${#bug_name} -gt 12 ]]; then
+            bug_name="${bug_name%%-*}"
+            if [[ ${#bug_name} -gt 12 ]]; then
+                bug_name="${bug_name:0:12}"
+            fi
+        fi
+        echo "bug/$bug_name"
+        return
+    fi
+
+    # Handle hotfix branches
+    if [[ "$branch_name" == hotfix/* ]]; then
+        local hotfix_name="${branch_name#hotfix/}"
+        # Truncate if too long, keep first 12 chars or up to first dash
+        if [[ ${#hotfix_name} -gt 12 ]]; then
+            hotfix_name="${hotfix_name%%-*}"
+            if [[ ${#hotfix_name} -gt 12 ]]; then
+                hotfix_name="${hotfix_name:0:12}"
+            fi
+        fi
+        echo "hot/$hotfix_name"
+        return
+    fi
+
+    # Handle release branches
+    if [[ "$branch_name" == release/* ]]; then
+        local release_name="${branch_name#release/}"
+        # Truncate if too long, keep first 12 chars or up to first dash
+        if [[ ${#release_name} -gt 12 ]]; then
+            release_name="${release_name%%-*}"
+            if [[ ${#release_name} -gt 12 ]]; then
+                release_name="${release_name:0:12}"
+            fi
+        fi
+        echo "rel/$release_name"
+        return
+    fi
+
+    # For other branches, use the name as-is but truncate if needed
+    if [[ ${#branch_name} -gt 15 ]]; then
+        branch_name="${branch_name:0:15}"
+    fi
+    echo "$branch_name"
+}
+
 # Check if we are in a git repository
 if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     log "Script run outside of a git repository."
@@ -151,7 +231,8 @@ create_worktree() {
         log "Creating worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'."
         git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME" "$BASE_BRANCH"
         log "Worktree for new branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
-        tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME"
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
         _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
         _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
         sleep 2
@@ -170,7 +251,8 @@ create_worktree() {
         git worktree add "$WORKTREE_DIR/$BRANCH_NAME" "$BRANCH_NAME"
         log "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
         gum style --foreground "212" "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME"
-        tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME"
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
         _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
         _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
         sleep 2
@@ -190,7 +272,9 @@ switch_worktree() {
     WORKTREE=$(git worktree list | fzf --prompt="Select a worktree to switch to: " | awk '{print $1}')
     if [ -n "$WORKTREE" ]; then
         log "Switching to worktree '$WORKTREE'."
-        tmux new-window -c "$WORKTREE"
+        BRANCH_NAME=$(basename "$WORKTREE")
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        tmux new-window -c "$WORKTREE" -n "$WINDOW_NAME"
         _handle_file_copy "$WORKTREE"
         _handle_dependency_installation "$WORKTREE" true
     else
