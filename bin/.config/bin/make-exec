@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # Define the directory to search and cache locations
 SEARCH_DIR="$HOME/dotfiles"

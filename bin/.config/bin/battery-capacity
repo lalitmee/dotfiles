@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 bat_files="/sys/class/power_supply/BAT0"
 capacity=$(cat "${bat_files}/capacity")
 echo "${capacity}"

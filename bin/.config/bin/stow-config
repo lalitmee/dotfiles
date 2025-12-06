@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # Define dotfiles repository URL
 DOTFILES_REPO="https://github.com/lalitmee/dotfiles.git"

@@ -1,14 +1,24 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 # Wrapper script to toggle nerd-dictation
 
 PID_FILE="/tmp/nerd-dictation.pid"
+NID_FILE="/tmp/nerd-dictation.nid"
 VENV_PYTHON="$HOME/.venvs/nerd-dictation/bin/python"
 NERD_DICTATION_SCRIPT="$HOME/.local/bin/nerd-dictation"
 
-# Updated notify function to accept an icon name
+# Updated notify function to accept an icon name and replace ID
 notify() {
-    # Usage: notify <icon> <summary> <body>
-    notify-send -i "$1" -u low -t 2000 "$2" "$3"
+    # Usage: notify <icon> <summary> <bodyy> [replace_id]
+    local icon="$1"
+    local summary="$2"
+    local body="$3"
+    local replace_id="$4"
+
+    if [ -n "$replace_id" ]; then
+        notify-send -i "$icon" -u low -t 2000 -r "$replace_id" -p "$summary" "$body"
+    else
+        notify-send -i "$icon" -u low -t 2000 -p "$summary" "$body"
+    fi
 }
 
 # Check if the process is still running, otherwise clean up PID file
@@ -24,14 +34,26 @@ if [ -f "$PID_FILE" ]; then
     # PID file exists, so the process should be running. Tell it to end.
     "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" end
     rm -f "$PID_FILE"
+
+    # Get previous notification ID
+    REPLACE_ID=""
+    if [ -f "$NID_FILE" ]; then
+        REPLACE_ID=$(cat "$NID_FILE")
+        rm -f "$NID_FILE"
+    fi
+
     # Use a "muted" icon for the stopped state
-    notify "microphone-sensitivity-muted-symbolic" "Speech To Text" "Not listening now..."
+    notify-send -i "microphone-sensitivity-muted-symbolic" -u low -t 2000 -r "$REPLACE_ID" "Speech To Text" "Stopped."
 else
     # PID file does not exist. Start the process.
     # The script will run in the background.
     # We set a very long pause duration to achieve 'indefinite' listening.
     # Use a standard microphone icon for the started state
     nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin --vosk-model-dir="$HOME/.local/share/vosk/vosk-model-small-en-in-0.4" &> /tmp/nerd-dictation.log &
-    notify "audio-input-microphone-high-symbolic" "Speech to Text" "Listening now..."
     echo $! > "$PID_FILE"
+
+    # Send initial notification and save ID
+    # Use 0 timeout so it stays while listening
+    NID=$(notify-send -i "audio-input-microphone-high-symbolic" -u low -t 0 -p "Speech to Text" "Listening now...")
+    echo "$NID" > "$NID_FILE"
 fi

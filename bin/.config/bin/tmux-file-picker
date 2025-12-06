@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -euo pipefail
 
 _select_zoxide_dir() {
@@ -171,7 +171,7 @@ main() {
 	# When using zoxide, return absolute paths
 	if $use_zoxide; then
 		# Prepend search directory to each filename to create full paths
-		relative_paths=("${selected_files[@]/#/$search_dir\/}")
+		relative_paths=("${search_dir}/"${^selected_files})
 	else
 		# Standard path relativization logic
 		local base_dir_for_relativization=""
@@ -188,7 +188,7 @@ main() {
 			[[ "$OSTYPE" == "darwin"* ]] && realpath_cmd="grealpath"
 
 			# Prepend search directory to each filename to create full paths
-			local full_paths=("${selected_files[@]/#/$search_dir\/}")
+			local full_paths=("${search_dir}/"${^selected_files})
 
 			while IFS= read -r line; do
 				if [[ -n "$line" ]]; then

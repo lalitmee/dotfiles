@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # Define font directory
 FONT_DIR="$HOME/Projects/Personal/Github/fonts"
