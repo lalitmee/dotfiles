@@ -3,8 +3,11 @@
 
 PID_FILE="/tmp/nerd-dictation.pid"
 NID_FILE="/tmp/nerd-dictation.nid"
+PROFILE_FILE="/tmp/nerd-dictation.profile"
 VENV_PYTHON="$HOME/.venvs/nerd-dictation/bin/python"
 NERD_DICTATION_SCRIPT="$HOME/.local/bin/nerd-dictation"
+# Use the larger US English model for better accuracy
+VOSK_MODEL_DIR="$HOME/.local/share/vosk/model-en-us"
 
 # Updated notify function to accept an icon name and replace ID
 notify() {
@@ -14,15 +17,55 @@ notify() {
     local body="$3"
     local replace_id="$4"
 
-    if [ -n "$replace_id" ]; then
+    if [[ -n "$replace_id" ]]; then
         notify-send -i "$icon" -u low -t 2000 -r "$replace_id" -p "$summary" "$body"
     else
         notify-send -i "$icon" -u low -t 2000 -p "$summary" "$body"
     fi
 }
 
+setup_audio() {
+    # 1. Dynamic Bluetooth Headset Detection
+    # Find any card that uses the bluez5 device driver
+    CARD_NAME=$(pactl -f json list cards | jq -r '.[] | select(.driver == "module-bluez5-device.c") | .name' | head -n 1)
+
+    SOURCE_NAME=""
+
+    if [[ -n "$CARD_NAME" ]]; then
+        # Headset found, check profile
+        ACTIVE_PROFILE=$(pactl -f json list cards | jq -r --arg CARD_NAME "$CARD_NAME" '.[] | select(.name == $CARD_NAME) | .active_profile')
+
+        # Save current profile to restore later
+        echo "$CARD_NAME:$ACTIVE_PROFILE" > "$PROFILE_FILE"
+
+        if [[ "$ACTIVE_PROFILE" != "headset-head-unit" ]]; then
+            pactl set-card-profile "$CARD_NAME" headset-head-unit
+            # Give it a moment to switch
+            sleep 1
+        fi
+    fi
+}
+
+restore_audio() {
+    if [[ -f "$PROFILE_FILE" ]]; then
+        local content=$(cat "$PROFILE_FILE")
+        local card_name=${content%%:*}
+        local prev_profile=${content#*:}
+
+        if [[ -n "$card_name" && -n "$prev_profile" ]]; then
+            # Check current profile
+            CURRENT_PROFILE=$(pactl -f json list cards | jq -r --arg CARD_NAME "$card_name" '.[] | select(.name == $CARD_NAME) | .active_profile')
+
+            if [[ "$CURRENT_PROFILE" != "$prev_profile" ]]; then
+                pactl set-card-profile "$card_name" "$prev_profile"
+            fi
+        fi
+        rm -f "$PROFILE_FILE"
+    fi
+}
+
 # Check if the process is still running, otherwise clean up PID file
-if [ -f "$PID_FILE" ]; then
+if [[ -f "$PID_FILE" ]]; then
     PID=$(cat "$PID_FILE")
     if ! ps -p "$PID" > /dev/null; then
         # Process is not running, remove stale PID file
@@ -30,14 +73,17 @@ if [ -f "$PID_FILE" ]; then
     fi
 fi
 
-if [ -f "$PID_FILE" ]; then
+if [[ -f "$PID_FILE" ]]; then
     # PID file exists, so the process should be running. Tell it to end.
     "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" end
     rm -f "$PID_FILE"
 
+    # Restore audio profile immediately after stopping
+    restore_audio
+
     # Get previous notification ID
     REPLACE_ID=""
-    if [ -f "$NID_FILE" ]; then
+    if [[ -f "$NID_FILE" ]]; then
         REPLACE_ID=$(cat "$NID_FILE")
         rm -f "$NID_FILE"
     fi
@@ -46,10 +92,14 @@ if [ -f "$PID_FILE" ]; then
     notify-send -i "microphone-sensitivity-muted-symbolic" -u low -t 2000 -r "$REPLACE_ID" "Speech To Text" "Stopped."
 else
     # PID file does not exist. Start the process.
+
+    # Setup Audio (save profile, switch to headset)
+    setup_audio
+
     # The script will run in the background.
     # We set a very long pause duration to achieve 'indefinite' listening.
     # Use a standard microphone icon for the started state
-    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin --vosk-model-dir="$HOME/.local/share/vosk/vosk-model-small-en-in-0.4" &> /tmp/nerd-dictation.log &
+    nohup "$VENV_PYTHON" "$NERD_DICTATION_SCRIPT" begin --vosk-model-dir="$VOSK_MODEL_DIR" &> /tmp/nerd-dictation.log &
     echo $! > "$PID_FILE"
 
     # Send initial notification and save ID

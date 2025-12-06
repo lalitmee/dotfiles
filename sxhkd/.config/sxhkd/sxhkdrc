@@ -365,7 +365,7 @@ super + ctrl + w
 
 # Whisper Dictation
 super + alt + d
-    ~/dotfiles/bin/.config/bin/dictate-whisper
+    ~/.config/bin/dictate-whisper
 
 # Searchable Keybinding Cheatsheet
 super + alt + s
