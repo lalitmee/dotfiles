@@ -363,6 +363,10 @@ super + w
 super + ctrl + w
     ~/.config/bin/toggle-headset-profile
 
+# Whisper Dictation
+super + alt + d
+    ~/dotfiles/bin/.config/bin/dictate-whisper
+
 # Searchable Keybinding Cheatsheet
 super + alt + s
     ~/.config/bin/sxhkd-cheatsheet
