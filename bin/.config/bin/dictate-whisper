@@ -5,6 +5,7 @@
 
 PID_FILE="/tmp/dictate-whisper.pid"
 NID_FILE="/tmp/dictate-whisper.nid"
+PROFILE_FILE="/tmp/dictate-whisper.profile"
 AUDIO_FILE="/tmp/dictate-whisper.wav"
 OUTPUT_BASE="/tmp/dictate-whisper"
 # Whisper adds extensions automatically, so we'll look for .txt
@@ -40,6 +41,9 @@ setup_audio() {
         # Headset found, check profile
         ACTIVE_PROFILE=$(pactl -f json list cards | jq -r --arg CARD_NAME "$CARD_NAME" '.[] | select(.name == $CARD_NAME) | .active_profile')
 
+        # Save current profile to restore later
+        echo "$CARD_NAME:$ACTIVE_PROFILE" > "$PROFILE_FILE"
+
         if [[ "$ACTIVE_PROFILE" != "headset-head-unit" ]]; then
             pactl set-card-profile "$CARD_NAME" headset-head-unit
             # Give it a moment to switch
@@ -73,6 +77,24 @@ setup_audio() {
     echo "$NC_SOURCE"
 }
 
+restore_audio() {
+    if [[ -f "$PROFILE_FILE" ]]; then
+        local content=$(cat "$PROFILE_FILE")
+        local card_name=${content%%:*}
+        local prev_profile=${content#*:}
+
+        if [[ -n "$card_name" && -n "$prev_profile" ]]; then
+            # Check current profile
+            CURRENT_PROFILE=$(pactl -f json list cards | jq -r --arg CARD_NAME "$card_name" '.[] | select(.name == $CARD_NAME) | .active_profile')
+
+            if [[ "$CURRENT_PROFILE" != "$prev_profile" ]]; then
+                pactl set-card-profile "$card_name" "$prev_profile"
+            fi
+        fi
+        rm -f "$PROFILE_FILE"
+    fi
+}
+
 if [[ -f "$PID_FILE" ]]; then
     # Stop recording
     PID=$(cat "$PID_FILE")
@@ -80,6 +102,9 @@ if [[ -f "$PID_FILE" ]]; then
         kill "$PID"
     fi
     rm -f "$PID_FILE"
+
+    # Restore audio profile immediately after stopping recording
+    restore_audio
 
     # Get previous notification ID
     REPLACE_ID=""
@@ -120,10 +145,6 @@ if [[ -f "$PID_FILE" ]]; then
     fi
 
     rm -f "$AUDIO_FILE"
-
-    # Optional: Switch headset back to A2DP?
-    # User didn't explicitly ask to switch back, but it's good practice.
-    # However, they might want to continue dictating. Let's leave it for now.
 
 else
     # Start recording

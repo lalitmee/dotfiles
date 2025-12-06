@@ -1,32 +1,105 @@
 #!/usr/bin/env zsh
 
 # Script to toggle the Bluetooth headset profile between high-quality audio and dictation mode.
+# It handles cases where the A2DP profile is missing by reconnecting the device.
 
 # --- Configuration ---
 # The description of your headset as it appears in `pactl list cards`
 HEADSET_DESCRIPTION="Boult Audio Airbass"
+# Notification timeout in milliseconds
+NOTIFY_TIMEOUT=3000
+
+# --- Helper Functions ---
+
+notify() {
+    local icon="$1"
+    local title="$2"
+    local message="$3"
+    notify-send -i "$icon" -t "$NOTIFY_TIMEOUT" -u normal "$title" "$message"
+}
 
 # --- Script Logic ---
 
 # Find the card name for the headset
+# We use a more robust way to find the card name associated with the description
 CARD_NAME=$(pactl list cards | grep -B 20 "$HEADSET_DESCRIPTION" | grep 'Name:' | awk '{print $2}' | head -n 1)
 
 # Check if the headset is connected
 if [[ -z "$CARD_NAME" ]]; then
-    notify-send -u normal "Headset Profile" "$HEADSET_DESCRIPTION not found."
+    notify "dialog-error" "Headset Profile" "$HEADSET_DESCRIPTION not found. Is it connected?"
     exit 1
 fi
 
-# Get the active profile
-ACTIVE_PROFILE=$(pactl -f json list cards | jq -r --arg CARD_NAME "$CARD_NAME" '.[] | select(.name == $CARD_NAME) | .active_profile')
+# Get the MAC address (useful for bluetoothctl)
+# Extract MAC from card name usually formatted like bluez_card.XX_XX_XX_XX_XX_XX
+MAC_ADDRESS=$(echo "$CARD_NAME" | sed 's/bluez_card.//; s/_/:/g')
 
-# Toggle the profile
-if [[ "$ACTIVE_PROFILE" == "a2dp-sink" ]]; then
-    # Switch to headset profile for dictation
-    pactl set-card-profile "$CARD_NAME" headset-head-unit
-    notify-send -i microphone-sensitivity-high-symbolic -u normal "Headset Profile Changed" "Switched to <b>Dictation Mode</b> (HSP/HFP)."
+# Get the active profile
+ACTIVE_PROFILE=$(pactl list cards | grep -A 30 "$CARD_NAME" | grep "Active Profile" | cut -d: -f2 | xargs)
+
+echo "Card: $CARD_NAME"
+echo "MAC: $MAC_ADDRESS"
+echo "Active Profile: $ACTIVE_PROFILE"
+
+# Define profile names (these can vary slightly, but usually follow these patterns)
+PROFILE_A2DP="a2dp-sink"
+PROFILE_HFP="headset-head-unit"
+
+# Check if we are currently on A2DP (High Quality)
+if [[ "$ACTIVE_PROFILE" == *"$PROFILE_A2DP"* ]]; then
+    # --- Switch to Dictation Mode (HFP/HSP) ---
+    echo "Switching to Dictation Mode..."
+    if pactl set-card-profile "$CARD_NAME" "$PROFILE_HFP"; then
+        notify "microphone-sensitivity-high-symbolic" "Headset Profile Changed" "Switched to <b>Dictation Mode</b> (HSP/HFP)."
+    else
+        # Try fallback if exact name fails (sometimes it has codecs appended)
+        # We list profiles and find one that matches 'headset-head-unit'
+        AVAILABLE_HFP=$(pactl list cards | grep -A 50 "$CARD_NAME" | grep "headset-head-unit" | head -n 1 | awk '{print $1}' | sed 's/://')
+        if [[ -n "$AVAILABLE_HFP" ]]; then
+             pactl set-card-profile "$CARD_NAME" "$AVAILABLE_HFP"
+             notify "microphone-sensitivity-high-symbolic" "Headset Profile Changed" "Switched to <b>Dictation Mode</b> ($AVAILABLE_HFP)."
+        else
+            notify "dialog-error" "Headset Profile" "Failed to switch to Dictation Mode."
+            exit 1
+        fi
+    fi
+
 else
-    # Switch back to high-quality audio
-    pactl set-card-profile "$CARD_NAME" a2dp-sink
-    notify-send -i audio-headphones -u normal "Headset Profile Changed" "Switched to <b>High-Quality Audio</b> (A2DP)."
+    # --- Switch to High-Quality Audio (A2DP) ---
+    echo "Switching to High-Quality Audio..."
+
+    # Check if A2DP profile is actually available
+    # We look for 'a2dp-sink' in the Profiles list for this card
+    HAS_A2DP=$(pactl list cards | grep -A 50 "$CARD_NAME" | grep "Profiles:" -A 20 | grep "$PROFILE_A2DP")
+
+    if [[ -z "$HAS_A2DP" ]]; then
+        echo "A2DP profile missing. Attempting to reconnect..."
+        notify "network-wireless-acquiring" "Headset Profile" "A2DP profile missing. Reconnecting headset..."
+
+        # Disconnect and Reconnect
+        bluetoothctl disconnect "$MAC_ADDRESS"
+        sleep 2
+        bluetoothctl connect "$MAC_ADDRESS"
+
+        # Wait for connection to stabilize
+        sleep 5
+
+        # Re-check card name as it might have changed ID (though name usually stays same)
+        # But for bluez cards, the name is based on MAC, so it should be stable.
+    fi
+
+    # Try setting the profile
+    if pactl set-card-profile "$CARD_NAME" "$PROFILE_A2DP"; then
+        notify "audio-headphones" "Headset Profile Changed" "Switched to <b>High-Quality Audio</b> (A2DP)."
+    else
+         # Try fallback if exact name fails
+        AVAILABLE_A2DP=$(pactl list cards | grep -A 50 "$CARD_NAME" | grep "a2dp-sink" | head -n 1 | awk '{print $1}' | sed 's/://')
+        if [[ -n "$AVAILABLE_A2DP" ]]; then
+             pactl set-card-profile "$CARD_NAME" "$AVAILABLE_A2DP"
+             notify "audio-headphones" "Headset Profile Changed" "Switched to <b>High-Quality Audio</b> ($AVAILABLE_A2DP)."
+        else
+            notify "dialog-error" "Headset Profile" "Failed to switch to High-Quality Audio."
+            exit 1
+        fi
+    fi
 fi
