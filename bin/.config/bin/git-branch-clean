@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -euo pipefail
 
@@ -30,7 +30,7 @@ if [[ "$BRANCH_TYPE" == "local" ]]; then
 
 	echo "The following local branches will be deleted:"
 	echo "$BRANCHES"
-	read -rp "Proceed? [y/N] " CONFIRM
+	read "CONFIRM?Proceed? [y/N] "
 	if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
 		echo "$BRANCHES" | xargs -n 1 git branch -D
 	else
@@ -52,7 +52,7 @@ elif [[ "$BRANCH_TYPE" == "remote" ]]; then
 
 	echo "The following remote branches will be deleted from $REMOTE:"
 	echo "$BRANCHES"
-	read -rp "Proceed? [y/N] " CONFIRM
+	read "CONFIRM?Proceed? [y/N] "
 	if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
 		echo "$BRANCHES" | xargs -n 1 -I {} git push "$REMOTE" --delete "{}"
 	else

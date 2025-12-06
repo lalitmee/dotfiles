@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 # Changes the volume level of an audio track
 # Signals an update in polybar for the volume module
 

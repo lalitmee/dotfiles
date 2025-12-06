@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env zsh
 
 git clone https://gitlab.com/dwt1/shell-color-scripts.git
 cd shell-color-scripts || exit

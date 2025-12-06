@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # Directory containing the install scripts
 INSTALL_DIR="$HOME/dotfiles/scripts/install"
@@ -14,7 +14,7 @@ selected_scripts=$(find "$INSTALL_DIR" -type f ! -name "*.sh" ! -name "*.zsh" | 
 
 # Run selected scripts
 if [ -n "$selected_scripts" ]; then
-    for script in $selected_scripts; do
+    for script in ${(f)selected_scripts}; do
         gum_style "Running $script..."
         bash "$script"
     done

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env zsh
 
 emojis=$(curl -sSL 'https://git.io/JXXO7')
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # More robust sxhkd reload script
 # Sends USR1 signal to reload config, and restarts if it crashes.
 
