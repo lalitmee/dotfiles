@@ -89,7 +89,9 @@ run_updates() {
 
         local old_version=$(get_npm_version "$base_package_name")
 
-        if npm install -g "$package_name_with_tag"; then
+        # Capture both stdout and stderr to check for errors
+        local install_output
+        if install_output=$(npm install -g "$package_name_with_tag" 2>&1); then
             local new_version=$(get_npm_version "$base_package_name")
             local status_icon="➡️" # Default: No Change
 
@@ -102,7 +104,36 @@ run_updates() {
             gum_style "✅ Success: $package_name_with_tag processed."
             update_summary+=("$base_package_name,$status_icon,$old_version,$new_version")
         else
-            gum_style "❌ Error: Failed to update $package_name_with_tag. Check the output above."
+            # Check for ENOTEMPTY error
+            if echo "$install_output" | grep -q "ENOTEMPTY"; then
+                gum_style "⚠️  ENOTEMPTY error detected. Attempting to fix..."
+
+                # Try to find the installation path to remove
+                # We assume the standard global node_modules location
+                local npm_root=$(npm root -g)
+                local package_path="$npm_root/$base_package_name"
+
+                if [[ -d "$package_path" ]]; then
+                    gum_style "🗑️  Removing corrupted installation at: $package_path"
+                    rm -rf "$package_path"
+
+                    gum_style "🔄 Retrying installation..."
+                    if npm install -g "$package_name_with_tag"; then
+                        local new_version=$(get_npm_version "$base_package_name")
+                        gum_style "✅ Success: $package_name_with_tag installed after fix."
+                        update_summary+=("$base_package_name,✨,$old_version,$new_version (Fixed)")
+                        return 0
+                    else
+                        gum_style "❌ Error: Retry failed for $package_name_with_tag."
+                    fi
+                else
+                    gum_style "❌ Error: Could not locate package path at $package_path to fix."
+                fi
+            fi
+
+            gum_style "❌ Error: Failed to update $package_name_with_tag."
+            # print the error output for debugging
+            echo "$install_output"
             update_summary+=("$base_package_name,❌,$old_version,Update Failed")
         fi
     }
@@ -213,19 +244,9 @@ run_updates() {
     echo
 
     if [[ ${#update_summary[@]} -gt 1 ]]; then
-        # Always show text table format (more reliable in tmux)
-        echo "┌─────────────────────────────────────────────────────────────┐"
-        printf "│ %-20s │ %-6s │ %-12s │ %-12s │\n" "Tool" "Status" "Old Version" "New Version"
-        echo "├─────────────────────────────────────────────────────────────┤"
-
-        for row in "${update_summary[@]}"; do
-            if [[ "$row" != "Tool,Status,Old Version,New Version" ]]; then
-                IFS=',' read -r tool update_status old_ver new_ver <<< "$row"
-                printf "│ %-20s │ %-6s │ %-12s │ %-12s │\n" "$tool" "$update_status" "$old_ver" "$new_ver"
-            fi
-        done
-
-        echo "└─────────────────────────────────────────────────────────────┘"
+        # Use gum table for interactive display
+        # The first line of summary_string is the header
+        echo -e "$summary_string" | gum table --border rounded --height 10
     else
         gum_style "ℹ️  No updates were processed."
     fi
@@ -236,12 +257,19 @@ run_updates() {
     # Wait for user input so they can see the results
     echo
     if [[ -n "$AI_UPDATE_IN_WINDOW" ]]; then
-        gum_style "Results displayed above. Window will auto-close in 30 seconds."
-        gum_style "Use Ctrl+C or tmux commands to close immediately if needed."
-        sleep 30
+        # gum table is interactive and waits for user to close it, so we don't need sleep here.
+        # But if gum table wasn't shown (no updates), we might want to pause.
+        if [[ ${#update_summary[@]} -le 1 ]]; then
+             gum_style "Press any key to close..."
+             read -n 1 -s -r 2>/dev/null || true
+        fi
     elif [[ -t 0 ]]; then
-        gum_style "Press any key to close..."
-        read -n 1 -s -r 2>/dev/null || true
+        # If running in a terminal but not in the special window mode (unlikely given the script logic),
+        # we still might want to pause if gum table wasn't shown.
+        if [[ ${#update_summary[@]} -le 1 ]]; then
+            gum_style "Press any key to close..."
+            read -n 1 -s -r 2>/dev/null || true
+        fi
     fi
 }
 

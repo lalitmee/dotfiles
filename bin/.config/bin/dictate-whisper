@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Dictation script using OpenAI Whisper
+# Dependencies: arecord, whisper (openai-whisper), xdotool, notify-send
+
+PID_FILE="/tmp/dictate-whisper.pid"
+NID_FILE="/tmp/dictate-whisper.nid"
+AUDIO_FILE="/tmp/dictate-whisper.wav"
+OUTPUT_BASE="/tmp/dictate-whisper"
+# Whisper adds extensions automatically, so we'll look for .txt
+OUTPUT_FILE="${OUTPUT_BASE}.txt"
+
+notify() {
+    # Usage: notify <icon> <summary> <bodyy> [replace_id]
+    local icon="$1"
+    local summary="$2"
+    local body="$3"
+    local replace_id="$4"
+
+    if [ -n "$replace_id" ]; then
+        notify-send -i "$icon" -u low -t 2000 -r "$replace_id" -p "$summary" "$body"
+    else
+        notify-send -i "$icon" -u low -t 2000 -p "$summary" "$body"
+    fi
+}
+
+if [ -f "$PID_FILE" ]; then
+    # Stop recording
+    PID=$(cat "$PID_FILE")
+    if ps -p "$PID" > /dev/null; then
+        kill "$PID"
+    fi
+    rm -f "$PID_FILE"
+
+    # Get previous notification ID
+    REPLACE_ID=""
+    if [ -f "$NID_FILE" ]; then
+        REPLACE_ID=$(cat "$NID_FILE")
+        rm -f "$NID_FILE"
+    fi
+
+    # Update notification to "Transcribing..."
+    # We use a longer timeout or 0 (never expire) for this one so it stays until done
+    # But notify function uses 2000. Let's override for this specific call if we want it to stick.
+    # Actually, let's just use the function but maybe increase timeout if needed.
+    # For now, standard timeout is fine as long as we replace it.
+    # Wait, user wants it to NOT go away. So we should use a large timeout.
+
+    TRANS_NID=$(notify-send -i "microphone-sensitivity-muted-symbolic" -u low -t 0 -r "$REPLACE_ID" -p "Whisper" "Transcribing...")
+
+    # Transcribe
+    # --model base.en is a good balance of speed and accuracy for English
+    # --output_format txt ensures we get a plain text file
+    # --output_dir /tmp ensures we don't clutter the current directory
+    # --fp16 False is often needed on CPU or non-NVIDIA setups to avoid warnings/errors,
+    # but let's try without first or suppress if needed.
+    # Actually, let's capture stderr to avoid terminal noise if run manually,
+    # but we want to see errors if it fails.
+
+    # We use --language English to force English model usage if not specified,
+    # but base.en implies it.
+
+    whisper "$AUDIO_FILE" --model base.en --output_format txt --output_dir /tmp --fp16 False > /dev/null 2>&1
+
+    if [ -f "$OUTPUT_FILE" ]; then
+        TEXT=$(cat "$OUTPUT_FILE")
+
+        if [ -n "$TEXT" ]; then
+            xdotool type --delay 10 "$TEXT"
+            notify-send -i "emblem-default" -u low -t 2000 -r "$TRANS_NID" "Whisper" "Done."
+        else
+            notify-send -i "dialog-error" -u low -t 2000 -r "$TRANS_NID" "Whisper" "No text detected."
+        fi
+        rm -f "$OUTPUT_FILE"
+    else
+        notify-send -i "dialog-error" -u low -t 2000 -r "$TRANS_NID" "Whisper" "Transcription failed."
+    fi
+
+    rm -f "$AUDIO_FILE"
+
+else
+    # Start recording
+    # -f cd is 16 bit little endian, 44100Hz, stereo.
+    # Whisper resamples to 16k mono anyway, so we can record at lower quality to save space/cpu?
+    # But -f cd is standard and safe.
+    arecord -f cd "$AUDIO_FILE" > /dev/null 2>&1 &
+    PID=$!
+    echo $PID > "$PID_FILE"
+
+    # Send initial notification and save ID
+    # Use 0 timeout so it stays while recording? Or just long enough.
+    # Let's use 0 (never expire) so it stays visible while recording.
+    NID=$(notify-send -i "audio-input-microphone-high-symbolic" -u low -t 0 -p "Whisper" "Listening...")
+    echo "$NID" > "$NID_FILE"
+fi
