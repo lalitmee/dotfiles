@@ -353,7 +353,7 @@ super + alt + r
 
 # Start Custom Work Timer
 super + alt + w
-    WORK_MIN=$(rofi -dmenu -p "Work minutes:") && ~/.config/polybar/scripts/pomodoro/main.sh --start-work $WORK_MIN
+    WORK_MIN=$(rofi -dmenu -p "Work minutes:" -theme "~/.config/rofi/cheatsheet.rasi" -font "Operator Mono Lig 11") && ~/.config/polybar/scripts/pomodoro/main.sh --start-work $WORK_MIN
 
 # Live Speech-to-Text (Nerd Dictation Toggle)
 super + w
