@@ -92,7 +92,10 @@ if [[ -f "$PID_FILE" ]]; then
     TRANS_NID=$(notify-send -i "microphone-sensitivity-muted-symbolic" -u low -t 0 -r "$REPLACE_ID" -p "Whisper" "Transcribing...")
 
     # Transcribe
-    whisper "$AUDIO_FILE" --model "$MODEL" --initial_prompt "$INITIAL_PROMPT" --output_format txt --output_dir /tmp --fp16 False > /dev/null 2>&1
+    # whisper "$AUDIO_FILE" --model "$MODEL" --initial_prompt "$INITIAL_PROMPT" --output_format txt --output_dir /tmp --fp16 False > /dev/null 2>&1
+
+    # Use faster-whisper helper script
+    ~/.venvs/faster-whisper/bin/python ~/.config/bin/dictate-process.py "$AUDIO_FILE" --model "$MODEL" --initial_prompt "$INITIAL_PROMPT" --output_file "$OUTPUT_FILE" > /dev/null 2>&1
 
     if [[ -f "$OUTPUT_FILE" ]]; then
         TEXT=$(cat "$OUTPUT_FILE")
