@@ -615,7 +615,7 @@ return {
 
     { --[[ todo-comments.nvim ]]
         "folke/todo-comments.nvim",
-        event = "VeryLazy",
+        event = "BufReadPost",
         cmd = {
             "TodoTrouble",
             "TodoTelescope",

@@ -1,6 +1,7 @@
 return {
     { -- [[ tmux-awesome-manager.nvim ]]
         -- "otavioschwanck/tmux-awesome-manager.nvim",
+        enabled = false,
         "lalitmee/tmux-awesome-manager.nvim",
         dev = true,
         event = "VeryLazy",

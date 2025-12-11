@@ -2,7 +2,6 @@ return {
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
         commit = "94886d6dda708ab2a4b3e33662d846d5e7d4f06f",
-        event = "VeryLazy",
         ft = "org",
         cmd = "Org",
         init = function()
