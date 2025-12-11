@@ -1,0 +1,32 @@
+# --- Dependencies & Heavy Folders ---
+# Biggest performance killer. AI doesn't need to index library internals.
+node_modules/
+
+# --- Build Outputs ---
+# derived files that confuse the AI and waste resources
+dist/
+build/
+out/
+.next/
+coverage/
+
+# --- Package Managers ---
+# Lock files are too large and change too often causing constant re-indexing
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# --- Git Internals ---
+# Vital to ignore this so Cursor doesn't fight your terminal for git locks
+.git/
+
+# --- Misc / System ---
+.DS_Store
+*.log
+
+# --- Tests & Large Assets ---
+# Optional: if you don't want AI context on large assets
+public/assets/
+*.svg
+*.png
+*.jpg
