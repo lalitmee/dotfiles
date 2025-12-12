@@ -255,3 +255,5 @@ fi
 # zprof
 
 # vim:foldmethod=marker
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
