@@ -40,8 +40,8 @@ return {
             prev_repeat = "[[",
             operators = {
                 ["q"] = { -- [[ QuickFix Next/Prev ]]
-                    next = { rhs = "<cmd>QNext<CR>", opts = { desc = "Next QF Item" } },
-                    prev = { rhs = "<cmd>QPrev<CR>", opts = { desc = "Previous QF Item" } },
+                    next = { rhs = "<cmd>cnext<CR>", opts = { desc = "Next QF Item" } },
+                    prev = { rhs = "<cmd>cprev<CR>", opts = { desc = "Previous QF Item" } },
                 },
 
                 ["h"] = { -- [[ Gitsigns Hunk Next/Prev ]]
