@@ -14,7 +14,7 @@ local tailwindcss = get_server_options("tailwindcss")
 return {
     bashls = true,
     clangd = clangd,
-    copilot = true,
+    copilot = false,
     cssls = true,
     dockerls = true,
     emmet_ls = emmet_ls,
@@ -26,7 +26,7 @@ return {
     rust_analyzer = rust_analyzer,
     tailwindcss = tailwindcss,
     taplo = true,
-    ts_ls = false,
-    tsgo = true,
+    ts_ls = true,
+    tsgo = false,
     vimls = false,
 }
