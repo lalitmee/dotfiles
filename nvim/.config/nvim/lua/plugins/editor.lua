@@ -5,14 +5,8 @@ return {
         "saghen/blink.cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
-            { "xzbdmw/colorful-menu.nvim", config = {} },
-            { "echasnovski/mini.icons", version = "*" },
             "mikavilpas/blink-ripgrep.nvim",
-            "moyiz/blink-emoji.nvim",
-            {
-                "Kaiser-Yang/blink-cmp-dictionary",
-                dependencies = { "nvim-lua/plenary.nvim" },
-            },
+            "Kaiser-Yang/blink-cmp-dictionary",
         },
         version = "*",
         opts = {
