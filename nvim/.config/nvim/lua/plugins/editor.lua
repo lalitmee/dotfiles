@@ -64,13 +64,6 @@ return {
                         min_keyword_length = 3,
                         opts = {},
                     },
-
-                    emoji = {
-                        module = "blink-emoji",
-                        name = "Emoji",
-                        score_offset = 15,
-                        opts = { insert = true },
-                    },
                 },
             },
             enabled = function()
@@ -95,39 +88,6 @@ return {
 
                 menu = {
                     border = "rounded",
-                    -- NOTE: by blink.cmp for mini.icon
-                    -- draw = {
-                    --     columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
-                    --     components = {
-                    --         kind_icon = {
-                    --             ellipsis = false,
-                    --             text = function(ctx)
-                    --                 local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-                    --                 return kind_icon
-                    --             end,
-                    --             -- Optionally, you may also use the highlights from mini.icons
-                    --             highlight = function(ctx)
-                    --                 local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                    --                 return hl
-                    --             end,
-                    --         },
-                    --     },
-                    -- },
-
-                    -- NOTE: by colorful-menu.nvim
-                    draw = {
-                        columns = { { "kind_icon" }, { "label" }, { "source_name" } },
-                        components = {
-                            label = {
-                                text = function(ctx)
-                                    return require("colorful-menu").blink_components_text(ctx)
-                                end,
-                                highlight = function(ctx)
-                                    return require("colorful-menu").blink_components_highlight(ctx)
-                                end,
-                            },
-                        },
-                    },
                 },
 
                 documentation = {
