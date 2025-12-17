@@ -27,8 +27,11 @@
       "type": "local"
     },
     "playwright": {
-      "command": ["npx", "-y", "@playwright/mcp@latest"],
-      "type": "local"
+      "command": ["npx", "-y", "@playwright/mcp@latest", "--extension"],
+      "type": "local",
+      "environment": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "IcM0jpMA4K5j3CMCn_lDqJirqRqei8OGUbqwgSyqs5U"
+      }
     }
   }
 }
