@@ -83,15 +83,17 @@ M.mappings = function(client)
     nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", extend_map_opts({ desc = "Go To Implementations" }))
 
     nmap("[d", function()
-        vim.diagnostic.goto_prev({
-            severity = lk.get_highest_error_severity(),
+        vim.diagnostic.jump({
+            count = -1,
+            -- severity = lk.get_highest_error_severity(),
             wrap = true,
             float = true,
         })
     end)
     nmap("]d", function()
-        vim.diagnostic.goto_next({
-            severity = lk.get_highest_error_severity(),
+        vim.diagnostic.jump({
+            count = 1,
+            -- severity = lk.get_highest_error_severity(),
             wrap = true,
             float = true,
         })
