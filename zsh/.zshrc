@@ -108,10 +108,8 @@ export COMPLETION_WAITING_DOTS="true"
 plugins=(
     fast-syntax-highlighting
     fzf-tab
-    git
     vi-mode
     zsh-autosuggestions
-    zsh-wakatime
 )
 
 # zsh completions
