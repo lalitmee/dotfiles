@@ -204,7 +204,6 @@ return {
         "ravitemer/codecompanion-history.nvim",
         {
             "jinzhongjia/codecompanion-gitcommit.nvim",
-            tag = "0.0.17",
         },
         {
             "Davidyz/VectorCode",
