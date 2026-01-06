@@ -149,7 +149,7 @@
       "command": "npx",
       "args": ["@playwright/mcp@latest", "--extension"],
       "env": {
-        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "IcM0jpMA4K5j3CMCn_lDqJirqRqei8OGUbqwgSyqs5U"
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "$PLAYWRIGHT_MCP_EXTENSION_TOKEN"
       },
       "trust": true
     }
