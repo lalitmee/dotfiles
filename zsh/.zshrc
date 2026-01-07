@@ -215,9 +215,11 @@ znap eval rbenv "rbenv init -"
 # -------------------------------------------------------------------
 # # NOTE: fnm {{{
 # -------------------------------------------------------------------
+
 # Then load fnm silently
-# export FNM_RESOLVE_ENGINES=false
-# eval "$(fnm env --use-on-cd --shell zsh)" 2>/dev/null
+export FNM_RESOLVE_ENGINES=false
+eval "$(fnm env --use-on-cd --shell zsh)" 2>/dev/null
+
 # }}}
 # -------------------------------------------------------------------
 
