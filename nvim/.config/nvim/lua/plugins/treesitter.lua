@@ -3,6 +3,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         branch = "main", -- Use main branch for v1.0 rewrite
         lazy = false,
+        build = ":TSUpdate",
         dependencies = {
             "MeanderingProgrammer/treesitter-modules.nvim", -- Restores legacy functionality
             "nvim-treesitter/nvim-treesitter-context",
