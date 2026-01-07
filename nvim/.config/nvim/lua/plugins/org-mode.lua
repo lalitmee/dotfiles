@@ -76,6 +76,10 @@ return {
 
             org_archive_location = "~/Projects/Personal/Github/second-brain/archive/inbox.org::",
 
+            -- Indentation and View
+            org_startup_indented = true,
+            org_hide_emphasis_markers = true,
+
             -- Set the agenda to show a 14-day span
             org_agenda_span = 14,
 
@@ -432,6 +436,10 @@ return {
                     }):open(data)
                 end,
             }
+
+            -- Manual Treesitter Parser Config for Org
+            require('orgmode').setup_ts_grammar()
+
 
             --------------------------------------------------------------------------------
             -- -- NOTE: Just a little bit of code that uses Treesitter to handle different {{{
