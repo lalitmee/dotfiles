@@ -117,13 +117,30 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source $ZSH/oh-my-zsh.sh
 
+#-------------------------------------------------------------------------------
+# # NOTE: p10k config {{{
+#-------------------------------------------------------------------------------
+
 # # ~/.zshrc — disable Powerlevel10k when Cursor Agent runs
 # if [[ -n "$CURSOR_AGENT" ]]; then
 #     # Skip theme initialization for better compatibility
 # else
 #     # Load p10k prompt first (no output)
 [[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+
+# --- powerlevel10k performance overrides (worktree-friendly) ---
+typeset -g POWERLEVEL9K_VCS_SHOW_UNTRACKED=false
+typeset -g POWERLEVEL9K_VCS_SHOW_STASH=false
+typeset -g POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS=0.4
+typeset -g POWERLEVEL9K_VCS_DISABLE_GITSTATUS_FORMATTING=true
+
+# --- powerlevel10k: hide untracked & stash in custom formatter ---
+typeset -g POWERLEVEL9K_VCS_{UNTRACKED,STASH}_MAX_NUM=0
 # fi
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
 
 # }}}
 # -------------------------------------------------------------------
@@ -199,8 +216,8 @@ znap eval rbenv "rbenv init -"
 # # NOTE: fnm {{{
 # -------------------------------------------------------------------
 # Then load fnm silently
-export FNM_RESOLVE_ENGINES=false
-eval "$(fnm env --use-on-cd --shell zsh)" 2>/dev/null
+# export FNM_RESOLVE_ENGINES=false
+# eval "$(fnm env --use-on-cd --shell zsh)" 2>/dev/null
 # }}}
 # -------------------------------------------------------------------
 
