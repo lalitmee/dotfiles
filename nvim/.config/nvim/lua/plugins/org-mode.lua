@@ -4,8 +4,6 @@ return {
         ft = "org",
         cmd = "Org",
         init = function()
-            require("orgmode").setup_ts_grammar()
-
             local wk = require("which-key")
             wk.add({
                 { "<leader>o", group = "org-mode" },
@@ -437,7 +435,6 @@ return {
                     }):open(data)
                 end,
             }
-
 
             --------------------------------------------------------------------------------
             -- -- NOTE: Just a little bit of code that uses Treesitter to handle different {{{
