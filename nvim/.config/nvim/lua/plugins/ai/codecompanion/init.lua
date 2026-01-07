@@ -187,7 +187,7 @@ end
 
 return {
     "olimorris/codecompanion.nvim",
-    tag = "v17.33.0",
+    tag = "v18.3.1",
     build = function()
         local plugin_path = vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim"
         local patch_file = vim.fn.stdpath("config") .. "/patches/codecompanion/skip_oauth.patch"
@@ -309,7 +309,7 @@ return {
                     end,
                 },
             },
-            strategies = {
+            interactions = {
                 chat = {
                     adapter = default_provider,
                     roles = {
