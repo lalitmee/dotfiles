@@ -1,10 +1,11 @@
 return {
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
-        commit = "94886d6dda708ab2a4b3e33662d846d5e7d4f06f",
         ft = "org",
         cmd = "Org",
         init = function()
+            require("orgmode").setup_ts_grammar()
+
             local wk = require("which-key")
             wk.add({
                 { "<leader>o", group = "org-mode" },
@@ -436,9 +437,6 @@ return {
                     }):open(data)
                 end,
             }
-
-            -- Manual Treesitter Parser Config for Org
-            require('orgmode').setup_ts_grammar()
 
 
             --------------------------------------------------------------------------------

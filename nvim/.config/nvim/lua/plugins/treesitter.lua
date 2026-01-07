@@ -91,7 +91,6 @@ return {
                     "markdown",
                     "markdown_inline",
                     "norg",
-                    "org",
                     "python",
                     "query",
                     "regex",
