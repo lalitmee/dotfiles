@@ -320,6 +320,10 @@ super + shift + p
 super + a
     i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
 
+# >> clipboard manager -> copyq
+super + shift + v
+    copyq toggle
+
 #}}}```
 #-------------------------------------------------------------------------------
 
