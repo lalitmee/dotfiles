@@ -22,3 +22,12 @@ __pycache__/
 
 # Python virtual environments
 **/*venv/
+
+# copyq sensitive/runtime files
+copyq/.config/copyq/copyq_tab_*.dat
+copyq/.config/copyq/copyq.lock
+copyq/.config/copyq/copyq_geometry.ini
+copyq/.config/copyq/copyq-monitor.ini
+copyq/.config/copyq/copyq-filter.ini
+copyq/.config/copyq/copyq.pub
+copyq/.config/copyq/copyq_tabs.ini
