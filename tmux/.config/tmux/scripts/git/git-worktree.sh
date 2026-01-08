@@ -347,15 +347,15 @@ delete_worktree() {
         # Add immediate feedback without changing logic
         local worktree_name=$(basename "$WORKTREE_TO_DELETE")
         tmux display-message "Preparing to delete worktree '$worktree_name'..."
-        
+
         local DELETE_COMMAND
-        local WINDOW_NAME="deleting-worktree"
+        local WINDOW_NAME="delete-${worktree_name}"
 
         if [ "$KEY" = "ctrl-d" ]; then
             log "Force deleting worktree '$WORKTREE_TO_DELETE'."
             DELETE_COMMAND="gum spin --spinner dot --title \"Force deleting worktree '$WORKTREE_TO_DELETE'...\" --show-output -- git worktree remove --force \"$WORKTREE_TO_DELETE\""
-            tmux new-window -d -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
-            tmux display-message "Force deleting worktree in a new window..."
+            tmux new-window -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
+            tmux display-message "Force deleting worktree in window '$WINDOW_NAME'..."
         else
             log "Deleting worktree '$WORKTREE_TO_DELETE'."
             if ! git worktree remove "$WORKTREE_TO_DELETE" > /dev/null 2>&1; then
@@ -364,8 +364,8 @@ delete_worktree() {
                 sleep 3
             else
                 DELETE_COMMAND="gum spin --spinner dot --title \"Deleting worktree '$WORKTREE_TO_DELETE'...\" --show-output -- git worktree remove \"$WORKTREE_TO_DELETE\""
-                tmux new-window -d -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
-                tmux display-message "Deleting worktree in a new window..."
+                tmux new-window -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
+                tmux display-message "Deleting worktree in window '$WINDOW_NAME'..."
             fi
         fi
     else
