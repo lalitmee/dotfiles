@@ -263,19 +263,13 @@ create_worktree() {
         fi
 
         log "Creating worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'."
-        if gum spin --spinner dot --title "Creating worktree for '$BRANCH_NAME'..." --show-output -- git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME" "$BASE_BRANCH"; then
-            log "Worktree for new branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
-            WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
-            tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
-            _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
-            _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
-            sleep 2
-        else
-            log "Failed to create worktree for new branch '$BRANCH_NAME'."
-            gum style --foreground "212" "Failed to create worktree. Check logs for details."
-            sleep 2
-            exit 1
-        fi
+        git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME" "$BASE_BRANCH"
+        log "Worktree for new branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
+        _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
+        _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
+        sleep 2
 
     elif [ "$CREATE_OPTION" = "Select existing branch" ]; then
         BRANCH_NAME=$(git branch | gum filter --placeholder "Select a branch")
@@ -288,20 +282,14 @@ create_worktree() {
         fi
 
         log "Creating worktree for existing branch '$BRANCH_NAME'."
-        if gum spin --spinner dot --title "Creating worktree for '$BRANCH_NAME'..." --show-output -- git worktree add "$WORKTREE_DIR/$BRANCH_NAME" "$BRANCH_NAME"; then
-            log "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
-            gum style --foreground "212" "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME"
-            WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
-            tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
-            _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
-            _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
-            sleep 2
-        else
-            log "Failed to create worktree for existing branch '$BRANCH_NAME'."
-            gum style --foreground "212" "Failed to create worktree. Check logs for details."
-            sleep 2
-            exit 1
-        fi
+        git worktree add "$WORKTREE_DIR/$BRANCH_NAME" "$BRANCH_NAME"
+        log "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
+        gum style --foreground "212" "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME"
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
+        _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
+        _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
+        sleep 2
     fi
 }
 
@@ -344,10 +332,6 @@ delete_worktree() {
     WORKTREE_TO_DELETE=$(echo "$FZF_OUTPUT" | tail -n1 | awk '{print $1}')
 
     if [ -n "$WORKTREE_TO_DELETE" ]; then
-        # Add immediate feedback without changing logic
-        local worktree_name=$(basename "$WORKTREE_TO_DELETE")
-        tmux display-message "Preparing to delete worktree '$worktree_name'..."
-        
         local DELETE_COMMAND
         local WINDOW_NAME="deleting-worktree"
 
