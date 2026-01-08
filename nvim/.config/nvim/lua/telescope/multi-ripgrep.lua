@@ -3,7 +3,9 @@ local finders = require("telescope.finders")
 local make_entry = require("telescope.make_entry")
 local pickers = require("telescope.pickers")
 
-local flatten = vim.tbl_flatten
+local function flatten(t)
+    return vim.iter(t):flatten():totable()
+end
 
 -- i would like to be able to do telescope
 -- and have telescope do some filtering on files and some grepping
