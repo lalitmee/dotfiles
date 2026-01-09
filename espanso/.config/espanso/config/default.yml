@@ -1,0 +1,57 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/config.schema.json
+
+# Espanso configuration file
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+#-------------------------------------------------------------------------------
+# NOTE: search bar settings {{{
+#-------------------------------------------------------------------------------
+# Disable Espanso's built-in search shortcut (using sxhkd alt+space instead)
+search_shortcut: off
+
+# Optional: text trigger to open search bar (type this anywhere)
+# search_trigger: ".search"
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: toggle key settings {{{
+#-------------------------------------------------------------------------------
+# Key to disable/enable espanso when double pressed
+# Available options: CTRL, SHIFT, ALT, META, OFF, LEFT_CTRL, RIGHT_CTRL, etc.
+toggle_key: RIGHT_CTRL
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: backend settings {{{
+#-------------------------------------------------------------------------------
+# The mechanism used to perform text injection
+# Options: clipboard, inject, auto
+backend: auto
+
+# Number of chars after which clipboard backend is used instead of inject
+clipboard_threshold: 100
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: notification settings {{{
+#-------------------------------------------------------------------------------
+# Show espanso icon in system tray
+show_icon: true
+
+# Show notifications
+show_notifications: true
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: undo settings {{{
+#-------------------------------------------------------------------------------
+# Enable backspace to undo expansion
+undo_backspace: true
+#}}}
+#-------------------------------------------------------------------------------
+
+# vim:fdm=marker
