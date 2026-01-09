@@ -56,3 +56,425 @@ matches:
 
   - trigger: ":ollm"
     replace: "http://127.0.0.1:8090/"
+
+#-------------------------------------------------------------------------------
+# NOTE: Advanced Espanso Matches {{{
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Clipboard Extension - Transform copied text {{{
+#-------------------------------------------------------------------------------
+  # HTML link from clipboard
+  - trigger: ":link"
+    replace: "<a href='{{clipboard}}'>$|$</a>"
+    vars:
+      - name: clipboard
+        type: clipboard
+
+  # Markdown link from clipboard
+  - trigger: ":mdlink"
+    replace: "[]({{clipboard}})"
+    vars:
+      - name: clipboard
+        type: clipboard
+
+  # Code fence from clipboard
+  - trigger: ":code"
+    replace: |
+      ```
+      {{clipboard}}
+      ```
+    vars:
+      - name: clipboard
+        type: clipboard
+
+  # Inline code from clipboard
+  - trigger: ":codel"
+    replace: "`{{clipboard}}`"
+    vars:
+      - name: clipboard
+        type: clipboard
+
+  # Blockquote from clipboard
+  - trigger: ":quote"
+    replace: "> {{clipboard}}"
+    vars:
+      - name: clipboard
+        type: clipboard
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Date/Time Extension - Dynamic dates and times {{{
+#-------------------------------------------------------------------------------
+  # ISO date format (for filenames, sorting, org-mode)
+  - trigger: ":today"
+    replace: "{{date}}"
+    vars:
+      - name: date
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  # Current time (24h format)
+  - trigger: ":now"
+    replace: "{{time}}"
+    vars:
+      - name: time
+        type: date
+        params:
+          format: "%H:%M"
+
+  # Full datetime (ISO format)
+  - trigger: ":datetime"
+    replace: "{{datetime}}"
+    vars:
+      - name: datetime
+        type: date
+        params:
+          format: "%Y-%m-%d %H:%M"
+
+  # Human-readable date
+  - trigger: ":datelong"
+    replace: "{{datelong}}"
+    vars:
+      - name: datelong
+        type: date
+        params:
+          format: "%B %d, %Y"
+
+  # Tomorrow's date
+  - trigger: ":tomorrow"
+    replace: "{{tomorrow}}"
+    vars:
+      - name: tomorrow
+        type: date
+        params:
+          format: "%Y-%m-%d"
+          offset: 86400
+
+  # Yesterday's date
+  - trigger: ":yesterday"
+    replace: "{{yesterday}}"
+    vars:
+      - name: yesterday
+        type: date
+        params:
+          format: "%Y-%m-%d"
+          offset: -86400
+
+  # Week number
+  - trigger: ":week"
+    replace: "W{{week}}"
+    vars:
+      - name: week
+        type: date
+        params:
+          format: "%W"
+
+  # Time in 12h format
+  - trigger: ":time"
+    replace: "{{time12}}"
+    vars:
+      - name: time12
+        type: date
+        params:
+          format: "%I:%M %p"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Shell Extension - System information and commands {{{
+#-------------------------------------------------------------------------------
+  # Public IP address
+  - trigger: ":ip"
+    replace: "{{ip}}"
+    vars:
+      - name: ip
+        type: shell
+        params:
+          cmd: "curl -s ifconfig.me || curl -s ipinfo.io/ip || echo 'No internet'"
+
+  # Local IP address
+  - trigger: ":localip"
+    replace: "{{localip}}"
+    vars:
+      - name: localip
+        type: shell
+        params:
+          cmd: "hostname -I | awk '{print $1}' || ip route get 1 | awk '{print $7; exit}' || echo '127.0.0.1'"
+
+  # Current git branch
+  - trigger: ":branch"
+    replace: "{{branch}}"
+    vars:
+      - name: branch
+        type: shell
+        params:
+          cmd: "git branch --show-current 2>/dev/null || echo 'Not in git repo'"
+
+  # Current working directory
+  - trigger: ":pwd"
+    replace: "{{pwd}}"
+    vars:
+      - name: pwd
+        type: shell
+        params:
+          cmd: "pwd"
+
+  # Generate UUID
+  - trigger: ":uuid"
+    replace: "{{uuid}}"
+    vars:
+      - name: uuid
+        type: shell
+        params:
+          cmd: "uuidgen 2>/dev/null || python3 -c 'import uuid; print(uuid.uuid4())' || echo 'uuid-not-available'"
+
+  # Machine hostname
+  - trigger: ":hostname"
+    replace: "{{hostname}}"
+    vars:
+      - name: hostname
+        type: shell
+        params:
+          cmd: "hostname"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Forms Extension - Interactive templates {{{
+#-------------------------------------------------------------------------------
+  # Meeting notes template (org-mode format)
+  - trigger: ":meeting"
+    form: |
+      * [[topic]]
+      :PROPERTIES:
+      :CREATED: [{{date}}]
+      :ATTENDEES: [[attendees]]
+      :END:
+
+      ** Agenda
+      - [[agenda]]
+
+      ** Notes
+      $|$
+
+      ** Action Items
+      - [ ] [[actions]]
+    form_fields:
+      topic:
+        default: "Meeting Title"
+      attendees:
+        default: "Person1, Person2"
+      agenda:
+        multiline: true
+        default: "Topic 1\nTopic 2"
+      actions:
+        multiline: true
+        default: "Follow up item 1\nFollow up item 2"
+    vars:
+      - name: date
+        type: date
+        params:
+          format: "%Y-%m-%d %a %H:%M"
+
+  # Conventional commit template
+  - trigger: ":commit"
+    form: |
+      [[type]]([[scope]]): [[message]]
+
+      [[body]]
+    form_fields:
+      type:
+        type: choice
+        values:
+          - "feat"
+          - "fix"
+          - "docs"
+          - "style"
+          - "refactor"
+          - "test"
+          - "chore"
+          - "perf"
+          - "ci"
+          - "build"
+          - "revert"
+        default: "feat"
+      scope:
+        default: "core"
+      message:
+        default: "add new feature"
+      body:
+        multiline: true
+        default: ""
+
+  # Bug report template
+  - trigger: ":bug"
+    form: |
+      ## Bug Report: [[title]]
+
+      **Steps to Reproduce:**
+      1. [[step1]]
+      2. [[step2]]
+      3. [[step3]]
+
+      **Expected Behavior:**
+      [[expected]]
+
+      **Actual Behavior:**
+      [[actual]]
+
+      **Environment:**
+      - OS: [[os]]
+      - Version: [[version]]
+      - Browser/Device: [[browser]]
+    form_fields:
+      title:
+        default: "Brief bug description"
+      step1:
+        default: "Step 1"
+      step2:
+        default: "Step 2"
+      step3:
+        default: "Step 3"
+      expected:
+        multiline: true
+        default: "What should happen"
+      actual:
+        multiline: true
+        default: "What actually happens"
+      os:
+        default: "Linux"
+      version:
+        default: "v1.0.0"
+      browser:
+        default: "Chrome"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Choice Extension - Quick selections {{{
+#-------------------------------------------------------------------------------
+  # Email signoffs
+  - trigger: ":signoff"
+    replace: "{{signoff}}"
+    vars:
+      - name: signoff
+        type: choice
+        params:
+          values:
+            - "Best regards,\nLalit"
+            - "Thanks,\nLalit"
+            - "Cheers,\nLalit"
+
+  # Quick acknowledgments
+  - trigger: ":ack"
+    replace: "{{ack}}"
+    vars:
+      - name: ack
+        type: choice
+        params:
+          values:
+            - "Got it!"
+            - "Thanks!"
+            - "On it!"
+            - "Will do!"
+
+  # Approval responses
+  - trigger: ":lgtm"
+    replace: "{{lgtm}}"
+    vars:
+      - name: lgtm
+        type: choice
+        params:
+          values:
+            - "LGTM!"
+            - "Looks good to me!"
+            - "Approved!"
+            - "Ready to merge!"
+
+  # Thanks variations
+  - trigger: ":thanks"
+    replace: "{{thanks}}"
+    vars:
+      - name: thanks
+        type: choice
+        params:
+          values:
+            - "Thanks!"
+            - "Thank you!"
+            - "Much appreciated!"
+            - "Thanks a lot!"
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: Code Snippets with Cursor Positioning {{{
+#-------------------------------------------------------------------------------
+  # Org-mode / Notes
+  - trigger: ":todo"
+    replace: "- [ ] $|$"
+
+  - trigger: ":done"
+    replace: "- [x] $|$"
+
+  - trigger: ":org"
+    replace: |
+      * $|$
+      :PROPERTIES:
+      :CREATED: [{{date}}]
+      :END:
+    vars:
+      - name: date
+        type: date
+        params:
+          format: "%Y-%m-%d %a %H:%M"
+
+  # JavaScript/TypeScript
+  - trigger: ":cl"
+    replace: "console.log($|$)"
+
+  - trigger: ":cll"
+    replace: "console.log('$|$', )"
+
+  - trigger: ":af"
+    replace: "($|$) => {}"
+
+  - trigger: ":afn"
+    replace: "const $|$ = () => {}"
+
+  # Lua (Neovim)
+  - trigger: ":lfn"
+    replace: |
+      local function $|$()
+      end
+
+  - trigger: ":lreq"
+    replace: "local $|$ = require('')"
+
+  # Shell/Bash
+  - trigger: ":shif"
+    replace: |
+      if [[ $|$ ]]; then
+
+      fi
+
+  - trigger: ":shfor"
+    replace: |
+      for $|$ in ; do
+
+      done
+
+  - trigger: ":shfn"
+    replace: |
+      function $|$() {
+
+      }
+# }}}
+#-------------------------------------------------------------------------------
+
+# }}}
+#-------------------------------------------------------------------------------
+
+# vim:fdm=marker

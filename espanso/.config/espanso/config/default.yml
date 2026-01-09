@@ -36,6 +36,16 @@ clipboard_threshold: 100
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
+# NOTE: X11 settings (Linux) {{{
+#-------------------------------------------------------------------------------
+# Fix for Ghostty terminal: use slower but more compatible X11 injection
+# This disables the fast XSendEvent method and uses XTestFakeKeyEvent instead
+# which is more reliable across different terminal emulators (Ghostty, Kitty, etc.)
+disable_x11_fast_inject: true
+#}}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
 # NOTE: notification settings {{{
 #-------------------------------------------------------------------------------
 # Show espanso icon in system tray
