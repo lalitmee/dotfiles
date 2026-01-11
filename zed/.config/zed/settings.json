@@ -1,0 +1,48 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+//
+// NOTE: Zed doesn't yet support ${env:VAR} interpolation in settings.json
+// Track progress: https://github.com/zed-industries/zed/discussions/26043
+// When available, use syntax like: "api_key": "${env:MY_API_KEY}"
+{
+  "ui_font_family": ".ZedMono",
+  "ui_font_weight": 300.0,
+  "terminal": {
+    "font_weight": 300.0
+  },
+  "agent_buffer_font_size": 14.0,
+  "agent_ui_font_size": 14.0,
+  "agent_servers": {
+    "opencode": {
+      "type": "custom",
+      "command": "opencode",
+      "args": [],
+      "env": {}
+    }
+  },
+  // NOTE: If you need to add MCP servers or context servers with API keys in the future,
+  // manually edit ~/.config/zed/settings.json after stowing this config.
+  // Do NOT commit API keys to version control.
+  "context_servers": {},
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
+  "base_keymap": "VSCode",
+  "vim_mode": true,
+  "ui_font_size": 14.0,
+  "buffer_font_family": "Operator Mono Lig",
+  "buffer_font_size": 14,
+  "buffer_font_weight": 300,
+  "theme": "Catppuccin Mocha"
+}
