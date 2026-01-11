@@ -12,6 +12,18 @@ cd ~/dotfiles
 
 All of my dotfiles are here. 👍
 
+## Configurations
+
+This dotfiles repository includes configuration for:
+
+- **Zed Editor** - Editor settings, keybindings, and theme configuration
+  - See `zed/README.md` for details
+  - Security-first design: no secrets tracked in version control
+  - Ready for future environment variable interpolation support
+  - Install with: `stow zed`
+
+And more...
+
 ## Screenshots
 
 ### neovim
