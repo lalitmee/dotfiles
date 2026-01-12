@@ -51,7 +51,7 @@ timeout_seconds() {
     fi
 }
 
-# Generate window name from branch name (fast, clean fallback naming)
+# Generate window name from branch name (keeps full branch name, removes JIRA codes)
 generate_window_name() {
     local branch_name="$1"
 
@@ -67,62 +67,12 @@ generate_window_name() {
         return
     fi
 
-    # Fast, clean fallback naming (JIRA-free)
-    # Helper function to clean JIRA codes from a name
-    clean_jira() {
-        local name="$1"
-        # Remove JIRA patterns and clean up extra dashes/slashes
-        echo "$name" | sed 's/[A-Z][A-Z0-9]*-[0-9][0-9]*//g' | sed 's/[-/]\+/ /g' | sed 's/^ *//' | sed 's/ *$//' | sed 's/ /-/g' | sed 's/^-*//' | sed 's/-*$//'
-    }
+    # Remove JIRA codes (e.g., NYS-1769) but keep the rest of the branch name
+    # Pattern: [A-Z][A-Z0-9]*-[0-9][0-9]*
+    # Replace with empty string and clean up any double dashes/slashes
+    local cleaned_name=$(echo "$branch_name" | sed 's/[A-Z][A-Z0-9]*-[0-9][0-9]*//g' | sed 's/--/-/g' | sed 's/\/\//\//g' | sed 's/-\//\//g' | sed 's/\/-/\//g' | sed 's/^-//' | sed 's/-$//')
 
-    if [[ "$branch_name" == feature/* ]]; then
-        local feature_part="${branch_name#feature/}"
-        local feature_name=$(clean_jira "$feature_part")
-        if [[ ${#feature_name} -gt 12 ]]; then
-            feature_name="${feature_name%%-*}"
-            if [[ ${#feature_name} -gt 12 ]]; then
-                feature_name="${feature_name:0:12}"
-            fi
-        fi
-        echo "$feature_name"
-    elif [[ "$branch_name" == bugfix/* ]]; then
-        local bug_part="${branch_name#bugfix/}"
-        local bug_name=$(clean_jira "$bug_part")
-        if [[ ${#bug_name} -gt 12 ]]; then
-            bug_name="${bug_name%%-*}"
-            if [[ ${#bug_name} -gt 12 ]]; then
-                bug_name="${bug_name:0:12}"
-            fi
-        fi
-        echo "$bug_name"
-    elif [[ "$branch_name" == hotfix/* ]]; then
-        local hotfix_part="${branch_name#hotfix/}"
-        local hotfix_name=$(clean_jira "$hotfix_part")
-        if [[ ${#hotfix_name} -gt 12 ]]; then
-            hotfix_name="${hotfix_name%%-*}"
-            if [[ ${#hotfix_name} -gt 12 ]]; then
-                hotfix_name="${hotfix_name:0:12}"
-            fi
-        fi
-        echo "$hotfix_name"
-    elif [[ "$branch_name" == release/* ]]; then
-        local release_part="${branch_name#release/}"
-        local release_name=$(clean_jira "$release_part")
-        if [[ ${#release_name} -gt 12 ]]; then
-            release_name="${release_name%%-*}"
-            if [[ ${#release_name} -gt 12 ]]; then
-                release_name="${release_name:0:12}"
-            fi
-        fi
-        echo "$release_name"
-    else
-        # For other branches, clean JIRA codes and truncate if needed
-        local fallback_name=$(clean_jira "$branch_name")
-        if [[ ${#fallback_name} -gt 15 ]]; then
-            fallback_name="${fallback_name:0:15}"
-        fi
-        echo "$fallback_name"
-    fi
+    echo "$cleaned_name"
 }
 
 # Check if we are in a git repository
@@ -262,20 +212,69 @@ create_worktree() {
             exit 1
         fi
 
-        log "Creating worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'."
-        if gum spin --spinner dot --title "Creating worktree for '$BRANCH_NAME'..." --show-output -- git worktree add "$WORKTREE_DIR/$BRANCH_NAME" -b "$BRANCH_NAME" "$BASE_BRANCH"; then
-            log "Worktree for new branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
-            WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
-            tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
-            _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
-            _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
-            sleep 2
-        else
-            log "Failed to create worktree for new branch '$BRANCH_NAME'."
-            gum style --foreground "212" "Failed to create worktree. Check logs for details."
-            sleep 2
-            exit 1
-        fi
+        log "Preparing to create worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'."
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        TARGET_WORKTREE="$WORKTREE_DIR/$BRANCH_NAME"
+
+        # Launch new window to do the actual worktree creation
+        tmux new-window -c "$REPO_ROOT" -n "$WINDOW_NAME" "zsh -c \"
+            export PATH=\\\$HOME/.local/state/fnm_multishells/*/bin:\\\$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:\\\$PATH
+            cd '$REPO_ROOT'
+            WORKTREE_DIR='$WORKTREE_DIR'
+            BRANCH_NAME='$BRANCH_NAME'
+            BASE_BRANCH='$BASE_BRANCH'
+            LOG_FILE='$LOG_FILE'
+            REPO_ROOT='$REPO_ROOT'
+            TARGET_WORKTREE='$TARGET_WORKTREE'
+
+            log() {
+                echo \\\"\\\$(date +\\\"%Y-%m-%d %H:%M:%S\\\") - \\\$1\\\" >> \\\"\\\$LOG_FILE\\\"
+            }
+
+            log \\\"Creating worktree for new branch \\\$BRANCH_NAME from \\\$BASE_BRANCH.\\\"
+            if gum spin --spinner dot --title \\\"Creating worktree for \\\$BRANCH_NAME...\\\" --show-output -- git worktree add \\\"\\\$TARGET_WORKTREE\\\" -b \\\"\\\$BRANCH_NAME\\\" \\\"\\\$BASE_BRANCH\\\"; then
+                log \\\"Worktree for new branch \\\$BRANCH_NAME created at \\\$TARGET_WORKTREE.\\\"
+                cd \\\"\\\$TARGET_WORKTREE\\\"
+
+                # Copy .env files
+                if [ -d \\\"\\\$REPO_ROOT\\\" ]; then
+                    find \\\"\\\$REPO_ROOT\\\" -maxdepth 1 -name '.env*' | while read -r source_file; do
+                        filename=\\\$(basename \\\"\\\$source_file\\\")
+                        target_file=\\\"\\\$TARGET_WORKTREE/\\\$filename\\\"
+                        if [ ! -f \\\"\\\$target_file\\\" ]; then
+                            rsync \\\"\\\$source_file\\\" \\\"\\\$target_file\\\"
+                            log \\\"Copied \\\$filename to \\\$TARGET_WORKTREE\\\"
+                        fi
+                    done
+                fi
+
+                # Launch separate window for dependency installation if needed
+                if [ -f package.json ] && [ ! -d node_modules ]; then
+                    if [ -f yarn.lock ]; then
+                        YARN_VERSION=\\\$(yarn --version 2>/dev/null | cut -d. -f1)
+                        if [ \\\"\\\$YARN_VERSION\\\" = \\\"1\\\" ]; then
+                            INSTALL_CMD=\\\"yarn install --frozen-lockfile\\\"
+                        else
+                            INSTALL_CMD=\\\"yarn install --immutable\\\"
+                        fi
+                    elif [ -f package-lock.json ]; then
+                        INSTALL_CMD=\\\"npm ci\\\"
+                    else
+                        INSTALL_CMD=\\\"npm install\\\"
+                    fi
+                    DEP_WINDOW_NAME=\\\"deps-\\\$BRANCH_NAME\\\"
+                    tmux new-window -c \\\"\\\$TARGET_WORKTREE\\\" -n \\\"\\\$DEP_WINDOW_NAME\\\" \\\"zsh -c 'source ~/.zshrc; cd \\\\\\\"\\\$TARGET_WORKTREE\\\\\\\"; \\\$INSTALL_CMD; echo \\\\\\\"Press Enter to close...\\\\\\\"; read'\\\"
+                fi
+
+                echo \\\"Worktree created successfully.\\\"
+                exec zsh
+            else
+                log \\\"Failed to create worktree for new branch \\\$BRANCH_NAME.\\\"
+                echo \\\"Failed to create worktree. Check logs for details.\\\"
+                echo \\\"Press Enter to close...\\\"
+                read
+            fi
+        \""
 
     elif [ "$CREATE_OPTION" = "Select existing branch" ]; then
         BRANCH_NAME=$(git branch | gum filter --placeholder "Select a branch")
@@ -287,21 +286,68 @@ create_worktree() {
             exit 1
         fi
 
-        log "Creating worktree for existing branch '$BRANCH_NAME'."
-        if gum spin --spinner dot --title "Creating worktree for '$BRANCH_NAME'..." --show-output -- git worktree add "$WORKTREE_DIR/$BRANCH_NAME" "$BRANCH_NAME"; then
-            log "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME."
-            gum style --foreground "212" "Worktree for existing branch '$BRANCH_NAME' created at $WORKTREE_DIR/$BRANCH_NAME"
-            WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
-            tmux new-window -c "$WORKTREE_DIR/$BRANCH_NAME" -n "$WINDOW_NAME"
-            _handle_file_copy "$WORKTREE_DIR/$BRANCH_NAME"
-            _handle_dependency_installation "$WORKTREE_DIR/$BRANCH_NAME" false
-            sleep 2
-        else
-            log "Failed to create worktree for existing branch '$BRANCH_NAME'."
-            gum style --foreground "212" "Failed to create worktree. Check logs for details."
-            sleep 2
-            exit 1
-        fi
+        log "Preparing to create worktree for existing branch '$BRANCH_NAME'."
+        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        TARGET_WORKTREE="$WORKTREE_DIR/$BRANCH_NAME"
+
+        # Launch new window to do the actual worktree creation
+        tmux new-window -c "$REPO_ROOT" -n "$WINDOW_NAME" "zsh -c \"
+            export PATH=\\\$HOME/.local/state/fnm_multishells/*/bin:\\\$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:\\\$PATH
+            cd '$REPO_ROOT'
+            WORKTREE_DIR='$WORKTREE_DIR'
+            BRANCH_NAME='$BRANCH_NAME'
+            LOG_FILE='$LOG_FILE'
+            REPO_ROOT='$REPO_ROOT'
+            TARGET_WORKTREE='$TARGET_WORKTREE'
+
+            log() {
+                echo \\\"\\\$(date +\\\"%Y-%m-%d %H:%M:%S\\\") - \\\$1\\\" >> \\\"\\\$LOG_FILE\\\"
+            }
+
+            log \\\"Creating worktree for existing branch \\\$BRANCH_NAME.\\\"
+            if gum spin --spinner dot --title \\\"Creating worktree for \\\$BRANCH_NAME...\\\" --show-output -- git worktree add \\\"\\\$TARGET_WORKTREE\\\" \\\"\\\$BRANCH_NAME\\\"; then
+                log \\\"Worktree for existing branch \\\$BRANCH_NAME created at \\\$TARGET_WORKTREE.\\\"
+                cd \\\"\\\$TARGET_WORKTREE\\\"
+
+                # Copy .env files
+                if [ -d \\\"\\\$REPO_ROOT\\\" ]; then
+                    find \\\"\\\$REPO_ROOT\\\" -maxdepth 1 -name '.env*' | while read -r source_file; do
+                        filename=\\\$(basename \\\"\\\$source_file\\\")
+                        target_file=\\\"\\\$TARGET_WORKTREE/\\\$filename\\\"
+                        if [ ! -f \\\"\\\$target_file\\\" ]; then
+                            rsync \\\"\\\$source_file\\\" \\\"\\\$target_file\\\"
+                            log \\\"Copied \\\$filename to \\\$TARGET_WORKTREE\\\"
+                        fi
+                    done
+                fi
+
+                # Launch separate window for dependency installation if needed
+                if [ -f package.json ] && [ ! -d node_modules ]; then
+                    if [ -f yarn.lock ]; then
+                        YARN_VERSION=\\\$(yarn --version 2>/dev/null | cut -d. -f1)
+                        if [ \\\"\\\$YARN_VERSION\\\" = \\\"1\\\" ]; then
+                            INSTALL_CMD=\\\"yarn install --frozen-lockfile\\\"
+                        else
+                            INSTALL_CMD=\\\"yarn install --immutable\\\"
+                        fi
+                    elif [ -f package-lock.json ]; then
+                        INSTALL_CMD=\\\"npm ci\\\"
+                    else
+                        INSTALL_CMD=\\\"npm install\\\"
+                    fi
+                    DEP_WINDOW_NAME=\\\"deps-\\\$BRANCH_NAME\\\"
+                    tmux new-window -c \\\"\\\$TARGET_WORKTREE\\\" -n \\\"\\\$DEP_WINDOW_NAME\\\" \\\"zsh -c 'source ~/.zshrc; cd \\\\\\\"\\\$TARGET_WORKTREE\\\\\\\"; \\\$INSTALL_CMD; echo \\\\\\\"Press Enter to close...\\\\\\\"; read'\\\"
+                fi
+
+                echo \\\"Worktree created successfully.\\\"
+                exec zsh
+            else
+                log \\\"Failed to create worktree for existing branch \\\$BRANCH_NAME.\\\"
+                echo \\\"Failed to create worktree. Check logs for details.\\\"
+                echo \\\"Press Enter to close...\\\"
+                read
+            fi
+        \""
     fi
 }
 
@@ -320,9 +366,56 @@ switch_worktree() {
         log "Switching to worktree '$WORKTREE'."
         BRANCH_NAME=$(basename "$WORKTREE")
         WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
-        tmux new-window -c "$WORKTREE" -n "$WINDOW_NAME"
-        _handle_file_copy "$WORKTREE"
-        _handle_dependency_installation "$WORKTREE" true
+
+        # Launch new window at worktree path
+        tmux new-window -c "$WORKTREE" -n "$WINDOW_NAME" "zsh -c \"
+            export PATH=\\\$HOME/.local/state/fnm_multishells/*/bin:\\\$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:\\\$PATH
+            cd '$WORKTREE'
+            WORKTREE='$WORKTREE'
+            BRANCH_NAME='$BRANCH_NAME'
+            REPO_ROOT='$REPO_ROOT'
+            LOG_FILE='$LOG_FILE'
+
+            log() {
+                echo \\\"\\\$(date +\\\"%Y-%m-%d %H:%M:%S\\\") - \\\$1\\\" >> \\\"\\\$LOG_FILE\\\"
+            }
+
+            log \\\"Switched to worktree \\\$WORKTREE.\\\"
+
+            # Copy .env files if they don't exist
+            if [ -d \\\"\\\$REPO_ROOT\\\" ]; then
+                find \\\"\\\$REPO_ROOT\\\" -maxdepth 1 -name '.env*' | while read -r source_file; do
+                    filename=\\\$(basename \\\"\\\$source_file\\\")
+                    target_file=\\\"\\\$WORKTREE/\\\$filename\\\"
+                    if [ ! -f \\\"\\\$target_file\\\" ]; then
+                        rsync \\\"\\\$source_file\\\" \\\"\\\$target_file\\\"
+                        log \\\"Copied \\\$filename to \\\$WORKTREE\\\"
+                    fi
+                done
+            fi
+
+            # Handle dependency installation if needed
+            if [ -f package.json ]; then
+                if [ ! -d node_modules ]; then
+                    if [ -f yarn.lock ]; then
+                        YARN_VERSION=\\\$(yarn --version 2>/dev/null | cut -d. -f1)
+                        if [ \\\"\\\$YARN_VERSION\\\" = \\\"1\\\" ]; then
+                            INSTALL_CMD=\\\"yarn install --frozen-lockfile\\\"
+                        else
+                            INSTALL_CMD=\\\"yarn install --immutable\\\"
+                        fi
+                    elif [ -f package-lock.json ]; then
+                        INSTALL_CMD=\\\"npm ci\\\"
+                    else
+                        INSTALL_CMD=\\\"npm install\\\"
+                    fi
+                    DEP_WINDOW_NAME=\\\"deps-\\\$BRANCH_NAME\\\"
+                    tmux new-window -c \\\"\\\$WORKTREE\\\" -n \\\"\\\$DEP_WINDOW_NAME\\\" \\\"zsh -c 'source ~/.zshrc; cd \\\\\\\"\\\$WORKTREE\\\\\\\"; \\\$INSTALL_CMD; echo \\\\\\\"Press Enter to close...\\\\\\\"; read'\\\"
+                fi
+            fi
+
+            exec zsh
+        \""
     else
         log "Worktree switch cancelled."
     fi
@@ -344,30 +437,51 @@ delete_worktree() {
     WORKTREE_TO_DELETE=$(echo "$FZF_OUTPUT" | tail -n1 | awk '{print $1}')
 
     if [ -n "$WORKTREE_TO_DELETE" ]; then
-        # Add immediate feedback without changing logic
         local worktree_name=$(basename "$WORKTREE_TO_DELETE")
-        tmux display-message "Preparing to delete worktree '$worktree_name'..."
-
-        local DELETE_COMMAND
         local WINDOW_NAME="delete-${worktree_name}"
 
+        local FORCE_FLAG=""
         if [ "$KEY" = "ctrl-d" ]; then
-            log "Force deleting worktree '$WORKTREE_TO_DELETE'."
-            DELETE_COMMAND="gum spin --spinner dot --title \"Force deleting worktree '$WORKTREE_TO_DELETE'...\" --show-output -- git worktree remove --force \"$WORKTREE_TO_DELETE\""
-            tmux new-window -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
-            tmux display-message "Force deleting worktree in window '$WINDOW_NAME'..."
+            FORCE_FLAG="--force"
+            log "Preparing to force delete worktree '$WORKTREE_TO_DELETE'."
         else
-            log "Deleting worktree '$WORKTREE_TO_DELETE'."
-            if ! git worktree remove "$WORKTREE_TO_DELETE" > /dev/null 2>&1; then
-                log "Failed to delete worktree '$WORKTREE_TO_DELETE'. It may have modified files."
-                gum style --foreground "212" "Failed to delete worktree. It may have modified files. Use <C-d> to force delete."
-                sleep 3
-            else
-                DELETE_COMMAND="gum spin --spinner dot --title \"Deleting worktree '$WORKTREE_TO_DELETE'...\" --show-output -- git worktree remove \"$WORKTREE_TO_DELETE\""
-                tmux new-window -n "$WINDOW_NAME" "$DELETE_COMMAND; read -p 'Press Enter to close...'"
-                tmux display-message "Deleting worktree in window '$WINDOW_NAME'..."
-            fi
+            log "Preparing to delete worktree '$WORKTREE_TO_DELETE'."
         fi
+
+        # Launch new window immediately to do the actual deletion
+        tmux new-window -n "$WINDOW_NAME" "zsh -c \"
+            export PATH=\\\$HOME/.local/state/fnm_multishells/*/bin:\\\$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:\\\$PATH
+            WORKTREE_TO_DELETE='$WORKTREE_TO_DELETE'
+            FORCE_FLAG='$FORCE_FLAG'
+            LOG_FILE='$LOG_FILE'
+
+            log() {
+                echo \\\"\\\$(date +\\\"%Y-%m-%d %H:%M:%S\\\") - \\\$1\\\" >> \\\"\\\$LOG_FILE\\\"
+            }
+
+            if [ -n \\\"\\\$FORCE_FLAG\\\" ]; then
+                log \\\"Force deleting worktree \\\$WORKTREE_TO_DELETE.\\\"
+                if gum spin --spinner dot --title \\\"Force deleting worktree \\\$WORKTREE_TO_DELETE...\\\" --show-output -- git worktree remove --force \\\"\\\$WORKTREE_TO_DELETE\\\"; then
+                    log \\\"Worktree \\\$WORKTREE_TO_DELETE force deleted successfully.\\\"
+                    echo \\\"Worktree force deleted successfully.\\\"
+                else
+                    log \\\"Failed to force delete worktree \\\$WORKTREE_TO_DELETE.\\\"
+                    echo \\\"Failed to force delete worktree. Check logs for details.\\\"
+                fi
+            else
+                log \\\"Deleting worktree \\\$WORKTREE_TO_DELETE.\\\"
+                if git worktree remove \\\"\\\$WORKTREE_TO_DELETE\\\" 2>&1; then
+                    log \\\"Worktree \\\$WORKTREE_TO_DELETE deleted successfully.\\\"
+                    echo \\\"Worktree deleted successfully.\\\"
+                else
+                    log \\\"Failed to delete worktree \\\$WORKTREE_TO_DELETE. It may have modified files.\\\"
+                    echo \\\"Failed to delete worktree. It may have modified files.\\\"
+                    echo \\\"Use <C-d> in the selection to force delete.\\\"
+                fi
+            fi
+            echo \\\"Press Enter to close...\\\"
+            read
+        \""
     else
         log "Worktree deletion cancelled."
     fi
