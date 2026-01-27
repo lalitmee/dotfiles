@@ -1,10 +1,11 @@
+maximized = true
+
 [font]
 normal = [
-  # "BlexMono Nerd Font Mono",
-  "Operator Mono Lig",
+  "BlexMono Nerd Font Mono",
+  # "Operator Mono Lig",
   # "MonoLisa Nerd Font",
   # "JetBrainsMono Nerd Font",
   # "FiraCode Nerd Font",
 ] # Will use the bundled Fira Code Nerd Font by default
-
-size = 14.0
+size = 12.0
