@@ -5,7 +5,10 @@ normal = [
   "BlexMono Nerd Font Mono",
   # "Operator Mono Lig",
   # "MonoLisa Nerd Font",
+  # "Iosevka Nerd Font Mono",
   # "JetBrainsMono Nerd Font",
+  # "Monaco",
   # "FiraCode Nerd Font",
 ] # Will use the bundled Fira Code Nerd Font by default
+
 size = 12.0
