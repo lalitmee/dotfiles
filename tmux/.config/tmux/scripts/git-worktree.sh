@@ -66,7 +66,7 @@ create_worktree()
         log "User selected: Create new branch"
 
         BASE_BRANCH=$(git branch | gum filter --placeholder "Select a base branch for the new worktree")
-        BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/^[* ]*//' | xargs)
+        BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/..//' | xargs)
 
         if [ -z "$BASE_BRANCH" ]; then
             log "Worktree creation failed: No base branch selected"
@@ -105,7 +105,7 @@ create_worktree()
         log "User selected: Select existing branch"
 
         BRANCH_NAME=$(git branch | gum filter --placeholder "Select a branch")
-        BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^[* ]*//' | xargs)  # remove leading '* ' and whitespace
+        BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/..//' | xargs)  # remove leading '* ' and whitespace
 
         if [ -z "$BRANCH_NAME" ]; then
             log "Worktree creation failed: No branch selected"
