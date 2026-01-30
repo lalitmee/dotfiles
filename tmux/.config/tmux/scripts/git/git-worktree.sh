@@ -85,11 +85,21 @@ create_worktree()
         fi
 
         log "Preparing to create worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'"
-        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        
+        # Prompt for folder name
+        FOLDER_NAME=$(prompt_folder_name "$BRANCH_NAME" "$WORKTREE_DIR")
+        if [ $? -ne 0 ]; then
+            log "Worktree creation failed: Folder name selection cancelled or failed"
+            gum style --foreground "212" "Folder name selection cancelled. Exiting..."
+            sleep 2
+            exit 1
+        fi
+        
+        WINDOW_NAME=$(generate_window_name "$FOLDER_NAME")
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
         tmux new-window -c "$REPO_ROOT" -n "$WINDOW_NAME" \
-            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '$BASE_BRANCH'"
+            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '$BASE_BRANCH' '$FOLDER_NAME'"
 
     elif [ "$CREATE_OPTION" = "Select existing branch" ]; then
         log "User selected: Select existing branch"
@@ -105,11 +115,21 @@ create_worktree()
         fi
 
         log "Preparing to create worktree for existing branch '$BRANCH_NAME'"
-        WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        
+        # Prompt for folder name
+        FOLDER_NAME=$(prompt_folder_name "$BRANCH_NAME" "$WORKTREE_DIR")
+        if [ $? -ne 0 ]; then
+            log "Worktree creation failed: Folder name selection cancelled or failed"
+            gum style --foreground "212" "Folder name selection cancelled. Exiting..."
+            sleep 2
+            exit 1
+        fi
+        
+        WINDOW_NAME=$(generate_window_name "$FOLDER_NAME")
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
         tmux new-window -c "$REPO_ROOT" -n "$WINDOW_NAME" \
-            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME'"
+            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '' '$FOLDER_NAME'"
     fi
 }
 
