@@ -23,8 +23,8 @@ ensure_git_repo()
 
 # ============================================================================
 # Generate window name from branch name
-# Removes JIRA codes (e.g., NYS-1769) and keeps the rest of the branch name
-# Pattern: [A-Z][A-Z0-9]*-[0-9][0-9]*
+# Removes JIRA codes (e.g., NYS-1769) and keeps rest of branch name
+# Pattern: NYS-[0-9]+ (specific to NYS project codes)
 # ============================================================================
 generate_window_name()
                        {
@@ -42,8 +42,22 @@ generate_window_name()
         return
     fi
 
-    # Remove JIRA codes and clean up any double dashes/slashes
-    local cleaned_name=$(echo "$branch_name" | sed 's/[A-Z][A-Z0-9]*-[0-9][0-9]*//g' | sed 's/--/-/g' | sed 's/\/\//\//g' | sed 's/-\//\//g' | sed 's/\/-/\//g' | sed 's/^-//' | sed 's/-$//')
+    # Remove NYS JIRA codes specifically
+    local cleaned_name=$(echo "$branch_name" | sed -E 's/NYS-[0-9]+//g')
+    
+    # Clean up stray dashes left after JIRA removal
+    # Use multiple simple sed commands to avoid complex regex
+    cleaned_name=$(echo "$cleaned_name" | sed 's/-\//-/g')
+    cleaned_name=$(echo "$cleaned_name" | sed 's/\/-/-/g')
+    
+    # Replace multiple dashes with single dash
+    cleaned_name=$(echo "$cleaned_name" | sed 's/--/-/g')
+    
+    # Replace multiple slashes with single slash
+    cleaned_name=$(echo "$cleaned_name" | sed 's/\/\//\//g')
+    
+    # Remove leading/trailing dashes and slashes
+    cleaned_name=$(echo "$cleaned_name" | sed 's/^[\/-]*//' | sed 's/[\/-]*$//')
 
     echo "$cleaned_name"
 }
