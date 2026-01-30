@@ -58,33 +58,38 @@ validate_folder_name()
     
     # Check if empty
     if [[ -z "$folder_name" ]]; then
-        echo "Error: Folder name cannot be empty"
+        echo "Error: Folder name cannot be empty" >&2
         return 1
     fi
     
     # Check for path traversal attempts
-    if [[ "$folder_name" == *"../"* || "$folder_name" == *"..\\"* ]]; then
-        echo "Error: Folder name cannot contain path traversal (../)"
+    if [[ "$folder_name" == *"../"* ]]; then
+        echo "Error: Folder name cannot contain path traversal (../)" >&2
         return 1
     fi
     
-    # Check for invalid filesystem characters
-    if [[ "$folder_name" == *"\<"* || "$folder_name" == *"\>"* || "$folder_name" == *"\""* || "$folder_name" == *"|"* || "$folder_name" == *"\?"* ]]; then
-        echo "Error: Folder name contains invalid characters"
+    # Check for invalid filesystem characters using simple string matching
+    if [[ "$folder_name" == *"<"* || "$folder_name" == *">"* || "$folder_name" == *"\""* || "$folder_name" == *"|"* || "$folder_name" == *"?"* ]]; then
+        echo "Error: Folder name contains invalid characters" >&2
         return 1
     fi
     
     # Check length (max 255 characters)
     if [[ ${#folder_name} -gt 255 ]]; then
-        echo "Error: Folder name too long (max 255 characters)"
+        echo "Error: Folder name too long (max 255 characters)" >&2
         return 1
     fi
     
-    # Check if starts with alphanumeric
-    if [[ ! "$folder_name" =~ ^[a-zA-Z0-9] ]]; then
-        echo "Error: Folder name must start with letter or number"
-        return 1
-    fi
+    # Check if starts with alphanumeric using case statement
+    case "$folder_name" in
+        [a-zA-Z0-9]*)
+            # Valid start
+            ;;
+        *)
+            echo "Error: Folder name must start with letter or number" >&2
+            return 1
+            ;;
+    esac
     
     return 0
 }
