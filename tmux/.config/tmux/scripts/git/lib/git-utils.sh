@@ -5,7 +5,8 @@
 # ============================================================================
 # Git repository validation, window naming, and info retrieval
 
-source "$(dirname "$0")/../common.sh"
+# Use absolute path from home directory to avoid cross-directory issues
+source "$HOME/.config/tmux/scripts/lib/common.sh"
 
 # ============================================================================
 # Ensure we are in a git repository
