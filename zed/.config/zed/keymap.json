@@ -1,21 +1,31 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
+// Zed keymap - Neovim parity
+// See https://zed.dev/docs/key-bindings
 [
   {
-    "context": "Workspace",
+    "context": "vim_mode == insert",
     "bindings": {
-      // "shift shift": "file_finder::Toggle"
+      "j k": "vim::NormalBefore",
+      "k j": "vim::NormalBefore",
     },
   },
   {
-    "context": "Editor && vim_mode == insert",
+    "context": "vim_mode == normal && !menu",
     "bindings": {
-      // "j k": "vim::NormalBefore"
+      "space f": "file_finder::Toggle",
+      "space fs": "workspace::Save",
+      "space fw": "workspace::SaveWithoutFormat",
+      "space g": "git_panel::ToggleFocus",
+      "space /": "pane::DeploySearch",
+      "space b": "buffer_search::Deploy",
+      "space s": "workspace::Save",
+      "shift-y": ["workspace::SendKeystrokes", "y $"],
+    },
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "H": ["workspace::SendKeystrokes", "0"],
+      "L": ["workspace::SendKeystrokes", "$"],
     },
   },
 ]
