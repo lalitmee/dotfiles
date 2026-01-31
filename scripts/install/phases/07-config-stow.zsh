@@ -24,7 +24,7 @@ fi
 # Define active stow packages based on installed tools
 STOW_PACKAGES_CORE="i3 i3-layout-manager sxhkd polybar picom rofi"
 STOW_PACKAGES_TERMINAL="ghostty zsh"
-STOW_PACKAGES_DEV="nvim tmux tmuxinator git lazygit gh gh-dash"
+STOW_PACKAGES_DEV="nvim tmux tmuxinator git lazygit gh gh-dash zed"
 STOW_PACKAGES_UTILS="fzf ripgrep bat lsd atuin zoxide sesh"
 # Desktop & UI (only active ones - user confirmed using dunst)
 STOW_PACKAGES_DESKTOP="dunst"
@@ -60,6 +60,8 @@ is_installed() {
             command -v lazygit &> /dev/null ;;
         "gh"|"gh-dash")
             command -v "$tool" &> /dev/null ;;
+        "zed")
+            command -v zed &> /dev/null ;;
         "fzf")
             command -v fzf &> /dev/null ;;
         "ripgrep")

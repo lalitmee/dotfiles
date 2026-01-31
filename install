@@ -2,7 +2,7 @@
 
 # Set default values for variables if they are not set
 if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="bat,bin,fzf,git,lsd,nvim,ripgrep,rofi,s,stylua,tmux,tmuxinator,vimium,zsh"
+    STOW_FOLDERS="bat,bin,fzf,git,lsd,nvim,ripgrep,rofi,s,stylua,tmux,tmuxinator,vimium,zed,zsh"
 fi
 
 if [[ -z $DOTFILES ]]; then
