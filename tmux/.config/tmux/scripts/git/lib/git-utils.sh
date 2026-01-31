@@ -5,7 +5,7 @@
 # ============================================================================
 # Git repository validation, window naming, and info retrieval
 
-source "$(dirname "$0")/common.sh"
+source "$(dirname "$0")/../common.sh"
 
 # ============================================================================
 # Ensure we are in a git repository
