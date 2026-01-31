@@ -60,13 +60,25 @@ create_worktree()
                   {
     log "Attempting to create a new worktree"
 
-    CREATE_OPTION=$(gum choose "Create new branch" "Select existing branch")
+    # Use fzf instead of gum to avoid TTY issues in tmux popups
+    if command -v fzf >/dev/null 2>&1; then
+        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | fzf --prompt="Choose option:")
+    else
+        # Fallback to simple input if fzf not available
+        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | head -1)
+    fi
 
     if [ "$CREATE_OPTION" = "Create new branch" ]; then
         log "User selected: Create new branch"
 
-        BASE_BRANCH=$(git branch | gum filter --placeholder "Select a base branch for the new worktree")
-        BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/^[* ]*//' | xargs)
+        # Use fzf instead of gum to avoid TTY issues in tmux popups
+        if command -v fzf >/dev/null 2>&1; then
+            BASE_BRANCH=$(git branch | fzf --prompt="Select a base branch for the new worktree")
+            BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/^[* ]*//' | xargs)
+        else
+            # Fallback to simple selection if fzf not available
+            BASE_BRANCH=$(git branch | head -5 | tail -1 | sed 's/^[* ]*//' | xargs)
+        fi
 
         if [ -z "$BASE_BRANCH" ]; then
             log "Worktree creation failed: No base branch selected"
@@ -104,8 +116,14 @@ create_worktree()
     elif [ "$CREATE_OPTION" = "Select existing branch" ]; then
         log "User selected: Select existing branch"
 
-        BRANCH_NAME=$(git branch | gum filter --placeholder "Select a branch")
-        BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^[* ]*//' | xargs)  # remove leading '* ' and whitespace
+        # Use fzf instead of gum to avoid TTY issues in tmux popups
+        if command -v fzf >/dev/null 2>&1; then
+            BRANCH_NAME=$(git branch | fzf --prompt="Select a branch")
+            BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^[* ]*//' | xargs)
+        else
+            # Fallback to simple selection if fzf not available
+            BRANCH_NAME=$(git branch | head -5 | tail -1 | sed 's/^[* ]*//' | xargs)
+        fi
 
         if [ -z "$BRANCH_NAME" ]; then
             log "Worktree creation failed: No branch selected"
