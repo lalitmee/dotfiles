@@ -1,6 +1,7 @@
 // Zed keymap - Neovim parity
 // See https://zed.dev/docs/key-bindings
 [
+  // INSERT mode
   {
     "context": "vim_mode == insert",
     "bindings": {
@@ -8,19 +9,54 @@
       "k j": "vim::NormalBefore",
     },
   },
+
+  // NORMAL mode
   {
     "context": "vim_mode == normal && !menu",
     "bindings": {
-      "space f": "file_finder::Toggle",
-      "space fs": "workspace::Save",
-      "space fw": "workspace::SaveWithoutFormat",
-      "space g": "git_panel::ToggleFocus",
+      // files
+      "space f f": "file_finder::Toggle",
+      "space f s": "workspace::Save",
+      "space f w": "workspace::SaveWithoutFormat",
+
+      // git
+      "space g s": "git_panel::ToggleFocus",
+
+      // search
       "space /": "pane::DeploySearch",
-      "space b": "buffer_search::Deploy",
-      "space s": "workspace::Save",
+
+      // windows
+      "space w s": "pane::SplitDown",
+      "space w v": "pane::SplitRight",
+      "space w d": ["pane::CloseActiveItem", { "close_pinned": false }],
+
+      // terminal
+      "space t t": "terminal_panel::Toggle",
+      "space t c": "workspace::NewCenterTerminal",
+
+      // buffers
+      "space b b": "tab_switcher::Toggle",
+      "space b l": "buffer_search::Deploy",
+      "space b s": "outline::Toggle",
+      "space b d": ["pane::CloseActiveItem", { "close_pinned": false }],
+
+      // folds
+      "enter": "editor::ToggleFold",
+
+      // misc
       "shift-y": ["workspace::SendKeystrokes", "y $"],
     },
   },
+
+  // VISUAL mode
+  {
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      "J": "editor::MoveLineDown",
+      "K": "editor::MoveLineUp",
+    },
+  },
+
   {
     "context": "VimControl && !menu",
     "bindings": {
