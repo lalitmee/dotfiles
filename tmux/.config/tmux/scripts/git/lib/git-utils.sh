@@ -5,8 +5,8 @@
 # ============================================================================
 # Git repository validation, window naming, and info retrieval
 
-# Source common.sh using absolute path to dotfiles
-    source "$HOME/.config/tmux/scripts/lib/common.sh"
+# Source common.sh from same directory as this script
+source "$(cd "$(dirname "$0")" && pwd)/common.sh"
 
 # ============================================================================
 # Ensure we are in a git repository
@@ -45,18 +45,18 @@ generate_window_name()
 
     # Remove NYS JIRA codes specifically
     local cleaned_name=$(echo "$branch_name" | sed -E 's/NYS-[0-9]+//g')
-    
+
     # Clean up stray dashes left after JIRA removal
     # Use multiple simple sed commands to avoid complex regex
     cleaned_name=$(echo "$cleaned_name" | sed 's/-\//-/g')
     cleaned_name=$(echo "$cleaned_name" | sed 's/\/-/-/g')
-    
+
     # Replace multiple dashes with single dash
     cleaned_name=$(echo "$cleaned_name" | sed 's/--/-/g')
-    
+
     # Replace multiple slashes with single slash
     cleaned_name=$(echo "$cleaned_name" | sed 's/\/\//\//g')
-    
+
     # Remove leading/trailing dashes and slashes
     cleaned_name=$(echo "$cleaned_name" | sed 's/^[\/-]*//' | sed 's/[\/-]*$//')
 
@@ -70,31 +70,31 @@ generate_window_name()
 validate_folder_name()
                       {
     local folder_name="$1"
-    
+
     # Check if empty
     if [[ -z "$folder_name" ]]; then
         echo "Error: Folder name cannot be empty" >&2
         return 1
     fi
-    
+
     # Check for path traversal attempts
     if [[ "$folder_name" == *"../"* ]]; then
         echo "Error: Folder name cannot contain path traversal (../)" >&2
         return 1
     fi
-    
+
     # Check for invalid filesystem characters using simple string matching
     if [[ "$folder_name" == *"<"* || "$folder_name" == *">"* || "$folder_name" == *"\""* || "$folder_name" == *"|"* || "$folder_name" == *"?"* ]]; then
         echo "Error: Folder name contains invalid characters" >&2
         return 1
     fi
-    
+
     # Check length (max 255 characters)
     if [[ ${#folder_name} -gt 255 ]]; then
         echo "Error: Folder name too long (max 255 characters)" >&2
         return 1
     fi
-    
+
     # Check if starts with alphanumeric using case statement
     case "$folder_name" in
         [a-zA-Z0-9]*)
@@ -105,7 +105,7 @@ validate_folder_name()
             return 1
             ;;
     esac
-    
+
     return 0
 }
 
@@ -115,10 +115,10 @@ validate_folder_name()
 sanitize_folder_name()
                        {
     local folder_name="$1"
-    
+
     # Replace spaces, slashes, and other problematic chars with underscores
     local sanitized=$(echo "$folder_name" | sed 's/[[:space:]\/\\]/_/g' | sed 's/__/_/g')
-    
+
     echo "$sanitized"
 }
 
@@ -132,13 +132,13 @@ check_folder_conflict()
     local folder_name="$2"
     local branch_name="$3"
     local target_path="$worktree_dir/$folder_name"
-    
+
     # Check if directory exists
     if [[ -d "$target_path" ]]; then
         # Check if it's a git worktree
         if git worktree list | grep -q "$target_path"; then
             local existing_branch=$(git worktree list | grep "$target_path" | awk '{print $2}' | sed 's/[[]//g' | sed 's/[]]//g')
-            
+
             if [[ "$existing_branch" == "$branch_name" ]]; then
                 gum style --foreground "196" "Worktree for branch '$branch_name' already exists at '$folder_name'"
                 echo "same-branch"
@@ -147,7 +147,7 @@ check_folder_conflict()
                 gum style --foreground "208" "Folder '$folder_name' already exists for branch '$existing_branch'"
                 local action=$(gum choose "Choose different name" "Overwrite existing worktree" "Cancel" \
                     --header="How would you like to handle this conflict?")
-                
+
                 case "$action" in
                     "Choose different name")
                         echo "retry"
@@ -167,7 +167,7 @@ check_folder_conflict()
             gum style --foreground "208" "Folder '$folder_name' already exists but is not a git worktree"
             local action=$(gum choose "Choose different name" "Remove folder and continue" "Cancel" \
                 --header="How would you like to handle this folder?")
-            
+
             case "$action" in
                 "Choose different name")
                     echo "retry"
@@ -203,25 +203,25 @@ prompt_folder_name()
                        {
     local branch_name="$1"
     local worktree_dir="$2"
-    
+
     # Let user choose between default and custom
     local choice=$(gum choose "Use branch name ($branch_name)" "Enter custom folder name" \
         --header="Choose folder name for worktree")
-    
+
     if [[ "$choice" == "Enter custom folder name" ]]; then
         while true; do
             local custom_name=$(gum input --placeholder="Enter custom folder name" --value="$branch_name")
-            
+
             # Sanitize the input
             local sanitized_name=$(sanitize_folder_name "$custom_name")
-            
+
             # Validate the sanitized name
             local validation_result=$(validate_folder_name "$sanitized_name")
             if [[ $? -ne 0 ]]; then
                 gum style --foreground "196" "$validation_result"
                 continue
             fi
-            
+
             # Check for conflicts
             local conflict_result=$(check_folder_conflict "$worktree_dir" "$sanitized_name" "$branch_name")
             case "$conflict_result" in
