@@ -11,10 +11,33 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
+  "agent": {
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-2.5-pro",
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "project_panel": {
+    "button": true,
+  },
+  "tabs": {
+    "show_diagnostics": "errors",
+    "file_icons": true,
+    "git_status": true,
+  },
+  "tab_bar": {
+    "show": true,
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_branch_icon": true,
+  },
   "ui_font_family": ".ZedMono",
   "ui_font_weight": 300.0,
   "terminal": {
-    "font_weight": 300.0
+    "font_weight": 300.0,
   },
   "agent_buffer_font_size": 14.0,
   "agent_ui_font_size": 14.0,
@@ -23,20 +46,20 @@
       "type": "custom",
       "command": "opencode",
       "args": [],
-      "env": {}
-    }
+      "env": {},
+    },
   },
   // NOTE: If you need to add MCP servers or context servers with API keys in the future,
   // manually edit ~/.config/zed/settings.json after stowing this config.
   // Do NOT commit API keys to version control.
   "context_servers": {},
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "dark": "Zed (Default)",
   },
   "base_keymap": "VSCode",
   "vim_mode": true,
@@ -44,5 +67,5 @@
   "buffer_font_family": "Operator Mono Lig",
   "buffer_font_size": 14,
   "buffer_font_weight": 300,
-  "theme": "Ayu Dark"
+  "theme": "Catppuccin Mocha",
 }

@@ -5,9 +5,8 @@
 # ============================================================================
 # Git repository validation, window naming, and info retrieval
 
-# Get script directory path and source common.sh
-    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-    source "$SCRIPT_DIR/../common.sh"
+# Source common.sh using absolute path to dotfiles
+    source "$HOME/.config/tmux/scripts/lib/common.sh"
 
 # ============================================================================
 # Ensure we are in a git repository
