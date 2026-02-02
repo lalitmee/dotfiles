@@ -19,8 +19,11 @@
       "space f s": "workspace::Save",
       "space f w": "workspace::SaveWithoutFormat",
 
+      // panels
+      "space p": "workspace::ToggleLeftDock",
+
       // git
-      "space g s": "git_panel::ToggleFocus",
+      "space g s": "workspace::ToggleRightDock",
 
       // search
       "space /": "pane::DeploySearch",
