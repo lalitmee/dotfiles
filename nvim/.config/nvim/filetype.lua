@@ -21,11 +21,11 @@ vim.filetype.add({
         config = "conf",
         lfrc = "sh",
         sxhkdrc = "sxhkdrc",
-        [".env"] = "dosini",
+        -- [".env"] = "dosini",
     },
     pattern = {
         [".*git/config"] = "gitconfig", -- Included in the plugin
-        ["*.env.*"] = "dosini",
+        -- ["*.env.*"] = "dosini",
         [".{jscs,jshint,eslint,babel}rc"] = "json",
     },
 })
