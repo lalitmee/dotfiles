@@ -20,7 +20,7 @@
       "space f w": "workspace::SaveWithoutFormat",
 
       // panels
-      "space p": "workspace::ToggleLeftDock",
+      "space a e": "workspace::ToggleLeftDock",
 
       // git
       "space g s": "workspace::ToggleRightDock",
