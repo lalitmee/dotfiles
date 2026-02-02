@@ -11,6 +11,22 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
+  "languages": {
+    "INI": {
+      "editor": {
+        "folding": {
+          "strategy": "marker",
+        },
+      },
+    },
+  },
+  "vim": {
+    "toggle_relative_line_numbers": true,
+  },
+  "relative_line_numbers": "enabled",
+  "file_types": {
+    "env": ["env", ".env", ".env.*"],
+  },
   "agent": {
     "default_model": {
       "provider": "google",

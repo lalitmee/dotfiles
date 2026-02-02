@@ -14,10 +14,16 @@
   {
     "context": "vim_mode == normal && !menu",
     "bindings": {
+      // main actions
+      "space space": "file_finder::Toggle",
+
       // files
       "space f f": "file_finder::Toggle",
       "space f s": "workspace::Save",
       "space f w": "workspace::SaveWithoutFormat",
+
+      // project
+      "space p f": "file_finder::Toggle",
 
       // panels
       "space a e": "workspace::ToggleLeftDock",
@@ -29,6 +35,10 @@
       "space /": "pane::DeploySearch",
 
       // windows
+      "space w h": "workspace::ActivatePaneLeft",
+      "space w j": "workspace::ActivatePaneDown",
+      "space w k": "workspace::ActivatePaneUp",
+      "space w l": "workspace::ActivatePaneRight",
       "space w s": "pane::SplitDown",
       "space w v": "pane::SplitRight",
       "space w d": ["pane::CloseActiveItem", { "close_pinned": false }],
