@@ -25,7 +25,7 @@
   },
   "relative_line_numbers": "enabled",
   "file_types": {
-    "env": ["env", ".env", ".env.*"],
+    "ini": ["env", ".env", ".env.*"],
   },
   "agent": {
     "default_model": {
