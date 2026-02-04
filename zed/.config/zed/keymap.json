@@ -52,6 +52,8 @@
       "space b l": "buffer_search::Deploy",
       "space b s": "outline::Toggle",
       "space b d": ["pane::CloseActiveItem", { "close_pinned": false }],
+      "space b o": ["pane::CloseOtherItems", { "close_pinned": false }],
+      "space b a": ["pane::CloseAllItems", { "close_pinned": false }],
 
       // folds
       "enter": "editor::ToggleFold",
