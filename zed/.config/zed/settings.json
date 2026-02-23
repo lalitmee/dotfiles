@@ -11,6 +11,9 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
+  "edit_predictions": {
+    "provider": "copilot"
+  },
   "languages": {
     "INI": {
       "editor": {
@@ -69,9 +72,6 @@
   // manually edit ~/.config/zed/settings.json after stowing this config.
   // Do NOT commit API keys to version control.
   "context_servers": {},
-  "features": {
-    "edit_prediction_provider": "copilot",
-  },
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
