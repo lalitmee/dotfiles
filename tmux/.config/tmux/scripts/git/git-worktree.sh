@@ -62,7 +62,7 @@ create_worktree()
 
     # Use fzf instead of gum to avoid TTY issues in tmux popups
     if command -v fzf >/dev/null 2>&1; then
-        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | fzf --prompt="Choose option:")
+        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | fzf --prompt="Choose option: ")
     else
         # Fallback to simple input if fzf not available
         CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | head -1)
@@ -73,7 +73,7 @@ create_worktree()
 
         # Use fzf instead of gum to avoid TTY issues in tmux popups
         if command -v fzf >/dev/null 2>&1; then
-            BASE_BRANCH=$(git branch | fzf --prompt="Select a base branch for the new worktree")
+            BASE_BRANCH=$(git branch | fzf --prompt="Select a base branch for the new worktree: ")
             BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/^[* ]*//' | xargs)
         else
             # Fallback to simple selection if fzf not available
@@ -97,7 +97,7 @@ create_worktree()
         fi
 
         log "Preparing to create worktree for new branch '$BRANCH_NAME' from '$BASE_BRANCH'"
-        
+
         # Prompt for folder name
         FOLDER_NAME=$(prompt_folder_name "$BRANCH_NAME" "$WORKTREE_DIR")
         if [ $? -ne 0 ]; then
@@ -106,7 +106,7 @@ create_worktree()
             sleep 2
             exit 1
         fi
-        
+
         WINDOW_NAME=$(generate_window_name "$FOLDER_NAME")
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
@@ -118,7 +118,7 @@ create_worktree()
 
         # Use fzf instead of gum to avoid TTY issues in tmux popups
         if command -v fzf >/dev/null 2>&1; then
-            BRANCH_NAME=$(git branch | fzf --prompt="Select a branch")
+            BRANCH_NAME=$(git branch | fzf --prompt="Select a branch ")
             BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^[* ]*//' | xargs)
         else
             # Fallback to simple selection if fzf not available
@@ -133,7 +133,7 @@ create_worktree()
         fi
 
         log "Preparing to create worktree for existing branch '$BRANCH_NAME'"
-        
+
         # Prompt for folder name
         FOLDER_NAME=$(prompt_folder_name "$BRANCH_NAME" "$WORKTREE_DIR")
         if [ $? -ne 0 ]; then
@@ -142,7 +142,7 @@ create_worktree()
             sleep 2
             exit 1
         fi
-        
+
         WINDOW_NAME=$(generate_window_name "$FOLDER_NAME")
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
