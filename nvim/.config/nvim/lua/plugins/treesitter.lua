@@ -1,17 +1,13 @@
 return {
     { -- 1. Main Treesitter Plugin
         "nvim-treesitter/nvim-treesitter",
-        branch = "main", -- Use main branch for v1.0 rewrite
+        branch = "main",
         lazy = false,
         build = ":TSUpdate",
         dependencies = {
-            "MeanderingProgrammer/treesitter-modules.nvim", -- Restores legacy functionality
             "nvim-treesitter/nvim-treesitter-context",
         },
         config = function()
-            -- A. Setup Legacy Modules (Highlight, Indent, Incremental Selection)
-            -- These features were removed from core nvim-treesitter in v1.0
-
             local parsers = {
                 "angular",
                 "bash",
@@ -55,21 +51,10 @@ return {
                 "yaml",
             }
 
-            -- Dynamic Parser Check to Avoid Re-install Loops
-            -- treesitter-modules (as of 2024/2025) will simply pass the ensure_installed list
-            -- to TSInstall, which unconditionally tries to install/update the parsers.
-            -- This causes a download loop on every startup.
-            -- To fix this, we filter the list ourselves: only add to ensure_installed if
-            -- the parser's .so file is missing from the runtime path.
-            local ensure_installed = {}
-            for _, lang in ipairs(parsers) do
-                if vim.fn.empty(vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", true)) > 0 then
-                    table.insert(ensure_installed, lang)
-                end
-            end
-
-            require("treesitter-modules").setup({
-                ensure_installed = ensure_installed,
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = parsers,
+                sync_install = false,
+                auto_install = true,
                 highlight = { enable = true },
                 indent = { enable = true, disable = { "css", "python" } },
                 matchup = { enable = true },
@@ -84,11 +69,18 @@ return {
                 },
             })
 
-            -- B. Register parsers configurations
-
-            -- C. Register parsers configurations
             vim.treesitter.language.register("markdown", "octo")
             vim.treesitter.language.register("bash", "zsh")
+
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function(args)
+                    local lang = vim.treesitter.language.get_lang(args.match) or args.match
+                    local ok, _ = pcall(vim.treesitter.language.inspect, lang)
+                    if ok then
+                        vim.treesitter.start()
+                    end
+                end,
+            })
         end,
     },
 
