@@ -51,23 +51,27 @@ return {
                 "yaml",
             }
 
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = parsers,
-                sync_install = false,
-                auto_install = true,
-                highlight = { enable = true },
-                indent = { enable = true, disable = { "css", "python" } },
-                matchup = { enable = true },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<localleader>hs",
-                        node_incremental = "<localleader>hi",
-                        scope_incremental = "<localleader>hc",
-                        node_decremental = "<localleader>hd",
-                    },
-                },
+            require("nvim-treesitter").setup({
+                install_dir = vim.fn.stdpath("data") .. "/site",
             })
+
+            local ts = require("nvim-treesitter")
+            local installed = {}
+            for _, path in ipairs(vim.api.nvim_get_runtime_file("parser/*.so", true)) do
+                local parser = vim.fn.fnamemodify(path, ":t:r")
+                installed[parser] = true
+            end
+            local to_install = {}
+            for _, parser in ipairs(parsers) do
+                if not installed[parser] then
+                    table.insert(to_install, parser)
+                end
+            end
+            -- __AUTO_GENERATED_PRINT_VAR_START__
+            print([==[config#if #to_install:]==], vim.inspect(#to_install)) -- __AUTO_GENERATED_PRINT_VAR_END__
+            if #to_install > 0 then
+                ts.install(to_install)
+            end
 
             vim.treesitter.language.register("markdown", "octo")
             vim.treesitter.language.register("bash", "zsh")
@@ -78,6 +82,9 @@ return {
                     local ok, _ = pcall(vim.treesitter.language.inspect, lang)
                     if ok then
                         vim.treesitter.start()
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                        vim.wo.foldmethod = "expr"
                     end
                 end,
             })
@@ -94,13 +101,9 @@ return {
 
     { -- 3. Textobjects (Standalone Config)
         "nvim-treesitter/nvim-treesitter-textobjects",
-        branch = "main", -- Must match main branch of treesitter
+        branch = "main",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = function()
-            -- Manual Keymap Setup for Main Branch
-            -- The main branch of nvim-treesitter-textobjects (required for nvim-treesitter v1.0 main)
-            -- no longer supports nested configuration within nvim-treesitter.configs.setup.
-            -- Instead, we must use the standalone setup() function and define keymaps manually using vim.keymap.set.
             require("nvim-treesitter-textobjects").setup({
                 select = {
                     lookahead = true,
@@ -111,13 +114,11 @@ return {
                 },
             })
 
-            -- Helper modules
             local ts_select = require("nvim-treesitter-textobjects.select")
             local ts_swap = require("nvim-treesitter-textobjects.swap")
             local ts_move = require("nvim-treesitter-textobjects.move")
             local ts_repeat = require("nvim-treesitter-textobjects.repeatable_move")
 
-            -- Select Keymaps
             vim.keymap.set({ "x", "o" }, "af", function()
                 ts_select.select_textobject("@function.outer", "textobjects")
             end)
@@ -137,7 +138,6 @@ return {
                 ts_select.select_textobject("@conditional.inner", "textobjects")
             end)
 
-            -- Swap Keymaps
             vim.keymap.set("n", "]w", function()
                 ts_swap.swap_next("@parameter.inner")
             end)
@@ -145,7 +145,6 @@ return {
                 ts_swap.swap_previous("@parameter.inner")
             end)
 
-            -- Move Keymaps
             vim.keymap.set({ "n", "x", "o" }, "]m", function()
                 ts_move.goto_next_start("@function.outer", "textobjects")
             end)
@@ -171,7 +170,6 @@ return {
                 ts_move.goto_previous_end("@class.outer", "textobjects")
             end)
 
-            -- Repeatable Moves
             vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat.repeat_last_move_next)
             vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat.repeat_last_move_previous)
             vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat.builtin_f_expr, { expr = true })
@@ -179,7 +177,6 @@ return {
             vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat.builtin_t_expr, { expr = true })
             vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat.builtin_T_expr, { expr = true })
 
-            -- LSP Interop Keymaps
             vim.keymap.set("n", "<leader>lf", function()
                 ts_move.goto_next_start("@function.outer", "textobjects")
             end)
@@ -224,9 +221,6 @@ return {
         config = function()
             local helpers = require("ts-node-action.helpers")
 
-            -- Custom Action Definitions
-            -- We override specific operators for Javascript to provide
-            -- more intuitive toggling behavior (e.g., ++ <-> +=1).
             require("ts-node-action").setup({
                 javascript = {
                     ["update_expression"] = function(node)
