@@ -52,40 +52,15 @@ return {
             }
 
             require("nvim-treesitter").setup({
-                install_dir = vim.fn.stdpath("data") .. "/site",
+                ensure_install = parsers,
             })
-
-            local ts = require("nvim-treesitter")
-            local installed = {}
-            for _, path in ipairs(vim.api.nvim_get_runtime_file("parser/*.so", true)) do
-                local parser = vim.fn.fnamemodify(path, ":t:r")
-                installed[parser] = true
-            end
-            local to_install = {}
-            for _, parser in ipairs(parsers) do
-                if not installed[parser] then
-                    table.insert(to_install, parser)
-                end
-            end
-            -- __AUTO_GENERATED_PRINT_VAR_START__
-            print([==[config#if #to_install:]==], vim.inspect(#to_install)) -- __AUTO_GENERATED_PRINT_VAR_END__
-            if #to_install > 0 then
-                ts.install(to_install)
-            end
 
             vim.treesitter.language.register("markdown", "octo")
             vim.treesitter.language.register("bash", "zsh")
 
             vim.api.nvim_create_autocmd("FileType", {
-                callback = function(args)
-                    local lang = vim.treesitter.language.get_lang(args.match) or args.match
-                    local ok, _ = pcall(vim.treesitter.language.inspect, lang)
-                    if ok then
-                        vim.treesitter.start()
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                        vim.wo.foldmethod = "expr"
-                    end
+                callback = function()
+                    pcall(vim.treesitter.start)
                 end,
             })
         end,
