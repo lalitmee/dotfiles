@@ -11,6 +11,9 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
+  "ui_font_family": "SauceCodePro Nerd Font",
+  "buffer_font_size": 12.0,
+  "buffer_font_family": "Operator Mono Lig",
   "edit_predictions": {
     "provider": "copilot"
   },
@@ -53,7 +56,6 @@
     "show_menus": false,
     "show_branch_icon": true,
   },
-  "ui_font_family": ".ZedMono",
   "ui_font_weight": 300.0,
   "terminal": {
     "font_weight": 300.0,
@@ -61,6 +63,21 @@
   "agent_buffer_font_size": 14.0,
   "agent_ui_font_size": 14.0,
   "agent_servers": {
+    "github-copilot-cli": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry"
+    },
+    "cursor": {
+      "type": "registry"
+    },
+    "gemini": {
+      "type": "registry"
+    },
     "opencode": {
       "type": "custom",
       "command": "opencode",
@@ -80,8 +97,6 @@
   "base_keymap": "VSCode",
   "vim_mode": true,
   "ui_font_size": 14.0,
-  "buffer_font_family": "Operator Mono Lig",
-  "buffer_font_size": 14,
-  "buffer_font_weight": 300,
-  "theme": "Catppuccin Mocha",
+  "buffer_font_weight": 300.0,
+  "theme": "VSCode Dark Modern",
 }
