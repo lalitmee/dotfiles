@@ -11,7 +11,7 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
-  "ui_font_family": "SauceCodePro Nerd Font",
+  "ui_font_family": "Monaco",
   "buffer_font_size": 12.0,
   "buffer_font_family": "Operator Mono Lig",
   "edit_predictions": {
