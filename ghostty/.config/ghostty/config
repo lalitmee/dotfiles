@@ -29,3 +29,6 @@ auto-update = off
 
 # Keybinds
 keybind = super+r=reload_config
+
+# Map the Option key to Alt (Meta)
+macos-option-as-alt = true
