@@ -66,6 +66,7 @@ timeout_seconds() {
 # ============================================================================
 # Copy .env files from source to target
 # Automatically copies all .env* files if they don't exist in target
+# Checks root level and nested level (mobile/)
 # ============================================================================
 copy_env_files() {
     local repo_root="$1"
@@ -79,7 +80,7 @@ copy_env_files() {
         return
     fi
 
-    # Find and copy .env files
+    # Find and copy .env files from root level
     find "$repo_root" -maxdepth 1 -name ".env*" | while read -r source_file; do
         local filename=$(basename "$source_file")
         local target_file="$target_path/$filename"
@@ -87,6 +88,27 @@ copy_env_files() {
         if [ ! -f "$target_file" ]; then
             rsync "$source_file" "$target_file"
             log "Copied '$filename' to '$target_path'"
+        fi
+    done
+
+    # Find and copy .env files from nested level (mobile/)
+    local nested_dirs=("mobile")
+    for nested_dir in "${nested_dirs[@]}"; do
+        local nested_path="$repo_root/$nested_dir"
+        if [ -d "$nested_path" ]; then
+            find "$nested_path" -maxdepth 1 -name ".env*" | while read -r source_file; do
+                local filename=$(basename "$source_file")
+                local target_dir="$target_path/$nested_dir"
+                local target_file="$target_dir/$filename"
+                
+                # Create nested directory if it doesn't exist
+                mkdir -p "$target_dir"
+                
+                if [ ! -f "$target_file" ]; then
+                    rsync "$source_file" "$target_file"
+                    log "Copied '$nested_dir/$filename' to '$target_path/$nested_dir'"
+                fi
+            done
         fi
     done
 }
@@ -113,6 +135,105 @@ copy_additional_files() {
             log "Additional files copied to $target_path"
         fi
     fi
+}
+
+# ============================================================================
+# Copy tasks.json from source to target
+# Copies from root repo if exists, otherwise creates from template
+# ============================================================================
+copy_tasks_json() {
+    local repo_root="$1"
+    local target_path="$2"
+
+    log "Checking for tasks.json to copy to $target_path"
+    
+    # Check if repo_root exists
+    if [ ! -d "$repo_root" ]; then
+        log "Source directory $repo_root does not exist"
+        return
+    fi
+
+    local target_file="$target_path/.vscode/tasks.json"
+    local source_tasks="$repo_root/.vscode/tasks.json"
+
+    # Create .vscode directory in target if it doesn't exist
+    mkdir -p "$target_path/.vscode"
+
+    # Default template
+    local default_template='{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Git Commit (no verify)",
+            "type": "shell",
+            "command": "git commit --no-verify",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Git Push (first time: set upstream)",
+            "type": "shell",
+            "command": "git push -u origin HEAD",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Git Push (origin, no verify)",
+            "type": "shell",
+            "command": "git push origin HEAD --no-verify",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Git Pull (rebase) + Push (no verify)",
+            "type": "shell",
+            "command": "git pull --rebase && git push --no-verify",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}'
+
+    if [ -f "$source_tasks" ]; then
+        # Copy from root repo
+        rsync "$source_tasks" "$target_file"
+        log "Copied tasks.json from root repo to '$target_path'"
+    else
+        # Use default template
+        echo "$default_template" > "$target_file"
+        log "Created default tasks.json at '$target_path'"
+    fi
+}
+
+# ============================================================================
+# Set git user email in worktree
+# Always sets the configured email for the worktree
+# ============================================================================
+set_git_user() {
+    local target_path="$1"
+    local git_email="lalit.kumar1@nykaa.com"
+
+    log "Setting git user email in $target_path"
+
+    # Change to target worktree directory
+    cd "$target_path" || return
+
+    # Set the git user email
+    git config user.email "$git_email"
+    
+    log "Set git user.email to '$git_email' in worktree"
 }
 
 # vim:fdm=marker
