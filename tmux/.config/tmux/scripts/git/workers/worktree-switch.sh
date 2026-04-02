@@ -46,6 +46,12 @@ log "Switched to worktree $WORKTREE"
 # Copy .env files if they don't exist
 copy_env_files "$REPO_ROOT" "$WORKTREE"
 
+# Copy tasks.json (copy if exists in root repo, else use template)
+copy_tasks_json "$REPO_ROOT" "$WORKTREE"
+
+# Set git user email
+set_git_user "$WORKTREE"
+
 # Ask about additional files to copy
 copy_additional_files "$WORKTREE"
 
