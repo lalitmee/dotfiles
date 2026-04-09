@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Git Commit (no verify)",
+            "type": "shell",
+            "command": "git commit --no-verify",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Git Push (first time: set upstream)",
+            "type": "shell",
+            "command": "git push -u origin HEAD",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Git Push (origin, no verify)",
+            "type": "shell",
+            "command": "git push origin HEAD --no-verify",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Git Pull (rebase) + Push (no verify)",
+            "type": "shell",
+            "command": "git pull --rebase && git push --no-verify",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}
