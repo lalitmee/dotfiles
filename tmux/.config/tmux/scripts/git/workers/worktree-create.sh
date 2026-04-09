@@ -63,11 +63,12 @@ if [ -n "$BASE_BRANCH" ]; then
     log "Creating worktree for new branch $BRANCH_NAME from base branch $BASE_BRANCH"
 
     if gum spin --spinner dot --title "Creating worktree for ${FOLDER_NAME:-$BRANCH_NAME}..." --show-output -- \
-        git worktree add "$TARGET_WORKTREE" -b "$BRANCH_NAME" "$BASE_BRANCH"; then
+        git worktree add "$TARGET_WORKTREE" -b "$BRANCH_NAME" "$BASE_BRANCH" 2>&1; then
         log "Worktree for new branch $BRANCH_NAME created at $TARGET_WORKTREE"
     else
-        log "Failed to create worktree for new branch $BRANCH_NAME"
-        echo "Failed to create worktree. Check logs for details."
+        error_log "FAILED: git worktree add for new branch $BRANCH_NAME from base $BASE_BRANCH"
+        gum style --foreground "212" "Failed to create worktree. Check the output above for details."
+        echo ""
         echo "Press Enter to close..."
         read
         exit 1
@@ -77,11 +78,12 @@ else
     log "Creating worktree for existing branch $BRANCH_NAME"
 
     if gum spin --spinner dot --title "Creating worktree for ${FOLDER_NAME:-$BRANCH_NAME}..." --show-output -- \
-        git worktree add "$TARGET_WORKTREE" "$BRANCH_NAME"; then
+        git worktree add "$TARGET_WORKTREE" "$BRANCH_NAME" 2>&1; then
         log "Worktree for existing branch $BRANCH_NAME created at $TARGET_WORKTREE"
     else
-        log "Failed to create worktree for existing branch $BRANCH_NAME"
-        echo "Failed to create worktree. Check logs for details."
+        error_log "FAILED: git worktree add for existing branch $BRANCH_NAME"
+        gum style --foreground "212" "Failed to create worktree. Check the output above for details."
+        echo ""
         echo "Press Enter to close..."
         read
         exit 1

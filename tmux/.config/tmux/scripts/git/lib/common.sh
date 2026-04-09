@@ -19,11 +19,20 @@ setup_environment() {
 }
 
 # ============================================================================
-# Logging function (respects DEBUG_MODE)
-# Only logs if DEBUG_MODE is set to "true"
+# Logging function (always writes to log file)
 # ============================================================================
 log() {
-    [[ "$DEBUG_MODE" == "true" ]] && echo "$(date +'%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
+    echo "$(date +'%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
+}
+
+# ============================================================================
+# Always-enabled logging for critical errors
+# Writes to log file regardless of DEBUG_MODE setting
+# ============================================================================
+error_log() {
+    local timestamp=$(date +'%Y-%m-%d %H:%M:%S')
+    echo "$timestamp - ERROR: $1" >> "$LOG_FILE"
+    echo "$timestamp - ERROR: $1" >&2
 }
 
 # ============================================================================
@@ -92,25 +101,21 @@ copy_env_files() {
     done
 
     # Find and copy .env files from nested level (mobile/)
-    local nested_dirs=("mobile")
-    for nested_dir in "${nested_dirs[@]}"; do
-        local nested_path="$repo_root/$nested_dir"
-        if [ -d "$nested_path" ]; then
-            find "$nested_path" -maxdepth 1 -name ".env*" | while read -r source_file; do
-                local filename=$(basename "$source_file")
-                local target_dir="$target_path/$nested_dir"
-                local target_file="$target_dir/$filename"
-                
-                # Create nested directory if it doesn't exist
-                mkdir -p "$target_dir"
-                
-                if [ ! -f "$target_file" ]; then
-                    rsync "$source_file" "$target_file"
-                    log "Copied '$nested_dir/$filename' to '$target_path/$nested_dir'"
-                fi
-            done
-        fi
-    done
+    if [ -d "$repo_root/mobile" ]; then
+        find "$repo_root/mobile" -maxdepth 1 -name ".env*" | while read -r source_file; do
+            local filename=$(basename "$source_file")
+            local target_dir="$target_path/mobile"
+            local target_file="$target_dir/$filename"
+            
+            # Create nested directory if it doesn't exist
+            mkdir -p "$target_dir"
+            
+            if [ ! -f "$target_file" ]; then
+                rsync "$source_file" "$target_file"
+                log "Copied 'mobile/$filename' to '$target_path/mobile'"
+            fi
+        done
+    fi
 }
 
 # ============================================================================
@@ -155,65 +160,22 @@ copy_tasks_json() {
 
     local target_file="$target_path/.vscode/tasks.json"
     local source_tasks="$repo_root/.vscode/tasks.json"
+    local template_file="$SCRIPT_DIR/lib/default-tasks.json"
 
     # Create .vscode directory in target if it doesn't exist
     mkdir -p "$target_path/.vscode"
-
-    # Default template
-    local default_template='{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Git Commit (no verify)",
-            "type": "shell",
-            "command": "git commit --no-verify",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Git Push (first time: set upstream)",
-            "type": "shell",
-            "command": "git push -u origin HEAD",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Git Push (origin, no verify)",
-            "type": "shell",
-            "command": "git push origin HEAD --no-verify",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Git Pull (rebase) + Push (no verify)",
-            "type": "shell",
-            "command": "git pull --rebase && git push --no-verify",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        }
-    ]
-}'
 
     if [ -f "$source_tasks" ]; then
         # Copy from root repo
         rsync "$source_tasks" "$target_file"
         log "Copied tasks.json from root repo to '$target_path'"
-    else
-        # Use default template
-        echo "$default_template" > "$target_file"
+    elif [ -f "$template_file" ]; then
+        # Use template file
+        cp "$template_file" "$target_file"
         log "Created default tasks.json at '$target_path'"
+    else
+        log "ERROR: No source tasks.json and no template file found"
+        echo "ERROR: Could not create tasks.json - template not found" >&2
     fi
 }
 
