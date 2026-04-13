@@ -39,14 +39,14 @@ if [[ -z "$TMUX" ]]; then
     exit 1
 fi
 
-if [[ ! -f "package.json" ]]; then
-    gum_style "❌ Error: package.json not found in the current directory."
+current_pane_path="${1:-$(tmux display-message -p '#{pane_current_path}' 2>/dev/null || pwd)}"
+package_json_path="$current_pane_path/package.json"
+
+if [[ ! -f "$package_json_path" ]]; then
+    gum_style "❌ Error: package.json not found in $current_pane_path"
     sleep 2
     exit 1
 fi
-
-current_pane_path=$(tmux display-message -p '#{pane_current_path}' 2>/dev/null || pwd)
-package_json_path="$current_pane_path/package.json"
 export package_json_path current_pane_path
 
 # Source the functions for script retrieval
