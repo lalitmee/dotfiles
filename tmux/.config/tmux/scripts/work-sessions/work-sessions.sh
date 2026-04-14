@@ -11,16 +11,40 @@
 #   work-sessions.sh --list           # List all presets
 #   work-sessions.sh --help           # Show help
 
-SCRIPT_DIR="${0:A:h}"
+# Debug logging
+DEBUG_LOG="/tmp/work-sessions-debug.log"
+debug_log() {
+    echo "[$(date '+%H:%M:%S')] $*" >> "$DEBUG_LOG"
+    echo "[$(date '+%H:%M:%S')] $*" >&2
+}
+
+# Start debug
+debug_log "=== Script started: args=$@"
+debug_log "=== PWD=$PWD"
+debug_log "=== 0=$0"
+
+# Resolve SCRIPT_DIR using dirname (more reliable in tmux popup)
+if [[ -L "$0" ]]; then
+    SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+else
+    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
+debug_log "SCRIPT_DIR=$SCRIPT_DIR"
+
 CONFIG_FILE="$SCRIPT_DIR/work-sessions.conf"
+debug_log "CONFIG_FILE=$CONFIG_FILE"
 
 # Load configuration
 load_config() {
+    debug_log "load_config: Checking config file..."
     if [[ ! -f "$CONFIG_FILE" ]]; then
         echo "Error: Config file not found at $CONFIG_FILE"
+        debug_log "load_config: ERROR - Config file not found"
         exit 1
     fi
+    debug_log "load_config: Sourcing $CONFIG_FILE"
     source "$CONFIG_FILE"
+    debug_log "load_config: Config loaded successfully"
 }
 
 # List all available presets
@@ -46,18 +70,27 @@ list_presets() {
 # Get paths for a preset (returns expanded paths)
 get_preset_paths() {
     local preset_num=$1
+    debug_log "get_preset_paths: preset_num=$preset_num"
+    
     local name_var="PRESET_${preset_num}_NAME"
     local paths_var="PRESET_${preset_num}_PATHS"
     local name="${(P)name_var}"
     local paths="${(P)paths_var}"
     
+    debug_log "get_preset_paths: name=$name"
+    debug_log "get_preset_paths: raw paths=$paths"
+    
     if [[ -z "$name" ]]; then
         echo "Preset $preset_num not configured" >&2
+        debug_log "get_preset_paths: ERROR - Preset $preset_num not configured"
         return 1
     fi
     
+    debug_log "get_preset_paths: Expanding paths..."
     echo "$paths" | grep -v '^#' | grep -v '^$' | while read -r path; do
-        echo "${path/#~/$HOME}"
+        local expanded="${path/#~/$HOME}"
+        debug_log "get_preset_paths: expanded path=$expanded"
+        echo "$expanded"
     done
 }
 
@@ -93,35 +126,44 @@ create_session() {
 # Open a preset - show fzf picker and create sessions
 open_preset() {
     local preset_num=$1
+    debug_log "open_preset: called with preset_num=$preset_num"
+    
+    debug_log "open_preset: Loading config..."
+    load_config
     
     local paths=$(get_preset_paths "$preset_num")
+    debug_log "open_preset: got paths=$paths"
+    
     if [[ -z "$paths" ]]; then
+        debug_log "open_preset: ERROR - paths is empty"
+        echo "Error: Could not load preset $preset_num"
+        read -p "Press Enter to close..."
         return 1
     fi
     
-    # Build fzf command with multiple directory sources
-    local fzf_sources=""
-    local preview_cmd='echo {}; echo "---"; ls -la {} 2>/dev/null | head -10'
+    debug_log "open_preset: About to count paths..."
     
-    while IFS= read -r path; do
-        [[ -z "$path" ]] && continue
-        [[ ! -d "$path" ]] && continue
-        fzf_sources="$fzf_sources\n$path"
-    done <<< "$paths"
-    
-    # If there's only one path, use it directly
-    local single_path=$(echo "$paths" | grep -v '^$' | head -1)
+    # Filter to only actual paths (not debug lines)
+    local valid_paths=""
     local only_path=""
     local path_count=0
+    
     while IFS= read -r p; do
+        # Skip empty lines and debug log lines
         [[ -z "$p" ]] && continue
+        [[ "$p" == \[* ]] && continue  # Skip debug log lines starting with [
         path_count=$((path_count + 1))
         only_path="$p"
+        valid_paths="$valid_paths"$'\n'"$p"
     done <<< "$paths"
+    
+    debug_log "open_preset: path_count=$path_count, only_path=$only_path"
     
     local selected_dirs
     
     if [[ $path_count -eq 1 ]] && [[ -d "$only_path" ]]; then
+        debug_log "open_preset: Single path mode, launching fzf in $only_path"
+        debug_log "open_preset: Listing repos with ls -1 $only_path"
         # Single directory - use simple picker
         selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf \
             --multi \
@@ -132,14 +174,16 @@ open_preset() {
             --preview-window=right:40% \
             --bind='tab:select-all,btab:deselect-all')
     else
+        debug_log "open_preset: Multiple paths mode, launching fzf"
         # Multiple directories - need to show full paths
         selected_dirs=$(while IFS= read -r path; do
             [[ -z "$path" ]] && continue
+            [[ "$path" == \[* ]] && continue  # Skip debug lines
             [[ ! -d "$path" ]] && continue
             ls -1 "$path" 2>/dev/null | while read -r repo; do
                 echo "$path/$repo"
             done
-        done <<< "$paths" | fzf \
+        done <<< "$valid_paths" | fzf \
             --multi \
             --prompt="Select repos: " \
             --height=~70% \
@@ -149,8 +193,12 @@ open_preset() {
             --bind='tab:select-all,btab:deselect-all')
     fi
     
+    debug_log "open_preset: fzf returned selected_dirs=$selected_dirs"
+    
     if [[ -z "$selected_dirs" ]]; then
+        debug_log "open_preset: No repos selected, exiting"
         echo "No repos selected"
+        read -p "Press Enter to close..."
         return 1
     fi
     
@@ -209,31 +257,42 @@ open_preset() {
 
 # Interactive preset picker using fzf
 pick_preset() {
+    debug_log "pick_preset: Loading config..."
     load_config
     
+    debug_log "pick_preset: Building options list..."
     local options=()
     local preset_nums=()
     for i in {1..9}; do
         local name_var="PRESET_${i}_NAME"
         local name="${(P)name_var}"
+        debug_log "pick_preset: Checking preset $i, name=$name"
         if [[ -n "$name" ]]; then
             options+=("$i: $name")
             preset_nums+=("$i")
         fi
     done
     
+    debug_log "pick_preset: options count=${#options[@]}"
+    
     if [[ ${#options[@]} -eq 0 ]]; then
+        debug_log "pick_preset: ERROR - No presets configured"
         echo "No presets configured. Edit $CONFIG_FILE"
         return 1
     fi
     
+    debug_log "pick_preset: Launching fzf preset picker..."
     local selected=$(printf '%s\n' "${options[@]}" | fzf --prompt="Select preset: " --height=~50% --border)
     
+    debug_log "pick_preset: fzf returned selected=$selected"
+    
     if [[ -z "$selected" ]]; then
+        debug_log "pick_preset: No preset selected"
         return 1
     fi
     
     local preset_num="${selected%%:*}"
+    debug_log "pick_preset: Calling open_preset with preset_num=$preset_num"
     open_preset "$preset_num"
 }
 
@@ -298,6 +357,7 @@ EOF
 # Main
 main() {
     local cmd="${1:-}"
+    debug_log "main: cmd=$cmd"
     
     case "$cmd" in
         --help|-h)
@@ -321,6 +381,15 @@ main() {
             pick_preset
             ;;
     esac
+    
+    debug_log "main: Script completed, keeping popup open for debugging..."
+    echo ""
+    echo "=== Debug log: /tmp/work-sessions-debug.log ==="
+    echo "Press Enter to close..."
+    read -r
+    debug_log "main: Script exiting"
 }
 
+debug_log "Calling main..."
 main "$@"
+debug_log "main returned"
