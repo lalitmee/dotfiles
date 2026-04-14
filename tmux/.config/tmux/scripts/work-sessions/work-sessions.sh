@@ -11,11 +11,10 @@
 #   work-sessions.sh --list           # List all presets
 #   work-sessions.sh --help           # Show help
 
-# Debug logging
+# Debug logging (file only, not to popup)
 DEBUG_LOG="/tmp/work-sessions-debug.log"
 debug_log() {
-    echo "[$(date '+%H:%M:%S')] $*" >> "$DEBUG_LOG"
-    echo "[$(date '+%H:%M:%S')] $*" >&2
+    echo "$*" >> "$DEBUG_LOG"
 }
 
 # Start debug
@@ -76,25 +75,24 @@ list_presets() {
 get_preset_paths() {
     local preset_num=$1
     debug_log "get_preset_paths: preset_num=$preset_num"
-    
+
     local name_var="PRESET_${preset_num}_NAME"
     local paths_var="PRESET_${preset_num}_PATHS"
     local name="${(P)name_var}"
     local paths="${(P)paths_var}"
-    
+
     debug_log "get_preset_paths: name=$name"
     debug_log "get_preset_paths: raw paths=$paths"
-    
+
     if [[ -z "$name" ]]; then
         echo "Preset $preset_num not configured" >&2
         debug_log "get_preset_paths: ERROR - Preset $preset_num not configured"
         return 1
     fi
-    
+
     # Check for __FILE__ marker - read paths from text file
     if [[ "$paths" == *"__FILE__"* ]]; then
         debug_log "get_preset_paths: __FILE__ marker detected, reading from text file"
-        IS_FILE_BASED=1
         local file_path="$HOME/.work-sessions/${preset_num}.txt"
         if [[ ! -f "$file_path" ]]; then
             echo "Error: File not found at $file_path" >&2
@@ -114,8 +112,7 @@ get_preset_paths() {
         done < "$file_path"
         return 0
     fi
-    
-    IS_FILE_BASED=0
+
     debug_log "get_preset_paths: Expanding paths..."
     echo "$paths" | grep -v '^#' | grep -v '^$' | tr -d '\r' | while IFS= read -r path; do
         # Trim leading/trailing whitespace
@@ -145,16 +142,16 @@ count_repos() {
 # Create a tmux session for a directory
 create_session() {
     local dir="$1"
-    local session_name="work/$(basename "$dir")"
-    
+    local session_name="$(basename "$dir")"
+
     if [[ ! -d "$dir" ]]; then
         return 1
     fi
-    
+
     if tmux has-session -t "$session_name" 2>/dev/null; then
         return 0
     fi
-    
+
     tmux new-session -ds "$session_name" -c "$dir" 2>/dev/null
     return 0
 }
@@ -163,31 +160,41 @@ create_session() {
 open_preset() {
     local preset_num=$1
     debug_log "open_preset: called with preset_num=$preset_num"
-    
+
     debug_log "open_preset: Loading config..."
     load_config
-    
-    # Reset file-based flag
-    IS_FILE_BASED=0
-    
+
+    # Check for __FILE__ marker directly (before subshell call)
+    local paths_var="PRESET_${preset_num}_PATHS"
+    local raw_paths="${(P)paths_var}"
+
+    # Reset file-based flag based on marker
+    if [[ "$raw_paths" == *"__FILE__"* ]]; then
+        IS_FILE_BASED=1
+        debug_log "open_preset: File-based preset detected"
+    else
+        IS_FILE_BASED=0
+        debug_log "open_preset: Parent-based preset"
+    fi
+
     local paths=$(get_preset_paths "$preset_num")
     debug_log "open_preset: got paths=$paths"
     debug_log "open_preset: IS_FILE_BASED=$IS_FILE_BASED"
-    
+
     if [[ -z "$paths" ]]; then
         debug_log "open_preset: ERROR - paths is empty"
         echo "Error: Could not load preset $preset_num"
         read -p "Press Enter to close..."
         return 1
     fi
-    
+
     debug_log "open_preset: About to count paths..."
-    
+
     # Filter to only actual paths (not debug lines)
     local valid_paths=""
     local only_path=""
     local path_count=0
-    
+
     while IFS= read -r p; do
         # Skip empty lines and debug log lines
         [[ -z "$p" ]] && continue
@@ -196,11 +203,11 @@ open_preset() {
         only_path="$p"
         valid_paths="$valid_paths"$'\n'"$p"
     done <<< "$paths"
-    
+
     debug_log "open_preset: path_count=$path_count, only_path=$only_path"
-    
+
     local selected_dirs=""
-    
+
     # File-based mode: no fzf picker, use all paths directly
     if [[ "$IS_FILE_BASED" == "1" ]]; then
         debug_log "open_preset: File-based mode - using all paths directly (no fzf)"
@@ -208,7 +215,7 @@ open_preset() {
     else
         # Parent-based mode: show fzf picker
         local preview_cmd='echo {}; echo "---"; ls -la {} 2>/dev/null | head -10'
-        
+
         if [[ $path_count -eq 1 ]] && [[ -d "$only_path" ]]; then
             # Single parent mode: list repos inside parent
             debug_log "open_preset: Single path mode, launching fzf in $only_path"
@@ -216,7 +223,6 @@ open_preset() {
                 --multi \
                 --prompt="Select repos (TAB to toggle): " \
                 --height=~70% \
-                --border \
                 --preview="$preview_cmd" \
                 --preview-window=right:40%)
         else
@@ -233,25 +239,24 @@ open_preset() {
                 --multi \
                 --prompt="Select repos (TAB to toggle): " \
                 --height=~70% \
-                --border \
                 --preview="$preview_cmd" \
                 --preview-window=right:40%)
         fi
     fi
-    
+
     debug_log "open_preset: fzf returned selected_dirs=$selected_dirs"
-    
+
     if [[ -z "$selected_dirs" ]]; then
         debug_log "open_preset: No repos selected, exiting"
         echo "No repos selected"
         read -p "Press Enter to close..."
         return 1
     fi
-    
+
     # Create sessions for selected repos
     local first_session=""
     local created_count=0
-    
+
     # File-based mode or multi-parent mode: paths are full paths
     if [[ "$IS_FILE_BASED" == "1" ]] || [[ $path_count -gt 1 ]]; then
         debug_log "open_preset: Creating sessions from full paths"
@@ -261,7 +266,7 @@ open_preset() {
             # Expand ~ if present
             full_path="${full_path/#\~/$HOME}"
             if [[ -d "$full_path" ]]; then
-                local session_name="work/$(basename "$full_path")"
+                local session_name="$(basename "$full_path")"
                 if tmux has-session -t "$session_name" 2>/dev/null; then
                     echo "Skipping (exists): $session_name"
                 else
@@ -283,7 +288,7 @@ open_preset() {
             [[ "$repo" == \[* ]] && continue  # Skip debug lines
             local full_path="$only_path/$repo"
             if [[ -d "$full_path" ]]; then
-                local session_name="work/$repo"
+                local session_name="$repo"
                 if tmux has-session -t "$session_name" 2>/dev/null; then
                     echo "Skipping (exists): $session_name"
                 else
@@ -298,12 +303,12 @@ open_preset() {
             fi
         done <<< "$selected_dirs"
     fi
-    
+
     if [[ -n "$first_session" ]]; then
         echo "Switching to: $first_session"
         tmux switch-client -t "$first_session"
     fi
-    
+
     echo "Done. Created $created_count session(s)"
 }
 
@@ -311,7 +316,7 @@ open_preset() {
 pick_preset() {
     debug_log "pick_preset: Loading config..."
     load_config
-    
+
     debug_log "pick_preset: Building options list..."
     local options=()
     local preset_nums=()
@@ -324,25 +329,25 @@ pick_preset() {
             preset_nums+=("$i")
         fi
     done
-    
+
     debug_log "pick_preset: options count=${#options[@]}"
-    
+
     if [[ ${#options[@]} -eq 0 ]]; then
         debug_log "pick_preset: ERROR - No presets configured"
         echo "No presets configured. Edit $CONFIG_FILE"
         return 1
     fi
-    
+
     debug_log "pick_preset: Launching fzf preset picker..."
-    local selected=$(printf '%s\n' "${options[@]}" | fzf --prompt="Select preset: " --height=~50% --border)
-    
+    local selected=$(printf '%s\n' "${options[@]}" | fzf --prompt="Select preset: " --height=~50%)
+
     debug_log "pick_preset: fzf returned selected=$selected"
-    
+
     if [[ -z "$selected" ]]; then
         debug_log "pick_preset: No preset selected"
         return 1
     fi
-    
+
     local preset_num="${selected%%:*}"
     debug_log "pick_preset: Calling open_preset with preset_num=$preset_num"
     open_preset "$preset_num"
@@ -350,22 +355,21 @@ pick_preset() {
 
 # Kill work sessions (multi-select)
 kill_work_session() {
-    local sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | grep '^work/')
+    local sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null)
     if [[ -z "$sessions" ]]; then
-        echo "No work sessions to kill"
+        echo "No sessions to kill"
         return 1
     fi
-    
+
     local selected=$(echo "$sessions" | fzf \
         --multi \
         --prompt="Kill sessions (TAB to toggle): " \
-        --height=~50% \
-        --border)
-    
+        --height=~50%)
+
     if [[ -z "$selected" ]]; then
         return 1
     fi
-    
+
     local killed_count=0
     while IFS= read -r session; do
         [[ -z "$session" ]] && continue
@@ -373,7 +377,7 @@ kill_work_session() {
         echo "Killed: $session"
         killed_count=$((killed_count + 1))
     done <<< "$selected"
-    
+
     echo "Done. Killed $killed_count session(s)"
 }
 
@@ -409,7 +413,7 @@ EOF
 main() {
     local cmd="${1:-}"
     debug_log "main: cmd=$cmd"
-    
+
     case "$cmd" in
         --help|-h)
             show_help
@@ -432,7 +436,7 @@ main() {
             pick_preset
             ;;
     esac
-    
+
     debug_log "main: Script completed, keeping popup open for debugging..."
     echo ""
     echo "=== Debug log: /tmp/work-sessions-debug.log ==="
