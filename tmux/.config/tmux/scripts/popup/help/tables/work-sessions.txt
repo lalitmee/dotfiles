@@ -1,0 +1,9 @@
+Key	Description
+1	Open Preset 1: Work Github (fzf picker)
+2	Open Preset 2: Personal Github (fzf picker)
+3	Open Preset 3: All Projects (fzf picker)
+p	Pick preset (interactive)
+l	List existing work sessions
+k	Kill sessions (multi-select)
+q	Quit work-sessions mode
+?	Show this help

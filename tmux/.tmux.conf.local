@@ -1420,6 +1420,78 @@ bind-key -T spotify-mode q switch-client -T root
 
 
 #-------------------------------------------------------------------------------
+# --- NOTE: Work Sessions Mode {{{
+#           Parent block for work-sessions functionality.
+#           Enter work-sessions mode by pressing C-a C-w.
+#           Select repos via fzf picker, then create tmux sessions.
+#-------------------------------------------------------------------------------
+
+# Work Sessions mode trigger
+bind-key C-w switch-client -T work-sessions
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Work Sessions - Preset Launchers {{{
+#           Each preset opens an fzf picker in the configured parent directory.
+#-------------------------------------------------------------------------------
+
+# Preset 1: Work Github
+bind-key -T work-sessions 1 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 1"
+
+# Preset 2: Personal Github
+bind-key -T work-sessions 2 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 2"
+
+# Preset 3: All Projects
+bind-key -T work-sessions 3 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 3"
+
+# Preset 4-9: Available for customization
+bind-key -T work-sessions 4 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 4"
+bind-key -T work-sessions 5 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 5"
+bind-key -T work-sessions 6 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 6"
+bind-key -T work-sessions 7 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 7"
+bind-key -T work-sessions 8 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 8"
+bind-key -T work-sessions 9 run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh 9"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Work Sessions - Interactive Actions {{{
+#-------------------------------------------------------------------------------
+
+# Preset picker (fzf)
+bind-key -T work-sessions p run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh"
+
+# List existing work sessions
+bind-key -T work-sessions l run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh --list"
+
+# Kill a work session
+bind-key -T work-sessions k run-shell "tmux neww ~/.config/tmux/scripts/work-sessions/work-sessions.sh --kill"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Work Sessions - Help & Navigation {{{
+#-------------------------------------------------------------------------------
+
+# Help for work sessions
+bind -T work-sessions ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh work-sessions"
+
+# Exit work sessions mode
+bind-key -T work-sessions q switch-client -T root
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
 # --- NOTE: Copy Mode Bindings {{{
 #-------------------------------------------------------------------------------
 # Custom pane navigation while in vi copy mode.
