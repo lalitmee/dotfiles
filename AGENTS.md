@@ -29,6 +29,8 @@
 ### Tmux Configuration
 - **Reload after changes**: Always reload tmux config after modifying tmux files
 - **Test changes**: Verify tmux functionality works correctly after reload
+- **NEVER kill tmux server**: NEVER run `tmux kill-server` or similar destructive commands
+- **Proper reload**: Use `tmux source-file ~/.config/tmux/.tmux.conf` to reload config
 
 ### Development and Debugging
 - **Use debugging logs**: Always include debugging logs when building tmux, zsh, or dotfiles features
