@@ -59,7 +59,7 @@ list_presets() {
         if [[ -n "$name" ]]; then
             count=$((count + 1))
             if [[ "$paths" == *"__FILE__"* ]]; then
-                echo "$i: $name (file-based: ~/.work-sessions-dirs.txt)"
+                echo "$i: $name (file-based: ~/.work-sessions/${i}.txt)"
             else
                 local path_count=$(echo "$paths" | grep -v '^#' | grep -v '^$' | grep -c '.')
                 echo "$i: $name ($path_count path(s))"
@@ -72,6 +72,7 @@ list_presets() {
 }
 
 # Get paths for a preset (returns expanded paths)
+# Sets IS_FILE_BASED=1 if preset uses file-based approach
 get_preset_paths() {
     local preset_num=$1
     debug_log "get_preset_paths: preset_num=$preset_num"
@@ -93,9 +94,10 @@ get_preset_paths() {
     # Check for __FILE__ marker - read paths from text file
     if [[ "$paths" == *"__FILE__"* ]]; then
         debug_log "get_preset_paths: __FILE__ marker detected, reading from text file"
-        local file_path="$HOME/.work-sessions-dirs.txt"
+        IS_FILE_BASED=1
+        local file_path="$HOME/.work-sessions/${preset_num}.txt"
         if [[ ! -f "$file_path" ]]; then
-            echo "Error: Text file not found at $file_path" >&2
+            echo "Error: File not found at $file_path" >&2
             debug_log "get_preset_paths: ERROR - File not found: $file_path"
             return 1
         fi
@@ -113,6 +115,7 @@ get_preset_paths() {
         return 0
     fi
     
+    IS_FILE_BASED=0
     debug_log "get_preset_paths: Expanding paths..."
     echo "$paths" | grep -v '^#' | grep -v '^$' | tr -d '\r' | while IFS= read -r path; do
         # Trim leading/trailing whitespace
@@ -164,8 +167,12 @@ open_preset() {
     debug_log "open_preset: Loading config..."
     load_config
     
+    # Reset file-based flag
+    IS_FILE_BASED=0
+    
     local paths=$(get_preset_paths "$preset_num")
     debug_log "open_preset: got paths=$paths"
+    debug_log "open_preset: IS_FILE_BASED=$IS_FILE_BASED"
     
     if [[ -z "$paths" ]]; then
         debug_log "open_preset: ERROR - paths is empty"
@@ -192,36 +199,44 @@ open_preset() {
     
     debug_log "open_preset: path_count=$path_count, only_path=$only_path"
     
-    local selected_dirs
+    local selected_dirs=""
     
-    if [[ $path_count -eq 1 ]] && [[ -d "$only_path" ]]; then
-        debug_log "open_preset: Single path mode, launching fzf in $only_path"
-        debug_log "open_preset: Listing repos with ls -1 $only_path"
-        # Single directory - use simple picker
-        selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf \
-            --multi \
-            --prompt="Select repos (TAB to toggle): " \
-            --height=~70% \
-            --border \
-            --preview="$preview_cmd" \
-            --preview-window=right:40%)
+    # File-based mode: no fzf picker, use all paths directly
+    if [[ "$IS_FILE_BASED" == "1" ]]; then
+        debug_log "open_preset: File-based mode - using all paths directly (no fzf)"
+        selected_dirs="$valid_paths"
     else
-        debug_log "open_preset: Multiple paths mode, launching fzf"
-        # Multiple directories - need to show full paths
-        selected_dirs=$(while IFS= read -r path; do
-            [[ -z "$path" ]] && continue
-            [[ "$path" == \[* ]] && continue  # Skip debug lines
-            [[ ! -d "$path" ]] && continue
-            ls -1 "$path" 2>/dev/null | while read -r repo; do
-                echo "$path/$repo"
-            done
-        done <<< "$valid_paths" | fzf \
-            --multi \
-            --prompt="Select repos (TAB to toggle): " \
-            --height=~70% \
-            --border \
-            --preview="$preview_cmd" \
-            --preview-window=right:40%)
+        # Parent-based mode: show fzf picker
+        local preview_cmd='echo {}; echo "---"; ls -la {} 2>/dev/null | head -10'
+        
+        if [[ $path_count -eq 1 ]] && [[ -d "$only_path" ]]; then
+            # Single parent mode: list repos inside parent
+            debug_log "open_preset: Single path mode, launching fzf in $only_path"
+            selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf \
+                --multi \
+                --prompt="Select repos (TAB to toggle): " \
+                --height=~70% \
+                --border \
+                --preview="$preview_cmd" \
+                --preview-window=right:40%)
+        else
+            # Multiple parents mode: list repos from multiple parents
+            debug_log "open_preset: Multiple paths mode, launching fzf"
+            selected_dirs=$(while IFS= read -r path; do
+                [[ -z "$path" ]] && continue
+                [[ "$path" == \[* ]] && continue  # Skip debug lines
+                [[ ! -d "$path" ]] && continue
+                ls -1 "$path" 2>/dev/null | while read -r repo; do
+                    echo "$path/$repo"
+                done
+            done <<< "$valid_paths" | fzf \
+                --multi \
+                --prompt="Select repos (TAB to toggle): " \
+                --height=~70% \
+                --border \
+                --preview="$preview_cmd" \
+                --preview-window=right:40%)
+        fi
     fi
     
     debug_log "open_preset: fzf returned selected_dirs=$selected_dirs"
@@ -237,13 +252,16 @@ open_preset() {
     local first_session=""
     local created_count=0
     
-    if [[ $path_count -eq 1 ]]; then
-        # Paths are relative to the single parent
-        while IFS= read -r repo; do
-            [[ -z "$repo" ]] && continue
-            local full_path="$only_path/$repo"
+    # File-based mode or multi-parent mode: paths are full paths
+    if [[ "$IS_FILE_BASED" == "1" ]] || [[ $path_count -gt 1 ]]; then
+        debug_log "open_preset: Creating sessions from full paths"
+        while IFS= read -r full_path; do
+            [[ -z "$full_path" ]] && continue
+            [[ "$full_path" == \[* ]] && continue  # Skip debug lines
+            # Expand ~ if present
+            full_path="${full_path/#\~/$HOME}"
             if [[ -d "$full_path" ]]; then
-                local session_name="work/$repo"
+                local session_name="work/$(basename "$full_path")"
                 if tmux has-session -t "$session_name" 2>/dev/null; then
                     echo "Skipping (exists): $session_name"
                 else
@@ -258,11 +276,14 @@ open_preset() {
             fi
         done <<< "$selected_dirs"
     else
-        # Full paths provided
-        while IFS= read -r full_path; do
-            [[ -z "$full_path" ]] && continue
+        # Single parent mode: paths are relative to parent
+        debug_log "open_preset: Creating sessions from relative paths"
+        while IFS= read -r repo; do
+            [[ -z "$repo" ]] && continue
+            [[ "$repo" == \[* ]] && continue  # Skip debug lines
+            local full_path="$only_path/$repo"
             if [[ -d "$full_path" ]]; then
-                local session_name="work/$(basename "$full_path")"
+                local session_name="work/$repo"
                 if tmux has-session -t "$session_name" 2>/dev/null; then
                     echo "Skipping (exists): $session_name"
                 else
