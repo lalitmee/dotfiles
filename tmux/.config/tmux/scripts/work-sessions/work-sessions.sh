@@ -220,11 +220,9 @@ open_preset() {
             # Single parent mode: list repos inside parent
             debug_log "open_preset: Single path mode, launching fzf in $only_path"
             selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf \
+                --cycle \
                 --multi \
-                --prompt="Select repos (TAB to toggle): " \
-                --height=~70% \
-                --preview="$preview_cmd" \
-                --preview-window=right:40%)
+                --prompt="Select repos (TAB to toggle): ")
         else
             # Multiple parents mode: list repos from multiple parents
             debug_log "open_preset: Multiple paths mode, launching fzf"
@@ -236,6 +234,7 @@ open_preset() {
                     echo "$path/$repo"
                 done
             done <<< "$valid_paths" | fzf \
+                --cycle \
                 --multi \
                 --prompt="Select repos (TAB to toggle): " \
                 --height=~70% \
@@ -339,7 +338,10 @@ pick_preset() {
     fi
 
     debug_log "pick_preset: Launching fzf preset picker..."
-    local selected=$(printf '%s\n' "${options[@]}" | fzf --prompt="Select preset: " --height=~50%)
+    local selected=$(printf '%s\n' "${options[@]}" | fzf --prompt="Select preset: " \
+        --cycle \
+        --height=~50% \
+    )
 
     debug_log "pick_preset: fzf returned selected=$selected"
 
@@ -362,6 +364,7 @@ kill_work_session() {
     fi
 
     local selected=$(echo "$sessions" | fzf \
+        --cycle \
         --multi \
         --prompt="Kill sessions (TAB to toggle): " \
         --height=~50%)
