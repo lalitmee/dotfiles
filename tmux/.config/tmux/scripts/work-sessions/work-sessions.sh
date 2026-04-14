@@ -58,8 +58,12 @@ list_presets() {
         local paths="${(P)paths_var}"
         if [[ -n "$name" ]]; then
             count=$((count + 1))
-            local path_count=$(echo "$paths" | grep -v '^#' | grep -v '^$' | grep -c '.')
-            echo "$i: $name ($path_count path(s))"
+            if [[ "$paths" == *"__FILE__"* ]]; then
+                echo "$i: $name (file-based: ~/.work-sessions-dirs.txt)"
+            else
+                local path_count=$(echo "$paths" | grep -v '^#' | grep -v '^$' | grep -c '.')
+                echo "$i: $name ($path_count path(s))"
+            fi
         fi
     done
     if [[ $count -eq 0 ]]; then
@@ -86,10 +90,39 @@ get_preset_paths() {
         return 1
     fi
     
+    # Check for __FILE__ marker - read paths from text file
+    if [[ "$paths" == *"__FILE__"* ]]; then
+        debug_log "get_preset_paths: __FILE__ marker detected, reading from text file"
+        local file_path="$HOME/.work-sessions-dirs.txt"
+        if [[ ! -f "$file_path" ]]; then
+            echo "Error: Text file not found at $file_path" >&2
+            debug_log "get_preset_paths: ERROR - File not found: $file_path"
+            return 1
+        fi
+        while IFS= read -r path; do
+            # Skip comments and empty lines
+            [[ "$path" =~ ^[[:space:]]*# ]] && continue
+            [[ -z "${path// }" ]] && continue
+            # Trim whitespace
+            path="${path#"${path%%[![:space:]]*}"}"
+            path="${path%"${path##*[![:space:]]}"}"
+            [[ -z "$path" ]] && continue
+            debug_log "get_preset_paths: file path='$path'"
+            echo "$path"
+        done < "$file_path"
+        return 0
+    fi
+    
     debug_log "get_preset_paths: Expanding paths..."
-    echo "$paths" | grep -v '^#' | grep -v '^$' | while read -r path; do
-        local expanded="${path/#~/$HOME}"
-        debug_log "get_preset_paths: expanded path=$expanded"
+    echo "$paths" | grep -v '^#' | grep -v '^$' | tr -d '\r' | while IFS= read -r path; do
+        # Trim leading/trailing whitespace
+        path="${path#"${path%%[![:space:]]*}"}"
+        path="${path%"${path##*[![:space:]]}"}"
+        # Skip if empty
+        [[ -z "$path" ]] && continue
+        # Expand ~ to $HOME
+        local expanded="${path/#\~/$HOME}"
+        debug_log "get_preset_paths: path='$path' expanded='$expanded'"
         echo "$expanded"
     done
 }
@@ -167,12 +200,11 @@ open_preset() {
         # Single directory - use simple picker
         selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf \
             --multi \
-            --prompt="Select repos: " \
+            --prompt="Select repos (TAB to toggle): " \
             --height=~70% \
             --border \
             --preview="$preview_cmd" \
-            --preview-window=right:40% \
-            --bind='tab:select-all,btab:deselect-all')
+            --preview-window=right:40%)
     else
         debug_log "open_preset: Multiple paths mode, launching fzf"
         # Multiple directories - need to show full paths
@@ -185,12 +217,11 @@ open_preset() {
             done
         done <<< "$valid_paths" | fzf \
             --multi \
-            --prompt="Select repos: " \
+            --prompt="Select repos (TAB to toggle): " \
             --height=~70% \
             --border \
             --preview="$preview_cmd" \
-            --preview-window=right:40% \
-            --bind='tab:select-all,btab:deselect-all')
+            --preview-window=right:40%)
     fi
     
     debug_log "open_preset: fzf returned selected_dirs=$selected_dirs"
@@ -306,10 +337,9 @@ kill_work_session() {
     
     local selected=$(echo "$sessions" | fzf \
         --multi \
-        --prompt="Kill sessions (TAB to multi-select): " \
+        --prompt="Kill sessions (TAB to toggle): " \
         --height=~50% \
-        --border \
-        --bind='tab:select-all,btab:deselect-all')
+        --border)
     
     if [[ -z "$selected" ]]; then
         return 1
