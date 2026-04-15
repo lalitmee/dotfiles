@@ -11,7 +11,7 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
-  "ui_font_family": "Monaco",
+  "ui_font_family": "BlexMono NF",
   "buffer_font_size": 12.0,
   "buffer_font_family": "Operator Mono Lig",
   "edit_predictions": {
@@ -90,7 +90,7 @@
   // Do NOT commit API keys to version control.
   "context_servers": {},
   "icon_theme": {
-    "mode": "system",
+    "mode": "light",
     "light": "Zed (Default)",
     "dark": "Zed (Default)",
   },
@@ -98,5 +98,9 @@
   "vim_mode": true,
   "ui_font_size": 14.0,
   "buffer_font_weight": 300.0,
-  "theme": "VSCode Dark Modern",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Catppuccin Mocha"
+  },
 }
