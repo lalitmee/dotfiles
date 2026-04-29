@@ -11,6 +11,15 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
   "ui_font_family": "BlexMono NF",
   "buffer_font_size": 12.0,
   "buffer_font_family": "Operator Mono Lig",
@@ -34,6 +43,7 @@
     "ini": ["env", ".env", ".env.*"],
   },
   "agent": {
+    "dock": "right",
     "default_model": {
       "provider": "google",
       "model": "gemini-2.5-pro",
@@ -42,6 +52,7 @@
     "model_parameters": [],
   },
   "project_panel": {
+    "dock": "left",
     "button": true,
   },
   "tabs": {
