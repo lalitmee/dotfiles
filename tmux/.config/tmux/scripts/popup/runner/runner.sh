@@ -69,11 +69,7 @@ fi
 # Get names
 clean_name="${command_to_run// /-}"
 
-# Display what we're doing
-clear
-gum_style "🚀 Creating window for: $command_to_run"
-
-# Create persistent window for the process
+# Create the script that will run in the new window
 temp_script=$(mktemp)
 cat > "$temp_script" <<EOF
     tmux setw allow-rename off 2>/dev/null
@@ -100,17 +96,14 @@ cat > "$temp_script" <<EOF
     exec zsh
 EOF
 
-tmux new-window "zsh $temp_script"
+# Create a background setup script that creates the tmux window
+local setup_script=$(mktemp)
+cat > "$setup_script" <<SETUPEOF
+#!/usr/bin/env zsh
+tmux new-window -n "$clean_name" "zsh $temp_script"
+rm -f "$temp_script" "$setup_script"
+SETUPEOF
 
-local window_id=$(tmux display-message -p '#I')
-local final_name="$clean_name"
-tmux rename-window -t "$window_id" "$final_name"
-
-gum style --bold --foreground="green" "✅ Window created: $final_name"
-
-echo ""
-gum style --bold "Window management:"
-echo "• Switch to window: C-a <window_index>"
-echo "• List windows: C-a w"
-echo "• Close window: C-a & (when in the window)"
+chmod +x "$setup_script"
+tmux run-shell -b "zsh $setup_script"
 # -------------------------------------------------------------------
