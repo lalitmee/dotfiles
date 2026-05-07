@@ -96,14 +96,5 @@ cat > "$temp_script" <<EOF
     exec zsh
 EOF
 
-# Create a background setup script that creates the tmux window
-local setup_script=$(mktemp)
-cat > "$setup_script" <<SETUPEOF
-#!/usr/bin/env zsh
 tmux new-window -n "$clean_name" "zsh $temp_script"
-rm -f "$temp_script" "$setup_script"
-SETUPEOF
-
-chmod +x "$setup_script"
-tmux run-shell -b "zsh $setup_script"
 # -------------------------------------------------------------------
