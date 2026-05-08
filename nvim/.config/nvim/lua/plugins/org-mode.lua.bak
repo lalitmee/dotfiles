@@ -443,6 +443,7 @@ return {
             --------------------------------------------------------------------------------
 
             require("orgmode").setup(opts)
+            require("plugins.org-mode.fix-ts-predicates")
             require("blink.cmp").setup({
                 sources = {
                     per_filetype = {
