@@ -1,8 +1,7 @@
 return {
     { --[[ orgmode ]]
         "nvim-orgmode/orgmode",
-        ft = "org",
-        cmd = "Org",
+        event = "VeryLazy",
         init = function()
             local wk = require("which-key")
             wk.add({
