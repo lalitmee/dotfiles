@@ -3,6 +3,9 @@
 -- │                 Created By: Lalit Kumar                  │
 -- ╰──────────────────────────────────────────────────────────╯
 
+-- nvim ui2
+require("vim._core.ui2")
+
 -- NOTE: globals should be the first thing to load
 require("globals")
 
