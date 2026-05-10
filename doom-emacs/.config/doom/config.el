@@ -24,8 +24,8 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "MonoLisa Nerd Font" :size 14 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "MonoLisa Nerd Font" :size 13))
+(setq doom-font (font-spec :family "Operator Mono Lig" :size 14 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "Operator Mono Lig" :size 13))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -34,7 +34,7 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   ;; '(font-lock-keyword-face :slant italic)
-  '(italic :family "MonoLisa Nerd Font" :slant italic))
+  '(italic :family "Operator Mono Lig" :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -49,6 +49,8 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+
+(add-hook 'window-setup-hook #'toggle-frame-maximized 100)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
