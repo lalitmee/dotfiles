@@ -24,8 +24,8 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "Operator Mono Lig" :size 14 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "Operator Mono Lig" :size 13))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 13))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -34,7 +34,7 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   ;; '(font-lock-keyword-face :slant italic)
-  '(italic :family "Operator Mono Lig" :slant italic))
+  '(italic :family "FiraCode Nerd Font" :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -61,10 +61,55 @@
 ;;   yarn add -D typescript typescript-language-server prettier eslint
 ;; ESLint LSP client lives inside lsp-mode (`lsp-eslint`); first run may prompt to
 ;; install the vscode-eslint server via lsp-mode, or set `lsp-eslint-server-command'.
+;;
+;; LSP keys (Doom default): global `SPC c` — e.g. `SPC c l` (`lsp-command-map`),
+;; `SPC c a` (code action), `SPC c r` (rename), `SPC c j` / `SPC c J` (consult symbols).
+;; Verify: `M-x describe-mode` → typescript-ts-mode / tsx-ts-mode; `M-x lsp-describe-session`.
+;; Tree-sitter grammars: finish `doom sync` if *.tsx warns about missing libtree-sitter-*.so.
 
 (after! lsp-mode
   (setq lsp-eslint-package-manager "yarn")
-  (require 'lsp-eslint))
+  (require 'lsp-eslint)
+  ;; Major modes (`typescript-ts-mode`, `tsx-ts-mode`) only enable `lsp!`; `lsp-mode` chooses
+  ;; the server. Defaults prefer `ts-ls` over `tsgo`; bump `tsgo` so the native preview wins.
+  (after! lsp-javascript
+    (when-let ((client (gethash 'tsgo lsp-clients)))
+      (setf (lsp--client-priority client) 0)))
+  (after! typescript-ts-mode
+    (map! :map typescript-ts-mode-map
+          :localleader
+          :desc "LSP command map"                      "l" #'+default/lsp-command-map
+          :desc "LSP Execute code action"              "a" #'lsp-execute-code-action
+          :desc "LSP Organize imports"                 "o" #'lsp-organize-imports
+          :desc "LSP Rename"                           "r" #'lsp-rename
+          :desc "Jump to symbol in current workspace" "j" #'consult-lsp-symbols
+          :desc "Jump to symbol in any workspace"      "J" (cmd!! #'consult-lsp-symbols 'all-workspaces))
+    (map! :map tsx-ts-mode-map
+          :localleader
+          :desc "LSP command map"                      "l" #'+default/lsp-command-map
+          :desc "LSP Execute code action"              "a" #'lsp-execute-code-action
+          :desc "LSP Organize imports"                 "o" #'lsp-organize-imports
+          :desc "LSP Rename"                           "r" #'lsp-rename
+          :desc "Jump to symbol in current workspace" "j" #'consult-lsp-symbols
+          :desc "Jump to symbol in any workspace"      "J" (cmd!! #'consult-lsp-symbols 'all-workspaces))))
+
+;; Vertico / Orderless sanity check (after `doom sync` + restart):
+;;   M-x describe-variable RET completion-styles RET → expect `orderless'
+;;   M-x describe-variable RET vertico-mode RET → should be on
+
+(defun my/consult-find-in-project ()
+  "Find file in current project via `+vertico/consult-fd-or-find' (async fd/find)."
+  (interactive)
+  (if-let ((root (doom-project-root)))
+      (+vertico/consult-fd-or-find root)
+    (user-error "Not in a project (no root found)")))
+
+(after! consult
+  (map! :leader
+        :desc "Find file in project" "SPC" #'my/consult-find-in-project)
+  (map! :leader
+        :prefix ("p" . "project")
+        :desc "Find file in project" "f" #'my/consult-find-in-project))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
