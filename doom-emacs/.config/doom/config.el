@@ -57,6 +57,15 @@
 (setq org-directory "~/Projects/Personal/Github/second-brain")
 (load! "+org-second-brain")
 
+;; React / TypeScript / ESLint (per-repo): prefer yarn --immutable / frozen lockfile.
+;;   yarn add -D typescript typescript-language-server prettier eslint
+;; ESLint LSP client lives inside lsp-mode (`lsp-eslint`); first run may prompt to
+;; install the vscode-eslint server via lsp-mode, or set `lsp-eslint-server-command'.
+
+(after! lsp-mode
+  (setq lsp-eslint-package-manager "yarn")
+  (require 'lsp-eslint))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
