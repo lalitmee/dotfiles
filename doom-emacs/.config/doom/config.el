@@ -24,8 +24,8 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 14 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 13))
+(setq doom-font (font-spec :family "Operator Mono Lig" :size 14 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "Operator Mono Lig" :size 13))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -34,7 +34,7 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   ;; '(font-lock-keyword-face :slant italic)
-  '(italic :family "FiraCode Nerd Font" :slant italic))
+  '(italic :family "Operator Mono Lig" :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
