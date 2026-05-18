@@ -15,7 +15,7 @@ font-family = Operator Mono Lig
 # font-family = BlexMono Nerd Font Mono
 # font-family = JetBrainsMono Nerd Font
 # font-family = Iosevka Nerd Font
-font-size = 11
+font-size = 10
 
 gtk-titlebar = false
 gtk-tabs-location = bottom
