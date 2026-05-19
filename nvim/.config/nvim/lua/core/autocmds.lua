@@ -269,7 +269,7 @@ augroup("buffer_au", {
         -- don't execute silently in case of errors
         event = { "TextYankPost" },
         command = function()
-            vim.highlight.on_yank({
+            vim.hl.op({
                 timeout = 40,
                 on_visual = false,
                 higroup = "IncSearch",
