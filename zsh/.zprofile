@@ -12,3 +12,7 @@ elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
     test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
     test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/lalitmee/.local/bin:$PATH"
