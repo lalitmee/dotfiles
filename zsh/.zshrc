@@ -274,3 +274,7 @@ fi
 # zprof
 
 # vim:foldmethod=marker
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/lalitmee/.local/bin:$PATH"

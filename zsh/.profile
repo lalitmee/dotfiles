@@ -37,3 +37,7 @@ fi
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/lalitmee/.local/bin:$PATH"
