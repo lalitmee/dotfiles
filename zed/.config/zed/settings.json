@@ -12,19 +12,20 @@
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
   "outline_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "git_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "ui_font_family": "BlexMono NF",
   "buffer_font_size": 12.0,
   "buffer_font_family": "Operator Mono Lig",
   "edit_predictions": {
-    "provider": "copilot"
+    "provider": "zed",
+    "mode": "eager",
   },
   "languages": {
     "INI": {
@@ -48,7 +49,6 @@
       "provider": "google",
       "model": "gemini-2.5-pro",
     },
-    "favorite_models": [],
     "model_parameters": [],
   },
   "project_panel": {
@@ -74,20 +74,8 @@
   "agent_buffer_font_size": 14.0,
   "agent_ui_font_size": 14.0,
   "agent_servers": {
-    "github-copilot-cli": {
-      "type": "registry"
-    },
-    "codex-acp": {
-      "type": "registry"
-    },
-    "claude-acp": {
-      "type": "registry"
-    },
-    "cursor": {
-      "type": "registry"
-    },
     "gemini": {
-      "type": "registry"
+      "command": "gemini",
     },
     "opencode": {
       "type": "custom",
@@ -112,6 +100,6 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
 }
