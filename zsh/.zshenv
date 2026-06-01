@@ -243,3 +243,4 @@ append_to_path "$HOME/.antigravity/antigravity/bin"
 #-------------------------------------------------------------------------------
 
 # vim:fdm=marker
+. "/Users/lalit.kumar1/.local/share/bob/env/env.sh"
