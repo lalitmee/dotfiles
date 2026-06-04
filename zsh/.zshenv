@@ -216,7 +216,7 @@ append_to_path "$HOME/.opencode/bin"
 #-------------------------------------------------------------------------------
 
 append_to_path "$HOME/.local/share/bob/bin"
-[[ -f "$HOME/.local/share/bob/env/env.sh" ]] && . "$HOME/.local/share/bob/env/env.sh"
+# [[ -f "$HOME/.local/share/bob/env/env.sh" ]] && . "$HOME/.local/share/bob/env/env.sh"
 
 #-------------------------------------------------------------------------------
 # }}}
