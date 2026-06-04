@@ -277,8 +277,4 @@ fi
 
 
 # Added by Antigravity CLI installer
-export PATH="/home/lalitmee/.local/bin:$PATH"
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/lalit.kumar1/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

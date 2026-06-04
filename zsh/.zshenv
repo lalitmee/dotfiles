@@ -216,7 +216,7 @@ append_to_path "$HOME/.opencode/bin"
 #-------------------------------------------------------------------------------
 
 append_to_path "$HOME/.local/share/bob/bin"
-# [[ -f "$HOME/.local/share/bob/env/env.sh" ]] && . "$HOME/.local/share/bob/env/env.sh"
+[[ -f "$HOME/.local/share/bob/env/env.sh" ]] && . "$HOME/.local/share/bob/env/env.sh"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -243,4 +243,3 @@ append_to_path "$HOME/.antigravity/antigravity/bin"
 #-------------------------------------------------------------------------------
 
 # vim:fdm=marker
-. "/Users/lalit.kumar1/.local/share/bob/env/env.sh"

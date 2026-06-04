@@ -2,21 +2,13 @@ local M = {}
 
 local map_opts = { noremap = false, silent = true }
 
--- Global LSP float config: border + size
+-- Global LSP float config: border + size for hover/signature
 local max_width = math.max(math.floor(vim.o.columns * 0.7), 100)
 local max_height = math.max(math.floor(vim.o.lines * 0.3), 30)
 
-do
-    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = vim.tbl_deep_extend("keep", opts or {}, {
-            border = "rounded",
-            max_width = max_width,
-            max_height = max_height,
-        })
-        return orig_util_open_floating_preview(contents, syntax, opts, ...)
-    end
-end
+-- Toggle to enable custom hover/signature float size.
+-- Set to true if you prefer constrained floats, false to use Neovim defaults.
+local use_custom_float_size = false
 
 ---------------------------------------------------------------------
 -- NOTE: servers config {{{
@@ -29,7 +21,7 @@ local autocmds = require("plugins.lsp.autocmds")
 -- NOTE: fix floating window {{{
 --------------------------------------------------------------------------------
 M.fix_floating_window = function()
-    -- no-op: floating window options are configured at module load time
+    -- no-op: floats are configured via vim.lsp.buf.* options and vim.diagnostic.config
 end
 -- }}}
 --------------------------------------------------------------------------------
@@ -84,12 +76,34 @@ M.mappings = function(client)
         extend_map_opts({ desc = "go-to-dynamic-workspace-symbols" })
     )
     nmap("ga", "<cmd>Telescope lsp_workspace_symbols<CR>", extend_map_opts({ desc = "Go To Workspace Symbols" }))
+
+    local float_opts
+    if use_custom_float_size then
+        float_opts = {
+            -- border is left to 'winborder' / defaults
+            max_width = max_width,
+            max_height = max_height,
+        }
+    end
+
     if client.name ~= "rust_analyzer" then
-        nmap("K", vim.lsp.buf.hover, map_opts)
+        nmap("K", function()
+            if float_opts then
+                vim.lsp.buf.hover(float_opts)
+            else
+                vim.lsp.buf.hover()
+            end
+        end, map_opts)
     end
     nmap("gD", "<cmd>FzfLua lsp_declarations<CR>", extend_map_opts({ desc = "Go to Declarations" }))
     nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", extend_map_opts({ desc = "Go to Type Definitions" }))
-    imap("<C-h>", vim.lsp.buf.signature_help, extend_map_opts({ desc = "Show Signature Help" }))
+    imap("<C-h>", function()
+        if float_opts then
+            vim.lsp.buf.signature_help(float_opts)
+        else
+            vim.lsp.buf.signature_help()
+        end
+    end, extend_map_opts({ desc = "Show Signature Help" }))
     nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", extend_map_opts({ desc = "Go To Implementations" }))
 
     nmap("[d", function()
