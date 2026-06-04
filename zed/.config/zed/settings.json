@@ -12,86 +12,113 @@
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
   "outline_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "collaboration_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "git_panel": {
-    "dock": "left",
+    "dock": "left"
   },
   "ui_font_family": "BlexMono NF",
   "buffer_font_size": 12.0,
   "buffer_font_family": "Operator Mono Lig",
   "edit_predictions": {
     "provider": "zed",
-    "mode": "eager",
+    "mode": "eager"
   },
   "languages": {
     "INI": {
       "editor": {
         "folding": {
-          "strategy": "marker",
-        },
-      },
-    },
+          "strategy": "marker"
+        }
+      }
+    }
   },
   "vim": {
-    "toggle_relative_line_numbers": true,
+    "toggle_relative_line_numbers": true
   },
   "relative_line_numbers": "enabled",
   "file_types": {
-    "ini": ["env", ".env", ".env.*"],
+    "ini": ["env", ".env", ".env.*"]
   },
   "agent": {
     "dock": "right",
     "default_model": {
+      "effort": "medium",
+      "enable_thinking": true,
       "provider": "google",
-      "model": "gemini-2.5-pro",
+      "model": "gemini-3.5-flash"
     },
-    "model_parameters": [],
+    "model_parameters": []
   },
   "project_panel": {
     "dock": "left",
-    "button": true,
+    "button": true
   },
   "tabs": {
     "show_diagnostics": "errors",
     "file_icons": true,
-    "git_status": true,
+    "git_status": true
   },
   "tab_bar": {
-    "show": true,
+    "show": true
   },
   "title_bar": {
     "show_menus": false,
-    "show_branch_icon": true,
+    "show_branch_icon": true
   },
   "ui_font_weight": 300.0,
   "terminal": {
-    "font_weight": 300.0,
+    "font_weight": 300.0
   },
   "agent_buffer_font_size": 14.0,
   "agent_ui_font_size": 14.0,
   "agent_servers": {
     "gemini": {
-      "command": "gemini",
+      "command": "gemini"
     },
     "opencode": {
       "type": "custom",
       "command": "opencode",
       "args": [],
-      "env": {},
-    },
+      "env": {}
+    }
   },
   // NOTE: If you need to add MCP servers or context servers with API keys in the future,
   // manually edit ~/.config/zed/settings.json after stowing this config.
   // Do NOT commit API keys to version control.
-  "context_servers": {},
+  "context_servers": {
+    "chrome-devtools-mcp-zed": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "browser_url": null,
+        "ws_endpoint": null,
+        "ws_headers": null,
+        "auto_connect": null,
+        "channel": null,
+        "headless": null,
+        "isolated": null,
+        "user_data_dir": null,
+        "viewport": null,
+        "executable_path": null,
+        "chrome_arg": [],
+        "proxy_server": null,
+        "accept_insecure_certs": null,
+        "category_emulation": null,
+        "category_performance": null,
+        "category_network": null,
+        "log_file": null,
+        "extra_args": []
+      }
+    }
+  },
   "icon_theme": {
     "mode": "light",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "dark": "Zed (Default)"
   },
   "base_keymap": "VSCode",
   "vim_mode": true,
@@ -100,6 +127,6 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Catppuccin Mocha",
-  },
+    "dark": "Catppuccin Mocha"
+  }
 }
