@@ -2,7 +2,23 @@ local M = {}
 
 local map_opts = { noremap = false, silent = true }
 
-----------------------------------------------------------------------
+-- Global LSP float config: border + size
+local max_width = math.max(math.floor(vim.o.columns * 0.7), 100)
+local max_height = math.max(math.floor(vim.o.lines * 0.3), 30)
+
+do
+    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = vim.tbl_deep_extend("keep", opts or {}, {
+            border = "rounded",
+            max_width = max_width,
+            max_height = max_height,
+        })
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    end
+end
+
+---------------------------------------------------------------------
 -- NOTE: servers config {{{
 ----------------------------------------------------------------------
 local autocmds = require("plugins.lsp.autocmds")
@@ -13,13 +29,7 @@ local autocmds = require("plugins.lsp.autocmds")
 -- NOTE: fix floating window {{{
 --------------------------------------------------------------------------------
 M.fix_floating_window = function()
-    -- Set border for all LSP floating windows
-    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.border = opts.border or "rounded"
-        return orig_util_open_floating_preview(contents, syntax, opts, ...)
-    end
+    -- no-op: floating window options are configured at module load time
 end
 -- }}}
 --------------------------------------------------------------------------------

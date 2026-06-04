@@ -11,23 +11,11 @@ lsp.handlers["textDocument/definition"] = function(_, result)
     end
 
     if vim.tbl_islist(result) then
-        lsp.util.jump_to_location(result[1], "utf-8", true)
+        lsp.util.show_document(result[1], "utf-8", { focus = true })
     else
-        lsp.util.jump_to_location(result, "utf-8", true)
+        lsp.util.show_document(result, "utf-8", { focus = true })
     end
 end
-
-lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
-    border = "rounded",
-    max_width = max_width,
-    max_height = max_height,
-})
-
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, {
-    border = "rounded",
-    max_width = max_width,
-    max_height = max_height,
-})
 
 lsp.handlers["window/showMessage"] = function(_, result, ctx)
     local client = lsp.get_client_by_id(ctx.client_id)
@@ -45,7 +33,7 @@ lsp.handlers["textDocument/implementation"] = function()
     local params = lsp.util.make_position_params(nil, "utf-8")
 
     lsp.buf_request(0, "textDocument/implementation", params, function(err, result, ctx, config)
-        local ft = vim.api.nvim_get_option_value("filetype")
+        local ft = vim.api.nvim_get_option_value("filetype", {})
         if ft == "go" then
             local new_result = vim.tbl_filter(function(v)
                 return not string.find(v.uri, "mock_")
