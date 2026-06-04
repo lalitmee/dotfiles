@@ -10,7 +10,7 @@ return {
                 },
                 win = {
                     split = {
-                        width = 85,
+                        width = 100,
                     },
                 },
             },
