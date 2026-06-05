@@ -1,11 +1,11 @@
 # Implementation Plan: Fix argument parsing issue in tmux-file-picker script
 
-## Phase 1: Setup and Red Phase (Write Failing Tests)
+## Phase 1: Setup and Red Phase (Write Failing Tests) [checkpoint: 199d19c]
 
-- [ ] Task: Create a test script `scripts/test/test_file_picker.zsh` that runs the file picker script in a controlled environment and checks for the "unexpected argument" error.
-    - [ ] Create `scripts/test/test_file_picker.zsh` with test assertions for flag splitting
-    - [ ] Ensure the script runs and demonstrates the bug by failing
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Setup and Red Phase' (Protocol in workflow.md)
+- [x] Task: Create a test script `scripts/test/test_file_picker.zsh` that runs the file picker script in a controlled environment and checks for the "unexpected argument" error.
+    - [x] Create `scripts/test/test_file_picker.zsh` with test assertions for flag splitting
+    - [x] Ensure the script runs and demonstrates the bug by failing
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Setup and Red Phase' (Protocol in workflow.md)
 
 ## Phase 2: Green Phase (Implement Fix & Refactor)
 
