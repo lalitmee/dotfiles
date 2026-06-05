@@ -151,7 +151,7 @@ main() {
 	local fd_flags="${TMUX_FILE_PICKER_FD_FLAGS:--H --type f --exclude .git}"
 
 	local selected_files_str
-	selected_files_str=$(cd "$search_dir" && $fd_cmd $fd_flags | fzf --multi --reverse --preview "$preview_cmd" || true)
+	selected_files_str=$(cd "$search_dir" && $fd_cmd $=fd_flags | fzf --multi --reverse --preview "$preview_cmd" || true)
 
 	if [[ -z "$selected_files_str" ]]; then
 		exit 0
