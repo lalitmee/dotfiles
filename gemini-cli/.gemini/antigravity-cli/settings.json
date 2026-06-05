@@ -1,5 +1,13 @@
 {
+  "allowNonWorkspaceAccess": true,
   "colorScheme": "tokyo night",
+  "permissions": {
+    "allow": [
+      "command(git log)",
+      "command(git diff)",
+      "command(git status)"
+    ]
+  },
   "trustedWorkspaces": [
     "/home/lalitmee/dotfiles"
   ]
