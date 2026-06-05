@@ -7,12 +7,12 @@
     - [x] Ensure the script runs and demonstrates the bug by failing
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Setup and Red Phase' (Protocol in workflow.md)
 
-## Phase 2: Green Phase (Implement Fix & Refactor)
+## Phase 2: Green Phase (Implement Fix & Refactor) [checkpoint: 4716e4b]
 
-- [ ] Task: Modify `bin/.config/bin/tmux-file-picker` to fix the `fd` option expansion.
-    - [ ] Correct `$fd_flags` expansion inside the `selected_files_str` block using arrays or Zsh splitting
-    - [ ] Verify the syntax of the modified `tmux-file-picker` script
-- [ ] Task: Run the test script to confirm it passes (Green phase).
-    - [ ] Execute `scripts/test/test_file_picker.zsh` and verify all tests pass
-    - [ ] Verify that other options (e.g., `-g`, `--zoxide`) continue to work properly
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Green Phase' (Protocol in workflow.md)
+- [x] Task: Modify `bin/.config/bin/tmux-file-picker` to fix the `fd` option expansion.
+    - [x] Correct `$fd_flags` expansion inside the `selected_files_str` block using arrays or Zsh splitting
+    - [x] Verify the syntax of the modified `tmux-file-picker` script
+- [x] Task: Run the test script to confirm it passes (Green phase).
+    - [x] Execute `scripts/test/test_file_picker.zsh` and verify all tests pass
+    - [x] Verify that other options (e.g., `-g`, `--zoxide`) continue to work properly
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Green Phase' (Protocol in workflow.md)
