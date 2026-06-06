@@ -237,6 +237,7 @@ export DEFAULT_MINIMUM_TOKENS=6000
 #-------------------------------------------------------------------------------
 
 append_to_path "$HOME/.antigravity/antigravity/bin"
+append_to_path "$HOME/.local/share/antigravity-ide/bin"
 
 #-------------------------------------------------------------------------------
 # }}}
