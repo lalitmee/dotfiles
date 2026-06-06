@@ -45,6 +45,10 @@ super + shift + c
 super + alt + z
     zed
 
+# editor -> Antigravity IDE
+super + alt + a
+    $HOME/.local/share/antigravity-ide/bin/antigravity-ide --no-sandbox
+
 #}}}
 #-------------------------------------------------------------------------------
 
