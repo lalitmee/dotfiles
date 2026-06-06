@@ -3,7 +3,7 @@
     "name": "gemini-3-flash-preview"
   },
   "general": {
-    "preferredEditor": "nvim",
+    "preferredEditor": "neovim",
     "vimMode": true,
     "checkpointing": {
       "enabled": true
