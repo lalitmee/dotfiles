@@ -22,7 +22,7 @@ local config = {
     notification_id = "agy_commit_msg",
     notification_title = "Antigravity CLI",
     spinner_chars = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
-    prompt = "Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. Include at least one bullet point (not more than 72 chars long) 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message 6. Use only lowercase letters for general text, but capitalize proper nouns, code (from diff) and acronyms",
+    prompt = "Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. A body containing at least one bullet point (maximum 72 characters per line) is MANDATORY. Do not generate a single-line commit message; always provide both the header and a bulleted list describing the changes. 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message 6. Use only lowercase letters for general text, but capitalize proper nouns, code (from diff) and acronyms",
 }
 
 -- State management for the script
@@ -89,7 +89,8 @@ vim.fn.jobstart(command, {
             if vim.api.nvim_buf_is_valid(state.original_bufnr) and vim.api.nvim_get_current_buf() == state.original_bufnr then
                 local output = table.concat(data, "\n")
                 -- Discard any trailing summary or metadata block separated by "---"
-                local clean_output = output:match("^(.-)\n%s*---") or output
+                local separator_idx = output:find("\n%s*---%s*\n") or output:find("\n%s*---%s*$")
+                local clean_output = separator_idx and output:sub(1, separator_idx - 1) or output
                 local commit_message = clean_output:gsub("^%s*(.-)%s*$", "%1")
                 vim.api.nvim_buf_set_lines(state.original_bufnr, 0, 0, false, vim.split(commit_message, "\n"))
                 notify("✨ Commit message generated and inserted into buffer!", vim.log.levels.INFO, { timeout = 2000 })
