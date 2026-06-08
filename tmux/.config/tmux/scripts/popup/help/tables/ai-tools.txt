@@ -1,8 +1,12 @@
 Key	Description
-g	Gemini AI assistant
-o	OpenCode AI assistant
+a	Antigravity (agy) AI assistant
 c	Claude AI assistant
 x	ChatGPT Codex AI assistant
-w	Qwen Code AI assistant
-u	Update AI tools
+o	OpenCode AI assistant
+p	Copilot AI assistant
+d	Plandex AI assistant
+s	Crush AI assistant
+k	Kiro AI assistant
+r	Grok AI assistant
+u/U	Update AI tools
 q	Quit table

@@ -29,9 +29,9 @@ fi
 # IMPORTANT: The command must be a direct executable or a full path.
 # Aliases will not work here unless sourced, but direct commands are preferred.
 case "$TOOL" in
-    gemini)
-        ICON="🤖"; PANE_TITLE="$ICON gemini"
-        COMMAND="gemini"
+    agy)
+        ICON="✨"; PANE_TITLE="$ICON antigravity"
+        COMMAND="agy"
         ;;
     opencode)
         ICON="🧑‍💻"; PANE_TITLE="$ICON openCode"

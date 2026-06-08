@@ -61,6 +61,14 @@ run_updates() {
         kiro-cli --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
+    get_agy_version() {
+        agy --version 2>/dev/null || echo "Unknown"
+    }
+
+    get_codex_version() {
+        codex --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
+    }
+
     # 1. Dependency Check
     for cmd in gum gum_style; do
         if ! command_exists "$cmd"; then
@@ -143,16 +151,38 @@ run_updates() {
 
     # 2. Update NPM Packages (Non-interactive)
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
-        update_npm_package "@google/gemini-cli@preview"
         update_npm_package "@anthropic-ai/claude-code@latest"
         update_npm_package "@github/copilot@latest"
         update_npm_package "opencode-ai@latest"
         update_npm_package "@vibe-kit/grok-cli@latest"
+        update_npm_package "@openai/codex@latest"
     fi
 
     # 2.5 Update Non-NPM Tools
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
         gum_style "🔄 Updating non-interactive tools..."
+
+        # Antigravity CLI: Update via built-in updater
+        if command_exists agy; then
+            old_version=$(get_agy_version)
+            gum_style "Updating Antigravity CLI (agy)..."
+            if agy update; then
+                new_version=$(get_agy_version)
+                status_icon="➡️" # Default: No Change
+
+                if [[ "$old_version" != "$new_version" ]]; then
+                    status_icon="⬆️" # Updated
+                fi
+
+                gum_style "✅ Success: Antigravity CLI updated."
+                update_summary+=("agy,$status_icon,$old_version,$new_version")
+            else
+                gum_style "❌ Error: Failed to update Antigravity CLI."
+                update_summary+=("agy,❌,$old_version,Update Failed")
+            fi
+        else
+            gum_style "Antigravity CLI (agy) not installed, skipping update."
+        fi
 
         # Crush: Re-install via go (non-interactive)
         if command_exists crush; then
