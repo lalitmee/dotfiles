@@ -9,7 +9,8 @@
       "command(git status)",
       "command(npm list)",
       "command(npm search)",
-      "command(which)"
+      "command(which)",
+      "command(luac)"
     ]
   },
   "trustedWorkspaces": [
