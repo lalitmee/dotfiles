@@ -1,11 +1,15 @@
 {
   "allowNonWorkspaceAccess": true,
   "colorScheme": "tokyo night",
+  "model": "Gemini 3.5 Flash (High)",
   "permissions": {
     "allow": [
       "command(git log)",
       "command(git diff)",
-      "command(git status)"
+      "command(git status)",
+      "command(npm list)",
+      "command(npm search)",
+      "command(which)"
     ]
   },
   "trustedWorkspaces": [

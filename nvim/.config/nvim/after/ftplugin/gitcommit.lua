@@ -19,8 +19,8 @@ opt.spell = true
 
 -- Configuration for the script
 local config = {
-    notification_id = "gemini_commit_msg",
-    notification_title = "Gemini CLI",
+    notification_id = "agy_commit_msg",
+    notification_title = "Antigravity CLI",
     spinner_chars = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
     prompt = "Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. Include at least one bullet point (not more than 72 chars long) 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message 6. Use only lowercase letters for general text, but capitalize proper nouns, code (from diff) and acronyms",
 }
@@ -79,7 +79,7 @@ end
 spinner.start()
 
 -- Construct the command
-local command = string.format([[git diff --cached | gemini -o text "%s"]], config.prompt)
+local command = string.format([[git diff --cached | agy -p "%s"]], config.prompt)
 
 vim.fn.jobstart(command, {
     stdout_buffered = true,
@@ -88,11 +88,13 @@ vim.fn.jobstart(command, {
         if data and #data > 0 then
             if vim.api.nvim_buf_is_valid(state.original_bufnr) and vim.api.nvim_get_current_buf() == state.original_bufnr then
                 local output = table.concat(data, "\n")
-                local commit_message = output:gsub("^%s*(.-)%s*$", "%1")
+                -- Discard any trailing summary or metadata block separated by "---"
+                local clean_output = output:match("^(.-)\n%s*---") or output
+                local commit_message = clean_output:gsub("^%s*(.-)%s*$", "%1")
                 vim.api.nvim_buf_set_lines(state.original_bufnr, 0, 0, false, vim.split(commit_message, "\n"))
                 notify("✨ Commit message generated and inserted into buffer!", vim.log.levels.INFO, { timeout = 2000 })
             else
-                notify("Gitcommit buffer closed. Gemini response discarded.", vim.log.levels.WARN, { timeout = 5000 })
+                notify("Gitcommit buffer closed. Antigravity response discarded.", vim.log.levels.WARN, { timeout = 5000 })
             end
         end
     end,
@@ -101,7 +103,7 @@ vim.fn.jobstart(command, {
         -- Only stop the spinner and notify if a real error is detected.
         if not stderr:find("mcp") and stderr:find("Error:") then
             spinner.stop()
-            notify("Gemini CLI error: " .. stderr, vim.log.levels.ERROR)
+            notify("Antigravity CLI error: " .. stderr, vim.log.levels.ERROR)
         end
     end,
     on_exit = function()

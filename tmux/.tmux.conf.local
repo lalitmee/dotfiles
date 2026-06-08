@@ -933,8 +933,8 @@ bind-key C-i switch-client -T ai-tools
 #           Direct access to various AI assistant tools.
 #-------------------------------------------------------------------------------
 
-# Gemini
-bind-key -T ai-tools g display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh gemini'"
+# Antigravity
+bind-key -T ai-tools a display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh agy'"
 
 # OpenCode
 bind-key -T ai-tools o display-popup -w 85% -h 85% -E "zsh -lic '~/.config/tmux/scripts/popup/ai/tool.sh opencode'"
