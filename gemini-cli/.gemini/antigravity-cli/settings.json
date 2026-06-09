@@ -1,7 +1,7 @@
 {
   "allowNonWorkspaceAccess": true,
   "colorScheme": "tokyo night",
-  "model": "Gemini 3.5 Flash (High)",
+  "model": "Gemini 3.5 Flash (Medium)",
   "permissions": {
     "allow": [
       "command(git log)",

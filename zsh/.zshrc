@@ -203,6 +203,11 @@ znap eval pyenv "pyenv init -"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# Disable pyenv-virtualenv auto-activation hook to prevent prompt latency.
+# Manual activation using 'pyenv activate <venv-name>' will still work.
+autoload -U add-zsh-hook
+add-zsh-hook -d precmd _pyenv_virtualenv_hook
 # }}}
 # -------------------------------------------------------------------
 
