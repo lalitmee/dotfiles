@@ -10,7 +10,11 @@
       "command(npm list)",
       "command(npm search)",
       "command(which)",
-      "command(luac)"
+      "command(luac)",
+      "command(npm --version)",
+      "command(yarn --version)",
+      "command(npm config)",
+      "command(ls)"
     ]
   },
   "trustedWorkspaces": [
