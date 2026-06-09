@@ -3,7 +3,18 @@ return {
         "nvim-treesitter/nvim-treesitter",
         branch = "main",
         lazy = false,
-        build = ":TSUpdate",
+        build = function()
+            if vim.fn.executable("tree-sitter") == 0 then
+                if vim.fn.executable("npm") == 1 then
+                    vim.fn.system({ "npm", "install", "-g", "tree-sitter-cli" })
+                elseif vim.fn.executable("yarn") == 1 then
+                    vim.fn.system({ "yarn", "global", "add", "tree-sitter-cli" })
+                elseif vim.fn.executable("cargo") == 1 then
+                    vim.fn.system({ "cargo", "install", "tree-sitter-cli" })
+                end
+            end
+            vim.cmd("TSUpdate")
+        end,
         dependencies = {
             "nvim-treesitter/nvim-treesitter-context",
         },
@@ -51,9 +62,18 @@ return {
                 "yaml",
             }
 
-            require("nvim-treesitter").setup({
-                ensure_install = parsers,
-            })
+            require("nvim-treesitter").setup()
+
+            local installed = require("nvim-treesitter").get_installed()
+            local to_install = {}
+            for _, p in ipairs(parsers) do
+                if not vim.list_contains(installed, p) then
+                    table.insert(to_install, p)
+                end
+            end
+            if #to_install > 0 then
+                require("nvim-treesitter").install(to_install)
+            end
 
             vim.treesitter.language.register("markdown", "octo")
             vim.treesitter.language.register("bash", "zsh")
