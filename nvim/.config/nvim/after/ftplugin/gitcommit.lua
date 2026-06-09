@@ -22,7 +22,7 @@ local config = {
     notification_id = "agy_commit_msg",
     notification_title = "Antigravity CLI",
     spinner_chars = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
-    prompt = "Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. A body containing at least one bullet point (maximum 72 characters per line) is MANDATORY. Do not generate a single-line commit message; always provide both the header and a bulleted list describing the changes. 3. Keep title under 50 chars 4. Use imperative mood 5. Respond with ONLY the commit message 6. Use only lowercase letters for general text, but capitalize proper nouns, code (from diff) and acronyms",
+    prompt = "Generate a conventional commit message following these rules: 1. Use conventional commit format type(scope): description 2. A body containing at least one bullet point is MANDATORY. Hard-wrap all lines in the commit message body to be strictly under 72 characters per line (break long lines with newlines). Do not generate a single-line commit message; always provide both the header and a bulleted list describing the changes. 3. Keep title under 50 chars and use ONLY lowercase letters/characters in the title (no uppercase letters at all in the first line) 4. Use imperative mood 5. Respond with ONLY the commit message 6. In the body of the commit message, use only lowercase letters for general text, but capitalize proper nouns, code (from diff) and acronyms",
 }
 
 -- State management for the script
