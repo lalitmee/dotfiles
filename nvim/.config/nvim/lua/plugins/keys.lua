@@ -102,7 +102,8 @@ return {
                 { "<leader>nm", ":ReloadModule<space>", desc = "Realod Module" },
                 { "<leader>no", ":Lazy<CR>", desc = "Packages Status" },
                 { "<leader>np", ":Lazy profile<CR>", desc = "Lazy Profile" },
-                { "<leader>nr", ":Redir Notifications<CR>", desc = "Redir Notifications" },
+                { "<leader>nR", ":Redir Notifications<CR>", desc = "Redir Notifications" },
+                { "<leader>nr", ":restart<CR>", desc = "Neovim Restart" },
                 { "<leader>ns", ":Lazy sync<CR>", desc = "Lazy Sync" },
                 { "<leader>nu", ":Lazy update<CR>", desc = "Lazy Update" },
 
