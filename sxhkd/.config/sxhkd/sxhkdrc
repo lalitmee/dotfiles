@@ -315,15 +315,15 @@ super + comma
 
 # >> floating-notes -> ghostty
 super + shift + n
-    i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/notes/inbox.org
+    i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org
 
 # >> todos -> ghostty
 super + shift + t
-    i3run --summon --title floating-todos -- ghostty --title=floating-todos -e nvim ~/Projects/Personal/Github/second-brain/agenda/inbox.org
+    i3run --summon --title floating-todos -- ghostty --title=floating-todos -e nvim ~/Projects/Personal/Github/second-brain/daily/agenda/inbox.org
 
 # >> scratch -> ghostty
 super + alt + k
-    i3run --summon --title floating-scratch -- ghostty --title=floating-scratch -e nvim ~/Projects/Personal/Github/second-brain/scratch/inbox.org
+    i3run --summon --title floating-scratch -- ghostty --title=floating-scratch -e nvim ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
 
 # >> communication -> telegram
 super + u

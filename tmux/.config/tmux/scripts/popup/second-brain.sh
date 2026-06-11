@@ -89,7 +89,11 @@ context_path="${CONTEXT_PATHS[$context]}"
 # --- Step 2: Route to the Correct Mode Logic ---
 case "$mode" in
     "notes")
-        notes_dir="$context_path/notes"
+        if [[ "$context" == "Personal" ]]; then
+            notes_dir="$context_path/brain/notes"
+        else
+            notes_dir="$context_path/notes"
+        fi
         mkdir -p "$notes_dir"
 
         # Portable way to list .org files without -printf (works on macOS and Linux)
@@ -112,7 +116,11 @@ case "$mode" in
 
     "todos")
         date=$(date +%F)
-        todos_dir="$context_path/agenda/daily"
+        if [[ "$context" == "Personal" ]]; then
+            todos_dir="$context_path/daily/agenda/daily"
+        else
+            todos_dir="$context_path/agenda/daily"
+        fi
         todo_file="$todos_dir/$date.org"
 
         mkdir -p "$todos_dir"
@@ -150,7 +158,11 @@ case "$mode" in
                 "html")     ext="html" ;;
                 "css")      ext="css" ;;
             esac
-            scratch_dir="$context_path/scratch/$scratch_type"
+            if [[ "$context" == "Personal" ]]; then
+                scratch_dir="$context_path/sandbox/scratch/$scratch_type"
+            else
+                scratch_dir="$context_path/scratch/$scratch_type"
+            fi
             scratch_file="$scratch_dir/$file_name.$ext"
             [[ ! -e "$scratch_file" ]] && break
             file_name="${file_name}-$try"
