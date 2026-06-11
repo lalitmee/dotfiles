@@ -250,34 +250,34 @@ return {
 
             org_capture_templates = {
                 i = {
-                    description = "Idea",
+                    description = "💡 Idea",
                     subtemplates = {
                         i = {
-                            description = "Raw Idea",
+                            description = "💡 Raw Idea",
                             template = "* %? :IDEA:RAW:",
                             target = "~/Projects/Personal/Github/second-brain/sandbox/ideas/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         p = {
-                            description = "Project",
+                            description = "🚀 Project",
                             template = "* %? :IDEA:PROJECT:",
                             target = "~/Projects/Personal/Github/second-brain/sandbox/ideas/project.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         a = {
-                            description = "Application",
+                            description = "💻 Application",
                             template = "* %? :IDEA:APPLICATION:",
                             target = "~/Projects/Personal/Github/second-brain/sandbox/ideas/application.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         n = {
-                            description = "Neovim",
+                            description = "💤 Neovim",
                             template = "* %? :IDEA:NEOVIM:",
                             target = "~/Projects/Personal/Github/second-brain/sandbox/ideas/neovim.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             template = "* %? :IDEA:WORK:",
                             target = "~/Projects/Work/Github/second-brain/ideas/inbox.org",
                             properties = { empty_lines = { before = 1 } },
@@ -286,22 +286,22 @@ return {
                 },
 
                 t = {
-                    description = "Task",
+                    description = "📋 Task",
                     subtemplates = {
                         p = {
-                            description = "Personal",
+                            description = "🏠 Personal",
                             template = "* TODO %? :TASK:\n  SCHEDULED: %U DEADLINE: %t",
                             target = "~/Projects/Personal/Github/second-brain/daily/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         n = {
-                            description = "Neovim",
+                            description = "💤 Neovim",
                             template = "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U DEADLINE: %t",
                             target = "~/Projects/Personal/Github/second-brain/daily/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             template = "* TODO %? :TASK:WORK:\n  SCHEDULED: %U DEADLINE: %t",
                             target = "~/Projects/Work/Github/second-brain/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
@@ -310,16 +310,16 @@ return {
                 },
 
                 n = {
-                    description = "Note",
+                    description = "📓 Note",
                     subtemplates = {
                         p = {
-                            description = "Personal",
+                            description = "🏠 Personal",
                             template = "* %^{Title} :NOTE:\n  %U\n\n%?",
                             target = "~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             template = "* %^{Title} :NOTE:WORK:\n  %U\n\n%?",
                             target = "~/Projects/Work/Github/second-brain/notes/inbox.org",
                             properties = { empty_lines = { before = 1 } },
@@ -328,17 +328,17 @@ return {
                 },
 
                 j = {
-                    description = "Journal",
+                    description = "📝 Journal",
                     subtemplates = {
                         p = {
-                            description = "Personal",
+                            description = "🏠 Personal",
                             target = "~/Projects/Personal/Github/second-brain/daily/journal/inbox.org",
                             template = "**** [%<%I:%M %p>] %?",
                             datetree = { tree_type = "day", reversed = true },
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             target = "~/Projects/Personal/Github/second-brain/daily/journal/inbox.org",
                             template = "**** [%<%I:%M %p>] %? :WORK:",
                             datetree = { tree_type = "day", reversed = true },
@@ -348,16 +348,16 @@ return {
                 },
 
                 m = {
-                    description = "Meeting",
+                    description = "🤝 Meeting",
                     subtemplates = {
                         p = {
-                            description = "Personal",
+                            description = "🏠 Personal",
                             template = "* MEETING with %? :MEETING:\n  SCHEDULED: %t",
                             target = "~/Projects/Personal/Github/second-brain/daily/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             template = "* MEETING with %? :MEETING:WORK:\n  SCHEDULED: %t",
                             target = "~/Projects/Work/Github/second-brain/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
@@ -366,16 +366,16 @@ return {
                 },
 
                 p = {
-                    description = "Phone Call",
+                    description = "📞 Phone Call",
                     subtemplates = {
                         p = {
-                            description = "Personal",
+                            description = "🏠 Personal",
                             template = "* CALL with %? :PHONE:\n  SCHEDULED: %t",
                             target = "~/Projects/Personal/Github/second-brain/daily/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             template = "* CALL with %? :PHONE:WORK:\n  SCHEDULED: %t",
                             target = "~/Projects/Work/Github/second-brain/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
@@ -384,16 +384,16 @@ return {
                 },
 
                 h = {
-                    description = "Habit",
+                    description = "⚡ Habit",
                     subtemplates = {
                         p = {
-                            description = "Personal",
+                            description = "🏠 Personal",
                             template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Projects/Personal/Github/second-brain/daily/agenda/habits.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
-                            description = "Work",
+                            description = "💼 Work",
                             template = "* NEXT %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
                             target = "~/Projects/Work/Github/second-brain/agenda/habits.org",
                             properties = { empty_lines = { before = 1 } },
@@ -402,10 +402,10 @@ return {
                 },
 
                 l = {
-                    description = "Link",
+                    description = "🔗 Link",
                     subtemplates = {
                         r = {
-                            description = "Useful resource links",
+                            description = "🔗 Useful resource links",
                             template = "  - [[%^{Link||}][%^{Description}]] :LINK:",
                             headline = "Useful resource links",
                             target = "~/Projects/Personal/Github/second-brain/brain/vocabulary/links.org",
@@ -548,11 +548,9 @@ return {
 
     {
         "chipsenkbeil/org-roam.nvim",
-        tag = "0.1.1",
         dependencies = {
             {
                 "nvim-orgmode/orgmode",
-                tag = "0.3.7",
             },
         },
         keys = {
