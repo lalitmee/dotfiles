@@ -18,7 +18,8 @@
       "command(find)",
       "command(sort)",
       "command(tmux)",
-      "command(nvim)"
+      "command(nvim)",
+      "command(git show)"
     ]
   },
   "trustedWorkspaces": [
