@@ -24,7 +24,7 @@
   "Second key under `SPC n …` for the second-brain map. Change only this string to retarget every binding.")
 
 (defvar my/org-second-brain-curated-subdirs
-  '("agenda" "journal" "notes" "ideas" "meta")
+  '("daily" "brain" "sandbox" "meta")
   "Subdirectories (under each brain root) scanned for .org agenda/refile files.")
 
 (defvar my/org-capture-active-brain :personal
@@ -108,8 +108,8 @@
     (or (cl-some (lambda (rel)
                    (let ((p (expand-file-name rel root)))
                      (when (file-exists-p p) p)))
-                 '("notes/inbox.org" "ideas/inbox.org" "inbox.org"))
-        (expand-file-name "notes/inbox.org" root))))
+                 '("brain/notes/system/inbox.org" "notes/inbox.org" "sandbox/ideas/inbox.org" "ideas/inbox.org" "inbox.org"))
+        (expand-file-name "brain/notes/system/inbox.org" root))))
 
 (defun my/org-second-brain-capture-inbox-file ()
   (my/org-second-brain-inbox-file-for-brain my/org-capture-active-brain))
@@ -140,7 +140,7 @@
 
 (defun my/org-second-brain-roam-node-find-personal ()
   (interactive)
-  (let ((org-roam-directory (expand-file-name "notes" my/org-second-brain-personal-root))
+  (let ((org-roam-directory (expand-file-name "brain/notes" my/org-second-brain-personal-root))
         (org-roam-db-location (expand-file-name ".org-roam.db" my/org-second-brain-personal-root)))
     (org-roam-node-find)))
 

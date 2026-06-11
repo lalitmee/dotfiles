@@ -14,7 +14,11 @@
       "command(npm --version)",
       "command(yarn --version)",
       "command(npm config)",
-      "command(ls)"
+      "command(ls)",
+      "command(find)",
+      "command(sort)",
+      "command(tmux)",
+      "command(nvim)"
     ]
   },
   "trustedWorkspaces": [
