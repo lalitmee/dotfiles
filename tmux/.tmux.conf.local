@@ -40,7 +40,7 @@ tmux_conf_new_session_prompt=false
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
-tmux_conf_24b_colour=false
+tmux_conf_24b_colour=true
 
 # # default theme
 # tmux_conf_theme_colour_1="#080808"    # dark gray
@@ -617,26 +617,122 @@ set -g @tome_playbook '.playbook.md'
 
 
 #-------------------------------------------------------------------------------
-# --- NOTE: Tmux grimoire {{{
-#       toggleable shells, scratchpads, and utilities
+# --- NOTE: Tmux Tpad Config {{{
+#       named popups for utility and second-brain files
 #-------------------------------------------------------------------------------
 
-set -g @plugin 'navahas/tmux-grimoire'
+set -g @plugin 'Subbeh/tmux-tpad'
 
-set -g @grimoire-key "t"              # Summon the main shpell, or banish any active one
-set -g @ephemeral-grimoire-key "T"    # Summon an ephemeral shpell
-set -g @grimoire-kill-key "K"         # Banish the current shpell and erase its tmux window
+#-------------------------------------------------------------------------------
+# --- NOTE: 1. Global Path & Default Layout {{{
+#-------------------------------------------------------------------------------
+set -g @tpad-path "~/.tmux/plugins/tmux-tpad/tpad.tmux"
 
-# Title
-set -g @grimoire-title ' grimoire '   # Plain text title
-set -g @grimoire-title ' 󱥭 '          # Nerd Font icon (if available)
+# NOTE: tmux-tpad maps style to tmux -S (border-style) and border_style to tmux -s (popup style)
+# due to an internal mapping bug. Therefore we swap the values below.
+set -g @tpad-default-style "fg=#00AAFF"
+set -g @tpad-default-border-style "fg=#e4e4e4,bg=#193549"
+set -g @tpad-default-border-lines "rounded"
+set -g @tpad-default-width "90%"
+set -g @tpad-default-height "90%"
 
-# Size
-set -g @grimoire-width '90%'          # Width as percentage
-set -g @grimoire-height '90%'         # Height as percentage
+# Apply defaults to all instances dynamically
+run-shell '
+  style="$(tmux show-option -gqv "@tpad-default-style")"
+  border="$(tmux show-option -gqv "@tpad-default-border-style")"
+  lines="$(tmux show-option -gqv "@tpad-default-border-lines")"
+  w="$(tmux show-option -gqv "@tpad-default-width")"
+  h="$(tmux show-option -gqv "@tpad-default-height")"
 
-# Position
-set -g @grimoire-position 'center'  # See position options below
+  for inst in lazygit lazydocker gh-dash process-viewer grimoire \
+              notes-personal notes-work todos-personal todos-work \
+              daily-personal-todo daily-work-todo scratch-personal scratch-work \
+              journal-personal journal-work search-notes backup-logs; do
+    tmux set -g "@tpad-${inst}-style" "$style"
+    tmux set -g "@tpad-${inst}-border_style" "$border"
+    tmux set -g "@tpad-${inst}-border_lines" "$lines"
+    tmux set -g "@tpad-${inst}-width" "$w"
+    tmux set -g "@tpad-${inst}-height" "$h"
+  done
+'
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: 2. Configure Commands & Titles {{{
+#           (We do not set @tpad-<inst>-bind to prevent key collision inside Neovim/tools)
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Utility Instances {{{
+#-------------------------------------------------------------------------------
+set -g @tpad-lazygit-cmd "lazygit"
+set -g @tpad-lazygit-title " Lazygit "
+set -g @tpad-lazygit-per-dir "true"
+
+set -g @tpad-lazydocker-cmd "lazydocker"
+set -g @tpad-lazydocker-title " Lazydocker "
+
+set -g @tpad-gh-dash-cmd "gh dash"
+set -g @tpad-gh-dash-title " GitHub Dash "
+
+set -g @tpad-process-viewer-cmd "btm"
+set -g @tpad-process-viewer-title " Process Viewer "
+
+set -g @tpad-grimoire-cmd "zsh"
+set -g @tpad-grimoire-title " Grimoire Scratchpad "
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# --- NOTE: Second-brain Instances {{{
+#-------------------------------------------------------------------------------
+set -g @tpad-notes-personal-cmd "nvim $HOME/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org"
+set -g @tpad-notes-personal-title " Personal Notes "
+
+set -g @tpad-notes-work-cmd "nvim $HOME/Projects/Work/Github/second-brain/notes/inbox.org"
+set -g @tpad-notes-work-title " Work Notes "
+
+set -g @tpad-todos-personal-cmd "nvim $HOME/Projects/Personal/Github/second-brain/daily/agenda/todos.org"
+set -g @tpad-todos-personal-title " Personal Todos "
+
+set -g @tpad-todos-work-cmd "nvim $HOME/Projects/Work/Github/second-brain/agenda/todos.org"
+set -g @tpad-todos-work-title " Work Todos "
+
+set -g @tpad-daily-personal-todo-cmd 'nvim $HOME/Projects/Personal/Github/second-brain/daily/agenda/daily/$(date +%Y-%m-%d).org'
+set -g @tpad-daily-personal-todo-title " Daily Personal Todos "
+
+set -g @tpad-daily-work-todo-cmd 'nvim $HOME/Projects/Work/Github/second-brain/agenda/daily/$(date +%Y-%m-%d).org'
+set -g @tpad-daily-work-todo-title " Daily Work Todos "
+
+set -g @tpad-scratch-personal-cmd "nvim $HOME/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org"
+set -g @tpad-scratch-personal-title " Personal Scratchpad "
+
+set -g @tpad-scratch-work-cmd "nvim $HOME/Projects/Work/Github/second-brain/scratch/inbox.org"
+set -g @tpad-scratch-work-title " Work Scratchpad "
+
+set -g @tpad-journal-personal-cmd 'nvim $HOME/Projects/Personal/Github/second-brain/daily/journal/$(date +%Y-%m-%d).org'
+set -g @tpad-journal-personal-title " Personal Journal "
+
+set -g @tpad-journal-work-cmd 'nvim $HOME/Projects/Work/Github/second-brain/journal/$(date +%Y-%m-%d).org'
+set -g @tpad-journal-work-title " Work Journal "
+
+set -g @tpad-search-notes-cmd 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/brain/notes | fzf'
+set -g @tpad-search-notes-title " Search Notes "
+
+set -g @tpad-backup-logs-cmd 'nvim $HOME/.local/share/backup-logs/'
+set -g @tpad-backup-logs-title " Backup Logs "
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -730,20 +826,20 @@ bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 #           Launch various helper scripts and tools.
 #-------------------------------------------------------------------------------
 
-# Launch lazygit in a popup (toggle behavior).
-bind g run-shell "custom_shpell standard lazygit \"lazygit -p '#{pane_current_path}'\""
+# Launch lazygit in a popup (tpad with per-directory git-root detection).
+bind g run-shell "#{@tpad-path} toggle lazygit"
 
-# Launch lazydocker in a custom shpell.
-bind D run-shell "custom_shpell standard lazydocker 'lazydocker'"
+# Launch lazydocker in a custom tpad.
+bind D run-shell "#{@tpad-path} toggle lazydocker"
 
-# # Launch the scratchpad popup script.
-# bind m run-shell "~/.config/tmux/scripts/popup/scratch.sh"
-
-# Launch the gh-dash popup script.
-bind G run-shell "custom_shpell standard gh-dash 'gh dash'"
+# Launch the gh-dash popup script in tpad.
+bind G run-shell "#{@tpad-path} toggle gh-dash"
 
 # Launch the process viewer in a popup.
-bind p run-shell "custom_shpell standard process-viewer 'btm'"
+bind p run-shell "#{@tpad-path} toggle process-viewer"
+
+# Launch the main grimoire scratchpad (Replacing tmux-grimoire key bindings)
+bind t run-shell "#{@tpad-path} toggle grimoire"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -1014,27 +1110,27 @@ bind-key C-b switch-client -T second-brain
 
 #-------------------------------------------------------------------------------
 # --- NOTE: Second-Brain Keybindings {{{
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Notes
-bind-key -T second-brain n run-shell "custom_shpell standard notes-personal 'nvim $HOME/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org'"
-bind-key -T second-brain N run-shell "custom_shpell standard notes-work 'nvim $HOME/Projects/Work/Github/second-brain/notes/inbox.org'"
+bind-key -T second-brain n run-shell "#{@tpad-path} toggle notes-personal"
+bind-key -T second-brain N run-shell "#{@tpad-path} toggle notes-work"
 
 # Todos
-bind-key -T second-brain t run-shell "custom_shpell standard todos-personal 'nvim $HOME/Projects/Personal/Github/second-brain/daily/agenda/todos.org'"
-bind-key -T second-brain T run-shell "custom_shpell standard todos-work 'nvim $HOME/Projects/Work/Github/second-brain/agenda/todos.org'"
+bind-key -T second-brain t run-shell "#{@tpad-path} toggle todos-personal"
+bind-key -T second-brain T run-shell "#{@tpad-path} toggle todos-work"
 
 # Daily Todos
-bind-key -T second-brain d run-shell "custom_shpell standard daily-personal-todo 'nvim $HOME/Projects/Personal/Github/second-brain/daily/agenda/daily/$(date +%Y-%m-%d).org'"
-bind-key -T second-brain D run-shell "custom_shpell standard daily-work-todo 'nvim $HOME/Projects/Work/Github/second-brain/agenda/daily/$(date +%Y-%m-%d).org'"
+bind-key -T second-brain d run-shell "#{@tpad-path} toggle daily-personal-todo"
+bind-key -T second-brain D run-shell "#{@tpad-path} toggle daily-work-todo"
 
 # Scratch
-bind-key -T second-brain s run-shell "custom_shpell standard scratch-personal 'nvim $HOME/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org'"
-bind-key -T second-brain S run-shell "custom_shpell standard scratch-work 'nvim $HOME/Projects/Work/Github/second-brain/scratch/inbox.org'"
+bind-key -T second-brain s run-shell "#{@tpad-path} toggle scratch-personal"
+bind-key -T second-brain S run-shell "#{@tpad-path} toggle scratch-work"
 
 # Journal (persistent - daily entries)
-bind-key -T second-brain j run-shell "custom_shpell standard journal-personal 'nvim $HOME/Projects/Personal/Github/second-brain/daily/journal/$(date +%Y-%m-%d).org'"
-bind-key -T second-brain J run-shell "custom_shpell standard journal-work 'nvim $HOME/Projects/Work/Github/second-brain/journal/$(date +%Y-%m-%d).org'"
+bind-key -T second-brain j run-shell "#{@tpad-path} toggle journal-personal"
+bind-key -T second-brain J run-shell "#{@tpad-path} toggle journal-work"
 
 # Old Workflow
 bind-key -T second-brain a display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
@@ -1045,10 +1141,10 @@ bind-key -T second-brain k display-popup -w 90% -h 90% -E "zsh -lic '~/.config/t
 bind-key -T second-brain K display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh scratch work'"
 
 # Search notes (ephemeral)
-bind-key -T second-brain f run-shell "custom_shpell ephemeral search-notes 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/brain/notes | fzf'"
+bind-key -T second-brain f run-shell "#{@tpad-path} toggle search-notes"
 
 # backup logs
-bind-key -T second-brain l run-shell "custom_shpell standard backup-logs 'nvim $HOME/.local/share/backup-logs/'"
+bind-key -T second-brain l run-shell "#{@tpad-path} toggle backup-logs"
 
 # Exit second-brain mode
 bind-key -T second-brain q switch-client -T root
@@ -1057,14 +1153,14 @@ bind-key -T second-brain q switch-client -T root
 bind -T second-brain ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh second-brain"
 
 
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # }}}
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # }}}
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------------
