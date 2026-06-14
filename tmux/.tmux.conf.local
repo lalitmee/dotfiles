@@ -623,8 +623,21 @@ set -g @tome_playbook '.playbook.md'
 
 set -g @plugin 'Subbeh/tmux-tpad'
 
-# Set the keybinding to toggle fullscreen for tpad (default: C-f, changed to C-u to avoid conflict with file-picker-mode)
-set -g @tpad-fullscreen-bind 'C-u'
+# Overwrite keybindings set by TPM plugins (tpad overrides C-f which is bound to file-picker-mode).
+# We run a background job that periodically checks if tpad has overridden the binding,
+# and if so, restores C-f and binds C-u to the tpad fullscreen command.
+run-shell -b ' \
+  for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do \
+    sleep 0.5; \
+    if tmux list-keys -T prefix | grep -qE "C-f.*tpad.tmux"; then \
+      tmux bind-key C-f switch-client -T file-picker-mode; \
+      tmux bind-key C-u run-shell "$HOME/.tmux/plugins/tmux-tpad/tpad.tmux fullscreen"; \
+      break; \
+    fi; \
+  done'
+
+
+
 
 #-------------------------------------------------------------------------------
 # --- NOTE: 1. Global Path & Default Layout {{{
