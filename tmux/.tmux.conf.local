@@ -623,6 +623,9 @@ set -g @tome_playbook '.playbook.md'
 
 set -g @plugin 'Subbeh/tmux-tpad'
 
+# Set the keybinding to toggle fullscreen for tpad (default: C-f, changed to C-u to avoid conflict with file-picker-mode)
+set -g @tpad-fullscreen-bind 'C-u'
+
 #-------------------------------------------------------------------------------
 # --- NOTE: 1. Global Path & Default Layout {{{
 #-------------------------------------------------------------------------------
