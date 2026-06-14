@@ -159,7 +159,9 @@
          targets)))))
 
 (after! org
-  (setq org-bullets-bullet-list '("◉" "✿" "✚" "✸" "❀" "○"))
+  (setq org-modern-star 'replace)
+  (setq org-modern-replace-stars '("◉" "○" "✸" "✿" "✤" "✜" "✦" "◈" "◇"))
+  (setq org-modern-cycle-stars t)
   (setq org-ellipsis " ")
   (setq org-log-done 'time)
   (setq org-hide-leading-stars t)
