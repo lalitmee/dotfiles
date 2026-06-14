@@ -333,6 +333,11 @@ super + u
 super + shift + p
     i3run --class gnome-pomodoro --summon -- gnome-pomodoro
 
+# >> calendar -> gnome-calendar
+super + shift + d
+    i3run --class gnome-calendar --summon -- flatpak run org.gnome.Calendar
+
+
 # >> audio mixer -> alsamixer
 super + a
     i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
