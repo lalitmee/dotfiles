@@ -13,3 +13,4 @@ C-a t	custom_shell (standard)
 C-a T	custom_shell (ephemeral)
 C-a K	Kill custom_shell sessions
 C-b C-g	Git Worktree
+C-a C-h/j/k/l	Send raw C-h/j/k/l keys

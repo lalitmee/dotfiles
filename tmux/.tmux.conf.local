@@ -791,6 +791,12 @@ bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
 # Navigate right - send to vim if vim is running, otherwise navigate panes
 bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
 
+# Fallbacks to send raw ctrl keys to the active pane after pressing prefix
+bind C-h send-keys C-h
+bind C-j send-keys C-j
+bind C-k send-keys C-k
+bind C-l send-keys C-l
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------

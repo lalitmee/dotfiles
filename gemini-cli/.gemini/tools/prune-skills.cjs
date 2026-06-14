@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { getCategory } = require('./categorize-skills.cjs');
 
 function filterManifest(manifest, categoriesToRemove) {
@@ -10,12 +11,12 @@ function filterManifest(manifest, categoriesToRemove) {
   return { ...manifest, entries: filteredEntries };
 }
 
-function prune(categoriesToRemove) {
-  const manifestPath = '/home/lalitmee/.gemini/skills/.antigravity-install-manifest.json';
-  const skillsDir = '/home/lalitmee/.gemini/skills';
+function prune(categoriesToRemove, customHomedir = os.homedir()) {
+  const manifestPath = path.join(customHomedir, '.gemini/skills/.antigravity-install-manifest.json');
+  const skillsDir = path.join(customHomedir, '.gemini/skills');
 
   if (!fs.existsSync(manifestPath)) {
-    console.error('Manifest file not found.');
+    console.error(`Manifest file not found at: ${manifestPath}`);
     return;
   }
 
