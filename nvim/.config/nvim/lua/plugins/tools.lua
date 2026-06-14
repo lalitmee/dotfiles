@@ -384,7 +384,7 @@ return {
                     ["gemini"] = "https://gemini.google.com/",
                     ["perplexity"] = "https://www.perplexity.ai/",
                     ["opencode"] = "https://opencode.com/",
-                    ["skills"] = "https://sickn33.github.io/antigravity-awesome-skills/",
+                    ["skills"] = "https://sickn33.github.io/antigravity-awesome-skills",
                     ["mcp-servers"] = "https://mcpservers.org",
                 },
                 ["docs"] = {
