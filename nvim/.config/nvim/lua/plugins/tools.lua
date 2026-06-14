@@ -329,7 +329,7 @@ return {
                 browser_bookmarks = nil, -- nil uses the default Telescope theme
             },
             bookmark_picker = {
-                show_nested = true,
+                show_nested = false,
             },
         },
         config = function(_, opts)
@@ -384,6 +384,8 @@ return {
                     ["gemini"] = "https://gemini.google.com/",
                     ["perplexity"] = "https://www.perplexity.ai/",
                     ["opencode"] = "https://opencode.com/",
+                    ["skills"] = "https://sickn33.github.io/antigravity-awesome-skills/",
+                    ["mcp-servers"] = "https://mcpservers.org",
                 },
                 ["docs"] = {
                     name = "Documentation",
