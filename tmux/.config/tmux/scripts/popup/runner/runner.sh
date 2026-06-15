@@ -176,6 +176,12 @@ resolve_current_pane_path() {
 # -------------------------------------------------------------------
 
 setup_environment
+
+# If running in the background (no TTY), auto-spawn in a new interactive window
+if [[ ! -t 0 ]]; then
+    exec tmux new-window -n runner -c "${2:-$PWD}" -e RUNNER_REUSE_WINDOW=1 "${0:A}" "$1" "${2:-$PWD}"
+fi
+
 log_message "launch mode reuse=${RUNNER_REUSE_WINDOW:-0}"
 log_command_paths
 
