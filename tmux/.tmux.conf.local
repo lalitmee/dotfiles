@@ -18,7 +18,7 @@
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_new_window_retain_current_path=false
+tmux_conf_new_window_retain_current_path=true
 
 # new pane retains current path, possible values are:
 #   - true (default)
@@ -1353,7 +1353,7 @@ bind-key C-d switch-client -T dev-mode
 bind-key -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso edit'"
 
 # Launch the project runner script in a dedicated window.
-bind-key -T dev-mode r new-window -n "runner" -c "#{pane_current_path}" -e RUNNER_REUSE_WINDOW=1 /bin/zsh -lic 'exec "$HOME/.config/tmux/scripts/popup/runner/runner.sh" "#{pane_id}" "#{pane_current_path}"'
+bind-key -T dev-mode r run-shell "zsh $HOME/.config/tmux/scripts/popup/runner/runner.sh '#{pane_id}' '#{pane_current_path}'"
 
 # Launch the apt repository manager in a popup.
 bind-key -T dev-mode a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/apt-repo-manager.sh"
