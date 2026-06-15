@@ -155,6 +155,22 @@ run_command_in_new_window() {
     tmux new-window -n "$clean_name" -c "$current_pane_path" /bin/zsh -lic "exec /bin/zsh $temp_script_literal"
 }
 
+resolve_current_pane_path() {
+    local source_pane_id="$1"
+    local explicit_path="$2"
+    local resolved_path=""
+
+    if [[ -n "$explicit_path" ]]; then
+        resolved_path="$explicit_path"
+    elif [[ -n "$source_pane_id" ]]; then
+        resolved_path="$(tmux display-message -p -t "$source_pane_id" '#{pane_current_path}' 2>/dev/null || true)"
+    else
+        resolved_path="$(tmux display-message -p '#{pane_current_path}' 2>/dev/null || pwd)"
+    fi
+
+    print -r -- "$resolved_path"
+}
+
 # -------------------------------------------------------------------
 # Script Logic
 # -------------------------------------------------------------------
@@ -170,8 +186,25 @@ fi
 
 ensure_required_commands
 
-current_pane_path="${1:-$(tmux display-message -p '#{pane_current_path}' 2>/dev/null || pwd)}"
+source_pane_id=""
+explicit_path=""
+
+if [[ $# -ge 2 ]]; then
+    source_pane_id="$1"
+    explicit_path="$2"
+elif [[ $# -eq 1 ]]; then
+    if [[ "$1" == %* ]]; then
+        source_pane_id="$1"
+    else
+        explicit_path="$1"
+    fi
+fi
+
+current_pane_path="$(resolve_current_pane_path "$source_pane_id" "$explicit_path")"
 package_json_path="$current_pane_path/package.json"
+
+log_message "source_pane_id=${source_pane_id:-unset}"
+log_message "resolved current_pane_path=$current_pane_path"
 
 if [[ ! -f "$package_json_path" ]]; then
     log_message "package.json not found in $current_pane_path"
