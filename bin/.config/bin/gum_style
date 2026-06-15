@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 # Define configurable variables
-border_color="#00AAFF"  # Set the border color to equivalent of #00AAFF
-text_color="#FFC600"    # Set the text color to equivalent of #FFC600
+border_color="${GUM_STYLE_BORDER_COLOR:-#00AAFF}"  # Set the border color
+text_color="${GUM_STYLE_TEXT_COLOR:-#FFC600}"      # Set the text color
 
 # Get terminal width for responsive design
 get_terminal_width() {

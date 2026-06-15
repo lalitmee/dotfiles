@@ -113,25 +113,52 @@ trap 'echo ""; echo "Process interrupted. Press Enter to close the window."; rea
 current_pane_path=$current_pane_path_literal
 command_to_run=$command_to_run_literal
 
-echo "Running: \$command_to_run"
-echo "Directory: \$current_pane_path"
-echo "───────────────────────────────────"
+if command -v gum >/dev/null 2>&1; then
+    running_label="\$(gum style --foreground '#00AAFF' --bold 'Running:')"
+    running_val="\$(gum style --foreground '#FFC600' --bold "\$command_to_run")"
+    dir_label="\$(gum style --foreground '#00AAFF' --bold 'Directory:')"
+    dir_val="\$(gum style --foreground '#FF9A00' --bold "\$current_pane_path")"
+    echo "\${running_label} \${running_val}"
+    echo "\${dir_label} \${dir_val}"
+    gum style --foreground '#00AAFF' '───────────────────────────────────'
+else
+    echo "Running: \$command_to_run"
+    echo "Directory: \$current_pane_path"
+    echo "───────────────────────────────────"
+fi
+
 cd -- "\$current_pane_path"
 eval "\$command_to_run"
 exit_code=\$?
 
-if [[ \$exit_code -eq 0 ]]; then
+if command -v gum_style >/dev/null 2>&1; then
+    if [[ \$exit_code -eq 0 ]]; then
+        echo ""
+        GUM_STYLE_BORDER_COLOR="#3AD900" GUM_STYLE_TEXT_COLOR="#3AD900" gum_style "✅ Command completed successfully"
+    elif [[ \$exit_code -eq 130 ]]; then
+        echo ""
+        GUM_STYLE_BORDER_COLOR="#FFC600" GUM_STYLE_TEXT_COLOR="#FFC600" gum_style "⚠️  Command was interrupted"
+    else
+        echo ""
+        GUM_STYLE_BORDER_COLOR="#FF0000" GUM_STYLE_TEXT_COLOR="#FF0000" gum_style "❌ Command failed with exit code \$exit_code"
+    fi
     echo ""
-    echo "✅ Command completed successfully"
-elif [[ \$exit_code -eq 130 ]]; then
-    echo ""
-    echo "⚠️  Command was interrupted"
+    gum style --foreground '#FF628C' --bold --italic "Press Ctrl-D or 'exit' to close this window..."
 else
+    if [[ \$exit_code -eq 0 ]]; then
+        echo ""
+        echo "✅ Command completed successfully"
+    elif [[ \$exit_code -eq 130 ]]; then
+        echo ""
+        echo "⚠️  Command was interrupted"
+    else
+        echo ""
+        echo "❌ Command failed with exit code \$exit_code"
+    fi
     echo ""
-    echo "❌ Command failed with exit code \$exit_code"
+    echo "Press Ctrl-D or 'exit' to close this window..."
 fi
-echo ""
-echo "Press Ctrl-D or 'exit' to close this window..."
+
 exec /bin/zsh
 EOF
 
