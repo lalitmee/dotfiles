@@ -3,5 +3,6 @@ b	Build Rust project
 t	Test Node.js project
 r	Run package.json script
 a	Manage apt repositories
+s	Scratchpad
 q	Quit dev-mode
 ?	Show help

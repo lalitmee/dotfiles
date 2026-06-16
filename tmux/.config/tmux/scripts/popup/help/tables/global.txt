@@ -6,7 +6,6 @@ C-b	Layout Mode
 C-a C-f	File Picker Mode
 C-a C-g	Git Worktree Mode
 C-a F	Fingers (search and copy text)
-C-a C-	tmux-floax (floating pane)
 C-a C-t	Tome (playbook)
 C-a C-s	Tome (scratchpad)
 C-a t	custom_shell (standard)
