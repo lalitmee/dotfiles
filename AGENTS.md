@@ -31,6 +31,7 @@
 - **Test changes**: Verify tmux functionality works correctly after reload
 - **NEVER kill tmux server**: NEVER run `tmux kill-server` or similar destructive commands
 - **Proper reload**: Use `tmux source-file ~/.config/tmux/.tmux.conf` to reload config
+- **Keybinding migration**: The `tmux-floax` plugin (previously bound to `C-a m`) has been removed and replaced with a `tmux-tpad` scratchpad instance bound to `C-a C-d s` (under the `dev-mode` key table)
 
 ### Development and Debugging
 - **Use debugging logs**: Always include debugging logs when building tmux, zsh, or dotfiles features
