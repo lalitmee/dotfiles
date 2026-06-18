@@ -1,6 +1,3 @@
--- making `Compile` module available
-require("plugins.lsp.compile")
-
 local lsp_utils = require("plugins.lsp.utils")
 
 return {
@@ -12,24 +9,6 @@ return {
                 -- See the configuration section for more details
                 -- Load luvit types when the `vim.uv` word is found
                 { path = "luvit-meta/library", words = { "vim%.uv" } },
-            },
-        },
-    },
-
-    { --[[ lspsaga ]]
-        enabled = false,
-        "glepnir/lspsaga.nvim",
-        event = "LspAttach",
-        opts = {
-            symbol_in_winbar = {
-                enable = false,
-                separator = "  ",
-            },
-            ui = {
-                border = "rounded",
-            },
-            beacon = {
-                enable = true,
             },
         },
     },
@@ -253,74 +232,6 @@ return {
         end,
     },
 
-    { --[[ nvim-lint ]]
-        "mfussenegger/nvim-lint",
-        event = "VeryLazy",
-        config = function()
-            local lint = require("lint")
-            local luacheck = lint.linters.luacheck
-            luacheck.args = {
-                "--globals",
-                "P",
-                "__lk_global_callbacks",
-                "after_each",
-                "before_each",
-                "describe",
-                "it",
-                "lk",
-                "vim",
-                "RELOAD",
-                "R",
-                "--std",
-                "luajit",
-            }
-            lint.linters_by_ft = {
-                ["*"] = { "typos", "woke" },
-                [".env"] = { "dotenv_linter" },
-                css = { "stylelint" },
-                go = { "golangcilint" },
-                html = { "tidy" },
-                javascript = { "eslint_d" },
-                javascriptreact = { "eslint_d" },
-                json = { "jsonlint" },
-                lua = { "luacheck" },
-                markdown = { "vale" },
-                python = { "bandit", "pylint", "pydocstyle" },
-                sh = { "shellcheck" },
-                typescript = { "eslint_d" },
-                typescriptreact = { "eslint_d" },
-                yaml = { "yamllint" },
-                zsh = { "zsh" },
-            }
-
-            lk.augroup("nvim_lint_au", {
-                {
-                    event = { "BufWritePost", "BufReadPost", "InsertLeave" },
-                    pattern = {
-                        ".env",
-                        "css",
-                        "html",
-                        "javascript",
-                        "javascriptreact",
-                        "json",
-                        "lua",
-                        "markdown",
-                        "python",
-                        "sh",
-                        "typescript",
-                        "typescriptreact",
-                        "yaml",
-                        "zsh",
-                    },
-                    command = function()
-                        lint.try_lint()
-                    end,
-                },
-            })
-        end,
-        enabled = false,
-    },
-
     { --[[ conform.nvim ]]
         "stevearc/conform.nvim",
         event = { "BufWritePre" },
@@ -466,12 +377,4 @@ return {
         },
     },
 
-    { --[[ flutter-tools ]]
-        enabled = false,
-        "akinsho/flutter-tools.nvim",
-        init = function()
-            require("telescope").load_extension("flutter")
-        end,
-        config = true,
-    },
 }

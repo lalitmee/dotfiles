@@ -1,161 +1,35 @@
 local M = {}
 
-local map_opts = { noremap = false, silent = true }
-
--- Global LSP float config: border + size for hover/signature
-local max_width = math.max(math.floor(vim.o.columns * 0.7), 100)
-local max_height = math.max(math.floor(vim.o.lines * 0.3), 30)
-
--- Toggle to enable custom hover/signature float size.
--- Set to true if you prefer constrained floats, false to use Neovim defaults.
-local use_custom_float_size = false
-
----------------------------------------------------------------------
--- NOTE: servers config {{{
-----------------------------------------------------------------------
-local autocmds = require("plugins.lsp.autocmds")
--- }}}
-----------------------------------------------------------------------
-
---------------------------------------------------------------------------------
--- NOTE: fix floating window {{{
---------------------------------------------------------------------------------
-M.fix_floating_window = function()
-    -- no-op: floats are configured via vim.lsp.buf.* options and vim.diagnostic.config
-end
--- }}}
---------------------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: on attach function {{{
-----------------------------------------------------------------------
 M.on_attach = function(client, bufnr)
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+
+    local autocmds = require("plugins.lsp.autocmds")
     autocmds.setup_autocommands(client, bufnr)
 
-    -- mappings
-    M.mappings(client)
+    local map_opts = { noremap = false, silent = true, buffer = bufnr }
+    local nmap = function(lhs, rhs, opts) vim.keymap.set("n", lhs, rhs, vim.tbl_extend("force", map_opts, opts or {})) end
+    local imap = function(lhs, rhs, opts) vim.keymap.set("i", lhs, rhs, vim.tbl_extend("force", map_opts, opts or {})) end
 
-    -- capabilities
-    M.capabilities(client, bufnr)
-
-    -- fix floating window
-    M.fix_floating_window()
-
-    -- -- navic
-    -- M.navic(client, bufnr)
-
-    -- -- inlay-hints
-    -- require("lsp-inlayhints").on_attach(client, bufnr)
-end
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: mappings {{{
-----------------------------------------------------------------------
-local function extend_map_opts(tbl)
-    local merged_table = vim.tbl_deep_extend("keep", map_opts, tbl)
-    return merged_table
-end
-
-M.mappings = function(client)
-    local nmap = lk.nmap
-    local imap = lk.imap
-
-    nmap("gd", "<cmd>Telescope lsp_definitions<CR>", extend_map_opts({ desc = "Go To Definition" }))
-    nmap("ge", function()
-        require("telescope.builtin").diagnostics({ bufnr = 0 })
-    end, extend_map_opts({ desc = "Go To Diagnostics" }))
-    nmap("gE", "<cmd>Telescope diagnostics<CR>", extend_map_opts({ desc = "Go To Diagnostics" }))
-    nmap("gr", "<cmd>Telescope lsp_references<CR>", extend_map_opts({ desc = "Go To Refrences" }))
-    nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", extend_map_opts({ desc = "Go To Document Symbols" }))
-    nmap(
-        "gW",
-        "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",
-        extend_map_opts({ desc = "go-to-dynamic-workspace-symbols" })
-    )
-    nmap("ga", "<cmd>Telescope lsp_workspace_symbols<CR>", extend_map_opts({ desc = "Go To Workspace Symbols" }))
-
-    local float_opts
-    if use_custom_float_size then
-        float_opts = {
-            -- border is left to 'winborder' / defaults
-            max_width = max_width,
-            max_height = max_height,
-        }
-    end
+    nmap("gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Go To Definition" })
+    nmap("ge", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Go To Diagnostics" })
+    nmap("gE", "<cmd>Telescope diagnostics<CR>", { desc = "Go To Workspace Diagnostics" })
+    nmap("gr", "<cmd>Telescope lsp_references<CR>", { desc = "Go To References" })
+    nmap("gw", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Go To Document Symbols" })
+    nmap("gW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "Go To Workspace Symbols" })
+    nmap("ga", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "Go To Workspace Symbols" })
 
     if client.name ~= "rust_analyzer" then
-        nmap("K", function()
-            if float_opts then
-                vim.lsp.buf.hover(float_opts)
-            else
-                vim.lsp.buf.hover()
-            end
-        end, map_opts)
+        nmap("K", vim.lsp.buf.hover, { desc = "Show Hover" })
     end
-    nmap("gD", "<cmd>FzfLua lsp_declarations<CR>", extend_map_opts({ desc = "Go to Declarations" }))
-    nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", extend_map_opts({ desc = "Go to Type Definitions" }))
-    imap("<C-h>", function()
-        if float_opts then
-            vim.lsp.buf.signature_help(float_opts)
-        else
-            vim.lsp.buf.signature_help()
-        end
-    end, extend_map_opts({ desc = "Show Signature Help" }))
-    nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", extend_map_opts({ desc = "Go To Implementations" }))
 
-    nmap("[d", function()
-        vim.diagnostic.jump({
-            count = -1,
-            -- severity = lk.get_highest_error_severity(),
-            wrap = true,
-            float = true,
-        })
-    end)
-    nmap("]d", function()
-        vim.diagnostic.jump({
-            count = 1,
-            -- severity = lk.get_highest_error_severity(),
-            wrap = true,
-            float = true,
-        })
-    end)
-end
--- }}}
-----------------------------------------------------------------------
+    nmap("gD", "<cmd>FzfLua lsp_declarations<CR>", { desc = "Go to Declarations" })
+    nmap("gy", "<cmd>FzfLua lsp_typedefs<CR>", { desc = "Go to Type Definitions" })
+    imap("<C-h>", vim.lsp.buf.signature_help, { desc = "Show Signature Help" })
+    nmap("gz", "<cmd>FzfLua lsp_implementations<CR>", { desc = "Go To Implementations" })
 
-----------------------------------------------------------------------
--- NOTE: format on save {{{
-----------------------------------------------------------------------
----Common format-on-save for lsp servers that implements formatting
----@param client table
----@param buf integer
-M.fmt_on_save = function(client, buf)
-    if client.supports_method("textDocument/formatting") then
-        lk.augroup("format_on_save_au", {
-            event = { "BufWritePre" },
-            buffer = buf,
-            command = function()
-                vim.lsp.buf.format({
-                    filter = function(cli)
-                        return cli.name == "null-ls"
-                    end,
-                    timeout_ms = 3000,
-                    buffer = buf,
-                })
-            end,
-        })
-    end
-end
--- }}}
-----------------------------------------------------------------------
+    nmap("[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous Diagnostic" })
+    nmap("]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Diagnostic" })
 
-----------------------------------------------------------------------
--- NOTE: capabilities {{{
-----------------------------------------------------------------------
-M.capabilities = function(client, bufnr)
     if client.server_capabilities.semanticTokensProvider then
         client.server_capabilities.semanticTokensProvider = nil
     end
@@ -169,58 +43,9 @@ M.capabilities = function(client, bufnr)
         client.server_capabilities.documentRangeFormattingProvider = false
     end
 
-    -- if client.server_capabilities.inlayHintProvider then
-    --     vim.lsp.buf.inlay_hint(bufnr, true)
-    -- end
     if client.server_capabilities.goto_definition == true then
         vim.api.nvim_set_option_value("tagfunc", "v:lua.vim.lsp.tagfunc", { buf = bufnr })
     end
-end
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
--- NOTE: nvim-navic setup {{{
-----------------------------------------------------------------------
-M.navic = function(client, bufnr)
-    local navic_ok, navic = lk.require("nvim-navic")
-    if navic_ok then
-        local skipNavicLsps = {
-            "ltex",
-            "cssls",
-            "eslint",
-            "html",
-            "remark_ls",
-            "bashls",
-            "tailwindcss",
-            "emmet_ls",
-        }
-        if lk.has_value(skipNavicLsps, client.name) == false then
-            navic.attach(client, bufnr)
-        end
-    end
-end
--- }}}
-----------------------------------------------------------------------
-
-----------------------------------------------------------------------
-
-function M.check_node_version(required_version)
-    local handle = io.popen("node -v")
-    if not handle then
-        return false
-    end
-    local output = handle:read("*a")
-    handle:close()
-
-    if output then
-        local major_version = string.match(output, "v(%d+)")
-        if major_version and tonumber(major_version) >= required_version then
-            return true
-        end
-    end
-
-    return false
 end
 
 return M
