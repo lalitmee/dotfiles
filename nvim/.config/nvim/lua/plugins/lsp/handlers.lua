@@ -55,6 +55,7 @@ lsp.handlers["textDocument/implementation"] = function(err, result, ctx, config)
 
     vim.cmd([[normal! zz]])
 end
+
 local function qf_rename()
     local position_params = vim.lsp.util.make_position_params(nil, "utf-8")
     position_params.oldName = vim.fn.expand("<cword>")
