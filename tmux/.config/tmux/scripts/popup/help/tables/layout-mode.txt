@@ -8,6 +8,7 @@ j	Split down (30%)
 k	Split up (30%)
 l	Split right (40%)
 m	Documentation browser
+n	New named window
 s	Site-specific search
 v	Vertical split
 /	Web search
