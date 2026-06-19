@@ -1215,7 +1215,7 @@ bind -T layout-mode j splitw -p 30 -c '#{pane_current_path}'
 bind -T layout-mode k splitw -bp 30 -c '#{pane_current_path}'
 
 # Prompt for a window name before creating a new window in the current path.
-bind -T layout-mode n command-prompt -p "window name: " -I "window" "new-window -c '#{pane_current_path}' -n '%1'"
+bind -T layout-mode n command-prompt -p "window name:" -I "window" "new-window -c '#{pane_current_path}' -n '%1'"
 
 #-------------------------------------------------------------------------------
 # }}}
