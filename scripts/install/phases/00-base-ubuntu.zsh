@@ -26,10 +26,22 @@ execute_command \
     "Failed to install software-properties-common."
 
 # Install Rust and Cargo (required for cargo packages)
-execute_command \
-    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" \
-    "Rust and Cargo installed successfully." \
-    "Failed to install Rust and Cargo."
+RUSTUP_URL="https://sh.rustup.rs"
+RUSTUP_HASH="6c30b75a75b28a96fd913a037c8581b580080b6ee9b8169a3c0feb1af7fe8caf"
+RUSTUP_INSTALLER="/tmp/rustup.sh"
+
+if download_and_verify "$RUSTUP_URL" "$RUSTUP_HASH" "$RUSTUP_INSTALLER"; then
+    if safe_execute_script "$RUSTUP_INSTALLER" -y; then
+        gum_style "Rust and Cargo installed successfully."
+    else
+        gum_style "Error: Failed to install Rust and Cargo." >&2
+        exit 1
+    fi
+    rm -f "$RUSTUP_INSTALLER"
+else
+    gum_style "Error: Failed to download or verify Rust installer." >&2
+    exit 1
+fi
 
 # Add cargo to PATH for current session
 export PATH="$HOME/.cargo/bin:$PATH"
