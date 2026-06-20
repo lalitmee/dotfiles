@@ -75,6 +75,34 @@ run_updates() {
         codex --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
+    # --- Helper to download and execute a remote script securely ---
+    # Avoids "curl | bash" by downloading to a temp file, verifying, and then running.
+    secure_run_remote_script() {
+        local script_url=$1
+        local tmp_script
+        tmp_script=$(mktemp /tmp/remote_script.XXXXXX)
+
+        if curl -fsSL "$script_url" -o "$tmp_script"; then
+            # Verification:
+            # 1. File is not empty
+            # 2. Starts with a shebang
+            if [[ -s "$tmp_script" ]] && head -n 1 "$tmp_script" | grep -q "^#!"; then
+                # Execute the script. Use bash to match original behavior.
+                bash "$tmp_script"
+                local res=$?
+                rm -f "$tmp_script"
+                return $res
+            else
+                gum_style "❌ Error: Downloaded script from $script_url is empty or invalid."
+                rm -f "$tmp_script"
+                return 1
+            fi
+        else
+            gum_style "❌ Error: Failed to download script from $script_url"
+            rm -f "$tmp_script"
+            return 1
+        fi
+    }
     # 1. Dependency Check
     for cmd in gum gum_style; do
         if ! command_exists "$cmd"; then

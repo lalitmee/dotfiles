@@ -16,7 +16,7 @@ if [[ -z "$REPO_PATH" ]]; then
 fi
 
 # Expand the home directory
-REPO_PATH=$(eval echo "$REPO_PATH")
+REPO_PATH=$(python3 -c "import os, sys; print(os.path.expandvars(os.path.expanduser(sys.argv[1])))" "$REPO_PATH")
 
 LOG_DIR="$HOME/.local/share/backup-logs/$REPO_NAME"
 SUCCESS_LOG="$LOG_DIR/success.log"
