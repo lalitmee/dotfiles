@@ -69,6 +69,34 @@ run_updates() {
         codex --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
+    # --- Helper to download and execute a remote script securely ---
+    # Avoids "curl | bash" by downloading to a temp file, verifying, and then running.
+    secure_run_remote_script() {
+        local script_url=$1
+        local tmp_script
+        tmp_script=$(mktemp /tmp/remote_script.XXXXXX)
+
+        if curl -fsSL "$script_url" -o "$tmp_script"; then
+            # Verification:
+            # 1. File is not empty
+            # 2. Starts with a shebang
+            if [[ -s "$tmp_script" ]] && head -n 1 "$tmp_script" | grep -q "^#!"; then
+                # Execute the script. Use bash to match original behavior.
+                bash "$tmp_script"
+                local res=$?
+                rm -f "$tmp_script"
+                return $res
+            else
+                gum_style "❌ Error: Downloaded script from $script_url is empty or invalid."
+                rm -f "$tmp_script"
+                return 1
+            fi
+        else
+            gum_style "❌ Error: Failed to download script from $script_url"
+            rm -f "$tmp_script"
+            return 1
+        fi
+    }
     # 1. Dependency Check
     for cmd in gum gum_style; do
         if ! command_exists "$cmd"; then
@@ -214,7 +242,7 @@ run_updates() {
         if command_exists plandex; then
             old_version=$(get_plandex_version)
             gum_style "Updating Plandex (may require sudo password)..."
-            if curl -sL https://plandex.ai/install.sh | bash; then
+            if secure_run_remote_script "https://plandex.ai/install.sh"; then
                 new_version=$(get_plandex_version)
                 status_icon="➡️" # Default: No Change
                 if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
@@ -236,7 +264,7 @@ run_updates() {
         if command_exists kiro-cli; then
             old_version=$(get_kiro_version)
             gum_style "Updating Kiro CLI (may prompt for confirmation)..."
-            if curl -fsSL https://cli.kiro.dev/install | bash; then
+            if secure_run_remote_script "https://cli.kiro.dev/install"; then
                 new_version=$(get_kiro_version)
                 status_icon="➡️" # Default: No Change
                 if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
