@@ -7,16 +7,21 @@ search_dirs=(
     ~
 )
 
-# Build the find command dynamically from search_dirs
-find_cmd=""
-for dir in "${search_dirs[@]}"; do
-    depth_flag="-maxdepth 2"  # Default depth
-    [[ "$dir" == "$HOME" ]] && depth_flag="-maxdepth 1"  # Limit home directory depth
-    find_cmd+="find \"$dir\" -mindepth 1 $depth_flag -type d 2>/dev/null; "
-done
-
 # Execute the find commands and pass output to fzf
-selected=$(eval "$find_cmd" | fzf)
+# We use a subshell to aggregate results from multiple find commands securely
+selected=$(
+    for dir in "${search_dirs[@]}"; do
+        # Expand tilde and check if directory exists
+        # In zsh, :A expands to absolute path and resolves symlinks
+        dir_expanded="${dir:A}"
+        [[ ! -d "$dir_expanded" ]] && continue
+
+        depth=2
+        [[ "$dir_expanded" == "$HOME" ]] && depth=1
+
+        find "$dir_expanded" -mindepth 1 -maxdepth "$depth" -type d 2>/dev/null
+    done | fzf
+)
 
 # Exit if nothing is selected
 if [[ -z $selected ]]; then
