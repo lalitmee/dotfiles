@@ -44,8 +44,8 @@ execute_command \
     "Failed to install pipx."
 
 # Install pyenv (Python version manager)
-execute_command \
-    "curl https://pyenv.run | bash" \
+execute_secure_remote_script \
+    "https://pyenv.run" \
     "pyenv installed successfully." \
     "Failed to install pyenv."
 
@@ -104,8 +104,8 @@ execute_command \
     "Failed to install fd."
 
 # Install fnm (Fast Node Manager)
-execute_command \
-    "curl -fsSL https://fnm.vercel.app/install | bash" \
+execute_secure_remote_script \
+    "https://fnm.vercel.app/install" \
     "fnm (Fast Node Manager) installed successfully." \
     "Failed to install fnm."
 

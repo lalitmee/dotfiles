@@ -87,3 +87,49 @@ detect_architecture() {
             ;;
     esac
 }
+
+# Function to securely download and execute a remote script
+execute_secure_remote_script() {
+    local url="$1"
+    local success_msg="$2"
+    local error_msg="$3"
+    local interpreter="${4:-bash}"
+    shift 4
+
+    local tmp_file
+    tmp_file=$(mktemp)
+
+    # Ensure cleanup
+    trap 'rm -f "$tmp_file"' RETURN EXIT
+
+    gum_style "Downloading installer from $url..."
+    if curl -fsSL "$url" -o "$tmp_file"; then
+        if [[ "$AI_NON_INTERACTIVE" != "1" ]] && command -v gum >/dev/null 2>&1; then
+            local checksum
+            checksum=$(sha256sum "$tmp_file" | awk '{print $1}')
+            gum_style "SHA256: $checksum"
+            if ! gum confirm "Do you want to execute the installer from $url?"; then
+                gum_style "⚠️  Skipping execution of installer from $url."
+                return 1
+            fi
+        fi
+
+        # Check if we should use stdin redirection for -s (common for rustup)
+        local status=0
+        if [[ "$*" == *"-s"* ]]; then
+            "$interpreter" "$@" < "$tmp_file" || status=$?
+        else
+            "$interpreter" "$tmp_file" "$@" || status=$?
+        fi
+
+        if [[ $status -eq 0 ]]; then
+            gum_style "$success_msg"
+        else
+            gum_style "Error: $error_msg" >&2
+            return 1
+        fi
+    else
+        gum_style "Error: Failed to download script from $url" >&2
+        return 1
+    fi
+}
