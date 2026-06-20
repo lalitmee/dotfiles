@@ -31,12 +31,19 @@
 - **Test changes**: Verify tmux functionality works correctly after reload
 - **NEVER kill tmux server**: NEVER run `tmux kill-server` or similar destructive commands
 - **Proper reload**: Use `tmux source-file ~/.config/tmux/.tmux.conf` to reload config
+- **Binding verification**: After changing a tmux binding, inspect the live keymap with `tmux list-keys -T <table>` and confirm the exact command that will run
+- **Shell compatibility**: Before introducing or editing tmux-launched scripts, verify the script runs under the machine's actual `/bin/sh` or `/bin/bash` version, not just a newer local shell
+- **Runtime paths**: Prefer explicit absolute paths for tmux-launched binaries and scripts when PATH may differ inside tmux
 - **Keybinding migration**: The `tmux-floax` plugin (previously bound to `C-a m`) has been removed and replaced with a `tmux-tpad` scratchpad instance bound to `C-a C-d s` (under the `dev-mode` key table)
 
 ### Development and Debugging
 - **Use debugging logs**: Always include debugging logs when building tmux, zsh, or dotfiles features
 - **Error detection**: Use logs to identify errors and mistakes during initial testing runs
 - **Stability confirmation**: Continue debugging until stable, then get user confirmation before removing logs
+- **Reproduce first**: Capture the exact failing command, key sequence, or script invocation before changing code
+- **Trace the entrypoint**: Verify the live config source, the binding table, and the launched script path before assuming the failure is in the script body
+- **Check version-sensitive syntax**: Look for Bash, Zsh, tmux, or GNU/BSD differences when a script works in one shell but fails from tmux
+- **Minimal proof**: Re-run the smallest possible command path after each change to confirm the failure moved or disappeared
 
 ### Git Commits
 - **Format**: `type(scope): subject` (50 chars max), imperative mood

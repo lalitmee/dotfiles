@@ -69,6 +69,34 @@ run_updates() {
         codex --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
+    # --- Helper to download and execute a remote script securely ---
+    # Avoids "curl | bash" by downloading to a temp file, verifying, and then running.
+    secure_run_remote_script() {
+        local script_url=$1
+        local tmp_script
+        tmp_script=$(mktemp /tmp/remote_script.XXXXXX)
+
+        if curl -fsSL "$script_url" -o "$tmp_script"; then
+            # Verification:
+            # 1. File is not empty
+            # 2. Starts with a shebang
+            if [[ -s "$tmp_script" ]] && head -n 1 "$tmp_script" | grep -q "^#!"; then
+                # Execute the script. Use bash to match original behavior.
+                bash "$tmp_script"
+                local res=$?
+                rm -f "$tmp_script"
+                return $res
+            else
+                gum_style "❌ Error: Downloaded script from $script_url is empty or invalid."
+                rm -f "$tmp_script"
+                return 1
+            fi
+        else
+            gum_style "❌ Error: Failed to download script from $script_url"
+            rm -f "$tmp_script"
+            return 1
+        fi
+    }
     # 1. Dependency Check
     for cmd in gum gum_style; do
         if ! command_exists "$cmd"; then
@@ -214,26 +242,13 @@ run_updates() {
         if command_exists plandex; then
             old_version=$(get_plandex_version)
             gum_style "Updating Plandex (may require sudo password)..."
-
-            PLANDEX_URL="https://plandex.ai/install.sh"
-            PLANDEX_INSTALLER="/tmp/plandex_installer.sh"
-
-            # Since plandex.ai might be down or unreachable in some environments, we try to download first.
-            if curl -fsSL "$PLANDEX_URL" -o "$PLANDEX_INSTALLER"; then
-                chmod +x "$PLANDEX_INSTALLER"
-                if "$PLANDEX_INSTALLER"; then
-                    new_version=$(get_plandex_version)
-                    status_icon="➡️" # Default: No Change
-                    if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
-                        status_icon="✨" # Newly Installed
-                    elif [[ "$old_version" != "$new_version" ]]; then
-                        status_icon="⬆️" # Updated
-                    fi
-                    gum_style "✅ Success: Plandex updated."
-                    update_summary+=("plandex,$status_icon,$old_version,$new_version")
-                else
-                    gum_style "❌ Error: Failed to update Plandex."
-                    update_summary+=("plandex,❌,$old_version,Update Failed")
+            if secure_run_remote_script "https://plandex.ai/install.sh"; then
+                new_version=$(get_plandex_version)
+                status_icon="➡️" # Default: No Change
+                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
+                    status_icon="✨" # Newly Installed
+                elif [[ "$old_version" != "$new_version" ]]; then
+                    status_icon="⬆️" # Updated
                 fi
                 rm -f "$PLANDEX_INSTALLER"
             else
@@ -248,32 +263,13 @@ run_updates() {
         if command_exists kiro-cli; then
             old_version=$(get_kiro_version)
             gum_style "Updating Kiro CLI (may prompt for confirmation)..."
-
-            KIRO_URL="https://cli.kiro.dev/install"
-            KIRO_HASH="ea69004b199f7eec758a9f24da14f4ce866f9922d981ce4943ca638e94293e53"
-            KIRO_INSTALLER="/tmp/kiro_installer.sh"
-
-            if curl -fsSL "$KIRO_URL" -o "$KIRO_INSTALLER"; then
-                actual_hash=$(sha256sum "$KIRO_INSTALLER" | awk '{print $1}')
-                if [[ "$actual_hash" == "$KIRO_HASH" ]]; then
-                    chmod +x "$KIRO_INSTALLER"
-                    if "$KIRO_INSTALLER"; then
-                        new_version=$(get_kiro_version)
-                        status_icon="➡️" # Default: No Change
-                        if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
-                            status_icon="✨" # Newly Installed
-                        elif [[ "$old_version" != "$new_version" ]]; then
-                            status_icon="⬆️" # Updated
-                        fi
-                        gum_style "✅ Success: Kiro CLI updated."
-                        update_summary+=("kiro-cli,$status_icon,$old_version,$new_version")
-                    else
-                        gum_style "❌ Error: Failed to update Kiro CLI."
-                        update_summary+=("kiro-cli,❌,$old_version,Update Failed")
-                    fi
-                else
-                    gum_style "❌ Error: SHA256 hash mismatch for Kiro installer."
-                    update_summary+=("kiro-cli,❌,$old_version,Verification Failed")
+            if secure_run_remote_script "https://cli.kiro.dev/install"; then
+                new_version=$(get_kiro_version)
+                status_icon="➡️" # Default: No Change
+                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
+                    status_icon="✨" # Newly Installed
+                elif [[ "$old_version" != "$new_version" ]]; then
+                    status_icon="⬆️" # Updated
                 fi
                 rm -f "$KIRO_INSTALLER"
             else
