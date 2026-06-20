@@ -26,10 +26,11 @@ execute_command \
     "Failed to install software-properties-common."
 
 # Install Rust and Cargo (required for cargo packages)
-execute_command \
-    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" \
+execute_secure_remote_script \
+    "https://sh.rustup.rs" \
     "Rust and Cargo installed successfully." \
-    "Failed to install Rust and Cargo."
+    "Failed to install Rust and Cargo." \
+    "sh" "-s" "--" "-y"
 
 # Add cargo to PATH for current session
 export PATH="$HOME/.cargo/bin:$PATH"
