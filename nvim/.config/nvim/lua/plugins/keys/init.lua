@@ -27,11 +27,41 @@ return {
                 --  NOTE: <localleader>s -> spotify {{{
                 --------------------------------------------------------------------------------
                 { "<localleader>s", group = "spotify" },
-                { "<localleader>sp", function() require("core.spotify").previous() end, desc = "Spotify Previous" },
-                { "<localleader>sn", function() require("core.spotify").next() end, desc = "Spotify Next" },
-                { "<localleader>ss", function() require("core.spotify").play_pause() end, desc = "Spotify Play/Pause" },
-                { "<localleader>su", function() require("core.spotify").volume_up() end, desc = "Spotify Volume Up" },
-                { "<localleader>sd", function() require("core.spotify").volume_down() end, desc = "Spotify Volume Down" },
+                {
+                    "<localleader>sp",
+                    function()
+                        require("core.spotify").previous()
+                    end,
+                    desc = "Spotify Previous",
+                },
+                {
+                    "<localleader>sn",
+                    function()
+                        require("core.spotify").next()
+                    end,
+                    desc = "Spotify Next",
+                },
+                {
+                    "<localleader>ss",
+                    function()
+                        require("core.spotify").play_pause()
+                    end,
+                    desc = "Spotify Play/Pause",
+                },
+                {
+                    "<localleader>su",
+                    function()
+                        require("core.spotify").volume_up()
+                    end,
+                    desc = "Spotify Volume Up",
+                },
+                {
+                    "<localleader>sd",
+                    function()
+                        require("core.spotify").volume_down()
+                    end,
+                    desc = "Spotify Volume Down",
+                },
                 -- }}}
                 --------------------------------------------------------------------------------
 
@@ -193,7 +223,10 @@ return {
 
     { --[[ hydra ]]
         "nvimtools/hydra.nvim",
-        keys = { "<leader>gh", "<A-d>" },
+        keys = {
+            { "<leader>gh", desc = "Gitsigns Hydra" },
+            "<A-d>",
+        },
         config = function()
             local hydra = require("hydra")
             hydra(require("plugins.keys.hydra.git")())
