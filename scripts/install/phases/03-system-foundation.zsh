@@ -37,10 +37,22 @@ export SUDO_PATH="$PATH"
 
 
 # Install oh-my-zsh (zsh framework)
-execute_command \
-    "sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \"\" --unattended" \
-    "oh-my-zsh installed successfully." \
-    "Failed to install oh-my-zsh."
+OHMYZSH_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+OHMYZSH_HASH="4534045f4d983abd9716cd2f515bbe3c2b31ba5b8fd1fef147838778427477bb"
+OHMYZSH_INSTALLER="/tmp/ohmyzsh_install.sh"
+
+if download_and_verify "$OHMYZSH_URL" "$OHMYZSH_HASH" "$OHMYZSH_INSTALLER"; then
+    if safe_execute_script "$OHMYZSH_INSTALLER" --unattended; then
+        gum_style "oh-my-zsh installed successfully."
+    else
+        gum_style "Error: Failed to install oh-my-zsh." >&2
+        exit 1
+    fi
+    rm -f "$OHMYZSH_INSTALLER"
+else
+    gum_style "Error: Failed to download or verify oh-my-zsh installer." >&2
+    exit 1
+fi
 
 # Install powerlevel10k theme
 execute_command \

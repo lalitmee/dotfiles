@@ -44,10 +44,22 @@ execute_command \
     "Failed to install pipx."
 
 # Install pyenv (Python version manager)
-execute_command \
-    "curl https://pyenv.run | bash" \
-    "pyenv installed successfully." \
-    "Failed to install pyenv."
+PYENV_URL="https://pyenv.run"
+PYENV_HASH="1065197a9fff657e0e2941e4ca8c8b6e72833833466b777b9eddd0fff335ec41"
+PYENV_INSTALLER="/tmp/pyenv_installer.sh"
+
+if download_and_verify "$PYENV_URL" "$PYENV_HASH" "$PYENV_INSTALLER"; then
+    if safe_execute_script "$PYENV_INSTALLER"; then
+        gum_style "pyenv installed successfully."
+    else
+        gum_style "Error: Failed to install pyenv." >&2
+        exit 1
+    fi
+    rm -f "$PYENV_INSTALLER"
+else
+    gum_style "Error: Failed to download or verify pyenv installer." >&2
+    exit 1
+fi
 
 # Add pyenv to PATH (for current session)
 export PATH="$HOME/.pyenv/bin:$PATH"
@@ -104,10 +116,22 @@ execute_command \
     "Failed to install fd."
 
 # Install fnm (Fast Node Manager)
-execute_command \
-    "curl -fsSL https://fnm.vercel.app/install | bash" \
-    "fnm (Fast Node Manager) installed successfully." \
-    "Failed to install fnm."
+FNM_URL="https://fnm.vercel.app/install"
+FNM_HASH="8431644b1c205ad25d4b09cfe10e0688944d1d2cd542f38d7b3b10e954db8ad9"
+FNM_INSTALLER="/tmp/fnm_installer.sh"
+
+if download_and_verify "$FNM_URL" "$FNM_HASH" "$FNM_INSTALLER"; then
+    if safe_execute_script "$FNM_INSTALLER"; then
+        gum_style "fnm installed successfully."
+    else
+        gum_style "Error: Failed to install fnm." >&2
+        exit 1
+    fi
+    rm -f "$FNM_INSTALLER"
+else
+    gum_style "Error: Failed to download or verify fnm installer." >&2
+    exit 1
+fi
 
 # Add fnm to PATH
 export PATH="$HOME/.fnm:$PATH"

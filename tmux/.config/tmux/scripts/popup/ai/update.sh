@@ -214,19 +214,31 @@ run_updates() {
         if command_exists plandex; then
             old_version=$(get_plandex_version)
             gum_style "Updating Plandex (may require sudo password)..."
-            if curl -sL https://plandex.ai/install.sh | bash; then
-                new_version=$(get_plandex_version)
-                status_icon="➡️" # Default: No Change
-                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
-                    status_icon="✨" # Newly Installed
-                elif [[ "$old_version" != "$new_version" ]]; then
-                    status_icon="⬆️" # Updated
+
+            PLANDEX_URL="https://plandex.ai/install.sh"
+            PLANDEX_INSTALLER="/tmp/plandex_installer.sh"
+
+            # Since plandex.ai might be down or unreachable in some environments, we try to download first.
+            if curl -fsSL "$PLANDEX_URL" -o "$PLANDEX_INSTALLER"; then
+                chmod +x "$PLANDEX_INSTALLER"
+                if "$PLANDEX_INSTALLER"; then
+                    new_version=$(get_plandex_version)
+                    status_icon="➡️" # Default: No Change
+                    if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
+                        status_icon="✨" # Newly Installed
+                    elif [[ "$old_version" != "$new_version" ]]; then
+                        status_icon="⬆️" # Updated
+                    fi
+                    gum_style "✅ Success: Plandex updated."
+                    update_summary+=("plandex,$status_icon,$old_version,$new_version")
+                else
+                    gum_style "❌ Error: Failed to update Plandex."
+                    update_summary+=("plandex,❌,$old_version,Update Failed")
                 fi
-                gum_style "✅ Success: Plandex updated."
-                update_summary+=("plandex,$status_icon,$old_version,$new_version")
+                rm -f "$PLANDEX_INSTALLER"
             else
-                gum_style "❌ Error: Failed to update Plandex."
-                update_summary+=("plandex,❌,$old_version,Update Failed")
+                gum_style "❌ Error: Failed to download Plandex installer."
+                update_summary+=("plandex,❌,$old_version,Download Failed")
             fi
         else
             gum_style "Plandex not installed, skipping update."
@@ -236,19 +248,37 @@ run_updates() {
         if command_exists kiro-cli; then
             old_version=$(get_kiro_version)
             gum_style "Updating Kiro CLI (may prompt for confirmation)..."
-            if curl -fsSL https://cli.kiro.dev/install | bash; then
-                new_version=$(get_kiro_version)
-                status_icon="➡️" # Default: No Change
-                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
-                    status_icon="✨" # Newly Installed
-                elif [[ "$old_version" != "$new_version" ]]; then
-                    status_icon="⬆️" # Updated
+
+            KIRO_URL="https://cli.kiro.dev/install"
+            KIRO_HASH="ea69004b199f7eec758a9f24da14f4ce866f9922d981ce4943ca638e94293e53"
+            KIRO_INSTALLER="/tmp/kiro_installer.sh"
+
+            if curl -fsSL "$KIRO_URL" -o "$KIRO_INSTALLER"; then
+                actual_hash=$(sha256sum "$KIRO_INSTALLER" | awk '{print $1}')
+                if [[ "$actual_hash" == "$KIRO_HASH" ]]; then
+                    chmod +x "$KIRO_INSTALLER"
+                    if "$KIRO_INSTALLER"; then
+                        new_version=$(get_kiro_version)
+                        status_icon="➡️" # Default: No Change
+                        if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
+                            status_icon="✨" # Newly Installed
+                        elif [[ "$old_version" != "$new_version" ]]; then
+                            status_icon="⬆️" # Updated
+                        fi
+                        gum_style "✅ Success: Kiro CLI updated."
+                        update_summary+=("kiro-cli,$status_icon,$old_version,$new_version")
+                    else
+                        gum_style "❌ Error: Failed to update Kiro CLI."
+                        update_summary+=("kiro-cli,❌,$old_version,Update Failed")
+                    fi
+                else
+                    gum_style "❌ Error: SHA256 hash mismatch for Kiro installer."
+                    update_summary+=("kiro-cli,❌,$old_version,Verification Failed")
                 fi
-                gum_style "✅ Success: Kiro CLI updated."
-                update_summary+=("kiro-cli,$status_icon,$old_version,$new_version")
+                rm -f "$KIRO_INSTALLER"
             else
-                gum_style "❌ Error: Failed to update Kiro CLI."
-                update_summary+=("kiro-cli,❌,$old_version,Update Failed")
+                gum_style "❌ Error: Failed to download Kiro installer."
+                update_summary+=("kiro-cli,❌,$old_version,Download Failed")
             fi
         else
             gum_style "Kiro CLI not installed, skipping update."
