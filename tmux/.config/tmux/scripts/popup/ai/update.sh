@@ -24,27 +24,33 @@ fi
 
 # --- Main update logic is wrapped in a function ---
 run_updates() {
-    set -e # Exit immediately if a command exits with a non-zero status.
+    # Function to securely download and run a script
+    secure_run_script() {
+        local url="$1"
+        local tool_name="$2"
+        local tmp_file
+        tmp_file=$(mktemp)
 
-    # Initialize an array to store summary data for the final table.
-    # The first element is the header row. We've added a "Status" column.
-    declare -a update_summary=("Tool,Status,Old Version,New Version")
+        # Ensure cleanup
+        trap "rm -f \"$tmp_file\"" RETURN EXIT
 
-    # --- Helper function to check if a command exists ---
-    command_exists() {
-        command -v "$1" > /dev/null 2>&1
-    }
+        gum_style "Downloading $tool_name installer..."
+        if ! curl -fsSL "$url" -o "$tmp_file"; then
+            gum_style "❌ Error: Failed to download $tool_name installer from $url"
+            return 1
+        fi
 
-    # --- Helper to get the installed version of a global npm package ---
-    get_npm_version() {
-        local package_name=$1
-        # `npm list` can fail if the package isn't installed. We catch that.
-        local version_info=$(npm list -g --depth=0 "$package_name" 2> /dev/null | grep "$package_name") || true
-        if [[ -n "$version_info" ]]; then
-            # Parses output like '...@google/gemini-cli@0.4.1' to get '0.4.1'
-            echo "$version_info" | awk -F@ '{print $NF}'
+        # Display checksum for transparency
+        local checksum
+        checksum=$(sha256sum "$tmp_file" | awk "{print $1}")
+        gum_style "SHA256: $checksum"
+
+        if gum confirm "Do you want to execute the $tool_name installer?"; then
+            bash "$tmp_file"
+            return $?
         else
-            echo "Not Installed"
+            gum_style "⚠️  Skipping execution of $tool_name installer."
+            return 1
         fi
     }
 
@@ -242,7 +248,7 @@ run_updates() {
         if command_exists plandex; then
             old_version=$(get_plandex_version)
             gum_style "Updating Plandex (may require sudo password)..."
-            if secure_run_remote_script "https://plandex.ai/install.sh"; then
+            if secure_run_script "https://plandex.ai/install.sh" "Plandex"; then
                 new_version=$(get_plandex_version)
                 status_icon="➡️" # Default: No Change
                 if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
@@ -264,7 +270,7 @@ run_updates() {
         if command_exists kiro-cli; then
             old_version=$(get_kiro_version)
             gum_style "Updating Kiro CLI (may prompt for confirmation)..."
-            if secure_run_remote_script "https://cli.kiro.dev/install"; then
+            if secure_run_script "https://cli.kiro.dev/install" "Kiro CLI"; then
                 new_version=$(get_kiro_version)
                 status_icon="➡️" # Default: No Change
                 if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
