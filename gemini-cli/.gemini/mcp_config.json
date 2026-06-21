@@ -62,6 +62,13 @@
         "--autoConnect"
       ],
       "trust": true
+    },
+    "drive": {
+      "serverUrl": "https://drivemcp.googleapis.com/mcp/v1",
+      "oauth": {
+        "clientId": "$OAUTH_CLIENT_ID",
+        "clientSecret": "$OAUTH_CLIENT_SECRET"
+      }
     }
   }
 }
