@@ -277,6 +277,10 @@ alt + y
 super + n
     i3run --summon --instance neovide -- neovide
 
+# >> assistant -> notebooklm
+super + ctrl + n
+    i3run --summon --instance pake-notebooklm -- pake-notebooklm
+
 # >> assistant -> chatgpt
 super + c
     i3run --summon --instance pake-chatgpt -- pake-chatgpt
