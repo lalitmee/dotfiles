@@ -18,5 +18,17 @@
     "spotify": {
         "classes": ["spotify", "Spotify"],
         "workspace": "5"
+    },
+    "pake-youtubemusic": {
+        "classes": ["pake-youtubemusic", "Pake-youtubemusic"],
+        "workspace": "5"
+    },
+    "pake-programmusic": {
+        "classes": ["pake-programmusic", "Pake-programmusic"],
+        "workspace": "5"
+    },
+    "pake-excalidraw": {
+        "classes": ["pake-excalidraw", "Pake-excalidraw"],
+        "workspace": "6"
     }
 }
