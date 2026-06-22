@@ -279,7 +279,7 @@ super + n
 
 # >> assistant -> chatgpt
 super + c
-    i3run --summon --class pake-chatgpt -- pake-chatgpt
+    i3run --summon --instance pake-chatgpt -- pake-chatgpt
 
 # terminal -> ghostty
 #super + t
@@ -303,7 +303,7 @@ super + m
 
 # >> music player -> music for programming
 super + shift + m
-    i3run --summon --class pake-programmusic -- pake-programmusic
+    i3run --summon --instance pake-programmusic -- pake-programmusic
 
 # >> terminal music player -> cmus
 super + ctrl + m
@@ -311,11 +311,11 @@ super + ctrl + m
 
 # >> music player -> youtube music
 super + y
-    i3run --summon --class pake-youtubemusic -- pake-youtubemusic
+    i3run --summon --instance pake-youtubemusic -- pake-youtubemusic
 
 # >> assistant -> gemini
 super + g
-    i3run --summon --class pake-gemini -- pake-gemini
+    i3run --summon --instance pake-gemini -- pake-gemini
 
 # >> todo tracker -> todoist
 super + alt + g
@@ -347,11 +347,11 @@ super + u
 
 # >> communication -> whatsapp
 super + i
-    i3run --summon --class pake-whatsapp -- pake-whatsapp
+    i3run --summon --instance pake-whatsapp -- pake-whatsapp
 
 # >> social -> twitter
 super + t
-    i3run --summon --class pake-twitter -- pake-twitter
+    i3run --summon --instance pake-twitter -- pake-twitter
 
 # >> productivity -> gnome-pomodoro
 super + shift + p
@@ -363,7 +363,7 @@ super + shift + d
 
 # >> design -> excalidraw
 super + x
-    i3run --summon --class pake-excalidraw -- pake-excalidraw
+    i3run --summon --instance pake-excalidraw -- pake-excalidraw
 
 # >> audio mixer -> alsamixer
 super + a
