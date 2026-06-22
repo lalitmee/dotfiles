@@ -277,7 +277,7 @@ alt + y
 super + n
     i3run --summon --instance neovide -- neovide
 
-# editor -> chatgpt
+# >> assistant -> chatgpt
 super + c
     i3run --summon --class pake-chatgpt -- pake-chatgpt
 
@@ -347,11 +347,11 @@ super + u
 
 # >> communication -> whatsapp
 super + i
-    i3run --class pake-whatsapp --summon -- pake-whatsapp
+    i3run --summon --class pake-whatsapp -- pake-whatsapp
 
 # >> social -> twitter
 super + t
-    i3run --class pake-twitter --summon -- pake-twitter
+    i3run --summon --class pake-twitter -- pake-twitter
 
 # >> productivity -> gnome-pomodoro
 super + shift + p
