@@ -88,8 +88,8 @@ super + shift + w
 #-------------------------------------------------------------------------------
 # NOTE: battery {{{
 #-------------------------------------------------------------------------------
-super + c
-   ~/.config/bin/battery-capacity
+#super + c
+#   ~/.config/bin/battery-capacity
 #}}}
 #-------------------------------------------------------------------------------
 
@@ -277,9 +277,13 @@ alt + y
 super + n
     i3run --summon --instance neovide -- neovide
 
+# editor -> chatgpt
+super + c
+    i3run --summon --class pake-chatgpt -- pake-chatgpt
+
 # terminal -> ghostty
-super + t
-    i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
+#super + t
+#    i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
 
 # >> system monitor -> bottom
 super + b
@@ -297,12 +301,24 @@ super + shift + g
 super + m
     i3run --summon --instance spotify -- spotify
 
-# >> terminal music plaer -> cmus
+# >> music player -> music for programming
 super + shift + m
+    i3run --summon --class pake-programmusic -- pake-programmusic
+
+# >> terminal music player -> cmus
+super + ctrl + m
     i3run --summon --title terminal-music-player -- ghostty --title=terminal-music-player -e cmus
 
-# >> todo tracker -> todoist
+# >> music player -> youtube music
+super + y
+    i3run --summon --class pake-youtubemusic -- pake-youtubemusic
+
+# >> assistant -> gemini
 super + g
+    i3run --summon --class pake-gemini -- pake-gemini
+
+# >> todo tracker -> todoist
+super + alt + g
     i3run --summon --instance todoist -- todoist
 
 # >> file-manager -> Thunar
@@ -329,6 +345,14 @@ super + alt + k
 super + u
     i3run --class TelegramDesktop --summon --instance telegram-desktop -- telegram-desktop
 
+# >> communication -> whatsapp
+super + i
+    i3run --class pake-whatsapp --summon -- pake-whatsapp
+
+# >> social -> twitter
+super + t
+    i3run --class pake-twitter --summon -- pake-twitter
+
 # >> productivity -> gnome-pomodoro
 super + shift + p
     i3run --class gnome-pomodoro --summon -- gnome-pomodoro
@@ -337,6 +361,9 @@ super + shift + p
 super + shift + d
     i3run --class gnome-calendar --summon -- flatpak run org.gnome.Calendar
 
+# >> design -> excalidraw
+super + x
+    i3run --summon --class pake-excalidraw -- pake-excalidraw
 
 # >> audio mixer -> alsamixer
 super + a
@@ -417,7 +444,7 @@ super + ctrl + s
 # NOTE: testing {{{
 #-------------------------------------------------------------------------------
 # dunst
-super + i
+super + shift + i
     test-noti
 #}}}
 #-------------------------------------------------------------------------------
