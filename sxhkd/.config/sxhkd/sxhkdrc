@@ -277,7 +277,7 @@ alt + y
 super + n
     i3run --summon --instance neovide -- neovide
 
-# terminal -> wezterm
+# terminal -> ghostty
 super + t
     i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
 
