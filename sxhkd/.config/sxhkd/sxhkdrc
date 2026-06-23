@@ -281,10 +281,6 @@ super + n
 super + ctrl + n
     i3run --summon --instance pake-notebooklm -- pake-notebooklm
 
-# >> assistant -> chatgpt
-super + c
-    i3run --summon --instance pake-chatgpt -- pake-chatgpt
-
 # terminal -> ghostty
 #super + t
 #    i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
@@ -334,16 +330,25 @@ super + comma
     i3run --class xpad --summon -- xpad
 
 # >> floating-notes -> ghostty
+# super + shift + n
+#     i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org
+# >> floating-notes -> neovide
 super + shift + n
-    i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org
+    i3run --summon --class neovide-notes -- neovide --x11-wm-class neovide-notes ~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org
 
 # >> todos -> ghostty
+# super + shift + t
+#     i3run --summon --title floating-todos -- ghostty --title=floating-todos -e nvim ~/Projects/Personal/Github/second-brain/daily/agenda/inbox.org
+# >> todos -> neovide
 super + shift + t
-    i3run --summon --title floating-todos -- ghostty --title=floating-todos -e nvim ~/Projects/Personal/Github/second-brain/daily/agenda/inbox.org
+    i3run --summon --class neovide-todos -- neovide --x11-wm-class neovide-todos ~/Projects/Personal/Github/second-brain/daily/agenda/inbox.org
 
 # >> scratch -> ghostty
+# super + alt + k
+#     i3run --summon --title floating-scratch -- ghostty --title=floating-scratch -e nvim ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
+# >> scratch -> neovide
 super + alt + k
-    i3run --summon --title floating-scratch -- ghostty --title=floating-scratch -e nvim ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
+    i3run --summon --class neovide-scratch -- neovide --x11-wm-class neovide-scratch ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
 
 # >> communication -> telegram
 super + u
@@ -352,10 +357,6 @@ super + u
 # >> communication -> whatsapp
 super + i
     i3run --summon --instance pake-whatsapp -- pake-whatsapp
-
-# >> social -> twitter
-super + t
-    i3run --summon --instance pake-twitter -- pake-twitter
 
 # >> productivity -> gnome-pomodoro
 super + shift + p
