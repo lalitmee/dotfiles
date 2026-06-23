@@ -35,8 +35,10 @@ end
 
 return {
     { -- [[ copilot.lua ]]
-        enabled = false,
         "zbirenbaum/copilot.lua",
+        dependencies = {
+            "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+        },
         cmd = "Copilot",
         build = ":Copilot auth",
         event = "InsertEnter",
