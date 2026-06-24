@@ -309,9 +309,9 @@ super + shift + m
 super + ctrl + m
     i3run --summon --title terminal-music-player -- ghostty --title=terminal-music-player -e cmus
 
-# >> music player -> youtube music
+# >> music player -> youtube music (brave pwa)
 super + y
-    i3run --summon --instance pake-youtubemusic -- pake-youtubemusic
+    i3run --summon --instance crx_cinhimbnkkaeohfgghhklpknlkffjgod -- brave-browser --app-id=cinhimbnkkaeohfgghhklpknlkffjgod
 
 # >> assistant -> gemini
 super + g
