@@ -7,6 +7,7 @@
 #
 # Usage:
 #   work-sessions.sh                  # Interactive preset picker
+#   work-sessions.sh 0                # Open repos from ~/.work-sessions-dirs.txt
 #   work-sessions.sh <preset_num>     # Open preset directly (1-9)
 #   work-sessions.sh --list           # List all presets
 #   work-sessions.sh --help           # Show help
@@ -15,6 +16,48 @@
 DEBUG_LOG="/tmp/work-sessions-debug.log"
 debug_log() {
     echo "$*" >> "$DEBUG_LOG"
+}
+
+style_message() {
+    local message="$1"
+    local color="${2:-39}"
+    local background="${3:-}"
+    local extra_args=()
+
+    if [[ -n "$background" ]]; then
+        extra_args+=(--background "$background")
+    fi
+
+    if command -v gum >/dev/null 2>&1; then
+        gum style --foreground "$color" "${extra_args[@]}" "$message"
+    elif command -v gum_style >/dev/null 2>&1; then
+        gum_style "$message"
+    else
+        echo "$message"
+    fi
+}
+
+style_status_message() {
+    local label="$1"
+    local value="$2"
+    local label_color="$3"
+    local value_color="$4"
+
+    if command -v gum >/dev/null 2>&1; then
+        local styled_label
+        local styled_value
+        styled_label="$(gum style --foreground "$label_color" --bold "$label")"
+        styled_value="$(gum style --foreground "$value_color" "$value")"
+        printf "%s %s\n" "$styled_label" "$styled_value"
+    else
+        echo "$label $value"
+    fi
+}
+
+prompt_to_close() {
+    echo
+    style_message "Press Enter to close..." 212
+    read -r
 }
 
 # Start debug
@@ -32,6 +75,23 @@ debug_log "SCRIPT_DIR=$SCRIPT_DIR"
 
 CONFIG_FILE="$SCRIPT_DIR/work-sessions.conf"
 debug_log "CONFIG_FILE=$CONFIG_FILE"
+CUSTOM_DIRS_FILE="$HOME/.work-sessions-dirs.txt"
+
+read_custom_dirs_file() {
+    if [[ ! -f "$CUSTOM_DIRS_FILE" ]]; then
+        echo "Error: File not found at $CUSTOM_DIRS_FILE" >&2
+        debug_log "read_custom_dirs_file: ERROR - File not found: $CUSTOM_DIRS_FILE"
+        return 1
+    fi
+
+    while IFS= read -r path; do
+        path="${path#"${path%%[![:space:]]*}"}"
+        path="${path%"${path##*[![:space:]]}"}"
+        [[ -z "$path" ]] && continue
+        [[ "$path" == *#* ]] && continue
+        echo "${path/#\~/$HOME}"
+    done < "$CUSTOM_DIRS_FILE"
+}
 
 # Load configuration
 load_config() {
@@ -156,6 +216,40 @@ create_session() {
     return 0
 }
 
+create_sessions_from_full_paths() {
+    local selected_dirs="$1"
+    local first_session=""
+    local created_count=0
+
+    while IFS= read -r full_path; do
+        [[ -z "$full_path" ]] && continue
+        [[ "$full_path" == \[* ]] && continue
+        full_path="${full_path/#\~/$HOME}"
+
+        if [[ -d "$full_path" ]]; then
+            local session_name="$(basename "$full_path")"
+            if tmux has-session -t "$session_name" 2>/dev/null; then
+                style_status_message "Skipping (exists):" "$session_name" 214 220
+            else
+                if tmux new-session -ds "$session_name" -c "$full_path" 2>/dev/null; then
+                    style_status_message "Created:" "$session_name" 42 118
+                    created_count=$((created_count + 1))
+                fi
+            fi
+            if [[ -z "$first_session" ]]; then
+                first_session="$session_name"
+            fi
+        fi
+    done <<< "$selected_dirs"
+
+    if [[ -n "$first_session" ]]; then
+        style_status_message "Switching to:" "$first_session" 39 221
+        tmux switch-client -t "$first_session"
+    fi
+
+    style_status_message "Done. Created" "$created_count session(s)" 50 118
+}
+
 # Open a preset - show fzf picker and create sessions
 open_preset() {
     local preset_num=$1
@@ -183,8 +277,8 @@ open_preset() {
 
     if [[ -z "$paths" ]]; then
         debug_log "open_preset: ERROR - paths is empty"
-        echo "Error: Could not load preset $preset_num"
-        read -p "Press Enter to close..."
+        style_message "Error: Could not load preset $preset_num" 196
+        prompt_to_close
         return 1
     fi
 
@@ -247,8 +341,8 @@ open_preset() {
 
     if [[ -z "$selected_dirs" ]]; then
         debug_log "open_preset: No repos selected, exiting"
-        echo "No repos selected"
-        read -p "Press Enter to close..."
+        style_message "No repos selected" 214
+        prompt_to_close
         return 1
     fi
 
@@ -259,26 +353,7 @@ open_preset() {
     # File-based mode or multi-parent mode: paths are full paths
     if [[ "$IS_FILE_BASED" == "1" ]] || [[ $path_count -gt 1 ]]; then
         debug_log "open_preset: Creating sessions from full paths"
-        while IFS= read -r full_path; do
-            [[ -z "$full_path" ]] && continue
-            [[ "$full_path" == \[* ]] && continue  # Skip debug lines
-            # Expand ~ if present
-            full_path="${full_path/#\~/$HOME}"
-            if [[ -d "$full_path" ]]; then
-                local session_name="$(basename "$full_path")"
-                if tmux has-session -t "$session_name" 2>/dev/null; then
-                    echo "Skipping (exists): $session_name"
-                else
-                    if tmux new-session -ds "$session_name" -c "$full_path" 2>/dev/null; then
-                        echo "Created: $session_name"
-                        created_count=$((created_count + 1))
-                    fi
-                fi
-                if [[ -z "$first_session" ]]; then
-                    first_session="$session_name"
-                fi
-            fi
-        done <<< "$selected_dirs"
+        create_sessions_from_full_paths "$selected_dirs"
     else
         # Single parent mode: paths are relative to parent
         debug_log "open_preset: Creating sessions from relative paths"
@@ -289,10 +364,10 @@ open_preset() {
             if [[ -d "$full_path" ]]; then
                 local session_name="$repo"
                 if tmux has-session -t "$session_name" 2>/dev/null; then
-                    echo "Skipping (exists): $session_name"
+                    style_status_message "Skipping (exists):" "$session_name" 214 220
                 else
                     if tmux new-session -ds "$session_name" -c "$full_path" 2>/dev/null; then
-                        echo "Created: $session_name"
+                        style_status_message "Created:" "$session_name" 42 118
                         created_count=$((created_count + 1))
                     fi
                 fi
@@ -304,11 +379,24 @@ open_preset() {
     fi
 
     if [[ -n "$first_session" ]]; then
-        echo "Switching to: $first_session"
+        style_status_message "Switching to:" "$first_session" 39 221
         tmux switch-client -t "$first_session"
     fi
 
-    echo "Done. Created $created_count session(s)"
+    style_status_message "Done. Created" "$created_count session(s)" 50 118
+}
+
+open_custom_dirs_file() {
+    local selected_dirs
+    selected_dirs="$(read_custom_dirs_file)"
+
+    if [[ -z "$selected_dirs" ]]; then
+        style_message "Error: Could not load custom dirs from $CUSTOM_DIRS_FILE" 196
+        prompt_to_close
+        return 1
+    fi
+
+    create_sessions_from_full_paths "$selected_dirs"
 }
 
 # Interactive preset picker using fzf
@@ -394,7 +482,8 @@ USAGE:
 
 COMMANDS:
     work-sessions.sh              Open interactive preset picker
-    work-sessions.sh <1-9>       Open preset directly
+    work-sessions.sh 0            Open repos from ~/.work-sessions-dirs.txt
+    work-sessions.sh <1-9>        Open preset directly
     work-sessions.sh --list       List all presets
     work-sessions.sh --help       Show this help
 
@@ -402,8 +491,9 @@ CONFIG:
     Edit: ~/.config/tmux/scripts/work-sessions/work-sessions.conf
 
 EXAMPLES:
-    work-sessions.sh 1           # Open preset 1 (shows fzf picker)
-    work-sessions.sh --list      # List configured presets
+    work-sessions.sh 0            # Open repos from ~/.work-sessions-dirs.txt
+    work-sessions.sh 1            # Open preset 1 (shows fzf picker)
+    work-sessions.sh --list       # List configured presets
 
 NOTES:
     - Config stores PARENT directories, not individual repos
@@ -427,6 +517,9 @@ main() {
         --kill|-k)
             kill_work_session
             ;;
+        0)
+            open_custom_dirs_file
+            ;;
         [1-9])
             open_preset "$cmd"
             ;;
@@ -442,9 +535,8 @@ main() {
 
     debug_log "main: Script completed, keeping popup open for debugging..."
     echo ""
-    echo "=== Debug log: /tmp/work-sessions-debug.log ==="
-    echo "Press Enter to close..."
-    read -r
+    style_status_message "Debug log:" "/tmp/work-sessions-debug.log" 39 250
+    prompt_to_close
     debug_log "main: Script exiting"
 }
 
