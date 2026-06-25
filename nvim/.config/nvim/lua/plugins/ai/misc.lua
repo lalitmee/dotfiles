@@ -35,6 +35,7 @@ end
 
 return {
     { -- [[ copilot.lua ]]
+        enabled = false,
         "zbirenbaum/copilot.lua",
         dependencies = {
             "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
@@ -68,6 +69,7 @@ return {
 
     -- ChatGPT.nvim for additional chat functionality
     {
+        enabled = false,
         "jackMort/ChatGPT.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         keys = {
@@ -163,7 +165,8 @@ return {
     },
 
     -- WTF.nvim for error diagnosis and fixing
-    {
+    { 
+        enabled = false,
         "piersolenski/wtf.nvim",
         dependencies = {
             "MunifTanjim/nui.nvim",

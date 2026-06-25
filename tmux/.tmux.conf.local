@@ -1549,6 +1549,9 @@ bind-key C-w switch-client -T work-sessions
 #           Each preset opens an fzf picker in the configured parent directory.
 #-------------------------------------------------------------------------------
 
+# Preset 1: Main Workspace
+bind-key -T work-sessions 1 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 1"
+
 # Preset 1: Work Github
 bind-key -T work-sessions 1 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 1"
 

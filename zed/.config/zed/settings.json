@@ -47,7 +47,7 @@
   "agent": {
     "dock": "right",
     "default_model": {
-      "effort": "medium",
+      "effort": "minimal",
       "enable_thinking": true,
       "provider": "google",
       "model": "gemini-3.5-flash"
