@@ -1549,8 +1549,8 @@ bind-key C-w switch-client -T work-sessions
 #           Each preset opens an fzf picker in the configured parent directory.
 #-------------------------------------------------------------------------------
 
-# Preset 1: Main Workspace
-bind-key -T work-sessions 1 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 1"
+# Preset 0: Custom repo list
+bind-key -T work-sessions 0 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 0"
 
 # Preset 1: Work Github
 bind-key -T work-sessions 1 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 1"
@@ -1561,13 +1561,9 @@ bind-key -T work-sessions 2 display-popup -E -w 80% -h 80% "~/.config/tmux/scrip
 # Preset 3: All Projects
 bind-key -T work-sessions 3 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 3"
 
-# Preset 4-9: Available for customization
+# Preset 4-5: Available for customization
 bind-key -T work-sessions 4 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 4"
 bind-key -T work-sessions 5 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 5"
-bind-key -T work-sessions 6 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 6"
-bind-key -T work-sessions 7 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 7"
-bind-key -T work-sessions 8 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 8"
-bind-key -T work-sessions 9 display-popup -E -w 80% -h 80% "~/.config/tmux/scripts/work-sessions/work-sessions.sh 9"
 
 #-------------------------------------------------------------------------------
 # }}}
