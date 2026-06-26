@@ -12,5 +12,5 @@ Manage your local central library of skills and download new on-demand skills fr
 To search, install, toggle, or clean up skills, run the interactive manager in your terminal:
 
 ```text
-~/dotfiles/bin/skill-manager
+~/dotfiles/bin/.config/bin/skill-manager
 ```
