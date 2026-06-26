@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SKILLS_LIB_DIR="$HOME/dotfiles/skills-library"
+CACHE_FILE="/tmp/antigravity-skills-index.json"
+REPO_INDEX_URL="https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json"
+
+# Target CLI destinations for symlinks
+declare -A CLI_PATHS=(
+    ["Claude Code"]="$HOME/.claude/skills"
+    ["Cursor"]="$HOME/.cursor/skills"
+    ["Gemini CLI"]="$HOME/.gemini/skills"
+    ["Codex CLI"]="$HOME/.codex/skills"
+)
+
+ensure_dirs() {
+    mkdir -p "$SKILLS_LIB_DIR"
+    for cli in "${!CLI_PATHS[@]}"; do
+        mkdir -p "${CLI_PATHS[$cli]}"
+    done
+}
+
+fetch_index() {
+    if [[ ! -f "$CACHE_FILE" ]]; then
+        echo "Fetching remote skills list..." >&2
+        curl -s "$REPO_INDEX_URL" > "$CACHE_FILE"
+    fi
+}
+
+search_install() {
+    fetch_index
+
+    # Select skill via gum
+    local selection
+    selection=$(jq -r '.entries[] | "\(.id) - \(.description)"' "$CACHE_FILE" | gum filter --placeholder "Fuzzy search remote skills..." --height 15)
+
+    if [[ -z "$selection" ]]; then
+        echo "No skill selected."
+        return
+    fi
+
+    local skill_id
+    skill_id=$(echo "$selection" | cut -d' ' -f1)
+
+    # Target selection
+    local selected_clis
+    selected_clis=$(printf "%s\n" "${!CLI_PATHS[@]}" | gum choose --no-limit --header "Select CLIs to enable this skill in:" --height 10)
+
+    if [[ -z "$selected_clis" ]]; then
+        echo "No CLIs selected."
+        return
+    fi
+
+    # Download using git sparse checkout
+    local temp_dir
+    temp_dir=$(mktemp -d /tmp/ag-skill-dl-XXXXXX)
+
+    echo "Downloading $skill_id..."
+    cd "$temp_dir"
+    git init -q
+    git remote add origin https://github.com/sickn33/antigravity-awesome-skills.git
+    git config core.sparseCheckout true
+    echo "skills/$skill_id/*" >> .git/info/sparse-checkout
+    git pull -q --depth=1 origin main
+
+    local dest_dir="$SKILLS_LIB_DIR/$skill_id"
+    if [[ -d "skills/$skill_id" ]]; then
+        mkdir -p "$dest_dir"
+        cp -r "skills/$skill_id/"* "$dest_dir/"
+        echo "✓ Saved skill to $dest_dir"
+
+        # Create symlinks
+        while IFS= read -r cli; do
+            if [[ -n "$cli" ]]; then
+                local cli_path="${CLI_PATHS[$cli]}"
+                ln -sf "$dest_dir" "$cli_path/$skill_id"
+                echo "✓ Enabled in $cli: $cli_path/$skill_id"
+            fi
+        done <<< "$selected_clis"
+    else
+        echo "Error: Skill $skill_id not found in remote repository."
+    fi
+
+    rm -rf "$temp_dir"
+}
+
+manage_local() {
+    if [[ ! -d "$SKILLS_LIB_DIR" ]] || [[ -z "$(ls -A "$SKILLS_LIB_DIR")" ]]; then
+        echo "No local skills found in $SKILLS_LIB_DIR"
+        return
+    fi
+
+    local skill_id
+    skill_id=$(ls -1 "$SKILLS_LIB_DIR" | gum filter --placeholder "Select local skill to manage...")
+
+    if [[ -z "$skill_id" ]]; then
+        echo "No skill selected."
+        return
+    fi
+
+    local dest_dir="$SKILLS_LIB_DIR/$skill_id"
+
+    # Check current symlink status
+    local options=()
+    for cli in "${!CLI_PATHS[@]}"; do
+        local cli_path="${CLI_PATHS[$cli]}"
+        if [[ -L "$cli_path/$skill_id" ]]; then
+            options+=("$cli (Enabled)")
+        else
+            options+=("$cli (Disabled)")
+        fi
+    done
+
+    local action_choices
+    action_choices=$(printf "%s\n" "${options[@]}" | gum choose --no-limit --header "Toggle CLI activation for $skill_id:" --height 10)
+
+    # Update symlinks based on selection
+    for cli in "${!CLI_PATHS[@]}"; do
+        local cli_path="${CLI_PATHS[$cli]}"
+        if echo "$action_choices" | grep -q "$cli (Enabled)"; then
+            # Keep or create symlink
+            ln -sf "$dest_dir" "$cli_path/$skill_id"
+            echo "✓ Enabled in $cli"
+        else
+            # Remove symlink if exists
+            if [[ -L "$cli_path/$skill_id" ]]; then
+                rm -f "$cli_path/$skill_id"
+                echo "✗ Disabled in $cli"
+            fi
+        fi
+    done
+}
+
+cleanup_global() {
+    echo "Cleaning up all awesome-skills in global paths..."
+    # Read manifest entries, delete them
+    local manifest="$HOME/.gemini/skills/.antigravity-install-manifest.json"
+    if [[ -f "$manifest" ]]; then
+        jq -r '.entries[]' "$manifest" | while read -r entry; do
+            if [[ -d "$HOME/.gemini/skills/$entry" ]]; then
+                rm -rf "$HOME/.gemini/skills/$entry"
+                echo "Removed global skill: $entry"
+            fi
+        done
+        rm -f "$manifest"
+    fi
+    echo "Global cleanup done."
+}
+
+main() {
+    ensure_dirs
+
+    local action
+    action=$(gum choose \
+        "🔍 Search & Install Skill (Remote)" \
+        "🛠️  Manage Local Skills (Enable/Disable in CLIs)" \
+        "🧹 Clean Up Global CLI Skills" \
+        "🚪 Exit")
+
+    case "$action" in
+        "🔍 Search & Install Skill (Remote)")
+            search_install
+            ;;
+        "🛠️  Manage Local Skills (Enable/Disable in CLIs)")
+            manage_local
+            ;;
+        "🧹 Clean Up Global CLI Skills")
+            cleanup_global
+            ;;
+        *)
+            echo "Exiting."
+            ;;
+    esac
+}
+
+main "$@"
