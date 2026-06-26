@@ -30,6 +30,7 @@ declare -A CLI_PATHS=(
     ["Cursor"]="$HOME/.cursor/skills"
     ["Gemini CLI"]="$HOME/.gemini/skills"
     ["Codex CLI"]="$HOME/.codex/skills"
+    ["OpenCode"]="$HOME/.config/opencode/skills"
 )
 
 ensure_dirs() {
@@ -63,7 +64,7 @@ search_install() {
 
     # Target selection
     local selected_clis
-    selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --bind="change:first" --height=10 --layout=reverse)
+    selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" "OpenCode" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --bind="change:first" --height=10 --layout=reverse)
 
     if [[ -z "$selected_clis" ]]; then
         echo "No CLIs selected."
@@ -121,7 +122,7 @@ manage_local() {
 
     # Check current symlink status
     local options=()
-    for cli in "Claude Code" "Gemini CLI" "Cursor" "Codex CLI"; do
+    for cli in "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" "OpenCode"; do
         local cli_path="${CLI_PATHS[$cli]}"
         local padded_cli
         padded_cli=$(printf "%-15s" "$cli")
