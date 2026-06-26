@@ -6,6 +6,16 @@ SKILLS_LIB_DIR="$HOME/dotfiles/skills-library"
 CACHE_FILE="/tmp/antigravity-skills-index.json"
 REPO_INDEX_URL="https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json"
 
+# Resolve fzf path dynamically
+if command -v fzf &>/dev/null; then
+    FZF_BIN="fzf"
+elif [[ -x "$HOME/.fzf/bin/fzf" ]]; then
+    FZF_BIN="$HOME/.fzf/bin/fzf"
+else
+    echo "Error: fzf is required but not found." >&2
+    exit 1
+fi
+
 # Target CLI destinations for symlinks
 declare -A CLI_PATHS=(
     ["Claude Code"]="$HOME/.claude/skills"
@@ -31,9 +41,9 @@ fetch_index() {
 search_install() {
     fetch_index
     
-    # Select skill via gum
+    # Select skill via fzf
     local selection
-    selection=$(jq -r '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' "$CACHE_FILE" | gum filter --placeholder "Fuzzy search remote skills..." --height 15)
+    selection=$(jq -r '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' "$CACHE_FILE" | "$FZF_BIN" --prompt="Fuzzy search remote skills > " --height=15 --layout=reverse --border)
     
     if [[ -z "$selection" ]]; then
         echo "No skill selected."
@@ -45,7 +55,7 @@ search_install() {
     
     # Target selection
     local selected_clis
-    selected_clis=$(printf "%s\n" "${!CLI_PATHS[@]}" | gum choose --no-limit --header "Select CLIs to enable this skill in:" --height 10)
+    selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse --border)
     
     if [[ -z "$selected_clis" ]]; then
         echo "No CLIs selected."
@@ -92,7 +102,7 @@ manage_local() {
     fi
     
     local skill_id
-    skill_id=$(ls -1 "$SKILLS_LIB_DIR" | gum filter --placeholder "Select local skill to manage...")
+    skill_id=$(ls -1 "$SKILLS_LIB_DIR" | "$FZF_BIN" --prompt="Select local skill to manage > " --height=10 --layout=reverse --border)
     
     if [[ -z "$skill_id" ]]; then
         echo "No skill selected."
@@ -115,7 +125,7 @@ manage_local() {
     done
     
     local action_choices
-    action_choices=$(printf "%s\n" "${options[@]}" | gum choose --no-limit --header "Toggle CLI activation for $skill_id:" --height 10)
+    action_choices=$(printf "%s\n" "${options[@]}" | "$FZF_BIN" --multi --prompt="Toggle CLI activation for $skill_id (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse --border)
     
     # Update symlinks based on selection
     for cli in "${!CLI_PATHS[@]}"; do
@@ -154,17 +164,17 @@ main() {
     ensure_dirs
     
     local action
-    action=$(gum choose \
+    action=$(printf "%s\n" \
         "🔍 Search & Install Skill (Remote)" \
         "🔧 Manage Local Skills (Enable/Disable in CLIs)" \
         "🧹 Clean Up Global CLI Skills" \
-        "🚪 Exit")
+        "🚪 Exit" | "$FZF_BIN" --prompt="Choose action > " --height=10 --layout=reverse --border)
         
     case "$action" in
         "🔍 Search & Install Skill (Remote)")
             search_install
             ;;
-        "🛠️  Manage Local Skills (Enable/Disable in CLIs)")
+        "🔧 Manage Local Skills (Enable/Disable in CLIs)")
             manage_local
             ;;
         "🧹 Clean Up Global CLI Skills")
