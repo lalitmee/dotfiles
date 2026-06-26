@@ -43,7 +43,7 @@ search_install() {
 
     # Select skill via fzf
     local selection
-    selection=$(jq -r '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' "$CACHE_FILE" | "$FZF_BIN" --prompt="Fuzzy search remote skills > " --height=15 --layout=reverse --border)
+    selection=$(jq -r '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' "$CACHE_FILE" | "$FZF_BIN" --prompt="Fuzzy search remote skills > " --height=15 --layout=reverse)
 
     if [[ -z "$selection" ]]; then
         echo "No skill selected."
@@ -55,7 +55,7 @@ search_install() {
 
     # Target selection
     local selected_clis
-    selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse --border)
+    selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse)
 
     if [[ -z "$selected_clis" ]]; then
         echo "No CLIs selected."
@@ -102,7 +102,7 @@ manage_local() {
     fi
 
     local skill_id
-    skill_id=$(ls -1 "$SKILLS_LIB_DIR" | "$FZF_BIN" --prompt="Select local skill to manage > " --height=10 --layout=reverse --border)
+    skill_id=$(ls -1 "$SKILLS_LIB_DIR" | "$FZF_BIN" --prompt="Select local skill to manage > " --height=10 --layout=reverse)
 
     if [[ -z "$skill_id" ]]; then
         echo "No skill selected."
@@ -125,7 +125,7 @@ manage_local() {
     done
 
     local action_choices
-    action_choices=$(printf "%s\n" "${options[@]}" | "$FZF_BIN" --multi --prompt="Toggle CLI activation for $skill_id (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse --border)
+    action_choices=$(printf "%s\n" "${options[@]}" | "$FZF_BIN" --multi --prompt="Toggle CLI activation for $skill_id (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse)
 
     # Update symlinks based on selection
     for cli in "${!CLI_PATHS[@]}"; do
@@ -168,7 +168,7 @@ main() {
         "🔍 Search & Install Skill (Remote)" \
         "🔧 Manage Local Skills (Enable/Disable in CLIs)" \
         "🧹 Clean Up Global CLI Skills" \
-        "🚪 Exit" | "$FZF_BIN" --prompt="Choose action > " --height=10 --layout=reverse --border)
+        "🚪 Exit" | "$FZF_BIN" --prompt="Choose action > " --height=10 --layout=reverse)
 
     case "$action" in
         "🔍 Search & Install Skill (Remote)")
