@@ -7,7 +7,7 @@ CACHE_FILE="/tmp/antigravity-skills-index.json"
 REPO_INDEX_URL="https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json"
 
 # Resolve fzf path dynamically
-if command -v fzf &>/dev/null; then
+if command -v fzf &> /dev/null; then
     FZF_BIN="fzf"
 elif [[ -x "$HOME/.fzf/bin/fzf" ]]; then
     FZF_BIN="$HOME/.fzf/bin/fzf"
@@ -40,32 +40,32 @@ fetch_index() {
 
 search_install() {
     fetch_index
-    
+
     # Select skill via fzf
     local selection
     selection=$(jq -r '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' "$CACHE_FILE" | "$FZF_BIN" --prompt="Fuzzy search remote skills > " --height=15 --layout=reverse --border)
-    
+
     if [[ -z "$selection" ]]; then
         echo "No skill selected."
         return
     fi
-    
+
     local skill_id
     skill_id=$(echo "$selection" | awk '{print $1}')
-    
+
     # Target selection
     local selected_clis
     selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse --border)
-    
+
     if [[ -z "$selected_clis" ]]; then
         echo "No CLIs selected."
         return
     fi
-    
+
     # Download using git sparse checkout
     local temp_dir
     temp_dir=$(mktemp -d /tmp/ag-skill-dl-XXXXXX)
-    
+
     echo "Downloading $skill_id..."
     cd "$temp_dir"
     git init -q
@@ -73,13 +73,13 @@ search_install() {
     git config core.sparseCheckout true
     echo "skills/$skill_id/*" >> .git/info/sparse-checkout
     git pull -q --depth=1 origin main
-    
+
     local dest_dir="$SKILLS_LIB_DIR/$skill_id"
     if [[ -d "skills/$skill_id" ]]; then
         mkdir -p "$dest_dir"
         cp -r "skills/$skill_id/"* "$dest_dir/"
         echo "✓ Saved skill to $dest_dir"
-        
+
         # Create symlinks
         while IFS= read -r cli; do
             if [[ -n "$cli" ]]; then
@@ -91,7 +91,7 @@ search_install() {
     else
         echo "Error: Skill $skill_id not found in remote repository."
     fi
-    
+
     rm -rf "$temp_dir"
 }
 
@@ -100,17 +100,17 @@ manage_local() {
         echo "No local skills found in $SKILLS_LIB_DIR"
         return
     fi
-    
+
     local skill_id
     skill_id=$(ls -1 "$SKILLS_LIB_DIR" | "$FZF_BIN" --prompt="Select local skill to manage > " --height=10 --layout=reverse --border)
-    
+
     if [[ -z "$skill_id" ]]; then
         echo "No skill selected."
         return
     fi
-    
+
     local dest_dir="$SKILLS_LIB_DIR/$skill_id"
-    
+
     # Check current symlink status
     local options=()
     for cli in "Claude Code" "Gemini CLI" "Cursor" "Codex CLI"; do
@@ -123,10 +123,10 @@ manage_local() {
             options+=("$padded_cli [Disabled]")
         fi
     done
-    
+
     local action_choices
     action_choices=$(printf "%s\n" "${options[@]}" | "$FZF_BIN" --multi --prompt="Toggle CLI activation for $skill_id (Tab to toggle, Enter to confirm) > " --height=10 --layout=reverse --border)
-    
+
     # Update symlinks based on selection
     for cli in "${!CLI_PATHS[@]}"; do
         local cli_path="${CLI_PATHS[$cli]}"
@@ -162,14 +162,14 @@ cleanup_global() {
 
 main() {
     ensure_dirs
-    
+
     local action
     action=$(printf "%s\n" \
         "🔍 Search & Install Skill (Remote)" \
         "🔧 Manage Local Skills (Enable/Disable in CLIs)" \
         "🧹 Clean Up Global CLI Skills" \
         "🚪 Exit" | "$FZF_BIN" --prompt="Choose action > " --height=10 --layout=reverse --border)
-        
+
     case "$action" in
         "🔍 Search & Install Skill (Remote)")
             search_install
