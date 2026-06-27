@@ -3,7 +3,6 @@ import i3ipc
 import json
 import os
 import logging
-import datetime
 
 def setup_logging():
     """
@@ -22,6 +21,9 @@ def setup_logging():
     )
     
     return logging.getLogger(__name__)
+
+# Initialize logger globally
+logger = setup_logging()
 
 def load_assignments():
     """
@@ -48,7 +50,7 @@ def get_windows_by_class(i3, assignment_data):
     class_names = []
     instance_names = []
     
-    if isinstance(assignment_data, dict) and ('classes' in assignment_data or 'instances' in assignment_data):
+    if isinstance(assignment_data, dict):
         class_names = assignment_data.get('classes', [])
         instance_names = assignment_data.get('instances', [])
     elif isinstance(assignment_data, list):
@@ -157,11 +159,9 @@ def on_window_new(i3, event, assignments):
         else:
             logger.info(f"Additional '{assignment_key}' window (count: {len(existing_windows)+1}), not moving")
     else:
-        logger.debug(f"No assignment found for class '{window_class}'")
+        logger.debug(f"No assignment found for class '{window_class}' / instance '{window_instance}'")
 
 if __name__ == "__main__":
-    # Setup logging first
-    logger = setup_logging()
     logger.info("=== i3 Smart Assign Script Started ===")
     
     # Load assignments
