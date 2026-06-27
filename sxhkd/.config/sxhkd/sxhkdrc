@@ -317,6 +317,10 @@ super + y
 super + g
     i3run --summon --instance crx_gdfaincndogidkdcdkhapmbffkckdkhn -- brave-browser --app-id=gdfaincndogidkdcdkhapmbffkckdkhn
 
+# >> assistant -> chatgpt (brave pwa)
+super + c
+    i3run --summon --instance crx_cadlkienfkclaiaibeoongdcgmdikeeg -- brave-browser --app-id=cadlkienfkclaiaibeoongdcgmdikeeg
+
 # >> todo tracker -> todoist
 super + alt + g
     i3run --summon --instance todoist -- todoist
