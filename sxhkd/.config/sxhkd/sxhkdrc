@@ -321,6 +321,10 @@ super + g
 super + c
     i3run --summon --instance crx_cadlkienfkclaiaibeoongdcgmdikeeg -- brave-browser --app-id=cadlkienfkclaiaibeoongdcgmdikeeg
 
+# >> assistant -> claude (brave pwa)
+super + a
+    i3run --summon --instance crx_fmpnliohjhemenmnlpbfagaolkdacoja -- brave-browser --app-id=fmpnliohjhemenmnlpbfagaolkdacoja
+
 # >> todo tracker -> todoist
 super + alt + g
     i3run --summon --instance todoist -- todoist
@@ -375,7 +379,7 @@ super + x
     i3run --summon --instance crx_dnfpoenibinnbbckgbhendmlljoobcfg -- brave-browser --app-id=dnfpoenibinnbbckgbhendmlljoobcfg
 
 # >> audio mixer -> alsamixer
-super + a
+super + ctrl + a
     i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
 
 # >> clipboard manager -> copyq
