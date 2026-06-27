@@ -6,8 +6,8 @@
 # Map each context name to its specific repository path.
 declare -A CONTEXT_PATHS
 CONTEXT_PATHS=(
-    ["Work"]="$HOME/Projects/Work/Github/second-brain"
-    ["Personal"]="$HOME/Projects/Personal/Github/second-brain"
+    "Work" "$HOME/Projects/Work/Github/second-brain"
+    "Personal" "$HOME/Projects/Personal/Github/second-brain"
 )
 # The list of contexts for fzf is now generated automatically from the map keys.
 CONTEXTS=("${(@k)CONTEXT_PATHS}")
