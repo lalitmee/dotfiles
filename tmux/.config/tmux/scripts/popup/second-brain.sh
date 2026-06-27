@@ -79,7 +79,7 @@ fi
 
 # If no valid context was passed, prompt the user with fzf.
 if ! $context_is_valid; then
-    context=$(printf "%s\n" "${CONTEXTS[@]}" | fzf --prompt="Select Context > ")
+    context=$(printf "%s\n" "${CONTEXTS[@]}" | fzf --bind="change:first" --prompt="Select Context > ")
     if [[ -z $context ]]; then exit 0; fi
 fi
 
@@ -98,10 +98,10 @@ case "$mode" in
 
         # Portable way to list .org files without -printf (works on macOS and Linux)
         note_list=$(find "$notes_dir" -maxdepth 1 -name "*.org" | xargs -n 1 basename 2>/dev/null | sed 's/\.org$//')
-        selection=$(echo "$note_list" | fzf --prompt="Find or Create Note > ")
+        selection=$(echo "$note_list" | fzf --bind="change:first" --prompt="Find or Create Note > ")
         # If no selection and directory is empty, allow user to type a name
         if [[ -z $selection ]]; then
-            selection=$(echo "" | fzf --prompt="No notes found. Type a note name to create > " --print-query --query="" | head -1)
+            selection=$(echo "" | fzf --bind="change:first" --prompt="No notes found. Type a note name to create > " --print-query --query="" | head -1)
             if [[ -z $selection ]]; then exit 0; fi
         fi
 
@@ -141,7 +141,7 @@ case "$mode" in
             done < "$LANGUAGES_FILE"
         fi
 
-        scratch_type=$(printf "%s\n" "${full_scratch_list[@]}" | fzf --prompt="Select Scratchpad Type > ")
+        scratch_type=$(printf "%s\n" "${full_scratch_list[@]}" | fzf --bind="change:first" --prompt="Select Scratchpad Type > ")
         if [[ -z $scratch_type ]]; then exit 0; fi
 
         # Generate a unique scratchpad file name

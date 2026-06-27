@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/functions.sh"
 package_json_path=$(pwd)/package.json
 export package_json_path
 
-selection=$(get_yarn_scripts | fzf --prompt="yarn> " --header="Project Runner" --header-first --height="100%" --layout=reverse --print-query \
+selection=$(get_yarn_scripts | fzf --bind="change:first" --prompt="yarn> " --header="Project Runner" --header-first --height="100%" --layout=reverse --print-query \
     --bind "ctrl-y:transform:[[ ! $FZF_PROMPT =~ yarn ]] && echo \"change-prompt(yarn> )+reload(source $SCRIPT_DIR/functions.sh && get_yarn_scripts)\" || echo \"\"" \
     --bind "ctrl-j:transform:[[ ! $FZF_PROMPT =~ npm ]] && echo \"change-prompt(npm> )+reload(source $SCRIPT_DIR/functions.sh && get_npm_scripts)\" || echo \"\"")
 

@@ -76,7 +76,7 @@ esac
 # =====================
 # The script is already in a popup. Use fzf to choose the final layout.
 FZF_HEADER="Choose layout for $ICON ${COLOR_YELLOW}${TOOL}${RESET_COLOR}:"
-MODE=$(echo -e "popup\nsplit\nwindow" | fzf --height=5 --header="$FZF_HEADER" --ansi)
+MODE=$(echo -e "popup\nsplit\nwindow" | fzf --bind="change:first" --height=5 --header="$FZF_HEADER" --ansi)
 
 if [ -z "$MODE" ]; then
     # User pressed ESC, exit cleanly.

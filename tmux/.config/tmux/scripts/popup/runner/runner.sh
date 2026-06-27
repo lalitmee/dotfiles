@@ -259,7 +259,7 @@ if [[ -z "$available_scripts" ]]; then
     exit 1
 fi
 
-selection=$(print -r -- "$available_scripts" | fzf --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query)
+selection=$(print -r -- "$available_scripts" | fzf --bind="change:first" --prompt="Select a script to run > " --height="100%" --layout=reverse --print-query)
 
 if [[ -z $selection ]]; then
     log_message "selection cancelled"

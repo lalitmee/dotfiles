@@ -6,7 +6,7 @@ uid=$(id -u)
 process_list=$(ps -f -u $uid | sed 1d)
 
 # Let the user select processes with fzf, storing the full lines
-selection=$(echo "$process_list" | fzf -m)
+selection=$(echo "$process_list" | fzf --bind="change:first" -m)
 
 # If the user made a selection (selection is not empty)
 if [[ -n "$selection" ]]; then

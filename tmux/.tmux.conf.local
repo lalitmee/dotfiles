@@ -708,7 +708,7 @@ set -g @tpad-journal-personal-title " Personal Journal "
 set -g @tpad-journal-work-cmd 'nvim $HOME/Projects/Work/Github/second-brain/journal/$(date +%Y-%m-%d).org'
 set -g @tpad-journal-work-title " Work Journal "
 
-set -g @tpad-search-notes-cmd 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/brain/notes | fzf'
+set -g @tpad-search-notes-cmd 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/brain/notes | fzf --bind="change:first"'
 set -g @tpad-search-notes-title " Search Notes "
 
 set -g @tpad-backup-logs-cmd 'nvim $HOME/.local/share/backup-logs/'
