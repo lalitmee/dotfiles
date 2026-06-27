@@ -13,7 +13,7 @@ mkdir -p "$USER_FONT_DIR"
 fonts=$(find "$FONT_DIR" -type f \( -iname "*.otf" -o -iname "*.ttf" \))
 
 # Use fzf to select multiple fonts
-selected_fonts=$(echo "$fonts" | fzf --multi --preview 'echo {}' --preview-window=up:50%:wrap)
+selected_fonts=$(echo "$fonts" | fzf --bind="change:first" --multi --preview 'echo {}' --preview-window=up:50%:wrap)
 
 # Check if any fonts were selected
 if [ -z "$selected_fonts" ]; then

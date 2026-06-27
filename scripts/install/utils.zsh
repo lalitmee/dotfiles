@@ -1,18 +1,44 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 set -e  # Exit on error
 set -o pipefail  # Catch errors in piped commands
 
 # Function to style output using gum (if available) or echo as fallback
+# {{{
 gum_style() {
     local message="$1"
 
-    if command -v gum >/dev/null 2>&1; then
+    # If the external gum_style script exists in PATH, use it for rich aesthetics
+    if command -v gum_style >/dev/null 2>&1; then
+        command gum_style "$message"
+    elif command -v gum >/dev/null 2>&1; then
         echo "$message" | gum style --foreground 39
     else
         echo "$message"
     fi
 }
+# }}}
+
+# Function to check if a command/binary exists in PATH
+# {{{
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+# }}}
+
+# Function to get global npm package version
+# {{{
+get_npm_version() {
+    local package="$1"
+    local version
+    version=$(npm list -g --depth=0 "$package" 2>/dev/null | grep -F "$package" | sed -E 's/.*@//')
+    if [[ -z "$version" ]]; then
+        echo "Not Installed"
+    else
+        echo "$version"
+    fi
+}
+# }}}
 
 # Function to execute a command and handle errors
 execute_command() {

@@ -10,7 +10,7 @@ if ! command -v fzf &>/dev/null; then
 fi
 
 # List files in the directory, ignoring .sh and .zsh extensions, and select with fzf
-selected_scripts=$(find "$INSTALL_DIR" -type f ! -name "*.sh" ! -name "*.zsh" | fzf -m)
+selected_scripts=$(find "$INSTALL_DIR" -type f ! -name "*.sh" ! -name "*.zsh" | fzf --bind="change:first" -m)
 
 # Run selected scripts
 if [ -n "$selected_scripts" ]; then

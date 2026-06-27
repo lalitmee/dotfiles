@@ -16,12 +16,12 @@ filter_protected() {
 }
 
 # Choose between local or remote
-BRANCH_TYPE=$(printf "local\nremote" | fzf --prompt="Branch type to delete: ")
+BRANCH_TYPE=$(printf "local\nremote" | fzf --bind="change:first" --prompt="Branch type to delete: ")
 
 if [[ "$BRANCH_TYPE" == "local" ]]; then
 	BRANCHES=$(git branch --format="%(refname:short)" |
 		filter_protected |
-		fzf --multi --preview="branch_preview {}" --prompt="Select local branches to delete: ")
+		fzf --bind="change:first" --multi --preview="branch_preview {}" --prompt="Select local branches to delete: ")
 
 	if [[ -z "$BRANCHES" ]]; then
 		echo "No local branches selected."
@@ -38,12 +38,12 @@ if [[ "$BRANCH_TYPE" == "local" ]]; then
 	fi
 
 elif [[ "$BRANCH_TYPE" == "remote" ]]; then
-	REMOTE=$(git remote | fzf --prompt="Choose remote: ")
+	REMOTE=$(git remote | fzf --bind="change:first" --prompt="Choose remote: ")
 	BRANCHES=$(git branch -r --format="%(refname:short)" |
 		grep "^$REMOTE/" |
 		sed "s|^$REMOTE/||" |
 		filter_protected |
-		fzf --multi --preview="branch_preview $REMOTE/{}" --prompt="Select remote branches to delete: ")
+		fzf --bind="change:first" --multi --preview="branch_preview $REMOTE/{}" --prompt="Select remote branches to delete: ")
 
 	if [[ -z "$BRANCHES" ]]; then
 		echo "No remote branches selected."

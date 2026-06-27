@@ -25,7 +25,7 @@ if [[ -z "$sources" ]]; then
 fi
 
 # Use fzf to select a physical microphone (without preview)
-selected=$(echo "$sources" | fzf \
+selected=$(echo "$sources" | fzf --bind="change:first" \
     --prompt="🎤 Select Physical Mic for Noise Cancellation: " \
     --height=20% \
     --layout=reverse \
@@ -51,7 +51,7 @@ ports=$(pactl -f json list sources | jq -r --arg SOURCE_NAME "$physical_source_n
 
 # If more than one port is available, show a selection menu
 if [[ $(echo "$ports" | wc -l) -gt 1 ]]; then
-    selected_port=$(echo "$ports" | fzf \
+    selected_port=$(echo "$ports" | fzf --bind="change:first" \
         --prompt="🎤 Select Port for '$physical_source_desc': " \
         --height=20% \
         --layout=reverse \

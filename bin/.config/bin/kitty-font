@@ -7,7 +7,7 @@ config_file="$HOME/.config/kitty/kitty.conf"
 fonts=$(kitty +list-fonts --psnames | grep "^\w")
 
 # Use fzf to prompt the user to select a font
-selected_font=$(echo "$fonts" | fzf)
+selected_font=$(echo "$fonts" | fzf --bind="change:first")
 
 # If a font was selected, update the kitty.conf file with the new font
 if [[ -n "$selected_font" ]]; then

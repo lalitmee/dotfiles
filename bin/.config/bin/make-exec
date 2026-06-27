@@ -54,7 +54,7 @@ if ! command -v fzf &>/dev/null; then
 fi
 
 if [ -n "$non_executable_scripts" ]; then
-    selected_files=$(echo "$non_executable_scripts" | fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all")
+    selected_files=$(echo "$non_executable_scripts" | fzf -m --bind "ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all,change:first")
 
     if [ -n "$selected_files" ]; then
         echo "$selected_files" | while read -r file; do

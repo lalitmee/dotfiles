@@ -1,4 +1,4 @@
 #!/bin/zsh
 
 cd ~/.local/share/nvim/sessions/ || exit
-find . | fzf -m | xargs -I {} rm -rf {}
+find . | fzf -m --bind="change:first" | xargs -I {} rm -rf {}

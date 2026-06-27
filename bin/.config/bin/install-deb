@@ -16,7 +16,7 @@ source "$(dirname "$0")/utils.zsh"
 main() {
     # Step 1: Select .deb file
     local deb_file
-    deb_file=$(find "$HOME/Downloads" -name "*.deb" | fzf --prompt="Select a .deb file to install")
+    deb_file=$(find "$HOME/Downloads" -name "*.deb" | fzf --bind="change:first" --prompt="Select a .deb file to install")
 
     if [[ -z "$deb_file" ]]; then
         gum_style "No file selected. Exiting."
