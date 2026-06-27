@@ -13,7 +13,7 @@ export FZF_DEFAULT_OPTS='
 --layout=reverse
 --inline-info
 --height=100%
---bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all'
+--bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all,change:first'
 
 # cobalt2
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
