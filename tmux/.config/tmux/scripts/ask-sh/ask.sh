@@ -41,7 +41,7 @@ case "$action" in
 
     "ai-chat")
         model_list=$($AI_COMMAND models list | sed -E 's/^[^:]+: ([^ ]+).*/\1/')
-        selected_model=$(echo "$model_list" | fzf --prompt="Select model (ESC for default: $DEFAULT_AI_MODEL) > ")
+        selected_model=$(echo "$model_list" | fzf --bind="change:first" --prompt="Select model (ESC for default: $DEFAULT_AI_MODEL) > ")
 
         if [[ -n "$selected_model" ]]; then
             model_to_use="$selected_model"
@@ -53,7 +53,7 @@ case "$action" in
         ;;
 
     "site")
-        selection=$(cat "$BANGS_FILE" | fzf --prompt="Select Bang > ")
+        selection=$(cat "$BANGS_FILE" | fzf --bind="change:first" --prompt="Select Bang > ")
         if [[ -z $selection ]]; then exit 0; fi
 
         bang=$(echo "$selection" | awk -F '=>' '{print $2}' | tr -d ' ')

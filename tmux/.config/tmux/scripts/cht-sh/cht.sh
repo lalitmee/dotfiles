@@ -8,7 +8,7 @@ COMMANDS_FILE="$HOME/.config/tmux/scripts/cht-sh/.cht-commands"
 
 # 1. Select the language or command using fzf.
 #    2>/dev/null silences errors if a file doesn't exist.
-selected=$(cat "$LANGUAGES_FILE" "$COMMANDS_FILE" 2>/dev/null | fzf --reverse --cycle --info=inline)
+selected=$(cat "$LANGUAGES_FILE" "$COMMANDS_FILE" 2>/dev/null | fzf --bind="change:first" --reverse --cycle --info=inline)
 
 # Exit if fzf was cancelled.
 if [[ -z $selected ]]; then
@@ -16,7 +16,7 @@ if [[ -z $selected ]]; then
 fi
 
 # 2. Prompt for the query using fzf, ensuring it doesn't show a file list.
-query=$(fzf --height=3 --prompt="Query for '$selected'> " --print-query < /dev/null | tail -n 1)
+query=$(fzf --bind="change:first" --height=3 --prompt="Query for '$selected'> " --print-query < /dev/null | tail -n 1)
 
 # 3. Determine the correct URL format based on the selection.
 if grep -qs "$selected" "$LANGUAGES_FILE"; then

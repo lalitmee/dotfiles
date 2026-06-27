@@ -62,7 +62,7 @@ create_worktree()
 
     # Use fzf instead of gum to avoid TTY issues in tmux popups
     if command -v fzf >/dev/null 2>&1; then
-        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | fzf --prompt="Choose option: ")
+        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | fzf --bind="change:first" --prompt="Choose option: ")
     else
         # Fallback to simple input if fzf not available
         CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | head -1)
@@ -73,7 +73,7 @@ create_worktree()
 
         # Use fzf instead of gum to avoid TTY issues in tmux popups
         if command -v fzf >/dev/null 2>&1; then
-            BASE_BRANCH=$(git branch | fzf --prompt="Select a base branch for the new worktree: ")
+            BASE_BRANCH=$(git branch | fzf --bind="change:first" --prompt="Select a base branch for the new worktree: ")
             BASE_BRANCH=$(echo "$BASE_BRANCH" | sed 's/^[* +-]*//' | xargs)
         else
             # Fallback to simple selection if fzf not available
@@ -118,7 +118,7 @@ create_worktree()
 
         # Use fzf instead of gum to avoid TTY issues in tmux popups
         if command -v fzf >/dev/null 2>&1; then
-            BRANCH_NAME=$(git branch | fzf --prompt="Select a branch ")
+            BRANCH_NAME=$(git branch | fzf --bind="change:first" --prompt="Select a branch ")
             BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/^[* +-]*//' | xargs)
         else
             # Fallback to simple selection if fzf not available
@@ -158,7 +158,7 @@ switch_worktree()
                   {
     log "Attempting to switch to a worktree"
 
-    WORKTREE=$(git worktree list | fzf --prompt="Select a worktree to switch to: " | awk '{print $1}')
+    WORKTREE=$(git worktree list | fzf --bind="change:first" --prompt="Select a worktree to switch to: " | awk '{print $1}')
 
     if [ -n "$WORKTREE" ]; then
         log "Switching to worktree '$WORKTREE'"
