@@ -57,13 +57,15 @@ def get_windows_by_class(i3, assignment_data):
         class_names = [assignment_data]
     
     for con in i3.get_tree().leaves():
+        matched = False
         if con.window_class and class_names:
             window_class_lower = con.window_class.lower()
             for class_name in class_names:
                 if isinstance(class_name, str) and window_class_lower == class_name.lower():
                     windows.append(con)
+                    matched = True
                     break
-        elif con.window_instance and instance_names:
+        if not matched and con.window_instance and instance_names:
             window_instance_lower = con.window_instance.lower()
             for instance_name in instance_names:
                 if isinstance(instance_name, str) and window_instance_lower == instance_name.lower():
@@ -128,11 +130,11 @@ def on_window_new(i3, event, assignments):
     assignment_key, assignment_data = find_matching_assignment(window_class, window_instance, assignments)
     
     if assignment_key:
-        logger.info(f"Found assignment: '{assignment_key}' matches class '{window_class}'")
+        logger.info(f"Found assignment: '{assignment_key}' matches class '{window_class}'/instance '{window_instance}'")
         
         # Check if there are other windows of the same class already open
         windows = get_windows_by_class(i3, assignment_data)
-        logger.debug(f"Found {len(windows)} windows for class '{window_class}'")
+        logger.debug(f"Found {len(windows)} windows for assignment '{assignment_key}'")
         
         # Fix: Count windows BEFORE the current one is added
         # We need to exclude the current window from the count
@@ -146,14 +148,14 @@ def on_window_new(i3, event, assignments):
                 # Fallback for old format
                 workspace = assignment_key
             
-            logger.info(f"Moving first '{window_class}' window to workspace '{workspace}'")
+            logger.info(f"Moving first '{assignment_key}' window (class='{window_class}', instance='{window_instance}') to workspace '{workspace}'")
             try:
                 event.container.command(f'move container to workspace {workspace}')
-                logger.info(f"Successfully moved '{window_class}' to workspace '{workspace}'")
+                logger.info(f"Successfully moved '{assignment_key}' to workspace '{workspace}'")
             except Exception as e:
-                logger.error(f"Failed to move '{window_class}' to workspace '{workspace}': {e}")
+                logger.error(f"Failed to move '{assignment_key}' to workspace '{workspace}': {e}")
         else:
-            logger.info(f"Additional '{window_class}' window (count: {len(existing_windows)+1}), not moving")
+            logger.info(f"Additional '{assignment_key}' window (count: {len(existing_windows)+1}), not moving")
     else:
         logger.debug(f"No assignment found for class '{window_class}'")
 
