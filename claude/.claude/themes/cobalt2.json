@@ -1,0 +1,16 @@
+{
+  "name": "Cobalt2",
+  "base": "dark",
+  "overrides": {
+    "claude": "#ffc600",
+    "claudeShimmer": "#0088ff",
+    "error": "#ff5630",
+    "success": "#3ad900",
+    "warning": "#ff9d00",
+    "diffAdded": "#3ad900",
+    "diffRemoved": "#ee3a43",
+    "promptBorder": "#ffc600",
+    "planMode": "#ff0088",
+    "userMessageBackground": "#1f4662"
+  }
+}
