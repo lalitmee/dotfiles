@@ -32,7 +32,7 @@ selection=$(rg --color=always --line-number --no-heading --hidden \
 	--glob '!Changelog.md' \
 	--glob '!CHANGELOG.MD' \
 	--glob '!ChAnGeLoG.md' \
-	'.' . | fzf --ansi --delimiter : --nth 1,2,3 \
+	'.' . | fzf --bind="change:first" --ansi --delimiter : --nth 1,2,3 \
 	--prompt "Search lines: " \
 	--header "Type to filter, select to open in nvim")
 

@@ -14,7 +14,7 @@ if [[ -z "$repo_files" ]]; then
 fi
 
 # Select repositories to remove using fzf
-selected_repos=$(echo "$repo_files" | fzf --multi --prompt="Select repositories to remove: " --preview="cat {}")
+selected_repos=$(echo "$repo_files" | fzf --bind="change:first" --multi --prompt="Select repositories to remove: " --preview="cat {}")
 
 if [[ -z "$selected_repos" ]]; then
     gum_style "No repository selected."

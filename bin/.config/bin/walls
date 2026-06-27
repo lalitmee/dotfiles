@@ -5,7 +5,7 @@ random_wallpaper() {
 }
 
 select_wallpaper() {
-	find ~/Projects/Personal/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf --preview 'chafa --size=180x {}' --preview-window=right:70%
+	find ~/Projects/Personal/Github/wallpapers -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.*" \) | grep -iE '\.(jpg|png)$' | fzf --bind="change:first" --preview 'chafa --size=180x {}' --preview-window=right:70%
 }
 
 if [[ $# -eq 1 ]]; then
@@ -25,7 +25,7 @@ if [[ $# -eq 1 ]]; then
 		;;
 	esac
 else
-	selected=$(echo -e "random\nselection" | fzf)
+	selected=$(echo -e "random\nselection" | fzf --bind="change:first")
 
 	case $selected in
 	random)

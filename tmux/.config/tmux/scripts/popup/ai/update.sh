@@ -24,6 +24,17 @@ fi
 
 # --- Main update logic is wrapped in a function ---
 run_updates() {
+    # Source shared utils if available
+    if [[ -f "$HOME/.config/bin/utils.zsh" ]]; then
+        source "$HOME/.config/bin/utils.zsh"
+    elif [[ -f "$HOME/dotfiles/scripts/install/utils.zsh" ]]; then
+        source "$HOME/dotfiles/scripts/install/utils.zsh"
+    fi
+    set +e  # Ensure script doesn't exit on uncaught errors
+
+    local -a update_summary
+    update_summary=("Package,Status,Old Version,New Version")
+
     # Function to securely download and run a script
     secure_run_script() {
         local url="$1"
@@ -42,7 +53,7 @@ run_updates() {
 
         # Display checksum for transparency
         local checksum
-        checksum=$(sha256sum "$tmp_file" | awk "{print $1}")
+        checksum=$(sha256sum "$tmp_file" | awk '{print $1}')
         gum_style "SHA256: $checksum"
 
         if gum confirm "Do you want to execute the $tool_name installer?"; then
