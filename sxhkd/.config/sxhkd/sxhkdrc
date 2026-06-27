@@ -366,6 +366,10 @@ super + u
 super + i
     i3run --summon --instance crx_hnpfjngllnobngcgfapefoaidbinmjnm -- brave-browser --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
 
+# >> social -> x/twitter (brave pwa)
+super + t
+    i3run --summon --instance crx_lodlkdfmihgonocnmddehnfgiljnadcf -- brave-browser --app-id=lodlkdfmihgonocnmddehnfgiljnadcf
+
 # >> productivity -> gnome-pomodoro
 super + shift + p
     i3run --class gnome-pomodoro --summon -- gnome-pomodoro
