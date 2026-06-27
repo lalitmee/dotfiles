@@ -40,7 +40,7 @@ done
 
 # --- Open FZF in tmux popup ---
 tmux display-popup -E -w 90% -h 90% "
-    selected=\$(fzf --bind="change:first" --ansi \
+    selected=\$(fzf --bind=\"change:first\" --ansi \
         --prompt='🔍 Search tmux keybindings: ' \
         --exact \
         --no-sort \
