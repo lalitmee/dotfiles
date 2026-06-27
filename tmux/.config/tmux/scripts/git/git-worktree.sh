@@ -180,7 +180,7 @@ delete_worktree()
                   {
     log "Attempting to delete a worktree"
 
-    FZF_OUTPUT=$(git worktree list | fzf --prompt="Select a worktree to delete: " --expect=ctrl-d)
+    FZF_OUTPUT=$(git worktree list | fzf --bind="change:first" --prompt="Select a worktree to delete: " --expect=ctrl-d)
     KEY=$(echo "$FZF_OUTPUT" | head -n1)
     WORKTREE_TO_DELETE=$(echo "$FZF_OUTPUT" | tail -n1 | awk '{print $1}')
 

@@ -129,7 +129,7 @@ copy_additional_files() {
     
     if gum confirm "Do you want to select additional files to copy?"; then
         # Exclude environment files from fzf list
-        SELECTED_FILES=$(git ls-files | grep -v ".env*" | fzf --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+        SELECTED_FILES=$(git ls-files | grep -v ".env*" | fzf --bind="change:first" --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
 
         if [ -n "$SELECTED_FILES" ]; then
             gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '

@@ -20,7 +20,7 @@ selected=$(
         [[ "$dir_expanded" == "$HOME" ]] && depth=1
 
         find "$dir_expanded" -mindepth 1 -maxdepth "$depth" -type d 2>/dev/null
-    done | fzf
+    done | fzf --bind="change:first"
 )
 
 # Exit if nothing is selected

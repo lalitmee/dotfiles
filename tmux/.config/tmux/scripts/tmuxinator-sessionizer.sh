@@ -4,7 +4,7 @@
 tmuxinator_dir="$HOME/.config/tmuxinator"
 
 # List tmuxinator projects and pass them to fzf
-selected=$(ls "$tmuxinator_dir" | sed 's/\.yml$//' | fzf)
+selected=$(ls "$tmuxinator_dir" | sed 's/\.yml$//' | fzf --bind="change:first")
 
 # Exit if nothing is selected
 if [[ -z $selected ]]; then

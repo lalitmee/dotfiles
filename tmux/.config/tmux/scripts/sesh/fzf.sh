@@ -22,7 +22,7 @@ else
 fi
 
 sesh connect "$(
-    sesh list --icons | fzf \
+    sesh list --icons | fzf --bind="change:first" \
         --height 80% \
         --no-sort \
         --ansi \

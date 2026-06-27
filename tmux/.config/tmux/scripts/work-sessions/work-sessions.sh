@@ -313,7 +313,7 @@ open_preset() {
         if [[ $path_count -eq 1 ]] && [[ -d "$only_path" ]]; then
             # Single parent mode: list repos inside parent
             debug_log "open_preset: Single path mode, launching fzf in $only_path"
-            selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf \
+            selected_dirs=$(ls -1 "$only_path" 2>/dev/null | fzf --bind="change:first" \
                 --cycle \
                 --multi \
                 --prompt="Select repos (TAB to toggle): ")
@@ -327,7 +327,7 @@ open_preset() {
                 ls -1 "$path" 2>/dev/null | while read -r repo; do
                     echo "$path/$repo"
                 done
-            done <<< "$valid_paths" | fzf \
+            done <<< "$valid_paths" | fzf --bind="change:first" \
                 --cycle \
                 --multi \
                 --prompt="Select repos (TAB to toggle): " \
@@ -426,7 +426,7 @@ pick_preset() {
     fi
 
     debug_log "pick_preset: Launching fzf preset picker..."
-    local selected=$(printf '%s\n' "${options[@]}" | fzf --prompt="Select preset: " \
+    local selected=$(printf '%s\n' "${options[@]}" | fzf --bind="change:first" --prompt="Select preset: " \
         --cycle \
         --height=~50% \
     )
@@ -451,7 +451,7 @@ kill_work_session() {
         return 1
     fi
 
-    local selected=$(echo "$sessions" | fzf \
+    local selected=$(echo "$sessions" | fzf --bind="change:first" \
         --cycle \
         --multi \
         --prompt="Kill sessions (TAB to toggle): " \
