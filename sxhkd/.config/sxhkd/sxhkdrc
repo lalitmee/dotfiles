@@ -277,9 +277,9 @@ alt + y
 super + n
     i3run --summon --instance neovide -- neovide
 
-# >> assistant -> notebooklm
+# >> assistant -> notebooklm (brave pwa)
 super + ctrl + n
-    i3run --summon --instance pake-notebooklm -- pake-notebooklm
+    i3run --summon --instance crx_gjcmcplpgihbecacndmmbaenpfgimlec -- brave-browser --app-id=gjcmcplpgihbecacndmmbaenpfgimlec
 
 # terminal -> ghostty
 #super + t
@@ -301,9 +301,9 @@ super + shift + g
 super + m
     i3run --summon --instance spotify -- spotify
 
-# >> music player -> music for programming
+# >> music player -> music for programming (brave pwa)
 super + shift + m
-    i3run --summon --instance pake-programmusic -- pake-programmusic
+    i3run --summon --instance crx_jhcembbiknekhcfklaahjjojbciaphaa -- brave-browser --app-id=jhcembbiknekhcfklaahjjojbciaphaa
 
 # >> terminal music player -> cmus
 super + ctrl + m
@@ -313,9 +313,9 @@ super + ctrl + m
 super + y
     i3run --summon --instance crx_cinhimbnkkaeohfgghhklpknlkffjgod -- brave-browser --app-id=cinhimbnkkaeohfgghhklpknlkffjgod
 
-# >> assistant -> gemini
+# >> assistant -> gemini (brave pwa)
 super + g
-    i3run --summon --instance pake-gemini -- pake-gemini
+    i3run --summon --instance crx_gdfaincndogidkdcdkhapmbffkckdkhn -- brave-browser --app-id=gdfaincndogidkdcdkhapmbffkckdkhn
 
 # >> todo tracker -> todoist
 super + alt + g
@@ -354,9 +354,9 @@ super + alt + k
 super + u
     i3run --class TelegramDesktop --summon --instance telegram-desktop -- telegram-desktop
 
-# >> communication -> whatsapp
+# >> communication -> whatsapp (brave pwa)
 super + i
-    i3run --summon --instance pake-whatsapp -- pake-whatsapp
+    i3run --summon --instance crx_hnpfjngllnobngcgfapefoaidbinmjnm -- brave-browser --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
 
 # >> productivity -> gnome-pomodoro
 super + shift + p
@@ -366,9 +366,9 @@ super + shift + p
 super + shift + d
     i3run --class gnome-calendar --summon -- flatpak run org.gnome.Calendar
 
-# >> design -> excalidraw
+# >> design -> excalidraw (brave pwa)
 super + x
-    i3run --summon --instance pake-excalidraw -- pake-excalidraw
+    i3run --summon --instance crx_dnfpoenibinnbbckgbhendmlljoobcfg -- brave-browser --app-id=dnfpoenibinnbbckgbhendmlljoobcfg
 
 # >> audio mixer -> alsamixer
 super + a
