@@ -15,8 +15,8 @@
         "classes": ["vivaldi-stable", "Vivaldi-stable"],
         "workspace": "4"
     },
-    "pake-excalidraw": {
-        "classes": ["pake-excalidraw", "Pake-excalidraw"],
+    "excalidraw": {
+        "instances": ["crx_dnfpoenibinnbbckgbhendmlljoobcfg"],
         "workspace": "6"
     }
 }

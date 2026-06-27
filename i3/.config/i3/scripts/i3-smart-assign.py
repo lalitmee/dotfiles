@@ -40,49 +40,73 @@ def load_assignments():
 
 def get_windows_by_class(i3, assignment_data):
     """
-    Get all windows that match the class names in assignment_data.
+    Get all windows that match the class names or instance names in assignment_data.
     """
     windows = []
     
-    # Extract class names from assignment_data
-    if isinstance(assignment_data, dict) and 'classes' in assignment_data:
-        class_names = assignment_data['classes']
+    # Extract class names and instance names from assignment_data
+    class_names = []
+    instance_names = []
+    
+    if isinstance(assignment_data, dict) and ('classes' in assignment_data or 'instances' in assignment_data):
+        class_names = assignment_data.get('classes', [])
+        instance_names = assignment_data.get('instances', [])
     elif isinstance(assignment_data, list):
         class_names = assignment_data
     else:
         class_names = [assignment_data]
     
     for con in i3.get_tree().leaves():
-        if con.window_class:
+        if con.window_class and class_names:
             window_class_lower = con.window_class.lower()
             for class_name in class_names:
                 if isinstance(class_name, str) and window_class_lower == class_name.lower():
                     windows.append(con)
                     break
+        elif con.window_instance and instance_names:
+            window_instance_lower = con.window_instance.lower()
+            for instance_name in instance_names:
+                if isinstance(instance_name, str) and window_instance_lower == instance_name.lower():
+                    windows.append(con)
+                    break
     return windows
 
-def find_matching_assignment(window_class, assignments):
+def find_matching_assignment(window_class, window_instance, assignments):
     """
-    Find which assignment key matches the given window class.
+    Find which assignment key matches the given window class or window instance.
+    Instance matching is prioritized over class matching.
     Returns (assignment_key, assignment_data) or (None, None).
     """
-    window_class_lower = window_class.lower()
+    window_class_lower = window_class.lower() if window_class else ""
+    window_instance_lower = window_instance.lower() if window_instance else ""
     
-    for assignment_key, assignment_data in assignments.items():
-        if isinstance(assignment_data, dict) and 'classes' in assignment_data:
-            # New format: {"classes": [...], "workspace": "..."}
-            for class_name in assignment_data['classes']:
-                if window_class_lower == class_name.lower():
-                    return assignment_key, assignment_data
-        elif isinstance(assignment_data, list):
-            # Old format: {"key": ["class1", "class2"]}
-            for class_name in assignment_data:
-                if window_class_lower == class_name.lower():
-                    return assignment_key, assignment_data
-        elif isinstance(assignment_data, str):
-            # Handle very old format (string)
-            if window_class_lower == assignment_data.lower():
-                return assignment_key, [assignment_data]
+    # 1. Prioritize instance matching
+    if window_instance_lower:
+        for assignment_key, assignment_data in assignments.items():
+            if isinstance(assignment_data, dict) and 'instances' in assignment_data:
+                for instance_name in assignment_data['instances']:
+                    if window_instance_lower == instance_name.lower():
+                        return assignment_key, assignment_data
+                        
+    # Special rule: If it's a Brave/Chrome PWA (starts with 'crx_') and didn't match any instance assignment,
+    # do NOT fall back to matching its general browser class.
+    if window_instance_lower.startswith('crx_'):
+        return None, None
+        
+    # 2. Fallback to class matching
+    if window_class_lower:
+        for assignment_key, assignment_data in assignments.items():
+            if isinstance(assignment_data, dict) and 'classes' in assignment_data:
+                for class_name in assignment_data['classes']:
+                    if window_class_lower == class_name.lower():
+                        return assignment_key, assignment_data
+            elif isinstance(assignment_data, list):
+                for class_name in assignment_data:
+                    if window_class_lower == class_name.lower():
+                        return assignment_key, assignment_data
+            elif isinstance(assignment_data, str):
+                if window_class_lower == assignment_data.lower():
+                    return assignment_key, [assignment_data]
     
     return None, None
 
@@ -92,15 +116,16 @@ def on_window_new(i3, event, assignments):
     """
     window_class = event.container.window_class
     window_title = event.container.name
+    window_instance = event.container.window_instance
     
     if not window_class:
         logger.debug(f"Window without class detected: {window_title}")
         return
 
-    logger.info(f"New window: class='{window_class}', title='{window_title}'")
+    logger.info(f"New window: class='{window_class}', instance='{window_instance}', title='{window_title}'")
     
-# Find matching assignment
-    assignment_key, assignment_data = find_matching_assignment(window_class, assignments)
+    # Find matching assignment
+    assignment_key, assignment_data = find_matching_assignment(window_class, window_instance, assignments)
     
     if assignment_key:
         logger.info(f"Found assignment: '{assignment_key}' matches class '{window_class}'")
