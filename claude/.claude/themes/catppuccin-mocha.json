@@ -1,0 +1,16 @@
+{
+  "name": "Catppuccin Mocha",
+  "base": "dark",
+  "overrides": {
+    "claude": "#cba6f7",
+    "claudeShimmer": "#b4befe",
+    "error": "#f38ba8",
+    "success": "#a6e3a1",
+    "warning": "#f9e2af",
+    "diffAdded": "#a6e3a1",
+    "diffRemoved": "#f38ba8",
+    "promptBorder": "#cba6f7",
+    "planMode": "#74c7ec",
+    "userMessageBackground": "#313244"
+  }
+}

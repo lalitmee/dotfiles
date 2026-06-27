@@ -1,0 +1,16 @@
+{
+  "name": "Dracula",
+  "base": "dark",
+  "overrides": {
+    "claude": "#bd93f9",
+    "claudeShimmer": "#ff79c6",
+    "error": "#ff5555",
+    "success": "#50fa7b",
+    "warning": "#f1fa8c",
+    "diffAdded": "#50fa7b",
+    "diffRemoved": "#ff5555",
+    "promptBorder": "#bd93f9",
+    "planMode": "#8be9fd",
+    "userMessageBackground": "#44475a"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Gruvbox Dark",
+  "base": "dark",
+  "overrides": {
+    "claude": "#fe8019",
+    "claudeShimmer": "#fabd2f",
+    "error": "#fb4934",
+    "success": "#b8bb26",
+    "warning": "#fabd2f",
+    "diffAdded": "#b8bb26",
+    "diffRemoved": "#fb4934",
+    "promptBorder": "#fe8019",
+    "planMode": "#83a598",
+    "userMessageBackground": "#3c3836"
+  }
+}
