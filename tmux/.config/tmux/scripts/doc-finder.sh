@@ -34,7 +34,7 @@ preview_command='
 '
 
 # --- Step 3: Run FZF to get user selection ---
-selection=$(generate_sources | fzf --prompt="Search Docs > " -e \
+selection=$(generate_sources | fzf --bind="change:first" --prompt="Search Docs > " -e \
     --preview="$preview_command" \
     --preview-window=right:60%:wrap)
 

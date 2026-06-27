@@ -67,6 +67,7 @@ fi
 
 # Prepare for selection
 selected_medatada=$(echo "$repos" | fzf \
+    --bind="change:first" \
     --multi \
     --prompt="Search and select repositories to remove > " \
     --header="TAB to select, ENTER to confirm | Columns: File, Type, Repo" \

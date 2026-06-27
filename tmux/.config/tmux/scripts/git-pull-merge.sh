@@ -21,21 +21,21 @@ repo_list=$(find "${REPO_DIRS[@]}" -maxdepth 3 -name ".git" -type d -prune 2>/de
 [ -z "$repo_list" ] && abort "No Git repositories found. Check REPO_DIRS."
 
 # 2. Select a Repository
-selected_repo=$(echo -e "$repo_list" | fzf --prompt="Select Repository > ")
+selected_repo=$(echo -e "$repo_list" | fzf --bind="change:first" --prompt="Select Repository > ")
 [ -z "$selected_repo" ] && abort "No repository selected. Aborting."
 
 cd "$selected_repo" || exit
 
 # 3. Select a Local Branch
 local_branches=$(git branch --format='%(refname:short)')
-target_branch=$(echo "$local_branches" | fzf --prompt="Checkout branch in '$(basename "$selected_repo")' > ")
+target_branch=$(echo "$local_branches" | fzf --bind="change:first" --prompt="Checkout branch in '$(basename "$selected_repo")' > ")
 [ -z "$target_branch" ] && abort "No branch selected. Aborting."
 
 git checkout "$target_branch" &> /dev/null
 
 # 4. Select an Action (with updated merge icon)
 actions="↓ Pull latest for '$target_branch'\n⇅ Merge another branch into '$target_branch'"
-chosen_action=$(echo -e "$actions" | fzf --prompt="Select action > ")
+chosen_action=$(echo -e "$actions" | fzf --bind="change:first" --prompt="Select action > ")
 [ -z "$chosen_action" ] && abort "No action selected. Aborting."
 
 # 5. Execute the chosen action
@@ -54,7 +54,7 @@ elif [[ "$chosen_action" == *"Merge"* ]]; then
     git fetch --all --prune &> /dev/null
 
     all_branches=$(git branch -a --format='%(refname:short)' | sed 's|remotes/origin/||' | sort -u)
-    merge_branch=$(echo "$all_branches" | fzf --prompt="Merge which branch into '$target_branch'? > ")
+    merge_branch=$(echo "$all_branches" | fzf --bind="change:first" --prompt="Merge which branch into '$target_branch'? > ")
 
     if [ -n "$merge_branch" ]; then
         echo "Running: git merge $merge_branch"
