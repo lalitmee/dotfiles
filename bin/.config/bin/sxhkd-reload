@@ -2,7 +2,8 @@
 # More robust sxhkd reload script
 # Sends USR1 signal to reload config, and restarts if it crashes.
 
-sxhkd_pid=$(pgrep -x sxhkd)
+# Grab a single sxhkd PID to avoid ps/kill errors when multiple instances exist.
+sxhkd_pid=$(pgrep -x sxhkd | head -n 1)
 
 if [ -n "$sxhkd_pid" ]; then
     # sxhkd is running, attempt to reload.
