@@ -3,6 +3,7 @@
   "model": "grok-code-fast-1",
   "autoshare": false,
   "autoupdate": true,
+  "plugin": ["superpowers@git+https://github.com/obra/superpowers.git"],
   "mcp": {
     "context7": {
       "type": "local",
