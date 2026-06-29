@@ -129,7 +129,9 @@ fi
 # # NOTE: zoxide {{{
 # -------------------------------------------------------------------
 # znap eval zoxide "zoxide init zsh --cmd cd"
-znap eval zoxide "zoxide init zsh"
+# NOTE: direct eval required — znap eval breaks `compdef __zoxide_z_complete z`
+# (compdef for shell functions doesn't register via znap's compile path).
+eval "$(zoxide init zsh)"
 # }}}
 # -------------------------------------------------------------------
 
