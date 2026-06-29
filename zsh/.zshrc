@@ -55,9 +55,9 @@ autoload -Uz compinit && compinit -i
 
 # Plugins (standalone repos; znap clones + caches them)
 znap source zsh-users/zsh-autosuggestions
-znap source zdharma-continuum/fast-syntax-highlighting
 znap source Aloxaf/fzf-tab
 znap source jeffreytse/zsh-vi-mode
+znap source zdharma-continuum/fast-syntax-highlighting
 
 # Prompt: load p10k via znap source (NOT `znap prompt` — that conflicts
 # with p10k's instant-prompt block at the top of this file).

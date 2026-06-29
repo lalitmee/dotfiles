@@ -112,7 +112,7 @@ alias upg="apt upgrade -y"
 
 # aliases for editing and sourcing zshrc
 alias ze="nvim ~/.zshrc"
-alias zs="source ~/.zshrc"
+alias zs="exec zsh"
 
 # alias for emacs
 alias es="emacs --with-profile spacemacs"

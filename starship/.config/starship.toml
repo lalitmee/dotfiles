@@ -39,10 +39,11 @@ vicmd_symbol = "[<](bold yellow)"
 #  NOTE: dir {{{
 #-------------------------------------------------------------------------------
 [directory]
-style = "bold blue"
+style = "bold 31"
 read_only = " "
-truncation_length = 4
+truncation_length = 8
 truncate_to_repo = false
+truncation_symbol = "…/"
 # }}}
 #-------------------------------------------------------------------------------
 
