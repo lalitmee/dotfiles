@@ -40,6 +40,7 @@ source "$ZNAP_DIR/znap.zsh"
 # -------------------------------------------------------------------
 # # NOTE: plugins (znap-managed) {{{
 # -------------------------------------------------------------------
+znap source zsh-users/zsh-completions
 # Ensure compinit runs (OMZ used to do this for us). Built-in zsh and
 # plugin completions are picked up; the heavy zsh-users/zsh-completions
 # pack is intentionally not loaded (it ~doubled startup for 383 extra files).
@@ -174,8 +175,11 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 # -------------------------------------------------------------------
 # # NOTE: atuin {{{
 # -------------------------------------------------------------------
-# This line loads Atuin and defines the `atuin-search` widgets
-znap eval atuin "atuin init zsh"
+# This line loads Atuin and defines the `atuin-search` widgets.
+# NOTE: must be a direct eval, NOT `znap eval` — atuin registers its
+# widgets with `zle -N`, which does not survive znap's cache/compile step
+# (the atuin-search widget ends up undefined). Direct eval is ~cheap.
+eval "$(atuin init zsh)"
 
 # --- FORCE ATUIN BINDING ---
 # This block runs LAST, ensuring Atuin wins the fight for Ctrl+R
@@ -223,4 +227,3 @@ source ~/.tmux/plugins/tmux-session-dots/bell-notify.zsh
 # zprof
 
 # vim:foldmethod=marker
-
