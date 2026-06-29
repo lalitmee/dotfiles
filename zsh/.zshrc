@@ -65,11 +65,7 @@ znap source romkatv/powerlevel10k
 # # NOTE: p10k config {{{
 #-------------------------------------------------------------------------------
 
-# # ~/.zshrc — disable Powerlevel10k when Cursor Agent runs
-# if [[ -n "$CURSOR_AGENT" ]]; then
-#     # Skip theme initialization for better compatibility
-# else
-#     # Load p10k prompt first (no output)
+# Load p10k prompt first (no output)
 [[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
 
 # --- powerlevel10k performance overrides (worktree-friendly) ---
@@ -80,7 +76,6 @@ typeset -g POWERLEVEL9K_VCS_DISABLE_GITSTATUS_FORMATTING=true
 
 # --- powerlevel10k: hide untracked & stash in custom formatter ---
 typeset -g POWERLEVEL9K_VCS_{UNTRACKED,STASH}_MAX_NUM=0
-# fi
 
 #-------------------------------------------------------------------------------
 # }}}
