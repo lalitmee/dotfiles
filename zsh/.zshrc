@@ -113,6 +113,9 @@ plugins=(
     zsh-autosuggestions
 )
 
+# Load core fzf integration first so plugins like fzf-tab can hook into it
+[[ -f ~/.zsh_plugins_config/fzf.zsh ]] && source ~/.zsh_plugins_config/fzf.zsh
+
 # zsh completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
