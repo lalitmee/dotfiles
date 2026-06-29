@@ -40,12 +40,10 @@ source "$ZNAP_DIR/znap.zsh"
 # -------------------------------------------------------------------
 # # NOTE: plugins (znap-managed) {{{
 # -------------------------------------------------------------------
-# Completions: ensure compinit runs (OMZ used to do this for us).
+# Ensure compinit runs (OMZ used to do this for us). Built-in zsh and
+# plugin completions are picked up; the heavy zsh-users/zsh-completions
+# pack is intentionally not loaded (it ~doubled startup for 383 extra files).
 autoload -Uz compinit && compinit -C
-
-# zsh-completions on fpath (cloned via znap below if missing)
-znap clone zsh-users/zsh-completions &>/dev/null
-fpath+=( ~/.oh-my-zsh/custom/plugins/znap/repos/zsh-users/zsh-completions/src )
 
 # Load core fzf integration first so fzf-tab can hook into it
 [[ -f ~/.zsh_plugins_config/fzf.zsh ]] && source ~/.zsh_plugins_config/fzf.zsh
