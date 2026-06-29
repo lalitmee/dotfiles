@@ -36,17 +36,11 @@ export PATH="$HOME/go/bin:$PATH"
 export SUDO_PATH="$PATH"
 
 
-# Install oh-my-zsh (zsh framework)
+# Install Znap (Zsh plugin manager)
 execute_command \
-    "sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \"\" --unattended" \
-    "oh-my-zsh installed successfully." \
-    "Failed to install oh-my-zsh."
-
-# Install powerlevel10k theme
-execute_command \
-    "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" \
-    "Powerlevel10k theme installed successfully." \
-    "Failed to install Powerlevel10k."
+    "git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git ~/.znap/znap" \
+    "Znap plugin manager installed successfully." \
+    "Failed to install Znap."
 
 # Install tmux
 execute_command \
