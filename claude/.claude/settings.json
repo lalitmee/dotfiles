@@ -12,5 +12,6 @@
   "extraKnownMarketplaces": {},
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
-  "theme": "custom:cobalt2"
+  "theme": "custom:cobalt2",
+  "model": "sonnet[1m]"
 }
