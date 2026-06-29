@@ -244,4 +244,3 @@ append_to_path "$HOME/.local/share/antigravity-ide/bin"
 #-------------------------------------------------------------------------------
 
 # vim:fdm=marker
-. "$HOME/.cargo/env"

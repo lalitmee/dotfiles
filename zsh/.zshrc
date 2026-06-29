@@ -226,6 +226,3 @@ source ~/.tmux/plugins/tmux-session-dots/bell-notify.zsh
 
 # vim:foldmethod=marker
 
-
-# Added by Antigravity CLI installer
-export PATH="$HOME/.local/bin:$PATH"
