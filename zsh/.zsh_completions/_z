@@ -1,0 +1,11 @@
+#compdef z zi
+_z() {
+    # Delegate to zoxide's completion function.
+    # __zoxide_z_complete is defined by `eval "$(zoxide init zsh)"`.
+    if (( ${+functions[__zoxide_z_complete]} )); then
+        __zoxide_z_complete
+    else
+        _files -/
+    fi
+}
+_z "$@"
