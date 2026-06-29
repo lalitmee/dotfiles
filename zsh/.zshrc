@@ -129,19 +129,16 @@ fi
 # -------------------------------------------------------------------
 # # NOTE: zoxide {{{
 # -------------------------------------------------------------------
-# znap eval zoxide "zoxide init zsh"
 # znap eval zoxide "zoxide init zsh --cmd cd"
-eval "$(zoxide init zsh)"
+znap eval zoxide "zoxide init zsh"
 # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # # NOTE: pyenv {{{
 # -------------------------------------------------------------------
-znap eval pyenv "pyenv init -"
 eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+znap eval pyenv 'pyenv init - && pyenv virtualenv-init -'
 
 # Disable pyenv-virtualenv auto-activation hook to prevent prompt latency.
 # Manual activation using 'pyenv activate <venv-name>' will still work.
@@ -163,7 +160,7 @@ znap eval rbenv "rbenv init -"
 
 # Then load fnm silently
 export FNM_RESOLVE_ENGINES=false
-eval "$(fnm env --use-on-cd --shell zsh)" 2>/dev/null
+znap eval fnm "fnm env --use-on-cd --shell zsh"
 
 # }}}
 # -------------------------------------------------------------------
@@ -180,7 +177,7 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 # # NOTE: atuin {{{
 # -------------------------------------------------------------------
 # This line loads Atuin and defines the `atuin-search` widgets
-eval "$(atuin init zsh)"
+znap eval atuin "atuin init zsh"
 
 # --- FORCE ATUIN BINDING ---
 # This block runs LAST, ensuring Atuin wins the fight for Ctrl+R
