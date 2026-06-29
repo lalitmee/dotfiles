@@ -30,96 +30,36 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-# Download Znap, if it's not there yet.
-[[ -r ~/.oh-my-zsh/custom/plugins/znap/znap.zsh ]] ||
+# Download Znap, if it's not there yet, then load it.
+ZNAP_DIR=~/.oh-my-zsh/custom/plugins/znap
+[[ -r $ZNAP_DIR/znap.zsh ]] ||
     git clone --depth 1 -- \
-    https://github.com/marlonrichert/zsh-snap.git ~/.oh-my-zsh/custom/plugins/znap
-    source "$ZSH/custom/plugins/znap/znap.zsh"
+        https://github.com/marlonrichert/zsh-snap.git "$ZNAP_DIR"
+source "$ZNAP_DIR/znap.zsh"
 
 # -------------------------------------------------------------------
-# # NOTE: oh-my-zsh {{{
+# # NOTE: plugins (znap-managed) {{{
 # -------------------------------------------------------------------
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Completions: ensure compinit runs (OMZ used to do this for us).
+autoload -Uz compinit && compinit -C
 
-# Path to your oh-my-zsh installation.
+# zsh-completions on fpath (cloned via znap below if missing)
+znap clone zsh-users/zsh-completions &>/dev/null
+fpath+=( ~/.oh-my-zsh/custom/plugins/znap/repos/zsh-users/zsh-completions/src )
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=5
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# export DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# export ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-export COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# -------------------------------------------------------------------
-# # NOTE: plugins {{{
-# -------------------------------------------------------------------
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    fast-syntax-highlighting
-    fzf-tab
-    vi-mode
-    zsh-autosuggestions
-)
-
-# Load core fzf integration first so plugins like fzf-tab can hook into it
+# Load core fzf integration first so fzf-tab can hook into it
 [[ -f ~/.zsh_plugins_config/fzf.zsh ]] && source ~/.zsh_plugins_config/fzf.zsh
 
-# zsh completions
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+# Plugins (standalone repos; znap clones + caches them)
+znap source zsh-users/zsh-autosuggestions
+znap source zdharma-continuum/fast-syntax-highlighting
+znap source Aloxaf/fzf-tab
 
-source $ZSH/oh-my-zsh.sh
+# Prompt: load p10k via znap source (NOT `znap prompt` — that conflicts
+# with p10k's instant-prompt block at the top of this file).
+znap source romkatv/powerlevel10k
+# }}}
+# -------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # # NOTE: p10k config {{{
