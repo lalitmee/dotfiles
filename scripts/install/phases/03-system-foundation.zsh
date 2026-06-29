@@ -38,7 +38,7 @@ export SUDO_PATH="$PATH"
 
 # Install Znap (Zsh plugin manager)
 execute_command \
-    "git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git ~/.znap/znap" \
+    "[[ -d ~/.znap/znap ]] || git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git ~/.znap/znap" \
     "Znap plugin manager installed successfully." \
     "Failed to install Znap."
 
