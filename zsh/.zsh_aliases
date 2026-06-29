@@ -7,7 +7,6 @@
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias please="gum input --password | sudo -nS"
 

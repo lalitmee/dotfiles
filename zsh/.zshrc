@@ -31,7 +31,7 @@ ensure_tmux_is_running
 
 
 # Download Znap, if it's not there yet, then load it.
-ZNAP_DIR=~/.oh-my-zsh/custom/plugins/znap
+ZNAP_DIR=~/.znap/znap
 [[ -r $ZNAP_DIR/znap.zsh ]] ||
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git "$ZNAP_DIR"
