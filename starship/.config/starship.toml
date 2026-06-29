@@ -23,6 +23,7 @@ add_newline = true
 # make things go to the right side
 [fill]
 symbol = "- - "
+style = "#666666"
 
 #-------------------------------------------------------------------------------
 #  NOTE: propmpt char {{{
@@ -89,7 +90,7 @@ disabled = false
 [git_branch]
 symbol = " "
 format = "[$symbol$branch]($style) "
-style = "bright-black"
+style = "bold green"
 
 [git_status]
 ahead = "↑${count}"
