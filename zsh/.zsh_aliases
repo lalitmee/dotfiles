@@ -1,13 +1,9 @@
 #!/usr/bin/env zsh
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# Set personal aliases. For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias please="gum input --password | sudo -nS"
 
@@ -112,7 +108,7 @@ alias upg="apt upgrade -y"
 
 # aliases for editing and sourcing zshrc
 alias ze="nvim ~/.zshrc"
-alias zs="source ~/.zshrc"
+alias zs="exec zsh"
 
 # alias for emacs
 alias es="emacs --with-profile spacemacs"

@@ -25,13 +25,13 @@ ensure_tmux_is_running
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 
 # Download Znap, if it's not there yet, then load it.
-ZNAP_DIR=~/.oh-my-zsh/custom/plugins/znap
+ZNAP_DIR=~/.znap/znap
 [[ -r $ZNAP_DIR/znap.zsh ]] ||
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git "$ZNAP_DIR"
@@ -55,13 +55,13 @@ autoload -Uz compinit && compinit -i
 
 # Plugins (standalone repos; znap clones + caches them)
 znap source zsh-users/zsh-autosuggestions
-znap source zdharma-continuum/fast-syntax-highlighting
 znap source Aloxaf/fzf-tab
 znap source jeffreytse/zsh-vi-mode
+znap source zdharma-continuum/fast-syntax-highlighting
 
 # Prompt: load p10k via znap source (NOT `znap prompt` — that conflicts
 # with p10k's instant-prompt block at the top of this file).
-znap source romkatv/powerlevel10k
+# znap source romkatv/powerlevel10k
 # }}}
 # -------------------------------------------------------------------
 
@@ -70,16 +70,16 @@ znap source romkatv/powerlevel10k
 #-------------------------------------------------------------------------------
 
 # Load p10k prompt first (no output)
-[[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
+# [[ -r "${HOME}/.p10k.zsh" ]] && source "${HOME}/.p10k.zsh"
 
-# --- powerlevel10k performance overrides (worktree-friendly) ---
-typeset -g POWERLEVEL9K_VCS_SHOW_UNTRACKED=false
-typeset -g POWERLEVEL9K_VCS_SHOW_STASH=false
-typeset -g POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS=0.4
-typeset -g POWERLEVEL9K_VCS_DISABLE_GITSTATUS_FORMATTING=true
+# # --- powerlevel10k performance overrides (worktree-friendly) ---
+# typeset -g POWERLEVEL9K_VCS_SHOW_UNTRACKED=false
+# typeset -g POWERLEVEL9K_VCS_SHOW_STASH=false
+# typeset -g POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS=0.4
+# typeset -g POWERLEVEL9K_VCS_DISABLE_GITSTATUS_FORMATTING=true
 
-# --- powerlevel10k: hide untracked & stash in custom formatter ---
-typeset -g POWERLEVEL9K_VCS_{UNTRACKED,STASH}_MAX_NUM=0
+# # --- powerlevel10k: hide untracked & stash in custom formatter ---
+# typeset -g POWERLEVEL9K_VCS_{UNTRACKED,STASH}_MAX_NUM=0
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -124,8 +124,8 @@ fi
 # # -------------------------------------------------------------------
 # # NOTE: starship prompt {{{
 # # -------------------------------------------------------------------
-# znap eval starship "starship init zsh --print-full-init"
-# znap prompt
+znap eval starship "starship init zsh --print-full-init"
+znap prompt
 # # }}}
 # # -------------------------------------------------------------------
 
@@ -143,12 +143,16 @@ eval "$(zoxide init zsh)"
 # # NOTE: pyenv {{{
 # -------------------------------------------------------------------
 eval "$(pyenv init --path)"
-znap eval pyenv 'pyenv init - && pyenv virtualenv-init -'
 
-# Disable pyenv-virtualenv auto-activation hook to prevent prompt latency.
-# Manual activation using 'pyenv activate <venv-name>' will still work.
-autoload -U add-zsh-hook
-add-zsh-hook -d precmd _pyenv_virtualenv_hook
+# Lazy-load pyenv to prevent shell startup latency.
+_load_pyenv() {
+    znap eval pyenv 'pyenv init - && pyenv virtualenv-init -'
+    # Disable pyenv-virtualenv auto-activation hook to prevent prompt latency.
+    # Manual activation using 'pyenv activate <venv-name>' will still work.
+    autoload -U add-zsh-hook
+    add-zsh-hook -d precmd _pyenv_virtualenv_hook
+}
+znap function pyenv _load_pyenv
 # }}}
 # -------------------------------------------------------------------
 

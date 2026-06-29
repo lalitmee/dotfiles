@@ -23,6 +23,7 @@ add_newline = true
 # make things go to the right side
 [fill]
 symbol = "- - "
+style = "#666666"
 
 #-------------------------------------------------------------------------------
 #  NOTE: propmpt char {{{
@@ -38,10 +39,11 @@ vicmd_symbol = "[<](bold yellow)"
 #  NOTE: dir {{{
 #-------------------------------------------------------------------------------
 [directory]
-style = "bold blue"
+style = "bold 31"
 read_only = " "
-truncation_length = 4
+truncation_length = 8
 truncate_to_repo = false
+truncation_symbol = "…/"
 # }}}
 #-------------------------------------------------------------------------------
 
@@ -89,7 +91,7 @@ disabled = false
 [git_branch]
 symbol = " "
 format = "[$symbol$branch]($style) "
-style = "bright-black"
+style = "bold green"
 
 [git_status]
 ahead = "↑${count}"
