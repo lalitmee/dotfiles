@@ -53,6 +53,11 @@ alias speed="speedtest-cli"
 # for ls replacement with exa
 # alias ls="exa"
 alias ls="lsd" # possible values are: lsd, colorls, exa, ls
+# ls listing shortcuts (ported from oh-my-zsh lib/directories; expand via the ls alias above)
+alias ll='ls -lh'
+alias la='ls -lAh'
+alias l='ls -lah'
+alias lsa='ls -lah'
 alias cat="bat"
 alias c="clear"
 
