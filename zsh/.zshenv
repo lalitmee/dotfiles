@@ -87,7 +87,7 @@ append_to_path "$HOME/.local/bin"
 append_to_path "$HOME/.config/bin"
 
 # cargo
-append_to_path "$HOME/cargo/bin"
+append_to_path "$HOME/.cargo/bin"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # go
