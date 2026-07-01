@@ -903,6 +903,10 @@ bind-key C-f switch-client -T file-picker-mode
 # Default file picker
 bind-key -T file-picker-mode f display-popup -h 80% -w 80% -E "tmux-file-picker"
 
+# AI docs picker (markdown files from configured folders)
+bind-key -T file-picker-mode d display-popup -h 80% -w 80% -E \
+    "$HOME/.config/tmux/scripts/ai-docs-picker.sh"
+
 # Git root
 bind-key -T file-picker-mode g display-popup -h 80% -w 80% -E "tmux-file-picker -g"
 

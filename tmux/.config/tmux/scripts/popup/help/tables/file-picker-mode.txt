@@ -4,5 +4,6 @@ g	Git root
 z	Zoxide
 v	Zoxide (directory only)
 x	Zoxide (git root)
+d	AI docs (md files in docs/plans/specs)
 ?	Help
 q	Quit
