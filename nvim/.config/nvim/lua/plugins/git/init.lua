@@ -144,12 +144,14 @@ return {
     { --[[ diffs.nvim ]]
         "barrettruth/diffs.nvim",
         event = "VeryLazy",
-        opts = {
-            integrations = {
-                neogit = true,
-                gitsigns = true,
-            },
-        },
+        config = function()
+            vim.g.diffs = {
+                integrations = {
+                    neogit = true,
+                    gitsigns = true,
+                },
+            }
+        end,
     },
 
     { --[[ git-worktree.nvim ]]
