@@ -133,6 +133,25 @@ return {
         },
     },
 
+    { --[[ guh.nvim ]]
+        "justinmk/guh.nvim",
+        cmd = { "Guh" },
+        keys = {
+            { "<leader>gg", ":Guh<CR>", desc = "Guh (GitHub)", silent = true },
+        },
+    },
+
+    { --[[ diffs.nvim ]]
+        "barrettruth/diffs.nvim",
+        event = "VeryLazy",
+        opts = {
+            integrations = {
+                neogit = true,
+                gitsigns = true,
+            },
+        },
+    },
+
     { --[[ git-worktree.nvim ]]
         "polarmutex/git-worktree.nvim",
         version = "^2",

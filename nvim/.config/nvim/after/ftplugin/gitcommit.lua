@@ -4,6 +4,18 @@ if vim.b.gitcommit_loaded then
 end
 vim.b.gitcommit_loaded = true
 
+local bufname = vim.api.nvim_buf_get_name(0)
+
+-- Explicitly disable spell check for guh buffers
+if bufname:match("^guh://") then
+    vim.opt_local.spell = false
+end
+
+-- Only run for actual commit edit buffers, not for guh.nvim or other read-only/view buffers
+if not (bufname:match("COMMIT_EDITMSG") or bufname:match("MERGE_MSG") or bufname:match("SQUASH_MSG")) then
+    return
+end
+
 local opt = vim.opt_local
 
 opt.colorcolumn = { "50", "72" }

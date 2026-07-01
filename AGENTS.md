@@ -27,10 +27,9 @@
 - **Paths**: Use absolute paths when possible, document complex configs
 
 ### Tmux Configuration
-- **Reload after changes**: Always reload tmux config after modifying tmux files
+- **Auto-reload after edits**: After editing ANY tmux config file (`tmux/*.conf`, `tmux/*.local`), immediately run `tmux source-file ~/.config/tmux/.tmux.conf` to apply changes
 - **Test changes**: Verify tmux functionality works correctly after reload
 - **NEVER kill tmux server**: NEVER run `tmux kill-server` or similar destructive commands
-- **Proper reload**: Use `tmux source-file ~/.config/tmux/.tmux.conf` to reload config
 - **Binding verification**: After changing a tmux binding, inspect the live keymap with `tmux list-keys -T <table>` and confirm the exact command that will run
 - **Shell compatibility**: Before introducing or editing tmux-launched scripts, verify the script runs under the machine's actual `/bin/sh` or `/bin/bash` version, not just a newer local shell
 - **Runtime paths**: Prefer explicit absolute paths for tmux-launched binaries and scripts when PATH may differ inside tmux
@@ -46,10 +45,11 @@
 - **Minimal proof**: Re-run the smallest possible command path after each change to confirm the failure moved or disappeared
 
 ### Git Commits
-- **Format**: `type(scope): subject` (50 chars max), imperative mood
-- **Body**: 72 chars/line max, blank line after subject, bullet points with `-`
+- **Format**: `type(scope): subject` — imperative mood, 50 chars max, lowercase only
+- **Body**: Required — at least one bullet point (`-`), hard-wrapped at 72 chars/line max
+- **Body style**: Lowercase for general text; capitalize proper nouns, code, and acronyms
 - **Types**: feat, fix, docs, refactor, test, chore
-- **Policy**: NEVER auto-commit - always ask user first (except context files)
+- **Policy**: NEVER auto-commit — always ask user first (except context files)
 
 ### Naming Conventions
 - **Functions**: `snake_case` (descriptive names)

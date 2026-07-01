@@ -81,15 +81,86 @@ fi
 # -------------------------------------------------------------------
 # FZF picker
 # -------------------------------------------------------------------
-selected=$(echo "$sorted_file" | fzf --bind="change:first" --reverse \
+fzf_output=$(echo "$sorted_file" | fzf --bind="change:first" --reverse \
+  --header 'Enter: new window  C-v: split right  C-s: split bottom' \
   --preview "$preview_cmd" \
-  --prompt "AI Docs > " || true)
+  --preview-window=right:60%:wrap \
+  --prompt "Review > " \
+  --expect=enter,ctrl-v,ctrl-s || true)
+
+if [[ -z "$fzf_output" ]]; then
+  exit 0
+fi
+
+key=$(printf '%s\n' "$fzf_output" | sed -n '1p')
+selected=$(printf '%s\n' "$fzf_output" | sed -n '2p')
 
 if [[ -z "$selected" ]]; then
   exit 0
 fi
 
 # -------------------------------------------------------------------
+# Derive window name from folder + file
+# -------------------------------------------------------------------
+
+# Resolve absolute path for the selected file
+absolute_selected="$selected"
+if [[ "$absolute_selected" != /* ]]; then
+  # Interpret relative paths as relative to the git root
+  if command -v realpath >/dev/null 2>&1; then
+    absolute_selected=$(cd "$git_root" && realpath -m -- "$absolute_selected")
+  else
+    absolute_selected="$git_root/$absolute_selected"
+  fi
+fi
+
+# If the user requested a split, open in a new pane and return early
+case "$key" in
+  ctrl-v)
+    tmux split-window -h nvim "$absolute_selected"
+    exit 0
+    ;;
+  ctrl-s)
+    tmux split-window -v nvim "$absolute_selected"
+    exit 0
+    ;;
+esac
+
+# Path relative to git root (used for parent-dir matching and filename)
+relative_path=${absolute_selected#"$git_root/"}
+
+# Derive parent directory name (folder containing the file)
+parent_dir="${relative_path%/*}"
+parent_name="${parent_dir##*/}"
+
+window_prefix=""
+
+# Prefer explicit mapping from AI_DOCS_PREFIXES if available
+if [[ ${(P)+AI_DOCS_PREFIXES} -ne 0 ]]; then
+  for mapping in "${AI_DOCS_PREFIXES[@]}"; do
+    local_key=${mapping%%:*}
+    local_prefix=${mapping#*:}
+    if [[ "$parent_name" == "$local_key" ]]; then
+      window_prefix="$local_prefix"
+      break
+    fi
+  done
+fi
+
+# Fallback prefix when no mapping matches
+if [[ -z "$window_prefix" ]]; then
+  window_prefix="adr"
+fi
+
+filename=${relative_path##*/}
+filename=${filename%.md}
+
+# Strip leading YYYY-MM-DD- if present to keep only the doc context
+clean_filename=${filename#[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-}
+
+window_name="$window_prefix:$clean_filename"
+
+# -------------------------------------------------------------------
 # Open in new tmux window with nvim
 # -------------------------------------------------------------------
-tmux new-window -n "docs" nvim "$selected"
+tmux new-window -n "$window_name" nvim "$absolute_selected"

@@ -606,9 +606,6 @@ set -g @plugin 'Subbeh/tmux-tpad'
 # which is bound to file-picker-mode.
 set -g @tpad-bind-fullscreen 'C-u'
 
-
-
-
 #-------------------------------------------------------------------------------
 # --- NOTE: 1. Global Path & Default Layout {{{
 #-------------------------------------------------------------------------------
@@ -904,7 +901,7 @@ bind-key C-f switch-client -T file-picker-mode
 bind-key -T file-picker-mode f display-popup -h 80% -w 80% -E "tmux-file-picker"
 
 # AI docs picker (markdown files from configured folders)
-bind-key -T file-picker-mode d display-popup -h 80% -w 80% -E \
+bind-key -T file-picker-mode d display-popup -h 90% -w 90% -E \
     "$HOME/.config/tmux/scripts/ai-docs-picker.sh"
 
 # Git root
