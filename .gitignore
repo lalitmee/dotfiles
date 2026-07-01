@@ -31,3 +31,6 @@ copyq/.config/copyq/copyq-monitor.ini
 copyq/.config/copyq/copyq-filter.ini
 copyq/.config/copyq/copyq.pub
 copyq/.config/copyq/copyq_tabs.ini
+
+.DS_Store
+**/.DS_Store
