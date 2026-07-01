@@ -612,7 +612,7 @@ set -g @tpad-bind-fullscreen 'C-u'
 #-------------------------------------------------------------------------------
 # --- NOTE: 1. Global Path & Default Layout {{{
 #-------------------------------------------------------------------------------
-set -g @tpad-path "~/.tmux/plugins/tmux-tpad/tpad.tmux"
+set -g @tpad-path "~/.config/tmux/scripts/tpad-wrapper.sh"
 
 # NOTE: tmux-tpad maps style to tmux -S (border-style) and border_style to tmux -s (popup style)
 # due to an internal mapping bug. Therefore we swap the values below.
