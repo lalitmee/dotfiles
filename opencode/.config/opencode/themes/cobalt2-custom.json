@@ -88,11 +88,11 @@
       "light": "white"
     },
     "backgroundPanel": {
-      "dark": "cobalt_bg",
+      "dark": "cursor_line",
       "light": "cursor_line"
     },
     "backgroundElement": {
-      "dark": "cursor_line",
+      "dark": "subtle_bg",
       "light": "cobalt_bg"
     },
     "border": {
