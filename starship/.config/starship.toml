@@ -44,6 +44,7 @@ read_only = " "
 truncation_length = 8
 truncate_to_repo = false
 truncation_symbol = "…/"
+fish_style_pwd_dir_length = 1
 # }}}
 #-------------------------------------------------------------------------------
 
