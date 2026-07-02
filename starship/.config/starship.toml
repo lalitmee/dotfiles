@@ -41,7 +41,7 @@ vicmd_symbol = "[<](bold yellow)"
 [directory]
 style = "bold 31"
 read_only = " "
-truncation_length = 8
+truncation_length = 2
 truncate_to_repo = false
 truncation_symbol = "…/"
 fish_style_pwd_dir_length = 1
