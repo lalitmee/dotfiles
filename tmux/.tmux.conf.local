@@ -630,7 +630,8 @@ run-shell '
   for inst in lazygit lazydocker gh-dash process-viewer grimoire \
               notes-personal notes-work todos-personal todos-work \
               daily-personal-todo daily-work-todo scratch-personal scratch-work \
-              journal-personal journal-work search-notes backup-logs scratchpad; do
+              journal-personal journal-work search-notes backup-logs scratchpad \
+              ai-notes ai-journal; do
     tmux set -g "@tpad-${inst}-style" "$style"
     tmux set -g "@tpad-${inst}-border_style" "$border"
     tmux set -g "@tpad-${inst}-border_lines" "$lines"
@@ -704,6 +705,12 @@ set -g @tpad-journal-personal-title " Personal Journal "
 
 set -g @tpad-journal-work-cmd 'nvim $HOME/Projects/Work/Github/second-brain/journal/$(date +%Y-%m-%d).org'
 set -g @tpad-journal-work-title " Work Journal "
+
+set -g @tpad-ai-notes-cmd "nvim $HOME/Projects/Personal/Github/ai-brain/notes/inbox.md"
+set -g @tpad-ai-notes-title " AI Notes "
+
+set -g @tpad-ai-journal-cmd 'mkdir -p $HOME/Projects/Personal/Github/ai-brain/journal/$(date +%Y/%m) && nvim $HOME/Projects/Personal/Github/ai-brain/journal/$(date +%Y/%m/%d).md'
+set -g @tpad-ai-journal-title " AI Journal "
 
 set -g @tpad-search-notes-cmd 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/brain/notes | fzf --bind="change:first"'
 set -g @tpad-search-notes-title " Search Notes "
@@ -1125,6 +1132,10 @@ bind-key -T second-brain S run-shell "#{@tpad-path} toggle scratch-work"
 # Journal (persistent - daily entries)
 bind-key -T second-brain j run-shell "#{@tpad-path} toggle journal-personal"
 bind-key -T second-brain J run-shell "#{@tpad-path} toggle journal-work"
+
+# AI Brain
+bind-key -T second-brain i run-shell "#{@tpad-path} toggle ai-notes"
+bind-key -T second-brain I run-shell "#{@tpad-path} toggle ai-journal"
 
 # Old Workflow
 bind-key -T second-brain a display-popup -w 90% -h 90% -E "zsh -lic '~/.config/tmux/scripts/popup/second-brain.sh notes personal'"
