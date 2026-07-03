@@ -118,5 +118,6 @@ return {
         },
     },
     taplo = {},
-    ts_ls = {},
+    ts_ls = false,
+    tsgo = {},
 }
