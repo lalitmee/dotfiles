@@ -4,6 +4,8 @@ A	Notes (work old workflow)
 d	Todos Daily (personal)
 D	Todos Daily (work)
 f	Search notes
+i	AI Notes
+I	AI Journal
 j	Journal (personal)
 J	Journal (work)
 k	Scratch (personal old workflow)
