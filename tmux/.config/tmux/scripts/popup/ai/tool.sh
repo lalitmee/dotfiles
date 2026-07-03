@@ -88,18 +88,12 @@ fi
 # Execute the chosen command in the selected layout.
 case "$MODE" in
     popup)
-        # For popup mode, we are already in the popup.
-        # Replace the current shell process with the tool's process.
-        # This is extremely efficient. When the tool exits, the popup will close.
-        eval exec "$COMMAND"
+        exec "$SHELL" -i -c "$COMMAND"
         ;;
     split)
-        # Tell tmux to create a new split and run the command within it.
-        # This inherits the correct user environment.
-        tmux split-window -h -c "#{pane_current_path}" "$COMMAND"
+        tmux split-window -h -c "#{pane_current_path}" "$SHELL -i -c ${COMMAND:q}"
         ;;
     window)
-        # Tell tmux to create a new window and run the command within it.
-        tmux new-window -n "$PANE_TITLE" -c "#{pane_current_path}" "$COMMAND"
+        tmux new-window -n "$PANE_TITLE" -c "#{pane_current_path}" "$SHELL -i -c ${COMMAND:q}"
         ;;
 esac
