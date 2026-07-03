@@ -408,3 +408,88 @@ update_repo_path() {
 # -------------------------------------------------------------------
 # }}}
 # -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# NOTE: research {{{ 
+# -------------------------------------------------------------------
+
+# Research a topic using AI agent's systematic research capability
+# Usage: research <topic> [--sources web,github,community,docs] [--output-dir <path>]
+research() {
+    local topic=""
+    local sources="web,github,community,docs"
+    local output_dir="."
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --sources)
+                sources="$2"
+                shift 2
+                ;;
+            --output-dir)
+                output_dir="$2"
+                shift 2
+                ;;
+            --help)
+                echo "Usage: research <topic> [--sources src1,src2] [--output-dir <path>]"
+                echo ""
+                echo "Sources: web, github, community, docs (default: all)"
+                echo ""
+                echo "Opens a research prompt for any AI agent."
+                echo "The agent will use its built-in search tools to systematically"
+                echo "gather and synthesize information across all sources."
+                return 0
+                ;;
+            -*)
+                echo "Unknown option: $1"
+                echo "Usage: research <topic> [--sources src1,src2] [--output-dir <path>]"
+                return 1
+                ;;
+            *)
+                if [[ -z "$topic" ]]; then
+                    topic="$1"
+                else
+                    topic="$topic $1"
+                fi
+                shift
+                ;;
+        esac
+    done
+
+    if [[ -z "$topic" ]]; then
+        echo "Usage: research <topic> [--sources web,github,community,docs] [--output-dir <path>]"
+        return 1
+    fi
+
+    echo "================================================================================"
+    echo "  RESEARCH: $topic"
+    echo "  Sources:  $sources"
+    echo "  Output:   $output_dir"
+    echo "================================================================================"
+    echo ""
+    echo "Paste this prompt into your AI agent:"
+    echo ""
+    echo "┌──────────────────────────────────────────────────────────────────────────────"
+    echo "│ Research: $topic"
+    if [[ "$sources" != "web,github,community,docs" ]]; then
+        echo "│ Only use these sources: $sources"
+    fi
+    echo "│"
+    echo "│ Follow the systematic research workflow:"
+    echo "│ 1. Search web for best practices, trends, and patterns"
+    echo "│ 2. Search GitHub for awesome-lists, repos, and community conventions"
+    echo "│ 3. Search Reddit and Hacker News for real-world experiences"
+    echo "│ 4. Fetch official documentation for recommended tools/libraries"
+    echo "│"
+    echo "│ Cross-reference findings, tag information quality, then output:"
+    echo "│ - A terminal summary (compact bullet points)"
+    echo "│ - A full report saved to ${output_dir}/research-<topic>.md"
+    echo "└──────────────────────────────────────────────────────────────────────────────"
+    echo ""
+    echo "The report will include: best practices, trends, real-world examples,"
+    echo "official docs references, community discussion highlights, and recommendations."
+}
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
