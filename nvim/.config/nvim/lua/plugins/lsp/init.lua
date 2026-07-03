@@ -208,6 +208,19 @@ return {
                 root_markers = { ".git" },
             })
 
+            vim.lsp.config("tsgo", {
+                cmd = { "tsgo", "--lsp", "--stdio" },
+                filetypes = {
+                    "javascript",
+                    "javascriptreact",
+                    "javascript.jsx",
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx",
+                },
+                root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
+            })
+
             -- Base configuration to apply to all servers
             local base_config = {
                 on_attach = lsp_utils.on_attach,
