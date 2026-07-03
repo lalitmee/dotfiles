@@ -41,6 +41,11 @@ description: <description>
 - **`opencode/.config/opencode/command/<name>.md`** (modified) — thin 5-line reference, no agent field
 - **`agents/.agents/skills/<name>/SKILL.md`** (new) — mirrored copy for symlink discovery
 
+### Tool Usage
+
+All skills MUST use the `question` tool for every user interaction (no plain text questions).
+Steps that ask binary decisions get structured options; feedback loops use custom input.
+
 ### Invocation
 
 Instead of `/command`, user says "run <name>" or "use the <name> skill" conversationally.
