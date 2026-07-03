@@ -56,6 +56,13 @@
 - **Variables**: `UPPER_CASE` for environment, `lower_case` for locals
 - **Files**: `kebab-case` for configs, `snake_case` for scripts
 
+### OpenCode Commands (Skill-based)
+- **Commands in `opencode/.config/opencode/command/`** are auto-discovered slash commands
+- **Always prefer the skill-based pattern**: command files should be thin (5 lines, no `agent:` field), delegating to a skill in `.agents/skills/<name>/SKILL.md`
+- **Invocation**: Say "use the <name> skill" or "run <name>" instead of using `/` slash commands
+- **Existing skills**: commit, caveman, diagnose, grill-me, and others in `.agents/skills/`
+- **Never put full instructions in command files** — they dump the prompt as visible text when they use `agent:` field. Put instructions in skill files instead.
+
 ### Error Handling
 - Validate file/directory existence before operations
 - Check required variables: `[[ -z $VARIABLE ]] && echo "Error"`
