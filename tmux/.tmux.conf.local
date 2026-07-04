@@ -630,7 +630,7 @@ run-shell '
   for inst in lazygit lazydocker gh-dash process-viewer grimoire \
               notes-personal notes-work todos-personal todos-work \
               daily-personal-todo daily-work-todo scratch-personal scratch-work \
-              journal-personal journal-work search-notes backup-logs scratchpad \
+              journal-personal journal-work backup-logs scratchpad \
               ai-notes ai-journal; do
     tmux set -g "@tpad-${inst}-style" "$style"
     tmux set -g "@tpad-${inst}-border_style" "$border"
@@ -711,9 +711,6 @@ set -g @tpad-ai-notes-title " AI Notes "
 
 set -g @tpad-ai-journal-cmd 'mkdir -p $HOME/Projects/Personal/Github/ai-brain/journal/$(date +%Y/%m) && nvim $HOME/Projects/Personal/Github/ai-brain/journal/$(date +%Y/%m/%d).md'
 set -g @tpad-ai-journal-title " AI Journal "
-
-set -g @tpad-search-notes-cmd 'rg --no-heading --line-number . $HOME/Projects/Personal/Github/second-brain/brain/notes | fzf --bind="change:first"'
-set -g @tpad-search-notes-title " Search Notes "
 
 set -g @tpad-backup-logs-cmd 'nvim $HOME/.local/share/backup-logs/'
 set -g @tpad-backup-logs-title " Backup Logs "
@@ -1137,16 +1134,15 @@ bind-key -T second-brain J run-shell "#{@tpad-path} toggle journal-work"
 bind-key -T second-brain i run-shell "#{@tpad-path} toggle ai-notes"
 bind-key -T second-brain I run-shell "#{@tpad-path} toggle ai-journal"
 
-# Old Workflow
-bind-key -T second-brain a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain.sh notes personal"
-bind-key -T second-brain A display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain.sh notes work"
-bind-key -T second-brain w display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain.sh todos personal"
-bind-key -T second-brain W display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain.sh todos work"
-bind-key -T second-brain k display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain.sh scratch personal"
-bind-key -T second-brain K display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain.sh scratch work"
-
 # Search notes (ephemeral)
-bind-key -T second-brain f run-shell "#{@tpad-path} toggle search-notes"
+bind-key -T second-brain f run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text"
+bind-key -T second-brain g run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file"
+bind-key -T second-brain p run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text personal"
+bind-key -T second-brain w run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text work"
+bind-key -T second-brain a run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text ai"
+bind-key -T second-brain k run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file personal"
+bind-key -T second-brain h run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file work"
+bind-key -T second-brain c run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file ai"
 
 # backup logs
 bind-key -T second-brain l run-shell "#{@tpad-path} toggle backup-logs"
