@@ -26,11 +26,39 @@
 - **Naming**: `kebab-case` for config files, group settings with comments
 - **Paths**: Use absolute paths when possible, document complex configs
 
+### Auto-Reload After Edits
+
+After completing ANY config changes, immediately reload all applicable runtimes. This is mandatory — do not skip. Running configs may fail to apply if:
+- tmux is not running (session-less terminal) — still attempt the command, it will fail gracefully
+- sxhkd is not running (non-i3 session) — still attempt, it will fail gracefully
+- i3 is not running (non-i3 session) — still attempt, it will fail gracefully
+- If a reload command fails, note it in your summary and move on
+
+**Tmux reload** (after editing tmux files):
+```
+tmux source-file ~/.tmux.conf
+```
+- Then verify: `tmux list-keys -T second-brain | head -20` to confirm new bindings are live
+- NEVER run `tmux kill-server` or similar destructive commands
+
+**Sxhkd reload** (after editing sxhkdrc):
+```
+pkill -USR1 sxhkd
+```
+
+**i3 restart** (after editing i3 config):
+```
+i3-msg restart
+```
+
+**Stow re-link** (if adding new config files, not just editing existing stowed files):
+```
+./install.sh
+```
+Then reload the runtime that owns the new files.
+
 ### Tmux Configuration
-- **Auto-reload after edits**: After editing ANY tmux config file (`tmux/*.conf`, `tmux/*.local`), immediately run `tmux source-file ~/.config/tmux/.tmux.conf` to apply changes
-- **Test changes**: Verify tmux functionality works correctly after reload
-- **NEVER kill tmux server**: NEVER run `tmux kill-server` or similar destructive commands
-- **Binding verification**: After changing a tmux binding, inspect the live keymap with `tmux list-keys -T <table>` and confirm the exact command that will run
+- **Binding verification**: After changing a tmux binding, inspect the live keymap with `tmux list-keys -T <table>` and confirm the exact command that will run. Use `tmux source-file ~/.tmux.conf` to apply changes (not the local file directly, since TPM's `~/.tmux.conf` drives the full load chain).
 - **Shell compatibility**: Before introducing or editing tmux-launched scripts, verify the script runs under the machine's actual `/bin/sh` or `/bin/bash` version, not just a newer local shell
 - **Runtime paths**: Prefer explicit absolute paths for tmux-launched binaries and scripts when PATH may differ inside tmux
 - **Keybinding migration**: The `tmux-floax` plugin (previously bound to `C-a m`) has been removed and replaced with a `tmux-tpad` scratchpad instance bound to `C-a C-d s` (under the `dev-mode` key table)
