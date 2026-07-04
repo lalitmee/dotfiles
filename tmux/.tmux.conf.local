@@ -1134,7 +1134,7 @@ bind-key -T second-brain J run-shell "#{@tpad-path} toggle journal-work"
 bind-key -T second-brain i run-shell "#{@tpad-path} toggle ai-notes"
 bind-key -T second-brain I run-shell "#{@tpad-path} toggle ai-journal"
 
-# Search notes (ephemeral)
+# Search/Find bindings
 bind-key -T second-brain f run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text"
 bind-key -T second-brain g run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file"
 bind-key -T second-brain p run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text personal"
