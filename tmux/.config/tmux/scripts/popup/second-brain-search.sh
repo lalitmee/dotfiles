@@ -47,7 +47,7 @@ build_header() {
     for i in "${!BRAIN_NAMES[@]}"; do
         parts+=("alt-$((i+1)):${BRAIN_NAMES[$i],,}")
     done
-    parts+=("alt-Tab:next")
+    parts+=("ctrl-o:cycle")
     local IFS='  '
     echo "${parts[*]}"
 }
@@ -64,12 +64,12 @@ build_bindings() {
             fi
         fi
     done
-    # Compute next index for alt-Tab cycling
+    # Compute next index for ctrl-o cycling
     local next_idx=$(( (current_idx + 1) % ${#BRAIN_NAMES[@]} ))
     if [[ "$MODE" == "text" ]]; then
-        binds+=("alt-Tab:reload(rg --no-heading --line-number --color=never . \"${BRAIN_PATHS[$next_idx]}\")")
+        binds+=("ctrl-o:reload(rg --no-heading --line-number --color=never . \"${BRAIN_PATHS[$next_idx]}\")")
     else
-        binds+=("alt-Tab:reload(fd --type f --color=never . \"${BRAIN_PATHS[$next_idx]}\")")
+        binds+=("ctrl-o:reload(fd --type f --color=never . \"${BRAIN_PATHS[$next_idx]}\")")
     fi
     local IFS=','
     echo "${binds[*]}"
