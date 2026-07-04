@@ -1135,14 +1135,14 @@ bind-key -T second-brain i run-shell "#{@tpad-path} toggle ai-notes"
 bind-key -T second-brain I run-shell "#{@tpad-path} toggle ai-journal"
 
 # Search/Find bindings
-bind-key -T second-brain f run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text"
-bind-key -T second-brain g run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file"
-bind-key -T second-brain p run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text personal"
-bind-key -T second-brain w run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text work"
-bind-key -T second-brain a run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh text ai"
-bind-key -T second-brain k run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file personal"
-bind-key -T second-brain h run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file work"
-bind-key -T second-brain c run-shell "~/.config/tmux/scripts/popup/second-brain-search.sh file ai"
+bind-key -T second-brain f display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh text"
+bind-key -T second-brain g display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh file"
+bind-key -T second-brain p display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh text personal"
+bind-key -T second-brain w display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh text work"
+bind-key -T second-brain a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh text ai"
+bind-key -T second-brain k display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh file personal"
+bind-key -T second-brain h display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh file work"
+bind-key -T second-brain c display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/popup/second-brain-search.sh file ai"
 
 # backup logs
 bind-key -T second-brain l run-shell "#{@tpad-path} toggle backup-logs"
