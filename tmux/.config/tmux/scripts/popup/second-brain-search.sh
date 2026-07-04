@@ -40,6 +40,40 @@ if [[ -n "$BRAIN_FILTER" ]]; then
     done
 fi
 
+# -------------------------------------------------------------------
+# NOTE: Cycle State {{{
+# -------------------------------------------------------------------
+SB_CYCLE_FILE=$(mktemp /tmp/sb-cycle-XXXXXXXXXX)
+SB_CYCLE_HELPER=$(mktemp /tmp/sb-cycle-helper-XXXXXXXXXX)
+trap 'rm -f "$SB_CYCLE_FILE" "$SB_CYCLE_HELPER"' EXIT
+echo "$CURRENT" > "$SB_CYCLE_FILE"
+
+# Build helper with hardcoded paths (no CLI-arg passing for paths)
+{
+    cat << 'EOF'
+#!/usr/bin/env sh
+set -xe
+exec 2> "/tmp/sb-debug-$$.log"
+cycle_file="$1"
+mode="$2"
+i=$(cat "$cycle_file")
+EOF
+    echo "next=\$(( (i + 1) % ${#BRAIN_NAMES[@]} ))"
+    echo "echo \"\$next\" > \"\$cycle_file\""
+    echo "case \"\$next\" in"
+    for idx in "${!BRAIN_PATHS[@]}"; do
+        echo "    $idx) path='${BRAIN_PATHS[$idx]}' ;;"
+    done
+    echo "esac"
+    echo 'if [ "$mode" = "text" ]; then'
+    echo '    exec rg --no-heading --line-number --color=never . "$path"'
+    echo 'else'
+    echo '    exec fd --type f --color=never . "$path"'
+    echo 'fi'
+} > "$SB_CYCLE_HELPER"
+chmod +x "$SB_CYCLE_HELPER"
+# }}}
+
 build_header() {
     local idx=$1
     local parts=()
@@ -58,19 +92,13 @@ build_bindings() {
     for i in "${!BRAIN_NAMES[@]}"; do
         if [[ $i -ne $current_idx ]]; then
             if [[ "$MODE" == "text" ]]; then
-                binds+=("alt-$((i+1)):reload(rg --no-heading --line-number --color=never . \"${BRAIN_PATHS[$i]}\")")
+                binds+=("alt-$((i+1)):reload(rg --no-heading --line-number --color=never . \"${BRAIN_PATHS[$i]}\")+execute-silent(echo $i > $SB_CYCLE_FILE)")
             else
-                binds+=("alt-$((i+1)):reload(fd --type f --color=never . \"${BRAIN_PATHS[$i]}\")")
+                binds+=("alt-$((i+1)):reload(fd --type f --color=never . \"${BRAIN_PATHS[$i]}\")+execute-silent(echo $i > $SB_CYCLE_FILE)")
             fi
         fi
     done
-    # Compute next index for ctrl-o cycling
-    local next_idx=$(( (current_idx + 1) % ${#BRAIN_NAMES[@]} ))
-    if [[ "$MODE" == "text" ]]; then
-        binds+=("ctrl-o:reload(rg --no-heading --line-number --color=never . \"${BRAIN_PATHS[$next_idx]}\")")
-    else
-        binds+=("ctrl-o:reload(fd --type f --color=never . \"${BRAIN_PATHS[$next_idx]}\")")
-    fi
+    binds+=("ctrl-o:reload($SB_CYCLE_HELPER $SB_CYCLE_FILE $MODE)")
     local IFS=','
     echo "${binds[*]}"
 }

@@ -1153,6 +1153,8 @@ bind-key -T second-brain q switch-client -T root
 # Help for second-brain
 bind -T second-brain ? run-shell "$HOME/.config/tmux/scripts/popup/help/help.sh second-brain"
 
+# >>> debug: run reload helper in new window to see error
+bind-key -T second-brain 0 new-window 'h=$(find /tmp -maxdepth 1 -name "sb-cycle-helper-*" 2>/dev/null | head -1); c=$(find /tmp -maxdepth 1 -name "sb-cycle-*" ! -name "*-helper-*" 2>/dev/null | head -1); echo "Helper: $h"; echo "Cycle: $c"; if [ -n "$h" ] && [ -n "$c" ]; then bash -x "$h" "$c" text; echo "--- EXIT CODE: $? ---"; else echo "Temp files not found. Open C-a C-b f first, then press C-a C-b 0."; fi; echo ""; exec bash -i'
 
 #-------------------------------------------------------------------------------
 # }}}
