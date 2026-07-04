@@ -358,6 +358,14 @@ super + shift + t
 super + alt + k
     i3run --summon --class neovide-scratch -- neovide --x11-wm-class neovide-scratch ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
 
+# >> second brain text search
+super + ctrl + f
+    ~/.config/tmux/scripts/popup/second-brain-search.sh text
+
+# >> second brain file find
+super + ctrl + g
+    ~/.config/tmux/scripts/popup/second-brain-search.sh file
+
 # >> communication -> telegram
 super + u
     i3run --class TelegramDesktop --summon --instance telegram-desktop -- telegram-desktop
