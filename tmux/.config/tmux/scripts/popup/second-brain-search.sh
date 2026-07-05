@@ -52,8 +52,6 @@ echo "$CURRENT" > "$SB_CYCLE_FILE"
 {
     cat << 'EOF'
 #!/usr/bin/env sh
-set -xe
-exec 2> "/tmp/sb-debug-$$.log"
 cycle_file="$1"
 mode="$2"
 i=$(cat "$cycle_file")
