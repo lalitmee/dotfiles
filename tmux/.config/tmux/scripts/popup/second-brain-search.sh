@@ -40,6 +40,7 @@ if [[ -n "$BRAIN_FILTER" ]]; then
     done
 fi
 
+if [[ "$MODE" == "file" ]]; then
 # -------------------------------------------------------------------
 # NOTE: Cycle State {{{
 # -------------------------------------------------------------------
@@ -52,34 +53,21 @@ echo "$CURRENT" > "$SB_CYCLE_FILE"
 {
     cat << 'EOF'
 #!/usr/bin/env sh
-exec 2> /tmp/sb-helper-debug-$$.log
-set -xe
 cycle_file="$1"
-mode="$2"
-echo "=== Helper invoked ===" >&2
-echo "cycle_file=$cycle_file mode=$mode" >&2
 i=$(cat "$cycle_file")
-echo "current index: $i" >&2
 EOF
     echo "next=\$(( (i + 1) % ${#BRAIN_NAMES[@]} ))"
-    echo "echo \"next index: \$next\" >&2"
     echo "echo \"\$next\" > \"\$cycle_file\""
     echo "case \"\$next\" in"
     for idx in "${!BRAIN_PATHS[@]}"; do
         echo "    $idx) path='${BRAIN_PATHS[$idx]}' ;;"
     done
     echo "esac"
-    echo 'echo "resolved path: $path" >&2'
-    echo 'if [ "$mode" = "text" ]; then'
-    echo '    echo "executing: rg --no-heading --line-number --color=never . $path" >&2'
-    echo '    exec rg --no-heading --line-number --color=never . "$path"'
-    echo 'else'
-    echo '    echo "executing: fd --type f --color=never . $path" >&2'
-    echo '    exec fd --type f --color=never . "$path"'
-    echo 'fi'
+    echo 'exec fd --type f --color=never . "$path"'
 } > "$SB_CYCLE_HELPER"
 chmod +x "$SB_CYCLE_HELPER"
 # }}}
+fi
 
 build_header() {
     local idx=$1
@@ -114,24 +102,55 @@ IS_TMUX=false
 [[ -n "$TMUX" ]] && IS_TMUX=true
 
 if [[ "$MODE" == "text" ]]; then
-    SOURCE_CMD="rg --no-heading --line-number --color=never . \"${BRAIN_PATHS[$CURRENT]}\""
-    PREVIEW_CMD="bat --style=numbers --color=always --highlight-line {2} {1} 2>/dev/null || head -n \$FZF_PREVIEW_LINES {1}"
+    # Build rg command searching all brains
+    RG_CMD=(rg --no-heading --line-number --color=never .)
+    for p in "${BRAIN_PATHS[@]}"; do
+        RG_CMD+=("$p")
+    done
+
+    # Build awk transformation: tag relative_path\x1ffull_path\x1fline\x1fcontent
+    AWK_SCRIPT=''
+    for i in "${!BRAIN_NAMES[@]}"; do
+        path="${BRAIN_PATHS[$i]}"
+        tag="${BRAIN_NAMES[$i]}"
+        AWK_SCRIPT+='index($0, "'"$path"'/") == 1 {'
+        AWK_SCRIPT+='rest = substr($0, length("'"$path"'/") + 1); '
+        AWK_SCRIPT+='n = split(rest, parts, ":"); '
+        AWK_SCRIPT+='display = "'"[$tag]"' " parts[1]; '
+        AWK_SCRIPT+='full = "'"$path"'/" parts[1]; '
+        AWK_SCRIPT+='line = parts[2]; '
+        AWK_SCRIPT+='content = parts[3]; '
+        AWK_SCRIPT+='for (i = 4; i <= n; i++) content = content ":" parts[i]; '
+        AWK_SCRIPT+='printf "%s\x1f%s\x1f%s\x1f%s\n", display, full, line, content; '
+        AWK_SCRIPT+='next; '
+        AWK_SCRIPT+='}'
+    done
+    AWK_SCRIPT+='{ print }'
+
+    HEADER="[ Text Search: All Brains ]"
+
+    SELECTION=$("${RG_CMD[@]}" | awk "$AWK_SCRIPT" | fzf \
+        --bind="change:first" \
+        --header="$HEADER" \
+        --delimiter=$'\x1f' \
+        --with-nth="1,3,4.." \
+        --preview="bat --style=numbers --color=always --highlight-line {3} {2} 2>/dev/null || head -n \$FZF_PREVIEW_LINES {2}" \
+        --preview-window="right:60%:wrap")
 else
     SOURCE_CMD="fd --type f --color=never . \"${BRAIN_PATHS[$CURRENT]}\""
     PREVIEW_CMD="bat --color=always {1} 2>/dev/null || head -n \$FZF_PREVIEW_LINES {1}"
+    HEADER=$(build_header $CURRENT)
+    BINDS=$(build_bindings $CURRENT)
+
+    SELECTION=$(eval "$SOURCE_CMD" | fzf \
+        --bind="change:first" \
+        --bind="$BINDS" \
+        --header="$HEADER" \
+        --preview="$PREVIEW_CMD" \
+        --preview-window="right:60%:wrap" \
+        --delimiter=":" \
+        --with-nth="1,2,3")
 fi
-
-HEADER=$(build_header $CURRENT)
-BINDS=$(build_bindings $CURRENT)
-
-SELECTION=$(eval "$SOURCE_CMD" | fzf \
-    --bind="change:first" \
-    --bind="$BINDS" \
-    --header="$HEADER" \
-    --preview="$PREVIEW_CMD" \
-    --preview-window="right:60%:wrap" \
-    --delimiter=":" \
-    --with-nth="1,2,3")
 
 if [[ -z "$SELECTION" ]]; then
     exit 0
@@ -140,8 +159,8 @@ fi
 NEOVIDE_CMD="neovide --x11-wm-class floating-nvim"
 
 if [[ "$MODE" == "text" ]]; then
-    FILE=$(echo "$SELECTION" | awk -F: '{print $1}')
-    LINE=$(echo "$SELECTION" | awk -F: '{print $2}')
+    FILE=$(echo "$SELECTION" | awk -F$'\x1f' '{print $2}')
+    LINE=$(echo "$SELECTION" | awk -F$'\x1f' '{print $3}')
     if $IS_TMUX; then
         tmux new-window "nvim +$LINE '$FILE'"
     else
