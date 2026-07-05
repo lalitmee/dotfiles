@@ -52,20 +52,29 @@ echo "$CURRENT" > "$SB_CYCLE_FILE"
 {
     cat << 'EOF'
 #!/usr/bin/env sh
+exec 2> /tmp/sb-helper-debug-$$.log
+set -xe
 cycle_file="$1"
 mode="$2"
+echo "=== Helper invoked ===" >&2
+echo "cycle_file=$cycle_file mode=$mode" >&2
 i=$(cat "$cycle_file")
+echo "current index: $i" >&2
 EOF
     echo "next=\$(( (i + 1) % ${#BRAIN_NAMES[@]} ))"
+    echo "echo \"next index: \$next\" >&2"
     echo "echo \"\$next\" > \"\$cycle_file\""
     echo "case \"\$next\" in"
     for idx in "${!BRAIN_PATHS[@]}"; do
         echo "    $idx) path='${BRAIN_PATHS[$idx]}' ;;"
     done
     echo "esac"
+    echo 'echo "resolved path: $path" >&2'
     echo 'if [ "$mode" = "text" ]; then'
+    echo '    echo "executing: rg --no-heading --line-number --color=never . $path" >&2'
     echo '    exec rg --no-heading --line-number --color=never . "$path"'
     echo 'else'
+    echo '    echo "executing: fd --type f --color=never . $path" >&2'
     echo '    exec fd --type f --color=never . "$path"'
     echo 'fi'
 } > "$SB_CYCLE_HELPER"
