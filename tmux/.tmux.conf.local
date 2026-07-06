@@ -578,8 +578,8 @@ set -g @jumplist-key-forward 'M-.'
 
 set -g @plugin 'hamolicious/back-in-5'
 
-# Use an uppercase launch key so the plugin does not collide with the
-# existing second-brain entry flow on prefix + b.
+# Keep the plugin off the common lowercase prefix bindings. The actual
+# user-facing entrypoint is defined explicitly in dev-mode below.
 set-environment -g BACK_IN_5_LAUNCH_KEY 'B'
 
 #-------------------------------------------------------------------------------
@@ -1357,6 +1357,9 @@ bind-key -T dev-mode r run-shell "zsh $HOME/.config/tmux/scripts/popup/runner/ru
 
 # Launch the apt repository manager in a popup.
 bind-key -T dev-mode a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/apt-repo-manager.sh"
+
+# Back in 5 status screen.
+bind-key -T dev-mode b display-popup -E -B -w 100% -h 100% -x 0% -y 0% "~/.tmux/plugins/back-in-5/scripts/main.sh"
 
 # Toggle general scratchpad
 bind -T dev-mode s run-shell "#{@tpad-path} toggle scratchpad"
