@@ -1,8 +1,8 @@
 Key	Description
-b	Build Rust project
-t	Test Node.js project
-r	Run package.json script
+e	Edit espanso snippets
+r	Run project runner
 a	Manage apt repositories
+b	Back in 5
 s	Scratchpad
 q	Quit dev-mode
 ?	Show help
