@@ -305,3 +305,35 @@ If you add secrets manually to `~/.config/zed/settings.json`:
 
 - Parent README: `../README.md`
 - Dotfiles config style guide: `../AGENTS.md`
+
+## Keybinding Groups
+
+All custom bindings are in `keymap.json` organized by context:
+
+- **VimControl** (normal + visual): `H`/`L` (0/$), `n`/`N` (search repeat + zz), `C-d`/`C-u` (scroll + zz), git hunks (`g b/d/j/k`), case conversion (`cr{s/c/m/-/u/.}`)
+- **Normal**: `U` (redo), `0`/`^` (swapped), `Backspace` (go back), leader bindings for LSP (`space l *`), git panel (`space g s`), diagnostics (`space e`)
+
+## Snippet Status
+
+Ported from `nvim/.config/nvim/luasnippets/` to `snippets/*.json`:
+
+| Language | Ported | Dropped (dynamic) |
+|----------|--------|-------------------|
+| all      | —      | td, hr, cbox, fdm |
+| lua      | loc, locr, note, todo, stn, re, no | req (function), use (clipboard) |
+| json     | npmp   | — |
+| sxhkdrc  | com    | — |
+| js/ts    | de, clg, imr, rfc, useE, usest, mocks, imrt, tid, befo, bfa, cst, int (ts only) | log (choices), ptd (choices), befo/bfa choices, ff (regex), useS (dynamic), atom (dynamic), hook (dynamic) |
+| markdown | —      | all (checkmate plugin) |
+
+## Tasks
+
+`tasks.json` defines 18 tasks ported from overseer: C++ (build, build+run), Go (build), Node (run), Python (run), npm (budgets, build, dev, install, start, tsc-watch), yarn (same), Rust (rustlings watch).
+
+## Known Gaps
+
+These Neovim features have no Zed equivalent:
+- Expression mappings, undo breakpoints, `very magic`, `cgn`/`gV`/counted dot-repeat
+- Lua function-based snippets, regex-trigger snippets, snippet choices
+- Lazygit, Telescope dropdowns, CodeCompanion inline chat, grug-far, oil.nvim
+- Project switcher (covered by existing `space space`/`space p f`)
