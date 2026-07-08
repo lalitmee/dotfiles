@@ -191,6 +191,16 @@
     "light": "One Light",
     "dark": "Catppuccin Mocha",
   },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000
+    }
+  },
+  "centered_layout": {
+    "mode": "vertical",
+    "left_padding": 0.55,
+    "right_padding": 0.55
+  },
   "lsp": {
     "clangd": {
       "binary": {

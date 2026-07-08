@@ -124,5 +124,11 @@
     "args": ["watch"],
     "reveal": "always",
     "hide": "never"
+  },
+  {
+    "label": "lazygit",
+    "command": "lazygit",
+    "reveal": "always",
+    "hide": "never"
   }
 ]
