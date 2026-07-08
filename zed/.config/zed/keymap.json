@@ -58,6 +58,12 @@
       // folds
       "enter": "editor::ToggleFold",
 
+      // core vim tweaks
+      "U": "vim::Redo",
+      "0": "vim::FirstNonWhitespace",
+      "^": "vim::StartOfLine",
+      "backspace": "pane::GoBack",
+
       // misc
       "shift-y": ["workspace::SendKeystrokes", "y $"],
     },
@@ -77,6 +83,10 @@
     "bindings": {
       "H": ["workspace::SendKeystrokes", "0"],
       "L": ["workspace::SendKeystrokes", "$"],
+      "n": ["action::Sequence", ["vim::MoveToNextMatch", "editor::ScrollCursorCenter"]],
+      "shift-n": ["action::Sequence", ["vim::MoveToPreviousMatch", "editor::ScrollCursorCenter"]],
+      "ctrl-d": ["action::Sequence", ["vim::ScrollDown", "editor::ScrollCursorCenter"]],
+      "ctrl-u": ["action::Sequence", ["vim::ScrollUp", "editor::ScrollCursorCenter"]],
     },
   },
 ]
