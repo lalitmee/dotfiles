@@ -6,7 +6,7 @@
     "context": "vim_mode == insert",
     "bindings": {
       "j k": "vim::NormalBefore",
-      "k j": "vim::NormalBefore",
+      "k j": "vim::NormalBefore"
     },
   },
 
@@ -21,18 +21,28 @@
       "space f f": "file_finder::Toggle",
       "space f s": "workspace::Save",
       "space f w": "workspace::SaveWithoutFormat",
+      "space f r": "pane::ReopenClosedItem",
+      "space f y": "workspace::CopyPath",
+      "space f Y": "workspace::CopyRelativePath",
 
       // project
       "space p f": "file_finder::Toggle",
 
       // panels
       "space a e": "workspace::ToggleLeftDock",
+      "space a a": "agent::ToggleFocus",
+      "space a q": "agent::AddSelectionToThread",
+      "space a n": "agent::NewThread",
 
       // git group
       "space g s": "git_panel::ToggleFocus",
 
       // search
       "space /": "pane::DeploySearch",
+
+      // search & replace (grug-far muscle memory)
+      "space s s": "buffer_search::DeployReplace",
+      "space s w": "buffer_search::DeployReplace",
 
       // windows
       "space w h": "workspace::ActivatePaneLeft",
@@ -42,10 +52,18 @@
       "space w s": "pane::SplitDown",
       "space w v": "pane::SplitRight",
       "space w d": ["pane::CloseActiveItem", { "close_pinned": false }],
+      "space w c": ["pane::CloseAllItems", { "close_pinned": false }],
+      "space w o": "workspace::CloseInactiveTabsAndPanes",
+      "space w =": "vim::ResetPaneSizes",
+      "space w m": "workspace::ToggleZoom",
 
-      // terminal
+      // terminal / toggles
       "space t t": "terminal_panel::Toggle",
       "space t c": "workspace::NewCenterTerminal",
+      "space t w": "editor::ToggleSoftWrap",
+      "space t n": "editor::ToggleLineNumbers",
+      "space t i": "editor::ToggleInlayHints",
+      "space t d": "workspace::ToggleAllDocks",
 
       // buffers
       "space b b": "tab_switcher::Toggle",
@@ -54,6 +72,8 @@
       "space b d": ["pane::CloseActiveItem", { "close_pinned": false }],
       "space b o": ["pane::CloseOtherItems", { "close_pinned": false }],
       "space b a": ["pane::CloseAllItems", { "close_pinned": false }],
+      "space b n": "pane::ActivateNextItem",
+      "space b p": "pane::ActivatePrevItem",
 
       // folds
       "enter": "editor::ToggleFold",
@@ -68,6 +88,10 @@
       "space l i": "editor::GoToImplementation",
       "space l y": "workspace::CopyPath",
       "space l f": "editor::Format",
+
+      // markdown preview
+      "space m p": "markdown::OpenPreview",
+      "space m P": "markdown::OpenPreviewToTheSide",
 
       // core vim tweaks
       "U": "vim::Redo",
@@ -89,7 +113,12 @@
     "bindings": {
       "J": "editor::MoveLineDown",
       "K": "editor::MoveLineUp",
+
+      // search & replace (grug-far muscle memory)
+      "space s s": "buffer_search::DeployReplace",
+      "space s w": "buffer_search::DeployReplace",
     },
+
   },
 
   {
@@ -118,4 +147,45 @@
       "c r o": "editor::ConvertToOppositeCase",
     },
   },
+
+  // PROJECT PANEL (netrw/nvim-tree style)
+  {
+    "context": "ProjectPanel && !editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Trash",
+      "D": "project_panel::Delete",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "y": "project_panel::CopyRelativePath",
+      "Y": "project_panel::CopyPath",
+      "q": "workspace::ToggleLeftDock",
+      "escape": "project_panel::ToggleFocus",
+      "h": "project_panel::CollapseSelectedEntry",
+      "l": "project_panel::ExpandSelectedEntry",
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrevious",
+      "o": "project_panel::OpenPermanent",
+      "t": "project_panel::OpenPermanent",
+      "v": "project_panel::OpenSplitVertical",
+      "%": "project_panel::NewFile",
+      "-": "project_panel::SelectParent",
+      "gg": "menu::SelectFirst",
+      "G": "menu::SelectLast",
+    },
+  },
+
+  // CROSS-CONTEXT PANE NAVIGATION (dock + terminal)
+  {
+    "context": "Dock || Terminal",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  }
 ]
