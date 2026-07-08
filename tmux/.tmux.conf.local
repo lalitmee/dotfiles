@@ -559,6 +559,28 @@ set -g @session-dots-color "#ffc600"
 
 
 #-------------------------------------------------------------------------------
+# --- NOTE: tmux.expose {{{
+#-------------------------------------------------------------------------------
+
+# Mission Control-style session switcher with live previews
+set -g @tmux-expose-key 'e'
+set -g @tmux-expose-key-table 'prefix'
+set -g @tmux-expose-width '100%'
+set -g @tmux-expose-height '100%'
+set -g @tmux-expose-style 'bg=#0d3a58'
+set -g @tmux-expose-border-style 'fg=#0050a4,border-lines=rounded'
+set -g @tmux-expose-selected-color '#ffc600'
+set -g @tmux-expose-attached-color '#5fff00'
+set -g @tmux-expose-inactive-color '#8a8a8a'
+
+set -g @plugin 'cesarferreira/tmux.expose'
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
 # --- NOTE: Jump List {{{
 #-------------------------------------------------------------------------------
 
