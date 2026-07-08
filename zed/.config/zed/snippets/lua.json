@@ -1,0 +1,30 @@
+{
+  "local var": {
+    "prefix": "loc",
+    "body": ["local ${1:name} = ${2:module/package}"]
+  },
+  "local require": {
+    "prefix": "locr",
+    "body": ["local ${1:name} = require('${1:name}')"]
+  },
+  "note comment": {
+    "prefix": "note",
+    "body": ["-- NOTE: ${1:description}"]
+  },
+  "todo comment": {
+    "prefix": "todo",
+    "body": ["-- TODO: ${1:description}"]
+  },
+  "stylua ignore": {
+    "prefix": "stn",
+    "body": ["-- stylua: ignore"]
+  },
+  "reload require": {
+    "prefix": "re",
+    "body": ["local ${1:ok}, ${2:package} = lk.require(\"${2:package}\")"]
+  },
+  "notify": {
+    "prefix": "no",
+    "body": ["vim.notify(P(${1:var}))"]
+  }
+}

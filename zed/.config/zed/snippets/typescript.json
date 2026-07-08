@@ -1,0 +1,107 @@
+{
+  "debugger": {
+    "prefix": "de",
+    "body": ["debugger"]
+  },
+  "console log": {
+    "prefix": "clg",
+    "body": ["console.log(${1:name})"]
+  },
+  "import react": {
+    "prefix": "imr",
+    "body": ["import React from 'react'"]
+  },
+  "react functional component": {
+    "prefix": "rfc",
+    "body": [
+      "import React from 'react'",
+      "",
+      "function ${1:Component}(${2:props}) {",
+      "  return (",
+      "    <div>",
+      "      ${3:children}",
+      "    </div>",
+      "  )",
+      "}",
+      "",
+      "export default ${1:Component}"
+    ]
+  },
+  "useEffect": {
+    "prefix": "useE",
+    "body": [
+      "useEffect(() => {",
+      "  ${1:// content goes here}",
+      "}, [${2:dependencies}])"
+    ]
+  },
+  "useState": {
+    "prefix": "usest",
+    "body": ["const [${1:state}, set${1:state}] = useState(${2:initalState})"]
+  },
+  "test mocks": {
+    "prefix": "mocks",
+    "body": [
+      "const ${1:mocks} = [",
+      "  {",
+      "    request: {",
+      "      query: ${2:query},",
+      "      variables: {",
+      "        ${3:variables}",
+      "      },",
+      "    },",
+      "    result: {",
+      "      data: {",
+      "        ${4:data}",
+      "      },",
+      "    }",
+      "  },",
+      "]"
+    ]
+  },
+  "import test utilities": {
+    "prefix": "imrt",
+    "body": [
+      "import { MockedProvider } from \"@apollo/client/testing\";",
+      "import \"@testing-library/jest-dom/extend-expect\";",
+      "import { render } from \"@testing-library/react\";",
+      "import React from \"react\";"
+    ]
+  },
+  "test id attribute": {
+    "prefix": "tid",
+    "body": ["data-testid={${1:TEST_ID}}"]
+  },
+  "beforeEach": {
+    "prefix": "befo",
+    "body": [
+      "beforeEach(() => {",
+      "  ${1:// TODO: body}",
+      "})"
+    ]
+  },
+  "beforeAll": {
+    "prefix": "bfa",
+    "body": [
+      "beforeAll(() => {",
+      "  ${1:// TODO: body}",
+      "})"
+    ]
+  },
+  "export const object": {
+    "prefix": "cst",
+    "body": [
+      "export const ${1:name} = {",
+      "  ${2:// TODO: body}",
+      "}"
+    ]
+  },
+  "interface": {
+    "prefix": "int",
+    "body": [
+      "interface ${1:Component} {",
+      "  ${2:type: string;}",
+      "}"
+    ]
+  }
+}
