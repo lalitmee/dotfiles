@@ -31,8 +31,10 @@
   },
   "languages": {
     "INI": {
-      "folding": {
-        "strategy": "marker"
+      "editor": {
+        "folding": {
+          "strategy": "marker"
+        }
       }
     },
     "C": {
