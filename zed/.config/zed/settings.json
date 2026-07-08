@@ -30,7 +30,7 @@
     "mode": "eager"
   },
   "languages": {
-    "ini": {
+    "INI": {
       "editor": {
         "folding": {
           "strategy": "marker"
@@ -69,7 +69,7 @@
         }
       }
     },
-    "zig": {
+    "Zig": {
       "tab_size": 4,
       "hard_tabs": false
     },
@@ -108,7 +108,7 @@
   },
   "relative_line_numbers": "enabled",
   "file_types": {
-    "ini": ["env", ".env", ".env.*"]
+    "INI": ["env", ".env", ".env.*"]
   },
   "agent": {
     "dock": "right",
@@ -217,7 +217,7 @@
         }
       }
     },
-    "lua": {
+    "lua-language-server": {
       "settings": {
         "Lua": {
           "hint": { "enable": true },
