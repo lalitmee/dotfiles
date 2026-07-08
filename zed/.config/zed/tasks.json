@@ -72,7 +72,7 @@
   {
     "label": "npm tsc-watch",
     "command": "npm",
-    "args": ["tsc-watch"],
+    "args": ["run", "tsc-watch"],
     "reveal": "always",
     "hide": "never"
   },
@@ -114,7 +114,7 @@
   {
     "label": "yarn tsc-watch",
     "command": "yarn",
-    "args": ["tsc-watch"],
+    "args": ["run", "tsc-watch"],
     "reveal": "always",
     "hide": "never"
   },
