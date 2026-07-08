@@ -28,8 +28,8 @@
       // panels
       "space a e": "workspace::ToggleLeftDock",
 
-      // git
-      "space g s": "workspace::ToggleRightDock",
+      // git group
+      "space g s": "git_panel::ToggleFocus",
 
       // search
       "space /": "pane::DeploySearch",
@@ -58,6 +58,17 @@
       // folds
       "enter": "editor::ToggleFold",
 
+      // lsp group
+      "space l d": "editor::GoToDefinition",
+      "space l D": "editor::FindAllReferences",
+      "space l r": "editor::Rename",
+      "space l n": "editor::GoToDiagnostic",
+      "space l h": "editor::Hover",
+      "space l a": "editor::ToggleCodeActions",
+      "space l i": "editor::GoToImplementation",
+      "space l y": "workspace::CopyPath",
+      "space l f": "editor::Format",
+
       // core vim tweaks
       "U": "vim::Redo",
       "0": "vim::FirstNonWhitespace",
@@ -66,6 +77,9 @@
 
       // misc
       "shift-y": ["workspace::SendKeystrokes", "y $"],
+
+      // diagnostics
+      "space e": "diagnostics::Deploy",
     },
   },
 
@@ -87,6 +101,21 @@
       "shift-n": ["action::Sequence", ["vim::MoveToPreviousMatch", "editor::ScrollCursorCenter"]],
       "ctrl-d": ["action::Sequence", ["vim::ScrollDown", "editor::ScrollCursorCenter"]],
       "ctrl-u": ["action::Sequence", ["vim::ScrollUp", "editor::ScrollCursorCenter"]],
+
+      // git hunks (no leader)
+      "g b": "editor::BlameHover",
+      "g d": "editor::GoToHunk",
+      "g j": "editor::GoToHunk",
+      "g k": "editor::GoToPrevHunk",
+
+      // case conversion (cr operator)
+      "c r s": "editor::ConvertToSnakeCase",
+      "c r c": "editor::ConvertToUpperCamelCase",
+      "c r m": "editor::ConvertToLowerCamelCase",
+      "c r -": "editor::ConvertToKebabCase",
+      "c r u": "editor::ConvertToUpperCase",
+      "c r .": "editor::ConvertToTitleCase",
+      "c r o": "editor::ConvertToOppositeCase",
     },
   },
 ]
