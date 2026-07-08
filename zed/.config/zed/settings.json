@@ -30,7 +30,7 @@
     "mode": "eager"
   },
   "languages": {
-    "INI": {
+    "ini": {
       "editor": {
         "folding": {
           "strategy": "marker"
@@ -62,9 +62,14 @@
     "Lua": {
       "tab_size": 2,
       "hard_tabs": false,
-      "formatter": "stylua"
+      "formatter": {
+        "external": {
+          "command": "stylua",
+          "arguments": []
+        }
+      }
     },
-    "Zig": {
+    "zig": {
       "tab_size": 4,
       "hard_tabs": false
     },
@@ -212,7 +217,7 @@
         }
       }
     },
-    "lua_ls": {
+    "lua": {
       "settings": {
         "Lua": {
           "hint": { "enable": true },
