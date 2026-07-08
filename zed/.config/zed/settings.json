@@ -36,6 +36,66 @@
           "strategy": "marker"
         }
       }
+    },
+    "C": {
+      "tab_size": 4,
+      "hard_tabs": true
+    },
+    "C++": {
+      "tab_size": 4,
+      "hard_tabs": true
+    },
+    "Go": {
+      "tab_size": 4,
+      "hard_tabs": true,
+      "format_on_save": "on"
+    },
+    "Python": {
+      "tab_size": 4,
+      "hard_tabs": false
+    },
+    "Rust": {
+      "tab_size": 4,
+      "hard_tabs": false,
+      "format_on_save": "on"
+    },
+    "Lua": {
+      "tab_size": 2,
+      "hard_tabs": false,
+      "formatter": "stylua"
+    },
+    "Zig": {
+      "tab_size": 4,
+      "hard_tabs": false
+    },
+    "YAML": {
+      "tab_size": 2,
+      "hard_tabs": false
+    },
+    "JSON": {
+      "tab_size": 2,
+      "hard_tabs": false
+    },
+    "JavaScript": {
+      "tab_size": 2,
+      "hard_tabs": false
+    },
+    "TypeScript": {
+      "tab_size": 2,
+      "hard_tabs": false
+    },
+    "CSS": {
+      "tab_size": 2,
+      "hard_tabs": false
+    },
+    "HTML": {
+      "tab_size": 2,
+      "hard_tabs": false
+    },
+    "Markdown": {
+      "tab_size": 2,
+      "hard_tabs": false,
+      "soft_wrap": "editor_width"
     }
   },
   "vim": {
@@ -131,5 +191,62 @@
     "mode": "dark",
     "light": "One Light",
     "dark": "Catppuccin Mocha"
+  },
+  "lsp": {
+    "clangd": {
+      "binary": {
+        "path": "clangd",
+        "arguments": ["--background-index", "--suggest-missing-includes", "--clang-tidy", "--header-insertion=iwyu"]
+      }
+    },
+    "gopls": {
+      "settings": {
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    },
+    "lua_ls": {
+      "settings": {
+        "Lua": {
+          "hint": { "enable": true },
+          "format": { "enable": false },
+          "diagnostics": {
+            "globals": ["P", "R", "RELOAD", "Snacks", "__lk_global_callbacks", "after_each", "before_each", "describe", "it", "lk", "require", "vim", "_dd", "_bt"]
+          },
+          "completion": {
+            "keywordSnippet": "Replace",
+            "callSnippet": "Replace"
+          },
+          "workspace": {
+            "checkThirdParty": false
+          },
+          "telemetry": {
+            "enable": false
+          }
+        }
+      }
+    },
+    "rust-analyzer": {
+      "settings": {
+        "rust-analyzer": {
+          "inlayHints": { "locationLinks": true },
+          "diagnostics": { "enable": true },
+          "hover": { "actions": { "enable": true } },
+          "procMacro": { "enable": true },
+          "cargo": { "allFeatures": true },
+          "checkOnSave": {
+            "command": "clippy",
+            "extraArgs": ["--no-deps"]
+          }
+        }
+      }
+    }
   }
 }
