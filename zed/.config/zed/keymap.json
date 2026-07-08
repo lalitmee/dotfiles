@@ -72,8 +72,8 @@
       "space b d": ["pane::CloseActiveItem", { "close_pinned": false }],
       "space b o": ["pane::CloseOtherItems", { "close_pinned": false }],
       "space b a": ["pane::CloseAllItems", { "close_pinned": false }],
-      "space b n": "pane::ActivateNextItem",
-      "space b p": "pane::ActivatePrevItem",
+      "space b n": ["workspace::SendKeystrokes", "]b"],
+      "space b p": ["workspace::SendKeystrokes", "[b"],
 
       // folds
       "enter": "editor::ToggleFold",
