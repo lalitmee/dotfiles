@@ -98,6 +98,23 @@
       "0": "vim::FirstNonWhitespace",
       "^": "vim::StartOfLine",
       "backspace": "pane::GoBack",
+      "J": "editor::JoinLines",
+
+      // windows / zen
+      "space w z": "workspace::ToggleCenteredLayout",
+
+      // search misc (SplitSelectionIntoLines, SelectAllMatches, OpenSelectionsInMultibuffer)
+      "space s l": "editor::SplitSelectionIntoLines",
+      "space s a": "editor::SelectAllMatches",
+      "space s m": "editor::OpenSelectionsInMultibuffer",
+
+      // git commands
+      "space g d": "git::Diff",
+      "space g b": "git::Branch",
+      "space g B": "git::BranchDiff",
+      "space g D": "editor::DiffClipboardWithSelection",
+      "space g O": "git::CreatePullRequest",
+      "space g g": ["task::Spawn", { "task_name": "lazygit", "reveal_target": "center" }],
 
       // misc
       "shift-y": ["workspace::SendKeystrokes", "y $"],
@@ -136,6 +153,10 @@
       "g d": "editor::GoToHunk",
       "g j": "editor::GoToHunk",
       "g k": "editor::GoToPreviousHunk",
+
+      // sort / open url
+      "g s": "editor::SortLinesCaseSensitive",
+      "g x": "editor::OpenUrl",
 
       // case conversion (cr operator)
       "c r s": "editor::ConvertToSnakeCase",
