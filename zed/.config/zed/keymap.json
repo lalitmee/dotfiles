@@ -135,7 +135,7 @@
       "g b": "editor::BlameHover",
       "g d": "editor::GoToHunk",
       "g j": "editor::GoToHunk",
-      "g k": "editor::GoToPrevHunk",
+      "g k": "editor::GoToPreviousHunk",
 
       // case conversion (cr operator)
       "c r s": "editor::ConvertToSnakeCase",
@@ -160,8 +160,8 @@
       "x": "project_panel::Cut",
       "c": "project_panel::Copy",
       "p": "project_panel::Paste",
-      "y": "project_panel::CopyRelativePath",
-      "Y": "project_panel::CopyPath",
+      "y": "workspace::CopyRelativePath",
+      "Y": "workspace::CopyPath",
       "q": "workspace::ToggleLeftDock",
       "escape": "project_panel::ToggleFocus",
       "h": "project_panel::CollapseSelectedEntry",
