@@ -1,0 +1,6 @@
+{
+  "npm package": {
+    "prefix": "npmp",
+    "body": ["\"${1:package}\": \"^${2:1.0.0}\","]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "doc comment": {
+    "prefix": "com",
+    "body": ["# ${1:classification} -> ${2:type}"]
+  }
+}
