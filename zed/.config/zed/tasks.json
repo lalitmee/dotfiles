@@ -1,0 +1,128 @@
+[
+  {
+    "label": "g++ build",
+    "command": "g++",
+    "args": ["$ZED_FILE"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "g++ build and run",
+    "command": "bash",
+    "args": ["-c", "g++ \"$ZED_FILE\" -o \"${ZED_FILE%.*}.out\" && \"${ZED_FILE%.*}.out\""],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "go build",
+    "command": "go",
+    "args": ["build"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "node run",
+    "command": "node",
+    "args": ["$ZED_FILE"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "python run",
+    "command": "python",
+    "args": ["$ZED_FILE"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "npm run budgets",
+    "command": "npm",
+    "args": ["run", "budgets"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "npm run build",
+    "command": "npm",
+    "args": ["run", "build"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "npm run dev",
+    "command": "npm",
+    "args": ["run", "dev"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "npm install",
+    "command": "npm",
+    "args": ["install"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "npm start",
+    "command": "npm",
+    "args": ["start"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "npm tsc-watch",
+    "command": "npm",
+    "args": ["tsc-watch"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "yarn run budgets",
+    "command": "yarn",
+    "args": ["run", "budgets"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "yarn run build",
+    "command": "yarn",
+    "args": ["run", "build"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "yarn run dev",
+    "command": "yarn",
+    "args": ["run", "dev"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "yarn install",
+    "command": "yarn",
+    "args": ["install"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "yarn start",
+    "command": "yarn",
+    "args": ["run", "start"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "yarn tsc-watch",
+    "command": "yarn",
+    "args": ["tsc-watch"],
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "rustlings watch",
+    "command": "rustlings",
+    "args": ["watch"],
+    "reveal": "always",
+    "hide": "never"
+  }
+]
