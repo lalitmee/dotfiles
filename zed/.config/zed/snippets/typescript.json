@@ -37,7 +37,7 @@
   },
   "useState": {
     "prefix": "usest",
-    "body": ["const [${1:state}, set${1:state}] = useState(${2:initalState})"]
+    "body": ["const [${1:state}, set${1:state}] = useState(${2:initialState})"]
   },
   "test mocks": {
     "prefix": "mocks",
@@ -100,7 +100,7 @@
     "prefix": "int",
     "body": [
       "interface ${1:Component} {",
-      "  ${2:type: string;}",
+      "  ${2:type: string}",
       "}"
     ]
   }
