@@ -31,9 +31,6 @@
   },
   "languages": {
     "ini": {
-      "folding": {
-        "strategy": "marker"
-      }
     },
     "C": {
       "tab_size": 4,
