@@ -14,45 +14,44 @@
   "soft_wrap": "bounded",
   "cli_default_open_behavior": "new_window",
   "outline_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "git_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "ui_font_family": ".ZedMono",
   "buffer_font_size": 12.0,
   "buffer_font_family": "Operator Mono Lig",
   "edit_predictions": {
     "provider": "zed",
-    "mode": "eager"
+    "mode": "eager",
   },
   "languages": {
-    "ini": {
-    },
+    "ini": {},
     "C": {
       "tab_size": 4,
-      "hard_tabs": true
+      "hard_tabs": true,
     },
     "C++": {
       "tab_size": 4,
-      "hard_tabs": true
+      "hard_tabs": true,
     },
     "Go": {
       "tab_size": 4,
       "hard_tabs": true,
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "Python": {
       "tab_size": 4,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "Rust": {
       "tab_size": 4,
       "hard_tabs": false,
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "Lua": {
       "tab_size": 2,
@@ -60,50 +59,50 @@
       "formatter": {
         "external": {
           "command": "stylua",
-          "arguments": []
-        }
-      }
+          "arguments": [],
+        },
+      },
     },
     "Zig": {
       "tab_size": 4,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "YAML": {
       "tab_size": 2,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "JSON": {
       "tab_size": 2,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "JavaScript": {
       "tab_size": 2,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "TypeScript": {
       "tab_size": 2,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "CSS": {
       "tab_size": 2,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "HTML": {
       "tab_size": 2,
-      "hard_tabs": false
+      "hard_tabs": false,
     },
     "Markdown": {
       "tab_size": 2,
       "hard_tabs": false,
-      "soft_wrap": "editor_width"
-    }
+      "soft_wrap": "editor_width",
+    },
   },
   "vim": {
-    "toggle_relative_line_numbers": true
+    "toggle_relative_line_numbers": true,
   },
   "relative_line_numbers": "enabled",
   "file_types": {
-    "INI": ["env", ".env", ".env.*"]
+    "INI": ["env", ".env", ".env.*"],
   },
   "agent": {
     "dock": "right",
@@ -111,43 +110,43 @@
       "effort": "minimal",
       "enable_thinking": true,
       "provider": "google",
-      "model": "gemini-3.5-flash"
+      "model": "gemini-3.5-flash",
     },
-    "model_parameters": []
+    "model_parameters": [],
   },
   "project_panel": {
     "dock": "left",
-    "button": true
+    "button": true,
   },
   "tabs": {
     "show_diagnostics": "errors",
     "file_icons": true,
-    "git_status": true
+    "git_status": true,
   },
   "tab_bar": {
-    "show": true
+    "show": true,
   },
   "title_bar": {
     "show_branch_status_icon": true,
-    "show_menus": false
+    "show_menus": false,
   },
   "ui_font_weight": 300.0,
   "terminal": {
-    "font_weight": 300.0
+    "font_weight": 300.0,
   },
   "agent_buffer_font_size": 14.0,
   "agent_ui_font_size": 14.0,
   "agent_servers": {
     "gemini-custom": {
       "type": "custom",
-      "command": "gemini"
+      "command": "gemini",
     },
     "opencode": {
       "type": "custom",
       "command": "opencode",
       "args": [],
-      "env": {}
-    }
+      "env": {},
+    },
   },
   // NOTE: If you need to add MCP servers or context servers with API keys in the future,
   // manually edit ~/.config/zed/settings.json after stowing this config.
@@ -174,14 +173,14 @@
         "category_performance": null,
         "category_network": null,
         "log_file": null,
-        "extra_args": []
-      }
-    }
+        "extra_args": [],
+      },
+    },
   },
   "icon_theme": {
     "mode": "light",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "dark": "Zed (Default)",
   },
   "base_keymap": "VSCode",
   "vim_mode": true,
@@ -190,14 +189,19 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
   "lsp": {
     "clangd": {
       "binary": {
         "path": "clangd",
-        "arguments": ["--background-index", "--suggest-missing-includes", "--clang-tidy", "--header-insertion=iwyu"]
-      }
+        "arguments": [
+          "--background-index",
+          "--suggest-missing-includes",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+        ],
+      },
     },
     "gopls": {
       "settings": {
@@ -208,9 +212,9 @@
           "constantValues": true,
           "functionTypeParameters": true,
           "parameterNames": true,
-          "rangeVariableTypes": true
-        }
-      }
+          "rangeVariableTypes": true,
+        },
+      },
     },
     "lua-language-server": {
       "settings": {
@@ -218,20 +222,35 @@
           "hint": { "enable": true },
           "format": { "enable": false },
           "diagnostics": {
-            "globals": ["P", "R", "RELOAD", "Snacks", "__lk_global_callbacks", "after_each", "before_each", "describe", "it", "lk", "require", "vim", "_dd", "_bt"]
+            "globals": [
+              "P",
+              "R",
+              "RELOAD",
+              "Snacks",
+              "__lk_global_callbacks",
+              "after_each",
+              "before_each",
+              "describe",
+              "it",
+              "lk",
+              "require",
+              "vim",
+              "_dd",
+              "_bt",
+            ],
           },
           "completion": {
             "keywordSnippet": "Replace",
-            "callSnippet": "Replace"
+            "callSnippet": "Replace",
           },
           "workspace": {
-            "checkThirdParty": false
+            "checkThirdParty": false,
           },
           "telemetry": {
-            "enable": false
-          }
-        }
-      }
+            "enable": false,
+          },
+        },
+      },
     },
     "rust-analyzer": {
       "settings": {
@@ -243,10 +262,10 @@
           "cargo": { "allFeatures": true },
           "checkOnSave": {
             "command": "clippy",
-            "extraArgs": ["--no-deps"]
-          }
-        }
-      }
-    }
-  }
+            "extraArgs": ["--no-deps"],
+          },
+        },
+      },
+    },
+  },
 }
