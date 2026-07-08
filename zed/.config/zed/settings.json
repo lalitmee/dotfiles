@@ -197,9 +197,8 @@
     }
   },
   "centered_layout": {
-    "mode": "vertical",
-    "left_padding": 0.55,
-    "right_padding": 0.55
+    "left_padding": 0.4,
+    "right_padding": 0.4
   },
   "lsp": {
     "clangd": {
