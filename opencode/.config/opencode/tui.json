@@ -4,5 +4,8 @@
   "scroll_speed": 5,
   "scroll_acceleration": {
     "enabled": true
-  }
+  },
+  "plugin": [
+    "@tarquinen/opencode-dcp@latest"
+  ]
 }
