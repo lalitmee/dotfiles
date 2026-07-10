@@ -11,7 +11,7 @@ background-blur-radius = 20
 theme = Cobalt2
 
 # font-family = Operator Mono Lig
-font-family = IoskeleyMono Nerd Font
+font-family = IoskeleyMono Nerd Font Medium
 # font-family = FiraCode Nerd Font Mono
 # font-family = BlexMono Nerd Font Mono
 # font-family = JetBrainsMono Nerd Font

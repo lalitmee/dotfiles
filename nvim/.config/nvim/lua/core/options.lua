@@ -113,16 +113,8 @@ opt.diffopt = opt.diffopt
 -- NOTE: format options {{{
 ----------------------------------------------------------------------
 -- TODO: w, {v, b, l}
-opt.formatoptions = opt.formatoptions
-    + "c" -- In general, I like it when comments respect textwidth
-    + "j" -- Auto-remove comments if possible.
-    + "n" -- Indent past the formatlistpat, not underneath it.
-    + "q" -- Allow formatting comments w/ gq
-    + "r" -- But do continue when pressing enter.
-    - "2" -- I'm not in gradeschool anymore
-    - "a" -- Auto formatting is BAD.
-    - "o" -- O and o, don't continue comments
-    - "t" -- Don't auto format my code. I got linters for that.
+opt.formatoptions:append("cjnqr")
+opt.formatoptions:remove("2aot")
 -- }}}
 ----------------------------------------------------------------------
 
@@ -377,7 +369,7 @@ opt.colorcolumn = ""
 ----------------------------------------------------------------------
 -- NOTE: spell {{{
 ----------------------------------------------------------------------
-opt.spellsuggest:prepend({ 12 })
+opt.spellsuggest:prepend("12")
 opt.spelloptions = { "camel" }
 o.spellcapcheck = "" -- don't check for capital letters at start of sentence
 opt.fileformats = { "unix", "mac", "dos" }
