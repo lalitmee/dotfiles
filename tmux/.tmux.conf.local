@@ -549,8 +549,8 @@ set-option -g @fingers-key "F"
 
 # Adds session dots in the status bar
 set -g @plugin 'jtmcginty/tmux-session-dots'
-set -g @session-dots-active "●"
-set -g @session-dots-inactive "○"
+set -g @session-dots-active "● "
+set -g @session-dots-inactive "○ "
 set -g @session-dots-color "#ffc600"
 
 #-------------------------------------------------------------------------------
