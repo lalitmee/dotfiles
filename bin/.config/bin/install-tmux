@@ -139,6 +139,9 @@ TMUX_DIR="$HOME/Projects/Personal/Github/tmux"
 
     # Checkout the specific version for stable, stay on master for next
     if ! $next; then
+        if ! git fetch --tags; then
+            command gum_style "⚠️ Warning: Failed to fetch tags, trying checkout anyway" "" "" ""
+        fi
         if ! git checkout "$latest_version"; then
             command gum_style "❌ Error: Failed to checkout $latest_version" "" "" ""
             exit 1
@@ -176,5 +179,4 @@ TMUX_DIR="$HOME/Projects/Personal/Github/tmux"
     fi
 
 # Restore dir
-# popd >/dev/null</content>
-<parameter name="filePath">bin/.config/bin/install-tmux
+# popd >/dev/null
