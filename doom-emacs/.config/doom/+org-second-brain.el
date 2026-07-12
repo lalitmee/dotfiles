@@ -165,15 +165,15 @@
                (save-excursion
                  (goto-char (point-min))
                  (re-search-forward "^[ \t]*|" nil t)))
-      (let* ((in-table (org-at-table-p))
-             (hline (and in-table (org-at-table-hline-p)))
-             (table-start (and in-table (save-excursion (org-table-goto-line 1) (point-marker))))
-             (row (and in-table (not hline) (org-table-current-line)))
-             (col (and in-table (not hline) (org-table-current-column)))
-             (line-offset (and hline (- (line-number-at-pos) (save-excursion (org-table-goto-line 1) (line-number-at-pos)))))
-             (col-offset (and hline (- (point) (line-beginning-position)))))
-        (unwind-protect
-            (condition-case err
+      (condition-case err
+          (let* ((in-table (org-at-table-p))
+                 (hline (and in-table (org-at-table-hline-p)))
+                 (table-start (and in-table (save-excursion (org-table-goto-line 1) (point-marker))))
+                 (row (and in-table (not hline) (org-table-current-line)))
+                 (col (and in-table (not hline) (org-table-current-column)))
+                 (line-offset (and hline (- (line-number-at-pos) (save-excursion (org-table-goto-line 1) (line-number-at-pos)))))
+                 (col-offset (and hline (- (point) (line-beginning-position)))))
+            (unwind-protect
                 (progn
                   (save-excursion
                     (org-table-map-tables 'org-table-align))
@@ -187,9 +187,9 @@
                       ;; For regular data cells, restore using table logical row and column.
                       (org-table-goto-line row)
                       (org-table-goto-column col))))
-              (error (message "Org table auto-align failed: %s" (error-message-string err))))
-          (when table-start
-            (set-marker table-start nil)))))))
+              (when table-start
+                (set-marker table-start nil))))
+        (error (message "Org table auto-align failed: %s" (error-message-string err)))))))
 
 (defun my/org-setup-save-hook ()
   "Set up buffer-local save hooks for Org mode."
