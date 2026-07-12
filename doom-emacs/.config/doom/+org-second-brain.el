@@ -159,7 +159,11 @@
          targets)))))
 (defun my/org-align-tables-on-save ()
   "Align all tables in the buffer if in Org mode, preserving point position."
-  (when (derived-mode-p 'org-mode)
+  (when (and (derived-mode-p 'org-mode)
+             (not buffer-read-only)
+             (save-excursion
+               (goto-char (point-min))
+               (re-search-forward "^[ \t]*|" nil t)))
     (let* ((in-table (org-at-table-p))
            (hline (and in-table (org-at-table-hline-p)))
            (table-start (and in-table (save-excursion (org-table-goto-line 1) (point-marker))))
@@ -181,7 +185,7 @@
 
 (defun my/org-setup-save-hook ()
   "Set up buffer-local save hooks for Org mode."
-  (add-hook 'before-save-hook #'my/org-align-tables-on-save nil 'local))
+  (add-hook 'before-save-hook #'my/org-align-tables-on-save nil t))
 
 (after! org
   (setq org-modern-star 'replace)
