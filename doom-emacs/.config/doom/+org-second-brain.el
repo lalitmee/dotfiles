@@ -157,6 +157,10 @@
                 (let ((f (file-truename (expand-file-name (nth 1 elt)))))
                   (string-prefix-p (file-name-as-directory root) f))))
          targets)))))
+(defun my/org-align-tables-on-save ()
+  "Align all tables in the buffer if in Org mode."
+  (when (derived-mode-p 'org-mode)
+    (org-table-map-tables 'org-table-align)))
 
 (after! org
   (setq org-modern-star 'replace)
@@ -174,7 +178,13 @@
   (unless (seq-find (lambda (tpl) (equal (car tpl) "b")) org-capture-templates)
     (push '("b" "Inbox (second-brain)" entry (file my/org-second-brain-capture-inbox-file)
             "* %?\n%U\n" :empty-lines 1)
-          org-capture-templates)))
+          org-capture-templates))
+  (setq org-startup-indented t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-preserve-indentation nil)
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook #'my/org-align-tables-on-save nil 'local))))
 
 (after! org-journal
   (setq org-journal-dir (expand-file-name "journal" org-directory))
