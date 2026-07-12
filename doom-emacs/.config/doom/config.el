@@ -72,6 +72,14 @@
 
 (setq projectile-enable-caching nil)
 
+;; Enable orderless-flex by default so `abc' matches flexibly (like `aXbYcZ')
+;; instead of requiring the `~' prefix. Keeps vertico/corfu working.
+(after! orderless
+  (orderless-define-completion-style orderless-flex
+    (orderless-matching-styles '(orderless-flex)))
+  (setq completion-styles '(orderless-flex basic)
+        completion-category-overrides '((file (styles orderless-flex partial-completion)))))
+
 (after! lsp-mode
   (setq lsp-eslint-package-manager "yarn")
   (require 'lsp-eslint))
