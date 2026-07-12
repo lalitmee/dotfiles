@@ -34,3 +34,8 @@ copyq/.config/copyq/copyq_tabs.ini
 
 .DS_Store
 **/.DS_Store
+
+# Emacs compiled bytecode
+*.elc
+**/*.elc
+
