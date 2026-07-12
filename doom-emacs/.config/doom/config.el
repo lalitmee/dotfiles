@@ -24,8 +24,11 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "Operator Mono Lig" :size 14 :weight 'normal)
-      doom-variable-pitch-font (font-spec :family "Operator Mono Lig" :size 13))
+;; (setq doom-font (font-spec :family "Operator Mono Lig" :size 14 :weight 'normal)
+;;       doom-variable-pitch-font (font-spec :family "Operator Mono Lig" :size 13))
+
+(setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 14 :weight 'medium)
+      doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 13))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
