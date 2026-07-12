@@ -189,7 +189,7 @@
                       (org-table-goto-column col))))
               (when table-start
                 (set-marker table-start nil))))
-        (error (message "Org table auto-align failed: %s" (error-message-string err)))))))
+        (error (message "Org table auto-align failed in %s: %s" (buffer-name) (error-message-string err)))))))
 
 (defun my/org-setup-save-hook ()
   "Set up buffer-local save hooks for Org mode."
