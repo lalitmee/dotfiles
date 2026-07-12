@@ -333,7 +333,7 @@ run_updates() {
     # gum table --print is non-interactive, so we always pause to let the user read
     if [[ -n "$AI_UPDATE_IN_WINDOW" || -t 0 ]]; then
         gum_style "Press any key to close..."
-        read -n 1 -s -r 2>/dev/null || true
+        read -k 1 -s -r 2>/dev/null || true
     fi
 }
 
