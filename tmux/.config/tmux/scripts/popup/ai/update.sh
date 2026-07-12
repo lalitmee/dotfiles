@@ -302,7 +302,6 @@ run_updates() {
 
     # 3. Display Final Summary Table
     echo
-    gum_style "📊 Update Summary"
 
     # We disable exit-on-error here to ensure the script always waits for input,
     # even if the gum table command fails for some reason.
@@ -321,7 +320,7 @@ run_updates() {
     if [[ ${#update_summary[@]} -gt 1 ]]; then
         # Use gum table for interactive display
         # The first line of summary_string is the header
-        echo -e "$summary_string" | gum table --border rounded --height 10
+        echo -e "$summary_string" | gum table --border rounded --height 10 --print
     else
         gum_style "ℹ️  No updates were processed."
     fi
@@ -331,20 +330,10 @@ run_updates() {
     echo
     # Wait for user input so they can see the results
     echo
-    if [[ -n "$AI_UPDATE_IN_WINDOW" ]]; then
-        # gum table is interactive and waits for user to close it, so we don't need sleep here.
-        # But if gum table wasn't shown (no updates), we might want to pause.
-        if [[ ${#update_summary[@]} -le 1 ]]; then
-             gum_style "Press any key to close..."
-             read -n 1 -s -r 2>/dev/null || true
-        fi
-    elif [[ -t 0 ]]; then
-        # If running in a terminal but not in the special window mode (unlikely given the script logic),
-        # we still might want to pause if gum table wasn't shown.
-        if [[ ${#update_summary[@]} -le 1 ]]; then
-            gum_style "Press any key to close..."
-            read -n 1 -s -r 2>/dev/null || true
-        fi
+    # gum table --print is non-interactive, so we always pause to let the user read
+    if [[ -n "$AI_UPDATE_IN_WINDOW" || -t 0 ]]; then
+        gum_style "Press any key to close..."
+        read -n 1 -s -r 2>/dev/null || true
     fi
 }
 
