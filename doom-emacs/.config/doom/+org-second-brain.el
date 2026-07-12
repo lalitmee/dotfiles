@@ -11,6 +11,7 @@
 
 (require 'cl-lib)
 (require 'seq)
+(require 'org-table)
 
 (defvar my/org-second-brain-personal-root
   (expand-file-name "~/Projects/Personal/Github/second-brain")
@@ -173,17 +174,19 @@
              (line-offset (and hline (- (line-number-at-pos) (save-excursion (org-table-goto-line 1) (line-number-at-pos)))))
              (col-offset (and hline (- (point) (line-beginning-position)))))
         (unwind-protect
-            (progn
-              (save-excursion
-                (org-table-map-tables 'org-table-align))
-              (when in-table
-                (goto-char table-start)
-                (if hline
-                    (progn
-                      (forward-line line-offset)
-                      (forward-char (min col-offset (- (line-end-position) (line-beginning-position)))))
-                  (org-table-goto-line row)
-                  (org-table-goto-column col))))
+            (condition-case err
+                (progn
+                  (save-excursion
+                    (org-table-map-tables 'org-table-align))
+                  (when in-table
+                    (goto-char table-start)
+                    (if hline
+                        (progn
+                          (forward-line line-offset)
+                          (forward-char (min col-offset (- (line-end-position) (line-beginning-position)))))
+                      (org-table-goto-line row)
+                      (org-table-goto-column col))))
+              (error (message "Org table auto-align failed: %s" (error-message-string err))))
           (when table-start
             (set-marker table-start nil)))))))
 
