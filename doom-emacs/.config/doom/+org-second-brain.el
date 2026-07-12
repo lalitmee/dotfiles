@@ -11,7 +11,6 @@
 
 (require 'cl-lib)
 (require 'seq)
-(require 'org-table)
 
 (defvar my/org-second-brain-personal-root
   (expand-file-name "~/Projects/Personal/Github/second-brain")
@@ -181,9 +180,11 @@
                   (when in-table
                     (goto-char table-start)
                     (if hline
+                        ;; For separator lines (hlines), restore via relative line/char offsets.
                         (progn
                           (forward-line line-offset)
                           (forward-char (min col-offset (- (line-end-position) (line-beginning-position)))))
+                      ;; For regular data cells, restore using table logical row and column.
                       (org-table-goto-line row)
                       (org-table-goto-column col))))
               (error (message "Org table auto-align failed: %s" (error-message-string err))))
@@ -195,6 +196,7 @@
   (add-hook 'before-save-hook #'my/org-align-tables-on-save nil t))
 
 (after! org
+  (require 'org-table)
   (setq org-modern-star 'replace)
   (setq org-modern-replace-stars '("◉" "○" "✸" "✿" "✤" "✜" "✦" "◈" "◇"))
   (setq org-modern-cycle-stars t)
