@@ -158,9 +158,20 @@
                   (string-prefix-p (file-name-as-directory root) f))))
          targets)))))
 (defun my/org-align-tables-on-save ()
-  "Align all tables in the buffer if in Org mode."
+  "Align all tables in the buffer if in Org mode, preserving point position."
   (when (derived-mode-p 'org-mode)
-    (org-table-map-tables 'org-table-align)))
+    (let* ((in-table (org-at-table-p))
+           (row (and in-table (org-table-current-line)))
+           (col (and in-table (org-table-current-column))))
+      (save-excursion
+        (org-table-map-tables 'org-table-align))
+      (when (and in-table (org-at-table-p))
+        (org-table-goto-line row)
+        (org-table-goto-column col)))))
+
+(defun my/org-setup-save-hook ()
+  "Set up buffer-local save hooks for Org mode."
+  (add-hook 'before-save-hook #'my/org-align-tables-on-save nil 'local))
 
 (after! org
   (setq org-modern-star 'replace)
@@ -182,9 +193,7 @@
   (setq org-startup-indented t)
   (setq org-src-tab-acts-natively t)
   (setq org-src-preserve-indentation nil)
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook #'my/org-align-tables-on-save nil 'local))))
+  (add-hook 'org-mode-hook #'my/org-setup-save-hook))
 
 (after! org-journal
   (setq org-journal-dir (expand-file-name "journal" org-directory))
