@@ -159,29 +159,33 @@
          targets)))))
 (defun my/org-align-tables-on-save ()
   "Align all tables in the buffer if in Org mode, preserving point position."
-  (when (and (derived-mode-p 'org-mode)
-             (not buffer-read-only)
-             (save-excursion
-               (goto-char (point-min))
-               (re-search-forward "^[ \t]*|" nil t)))
-    (let* ((in-table (org-at-table-p))
-           (hline (and in-table (org-at-table-hline-p)))
-           (table-start (and in-table (save-excursion (org-table-goto-line 1) (point-marker))))
-           (row (and in-table (not hline) (org-table-current-line)))
-           (col (and in-table (not hline) (org-table-current-column)))
-           (line-offset (and hline (- (line-number-at-pos) (save-excursion (org-table-goto-line 1) (line-number-at-pos)))))
-           (col-offset (and hline (- (point) (line-beginning-position)))))
-      (save-excursion
-        (org-table-map-tables 'org-table-align))
-      (when in-table
-        (goto-char table-start)
-        (if hline
+  (save-match-data
+    (when (and (derived-mode-p 'org-mode)
+               (not buffer-read-only)
+               (save-excursion
+                 (goto-char (point-min))
+                 (re-search-forward "^[ \t]*|" nil t)))
+      (let* ((in-table (org-at-table-p))
+             (hline (and in-table (org-at-table-hline-p)))
+             (table-start (and in-table (save-excursion (org-table-goto-line 1) (point-marker))))
+             (row (and in-table (not hline) (org-table-current-line)))
+             (col (and in-table (not hline) (org-table-current-column)))
+             (line-offset (and hline (- (line-number-at-pos) (save-excursion (org-table-goto-line 1) (line-number-at-pos)))))
+             (col-offset (and hline (- (point) (line-beginning-position)))))
+        (unwind-protect
             (progn
-              (forward-line line-offset)
-              (forward-char (min col-offset (- (line-end-position) (line-beginning-position)))))
-          (org-table-goto-line row)
-          (org-table-goto-column col))
-        (set-marker table-start nil)))))
+              (save-excursion
+                (org-table-map-tables 'org-table-align))
+              (when in-table
+                (goto-char table-start)
+                (if hline
+                    (progn
+                      (forward-line line-offset)
+                      (forward-char (min col-offset (- (line-end-position) (line-beginning-position)))))
+                  (org-table-goto-line row)
+                  (org-table-goto-column col))))
+          (when table-start
+            (set-marker table-start nil)))))))
 
 (defun my/org-setup-save-hook ()
   "Set up buffer-local save hooks for Org mode."
