@@ -3,7 +3,8 @@ maximized = true
 [font]
 normal = [
   # "BlexMono Nerd Font Mono",
-  "Operator Mono Lig Book",
+  # "Operator Mono Lig Book",
+  "IoskeleyMono Nerd Font",
   # "MonoLisa Nerd Font",
   # "Iosevka Nerd Font Mono",
   # "Iosevka Nerd Font",
