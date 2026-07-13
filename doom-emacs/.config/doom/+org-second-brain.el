@@ -157,39 +157,12 @@
                 (let ((f (file-truename (expand-file-name (nth 1 elt)))))
                   (string-prefix-p (file-name-as-directory root) f))))
          targets)))))
+
 (defun my/org-align-tables-on-save ()
-  "Align all tables in the buffer if in Org mode, preserving point position."
-  (save-match-data
-    (when (and (derived-mode-p 'org-mode)
-               (not buffer-read-only)
-               (save-excursion
-                 (goto-char (point-min))
-                 (re-search-forward "^[ \t]*|" nil t)))
-      (condition-case err
-          (let* ((in-table (org-at-table-p))
-                 (hline (and in-table (org-at-table-hline-p)))
-                 (table-start (and in-table (save-excursion (org-table-goto-line 1) (point-marker))))
-                 (row (and in-table (not hline) (org-table-current-line)))
-                 (col (and in-table (not hline) (org-table-current-column)))
-                 (line-offset (and hline (- (line-number-at-pos) (save-excursion (org-table-goto-line 1) (line-number-at-pos)))))
-                 (col-offset (and hline (- (point) (line-beginning-position)))))
-            (unwind-protect
-                (progn
-                  (save-excursion
-                    (org-table-map-tables 'org-table-align))
-                  (when in-table
-                    (goto-char table-start)
-                    (if hline
-                        ;; For separator lines (hlines), restore via relative line/char offsets.
-                        (progn
-                          (forward-line line-offset)
-                          (forward-char (min col-offset (- (line-end-position) (line-beginning-position)))))
-                      ;; For regular data cells, restore using table logical row and column.
-                      (org-table-goto-line row)
-                      (org-table-goto-column col))))
-              (when table-start
-                (set-marker table-start nil))))
-        (error (message "Org table auto-align failed in %s: %s" (buffer-name) (error-message-string err)))))))
+  "Align all tables in the buffer if in Org mode."
+  (when (and (derived-mode-p 'org-mode)
+             (not buffer-read-only))
+    (org-table-map-tables #'org-table-align)))
 
 (defun my/org-setup-save-hook ()
   "Set up buffer-local save hooks for Org mode."
