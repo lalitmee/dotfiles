@@ -37,7 +37,8 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   ;; '(font-lock-keyword-face :slant italic)
-  '(italic :family "Operator Mono Lig" :slant italic))
+  ;; '(italic :family "Operator Mono Lig" :slant italic))
+  '(italic :family "IoskeleyMono Nerd Font" :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
