@@ -209,10 +209,68 @@
   (setq org-refile-targets '((org-agenda-files . (:maxlevel . 9))))
   (unless (advice-member-p #'my/org-second-brain-around-org-refile-get-targets 'org-refile-get-targets)
     (advice-add 'org-refile-get-targets :around #'my/org-second-brain-around-org-refile-get-targets))
-  (unless (seq-find (lambda (tpl) (equal (car tpl) "b")) org-capture-templates)
-    (push '("b" "Inbox (second-brain)" entry (file my/org-second-brain-capture-inbox-file)
-            "* %?\n%U\n" :empty-lines 1)
-          org-capture-templates))
+  (setq org-capture-templates
+        `(;; Ideas
+          ("i" "💡 Idea")
+          ("ii" "💡 Raw Idea" entry
+           (file ,(expand-file-name "sandbox/ideas/inbox.org" my/org-second-brain-personal-root))
+           "* %? :IDEA:RAW:" :empty-lines-before 1)
+          ("ip" "🚀 Project" entry
+           (file ,(expand-file-name "sandbox/ideas/project.org" my/org-second-brain-personal-root))
+           "* %? :IDEA:PROJECT:" :empty-lines-before 1)
+          ("ia" "💻 Application" entry
+           (file ,(expand-file-name "sandbox/ideas/application.org" my/org-second-brain-personal-root))
+           "* %? :IDEA:APPLICATION:" :empty-lines-before 1)
+          ("in" "💤 Neovim" entry
+           (file ,(expand-file-name "sandbox/ideas/neovim.org" my/org-second-brain-personal-root))
+           "* %? :IDEA:NEOVIM:" :empty-lines-before 1)
+          ("iw" "💼 Work" entry
+           (file ,(expand-file-name "ideas/inbox.org" my/org-second-brain-work-root))
+           "* %? :IDEA:WORK:" :empty-lines-before 1)
+
+          ;; Tasks
+          ("t" "📋 Task")
+          ("tp" "🏠 Personal" entry
+           (file ,(expand-file-name "daily/agenda/todos.org" my/org-second-brain-personal-root))
+           "* TODO %? :TASK:\n  SCHEDULED: %U DEADLINE: %t" :empty-lines-before 1)
+          ("tn" "💤 Neovim" entry
+           (file ,(expand-file-name "daily/agenda/todos.org" my/org-second-brain-personal-root))
+           "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U DEADLINE: %t" :empty-lines-before 1)
+          ("tw" "💼 Work" entry
+           (file ,(expand-file-name "agenda/todos.org" my/org-second-brain-work-root))
+           "* TODO %? :TASK:WORK:\n  SCHEDULED: %U DEADLINE: %t" :empty-lines-before 1)
+
+          ;; Notes
+          ("n" "📓 Note")
+          ("np" "🏠 Personal" entry
+           (file ,(expand-file-name "brain/notes/system/inbox.org" my/org-second-brain-personal-root))
+           "* %^{Title} :NOTE:\n  %U\n\n%?" :empty-lines-before 1)
+          ("nw" "💼 Work" entry
+           (file ,(expand-file-name "notes/inbox.org" my/org-second-brain-work-root))
+           "* %^{Title} :NOTE:WORK:\n  %U\n\n%?" :empty-lines-before 1)
+
+          ;; Journal
+          ("j" "📝 Journal")
+          ("jp" "🏠 Personal" entry
+           (file+olp+datetree ,(expand-file-name "daily/journal/inbox.org" my/org-second-brain-personal-root))
+           "**** [%<%I:%M %p>] %?" :tree-type day)
+          ("jw" "💼 Work" entry
+           (file+olp+datetree ,(expand-file-name "journal/inbox.org" my/org-second-brain-work-root))
+           "**** [%<%I:%M %p>] %? :WORK:" :tree-type day)
+
+          ;; Habits
+          ("h" "⚡ Habit")
+          ("hp" "🏠 Personal" entry
+           (file ,(expand-file-name "daily/agenda/habits.org" my/org-second-brain-personal-root))
+           "* TODO %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:" :empty-lines-before 1)
+          ("hw" "💼 Work" entry
+           (file ,(expand-file-name "agenda/habits.org" my/org-second-brain-work-root))
+           "* TODO %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:" :empty-lines-before 1)
+
+          ;; Quick inbox — used by SPC n B c/W/P shortcuts
+          ("b" "📥 Inbox (second-brain)" entry
+           (file my/org-second-brain-capture-inbox-file)
+           "* %?\n%U\n" :empty-lines-before 1)))
   (setq org-startup-indented t)
   (setq org-src-tab-acts-natively t)
   (setq org-src-preserve-indentation nil)
