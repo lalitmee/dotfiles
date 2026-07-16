@@ -242,14 +242,14 @@ return {
                         p = {
                             description = "🏠 Personal",
                             target = "~/Projects/Personal/Github/second-brain/daily/journal/inbox.org",
-                            template = "**** [%<%I:%M %p>] %?",
+                            template = "* [%<%I:%M %p>] %?",
                             datetree = { tree_type = "day", reversed = true },
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "💼 Work",
                             target = "~/Projects/Work/Github/second-brain/journal/inbox.org",
-                            template = "**** [%<%I:%M %p>] %? :WORK:",
+                            template = "* [%<%I:%M %p>] %? :WORK:",
                             datetree = { tree_type = "day", reversed = true },
                             properties = { empty_lines = { before = 1 } },
                         },
