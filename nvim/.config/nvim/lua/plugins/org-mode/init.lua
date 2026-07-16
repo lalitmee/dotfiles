@@ -118,23 +118,10 @@ return {
                         },
                     },
                 },
-                -- CHANGED: Key is now 'T' (Shift+t) to avoid conflict with default 't'
                 T = {
                     description = "📋 Triage / Planning",
                     types = {
                         { type = "tags_todo", match = "BACKLOG" },
-                    },
-                },
-                i = {
-                    description = "🚀 In Progress View",
-                    types = {
-                        { type = "tags_todo", match = "IN-PROGRESS/IN-REVIEW/TESTING" },
-                    },
-                },
-                b = {
-                    description = "❗ Blocked / Waiting",
-                    types = {
-                        { type = "tags_todo", match = "BLOCKED/WAITING" },
                     },
                 },
             },
@@ -157,70 +144,17 @@ return {
             },
 
             org_tag_faces = {
-                -------------------------------------------------------------------------
-                -- === BY TYPE (What kind of thing is this?) ===
-                -------------------------------------------------------------------------
-                -- Use the vibrant Cobalt2 yellow for creative/new items
+                -- By type
                 IDEA = ":foreground #ffc600 :weight bold",
                 RAW = ":foreground #af87ff :slant italic",
                 PROJECT = ":foreground #ffc600",
                 APPLICATION = ":foreground #ffc600",
-
-                -- Use the action-oriented Cobalt2 orange for recurring tasks
-                HABIT = ":foreground #ff9d00",
-
-                -- Use a calm, italic light blue for reflective entries
+                TASK = ":foreground #0088ff",
                 NOTE = ":foreground #9effff :slant italic",
-                JOURNAL = ":foreground #9effff :slant italic",
-
-                -- Use a simple, non-intrusive blue for utility tags
-                LINK = ":foreground #0088ff",
-
-                -------------------------------------------------------------------------
-                -- === BY CONTEXT (Where does this belong?) ===
-                -------------------------------------------------------------------------
-                -- Use the pleasant Cobalt2 green for your main work context
+                HABIT = ":foreground #ff9d00",
+                -- By context
                 WORK = ":foreground #a5ff90",
-
-                -- A distinct, friendly blue for personal context
-                PERSONAL = ":foreground #0088ff",
-
-                -- A bold, thematic green for Neovim-specific items
                 NEOVIM = ":foreground #a5ff90 :weight bold",
-
-                -------------------------------------------------------------------------
-                -- === BY EVENT (What kind of appointment is this?) ===
-                -------------------------------------------------------------------------
-                -- A consistent green for meetings and calls
-                MEETING = ":foreground #5fffaf",
-                PHONE = ":foreground #5fffaf",
-
-                -------------------------------------------------------------------------
-                -- === MANUAL DEV TAGS (For you to type manually) ===
-                -------------------------------------------------------------------------
-                -- High-alert Cobalt2 pink for critical issues
-                BUG = ":foreground #ff628c :weight bold",
-
-                -- Cobalt2 yellow for new development work
-                FEATURE = ":foreground #ffc600",
-
-                -- Cobalt2 light blue for code maintenance
-                REFACTOR = ":foreground #9effff",
-                DOCS = ":foreground #9effff",
-                TESTS = ":foreground #9effff",
-
-                -------------------------------------------------------------------------
-                -- === MANUAL PRIORITY TAGS (For you to type manually) ===
-                -------------------------------------------------------------------------
-                CRITICAL = ":foreground #ff628c :weight bold",
-                HIGH = ":foreground #ff9d00 :weight bold",
-                LOW = ":foreground #a8a8a8 :slant italic",
-            },
-
-            org_special_keyword_faces = {
-                SCHEDULED = ":foreground #8a8a8a",
-                DEADLINE = ":foreground #8a8a8a",
-                CLOSED = ":foreground #8a8a8a",
             },
 
             org_capture_templates = {
