@@ -298,6 +298,19 @@
   (setq org-roam-directory (expand-file-name "notes" org-directory))
   (setq org-roam-db-location (expand-file-name ".org-roam.db" org-directory)))
 
+(use-package! org-super-agenda
+  :after org-agenda
+  :config
+  (org-super-agenda-mode)
+  (setq org-super-agenda-groups
+        '((:name "🔥 In Progress" :todo "IN-PROGRESS" :order 1)
+          (:name "📋 Today" :time-grid t :scheduled today :order 2)
+          (:name "📅 Upcoming" :deadline future :scheduled future :order 3)
+          (:name "⚡ Habits" :habit t :order 4)
+          (:name "📥 Backlog" :todo "BACKLOG" :order 5)
+          (:name "✅ Done" :todo "DONE" :order 10)
+          (:name "❌ Cancelled" :todo "CANCELLED" :order 11))))
+
 (eval
  `(map! :leader
         :prefix ("n" ,my/org-second-brain-leader-key)

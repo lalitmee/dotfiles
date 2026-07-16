@@ -52,3 +52,6 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
+
+;; Grouped/categorized agenda views (mirrors nvim org-super-agenda)
+(package! org-super-agenda)
