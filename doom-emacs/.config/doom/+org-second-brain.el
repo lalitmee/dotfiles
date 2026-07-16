@@ -193,6 +193,20 @@
   (setq org-agenda-span 14)
   (setq org-agenda-start-on-weekday 1)
 
+  ;; Custom agenda commands — matching nvim workflow
+  (setq org-agenda-custom-commands
+        `(("A" "📅 Agenda & All Tasks (Global)"
+           ((agenda "")
+            (alltodo "")))
+          ("w" "💼 Work Focus"
+           ((agenda "" ((org-agenda-files ',(my/org-second-brain-agenda-files :work))))
+            (alltodo "" ((org-agenda-files ',(my/org-second-brain-agenda-files :work))))))
+          ("p" "🏠 Personal Focus"
+           ((agenda "" ((org-agenda-files ',(my/org-second-brain-agenda-files :personal))))
+            (alltodo "" ((org-agenda-files ',(my/org-second-brain-agenda-files :personal))))))
+          ("T" "📋 Triage / Backlog"
+           ((todo "BACKLOG")))))
+
   ;; Tag faces — cobalt2 palette, only auto-applied tags
   (setq org-tag-faces
         '(("IDEA"        . (:foreground "#ffc600" :weight bold))
