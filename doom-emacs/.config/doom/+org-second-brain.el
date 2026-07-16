@@ -87,21 +87,17 @@
   (interactive)
   (setq org-agenda-files (my/org-second-brain-agenda-files :both)))
 
-(defun my/org-second-brain-agenda-with-scope (which)
-  (let ((org-agenda-files (my/org-second-brain-agenda-files which)))
-    (org-agenda nil "a")))
-
 (defun my/org-second-brain-agenda-merged ()
   (interactive)
-  (my/org-second-brain-agenda-with-scope :both))
+  (org-agenda nil "A"))
 
 (defun my/org-second-brain-agenda-work ()
   (interactive)
-  (my/org-second-brain-agenda-with-scope :work))
+  (org-agenda nil "w"))
 
 (defun my/org-second-brain-agenda-personal ()
   (interactive)
-  (my/org-second-brain-agenda-with-scope :personal))
+  (org-agenda nil "p"))
 
 (defun my/org-second-brain-inbox-file-for-brain (brain)
   (let ((root (my/org-second-brain--root-for brain)))
@@ -266,11 +262,11 @@
           ;; Journal
           ("j" "📝 Journal")
           ("jp" "🏠 Personal" entry
-           (file+olp+datetree ,(expand-file-name "daily/journal/inbox.org" my/org-second-brain-personal-root))
-           "**** [%<%I:%M %p>] %?" :tree-type day)
+           (file+datetree ,(expand-file-name "daily/journal/inbox.org" my/org-second-brain-personal-root))
+           "* [%<%I:%M %p>] %?" :tree-type day)
           ("jw" "💼 Work" entry
-           (file+olp+datetree ,(expand-file-name "journal/inbox.org" my/org-second-brain-work-root))
-           "**** [%<%I:%M %p>] %? :WORK:" :tree-type day)
+           (file+datetree ,(expand-file-name "journal/inbox.org" my/org-second-brain-work-root))
+           "* [%<%I:%M %p>] %? :WORK:" :tree-type day)
 
           ;; Habits
           ("h" "⚡ Habit")
