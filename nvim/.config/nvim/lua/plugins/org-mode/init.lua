@@ -248,45 +248,9 @@ return {
                         },
                         w = {
                             description = "💼 Work",
-                            target = "~/Projects/Personal/Github/second-brain/daily/journal/inbox.org",
+                            target = "~/Projects/Work/Github/second-brain/journal/inbox.org",
                             template = "**** [%<%I:%M %p>] %? :WORK:",
                             datetree = { tree_type = "day", reversed = true },
-                            properties = { empty_lines = { before = 1 } },
-                        },
-                    },
-                },
-
-                m = {
-                    description = "🤝 Meeting",
-                    subtemplates = {
-                        p = {
-                            description = "🏠 Personal",
-                            template = "* MEETING with %? :MEETING:\n  SCHEDULED: %t",
-                            target = "~/Projects/Personal/Github/second-brain/daily/agenda/calls.org",
-                            properties = { empty_lines = { before = 1 } },
-                        },
-                        w = {
-                            description = "💼 Work",
-                            template = "* MEETING with %? :MEETING:WORK:\n  SCHEDULED: %t",
-                            target = "~/Projects/Work/Github/second-brain/agenda/calls.org",
-                            properties = { empty_lines = { before = 1 } },
-                        },
-                    },
-                },
-
-                p = {
-                    description = "📞 Phone Call",
-                    subtemplates = {
-                        p = {
-                            description = "🏠 Personal",
-                            template = "* CALL with %? :PHONE:\n  SCHEDULED: %t",
-                            target = "~/Projects/Personal/Github/second-brain/daily/agenda/calls.org",
-                            properties = { empty_lines = { before = 1 } },
-                        },
-                        w = {
-                            description = "💼 Work",
-                            template = "* CALL with %? :PHONE:WORK:\n  SCHEDULED: %t",
-                            target = "~/Projects/Work/Github/second-brain/agenda/calls.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -297,27 +261,15 @@ return {
                     subtemplates = {
                         p = {
                             description = "🏠 Personal",
-                            template = "* NEXT %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "* TODO %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:",
                             target = "~/Projects/Personal/Github/second-brain/daily/agenda/habits.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {
                             description = "💼 Work",
-                            template = "* NEXT %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: NEXT\n  :END:",
+                            template = "* TODO %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:",
                             target = "~/Projects/Work/Github/second-brain/agenda/habits.org",
                             properties = { empty_lines = { before = 1 } },
-                        },
-                    },
-                },
-
-                l = {
-                    description = "🔗 Link",
-                    subtemplates = {
-                        r = {
-                            description = "🔗 Useful resource links",
-                            template = "  - [[%^{Link||}][%^{Description}]] :LINK:",
-                            headline = "Useful resource links",
-                            target = "~/Projects/Personal/Github/second-brain/brain/vocabulary/links.org",
                         },
                     },
                 },
