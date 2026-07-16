@@ -140,45 +140,20 @@ return {
             },
 
             org_todo_keywords = {
-                -- 1. PLANNING & TRIAGE STAGES
                 "BACKLOG(b)",
                 "TODO(t)",
-
-                -- 2. ACTIVE DEVELOPMENT STAGES
-                "IN-PROGRESS(p)", -- "p" for "progress"
-                "IN-REVIEW(r)", -- "r" for "review"
-                "TESTING(e)", -- "e" from "t**e**sting"
-
-                -- 3. WAITING / PAUSED STAGES
-                "BLOCKED(l)", -- "l" from "b**l**ocked"
-                "WAITING(w)",
-                "ON-HOLD(h)",
-
-                -- SEPARATOR
+                "IN-PROGRESS(p)",
                 "|",
-
-                -- 5. TERMINAL STAGES
                 "DONE(d)",
                 "CANCELLED(c)",
-                "REJECTED(j)", -- "j" from "re**j**ected"
             },
 
             org_todo_keyword_faces = {
-                -- Planning Faces
                 BACKLOG = ":foreground #a8a8a8",
                 TODO = ":foreground #0088ff :weight bold",
-                -- Active Dev Faces
                 ["IN-PROGRESS"] = ":foreground #ffd700 :weight bold",
-                ["IN-REVIEW"] = ":foreground #00d7d7 :weight bold",
-                TESTING = ":foreground #87ceff :weight bold",
-                -- Waiting/Paused Faces
-                BLOCKED = ":foreground #ff2020 :background #5c0000 :weight bold",
-                WAITING = ":foreground #ff5faf :weight bold",
-                ["ON-HOLD"] = ":foreground #d7aaff :weight bold",
-                -- Terminal Faces
                 DONE = ":foreground #5fff5f :weight bold",
                 CANCELLED = ":foreground #585858 :weight bold",
-                REJECTED = ":foreground #d75f00 :weight bold",
             },
 
             org_tag_faces = {
