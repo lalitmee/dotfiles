@@ -24,7 +24,7 @@
   "Second key under `SPC n …` for the second-brain map. Change only this string to retarget every binding.")
 
 (defvar my/org-second-brain-curated-subdirs
-  '("daily" "brain" "sandbox" "meta")
+  '("daily" "brain" "sandbox" "meta" "journal")
   "Subdirectories (under each brain root) scanned for .org agenda/refile files.")
 
 (defvar my/org-capture-active-brain :personal
@@ -178,6 +178,33 @@
   (setq org-hide-leading-stars t)
   (setq org-startup-with-inline-images t)
   (setq org-image-actual-width 300)
+
+  ;; TODO keywords — streamlined 5-state pipeline
+  (setq org-todo-keywords
+        '((sequence "BACKLOG(b)" "TODO(t)" "IN-PROGRESS(p)" "|" "DONE(d)" "CANCELLED(c)")))
+  (setq org-todo-keyword-faces
+        '(("BACKLOG"     . (:foreground "#a8a8a8"))
+          ("TODO"        . (:foreground "#0088ff" :weight bold))
+          ("IN-PROGRESS" . (:foreground "#ffd700" :weight bold))
+          ("DONE"        . (:foreground "#5fff5f" :weight bold))
+          ("CANCELLED"   . (:foreground "#585858" :weight bold))))
+
+  ;; Agenda — 14-day span starting Monday
+  (setq org-agenda-span 14)
+  (setq org-agenda-start-on-weekday 1)
+
+  ;; Tag faces — cobalt2 palette, only auto-applied tags
+  (setq org-tag-faces
+        '(("IDEA"        . (:foreground "#ffc600" :weight bold))
+          ("RAW"         . (:foreground "#af87ff" :slant italic))
+          ("PROJECT"     . (:foreground "#ffc600"))
+          ("APPLICATION" . (:foreground "#ffc600"))
+          ("TASK"        . (:foreground "#0088ff"))
+          ("NOTE"        . (:foreground "#9effff" :slant italic))
+          ("HABIT"       . (:foreground "#ff9d00"))
+          ("WORK"        . (:foreground "#a5ff90"))
+          ("NEOVIM"      . (:foreground "#a5ff90" :weight bold))))
+
   (my/org-second-brain-set-global-agenda-files)
   (setq org-refile-targets '((org-agenda-files . (:maxlevel . 9))))
   (unless (advice-member-p #'my/org-second-brain-around-org-refile-get-targets 'org-refile-get-targets)
