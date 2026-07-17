@@ -71,7 +71,10 @@
 ;; Verify: `M-x describe-mode` → typescript-ts-mode / tsx-ts-mode; `M-x lsp-describe-session`.
 ;; Tree-sitter grammars: finish `doom sync` if *.tsx warns about missing libtree-sitter-*.so.
 
-(setq projectile-enable-caching nil)
+(setq projectile-enable-caching nil
+      projectile-project-search-path
+      '(("~/Projects/Personal/Github" . 2)
+        ("~/Projects/Work/Github" . 2)))
 
 ;; Enable orderless-flex by default so `abc' matches flexibly (like `aXbYcZ')
 ;; instead of requiring the `~' prefix. Keeps vertico/corfu working.
