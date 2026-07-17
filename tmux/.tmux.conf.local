@@ -1666,4 +1666,16 @@ bind -T copy-mode-vi 'C-l' select-pane -R
 # }}}
 #-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# --- NOTE: tmux 3.7+ message overlay fix {{{
+#           message-style needs "fill=<bg>" to cover full status bar width
+#           https://github.com/tmux/tmux/issues/4861
+#-------------------------------------------------------------------------------
+set -g message-style "fg=#080808,bg=#ffc600,bold,fill=#ffc600" #!important
+set -g message-command-style "fg=#ffc600,bg=#080808,bold,fill=#080808" #!important
+set -g prompt-cursor-colour black
+# }}}
+#-------------------------------------------------------------------------------
+
+
 # vim:fdm=marker
