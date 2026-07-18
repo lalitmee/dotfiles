@@ -284,6 +284,9 @@
   (setq org-startup-indented t)
   (setq org-src-tab-acts-natively t)
   (setq org-src-preserve-indentation nil)
+  (setq org-src-fontify-natively t)
+  (add-to-list 'org-src-lang-modes '("typescript" . typescript-ts))
+  (add-to-list 'org-src-lang-modes '("tsx" . tsx-ts))
   (add-hook 'org-mode-hook #'my/org-setup-save-hook))
 
 (after! org-journal
