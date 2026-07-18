@@ -104,8 +104,8 @@
     (or (cl-some (lambda (rel)
                    (let ((p (expand-file-name rel root)))
                      (when (file-exists-p p) p)))
-                 '("brain/notes/system/inbox.org" "notes/inbox.org" "sandbox/ideas/inbox.org" "ideas/inbox.org" "inbox.org"))
-        (expand-file-name "brain/notes/system/inbox.org" root))))
+                 '("brain/notes/inbox.org" "notes/inbox.org" "sandbox/ideas/inbox.org" "ideas/inbox.org" "inbox.org"))
+        (expand-file-name "brain/notes/inbox.org" root))))
 
 (defun my/org-second-brain-capture-inbox-file ()
   (my/org-second-brain-inbox-file-for-brain my/org-capture-active-brain))
@@ -253,7 +253,7 @@
           ;; Notes
           ("n" "📓 Note")
           ("np" "🏠 Personal" entry
-           (file ,(expand-file-name "brain/notes/system/inbox.org" my/org-second-brain-personal-root))
+           (file ,(expand-file-name "brain/notes/inbox.org" my/org-second-brain-personal-root))
            "* %^{Title} :NOTE:\n  %U\n\n%?" :empty-lines-before 1)
           ("nw" "💼 Work" entry
            (file ,(expand-file-name "notes/inbox.org" my/org-second-brain-work-root))
