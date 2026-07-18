@@ -294,7 +294,7 @@
   (setq org-journal-file-format "%Y/%m/%d.org"))
 
 (after! org-roam
-  (setq org-roam-directory (expand-file-name "notes" org-directory))
+  (setq org-roam-directory (expand-file-name "brain/notes" org-directory))
   (setq org-roam-db-location (expand-file-name ".org-roam.db" org-directory)))
 
 (use-package! org-super-agenda

@@ -126,3 +126,8 @@
 
 ;; Disable quit confirmation popup
 (setq confirm-kill-emacs nil)
+
+(map! :leader
+      :desc "Search second-brain notes"
+      "n B s" (lambda () (interactive)
+                (consult-ripgrep "~/Projects/Personal/Github/second-brain/brain/notes")))
