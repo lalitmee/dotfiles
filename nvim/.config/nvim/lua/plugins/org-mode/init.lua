@@ -224,7 +224,7 @@ return {
                         p = {
                             description = "🏠 Personal",
                             template = "* %^{Title} :NOTE:\n  %U\n\n%?",
-                            target = "~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org",
+                            target = "~/Projects/Personal/Github/second-brain/brain/notes/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                         w = {

@@ -339,10 +339,10 @@ super + comma
 
 # >> floating-notes -> ghostty
 # super + shift + n
-#     i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org
+#     i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/inbox.org
 # >> floating-notes -> neovide
 super + shift + n
-    i3run --summon --class neovide-notes -- neovide --x11-wm-class neovide-notes ~/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org
+    i3run --summon --class neovide-notes -- neovide --x11-wm-class neovide-notes ~/Projects/Personal/Github/second-brain/brain/notes/inbox.org
 
 # >> todos -> ghostty
 # super + shift + t

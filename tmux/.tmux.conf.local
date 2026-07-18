@@ -712,7 +712,7 @@ set -g @tpad-scratchpad-title " Scratchpad "
 #-------------------------------------------------------------------------------
 # --- NOTE: Second-brain Instances {{{
 #-------------------------------------------------------------------------------
-set -g @tpad-notes-personal-cmd "nvim $HOME/Projects/Personal/Github/second-brain/brain/notes/system/inbox.org"
+set -g @tpad-notes-personal-cmd "nvim $HOME/Projects/Personal/Github/second-brain/brain/notes/inbox.org"
 set -g @tpad-notes-personal-title " Personal Notes "
 
 set -g @tpad-notes-work-cmd "nvim $HOME/Projects/Work/Github/second-brain/notes/inbox.org"
