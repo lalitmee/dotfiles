@@ -82,6 +82,8 @@ fi
 # FZF picker
 # -------------------------------------------------------------------
 fzf_output=$(echo "$sorted_file" | fzf --bind="change:first" --reverse \
+  --delimiter / \
+  --with-nth -2,-1 \
   --header 'Enter: new window  C-v: split right  C-s: split bottom' \
   --preview "$preview_cmd" \
   --preview-window=right:60%:wrap \
