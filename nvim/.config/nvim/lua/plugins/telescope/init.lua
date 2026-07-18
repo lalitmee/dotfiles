@@ -6,6 +6,7 @@ return {
         init = function()
             local wk = require("which-key")
             wk.add({
+                { "<leader>s", group = "search" },
                 { "<leader>v", group = "vim" },
             })
         end,
@@ -36,6 +37,22 @@ return {
             { "<leader>nx", ":Telescope reloader<CR>", desc = "Reloaders", silent = true },
             { "<leader>q/", ":Telescope quickfix<CR>", desc = "Telescope Quickfix", silent = true },
             { "<leader>sa", ":TelescopeFuzzyLiveGrep<CR>", desc = "Fuzzy Live Grep", silent = true },
+            {
+                "<leader>sg",
+                function()
+                    require("telescope.builtin").live_grep({ cwd = "~/Projects/Personal/Github/second-brain/brain/notes" })
+                end,
+                desc = "Notes Grep",
+                silent = true,
+            },
+            {
+                "<leader>sn",
+                function()
+                    require("telescope.builtin").find_files({ cwd = "~/Projects/Personal/Github/second-brain/brain/notes" })
+                end,
+                desc = "Notes Files",
+                silent = true,
+            },
             { "<leader>sr", ":Telescope resume<CR>", desc = "Live Grep Resume", silent = true },
 
             -- vim

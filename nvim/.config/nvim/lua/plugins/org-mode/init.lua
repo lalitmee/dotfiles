@@ -428,7 +428,7 @@ return {
             { "<localleader>n." },
         },
         opts = {
-            directory = "~/Projects/Personal/Github/notes",
+            directory = "~/Projects/Personal/Github/second-brain/brain/notes",
             bindings = {
                 prefix = "<localleader>n",
             },
