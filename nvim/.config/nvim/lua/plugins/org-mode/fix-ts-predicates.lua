@@ -50,7 +50,7 @@ vim.treesitter.query.add_directive("org-set-block-language!", function(match, _,
   if not text or vim.trim(text) == "" then
     return
   end
-  metadata["injection.language"] = require("orgmode.utils").detect_filetype(text, true)
+  metadata["injection.language"] = config:detect_filetype(text, true)
 end, { force = true })
 
 vim.treesitter.query.add_predicate("org-is-headline-level?", function(match, _, _, predicate)
