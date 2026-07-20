@@ -289,6 +289,17 @@
   (add-to-list 'org-src-lang-modes '("tsx" . tsx-ts))
   (add-hook 'org-mode-hook #'my/org-setup-save-hook))
 
+(defun my/org-second-brain-archive-location ()
+  "Set `org-archive-location' buffer-locally based on which brain the file belongs to.
+File-level `#+ARCHIVE:' directives override this."
+  (when-let* ((file (buffer-file-name))
+              (brain (my/org-second-brain-for-file file)))
+    (let ((root (my/org-second-brain--root-for brain)))
+      (setq-local org-archive-location
+                  (concat (expand-file-name "archive/inbox.org" root) "::")))))
+
+(add-hook 'org-mode-hook #'my/org-second-brain-archive-location)
+
 (after! org-journal
   (setq org-journal-dir (expand-file-name "journal" org-directory))
   (setq org-journal-file-format "%Y/%m/%d.org"))
