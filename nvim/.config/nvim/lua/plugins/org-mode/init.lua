@@ -188,7 +188,7 @@ return {
                         w = {
                             description = "💼 Work",
                             template = "* %? :IDEA:WORK:",
-                            target = "~/Projects/Work/Github/second-brain/ideas/inbox.org",
+                            target = "~/Projects/Work/Github/second-brain/sandbox/ideas/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -212,7 +212,7 @@ return {
                         w = {
                             description = "💼 Work",
                             template = "* TODO %? :TASK:WORK:\n  SCHEDULED: %U DEADLINE: %t",
-                            target = "~/Projects/Work/Github/second-brain/agenda/todos.org",
+                            target = "~/Projects/Work/Github/second-brain/daily/agenda/todos.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -230,7 +230,7 @@ return {
                         w = {
                             description = "💼 Work",
                             template = "* %^{Title} :NOTE:WORK:\n  %U\n\n%?",
-                            target = "~/Projects/Work/Github/second-brain/notes/inbox.org",
+                            target = "~/Projects/Work/Github/second-brain/brain/notes/inbox.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },
@@ -248,7 +248,7 @@ return {
                         },
                         w = {
                             description = "💼 Work",
-                            target = "~/Projects/Work/Github/second-brain/journal/inbox.org",
+                            target = "~/Projects/Work/Github/second-brain/daily/journal/inbox.org",
                             template = "* [%<%I:%M %p>] %? :WORK:",
                             datetree = { tree_type = "day" },
                             properties = { empty_lines = { before = 1 } },
@@ -268,7 +268,7 @@ return {
                         w = {
                             description = "💼 Work",
                             template = "* TODO %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:",
-                            target = "~/Projects/Work/Github/second-brain/agenda/habits.org",
+                            target = "~/Projects/Work/Github/second-brain/daily/agenda/habits.org",
                             properties = { empty_lines = { before = 1 } },
                         },
                     },

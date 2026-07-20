@@ -234,8 +234,8 @@
           ("in" "💤 Neovim" entry
            (file ,(expand-file-name "sandbox/ideas/neovim.org" my/org-second-brain-personal-root))
            "* %? :IDEA:NEOVIM:" :empty-lines-before 1)
-          ("iw" "💼 Work" entry
-           (file ,(expand-file-name "ideas/inbox.org" my/org-second-brain-work-root))
+           ("iw" "💼 Work" entry
+            (file ,(expand-file-name "sandbox/ideas/inbox.org" my/org-second-brain-work-root))
            "* %? :IDEA:WORK:" :empty-lines-before 1)
 
           ;; Tasks
@@ -246,8 +246,8 @@
           ("tn" "💤 Neovim" entry
            (file ,(expand-file-name "daily/agenda/todos.org" my/org-second-brain-personal-root))
            "* TODO %? :NEOVIM:TASK:\n  SCHEDULED: %U DEADLINE: %t" :empty-lines-before 1)
-          ("tw" "💼 Work" entry
-           (file ,(expand-file-name "agenda/todos.org" my/org-second-brain-work-root))
+           ("tw" "💼 Work" entry
+            (file ,(expand-file-name "daily/agenda/todos.org" my/org-second-brain-work-root))
            "* TODO %? :TASK:WORK:\n  SCHEDULED: %U DEADLINE: %t" :empty-lines-before 1)
 
           ;; Notes
@@ -255,8 +255,8 @@
           ("np" "🏠 Personal" entry
            (file ,(expand-file-name "brain/notes/inbox.org" my/org-second-brain-personal-root))
            "* %^{Title} :NOTE:\n  %U\n\n%?" :empty-lines-before 1)
-          ("nw" "💼 Work" entry
-           (file ,(expand-file-name "notes/inbox.org" my/org-second-brain-work-root))
+           ("nw" "💼 Work" entry
+            (file ,(expand-file-name "brain/notes/inbox.org" my/org-second-brain-work-root))
            "* %^{Title} :NOTE:WORK:\n  %U\n\n%?" :empty-lines-before 1)
 
           ;; Journal
@@ -264,8 +264,8 @@
           ("jp" "🏠 Personal" entry
            (file+datetree ,(expand-file-name "daily/journal/inbox.org" my/org-second-brain-personal-root))
            "* [%<%I:%M %p>] %?" :tree-type day)
-          ("jw" "💼 Work" entry
-           (file+datetree ,(expand-file-name "journal/inbox.org" my/org-second-brain-work-root))
+           ("jw" "💼 Work" entry
+            (file+datetree ,(expand-file-name "daily/journal/inbox.org" my/org-second-brain-work-root))
            "* [%<%I:%M %p>] %? :WORK:" :tree-type day)
 
           ;; Habits
@@ -273,8 +273,8 @@
           ("hp" "🏠 Personal" entry
            (file ,(expand-file-name "daily/agenda/habits.org" my/org-second-brain-personal-root))
            "* TODO %? :HABIT:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:" :empty-lines-before 1)
-          ("hw" "💼 Work" entry
-           (file ,(expand-file-name "agenda/habits.org" my/org-second-brain-work-root))
+           ("hw" "💼 Work" entry
+            (file ,(expand-file-name "daily/agenda/habits.org" my/org-second-brain-work-root))
            "* TODO %? :HABIT:WORK:\n  SCHEDULED: %t\n  :PROPERTIES:\n  :STYLE: habit\n  :REPEAT_TO_STATE: TODO\n  :END:" :empty-lines-before 1)
 
           ;; Quick inbox — used by SPC n B c/W/P shortcuts
