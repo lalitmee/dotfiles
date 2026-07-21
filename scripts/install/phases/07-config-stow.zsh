@@ -35,7 +35,7 @@ STOW_PACKAGES_DESKTOP="dunst"
 # - keyd: keyboard remapping (caps lock to escape/control)
 # To stow manually: cd $DOTFILES_DIR && stow <package>
 STOW_PACKAGES_APPS="thunar flameshot ulauncher blueman cbatticon unclutter xpad vimium"
-STOW_PACKAGES_TOOLS="stylua opencode nerd-dictation"
+STOW_PACKAGES_TOOLS="stylua opencode codex nerd-dictation"
 
 # Combine all active packages
 STOW_PACKAGES="$STOW_PACKAGES_CORE $STOW_PACKAGES_TERMINAL $STOW_PACKAGES_DEV $STOW_PACKAGES_UTILS $STOW_PACKAGES_DESKTOP $STOW_PACKAGES_APPS $STOW_PACKAGES_TOOLS"
@@ -98,10 +98,44 @@ is_installed() {
             command -v stylua &> /dev/null ;;
         "opencode")
             command -v opencode &> /dev/null ;;
+        "codex")
+            command -v codex &> /dev/null ;;
         *)
             # For configs that don't have direct binaries or are always stowed
             [[ -d "$DOTFILES_DIR/$tool" ]] ;;
     esac
+}
+
+# Apply the Codex theme setting without rewriting the rest of the live config.
+apply_codex_theme_config() {
+    local package_config="$DOTFILES_DIR/codex/.codex/config.toml"
+    local live_config="$HOME/.codex/config.toml"
+    local theme_line
+
+    if [[ ! -f "$package_config" ]]; then
+        gum_style "⚠️  Skipping Codex config: package config not found"
+        return 1
+    fi
+
+    theme_line="$(grep -E '^tui\.theme[[:space:]]*=' "$package_config" | head -n 1)"
+    if [[ -z "$theme_line" ]]; then
+        gum_style "⚠️  Skipping Codex config: theme line not found in package config"
+        return 1
+    fi
+
+    mkdir -p "$HOME/.codex"
+
+    if [[ -f "$live_config" ]]; then
+        if grep -qE '^[[:space:]]*tui\.theme[[:space:]]*=' "$live_config"; then
+            perl -0pi -e 's/^[[:space:]]*tui\.theme[[:space:]]*=.*$/tui.theme = "cobalt2"/m' "$live_config"
+        else
+            printf '%s\n' "$theme_line" >> "$live_config"
+        fi
+    else
+        printf '%s\n' "$theme_line" > "$live_config"
+    fi
+
+    gum_style "✅ Updated Codex theme config"
 }
 
 # Function to stow a package
@@ -127,11 +161,27 @@ stow_package() {
     fi
 
     # Stow the package with error handling
-    if stow -v "$package" 2>&1; then
+    if [[ "$package" == "codex" ]]; then
+        if stow --ignore='config\.toml' -v "$package" 2>&1; then
+            STOW_EXIT_CODE=0
+        else
+            STOW_EXIT_CODE=$?
+        fi
+    else
+        if stow -v "$package" 2>&1; then
+            STOW_EXIT_CODE=0
+        else
+            STOW_EXIT_CODE=$?
+        fi
+    fi
+
+    if [[ $STOW_EXIT_CODE -eq 0 ]]; then
         gum_style "✅ Successfully stowed $package"
+        if [[ "$package" == "codex" ]]; then
+            apply_codex_theme_config
+        fi
         return 0
     else
-        STOW_EXIT_CODE=$?
         gum_style "❌ Failed to stow $package (exit code: $STOW_EXIT_CODE)"
         gum_style "💡 This might be due to existing files. Try: rm -rf ~/$package && cd $DOTFILES_DIR && stow $package"
         return 1
@@ -160,6 +210,11 @@ for dotfile in .zshrc .gitconfig .tmux.conf; do
         cp "$HOME/$dotfile" "$BACKUP_DIR/" 2>/dev/null || true
     fi
 done
+
+if [[ -f "$HOME/.codex/config.toml" ]]; then
+    mkdir -p "$BACKUP_DIR/.codex"
+    cp "$HOME/.codex/config.toml" "$BACKUP_DIR/.codex/" 2>/dev/null || true
+fi
 
 gum_style "📦 Backup created at: $BACKUP_DIR"
 
