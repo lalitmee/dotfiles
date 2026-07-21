@@ -3,3 +3,12 @@ repos:
     rev: v8.18.2
     hooks:
     -   id: gitleaks
+-   repo: local
+    hooks:
+    -   id: check-cursor-cli-config
+        name: check cursor cli-config has no identity/cache keys
+        entry: scripts/hooks/check-cursor-cli-config.zsh
+        language: system
+        files: ^cursor/\.config/cursor/cli-config\.json$
+        pass_filenames: false
+        always_run: true
