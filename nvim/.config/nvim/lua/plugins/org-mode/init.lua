@@ -70,7 +70,7 @@ return {
                 "~/Projects/Work/Github/second-brain/**/*", -- work todo
                 "~/Projects/Personal/Github/second-brain/**/*", -- personal todo
             },
-            org_default_notes_file = "~/Projects/Personal/Github/second-brain/notes/inbox.org",
+            org_default_notes_file = "~/Projects/Personal/Github/second-brain/brain/notes/inbox.org",
 
             org_archive_location = "~/Projects/Personal/Github/second-brain/archive/inbox.org::",
 
@@ -426,6 +426,24 @@ return {
             { "<localleader>np" },
             { "<localleader>nq" },
             { "<localleader>n." },
+            {
+                "<localleader>nW",
+                function()
+                    local roam = require("org-roam")
+                    local saved = {
+                        directory = roam.config.directory,
+                        database = roam.config.database,
+                    }
+                    roam.setup({
+                        directory = vim.fn.expand("~/Projects/Work/Github/second-brain/brain/notes"),
+                        database = { path = vim.fn.expand("~/Projects/Work/Github/second-brain/.org-roam.db") },
+                    })
+                    roam.api.find_node():next(function()
+                        roam.setup(saved)
+                    end)
+                end,
+                desc = "Org-roam find (work)",
+            },
         },
         opts = {
             directory = "~/Projects/Personal/Github/second-brain/brain/notes",
