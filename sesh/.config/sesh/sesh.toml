@@ -1,0 +1,7 @@
+[[session]]
+name = "second-brain-work"
+path = "~/Projects/Work/Github/second-brain"
+
+[[session]]
+name = "second-brain-personal"
+path = "~/Projects/Personal/Github/second-brain"
