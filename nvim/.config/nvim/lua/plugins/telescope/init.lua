@@ -38,6 +38,22 @@ return {
             { "<leader>q/", ":Telescope quickfix<CR>", desc = "Telescope Quickfix", silent = true },
             { "<leader>sa", ":TelescopeFuzzyLiveGrep<CR>", desc = "Fuzzy Live Grep", silent = true },
             {
+                "<leader>sG",
+                function()
+                    require("telescope.builtin").live_grep({ cwd = "~/Projects/Work/Github/second-brain/brain/notes" })
+                end,
+                desc = "Work Notes Grep",
+                silent = true,
+            },
+            {
+                "<leader>sN",
+                function()
+                    require("telescope.builtin").find_files({ cwd = "~/Projects/Work/Github/second-brain/brain/notes" })
+                end,
+                desc = "Work Notes Files",
+                silent = true,
+            },
+            {
                 "<leader>sg",
                 function()
                     require("telescope.builtin").live_grep({ cwd = "~/Projects/Personal/Github/second-brain/brain/notes" })

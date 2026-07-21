@@ -128,9 +128,17 @@
   (let ((my/org-capture-active-brain :personal))
     (org-capture nil "b")))
 
+(defun my/org-second-brain-consult-ripgrep-work ()
+  (interactive)
+  (consult-ripgrep (expand-file-name "brain/notes" my/org-second-brain-work-root)))
+
+(defun my/org-second-brain-consult-ripgrep-personal ()
+  (interactive)
+  (consult-ripgrep (expand-file-name "brain/notes" my/org-second-brain-personal-root)))
+
 (defun my/org-second-brain-roam-node-find-work ()
   (interactive)
-  (let ((org-roam-directory (expand-file-name "notes" my/org-second-brain-work-root))
+  (let ((org-roam-directory (expand-file-name "brain/notes" my/org-second-brain-work-root))
         (org-roam-db-location (expand-file-name ".org-roam.db" my/org-second-brain-work-root)))
     (org-roam-node-find)))
 
@@ -332,4 +340,6 @@ File-level `#+ARCHIVE:' directives override this."
         :desc "Capture (personal)" "P" #'my/org-second-brain-capture-personal
         :desc "Roam find (work)" "r" #'my/org-second-brain-roam-node-find-work
         :desc "Roam find (personal)" "R" #'my/org-second-brain-roam-node-find-personal
+        :desc "Search notes (work)" "s" #'my/org-second-brain-consult-ripgrep-work
+        :desc "Search notes (personal)" "S" #'my/org-second-brain-consult-ripgrep-personal
         :desc "Refresh org-agenda-files" "g" #'my/org-second-brain-set-global-agenda-files))
