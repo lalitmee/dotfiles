@@ -5,7 +5,8 @@
 ;;; `my/org-second-brain-leader-key' to retarget all bindings.
 ;;;   a merged agenda   w work agenda   p personal agenda
 ;;;   c capture (brain prompt)   W work capture   P personal capture
-;;;   r roam (work)   R roam (personal)   g refresh `org-agenda-files'
+;;;   R roam (work)   r roam (personal)   S search work   s search personal
+;;;   g refresh `org-agenda-files'
 ;;;
 ;;; Capture template key: b → Inbox (uses `notes/inbox.org' or fallbacks).
 
@@ -338,8 +339,8 @@ File-level `#+ARCHIVE:' directives override this."
         :desc "Capture (pick brain)" "c" #'my/org-second-brain-capture-generic
         :desc "Capture (work)" "W" #'my/org-second-brain-capture-work
         :desc "Capture (personal)" "P" #'my/org-second-brain-capture-personal
-        :desc "Roam find (work)" "r" #'my/org-second-brain-roam-node-find-work
-        :desc "Roam find (personal)" "R" #'my/org-second-brain-roam-node-find-personal
-        :desc "Search notes (work)" "s" #'my/org-second-brain-consult-ripgrep-work
-        :desc "Search notes (personal)" "S" #'my/org-second-brain-consult-ripgrep-personal
+        :desc "Roam find (work)" "R" #'my/org-second-brain-roam-node-find-work
+        :desc "Roam find (personal)" "r" #'my/org-second-brain-roam-node-find-personal
+        :desc "Search notes (work)" "S" #'my/org-second-brain-consult-ripgrep-work
+        :desc "Search notes (personal)" "s" #'my/org-second-brain-consult-ripgrep-personal
         :desc "Refresh org-agenda-files" "g" #'my/org-second-brain-set-global-agenda-files))
