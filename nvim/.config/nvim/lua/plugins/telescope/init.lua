@@ -58,7 +58,7 @@ return {
                 function()
                     require("telescope.builtin").live_grep({ cwd = "~/Projects/Personal/Github/second-brain/brain/notes" })
                 end,
-                desc = "Notes Grep",
+                desc = "Personal Notes Grep",
                 silent = true,
             },
             {
@@ -66,7 +66,7 @@ return {
                 function()
                     require("telescope.builtin").find_files({ cwd = "~/Projects/Personal/Github/second-brain/brain/notes" })
                 end,
-                desc = "Notes Files",
+                desc = "Personal Notes Files",
                 silent = true,
             },
             { "<leader>sr", ":Telescope resume<CR>", desc = "Live Grep Resume", silent = true },
