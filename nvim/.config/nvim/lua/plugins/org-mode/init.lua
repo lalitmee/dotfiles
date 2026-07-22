@@ -450,6 +450,20 @@ return {
             bindings = {
                 prefix = "<localleader>n",
             },
+            templates = {
+                capture = {
+                    {
+                        description = "default",
+                        template = "#+title: %[title]\n%?",
+                        target = "%[slug].org",
+                    },
+                },
+                immediate = {
+                    description = "default",
+                    template = "#+title: %[title]\n%?",
+                    target = "%[slug].org",
+                },
+            },
         },
     },
 

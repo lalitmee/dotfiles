@@ -315,7 +315,19 @@ File-level `#+ARCHIVE:' directives override this."
 
 (after! org-roam
   (setq org-roam-directory (expand-file-name "brain/notes" org-directory))
-  (setq org-roam-db-location (expand-file-name ".org-roam.db" org-directory)))
+  (setq org-roam-db-location (expand-file-name ".org-roam.db" org-directory))
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :target (file+head "${slug}.org"
+                              "#+title: ${title}\n")
+           :unnarrowed t))))
+
+(cl-defmethod org-roam-node-slug ((node org-roam-node))
+  (let* ((title (org-roam-node-title node))
+         (slug (replace-regexp-in-string "[^[:alnum:][:digit:]]" "-" title))
+         (slug (replace-regexp-in-string "--+" "-" slug))
+         (slug (replace-regexp-in-string "^-\\|-$" "" slug)))
+    (downcase slug)))
 
 (use-package! org-super-agenda
   :after org-agenda
