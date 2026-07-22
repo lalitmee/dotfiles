@@ -94,7 +94,7 @@ execute_command \
 
 # Install wakatime (time tracking)
 execute_command \
-    "sudo apt install -y python3-pip && pip3 install wakatime" \
+    "pipx install wakatime" \
     "wakatime (time tracking) installed successfully." \
     "Failed to install wakatime."
 
