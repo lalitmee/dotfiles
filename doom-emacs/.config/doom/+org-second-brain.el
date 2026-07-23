@@ -320,14 +320,13 @@ File-level `#+ARCHIVE:' directives override this."
         '(("d" "default" plain "%?"
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n")
-           :unnarrowed t))))
-
-(cl-defmethod org-roam-node-slug ((node org-roam-node))
-  (let* ((title (org-roam-node-title node))
-         (slug (replace-regexp-in-string "[^[:alnum:][:digit:]]" "-" title))
-         (slug (replace-regexp-in-string "--+" "-" slug))
-         (slug (replace-regexp-in-string "^-\\|-$" "" slug)))
-    (downcase slug)))
+           :unnarrowed t)))
+  (cl-defmethod org-roam-node-slug ((node org-roam-node))
+    (let* ((title (org-roam-node-title node))
+           (slug (replace-regexp-in-string "[^[:alnum:][:digit:]]" "-" title))
+           (slug (replace-regexp-in-string "--+" "-" slug))
+           (slug (replace-regexp-in-string "^-\\|-$" "" slug)))
+      (downcase slug))))
 
 (use-package! org-super-agenda
   :after org-agenda
