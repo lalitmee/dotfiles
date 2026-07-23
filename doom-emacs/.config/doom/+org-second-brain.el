@@ -6,7 +6,7 @@
 ;;;   a merged agenda   w work agenda   p personal agenda
 ;;;   c capture (brain prompt)   W work capture   P personal capture
 ;;;   R roam (work)   r roam (personal)   S search work   s search personal
-;;;   g refresh `org-agenda-files'
+;;;   d dailies (context brain; default personal)   g refresh `org-agenda-files'
 ;;;
 ;;; Capture template key: b → Inbox (uses `notes/inbox.org' or fallbacks).
 
@@ -148,6 +148,70 @@
   (let ((org-roam-directory (expand-file-name "brain/notes" my/org-second-brain-personal-root))
         (org-roam-db-location (expand-file-name ".org-roam.db" my/org-second-brain-personal-root)))
     (org-roam-node-find)))
+
+(defun my/org-second-brain-resolve-brain ()
+  "Return `:personal' or `:work' for roam/dailies commands.
+Prefer the brain of the context file; default to `:personal'."
+  (or (my/org-second-brain-for-file (my/org-second-brain-context-file))
+      :personal))
+
+(defun my/org-second-brain-roam-dailies-ensure-dirs ()
+  "Create `brain/notes/daily/' under both second-brains if missing."
+  (dolist (root (list my/org-second-brain-personal-root my/org-second-brain-work-root))
+    (make-directory (expand-file-name "brain/notes/daily" root) t)))
+
+(defun my/org-second-brain-roam-dailies--do (fn &rest args)
+  "Call org-roam-dailies FN with ARGS in the resolved second-brain."
+  (my/org-second-brain-roam-dailies-ensure-dirs)
+  (let* ((brain (my/org-second-brain-resolve-brain))
+         (root (my/org-second-brain--root-for brain))
+         (org-roam-directory (expand-file-name "brain/notes" root))
+         (org-roam-db-location (expand-file-name ".org-roam.db" root)))
+    (apply fn args)))
+
+(defun my/org-second-brain-roam-dailies-goto-today ()
+  (interactive)
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-goto-today))
+
+(defun my/org-second-brain-roam-dailies-capture-today ()
+  (interactive)
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-capture-today))
+
+(defun my/org-second-brain-roam-dailies-goto-yesterday (n)
+  (interactive "p")
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-goto-yesterday n))
+
+(defun my/org-second-brain-roam-dailies-capture-yesterday (n)
+  (interactive "p")
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-capture-yesterday n))
+
+(defun my/org-second-brain-roam-dailies-goto-tomorrow (n)
+  (interactive "p")
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-goto-tomorrow n))
+
+(defun my/org-second-brain-roam-dailies-capture-tomorrow (n)
+  (interactive "p")
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-capture-tomorrow n))
+
+(defun my/org-second-brain-roam-dailies-goto-date ()
+  (interactive)
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-goto-date))
+
+(defun my/org-second-brain-roam-dailies-capture-date ()
+  (interactive)
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-capture-date))
+
+(defun my/org-second-brain-roam-dailies-goto-previous-note (n)
+  (interactive "p")
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-goto-previous-note n))
+
+(defun my/org-second-brain-roam-dailies-goto-next-note (n)
+  (interactive "p")
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-goto-next-note n))
+
+(defun my/org-second-brain-roam-dailies-find-directory ()
+  (interactive)
+  (my/org-second-brain-roam-dailies--do #'org-roam-dailies-find-directory))
 
 (defun my/org-second-brain-around-org-refile-get-targets (orig-fn &optional default-buffer)
   (let ((targets (funcall orig-fn default-buffer))
@@ -314,13 +378,21 @@ File-level `#+ARCHIVE:' directives override this."
   (setq org-journal-file-format "%Y/%m/%d.org"))
 
 (after! org-roam
+  (require 'org-roam-dailies)
   (setq org-roam-directory (expand-file-name "brain/notes" org-directory))
   (setq org-roam-db-location (expand-file-name ".org-roam.db" org-directory))
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %<%H:%M> %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?"
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n")
            :unnarrowed t)))
+  (my/org-second-brain-roam-dailies-ensure-dirs)
   (cl-defmethod org-roam-node-slug ((node org-roam-node))
     (let* ((title (org-roam-node-title node))
            (slug (replace-regexp-in-string "[^[:alnum:][:digit:]]" "-" title))
@@ -354,4 +426,17 @@ File-level `#+ARCHIVE:' directives override this."
         :desc "Roam find (personal)" "r" #'my/org-second-brain-roam-node-find-personal
         :desc "Search notes (work)" "S" #'my/org-second-brain-consult-ripgrep-work
         :desc "Search notes (personal)" "s" #'my/org-second-brain-consult-ripgrep-personal
-        :desc "Refresh org-agenda-files" "g" #'my/org-second-brain-set-global-agenda-files))
+        :desc "Refresh org-agenda-files" "g" #'my/org-second-brain-set-global-agenda-files
+        (:prefix ("d" . "dailies")
+         :desc "Goto previous note" "b" #'my/org-second-brain-roam-dailies-goto-previous-note
+         :desc "Goto date" "d" #'my/org-second-brain-roam-dailies-goto-date
+         :desc "Capture date" "D" #'my/org-second-brain-roam-dailies-capture-date
+         :desc "Goto next note" "f" #'my/org-second-brain-roam-dailies-goto-next-note
+         :desc "Goto tomorrow" "m" #'my/org-second-brain-roam-dailies-goto-tomorrow
+         :desc "Capture tomorrow" "M" #'my/org-second-brain-roam-dailies-capture-tomorrow
+         :desc "Capture today" "n" #'my/org-second-brain-roam-dailies-capture-today
+         :desc "Goto today" "t" #'my/org-second-brain-roam-dailies-goto-today
+         :desc "Capture today" "T" #'my/org-second-brain-roam-dailies-capture-today
+         :desc "Goto yesterday" "y" #'my/org-second-brain-roam-dailies-goto-yesterday
+         :desc "Capture yesterday" "Y" #'my/org-second-brain-roam-dailies-capture-yesterday
+         :desc "Find directory" "-" #'my/org-second-brain-roam-dailies-find-directory)))
