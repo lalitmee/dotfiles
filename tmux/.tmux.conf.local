@@ -667,7 +667,8 @@ run-shell '
               notes-personal notes-work todos-personal todos-work \
               daily-personal-todo daily-work-todo scratch-personal scratch-work \
               journal-personal journal-work backup-logs scratchpad \
-              ai-notes ai-journal; do
+              ai-notes ai-journal \
+              espanso-edit cht-sh manpage git-help regex-test worktree-logs; do
     tmux set -g "@tpad-${inst}-style" "$style"
     tmux set -g "@tpad-${inst}-border_style" "$border"
     tmux set -g "@tpad-${inst}-border_lines" "$lines"
@@ -705,6 +706,25 @@ set -g @tpad-grimoire-title " Grimoire Scratchpad "
 
 set -g @tpad-scratchpad-cmd ""
 set -g @tpad-scratchpad-title " Scratchpad "
+
+#--- custom_shpell replacements ---
+set -g @tpad-espanso-edit-cmd "espanso edit"
+set -g @tpad-espanso-edit-title " Espanso Edit "
+
+set -g @tpad-cht-sh-cmd "~/.config/tmux/scripts/cht-sh/cht.sh"
+set -g @tpad-cht-sh-title " Cht.sh "
+
+set -g @tpad-manpage-cmd "man zsh"
+set -g @tpad-manpage-title " Man Page "
+
+set -g @tpad-git-help-cmd "git help -a | less"
+set -g @tpad-git-help-title " Git Help "
+
+set -g @tpad-regex-test-cmd 'python3 -c "import re; help(re)" | less'
+set -g @tpad-regex-test-title " Regex Help "
+
+set -g @tpad-worktree-logs-cmd "nvim $HOME/.local/share/tmux/logs/git-worktree.log"
+set -g @tpad-worktree-logs-title " Worktree Logs "
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
@@ -1372,7 +1392,7 @@ bind-key C-d switch-client -T dev-mode
 #-------------------------------------------------------------------------------
 
 # espanso edit => global snippets
-bind-key -T dev-mode e run-shell "custom_shpell ephemeral espanso-edit 'espanso edit'"
+bind-key -T dev-mode e run-shell "#{@tpad-path} toggle espanso-edit"
 
 # Launch the project runner script in a dedicated window.
 bind-key -T dev-mode r run-shell "zsh $HOME/.config/tmux/scripts/popup/runner/runner.sh '#{pane_id}' '#{pane_current_path}'"
@@ -1414,7 +1434,7 @@ bind-key C-m switch-client -T monitor-mode
 # --- NOTE: Monitor Mode - Process Viewer {{{
 #-------------------------------------------------------------------------------
 
-bind -T monitor-mode b run-shell "custom_shpell standard process-viewer 'btm'"
+bind -T monitor-mode b run-shell "#{@tpad-path} toggle process-viewer"
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -1445,16 +1465,16 @@ bind-key C-q switch-client -T quick-ref
 #------------------------------------------------------------------------------
 
 # Launch the cht.sh helper script in a popup.
-bind-key -T quick-ref c run-shell "custom_shpell ephemeral cht-sh '~/.config/tmux/scripts/cht-sh/cht.sh'"
+bind-key -T quick-ref c run-shell "#{@tpad-path} toggle cht-sh"
 
 # Man page viewer (ephemeral)
-bind-key -T quick-ref m run-shell "custom_shpell ephemeral manpage 'man zsh'"
+bind-key -T quick-ref m run-shell "#{@tpad-path} toggle manpage"
 
 # Git quick reference
-bind-key -T quick-ref g run-shell "custom_shpell ephemeral git-help 'git help -a | less'"
+bind-key -T quick-ref g run-shell "#{@tpad-path} toggle git-help"
 
 # Regex tester (ephemeral)
-bind-key -T quick-ref r run-shell "custom_shpell ephemeral regex-test 'python3 -c \"import re; help(re)\" | less'"
+bind-key -T quick-ref r run-shell "#{@tpad-path} toggle regex-test"
 
 #------------------------------------------------------------------------------
 # }}}
@@ -1505,7 +1525,7 @@ bind-key -T git-mode s display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/gi
 bind-key -T git-mode d display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh delete"
 
  # Git Worktree Logs
- bind-key -T git-mode l run-shell "custom_shpell standard worktree-logs 'nvim $HOME/.local/share/tmux/logs/git-worktree.log'"
+ bind-key -T git-mode l run-shell "#{@tpad-path} toggle worktree-logs"
 
 #-------------------------------------------------------------------------------
 # }}}

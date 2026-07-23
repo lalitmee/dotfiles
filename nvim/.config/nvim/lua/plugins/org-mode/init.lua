@@ -444,6 +444,22 @@ return {
                 end,
                 desc = "Org-roam find (work)",
             },
+            -- ponytail: lazy-loading stubs for dailies
+            { "<localleader>ndn" },
+            { "<localleader>ndN" },
+            { "<localleader>ndy" },
+            { "<localleader>ndY" },
+            { "<localleader>ndt" },
+            { "<localleader>ndT" },
+            { "<localleader>ndd" },
+            { "<localleader>ndD" },
+            { "<localleader>ndb" },
+            { "<localleader>ndf" },
+            { "<localleader>nd." },
+            { "<localleader>ndWn" },
+            { "<localleader>ndWN" },
+            { "<localleader>ndWy" },
+            { "<localleader>ndWd" },
         },
         opts = {
             directory = "~/Projects/Personal/Github/second-brain/brain/notes",
@@ -464,7 +480,102 @@ return {
                     target = "%[slug].org",
                 },
             },
+            extensions = {
+                dailies = {
+                    directory = "daily/",
+                    bindings = false,
+                    templates = {
+                        d = {
+                            description = "default",
+                            template = "* %<%H:%M> %?",
+                            target = "%<%Y-%m-%d>.org",
+                        },
+                    },
+                },
+            },
         },
+        config = function(_, opts)
+            require("org-roam").setup(opts)
+
+            local personal_dir = "~/Projects/Personal/Github/second-brain/brain/notes"
+            local personal_db  = "~/Projects/Personal/Github/second-brain/.org-roam.db"
+            local work_dir     = "~/Projects/Work/Github/second-brain/brain/notes"
+            local work_db      = "~/Projects/Work/Github/second-brain/.org-roam.db"
+
+            local function resolve_brain()
+                local cwd = vim.fn.expand("%:p")
+                if cwd:find("Projects/Work/") then
+                    return "work"
+                end
+                return "personal"
+            end
+
+            local function with_brain(target, fn)
+                local roam = require("org-roam")
+                local saved = {
+                    directory = roam.config.directory,
+                    database = roam.config.database,
+                }
+                local dir, db = target == "work" and work_dir or personal_dir,
+                                target == "work" and work_db or personal_db
+                roam.setup({
+                    directory = dir,
+                    database = { path = db },
+                })
+                fn():next(function()
+                    roam.setup(saved)
+                end)
+            end
+
+            local dailies = require("org-roam.extensions.dailies")
+
+            vim.keymap.set("n", "<localleader>ndn", function()
+                with_brain(resolve_brain(), dailies.goto_today)
+            end, { desc = "dailies goto today" })
+            vim.keymap.set("n", "<localleader>ndN", function()
+                with_brain(resolve_brain(), dailies.capture_today)
+            end, { desc = "dailies capture today" })
+            vim.keymap.set("n", "<localleader>ndy", function()
+                with_brain(resolve_brain(), dailies.goto_yesterday)
+            end, { desc = "dailies goto yesterday" })
+            vim.keymap.set("n", "<localleader>ndY", function()
+                with_brain(resolve_brain(), dailies.capture_yesterday)
+            end, { desc = "dailies capture yesterday" })
+            vim.keymap.set("n", "<localleader>ndt", function()
+                with_brain(resolve_brain(), dailies.goto_tomorrow)
+            end, { desc = "dailies goto tomorrow" })
+            vim.keymap.set("n", "<localleader>ndT", function()
+                with_brain(resolve_brain(), dailies.capture_tomorrow)
+            end, { desc = "dailies capture tomorrow" })
+            vim.keymap.set("n", "<localleader>ndd", function()
+                with_brain(resolve_brain(), dailies.goto_date)
+            end, { desc = "dailies goto date" })
+            vim.keymap.set("n", "<localleader>ndD", function()
+                with_brain(resolve_brain(), dailies.capture_date)
+            end, { desc = "dailies capture date" })
+            vim.keymap.set("n", "<localleader>ndb", function()
+                with_brain(resolve_brain(), dailies.goto_prev_date)
+            end, { desc = "dailies prev note" })
+            vim.keymap.set("n", "<localleader>ndf", function()
+                with_brain(resolve_brain(), dailies.goto_next_date)
+            end, { desc = "dailies next note" })
+            vim.keymap.set("n", "<localleader>nd.", function()
+                with_brain(resolve_brain(), dailies.find_directory)
+            end, { desc = "dailies find directory" })
+
+            vim.keymap.set("n", "<localleader>ndWn", function()
+                with_brain("work", dailies.goto_today)
+            end, { desc = "work dailies goto today" })
+            vim.keymap.set("n", "<localleader>ndWN", function()
+                with_brain("work", dailies.capture_today)
+            end, { desc = "work dailies capture today" })
+            vim.keymap.set("n", "<localleader>ndWy", function()
+                with_brain("work", dailies.goto_yesterday)
+            end, { desc = "work dailies goto yesterday" })
+            vim.keymap.set("n", "<localleader>ndWd", function()
+                with_brain("work", dailies.goto_date)
+            end, { desc = "work dailies goto date" })
+        end,
     },
 
     { --[[ org-super-agenda.nvim ]]
