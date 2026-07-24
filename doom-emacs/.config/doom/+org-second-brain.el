@@ -13,6 +13,8 @@
 (require 'cl-lib)
 (require 'seq)
 
+(setq default-input-method nil)
+
 (defvar my/org-second-brain-personal-root
   (expand-file-name "~/Projects/Personal/Github/second-brain")
   "Absolute path to the personal second-brain repo.")
@@ -398,7 +400,14 @@ File-level `#+ARCHIVE:' directives override this."
            (slug (replace-regexp-in-string "[^[:alnum:][:digit:]]" "-" title))
            (slug (replace-regexp-in-string "--+" "-" slug))
            (slug (replace-regexp-in-string "^-\\|-$" "" slug)))
-      (downcase slug))))
+      (downcase slug)))
+  ;; Prevent accidental Quail input method activation during roam interaction
+  (setq default-input-method nil)
+  (mapc (lambda (m)
+          (when (keymapp m)
+            (define-key m (kbd "C-\\") #'undefined)))
+        (list org-roam-mode-map org-roam-node-map
+              org-roam-graph-map)))
 
 (use-package! org-super-agenda
   :after org-agenda
