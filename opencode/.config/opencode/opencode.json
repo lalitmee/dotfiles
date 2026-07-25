@@ -7,6 +7,26 @@
     "@tarquinen/opencode-dcp@latest",
     "@dietrichgebert/ponytail"
   ],
+  "agent": {
+    "discover": {
+      "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
+      "mode": "primary",
+      "temperature": 0.3,
+      "color": "#4fc3f7",
+      "prompt": "{file:./prompts/explore-mode.txt}",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "todowrite": "allow"
+      }
+    }
+  },
   "mcp": {
     "context7": {
       "type": "local",
