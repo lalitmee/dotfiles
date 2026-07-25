@@ -395,19 +395,12 @@ File-level `#+ARCHIVE:' directives override this."
                               "#+title: ${title}\n")
            :unnarrowed t)))
   (my/org-second-brain-roam-dailies-ensure-dirs)
-  (cl-defmethod org-roam-node-slug ((node org-roam-node))
-    (let* ((title (org-roam-node-title node))
-           (slug (replace-regexp-in-string "[^[:alnum:][:digit:]]" "-" title))
-           (slug (replace-regexp-in-string "--+" "-" slug))
-           (slug (replace-regexp-in-string "^-\\|-$" "" slug)))
-      (downcase slug)))
   ;; Prevent accidental Quail input method activation during roam interaction
   (setq default-input-method nil)
   (mapc (lambda (m)
           (when (keymapp m)
             (define-key m (kbd "C-\\") #'undefined)))
-        (list org-roam-mode-map org-roam-node-map
-              org-roam-graph-map)))
+        (list org-roam-mode-map org-roam-node-map)))
 
 (use-package! org-super-agenda
   :after org-agenda
