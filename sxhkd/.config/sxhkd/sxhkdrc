@@ -337,6 +337,10 @@ super + d
 super + comma
     i3run --class xpad --summon -- xpad
 
+# >> notes -> google keep (brave pwa)
+super + period
+    i3run --summon --instance crx_eilembjdkfgodjkcjnpgpaenohkicgjd -- brave-browser --app-id=eilembjdkfgodjkcjnpgpaenohkicgjd
+
 # >> floating-notes -> ghostty
 # super + shift + n
 #     i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/inbox.org
