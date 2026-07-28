@@ -12,7 +12,7 @@
       "color": "accent"
     },
     "build": {
-      "color": "error"
+      "color": "primary"
     },
     "discover": {
       "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
