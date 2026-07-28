@@ -14,6 +14,7 @@
 (require 'seq)
 
 (setq default-input-method nil)
+(global-unset-key (kbd "C-\\"))     ; Prevent Quail toggle-input-method entirely
 
 (defvar my/org-second-brain-personal-root
   (expand-file-name "~/Projects/Personal/Github/second-brain")
@@ -419,7 +420,7 @@ File-level `#+ARCHIVE:' directives override this."
            :unnarrowed t)))
   (my/org-second-brain-roam-dailies-ensure-dirs)
   ;; Prevent accidental Quail input method activation during roam interaction
-  (setq default-input-method nil)
+(setq default-input-method nil)
   (mapc (lambda (m)
           (when (keymapp m)
             (define-key m (kbd "C-\\") #'undefined)))
