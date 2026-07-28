@@ -39,7 +39,7 @@ matches:
 
   # And much more! For more information, visit the docs: https://espanso.org/docs/
 
-  - trigger: ":lalitkumar."
+  - trigger: "lalitkumar."
     replace: "lalitkumar.meena.lk@gmail.com"
 
   - trigger: ":mt"
@@ -245,39 +245,6 @@ matches:
 #-------------------------------------------------------------------------------
 # NOTE: Forms Extension - Interactive templates {{{
 #-------------------------------------------------------------------------------
-  # Meeting notes template (org-mode format)
-  - trigger: ":meeting"
-    form: |
-      * [[topic]]
-      :PROPERTIES:
-      :CREATED: [{{date}}]
-      :ATTENDEES: [[attendees]]
-      :END:
-
-      ** Agenda
-      - [[agenda]]
-
-      ** Notes
-      $|$
-
-      ** Action Items
-      - [ ] [[actions]]
-    form_fields:
-      topic:
-        default: "Meeting Title"
-      attendees:
-        default: "Person1, Person2"
-      agenda:
-        multiline: true
-        default: "Topic 1\nTopic 2"
-      actions:
-        multiline: true
-        default: "Follow up item 1\nFollow up item 2"
-    vars:
-      - name: date
-        type: date
-        params:
-          format: "%Y-%m-%d %a %H:%M"
 
   # Conventional commit template
   - trigger: ":commit"
@@ -409,72 +376,8 @@ matches:
 # }}}
 #-------------------------------------------------------------------------------
 
-#-------------------------------------------------------------------------------
-# NOTE: Code Snippets with Cursor Positioning {{{
-#-------------------------------------------------------------------------------
-  # Org-mode / Notes (disabled: conflicts with M-x in Emacs)
-  # - trigger: ":todo"
-  #   replace: "- [ ] $|$"
-
-  # - trigger: ":done"
-  #   replace: "- [x] $|$"
-
-  # - trigger: ":org"
-  #   replace: |
-  #     * $|$
-  #     :PROPERTIES:
-  #     :CREATED: [{{date}}]
-  #     :END:
-  #   vars:
-  #     - name: date
-  #       type: date
-  #       params:
-  #         format: "%Y-%m-%d %a %H:%M"
-
-  # JavaScript/TypeScript
-  - trigger: ":cl"
-    replace: "console.log($|$)"
-
-  - trigger: ":cll"
-    replace: "console.log('$|$', )"
-
-  - trigger: ":af"
-    replace: "($|$) => {}"
-
-  - trigger: ":afn"
-    replace: "const $|$ = () => {}"
-
-  # Lua (Neovim)
-  - trigger: ":lfn"
-    replace: |
-      local function $|$()
-      end
-
-  - trigger: ":lreq"
-    replace: "local $|$ = require('')"
-
-  # Shell/Bash
-  - trigger: ":shif"
-    replace: |
-      if [[ $|$ ]]; then
-
-      fi
-
-  - trigger: ":shfor"
-    replace: |
-      for $|$ in ; do
-
-      done
-
-  - trigger: ":shfn"
-    replace: |
-      function $|$() {
-
-      }
 # }}}
 #-------------------------------------------------------------------------------
 
-# }}}
-#-------------------------------------------------------------------------------
 
 # vim:fdm=marker
