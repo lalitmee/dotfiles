@@ -1,12 +1,12 @@
 ;;; +org-second-brain.el -*- lexical-binding: t; -*-
 ;;; Dual second-brain (Personal + Work): curated agenda, capture, refile, roam.
 ;;;
-;;; Leader: SPC n <`my/org-second-brain-leader-key'> (default \"B\") — change only
-;;; `my/org-second-brain-leader-key' to retarget all bindings.
-;;;   a merged agenda   w work agenda   p personal agenda
-;;;   c capture (brain prompt)   W work capture   P personal capture
-;;;   R roam (work)   r roam (personal)   S search work   s search personal
-;;;   d dailies (context brain; default personal)   g refresh `org-agenda-files'
+;;; Leader: SPC o (Org prefix):
+;;;   a agenda   c capture   f roam find   s search   / search both
+;;;   d dailies (goto, capture, prev/next)   g refresh org-agenda-files
+;;;
+;;; SPC x (Tools prefix):
+;;;   r REPL   d debugger   f make-frame   F select-frame   x toggle-scratch
 ;;;
 ;;; Capture template key: b → Inbox (uses `notes/inbox.org' or fallbacks).
 
@@ -22,9 +22,6 @@
 (defvar my/org-second-brain-work-root
   (expand-file-name "~/Projects/Work/Github/second-brain")
   "Absolute path to the work second-brain repo.")
-
-(defvar my/org-second-brain-leader-key "B"
-  "Second key under `SPC n …` for the second-brain map. Change only this string to retarget every binding.")
 
 (defvar my/org-second-brain-curated-subdirs
   '("daily" "brain" "sandbox" "meta" "journal")
@@ -150,6 +147,32 @@
   (let ((org-roam-directory (expand-file-name "brain/notes" my/org-second-brain-personal-root))
         (org-roam-db-location (expand-file-name ".org-roam.db" my/org-second-brain-personal-root)))
     (org-roam-node-find)))
+
+(defun my/org-second-brain-roam-node-find ()
+  (interactive)
+  (let* ((brain (my/org-second-brain-resolve-brain))
+         (root (my/org-second-brain--root-for brain))
+         (org-roam-directory (expand-file-name "brain/notes" root))
+         (org-roam-db-location (expand-file-name ".org-roam.db" root)))
+    (org-roam-node-find)))
+
+(defun my/org-second-brain-consult-ripgrep ()
+  (interactive)
+  (let* ((brain (my/org-second-brain-resolve-brain))
+         (root (my/org-second-brain--root-for brain)))
+    (consult-ripgrep (expand-file-name "brain/notes" root))))
+
+(defun my/org-second-brain-consult-ripgrep-all ()
+  (interactive)
+  (consult-ripgrep "~/Projects"))
+
+(defun my/org-second-brain-roam-capture ()
+  (interactive)
+  (let* ((brain (my/org-second-brain-resolve-brain))
+         (root (my/org-second-brain--root-for brain))
+         (org-roam-directory (expand-file-name "brain/notes" root))
+         (org-roam-db-location (expand-file-name ".org-roam.db" root)))
+    (org-roam-capture)))
 
 (defun my/org-second-brain-resolve-brain ()
   "Return `:personal' or `:work' for roam/dailies commands.
@@ -415,30 +438,46 @@ File-level `#+ARCHIVE:' directives override this."
           (:name "✅ Done" :todo "DONE" :order 10)
           (:name "❌ Cancelled" :todo "CANCELLED" :order 11))))
 
-(eval
- `(map! :leader
-        :prefix ("n" ,my/org-second-brain-leader-key)
-        :desc "Agenda (merged second-brain)" "a" #'my/org-second-brain-agenda-merged
-        :desc "Agenda (work second-brain)" "w" #'my/org-second-brain-agenda-work
-        :desc "Agenda (personal second-brain)" "p" #'my/org-second-brain-agenda-personal
-        :desc "Capture (pick brain)" "c" #'my/org-second-brain-capture-generic
-        :desc "Capture (work)" "W" #'my/org-second-brain-capture-work
-        :desc "Capture (personal)" "P" #'my/org-second-brain-capture-personal
-        :desc "Roam find (work)" "R" #'my/org-second-brain-roam-node-find-work
-        :desc "Roam find (personal)" "r" #'my/org-second-brain-roam-node-find-personal
-        :desc "Search notes (work)" "S" #'my/org-second-brain-consult-ripgrep-work
-        :desc "Search notes (personal)" "s" #'my/org-second-brain-consult-ripgrep-personal
-        :desc "Refresh org-agenda-files" "g" #'my/org-second-brain-set-global-agenda-files
-        (:prefix ("d" . "dailies")
-         :desc "Goto previous note" "b" #'my/org-second-brain-roam-dailies-goto-previous-note
-         :desc "Goto date" "d" #'my/org-second-brain-roam-dailies-goto-date
-         :desc "Capture date" "D" #'my/org-second-brain-roam-dailies-capture-date
-         :desc "Goto next note" "f" #'my/org-second-brain-roam-dailies-goto-next-note
-         :desc "Goto tomorrow" "m" #'my/org-second-brain-roam-dailies-goto-tomorrow
-         :desc "Capture tomorrow" "M" #'my/org-second-brain-roam-dailies-capture-tomorrow
-         :desc "Capture today" "n" #'my/org-second-brain-roam-dailies-capture-today
-         :desc "Goto today" "t" #'my/org-second-brain-roam-dailies-goto-today
-         :desc "Capture today" "T" #'my/org-second-brain-roam-dailies-capture-today
-         :desc "Goto yesterday" "y" #'my/org-second-brain-roam-dailies-goto-yesterday
-         :desc "Capture yesterday" "Y" #'my/org-second-brain-roam-dailies-capture-yesterday
-         :desc "Find directory" "-" #'my/org-second-brain-roam-dailies-find-directory)))
+(map! :leader
+      :desc "Org" :prefix ("o" . "Org")
+      (:prefix ("a" . "agenda")
+       :desc "Merged agenda" "a" #'my/org-second-brain-agenda-merged
+       :desc "Personal agenda" "p" #'my/org-second-brain-agenda-personal
+       :desc "Work agenda" "w" #'my/org-second-brain-agenda-work)
+      (:prefix ("c" . "capture")
+       :desc "Capture (pick brain)" "c" #'my/org-second-brain-capture-generic
+       :desc "Capture personal" "p" #'my/org-second-brain-capture-personal
+       :desc "Capture work" "w" #'my/org-second-brain-capture-work
+       :desc "org-roam-capture" "n" #'my/org-second-brain-roam-capture)
+      (:prefix ("f" . "roam find")
+       :desc "Find (auto)" "f" #'my/org-second-brain-roam-node-find
+       :desc "Find personal" "p" #'my/org-second-brain-roam-node-find-personal
+       :desc "Find work" "w" #'my/org-second-brain-roam-node-find-work)
+      (:prefix ("s" . "search")
+       :desc "Search (auto)" "s" #'my/org-second-brain-consult-ripgrep
+       :desc "Search personal" "p" #'my/org-second-brain-consult-ripgrep-personal
+       :desc "Search work" "w" #'my/org-second-brain-consult-ripgrep-work)
+      :desc "Search both brains" "/" #'my/org-second-brain-consult-ripgrep-all
+      (:prefix ("d" . "dailies")
+       (:prefix ("g" . "goto")
+        :desc "Today" "t" #'my/org-second-brain-roam-dailies-goto-today
+        :desc "Yesterday" "y" #'my/org-second-brain-roam-dailies-goto-yesterday
+        :desc "Tomorrow" "m" #'my/org-second-brain-roam-dailies-goto-tomorrow
+        :desc "Date" "d" #'my/org-second-brain-roam-dailies-goto-date)
+       (:prefix ("c" . "capture")
+        :desc "Today" "t" #'my/org-second-brain-roam-dailies-capture-today
+        :desc "Yesterday" "y" #'my/org-second-brain-roam-dailies-capture-yesterday
+        :desc "Tomorrow" "m" #'my/org-second-brain-roam-dailies-capture-tomorrow
+        :desc "Date" "d" #'my/org-second-brain-roam-dailies-capture-date)
+       :desc "Prev note" "b" #'my/org-second-brain-roam-dailies-goto-previous-note
+       :desc "Next note" "f" #'my/org-second-brain-roam-dailies-goto-next-note
+       :desc "Find directory" "-" #'my/org-second-brain-roam-dailies-find-directory)
+      :desc "Refresh org-agenda-files" "g" #'my/org-second-brain-set-global-agenda-files)
+
+(map! :leader
+      :desc "Tools" :prefix ("x" . "Tools")
+      :desc "REPL" "r" #'+eval/open-repl-other-window
+      :desc "Debugger" "d" #'+debugger/start
+      :desc "Make frame" "f" #'make-frame
+      :desc "Select frame" "F" #'select-frame-by-name
+      :desc "Toggle scratch buffer" "x" #'doom/toggle-scratch-buffer)

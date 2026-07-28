@@ -127,11 +127,6 @@
 ;; Disable quit confirmation popup
 (setq confirm-kill-emacs nil)
 
-(map! :leader
-      :desc "Search second-brain notes"
-      "n B s" (lambda () (interactive)
-                (consult-ripgrep "~/Projects/Personal/Github/second-brain/brain/notes")))
-
 ;; ponytail: compat provides extended seconds-to-string but doesn't override
 ;; built-in. Marginalia calls it with 3 args (Emacs 31+ signature).
 (when (and (< emacs-major-version 31)
