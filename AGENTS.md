@@ -35,3 +35,8 @@ PRs should describe what changed, what was tested, and any runtime reloads perfo
 
 ## Agent-Specific Instructions
 After editing config files, reload the affected runtime immediately. For tmux, source `~/.tmux.conf` and verify the live keymap; for i3 or sxhkd, use their normal reload commands. If new stowed files were added, rerun `./install.sh`.
+
+## Critical System Rules
+- **Never run `./install.sh` without explicit user confirmation.** The system is already set up — symlinks exist and are managed directly via GNU Stow. Unnecessary installer runs may prompt for sudo or modify unrelated state.
+- Configs are symlinked from the repo to their target locations via `stow`. Once linked, no further action is needed — changes to repo files are live immediately.
+- Use `stow -D <pkg> && stow <pkg>` from the repo root if you ever need to relink a package.

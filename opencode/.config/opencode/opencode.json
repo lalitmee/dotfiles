@@ -8,11 +8,17 @@
     "@dietrichgebert/ponytail"
   ],
   "agent": {
+    "plan": {
+      "color": "accent"
+    },
+    "build": {
+      "color": "error"
+    },
     "discover": {
       "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
       "mode": "primary",
       "temperature": 0.3,
-      "color": "#4fc3f7",
+      "color": "success",
       "prompt": "{file:./prompts/explore-mode.txt}",
       "permission": {
         "read": "allow",
@@ -25,6 +31,12 @@
         "skill": "allow",
         "todowrite": "allow"
       }
+    },
+    "explore": {
+      "color": "secondary"
+    },
+    "general": {
+      "color": "warning"
     }
   },
   "mcp": {
