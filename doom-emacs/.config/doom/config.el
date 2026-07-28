@@ -133,17 +133,3 @@
            (fboundp 'compat--seconds-to-string))
   (fset 'seconds-to-string #'compat--seconds-to-string))
 
-;; Debug: log minibuffer state (evil-state + current-input-method) on setup
-;; and after each command. Remove once M-x "org" bug root cause is confirmed.
-(add-hook 'minibuffer-setup-hook
-  (defun +debug-minibuffer-state ()
-    (message "MINIBUF: evil-state=%s input-method=%s"
-             (if (bound-and-true-p evil-state) evil-state "nil")
-             (or current-input-method "nil"))
-    (add-hook 'post-command-hook
-      (defun +debug-minibuffer-post ()
-        (when (minibufferp)
-          (message "MINIBUF-POST: evil-state=%s contents=%s"
-                   (if (bound-and-true-p evil-state) evil-state "nil")
-                   (minibuffer-contents))))
-      nil 'local)))

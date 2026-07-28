@@ -412,24 +412,24 @@ matches:
 #-------------------------------------------------------------------------------
 # NOTE: Code Snippets with Cursor Positioning {{{
 #-------------------------------------------------------------------------------
-  # Org-mode / Notes
-  - trigger: ":todo"
-    replace: "- [ ] $|$"
+  # Org-mode / Notes (disabled: conflicts with M-x in Emacs)
+  # - trigger: ":todo"
+  #   replace: "- [ ] $|$"
 
-  - trigger: ":done"
-    replace: "- [x] $|$"
+  # - trigger: ":done"
+  #   replace: "- [x] $|$"
 
-  - trigger: ":org"
-    replace: |
-      * $|$
-      :PROPERTIES:
-      :CREATED: [{{date}}]
-      :END:
-    vars:
-      - name: date
-        type: date
-        params:
-          format: "%Y-%m-%d %a %H:%M"
+  # - trigger: ":org"
+  #   replace: |
+  #     * $|$
+  #     :PROPERTIES:
+  #     :CREATED: [{{date}}]
+  #     :END:
+  #   vars:
+  #     - name: date
+  #       type: date
+  #       params:
+  #         format: "%Y-%m-%d %a %H:%M"
 
   # JavaScript/TypeScript
   - trigger: ":cl"
