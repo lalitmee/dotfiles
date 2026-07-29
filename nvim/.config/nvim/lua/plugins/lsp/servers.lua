@@ -64,6 +64,7 @@ return {
                         "lk",
                         "require",
                         "vim",
+                        "ipairs",
                         "_dd",
                         "_bt",
                     },
