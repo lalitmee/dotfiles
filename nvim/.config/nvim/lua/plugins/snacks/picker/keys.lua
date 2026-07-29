@@ -99,7 +99,7 @@ return {
     { "<leader>pg", function() Snacks.picker.git_files() end, desc = "Git Files", silent = true },
     { "<leader>ps", function() Snacks.picker.grep() end, desc = "Live Grep", silent = true },
     { "<leader>pw", function() Snacks.picker.grep_word() end, desc = "Grep String", silent = true, mode = { "n", "v" } },
-    { "<leader>pm", function() Snacks.picker.grep() end, desc = "Multi Ripgrep", silent = true },
+    { "<leader>pm", function() require("plugins.snacks.picker.sources").multi_ripgrep() end, desc = "Multi Ripgrep", silent = true },
 
     -- neovim
     { "<leader>nf", function() Snacks.picker.files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") }) end, desc = "Plugin Files", silent = true },
