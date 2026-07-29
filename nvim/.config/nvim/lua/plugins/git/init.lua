@@ -193,7 +193,8 @@ return {
     },
 
     { --[[ diffview ]]
-        "sindrets/diffview.nvim",
+        "dlyongemallo/diffview-plus.nvim",
+        version = "*",
         cmd = {
             "DiffviewOpen",
             "DiffviewFileHistory",

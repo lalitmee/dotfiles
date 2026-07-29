@@ -1,0 +1,4 @@
+# key: tn
+# name: NOTE
+# --
+`(comment-start)` NOTE: ${1:text}

@@ -1,0 +1,4 @@
+# key: th
+# name: HACK
+# --
+`(comment-start)` HACK: ${1:text}

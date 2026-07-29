@@ -1,0 +1,4 @@
+# key: tb
+# name: BUG
+# --
+`(comment-start)` BUG: ${1:text}

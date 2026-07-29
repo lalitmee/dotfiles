@@ -1,0 +1,6 @@
+# key: const
+# name: const object
+# --
+const ${1:name} = {
+    ${2:// TODO: body}
+}

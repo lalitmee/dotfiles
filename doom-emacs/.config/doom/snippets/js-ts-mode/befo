@@ -1,0 +1,6 @@
+# key: befo
+# name: beforeEach
+# --
+beforeEach(() => {
+    ${1:// TODO: body}
+})

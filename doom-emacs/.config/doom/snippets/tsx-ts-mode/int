@@ -1,0 +1,6 @@
+# key: int
+# name: interface
+# --
+interface ${1:Component} {
+    ${2:body}
+}

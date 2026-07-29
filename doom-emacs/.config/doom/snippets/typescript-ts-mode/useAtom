@@ -1,0 +1,4 @@
+# key: useAtom
+# name: useAtom with destructuring
+# --
+const [${1:value}, set${2:SetValue}] = useAtom(${3:atomName});
