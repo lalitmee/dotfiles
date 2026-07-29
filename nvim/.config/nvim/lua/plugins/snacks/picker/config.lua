@@ -1,5 +1,6 @@
 return {
     enabled = true,
+    hidden = true,
     ripgrep_args = {
         "rg",
         "--hidden",
@@ -34,7 +35,7 @@ return {
     win = {
         input = {
             keys = {
-                ["<Esc>"] = { "close", mode = { "n", "i" } },
+                ["<Esc>"] = "close",
             },
         },
         list = {
