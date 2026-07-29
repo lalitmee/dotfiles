@@ -9,16 +9,16 @@ M.reload = function()
         return name
     end
 
-            Snacks.picker.files({
-                prompt_title = "~ neovim modules ~",
-                cwd = "~/.config/nvim/lua",
-                file_ignore_patterns = { "after/", "lazy-lock.json", "stylua.toml" },
-                actions = {
-                    ["ctrl-r"] = {
-                        name = "reload",
-                        action = function(picker, item)
-                            local relative = item.file:match("lua/(.+)$") or item.file
-                            local name = get_module_name(relative)
+    Snacks.picker.files({
+        prompt_title = "~ neovim modules ~",
+        cwd = "~/.config/nvim/lua",
+        file_ignore_patterns = { "after/", "lazy-lock.json", "stylua.toml" },
+        actions = {
+            ["ctrl-r"] = {
+                name = "reload",
+                action = function(picker, item)
+                    local relative = item.file:match("lua/(.+)$") or item.file
+                    local name = get_module_name(relative)
                     R(name)
                     vim.notify(name, vim.log.levels.INFO, { title = "RELOADED" })
                 end,

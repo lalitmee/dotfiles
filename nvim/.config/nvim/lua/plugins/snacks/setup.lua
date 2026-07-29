@@ -11,7 +11,7 @@ wk.add({
     },
 })
 
--- which-key groups from telescope
+-- which-key groups for picker
 wk.add({
     { "<leader>s", group = "search" },
     { "<leader>v", group = "vim" },
