@@ -218,7 +218,7 @@ augroup("buffer_au", {
     },
     {
         event = { "FileType" },
-        pattern = { "TelescopePrompt" },
+        pattern = { "snacks_picker" },
         command = function()
             vim.opt_local.cursorline = false
         end,
@@ -227,7 +227,7 @@ augroup("buffer_au", {
         event = { "BufReadPost" },
         command = function()
             local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "toggleterm" }
-            local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "TelescopePrompt", "oil" }
+            local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "snacks_picker", "oil" }
 
             vim.schedule(function()
                 -- Skip if in terminal mode
