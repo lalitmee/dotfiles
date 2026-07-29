@@ -68,7 +68,7 @@ return {
             },
             enabled = function()
                 return not vim.tbl_contains(
-                        { "TelescopePrompt", "DressingInput", "chatgpt-input" },
+                        { "TelescopePrompt", "snacks_input", "chatgpt-input" },
                         vim.bo.filetype
                     )
                     and vim.bo.buftype ~= "prompt"
