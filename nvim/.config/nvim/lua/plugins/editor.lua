@@ -355,7 +355,7 @@ return {
             { "y", "<Plug>(YankyYank)", mode = { "n" } },
             { "y", "<Plug>(YankyYank)", mode = { "x" } },
             { "<leader>ay", ":YankyRingHistory<CR>", desc = "Yank Ring History" },
-            { "<leader>ty", ":Telescope yank_history<CR>", desc = "Yank History" },
+            { "<leader>ty", function() Snacks.picker.yank_history() end, desc = "Yank History" },
         },
         dependencies = { "kkharji/sqlite.lua" },
         opts = {

@@ -47,7 +47,6 @@ return {
                         octo = true,
                         overseer = true,
                         semantic_tokens = true,
-                        telescope = true,
                         treesitter_context = true,
                         which_key = true,
                     },

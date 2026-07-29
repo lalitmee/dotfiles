@@ -22,7 +22,7 @@ return {
             session_name = "Neovim Terminals",
             use_icon = false,
             icon = " ",
-            picker = "telescope",
+            picker = "snacks",
             project_open_as = "window",
         },
         config = function(_, opts)

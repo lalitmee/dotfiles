@@ -605,12 +605,11 @@ return {
 
     { --[[ http-codes ]]
         "barrett-ruth/http-codes.nvim",
-        dependencies = "nvim-telescope/telescope.nvim",
         keys = {
             { "<leader>sh", ":HTTPCodes<CR>", desc = "Http Codes", silent = true },
         },
         opts = {
-            use = "telescope",
+            use = "snacks",
         },
     },
 
@@ -619,20 +618,19 @@ return {
         event = "BufReadPost",
         cmd = {
             "TodoTrouble",
-            "TodoTelescope",
             "TodoQuickFix",
             "TodoLocList",
             "TodoFzfLua",
         },
         keys = {
             { "<leader>qa", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-            { "<leader>qt", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
-            { "<leader>qf", "<cmd>TodoTelescope keywords=TODO,FIX<cr>", desc = "TODO/FIX Telescope" },
-            { "<leader>qe", "<cmd>TodoTelescope keywords=ERROR,WARN<cr>", desc = "ERROR/WARN Telescope" },
-            { "<leader>qN", "<cmd>TodoTelescope keywords=NOTE<cr>", desc = "NOTE Telescope" },
-            { "<leader>qF", "<cmd>TodoTelescope keywords=FIXME<cr>", desc = "FIXME Telescope" },
-            { "<leader>qP", "<cmd>TodoTelescope keywords=PERF<cr>", desc = "PERF Telescope" },
-            { "<leader>qh", "<cmd>TodoTelescope keywords=HACK<cr>", desc = "HACK Telescope" },
+            { "<leader>qt", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+            { "<leader>qf", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX" } }) end, desc = "TODO/FIX" },
+            { "<leader>qe", function() Snacks.picker.todo_comments({ keywords = { "ERROR", "WARN" } }) end, desc = "ERROR/WARN" },
+            { "<leader>qN", function() Snacks.picker.todo_comments({ keywords = { "NOTE" } }) end, desc = "NOTE" },
+            { "<leader>qF", function() Snacks.picker.todo_comments({ keywords = { "FIXME" } }) end, desc = "FIXME" },
+            { "<leader>qP", function() Snacks.picker.todo_comments({ keywords = { "PERF" } }) end, desc = "PERF" },
+            { "<leader>qh", function() Snacks.picker.todo_comments({ keywords = { "HACK" } }) end, desc = "HACK" },
             { "<leader>qq", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
         },
         opts = {},
