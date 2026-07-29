@@ -191,12 +191,28 @@ return { --[[ snacks.nvim ]]
                 })
             end,
         },
+        { -- [[ Toggle Zen Mode ]]
+            "<leader>tz",
+            function()
+                Snacks.zen.toggle()
+            end,
+            desc = "Toggle Zen Mode",
+        },
+        { -- [[ Toggle Zoom ]]
+            "<leader>tZ",
+            function()
+                Snacks.zoom.toggle()
+            end,
+            desc = "Toggle Zoom",
+        },
     },
 
     opts = {
         scope = { enabled = true },
         bigfile = { enabled = true },
-        dashboard = { enabled = false },
+        dashboard = { enabled = true },
+        indent = { enabled = true },
+        input = { enabled = true },
         notifier = {
             enabled = true,
             timeout = 3000,
@@ -221,8 +237,10 @@ return { --[[ snacks.nvim ]]
         statuscolumn = { enabled = true },
         words = { enabled = true },
         scroll = {
-            enabled = false,
+            enabled = true,
         },
+        zen = { enabled = true },
+        animate = { enabled = true },
         styles = {
             notification = {
                 wo = { wrap = true }, -- Wrap notifications
@@ -233,9 +251,6 @@ return { --[[ snacks.nvim ]]
                 border = "rounded",
             },
         },
-        -- scroll = {
-        --     enabled = true,
-        -- },
         image = {
             enabled = true,
         },
