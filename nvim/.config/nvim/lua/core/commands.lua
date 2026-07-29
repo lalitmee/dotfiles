@@ -2,9 +2,9 @@ local command = lk.command
 local fmt = string.format
 
 ----------------------------------------------------------------------
--- NOTE: telescope commands {{{
+-- NOTE: snacks commands {{{
 ----------------------------------------------------------------------
-command("ReloadConfigTelescope", function()
+command("ReloadConfigSnacks", function()
     require("utils/reload").reload()
 end)
 
