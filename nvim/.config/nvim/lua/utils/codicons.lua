@@ -415,7 +415,6 @@ local codicons = {
   ["tag-add"] = { icon = "", unicode = 0xEA66 },
   ["tag-remove"] = { icon = "", unicode = 0xEA66 },
   ["tasklist"] = { icon = "", unicode = 0xEB67 },
-  ["telescope"] = { icon = "", unicode = 0xEB68 },
   ["terminal"] = { icon = "", unicode = 0xEA85 },
   ["terminal-bash"] = { icon = "", unicode = 0xEBCA },
   ["terminal-cmd"] = { icon = "", unicode = 0xEBC4 },

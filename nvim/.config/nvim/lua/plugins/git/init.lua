@@ -48,7 +48,7 @@ return {
         opts = {
             disable_commit_confirmation = true,
             integrations = {
-                telescope = true,
+                snacks = true,
                 diffview = true,
             },
             signs = {

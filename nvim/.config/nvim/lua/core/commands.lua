@@ -4,10 +4,6 @@ local fmt = string.format
 ----------------------------------------------------------------------
 -- NOTE: telescope commands {{{
 ----------------------------------------------------------------------
-command("TelescopeNotifyHistory", function()
-    require("telescope").extensions.notify.notify()
-end)
-
 command("ReloadConfigTelescope", function()
     require("utils/reload").reload()
 end)
