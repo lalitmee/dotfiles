@@ -52,7 +52,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
 
@@ -86,7 +86,58 @@
 
 (after! lsp-mode
   (setq lsp-eslint-package-manager "yarn")
-  (require 'lsp-eslint))
+  (require 'lsp-eslint)
+  ;; Prefer tsgo (go-native typescript LSP) over node ts-ls
+  (setq lsp-client-priority '(:tsgo 1 :ts-ls 0)))
+
+(after! lsp-ui
+  (setq lsp-ui-sideline-show-hover t
+        lsp-ui-sideline-show-code-actions t))
+
+;; Prettierd as default formatter for JS/TS
+(setq +format-with-lsp nil)
+(after! apheleia
+  (setf (alist-get 'javascript-mode apheleia-formatters) '(prettierd)
+        (alist-get 'js-ts-mode apheleia-formatters) '(prettierd)
+        (alist-get 'typescript-mode apheleia-formatters) '(prettierd)
+        (alist-get 'typescript-ts-mode apheleia-formatters) '(prettierd)
+        (alist-get 'tsx-ts-mode apheleia-formatters) '(prettierd)
+        (alist-get 'json-mode apheleia-formatters) '(prettierd)))
+
+;; dape — modern DAP client for JS/TS debugging
+(use-package! dape
+  :commands (dape dape-debug-dap-mode)
+  :config
+  (setq dape-can-set-options t))
+
+;; gptel — AI chat with multiple providers
+(use-package! gptel
+  :commands (gptel gptel-send)
+  :config
+  (setq gptel-default-mode 'org-mode)
+  ;; Backends from environment variables
+  (gptel-make-openai "OpenAI"
+    :key (getenv "OPENAI_API_KEY")
+    :stream t)
+  (gptel-make-anthropic "Claude"
+    :key (getenv "ANTHROPIC_API_KEY")
+    :stream t)
+  (gptel-make-ollama "Ollama"
+    :host "localhost:11434"
+    :stream t)
+  (gptel-make-gemini "Gemini"
+    :key (getenv "GEMINI_API_KEY")
+    :stream t))
+
+;; Copilot inline completions
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         ("C-n" . 'copilot-next-completion)
+         ("C-p" . 'copilot-previous-completion)))
 
 ;; Vertico / Orderless sanity check (after `doom sync` + restart):
 ;;   M-x describe-variable RET completion-styles RET → expect `orderless'

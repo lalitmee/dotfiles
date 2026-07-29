@@ -1,0 +1,4 @@
+# key: ptd
+# name: PropTypes
+# --
+${1:PropName}: PropTypes.${2:type},

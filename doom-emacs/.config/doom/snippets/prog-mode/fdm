@@ -1,0 +1,4 @@
+# key: fdm
+# name: fold method marker
+# --
+`(comment-start)` vim:fdm=marker

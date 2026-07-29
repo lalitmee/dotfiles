@@ -1,0 +1,4 @@
+# key: logo
+# name: console.log shorthand object
+# --
+console.log({ ${1:object} });

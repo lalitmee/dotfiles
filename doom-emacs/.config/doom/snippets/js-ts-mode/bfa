@@ -1,0 +1,6 @@
+# key: bfa
+# name: beforeAll
+# --
+beforeAll(() => {
+    ${1:// TODO: body}
+})

@@ -1,0 +1,4 @@
+# key: log
+# name: console.log
+# --
+console.log(${1:value});

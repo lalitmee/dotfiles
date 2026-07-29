@@ -1,0 +1,5 @@
+# key: useS
+# name: useSelector with getResourceDataSelector
+# --
+const { data: ${1:state}Data, isFetching: is${1}DataFetching, error: is${1}DataError } =
+    useSelector(state => getResourceDataSelector(state, ${2:resource}, ${3:type}))

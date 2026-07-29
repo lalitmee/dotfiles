@@ -1,0 +1,4 @@
+# key: useAtomValue
+# name: useAtomValue
+# --
+const ${1:value} = useAtomValue(${2:atomName});

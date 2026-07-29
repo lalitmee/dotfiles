@@ -1,0 +1,8 @@
+# key: hook
+# name: custom hook
+# --
+function use${1:HookName}(${2:args}) {
+    ${3:// TODO: body}
+}
+
+export default use${1}

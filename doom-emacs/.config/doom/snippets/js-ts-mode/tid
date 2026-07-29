@@ -1,0 +1,4 @@
+# key: tid
+# name: test id attribute
+# --
+data-testid={${1:TEST_ID}}
