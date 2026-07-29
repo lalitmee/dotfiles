@@ -431,6 +431,7 @@ File-level `#+ARCHIVE:' directives override this."
           (:name "📅 Upcoming" :deadline future :scheduled future :order 3)
           (:name "⚡ Habits" :habit t :order 4)
           (:name "📥 Backlog" :todo "BACKLOG" :order 5)
+          (:name "📝 Tasks" :todo "TODO" :order 6)
           (:name "✅ Done" :todo "DONE" :order 10)
           (:name "❌ Cancelled" :todo "CANCELLED" :order 11))))
 
