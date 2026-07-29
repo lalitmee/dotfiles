@@ -94,18 +94,20 @@
   (setq lsp-ui-sideline-show-hover t
         lsp-ui-sideline-show-code-actions t))
 
-;; Force line numbers for programming modes
-(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
+;; Force line numbers via globalized mode (avoids prog-mode-hook ordering issues)
+(global-display-line-numbers-mode 1)
 
 ;; Prettierd as default formatter for JS/TS
 (setq +format-with-lsp nil)
+(let ((npm-global (ignore-errors
+                    (string-trim (shell-command-to-string "npm root -g")))))
+  (when (and npm-global (file-directory-p npm-global))
+    (add-to-list 'exec-path (expand-file-name "../bin" npm-global))))
 (after! apheleia
-  (setf (alist-get 'javascript-mode apheleia-formatters) '(prettierd)
-        (alist-get 'js-ts-mode apheleia-formatters) '(prettierd)
-        (alist-get 'typescript-mode apheleia-formatters) '(prettierd)
-        (alist-get 'typescript-ts-mode apheleia-formatters) '(prettierd)
-        (alist-get 'tsx-ts-mode apheleia-formatters) '(prettierd)
-        (alist-get 'json-mode apheleia-formatters) '(prettierd)))
+  (setf (alist-get 'prettierd apheleia-formatters)
+        '("prettierd" "--stdin-filepath" filepath))
+  (dolist (mode '(tsx-ts-mode typescript-ts-mode js-ts-mode))
+    (push (cons mode 'prettierd) apheleia-mode-alist)))
 
 ;; dape — modern DAP client for JS/TS debugging
 (use-package! dape
