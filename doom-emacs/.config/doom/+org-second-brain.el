@@ -422,9 +422,9 @@ File-level `#+ARCHIVE:' directives override this."
         (list org-roam-mode-map org-roam-node-map)))
 
 (use-package! org-super-agenda
-  :after org-agenda
+  :after org
   :config
-  (org-super-agenda-mode)
+  (org-super-agenda-mode 1)
   (setq org-super-agenda-groups
         '((:name "🔥 In Progress" :todo "IN-PROGRESS" :order 1)
           (:name "📋 Today" :time-grid t :scheduled today :order 2)
@@ -454,6 +454,7 @@ File-level `#+ARCHIVE:' directives override this."
        :desc "Search personal" "p" #'my/org-second-brain-consult-ripgrep-personal
        :desc "Search work" "w" #'my/org-second-brain-consult-ripgrep-work)
       :desc "Search both brains" "/" #'my/org-second-brain-consult-ripgrep-all
+      :desc "Debugger" "d" nil
       (:prefix ("d" . "dailies")
        (:prefix ("g" . "goto")
         :desc "Today" "t" #'my/org-second-brain-roam-dailies-goto-today
