@@ -29,13 +29,23 @@ return {
     },
     sorting_strategy = "ascending",
     layout = {
-        width = 0.95,
-        height = 0.95,
+        layout = {
+            width = 0.85,
+            height = 0.85,
+        },
+        config = function(layout)
+            for _, child in ipairs(layout.layout or {}) do
+                if child.win == "preview" then
+                    child.width = 0.6
+                end
+            end
+        end,
     },
     win = {
         input = {
             keys = {
-                ["<Esc>"] = "close",
+                ["<Esc>"] = { "close", mode = { "i", "n" } },
+                ["<C-c>"] = { "close", mode = { "i", "n" } },
             },
         },
         list = {

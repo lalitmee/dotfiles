@@ -3,7 +3,7 @@ local picker_config = require("plugins.snacks.picker.config")
 return {
     scope = { enabled = true },
     bigfile = { enabled = true },
-    dashboard = { enabled = true },
+    dashboard = { enabled = false },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {

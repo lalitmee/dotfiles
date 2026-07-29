@@ -94,6 +94,9 @@
   (setq lsp-ui-sideline-show-hover t
         lsp-ui-sideline-show-code-actions t))
 
+;; Force line numbers for programming modes
+(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode +1)))
+
 ;; Prettierd as default formatter for JS/TS
 (setq +format-with-lsp nil)
 (after! apheleia
