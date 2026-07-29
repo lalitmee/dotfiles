@@ -113,7 +113,7 @@ return {
             { "<leader>kf", [[<cmd>ScratchOpenFzf<cr>]], desc = "Grep in Scratch Files" },
         },
         opts = {
-            file_picker = "telescope",
+            file_picker = "snacks",
             filetypes = { "js", "json", "lua", "org", "sh", "ts", "txt" },
             scratch_file_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
         },
@@ -449,7 +449,7 @@ return {
             require("textcase").setup({})
         end,
         keys = {
-            { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope", silent = true },
+
         },
     },
 
