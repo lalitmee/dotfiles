@@ -910,7 +910,7 @@ return {
                     { "progress", color = { gui = "bold" } },
                 },
             },
-            extensions = { "lazy", "man", "quickfix", "toggleterm" },
+            extensions = { "lazy", "man", "quickfix" },
         },
     },
 

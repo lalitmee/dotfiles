@@ -437,7 +437,7 @@ return {
                 harpoon = true,
                 lazy = true,
                 mason = true,
-                toggleterm = true,
+                snacks_terminal = true,
                 undotree = true,
             },
         },
@@ -530,7 +530,7 @@ return {
             { "<leader>mt", ":MarksToggleSigns<cr>", desc = "Toggle Signs", silent = true },
         },
         opts = {
-            excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "toggleterm" },
+            excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "snacks_terminal" },
         },
     },
 
@@ -560,16 +560,18 @@ return {
                         -- return vim.tbl_contains(argv, "-d")
                     end,
                     pre_open = function()
-                        local term = require("toggleterm.terminal")
-                        local termid = term.get_focused_id()
-                        saved_terminal = term.get(termid)
+                        local terms = Snacks.terminal.list()
+                        for _, t in ipairs(terms) do
+                            if vim.api.nvim_get_current_buf() == t.buf then
+                                saved_terminal = t
+                                break
+                            end
+                        end
                     end,
                     post_open = function(bufnr, winnr, ft, is_blocking)
                         if is_blocking and saved_terminal then
-                            -- Hide the terminal while it's blocking
                             saved_terminal:close()
                         else
-                            -- If it's a normal file, just switch to its window
                             vim.api.nvim_set_current_win(winnr)
 
                             -- If we're in a different wezterm pane/tab, switch to the current one

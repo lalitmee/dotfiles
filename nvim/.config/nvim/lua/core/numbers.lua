@@ -25,7 +25,7 @@ local number_filetype_exclusions = {
     "vimwiki",
     "vim-plug",
     "gitcommit",
-    "toggleterm",
+    "snacks_terminal",
     "fugitive",
     "coc-explorer",
     "coc-list",

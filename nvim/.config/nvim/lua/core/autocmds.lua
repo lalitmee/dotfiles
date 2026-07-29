@@ -14,7 +14,7 @@ augroup("terminal_au", {
         event = { "TermOpen" },
         pattern = { "term://*" },
         command = function()
-            if vim.bo.filetype == "" or vim.bo.filetype == "toggleterm" or vim.bo.filetype == "BufTerm" then
+            if vim.bo.filetype == "" or vim.bo.filetype == "snacks_terminal" or vim.bo.filetype == "BufTerm" then
                 tnoremap("<esc>", [[<C-\><C-n>]], opts)
                 tnoremap("jk", [[<C-\><C-n>]], opts)
                 tnoremap("<C-h>", [[<C-\><C-n><C-W>h]], opts)
@@ -128,7 +128,7 @@ augroup("filetype_au", {
             "redir_output",
             "spectre_panel",
             "startuptime",
-            "toggleterm",
+            "snacks_terminal",
             "tsplayground",
             "vim",
         },
@@ -226,7 +226,7 @@ augroup("buffer_au", {
     {
         event = { "BufReadPost" },
         command = function()
-            local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "toggleterm" }
+            local ignore_buftype = { "quickfix", "nofile", "help", "terminal", "snacks_terminal" }
             local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit", "snacks_picker", "oil" }
 
             vim.schedule(function()

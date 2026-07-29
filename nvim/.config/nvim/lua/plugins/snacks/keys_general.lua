@@ -194,4 +194,70 @@ return {
         end,
         desc = "Toggle Zoom",
     },
+
+    -- terminal commands
+    {
+        "<leader>a/",
+        function()
+            Snacks.terminal("serpl")
+        end,
+        desc = "Search and Replace",
+        silent = true,
+    },
+    {
+        "<leader>ab",
+        function()
+            Snacks.terminal("btm")
+        end,
+        desc = "Bottom",
+        silent = true,
+    },
+    {
+        "<leader>ad",
+        function()
+            Snacks.terminal("lazydocker")
+        end,
+        desc = "Lazydocker",
+        silent = true,
+    },
+    {
+        "<leader>af",
+        function()
+            Snacks.terminal("gh dash")
+        end,
+        desc = "GitHub Dashboard",
+        silent = true,
+    },
+    {
+        "<leader>ah",
+        function()
+            Snacks.terminal()
+        end,
+        desc = "Terminal",
+        silent = true,
+    },
+    {
+        "<leader>ai",
+        function()
+            Snacks.terminal("chatgpt -i")
+        end,
+        desc = "ChatGPT",
+        silent = true,
+    },
+    {
+        "<leader>av",
+        function()
+            Snacks.terminal(nil, { win = { position = "right" } })
+        end,
+        desc = "Terminal (right)",
+        silent = true,
+    },
+    {
+        "<leader>gt",
+        function()
+            Snacks.terminal("tig")
+        end,
+        desc = "Tig",
+        silent = true,
+    },
 }
