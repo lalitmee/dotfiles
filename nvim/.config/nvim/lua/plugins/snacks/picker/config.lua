@@ -18,6 +18,8 @@ return {
         "--glob=!**/dist",
         "--glob=!**/build",
         "--glob=!**/node_modules",
+        "--glob=!.git-rewrite",
+        "--glob=!.superpowers",
         "--ignore",
     },
     file_ignore_patterns = {
