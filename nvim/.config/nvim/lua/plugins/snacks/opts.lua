@@ -37,6 +37,7 @@ return {
         },
     },
     image = { enabled = true },
+    terminal = { enabled = true },
     gh = { enabled = true },
     picker = picker_config,
 }

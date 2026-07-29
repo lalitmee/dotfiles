@@ -11,6 +11,14 @@ wk.add({
     },
 })
 
+-- terminal commands
+lk.command("Serpl", function() Snacks.terminal("serpl") end)
+lk.command("LazyDocker", function() Snacks.terminal("lazydocker") end)
+lk.command("Bottom", function() Snacks.terminal("btm") end)
+lk.command("ChatGPTSh", function() Snacks.terminal("chatgpt -i") end)
+lk.command("GhDash", function() Snacks.terminal("gh dash") end)
+lk.command("Tig", function() Snacks.terminal("tig") end)
+
 -- which-key groups for picker
 wk.add({
     { "<leader>s", group = "search" },

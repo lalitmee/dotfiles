@@ -1,44 +1,32 @@
 local M = {}
 
-local Terminal = require("toggleterm.terminal").Terminal
-
 local lang = ""
 local file_type = ""
 
-local function default_on_open(term)
-    vim.cmd("stopinsert")
-    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
-end
-
-local function cht_on_open(term)
-    vim.cmd("stopinsert")
-    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_name(term.bufnr, "cheatsheet-" .. term.bufnr)
-    vim.api.nvim_set_option_value("filetype", "cheat", { buf = term.bufnr })
-    vim.api.nvim_set_option_value("syntax", lang, { buf = term.bufnr })
-end
-
-local function cht_on_exit(_)
-    vim.cmd([[normal gg]])
-end
-
 function M.open_term(cmd, opts)
     opts = opts or {}
-    opts.size = opts.size or vim.api.nvim_get_option_value("columns", { scope = "local" }) * 0.5
-    opts.direction = opts.direction or "float"
-    opts.on_open = opts.on_open or default_on_open
-    opts.on_exit = opts.on_exit or nil
 
-    local new_term = Terminal:new({
-        cmd = cmd,
-        dir = "git_dir",
-        auto_scroll = false,
-        close_on_exit = false,
-        start_in_insert = false,
-        on_open = opts.on_open,
-        on_exit = opts.on_exit,
+    local position = opts.direction == "vertical" and "right" or "float"
+    local on_exit = opts.on_exit
+
+    local term = Snacks.terminal.open(cmd, {
+        cwd = "git_dir",
+        interactive = false,
+        win = { position = position },
     })
-    new_term:open(opts.size, opts.direction)
+
+    if opts.on_open == cht_on_open then
+        local buf = term.buf
+        vim.schedule(function()
+            pcall(vim.api.nvim_buf_set_name, buf, "cheatsheet-" .. buf)
+            pcall(vim.api.nvim_set_option_value, "filetype", "cheat", { buf = buf })
+            pcall(vim.api.nvim_set_option_value, "syntax", lang, { buf = buf })
+        end)
+    end
+
+    if on_exit then
+        term:on("TermClose", on_exit, { buf = true })
+    end
 end
 
 function M.cht()
