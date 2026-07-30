@@ -144,6 +144,9 @@
          ("C-n" . 'copilot-next-completion)
          ("C-p" . 'copilot-previous-completion)))
 
+(after! copilot
+  (add-to-list 'exec-path (expand-file-name "bin" copilot-install-dir)))
+
 ;; Vertico / Orderless sanity check (after `doom sync` + restart):
 ;;   M-x describe-variable RET completion-styles RET → expect `orderless'
 ;;   M-x describe-variable RET vertico-mode RET → should be on
