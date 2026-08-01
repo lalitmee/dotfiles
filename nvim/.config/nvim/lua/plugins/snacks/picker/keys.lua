@@ -7,6 +7,7 @@ return {
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Search Project", silent = true },
     { "<leader>bb", function() Snacks.picker.buffers() end, desc = "Buffers", silent = true },
     { "<leader>bl", function() Snacks.picker.lines() end, desc = "Buffer Lines", silent = true },
+    { "<leader>au", function() Snacks.picker.undo() end, desc = "Undo History", silent = true },
     { "<leader>el", function() Snacks.picker.diagnostics() end, desc = "Workspace Diagnostics", silent = true },
     { "<leader>fc", function() Snacks.picker.files({ layout = "dropdown" }) end, desc = "With Dropdown", silent = true },
     { "<leader>fd", function() Snacks.picker.files({ cwd = "~/dotfiles" }) end, desc = "Dotfiles", silent = true },
