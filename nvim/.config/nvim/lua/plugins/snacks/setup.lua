@@ -18,6 +18,9 @@ lk.command("Bottom", function() Snacks.terminal("btm") end)
 lk.command("ChatGPTSh", function() Snacks.terminal("chatgpt -i") end)
 lk.command("GhDash", function() Snacks.terminal("gh dash") end)
 lk.command("Tig", function() Snacks.terminal("tig") end)
+lk.command("SetWallpaper", function()
+    require("plugins.snacks.picker.sources").set_wallpaper()
+end)
 
 -- which-key groups for picker
 wk.add({
