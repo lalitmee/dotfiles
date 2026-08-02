@@ -2,7 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "autoshare": false,
   "autoupdate": true,
-  "model": "google/gemini-3.1-pro-preview",
   "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git",
     "@tarquinen/opencode-dcp@latest",
@@ -11,12 +10,10 @@
   "agent": {
     "plan": {
       "color": "accent",
-      "model": "google/gemini-3.1-pro-preview",
       "steps": 10
     },
     "build": {
       "color": "primary",
-      "model": "google/gemini-3.5-flash",
       "steps": 20
     },
     "discover": {
@@ -26,7 +23,6 @@
       "color": "success",
       "prompt": "{file:./prompts/explore-mode.txt}",
       "steps": 10,
-      "model": "google/gemini-3.1-pro-preview",
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -41,27 +37,22 @@
     },
     "explore": {
       "color": "secondary",
-      "model": "google/gemini-3.5-flash",
       "steps": 15
     },
     "general": {
       "color": "warning",
-      "model": "google/gemini-3.5-flash",
       "steps": 15
     },
     "tester": {
       "color": "success",
-      "model": "google/gemini-3.5-flash",
       "steps": 15
     },
     "refactorer": {
       "color": "primary",
-      "model": "google/gemini-3.5-flash",
       "steps": 15
     },
     "architect": {
       "color": "accent",
-      "model": "google/gemini-3.1-pro-preview",
       "steps": 10
     }
   },
