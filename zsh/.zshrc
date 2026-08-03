@@ -4,22 +4,22 @@ unsetopt INC_APPEND_HISTORY
 unsetopt SHARE_HISTORY
 SAVEHIST=0
 
-# # -------------------------------------------------------------------
-# # # NOTE: auto start tmux {{{
-# # start tmux while starting new terminal
-# # -------------------------------------------------------------------
-# _not_inside_tmux() { [[ -z "$TMUX" ]]; }
-#
-# ensure_tmux_is_running() {
-#     if _not_inside_tmux; then
-#         ~/.tat
-#     fi
-# }
-#
-# ensure_tmux_is_running
-# # -------------------------------------------------------------------
-# # }}}
-# # -------------------------------------------------------------------
+# -------------------------------------------------------------------
+# # NOTE: auto start tmux {{{
+# start tmux while starting new terminal
+# -------------------------------------------------------------------
+_not_inside_tmux() { [[ -z "$TMUX" ]]; }
+
+ensure_tmux_is_running() {
+    if _not_inside_tmux; then
+        ~/.tat
+    fi
+}
+
+ensure_tmux_is_running
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
