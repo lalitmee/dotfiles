@@ -28,10 +28,12 @@ gum_style() { # {{{
 confirm_action() { # {{{
     local prompt="$1"
     if command -v gum >/dev/null 2>&1; then
-        gum confirm "$prompt"
+        # Redirect stdin/stdout through /dev/tty so gum works even when
+        # the script is launched detached (e.g. via tmux run-shell -b)
+        gum confirm "$prompt" </dev/tty >/dev/tty
     else
-        echo -n "$prompt [y/N]: "
-        read -r reply
+        echo -n "$prompt [y/N]: " >/dev/tty
+        read -r reply </dev/tty
         [[ "$reply" =~ ^[Yy]$ ]]
     fi
 } # }}}
@@ -40,10 +42,10 @@ get_custom_input() { # {{{
     local manager="$1"
     local pkg_name=""
     if command -v gum >/dev/null 2>&1; then
-        pkg_name=$(gum input --placeholder "Enter $manager package/formula name (e.g. typescript)")
+        pkg_name=$(gum input --placeholder "Enter $manager package/formula name (e.g. typescript)" </dev/tty >/dev/tty)
     else
-        echo -n "Enter $manager package/formula name: "
-        read -r pkg_name
+        echo -n "Enter $manager package/formula name: " >/dev/tty
+        read -r pkg_name </dev/tty
     fi
     echo "$pkg_name"
 } # }}}
@@ -160,9 +162,12 @@ main() { # {{{
         exit 0
     fi
 
-    # Read each selected line
+    # Process each selected line using zsh newline splitting to keep stdin intact for TTY input/output
+    local -a lines
+    lines=("${(f)selections}")
+
     local line
-    echo "$selections" | while read -r line; do
+    for line in "${lines[@]}"; do
         [[ -z "$line" ]] && continue
         
         local tool=""
@@ -271,7 +276,7 @@ main() { # {{{
     done
 
     gum_style "Press any key to close..."
-    read -k 1 -s -r 2>/dev/null || true
+    read -k 1 -s -r </dev/tty 2>/dev/null || true
 } # }}}
 
 main "$@"

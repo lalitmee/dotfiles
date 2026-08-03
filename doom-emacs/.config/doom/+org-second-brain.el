@@ -172,6 +172,18 @@
          (org-roam-db-location (expand-file-name ".org-roam.db" root)))
     (org-roam-capture)))
 
+(defun my/org-second-brain-roam-capture-personal ()
+  (interactive)
+  (let ((org-roam-directory (expand-file-name "brain/notes" my/org-second-brain-personal-root))
+        (org-roam-db-location (expand-file-name ".org-roam.db" my/org-second-brain-personal-root)))
+    (org-roam-capture)))
+
+(defun my/org-second-brain-roam-capture-work ()
+  (interactive)
+  (let ((org-roam-directory (expand-file-name "brain/notes" my/org-second-brain-work-root))
+        (org-roam-db-location (expand-file-name ".org-roam.db" my/org-second-brain-work-root)))
+    (org-roam-capture)))
+
 (defun my/org-second-brain-resolve-brain ()
   "Return `:personal' or `:work' for roam/dailies commands.
 Prefer the brain of the context file; default to `:personal'."
@@ -437,6 +449,7 @@ File-level `#+ARCHIVE:' directives override this."
 
 (map! :leader
       :desc "Org" :prefix ("o" . "Org")
+      "d" nil
       (:prefix ("a" . "agenda")
        :desc "Merged agenda" "a" #'my/org-second-brain-agenda-merged
        :desc "Personal agenda" "p" #'my/org-second-brain-agenda-personal
@@ -450,12 +463,15 @@ File-level `#+ARCHIVE:' directives override this."
        :desc "Find (auto)" "f" #'my/org-second-brain-roam-node-find
        :desc "Find personal" "p" #'my/org-second-brain-roam-node-find-personal
        :desc "Find work" "w" #'my/org-second-brain-roam-node-find-work)
+      (:prefix ("r" . "roam capture")
+       :desc "Capture (auto)" "r" #'my/org-second-brain-roam-capture
+       :desc "Capture personal" "p" #'my/org-second-brain-roam-capture-personal
+       :desc "Capture work" "w" #'my/org-second-brain-roam-capture-work)
       (:prefix ("s" . "search")
        :desc "Search (auto)" "s" #'my/org-second-brain-consult-ripgrep
        :desc "Search personal" "p" #'my/org-second-brain-consult-ripgrep-personal
        :desc "Search work" "w" #'my/org-second-brain-consult-ripgrep-work)
       :desc "Search both brains" "/" #'my/org-second-brain-consult-ripgrep-all
-      :desc "Debugger" "d" nil
       (:prefix ("d" . "dailies")
        (:prefix ("g" . "goto")
         :desc "Today" "t" #'my/org-second-brain-roam-dailies-goto-today
