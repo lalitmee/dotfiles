@@ -66,6 +66,10 @@ case "$TOOL" in
         ICON="🧠"; PANE_TITLE="$ICON grok-cli"
         COMMAND="grok-cli"
         ;;
+    cursor-agent)
+        ICON="🧭"; PANE_TITLE="$ICON cursor-agent"
+        COMMAND="cursor-agent"
+        ;;
     *)
         tmux display-message "❌ Error: Unknown AI tool '$TOOL'"
         exit 1

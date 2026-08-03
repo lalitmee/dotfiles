@@ -8,5 +8,7 @@ d	Plandex AI assistant
 s	Crush AI assistant
 k	Kiro AI assistant
 r	Grok AI assistant
+g	Cursor Agent
+i	Select and install/update a tool
 u/U	Update AI tools
 q	Quit table
