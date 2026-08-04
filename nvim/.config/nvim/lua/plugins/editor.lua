@@ -71,10 +71,7 @@ return {
                 },
             },
             enabled = function()
-                return not vim.tbl_contains(
-                        { "snacks_picker", "snacks_input", "chatgpt-input" },
-                        vim.bo.filetype
-                    )
+                return not vim.tbl_contains({ "snacks_picker", "snacks_input", "chatgpt-input" }, vim.bo.filetype)
                     and vim.bo.buftype ~= "prompt"
                     and vim.b.completion ~= false
             end,
@@ -359,7 +356,13 @@ return {
             { "y", "<Plug>(YankyYank)", mode = { "n" } },
             { "y", "<Plug>(YankyYank)", mode = { "x" } },
             { "<leader>ay", ":YankyRingHistory<CR>", desc = "Yank Ring History" },
-            { "<leader>ty", function() Snacks.picker.yank_history() end, desc = "Yank History" },
+            {
+                "<leader>ty",
+                function()
+                    Snacks.picker.yank_history()
+                end,
+                desc = "Yank History",
+            },
         },
         dependencies = { "kkharji/sqlite.lua" },
         opts = {
@@ -762,7 +765,7 @@ return {
         "kevinhwang91/nvim-bqf",
         event = "VeryLazy",
         dependencies = {
-            url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+            url = "https://github.com/yorickpeterse/nvim-pqf.git",
             config = true,
         },
         opts = {
