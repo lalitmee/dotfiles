@@ -32,8 +32,8 @@ return {
     sorting_strategy = "ascending",
     layout = {
         layout = {
-            width = 0.85,
-            height = 0.85,
+            width = 0.90,
+            height = 0.90,
         },
         config = function(layout)
             for _, child in ipairs(layout.layout or {}) do
