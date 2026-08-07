@@ -311,6 +311,7 @@ return {
             },
         },
         opts = {
+            picker = "snacks",
             provider = "duckduckgo", -- google or bing
             persist_grouped_bookmarks_query = false,
             browser_bookmarks = {
@@ -323,10 +324,10 @@ return {
                 group_by_folder = true,
                 auto_detect = true,
             },
-            themes = {
+            layouts = {
                 browse = "dropdown",
                 manual_bookmarks = "dropdown",
-                browser_bookmarks = nil, -- nil uses the default Telescope theme
+                browser_bookmarks = nil, -- nil uses the backend default layout
             },
             bookmark_picker = {
                 show_nested = false,
@@ -419,7 +420,6 @@ return {
                 },
             }
             opts.bookmarks = vim.tbl_deep_extend("force", opts.bookmarks or {}, bookmarks)
-            opts = vim.tbl_deep_extend("force", opts or {}, opts)
             require("browse").setup(opts)
         end,
     },
