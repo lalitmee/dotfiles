@@ -36,10 +36,10 @@ EOF
 # {{{
 list_categories() {
     if [[ ! -d "$QUOTES_DIR" ]]; then
-        echo "No categories database folder found at $QUOTES_DIR"
+        echo "No categories database folder found at $QUOTES_DIR" >&2
         return 1
     fi
-    for f in "$QUOTES_DIR"/*.txt; do
+    for f in "$QUOTES_DIR"/*.txt(N); do
         if [[ -f "$f" ]]; then
             basename "$f" .txt
         fi
@@ -131,7 +131,11 @@ main() {
             *)
                 # Show quote for requested category
                 local requested_category="$1"
-                show_quote_from_file "$QUOTES_DIR/${requested_category}.txt" "false"
+                if ! show_quote_from_file "$QUOTES_DIR/${requested_category}.txt" "false"; then
+                    echo "Available categories:" >&2
+                    list_categories >&2
+                    exit 1
+                fi
                 ;;
         esac
     fi
