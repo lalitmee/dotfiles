@@ -9,12 +9,10 @@
   ],
   "agent": {
     "plan": {
-      "color": "accent",
-      "steps": 10
+      "color": "accent"
     },
     "build": {
-      "color": "primary",
-      "steps": 20
+      "color": "primary"
     },
     "discover": {
       "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
@@ -22,7 +20,6 @@
       "temperature": 0.3,
       "color": "success",
       "prompt": "{file:./prompts/explore-mode.txt}",
-      "steps": 10,
       "permission": {
         "read": "allow",
         "edit": "deny",
@@ -36,24 +33,36 @@
       }
     },
     "explore": {
-      "color": "secondary",
-      "steps": 15
+      "color": "secondary"
     },
     "general": {
-      "color": "warning",
-      "steps": 15
+      "color": "warning"
     },
     "tester": {
-      "color": "success",
-      "steps": 15
+      "color": "#00d7ff"
     },
     "refactorer": {
-      "color": "primary",
-      "steps": 15
+      "color": "#9a6dff"
     },
     "architect": {
-      "color": "accent",
-      "steps": 10
+      "color": "#ff6b6b"
+    },
+    "ask": {
+      "description": "Ask Mode — read-only workspace interrogation; answers with findings, decisions, logic, and reasons",
+      "mode": "primary",
+      "color": "#bf7cff",
+      "prompt": "{file:./prompts/ask-mode.txt}",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "todowrite": "allow"
+      }
     }
   },
   "provider": {
