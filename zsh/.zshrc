@@ -238,9 +238,17 @@ source ~/.tmux/plugins/tmux-session-dots/bell-notify.zsh
 # # NOTE: Daily Quote Startup Hook {{{
 #-------------------------------------------------------------------------------
 
-# Show daily quote on interactive shell startup
-if [[ -o interactive ]] && command -v quote &>/dev/null; then
-    quote
+# Show daily quote on interactive shell startup (once on first prompt)
+_show_startup_quote() {
+    # Remove ourselves immediately so we only run once
+    add-zsh-hook -d precmd _show_startup_quote
+    if command -v quote &>/dev/null; then
+        quote
+    fi
+}
+if [[ -o interactive ]]; then
+    autoload -U add-zsh-hook
+    add-zsh-hook precmd _show_startup_quote
 fi
 
 #-------------------------------------------------------------------------------

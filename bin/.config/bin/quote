@@ -10,8 +10,8 @@ fi
 # --- Configuration ---
 SCRIPT_DIR="${0:A:h}"
 QUOTES_DIR="$SCRIPT_DIR/quotes"
-QUOTE_COLOR="#FFC600"
-AUTHOR_COLOR="#EE80E1"
+QUOTE_COLOR="220"
+AUTHOR_COLOR="213"
 
 # Print usage instructions
 # {{{
