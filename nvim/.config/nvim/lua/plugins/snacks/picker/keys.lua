@@ -2,7 +2,7 @@ local is_inside_work_tree = {}
 
 return {
     -- search / file
-    { "<leader>:", function() Snacks.picker.commands() end, desc = "Commands", silent = true },
+    { "<leader>:", function() require("plugins.snacks.picker.cmdline").cmdline() end, desc = "Cmdline (history + commands)", silent = true },
     { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart Find", silent = true },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Search Project", silent = true },
     { "<leader>bb", function() Snacks.picker.buffers() end, desc = "Buffers", silent = true },
