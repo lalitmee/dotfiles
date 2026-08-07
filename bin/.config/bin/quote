@@ -14,6 +14,7 @@ QUOTE_COLOR="#FFC600"
 AUTHOR_COLOR="#EE80E1"
 
 # Print usage instructions
+# {{{
 show_help() {
     cat << EOF
 Usage: quote [options] [category]
@@ -29,8 +30,10 @@ Categories:
   philosophy, programming, productivity, wisdom
 EOF
 }
+# }}}
 
 # List all available categories
+# {{{
 list_categories() {
     if [[ ! -d "$QUOTES_DIR" ]]; then
         echo "No categories database folder found at $QUOTES_DIR"
@@ -42,8 +45,10 @@ list_categories() {
         fi
     done
 }
+# }}}
 
 # Render quote from a file
+# {{{
 show_quote_from_file() {
     local file_path="$1"
     local startup_mode="$2"
@@ -84,48 +89,53 @@ show_quote_from_file() {
         fi
     fi
 }
+# }}}
 
-# --- Main Execution ---
+# Main execution logic
+# {{{
+main() {
+    # Check if quotes directory is missing on startup
+    if [[ ! -d "$QUOTES_DIR" ]]; then
+        # Silent exit if it's startup, error message if run explicitly
+        if [[ $# -eq 0 ]]; then
+            return 0
+        fi
+    fi
 
-# Check if quotes directory is missing on startup
-if [[ ! -d "$QUOTES_DIR" ]]; then
-    # Silent exit if it's startup, error message if run explicitly
     if [[ $# -eq 0 ]]; then
-        exit 0
+        # Daily Rotation Mode
+        local categories
+        categories=($(list_categories | sort))
+        local num_categories=${#categories[@]}
+
+        if [[ $num_categories -eq 0 ]]; then
+            return 0
+        fi
+
+        # Determine today's category using day of the year
+        local day_of_year=$(( 10#$(date +%j) ))
+        local index=$(( (day_of_year % num_categories) + 1 ))
+        local active_category="${categories[$index]}"
+        
+        show_quote_from_file "$QUOTES_DIR/${active_category}.txt" "true" || true
+    else
+        # Parsing arguments
+        case "$1" in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -l|--list)
+                list_categories
+                ;;
+            *)
+                # Show quote for requested category
+                local requested_category="$1"
+                show_quote_from_file "$QUOTES_DIR/${requested_category}.txt" "false"
+                ;;
+        esac
     fi
-fi
+}
+# }}}
 
-if [[ $# -eq 0 ]]; then
-    # Daily Rotation Mode
-    local categories
-    categories=($(list_categories | sort))
-    local num_categories=${#categories[@]}
-
-    if [[ $num_categories -eq 0 ]]; then
-        exit 0
-    fi
-
-    # Determine today's category using day of the year
-    local day_of_year=$(( 10#$(date +%j) ))
-    local index=$(( (day_of_year % num_categories) + 1 ))
-    local active_category="${categories[$index]}"
-    
-    show_quote_from_file "$QUOTES_DIR/${active_category}.txt" "true"
-else
-    # Parsing arguments
-    case "$1" in
-        -h|--help)
-            show_help
-            exit 0
-            ;;
-        -l|--list)
-            list_categories
-            exit 0
-            ;;
-        *)
-            # Show quote for requested category
-            local requested_category="$1"
-            show_quote_from_file "$QUOTES_DIR/${requested_category}.txt" "false"
-            ;;
-    esac
-fi
+main "$@"
