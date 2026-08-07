@@ -207,4 +207,28 @@ return {
             },
         },
     },
+
+    { --[[ gist.nvim ]]
+        "Rawnly/gist.nvim",
+        cmd = { "GistCreate", "GistCreateFromFile", "GistsList" },
+        dependencies = { "willothy/flatten.nvim" },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>gy", group = "gist" },
+            })
+        end,
+        keys = {
+            {
+                "<leader>gys",
+                ":GistCreate<CR>",
+                desc = "Create Gist (selection/buffer)",
+                mode = { "n", "v" },
+                silent = true,
+            },
+            { "<leader>gyp", ":GistCreateFromFile<CR>", desc = "Create Gist from File", mode = "n", silent = true },
+            { "<leader>gyl", ":GistsList<CR>", desc = "List & Search Gists", mode = "n", silent = true },
+        },
+        opts = {},
+    },
 }
