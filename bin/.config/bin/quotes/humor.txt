@@ -1,0 +1,10 @@
+There are only two hard things in Computer Science: cache invalidation and naming things. | Phil Karlton
+Remember that code is like humor. When you have to explain it, it’s bad. | Cory House
+Deleted code is debugged code. | Jeff Sickel
+It works on my machine. | Every Developer
+One man's constant is another man's variable. | Alan Perlis
+The best thing about a boolean is even if you are wrong, you are only off by a bit. | Unknown
+Before software can be reusable it first has to be usable. | Ralph Johnson
+To err is human, but to really foul things up you need a computer. | Paul R. Ehrlich
+Measuring programming progress by lines of code is like measuring aircraft building progress by weight. | Bill Gates
+There are 10 types of people in the world: those who understand binary, and those who don't. | Unknown
