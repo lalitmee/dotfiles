@@ -6,13 +6,6 @@ local function load_plugins()
     require("packer").startup({
         {
             "wbthomason/packer.nvim",
-            {
-                "nvim-telescope/telescope.nvim",
-                requires = {
-                    "nvim-lua/plenary.nvim",
-                    "nvim-telescope/telescope-github.nvim",
-                },
-            },
             -- ADD PLUGINS THAT ARE _NECESSARY_ FOR REPRODUCING THE ISSUE
         },
         config = {
@@ -23,12 +16,10 @@ local function load_plugins()
     })
 end
 _G.load_config = function()
-    require("telescope").setup()
-    require("telescope").load_extension("gh")
     -- ADD INIT.LUA SETTINGS THAT ARE _NECESSARY_ FOR REPRODUCING THE ISSUE
 end
 if vim.fn.isdirectory(install_path) == 0 then
-    print("Installing Telescope and dependencies.")
+    print("Installing plugins and dependencies.")
     vim.fn.system({ "git", "clone", "--depth=1", "https://github.com/wbthomason/packer.nvim", install_path })
 end
 load_plugins()

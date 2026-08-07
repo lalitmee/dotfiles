@@ -1,0 +1,6 @@
+# key: cst
+# name: export const
+# --
+export const ${1:name} = {
+    ${2:// TODO: body}
+}

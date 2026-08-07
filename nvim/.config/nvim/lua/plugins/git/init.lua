@@ -48,7 +48,7 @@ return {
         opts = {
             disable_commit_confirmation = true,
             integrations = {
-                telescope = true,
+                snacks = true,
                 diffview = true,
             },
             signs = {
@@ -167,33 +167,27 @@ return {
             {
                 "<leader>gwa",
                 function()
-                    require("plugins.git.worktree.telescope").create_worktree_picker()
+                    require("plugins.git.worktree.picker").create_worktree_picker()
                 end,
                 desc = "Create Worktree (with Branch Picker)",
                 silent = true,
             },
             {
-                "<leader>gwl",
-                ":Telescope git_worktree git_worktree<CR>",
-                desc = "List Worktrees",
-                silent = true,
-            },
-            {
                 "<leader>gwd",
                 function()
-                    require("plugins.git.worktree.telescope").delete_worktree_picker()
+                    require("plugins.git.worktree.picker").delete_worktree_picker()
                 end,
                 desc = "Delete Worktree",
             },
         },
         config = function()
-            require("telescope").load_extension("git_worktree")
             require("plugins.git.worktree.hooks")
         end,
     },
 
     { --[[ diffview ]]
-        "sindrets/diffview.nvim",
+        "dlyongemallo/diffview-plus.nvim",
+        version = "*",
         cmd = {
             "DiffviewOpen",
             "DiffviewFileHistory",

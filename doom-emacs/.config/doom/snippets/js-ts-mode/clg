@@ -1,0 +1,4 @@
+# key: clg
+# name: console.log variable name
+# --
+console.log(${1:name})

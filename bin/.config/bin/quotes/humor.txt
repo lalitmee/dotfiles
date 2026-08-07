@@ -1,0 +1,46 @@
+If debugging is the process of removing software bugs, then programming must be the process of putting them in. | Edsger W. Dijkstra
+Deleted code is debugged code. | Jeff Sickel
+One of my most productive days was throwing away 1,000 lines of code. | Ken Thompson
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. | Brian Kernighan
+Debugging time increases as a square of the program’s size. | Chris Wenham
+The trouble with programmers is that you can never tell what a programmer is doing until it’s too late. | Seymour Cray
+The proper use of comments is to compensate for our failure to express ourself in code. | Robert C. Martin
+Measuring programming progress by lines of code is like measuring aircraft building progress by weight. | Bill Gates
+The errors which arise from the absence of facts are far more numerous and more durable than those which result from unsound reasoning respecting true data. | Charles Babbage
+If you want more effective programmers, you will discover that they should not waste their time debugging, they should not introduce the bugs to start with. | Edsger W. Dijkstra
+There are few things more frustrating or time wasting than debugging. Wouldn't it be a hell of a lot quicker if we just didn't create the bugs in the first place? | Martin Fowler
+Dealing with failure is easy: Work hard to improve. | Alan Perlis
+A distributed system is one in which the failure of a computer you didn’t even know existed can render your own computer unusable. | Leslie Lamport
+Debugging is like being the detective in a crime movie where you are also the murderer. | Filipe Fortes
+When debugging, novices insert corrective code; experts remove defective code. | Richard E. Pattis
+Much of the essence of building a program is in fact the debugging of the specification. | Fred Brooks
+Every computer language has its Shakespeares, and it is a joy to read their code. A well-written computer program possesses style, finesse, even humor—and a clarity that rivals the best prose. | Danny Hillis
+Coding is "90 percent finished" for half of the total coding time. Debugging is "99 percent complete" most of the time. | Fred Brooks
+A stupid error is an algorithmically avoidable error. Mainly, you are stupid if you let an error that a program can detect go undetected. | Daniel T. Barry
+The cost to repair an error goes up dramatically as project moves towards completion and beyond. | Daniel T. Barry
+The only way for errors to occur in a program is by being put there by the author. No other mechanisms are known. | Harlan Mills
+The most effective debugging tool is still careful thought, coupled with judiciously placed print statements. | Brian Kernighan
+The very best technology never has as much impact as girlfriend or boyfriend trouble. | Tom DeMarco
+Most errors are introduced during requirements specification! | Daniel T. Barry
+I'm not interested in age. People who tell me their age are silly. You're as old as you feel. | Elizabeth Arden
+A thing long expected takes the form of the unexpected when at last it comes. | Mark Twain
+Happiness is a Swedish sunset it is there for all, but most of us look the other way and lose it. | Mark Twain
+Whoever is happy will make others happy, too. | Mark Twain
+The exercise of an extraordinary gift is the supremest pleasure in life. | Mark Twain
+Kindness is the language which the deaf can hear and the blind can see. | Mark Twain
+Wrinkles should merely indicate where smiles have been. | Mark Twain
+To get the full value of joy you must have someone to divide it with. | Mark Twain
+Happiness is a sunset - it is there for all, but most of us look the other way and lose it. | Mark Twain
+Experience is simply the name we give our mistakes. | Oscar Wilde
+The only thing to do with good advice is to pass it on. It is never of any use to oneself. | Oscar Wilde
+The smallest act of kindness is worth more than the grandest intention. | Oscar Wilde
+Anybody can make history. Only a great man can write it. | Oscar Wilde
+Be yourself; everyone else is already taken. | Oscar Wilde
+Strong people make as many mistakes as weak people. Difference is that strong people admit their mistakes, laugh at them, learn from them. That is how they become strong. | Richard Needham
+Short words are best and the old words when short are best of all. | Winston Churchill
+You have enemies? Good. That means you've stood up for something, sometime in your life. | Winston Churchill
+History will be kind to me for I intend to write it. | Winston Churchill
+The price of greatness is responsibility. | Winston Churchill
+The pessimist sees difficulty in every opportunity. The optimist sees the opportunity in every difficulty. | Winston Churchill
+Never, never, never give up. | Winston Churchill
+We make a living by what we get, but we make a life by what we give. | Winston Churchill

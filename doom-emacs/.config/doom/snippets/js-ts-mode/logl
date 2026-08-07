@@ -1,0 +1,4 @@
+# key: logl
+# name: console.log labelled
+# --
+console.log('${1:label}', ${1});

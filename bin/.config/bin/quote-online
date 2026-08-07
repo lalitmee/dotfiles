@@ -1,0 +1,73 @@
+#!/usr/bin/env zsh
+
+# --- Check if gum is installed ---
+if ! command -v gum &> /dev/null; then
+    echo "Error: gum is not installed." >&2
+    echo "Please install it: https://github.com/charmbracelet/gum" >&2
+    exit 1
+fi
+
+# --- Check if jq is installed ---
+if ! command -v jq &> /dev/null; then
+    echo "Error: jq is not installed." >&2
+    echo "Please install it (e.g., 'sudo apt install jq' or 'brew install jq')" >&2
+    exit 1
+fi
+
+# --- Define colors (256-color palette compatible) ---
+QUOTE_COLOR="220"
+AUTHOR_COLOR="213"
+
+# --- Functions ---
+# {{{ fetch_quote
+fetch_quote() {
+  local api_url="https://zenquotes.io/api/random"
+  local quote_path=".[0].q"
+  local author_path=".[0].a"
+
+  # --- Define our "Gemini-like" loading messages ---
+  declare -a loading_messages=(
+      "Consulting the philosophers..."
+      "Searching the ancient libraries..."
+      "Polishing some wisdom..."
+      "Finding the perfect words..."
+      "Asking the universe for a sign..."
+      "Rummaging through the archives..."
+  )
+
+  # Get a random message from the list
+  local random_index=$(( (RANDOM % ${#loading_messages[@]}) + 1 ))
+  local random_message=${loading_messages[$random_index]}
+  local temp_file
+  temp_file=$(mktemp)
+
+  gum spin --spinner dot --title "$random_message" -- sh -c "curl -sk '$api_url' > '$temp_file'"
+  local http_response
+  http_response=$(cat "$temp_file")
+  rm "$temp_file"
+
+  if [[ -n "$http_response" ]] && echo "$http_response" | jq -e . >/dev/null 2>&1; then
+    local quote
+    local author
+    quote=$(echo "$http_response" | jq -r "$quote_path")
+    author=$(echo "$http_response" | jq -r "$author_path")
+
+    if [[ "$quote" != "null" && "$author" != "null" && -n "$quote" && -n "$author" ]]; then
+      local quote_string="$quote -- $author"
+      # Sourcing gum_style directly if it's in the PATH, or execute as command
+      if command -v gum_style &>/dev/null; then
+        gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
+      else
+        gum style --foreground "$QUOTE_COLOR" --border rounded --align center --padding "1 2" "$quote"$'\n\n'"-- $author"
+      fi
+    else
+      gum style --foreground "yellow" --bold "Warning: No results found."
+    fi
+  else
+    gum style --foreground "red" --bold "Error: Could not fetch quote."
+  fi
+}
+# }}}
+
+# --- Main execution ---
+fetch_quote

@@ -37,6 +37,39 @@
     },
     "general": {
       "color": "warning"
+    },
+    "tester": {
+      "color": "#00d7ff"
+    },
+    "refactorer": {
+      "color": "#9a6dff"
+    },
+    "architect": {
+      "color": "#ff6b6b"
+    },
+    "ask": {
+      "description": "Ask Mode — read-only workspace interrogation; answers with findings, decisions, logic, and reasons",
+      "mode": "primary",
+      "color": "#bf7cff",
+      "prompt": "{file:./prompts/ask-mode.txt}",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "todowrite": "allow"
+      }
+    }
+  },
+  "provider": {
+    "google": {
+      "options": {
+        "apiKey": "{env:GEMINI_API_KEY}"
+      }
     }
   },
   "mcp": {

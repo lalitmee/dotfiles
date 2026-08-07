@@ -55,3 +55,14 @@
 
 ;; Grouped/categorized agenda views (mirrors nvim org-super-agenda)
 (package! org-super-agenda)
+
+;; TS/JS debugger — modern lightweight DAP client
+(package! dape)
+
+;; AI chat & inline assistant — multi-provider (OpenAI, Anthropic, Ollama, Gemini)
+(package! gptel)
+
+;; AI inline completions
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
+

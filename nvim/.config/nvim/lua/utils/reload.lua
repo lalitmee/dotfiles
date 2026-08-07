@@ -1,51 +1,30 @@
 local M = {}
 
 ----------------------------------------------------------------------
--- NOTE: relaod using telescope {{{
+-- NOTE: reload using snacks picker {{{
 ----------------------------------------------------------------------
 M.reload = function()
-    -- Telescope will give us something like colors.lua,
-    -- so this function convert the selected entry to
-    -- the module name: ju.colors
     local function get_module_name(s)
-        local module_name
-
-        module_name = s:gsub("%.lua", "")
-        module_name = module_name:gsub("%/", ".")
-        module_name = module_name:gsub("%.init", "")
-
-        return module_name
+        local name = s:gsub("%.lua", ""):gsub("%/", "."):gsub("%.init", "")
+        return name
     end
 
-    local prompt_title = "~ neovim modules ~"
-
-    -- sets the path to the lua folder
-    local path = "~/.config/nvim/lua"
-
-    local opts = {
-        prompt_title = prompt_title,
-        cwd = path,
-
-        attach_mappings = function(_, map)
-            -- Adds a new map to ctrl+e.
-            map("i", "<c-r>", function(_)
-                -- these two a very self-explanatory
-                local entry =
-                    require("telescope.actions.state").get_selected_entry()
-                local name = get_module_name(entry.value)
-
-                -- call the helper method to reload the module
-                -- and give some feedback
-                R(name)
-                vim.notify(name, 2, { title = "RELOADED" })
-            end)
-
-            return true
-        end,
-    }
-
-    -- call the builtin method to list files
-    require("telescope.builtin").find_files(opts)
+    Snacks.picker.files({
+        prompt_title = "~ neovim modules ~",
+        cwd = "~/.config/nvim/lua",
+        file_ignore_patterns = { "after/", "lazy-lock.json", "stylua.toml" },
+        actions = {
+            ["ctrl-r"] = {
+                name = "reload",
+                action = function(picker, item)
+                    local relative = item.file:match("lua/(.+)$") or item.file
+                    local name = get_module_name(relative)
+                    R(name)
+                    vim.notify(name, vim.log.levels.INFO, { title = "RELOADED" })
+                end,
+            },
+        },
+    })
 end
 -- }}}
 ----------------------------------------------------------------------

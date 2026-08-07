@@ -1,0 +1,6 @@
+# key: int
+# name: interface
+# --
+${1:export }interface ${2:Component} {
+    ${3:type: string;}
+}
