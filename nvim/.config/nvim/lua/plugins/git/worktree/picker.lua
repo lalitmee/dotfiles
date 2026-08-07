@@ -27,11 +27,15 @@ end
 function M.create_worktree_picker()
     fetch_branches(function(branches)
         vim.schedule(function()
-            Snacks.picker.pick(branches, {
+            local items = vim.tbl_map(function(branch)
+                return { text = branch }
+            end, branches)
+            Snacks.picker.pick({
+                items = items,
                 prompt = "Create Worktree",
                 layout = { preset = "dropdown" },
-                on_confirm = function(item)
-                    local branch = type(item) == "string" and item or item.text
+                confirm = function(_, item)
+                    local branch = item.text
                     local name, parent = get_repo_info()
                     local root = vim.fs.joinpath(parent, name .. "-worktrees")
                     vim.fn.mkdir(root, "p")
@@ -103,18 +107,25 @@ function M.delete_worktree_picker()
             local items = vim.tbl_map(function(wt)
                 return { text = wt.branch .. "  " .. wt.path, data = wt }
             end, wts)
-            Snacks.picker.pick(items, {
+            Snacks.picker.pick({
+                items = items,
                 prompt = "Delete Worktree (<c-d> to force)",
                 layout = { preset = "dropdown" },
-                keymap = {
-                    ["<c-d>"] = "force_delete",
-                },
-                on_confirm = function(item)
+                confirm = function(_, item)
                     safe_delete(item.data)
                 end,
-                force_delete = function(item)
-                    force_delete(item.data)
-                end,
+                actions = {
+                    force_delete = function(_, item)
+                        force_delete(item.data)
+                    end,
+                },
+                win = {
+                    list = {
+                        keys = {
+                            ["<c-d>"] = { "force_delete", mode = "n" },
+                        },
+                    },
+                },
             })
         end)
     end)
