@@ -56,7 +56,7 @@ run_updates() {
         checksum=$(sha256sum "$tmp_file" | awk '{print $1}')
         gum_style "SHA256: $checksum"
 
-        if gum confirm "Do you want to execute the $tool_name installer?"; then
+        if gum confirm --selected.background "39" --selected.foreground "0" "Do you want to execute the $tool_name installer?"; then
             bash "$tmp_file"
             return $?
         else
@@ -320,7 +320,13 @@ run_updates() {
     if [[ ${#update_summary[@]} -gt 1 ]]; then
         # Use gum table for interactive display
         # The first line of summary_string is the header
-        echo -e "$summary_string" | gum table --border rounded --height 10 --print
+        echo -e "$summary_string" | gum table \
+            --border rounded \
+            --height 10 \
+            --print \
+            --border.foreground "39" \
+            --header.foreground "220" \
+            --cell.foreground "213"
     else
         gum_style "ℹ️  No updates were processed."
     fi
