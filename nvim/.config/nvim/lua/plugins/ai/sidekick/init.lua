@@ -1,7 +1,54 @@
+local function sign_in(bufnr, client)
+    client:request("signIn", vim.empty_dict(), function(err, result)
+        if err then
+            vim.notify(err.message, vim.log.levels.ERROR)
+            return
+        end
+        if result.command then
+            vim.fn.setreg("+", result.userCode)
+            vim.fn.setreg("*", result.userCode)
+            local continue = vim.fn.confirm(
+                "Copied your one-time code to clipboard.\n" .. "Open the browser to complete the sign-in process?",
+                "&Yes\n&No"
+            )
+            if continue == 1 then
+                client:exec_cmd(result.command, { bufnr = bufnr }, function(cmd_err, cmd_result)
+                    if cmd_err then
+                        vim.notify(cmd_err.message, vim.log.levels.ERROR)
+                        return
+                    end
+                    if cmd_result.status == "OK" then
+                        vim.notify("Signed in as " .. cmd_result.user .. ".")
+                    end
+                end)
+            end
+        end
+
+        if result.status == "PromptUserDeviceFlow" then
+            vim.notify("Enter your one-time code " .. result.userCode .. " in " .. result.verificationUri)
+        elseif result.status == "AlreadySignedIn" then
+            vim.notify("Already signed in as " .. result.user .. ".")
+        end
+    end)
+end
+
+local function sign_out(_, client)
+    client:request("signOut", vim.empty_dict(), function(err, result)
+        if err then
+            vim.notify(err.message, vim.log.levels.ERROR)
+            return
+        end
+        if result.status == "NotSignedIn" then
+            vim.notify("Not signed in.")
+        end
+    end)
+end
+
 return {
     { -- [[ sidekick.nvim ]] --
         "folke/sidekick.nvim",
         cmd = { "Sidekick" },
+        event = "VeryLazy",
         opts = {
             cli = {
                 mux = {
@@ -15,6 +62,30 @@ return {
                 },
             },
         },
+        config = function(_, opts)
+            require("sidekick").setup(opts)
+
+            -- NES dependency: copilot-language-server LSP client.
+            -- Fully self-contained so NES works without touching servers.lua.
+            vim.lsp.config("copilot", {
+                cmd = { "copilot-language-server", "--stdio" },
+                root_markers = { ".git" },
+                on_attach = function(client, bufnr)
+                    -- Keep windsurf as the sole insert-mode ghost text provider;
+                    -- NES uses textDocument/copilotInlineEdit, which is unaffected.
+                    if vim.lsp.inline_completion then
+                        vim.lsp.inline_completion.enable(false, { client_id = client.id })
+                    end
+                    vim.api.nvim_buf_create_user_command(bufnr, "LspCopilotSignIn", function()
+                        sign_in(bufnr, client)
+                    end, { desc = "Sign in Copilot with GitHub" })
+                    vim.api.nvim_buf_create_user_command(bufnr, "LspCopilotSignOut", function()
+                        sign_out(bufnr, client)
+                    end, { desc = "Sign out Copilot with GitHub" })
+                end,
+            })
+            vim.lsp.enable("copilot")
+        end,
         init = function()
             local wk = require("which-key")
             wk.add({

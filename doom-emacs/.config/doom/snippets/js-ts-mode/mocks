@@ -1,0 +1,18 @@
+# key: mocks
+# name: create mocks for test case
+# --
+const ${1:mocks} = [
+    {
+        request: {
+            query: ${2:query},
+            variables: {
+                ${3:variables}
+            },
+        },
+        result: {
+            data: {
+                ${4:data}
+            },
+        }
+    },
+]

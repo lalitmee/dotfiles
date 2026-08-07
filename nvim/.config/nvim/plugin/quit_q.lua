@@ -22,7 +22,6 @@ lk.augroup("quit_q_au", {
             "redir_output",
             "spectre_panel",
             "startuptime",
-            "toggleterm",
             "tsplayground",
             "vim",
         },

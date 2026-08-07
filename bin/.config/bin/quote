@@ -7,55 +7,139 @@ if ! command -v gum &> /dev/null; then
     exit 1
 fi
 
-# --- Check if jq is installed ---
-if ! command -v jq &> /dev/null; then
-    echo "Error: jq is not installed." >&2
-    echo "Please install it (e.g., 'sudo apt install jq' or 'brew install jq')" >&2
-    exit 1
-fi
+# --- Configuration ---
+SCRIPT_DIR="${0:A:h}"
+QUOTES_DIR="$SCRIPT_DIR/quotes"
+QUOTE_COLOR="220"
+AUTHOR_COLOR="213"
 
-# --- Define colors ---
-QUOTE_COLOR="#FFC600"
-AUTHOR_COLOR="#EE80E1"
+# Print usage instructions
+# {{{
+show_help() {
+    cat << EOF
+Usage: quote [options] [category]
 
-# --- Functions ---
-fetch_quote() {
-  local api_url="https://zenquotes.io/api/random"
-  local quote_path=".[0].q"
-  local author_path=".[0].a"
+An offline quote generator featuring daily rotated categories.
 
-  # --- Define our "Gemini-like" loading messages ---
-  declare -a loading_messages=(
-      "Consulting the philosophers..."
-      "Searching the ancient libraries..."
-      "Polishing some wisdom..."
-      "Finding the perfect words..."
-      "Asking the universe for a sign..."
-      "Rummaging through the archives..."
-  )
+Options:
+  -l, --list      List all available categories
+  -h, --help      Show this help message
 
-  # Get a random message from the list
-  RANDOM_INDEX=$(( (RANDOM % ${#loading_messages[@]}) + 1 ))
-  RANDOM_MESSAGE=${loading_messages[$RANDOM_INDEX]}
-  temp_file=$(mktemp)
-  gum spin --spinner dot --title "$RANDOM_MESSAGE" -- sh -c "curl -sk '$api_url' > '$temp_file'"
-  http_response=$(cat "$temp_file")
-  rm "$temp_file"
-
-  if [ $? -eq 0 ] && [ -n "$http_response" ] && echo "$http_response" | jq -e . >/dev/null 2>&1; then
-    quote=$(echo "$http_response" | jq -r "$quote_path")
-    author=$(echo "$http_response" | jq -r "$author_path")
-
-    if [ "$quote" != "null" ] && [ "$author" != "null" ] && [ -n "$quote" ] && [ -n "$author" ]; then
-      quote_string="$quote -- $author"
-      gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
-    else
-      gum style --foreground "yellow" --bold "Warning: No results found."
-    fi
-  else
-    gum style --foreground "red" --bold "Error: Could not fetch quote."
-  fi
+Categories:
+  confidence, humor, learning, motivation,
+  philosophy, programming, productivity, wisdom
+EOF
 }
+# }}}
 
-# --- Main execution ---
-fetch_quote
+# List all available categories
+# {{{
+list_categories() {
+    if [[ ! -d "$QUOTES_DIR" ]]; then
+        echo "No categories database folder found at $QUOTES_DIR" >&2
+        return 1
+    fi
+    for f in "$QUOTES_DIR"/*.txt(N); do
+        if [[ -f "$f" ]]; then
+            basename "$f" .txt
+        fi
+    done
+}
+# }}}
+
+# Render quote from a file
+# {{{
+show_quote_from_file() {
+    local file_path="$1"
+    local startup_mode="$2"
+
+    if [[ ! -f "$file_path" ]]; then
+        if [[ "$startup_mode" != "true" ]]; then
+            echo "Error: Category file not found at $file_path" >&2
+        fi
+        return 1
+    fi
+
+    # Read a random line from the file using shuf
+    local selected_line
+    selected_line=$(shuf -n 1 "$file_path" 2>/dev/null)
+    
+    if [[ -z "$selected_line" ]]; then
+        if [[ "$startup_mode" != "true" ]]; then
+            echo "Error: Category file is empty." >&2
+        fi
+        return 1
+    fi
+
+    # Split on ' | ' delimiter
+    # Zsh parameter expansion to split string into parts
+    local parts
+    parts=("${(s: | :)selected_line}")
+    local quote="${parts[1]}"
+    local author="${parts[2]}"
+
+    if [[ -n "$quote" && -n "$author" ]]; then
+        local quote_string="$quote -- $author"
+        # Sourcing gum_style directly if it's in the PATH, or execute as command
+        if command -v gum_style &>/dev/null; then
+            gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
+        else
+            # Fallback style if gum_style is unavailable
+            gum style --foreground "$QUOTE_COLOR" --border rounded --align center --padding "1 2" "$quote"$'\n\n'"-- $author"
+        fi
+    fi
+}
+# }}}
+
+# Main execution logic
+# {{{
+main() {
+    # Check if quotes directory is missing on startup
+    if [[ ! -d "$QUOTES_DIR" ]]; then
+        # Silent exit if it's startup, error message if run explicitly
+        if [[ $# -eq 0 ]]; then
+            return 0
+        fi
+    fi
+
+    if [[ $# -eq 0 ]]; then
+        # Daily Rotation Mode
+        local categories
+        categories=($(list_categories | sort))
+        local num_categories=${#categories[@]}
+
+        if [[ $num_categories -eq 0 ]]; then
+            return 0
+        fi
+
+        # Determine today's category using day of the year
+        local day_of_year=$(( 10#$(date +%j) ))
+        local index=$(( (day_of_year % num_categories) + 1 ))
+        local active_category="${categories[$index]}"
+        
+        show_quote_from_file "$QUOTES_DIR/${active_category}.txt" "true" || true
+    else
+        # Parsing arguments
+        case "$1" in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -l|--list)
+                list_categories
+                ;;
+            *)
+                # Show quote for requested category
+                local requested_category="$1"
+                if ! show_quote_from_file "$QUOTES_DIR/${requested_category}.txt" "false"; then
+                    echo "Available categories:" >&2
+                    list_categories >&2
+                    exit 1
+                fi
+                ;;
+        esac
+    fi
+}
+# }}}
+
+main "$@"

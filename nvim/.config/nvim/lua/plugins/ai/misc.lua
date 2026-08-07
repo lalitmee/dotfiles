@@ -165,7 +165,7 @@ return {
     },
 
     -- WTF.nvim for error diagnosis and fixing
-    { 
+    {
         enabled = false,
         "piersolenski/wtf.nvim",
         dependencies = {
@@ -267,7 +267,12 @@ return {
                 yaml = true,
             }
 
-            -- Custom keymaps (using Ctrl) to avoid conflicts with Copilot/<Tab>
+            -- Custom keymaps: <Tab> accepts the suggestion (blink.cmp's Tab
+            -- fallback chains to this global mapping), <C-g> is a backup accept
+            vim.keymap.set("i", "<Tab>", function()
+                return vim.fn["codeium#Accept"]()
+            end, { expr = true, silent = true, desc = "Windsurf: Accept suggestion" })
+
             vim.keymap.set("i", "<C-g>", function()
                 return vim.fn["codeium#Accept"]()
             end, { expr = true, silent = true, desc = "Windsurf: Accept suggestion" })

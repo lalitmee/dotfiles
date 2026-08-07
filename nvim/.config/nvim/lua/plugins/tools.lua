@@ -113,7 +113,7 @@ return {
             { "<leader>kf", [[<cmd>ScratchOpenFzf<cr>]], desc = "Grep in Scratch Files" },
         },
         opts = {
-            file_picker = "telescope",
+            file_picker = "snacks",
             filetypes = { "js", "json", "lua", "org", "sh", "ts", "txt" },
             scratch_file_dir = require("utils.oslib").get_second_brain_path() .. "/scratch/",
         },
@@ -311,6 +311,7 @@ return {
             },
         },
         opts = {
+            picker = "snacks",
             provider = "duckduckgo", -- google or bing
             persist_grouped_bookmarks_query = false,
             browser_bookmarks = {
@@ -323,10 +324,10 @@ return {
                 group_by_folder = true,
                 auto_detect = true,
             },
-            themes = {
+            layouts = {
                 browse = "dropdown",
                 manual_bookmarks = "dropdown",
-                browser_bookmarks = nil, -- nil uses the default Telescope theme
+                browser_bookmarks = nil, -- nil uses the backend default layout
             },
             bookmark_picker = {
                 show_nested = false,
@@ -419,7 +420,6 @@ return {
                 },
             }
             opts.bookmarks = vim.tbl_deep_extend("force", opts.bookmarks or {}, bookmarks)
-            opts = vim.tbl_deep_extend("force", opts or {}, opts)
             require("browse").setup(opts)
         end,
     },
@@ -437,7 +437,7 @@ return {
                 harpoon = true,
                 lazy = true,
                 mason = true,
-                toggleterm = true,
+                snacks_terminal = true,
                 undotree = true,
             },
         },
@@ -447,10 +447,9 @@ return {
         "johmsalas/text-case.nvim",
         config = function()
             require("textcase").setup({})
-            require("telescope").load_extension("textcase")
         end,
         keys = {
-            { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope", silent = true },
+
         },
     },
 
@@ -531,7 +530,7 @@ return {
             { "<leader>mt", ":MarksToggleSigns<cr>", desc = "Toggle Signs", silent = true },
         },
         opts = {
-            excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "toggleterm" },
+            excluded_filetypes = { "NeogitStatus", "NeogitCommitMessage", "snacks_terminal" },
         },
     },
 
@@ -561,16 +560,18 @@ return {
                         -- return vim.tbl_contains(argv, "-d")
                     end,
                     pre_open = function()
-                        local term = require("toggleterm.terminal")
-                        local termid = term.get_focused_id()
-                        saved_terminal = term.get(termid)
+                        local terms = Snacks.terminal.list()
+                        for _, t in ipairs(terms) do
+                            if vim.api.nvim_get_current_buf() == t.buf then
+                                saved_terminal = t
+                                break
+                            end
+                        end
                     end,
                     post_open = function(bufnr, winnr, ft, is_blocking)
                         if is_blocking and saved_terminal then
-                            -- Hide the terminal while it's blocking
                             saved_terminal:close()
                         else
-                            -- If it's a normal file, just switch to its window
                             vim.api.nvim_set_current_win(winnr)
 
                             -- If we're in a different wezterm pane/tab, switch to the current one
@@ -606,12 +607,11 @@ return {
 
     { --[[ http-codes ]]
         "barrett-ruth/http-codes.nvim",
-        dependencies = "nvim-telescope/telescope.nvim",
         keys = {
             { "<leader>sh", ":HTTPCodes<CR>", desc = "Http Codes", silent = true },
         },
         opts = {
-            use = "telescope",
+            use = "snacks",
         },
     },
 
@@ -620,20 +620,19 @@ return {
         event = "BufReadPost",
         cmd = {
             "TodoTrouble",
-            "TodoTelescope",
             "TodoQuickFix",
             "TodoLocList",
             "TodoFzfLua",
         },
         keys = {
             { "<leader>qa", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-            { "<leader>qt", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
-            { "<leader>qf", "<cmd>TodoTelescope keywords=TODO,FIX<cr>", desc = "TODO/FIX Telescope" },
-            { "<leader>qe", "<cmd>TodoTelescope keywords=ERROR,WARN<cr>", desc = "ERROR/WARN Telescope" },
-            { "<leader>qN", "<cmd>TodoTelescope keywords=NOTE<cr>", desc = "NOTE Telescope" },
-            { "<leader>qF", "<cmd>TodoTelescope keywords=FIXME<cr>", desc = "FIXME Telescope" },
-            { "<leader>qP", "<cmd>TodoTelescope keywords=PERF<cr>", desc = "PERF Telescope" },
-            { "<leader>qh", "<cmd>TodoTelescope keywords=HACK<cr>", desc = "HACK Telescope" },
+            { "<leader>qt", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+            { "<leader>qf", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX" } }) end, desc = "TODO/FIX" },
+            { "<leader>qe", function() Snacks.picker.todo_comments({ keywords = { "ERROR", "WARN" } }) end, desc = "ERROR/WARN" },
+            { "<leader>qN", function() Snacks.picker.todo_comments({ keywords = { "NOTE" } }) end, desc = "NOTE" },
+            { "<leader>qF", function() Snacks.picker.todo_comments({ keywords = { "FIXME" } }) end, desc = "FIXME" },
+            { "<leader>qP", function() Snacks.picker.todo_comments({ keywords = { "PERF" } }) end, desc = "PERF" },
+            { "<leader>qh", function() Snacks.picker.todo_comments({ keywords = { "HACK" } }) end, desc = "HACK" },
             { "<leader>qq", "<cmd>TodoQuickFix<cr>", desc = "Todo Quickfix" },
         },
         opts = {},

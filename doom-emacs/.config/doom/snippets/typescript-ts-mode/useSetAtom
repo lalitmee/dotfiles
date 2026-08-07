@@ -1,0 +1,4 @@
+# key: useSetAtom
+# name: useSetAtom
+# --
+const ${1:setValue} = useSetAtom(${2:atomName});

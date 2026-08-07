@@ -1,0 +1,4 @@
+# key: imr
+# name: import React
+# --
+import React from 'react'

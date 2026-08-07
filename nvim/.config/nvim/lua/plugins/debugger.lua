@@ -6,7 +6,6 @@ return {}
 --         dependencies = {
 --             "jay-babu/mason-nvim-dap.nvim",
 --             "jbyuki/one-small-step-for-vimkind",
---             "nvim-telescope/telescope-dap.nvim",
 --             "theHamsta/nvim-dap-virtual-text",
 --             "mxsdev/nvim-dap-vscode-js",
 --             {
@@ -18,7 +17,6 @@ return {}
 --         config = function()
 --             local dap = require("dap")
 --             local dapui = require("dapui")
---             require("telescope").load_extension("dap")
 
 --             require("dap-vscode-js").setup({
 --                 debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",

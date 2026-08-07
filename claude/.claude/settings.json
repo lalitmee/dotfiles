@@ -1,17 +1,31 @@
 {
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "chrome-devtools-mcp@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {},
   "alwaysThinkingEnabled": false,
   "effortLevel": "medium",
-  "theme": "custom:cobalt2",
-  "model": "sonnet[1m]"
+  "enabledPlugins": {
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/home/lalitmee/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "model": "sonnet[1m]",
+  "theme": "custom:cobalt2"
 }

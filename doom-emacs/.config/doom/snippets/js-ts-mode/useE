@@ -1,0 +1,6 @@
+# key: useE
+# name: useEffect with dependency
+# --
+useEffect(() => {
+    ${1:// content goes here}
+}, [${2:dependencies}])

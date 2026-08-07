@@ -2,42 +2,6 @@ local command = lk.command
 local border, L = lk.style.border.rounded, vim.log.levels
 
 return {
-    { --[[ dressing ]]
-        "stevearc/dressing.nvim",
-        event = "VeryLazy",
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lua.lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lua.lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.input(...)
-            end
-        end,
-        config = function()
-            require("dressing").setup({
-                input = {
-                    insert_only = false,
-                    win_options = { winblend = 0 },
-                    title_pos = "center",
-                    get_config = function(opts)
-                        if opts.kind == "browse" then
-                            return {
-                                relative = "editor",
-                                max_width = { 140, 0.9 },
-                                min_width = { 40, 0.4 },
-                            }
-                        end
-                    end,
-                },
-                select = { winblend = 0 },
-            })
-        end,
-    },
-
     { --[[ noice ]]
         enabled = false,
         "folke/noice.nvim",

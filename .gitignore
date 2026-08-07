@@ -39,3 +39,9 @@ copyq/.config/copyq/copyq_tabs.ini
 *.elc
 **/*.elc
 
+# git filter-repo backups
+.git-rewrite/
+
+# superpowers agent artifacts
+.superpowers/
+
