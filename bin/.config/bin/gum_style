@@ -89,8 +89,8 @@ format_message() {
 gum_style() {
     local message="$1"
     local width_arg="$2"
-    local quote_color="$3"
-    local author_color="$4"
+    local quote_color="${3:-$text_color}"
+    local author_color="${4:-213}"
 
     # Calculate optimal width
     local width=$(calculate_width "$message" "$width_arg")
@@ -107,8 +107,8 @@ gum_style() {
 # Main execution - Print outer border with Gum's rounded border
 main() {
     local message="$1"
-    local quote_color="$2"
-    local author_color="$3"
+    local quote_color="${2:-$text_color}"
+    local author_color="${3:-213}"
     local width_arg="$4"
 
     if [[ -z "$message" ]]; then

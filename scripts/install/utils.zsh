@@ -134,7 +134,7 @@ execute_secure_remote_script() {
             local checksum
             checksum=$(sha256sum "$tmp_file" | awk '{print $1}')
             gum_style "SHA256: $checksum"
-            if ! gum confirm "Do you want to execute the installer from $url?"; then
+            if ! gum confirm --selected.background "39" --selected.foreground "0" "Do you want to execute the installer from $url?"; then
                 gum_style "⚠️  Skipping execution of installer from $url."
                 return 1
             fi
