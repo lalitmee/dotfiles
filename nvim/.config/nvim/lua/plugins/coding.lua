@@ -9,17 +9,19 @@ return {
         opts = {},
     },
 
-    { --[[ markdown-preview ]]
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        build = "cd app && yarn install",
+    { --[[ markview ]]
+        "OXY2DEV/markview.nvim",
+        lazy = false,
+        priority = 999,
         ft = { "markdown" },
         keys = {
-            { "<leader>am", "<cmd>MarkdownPreview<cr>", desc = "Markdown Preview", silent = true },
+            { "<leader>am", "<cmd>Markview splitToggle<cr>", desc = "Markdown Preview", silent = true },
         },
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-        end,
+        opts = {
+            preview = {
+                enable = false,
+            },
+        },
     },
 
     { --[[ markdown.nvim: making markdown files beautiful ]]

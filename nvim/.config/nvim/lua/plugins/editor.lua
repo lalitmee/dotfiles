@@ -14,13 +14,6 @@ return {
                 preset = "default",
                 ["<Tab>"] = {
                     "snippet_forward",
-                    function() -- sidekick next edit suggestion
-                        local ok, sidekick = pcall(require, "sidekick")
-                        if ok and sidekick.nes_jump_or_apply then
-                            return sidekick.nes_jump_or_apply()
-                        end
-                        return nil
-                    end,
                     function() -- if you are using Neovim's native inline completions
                         if vim.lsp.inline_completion then
                             return vim.lsp.inline_completion.get()
