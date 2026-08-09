@@ -8,6 +8,7 @@ require("vim._core.ui2")
 
 -- NOTE: globals should be the first thing to load
 require("globals")
+require("core.env")
 
 ----------------------------------------------------------------------
 -- NOTE: globals {{{

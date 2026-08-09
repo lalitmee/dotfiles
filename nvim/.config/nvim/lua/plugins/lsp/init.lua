@@ -57,7 +57,6 @@ return {
                 "tailwindcss",
                 "taplo",
                 "vimls",
-                "copilot",
             },
             automatic_enable = false,
         },
@@ -66,7 +65,7 @@ return {
     { --[[ lspconfig ]]
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
-        cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart", "LspCopilotSignIn" },
+        cmd = { "LspInfo", "LspInstall", "LspStart", "LspStop", "LspRestart" },
         init = function()
             local wk = require("which-key")
             wk.add({
