@@ -427,6 +427,10 @@ File-level `#+ARCHIVE:' directives override this."
            :target (file+head "${slug}.org"
                               "#+title: ${title}\n")
            :unnarrowed t)))
+  (cl-defmethod org-roam-node-slug ((node org-roam-node))
+    "Return the slug of NODE, using hyphens instead of underscores."
+    (let ((slug (org-roam-node-slugify (org-roam-node-title node))))
+      (replace-regexp-in-string "_" "-" slug)))
   (my/org-second-brain-roam-dailies-ensure-dirs)
   (mapc (lambda (m)
           (when (keymapp m)
