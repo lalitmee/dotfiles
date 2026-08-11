@@ -75,6 +75,10 @@ send_notification() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         osascript -e "display notification \"$message\" with title \"$title\" sound name \"default\""
     else
+        # Ensure DBus and Display are set for cron environment
+        export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+        export DISPLAY="${DISPLAY:-:0}"
+
         if command -v notify-send &> /dev/null; then
             notify-send -u "$urgency" -i "$icon" "$title" "$message"
         elif command -v dunstify &> /dev/null; then
