@@ -273,6 +273,10 @@ alt + y
 #-------------------------------------------------------------------------------
 # NOTE: scratchpads {{{
 #-------------------------------------------------------------------------------
+# Toggle Scratchpad Overview (Mission Control / Expose)
+super + grave
+    $HOME/.config/i3/scripts/venv/bin/python $HOME/.config/i3/scripts/scratchpad_overview.py
+
 # editor -> neovide
 super + n
     i3run --summon --instance neovide -- neovide
