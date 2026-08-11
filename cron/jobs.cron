@@ -30,4 +30,7 @@
 # }}}
 #-------------------------------------------------------------------------------
 
+# Organize the downloads directory daily at midnight
+0 0 * * * /home/lalitmee/Downloads/Scripts/venv/bin/python3 /home/lalitmee/Downloads/Scripts/organize_downloads.py >/dev/null 2>&1
+
 # vim:fdm=marker
