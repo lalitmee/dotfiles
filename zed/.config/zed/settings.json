@@ -30,7 +30,9 @@
     "mode": "eager",
   },
   "languages": {
-    "ini": {},
+    "ini": {
+      "soft_wrap": "prefer_line"
+    },
     "C": {
       "tab_size": 4,
       "hard_tabs": true,
