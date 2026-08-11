@@ -31,6 +31,6 @@
 #-------------------------------------------------------------------------------
 
 # Organize the downloads directory daily at midnight
-0 0 * * * /home/lalitmee/Downloads/Scripts/venv/bin/python3 /home/lalitmee/Downloads/Scripts/organize_downloads.py >/dev/null 2>&1
+0 0 * * * /home/lalitmee/Downloads/Scripts/venv/bin/python3 /home/lalitmee/Downloads/Scripts/organize_downloads.py >/dev/null 2>&1 && env -i DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus" DISPLAY=:0 notify-send "📥 Downloads Organizer" "Downloads folder organized successfully!"
 
 # vim:fdm=marker
