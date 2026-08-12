@@ -321,9 +321,9 @@ super + y
 super + g
     i3run --summon --instance crx_gdfaincndogidkdcdkhapmbffkckdkhn -- brave-browser --app-id=gdfaincndogidkdcdkhapmbffkckdkhn
 
-# >> assistant -> chatgpt (brave pwa)
+# >> assistant -> chatgpt
 super + c
-    i3run --summon --instance crx_cadlkienfkclaiaibeoongdcgmdikeeg -- brave-browser --app-id=cadlkienfkclaiaibeoongdcgmdikeeg
+    i3run --summon --class Chatgpt -- chatgpt
 
 # >> assistant -> claude (brave pwa)
 super + a
