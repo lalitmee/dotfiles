@@ -124,6 +124,7 @@ alias wk="wikit"
 alias yt="youtube-dl"
 
 # alias for sublime command
+alias ca="cursor-agent"
 alias ci="code-insiders ."
 alias co="code ."
 alias glm="glrnvim"
