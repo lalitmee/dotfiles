@@ -2,30 +2,50 @@
 
 sxhkdrc_file="$HOME/.config/sxhkd/sxhkdrc"
 
+# {{{ get_keybinds
 # This function parses the sxhkdrc file and outputs '|' separated values
 get_keybinds() {
-    echo "SECTION|KEYBINDING|COMMAND"
+    echo "KEYBINDING|DESCRIPTION"
     awk '
         # Handle section headers
-        /^# NOTE: (.+) {{{/ {
-            match($0, /# NOTE: (.+) {{{/, g); section=g[1]; next
+        /^#\s*NOTE:\s*(.+)\s*{{{/ {
+            desc = ""
+            next
         }
 
-        # Skip all comments and blank lines
-        /^\s*#/ || /^\s*$/ { next }
+        # Ignore fold markers and decorative divider lines
+        /^#[-=]{3,}/ || /#\s*{{{/ || /#\s*}}}/ { next }
 
-        # Process a keybinding line (must not start with whitespace)
+        # Capture description comment
+        /^\s*#\s*(.+)/ {
+            match($0, /^\s*#\s*(.+)/, g)
+            raw_comment = g[1]
+            # Strip leading ">> " or "-> " if present for cleaner display
+            sub(/^(>>\s*|->\s*)/, "", raw_comment)
+            desc = raw_comment
+            next
+        }
+
+        # Skip blank lines
+        /^\s*$/ { next }
+
+        # Process a keybinding line (starts with non-whitespace)
         /^\S/ {
             key = $0
-            # Immediately get the next line, which is the command
+            # Get the next line which contains the command
             getline cmd_line
-            # Trim leading whitespace from the command
             sub(/^\s+/, "", cmd_line)
-            # Print the record
-            print section "|" key "|" cmd_line
+
+            # Use comment description if available, otherwise fallback to command
+            description = (desc != "") ? desc : cmd_line
+            print key "|" description
+            desc = ""
         }
     ' "$sxhkdrc_file"
 }
+# }}}
 
 # Pipe the output through the 'column' command to create a table, then to rofi
-get_keybinds | column -t -s '|' | rofi -dmenu -i -p "Search Keybindings: " -theme "~/.config/rofi/cheatsheet.rasi" -font "Operator Mono Lig 11"
+if [[ "$ZSH_EVAL_CONTEXT" == "toplevel" ]]; then
+    get_keybinds | column -t -s '|' | rofi -dmenu -i -p "Search Keybindings: " -theme "~/.config/rofi/cheatsheet.rasi" -font "Operator Mono Lig 11"
+fi

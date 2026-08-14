@@ -5,7 +5,11 @@
 }
 
 window {
-    width: 90%;
+    width: 60%;
+    location: center;
+    anchor: center;
+    border: 2px;
+    border-radius: 12px;
 }
 
 listview {
@@ -19,12 +23,14 @@ element {
     background-color: #193549;
     padding: 8px;
     border: 0;
+    border-radius: 8px;
 }
 
 element selected {
     background-color: #185294;
     text-color: #FFC600;
     border: 0;
+    border-radius: 8px;
 }
 
 element-text selected {
