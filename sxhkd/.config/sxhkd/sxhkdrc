@@ -1,30 +1,30 @@
 #-------------------------------------------------------------------------------
 # NOTE: must have {{{
 #-------------------------------------------------------------------------------
+# Reload sxhkd configuration
 super + Escape
     ~/.config/bin/sxhkd-reload
 
+# Open Ghostty terminal
 super + Return
     ghostty
-
-#super + shift + Return
-#   wezterm
 
 #}}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#NOTE: ulauncher {{{
+# NOTE: ulauncher {{{
 #-------------------------------------------------------------------------------
+# Open Ulauncher
 ctrl + space
     gapplication launch io.ulauncher.Ulauncher
 #}}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#NOTE: espanso {{{
+# NOTE: espanso {{{
 #-------------------------------------------------------------------------------
-# text expander search bar
+# Search Espanso snippets
 alt + space
     espanso cmd search
 #}}}
@@ -33,19 +33,19 @@ alt + space
 #-------------------------------------------------------------------------------
 # NOTE: editors {{{
 #-------------------------------------------------------------------------------
-# editor -> emacs
+# Open Emacs
 super + alt + e
     i3run --summon --instance emacs -- emacs
 
-# editor -> vscode
+# Open VSCode
 super + shift + c
     code
 
-# editor -> zed
+# Open Zed
 super + alt + z
     zed
 
-# editor -> Antigravity IDE
+# Open Antigravity IDE
 super + alt + a
     $HOME/.local/share/antigravity-ide/bin/antigravity-ide --no-sandbox
 
@@ -55,30 +55,19 @@ super + alt + a
 #-------------------------------------------------------------------------------
 # NOTE: rofi/dmenu {{{
 #-------------------------------------------------------------------------------
+# Open Rofi application launcher
 super + o
     ~/.config/rofi/launchers/type-1/launcher.sh
 
-# super + shift + v
-#    ~/.config/rofi/applets/bin/volume.sh
-
-# super + shift + b
-#    ~/.config/rofi/applets/bin/battery.sh
-
-# super + shift + m
-#    ~/.config/rofi/applets/bin/mpd.sh
-
-# super + shift + a
-#    ~/.config/rofi/applets/bin/apps.sh
-
+# Open Rofi powermenu
 super + p
    ~/.config/rofi/applets/bin/powermenu.sh
 
-# super + shift + u
-#    ~/.config/rofi/applets/bin/quicklinks.sh
-
+# Take screenshot with Flameshot
 super + shift + s
    flameshot gui
 
+# Open i3 layout manager
 super + shift + w
    ~/.config/i3/layout-manager.sh
 
@@ -88,46 +77,47 @@ super + shift + w
 #-------------------------------------------------------------------------------
 # NOTE: battery {{{
 #-------------------------------------------------------------------------------
-#super + c
-#   ~/.config/bin/battery-capacity
 #}}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # NOTE: applications {{{
 #-------------------------------------------------------------------------------
-# super + shift + f
-#     firefox
-
-# super + shift + b
-#     brave-browser
 #}}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # NOTE: audio {{{
 #-------------------------------------------------------------------------------
+# Play / Pause audio
 XF86AudioPlay
     playerctl play-pause
 
+# Play / Pause audio
 ctrl + alt + p
     playerctl play-pause
 
+# Next audio track
 XF86AudioNext
     playerctl next
 
+# Previous audio track
 XF86AudioPrev
     playerctl previous
 
+# Next audio track
 ctrl + shift + period
     playerctl next
 
+# Previous audio track
 ctrl + shift + comma
     playerctl previous
 
+# Stop audio playback
 XF86AudioStop
     playerctl stop
 
+# Control MPD {prev,next,play,pause}
 alt + {h,j,k,l}
     mpc {prev,next,play,pause}
 #}}}
@@ -140,21 +130,27 @@ alt + {h,j,k,l}
 #-------------------------------------------------------------------------------
 # NOTE: workspaces {{{
 #-------------------------------------------------------------------------------
+# Switch to workspace {1-10}
 super + {1-9,0}
     i3-msg workspace {1-9,10}
 
+# Move container to workspace {1-10}
 super + shift + {1-9,0}
     i3-msg move container to workspace {1-9,10}
 
+# Switch to workspace {11-19}
 control + {1-9}
     i3-msg workspace {11,12,13,14,15,16,17,18,19}
 
+# Move container to workspace {11-19}
 control + shift + {1-9}
     i3-msg move container to workspace {11,12,13,14,15,16,17,18,19}
 
+# Move workspace to {left,down,up,right} output
 super + ctrl + {h,j,k,l}
     i3-msg move workspace to output {left, down, up, right}
 
+# Move workspace to {left,down,up,right} output
 super + ctrl + {Left,Down,Up,Right}
     i3-msg move workspace to output {left, down, up, right}
 #}}}
@@ -163,21 +159,27 @@ super + ctrl + {Left,Down,Up,Right}
 #-------------------------------------------------------------------------------
 # NOTE: reload, restart, exit, kill, suspend and lock {{{
 #-------------------------------------------------------------------------------
+# Reload i3 configuration
 super + r
     i3-msg reload
 
+# Restart i3 in-place
 super + shift + r
     i3-msg restart
 
+# Exit i3 session
 super + shift + e
     i3-msg exit
 
+# Kill focused window
 super + q
     i3-msg kill
 
+# Suspend system
 super + shift + period
     systemctl suspend
 
+# Lock screen
 super + shift + x
     lockscreen
 # }}}
@@ -186,27 +188,35 @@ super + shift + x
 #-------------------------------------------------------------------------------
 # NOTE: toggle layouts {{{
 #-------------------------------------------------------------------------------
+# Toggle fullscreen
 super + f
     i3-msg fullscreen toggle
 
+# Toggle layout (split / tabbed / stacking)
 super + e
     i3-msg layout toggle splith splitv tabbed stacking
 
+# Split horizontally
 super + v
     i3-msg splith
 
+# Split vertically
 super + s
     i3-msg splitv
 
+# Toggle focus mode
 super + space
     i3-msg focus mode_toggle
 
+# Toggle floating layout
 super + shift + space
     i3fyra --float
 
+# Toggle Zen workspace
 super + z
     i3zen --width 98 --height 98 --workspace zen
 
+# Switch to Zen workspace
 super + shift + z
     i3-msg workspace zen
 # }}}
@@ -215,36 +225,43 @@ super + shift + z
 #-------------------------------------------------------------------------------
 # NOTE: windows {{{
 #-------------------------------------------------------------------------------
+# Focus window {left,down,up,right}
 super + {h,j,k,l}
     i3viswiz {left,down,up,right}
 
+# Focus window {left,down,up,right}
 super + {Left,Down,Up,Right}
     i3viswiz {left,down,up,right}
 
+# Move window {left,down,up,right}
 super + shift + {h,j,k,l}
     i3flip --move {left,down,up,right}
 
+# Move window {left,down,up,right}
 super + shift + {Left,Down,Up,Right}
     i3flip --move {left,down,up,right}
 
+# Focus next window
 super + Tab
     i3flip next
 
+# Focus previous window
 super + shift + Tab
     i3flip prev
 
-# Alt_L + Tab
-#     workspaces back_and_forth
-
+# Resize window left
 super + ctrl + shift + h
     i3Kornhe size --speed 50 left
 
+# Resize window down
 super + ctrl + shift + j
     i3Kornhe size --speed 50 down
 
+# Resize window up
 super + ctrl + shift + k
     i3Kornhe size --speed 50 up
 
+# Resize window right
 super + ctrl + shift + l
     i3Kornhe size --speed 50 right
 #}}}
@@ -253,15 +270,19 @@ super + ctrl + shift + l
 #-------------------------------------------------------------------------------
 # NOTE: gaps {{{
 #-------------------------------------------------------------------------------
+# Increase inner gaps (+5)
 alt + o
     i3-msg gaps inner current plus 5
 
+# Decrease inner gaps (-5)
 alt + i
     i3-msg gaps inner current minus 5
 
+# Increase outer gaps (+5)
 alt + u
     i3-msg gaps outer current plus 5
 
+# Decrease outer gaps (-5)
 alt + y
     i3-msg gaps outer current minus 5
 #}}}
@@ -273,202 +294,189 @@ alt + y
 #-------------------------------------------------------------------------------
 # NOTE: scratchpads {{{
 #-------------------------------------------------------------------------------
-# Toggle Scratchpad Overview (Mission Control / Expose)
+# Scratchpad overview (Mission Control)
 super + grave
     $HOME/.config/i3/scripts/venv/bin/python $HOME/.config/i3/scripts/scratchpad_overview.py
 
-# editor -> neovide
+# Scratchpad: Neovide
 super + n
     i3run --summon --instance neovide -- neovide
 
-# >> assistant -> notebooklm (brave pwa)
+# Scratchpad: NotebookLM (Brave PWA)
 super + ctrl + n
     i3run --summon --instance crx_gjcmcplpgihbecacndmmbaenpfgimlec -- brave-browser --app-id=gjcmcplpgihbecacndmmbaenpfgimlec
 
-# terminal -> ghostty
-#super + t
-#    i3run --summon --title scratch-terminal -- ghostty --title=scratch-terminal
-
-# >> system monitor -> bottom
+# Scratchpad: Bottom (System Monitor)
 super + b
     i3run --summon --title monitor -- ghostty --title=monitor -e btm
 
-# >> bluetooth manager -> blueman-manager
+# Scratchpad: Blueman Manager (Bluetooth)
 super + shift + b
     i3run --class Blueman-manager --summon -- blueman-manager
 
-# password manager -> 1password
+# Scratchpad: Bitwarden
 super + shift + g
     i3run --summon --instance bitwarden -- flatpak run com.bitwarden.desktop
 
-# >> music plaer -> spotify
+# Scratchpad: Spotify
 super + m
     i3run --summon --instance spotify -- spotify
 
-# >> music player -> music for programming (brave pwa)
+# Scratchpad: Music For Programming (Brave PWA)
 super + shift + m
     i3run --summon --instance crx_jhcembbiknekhcfklaahjjojbciaphaa -- brave-browser --app-id=jhcembbiknekhcfklaahjjojbciaphaa
 
-# >> terminal music player -> cmus
+# Scratchpad: Cmus (Terminal Music Player)
 super + ctrl + m
     i3run --summon --title terminal-music-player -- ghostty --title=terminal-music-player -e cmus
 
-# >> music player -> youtube music (brave pwa)
+# Scratchpad: YouTube Music (Brave PWA)
 super + y
     i3run --summon --instance crx_cinhimbnkkaeohfgghhklpknlkffjgod -- brave-browser --app-id=cinhimbnkkaeohfgghhklpknlkffjgod
 
-# >> assistant -> gemini (brave pwa)
+# Scratchpad: Gemini (Brave PWA)
 super + g
     i3run --summon --instance crx_gdfaincndogidkdcdkhapmbffkckdkhn -- brave-browser --app-id=gdfaincndogidkdcdkhapmbffkckdkhn
 
-# >> assistant -> chatgpt
+# Scratchpad: ChatGPT
 super + c
     i3run --summon --class Chatgpt -- chatgpt
 
-# >> assistant -> claude (brave pwa)
+# Scratchpad: Claude (Brave PWA)
 super + a
     i3run --summon --instance crx_fmpnliohjhemenmnlpbfagaolkdacoja -- brave-browser --app-id=fmpnliohjhemenmnlpbfagaolkdacoja
 
-# >> todo tracker -> todoist
+# Scratchpad: Todoist
 super + alt + g
     i3run --summon --instance todoist -- todoist
 
-# >> file-manager -> Thunar
+# Scratchpad: Thunar (File Manager)
 super + d
     i3run --class Thunar --summon -- thunar
 
-# >> sticky-notes -> xpad
+# Scratchpad: Xpad (Sticky Notes)
 super + comma
     i3run --class xpad --summon -- xpad
 
-# >> notes -> google keep (brave pwa)
+# Scratchpad: Google Keep (Brave PWA)
 super + period
     i3run --summon --instance crx_eilembjdkfgodjkcjnpgpaenohkicgjd -- brave-browser --app-id=eilembjdkfgodjkcjnpgpaenohkicgjd
 
-# >> floating-notes -> ghostty
-# super + shift + n
-#     i3run --summon --title floating-notes -- ghostty --title=floating-notes -e nvim ~/Projects/Personal/Github/second-brain/brain/notes/inbox.org
-# >> floating-notes -> neovide
+# Scratchpad: Notes (Neovide)
 super + shift + n
     i3run --summon --class neovide-notes -- neovide --x11-wm-class neovide-notes ~/Projects/Personal/Github/second-brain/brain/notes/inbox.org
 
-# >> todos -> ghostty
-# super + shift + t
-#     i3run --summon --title floating-todos -- ghostty --title=floating-todos -e nvim ~/Projects/Personal/Github/second-brain/daily/agenda/inbox.org
-# >> todos -> neovide
+# Scratchpad: Todos (Neovide)
 super + shift + t
     i3run --summon --class neovide-todos -- neovide --x11-wm-class neovide-todos ~/Projects/Personal/Github/second-brain/daily/agenda/inbox.org
 
-# >> scratch -> ghostty
-# super + alt + k
-#     i3run --summon --title floating-scratch -- ghostty --title=floating-scratch -e nvim ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
-# >> scratch -> neovide
+# Scratchpad: Scratch Notes (Neovide)
 super + alt + k
     i3run --summon --class neovide-scratch -- neovide --x11-wm-class neovide-scratch ~/Projects/Personal/Github/second-brain/sandbox/scratch/inbox.org
 
-# >> second brain text search
+# Search Second Brain notes (Text)
 super + ctrl + f
     i3run --summon --title second-brain-search -- ghostty --title=second-brain-search -e ~/.config/tmux/scripts/popup/second-brain-search.sh text
 
-# >> second brain file find
+# Find Second Brain notes (File)
 super + ctrl + g
     i3run --summon --title second-brain-search -- ghostty --title=second-brain-search -e ~/.config/tmux/scripts/popup/second-brain-search.sh file
 
-# >> communication -> telegram
+# Scratchpad: Telegram
 super + u
     i3run --class TelegramDesktop --summon --instance telegram-desktop -- telegram-desktop
 
-# >> communication -> whatsapp (brave pwa)
+# Scratchpad: WhatsApp (Brave PWA)
 super + i
     i3run --summon --instance crx_hnpfjngllnobngcgfapefoaidbinmjnm -- brave-browser --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
 
-# >> communication -> discord (brave pwa)
+# Scratchpad: Discord (Brave PWA)
 super + shift + i
     i3run --summon --instance crx_pliiebkcmokkgndfalahlmimanmbjlab -- brave-browser --app-id=pliiebkcmokkgndfalahlmimanmbjlab
 
-# >> social -> x/twitter (brave pwa)
+# Scratchpad: X / Twitter (Brave PWA)
 super + t
     i3run --summon --instance crx_lodlkdfmihgonocnmddehnfgiljnadcf -- brave-browser --app-id=lodlkdfmihgonocnmddehnfgiljnadcf
 
-# >> productivity -> gnome-pomodoro
+# Scratchpad: GNOME Pomodoro
 super + shift + p
     i3run --class gnome-pomodoro --summon -- gnome-pomodoro
 
-# >> calendar -> gnome-calendar
+# Scratchpad: GNOME Calendar
 super + shift + d
     i3run --class gnome-calendar --summon -- flatpak run org.gnome.Calendar
 
-# >> design -> excalidraw (brave pwa)
+# Scratchpad: Excalidraw (Brave PWA)
 super + x
     i3run --summon --instance crx_dnfpoenibinnbbckgbhendmlljoobcfg -- brave-browser --app-id=dnfpoenibinnbbckgbhendmlljoobcfg
 
-# >> audio mixer -> alsamixer
+# Scratchpad: Alsamixer (Audio Mixer)
 super + ctrl + a
     i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
 
-# >> clipboard manager -> copyq
+# Scratchpad: CopyQ (Clipboard Manager)
 super + shift + v
     copyq toggle
 
-#}}}```
+#}}}
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#NOTE: custom scripts {{{
+# NOTE: custom scripts {{{
 #-------------------------------------------------------------------------------
 
-# Start Pomodoro
+# Start Pomodoro timer
 super + alt + p
    ~/.config/polybar/scripts/pomodoro/main.sh --click-left
 
-# Start Break
+# Start Pomodoro break
 super + alt + b
    ~/.config/polybar/scripts/pomodoro/main.sh --click-middle
 
-# Toggle Pause
+# Toggle Pomodoro pause
 super + alt + c
    ~/.config/polybar/scripts/pomodoro/main.sh --click-right
 
-# Add time (+1 min)
+# Add 1 minute to Pomodoro
 super + alt + Up
    ~/.config/polybar/scripts/pomodoro/main.sh --add
 
-# Subtract time (-1 min)
+# Subtract 1 minute from Pomodoro
 super + alt + Down
     ~/.config/polybar/scripts/pomodoro/main.sh --sub
 
-# Reset Pomodoro Timer
+# Reset Pomodoro timer
 super + alt + r
     ~/.config/polybar/scripts/pomodoro/main.sh --reset
 
-# Start Custom Work Timer
+# Start custom work timer (prompt for minutes)
 super + alt + w
     WORK_MIN=$(rofi -dmenu -p "Work minutes:" -theme "~/.config/rofi/cheatsheet.rasi" -font "Operator Mono Lig 11") && ~/.config/polybar/scripts/pomodoro/main.sh --start-work $WORK_MIN
 
-# Live Speech-to-Text (Nerd Dictation Toggle)
+# Toggle live speech-to-text (Nerd Dictation)
 super + w
     ~/.config/bin/dictate
 
-# Toggle Headset Profile (for Dictation)
+# Toggle headset profile for dictation
 super + ctrl + w
     ~/.config/bin/toggle-headset-profile
 
-# Whisper Dictation
+# Toggle Whisper dictation
 super + alt + d
     ~/.config/bin/dictate-whisper
 
-# Searchable Keybinding Cheatsheet
+# Search keybinding cheatsheet
 super + alt + s
     ~/.config/bin/sxhkd-cheatsheet
 
 #-------------------------------------------------------------------------------
 # NOTE: wallpaper changer {{{
 #-------------------------------------------------------------------------------
-# random wallpaper
+# Set random wallpaper
 super + ctrl + r
     ~/.config/bin/walls r
 
-# select wallpaper
+# Select wallpaper interactively
 super + ctrl + s
     i3run --summon --title wallpaper-selector -- ghostty --title=wallpaper-selector -e ~/.config/bin/walls s
 #}}}
@@ -480,9 +488,6 @@ super + ctrl + s
 #-------------------------------------------------------------------------------
 # NOTE: testing {{{
 #-------------------------------------------------------------------------------
-# dunst
-# super + shift + i
-#     test-noti
 #}}}
 #-------------------------------------------------------------------------------
 
