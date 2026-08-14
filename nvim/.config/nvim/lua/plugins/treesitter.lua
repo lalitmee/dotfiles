@@ -26,6 +26,7 @@ return {
                 "comment",
                 "cpp",
                 "css",
+                "dart",
                 "diff",
                 "dockerfile",
                 "editorconfig",

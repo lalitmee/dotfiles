@@ -389,4 +389,86 @@ return {
         },
     },
 
+    { --[[ flutter-tools ]]
+        "nvim-flutter/flutter-tools.nvim",
+        ft = { "dart" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            local lsp_utils = require("plugins.lsp.utils")
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities.textDocument.completion.completionItem.snippetSupport = true
+            local ok_blink, blink = pcall(require, "blink.cmp")
+            if ok_blink then
+                capabilities = blink.get_lsp_capabilities(capabilities)
+            end
+
+            require("flutter-tools").setup({
+                ui = {
+                    border = "rounded",
+                    notification_style = "native",
+                },
+                decorations = {
+                    statusline = {
+                        app_version = true,
+                        device = true,
+                    },
+                },
+                widget_guides = {
+                    enabled = true,
+                },
+                closing_tags = {
+                    highlight = "Comment",
+                    prefix = " // ",
+                    enabled = true,
+                },
+                dev_log = {
+                    enabled = true,
+                    notify_errors = false,
+                    open_cmd = "botright 15split",
+                    focus_on_open = false,
+                },
+                outline = {
+                    open_cmd = "botright 40vsplit",
+                    auto_open = false,
+                },
+                lsp = {
+                    color = {
+                        enabled = true,
+                        background = false,
+                        foreground = false,
+                        virtual_text = true,
+                        virtual_text_str = "■",
+                    },
+                    capabilities = capabilities,
+                    on_attach = function(client, bufnr)
+                        lsp_utils.on_attach(client, bufnr)
+
+                        local wk = require("which-key")
+                        wk.add({
+                            { "<localleader>f", group = "flutter", buffer = bufnr },
+                            { "<localleader>fr", "<cmd>FlutterRun<cr>", desc = "Run App", buffer = bufnr },
+                            { "<localleader>fq", "<cmd>FlutterQuit<cr>", desc = "Quit App", buffer = bufnr },
+                            { "<localleader>fR", "<cmd>FlutterRestart<cr>", desc = "Hot Restart", buffer = bufnr },
+                            { "<localleader>fl", "<cmd>FlutterReload<cr>", desc = "Hot Reload", buffer = bufnr },
+                            { "<localleader>fd", "<cmd>FlutterDevices<cr>", desc = "Select Device", buffer = bufnr },
+                            { "<localleader>fe", "<cmd>FlutterEmulators<cr>", desc = "Select Emulator", buffer = bufnr },
+                            { "<localleader>fo", "<cmd>FlutterOutlineToggle<cr>", desc = "Toggle Outline", buffer = bufnr },
+                            { "<localleader>fL", "<cmd>FlutterDevLogToggle<cr>", desc = "Toggle Dev Log", buffer = bufnr },
+                            { "<localleader>fc", "<cmd>FlutterLogClear<cr>", desc = "Clear Dev Log", buffer = bufnr },
+                            { "<localleader>fv", "<cmd>FlutterVisualDebug<cr>", desc = "Toggle Visual Debug", buffer = bufnr },
+                        })
+                    end,
+                    settings = {
+                        showTodos = true,
+                        completeFunctionCalls = true,
+                        renameFilesWithClasses = "prompt",
+                        enableSnippets = true,
+                        updateImportsOnRename = true,
+                    },
+                },
+            })
+        end,
+    },
 }
