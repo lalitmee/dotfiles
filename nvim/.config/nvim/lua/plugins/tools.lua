@@ -448,9 +448,7 @@ return {
         config = function()
             require("textcase").setup({})
         end,
-        keys = {
-
-        },
+        keys = {},
     },
 
     { --[[ codesnap ]]
@@ -622,7 +620,6 @@ return {
             "TodoTrouble",
             "TodoQuickFix",
             "TodoLocList",
-            "TodoFzfLua",
         },
         keys = {
             { "<leader>qa", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },

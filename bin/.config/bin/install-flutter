@@ -1,0 +1,703 @@
+#!/usr/bin/env zsh
+
+# ------------------------------------------------------------------
+# Flutter SDK Manager and Installer
+# ------------------------------------------------------------------
+
+set -e
+set -o pipefail
+
+# --- Configuration Variables ---
+FLUTTER_DIR="${FLUTTER_DIR:-$HOME/development/flutter}"
+FLUTTER_GIT_URL="https://github.com/flutter/flutter.git"
+
+# --- Cobalt2 Theme Colors ---
+COLOR_HEADER="#ffc600"   # Yellow
+COLOR_INFO="#00d8ff"     # Cyan / Light Blue
+COLOR_SUCCESS="#3ad900"  # Mint Green
+COLOR_WARN="#ff9d00"     # Orange / Warning
+COLOR_ERROR="#ff5555"    # Bright Red
+COLOR_MUTED="#808080"    # Gray
+
+# ------------------------------------------------------------------
+# Helper: gum_log {{{
+# ------------------------------------------------------------------
+gum_log() {
+    local level="$1"
+    local message="$2"
+
+    if command -v gum &>/dev/null; then
+        case "$level" in
+            info)
+                gum style --foreground "$COLOR_INFO" "ℹ️  $message" < /dev/null
+                ;;
+            success)
+                gum style --foreground "$COLOR_SUCCESS" --bold "✅ $message" < /dev/null
+                ;;
+            warn)
+                gum style --foreground "$COLOR_WARN" "⚠️  $message" < /dev/null
+                ;;
+            error)
+                gum style --foreground "$COLOR_ERROR" --bold "❌ $message" < /dev/null >&2
+                ;;
+            header)
+                gum style --foreground "$COLOR_HEADER" --bold --border rounded --border-foreground "$COLOR_INFO" --padding "0 1" "$message" < /dev/null
+                ;;
+            *)
+                gum style "$message" < /dev/null
+                ;;
+        esac
+    else
+        case "$level" in
+            info)
+                printf "ℹ️  %s\n" "$message"
+                ;;
+            success)
+                printf "✅ %s\n" "$message"
+                ;;
+            warn)
+                printf "⚠️  %s\n" "$message"
+                ;;
+            error)
+                printf "❌ %s\n" "$message" >&2
+                ;;
+            header)
+                printf "==> %s\n" "$message"
+                ;;
+            *)
+                printf "%s\n" "$message"
+                ;;
+        esac
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: ensure_path {{{
+# ------------------------------------------------------------------
+ensure_path() {
+    local flutter_bin="$FLUTTER_DIR/bin"
+    if [[ ":$PATH:" != *":$flutter_bin:"* ]]; then
+        export PATH="$flutter_bin:$PATH"
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: detect_package_manager {{{
+# ------------------------------------------------------------------
+detect_package_manager() {
+    if command -v apt-get &>/dev/null || command -v apt &>/dev/null; then
+        echo "apt"
+    elif command -v pacman &>/dev/null; then
+        echo "pacman"
+    elif command -v dnf &>/dev/null; then
+        echo "dnf"
+    elif command -v brew &>/dev/null; then
+        echo "brew"
+    else
+        echo "unknown"
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: is_installed {{{
+# ------------------------------------------------------------------
+is_installed() {
+    [[ -d "$FLUTTER_DIR" && -x "$FLUTTER_DIR/bin/flutter" ]]
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: check_dependencies {{{
+# ------------------------------------------------------------------
+check_dependencies() {
+    gum_log info "Checking system dependencies for Flutter..."
+
+    local missing=()
+    local missing_pkgs=()
+    local is_linux=0
+    [[ "$(uname -s)" == "Linux" ]] && is_linux=1
+
+    # 1. Core tools
+    local core_tools=(git curl unzip zip tar)
+    for tool in "${core_tools[@]}"; do
+        if ! command -v "$tool" &>/dev/null; then
+            missing+=("$tool")
+        fi
+    done
+
+    # Check xz (binary may be xz or provided by xz-utils)
+    if ! command -v xz &>/dev/null && ! command -v xz-utils &>/dev/null; then
+        missing+=("xz")
+    fi
+
+    # 2. Linux build tools and libraries
+    if [[ $is_linux -eq 1 ]]; then
+        # clang
+        if ! command -v clang &>/dev/null; then
+            missing+=("clang")
+        fi
+
+        # cmake
+        if ! command -v cmake &>/dev/null; then
+            missing+=("cmake")
+        fi
+
+        # ninja / ninja-build
+        if ! command -v ninja &>/dev/null && ! command -v ninja-build &>/dev/null; then
+            missing+=("ninja")
+        fi
+
+        # pkg-config / pkgconf
+        if ! command -v pkg-config &>/dev/null && ! command -v pkgconf &>/dev/null; then
+            missing+=("pkg-config")
+        fi
+
+        # libglu1-mesa
+        local has_glu=0
+        if pkg-config --exists glu 2>/dev/null; then
+            has_glu=1
+        elif command -v ldconfig &>/dev/null && ldconfig -p 2>/dev/null | grep -q "libGLU.so"; then
+            has_glu=1
+        elif command -v dpkg-query &>/dev/null && dpkg-query -W -f='${Status}' libglu1-mesa 2>/dev/null | grep -q "ok installed"; then
+            has_glu=1
+        elif command -v rpm &>/dev/null && rpm -q mesa-libGLU &>/dev/null; then
+            has_glu=1
+        elif command -v pacman &>/dev/null && pacman -Q glu &>/dev/null; then
+            has_glu=1
+        fi
+        if [[ $has_glu -eq 0 ]]; then
+            missing+=("libglu1-mesa")
+        fi
+
+        # libgtk-3-dev
+        local has_gtk3=0
+        if pkg-config --exists gtk+-3.0 2>/dev/null; then
+            has_gtk3=1
+        elif command -v dpkg-query &>/dev/null && dpkg-query -W -f='${Status}' libgtk-3-dev 2>/dev/null | grep -q "ok installed"; then
+            has_gtk3=1
+        elif command -v rpm &>/dev/null && rpm -q gtk3-devel &>/dev/null; then
+            has_gtk3=1
+        elif command -v pacman &>/dev/null && pacman -Q gtk3 &>/dev/null; then
+            has_gtk3=1
+        fi
+        if [[ $has_gtk3 -eq 0 ]]; then
+            missing+=("libgtk-3-dev")
+        fi
+    fi
+
+    if [[ ${#missing[@]} -eq 0 ]]; then
+        gum_log success "All system dependencies are installed and verified."
+        return 0
+    fi
+
+    gum_log warn "Missing dependencies detected: ${(j:, :)missing}"
+
+    local pkg_mgr
+    pkg_mgr=$(detect_package_manager)
+
+    for item in "${missing[@]}"; do
+        case "$pkg_mgr" in
+            apt)
+                case "$item" in
+                    xz) missing_pkgs+=("xz-utils") ;;
+                    ninja) missing_pkgs+=("ninja-build") ;;
+                    *) missing_pkgs+=("$item") ;;
+                esac
+                ;;
+            pacman)
+                case "$item" in
+                    pkg-config) missing_pkgs+=("pkgconf") ;;
+                    libglu1-mesa) missing_pkgs+=("glu") ;;
+                    libgtk-3-dev) missing_pkgs+=("gtk3") ;;
+                    *) missing_pkgs+=("$item") ;;
+                esac
+                ;;
+            dnf)
+                case "$item" in
+                    ninja) missing_pkgs+=("ninja-build") ;;
+                    pkg-config) missing_pkgs+=("pkgconfig") ;;
+                    libglu1-mesa) missing_pkgs+=("mesa-libGLU") ;;
+                    libgtk-3-dev) missing_pkgs+=("gtk3-devel") ;;
+                    *) missing_pkgs+=("$item") ;;
+                esac
+                ;;
+            brew)
+                case "$item" in
+                    libglu1-mesa|libgtk-3-dev|clang) ;; # Handled differently or native on macOS
+                    *) missing_pkgs+=("$item") ;;
+                esac
+                ;;
+            *)
+                missing_pkgs+=("$item")
+                ;;
+        esac
+    done
+
+    local install_cmd=""
+    case "$pkg_mgr" in
+        apt)
+            install_cmd="sudo apt update && sudo apt install -y ${(j: :)missing_pkgs}"
+            ;;
+        pacman)
+            install_cmd="sudo pacman -Sy --noconfirm ${(j: :)missing_pkgs}"
+            ;;
+        dnf)
+            install_cmd="sudo dnf install -y ${(j: :)missing_pkgs}"
+            ;;
+        brew)
+            install_cmd="brew install ${(j: :)missing_pkgs}"
+            ;;
+        *)
+            install_cmd="Please install the following packages using your system package manager: ${(j: :)missing_pkgs}"
+            ;;
+    esac
+
+    if [[ "$pkg_mgr" != "unknown" && -t 0 && "${AI_NON_INTERACTIVE:-0}" != "1" ]] && command -v gum &>/dev/null; then
+        if gum confirm "Would you like to install the missing dependencies now?"; then
+            gum_log info "Executing: $install_cmd"
+            if eval "$install_cmd"; then
+                gum_log success "All missing dependencies were installed successfully."
+                return 0
+            else
+                gum_log error "Failed to install dependencies automatically."
+                return 1
+            fi
+        else
+            gum_log warn "Dependency installation skipped by user."
+            gum_log info "To install manually, run:"
+            printf "  %s\n" "$install_cmd"
+            return 1
+        fi
+    else
+        gum_log warn "Automatic installation unavailable (non-interactive or unknown package manager)."
+        gum_log info "To install missing dependencies manually, run:"
+        printf "  %s\n" "$install_cmd"
+        return 1
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: precache_artifacts {{{
+# ------------------------------------------------------------------
+precache_artifacts() {
+    if ! is_installed; then
+        gum_log error "Flutter is not installed at $FLUTTER_DIR. Run --install first."
+        return 1
+    fi
+
+    ensure_path
+    gum_log info "Pre-caching Flutter artifacts and binaries..."
+    if flutter precache; then
+        gum_log success "Flutter artifacts pre-cached successfully."
+        return 0
+    else
+        gum_log error "Failed to pre-cache Flutter artifacts."
+        return 1
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: run_doctor {{{
+# ------------------------------------------------------------------
+run_doctor() {
+    if ! is_installed; then
+        gum_log error "Flutter is not installed at $FLUTTER_DIR. Run --install first."
+        return 1
+    fi
+
+    ensure_path
+    gum_log header "Running Flutter Doctor"
+    flutter doctor -v
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: install_flutter {{{
+# ------------------------------------------------------------------
+install_flutter() {
+    local channel="${1:-stable}"
+
+    if is_installed; then
+        if [[ -t 0 && "${AI_NON_INTERACTIVE:-0}" != "1" ]] && command -v gum &>/dev/null; then
+            if gum confirm "Flutter is already installed at $FLUTTER_DIR. Would you like to update it instead?"; then
+                update_flutter
+                return $?
+            else
+                gum_log info "Installation skipped."
+                return 0
+            fi
+        else
+            gum_log warn "Flutter is already installed at $FLUTTER_DIR. Use --upgrade to update."
+            return 0
+        fi
+    elif [[ -d "$FLUTTER_DIR" ]]; then
+        if [[ -t 0 && "${AI_NON_INTERACTIVE:-0}" != "1" ]] && command -v gum &>/dev/null; then
+            if gum confirm "Directory $FLUTTER_DIR exists but is not a valid Flutter SDK. Overwrite it?"; then
+                gum_log warn "Removing existing directory: $FLUTTER_DIR"
+                rm -rf "$FLUTTER_DIR"
+            else
+                gum_log error "Installation aborted by user."
+                return 1
+            fi
+        else
+            gum_log error "Directory $FLUTTER_DIR exists but is not a valid Flutter SDK. Remove it first or run interactively."
+            return 1
+        fi
+    fi
+
+    mkdir -p "$(dirname "$FLUTTER_DIR")"
+    gum_log info "Cloning Flutter SDK ($channel channel) into $FLUTTER_DIR..."
+    if ! git clone -b "$channel" "$FLUTTER_GIT_URL" "$FLUTTER_DIR"; then
+        gum_log error "Failed to clone Flutter SDK repository."
+        return 1
+    fi
+
+    ensure_path
+    gum_log success "Flutter SDK cloned successfully."
+
+    precache_artifacts
+    run_doctor
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: update_flutter {{{
+# ------------------------------------------------------------------
+update_flutter() {
+    if ! is_installed; then
+        gum_log warn "Flutter is not installed at $FLUTTER_DIR."
+        if [[ -t 0 && "${AI_NON_INTERACTIVE:-0}" != "1" ]] && command -v gum &>/dev/null; then
+            if gum confirm "Would you like to install Flutter now?"; then
+                install_flutter "stable"
+                return $?
+            else
+                gum_log info "Update cancelled."
+                return 1
+            fi
+        else
+            gum_log error "Cannot upgrade: Flutter is not installed. Run --install first."
+            return 1
+        fi
+    fi
+
+    ensure_path
+    gum_log info "Upgrading Flutter SDK..."
+    if flutter upgrade; then
+        gum_log success "Flutter SDK upgraded successfully."
+        precache_artifacts
+        return 0
+    else
+        gum_log error "Flutter upgrade failed."
+        return 1
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: switch_channel {{{
+# ------------------------------------------------------------------
+switch_channel() {
+    if ! is_installed; then
+        gum_log error "Flutter is not installed at $FLUTTER_DIR. Run --install first."
+        return 1
+    fi
+
+    local channel="${1:-}"
+    if [[ -z "$channel" ]]; then
+        if [[ -t 0 && "${AI_NON_INTERACTIVE:-0}" != "1" ]] && command -v gum &>/dev/null; then
+            local selected
+            selected=$(gum choose --header "Select Flutter channel to switch to:" "stable (Recommended)" "beta" "master")
+            if [[ -z "$selected" ]]; then
+                gum_log warn "No channel selected. Channel switch aborted."
+                return 1
+            fi
+            channel="${selected%% *}"
+        else
+            gum_log error "Channel name is required (e.g. stable, beta, master)."
+            return 1
+        fi
+    fi
+
+    ensure_path
+    gum_log info "Switching Flutter channel to '$channel'..."
+    if flutter channel "$channel" && flutter upgrade; then
+        gum_log success "Successfully switched to channel '$channel'."
+        return 0
+    else
+        gum_log error "Failed to switch channel to '$channel'."
+        return 1
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: show_status {{{
+# ------------------------------------------------------------------
+show_status() {
+    gum_log header "Flutter SDK Status"
+
+    if is_installed; then
+        ensure_path
+        local current_branch commit_hash flutter_ver
+        current_branch=$(git -C "$FLUTTER_DIR" branch --show-current 2>/dev/null || echo "unknown")
+        commit_hash=$(git -C "$FLUTTER_DIR" rev-parse --short HEAD 2>/dev/null || echo "unknown")
+        flutter_ver=$("$FLUTTER_DIR/bin/flutter" --version 2>/dev/null | head -n 1)
+        [[ -z "$flutter_ver" ]] && flutter_ver="unknown"
+
+        if command -v gum &>/dev/null; then
+            gum style --foreground "$COLOR_INFO" \
+                "• Location: $FLUTTER_DIR" \
+                "• Channel:  $current_branch ($commit_hash)" \
+                "• Version:  $flutter_ver" < /dev/null
+        else
+            printf "• Location: %s\n" "$FLUTTER_DIR"
+            printf "• Channel:  %s (%s)\n" "$current_branch" "$commit_hash"
+            printf "• Version:  %s\n" "$flutter_ver"
+        fi
+        return 0
+    else
+        gum_log warn "Flutter SDK is not installed at $FLUTTER_DIR."
+        gum_log info "Run 'install-flutter --install' to install the Flutter SDK."
+        return 0
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: repair_flutter {{{
+# ------------------------------------------------------------------
+repair_flutter() {
+    if ! is_installed; then
+        gum_log error "Flutter is not installed at $FLUTTER_DIR. Run --install first."
+        return 1
+    fi
+
+    ensure_path
+    gum_log header "Flutter SDK Repair & Diagnostics"
+
+    local git_status
+    git_status=$(git -C "$FLUTTER_DIR" status --short 2>/dev/null || echo "")
+    if [[ -n "$git_status" ]]; then
+        gum_log warn "Modified or untracked files detected in Flutter SDK directory:"
+        printf "%s\n" "$git_status"
+    else
+        gum_log success "Flutter SDK git working tree is clean."
+    fi
+
+    if [[ -t 0 && "${AI_NON_INTERACTIVE:-0}" != "1" ]] && command -v gum &>/dev/null; then
+        local choice
+        choice=$(gum choose --header "Select repair action:" \
+            "1. Clean build caches (flutter clean)" \
+            "2. Reset Git state (git reset --hard & git clean -fd)" \
+            "3. Reinstall Flutter SDK (clean re-clone)" \
+            "4. Cancel")
+
+        case "$choice" in
+            1*|"Clean"*)
+                gum_log info "Running flutter clean..."
+                flutter clean || true
+                gum_log success "Caches cleaned."
+                ;;
+            2*|"Reset"*)
+                gum_log info "Resetting Flutter SDK git repository..."
+                git -C "$FLUTTER_DIR" reset --hard HEAD
+                git -C "$FLUTTER_DIR" clean -fd
+                gum_log success "Git repository reset to clean state."
+                ;;
+            3*|"Reinstall"*)
+                if gum confirm "Are you sure you want to completely remove and re-clone Flutter?"; then
+                    gum_log warn "Removing $FLUTTER_DIR..."
+                    rm -rf "$FLUTTER_DIR"
+                    install_flutter "stable"
+                else
+                    gum_log info "Reinstall aborted."
+                fi
+                ;;
+            *)
+                gum_log info "Repair cancelled."
+                ;;
+        esac
+    else
+        gum_log info "Running non-interactive repair: resetting Git state..."
+        git -C "$FLUTTER_DIR" reset --hard HEAD 2>/dev/null || true
+        git -C "$FLUTTER_DIR" clean -fd 2>/dev/null || true
+        gum_log success "Repair operations completed."
+    fi
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: main_menu {{{
+# ------------------------------------------------------------------
+main_menu() {
+    if ! command -v gum &>/dev/null || [[ ! -t 0 ]] || [[ "${AI_NON_INTERACTIVE:-0}" == "1" ]]; then
+        show_help
+        exit 0
+    fi
+
+    gum_log header "Flutter SDK Manager"
+
+    local choice
+    choice=$(printf "%s\n" \
+        "📥 Install Flutter (Fresh setup to ~/development/flutter)" \
+        "🔄 Update / Upgrade Flutter (flutter upgrade + precache)" \
+        "🔀 Switch Release Channel (stable, beta, master)" \
+        "🩺 Run Flutter Doctor (flutter doctor -v)" \
+        "📦 Precache Platform Artifacts (flutter precache)" \
+        "🛠️ Check & Install Dependencies" \
+        "ℹ️ Flutter Status & Info" \
+        "🧹 Clean / Repair Installation" \
+        "🚪 Exit" | gum filter --placeholder "Search Flutter actions..." --indicator "👉 " --height 14)
+
+    if [[ -z "$choice" ]]; then
+        gum_log info "Exiting Flutter SDK Manager."
+        exit 0
+    fi
+
+    case "$choice" in
+        "📥 Install Flutter"*)
+            install_flutter "stable"
+            ;;
+        "🔄 Update / Upgrade Flutter"*)
+            update_flutter
+            ;;
+        "🔀 Switch"*)
+            switch_channel ""
+            ;;
+        "🩺 Run Flutter Doctor"*)
+            run_doctor
+            ;;
+        "📦 Precache"*)
+            precache_artifacts
+            ;;
+        "🛠️ Check & Install Dependencies"*)
+            check_dependencies
+            ;;
+        "ℹ️ Flutter Status"*)
+            show_status
+            ;;
+        "🧹 Clean / Repair Installation"*)
+            repair_flutter
+            ;;
+        "🚪 Exit"*)
+            gum_log info "Exiting Flutter SDK Manager."
+            exit 0
+            ;;
+        *)
+            gum_log warn "Invalid selection: $choice"
+            exit 1
+            ;;
+    esac
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Helper: show_help {{{
+# ------------------------------------------------------------------
+show_help() {
+    cat << 'EOF'
+Usage: install-flutter [options]
+
+Flutter SDK manager for installing, updating, and managing Flutter installations.
+
+Options:
+  -h, --help                Show this help message and exit
+  -i, --install [channel]   Install Flutter SDK (default: stable)
+  -u, --upgrade, --update   Upgrade Flutter SDK to latest version
+  -c, --channel [name]      Switch Flutter channel (e.g., stable, beta, master)
+  -d, --doctor              Run flutter doctor
+  -p, --precache            Pre-cache Flutter artifacts and binaries
+  -s, --status              Show current Flutter installation status
+  -r, --repair              Diagnose and repair Flutter installation
+  --check-deps              Check and install system dependencies
+
+Environment Variables:
+  FLUTTER_DIR               Installation directory (default: ~/development/flutter)
+
+Examples:
+  install-flutter --install
+  install-flutter --install beta
+  install-flutter --channel beta
+  install-flutter --upgrade
+  install-flutter --doctor
+  install-flutter --status
+  install-flutter --repair
+  install-flutter --check-deps
+EOF
+}
+# }}}
+
+# ------------------------------------------------------------------
+# Main CLI Argument Parser {{{
+# ------------------------------------------------------------------
+main() {
+    if [[ $# -eq 0 ]]; then
+        main_menu
+        exit 0
+    fi
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -i|--install)
+                if [[ -n "${2:-}" && "$2" != -* ]]; then
+                    install_flutter "$2"
+                    shift 2
+                else
+                    install_flutter "stable"
+                    shift
+                fi
+                ;;
+            -u|--upgrade|--update)
+                update_flutter
+                shift
+                ;;
+            -c|--channel)
+                if [[ -n "${2:-}" && "$2" != -* ]]; then
+                    switch_channel "$2"
+                    shift 2
+                else
+                    switch_channel ""
+                    shift
+                fi
+                ;;
+            -d|--doctor)
+                run_doctor
+                shift
+                ;;
+            -p|--precache)
+                precache_artifacts
+                shift
+                ;;
+            -s|--status)
+                show_status
+                shift
+                ;;
+            -r|--repair)
+                repair_flutter
+                shift
+                ;;
+            --check-deps|--deps)
+                check_dependencies
+                shift
+                ;;
+            *)
+                gum_log error "Unknown option: $1"
+                echo "" >&2
+                show_help >&2
+                exit 1
+                ;;
+        esac
+    done
+}
+# }}}
+
+main "$@"
