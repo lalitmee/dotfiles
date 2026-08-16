@@ -38,3 +38,4 @@ if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
 
+. "/home/lalitmee/.deno/env"
