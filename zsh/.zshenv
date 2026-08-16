@@ -176,14 +176,24 @@ append_to_path "$HOME/development/flutter/bin"
 # # NOTE: android-studio {{{
 #-------------------------------------------------------------------------------
 
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+
+if [[ -d "$HOME/.local/share/android-studio/jbr" ]]; then
+    export JAVA_HOME="$HOME/.local/share/android-studio/jbr"
+    append_to_path "$JAVA_HOME/bin"
+fi
+
 # for running android studio from anywhere
+append_to_path "$HOME/.local/share/android-studio/bin"
 append_to_path "$HOME/android-studio/bin"
 
 # for setting the tools of android sdk
+append_to_path "$HOME/Android/Sdk/cmdline-tools/latest/bin"
 append_to_path "$HOME/Android/Sdk/emulator"
+append_to_path "$HOME/Android/Sdk/platform-tools"
 append_to_path "$HOME/Android/Sdk/tools"
 append_to_path "$HOME/Android/Sdk/tools/bin"
-append_to_path "$HOME/Android/Sdk/platform-tools"
 
 #-------------------------------------------------------------------------------
 # }}}
