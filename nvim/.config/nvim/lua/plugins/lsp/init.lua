@@ -390,6 +390,7 @@ return {
     },
 
     { --[[ flutter-tools ]]
+        enabled = vim.env.HOME == "/home/lalitmee",
         "nvim-flutter/flutter-tools.nvim",
         ft = { "dart" },
         dependencies = {
@@ -453,11 +454,31 @@ return {
                             { "<localleader>fR", "<cmd>FlutterRestart<cr>", desc = "Hot Restart", buffer = bufnr },
                             { "<localleader>fl", "<cmd>FlutterReload<cr>", desc = "Hot Reload", buffer = bufnr },
                             { "<localleader>fd", "<cmd>FlutterDevices<cr>", desc = "Select Device", buffer = bufnr },
-                            { "<localleader>fe", "<cmd>FlutterEmulators<cr>", desc = "Select Emulator", buffer = bufnr },
-                            { "<localleader>fo", "<cmd>FlutterOutlineToggle<cr>", desc = "Toggle Outline", buffer = bufnr },
-                            { "<localleader>fL", "<cmd>FlutterDevLogToggle<cr>", desc = "Toggle Dev Log", buffer = bufnr },
+                            {
+                                "<localleader>fe",
+                                "<cmd>FlutterEmulators<cr>",
+                                desc = "Select Emulator",
+                                buffer = bufnr,
+                            },
+                            {
+                                "<localleader>fo",
+                                "<cmd>FlutterOutlineToggle<cr>",
+                                desc = "Toggle Outline",
+                                buffer = bufnr,
+                            },
+                            {
+                                "<localleader>fL",
+                                "<cmd>FlutterDevLogToggle<cr>",
+                                desc = "Toggle Dev Log",
+                                buffer = bufnr,
+                            },
                             { "<localleader>fc", "<cmd>FlutterLogClear<cr>", desc = "Clear Dev Log", buffer = bufnr },
-                            { "<localleader>fv", "<cmd>FlutterVisualDebug<cr>", desc = "Toggle Visual Debug", buffer = bufnr },
+                            {
+                                "<localleader>fv",
+                                "<cmd>FlutterVisualDebug<cr>",
+                                desc = "Toggle Visual Debug",
+                                buffer = bufnr,
+                            },
                         })
                     end,
                     settings = {
