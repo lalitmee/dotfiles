@@ -167,6 +167,23 @@ znap eval rbenv "rbenv init -"
 # # NOTE: fnm {{{
 # -------------------------------------------------------------------
 
+# Clean up stale fnm_multishells entries (PIDs that no longer exist).
+# fnm creates a new per-shell symlink on every shell start but never
+# removes them, causing thousands of stale entries that slow startup.
+_fnm_cleanup_multishells() {
+    local multishells_dir="${HOME}/.local/state/fnm_multishells"
+    [[ -d "$multishells_dir" ]] || return
+    local entry pid
+    for entry in "$multishells_dir"/*(N); do
+        pid="${${entry:t}%%_*}"
+        # Remove if the PID is purely numeric and no longer alive
+        if [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
+            rm -f "$entry"
+        fi
+    done
+}
+_fnm_cleanup_multishells
+
 # Then load fnm silently
 export FNM_RESOLVE_ENGINES=false
 eval "$(fnm env --shell zsh)"
