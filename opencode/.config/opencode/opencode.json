@@ -9,16 +9,16 @@
   ],
   "agent": {
     "plan": {
-      "color": "accent"
+      "color": "#FF9D00"
     },
     "build": {
-      "color": "primary"
+      "color": "#0088FF"
     },
     "discover": {
       "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
       "mode": "primary",
       "temperature": 0.3,
-      "color": "success",
+      "color": "#3AD900",
       "prompt": "{file:./prompts/explore-mode.txt}",
       "permission": {
         "read": "allow",
@@ -33,10 +33,10 @@
       }
     },
     "explore": {
-      "color": "secondary"
+      "color": "#9EFFFF"
     },
     "general": {
-      "color": "warning"
+      "color": "#FFEE80"
     },
     "tester": {
       "color": "#00d7ff"
