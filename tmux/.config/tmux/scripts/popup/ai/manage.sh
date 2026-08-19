@@ -28,12 +28,10 @@ gum_style() { # {{{
 confirm_action() { # {{{
     local prompt="$1"
     if command -v gum >/dev/null 2>&1; then
-        # Redirect stdin/stdout through /dev/tty so gum works even when
-        # the script is launched detached (e.g. via tmux run-shell -b)
-        gum confirm "$prompt" </dev/tty >/dev/tty
+        gum confirm "$prompt"
     else
-        echo -n "$prompt [y/N]: " >/dev/tty
-        read -r reply </dev/tty
+        echo -n "$prompt [y/N]: "
+        read -r reply
         [[ "$reply" =~ ^[Yy]$ ]]
     fi
 } # }}}
@@ -42,12 +40,23 @@ get_custom_input() { # {{{
     local manager="$1"
     local pkg_name=""
     if command -v gum >/dev/null 2>&1; then
-        pkg_name=$(gum input --placeholder "Enter $manager package/formula name (e.g. typescript)" </dev/tty >/dev/tty)
+        pkg_name=$(gum input --placeholder "Enter $manager package/formula name (e.g. typescript)")
     else
-        echo -n "Enter $manager package/formula name: " >/dev/tty
-        read -r pkg_name </dev/tty
+        echo -n "Enter $manager package/formula name: "
+        read -r pkg_name
     fi
     echo "$pkg_name"
+} # }}}
+
+install_npm_global() { # {{{
+    local package_name="$1"
+
+    gum_style "Running: npm install -g $package_name --foreground-scripts --loglevel=info --progress=true --no-audit --no-fund"
+    NPM_CONFIG_LOGLEVEL=info \
+        NPM_CONFIG_PROGRESS=true \
+        NPM_CONFIG_AUDIT=false \
+        NPM_CONFIG_FUND=false \
+        npm install -g "$package_name" --foreground-scripts
 } # }}}
 
 get_npm_version_fast() { # {{{
@@ -208,66 +217,66 @@ main() { # {{{
         gum_style "🚀 Starting install/update process for $tool..."
         echo ""
 
-        local status=0
+        local install_status=0
         if [[ -n "$manager" ]]; then
             case "$manager" in
                 npm)
-                    npm install -g "$name_to_install@latest" || status=$?
+                    install_npm_global "$name_to_install@latest" || install_status=$?
                     ;;
                 cargo)
-                    cargo install "$name_to_install" || status=$?
+                    cargo install "$name_to_install" || install_status=$?
                     ;;
                 go)
-                    go install "$name_to_install@latest" || status=$?
+                    go install "$name_to_install@latest" || install_status=$?
                     ;;
                 brew)
                     if brew list "$name_to_install" &>/dev/null; then
-                        brew upgrade "$name_to_install" || status=$?
+                        brew upgrade "$name_to_install" || install_status=$?
                     else
-                        brew install "$name_to_install" || status=$?
+                        brew install "$name_to_install" || install_status=$?
                     fi
                     ;;
                 pip)
-                    pip3 install --upgrade "$name_to_install" || status=$?
+                    pip3 install --upgrade "$name_to_install" || install_status=$?
                     ;;
             esac
         else
             case "$tool" in
                 agy)
-                    agy update || status=$?
+                    agy update || install_status=$?
                     ;;
                 claude)
-                    npm install -g @anthropic-ai/claude-code@latest || status=$?
+                    install_npm_global "@anthropic-ai/claude-code@latest" || install_status=$?
                     ;;
                 copilot)
-                    npm install -g @github/copilot@latest || status=$?
+                    install_npm_global "@github/copilot@latest" || install_status=$?
                     ;;
                 opencode)
-                    npm install -g opencode-ai@latest || status=$?
+                    install_npm_global "opencode-ai@latest" || install_status=$?
                     ;;
                 grok)
-                    npm install -g @vibe-kit/grok-cli@latest || status=$?
+                    install_npm_global "@vibe-kit/grok-cli@latest" || install_status=$?
                     ;;
                 codex)
-                    npm install -g @openai/codex@latest || status=$?
+                    install_npm_global "@openai/codex@latest" || install_status=$?
                     ;;
                 crush)
-                    go install github.com/charmbracelet/crush@latest || status=$?
+                    go install github.com/charmbracelet/crush@latest || install_status=$?
                     ;;
                 plandex)
-                    secure_run_script "https://plandex.ai/install.sh" "Plandex" || status=$?
+                    secure_run_script "https://plandex.ai/install.sh" "Plandex" || install_status=$?
                     ;;
                 kiro)
-                    secure_run_script "https://cli.kiro.dev/install" "Kiro CLI" || status=$?
+                    secure_run_script "https://cli.kiro.dev/install" "Kiro CLI" || install_status=$?
                     ;;
                 cursor-agent)
-                    cursor-agent update || status=$?
+                    cursor-agent update || install_status=$?
                     ;;
             esac
         fi
 
         echo ""
-        if [[ $status -eq 0 ]]; then
+        if [[ $install_status -eq 0 ]]; then
             gum_style "✅ $tool successfully installed/updated!"
         else
             gum_style "❌ Failed to install/update $tool."
@@ -276,7 +285,7 @@ main() { # {{{
     done
 
     gum_style "Press any key to close..."
-    read -k 1 -s -r </dev/tty 2>/dev/null || true
+    read -k 1 -s -r 2>/dev/null || true
 } # }}}
 
 main "$@"

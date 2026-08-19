@@ -1130,7 +1130,7 @@ bind-key -T ai-tools u run-shell -b "UPDATE_MODE=--non-interactive ~/.config/tmu
 bind-key -T ai-tools U run-shell -b "UPDATE_MODE=--interactive ~/.config/tmux/scripts/popup/ai/update.sh"
 
 # Select and install/update specific AI tools or general CLI tools interactively
-bind-key -T ai-tools i run-shell -b "tmux new-window -n 'ai-manage' 'zsh -lic \"~/.config/tmux/scripts/popup/ai/manage.sh\"'"
+bind-key -T ai-tools i new-window -c "#{pane_current_path}" -n "ai-manage" "zsh -lic '~/.config/tmux/scripts/popup/ai/manage.sh'"
 
 #-------------------------------------------------------------------------------
 # }}}
