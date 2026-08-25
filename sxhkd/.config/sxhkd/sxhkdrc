@@ -51,7 +51,7 @@ super + alt + a
 
 # Open Handy scratchpad
 super + alt + h
-    i3run --summon --hide --instance handy -- $HOME/.local/share/applications/Handy_0.8.3_amd64_34d121fa1ccc4568b35b0348aad4ba14.AppImage
+    i3run --summon --instance handy -- $HOME/.local/share/applications/Handy_0.8.3_amd64_34d121fa1ccc4568b35b0348aad4ba14.AppImage
 
 #}}}
 #-------------------------------------------------------------------------------
