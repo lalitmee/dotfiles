@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 # Define configurable variables
-border_color="${GUM_STYLE_BORDER_COLOR:-39}"  # Set the border color
-text_color="${GUM_STYLE_TEXT_COLOR:-220}"      # Set the text color
+border_color="${GUM_STYLE_BORDER_FOREGROUND:-#00AAFF}"  # cobalt2 blue
+text_color="${GUM_STYLE_FOREGROUND:-#FFC600}"           # cobalt2 yellow
 
 # Get terminal width for responsive design
 get_terminal_width() {
@@ -112,7 +112,7 @@ main() {
     local width_arg="$4"
 
     if [[ -z "$message" ]]; then
-        echo "Usage: $0 <message> <quote_color> <author_color> [width]"
+        echo "Usage: $0 <message> [width]"
         exit 1
     fi
 
@@ -133,6 +133,7 @@ main() {
         --width "$outer_width" \
         --border rounded \
         --border-foreground "$border_color" \
+        --foreground "$quote_color" \
         --margin "0" \
         --padding "1 0" \
         --bold \

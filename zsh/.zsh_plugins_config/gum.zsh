@@ -22,6 +22,9 @@ export GUM_CONFIRM_UNSELECTED_FOREGROUND="#9E9E9E"      # light gray
 export GUM_INPUT_PROMPT_FOREGROUND="#FFC600"            # cobalt2 yellow
 export GUM_INPUT_CURSOR_FOREGROUND="#00AAFF"            # cobalt2 blue
 export GUM_INPUT_PLACEHOLDER_FOREGROUND="#9E9E9E"       # light gray
+
+export GUM_STYLE_BORDER_FOREGROUND="#00AAFF"            # cobalt2 blue
+export GUM_STYLE_FOREGROUND="#FFC600"                    # cobalt2 yellow
 # -------------------------------------------------------------------
 # }}}
 # -------------------------------------------------------------------
