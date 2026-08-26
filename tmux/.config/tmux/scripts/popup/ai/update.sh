@@ -324,9 +324,9 @@ run_updates() {
             --border rounded \
             --height 10 \
             --print \
-            --border.foreground "39" \
-            --header.foreground "220" \
-            --cell.foreground "213"
+            --border.foreground "#00AAFF" \
+            --header.foreground "#FFC600" \
+            --cell.foreground "#FFC600"
     else
         gum_style "ℹ️  No updates were processed."
     fi

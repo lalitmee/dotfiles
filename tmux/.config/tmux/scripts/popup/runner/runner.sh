@@ -134,13 +134,13 @@ exit_code=\$?
 if command -v gum_style >/dev/null 2>&1; then
     if [[ \$exit_code -eq 0 ]]; then
         echo ""
-        GUM_STYLE_BORDER_COLOR="#3AD900" GUM_STYLE_TEXT_COLOR="#3AD900" gum_style "✅ Command completed successfully"
+        GUM_STYLE_BORDER_FOREGROUND="#3AD900" GUM_STYLE_FOREGROUND="#3AD900" gum_style "✅ Command completed successfully"
     elif [[ \$exit_code -eq 130 ]]; then
         echo ""
-        GUM_STYLE_BORDER_COLOR="#FFC600" GUM_STYLE_TEXT_COLOR="#FFC600" gum_style "⚠️  Command was interrupted"
+        GUM_STYLE_BORDER_FOREGROUND="#FFC600" GUM_STYLE_FOREGROUND="#FFC600" gum_style "⚠️  Command was interrupted"
     else
         echo ""
-        GUM_STYLE_BORDER_COLOR="#FF0000" GUM_STYLE_TEXT_COLOR="#FF0000" gum_style "❌ Command failed with exit code \$exit_code"
+        GUM_STYLE_BORDER_FOREGROUND="#FF0000" GUM_STYLE_FOREGROUND="#FF0000" gum_style "❌ Command failed with exit code \$exit_code"
     fi
     echo ""
     gum style --foreground '#FF628C' --bold --italic "Press Ctrl-D or 'exit' to close this window..."
