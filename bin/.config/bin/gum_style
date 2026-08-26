@@ -4,141 +4,63 @@
 border_color="${GUM_STYLE_BORDER_FOREGROUND:-#00AAFF}"  # cobalt2 blue
 text_color="${GUM_STYLE_FOREGROUND:-#FFC600}"           # cobalt2 yellow
 
-# Get terminal width for responsive design
-get_terminal_width() {
-    tput cols 2>/dev/null || echo "80"
-}
-
-# Calculate optimal width based on message, arguments, and terminal size
+# Calculate width: use full terminal unless explicit arg given
 calculate_width() {
-    local message="$1"
-    local width_arg="$2"
-    local term_width=$(get_terminal_width)
+    local width_arg="$1"
+    local term_width
 
-    # Remove newlines for length calculation
-    local clean_message=$(echo "$message" | tr -d '\n')
-    local msg_length=${#clean_message}
+    # Use tmux window width when available (handles popups/panes correctly)
+    if [[ -n "$TMUX" ]]; then
+        term_width=$(tmux display-message -p '#{window_width}' 2>/dev/null || tput cols 2>/dev/null || echo "80")
+    else
+        term_width=$(tput cols 2>/dev/null || echo "80")
+    fi
 
     if [[ -n "$width_arg" && "$width_arg" =~ ^[0-9]+$ ]]; then
-        # Use provided width, but cap at terminal width minus padding
         local max_allowed=$(( term_width - 4 ))
         width=$(( width_arg > max_allowed ? max_allowed : width_arg ))
     else
-        # Auto-calculate based on message and terminal, use full available width
-        local max_width=$(( term_width - 10 ))
-        if (( msg_length < 40 )); then
-            width=60
-        elif (( msg_length > max_width )); then
-            width=$max_width
-        else
-            width=$msg_length
-        fi
+        width=$(( term_width - 2 ))
     fi
 
-    # --- FIX ---
-    # Ensure the calculated width never exceeds the terminal width minus padding
-    local max_allowed=$(( term_width - 4 ))
-    (( width > max_allowed )) && width=$max_allowed
-    # -------------
-
-    # Ensure minimum usable width
     (( width < 20 )) && width=20
     echo "$width"
 }
 
-# Create decorative border pattern
-create_border() {
-    local width="$1"
-    local pattern="===#===#===#"  # Repeating decorative pattern
-
-    # Create border that fits the width
-    local border=""
-    while [ ${#border} -lt $width ]; do
-        border="${border}${pattern}"
-    done
-    border="${border:0:$width}"
-
-    gum style --foreground "$border_color" --width "$width" --align center "$border"
-}
-
-# Format message with proper word wrapping and alignment
-format_message() {
-    local message="$1"
-    local width="$2"
-    local quote_color="$3"
-    local author_color="$4"
-
-    # Handle multi-line messages
-    echo "$message" | while IFS= read -r line; do
-        if [[ -n "$line" ]]; then
-            if [[ "$line" == --* ]]; then
-                # This is the author line
-                gum style --foreground "$author_color" --width "$width" --align left " $line "
-            else
-                # This is a quote line
-                gum style --foreground "$quote_color" --width "$width" --align center " $line "
-            fi
-        else
-            # Handle empty lines
-            gum style --width "$width" --align center " "
-        fi
-    done
-}
-
-# Main function to create styled message with dynamic borders
+# Main function to create styled message with rounded border
 gum_style() {
     local message="$1"
     local width_arg="$2"
     local quote_color="${3:-$text_color}"
-    local author_color="${4:-213}"
 
-    # Calculate optimal width
-    local width=$(calculate_width "$message" "$width_arg")
+    local width=$(calculate_width "$width_arg")
 
-    # Create styled components
-    local top_border=$(create_border "$width")
-    local formatted_message=$(format_message "$message" "$width" "$quote_color" "$author_color")
-    local bottom_border=$(create_border "$width")
-
-    # Combine all elements
-    printf "%s\n%s\n%s" "$top_border" "$formatted_message" "$bottom_border"
-}
-
-# Main execution - Print outer border with Gum's rounded border
-main() {
-    local message="$1"
-    local quote_color="${2:-$text_color}"
-    local author_color="${3:-213}"
-    local width_arg="$4"
-
-    if [[ -z "$message" ]]; then
-        echo "Usage: $0 <message> [width]"
-        exit 1
-    fi
-
-    # Get the styled content
-    local styled_content=$(gum_style "$message" "$width_arg" "$quote_color" "$author_color")
-
-    # Calculate outer width (content width + padding for rounded border)
-    local content_width=$(calculate_width "$message" "$width_arg")
-    local outer_width=$(( content_width + 8 ))
-
-    # Ensure outer width doesn't exceed terminal
-    local term_width=$(get_terminal_width)
-    (( outer_width > term_width )) && outer_width=$term_width
-
-    # Apply outer styling with rounded border
+    # Leading newline ensures box starts below the prompt's second line
+    echo ""
     gum style \
         --align center \
-        --width "$outer_width" \
+        --width "$width" \
         --border rounded \
         --border-foreground "$border_color" \
         --foreground "$quote_color" \
         --margin "0" \
         --padding "1 0" \
         --bold \
-        "$styled_content"
+        "$message"
 }
 
-# Execute main function with arguments
+# Main execution
+main() {
+    local message="$1"
+    local quote_color="${2:-$text_color}"
+    local width_arg="$3"
+
+    if [[ -z "$message" ]]; then
+        echo "Usage: $0 <message> [width]"
+        exit 1
+    fi
+
+    gum_style "$message" "$width_arg" "$quote_color"
+}
+
 main "$@"
