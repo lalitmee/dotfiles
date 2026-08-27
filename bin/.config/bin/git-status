@@ -8,25 +8,36 @@ is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
+clean_tree_msg() {
+    "${0:A:h}/gum_style" $'Working tree is clean.\n\nNothing changed to show.'
+}
+
 status_fzf() {
     local mode="${1:-view}"
     local preview='git diff --color=always -- {-1}'
+    local lines
+
+    lines=$(git status --short)
+    if [[ -z "$lines" ]]; then
+        clean_tree_msg
+        return 1
+    fi
 
     case "$mode" in
         stage)
-            git status --short |
+            echo "$lines" |
                 fzf --height 50% --no-border --reverse --multi --prompt="Select files to stage: " \
                     --preview "$preview" |
                 awk '{print $NF}'
             ;;
         diff)
-            git status --short |
+            echo "$lines" |
                 fzf --height 50% --no-border --reverse --multi --prompt="Select files to diff: " \
                     --preview "$preview" |
                 awk '{print $NF}'
             ;;
         *)
-            git status --short |
+            echo "$lines" |
                 fzf --height 50% --no-border --reverse --prompt="Filter changed files: " \
                     --preview "$preview"
             ;;
@@ -36,8 +47,8 @@ status_fzf() {
 main() {
     local mode="${1:-view}"
 
-    if ! command -v fzf &> /dev/null; then
-        echo "Error: fzf not found." >&2
+    if ! command -v fzf &> /dev/null || ! command -v gum &> /dev/null; then
+        echo "Error: both fzf and gum are required." >&2
         exit 1
     fi
 
@@ -50,7 +61,6 @@ main() {
     files=$(status_fzf "$mode")
 
     if [[ -z "$files" ]]; then
-        echo "No files selected." >&2
         exit 0
     fi
 

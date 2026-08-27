@@ -8,8 +8,18 @@ is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
+no_remote_msg() {
+    "${0:A:h}/gum_style" $'No remotes configured.\n\nAdd one with: git remote add origin <url>'
+}
+
 remote_list() {
-    git remote -v | awk '{print $1 "\t" $2}' | uniq |
+    local remotes
+    remotes=$(git remote -v | awk '{print $1 "\t" $2}' | uniq)
+    if [[ -z "$remotes" ]]; then
+        no_remote_msg
+        return 1
+    fi
+    echo "$remotes" |
         fzf --height 50% --no-border --reverse --prompt="Select remote: " \
             --with-nth=1 --delimiter="\t" \
             --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
@@ -31,8 +41,8 @@ show_remote() {
 main() {
     local mode="${1:-list}"
 
-    if ! command -v fzf &> /dev/null; then
-        echo "Error: fzf not found." >&2
+    if ! command -v fzf &> /dev/null || ! command -v gum &> /dev/null; then
+        echo "Error: both fzf and gum are required." >&2
         exit 1
     fi
 
