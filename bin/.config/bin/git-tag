@@ -1,41 +1,23 @@
 #!/usr/bin/env zsh
-
 set -euo pipefail
 
-# Interactive git tag browser using gum or fzf
+# Interactive git tag browser using fzf (fuzzy search)
+# Modes: list, show
 
 is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
-tag_preview() {
-    git show --color=always "$1" 2>/dev/null | head -200
-}
-
-tag_list_gum() {
+tag_list() {
     local sort_opt="${1:---sort:version:refname}"
     git tag --sort "$sort_opt" |
-        gum filter --placeholder "Filter tags..."
-}
-
-tag_list_fzf() {
-    local sort_opt="${1:---sort:version:refname}"
-    git tag --sort "$sort_opt" |
-        fzf --height 50% --border --prompt="Select tag: " \
+        fzf --height 50% --no-border --reverse --prompt="Select tag: " \
             --preview 'git show --color=always {} | head -200'
 }
 
-show_tag_gum() {
+show_tag() {
     local tag
-    tag=$(tag_list_gum)
-    if [[ -n "$tag" ]]; then
-        git show --stat "$tag"
-    fi
-}
-
-show_tag_fzf() {
-    local tag
-    tag=$(tag_list_fzf)
+    tag=$(tag_list)
     if [[ -n "$tag" ]]; then
         git show --stat "$tag"
     fi
@@ -43,12 +25,9 @@ show_tag_fzf() {
 
 main() {
     local mode="${1:-list}"
-    local has_gum=false has_fzf=false
-    command -v gum &> /dev/null && has_gum=true
-    command -v fzf &> /dev/null && has_fzf=true
 
-    if ! $has_gum && ! $has_fzf; then
-        echo "Error: neither gum nor fzf found." >&2
+    if ! command -v fzf &> /dev/null; then
+        echo "Error: fzf not found." >&2
         exit 1
     fi
 
@@ -58,20 +37,8 @@ main() {
     }
 
     case "$mode" in
-        list)
-            if $has_gum; then
-                tag_list_gum
-            else
-                tag_list_fzf
-            fi
-            ;;
-        show)
-            if $has_gum; then
-                show_tag_gum
-            else
-                show_tag_fzf
-            fi
-            ;;
+        list) tag_list ;;
+        show) show_tag ;;
         *)
             echo "Usage: git-tag [list|show]"
             echo "  list  - filter tags (default)"

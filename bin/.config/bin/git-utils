@@ -52,19 +52,19 @@ main() {
     fi
 
     local pick
-    # The leading label field is the stable key; fzf aligns tab columns into a table
-    pick=$(printf '%s\n' "${operations[@]}" | awk -F'|' '{print $1}' | \
+    # Pad labels to a fixed width so fzf's tab delimiter aligns every
+    # description into a clean second column
+    pick=$(printf '%s\n' "${operations[@]}" | awk -F'|' '{ split($1,a,"\t"); printf "%-26s\t%s\n", a[1], a[2] }' | \
         fzf \
-        --delimiter="\t" \
         --with-nth=1,2 \
         --height 60% \
-        --border \
         --reverse \
         --header "Git Utilities — filter to search" \
         --prompt "> ")
     [[ -z "$pick" ]] && return 0
 
     local picked_label="${pick%%$'\t'*}"
+    picked_label="$(printf '%s' "$picked_label" | sed 's/[[:space:]]*$//')"
     local item label name mode
     for item in "${operations[@]}"; do
         IFS='|' read -r label name mode <<< "$item"
