@@ -1,0 +1,106 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+# Interactive git branch selector using gum or fzf
+
+is_in_git_repo() {
+    git rev-parse HEAD > /dev/null 2>&1
+}
+
+branch_preview() {
+    git log -n 1 --color=always --oneline --decorate "$1" 2>/dev/null
+}
+
+select_branch_gum() {
+    local mode="${1:-switch}"
+    local git_dir
+
+    git_dir=$(git rev-parse --git-dir 2>/dev/null)
+    if [[ "$mode" == "switch" ]]; then
+        git branch --format="%(refname:short)" |
+            gum choose --header "Switch to branch:"
+    elif [[ "$mode" == "delete" ]]; then
+        git branch --format="%(refname:select)" |
+            gum choose --no-limit --header "Select branches to delete:"
+    elif [[ "$mode" == "checkout-new" ]]; then
+        gum input --placeholder "New branch name"
+    fi
+}
+
+select_branch_fzf() {
+    local mode="${1:-switch}"
+
+    if [[ "$mode" == "switch" ]]; then
+        git branch --format="%(refname:short)" |
+            fzf --height 50% --border --prompt="Switch to branch: " \
+                --preview 'git log -n 1 --color=always --oneline --decorate {}'
+    elif [[ "$mode" == "delete" ]]; then
+        git branch --format="%(refname:short)" |
+            fzf --height 50% --border --multi --prompt="Select branches to delete: " \
+                --preview 'git log -n 1 --color=always --oneline --decorate {}'
+    elif [[ "$mode" == "checkout-new" ]]; then
+        gum input --placeholder "New branch name"
+    fi
+}
+
+select_branch() {
+    local mode="${1:-switch}"
+
+    if command -v gum &> /dev/null; then
+        select_branch_gum "$mode"
+    elif command -v fzf &> /dev/null; then
+        select_branch_fzf "$mode"
+    else
+        echo "Error: neither gum nor fzf found. Install one of them." >&2
+        exit 1
+    fi
+}
+
+main() {
+    local mode="${1:-switch}"
+    local current_branch
+
+    is_in_git_repo || {
+        echo "Error: Not inside a git repository." >&2
+        exit 1
+    }
+
+    current_branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "detached")
+
+    case "$mode" in
+        switch)
+            branch=$(select_branch "switch")
+            if [[ -n "$branch" ]]; then
+                git checkout "$branch"
+            fi
+            ;;
+        delete)
+            branches=$(select_branch "delete")
+            if [[ -n "$branches" ]]; then
+                echo "$branches" | while read -r branch; do
+                    [[ "$branch" == "$current_branch" ]] && {
+                        echo "Skipping current branch: $branch" >&2
+                        continue
+                    }
+                    git branch -D "$branch" 2>/dev/null || echo "Failed to delete: $branch" >&2
+                done
+            fi
+            ;;
+        checkout-new)
+            new_branch=$(select_branch "checkout-new")
+            if [[ -n "$new_branch" ]]; then
+                git checkout -b "$new_branch"
+            fi
+            ;;
+        *)
+            echo "Usage: git-branch.zsh [switch|delete|checkout-new]"
+            echo "  switch       - switch to a branch (default)"
+            echo "  delete       - delete branches"
+            echo "  checkout-new - create and switch to new branch"
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"
