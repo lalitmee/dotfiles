@@ -1,0 +1,84 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+# Interactive git tag browser using gum or fzf
+
+is_in_git_repo() {
+    git rev-parse HEAD > /dev/null 2>&1
+}
+
+tag_preview() {
+    git show --color=always "$1" 2>/dev/null | head -200
+}
+
+tag_list_gum() {
+    local sort_opt="${1:---sort:version:refname}"
+    git tag --sort "$sort_opt" |
+        gum filter --placeholder "Filter tags..."
+}
+
+tag_list_fzf() {
+    local sort_opt="${1:---sort:version:refname}"
+    git tag --sort "$sort_opt" |
+        fzf --height 50% --border --prompt="Select tag: " \
+            --preview 'git show --color=always {} | head -200'
+}
+
+show_tag_gum() {
+    local tag
+    tag=$(tag_list_gum)
+    if [[ -n "$tag" ]]; then
+        git show --stat "$tag"
+    fi
+}
+
+show_tag_fzf() {
+    local tag
+    tag=$(tag_list_fzf)
+    if [[ -n "$tag" ]]; then
+        git show --stat "$tag"
+    fi
+}
+
+main() {
+    local mode="${1:-list}"
+    local has_gum=false has_fzf=false
+    command -v gum &> /dev/null && has_gum=true
+    command -v fzf &> /dev/null && has_fzf=true
+
+    if ! $has_gum && ! $has_fzf; then
+        echo "Error: neither gum nor fzf found." >&2
+        exit 1
+    fi
+
+    is_in_git_repo || {
+        echo "Error: Not inside a git repository." >&2
+        exit 1
+    }
+
+    case "$mode" in
+        list)
+            if $has_gum; then
+                tag_list_gum
+            else
+                tag_list_fzf
+            fi
+            ;;
+        show)
+            if $has_gum; then
+                show_tag_gum
+            else
+                show_tag_fzf
+            fi
+            ;;
+        *)
+            echo "Usage: git-tag.zsh [list|show]"
+            echo "  list  - filter tags (default)"
+            echo "  show  - show tag details"
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"
