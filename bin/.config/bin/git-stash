@@ -112,7 +112,7 @@ main() {
             fi
             ;;
         *)
-            echo "Usage: git-stash.zsh [list|apply|drop]"
+            echo "Usage: git-stash [list|apply|drop]"
             echo "  list   - list stashes (default)"
             echo "  apply  - apply a stash"
             echo "  drop   - drop a stash"

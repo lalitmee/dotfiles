@@ -78,7 +78,7 @@ main() {
             fi
             ;;
         *)
-            echo "Usage: git-remote.zsh [list|show]"
+            echo "Usage: git-remote [list|show]"
             echo "  list  - select a remote (default)"
             echo "  show  - show remote details"
             exit 1

@@ -73,7 +73,7 @@ main() {
             fi
             ;;
         *)
-            echo "Usage: git-tag.zsh [list|show]"
+            echo "Usage: git-tag [list|show]"
             echo "  list  - filter tags (default)"
             echo "  show  - show tag details"
             exit 1
