@@ -81,6 +81,16 @@ main() {
                         continue
                     }
                     git branch -D "$branch" 2>/dev/null || echo "Failed to delete: $branch" >&2
+                    local upstream remote
+                    upstream=$(git rev-parse --abbrev-ref --symbolic-full-name "${branch}@{upstream}" 2>/dev/null)
+                    if [[ -n "$upstream" && "$upstream" == */* ]]; then
+                        remote="${upstream%%/*}"
+                        if gum confirm --prompt.foreground="#FFC66D" \
+                            "Delete remote branch $remote/$branch too?"; then
+                            git push "$remote" --delete "$branch" 2>/dev/null \
+                                || echo "Failed to delete remote: $remote/$branch" >&2
+                        fi
+                    fi
                 done
             fi
             ;;
