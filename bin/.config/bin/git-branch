@@ -94,7 +94,7 @@ main() {
             fi
             ;;
         *)
-            echo "Usage: git-branch.zsh [switch|delete|checkout-new]"
+            echo "Usage: git-branch [switch|delete|checkout-new]"
             echo "  switch       - switch to a branch (default)"
             echo "  delete       - delete branches"
             echo "  checkout-new - create and switch to new branch"

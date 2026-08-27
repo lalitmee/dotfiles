@@ -1,0 +1,78 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+# Interactive git utility launcher
+# Usage:
+#   git-utils                  - filterable menu of all operations (table)
+#   git-utils <util> [mode]    - run one operation directly, e.g. git-utils commit conventional
+
+BIN_DIR="${0:A:h}"
+
+# label<tab>desc|script|mode   (tab separates display columns; | is the internal separator)
+operations=(
+    "Switch Branch	Switch to another branch|git-branch|switch"
+    "New Branch	Create and switch to a new branch|git-branch|checkout-new"
+    "Delete Branch	Delete one or more branches|git-branch|delete"
+    "Browse Commits	Filter and select a commit hash|git-commit|browse"
+    "New Commit	Write a commit message interactively|git-commit|commit"
+    "Conventional Commit	Commit with a conventional type-scope prefix|git-commit|conventional"
+    "Amend Last Commit	Apply changes to the last commit|git-commit|amend"
+    "View Status	List changed files with filter|git-status|view"
+    "Stage Files	Add files to the index|git-status|stage"
+    "Diff Files	Show the diff of selected files|git-status|diff"
+    "List Stashes	Show your saved stashes|git-stash|list"
+    "Apply Stash	Apply a saved stash|git-stash|apply"
+    "Drop Stash	Delete a saved stash|git-stash|drop"
+    "List Tags	Show all repository tags|git-tag|list"
+    "Show Tag	Show the details of a tag|git-tag|show"
+    "List Remotes	Show configured git remotes|git-remote|list"
+    "Show Remote	Show a remote's details|git-remote|show"
+)
+
+main() {
+    if [[ $# -ge 1 ]]; then
+        local script="${1:-}"
+        local item label name mode short
+        for item in "${operations[@]}"; do
+            IFS='|' read -r label name mode <<< "$item"
+            short="${name#git-}"
+            if [[ "$script" == "$name" || "$script" == "$short" ]]; then
+                local run_mode="${2:-$mode}"
+                exec "$BIN_DIR/$name" "$run_mode"
+            fi
+        done
+        echo "Unknown utility: $script" >&2
+        echo "Usage: $0 [switch|new|delete|browse|commit|conventional|amend|view|stage|diff|list|apply|drop|show]" >&2
+        return 1
+    fi
+
+    if ! command -v fzf &>/dev/null; then
+        echo "Error: fzf is required for the table menu." >&2
+        return 1
+    fi
+
+    local pick
+    # The leading label field is the stable key; fzf aligns tab columns into a table
+    pick=$(printf '%s\n' "${operations[@]}" | awk -F'|' '{print $1}' | \
+        fzf \
+        --delimiter="\t" \
+        --with-nth=1,2 \
+        --height 60% \
+        --border \
+        --reverse \
+        --header "Git Utilities — filter to search" \
+        --prompt "> ")
+    [[ -z "$pick" ]] && return 0
+
+    local picked_label="${pick%%$'\t'*}"
+    local item label name mode
+    for item in "${operations[@]}"; do
+        IFS='|' read -r label name mode <<< "$item"
+        local bare="${label%%$'\t'*}"   # display label = first tab field
+        if [[ "$picked_label" == "$bare" ]]; then
+            exec "$BIN_DIR/$name" "$mode"
+        fi
+    done
+}
+
+main "$@"

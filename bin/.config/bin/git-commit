@@ -106,6 +106,14 @@ commit_conventional_fzf() {
     fi
 }
 
+require_staged() {
+    if ! git diff --cached --quiet; then
+        return 0
+    fi
+    echo "Nothing staged to commit. Use 'git add' or the 'Stage Files' utility first." >&2
+    return 1
+}
+
 amend_commit_gum() {
     if gum confirm "Amend last commit?"; then
         git commit --amend --no-edit
@@ -145,6 +153,7 @@ main() {
             fi
             ;;
         commit)
+            require_staged || return 1
             if $has_gum; then
                 write_commit_gum
             else
@@ -152,6 +161,7 @@ main() {
             fi
             ;;
         conventional)
+            require_staged || return 1
             if $has_gum; then
                 commit_conventional_gum
             else
@@ -166,7 +176,7 @@ main() {
             fi
             ;;
         *)
-            echo "Usage: git-commit.zsh [browse|commit|conventional|amend]"
+            echo "Usage: git-commit [browse|commit|conventional|amend]"
             echo "  browse        - filter and select a commit hash (default)"
             echo "  commit        - write a commit message interactively"
             echo "  conventional  - write a conventional commit (type(scope): desc)"
