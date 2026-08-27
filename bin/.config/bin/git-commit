@@ -8,8 +8,18 @@ is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
+no_commits_msg() {
+    "${0:A:h}/gum_style" $'No commits yet.\n\nCreate one with: git commit'
+}
+
 browse_commits() {
-    git log --pretty=format:'%h%x09%an%x09%cr%x09%s' -n 50 |
+    local commits
+    commits=$(git log --pretty=format:'%h%x09%an%x09%cr%x09%s' -n 50)
+    if [[ -z "$commits" ]]; then
+        no_commits_msg
+        return 1
+    fi
+    echo "$commits" |
         fzf --height 50% --no-border --reverse --prompt="Select commit: " \
             --delimiter="\t" --with-nth=1,2,3,4 \
             --preview 'git show --color=always {1} | head -200'

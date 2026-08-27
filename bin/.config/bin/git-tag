@@ -8,9 +8,18 @@ is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
+no_tags_msg() {
+    "${0:A:h}/gum_style" $'No tags around here\n\nCreate one with: git tag <name>'
+}
+
 tag_list() {
-    local sort_opt="${1:---sort:version:refname}"
-    git tag --sort "$sort_opt" |
+    local tags
+    tags=$(git tag --sort="${1:-v:refname}")
+    if [[ -z "$tags" ]]; then
+        no_tags_msg
+        return 1
+    fi
+    echo "$tags" |
         fzf --height 50% --no-border --reverse --prompt="Select tag: " \
             --preview 'git show --color=always {} | head -200'
 }
@@ -26,8 +35,8 @@ show_tag() {
 main() {
     local mode="${1:-list}"
 
-    if ! command -v fzf &> /dev/null; then
-        echo "Error: fzf not found." >&2
+    if ! command -v fzf &> /dev/null || ! command -v gum &> /dev/null; then
+        echo "Error: both fzf and gum are required." >&2
         exit 1
     fi
 

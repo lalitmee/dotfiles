@@ -8,8 +8,18 @@ is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
+no_stash_msg() {
+    "${0:A:h}/gum_style" $'No stashes tucked away.\n\nCreate one with: git stash'
+}
+
 stash_list_fzf() {
-    git stash list |
+    local stashes
+    stashes=$(git stash list)
+    if [[ -z "$stashes" ]]; then
+        no_stash_msg
+        return 1
+    fi
+    echo "$stashes" |
         fzf --height 50% --no-border --reverse --prompt="Select stash: " \
             --preview 'git stash show -p {} | head -200'
 }

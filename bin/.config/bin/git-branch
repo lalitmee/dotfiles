@@ -8,22 +8,41 @@ is_in_git_repo() {
     git rev-parse HEAD > /dev/null 2>&1
 }
 
+no_branches_msg() {
+    "${0:A:h}/gum_style" $'No branches here yet.\n\nCreate one with: git checkout -b <name>'
+}
+
 select_branch() {
     local mode="${1:-switch}"
+    local branches
+
+    branches=$(git branch --format="%(refname:short)")
+    if [[ -z "$branches" ]]; then
+        no_branches_msg
+        return 1
+    fi
 
     case "$mode" in
         switch)
-            git branch --format="%(refname:short)" |
+            echo "$branches" |
                 fzf --height 50% --no-border --reverse --prompt="Switch to branch: " \
                     --preview 'git log -n 1 --color=always --oneline --decorate {}'
             ;;
         delete)
-            git branch --format="%(refname:short)" |
+            echo "$branches" |
                 fzf --height 50% --no-border --reverse --multi --prompt="Select branches to delete: " \
                     --preview 'git log -n 1 --color=always --oneline --decorate {}'
             ;;
         checkout-new)
-            gum input --placeholder "New branch name"
+            local base
+            base=$(echo "$branches" |
+                fzf --height 50% --no-border --reverse --prompt="Base branch: " \
+                    --preview 'git log -n 1 --color=always --oneline --decorate {}')
+            [[ -z "$base" ]] && return 1
+            local name
+            name=$(gum input --placeholder "New branch name")
+            [[ -z "$name" ]] && return 1
+            echo "${base}|${name}"
             ;;
     esac
 }
@@ -66,10 +85,13 @@ main() {
             fi
             ;;
         checkout-new)
-            local new_branch
-            new_branch=$(select_branch "checkout-new")
-            if [[ -n "$new_branch" ]]; then
-                git checkout -b "$new_branch"
+            local sel
+            sel=$(select_branch "checkout-new")
+            if [[ -n "$sel" ]]; then
+                local base new_branch
+                base="${sel%%|*}"
+                new_branch="${sel##*|}"
+                git checkout -b "$new_branch" "$base"
             fi
             ;;
         *)
