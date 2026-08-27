@@ -25,26 +25,6 @@ browse_commits() {
             --preview 'git show --color=always {1} | head -200'
 }
 
-write_summary() {
-    gum input --width 60 --placeholder "$1"
-}
-
-write_commit() {
-    local summary details
-    summary=$(write_summary "Summary of changes")
-    if [[ -n "$summary" ]]; then
-        details=$(gum write --width 80 --placeholder "Details (optional)")
-        if [[ -n "$details" ]]; then
-            git commit -m "$summary" -m "$details"
-        else
-            git commit -m "$summary"
-        fi
-    else
-        echo "No summary provided. Aborting." >&2
-        exit 1
-    fi
-}
-
 commit_conventional() {
     local commit_types=("feat" "fix" "docs" "style" "refactor" "test" "chore" "revert" "perf" "ci" "build")
     local commit_type scope summary
@@ -107,7 +87,7 @@ main() {
         browse) browse_commits ;;
         commit)
             require_staged || return 1
-            write_commit
+            commit_conventional
             ;;
         conventional)
             require_staged || return 1
@@ -117,8 +97,8 @@ main() {
         *)
             echo "Usage: git-commit [browse|commit|conventional|amend]"
             echo "  browse        - filter and select a commit hash (default)"
-            echo "  commit        - write a commit message interactively"
-            echo "  conventional  - write a conventional commit (type(scope): desc)"
+            echo "  commit        - create a conventional commit (type + required summary)"
+            echo "  conventional  - alias for commit"
             echo "  amend         - amend the last commit"
             exit 1
             ;;
