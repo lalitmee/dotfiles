@@ -23,9 +23,7 @@ select_branch() {
                     --preview 'git log -n 1 --color=always --oneline --decorate {}'
             ;;
         checkout-new)
-            print -n "New branch name: "
-            read new_branch
-            echo "$new_branch"
+            gum input --placeholder "New branch name"
             ;;
     esac
 }
@@ -33,8 +31,8 @@ select_branch() {
 main() {
     local mode="${1:-switch}"
 
-    if ! command -v fzf &> /dev/null; then
-        echo "Error: fzf not found." >&2
+    if ! command -v fzf &> /dev/null || ! command -v gum &> /dev/null; then
+        echo "Error: both fzf and gum are required." >&2
         exit 1
     fi
 

@@ -9,22 +9,26 @@ is_in_git_repo() {
 }
 
 browse_commits() {
-    git log --oneline -n 50 |
+    git log --pretty=format:'%h%x09%an%x09%cr%x09%s' -n 50 |
         fzf --height 50% --no-border --reverse --prompt="Select commit: " \
-            --preview 'git show --color=always {} | head -200'
+            --delimiter="\t" --with-nth=1,2,3,4 \
+            --preview 'git show --color=always {1} | head -200'
 }
 
 write_summary() {
-    local prompt="$1"
-    echo "" | fzf --height 50% --no-border --reverse --prompt="$prompt" \
-        --print-query --header="Type and press Enter"
+    gum input --width 60 --placeholder "$1"
 }
 
 write_commit() {
-    local summary
-    summary=$(write_summary "Summary: ")
+    local summary details
+    summary=$(write_summary "Summary of changes")
     if [[ -n "$summary" ]]; then
-        git commit -m "$summary"
+        details=$(gum write --width 80 --placeholder "Details (optional)")
+        if [[ -n "$details" ]]; then
+            git commit -m "$summary" -m "$details"
+        else
+            git commit -m "$summary"
+        fi
     else
         echo "No summary provided. Aborting." >&2
         exit 1
@@ -39,8 +43,8 @@ commit_conventional() {
         fzf --height 50% --no-border --reverse --prompt="Select commit type: ")
 
     if [[ -n "$commit_type" ]]; then
-        scope=$(write_summary "Scope (optional): ")
-        summary=$(write_summary "Description: ")
+        scope=$(gum input --width 30 --placeholder "scope (optional)")
+        summary=$(gum input --width 60 --placeholder "Short description")
         if [[ -n "$summary" ]]; then
             local full_msg
             if [[ -n "$scope" ]]; then
@@ -48,7 +52,13 @@ commit_conventional() {
             else
                 full_msg="${commit_type}: ${summary}"
             fi
-            git commit -m "$full_msg"
+            local body
+            body=$(gum write --width 80 --placeholder "Body (optional)")
+            if [[ -n "$body" ]]; then
+                git commit -m "$full_msg" -m "$body"
+            else
+                git commit -m "$full_msg"
+            fi
         else
             echo "No summary provided. Aborting." >&2
             exit 1
@@ -65,8 +75,7 @@ require_staged() {
 }
 
 amend_commit() {
-    read "CONFIRM?Amend last commit? [y/N] "
-    if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+    if gum confirm "Amend last commit?"; then
         git commit --amend --no-edit
     fi
 }
@@ -74,8 +83,8 @@ amend_commit() {
 main() {
     local mode="${1:-browse}"
 
-    if ! command -v fzf &> /dev/null; then
-        echo "Error: fzf not found." >&2
+    if ! command -v fzf &> /dev/null || ! command -v gum &> /dev/null; then
+        echo "Error: both fzf and gum are required." >&2
         exit 1
     fi
 

@@ -20,8 +20,7 @@ apply_stash() {
     if [[ -n "$stash" ]]; then
         local stash_ref
         stash_ref=$(echo "$stash" | cut -d: -f1)
-        read "CONFIRM?Apply stash ${stash_ref}? [y/N] "
-        if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+        if gum confirm "Apply stash ${stash_ref}?"; then
             git stash pop "$stash_ref"
         fi
     fi
@@ -33,8 +32,7 @@ drop_stash() {
     if [[ -n "$stash" ]]; then
         local stash_ref
         stash_ref=$(echo "$stash" | cut -d: -f1)
-        read "CONFIRM?Drop stash ${stash_ref}? [y/N] "
-        if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+        if gum confirm "Drop stash ${stash_ref}?"; then
             git stash drop "$stash_ref"
         fi
     fi
@@ -43,8 +41,8 @@ drop_stash() {
 main() {
     local mode="${1:-list}"
 
-    if ! command -v fzf &> /dev/null; then
-        echo "Error: fzf not found." >&2
+    if ! command -v fzf &> /dev/null || ! command -v gum &> /dev/null; then
+        echo "Error: both fzf and gum are required." >&2
         exit 1
     fi
 
