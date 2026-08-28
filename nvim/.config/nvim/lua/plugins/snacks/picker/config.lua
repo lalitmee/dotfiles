@@ -29,14 +29,17 @@ return {
             height = 0.90,
         },
         config = function(layout)
-            local portrait = vim.o.columns < vim.o.lines
-            for _, child in ipairs(layout.layout or {}) do
+            local stacked = vim.o.columns < vim.o.lines or vim.o.columns < 180
+            local tree = layout.layout
+            if not tree then
+                return
+            end
+            tree.box = stacked and "vertical" or "horizontal"
+            for _, child in ipairs(tree) do
                 if child.win == "preview" then
-                    if portrait then
-                        layout.box = "vertical"
+                    if stacked then
                         child.width = nil
-                        child.height = 0.4
-                        child.border = "top"
+                        child.height = 0.7
                     else
                         child.width = 0.6
                     end
