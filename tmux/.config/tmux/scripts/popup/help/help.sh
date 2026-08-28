@@ -47,22 +47,28 @@ show_help_table() {
         exit 1
     fi
 
-    # Popup dimensions - adapt to terminal orientation:
-    #   portrait (taller than wide) -> widen the table so it doesn't look cramped
-    #   landscape                   -> compact dimensions
-    local win_size=($(tmux display-message -p '#{window_width} #{window_height}'))
-    local WIDTH=30
-    local HEIGHT=50
-    if (( ${win_size[1]} < ${win_size[2]} )); then
-        WIDTH=60
-        HEIGHT=75
-    fi
+    # Popup dimensions: height fills the pane so all bindings are visible,
+    # width fits the table content so nothing wraps or breaks. Works for both
+    # portrait and landscape monitors.
+    local dims=($(tmux display-message -p '#{window_width} #{window_height}'))
+    local metrics=($(awk -F'\t' '
+        { if (length($1) > key_max) key_max = length($1)
+          if (length($2) > desc_max) desc_max = length($2) }
+        END { printf "%d %d", key_max, desc_max }
+    ' "$table_file"))
+
+    local WIDTH=$(( metrics[1] + metrics[2] + 7 ))   # columns + separators + borders + padding
+    local HEIGHT=$(( dims[2] - 6 ))                  # full pane height minus margin
+    local max_w=$(( dims[1] - 6 ))
+    (( WIDTH > max_w )) && WIDTH=$max_w
+    (( WIDTH < 10 )) && WIDTH=10
+    (( HEIGHT < 10 )) && HEIGHT=10
 
     local tab_char=$(printf '\t')
     local gum_command="cat '$table_file' | gum table --separator=\"$tab_char\" --header.foreground='$HEADER_FG' --header.background='$HEADER_BG' --cell.foreground='$BODY_FG' --cell.background='$BODY_BG' --border.foreground='$BORDER_FG' --border='rounded' --print; echo; gum style --foreground='$HEADER_FG' --background='$BODY_BG' 'Press any key to close...'; read -n 1 -s 2>/dev/null || true"
 
     # Display the popup - always exit cleanly regardless of how popup is closed
-    tmux display-popup -w "${WIDTH}%" -h "${HEIGHT}%" -E "$gum_command" || exit 0
+    tmux display-popup -w "${WIDTH}" -h "${HEIGHT}" -E "$gum_command" || exit 0
 }
 
 # Main logic
