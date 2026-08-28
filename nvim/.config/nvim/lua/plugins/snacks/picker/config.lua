@@ -29,9 +29,17 @@ return {
             height = 0.90,
         },
         config = function(layout)
+            local portrait = vim.o.columns < vim.o.lines
             for _, child in ipairs(layout.layout or {}) do
                 if child.win == "preview" then
-                    child.width = 0.6
+                    if portrait then
+                        layout.box = "vertical"
+                        child.width = nil
+                        child.height = 0.4
+                        child.border = "top"
+                    else
+                        child.width = 0.6
+                    end
                 end
             end
         end,

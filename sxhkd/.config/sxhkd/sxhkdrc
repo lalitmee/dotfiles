@@ -27,6 +27,10 @@ ctrl + space
 # Search Espanso snippets
 alt + space
     espanso cmd search
+
+# Edit Espanso config
+super + alt + i
+    espanso cmd edit
 #}}}
 #-------------------------------------------------------------------------------
 

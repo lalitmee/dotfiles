@@ -376,6 +376,20 @@ matches:
 # }}}
 #-------------------------------------------------------------------------------
 
+#-------------------------------------------------------------------------------
+# NOTE: AI Chat Extension - Quick reply's {{{
+#-------------------------------------------------------------------------------
+
+  # Crashp Plan
+  - trigger: ":crashp"
+    replace: "Lets use crash for better understanding and organization of thoughts and then create a comprehensive plan for fixing the issue(s)"
+
+  # Crashp Implement Plan
+  - trigger: ":crashit"
+    replace: "Lets use crash for better understanding and organization of thoughts and implement the plan"
+# }}}
+#-------------------------------------------------------------------------------
+
 # }}}
 #-------------------------------------------------------------------------------
 
