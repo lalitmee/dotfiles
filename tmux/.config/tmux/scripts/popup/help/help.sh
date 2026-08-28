@@ -47,9 +47,16 @@ show_help_table() {
         exit 1
     fi
 
-    # Popup dimensions
+    # Popup dimensions - adapt to terminal orientation:
+    #   portrait (taller than wide) -> widen the table so it doesn't look cramped
+    #   landscape                   -> compact dimensions
+    local win_size=($(tmux display-message -p '#{window_width} #{window_height}'))
     local WIDTH=30
     local HEIGHT=50
+    if (( ${win_size[1]} < ${win_size[2]} )); then
+        WIDTH=60
+        HEIGHT=75
+    fi
 
     local tab_char=$(printf '\t')
     local gum_command="cat '$table_file' | gum table --separator=\"$tab_char\" --header.foreground='$HEADER_FG' --header.background='$HEADER_BG' --cell.foreground='$BODY_FG' --cell.background='$BODY_BG' --border.foreground='$BORDER_FG' --border='rounded' --print; echo; gum style --foreground='$HEADER_FG' --background='$BODY_BG' 'Press any key to close...'; read -n 1 -s 2>/dev/null || true"
