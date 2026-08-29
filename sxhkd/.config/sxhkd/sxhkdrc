@@ -461,17 +461,17 @@ super + alt + r
 super + alt + w
     WORK_MIN=$(rofi -dmenu -p "Work minutes:" -theme "~/.config/rofi/cheatsheet.rasi" -font "Operator Mono Lig 11") && ~/.config/polybar/scripts/pomodoro/main.sh --start-work $WORK_MIN
 
-# Toggle live speech-to-text (Nerd Dictation)
+# Toggle live speech-to-text (Whisper)
 super + w
-    ~/.config/bin/dictate
+    ~/.config/bin/dictate-whisper
 
 # Toggle headset profile for dictation
 super + ctrl + w
     ~/.config/bin/toggle-headset-profile
 
-# Toggle Whisper dictation
+# Toggle streaming speech-to-text (Vosk Nerd Dictation)
 super + alt + d
-    ~/.config/bin/dictate-whisper
+    ~/.config/bin/dictate
 
 # Search keybinding cheatsheet
 super + alt + s
