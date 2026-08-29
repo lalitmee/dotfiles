@@ -6,10 +6,15 @@
 PID_FILE="/tmp/dictate-whisper.pid"
 NID_FILE="/tmp/dictate-whisper.nid"
 PROFILE_FILE="/tmp/dictate-whisper.profile"
+WID_FILE="/tmp/dictate-whisper.wid"
 AUDIO_FILE="/tmp/dictate-whisper.wav"
 OUTPUT_BASE="/tmp/dictate-whisper"
 # Whisper adds extensions automatically, so we'll look for .txt
 OUTPUT_FILE="${OUTPUT_BASE}.txt"
+
+# Transcription history and clipboard backup
+HISTORY_DIR="$HOME/.local/share/dictation"
+HISTORY_FILE="$HISTORY_DIR/history.log"
 
 # Configuration
 MODEL="medium"
@@ -131,8 +136,24 @@ if [[ -f "$PID_FILE" ]]; then
 
             # Check again if text is not empty after trimming
             if [[ -n "$TEXT" ]]; then
+                # Refocus the window that was active when recording started
+                WID=""
+                if [[ -f "$WID_FILE" ]]; then
+                    WID=$(cat "$WID_FILE")
+                    rm -f "$WID_FILE"
+                fi
+                if [[ "$WID" =~ ^[0-9]+$ ]] && (( WID > 0 )); then
+                    xdotool windowactivate "$WID" 2>/dev/null
+                    sleep 0.1
+                fi
+
+                # Copy to clipboard and append to history so nothing is lost
+                printf '%s' "$TEXT" | xclip -selection clipboard >/dev/null 2>&1
+                mkdir -p "$HISTORY_DIR"
+                printf '[%s] %s\n' "$(date +'%F %T')" "$TEXT" >> "$HISTORY_FILE"
+
                 xdotool type --clearmodifiers --delay 10 "$TEXT"
-                notify-send -i "emblem-default" -u low -t 2000 -r "$TRANS_NID" "Whisper" "Done."
+                notify-send -i "emblem-default" -u low -t 2000 -r "$TRANS_NID" "Whisper" "Done. Copied to clipboard."
             else
                  notify-send -i "dialog-error" -u low -t 2000 -r "$TRANS_NID" "Whisper" "No text detected."
             fi
@@ -158,6 +179,11 @@ else
 
     # Update notification
     notify-send -i "audio-input-microphone-high-symbolic" -u low -t 0 -r "$NID" "Whisper" "Listening..."
+
+    # Remember the active window so text lands there even if focus moves
+    # while transcribing.
+    rm -f "$WID_FILE"
+    xdotool getactivewindow 2>/dev/null > "$WID_FILE"
 
     # Record from the noise cancelled source
     # Using parecord is safer for PulseAudio sources.
