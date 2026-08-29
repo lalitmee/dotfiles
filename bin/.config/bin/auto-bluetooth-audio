@@ -1,0 +1,64 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+usage() {
+    print "Usage: ${0:t} [--once|--watch]"
+}
+
+latest_bluetooth_sink() {
+    pactl list short sinks | awk '
+        $2 ~ /^bluez_output\./ {
+            if ($1 + 0 >= latest_id) {
+                latest_id = $1 + 0
+                sink = $2
+            }
+        }
+        END {
+            if (sink != "") {
+                print sink
+            }
+        }
+    '
+}
+
+switch_to_latest_bluetooth_sink() {
+    local sink
+    sink="$(latest_bluetooth_sink)"
+
+    [[ -n "$sink" ]] || return 1
+    pactl set-default-sink "$sink"
+}
+
+watch_for_bluetooth_sinks() {
+    local lock_file="${XDG_RUNTIME_DIR:-/tmp}/auto-bluetooth-audio.lock"
+
+    exec 9>"$lock_file"
+    flock -n 9 || exit 0
+
+    switch_to_latest_bluetooth_sink || true
+
+    pactl subscribe | while read -r event; do
+        case "$event" in
+            *"'new' event on sink"*|*"'change' event on sink"*|*"'new' event on card"*|*"'change' event on card"*)
+                sleep 1
+                switch_to_latest_bluetooth_sink || true
+                ;;
+        esac
+    done
+}
+
+case "${1:---watch}" in
+    --once)
+        switch_to_latest_bluetooth_sink
+        ;;
+    --watch)
+        watch_for_bluetooth_sinks
+        ;;
+    -h|--help)
+        usage
+        ;;
+    *)
+        usage >&2
+        exit 2
+        ;;
+esac
