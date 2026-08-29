@@ -12,7 +12,7 @@ OUTPUT_BASE="/tmp/dictate-whisper"
 OUTPUT_FILE="${OUTPUT_BASE}.txt"
 
 # Configuration
-MODEL="small.en"
+MODEL="medium"
 # Prompt to help Whisper understand coding context and grammar
 INITIAL_PROMPT="Hello, I am a programmer. I will be dictating code. Expect terms like: function, class, const, let, var, import, export, return, if, else, for, while, switch, case, break, continue, true, false, null, undefined, NaN, Infinity, void, any, string, number, boolean, Array, Object, Promise, async, await, try, catch, throw, new, this, super, extends, implements, interface, type, module, namespace, package, public, private, protected, static, readonly, abstract, get, set, slash, dot, underscore, camelCase, snake_case, PascalCase, kebab-case, /path/to/file, index.ts, main.rs, app.jsx, styles.css. Please use proper punctuation and spacing. For example: Hello, world. This is a test."
 

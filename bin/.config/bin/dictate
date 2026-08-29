@@ -6,8 +6,8 @@ NID_FILE="/tmp/nerd-dictation.nid"
 PROFILE_FILE="/tmp/nerd-dictation.profile"
 VENV_PYTHON="$HOME/.venvs/nerd-dictation/bin/python"
 NERD_DICTATION_SCRIPT="$HOME/.local/bin/nerd-dictation"
-# Use the larger US English model for better accuracy
-VOSK_MODEL_DIR="$HOME/.local/share/vosk/model-en-us"
+# Use the Indian English model for better accuracy with an Indian accent
+VOSK_MODEL_DIR="$HOME/.local/share/vosk/model-en-in"
 
 # Updated notify function to accept an icon name and replace ID
 notify() {
