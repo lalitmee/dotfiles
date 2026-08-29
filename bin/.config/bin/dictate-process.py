@@ -4,7 +4,7 @@ import argparse
 from faster_whisper import WhisperModel
 
 FILLERS_RE = re.compile(r"\b(?:um+|uh+|uhh+|umm+|hmm+|er+|eh+|ah+)\b", re.IGNORECASE)
-DUP_RE = re.compile(r"\b(?:the|that|and|to|i|a|an|it|is|of|for|you|in|we|my|so|this|there)\b\s+\1\b", re.IGNORECASE)
+DUP_RE = re.compile(r"\b(the|that|and|to|i|a|an|it|is|of|for|you|in|we|my|so|this|there)\b\s+\1\b", re.IGNORECASE)
 
 
 def clean_text(text):
