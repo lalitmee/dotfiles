@@ -47,20 +47,13 @@ show_help_table() {
         exit 1
     fi
 
-    # Popup dimensions: height fills the pane so all bindings are visible,
-    # width fits the table content so nothing wraps or breaks. Works for both
-    # portrait and landscape monitors.
+    # Popup fills the pane (minus a small margin) so it looks like a proper help
+    # panel in both portrait and landscape monitors instead of a narrow sliver.
+    # Width is not shrunk to the table width - the table renders at its natural
+    # size inside the wider popup.
     local dims=($(tmux display-message -p '#{window_width} #{window_height}'))
-    local metrics=($(awk -F'\t' '
-        { if (length($1) > key_max) key_max = length($1)
-          if (length($2) > desc_max) desc_max = length($2) }
-        END { printf "%d %d", key_max, desc_max }
-    ' "$table_file"))
-
-    local WIDTH=$(( metrics[1] + metrics[2] + 7 ))   # columns + separators + borders + padding
-    local HEIGHT=$(( dims[2] - 6 ))                  # full pane height minus margin
-    local max_w=$(( dims[1] - 6 ))
-    (( WIDTH > max_w )) && WIDTH=$max_w
+    local WIDTH=$(( dims[1] - 70 ))
+    local HEIGHT=$(( dims[2] - 20 ))
     (( WIDTH < 10 )) && WIDTH=10
     (( HEIGHT < 10 )) && HEIGHT=10
 
