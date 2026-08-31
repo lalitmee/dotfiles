@@ -12,12 +12,23 @@ local function compact_layout()
         preset = "select",
         config = function(layout)
             layout.box = "vertical"
-            layout.width = 0.4
+            layout.width = 0.7
             layout.min_width = 60
             layout.height = 0.4
             return layout
         end,
     }
+end
+
+local function worktree_items(wts)
+    local width = 0
+    for _, wt in ipairs(wts) do
+        width = math.max(width, #wt.branch)
+    end
+    return vim.tbl_map(function(wt)
+        local short = "../" .. vim.fn.fnamemodify(wt.path, ":h:t") .. "/" .. vim.fn.fnamemodify(wt.path, ":t")
+        return { text = string.format("%-" .. width .. "s    %s", wt.branch, short), data = wt }
+    end, wts)
 end
 
 local function fetch_branches(cb)
@@ -28,7 +39,9 @@ local function fetch_branches(cb)
             local seen = {}
             for _, b in ipairs(j:result()) do
                 local clean = b:gsub("^remotes/origin/", "")
-                if clean ~= "HEAD" then seen[clean] = true end
+                if clean ~= "HEAD" then
+                    seen[clean] = true
+                end
             end
             local list = vim.tbl_keys(seen)
             table.sort(list)
@@ -45,7 +58,8 @@ function M.create_worktree_picker()
             end, branches)
             Snacks.picker.pick({
                 items = items,
-                prompt = "Create Worktree",
+                prompt = "Create Worktree > ",
+                format = "text",
                 layout = compact_layout(),
                 confirm = function(_, item)
                     local branch = item.text
@@ -92,7 +106,11 @@ local function safe_delete(wt)
         on_exit = function(j)
             vim.schedule(function()
                 if #j:result() > 0 then
-                    vim.notify("Uncommitted changes. Use <c-d> to force delete.", vim.log.levels.ERROR, { title = "Git Worktree" })
+                    vim.notify(
+                        "Uncommitted changes. Use <c-d> to force delete.",
+                        vim.log.levels.ERROR,
+                        { title = "Git Worktree" }
+                    )
                 else
                     git_wt.delete_worktree(wt.path, false)
                     vim.notify("Deleted worktree: " .. wt.branch, vim.log.levels.INFO, { title = "Git Worktree" })
@@ -117,12 +135,11 @@ function M.switch_worktree_picker()
                 vim.notify("No worktrees to switch to", vim.log.levels.INFO, { title = "Git Worktree" })
                 return
             end
-            local items = vim.tbl_map(function(wt)
-                return { text = wt.branch .. "  " .. wt.path, data = wt }
-            end, wts)
+            local items = worktree_items(wts)
             Snacks.picker.pick({
                 items = items,
-                prompt = "Switch Worktree",
+                prompt = "Switch Worktree > ",
+                format = "text",
                 layout = compact_layout(),
                 confirm = function(_, item)
                     git_wt.switch(item.data.path)
@@ -139,12 +156,11 @@ function M.delete_worktree_picker()
                 vim.notify("No worktrees to delete", vim.log.levels.INFO, { title = "Git Worktree" })
                 return
             end
-            local items = vim.tbl_map(function(wt)
-                return { text = wt.branch .. "  " .. wt.path, data = wt }
-            end, wts)
+            local items = worktree_items(wts)
             Snacks.picker.pick({
                 items = items,
-                prompt = "Delete Worktree (<c-d> to force)",
+                prompt = "Delete Worktree (<c-d> to force) > ",
+                format = "text",
                 layout = compact_layout(),
                 confirm = function(_, item)
                     safe_delete(item.data)
