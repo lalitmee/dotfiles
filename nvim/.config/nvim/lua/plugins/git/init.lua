@@ -179,6 +179,14 @@ return {
                 end,
                 desc = "Delete Worktree",
             },
+            {
+                "<leader>gwl",
+                function()
+                    require("plugins.git.worktree.picker").switch_worktree_picker()
+                end,
+                desc = "List Worktrees",
+                silent = true,
+            },
         },
         config = function()
             require("plugins.git.worktree.hooks")
