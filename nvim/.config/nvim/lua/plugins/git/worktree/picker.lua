@@ -97,6 +97,27 @@ local function force_delete(wt)
     vim.notify("Force-deleted worktree: " .. wt.branch, vim.log.levels.WARN, { title = "Git Worktree" })
 end
 
+function M.switch_worktree_picker()
+    fetch_worktrees(function(wts)
+        vim.schedule(function()
+            if vim.tbl_isempty(wts) then
+                vim.notify("No worktrees to switch to", vim.log.levels.INFO, { title = "Git Worktree" })
+                return
+            end
+            local items = vim.tbl_map(function(wt)
+                return { text = wt.branch .. "  " .. wt.path, data = wt }
+            end, wts)
+            Snacks.picker.pick(items, {
+                prompt = "Switch Worktree",
+                layout = { preset = "dropdown" },
+                on_confirm = function(item)
+                    git_wt.switch(item.data.path)
+                end,
+            })
+        end)
+    end)
+end
+
 function M.delete_worktree_picker()
     fetch_worktrees(function(wts)
         vim.schedule(function()
