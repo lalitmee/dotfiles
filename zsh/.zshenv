@@ -114,9 +114,8 @@ append_to_path "$PYENV_ROOT/bin"
 append_to_path "$HOME/.atuin/bin"
 [[ -f "$HOME/.atuin/bin/env" ]] && source "$HOME/.atuin/bin/env"
 
-# fnm
-FNM_PATH="$HOME/.local/share/fnm"
-append_to_path "$FNM_PATH"
+# fnm (stable node/npm/npx; ~/.local/share/fnm itself has no bin dir)
+append_to_path "$HOME/.local/share/fnm/aliases/default/bin"
 
 # Homebrew
 append_to_path "/home/linuxbrew/.linuxbrew/bin"
