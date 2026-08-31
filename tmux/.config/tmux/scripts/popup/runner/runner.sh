@@ -45,7 +45,7 @@ setup_environment() {
     append_to_path "$HOME/.local/bin"
     append_to_path "$HOME/.config/bin"
     append_to_path "$HOME/.fzf/bin"
-    append_to_path "$HOME/.local/share/fnm"
+    append_to_path "$HOME/.local/share/fnm/aliases/default/bin"
     append_to_path "/opt/homebrew/bin"
     append_to_path "/opt/homebrew/sbin"
     append_to_path "/usr/local/bin"

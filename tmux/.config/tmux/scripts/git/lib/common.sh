@@ -14,7 +14,7 @@ export DEBUG_MODE="${DEBUG_MODE:-false}"
 # Setup environment with proper PATH
 # ============================================================================
 setup_environment() {
-    export PATH="$HOME/.local/state/fnm_multishells/*/bin:$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
+    export PATH="$HOME/.local/share/fnm/aliases/default/bin:$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
     mkdir -p "$LOG_DIR"
 }
 
