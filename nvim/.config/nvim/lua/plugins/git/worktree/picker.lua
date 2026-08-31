@@ -7,6 +7,19 @@ local function get_repo_info()
     return vim.fn.fnamemodify(cwd, ":t"), vim.fn.fnamemodify(cwd, ":h")
 end
 
+local function compact_layout()
+    return {
+        preset = "select",
+        config = function(layout)
+            layout.box = "vertical"
+            layout.width = 0.4
+            layout.min_width = 60
+            layout.height = 0.4
+            return layout
+        end,
+    }
+end
+
 local function fetch_branches(cb)
     Job:new({
         command = "git",
@@ -33,7 +46,7 @@ function M.create_worktree_picker()
             Snacks.picker.pick({
                 items = items,
                 prompt = "Create Worktree",
-                layout = { preset = "select" },
+                layout = compact_layout(),
                 confirm = function(_, item)
                     local branch = item.text
                     local name, parent = get_repo_info()
@@ -110,7 +123,7 @@ function M.switch_worktree_picker()
             Snacks.picker.pick({
                 items = items,
                 prompt = "Switch Worktree",
-                layout = { preset = "select" },
+                layout = compact_layout(),
                 confirm = function(_, item)
                     git_wt.switch(item.data.path)
                 end,
@@ -132,7 +145,7 @@ function M.delete_worktree_picker()
             Snacks.picker.pick({
                 items = items,
                 prompt = "Delete Worktree (<c-d> to force)",
-                layout = { preset = "select" },
+                layout = compact_layout(),
                 confirm = function(_, item)
                     safe_delete(item.data)
                 end,
