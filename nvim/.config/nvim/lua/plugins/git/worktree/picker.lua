@@ -22,11 +22,17 @@ end
 
 local function worktree_items(wts)
     local width = 0
+    local cwd = vim.fn.getcwd()
     for _, wt in ipairs(wts) do
         width = math.max(width, #wt.branch)
     end
     return vim.tbl_map(function(wt)
-        local short = "../" .. vim.fn.fnamemodify(wt.path, ":h:t") .. "/" .. vim.fn.fnamemodify(wt.path, ":t")
+        local short
+        if wt.path == cwd then
+            short = "."
+        else
+            short = "../" .. vim.fn.fnamemodify(wt.path, ":h:t") .. "/" .. vim.fn.fnamemodify(wt.path, ":t")
+        end
         return { text = string.format("%-" .. width .. "s    %s", wt.branch, short), data = wt }
     end, wts)
 end
@@ -142,7 +148,7 @@ function M.switch_worktree_picker()
                 format = "text",
                 layout = compact_layout(),
                 confirm = function(_, item)
-                    git_wt.switch(item.data.path)
+                    git_wt.switch_worktree(item.data.path)
                 end,
             })
         end)
