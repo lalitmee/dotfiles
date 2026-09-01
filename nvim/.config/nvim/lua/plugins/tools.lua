@@ -760,4 +760,27 @@ return {
             end,
         },
     },
+
+    { --[[ dbee ]]
+        "kndndrj/nvim-dbee",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        build = function()
+            require("dbee").install()
+        end,
+        cmd = "Dbee",
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>D", group = "dbee" },
+            })
+        end,
+        keys = {
+            { "<leader>Do", function() require("dbee").open() end, desc = "Open", silent = true },
+            { "<leader>Dc", function() require("dbee").close() end, desc = "Close", silent = true },
+            { "<leader>Dt", function() require("dbee").toggle() end, desc = "Toggle", silent = true },
+        },
+        opts = {},
+    },
 }
