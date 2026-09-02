@@ -762,6 +762,7 @@ return {
     },
 
     { --[[ dbee ]]
+        enabled = vim.env.HOME == "/home/lalitmee",
         "kndndrj/nvim-dbee",
         dependencies = {
             "MunifTanjim/nui.nvim",
