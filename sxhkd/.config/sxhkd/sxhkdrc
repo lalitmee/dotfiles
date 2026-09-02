@@ -418,6 +418,10 @@ super + shift + d
 super + x
     i3run --summon --instance crx_dnfpoenibinnbbckgbhendmlljoobcfg -- brave-browser --app-id=dnfpoenibinnbbckgbhendmlljoobcfg
 
+# Scratchpad: Linear (Brave PWA)
+super + alt + l
+    i3run --summon --instance crx_bgdbmehlmdmddlgneophbcddadgknlpm -- brave-browser --app-id=bgdbmehlmdmddlgneophbcddadgknlpm
+
 # Scratchpad: Alsamixer (Audio Mixer)
 super + ctrl + a
     i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
