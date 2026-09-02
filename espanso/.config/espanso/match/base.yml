@@ -382,7 +382,7 @@ matches:
 
   # Crashp Plan
   - trigger: ":crashp"
-    replace: "Lets use crash for better understanding and organization of thoughts and then create a comprehensive plan for fixing the issue(s)"
+    replace: "Lets use crash for better thinking and organization for debugging thoroughly and investigate the issue(s) and coming up with a comprehensive plan for fixing the same"
 
   # Crashp Implement Plan
   - trigger: ":crashit"
