@@ -1,0 +1,182 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+# Interactive git staging utility using fzf
+# Modes: stage (default), unstage
+
+is_in_git_repo() {
+    git rev-parse HEAD > /dev/null 2>&1
+}
+
+clean_tree_msg() {
+    "${0:A:h}/gum_style" $'Working tree is clean.\n\nNothing to stage or unstage.'
+}
+
+# Parse git status --porcelain into "staged|label|color|file" records
+parse_status() {
+    local lines xy x file i label color
+    lines=$(git status --porcelain)
+    [[ -z "$lines" ]] && return 1
+
+    while IFS= read -r line; do
+        xy="${line:0:2}"
+        x="${xy:0:1}"
+        file="${line:3}"
+
+        if [[ "$x" != " " && "$x" != "?" ]]; then
+            i=1
+        else
+            i=0
+        fi
+
+        case "$xy" in
+            " M"*) label="modified";   color="red" ;;
+            "MM"*) label="modified";   color="yellow" ;;
+            "M "*"D "*) label="deleted"; color="yellow" ;;
+            "D "*)    label="deleted";  color="green" ;;
+            " D"*)    label="deleted";  color="red" ;;
+            "A "*)    label="added";    color="green" ;;
+            " A"*)    label="added";    color="red" ;;
+            "AM"*)    label="added";    color="yellow" ;;
+            "R "*)    label="renamed";  color="green" ;;
+            "??")     label="untracked"; color="yellow" ;;
+            "UU")     label="unmerged"; color="magenta" ;;
+            "C "*)    label="copied";   color="green" ;;
+            *)        label="changed";  color="white" ;;
+        esac
+
+        # Only mark as staged when the index column (x) holds an actual code
+        if [[ "$x" == "R" || "$x" == "C" || "$x" == "D" || "$x" == "A" || "$x" == "M" ]]; then
+            i=1
+        fi
+
+        echo "${i}|${label}|${color}|${file}"
+    done <<< "$lines"
+}
+
+# Prettified display line: "● [label]   filename" with color
+pretty_line() {
+    local staged="$1" label="$2" color="$3" file="$4"
+    local badge=" "
+    [[ "$staged" == "1" ]] && badge="●"
+
+    local code
+    case "$color" in
+        green)   code=$'\e[32m' ;;
+        red)     code=$'\e[31m' ;;
+        yellow)  code=$'\e[33m' ;;
+        cyan)    code=$'\e[36m' ;;
+        magenta) code=$'\e[35m' ;;
+        *)       code=$'\e[37m' ;;
+    esac
+    local res=$'\e[0m'
+
+    printf '%s%s [%s]  %s%s' "$code" "$badge" "$label" "$file" "$res"
+}
+
+# Strip ANSI codes and the "[label]" prefix, leaving the filename
+extract_file() {
+    sed -E 's/\x1b\[[0-9;]*m//g; s/.*\]  //'
+}
+
+# Build header with per-status counts
+build_header() {
+    local s=0 m=0 u=0
+    while IFS='|' read -r staged label color file; do
+        if [[ "$staged" == "1" ]]; then
+            s=$((s + 1))
+        elif [[ "$label" == "untracked" ]]; then
+            u=$((u + 1))
+        else
+            m=$((m + 1))
+        fi
+    done < <(parse_status)
+
+    local parts=()
+    [[ $s -gt 0 ]] && parts+=("$s staged")
+    [[ $m -gt 0 ]] && parts+=("$m modified")
+    [[ $u -gt 0 ]] && parts+=("$u untracked")
+    ((${#parts[@]})) && echo "${(j: │ :)parts}" || echo "No changes"
+}
+
+run_stage() {
+    local mode="${1:-stage}"
+
+    if ! command -v fzf &>/dev/null; then
+        echo "Error: fzf is required." >&2
+        exit 1
+    fi
+
+    is_in_git_repo || {
+        echo "Error: Not inside a git repository." >&2
+        exit 1
+    }
+
+    local status_data
+    status_data=$(parse_status) || {
+        clean_tree_msg
+        return 1
+    }
+
+    local lines=""
+    while IFS='|' read -r staged label color file; do
+        lines+="$(pretty_line "$staged" "$label" "$color" "$file")"$'\n'
+    done <<< "$status_data"
+
+    local header
+    header=$(build_header)
+
+    local prompt_text
+    if [[ "$mode" == "unstage" ]]; then
+        prompt_text="Select files to unstage: "
+    else
+        prompt_text="Select files to stage: "
+    fi
+
+    # preview: strip color + label to get filename, then diff it
+    local preview="f=\$(printf '%s' '{}' | sed -E 's/\x1b\[[0-9;]*m//g; s/.*\\]  //'); git diff --color=always -- \"\$f\"; git diff --color=always --cached -- \"\$f\""
+
+    local selected
+    selected=$(printf '%s' "$lines" |
+        fzf --height 60% --no-border --reverse --multi \
+            --header "$header" \
+            --prompt "$prompt_text" \
+            --preview "$preview" \
+            --preview-window=right:50% \
+            --ansi \
+            --bind 'ctrl-a:select-all' \
+            --bind 'ctrl-d:deselect-all')
+
+    [[ -z "$selected" ]] && return 0
+
+    local files
+    files=$(printf '%s' "$selected" | extract_file)
+
+    local count=0
+    while IFS= read -r file; do
+        [[ -z "$file" ]] && continue
+        if [[ "$mode" == "unstage" ]]; then
+            git reset HEAD -- "$file" && count=$((count + 1))
+        else
+            git add -A -- "$file" 2>/dev/null && count=$((count + 1))
+        fi
+    done <<< "$files"
+
+    echo "Processed $count file(s)"
+}
+
+main() {
+    local mode="${1:-stage}"
+    case "$mode" in
+        stage)   run_stage "stage" ;;
+        unstage) run_stage "unstage" ;;
+        *)
+            echo "Usage: git-stage [stage|unstage]"
+            echo "  stage    - interactively stage files (default)"
+            echo "  unstage  - interactively unstage files"
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"
