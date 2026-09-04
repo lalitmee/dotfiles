@@ -9,7 +9,7 @@
   {
     "label": "g++ build and run",
     "command": "bash",
-    "args": ["-c", "g++ \"$ZED_FILE\" -o \"${ZED_FILE%.*}.out\" && \"${ZED_FILE%.*}.out\""],
+    "args": ["-c", "g++ \"$ZED_FILE\" -o \"$ZED_DIRNAME/$ZED_STEM.out\" && \"$ZED_DIRNAME/$ZED_STEM.out\""],
     "reveal": "always",
     "hide": "never"
   },
