@@ -925,11 +925,14 @@ bind N run-shell "tmux neww ~/.config/tmux/scripts/tmux-sessionizer.sh"
 # Launch a script for tmuxinator session management.
 bind U run-shell "tmux neww ~/.config/tmux/scripts/tmuxinator-sessionizer.sh"
 
-# Launch fzf-based sesh script. Wider popup on portrait monitors.
-bind "o" if-shell '[ "#{pane_width}" -lt "#{pane_height}" ]' 'display-popup -E -w 90% -h 70% "~/.config/tmux/scripts/sesh/fzf.sh"' 'display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/fzf.sh"'
+# Auto-enable the wide sesh popup on the home machine (matches the nvim HOME check).
+if-shell '[ "$HOME" = "/home/lalitmee" ]' 'set-option -g @sesh-wide on'
 
-# Launch gum-based sesh script in a popup. Wider popup on portrait monitors.
-bind "C-o" if-shell '[ "#{pane_width}" -lt "#{pane_height}" ]' 'display-popup -E -w 90% -h 70% "~/.config/tmux/scripts/sesh/gum.sh"' 'display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/gum.sh"'
+# Launch fzf-based sesh script. Wider popup when grid is portrait or @sesh-wide is on.
+bind "o" if-shell '[ "#{@sesh-wide}" = "on" ] || [ "#{pane_width}" -lt "#{pane_height}" ]' 'display-popup -E -w 90% -h 70% "~/.config/tmux/scripts/sesh/fzf.sh"' 'display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/fzf.sh"'
+
+# Launch gum-based sesh script in a popup. Wider popup when grid is portrait or @sesh-wide is on.
+bind "C-o" if-shell '[ "#{@sesh-wide}" = "on" ] || [ "#{pane_width}" -lt "#{pane_height}" ]' 'display-popup -E -w 90% -h 70% "~/.config/tmux/scripts/sesh/gum.sh"' 'display-popup -E -w 50% -h 70% "~/.config/tmux/scripts/sesh/gum.sh"'
 
 # Connect to the last session.
 bind "S" run-shell "sesh last"

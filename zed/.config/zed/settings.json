@@ -109,10 +109,10 @@
   "agent": {
     "dock": "right",
     "default_model": {
-      "effort": "minimal",
+      "effort": "medium",
       "enable_thinking": true,
       "provider": "google",
-      "model": "gemini-3.5-flash",
+      "model": "gemini-3.7-flash",
     },
     "model_parameters": [],
   },
