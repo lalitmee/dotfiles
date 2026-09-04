@@ -6,7 +6,8 @@
     "context": "vim_mode == insert",
     "bindings": {
       "j k": "vim::NormalBefore",
-      "k j": "vim::NormalBefore"
+      "k j": "vim::NormalBefore",
+      "ctrl-h": "editor::ShowSignatureHelp"
     },
   },
 
@@ -80,8 +81,9 @@
 
       // lsp group
       "space l d": "editor::GoToDefinition",
-      "space l D": "editor::FindAllReferences",
+      "space l D": "editor::GoToDeclaration",
       "space l r": "editor::Rename",
+      "space l R": "editor::FindAllReferences",
       "space l n": "editor::GoToDiagnostic",
       "space l h": "editor::Hover",
       "space l a": "editor::ToggleCodeActions",
@@ -148,9 +150,22 @@
       "ctrl-d": ["action::Sequence", ["vim::ScrollDown", "editor::ScrollCursorCenter"]],
       "ctrl-u": ["action::Sequence", ["vim::ScrollUp", "editor::ScrollCursorCenter"]],
 
+      // lsp (g-prefix, no leader — matches neovim on_attach)
+      "g d": "editor::GoToDefinition",
+      "g r": "editor::FindAllReferences",
+      "g D": "editor::GoToDeclaration",
+      "g y": "editor::GoToTypeDefinition",
+      "g w": "outline::Toggle",
+      "g W": "project_symbols::Toggle",
+      "g e": "diagnostics::Deploy",
+
+      // diagnostic navigation
+      "[ d": "editor::GoToPreviousDiagnostic",
+      "] d": "editor::GoToDiagnostic",
+
       // git hunks (no leader)
       "g b": "editor::BlameHover",
-      "g d": "editor::GoToHunk",
+      "g n": "editor::GoToHunk",
       "g j": "editor::GoToHunk",
       "g k": "editor::GoToPreviousHunk",
 
