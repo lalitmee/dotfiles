@@ -23,31 +23,35 @@ parse_status() {
         x="${xy:0:1}"
         file="${line:3}"
 
+        y="${xy:1:1}"
+
+        # i=1 when the index column (x) holds an actual code (staged/conflicted)
         if [[ "$x" != " " && "$x" != "?" ]]; then
             i=1
         else
             i=0
         fi
 
-        case "$xy" in
-            " M"*) label="modified";   color="red" ;;
-            "MM"*) label="modified";   color="yellow" ;;
-            "M "*"D "*) label="deleted"; color="yellow" ;;
-            "D "*)    label="deleted";  color="green" ;;
-            " D"*)    label="deleted";  color="red" ;;
-            "A "*)    label="added";    color="green" ;;
-            " A"*)    label="added";    color="red" ;;
-            "AM"*)    label="added";    color="yellow" ;;
-            "R "*)    label="renamed";  color="green" ;;
-            "??")     label="untracked"; color="yellow" ;;
-            "UU")     label="unmerged"; color="magenta" ;;
-            "C "*)    label="copied";   color="green" ;;
-            *)        label="changed";  color="white" ;;
-        esac
-
-        # Only mark as staged when the index column (x) holds an actual code
-        if [[ "$x" == "R" || "$x" == "C" || "$x" == "D" || "$x" == "A" || "$x" == "M" ]]; then
-            i=1
+        if [[ "$xy" == *U* || "$xy" == "AA" || "$xy" == "DD" ]]; then
+            label="unmerged";  color="magenta"
+        elif [[ "$x" == "R" ]]; then
+            label="renamed";   color="green"
+        elif [[ "$x" == "C" ]]; then
+            label="copied";    color="green"
+        elif [[ "$x" == "A" ]]; then
+            label="added";     color="green"
+        elif [[ "$x" == "D" ]]; then
+            label="deleted";   color="green"
+        elif [[ "$x" == "M" ]]; then
+            label="modified";  color="yellow"
+        elif [[ "$y" == "A" ]]; then
+            label="added";     color="red"
+        elif [[ "$y" == "D" ]]; then
+            label="deleted";   color="red"
+        elif [[ "$y" == "M" ]]; then
+            label="modified";  color="red"
+        else
+            label="untracked"; color="yellow"
         fi
 
         echo "${i}|${label}|${color}|${file}"
@@ -134,18 +138,22 @@ run_stage() {
     fi
 
     # preview: strip color + label to get filename, then diff it
-    local preview="f=\$(printf '%s' '{}' | sed -E 's/\x1b\[[0-9;]*m//g; s/.*\\]  //'); git diff --color=always -- \"\$f\"; git diff --color=always --cached -- \"\$f\""
+    local preview="f=\$(printf '%s' {} | sed -E 's/\x1b\[[0-9;]*m//g; s/.*\\]  //'); git diff --color=always -- \"\$f\"; git diff --color=always --cached -- \"\$f\""
 
     local selected
     selected=$(printf '%s' "$lines" |
-        fzf --height 60% --no-border --reverse --multi \
+        fzf --no-border --reverse --multi \
             --header "$header" \
             --prompt "$prompt_text" \
             --preview "$preview" \
-            --preview-window=right:50% \
+            --preview-window=right:60% \
             --ansi \
             --bind 'ctrl-a:select-all' \
-            --bind 'ctrl-d:deselect-all')
+            --bind 'ctrl-d:deselect-all' \
+            --bind 'ctrl-j:preview-down' \
+            --bind 'ctrl-k:preview-up' \
+            --bind 'ctrl-f:preview-page-down' \
+            --bind 'alt-b:preview-page-up')
 
     [[ -z "$selected" ]] && return 0
 
