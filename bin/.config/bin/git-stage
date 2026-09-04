@@ -146,14 +146,14 @@ run_stage() {
             --header "$header" \
             --prompt "$prompt_text" \
             --preview "$preview" \
-            --preview-window=right:60% \
+            --preview-window=right:60%:border-top,left \
             --ansi \
             --bind 'ctrl-a:select-all' \
             --bind 'ctrl-d:deselect-all' \
             --bind 'ctrl-j:preview-down' \
             --bind 'ctrl-k:preview-up' \
             --bind 'ctrl-f:preview-page-down' \
-            --bind 'alt-b:preview-page-up')
+            --bind 'ctrl-v:preview-page-up')
 
     [[ -z "$selected" ]] && return 0
 
