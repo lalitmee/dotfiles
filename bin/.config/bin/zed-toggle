@@ -1,0 +1,12 @@
+#!/bin/bash
+
+focused=$(i3-msg -t get_workspaces | python3 -c 'import json,sys
+for w in json.load(sys.stdin):
+    if w["focused"]: print(w["name"])')
+
+if [[ $focused == zed* ]]; then
+    i3-msg workspace back_and_forth >/dev/null
+else
+    i3-msg workspace zed >/dev/null
+    pgrep -x zed-editor >/dev/null || zed >/dev/null 2>&1 &
+fi
