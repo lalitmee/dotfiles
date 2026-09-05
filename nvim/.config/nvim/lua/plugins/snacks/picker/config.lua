@@ -24,24 +24,28 @@ return {
     },
     sorting_strategy = "ascending",
     layout = {
-        layout = {
-            width = 0.90,
-            height = 0.90,
-        },
         config = function(layout)
-            local stacked = vim.o.columns < vim.o.lines or vim.o.columns < 180
             local tree = layout.layout
             if not tree then
                 return
             end
-            tree.box = stacked and "vertical" or "horizontal"
-            for _, child in ipairs(tree) do
-                if child.win == "preview" then
-                    if stacked then
-                        child.width = nil
-                        child.height = 0.7
-                    else
-                        child.width = 0.6
+
+            local is_standard_picker = #tree == 2 and (tree[1].win == "preview" or tree[2].win == "preview")
+
+            if is_standard_picker then
+                local stacked = vim.o.columns < vim.o.lines or vim.o.columns < 180
+                tree.box = stacked and "vertical" or "horizontal"
+                tree.width = 0.90
+                tree.height = 0.90
+                for _, child in ipairs(tree) do
+                    if child.win == "preview" then
+                        if stacked then
+                            child.width = nil
+                            child.height = 0.65
+                        else
+                            child.width = 0.60
+                            child.height = nil
+                        end
                     end
                 end
             end
