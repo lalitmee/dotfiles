@@ -59,7 +59,7 @@
       "space w m": "workspace::ToggleZoom",
 
       // terminal / toggles
-      "space t t": "terminal_panel::Toggle",
+      "space t t": "terminal_panel::ToggleFocus",
       "space t c": "workspace::NewCenterTerminal",
       "space t w": "editor::ToggleSoftWrap",
       "space t n": "editor::ToggleLineNumbers",
@@ -69,7 +69,7 @@
       // buffers
       "space b b": "tab_switcher::Toggle",
       "space b l": "buffer_search::Deploy",
-      "space b s": "outline::Toggle",
+      "space b s": "outline_panel::ToggleFocus",
       "space b d": ["pane::CloseActiveItem", { "close_pinned": false }],
       "space b o": ["pane::CloseOtherItems", { "close_pinned": false }],
       "space b a": ["pane::CloseAllItems", { "close_pinned": false }],
@@ -157,7 +157,7 @@
       "g r": "editor::FindAllReferences",
       "g D": "editor::GoToDeclaration",
       "g y": "editor::GoToTypeDefinition",
-      "g w": "outline::Toggle",
+      "g w": "outline_panel::ToggleFocus",
       "g W": "project_symbols::Toggle",
       "g e": "diagnostics::Deploy",
 
@@ -230,7 +230,11 @@
       "-": "project_panel::SelectParent",
       "gg": "menu::SelectFirst",
       "G": "menu::SelectLast",
-      "space a e": "project_panel::ToggleFocus",
+      "space a e": "workspace::ToggleLeftDock",
+      "space g s": "git_panel::ToggleFocus",
+      "space b s": "outline_panel::ToggleFocus",
+      "space t t": "terminal_panel::ToggleFocus",
+      "space a a": "agent::ToggleFocus",
     },
   },
 
@@ -241,7 +245,43 @@
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight"
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      // panel toggles (open+focus the target panel from any dock)
+      "space a e": "project_panel::ToggleFocus",
+      "space g s": "git_panel::ToggleFocus",
+      "space b s": "outline_panel::ToggleFocus",
+      "space t t": "terminal_panel::ToggleFocus",
+      "space a a": "agent::ToggleFocus",
+      "g w": "outline_panel::ToggleFocus",
+    }
+  },
+
+  // PANEL CLOSE-TO-EDITOR (same key closes the panel + returns focus)
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "space g s": "workspace::ToggleLeftDock",
+      "q": "workspace::ToggleLeftDock",
+    }
+  },
+  {
+    "context": "OutlinePanel && !editing",
+    "bindings": {
+      "space b s": "workspace::ToggleRightDock",
+      "g w": "workspace::ToggleRightDock",
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "space a a": "workspace::ToggleRightDock",
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "space t t": "workspace::ToggleBottomDock",
     }
   },
 
