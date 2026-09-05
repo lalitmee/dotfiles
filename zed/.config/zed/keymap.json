@@ -117,6 +117,7 @@
       "space g D": "editor::DiffClipboardWithSelection",
       "space g O": "git::CreatePullRequest",
       "space g g": ["task::Spawn", { "task_name": "lazygit", "reveal_target": "center" }],
+      "space g w": "worktree_picker::Toggle",
 
       // misc
       "shift-y": ["workspace::SendKeystrokes", "y $"],
