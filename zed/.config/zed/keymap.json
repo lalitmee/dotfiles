@@ -181,7 +181,24 @@
       "c r u": "editor::ConvertToUpperCase",
       "c r .": "editor::ConvertToTitleCase",
       "c r o": "editor::ConvertToOppositeCase",
+
+      // word & reference jumps (flash / snacks.words parity)
+      "space j j": "vim::HelixJumpToWord",
+      "space j w w": "vim::PushSneak",
+      "] r": "vim::GoToNextReference",
+      "[ r": "vim::GoToPreviousReference",
     },
+  },
+
+  // SUBWORD MOTIONS (camelCase navigation)
+  {
+    "context": "VimControl && !menu && vim_mode != operator",
+    "bindings": {
+      "w": "vim::NextSubwordStart",
+      "b": "vim::PreviousSubwordStart",
+      "e": "vim::NextSubwordEnd",
+      "g e": "vim::PreviousSubwordEnd"
+    }
   },
 
   // PROJECT PANEL (netrw/nvim-tree style)
