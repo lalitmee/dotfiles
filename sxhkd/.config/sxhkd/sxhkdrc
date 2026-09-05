@@ -45,9 +45,9 @@ super + alt + e
 super + shift + c
     code
 
-# Open Zed scratchpad (tiling, dedicated workspace)
+# Open Zed scratchpad
 super + alt + z
-    zed-toggle
+    i3run --summon --instance dev.zed.Zed -- zed
 
 # Open Antigravity IDE
 super + alt + a
