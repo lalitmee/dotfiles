@@ -30,7 +30,7 @@
       "space p f": "file_finder::Toggle",
 
       // panels
-      "space a e": "workspace::ToggleLeftDock",
+      "space a e": "project_panel::ToggleFocus",
       "space a a": "agent::ToggleFocus",
       "space a q": "agent::AddSelectionToThread",
       "space a n": "agent::NewThread",
@@ -230,6 +230,7 @@
       "-": "project_panel::SelectParent",
       "gg": "menu::SelectFirst",
       "G": "menu::SelectLast",
+      "space a e": "project_panel::ToggleFocus",
     },
   },
 
