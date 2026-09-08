@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 clean_tree_msg() {
-    "${0:A:h}/gum_style" $'Working tree is clean.\n\nNothing changed to show.'
+    "${${(%):-%x}:A:h}/gum_style" $'Working tree is clean.\n\nNothing changed to show.'
 }
 
 status_fzf() {

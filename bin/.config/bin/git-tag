@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 no_tags_msg() {
-    "${0:A:h}/gum_style" $'No tags around here\n\nCreate one with: git tag <name>'
+    "${${(%):-%x}:A:h}/gum_style" $'No tags around here\n\nCreate one with: git tag <name>'
 }
 
 tag_list() {

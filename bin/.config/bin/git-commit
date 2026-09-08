@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 no_commits_msg() {
-    "${0:A:h}/gum_style" $'No commits yet.\n\nCreate one with: git commit'
+    "${${(%):-%x}:A:h}/gum_style" $'No commits yet.\n\nCreate one with: git commit'
 }
 
 browse_commits() {

@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 no_stash_msg() {
-    "${0:A:h}/gum_style" $'No stashes tucked away.\n\nCreate one with: git stash'
+    "${${(%):-%x}:A:h}/gum_style" $'No stashes tucked away.\n\nCreate one with: git stash'
 }
 
 stash_list_fzf() {
