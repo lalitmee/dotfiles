@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 no_remote_msg() {
-    "${0:A:h}/gum_style" $'No remotes configured.\n\nAdd one with: git remote add origin <url>'
+    "${${(%):-%x}:A:h}/gum_style" $'No remotes configured.\n\nAdd one with: git remote add origin <url>'
 }
 
 remote_list() {

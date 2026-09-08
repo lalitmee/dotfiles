@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 clean_tree_msg() {
-    "${0:A:h}/gum_style" $'Working tree is clean.\n\nNothing to stage or unstage.'
+    "${${(%):-%x}:A:h}/gum_style" $'Working tree is clean.\n\nNothing to stage or unstage.'
 }
 
 # Parse git status --porcelain into "staged|label|color|file" records

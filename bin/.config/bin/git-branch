@@ -9,7 +9,7 @@ is_in_git_repo() {
 }
 
 no_branches_msg() {
-    "${0:A:h}/gum_style" $'No branches here yet.\n\nCreate one with: git checkout -b <name>'
+    "${${(%):-%x}:A:h}/gum_style" $'No branches here yet.\n\nCreate one with: git checkout -b <name>'
 }
 
 select_branch() {
