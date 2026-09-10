@@ -762,10 +762,10 @@ return {
     },
 
     { --[[ dbee ]]
-        enabled = vim.env.HOME == "/home/lalitmee",
+        enabled = false,
         "kndndrj/nvim-dbee",
         dependencies = {
-            "MunifTanjim/nui.nvim",
+            "MunifTanim/nui.nvim",
         },
         build = function()
             require("dbee").install()
@@ -775,5 +775,28 @@ return {
             { "<leader>at", function() require("dbee").toggle() end, desc = "DBee Toggle", silent = true },
         },
         opts = {},
+    },
+
+    { --[[ vim-dadbod + dadbod-ui ]]
+        "kristijanhusak/vim-dadbod-ui",
+        dependencies = {
+            { "tpope/vim-dadbod", lazy = true },
+            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+        },
+        cmd = {
+            "DBUI",
+            "DBUIToggle",
+            "DBUIAddConnection",
+            "DBUIFindBuffer",
+        },
+        keys = {
+            { "<leader>D", "<cmd>DBUIToggle<CR>", desc = "DB UI Toggle", silent = true },
+        },
+        init = function()
+            vim.g.db_ui_use_nerd_fonts = 1
+        end,
+        config = function()
+            vim.g.db_ui_winwidth = 40
+        end,
     },
 }

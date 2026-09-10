@@ -210,6 +210,7 @@ return {
                 --------------------------------------------------------------------------------
 
                 { "<leader>e", group = "errors" },
+                { "<leader>D", group = "database" },
                 { "<leader>g", group = "git" },
                 { "<leader>gc", group = "commit" },
                 { "<leader>gd", group = "diff" },
