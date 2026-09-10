@@ -103,6 +103,9 @@
   "vim": {
     "toggle_relative_line_numbers": true,
   },
+  "which_key": {
+    "enabled": true,
+  },
   "relative_line_numbers": "enabled",
   "file_types": {
     "INI": ["env", ".env", ".env.*"],
