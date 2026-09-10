@@ -44,7 +44,11 @@
     "cursor_line": "#0d3a58",
     "cursor_hover": "#185294",
     "subtle_bg": "#0e4062",
-    "subtle_default": "#19364a"
+    "subtle_default": "#19364a",
+    "diff_added_bg": "#1f553a",
+    "diff_removed_bg": "#441b2f",
+    "diff_added_bg_light": "#e8f5e9",
+    "diff_removed_bg_light": "#ffebee"
   },
   "theme": {
     "primary": {
@@ -60,8 +64,8 @@
       "light": "light_yellow"
     },
     "error": {
-      "dark": "red",
-      "light": "dark_red"
+      "dark": "light_pink",
+      "light": "pink"
     },
     "warning": {
       "dark": "dark_orange",
@@ -112,7 +116,7 @@
       "light": "green"
     },
     "diffRemoved": {
-      "dark": "darker_red",
+      "dark": "dark_pink",
       "light": "red"
     },
     "diffContext": {
@@ -128,16 +132,16 @@
       "light": "light_green"
     },
     "diffHighlightRemoved": {
-      "dark": "darker_red",
+      "dark": "dark_pink",
       "light": "red"
     },
     "diffAddedBg": {
-      "dark": "cursor_line",
-      "light": "cursor_hover"
+      "dark": "diff_added_bg",
+      "light": "diff_added_bg_light"
     },
     "diffRemovedBg": {
-      "dark": "cursor_line",
-      "light": "cursor_hover"
+      "dark": "diff_removed_bg",
+      "light": "diff_removed_bg_light"
     },
     "diffContextBg": {
       "dark": "subtle_bg",
@@ -148,12 +152,12 @@
       "light": "dark_grey"
     },
     "diffAddedLineNumberBg": {
-      "dark": "darkest_green",
-      "light": "lightest_green"
+      "dark": "diff_added_bg",
+      "light": "diff_added_bg_light"
     },
     "diffRemovedLineNumberBg": {
-      "dark": "darker_red",
-      "light": "red"
+      "dark": "diff_removed_bg",
+      "light": "diff_removed_bg_light"
     },
     "markdownText": {
       "dark": "white",

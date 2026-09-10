@@ -36,12 +36,20 @@ return {
                     "ripgrep",
                     "path",
                 },
+                per_filetype = {
+                    sql = { "snippets", "dadbod", "buffer" },
+                },
 
                 providers = {
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
                         score_offset = 100,
+                    },
+
+                    dadbod = {
+                        name = "Dadbod",
+                        module = "vim_dadbod_completion.blink",
                     },
 
                     ripgrep = {
