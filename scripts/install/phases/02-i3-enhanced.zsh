@@ -129,6 +129,17 @@ execute_command \
     "unclutter (mouse cursor hider) installed successfully." \
     "Failed to install unclutter."
 
+# Install mouse_funnel (cursor boundary transition daemon)
+execute_command \
+    "sudo apt install -y libx11-dev libxi-dev libxrandr-dev" \
+    "mouse_funnel build dependencies installed successfully." \
+    "Failed to install mouse_funnel dependencies."
+
+execute_command \
+    "make -C \"$(dirname \"$0\")/../../../i3/.config/i3/scripts\" clean && sudo make -C \"$(dirname \"$0\")/../../../i3/.config/i3/scripts\" install PREFIX=/usr/local && make -C \"$(dirname \"$0\")/../../../i3/.config/i3/scripts\" clean" \
+    "mouse_funnel installed successfully." \
+    "Failed to install mouse_funnel."
+
 # Install btop (system monitor)
 execute_command \
     "sudo apt install -y btop" \
