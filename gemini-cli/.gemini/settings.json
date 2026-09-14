@@ -1,25 +1,4 @@
 {
-  "model": {
-    "name": "gemini-3-flash-preview"
-  },
-  "general": {
-    "preferredEditor": "neovim",
-    "vimMode": true,
-    "checkpointing": {
-      "enabled": true
-    },
-    "enableAutoUpdate": false
-  },
-  "ui": {
-    "theme": "Shades Of Purple",
-    "hideBanner": true,
-    "hideTips": true
-  },
-  "security": {
-    "auth": {
-      "selectedType": "oauth-personal"
-    }
-  },
   "context": {
     "fileName": [
       "GEMINI.md",
@@ -27,126 +6,210 @@
       "CONTEXT.md"
     ]
   },
-  "mcpServers": {
-    "fetch": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-fetch"
-      ],
-      "trust": true
+  "general": {
+    "checkpointing": {
+      "enabled": true
     },
-    "context7": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp"
-      ],
-      "env": {
-        "DEFAULT_MINIMUM_TOKENS": "6000"
-      },
-      "trust": true
-    },
-    "crash": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "crash-mcp"
-      ],
-      "trust": true
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
-      ],
-      "trust": true
-    },
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@playwright/mcp@latest",
-        "--extension"
-      ],
-      "env": {
-        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "$PLAYWRIGHT_MCP_EXTENSION_TOKEN"
-      },
-      "trust": true
-    }
+    "enableAutoUpdate": false,
+    "preferredEditor": "neovim",
+    "vimMode": true
+  },
+  "hooks": {
+    "AfterAgent": [
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status done",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status working",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status working",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status waiting",
+            "type": "command"
+          }
+        ],
+        "matcher": "ToolPermission"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status done",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "workmux register-agent",
+            "type": "command"
+          }
+        ]
+      }
+    ]
   },
   "inactiveMcpServers": {
-    "server-sequential-thinking": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    },
-    "gitmcp": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://gitmcp.io/{owner}/{repo}"
-      ]
-    },
-    "time": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-time"
-      ]
-    },
     "filesystem": {
-      "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
         "~/Projects/"
       ],
+      "command": "npx",
       "trust": true
     },
-    "memory": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ]
-    },
     "git": {
-      "command": "uvx",
       "args": [
         "mcp-server-git",
         "--repository",
         "."
       ],
+      "command": "uvx",
       "trust": true
     },
     "github": {
-      "httpUrl": "https://api.githubcopilot.com/mcp/",
-      "trust": true,
       "headers": {
         "Authorization": "Bearer $GITHUB_PERSONAL_ACCESS_TOKEN"
+      },
+      "httpUrl": "https://api.githubcopilot.com/mcp/",
+      "trust": true
+    },
+    "gitmcp": {
+      "args": [
+        "mcp-remote",
+        "https://gitmcp.io/{owner}/{repo}"
+      ],
+      "command": "npx"
+    },
+    "mcp-sequentialthinking-tools": {
+      "args": [
+        "-y",
+        "mcp-sequentialthinking-tools"
+      ],
+      "command": "npx",
+      "env": {
+        "MAX_HISTORY_SIZE": "1000"
       }
     },
+    "memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "command": "npx"
+    },
     "sequential-thinking": {
-      "command": "uvx",
       "args": [
         "--from",
         "git+https://github.com/arben-adm/mcp-sequential-thinking",
         "--with",
         "portalocker",
         "mcp-sequential-thinking"
-      ]
+      ],
+      "command": "uvx"
     },
-    "mcp-sequentialthinking-tools": {
-      "command": "npx",
+    "server-sequential-thinking": {
       "args": [
         "-y",
-        "mcp-sequentialthinking-tools"
+        "@modelcontextprotocol/server-sequential-thinking"
       ],
-      "env": {
-        "MAX_HISTORY_SIZE": "1000"
-      }
+      "command": "npx"
+    },
+    "time": {
+      "args": [
+        "mcp-server-time"
+      ],
+      "command": "uvx"
     }
+  },
+  "mcpServers": {
+    "chrome-devtools": {
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ],
+      "command": "npx",
+      "trust": true
+    },
+    "context7": {
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "6000"
+      },
+      "trust": true
+    },
+    "crash": {
+      "args": [
+        "-y",
+        "crash-mcp"
+      ],
+      "command": "npx",
+      "trust": true
+    },
+    "fetch": {
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "command": "uvx",
+      "trust": true
+    },
+    "playwright": {
+      "args": [
+        "@playwright/mcp@latest",
+        "--extension"
+      ],
+      "command": "npx",
+      "env": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "$PLAYWRIGHT_MCP_EXTENSION_TOKEN"
+      },
+      "trust": true
+    }
+  },
+  "model": {
+    "name": "gemini-3-flash-preview"
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "ui": {
+    "hideBanner": true,
+    "hideTips": true,
+    "theme": "Shades Of Purple"
   }
 }
