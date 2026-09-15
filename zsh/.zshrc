@@ -175,7 +175,7 @@ _fnm_cleanup_multishells() {
     [[ -d "$multishells_dir" ]] || return
     local entry pid
     for entry in "$multishells_dir"/*(N); do
-        pid="${${entry:t}%%_*}"
+        pid='${${entry:t}%%_*}'
         # Remove if the PID is purely numeric and no longer alive
         if [[ "$pid" =~ ^[0-9]+$ ]] && ! kill -0 "$pid" 2>/dev/null; then
             rm -f "$entry"
@@ -285,6 +285,3 @@ fi
 # zprof
 
 # vim:foldmethod=marker
-
-# Pi
-export PATH="/home/lalitmee/.local/share/fnm/node-versions/v24.9.0/installation/bin:$PATH"
