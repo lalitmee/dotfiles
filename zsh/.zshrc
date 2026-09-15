@@ -285,3 +285,6 @@ fi
 # zprof
 
 # vim:foldmethod=marker
+
+# Pi
+export PATH="/home/lalitmee/.local/share/fnm/node-versions/v24.9.0/installation/bin:$PATH"
