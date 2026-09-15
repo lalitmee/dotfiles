@@ -19,7 +19,7 @@
       {
         "hooks": [
           {
-            "command": "workmux set-window-status done",
+            "command": "workmux set-window-status done || true",
             "type": "command"
           }
         ]
@@ -29,7 +29,7 @@
       {
         "hooks": [
           {
-            "command": "workmux set-window-status working",
+            "command": "workmux set-window-status working || true",
             "type": "command"
           }
         ]
@@ -39,7 +39,7 @@
       {
         "hooks": [
           {
-            "command": "workmux set-window-status working",
+            "command": "workmux set-window-status working || true",
             "type": "command"
           }
         ]
@@ -49,7 +49,7 @@
       {
         "hooks": [
           {
-            "command": "workmux set-window-status waiting",
+            "command": "workmux set-window-status waiting || true",
             "type": "command"
           }
         ],
@@ -60,7 +60,7 @@
       {
         "hooks": [
           {
-            "command": "workmux set-window-status done",
+            "command": "workmux set-window-status done || true",
             "type": "command"
           }
         ]
@@ -70,7 +70,7 @@
       {
         "hooks": [
           {
-            "command": "workmux register-agent",
+            "command": "workmux register-agent || true",
             "type": "command"
           }
         ]
