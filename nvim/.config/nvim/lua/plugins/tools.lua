@@ -453,6 +453,7 @@ return {
 
     { --[[ codesnap ]]
         "mistricky/codesnap.nvim",
+        tag = "v2.1.1",
         build = "make build_generator",
         init = function()
             local wk = require("which-key")

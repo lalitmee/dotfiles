@@ -400,7 +400,7 @@
 # URL rewriting for shorter clone commands.
 #
 [url "git@github.com:"]
-    insteadOf = "gh:"
+	insteadOf = https://github.com/
 
 [url "git@github.com:lalitmee/"]
     insteadOf = "lk:"
