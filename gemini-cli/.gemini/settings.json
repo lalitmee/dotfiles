@@ -14,69 +14,6 @@
     "preferredEditor": "neovim",
     "vimMode": true
   },
-  "inactivehooks": {
-    "AfterAgent": [
-      {
-        "hooks": [
-          {
-            "command": "workmux set-window-status done || true",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "AfterTool": [
-      {
-        "hooks": [
-          {
-            "command": "workmux set-window-status working || true",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "BeforeAgent": [
-      {
-        "hooks": [
-          {
-            "command": "workmux set-window-status working || true",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "command": "workmux set-window-status waiting || true",
-            "type": "command"
-          }
-        ],
-        "matcher": "ToolPermission"
-      }
-    ],
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "command": "workmux set-window-status done || true",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "workmux register-agent || true",
-            "type": "command"
-          }
-        ]
-      }
-    ]
-  },
   "inactiveMcpServers": {
     "filesystem": {
       "args": [
