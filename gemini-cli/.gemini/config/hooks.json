@@ -1,0 +1,27 @@
+{
+  "workmux-status": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "command -v workmux >/dev/null 2>&1 && workmux register-agent >/dev/null 2>&1 || true; printf '{}\\n'"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working >/dev/null 2>&1 || true; printf '{\"decision\": \"allow\"}\\n'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status done >/dev/null 2>&1 || true; printf '{}\\n'"
+      }
+    ]
+  }
+}

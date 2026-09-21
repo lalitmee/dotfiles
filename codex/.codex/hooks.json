@@ -1,27 +1,13 @@
 {
-  "alwaysThinkingEnabled": false,
-  "effortLevel": "medium",
-  "enabledPlugins": {
-    "chrome-devtools-mcp@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {},
   "hooks": {
-    "Notification": [
+    "PermissionRequest": [
       {
         "hooks": [
           {
             "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status waiting || true",
             "type": "command"
           }
-        ],
-        "matcher": "permission_prompt|elicitation_dialog"
+        ]
       }
     ],
     "PostToolUse": [
@@ -38,12 +24,11 @@
       {
         "hooks": [
           {
-            "command": "bash '/home/lalitmee/.claude/hooks/herdr-agent-state.sh' session",
+            "command": "bash '/home/lalitmee/.codex/herdr-agent-state.sh' session",
             "timeout": 10,
             "type": "command"
           }
-        ],
-        "matcher": "*"
+        ]
       },
       {
         "hooks": [
@@ -52,7 +37,7 @@
             "type": "command"
           }
         ],
-        "matcher": "startup|resume|clear|fork"
+        "matcher": "startup|resume|clear"
       }
     ],
     "Stop": [
@@ -60,6 +45,26 @@
         "hooks": [
           {
             "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status done || true",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working || true",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working || true",
             "type": "command"
           }
         ]
@@ -75,7 +80,5 @@
         ]
       }
     ]
-  },
-  "model": "sonnet[1m]",
-  "theme": "custom:cobalt2"
+  }
 }
