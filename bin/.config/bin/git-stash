@@ -13,6 +13,8 @@ no_stash_msg() {
 }
 
 stash_list_fzf() {
+    local multi=""
+    [[ "${1:-}" == "multi" ]] && multi="--multi"
     local stashes
     stashes=$(git stash list)
     if [[ -z "$stashes" ]]; then
@@ -20,33 +22,26 @@ stash_list_fzf() {
         return 1
     fi
     echo "$stashes" |
-        fzf --height 50% --no-border --reverse --prompt="Select stash: " \
+        fzf --height 50% --no-border --reverse $multi --prompt="Select stash: " \
             --preview 'git stash show -p {} | head -200'
 }
 
-apply_stash() {
-    local stash
-    stash=$(stash_list_fzf)
-    if [[ -n "$stash" ]]; then
-        local stash_ref
-        stash_ref=$(echo "$stash" | cut -d: -f1)
-        if gum confirm "Apply stash ${stash_ref}?"; then
-            git stash pop "$stash_ref"
+for_each_stash() {
+    local label="$1" cmd="$2"
+    local stash ref
+    stash=$(stash_list_fzf "multi")
+    [[ -z "$stash" ]] && return 0
+    echo "$stash" | while read -r line; do
+        [[ -n "$line" ]] && print -r -- "${line%%:*}"
+    done | sort -t@ -k2 -nr | while read -r ref; do
+        if gum confirm "${label} stash ${ref}?"; then
+            git stash "$cmd" "$ref" || echo "Failed to ${label:l} $ref" >&2
         fi
-    fi
+    done
 }
 
-drop_stash() {
-    local stash
-    stash=$(stash_list_fzf)
-    if [[ -n "$stash" ]]; then
-        local stash_ref
-        stash_ref=$(echo "$stash" | cut -d: -f1)
-        if gum confirm "Drop stash ${stash_ref}?"; then
-            git stash drop "$stash_ref"
-        fi
-    fi
-}
+apply_stash() { for_each_stash "Apply" pop; }
+drop_stash()  { for_each_stash "Drop" drop; }
 
 main() {
     local mode="${1:-list}"

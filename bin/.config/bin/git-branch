@@ -72,7 +72,7 @@ main() {
             fi
             ;;
         delete)
-            local branches
+            local branches branch upstream remote
             branches=$(select_branch "delete")
             if [[ -n "$branches" ]]; then
                 echo "$branches" | while read -r branch; do
@@ -80,9 +80,12 @@ main() {
                         echo "Skipping current branch: $branch" >&2
                         continue
                     }
-                    git branch -D "$branch" 2>/dev/null || echo "Failed to delete: $branch" >&2
-                    local upstream remote
-                    upstream=$(git rev-parse --abbrev-ref --symbolic-full-name "${branch}@{upstream}" 2>/dev/null)
+                    if git branch -D "$branch" 2>/dev/null; then
+                        echo "Deleted branch $branch"
+                    else
+                        echo "Failed to delete: $branch" >&2
+                    fi
+                    upstream=$(git rev-parse --abbrev-ref --symbolic-full-name "${branch}@{upstream}" 2>/dev/null) || upstream=
                     if [[ -n "$upstream" && "$upstream" == */* ]]; then
                         remote="${upstream%%/*}"
                         if gum confirm --prompt.foreground="#FFC66D" \

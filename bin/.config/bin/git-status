@@ -38,7 +38,7 @@ status_fzf() {
             ;;
         *)
             echo "$lines" |
-                fzf --height 50% --no-border --reverse --prompt="Filter changed files: " \
+                fzf --height 50% --no-border --reverse --multi --prompt="Filter changed files: " \
                     --preview "$preview"
             ;;
     esac
@@ -73,7 +73,7 @@ main() {
             ;;
         diff)
             echo "$files" | while read -r file; do
-                [[ -n "$file" ]] && git diff -- "$file"
+                [[ -n "$file" ]] && git diff -- "$file" || true
             done
             ;;
         *)

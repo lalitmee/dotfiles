@@ -13,6 +13,8 @@ no_remote_msg() {
 }
 
 remote_list() {
+    local multi=""
+    [[ "${1:-}" == "show" ]] && multi="--multi"
     local remotes
     remotes=$(git remote -v | awk '{print $1 "\t" $2}' | uniq)
     if [[ -z "$remotes" ]]; then
@@ -20,22 +22,24 @@ remote_list() {
         return 1
     fi
     echo "$remotes" |
-        fzf --height 50% --no-border --reverse --prompt="Select remote: " \
+        fzf --height 50% --no-border --reverse $multi --prompt="Select remote: " \
             --with-nth=1 --delimiter="\t" \
             --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
         cut -f1
 }
 
 show_remote() {
-    local remote
-    remote=$(remote_list)
-    if [[ -n "$remote" ]]; then
+    local remotes remote
+    remotes=$(remote_list show)
+    [[ -z "$remotes" ]] && return 0
+    while IFS= read -r remote; do
+        [[ -z "$remote" ]] && continue
         echo "Remote: $remote"
         echo "URL: $(git remote get-url "$remote" 2>/dev/null || echo 'not set')"
         echo ""
         echo "Recent commits from $remote/main:"
         git log --oneline --graph "$remote/main" 2>/dev/null | head -20 || echo "No commits found"
-    fi
+    done <<< "$remotes"
 }
 
 main() {
