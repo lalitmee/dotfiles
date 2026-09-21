@@ -13,23 +13,26 @@ no_tags_msg() {
 }
 
 tag_list() {
+    local multi=""
+    [[ "${1:-list}" == "show" ]] && multi="--multi"
     local tags
-    tags=$(git tag --sort="${1:-v:refname}")
+    tags=$(git tag --sort="v:refname")
     if [[ -z "$tags" ]]; then
         no_tags_msg
         return 1
     fi
     echo "$tags" |
-        fzf --height 50% --no-border --reverse --prompt="Select tag: " \
+        fzf --height 50% --no-border --reverse $multi --prompt="Select tag: " \
             --preview 'git show --color=always {} | head -200'
 }
 
 show_tag() {
-    local tag
-    tag=$(tag_list)
-    if [[ -n "$tag" ]]; then
-        git show --stat "$tag"
-    fi
+    local tags tag
+    tags=$(tag_list show)
+    [[ -z "$tags" ]] && return 0
+    while IFS= read -r tag; do
+        [[ -n "$tag" ]] && git show --stat "$tag" || true
+    done <<< "$tags"
 }
 
 main() {
