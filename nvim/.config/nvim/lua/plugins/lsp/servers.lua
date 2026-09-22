@@ -120,5 +120,5 @@ return {
     },
     taplo = {},
     ts_ls = false,
-    tsgo = {},
+    tsc = {},
 }
