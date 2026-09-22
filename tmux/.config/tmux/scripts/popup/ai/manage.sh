@@ -25,17 +25,6 @@ gum_style() { # {{{
     fi
 } # }}}
 
-confirm_action() { # {{{
-    local prompt="$1"
-    if command -v gum >/dev/null 2>&1; then
-        gum confirm "$prompt"
-    else
-        echo -n "$prompt [y/N]: "
-        read -r reply
-        [[ "$reply" =~ ^[Yy]$ ]]
-    fi
-} # }}}
-
 get_custom_input() { # {{{
     local manager="$1"
     local pkg_name=""
@@ -110,13 +99,9 @@ secure_run_script() { # {{{
     fi
     gum_style "SHA256: $checksum"
 
-    if confirm_action "Do you want to execute the $tool_name installer?"; then
-        bash "$tmp_file"
-        return $?
-    else
-        gum_style "⚠️  Skipping execution of $tool_name installer."
-        return 1
-    fi
+    # Accepting the tool selection authorizes running its installer.
+    bash "$tmp_file"
+    return $?
 } # }}}
 
 # --- Main Logic ---
@@ -205,12 +190,6 @@ main() { # {{{
                 continue
             fi
             tool="$name_to_install"
-        fi
-
-        echo ""
-        if ! confirm_action "Install or update $tool?"; then
-            gum_style "⚠️  Skipped $tool."
-            continue
         fi
 
         echo ""
