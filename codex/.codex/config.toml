@@ -1,1 +1,137 @@
 tui.theme = "cobalt2"
+
+[plugins."context7@claude-plugins-official"]
+enabled = false
+
+# Claude-specific async hook output is incompatible with this Codex setup.
+[plugins."security-guidance@claude-plugins-official"]
+enabled = false
+
+# Use the anonymous endpoint directly; the Claude plugin endpoint requires auth.
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+
+# Identical repository copies are also available through ~/.agents/skills.
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/audit/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/caveman/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/cleanup/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/commit/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/debug/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/deps-audit/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/diagnose/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/draft/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/explain/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/explore/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/find-docs/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/gen-docs/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/gen-gemini/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/gen-test/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/grill-me/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/grill-with-docs/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/improve-codebase-architecture/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/organize/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/prioritize/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/prototype/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/rename/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/report/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/review-code/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/review-pr/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/setup-matt-pocock-skills/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/summarize/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/to-issues/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/to-prd/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/triage/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/whatsnew/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/lalitmee/dotfiles/.agents/skills/zoom-out/SKILL.md"
+enabled = false
