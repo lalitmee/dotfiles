@@ -62,7 +62,3 @@
 ;; AI chat & inline assistant — multi-provider (OpenAI, Anthropic, Ollama, Gemini)
 (package! gptel)
 
-;; AI inline completions
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
-
