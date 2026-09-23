@@ -27,8 +27,11 @@
 ;; (setq doom-font (font-spec :family "Operator Mono Lig" :size 14 :weight 'normal)
 ;;       doom-variable-pitch-font (font-spec :family "Operator Mono Lig" :size 13))
 
-(setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 14 :weight 'medium)
-      doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 13))
+;; (setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 14 :weight 'medium)
+;;       doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 13))
+;;
+(setq doom-font (font-spec :family "MonoLisa Nerd Font" :size 14 :weight 'normal)
+      doom-variable-pitch-font (font-spec :family "MonoLisa Nerd Font" :size 13))
 
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -38,7 +41,8 @@
   '(font-lock-comment-face :slant italic)
   ;; '(font-lock-keyword-face :slant italic)
   ;; '(italic :family "Operator Mono Lig" :slant italic))
-  '(italic :family "IoskeleyMono Nerd Font" :slant italic))
+  ;; '(italic :family "IoskeleyMono Nerd Font" :slant italic))
+  '(italic :family "MonoLisa Nerd Font" :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -122,30 +126,17 @@
   (setq gptel-default-mode 'org-mode)
   ;; Backends from environment variables
   (gptel-make-openai "OpenAI"
-    :key (getenv "OPENAI_API_KEY")
-    :stream t)
+                     :key (getenv "OPENAI_API_KEY")
+                     :stream t)
   (gptel-make-anthropic "Claude"
-    :key (getenv "ANTHROPIC_API_KEY")
-    :stream t)
+                        :key (getenv "ANTHROPIC_API_KEY")
+                        :stream t)
   (gptel-make-ollama "Ollama"
-    :host "localhost:11434"
-    :stream t)
+                     :host "localhost:11434"
+                     :stream t)
   (gptel-make-gemini "Gemini"
-    :key (getenv "GEMINI_API_KEY")
-    :stream t))
-
-;; Copilot inline completions
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-         ("<tab>" . 'copilot-accept-completion)
-         ("TAB" . 'copilot-accept-completion)
-         ("C-<tab>" . 'copilot-accept-completion-by-word)
-         ("C-n" . 'copilot-next-completion)
-         ("C-p" . 'copilot-previous-completion)))
-
-(after! copilot
-  (add-to-list 'exec-path (expand-file-name "bin" copilot-install-dir)))
+                     :key (getenv "GEMINI_API_KEY")
+                     :stream t))
 
 ;; Vertico / Orderless sanity check (after `doom sync` + restart):
 ;;   M-x describe-variable RET completion-styles RET → expect `orderless'
