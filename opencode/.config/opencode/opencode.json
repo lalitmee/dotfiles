@@ -85,7 +85,7 @@
       "command": ["npx", "-y", "crash-mcp"]
     },
     "chrome-devtools": {
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--autoConnect"],
       "type": "local"
     }
   }
