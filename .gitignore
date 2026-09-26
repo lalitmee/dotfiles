@@ -42,6 +42,12 @@ copyq/.config/copyq/copyq_tabs.ini
 # git filter-repo backups
 .git-rewrite/
 
+# Personal MCP configuration (keep locally, never version)
+codex/.codex/config.toml
+opencode/.config/opencode/opencode.json
+vscode/mcp.json
+.cursor/mcp.json
+cursor/.config/cursor/mcp.json
+
 # superpowers agent artifacts
 .superpowers/
-
