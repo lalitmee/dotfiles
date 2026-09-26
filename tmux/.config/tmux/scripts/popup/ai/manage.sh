@@ -134,16 +134,16 @@ main() { # {{{
     # 2. Present interactive selection list via fzf
     local selections
     selections=$(printf "%s\n" \
-        "✨ agy ($ver_agy)" \
-        "✨ claude ($ver_claude)" \
+        "🚀 agy ($ver_agy)" \
+        "🟠 claude ($ver_claude)" \
         "  copilot ($ver_copilot)" \
         "🧑‍💻 opencode ($ver_opencode)" \
         "🧠 grok ($ver_grok)" \
-        "🚀 codex ($ver_codex)" \
+        "🧬 codex ($ver_codex)" \
         "💖 crush ($ver_crush)" \
         "📋 plandex ($ver_plandex)" \
-        "🤖 kiro ($ver_kiro)" \
-        "🧭 cursor-agent ($ver_cursor)" \
+        "🔷 kiro ($ver_kiro)" \
+        "🖱️ cursor-agent ($ver_cursor)" \
         "📦 [npm] Install/update custom global npm package..." \
         "🦀 [cargo] Install/update custom cargo package..." \
         "🐹 [go] Install/update custom go package..." \
@@ -168,7 +168,7 @@ main() { # {{{
         local manager=""
         
         # Identify tool or package manager
-        if [[ "$line" == "✨"* || "$line" == ""* || "$line" == "🧑‍💻"* || "$line" == "🧠"* || "$line" == "🚀"* || "$line" == "📋"* || "$line" == "🤖"* || "$line" == "💖"* || "$line" == "🧭"* ]]; then
+        if [[ "$line" == "🚀"* || "$line" == ""* || "$line" == "🟠"* || "$line" == "🧑‍💻"* || "$line" == "🧬"* || "$line" == "📋"* || "$line" == "💖"* || "$line" == "🔷"* || "$line" == "🧠"* || "$line" == "🖱️"* ]]; then
             tool=$(echo "$line" | awk '{print $2}')
         elif [[ "$line" == "📦"* ]]; then
             manager="npm"
