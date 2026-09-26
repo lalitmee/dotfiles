@@ -2,10 +2,13 @@
   "$schema": "https://opencode.ai/config.json",
   "autoshare": false,
   "autoupdate": true,
-  "plugin": [
+  "plugins": [
     "superpowers@git+https://github.com/obra/superpowers.git",
     "@tarquinen/opencode-dcp@latest",
-    "@dietrichgebert/ponytail"
+    "/home/lalitmee/Projects/Personal/Github/ponytail/.opencode/plugins/ponytail.mjs",
+    "/home/lalitmee/Projects/Personal/Github/workmux/resources/opencode/plugins/workmux-status.ts",
+    "-/home/lalitmee/.config/opencode/plugins/workmux-status.ts",
+    "-/home/lalitmee/.config/opencode/plugins/herdr-agent-state.js"
   ],
   "agent": {
     "plan": {
