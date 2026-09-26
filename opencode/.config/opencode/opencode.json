@@ -90,7 +90,7 @@
     },
     "nykaa-atlas": {
       "type": "remote",
-      "url": "http://localhost:8000/mcp",
+      "url": "http://127.0.0.1:8001/mcp",
       "enabled": true
     }
   }
