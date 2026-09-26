@@ -87,6 +87,11 @@
     "chrome-devtools": {
       "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--autoConnect"],
       "type": "local"
+    },
+    "nykaa-atlas": {
+      "type": "remote",
+      "url": "http://localhost:8000/mcp",
+      "enabled": true
     }
   }
 }
