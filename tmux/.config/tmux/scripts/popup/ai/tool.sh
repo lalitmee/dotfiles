@@ -30,7 +30,7 @@ fi
 # Aliases will not work here unless sourced, but direct commands are preferred.
 case "$TOOL" in
     agy)
-        ICON="✨"; PANE_TITLE="$ICON antigravity"
+        ICON="🚀"; PANE_TITLE="$ICON antigravity"
         COMMAND="agy"
         ;;
     opencode)
@@ -39,11 +39,11 @@ case "$TOOL" in
         COMMAND="NODE_TLS_REJECT_UNAUTHORIZED=0 opencode"
         ;;
     claude)
-        ICON="✨"; PANE_TITLE="$ICON claude-code"
+        ICON="🟠"; PANE_TITLE="$ICON claude-code"
         COMMAND="claude"
         ;;
     codex)
-        ICON="🚀"; PANE_TITLE="$ICON codex"
+        ICON="🧬"; PANE_TITLE="$ICON codex"
         COMMAND="codex"
         ;;
     copilot)
@@ -59,7 +59,7 @@ case "$TOOL" in
         COMMAND="crush"
         ;;
     kiro)
-        ICON="🤖"; PANE_TITLE="$ICON kiro"
+        ICON="🔷"; PANE_TITLE="$ICON kiro"
         COMMAND="kiro-cli"
         ;;
     grok)
@@ -67,7 +67,7 @@ case "$TOOL" in
         COMMAND="grok-cli"
         ;;
     cursor-agent)
-        ICON="🧭"; PANE_TITLE="$ICON cursor-agent"
+        ICON="🖱️"; PANE_TITLE="$ICON cursor-agent"
         COMMAND="cursor-agent"
         ;;
     *)
