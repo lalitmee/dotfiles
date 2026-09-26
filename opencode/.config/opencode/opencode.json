@@ -88,9 +88,17 @@
       "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--autoConnect"],
       "type": "local"
     },
-    "nykaa-atlas": {
+    "nysaa-atlas": {
       "type": "remote",
-      "url": "http://127.0.0.1:8001/mcp",
+      "url": "https://13.235.180.25/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer 646f759a6b4fd86215b15668474d63f0dce94d61242e6ae9e4addb4f0c52c8b4"
+      }
+    },
+    "my-atlas": {
+      "type": "remote",
+      "url": "https://d3jxz6ylh0bd3w.cloudfront.net/mcp",
       "enabled": true
     }
   }
