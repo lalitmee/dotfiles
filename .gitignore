@@ -1,4 +1,12 @@
 # gitignore for neovim
+
+# Personal MCP configuration (keep locally, never version)
+codex/.codex/config.toml
+opencode/.config/opencode/opencode.json
+vscode/mcp.json
+.cursor/mcp.json
+cursor/.config/cursor/mcp.json
+
 **/tags*
 **/.netrwhist
 **/pythonpath.vim
