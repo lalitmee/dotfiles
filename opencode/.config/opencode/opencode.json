@@ -111,11 +111,6 @@
       "headers": {
         "Authorization": "Bearer {env:NYSAA_ATLAS_TOKEN}"
       }
-    },
-    "my-atlas": {
-      "type": "remote",
-      "url": "https://d3jxz6ylh0bd3w.cloudfront.net/mcp",
-      "enabled": true
     }
   }
 }
