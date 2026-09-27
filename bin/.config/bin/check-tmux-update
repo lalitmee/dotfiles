@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+
+setopt pipefail
+
+quiet=false
+if [[ "$#" == 1 && "$1" == --quiet ]]; then
+    quiet=true
+elif [[ "$#" != 0 ]]; then
+    print -u2 -- "Usage: check-tmux-update [--quiet]"
+    exit 2
+fi
+
+error() {
+    print -u2 -- "check-tmux-update: $1"
+    exit 1
+}
+
+command -v tmux >/dev/null 2>&1 || error "tmux is not installed."
+installed_version=$(tmux -V 2>/dev/null | awk 'NR == 1 { print $2 }') || error "could not read the installed tmux version."
+[[ "$installed_version" =~ '^[0-9]+\.[0-9]+[a-z]?$' ]] || error "unrecognized tmux version: ${installed_version:-empty}."
+
+tags=$(git ls-remote --tags --refs https://github.com/tmux/tmux.git) || error "could not query upstream releases."
+latest_version=$(print -r -- "$tags" |
+    awk '$2 ~ /^refs\/tags\/[0-9]+\.[0-9]+[a-z]?$/ { sub("refs/tags/", "", $2); print $2 }' |
+    sort -V |
+    tail -n 1)
+[[ -n "$latest_version" ]] || error "no stable upstream release tag was found."
+
+if [[ "$installed_version" == "$latest_version" ]]; then
+    [[ "$quiet" == true ]] || print -r -- "tmux is up to date ($installed_version)."
+elif [[ "$(printf '%s\n%s\n' "$installed_version" "$latest_version" | sort -V | head -n 1)" == "$installed_version" ]]; then
+    [[ "$quiet" == true ]] || print -r -- "tmux update available: $installed_version -> $latest_version."
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "tmux update available" "Installed: $installed_version; latest stable: $latest_version" >/dev/null 2>&1 || true
+    fi
+else
+    [[ "$quiet" == true ]] || print -r -- "Installed tmux ($installed_version) is newer than latest stable ($latest_version)."
+fi

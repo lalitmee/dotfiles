@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly tmux update check
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=15m
+Unit=tmux-update-check.service
+
+[Install]
+WantedBy=timers.target

@@ -1,182 +1,244 @@
 #!/usr/bin/env zsh
 
-# Install latest tmux from source
-# See: https://github.com/tmux/tmux
+setopt pipefail
 
-# Use global gum_style command for styling
+typeset -g TMUX_BUILD_DIR=""
 
-# Parse arguments
-if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-    echo "Usage: $0 [-n|--next] [-h|--help]"
-    echo ""
-    echo "Install the latest tmux from source to /usr/local/bin."
-    echo ""
-    echo "Options:"
-    echo "  -n, --next    Install the latest pre-release (next) version instead of stable."
-    echo "  -h, --help    Show this help message."
-    echo ""
-    echo "Examples:"
-    echo "  $0              # Install latest stable tmux"
-    echo "  $0 -n           # Install latest next version"
-    echo "  $0 --next       # Install latest next version"
-    echo "  $0 --help       # Show this help"
-    exit 0
-fi
+message() {
+    print -r -- "$1"
+}
 
-next=false
-if [[ "$1" == "--next" || "$1" == "-n" ]]; then
-    next=true
-fi
+usage() {
+    cat <<'EOF'
+Usage: install-tmux [--next|-n | --cleanup-distro | --help|-h]
 
-# Save current dir
-# pushd . >/dev/null || exit
+Build and install the latest stable tmux from source to /usr/local.
+Options:
+  -n, --next        Build the upstream master branch.
+  --cleanup-distro  Interactively remove the distro tmux after verifying
+                    the latest /usr/local build.
+  -h, --help        Show this help.
+EOF
+}
 
-# Detect OS and install dependencies
-detect_and_install_deps() {
-    local cache_file="$HOME/.cache/tmux-deps-installed"
-    if [[ -f "$cache_file" ]]; then
-        command gum_style "Dependencies already installed (cached)" "" "" ""
-        return
+get_current_version() {
+    local version
+    if [[ ! -x /usr/local/bin/tmux ]]; then
+        print -r -- none
+        return 0
     fi
 
-    command gum_style 'Detecting OS and installing dependencies...' "" "" ""
+    version=$(/usr/local/bin/tmux -V 2>/dev/null | awk 'NR == 1 { print $2 }') || return 1
+    [[ -n "$version" ]] || return 1
+    print -r -- "$version"
+}
 
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-        # macOS
-        if ! command -v brew >/dev/null 2>&1; then
-            command gum_style "❌ Homebrew not found. Please install Homebrew first: https://brew.sh/" "" "" ""
-            exit 1
-        fi
+get_latest_version() {
+    local tags
+    tags=$(git ls-remote --tags --refs https://github.com/tmux/tmux.git) || return 1
+    print -r -- "$tags" |
+        awk '$2 ~ /^refs\/tags\/[0-9]+\.[0-9]+[a-z]?$/ { sub("refs/tags/", "", $2); print $2 }' |
+        sort -V |
+        tail -n 1
+}
+
+verify_installed_version() {
+    local binary_path="$1"
+    local expected="$2"
+    local actual
+
+    [[ -x "$binary_path" ]] || return 1
+    actual=$("$binary_path" -V 2>/dev/null | awk 'NR == 1 { print $2 }') || return 1
+    [[ -n "$actual" && ( -z "$expected" || "$actual" == "$expected" ) ]]
+}
+
+cleanup_build_dir() {
+    if [[ -n "$TMUX_BUILD_DIR" && -d "$TMUX_BUILD_DIR" ]]; then
+        rm -rf -- "$TMUX_BUILD_DIR"
+    fi
+}
+
+detect_and_install_deps() {
+    if [[ "$(uname -s)" == Darwin ]]; then
+        command -v brew >/dev/null 2>&1 || {
+            message "Homebrew is required: https://brew.sh/" >&2
+            return 1
+        }
         brew install libevent ncurses pkg-config bison autoconf automake git
-    elif command -v apt >/dev/null 2>&1; then
-        # Debian/Ubuntu
-        sudo apt update
-        sudo apt install -y libevent-dev libncurses-dev build-essential pkg-config bison autoconf automake git
+    elif command -v apt-get >/dev/null 2>&1; then
+        sudo apt-get update && sudo apt-get install -y libevent-dev libncurses-dev build-essential pkg-config bison autoconf automake git
     elif command -v dnf >/dev/null 2>&1; then
-        # Fedora/RHEL
         sudo dnf install -y libevent-devel ncurses-devel gcc make pkgconfig bison autoconf automake git
     elif command -v pacman >/dev/null 2>&1; then
-        # Arch
-        sudo pacman -S --noconfirm libevent ncurses gcc make pkg-config bison autoconf automake git
+        sudo pacman -S --needed --noconfirm libevent ncurses gcc make pkg-config bison autoconf automake git
     else
-        command gum_style "❌ Unsupported OS. Please install dependencies manually: libevent, ncurses, build tools, pkg-config, bison, autoconf, automake, git" "" "" ""
-        exit 1
-    fi
-
-    mkdir -p "$(dirname "$cache_file")"
-    touch "$cache_file"
-}
-
-# Get current installed tmux version
-get_current_version() {
-    if command -v tmux >/dev/null 2>&1; then
-        tmux -V | awk '{print $2}' | tr -d '\n\r'
-    else
-        echo "none"
+        message "Unsupported OS; install libevent, ncurses, build tools, pkg-config, bison, autoconf, automake, and git." >&2
+        return 1
     fi
 }
 
-# Get latest tmux version
-get_latest_version() {
-    if $next; then
-        echo "next"
+install_from_source() {
+    local next="$1"
+    local latest_version="$2"
+    local version_desc="$latest_version"
+    local source_dir stage_dir
+
+    TMUX_BUILD_DIR=$(mktemp -d "${TMPDIR:-/tmp}/tmux-build.XXXXXX") || return 1
+    trap cleanup_build_dir EXIT
+    source_dir="$TMUX_BUILD_DIR/source"
+    stage_dir="$TMUX_BUILD_DIR/stage"
+
+    if [[ "$next" == true ]]; then
+        version_desc="upstream master"
+        git clone --depth 1 --single-branch --branch master https://github.com/tmux/tmux.git "$source_dir" || return 1
     else
-        git ls-remote --tags https://github.com/tmux/tmux.git 2>/dev/null | grep -v 'next' | grep -v '\^{}' | sed 's|.*refs/tags/||' | sort -V | tail -1 | tr -d '\n\r'
+        git clone --depth 1 --single-branch --branch "$latest_version" https://github.com/tmux/tmux.git "$source_dir" || return 1
     fi
+
+    message "Building tmux $version_desc..."
+    (cd "$source_dir" && sh autogen.sh) || return 1
+    (cd "$source_dir" && ./configure --prefix=/usr/local) || return 1
+    (cd "$source_dir" && make) || return 1
+    (cd "$source_dir" && make DESTDIR="$stage_dir" install) || return 1
+
+    [[ -f "$stage_dir/usr/local/bin/tmux" && -f "$stage_dir/usr/local/share/man/man1/tmux.1" ]] || {
+        message "Build staging did not produce the tmux executable and manual page." >&2
+        return 1
+    }
+
+    message "Installing tmux files to /usr/local..."
+    sudo install -d -m 0755 /usr/local/bin /usr/local/share/man/man1 || return 1
+    sudo install -m 0755 "$stage_dir/usr/local/bin/tmux" /usr/local/bin/tmux || return 1
+    sudo install -m 0644 "$stage_dir/usr/local/share/man/man1/tmux.1" /usr/local/share/man/man1/tmux.1 || return 1
+
+    if [[ "$next" == true ]]; then
+        verify_installed_version /usr/local/bin/tmux "" || {
+            message "Installed tmux could not be verified." >&2
+            return 1
+        }
+    else
+        verify_installed_version /usr/local/bin/tmux "$latest_version" || {
+            message "Installed tmux version does not match $latest_version." >&2
+            return 1
+        }
+    fi
+
+    message "tmux $(get_current_version) installed successfully at /usr/local/bin/tmux"
 }
 
-# Main execution
-detect_and_install_deps
+cleanup_distro_package() {
+    local current_version latest_version package_status ownership simulation removals answer
 
-    current_version=$(get_current_version)
-    latest_version=$(get_latest_version)
+    command -v dpkg-query >/dev/null 2>&1 && command -v apt-get >/dev/null 2>&1 || {
+        message "Distro cleanup is supported only for Debian/Ubuntu packages." >&2
+        return 1
+    }
 
-    if ! $next && [[ "$current_version" == "$latest_version" ]]; then
-        command gum_style "tmux is already the latest stable version ($latest_version)" "" "" ""
-        exit 0
+    current_version=$(get_current_version) || return 1
+    latest_version=$(get_latest_version) || {
+        message "Could not determine the latest stable tmux release; leaving packages unchanged." >&2
+        return 1
+    }
+    [[ "$current_version" == "$latest_version" ]] || {
+        message "Refusing cleanup: /usr/local tmux is $current_version, latest stable is $latest_version." >&2
+        return 1
+    }
+
+    package_status=$(dpkg-query -W -f='${Status}' tmux 2>/dev/null) || {
+        message "The distro tmux package is not installed."
+        return 0
+    }
+    [[ "$package_status" == "install ok installed" ]] || {
+        message "Refusing cleanup: distro tmux package is not fully installed." >&2
+        return 1
+    }
+    ownership=$(dpkg-query -S /usr/bin/tmux 2>/dev/null) || {
+        message "Refusing cleanup: dpkg does not own /usr/bin/tmux." >&2
+        return 1
+    }
+    [[ "$ownership" == tmux:\ /usr/bin/tmux ]] || {
+        message "Refusing cleanup: /usr/bin/tmux is not owned by the tmux package." >&2
+        return 1
+    }
+
+    simulation=$(apt-get -s remove tmux) || {
+        message "Could not simulate apt removal; leaving packages unchanged." >&2
+        return 1
+    }
+    removals=$(print -r -- "$simulation" | awk '$1 == "Remv" { print $2 }')
+    [[ "$removals" == tmux ]] || {
+        message "Refusing cleanup: apt would remove packages beyond tmux (or no tmux package)." >&2
+        print -r -- "$simulation" >&2
+        return 1
+    }
+
+    print -r -- "$simulation"
+    [[ -r /dev/tty && -w /dev/tty ]] || {
+        message "Cleanup requires an interactive terminal; no packages changed." >&2
+        return 1
+    }
+    if ! read -r "answer?Remove the distro tmux package? [y/N] " </dev/tty; then
+        message "No confirmation received; no packages changed." >&2
+        return 1
+    fi
+    [[ "$answer" == [yY] || "$answer" == [yY][eE][sS] ]] || {
+        message "Cancelled; no packages changed."
+        return 0
+    }
+
+    sudo apt-get remove -y tmux
+}
+
+main() {
+    local next=false cleanup=false current_version latest_version
+
+    case "$#:$1" in
+        0:) ;;
+        1:-h|1:--help)
+            usage
+            return 0
+            ;;
+        1:-n|1:--next)
+            next=true
+            ;;
+        1:--cleanup-distro)
+            cleanup=true
+            ;;
+        *)
+            usage >&2
+            return 2
+            ;;
+    esac
+
+    if [[ "$cleanup" == true ]]; then
+        cleanup_distro_package
+        return $?
     fi
 
-    if $next; then
-        version_desc="next version"
-    else
-        version_desc="$latest_version"
-    fi
-    command gum_style "Installing tmux $version_desc (current: $current_version)..." "" "" ""
-
-# Setup tmux directory
-TMUX_DIR="$HOME/Projects/Personal/Github/tmux"
-    if ! mkdir -p "$(dirname "$TMUX_DIR")"; then
-        command gum_style "❌ Error: Could not create parent directory for tmux" "" "" ""
-        exit 1
-    fi
-
-    if ! cd "$(dirname "$TMUX_DIR")"; then
-        command gum_style "❌ Error: Could not navigate to $(dirname "$TMUX_DIR")" "" "" ""
-        exit 1
-    fi
-
-    if [[ ! -d "$TMUX_DIR" ]] || [[ ! -d "$TMUX_DIR/.git" ]]; then
-        command gum_style "Cloning tmux repository..." "" "" ""
-        rm -rf "$TMUX_DIR"
-        if ! git clone https://github.com/tmux/tmux "$TMUX_DIR"; then
-            command gum_style "❌ Error: Failed to clone tmux repository" "" "" ""
-            exit 1
+    if [[ "$next" == false ]]; then
+        latest_version=$(get_latest_version) || {
+            message "Could not determine the latest stable tmux release; no changes made." >&2
+            return 1
+        }
+        [[ -n "$latest_version" ]] || {
+            message "No stable tmux release tag was found; no changes made." >&2
+            return 1
+        }
+        current_version=$(get_current_version) || return 1
+        if [[ "$current_version" == "$latest_version" ]]; then
+            message "tmux is already the latest stable version ($latest_version)."
+            return 0
         fi
     else
-        if ! cd tmux; then
-            command gum_style "❌ Error: Could not navigate to tmux directory" "" "" ""
-            exit 1
-        fi
-        command gum_style "Updating tmux repo..." "" "" ""
-        if ! git pull origin master; then
-            command gum_style "⚠️ Warning: Failed to update tmux repo, continuing with existing version" "" "" ""
-        fi
+        latest_version=""
+        current_version=$(get_current_version) || return 1
     fi
 
-    if ! cd "$TMUX_DIR"; then
-        exit 1
-    fi
+    detect_and_install_deps || return 1
+    message "Installing tmux ${latest_version:-next} (current: $current_version)..."
+    install_from_source "$next" "$latest_version"
+}
 
-    # Checkout the specific version for stable, stay on master for next
-    if ! $next; then
-        if ! git fetch --tags; then
-            command gum_style "⚠️ Warning: Failed to fetch tags, trying checkout anyway" "" "" ""
-        fi
-        if ! git checkout "$latest_version"; then
-            command gum_style "❌ Error: Failed to checkout $latest_version" "" "" ""
-            exit 1
-        fi
-    fi
-
-    command gum_style "Building tmux $version_desc..." "" "" ""
-    if ! sh autogen.sh; then
-        command gum_style "❌ Error: autogen.sh failed" "" "" ""
-        exit 1
-    fi
-
-    if ! ./configure --prefix=/usr/local; then
-        command gum_style "❌ Error: configure failed" "" "" ""
-        exit 1
-    fi
-
-    if ! make; then
-        command gum_style "❌ Error: make failed" "" "" ""
-        exit 1
-    fi
-
-    command gum_style "Installing tmux..." "" "" ""
-    if ! sudo make install; then
-        command gum_style "❌ Error: make install failed" "" "" ""
-        exit 1
-    fi
-
-    # Verify
-    if command -v /usr/local/bin/tmux >/dev/null 2>&1; then
-        command gum_style "✅ tmux $version_desc installed successfully at /usr/local/bin/tmux" "" "" ""
-    else
-        command gum_style "❌ Error: tmux not found after install" "" "" ""
-        exit 1
-    fi
-
-# Restore dir
-# popd >/dev/null
+if [[ "${TMUX_INSTALL_SOURCE_ONLY:-0}" != 1 ]]; then
+    main "$@"
+fi

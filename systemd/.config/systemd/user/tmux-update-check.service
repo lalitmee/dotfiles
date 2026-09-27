@@ -1,0 +1,6 @@
+[Unit]
+Description=Check for tmux stable updates
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/bin/check-tmux-update
