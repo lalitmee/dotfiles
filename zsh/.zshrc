@@ -30,12 +30,18 @@ ensure_tmux_is_running
 # fi
 
 
-# Download Znap, if it's not there yet, then load it.
-ZNAP_DIR=~/.znap/znap
-[[ -r $ZNAP_DIR/znap.zsh ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git "$ZNAP_DIR"
-source "$ZNAP_DIR/znap.zsh"
+# Download Znap over SSH (HTTPS GitHub requests return 403 in this environment).
+ZNAP_DIR="$HOME/.znap/znap"
+if [[ ! -r "$ZNAP_DIR/znap.zsh" ]]; then
+    if ! git clone --depth 1 -- \
+        git@github.com:marlonrichert/zsh-snap.git "$ZNAP_DIR"; then
+        print -u2 "zsh: failed to install Znap; skipping remaining startup config"
+        return 1
+    fi
+fi
+source "$ZNAP_DIR/znap.zsh" || return 1
+# Znap defaults to HTTPS for shorthand plugin URLs; use SSH for those too.
+zstyle ':znap:clone:' default-server 'git@github.com:'
 
 # -------------------------------------------------------------------
 # # NOTE: plugins (znap-managed) {{{
