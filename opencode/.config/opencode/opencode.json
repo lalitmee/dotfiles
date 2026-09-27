@@ -1,0 +1,108 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoshare": false,
+  "autoupdate": true,
+  "plugins": [
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "@tarquinen/opencode-dcp@latest",
+    "{env:HOME}/Projects/Personal/Github/ponytail/.opencode/plugins/ponytail.mjs",
+    "{env:HOME}/Projects/Personal/Github/workmux/resources/opencode/plugins/workmux-status.ts",
+    "-{env:HOME}/.config/opencode/plugins/workmux-status.ts",
+    "-{env:HOME}/.config/opencode/plugins/herdr-agent-state.js"
+  ],
+  "agent": {
+    "plan": {
+      "color": "#FF9D00"
+    },
+    "build": {
+      "color": "#0088FF"
+    },
+    "discover": {
+      "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
+      "mode": "primary",
+      "temperature": 0.3,
+      "color": "#3AD900",
+      "prompt": "{file:./prompts/explore-mode.txt}",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "todowrite": "allow"
+      }
+    },
+    "explore": {
+      "color": "#9EFFFF"
+    },
+    "general": {
+      "color": "#FFEE80"
+    },
+    "tester": {
+      "color": "#00d7ff"
+    },
+    "refactorer": {
+      "color": "#9a6dff"
+    },
+    "architect": {
+      "color": "#ff6b6b"
+    },
+    "ask": {
+      "description": "Ask Mode — read-only workspace interrogation; answers with findings, decisions, logic, and reasons",
+      "mode": "primary",
+      "color": "#bf7cff",
+      "prompt": "{file:./prompts/ask-mode.txt}",
+      "permission": {
+        "read": "allow",
+        "edit": "deny",
+        "bash": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "skill": "allow",
+        "todowrite": "allow"
+      }
+    }
+  },
+  "provider": {
+    "google": {
+      "options": {
+        "apiKey": "{env:GEMINI_API_KEY}"
+      }
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "environment": {
+        "DEFAULT_MINIMUM_TOKENS": "6000"
+      }
+    },
+    "crash": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "crash-mcp"
+      ]
+    },
+    "chrome-devtools": {
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ],
+      "type": "local"
+    }
+  }
+}
