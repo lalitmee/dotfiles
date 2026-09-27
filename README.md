@@ -33,3 +33,23 @@ And more...
 ### tmux
 
 ![tmux](https://user-images.githubusercontent.com/10762218/216720167-176b70d3-1b99-4a33-aac5-44954f6377b4.png)
+
+To remove Ubuntu's duplicate tmux after the `/usr/local` source build is verified, run `install-tmux --cleanup-distro`. It previews the apt removal and requires confirmation. Then verify the active binary and package state:
+
+```bash
+whence -a tmux
+tmux -V
+dpkg-query -W tmux # expected to report that the package is not installed
+```
+
+The weekly update check is opt-in. From the dotfiles repository, link its user units and enable the timer:
+
+```bash
+stow systemd
+systemctl --user daemon-reload
+systemctl --user enable --now tmux-update-check.timer
+systemctl --user status tmux-update-check.timer
+journalctl --user -u tmux-update-check.service
+```
+
+It only checks for updates and sends a desktop notification when one is available; it never installs updates. Disable it with `systemctl --user disable --now tmux-update-check.timer`.
