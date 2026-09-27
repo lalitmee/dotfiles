@@ -1,2 +1,8 @@
 nerdfont: true
 worktree_dir: ../{project}-worktrees
+agent: opencode
+mode: window
+
+panes:
+  - command: <agent>
+    focus: true
