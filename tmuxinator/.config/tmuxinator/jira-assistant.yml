@@ -1,7 +1,7 @@
 # ~/.config/tmuxinator/jira-assistant.yml
 
 name: jira-assistant
-root: ~/Projects/Work/Github/jira-assistant
+root: ~/Projects/Personal/Github/jira-assistant
 
 windows:
   - editor:
