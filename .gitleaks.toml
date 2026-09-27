@@ -1,11 +1,13 @@
 title = "Gitleaks configuration for dotfiles"
 
+[extend]
+useDefault = true
+
 [allowlist]
 description = "Allow common false positives in this dotfiles repository"
 
 # Use 'paths' to allowlist files based on their path.
 paths = [
-    '''.*\.md$''',  # Allow all markdown files
     '''gemini-cli/.*security-audit\.toml$''',
     '''tmux/.*/\.scraped-bangs-list$''',
 ]
@@ -13,7 +15,16 @@ paths = [
 # Use 'regexes' to allowlist specific patterns that are safe.
 regexes = [
     '''\${[A-Z0-9_]+}''', # Allows placeholders like ${VAR_NAME}
+    '''(?i)^(?:your|example|replace|placeholder|changeme)[_-]?(?:api[_-]?key|token|secret)?$''',
+    '''(?i)^(?:sk-)?your[-_].+$''',
     '''get_env_key''',     # Allows the name of the lua helper function
     '''sk-XXXXXXXXX''',    # Allows example keys from docs
     '''sk-proj-XXX''',     # Allows example keys from docs
 ]
+
+[[rules]]
+id = "assistant-config-credential"
+description = "Literal credential assigned to a common authentication field"
+regex = '''(?i)(?:["']?(?:api[_-]?key|(?:[a-z0-9_-]*[_-])?token|client[_-]?secret|secret|password)["']?\s*[:=]\s*["']\s*(?:Bearer\s+)?|authorization["']?\s*[:=]\s*(?:["']\s*)?Bearer\s+)([A-Za-z0-9][A-Za-z0-9._~+/-]{7,}={0,2})'''
+secretGroup = 1
+entropy = 3.0
