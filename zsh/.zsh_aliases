@@ -100,7 +100,7 @@ alias purge="apt purge -y"
 alias remove="apt autoremove -y"
 alias upd="apt update"
 alias update="
-apt upgrade -y &&
+sudo apt-get -o Acquire::Retries=5 -o Acquire::https::Timeout=120 upgrade -y &&
 sudo flatpak update
 "
 alias updg="apt dist-upgrade -y"
