@@ -3,9 +3,65 @@ worktree_dir: ../{project}-worktrees
 agent: opencode
 mode: window
 
+theme:
+  scheme: default
+  mode: dark
+  custom:
+    current_row_bg: "#193549"
+    highlight_row_bg: "#0d3a58"
+    current_worktree_fg: "#FFC600"
+    dimmed: "#808080"
+    text: "#FFFFFF"
+    border: "#808080"
+    help_border: "#00AAFF"
+    help_muted: "#9E9E9E"
+    header: "#FFC600"
+    keycap: "#00AAFF"
+    info: "#80FCFF"
+    success: "#3AD900"
+    warning: "#FFC600"
+    danger: "#EE80E1"
+    accent: "#00AAFF"
+
+status_icons:
+  waiting: "#[fg=#FFC600]💬#[fg=default]"
+  done: "#[fg=#3AD900]✅#[fg=default]"
+  sleeping: "#[fg=#808080]💤#[fg=default]"
+
 panes:
   - command: <agent>
     focus: true
 
 sidebar:
   width: 40
+  agent_icons:
+    claude:
+      color: "#FF9A00"
+    codex:
+      color: "#80FCFF"
+    gemini:
+      color: "#0088FF"
+    opencode:
+      color: "#00AAFF"
+    copilot:
+      color: "#967EFB"
+    grok:
+      color: "#8FBFDC"
+    vibe:
+      color: "#FF9D00"
+    pi:
+      color: "#3AD900"
+    omp:
+      color: "#FF628C"
+    kiro-cli:
+      color: "#FFC600"
+  templates:
+    compact: "{status_icon} {agent_icon} #[fg=#00AAFF]{primary}#[default] {pane_suffix} {fill} {elapsed}"
+    tiles:
+      - "{agent_icon} #[fg=#00AAFF]{primary}#[default] {pane_suffix} {fill} {elapsed}"
+      - "#[fg=#9E9E9E]{secondary}#[default] {fill} {git_stats}"
+      - "#[fg=#808080]{pane_title}#[default] {fill} {pr_number} {pr_checks}"
+    horizontal:
+      - "{status_icon} {agent_icon} #[fg=#00AAFF]{primary}#[default] {pane_suffix} {fill} {elapsed}"
+      - "#[fg=#9E9E9E]{secondary}#[default] {fill} {git_stats}"
+      - "#[fg=#808080]{pane_title}#[default] {fill} {pr_number} {pr_checks}"
