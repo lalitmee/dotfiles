@@ -17,7 +17,7 @@
 
 LOG_DIR="$HOME/.local/share/tmux/logs"
 LOG_FILE="$LOG_DIR/workmux-palette.log"
-PALETTE_UI="gum" # Change to "fzf" to use fzf for the action palette.
+PALETTE_UI="fzf" # Change to "fzf" to use fzf for the action palette.
 
 # Cobalt2 palette
 COLOR_ACCENT="#00AAFF"
@@ -130,25 +130,24 @@ ensure_required_commands() { # {{{
 
 pick_action() { # {{{
     local actions=(
-        "add       Create new worktree + window"
-        "open      Open existing worktree"
-        "close     Close worktree window"
-        "merge     Merge branch + cleanup"
-        "rebase    Rebase onto base branch"
-        "remove    Remove worktree + branch"
-        "rename    Rename worktree/window/branch"
-        "send      Send prompt to running agent"
-        "resurrect Restore crashed windows"
+        "add         Create new worktree + window"
+        "open        Open existing worktree"
+        "close       Close worktree window"
+        "merge       Merge branch + cleanup"
+        "rebase      Rebase onto base branch"
+        "remove      Remove worktree + branch"
+        "rename      Rename worktree/window/branch"
+        "send        Send prompt to running agent"
+        "resurrect   Restore crashed windows"
     )
 
     local selection
     case "$PALETTE_UI" in
         gum)
-            selection=$(printf '%s\n' "${actions[@]}" | gum choose \
+            selection=$(printf '%s\n' "${actions[@]}" | gum filter \
                 --header "Workmux Command Palette" \
                 --header.foreground "$COLOR_HEADER" \
-                --cursor.foreground "$COLOR_ACCENT" \
-                --selected.foreground "$COLOR_INFO")
+                --indicator.foreground "$COLOR_ACCENT")
             ;;
         fzf)
             if ! command -v fzf > /dev/null 2>&1; then
