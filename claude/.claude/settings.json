@@ -22,6 +22,15 @@
           }
         ],
         "matcher": "permission_prompt|elicitation_dialog"
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status waiting",
+            "type": "command"
+          }
+        ],
+        "matcher": "permission_prompt|elicitation_dialog"
       }
     ],
     "PostToolUse": [
@@ -29,6 +38,14 @@
         "hooks": [
           {
             "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status working",
             "type": "command"
           }
         ]
@@ -53,6 +70,15 @@
           }
         ],
         "matcher": "startup|resume|clear|fork"
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux register-agent",
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|fork"
       }
     ],
     "Stop": [
@@ -63,6 +89,14 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status done",
+            "type": "command"
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -70,6 +104,14 @@
         "hooks": [
           {
             "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status working",
             "type": "command"
           }
         ]
