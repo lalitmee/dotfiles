@@ -6,7 +6,7 @@
     "superpowers@git+https://github.com/obra/superpowers.git",
     "@tarquinen/opencode-dcp@latest",
     "{env:HOME}/Projects/Personal/Github/ponytail/.opencode/plugins/ponytail.mjs",
-    "{env:HOME}/Projects/Personal/Github/workmux/resources/opencode/plugins/workmux-status.ts",
+    "{env:HOME}/Projects/Personal/Github/workmux/resources/opencode/plugins",
     "-{env:HOME}/.config/opencode/plugins/workmux-status.ts",
     "-{env:HOME}/.config/opencode/plugins/herdr-agent-state.js"
   ],
