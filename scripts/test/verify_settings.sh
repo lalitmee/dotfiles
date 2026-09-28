@@ -66,4 +66,12 @@ if [[ $MISSING -eq 0 ]]; then
     echo "✅ Test 7 Passed: All active MCP servers present."
 fi
 
+# 8. Linear MCP endpoint and credential-free configuration
+if jq -e '.mcpServers.linear.httpUrl == "https://mcp.linear.app/mcp" and (.mcpServers.linear | has("headers") | not) and (.mcpServers.linear | has("env") | not) and (.mcpServers.linear | has("oauth") | not)' "$SETTINGS_FILE" > /dev/null; then
+    echo "✅ Test 8 Passed: Linear MCP endpoint is configured without credentials."
+else
+    echo "❌ Test 8 Failed: Linear MCP endpoint is missing or contains credential fields."
+    exit 1
+fi
+
 echo "Verification complete."

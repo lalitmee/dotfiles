@@ -187,6 +187,9 @@
       "command": "uvx",
       "trust": true
     },
+    "linear": {
+      "httpUrl": "https://mcp.linear.app/mcp"
+    },
     "playwright": {
       "args": [
         "@playwright/mcp@latest",

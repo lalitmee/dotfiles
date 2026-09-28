@@ -135,3 +135,6 @@ enabled = false
 [[skills.config]]
 path = "~/dotfiles/.agents/skills/zoom-out/SKILL.md"
 enabled = false
+
+[mcp_servers.linear]
+url = "https://mcp.linear.app/mcp"

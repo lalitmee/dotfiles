@@ -18,6 +18,10 @@
     },
     "figma-local-mcp": {
       "url": "http://127.0.0.1:3845/mcp"
+    },
+    "linear": {
+      "type": "streamable-http",
+      "url": "https://mcp.linear.app/mcp"
     }
   },
   "nativeMCPServers": []
