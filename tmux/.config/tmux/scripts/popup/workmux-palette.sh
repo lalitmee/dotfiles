@@ -287,8 +287,179 @@ get_action_input() { # {{{
             ;;
     esac
 
-    # Return the args as newline-separated values
-    printf '%s\n' "${cmd_args[@]}"
+    # Return the args as null-separated values to preserve multiline strings
+    if (( ${#cmd_args[@]} > 0 )); then
+        printf '%s\0' "${cmd_args[@]}"
+    fi
+} # }}}
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# Flags Picker {{{
+# -------------------------------------------------------------------
+
+pick_flags() { # {{{
+    local action="$1"
+    local -a available_flags=()
+
+    case "$action" in
+        add)
+            available_flags=(
+                "--background"
+                "--sandbox"
+                "--prompt-editor"
+                "--open-if-exists"
+                "--with-changes"
+                "--session"
+                "--agent"
+            )
+            ;;
+        merge)
+            available_flags=(
+                "--squash"
+                "--rebase"
+                "--keep"
+                "--no-verify"
+                "--cleanup"
+                "--notification"
+            )
+            ;;
+        remove)
+            available_flags=(
+                "--force"
+                "--keep-branch"
+                "--gone"
+                "--all"
+            )
+            ;;
+        open)
+            available_flags=(
+                "--run-hooks"
+                "--force-files"
+                "--new"
+                "--continue"
+                "--session"
+            )
+            ;;
+        rename)
+            available_flags=("--branch")
+            ;;
+        *)
+            # No flags for close, rebase, send, resurrect
+            return
+            ;;
+    esac
+
+    if (( ${#available_flags[@]} == 0 )); then
+        return
+    fi
+
+    style_message "Optional flags (Enter to skip):" "$COLOR_DIMMED" >&2
+
+    local selected_flags
+    selected_flags=$(printf '%s\n' "${available_flags[@]}" | gum choose \
+        --no-limit \
+        --header "Select flags (optional)" \
+        --header.foreground "$COLOR_HEADER" \
+        --cursor.foreground "$COLOR_ACCENT" \
+        --selected.foreground "$COLOR_INFO")
+
+    if [[ -z "$selected_flags" ]]; then
+        return
+    fi
+
+    local -a flags_array=()
+    local flag
+    while IFS= read -r flag; do
+        [[ -n "$flag" ]] && flags_array+=("$flag")
+    done <<< "$selected_flags"
+
+    # Handle value-bearing flags: --agent needs a follow-up input
+    local -a final_flags=()
+    for flag in "${flags_array[@]}"; do
+        if [[ "$flag" == "--agent" ]]; then
+            local agent_name
+            agent_name=$(gum input \
+                --placeholder "e.g., opencode, claude, agy" \
+                --header "Agent name" \
+                --header.foreground "$COLOR_HEADER" \
+                --cursor.foreground "$COLOR_ACCENT")
+            if [[ -n "$agent_name" ]]; then
+                final_flags+=("--agent" "$agent_name")
+            else
+                log_message "pick_flags: agent name omitted"
+            fi
+        else
+            final_flags+=("$flag")
+        fi
+    done
+
+    if (( ${#final_flags[@]} > 0 )); then
+        printf '%s\0' "${final_flags[@]}"
+    fi
+} # }}}
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# Execution {{{
+# -------------------------------------------------------------------
+
+execute_command() { # {{{
+    local action="$1"
+    shift
+    local -a args=("$@")
+
+    local full_cmd="workmux $action"
+    if (( ${#args[@]} > 0 )); then
+        full_cmd="workmux $action ${args[*]}"
+    fi
+
+    echo ""
+    if command -v gum > /dev/null 2>&1; then
+        local running_label
+        running_label=$(gum style --foreground "$COLOR_ACCENT" --bold "Running:")
+        local running_val
+        running_val=$(gum style --foreground "$COLOR_HEADER" --bold "$full_cmd")
+        echo "${running_label} ${running_val}"
+        gum style --foreground "$COLOR_ACCENT" '───────────────────────────────────'
+    else
+        echo "Running: $full_cmd"
+        echo "───────────────────────────────────"
+    fi
+
+    log_message "executing: $full_cmd"
+
+    # Execute and capture exit code
+    local exit_code
+    workmux "$action" "${args[@]}"
+    exit_code=$?
+
+    return $exit_code
+} # }}}
+
+handle_result() { # {{{
+    local exit_code="$1"
+
+    echo ""
+    if [[ "$exit_code" -eq 0 ]]; then
+        style_message "✅ Command completed successfully" "$COLOR_SUCCESS"
+        log_message "command succeeded"
+        sleep 2
+        # Return to the previous window before exiting
+        tmux select-window -l 2>/dev/null || true
+    else
+        style_message "❌ Command failed with exit code $exit_code" "$COLOR_DANGER"
+        log_message "command failed with exit code $exit_code"
+        echo ""
+        style_message "Press Ctrl-D or type 'exit' to close..." "$COLOR_DIMMED"
+        exec /bin/zsh
+    fi
 } # }}}
 
 # -------------------------------------------------------------------
@@ -307,6 +478,7 @@ main() { # {{{
 
     style_header "🚀 Workmux Command Palette"
 
+    # Step 1: Pick the action
     local action
     action=$(pick_action)
 
@@ -317,11 +489,11 @@ main() { # {{{
 
     log_message "action selected: $action"
 
-    # Collect per-action input (worktree name, branch name, etc.)
+    # Step 2: Collect per-action input (worktree name, branch name, etc.)
     local -a cmd_args=()
-    local line
-    while IFS= read -r line; do
-        [[ -n "$line" ]] && cmd_args+=("$line")
+    local arg
+    while IFS= read -r -d '' arg; do
+        [[ -n "$arg" ]] && cmd_args+=("$arg")
     done < <(get_action_input "$action")
 
     # Validate collected inputs; exit cleanly if cancelled
@@ -331,9 +503,20 @@ main() { # {{{
                 exit 0
             fi
             ;;
-        rename|send)
+        rename)
             if (( ${#cmd_args[@]} < 2 )); then
                 exit 0
+            fi
+            ;;
+        send)
+            if (( ${#cmd_args[@]} < 2 )); then
+                exit 0
+            fi
+            # Defensive check: if prompt was split across lines, join all elements after worktree name
+            if (( ${#cmd_args[@]} > 2 )); then
+                local wt_name="${cmd_args[1]}"
+                local prompt_text="${(F)cmd_args[2,-1]}"
+                cmd_args=("$wt_name" "$prompt_text")
             fi
             ;;
         resurrect)
@@ -344,10 +527,27 @@ main() { # {{{
             ;;
     esac
 
-    # DEBUG: show constructed command and exit (will be replaced in Task 3)
-    log_message "would run: workmux $action ${cmd_args[*]}"
-    style_message "Action: workmux $action ${cmd_args[*]}" "$COLOR_INFO"
-    sleep 2
+    # Step 3: Optional flags
+    local -a flag_args=()
+    while IFS= read -r -d '' arg; do
+        [[ -n "$arg" ]] && flag_args+=("$arg")
+    done < <(pick_flags "$action")
+
+    # Combine: command args + flags
+    local -a all_args=("${cmd_args[@]}" "${flag_args[@]}")
+
+    if (( ${#all_args[@]} > 0 )); then
+        log_message "full command: workmux $action ${all_args[*]}"
+    else
+        log_message "full command: workmux $action"
+    fi
+
+    # Step 4: Execute
+    execute_command "$action" "${all_args[@]}"
+    local exit_code=$?
+
+    # Step 5: Handle result
+    handle_result "$exit_code"
 } # }}}
 
 main "$@"
