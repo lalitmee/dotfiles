@@ -1557,6 +1557,9 @@ bind-key -T git-mode b run-shell "workmux sidebar"
 # Git worktree logs
 bind-key -T git-mode l run-shell "#{@tpad-path} toggle worktree-logs"
 
+# Workmux command palette — lifecycle actions in a temporary window.
+bind-key -T git-mode x new-window -n wm-palette "~/.config/tmux/scripts/popup/workmux-palette.sh"
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------

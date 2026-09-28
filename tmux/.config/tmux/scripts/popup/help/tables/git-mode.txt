@@ -11,5 +11,6 @@ i	Git status and unmerged commits
 b	Toggle Workmux sidebar
 o	Workmux worktrees dashboard
 l	View worktree logs
+x	Workmux command palette (lifecycle actions)
 q	Quit git mode
 ?	Show help
