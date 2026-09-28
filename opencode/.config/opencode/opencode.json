@@ -75,6 +75,11 @@
     }
   },
   "mcp": {
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp",
+      "enabled": true
+    },
     "context7": {
       "type": "local",
       "command": [

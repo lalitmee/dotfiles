@@ -4,7 +4,7 @@
 
 **Goal:** Configure Linear MCP in the tracked Gemini CLI, Zed, and MCPHub settings, and document setup/coverage for the other MCP-capable clients represented by this dotfiles environment.
 
-**Architecture:** Add the official Linear Streamable HTTP endpoint using each tracked client's native remote-server schema and OAuth discovery; do not store credentials. Keep unmanaged/ignored client configuration local and explain its setup in a concise coverage guide.
+**Architecture:** Add the official Linear Streamable HTTP endpoint using each selected client's native remote-server schema and OAuth discovery; do not store credentials. Keep protected client configuration untouched and explain client coverage/setup in a concise guide.
 
 **Tech Stack:** JSON, JSONC, Bash, `jq`, Markdown; client-side OAuth handled by each MCP client.
 
@@ -15,7 +15,7 @@
 - Use `https://mcp.linear.app/mcp` as the default endpoint; `/mcp/readonly` is the optional least-privilege alternative.
 - Do not commit API keys, bearer tokens, OAuth secrets, or session data.
 - Do not modify `opencode/.config/opencode/opencode.json`, `codex/.codex/config.toml`, `vscode/mcp.json`, or the locally changed `claude/.claude/settings.json`.
-- Do not change `.gitignore`, restore or track ignored client configs, or bypass the pending secret/history guard.
+- Do not change `.gitignore`, alter the tracking status of protected client configs, or bypass the pending secret/history guard.
 - Do not run `./install.sh`; existing configs are already Stowed/live.
 - Do not claim authenticated connectivity until OAuth is completed in the user's client.
 - Do not auto-commit; repository guidance requires explicit user request before committing.
@@ -36,7 +36,7 @@
 - `scripts/test/verify_settings.sh` — extend the existing Gemini validation to assert Linear's exact endpoint and Streamable HTTP key.
 - `zed/.config/zed/settings.json` — Zed's tracked JSONC `context_servers`; add native remote Linear server.
 - `mcphub/.config/mcphub/servers.json` — MCPHub's tracked JSON `mcpServers`; add Streamable HTTP Linear server.
-- `docs/linear-mcp.md` — client coverage inventory and setup notes for tracked, ignored/local, and unsupported/unverified clients.
+- `docs/linear-mcp.md` — client coverage inventory and setup notes for configured, protected/local, and unsupported/unverified clients.
 
 ### Task 1: Configure and verify Gemini CLI
 
@@ -109,11 +109,11 @@ Expected: MCPHub assertions pass; the Zed snippet shows one `linear` server with
 
 - [ ] **Step 1: Draft the coverage inventory**
 
-Include Gemini CLI, Zed, and MCPHub as configured by this repository; OpenCode, Codex, and VS Code as MCP-capable but ignored/local-only; Claude Code and Cursor as supported clients with local setup; Windsurf and Jules as Linear-documented clients; and Antigravity/other candidates only with verified support or explicitly labeled unverified. Preserve the Claude settings and secret-guard boundaries.
+Include Gemini CLI, Zed, and MCPHub as configured by this repository; OpenCode, Codex, and VS Code as MCP-capable with protected tracked configs; Claude Code and Cursor as supported clients with local setup; Windsurf and Jules as Linear-documented clients; and Antigravity/other candidates only with verified support or explicitly labeled unverified. Preserve the Claude settings and secret-guard boundaries.
 
 - [ ] **Step 2: Add setup and security guidance**
 
-Document the default read-write endpoint `https://mcp.linear.app/mcp`, optional readonly endpoint `https://mcp.linear.app/mcp/readonly`, OAuth/login completion, and links to Linear's official MCP page and each relevant client's official setup documentation. Include exact `claude mcp add --transport http linear-server https://mcp.linear.app/mcp` command. Explain that local-only config should be added locally and not committed; Jules API-key setup must keep the key out of dotfiles. Do not imply that configuration alone authenticates a client.
+Document the default read-write endpoint `https://mcp.linear.app/mcp`, optional readonly endpoint `https://mcp.linear.app/mcp/readonly`, OAuth/login completion, and links to Linear's official MCP page and each relevant client's official setup documentation. Include exact `claude mcp add --transport http linear-server https://mcp.linear.app/mcp` command. Explain that protected tracked configs must remain unchanged pending secret-guard review and Jules API-key setup must keep the key out of dotfiles. Do not imply that configuration alone authenticates a client.
 
 - [ ] **Step 3: Review documentation against the inventory and spec**
 
@@ -143,11 +143,11 @@ Expected: all commands exit 0. For Zed's JSONC, validate the edited block with a
 - [ ] **Step 2: Inspect scope and secrets**
 
 Run: `git status --short && git diff -- gemini-cli/.gemini/settings.json scripts/test/verify_settings.sh zed/.config/zed/settings.json mcphub/.config/mcphub/servers.json docs/linear-mcp.md`
-Expected: only intended config, test, and guide changes appear; ignored OpenCode/Codex/VS Code configs and the existing Claude modification remain untouched. Confirm no auth values or cached tokens are present.
+Expected: only intended config, test, guide, plan, and spec changes appear; protected OpenCode/Codex/VS Code configs and the existing Claude modification remain untouched. Confirm no auth values or cached tokens are present.
 
 ## Self-Review
 
-- **Spec coverage:** Tasks 1–2 add the three safe tracked integrations and validate endpoint schemas; Task 3 covers client inventory, local/manual instructions, OAuth, read-write disclosure and readonly alternative; Task 4 checks safety, scope, and no-auth claims. No ignored configs or Claude file are edited, and no installer is run.
+- **Spec coverage:** Tasks 1–2 add the three selected integrations and validate endpoint schemas; Task 3 covers client inventory, local/manual instructions, OAuth, read-write disclosure and readonly alternative; Task 4 checks safety, scope, and no-auth claims. No protected configs or Claude file are edited, and no installer is run.
 - **Step scan:** Each task has a test/check before and after implementation; no product-code tests are needed because deliverables are configuration and documentation.
 - **Type/config consistency:** Gemini `httpUrl`, Zed `context_servers.linear.url`, and MCPHub `mcpServers.linear.type/url` match the verified client schemas.
 - **Review focus:** All five listed risks have a focused assertion, documented explicit constraint, or final safety review.

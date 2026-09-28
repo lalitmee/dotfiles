@@ -158,6 +158,9 @@
   // manually edit ~/.config/zed/settings.json after stowing this config.
   // Do NOT commit API keys to version control.
   "context_servers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+    },
     "chrome-devtools-mcp-zed": {
       "enabled": true,
       "remote": false,
