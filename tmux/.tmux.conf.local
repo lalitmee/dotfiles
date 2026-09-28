@@ -1533,8 +1533,29 @@ bind-key -T git-mode s display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/gi
 # Delete a worktree.
 bind-key -T git-mode d display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh delete"
 
- # Git Worktree Logs
- bind-key -T git-mode l run-shell "#{@tpad-path} toggle worktree-logs"
+# Show worktrees for the current project, including branches with unmerged commits.
+bind-key -T git-mode v display-popup -w 90% -h 80% -E "workmux list | less -RX"
+
+# Open the Workmux dashboard for agent and worktree navigation.
+bind-key -T git-mode a display-popup -w 95% -h 90% -E "workmux dashboard"
+
+# Open the Workmux dashboard directly on its Worktrees tab.
+bind-key -T git-mode o display-popup -w 95% -h 90% -E "workmux dashboard --tab worktrees"
+
+# Review the current worktree's diff.
+bind-key -T git-mode r display-popup -w 95% -h 90% -E "workmux dashboard --diff"
+
+# Show worktrees with their GitHub pull request status.
+bind-key -T git-mode p display-popup -w 90% -h 80% -E "workmux list --pr | less -RX"
+
+# Show Git status and unmerged commit details for tracked agents.
+bind-key -T git-mode i display-popup -w 90% -h 80% -E "workmux status --git | less -RX"
+
+# Toggle the persistent Workmux agent sidebar.
+bind-key -T git-mode b run-shell "workmux sidebar"
+
+# Git worktree logs
+bind-key -T git-mode l run-shell "#{@tpad-path} toggle worktree-logs"
 
 #-------------------------------------------------------------------------------
 # }}}

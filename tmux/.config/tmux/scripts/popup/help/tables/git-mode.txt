@@ -3,6 +3,13 @@ w	Interactive worktree management
 c	Create a new worktree
 s	Switch to a worktree
 d	Delete a worktree
+v	Workmux worktree overview (unmerged commits)
+a	Workmux agent dashboard
+r	Review current worktree diff
+p	Worktrees with PR status
+i	Git status and unmerged commits
+b	Toggle Workmux sidebar
+o	Workmux worktrees dashboard
 l	View worktree logs
 q	Quit git mode
 ?	Show help
