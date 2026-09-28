@@ -6,3 +6,6 @@ mode: window
 panes:
   - command: <agent>
     focus: true
+
+sidebar:
+  width: 40
