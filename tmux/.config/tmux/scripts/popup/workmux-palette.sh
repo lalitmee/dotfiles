@@ -174,9 +174,9 @@ pick_worktree() { # {{{
     worktrees=$(get_worktree_list)
 
     if [[ -z "$worktrees" ]]; then
-        style_message "No active worktrees found" "$COLOR_WARNING"
+        style_message "No active worktrees found" "$COLOR_WARNING" >&2
         log_message "no worktrees found"
-        sleep 2
+        sleep 2 >&2
         exit 0
     fi
 
@@ -281,8 +281,8 @@ get_action_input() { # {{{
             ;;
         *)
             log_message "unknown action: $action"
-            style_message "❌ Unknown action: $action" "$COLOR_DANGER"
-            sleep 2
+            style_message "❌ Unknown action: $action" "$COLOR_DANGER" >&2
+            sleep 2 >&2
             exit 1
             ;;
     esac
