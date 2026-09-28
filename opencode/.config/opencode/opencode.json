@@ -107,10 +107,10 @@
     "nysaa-atlas": {
       "type": "remote",
       "url": "https://13.235.180.25/mcp",
-      "enabled": true,
+      "enabled": false,
       "headers": {
         "Authorization": "Bearer {env:NYSAA_ATLAS_TOKEN}"
       }
-    }
-  }
+    },
+  },
 }
