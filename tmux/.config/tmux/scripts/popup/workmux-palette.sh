@@ -7,7 +7,8 @@
 # Launched via tmux keybinding (C-a C-g x) in a temporary window.
 #
 # Requirements: workmux, gum
-# Optional: fzf (falls back to gum filter)
+# Palette selector: set PALETTE_UI to "gum" or "fzf" below.
+# fzf is required when PALETTE_UI is "fzf"; worktree selection auto-detects it.
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
@@ -16,6 +17,7 @@
 
 LOG_DIR="$HOME/.local/share/tmux/logs"
 LOG_FILE="$LOG_DIR/workmux-palette.log"
+PALETTE_UI="gum" # Change to "fzf" to use fzf for the action palette.
 
 # Cobalt2 palette
 COLOR_ACCENT="#00AAFF"
@@ -128,31 +130,51 @@ ensure_required_commands() { # {{{
 
 pick_action() { # {{{
     local actions=(
-        "➕  add        Create new worktree + window"
-        "📂  open       Open existing worktree"
-        "🚪  close      Close worktree window"
-        "🔀  merge      Merge branch + cleanup"
-        "🔄  rebase     Rebase onto base branch"
-        "🗑️   remove     Remove worktree + branch"
-        "✏️   rename     Rename worktree/window/branch"
-        "💬  send       Send prompt to running agent"
-        "🔮  resurrect  Restore crashed windows"
+        "add       Create new worktree + window"
+        "open      Open existing worktree"
+        "close     Close worktree window"
+        "merge     Merge branch + cleanup"
+        "rebase    Rebase onto base branch"
+        "remove    Remove worktree + branch"
+        "rename    Rename worktree/window/branch"
+        "send      Send prompt to running agent"
+        "resurrect Restore crashed windows"
     )
 
     local selection
-    selection=$(printf '%s\n' "${actions[@]}" | gum choose \
-        --header "Workmux Command Palette" \
-        --header.foreground "$COLOR_HEADER" \
-        --cursor.foreground "$COLOR_ACCENT" \
-        --selected.foreground "$COLOR_INFO")
+    case "$PALETTE_UI" in
+        gum)
+            selection=$(printf '%s\n' "${actions[@]}" | gum choose \
+                --header "Workmux Command Palette" \
+                --header.foreground "$COLOR_HEADER" \
+                --cursor.foreground "$COLOR_ACCENT" \
+                --selected.foreground "$COLOR_INFO")
+            ;;
+        fzf)
+            if ! command -v fzf > /dev/null 2>&1; then
+                style_message "❌ Error: fzf is required when PALETTE_UI is fzf" "$COLOR_DANGER" >&2
+                return 1
+            fi
+            selection=$(printf '%s\n' "${actions[@]}" | fzf \
+                --prompt "Workmux Command Palette > " \
+                --header "Select an action" \
+                --height "100%" \
+                --layout reverse \
+                --bind "change:first")
+            ;;
+        *)
+            style_message "❌ Error: PALETTE_UI must be \"gum\" or \"fzf\"" "$COLOR_DANGER" >&2
+            return 1
+            ;;
+    esac
 
     if [[ -z "$selection" ]]; then
         log_message "action selection cancelled"
         exit 0
     fi
 
-    # Extract the command name (second field)
-    echo "$selection" | awk '{print $2}'
+    # The command is the first field; descriptions start in a fixed column.
+    echo "$selection" | awk '{print $1}'
 } # }}}
 
 # -------------------------------------------------------------------
@@ -550,7 +572,9 @@ main() { # {{{
     handle_result "$exit_code"
 } # }}}
 
-main "$@"
+if [[ "${ZSH_EVAL_CONTEXT:-}" == toplevel ]]; then
+    main "$@"
+fi
 
 # -------------------------------------------------------------------
 # }}}
