@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Reject dotfiles commits with an unexpected author or committer email.
+# Reject commits with an unexpected author or committer email.
 EXPECTED_EMAIL="lalitkumar.meena.lk@gmail.com"
 
 for role in AUTHOR COMMITTER; do
