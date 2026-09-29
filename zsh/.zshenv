@@ -213,7 +213,7 @@ export MANPAGER='nvim +Man!'
 # # NOTE: AI in terminal {{{
 #-------------------------------------------------------------------------------
 
-append_to_path "$HOME/.opencode/bin"
+prepend_to_path "$HOME/.opencode/bin"
 
 #-------------------------------------------------------------------------------
 # }}}
