@@ -93,6 +93,13 @@ if [[ ! -e "$CREATE_WORKTREE/.git" || ! -e "$SWITCH_WORKTREE/.git" ]]; then
     exit 1
 fi
 
+for repo_path in "$REPO" "$CREATE_WORKTREE" "$SWITCH_WORKTREE"; do
+    if [[ "$(git -C "$repo_path" config user.email)" != 'worktree-test@example.invalid' ]]; then
+        print -u2 "FAIL: worktree setup overrode the repository email in $repo_path"
+        exit 1
+    fi
+done
+
 actual_lines=()
 while IFS= read -r line; do
     actual_lines+=("$line")
@@ -105,4 +112,30 @@ if (( ${#actual_lines} != 2 )) || \
     exit 1
 fi
 
-print 'PASS: JavaScript create and switch flows launch npm ci in their worktrees'
+git -C "$REPO" config --unset user.email
+git -C "$REPO" config dotfiles.worktreeEmail 'fallback@example.invalid'
+FALLBACK_WORKTREE="$WORKTREES/fallback-flow"
+git -C "$REPO" worktree add -q -b fallback-flow "$FALLBACK_WORKTREE" main
+"$REAL_ZSH" -c 'source "$1"; setup_environment; set_git_user "$2"' zsh \
+    "$WORKERS/../lib/common.sh" "$FALLBACK_WORKTREE"
+
+if git -C "$REPO" config --local --get user.email > /dev/null; then
+    print -u2 'FAIL: fallback worktree email leaked into the shared repository config'
+    exit 1
+fi
+if [[ "$(git -C "$FALLBACK_WORKTREE" config --show-scope --get user.email)" != $'worktree\tfallback@example.invalid' ]]; then
+    print -u2 'FAIL: fallback email was not scoped to the worktree'
+    exit 1
+fi
+
+git -C "$REPO" config --unset dotfiles.worktreeEmail
+NO_FALLBACK_WORKTREE="$WORKTREES/no-fallback-flow"
+git -C "$REPO" worktree add -q -b no-fallback-flow "$NO_FALLBACK_WORKTREE" main
+"$REAL_ZSH" -c 'source "$1"; setup_environment; set_git_user "$2"' zsh \
+    "$WORKERS/../lib/common.sh" "$NO_FALLBACK_WORKTREE"
+if git -C "$NO_FALLBACK_WORKTREE" config --worktree --get user.email > /dev/null; then
+    print -u2 'FAIL: worktree email was set without a repo-specific fallback'
+    exit 1
+fi
+
+print 'PASS: worktree create/switch flows preserve Git identity and launch npm ci'

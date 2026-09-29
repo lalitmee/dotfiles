@@ -1,3 +1,4 @@
+default_install_hook_types: [pre-commit, prepare-commit-msg]
 repos:
 -   repo: https://github.com/gitleaks/gitleaks
     rev: v8.18.2
@@ -10,5 +11,12 @@ repos:
         entry: scripts/hooks/check-cursor-cli-config.zsh
         language: system
         files: ^cursor/\.config/cursor/cli-config\.json$
+        pass_filenames: false
+        always_run: true
+    -   id: check-dotfiles-git-email
+        name: check dotfiles author and committer email
+        entry: scripts/hooks/prepare-commit-msg
+        language: system
+        stages: [prepare-commit-msg]
         pass_filenames: false
         always_run: true

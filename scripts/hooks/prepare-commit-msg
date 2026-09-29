@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Reject dotfiles commits with an unexpected author or committer email.
+EXPECTED_EMAIL="lalitkumar.meena.lk@gmail.com"
+
+for role in AUTHOR COMMITTER; do
+    if ! identity="$(git var "GIT_${role}_IDENT" 2>/dev/null)"; then
+        printf 'Commit blocked: cannot determine %s identity.\n' "$role" >&2
+        exit 1
+    fi
+
+    email="${identity##*<}"
+    email="${email%%>*}"
+    if [[ "$email" != "$EXPECTED_EMAIL" ]]; then
+        printf 'Commit blocked: %s email is %s; expected %s.\n' "$role" "$email" "$EXPECTED_EMAIL" >&2
+        printf 'Check git config --show-origin --get user.email and GIT_%s_EMAIL.\n' "$role" >&2
+        exit 1
+    fi
+done
