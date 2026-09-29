@@ -291,6 +291,3 @@ fi
 # zprof
 
 # vim:foldmethod=marker
-
-# opencode
-export PATH=/home/lalitmee/.opencode/bin:$PATH

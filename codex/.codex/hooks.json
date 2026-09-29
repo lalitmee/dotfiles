@@ -24,7 +24,7 @@
       {
         "hooks": [
           {
-            "command": "bash '/home/lalitmee/.codex/herdr-agent-state.sh' session",
+            "command": "if [ -f \"$HOME/.codex/herdr-agent-state.sh\" ]; then bash \"$HOME/.codex/herdr-agent-state.sh\" session; fi",
             "timeout": 10,
             "type": "command"
           }
