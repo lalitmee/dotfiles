@@ -1,7 +1,7 @@
 tui.theme = "cobalt2"
 tui.screen_reader_detection_done = true
 model = "gpt-6-luna"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 sandbox_mode = "workspace-write"
@@ -178,6 +178,7 @@ url = "https://developers.openai.com/mcp"
 
 [mcp_servers.atlassian]
 url = "https://mcp.atlassian.com/v2/mcp"
+enabled = false
 
 [features]
 hooks = true
