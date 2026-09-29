@@ -4,17 +4,19 @@ repos:
     rev: v8.18.2
     hooks:
     -   id: gitleaks
+        stages: [pre-commit]
 -   repo: local
     hooks:
     -   id: check-cursor-cli-config
-        name: check cursor cli-config has no identity/cache keys
+        name: Check Cursor CLI config for identity/cache keys
         entry: scripts/hooks/check-cursor-cli-config.zsh
         language: system
         files: ^cursor/\.config/cursor/cli-config\.json$
         pass_filenames: false
         always_run: true
+        stages: [pre-commit]
     -   id: check-dotfiles-git-email
-        name: check dotfiles author and committer email
+        name: Check dotfiles author and committer email
         entry: scripts/hooks/prepare-commit-msg
         language: system
         stages: [prepare-commit-msg]
