@@ -124,21 +124,20 @@ copy_env_files() {
 # ============================================================================
 copy_additional_files() {
     local target_path="$1"
+    local selected_files
 
-    log "Prompting user for additional file copies"
-    
-    if gum confirm "Do you want to select additional files to copy?"; then
-        # Exclude environment files from fzf list
-        SELECTED_FILES=$(git ls-files | grep -v ".env*" | fzf --bind="change:first" --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+    log "Selecting additional files to copy"
 
-        if [ -n "$SELECTED_FILES" ]; then
-            gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
-                echo "$SELECTED_FILES" | while read -r file; do
-                    rsync -R "$file" "'"$target_path"'/"
-                done
-            '
-            log "Additional files copied to $target_path"
-        fi
+    # Exclude environment files from fzf list
+    selected_files=$(git ls-files | grep -v ".env*" | fzf --bind="change:first" --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+
+    if [ -n "$selected_files" ]; then
+        SELECTED_FILES="$selected_files" gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
+            echo "$SELECTED_FILES" | while read -r file; do
+                rsync -R "$file" "'"$target_path"'/"
+            done
+        '
+        log "Additional files copied to $target_path"
     fi
 }
 

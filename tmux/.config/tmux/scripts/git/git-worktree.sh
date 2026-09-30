@@ -59,10 +59,22 @@ main_menu()
 create_worktree()
                   {
     log "Attempting to create a new worktree"
+    COPY_EXTRA_FILES_FLAG=""
 
     # Use fzf instead of gum to avoid TTY issues in tmux popups
     if command -v fzf >/dev/null 2>&1; then
-        CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | fzf --bind="change:first" --prompt="Choose option: ")
+        CREATE_OUTPUT=$(echo -e "Create new branch\nSelect existing branch" | fzf --bind="change:first" --expect=ctrl-y --prompt="Choose option: " --header="Ctrl-Y: also select extra files")
+        if [[ "$CREATE_OUTPUT" == *$'\n'* ]]; then
+            CREATE_KEY="${CREATE_OUTPUT%%$'\n'*}"
+            CREATE_OPTION="${CREATE_OUTPUT#*$'\n'}"
+        else
+            CREATE_KEY=""
+            CREATE_OPTION="$CREATE_OUTPUT"
+        fi
+
+        if [[ "$CREATE_KEY" == "ctrl-y" ]]; then
+            COPY_EXTRA_FILES_FLAG="--copy-additional-files"
+        fi
     else
         # Fallback to simple input if fzf not available
         CREATE_OPTION=$(echo -e "Create new branch\nSelect existing branch" | head -1)
@@ -111,7 +123,7 @@ create_worktree()
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
         tmux new-window -c "$REPO_ROOT" -n "$WINDOW_NAME" \
-            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '$BASE_BRANCH' '$FOLDER_NAME'"
+            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '$BASE_BRANCH' '$FOLDER_NAME' '$COPY_EXTRA_FILES_FLAG'"
 
     elif [ "$CREATE_OPTION" = "Select existing branch" ]; then
         log "User selected: Select existing branch"
@@ -147,7 +159,7 @@ create_worktree()
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
         tmux new-window -c "$REPO_ROOT" -n "$WINDOW_NAME" \
-            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '' '$FOLDER_NAME'"
+            "$SCRIPT_DIR/workers/worktree-create.sh '$REPO_ROOT' '$WORKTREE_DIR' '$BRANCH_NAME' '' '$FOLDER_NAME' '$COPY_EXTRA_FILES_FLAG'"
     fi
 }
 
@@ -158,16 +170,28 @@ switch_worktree()
                   {
     log "Attempting to switch to a worktree"
 
-    WORKTREE=$(git worktree list | fzf --bind="change:first" --prompt="Select a worktree to switch to: " | awk '{print $1}')
+    FZF_OUTPUT=$(git worktree list | fzf --bind="change:first" --expect=ctrl-y --prompt="Select a worktree to switch to: " --header="Ctrl-Y: also select extra files")
+    if [[ "$FZF_OUTPUT" == *$'\n'* ]]; then
+        KEY="${FZF_OUTPUT%%$'\n'*}"
+        SELECTED_WORKTREE="${FZF_OUTPUT#*$'\n'}"
+    else
+        KEY=""
+        SELECTED_WORKTREE="$FZF_OUTPUT"
+    fi
+    WORKTREE=$(echo "$SELECTED_WORKTREE" | awk '{print $1}')
 
     if [ -n "$WORKTREE" ]; then
         log "Switching to worktree '$WORKTREE'"
         BRANCH_NAME=$(basename "$WORKTREE")
         WINDOW_NAME=$(generate_window_name "$BRANCH_NAME")
+        COPY_EXTRA_FILES_FLAG=""
+        if [[ "$KEY" == "ctrl-y" ]]; then
+            COPY_EXTRA_FILES_FLAG="--copy-additional-files"
+        fi
 
         # CLEAN CALL - NO COMPLEX ESCAPING!
         tmux new-window -c "$WORKTREE" -n "$WINDOW_NAME" \
-            "$SCRIPT_DIR/workers/worktree-switch.sh '$WORKTREE' '$BRANCH_NAME' '$REPO_ROOT'"
+            "$SCRIPT_DIR/workers/worktree-switch.sh '$WORKTREE' '$BRANCH_NAME' '$REPO_ROOT' '$COPY_EXTRA_FILES_FLAG'"
     else
         log "Worktree switch cancelled"
     fi

@@ -9,6 +9,7 @@
 #   $1 - WORKTREE: Path to the worktree to switch to
 #   $2 - BRANCH_NAME: Name of the branch (for window naming)
 #   $3 - REPO_ROOT: Path to the root repository
+#   $4 - COPY_ADDITIONAL_FILES_FLAG: (Optional) --copy-additional-files to select extra files
 
 # Get script directory and source libraries
 SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -23,6 +24,7 @@ setup_environment
 WORKTREE="$1"
 BRANCH_NAME="$2"
 REPO_ROOT="$3"
+COPY_ADDITIONAL_FILES_FLAG="$4"  # Optional - opt in to selecting extra files
 
 # Validate arguments
 if [ -z "$WORKTREE" ] || [ -z "$BRANCH_NAME" ] || [ -z "$REPO_ROOT" ]; then
@@ -52,8 +54,10 @@ copy_tasks_json "$REPO_ROOT" "$WORKTREE"
 # Set git user email
 set_git_user "$WORKTREE"
 
-# Ask about additional files to copy
-copy_additional_files "$WORKTREE"
+# Select additional files only when requested from the picker
+if [[ "$COPY_ADDITIONAL_FILES_FLAG" == "--copy-additional-files" ]]; then
+    copy_additional_files "$WORKTREE"
+fi
 
 # Launch dependency installation if needed
 launch_dependency_install "$WORKTREE" "$BRANCH_NAME"
