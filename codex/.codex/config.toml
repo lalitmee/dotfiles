@@ -13,6 +13,12 @@ external-agent-import-sync-enabled = true
 conversationDetailMode = "STEPS_PROSE"
 ambient-suggestions-enabled = true
 
+[desktop.open-in-target-preferences]
+global = "zed"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/lalit.kumar1/Projects/Work/Github/essence" = "zed"
+
 [plugins."context7@claude-plugins-official"]
 enabled = false
 
