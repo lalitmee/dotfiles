@@ -12,12 +12,29 @@ external-agent-import-sync-item-types = "all"
 external-agent-import-sync-enabled = true
 conversationDetailMode = "STEPS_PROSE"
 ambient-suggestions-enabled = true
+usePointerCursors = true
 
 [desktop.open-in-target-preferences]
 global = "zed"
 
 [desktop.open-in-target-preferences.perPath]
 "/Users/lalit.kumar1/Projects/Work/Github/essence" = "zed"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#3a83f7"
+accentSource = "chatgpt"
+contrast = 60
+ink = "#ffffff"
+opaqueWindows = false
+surface = "#181818"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+code = '"MonoLisa Nerd Font"'
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#40c977"
+diffRemoved = "#fa423e"
+skill = "#ad7bf9"
 
 [plugins."context7@claude-plugins-official"]
 enabled = false
