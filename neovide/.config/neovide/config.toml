@@ -4,8 +4,8 @@ maximized = true
 normal = [
   # "BlexMono Nerd Font Mono",
   # "Operator Mono Lig Book",
-  "IoskeleyMono Nerd Font",
-  # "MonoLisa Nerd Font",
+  # "IoskeleyMono Nerd Font",
+  "MonoLisa Nerd Font",
   # "Iosevka Nerd Font Mono",
   # "Iosevka Nerd Font",
   # "JetBrainsMono Nerd Font",
@@ -13,4 +13,4 @@ normal = [
   # "FiraCode Nerd Font",
 ] # Will use the bundled Fira Code Nerd Font by default
 
-size = 10.0
+size = 12.0
