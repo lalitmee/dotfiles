@@ -75,38 +75,39 @@
     }
   },
   "mcp": {
-    "linear": {
-      "type": "remote",
-      "url": "https://mcp.linear.app/mcp",
-      "enabled": true
-    },
-    "context7": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@upstash/context7-mcp"
-      ],
-      "environment": {
-        "DEFAULT_MINIMUM_TOKENS": "6000"
+    "servers": {
+      "linear": {
+        "type": "remote",
+        "url": "https://mcp.linear.app/mcp"
+      },
+      "context7": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@upstash/context7-mcp"
+        ],
+        "environment": {
+          "DEFAULT_MINIMUM_TOKENS": "6000"
+        }
+      },
+      "crash": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "crash-mcp"
+        ]
+      },
+      "chrome-devtools": {
+        "command": [
+          "npx",
+          "-y",
+          "chrome-devtools-mcp@latest",
+          "--autoConnect"
+        ],
+        "type": "local"
       }
-    },
-    "crash": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "crash-mcp"
-      ]
-    },
-    "chrome-devtools": {
-      "command": [
-        "npx",
-        "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
-      ],
-      "type": "local"
-    },
+    }
   },
 }
