@@ -1,0 +1,2 @@
+# Codex runtime files and themes are local app state; never stow this package.
+^/\.codex(?:/|$)

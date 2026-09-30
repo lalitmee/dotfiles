@@ -17,9 +17,6 @@ usePointerCursors = true
 [desktop.open-in-target-preferences]
 global = "zed"
 
-[desktop.open-in-target-preferences.perPath]
-"/Users/lalit.kumar1/Projects/Work/Github/essence" = "zed"
-
 [desktop.appearanceDarkChromeTheme]
 accent = "#3a83f7"
 accentSource = "chatgpt"
@@ -43,11 +40,6 @@ enabled = false
 [plugins."security-guidance@claude-plugins-official"]
 enabled = false
 
-# Use the anonymous endpoint directly; the Claude plugin endpoint requires auth.
-[mcp_servers.context7]
-url = "https://mcp.context7.com/mcp"
-
-# Disable duplicate skills by name so these rules work regardless of the dotfiles location.
 [[skills.config]]
 name = "audit"
 enabled = false
@@ -170,37 +162,6 @@ enabled = false
 
 [[skills.config]]
 name = "zoom-out"
-enabled = false
-
-[mcp_servers.linear]
-url = "https://mcp.linear.app/mcp"
-
-[mcp_servers.chrome-devtools]
-command = "chrome-devtools-mcp"
-args = ["--autoConnect"]
-
-[mcp_servers.chrome-devtools.env]
-CHROME_DEBUGGING_HOST = "127.0.0.1"
-CHROME_DEBUGGING_PORT = "9222"
-
-[mcp_servers.crash]
-command = "crash-mcp"
-
-[mcp_servers.crash.tools.crash]
-approval_mode = "approve"
-
-[mcp_servers.firebase]
-command = "firebase"
-args = ["mcp"]
-
-[mcp_servers.checkout-dot-com]
-url = "https://mcp.checkout.com"
-
-[mcp_servers.openaiDeveloperDocs]
-url = "https://developers.openai.com/mcp"
-
-[mcp_servers.atlassian]
-url = "https://mcp.atlassian.com/v2/mcp"
 enabled = false
 
 [features]

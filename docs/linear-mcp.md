@@ -10,7 +10,7 @@ This repository configures Linear's hosted MCP server for the clients whose MCP 
 | Zed | Configured in `zed/.config/zed/settings.json` (`context_servers.linear.url`) | Restart/reload MCP servers and authenticate when prompted. |
 | MCPHub for Neovim | Configured in `mcphub/.config/mcphub/servers.json` (`type: "streamable-http"`) | Start the server and complete MCPHub's OAuth flow. |
 | OpenCode | Configured in `opencode/.config/opencode/opencode.json` (`mcp.linear`) | Restart OpenCode and complete OAuth when prompted; if needed, run `opencode mcp auth linear`. |
-| Codex CLI / IDE extension | Configured in `codex/.codex/config.toml` (`mcp_servers.linear`) | Complete OAuth when prompted; if needed, run `codex mcp login linear`. |
+| Codex CLI / IDE extension | Sanitized preference snapshot is tracked; live runtime config is local-only and not stowed | Configure MCP servers, project trust, and authentication in Codex's local settings; if needed, run `codex mcp login linear`. |
 | VS Code | MCP-capable; `vscode/mcp.json` is tracked but intentionally excluded from this change | Add the server through VS Code's user MCP configuration command, not the tracked repository file. |
 | Claude Code | Supported by Linear; local settings are not changed by this setup | Use the command below, or follow Linear's client-specific setup. |
 | Cursor | Supported by Linear; no Cursor config is tracked here | Follow Linear's Cursor setup instructions. |
@@ -19,6 +19,8 @@ This repository configures Linear's hosted MCP server for the clients whose MCP 
 | Antigravity and other MCP clients | Not configured; support/configuration not verified here | Check the client's current MCP documentation and Linear's setup guide before adding it. |
 
 “Configured” means the endpoint is present in a tracked settings file; it does **not** mean the client has completed authentication.
+
+The repository keeps a sanitized Codex preference snapshot in `codex/.codex/config.toml`; it is not stowed into `~/.codex`. The writable `~/.codex/config.toml` remains a detached local file, so Codex's MCP servers, project trust, and other machine-specific changes do not flow back into dotfiles.
 
 ## Endpoint and authentication
 
