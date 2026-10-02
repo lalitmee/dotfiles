@@ -81,6 +81,14 @@
       ],
       "command": "npx"
     },
+    "next-devtools": {
+      "args": [
+        "-y",
+        "next-devtools-mcp@latest"
+      ],
+      "command": "npx",
+      "trust": true
+    },
     "time": {
       "args": [
         "mcp-server-time"
