@@ -14,7 +14,7 @@
     "preferredEditor": "neovim",
     "vimMode": true
   },
-  "hooks": {
+  "inactivehooks": {
     "AfterAgent": [
       {
         "hooks": [
