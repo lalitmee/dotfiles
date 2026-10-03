@@ -346,6 +346,9 @@ set -g history-limit 10000
 # start with mouse mode enabled
 set -g mouse on
 
+# enable extended keys (kitty keyboard protocol / modified Enter keys)
+set -g extended-keys on
+
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
