@@ -70,10 +70,6 @@ run_updates() {
         crush --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
-    get_plandex_version() {
-        plandex version 2>/dev/null | head -1 || echo "Unknown"
-    }
-
     get_kiro_version() {
         kiro-cli --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
@@ -201,6 +197,7 @@ run_updates() {
         update_npm_package "opencode-ai@latest"
         update_npm_package "@vibe-kit/grok-cli@latest"
         update_npm_package "@openai/codex@latest"
+        update_npm_package "@earendil-works/pi-coding-agent@latest"
     fi
 
     # 2.5 Update Non-NPM Tools
@@ -254,28 +251,6 @@ run_updates() {
 
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--interactive" ]]; then
         gum_style "🔄 Updating interactive tools (may require user input)..."
-
-        # Plandex: Re-run install script (requires sudo)
-        if command_exists plandex; then
-            old_version=$(get_plandex_version)
-            gum_style "Updating Plandex (may require sudo password)..."
-            if secure_run_script "https://plandex.ai/install.sh" "Plandex"; then
-                new_version=$(get_plandex_version)
-                status_icon="➡️" # Default: No Change
-                if [[ "$old_version" == "Unknown" && "$new_version" != "Unknown" ]]; then
-                    status_icon="✨" # Newly Installed
-                elif [[ "$old_version" != "$new_version" ]]; then
-                    status_icon="⬆️" # Updated
-                fi
-                gum_style "✅ Success: Plandex updated."
-                update_summary+=("plandex,$status_icon,$old_version,$new_version")
-            else
-                gum_style "❌ Error: Failed to update Plandex."
-                update_summary+=("plandex,❌,$old_version,Update Failed")
-            fi
-        else
-            gum_style "Plandex not installed, skipping update."
-        fi
 
         # Kiro: Re-run install script (may prompt for confirmation)
         if command_exists kiro-cli; then

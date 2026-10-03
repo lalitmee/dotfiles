@@ -3,8 +3,8 @@ a	🚀 Antigravity (agy) AI assistant
 c	🟠 Claude AI assistant
 x	🧬 ChatGPT Codex AI assistant
 o	🧑‍💻 OpenCode AI assistant
-p	 Copilot AI assistant
-d	📋 Plandex AI assistant
+p	🥧 Pi AI assistant
+h	 Copilot AI assistant
 s	💖 Crush AI assistant
 k	🔷 Kiro AI assistant
 r	🧠 Grok AI assistant

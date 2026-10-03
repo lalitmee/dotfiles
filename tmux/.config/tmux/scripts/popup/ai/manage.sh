@@ -59,10 +59,6 @@ get_crush_version() { # {{{
     crush --version 2>/dev/null | awk '{print $NF}' || echo "Not Installed"
 } # }}}
 
-get_plandex_version() { # {{{
-    plandex version 2>/dev/null | head -1 || echo "Not Installed"
-} # }}}
-
 get_kiro_version() { # {{{
     kiro-cli --version 2>/dev/null | awk '{print $NF}' || echo "Not Installed"
 } # }}}
@@ -127,9 +123,9 @@ main() { # {{{
     local ver_grok=$(get_npm_version_fast "@vibe-kit/grok-cli")
     local ver_codex=$(get_npm_version_fast "@openai/codex")
     local ver_crush=$(get_crush_version)
-    local ver_plandex=$(get_plandex_version)
     local ver_kiro=$(get_kiro_version)
     local ver_cursor=$(get_cursor_agent_version)
+    local ver_pi=$(get_npm_version_fast "@earendil-works/pi-coding-agent")
 
     # 2. Present interactive selection list via fzf
     local selections
@@ -141,9 +137,9 @@ main() { # {{{
         "🧠 grok ($ver_grok)" \
         "🧬 codex ($ver_codex)" \
         "💖 crush ($ver_crush)" \
-        "📋 plandex ($ver_plandex)" \
         "🔷 kiro ($ver_kiro)" \
         "🖱️ cursor-agent ($ver_cursor)" \
+        "🥧 pi ($ver_pi)" \
         "📦 [npm] Install/update custom global npm package..." \
         "🦀 [cargo] Install/update custom cargo package..." \
         "🐹 [go] Install/update custom go package..." \
@@ -168,7 +164,7 @@ main() { # {{{
         local manager=""
         
         # Identify tool or package manager
-        if [[ "$line" == "🚀"* || "$line" == ""* || "$line" == "🟠"* || "$line" == "🧑‍💻"* || "$line" == "🧬"* || "$line" == "📋"* || "$line" == "💖"* || "$line" == "🔷"* || "$line" == "🧠"* || "$line" == "🖱️"* ]]; then
+        if [[ "$line" == "🚀"* || "$line" == ""* || "$line" == "🟠"* || "$line" == "🧑‍💻"* || "$line" == "🧬"* || "$line" == "💖"* || "$line" == "🔷"* || "$line" == "🧠"* || "$line" == "🖱️"* || "$line" == "🥧"* ]]; then
             tool=$(echo "$line" | awk '{print $2}')
         elif [[ "$line" == "📦"* ]]; then
             manager="npm"
@@ -242,14 +238,14 @@ main() { # {{{
                 crush)
                     go install github.com/charmbracelet/crush@latest || install_status=$?
                     ;;
-                plandex)
-                    secure_run_script "https://plandex.ai/install.sh" "Plandex" || install_status=$?
-                    ;;
                 kiro)
                     secure_run_script "https://cli.kiro.dev/install" "Kiro CLI" || install_status=$?
                     ;;
                 cursor-agent)
                     cursor-agent update || install_status=$?
+                    ;;
+                pi)
+                    install_npm_global "@earendil-works/pi-coding-agent@latest" || install_status=$?
                     ;;
             esac
         fi

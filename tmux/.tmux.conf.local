@@ -1099,10 +1099,6 @@ bind-key -T ai-tools c display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/po
 bind-key -T ai-tools x display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh codex"
 
 
-# Copilot
-# Plandex
-bind-key -T ai-tools d display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh plandex"
-
 # Crush
 bind-key -T ai-tools s display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh crush"
 
@@ -1111,7 +1107,12 @@ bind-key -T ai-tools k display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/po
 
 # Grok CLI
 bind-key -T ai-tools r display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh grok"
-bind-key -T ai-tools p display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh copilot"
+
+# Pi Agent
+bind-key -T ai-tools p display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh pi"
+
+# GitHub Copilot
+bind-key -T ai-tools h display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh copilot"
 
 # Cursor Agent
 bind-key -T ai-tools g display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/popup/ai/tool.sh cursor-agent"
@@ -1129,7 +1130,7 @@ bind-key -T ai-tools g display-popup -w 85% -h 85% -E "~/.config/tmux/scripts/po
 # Update the AI tools (non-interactive - npm + crush)
 bind-key -T ai-tools u run-shell -b "UPDATE_MODE=--non-interactive ~/.config/tmux/scripts/popup/ai/update.sh"
 
-# Update the AI tools (interactive - plandex + kiro)
+# Update the AI tools (interactive - kiro)
 bind-key -T ai-tools U run-shell -b "UPDATE_MODE=--interactive ~/.config/tmux/scripts/popup/ai/update.sh"
 
 # Select and install/update specific AI tools or general CLI tools interactively

@@ -404,7 +404,7 @@ pick_flags() { # {{{
         if [[ "$flag" == "--agent" ]]; then
             local agent_name
             agent_name=$(gum input \
-                --placeholder "e.g., opencode, claude, agy" \
+                --placeholder "e.g., opencode, claude, agy, pi" \
                 --header "Agent name" \
                 --header.foreground "$COLOR_HEADER" \
                 --cursor.foreground "$COLOR_ACCENT")
