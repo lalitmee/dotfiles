@@ -1,4 +1,37 @@
 tui.theme = "cobalt2"
+tui.screen_reader_detection_done = true
+model = "gpt-6-luna"
+model_reasoning_effort = "medium"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+
+[desktop]
+followUpQueueMode = "steer"
+external-agent-import-sync-item-types = "all"
+external-agent-import-sync-enabled = true
+conversationDetailMode = "STEPS_PROSE"
+ambient-suggestions-enabled = true
+usePointerCursors = true
+
+[desktop.open-in-target-preferences]
+global = "zed"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#3a83f7"
+accentSource = "chatgpt"
+contrast = 60
+ink = "#ffffff"
+opaqueWindows = false
+surface = "#181818"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+code = '"MonoLisa Nerd Font"'
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#40c977"
+diffRemoved = "#fa423e"
+skill = "#ad7bf9"
 
 [plugins."context7@claude-plugins-official"]
 enabled = false
@@ -7,131 +40,129 @@ enabled = false
 [plugins."security-guidance@claude-plugins-official"]
 enabled = false
 
-# Use the anonymous endpoint directly; the Claude plugin endpoint requires auth.
-[mcp_servers.context7]
-url = "https://mcp.context7.com/mcp"
-
-# Identical repository copies are also available through ~/.agents/skills.
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/audit/SKILL.md"
+name = "audit"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/caveman/SKILL.md"
+name = "caveman"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/cleanup/SKILL.md"
+name = "cleanup"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/commit/SKILL.md"
+name = "commit"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/debug/SKILL.md"
+name = "debug"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/deps-audit/SKILL.md"
+name = "deps-audit"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/diagnose/SKILL.md"
+name = "diagnose"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/draft/SKILL.md"
+name = "draft"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/explain/SKILL.md"
+name = "explain"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/explore/SKILL.md"
+name = "explore"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/find-docs/SKILL.md"
+name = "find-docs"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/gen-docs/SKILL.md"
+name = "gen-docs"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/gen-gemini/SKILL.md"
+name = "gen-gemini"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/gen-test/SKILL.md"
+name = "gen-test"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/grill-me/SKILL.md"
+name = "grill-me"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/grill-with-docs/SKILL.md"
+name = "grill-with-docs"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/improve-codebase-architecture/SKILL.md"
+name = "improve-codebase-architecture"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/organize/SKILL.md"
+name = "organize"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/prioritize/SKILL.md"
+name = "prioritize"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/prototype/SKILL.md"
+name = "prototype"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/rename/SKILL.md"
+name = "rename"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/report/SKILL.md"
+name = "report"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/review-code/SKILL.md"
+name = "review-code"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/review-pr/SKILL.md"
+name = "review-pr"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/setup-matt-pocock-skills/SKILL.md"
+name = "setup-matt-pocock-skills"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/summarize/SKILL.md"
+name = "summarize"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/to-issues/SKILL.md"
+name = "to-issues"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/to-prd/SKILL.md"
+name = "to-prd"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/triage/SKILL.md"
+name = "triage"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/whatsnew/SKILL.md"
+name = "whatsnew"
 enabled = false
 
 [[skills.config]]
-path = "~/dotfiles/.agents/skills/zoom-out/SKILL.md"
+name = "zoom-out"
 enabled = false
+
+[features]
+hooks = true

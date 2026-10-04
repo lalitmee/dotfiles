@@ -50,10 +50,6 @@ case "$TOOL" in
         ICON=" "; PANE_TITLE="$ICON copilot"
         COMMAND="copilot --banner"
         ;;
-    plandex)
-        ICON="📋"; PANE_TITLE="$ICON plandex"
-        COMMAND="plandex"
-        ;;
     crush)
         ICON="💖"; PANE_TITLE="$ICON crush"
         COMMAND="crush"
@@ -69,6 +65,10 @@ case "$TOOL" in
     cursor-agent)
         ICON="🖱️"; PANE_TITLE="$ICON cursor-agent"
         COMMAND="cursor-agent"
+        ;;
+    pi)
+        ICON="🥧"; PANE_TITLE="$ICON pi"
+        COMMAND="pi"
         ;;
     *)
         tmux display-message "❌ Error: Unknown AI tool '$TOOL'"

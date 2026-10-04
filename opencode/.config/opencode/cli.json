@@ -1,0 +1,38 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "cobalt2-custom",
+    "mode": "system"
+  },
+  "scroll": {
+    "speed": 5,
+    "acceleration": true
+  },
+  "diffs": {
+    "wrap": "word"
+  },
+  "session": {
+    "sidebar": "auto",
+    "scrollbar": false,
+    "thinking": "show",
+    "permissions": "autoaccept",
+    "image_preview": true,
+    "new_location": "launch"
+  },
+  "animations": true,
+  "tabs": {
+    "mode": "auto",
+    "layout": "horizontal",
+    "indicators": "status"
+  },
+  "prompt": {
+    "image_preview": true
+  },
+  "attention": {
+    "notifications": true,
+    "sound": true
+  },
+  "debug": {
+    "devtools": false
+  }
+}

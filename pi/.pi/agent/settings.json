@@ -1,0 +1,28 @@
+{
+  "theme": "cobalt2",
+  "skills": [
+    "~/.agents/skills"
+  ],
+  "prompts": [
+    "~/.config/opencode/command"
+  ],
+  "defaultTools": [
+    "read",
+    "bash",
+    "edit",
+    "write"
+  ],
+  "enableSkillCommands": true,
+  "tuiMode": "fullscreen",
+  "quietStartup": "header",
+  "autocompleteMaxVisible": 8,
+  "terminal": {
+    "trueColor": true,
+    "showImages": true
+  },
+  "defaultProjectTrust": "ask",
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3
+  }
+}

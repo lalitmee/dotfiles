@@ -1,7 +1,7 @@
 {
   "allowNonWorkspaceAccess": true,
   "colorScheme": "tokyo night",
-  "model": "Gemini 3.5 Flash (Medium)",
+  "model": "Gemini 3.8 Flash (Low)",
   "permissions": {
     "allow": [
       "command(git log)",
@@ -19,10 +19,23 @@
       "command(sort)",
       "command(tmux)",
       "command(nvim)",
-      "command(git show)"
+      "command(git show)",
+      "command(flatpak)",
+      "command(grep)",
+      "command(wc)",
+      "command(date)",
+      "command(git rev-parse)",
+      "command(i3-msg)",
+      "command(pgrep)",
+      "command(gh repo create)",
+      "command(gh)"
     ]
   },
   "trustedWorkspaces": [
-    "/home/lalitmee/dotfiles"
+    "/home/lalitmee/dotfiles",
+    "/home/lalitmee/Projects/Personal/Github/second-brain",
+    "/home/lalitmee/Projects/Personal/Github/browse.nvim",
+    "/home/lalitmee/Projects/Personal/Github",
+    "/home/lalitmee/dotfiles-worktrees/workmux-flow"
   ]
 }

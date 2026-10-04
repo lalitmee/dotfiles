@@ -124,21 +124,20 @@ copy_env_files() {
 # ============================================================================
 copy_additional_files() {
     local target_path="$1"
+    local selected_files
 
-    log "Prompting user for additional file copies"
-    
-    if gum confirm "Do you want to select additional files to copy?"; then
-        # Exclude environment files from fzf list
-        SELECTED_FILES=$(git ls-files | grep -v ".env*" | fzf --bind="change:first" --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+    log "Selecting additional files to copy"
 
-        if [ -n "$SELECTED_FILES" ]; then
-            gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
-                echo "$SELECTED_FILES" | while read -r file; do
-                    rsync -R "$file" "'"$target_path"'/"
-                done
-            '
-            log "Additional files copied to $target_path"
-        fi
+    # Exclude environment files from fzf list
+    selected_files=$(git ls-files | grep -v ".env*" | fzf --bind="change:first" --multi --preview 'bat --color=always --style=numbers --line-range=:500 {}')
+
+    if [ -n "$selected_files" ]; then
+        SELECTED_FILES="$selected_files" gum spin --spinner dot --title "Copying selected files..." --show-output -- bash -c '
+            echo "$SELECTED_FILES" | while read -r file; do
+                rsync -R "$file" "'"$target_path"'/"
+            done
+        '
+        log "Additional files copied to $target_path"
     fi
 }
 
@@ -180,22 +179,34 @@ copy_tasks_json() {
 }
 
 # ============================================================================
-# Set git user email in worktree
-# Always sets the configured email for the worktree
+# Set a repo-configured git user email only for worktrees without an explicit identity
 # ============================================================================
 set_git_user() {
     local target_path="$1"
-    local git_email="lalit.kumar1@nykaa.com"
+    local git_email
+    local email_config
 
-    log "Setting git user email in $target_path"
+    email_config="$(git -C "$target_path" config --show-scope --get user.email 2>/dev/null)" || email_config=""
+    case "$email_config" in
+        local$'\t'*|worktree$'\t'*)
+            log "Keeping existing git user.email in $target_path"
+            return 0
+            ;;
+    esac
 
-    # Change to target worktree directory
-    cd "$target_path" || return
+    git_email="$(git -C "$target_path" config --local --get dotfiles.worktreeEmail 2>/dev/null)" || git_email=""
+    if [[ -z "$git_email" ]]; then
+        log "No repo-specific worktree email in $target_path; keeping inherited Git identity"
+        return 0
+    fi
 
-    # Set the git user email
-    git config user.email "$git_email"
-    
-    log "Set git user.email to '$git_email' in worktree"
+    if ! git -C "$target_path" config extensions.worktreeConfig true ||
+        ! git -C "$target_path" config --worktree user.email "$git_email"; then
+        error_log "Could not set worktree git user.email in $target_path"
+        return 1
+    fi
+
+    log "Set worktree git user.email from dotfiles.worktreeEmail in $target_path"
 }
 
 # vim:fdm=marker

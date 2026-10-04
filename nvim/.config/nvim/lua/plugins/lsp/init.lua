@@ -374,19 +374,44 @@ return {
         -- enabled = false,
     },
 
-    { --[[ rust-tools ]]
-        "simrat39/rust-tools.nvim",
-        ft = "rust",
-        opts = {
-            server = {
-                on_attach = function(_, bufnr)
-                    -- Hover actions
-                    lk.nnoremap("K", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
-                    -- Code action groups
-                    lk.nnoremap("<leader>la", require("rust-tools").action_group.code_action_group, { buffer = bufnr })
-                end,
-            },
-        },
+    { --[[ rustaceanvim ]]
+        "mrcjkb/rustaceanvim",
+        version = "^5",
+        lazy = false,
+        ft = { "rust" },
+        init = function()
+            vim.g.rustaceanvim = {
+                server = {
+                    on_attach = function(client, bufnr)
+                        local lsp_utils = require("plugins.lsp.utils")
+                        lsp_utils.on_attach(client, bufnr)
+
+                        -- Rust specific keymaps
+                        lk.nnoremap("K", function()
+                            vim.cmd.RustLsp({ "hover", "actions" })
+                        end, { buffer = bufnr, desc = "Rust Hover Actions" })
+
+                        lk.nnoremap("<leader>la", function()
+                            vim.cmd.RustLsp("codeAction")
+                        end, { buffer = bufnr, desc = "Rust Code Action" })
+                    end,
+                    default_settings = {
+                        ["rust-analyzer"] = {
+                            inlayHints = { locationLinks = true },
+                            diagnostics = { enable = true, experimental = { enable = true } },
+                            hover = { actions = { enable = true } },
+                            procMacro = { enable = true },
+                            cargo = { allFeatures = true },
+                            checkOnSave = true,
+                            check = {
+                                command = "clippy",
+                                extraArgs = { "--no-deps" },
+                            },
+                        },
+                    },
+                },
+            }
+        end,
     },
 
     { --[[ flutter-tools ]]

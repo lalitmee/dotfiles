@@ -12,6 +12,7 @@
 #   $3 - BRANCH_NAME: Name of the branch to create worktree for
 #   $4 - BASE_BRANCH: (Optional) Base branch for new branches
 #   $5 - FOLDER_NAME: (Optional) Custom folder name (defaults to branch name if not provided)
+#   $6 - COPY_ADDITIONAL_FILES_FLAG: (Optional) --copy-additional-files to select extra files
 
 # Get script directory and source libraries
 SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -28,6 +29,7 @@ WORKTREE_DIR="$2"
 BRANCH_NAME="$3"
 BASE_BRANCH="$4"  # Optional - only for new branches
 FOLDER_NAME="$5"  # Optional - custom folder name
+COPY_ADDITIONAL_FILES_FLAG="$6"  # Optional - opt in to selecting extra files
 
 # Use custom folder name if provided, otherwise use branch name
 if [[ -n "$FOLDER_NAME" ]]; then
@@ -104,8 +106,10 @@ copy_tasks_json "$REPO_ROOT" "$TARGET_WORKTREE"
 # Set git user email
 set_git_user "$TARGET_WORKTREE"
 
-# Ask about additional files to copy
-copy_additional_files "$TARGET_WORKTREE"
+# Select additional files only when requested from the picker
+if [[ "$COPY_ADDITIONAL_FILES_FLAG" == "--copy-additional-files" ]]; then
+    copy_additional_files "$TARGET_WORKTREE"
+fi
 
 # Launch dependency installation if needed
 launch_dependency_install "$TARGET_WORKTREE" "$BRANCH_NAME"

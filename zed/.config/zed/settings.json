@@ -11,6 +11,8 @@
 // Track progress: https://github.com/zed-industries/zed/discussions/26043
 // When available, use syntax like: "api_key": "${env:MY_API_KEY}"
 {
+  "markdown_preview_code_font_family": "MonoLisa Nerd Font",
+  "markdown_preview_font_family": ".ZedSans",
   "disable_ai": false,
   "soft_wrap": "bounded",
   "cli_default_open_behavior": "new_window",
@@ -25,7 +27,7 @@
   },
   "ui_font_family": ".ZedMono",
   "buffer_font_size": 12.0,
-  "buffer_font_family": "IoskeleyMono Nerd Font",
+  "buffer_font_family": "MonoLisa Nerd Font",
   "edit_predictions": {
     "provider": "zed",
     "mode": "eager",
@@ -158,6 +160,9 @@
   // manually edit ~/.config/zed/settings.json after stowing this config.
   // Do NOT commit API keys to version control.
   "context_servers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+    },
     "chrome-devtools-mcp-zed": {
       "enabled": true,
       "remote": false,

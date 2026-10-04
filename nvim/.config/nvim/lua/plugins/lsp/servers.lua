@@ -88,21 +88,7 @@ return {
     },
     marksman = {},
     pyright = {},
-    rust_analyzer = {
-        settings = {
-            ["rust-analyzer"] = {
-                inlayHints = { locationLinks = true },
-                diagnostics = { enable = true, experimental = { enable = true } },
-                hover = { actions = { enable = true } },
-                procMacro = { enable = true },
-                cargo = { allFeatures = true },
-                checkOnSave = {
-                    command = "clippy",
-                    extraArgs = { "--no-deps" },
-                },
-            },
-        },
-    },
+    rust_analyzer = false, -- Managed by rustaceanvim
     tailwindcss = {
         filetypes = {
             "astro",

@@ -3,10 +3,13 @@
   "autoshare": false,
   "autoupdate": true,
   "plugins": [
-    "superpowers@git+https://github.com/obra/superpowers.git",
+    "superpowers@git+https://github.com/obra/superpowers.git#v6.4.2",
     "@tarquinen/opencode-dcp@latest",
-    "{env:HOME}/Projects/Personal/Github/ponytail/.opencode/plugins/ponytail.mjs",
-    "{env:HOME}/Projects/Personal/Github/workmux/resources/opencode/plugins",
+    "github:lalitmee/ponytail#opencode-v2",
+    "github:lalitmee/workmux#opencode-v2::path:resources/opencode",
+    // Local alternatives: replace the matching GitHub entry above to test locally.
+    // "{env:HOME}/Projects/Personal/Github/ponytail/.opencode/plugins/ponytail.mjs",
+    // "{env:HOME}/Projects/Personal/Github/workmux/resources/opencode/plugins",
     "-{env:HOME}/.config/opencode/plugins/herdr-agent-state.js"
   ],
   "agent": {
@@ -75,41 +78,39 @@
     }
   },
   "mcp": {
-    "context7": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@upstash/context7-mcp"
-      ],
-      "environment": {
-        "DEFAULT_MINIMUM_TOKENS": "6000"
+    "servers": {
+      "linear": {
+        "type": "remote",
+        "url": "https://mcp.linear.app/mcp"
+      },
+      "context7": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@upstash/context7-mcp"
+        ],
+        "environment": {
+          "DEFAULT_MINIMUM_TOKENS": "6000"
+        }
+      },
+      "crash": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "crash-mcp"
+        ]
+      },
+      "chrome-devtools": {
+        "command": [
+          "npx",
+          "-y",
+          "chrome-devtools-mcp@latest",
+          "--autoConnect"
+        ],
+        "type": "local"
       }
-    },
-    "crash": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "crash-mcp"
-      ]
-    },
-    "chrome-devtools": {
-      "command": [
-        "npx",
-        "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
-      ],
-      "type": "local"
-    },
-    "nysaa-atlas": {
-      "type": "remote",
-      "url": "https://13.235.180.25/mcp",
-      "enabled": false,
-      "headers": {
-        "Authorization": "Bearer {env:NYSAA_ATLAS_TOKEN}"
-      }
-    },
+    }
   },
 }

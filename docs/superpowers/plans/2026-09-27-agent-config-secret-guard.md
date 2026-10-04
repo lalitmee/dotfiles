@@ -27,7 +27,7 @@
 ### Task 1: Pass the history and local-config safety gate
 
 **Files:**
-- Read only: `codex/.codex/config.toml`, `opencode/.config/opencode/opencode.json`, `vscode/mcp.json` in the original checkout `/Users/lalit.kumar1/dotfiles`
+- Read only: `codex/.codex/config.toml`, `opencode/.config/opencode/opencode.json`, `vscode/mcp.json` in the original checkout `~/dotfiles`
 - Read only: `.gitignore`, `.gitleaks.toml`, and tracked AI configs in this worktree
 
 **Interfaces:**
@@ -36,7 +36,7 @@
 
 - [ ] **Step 1: Fetch all configured remote branches and tags**
 
-Run in `/Users/lalit.kumar1/dotfiles-worktrees/agent-config-secret-guard`:
+Run in `~/dotfiles-worktrees/agent-config-secret-guard`:
 
 ```bash
 git fetch --prune --tags origin
@@ -188,7 +188,7 @@ Expected: successful fixture results, valid pinned-version configuration, and no
 
 - [ ] **Step 1: Copy the existing local configs into this worktree after the history gate passes**
 
-Copy the three local-only config files from `/Users/lalit.kumar1/dotfiles` into the matching paths under `/Users/lalit.kumar1/dotfiles-worktrees/agent-config-secret-guard`. Do not display their contents. Keep a local backup outside the repository until the sanitized versions have been validated.
+Copy the three local-only config files from `~/dotfiles` into the matching paths under `~/dotfiles-worktrees/agent-config-secret-guard`. Do not display their contents. Keep a local backup outside the repository until the sanitized versions have been validated.
 
 - [ ] **Step 2: Externalize or remove credential-bearing fields**
 

@@ -407,3 +407,8 @@
 
 [url "git@github.com-personal:lalitmee/"]
     insteadOf = "lkp:"
+
+# Keep this after [user] so personal repositories retain the personal email
+# even if the global default changes.
+[includeIf "gitdir:~/Projects/Personal/Github/"]
+    path = ~/dotfiles/scripts/hooks/personal-github.config
