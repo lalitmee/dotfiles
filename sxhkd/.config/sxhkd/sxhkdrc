@@ -312,7 +312,7 @@ super + n
 
 # Scratchpad: NotebookLM (Brave PWA)
 super + ctrl + n
-    i3run --summon --instance crx_gjcmcplpgihbecacndmmbaenpfgimlec -- brave-browser --app-id=gjcmcplpgihbecacndmmbaenpfgimlec
+    i3run --summon --instance crx_kjfmejlnnfibknebffpdmphoiomckhdb -- brave-browser --app-id=kjfmejlnnfibknebffpdmphoiomckhdb
 
 # Scratchpad: Bottom (System Monitor)
 super + b
