@@ -4,8 +4,5 @@ name: markdown-previewer
 root: ~/Projects/Personal/Github/markdown-previewer
 
 windows:
-  - zsh:
-      panes:
-        - # main pane
   - server: yarn build && yarn preview
   - "🧑‍💻 openCode": opencode
