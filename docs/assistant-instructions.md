@@ -1,0 +1,32 @@
+# Assistant instruction locations
+
+This dotfiles repo keeps short, always-on response preferences in each client's global instruction mechanism. The detailed challenge-and-recommendation workflow lives once in [`agents/.agents/skills/advisor/SKILL.md`](../agents/.agents/skills/advisor/SKILL.md) and is intended to be invoked when wanted.
+
+## Locations and invocation
+
+| Client / surface | Global instructions or rules | Advisor skill discovery | Explicit invocation | Storage and sync |
+| --- | --- | --- | --- | --- |
+| OpenCode | `~/.config/opencode/AGENTS.md` ([repo](../opencode/.config/opencode/AGENTS.md)) | `~/.agents/skills/advisor/SKILL.md` ([shared repo skill](../agents/.agents/skills/advisor/SKILL.md)) | Use `/advisor` for the custom command ([repo](../opencode/.config/opencode/commands/advisor.md)); the skill itself can also be explicitly mentioned as `@advisor`. `/advisor` is this repo's command wrapper, not OpenCode's built-in skill syntax. | Stow-managed local files; no account sync. OpenCode also reads project `AGENTS.md` files. |
+| Codex | `~/.codex/AGENTS.md` ([repo](../codex/.codex/AGENTS.md)) | `~/.agents/skills/advisor/SKILL.md` ([repo](../agents/.agents/skills/advisor/SKILL.md)) | Select/mention the `advisor` skill in the skill picker; in Codex CLI/IDE contexts that support skill references, use `$advisor`. | Global files are local. These paths are separate Stow packages; skill content is shared from the canonical `agents` package. |
+| Gemini CLI | `~/.gemini/GEMINI.md` ([repo](../gemini-cli/.gemini/GEMINI.md)); `/memory show` inspects loaded context and `/memory refresh` reloads it. | `~/.agents/skills/advisor/SKILL.md` ([repo](../agents/.agents/skills/advisor/SKILL.md)) | Gemini CLI skills are surfaced for the agent to use when relevant; there is no documented per-skill `/advisor` command. Ask in the prompt to use the advisor skill. `/skills list` and `/skills reload` inspect and refresh skill discovery. | Stow-managed local files; no account sync. `GEMINI.md` is Gemini CLI's global context file. |
+| Antigravity IDE | Global rules may live in `~/.gemini/AGENTS.md`, `~/.gemini/GEMINI.md`, `~/.gemini/config/AGENTS.md`, `~/.gemini/config/GEMINI.md`, or modular `~/.gemini/config/rules/*.md`. This setup shares `~/.gemini/GEMINI.md` with Gemini CLI. | `~/.gemini/config/skills/advisor/` → shared skill ([repo link](../gemini-cli/.gemini/config/skills/advisor)) | `/advisor` in the prompt panel; the IDE also activates relevant skills automatically. | Stow-managed local file/link; no account sync. Inspect skills in the agent side panel's Customizations menu. |
+| Antigravity CLI | Global rules include `~/.gemini/AGENTS.md`, `~/.gemini/GEMINI.md`, `~/.gemini/config/rules/*.md`, and CLI-specific `~/.gemini/antigravity-cli/rules/*.md`. This setup shares `~/.gemini/GEMINI.md` with Gemini CLI. | `~/.gemini/antigravity-cli/skills/advisor/` → shared skill ([repo link](../gemini-cli/.gemini/antigravity-cli/skills/advisor)) | `/advisor` in the interactive TUI; CLI skills are converted to slash commands. | Stow-managed local file/link; no account sync. IDE and CLI have separate global skill roots. |
+| Pi | `~/.pi/agent/APPEND_SYSTEM.md` ([repo](../pi/.pi/agent/APPEND_SYSTEM.md)) appends to Pi's system prompt. | `~/.agents/skills/advisor/SKILL.md` ([repo](../agents/.agents/skills/advisor/SKILL.md)) | `/skill:advisor` | Stow-managed local files; no account sync. |
+| Cursor | `~/.cursor/rules/advisor-baseline.mdc` ([repo](../cursor/.cursor/rules/advisor-baseline.mdc)); alternatively, account User Rules are set in **Customize → Rules**. | `~/.agents/skills/advisor/SKILL.md` | `/advisor` or type `@` and select the skill. | The dotfiles rule file stays on this machine and does not sync. User Rules in Cursor Settings are account-synced across devices. |
+
+The skill's portable natural-language invocation is “Use the `advisor` skill.” Explicit invocation varies by client: OpenCode and Cursor support `/advisor`, Pi supports `/skill:advisor`, and Codex supports mentioning or selecting the skill in its picker. The skill disables implicit invocation where documented: Cursor and Pi use `disable-model-invocation: true`, OpenCode uses `metadata.opencode/autoinvoke: false` while keeping its slash command enabled, and Codex uses `policy.allow_implicit_invocation: false` in the skill-local `agents/openai.yaml`. Gemini CLI documents an in-session `/skills disable advisor` command, but no equivalent per-skill frontmatter opt-out; Antigravity documents no per-skill suppression field. The shared metadata therefore does not promise that implicit activation is disabled in those clients; use their explicit command or prompt when you want the skill.
+
+## Stow and deployment boundary
+
+The files above are repository sources. Editing a Stow package changes the source in this checkout; it does not by itself prove that the intended home-directory path is linked or that a running client has loaded it. Deployment/linking is a separate operation. Do not run `./install.sh` without explicit user confirmation. After deployment, inspect each client's loaded instructions and skill list using its documented UI or commands; those runtime checks were not performed as part of this repository-only change.
+
+Cursor's account User Rules are not managed by these Stow files. Antigravity's global Rules UI is another supported route, but this setup uses local files. The shared skill resides at `agents/.agents/skills/advisor/`; the Antigravity links in this repo point to that canonical copy.
+
+## Official documentation
+
+- [OpenCode instructions](https://opencode.ai/v2/docs/instructions/), [skills](https://opencode.ai/v2/docs/skills), and [commands](https://opencode.ai/v2/docs/commands/)
+- [Codex `AGENTS.md` instructions](https://developers.openai.com/codex/guides/agents-md) and [skills](https://developers.openai.com/codex/skills)
+- [Gemini CLI configuration and context files](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/configuration.md) and [Agent Skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/using-agent-skills.md)
+- [Antigravity rules](https://www.antigravity.google/docs/rules/) and [skills, including IDE and CLI locations](https://www.antigravity.google/docs/skills)
+- [Pi configuration](https://pi.dev/docs/latest/configuration) and [skills](https://pi.dev/docs/latest/skills)
+- [Cursor rules](https://cursor.com/help/customization/rules) and [skills](https://cursor.com/help/customization/skills)

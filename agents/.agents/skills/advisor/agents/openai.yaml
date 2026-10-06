@@ -1,0 +1,7 @@
+interface:
+  display_name: "Advisor"
+  short_description: "Candid advice, critique, and recommendations"
+policy:
+  products:
+    - CODEX
+  allow_implicit_invocation: false

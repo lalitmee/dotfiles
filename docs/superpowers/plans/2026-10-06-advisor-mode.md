@@ -34,26 +34,31 @@
 
 **Files:**
 - Create: `agents/.agents/skills/advisor/SKILL.md`
+- Create: `agents/.agents/skills/advisor/agents/openai.yaml`
 
 **Interfaces:**
 - Consumes: the user's agreed advisor wording from the conversation.
 - Produces: one on-demand Agent Skill named `advisor`, usable through shared skill discovery.
 
-- [ ] **Step 1: Write the skill frontmatter and trigger description**
+- [x] **Step 1: Write the skill frontmatter and trigger description**
 
 Use `name: advisor` and a concise description that says to invoke it when the user asks for advice, critique, a recommendation, or assumption testing. State that it is opt-in and must not be silently applied to unrelated implementation tasks.
 
-- [ ] **Step 2: Write the advisor workflow**
+- [x] **Step 2: Write the advisor workflow**
 
 Include these behaviors: identify the decision and constraints; inspect relevant configs/evidence when available; state the strongest concern first; distinguish facts, inferences, and unknowns; challenge only real assumptions; when disagreeing, explain why, give an alternative, and name the concrete risk; hold conclusions against unsupported pushback but update when new evidence changes them; finish with practical options/recommendation. Confidence labels are optional and reserved for material uncertainty.
 
-- [ ] **Step 3: Add an explicit invocation convention**
+- [x] **Step 3: Add an explicit invocation convention**
 
 Document the portable invocation as asking to use the `advisor` skill. Use a native slash skill command where supported; do not promise one identical syntax across all clients.
 
-- [ ] **Step 4: Review the skill for contradictions and scope creep**
+- [x] **Step 3a: Disable implicit invocation where supported**
 
-Confirm it contains no forced disagreement, no universal confidence-prefix requirement, and no advice to expose private chain-of-thought.
+Set each supported client-specific control so the skill remains discoverable and explicitly invokable but is not loaded just because the task seems relevant: Cursor and Pi `disable-model-invocation: true`; OpenCode `metadata.opencode/autoinvoke: false` while leaving slash invocation enabled; Codex `agents/openai.yaml` with `policy.allow_implicit_invocation: false`. Do not claim equivalent opt-out support for clients where current documentation does not provide it; document that limitation.
+
+- [x] **Step 4: Review the skill for contradictions and scope creep**
+
+Confirm it contains no forced disagreement, no universal confidence-prefix requirement, and no advice to expose private chain-of-thought. Verify the per-client metadata leaves explicit activation available.
 
 ### Task 2: Add an OpenCode slash-command entry point
 
@@ -65,19 +70,19 @@ Confirm it contains no forced disagreement, no universal confidence-prefix requi
 - Consumes: the `advisor` skill from the shared Agent Skills directory.
 - Produces: OpenCode's global baseline instructions and an `/advisor` command that activates the skill and applies it to `$ARGUMENTS` or the current discussion.
 
-- [ ] **Step 1: Confirm OpenCode command discovery for the installed version**
+- [x] **Step 1: Confirm OpenCode command discovery for the installed version**
 
 The installed CLI is OpenCode v2.0.24 and its current v2 docs describe `~/.config/opencode/commands/`; the repository's older command files are in `command/`. Add the new command in the documented plural `commands/` directory without moving existing commands. Do not run an interactive session or deploy the package.
 
-- [ ] **Step 2: Add the concise global baseline**
+- [x] **Step 2: Add the concise global baseline**
 
 Create `opencode/.config/opencode/AGENTS.md` with the approved concise baseline preferences and a note that stronger advisor behavior is opt-in via the `advisor` skill. Keep this separate from primary-agent and specialized-agent prompts.
 
-- [ ] **Step 3: Create the thin command wrapper**
+- [x] **Step 3: Create the thin command wrapper**
 
 Write frontmatter with a clear description and a body that asks OpenCode to load the `advisor` skill, then apply it to the supplied arguments or current topic. Keep workflow text out of the command.
 
-- [ ] **Step 4: Verify repo-level config and command syntax without deploying**
+- [x] **Step 4: Verify repo-level config and command syntax without deploying**
 
 Validate the new Markdown/frontmatter and confirm its path matches the installed version's discovery rules by inspecting the current docs/runtime. Do not stow or modify live home-directory configuration during this task.
 
@@ -90,11 +95,11 @@ Validate the new Markdown/frontmatter and confirm its path matches the installed
 - Consumes: the user's concise always-on style preferences and shared `advisor` skill.
 - Produces: Codex user-level instructions when this Stow package is deployed to `~/.codex`.
 
-- [ ] **Step 1: Write only the baseline preferences**
+- [x] **Step 1: Write only the baseline preferences**
 
 Copy the exact baseline from Global Constraints verbatim. Add one sentence that stronger adversarial critique is opt-in via the `advisor` skill.
 
-- [ ] **Step 2: Verify location and skill discovery against current Codex docs**
+- [x] **Step 2: Verify location and skill discovery against current Codex docs**
 
 Confirm `~/.codex/AGENTS.md` is the global instruction location and that the shared user-level skill at `~/.agents/skills/advisor/SKILL.md` is discoverable. Do not add a redundant Codex-specific copy of the skill.
 
@@ -109,19 +114,19 @@ Confirm `~/.codex/AGENTS.md` is the global instruction location and that the sha
 - Consumes: baseline preferences and the shared `advisor` skill.
 - Produces: global Gemini CLI instructions and Antigravity skill-path adapters in the Stow package, ready to deploy to `~/.gemini`; an advisor skill visible to all three surfaces through their distinct discovery roots.
 
-- [ ] **Step 1: Preserve existing Gemini directives and add the baseline**
+- [x] **Step 1: Preserve existing Gemini directives and add the baseline**
 
 Append a short section containing the exact baseline from Global Constraints and a note that the `advisor` skill is opt-in. Do not replace existing coding or tooling directives.
 
-- [ ] **Step 2: Wire Antigravity's separate global skill roots to the canonical skill**
+- [x] **Step 2: Wire Antigravity's separate global skill roots to the canonical skill**
 
 Create relative symlinks or Stow-compatible links from the package's IDE and CLI global skill locations to `agents/.agents/skills/advisor/`. Keep one maintained `SKILL.md` source. Confirm link targets resolve within the repository; do not deploy them to `~/.gemini`.
 
-- [ ] **Step 3: Confirm scope for Gemini CLI and Antigravity separately**
+- [x] **Step 3: Confirm scope for Gemini CLI and Antigravity separately**
 
 Use `~/.gemini/GEMINI.md` for Gemini CLI's global context. For Antigravity, document the supported global Rules UI / `~/.gemini/AGENTS.md`, `~/.gemini/GEMINI.md`, or modular `~/.gemini/config/rules/*.md` options; do not assume all Antigravity surfaces share identical discovery without checking the installed surface. The official docs list distinct global skill roots for Antigravity IDE (`~/.gemini/config/skills/`) and CLI (`~/.gemini/antigravity-cli/skills/`).
 
-- [ ] **Step 4: Verify global rule and skill loading**
+- [x] **Step 4: Verify global rule and skill loading**
 
 Validate Markdown and links locally. Document the Gemini CLI context status/reload and Antigravity Customizations > Rules/Skills checks for after deployment; do not modify live settings during this task.
 
@@ -134,11 +139,11 @@ Validate Markdown and links locally. Document the Gemini CLI context status/relo
 - Consumes: baseline preferences and shared `advisor` skill.
 - Produces: Pi user-level appended system instructions when deployed to `~/.pi/agent`.
 
-- [ ] **Step 1: Add a separate response-style section**
+- [x] **Step 1: Add a separate response-style section**
 
 Preserve existing coding and tooling rules. Add the exact baseline from Global Constraints and state that detailed challenge/recommendation behavior is available through the `advisor` skill.
 
-- [ ] **Step 2: Verify Pi configuration statically**
+- [x] **Step 2: Verify Pi configuration statically**
 
 Validate the Markdown and confirm the canonical skill is in Pi's documented shared skill root. Document the Pi reload/discovery smoke check for after deployment; do not modify live settings during this task.
 
@@ -151,15 +156,15 @@ Validate the Markdown and confirm the canonical skill is in Pi's documented shar
 - Consumes: baseline preferences and shared `advisor` skill.
 - Produces: machine-local Cursor global instructions managed by this Stow package; account-synced User Rules remain a documented alternative.
 
-- [ ] **Step 1: Choose the Cursor global storage target**
+- [x] **Step 1: Choose the Cursor global storage target**
 
 Use `~/.cursor/rules/advisor-baseline.mdc` through this dotfiles package so the baseline is reproducible with the rest of the config. Clearly document that this local file does not sync with the Cursor account; mention User Rules in Customize > Rules as the account-synced alternative.
 
-- [ ] **Step 2: Add baseline-only wording**
+- [x] **Step 2: Add baseline-only wording**
 
 Write the exact baseline from Global Constraints and the opt-in advisor-skill reference. Keep the intensive challenge behavior out of always-applied rules.
 
-- [ ] **Step 3: Verify rule and skill discovery**
+- [x] **Step 3: Verify rule and skill discovery**
 
 Validate Markdown/frontmatter and document the Cursor UI/skill-discovery smoke check for after deployment. Do not modify account-level Cursor settings.
 
@@ -172,15 +177,15 @@ Validate Markdown/frontmatter and document the Cursor UI/skill-discovery smoke c
 - Consumes: official platform documentation and the implemented config paths above.
 - Produces: a compact map of global instruction locations, skill discovery locations, invocation syntax, and whether each setting is account-synced or Stow-managed.
 
-- [ ] **Step 1: Add the cross-platform location table**
+- [x] **Step 1: Add the cross-platform location table**
 
 Cover OpenCode (`~/.config/opencode/AGENTS.md`), Codex (`~/.codex/AGENTS.md`), Gemini CLI (`~/.gemini/GEMINI.md`), Antigravity global Rules UI or supported `~/.gemini` rules files, Pi (`~/.pi/agent/APPEND_SYSTEM.md`), and Cursor (User Rules UI or `~/.cursor/rules/*.mdc`). Show shared `~/.agents/skills/advisor/` discovery for OpenCode, Codex, Gemini CLI, Pi, and Cursor, plus Antigravity IDE (`~/.gemini/config/skills/advisor/`) and CLI (`~/.gemini/antigravity-cli/skills/advisor/`) links to the same canonical skill. Record each tool's explicit invocation behavior.
 
-- [ ] **Step 2: Add source links and deployment notes**
+- [x] **Step 2: Add source links and deployment notes**
 
 Link the official docs used to validate each location. Explain that editing the Stow package updates repository content but linking/deploying to live home-directory paths is a separate operation; never use `./install.sh` without confirmation.
 
-- [ ] **Step 3: Review for current naming and scope accuracy**
+- [x] **Step 3: Review for current naming and scope accuracy**
 
 Cross-check the table against each platform's current docs and confirm the distinctions between Gemini CLI and Antigravity, and between Cursor account User Rules and local rule files.
 

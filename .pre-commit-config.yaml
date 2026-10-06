@@ -1,10 +1,20 @@
-default_install_hook_types: [pre-commit, prepare-commit-msg]
+default_install_hook_types: [pre-commit, pre-push, prepare-commit-msg]
 repos:
 -   repo: https://github.com/gitleaks/gitleaks
     rev: v8.18.2
     hooks:
     -   id: gitleaks
+        name: Scan staged changes for secrets
         stages: [pre-commit]
+-   repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2
+    hooks:
+    -   id: gitleaks
+        name: Scan commits being pushed for secrets
+        entry: gitleaks detect --verbose --redact --log-opts="--all --not --remotes"
+        language: golang
+        pass_filenames: false
+        stages: [pre-push]
 -   repo: local
     hooks:
     -   id: check-cursor-cli-config

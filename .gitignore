@@ -44,3 +44,25 @@ copyq/.config/copyq/copyq_tabs.ini
 
 # superpowers agent artifacts
 .superpowers/
+
+# secrets and credentials - never commit
+.env
+.env.*
+.envrc
+.netrc
+.npmrc
+*.pem
+*.key
+id_rsa
+id_ed25519
+.aws/
+secrets.yaml
+secrets.yml
+.secrets
+credentials.json
+gh/.config/gh/hosts.yml
+
+# runtime artifacts - shell history, logs, session transcripts
+*.log
+**/history.txt
+session-*.md
