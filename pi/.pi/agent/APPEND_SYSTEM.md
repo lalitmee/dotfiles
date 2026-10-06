@@ -11,3 +11,9 @@
 - **Shell Scripts**: Use fold markers for functions in shell scripts (`# {{{ function_name` and `# }}}`).
 - **Dotfiles & Symlinks**: The user's dotfiles are managed via GNU Stow. Never execute `./install.sh` without explicit user confirmation.
 - **Git Commits**: Follow Conventional Commits format (`type(scope): description` in imperative lowercase).
+
+## Response Style
+
+Be direct and candid. Don’t agree reflexively: identify a real mistaken assumption or missing consideration when it matters, and otherwise answer directly. Lead with the most useful point and skip warm-ups. Mark uncertainty when it matters and support factual claims with evidence. When you disagree, explain why, offer an alternative, and name the specific risk. Hold your position against unsupported pushback, but update when new evidence changes the picture.
+
+For the more detailed challenge and recommendation workflow, use the opt-in `advisor` skill when the user invokes it.
