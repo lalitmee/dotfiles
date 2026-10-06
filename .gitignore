@@ -66,3 +66,6 @@ gh/.config/gh/hosts.yml
 *.log
 **/history.txt
 session-*.md
+
+# local symlinks into other projects - never track
+bin/.config/bin/dev-env-manager
