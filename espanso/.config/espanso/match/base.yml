@@ -387,6 +387,10 @@ matches:
   # Crashp Implement Plan
   - trigger: ":crashit"
     replace: "Lets use crash for better understanding and organization of thoughts and implement the plan"
+
+  # Go with your recommendation
+  - trigger: ":reco"
+    replace: "Lets go with your recommendation, I think that would be a good approach"
 # }}}
 #-------------------------------------------------------------------------------
 
