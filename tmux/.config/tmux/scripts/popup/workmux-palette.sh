@@ -131,6 +131,7 @@ ensure_required_commands() { # {{{
 pick_action() { # {{{
     local actions=(
         "add         Create new worktree + window"
+        "pr          Checkout PR into new worktree"
         "open        Open existing worktree"
         "close       Close worktree window"
         "merge       Merge branch + cleanup"
@@ -247,6 +248,19 @@ get_action_input() { # {{{
                 --cursor.foreground "$COLOR_ACCENT")
             if [[ -z "$extra_input" ]]; then
                 log_message "add: branch name input cancelled"
+                exit 0
+            fi
+            cmd_args+=("$extra_input")
+            ;;
+        pr)
+            # PR number or full GitHub/GitLab URL
+            extra_input=$(gum input \
+                --placeholder "123 or https://github.com/owner/repo/pull/123" \
+                --header "Checkout Pull Request" \
+                --header.foreground "$COLOR_HEADER" \
+                --cursor.foreground "$COLOR_ACCENT")
+            if [[ -z "$extra_input" ]]; then
+                log_message "pr: input cancelled"
                 exit 0
             fi
             cmd_args+=("$extra_input")
@@ -369,7 +383,7 @@ pick_flags() { # {{{
             available_flags=("--branch")
             ;;
         *)
-            # No flags for close, rebase, send, resurrect
+            # No flags for close, rebase, send, resurrect, pr
             return
             ;;
     esac
@@ -436,9 +450,17 @@ execute_command() { # {{{
     shift
     local -a args=("$@")
 
-    local full_cmd="workmux $action"
-    if (( ${#args[@]} > 0 )); then
-        full_cmd="workmux $action ${args[*]}"
+    # "pr" is a palette alias for `workmux add --pr <input>`
+    local wm_action="$action"
+    local -a wm_args=("${args[@]}")
+    if [[ "$action" == "pr" ]]; then
+        wm_action="add"
+        wm_args=("--pr" "${args[@]}")
+    fi
+
+    local full_cmd="workmux $wm_action"
+    if (( ${#wm_args[@]} > 0 )); then
+        full_cmd="workmux $wm_action ${wm_args[*]}"
     fi
 
     echo ""
@@ -458,7 +480,7 @@ execute_command() { # {{{
 
     # Execute and capture exit code
     local exit_code
-    workmux "$action" "${args[@]}"
+    workmux "$wm_action" "${wm_args[@]}"
     exit_code=$?
 
     return $exit_code
@@ -519,7 +541,7 @@ main() { # {{{
 
     # Validate collected inputs; exit cleanly if cancelled
     case "$action" in
-        add|open|close|merge|rebase|remove)
+        add|pr|open|close|merge|rebase|remove)
             if (( ${#cmd_args[@]} < 1 )); then
                 exit 0
             fi

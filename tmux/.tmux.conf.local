@@ -1565,6 +1565,18 @@ bind-key -T git-mode l run-shell "#{@tpad-path} toggle worktree-logs"
 # Workmux command palette — lifecycle actions in a temporary window.
 bind-key -T git-mode x new-window -n wm-palette "~/.config/tmux/scripts/popup/workmux-palette.sh"
 
+# Checkout a GitHub/GitLab PR into a new worktree (gum prompt for # or URL)
+bind-key -T git-mode P display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/pr-checkout.sh"
+
+# Jump to the agent that most recently finished or is waiting for input
+bind-key -T git-mode . run-shell "workmux last-done"
+
+# Toggle between the current and the previously visited agent
+bind-key -T git-mode t run-shell "workmux last-agent"
+
+# Restore worktree windows (and agent conversations) after a crash
+bind-key -T git-mode R run-shell "workmux resurrect"
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
