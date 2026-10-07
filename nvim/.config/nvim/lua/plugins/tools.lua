@@ -110,7 +110,6 @@ require("flatten").setup({
         end,
     },
 })
-require("http-codes").setup({ use = "snacks" })
 require("todo-comments").setup({})
 require("persistence").setup({})
 require("screenkey").setup({})

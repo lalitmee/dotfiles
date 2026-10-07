@@ -3,6 +3,7 @@ if not (vim.pack and vim.pack.add) then
 end
 
 vim.opt.packlockfile = vim.fn.stdpath("config") .. "/nvim-pack-lock.json"
+vim.g.http_codes = { use = "snacks" }
 
 for _, plugin in ipairs({
     "2html_plugin",

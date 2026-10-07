@@ -53,7 +53,7 @@ map("<localleader>gV", ":Gitsigns preview_hunk_inline<CR>", { desc = "preview hu
 map("<localleader>gx", ":Gitsigns reset_hunk<CR>", { desc = "discard hunk", silent = true })
 map("<localleader>gX", ":Gitsigns reset_buffer<CR>", { desc = "discard buffer", silent = true })
 
-require("octo").setup({ enable_builtin = true })
+require("octo").setup({ enable_builtin = true, picker = "snacks" })
 map("<leader>go", ":Octo<CR>", { desc = "Octo", silent = true })
 map("<leader>gg", ":Guh<CR>", { desc = "Guh (GitHub)", silent = true })
 vim.g.diffs = { integrations = { neogit = true, gitsigns = true } }

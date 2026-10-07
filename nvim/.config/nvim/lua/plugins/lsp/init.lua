@@ -182,10 +182,10 @@ if vim.env.HOME == "/home/lalitmee" then
         dev_log = { enabled = true, notify_errors = false, open_cmd = "botright 15split", focus_on_open = false },
         outline = { open_cmd = "botright 40vsplit", auto_open = false },
         lsp = {
-            color = { enabled = true, background = false, foreground = false, virtual_text = true, virtual_text_str = "■" },
             capabilities = flutter_capabilities,
             on_attach = function(client, bufnr)
                 lsp_utils.on_attach(client, bufnr)
+                vim.lsp.document_color.enable(true, { bufnr = bufnr }, { style = "■" })
                 wk.add({
                     { "<localleader>f", group = "flutter", buffer = bufnr },
                     { "<localleader>fr", "<cmd>FlutterRun<cr>", desc = "Run App", buffer = bufnr },
