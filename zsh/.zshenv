@@ -1,3 +1,9 @@
+# Ubuntu's /etc/zsh/zshrc runs compinit before ~/.zshrc. That pre-sets
+# _comp_setup, which makes znap's first-prompt compinit hook skip its real
+# compinit run and flush queued compdefs (e.g. zoxide's `z`) into its own
+# stub — breaking `z <TAB>` in every fresh shell. Let znap own compinit.
+skip_global_compinit=1
+
 #-------------------------------------------------------------------------------
 # # NOTE: Helper function {{{
 #-------------------------------------------------------------------------------
