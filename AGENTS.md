@@ -8,11 +8,10 @@ This repository is a personal dotfiles tree. Main areas:
 - `opencode/.config/opencode/command/` and `.agents/skills/` for assistant workflows
 
 ## Build, Test, and Development Commands
-- `./install.sh` installs the dotfiles with GNU Stow
+- `./install.sh` bootstraps the machine and runs the interactive installer; do not run it without explicit user confirmation
 - `./scripts/install/main-installer.zsh` runs the interactive installer
 - `./clean-env` removes stowed symlinks
-- `./scripts/test/docker-test.sh setup/full/validate` runs the full Docker install check
-- `./scripts/test/docker-test.sh phase <0-8>` runs one installer phase
+- Docker install check: run `./scripts/test/docker-test.sh setup`, then `./scripts/test/docker-test.sh full` (or `phase <0-8>`), then `./scripts/test/docker-test.sh validate`
 - `pre-commit run --all-files` runs repo hooks, including gitleaks
 
 ## Coding Style & Naming Conventions
@@ -24,7 +23,7 @@ This repository is a personal dotfiles tree. Main areas:
 ## Testing Guidelines
 There is no single unit-test framework for the whole repo. Validate changes with the closest runtime:
 - tmux: `tmux source-file ~/.tmux.conf` then `tmux list-keys -T <table>`
-- installer changes: `./scripts/test/docker-test.sh setup/full/validate`
+- installer changes: use the Docker install check above or test the affected phase
 - individual phases: `./scripts/test/docker-test.sh phase <0-8>`
 - pre-commit and security checks: `pre-commit run --all-files`
 
@@ -34,9 +33,10 @@ Use conventional commits such as `fix(tmux): ...` or `docs: ...`. Keep subjects 
 PRs should describe what changed, what was tested, and any runtime reloads performed. Include screenshots for visible UI changes and link related issues when relevant.
 
 ## Agent-Specific Instructions
-After editing config files, reload the affected runtime immediately. For tmux, source `~/.tmux.conf` and verify the live keymap; for i3 or sxhkd, use their normal reload commands. If new stowed files were added, rerun `./install.sh`.
+After editing config files, reload the affected runtime when practical. For tmux, source `~/.tmux.conf` and verify the live keymap; for i3 or sxhkd, use their normal reload commands. When changing tmux keybindings, check for conflicts and update the corresponding help table if one exists.
 
 ## Critical System Rules
 - **Never run `./install.sh` without explicit user confirmation.** The system is already set up — symlinks exist and are managed directly via GNU Stow. Unnecessary installer runs may prompt for sudo or modify unrelated state.
 - Configs are symlinked from the repo to their target locations via `stow`. Once linked, no further action is needed — changes to repo files are live immediately.
 - Use `stow -D <pkg> && stow <pkg>` from the repo root if you ever need to relink a package.
+- Nested harness files inside stow packages (for example, `opencode/.config/opencode/AGENTS.md` and `gemini-cli/.gemini/GEMINI.md`) are deployment payloads for the user's home directory, not additional repository-wide guidance. Harnesses generally discover instruction files by the working directory and its ancestors; these nested files may apply when working inside their package subtree, so avoid opening sessions there for unrelated repo work.
