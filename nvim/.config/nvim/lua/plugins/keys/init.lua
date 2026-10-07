@@ -1,16 +1,11 @@
-return {
-    { --[[ which-key ]]
-        "folke/which-key.nvim",
-        event = { "VeryLazy" },
-        opts = {
-            preset = "helix",
-            delay = 500,
-            icons = {
-                mappings = false,
-            },
-        },
-        init = function()
-            local wk = require("which-key")
+local wk = require("which-key")
+
+wk.setup({
+    preset = "helix",
+    delay = 500,
+    icons = { mappings = false },
+})
+
 
             wk.add({
 
@@ -110,9 +105,9 @@ return {
                 --  NOTE: <leader>n -> neovim {{{
                 --------------------------------------------------------------------------------
                 { "<leader>n", group = "neovim" },
-                { "<leader>nc", ":Lazy clean<CR>", desc = "Clean Packages" },
+                { "<leader>nc", ":packclean<CR>", desc = "Clean Packages" },
                 { "<leader>nh", ":checkhealth<CR>", desc = "Check Health" },
-                { "<leader>ni", ":Lazy install<CR>", desc = "Lazy Install" },
+                { "<leader>ni", ":packloadall<CR>", desc = "Load Packages" },
                 {
                     "<leader>nl",
                     function()
@@ -130,12 +125,12 @@ return {
                     desc = "Save And Execute",
                 },
                 { "<leader>nm", ":ReloadModule<space>", desc = "Realod Module" },
-                { "<leader>no", ":Lazy<CR>", desc = "Packages Status" },
-                { "<leader>np", ":Lazy profile<CR>", desc = "Lazy Profile" },
+                { "<leader>no", ":checkhealth vim.pack<CR>", desc = "Packages Status" },
+
                 { "<leader>nR", ":Redir Notifications<CR>", desc = "Redir Notifications" },
                 { "<leader>nr", ":restart<CR>", desc = "Neovim Restart" },
-                { "<leader>ns", ":Lazy sync<CR>", desc = "Lazy Sync" },
-                { "<leader>nu", ":Lazy update<CR>", desc = "Lazy Update" },
+                { "<leader>ns", ":packupdate<CR>", desc = "Update Packages" },
+                { "<leader>nu", ":packupdate<CR>", desc = "Update Packages" },
 
                 -- }}}
                 --------------------------------------------------------------------------------
@@ -219,19 +214,9 @@ return {
                 { "<leader>gjm", ":Jump merge<cr>", desc = "Merge" },
                 { "<leader>gjs", ":Jump grep<space>", desc = "Grep" },
             })
-        end,
-    },
 
-    { --[[ hydra ]]
-        "nvimtools/hydra.nvim",
-        keys = {
-            { "<leader>gh", desc = "Gitsigns Hydra" },
-            "<A-d>",
-        },
-        config = function()
-            local hydra = require("hydra")
-            hydra(require("plugins.keys.hydra.git")())
-            hydra(require("plugins.keys.hydra.dap")())
-        end,
-    },
-}
+local hydra = require("hydra")
+hydra(require("plugins.keys.hydra.git")())
+if pcall(require, "dap") and pcall(require, "dapui") then
+    hydra(require("plugins.keys.hydra.dap")())
+end

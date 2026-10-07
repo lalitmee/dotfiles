@@ -25,13 +25,16 @@ vim.g.maplocalleader = "," -- NOTE: local leader is ,
 -- NOTE: sourcing {{{
 ----------------------------------------------------------------------
 -- plugins
-require("lazy_init")
+require("pack_init")
 
 -- utils
 require("utils")
 
 -- core
 require("core")
+
+-- plugin configuration
+require("plugins")
 
 -- }}}
 ----------------------------------------------------------------------

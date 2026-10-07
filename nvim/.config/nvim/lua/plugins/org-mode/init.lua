@@ -1,71 +1,38 @@
-return {
-    { --[[ orgmode ]]
-        "nvim-orgmode/orgmode",
-        event = "VeryLazy",
-        init = function()
-            local wk = require("which-key")
-            wk.add({
-                { "<leader>o", group = "org-mode" },
-                { "<leader>ob", group = "org tangle" },
-                { "<leader>od", group = "org dates" },
-                { "<leader>oi", group = "org insert" },
-                { "<leader>ol", group = "org links" },
-                { "<leader>on", group = "org notes" },
-                { "<leader>os", group = "org toggle" },
-                { "<leader>ox", group = "org clock" },
-                { "<localleader>n", group = "org roam" },
-                { "<localleader>na", group = "alias" },
-                { "<localleader>no", group = "origin" },
-                { "<localleader>nd", group = "dailies" },
-            })
-        end,
-        keys = {
-            { "<leader>oa", "<cmd>Org agenda<cr>", desc = "org agenda" },
-            { "<leader>oc", "<cmd>Org capture<cr>", desc = "org capture" },
-            { "<leader>ow", "<cmd>Org agenda w<cr>", desc = "org work agenda" },
-            { "<leader>op", "<cmd>Org agenda p<cr>", desc = "org personal agenda" },
-            { "<leader>oTa", "<cmd>EasyAlign|<cr>", desc = "org table align", mode = "v" },
-            { "<leader>oTl", "<cmd>lua align_org_table()<cr>", desc = "org table align (lua)", mode = "v" },
-        },
-        dependencies = {
-            { --[[ org-bullets.nvim ]]
-                "akinsho/org-bullets.nvim",
-                opts = {
-                    concealcursor = true,
-                    symbols = {
-                        checkboxes = {
-                            half = { "", "@org.checkbox.halfchecked" },
-                            done = { "✓", "@org.checkbox.checked" },
-                            todo = { " ", "@org.checkbox" },
-                        },
-                    },
-                },
-            },
+local wk = require("which-key")
+wk.add({
+    { "<leader>o", group = "org-mode" }, { "<leader>ob", group = "org tangle" },
+    { "<leader>od", group = "org dates" }, { "<leader>oi", group = "org insert" },
+    { "<leader>ol", group = "org links" }, { "<leader>on", group = "org notes" },
+    { "<leader>os", group = "org toggle" }, { "<leader>ox", group = "org clock" },
+    { "<localleader>n", group = "org roam" }, { "<localleader>na", group = "alias" },
+    { "<localleader>no", group = "origin" }, { "<localleader>nd", group = "dailies" },
+})
 
-            { --[[ org-modern.nvim ]]
-                "danilshvalov/org-modern.nvim",
-            },
+for _, mapping in ipairs({
+    { "<leader>oa", "<cmd>Org agenda<cr>", "org agenda" },
+    { "<leader>oc", "<cmd>Org capture<cr>", "org capture" },
+    { "<leader>ow", "<cmd>Org agenda w<cr>", "org work agenda" },
+    { "<leader>op", "<cmd>Org agenda p<cr>", "org personal agenda" },
+    { "<leader>oTa", "<cmd>EasyAlign|<cr>", "org table align", "v" },
+    { "<leader>oTl", "<cmd>lua align_org_table()<cr>", "org table align (lua)", "v" },
+}) do
+    vim.keymap.set(mapping[4] or "n", mapping[1], mapping[2], { desc = mapping[3] })
+end
 
-            { --[[ org-list.nvim ]]
-                "hamidi-dev/org-list.nvim",
-                dependencies = {
-                    "tpope/vim-repeat",
-                },
-                opts = {
-                    mapping = {
-                        key = "<leader>osl",
-                        desc = "org list toggle",
-                    },
+require("org-bullets").setup({
+    concealcursor = true,
+    symbols = { checkboxes = {
+        half = { "", "@org.checkbox.halfchecked" },
+        done = { "✓", "@org.checkbox.checked" },
+        todo = { " ", "@org.checkbox" },
+    } },
+})
+require("org-list").setup({
+    mapping = { key = "<leader>osl", desc = "org list toggle" },
+    checkbox_toggle = { enabled = true, key = "<leader>osc", desc = "org list checkbox toggle" },
+})
 
-                    checkbox_toggle = {
-                        enabled = true,
-                        key = "<leader>osc",
-                        desc = "org list checkbox toggle",
-                    },
-                },
-            },
-        },
-        opts = {
+local org_opts = {
             org_agenda_files = {
                 "~/Projects/Work/Github/second-brain/**/*", -- work todo
                 "~/Projects/Personal/Github/second-brain/**/*", -- personal todo
@@ -274,8 +241,8 @@ return {
                     },
                 },
             },
-        },
-        config = function(_, opts)
+        }
+local function configure_org(opts)
             local Menu = require("org-modern.menu")
 
             opts.ui = opts.ui or {}
@@ -404,64 +371,10 @@ return {
             --------------------------------------------------------------------------------
             -- }}}
             --------------------------------------------------------------------------------
-        end,
-    },
+        end
+configure_org(org_opts)
 
-    {
-        "chipsenkbeil/org-roam.nvim",
-        dependencies = {
-            {
-                "nvim-orgmode/orgmode",
-            },
-        },
-        keys = {
-            { "<localleader>na", desc = "Alias" },
-            { "<localleader>nb", desc = "Toggle fixed roam buffer" },
-            { "<localleader>nc", desc = "Capture" },
-            { "<localleader>nf", desc = "Find node" },
-            { "<localleader>ni", desc = "Insert node" },
-            { "<localleader>nl", desc = "Toggle roam buffer" },
-            { "<localleader>nm", desc = "Insert node (immediate)" },
-            { "<localleader>nn", desc = "Next node" },
-            { "<localleader>np", desc = "Previous node" },
-            { "<localleader>nq", desc = "Quickfix backlinks" },
-            { "<localleader>n.", desc = "Complete at point" },
-            {
-                "<localleader>nW",
-                function()
-                    local roam = require("org-roam")
-                    local saved = {
-                        directory = roam.config.directory,
-                        database = roam.config.database,
-                    }
-                    roam.setup({
-                        directory = vim.fn.expand("~/Projects/Work/Github/second-brain/brain/notes"),
-                        database = { path = vim.fn.expand("~/Projects/Work/Github/second-brain/.org-roam.db") },
-                    })
-                    roam.api.find_node():next(function()
-                        roam.setup(saved)
-                    end)
-                end,
-                desc = "Org-roam find (work)",
-            },
-            -- ponytail: lazy-loading stubs for dailies
-            { "<localleader>ndn", desc = "dailies goto today" },
-            { "<localleader>ndN", desc = "dailies capture today" },
-            { "<localleader>ndy", desc = "dailies goto yesterday" },
-            { "<localleader>ndY", desc = "dailies capture yesterday" },
-            { "<localleader>ndt", desc = "dailies goto tomorrow" },
-            { "<localleader>ndT", desc = "dailies capture tomorrow" },
-            { "<localleader>ndd", desc = "dailies goto date" },
-            { "<localleader>ndD", desc = "dailies capture date" },
-            { "<localleader>ndb", desc = "dailies prev note" },
-            { "<localleader>ndf", desc = "dailies next note" },
-            { "<localleader>nd.", desc = "dailies find directory" },
-            { "<localleader>ndWn", desc = "work dailies goto today" },
-            { "<localleader>ndWN", desc = "work dailies capture today" },
-            { "<localleader>ndWy", desc = "work dailies goto yesterday" },
-            { "<localleader>ndWd", desc = "work dailies goto date" },
-        },
-        opts = {
+local roam_opts = {
             directory = "~/Projects/Personal/Github/second-brain/brain/notes",
             bindings = {
                 prefix = "<localleader>n",
@@ -493,8 +406,19 @@ return {
                     },
                 },
             },
-        },
-        config = function(_, opts)
+        }
+local function find_work_node()
+    local roam = require("org-roam")
+    local saved = { directory = roam.config.directory, database = roam.config.database }
+    roam.setup({
+        directory = vim.fn.expand("~/Projects/Work/Github/second-brain/brain/notes"),
+        database = { path = vim.fn.expand("~/Projects/Work/Github/second-brain/.org-roam.db") },
+    })
+    roam.api.find_node():next(function() roam.setup(saved) end)
+end
+vim.keymap.set("n", "<localleader>nW", find_work_node, { desc = "Org-roam find (work)" })
+
+local function configure_roam(opts)
             require("org-roam").setup(opts)
 
             local personal_dir = "~/Projects/Personal/Github/second-brain/brain/notes"
@@ -575,23 +499,12 @@ return {
             vim.keymap.set("n", "<localleader>ndWd", function()
                 with_brain("work", dailies.goto_date)
             end, { desc = "work dailies goto date" })
-        end,
+        end
+configure_roam(roam_opts)
+require("org-super-agenda").setup({
+    org_directories = {
+        "~/Projects/Work/Github/second-brain",
+        "~/Projects/Personal/Github/second-brain",
     },
-
-    { --[[ org-super-agenda.nvim ]]
-        "hamidi-dev/org-super-agenda.nvim",
-        dependencies = {
-            "nvim-orgmode/orgmode",
-        },
-        cmd = "OrgSuperAgenda",
-        keys = {
-            { "<leader>o.", "<cmd>OrgSuperAgenda<cr>", desc = "org super agenda" },
-        },
-        opts = {
-            org_directories = {
-                "~/Projects/Work/Github/second-brain",
-                "~/Projects/Personal/Github/second-brain",
-            },
-        },
-    },
-}
+})
+vim.keymap.set("n", "<leader>o.", "<cmd>OrgSuperAgenda<cr>", { desc = "org super agenda" })

@@ -51,7 +51,7 @@ return {
             Snacks.picker.files({
                 prompt_title = "~ neovim modules ~",
                 cwd = "~/.config/nvim/lua",
-                file_ignore_patterns = { "after/", "lazy-lock.json", "stylua.toml" },
+                file_ignore_patterns = { "after/", "nvim-pack-lock.json", "stylua.toml" },
                 actions = {
                     ["ctrl-r"] = {
                         name = "reload",
@@ -103,8 +103,7 @@ return {
     { "<leader>pm", function() require("plugins.snacks.picker.sources").multi_ripgrep() end, desc = "Multi Ripgrep", silent = true },
 
     -- neovim
-    { "<leader>nf", function() Snacks.picker.files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") }) end, desc = "Plugin Files", silent = true },
-    { "<leader>na", function() Snacks.picker.lazy() end, desc = "Lazy Plugins", silent = true },
+    { "<leader>nf", function() Snacks.picker.files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "site", "pack", "core", "opt"), prompt_title = "Plugin Files" }) end, desc = "Plugin Files", silent = true },
 
     -- zoxide
     { "<leader>al", function() Snacks.picker.zoxide() end, desc = "Zoxide", silent = true },

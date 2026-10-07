@@ -1,13 +1,11 @@
 diff --git a/lua/codecompanion/acp/init.lua b/lua/codecompanion/acp/init.lua
-index d9c8da4b..3e91352e 100644
 --- a/lua/codecompanion/acp/init.lua
 +++ b/lua/codecompanion/acp/init.lua
-@@ -170,13 +170,25 @@ function Connection:connect_and_initialize()
+@@ -182,12 +182,23 @@
        end
        methodId = methodId or (auth_methods[1] and auth_methods[1].id)
 
 -      if methodId then
-+      -- Skip OAuth authentication if credentials already exist
 +      local should_skip_auth = false
 +      if methodId == "oauth-personal" then
 +        local oauth_creds_path = self.adapter_modified.defaults.oauth_credentials_path
@@ -23,17 +21,15 @@ index d9c8da4b..3e91352e 100644
            log:error("[acp::connect_and_initialize] Failed to authenticate with method %s", methodId)
            return nil
          end
-         log:debug("[acp::connect_and_initialize] Authenticated using %s", methodId)
 +      elseif should_skip_auth then
 +        log:debug("[acp::connect] Skipped authentication for %s (existing credentials found)", methodId)
-       else
-         log:debug("[acp::connect_and_initialize] No compatible auth method; skipping authenticate")
        end
+     end
+     self._authenticated = true
 diff --git a/lua/codecompanion/adapters/acp/gemini_cli.lua b/lua/codecompanion/adapters/acp/gemini_cli.lua
-index 2bf341fe..bf7f8e77 100644
 --- a/lua/codecompanion/adapters/acp/gemini_cli.lua
 +++ b/lua/codecompanion/adapters/acp/gemini_cli.lua
-@@ -25,6 +25,7 @@ return {
+@@ -25,6 +25,7 @@
    },
    defaults = {
      auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"

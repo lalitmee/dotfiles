@@ -12,7 +12,7 @@ M.reload = function()
     Snacks.picker.files({
         prompt_title = "~ neovim modules ~",
         cwd = "~/.config/nvim/lua",
-        file_ignore_patterns = { "after/", "lazy-lock.json", "stylua.toml" },
+        file_ignore_patterns = { "after/", "nvim-pack-lock.json", "stylua.toml" },
         actions = {
             ["ctrl-r"] = {
                 name = "reload",

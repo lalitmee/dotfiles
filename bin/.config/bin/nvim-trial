@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+set -e
+
+if (( $# < 1 )); then
+    print -u2 "Usage: nvim-trial <XDG_CONFIG_HOME> [nvim args...]"
+    exit 2
+fi
+
+config_home="${1:A}"
+shift
+
+if [[ ! -d "$config_home/nvim" ]]; then
+    print -u2 "Config home must contain an nvim/ directory: $config_home"
+    exit 2
+fi
+
+trial_root="$HOME/.local/share/nvim-trial"
+rm -rf "$trial_root/config/nvim"
+mkdir -p "$trial_root/config/nvim" "$trial_root/data" "$trial_root/state" "$trial_root/cache"
+cp -a "$config_home/nvim/." "$trial_root/config/nvim/"
+
+export XDG_CONFIG_HOME="$trial_root/config"
+export XDG_DATA_HOME="$trial_root/data"
+export XDG_STATE_HOME="$trial_root/state"
+export XDG_CACHE_HOME="$trial_root/cache"
+
+exec nvim "$@"

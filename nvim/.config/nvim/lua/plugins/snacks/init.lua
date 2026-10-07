@@ -1,23 +1,18 @@
-local general_keys = require("plugins.snacks.keys_general")
-local picker_keys = require("plugins.snacks.picker.keys")
-
-local keys = {}
-for _, k in ipairs(general_keys) do
-    table.insert(keys, k)
-end
-for _, k in ipairs(picker_keys) do
-    table.insert(keys, k)
-end
-
+require("snacks").setup(require("plugins.snacks.opts"))
 require("plugins.snacks.picker.sources")
+require("plugins.snacks.setup")
 
-return {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    keys = keys,
-    opts = require("plugins.snacks.opts"),
-    init = function()
-        require("plugins.snacks.setup")
-    end,
-}
+local function set_keys(keys)
+    for _, key in ipairs(keys) do
+        local opts = vim.deepcopy(key)
+        local lhs, rhs = table.remove(opts, 1), table.remove(opts, 1)
+        if rhs then
+            local mode = opts.mode or "n"
+            opts.mode = nil
+            vim.keymap.set(mode, lhs, rhs, opts)
+        end
+    end
+end
+
+set_keys(require("plugins.snacks.keys_general"))
+set_keys(require("plugins.snacks.picker.keys"))

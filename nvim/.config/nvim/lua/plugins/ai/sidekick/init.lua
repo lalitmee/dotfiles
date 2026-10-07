@@ -1,145 +1,32 @@
-return {
-    { -- [[ sidekick.nvim ]] --
-        "folke/sidekick.nvim",
-        cmd = { "Sidekick" },
-        event = "VeryLazy",
-        opts = {
-            cli = {
-                mux = {
-                    backend = "tmux",
-                    enabled = true,
-                },
-                win = {
-                    split = {
-                        width = 100,
-                    },
-                },
-            },
-        },
-        config = function(_, opts)
-            require("sidekick").setup(opts)
-        end,
-        init = function()
-            local wk = require("which-key")
-            wk.add({
-                { "<localleader>a", group = "sidekick", mode = { "n", "v" } },
-            })
-        end,
-        keys = {
-            { -- [[ Sidekick Toggle ]] --
-                "<leader>.",
-                function()
-                    require("sidekick.cli").toggle()
-                end,
-                desc = "Sidekick Toggle",
-                mode = { "n", "x" },
-            },
-            { -- [[ Sidekick CLI Toggle With Focus ]] --
-                "<localleader>aa",
-                function()
-                    require("sidekick.cli").toggle({ focus = true })
-                end,
-                desc = "Sidekick Toggle CLI",
-                mode = { "n", "v" },
-            },
-            { -- [[ Sidekick Select CLI ]] --
-                "<localleader>as",
-                function()
-                    -- require("sidekick.cli").select()
-                    require("sidekick.cli").select({ filter = { installed = true } })
-                end,
-                desc = "Select CLI",
-            },
-            { -- [[ Sidekick Detach CLI Session ]] --
-                "<localleader>ad",
-                function()
-                    require("sidekick.cli").close()
-                end,
-                desc = "Detach a CLI Session",
-            },
+require("which-key").add({
+    { "<localleader>a", group = "sidekick", mode = { "n", "v" } },
+})
 
-            { -- [[ Sidekick Claude CLI Toggle ]] --
-                "<localleader>ac",
-                function()
-                    require("sidekick.cli").toggle({ name = "claude", focus = true })
-                end,
-                desc = "Sidekick Claude Toggle",
-                mode = { "n", "v" },
-            },
-            { -- [[ Sidekick Gemini CLI Toggle ]] --
-                "<localleader>ag",
-                function()
-                    require("sidekick.cli").toggle({ name = "gemini", focus = true })
-                end,
-                desc = "Sidekick Gemini Toggle",
-                mode = { "n", "v" },
-            },
-            { -- [[ Sidekick Opencode CLI Toggle ]] --
-                "<localleader>ao",
-                function()
-                    require("sidekick.cli").toggle({ name = "opencode", focus = true })
-                end,
-                desc = "Sidekick Opencode Toggle",
-                mode = { "n", "v" },
-            },
-            { -- [[ Sidekick Codex CLI Toggle ]] --
-                "<localleader>ax",
-                function()
-                    require("sidekick.cli").toggle({ name = "codex", focus = true })
-                end,
-                desc = "Sidekick Codex Toggle",
-                mode = { "n", "v" },
-            },
-            { -- [[ Sidekick Copilot CLI Toggle ]] --
-                "<localleader>ah",
-                function()
-                    require("sidekick.cli").toggle({ name = "copilot", focus = true })
-                end,
-                desc = "Sidekick Copilot Toggle",
-                mode = { "n", "v" },
-            },
-            { -- [[ Sidekick Grok CLI Toggle ]] --
-                "<localleader>ak",
-                function()
-                    require("sidekick.cli").toggle({ name = "grok", focus = true })
-                end,
-                desc = "Sidekick Grok Toggle",
-                mode = { "n", "v" },
-            },
-
-            { -- [[ Sidekick Ask Prompt ]] --
-                "<localleader>ap",
-                function()
-                    require("sidekick.cli").prompt()
-                end,
-                desc = "Sidekick Ask Prompt",
-                mode = { "n", "x" },
-            },
-
-            { -- [[ Sidekick Send Commands ]] --
-                "<localleader>at",
-                function()
-                    require("sidekick.cli").send({ msg = "{this}" })
-                end,
-                mode = { "n", "x" },
-                desc = "Send This",
-            },
-            { -- [[ Sidekick Send File ]] --
-                "<localleader>af",
-                function()
-                    require("sidekick.cli").send({ msg = "{file}" })
-                end,
-                mode = { "n", "x" },
-                desc = "Send File",
-            },
-            { -- [[ Sidekick Send Visual Selection ]] --
-                "<localleader>av",
-                function()
-                    require("sidekick.cli").send({ msg = "{selection}" })
-                end,
-                mode = { "x" },
-                desc = "Send Visual Selection",
-            },
-        },
+require("sidekick").setup({
+    cli = {
+        mux = { backend = "tmux", enabled = true },
+        win = { split = { width = 100 } },
     },
+})
+
+local cli = require("sidekick.cli")
+local maps = {
+    { "<leader>.", function() cli.toggle() end, "Sidekick Toggle", { "n", "x" } },
+    { "<localleader>aa", function() cli.toggle({ focus = true }) end, "Sidekick CLI Toggle", { "n", "v" } },
+    { "<localleader>as", function() cli.select({ filter = { installed = true } }) end, "Select CLI" },
+    { "<localleader>ad", function() cli.close() end, "Detach a CLI Session" },
+    { "<localleader>ac", function() cli.toggle({ name = "claude", focus = true }) end, "Sidekick Claude Toggle", { "n", "v" } },
+    { "<localleader>ag", function() cli.toggle({ name = "gemini", focus = true }) end, "Sidekick Gemini Toggle", { "n", "v" } },
+    { "<localleader>ao", function() cli.toggle({ name = "opencode", focus = true }) end, "Sidekick Opencode Toggle", { "n", "v" } },
+    { "<localleader>ax", function() cli.toggle({ name = "codex", focus = true }) end, "Sidekick Codex Toggle", { "n", "v" } },
+    { "<localleader>ah", function() cli.toggle({ name = "copilot", focus = true }) end, "Sidekick Copilot Toggle", { "n", "v" } },
+    { "<localleader>ak", function() cli.toggle({ name = "grok", focus = true }) end, "Sidekick Grok Toggle", { "n", "v" } },
+    { "<localleader>ap", function() cli.prompt() end, "Sidekick Ask Prompt", { "n", "x" } },
+    { "<localleader>at", function() cli.send({ msg = "{this}" }) end, "Send This", { "n", "x" } },
+    { "<localleader>af", function() cli.send({ msg = "{file}" }) end, "Send File", { "n", "x" } },
+    { "<localleader>av", function() cli.send({ msg = "{selection}" }) end, "Send Visual Selection", { "x" } },
 }
+
+for _, map in ipairs(maps) do
+    vim.keymap.set(map[4] or "n", map[1], map[2], { desc = map[3] })
+end

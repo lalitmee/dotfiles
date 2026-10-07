@@ -1,12 +1,13 @@
-return {
-    { --[[ plenary ]]
-        "nvim-lua/plenary.nvim",
-        event = { "VeryLazy" },
-    },
-
-    { --[[ wakatime ]]
-        enabled = vim.env.HOME == "/home/lalitmee",
-        "wakatime/vim-wakatime",
-        event = { "VimEnter" },
-    },
-}
+require("plugins.keys")
+require("plugins.colors")
+require("plugins.snacks")
+require("plugins.ai")
+require("plugins.git")
+require("plugins.lsp")
+require("plugins.treesitter")
+require("plugins.editor")
+require("plugins.coding")
+require("plugins.tools")
+require("plugins.ui")
+require("plugins.tmux")
+require("plugins.org-mode")

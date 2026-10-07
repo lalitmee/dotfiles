@@ -1,4 +1,3 @@
-local Util = require("lazy.core.util")
 local M = {}
 
 ---@param silent boolean?
@@ -10,14 +9,14 @@ function M.toggle(option, silent, values)
         else
             vim.opt_local[option] = values[1]
         end
-        return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+        return vim.notify("Set " .. option .. " to " .. vim.opt_local[option]:get(), vim.log.levels.INFO, { title = "Option" })
     end
     vim.opt_local[option] = not vim.opt_local[option]:get()
     if not silent then
         if vim.opt_local[option]:get() then
-            Util.info("Enabled " .. option, { title = "Option" })
+            vim.notify("Enabled " .. option, vim.log.levels.INFO, { title = "Option" })
         else
-            Util.warn("Disabled " .. option, { title = "Option" })
+            vim.notify("Disabled " .. option, vim.log.levels.WARN, { title = "Option" })
         end
     end
 end
@@ -27,10 +26,10 @@ function M.toggle_diagnostics()
     enabled = not enabled
     if enabled then
         vim.diagnostic.enable(true, { bufnr = 0 })
-        Util.info("Enabled diagnostics", { title = "Diagnostics" })
+        vim.notify("Enabled diagnostics", vim.log.levels.INFO, { title = "Diagnostics" })
     else
         vim.diagnostic.enable(false, { bufnr = 0 })
-        Util.warn("Disabled diagnostics", { title = "Diagnostics" })
+        vim.notify("Disabled diagnostics", vim.log.levels.WARN, { title = "Diagnostics" })
     end
 end
 
