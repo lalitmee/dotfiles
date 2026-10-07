@@ -268,6 +268,41 @@ return {
                     return http
                 end)(),
                 acp = {
+                    codex = function()
+                        return require("codecompanion.adapters").extend("codex", {
+                            defaults = { auth_method = "chat-gpt" },
+                        })
+                    end,
+                    antigravity = function()
+                        local helpers = require("codecompanion.adapters.acp.helpers")
+                        return {
+                            name = "antigravity",
+                            formatted_name = "Google Antigravity",
+                            type = "acp",
+                            roles = { llm = "assistant", user = "user" },
+                            opts = { vision = true },
+                            commands = {
+                                default = { vim.fn.expand("~/.local/bin/agy_acp_server"), "--uid=" },
+                            },
+                            defaults = { mcpServers = {}, timeout = 120000 },
+                            parameters = {
+                                protocolVersion = 1,
+                                clientCapabilities = {
+                                    fs = { readTextFile = true, writeTextFile = true },
+                                },
+                                clientInfo = { name = "CodeCompanion.nvim", version = "1.0.0" },
+                            },
+                            handlers = {
+                                setup = function()
+                                    return true
+                                end,
+                                form_messages = function(self, messages, capabilities)
+                                    return helpers.form_messages(self, messages, capabilities)
+                                end,
+                                on_exit = function() end,
+                            },
+                        }
+                    end,
                     gemini_cli = function()
                         return require("codecompanion.adapters").extend("gemini_cli", {
                             commands = {
@@ -311,7 +346,7 @@ return {
             },
             interactions = {
                 chat = {
-                    adapter = default_provider,
+                    adapter = "codex",
                     roles = {
                         user = lk.style.icons.ui.User .. "  " .. "lalitmee",
                         llm = function(adapter)
@@ -434,7 +469,7 @@ return {
                             delete = { n = "d", i = "<M-d>" },
                             duplicate = { n = "<C-y>", i = "<C-y>" },
                         },
-                        auto_generate_title = true,
+                        auto_generate_title = false,
                         title_generation_opts = {
                             adapter = "openai",
                             model = "gpt-4o",

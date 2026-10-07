@@ -79,7 +79,7 @@ matches:
         type: clipboard
 
   # Code fence from clipboard
-  - trigger: ":code"
+  - trigger: ":codeb"
     replace: |
       ```
       {{clipboard}}
