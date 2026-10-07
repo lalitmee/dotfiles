@@ -214,9 +214,3 @@ wk.setup({
                 { "<leader>gjm", ":Jump merge<cr>", desc = "Merge" },
                 { "<leader>gjs", ":Jump grep<space>", desc = "Grep" },
             })
-
-local hydra = require("hydra")
-hydra(require("plugins.keys.hydra.git")())
-if pcall(require, "dap") and pcall(require, "dapui") then
-    hydra(require("plugins.keys.hydra.dap")())
-end

@@ -13,7 +13,6 @@ local function map(keys)
 end
 
 require("guess-indent").setup({})
-require("fidget").setup({})
 
 vim.g.mkdp_filetypes = { "markdown" }
 vim.keymap.set("n", "<leader>am", "<cmd>MarkdownPreview<cr>", { desc = "Markdown Preview", silent = true })
@@ -98,11 +97,11 @@ map({
 })
 
 require("which-key").add({ { "<leader>rh", group = "http" } })
+require("kulala").setup({ global_keymaps = false })
 map({
-    { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "Run Request" },
-    { "<leader>rhl", ":Rest run last<CR>", silent = true, desc = "Run Last Request" },
-    { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "Env" },
-    { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "Logs" },
+    { "<leader>rhr", function() require("kulala").run() end, silent = true, desc = "Run Request" },
+    { "<leader>rhl", function() require("kulala").replay() end, silent = true, desc = "Run Last Request" },
+    { "<leader>rhe", function() require("kulala").set_selected_env() end, silent = true, desc = "Select Environment" },
 })
 
 local leet_keys = {

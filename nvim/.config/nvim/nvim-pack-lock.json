@@ -78,10 +78,6 @@
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim.git",
       "version": "'release/v0.38'"
     },
-    "fidget.nvim": {
-      "rev": "9e0201673e08e997e7cf52afca5565c70bd117f3",
-      "src": "https://github.com/j-hui/fidget.nvim.git"
-    },
     "flash.nvim": {
       "rev": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a",
       "src": "https://github.com/folke/flash.nvim.git"
@@ -139,10 +135,6 @@
     "http-codes.nvim": {
       "rev": "f5481146cd7c8bc381b5a1b23ab73f5e93649566",
       "src": "https://github.com/barrett-ruth/http-codes.nvim.git"
-    },
-    "hydra.nvim": {
-      "rev": "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc",
-      "src": "https://github.com/nvimtools/hydra.nvim.git"
     },
     "img-clip.nvim": {
       "rev": "99848daf801789dbebe2192b475eb887d375002c",
@@ -317,9 +309,9 @@
       "rev": "4663eb3ecd538bd5062628fb6d95bbe6bdca78f6",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim.git"
     },
-    "rest.nvim": {
-      "rev": "714d5512aaec5565d55652480c16c26f8d95645d",
-      "src": "https://github.com/rest-nvim/rest.nvim.git"
+    "kulala.nvim": {
+      "rev": "1517fd8779b5d83ef7064709a3a7d03e72a899bf",
+      "src": "https://github.com/dont-be-evil-company/kulala.nvim.git"
     },
     "rustaceanvim": {
       "rev": "e9c5aaba16fead831379d5f44617547a90b913c7",
