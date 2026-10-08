@@ -192,7 +192,7 @@
     credentialStore = cache
     # Use the full path for credentials, which is necessary for some helpers.
     useHttpPath = true
-    helper = !$HOME/.config/bin/gh-wrapper auth git-credential
+	helper = 
 
 #
 # Credential helper specific to GitHub.
@@ -400,7 +400,6 @@
 # URL rewriting for shorter clone commands.
 #
 [url "git@github.com:"]
-	insteadOf = https://github.com/
 
 [url "git@github.com:lalitmee/"]
     insteadOf = "lk:"
@@ -412,3 +411,5 @@
 # even if the global default changes.
 [includeIf "gitdir:~/Projects/Personal/Github/"]
     path = ~/dotfiles/scripts/hooks/personal-github.config
+[url "git@github.com:Nykaa-beauty/"]
+	insteadOf = https://github.com/Nykaa-beauty/
