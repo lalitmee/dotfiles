@@ -1529,6 +1529,9 @@ bind-key C-g switch-client -T git-mode
 # Launch the git worktree management script (interactive).
 bind-key -T git-mode w display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh"
 
+# Global worktree manager: focus this session's manager, or create it at ~/Projects.
+bind-key -T git-mode m run-shell "zsh ~/.config/tmux/scripts/worktree-manager.sh --launch"
+
 # Create a new worktree.
 bind-key -T git-mode c display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/git/git-worktree.sh create"
 

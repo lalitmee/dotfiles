@@ -1,5 +1,6 @@
 Key	Description
 w	Interactive worktree management
+m	Global worktree manager (all projects)
 c	Create a new worktree
 s	Switch to a worktree
 d	Delete a worktree
