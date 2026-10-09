@@ -132,6 +132,7 @@ manager_main() {
     local -a fields rows choice
     while true; do
         if (( refresh )); then
+            print -r -- "Scanning worktrees under $projects_root... (this can take ~20s)"
             fields=(); rows=()
             diagnostics=$(mktemp "${TMPDIR:-/tmp}/worktree-ui.XXXXXXXX") || return 1
             while IFS= read -r -d '' field; do fields+=("$field"); done < <(discover_worktrees "$projects_root" 2> "$diagnostics")
