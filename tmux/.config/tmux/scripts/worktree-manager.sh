@@ -185,13 +185,12 @@ manager_main() {
                 mv -f -- "$cache_tmp" "$cache_file" 2>/dev/null || rm -f -- "$cache_tmp"
             fi
             rows=()
-            local i
+            local i display
             for ((i=1; i+5<=${#fields}; i+=6)); do
                 local group="${fields[i+1]}"
                 if [[ "$filter" != all ]]; then
                     [[ "${group:l}" == "${filter:l}" ]] || continue
                 fi
-                local display
                 printf -v display '%-20.20s %-32.32s %s' \
                     "$(manager_display "${fields[i+2]}")" \
                     "$(manager_display "${fields[i+4]:-detached}")" \
