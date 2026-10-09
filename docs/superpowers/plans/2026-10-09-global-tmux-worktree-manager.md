@@ -27,6 +27,7 @@
 - A linked worktree lives outside `~/Projects`: include it based on the in-scope repository's registry.
 - Repository and worktree paths contain spaces: preserve record boundaries through scan, selection, and actions.
 - A branch is already checked out in another worktree: prevent checkout and explain the conflict.
+- A registered path exists but its `.git` metadata is missing and Git falls back to an ancestor repository: classify it as unknown, never as the ancestor's worktree or main worktree.
 - A selected worktree is dirty or its path disappeared after discovery: revalidate and refuse unsafe or unverifiable removal.
 
 ---
@@ -49,15 +50,15 @@
 **Interfaces:**
 - `discover_worktrees <projects_root>` emits a NUL-delimited stream of fields in a stable schema: `repo_root`, `repo_group`, `repo_name`, `worktree_path`, `branch`, `state_flags`, `dirty_state`, repeated for each worktree. `state_flags` includes `main`, `detached`, `locked`, `prunable`, or `bare` as applicable; an empty branch denotes detached HEAD.
 - `parse_worktree_porcelain <repo_root> <porcelain_file>` emits the same stream for one repository. The file argument exists to make parsing testable without mocking Git output.
-- `worktree_status <worktree_path>` prints `clean`, `dirty`, `missing`, or `unknown`.
+- `worktree_status <worktree_path>` prints `clean`, `dirty`, `missing`, or `unknown`; an existing directory is valid only when its canonical `git rev-parse --show-toplevel` matches the registered canonical path.
 - The manager reads NUL-delimited fields into zsh arrays and gives fzf a line-based display containing only a numeric row ID and human-readable fields. fzf returns the row ID; the manager uses it to retrieve the original path without parsing display text.
 
 - [ ] **Step 1: Create isolated Git fixtures and failing discovery checks.** Build temporary `Personal` and `Work` directories with two repositories, a linked worktree under a path containing spaces outside the fixture root, and a nested linked-worktree candidate. Assert each registry's entries appear once, the external path is present, and group/project/branch fields are correct.
 - [ ] **Step 2: Add porcelain parser fixtures.** Cover attached, detached, locked, prunable, and bare records; paths with spaces; empty input; and malformed/incomplete records. Assert malformed records are skipped with an error recorded for their repository rather than terminating the entire scan.
 - [ ] **Step 3: Run the focused discovery test.** Run `zsh scripts/test/test_global_worktree_manager.zsh discovery`; confirm the new assertions fail before implementation.
 - [ ] **Step 4: Implement traversal and deduplication.** Walk `~/Projects` while pruning `.git`, `node_modules`, and common generated directories; identify `.git` directories and files; resolve candidates through `git -C <candidate> rev-parse --path-format=absolute --git-common-dir`; canonicalize and deduplicate common directories.
-- [ ] **Step 5: Implement porcelain aggregation.** For each unique repository, run `git -C <candidate> worktree list --porcelain -z`, parse records without line splitting, and retain every registered path. Preserve Git's detached, locked, prunable, and bare metadata; mark the main worktree by comparing its canonical path with `git -C <candidate> rev-parse --show-toplevel`.
-- [ ] **Step 6: Implement status collection and repository-level errors.** Use `git -C <worktree> status --porcelain --untracked-files=normal`; classify empty as clean and non-empty as dirty. Missing paths are `missing`; command errors are `unknown`. Continue scanning remaining repositories after per-repository failures.
+- [ ] **Step 5: Implement porcelain aggregation.** For each unique repository, run `git -C <candidate> worktree list --porcelain -z`, parse records without line splitting, and retain every registered path. Preserve Git's detached, locked, prunable, and bare metadata. Identify the main worktree by comparing each existing registration's canonical `git -C <worktree> rev-parse --absolute-git-dir` with the repository's canonical `--git-common-dir`; linked worktrees have a per-worktree git dir beneath the common dir.
+- [ ] **Step 6: Implement status collection and repository-level errors.** For each existing registered path, verify canonical `git -C <worktree> rev-parse --show-toplevel` equals that path before asking for status or assigning main identity; this prevents Git from resolving a missing linked-worktree `.git` file through an ancestor. Then use `git -C <worktree> status --porcelain --untracked-files=normal`; classify empty as clean and non-empty as dirty. Missing paths are `missing`; invalid roots and command errors are `unknown`. Continue scanning remaining repositories after per-repository failures.
 - [ ] **Step 7: Re-run discovery checks.** Run `zsh scripts/test/test_global_worktree_manager.zsh discovery`; confirm all fixture assertions pass, including external paths and deduplication.
 
 ## Task 2: Implement interactive worktree actions

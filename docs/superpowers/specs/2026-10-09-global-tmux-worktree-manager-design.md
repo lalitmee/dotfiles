@@ -40,7 +40,7 @@ The list is refreshed when the manager opens and after a successful mutation. Se
 2. Resolve each candidate's Git common directory and deduplicate by that canonical identity, since multiple linked worktrees can expose the same repository registry.
 3. For each unique repository, invoke `git worktree list --porcelain` from a known worktree in that repository.
 4. Aggregate every registered worktree returned by Git, including paths outside `~/Projects`.
-5. Parse porcelain records rather than human-formatted output. Preserve paths containing spaces and identify bare, detached, locked, prunable, and missing entries where Git reports them.
+5. Parse porcelain records rather than human-formatted output. Preserve paths containing spaces and identify main, bare, detached, locked, prunable, and missing entries where Git reports them. For existing registrations, identify the main worktree by comparing its per-worktree Git directory with the repository's common Git directory; a linked worktree has a separate per-worktree Git directory.
 6. Determine status for existing worktrees with Git commands scoped to their path. A repository error is attached to that repository's results and does not abort the full scan.
 
 The discovery layer should avoid recursively walking repository internals and common generated/dependency directories. Canonical paths should be used for identity and operations while display paths may retain a useful `~/Projects/...` form.
@@ -73,7 +73,7 @@ Provide a refresh action to rescan repositories and a direct quit action that re
 
 - All Git invocations use argument arrays or safe quoting; paths are never split on whitespace.
 - Mutating actions revalidate the selected repository/worktree immediately before execution, since the list may be stale.
-- Missing worktree paths and prunable registrations are shown as stale states. Pruning is not automatic; a separate prune action can be considered later.
+- Missing worktree paths and prunable registrations are shown as stale states. An existing registered path is valid only when Git resolves its worktree root to that canonical path; if metadata is missing and Git falls back to an ancestor repository, show `unknown` and disable mutations. Pruning is not automatic; a separate prune action can be considered later.
 - Dirty state includes untracked files. Normal removal is blocked if status cannot be determined.
 - Refuse operations on the main worktree where Git does not support the requested operation.
 - If an action fails, keep the manager usable and show the command's useful error output.
