@@ -76,7 +76,14 @@ manager_mutation() {
     local action="$1" repo="$2" selected="$3" destination force=0
     local wm_action_status wm_action_flags
     manager_validate "$repo" "$selected" || return 1
-    [[ ",$wm_action_flags," != *,main,* ]] || { print -u2 'Main worktree cannot be renamed or removed.'; return 1; }
+    [[ ",$wm_action_flags," != *,main,* ]] || {
+        if [[ "$action" == ctrl-r ]]; then
+            feedback='Main worktree cannot be renamed.'
+        else
+            feedback='Main worktree cannot be removed.'
+        fi
+        return 1
+    }
     if [[ "$action" == ctrl-r ]]; then
         print -r -- "Rename path: $selected
 Status: $wm_action_status"
@@ -132,7 +139,16 @@ manager_main() {
             rm -f -- "$diagnostics"
             local i
             for ((i=1; i+6<=${#fields}; i+=7)); do
-                rows+=("$(( (i-1)/7+1 ))"$'\t'"$(manager_display "${fields[i+1]}") | $(manager_display "${fields[i+2]}") | $(manager_display "${fields[i+4]:-detached}") | ${fields[i+6]} [${fields[i+5]}] | $(manager_display "${fields[i+3]}")")
+                local display
+                local group="${fields[i+1]}"
+                case "$group" in Personal) group=P ;; Work) group=W ;; esac
+                printf -v display '%-3.3s %-20.20s %-32.32s %-18.18s %s' \
+                    "$group" \
+                    "$(manager_display "${fields[i+2]}")" \
+                    "$(manager_display "${fields[i+4]:-detached}")" \
+                    "[${fields[i+5]}]" \
+                    "$(manager_display "${fields[i+3]}")"
+                rows+=("$(( (i-1)/7+1 ))"$'\t'"$display")
             done
             refresh=0
         fi
@@ -140,7 +156,10 @@ manager_main() {
         (( ${#rows} )) || header="No worktrees found under $projects_root. ctrl-f refresh | esc quit"
         [[ -n "$feedback" ]] && header+=$'\n'"$feedback"
         picker_status=0
-        output=$({ (( ${#rows} )) && printf '%s\n' "${rows[@]}"; :; } | fzf --delimiter=$'\t' --with-nth=2.. --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        output=$({
+            printf '%s\n' $'0\tG  REPOSITORY           BRANCH                           FLAGS              PATH'
+            (( ${#rows} )) && printf '%s\n' "${rows[@]}"
+        } | fzf --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then

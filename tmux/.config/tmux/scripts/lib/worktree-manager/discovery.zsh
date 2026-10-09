@@ -169,8 +169,6 @@ discover_worktrees() {
         while IFS= read -r -d '' entry; do
             candidate="${entry:h}"
             if ! common_dir=$(git -C "$candidate" rev-parse --path-format=absolute --git-common-dir 2> "$scratch/git-errors"); then
-                print -u2 -r -- "worktree-manager: $candidate: cannot resolve repository"
-                cat "$scratch/git-errors" >&2
                 continue
             fi
             common_dir="${common_dir:A}"

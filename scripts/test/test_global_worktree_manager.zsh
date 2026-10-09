@@ -68,7 +68,7 @@ test_discovery() {
     for expected_path in "$personal" "$work" "$external" "$nested" "$early" "$separate" "$separate_link"; do
         assert_equal "${path_counts[$expected_path]:-0}" 1 "expected path appears exactly once: $expected_path"
     done
-    [[ -s "$TEST_DIR/errors" ]] || fail "broken repository error not reported"
+    [[ ! -s "$TEST_DIR/errors" ]] || fail "invalid .git candidate warning was not suppressed"
     assert_equal "$(worktree_status "$external")" clean "clean state"
     print dirty > "$external/untracked"
     assert_equal "$(worktree_status "$external")" dirty "untracked state"
@@ -234,7 +234,7 @@ test_interface() {
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
     [[ -f "$manager" ]] || fail 'manager interface is missing'
     source "$manager"
-    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean
+    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags=''
     local ui_dir="$TEST_DIR/ui" result
     mkdir -p "$ui_dir"
     discover_worktrees() {
@@ -242,7 +242,7 @@ test_interface() {
         [[ -f "$ui_dir/empty" ]] && return 0
         printf '%s\0' "$TEST_DIR/repo" Personal 'project name' "$selected_path" topic '' "$ui_status"
     }
-    _worktree_manager_validate() { wm_action_status="$ui_status"; wm_action_flags=''; }
+    _worktree_manager_validate() { wm_action_status="$ui_status"; wm_action_flags="$ui_flags"; }
     list_repository_branches() {
         printf '%s\0' refs/heads/other local other '' refs/heads/busy local busy "$TEST_DIR/other tree" refs/remotes/origin/remote remote origin/remote ''
     }
@@ -276,8 +276,9 @@ test_interface() {
     ui_reset
     touch "$ui_dir/empty"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
-    [[ ! -s "$ui_dir/rows.1" ]] || fail 'empty inventory has rows'
+    assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 1 'empty list only has column labels'
     [[ "$(cat "$ui_dir/options.1")" == *'No worktrees'* ]] || fail 'empty inventory explanation absent'
+    [[ "$(cat "$ui_dir/options.1")" != *GROUP* ]] || fail 'column labels are in the top fzf header'
     ui_reset
     touch "$ui_dir/empty"
     printf 'ctrl-f\n' > "$ui_dir/reply.1"
@@ -285,24 +286,37 @@ test_interface() {
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     assert_equal "$(wc -l < "$ui_dir/scans" | tr -d ' ')" 2 'empty inventory refresh with fzf status 1 rescans'
     assert_equal "$(cat "$ui_dir/count")" 3 'empty inventory refresh returns to picker'
-    [[ ! -s "$ui_dir/rows.1" && ! -s "$ui_dir/rows.2" ]] || fail 'empty inventory refresh produces rows'
+    assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 1 'empty list has column labels only'
+    assert_equal "$(wc -l < "$ui_dir/rows.2" | tr -d ' ')" 1 'refreshed empty list has column labels only'
     ui_reset
     printf 'ctrl-f\n' > "$ui_dir/reply.1"
     print 1 > "$ui_dir/status.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     assert_equal "$(wc -l < "$ui_dir/scans" | tr -d ' ')" 2 'no-match refresh with fzf status 1 rescans'
     assert_equal "$(cat "$ui_dir/count")" 3 'no-match refresh returns to picker'
-    [[ -s "$ui_dir/rows.1" && -s "$ui_dir/rows.2" ]] || fail 'no-match fixture lacks inventory'
+    assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'list has heading and result'
+    [[ -s "$ui_dir/rows.2" ]] || fail 'no-match fixture lacks inventory'
     [[ ! -f "$ui_dir/actions" ]] || fail 'no-match refresh dispatches an action'
     ui_reset
     printf 'enter\n1\tforged path\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     result=$(cat "$ui_dir/rows.1")
-    [[ "$result" == *Personal*'project name'*topic*clean*'tree with spaces'* ]] || fail 'row fields missing'
+    [[ "$result" == *$'0\tG  REPOSITORY'* ]] || fail "column labels are not a non-selectable list header: $result"
+    [[ "$result" == *$'1\tP '*project*topic*'tree with spaces'* ]] || fail 'row fields missing'
+    [[ "$result" != *clean* && "$result" != *dirty* ]] || fail 'clean/dirty status shown in row'
     local -a calls
     local field
     while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
     assert_equal "${calls[2]}" "$selected_path" 'selection resolves array path instead of returned text'
+    ui_reset
+    ui_flags=main
+    printf 'ctrl-d\n1\tignored\n' > "$ui_dir/reply.1"
+    printf 'ctrl-f\n' > "$ui_dir/reply.2"
+    print 1 > "$ui_dir/status.2"
+    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    [[ ! -f "$ui_dir/actions" ]] || fail 'main worktree removal dispatched'
+    [[ "$(cat "$ui_dir/options.2")" == *'Main worktree cannot be removed'* ]] || fail 'main worktree destructive-action explanation missing'
+    ui_flags=''
     ui_reset
     printf 'ctrl-f\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
@@ -315,7 +329,7 @@ test_interface() {
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
     assert_equal "${calls[4]}" refs/heads/other 'checkout selection'
     assert_equal "${calls[5]}" 0 'local checkout boolean'
-    [[ "$(cat "$ui_dir/rows.2")" != *busy* ]] || fail 'occupied branch is offered'
+    [[ "$(tail -n +2 "$ui_dir/rows.2")" != *busy* ]] || fail 'occupied branch is offered'
     ui_reset
     ui_status=dirty
     printf 'ctrl-b\n1\tignored\n' > "$ui_dir/reply.1"
@@ -355,7 +369,7 @@ test_interface() {
     selected_path+=$'\nsecond\tline'
     printf 'enter\n1\tforged\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
-    assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 1 'control characters keep one display row'
+    assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'control characters keep one display row plus labels'
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
     assert_equal "${calls[2]}" "$selected_path" 'control characters preserved in action path'
     ui_reset
