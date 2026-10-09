@@ -145,11 +145,62 @@ parse_worktree_porcelain() {
     return 0
 }
 
+# Resolve one candidate to its common git dir. Emits a NUL triple
+# (common_dir, candidate, owner-flag) for the parent to collect. Runs in a
+# forked subshell; failures emit nothing (a non-root candidate warns on stderr).
+_worktree_manager_resolve_candidate() {
+    emulate -L zsh
+    local candidate="$1" common_dir git_dir owner=0
+    common_dir=$(git -C "$candidate" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return 0
+    common_dir="${common_dir:A}"
+    if ! _worktree_manager_is_root "$candidate"; then
+        print -u2 -r -- "worktree-manager: $candidate: candidate is not a worktree root"
+        return 0
+    fi
+    if git_dir=$(git -C "$candidate" rev-parse --absolute-git-dir 2>/dev/null) &&
+        [[ "${git_dir:A}" == "$common_dir" ]]; then
+        owner=1
+    fi
+    printf '%s\0%s\0%s\0' "$common_dir" "$candidate" "$owner"
+}
+
+# Emit the worktree records for one repository. $1 common dir, $2 candidate for
+# `git -C`, $3 owning root (empty to resolve), $4 scratch dir. Writes the final
+# six-field records to stdout; runs in a forked subshell.
+_worktree_manager_emit_repo_worktrees() {
+    emulate -L zsh
+    local common_dir="$1" candidate="$2" owner="$3" scratch="$4"
+    local repo_root="${owner:-$candidate}" entry git_dir porcelain
+    porcelain=$(mktemp "$scratch/porcelain.XXXXXXXX") || return 0
+    if ! git -C "$candidate" worktree list --porcelain -z > "$porcelain" 2>/dev/null; then
+        print -u2 -r -- "worktree-manager: $repo_root: cannot list worktrees"
+        rm -f -- "$porcelain"
+        return 0
+    fi
+    if [[ -z "$owner" ]]; then
+        # The main root may be outside the scan; use registered paths and Git
+        # identity, with no common-directory naming assumption.
+        while IFS= read -r -d '' entry; do
+            [[ "$entry" == 'worktree '* ]] || continue
+            entry="${entry#worktree }"
+            if _worktree_manager_is_root "$entry" &&
+                git_dir=$(git -C "$entry" rev-parse --absolute-git-dir 2>/dev/null) &&
+                [[ "${git_dir:A}" == "$common_dir" ]]; then
+                repo_root="${entry:A}"
+                break
+            fi
+        done < "$porcelain"
+    fi
+    parse_worktree_porcelain "$repo_root" "$porcelain"
+    rm -f -- "$porcelain"
+}
+
 discover_worktrees() {
     emulate -L zsh
-    local wm_projects_root="${1:A}" candidate entry common_dir repo_root git_dir scratch
+    local wm_projects_root="${1:A}" candidate entry common_dir scratch owner job
     local -A candidate_by_common owner_by_common
-    local -a common_dirs
+    local -a common_dirs resolve_jobs emit_jobs
+    local max_jobs="${WM_JOBS:-8}"
     if [[ ! -d "$wm_projects_root" ]]; then
         print -u2 -r -- "worktree-manager: $wm_projects_root: projects root is missing"
         return 0
@@ -176,51 +227,44 @@ discover_worktrees() {
             print -u2 -r -- "worktree-manager: $wm_projects_root: repository traversal errors"
             cat "$scratch/find-errors" >&2
         fi
-        while IFS= read -r -d '' entry; do
-            candidate="${${entry%/}:h}"
-            if ! common_dir=$(git -C "$candidate" rev-parse --path-format=absolute --git-common-dir 2> "$scratch/git-errors"); then
-                continue
-            fi
-            common_dir="${common_dir:A}"
-            if ! _worktree_manager_is_root "$candidate"; then
-                print -u2 -r -- "worktree-manager: $candidate: candidate is not a worktree root"
-                continue
-            fi
+        # Phase 2: resolve candidates in parallel. Output is an internal NUL
+        # stream of (common_dir, candidate, owner) triples, kept separate from
+        # the final records on stdout.
+        {
+            while IFS= read -r -d '' entry; do
+                candidate="${${entry%/}:h}"
+                _worktree_manager_resolve_candidate "$candidate" &
+                resolve_jobs+=($!)
+                if (( ${#resolve_jobs} >= max_jobs )); then
+                    wait $resolve_jobs[1]
+                    resolve_jobs=(${resolve_jobs[2,-1]})
+                fi
+            done < "$scratch/candidates"
+            for job in "${resolve_jobs[@]}"; do wait "$job"; done
+        } > "$scratch/resolved"
+        # Resolve all candidates before emitting any registry: a later main
+        # candidate supplies ownership even when its common directory is custom.
+        while IFS= read -r -d '' common_dir; do
+            IFS= read -r -d '' candidate
+            IFS= read -r -d '' owner
             if [[ -z "${candidate_by_common[$common_dir]:-}" ]]; then
                 candidate_by_common[$common_dir]="$candidate"
                 common_dirs+=("$common_dir")
             fi
-            if git_dir=$(git -C "$candidate" rev-parse --absolute-git-dir 2>/dev/null) &&
-                [[ "${git_dir:A}" == "$common_dir" ]]; then
-                owner_by_common[$common_dir]="$candidate"
-            fi
-        done < "$scratch/candidates"
-        # Resolve all candidates before emitting any registry: a later main
-        # candidate supplies ownership even when its common directory is custom.
+            [[ "$owner" == 1 ]] && owner_by_common[$common_dir]="$candidate"
+        done < "$scratch/resolved"
+        # Phase 3: emit each repository's records in parallel. Output order is
+        # nondeterministic; the picker sorts rows before display.
         for common_dir in "${common_dirs[@]}"; do
-            candidate="${candidate_by_common[$common_dir]}"
-            repo_root="${owner_by_common[$common_dir]:-$candidate}"
-            if ! git -C "$candidate" worktree list --porcelain -z > "$scratch/porcelain" 2> "$scratch/git-errors"; then
-                print -u2 -r -- "worktree-manager: $repo_root: cannot list worktrees"
-                cat "$scratch/git-errors" >&2
-                continue
+            _worktree_manager_emit_repo_worktrees "$common_dir" \
+                "${candidate_by_common[$common_dir]}" "${owner_by_common[$common_dir]:-}" "$scratch" &
+            emit_jobs+=($!)
+            if (( ${#emit_jobs} >= max_jobs )); then
+                wait $emit_jobs[1]
+                emit_jobs=(${emit_jobs[2,-1]})
             fi
-            if [[ -z "${owner_by_common[$common_dir]:-}" ]]; then
-                # The main root may be outside the scan; use registered paths
-                # and Git identity, with no common-directory naming assumption.
-                while IFS= read -r -d '' entry; do
-                    [[ "$entry" == 'worktree '* ]] || continue
-                    entry="${entry#worktree }"
-                    if _worktree_manager_is_root "$entry" &&
-                        git_dir=$(git -C "$entry" rev-parse --absolute-git-dir 2>/dev/null) &&
-                        [[ "${git_dir:A}" == "$common_dir" ]]; then
-                        repo_root="${entry:A}"
-                        break
-                    fi
-                done < "$scratch/porcelain"
-            fi
-            parse_worktree_porcelain "$repo_root" "$scratch/porcelain"
         done
+        for job in "${emit_jobs[@]}"; do wait "$job"; done
     } always {
         rm -rf -- "$scratch"
     }

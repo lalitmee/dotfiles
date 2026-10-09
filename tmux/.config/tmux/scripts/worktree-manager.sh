@@ -2,6 +2,11 @@
 
 source "${${(%):-%x}:A:h}/lib/worktree-manager/discovery.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/actions.zsh"
+source "${${(%):-%x}:A:h}/lib/worktree-manager/popup.zsh"
+
+# Absolute path to this script, reused when the picker opens a popup that
+# re-invokes us through the __action subcommand.
+typeset -g WM_SELF="${${(%):-%x}:A}"
 
 # EPOCHSECONDS and zstat back the discovery cache freshness check.
 zmodload zsh/datetime zsh/stat 2>/dev/null
@@ -10,6 +15,17 @@ zmodload zsh/datetime zsh/stat 2>/dev/null
 manager_display() { print -rn -- "${(V)1}"; }
 
 manager_confirm() {
+    local affirmative="${2:+Yes, ${2}}"
+    affirmative="${affirmative:-Yes}"
+    if _worktree_popup_gum; then
+        gum confirm \
+            --prompt.foreground="$WM_HIGHLIGHT" \
+            --selected.foreground="#FFFFFF" --selected.background="$WM_SELECT_BG" \
+            --unselected.foreground="#8a8a8a" \
+            --affirmative="$affirmative" --negative="Cancel" \
+            "$1"
+        return
+    fi
     local answer
     print -r -- "$1"
     print -n -r -- "Type ${2:-yes} to confirm: "
@@ -88,11 +104,7 @@ manager_mutation() {
         return 1
     }
     if [[ "$action" == ctrl-r ]]; then
-        print -r -- "Rename path: $selected
-Status: $wm_action_status"
-        print -n -r -- 'Destination (absolute path; blank cancels): '
-        IFS= read -r destination || return 1
-        [[ "$destination" == /* ]] || { print -u2 'An absolute destination is required.'; return 1; }
+        destination=$(worktree_popup_destination "$selected") || return 1
         manager_confirm "Move path: $selected
 Status: $wm_action_status
 Destination: $destination" || return 1
@@ -131,7 +143,7 @@ manager_launch() {
 
 manager_main() {
     emulate -L zsh
-    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status
+    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all
     local -a fields rows choice
     while true; do
         if (( refresh )); then
@@ -152,49 +164,77 @@ manager_main() {
             if (( use_cache )); then
                 while IFS= read -r -d '' field; do fields+=("$field"); done < "$cache_file"
             else
-                print -r -- "Scanning worktrees under $projects_root... (this can take a while)"
                 diagnostics=$(mktemp "${TMPDIR:-/tmp}/worktree-ui.XXXXXXXX") || return 1
                 local cache_tmp; cache_tmp=$(mktemp "${cache_file}.XXXX") || return 1
-                discover_worktrees "$projects_root" 2> "$diagnostics" > "$cache_tmp"
+                if _worktree_popup_gum; then
+                    # Spinner renders to the tty; records/diagnostics are written
+                    # by the child's own redirects so nothing pollutes the stream.
+                    gum spin --spinner dot \
+                        --spinner.foreground="$WM_ACCENT" \
+                        --title.foreground="$WM_HIGHLIGHT" \
+                        --title "Scanning worktrees under $projects_root…" -- \
+                        zsh -c 'zsh "$1" __discover "$2" > "$3" 2> "$4"' \
+                        _ "$WM_SELF" "$projects_root" "$cache_tmp" "$diagnostics"
+                else
+                    print -r -- "Scanning worktrees under $projects_root... (this can take a while)"
+                    discover_worktrees "$projects_root" 2> "$diagnostics" > "$cache_tmp"
+                fi
                 [[ -s "$diagnostics" ]] && feedback="$(< "$diagnostics")"
                 rm -f -- "$diagnostics"
                 while IFS= read -r -d '' field; do fields+=("$field"); done < "$cache_tmp"
                 mv -f -- "$cache_tmp" "$cache_file" 2>/dev/null || rm -f -- "$cache_tmp"
             fi
+            rows=()
             local i
             for ((i=1; i+5<=${#fields}; i+=6)); do
-                local display
                 local group="${fields[i+1]}"
-                case "$group" in Personal) group=P ;; Work) group=W ;; esac
-                printf -v display '%-3.3s %-20.20s %-32.32s %-18.18s %s' \
-                    "$group" \
+                if [[ "$filter" != all ]]; then
+                    [[ "${group:l}" == "${filter:l}" ]] || continue
+                fi
+                local display
+                printf -v display '%-20.20s %-32.32s %s' \
                     "$(manager_display "${fields[i+2]}")" \
                     "$(manager_display "${fields[i+4]:-detached}")" \
-                    "[${fields[i+5]}]" \
                     "$(manager_display "${fields[i+3]}")"
-                rows+=("$(( (i-1)/6+1 ))"$'\t'"$display")
+                rows+=("$i"$'\t'"$display")
             done
+            # Parallel discovery returns records in nondeterministic order; sort
+            # rows (the id is the first tab field, so selections still map) for a
+            # stable listing across runs.
+            (( ${#rows} )) && rows=("${(@f)$(printf '%s\n' "${rows[@]}" | LC_ALL=C sort -t$'\t' -k2,2)}")
             refresh=0; force=0
         fi
-        header='enter open | ctrl-b checkout | ctrl-r rename | ctrl-d remove | ctrl-f refresh | esc quit'
-        (( ${#rows} )) || header="No worktrees found under $projects_root. ctrl-f refresh | esc quit"
+        local filter_label="$filter"
+        header="enter open | ctrl-b checkout | ctrl-r rename | ctrl-d remove | ctrl-g filter:${filter_label} | ctrl-f refresh | esc quit"
+        if (( ${#rows} == 0 )); then
+            header="No worktrees found under $projects_root (filter: ${filter_label}). ctrl-g toggle filter | ctrl-f refresh | esc quit"
+        fi
         [[ -n "$feedback" ]] && header+=$'\n'"$feedback"
         picker_status=0
         output=$({
-            printf '%s\n' $'0\tG  REPOSITORY           BRANCH                           FLAGS              PATH'
+            printf '%s\n' $'0\tREPOSITORY           BRANCH                           PATH'
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
-        } | fzf --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        } | fzf --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then
             refresh=1; force=1
             continue
         fi
+        if [[ "$key" == ctrl-g ]]; then
+            case "$filter" in
+                all) filter=Personal ;;
+                Personal) filter=Work ;;
+                Work) filter=all ;;
+            esac
+            refresh=1
+            continue
+        fi
         (( picker_status == 0 )) || break
         [[ "$key" == enter || "$key" == ctrl-b || "$key" == ctrl-r || "$key" == ctrl-d ]] || continue
         id="${${choice[2]:-}%%$'\t'*}"
-        [[ "$id" == <-> ]] && (( id>=1 && id<=${#rows} )) || continue
-        i=$(( (id-1)*6+1 ))
+        [[ "$id" == <-> ]] && (( id>=1 && id<=${#fields} )) || continue
+        i=$id
         feedback=''
         # Prompts use the terminal directly; action diagnostics also appear in
         # the next fzf header so refreshing the screen does not hide the error.
@@ -206,16 +246,25 @@ manager_main() {
                     feedback="Open failed: $action_output"
                 fi ;;
             ctrl-b)
-                if manager_checkout "${fields[i]}" "${fields[i+3]}"; then
+                if tmux display-popup -E -w 80% -h 70% -d "$HOME/Projects" \
+                    "zsh ${(q)WM_SELF} __action checkout ${(q)fields[i]} ${(q)fields[i+3]}"; then
                     refresh=1; force=1; feedback='Checkout completed.'
                 else
                     [[ -n "$feedback" ]] || feedback='Checkout cancelled or failed.'
                 fi ;;
-            ctrl-r|ctrl-d)
-                if manager_mutation "$key" "${fields[i]}" "${fields[i+3]}"; then
-                    refresh=1; force=1; feedback='Worktree updated.'
+            ctrl-r)
+                if tmux display-popup -E -w 70% -h 40% -d "$HOME/Projects" \
+                    "zsh ${(q)WM_SELF} __action rename ${(q)fields[i]} ${(q)fields[i+3]}"; then
+                    refresh=1; force=1; feedback='Worktree renamed.'
                 else
-                    [[ -n "$feedback" ]] || feedback='Action cancelled or failed.'
+                    [[ -n "$feedback" ]] || feedback='Rename cancelled or failed.'
+                fi ;;
+            ctrl-d)
+                if tmux display-popup -E -w 70% -h 45% -d "$HOME/Projects" \
+                    "zsh ${(q)WM_SELF} __action remove ${(q)fields[i]} ${(q)fields[i+3]}"; then
+                    refresh=1; force=1; feedback='Worktree removed.'
+                else
+                    [[ -n "$feedback" ]] || feedback='Remove cancelled or failed.'
                 fi ;;
         esac
     done
@@ -229,6 +278,8 @@ manager_main() {
 if [[ "$ZSH_EVAL_CONTEXT" == toplevel ]]; then
     case "${1:-}" in
         --launch) manager_launch ;;
+        __action) shift; worktree_popup "$@" ;;
+        __discover) shift; discover_worktrees "$@" ;;
         '') manager_main "$HOME/Projects" ;;
         --projects-root)
             [[ $# == 2 ]] || { print -u2 'Usage: worktree-manager.sh [--projects-root path]'; exit 2; }
