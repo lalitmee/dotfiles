@@ -3,6 +3,9 @@
 source "${${(%):-%x}:A:h}/lib/worktree-manager/discovery.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/actions.zsh"
 
+# EPOCHSECONDS and zstat back the discovery cache freshness check.
+zmodload zsh/datetime zsh/stat 2>/dev/null
+
 # Escape control characters for single-line display; original fields stay in arrays.
 manager_display() { print -rn -- "${(V)1}"; }
 
@@ -128,18 +131,38 @@ manager_launch() {
 
 manager_main() {
     emulate -L zsh
-    local projects_root="$1" field output key id header refresh=1 return_window feedback='' action_output diagnostics picker_status
+    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status
     local -a fields rows choice
     while true; do
         if (( refresh )); then
-            print -r -- "Scanning worktrees under $projects_root... (this can take ~20s)"
             fields=(); rows=()
-            diagnostics=$(mktemp "${TMPDIR:-/tmp}/worktree-ui.XXXXXXXX") || return 1
-            while IFS= read -r -d '' field; do fields+=("$field"); done < <(discover_worktrees "$projects_root" 2> "$diagnostics")
-            [[ -s "$diagnostics" ]] && feedback="$(< "$diagnostics")"
-            rm -f -- "$diagnostics"
+            # Cache the raw NUL records (they back the actions too). Version the
+            # filename so a record-format change never reads a stale cache.
+            # ponytail: key is the sanitized projects root and TTL caps staleness
+            # at WM_CACHE_TTL (default 90s); ctrl-f and post-action refresh
+            # always rescan, and actions re-validate before touching anything.
+            local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v6.${projects_root//[^A-Za-z0-9]/_}"
+            local use_cache=0
+            local -a cstat
+            if (( ! force )) && [[ -r "$cache_file" ]] &&
+                zstat -A cstat +mtime -- "$cache_file" 2>/dev/null &&
+                (( EPOCHSECONDS - cstat[1] < ${WM_CACHE_TTL:-90} )); then
+                use_cache=1
+            fi
+            if (( use_cache )); then
+                while IFS= read -r -d '' field; do fields+=("$field"); done < "$cache_file"
+            else
+                print -r -- "Scanning worktrees under $projects_root... (this can take a while)"
+                diagnostics=$(mktemp "${TMPDIR:-/tmp}/worktree-ui.XXXXXXXX") || return 1
+                local cache_tmp; cache_tmp=$(mktemp "${cache_file}.XXXX") || return 1
+                discover_worktrees "$projects_root" 2> "$diagnostics" > "$cache_tmp"
+                [[ -s "$diagnostics" ]] && feedback="$(< "$diagnostics")"
+                rm -f -- "$diagnostics"
+                while IFS= read -r -d '' field; do fields+=("$field"); done < "$cache_tmp"
+                mv -f -- "$cache_tmp" "$cache_file" 2>/dev/null || rm -f -- "$cache_tmp"
+            fi
             local i
-            for ((i=1; i+6<=${#fields}; i+=7)); do
+            for ((i=1; i+5<=${#fields}; i+=6)); do
                 local display
                 local group="${fields[i+1]}"
                 case "$group" in Personal) group=P ;; Work) group=W ;; esac
@@ -149,9 +172,9 @@ manager_main() {
                     "$(manager_display "${fields[i+4]:-detached}")" \
                     "[${fields[i+5]}]" \
                     "$(manager_display "${fields[i+3]}")"
-                rows+=("$(( (i-1)/7+1 ))"$'\t'"$display")
+                rows+=("$(( (i-1)/6+1 ))"$'\t'"$display")
             done
-            refresh=0
+            refresh=0; force=0
         fi
         header='enter open | ctrl-b checkout | ctrl-r rename | ctrl-d remove | ctrl-f refresh | esc quit'
         (( ${#rows} )) || header="No worktrees found under $projects_root. ctrl-f refresh | esc quit"
@@ -164,14 +187,14 @@ manager_main() {
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then
-            refresh=1
+            refresh=1; force=1
             continue
         fi
         (( picker_status == 0 )) || break
         [[ "$key" == enter || "$key" == ctrl-b || "$key" == ctrl-r || "$key" == ctrl-d ]] || continue
         id="${${choice[2]:-}%%$'\t'*}"
         [[ "$id" == <-> ]] && (( id>=1 && id<=${#rows} )) || continue
-        i=$(( (id-1)*7+1 ))
+        i=$(( (id-1)*6+1 ))
         feedback=''
         # Prompts use the terminal directly; action diagnostics also appear in
         # the next fzf header so refreshing the screen does not hide the error.
@@ -184,13 +207,13 @@ manager_main() {
                 fi ;;
             ctrl-b)
                 if manager_checkout "${fields[i]}" "${fields[i+3]}"; then
-                    refresh=1; feedback='Checkout completed.'
+                    refresh=1; force=1; feedback='Checkout completed.'
                 else
                     [[ -n "$feedback" ]] || feedback='Checkout cancelled or failed.'
                 fi ;;
             ctrl-r|ctrl-d)
                 if manager_mutation "$key" "${fields[i]}" "${fields[i+3]}"; then
-                    refresh=1; feedback='Worktree updated.'
+                    refresh=1; force=1; feedback='Worktree updated.'
                 else
                     [[ -n "$feedback" ]] || feedback='Action cancelled or failed.'
                 fi ;;

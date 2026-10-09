@@ -21,7 +21,7 @@ _worktree_manager_validate() {
         git -C "$repo_root" worktree list --porcelain -z > "$scratch" || return 1
         while IFS= read -r -d '' field; do fields+=("$field"); done < <(parse_worktree_porcelain "$repo_root" "$scratch")
         local i
-        for ((i=1; i<=${#fields}; i+=7)); do
+        for ((i=1; i<=${#fields}; i+=6)); do
             if [[ "${fields[i+3]:A}" == "$worktree_path" ]]; then
                 wm_action_flags="${fields[i+5]}"
                 wm_action_status=$(worktree_status "$worktree_path")
