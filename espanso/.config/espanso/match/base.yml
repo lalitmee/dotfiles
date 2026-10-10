@@ -57,6 +57,22 @@ matches:
   - trigger: ":ollm"
     replace: "http://127.0.0.1:8090/"
 
+  # Local development ports
+  - trigger: ":30"
+    replace: "localhost:3000"
+
+  - trigger: ":80"
+    replace: "localhost:8000"
+
+  - trigger: ":88"
+    replace: "localhost:8888"
+
+  - trigger: ":41"
+    replace: "localhost:4173"
+
+  - trigger: ":51"
+    replace: "localhost:5173"
+
 #-------------------------------------------------------------------------------
 # NOTE: Advanced Espanso Matches {{{
 #-------------------------------------------------------------------------------
