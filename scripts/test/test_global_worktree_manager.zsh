@@ -236,6 +236,9 @@ test_interface() {
     source "$manager"
     local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags=''
     local ui_dir="$TEST_DIR/ui" result
+    local cache_key="${TEST_DIR}/Projects"
+    cache_key="${cache_key//[^A-Za-z0-9]/_}"
+    local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v6.${cache_key}"
     mkdir -p "$ui_dir"
     discover_worktrees() {
         print x >> "$ui_dir/scans"
@@ -271,8 +274,18 @@ test_interface() {
     }
     ui_reset() {
         rm -f -- "$ui_dir"/*(N)
+        rm -f -- "$cache_file"
         print 1 > "$ui_dir/count"
     }
+    ui_reset
+    printf 'ctrl-d\n1\tignored\n' > "$ui_dir/reply.1"
+    printf 'ctrl-f\n' > "$ui_dir/reply.2"
+    print 1 > "$ui_dir/status.2"
+    printf 'yes\n' | manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    assert_equal "${calls[4]}" new-window 'removal launches a dedicated window'
+    [[ "${calls[9]}" == *'__remove'*"$TEST_DIR/repo"*"$selected_path"*'0'*'@9'* ]] || fail 'worker command does not preserve removal arguments and manager target'
+    [[ ! -f "$ui_dir/actions" ]] || fail 'manager removes worktree synchronously'
     ui_reset
     touch "$ui_dir/empty"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
@@ -355,16 +368,15 @@ test_interface() {
     ui_reset
     printf 'ctrl-d\n1\tignored\n' > "$ui_dir/reply.1"
     printf 'yes\nforce\n' | manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
-    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
-    assert_equal "${calls[4]}" 1 'force removal boolean'
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    [[ "${(j:|:)calls}" == *'new-window'*'__remove'*'1'* ]] || fail 'force removal launches worker with force enabled'
     [[ "$(cat "$ui_dir/output")" == *"$selected_path"*dirty*FORCE* ]] || fail 'force safety copy incomplete'
     ui_reset
     ui_status=clean
     printf 'ctrl-d\n1\tignored\n' > "$ui_dir/reply.1"
     printf 'yes\n' | manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
-    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
-    assert_equal "${calls[4]}" 0 'normal removal boolean'
-    assert_equal "$(wc -l < "$ui_dir/scans" | tr -d ' ')" 2 'successful mutation rescans'
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    [[ "${(j:|:)calls}" == *'new-window'*'__remove'*'0'* ]] || fail 'normal removal launches worker without force'
     ui_reset
     selected_path+=$'\nsecond\tline'
     printf 'enter\n1\tforged\n' > "$ui_dir/reply.1"

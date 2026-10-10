@@ -92,7 +92,7 @@ Status: $wm_action_status. Local changes may conflict with checkout." || return 
 
 manager_mutation() {
     emulate -L zsh
-    local action="$1" repo="$2" selected="$3" destination force=0
+    local action="$1" repo="$2" selected="$3" destination force=0 manager_window
     local wm_action_status wm_action_flags
     manager_validate "$repo" "$selected" || return 1
     [[ ",$wm_action_flags," != *,main,* ]] || {
@@ -121,7 +121,15 @@ Path: $selected
 Status: $wm_action_status" force || return 1
             force=1
         fi
-        manager_run_action remove_worktree "$repo" "$selected" "$force"
+        manager_window=$(tmux display-message -p '#{window_id}') || {
+            feedback='Could not identify manager window for deletion.'
+            return 1
+        }
+        tmux new-window -n "delete:${selected:t}" -c "$repo" \
+            "zsh ${(qq)WM_SELF} __remove ${(qq)repo} ${(qq)selected} ${(qq)force} ${(qq)manager_window}" || {
+                feedback='Could not open worktree deletion window.'
+                return 1
+            }
     fi
 }
 
@@ -259,12 +267,7 @@ manager_main() {
                     [[ -n "$feedback" ]] || feedback='Rename cancelled or failed.'
                 fi ;;
             ctrl-d)
-                if tmux display-popup -E -w 70% -h 45% -d "$HOME/Projects" \
-                    "zsh ${(q)WM_SELF} __action remove ${(q)fields[i]} ${(q)fields[i+3]}"; then
-                    refresh=1; force=1; feedback='Worktree removed.'
-                else
-                    [[ -n "$feedback" ]] || feedback='Remove cancelled or failed.'
-                fi ;;
+                manager_mutation ctrl-d "${fields[i]}" "${fields[i+3]}" || true ;;
         esac
     done
     if [[ -n "${TMUX:-}" ]]; then
@@ -278,6 +281,8 @@ if [[ "$ZSH_EVAL_CONTEXT" == toplevel ]]; then
     case "${1:-}" in
         --launch) manager_launch ;;
         __action) shift; worktree_popup "$@" ;;
+        __remove) shift; worktree_remove_job "$@" ;;
+        __remove-action) shift; worktree_remove_action "$@" ;;
         __discover) shift; discover_worktrees "$@" ;;
         '') manager_main "$HOME/Projects" ;;
         --projects-root)

@@ -51,3 +51,31 @@ worktree_popup() {
     (( rc == 0 )) && _worktree_popup_gum && gum style --foreground="$WM_SUCCESS" "✓ Done"
     return $rc
 }
+
+# Run deletion in its own window; notify the suspended manager picker to rescan
+# after the user has seen the result and dismissed this window.
+worktree_remove_job() {
+    emulate -L zsh
+    local repo="$1" selected="$2" force="$3" manager_window="$4" rc=0
+    if _worktree_popup_gum; then
+        gum spin --spinner dot --title "Removing ${selected:t}..." --show-output -- \
+            zsh "$WM_SELF" __remove-action "$repo" "$selected" "$force" || rc=$?
+    else
+        print -r -- "Removing $selected..."
+        remove_worktree "$repo" "$selected" "$force" || rc=$?
+    fi
+    if (( rc == 0 )); then
+        print -r -- 'Worktree deleted successfully.'
+    else
+        print -u2 -r -- "Worktree deletion failed (exit $rc). Check the error above."
+    fi
+    print -n -r -- 'Press any key to close and refresh the manager...'
+    read -k 1 -s -r
+    print
+    tmux send-keys -t "$manager_window" C-f
+    return "$rc"
+}
+
+worktree_remove_action() {
+    remove_worktree "$@"
+}
