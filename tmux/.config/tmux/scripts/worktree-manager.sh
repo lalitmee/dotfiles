@@ -183,7 +183,6 @@ manager_main() {
                         zsh -c 'zsh "$1" __discover "$2" > "$3" 2> "$4"' \
                         _ "$WM_SELF" "$projects_root" "$cache_tmp" "$diagnostics"
                 else
-                    print -r -- "Scanning worktrees under $projects_root... (this can take a while)"
                     discover_worktrees "$projects_root" 2> "$diagnostics" > "$cache_tmp"
                 fi
                 [[ -s "$diagnostics" ]] && feedback="$(< "$diagnostics")"

@@ -322,6 +322,7 @@ test_interface() {
     printf 'ctrl-f\n' > "$ui_dir/reply.2"
     print 1 > "$ui_dir/status.2"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    [[ "$(cat "$ui_dir/output")" != *'Scanning worktrees'* ]] || fail 'scan progress leaked into picker output'
     assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'main worktrees hidden by default'
     assert_equal "$(wc -l < "$ui_dir/rows.2" | tr -d ' ')" 3 'toggle shows main worktrees'
     [[ "$(cat "$ui_dir/rows.1" "$ui_dir/rows.2")" != *'stale project'* ]] || fail 'prunable worktree appears in picker'
