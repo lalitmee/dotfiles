@@ -152,6 +152,7 @@ manager_launch() {
 manager_main() {
     emulate -L zsh
     local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all show_main=0
+    local key_color=$'\e[38;2;255;98;140m' description_color=$'\e[38;2;255;198;0m' heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
     local -a fields rows choice
     while true; do
         if (( refresh )); then
@@ -215,16 +216,16 @@ manager_main() {
         local filter_label="$filter"
         local main_label=off
         (( show_main )) && main_label=on
-        header="enter open | ctrl-b checkout | ctrl-r rename | ctrl-d remove | ctrl-g filter:${filter_label} | ctrl-t mains:${main_label} | ctrl-f refresh | esc quit"
+        header="${key_color}enter${reset_color} ${description_color}open${reset_color} | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color} | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color} | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color} | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
         if (( ${#rows} == 0 )); then
-            header="No worktrees found under $projects_root (filter: ${filter_label}). ctrl-g toggle filter | ctrl-t mains:${main_label} | ctrl-f refresh | esc quit"
+            header="No worktrees found under $projects_root (filter: ${filter_label}). ${key_color}ctrl-g${reset_color} ${description_color}toggle filter${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
         fi
         [[ -n "$feedback" ]] && header+=$'\n'"$feedback"
         picker_status=0
         output=$({
-            printf '%s\n' $'0\tREPOSITORY           BRANCH                           PATH'
+            printf '%s\n' "0\t${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
-        } | fzf --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then

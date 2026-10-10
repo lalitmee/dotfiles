@@ -297,8 +297,12 @@ test_interface() {
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'main worktrees hidden by default'
     assert_equal "$(wc -l < "$ui_dir/rows.2" | tr -d ' ')" 3 'toggle shows main worktrees'
-    [[ "$(cat "$ui_dir/options.1")" == *'ctrl-t mains:off'* ]] || fail 'main-worktree toggle state is not shown'
-    [[ "$(cat "$ui_dir/options.2")" == *'ctrl-t mains:on'* ]] || fail 'main-worktree toggle state did not update'
+    [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-t\e[0m \e[38;2;255;198;0mmains:off'* ]] || fail 'main-worktree toggle state is not shown'
+    [[ "$(cat "$ui_dir/options.2")" == *$'\e[38;2;255;98;140mctrl-t\e[0m \e[38;2;255;198;0mmains:on'* ]] || fail 'main-worktree toggle state did not update'
+    [[ "$(cat "$ui_dir/options.1")" == *'--ansi'* ]] || fail 'picker does not enable ANSI colors'
+    [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-d\e[0m'* ]] || fail 'keybinding color missing'
+    [[ "$(cat "$ui_dir/options.1")" == *$'\e[0m \e[38;2;255;198;0mremove\e[0m'* ]] || fail 'keybinding description color missing'
+    [[ "$(cat "$ui_dir/rows.1")" == *$'\e[38;2;138;138;138mREPOSITORY'* ]] || fail 'column heading color missing'
     ui_add_main=0
     ui_reset
     touch "$ui_dir/empty"
