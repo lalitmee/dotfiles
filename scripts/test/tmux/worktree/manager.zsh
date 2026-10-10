@@ -234,7 +234,7 @@ test_interface() {
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
     [[ -f "$manager" ]] || fail 'manager interface is missing'
     source "$manager"
-    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0
+    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0 ui_add_prunable=0
     local ui_dir="$TEST_DIR/ui" result
     local cache_key="${TEST_DIR}/Projects"
     cache_key="${cache_key//[^A-Za-z0-9]/_}"
@@ -243,9 +243,12 @@ test_interface() {
     discover_worktrees() {
         print x >> "$ui_dir/scans"
         [[ -f "$ui_dir/empty" ]] && return 0
-        printf '%s\0' "$TEST_DIR/repo" Personal 'project name' "$selected_path" topic '' "$ui_status"
+        printf '%s\0' "$TEST_DIR/repo" Personal 'project name' "$selected_path" topic ''
         if (( ui_add_main )); then
-            printf '%s\0' "$TEST_DIR/repo" Personal 'main project' "$TEST_DIR/main tree" main main clean
+            printf '%s\0' "$TEST_DIR/repo" Personal 'main project' "$TEST_DIR/main tree" main main
+        fi
+        if (( ui_add_prunable )); then
+            printf '%s\0' "$TEST_DIR/repo" Personal 'stale project' "$TEST_DIR/stale tree" topic prunable
         fi
     }
     _worktree_manager_validate() { wm_action_status="$ui_status"; wm_action_flags="$ui_flags"; }
@@ -291,19 +294,22 @@ test_interface() {
     [[ ! -f "$ui_dir/actions" ]] || fail 'manager removes worktree synchronously'
     ui_reset
     ui_add_main=1
+    ui_add_prunable=1
     printf 'ctrl-t\n' > "$ui_dir/reply.1"
     printf 'ctrl-f\n' > "$ui_dir/reply.2"
     print 1 > "$ui_dir/status.2"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'main worktrees hidden by default'
     assert_equal "$(wc -l < "$ui_dir/rows.2" | tr -d ' ')" 3 'toggle shows main worktrees'
+    [[ "$(cat "$ui_dir/rows.1" "$ui_dir/rows.2")" != *'stale project'* ]] || fail 'prunable worktree appears in picker'
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-t\e[0m \e[38;2;255;198;0mmains:off'* ]] || fail 'main-worktree toggle state is not shown'
     [[ "$(cat "$ui_dir/options.2")" == *$'\e[38;2;255;98;140mctrl-t\e[0m \e[38;2;255;198;0mmains:on'* ]] || fail 'main-worktree toggle state did not update'
     [[ "$(cat "$ui_dir/options.1")" == *'--ansi'* ]] || fail 'picker does not enable ANSI colors'
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-d\e[0m'* ]] || fail 'keybinding color missing'
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[0m \e[38;2;255;198;0mremove\e[0m'* ]] || fail 'keybinding description color missing'
-    [[ "$(cat "$ui_dir/rows.1")" == *$'\e[38;2;138;138;138mREPOSITORY'* ]] || fail 'column heading color missing'
+    [[ "$(cat "$ui_dir/rows.1")" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail 'column heading delimiter or color missing'
     ui_add_main=0
+    ui_add_prunable=0
     ui_reset
     touch "$ui_dir/empty"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"

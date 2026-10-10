@@ -200,6 +200,7 @@ manager_main() {
                 if [[ "$filter" != all ]]; then
                     [[ "${group:l}" == "${filter:l}" ]] || continue
                 fi
+                [[ ",${fields[i+5]}," != *,prunable,* ]] || continue
                 (( show_main )) || [[ ",${fields[i+5]}," != *,main,* ]] || continue
                 printf -v display '%-20.20s %-32.32s %s' \
                     "$(manager_display "${fields[i+2]}")" \
@@ -223,7 +224,7 @@ manager_main() {
         [[ -n "$feedback" ]] && header+=$'\n'"$feedback"
         picker_status=0
         output=$({
-            printf '%s\n' "0\t${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
+            printf '0\t%s\n' "${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
         } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
