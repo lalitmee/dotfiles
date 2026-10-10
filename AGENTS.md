@@ -11,7 +11,7 @@ This repository is a personal dotfiles tree. Main areas:
 - `./install.sh` bootstraps the machine and runs the interactive installer; do not run it without explicit user confirmation
 - `./scripts/install/main-installer.zsh` runs the interactive installer
 - `./clean-env` removes stowed symlinks
-- Docker install check: run `./scripts/test/docker-test.sh setup`, then `./scripts/test/docker-test.sh full` (or `phase <0-8>`), then `./scripts/test/docker-test.sh validate`
+- Docker install check: run `./scripts/test/install/docker.sh setup`, then `./scripts/test/install/docker.sh full` (or `phase <0-8>`), then `./scripts/test/install/docker.sh validate`
 - `pre-commit run --all-files` runs repo hooks, including gitleaks
 
 ## Coding Style & Naming Conventions
@@ -24,8 +24,15 @@ This repository is a personal dotfiles tree. Main areas:
 There is no single unit-test framework for the whole repo. Validate changes with the closest runtime:
 - tmux: `tmux source-file ~/.tmux.conf` then `tmux list-keys -T <table>`
 - installer changes: use the Docker install check above or test the affected phase
-- individual phases: `./scripts/test/docker-test.sh phase <0-8>`
+- individual phases: `./scripts/test/install/docker.sh phase <0-8>`
 - pre-commit and security checks: `pre-commit run --all-files`
+
+### Adding focused tests
+- Group tests by tool or subsystem under `scripts/test/`, using only as much nesting as needed (for example, `tmux/worktree/` for related checks and `bin/bluetooth/` for related commands). Keep filenames concise, kebab-case, and specific to the behavior; avoid repeating the tool name or adding a redundant `test_` prefix when the path already identifies it.
+- Keep tests standalone and use the existing language/runtime. Prefer isolated temporary fixtures; do not add a framework or shared runner without a concrete need.
+- Make commands runnable from the repository root, and add each focused test to `scripts/test/README.md` with its target, behavior, and exact command. Document supported modes individually.
+- Keep validators, security checks, installation harnesses, and support utilities in their own README sections rather than presenting them as focused tests.
+- When moving or renaming tests, update active references and path bootstrapping while preserving the test logic and behavior.
 
 ## Commit & Pull Request Guidelines
 Use conventional commits such as `fix(tmux): ...` or `docs: ...`. Keep subjects imperative and lowercase, and include a short bullet list in the body when the change is non-trivial. Do not auto-commit unless explicitly asked.

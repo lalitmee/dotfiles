@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
-WORKSPACE_DIR="${SCRIPT_DIR:h:h}"
+WORKSPACE_DIR="${SCRIPT_DIR:h:h:h:h}"
 WORKERS="$WORKSPACE_DIR/tmux/.config/tmux/scripts/git/workers"
 MANAGER="$WORKSPACE_DIR/tmux/.config/tmux/scripts/git/git-worktree.sh"
 TEST_DIR=$(mktemp -d)

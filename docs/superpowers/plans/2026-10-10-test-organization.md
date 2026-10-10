@@ -48,7 +48,7 @@
 | `scripts/test/gitleaks_precommit_test.py` | `scripts/test/security/gitleaks-precommit.py` | Gitleaks/pre-commit fixture checks |
 | `scripts/test/docker-test.sh` | `scripts/test/install/docker.sh` | Docker-based installation test harness |
 | `scripts/test/verify-installation.sh` | `scripts/test/install/verify.sh` | Installed environment validation |
-| `scripts/test/test-home` | `scripts/test/fixtures/test-home` | Test fixture data, not an executable test |
+| `scripts/test/test-home` | `scripts/test/support/home-env.sh` | Small executable probe that logs `$HOME` and tilde expansion; support utility, not a focused test |
 | `scripts/test/README.md` | unchanged | Catalog, classifications, and Docker harness guidance |
 
 Do not split the global worktree manager suite or change its behavior. Keep the Docker README guidance and update its command examples to the relocated harness. Preserve helper script executable bits. This plan’s names are explicit; if repository inspection shows a destination collision, stop and revise the plan rather than silently choosing another name.
@@ -62,7 +62,7 @@ Do not split the global worktree manager suite or change its behavior. Keep the 
 - Modify active references to those paths in `AGENTS.md`, docs, and current plans.
 
 - [ ] **Step 1: Record baseline and inspect current references.** Check `git status --short`, `git diff -- scripts/test/test_global_worktree_manager.zsh`, and search for each old path in active instructions/docs/plans. Preserve the existing user modification to `test_global_worktree_manager.zsh`.
-- [ ] **Step 2: Move the files without editing their contents.** Use `git mv` for the eight paths. Expected: each script exists at its destination with its original content and executable mode.
+- [ ] **Step 2: Move the files and preserve behavior.** Use `git mv` for the eight paths; update only repository-root path calculations that depend on the scripts' former directory depth. Do not change assertions or tested behavior. Expected: each script exists at its destination with its executable mode and resolves the same production files as before.
 - [ ] **Step 3: Update active path references.** Update only current operational documentation and plans found in Step 1; leave archived/historical material alone unless it contains live instructions.
 - [ ] **Step 4: Run the relocated tests.** Run each script by its new path, including the manager default/all mode and each supported mode (`discovery`, `actions`, `interface`). Expected: same pass/fail behavior as before relocation.
 
@@ -73,22 +73,23 @@ Do not split the global worktree manager suite or change its behavior. Keep the 
 - Modify active references to those paths, if any.
 
 - [ ] **Step 1: Search for old paths.** Find references to both source paths; classify each as active or historical.
-- [ ] **Step 2: Move the two scripts unchanged.** Use `git mv`; preserve executable bits.
+- [ ] **Step 2: Move the two scripts and preserve behavior.** Use `git mv`; update only repository-root path calculations affected by the new directory depth. Preserve all assertions and executable bits.
 - [ ] **Step 3: Update active references.** Do not rewrite archival examples unless they remain operational guidance.
 - [ ] **Step 4: Run both relocated scripts.** Expected: each exits successfully and reports its existing success result.
 
 ### Task 3: Classify support files and complete the index
 
 **Files:**
-- Move validators, security fixture test, Docker harness, and fixture data to the planned destinations in the file map.
-- Modify `scripts/test/README.md`.
+- Move validators, the security fixture test, Docker harness, and home environment support probe to the planned destinations in the file map.
+- Modify `scripts/test/README.md` and add test-creation guidance to `AGENTS.md`.
 - Modify active references found in Task 1/2 searches and a fresh whole-repository search.
 
 - [ ] **Step 1: Search all old paths and classify references.** Include README examples, `AGENTS.md`, docs/plans, and repository scripts. Treat `scripts/test/README.md`'s Docker invocations as active.
-- [ ] **Step 2: Move support files unchanged.** Relocate the two validators, Gitleaks test, Docker harness, installation verifier, and `test-home` fixture to the mapped paths; preserve modes and data.
+- [ ] **Step 2: Move support files and preserve behavior.** Relocate the two validators, Gitleaks test, Docker harness, installation verifier, and home environment probe to the mapped destinations; adjust only repository-root calculations affected by path depth and preserve modes/data.
 - [ ] **Step 3: Update active references.** Update references to moved files in `AGENTS.md`, current docs/plans, and all runnable commands; retain intentional historical/archive references.
-- [ ] **Step 4: Write the README catalog.** For every focused test, include target tool, behavior, and exact command. Add separate sections for validators, the Docker install harness, and fixtures/support files. Preserve Docker quick-start, phase, validation, and troubleshooting guidance with updated harness paths.
-- [ ] **Step 5: Run relocated validators and test scripts.** Run the config validators, Gitleaks fixture test, `install/verify.sh`, and the focused tests from their indexed commands. Run Docker tests only if the environment supports them; do not invoke `full` or interactive installation without confirmation.
+- [ ] **Step 4: Write the README catalog.** For every focused test, include target tool, behavior, and exact command. Add separate sections for validators, the Docker install harness, and support files. Preserve Docker quick-start, phase, validation, and troubleshooting guidance with updated harness paths.
+- [ ] **Step 5: Add test-creation guidance.** In `AGENTS.md`, document grouped paths, concise behavior-focused names, standalone commands, catalog updates, and separation of tests from support checks.
+- [ ] **Step 6: Run relocated validators and test scripts.** Run the config validators, Gitleaks fixture test, `install/verify.sh`, and the focused tests from their indexed commands. Run Docker tests only if the environment supports them; do not invoke `full` or interactive installation without confirmation.
 
 ### Task 4: Repository-wide migration verification
 

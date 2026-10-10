@@ -1,146 +1,71 @@
-# Docker-Based Testing for Dotfiles Installation
+# Script Test Catalog
 
-This directory contains tools for safely testing the dotfiles installation in an isolated Docker environment.
+Run focused tests from the repository root. These are standalone scripts; there is no shared test runner.
 
-## Quick Start
+## Focused tests
+
+### Tmux
+
+| Target | Behavior covered | Command |
+|---|---|---|
+| Global worktree manager | Discovery, actions, and interface (`all` runs all three) | `zsh scripts/test/tmux/worktree/manager.zsh all` |
+| Worktree dependencies | Dependency detection and launch behavior | `zsh scripts/test/tmux/worktree/dependencies.zsh` |
+| Worktree command flows | Git worktree command flows | `zsh scripts/test/tmux/worktree/flows.zsh` |
+| Worktree setup runner | Setup success and failure behavior | `zsh scripts/test/tmux/worktree/setup-runner.zsh` |
+| Workmux palette | Palette behavior | `zsh scripts/test/tmux/workmux/palette.zsh` |
+| File picker | Tmux file-picker argument handling | `zsh scripts/test/tmux/file-picker.zsh` |
+| Tmux installer | Installer behavior | `zsh scripts/test/tmux/install.zsh` |
+| Tmux update checker | Update-check behavior | `zsh scripts/test/tmux/update-check.zsh` |
+
+Run an individual manager suite with one of these exact commands:
 
 ```bash
-# 1. Setup test environment
-./docker-test.sh setup
-
-# 2. Test individual phases
-./docker-test.sh phase 0    # Base system
-./docker-test.sh phase 3    # System foundation
-./docker-test.sh phase 7    # Config stowing
-
-# 3. Run full installation
-./docker-test.sh full
-
-# 4. Validate results
-./docker-test.sh validate
-
-# 5. Manual testing
-./docker-test.sh enter
-
-# 6. Cleanup when done
-./docker-test.sh cleanup
+zsh scripts/test/tmux/worktree/manager.zsh discovery
+zsh scripts/test/tmux/worktree/manager.zsh actions
+zsh scripts/test/tmux/worktree/manager.zsh interface
 ```
 
-## Available Commands
+### User commands
 
-| Command | Description |
-|---------|-------------|
-| `setup` | Create and setup test container |
-| `phase <num>` | Test specific installation phase (0-8) |
-| `full` | Run complete installation |
-| `validate` | Check installation results |
-| `enter` | Enter container for manual testing |
-| `cleanup` | Remove test container |
-| `reset` | Reset container to clean state |
-| `status` | Show container status |
+| Target | Behavior covered | Command |
+|---|---|---|
+| Bluetooth audio command | Audio sink selection | `zsh scripts/test/bin/bluetooth/audio-selection.zsh` |
+| Git email guard | Rejects unexpected author and committer identities | `zsh scripts/test/bin/git/email-guard.zsh` |
 
-## Testing Workflow
+## Validators and security checks
 
-### Phase-by-Phase Testing
+| Target | Behavior covered | Command |
+|---|---|---|
+| Settings | Validate settings configuration | `bash scripts/test/config/settings.sh` |
+| Linear MCP | Validate Linear MCP configuration | `bash scripts/test/config/linear-mcp.sh` |
+| Gitleaks pre-commit | Exercise secret-blocking hooks in a temporary repository | `python3 scripts/test/security/gitleaks-precommit.py` |
+| Installed environment | Verify installation tools and configuration | `bash scripts/test/install/verify.sh` |
+
+## Docker installation harness
+
+The Docker harness tests installation phases in an isolated Ubuntu 24.04 container. From the repository root:
+
 ```bash
-# Test each phase individually
-./docker-test.sh setup
-./docker-test.sh phase 0    # Base Ubuntu + Rust/Go
-./docker-test.sh phase 1    # i3 Core
-./docker-test.sh phase 2    # i3 Enhanced
-./docker-test.sh phase 3    # System Foundation (cargo/go tools)
-./docker-test.sh phase 4    # Development Core
-./docker-test.sh phase 5    # Productivity Layer
-./docker-test.sh phase 6    # Desktop Apps
-./docker-test.sh phase 7    # Config Stowing
-./docker-test.sh phase 8    # Final Setup
+./scripts/test/install/docker.sh setup
+./scripts/test/install/docker.sh phase 0    # Base system
+./scripts/test/install/docker.sh phase 1    # i3 core
+./scripts/test/install/docker.sh phase 2    # i3 enhanced
+./scripts/test/install/docker.sh phase 3    # System foundation
+./scripts/test/install/docker.sh phase 4    # Development core
+./scripts/test/install/docker.sh phase 5    # Productivity
+./scripts/test/install/docker.sh phase 6    # Desktop apps
+./scripts/test/install/docker.sh phase 7    # Config stowing
+./scripts/test/install/docker.sh phase 8    # Final setup
+./scripts/test/install/docker.sh full
+./scripts/test/install/docker.sh validate
 ```
 
-### Full Installation Testing
-```bash
-./docker-test.sh setup
-./docker-test.sh full
-./docker-test.sh validate
-```
+Available commands: `setup`, `phase <0-8>`, `full`, `validate`, `enter`, `cleanup`, `reset`, and `status`. Run `full` only when you intend to test the complete installer inside Docker.
 
-### Manual Testing
-```bash
-./docker-test.sh enter
-# Now you're inside the container
-# Test keybindings, applications, etc.
-# Type 'exit' to leave
-```
+To enter the container for manual checks, run `./scripts/test/install/docker.sh enter`; type `exit` to leave. To clean up, run `./scripts/test/install/docker.sh cleanup`.
 
-## Container Environment
+Troubleshooting: check the Docker service if the container will not start; use `cleanup` then `setup` to recreate it. If installation fails, enter the container, inspect `docker logs dotfiles-test`, or use `reset` before retrying.
 
-- **Base Image**: Ubuntu 24.04 LTS
-- **User**: testuser (with sudo access)
-- **Working Directory**: /home/testuser
-- **Dotfiles Location**: /home/testuser/dotfiles
-- **Privileged**: Yes (for system-level operations)
+## Support utility
 
-## Safety Features
-
-- ✅ **Isolated**: No impact on host system
-- ✅ **Disposable**: Easy to reset/recreate
-- ✅ **Fast**: Instant setup and cleanup
-- ✅ **Controlled**: Exact Ubuntu version matching
-
-## Troubleshooting
-
-### Container Won't Start
-```bash
-# Check Docker service
-sudo systemctl status docker
-
-# Clean up and retry
-./docker-test.sh cleanup
-./docker-test.sh setup
-```
-
-### Installation Fails
-```bash
-# Enter container and debug
-./docker-test.sh enter
-
-# Check logs
-docker logs dotfiles-test
-
-# Reset and retry
-./docker-test.sh reset
-```
-
-### Permission Issues
-```bash
-# The container runs as 'testuser' with sudo access
-# If you need root access inside container:
-sudo -i
-```
-
-## Validation Checklist
-
-After installation, verify:
-
-- [ ] Tools are installed: `which git zsh tmux nvim i3 cargo go`
-- [ ] Configs are linked: `ls -la ~/.zshrc ~/.config/i3/config`
-- [ ] Services work: `systemctl status --user *` (if applicable)
-- [ ] Keybindings function: Test i3, tmux, sxhkd bindings
-- [ ] Applications launch: Try opening terminal, editor, browser
-
-## Performance Metrics
-
-Track these during testing:
-- Installation time per phase
-- Container resource usage
-- Application startup times
-- System responsiveness
-
-## Next Steps
-
-1. Run phase-by-phase testing
-2. Document any issues found
-3. Fix issues in the installation scripts
-4. Re-test until all phases pass
-5. Run full installation test
-6. Validate final results
-7. Update documentation with findings
+`scripts/test/support/home-env.sh` logs `$HOME` and tilde expansion to `~/dotfiles/scripts/logs/test.log`. It is a probe, not a focused test; running it writes into the current user's home directory.

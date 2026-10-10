@@ -2,7 +2,7 @@
 
 set -euo pipefail
 SCRIPT_DIR="${0:A:h}"
-WORKSPACE_DIR="${SCRIPT_DIR:h:h}"
+WORKSPACE_DIR="${SCRIPT_DIR:h:h:h:h}"
 DISCOVERY="$WORKSPACE_DIR/tmux/.config/tmux/scripts/lib/worktree-manager/discovery.zsh"
 TEST_DIR=$(mktemp -d)
 trap 'rm -rf "$TEST_DIR"' EXIT
@@ -234,7 +234,7 @@ test_interface() {
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
     [[ -f "$manager" ]] || fail 'manager interface is missing'
     source "$manager"
-    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags=''
+    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0
     local ui_dir="$TEST_DIR/ui" result
     local cache_key="${TEST_DIR}/Projects"
     cache_key="${cache_key//[^A-Za-z0-9]/_}"
@@ -244,6 +244,9 @@ test_interface() {
         print x >> "$ui_dir/scans"
         [[ -f "$ui_dir/empty" ]] && return 0
         printf '%s\0' "$TEST_DIR/repo" Personal 'project name' "$selected_path" topic '' "$ui_status"
+        if (( ui_add_main )); then
+            printf '%s\0' "$TEST_DIR/repo" Personal 'main project' "$TEST_DIR/main tree" main main clean
+        fi
     }
     _worktree_manager_validate() { wm_action_status="$ui_status"; wm_action_flags="$ui_flags"; }
     list_repository_branches() {
@@ -286,6 +289,17 @@ test_interface() {
     assert_equal "${calls[4]}" new-window 'removal launches a dedicated window'
     [[ "${calls[9]}" == *'__remove'*"$TEST_DIR/repo"*"$selected_path"*'0'*'@9'* ]] || fail 'worker command does not preserve removal arguments and manager target'
     [[ ! -f "$ui_dir/actions" ]] || fail 'manager removes worktree synchronously'
+    ui_reset
+    ui_add_main=1
+    printf 'ctrl-t\n' > "$ui_dir/reply.1"
+    printf 'ctrl-f\n' > "$ui_dir/reply.2"
+    print 1 > "$ui_dir/status.2"
+    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'main worktrees hidden by default'
+    assert_equal "$(wc -l < "$ui_dir/rows.2" | tr -d ' ')" 3 'toggle shows main worktrees'
+    [[ "$(cat "$ui_dir/options.1")" == *'ctrl-t mains:off'* ]] || fail 'main-worktree toggle state is not shown'
+    [[ "$(cat "$ui_dir/options.2")" == *'ctrl-t mains:on'* ]] || fail 'main-worktree toggle state did not update'
+    ui_add_main=0
     ui_reset
     touch "$ui_dir/empty"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"

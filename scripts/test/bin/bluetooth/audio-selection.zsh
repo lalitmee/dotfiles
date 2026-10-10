@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-repo_root="${0:A:h:h:h}"
+repo_root="${0:A:h:h:h:h:h}"
 script="$repo_root/bin/.config/bin/auto-bluetooth-audio"
 tmpdir="$(mktemp -d)"
 trap 'rm -rf "$tmpdir"' EXIT

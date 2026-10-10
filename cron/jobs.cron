@@ -22,7 +22,7 @@
 # Backup for the 'dotfiles' group every hour
 0 * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/run-cron-job dotfiles >/dev/null 2>&1
 
-# * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/test/test-home
+# * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/test/support/home-env.sh
 
 # * * * * * /bin/bash /home/lalitmee/dotfiles/scripts/backup/test-cron
 

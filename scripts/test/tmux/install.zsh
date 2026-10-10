@@ -2,7 +2,7 @@
 
 set -eu
 
-repo_root="${0:A:h:h:h}"
+repo_root="${0:A:h:h:h:h}"
 installer="${INSTALL_TMUX:-$repo_root/bin/.config/bin/install-tmux}"
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT

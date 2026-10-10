@@ -8,7 +8,7 @@ set -e
 CONTAINER_NAME="dotfiles-test"
 IMAGE_NAME="ubuntu:24.04"
 DOTFILES_REPO="https://github.com/lalitmee/dotfiles.git"
-HOST_DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+HOST_DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 
 # Colors for output
 RED='\033[0;31m'

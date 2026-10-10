@@ -3,7 +3,7 @@
 set -euo pipefail
 
 script_dir="${0:A:h}"
-repo_root="${script_dir:h:h}"
+repo_root="${script_dir:h:h:h:h}"
 palette="$repo_root/tmux/.config/tmux/scripts/popup/workmux-palette.sh"
 tmp_dir=$(mktemp -d)
 trap 'rm -rf "$tmp_dir"' EXIT

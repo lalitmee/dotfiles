@@ -43,7 +43,7 @@ ENV PATH="/home/myuser/.config/bin:${PATH}"
 
 # Make all installer scripts executable
 RUN chmod +x ./scripts/install/phases/*.zsh
-RUN chmod +x ./scripts/test/verify-installation.sh
+RUN chmod +x ./scripts/test/install/verify.sh
 
 # --- Execute Test ---
 # Now that helper scripts are on the PATH, run the installation phases directly.
@@ -55,7 +55,7 @@ RUN ./scripts/install/phases/00-base-ubuntu.zsh && \
 
 # --- Verify ---
 # Run the verification script to confirm tools are installed.
-RUN ./scripts/test/verify-installation.sh
+RUN ./scripts/test/install/verify.sh
 
 # Set the default command
 CMD ["/usr/bin/zsh"]

@@ -2,7 +2,7 @@
 
 set -eu
 
-repo_root="${0:A:h:h:h}"
+repo_root="${0:A:h:h:h:h}"
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
 mkdir -p "$tmp_dir/bin"

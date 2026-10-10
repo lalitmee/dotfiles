@@ -151,7 +151,7 @@ manager_launch() {
 
 manager_main() {
     emulate -L zsh
-    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all
+    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all show_main=0
     local -a fields rows choice
     while true; do
         if (( refresh )); then
@@ -199,6 +199,7 @@ manager_main() {
                 if [[ "$filter" != all ]]; then
                     [[ "${group:l}" == "${filter:l}" ]] || continue
                 fi
+                (( show_main )) || [[ ",${fields[i+5]}," != *,main,* ]] || continue
                 printf -v display '%-20.20s %-32.32s %s' \
                     "$(manager_display "${fields[i+2]}")" \
                     "$(manager_display "${fields[i+4]:-detached}")" \
@@ -212,16 +213,18 @@ manager_main() {
             refresh=0; force=0
         fi
         local filter_label="$filter"
-        header="enter open | ctrl-b checkout | ctrl-r rename | ctrl-d remove | ctrl-g filter:${filter_label} | ctrl-f refresh | esc quit"
+        local main_label=off
+        (( show_main )) && main_label=on
+        header="enter open | ctrl-b checkout | ctrl-r rename | ctrl-d remove | ctrl-g filter:${filter_label} | ctrl-t mains:${main_label} | ctrl-f refresh | esc quit"
         if (( ${#rows} == 0 )); then
-            header="No worktrees found under $projects_root (filter: ${filter_label}). ctrl-g toggle filter | ctrl-f refresh | esc quit"
+            header="No worktrees found under $projects_root (filter: ${filter_label}). ctrl-g toggle filter | ctrl-t mains:${main_label} | ctrl-f refresh | esc quit"
         fi
         [[ -n "$feedback" ]] && header+=$'\n'"$feedback"
         picker_status=0
         output=$({
             printf '%s\n' $'0\tREPOSITORY           BRANCH                           PATH'
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
-        } | fzf --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        } | fzf --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then
@@ -234,6 +237,11 @@ manager_main() {
                 Personal) filter=Work ;;
                 Work) filter=all ;;
             esac
+            refresh=1
+            continue
+        fi
+        if [[ "$key" == ctrl-t ]]; then
+            (( show_main = 1 - show_main ))
             refresh=1
             continue
         fi

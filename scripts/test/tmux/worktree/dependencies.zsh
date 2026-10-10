@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
-WORKSPACE_DIR="${SCRIPT_DIR:h:h}"
+WORKSPACE_DIR="${SCRIPT_DIR:h:h:h:h}"
 DETECTOR="$WORKSPACE_DIR/tmux/.config/tmux/scripts/git/lib/deps-detect.sh"
 
 if [[ ! -f "$DETECTOR" ]]; then

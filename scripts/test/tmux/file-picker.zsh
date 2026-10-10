@@ -5,7 +5,7 @@ set -euo pipefail
 
 # Define paths
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-WORKSPACE_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+WORKSPACE_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 MOCK_DIR="$SCRIPT_DIR/tmp_mock_bin"
 
 # Cleanup mock dir on exit
@@ -24,7 +24,7 @@ case "$*" in
         echo "%1"
         ;;
     *pane_current_path*)
-        echo "$(cd "$(dirname "$0")/../.." && pwd)"
+        echo "$(cd "$(dirname "$0")/../../.." && pwd)"
         ;;
     *pane_pid*)
         echo "12345"

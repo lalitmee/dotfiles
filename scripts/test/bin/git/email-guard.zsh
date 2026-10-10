@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-ROOT="${0:A:h:h:h}"
+ROOT="${0:A:h:h:h:h:h}"
 TEST_DIR="$(mktemp -d)"
 trap 'rm -rf "$TEST_DIR"' EXIT
 

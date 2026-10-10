@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
-WORKSPACE_DIR="${SCRIPT_DIR:h:h}"
+WORKSPACE_DIR="${SCRIPT_DIR:h:h:h:h}"
 RUNNER="$WORKSPACE_DIR/tmux/.config/tmux/scripts/git/workers/worktree-deps-install.sh"
 TEST_DIR=$(mktemp -d)
 trap 'rm -rf "$TEST_DIR"' EXIT

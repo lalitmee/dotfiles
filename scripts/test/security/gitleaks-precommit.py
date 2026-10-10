@@ -13,7 +13,7 @@ import tempfile
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 HOOK_CONFIG = """repos:
 - repo: https://github.com/gitleaks/gitleaks
   rev: v8.18.2
