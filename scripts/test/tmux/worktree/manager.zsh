@@ -234,7 +234,8 @@ test_interface() {
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
     [[ -f "$manager" ]] || fail 'manager interface is missing'
     source "$manager"
-    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0 ui_add_prunable=0
+    local original_manager_checkout="${functions[manager_checkout]}"
+    local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0 ui_add_prunable=0 ui_warning=''
     local ui_dir="$TEST_DIR/ui" result
     local cache_key="${TEST_DIR}/Projects"
     cache_key="${cache_key//[^A-Za-z0-9]/_}"
@@ -242,6 +243,7 @@ test_interface() {
     mkdir -p "$ui_dir"
     discover_worktrees() {
         print x >> "$ui_dir/scans"
+        [[ -z "$ui_warning" ]] || print -u2 -r -- "$ui_warning"
         [[ -f "$ui_dir/empty" ]] && return 0
         printf '%s\0' "$TEST_DIR/repo" Personal 'project name' "$selected_path" topic ''
         if (( ui_add_main )); then
@@ -270,8 +272,15 @@ test_interface() {
         return 0
     }
     tmux() {
+        local -a args
+        args=("$@")
         printf '%s\0' "$@" >> "$ui_dir/tmux"
         case "$1" in
+            display-popup)
+                case "${args[-1]}" in
+                    *'__action checkout '*) worktree_popup checkout "$TEST_DIR/repo" "$selected_path"; return $? ;;
+                    *'__action rename '*) worktree_popup rename "$TEST_DIR/repo" "$selected_path"; return $? ;;
+                esac ;;
             display-message) print '@9' ;;
             list-windows) [[ ! -f "$ui_dir/existing" ]] || printf '@7\tworktree-manager\n' ;;
             show-window-options) print '@9' ;;
@@ -308,14 +317,40 @@ test_interface() {
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-d\e[0m'* ]] || fail 'keybinding color missing'
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[0m \e[38;2;255;198;0mremove\e[0m'* ]] || fail 'keybinding description color missing'
     [[ "$(cat "$ui_dir/rows.1")" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail 'column heading delimiter or color missing'
+    local feedback='' popup_output
+    manager_checkout() { return 0; }
+    popup_output=$(worktree_popup checkout "$TEST_DIR/repo" "$selected_path" </dev/null)
+    [[ "$popup_output" == *'SUCCESS: Checkout completed.'* ]] || fail 'checkout success notice missing'
+    manager_checkout() { feedback='checkout failed with details'; return 1; }
+    popup_output=$(worktree_popup checkout "$TEST_DIR/repo" "$selected_path" </dev/null) && fail 'failed checkout returned success'
+    [[ "$popup_output" == *'ERROR: checkout failed with details'* ]] || fail 'checkout error detail missing'
+    manager_checkout() { feedback='No available branches.'; return 1; }
+    popup_output=$(worktree_popup checkout "$TEST_DIR/repo" "$selected_path" </dev/null) && fail 'empty checkout returned success'
+    [[ "$popup_output" == *'INFO: No available branches.'* ]] || fail 'no-branches info notice missing'
+    manager_checkout() { return 1; }
+    feedback=''
+    popup_output=$(worktree_popup checkout "$TEST_DIR/repo" "$selected_path" </dev/null) && fail 'cancelled checkout returned success'
+    [[ "$popup_output" != *'Press any key'* ]] || fail 'checkout cancellation displayed a notice'
+    functions[manager_checkout]="$original_manager_checkout"
     ui_add_main=0
     ui_add_prunable=0
     ui_reset
     touch "$ui_dir/empty"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 1 'empty list only has column labels'
-    [[ "$(cat "$ui_dir/options.1")" == *'No worktrees'* ]] || fail 'empty inventory explanation absent'
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    [[ "${(j:|:)calls}" == *'display-popup'*'__notice'*'info'*'No worktrees'* ]] || fail "empty inventory notice not shown in popup: ${(j:|:)calls}"
+    [[ "$(cat "$ui_dir/options.1")" != *'No worktrees'* ]] || fail 'empty inventory notice leaked into fzf header'
     [[ "$(cat "$ui_dir/options.1")" != *GROUP* ]] || fail 'column labels are in the top fzf header'
+    ui_reset
+    ui_warning='scan warning detail'
+    printf 'ctrl-f\n' > "$ui_dir/reply.1"
+    print 1 > "$ui_dir/status.1"
+    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    [[ "${(j:|:)calls}" == *'display-popup'*'__notice'*'warning'*'scan warning detail'* ]] || fail 'discovery warning not shown in popup'
+    [[ "$(cat "$ui_dir/options.1")" != *'scan warning detail'* ]] || fail 'discovery warning leaked into fzf header'
+    ui_warning=''
     ui_reset
     touch "$ui_dir/empty"
     printf 'ctrl-f\n' > "$ui_dir/reply.1"
@@ -338,8 +373,8 @@ test_interface() {
     printf 'enter\n1\tforged path\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     result=$(cat "$ui_dir/rows.1")
-    [[ "$result" == *$'0\tG  REPOSITORY'* ]] || fail "column labels are not a non-selectable list header: $result"
-    [[ "$result" == *$'1\tP '*project*topic*'tree with spaces'* ]] || fail 'row fields missing'
+    [[ "$result" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail "column labels are not a non-selectable list header: $result"
+    [[ "$result" == *$'1\t'project*topic*'tree with spaces'* ]] || fail 'row fields missing'
     [[ "$result" != *clean* && "$result" != *dirty* ]] || fail 'clean/dirty status shown in row'
     local -a calls
     local field
@@ -352,8 +387,20 @@ test_interface() {
     print 1 > "$ui_dir/status.2"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     [[ ! -f "$ui_dir/actions" ]] || fail 'main worktree removal dispatched'
-    [[ "$(cat "$ui_dir/options.2")" == *'Main worktree cannot be removed'* ]] || fail 'main worktree destructive-action explanation missing'
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    [[ "${(j:|:)calls}" == *'display-popup'*'__notice'*'Main worktree cannot be removed'* ]] || fail 'main worktree destructive-action explanation missing'
     ui_flags=''
+    ui_reset
+    open_worktree() { print -u2 'exact Git failure'; return 1; }
+    printf 'enter\n1\tforged\n' > "$ui_dir/reply.1"
+    printf 'ctrl-f\n' > "$ui_dir/reply.2"
+    print 1 > "$ui_dir/status.2"
+    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    [[ "${(j:|:)calls}" == *'display-popup'*'__notice'*'exact Git failure'* ]] || fail 'failure is not visible in popup'
+    [[ "$(cat "$ui_dir/options.2")" != *'exact Git failure'* ]] || fail 'action failure leaked into fzf header'
+    assert_equal "$(cat "$ui_dir/count")" 4 'manager remains usable after failed action'
+    open_worktree() { printf '%s\0' open "$@" >> "$ui_dir/actions"; }
     ui_reset
     printf 'ctrl-f\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
@@ -408,13 +455,6 @@ test_interface() {
     assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'control characters keep one display row plus labels'
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
     assert_equal "${calls[2]}" "$selected_path" 'control characters preserved in action path'
-    ui_reset
-    open_worktree() { print -u2 'exact Git failure'; return 1; }
-    printf 'enter\n1\tforged\n' > "$ui_dir/reply.1"
-    printf 'ctrl-f\n' > "$ui_dir/reply.2"
-    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
-    [[ "$(cat "$ui_dir/options.2")" == *'exact Git failure'* ]] || fail 'failure is not visible in next picker'
-    assert_equal "$(cat "$ui_dir/count")" 4 'manager remains usable after failed action'
     ui_reset
     printf 'enter\n0\tbad\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"

@@ -17,6 +17,35 @@ _worktree_popup_gum() {
     command -v gum >/dev/null 2>&1 && [[ -t 0 ]]
 }
 
+# Blocking notice surface. `__notice` runs inside a tmux popup; callers outside
+# tmux fall back to the same text-and-key interaction in the current pane.
+worktree_notice() {
+    emulate -L zsh
+    local level="$1" message="$2" color="$WM_ACCENT"
+    case "$level" in
+        error) color="$WM_ERROR" ;;
+        warning) color="$WM_HIGHLIGHT" ;;
+        success) color="$WM_SUCCESS" ;;
+    esac
+    if _worktree_popup_gum; then
+        gum style --border rounded --border-foreground "$color" \
+            --foreground "$color" --padding '1 2' --width 72 "$message"
+    else
+        print -r -- "${level:u}: $message"
+    fi
+    print -n -r -- 'Press any key to continue...'
+    read -k 1 -s -r
+    print
+}
+
+manager_show_notice() {
+    emulate -L zsh
+    local level="$1" message="$2"
+    tmux display-popup -E -w 80% -h 60% \
+        "zsh ${(qq)WM_SELF} __notice ${(qq)level} ${(qq)message}" && return 0
+    worktree_notice "$level" "$message"
+}
+
 # Absolute destination for a rename; echoes it on success, non-zero on cancel.
 worktree_popup_destination() {
     emulate -L zsh
@@ -41,14 +70,27 @@ worktree_popup_destination() {
 worktree_popup() {
     emulate -L zsh
     local action="$1"; shift
-    local rc=0
+    local rc=0 message notice_level=error
     case "$action" in
         checkout) manager_checkout "$@" || rc=$? ;;
         rename)   manager_mutation ctrl-r "$@" || rc=$? ;;
         remove)   manager_mutation ctrl-d "$@" || rc=$? ;;
         *) print -u2 -r -- "worktree-manager: unknown action: $action"; return 2 ;;
     esac
-    (( rc == 0 )) && _worktree_popup_gum && gum style --foreground="$WM_SUCCESS" "✓ Done"
+    if (( rc == 0 )); then
+        case "$action" in
+            checkout) message='Checkout completed.' ;;
+            rename) message='Worktree renamed.' ;;
+            remove) message='Worktree removed.' ;;
+        esac
+    elif [[ -n "$feedback" ]]; then
+        message="$feedback"
+        [[ "$message" == 'No available branches.' ]] && notice_level=info
+        worktree_notice "$notice_level" "$message"
+    fi
+    if (( rc == 0 )); then
+        worktree_notice success "$message"
+    fi
     return $rc
 }
 

@@ -40,7 +40,6 @@ manager_run_action() {
         return 0
     fi
     feedback="$diagnostic"
-    print -u2 -r -- "$diagnostic"
     return 1
 }
 
@@ -52,7 +51,6 @@ manager_validate() {
         return 0
     fi
     feedback="$(< "$diagnostic_file")"
-    print -u2 -r -- "$feedback"
     rm -f -- "$diagnostic_file"
     return 1
 }
@@ -76,7 +74,7 @@ manager_checkout() {
         refs+=("${branches[i]}"); kinds+=("${branches[i+1]}"); names+=("${branches[i+2]}")
         rows+=("${#refs}"$'\t'"$(manager_display "${branches[i+2]}") [${branches[i+1]}]")
     done
-    (( ${#rows} )) || { feedback='No available branches.'; print -u2 -r -- "$feedback"; return 1; }
+    (( ${#rows} )) || { feedback='No available branches.'; return 1; }
     output=$(printf '%s\n' "${rows[@]}" | fzf --delimiter=$'\t' --with-nth=2.. --header='Select branch; remote selections create a local tracking branch' --no-multi) || return 1
     id="${output%%$'\t'*}"
     [[ "$id" == <-> ]] && (( id>=1 && id<=${#refs} )) || return 1
@@ -151,7 +149,7 @@ manager_launch() {
 
 manager_main() {
     emulate -L zsh
-    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all show_main=0
+    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all show_main=0 notice_level notice_message
     local key_color=$'\e[38;2;255;98;140m' description_color=$'\e[38;2;255;198;0m' heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
     local -a fields rows choice
     while true; do
@@ -218,10 +216,18 @@ manager_main() {
         local main_label=off
         (( show_main )) && main_label=on
         header="${key_color}enter${reset_color} ${description_color}open${reset_color} | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color} | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color} | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color} | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
-        if (( ${#rows} == 0 )); then
-            header="No worktrees found under $projects_root (filter: ${filter_label}). ${key_color}ctrl-g${reset_color} ${description_color}toggle filter${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
+        notice_level=info
+        notice_message=''
+        if [[ -n "$feedback" ]]; then
+            notice_level=warning
+            notice_message="$feedback"
+            feedback=''
         fi
-        [[ -n "$feedback" ]] && header+=$'\n'"$feedback"
+        if (( ${#rows} == 0 )); then
+            [[ -z "$notice_message" ]] || notice_message+=$'\n\n'
+            notice_message+="No worktrees to show under $projects_root (filter: ${filter_label}; main: ${main_label})."
+        fi
+        [[ -z "$notice_message" ]] || manager_show_notice "$notice_level" "$notice_message"
         picker_status=0
         output=$({
             printf '0\t%s\n' "${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
@@ -253,28 +259,22 @@ manager_main() {
         [[ "$id" == <-> ]] && (( id>=1 && id<=${#fields} )) || continue
         i=$id
         feedback=''
-        # Prompts use the terminal directly; action diagnostics also appear in
-        # the next fzf header so refreshing the screen does not hide the error.
+        # Confirmation prompts use the terminal directly; action diagnostics are
+        # shown in an acknowledging popup before the picker returns.
         case "$key" in
             enter)
-                if action_output=$(open_worktree "${fields[i+3]}" "${fields[i+2]}" "${fields[i+4]}" 2>&1); then
-                    feedback='Opened worktree.'
-                else
+                if ! action_output=$(open_worktree "${fields[i+3]}" "${fields[i+2]}" "${fields[i+4]}" 2>&1); then
                     feedback="Open failed: $action_output"
                 fi ;;
             ctrl-b)
                 if tmux display-popup -E -w 80% -h 70% -d "$HOME/Projects" \
                     "zsh ${(q)WM_SELF} __action checkout ${(q)fields[i]} ${(q)fields[i+3]}"; then
-                    refresh=1; force=1; feedback='Checkout completed.'
-                else
-                    [[ -n "$feedback" ]] || feedback='Checkout cancelled or failed.'
+                    refresh=1; force=1
                 fi ;;
             ctrl-r)
                 if tmux display-popup -E -w 70% -h 40% -d "$HOME/Projects" \
                     "zsh ${(q)WM_SELF} __action rename ${(q)fields[i]} ${(q)fields[i+3]}"; then
-                    refresh=1; force=1; feedback='Worktree renamed.'
-                else
-                    [[ -n "$feedback" ]] || feedback='Rename cancelled or failed.'
+                    refresh=1; force=1
                 fi ;;
             ctrl-d)
                 manager_mutation ctrl-d "${fields[i]}" "${fields[i+3]}" || true ;;
@@ -293,6 +293,7 @@ if [[ "$ZSH_EVAL_CONTEXT" == toplevel ]]; then
         __action) shift; worktree_popup "$@" ;;
         __remove) shift; worktree_remove_job "$@" ;;
         __remove-action) shift; worktree_remove_action "$@" ;;
+        __notice) shift; worktree_notice "$@" ;;
         __discover) shift; discover_worktrees "$@" ;;
         '') manager_main "$HOME/Projects" ;;
         --projects-root)
