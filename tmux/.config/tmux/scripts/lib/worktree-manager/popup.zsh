@@ -22,6 +22,15 @@ _worktree_popup_gum() {
 worktree_notice() {
     emulate -L zsh
     local level="$1" message="$2" color="$WM_ACCENT"
+    local frame_width="${COLUMNS:-80}" frame_height=$((${LINES:-24} - 1)) text_height top_padding vertical_padding i
+    local -a message_lines
+    message_lines=("${(@f)message}")
+    text_height=${#message_lines}
+    (( frame_width > 0 )) || frame_width=80
+    (( frame_height > 4 )) || frame_height=5
+    top_padding=$(((frame_height - 4 - text_height) / 2))
+    (( top_padding > 0 )) || top_padding=0
+    for (( i=0; i<top_padding; i++ )); do vertical_padding+=$'\n'; done
     case "$level" in
         error) color="$WM_ERROR" ;;
         warning) color="$WM_HIGHLIGHT" ;;
@@ -29,7 +38,8 @@ worktree_notice() {
     esac
     if _worktree_popup_gum; then
         gum style --border rounded --border-foreground "$color" \
-            --foreground "$color" --padding '1 2' --width 72 "$message"
+            --foreground "$color" --padding '1 2' --width "$frame_width" \
+            --height "$frame_height" --align center "${vertical_padding}${message}"
     else
         print -r -- "${level:u}: $message"
     fi

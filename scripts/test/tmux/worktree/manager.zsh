@@ -241,6 +241,20 @@ test_interface() {
     cache_key="${cache_key//[^A-Za-z0-9]/_}"
     local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v6.${cache_key}"
     mkdir -p "$ui_dir"
+    local style_args="$ui_dir/style-args" style_joined
+    local popup_gum_original="${functions[_worktree_popup_gum]}"
+    local COLUMNS=100 LINES=30
+    _worktree_popup_gum() { return 0; }
+    gum() { print -rl -- "$@" >> "$style_args"; }
+    print -n x | worktree_notice info 'center me' > /dev/null
+    style_joined="$(< "$style_args")"
+    [[ "$style_joined" == *$'--width\n100'* ]] || fail 'notice frame does not fill popup width'
+    [[ "$style_joined" == *$'--height\n29'* ]] || fail 'notice frame does not leave room for key prompt'
+    [[ "$style_joined" == *$'--align\ncenter'* ]] || fail 'notice text is not centered'
+    [[ "$style_joined" == *$'\n\ncenter me'* ]] || fail 'notice text is not vertically centered'
+    [[ "$style_joined" == *$'--border\nrounded'* ]] || fail 'notice border style changed'
+    unfunction gum
+    functions[_worktree_popup_gum]="$popup_gum_original"
     discover_worktrees() {
         print x >> "$ui_dir/scans"
         [[ -z "$ui_warning" ]] || print -u2 -r -- "$ui_warning"
