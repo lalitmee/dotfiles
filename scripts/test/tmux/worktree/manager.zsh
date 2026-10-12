@@ -4,6 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="${0:A:h}"
 WORKSPACE_DIR="${SCRIPT_DIR:h:h:h:h}"
 DISCOVERY="$WORKSPACE_DIR/tmux/.config/tmux/scripts/lib/worktree-manager/discovery.zsh"
+CONFIG="$WORKSPACE_DIR/tmux/.config/tmux/scripts/lib/worktree-manager/config.zsh"
 TEST_DIR=$(mktemp -d)
 trap 'rm -rf "$TEST_DIR"' EXIT
 
@@ -17,6 +18,8 @@ test_discovery() {
     local work="$TEST_DIR/Projects/Work/project two" external="$TEST_DIR/external tree"
     local nested="$personal/nested tree" early="$TEST_DIR/Projects/Personal/early/linked tree" field
     local separate="$projects/Work/separate project" separate_link="${early:h}/separate link"
+    local additional="$TEST_DIR/extra repositories" extra extra_link="$TEST_DIR/extra linked"
+    extra="$additional/project with spaces"
     local storage="$TEST_DIR/custom Git storage"
     local -a fields
     local -A path_counts
@@ -36,9 +39,9 @@ test_discovery() {
     git init -q -b main "$projects/node_modules/ignored"
     discover_worktrees "$projects" > "$TEST_DIR/inventory" 2> "$TEST_DIR/errors"
     while IFS= read -r -d '' field; do fields+=("$field"); done < "$TEST_DIR/inventory"
-    assert_equal "${#fields}" 49 "deduplicated seven worktrees"
+    assert_equal "${#fields}" 42 "deduplicated seven worktrees"
     local i expected_path
-    for ((i=1; i<=${#fields}; i+=7)); do
+    for ((i=1; i<=${#fields}; i+=6)); do
         path_counts[${fields[i+3]}]=$(( ${path_counts[${fields[i+3]}]:-0} + 1 ))
         case "${fields[i+3]}" in
             "$personal") assert_equal "${fields[i+5]}" main "personal main flag" ;;
@@ -58,7 +61,6 @@ test_discovery() {
                 assert_equal "${fields[i+2]}" 'separate project' "custom Git directory name"
                 if [[ "${fields[i+3]}" == "$separate" ]]; then
                     assert_equal "${fields[i+5]}" main "custom Git directory main flag"
-                    assert_equal "${fields[i+6]}" clean "custom Git directory checkout status"
                 else
                     [[ "${fields[i+5]}" != *main* ]] || fail "separate linked worktree marked main"
                 fi ;;
@@ -67,6 +69,20 @@ test_discovery() {
     done
     for expected_path in "$personal" "$work" "$external" "$nested" "$early" "$separate" "$separate_link"; do
         assert_equal "${path_counts[$expected_path]:-0}" 1 "expected path appears exactly once: $expected_path"
+    done
+    mkdir -p "$additional"
+    git init -q -b main "$extra"
+    git -C "$extra" -c user.name=Test -c user.email=test@example.invalid commit -qm initial --allow-empty
+    git -C "$extra" worktree add -q -b extra-link "$extra_link"
+    fields=(); path_counts=()
+    discover_worktrees "$projects" "$projects/Personal" "$additional" > "$TEST_DIR/multi-root" 2> "$TEST_DIR/multi-errors"
+    while IFS= read -r -d '' field; do fields+=("$field"); done < "$TEST_DIR/multi-root"
+    assert_equal "${#fields}" 54 'overlapping multi-root scan keeps nine unique worktrees in six-field records'
+    for ((i=1; i<=${#fields}; i+=6)); do
+        path_counts[${fields[i+3]}]=$(( ${path_counts[${fields[i+3]}]:-0} + 1 ))
+    done
+    for expected_path in "$personal" "$work" "$external" "$nested" "$early" "$separate" "$separate_link" "$extra" "$extra_link"; do
+        assert_equal "${path_counts[$expected_path]:-0}" 1 "multi-root path appears exactly once: $expected_path"
     done
     [[ ! -s "$TEST_DIR/errors" ]] || fail "invalid .git candidate warning was not suppressed"
     assert_equal "$(worktree_status "$external")" clean "clean state"
@@ -89,14 +105,12 @@ test_discovery() {
     fields=()
     parse_worktree_porcelain "$personal" "$TEST_DIR/porcelain" > "$TEST_DIR/parsed" 2> "$TEST_DIR/parser-errors"
     while IFS= read -r -d '' field; do fields+=("$field"); done < "$TEST_DIR/parsed"
-    assert_equal "${#fields}" 35 "malformed records skipped and later valid records retained"
-    assert_equal "${fields[12]}" '' "detached branch"
-    assert_equal "${fields[13]}" 'detached,locked' "detached locked flags"
-    assert_equal "${fields[20]}" prunable "prunable flag"
-    assert_equal "${fields[21]}" missing "stale status"
-    assert_equal "${fields[27]}" bare "bare flag"
-    assert_equal "${fields[34]}" '' "stale nested directory must not be main"
-    assert_equal "${fields[35]}" unknown "stale registered directory status"
+    assert_equal "${#fields}" 30 "malformed records skipped and later valid records retained"
+    assert_equal "${fields[11]}" '' "detached branch"
+    assert_equal "${fields[12]}" 'detached,locked' "detached locked flags"
+    assert_equal "${fields[18]}" prunable "prunable flag"
+    assert_equal "${fields[24]}" bare "bare flag"
+    assert_equal "${fields[30]}" '' "stale nested directory must not be main"
     [[ -s "$TEST_DIR/parser-errors" ]] || fail "malformed parser error not reported"
     [[ "$(<"$TEST_DIR/parser-errors")" == *"$personal"* ]] || fail "parser error lacks repository"
     : > "$TEST_DIR/empty"
@@ -106,6 +120,59 @@ test_discovery() {
     parse_worktree_porcelain "$personal" "$TEST_DIR/incomplete" > "$TEST_DIR/parsed" 2> "$TEST_DIR/parser-errors"
     [[ ! -s "$TEST_DIR/parsed" && -s "$TEST_DIR/parser-errors" ]] || fail "unterminated record accepted"
     print 'PASS: global worktree discovery'
+}
+
+test_config() {
+    [[ -f "$CONFIG" ]] || fail 'config library is missing'
+    source "$CONFIG"
+    local HOME="$TEST_DIR/home" XDG_CONFIG_HOME="$TEST_DIR/xdg" field expected config
+    local -a roots
+    mkdir -p "$HOME/Projects" "$HOME/relative root" "$TEST_DIR/xdg/absolute root"
+    config="$XDG_CONFIG_HOME/worktree-manager/roots"
+    assert_equal "$(worktree_manager_config_path)" "$config" 'XDG config path'
+    local XDG_CONFIG_HOME=''
+    assert_equal "$(worktree_manager_config_path)" "$HOME/.config/worktree-manager/roots" 'default config path'
+    local XDG_CONFIG_HOME="$TEST_DIR/xdg"
+    load_worktree_roots > "$TEST_DIR/roots"
+    roots=(); while IFS= read -r -d '' field; do roots+=("$field"); done < "$TEST_DIR/roots"
+    assert_equal "${#roots}" 1 'missing config default count'
+    assert_equal "${roots[1]}" "${HOME}/Projects" 'missing config default root'
+    mkdir -p "${config:h}"
+    : > "$config"
+    load_worktree_roots > "$TEST_DIR/roots"
+    [[ ! -s "$TEST_DIR/roots" ]] || fail 'empty config unexpectedly restores default root'
+    cat > "$config" <<EOF
+# comment
+
+~/Projects
+relative root
+$TEST_DIR/xdg/absolute root
+~/Projects/../Projects
+missing root
+EOF
+    load_worktree_roots > "$TEST_DIR/roots" 2> "$TEST_DIR/root-errors"
+    roots=(); while IFS= read -r -d '' field; do roots+=("$field"); done < "$TEST_DIR/roots"
+    assert_equal "${#roots}" 3 'configured root count and canonical duplicate removal'
+    assert_equal "${roots[1]}" "${HOME}/Projects" 'tilde expansion'
+    assert_equal "${roots[2]}" "${HOME}/relative root" 'relative root resolves from home'
+    assert_equal "${roots[3]}" "$TEST_DIR/xdg/absolute root" 'space-containing absolute root'
+    [[ "$(<"$TEST_DIR/root-errors")" == *'missing root'* ]] || fail 'missing root diagnostic absent'
+
+    local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
+    source "$manager"
+    local calls="$TEST_DIR/config-discovery-calls"
+    discover_worktrees() {
+        printf '%s\0' "$@" > "$calls"
+        printf '%s\0' "$TEST_DIR/repo" Personal repo "$TEST_DIR/repo" main main
+    }
+    fzf() { cat >/dev/null; return 130; }
+    local TMUX=''
+    manager_main > /dev/null
+    roots=(); while IFS= read -r -d '' field; do roots+=("$field"); done < "$calls"
+    assert_equal "${#roots}" 3 'manager startup passes all configured roots'
+    assert_equal "${(j:|:)roots}" "${HOME}/Projects|${HOME}/relative root|$TEST_DIR/xdg/absolute root" 'manager root argument boundaries'
+    unfunction discover_worktrees fzf
+    print 'PASS: global worktree config'
 }
 
 test_actions() {
@@ -237,13 +304,14 @@ test_interface() {
     local original_manager_checkout="${functions[manager_checkout]}"
     local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0 ui_add_prunable=0 ui_warning=''
     local ui_dir="$TEST_DIR/ui" result
-    local cache_key="${TEST_DIR}/Projects"
-    cache_key="${cache_key//[^A-Za-z0-9]/_}"
-    local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v6.${cache_key}"
+    local cache_id; cache_id=$(printf '%s\0' "$TEST_DIR/Projects" | cksum)
+    cache_id="${cache_id%% *}"
+    local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v7.${cache_id}"
     mkdir -p "$ui_dir"
     local style_args="$ui_dir/style-args" style_joined
     local popup_gum_original="${functions[_worktree_popup_gum]}"
     local COLUMNS=100 LINES=30
+    local -a calls create_args
     _worktree_popup_gum() { return 0; }
     gum() { print -rl -- "$@" >> "$style_args"; }
     print -n x | worktree_notice info 'center me' > /dev/null
@@ -306,6 +374,74 @@ test_interface() {
         rm -f -- "$cache_file"
         print 1 > "$ui_dir/count"
     }
+    ui_reset
+    ui_add_main=1
+    printf 'ctrl-o\n' > "$ui_dir/reply.1"
+    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    [[ "$(cat "$ui_dir/options.1")" == *'--expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o'* ]] || fail 'create key is absent from fzf expect list'
+    [[ "$(cat "$ui_dir/options.1")" == *'ctrl-o'*'create worktree'* ]] || fail 'create key is absent from manager header'
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
+    local new_windows=0
+    for field in "${calls[@]}"; do [[ "$field" == new-window ]] && (( new_windows += 1 )); done
+    assert_equal "$new_windows" 1 'create action launches one dedicated window'
+    [[ "${(j:|:)calls}" == *'new-window|-n|worktree-create|-c|'*'__create'* ]] || fail 'create action does not launch the dedicated picker'
+
+    local repo_one="$TEST_DIR/repo ; literal" repo_two="$TEST_DIR/second repo" linked="$TEST_DIR/linked repo"
+    local create_script="$TEST_DIR/fake-create.zsh" create_log="$TEST_DIR/create-log" picker_rows="$TEST_DIR/create-rows" picker_no_main=0
+    local original_create_fzf="${functions[fzf]}" original_create_discovery="${functions[discover_worktrees]}"
+    mkdir -p "$repo_one" "$repo_two"
+    command git init -q -b main "$repo_one"
+    command git -C "$repo_one" -c user.name=Test -c user.email=test@example.invalid commit -qm initial --allow-empty
+    command git -C "$repo_one" worktree add -q -b linked "$linked"
+    command git init -q -b main "$repo_two"
+    command git -C "$repo_two" -c user.name=Test -c user.email=test@example.invalid commit -qm initial --allow-empty
+    cat > "$create_script" <<'EOF'
+#!/usr/bin/env zsh
+printf '%s\0' "$PWD" "$@" > "$WM_CREATE_LOG"
+EOF
+    chmod +x "$create_script"
+    export WM_CREATE_LOG="$create_log"
+    local WORKTREE_MANAGER_CREATE_SCRIPT="$create_script"
+    local picker_call_count_file="$TEST_DIR/picker-count"
+    print 0 > "$picker_call_count_file"
+    fzf() {
+        cat > "$picker_rows"
+        print -r -- "$*" > "$ui_dir/create-options"
+        local picker_call_count=$(<"$picker_call_count_file")
+        (( picker_call_count += 1 ))
+        print "$picker_call_count" > "$picker_call_count_file"
+        case "$picker_call_count" in
+            1) print -r -- $'1\tforged shell text' ;;
+            2) return 130 ;;
+            3) print -r -- $'99\tinvalid record forged' ;;
+        esac
+    }
+    discover_worktrees() {
+        if (( picker_no_main )); then
+            printf '%s\0' "$repo_one" Personal one "$linked" linked ''
+            return 0
+        fi
+        printf '%s\0' "$repo_one" Personal one "$repo_one" main main \
+            "$repo_one" Personal one "$linked" linked '' \
+            "$repo_two" Work two "$repo_two" main main
+    }
+    (worktree_create_picker "$TEST_DIR/root one" "$TEST_DIR/root two")
+    [[ "$(cat "$picker_rows")" == *"$repo_one"* && "$(cat "$picker_rows")" == *"$repo_two"* ]] || fail 'picker misses main worktrees from configured roots'
+    [[ "$(cat "$picker_rows")" != *"$linked"* ]] || fail 'picker includes a linked worktree'
+    create_args=(); while IFS= read -r -d '' field; do create_args+=("$field"); done < "$create_log"
+    assert_equal "${create_args[1]}" "$repo_one" 'selected repository cwd preserves spaces and shell characters'
+    assert_equal "${create_args[2]}" create 'existing custom create flow receives one create argument'
+    rm -f -- "$create_log"
+    (worktree_create_picker "$TEST_DIR/root one")
+    [[ ! -e "$create_log" ]] || fail 'picker cancellation launches creation'
+    (worktree_create_picker "$TEST_DIR/root one")
+    [[ ! -e "$create_log" ]] || fail 'non-main or out-of-range selection launches creation'
+    picker_no_main=1
+    (worktree_create_picker "$TEST_DIR/root one")
+    [[ ! -e "$create_log" ]] || fail 'linked-only inventory launches creation'
+    functions[fzf]="$original_create_fzf"
+    functions[discover_worktrees]="$original_create_discovery"
+
     ui_reset
     printf 'ctrl-d\n1\tignored\n' > "$ui_dir/reply.1"
     printf 'ctrl-f\n' > "$ui_dir/reply.2"
@@ -391,9 +527,8 @@ test_interface() {
     [[ "$result" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail "column labels are not a non-selectable list header: $result"
     [[ "$result" == *$'1\t'project*topic*'tree with spaces'* ]] || fail 'row fields missing'
     [[ "$result" != *clean* && "$result" != *dirty* ]] || fail 'clean/dirty status shown in row'
-    local -a calls
     local field
-    while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
     assert_equal "${calls[2]}" "$selected_path" 'selection resolves array path instead of returned text'
     ui_reset
     ui_flags=main
@@ -496,9 +631,10 @@ test_interface() {
 }
 
 case "${1:-all}" in
+    config) test_config ;;
     discovery) test_discovery ;;
     actions) test_actions ;;
     interface) test_interface ;;
-    all) test_discovery; test_actions; test_interface ;;
+    all) test_config; test_discovery; test_actions; test_interface ;;
     *) fail "unknown test suite: $1" ;;
 esac

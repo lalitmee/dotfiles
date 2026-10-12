@@ -145,12 +145,12 @@ parse_worktree_porcelain() {
     return 0
 }
 
-# Resolve one candidate to its common git dir. Emits a NUL triple
-# (common_dir, candidate, owner-flag) for the parent to collect. Runs in a
+# Resolve one candidate to its common git dir. Emits a NUL record
+# (common_dir, candidate, owner-flag, scan-root) for the parent to collect. Runs in a
 # forked subshell; failures emit nothing (a non-root candidate warns on stderr).
 _worktree_manager_resolve_candidate() {
     emulate -L zsh
-    local candidate="$1" common_dir git_dir owner=0
+    local candidate="$1" wm_projects_root="$2" common_dir git_dir owner=0
     common_dir=$(git -C "$candidate" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return 0
     common_dir="${common_dir:A}"
     if ! _worktree_manager_is_root "$candidate"; then
@@ -161,15 +161,15 @@ _worktree_manager_resolve_candidate() {
         [[ "${git_dir:A}" == "$common_dir" ]]; then
         owner=1
     fi
-    printf '%s\0%s\0%s\0' "$common_dir" "$candidate" "$owner"
+    printf '%s\0%s\0%s\0%s\0' "$common_dir" "$candidate" "$owner" "$wm_projects_root"
 }
 
 # Emit the worktree records for one repository. $1 common dir, $2 candidate for
-# `git -C`, $3 owning root (empty to resolve), $4 scratch dir. Writes the final
+# `git -C`, $3 owning root (empty to resolve), $4 scratch dir, $5 scan root. Writes the final
 # six-field records to stdout; runs in a forked subshell.
 _worktree_manager_emit_repo_worktrees() {
     emulate -L zsh
-    local common_dir="$1" candidate="$2" owner="$3" scratch="$4"
+    local common_dir="$1" candidate="$2" owner="$3" scratch="$4" wm_projects_root="$5"
     local repo_root="${owner:-$candidate}" entry git_dir porcelain
     porcelain=$(mktemp "$scratch/porcelain.XXXXXXXX") || return 0
     if ! git -C "$candidate" worktree list --porcelain -z > "$porcelain" 2>/dev/null; then
@@ -197,43 +197,57 @@ _worktree_manager_emit_repo_worktrees() {
 
 discover_worktrees() {
     emulate -L zsh
-    local wm_projects_root="${1:A}" candidate entry common_dir scratch owner job
-    local -A candidate_by_common owner_by_common
-    local -a common_dirs resolve_jobs emit_jobs
+    local wm_projects_root root candidate entry common_dir scratch owner job root_candidates root_errors
+    local -A candidate_by_common owner_by_common root_by_common
+    local -a common_dirs resolve_jobs emit_jobs roots=("$@")
     local max_jobs="${WM_JOBS:-8}"
-    if [[ ! -d "$wm_projects_root" ]]; then
-        print -u2 -r -- "worktree-manager: $wm_projects_root: projects root is missing"
+    if (( ! ${#roots} )); then
         return 0
     fi
     scratch=$(mktemp -d "${TMPDIR:-/tmp}/worktree-manager.XXXXXXXX") || return 1
     {
-        if command -v fd >/dev/null 2>&1; then
-            # fd is far faster than find here (~0.5s vs ~8s) and prunes matched
-            # .git entries. --no-ignore keeps repos outside ignore rules; the
-            # --exclude list mirrors the find prune set in the fallback below.
-            fd --hidden --no-ignore --type directory --type file --glob --prune \
-                --exclude node_modules --exclude .cache --exclude .venv --exclude venv \
-                --exclude vendor --exclude dist --exclude build --exclude target \
-                '.git' "$wm_projects_root" -0 \
-                > "$scratch/candidates" 2> "$scratch/find-errors" || true
-        else
-            find "$wm_projects_root" \
-                \( -type d \( -name node_modules -o -name .cache -o -name .venv -o -name venv \
-                    -o -name vendor -o -name dist -o -name build -o -name target \) -prune \) -o \
-                \( -name .git \( -type d -o -type f \) -print0 -prune \) \
-                > "$scratch/candidates" 2> "$scratch/find-errors" || true
-        fi
-        if [[ -s "$scratch/find-errors" ]]; then
-            print -u2 -r -- "worktree-manager: $wm_projects_root: repository traversal errors"
-            cat "$scratch/find-errors" >&2
-        fi
-        # Phase 2: resolve candidates in parallel. Output is an internal NUL
-        # stream of (common_dir, candidate, owner) triples, kept separate from
-        # the final records on stdout.
-        {
+        : > "$scratch/candidates"
+        for root in "${roots[@]}"; do
+            wm_projects_root="${root:A}"
+            if [[ ! -d "$wm_projects_root" || ! -r "$wm_projects_root" || ! -x "$wm_projects_root" ]]; then
+                print -u2 -r -- "worktree-manager: $wm_projects_root: projects root is missing or unreadable"
+                continue
+            fi
+            root_candidates="$scratch/root-candidates"
+            root_errors="$scratch/root-errors"
+            if command -v fd >/dev/null 2>&1; then
+                # fd is far faster than find here (~0.5s vs ~8s) and prunes matched
+                # .git entries. --no-ignore keeps repos outside ignore rules; the
+                # --exclude list mirrors the find prune set in the fallback below.
+                fd --hidden --no-ignore --type directory --type file --glob --prune \
+                    --exclude node_modules --exclude .cache --exclude .venv --exclude venv \
+                    --exclude vendor --exclude dist --exclude build --exclude target \
+                    '.git' "$wm_projects_root" -0 \
+                    > "$root_candidates" 2> "$root_errors" || true
+            else
+                find "$wm_projects_root" \
+                    \( -type d \( -name node_modules -o -name .cache -o -name .venv -o -name venv \
+                        -o -name vendor -o -name dist -o -name build -o -name target \) -prune \) -o \
+                    \( -name .git \( -type d -o -type f \) -print0 -prune \) \
+                    > "$root_candidates" 2> "$root_errors" || true
+            fi
+            if [[ -s "$root_errors" ]]; then
+                print -u2 -r -- "worktree-manager: $wm_projects_root: repository traversal errors"
+                cat "$root_errors" >&2
+            fi
             while IFS= read -r -d '' entry; do
                 candidate="${${entry%/}:h}"
-                _worktree_manager_resolve_candidate "$candidate" &
+                printf '%s\0%s\0' "$wm_projects_root" "$candidate" >> "$scratch/candidates"
+            done < "$root_candidates"
+        done
+        # Phase 2: resolve candidates in parallel. Output is an internal NUL
+        # stream of (common_dir, candidate, owner, scan_root) records, kept separate from
+        # the final records on stdout.
+        {
+            while IFS= read -r -d '' wm_projects_root; do
+                IFS= read -r -d '' entry
+                candidate="$entry"
+                _worktree_manager_resolve_candidate "$candidate" "$wm_projects_root" &
                 resolve_jobs+=($!)
                 if (( ${#resolve_jobs} >= max_jobs )); then
                     wait $resolve_jobs[1]
@@ -247,8 +261,10 @@ discover_worktrees() {
         while IFS= read -r -d '' common_dir; do
             IFS= read -r -d '' candidate
             IFS= read -r -d '' owner
+            IFS= read -r -d '' wm_projects_root
             if [[ -z "${candidate_by_common[$common_dir]:-}" ]]; then
                 candidate_by_common[$common_dir]="$candidate"
+                root_by_common[$common_dir]="$wm_projects_root"
                 common_dirs+=("$common_dir")
             fi
             [[ "$owner" == 1 ]] && owner_by_common[$common_dir]="$candidate"
@@ -257,7 +273,8 @@ discover_worktrees() {
         # nondeterministic; the picker sorts rows before display.
         for common_dir in "${common_dirs[@]}"; do
             _worktree_manager_emit_repo_worktrees "$common_dir" \
-                "${candidate_by_common[$common_dir]}" "${owner_by_common[$common_dir]:-}" "$scratch" &
+                "${candidate_by_common[$common_dir]}" "${owner_by_common[$common_dir]:-}" "$scratch" \
+                "${root_by_common[$common_dir]}" &
             emit_jobs+=($!)
             if (( ${#emit_jobs} >= max_jobs )); then
                 wait $emit_jobs[1]

@@ -8,7 +8,7 @@ Run focused tests from the repository root. These are standalone scripts; there 
 
 | Target | Behavior covered | Command |
 |---|---|---|
-| Global worktree manager | Discovery, actions, and interface (`all` runs all three) | `zsh scripts/test/tmux/worktree/manager.zsh all` |
+| Global worktree manager | Config, multi-root discovery, actions, create picker, and interface (`all` runs all suites) | `zsh scripts/test/tmux/worktree/manager.zsh all` |
 | Worktree dependencies | Dependency detection and launch behavior | `zsh scripts/test/tmux/worktree/dependencies.zsh` |
 | Worktree command flows | Git worktree command flows | `zsh scripts/test/tmux/worktree/flows.zsh` |
 | Worktree setup runner | Setup success and failure behavior | `zsh scripts/test/tmux/worktree/setup-runner.zsh` |

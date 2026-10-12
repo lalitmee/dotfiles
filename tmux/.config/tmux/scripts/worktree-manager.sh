@@ -1,8 +1,10 @@
 #!/usr/bin/env zsh
 
+source "${${(%):-%x}:A:h}/lib/worktree-manager/config.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/discovery.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/actions.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/popup.zsh"
+source "${${(%):-%x}:A:h}/lib/worktree-manager/creation.zsh"
 
 # Absolute path to this script, reused when the picker opens a popup that
 # re-invokes us through the __action subcommand.
@@ -149,7 +151,14 @@ manager_launch() {
 
 manager_main() {
     emulate -L zsh
-    local projects_root="$1" field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all show_main=0 notice_level notice_message
+    local projects_root field output key id header refresh=1 force=0 return_window feedback='' action_output diagnostics picker_status filter=all show_main=0 notice_level notice_message root cache_id
+    local -a roots
+    if (( $# )); then
+        for root in "$@"; do roots+=("${root:A}"); done
+    else
+        while IFS= read -r -d '' root; do roots+=("$root"); done < <(load_worktree_roots)
+    fi
+    projects_root="${(j:, :)roots}"
     local key_color=$'\e[38;2;255;98;140m' description_color=$'\e[38;2;255;198;0m' heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
     local -a fields rows choice
     while true; do
@@ -160,7 +169,9 @@ manager_main() {
             # ponytail: key is the sanitized projects root and TTL caps staleness
             # at WM_CACHE_TTL (default 90s); ctrl-f and post-action refresh
             # always rescan, and actions re-validate before touching anything.
-            local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v6.${projects_root//[^A-Za-z0-9]/_}"
+            cache_id=$(printf '%s\0' "${roots[@]}" | cksum)
+            cache_id="${cache_id%% *}"
+            local cache_file="${TMPDIR:-/tmp}/worktree-manager-cache.v7.${cache_id}"
             local use_cache=0
             local -a cstat
             if (( ! force )) && [[ -r "$cache_file" ]] &&
@@ -180,10 +191,10 @@ manager_main() {
                         --spinner.foreground="$WM_ACCENT" \
                         --title.foreground="$WM_HIGHLIGHT" \
                         --title "Scanning worktrees under $projects_root…" -- \
-                        zsh -c 'zsh "$1" __discover "$2" > "$3" 2> "$4"' \
-                        _ "$WM_SELF" "$projects_root" "$cache_tmp" "$diagnostics"
+                        zsh -c 'script=$1; output=$2; errors=$3; shift 3; zsh "$script" __discover "$@" > "$output" 2> "$errors"' \
+                        _ "$WM_SELF" "$cache_tmp" "$diagnostics" "${roots[@]}"
                 else
-                    discover_worktrees "$projects_root" 2> "$diagnostics" > "$cache_tmp"
+                    discover_worktrees "${roots[@]}" 2> "$diagnostics" > "$cache_tmp"
                 fi
                 [[ -s "$diagnostics" ]] && feedback="$(< "$diagnostics")"
                 rm -f -- "$diagnostics"
@@ -214,7 +225,7 @@ manager_main() {
         local filter_label="$filter"
         local main_label=off
         (( show_main )) && main_label=on
-        header="${key_color}enter${reset_color} ${description_color}open${reset_color} | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color} | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color} | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color} | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
+        header="${key_color}enter${reset_color} ${description_color}open${reset_color} | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color} | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color} | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color} | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}ctrl-o${reset_color} ${description_color}create worktree${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
         notice_level=info
         notice_message=''
         if [[ -n "$feedback" ]]; then
@@ -231,11 +242,15 @@ manager_main() {
         output=$({
             printf '0\t%s\n' "${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
-        } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then
             refresh=1; force=1
+            continue
+        fi
+        if [[ "$key" == ctrl-o ]] && (( picker_status == 0 )); then
+            manager_launch_create || feedback='Could not open worktree creation window.'
             continue
         fi
         if [[ "$key" == ctrl-g ]]; then
@@ -289,12 +304,13 @@ manager_main() {
 if [[ "$ZSH_EVAL_CONTEXT" == toplevel ]]; then
     case "${1:-}" in
         --launch) manager_launch ;;
+        __create) worktree_create_picker ;;
         __action) shift; worktree_popup "$@" ;;
         __remove) shift; worktree_remove_job "$@" ;;
         __remove-action) shift; worktree_remove_action "$@" ;;
         __notice) shift; worktree_notice "$@" ;;
         __discover) shift; discover_worktrees "$@" ;;
-        '') manager_main "$HOME/Projects" ;;
+        '') manager_main ;;
         --projects-root)
             [[ $# == 2 ]] || { print -u2 'Usage: worktree-manager.sh [--projects-root path]'; exit 2; }
             manager_main "$2" ;;
