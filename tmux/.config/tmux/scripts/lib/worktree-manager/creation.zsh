@@ -2,8 +2,8 @@
 
 worktree_create_picker() {
     emulate -L zsh
-    local root field output id selected create_script
-    local -a roots fields repositories repository_flags rows
+    local root field output id selected create_script name_width
+    local -a roots fields repositories repository_names repository_paths repository_flags rows
 
     if (( $# )); then
         roots=("$@")
@@ -16,10 +16,15 @@ worktree_create_picker() {
     for ((i=1; i+5<=${#fields}; i+=6)); do
         [[ ",${fields[i+5]}," == *,main,* && ",${fields[i+5]}," != *,prunable,* ]] || continue
         repositories+=("${fields[i]}")
+        repository_names+=("$(manager_display "${fields[i+2]}")")
+        repository_paths+=("$(manager_display "${fields[i]}")")
         repository_flags+=("${fields[i+5]}")
-        rows+=("${#repositories}"$'\t'"$(manager_display "${fields[i+2]} — ${fields[i]}")")
     done
-    (( ${#rows} )) || return 0
+    (( ${#repositories} )) || return 0
+    name_width=$(printf '%s\n' "${repository_names[@]}" | wc -L)
+    for ((i=1; i<=${#repositories}; i++)); do
+        rows+=("$i"$'\t'"$(printf '%-*s  %s' "$name_width" "${repository_names[i]}" "${repository_paths[i]}")")
+    done
     output=$(printf '%s\n' "${rows[@]}" | fzf --delimiter=$'\t' --with-nth=2.. \
         --header='Select a main worktree to create from' --no-multi) || return 0
     id="${output%%$'\t'*}"

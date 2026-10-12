@@ -421,13 +421,17 @@ EOF
             printf '%s\0' "$repo_one" Personal one "$linked" linked ''
             return 0
         fi
-        printf '%s\0' "$repo_one" Personal one "$repo_one" main main \
+        printf '%s\0' "$repo_one" Personal 'first' "$repo_one" main main \
             "$repo_one" Personal one "$linked" linked '' \
-            "$repo_two" Work two "$repo_two" main main
+            "$repo_two" Work 'second repository with a longer name' "$repo_two" main main
     }
     (worktree_create_picker "$TEST_DIR/root one" "$TEST_DIR/root two")
     [[ "$(cat "$picker_rows")" == *"$repo_one"* && "$(cat "$picker_rows")" == *"$repo_two"* ]] || fail 'picker misses main worktrees from configured roots'
     [[ "$(cat "$picker_rows")" != *"$linked"* ]] || fail 'picker includes a linked worktree'
+    local first_path_column second_path_column
+    first_path_column=$(awk -v path="$repo_one" 'NR == 1 { print index($0, path) }' "$picker_rows")
+    second_path_column=$(awk -v path="$repo_two" 'NR == 2 { print index($0, path) }' "$picker_rows")
+    assert_equal "$first_path_column" "$second_path_column" 'picker aligns repository paths after names'
     create_args=(); while IFS= read -r -d '' field; do create_args+=("$field"); done < "$create_log"
     assert_equal "${create_args[1]}" "$repo_one" 'selected repository cwd preserves spaces and shell characters'
     assert_equal "${create_args[2]}" create 'existing custom create flow receives one create argument'

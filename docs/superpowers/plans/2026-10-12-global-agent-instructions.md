@@ -23,13 +23,15 @@
 
 ## Review Focus
 
-- A tool silently ignores an instruction import or global file; verify loaded instructions using its supported context inspection or a minimal session.
-- A symlink or imported relative path resolves differently after GNU Stow deployment; verify both the repo source and deployed path.
+- A tool silently ignores an instruction import or global file; verify the adapter now and runtime loading after safe activation.
+- A symlink or imported relative path resolves differently after GNU Stow deployment; verify the repo target now and the deployed path after safe activation.
 - Cursor only applies User Rules configured through its UI; verify whether the existing stowed `~/.cursor/rules/advisor-baseline.mdc` is actually global before relying on it.
 - Existing global instructions in Gemini, Codex, and OpenCode may be lost when replaced; preserve their unrelated settings and keep any useful tool-specific guidance outside the shared file.
 - A canonical policy accidentally absorbs brain-specific or dotfiles-only rules; inspect its content against the spec boundaries.
 
 ---
+
+> **Activation status:** This plan prepares the source adapters only. Existing home-directory conflicts and explicit package ignore rules must be reconciled intentionally before Stow deployment; Cursor additionally requires the documented one-time User Rule in its UI. Do not describe the setup as active until those steps and runtime checks are complete.
 
 ### Task 1: Add canonical global instructions and connect file-based tools
 
@@ -37,19 +39,19 @@
 - Create: `agents/instructions/global.md`
 - Create: `agents/.agents/instructions/global.md` (Stow-visible link to the canonical file)
 - Modify: `codex/.codex/AGENTS.md`
-- Modify: `opencode/.config/opencode/AGENTS.md` and `opencode/.config/opencode/opencode.json`
+- Modify: `opencode/.config/opencode/AGENTS.md`
 - Modify: `gemini-cli/.gemini/GEMINI.md`
 - Create: `claude/.claude/CLAUDE.md`
 
 **Interfaces:**
-- Produces: portable shared instructions consumed by the global configuration for Codex, OpenCode, Gemini CLI, and Claude Code.
+- Produces: portable shared instructions and source adapters for Codex, OpenCode, Gemini CLI, and Claude Code; activation remains subject to existing Stow/user-config protections.
 
-- [ ] **Step 1: Write the canonical rules.** Include the concise direct/candid baseline already in Codex/OpenCode/Cursor/Gemini, with uncertainty and evidence where material, substantive disagreement with reason/alternative/risk, updating on new evidence, and secret handling. Preserve stronger advisor behavior as opt-in. Do not include confidence tags on every claim, mandatory adversarial tone, tool-specific routing, repo conventions, or brain logging rules.
-- [ ] **Step 2: Expose the canonical file through Stow.** Add `agents/.agents/instructions/global.md` as a relative symlink to `agents/instructions/global.md`, so the deployed shared path is `~/.agents/instructions/global.md` without depending on the dotfiles clone location.
-- [ ] **Step 3: Connect Codex to the canonical file.** Codex already reads `$CODEX_HOME/AGENTS.md`; replace its duplicated baseline with a Stow-safe link to the canonical file if the deployed link resolves correctly. Otherwise use the smallest verified adapter and record why a direct link is not viable.
-- [ ] **Step 4: Configure OpenCode to load the canonical file.** Add `~/.agents/instructions/global.md` to the existing `instructions` list in `opencode/.config/opencode/opencode.json`. Remove `opencode/.config/opencode/AGENTS.md` after verifying the configured instruction source loads in a minimal session, preventing duplicate injection.
-- [ ] **Step 5: Import shared rules from Gemini CLI and Claude Code.** Add `@~/.agents/instructions/global.md` to `gemini-cli/.gemini/GEMINI.md` and `claude/.claude/CLAUDE.md`. Keep existing Gemini-specific conventions and preferences in `GEMINI.md`.
-- [ ] **Step 5: Verify the four tools.** Run `stow -n -v codex opencode gemini-cli claude` (or package-by-package if the command syntax does not support multiple packages); inspect link targets. Verify the loaded instruction source for each tool with its context display or a minimal interactive session. Expected: the shared baseline is present once and existing unrelated settings remain intact.
+- [x] **Step 1: Write the canonical rules.** Include the concise direct/candid baseline already in Codex/OpenCode/Cursor/Gemini, with uncertainty and evidence where material, substantive disagreement with reason/alternative/risk, updating on new evidence, and secret handling. Preserve stronger advisor behavior as opt-in. Do not include confidence tags on every claim, mandatory adversarial tone, tool-specific routing, repo conventions, or brain logging rules.
+- [x] **Step 2: Expose the canonical file through Stow.** Add `agents/.agents/instructions/global.md` as a relative symlink to `agents/instructions/global.md`, so the deployed shared path is `~/.agents/instructions/global.md` without depending on the dotfiles clone location.
+- [x] **Step 3: Prepare the Codex adapter.** Add the Stow-safe source link. Preserve the existing `/.codex` ignore and live `~/.codex/AGENTS.md`; record that runtime activation requires a deliberate migration.
+- [x] **Step 4: Prepare the OpenCode adapter.** Replace duplicate source text with a relative symlink to the canonical file. Verify the source target; preserve the pre-existing Stow conflict and record that deployment/runtime loading remains pending.
+- [x] **Step 5: Import shared rules from Gemini CLI and Claude Code.** Add `@~/.agents/instructions/global.md` to `gemini-cli/.gemini/GEMINI.md` and `claude/.claude/CLAUDE.md`. Keep existing Gemini-specific conventions and preferences in `GEMINI.md`.
+- [x] **Step 6: Verify the four adapters.** Run `stow -n -v` package-by-package; inspect link targets and import syntax. Do not overwrite existing live config or bypass package ignore/conflict protections. Record where a deployed/runtime check is blocked by existing user configuration; do not claim those tools are active until their normal Stow/manual setup is completed.
 
 ### Task 2: Connect Cursor and verify portability
 
@@ -60,9 +62,9 @@
 
 **Interfaces:**
 - Consumes: `agents/instructions/global.md` from Task 1.
-- Produces: a Cursor global rule that applies the canonical baseline across projects, without a separately maintained policy copy.
+- Produces: a repository-scoped pointer plus the exact one-line Cursor User Rule needed for global behavior; activation requires that UI-managed rule.
 
-- [ ] **Step 1: Verify Cursor's current global rules mechanism.** Confirm from current official documentation and an installed Cursor session whether the stowed `~/.cursor/rules/advisor-baseline.mdc` is loaded globally and whether it can reference an external Markdown file. Do not infer global behavior from project `.cursor/rules` support.
-- [ ] **Step 2: Connect the rule using the smallest supported mechanism.** Prefer a direct reference to `~/.agents/instructions/global.md`. If Cursor has no file-based global import, keep its User Rule minimal and point it to the canonical file, or use the smallest documented adapter needed; do not silently maintain a second full policy by hand. If this requires unavoidable manual UI setup, document the one-time setup clearly.
-- [ ] **Step 3: Verify Cursor in two repositories.** Confirm the baseline applies in a repository without its own Cursor rule and remains compatible with a project-specific rule. Expected: global defaults load, project guidance remains local, and no policy conflicts are introduced.
-- [ ] **Step 4: Review the complete boundary.** Confirm the canonical file is tool-neutral, contains no machine-specific paths or brain-repository logging rules, and root `AGENTS.md` remains dotfiles-specific. Check all five tools' effective loaded instructions and record any Cursor-specific manual setup in the relevant package README or config comment only if needed for future portability.
+- [x] **Step 1: Verify Cursor's current global rules mechanism.** Confirm from current official documentation and installed CLI/config whether the stowed `~/.cursor/rules/advisor-baseline.mdc` is global. Do not infer global behavior from project `.cursor/rules` support. User Rules are UI-managed and not stored in this package.
+- [x] **Step 2: Connect the rule using the smallest supported mechanism.** Keep the repository rule as a pointer to `~/.agents/instructions/global.md`; document the exact one-line User Rule needed in Customize → Rules → User Rules. Do not maintain a second full policy by hand.
+- [x] **Step 3: Verify Cursor configuration boundaries.** Confirm the repository rule remains project-scoped and the User Rule requires a one-time UI action. Runtime verification across two repositories requires that UI action and an interactive Cursor session; record it as pending if unavailable.
+- [x] **Step 4: Review the complete boundary.** Confirm the canonical file is tool-neutral, contains no machine-specific paths or brain-repository logging rules, and root `AGENTS.md` remains dotfiles-specific. Check all five source adapters; record runtime activation blockers and Cursor's one-time manual setup in the relevant config comment when UI-managed global rules cannot be stored in the repository.
