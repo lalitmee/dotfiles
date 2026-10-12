@@ -147,7 +147,8 @@ function M.switch_worktree_picker()
                 prompt = "Switch Worktree > ",
                 format = "text",
                 layout = compact_layout(),
-                confirm = function(_, item)
+                confirm = function(picker, item)
+                    picker:close()
                     git_wt.switch_worktree(item.data.path)
                 end,
             })

@@ -16,8 +16,8 @@
 - Expose the canonical source to tools through `~/.agents/instructions/global.md`, as a Stow-managed link back to that source; imports must not hardcode the dotfiles clone location.
 - Support Codex, Cursor, OpenCode, Gemini CLI, and Claude Code.
 - Keep the dotfiles root `AGENTS.md` scoped to this repository.
-- Keep brain repository records and logging rules outside the canonical global file.
-- Avoid machine-specific paths and personal/work assumptions in the canonical instructions.
+- Preserve the complete user-provided directive verbatim in the canonical global file, including its Cursor Brain logging section.
+- Do not introduce machine-specific absolute paths beyond text already present in the user-provided directive.
 - Do not maintain divergent shared rules by hand; use a tool-supported reference or generated/copied adapter from the canonical source.
 - Do not add speculative adapters, dependencies, or automation.
 
@@ -27,7 +27,7 @@
 - A symlink or imported relative path resolves differently after GNU Stow deployment; verify the repo target now and the deployed path after safe activation.
 - Cursor only applies User Rules configured through its UI; verify whether the existing stowed `~/.cursor/rules/advisor-baseline.mdc` is actually global before relying on it.
 - Existing global instructions in Gemini, Codex, and OpenCode may be lost when replaced; preserve their unrelated settings and keep any useful tool-specific guidance outside the shared file.
-- A canonical policy accidentally absorbs brain-specific or dotfiles-only rules; inspect its content against the spec boundaries.
+- The canonical directive is paraphrased or omits any supplied section; compare it against the user-provided source.
 
 ---
 
@@ -46,7 +46,7 @@
 **Interfaces:**
 - Produces: portable shared instructions and source adapters for Codex, OpenCode, Gemini CLI, and Claude Code; activation remains subject to existing Stow/user-config protections.
 
-- [x] **Step 1: Write the canonical rules.** Include the concise direct/candid baseline already in Codex/OpenCode/Cursor/Gemini, with uncertainty and evidence where material, substantive disagreement with reason/alternative/risk, updating on new evidence, and secret handling. Preserve stronger advisor behavior as opt-in. Do not include confidence tags on every claim, mandatory adversarial tone, tool-specific routing, repo conventions, or brain logging rules.
+- [x] **Step 1: Write the canonical rules.** Copy the complete user-provided `AGENT DIRECTIVE: ADVISOR PERSONA & OPERATIONAL RULES` verbatim. Do not paraphrase, omit sections, or weaken its requirements.
 - [x] **Step 2: Expose the canonical file through Stow.** Add `agents/.agents/instructions/global.md` as a relative symlink to `agents/instructions/global.md`, so the deployed shared path is `~/.agents/instructions/global.md` without depending on the dotfiles clone location.
 - [x] **Step 3: Prepare the Codex adapter.** Add the Stow-safe source link. Preserve the existing `/.codex` ignore and live `~/.codex/AGENTS.md`; record that runtime activation requires a deliberate migration.
 - [x] **Step 4: Prepare the OpenCode adapter.** Replace duplicate source text with a relative symlink to the canonical file. Verify the source target; preserve the pre-existing Stow conflict and record that deployment/runtime loading remains pending.
@@ -67,4 +67,4 @@
 - [x] **Step 1: Verify Cursor's current global rules mechanism.** Confirm from current official documentation and installed CLI/config whether the stowed `~/.cursor/rules/advisor-baseline.mdc` is global. Do not infer global behavior from project `.cursor/rules` support. User Rules are UI-managed and not stored in this package.
 - [x] **Step 2: Connect the rule using the smallest supported mechanism.** Keep the repository rule as a pointer to `~/.agents/instructions/global.md`; document the exact one-line User Rule needed in Customize → Rules → User Rules. Do not maintain a second full policy by hand.
 - [x] **Step 3: Verify Cursor configuration boundaries.** Confirm the repository rule remains project-scoped and the User Rule requires a one-time UI action. Runtime verification across two repositories requires that UI action and an interactive Cursor session; record it as pending if unavailable.
-- [x] **Step 4: Review the complete boundary.** Confirm the canonical file is tool-neutral, contains no machine-specific paths or brain-repository logging rules, and root `AGENTS.md` remains dotfiles-specific. Check all five source adapters; record runtime activation blockers and Cursor's one-time manual setup in the relevant config comment when UI-managed global rules cannot be stored in the repository.
+- [x] **Step 4: Review the complete boundary.** Compare the canonical file with the user-provided directive, confirm root `AGENTS.md` remains dotfiles-specific, check all five source adapters, and record runtime activation blockers and Cursor's one-time manual setup in the relevant config comment when UI-managed global rules cannot be stored in the repository.

@@ -225,7 +225,16 @@ manager_main() {
         local filter_label="$filter"
         local main_label=off
         (( show_main )) && main_label=on
-        header="${key_color}enter${reset_color} ${description_color}open${reset_color} | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color} | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color} | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color} | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color} | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color} | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color} | ${key_color}ctrl-o${reset_color} ${description_color}create worktree${reset_color} | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
+        header="${key_color}enter${reset_color} ${description_color}open window${reset_color}"
+        header+=" | ${key_color}ctrl-s${reset_color} ${description_color}open session${reset_color}"
+        header+=" | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color}"
+        header+=" | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color}"
+        header+=" | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color}"
+        header+=" | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color}"
+        header+=" | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color}"
+        header+=" | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color}"
+        header+=" | ${key_color}ctrl-o${reset_color} ${description_color}create worktree${reset_color}"
+        header+=" | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
         notice_level=info
         notice_message=''
         if [[ -n "$feedback" ]]; then
@@ -242,7 +251,7 @@ manager_main() {
         output=$({
             printf '0\t%s\n' "${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
-        } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-s,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then
@@ -268,7 +277,7 @@ manager_main() {
             continue
         fi
         (( picker_status == 0 )) || break
-        [[ "$key" == enter || "$key" == ctrl-b || "$key" == ctrl-r || "$key" == ctrl-d ]] || continue
+        [[ "$key" == enter || "$key" == ctrl-s || "$key" == ctrl-b || "$key" == ctrl-r || "$key" == ctrl-d ]] || continue
         id="${${choice[2]:-}%%$'\t'*}"
         [[ "$id" == <-> ]] && (( id>=1 && id<=${#fields} )) || continue
         i=$id
@@ -277,7 +286,11 @@ manager_main() {
         # shown in an acknowledging popup before the picker returns.
         case "$key" in
             enter)
-                if ! action_output=$(open_worktree "${fields[i+3]}" "${fields[i+2]}" "${fields[i+4]}" 2>&1); then
+                if ! action_output=$(open_worktree "${fields[i+3]}" "${fields[i+2]}" "${fields[i+4]}" window 2>&1); then
+                    feedback="Open failed: $action_output"
+                fi ;;
+            ctrl-s)
+                if ! action_output=$(open_worktree "${fields[i+3]}" "${fields[i+2]}" "${fields[i+4]}" session 2>&1); then
                     feedback="Open failed: $action_output"
                 fi ;;
             ctrl-b)

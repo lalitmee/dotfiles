@@ -39,16 +39,37 @@ _worktree_manager_validate() {
 
 open_worktree() {
     emulate -L zsh
-    local worktree_path="${1:A}" repo_name="$2" branch="${3:-detached}" windows base name
+    local worktree_path="${1:A}" repo_name="$2" branch="${3:-detached}" mode="${4:-window}"
+    local sessions session_id session_path panes window_id pane_path window_names base name
+    local -a session_windows existing
     _worktree_manager_is_root "$worktree_path" || { _worktree_manager_error 'worktree is missing or invalid'; return 1; }
-    windows=$(tmux list-windows -F '#{window_name}') || return 1
+    [[ "$mode" == window || "$mode" == session ]] || { _worktree_manager_error 'unknown open mode'; return 1; }
+    sessions=$(tmux list-sessions -F '#{session_id}\t#{session_path}') || return 1
+    while IFS=$'\t' read -r session_id session_path; do
+        [[ -n "$session_id" && "${session_path:A}" == "$worktree_path" ]] || continue
+        session_windows=("${(@f)$(tmux list-windows -t "$session_id" -F '#{window_id}')}")
+        [[ -n "${session_windows[1]:-}" ]] || return 1
+        tmux switch-client -t "$session_id" && tmux select-window -t "$session_id:${session_windows[1]}"
+        return $?
+    done <<< "$sessions"
+    panes=$(tmux list-panes -a -F '#{session_id}\t#{window_id}\t#{pane_current_path}') || return 1
+    while IFS=$'\t' read -r session_id window_id pane_path; do
+        [[ -n "$session_id" && "${pane_path:A}" == "$worktree_path" ]] || continue
+        tmux switch-client -t "$session_id" && tmux select-window -t "$session_id:$window_id"
+        return $?
+    done <<< "$panes"
+    if [[ "$mode" == session ]]; then
+        tmux new-session -c "$worktree_path"
+        return $?
+    fi
+    window_names=$(tmux list-windows -F '#{window_name}') || return 1
     base="$repo_name:$branch"
     # Keep names on one line even if repository names contain control characters.
     base="${base//$'\n'/ }"
     base="${base//$'\r'/ }"
     name="$base"
     local -a existing
-    existing=("${(@f)windows}")
+    existing=("${(@f)window_names}")
     local suffix=2
     while (( ${existing[(Ie)$name]} )); do
         name="$base-$suffix"

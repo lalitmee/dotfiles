@@ -181,7 +181,7 @@ test_actions() {
     source "$DISCOVERY"
     source "$actions"
     local repo="$TEST_DIR/action repo" linked="$TEST_DIR/linked tree" moved="$TEST_DIR/moved tree"
-    local field
+    local field joined
     local -a fields
     mkdir -p "$repo"
     command git init -q -b main "$repo"
@@ -194,13 +194,22 @@ test_actions() {
     command git -C "$repo" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
     # Log exact NUL-delimited arguments, while real Git exercises registry safety.
     local git_log="$TEST_DIR/git-log" tmux_log="$TEST_DIR/tmux-log"
+    local open_sessions='' open_panes=''
     git() { printf '%s\0' "$@" >> "$git_log"; command git "$@"; }
     tmux() {
         printf '%s\0' "$@" >> "$tmux_log"
-        if [[ "$1" == list-windows ]]; then
-            print -r -- 'project:topic'
-            print -r -- 'project:topic-2'
-        fi
+        case "$1" in
+            list-sessions) [[ -z "$open_sessions" ]] || print -r -- "$open_sessions" ;;
+            list-panes) [[ -z "$open_panes" ]] || print -r -- "$open_panes" ;;
+            list-windows)
+                if [[ "$2" == -t ]]; then
+                    print -r -- '@window-first'
+                    print -r -- '@window-second'
+                else
+                    print -r -- 'project:topic'
+                    print -r -- 'project:topic-2'
+                fi ;;
+        esac
     }
     list_repository_branches "$repo" > "$TEST_DIR/branches"
     while IFS= read -r -d '' field; do fields+=("$field"); done < "$TEST_DIR/branches"
@@ -235,11 +244,37 @@ test_actions() {
     open_worktree "$moved" project topic
     fields=()
     while IFS= read -r -d '' field; do fields+=("$field"); done < "$tmux_log"
-    assert_equal "${(j:|:)fields}" "list-windows|-F|#{window_name}|new-window|-n|project:topic-3|-c|$moved" 'collision-safe window arguments'
+    joined="${(j:|:)fields}"
+    [[ "$joined" == *'new-window|-n|project:topic-3|-c|'"$moved" ]] || \
+        fail 'collision-safe window arguments'
+    : > "$tmux_log"
+    open_sessions=$'@session\t'"$moved"
+    open_worktree "$moved" project topic
+    fields=(); while IFS= read -r -d '' field; do fields+=("$field"); done < "$tmux_log"
+    joined="${(j:|:)fields}"
+    [[ "$joined" == *'switch-client|-t|@session|select-window|-t|@session:@window-first' ]] || \
+        fail 'worktree session does not select its first window'
+    [[ "$joined" != *new-window* ]] || fail 'worktree session opens a duplicate window'
+    : > "$tmux_log"
+    open_sessions=''
+    open_panes=$'@other-session\t@other-window\t'"$moved"
+    open_worktree "$moved" project topic
+    fields=(); while IFS= read -r -d '' field; do fields+=("$field"); done < "$tmux_log"
+    joined="${(j:|:)fields}"
+    [[ "$joined" == *'select-window|-t|@other-session:@other-window' ]] || \
+        fail 'existing worktree window is not selected'
+    [[ "$joined" != *new-window* ]] || fail 'existing worktree window is duplicated'
+    : > "$tmux_log"
+    open_panes=''
+    open_worktree "$moved" project topic session
+    fields=(); while IFS= read -r -d '' field; do fields+=("$field"); done < "$tmux_log"
+    joined="${(j:|:)fields}"
+    [[ "$joined" == *'new-session|-c|'"$moved"* ]] || \
+        fail 'session key does not create a session in the worktree'
+    [[ "$joined" != *new-window* ]] || fail 'session key creates a window instead of a session'
     remove_worktree "$repo" "$moved" 1
     command git -C "$repo" show-ref --verify --quiet refs/heads/remote-only || fail 'worktree removal deleted branch'
     # Confirm successful mutations have explicit context and no force checkout.
-    local joined
     fields=()
     while IFS= read -r -d '' field; do fields+=("$field"); done < "$git_log"
     joined="${(j:|:)fields}"
@@ -378,7 +413,7 @@ test_interface() {
     ui_add_main=1
     printf 'ctrl-o\n' > "$ui_dir/reply.1"
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
-    [[ "$(cat "$ui_dir/options.1")" == *'--expect=enter,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o'* ]] || fail 'create key is absent from fzf expect list'
+    [[ "$(cat "$ui_dir/options.1")" == *'--expect=enter,ctrl-s,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o'* ]] || fail 'create key is absent from fzf expect list'
     [[ "$(cat "$ui_dir/options.1")" == *'ctrl-o'*'create worktree'* ]] || fail 'create key is absent from manager header'
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
     local new_windows=0
@@ -534,6 +569,13 @@ EOF
     local field
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
     assert_equal "${calls[2]}" "$selected_path" 'selection resolves array path instead of returned text'
+    ui_reset
+    printf 'ctrl-s\n1\tignored\n' > "$ui_dir/reply.1"
+    manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
+    [[ "$(cat "$ui_dir/options.1")" == *'--expect=enter,ctrl-s,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o'* ]] || fail 'new-session key is absent from fzf expect list'
+    [[ "$(cat "$ui_dir/options.1")" == *'ctrl-s'*'open session'* ]] || fail 'new-session key is absent from manager header'
+    calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
+    assert_equal "${calls[5]}" session 'new-session key dispatches session mode'
     ui_reset
     ui_flags=main
     printf 'ctrl-d\n1\tignored\n' > "$ui_dir/reply.1"
