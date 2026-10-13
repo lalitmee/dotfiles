@@ -1,0 +1,21 @@
+{
+  "codeThemeId": "codex",
+  "theme": {
+    "accent": "#FFC600",
+    "accentSource": "custom",
+    "contrast": 60,
+    "fonts": {
+      "code": "\"MonoLisa Nerd Font\"",
+      "ui": null
+    },
+    "ink": "#FFFFFF",
+    "opaqueWindows": false,
+    "semanticColors": {
+      "diffAdded": "#3AD900",
+      "diffRemoved": "#FF628C",
+      "skill": "#9E86C8"
+    },
+    "surface": "#193549"
+  },
+  "variant": "dark"
+}
