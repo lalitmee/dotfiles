@@ -10,10 +10,10 @@ gui:
   timeFormat: "02 Jan 06 15:04 MST" # https://pkg.go.dev/time#Time.Format
   theme:
     activeBorderColor:
-      - green
+      - "#ffc600"
       - bold
     inactiveBorderColor:
-      - white
+      - "#00AAFF"
     optionsTextColor:
       - blue
     selectedLineBgColor:
