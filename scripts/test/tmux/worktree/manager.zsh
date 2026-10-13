@@ -126,8 +126,12 @@ test_config() {
     [[ -f "$CONFIG" ]] || fail 'config library is missing'
     source "$CONFIG"
     local HOME="$TEST_DIR/home" XDG_CONFIG_HOME="$TEST_DIR/xdg" field expected config
+    local tracked_config="$WORKSPACE_DIR/tmux/.config/worktree-manager/roots"
     local -a roots
     mkdir -p "$HOME/Projects" "$HOME/relative root" "$TEST_DIR/xdg/absolute root"
+    [[ -f "$tracked_config" ]] || fail 'tracked worktree roots config is missing'
+    grep -Fxq '~/Projects' "$tracked_config" || fail 'tracked config omits Projects root'
+    grep -Fxq '~/dotfiles' "$tracked_config" || fail 'tracked config omits dotfiles root'
     config="$XDG_CONFIG_HOME/worktree-manager/roots"
     assert_equal "$(worktree_manager_config_path)" "$config" 'XDG config path'
     local XDG_CONFIG_HOME=''
@@ -148,14 +152,16 @@ test_config() {
 relative root
 $TEST_DIR/xdg/absolute root
 ~/Projects/../Projects
+$WORKSPACE_DIR
 missing root
 EOF
     load_worktree_roots > "$TEST_DIR/roots" 2> "$TEST_DIR/root-errors"
     roots=(); while IFS= read -r -d '' field; do roots+=("$field"); done < "$TEST_DIR/roots"
-    assert_equal "${#roots}" 3 'configured root count and canonical duplicate removal'
+    assert_equal "${#roots}" 4 'configured root count and canonical duplicate removal'
     assert_equal "${roots[1]}" "${HOME}/Projects" 'tilde expansion'
     assert_equal "${roots[2]}" "${HOME}/relative root" 'relative root resolves from home'
     assert_equal "${roots[3]}" "$TEST_DIR/xdg/absolute root" 'space-containing absolute root'
+    assert_equal "${roots[4]}" "$WORKSPACE_DIR" 'absolute dotfiles root'
     [[ "$(<"$TEST_DIR/root-errors")" == *'missing root'* ]] || fail 'missing root diagnostic absent'
 
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
@@ -169,8 +175,8 @@ EOF
     local TMUX=''
     manager_main > /dev/null
     roots=(); while IFS= read -r -d '' field; do roots+=("$field"); done < "$calls"
-    assert_equal "${#roots}" 3 'manager startup passes all configured roots'
-    assert_equal "${(j:|:)roots}" "${HOME}/Projects|${HOME}/relative root|$TEST_DIR/xdg/absolute root" 'manager root argument boundaries'
+    assert_equal "${#roots}" 4 'manager startup passes all configured roots'
+    assert_equal "${(j:|:)roots}" "${HOME}/Projects|${HOME}/relative root|$TEST_DIR/xdg/absolute root|$WORKSPACE_DIR" 'manager root argument boundaries'
     unfunction discover_worktrees fzf
     print 'PASS: global worktree config'
 }
@@ -336,6 +342,19 @@ test_interface() {
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
     [[ -f "$manager" ]] || fail 'manager interface is missing'
     source "$manager"
+    local COLUMNS=40 wrapped_header plain_header header_line
+    local -a header_lines
+    [[ -n "${functions[worktree_manager_header]:-}" ]] || fail 'worktree manager header formatter is missing'
+    wrapped_header=$(worktree_manager_header)
+    plain_header="$(print -r -- "$wrapped_header" | sed -E $'s/\033\\[[0-9;]*m//g')"
+    header_lines=("${(@f)plain_header}")
+    (( ${#header_lines} > 1 )) || fail 'narrow header is not wrapped'
+    for header_line in "${header_lines[@]}"; do
+        (( ${#header_line} <= COLUMNS )) || fail "wrapped header line exceeds terminal width: $header_line"
+    done
+    for header_line in 'enter: open window' 'ctrl-s: open session' 'ctrl-b: checkout' 'ctrl-r: rename' 'ctrl-d: remove' 'ctrl-g: filter:all' 'ctrl-t: mains:off' 'ctrl-f: refresh' 'ctrl-o: create worktree' 'esc: quit'; do
+        [[ "$plain_header" == *"$header_line"* ]] || fail "wrapped header omits keybinding: $header_line"
+    done
     local original_manager_checkout="${functions[manager_checkout]}"
     local selected_path="$TEST_DIR/tree with spaces" ui_status=clean ui_flags='' ui_add_main=0 ui_add_prunable=0 ui_warning=''
     local ui_dir="$TEST_DIR/ui" result
@@ -501,10 +520,10 @@ EOF
     assert_equal "$(wc -l < "$ui_dir/rows.1" | tr -d ' ')" 2 'main worktrees hidden by default'
     assert_equal "$(wc -l < "$ui_dir/rows.2" | tr -d ' ')" 3 'toggle shows main worktrees'
     [[ "$(cat "$ui_dir/rows.1" "$ui_dir/rows.2")" != *'stale project'* ]] || fail 'prunable worktree appears in picker'
-    [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-t\e[0m \e[38;2;255;198;0mmains:off'* ]] || fail 'main-worktree toggle state is not shown'
-    [[ "$(cat "$ui_dir/options.2")" == *$'\e[38;2;255;98;140mctrl-t\e[0m \e[38;2;255;198;0mmains:on'* ]] || fail 'main-worktree toggle state did not update'
+    [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-t:\e[0m \e[38;2;255;198;0mmains:off'* ]] || fail 'main-worktree toggle state is not shown'
+    [[ "$(cat "$ui_dir/options.2")" == *$'\e[38;2;255;98;140mctrl-t:\e[0m \e[38;2;255;198;0mmains:on'* ]] || fail 'main-worktree toggle state did not update'
     [[ "$(cat "$ui_dir/options.1")" == *'--ansi'* ]] || fail 'picker does not enable ANSI colors'
-    [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-d\e[0m'* ]] || fail 'keybinding color missing'
+    [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-d:\e[0m'* ]] || fail 'keybinding color missing'
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[0m \e[38;2;255;198;0mremove\e[0m'* ]] || fail 'keybinding description color missing'
     [[ "$(cat "$ui_dir/rows.1")" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail 'column heading delimiter or color missing'
     local feedback='' popup_output

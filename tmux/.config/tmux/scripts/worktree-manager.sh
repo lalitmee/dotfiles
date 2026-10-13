@@ -16,6 +16,34 @@ zmodload zsh/datetime zsh/stat 2>/dev/null
 # Escape control characters for single-line display; original fields stay in arrays.
 manager_display() { print -rn -- "${(V)1}"; }
 
+worktree_manager_header() {
+    emulate -L zsh
+    local filter_label="${1:-all}" main_label="${2:-off}" width="${COLUMNS:-80}"
+    local key_color=$'\e[38;2;255;98;140m' description_color=$'\e[38;2;255;198;0m' reset_color=$'\e[0m'
+    local header='' binding key description line_width=0
+    local -a bindings=(
+        'enter: open window' 'ctrl-s: open session' 'ctrl-b: checkout' 'ctrl-r: rename'
+        'ctrl-d: remove' "ctrl-g: filter:${filter_label}" "ctrl-t: mains:${main_label}"
+        'ctrl-f: refresh' 'ctrl-o: create worktree' 'esc: quit'
+    )
+    for binding in "${bindings[@]}"; do
+        if (( line_width )); then
+            if (( line_width + 3 + ${#binding} > width )); then
+                header+=$'\n'
+                line_width=0
+            else
+                header+=' | '
+                (( line_width += 3 ))
+            fi
+        fi
+        key="${binding%%:*}"
+        description="${binding#*: }"
+        header+="${key_color}${key}:${reset_color} ${description_color}${description}${reset_color}"
+        (( line_width += ${#binding} ))
+    done
+    print -r -- "$header"
+}
+
 manager_confirm() {
     local affirmative="${2:+Yes, ${2}}"
     affirmative="${affirmative:-Yes}"
@@ -159,7 +187,7 @@ manager_main() {
         while IFS= read -r -d '' root; do roots+=("$root"); done < <(load_worktree_roots)
     fi
     projects_root="${(j:, :)roots}"
-    local key_color=$'\e[38;2;255;98;140m' description_color=$'\e[38;2;255;198;0m' heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
+    local heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
     local -a fields rows choice
     while true; do
         if (( refresh )); then
@@ -225,16 +253,7 @@ manager_main() {
         local filter_label="$filter"
         local main_label=off
         (( show_main )) && main_label=on
-        header="${key_color}enter${reset_color} ${description_color}open window${reset_color}"
-        header+=" | ${key_color}ctrl-s${reset_color} ${description_color}open session${reset_color}"
-        header+=" | ${key_color}ctrl-b${reset_color} ${description_color}checkout${reset_color}"
-        header+=" | ${key_color}ctrl-r${reset_color} ${description_color}rename${reset_color}"
-        header+=" | ${key_color}ctrl-d${reset_color} ${description_color}remove${reset_color}"
-        header+=" | ${key_color}ctrl-g${reset_color} ${description_color}filter:${filter_label}${reset_color}"
-        header+=" | ${key_color}ctrl-t${reset_color} ${description_color}mains:${main_label}${reset_color}"
-        header+=" | ${key_color}ctrl-f${reset_color} ${description_color}refresh${reset_color}"
-        header+=" | ${key_color}ctrl-o${reset_color} ${description_color}create worktree${reset_color}"
-        header+=" | ${key_color}esc${reset_color} ${description_color}quit${reset_color}"
+        header="$(worktree_manager_header "$filter_label" "$main_label")"
         notice_level=info
         notice_message=''
         if [[ -n "$feedback" ]]; then
