@@ -201,32 +201,21 @@ assert_contains "$prefix_bindings" 'update_plugins' "TPM update binding"
 status_left="$(tmux_private show-option -gqv status-left)"
 status_right="$(tmux_private show-option -gqv status-right)"
 status_formats="$status_left $status_right"
-assert_eq '#[fg=#1c1c1c,bg=#ffc600,bold]#s#[default]' "${status_left:l}" "session-only left status"
-right_prefix='#h | ↑#(uptime -p | sed '\''s/^up //'\'')'
-[[ "$status_right" == "$right_prefix"* ]] \
-    || fail "right status must start with hostname, then uptime"
-assert_eq 1 "$(grep -o '#h' <<< "$status_right" | wc -l | tr -d ' ')" "hostname occurrence count"
+assert_eq '#[fg=#080808,bg=#ffc600,bold] ❐ #s #[default]' "${status_left:l}" "session name left status"
+[[ "$status_right" != *'#h | ↑'* ]] || fail "status-right still uses the replaced hostname-first layout"
 [[ "$status_right" != *'%R'* ]] || fail "status-right still shows the time"
 [[ "$status_right" != *'%d %b'* ]] || fail "status-right still shows the date"
 for omt_format in session_dots uptime_y uptime_dy uptime_d uptime_h uptime_m username root; do
     [[ "$status_formats" != *"#{${omt_format}}"* ]] \
         || fail "status still depends on OMT format #{${omt_format}}"
 done
-assert_contains "$status_right" 'ps -t #{b:pane_tty} -o user=,stat=' "foreground pane user status"
-assert_contains "$status_right" '$2 ~ /[+]/' "foreground process selection"
-assert_contains "$status_right" '-v host="$(hostname)"' "suppress duplicate local hostname/user"
-assert_contains "$status_right" '$1 != host && $1 != "root"' "show only distinct foreground user"
-test_pane_tty="$(tmux_private display-message -p -t native-config-test:0.0 '#{b:pane_tty}')"
-foreground_user="$(ps -t "$test_pane_tty" -o user=,stat= \
-    | awk '$2 ~ /[+]/ { print $1; exit }')"
-[[ -n "$foreground_user" ]] || fail "could not resolve foreground process user for test pane"
-root_marker="$(printf 'root Ss+\n' | awk '$2 ~ /[+]/ { if ($1 == "root") printf "!"; exit }')"
-assert_eq '!' "$root_marker" "root pane indicator"
-local_owner="$(printf 'lalitmee Ss+\n' | awk -v host=lalitmee '$2 ~ /[+]/ { if ($1 != host && $1 != "root") printf "%s", $1; if ($1 == "root") printf "!"; exit }')"
-assert_eq '' "$local_owner" "suppress duplicate local hostname/user"
-remote_owner="$(printf 'remote Ss+\n' | awk -v host=lalitmee '$2 ~ /[+]/ { if ($1 != host && $1 != "root") printf "%s", $1; if ($1 == "root") printf "!"; exit }')"
-assert_eq remote "$remote_owner" "show distinct foreground user"
-[[ "$status_right" != *'pane_user'* ]] || fail "status uses unsupported pane_user format"
+assert_contains "$status_right" "#[fg=#ffc600,bg=#0d3a58] #(~/.tmux/plugins/tmux-session-dots/scripts/session-dots.sh" "spaced yellow native session dots segment"
+assert_contains "$status_right" '#[fg=#ffc600,bg=#0050a4,bold]' "legacy uptime segment colors"
+assert_contains "$status_right" "s/ days?/d/g" "compact uptime days"
+assert_contains "$status_right" "s/ hours?/h/g" "compact uptime hours"
+assert_contains "$status_right" "s/ minutes?/m/g" "compact uptime minutes"
+assert_contains "$status_right" '#[fg=#080808,bg=#ffc600,bold]' "legacy username segment colors"
+assert_contains "$status_right" '↑ #(uptime -p' "spaced uptime icon"
 [[ "$status_formats" != *'${HOME}/.tmux.conf'* ]] \
     || fail "status still sources helpers from ~/.tmux.conf"
 
@@ -241,9 +230,8 @@ assert_color "$last_style" 'fg=#ffc600' "last-active window foreground"
 assert_color "$last_style" 'bg=#193549' "last-active window background"
 assert_color "$current_style" 'fg=#ffc600' "active window foreground"
 assert_color "$current_style" 'bg=#0050a4' "active window background"
+assert_contains "${inactive_format:l}" '#[fg=#e4e4e4,bg=#185294] #i #[fg=#e4e4e4,bg=#0d3a58] #w' "inactive window labels"
+assert_contains "${current_format:l}" '#[fg=#ffc600,bg=#0050a4,bold] #i #[fg=#ffc600,bg=#0f3c5a,bold] #w' "active window labels"
 [[ "${inactive_format:l}" != *'#[fg=#ffffff'* ]] \
     || fail "inactive format hard-codes white over last-window style"
-[[ "${current_format:l}" != *'#[fg='* && "${current_format:l}" != *'#[bg='* ]] \
-    || fail "active format overrides the Cobalt2 active window style"
-
 print -- "PASS: isolated native tmux config matches all $(wc -l < "$baseline_ids" | tr -d ' ') binding identities and required options, plugins, formats, and colors"
