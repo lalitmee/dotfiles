@@ -6,6 +6,6 @@ plugins, and Cobalt2 theme behavior.
 
 - Design draft: [`docs/superpowers/specs/2026-10-14-native-tmux-config-design.md`](../../../docs/superpowers/specs/2026-10-14-native-tmux-config-design.md)
 - Implementation plan: [`docs/superpowers/plans/2026-10-14-native-tmux-config.md`](../../../docs/superpowers/plans/2026-10-14-native-tmux-config.md)
-- Current phase: implementation and authorized cutover complete; post-review corrections are under validation.
-- Rollback: timestamped OMT, local-settings, and theme backups remain beside the original home paths; see the baseline report for names and hashes.
-- Safety constraints: the active entrypoint and dependencies resolve into the feature worktree; keep it in place until the native config is copied into the primary checkout or an explicit rollback is performed.
+- Current phase: native configuration is integrated into `main`, active from the primary checkout, and verified against the live tmux server.
+- Rollback: OMT entrypoint backups and the pre-native legacy theme are preserved in `$HOME`; the original OMT backup hashes and paths are recorded in the baseline report.
+- Safety constraints: home tmux paths resolve into the primary checkout; retain the rollback copies until the native setup has been used successfully.

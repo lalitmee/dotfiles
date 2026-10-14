@@ -126,4 +126,4 @@ tmux configuration syntax, Zsh standalone test script, existing TPM installation
 
 ## Handoff
 
-The design and plan were approved. Tasks 1–5 were executed inline; Task 5 ran only after separate explicit cutover approval. The active entrypoint and dependencies now resolve to the feature worktree, so keep this worktree available until its native config is moved to the primary checkout or the documented backups are restored.
+The design and plan were approved. Tasks 1–5 were executed inline; Task 5 ran only after separate explicit cutover approval. The native config is now integrated into `main`, active from the primary checkout, and verified live. OMT rollback files remain in the home directory; retain them until the native setup has been used successfully.
