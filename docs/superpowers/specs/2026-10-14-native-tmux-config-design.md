@@ -1,7 +1,7 @@
 # Native tmux config migration design
 
-**Date:** 2026-10-14  
-**Status:** Draft for review
+**Date:** 2026-10-14
+**Status:** Approved
 
 ## Background and goal
 
