@@ -43,7 +43,7 @@ tmux_conf_new_session_prompt=false
 tmux_conf_24b_colour=true
 
 # Use the standalone cobalt2.conf theme instead of Oh My Tmux theme overrides.
-tmux_conf_theme=false
+tmux_conf_theme=disabled
 
 # -- clipboard -----------------------------------------------------------------
 
