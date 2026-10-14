@@ -16,6 +16,7 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | File picker | Tmux file-picker argument handling | `zsh scripts/test/tmux/file-picker.zsh` |
 | Tmux installer | Installer behavior | `zsh scripts/test/tmux/install.zsh` |
 | Tmux update checker | Update-check behavior | `zsh scripts/test/tmux/update-check.zsh` |
+| Native tmux config | Private-socket startup, baseline key identities/options, TPM bindings, status formats, and Cobalt2 colors | `zsh scripts/test/tmux/config.zsh` |
 
 Run an individual manager suite with one of these exact commands:
 

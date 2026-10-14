@@ -1,61 +1,4 @@
-# : << EOF
-# https://github.com/gpakosz/.tmux
-# (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
-#         without any warranty.
-#         Copyright 2012— Gregory Pakosz (@gpakosz).
-
-# -- navigation ----------------------------------------------------------------
-
-# if you're running tmux within iTermg
-#   - and tmux is 1.9 or 1.9a
-#   - and iTerm2 is configured to let option key act as +Esc
-#   - and iTerm2 is configured to send [1;9A -> [1;9D for option + arrow keys
-# then uncomment the following line to make Meta + arrow keys mapping work
-#set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
-
-# -- windows & pane creation ---------------------------------------------------
-
-# new window retains current path, possible values are:
-#   - true
-#   - false (default)
-tmux_conf_new_window_retain_current_path=true
-
-# new pane retains current path, possible values are:
-#   - true (default)
-#   - false
-tmux_conf_new_pane_retain_current_path=true
-
-# new pane tries to reconnect ssh sessions (experimental), possible values are:
-#   - true
-#   - false (default)
-tmux_conf_new_pane_reconnect_ssh=false
-
-# prompt for session name when creating a new session, possible values are:
-#   - true
-#   - false (default)
-tmux_conf_new_session_prompt=false
-
-# -- display -------------------------------------------------------------------
-
-# RGB 24-bit colour support (tmux >= 2.2), possible values are:
-#  - true
-#  - false (default)
-tmux_conf_24b_colour=true
-
-# Use the standalone cobalt2.conf theme instead of Oh My Tmux theme overrides.
-tmux_conf_theme=false
-
-# -- clipboard -----------------------------------------------------------------
-
-# in copy mode, copying selection also copies to the OS clipboard
-#   - true
-#   - false (default)
-# on macOS, this requires installing reattach-to-user-namespace, see README.md
-# on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=true
-
-# -- user customizations -------------------------------------------------------
-# this is the place to override or undo settings
+# Native tmux configuration; settings here no longer depend on OMT's shell parser.
 
 # increase history size
 set -g history-limit 10000
@@ -81,27 +24,10 @@ set -g extended-keys-format csi-u
 
 # move status line to top
 
-# -- tpm -----------------------------------------------------------------------
+# -- TPM -----------------------------------------------------------------------
 
-# while I don't use tpm myself, many people requested official support so here
-# is a seamless integration that automatically installs plugins in parallel
-
-# whenever a plugin introduces a variable to be used in 'status-left' or
-# 'status-right', you can use it in 'tmux_conf_theme_status_left' and
-# 'tmux_conf_theme_status_right' variables.
-
-# by default, launching tmux will update tpm and all plugins
-#   - true (default)
-#   - false
-tmux_conf_update_plugins_on_launch=false
-
-# by default, reloading the configuration will update tpm and all plugins
-#   - true (default)
-#   - false
-tmux_conf_update_plugins_on_reload=true
-
-# /!\ do not add set -g @plugin 'tmux-plugins/tpm'
-# /!\ do not add run '~/.tmux/plugins/tpm/tpm'
+# Plugin declarations are initialized by tmux/.tmux.conf after this file loads.
+# Plugin updates remain explicit; config reload never installs or updates them.
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
@@ -111,50 +37,39 @@ tmux_conf_update_plugins_on_reload=true
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @continuum-restore 'on'
 
-# -- custom variables ----------------------------------------------------------
-
-# to define a custom #{foo} variable, define a POSIX shell function between the
-# '# EOF' and the '# "$@"' lines. Please note that the opening brace { character
-# must be on the same line as the function name otherwise the parse won't detect
-# it.
-#
-# then, use #{foo} in e.g. the 'tmux_conf_theme_status_left' or the
-# 'tmux_conf_theme_status_right' variables.
-
-# # /!\ do not remove the following line
-# EOF
-#
-# weather() {
-#   curl -m 1 wttr.in?format=3 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
-# }
-#
-# online() {
-#   ping -t 1 -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
-# }
-#
-# "$@"
-# # /!\ do not remove the previous line
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: 1. SETTINGS {{{
-# General behavior, appearance, and environment settings for tmux.
-#-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# --- NOTE: Main Settings {{{
-#-------------------------------------------------------------------------------
-
 # Set the prefix to C-a, which is more accessible than C-b.
 set -g prefix C-a
+set -g prefix2 C-a
 
 # Unbind the default C-b prefix.
 unbind C-b
 
 # Allow sending C-a to applications by pressing it twice.
 bind C-a send-prefix
+
+# Keep the standard window and pane creation keys in the active pane's path.
+bind '"' split-window -v -c '#{pane_current_path}'
+bind % split-window -h -c '#{pane_current_path}'
+
+# Restore OMT's effective prefix bindings using native tmux commands.
+bind + resize-pane -Z
+bind _ split-window -h -c '#{pane_current_path}'
+bind b list-buffers
+bind C-c new-session
+bind -r C-S-H swap-window -t -1 \; select-window -t -1
+bind -r C-S-L swap-window -t +1 \; select-window -t +1
+bind Enter copy-mode
+bind -r l select-pane -R
+bind -r L resize-pane -R 2
+bind -r h select-pane -L
+bind -r H resize-pane -L 2
+bind -r k select-pane -U
+bind -r K resize-pane -U 2
+bind P choose-buffer
+bind m if-shell -F '#{mouse}' 'set -g mouse off' 'set -g mouse on'
+bind r source-file ~/.tmux.conf \; display-message '~/.tmux.conf sourced'
+bind R source-file ~/.tmux.conf \; display-message '~/.tmux.conf sourced'
+bind u run-shell '~/.tmux/plugins/tpm/bindings/update_plugins'
 
 # Reduce escape key delay for faster responsiveness, especially in Vim/Neovim.
 # set -g escape-time 0
@@ -166,15 +81,18 @@ set -g focus-events off
 
 # Start window numbering at 1 instead of 0.
 set-option -g base-index 1
+set-window-option -g pane-base-index 1
 
 # Automatically renumber windows after one is closed.
 set-option -g renumber-windows on
 
 # Use vi keybindings in copy mode.
-setw -g mode-keys vi
+set-window-option -g mode-keys vi
 
 # Set Zsh as the default shell for new windows and panes.
 set -g default-command "exec /bin/zsh"
+set -g set-titles on
+set -g set-titles-string "#h ❐ #S ● #I #W"
 
 # Do not exit tmux when the last session is closed.
 set -g detach-on-destroy off
@@ -506,21 +424,18 @@ bind-key -n M-[ switch-client -p
 bind-key -n M-] switch-client -n
 
 # Smart pane switching with awareness of Vim/Neovim splits.
-# Specific regex to detect only vim and neovim processes
-is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?((n?vim|vim|view|nvim|vimdiff|nvimdiff)(diff)?)$'"
-
 # Smart pane switching with awareness of Vim/Neovim splits.
 # Navigate left - send to vim if vim is running, otherwise navigate panes
-bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h' 'select-pane -L'
+bind -n 'C-h' if-shell "ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?((n?vim|vim|view|nvim|vimdiff|nvimdiff)(diff)?)$'" 'send-keys C-h' 'select-pane -L'
 
 # Navigate down - send to vim if vim is running, otherwise navigate panes
-bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j' 'select-pane -D'
+bind -n 'C-j' if-shell "ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?((n?vim|vim|view|nvim|vimdiff|nvimdiff)(diff)?)$'" 'send-keys C-j' 'select-pane -D'
 
 # Navigate up - send to vim if vim is running, otherwise navigate panes
-bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
+bind -n 'C-k' if-shell "ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?((n?vim|vim|view|nvim|vimdiff|nvimdiff)(diff)?)$'" 'send-keys C-k' 'select-pane -U'
 
 # Navigate right - send to vim if vim is running, otherwise navigate panes
-bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
+bind -n 'C-l' if-shell "ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?((n?vim|vim|view|nvim|vimdiff|nvimdiff)(diff)?)$'" 'send-keys C-l' 'select-pane -R'
 
 # Fallbacks to send raw ctrl keys to the active pane after pressing prefix
 bind C-h send-keys C-h
@@ -1438,7 +1353,5 @@ bind -T copy-mode-vi 'C-l' select-pane -R
 
 #-------------------------------------------------------------------------------
 
-
-run-shell 'bash "$HOME/.config/tmux/themes/cobalt2.conf"'
 
 # vim:fdm=marker
