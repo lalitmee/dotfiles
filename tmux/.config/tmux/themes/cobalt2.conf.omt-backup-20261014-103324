@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# NOTE: you can use vars with $<var> and ${<var>} as long as the str is double quoted: ""
+# WARNING: hex colors can't contain capital letters
+
+# --> cobalt2
+thm_bg="#0d3a58"
+thm_fg="#e4e4e4"
+thm_cyan="#0050a4"
+thm_black="#080808"
+thm_gray="#8a8a8a"
+thm_magenta="#ff00ff"
+thm_pink="#ff00ff"
+thm_red="#d70000"
+thm_green="#5fff00"
+thm_yellow="#ffc600"
+thm_blue="#0050a4"
+thm_orange="#ffc600"
+thm_black4="#303030"
+
+# ----------------------------=== Theme ===--------------------------
+
+# utils
+set() {
+	local option=$1
+	local value=$2
+	tmux set-option -gq "$option" "$value"
+}
+
+setw() {
+	local option=$1
+	local value=$2
+	tmux set-window-option -gq "$option" "$value"
+}
+
+# status
+set status "on"
+set status-style "fg=${thm_gray},bg=${thm_bg},none"
+set status-position "top"
+set status-justify "left"
+set status-left-length "100"
+set status-right-length "100"
+
+# messages
+set message-style "fg=${thm_black},bg=${thm_yellow},bold,fill=${thm_yellow}"
+set message-command-style "fg=${thm_yellow},bg=${thm_black},bold,fill=${thm_black}"
+set prompt-cursor-colour "black"
+
+# panes
+set pane-border-style "fg=${thm_blue},bg=default"
+set pane-active-border-style "fg=${thm_yellow},bg=default"
+set window-style "bg=default"
+set window-active-style "bg=default"
+set tree-mode-border-style "fg=#00aaff,bg=default"
+set popup-style "fg=${thm_fg},bg=#193549"
+set popup-border-style "fg=#00aaff,bg=#193549"
+set popup-border-lines "rounded"
+
+# windows
+setw window-status-activity-style "fg=default,bg=default,underscore"
+setw window-status-bell-style "fg=${thm_yellow},bg=default,blink,bold"
+setw window-status-last-style "fg=${thm_yellow},bg=${thm_bg},none"
+setw window-status-separator " "
+setw window-status-style "fg=${thm_fg},bg=${thm_bg},none"
+
+# --------=== Statusline
+
+set status-left "#[fg=${thm_black},bg=${thm_yellow},bold] ❐ #S #[default]"
+set status-right "#[fg=${thm_gray},bg=${thm_bg}]#{session_dots} #{prefix}#{mouse}#{pairing}#{synchronized} | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} | #{username}#{root} "
+
+# window and workmux status
+setw window-status-format "#[fg=${thm_fg},bg=${thm_bg}]#I:#W#{?@workmux_status, #{@workmux_status},} "
+setw window-status-current-format "#[fg=${thm_yellow},bg=${thm_blue},bold]#I:#W#{?@workmux_status, #{@workmux_status},} "
+
+# parent_dir/current_dir
+# setw window-status-format "#[fg=colour232,bg=colour111] #I #[fg=colour222,bg=colour235] #(echo '#{pane_current_path}' | rev | cut -d'/' -f-2 | rev) "
+# setw window-status-current-format "#[fg=colour232,bg=colour208] #I #[fg=colour255,bg=colour237] #(echo '#{pane_current_path}' | rev | cut -d'/' -f-2 | rev) "
+
+# --------=== Modes
+setw clock-mode-colour "${thm_yellow}"
+setw mode-style "fg=${thm_black},bg=${thm_yellow},bold"
