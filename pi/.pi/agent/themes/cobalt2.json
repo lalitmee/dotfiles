@@ -46,7 +46,7 @@
     "toolPendingBg": "cursorLine",
     "toolSuccessBg": "cursorLine",
     "toolErrorBg": "#4F0037",
-    "toolTitle": "text",
+    "toolTitle": "lightPink",
     "toolOutput": "muted",
     "mdHeading": "yellow",
     "mdLink": "lightBlue",
