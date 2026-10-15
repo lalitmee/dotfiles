@@ -119,7 +119,8 @@ main() { # {{{
     local ver_agy=$(get_agy_version)
     local ver_claude=$(get_npm_version_fast "@anthropic-ai/claude-code")
     local ver_copilot=$(get_npm_version_fast "@github/copilot")
-    local ver_opencode=$(get_npm_version_fast "opencode-ai")
+    local ver_opencode=$(opencode --version 2>/dev/null | awk '{print $NF}')
+    [[ -n "$ver_opencode" ]] || ver_opencode="Not Installed"
     local ver_grok=$(get_npm_version_fast "@vibe-kit/grok-cli")
     local ver_codex=$(get_npm_version_fast "@openai/codex")
     local ver_crush=$(get_crush_version)
@@ -227,7 +228,12 @@ main() { # {{{
                     install_npm_global "@github/copilot@latest" || install_status=$?
                     ;;
                 opencode)
-                    install_npm_global "opencode-ai@latest" || install_status=$?
+                    if command -v opencode >/dev/null 2>&1; then
+                        opencode upgrade || install_status=$?
+                    else
+                        gum_style "OpenCode V2 is not installed; use https://opencode.ai/v2/docs/cli to install it."
+                        install_status=1
+                    fi
                     ;;
                 grok)
                     install_npm_global "@vibe-kit/grok-cli@latest" || install_status=$?
@@ -236,7 +242,7 @@ main() { # {{{
                     install_npm_global "@openai/codex@latest" || install_status=$?
                     ;;
                 crush)
-                    go install github.com/charmbracelet/crush@latest || install_status=$?
+                    install_npm_global "@charmland/crush@latest" || install_status=$?
                     ;;
                 kiro)
                     secure_run_script "https://cli.kiro.dev/install" "Kiro CLI" || install_status=$?

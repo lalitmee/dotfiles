@@ -155,6 +155,7 @@ Hooks.register(Hooks.type.SWITCH, function(new_path, prev_path)
     wipe_non_worktree_buffers(new_path)
     copy_env_files(prev_path, new_path)
     ensure_node_modules(new_path)
+    Snacks.picker.files({ cwd = new_path })
 end)
 
 -- ---------------------------------------------------------------------------

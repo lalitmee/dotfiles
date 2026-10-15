@@ -10,24 +10,45 @@
 # Previous fzf implementation preserved below for reference.
 
 #  NOTE: Optimized gum implementation with colored icons for better visual distinction
-sesh connect "$(
-    sesh list --icons | gum filter \
+selected="$(
+    sesh list --icons | sed -E $'s/\x1B\\[[0-9;]*m//g' | gum filter \
         --limit 1 \
         --no-sort \
         --fuzzy \
-        --no-strip-ansi \
+        --no-show-help \
+        --header '↑↓ navigate • esc blur search • enter submit' \
         --placeholder 'Pick a sesh' \
         --height 40 \
         --prompt='⚡ ' \
         --timeout=30s \
         --indicator.foreground="#00AAFF" \
+        --header.foreground="#FFC600" \
+        --header.background="#193549" \
         --match.foreground="#FFC600" \
-        --text.foreground="#FFFFFF" \
+        --text.foreground="#FFC600" \
+        --text.background="#193549" \
         --prompt.foreground="#3AD900" \
         --placeholder.foreground="#8fbfdc" \
-        --cursor-text.foreground="#FFFFFF" \
-        --cursor-text.background="#185294"
-)" < /dev/null || echo "Failed to connect to sesh session"
+        --cursor-text.foreground="#FFC600" \
+        --cursor-text.background="#0050A4"
+)"
+
+if [[ -z "$selected" ]]; then
+    exit 0
+fi
+
+selection="$(print -r -- "$selected" | sed -E $'s/\x1B\\[[0-9;]*m//g')"
+if [[ "$selection" == *' '* ]]; then
+    folder_path="${selection#* }"
+    if [[ "$folder_path" == '~' ]]; then
+        folder_path="$HOME"
+    elif [[ "$folder_path" == '~/'* ]]; then
+        folder_path="$HOME/${folder_path#\~/}"
+    fi
+    zsh "${0:A:h}/folder-session.zsh" "$folder_path" || echo "Failed to start folder session"
+else
+    sesh connect "$selected" < /dev/null || echo "Failed to connect to sesh session"
+fi
 
 #  NOTE: Backup fzf implementation (previously active)
 # sesh connect "$(

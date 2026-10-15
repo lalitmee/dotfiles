@@ -82,6 +82,10 @@ run_updates() {
         codex --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
+    get_opencode_version() {
+        opencode --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
+    }
+
     # --- Helper to download and execute a remote script securely ---
     # Avoids "curl | bash" by downloading to a temp file, verifying, and then running.
     secure_run_remote_script() {
@@ -194,15 +198,30 @@ run_updates() {
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
         update_npm_package "@anthropic-ai/claude-code@latest"
         update_npm_package "@github/copilot@latest"
-        update_npm_package "opencode-ai@latest"
         update_npm_package "@vibe-kit/grok-cli@latest"
         update_npm_package "@openai/codex@latest"
         update_npm_package "@earendil-works/pi-coding-agent@latest"
+        update_npm_package "@charmland/crush@latest"
     fi
 
     # 2.5 Update Non-NPM Tools
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--non-interactive" ]]; then
         gum_style "🔄 Updating non-interactive tools..."
+
+        # OpenCode V2 is installed via its own installer; npm's opencode-ai@latest is V1.
+        if command_exists opencode; then
+            old_version=$(get_opencode_version)
+            if opencode upgrade; then
+                new_version=$(get_opencode_version)
+                status_icon="➡️"
+                [[ "$old_version" != "$new_version" ]] && status_icon="⬆️"
+                update_summary+=("opencode,$status_icon,$old_version,$new_version")
+            else
+                update_summary+=("opencode,❌,$old_version,Update Failed")
+            fi
+        else
+            gum_style "OpenCode not installed, skipping update."
+        fi
 
         # Antigravity CLI: Update via built-in updater
         if command_exists agy; then
@@ -226,27 +245,6 @@ run_updates() {
             gum_style "Antigravity CLI (agy) not installed, skipping update."
         fi
 
-        # Crush: Re-install via go (non-interactive)
-        if command_exists crush; then
-            old_version=$(get_crush_version)
-            gum_style "Updating Crush..."
-            if go install github.com/charmbracelet/crush@latest; then
-                new_version=$(get_crush_version)
-                status_icon="➡️" # Default: No Change
-
-                if [[ "$old_version" != "$new_version" ]]; then
-                    status_icon="⬆️" # Updated
-                fi
-
-                gum_style "✅ Success: Crush updated."
-                update_summary+=("crush,$status_icon,$old_version,$new_version")
-            else
-                gum_style "❌ Error: Failed to update Crush."
-                update_summary+=("crush,❌,$old_version,Update Failed")
-            fi
-        else
-            gum_style "Crush not installed, skipping update."
-        fi
     fi
 
     if [[ "$UPDATE_MODE" == "all" || "$UPDATE_MODE" == "--interactive" ]]; then

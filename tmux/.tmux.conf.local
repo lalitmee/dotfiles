@@ -1334,6 +1334,7 @@ bind-key -T work-sessions q switch-client -T root
 # --- NOTE: Copy Mode Bindings {{{
 #-------------------------------------------------------------------------------
 # Custom pane navigation while in vi copy mode.
+bind -T copy-mode-vi Escape send-keys -X cancel
 bind -T copy-mode-vi 'C-h' select-pane -L
 bind -T copy-mode-vi 'C-j' select-pane -D
 bind -T copy-mode-vi 'C-k' select-pane -U

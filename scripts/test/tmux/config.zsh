@@ -178,6 +178,8 @@ assert_prefix_binding m 'set -g mouse off'
 assert_prefix_binding m 'set -g mouse on'
 assert_prefix_binding r 'source-file'
 assert_prefix_binding R 'source-file'
+copy_mode_escape="$(tmux_private list-keys -T copy-mode-vi Escape)"
+assert_contains "$copy_mode_escape" 'send-keys -X cancel' "vi copy-mode Escape exits copy mode"
 
 plugin_config="$(<"$repo_root/tmux/.tmux.conf.local")"
 for plugin in \
@@ -200,6 +202,21 @@ assert_contains "$prefix_bindings" 'update_plugins' "TPM update binding"
 
 status_left="$(tmux_private show-option -gqv status-left)"
 status_right="$(tmux_private show-option -gqv status-right)"
+message_command_style="$(tmux_private show-option -gqv message-command-style)"
+message_style="$(tmux_private show-option -gqv message-style)"
+message_format="$(tmux_private show-option -gqv message-format)"
+copy_selection_style="$(tmux_private display-message -p '#{E:copy-mode-selection-style}')"
+copy_selection_option="$(tmux_private show-option -gqv copy-mode-selection-style)"
+mode_style="$(tmux_private display-message -p '#{E:mode-style}')"
+assert_color "$message_style" 'fill=#ffc600' "display-message full-row background"
+assert_color "$message_command_style" 'fill=#1c1c1c' "command prompt full-row background"
+assert_color "$(tmux_private display-message -p '#{E:message-style}')" 'fill=#ffc600' "expanded prompt background"
+assert_color "$(tmux_private display-message -p '#{E:message-command-style}')" 'fg=#ffc600' "expanded command prompt foreground"
+assert_contains "$message_format" '#[width=100%]' "full-width prompt and message area"
+assert_contains "$message_format" '#[fill=#1C1C1C]' "command-mode background fill"
+assert_contains "$message_format" '#[fill=#ffc600]' "display-message background fill"
+assert_color "$copy_selection_option" 'bg=#ffc600' "explicit copy-mode selection background"
+assert_eq "$mode_style" "$copy_selection_style" "copy-mode selection matches mode highlight"
 status_formats="$status_left $status_right"
 assert_eq '#[fg=#080808,bg=#ffc600,bold] ❐ #s #[default]' "${status_left:l}" "session name left status"
 [[ "$status_right" != *'#h | ↑'* ]] || fail "status-right still uses the replaced hostname-first layout"

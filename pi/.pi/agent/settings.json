@@ -24,5 +24,6 @@
   "retry": {
     "enabled": true,
     "maxRetries": 3
-  }
+  },
+  "lastChangelogVersion": "1.0.1"
 }
