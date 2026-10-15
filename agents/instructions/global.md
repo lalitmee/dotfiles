@@ -89,13 +89,15 @@ When retrieving documentation, specifications, codebase context, or external dat
 ---
 
 ## 8. CURSOR BRAIN WORK LOGGING & CONTEXT PRESERVATION
-- **Mandatory Discovery**: Before recording or resuming work, check `brain/` to identify existing history or records.
-- **Context Categorization**: Every work item must be explicitly categorized under one of three context directories:
-  - `brain/repo/` — Work specific to a single repository.
-  - `brain/feature/` — Features spanning multiple repositories or possessing independent lifecycles.
-  - `brain/workspace/` — Multi-repo coordinated initiatives or broader organizational goals.
+- **Mandatory Discovery**: Before recording or resuming work, identify the appropriate external brain root. Do NOT assume or look for `brain/` in the current working directory or inside any repository. Check known brain locations (e.g., `~/Projects/Personal/Github/second-brain`, `~/Projects/Work/Github/cursor-brain`, `~/Projects/Work/Github/second-brain`, `~/Projects/Work/Github/nes-cursor-brain`) or environment/config to locate the correct brain repository.
+- **Hard Prohibition**: Never create a `brain/` directory inside the current working directory or inside any repository you are working in. Brain storage must remain in a dedicated brain repository that is external to the codebase. If no brain root exists or is ambiguous, ask the user to specify the correct brain repository location before creating any records.
+- **Absolute Paths**: All brain paths must be absolute (or explicitly resolved from the configured brain root). Never use relative `brain/` paths from the working repository.
+- **Context Categorization**: Every work item must be explicitly categorized under one of three context directories under the external brain root:
+  - `<brain-root>/repo/` — Work specific to a single repository.
+  - `<brain-root>/feature/` — Features spanning multiple repositories or possessing independent lifecycles.
+  - `<brain-root>/workspace/` — Multi-repo coordinated initiatives or broader organizational goals.
 - **Storage Location Rules**:
-  - **Short, self-contained effort**: Record directly in `brain/<context>/<slug>.md`.
-  - **Ongoing / multi-part effort**: Record in `brain/<context>/<slug>/README.md`. Use supporting documents (`decisions.md`, `progress.md`) only when necessary; do not create empty templates or duplicate files.
-- **Artifact Link Rule**: Do NOT store full implementation artifacts, large datasets, or full plan documents directly in `brain/`. Store artifacts in their designated locations (`plans/`, `docs/`, `results/`, or main code repositories) and link to them from the corresponding `brain/` record.
-- **Zero Secrets Policy**: Never commit passwords, API keys, access tokens, session cookies, or secret values to the `brain` repository. Sanitize all snippets and log excerpts to show variable names only.
+  - **Short, self-contained effort**: Record directly in `<brain-root>/<context>/<slug>.md`.
+  - **Ongoing / multi-part effort**: Record in `<brain-root>/<context>/<slug>/README.md`. Use supporting documents (`decisions.md`, `progress.md`) only when necessary; do not create empty templates or duplicate files.
+- **Artifact Link Rule**: Do NOT store full implementation artifacts, large datasets, or full plan documents directly in the brain repository. Store artifacts in their designated locations (`plans/`, `docs/`, `results/`, or main code repositories) and link to them from the corresponding brain record using absolute or repo-relative links as appropriate.
+- **Zero Secrets Policy**: Never commit passwords, API keys, access tokens, session cookies, or secret values to any brain repository. Sanitize all snippets and log excerpts to show variable names only.
