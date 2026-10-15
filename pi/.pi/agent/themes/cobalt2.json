@@ -45,7 +45,7 @@
     "customMessageLabel": "purple",
     "toolPendingBg": "cursorLine",
     "toolSuccessBg": "cursorLine",
-    "toolErrorBg": "#4F0037",
+    "toolErrorBg": "#4A2330",
     "toolTitle": "lightPink",
     "toolOutput": "muted",
     "mdHeading": "yellow",
@@ -73,10 +73,10 @@
     "thinkingOff": "dim",
     "thinkingMinimal": "muted",
     "thinkingLow": "blue",
-    "thinkingMedium": "dirtyPink",
+    "thinkingMedium": "green",
     "thinkingHigh": "orange",
-    "thinkingXhigh": "red",
-    "thinkingMax": "darkPink",
+    "thinkingXhigh": "#FF00FF",
+    "thinkingMax": "red",
     "bashMode": "green"
   }
 }
