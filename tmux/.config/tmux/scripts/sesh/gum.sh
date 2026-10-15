@@ -11,21 +11,19 @@
 
 #  NOTE: Optimized gum implementation with colored icons for better visual distinction
 selected="$(
-    sesh list --icons | sed -E $'s/\x1B\\[[0-9;]*m//g' | gum filter \
+    sesh list --icons | gum filter \
         --limit 1 \
         --no-sort \
         --fuzzy \
+        --no-strip-ansi \
         --no-show-help \
-        --header '↑↓ navigate • esc blur search • enter submit' \
         --placeholder 'Pick a sesh' \
         --height 40 \
         --prompt='⚡ ' \
         --timeout=30s \
         --indicator.foreground="#00AAFF" \
-        --header.foreground="#FFC600" \
-        --header.background="#193549" \
         --match.foreground="#FFC600" \
-        --text.foreground="#FFC600" \
+        --text.foreground="#FFFFFF" \
         --text.background="#193549" \
         --prompt.foreground="#3AD900" \
         --placeholder.foreground="#8fbfdc" \

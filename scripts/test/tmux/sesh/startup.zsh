@@ -52,14 +52,20 @@ grep -q 'new-session .* -n nvim .* nvim' "$TMUX_LOG"
 grep -q 'new-window .* -n code .* opencode' "$TMUX_LOG"
 grep -Fq 'switch-client -c mock-client -t project_name with spaces' "$TMUX_LOG"
 grep -Fq -- '--no-show-help' "$GUM_LOG"
-grep -Fq -- '--header.foreground=#FFC600' "$GUM_LOG"
-grep -Fq -- '--text.foreground=#FFC600' "$GUM_LOG"
-grep -Fq -- '--text.background=#193549' "$GUM_LOG"
-grep -Fq -- '--cursor-text.background=#0050A4' "$GUM_LOG"
-if LC_ALL=C grep -aFq $'\033' "$GUM_INPUT_LOG"; then
-    print -u2 'Gum input still contains ANSI escape sequences'
+if grep -Eq -- '(^| )--header([ =]|$)' "$GUM_LOG"; then
+    print -u2 'Gum command should not include a custom header'
     exit 1
 fi
+if grep -Eq -- '(^| )--header\.(foreground|background)=' "$GUM_LOG"; then
+    print -u2 'Gum command should not include header styling'
+    exit 1
+fi
+grep -Fq -- '--text.foreground=#FFFFFF' "$GUM_LOG"
+grep -Fq -- '--cursor-text.foreground=#FFC600' "$GUM_LOG"
+grep -Fq -- '--text.background=#193549' "$GUM_LOG"
+grep -Fq -- '--cursor-text.background=#0050A4' "$GUM_LOG"
+grep -Fq -- '--no-strip-ansi' "$GUM_LOG"
+grep -Fq $'\033[36m' "$GUM_INPUT_LOG"
 grep -Fq '' "$GUM_INPUT_LOG"
 ! grep -q 'connect' "$SESH_LOG" 2>/dev/null
 

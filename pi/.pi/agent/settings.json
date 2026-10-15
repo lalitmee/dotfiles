@@ -25,5 +25,8 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "1.0.1"
+  "lastChangelogVersion": "1.2.0",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-6-luna",
+  "deviceId": "0fc82671-224d-43c4-9ca9-ca9382a2fa77"
 }
