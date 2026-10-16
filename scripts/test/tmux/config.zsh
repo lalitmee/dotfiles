@@ -43,7 +43,7 @@ for native_file in \
 done
 
 tmp_dir="$(mktemp -d)"
-socket="native-config-$$-${RANDOM}"
+socket="nc-$$"
 test_home="$tmp_dir/home"
 plugin_path="$tmp_dir/plugins"
 
