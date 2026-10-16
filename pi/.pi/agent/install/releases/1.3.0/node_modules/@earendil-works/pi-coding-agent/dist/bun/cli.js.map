@@ -1,0 +1,1 @@
+{"version":3,"file":"cli.js","sourceRoot":"","sources":["../../src/bun/cli.ts"],"names":[],"mappings":";AACA,OAAO,wBAAwB,CAAC;AAChC,OAAO,oBAAoB,CAAC;AAC5B,OAAO,WAAW,CAAC","sourcesContent":["#!/usr/bin/env node\nimport \"./sandbox-env-setup.ts\";\nimport \"./runtime-setup.ts\";\nimport \"../cli.ts\";\n"]}

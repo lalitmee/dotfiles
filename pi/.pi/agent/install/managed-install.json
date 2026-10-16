@@ -1,0 +1,9 @@
+{
+  "kind": "pi-managed-install",
+  "schemaVersion": 1,
+  "layout": "releases-v1",
+  "entrypoint": {
+    "type": "symlink",
+    "path": "/Users/lalit.kumar1/.local/bin/pi"
+  }
+}

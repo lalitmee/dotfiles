@@ -1,0 +1,421 @@
+import { APIResource } from '../../../core/resource';
+import * as BetaAPI from '../beta';
+import * as MemoriesAPI from './memories';
+import { APIPromise } from '../../../core/api-promise';
+import { PageCursor, type PageCursorParams, PagePromise } from '../../../core/pagination';
+import { buildHeaders } from '../../../internal/headers';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
+
+export class MemoryVersions extends APIResource {
+  /**
+   * Retrieve a memory version
+   *
+   * @example
+   * ```ts
+   * const betaManagedAgentsMemoryVersion =
+   *   await client.beta.memoryStores.memoryVersions.retrieve(
+   *     'memory_version_id',
+   *     { memory_store_id: 'memory_store_id' },
+   *   );
+   * ```
+   */
+  retrieve(
+    memoryVersionID: string,
+    params: MemoryVersionRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<BetaManagedAgentsMemoryVersion> {
+    const { memory_store_id, betas, workspace_id, ...query } = params;
+    return this._client.get(
+      path`/v1/memory_stores/${memory_store_id}/memory_versions/${memoryVersionID}?beta=true`,
+      {
+        query,
+        ...options,
+        headers: buildHeaders([
+          {
+            'anthropic-beta': [...(betas ?? []), 'agent-memory-2026-07-22'].toString(),
+            ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined),
+          },
+          options?.headers,
+        ]),
+      },
+    );
+  }
+
+  /**
+   * List memory versions
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const betaManagedAgentsMemoryVersion of client.beta.memoryStores.memoryVersions.list(
+   *   'memory_store_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    memoryStoreID: string,
+    params: MemoryVersionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BetaManagedAgentsMemoryVersionsPageCursor, BetaManagedAgentsMemoryVersion> {
+    const { betas, workspace_id, ...query } = params ?? {};
+    return this._client.getAPIList(
+      path`/v1/memory_stores/${memoryStoreID}/memory_versions?beta=true`,
+      PageCursor<BetaManagedAgentsMemoryVersion>,
+      {
+        query,
+        ...options,
+        headers: buildHeaders([
+          {
+            'anthropic-beta': [...(betas ?? []), 'agent-memory-2026-07-22'].toString(),
+            ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined),
+          },
+          options?.headers,
+        ]),
+      },
+    );
+  }
+
+  /**
+   * Redact a memory version
+   *
+   * @example
+   * ```ts
+   * const betaManagedAgentsMemoryVersion =
+   *   await client.beta.memoryStores.memoryVersions.redact(
+   *     'memory_version_id',
+   *     { memory_store_id: 'memory_store_id' },
+   *   );
+   * ```
+   */
+  redact(
+    memoryVersionID: string,
+    params: MemoryVersionRedactParams,
+    options?: RequestOptions,
+  ): APIPromise<BetaManagedAgentsMemoryVersion> {
+    const { memory_store_id, betas, workspace_id } = params;
+    return this._client.post(
+      path`/v1/memory_stores/${memory_store_id}/memory_versions/${memoryVersionID}/redact?beta=true`,
+      {
+        ...options,
+        headers: buildHeaders([
+          {
+            'anthropic-beta': [...(betas ?? []), 'agent-memory-2026-07-22'].toString(),
+            ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined),
+          },
+          options?.headers,
+        ]),
+      },
+    );
+  }
+}
+
+export type BetaManagedAgentsMemoryVersionsPageCursor = PageCursor<BetaManagedAgentsMemoryVersion>;
+
+/**
+ * Identifies who performed an operation. Recorded when the operation happens and
+ * not updated afterwards, so the ID may refer to a user, service account, API key,
+ * or session that has since been deleted.
+ */
+export type BetaManagedAgentsActor =
+  | BetaManagedAgentsSessionActor
+  | BetaManagedAgentsAPIActor
+  | BetaManagedAgentsUserActor
+  | BetaManagedAgentsServiceAccountActor;
+
+/**
+ * A direct caller of the public API, identified by the API key that authenticated
+ * the request.
+ */
+export interface BetaManagedAgentsAPIActor {
+  /**
+   * ID of the API key (an `apikey_...` value). This identifies the key, not the
+   * secret.
+   */
+  api_key_id: string;
+
+  type: 'api_actor';
+}
+
+/**
+ * A `memory_version` object: one immutable, attributed row in a memory's
+ * append-only history. Every non-no-op mutation to a memory produces a new
+ * version. Versions belong to the store (not the individual memory) and are not
+ * deleted with the memory; each version is retained for at least the version
+ * retention period after it was written, unless the store itself is deleted.
+ * Retrieving a redacted version returns 200 with `content`, `path`,
+ * `content_size_bytes`, and `content_sha256` set to `null`; branch on
+ * `redacted_at`, not HTTP status.
+ */
+export interface BetaManagedAgentsMemoryVersion {
+  /**
+   * Unique identifier for this version (a `memver_...` value).
+   */
+  id: string;
+
+  /**
+   * When this version was written, in RFC 3339 format.
+   */
+  created_at: string;
+
+  /**
+   * ID of the memory this version snapshots (a `mem_...` value). Remains valid after
+   * the memory is deleted; pass it as `memory_id` to
+   * [List memory versions](/en/api/beta/memory_stores/memory_versions/list) to
+   * retrieve the memory's retained versions, including the `deleted` row while the
+   * lineage is retained.
+   */
+  memory_id: string;
+
+  /**
+   * ID of the memory store this version belongs to (a `memstore_...` value).
+   */
+  memory_store_id: string;
+
+  /**
+   * The kind of mutation this version records: `created`, `modified`, or `deleted`.
+   */
+  operation: BetaManagedAgentsMemoryVersionOperation;
+
+  type: 'memory_version';
+
+  /**
+   * The memory's UTF-8 text content as of this version. `null` when `view=basic`,
+   * when `operation` is `deleted`, or when `redacted_at` is set.
+   */
+  content?: string | null;
+
+  /**
+   * Lowercase hex SHA-256 digest of `content` as of this version (64 characters).
+   * `null` when `redacted_at` is set or `operation` is `deleted`. Populated
+   * regardless of `view` otherwise.
+   */
+  content_sha256?: string | null;
+
+  /**
+   * Size of `content` in bytes as of this version. `null` when `redacted_at` is set
+   * or `operation` is `deleted`. Populated regardless of `view` otherwise.
+   */
+  content_size_bytes?: number | null;
+
+  /**
+   * Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or
+   * `service_account_actor`; `null` when no writer is recorded. Captured at write
+   * time and preserved through redaction. A `session_actor` is an agent writing
+   * through the store's mounted filesystem at `/mnt/memory/`. The API key that
+   * created that session is not recorded on agent writes, so attribution names who
+   * made the write, not who is ultimately responsible; look up session provenance
+   * via the [Sessions API](/en/api/beta/sessions/retrieve).
+   */
+  created_by?: BetaManagedAgentsActor;
+
+  /**
+   * The memory's path at the time of this write. `null` if and only if `redacted_at`
+   * is set.
+   */
+  path?: string | null;
+
+  /**
+   * When this version was redacted, in RFC 3339 format, or `null` if it has not been
+   * redacted. When set, `content`, `path`, `content_size_bytes`, and
+   * `content_sha256` are all `null`. See
+   * [Redact a memory version](/en/api/beta/memory_stores/memory_versions/redact).
+   */
+  redacted_at?: string | null;
+
+  /**
+   * Who redacted this version, or `null` if it has not been redacted. In practice
+   * always an `api_actor`, `user_actor`, or `service_account_actor` (agents do not
+   * have a redact capability).
+   */
+  redacted_by?: BetaManagedAgentsActor;
+}
+
+/**
+ * The kind of mutation a `memory_version` records. Every non-no-op mutation to a
+ * memory appends exactly one version row with one of these values.
+ *
+ * - `created` - The memory was created. The first version in any memory's lineage.
+ * - `modified` - The memory's `content`, `path`, or both were changed via update.
+ *   Writes the agent makes through the filesystem mount also appear as `modified`.
+ * - `deleted` - The memory was deleted. The `content`, `content_size_bytes`, and
+ *   `content_sha256` fields are `null` on this version. The preceding version,
+ *   while it is retained, records the deleted content's size and hash.
+ */
+export type BetaManagedAgentsMemoryVersionOperation = 'created' | 'modified' | 'deleted';
+
+/**
+ * A workload authenticated as a service account, for example via Workload Identity
+ * Federation.
+ */
+export interface BetaManagedAgentsServiceAccountActor {
+  /**
+   * ID of the service account (a `svac_...` value).
+   */
+  service_account_id: string;
+
+  type: 'service_account_actor';
+}
+
+/**
+ * An agent acting during a session, for example through the session's mounted
+ * filesystem. It names the session itself, not the user or API key that started
+ * the session.
+ */
+export interface BetaManagedAgentsSessionActor {
+  /**
+   * ID of the session (a `sesn_...` value). Look up the session via
+   * [Retrieve a session](/en/api/beta/sessions/retrieve) for further provenance.
+   */
+  session_id: string;
+
+  type: 'session_actor';
+}
+
+/**
+ * A human user, for example acting through the Anthropic Console.
+ */
+export interface BetaManagedAgentsUserActor {
+  type: 'user_actor';
+
+  /**
+   * ID of the user (a `user_...` value).
+   */
+  user_id: string;
+}
+
+export interface MemoryVersionRetrieveParams {
+  /**
+   * Path param: The ID of the memory store that holds the version (`memstore_...`).
+   */
+  memory_store_id: string;
+
+  /**
+   * Query param: Selects which projection of a `memory` or `memory_version` the
+   * server returns. `basic` returns the object with `content` set to `null`; `full`
+   * populates `content`. When omitted, the default is endpoint-specific: retrieve
+   * operations default to `full`; list, create, and update operations default to
+   * `basic`. Listing with `view=full` caps `limit` at 20.
+   */
+  view?: MemoriesAPI.BetaManagedAgentsMemoryView;
+
+  /**
+   * Header param: Optional header to specify the beta version(s) you want to use.
+   */
+  betas?: Array<BetaAPI.AnthropicBeta>;
+
+  /**
+   * Header param: Optional header to select the Workspace for this request. The
+   * value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+   *
+   * Only needed for credentials that can act on more than one Workspace. A
+   * credential that belongs to a specific Workspace may omit it; if sent, it must
+   * match that Workspace.
+   */
+  workspace_id?: string;
+}
+
+export interface MemoryVersionListParams extends PageCursorParams {
+  /**
+   * Query param: Return only versions written with the API key that has this ID.
+   */
+  api_key_id?: string;
+
+  /**
+   * Query param: Return versions created at or after this time (inclusive).
+   */
+  'created_at[gte]'?: string;
+
+  /**
+   * Query param: Return versions created at or before this time (inclusive).
+   */
+  'created_at[lte]'?: string;
+
+  /**
+   * Query param: Return only versions of the memory with this ID (`mem_...`).
+   *
+   * The filter still works after the memory is deleted. The results then include the
+   * version whose `operation` is `deleted`.
+   */
+  memory_id?: string;
+
+  /**
+   * Query param: Return only versions that record this kind of change.
+   */
+  operation?: BetaManagedAgentsMemoryVersionOperation;
+
+  /**
+   * Query param: Return only versions written by the service account with this ID
+   * (`svac_...`).
+   */
+  service_account_id?: string;
+
+  /**
+   * Query param: Return only versions written by the session with this ID.
+   */
+  session_id?: string;
+
+  /**
+   * Query param: Selects which projection of a `memory` or `memory_version` the
+   * server returns. `basic` returns the object with `content` set to `null`; `full`
+   * populates `content`. When omitted, the default is endpoint-specific: retrieve
+   * operations default to `full`; list, create, and update operations default to
+   * `basic`. Listing with `view=full` caps `limit` at 20.
+   */
+  view?: MemoriesAPI.BetaManagedAgentsMemoryView;
+
+  /**
+   * Header param: Optional header to specify the beta version(s) you want to use.
+   */
+  betas?: Array<BetaAPI.AnthropicBeta>;
+
+  /**
+   * Header param: Optional header to select the Workspace for this request. The
+   * value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+   *
+   * Only needed for credentials that can act on more than one Workspace. A
+   * credential that belongs to a specific Workspace may omit it; if sent, it must
+   * match that Workspace.
+   */
+  workspace_id?: string;
+}
+
+export interface MemoryVersionRedactParams {
+  /**
+   * Path param: The ID of the memory store that holds the version (`memstore_...`).
+   */
+  memory_store_id: string;
+
+  /**
+   * Header param: Optional header to specify the beta version(s) you want to use.
+   */
+  betas?: Array<BetaAPI.AnthropicBeta>;
+
+  /**
+   * Header param: Optional header to select the Workspace for this request. The
+   * value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+   *
+   * Only needed for credentials that can act on more than one Workspace. A
+   * credential that belongs to a specific Workspace may omit it; if sent, it must
+   * match that Workspace.
+   */
+  workspace_id?: string;
+}
+
+export declare namespace MemoryVersions {
+  export {
+    type BetaManagedAgentsActor as BetaManagedAgentsActor,
+    type BetaManagedAgentsAPIActor as BetaManagedAgentsAPIActor,
+    type BetaManagedAgentsMemoryVersion as BetaManagedAgentsMemoryVersion,
+    type BetaManagedAgentsMemoryVersionOperation as BetaManagedAgentsMemoryVersionOperation,
+    type BetaManagedAgentsServiceAccountActor as BetaManagedAgentsServiceAccountActor,
+    type BetaManagedAgentsSessionActor as BetaManagedAgentsSessionActor,
+    type BetaManagedAgentsUserActor as BetaManagedAgentsUserActor,
+    type BetaManagedAgentsMemoryVersionsPageCursor as BetaManagedAgentsMemoryVersionsPageCursor,
+    type MemoryVersionRetrieveParams as MemoryVersionRetrieveParams,
+    type MemoryVersionListParams as MemoryVersionListParams,
+    type MemoryVersionRedactParams as MemoryVersionRedactParams,
+  };
+}

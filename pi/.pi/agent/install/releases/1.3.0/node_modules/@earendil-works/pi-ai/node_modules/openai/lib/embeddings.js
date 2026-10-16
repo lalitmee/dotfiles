@@ -1,0 +1,58 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createEmbedding = createEmbedding;
+const utils_1 = require("../internal/utils.js");
+/**
+ * Sends the optimized embeddings request while preserving explicit encodings and
+ * the original APIPromise response accessors.
+ *
+ * @internal
+ */
+function createEmbedding(client, body, options) {
+    const hasUserProvidedEncodingFormat = !!body.encoding_format;
+    // No encoding_format specified, defaulting to base64 for performance reasons.
+    // See https://github.com/openai/openai-node/pull/1312.
+    const encodingFormat = hasUserProvidedEncodingFormat ? body.encoding_format : 'base64';
+    if (hasUserProvidedEncodingFormat) {
+        (0, utils_1.loggerFor)(client).debug('embeddings/user defined encoding_format:', body.encoding_format);
+    }
+    const optimizedBody = { ...body, encoding_format: encodingFormat };
+    const requestOptions = {
+        body: optimizedBody,
+        ...options,
+        __security: { bearerAuth: true },
+    };
+    const response = client.post('/embeddings', requestOptions);
+    // Explicit encodings return the original response promise unchanged.
+    if (hasUserProvidedEncodingFormat) {
+        return response;
+    }
+    // Preserve numeric output for default requests, including body overrides that
+    // change the encoding used on the wire.
+    (0, utils_1.loggerFor)(client).debug('embeddings/decoding base64 embeddings from base64');
+    return response._thenUnwrap((data) => {
+        const embeddings = data?.data;
+        if (embeddings !== undefined) {
+            if (!Array.isArray(embeddings)) {
+                throw new TypeError('Expected embeddings response data to be an array');
+            }
+            const { length } = embeddings;
+            // Preserve the original iteration length and skip sparse-array holes.
+            for (let index = 0; index < length; index += 1) {
+                if (index in embeddings) {
+                    // SAFETY: This indexed entry belongs to the API embedding data array; sparse entries are skipped by the preceding membership check.
+                    const embeddingBase64Obj = embeddings[index];
+                    const { embedding } = embeddingBase64Obj;
+                    // Request hooks and serialization can also select float embeddings.
+                    if (Array.isArray(embedding)) {
+                        continue;
+                    }
+                    // SAFETY: The Array.isArray branch already handled decoded vectors; this request explicitly asked the server for base64 encoding.
+                    embeddingBase64Obj.embedding = (0, utils_1.toFloat32Array)(embedding);
+                }
+            }
+        }
+        return data;
+    });
+}
+//# sourceMappingURL=embeddings.js.map

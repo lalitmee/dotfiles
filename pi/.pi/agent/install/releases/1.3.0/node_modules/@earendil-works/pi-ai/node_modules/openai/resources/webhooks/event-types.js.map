@@ -1,0 +1,1 @@
+{"version":3,"file":"event-types.js","sourceRoot":"","sources":["../../src/resources/webhooks/event-types.ts"],"names":[],"mappings":";AAAA,qFAAqF;;;AAErF,qDAAkD;AAKlD,MAAa,UAAW,SAAQ,sBAAW;IACzC;;;;;;;;OAQG;IACH,IAAI,CAAC,OAAwB;QAC3B,OAAO,IAAI,CAAC,OAAO,CAAC,GAAG,CAAC,sBAAsB,EAAE,EAAE,GAAG,OAAO,EAAE,UAAU,EAAE,EAAE,UAAU,EAAE,IAAI,EAAE,EAAE,CAAC,CAAC;IACpG,CAAC;CACF;AAbD,gCAaC"}

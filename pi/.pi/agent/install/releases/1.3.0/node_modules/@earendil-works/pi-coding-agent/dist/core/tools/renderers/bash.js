@@ -1,0 +1,89 @@
+/**
+ * Presentation for the shell tools.
+ *
+ * Renderers live apart from the implementation so a process that only displays tool output does not
+ * load the execution path or its typebox parameter schema. `bash.ts` spreads these into the shell
+ * tool definition, so the tool's public shape is unchanged.
+ */
+import { Container, Spacer, Text } from "@earendil-works/pi-tui";
+import { keyHint } from "../../../modes/interactive/components/keybinding-hints.js";
+import { VisualLinePreview } from "../../../modes/interactive/components/visual-truncate.js";
+import { theme } from "../../../modes/interactive/theme/theme.js";
+import { getTextOutput, invalidArgText, startToolTimer, str, toolTimerText } from "../render-utils.js";
+import { DEFAULT_MAX_BYTES, formatSize } from "../truncate.js";
+const BASH_PREVIEW_LINES = 5;
+export const BASH_UPDATE_THROTTLE_MS = 100;
+function formatShellCall(args, prompt) {
+    const command = str(args?.command);
+    const timeout = args?.timeout;
+    const timeoutSuffix = timeout ? theme.fg("muted", ` (timeout ${timeout}s)`) : "";
+    const commandDisplay = command === null ? invalidArgText(theme) : command ? command : theme.fg("toolOutput", "...");
+    return theme.fg("toolTitle", theme.bold(`${prompt} ${commandDisplay}`)) + timeoutSuffix;
+}
+function rebuildBashResultRenderComponent(component, result, options, showImages, timerText) {
+    component.clear();
+    let output = getTextOutput(result, showImages).trim();
+    const truncation = result.details?.truncation;
+    const fullOutputPath = result.details?.fullOutputPath;
+    if (!options.isPartial && truncation?.truncated && fullOutputPath && output.endsWith("]")) {
+        const footerStart = output.lastIndexOf("\n\n[");
+        if (footerStart !== -1 && output.slice(footerStart).includes(fullOutputPath)) {
+            output = output.slice(0, footerStart).trimEnd();
+        }
+    }
+    if (output) {
+        const styledOutput = output
+            .split("\n")
+            .map((line) => theme.fg("toolOutput", line))
+            .join("\n");
+        if (options.expanded) {
+            component.addChild(new Text(`\n${styledOutput}`, 0, 0));
+        }
+        else {
+            component.addChild(new Spacer(1));
+            component.addChild(new VisualLinePreview({
+                text: styledOutput,
+                maxVisualLines: BASH_PREVIEW_LINES,
+                keep: "end",
+                formatHint: (hidden) => theme.fg("muted", `... (${hidden} earlier lines,`) +
+                    ` ${keyHint("app.tools.expand", "to expand")}${theme.fg("muted", ")")}`,
+            }));
+        }
+    }
+    if (truncation?.truncated || fullOutputPath) {
+        const warnings = [];
+        if (fullOutputPath) {
+            warnings.push(`Full output: ${fullOutputPath}`);
+        }
+        if (truncation?.truncated) {
+            if (truncation.truncatedBy === "lines") {
+                warnings.push(`Truncated: showing ${truncation.outputLines} of ${truncation.totalLines} lines`);
+            }
+            else {
+                warnings.push(`Truncated: ${truncation.outputLines} lines shown (${formatSize(truncation.maxBytes ?? DEFAULT_MAX_BYTES)} limit)`);
+            }
+        }
+        component.addChild(new Text(`\n${theme.fg("warning", `[${warnings.join(". ")}]`)}`, 0, 0));
+    }
+    if (timerText)
+        component.addChild(new Text(`\n${theme.fg("muted", timerText)}`, 0, 0));
+}
+/** Shell renderers are shared by bash and powershell, which differ only in the prompt they display. */
+export function createShellRenderers(prompt) {
+    return {
+        renderCall(args, _theme, context) {
+            startToolTimer(context);
+            const text = context.lastComponent ?? new Text("", 0, 0);
+            text.setText(formatShellCall(args, prompt));
+            return text;
+        },
+        renderResult(result, options, _theme, context) {
+            const timerText = toolTimerText(context, options.isPartial);
+            const component = context.lastComponent ?? new Container();
+            rebuildBashResultRenderComponent(component, result, options, context.showImages, timerText);
+            component.invalidate();
+            return component;
+        },
+    };
+}
+//# sourceMappingURL=bash.js.map

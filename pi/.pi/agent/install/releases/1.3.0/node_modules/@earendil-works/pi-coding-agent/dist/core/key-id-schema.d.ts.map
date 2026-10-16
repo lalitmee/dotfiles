@@ -1,0 +1,1 @@
+{"version":3,"file":"key-id-schema.d.ts","sourceRoot":"","sources":["../../src/core/key-id-schema.ts"],"names":[],"mappings":"AAAA,OAAO,EAAO,KAAK,KAAK,EAAE,MAAM,wBAAwB,CAAC;AACzD,OAAO,EAAE,KAAK,cAAc,EAAE,IAAI,EAAE,MAAM,SAAS,CAAC;AAQpD,eAAO,MAAM,WAAW,qBAKvB,CAAC;AAEF,wBAAgB,qBAAqB,CAAC,OAAO,CAAC,EAAE,cAAc,wEAE7D;AAED,eAAO,MAAM,qBAAqB,sEAA0B,CAAC"}

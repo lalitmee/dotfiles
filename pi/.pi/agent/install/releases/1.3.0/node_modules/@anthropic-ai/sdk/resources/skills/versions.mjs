@@ -1,0 +1,96 @@
+import { APIResource } from "../../core/resource.mjs";
+import { PageCursor } from "../../core/pagination.mjs";
+import { buildHeaders } from "../../internal/headers.mjs";
+import { multipartFormRequestOptions } from "../../internal/uploads.mjs";
+import { path } from "../../internal/utils/path.mjs";
+export class Versions extends APIResource {
+    /**
+     * Create Skill Version
+     *
+     * @example
+     * ```ts
+     * const skillVersion = await client.skills.versions.create(
+     *   'skill_id',
+     *   { files: [fs.createReadStream('path/to/file')] },
+     * );
+     * ```
+     */
+    create(skillID, params, options) {
+        const { workspace_id, ...body } = params;
+        return this._client.post(path `/v1/skills/${skillID}/versions`, multipartFormRequestOptions({
+            body,
+            ...options,
+            headers: buildHeaders([
+                { ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined) },
+                options?.headers,
+            ]),
+        }, this._client, false));
+    }
+    /**
+     * Get Skill Version
+     *
+     * @example
+     * ```ts
+     * const skillVersion = await client.skills.versions.retrieve(
+     *   'version',
+     *   { skill_id: 'skill_id' },
+     * );
+     * ```
+     */
+    retrieve(version, params, options) {
+        const { skill_id, workspace_id } = params;
+        return this._client.get(path `/v1/skills/${skill_id}/versions/${version}`, {
+            ...options,
+            headers: buildHeaders([
+                { ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined) },
+                options?.headers,
+            ]),
+        });
+    }
+    /**
+     * List Skill Versions
+     *
+     * @example
+     * ```ts
+     * // Automatically fetches more pages as needed.
+     * for await (const skillVersion of client.skills.versions.list(
+     *   'skill_id',
+     * )) {
+     *   // ...
+     * }
+     * ```
+     */
+    list(skillID, params = {}, options) {
+        const { workspace_id, ...query } = params ?? {};
+        return this._client.getAPIList(path `/v1/skills/${skillID}/versions`, (PageCursor), {
+            query,
+            ...options,
+            headers: buildHeaders([
+                { ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined) },
+                options?.headers,
+            ]),
+        });
+    }
+    /**
+     * Delete Skill Version
+     *
+     * @example
+     * ```ts
+     * const deletedSkillVersion =
+     *   await client.skills.versions.delete('version', {
+     *     skill_id: 'skill_id',
+     *   });
+     * ```
+     */
+    delete(version, params, options) {
+        const { skill_id, workspace_id } = params;
+        return this._client.delete(path `/v1/skills/${skill_id}/versions/${version}`, {
+            ...options,
+            headers: buildHeaders([
+                { ...(workspace_id != null ? { 'anthropic-workspace-id': workspace_id } : undefined) },
+                options?.headers,
+            ]),
+        });
+    }
+}
+//# sourceMappingURL=versions.mjs.map

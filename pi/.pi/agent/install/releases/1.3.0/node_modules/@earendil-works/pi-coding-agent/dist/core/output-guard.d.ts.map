@@ -1,0 +1,1 @@
+{"version":3,"file":"output-guard.d.ts","sourceRoot":"","sources":["../../src/core/output-guard.ts"],"names":[],"mappings":"AA4CA,wBAAgB,cAAc,IAAI,IAAI,CAyBrC;AAED,wBAAgB,aAAa,IAAI,IAAI,CAOpC;AAED,wBAAgB,iBAAiB,IAAI,OAAO,CAE3C;AAED,wBAAgB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,IAAI,CAQjD;AAED,wBAAsB,4BAA4B,IAAI,OAAO,CAAC,IAAI,CAAC,CAQlE;AAED,wBAAsB,cAAc,IAAI,OAAO,CAAC,IAAI,CAAC,CAGpD"}

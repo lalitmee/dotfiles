@@ -1,0 +1,1 @@
+{"version":3,"file":"exif-orientation.d.ts","sourceRoot":"","sources":["../../src/utils/exif-orientation.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,eAAe,EAAE,MAAM,aAAa,CAAC;AAEnD,KAAK,MAAM,GAAG,cAAc,4BAA4B,CAAC,CAAC;AA+I1D,wBAAgB,oBAAoB,CACnC,MAAM,EAAE,MAAM,EACd,KAAK,EAAE,eAAe,EACtB,aAAa,EAAE,UAAU,GACvB,eAAe,CAgCjB"}

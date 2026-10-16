@@ -1,0 +1,12 @@
+import { type TSchema } from '../../types/schema.mjs';
+import { type TUnion } from '../../types/union.mjs';
+import { type TNarrow } from './narrow.mjs';
+import { type TEvaluateIntersect } from './evaluate.mjs';
+import { type TEvaluateType } from './evaluate.mjs';
+type TShouldEvaluate<Left extends TSchema, Right extends TSchema, IsUnionLeft extends boolean = Left extends TUnion ? true : false, IsUnionRight extends boolean = Right extends TUnion ? true : false, Result extends boolean = IsUnionLeft extends true ? true : IsUnionRight extends true ? true : false> = Result;
+type TDistributeOperation<Left extends TSchema, Right extends TSchema, EvaluatedLeft extends TSchema = TEvaluateType<Left>, EvaluatedRight extends TSchema = TEvaluateType<Right>, ShouldEvaluate extends boolean = TShouldEvaluate<EvaluatedLeft, EvaluatedRight>, Result extends TSchema = [ShouldEvaluate] extends [true] ? TEvaluateIntersect<[EvaluatedLeft, EvaluatedRight]> : TNarrow<EvaluatedLeft, EvaluatedRight>> = Result;
+type TDistributeType<Type extends TSchema, Distribution extends TSchema[], Result extends TSchema[] = []> = (Distribution extends [infer Left extends TSchema, ...infer Right extends TSchema[]] ? TDistributeType<Type, Right, [...Result, TDistributeOperation<Left, Type>]> : Result extends [] ? [Type] : Result);
+type TDistributeUnion<Types extends TSchema[], Distribution extends TSchema[], Result extends TSchema[] = []> = (Types extends [infer Left extends TSchema, ...infer Right extends TSchema[]] ? TDistributeUnion<Right, Distribution, [...Result, ...TDistribute<[Left], Distribution>]> : Result);
+export type TDistribute<Types extends TSchema[], Result extends TSchema[] = []> = (Types extends [infer Left extends TSchema, ...infer Right extends TSchema[]] ? Left extends TUnion<infer UnionTypes extends TSchema[]> ? TDistribute<Right, TDistributeUnion<UnionTypes, Result>> : TDistribute<Right, TDistributeType<Left, Result>> : Result);
+export declare function Distribute<Types extends TSchema[]>(types: [...Types], result?: TSchema[]): TDistribute<Types>;
+export {};

@@ -1,0 +1,27 @@
+// File generated from our OpenAPI spec by Castiron. See CONTRIBUTING.md for details.
+import { APIResource } from "../../core/resource.mjs";
+import { multipartFormRequestOptions } from "../../internal/uploads.mjs";
+import { path } from "../../internal/utils/path.mjs";
+/**
+ * Use Uploads to upload large files in multiple parts.
+ */
+export class Parts extends APIResource {
+    /**
+     * Adds a
+     * [Part](https://developers.openai.com/api/reference/resources/uploads/subresources/parts)
+     * to an [Upload](https://developers.openai.com/api/reference/resources/uploads)
+     * object. A Part represents a chunk of bytes from the file you are trying to
+     * upload.
+     *
+     * Each Part can be at most 64 MB, and you can add Parts until you hit the Upload
+     * maximum of 8 GB.
+     *
+     * It is possible to add multiple Parts in parallel. You can decide the intended
+     * order of the Parts when you
+     * [complete the Upload](https://developers.openai.com/api/reference/resources/uploads/methods/complete).
+     */
+    create(uploadID, body, options) {
+        return this._client.post(path `/uploads/${uploadID}/parts`, multipartFormRequestOptions({ body, ...options, __security: { bearerAuth: true } }, this._client));
+    }
+}
+//# sourceMappingURL=parts.mjs.map

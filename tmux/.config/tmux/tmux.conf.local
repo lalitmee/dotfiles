@@ -484,6 +484,12 @@ bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
 # Kill the entire current session.
 bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-message -p "#S")" || tmux kill-session'
 
+# tmux 3.8 built-in floating-pane window switcher (default prefix+Tab / S-Tab).
+# Re-bound here so the floating pane uses the Cobalt2 popup colours instead of the
+# tmux defaults (tmux does not style new-pane from popup-style/popup-border-style).
+bind Tab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -kw
+bind BTab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -ks
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
@@ -1335,6 +1341,7 @@ bind-key -T work-sessions q switch-client -T root
 #-------------------------------------------------------------------------------
 # Custom pane navigation while in vi copy mode.
 bind -T copy-mode-vi Escape send-keys -X cancel
+bind -T copy-mode-vi i send-keys -X cancel
 bind -T copy-mode-vi 'C-h' select-pane -L
 bind -T copy-mode-vi 'C-j' select-pane -D
 bind -T copy-mode-vi 'C-k' select-pane -U

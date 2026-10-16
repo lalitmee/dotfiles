@@ -1,0 +1,1 @@
+{"version":3,"file":"cli.lazy.js","sourceRoot":"","sources":["../../../src/extensions/mcp/cli.lazy.ts"],"names":[],"mappings":"AAAA,kFAAkF;AAClF,MAAM,CAAC,MAAM,cAAc,GAAG,GAAG,EAAE,CAAC,MAAM,CAAC,UAAU,CAAC,CAAC","sourcesContent":["/** Loads `pi mcp` and the MCP runtime only when the command runs (see cli.ts). */\nexport const loadMcpCommand = () => import(\"./cli.ts\");\n"]}

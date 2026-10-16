@@ -1,0 +1,1 @@
+{"version":3,"file":"abort.d.ts","sourceRoot":"","sources":["../../src/internal/utils/abort.ts"],"names":[],"mappings":"AAAA,KAAK,aAAa,GAAG,MAAM,IAAI,CAAC;AAsEhC,0GAA0G;AAC1G,wBAAgB,0BAA0B,CAExC,KAAK,EAAE,MAAM,EACb,KAAK,EAAE,aAAa,EACpB,aAAa,EAAE,WAAW,GACzB,IAAI,CAWN;AAED;;;;GAIG;AACH,wBAAgB,uBAAuB,CACrC,MAAM,EAAE,WAAW,EACnB,KAAK,EAAE,aAAa,EACpB,aAAa,EAAE,WAAW,GACzB,aAAa,CAiBf"}

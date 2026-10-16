@@ -1,0 +1,1 @@
+{"version":3,"file":"native-module-path.d.ts","sourceRoot":"","sources":["../src/native-module-path.ts"],"names":[],"mappings":"AAOA,MAAM,WAAW,4BAA4B;IAC5C,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,QAAQ,CAAC,EAAE,MAAM,CAAC;IAClB,cAAc,CAAC,EAAE,CAAC,SAAS,EAAE,MAAM,KAAK,MAAM,CAAC;CAC/C;AAED,wBAAgB,yBAAyB,CAAC,UAAU,EAAE,MAAM,EAAE,OAAO,GAAE,4BAAiC,GAAG,MAAM,EAAE,CAiBlH"}

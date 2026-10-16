@@ -1,0 +1,1 @@
+{"version":3,"file":"webrtc.mjs","sourceRoot":"","sources":["../../src/lib/live/webrtc.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,gBAAgB,EAAE,iCAA6B;AACxD,OAAO,EAAE,WAAW,EAAE,mCAA+B;AAErD,OAAO,EAAE,WAAW,EAAE,6BAAyB;AAU/C,wGAAwG;AACxG,MAAM,OAAO,gBAAiB,SAAQ,gBAA0C;CAAG;AAEnF,kGAAkG;AAClG,MAAM,OAAO,eAAgB,SAAQ,WAAqC;CAAG"}

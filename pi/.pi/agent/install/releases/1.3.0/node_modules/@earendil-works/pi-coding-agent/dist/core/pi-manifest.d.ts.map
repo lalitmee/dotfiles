@@ -1,0 +1,1 @@
+{"version":3,"file":"pi-manifest.d.ts","sourceRoot":"","sources":["../../src/core/pi-manifest.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,UAAU;IAC1B,UAAU,CAAC,EAAE,MAAM,EAAE,CAAC;IACtB,MAAM,CAAC,EAAE,MAAM,EAAE,CAAC;IAClB,OAAO,CAAC,EAAE,MAAM,EAAE,CAAC;IACnB,MAAM,CAAC,EAAE,MAAM,EAAE,CAAC;CAClB;AAQD,wBAAgB,cAAc,CAAC,eAAe,EAAE,MAAM,GAAG,UAAU,GAAG,IAAI,CAkBzE"}

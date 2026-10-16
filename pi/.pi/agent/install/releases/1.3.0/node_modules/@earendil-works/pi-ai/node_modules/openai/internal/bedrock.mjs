@@ -1,0 +1,424 @@
+import * as Errors from "../error.mjs";
+import { readEnv } from "./utils.mjs";
+/** Identifies legacy Bedrock clients without importing the client class into WebSocket modules. */
+export const brand_privateBedrockClient = Symbol.for('openai.privateBedrockClient');
+/** Wraps a provider failure in an SDK error while preserving its original cause. */
+export function errorWithCause(message, cause) {
+    // SAFETY: This SDK error is created locally and receives its optional cause immediately below; no existing error shape is trusted.
+    const error = new Errors.OpenAIError(message);
+    error.cause = cause;
+    return error;
+}
+/** Trims a configuration string, treating missing and whitespace-only values as absent. */
+export function normalizeOptionalString(value) {
+    // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Bedrock credential and origin checks validate JavaScript configuration before any credential is sent.
+    const normalized = typeof value === 'string' ? value.trim() : undefined;
+    return normalized || undefined;
+}
+function normalizeBaseURL(baseURL) {
+    const url = new URL(baseURL);
+    const responsesMatch = url.pathname.match(/\/responses(?:\/.*)?$/);
+    if (responsesMatch?.index !== undefined) {
+        url.pathname = url.pathname.slice(0, responsesMatch.index) || '/';
+    }
+    return url.toString().replace(/\/$/, '');
+}
+function resolveRuntimeDnsSuffixes(region) {
+    if (region.startsWith('cn-')) {
+        return ['amazonaws.com.cn', 'api.amazonwebservices.com.cn'];
+    }
+    if (region.startsWith('eusc-')) {
+        return ['amazonaws.eu', 'api.amazonwebservices.eu'];
+    }
+    if (region.startsWith('us-iso-')) {
+        return ['c2s.ic.gov', 'api.aws.ic.gov'];
+    }
+    if (region.startsWith('us-isob-')) {
+        return ['sc2s.sgov.gov', 'api.aws.scloud'];
+    }
+    if (region.startsWith('eu-isoe-')) {
+        return ['cloud.adc-e.uk', 'api.cloud-aws.adc-e.uk'];
+    }
+    if (region.startsWith('us-isof-')) {
+        return ['csp.hci.ic.gov', 'api.aws.hci.ic.gov'];
+    }
+    return ['amazonaws.com', 'api.aws'];
+}
+/** Identifies a canonical Amazon Bedrock hostname and its embedded AWS region. */
+export function parseBedrockEndpointHostname(hostname) {
+    const canonicalHostname = hostname.endsWith('.') ? hostname.slice(0, -1) : hostname;
+    const [service, region, ...suffixParts] = canonicalHostname.toLowerCase().split('.');
+    const suffix = suffixParts.join('.');
+    if (service === 'bedrock-mantle' && region && /^[a-z0-9-]+$/.test(region) && suffix === 'api.aws') {
+        return { endpoint: 'mantle', region };
+    }
+    if ((service === 'bedrock-runtime' || service === 'bedrock-runtime-fips') && region) {
+        const [standardSuffix, dualStackSuffix] = resolveRuntimeDnsSuffixes(region);
+        if (suffix === standardSuffix || suffix === dualStackSuffix) {
+            return { endpoint: 'runtime', region };
+        }
+    }
+    return undefined;
+}
+/** Rejects insecure or mismatched canonical Amazon Bedrock endpoint overrides. */
+function validateCanonicalBedrockEndpoint(baseURL, endpoint, region) {
+    const parsedBaseURL = new URL(baseURL);
+    const canonicalEndpoint = parseBedrockEndpointHostname(parsedBaseURL.hostname);
+    if (canonicalEndpoint && parsedBaseURL.protocol !== 'https:') {
+        throw new Errors.OpenAIError('Canonical Amazon Bedrock endpoints require HTTPS.');
+    }
+    if (canonicalEndpoint && canonicalEndpoint.endpoint !== endpoint) {
+        throw new Errors.OpenAIError(`The Bedrock ${canonicalEndpoint.endpoint} hostname does not match the selected \`${endpoint}\` endpoint. Set \`endpoint: '${canonicalEndpoint.endpoint}'\` to use this hostname.`);
+    }
+    if (canonicalEndpoint && region && canonicalEndpoint.region !== region) {
+        throw new Errors.OpenAIError(`The Bedrock endpoint region \`${canonicalEndpoint.region}\` does not match the configured AWS region \`${region}\`.`);
+    }
+}
+function validateBedrockEndpointSelection(endpoint) {
+    if (endpoint !== undefined && endpoint !== 'mantle' && endpoint !== 'runtime') {
+        throw new Errors.OpenAIError('The Bedrock `endpoint` must be either `mantle` or `runtime`.');
+    }
+}
+/**
+ * Resolves the Bedrock endpoint family, region, and API root from configuration.
+ *
+ * Region precedence is `region`, `AWS_REGION`, then `AWS_DEFAULT_REGION`.
+ * Endpoint precedence is `baseURL`, `AWS_BEDROCK_BASE_URL`, then the regional
+ * selected endpoint; an explicit `null` base URL skips the environment override.
+ * Existing `/responses` suffixes and trailing slashes are removed. Canonical
+ * AWS hostnames infer the endpoint family when none is selected explicitly.
+ * Other configured URLs and derived endpoints default to Mantle.
+ *
+ * @throws {Errors.OpenAIError} If an option is invalid, a canonical hostname
+ * conflicts with the endpoint family, or the default endpoint needs a region.
+ */
+export function resolveBedrockEndpoint(options) {
+    validateBedrockEndpointSelection(options.endpoint);
+    if (options.region !== undefined && !normalizeOptionalString(options.region)) {
+        throw new Errors.OpenAIError('The Bedrock AWS `region` must not be empty.');
+    }
+    if (options.baseURL !== undefined &&
+        options.baseURL !== null &&
+        !normalizeOptionalString(options.baseURL)) {
+        throw new Errors.OpenAIError('The Bedrock `baseURL` must not be empty.');
+    }
+    const region = normalizeOptionalString(options.region) ??
+        normalizeOptionalString(readEnv('AWS_REGION')) ??
+        normalizeOptionalString(readEnv('AWS_DEFAULT_REGION'));
+    if (region && !/^[a-z]{2,8}(?:-[a-z0-9]+)+-\d+$/.test(region)) {
+        throw new Errors.OpenAIError('The Bedrock AWS `region` is invalid. Use a standard AWS region such as `us-east-1`.');
+    }
+    const configuredBaseURL = options.baseURL === undefined
+        ? normalizeOptionalString(readEnv('AWS_BEDROCK_BASE_URL'))
+        : normalizeOptionalString(options.baseURL);
+    if (configuredBaseURL) {
+        const baseURL = normalizeBaseURL(configuredBaseURL);
+        const endpoint = options.endpoint ?? parseBedrockEndpointHostname(new URL(baseURL).hostname)?.endpoint ?? 'mantle';
+        validateCanonicalBedrockEndpoint(baseURL, endpoint, region);
+        // oxlint-disable-next-line anti-slop/no-known-value-widening -- Preserve the declared endpoint resolver contract across configured URLs and inferred regions.
+        return { endpoint, region, baseURL };
+    }
+    const endpoint = options.endpoint ?? 'mantle';
+    if (!region) {
+        throw new Errors.OpenAIError('Bedrock requires an AWS region. Pass `region` to `bedrock(...)`, or set `AWS_REGION` or `AWS_DEFAULT_REGION`.');
+    }
+    const hostname = endpoint === 'runtime'
+        ? `bedrock-runtime.${region}.${resolveRuntimeDnsSuffixes(region)[0]}`
+        : `bedrock-mantle.${region}.api.aws`;
+    // oxlint-disable-next-line anti-slop/no-known-value-widening -- The resolver intentionally returns its declared endpoint contract across all configuration paths.
+    return { endpoint, region, baseURL: `https://${hostname}/openai/v1` };
+}
+/**
+ * Ensures Bedrock credentials are only attached to the configured endpoint origin.
+ *
+ * @throws {Errors.OpenAIError} If either URL is not HTTP(S) or the request targets a different origin.
+ */
+export function assertBedrockRequestOrigin(baseURL, requestURL) {
+    const expectedURL = new URL(baseURL);
+    const request = new URL(requestURL);
+    const expectedOrigin = expectedURL.origin;
+    const requestOrigin = request.origin;
+    if ((expectedURL.protocol !== 'http:' && expectedURL.protocol !== 'https:') ||
+        (request.protocol !== 'http:' && request.protocol !== 'https:') ||
+        requestOrigin !== expectedOrigin) {
+        throw new Errors.OpenAIError(`Bedrock request origin \`${requestOrigin}\` does not match the configured base URL origin \`${expectedOrigin}\`.`);
+    }
+}
+/** Validates a final WebSocket URL before a legacy Bedrock client resolves or attaches credentials. */
+// oxlint-disable-next-line anti-slop/no-unknown-parameters -- The WebSocket authentication boundary verifies the caller client at runtime before trusting provider metadata.
+export function assertBedrockWebSocketOrigin(client, requestURL) {
+    // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Bedrock credential and origin checks validate JavaScript configuration before any credential is sent.
+    if (typeof client !== 'object' || client === null || !(brand_privateBedrockClient in client)) {
+        return;
+    }
+    const normalizedRequestURL = new URL(requestURL);
+    if (normalizedRequestURL.protocol === 'wss:') {
+        normalizedRequestURL.protocol = 'https:';
+    }
+    else if (normalizedRequestURL.protocol === 'ws:') {
+        normalizedRequestURL.protocol = 'http:';
+    }
+    // SAFETY: The private Bedrock brand checked above identifies the client whose baseURL is validated against the finalized request origin.
+    assertBedrockRequestOrigin(
+    // oxlint-disable-next-line anti-slop/no-chained-type-assertions -- The private Bedrock client brand checked above identifies the client baseURL contract.
+    client.baseURL, normalizedRequestURL.toString());
+}
+/**
+ * Rejects caller-provided authorization headers that conflict with provider authentication.
+ *
+ * @throws {Errors.OpenAIError} If an `Authorization` header is already present.
+ */
+export function assertProviderOwnsAuthorization(headers) {
+    if (headers.has('authorization')) {
+        throw new Errors.OpenAIError('Bedrock provider authentication cannot be combined with a custom `Authorization` header.');
+    }
+}
+/** Rejects non-HTTP field bytes without retaining or exposing a bearer credential. */
+export function assertValidBedrockBearerCredential(credential) {
+    if (/^[\t ]|[\t ]$/.test(credential)) {
+        throw new TypeError('Bedrock bearer credential contains an invalid HTTP header value.');
+    }
+    for (const character of credential) {
+        const value = character.codePointAt(0) ?? 0;
+        if ((value < 0x20 && value !== 0x09) || value === 0x7f || value > 0xff) {
+            throw new TypeError('Bedrock bearer credential contains an invalid HTTP header value.');
+        }
+    }
+}
+function createBedrockUserAbortError(signal) {
+    const error = new Errors.APIUserAbortError();
+    Object.defineProperty(error, 'cause', {
+        value: signal.reason,
+        writable: true,
+        configurable: true,
+    });
+    return error;
+}
+function removeBedrockAbortListener(signal, listener) {
+    try {
+        signal.removeEventListener('abort', listener);
+    }
+    catch {
+        // A nonstandard AbortSignal must not replace the actual request outcome.
+    }
+}
+function resolveAbortableBedrockAuth(operation, signals, failure) {
+    // oxlint-disable-next-line promise/avoid-new -- AbortSignal events require a Promise callback bridge.
+    return new Promise((resolve, reject) => {
+        let settled = false;
+        const listeners = [];
+        const removeListeners = () => {
+            while (listeners.length > 0) {
+                const registered = listeners.pop();
+                if (registered) {
+                    removeBedrockAbortListener(registered.signal, registered.listener);
+                }
+            }
+        };
+        failure.removeListeners = removeListeners;
+        const settle = (result) => {
+            if (settled) {
+                return;
+            }
+            settled = true;
+            if ('value' in result) {
+                resolve(result.value);
+            }
+            else {
+                removeListeners();
+                reject(result.error);
+            }
+        };
+        // oxlint-disable-next-line anti-slop/no-unknown-parameters -- Failures and rejection reasons can be arbitrary JavaScript values; preserve them until inspection or forwarding.
+        const rejectSignalFailure = (error) => {
+            if (failure.error) {
+                return;
+            }
+            failure.error = { value: error };
+            settle({ error });
+        };
+        const registerAbortListener = (signal) => {
+            const onAbort = () => {
+                if (failure.error) {
+                    return;
+                }
+                try {
+                    rejectSignalFailure(createBedrockUserAbortError(signal));
+                }
+                catch (error) {
+                    rejectSignalFailure(error);
+                }
+            };
+            try {
+                if (signal.aborted) {
+                    onAbort();
+                    return false;
+                }
+                listeners.push({ signal, listener: onAbort });
+                signal.addEventListener('abort', onAbort, { once: true });
+                if (settled) {
+                    removeBedrockAbortListener(signal, onAbort);
+                    return false;
+                }
+                if (signal.aborted) {
+                    onAbort();
+                    return false;
+                }
+            }
+            catch (error) {
+                if (settled) {
+                    removeBedrockAbortListener(signal, onAbort);
+                }
+                else {
+                    rejectSignalFailure(error);
+                }
+                return false;
+            }
+            return true;
+        };
+        for (const signal of signals) {
+            if (!registerAbortListener(signal)) {
+                return;
+            }
+        }
+        let pending;
+        try {
+            pending = operation();
+        }
+        catch (error) {
+            settle({ error });
+            return;
+        }
+        const observeResult = async () => {
+            try {
+                settle({ value: await pending });
+            }
+            catch (error) {
+                settle({ error });
+            }
+        };
+        // Observe the result even if the provider synchronously triggered cancellation.
+        void observeResult();
+    });
+}
+/**
+ * Resolves Bedrock authentication work with caller cancellation, then applies
+ * its result synchronously after the final cancellation checks.
+ *
+ * @internal
+ */
+export async function prepareBedrockAuth(request, context, operation) {
+    const signals = [];
+    for (const signal of [context.options.signal, request.signal]) {
+        if (signal != null && !signals.includes(signal)) {
+            signals.push(signal);
+        }
+    }
+    const signalFailure = {};
+    let value;
+    try {
+        try {
+            value =
+                signals.length > 0
+                    ? await resolveAbortableBedrockAuth(operation.resolve, signals, signalFailure)
+                    : await operation.resolve();
+        }
+        catch (cause) {
+            if (signalFailure.error && Object.is(cause, signalFailure.error.value)) {
+                throw cause;
+            }
+            throw errorWithCause(operation.failureMessage, cause);
+        }
+        if (signalFailure.error) {
+            throw signalFailure.error.value;
+        }
+        for (const signal of signals) {
+            if (signal.aborted) {
+                throw createBedrockUserAbortError(signal);
+            }
+        }
+    }
+    finally {
+        signalFailure.removeListeners?.();
+    }
+    operation.apply(value);
+}
+class BedrockBearerAuth {
+    constructor(tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
+    async prepareRequest(request, context) {
+        const headers = new Headers(request.headers);
+        assertProviderOwnsAuthorization(headers);
+        await prepareBedrockAuth(request, context, {
+            resolve: () => this.tokenProvider(),
+            failureMessage: 'Failed to resolve a bearer credential for Bedrock.',
+            apply: (token) => {
+                // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Bedrock credential and origin checks validate JavaScript configuration before any credential is sent.
+                if (typeof token !== 'string' || !token.trim()) {
+                    throw new Errors.OpenAIError('The Bedrock bearer credential provider must return a non-empty string.');
+                }
+                assertValidBedrockBearerCredential(token);
+                try {
+                    headers.set('authorization', `Bearer ${token}`);
+                }
+                catch (error) {
+                    if (error instanceof TypeError) {
+                        // oxlint-disable-next-line eslint/preserve-caught-error -- The original error contains the bearer credential.
+                        throw new TypeError('Bedrock bearer credential contains an invalid HTTP header value.');
+                    }
+                    throw error;
+                }
+                request.redirect = 'manual';
+                request.headers = headers;
+            },
+        });
+    }
+}
+/**
+ * Resolves a bearer-authentication factory without calling token providers eagerly.
+ *
+ * Explicit `tokenProvider` and `apiKey` options are mutually exclusive. When
+ * neither is set, `AWS_BEARER_TOKEN_BEDROCK` is used unless environment
+ * credentials are disabled or `apiKey` is explicitly `null`.
+ *
+ * @throws {Errors.OpenAIError} If an explicit key is empty or multiple bearer
+ * credential sources are configured.
+ */
+export function resolveBedrockBearerAuth(options, { allowEnvironment = true, } = {}) {
+    if (options.apiKey !== undefined &&
+        options.apiKey !== null &&
+        // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Bedrock credential and origin checks validate JavaScript configuration before any credential is sent.
+        (typeof options.apiKey !== 'string' || !options.apiKey.trim())) {
+        throw new Errors.OpenAIError('The Bedrock bearer credential must not be empty.');
+    }
+    if (options.apiKey != null && options.tokenProvider) {
+        throw new Errors.OpenAIError('The `apiKey` and `tokenProvider` options are mutually exclusive. Configure only one.');
+    }
+    if (options.tokenProvider) {
+        const tokenProvider = options.tokenProvider;
+        // oxlint-disable-next-line anti-slop/no-known-value-widening -- The declared bearer-auth contract hides concrete authenticator implementations behind their factory.
+        return { factory: () => new BedrockBearerAuth(tokenProvider), explicit: true };
+    }
+    if (options.apiKey != null) {
+        const apiKey = options.apiKey;
+        // oxlint-disable-next-line anti-slop/no-known-value-widening -- Explicit API keys use the same declared auth-factory contract as token providers.
+        return { factory: () => new BedrockBearerAuth(async () => apiKey), explicit: true };
+    }
+    if (allowEnvironment && options.apiKey !== null && readEnv('AWS_BEARER_TOKEN_BEDROCK')) {
+        // oxlint-disable-next-line anti-slop/no-known-value-widening -- Environment credentials must preserve the same declared auth-factory contract as explicit options.
+        return {
+            explicit: false,
+            factory: () => new BedrockBearerAuth(async () => {
+                const token = readEnv('AWS_BEARER_TOKEN_BEDROCK');
+                if (!token) {
+                    throw new Errors.OpenAIError('Could not find credentials for Bedrock. Set `AWS_BEARER_TOKEN_BEDROCK` or configure AWS credential authentication.');
+                }
+                return token;
+            }),
+        };
+    }
+    // oxlint-disable-next-line anti-slop/no-known-value-widening -- The declared optional factory contract also represents the absence of bearer credentials.
+    return { factory: undefined, explicit: false };
+}
+//# sourceMappingURL=bedrock.mjs.map

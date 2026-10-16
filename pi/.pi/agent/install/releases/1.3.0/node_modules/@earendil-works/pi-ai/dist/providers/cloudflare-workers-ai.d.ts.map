@@ -1,0 +1,1 @@
+{"version":3,"file":"cloudflare-workers-ai.d.ts","sourceRoot":"","sources":["../../src/providers/cloudflare-workers-ai.ts"],"names":[],"mappings":"AAEA,OAAO,EAAkB,KAAK,QAAQ,EAAE,MAAM,cAAc,CAAC;AAQ7D,wBAAgB,2BAA2B,IAAI,QAAQ,CAAC,oBAAoB,CAAC,CAc5E"}

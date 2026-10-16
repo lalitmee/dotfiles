@@ -1,0 +1,1 @@
+{"version":3,"file":"renderer.d.ts","sourceRoot":"","sources":["../../../src/extensions/codemode/renderer.ts"],"names":[],"mappings":"AAAA;;;;;;;GAOG;AAGH,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,gCAAgC,CAAC;AAKrE,OAAO,KAAK,EAAsB,mBAAmB,EAAE,MAAM,WAAW,CAAC;AAiDzE,eAAO,MAAM,iBAAiB,EAAE,IAAI,CACnC,cAAc,CAAC,GAAG,EAAE,mBAAmB,GAAG,SAAS,CAAC,EACpD,YAAY,GAAG,cAAc,CAyF7B,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"ws-adapter.mjs","sourceRoot":"","sources":["../src/internal/ws-adapter.ts"],"names":[],"mappings":"AAuCA,uDAAuD;AACvD,MAAM,CAAC,MAAM,UAAU,GAAG;IACxB,yEAAyE;IACzE,UAAU,EAAE,CAAC;IAEb,gEAAgE;IAChE,IAAI,EAAE,CAAC;IAEP,6DAA6D;IAC7D,OAAO,EAAE,CAAC;IAEV,4DAA4D;IAC5D,MAAM,EAAE,CAAC;CACD,CAAC"}
