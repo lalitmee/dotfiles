@@ -26,17 +26,12 @@ if ! tmux has-session -t "=$session_name" 2>/dev/null; then
     tmux new-window -d -t "$session_name" -n code -c "$folder_path" opencode
     tmux set-window-option -t "$session_name:nvim" automatic-rename off
     tmux set-window-option -t "$session_name:nvim" allow-rename off
-    tmux set-window-option -t "$session_name:code" automatic-rename off
-    tmux set-window-option -t "$session_name:code" allow-rename off
+    tmux set-window-option -t "${session_name}:code" automatic-rename off
+    tmux set-window-option -t "${session_name}:code" allow-rename off
 fi
 
 if [[ -n "${TMUX:-}" ]]; then
-    if [[ -n "${TMUX_PANE:-}" ]]; then
-        client_name="$(tmux display-message -p -t "$TMUX_PANE" '#{client_name}')"
-        tmux switch-client -c "$client_name" -t "$session_name"
-    else
-        tmux switch-client -t "$session_name"
-    fi
+    tmux switch-client -t "$session_name"
 else
     tmux attach-session -t "$session_name"
 fi

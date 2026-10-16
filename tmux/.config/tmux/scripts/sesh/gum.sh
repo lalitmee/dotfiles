@@ -45,7 +45,7 @@ if [[ "$selection" == *' '* ]]; then
     fi
     zsh "${0:A:h}/folder-session.zsh" "$folder_path" || echo "Failed to start folder session"
 else
-    sesh connect "$selected" < /dev/null || echo "Failed to connect to sesh session"
+    sesh connect "$selection" < /dev/null || echo "Failed to connect to sesh session"
 fi
 
 #  NOTE: Backup fzf implementation (previously active)

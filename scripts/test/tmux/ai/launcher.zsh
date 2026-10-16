@@ -16,16 +16,21 @@ cat > "$tmp/bin/gum" <<'EOF'
 case "$1" in
     input) print -r -- "$INPUT" ;;
     choose) print -r -- "$ACTION" ;;
-    spin) shift; while [[ "$1" != -- ]]; do shift; done; shift; "$@" ;;
+    spin) print -r -- "spin $*" >> "$LOG"; print -u2 'Naming spinner visible'; shift; while [[ "$1" != -- ]]; do shift; done; shift; "$@" ;;
 esac
 EOF
 cat > "$tmp/bin/tmux" <<'EOF'
 #!/usr/bin/env zsh
 print -r -- "$*" >> "$LOG"
 EOF
+cat > "$tmp/bin/tput" <<'EOF'
+#!/usr/bin/env zsh
+[[ "$1" == lines ]] && print 20 || print 80
+EOF
 cat > "$tmp/bin/agy" <<'EOF'
 #!/usr/bin/env zsh
 print -r -- "agy $*" >> "$LOG"
+[[ "$1" == --mode && "$2" == plan && "$3" == --print=* ]] || { print -u2 'invalid agy naming arguments'; exit 1; }
 [[ "$NAMER" == agy ]] && print -r -- 'Fix Login Flow' || exit 1
 EOF
 cat > "$tmp/bin/opencode" <<'EOF'
@@ -51,6 +56,9 @@ INPUT='' ACTION='' NAMER='' check codex 'new-window -n 🧬 codex'
 INPUT='Fix Login Flow' ACTION='Use as name' NAMER='' check codex 'new-window -n 🧬 fix-login-flow'
 INPUT='Fix Login Flow' ACTION='Generate name' NAMER=agy check codex 'new-window -n 🧬 fix-login-flow'
 grep -F 'display-message AI codex: named fix-login-flow via agy' "$LOG" >/dev/null
+grep -F -- '--padding=9 0 0 30' "$LOG" >/dev/null
+INPUT='Fix Login Flow' ACTION='Generate name' NAMER=agy zsh "$script" codex 2> "$tmp/spinner"
+grep -F 'Naming spinner visible' "$tmp/spinner" >/dev/null
 INPUT='Fix the login flow when the token expires' ACTION='Generate name' NAMER=opencode check pi 'new-window -n 🥧 fix-login-flow'
 grep -F 'opencode run --model opencode/beam-free' "$LOG" >/dev/null
 INPUT='Fix the login flow when the token expires' ACTION='Generate name and send prompt' NAMER='' check codex 'new-window -n 🧬 codex'

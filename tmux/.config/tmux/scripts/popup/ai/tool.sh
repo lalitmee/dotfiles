@@ -52,11 +52,16 @@ if [[ -n ${description//[[:space:]]/} ]]; then
         for namer in agy opencode codex; do
             command -v "$namer" >/dev/null 2>&1 || continue
             case "$namer" in
-                agy) naming_command=(agy --print --mode plan "$naming_prompt") ;;
+                agy) naming_command=(agy --mode plan "--print=$naming_prompt") ;;
                 opencode) naming_command=(opencode run --model opencode/beam-free --agent plan "$naming_prompt") ;;
                 codex) naming_command=(codex exec --ephemeral --sandbox read-only "$naming_prompt") ;;
             esac
-            response=$(gum spin --spinner dot --title="Naming with $namer..." --timeout=30s --show-stdout -- "${naming_command[@]}" 2>/dev/null) || continue
+            spinner_title="Naming with $namer..."
+            rows=$(tput lines 2>/dev/null) || rows=0
+            cols=$(tput cols 2>/dev/null) || cols=0
+            top=$(( rows > 1 ? (rows - 1) / 2 : 0 ))
+            left=$(( cols > ${#spinner_title} + 2 ? (cols - ${#spinner_title} - 2) / 2 : 0 ))
+            response=$(gum spin --spinner dot --title="$spinner_title" --padding="$top 0 0 $left" --timeout=30s --show-stdout -- "${naming_command[@]}") || continue
             slug=$(print -r -- "$response" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
             words=(${(s:-:)slug})
             if [[ ${#words} -ge 2 && ${#words} -le 3 && ${#slug} -le 48 ]]; then

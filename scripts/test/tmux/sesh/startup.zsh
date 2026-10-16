@@ -50,7 +50,8 @@ export GUM_SELECTION="$SESH_LIST"
 TMUX=mock-session TMUX_PANE=mock-pane zsh "$WORKSPACE_DIR/tmux/.config/tmux/scripts/sesh/gum.sh"
 grep -q 'new-session .* -n nvim .* nvim' "$TMUX_LOG"
 grep -q 'new-window .* -n code .* opencode' "$TMUX_LOG"
-grep -Fq 'switch-client -c mock-client -t project_name with spaces' "$TMUX_LOG"
+grep -Fxq 'set-window-option -t project_name with spaces:code automatic-rename off' "$TMUX_LOG"
+grep -Fxq 'switch-client -t project_name with spaces' "$TMUX_LOG"
 grep -Fq -- '--no-show-help' "$GUM_LOG"
 if grep -Eq -- '(^| )--header([ =]|$)' "$GUM_LOG"; then
     print -u2 'Gum command should not include a custom header'
@@ -72,15 +73,15 @@ grep -Fq '' "$GUM_INPUT_LOG"
 # An existing matching session is switched to, not rebuilt.
 : > "$TMUX_LOG"
 SESSION_EXISTS=1 TMUX=mock-session TMUX_PANE=mock-pane zsh "$WORKSPACE_DIR/tmux/.config/tmux/scripts/sesh/gum.sh"
-grep -Fq 'switch-client -c mock-client -t project_name with spaces' "$TMUX_LOG"
+grep -Fxq 'switch-client -t project_name with spaces' "$TMUX_LOG"
 ! grep -q 'new-session\|new-window' "$TMUX_LOG"
 
-# Non-folder selections keep the existing Sesh connection behavior.
+# Non-folder selections pass the icon without ANSI escapes to Sesh.
 : > "$TMUX_LOG"
 export SESH_LIST="$(printf '\033[36m\033[39m existing-session')"
 export GUM_SELECTION="$SESH_LIST"
 TMUX=mock-session zsh "$WORKSPACE_DIR/tmux/.config/tmux/scripts/sesh/gum.sh"
-grep -q '^connect ' "$SESH_LOG"
+grep -Fxq 'connect  existing-session' "$SESH_LOG"
 [[ ! -s "$TMUX_LOG" ]]
 
 print 'Sesh startup tests passed.'
