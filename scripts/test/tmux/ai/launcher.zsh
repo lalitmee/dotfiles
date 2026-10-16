@@ -15,7 +15,8 @@ cat > "$tmp/bin/gum" <<'EOF'
 #!/usr/bin/env zsh
 case "$1" in
     input) print -r -- "$INPUT" ;;
-    choose) print -r -- "$ACTION" ;;
+    choose) print -u2 'unexpected gum choose'; exit 1 ;;
+    filter) print -r -- "$ACTION" ;;
     spin) print -r -- "spin $*" >> "$LOG"; print -u2 'Naming spinner visible'; shift; while [[ "$1" != -- ]]; do shift; done; shift; "$@" ;;
 esac
 EOF

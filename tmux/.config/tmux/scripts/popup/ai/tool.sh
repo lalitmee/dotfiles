@@ -29,7 +29,7 @@ naming_status='default name'
 action=''
 
 if [[ -n ${description//[[:space:]]/} ]]; then
-    action=$(gum choose --header='How should this text be used?' \
+    action=$(gum filter --header='How should this text be used?' \
         'Use as name' 'Generate name' 'Generate name and send prompt') || exit 0
 
     if [[ "$action" == 'Generate name and send prompt' ]]; then

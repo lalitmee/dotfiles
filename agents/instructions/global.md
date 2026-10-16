@@ -70,6 +70,11 @@ When retrieving documentation, specifications, codebase context, or external dat
 2. **Web Exploration (`chrome-devtools-mcp`):**
    - Reserved strictly for dynamic web interaction, DOM inspection, pages requiring live rendering/JavaScript execution, or when headless tools fail or return insufficient context.
    - Do not use for basic text documentation lookups when specialized local/MCP tools are available.
+   - When browser access is necessary, attach to and use the already-open browser; do not launch a new browser instance.
+   - Before navigating or opening tabs, inspect the existing tabs and tab groups. Reuse the relevant existing tab when possible.
+   - Keep browser checks organized in a dedicated tab group. Reuse a relevant existing group; if none exists, create one for the checks and place any newly opened tabs in it.
+   - If the relevant page is already open in a tab outside a group, work in that tab rather than moving it or opening a duplicate. Do not leave a relevant tab group to continue the same task elsewhere; keep related work within that group.
+   - Before finishing, leave the browser tabs and groups organized and avoid closing or rearranging unrelated user tabs.
 
 3. **Deep Reasoning (`crash-mcp`):**
    - Use exclusively for complex logical breakdowns, multi-step analytical deductions, or high-uncertainty problem solving.
@@ -88,16 +93,23 @@ When retrieving documentation, specifications, codebase context, or external dat
 
 ---
 
-## 8. CURSOR BRAIN WORK LOGGING & CONTEXT PRESERVATION
-- **Mandatory Discovery**: Before recording or resuming work, identify the appropriate external brain root. Do NOT assume or look for `brain/` in the current working directory or inside any repository. Check known brain locations (e.g., `~/Projects/Personal/Github/second-brain`, `~/Projects/Work/Github/cursor-brain`, `~/Projects/Work/Github/second-brain`, `~/Projects/Work/Github/nes-cursor-brain`) or environment/config to locate the correct brain repository.
-- **Hard Prohibition**: Never create a `brain/` directory inside the current working directory or inside any repository you are working in. Brain storage must remain in a dedicated brain repository that is external to the codebase. If no brain root exists or is ambiguous, ask the user to specify the correct brain repository location before creating any records.
-- **Absolute Paths**: All brain paths must be absolute (or explicitly resolved from the configured brain root). Never use relative `brain/` paths from the working repository.
-- **Context Categorization**: Every work item must be explicitly categorized under one of three context directories under the external brain root:
-  - `<brain-root>/repo/` — Work specific to a single repository.
-  - `<brain-root>/feature/` — Features spanning multiple repositories or possessing independent lifecycles.
-  - `<brain-root>/workspace/` — Multi-repo coordinated initiatives or broader organizational goals.
+## 8. AI BRAIN WORK LOGGING & CONTEXT PRESERVATION
+- **Repository Selection**: Route personal work to `~/Projects/Personal/Github/ai-brain/` and work-related work to `~/Projects/Work/Github/cursor-brain/`. If the work context is unclear, ask which brain repository to use. Before recording or resuming work, inspect the selected repository's `brain/` directory for existing history and records.
+- **Definition of `<brain-root>`**: `<brain-root>` is a placeholder meaning the absolute filesystem path to the root directory of the selected brain Git repository—not its `brain/` subdirectory, and not the current project repository. For personal work, it resolves to `/home/lalitmee/Projects/Personal/Github/ai-brain`; for work, it resolves to `/home/lalitmee/Projects/Work/Github/cursor-brain`. Expand the placeholder to that full path in every command or file path; never type the angle-bracketed placeholder literally.
+- **Availability Check**: Confirm the selected brain repository exists before using it. If it is missing or its location is ambiguous, ask the user for the correct location; do not silently substitute another brain repository.
+- **Hard Prohibition**: Never create a `brain/` directory inside the current working directory or any project repository. Brain storage must remain in the selected, dedicated brain repository.
+- **Absolute Paths**: Resolve brain paths to absolute paths. Never use relative `brain/` paths from the working repository.
+- **Context Categorization**: Every work item must be explicitly categorized under one of three context directories inside the selected brain repository's `brain/` directory. Here, `<brain-root>/brain/` means the selected repository root followed by the literal `brain/` directory (for example, `/home/lalitmee/Projects/Personal/Github/ai-brain/brain/` for personal work).
+  - `<brain-root>/brain/repo/` — Work specific to a single repository.
+  - `<brain-root>/brain/feature/` — Features spanning multiple repositories or possessing independent lifecycles.
+  - `<brain-root>/brain/workspace/` — Multi-repo coordinated initiatives or broader organizational goals.
+- **File Naming and Structure**:
+  - Name new files `YYYY-MM-DD-<descriptive-slug>.md`.
+  - Every Markdown work log must begin with YAML frontmatter containing `date`, `status` (`Draft`, `Active`, `Blocked`, or `Completed`), `tags`, and `related-repos`.
+  - Every log must include `## Objective`, `## Key Decisions`, `## Blockers/Unresolved`, and `## Artifact Links`.
 - **Storage Location Rules**:
-  - **Short, self-contained effort**: Record directly in `<brain-root>/<context>/<slug>.md`.
-  - **Ongoing / multi-part effort**: Record in `<brain-root>/<context>/<slug>/README.md`. Use supporting documents (`decisions.md`, `progress.md`) only when necessary; do not create empty templates or duplicate files.
-- **Artifact Link Rule**: Do NOT store full implementation artifacts, large datasets, or full plan documents directly in the brain repository. Store artifacts in their designated locations (`plans/`, `docs/`, `results/`, or main code repositories) and link to them from the corresponding brain record using absolute or repo-relative links as appropriate.
-- **Zero Secrets Policy**: Never commit passwords, API keys, access tokens, session cookies, or secret values to any brain repository. Sanitize all snippets and log excerpts to show variable names only.
+  - **Short, self-contained effort**: Record directly in `<brain-root>/brain/<context>/YYYY-MM-DD-<slug>.md`.
+  - **Ongoing / multi-part effort**: Create `<brain-root>/brain/<context>/YYYY-MM-DD-<slug>/` and maintain the primary log in `README.md`.
+  - When creating a log or folder, append a link to it in the corresponding context directory's `README.md`.
+- **Artifact Link Rule**: Do NOT store full implementation artifacts, large datasets, or full plan documents directly in `brain/`. Store artifacts in their designated locations (`plans/`, `docs/`, `results/`, or main code repositories) and link them under `## Artifact Links`.
+- **Zero Secrets Policy**: Never commit passwords, API keys, access tokens, session cookies, or secret values to any brain repository. Sanitize snippets and log excerpts to show variable names only.
