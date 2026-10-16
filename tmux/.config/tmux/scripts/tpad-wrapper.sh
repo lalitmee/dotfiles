@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-exec "$HOME/.tmux/plugins/tmux-tpad/tpad.tmux" "$@"
+exec "$HOME/.config/tmux/plugins/tmux-tpad/tpad.tmux" "$@"

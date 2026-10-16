@@ -134,7 +134,7 @@ If window names revert to tmux's automatic format (`<index>:command`), the persi
 ### Popup Not Appearing
 If `C-a C-r` doesn't show the popup:
 
-1. Check tmux config syntax: `tmux source ~/.tmux.conf.local`
+1. Check tmux config syntax: `tmux source ~/.config/tmux/tmux.conf.local`
 2. Verify runner script exists and is executable
 3. Ensure dependencies are installed: `jq`, `fzf`, `gum`
 

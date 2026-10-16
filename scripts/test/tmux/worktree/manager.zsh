@@ -689,7 +689,7 @@ EOF
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/tmux"
     [[ "${(j: :)calls}" == *'select-window -t @9'* ]] || fail 'quit does not restore previous window'
-    [[ "$(rg -c 'bind-key -T git-mode m ' "$WORKSPACE_DIR/tmux/.tmux.conf.local")" == 1 ]] || fail 'm binding missing or conflicting'
+    [[ "$(rg -c 'bind-key -T git-mode m ' "$WORKSPACE_DIR/tmux/.config/tmux/tmux.conf.local")" == 1 ]] || fail 'm binding missing or conflicting'
     [[ "$(rg '^m' "$WORKSPACE_DIR/tmux/.config/tmux/scripts/popup/help/tables/git-mode.txt")" == *'Global worktree manager'* ]] || fail 'help entry absent'
     unfunction discover_worktrees _worktree_manager_validate list_repository_branches open_worktree checkout_branch rename_worktree remove_worktree fzf tmux ui_reset
     print 'PASS: global worktree interface'

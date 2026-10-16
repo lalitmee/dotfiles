@@ -257,7 +257,7 @@ sudo apt remove --purge i3* polybar picom rofi neovim zsh tmux
 sudo apt autoremove --purge
 
 # Clean up dotfiles
-rm -rf ~/.config/i3 ~/.config/polybar ~/.zshrc ~/.tmux.conf
+rm -rf ~/.config/i3 ~/.config/polybar ~/.zshrc ~/.config/tmux
 
 # Start fresh
 ./scripts/install/main-installer.zsh

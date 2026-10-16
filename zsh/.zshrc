@@ -251,7 +251,7 @@ fi
 # # NOTE: tmux-session-dots notify bell {{{
 #-------------------------------------------------------------------------------
 
-source ~/.tmux/plugins/tmux-session-dots/bell-notify.zsh
+source ~/.config/tmux/plugins/tmux-session-dots/bell-notify.zsh
 
 #-------------------------------------------------------------------------------
 # }}}

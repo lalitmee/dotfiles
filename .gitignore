@@ -69,3 +69,6 @@ session-*.md
 
 # local symlinks into other projects - never track
 bin/.config/bin/dev-env-manager
+
+# tmux plugins - runtime clones inside the stow-linked config dir
+tmux/.config/tmux/plugins/

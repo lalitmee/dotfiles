@@ -102,7 +102,7 @@ tmux display-popup -E -w 90% -h 90% "
     echo \"--- Search Attempt ---\" >> \"\$LOG_FILE\"
 
     # Search in config files
-    match=\$(grep -n \"\$search_pattern\" \"\$HOME/.tmux.conf.local\" \"\$HOME/.tmux/.tmux.conf\" 2>/dev/null | head -1 || true)
+    match=\$(grep -n \"\$search_pattern\" \"\$HOME/.config/tmux/tmux.conf.local\" \"\$HOME/.config/tmux/tmux.conf\" 2>/dev/null | head -1 || true)
 
     if [ -n \"\$match\" ]; then
         echo \"✓ Found match: \$match\" >> \"\$LOG_FILE\"
@@ -118,7 +118,7 @@ tmux display-popup -E -w 90% -h 90% "
     echo \"\" >> \"\$LOG_FILE\"
     echo \"--- Fallback: Simple key search ---\" >> \"\$LOG_FILE\"
 
-    match=\$(grep -n \"bind.*\$clean_key\" \"\$HOME/.tmux.conf.local\" \"\$HOME/.tmux/.tmux.conf\" 2>/dev/null | head -1 || true)
+    match=\$(grep -n \"bind.*\$clean_key\" \"\$HOME/.config/tmux/tmux.conf.local\" \"\$HOME/.config/tmux/tmux.conf\" 2>/dev/null | head -1 || true)
 
     if [ -n \"\$match\" ]; then
         echo \"✓ Found match: \$match\" >> \"\$LOG_FILE\"
@@ -135,8 +135,8 @@ tmux display-popup -E -w 90% -h 90% "
     echo \"=== No match found ===\" >> \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
     echo \"Searched in:\" >> \"\$LOG_FILE\"
-    echo \"  - \$HOME/.tmux.conf.local\" >> \"\$LOG_FILE\"
-    echo \"  - \$HOME/.tmux/.tmux.conf\" >> \"\$LOG_FILE\"
+    echo \"  - \$HOME/.config/tmux/tmux.conf.local\" >> \"\$LOG_FILE\"
+    echo \"  - \$HOME/.config/tmux/tmux.conf\" >> \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
     echo \"Tip: The keybinding might be defined in a plugin or\" >> \"\$LOG_FILE\"
     echo \"      using a different syntax than expected.\" >> \"\$LOG_FILE\"

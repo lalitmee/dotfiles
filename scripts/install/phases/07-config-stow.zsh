@@ -256,7 +256,7 @@ gum_style "🔍 Verifying key configurations..."
 echo "  i3 config: $(readlink -f ~/.config/i3/config 2>/dev/null || echo 'Not linked')"
 echo "  zshrc: $(readlink -f ~/.zshrc 2>/dev/null || echo 'Not linked')"
 echo "  nvim: $(readlink -f ~/.config/nvim 2>/dev/null || echo 'Not linked')"
-echo "  tmux: $(readlink -f ~/.tmux.conf 2>/dev/null || echo 'Not linked')"
+echo "  tmux: $(readlink -f ~/.config/tmux/tmux.conf 2>/dev/null || echo 'Not linked')"
 
 # Activate pre-commit hooks
 gum_style " activating Git Hooks..."

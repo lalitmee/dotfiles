@@ -202,7 +202,7 @@ validate_installation() {
         echo '=== Configuration Check ==='
         ls -la ~/.zshrc 2>/dev/null && echo '✓ zshrc linked' || echo '✗ zshrc not linked'
         ls -la ~/.config/i3/config 2>/dev/null && echo '✓ i3 config linked' || echo '✗ i3 config not linked'
-        ls -la ~/.tmux.conf 2>/dev/null && echo '✓ tmux config linked' || echo '✗ tmux config not linked'
+        ls -la ~/.config/tmux/tmux.conf 2>/dev/null && echo '✓ tmux config linked' || echo '✗ tmux config not linked'
     "
 
     log_success "Validation completed"
@@ -234,7 +234,7 @@ validate_installation() {
         echo '=== Configuration Check ==='
         ls -la ~/.zshrc 2>/dev/null && echo '✓ zshrc linked' || echo '✗ zshrc not linked'
         ls -la ~/.config/i3/config 2>/dev/null && echo '✓ i3 config linked' || echo '✗ i3 config not linked'
-        ls -la ~/.tmux.conf 2>/dev/null && echo '✓ tmux config linked' || echo '✗ tmux config not linked'
+        ls -la ~/.config/tmux/tmux.conf 2>/dev/null && echo '✓ tmux config linked' || echo '✗ tmux config not linked'
     "
 
     log_success "Validation completed"

@@ -26,7 +26,7 @@ set -g extended-keys-format csi-u
 
 # -- TPM -----------------------------------------------------------------------
 
-# Plugin declarations are initialized by tmux/.tmux.conf after this file loads.
+# Plugin declarations are initialized by tmux/.config/tmux/tmux.conf after this file loads.
 # Plugin updates remain explicit; config reload never installs or updates them.
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
@@ -67,9 +67,9 @@ bind -r k select-pane -U
 bind -r K resize-pane -U 2
 bind P choose-buffer
 bind m if-shell -F '#{mouse}' 'set -g mouse off' 'set -g mouse on'
-bind r source-file ~/.tmux.conf \; display-message '~/.tmux.conf sourced'
-bind R source-file ~/.tmux.conf \; display-message '~/.tmux.conf sourced'
-bind u run-shell '~/.tmux/plugins/tpm/bindings/update_plugins'
+bind r source-file ~/.config/tmux/tmux.conf \; display-message '~/.config/tmux/tmux.conf sourced'
+bind R source-file ~/.config/tmux/tmux.conf \; display-message '~/.config/tmux/tmux.conf sourced'
+bind u run-shell '~/.config/tmux/plugins/tpm/bindings/update_plugins'
 
 # Reduce escape key delay for faster responsiveness, especially in Vim/Neovim.
 # set -g escape-time 0
@@ -1027,7 +1027,7 @@ bind-key -T dev-mode r run-shell "zsh $HOME/.config/tmux/scripts/popup/runner/ru
 bind-key -T dev-mode a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/apt-repo-manager.sh"
 
 # Back in 5 status screen.
-bind-key -T dev-mode b display-popup -E -B -w 100% -h 100% -x 0% -y 0% "~/.tmux/plugins/back-in-5/scripts/main.sh"
+bind-key -T dev-mode b display-popup -E -B -w 100% -h 100% -x 0% -y 0% "~/.config/tmux/plugins/back-in-5/scripts/main.sh"
 
 # Toggle general scratchpad
 bind -T dev-mode s run-shell "#{@tpad-path} toggle scratchpad"

@@ -7,7 +7,7 @@ script_dir="${0:A:h}"
 repo_root="${script_dir}/../../.."
 cd "$repo_root"
 
-config_file="$repo_root/tmux/.tmux.conf"
+config_file="$repo_root/tmux/.config/tmux/tmux.conf"
 baseline_file="$repo_root/results/tmux-native-config-baseline.md"
 
 fail() {
@@ -30,12 +30,12 @@ assert_color() {
     assert_contains "$style" "$color" "$label"
 }
 
-[[ -f "$config_file" ]] || fail "native entrypoint not found: tmux/.tmux.conf"
+[[ -f "$config_file" ]] || fail "native entrypoint not found: tmux/.config/tmux/tmux.conf"
 [[ -f "$baseline_file" ]] || fail "baseline not found: results/tmux-native-config-baseline.md"
 
 for native_file in \
     "$config_file" \
-    "$repo_root/tmux/.tmux.conf.local" \
+    "$repo_root/tmux/.config/tmux/tmux.conf.local" \
     "$repo_root/tmux/.config/tmux/themes/cobalt2.conf"; do
     if grep -Eq 'tmux_conf_[[:alnum:]_]+=|^set\(\)|^setw\(\)|is_vim=' "$native_file"; then
         fail "OMT shell syntax remains in $native_file"
@@ -47,13 +47,13 @@ socket="native-config-$$-${RANDOM}"
 test_home="$tmp_dir/home"
 plugin_path="$tmp_dir/plugins"
 
-mkdir -p "$test_home/.tmux/plugins" "$test_home/.config/tmux/themes" "$plugin_path"
-ln -s "$config_file" "$test_home/.tmux.conf"
-ln -s "$repo_root/tmux/.tmux.conf.local" "$test_home/.tmux.conf.local"
+mkdir -p "$test_home/.config/tmux/plugins" "$test_home/.config/tmux/themes" "$plugin_path"
+ln -s "$config_file" "$test_home/.config/tmux/tmux.conf"
+ln -s "$repo_root/tmux/.config/tmux/tmux.conf.local" "$test_home/.config/tmux/tmux.conf.local"
 ln -s "$repo_root/tmux/.config/tmux/themes/cobalt2.conf" \
     "$test_home/.config/tmux/themes/cobalt2.conf"
-ln -s "$HOME/.tmux/plugins/tpm" "$test_home/.tmux/plugins/tpm"
-for installed_plugin in "$HOME"/.tmux/plugins/*; do
+ln -s "$HOME/.config/tmux/plugins/tpm" "$test_home/.config/tmux/plugins/tpm"
+for installed_plugin in "$HOME"/.config/tmux/plugins/*; do
     [[ -d "$installed_plugin" && "${installed_plugin:t}" != tpm ]] \
         || continue
     ln -s "$installed_plugin" "$plugin_path/${installed_plugin:t}"
@@ -85,10 +85,10 @@ export TMUX_PLUGIN_MANAGER_PATH="$plugin_path"
 
 test_config="$tmp_dir/test.conf"
 printf 'set-environment -g TMUX_PLUGIN_MANAGER_PATH "%s"\nsource-file "%s"\n' \
-    "$plugin_path" "$test_home/.tmux.conf" > "$test_config"
+    "$plugin_path" "$test_home/.config/tmux/tmux.conf" > "$test_config"
 
 tmux_private -f "$test_config" new-session -d -s native-config-test \
-    || fail "tmux could not start with tmux/.tmux.conf"
+    || fail "tmux could not start with tmux/.config/tmux/tmux.conf"
 
 baseline_tables="$tmp_dir/baseline.tables"
 baseline_ids="$tmp_dir/baseline.ids"
@@ -181,7 +181,7 @@ assert_prefix_binding R 'source-file'
 copy_mode_escape="$(tmux_private list-keys -T copy-mode-vi Escape)"
 assert_contains "$copy_mode_escape" 'send-keys -X cancel' "vi copy-mode Escape exits copy mode"
 
-plugin_config="$(<"$repo_root/tmux/.tmux.conf.local")"
+plugin_config="$(<"$repo_root/tmux/.config/tmux/tmux.conf.local")"
 for plugin in \
     tmux-plugins/tmux-sensible \
     nhdaly/tmux-better-mouse-mode \
@@ -226,7 +226,7 @@ for omt_format in session_dots uptime_y uptime_dy uptime_d uptime_h uptime_m use
     [[ "$status_formats" != *"#{${omt_format}}"* ]] \
         || fail "status still depends on OMT format #{${omt_format}}"
 done
-assert_contains "$status_right" "#[fg=#ffc600,bg=#0d3a58] #(~/.tmux/plugins/tmux-session-dots/scripts/session-dots.sh" "spaced yellow native session dots segment"
+assert_contains "$status_right" "#[fg=#ffc600,bg=#0d3a58] #(~/.config/tmux/plugins/tmux-session-dots/scripts/session-dots.sh" "spaced yellow native session dots segment"
 assert_contains "$status_right" '#[fg=#ffc600,bg=#0050a4,bold]' "legacy uptime segment colors"
 assert_contains "$status_right" "s/ days?/d/g" "compact uptime days"
 assert_contains "$status_right" "s/ hours?/h/g" "compact uptime hours"

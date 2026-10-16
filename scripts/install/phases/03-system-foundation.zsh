@@ -50,7 +50,7 @@ execute_command \
 
 # Install TPM (Tmux Plugin Manager)
 execute_command \
-    "git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm" \
+    "git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm" \
     "TPM (Tmux Plugin Manager) installed successfully." \
     "Failed to install TPM."
 

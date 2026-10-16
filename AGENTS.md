@@ -22,7 +22,7 @@ This repository is a personal dotfiles tree. Main areas:
 
 ## Testing Guidelines
 There is no single unit-test framework for the whole repo. Validate changes with the closest runtime:
-- tmux: `tmux source-file ~/.tmux.conf` then `tmux list-keys -T <table>`
+- tmux: `tmux source-file ~/.config/tmux/tmux.conf` then `tmux list-keys -T <table>`
 - installer changes: use the Docker install check above or test the affected phase
 - individual phases: `./scripts/test/install/docker.sh phase <0-8>`
 - pre-commit and security checks: `pre-commit run --all-files`
@@ -40,7 +40,7 @@ Use conventional commits such as `fix(tmux): ...` or `docs: ...`. Keep subjects 
 PRs should describe what changed, what was tested, and any runtime reloads performed. Include screenshots for visible UI changes and link related issues when relevant.
 
 ## Agent-Specific Instructions
-After editing config files, reload the affected runtime when practical. For tmux, source `~/.tmux.conf` and verify the live keymap; for i3 or sxhkd, use their normal reload commands. When changing tmux keybindings, check for conflicts and update the corresponding help table if one exists.
+After editing config files, reload the affected runtime when practical. For tmux, source `~/.config/tmux/tmux.conf` and verify the live keymap; for i3 or sxhkd, use their normal reload commands. When changing tmux keybindings, check for conflicts and update the corresponding help table if one exists.
 
 ## Critical System Rules
 - **Never run `./install.sh` without explicit user confirmation.** The system is already set up — symlinks exist and are managed directly via GNU Stow. Unnecessary installer runs may prompt for sudo or modify unrelated state.
