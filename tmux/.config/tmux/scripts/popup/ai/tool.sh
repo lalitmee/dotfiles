@@ -1,103 +1,76 @@
 #!/usr/bin/env zsh
 
-# A robust script to launch a specific AI CLI tool in a user-selected tmux layout.
-# It avoids nested shells and executes commands directly for speed and reliability.
-
+# Launch an AI tool in a named tmux window from the AI tools popup.
 set -e
 
-# --- ANSI Color Definitions ---
-COLOR_YELLOW=$'\033[38;5;227m'  # Cobalt2 Yellow
-RESET_COLOR=$'\033[0m'
-
-# 1. Dependency & Argument Check
-# =================================
-if ! command -v fzf >/dev/null 2>&1;
-then
-    tmux display-message "❌ Error: fzf is not installed."
-    exit 1
-fi
-
-TOOL="$1"
-if [ -z "$TOOL" ]; then
-    tmux display-message "❌ Usage: $0 <tool_name>"
-    exit 1
-fi
-
-# 2. Tool Configuration
-# =======================
-# Define the command and title for each tool.
-# IMPORTANT: The command must be a direct executable or a full path.
-# Aliases will not work here unless sourced, but direct commands are preferred.
+TOOL=$1
 case "$TOOL" in
-    agy)
-        ICON="🚀"; PANE_TITLE="$ICON antigravity"
-        COMMAND="agy"
-        ;;
-    opencode)
-        ICON="🧑‍💻"; PANE_TITLE="$ICON openCode"
-        # This command sets an environment variable just for this process.
-        COMMAND="NODE_TLS_REJECT_UNAUTHORIZED=0 opencode"
-        ;;
-    claude)
-        ICON="🟠"; PANE_TITLE="$ICON claude-code"
-        COMMAND="claude"
-        ;;
-    codex)
-        ICON="🧬"; PANE_TITLE="$ICON codex"
-        COMMAND="codex"
-        ;;
-    copilot)
-        ICON=" "; PANE_TITLE="$ICON copilot"
-        COMMAND="copilot --banner"
-        ;;
-    crush)
-        ICON="💖"; PANE_TITLE="$ICON crush"
-        COMMAND="crush"
-        ;;
-    kiro)
-        ICON="🔷"; PANE_TITLE="$ICON kiro"
-        COMMAND="kiro-cli"
-        ;;
-    grok)
-        ICON="🧠"; PANE_TITLE="$ICON grok-cli"
-        COMMAND="grok-cli"
-        ;;
-    cursor-agent)
-        ICON="🖱️"; PANE_TITLE="$ICON cursor-agent"
-        COMMAND="cursor-agent"
-        ;;
-    pi)
-        ICON="🥧"; PANE_TITLE="$ICON pi"
-        COMMAND="pi"
-        ;;
-    *)
-        tmux display-message "❌ Error: Unknown AI tool '$TOOL'"
-        exit 1
-        ;;
+    agy) ICON='🚀'; DEFAULT_NAME='antigravity'; COMMAND=(agy) ;;
+    opencode) ICON='🧑‍💻'; DEFAULT_NAME='openCode'; COMMAND=(opencode); export NODE_TLS_REJECT_UNAUTHORIZED=0 ;;
+    claude) ICON='🟠'; DEFAULT_NAME='claude-code'; COMMAND=(claude) ;;
+    codex) ICON='🧬'; DEFAULT_NAME='codex'; COMMAND=(codex) ;;
+    copilot) ICON=' '; DEFAULT_NAME='copilot'; COMMAND=(copilot --banner) ;;
+    crush) ICON='💖'; DEFAULT_NAME='crush'; COMMAND=(crush) ;;
+    kiro) ICON='🔷'; DEFAULT_NAME='kiro'; COMMAND=(kiro-cli) ;;
+    grok) ICON='🧠'; DEFAULT_NAME='grok-cli'; COMMAND=(grok-cli) ;;
+    cursor-agent) ICON='🖱️'; DEFAULT_NAME='cursor-agent'; COMMAND=(cursor-agent) ;;
+    pi) ICON='🥧'; DEFAULT_NAME='pi'; COMMAND=(pi) ;;
+    *) tmux display-message "❌ Unknown AI tool: $TOOL"; exit 1 ;;
 esac
 
-# 3. Layout Selection
-# =====================
-# The script is already in a popup. Use fzf to choose the final layout.
-FZF_HEADER="Choose layout for $ICON ${COLOR_YELLOW}${TOOL}${RESET_COLOR}:"
-MODE=$(echo -e "popup\nsplit\nwindow" | fzf --bind="change:first" --height=5 --header="$FZF_HEADER" --ansi)
-
-if [ -z "$MODE" ]; then
-    # User pressed ESC, exit cleanly.
-    exit 0
+if ! command -v gum >/dev/null 2>&1; then
+    tmux display-message '❌ gum is not installed'
+    exit 1
 fi
 
-# 4. Execution
-# ==============
-# Execute the chosen command in the selected layout.
-case "$MODE" in
-    popup)
-        exec "$SHELL" -i -c "$COMMAND"
-        ;;
-    split)
-        tmux split-window -h -c "#{pane_current_path}" "$SHELL -i -c ${COMMAND:q}"
-        ;;
-    window)
-        tmux new-window -n "$PANE_TITLE" -c "#{pane_current_path}" "$SHELL -i -c ${COMMAND:q}"
-        ;;
-esac
+description=$(gum input --placeholder='Task description or window name (Enter empty to skip)' --char-limit=0) || exit 0
+title="$ICON $DEFAULT_NAME"
+naming_status='default name'
+action=''
+
+if [[ -n ${description//[[:space:]]/} ]]; then
+    action=$(gum choose --header='How should this text be used?' \
+        'Use as name' 'Generate name' 'Generate name and send prompt') || exit 0
+
+    if [[ "$action" == 'Generate name and send prompt' ]]; then
+        case "$TOOL" in
+            agy) COMMAND+=(--prompt-interactive "$description") ;;
+            opencode) COMMAND+=(--prompt "$description") ;;
+            codex|pi|claude) COMMAND+=("$description") ;;
+            *) tmux display-message "❌ $TOOL does not have a verified initial-prompt invocation"; exit 1 ;;
+        esac
+    fi
+
+    if [[ "$action" == 'Use as name' ]]; then
+        slug=$(print -r -- "$description" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
+        if [[ -n "$slug" ]]; then
+            title="$ICON $slug"
+            naming_status="named $slug"
+        fi
+    else
+        naming_prompt="Return ONLY a lowercase, hyphen-separated window name of 2 or 3 English words, using a-z and 0-9 only. No explanation. Task: $description"
+        for namer in agy opencode codex; do
+            command -v "$namer" >/dev/null 2>&1 || continue
+            case "$namer" in
+                agy) naming_command=(agy --print --mode plan "$naming_prompt") ;;
+                opencode) naming_command=(opencode run --model opencode/beam-free --agent plan "$naming_prompt") ;;
+                codex) naming_command=(codex exec --ephemeral --sandbox read-only "$naming_prompt") ;;
+            esac
+            response=$(gum spin --spinner dot --title="Naming with $namer..." --timeout=30s --show-stdout -- "${naming_command[@]}" 2>/dev/null) || continue
+            slug=$(print -r -- "$response" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
+            words=(${(s:-:)slug})
+            if [[ ${#words} -ge 2 && ${#words} -le 3 && ${#slug} -le 48 ]]; then
+                title="$ICON $slug"
+                naming_status="named $slug via $namer"
+                break
+            fi
+        done
+        [[ "$naming_status" == 'default name' ]] && naming_status='naming failed; using agent name'
+    fi
+
+fi
+
+# Quote each argument for the interactive shell rather than evaluating input as code.
+command_line="${(j: :)${(@q)COMMAND}}"
+tmux new-window -n "$title" -c '#{pane_current_path}' "$SHELL" -i -c "$command_line"
+tmux display-message "AI $TOOL: $naming_status"

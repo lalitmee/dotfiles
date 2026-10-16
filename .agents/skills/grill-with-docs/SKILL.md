@@ -7,7 +7,7 @@ description: Grilling session that challenges your plan against the existing dom
 
 Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
 
-Ask the questions one at a time, waiting for feedback on each question before continuing.
+Always ask each question using the agents Question tool, one at a time. Put your recommended answer first and mark it "(Recommended)". Wait for the user's response before continuing; do not substitute plain chat questions.
 
 If a question can be answered by exploring the codebase, explore the codebase instead.
 
