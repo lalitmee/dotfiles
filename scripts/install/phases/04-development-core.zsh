@@ -119,9 +119,10 @@ execute_command \
     "Node.js LTS installed successfully." \
     "Failed to install Node.js."
 
-# Install global npm packages
+# Install global npm packages from the canonical list
+SYNC_SCRIPT="$(dirname "$(dirname "$(dirname "$0")")")/scripts/node/sync-global-packages.zsh"
 execute_command \
-    "npm install -g yarn pnpm typescript @types/node" \
+    "zsh \"$SYNC_SCRIPT\"" \
     "Global npm packages installed successfully." \
     "Failed to install global npm packages."
 

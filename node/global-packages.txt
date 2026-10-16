@@ -1,0 +1,15 @@
+# Global npm packages to install on every Node version managed by fnm.
+# Edit this file to add or remove packages.
+# Run scripts/node/sync-global-packages.zsh after switching to a new Node version.
+
+@anthropic-ai/claude-code
+@earendil-works/pi-coding-agent
+@github/copilot
+@google/gemini-cli
+@openai/codex
+@typescript/native-preview
+@vibe-kit/grok-cli
+chrome-devtools-mcp
+crash-mcp
+firebase-tools
+mcp-hub
