@@ -1346,6 +1346,9 @@ bind -T copy-mode-vi 'C-h' select-pane -L
 bind -T copy-mode-vi 'C-j' select-pane -D
 bind -T copy-mode-vi 'C-k' select-pane -U
 bind -T copy-mode-vi 'C-l' select-pane -R
+# Vim-style visual character selection (tmux defaults v to rectangle-toggle,
+# which starts no selection). V still selects whole lines.
+bind -T copy-mode-vi v send-keys -X begin-selection
 # }}}
 #-------------------------------------------------------------------------------
 
