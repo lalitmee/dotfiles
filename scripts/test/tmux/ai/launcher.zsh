@@ -16,7 +16,7 @@ cat > "$tmp/bin/gum" <<'EOF'
 case "$1" in
     input) print -r -- "$INPUT" ;;
     choose) print -u2 'unexpected gum choose'; exit 1 ;;
-    filter) print -r -- "$ACTION" ;;
+    filter) [[ "$*" == *'✏️ Use as name'* && "$*" == *'✨ Generate name'* && "$*" == *'💬 Generate name and send prompt'* ]] || exit 1; print -r -- "$ACTION" ;;
     spin) print -r -- "spin $*" >> "$LOG"; print -u2 'Naming spinner visible'; shift; while [[ "$1" != -- ]]; do shift; done; shift; "$@" ;;
 esac
 EOF
@@ -54,19 +54,19 @@ check() {
 }
 
 INPUT='' ACTION='' NAMER='' check codex 'new-window -n 🧬 codex'
-INPUT='Fix Login Flow' ACTION='Use as name' NAMER='' check codex 'new-window -n 🧬 fix-login-flow'
-INPUT='Fix Login Flow' ACTION='Generate name' NAMER=agy check codex 'new-window -n 🧬 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✏️ Use as name' NAMER='' check codex 'new-window -n 🧬 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy check codex 'new-window -n 🧬 fix-login-flow'
 grep -F 'display-message AI codex: named fix-login-flow via agy' "$LOG" >/dev/null
 grep -F -- '--padding=9 0 0 30' "$LOG" >/dev/null
-INPUT='Fix Login Flow' ACTION='Generate name' NAMER=agy zsh "$script" codex 2> "$tmp/spinner"
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy zsh "$script" codex 2> "$tmp/spinner"
 grep -F 'Naming spinner visible' "$tmp/spinner" >/dev/null
-INPUT='Fix the login flow when the token expires' ACTION='Generate name' NAMER=opencode check pi 'new-window -n 🥧 fix-login-flow'
+INPUT='Fix the login flow when the token expires' ACTION='✨ Generate name' NAMER=opencode check pi 'new-window -n 🥧 fix-login-flow'
 grep -F 'opencode run --model opencode/beam-free' "$LOG" >/dev/null
-INPUT='Fix the login flow when the token expires' ACTION='Generate name and send prompt' NAMER='' check codex 'new-window -n 🧬 codex'
+INPUT='Fix the login flow when the token expires' ACTION='💬 Generate name and send prompt' NAMER='' check codex 'new-window -n 🧬 codex'
 grep -F 'Fix the login flow when the token expires' "$LOG" >/dev/null
 grep -F 'display-message AI codex: naming failed; using agent name' "$LOG" >/dev/null
 : > "$LOG"
-INPUT='Fix login' ACTION='Generate name and send prompt' NAMER=agy zsh "$script" crush && exit 1
+INPUT='Fix login' ACTION='💬 Generate name and send prompt' NAMER=agy zsh "$script" crush && exit 1
 grep -F 'does not have a verified initial-prompt invocation' "$LOG" >/dev/null
 ! grep -F 'new-window' "$LOG" >/dev/null
 print 'ai launcher checks passed'

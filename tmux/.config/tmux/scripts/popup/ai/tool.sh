@@ -30,9 +30,9 @@ action=''
 
 if [[ -n ${description//[[:space:]]/} ]]; then
     action=$(gum filter --header='How should this text be used?' \
-        'Use as name' 'Generate name' 'Generate name and send prompt') || exit 0
+        '✏️ Use as name' '✨ Generate name' '💬 Generate name and send prompt') || exit 0
 
-    if [[ "$action" == 'Generate name and send prompt' ]]; then
+    if [[ "$action" == '💬 Generate name and send prompt' ]]; then
         case "$TOOL" in
             agy) COMMAND+=(--prompt-interactive "$description") ;;
             opencode) COMMAND+=(--prompt "$description") ;;
@@ -41,7 +41,7 @@ if [[ -n ${description//[[:space:]]/} ]]; then
         esac
     fi
 
-    if [[ "$action" == 'Use as name' ]]; then
+    if [[ "$action" == '✏️ Use as name' ]]; then
         slug=$(print -r -- "$description" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
         if [[ -n "$slug" ]]; then
             title="$ICON $slug"
