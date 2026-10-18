@@ -12,7 +12,7 @@
 | `ai-tools` | 15 |
 | `ask-tools` | 8 |
 | `copy-mode` | 82 |
-| `copy-mode-vi` | 94 |
+| `copy-mode-vi` | 95 |
 | `dev-mode` | 7 |
 | `file-picker-mode` | 8 |
 | `fingers` | 92 |
@@ -27,7 +27,7 @@
 | `spotify-mode` | 7 |
 | `work-sessions` | 11 |
 
-Binding count: 595
+Binding count: 596
 
 Distinct reported table count: 17. The previously expected count of 18 does not match this live server; `copy-mode-emacs` is absent (`mode-keys=vi`). See reconciliation below.
 
@@ -186,6 +186,7 @@ bind-key    -T copy-mode-vi     e                         send-keys -X next-word
 bind-key    -T copy-mode-vi     f                         command-prompt -1P -p "(jump forward)" { send-keys -X jump-forward -- "%%" }
 bind-key    -T copy-mode-vi     g                         send-keys -X history-top
 bind-key    -T copy-mode-vi     h                         send-keys -X cursor-left
+bind-key    -T copy-mode-vi     i                         send-keys -X cancel
 bind-key    -T copy-mode-vi     j                         send-keys -X cursor-down
 bind-key    -T copy-mode-vi     k                         send-keys -X cursor-up
 bind-key    -T copy-mode-vi     l                         send-keys -X cursor-right

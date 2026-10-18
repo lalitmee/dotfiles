@@ -132,8 +132,8 @@ awk '
     }
 ' "$actual_bindings" | LC_ALL=C sort -u > "$actual_ids"
 
-assert_eq 595 "$(wc -l < "$baseline_ids" | tr -d ' ')" "baseline binding identities"
-assert_eq 595 "$(wc -l < "$actual_ids" | tr -d ' ')" "isolated binding identities"
+assert_eq 596 "$(wc -l < "$baseline_ids" | tr -d ' ')" "baseline binding identities"
+assert_eq 596 "$(wc -l < "$actual_ids" | tr -d ' ')" "isolated binding identities"
 diff -u "$baseline_ids" "$actual_ids" || fail "isolated key table/binding identities differ from baseline"
 
 while IFS= read -r table; do
@@ -245,10 +245,10 @@ assert_color "$inactive_style" 'fg=#ffffff' "inactive window foreground"
 assert_color "$inactive_style" 'bg=#193549' "inactive window background"
 assert_color "$last_style" 'fg=#ffc600' "last-active window foreground"
 assert_color "$last_style" 'bg=#193549' "last-active window background"
-assert_color "$current_style" 'fg=#ffc600' "active window foreground"
-assert_color "$current_style" 'bg=#0050a4' "active window background"
+assert_color "$current_style" 'fg=#1c1c1c' "active window foreground"
+assert_color "$current_style" 'bg=#00aaff' "active window background"
 assert_contains "${inactive_format:l}" '#[fg=#e4e4e4,bg=#185294] #i #[fg=#e4e4e4,bg=#0d3a58] #w' "inactive window labels"
-assert_contains "${current_format:l}" '#[fg=#ffc600,bg=#0050a4,bold] #i #[fg=#ffc600,bg=#0f3c5a,bold] #w' "active window labels"
+assert_contains "${current_format:l}" '#[fg=#1c1c1c,bg=#00aaff,bold] #i #[fg=#ffc600,bg=#0f3c5a,bold] #w' "active window labels"
 [[ "${inactive_format:l}" != *'#[fg=#ffffff'* ]] \
     || fail "inactive format hard-codes white over last-window style"
 print -- "PASS: isolated native tmux config matches all $(wc -l < "$baseline_ids" | tr -d ' ') binding identities and required options, plugins, formats, and colors"
