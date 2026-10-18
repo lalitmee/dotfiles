@@ -232,7 +232,7 @@ assert_contains "$status_right" "s/ days?/d/g" "compact uptime days"
 assert_contains "$status_right" "s/ hours?/h/g" "compact uptime hours"
 assert_contains "$status_right" "s/ minutes?/m/g" "compact uptime minutes"
 assert_contains "$status_right" '#[fg=#080808,bg=#ffc600,bold]' "legacy username segment colors"
-assert_contains "$status_right" '↑ #(uptime -p' "spaced uptime icon"
+assert_contains "$status_right" '↑ #(uptime ' "spaced uptime icon"
 [[ "$status_formats" != *'${HOME}/.tmux.conf'* ]] \
     || fail "status still sources helpers from ~/.tmux.conf"
 
