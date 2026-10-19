@@ -192,7 +192,7 @@
     credentialStore = cache
     # Use the full path for credentials, which is necessary for some helpers.
     useHttpPath = true
-	helper = 
+	helper =
 
 #
 # Credential helper specific to GitHub.
@@ -339,7 +339,7 @@
     # When `git push` is run without arguments, push the current branch to its upstream counterpart.
     default = current
     # Push tags that point to commits being pushed.
-    followTags = true
+    followTags = false
 
 #
 # Default behavior for `git rebase`.
