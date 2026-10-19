@@ -12,7 +12,6 @@
   "bufdelete.nvim": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "checkmate.nvim": { "branch": "main", "commit": "e57c8b502ab3e77e478e16460fcc2d2a16082f73" },
   "cloak.nvim": { "branch": "main", "commit": "648aca6d33ec011dc3166e7af3b38820d01a71e4" },
-  "cobalt2.nvim": { "branch": "main", "commit": "0cc17f3491feba19ed62b2d9622577f7822a0113" },
   "codecompanion-gitcommit.nvim": { "branch": "main", "commit": "fcb13947f6fd1c8ff88413821a5915ad43232823" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "bc1b4fe06eaaf0aa2399be742e843c22f7f1652a" },
   "codecompanion-spinners.nvim": { "branch": "main", "commit": "f613a543ca8c7ba1686830c6bb1a10d15a2e1942" },

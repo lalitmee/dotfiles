@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+# Toggle GitHub URL scheme globally: SSH <-> HTTPS
+# Usage: git-ssh [on|off|status]
+#   on    - https://github.com/... URLs are fetched over SSH (use when HTTPS is blocked)
+#   off   - SSH URLs are rewritten to HTTPS (original setup)
+#   status - print current mode
+#   (no args) - toggle
+
+https_key='url.https://github.com/.insteadof'
+ssh_key='url.git@github.com:.insteadof'
+
+mode() {
+    if git config --global --get-all "$ssh_key" > /dev/null 2>&1; then
+        echo ssh
+    else
+        echo https
+    fi
+}
+
+enable_ssh() {
+    git config --global --unset-all "$https_key" 2> /dev/null || true
+    git config --global "$ssh_key" "https://github.com/"
+    echo "GitHub URLs now use SSH"
+}
+
+enable_https() {
+    git config --global --unset-all "$ssh_key" 2> /dev/null || true
+    git config --global "$https_key" "ssh://git@github.com/"
+    git config --global --add "$https_key" "git@github.com:"
+    echo "GitHub URLs now use HTTPS"
+}
+
+case "${1:-toggle}" in
+    on | ssh) enable_ssh ;;
+    off | https) enable_https ;;
+    status) mode ;;
+    toggle)
+        if [[ "$(mode)" == ssh ]]; then enable_https; else enable_ssh; fi
+        ;;
+    *)
+        echo "usage: git-ssh [on|off|status]" >&2
+        exit 1
+        ;;
+esac
