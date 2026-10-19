@@ -11,7 +11,7 @@ vim.filetype.add({
         snippets = "snippets",
         conf = "conf",
         gitcommit = "gitcommit",
-        tmux = "conf",
+        tmux = "tmux",
     },
     filename = {
         [".gitignore"] = "gitconfig",
@@ -22,6 +22,7 @@ vim.filetype.add({
         lfrc = "sh",
         sxhkdrc = "sxhkdrc",
         [".env"] = "dosini",
+        ["tmux.conf.local"] = "tmux",
     },
     pattern = {
         [".*git/config"] = "gitconfig", -- Included in the plugin
@@ -29,3 +30,4 @@ vim.filetype.add({
         [".{jscs,jshint,eslint,babel}rc"] = "json",
     },
 })
+

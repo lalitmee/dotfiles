@@ -68,7 +68,7 @@ return {
             local installed = require("nvim-treesitter").get_installed()
             local to_install = {}
             for _, p in ipairs(parsers) do
-                if not vim.list_contains(installed, p) then
+                if p ~= "tmux" and not vim.list_contains(installed, p) then
                     table.insert(to_install, p)
                 end
             end
@@ -80,8 +80,25 @@ return {
             vim.treesitter.language.register("bash", "zsh")
 
             vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "tmux", "tmuxconf", "tmux.conf.local" },
                 callback = function()
-                    pcall(vim.treesitter.start)
+                    pcall(vim.treesitter.stop)
+                    vim.b.treesitter_highlight = false
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function(ev)
+                    local ft = ev.match
+                    if ft == "tmux" or ft == "tmuxconf" or ft == "tmux.conf.local" or ft:match("^tmux") or ft:find("tmux") then
+                        pcall(vim.treesitter.stop)
+                        vim.b.treesitter_highlight = false
+                        return
+                    end
+                    local lang = vim.treesitter.language.get_lang(ft)
+                    if lang then
+                        pcall(vim.treesitter.start)
+                    end
                 end,
             })
         end,
