@@ -3,10 +3,12 @@ return {
     hidden = true,
     grep = {
         hidden = true,
+        ignored = false,
         exclude = {
             ".git",
             ".git-rewrite",
             ".nx",
+            ".next",
             ".superpowers",
             "**/build",
             "**/dist",
