@@ -18,7 +18,7 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | Tmux installer | Installer behavior | `zsh scripts/test/tmux/install.zsh` |
 | Tmux update checker | Update-check behavior | `zsh scripts/test/tmux/update-check.zsh` |
 | Native tmux config | Private-socket startup, baseline key identities/options, TPM bindings, status formats, and Cobalt2 colors | `zsh scripts/test/tmux/config.zsh` |
-| Window index mover | Taken index pushes the existing window to the end, free index moves plainly, invalid input and self-move are no-ops | `zsh scripts/test/tmux/move-window-index.sh` |
+| Window index mover | Reorders windows to the typed index (others shift, indices stay contiguous), compacts existing gaps, follows the moved window, rejects invalid/out-of-range input | `zsh scripts/test/tmux/move-window-index.sh` |
 | AI window launcher | Empty/direct names, naming fallback, prompt delivery guard, and tmux status | `zsh scripts/test/tmux/ai/launcher.zsh` |
 
 Run an individual manager suite with one of these exact commands:
