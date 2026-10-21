@@ -4,9 +4,6 @@
 # Follow symbolic links.
 --follow
 
-# Don't respect ignore files (.gitignore, .ignore, etc.).
---no-ignore
-
 # Exclude directories.
 --glob=!{.git,.svn,.tldr,node_modules,Trash,vendor,build}
 
