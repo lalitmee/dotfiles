@@ -7,40 +7,52 @@ TMP_KEYS_FILE="$TMP_DIR/keybindings_all.txt"
 # Ensure tmp dir exists
 mkdir -p "$TMP_DIR"
 
-# --- List of known/default key tables ---
-tables=(
-    root
-    prefix
-    copy-mode
-    copy-mode-vi
-    choose-buffer
-    choose-client
-    choose-tree
-    command-prompt
-    confirm
-    mode-tree
-    resize-pane
-    split-full-w
-    layout-mode
-    ask-tools
-    ai-tools
-    second-brain
-)
+# --- Discover key tables from the running server (no stale hardcoded list) ---
+tables=(${(f)"$(tmux list-keys 2>/dev/null | awk '
+    {
+        for (i = 1; i < NF; i++) {
+            if ($i == "-T") { print $(i + 1); next }
+            if ($i == "-n") { print "root"; next }
+        }
+    }' | sort -u)"})
+# root and prefix are the ones people actually use; keep them on top
+others=(${tables:#root})
+others=(${others:#prefix})
+tables=(root prefix $others)
 
 # --- Dump all keybindings to file ---
+# Line format (tab separated):
+#   1 table (padded, coloured)  2 key (padded, coloured)  3 command
+#   4 table (plain, for reload)  5 raw `list-keys` line (for edit-in-config)
 > "$TMP_KEYS_FILE"
 
 for table in "${tables[@]}"; do
-    {
-        echo "### Key Table: $table"
-        tmux list-keys -T "$table" 2>/dev/null || echo "(No bindings)"
-        echo ""
-    } >> "$TMP_KEYS_FILE"
+    bindings=$(tmux list-keys -T "$table" 2>/dev/null | awk -v t="$table" '
+        {
+            raw = $0
+            line = raw
+            sub(/^bind-key[ \t]+/, "", line)
+            sub(/^-T[ \t]+[^ \t]+[ \t]+/, "", line)
+            sub(/^-n[ \t]+/, "", line)
+            key = line
+            sub(/[ \t].*$/, "", key)
+            cmd = line
+            sub(/^[^ \t]+[ \t]+/, "", cmd)
+            disp = key
+            gsub(/\\/, "", disp)
+            printf "\033[38;5;39m%-17s\033[0m\t\033[1;33m%-14s\033[0m\t%s\t%s\t%s\n", t, disp, cmd, t, raw
+        }') || bindings=""
+
+    printf '%s\n' "$bindings" > "$TMP_DIR/keys-$table.txt"
+    printf '%s\n' "$bindings" >> "$TMP_KEYS_FILE"
 done
 
 # --- Open FZF in tmux popup ---
+# Tab drills into the highlighted table, Shift-Tab goes back to all bindings.
 tmux display-popup -E -w 90% -h 90% "
-    selected=\$(fzf --bind=\"change:first\" --ansi \
+    selected=\$(fzf --ansi \
+        --delimiter='\t' \
+        --with-nth=1,2,3 \
         --prompt='🔍 Search tmux keybindings: ' \
         --exact \
         --no-sort \
@@ -48,6 +60,13 @@ tmux display-popup -E -w 90% -h 90% "
         --info=inline \
         --cycle \
         --height=100% \
+        --border=rounded \
+        --border-label=' tmux keybindings ' \
+        --header='TABLE              KEY            COMMAND            Tab: drill into table' \
+        --preview='echo {} | cut -f3' \
+        --preview-window='right,50%,wrap' \
+        --bind='tab:reload(cat $TMP_DIR/keys-{4}.txt)+change-header(TABLE: {4}   Shift-Tab: all tables)' \
+        --bind='btab:reload(cat $TMP_KEYS_FILE)+change-header(ALL TABLES   Tab: drill into a table)' \
         < \"$TMP_KEYS_FILE\")
 
     code=\$?
@@ -60,16 +79,22 @@ tmux display-popup -E -w 90% -h 90% "
     ts=\$(date +%s)
     LOG_FILE=\"$TMP_DIR/search-log-\$ts.txt\"
 
+    # Field 5 is the raw list-keys line: bind-key -T <table> <key> <command...>
+    raw=\$(echo \"\$selected\" | cut -f5)
+
     echo \"=== Keybinding Search Debug Log ===\" > \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
     echo \"Selected line:\" >> \"\$LOG_FILE\"
     echo \"\$selected\" >> \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
+    echo \"Raw binding:\" >> \"\$LOG_FILE\"
+    echo \"\$raw\" >> \"\$LOG_FILE\"
+    echo \"\" >> \"\$LOG_FILE\"
 
     # Extract key table and key from the selected line
     # Format: bind-key    -T table    key    command...
-    key_table=\$(echo \"\$selected\" | awk '{print \$3}')
-    key=\$(echo \"\$selected\" | awk '{print \$4}')
+    key_table=\$(echo \"\$raw\" | awk '{print \$3}')
+    key=\$(echo \"\$raw\" | awk '{print \$4}')
 
     echo \"Extracted key table: \$key_table\" >> \"\$LOG_FILE\"
     echo \"Extracted key: \$key\" >> \"\$LOG_FILE\"
