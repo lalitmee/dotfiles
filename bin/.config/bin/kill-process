@@ -1,0 +1,394 @@
+#!/usr/bin/env zsh
+#
+# kill-process - search, inspect, and terminate processes with confirmation.
+#
+# Interactive:      kill-process
+# Non-interactive:  kill-process --list
+#                   kill-process --details <pid>   (renders and prompts only on a tty)
+#                   kill-process --kill <pid>... [--yes] [--grace <seconds>]
+
+setopt pipefail
+
+PROG=${0:t}
+grace=${KILL_PROCESS_GRACE:-3}
+[[ $grace =~ '^[0-9]+$' ]] || grace=3
+assume_yes=false
+mode=interactive
+details_target=
+targets=()
+
+usage() {
+    cat <<EOF
+Usage: $PROG [--list | --details PID | --kill PID... [--yes] [--grace SECONDS]]
+
+  (no args)        Pick a process with fzf, inspect it in a popup, then act.
+  --list           Print the searchable process table.
+  --details PID    Print the full investigation view for one process.
+  --kill PID...    Terminate the given PIDs without the picker.
+  --yes            Skip confirmation prompts.
+  --grace SECONDS  Seconds to wait after SIGTERM before SIGKILL (default 3).
+EOF
+}
+
+while (( $# )); do
+    case $1 in
+        --list) mode=list; shift ;;
+        --details)
+            mode=details
+            details_target=${2:-}
+            if [[ -z $details_target ]]; then
+                print -u2 -- "$PROG: --details needs a PID"
+                exit 2
+            fi
+            shift 2
+            ;;
+        --kill) mode=kill; shift ;;
+        --yes) assume_yes=true; shift ;;
+        --grace)
+            grace=${2:-}
+            if [[ ! $grace =~ '^[0-9]+$' ]]; then
+                print -u2 -- "$PROG: --grace needs whole seconds"
+                exit 2
+            fi
+            shift 2
+            ;;
+        --help|-h) usage; exit 0 ;;
+        -*) print -u2 -- "$PROG: unknown option: $1"; usage >&2; exit 2 ;;
+        *) targets+=("$1"); shift ;;
+    esac
+done
+
+if [[ $mode == kill ]]; then
+    if (( ${#targets} == 0 )); then
+        print -u2 -- "$PROG: --kill needs at least one PID"
+        exit 2
+    fi
+elif (( ${#targets} )); then
+    print -u2 -- "$PROG: unexpected argument: $targets[1]"
+    usage >&2
+    exit 2
+fi
+
+lsof_bin() {
+    if command -v lsof >/dev/null 2>&1; then
+        command -v lsof
+    elif [[ -x /usr/sbin/lsof ]]; then
+        print -r -- /usr/sbin/lsof
+    else
+        return 1
+    fi
+}
+
+# pid<TAB>port for every listening TCP socket
+listening_ports() {
+    local bin
+    bin=$(lsof_bin) || return 0
+    "$bin" -nP -iTCP -sTCP:LISTEN -Fpcn 2>/dev/null | awk '
+        /^p/ { pid = substr($0, 2); next }
+        /^n/ {
+            name = substr($0, 2)
+            sub(/.*:/, "", name)
+            if (pid != "" && name ~ /^[0-9]+$/) print pid "\t" name
+        }
+    ' | sort -t $'\t' -k1,1 -k2,2n -u
+}
+
+# this shell and every ancestor, one PID per line
+self_tree() {
+    local pid=$$
+    local parent
+    print -r -- "$pid"
+    while true; do
+        parent=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
+        [[ -n $parent && $parent != 0 && $parent != $pid ]] || break
+        print -r -- "$parent"
+        pid=$parent
+    done
+}
+
+# one row per process: PID PORT USER CPU% MEM% ELAPSED COMMAND
+collect_rows() {
+    local -A ports_by_pid excluded
+    local pid port
+    while IFS=$'\t' read -r pid port; do
+        [[ -n $pid ]] || continue
+        if [[ -n ${ports_by_pid[$pid]} ]]; then
+            ports_by_pid[$pid]+=",$port"
+        else
+            ports_by_pid[$pid]=$port
+        fi
+    done < <(listening_ports)
+
+    for pid in $(self_tree); do
+        excluded[$pid]=1
+    done
+
+    local -a rows
+    local user cpu mem etime command line
+    while IFS=$'\t' read -r pid user cpu mem etime command; do
+        [[ -n $pid ]] || continue
+        (( ${+excluded[$pid]} )) && continue
+        port=${ports_by_pid[$pid]:--}
+        line=$(printf '%-7s %-16s %-10s %5s %5s %10s  %s' \
+            "$pid" "$port" "$user" "$cpu" "$mem" "$etime" "$command")
+        if [[ $port == - ]]; then
+            rows+=("1"$'\t'"$pid"$'\t'"$line")
+        else
+            rows+=("0"$'\t'"$pid"$'\t'"$line")
+        fi
+    done < <(ps -axo pid=,user=,pcpu=,pmem=,etime=,command= | awk '
+        {
+            pid = $1; user = $2; cpu = $3; mem = $4; etime = $5
+            command = $0
+            sub(/^[ \t]+/, "", command)
+            for (i = 0; i < 5; i++) sub(/^[^ \t]+[ \t]+/, "", command)
+            print pid "\t" user "\t" cpu "\t" mem "\t" etime "\t" command
+        }
+    ')
+
+    (( ${#rows} )) || return 0
+    printf '%s\n' "${rows[@]}" | sort -t $'\t' -k1,1 -k2,2n | cut -f3-
+}
+
+# empty output means the PID is allowed
+guard_reason() {
+    local pid=$1
+    [[ $pid =~ '^[0-9]+$' ]] || { print -r -- "not a PID"; return }
+    (( pid > 1 )) || { print -r -- "PID 1 is the system init"; return }
+    ps -p "$pid" >/dev/null 2>&1 || { print -r -- "process is not running"; return }
+    local ancestor
+    for ancestor in $(self_tree); do
+        if [[ $ancestor == $pid ]]; then
+            print -r -- "killing it would kill this shell"
+            return
+        fi
+    done
+}
+
+send_signal() {
+    local sig=$1 pid=$2
+    kill -s "$sig" "$pid" 2>/dev/null && return 0
+    kill -0 "$pid" 2>/dev/null || return 0
+    if [[ ${EUID:-$(id -u)} -eq 0 ]]; then
+        return 1
+    fi
+    print -u2 -- "$PROG: permission denied for PID $pid."
+    confirm "Retry with sudo?" || return 1
+    sudo kill -s "$sig" "$pid"
+}
+
+confirm() {
+    [[ $assume_yes == true ]] && return 0
+    print -n -- "$1 [y/N] "
+    local answer
+    read -r answer || return 1
+    [[ $answer == [yY]* ]]
+}
+
+# SIGTERM, wait, then offer SIGKILL for survivors. No initial confirmation.
+term_and_wait() {
+    local -a targets survivors
+    local pid reason
+    for pid in "$@"; do
+        reason=$(guard_reason "$pid")
+        if [[ -n $reason ]]; then
+            print -u2 -- "$PROG: refusing PID $pid: $reason."
+            continue
+        fi
+        targets+=("$pid")
+    done
+    (( ${#targets} )) || return 1
+
+    for pid in "${targets[@]}"; do
+        send_signal TERM "$pid" || print -u2 -- "$PROG: could not signal PID $pid."
+    done
+
+    local waited=0
+    while (( waited < grace * 10 )); do
+        survivors=()
+        for pid in "${targets[@]}"; do
+            kill -0 "$pid" 2>/dev/null && survivors+=("$pid")
+        done
+        (( ${#survivors} )) || break
+        sleep 0.1
+        (( waited++ ))
+    done
+
+    if (( ${#survivors} )); then
+        if confirm "Still running: ${survivors[*]}. Send SIGKILL?"; then
+            for pid in "${survivors[@]}"; do
+                send_signal KILL "$pid" || print -u2 -- "$PROG: could not kill PID $pid."
+            done
+        else
+            print -r -- "Left running: ${survivors[*]}."
+        fi
+    else
+        print -r -- "Terminated: ${targets[*]}."
+    fi
+}
+
+force_kill() {
+    local -a targets
+    local pid reason
+    for pid in "$@"; do
+        reason=$(guard_reason "$pid")
+        if [[ -n $reason ]]; then
+            print -u2 -- "$PROG: refusing PID $pid: $reason."
+            continue
+        fi
+        targets+=("$pid")
+    done
+    (( ${#targets} )) || return 1
+
+    confirm "Send SIGKILL to ${targets[*]}?" || { print -r -- "Aborted."; return 0 }
+    for pid in "${targets[@]}"; do
+        send_signal KILL "$pid" || print -u2 -- "$PROG: could not kill PID $pid."
+    done
+    print -r -- "Killed: ${targets[*]}."
+}
+
+terminate() {
+    local reason pid
+    local -a alive
+    for pid in "$@"; do
+        reason=$(guard_reason "$pid")
+        if [[ -n $reason ]]; then
+            print -u2 -- "$PROG: refusing PID $pid: $reason."
+            continue
+        fi
+        alive+=("$pid")
+    done
+    (( ${#alive} )) || return 1
+
+    confirm "Send SIGTERM to ${#alive} process(es)?" || { print -r -- "Aborted."; return 0 }
+    term_and_wait "${alive[@]}"
+}
+
+format_details() {
+    local pid=$1
+    local command user uid ppid state etime cpu mem started
+    command=$(ps -o command= -p "$pid" 2>/dev/null)
+    if [[ -z $command ]]; then
+        print -r -- "Process $pid is not running."
+        return 1
+    fi
+
+    user=$(ps -o user= -p "$pid" 2>/dev/null | tr -d ' ')
+    uid=$(ps -o uid= -p "$pid" 2>/dev/null | tr -d ' ')
+    ppid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
+    state=$(ps -o stat= -p "$pid" 2>/dev/null | tr -d ' ')
+    etime=$(ps -o etime= -p "$pid" 2>/dev/null | tr -d ' ')
+    cpu=$(ps -o pcpu= -p "$pid" 2>/dev/null | tr -d ' ')
+    mem=$(ps -o pmem= -p "$pid" 2>/dev/null | tr -d ' ')
+    started=$(ps -o lstart= -p "$pid" 2>/dev/null)
+
+    print -r -- " PID $pid  ${command[(w)1]}"
+    print -r -- " $(printf '─%.0s' {1..63})"
+    printf ' %-11s %s\n' "Owner" "$user (uid ${uid:-?})"
+    printf ' %-11s %s   ·   elapsed %s\n' "Started" "${started:-unknown}" "${etime:-?}"
+    printf ' %-11s %s   ·   CPU %s%%   ·   MEM %s%%\n' "State" "${state:-?}" "${cpu:-?}" "${mem:-?}"
+
+    local bin cwd executable ports port child child_cmd
+    if bin=$(lsof_bin); then
+        cwd=$("$bin" -nP -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -n 1)
+        executable=$("$bin" -nP -a -p "$pid" -d txt -Fn 2>/dev/null | sed -n 's/^n//p' | head -n 1)
+        ports=$("$bin" -nP -a -p "$pid" -iTCP -sTCP:LISTEN -Fn 2>/dev/null |
+            sed -n 's/^n//p' | sed 's/.*://' | sort -n -u | paste -sd, -)
+    fi
+    [[ -n $executable ]] || executable=$(ps -o comm= -p "$pid" 2>/dev/null)
+
+    if [[ -z $cwd ]]; then
+        cwd="unavailable (owned by $user; try sudo)"
+    fi
+    print -r -- " $(printf '%-11s' "Directory") $cwd"
+    print -r -- " $(printf '%-11s' "Executable") ${executable:-unknown}"
+    print -r -- " $(printf '%-11s' "Parent") ${ppid:-?}  $(ps -o command= -p "$ppid" 2>/dev/null)"
+    print -r -- " $(printf '%-11s' "Ports") ${ports:-none}"
+
+    local -a children
+    children=(${(f)$(pgrep -P "$pid" 2>/dev/null)})
+    if (( ${#children} )); then
+        child=${children[1]}
+        print -r -- " $(printf '%-11s' "Children") $child  $(ps -o command= -p "$child" 2>/dev/null)"
+        for child in "${children[@]:1}"; do
+            print -r -- " $(printf '%-11s' "") $child  $(ps -o command= -p "$child" 2>/dev/null)"
+        done
+    else
+        print -r -- " $(printf '%-11s' "Children") none"
+    fi
+
+    print
+    print -r -- " Command"
+    print -r -- "   $command"
+}
+
+details_pid() {
+    local pid=$1
+    if [[ ! $pid =~ '^[0-9]+$' ]]; then
+        print -r -- "Invalid PID: $pid"
+        return 1
+    fi
+    format_details "$pid" || return 1
+
+    # Non-interactive callers (tests, pipes) just get the rendered view.
+    [[ -t 0 ]] || return 0
+
+    print
+    print -r -- " [t] SIGTERM   [f] SIGKILL   [c] cancel"
+    print -n -- " > "
+    local key
+    read -k 1 key || { print; return 0 }
+    print
+
+    case ${key:l} in
+        t) term_and_wait "$pid" ;;
+        f) force_kill "$pid" ;;
+        *) return 0 ;;
+    esac
+
+    print
+    print -n -- "Press any key to close."
+    read -k 1 || true
+    print
+}
+
+open_details() {
+    local pid=$1
+    local self=${0:A}
+    local popup="tmux display-popup -E -w 90% -h 80% -T ' PID $pid ' '$self' --details $pid"
+    if [[ -n ${TMUX:-} ]] && command -v tmux >/dev/null 2>&1; then
+        eval "$popup" && return 0
+    fi
+    "$self" --details "$pid"
+}
+
+interactive() {
+    if ! command -v fzf >/dev/null 2>&1; then
+        print -u2 -- "$PROG: fzf is required for interactive mode."
+        exit 1
+    fi
+
+    local header
+    header=$(printf '%-7s %-16s %-10s %5s %5s %10s  %s' \
+        PID PORT USER CPU% MEM% ELAPSED COMMAND)
+
+    local selection parts line
+    while IFS= read -r line; do
+        parts=(${=line})
+        selection=${parts[1]}
+    done < <(collect_rows | fzf --height=80% --reverse --header "$header")
+
+    if [[ -z $selection ]]; then
+        print -r -- "Nothing selected."
+        return 0
+    fi
+
+    open_details "$selection"
+}
+
+case $mode in
+    list) collect_rows ;;
+    details) details_pid "$details_target" ;;
+    kill) terminate "${targets[@]}" ;;
+    interactive) interactive ;;
+esac

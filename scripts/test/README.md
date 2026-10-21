@@ -33,6 +33,7 @@ zsh scripts/test/tmux/worktree/manager.zsh interface
 | Target | Behavior covered | Command |
 |---|---|---| 
 | Bluetooth audio command | Audio sink selection | `zsh scripts/test/bin/bluetooth/audio-selection.zsh` |
+| Process killer | Port/process table merge, details view, kill guards, and SIGTERM/SIGKILL escalation | `zsh scripts/test/bin/process/kill-flow.zsh` |
 | Git email guard | Rejects unexpected author and committer identities | `zsh scripts/test/bin/git/email-guard.zsh` |
 | Node global packages sync | Installs all packages from `node/global-packages.txt` for the active Node version | `zsh scripts/node/sync-global-packages.zsh` |
 | Node global packages sync (specific version) | Installs all packages for a given fnm-managed Node version | `zsh scripts/node/sync-global-packages.zsh --version 22` |
