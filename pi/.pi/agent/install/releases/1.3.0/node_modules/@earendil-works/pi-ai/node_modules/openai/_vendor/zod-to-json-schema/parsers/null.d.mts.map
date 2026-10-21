@@ -1,1 +1,0 @@
-{"version":3,"file":"null.d.mts","sourceRoot":"","sources":["../../../src/_vendor/zod-to-json-schema/parsers/null.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,IAAI,EAAE,oBAAgB;AAEpC,MAAM,MAAM,mBAAmB,GAAG;IAChC,IAAI,EAAE,MAAM,CAAC;CACd,CAAC;AAEF,wBAAgB,YAAY,CAAC,IAAI,EAAE,IAAI,GAAG,mBAAmB,CAU5D"}

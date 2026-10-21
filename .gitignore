@@ -72,3 +72,12 @@ bin/.config/bin/dev-env-manager
 
 # tmux plugins - runtime clones inside the stow-linked config dir
 tmux/.config/tmux/plugins/
+
+# Pi: track configuration only, never installed runtime or credentials
+/pi/.pi/agent/*
+!/pi/.pi/agent/settings.json
+!/pi/.pi/agent/AGENTS.md
+!/pi/.pi/agent/APPEND_SYSTEM.md
+!/pi/.pi/agent/extensions/
+!/pi/.pi/agent/themes/
+/pi/.pi/agent/extensions/**/node_modules/

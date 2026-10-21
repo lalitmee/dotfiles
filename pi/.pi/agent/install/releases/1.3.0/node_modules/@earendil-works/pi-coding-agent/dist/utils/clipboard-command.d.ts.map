@@ -1,1 +1,0 @@
-{"version":3,"file":"clipboard-command.d.ts","sourceRoot":"","sources":["../../src/utils/clipboard-command.ts"],"names":[],"mappings":"AAEA,kFAAkF;AAClF,wBAAgB,mBAAmB,CAClC,OAAO,EAAE,MAAM,EACf,IAAI,EAAE,SAAS,MAAM,EAAE,EACvB,OAAO,CAAC,EAAE;IAAE,KAAK,CAAC,EAAE,MAAM,CAAC;IAAC,SAAS,CAAC,EAAE,MAAM,CAAC;IAAC,cAAc,CAAC,EAAE,MAAM,CAAA;CAAE,GACvE,OAAO,CAAC,MAAM,GAAG,SAAS,CAAC,CAoC7B"}
