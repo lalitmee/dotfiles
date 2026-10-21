@@ -19,6 +19,8 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | Tmux update checker | Update-check behavior | `zsh scripts/test/tmux/update-check.zsh` |
 | Native tmux config | Private-socket startup, baseline key identities/options, TPM bindings, status formats, and Cobalt2 colors | `zsh scripts/test/tmux/config.zsh` |
 | Window index mover | Reorders windows to the typed index (others shift, indices stay contiguous), compacts existing gaps, follows the moved window, rejects invalid/out-of-range input | `zsh scripts/test/tmux/move-window-index.sh` |
+| Window switcher | Real tmux/fzf selection across linked sessions, no-match handling, column labels, and Escape cancellation on a private socket | `python3 scripts/test/tmux/window-switcher.py` |
+| Keybinding search | Cold startup and literal source lookup for repeatable, quoted, punctuation, and table-specific keys | `python3 scripts/test/tmux/search-keybindings.py` |
 | AI window launcher | Empty/direct names, naming fallback, prompt delivery guard, and tmux status | `zsh scripts/test/tmux/ai/launcher.zsh` |
 
 Run an individual manager suite with one of these exact commands:

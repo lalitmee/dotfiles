@@ -11,8 +11,8 @@ mkdir -p "$TMP_DIR"
 # Each line is tab separated:
 #   1 rendered row (table + key columns padded to the widest entry, command truncated)
 #   2 plain table name (used by the Tab reload bind)
-#   3 raw `list-keys` line (used for the jump-to-config grep)
-rm -f "$TMP_DIR"/keys-*.txt
+#   3 plain key  4 raw `list-keys` line (logging only)
+rm -f "$TMP_DIR"/keys-*.txt(N)
 
 # Popup is 90% wide; keep a few cells for the border and the fzf pointer/scrollbar.
 cols=$(tmux display -p '#{client_width}' 2>/dev/null || echo 120)
@@ -103,50 +103,34 @@ tmux display-popup -E -w 90% -h 90% "
     echo \"Extracted key: \$key\" >> \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
 
-    # Build search patterns based on the key table and key
-    search_pattern=\"\"
-
-    # Normalize the key for searching (remove quotes if present)
-    clean_key=\$(echo \"\$key\" | tr -d \"'\\\"\")
-
-    echo \"--- Search Strategy ---\" >> \"\$LOG_FILE\"
-
-    # Different search strategies based on key table
-    if [ \"\$key_table\" = \"root\" ]; then
-        # For root table, search for: bind -n 'key' or bind-key -n 'key'
-        echo \"Root table binding - searching for: bind.*-n.*[ \\t]\${clean_key}[ \\t]\" >> \"\$LOG_FILE\"
-        search_pattern=\"bind.*-n.*[[:space:]]\${clean_key}[[:space:]]\"
-    elif [ \"\$key_table\" = \"prefix\" ]; then
-        # For prefix table, search for: bind 'key' or bind-key 'key' (without -T or -n)
-        echo \"Prefix table binding - searching for: bind.*[ \\t]\${clean_key}[ \\t]\" >> \"\$LOG_FILE\"
-        search_pattern=\"bind.*[[:space:]]\${clean_key}[[:space:]]\"
-    else
-        # For other tables, search for: bind -T table_name 'key'
-        echo \"Named table binding - searching for: bind.*-T.*\$key_table.*[ \\t]\${clean_key}[ \\t]\" >> \"\$LOG_FILE\"
-        search_pattern=\"bind.*-T.*\$key_table.*[[:space:]]\${clean_key}[[:space:]]\"
-    fi
-
     echo \"\" >> \"\$LOG_FILE\"
     echo \"--- Search Attempt ---\" >> \"\$LOG_FILE\"
 
     # Search in config files
-    match=\$(grep -n \"\$search_pattern\" \"\$HOME/.config/tmux/tmux.conf.local\" \"\$HOME/.config/tmux/tmux.conf\" 2>/dev/null | head -1 || true)
-
-    if [ -n \"\$match\" ]; then
-        echo \"✓ Found match: \$match\" >> \"\$LOG_FILE\"
-        file_path=\$(echo \"\$match\" | cut -d: -f1)
-        line_number=\$(echo \"\$match\" | cut -d: -f2)
-        tmux new-window \"nvim +\$line_number \$file_path\"
-        exit 0
-    else
-        echo \"✗ No match found with pattern: \$search_pattern\" >> \"\$LOG_FILE\"
-    fi
-
-    # Fallback: Try simpler key-only search
-    echo \"\" >> \"\$LOG_FILE\"
-    echo \"--- Fallback: Simple key search ---\" >> \"\$LOG_FILE\"
-
-    match=\$(grep -n \"bind.*\$clean_key\" \"\$HOME/.config/tmux/tmux.conf.local\" \"\$HOME/.config/tmux/tmux.conf\" 2>/dev/null | head -1 || true)
+    # Literal table/key comparison avoids matching another binding or its command.
+    match=\$(awk -v wanted_table=\"\$key_table\" -v wanted_key=\"\$key\" '
+        function unquote(value, quote) {
+            quote = substr(value, 1, 1)
+            if (quote == sprintf(\"%c\", 39) || quote == sprintf(\"%c\", 34))
+                value = substr(value, 2, length(value) - 2)
+            if (substr(value, 1, 1) == sprintf(\"%c\", 92)) value = substr(value, 2)
+            return value
+        }
+        \$1 == \"bind\" || \$1 == \"bind-key\" {
+            table = \"prefix\"
+            i = 2
+            while (i < NF) {
+                if (\$i == \"-T\") { table = unquote(\$(i + 1)); i += 2 }
+                else if (\$i == \"-n\") { table = \"root\"; i++ }
+                else if (\$i == \"-r\") i++
+                else break
+            }
+            if (table == wanted_table && unquote(\$i) == wanted_key) {
+                print FILENAME \":\" FNR
+                exit
+            }
+        }
+    ' \"\$HOME/.config/tmux/tmux.conf.local\" \"\$HOME/.config/tmux/tmux.conf\" 2>/dev/null || true)
 
     if [ -n \"\$match\" ]; then
         echo \"✓ Found match: \$match\" >> \"\$LOG_FILE\"
