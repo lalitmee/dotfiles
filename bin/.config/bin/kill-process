@@ -10,6 +10,7 @@
 setopt pipefail
 
 PROG=${0:t}
+SELF=${${(%):-%x}:A}
 grace=${KILL_PROCESS_GRACE:-3}
 [[ $grace =~ '^[0-9]+$' ]] || grace=3
 assume_yes=false
@@ -69,6 +70,20 @@ elif (( ${#targets} )); then
     exit 2
 fi
 
+if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
+    C_RESET=$'\e[0m'
+    C_BOLD=$'\e[1m'
+    C_LABEL=$'\e[1;34m'
+    C_MUTED=$'\e[2m'
+    C_PORT=$'\e[1;32m'
+    key_t=$'\e[1;30;43m t \e[0m'
+    key_f=$'\e[1;97;41m f \e[0m'
+    key_c=$'\e[1;30;42m c \e[0m'
+else
+    C_RESET= C_BOLD= C_LABEL= C_MUTED= C_PORT=
+    key_t='[t]' key_f='[f]' key_c='[c]'
+fi
+
 lsof_bin() {
     if command -v lsof >/dev/null 2>&1; then
         command -v lsof
@@ -124,18 +139,20 @@ collect_rows() {
     done
 
     local -a rows
-    local user cpu mem etime command line
+    local user cpu mem etime command rank
+    local w_pid=3 w_port=4 w_user=4 w_cpu=4 w_mem=4 w_etime=7
     while IFS=$'\t' read -r pid user cpu mem etime command; do
         [[ -n $pid ]] || continue
         (( ${+excluded[$pid]} )) && continue
         port=${ports_by_pid[$pid]:--}
-        line=$(printf '%-7s %-16s %-10s %5s %5s %10s  %s' \
-            "$pid" "$port" "$user" "$cpu" "$mem" "$etime" "$command")
-        if [[ $port == - ]]; then
-            rows+=("1"$'\t'"$pid"$'\t'"$line")
-        else
-            rows+=("0"$'\t'"$pid"$'\t'"$line")
-        fi
+        [[ $port == - ]] && rank=1 || rank=0
+        rows+=("$rank"$'\t'"$pid"$'\t'"$port"$'\t'"$user"$'\t'"$cpu"$'\t'"$mem"$'\t'"$etime"$'\t'"$command")
+        (( ${#pid} > w_pid )) && w_pid=${#pid}
+        (( ${#port} > w_port )) && w_port=${#port}
+        (( ${#user} > w_user )) && w_user=${#user}
+        (( ${#cpu} > w_cpu )) && w_cpu=${#cpu}
+        (( ${#mem} > w_mem )) && w_mem=${#mem}
+        (( ${#etime} > w_etime )) && w_etime=${#etime}
     done < <(ps -axo pid=,user=,pcpu=,pmem=,etime=,command= | awk '
         {
             pid = $1; user = $2; cpu = $3; mem = $4; etime = $5
@@ -147,7 +164,17 @@ collect_rows() {
     ')
 
     (( ${#rows} )) || return 0
-    printf '%s\n' "${rows[@]}" | sort -t $'\t' -k1,1 -k2,2n | cut -f3-
+
+    # Widths come from the data, so long ports or user names cannot shift columns.
+    local fmt
+    fmt=$(printf '%%%ds  %%-%ds  %%-%ds  %%%ds  %%%ds  %%%ds  %%s' \
+        "$w_pid" "$w_port" "$w_user" "$w_cpu" "$w_mem" "$w_etime")
+
+    printf "$fmt\n" PID PORT USER CPU% MEM% ELAPSED COMMAND
+    printf '%s\n' "${rows[@]}" | sort -t $'\t' -k1,1 -k2,2n |
+        while IFS=$'\t' read -r rank pid port user cpu mem etime command; do
+            printf "$fmt\n" "$pid" "$port" "$user" "$cpu" "$mem" "$etime" "$command"
+        done
 }
 
 # empty output means the PID is allowed
@@ -264,6 +291,10 @@ terminate() {
     term_and_wait "${alive[@]}"
 }
 
+field() {
+    print -r -- "  ${C_LABEL}$(printf '%-11s' "$1")${C_RESET} $2"
+}
+
 format_details() {
     local pid=$1
     local command user uid ppid state etime cpu mem started
@@ -280,15 +311,9 @@ format_details() {
     etime=$(ps -o etime= -p "$pid" 2>/dev/null | tr -d ' ')
     cpu=$(ps -o pcpu= -p "$pid" 2>/dev/null | tr -d ' ')
     mem=$(ps -o pmem= -p "$pid" 2>/dev/null | tr -d ' ')
-    started=$(ps -o lstart= -p "$pid" 2>/dev/null)
+    started=$(ps -o lstart= -p "$pid" 2>/dev/null | sed 's/[[:space:]]*$//')
 
-    print -r -- " PID $pid  ${command[(w)1]}"
-    print -r -- " $(printf '─%.0s' {1..63})"
-    printf ' %-11s %s\n' "Owner" "$user (uid ${uid:-?})"
-    printf ' %-11s %s   ·   elapsed %s\n' "Started" "${started:-unknown}" "${etime:-?}"
-    printf ' %-11s %s   ·   CPU %s%%   ·   MEM %s%%\n' "State" "${state:-?}" "${cpu:-?}" "${mem:-?}"
-
-    local bin cwd executable ports port child child_cmd
+    local bin cwd executable ports port child
     if bin=$(lsof_bin); then
         cwd=$("$bin" -nP -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -n 1)
         executable=$("$bin" -nP -a -p "$pid" -d txt -Fn 2>/dev/null | sed -n 's/^n//p' | head -n 1)
@@ -297,29 +322,46 @@ format_details() {
     fi
     [[ -n $executable ]] || executable=$(ps -o comm= -p "$pid" 2>/dev/null)
 
-    if [[ -z $cwd ]]; then
-        cwd="unavailable (owned by $user; try sudo)"
-    fi
-    print -r -- " $(printf '%-11s' "Directory") $cwd"
-    print -r -- " $(printf '%-11s' "Executable") ${executable:-unknown}"
-    print -r -- " $(printf '%-11s' "Parent") ${ppid:-?}  $(ps -o command= -p "$ppid" 2>/dev/null)"
-    print -r -- " $(printf '%-11s' "Ports") ${ports:-none}"
-
     local -a children
     children=(${(f)$(pgrep -P "$pid" 2>/dev/null)})
-    if (( ${#children} )); then
-        child=${children[1]}
-        print -r -- " $(printf '%-11s' "Children") $child  $(ps -o command= -p "$child" 2>/dev/null)"
-        for child in "${children[@]:1}"; do
-            print -r -- " $(printf '%-11s' "") $child  $(ps -o command= -p "$child" 2>/dev/null)"
-        done
+
+    local name=${command[(w)1]:t}
+    if [[ -n $cwd ]]; then
+        cwd=${cwd/#$HOME/~}
     else
-        print -r -- " $(printf '%-11s' "Children") none"
+        cwd="${C_MUTED}unavailable (owned by $user; try sudo)${C_RESET}"
     fi
 
     print
-    print -r -- " Command"
-    print -r -- "   $command"
+    print -r -- "  ${C_MUTED}PID${C_RESET}  ${C_BOLD}${pid}${C_RESET}   ${C_BOLD}${name}${C_RESET}"
+    print -r -- "  ${C_MUTED}$(printf '─%.0s' {1..58})${C_RESET}"
+    field Owner "$user (uid ${uid:-?})"
+    field Started "${started:-unknown}  ${C_MUTED}· ${etime:-?}${C_RESET}"
+    field State "${state:-?}  ${C_MUTED}·${C_RESET} CPU ${cpu:-?}%  ${C_MUTED}·${C_RESET} MEM ${mem:-?}%"
+
+    print
+    field Directory "$cwd"
+    field Executable "${executable:-unknown}"
+    field Parent "${ppid:-?}  ${C_MUTED}$(ps -o command= -p "$ppid" 2>/dev/null)${C_RESET}"
+    if [[ -n $ports ]]; then
+        field Ports "${C_PORT}${ports}${C_RESET}"
+    else
+        field Ports "${C_MUTED}none${C_RESET}"
+    fi
+
+    if (( ${#children} )); then
+        child=${children[1]}
+        field Children "$child  ${C_MUTED}$(ps -o command= -p "$child" 2>/dev/null)${C_RESET}"
+        for child in "${children[@]:1}"; do
+            field '' "$child  ${C_MUTED}$(ps -o command= -p "$child" 2>/dev/null)${C_RESET}"
+        done
+    else
+        field Children "${C_MUTED}none${C_RESET}"
+    fi
+
+    print
+    print -r -- "  ${C_LABEL}Command${C_RESET}"
+    print -r -- "    $command"
 }
 
 details_pid() {
@@ -334,8 +376,9 @@ details_pid() {
     [[ -t 0 ]] || return 0
 
     print
-    print -r -- " [t] SIGTERM   [f] SIGKILL   [c] cancel"
-    print -n -- " > "
+    print -r -- "  ${C_MUTED}$(printf '─%.0s' {1..58})${C_RESET}"
+    print -r -- "  ${key_t} SIGTERM     ${key_f} SIGKILL     ${key_c} cancel"
+    print -n -- "  ${C_MUTED}›${C_RESET} "
     local key
     read -k 1 key || { print; return 0 }
     print
@@ -347,19 +390,22 @@ details_pid() {
     esac
 
     print
-    print -n -- "Press any key to close."
+    print -n -- "  ${C_MUTED}press any key to close${C_RESET}"
     read -k 1 || true
     print
 }
 
 open_details() {
     local pid=$1
-    local self=${0:A}
-    local popup="tmux display-popup -E -w 90% -h 80% -T ' PID $pid ' '$self' --details $pid"
-    if [[ -n ${TMUX:-} ]] && command -v tmux >/dev/null 2>&1; then
-        eval "$popup" && return 0
+    local name
+    name=$(ps -o comm= -p "$pid" 2>/dev/null)
+    name=${name:t}
+    [[ -n $name ]] || name='process'
+    if [[ -z ${KILL_PROCESS_INLINE:-} && -n ${TMUX:-} ]] && command -v tmux >/dev/null 2>&1; then
+        tmux display-popup -E -w 90% -h 80% -T " $name ($pid) " \
+            "$SELF" --details "$pid" && return 0
     fi
-    "$self" --details "$pid"
+    "$SELF" --details "$pid"
 }
 
 interactive() {
@@ -368,15 +414,11 @@ interactive() {
         exit 1
     fi
 
-    local header
-    header=$(printf '%-7s %-16s %-10s %5s %5s %10s  %s' \
-        PID PORT USER CPU% MEM% ELAPSED COMMAND)
-
     local selection parts line
     while IFS= read -r line; do
         parts=(${=line})
         selection=${parts[1]}
-    done < <(collect_rows | fzf --height=80% --reverse --header "$header")
+    done < <(collect_rows | fzf --reverse --header-lines=1)
 
     if [[ -z $selection ]]; then
         print -r -- "Nothing selected."

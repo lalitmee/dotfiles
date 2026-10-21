@@ -11,6 +11,7 @@ m	Documentation browser
 n	New named window
 s	Site-specific search
 v	Vertical split
+x	Kill process (search & kill)
 /	Web search
 ?	Help
 q	Quit table

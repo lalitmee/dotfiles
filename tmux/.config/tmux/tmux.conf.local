@@ -919,8 +919,8 @@ bind -T layout-mode n command-prompt -p "window name:" -I "" "new-window -c '#{p
 # Launch a script to search lines in files and open in editor.
 bind -T layout-mode C-o run-shell "tmux neww tsnv"
 
-# Kill a user process via fzf.
-bind -T layout-mode x display-popup -w 80% -h 80% -E "~/.config/tmux/scripts/kill-process.sh"
+# Search and kill a process: ports, owner, cwd, then TERM/KILL.
+bind -T layout-mode x display-popup -w 90% -h 80% -E "KILL_PROCESS_INLINE=1 ~/.config/bin/kill-process"
 
 #-------------------------------------------------------------------------------
 # }}}

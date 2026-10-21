@@ -60,7 +60,7 @@ grep -Eq '^303 +- +root ' "$tmpdir/list" || fail "portless row missing"
 grep -Eq '^1 ' "$tmpdir/list" && fail "own process tree ancestor (init) should be excluded"
 
 "$script" --details $$ < /dev/null > "$tmpdir/details"
-grep -q "PID $$" "$tmpdir/details" || fail "details header missing PID"
+grep -Eq "PID +$$" "$tmpdir/details" || fail "details header missing PID"
 grep -q 'Owner' "$tmpdir/details" || fail "details missing owner"
 grep -q 'Directory' "$tmpdir/details" || fail "details missing directory"
 grep -q 'Command' "$tmpdir/details" || fail "details missing command"
