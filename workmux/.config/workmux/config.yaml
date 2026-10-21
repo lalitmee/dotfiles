@@ -1,7 +1,7 @@
 nerdfont: true
 worktree_dir: ../{project}-worktrees
 agent: opencode
-mode: window
+mode: session
 
 theme:
   scheme: default
@@ -28,9 +28,14 @@ status_icons:
   done: "#[fg=#3AD900]✅#[fg=default]"
   sleeping: "#[fg=#808080]💤#[fg=default]"
 
-panes:
-  - command: <agent>
-    focus: true
+windows:
+  - name: editor
+    panes:
+      - command: nvim
+        focus: true
+  - name: agent
+    panes:
+      - command: <agent>
 
 sidebar:
   width: 40
