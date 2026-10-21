@@ -65,7 +65,7 @@ return {
 
             require("nvim-treesitter").setup()
 
-            local installed = require("nvim-treesitter").get_installed()
+            local installed = require("nvim-treesitter").get_installed("parsers")
             local to_install = {}
             for _, p in ipairs(parsers) do
                 if p ~= "tmux" and not vim.list_contains(installed, p) then

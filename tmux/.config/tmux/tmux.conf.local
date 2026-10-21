@@ -51,6 +51,10 @@ bind C-a send-prefix
 bind '"' split-window -v -c '#{pane_current_path}'
 bind % split-window -h -c '#{pane_current_path}'
 
+# Prompt for a window index and move the current window there (just the number).
+# Windows in between shift one slot, so indices stay 1..N with no holes.
+bind . command-prompt -p 'move window to index:' { run-shell '~/.config/tmux/scripts/move-window-index.sh "#{session_name}" "#{window_index}" "%%"' }
+
 # Restore OMT's effective prefix bindings using native tmux commands.
 bind + resize-pane -Z
 bind _ split-window -h -c '#{pane_current_path}'
@@ -83,7 +87,7 @@ set -g focus-events off
 set-option -g base-index 1
 set-window-option -g pane-base-index 1
 
-# Automatically renumber windows after one is closed.
+# Keep indices contiguous (1..N) when windows close; moves reorder instead of leaving holes.
 set-option -g renumber-windows on
 
 # Use vi keybindings in copy mode.
@@ -920,7 +924,7 @@ bind -T layout-mode n command-prompt -p "window name:" -I "" "new-window -c '#{p
 bind -T layout-mode C-o run-shell "tmux neww tsnv"
 
 # Search and kill a process: ports, owner, cwd, then TERM/KILL.
-bind -T layout-mode x display-popup -w 90% -h 80% -E "KILL_PROCESS_INLINE=1 ~/.config/bin/kill-process"
+bind -T layout-mode x display-popup -w 95% -h 95% -E "KILL_PROCESS_INLINE=1 ~/.config/bin/kill-process"
 
 #-------------------------------------------------------------------------------
 # }}}
