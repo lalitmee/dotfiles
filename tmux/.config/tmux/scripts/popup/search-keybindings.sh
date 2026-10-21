@@ -3,6 +3,7 @@ set -euo pipefail
 
 TMP_DIR="/tmp/tmux"
 TMP_KEYS_FILE="$TMP_DIR/keybindings_all.txt"
+TMP_TABLES_FILE="$TMP_DIR/keytables.txt"
 
 # Ensure tmp dir exists
 mkdir -p "$TMP_DIR"
@@ -13,13 +14,21 @@ mkdir -p "$TMP_DIR"
 #   2 plain table name (used by the Tab reload bind)
 #   3 plain key  4 raw `list-keys` line (logging only)
 rm -f "$TMP_DIR"/keys-*.txt(N)
+: > "$TMP_TABLES_FILE"
 
 # Popup is 90% wide; keep a few cells for the border and the fzf pointer/scrollbar.
 cols=$(tmux display -p '#{client_width}' 2>/dev/null || echo 120)
 [[ $cols =~ ^[0-9]+$ ]] || cols=120
 cols=$(( cols * 9 / 10 ))
+prefix=$(tmux show-option -gv prefix)
 
-tmux list-keys 2>/dev/null | awk -v cols="$cols" -v all="$TMP_KEYS_FILE" '
+tmux list-keys 2>/dev/null | awk -v cols="$cols" -v prefix="$prefix" -v all="$TMP_KEYS_FILE" -v tables="$TMP_TABLES_FILE" '
+    BEGIN {
+        split("255;198;0 0;170;255 58;217;0 255;98;140 255;157;0 150;126;251 128;252;255 238;128;225 242;237;127 187;255;221 66;133;244 234;67;53 251;188;5 52;168;83", palette, " ")
+        for (p in palette) used[palette[p]] = 1
+        wt = 5
+        entry["prefix"] = prefix
+    }
     {
         raw = $0
         table = "root"
@@ -34,6 +43,15 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v all="$TMP_KEYS_FILE" '
 
         n++
         T[n] = table; K[n] = key; C[n] = cmd; R[n] = raw
+        count[table]++
+        for (j = i + 1; j + 2 <= NF; j++) {
+            if ($j != "switch-client" || $(j + 1) != "-T") continue
+            target = $(j + 2)
+            gsub(/^["\047]|["\047]$/, "", target)
+            trigger = (table == "prefix" ? prefix " → " : table == "root" ? "" : table " → ") key
+            if (!trigger_seen[target SUBSEP trigger]++)
+                entry[target] = entry[target] (entry[target] == "" ? "" : ", ") trigger
+        }
         if (length(table) > wt) wt = length(table)
         if (length(key) > wk) wk = length(key)
     }
@@ -47,17 +65,36 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v all="$TMP_KEYS_FILE" '
         for (i = 1; i <= n; i++) if (T[i] == "prefix") ord[++m] = i
         for (i = 1; i <= n; i++) if (T[i] != "root" && T[i] != "prefix") ord[++m] = i
 
+        we = 10
+        for (table in count) if (length(entry[table]) > we) we = length(entry[table])
+        printf "%-*s  %-*s  %s\n", wt, "TABLE", we, "ENTRY KEYS", "BINDINGS" > (tables "-header")
+
         for (j = 1; j <= m; j++) {
             i = ord[j]
+            table = T[i]
+            if (!seen[table]++) {
+                color = palette[++nc]
+                # Reuse the window-switcher palette, generating unique overflow colors.
+                while (color == "" || (nc > 14 && color in used)) {
+                    rgb = (8421504 + ++extra * 7919) % 16777216
+                    color = int(rgb / 65536) ";" int(rgb / 256) % 256 ";" rgb % 256
+                }
+                used[color] = 1
+                colors[table] = color
+                row = sprintf("\033[1;38;2;%sm%-*s\033[0m  %-*s  %d", color, wt, table, we, entry[table] == "" ? "—" : entry[table], count[table])
+                print row "\t" table "\t__table__" > tables
+            }
             cmd = C[i]
             if (length(cmd) > wc) cmd = substr(cmd, 1, wc - 3) "..."
-            row = sprintf("\033[38;5;39m%-*s\033[0m  \033[1;33m%-*s\033[0m  %s", wt, T[i], wk, K[i], cmd)
+            row = sprintf("\033[1;38;2;%sm%-*s\033[0m  \033[1;33m%-*s\033[0m  %s", colors[table], wt, T[i], wk, K[i], cmd)
             print row "\t" T[i] "\t" K[i] "\t" R[i] > all
             print row "\t" T[i] "\t" K[i] "\t" R[i] > ("/tmp/tmux/keys-" T[i] ".txt")
         }
     }'
+table_header=$(cat "$TMP_TABLES_FILE-header")
 
 # --- Open FZF in tmux popup ---
+# Ctrl-T lists tables; Enter opens a table or its binding in config.
 # Tab drills into the highlighted table, Shift-Tab goes back to all bindings.
 tmux display-popup -E -w 90% -h 90% "
     selected=\$(fzf --ansi \
@@ -70,9 +107,12 @@ tmux display-popup -E -w 90% -h 90% "
         --info=inline \
         --cycle \
         --height=100% \
-        --header='Tab: drill into a table   Enter: open in config' \
-        --bind='tab:reload(cat $TMP_DIR/keys-{2}.txt)+change-header(TABLE: {2}   Shift-Tab: all tables)' \
-        --bind='btab:reload(cat $TMP_KEYS_FILE)+change-header(ALL TABLES   Tab: drill into a table)' \
+        --header='Ctrl-T: list tables   Tab: drill into a table   Enter: open in config' \
+        --bind='ctrl-t:reload(cat $TMP_TABLES_FILE)+clear-query+change-prompt(Tables> )+change-header(Enter: browse table   Shift-Tab: all bindings
+$table_header)' \
+        --bind='enter:transform:if [ {3} = __table__ ]; then printf \"reload(cat $TMP_DIR/keys-%s.txt)+clear-query+change-prompt(Bindings> )+change-header(Ctrl-T: list tables   Shift-Tab: all bindings   Enter: open in config)\" {2}; else echo accept; fi' \
+        --bind='tab:reload(cat $TMP_DIR/keys-{2}.txt)+clear-query+change-prompt(Bindings> )+change-header(Ctrl-T: list tables   Shift-Tab: all bindings   Enter: open in config)' \
+        --bind='btab:reload(cat $TMP_KEYS_FILE)+clear-query+change-prompt(🔍 Search tmux keybindings: )+change-header(Ctrl-T: list tables   Tab: drill into a table   Enter: open in config)' \
         < \"$TMP_KEYS_FILE\")
 
     code=\$?

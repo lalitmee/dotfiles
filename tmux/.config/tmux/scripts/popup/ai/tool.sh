@@ -23,7 +23,7 @@ if ! command -v gum >/dev/null 2>&1; then
     exit 1
 fi
 
-description=$(gum input --placeholder='Task description or window name (Enter empty to skip)' --char-limit=0) || exit 0
+description=$(gum write --header='Task description or window name (Ctrl+D to submit; empty to skip)' --placeholder='Enter your prompt...' --height=6 --char-limit=0) || exit 0
 title="$ICON $DEFAULT_NAME"
 naming_status='default name'
 action=''
@@ -61,7 +61,7 @@ if [[ -n ${description//[[:space:]]/} ]]; then
             cols=$(tput cols 2>/dev/null) || cols=0
             top=$(( rows > 1 ? (rows - 1) / 2 : 0 ))
             left=$(( cols > ${#spinner_title} + 2 ? (cols - ${#spinner_title} - 2) / 2 : 0 ))
-            response=$(gum spin --spinner dot --title="$spinner_title" --padding="$top 0 0 $left" --timeout=30s --show-stdout -- "${naming_command[@]}") || continue
+            response=$(gum spin --spinner dot --title="$spinner_title" --padding="$top 0 0 $left" --show-stdout -- timeout --kill-after=1s 10s "${naming_command[@]}") || continue
             slug=$(print -r -- "$response" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
             words=(${(s:-:)slug})
             if [[ ${#words} -ge 2 && ${#words} -le 3 && ${#slug} -le 48 ]]; then

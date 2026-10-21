@@ -78,11 +78,32 @@ with tempfile.TemporaryDirectory(
         heading = next(line for line in screen.splitlines() if "SESSION:INDEX" in line)
         long_row = next(line for line in screen.splitlines() if "alpha:1" in line)
         assert long_row.index("sleep") == heading.index("COMMAND"), screen
+        styled = tmux("capture-pane", "-ep", "-t", pane)
+        import re
+        session_styles = {}
+        number_styles = {}
+        for name in ("alpha:0", "alpha:1", "beta:0", "beta:7"):
+            session, index = name.split(":")
+            line = next(line for line in styled.splitlines() if name in re.sub(r"\x1b\[[0-9;]*m", "", line))
+            codes = re.findall(r"\x1b\[([0-9;]*)m", line.split(session)[0])
+            colors = [code for code in codes if "38;2;" in code]
+            assert colors, f"missing session foreground: {line!r}"
+            assert any("1" in code.split(";") for code in codes), f"missing bold: {line!r}"
+            session_styles[name] = colors[-1].split("38;2;")[-1]
+            number = re.search(r":((?:\x1b\[[0-9;]*m)*)" + index, line)
+            assert number, f"missing index: {line!r}"
+            number_colors = re.findall(r"38;2;([0-9;]+)m", number.group(1))
+            number_styles[name] = number_colors[-1] if number_colors else session_styles[name]
+        assert session_styles["alpha:0"] == session_styles["alpha:1"]
+        assert session_styles["beta:0"] == session_styles["beta:7"]
+        assert session_styles["alpha:0"] != session_styles["beta:0"]
+        assert number_styles["alpha:0"] == number_styles["beta:0"]
+        assert number_styles["alpha:0"] != number_styles["alpha:1"]
         wait_for(lambda: "PREVIEW-CONTENT-CHECK" in tmux("capture-pane", "-p", "-t", pane))
-        tmux("send-keys", "-t", pane, "C-p")
+        tmux("send-keys", "-t", pane, "M-p")
         wait_for(lambda: "SESSION:INDEX" not in tmux("capture-pane", "-p", "-t", pane))
         assert "PREVIEW-CONTENT-CHECK" in tmux("capture-pane", "-p", "-t", pane)
-        tmux("send-keys", "-t", pane, "C-p")
+        tmux("send-keys", "-t", pane, "M-p")
         wait_for(lambda: "SESSION:INDEX" in tmux("capture-pane", "-p", "-t", pane))
         tmux("send-keys", "-t", pane, "Escape")
         wait_for(result.exists)
