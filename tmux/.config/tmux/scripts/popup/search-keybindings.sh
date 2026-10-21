@@ -7,52 +7,62 @@ TMP_KEYS_FILE="$TMP_DIR/keybindings_all.txt"
 # Ensure tmp dir exists
 mkdir -p "$TMP_DIR"
 
-# --- Discover key tables from the running server (no stale hardcoded list) ---
-tables=(${(f)"$(tmux list-keys 2>/dev/null | awk '
-    {
-        for (i = 1; i < NF; i++) {
-            if ($i == "-T") { print $(i + 1); next }
-            if ($i == "-n") { print "root"; next }
-        }
-    }' | sort -u)"})
-# root and prefix are the ones people actually use; keep them on top
-others=(${tables:#root})
-others=(${others:#prefix})
-tables=(root prefix $others)
-
 # --- Dump all keybindings to file ---
-# Line format (tab separated):
-#   1 table (padded, coloured)  2 key (padded, coloured)  3 command
-#   4 table (plain, for reload)  5 raw `list-keys` line (for edit-in-config)
-> "$TMP_KEYS_FILE"
+# Each line is tab separated:
+#   1 rendered row (table + key columns padded to the widest entry, command truncated)
+#   2 plain table name (used by the Tab reload bind)
+#   3 raw `list-keys` line (used for the jump-to-config grep)
+rm -f "$TMP_DIR"/keys-*.txt
 
-for table in "${tables[@]}"; do
-    bindings=$(tmux list-keys -T "$table" 2>/dev/null | awk -v t="$table" '
-        {
-            raw = $0
-            line = raw
-            sub(/^bind-key[ \t]+/, "", line)
-            sub(/^-T[ \t]+[^ \t]+[ \t]+/, "", line)
-            sub(/^-n[ \t]+/, "", line)
-            key = line
-            sub(/[ \t].*$/, "", key)
-            cmd = line
-            sub(/^[^ \t]+[ \t]+/, "", cmd)
-            disp = key
-            gsub(/\\/, "", disp)
-            printf "\033[38;5;39m%-17s\033[0m\t\033[1;33m%-14s\033[0m\t%s\t%s\t%s\n", t, disp, cmd, t, raw
-        }') || bindings=""
+# Popup is 90% wide; keep a few cells for the border and the fzf pointer/scrollbar.
+cols=$(tmux display -p '#{client_width}' 2>/dev/null || echo 120)
+[[ $cols =~ ^[0-9]+$ ]] || cols=120
+cols=$(( cols * 9 / 10 ))
 
-    printf '%s\n' "$bindings" > "$TMP_DIR/keys-$table.txt"
-    printf '%s\n' "$bindings" >> "$TMP_KEYS_FILE"
-done
+tmux list-keys 2>/dev/null | awk -v cols="$cols" -v all="$TMP_KEYS_FILE" '
+    {
+        raw = $0
+        table = "root"
+        i = 2
+        while (i < NF && substr($i, 1, 1) == "-") {
+            if ($i == "-T") { table = $(i + 1); i += 2 } else { i++ }
+        }
+        key = $i
+        cmd = ""
+        for (j = i + 1; j <= NF; j++) cmd = (cmd == "" ? $j : cmd " " $j)
+        gsub(/\\/, "", key)                       # \; -> ;  (display only)
+
+        n++
+        T[n] = table; K[n] = key; C[n] = cmd; R[n] = raw
+        if (length(table) > wt) wt = length(table)
+        if (length(key) > wk) wk = length(key)
+    }
+    END {
+        wc = cols - wt - wk - 12
+        if (wc < 20) wc = 20
+
+        # root and prefix first, everything else in list-keys order
+        m = 0
+        for (i = 1; i <= n; i++) if (T[i] == "root") ord[++m] = i
+        for (i = 1; i <= n; i++) if (T[i] == "prefix") ord[++m] = i
+        for (i = 1; i <= n; i++) if (T[i] != "root" && T[i] != "prefix") ord[++m] = i
+
+        for (j = 1; j <= m; j++) {
+            i = ord[j]
+            cmd = C[i]
+            if (length(cmd) > wc) cmd = substr(cmd, 1, wc - 3) "..."
+            row = sprintf("\033[38;5;39m%-*s\033[0m  \033[1;33m%-*s\033[0m  %s", wt, T[i], wk, K[i], cmd)
+            print row "\t" T[i] "\t" K[i] "\t" R[i] > all
+            print row "\t" T[i] "\t" K[i] "\t" R[i] > ("/tmp/tmux/keys-" T[i] ".txt")
+        }
+    }'
 
 # --- Open FZF in tmux popup ---
 # Tab drills into the highlighted table, Shift-Tab goes back to all bindings.
 tmux display-popup -E -w 90% -h 90% "
     selected=\$(fzf --ansi \
         --delimiter='\t' \
-        --with-nth=1,2,3 \
+        --with-nth=1 \
         --prompt='🔍 Search tmux keybindings: ' \
         --exact \
         --no-sort \
@@ -60,10 +70,8 @@ tmux display-popup -E -w 90% -h 90% "
         --info=inline \
         --cycle \
         --height=100% \
-        --border=rounded \
-        --border-label=' tmux keybindings ' \
-        --header='TABLE              KEY            COMMAND            Tab: drill into table' \
-        --bind='tab:reload(cat $TMP_DIR/keys-{4}.txt)+change-header(TABLE: {4}   Shift-Tab: all tables)' \
+        --header='Tab: drill into a table   Enter: open in config' \
+        --bind='tab:reload(cat $TMP_DIR/keys-{2}.txt)+change-header(TABLE: {2}   Shift-Tab: all tables)' \
         --bind='btab:reload(cat $TMP_KEYS_FILE)+change-header(ALL TABLES   Tab: drill into a table)' \
         < \"$TMP_KEYS_FILE\")
 
@@ -77,8 +85,10 @@ tmux display-popup -E -w 90% -h 90% "
     ts=\$(date +%s)
     LOG_FILE=\"$TMP_DIR/search-log-\$ts.txt\"
 
-    # Field 5 is the raw list-keys line: bind-key -T <table> <key> <command...>
-    raw=\$(echo \"\$selected\" | cut -f5)
+    # Field 2 = table, 3 = key, 4 = raw list-keys line (logging only)
+    key_table=\$(echo \"\$selected\" | cut -f2)
+    key=\$(echo \"\$selected\" | cut -f3)
+    raw=\$(echo \"\$selected\" | cut -f4)
 
     echo \"=== Keybinding Search Debug Log ===\" > \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
@@ -88,11 +98,6 @@ tmux display-popup -E -w 90% -h 90% "
     echo \"Raw binding:\" >> \"\$LOG_FILE\"
     echo \"\$raw\" >> \"\$LOG_FILE\"
     echo \"\" >> \"\$LOG_FILE\"
-
-    # Extract key table and key from the selected line
-    # Format: bind-key    -T table    key    command...
-    key_table=\$(echo \"\$raw\" | awk '{print \$3}')
-    key=\$(echo \"\$raw\" | awk '{print \$4}')
 
     echo \"Extracted key table: \$key_table\" >> \"\$LOG_FILE\"
     echo \"Extracted key: \$key\" >> \"\$LOG_FILE\"
@@ -109,16 +114,16 @@ tmux display-popup -E -w 90% -h 90% "
     # Different search strategies based on key table
     if [ \"\$key_table\" = \"root\" ]; then
         # For root table, search for: bind -n 'key' or bind-key -n 'key'
-        echo \"Root table binding - searching for: bind.*-n.*\$clean_key\" >> \"\$LOG_FILE\"
-        search_pattern=\"bind.*-n.*\$clean_key\"
+        echo \"Root table binding - searching for: bind.*-n.*[ \\t]\${clean_key}[ \\t]\" >> \"\$LOG_FILE\"
+        search_pattern=\"bind.*-n.*[[:space:]]\${clean_key}[[:space:]]\"
     elif [ \"\$key_table\" = \"prefix\" ]; then
         # For prefix table, search for: bind 'key' or bind-key 'key' (without -T or -n)
-        echo \"Prefix table binding - searching for: bind.*[^-T].*\$clean_key\" >> \"\$LOG_FILE\"
-        search_pattern=\"bind.*\$clean_key\"
+        echo \"Prefix table binding - searching for: bind.*[ \\t]\${clean_key}[ \\t]\" >> \"\$LOG_FILE\"
+        search_pattern=\"bind.*[[:space:]]\${clean_key}[[:space:]]\"
     else
         # For other tables, search for: bind -T table_name 'key'
-        echo \"Named table binding - searching for: bind.*-T.*\$key_table.*\$clean_key\" >> \"\$LOG_FILE\"
-        search_pattern=\"bind.*-T.*\$key_table.*\$clean_key\"
+        echo \"Named table binding - searching for: bind.*-T.*\$key_table.*[ \\t]\${clean_key}[ \\t]\" >> \"\$LOG_FILE\"
+        search_pattern=\"bind.*-T.*\$key_table.*[[:space:]]\${clean_key}[[:space:]]\"
     fi
 
     echo \"\" >> \"\$LOG_FILE\"

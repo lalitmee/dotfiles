@@ -491,8 +491,10 @@ bind X run-shell 'tmux switch-client -n \; kill-session -t "$(tmux display-messa
 # tmux 3.8 built-in floating-pane window switcher (default prefix+Tab / S-Tab).
 # Re-bound here so the floating pane uses the Cobalt2 popup colours instead of the
 # tmux defaults (tmux does not style new-pane from popup-style/popup-border-style).
-bind Tab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -kw
-bind BTab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -ks
+# -F replaces the default item format: no #[dim], no raw window flags, no duplicated
+# pane title, and columns are actually separated.
+bind Tab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -kw -F '#{?window_active,▸ ,  }#{session_name}:#{window_index}  #{window_name}  #{pane_current_command}'
+bind BTab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -ks -F '#{?session_attached,▸ ,  }#{session_name}  #{session_windows}w  #{window_name}'
 
 #-------------------------------------------------------------------------------
 # }}}
