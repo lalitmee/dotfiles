@@ -63,8 +63,6 @@ tmux display-popup -E -w 90% -h 90% "
         --border=rounded \
         --border-label=' tmux keybindings ' \
         --header='TABLE              KEY            COMMAND            Tab: drill into table' \
-        --preview='echo {} | cut -f3' \
-        --preview-window='right,50%,wrap' \
         --bind='tab:reload(cat $TMP_DIR/keys-{4}.txt)+change-header(TABLE: {4}   Shift-Tab: all tables)' \
         --bind='btab:reload(cat $TMP_KEYS_FILE)+change-header(ALL TABLES   Tab: drill into a table)' \
         < \"$TMP_KEYS_FILE\")
