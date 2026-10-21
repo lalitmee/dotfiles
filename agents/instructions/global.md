@@ -71,10 +71,10 @@ When retrieving documentation, specifications, codebase context, or external dat
    - Reserved strictly for dynamic web interaction, DOM inspection, pages requiring live rendering/JavaScript execution, or when headless tools fail or return insufficient context.
    - Do not use for basic text documentation lookups when specialized local/MCP tools are available.
    - When browser access is necessary, attach to and use the already-open browser; do not launch a new browser instance.
-   - Before navigating or opening tabs, inspect the existing tabs and tab groups. Reuse the relevant existing tab when possible.
-   - Keep browser checks organized in a dedicated tab group. Reuse a relevant existing group; if none exists, create one for the checks and place any newly opened tabs in it.
-   - If the relevant page is already open in a tab outside a group, work in that tab rather than moving it or opening a duplicate. Do not leave a relevant tab group to continue the same task elsewhere; keep related work within that group.
-   - Before finishing, leave the browser tabs and groups organized and avoid closing or rearranging unrelated user tabs.
+   - Before opening tabs, run `list_pages` to inspect existing tabs and reuse matching URLs or titles.
+   - Maintain strict tab ownership: track all `pageId`s spawned via `new_page` during the session.
+   - Never close, modify, or navigate tabs that were already open prior to the current session.
+   - Before finishing, close only the tabs created by the agent during the active task, leaving user tabs untouched.
 
 3. **Deep Reasoning (`crash-mcp`):**
    - Use exclusively for complex logical breakdowns, multi-step analytical deductions, or high-uncertainty problem solving.
@@ -113,3 +113,28 @@ When retrieving documentation, specifications, codebase context, or external dat
   - When creating a log or folder, append a link to it in the corresponding context directory's `README.md`.
 - **Artifact Link Rule**: Do NOT store full implementation artifacts, large datasets, or full plan documents directly in `brain/`. Store artifacts in their designated locations (`plans/`, `docs/`, `results/`, or main code repositories) and link them under `## Artifact Links`.
 - **Zero Secrets Policy**: Never commit passwords, API keys, access tokens, session cookies, or secret values to any brain repository. Sanitize snippets and log excerpts to show variable names only.
+
+---
+
+## 9. WORKSPACE OPERATIONAL RULES & USER PREFERENCES
+
+### General Code & File Operations
+- Before modifying or updating any file, always read it first to ensure you have the full, accurate context.
+- The user wants explicit confirmation before making any modifications to their projects or committing/pushing changes.
+- After modifying any code, always verify syntax and run local checks to prevent regressions.
+- Follow an iterative approach to problem-solving: try simple solutions first and refine incrementally.
+
+### Language & Tooling Rules
+- **Markdown Files**:
+  - Use headings, subheadings, bullet points, and numbered lists where appropriate.
+  - Leave **at least 1 empty line** to separate different sections for better readability and to prevent linting errors.
+  - Use proper Markdown syntax for links, images, and other elements.
+  - Ensure that code blocks are properly formatted with triple backticks and the correct language specified.
+- **Shell Scripts**:
+  - Use fold markers (`# {{{` and `# }}}`) for functions.
+- **Node / JavaScript / TypeScript**:
+  - Prefer `yarn` over `npm` for package management.
+- **Tmux Configuration**:
+  - When adding new key bindings, ensure they do not conflict with existing ones.
+  - Use comments to explain the purpose of each key binding.
+  - After making any changes to tmux configuration, always reload the configuration to apply changes.
