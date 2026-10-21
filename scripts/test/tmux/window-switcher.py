@@ -100,6 +100,16 @@ with tempfile.TemporaryDirectory(
         assert number_styles["alpha:0"] == number_styles["beta:0"]
         assert number_styles["alpha:0"] != number_styles["alpha:1"]
         wait_for(lambda: "PREVIEW-CONTENT-CHECK" in tmux("capture-pane", "-p", "-t", pane))
+        def preview_on_right():
+            lines = tmux("capture-pane", "-p", "-t", pane).splitlines()
+            return any(line.find("PREVIEW-CONTENT-CHECK") >= 80 for line in lines)
+
+        tmux("resize-window", "-t", pane, "-x", "240", "-y", "50")
+        wait_for(preview_on_right)
+        preview_lines = tmux("capture-pane", "-p", "-t", pane).splitlines()
+        assert any(80 <= line.find("PREVIEW-CONTENT-CHECK") < 110 for line in preview_lines), "preview should occupy 60% of the width"
+        tmux("resize-window", "-t", pane, "-x", "160", "-y", "50")
+        wait_for(lambda: not preview_on_right() and "PREVIEW-CONTENT-CHECK" in tmux("capture-pane", "-p", "-t", pane))
         tmux("send-keys", "-t", pane, "M-p")
         wait_for(lambda: "SESSION:INDEX" not in tmux("capture-pane", "-p", "-t", pane))
         assert "PREVIEW-CONTENT-CHECK" in tmux("capture-pane", "-p", "-t", pane)

@@ -33,7 +33,10 @@ with tempfile.TemporaryDirectory(
     tmux = home / "tmux"
     tmux.write_text("""#!/bin/sh
 case "$1" in
-    list-keys) printf '%s\n' 'bind-key -r -T prefix x display-message correct' 'bind-key -T prefix y display-message another' 'bind-key -T prefix g switch-client -T special' 'bind-key -T root F2 switch-client -T special' 'bind-key -T special ? display-message correct' ;;
+    list-keys) printf '%s\n' 'bind-key -r -T prefix x display-message correct' 'bind-key -T prefix y display-message another' 'bind-key -T prefix g switch-client -T special' 'bind-key -T root F2 switch-client -T special' 'bind-key -T special ? display-message correct'
+        for key in F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12; do
+            printf 'bind-key -T special %s switch-client -T root\n' "$key"
+        done ;;
     show-option) echo C-a ;;
     display) echo 120 ;;
     display-popup) for arg do command=$arg; done; zsh -c "$command" ;;
@@ -86,20 +89,31 @@ esac
         os.write(master, b"\x14")  # Ctrl-T
         wait_for("Tables>")
         tables = (home / "tmp/keytables.txt").read_text().splitlines()
-        rows = {row.split("\t")[1]: row.split("\t")[0] for row in tables}
+        rows = {}
+        for row in tables:
+            display, table, marker = row.split("\t")
+            assert marker == "__table__"
+            rows.setdefault(table, display)
+        root_rows = [re.sub(r"\x1b\[[0-9;]*m", "", row.split("\t")[0])
+                     for row in tables if row.split("\t")[1] == "root"]
+        assert len(root_rows) > 1, "long entry lists must wrap"
+        assert all(len(row) <= 102 for row in root_rows), root_rows
+        assert all(not row.strip().startswith("root") for row in root_rows[1:])
         assert list(rows) == ["root", "prefix", "special"]
         plain = {table: re.sub(r"\x1b\[[0-9;]*m", "", row) for table, row in rows.items()}
-        assert re.split(r"\s{2,}", plain["special"].strip()) == ["special", "C-a → g, F2", "1"]
-        assert re.split(r"\s{2,}", plain["prefix"].strip()) == ["prefix", "C-a", "3"]
-        assert re.split(r"\s{2,}", plain["root"].strip()) == ["root", "—", "1"]
-        assert plain["root"].index("—") == plain["prefix"].index("C-a") == plain["special"].index("C-a")
-        assert len({row.rindex("  ") for row in plain.values()}) == 1, plain
+        assert re.split(r"\s{2,}", plain["special"].strip()) == ["special", "13", "C-a → g, F2"]
+        assert re.split(r"\s{2,}", plain["prefix"].strip()) == ["prefix", "3", "C-a"]
+        assert plain["root"].index("1") == plain["prefix"].index("3") == plain["special"].index("13")
+        entry_column = plain["special"].index("C-a")
+        assert ", ".join(row[entry_column:].strip() for row in root_rows) == ", ".join(
+            f"special → F{i}" for i in range(1, 13)
+        )
         colors = {table: re.search(r"\x1b\[(?:1;)?38;[25];[0-9;]+m", row)[0] for table, row in rows.items()}
         assert len(set(colors.values())) == 3
         for row in (home / "tmp/keybindings_all.txt").read_text().splitlines():
             display, table = row.split("\t")[:2]
             assert colors[table] in display, "table color must match in both views"
-        os.write(master, b"special")
+        os.write(master, b"F12")  # Select a root continuation row, not its heading.
         time.sleep(0.1)
         os.write(master, b"\r")
         wait_for("Bindings>")
@@ -107,10 +121,12 @@ esac
         wait_for("Search tmux keybindings")
         os.write(master, b"\x14")
         wait_for("Tables>")
-        os.write(master, b"special")
+        os.write(master, b"special 13")
         time.sleep(0.1)
         os.write(master, b"\r")
         wait_for("Bindings>")
+        os.write(master, b"?")
+        time.sleep(0.1)
         os.write(master, b"\r")
         deadline = time.monotonic() + 5
         while time.monotonic() < deadline:
@@ -122,6 +138,7 @@ esac
         else:
             raise AssertionError("Enter did not finish source selection")
         assert os.waitstatus_to_exitcode(status) == 0
+        assert (home / "jump").exists(), [p.read_text() for p in (home / "tmp").glob("search-log-*")]
         assert (home / "jump").read_text().strip() == f"nvim +4 {config}/tmux.conf.local"
     finally:
         if not reaped:

@@ -30,10 +30,10 @@ if selection=$(printf '%s\n' "$windows" | awk -F '\t' '
 ' | fzf --ansi --delimiter='\t' --with-nth=1,2,3 --tabstop=32 --no-multi \
     --header-lines=1 --layout=reverse --info=inline \
     --prompt='Window > ' --pointer='➜' \
-    --header='Enter: switch   Esc: close   Alt-p: expand preview   Ctrl-/: hide preview' \
+    --header='Enter: switch   Esc: close   Ctrl-d/u: scroll preview   Alt-p: expand preview   Ctrl-/: hide preview' \
     --preview='tmux display-message -p -t {4} "#{session_name}:#{window_index} | #{window_name}"; tmux capture-pane -ep -t {5}' \
-    --preview-window='bottom:45%:nowrap' \
-    --bind='tab:down,btab:up,ctrl-/:toggle-preview,alt-p:change-preview-window(bottom:99%|)' \
+    --preview-window='right:60%:nowrap:<120(bottom:45%)' \
+    --bind='tab:down,btab:up,ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,ctrl-/:toggle-preview,alt-p:change-preview-window[bottom:99%:<1(bottom:99%)|]' \
     --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg+:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF'); then
     [[ -n "$selection" ]] || exit 0
     target=$(printf '%s\n' "$selection" | cut -f4)

@@ -29,6 +29,31 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v prefix="$prefix" -v all="$TM
         wt = 5
         entry["prefix"] = prefix
     }
+    function table_row(table, label, total, text, color) {
+        printf "\033[1;38;2;%sm%-*s\033[0m  %-8s  %s\t%s\t__table__\n", color, wt, label, total, text, table > tables
+    }
+    function table_rows(table, color,    parts, size, k, text, next_text, label, total, item) {
+        label = table
+        total = count[table]
+        size = split(entry[table] == "" ? "—" : entry[table], parts, ", ")
+        text = ""
+        for (k = 1; k <= size; k++) {
+            item = parts[k]
+            next_text = text (text == "" ? "" : ", ") item
+            if (length(next_text) > we && text != "") {
+                table_row(table, label, total, text, color)
+                label = total = text = ""
+            }
+            # An unusually long single entry must not push past the popup either.
+            while (length(item) > we) {
+                table_row(table, label, total, substr(item, 1, we), color)
+                label = total = ""
+                item = substr(item, we + 1)
+            }
+            text = text (text == "" ? "" : ", ") item
+        }
+        if (text != "") table_row(table, label, total, text, color)
+    }
     {
         raw = $0
         table = "root"
@@ -65,9 +90,9 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v prefix="$prefix" -v all="$TM
         for (i = 1; i <= n; i++) if (T[i] == "prefix") ord[++m] = i
         for (i = 1; i <= n; i++) if (T[i] != "root" && T[i] != "prefix") ord[++m] = i
 
-        we = 10
-        for (table in count) if (length(entry[table]) > we) we = length(entry[table])
-        printf "%-*s  %-*s  %s\n", wt, "TABLE", we, "ENTRY KEYS", "BINDINGS" > (tables "-header")
+        we = cols - wt - 8 - 4 - 6
+        if (we < 1) we = 1
+        printf "%-*s  %-8s  %s\n", wt, "TABLE", "BINDINGS", "ENTRY KEYS" > (tables "-header")
 
         for (j = 1; j <= m; j++) {
             i = ord[j]
@@ -81,8 +106,7 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v prefix="$prefix" -v all="$TM
                 }
                 used[color] = 1
                 colors[table] = color
-                row = sprintf("\033[1;38;2;%sm%-*s\033[0m  %-*s  %d", color, wt, table, we, entry[table] == "" ? "—" : entry[table], count[table])
-                print row "\t" table "\t__table__" > tables
+                table_rows(table, color)
             }
             cmd = C[i]
             if (length(cmd) > wc) cmd = substr(cmd, 1, wc - 3) "..."
