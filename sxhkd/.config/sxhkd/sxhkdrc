@@ -28,9 +28,9 @@ super + Return
 alt + space
     espanso cmd search
 
-# Edit Espanso config
+# Edit Espanso config (scratchpad)
 super + alt + i
-    espanso cmd edit
+    i3run --summon --title espanso-scratch -- ghostty --title=espanso-scratch -e nvim ~/.config/espanso/match/base.yml
 #}}}
 #-------------------------------------------------------------------------------
 
