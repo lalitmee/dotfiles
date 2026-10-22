@@ -16,6 +16,20 @@ zmodload zsh/datetime zsh/stat 2>/dev/null
 # Escape control characters for single-line display; original fields stay in arrays.
 manager_display() { print -rn -- "${(V)1}"; }
 
+# Format paths for display, contracting $HOME to ~/ while escaping controls. # {{{
+manager_display_path() {
+    emulate -L zsh
+    local p="$1"
+    if [[ "$p" == "$HOME" ]]; then
+        print -rn -- '~'
+    elif [[ "$p" == "$HOME/"* ]]; then
+        manager_display "~/${p#$HOME/}"
+    else
+        manager_display "$p"
+    fi
+}
+# }}}
+
 # Cobalt2 palette (RGB format matching window-switcher.sh, prioritized for visibility)
 typeset -ga WM_COBALT2_PALETTE=(
     '255;198;0' '0;170;255' '58;217;0' '255;98;140'
@@ -285,7 +299,7 @@ manager_main() {
                 fi
                 [[ ",${fields[i+5]}," != *,prunable,* ]] || continue
                 (( show_main )) || [[ ",${fields[i+5]}," != *,main,* ]] || continue
-                raw_entries+=("$(manager_display "${fields[i+2]}")${tab}$(manager_display "${fields[i+4]:-detached}")${tab}$(manager_display "${fields[i+3]}")${tab}${i}${tab}${fields[i]}")
+                raw_entries+=("$(manager_display "${fields[i+2]}")${tab}$(manager_display "${fields[i+4]:-detached}")${tab}$(manager_display_path "${fields[i+3]}")${tab}${i}${tab}${fields[i]}")
             done
 
             # Parallel discovery returns records in nondeterministic order; sort

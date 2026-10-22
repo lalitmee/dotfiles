@@ -729,6 +729,14 @@ test_repo_colors() {
         printf -v rname 'repo%02d' "$i"
         assert_equal "${repo_colors[$TEST_DIR/$rname]}" "${WM_COBALT2_PALETTE[i]}" "palette color $i matches Cobalt2"
     done
+
+    # Verify manager_display_path contracts $HOME to ~/
+    local HOME="$TEST_DIR/home"
+    assert_equal "$(manager_display_path "$HOME")" '~' 'exact HOME contracts to ~'
+    assert_equal "$(manager_display_path "$HOME/Projects/app")" '~/Projects/app' 'subpath contracts to ~/...'
+    assert_equal "$(manager_display_path "$TEST_DIR/outside")" "$TEST_DIR/outside" 'path outside HOME stays absolute'
+    assert_equal "$(manager_display_path "$HOME/path"$'\t'"with"$'\n'"ctrl")" '~/path\twith\nctrl' 'control characters escaped in contracted path'
+
     print 'PASS: global worktree repo colors'
 }
 

@@ -1,7 +1,8 @@
 {
+  "agentMode": "accept-edits",
   "allowNonWorkspaceAccess": true,
-  "colorScheme": "tokyo night",
-  "model": "Gemini 3.8 Flash (Low)",
+  "colorScheme": "terminal",
+  "model": "Gemini 3.8 Flash (Medium)",
   "permissions": {
     "allow": [
       "command(git log)",
@@ -28,14 +29,15 @@
       "command(i3-msg)",
       "command(pgrep)",
       "command(gh repo create)",
-      "command(gh)"
+      "command(gh)",
+      "command(gemini)",
+      "command(diff)"
     ]
   },
   "trustedWorkspaces": [
     "/home/lalitmee/dotfiles",
     "/home/lalitmee/Projects/Personal/Github/second-brain",
     "/home/lalitmee/Projects/Personal/Github/browse.nvim",
-    "/home/lalitmee/Projects/Personal/Github",
-    "/home/lalitmee/dotfiles-worktrees/workmux-flow"
+    "/home/lalitmee/Projects/Personal/Github/hn-revamped"
   ]
 }
