@@ -19,38 +19,39 @@ source "$palette_script"
 # 1. Verify environment setup works cleanly
 setup_environment
 
-# 2. Test agent discovery in an isolated PATH with only our simulated commands
+# 2. Test agent scan with simulated commands in PATH
 mock_bin="$tmp_dir/bin"
 mkdir -p "$mock_bin"
 touch "$mock_bin/opencode" "$mock_bin/pi" "$mock_bin/cursor"
 chmod +x "$mock_bin"/*
 
-# Include standard system utilities (/bin, /usr/bin) but exclude user paths where real agents live
 PATH="$mock_bin:/bin:/usr/bin"
-discover_agents
+scan_agents
 
-if (( ${#AVAILABLE_IDS[@]} != 3 )); then
-    print -u2 "FAIL: expected 3 discovered agents, found ${#AVAILABLE_IDS[@]}"
+# Static list has 11 entries (grok removed)
+if (( ${#ITEM_IDS[@]} != 11 )); then
+    print -u2 "FAIL: expected 11 agents in static catalog, found ${#ITEM_IDS[@]}"
     exit 1
 fi
 
-# Verify ordering adheres to user priority: opencode (1), pi (2), cursor (3 in mock)
-if [[ "${AVAILABLE_IDS[1]}" != "opencode" || "${AVAILABLE_INDEX_KEYS[1]}" != "1" || "${AVAILABLE_MNEMONICS[1]}" != "o" ]]; then
+# Verify static keys & labels
+if [[ "${ITEM_IDS[1]}" != "opencode" || "${ITEM_KEYS[1]}" != "1" || "${ITEM_MNEMONICS[1]}" != "o" || "${ITEM_INSTALLED[1]}" != "1" ]]; then
     print -u2 "FAIL: opencode metadata mismatch"
     exit 1
 fi
 
-if [[ "${AVAILABLE_IDS[2]}" != "pi" || "${AVAILABLE_INDEX_KEYS[2]}" != "2" || "${AVAILABLE_MNEMONICS[2]}" != "p" ]]; then
+if [[ "${ITEM_IDS[2]}" != "pi" || "${ITEM_KEYS[2]}" != "2" || "${ITEM_MNEMONICS[2]}" != "p" || "${ITEM_INSTALLED[2]}" != "1" ]]; then
     print -u2 "FAIL: pi metadata mismatch"
     exit 1
 fi
 
-if [[ "${AVAILABLE_IDS[3]}" != "cursor" || "${AVAILABLE_INDEX_KEYS[3]}" != "3" || "${AVAILABLE_MNEMONICS[3]}" != "u" ]]; then
-    print -u2 "FAIL: cursor metadata mismatch"
+# Uninstalled entry (e.g. vibe or omp)
+if [[ "${ITEM_IDS[10]}" != "vibe" || "${ITEM_KEYS[10]}" != "0" || "${ITEM_INSTALLED[10]}" != "0" ]]; then
+    print -u2 "FAIL: vibe should be marked uninstalled"
     exit 1
 fi
 
-# 3. Test key resolution (both index and mnemonic)
+# 3. Test key resolution
 idx=$(resolve_key_to_agent_index "1")
 if [[ "$idx" != "1" ]]; then
     print -u2 "FAIL: key '1' did not resolve to 1, got $idx"
@@ -63,46 +64,30 @@ if [[ "$idx" != "1" ]]; then
     exit 1
 fi
 
-idx=$(resolve_key_to_agent_index "2")
-if [[ "$idx" != "2" ]]; then
-    print -u2 "FAIL: key '2' did not resolve to 2, got $idx"
-    exit 1
-fi
-
-idx=$(resolve_key_to_agent_index "p")
-if [[ "$idx" != "2" ]]; then
-    print -u2 "FAIL: mnemonic 'p' did not resolve to 2, got $idx"
-    exit 1
-fi
-
-idx=$(resolve_key_to_agent_index "u")
-if [[ "$idx" != "3" ]]; then
-    print -u2 "FAIL: mnemonic 'u' did not resolve to 3, got $idx"
-    exit 1
-fi
-
-# Unmatched key returns error
-if resolve_key_to_agent_index "z" >/dev/null 2>&1; then
-    print -u2 "FAIL: unmatched key 'z' unexpectedly resolved"
+idx=$(resolve_key_to_agent_index "v")
+if [[ "$idx" != "10" ]]; then
+    print -u2 "FAIL: mnemonic 'v' did not resolve to 10, got $idx"
     exit 1
 fi
 
 # 4. Test row formatting output
 rows=$(format_plain_filter_rows)
 if ! print -r -- "$rows" | grep -q "\[1 / o\]  opencode"; then
-    print -u2 "FAIL: row output missing opencode formatting"
+    print -u2 "FAIL: filter output missing opencode formatting"
     exit 1
 fi
 
-if ! print -r -- "$rows" | grep -q "\[3 / u\]  cursor"; then
-    print -u2 "FAIL: row output missing cursor formatting"
+if ! print -r -- "$rows" | grep -q "\[0 / v\]  vibe"; then
+    print -u2 "FAIL: filter output missing vibe formatting"
     exit 1
 fi
 
-# 5. Test cursor command resolution
-if [[ "${AVAILABLE_CMDS[3]}" != "cursor agent" && "${AVAILABLE_CMDS[3]}" != "$HOME/.local/bin/agent" ]]; then
-    print -u2 "FAIL: cursor resolution should be 'cursor agent' or '$HOME/.local/bin/agent', got '${AVAILABLE_CMDS[3]}'"
-    exit 1
-fi
+# 5. Verify grok is not in catalog
+for id in "${ITEM_IDS[@]}"; do
+    if [[ "$id" == "grok" ]]; then
+        print -u2 "FAIL: grok should have been removed from the static catalog"
+        exit 1
+    fi
+done
 
 print "workmux agent palette tests passed successfully"

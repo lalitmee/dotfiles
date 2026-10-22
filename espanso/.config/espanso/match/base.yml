@@ -421,6 +421,28 @@ matches:
   # Go with your recommendation
   - trigger: ":reco"
     replace: "Lets go with your recommendation, I think that would be a good approach"
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# NOTE: My Tools - Links {{{
+#-------------------------------------------------------------------------------
+
+  # markdown-previewer
+  - trigger: ":mpw"
+    replace: "https://markdown-assistant.vercel.app/"
+
+  # json-assistant
+  - trigger: ":jst"
+    replace: "https://json-assistant-one.vercel.app/"
+
+  # hn-revamped
+  - trigger: ":hnr"
+    replace: "https://hn-revamped.vercel.app/"
+
+#-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
 

@@ -3,11 +3,11 @@
 # -------------------------------------------------------------------
 # Workmux Agent Palette
 # -------------------------------------------------------------------
-# Futuristic, cyberpunk HUD agent launcher palette for workmux.
+# High-performance, instant-rendering HUD agent launcher palette for workmux.
 # Perfectly centered vertically & horizontally in the terminal window,
-# styled with distinct non-repeatable colors from cobalt2.nvim,
-# showing keycaps, agent names, category badges, and clean aligned
-# key hints on a single row without descriptions.
+# styled with distinct non-repeatable colors from cobalt2.nvim per row.
+# Uses a static list of coding agents (grok removed). Installed agents are
+# brightly highlighted; unavailable agents are dimmed in grey.
 #
 # Requirements: gum
 # -------------------------------------------------------------------
@@ -20,53 +20,62 @@ export FORCE_COLOR=1
 # Configuration {{{
 # -------------------------------------------------------------------
 
-# Base UI colors from cobalt2.nvim
-COLOR_ACCENT="#00AAFF"       # blue
-COLOR_HEADER="#FFC600"       # yellow
-COLOR_BORDER="#0088FF"       # dark_blue
-COLOR_INNER_BORDER="#185294" # cursor_hover / deep navy
-COLOR_MUTED="#9E9E9E"        # light_grey
-COLOR_DIMMED="#808080"       # grey
-COLOR_KEY="#FFC600"          # yellow
-COLOR_TEXT="#FFFFFF"         # white
+# Base UI hex colors from cobalt2.nvim
+HEX_ACCENT="#00AAFF"       # blue
+HEX_HEADER="#FFC600"       # yellow
+HEX_BORDER="#0088FF"       # dark_blue
+HEX_INNER_BORDER="#185294" # cursor_hover / deep navy
+HEX_MUTED="#9E9E9E"        # light_grey
+HEX_DIMMED="#626262"       # dark_grey (uninstalled agents)
+HEX_BRACKET="#668799"      # dirty_blue (clear, visible brackets)
+HEX_VALUE_WT="#80FCFF"     # light_blue (worktree value)
+HEX_VALUE_BR="#3AD900"     # green (branch value)
+HEX_KEY="#FFC600"          # yellow
 
-# Distinct non-repeatable colors from cobalt2.nvim palette:
-#  1. opencode: #00AAFF (blue)
-#  2. pi:       #3AD900 (green)
-#  3. agy:      #FFC600 (yellow)
-#  4. codex:    #80FCFF (light_blue)
-#  5. cursor:   #FF9A00 (dark_orange)
-#  6. claude:   #EE80E1 (light_pink)
-#  7. gemini:   #967EFB (purple)
-#  8. copilot:  #88FF88 (light_green)
-#  9. grok:     #FF628C (dark_pink)
-# 10. kiro-cli: #F2ED7F (light_yellow)
-# 11. vibe:     #FF9D00 (light_orange)
-# 12. omp:      #DEEBFE (light_purple)
-
+# Static prioritized agent list (grok removed):
+# "id|key|mnemonic|label|badge|color"
 typeset -ga AGENT_CATALOG=(
-    "opencode|o|opencode|PRIMARY|#00AAFF"
-    "pi|p|pi|CORE|#3AD900"
-    "agy|a|agy|DEEPMIND|#FFC600"
-    "codex|x|codex|OPENAI|#80FCFF"
-    "cursor|u|cursor|IDE/CLI|#FF9A00"
-    "claude|c|claude|ANTHROPIC|#EE80E1"
-    "gemini|g|gemini|GOOGLE|#967EFB"
-    "copilot|k|copilot|GITHUB|#88FF88"
-    "grok|r|grok|XAI|#FF628C"
-    "kiro-cli|i|kiro-cli|KIRO|#F2ED7F"
-    "vibe|v|vibe|MISTRAL|#FF9D00"
-    "omp|m|omp|OH-MY-PI|#DEEBFE"
+    "opencode|1|o|opencode|PRIMARY|#00AAFF"
+    "pi|2|p|pi|CORE|#3AD900"
+    "agy|3|a|agy|DEEPMIND|#FFC600"
+    "codex|4|x|codex|OPENAI|#80FCFF"
+    "cursor|5|u|cursor|IDE/CLI|#FF9A00"
+    "claude|6|c|claude|ANTHROPIC|#EE80E1"
+    "gemini|7|g|gemini|GOOGLE|#967EFB"
+    "copilot|8|k|copilot|GITHUB|#88FF88"
+    "kiro-cli|9|i|kiro-cli|KIRO|#F2ED7F"
+    "vibe|0|v|vibe|MISTRAL|#FF9D00"
+    "omp|-|m|omp|OH-MY-PI|#DEEBFE"
 )
 
-# Populated dynamically by discover_agents
-typeset -ga AVAILABLE_IDS=()
-typeset -ga AVAILABLE_INDEX_KEYS=()
-typeset -ga AVAILABLE_MNEMONICS=()
-typeset -ga AVAILABLE_LABELS=()
-typeset -ga AVAILABLE_BADGES=()
-typeset -ga AVAILABLE_COLORS=()
-typeset -ga AVAILABLE_CMDS=()
+# Populated by scan_agents
+typeset -ga ITEM_IDS=()
+typeset -ga ITEM_KEYS=()
+typeset -ga ITEM_MNEMONICS=()
+typeset -ga ITEM_LABELS=()
+typeset -ga ITEM_BADGES=()
+typeset -ga ITEM_COLORS=()
+typeset -ga ITEM_INSTALLED=()
+typeset -ga ITEM_CMDS=()
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# ANSI Styling Helpers {{{
+# -------------------------------------------------------------------
+
+hex_fg() { # {{{
+    local hex="${1#\#}"
+    local r=$(( 16#${hex[1,2]} ))
+    local g=$(( 16#${hex[3,4]} ))
+    local b=$(( 16#${hex[5,6]} ))
+    print -r -- "\e[38;2;${r};${g};${b}m"
+} # }}}
+
+ANSI_RESET=$'\e[0m'
+ANSI_BOLD=$'\e[1m'
 
 # -------------------------------------------------------------------
 # }}}
@@ -136,41 +145,33 @@ resolve_agent_cmd() { # {{{
     esac
 } # }}}
 
-index_key_for_position() { # {{{
-    local pos="$1"
+scan_agents() { # {{{
+    ITEM_IDS=()
+    ITEM_KEYS=()
+    ITEM_MNEMONICS=()
+    ITEM_LABELS=()
+    ITEM_BADGES=()
+    ITEM_COLORS=()
+    ITEM_INSTALLED=()
+    ITEM_CMDS=()
 
-    if (( pos >= 1 && pos <= 9 )); then
-        print -r -- "$pos"
-    elif (( pos == 10 )); then
-        print -r -- "0"
-    else
-        print -r -- "-"
-    fi
-} # }}}
-
-discover_agents() { # {{{
-    AVAILABLE_IDS=()
-    AVAILABLE_INDEX_KEYS=()
-    AVAILABLE_MNEMONICS=()
-    AVAILABLE_LABELS=()
-    AVAILABLE_BADGES=()
-    AVAILABLE_COLORS=()
-    AVAILABLE_CMDS=()
-
-    local entry id mnemonic label badge color cmd
-    local pos=0
+    local entry id key mnemonic label badge color cmd
 
     for entry in "${AGENT_CATALOG[@]}"; do
-        IFS='|' read -r id mnemonic label badge color <<< "$entry"
+        IFS='|' read -r id key mnemonic label badge color <<< "$entry"
+        ITEM_IDS+=("$id")
+        ITEM_KEYS+=("$key")
+        ITEM_MNEMONICS+=("$mnemonic")
+        ITEM_LABELS+=("$label")
+        ITEM_BADGES+=("$badge")
+        ITEM_COLORS+=("$color")
+
         if cmd=$(resolve_agent_cmd "$id"); then
-            (( pos += 1 ))
-            AVAILABLE_IDS+=("$id")
-            AVAILABLE_INDEX_KEYS+=("$(index_key_for_position "$pos")")
-            AVAILABLE_MNEMONICS+=("$mnemonic")
-            AVAILABLE_LABELS+=("$label")
-            AVAILABLE_BADGES+=("$badge")
-            AVAILABLE_COLORS+=("$color")
-            AVAILABLE_CMDS+=("$cmd")
+            ITEM_INSTALLED+=("1")
+            ITEM_CMDS+=("$cmd")
+        else
+            ITEM_INSTALLED+=("0")
+            ITEM_CMDS+=("")
         fi
     done
 } # }}}
@@ -198,16 +199,33 @@ get_terminal_geometry() { # {{{
 } # }}}
 
 format_plain_filter_rows() { # {{{
-    local count="${#AVAILABLE_IDS[@]}"
-    local i idx_key mnemonic label badge
+    local count="${#ITEM_IDS[@]}"
+    local i id key mnemonic label badge installed state
 
     for (( i = 1; i <= count; i++ )); do
-        idx_key="${AVAILABLE_INDEX_KEYS[$i]}"
-        mnemonic="${AVAILABLE_MNEMONICS[$i]}"
-        label="${AVAILABLE_LABELS[$i]}"
-        badge="${AVAILABLE_BADGES[$i]}"
-        printf "[%s / %s]  %-12s  [%s]\n" "$idx_key" "$mnemonic" "$label" "$badge"
+        key="${ITEM_KEYS[$i]}"
+        mnemonic="${ITEM_MNEMONICS[$i]}"
+        label="${ITEM_LABELS[$i]}"
+        badge="${ITEM_BADGES[$i]}"
+        installed="${ITEM_INSTALLED[$i]}"
+
+        if [[ "$installed" == "1" ]]; then
+            state="installed"
+        else
+            state="not installed"
+        fi
+
+        printf "[%s / %s]  %-12s  [%-9s]  (%s)\n" "$key" "$mnemonic" "$label" "$badge" "$state"
     done
+} # }}}
+
+center_ansi_text() { # {{{
+    local text="$1"
+    local visible_len="$2"
+    local width="$3"
+    local pad=$(( (width - visible_len) / 2 ))
+    (( pad < 0 )) && pad=0
+    printf "%*s%b" "$pad" "" "$text"
 } # }}}
 
 render_palette() { # {{{
@@ -216,9 +234,9 @@ render_palette() { # {{{
     local term_cols="${term_geo%% *}"
     local term_lines="${term_geo##* }"
 
-    # Target card geometry (clean fit for 4 aligned columns)
-    local card_width=76
-    if (( term_cols < 80 )); then
+    # Target card geometry
+    local card_width=78
+    if (( term_cols < 82 )); then
         card_width=$(( term_cols - 4 ))
     fi
     (( card_width < 48 )) && card_width=48
@@ -231,57 +249,88 @@ render_palette() { # {{{
     local branch_name
     branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || print -r -- "detached")
 
-    # Header section
-    local title sub_title header_sep
-    title=$(gum style --width "$inner_w" --align center --bold --foreground "$COLOR_HEADER" "⚡  N E X U S   A G E N T   M A T R I X  ⚡")
-    sub_title=$(gum style --width "$inner_w" --align center --foreground "$COLOR_ACCENT" "CLUSTER: active  ◈  TARGET: ${worktree_name}  ◈  BRANCH: ${branch_name}")
-    header_sep=$(gum style --foreground "$COLOR_INNER_BORDER" "$sep_line")
+    # Pre-render ANSI color tags
+    local c_accent c_header c_border c_bracket c_wt c_br c_muted c_dimmed c_key
+    c_accent=$(hex_fg "$HEX_ACCENT")
+    c_header=$(hex_fg "$HEX_HEADER")
+    c_border=$(hex_fg "$HEX_INNER_BORDER")
+    c_bracket=$(hex_fg "$HEX_BRACKET")
+    c_wt=$(hex_fg "$HEX_VALUE_WT")
+    c_br=$(hex_fg "$HEX_VALUE_BR")
+    c_muted=$(hex_fg "$HEX_MUTED")
+    c_dimmed=$(hex_fg "$HEX_DIMMED")
+    c_key=$(hex_fg "$HEX_KEY")
 
-    # Agent rows with aligned columns & color-coded key hints (no descriptions)
+    # Header section
+    local title_visible="Workmux Agent Launcher"
+    local sub_visible="Worktree: ${worktree_name}   •   Branch:  ${branch_name}"
+
+    local title_content="${ANSI_BOLD}${c_header}${title_visible}${ANSI_RESET}"
+    local sub_content="${c_accent}Worktree: ${ANSI_BOLD}${c_wt}${worktree_name}${ANSI_RESET}   ${c_border}•${ANSI_RESET}   ${c_accent}Branch: ${ANSI_BOLD}${c_br} ${branch_name}${ANSI_RESET}"
+
+    local title_line sub_line header_sep
+    title_line=$(center_ansi_text "$title_content" "${#title_visible}" "$inner_w")
+    sub_line=$(center_ansi_text "$sub_content" "${#sub_visible}" "$inner_w")
+    header_sep="${c_border}${sep_line}${ANSI_RESET}"
+
+    # Agent rows: static list. Installed = colored; Uninstalled = completely dimmed in grey
     local -a formatted_rows=()
-    local count="${#AVAILABLE_IDS[@]}"
-    local i idx_key mnemonic label badge color
-    local k_styled l_styled b_styled h_styled row_str
+    local count="${#ITEM_IDS[@]}"
+    local i key mnemonic label badge color installed c_row hint row_str
 
     for (( i = 1; i <= count; i++ )); do
-        idx_key="${AVAILABLE_INDEX_KEYS[$i]}"
-        mnemonic="${AVAILABLE_MNEMONICS[$i]}"
-        label="${AVAILABLE_LABELS[$i]}"
-        badge="${AVAILABLE_BADGES[$i]}"
-        color="${AVAILABLE_COLORS[$i]}"
+        key="${ITEM_KEYS[$i]}"
+        mnemonic="${ITEM_MNEMONICS[$i]}"
+        label="${ITEM_LABELS[$i]}"
+        badge="${ITEM_BADGES[$i]}"
+        color="${ITEM_COLORS[$i]}"
+        installed="${ITEM_INSTALLED[$i]}"
 
-        # Column styling:
-        # [key / mnemonic] in keycap yellow (fixed width)
-        k_styled=$(gum style --bold --foreground "$COLOR_KEY" "$(printf "[%s / %s]" "$idx_key" "$mnemonic")")
-        # Agent name in distinct cobalt2 color (fixed width 11)
-        l_styled=$(gum style --bold --foreground "$color" "$(printf "%-11s" "$label")")
-        # Category badge in dimmed grey (fixed width 11)
-        b_styled=$(gum style --foreground "$COLOR_DIMMED" "$(printf "[%-9s]" "$badge")")
-        # Keybinding hint in matching agent color
-        h_styled=$(gum style --foreground "$color" "press ${idx_key} or ${mnemonic}")
+        if [[ "$installed" == "1" ]]; then
+            c_row=$(hex_fg "$color")
+            hint="press ${key} or ${mnemonic}"
+            row_str=$(printf " %b[%b%s%b / %b%s%b]%b     %b%-12s%b        %b[%b%-9s%b]%b         %b%-17s%b" \
+                "$c_bracket" "$ANSI_BOLD$c_row" "$key" "$ANSI_RESET$c_bracket" "$ANSI_BOLD$c_row" "$mnemonic" "$ANSI_RESET$c_bracket" "$ANSI_RESET" \
+                "$ANSI_BOLD$c_row" "$label" "$ANSI_RESET" \
+                "$c_bracket" "$c_row" "$badge" "$ANSI_RESET$c_bracket" "$ANSI_RESET" \
+                "$c_row" "$hint" "$ANSI_RESET")
+        else
+            hint="not installed"
+            row_str=$(printf " %b[%s / %s]     %-12s        [%-9s]         %-17s%b" \
+                "$c_dimmed" "$key" "$mnemonic" "$label" "$badge" "$hint" "$ANSI_RESET")
+        fi
 
-        row_str="    ${k_styled}   ${l_styled}   ${b_styled}   ${h_styled}"
         formatted_rows+=("$row_str")
     done
 
     local rows_text
-    rows_text=$(printf "%s\n" "${formatted_rows[@]}")
+    rows_text=$(printf "%b\n" "${formatted_rows[@]}")
 
-    # Footer section: single, unbroken line
-    local footer_sep footer_text
-    footer_sep=$(gum style --foreground "$COLOR_INNER_BORDER" "$sep_line")
-    footer_text=$(gum style --width "$inner_w" --align center --foreground "$COLOR_MUTED" \
-        "[1-9,0] Launch  •  [/] Filter  •  [Enter] Default  •  [q] Shell")
+    # Footer section: centered with visible text length calculation
+    local footer_visible="[1-9,0] Launch  •  [/] Filter  •  [Enter] Default  •  [q] Shell"
+    local footer_content=$(printf "  %b[%b1-9,0%b]%b %bLaunch%b  %b•%b  %b[%b/%b]%b %bFilter%b  %b•%b  %b[%bEnter%b]%b %bDefault%b  %b•%b  %b[%bq%b]%b %bShell%b" \
+        "$c_bracket" "$ANSI_BOLD$c_key" "$ANSI_RESET$c_bracket" "$ANSI_RESET" "$c_muted" "$ANSI_RESET" \
+        "$c_border" "$ANSI_RESET" \
+        "$c_bracket" "$ANSI_BOLD$c_accent" "$ANSI_RESET$c_bracket" "$ANSI_RESET" "$c_muted" "$ANSI_RESET" \
+        "$c_border" "$ANSI_RESET" \
+        "$c_bracket" "$ANSI_BOLD$c_key" "$ANSI_RESET$c_bracket" "$ANSI_RESET" "$c_muted" "$ANSI_RESET" \
+        "$c_border" "$ANSI_RESET" \
+        "$c_bracket" "$ANSI_BOLD$c_accent" "$ANSI_RESET$c_bracket" "$ANSI_RESET" "$c_muted" "$ANSI_RESET")
 
+    local footer_sep footer_line
+    footer_sep="${c_border}${sep_line}${ANSI_RESET}"
+    footer_line=$(center_ansi_text "$footer_content" "${#footer_visible}" "$inner_w")
+
+    # Assemble full card content with exactly ONE gum style execution
     local card_content
-    card_content=$(printf "%s\n%s\n%s\n\n%s\n\n%s\n%s" \
-        "$title" "$sub_title" "$header_sep" "$rows_text" "$footer_sep" "$footer_text")
+    card_content=$(printf "%b\n\n%b\n%b\n\n%b\n\n%b\n%b" \
+        "$title_line" "$sub_line" "$header_sep" "$rows_text" "$footer_sep" "$footer_line")
 
-    # Generate bordered double-line card
     local card_box
     card_box=$(gum style \
-        --border double \
-        --border-foreground "$COLOR_ACCENT" \
+        --border rounded \
+        --border-foreground "$HEX_ACCENT" \
+        --bold \
         --padding "1 2" \
         --width "$card_width" \
         "$card_content")
@@ -320,7 +369,7 @@ render_palette() { # {{{
 
 resolve_key_to_agent_index() { # {{{
     local key="${1:l}"
-    local count="${#AVAILABLE_IDS[@]}"
+    local count="${#ITEM_IDS[@]}"
     local i
 
     if [[ -z "$key" ]]; then
@@ -328,11 +377,11 @@ resolve_key_to_agent_index() { # {{{
     fi
 
     for (( i = 1; i <= count; i++ )); do
-        if [[ "${AVAILABLE_INDEX_KEYS[$i]}" == "$key" && "$key" != "-" ]]; then
+        if [[ "${ITEM_KEYS[$i]}" == "$key" && "$key" != "-" ]]; then
             print -r -- "$i"
             return 0
         fi
-        if [[ "${AVAILABLE_MNEMONICS[$i]:l}" == "$key" ]]; then
+        if [[ "${ITEM_MNEMONICS[$i]:l}" == "$key" ]]; then
             print -r -- "$i"
             return 0
         fi
@@ -344,12 +393,12 @@ resolve_key_to_agent_index() { # {{{
 pick_with_gum_filter() { # {{{
     local selection
     selection=$(format_plain_filter_rows | gum filter \
-        --header "⚡ FILTER & DISPATCH AGENT" \
+        --header "Filter & Dispatch Agent" \
         --placeholder "Type agent name or keycap..." \
-        --header.foreground "$COLOR_HEADER" \
-        --indicator.foreground "$COLOR_ACCENT" \
-        --match.foreground "$COLOR_HEADER" \
-        --prompt.foreground "$COLOR_ACCENT" \
+        --header.foreground "$HEX_HEADER" \
+        --indicator.foreground "$HEX_ACCENT" \
+        --match.foreground "$HEX_HEADER" \
+        --prompt.foreground "$HEX_ACCENT" \
         --height 14) || return 1
 
     if [[ -z "$selection" ]]; then
@@ -359,9 +408,9 @@ pick_with_gum_filter() { # {{{
     local picked_label
     picked_label=$(print -r -- "$selection" | awk '{print $4}')
 
-    local i count="${#AVAILABLE_IDS[@]}"
+    local i count="${#ITEM_IDS[@]}"
     for (( i = 1; i <= count; i++ )); do
-        if [[ "${AVAILABLE_LABELS[$i]}" == "$picked_label" ]]; then
+        if [[ "${ITEM_LABELS[$i]}" == "$picked_label" ]]; then
             print -r -- "$i"
             return 0
         fi
@@ -370,9 +419,24 @@ pick_with_gum_filter() { # {{{
     return 1
 } # }}}
 
+notify_not_installed() { # {{{
+    local label="$1"
+    if command -v gum > /dev/null 2>&1; then
+        gum style \
+            --foreground "$HEX_DIMMED" \
+            --bold \
+            --margin "1 4" \
+            "⚠ Agent '${label}' is not installed on this system."
+        sleep 1
+    else
+        print -r -- "⚠ Agent '${label}' is not installed."
+        sleep 1
+    fi
+} # }}}
+
 animate_agent_handoff() { # {{{
     local label="$1"
-    local color="${2:-$COLOR_ACCENT}"
+    local color="${2:-$HEX_ACCENT}"
 
     if command -v gum > /dev/null 2>&1; then
         local term_geo
@@ -383,7 +447,7 @@ animate_agent_handoff() { # {{{
         local pad_top=$(( (term_lines - 3) / 2 ))
         (( pad_top < 1 )) && pad_top=1
 
-        local margin_h=$(( (term_cols - 50) / 2 ))
+        local margin_h=$(( (term_cols - 46) / 2 ))
         (( margin_h < 1 )) && margin_h=2
 
         clear
@@ -394,13 +458,13 @@ animate_agent_handoff() { # {{{
         gum spin \
             --spinner=pulse \
             --spinner.foreground="$color" \
-            --title=" INITIALIZING NEURAL WORKSPACE: ${label}..." \
+            --title=" Launching ${label}..." \
             --title.foreground="$color" \
             --align left \
             --margin "0 ${margin_h}" \
             -- sleep 0.45
     else
-        print -r -- "▶ INITIALIZING: ${label}..."
+        print -r -- "▶ Launching: ${label}..."
         sleep 0.2
     fi
 } # }}}
@@ -409,9 +473,15 @@ launch_agent_by_index() { # {{{
     local idx="$1"
     shift || true
 
-    local label="${AVAILABLE_LABELS[$idx]}"
-    local cmd="${AVAILABLE_CMDS[$idx]}"
-    local color="${AVAILABLE_COLORS[$idx]}"
+    local label="${ITEM_LABELS[$idx]}"
+    local cmd="${ITEM_CMDS[$idx]}"
+    local color="${ITEM_COLORS[$idx]}"
+    local installed="${ITEM_INSTALLED[$idx]}"
+
+    if [[ "$installed" != "1" || -z "$cmd" ]]; then
+        notify_not_installed "$label"
+        return 1
+    fi
 
     # Animated progression state
     animate_agent_handoff "$label" "$color"
@@ -467,20 +537,7 @@ main() { # {{{
     setup_environment
 
     while true; do
-        discover_agents
-
-        if (( ${#AVAILABLE_IDS[@]} == 0 )); then
-            if command -v gum > /dev/null 2>&1; then
-                gum style \
-                    --foreground "$COLOR_DANGER" \
-                    --bold \
-                    --margin "2 4" \
-                    "No supported AI agents found in PATH. Dropping to shell..."
-            else
-                print -u2 "No supported AI agents found in PATH. Dropping to shell..."
-            fi
-            drop_to_shell
-        fi
+        scan_agents
 
         clear
         render_palette

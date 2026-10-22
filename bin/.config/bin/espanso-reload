@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+# Reload espanso daemon and send desktop notification
+
+# {{{ reload_espanso
+reload_espanso() {
+    if ! command -v espanso > /dev/null 2>&1; then
+        notify-send -u critical -i "dialog-error" "Espanso" "Espanso binary not found in PATH"
+        return 1
+    fi
+
+    local output
+    if ! espanso status > /dev/null 2>&1; then
+        if output=$(espanso service start 2>&1); then
+            notify-send -u normal -i "accessories-text-editor" "Espanso" "Keybindings and snippets started successfully"
+            return 0
+        else
+            notify-send -u critical -i "dialog-error" "Espanso" "Failed to start: ${output}"
+            return 1
+        fi
+    fi
+
+    if output=$(espanso restart 2>&1); then
+        notify-send -u normal -i "accessories-text-editor" "Espanso" "Keybindings and snippets reloaded successfully"
+        return 0
+    else
+        notify-send -u critical -i "dialog-error" "Espanso" "Failed to reload: ${output}"
+        return 1
+    fi
+}
+# }}}
+
+reload_espanso "$@"

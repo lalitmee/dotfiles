@@ -87,6 +87,19 @@ augroup("reload_config_au", {
             vim.cmd([[:silent !kill -SIGUSR1 $(pgrep kitty)]])
         end,
     },
+    {
+        event = { "BufWritePost" },
+        pattern = { "*/espanso/match/*.yml", "*/espanso/config/*.yml", "base.yml" },
+        command = function()
+            local cmd = vim.fn.exepath("espanso-reload")
+            if cmd == "" then
+                cmd = vim.fn.expand("~/.config/bin/espanso-reload")
+            end
+            if vim.fn.executable(cmd) == 1 then
+                vim.fn.jobstart({ cmd }, { detach = true })
+            end
+        end,
+    },
 })
 
 --------------------------------------------------------------------------------
