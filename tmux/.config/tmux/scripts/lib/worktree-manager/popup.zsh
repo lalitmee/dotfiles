@@ -44,7 +44,7 @@ worktree_notice() {
         print -r -- "${level:u}: $message"
     fi
     print -n -r -- 'Press any key to continue...'
-    read -k 1 -s -r
+    read -u 0 -k 1 -s -r
     print
 }
 
@@ -122,7 +122,7 @@ worktree_remove_job() {
         print -u2 -r -- "Worktree deletion failed (exit $rc). Check the error above."
     fi
     print -n -r -- 'Press any key to close and refresh the manager...'
-    read -k 1 -s -r
+    read -u 0 -k 1 -s -r
     print
     tmux send-keys -t "$manager_window" C-f
     return "$rc"

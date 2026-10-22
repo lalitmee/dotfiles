@@ -52,14 +52,31 @@ open_worktree() {
         tmux switch-client -t "$session_id" && tmux select-window -t "$session_id:${session_windows[1]}"
         return $?
     done <<< "$sessions"
-    panes=$(tmux list-panes -a -F '#{session_id}\t#{window_id}\t#{pane_current_path}') || return 1
-    while IFS=$'\t' read -r session_id window_id pane_path; do
-        [[ -n "$session_id" && "${pane_path:A}" == "$worktree_path" ]] || continue
-        tmux switch-client -t "$session_id" && tmux select-window -t "$session_id:$window_id"
-        return $?
-    done <<< "$panes"
+    if [[ "$mode" == window ]]; then
+        panes=$(tmux list-panes -a -F '#{session_id}\t#{window_id}\t#{pane_current_path}') || return 1
+        while IFS=$'\t' read -r session_id window_id pane_path; do
+            [[ -n "$session_id" && "${pane_path:A}" == "$worktree_path" ]] || continue
+            tmux switch-client -t "$session_id" && tmux select-window -t "$session_id:$window_id"
+            return $?
+        done <<< "$panes"
+    fi
     if [[ "$mode" == session ]]; then
-        tmux new-session -c "$worktree_path"
+        local session_names
+        session_names=$(tmux list-sessions -F '#{session_name}' 2>/dev/null) || session_names=''
+        local -a existing_sessions
+        existing_sessions=("${(@f)session_names}")
+        base="${repo_name}-${branch}"
+        base="${base//$'\n'/ }"
+        base="${base//$'\r'/ }"
+        base="${base//./_}"
+        base="${base//:/_}"
+        name="$base"
+        local suffix=2
+        while (( ${existing_sessions[(Ie)$name]} )); do
+            name="$base-$suffix"
+            (( suffix++ ))
+        done
+        tmux new-session -c "$worktree_path" -d -s "$name" && tmux switch-client -t "$name"
         return $?
     fi
     window_names=$(tmux list-windows -F '#{window_name}') || return 1

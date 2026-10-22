@@ -219,8 +219,33 @@
     }
   },
   "ui": {
+    "customThemes": {
+      "Cobalt2": {
+        "Background": "#193549",
+        "Comment": "#0088FF",
+        "DarkGray": "#0D3A58",
+        "DiffAdded": "#2D7067",
+        "DiffRemoved": "#700009",
+        "Foreground": "#FFFFFF",
+        "GradientColors": [
+          "#FFC600",
+          "#00AAFF",
+          "#FF628C"
+        ],
+        "Gray": "#808080",
+        "LightBlue": "#80FCFF",
+        "AccentBlue": "#00AAFF",
+        "AccentCyan": "#80FCFF",
+        "AccentGreen": "#88FF88",
+        "AccentPurple": "#967EFB",
+        "AccentRed": "#FF0000",
+        "AccentYellow": "#FFC600",
+        "name": "Cobalt2",
+        "type": "custom"
+      }
+    },
     "hideBanner": true,
     "hideTips": true,
-    "theme": "Shades Of Purple"
+    "theme": "Cobalt2"
   }
 }

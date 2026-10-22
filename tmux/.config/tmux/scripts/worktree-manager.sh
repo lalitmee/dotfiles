@@ -16,6 +16,50 @@ zmodload zsh/datetime zsh/stat 2>/dev/null
 # Escape control characters for single-line display; original fields stay in arrays.
 manager_display() { print -rn -- "${(V)1}"; }
 
+# Cobalt2 palette (RGB format matching window-switcher.sh, prioritized for visibility)
+typeset -ga WM_COBALT2_PALETTE=(
+    '255;198;0' '0;170;255' '58;217;0' '255;98;140'
+    '255;157;0' '128;252;255' '150;126;251' '238;128;225'
+    '242;237;127' '187;255;221' '251;188;5' '66;133;244'
+    '52;168;83' '234;67;53'
+)
+
+# Assign Cobalt2 colors to displayed repositories without repetition. # {{{
+_worktree_assign_repo_colors() {
+    emulate -L zsh
+    local color rgb item r_parts r_root
+    local color_idx=0 extra=0
+    local p r g b lum
+
+    repo_colors=()
+    used_colors=()
+    for p in "${WM_COBALT2_PALETTE[@]}"; do used_colors[$p]=1; done
+
+    for item in "${sorted_entries[@]}"; do
+        r_parts=("${(@ps:\t:)item}")
+        r_root="${r_parts[5]}"
+        if [[ -z "${repo_colors[$r_root]:-}" ]]; then
+            (( color_idx++ ))
+            color="${WM_COBALT2_PALETTE[color_idx]:-}"
+            while [[ -z "$color" || ( $color_idx -gt ${#WM_COBALT2_PALETTE} && -n "${used_colors[$color]:-}" ) ]]; do
+                (( extra++ ))
+                rgb=$(( (8421504 + extra * 7919) % 16777216 ))
+                r=$(( rgb / 65536 ))
+                g=$(( (rgb / 256) % 256 ))
+                b=$(( rgb % 256 ))
+                lum=$(( (r * 299 + g * 587 + b * 114) / 1000 ))
+                if (( lum < 130 )); then
+                    continue
+                fi
+                color="${r};${g};${b}"
+            done
+            used_colors[$color]=1
+            repo_colors[$r_root]="$color"
+        fi
+    done
+}
+# }}}
+
 worktree_manager_header() {
     emulate -L zsh
     local filter_label="${1:-all}" main_label="${2:-off}" width="${COLUMNS:-80}"
@@ -189,6 +233,7 @@ manager_main() {
     projects_root="${(j:, :)roots}"
     local heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
     local -a fields rows choice
+    local -A repo_colors used_colors
     while true; do
         if (( refresh )); then
             fields=(); rows=()
@@ -230,7 +275,9 @@ manager_main() {
                 mv -f -- "$cache_tmp" "$cache_file" 2>/dev/null || rm -f -- "$cache_tmp"
             fi
             rows=()
-            local i display
+            local -a raw_entries sorted_entries
+            raw_entries=(); sorted_entries=()
+            local i display tab=$'\t'
             for ((i=1; i+5<=${#fields}; i+=6)); do
                 local group="${fields[i+1]}"
                 if [[ "$filter" != all ]]; then
@@ -238,16 +285,29 @@ manager_main() {
                 fi
                 [[ ",${fields[i+5]}," != *,prunable,* ]] || continue
                 (( show_main )) || [[ ",${fields[i+5]}," != *,main,* ]] || continue
-                printf -v display '%-20.20s %-32.32s %s' \
-                    "$(manager_display "${fields[i+2]}")" \
-                    "$(manager_display "${fields[i+4]:-detached}")" \
-                    "$(manager_display "${fields[i+3]}")"
-                rows+=("$i"$'\t'"$display")
+                raw_entries+=("$(manager_display "${fields[i+2]}")${tab}$(manager_display "${fields[i+4]:-detached}")${tab}$(manager_display "${fields[i+3]}")${tab}${i}${tab}${fields[i]}")
             done
+
             # Parallel discovery returns records in nondeterministic order; sort
-            # rows (the id is the first tab field, so selections still map) for a
-            # stable listing across runs.
-            (( ${#rows} )) && rows=("${(@f)$(printf '%s\n' "${rows[@]}" | LC_ALL=C sort -t$'\t' -k2,2)}")
+            # by repo name, branch, and path before applying ANSI formatting so
+            # ANSI escape codes do not corrupt the sort order.
+            (( ${#raw_entries} )) && sorted_entries=("${(@f)$(printf '%s\n' "${raw_entries[@]}" | LC_ALL=C sort -t"$tab" -k1,1 -k2,2 -k3,3)}")
+
+            _worktree_assign_repo_colors
+
+            local entry
+            for entry in "${sorted_entries[@]}"; do
+                local -a entry_parts
+                entry_parts=("${(@ps:\t:)entry}")
+                local r_name="${entry_parts[1]}" r_branch="${entry_parts[2]}" r_path="${entry_parts[3]}" r_id="${entry_parts[4]}" r_root="${entry_parts[5]}"
+                local r_color="${repo_colors[$r_root]:-${WM_COBALT2_PALETTE[1]}}"
+                printf -v display '\033[1;38;2;%sm%-20.20s\033[0m %-32.32s %s' \
+                    "$r_color" \
+                    "$r_name" \
+                    "$r_branch" \
+                    "$r_path"
+                rows+=("$r_id"$'\t'"$display")
+            done
             refresh=0; force=0
         fi
         local filter_label="$filter"

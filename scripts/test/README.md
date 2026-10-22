@@ -29,6 +29,7 @@ Run an individual manager suite with one of these exact commands:
 zsh scripts/test/tmux/worktree/manager.zsh discovery
 zsh scripts/test/tmux/worktree/manager.zsh actions
 zsh scripts/test/tmux/worktree/manager.zsh interface
+zsh scripts/test/tmux/worktree/manager.zsh colors
 ```
 
 ### User commands

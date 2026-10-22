@@ -166,18 +166,20 @@ EOF
 
     local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
     source "$manager"
+    _worktree_popup_gum() { return 1; }
     local calls="$TEST_DIR/config-discovery-calls"
     discover_worktrees() {
         printf '%s\0' "$@" > "$calls"
         printf '%s\0' "$TEST_DIR/repo" Personal repo "$TEST_DIR/repo" main main
     }
     fzf() { cat >/dev/null; return 130; }
+    tmux() { return 0; }
     local TMUX=''
     manager_main > /dev/null
     roots=(); while IFS= read -r -d '' field; do roots+=("$field"); done < "$calls"
     assert_equal "${#roots}" 4 'manager startup passes all configured roots'
     assert_equal "${(j:|:)roots}" "${HOME}/Projects|${HOME}/relative root|$TEST_DIR/xdg/absolute root|$WORKSPACE_DIR" 'manager root argument boundaries'
-    unfunction discover_worktrees fzf
+    unfunction discover_worktrees fzf tmux
     print 'PASS: global worktree config'
 }
 
@@ -271,12 +273,13 @@ test_actions() {
         fail 'existing worktree window is not selected'
     [[ "$joined" != *new-window* ]] || fail 'existing worktree window is duplicated'
     : > "$tmux_log"
-    open_panes=''
+    # An existing window/pane must not intercept session mode.
+    open_panes=$'@other-session\t@other-window\t'"$moved"
     open_worktree "$moved" project topic session
     fields=(); while IFS= read -r -d '' field; do fields+=("$field"); done < "$tmux_log"
     joined="${(j:|:)fields}"
-    [[ "$joined" == *'new-session|-c|'"$moved"* ]] || \
-        fail 'session key does not create a session in the worktree'
+    [[ "$joined" == *'new-session|-c|'"$moved"'|-d|-s|project-topic|switch-client|-t|project-topic'* ]] || \
+        fail 'session key does not create and switch to a session'
     [[ "$joined" != *new-window* ]] || fail 'session key creates a window instead of a session'
     remove_worktree "$repo" "$moved" 1
     command git -C "$repo" show-ref --verify --quiet refs/heads/remote-only || fail 'worktree removal deleted branch'
@@ -376,7 +379,7 @@ test_interface() {
     [[ "$style_joined" == *$'\n\ncenter me'* ]] || fail 'notice text is not vertically centered'
     [[ "$style_joined" == *$'--border\nrounded'* ]] || fail 'notice border style changed'
     unfunction gum
-    functions[_worktree_popup_gum]="$popup_gum_original"
+    _worktree_popup_gum() { return 1; }
     discover_worktrees() {
         print x >> "$ui_dir/scans"
         [[ -z "$ui_warning" ]] || print -u2 -r -- "$ui_warning"
@@ -526,6 +529,10 @@ EOF
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[38;2;255;98;140mctrl-d:\e[0m'* ]] || fail 'keybinding color missing'
     [[ "$(cat "$ui_dir/options.1")" == *$'\e[0m \e[38;2;255;198;0mremove\e[0m'* ]] || fail 'keybinding description color missing'
     [[ "$(cat "$ui_dir/rows.1")" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail 'column heading delimiter or color missing'
+    local rows_content
+    rows_content=$(cat "$ui_dir/rows.2")
+    [[ "$rows_content" == *$'\e[1;38;2;255;198;0mmain project'* ]] || fail 'main worktree lacks expected Cobalt2 color'
+    [[ "$rows_content" == *$'\e[1;38;2;255;198;0mproject name'* ]] || fail 'worktree from same repo lacks identical Cobalt2 color'
     local feedback='' popup_output
     manager_checkout() { return 0; }
     popup_output=$(worktree_popup checkout "$TEST_DIR/repo" "$selected_path" </dev/null)
@@ -583,7 +590,8 @@ EOF
     manager_main "$TEST_DIR/Projects" > "$ui_dir/output"
     result=$(cat "$ui_dir/rows.1")
     [[ "$result" == *$'0\t\e[38;2;138;138;138mREPOSITORY'* ]] || fail "column labels are not a non-selectable list header: $result"
-    [[ "$result" == *$'1\t'project*topic*'tree with spaces'* ]] || fail 'row fields missing'
+    [[ "$result" == *$'1\t'*project*topic*'tree with spaces'* ]] || fail 'row fields missing'
+    [[ "$result" == *$'\e[1;38;2;255;198;0mproject name'* ]] || fail 'repository name lacks Cobalt2 color'
     [[ "$result" != *clean* && "$result" != *dirty* ]] || fail 'clean/dirty status shown in row'
     local field
     calls=(); while IFS= read -r -d '' field; do calls+=("$field"); done < "$ui_dir/actions"
@@ -695,11 +703,41 @@ EOF
     print 'PASS: global worktree interface'
 }
 
+test_repo_colors() {
+    local manager="$WORKSPACE_DIR/tmux/.config/tmux/scripts/worktree-manager.sh"
+    source "$manager"
+    local -a sorted_entries
+    local i rname tab=$'\t'
+    # Create 20 unique repositories
+    for ((i=1; i<=20; i++)); do
+        printf -v rname 'repo%02d' "$i"
+        sorted_entries+=("$rname${tab}main${tab}$TEST_DIR/$rname/wt${tab}$i${tab}$TEST_DIR/$rname")
+    done
+    local -A repo_colors used_colors
+    _worktree_assign_repo_colors
+    local -A seen_assigned
+    for ((i=1; i<=20; i++)); do
+        printf -v rname 'repo%02d' "$i"
+        local color="${repo_colors[$TEST_DIR/$rname]}"
+        [[ -n "$color" ]] || fail "missing color for $rname"
+        [[ -z "${seen_assigned[$color]:-}" ]] || fail "duplicate color assigned: $color"
+        seen_assigned[$color]=1
+    done
+    assert_equal "${#seen_assigned}" 20 "20 unique non-repeating colors assigned"
+    # First 14 must match baseline WM_COBALT2_PALETTE
+    for ((i=1; i<=14; i++)); do
+        printf -v rname 'repo%02d' "$i"
+        assert_equal "${repo_colors[$TEST_DIR/$rname]}" "${WM_COBALT2_PALETTE[i]}" "palette color $i matches Cobalt2"
+    done
+    print 'PASS: global worktree repo colors'
+}
+
 case "${1:-all}" in
     config) test_config ;;
     discovery) test_discovery ;;
     actions) test_actions ;;
     interface) test_interface ;;
-    all) test_config; test_discovery; test_actions; test_interface ;;
+    colors) test_repo_colors ;;
+    all) test_config; test_discovery; test_actions; test_interface; test_repo_colors ;;
     *) fail "unknown test suite: $1" ;;
 esac
