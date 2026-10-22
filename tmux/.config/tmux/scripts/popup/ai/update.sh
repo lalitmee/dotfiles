@@ -45,8 +45,15 @@ run_updates() {
         # Ensure cleanup
         trap "rm -f \"$tmp_file\"" RETURN EXIT
 
-        gum_style "Downloading $tool_name installer..."
-        if ! curl -fsSL "$url" -o "$tmp_file"; then
+        local dl_status=0
+        if command -v gum >/dev/null 2>&1; then
+            gum spin --spinner dot --title "Downloading $tool_name installer..." -- curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
+        else
+            gum_style "Downloading $tool_name installer..."
+            curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
+        fi
+
+        if [[ $dl_status -ne 0 ]]; then
             gum_style "❌ Error: Failed to download $tool_name installer from $url"
             return 1
         fi
@@ -93,7 +100,14 @@ run_updates() {
         local tmp_script
         tmp_script=$(mktemp /tmp/remote_script.XXXXXX)
 
-        if curl -fsSL "$script_url" -o "$tmp_script"; then
+        local dl_status=0
+        if command -v gum >/dev/null 2>&1; then
+            gum spin --spinner dot --title "Downloading remote script..." -- curl -fsSL "$script_url" -o "$tmp_script" || dl_status=$?
+        else
+            curl -fsSL "$script_url" -o "$tmp_script" || dl_status=$?
+        fi
+
+        if [[ $dl_status -eq 0 ]]; then
             # Verification:
             # 1. File is not empty
             # 2. Starts with a shebang
@@ -138,13 +152,26 @@ run_updates() {
         # This is crucial for checking the currently installed version.
         local base_package_name=$(echo "$package_name_with_tag" | sed -E 's/@[^@]*$//')
 
-        gum_style "Checking for updates for: $package_name_with_tag..."
-
         local old_version=$(get_npm_version "$base_package_name")
 
         # Capture both stdout and stderr to check for errors
         local install_output
-        if install_output=$(npm install -g "$package_name_with_tag" 2>&1); then
+        local install_status=0
+        local tmp_out
+        tmp_out=$(mktemp)
+
+        if command -v gum >/dev/null 2>&1; then
+            gum spin --spinner dot --title "Updating $package_name_with_tag..." -- \
+                sh -c 'npm install -g "$1" > "$2" 2>&1' _ "$package_name_with_tag" "$tmp_out" || install_status=$?
+        else
+            gum_style "Checking for updates for: $package_name_with_tag..."
+            npm install -g "$package_name_with_tag" > "$tmp_out" 2>&1 || install_status=$?
+        fi
+
+        install_output=$(<"$tmp_out")
+        rm -f "$tmp_out"
+
+        if [[ $install_status -eq 0 ]]; then
             local new_version=$(get_npm_version "$base_package_name")
             local status_icon="➡️" # Default: No Change
 
@@ -170,8 +197,22 @@ run_updates() {
                     gum_style "🗑️  Removing corrupted installation at: $package_path"
                     rm -rf "$package_path"
 
-                    gum_style "🔄 Retrying installation..."
-                    if npm install -g "$package_name_with_tag"; then
+                    local retry_status=0
+                    local retry_out
+                    retry_out=$(mktemp)
+
+                    if command -v gum >/dev/null 2>&1; then
+                        gum spin --spinner dot --title "Retrying installation for $package_name_with_tag..." -- \
+                            sh -c 'npm install -g "$1" > "$2" 2>&1' _ "$package_name_with_tag" "$retry_out" || retry_status=$?
+                    else
+                        gum_style "🔄 Retrying installation..."
+                        npm install -g "$package_name_with_tag" > "$retry_out" 2>&1 || retry_status=$?
+                    fi
+
+                    install_output=$(<"$retry_out")
+                    rm -f "$retry_out"
+
+                    if [[ $retry_status -eq 0 ]]; then
                         local new_version=$(get_npm_version "$base_package_name")
                         gum_style "✅ Success: $package_name_with_tag installed after fix."
                         update_summary+=("$base_package_name,✨,$old_version,$new_version (Fixed)")
@@ -211,7 +252,13 @@ run_updates() {
         # OpenCode V2 is installed via its own installer; npm's opencode-ai@latest is V1.
         if command_exists opencode; then
             old_version=$(get_opencode_version)
-            if opencode upgrade; then
+            local opencode_status=0
+            if command -v gum >/dev/null 2>&1; then
+                gum spin --spinner dot --title "Updating OpenCode CLI..." -- opencode upgrade || opencode_status=$?
+            else
+                opencode upgrade || opencode_status=$?
+            fi
+            if [[ $opencode_status -eq 0 ]]; then
                 new_version=$(get_opencode_version)
                 status_icon="➡️"
                 [[ "$old_version" != "$new_version" ]] && status_icon="⬆️"
@@ -226,8 +273,14 @@ run_updates() {
         # Antigravity CLI: Update via built-in updater
         if command_exists agy; then
             old_version=$(get_agy_version)
-            gum_style "Updating Antigravity CLI (agy)..."
-            if agy update; then
+            local agy_status=0
+            if command -v gum >/dev/null 2>&1; then
+                gum spin --spinner dot --title "Updating Antigravity CLI (agy)..." -- agy update || agy_status=$?
+            else
+                gum_style "Updating Antigravity CLI (agy)..."
+                agy update || agy_status=$?
+            fi
+            if [[ $agy_status -eq 0 ]]; then
                 new_version=$(get_agy_version)
                 status_icon="➡️" # Default: No Change
 

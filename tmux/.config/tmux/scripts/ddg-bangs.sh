@@ -22,28 +22,37 @@ OUTPUT_FILE="$HOME/.config/tmux/scripts/ask-sh/.scraped-bangs-list"
 # -------------------------------------------------------------------
 # NOTE: Script Logic {{{
 # -------------------------------------------------------------------
-echo "🔎 Fetching the bang list from DuckDuckGo's JSON source..."
-scraped_data=$(curl -s "$BANG_URL" | jq -r '.[] | "\(.t)\t!\(.s)"')
+tmp_raw=$(mktemp)
+trap 'rm -f "$tmp_raw"' EXIT
 
-if [[ -z "$scraped_data" ]]; then
+if command -v gum >/dev/null 2>&1; then
+    gum spin --spinner dot --title "Fetching bang list from DuckDuckGo..." -- \
+        sh -c 'curl -s "$1" | jq -r ".[] | \"\\(.t)\\t!\\(.s)\"" > "$2"' _ "$BANG_URL" "$tmp_raw"
+else
+    echo "🔎 Fetching the bang list from DuckDuckGo's JSON source..."
+    curl -s "$BANG_URL" | jq -r '.[] | "\(.t)\t!\(.s)"' > "$tmp_raw"
+fi
+
+if [[ ! -s "$tmp_raw" ]]; then
     echo "❌ Error: Failed to fetch or parse the JSON data."
     exit 1
 fi
-
-echo "🧹 Filtering for Latin-based script entries..."
 
 # This robust perl command keeps a line unless it contains a character
 # that is NOT in the Latin, Common (punctuation, digits, etc.), or Symbol scripts.
 # This correctly removes entries in Cyrillic, Arabic, Hebrew, Greek, CJK, etc.
 # while preserving all desired entries.
-filtered_data=$(echo "$scraped_data" | perl -CS -ne 'print unless /[^\p{Latin}\p{Common}\p{Symbol}]/')
-
-# Save the formatted and filtered data to the output file.
-echo "$filtered_data" > "$OUTPUT_FILE"
+if command -v gum >/dev/null 2>&1; then
+    gum spin --spinner dot --title "Filtering Latin-based script entries..." -- \
+        sh -c 'perl -CS -ne "print unless /[^\p{Latin}\p{Common}\p{Symbol}]/" "$1" > "$2"' _ "$tmp_raw" "$OUTPUT_FILE"
+else
+    echo "🧹 Filtering for Latin-based script entries..."
+    perl -CS -ne 'print unless /[^\p{Latin}\p{Common}\p{Symbol}]/' "$tmp_raw" > "$OUTPUT_FILE"
+fi
 
 echo "✅ Success! Filtered bang list saved to $OUTPUT_FILE"
-original_count=$(echo "$scraped_data" | wc -l | tr -d ' ')
-filtered_count=$(echo "$filtered_data" | wc -l | tr -d ' ')
+original_count=$(wc -l < "$tmp_raw" | tr -d ' ')
+filtered_count=$(wc -l < "$OUTPUT_FILE" | tr -d ' ')
 echo "Removed $(($original_count - $filtered_count)) entries. Kept $filtered_count bangs."
 # }}}
 # -------------------------------------------------------------------

@@ -31,6 +31,10 @@ alt + space
 # Edit Espanso config (scratchpad)
 super + alt + i
     i3run --summon --title espanso-scratch -- ghostty --title=espanso-scratch -e nvim ~/.config/espanso/match/base.yml
+
+# Reload Espanso snippets
+super + ctrl + i
+    ~/.config/bin/espanso-reload
 #}}}
 #-------------------------------------------------------------------------------
 

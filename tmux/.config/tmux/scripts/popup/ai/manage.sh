@@ -79,8 +79,15 @@ secure_run_script() { # {{{
 
     trap "rm -f \"$tmp_file\"" RETURN EXIT
 
-    gum_style "Downloading $tool_name installer..."
-    if ! curl -fsSL "$url" -o "$tmp_file"; then
+    local dl_status=0
+    if command -v gum >/dev/null 2>&1; then
+        gum spin --spinner dot --title "Downloading $tool_name installer..." -- curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
+    else
+        gum_style "Downloading $tool_name installer..."
+        curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
+    fi
+
+    if [[ $dl_status -ne 0 ]]; then
         gum_style "❌ Error: Failed to download $tool_name installer from $url"
         return 1
     fi
@@ -100,17 +107,8 @@ secure_run_script() { # {{{
     return $?
 } # }}}
 
-# --- Main Logic ---
-
-main() { # {{{
-    # 1. Dependency checks
-    if ! command -v fzf >/dev/null 2>&1; then
-        tmux display-message "❌ Error: fzf is not installed."
-        exit 1
-    fi
-
-    echo "🔍 Fetching tool versions... Please wait."
-
+build_tool_menu() { # {{{
+    local outfile="$1"
     # Fetch all global NPM package versions in one fast call
     local NPM_JSON
     NPM_JSON=$(npm list -g --depth=0 --json 2>/dev/null || echo "{}")
@@ -128,9 +126,7 @@ main() { # {{{
     local ver_cursor=$(get_cursor_agent_version)
     local ver_pi=$(get_npm_version_fast "@earendil-works/pi-coding-agent")
 
-    # 2. Present interactive selection list via fzf
-    local selections
-    selections=$(printf "%s\n" \
+    printf "%s\n" \
         "🚀 agy ($ver_agy)" \
         "🟠 claude ($ver_claude)" \
         "  copilot ($ver_copilot)" \
@@ -145,8 +141,38 @@ main() { # {{{
         "🦀 [cargo] Install/update custom cargo package..." \
         "🐹 [go] Install/update custom go package..." \
         "🍺 [brew] Install/update custom brew formula..." \
-        "🐍 [pip] Install/update custom python pip package..." \
-        | fzf --header="Select tool(s) to install/update (TAB to multi-select, ENTER to run):" --multi --ansi --height=18)
+        "🐍 [pip] Install/update custom python pip package..." > "$outfile"
+} # }}}
+
+# --- Main Logic ---
+
+main() { # {{{
+    if [[ "$1" == "__fetch_versions" ]]; then
+        build_tool_menu "$2"
+        exit $?
+    fi
+
+    # 1. Dependency checks
+    if ! command -v fzf >/dev/null 2>&1; then
+        tmux display-message "❌ Error: fzf is not installed."
+        exit 1
+    fi
+
+    local menu_file
+    menu_file=$(mktemp)
+    trap "rm -f \"$menu_file\"" EXIT
+
+    if command -v gum >/dev/null 2>&1; then
+        gum spin --spinner dot --title "Fetching AI tool versions..." -- \
+            zsh "$0" __fetch_versions "$menu_file"
+    else
+        echo "🔍 Fetching tool versions... Please wait."
+        build_tool_menu "$menu_file"
+    fi
+
+    # 2. Present interactive selection list via fzf
+    local selections
+    selections=$(cat "$menu_file" | fzf --header="Select tool(s) to install/update (TAB to multi-select, ENTER to run):" --multi --ansi --height=18)
 
     if [[ -z "$selections" ]]; then
         # User pressed ESC, exit clean

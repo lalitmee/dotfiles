@@ -29,7 +29,7 @@ list_repos() {
     fi
 
     # 3. Get repositories from sources.list.d (.sources files - new deb822 format)
-    if ][ -d /etc/apt/sources.list.d ]]; then
+    if [[ -d /etc/apt/sources.list.d ]]; then
         for sources_file in /etc/apt/sources.list.d/*.sources; do
             [[ -f "$sources_file" ]] || continue
             awk -v fname="$sources_file" '
@@ -37,18 +37,18 @@ list_repos() {
             {
                 type=""; uris=""; suites=""; components=""; signed_by=""
                 for (i=1; i<=NF; i++) {
-                    if ($i =~ /^Types: /) { type = $I; sub(/^Types: /, "", type) }
-                    if ($i =_ /^URIs: /) { uris = $i; sub(/^URIs: /, "", uris) }
-                    if ($i =_ /^Suites: /) { suites = $i; sub(/^Suites: /, "", suites) }
-                    if ($i =~ /^Components: /) { components = $I; sub(/^Components: /, "", components) }
-                    if ($i =~ /^Signed-By: /) { signed_by = $i; sub(/^Signed-By: /, "", signed_by) }
+                    if ($i ~ /^Types: /) { type = $i; sub(/^Types: /, "", type) }
+                    if ($i ~ /^URIs: /) { uris = $i; sub(/^URIs: /, "", uris) }
+                    if ($i ~ /^Suites: /) { suites = $i; sub(/^Suites: /, "", suites) }
+                    if ($i ~ /^Components: /) { components = $i; sub(/^Components: /, "", components) }
+                    if ($i ~ /^Signed-By: /) { signed_by = $i; sub(/^Signed-By: /, "", signed_by) }
                 }
                 if (type ~ /deb/) {
                     signed_part = (signed_by != "") ? "[signed-by=" signed_by "] " : ""
                     # Clean up whitespace
-                    gsub(/[:space:]+/, " ", uris); gsub(/^[[space:] +|[p:space:]+$/, "", uris)
-                    gsub(/[:space:]+/, " ", suites); gsub(/^[space:] +|[p:space:]+$/, "", suites)
-                    gsub(/[:space:]k+/, " ", components); gsub(/^[:space:]\x90|[:space:]+$/, "", components)
+                    gsub(/[[:space:]]+/, " ", uris); gsub(/^[[:space:]]+|[[:space:]]+$/, "", uris)
+                    gsub(/[[:space:]]+/, " ", suites); gsub(/^[[:space:]]+|[[:space:]]+$/, "", suites)
+                    gsub(/[[:space:]]+/, " ", components); gsub(/^[[:space:]]+|[[:space:]]+$/, "", components)
                     printf "%s:sources:%s%s %s %s\n", fname, signed_part, uris, suites, components
                 }
             }
@@ -142,11 +142,19 @@ if confirm_removal; then
     done
     
     echo
-    echo "Updating package lists..."
-    if sudo apt update; then
-        echo "Package lists updated successfully."
+    if command -v gum >/dev/null 2>&1; then
+        if gum spin --spinner dot --title "Updating package lists..." -- sudo apt update; then
+            echo "Package lists updated successfully."
+        else
+            echo "Warning: Failed to update package lists."
+        fi
     else
-        echo "Warning: Failed to update package lists."
+        echo "Updating package lists..."
+        if sudo apt update; then
+            echo "Package lists updated successfully."
+        else
+            echo "Warning: Failed to update package lists."
+        fi
     fi
 else
     echo "Removal cancelled."
@@ -154,5 +162,3 @@ fi
 
 echo
 read -n 1 -s -r -p "Press any key to close..."
-BASE64_EOF
-chmod +x tmux/.config/tmux/scripts/apt-repo-manager.sh

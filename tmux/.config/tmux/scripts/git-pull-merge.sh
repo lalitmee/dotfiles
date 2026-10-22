@@ -44,21 +44,33 @@ echo "Executing in: $selected_repo"
 echo "-----------------------------------"
 
 if [[ "$chosen_action" == *"Pull"* ]]; then
-    echo "Running: git pull origin $target_branch"
-    git pull origin "$target_branch"
+    if command -v gum >/dev/null 2>&1; then
+        gum spin --spinner dot --title "Pulling latest for '$target_branch'..." --show-output -- git pull origin "$target_branch"
+    else
+        echo "Running: git pull origin $target_branch"
+        git pull origin "$target_branch"
+    fi
     echo "-----------------------------------"
     read -n 1 -s -r -p "✅ Pull complete. Press any key to close..."
 
 elif [[ "$chosen_action" == *"Merge"* ]]; then
-    echo "Fetching latest branches before merge..."
-    git fetch --all --prune &> /dev/null
+    if command -v gum >/dev/null 2>&1; then
+        gum spin --spinner dot --title "Fetching latest branches before merge..." -- git fetch --all --prune
+    else
+        echo "Fetching latest branches before merge..."
+        git fetch --all --prune &> /dev/null
+    fi
 
     all_branches=$(git branch -a --format='%(refname:short)' | sed 's|remotes/origin/||' | sort -u)
     merge_branch=$(echo "$all_branches" | fzf --bind="change:first" --prompt="Merge which branch into '$target_branch'? > ")
 
     if [ -n "$merge_branch" ]; then
-        echo "Running: git merge $merge_branch"
-        git merge "$merge_branch"
+        if command -v gum >/dev/null 2>&1; then
+            gum spin --spinner dot --title "Merging $merge_branch into $target_branch..." --show-output -- git merge "$merge_branch"
+        else
+            echo "Running: git merge $merge_branch"
+            git merge "$merge_branch"
+        fi
         echo "-----------------------------------"
         read -n 1 -s -r -p "✅ Merge complete. Press any key to close..."
     else
