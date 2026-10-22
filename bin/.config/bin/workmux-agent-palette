@@ -1,0 +1,524 @@
+#!/usr/bin/env zsh
+
+# -------------------------------------------------------------------
+# Workmux Agent Palette
+# -------------------------------------------------------------------
+# Futuristic, cyberpunk HUD agent launcher palette for workmux.
+# Perfectly centered vertically & horizontally in the terminal window,
+# styled with distinct non-repeatable colors from cobalt2.nvim,
+# showing keycaps, agent names, category badges, and clean aligned
+# key hints on a single row without descriptions.
+#
+# Requirements: gum
+# -------------------------------------------------------------------
+
+# Ensure child gum subshells preserve truecolor ANSI sequences
+export CLICOLOR_FORCE=1
+export FORCE_COLOR=1
+
+# -------------------------------------------------------------------
+# Configuration {{{
+# -------------------------------------------------------------------
+
+# Base UI colors from cobalt2.nvim
+COLOR_ACCENT="#00AAFF"       # blue
+COLOR_HEADER="#FFC600"       # yellow
+COLOR_BORDER="#0088FF"       # dark_blue
+COLOR_INNER_BORDER="#185294" # cursor_hover / deep navy
+COLOR_MUTED="#9E9E9E"        # light_grey
+COLOR_DIMMED="#808080"       # grey
+COLOR_KEY="#FFC600"          # yellow
+COLOR_TEXT="#FFFFFF"         # white
+
+# Distinct non-repeatable colors from cobalt2.nvim palette:
+#  1. opencode: #00AAFF (blue)
+#  2. pi:       #3AD900 (green)
+#  3. agy:      #FFC600 (yellow)
+#  4. codex:    #80FCFF (light_blue)
+#  5. cursor:   #FF9A00 (dark_orange)
+#  6. claude:   #EE80E1 (light_pink)
+#  7. gemini:   #967EFB (purple)
+#  8. copilot:  #88FF88 (light_green)
+#  9. grok:     #FF628C (dark_pink)
+# 10. kiro-cli: #F2ED7F (light_yellow)
+# 11. vibe:     #FF9D00 (light_orange)
+# 12. omp:      #DEEBFE (light_purple)
+
+typeset -ga AGENT_CATALOG=(
+    "opencode|o|opencode|PRIMARY|#00AAFF"
+    "pi|p|pi|CORE|#3AD900"
+    "agy|a|agy|DEEPMIND|#FFC600"
+    "codex|x|codex|OPENAI|#80FCFF"
+    "cursor|u|cursor|IDE/CLI|#FF9A00"
+    "claude|c|claude|ANTHROPIC|#EE80E1"
+    "gemini|g|gemini|GOOGLE|#967EFB"
+    "copilot|k|copilot|GITHUB|#88FF88"
+    "grok|r|grok|XAI|#FF628C"
+    "kiro-cli|i|kiro-cli|KIRO|#F2ED7F"
+    "vibe|v|vibe|MISTRAL|#FF9D00"
+    "omp|m|omp|OH-MY-PI|#DEEBFE"
+)
+
+# Populated dynamically by discover_agents
+typeset -ga AVAILABLE_IDS=()
+typeset -ga AVAILABLE_INDEX_KEYS=()
+typeset -ga AVAILABLE_MNEMONICS=()
+typeset -ga AVAILABLE_LABELS=()
+typeset -ga AVAILABLE_BADGES=()
+typeset -ga AVAILABLE_COLORS=()
+typeset -ga AVAILABLE_CMDS=()
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# Environment & Discovery {{{
+# -------------------------------------------------------------------
+
+append_to_path() { # {{{
+    local dir="$1"
+
+    if [[ -d "$dir" && ":$PATH:" != *":$dir:"* ]]; then
+        export PATH="$dir:$PATH"
+    fi
+} # }}}
+
+setup_environment() { # {{{
+    if [[ -f /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -f /usr/local/bin/brew ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    elif [[ -f "$HOME/.linuxbrew/bin/brew" ]]; then
+        eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
+    elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+
+    append_to_path "$HOME/.local/bin"
+    append_to_path "$HOME/.config/bin"
+    append_to_path "$HOME/.fzf/bin"
+    append_to_path "$HOME/.local/share/fnm/aliases/default/bin"
+    append_to_path "/opt/homebrew/bin"
+    append_to_path "/opt/homebrew/sbin"
+    append_to_path "/usr/local/bin"
+    append_to_path "/usr/local/sbin"
+    append_to_path "/home/linuxbrew/.linuxbrew/bin"
+    append_to_path "$HOME/.cargo/bin"
+
+    rehash 2>/dev/null || true
+} # }}}
+
+resolve_agent_cmd() { # {{{
+    local agent_id="$1"
+
+    case "$agent_id" in
+        cursor)
+            if command -v cursor-agent > /dev/null 2>&1; then
+                print -r -- "cursor-agent"
+                return 0
+            elif [[ -x "$HOME/.local/bin/agent" ]]; then
+                print -r -- "$HOME/.local/bin/agent"
+                return 0
+            elif command -v cursor > /dev/null 2>&1; then
+                print -r -- "cursor agent"
+                return 0
+            fi
+            return 1
+            ;;
+        *)
+            if command -v "$agent_id" > /dev/null 2>&1; then
+                print -r -- "$agent_id"
+                return 0
+            fi
+            return 1
+            ;;
+    esac
+} # }}}
+
+index_key_for_position() { # {{{
+    local pos="$1"
+
+    if (( pos >= 1 && pos <= 9 )); then
+        print -r -- "$pos"
+    elif (( pos == 10 )); then
+        print -r -- "0"
+    else
+        print -r -- "-"
+    fi
+} # }}}
+
+discover_agents() { # {{{
+    AVAILABLE_IDS=()
+    AVAILABLE_INDEX_KEYS=()
+    AVAILABLE_MNEMONICS=()
+    AVAILABLE_LABELS=()
+    AVAILABLE_BADGES=()
+    AVAILABLE_COLORS=()
+    AVAILABLE_CMDS=()
+
+    local entry id mnemonic label badge color cmd
+    local pos=0
+
+    for entry in "${AGENT_CATALOG[@]}"; do
+        IFS='|' read -r id mnemonic label badge color <<< "$entry"
+        if cmd=$(resolve_agent_cmd "$id"); then
+            (( pos += 1 ))
+            AVAILABLE_IDS+=("$id")
+            AVAILABLE_INDEX_KEYS+=("$(index_key_for_position "$pos")")
+            AVAILABLE_MNEMONICS+=("$mnemonic")
+            AVAILABLE_LABELS+=("$label")
+            AVAILABLE_BADGES+=("$badge")
+            AVAILABLE_COLORS+=("$color")
+            AVAILABLE_CMDS+=("$cmd")
+        fi
+    done
+} # }}}
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# Rendering & Geometry {{{
+# -------------------------------------------------------------------
+
+get_terminal_geometry() { # {{{
+    local cols lines
+
+    if [[ -n "${TMUX:-}" ]]; then
+        cols=$(tmux display-message -p '#{pane_width}' 2>/dev/null || tmux display-message -p '#{window_width}' 2>/dev/null || tput cols 2>/dev/null || print -r -- "100")
+        lines=$(tmux display-message -p '#{pane_height}' 2>/dev/null || tmux display-message -p '#{window_height}' 2>/dev/null || tput lines 2>/dev/null || print -r -- "30")
+    else
+        cols=$(tput cols 2>/dev/null || print -r -- "100")
+        lines=$(tput lines 2>/dev/null || print -r -- "30")
+    fi
+
+    print -r -- "$cols $lines"
+} # }}}
+
+format_plain_filter_rows() { # {{{
+    local count="${#AVAILABLE_IDS[@]}"
+    local i idx_key mnemonic label badge
+
+    for (( i = 1; i <= count; i++ )); do
+        idx_key="${AVAILABLE_INDEX_KEYS[$i]}"
+        mnemonic="${AVAILABLE_MNEMONICS[$i]}"
+        label="${AVAILABLE_LABELS[$i]}"
+        badge="${AVAILABLE_BADGES[$i]}"
+        printf "[%s / %s]  %-12s  [%s]\n" "$idx_key" "$mnemonic" "$label" "$badge"
+    done
+} # }}}
+
+render_palette() { # {{{
+    local term_geo
+    term_geo=$(get_terminal_geometry)
+    local term_cols="${term_geo%% *}"
+    local term_lines="${term_geo##* }"
+
+    # Target card geometry (clean fit for 4 aligned columns)
+    local card_width=76
+    if (( term_cols < 80 )); then
+        card_width=$(( term_cols - 4 ))
+    fi
+    (( card_width < 48 )) && card_width=48
+
+    local inner_w=$(( card_width - 8 ))
+    local sep_line
+    sep_line=$(printf "─%.0s" {1..$inner_w})
+
+    local worktree_name="${PWD:t}"
+    local branch_name
+    branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || print -r -- "detached")
+
+    # Header section
+    local title sub_title header_sep
+    title=$(gum style --width "$inner_w" --align center --bold --foreground "$COLOR_HEADER" "⚡  N E X U S   A G E N T   M A T R I X  ⚡")
+    sub_title=$(gum style --width "$inner_w" --align center --foreground "$COLOR_ACCENT" "CLUSTER: active  ◈  TARGET: ${worktree_name}  ◈  BRANCH: ${branch_name}")
+    header_sep=$(gum style --foreground "$COLOR_INNER_BORDER" "$sep_line")
+
+    # Agent rows with aligned columns & color-coded key hints (no descriptions)
+    local -a formatted_rows=()
+    local count="${#AVAILABLE_IDS[@]}"
+    local i idx_key mnemonic label badge color
+    local k_styled l_styled b_styled h_styled row_str
+
+    for (( i = 1; i <= count; i++ )); do
+        idx_key="${AVAILABLE_INDEX_KEYS[$i]}"
+        mnemonic="${AVAILABLE_MNEMONICS[$i]}"
+        label="${AVAILABLE_LABELS[$i]}"
+        badge="${AVAILABLE_BADGES[$i]}"
+        color="${AVAILABLE_COLORS[$i]}"
+
+        # Column styling:
+        # [key / mnemonic] in keycap yellow (fixed width)
+        k_styled=$(gum style --bold --foreground "$COLOR_KEY" "$(printf "[%s / %s]" "$idx_key" "$mnemonic")")
+        # Agent name in distinct cobalt2 color (fixed width 11)
+        l_styled=$(gum style --bold --foreground "$color" "$(printf "%-11s" "$label")")
+        # Category badge in dimmed grey (fixed width 11)
+        b_styled=$(gum style --foreground "$COLOR_DIMMED" "$(printf "[%-9s]" "$badge")")
+        # Keybinding hint in matching agent color
+        h_styled=$(gum style --foreground "$color" "press ${idx_key} or ${mnemonic}")
+
+        row_str="    ${k_styled}   ${l_styled}   ${b_styled}   ${h_styled}"
+        formatted_rows+=("$row_str")
+    done
+
+    local rows_text
+    rows_text=$(printf "%s\n" "${formatted_rows[@]}")
+
+    # Footer section: single, unbroken line
+    local footer_sep footer_text
+    footer_sep=$(gum style --foreground "$COLOR_INNER_BORDER" "$sep_line")
+    footer_text=$(gum style --width "$inner_w" --align center --foreground "$COLOR_MUTED" \
+        "[1-9,0] Launch  •  [/] Filter  •  [Enter] Default  •  [q] Shell")
+
+    local card_content
+    card_content=$(printf "%s\n%s\n%s\n\n%s\n\n%s\n%s" \
+        "$title" "$sub_title" "$header_sep" "$rows_text" "$footer_sep" "$footer_text")
+
+    # Generate bordered double-line card
+    local card_box
+    card_box=$(gum style \
+        --border double \
+        --border-foreground "$COLOR_ACCENT" \
+        --padding "1 2" \
+        --width "$card_width" \
+        "$card_content")
+
+    # Exact vertical centering:
+    local card_line_count
+    card_line_count=$(print -r -- "$card_box" | wc -l | tr -d ' ')
+
+    local pad_top=0
+    if (( term_lines > card_line_count )); then
+        pad_top=$(( (term_lines - card_line_count) / 2 ))
+    fi
+
+    # Exact horizontal centering margin:
+    local margin_h=2
+    if (( term_cols > card_width )); then
+        margin_h=$(( (term_cols - card_width) / 2 ))
+    fi
+
+    # Emit vertical top padding
+    for (( i = 1; i <= pad_top; i++ )); do
+        print -r -- ""
+    done
+
+    # Emit horizontally centered card
+    gum style --margin "0 ${margin_h}" "$card_box"
+} # }}}
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# Input & Execution {{{
+# -------------------------------------------------------------------
+
+resolve_key_to_agent_index() { # {{{
+    local key="${1:l}"
+    local count="${#AVAILABLE_IDS[@]}"
+    local i
+
+    if [[ -z "$key" ]]; then
+        return 1
+    fi
+
+    for (( i = 1; i <= count; i++ )); do
+        if [[ "${AVAILABLE_INDEX_KEYS[$i]}" == "$key" && "$key" != "-" ]]; then
+            print -r -- "$i"
+            return 0
+        fi
+        if [[ "${AVAILABLE_MNEMONICS[$i]:l}" == "$key" ]]; then
+            print -r -- "$i"
+            return 0
+        fi
+    done
+
+    return 1
+} # }}}
+
+pick_with_gum_filter() { # {{{
+    local selection
+    selection=$(format_plain_filter_rows | gum filter \
+        --header "⚡ FILTER & DISPATCH AGENT" \
+        --placeholder "Type agent name or keycap..." \
+        --header.foreground "$COLOR_HEADER" \
+        --indicator.foreground "$COLOR_ACCENT" \
+        --match.foreground "$COLOR_HEADER" \
+        --prompt.foreground "$COLOR_ACCENT" \
+        --height 14) || return 1
+
+    if [[ -z "$selection" ]]; then
+        return 1
+    fi
+
+    local picked_label
+    picked_label=$(print -r -- "$selection" | awk '{print $4}')
+
+    local i count="${#AVAILABLE_IDS[@]}"
+    for (( i = 1; i <= count; i++ )); do
+        if [[ "${AVAILABLE_LABELS[$i]}" == "$picked_label" ]]; then
+            print -r -- "$i"
+            return 0
+        fi
+    done
+
+    return 1
+} # }}}
+
+animate_agent_handoff() { # {{{
+    local label="$1"
+    local color="${2:-$COLOR_ACCENT}"
+
+    if command -v gum > /dev/null 2>&1; then
+        local term_geo
+        term_geo=$(get_terminal_geometry)
+        local term_cols="${term_geo%% *}"
+        local term_lines="${term_geo##* }"
+
+        local pad_top=$(( (term_lines - 3) / 2 ))
+        (( pad_top < 1 )) && pad_top=1
+
+        local margin_h=$(( (term_cols - 50) / 2 ))
+        (( margin_h < 1 )) && margin_h=2
+
+        clear
+        for (( i = 1; i <= pad_top; i++ )); do
+            print -r -- ""
+        done
+
+        gum spin \
+            --spinner=pulse \
+            --spinner.foreground="$color" \
+            --title=" INITIALIZING NEURAL WORKSPACE: ${label}..." \
+            --title.foreground="$color" \
+            --align left \
+            --margin "0 ${margin_h}" \
+            -- sleep 0.45
+    else
+        print -r -- "▶ INITIALIZING: ${label}..."
+        sleep 0.2
+    fi
+} # }}}
+
+launch_agent_by_index() { # {{{
+    local idx="$1"
+    shift || true
+
+    local label="${AVAILABLE_LABELS[$idx]}"
+    local cmd="${AVAILABLE_CMDS[$idx]}"
+    local color="${AVAILABLE_COLORS[$idx]}"
+
+    # Animated progression state
+    animate_agent_handoff "$label" "$color"
+
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux rename-window "$label" 2>/dev/null || true
+    fi
+
+    clear
+    local -a cmd_parts
+    cmd_parts=("${(@z)cmd}")
+    "${cmd_parts[@]}" "$@"
+    local exit_code=$?
+
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux rename-window "agent" 2>/dev/null || true
+    fi
+
+    return "$exit_code"
+} # }}}
+
+drop_to_shell() { # {{{
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux rename-window "shell" 2>/dev/null || true
+    fi
+    exec "${SHELL:-/bin/zsh}" -l
+} # }}}
+
+read_single_key() { # {{{
+    local key=""
+    read -r -k 1 key || return 1
+
+    # Consume trailing escape sequence bytes if Esc or arrow key was pressed
+    if [[ "$key" == $'\e' ]]; then
+        local rest=""
+        while read -r -k 1 -t 0.02 rest 2>/dev/null; do
+            key+="$rest"
+        done
+    fi
+
+    print -r -- "$key"
+} # }}}
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# Main Loop {{{
+# -------------------------------------------------------------------
+
+main() { # {{{
+    setup_environment
+
+    while true; do
+        discover_agents
+
+        if (( ${#AVAILABLE_IDS[@]} == 0 )); then
+            if command -v gum > /dev/null 2>&1; then
+                gum style \
+                    --foreground "$COLOR_DANGER" \
+                    --bold \
+                    --margin "2 4" \
+                    "No supported AI agents found in PATH. Dropping to shell..."
+            else
+                print -u2 "No supported AI agents found in PATH. Dropping to shell..."
+            fi
+            drop_to_shell
+        fi
+
+        clear
+        render_palette
+
+        local key
+        key=$(read_single_key) || drop_to_shell
+
+        case "$key" in
+            q|Q|$'\e')
+                clear
+                drop_to_shell
+                ;;
+            $'\n'|$'\r')
+                clear
+                launch_agent_by_index 1 "$@"
+                ;;
+            /|f|F|:)
+                local idx
+                if idx=$(pick_with_gum_filter); then
+                    clear
+                    launch_agent_by_index "$idx" "$@"
+                fi
+                ;;
+            *)
+                local idx
+                if idx=$(resolve_key_to_agent_index "$key"); then
+                    clear
+                    launch_agent_by_index "$idx" "$@"
+                fi
+                ;;
+        esac
+    done
+} # }}}
+
+if [[ "${ZSH_EVAL_CONTEXT:-}" == toplevel ]]; then
+    main "$@"
+fi
+
+# -------------------------------------------------------------------
+# }}}
+# -------------------------------------------------------------------

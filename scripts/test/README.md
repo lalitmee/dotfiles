@@ -36,6 +36,7 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 
 | Target | Behavior covered | Command |
 |---|---|---| 
+| Workmux agent palette | Agent discovery, priority ordering, index/mnemonic resolution, and formatting | `zsh scripts/test/bin/workmux-agent-palette/palette.zsh` |
 | Bluetooth audio command | Audio sink selection | `zsh scripts/test/bin/bluetooth/audio-selection.zsh` |
 | Process killer | Port/process table merge, details view, kill guards, and SIGTERM/SIGKILL escalation | `zsh scripts/test/bin/process/kill-flow.zsh` |
 | Git email guard | Rejects unexpected author and committer identities | `zsh scripts/test/bin/git/email-guard.zsh` |

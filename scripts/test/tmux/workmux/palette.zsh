@@ -22,7 +22,7 @@ fzf() {
 
 PALETTE_UI=gum
 [[ "$(pick_action)" == add ]]
-[[ "$(awk '{print $1}' "$captured_rows" | sort -u | wc -l | tr -d ' ')" == 9 ]]
+[[ "$(awk '{print $1}' "$captured_rows" | sort -u | wc -l | tr -d ' ')" == 10 ]]
 [[ "$(awk '{print index($0, $2)}' "$captured_rows" | sort -u | wc -l | tr -d ' ')" == 1 ]]
 
 PALETTE_UI=fzf

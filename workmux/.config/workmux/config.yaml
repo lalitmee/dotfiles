@@ -35,7 +35,7 @@ windows:
         focus: true
   - name: agent
     panes:
-      - command: <agent>
+      - command: workmux-agent-palette
 
 sidebar:
   width: 40
