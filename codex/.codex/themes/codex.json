@@ -17,5 +17,51 @@
     },
     "surface": "#193549"
   },
+  "themes": {
+    "v1_description": "Original Cobalt2 mapping with standard #193549 global surface background",
+    "v1": {
+      "codeThemeId": "codex",
+      "theme": {
+        "accent": "#FFC600",
+        "accentSource": "custom",
+        "contrast": 60,
+        "fonts": {
+          "code": "\"MonoLisa Nerd Font\"",
+          "ui": null
+        },
+        "ink": "#FFFFFF",
+        "opaqueWindows": false,
+        "semanticColors": {
+          "diffAdded": "#3AD900",
+          "diffRemoved": "#FF628C",
+          "skill": "#9E86C8"
+        },
+        "surface": "#193549"
+      },
+      "variant": "dark"
+    },
+    "v2_description": "Cobalt2 Neovim palette with deeper #0D3A58 cursor_line surface and #967EFB skill accent",
+    "v2": {
+      "codeThemeId": "codex",
+      "theme": {
+        "accent": "#FFC600",
+        "accentSource": "custom",
+        "contrast": 60,
+        "fonts": {
+          "code": "\"MonoLisa Nerd Font\"",
+          "ui": null
+        },
+        "ink": "#FFFFFF",
+        "opaqueWindows": false,
+        "semanticColors": {
+          "diffAdded": "#3AD900",
+          "diffRemoved": "#FF628C",
+          "skill": "#967EFB"
+        },
+        "surface": "#0D3A58"
+      },
+      "variant": "dark"
+    }
+  },
   "variant": "dark"
 }

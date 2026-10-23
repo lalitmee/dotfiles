@@ -18,20 +18,20 @@ usePointerCursors = true
 global = "zed"
 
 [desktop.appearanceDarkChromeTheme]
-accent = "#3a83f7"
-accentSource = "chatgpt"
+accent = "#ffc600"
+accentSource = "custom"
 contrast = 60
 ink = "#ffffff"
 opaqueWindows = false
-surface = "#181818"
+surface = "#193549"
 
 [desktop.appearanceDarkChromeTheme.fonts]
 code = '"MonoLisa Nerd Font"'
 
 [desktop.appearanceDarkChromeTheme.semanticColors]
-diffAdded = "#40c977"
-diffRemoved = "#fa423e"
-skill = "#ad7bf9"
+diffAdded = "#3ad900"
+diffRemoved = "#ff628c"
+skill = "#9e86c8"
 
 [plugins."context7@claude-plugins-official"]
 enabled = false

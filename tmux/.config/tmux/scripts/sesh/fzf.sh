@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 # This script launches the fzf-tmux interface for sesh.
 
+# Shared hint styling: keys blue, values yellow.
+source "${0:A:h}/../lib/popup-style.sh"
+
 # Detect OS and set appropriate directory exclusions
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS: exclude .Trash directories (scattered trash folders)
@@ -28,7 +31,9 @@ sesh connect "$(
         --ansi \
         --border-label ' sesh ' \
         --prompt '⚡  ' \
-        --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+        --header "$(popup_hints \
+            '^a:all' '^t:tmux' '^g:configs' '^x:zoxide' \
+            '^d:tmux kill' '^f:find')" \
         --bind 'tab:down,btab:up' \
         --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
         --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \

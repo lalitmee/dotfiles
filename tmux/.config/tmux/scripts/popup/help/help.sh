@@ -11,7 +11,7 @@ TABLES_DIR="$HELP_DIR/tables"
 SCRIPT_NAME=$(basename "$0")
 
 # Colors matching tmux cobalt2 theme (from tmux config and cobalt2.conf)
-HEADER_FG="#FFC600"    # Yellow (tmux_conf_theme_colour_5)
+HEADER_FG="#FF628C"    # Pink (table column labels)
 HEADER_BG="#0d3a58"    # Dark blue (tmux_conf_theme_colour_15)
 BODY_FG="#e4e4e4"      # White (tmux_conf_theme_colour_7)
 BODY_BG="#193549"      # Cobalt2 background (thm_bg)

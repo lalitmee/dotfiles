@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+source "${${(%):-%x}:A:h}/lib/popup-style.sh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/config.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/discovery.zsh"
 source "${${(%):-%x}:A:h}/lib/worktree-manager/actions.zsh"
@@ -77,7 +78,7 @@ _worktree_assign_repo_colors() {
 worktree_manager_header() {
     emulate -L zsh
     local filter_label="${1:-all}" main_label="${2:-off}" width="${COLUMNS:-80}"
-    local key_color=$'\e[38;2;255;98;140m' description_color=$'\e[38;2;255;198;0m' reset_color=$'\e[0m'
+    local key_color=$popup_key description_color=$popup_value reset_color=$popup_reset
     local header='' binding key description line_width=0
     local -a bindings=(
         'enter: open window' 'ctrl-s: open session' 'ctrl-b: checkout' 'ctrl-r: rename'
@@ -245,7 +246,7 @@ manager_main() {
         while IFS= read -r -d '' root; do roots+=("$root"); done < <(load_worktree_roots)
     fi
     projects_root="${(j:, :)roots}"
-    local heading_color=$'\e[38;2;138;138;138m' reset_color=$'\e[0m'
+    local heading_color=$popup_label reset_color=$popup_reset
     local -a fields rows choice
     local -A repo_colors used_colors
     while true; do
@@ -344,7 +345,14 @@ manager_main() {
         output=$({
             printf '0\t%s\n' "${heading_color}REPOSITORY           BRANCH                           PATH${reset_color}"
             (( ${#rows} )) && printf '%s\n' "${rows[@]}"
-        } | fzf --ansi --delimiter=$'\t' --with-nth=2.. --header-lines=1 --expect=enter,ctrl-s,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o --bind=esc:abort,ctrl-c:abort --header="$header" --no-multi) || picker_status=$?
+        } | fzf --ansi \
+            --delimiter=$'\t' \
+            --with-nth=2.. \
+            --header-lines=1 \
+            --no-multi \
+            --expect=enter,ctrl-s,ctrl-b,ctrl-r,ctrl-d,ctrl-g,ctrl-t,ctrl-f,ctrl-o \
+            --bind=esc:abort,ctrl-c:abort \
+            --header="$header") || picker_status=$?
         choice=("${(@f)output}"); key="${choice[1]:-}"
         # An expected refresh key can accompany status 1 when no result matches.
         if [[ "$key" == ctrl-f ]] && (( picker_status == 0 || picker_status == 1 )); then

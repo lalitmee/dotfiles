@@ -30,6 +30,9 @@ with tempfile.TemporaryDirectory(
     (config / "tmux.conf").write_text("")
     script = home / "picker.zsh"
     script.write_text(source.read_text().replace("/tmp/tmux", str(home / "tmp")))
+    lib = home / "lib/popup-style.sh"
+    lib.parent.mkdir()
+    lib.write_text((root / "tmux/.config/tmux/scripts/lib/popup-style.sh").read_text())
     tmux = home / "tmux"
     tmux.write_text("""#!/bin/sh
 case "$1" in
@@ -143,6 +146,11 @@ esac
     finally:
         if not reaped:
             os.killpg(pid, 9)
-            os.waitpid(pid, 0)
+            # Never block forever on a picker that left a straggler behind.
+            deadline = time.monotonic() + 5
+            while time.monotonic() < deadline:
+                if os.waitpid(pid, os.WNOHANG)[0]:
+                    break
+                time.sleep(0.05)
         os.close(master)
 print("PASS: literal source lookup and real-fzf table browsing, drill-down, and return")

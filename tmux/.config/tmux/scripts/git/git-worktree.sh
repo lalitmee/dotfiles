@@ -18,6 +18,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # Source libraries
 source "$SCRIPT_DIR/lib/common.sh"
 source "$SCRIPT_DIR/lib/git-utils.sh"
+# Shared hint styling: keys blue, values yellow.
+source "$SCRIPT_DIR/../lib/popup-style.sh"
 
 # Check for debug flag
 if [[ "$1" == "--debug" ]]; then
@@ -170,7 +172,12 @@ switch_worktree()
                   {
     log "Attempting to switch to a worktree"
 
-    FZF_OUTPUT=$(git worktree list | fzf --bind="change:first" --expect=ctrl-y --prompt="Select a worktree to switch to: " --header="Ctrl-Y: also select extra files")
+    FZF_OUTPUT=$(git worktree list | fzf \
+        --ansi \
+        --bind="change:first" \
+        --expect=ctrl-y \
+        --prompt="Select a worktree to switch to: " \
+        --header="$(popup_hints 'Ctrl-Y:also select extra files')")
     if [[ "$FZF_OUTPUT" == *$'\n'* ]]; then
         KEY="${FZF_OUTPUT%%$'\n'*}"
         SELECTED_WORKTREE="${FZF_OUTPUT#*$'\n'}"

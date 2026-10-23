@@ -2,6 +2,9 @@
 # This script lists installed apt repositories, allows multi-selection via fzf,
 # and removes selected repositories after confirmation.
 
+# Shared hint styling: keys blue, values yellow.
+source "$(dirname "$0")/lib/popup-style.sh"
+
 # Check dependencies
 for cmd in fzf awk grep find sudo; do
     if ! command -v "$cmd" &> /dev/null; then
@@ -66,13 +69,17 @@ if [[ -z "$repos" ]]; then
 fi
 
 # Prepare for selection
+header="$(popup_hints 'TAB:select' 'ENTER:confirm')"
+header+="   ${popup_label}Columns${popup_reset}: File, Type, Repo"
+
 selected_medatada=$(echo "$repos" | fzf \
+    --ansi \
     --bind="change:first" \
     --multi \
     --prompt="Search and select repositories to remove > " \
-    --header="TAB to select, ENTER to confirm | Columns: File, Type, Repo" \
+    --header="$header" \
     --height=20 \
-    --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF')
+    --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg+:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF')
 
 if [[ -z "$selected_medatada" ]]; then
     echo "No repositories selected for removal."

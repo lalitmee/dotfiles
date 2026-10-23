@@ -92,7 +92,7 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v prefix="$prefix" -v all="$TM
 
         we = cols - wt - 8 - 4 - 6
         if (we < 1) we = 1
-        printf "%-*s  %-8s  %s\n", wt, "TABLE", "BINDINGS", "ENTRY KEYS" > (tables "-header")
+        printf "\033[1;38;2;255;98;140m%-*s  %-8s  %s\033[0m\n", wt, "TABLE", "BINDINGS", "ENTRY KEYS" > (tables "-header")
 
         for (j = 1; j <= m; j++) {
             i = ord[j]
@@ -117,6 +117,19 @@ tmux list-keys 2>/dev/null | awk -v cols="$cols" -v prefix="$prefix" -v all="$TM
     }'
 table_header=$(cat "$TMP_TABLES_FILE-header")
 
+# Shared hint styling: keys blue, values yellow.
+# Copied test fixtures keep the lib next to the script; installed copies under ~/.config.
+for popup_style in "${0:A:h}/../lib/popup-style.sh" \
+                   "${0:A:h}/lib/popup-style.sh" \
+                   "$HOME/.config/tmux/scripts/lib/popup-style.sh"; do
+    [[ -r "$popup_style" ]] && { source "$popup_style"; break; }
+done
+browse_hint=$(popup_hints \
+    'Ctrl-T:list tables' 'Tab:drill into a table' 'Enter:open in config')
+tables_hint=$(popup_hints 'Enter:browse table' 'Shift-Tab:all bindings')
+bindings_hint=$(popup_hints \
+    'Ctrl-T:list tables' 'Shift-Tab:all bindings' 'Enter:open in config')
+
 # --- Open FZF in tmux popup ---
 # Ctrl-T lists tables; Enter opens a table or its binding in config.
 # Tab drills into the highlighted table, Shift-Tab goes back to all bindings.
@@ -131,12 +144,12 @@ tmux display-popup -E -w 90% -h 90% "
         --info=inline \
         --cycle \
         --height=100% \
-        --header='Ctrl-T: list tables   Tab: drill into a table   Enter: open in config' \
-        --bind='ctrl-t:reload(cat $TMP_TABLES_FILE)+clear-query+change-prompt(Tables> )+change-header(Enter: browse table   Shift-Tab: all bindings
+        --header='$browse_hint' \
+        --bind='ctrl-t:reload(cat $TMP_TABLES_FILE)+clear-query+change-prompt(Tables> )+change-header($tables_hint
 $table_header)' \
-        --bind='enter:transform:if [ {3} = __table__ ]; then printf \"reload(cat $TMP_DIR/keys-%s.txt)+clear-query+change-prompt(Bindings> )+change-header(Ctrl-T: list tables   Shift-Tab: all bindings   Enter: open in config)\" {2}; else echo accept; fi' \
-        --bind='tab:reload(cat $TMP_DIR/keys-{2}.txt)+clear-query+change-prompt(Bindings> )+change-header(Ctrl-T: list tables   Shift-Tab: all bindings   Enter: open in config)' \
-        --bind='btab:reload(cat $TMP_KEYS_FILE)+clear-query+change-prompt(🔍 Search tmux keybindings: )+change-header(Ctrl-T: list tables   Tab: drill into a table   Enter: open in config)' \
+        --bind='enter:transform:if [ {3} = __table__ ]; then printf \"reload(cat $TMP_DIR/keys-%s.txt)+clear-query+change-prompt(Bindings> )+change-header($bindings_hint)\" {2}; else echo accept; fi' \
+        --bind='tab:reload(cat $TMP_DIR/keys-{2}.txt)+clear-query+change-prompt(Bindings> )+change-header($bindings_hint)' \
+        --bind='btab:reload(cat $TMP_KEYS_FILE)+clear-query+change-prompt(🔍 Search tmux keybindings: )+change-header($browse_hint)' \
         < \"$TMP_KEYS_FILE\")
 
     code=\$?
