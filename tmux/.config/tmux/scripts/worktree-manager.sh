@@ -107,12 +107,7 @@ manager_confirm() {
     local affirmative="${2:+Yes, ${2}}"
     affirmative="${affirmative:-Yes}"
     if _worktree_popup_gum; then
-        gum confirm \
-            --prompt.foreground="$WM_HIGHLIGHT" \
-            --selected.foreground="#FFFFFF" --selected.background="$WM_SELECT_BG" \
-            --unselected.foreground="#8a8a8a" \
-            --affirmative="$affirmative" --negative="Cancel" \
-            "$1"
+        worktree_confirm "$1" "$affirmative"
         return
     fi
     local answer

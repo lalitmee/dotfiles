@@ -48,6 +48,37 @@ worktree_notice() {
     print
 }
 
+# Centered confirmation popup using gum style + gum confirm.
+# Returns 0 on yes, 1 on no/cancel.
+worktree_confirm() {
+    emulate -L zsh
+    local message="$1" affirmative="${2:-Yes}" negative="Cancel" color="$WM_HIGHLIGHT" rc=0
+    local frame_width="${COLUMNS:-80}" frame_height=$((${LINES:-24} - 1))
+    (( frame_width > 0 )) || frame_width=80
+    (( frame_height > 4 )) || frame_height=5
+
+    if _worktree_popup_gum; then
+        # Use gum style for the centered message box, then gum confirm for input
+        local styled_message
+        styled_message=$(gum style --border rounded --border-foreground "$color" \
+            --foreground "$color" --padding '1 2' --width "$frame_width" \
+            --height "$frame_height" --align center "$message")
+        gum confirm \
+            --prompt.foreground="$WM_HIGHLIGHT" \
+            --selected.foreground="#FFFFFF" --selected.background="$WM_SELECT_BG" \
+            --unselected.foreground="#8a8a8a" \
+            --affirmative="$affirmative" --negative="$negative" \
+            "$styled_message" || rc=$?
+    else
+        print -r -- "$message"
+        print -n -r -- "Type ${affirmative:-yes} to confirm: "
+        local answer
+        IFS= read -r answer || return 1
+        [[ "$answer" == "${affirmative:-yes}" ]] || rc=1
+    fi
+    return $rc
+}
+
 manager_show_notice() {
     emulate -L zsh
     local level="$1" message="$2"
@@ -108,7 +139,7 @@ worktree_popup() {
 # after the user has seen the result and dismissed this window.
 worktree_remove_job() {
     emulate -L zsh
-    local repo="$1" selected="$2" force="$3" manager_window="$4" rc=0
+    local repo="$1" selected="$2" force="$3" manager_window="$4" rc=0 message
     if _worktree_popup_gum; then
         gum spin --spinner dot --title "Removing ${selected:t}..." --show-output -- \
             zsh "$WM_SELF" __remove-action "$repo" "$selected" "$force" || rc=$?
@@ -117,13 +148,12 @@ worktree_remove_job() {
         remove_worktree "$repo" "$selected" "$force" || rc=$?
     fi
     if (( rc == 0 )); then
-        print -r -- 'Worktree deleted successfully.'
+        message='Worktree deleted successfully.'
+        worktree_notice success "$message"
     else
-        print -u2 -r -- "Worktree deletion failed (exit $rc). Check the error above."
+        message="Worktree deletion failed (exit $rc). Check the error above."
+        worktree_notice error "$message"
     fi
-    print -n -r -- 'Press any key to close and refresh the manager...'
-    read -u 0 -k 1 -s -r
-    print
     tmux send-keys -t "$manager_window" C-f
     return "$rc"
 }
