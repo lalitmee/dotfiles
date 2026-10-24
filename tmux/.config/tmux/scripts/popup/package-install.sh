@@ -97,16 +97,26 @@ main() { # {{{
     if [[ "$1" == "--popup" ]]; then
         local target_path="$2"
         clear
+
+        local -a managers=(
+            "📦 npm\tNode.js global package"
+            "🦀 cargo\tRust crate binary"
+            "🐹 go\tGo binary"
+            "🍺 brew\tHomebrew formula"
+            "🐍 pip\tPython package"
+        )
+
         local choice
-        choice=$(gum choose --header="Select Package Manager:" \
-            "📦 npm   (Node.js global package)" \
-            "🦀 cargo (Rust crate binary)" \
-            "🐹 go    (Go binary)" \
-            "🍺 brew  (Homebrew formula)" \
-            "🐍 pip   (Python package)") || exit 0
+        choice=$(printf "%b\n" "${managers[@]}" | fzf \
+            --delimiter=$'\t' --tabstop=12 \
+            --prompt="Manager > " \
+            --header="Select Package Manager:" \
+            --height="100%" \
+            --layout=reverse \
+            --no-multi) || exit 0
         [[ -z "$choice" ]] && exit 0
 
-        local manager=$(echo "$choice" | awk '{print $2}')
+        local manager=$(echo "$choice" | cut -f1 | awk '{print $2}')
         local pkg_name=$(get_custom_input "$manager")
         [[ -z "$pkg_name" ]] && exit 0
 

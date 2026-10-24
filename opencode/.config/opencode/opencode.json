@@ -90,7 +90,7 @@
           "-y",
           "@upstash/context7-mcp",
           "--api-key",
-          ""
+          "{env:CONTEXT7_API_KEY}"
         ],
       },
       "crash": {
