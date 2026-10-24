@@ -5,7 +5,7 @@
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 
-alias please="gum input --password | sudo -nS"
+alias please="gum-input input --password | sudo -nS"
 
 # rust tools aliases
 alias cp="xcp"

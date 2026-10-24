@@ -51,7 +51,7 @@ page_clean=$(echo "$page" | sed "s/(.*)//")
 # --- Step 5: Ask for an optional search term (only for man pages) ---
 search_term=""
 if [[ "$source" == "[MAN]" ]]; then
-    search_term=$(gum input --prompt="Search '$page_clean' for (optional) > " --placeholder="Leave blank to just open...")
+    search_term=$(gum-input input --prompt="Search '$page_clean' for (optional) > " --placeholder="Leave blank to just open...")
 fi
 
 # --- Step 6: Open the documentation in a new tmux window ---

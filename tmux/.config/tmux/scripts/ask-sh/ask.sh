@@ -32,7 +32,7 @@ action="$1"
 
 case "$action" in
     "ai")
-        query=$(gum input --prompt="Ask AI > " --placeholder="Your question for the AI...")
+        query=$(gum-input input --prompt="Ask AI > " --placeholder="Your question for the AI...")
         if [[ -n $query ]]; then
             gum spin --spinner dot --title "Asking AI..." -- \
                 "${AI_COMMAND[@]}" "$query" | gum pager --soft-wrap
@@ -57,7 +57,7 @@ case "$action" in
         if [[ -z $selection ]]; then exit 0; fi
 
         bang=$(echo "$selection" | awk -F '=>' '{print $2}' | tr -d ' ')
-        query=$(gum input --prompt="Search with '$bang' for > " --placeholder="Your search query...")
+        query=$(gum-input input --prompt="Search with '$bang' for > " --placeholder="Your search query...")
         if [[ -n $query ]]; then
             full_search="$bang $query"
             echo "🔎 Searching with '$bang' for '$query' in browser..."
@@ -67,7 +67,7 @@ case "$action" in
         ;;
 
     "ducky")
-        query=$(gum input --prompt="Ducky Search > " --placeholder="Query for the top result...")
+        query=$(gum-input input --prompt="Ducky Search > " --placeholder="Query for the top result...")
         if [[ -n $query ]]; then
             echo "🔎 Opening top result for '$query' in browser..."
             "${DDG_COMMAND[@]}" -j "$query"
@@ -76,7 +76,7 @@ case "$action" in
         ;;
 
     "bang")
-        query=$(gum input --prompt="Browser !bang > " --placeholder="!w wikipedia, !gh tmux, etc...")
+        query=$(gum-input input --prompt="Browser !bang > " --placeholder="!w wikipedia, !gh tmux, etc...")
         if [[ -n $query ]]; then
             echo "🌐 Opening bang '$query' in browser..."
             "${DDG_COMMAND[@]}" --gb "$query"
@@ -85,7 +85,7 @@ case "$action" in
         ;;
 
     "search"|*)
-        query=$(gum input --prompt="Web Search > " --placeholder="Your search query...")
+        query=$(gum-input input --prompt="Web Search > " --placeholder="Your search query...")
         if [[ -n $query ]]; then
             echo "🌐 Opening search for '$query' in browser..."
             encoded_query=$(echo "$query" | tr ' ' '+')

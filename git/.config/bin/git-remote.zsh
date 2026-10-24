@@ -86,14 +86,14 @@ gum_list_remotes() {
 
 gum_add_remote() {
     local name
-    name=$(gum input --placeholder "Remote name" --header "Add remote")
+    name=$(gum-input input --placeholder "Remote name" --header "Add remote")
 
     if [[ -z "$name" ]]; then
         return 1
     fi
 
     local url
-    url=$(gum input --placeholder "Remote URL" --header "URL for $name")
+    url=$(gum-input input --placeholder "Remote URL" --header "URL for $name")
 
     if [[ -z "$url" ]]; then
         return 1

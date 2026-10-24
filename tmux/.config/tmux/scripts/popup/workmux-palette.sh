@@ -241,11 +241,9 @@ get_action_input() { # {{{
     case "$action" in
         add)
             # Branch name via gum input
-            extra_input=$(gum input \
+            extra_input=$(gum-input input \
                 --placeholder "Enter branch name..." \
-                --header "New Branch Name" \
-                --header.foreground "$COLOR_HEADER" \
-                --cursor.foreground "$COLOR_ACCENT")
+                --header "New Branch Name")
             if [[ -z "$extra_input" ]]; then
                 log_message "add: branch name input cancelled"
                 exit 0
@@ -254,11 +252,9 @@ get_action_input() { # {{{
             ;;
         pr)
             # PR number or full GitHub/GitLab URL
-            extra_input=$(gum input \
+            extra_input=$(gum-input input \
                 --placeholder "123 or https://github.com/owner/repo/pull/123" \
-                --header "Checkout Pull Request" \
-                --header.foreground "$COLOR_HEADER" \
-                --cursor.foreground "$COLOR_ACCENT")
+                --header "Checkout Pull Request")
             if [[ -z "$extra_input" ]]; then
                 log_message "pr: input cancelled"
                 exit 0
@@ -273,11 +269,9 @@ get_action_input() { # {{{
             cmd_args+=("$worktree_name")
             # rename needs a new name too
             if [[ "$action" == "rename" ]]; then
-                extra_input=$(gum input \
+                extra_input=$(gum-input input \
                     --placeholder "Enter new name..." \
-                    --header "New Worktree Name" \
-                    --header.foreground "$COLOR_HEADER" \
-                    --cursor.foreground "$COLOR_ACCENT")
+                    --header "New Worktree Name")
                 if [[ -z "$extra_input" ]]; then
                     log_message "rename: new name input cancelled"
                     exit 0
@@ -292,10 +286,9 @@ get_action_input() { # {{{
             fi
             cmd_args+=("$worktree_name")
             # Prompt text via gum write (multiline)
-            extra_input=$(gum write \
+            extra_input=$(gum-input write \
                 --placeholder "Type your prompt..." \
                 --header "Prompt to Send" \
-                --header.foreground "$COLOR_HEADER" \
                 --char-limit 0 \
                 --width 80)
             if [[ -z "$extra_input" ]]; then
@@ -417,11 +410,9 @@ pick_flags() { # {{{
     for flag in "${flags_array[@]}"; do
         if [[ "$flag" == "--agent" ]]; then
             local agent_name
-            agent_name=$(gum input \
+            agent_name=$(gum-input input \
                 --placeholder "e.g., opencode, claude, agy, pi" \
-                --header "Agent name" \
-                --header.foreground "$COLOR_HEADER" \
-                --cursor.foreground "$COLOR_ACCENT")
+                --header "Agent name")
             if [[ -n "$agent_name" ]]; then
                 final_flags+=("--agent" "$agent_name")
             else

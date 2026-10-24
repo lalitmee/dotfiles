@@ -47,7 +47,7 @@ print -r -- "codex $*" >> "$LOG"
 [[ "$NAMER" == codex ]] && print -r -- 'fix-login-flow' || exit 1
 EOF
 chmod +x "$tmp/bin/"*
-export PATH="$tmp/bin:$PATH" LOG="$tmp/log" INPUT ACTION NAMER
+export PATH="$tmp/bin:$repo/bin/.config/bin:$PATH" LOG="$tmp/log" INPUT ACTION NAMER
 
 check() {
     : > "$LOG"

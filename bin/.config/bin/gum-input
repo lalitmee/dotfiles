@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Shared Cobalt2 input styling. Usage: gum-input input|write [gum flags...]
+set -euo pipefail
+
+# {{{ main
+main() {
+    local mode="${1:-input}"
+    [[ $# -gt 0 ]] && shift
+    case "$mode" in
+        input|write) ;;
+        *) printf 'Usage: gum-input input|write [gum flags...]\n' >&2; return 2 ;;
+    esac
+
+    local label=$'\033[1;38;2;255;98;140m'
+    local key=$'\033[1;38;2;102;179;255m'
+    local value=$'\033[38;2;255;198;0m'
+    local reset=$'\033[0m'
+    local header='' hints='' show_help=true
+    local -a args=() styles=()
+    if [[ "$mode" == write ]]; then
+        header="${GUM_WRITE_HEADER:-}"
+        show_help="${GUM_WRITE_SHOW_HELP:-true}"
+        styles+=(--base.foreground='#FFFFFF')
+        hints="${key}Enter${reset}: ${value}submit${reset}   ${key}Ctrl+J${reset}: ${value}newline${reset}   ${key}Ctrl+E${reset}: ${value}editor${reset}"
+    else
+        header="${GUM_INPUT_HEADER:-}"
+        show_help="${GUM_INPUT_SHOW_HELP:-true}"
+        hints="${key}Enter${reset}: ${value}submit${reset}"
+    fi
+    hints+="   ${key}Esc/Ctrl+C${reset}: ${value}cancel${reset}"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help|-v|--version)
+                exec gum "$mode" "$@" ;;
+            --header)
+                [[ $# -ge 2 ]] || { printf 'Missing --header value\n' >&2; return 2; }
+                header="$2"; shift 2 ;;
+            --header=*) header="${1#*=}"; shift ;;
+            --show-help) show_help=true; shift ;;
+            --no-show-help) show_help=false; shift ;;
+            --show-help=*) show_help="${1#*=}"; shift ;;
+            --) args+=("$@"); break ;;
+            # Preserve flag values verbatim, even when they look like options.
+            --placeholder|--prompt|--value|--width|--height|--char-limit|--max-lines|--timeout|--padding|--cursor.mode|--*.foreground|--*.background)
+                [[ $# -ge 2 ]] || { printf 'Missing value for %s\n' "$1" >&2; return 2; }
+                args+=("$1" "$2"); shift 2 ;;
+            *) args+=("$1"); shift ;;
+        esac
+    done
+
+    [[ -z "$header" ]] || header="${label}${header}${reset}"
+    if [[ "$show_help" == true || "$show_help" == 1 ]]; then
+        [[ -z "$header" ]] || header+=$'\n'
+        header+="$hints"
+    fi
+    # Gum renders its UI on stderr; stdout remains the submitted value only.
+    exec gum "$mode" \
+        --header.foreground='#FF628C' \
+        --placeholder.foreground='#9E9E9E' \
+        --prompt.foreground='#66B3FF' \
+        --cursor.foreground='#66B3FF' \
+        "${styles[@]}" --no-show-help --header="$header" "${args[@]}"
+}
+# }}}
+
+main "$@"

@@ -10,5 +10,6 @@ k	🔷 Kiro AI assistant
 r	🧠 Grok AI assistant
 g	🖱️ Cursor Agent
 i	Select and install/update a tool
+m	Install custom package on the fly (npm, cargo, go, brew, pip)
 u/U	Update AI tools
 q	Quit table

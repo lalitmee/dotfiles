@@ -94,7 +94,7 @@ gum_delete_branch() {
 
 gum_new_branch() {
     local name
-    name=$(gum input --placeholder "New branch name" --header "Create branch from: $(current_branch)")
+    name=$(gum-input input --placeholder "New branch name" --header "Create branch from: $(current_branch)")
 
     if [[ -z "$name" ]]; then
         return 1

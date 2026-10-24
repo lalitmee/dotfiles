@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # Checkout a GitHub/GitLab PR into a new worktree (gum prompt for # or URL).
 
-pr=$(gum input \
+pr=$(gum-input input \
     --placeholder '123 or https://github.com/owner/repo/pull/123' \
     --header 'Checkout Pull Request' \
     --header.foreground '#FFC600' \

@@ -101,7 +101,7 @@ create_worktree()
             exit 1
         fi
 
-        BRANCH_NAME=$(gum input --placeholder "Enter new branch name")
+        BRANCH_NAME=$(gum-input input --placeholder "Enter new branch name")
 
         if [ -z "$BRANCH_NAME" ]; then
             log "Worktree creation failed: Branch name was empty"

@@ -39,7 +39,7 @@ TOOL=$(detect_tool)
 # ---------------------------------------------------------------------------
 gum_save_stash() {
     local msg
-    msg=$(gum input --placeholder "Stash message (optional)")
+    msg=$(gum-input input --placeholder "Stash message (optional)")
 
     if [[ -n "$msg" ]]; then
         git stash push -m "$msg"

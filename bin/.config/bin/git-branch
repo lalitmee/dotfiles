@@ -40,7 +40,7 @@ select_branch() {
                     --preview 'git log -n 1 --color=always --oneline --decorate {}')
             [[ -z "$base" ]] && return 1
             local name
-            name=$(gum input --placeholder "New branch name")
+            name=$(gum-input input --placeholder "New branch name")
             [[ -z "$name" ]] && return 1
             echo "${base}|${name}"
             ;;

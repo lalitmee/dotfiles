@@ -2,6 +2,7 @@ Key	Description
 e	Edit espanso snippets
 r	Run project runner
 a	Manage apt repositories
+p	Install packages on the fly (npm, cargo, go, brew, pip)
 b	Back in 5
 s	Scratchpad
 q	Quit dev-mode

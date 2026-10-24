@@ -29,17 +29,6 @@ gum_style() { # {{{
     fi
 } # }}}
 
-get_custom_input() { # {{{
-    local manager="$1"
-    local pkg_name=""
-    if command -v gum >/dev/null 2>&1; then
-        pkg_name=$(gum input --placeholder "Enter $manager package/formula name (e.g. typescript)")
-    else
-        echo -n "Enter $manager package/formula name: "
-        read -r pkg_name
-    fi
-    echo "$pkg_name"
-} # }}}
 
 install_npm_global() { # {{{
     local package_name="$1"
@@ -73,6 +62,10 @@ get_agy_version() { # {{{
 
 get_cursor_agent_version() { # {{{
     cursor-agent --version 2>/dev/null || echo "Not Installed"
+} # }}}
+
+get_pi_version() { # {{{
+    pi --version 2>/dev/null || echo "Not Installed"
 } # }}}
 
 secure_run_script() { # {{{
@@ -128,66 +121,21 @@ build_tool_menu() { # {{{
     local ver_crush=$(get_crush_version)
     local ver_kiro=$(get_kiro_version)
     local ver_cursor=$(get_cursor_agent_version)
-    local ver_pi=$(get_npm_version_fast "@earendil-works/pi-coding-agent")
+    local ver_pi=$(get_pi_version)
 
-    printf "%s\n" \
-        "🚀 agy ($ver_agy)" \
-        "🟠 claude ($ver_claude)" \
-        "  copilot ($ver_copilot)" \
-        "🧑‍💻 opencode ($ver_opencode)" \
-        "🧠 grok ($ver_grok)" \
-        "🧬 codex ($ver_codex)" \
-        "💖 crush ($ver_crush)" \
-        "🔷 kiro ($ver_kiro)" \
-        "🖱️ cursor-agent ($ver_cursor)" \
-        "🥧 pi ($ver_pi)" \
-        "📦 [npm] Install/update custom global npm package..." \
-        "🦀 [cargo] Install/update custom cargo package..." \
-        "🐹 [go] Install/update custom go package..." \
-        "🍺 [brew] Install/update custom brew formula..." \
-        "🐍 [pip] Install/update custom python pip package..." > "$outfile"
+    printf "%s\t%s\n" \
+        "🚀 agy" "$ver_agy" \
+        "🟠 claude" "$ver_claude" \
+        "  copilot" "$ver_copilot" \
+        "🧑‍💻 opencode" "$ver_opencode" \
+        "🧠 grok" "$ver_grok" \
+        "🧬 codex" "$ver_codex" \
+        "💖 crush" "$ver_crush" \
+        "🔷 kiro" "$ver_kiro" \
+        "🖱️ cursor-agent" "$ver_cursor" \
+        "🥧 pi" "$ver_pi" > "$outfile"
 } # }}}
 
-run_custom_install() { # {{{
-    local manager="$1"
-    local name_to_install="$2"
-    local install_status=0
-
-    echo ""
-    gum_style "🚀 Starting install/update process for $name_to_install ($manager)..."
-    echo ""
-
-    case "$manager" in
-        npm)
-            install_npm_global "$name_to_install@latest" || install_status=$?
-            ;;
-        cargo)
-            cargo install "$name_to_install" || install_status=$?
-            ;;
-        go)
-            go install "$name_to_install@latest" || install_status=$?
-            ;;
-        brew)
-            if brew list "$name_to_install" &>/dev/null; then
-                brew upgrade "$name_to_install" || install_status=$?
-            else
-                brew install "$name_to_install" || install_status=$?
-            fi
-            ;;
-        pip)
-            pip3 install --upgrade "$name_to_install" || install_status=$?
-            ;;
-    esac
-
-    echo ""
-    if [[ $install_status -eq 0 ]]; then
-        gum_style "✅ $name_to_install successfully installed/updated!"
-    else
-        gum_style "❌ Failed to install/update $name_to_install."
-    fi
-    echo ""
-    return $install_status
-} # }}}
 
 run_tool_install() { # {{{
     local tool="$1"
@@ -231,7 +179,11 @@ run_tool_install() { # {{{
             cursor-agent update || install_status=$?
             ;;
         pi)
-            install_npm_global "@earendil-works/pi-coding-agent@latest" || install_status=$?
+            if command -v pi >/dev/null 2>&1; then
+                pi update pi || install_status=$?
+            else
+                secure_run_script "https://pi.dev/install.sh" "Pi" || install_status=$?
+            fi
             ;;
     esac
 
@@ -256,10 +208,11 @@ main() { # {{{
     # Stage 0: Bootstrap the centered popup
     if [[ "$1" == "--bootstrap" ]]; then
         local current_path="${CURRENT_PANE_PATH:-$PWD}"
-        tmux display-popup -w 60% -h 30% -b rounded -T " AI Tools Manager " -d "$current_path" -E \
+        tmux display-popup -w 40% -h 30% -b rounded -T " AI Tools Manager " -d "$current_path" -E \
             "$SCRIPT_PATH --popup '$current_path'"
         exit 0
     fi
+
 
     # Stage 1: Render centered spinner + full fzf inside the popup
     if [[ "$1" == "--popup" ]]; then
@@ -285,7 +238,10 @@ main() { # {{{
 
         clear
         local selections
-        selections=$(cat "$menu_file" | fzf --header="Select tool(s) to install/update (TAB to multi-select, ENTER to run):" --multi --ansi --height=100%)
+        selections=$(cat "$menu_file" | fzf \
+            --delimiter=$'\t' --tabstop=22 \
+            --header="Select tool(s) to install/update (TAB to multi-select, ENTER to run):" \
+            --multi --ansi --height=100%)
 
         if [[ -z "$selections" ]]; then
             exit 0
@@ -300,24 +256,10 @@ main() { # {{{
         local line
         for line in "${lines[@]}"; do
             [[ -z "$line" ]] && continue
-            local tool="" manager=""
-            if [[ "$line" == "🚀"* || "$line" == ""* || "$line" == "🟠"* || "$line" == "🧑‍💻"* || "$line" == "🧬"* || "$line" == "💖"* || "$line" == "🔷"* || "$line" == "🧠"* || "$line" == "🖱️"* || "$line" == "🥧"* ]]; then
-                tool=$(echo "$line" | awk '{print $2}')
+            local tool=$(echo "$line" | cut -f1 | awk '{print $2}')
+            if [[ -n "$tool" ]]; then
                 selected_labels+=("$tool")
                 echo "tool\t$tool" >> "$plan_file"
-            elif [[ "$line" == "📦"* ]]; then manager="npm"
-            elif [[ "$line" == "🦀"* ]]; then manager="cargo"
-            elif [[ "$line" == "🐹"* ]]; then manager="go"
-            elif [[ "$line" == "🍺"* ]]; then manager="brew"
-            elif [[ "$line" == "🐍"* ]]; then manager="pip"
-            fi
-
-            if [[ -n "$manager" ]]; then
-                local pkg_name=$(get_custom_input "$manager")
-                if [[ -n "$pkg_name" ]]; then
-                    selected_labels+=("${manager}-${pkg_name}")
-                    echo "custom\t$manager\t$pkg_name" >> "$plan_file"
-                fi
             fi
         done
 
@@ -350,15 +292,8 @@ main() { # {{{
         local line
         for line in "${lines[@]}"; do
             [[ -z "$line" ]] && continue
-            local type=$(echo "$line" | cut -f1)
-            if [[ "$type" == "tool" ]]; then
-                local tool=$(echo "$line" | cut -f2)
-                run_tool_install "$tool"
-            elif [[ "$type" == "custom" ]]; then
-                local manager=$(echo "$line" | cut -f2)
-                local pkg_name=$(echo "$line" | cut -f3)
-                run_custom_install "$manager" "$pkg_name"
-            fi
+            local tool=$(echo "$line" | cut -f2)
+            [[ -n "$tool" ]] && run_tool_install "$tool"
         done
 
         echo ""
@@ -379,28 +314,18 @@ main() { # {{{
     build_tool_menu "$menu_file"
 
     local selections
-    selections=$(cat "$menu_file" | fzf --header="Select tool(s) to install/update (TAB to multi-select, ENTER to run):" --multi --ansi --height=100%)
+    selections=$(cat "$menu_file" | fzf \
+        --delimiter=$'\t' --tabstop=22 \
+        --header="Select tool(s) to install/update (TAB to multi-select, ENTER to run):" \
+        --multi --ansi --height=100%)
     [[ -z "$selections" ]] && exit 0
 
     local -a lines=("${(f)selections}")
     local line
     for line in "${lines[@]}"; do
         [[ -z "$line" ]] && continue
-        local tool="" manager=""
-        if [[ "$line" == "🚀"* || "$line" == ""* || "$line" == "🟠"* || "$line" == "🧑‍💻"* || "$line" == "🧬"* || "$line" == "💖"* || "$line" == "🔷"* || "$line" == "🧠"* || "$line" == "🖱️"* || "$line" == "🥧"* ]]; then
-            tool=$(echo "$line" | awk '{print $2}')
-            run_tool_install "$tool"
-        elif [[ "$line" == "📦"* ]]; then manager="npm"
-        elif [[ "$line" == "🦀"* ]]; then manager="cargo"
-        elif [[ "$line" == "🐹"* ]]; then manager="go"
-        elif [[ "$line" == "🍺"* ]]; then manager="brew"
-        elif [[ "$line" == "🐍"* ]]; then manager="pip"
-        fi
-
-        if [[ -n "$manager" ]]; then
-            local pkg_name=$(get_custom_input "$manager")
-            [[ -n "$pkg_name" ]] && run_custom_install "$manager" "$pkg_name"
-        fi
+        local tool=$(echo "$line" | cut -f1 | awk '{print $2}')
+        [[ -n "$tool" ]] && run_tool_install "$tool"
     done
 } # }}}
 

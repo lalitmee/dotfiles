@@ -23,13 +23,19 @@ if ! command -v gum >/dev/null 2>&1; then
     exit 1
 fi
 
-description=$(gum write --header='Task description or window name (Ctrl+D to submit; empty to skip)' --placeholder='Enter your prompt...' --height=6 --char-limit=0) || exit 0
+description=$(gum-input write --header='Task description or window name (submit empty to skip)' --placeholder='Enter your prompt...' --height=6 --char-limit=0) || exit 0
 title="$ICON $DEFAULT_NAME"
 naming_status='default name'
 action=''
 
 if [[ -n ${description//[[:space:]]/} ]]; then
-    action=$(gum filter --header='How should this text be used?' \
+    source "${0:A:h}/../../lib/popup-style.sh"
+    action=$(gum filter --header=$'How should this text be used?\n'"$(popup_hints 'Enter:select' 'Esc:cancel')" \
+        --no-show-help --header.foreground='#FF628C' \
+        --text.foreground='#FFFFFF' --cursor-text.foreground='#FFC600' \
+        --cursor-text.background='#0050A4' --indicator.foreground='#66B3FF' \
+        --prompt.foreground='#66B3FF' --placeholder.foreground='#9E9E9E' \
+        --match.foreground='#FFC600' \
         '✏️ Use as name' '✨ Generate name' '💬 Generate name and send prompt') || exit 0
 
     if [[ "$action" == '💬 Generate name and send prompt' ]]; then
@@ -61,7 +67,7 @@ if [[ -n ${description//[[:space:]]/} ]]; then
             cols=$(tput cols 2>/dev/null) || cols=0
             top=$(( rows > 1 ? (rows - 1) / 2 : 0 ))
             left=$(( cols > ${#spinner_title} + 2 ? (cols - ${#spinner_title} - 2) / 2 : 0 ))
-            response=$(gum spin --spinner dot --title="$spinner_title" --padding="$top 0 0 $left" --show-stdout -- timeout --kill-after=1s 10s "${naming_command[@]}") || continue
+            response=$(gum spin --spinner dot --spinner.foreground='#66B3FF' --title.foreground='#FFC600' --title="$spinner_title" --padding="$top 0 0 $left" --show-stdout -- timeout --kill-after=1s 10s "${naming_command[@]}") || continue
             slug=$(print -r -- "$response" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
             words=(${(s:-:)slug})
             if [[ ${#words} -ge 2 && ${#words} -le 3 && ${#slug} -le 48 ]]; then

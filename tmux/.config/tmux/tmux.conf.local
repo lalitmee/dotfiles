@@ -761,6 +761,9 @@ bind-key -T ai-tools U run-shell -b "UPDATE_MODE=--interactive ~/.config/tmux/sc
 # Select and install/update specific AI tools or general CLI tools interactively
 bind-key -T ai-tools i run-shell -b "CURRENT_PANE_PATH='#{pane_current_path}' ~/.config/tmux/scripts/popup/ai/manage.sh --bootstrap"
 
+# Install custom package on the fly (npm, cargo, go, brew, pip)
+bind-key -T ai-tools m run-shell -b "CURRENT_PANE_PATH='#{pane_current_path}' ~/.config/tmux/scripts/popup/package-install.sh --bootstrap"
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------
@@ -1034,6 +1037,9 @@ bind-key -T dev-mode r run-shell "zsh $HOME/.config/tmux/scripts/popup/runner/ru
 
 # Launch the apt repository manager in a popup.
 bind-key -T dev-mode a display-popup -w 90% -h 90% -E "~/.config/tmux/scripts/apt-repo-manager.sh"
+
+# Install package on the fly (npm, cargo, go, brew, pip)
+bind-key -T dev-mode p run-shell -b "CURRENT_PANE_PATH='#{pane_current_path}' ~/.config/tmux/scripts/popup/package-install.sh --bootstrap"
 
 # Back in 5 status screen.
 bind-key -T dev-mode b display-popup -E -B -w 100% -h 100% -x 0% -y 0% "~/.config/tmux/plugins/back-in-5/scripts/main.sh"

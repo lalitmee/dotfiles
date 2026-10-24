@@ -78,14 +78,14 @@ gum_list_tags() {
 
 gum_create_tag() {
     local name
-    name=$(gum input --placeholder "Tag name" --header "Create tag")
+    name=$(gum-input input --placeholder "Tag name" --header "Create tag")
 
     if [[ -z "$name" ]]; then
         return 1
     fi
 
     local msg
-    msg=$(gum input --placeholder "Tag message (optional)")
+    msg=$(gum-input input --placeholder "Tag message (optional)")
 
     if [[ -n "$msg" ]]; then
         git tag -a "$name" -m "$msg"

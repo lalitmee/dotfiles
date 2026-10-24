@@ -33,8 +33,8 @@ commit_conventional() {
         fzf --height 50% --no-border --reverse --prompt="Select commit type: ")
 
     if [[ -n "$commit_type" ]]; then
-        scope=$(gum input --width 30 --placeholder "scope (optional)")
-        summary=$(gum input --width 60 --placeholder "Short description")
+        scope=$(gum-input input --width 30 --placeholder "scope (optional)")
+        summary=$(gum-input input --width 60 --placeholder "Short description")
         if [[ -n "$summary" ]]; then
             local full_msg
             if [[ -n "$scope" ]]; then
@@ -43,7 +43,7 @@ commit_conventional() {
                 full_msg="${commit_type}: ${summary}"
             fi
             local body
-            body=$(gum write --width 80 --placeholder "Body (optional)")
+            body=$(gum-input write --width 80 --placeholder "Body (optional)")
             if [[ -n "$body" ]]; then
                 git commit -m "$full_msg" -m "$body"
             else

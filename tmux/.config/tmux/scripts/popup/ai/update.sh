@@ -93,6 +93,10 @@ run_updates() {
         opencode --version 2>/dev/null | awk '{print $NF}' || echo "Unknown"
     }
 
+    get_pi_version() {
+        pi --version 2>/dev/null || echo "Unknown"
+    }
+
     # --- Helper to download and execute a remote script securely ---
     # Avoids "curl | bash" by downloading to a temp file, verifying, and then running.
     secure_run_remote_script() {
@@ -241,7 +245,6 @@ run_updates() {
         update_npm_package "@github/copilot@latest"
         update_npm_package "@vibe-kit/grok-cli@latest"
         update_npm_package "@openai/codex@latest"
-        update_npm_package "@earendil-works/pi-coding-agent@latest"
         update_npm_package "@charmland/crush@latest"
     fi
 
@@ -296,6 +299,30 @@ run_updates() {
             fi
         else
             gum_style "Antigravity CLI (agy) not installed, skipping update."
+        fi
+
+        # Pi: Update via built-in updater
+        if command_exists pi; then
+            old_version=$(get_pi_version)
+            local pi_status=0
+            if command -v gum >/dev/null 2>&1; then
+                gum spin --spinner dot --title "Updating Pi Agent..." -- pi update pi || pi_status=$?
+            else
+                gum_style "Updating Pi Agent..."
+                pi update pi || pi_status=$?
+            fi
+            if [[ $pi_status -eq 0 ]]; then
+                new_version=$(get_pi_version)
+                status_icon="➡️" # Default: No Change
+                [[ "$old_version" != "$new_version" ]] && status_icon="⬆️"
+                gum_style "✅ Success: Pi Agent updated."
+                update_summary+=("pi,$status_icon,$old_version,$new_version")
+            else
+                gum_style "❌ Error: Failed to update Pi Agent."
+                update_summary+=("pi,❌,$old_version,Update Failed")
+            fi
+        else
+            gum_style "Pi Agent not installed, skipping update."
         fi
 
     fi

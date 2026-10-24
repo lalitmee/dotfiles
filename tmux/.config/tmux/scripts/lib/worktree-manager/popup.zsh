@@ -92,12 +92,10 @@ worktree_popup_destination() {
     emulate -L zsh
     local current="$1" destination
     if _worktree_popup_gum; then
-        destination=$(gum input \
+        destination=$(gum-input input \
             --header="Rename worktree — new absolute path" \
             --prompt="Path: " \
-            --placeholder="$current" \
-            --prompt.foreground="$WM_HIGHLIGHT" \
-            --cursor.foreground="$WM_HIGHLIGHT") || return 1
+            --placeholder="$current") || return 1
     else
         print -u2 -n -r -- 'Destination (absolute path; blank cancels): '
         IFS= read -r destination || return 1

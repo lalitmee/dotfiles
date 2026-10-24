@@ -210,7 +210,7 @@ prompt_folder_name()
 
     if [[ "$choice" == "Enter custom folder name" ]]; then
         while true; do
-            local custom_name=$(gum input --placeholder="Enter custom folder name" --value="$branch_name")
+            local custom_name=$(gum-input input --placeholder="Enter custom folder name" --value="$branch_name")
 
             # Sanitize the input
             local sanitized_name=$(sanitize_folder_name "$custom_name")

@@ -89,7 +89,7 @@ gum_browse_commits() {
 
 gum_write_commit() {
     local summary
-    summary=$(gum input --width 72 --placeholder "Commit summary")
+    summary=$(gum-input input --width 72 --placeholder "Commit summary")
 
     if [[ -z "$summary" ]]; then
         echo "Empty summary — aborted" >&2
@@ -98,7 +98,7 @@ gum_write_commit() {
 
     local details=""
     if gum confirm "Add a longer description?"; then
-        details=$(gum write --width 72 --placeholder "Commit details (optional)")
+        details=$(gum-input write --width 72 --placeholder "Commit details (optional)")
     fi
 
     if [[ -n "$details" ]]; then
@@ -110,7 +110,7 @@ gum_write_commit() {
 
 gum_amend_commit() {
     local msg
-    msg=$(gum input --width 72 --placeholder "Amend commit message" \
+    msg=$(gum-input input --width 72 --placeholder "Amend commit message" \
         --value "$(git log -1 --format=%B)")
 
     if [[ -n "$msg" ]]; then
