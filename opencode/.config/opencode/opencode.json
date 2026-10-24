@@ -88,11 +88,10 @@
         "command": [
           "npx",
           "-y",
-          "@upstash/context7-mcp"
+          "@upstash/context7-mcp",
+          "--api-key",
+          ""
         ],
-        "environment": {
-          "DEFAULT_MINIMUM_TOKENS": "6000"
-        }
       },
       "crash": {
         "type": "local",
@@ -111,6 +110,6 @@
         ],
         "type": "local"
       }
-    }
+    },
   },
 }
