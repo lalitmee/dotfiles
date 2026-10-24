@@ -3,13 +3,14 @@
 # A script to select, install, or update predefined AI tools and custom CLI packages.
 # Uses fzf for multi-selection, gum for UI styling, and zsh login shell context for paths.
 
-set +e  # Ensure script doesn't crash on individual command failures
+readonly SCRIPT_PATH="${0:A}"
 
 # --- Source utilities ---
 # {{{
 if [[ -f "$HOME/dotfiles/scripts/install/utils.zsh" ]]; then
     source "$HOME/dotfiles/scripts/install/utils.zsh"
 fi
+set +e  # Ensure script doesn't crash on individual command failures
 # }}}
 
 # --- Helper functions ---
@@ -164,7 +165,7 @@ main() { # {{{
 
     if command -v gum >/dev/null 2>&1; then
         gum spin --spinner dot --title "Fetching AI tool versions..." -- \
-            zsh "$0" __fetch_versions "$menu_file"
+            zsh "$SCRIPT_PATH" __fetch_versions "$menu_file"
     else
         echo "🔍 Fetching tool versions... Please wait."
         build_tool_menu "$menu_file"
