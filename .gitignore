@@ -76,6 +76,7 @@ tmux/.config/tmux/plugins/
 # Pi: track configuration only, never installed runtime or credentials
 /pi/.pi/agent/*
 !/pi/.pi/agent/settings.json
+!/pi/.pi/agent/mcp.json
 !/pi/.pi/agent/AGENTS.md
 !/pi/.pi/agent/APPEND_SYSTEM.md
 !/pi/.pi/agent/extensions/
