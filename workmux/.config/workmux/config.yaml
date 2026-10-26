@@ -33,6 +33,9 @@ windows:
     panes:
       - command: nvim
         focus: true
+  - name: server
+    panes:
+      - command: ~/.config/tmux/scripts/popup/runner/server-runner.sh
   - name: agent
     panes:
       - command: workmux-agent-palette
