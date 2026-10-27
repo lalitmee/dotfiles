@@ -58,7 +58,14 @@ show_help_table() {
     (( HEIGHT < 10 )) && HEIGHT=10
 
     local tab_char=$(printf '\t')
-    local gum_command="cat '$table_file' | gum table --separator=\"$tab_char\" --header.foreground='$HEADER_FG' --header.background='$HEADER_BG' --cell.foreground='$BODY_FG' --cell.background='$BODY_BG' --border.foreground='$BORDER_FG' --border='rounded' --print; echo; gum style --foreground='$HEADER_FG' --background='$BODY_BG' 'Press any key to close...'; read -n 1 -s 2>/dev/null || true"
+    local gum_command="cat '$table_file' | gum table"
+    gum_command+=" --separator=\"$tab_char\""
+    gum_command+=" --header.foreground='$HEADER_FG' --header.background='$HEADER_BG'"
+    gum_command+=" --cell.foreground='$BODY_FG' --cell.background='$BODY_BG'"
+    gum_command+=" --border.foreground='$BORDER_FG' --border='rounded' --print"
+    gum_command+="; echo; gum style --foreground='$HEADER_FG'"
+    gum_command+=" --background='$BODY_BG' 'Press any key to close...'"
+    gum_command+="; read -n 1 -s 2>/dev/null || true"
 
     # Display the popup - always exit cleanly regardless of how popup is closed
     tmux display-popup -w "${WIDTH}" -h "${HEIGHT}" -E "$gum_command" || exit 0

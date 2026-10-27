@@ -23,21 +23,21 @@ gum_style 'Installing dependencies...'
 
 sudo apt update
 sudo apt install -y \
-	autoconf \
-	automake \
-	cmake \
-	g++ \
-	gettext \
-	libncurses5-dev \
-	libtool \
-	libtool-bin \
-	libunibilium-dev \
-	libunibilium4 \
-	ninja-build \
-	pkg-config \
-	python3-pip \
-	software-properties-common \
-	unzip
+    autoconf \
+    automake \
+    cmake \
+    g++ \
+    gettext \
+    libncurses5-dev \
+    libtool \
+    libtool-bin \
+    libunibilium-dev \
+    libunibilium4 \
+    ninja-build \
+    pkg-config \
+    python3-pip \
+    software-properties-common \
+    unzip
 
 gum_style "Installing python3-neovim..."
 # Enable use of python plugins
@@ -88,21 +88,21 @@ cd "$(dirname "$NEOVIM_DIR")" || {
 }
 
 if [ ! -d "$NEOVIM_DIR" ] || [ ! -d "$NEOVIM_DIR/.git" ]; then
-	gum_style "Cloning neovim repository..."
-	rm -rf "$NEOVIM_DIR"
-	if ! git clone https://github.com/neovim/neovim "$NEOVIM_DIR"; then
-	    gum_style "❌ Error: Failed to clone neovim repository"
-	    exit 1
-	fi
+    gum_style "Cloning neovim repository..."
+    rm -rf "$NEOVIM_DIR"
+    if ! git clone https://github.com/neovim/neovim "$NEOVIM_DIR"; then
+        gum_style "❌ Error: Failed to clone neovim repository"
+        exit 1
+    fi
 else
-	cd neovim || {
-	    gum_style "❌ Error: Could not navigate to neovim directory"
-	    exit 1
-	}
-	gum_style "Updating neovim repo..."
-	if ! git pull origin; then
-	    gum_style "⚠️ Warning: Failed to update neovim repo, continuing with existing version"
-	fi
+    cd neovim || {
+        gum_style "❌ Error: Could not navigate to neovim directory"
+        exit 1
+    }
+    gum_style "Updating neovim repo..."
+    if ! git pull origin; then
+        gum_style "⚠️ Warning: Failed to update neovim repo, continuing with existing version"
+    fi
 fi
 
 gum_style "Checking out to master neovim..."

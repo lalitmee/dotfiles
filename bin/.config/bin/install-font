@@ -17,29 +17,29 @@ selected_fonts=$(echo "$fonts" | fzf --bind="change:first" --multi --preview 'ec
 
 # Check if any fonts were selected
 if [ -z "$selected_fonts" ]; then
-	echo "No fonts selected. Exiting."
-	exit 1
+    echo "No fonts selected. Exiting."
+    exit 1
 fi
 
 # Copy selected fonts while preserving the folder structure
 echo "$selected_fonts" | while read -r font; do
-	# Get the relative path of the font from the FONT_DIR
-	relative_path="${font#$FONT_DIR/}"
+    # Get the relative path of the font from the FONT_DIR
+    relative_path="${font#$FONT_DIR/}"
 
-	# Extract the directory name where the font was found
-	font_subdir=$(dirname "$relative_path")
+    # Extract the directory name where the font was found
+    font_subdir=$(dirname "$relative_path")
 
-	# Create the corresponding directory inside USER_FONT_DIR
-	target_dir="$USER_FONT_DIR/$font_subdir"
-	mkdir -p "$target_dir"
+    # Create the corresponding directory inside USER_FONT_DIR
+    target_dir="$USER_FONT_DIR/$font_subdir"
+    mkdir -p "$target_dir"
 
-	# Check if the font already exists
-	if [ -f "$target_dir/$(basename "$font")" ]; then
-		echo "Font $(basename "$font") already exists in $target_dir. Skipping."
-	else
-		cp "$font" "$target_dir"
-		echo "Copied $(basename "$font") to $target_dir"
-	fi
+    # Check if the font already exists
+    if [ -f "$target_dir/$(basename "$font")" ]; then
+        echo "Font $(basename "$font") already exists in $target_dir. Skipping."
+    else
+        cp "$font" "$target_dir"
+        echo "Copied $(basename "$font") to $target_dir"
+    fi
 done
 
 # Refresh font cache (for Ubuntu)

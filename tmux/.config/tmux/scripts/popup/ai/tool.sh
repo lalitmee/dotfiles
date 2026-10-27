@@ -67,7 +67,13 @@ if [[ -n ${description//[[:space:]]/} ]]; then
             cols=$(tput cols 2>/dev/null) || cols=0
             top=$(( rows > 1 ? (rows - 1) / 2 : 0 ))
             left=$(( cols > ${#spinner_title} + 2 ? (cols - ${#spinner_title} - 2) / 2 : 0 ))
-            response=$(gum spin --spinner dot --spinner.foreground='#66B3FF' --title.foreground='#FFC600' --title="$spinner_title" --padding="$top 0 0 $left" --show-stdout -- timeout --kill-after=1s 10s "${naming_command[@]}") || continue
+            response=$(gum spin --spinner dot \
+                --spinner.foreground='#66B3FF' \
+                --title.foreground='#FFC600' \
+                --title="$spinner_title" \
+                --padding="$top 0 0 $left" \
+                --show-stdout -- timeout --kill-after=1s 10s \
+                "${naming_command[@]}") || continue
             slug=$(print -r -- "$response" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
             words=(${(s:-:)slug})
             if [[ ${#words} -ge 2 && ${#words} -le 3 && ${#slug} -le 48 ]]; then

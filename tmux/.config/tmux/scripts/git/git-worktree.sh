@@ -58,14 +58,16 @@ main_menu()
 # ============================================================================
 # Create Worktree Function
 # ============================================================================
-create_worktree()
-                  {
+create_worktree() {
     log "Attempting to create a new worktree"
     COPY_EXTRA_FILES_FLAG=""
 
     # Use fzf instead of gum to avoid TTY issues in tmux popups
     if command -v fzf >/dev/null 2>&1; then
-        CREATE_OUTPUT=$(echo -e "Create new branch\nSelect existing branch" | fzf --bind="change:first" --expect=ctrl-y --prompt="Choose option: " --header="Ctrl-Y: also select extra files")
+        CREATE_OUTPUT=$(echo -e "Create new branch\nSelect existing branch" |
+            fzf --bind="change:first" --expect=ctrl-y \
+                --prompt="Choose option: " \
+                --header="Ctrl-Y: also select extra files")
         if [[ "$CREATE_OUTPUT" == *$'\n'* ]]; then
             CREATE_KEY="${CREATE_OUTPUT%%$'\n'*}"
             CREATE_OPTION="${CREATE_OUTPUT#*$'\n'}"

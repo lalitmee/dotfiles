@@ -52,7 +52,11 @@ search_install() {
 
     # Select skill via fzf
     local selection
-    selection=$(jq -r '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' "$CACHE_FILE" | "$FZF_BIN" --prompt="Fuzzy search remote skills > " --bind="change:first" --height=15 --layout=reverse)
+    selection=$(jq -r \
+        '.[] | "\(.id + (" " * (([40 - (.id | length), 0] | max))))  \(.description)"' \
+        "$CACHE_FILE" |
+        "$FZF_BIN" --prompt="Fuzzy search remote skills > " \
+            --bind="change:first" --height=15 --layout=reverse)
 
     if [[ -z "$selection" ]]; then
         echo "No skill selected."
@@ -64,7 +68,11 @@ search_install() {
 
     # Target selection
     local selected_clis
-    selected_clis=$(printf "%s\n" "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" "OpenCode" | "$FZF_BIN" --multi --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " --bind="change:first" --height=10 --layout=reverse)
+    selected_clis=$(printf "%s\n" \
+        "Claude Code" "Gemini CLI" "Cursor" "Codex CLI" "OpenCode" |
+        "$FZF_BIN" --multi \
+            --prompt="Select CLIs to enable skill (Tab to toggle, Enter to confirm) > " \
+            --bind="change:first" --height=10 --layout=reverse)
 
     if [[ -z "$selected_clis" ]]; then
         echo "No CLIs selected."
@@ -134,7 +142,10 @@ manage_local() {
     done
 
     local action_choices
-    action_choices=$(printf "%s\n" "${options[@]}" | "$FZF_BIN" --ansi --multi --prompt="Toggle CLI activation for $skill_id (Tab to toggle, Enter to confirm) > " --bind="change:first" --height=10 --layout=reverse)
+    action_choices=$(printf "%s\n" "${options[@]}" |
+        "$FZF_BIN" --ansi --multi \
+            --prompt="Toggle CLI activation for $skill_id (Tab to toggle, Enter to confirm) > " \
+            --bind="change:first" --height=10 --layout=reverse)
 
     # Update symlinks based on selection
     for cli in "${!CLI_PATHS[@]}"; do

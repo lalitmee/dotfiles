@@ -4,14 +4,18 @@
 
 # Check for required dependencies
 for cmd in pactl fzf jq notify-send; do
-    if ! command -v "$cmd" >/dev/null 2>&1;
-    then
+    if ! command -v "$cmd" >/dev/null 2>&1; then
         notify-send -u critical "Mic Selector Error" "Required command '$cmd' not found. Please install it."
         exit 1
     fi
 done
 
-sources=$(pactl -f json list sources | jq -r '.[] | select(.name | test("\\.monitor$") | not) | select(.name != "noise_cancelled_source") | "[\(.properties["device.description"] // "N/A")]: (\(.name)) -> \(.name)"' | sort -u)
+sources=$(pactl -f json list sources | jq -r '
+    .[]
+    | select(.name | test("\\.monitor$") | not)
+    | select(.name != "noise_cancelled_source")
+    | "[\(.properties["device.description"] // "N/A")]: (\(.name)) -> \(.name)"
+' | sort -u)
 
 # Fallback if jq fails or finds no sources
 if [[ -z "$sources" ]]; then
@@ -47,7 +51,14 @@ physical_source_desc=$(echo "$selected" | awk -F' -> ' '{print $1}')
 
 # 2. NEW: Port Detection & Selection
 # Get available ports for the selected source
-ports=$(pactl -f json list sources | jq -r --arg SOURCE_NAME "$physical_source_name" '.[] | select(.name == $SOURCE_NAME) | .ports[]? | select(.available != "no") | .name + " -> " + .description')
+ports=$(pactl -f json list sources | jq -r \
+    --arg SOURCE_NAME "$physical_source_name" '
+        .[]
+        | select(.name == $SOURCE_NAME)
+        | .ports[]?
+        | select(.available != "no")
+        | .name + " -> " + .description
+    ')
 
 # If more than one port is available, show a selection menu
 if [[ $(echo "$ports" | wc -l) -gt 1 ]]; then
@@ -80,7 +91,10 @@ if [[ -n "$module_index" ]]; then
 fi
 
 # 5. Load the echo-cancel module, attached to the selected physical mic.
-new_module_index=$(pactl load-module module-echo-cancel aec_method=webrtc source_master="$physical_source_name" source_name=noise_cancelled_source)
+new_module_index=$(pactl load-module module-echo-cancel \
+    aec_method=webrtc \
+    source_master="$physical_source_name" \
+    source_name=noise_cancelled_source)
 
 # Check if module loaded successfully
 if [[ $? -ne 0 ]] || [[ -z "$new_module_index" ]]; then

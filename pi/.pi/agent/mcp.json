@@ -30,6 +30,12 @@
         "chrome-devtools-mcp@latest",
         "--autoConnect"
       ]
+    },
+    "radius": {
+      "url": "https://radius.pi.dev/mcp",
+      "auth": {
+        "provider": "radius"
+      }
     }
   }
 }
