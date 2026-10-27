@@ -35,7 +35,7 @@ windows:
         focus: true
   - name: server
     panes:
-      - command: ~/.config/tmux/scripts/popup/runner/server-runner.sh
+      - command: workmux-server-palette
   - name: agent
     panes:
       - command: workmux-agent-palette

@@ -13,7 +13,7 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | Worktree command flows | Git worktree command flows | `zsh scripts/test/tmux/worktree/flows.zsh` |
 | Worktree setup runner | Setup success and failure behavior | `zsh scripts/test/tmux/worktree/setup-runner.zsh` |
 | Workmux palette | Palette behavior | `zsh scripts/test/tmux/workmux/palette.zsh` |
-| Workmux server runner | Node server-script discovery and project-type detection | `zsh scripts/test/tmux/workmux/server-runner.zsh` |
+| Workmux server palette | Node server-script discovery, project-type detection, and direct-key resolution | `zsh scripts/test/tmux/workmux/server-runner.zsh` |
 | File picker | Tmux file-picker argument handling | `zsh scripts/test/tmux/file-picker.zsh` |
 | Sesh folder startup | New folder sessions launch Neovim and OpenCode; existing and non-folder selections retain their behavior | `zsh scripts/test/tmux/sesh/startup.zsh` |
 | Tmux installer | Installer behavior | `zsh scripts/test/tmux/install.zsh` |

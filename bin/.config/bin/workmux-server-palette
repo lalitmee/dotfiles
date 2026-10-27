@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+runner="$HOME/.config/tmux/scripts/popup/runner/server-runner.sh"
+if [[ ! -x "$runner" ]]; then
+    print -u2 -- "workmux-server-palette: server runner is unavailable: $runner"
+    exit 1
+fi
+
+exec "$runner" "$@"

@@ -410,6 +410,10 @@ matches:
 # NOTE: AI Chat Extension - Quick reply's {{{
 #-------------------------------------------------------------------------------
 
+  #-------------------------------------------------------------------------------
+  # # NOTE: crash mcp {{{
+  #-------------------------------------------------------------------------------
+
   # Crashp Plan
   - trigger: ":crashp"
     replace: "Lets use crash for better thinking and organization for debugging thoroughly and investigate the issue(s) and coming up with a comprehensive plan for fixing the same"
@@ -418,9 +422,117 @@ matches:
   - trigger: ":crashit"
     replace: "Lets use crash for better understanding and organization of thoughts and implement the plan"
 
+  #-------------------------------------------------------------------------------
+  # }}}
+  #-------------------------------------------------------------------------------
+
+  #-------------------------------------------------------------------------------
+  # # NOTE: miscellaneous {{{
+  #-------------------------------------------------------------------------------
+
   # Go with your recommendation
   - trigger: ":reco"
     replace: "Lets go with your recommendation, I think that would be a good approach"
+
+  #-------------------------------------------------------------------------------
+  # }}}
+  #-------------------------------------------------------------------------------
+
+  #-------------------------------------------------------------------------------
+  # # NOTE: Writing & Copywriting Prompts {{{
+  #-------------------------------------------------------------------------------
+
+  # "Make it look better." -> Rewrite so main point is clear in 5s
+  - trigger: ":clr5"
+    replace: "Rewrite this so the main point is clear in 5 seconds."
+
+  # "Make it sound better." -> 3 versions (clear, persuasive, direct)
+  - trigger: ":v3"
+    replace: "Give me 3 versions: clear, persuasive, and direct. Tell me which to use and why."
+
+  # "Make it shorter." -> Cut text by 50%
+  - trigger: ":cut50"
+    replace: "Cut this text by 50%, removing filler and repetition."
+
+  # "Give me ideas." -> 10 fresh ideas (cursor jumps to [topic])
+  - trigger: ":ideas"
+    replace: "Give me 10 fresh ideas about $|$ for my audience."
+
+  # "Write something to sell." -> Sales copy framework
+  - trigger: ":copy"
+    replace: "Turn this into sales copy using: problem, desire, solution, and a call to action."
+
+  # "Fix it." -> Fix while keeping voice
+  - trigger: ":fixv"
+    replace: "Identify what is wrong and fix it while keeping my voice."
+
+  # "I need some copy." -> Caption with a hook
+  - trigger: ":hook"
+    replace: "Write a caption with a hook that makes people want to keep reading."
+
+  # "Make it go viral." -> 30-second Reel script
+  - trigger: ":reel"
+    replace: "Turn this idea into a 30-second Reel with a hook, main section, and ending."
+
+  # "Improve this text." -> Persuasive by addressing objection (cursor jumps to [objection])
+  - trigger: ":obj"
+    replace: "Make this message more persuasive by addressing this objection: $|$."
+
+  # "Make it powerful." -> Critique and identify 3 weaknesses
+  - trigger: ":crit"
+    replace: "Critique this version, identify 3 weaknesses, and write a better one."
+
+  #-------------------------------------------------------------------------------
+  # }}}
+  #-------------------------------------------------------------------------------
+
+  #-------------------------------------------------------------------------------
+  # # NOTE: Explanation, Analysis & Guidance Prompts {{{
+  #-------------------------------------------------------------------------------
+
+  # "Explain this." -> Explain to a beginner with example
+  - trigger: ":elib"
+    replace: "Explain this to a beginner, with a real-world example."
+
+  # "Give me information." -> 5 bullet points (cursor jumps to [topic])
+  - trigger: ":facts"
+    replace: "Give me the key facts about $|$ in 5 clear bullet points."
+
+  # "What does it mean?" -> Define concept and practical use (cursor jumps to [concept])
+  - trigger: ":def"
+    replace: "Define $|$, then explain how it is used in practice."
+
+  # "Summarize this." -> 3 ideas, 1 conclusion, 1 action
+  - trigger: ":sum3"
+    replace: "Summarize this in 3 key ideas, 1 conclusion, and 1 recommended action."
+
+  # "Give me advice." -> 7 tips ranked by impact (cursor jumps to [topic])
+  - trigger: ":tips"
+    replace: "Give me 7 useful tips for $|$, ranked by impact."
+
+  # "I want ideas." -> 10 tailored original ideas (cursor jumps to [topic])
+  - trigger: ":orig"
+    replace: "Suggest 10 original ideas about $|$, tailored to my audience."
+
+  # "Show me examples." -> 3 strong examples + lessons
+  - trigger: ":ex3"
+    replace: "Show me 3 strong examples and explain what to learn from each."
+
+  # "What do you think?" -> Critical breakdown (strengths, mistakes, improvements)
+  - trigger: ":eval"
+    replace: "Critically analyze this: strengths, mistakes, and improvements."
+
+  # "Help me with this." -> Ask 3 questions for context
+  - trigger: ":ask3"
+    replace: "Before answering, ask me 3 questions to get more context."
+
+  # "What do I do now?" -> First, second, third prioritized steps
+  - trigger: ":step3"
+    replace: "Tell me what to do first, second, and third—and why."
+
+  #-------------------------------------------------------------------------------
+  # }}}
+  #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
 # }}}

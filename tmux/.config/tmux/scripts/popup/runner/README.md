@@ -49,7 +49,7 @@ C-a C-r  → Launch project runner
 5. **Manage**: Use standard tmux commands to switch between windows
 
 ### Workmux server window
-The Workmux `server` window runs `server-runner.sh` in the project directory. It detects project markers for Node.js, Python, Rust, Go, Ruby, and Make-based projects. Automatic command discovery currently supports Node.js `package.json` scripts only: scripts named `dev`, `start`, `serve`, `server`, `watch`, or `preview` (including namespaced variants such as `serve:local`) are considered likely servers. One match starts directly; multiple matches are offered in fzf. Other project types, or projects without a likely server script, leave an interactive shell open for manual startup.
+Run `workmux-server-palette` from any project directory to open the centered, Cobalt2-colored server action box. The Workmux `server` window uses the same command. For Node.js projects, it detects the package manager from lockfiles and installs dependencies when `node_modules` is missing, then lists likely server scripts (`dev`, `start`, `serve`, `server`, `watch`, or `preview`, including namespaced variants such as `serve:local`). Press the displayed key to start a command immediately; Enter starts the first command and `q` opens a shell. Other project types, or projects without a likely server script, leave an interactive shell open for manual startup.
 
 ## Examples
 
@@ -72,7 +72,8 @@ The Workmux `server` window runs `server-runner.sh` in the project directory. It
 
 ### Files
 - `runner.sh` - Main interactive picker for all npm/Yarn package scripts
-- `server-runner.sh` - Workmux server-window launcher; runs a single likely server script or offers a picker when there are several
+- `server-runner.sh` - detects and runs server scripts, installs missing Node.js dependencies, and renders the centered action box
+- `workmux-server-palette` - globally callable entry point for the server action box
 - `maintain-window-name.sh` - Hook script for name persistence
 - `README.md` - This documentation
 
