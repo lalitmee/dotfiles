@@ -49,7 +49,7 @@ C-a C-r  → Launch project runner
 5. **Manage**: Use standard tmux commands to switch between windows
 
 ### Workmux server window
-Run `workmux-server-palette` from any project directory to open the centered, Cobalt2-colored server action box. The Workmux `server` window uses the same command. For Node.js projects, it detects the package manager from lockfiles and installs dependencies when `node_modules` is missing, then lists likely server scripts (`dev`, `start`, `serve`, `server`, `watch`, or `preview`, including namespaced variants such as `serve:local`). Press the displayed key to start a command immediately; Enter starts the first command and `q` opens a shell. Other project types, or projects without a likely server script, leave an interactive shell open for manual startup.
+Run `workmux-server-palette` from any project directory to open the centered, Cobalt2-colored server action box. The Workmux `server` window uses the same command. For Node.js projects, it detects the package manager from lockfiles and installs dependencies when `node_modules` is missing, then lists likely server scripts (`dev`, `start`, `serve`, `server`, `watch`, or `preview`, including namespaced variants such as `serve:local`). Rows show a positional key and, when unambiguous, a stable mnemonic (for example `[1 / d]` for `dev`, `[2 / v]` for `serve`). Press either key to start a command immediately. Plain scripts take precedence over namespaced variants for mnemonics; ambiguous variants show `-` and remain accessible by their positional key. Enter starts the first command and `q` opens a shell. Other project types, or projects without a likely server script, leave an interactive shell open for manual startup.
 
 ## Examples
 

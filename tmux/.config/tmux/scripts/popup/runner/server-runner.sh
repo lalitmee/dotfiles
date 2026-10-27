@@ -79,11 +79,49 @@ server_action_key() {
     print -r -- "${keys[$index]:-}"
 }
 
+server_mnemonic_for_index() {
+    local index="$1"
+    local script="${server_scripts[$index]:l}"
+    local family="${script%%:*}"
+    local mnemonic other other_script matches=0
+
+    case "$family" in
+        dev) mnemonic=d ;;
+        start) mnemonic=s ;;
+        serve) mnemonic=v ;;
+        server) mnemonic=r ;;
+        watch) mnemonic=w ;;
+        preview) mnemonic=p ;;
+        *) return 1 ;;
+    esac
+
+    for (( other = 1; other <= ${#server_scripts[@]}; other++ )); do
+        # A positional key must always resolve to its own row.
+        if [[ "$(server_action_key "$other")" == "$mnemonic" && other -ne index ]]; then
+            return 1
+        fi
+        other_script="${server_scripts[$other]:l}"
+        if [[ "${other_script%%:*}" == "$family" ]]; then
+            (( ++matches ))
+            # Prefer the plain script when namespaced variants exist.
+            [[ "$other_script" == "$family" && other -ne index ]] && return 1
+        fi
+    done
+    [[ "$script" == "$family" || matches -eq 1 ]] || return 1
+    print -r -- "$mnemonic"
+}
+
 resolve_server_key() {
     local key="${1:l}"
     local index
     for (( index = 1; index <= ${#server_scripts[@]}; index++ )); do
         if [[ "$(server_action_key "$index")" == "$key" ]]; then
+            print -r -- "$index"
+            return 0
+        fi
+    done
+    for (( index = 1; index <= ${#server_scripts[@]}; index++ )); do
+        if [[ "$(server_mnemonic_for_index "$index")" == "$key" && -n "$key" ]]; then
             print -r -- "$index"
             return 0
         fi
@@ -122,7 +160,7 @@ center_server_line() {
 render_server_menu() {
     local project_type="$1"
     local package_manager="$2"
-    local geometry cols lines card_width inner_width index key script
+    local geometry cols lines card_width inner_width index key mnemonic script
     local c_header c_accent c_muted c_key c_border c_worktree c_branch c_row
     local plain colored separator branch_name script_width command_width hint_width
     local script_label command_label script_cell command_cell hint
@@ -141,14 +179,14 @@ render_server_menu() {
     (( cols < card_width + 4 )) && card_width=$(( cols - 4 ))
     (( card_width < 48 )) && card_width=48
     inner_width=$(( card_width - 8 ))
-    script_width=18
-    hint_width=9
+    script_width=16
+    hint_width=14
     if (( inner_width < 60 )); then
         script_width=12
         hint_width=0
     fi
-    command_width=$(( inner_width - 1 - 3 - 4 - script_width - 3 - 3 - hint_width ))
-    (( hint_width == 0 )) && command_width=$(( command_width + 3 ))
+    command_width=$(( inner_width - 1 - 7 - 3 - script_width - 3 ))
+    (( hint_width > 0 )) && command_width=$(( command_width - 3 - hint_width ))
 
     c_header="$(server_hex_fg '#FFC600')"
     c_accent="$(server_hex_fg '#00AAFF')"
@@ -169,6 +207,7 @@ render_server_menu() {
 
     for (( index = 1; index <= ${#server_scripts[@]}; index++ )); do
         key="$(server_action_key "$index")"
+        mnemonic="$(server_mnemonic_for_index "$index")" || mnemonic='-'
         script="${server_scripts[$index]}"
         case "$(( (index - 1) % 5 ))" in
             0) c_row="$(server_hex_fg '#00AAFF')" ;;
@@ -187,9 +226,11 @@ render_server_menu() {
         fi
         printf -v script_cell '%-*s' "$script_width" "$script_label"
         printf -v command_cell '%-*s' "$command_width" "$command_label"
-        colored=" ${c_border}[\e[1m${c_row}${key}\e[0m${c_border}]    \e[1m${c_row}${script_cell}\e[0m   ${c_muted}${command_cell}\e[0m"
+        colored=" ${c_border}[\e[1m${c_row}${key}\e[0m${c_border} / \e[1m${c_row}${mnemonic}\e[0m${c_border}]   \e[1m${c_row}${script_cell}\e[0m   ${c_muted}${command_cell}\e[0m"
         if (( hint_width > 0 )); then
-            printf -v hint '%-*s' "$hint_width" "press $key"
+            hint="press $key"
+            [[ "$mnemonic" != '-' ]] && hint+=" or $mnemonic"
+            printf -v hint '%-*s' "$hint_width" "$hint"
             colored+="   ${c_row}${hint}\e[0m"
         fi
         card_lines+=("$colored")

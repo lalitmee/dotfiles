@@ -34,6 +34,32 @@ server_scripts=("${scripts[@]}")
 [[ "$(server_action_key 10)" == "0" ]]
 [[ "$(server_action_key 11)" == "a" ]]
 [[ "$(resolve_server_key 2)" == "2" ]]
+[[ "$(server_mnemonic_for_index 1)" == d ]]
+[[ "$(server_mnemonic_for_index 2)" == v ]]
+[[ "$(server_mnemonic_for_index 3)" == s ]]
+[[ "$(resolve_server_key D)" == 1 ]]
+[[ "$(resolve_server_key v)" == 2 ]]
+server_scripts=(dev dev:local start)
+[[ "$(server_mnemonic_for_index 1)" == d ]]
+if server_mnemonic_for_index 2 >/dev/null; then
+    print -u2 'FAIL: namespaced variant stole the canonical mnemonic'
+    exit 1
+fi
+server_scripts=(dev:local dev:prod)
+if server_mnemonic_for_index 1 >/dev/null || server_mnemonic_for_index 2 >/dev/null; then
+    print -u2 'FAIL: ambiguous variants received a mnemonic'
+    exit 1
+fi
+server_scripts=(dev:local)
+[[ "$(server_mnemonic_for_index 1)" == d ]]
+server_scripts=(dev)
+for (( i = 2; i <= 14; i++ )); do server_scripts+=("dev:variant$i"); done
+[[ "$(server_action_key 14)" == d && "$(resolve_server_key d)" == 14 ]]
+if server_mnemonic_for_index 1 >/dev/null; then
+    print -u2 'FAIL: mnemonic collided with a positional key'
+    exit 1
+fi
+server_scripts=("${scripts[@]}")
 if resolve_server_key z >/dev/null; then
     print -u2 "FAIL: unknown server key resolved"
     exit 1
@@ -60,15 +86,15 @@ rendered="$(render_server_menu 'Node.js project' npm)"
 }
 plain_rendered="$(print -r -- "$rendered" | sed -E 's/\x1b\[[0-9;]*m//g')"
 print -r -- "$plain_rendered" | awk '
-    /npm run dev/ { dev = index($0, "npm run dev"); first_hint = index($0, "press 1") }
-    /npm run start/ { start = index($0, "npm run start"); last_hint = index($0, "press 3") }
+    /npm run dev/ { dev = index($0, "npm run dev"); first_hint = index($0, "press 1 or d") }
+    /npm run start/ { start = index($0, "npm run start"); last_hint = index($0, "press 3 or s") }
     END { exit !(dev > 0 && dev == start && first_hint > 0 && first_hint == last_hint) }
 ' || { print -u2 'FAIL: server command or hint columns are not aligned'; exit 1; }
 
 server_terminal_geometry() { print -r -- '64 35'; }
 server_scripts=('dev' 'serve:local-with-a-very-long-script-name')
 narrow="$(render_server_menu 'Node.js project' npm | sed -E 's/\x1b\[[0-9;]*m//g')"
-[[ "$narrow" == *'serve:local…'* && "$narrow" != *'press 1'* ]] || {
+[[ "$narrow" == *'serve:local…'* && "$narrow" == *'[1 / d]'* && "$narrow" == *'[2 / v]'* && "$narrow" != *'press 1'* ]] || {
     print -u2 'FAIL: narrow server rows are not compact or truncated'
     exit 1
 }
