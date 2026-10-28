@@ -58,6 +58,17 @@ typeset -ga ITEM_COLORS=()
 typeset -ga ITEM_INSTALLED=()
 typeset -ga ITEM_CMDS=()
 
+# Recent launches in this palette session (newest first)
+typeset -ga HISTORY_AGENT_IDS=()
+typeset -ga HISTORY_LABELS=()
+typeset -ga HISTORY_COLORS=()
+typeset -ga HISTORY_EXIT_CODES=()
+typeset -ga HISTORY_DURATION_SECS=()
+typeset -ga HISTORY_END_EPOCHS=()
+typeset -ga HISTORY_LAUNCH_KEYS=()
+
+HISTORY_MAX_ROWS=6
+
 # -------------------------------------------------------------------
 # }}}
 # -------------------------------------------------------------------
@@ -228,7 +239,174 @@ center_ansi_text() { # {{{
     printf "%*s%b" "$pad" "" "$text"
 } # }}}
 
+clear_screen_and_scrollback() { # {{{
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux clear-history 2>/dev/null || true
+    fi
+    printf '\e[2J\e[H\e[3J'
+} # }}}
+
+format_duration_secs() { # {{{
+    local secs="$1"
+
+    (( secs < 0 )) && secs=0
+
+    if (( secs >= 3600 )); then
+        printf '%dh %02dm' $(( secs / 3600 )) $(( (secs % 3600) / 60 ))
+    elif (( secs >= 60 )); then
+        printf '%dm %02ds' $(( secs / 60 )) $(( secs % 60 ))
+    else
+        printf '%ds' "$secs"
+    fi
+} # }}}
+
+format_exit_result() { # {{{
+    local exit_code="$1"
+
+    if (( exit_code == 0 )); then
+        print -r -- "ok"
+    else
+        print -r -- "exit ${exit_code}"
+    fi
+} # }}}
+
+format_history_end_time() { # {{{
+    local epoch="$1"
+
+    if [[ -n "$epoch" && "$epoch" != "0" ]]; then
+        date -r "$epoch" "+%H:%M" 2>/dev/null || print -r -- "--:--"
+    else
+        print -r -- "--:--"
+    fi
+} # }}}
+
+format_history_launch_key() { # {{{
+    local idx="$1"
+    local launch_via="${2:-key}"
+    local catalog_key="${ITEM_KEYS[$idx]}"
+    local mnemonic="${ITEM_MNEMONICS[$idx]}"
+    local pair="${catalog_key}/${mnemonic}"
+
+    case "$launch_via" in
+        enter)
+            print -r -- "↵ ${pair}"
+            ;;
+        filter)
+            print -r -- "/ ${pair}"
+            ;;
+        *)
+            print -r -- "$pair"
+            ;;
+    esac
+} # }}}
+
+record_agent_history() { # {{{
+    local agent_id="$1"
+    local label="$2"
+    local color="$3"
+    local exit_code="$4"
+    local duration_secs="$5"
+    local launch_key="${6:-—}"
+    local now_epoch="${EPOCHSECONDS:-$(date +%s)}"
+
+    HISTORY_AGENT_IDS=("$agent_id" "${HISTORY_AGENT_IDS[@]}")
+    HISTORY_LABELS=("$label" "${HISTORY_LABELS[@]}")
+    HISTORY_COLORS=("$color" "${HISTORY_COLORS[@]}")
+    HISTORY_EXIT_CODES=("$exit_code" "${HISTORY_EXIT_CODES[@]}")
+    HISTORY_DURATION_SECS=("$duration_secs" "${HISTORY_DURATION_SECS[@]}")
+    HISTORY_END_EPOCHS=("${now_epoch}" "${HISTORY_END_EPOCHS[@]}")
+    HISTORY_LAUNCH_KEYS=("$launch_key" "${HISTORY_LAUNCH_KEYS[@]}")
+
+    if (( ${#HISTORY_LABELS[@]} > HISTORY_MAX_ROWS )); then
+        HISTORY_AGENT_IDS=("${HISTORY_AGENT_IDS[@]:0:$HISTORY_MAX_ROWS}")
+        HISTORY_LABELS=("${HISTORY_LABELS[@]:0:$HISTORY_MAX_ROWS}")
+        HISTORY_COLORS=("${HISTORY_COLORS[@]:0:$HISTORY_MAX_ROWS}")
+        HISTORY_EXIT_CODES=("${HISTORY_EXIT_CODES[@]:0:$HISTORY_MAX_ROWS}")
+        HISTORY_DURATION_SECS=("${HISTORY_DURATION_SECS[@]:0:$HISTORY_MAX_ROWS}")
+        HISTORY_END_EPOCHS=("${HISTORY_END_EPOCHS[@]:0:$HISTORY_MAX_ROWS}")
+        HISTORY_LAUNCH_KEYS=("${HISTORY_LAUNCH_KEYS[@]:0:$HISTORY_MAX_ROWS}")
+    fi
+} # }}}
+
+format_plain_history_rows() { # {{{
+    local count="${#HISTORY_LABELS[@]}"
+    local i num launch_key label result duration ended
+
+    if (( count == 0 )); then
+        return 0
+    fi
+
+    printf "#   Key      Agent       Result     Duration  Ended\n"
+
+    for (( i = 1; i <= count; i++ )); do
+        num="$i"
+        launch_key="${HISTORY_LAUNCH_KEYS[$i]:-—}"
+        label="${HISTORY_LABELS[$i]}"
+        result=$(format_exit_result "${HISTORY_EXIT_CODES[$i]}")
+        duration=$(format_duration_secs "${HISTORY_DURATION_SECS[$i]}")
+        ended=$(format_history_end_time "${HISTORY_END_EPOCHS[$i]}")
+        printf "%2d  %-8s  %-11s  %-9s  %-8s  %s\n" "$num" "$launch_key" "$label" "$result" "$duration" "$ended"
+    done
+} # }}}
+
+build_history_card_content() { # {{{
+    local inner_w="$1"
+    local count="${#HISTORY_LABELS[@]}"
+    local c_header c_muted c_dimmed c_border c_accent c_row c_key
+    local header_visible header_line col_header rows_text
+    local i num launch_key label result duration ended row_line sep_line
+    local -a formatted_rows=()
+
+    if (( count == 0 )); then
+        return 0
+    fi
+
+    c_header=$(hex_fg "$HEX_HEADER")
+    c_muted=$(hex_fg "$HEX_MUTED")
+    c_dimmed=$(hex_fg "$HEX_DIMMED")
+    c_border=$(hex_fg "$HEX_INNER_BORDER")
+    c_accent=$(hex_fg "$HEX_ACCENT")
+    c_key=$(hex_fg "$HEX_KEY")
+
+    header_visible="Recent Agent Runs"
+    header_line=$(center_ansi_text "${ANSI_BOLD}${c_header}${header_visible}${ANSI_RESET}" "${#header_visible}" "$inner_w")
+
+    col_header=$(printf " %b#%b   %bKey%b      %bAgent%b       %bResult%b     %bDuration%b  %bEnded%b" \
+        "$c_muted" "$ANSI_RESET" "$c_muted" "$ANSI_RESET" "$c_muted" "$ANSI_RESET" \
+        "$c_muted" "$ANSI_RESET" "$c_muted" "$ANSI_RESET" "$c_muted" "$ANSI_RESET")
+
+    sep_line=$(printf "%b%s%b" "$c_border" "$(printf '─%.0s' {1..$inner_w})" "$ANSI_RESET")
+
+    for (( i = 1; i <= count; i++ )); do
+        num="$i"
+        launch_key="${HISTORY_LAUNCH_KEYS[$i]:-—}"
+        label="${HISTORY_LABELS[$i]}"
+        duration=$(format_duration_secs "${HISTORY_DURATION_SECS[$i]}")
+        ended=$(format_history_end_time "${HISTORY_END_EPOCHS[$i]}")
+        c_row=$(hex_fg "${HISTORY_COLORS[$i]:-$HEX_MUTED}")
+
+        if (( HISTORY_EXIT_CODES[i] == 0 )); then
+            result="${ANSI_BOLD}${c_accent}$(format_exit_result "${HISTORY_EXIT_CODES[$i]}")${ANSI_RESET}"
+        else
+            result="${ANSI_BOLD}${c_row}$(format_exit_result "${HISTORY_EXIT_CODES[$i]}")${ANSI_RESET}"
+        fi
+
+        row_line=$(printf " %b%2d%b  %b%-8s%b  %b%-11s%b  %s  %b%-8s%b  %b%s%b" \
+            "$c_muted" "$num" "$ANSI_RESET" \
+            "$ANSI_BOLD$c_key" "$launch_key" "$ANSI_RESET" \
+            "$ANSI_BOLD$c_row" "$label" "$ANSI_RESET" \
+            "$result" \
+            "$c_dimmed" "$duration" "$ANSI_RESET" \
+            "$c_muted" "$ended" "$ANSI_RESET")
+        formatted_rows+=("$row_line")
+    done
+
+    rows_text=$(printf "%b\n" "${formatted_rows[@]}")
+    printf "%b\n%b\n%b\n%b" "$header_line" "$col_header" "$sep_line" "$rows_text"
+} # }}}
+
 render_palette() { # {{{
+    clear_screen_and_scrollback
     local term_geo
     term_geo=$(get_terminal_geometry)
     local term_cols="${term_geo%% *}"
@@ -326,7 +504,7 @@ render_palette() { # {{{
     card_content=$(printf "%b\n\n%b\n%b\n\n%b\n\n%b\n%b" \
         "$title_line" "$sub_line" "$header_sep" "$rows_text" "$footer_sep" "$footer_line")
 
-    local card_box
+    local card_box history_box="" history_content
     card_box=$(gum style \
         --border rounded \
         --border-foreground "$HEX_ACCENT" \
@@ -335,13 +513,30 @@ render_palette() { # {{{
         --width "$card_width" \
         "$card_content")
 
-    # Exact vertical centering:
-    local card_line_count
+    if (( ${#HISTORY_LABELS[@]} > 0 )); then
+        history_content=$(build_history_card_content "$inner_w")
+        history_box=$(gum style \
+            --border rounded \
+            --border-foreground "$HEX_INNER_BORDER" \
+            --padding "1 2" \
+            --width "$card_width" \
+            "$history_content")
+    fi
+
+    # Exact vertical centering for launcher card + optional history block:
+    local card_line_count history_line_count=0 stack_line_count
     card_line_count=$(print -r -- "$card_box" | wc -l | tr -d ' ')
+    if [[ -n "$history_box" ]]; then
+        history_line_count=$(print -r -- "$history_box" | wc -l | tr -d ' ')
+    fi
+    stack_line_count=$(( card_line_count + history_line_count ))
+    if [[ -n "$history_box" ]]; then
+        stack_line_count=$(( stack_line_count + 1 ))
+    fi
 
     local pad_top=0
-    if (( term_lines > card_line_count )); then
-        pad_top=$(( (term_lines - card_line_count) / 2 ))
+    if (( term_lines > stack_line_count )); then
+        pad_top=$(( (term_lines - stack_line_count) / 2 ))
     fi
 
     # Exact horizontal centering margin:
@@ -355,8 +550,11 @@ render_palette() { # {{{
         print -r -- ""
     done
 
-    # Emit horizontally centered card
+    # Emit horizontally centered launcher card, then recent runs directly below
     gum style --margin "0 ${margin_h}" "$card_box"
+    if [[ -n "$history_box" ]]; then
+        gum style --margin "1 ${margin_h}" "$history_box"
+    fi
 } # }}}
 
 # -------------------------------------------------------------------
@@ -471,12 +669,15 @@ animate_agent_handoff() { # {{{
 
 launch_agent_by_index() { # {{{
     local idx="$1"
-    shift || true
+    local launch_via="$2"
+    shift 2
 
     local label="${ITEM_LABELS[$idx]}"
     local cmd="${ITEM_CMDS[$idx]}"
     local color="${ITEM_COLORS[$idx]}"
     local installed="${ITEM_INSTALLED[$idx]}"
+    local launch_key_display
+    launch_key_display=$(format_history_launch_key "$idx" "$launch_via")
 
     if [[ "$installed" != "1" || -z "$cmd" ]]; then
         notify_not_installed "$label"
@@ -491,10 +692,15 @@ launch_agent_by_index() { # {{{
     fi
 
     clear
+    local start_epoch="${EPOCHSECONDS:-$(date +%s)}"
     local -a cmd_parts
     cmd_parts=("${(@z)cmd}")
     "${cmd_parts[@]}" "$@"
     local exit_code=$?
+    local now_epoch="${EPOCHSECONDS:-$(date +%s)}"
+    local duration_secs=$(( now_epoch - start_epoch ))
+
+    record_agent_history "${ITEM_IDS[$idx]}" "$label" "$color" "$exit_code" "$duration_secs" "$launch_key_display"
 
     rename_agent_window
 
@@ -514,8 +720,17 @@ drop_to_shell() { # {{{
 } # }}}
 
 read_single_key() { # {{{
-    local key=""
+    local key="" saved_stty=""
+
+    if [[ -t 0 ]]; then
+        saved_stty=$(stty -g 2>/dev/null || true)
+        stty -echo 2>/dev/null || true
+    fi
+
     if ! read -r -k 1 key; then
+        if [[ -n "$saved_stty" ]]; then
+            stty "$saved_stty" 2>/dev/null || stty echo 2>/dev/null || true
+        fi
         return 2
     fi
 
@@ -527,7 +742,33 @@ read_single_key() { # {{{
         done
     fi
 
-    print -r -- "$key"
+    if [[ -n "$saved_stty" ]]; then
+        stty "$saved_stty" 2>/dev/null || stty echo 2>/dev/null || true
+    fi
+
+    REPLY="$key"
+    return 0
+} # }}}
+
+capture_palette_key() { # {{{
+    local key="" read_status=0
+    local xtrace_was_active=0
+
+    if [[ -o xtrace ]]; then
+        xtrace_was_active=1
+        set +x
+    fi
+
+    read_single_key
+    read_status=$?
+    key="$REPLY"
+
+    if (( xtrace_was_active )); then
+        set -x
+    fi
+
+    REPLY="$key"
+    return "$read_status"
 } # }}}
 
 # -------------------------------------------------------------------
@@ -545,12 +786,18 @@ main() { # {{{
     while true; do
         scan_agents
 
-        clear
         render_palette
         rename_agent_window
 
+        printf '\e[?25l' >/dev/tty 2>/dev/null || true
+
         local key read_status=0
-        key=$(read_single_key) || read_status=$?
+
+        capture_palette_key
+        read_status=$?
+        key="$REPLY"
+
+        printf '\e[?25h' >/dev/tty 2>/dev/null || true
 
         if (( read_status == 2 )); then
             clear
@@ -566,20 +813,20 @@ main() { # {{{
                 ;;
             $'\n'|$'\r')
                 clear
-                launch_agent_by_index 1 "$@"
+                launch_agent_by_index 1 enter "$@"
                 ;;
             /|f|F|:)
                 local idx
                 if idx=$(pick_with_gum_filter); then
                     clear
-                    launch_agent_by_index "$idx" "$@"
+                    launch_agent_by_index "$idx" filter "$@"
                 fi
                 ;;
             *)
                 local idx
                 if idx=$(resolve_key_to_agent_index "$key"); then
                     clear
-                    launch_agent_by_index "$idx" "$@"
+                    launch_agent_by_index "$idx" key "$@"
                 fi
                 ;;
         esac

@@ -90,4 +90,35 @@ for id in "${ITEM_IDS[@]}"; do
     fi
 done
 
+# 6. Session history formatting
+record_agent_history "opencode" "opencode" "#00AAFF" 0 134 "1/o"
+record_agent_history "cursor" "cursor" "#FF9A00" 130 5 "5/u"
+
+history_rows=$(format_plain_history_rows)
+if ! print -r -- "$history_rows" | grep -q "^ 1  5/u"; then
+    print -u2 "FAIL: history missing launch key for newest row"
+    exit 1
+fi
+
+if ! print -r -- "$history_rows" | grep -q "^ 1  .*  cursor"; then
+    print -u2 "FAIL: history missing newest cursor row"
+    exit 1
+fi
+
+if ! print -r -- "$history_rows" | grep -q "^ 2  .*  opencode"; then
+    print -u2 "FAIL: history missing second opencode row"
+    exit 1
+fi
+
+if ! print -r -- "$history_rows" | grep -q "#   Key"; then
+    print -u2 "FAIL: history missing Key column header"
+    exit 1
+fi
+
+launch_key=$(format_history_launch_key 8 key)
+if [[ "$launch_key" != "8/k" ]]; then
+    print -u2 "FAIL: expected copilot launch key 8/k, got $launch_key"
+    exit 1
+fi
+
 print "workmux agent palette tests passed successfully"
