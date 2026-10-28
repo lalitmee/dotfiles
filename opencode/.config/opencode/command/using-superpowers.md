@@ -3,3 +3,5 @@ description: Use when starting any conversation - establishes how to find and us
 ---
 
 Use the skill tool to load the "using-superpowers" skill and follow its workflow.
+
+$ARGUMENTS

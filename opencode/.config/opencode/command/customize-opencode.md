@@ -3,3 +3,5 @@ description: "Use ONLY when the user is editing or creating opencode's own confi
 ---
 
 Use the skill tool to load the "customize-opencode" skill and follow its workflow.
+
+$ARGUMENTS

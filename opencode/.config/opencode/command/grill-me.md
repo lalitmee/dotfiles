@@ -3,3 +3,5 @@ description: Interview the user relentlessly about a plan or design until reachi
 ---
 
 Use the skill tool to load the "grill-me" skill and follow its workflow.
+
+$ARGUMENTS

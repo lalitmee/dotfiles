@@ -3,3 +3,5 @@ description: Systematic multi-source research across web, GitHub, community disc
 ---
 
 Use the skill tool to load the 'research' skill and follow its workflow.
+
+$ARGUMENTS

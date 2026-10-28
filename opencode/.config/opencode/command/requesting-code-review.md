@@ -3,3 +3,5 @@ description: Use when completing tasks, implementing major features, or before m
 ---
 
 Use the skill tool to load the "requesting-code-review" skill and follow its workflow.
+
+$ARGUMENTS

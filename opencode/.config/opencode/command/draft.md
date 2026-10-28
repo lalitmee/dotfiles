@@ -3,3 +3,5 @@ description: Drafts professional emails based on context, tone, and purpose with
 ---
 
 Use the skill tool to load the 'draft' skill and follow its workflow.
+
+$ARGUMENTS

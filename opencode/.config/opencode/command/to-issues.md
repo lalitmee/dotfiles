@@ -3,3 +3,5 @@ description: Break a plan, spec, or PRD into independently-grabbable issues on t
 ---
 
 Use the skill tool to load the "to-issues" skill and follow its workflow.
+
+$ARGUMENTS

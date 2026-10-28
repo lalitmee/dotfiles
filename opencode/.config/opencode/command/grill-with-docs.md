@@ -3,3 +3,5 @@ description: Grilling session that challenges your plan against the existing dom
 ---
 
 Use the skill tool to load the "grill-with-docs" skill and follow its workflow.
+
+$ARGUMENTS

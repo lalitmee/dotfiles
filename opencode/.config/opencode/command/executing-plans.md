@@ -3,3 +3,5 @@ description: Use when you have a written implementation plan to execute in a sep
 ---
 
 Use the skill tool to load the "executing-plans" skill and follow its workflow.
+
+$ARGUMENTS

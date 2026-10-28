@@ -3,3 +3,5 @@ description: Fetches and summarizes the latest release notes for specified Googl
 ---
 
 Use the skill tool to load the 'whatsnew' skill and follow its workflow.
+
+$ARGUMENTS

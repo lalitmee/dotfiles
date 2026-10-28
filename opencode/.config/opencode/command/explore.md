@@ -3,3 +3,5 @@ description: Interactive Explore mode. Interactively explains the codebase throu
 ---
 
 Use the skill tool to load the 'explore' skill and follow its workflow.
+
+$ARGUMENTS

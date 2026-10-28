@@ -3,3 +3,5 @@ description: Use when facing 2+ independent tasks that can be worked on without 
 ---
 
 Use the skill tool to load the "dispatching-parallel-agents" skill and follow its workflow.
+
+$ARGUMENTS

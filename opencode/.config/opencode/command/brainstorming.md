@@ -3,3 +3,5 @@ description: You MUST use this before any creative work - creating features, bui
 ---
 
 Use the skill tool to load the "brainstorming" skill and follow its workflow.
+
+$ARGUMENTS

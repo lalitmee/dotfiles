@@ -3,3 +3,5 @@ description: Use when receiving code review feedback, before implementing sugges
 ---
 
 Use the skill tool to load the "receiving-code-review" skill and follow its workflow.
+
+$ARGUMENTS

@@ -3,3 +3,5 @@ description: Tell the agent to zoom out and give broader context or a higher-lev
 ---
 
 Use the skill tool to load the "zoom-out" skill and follow its workflow.
+
+$ARGUMENTS

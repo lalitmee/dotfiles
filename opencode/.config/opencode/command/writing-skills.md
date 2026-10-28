@@ -3,3 +3,5 @@ description: Use when creating new skills, editing existing skills, or verifying
 ---
 
 Use the skill tool to load the "writing-skills" skill and follow its workflow.
+
+$ARGUMENTS

@@ -3,3 +3,5 @@ description: Analyzes tasks and priorities to create organized, actionable task 
 ---
 
 Use the skill tool to load the 'prioritize' skill and follow its workflow.
+
+$ARGUMENTS

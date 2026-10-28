@@ -3,3 +3,5 @@ description: Use when about to claim work is complete, fixed, or passing, before
 ---
 
 Use the skill tool to load the "verification-before-completion" skill and follow its workflow.
+
+$ARGUMENTS

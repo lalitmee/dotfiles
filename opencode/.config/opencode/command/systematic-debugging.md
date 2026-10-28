@@ -3,3 +3,5 @@ description: Use when encountering any bug, test failure, or unexpected behavior
 ---
 
 Use the skill tool to load the "systematic-debugging" skill and follow its workflow.
+
+$ARGUMENTS

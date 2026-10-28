@@ -3,3 +3,5 @@ description: Find deepening opportunities in a codebase, informed by the domain 
 ---
 
 Use the skill tool to load the "improve-codebase-architecture" skill and follow its workflow.
+
+$ARGUMENTS

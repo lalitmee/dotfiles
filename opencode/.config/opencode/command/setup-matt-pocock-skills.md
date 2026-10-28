@@ -3,3 +3,5 @@ description: Sets up an "## Agent skills" block in AGENTS.md/CLAUDE.md and docs/
 ---
 
 Use the skill tool to load the "setup-matt-pocock-skills" skill and follow its workflow.
+
+$ARGUMENTS

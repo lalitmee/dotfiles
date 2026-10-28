@@ -3,3 +3,5 @@ description: Summarizes meeting notes, transcripts, or discussions into actionab
 ---
 
 Use the skill tool to load the 'summarize' skill and follow its workflow.
+
+$ARGUMENTS

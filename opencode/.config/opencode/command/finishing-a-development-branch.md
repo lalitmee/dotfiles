@@ -3,3 +3,5 @@ description: Use when implementation is complete, all tests pass, and you need t
 ---
 
 Use the skill tool to load the "finishing-a-development-branch" skill and follow its workflow.
+
+$ARGUMENTS

@@ -3,3 +3,5 @@ description: Turn the current conversation context into a PRD and publish it to 
 ---
 
 Use the skill tool to load the "to-prd" skill and follow its workflow.
+
+$ARGUMENTS

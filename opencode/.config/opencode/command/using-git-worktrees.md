@@ -3,3 +3,5 @@ description: Use when starting feature work that needs isolation from current wo
 ---
 
 Use the skill tool to load the "using-git-worktrees" skill and follow its workflow.
+
+$ARGUMENTS

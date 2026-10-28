@@ -3,3 +3,5 @@ description: Disciplined diagnosis loop for hard bugs and performance regression
 ---
 
 Use the skill tool to load the "diagnose" skill and follow its workflow.
+
+$ARGUMENTS

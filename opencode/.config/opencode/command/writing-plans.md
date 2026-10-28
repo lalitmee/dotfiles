@@ -3,3 +3,5 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 ---
 
 Use the skill tool to load the "writing-plans" skill and follow its workflow.
+
+$ARGUMENTS

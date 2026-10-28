@@ -3,3 +3,5 @@ description: Identifies and suggests cleanup opportunities including unused code
 ---
 
 Use the skill tool to load the 'cleanup' skill and follow its workflow.
+
+$ARGUMENTS

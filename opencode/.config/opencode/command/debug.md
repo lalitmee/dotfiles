@@ -3,3 +3,5 @@ description: Analyzes error logs, stack traces, and provides systematic debuggin
 ---
 
 Use the skill tool to load the 'debug' skill and follow its workflow.
+
+$ARGUMENTS

@@ -3,3 +3,5 @@ description: Build a throwaway prototype to flush out a design before committing
 ---
 
 Use the skill tool to load the "prototype" skill and follow its workflow.
+
+$ARGUMENTS

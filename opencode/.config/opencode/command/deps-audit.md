@@ -3,3 +3,5 @@ description: Systematically compares package.json dependency entries to actual r
 ---
 
 Use the skill tool to load the "deps-audit" skill and follow its workflow.
+
+$ARGUMENTS

@@ -3,3 +3,5 @@ description: Automatically generates comprehensive test cases for functions, cla
 ---
 
 Use the skill tool to load the 'gen-test' skill and follow its workflow.
+
+$ARGUMENTS

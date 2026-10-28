@@ -3,3 +3,5 @@ description: Triage issues through a state machine driven by triage roles. Use w
 ---
 
 Use the skill tool to load the "triage" skill and follow its workflow.
+
+$ARGUMENTS

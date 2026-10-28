@@ -3,3 +3,5 @@ description: Manage and install active agentic skills. Use when the user asks to
 ---
 
 Use the skill tool to load the "skill-manager" skill and follow its workflow.
+
+$ARGUMENTS

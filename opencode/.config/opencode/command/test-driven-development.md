@@ -3,3 +3,5 @@ description: Use when implementing any feature or bugfix, before writing impleme
 ---
 
 Use the skill tool to load the "test-driven-development" skill and follow its workflow.
+
+$ARGUMENTS

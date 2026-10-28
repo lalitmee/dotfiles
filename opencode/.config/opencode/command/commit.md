@@ -3,3 +3,5 @@ description: Generates a Git commit message based on staged, modified, or untrac
 ---
 
 Use the skill tool to load the 'commit' skill and follow its workflow.
+
+$ARGUMENTS
