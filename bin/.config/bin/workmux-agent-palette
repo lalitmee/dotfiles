@@ -496,23 +496,28 @@ launch_agent_by_index() { # {{{
     "${cmd_parts[@]}" "$@"
     local exit_code=$?
 
-    if [[ -n "${TMUX:-}" ]]; then
-        tmux rename-window "agent" 2>/dev/null || true
-    fi
+    rename_agent_window
 
     return "$exit_code"
 } # }}}
 
-drop_to_shell() { # {{{
+rename_agent_window() { # {{{
     if [[ -n "${TMUX:-}" ]]; then
-        tmux rename-window "shell" 2>/dev/null || true
+        tmux rename-window "agent" 2>/dev/null || true
     fi
+} # }}}
+
+drop_to_shell() { # {{{
+    rename_agent_window
+    stty sane 2>/dev/null || true
     exec "${SHELL:-/bin/zsh}" -l
 } # }}}
 
 read_single_key() { # {{{
     local key=""
-    read -r -k 1 key || return 1
+    if ! read -r -k 1 key; then
+        return 2
+    fi
 
     # Consume trailing escape sequence bytes if Esc or arrow key was pressed
     if [[ "$key" == $'\e' ]]; then
@@ -535,18 +540,27 @@ read_single_key() { # {{{
 
 main() { # {{{
     setup_environment
+    rename_agent_window
 
     while true; do
         scan_agents
 
         clear
         render_palette
+        rename_agent_window
 
-        local key
-        key=$(read_single_key) || drop_to_shell
+        local key read_status=0
+        key=$(read_single_key) || read_status=$?
+
+        if (( read_status == 2 )); then
+            clear
+            exit 0
+        elif (( read_status != 0 )); then
+            drop_to_shell
+        fi
 
         case "$key" in
-            q|Q|$'\e')
+            q|Q)
                 clear
                 drop_to_shell
                 ;;
