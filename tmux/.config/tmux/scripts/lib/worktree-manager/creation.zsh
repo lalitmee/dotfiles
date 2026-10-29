@@ -11,13 +11,28 @@ worktree_create_picker() {
         while IFS= read -r -d '' root; do roots+=("$root"); done < <(load_worktree_roots)
     fi
     (( ${#roots} )) || return 0
-    while IFS= read -r -d '' field; do fields+=("$field"); done < <(discover_worktrees "${roots[@]}")
+    local discover_tmp projects_label
+    discover_tmp=$(mktemp "${TMPDIR:-/tmp}/worktree-create-discover.XXXXXXXX") || return 1
+    projects_label="$(worktree_manager_join_display_paths "${roots[@]}")"
+
+    _worktree_create_discover_to_file() {
+        emulate -L zsh
+        discover_worktrees "${roots[@]}" > "$discover_tmp"
+    }
+
+    worktree_manager_run_scan_spinner "Loading repositories under ${projects_label}…" \
+        _worktree_create_discover_to_file || {
+        rm -f -- "$discover_tmp"
+        return 1
+    }
+    while IFS= read -r -d '' field; do fields+=("$field"); done < "$discover_tmp"
+    rm -f -- "$discover_tmp"
     local i
     for ((i=1; i+5<=${#fields}; i+=6)); do
         [[ ",${fields[i+5]}," == *,main,* && ",${fields[i+5]}," != *,prunable,* ]] || continue
         repositories+=("${fields[i]}")
         repository_names+=("$(manager_display "${fields[i+2]}")")
-        repository_paths+=("$(manager_display "${fields[i]}")")
+        repository_paths+=("$(manager_display_path "${fields[i]}")")
         repository_flags+=("${fields[i+5]}")
     done
     (( ${#repositories} )) || return 0

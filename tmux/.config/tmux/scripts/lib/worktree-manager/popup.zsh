@@ -10,6 +10,10 @@ typeset -g WM_HIGHLIGHT="#FFC600"
 typeset -g WM_SUCCESS="#5fff00"
 typeset -g WM_ERROR="#d70000"
 typeset -g WM_SELECT_BG="#185294"
+# Cobalt2 popup chrome (tmux/.config/tmux/themes/cobalt2.conf popup-style / popup-border-style).
+typeset -g WM_BORDER="#00AAFF"
+typeset -g WM_SURFACE="#193549"
+typeset -g WM_SPINNER="#967EFB"
 
 # Gate on stdin only: gum input is captured via $(...) so stdout is a pipe,
 # but the TUI still renders to the tty and the value goes to stdout.
@@ -19,21 +23,24 @@ _worktree_popup_gum() {
 
 worktree_manager_terminal_geometry() {
     emulate -L zsh
+    local cols=0 lines=0 geom
     if [[ -n "${TMUX:-}" ]]; then
-        tmux display-message -p '#{pane_width} #{pane_height}'
-    else
-        local cols lines
-        cols=$(tput cols 2>/dev/null) || cols=${COLUMNS:-80}
-        lines=$(tput lines 2>/dev/null) || lines=${LINES:-24}
-        print -r -- "$cols $lines"
+        geom=$(tmux display-message -p '#{pane_width} #{pane_height}' 2>/dev/null)
+        cols="${geom%% *}"
+        lines="${geom##* }"
     fi
+    (( cols > 0 )) || cols=$(tput cols 2>/dev/null) || cols=${COLUMNS:-80}
+    (( lines > 0 )) || lines=$(tput lines 2>/dev/null) || lines=${LINES:-24}
+    (( cols > 0 )) || cols=80
+    (( lines > 0 )) || lines=24
+    print -r -- "$cols $lines"
 }
 
-# Centered scan spinner with a rounded border; clears the pane before returning.
+# Centered scan UI: cobalt2 purple spinner, yellow label, blue rounded border.
 worktree_manager_run_scan_spinner() {
     emulate -L zsh
     local title="$1"; shift
-    local cols lines box_width box_text box_height total_height pad_top margin_h full_title geometry rc=0
+    local cols lines box_width box_height pad_top margin_h geometry rc=0
 
     if ! _worktree_popup_gum; then
         "$@" || return $?
@@ -46,30 +53,77 @@ worktree_manager_run_scan_spinner() {
     (( cols > 0 )) || cols=${COLUMNS:-80}
     (( lines > 0 )) || lines=${LINES:-24}
 
-    box_width=72
-    (( cols < box_width + 4 )) && box_width=$(( cols - 4 ))
-    (( box_width < 48 )) && box_width=48
+    local msg_len=$(( ${#title} + 2 ))
+    box_width=$(( msg_len + 8 ))
+    (( box_width < 72 )) && box_width=72
+    (( box_width > cols - 4 )) && box_width=$(( cols - 4 ))
+    (( box_width < 20 )) && box_width=20
 
-    box_text="$(gum style --border rounded --border-foreground "$WM_ACCENT" \
-        --foreground "$WM_HIGHLIGHT" --padding '1 2' --width "$box_width" \
-        --align center "$title")" || return 1
-
-    box_height=$(printf '%s\n' "$box_text" | wc -l | tr -d ' ')
-    # Spinner renders on the first title line; keep the bordered message on the next lines.
-    total_height=$(( box_height + 1 ))
+    box_height=5
     pad_top=0
-    (( lines > total_height )) && pad_top=$(( (lines - total_height) / 2 ))
+    (( lines > box_height )) && pad_top=$(( (lines - box_height) / 2 ))
     margin_h=0
     (( cols > box_width )) && margin_h=$(( (cols - box_width) / 2 ))
-    full_title=$'\n'"$box_text"
 
-    gum spin --spinner dot \
-        --spinner.foreground="$WM_ACCENT" \
-        --title "$full_title" \
-        --padding "$pad_top 0 0 $margin_h" -- \
-        "$@" || rc=$?
+    local spin_r=$(( 16#${WM_SPINNER[2,3]} ))
+    local spin_g=$(( 16#${WM_SPINNER[4,5]} ))
+    local spin_b=$(( 16#${WM_SPINNER[6,7]} ))
+    local surf_r=$(( 16#${WM_SURFACE[2,3]} ))
+    local surf_g=$(( 16#${WM_SURFACE[4,5]} ))
+    local surf_b=$(( 16#${WM_SURFACE[6,7]} ))
+    local hl_r=$(( 16#${WM_HIGHLIGHT[2,3]} ))
+    local hl_g=$(( 16#${WM_HIGHLIGHT[4,5]} ))
+    local hl_b=$(( 16#${WM_HIGHLIGHT[6,7]} ))
 
-    [[ -t 1 ]] && clear
+    local spin_start=$'\033[38;2;'"${spin_r};${spin_g};${spin_b};48;2;${surf_r};${surf_g};${surf_b}m"
+    local spin_end=$'\033[38;2;'"${hl_r};${hl_g};${hl_b};48;2;${surf_r};${surf_g};${surf_b}m"
+
+    local template
+    template="$(CLICOLOR_FORCE=1 gum style \
+        --border rounded \
+        --border-foreground "$WM_BORDER" \
+        --border-background "$WM_SURFACE" \
+        --background "$WM_SURFACE" \
+        --foreground "$WM_HIGHLIGHT" \
+        --padding '1 2' \
+        --margin "${pad_top} 0 0 ${margin_h}" \
+        --width "$box_width" \
+        --align center \
+        $'\u2800 '"$title")" || {
+        "$@" || return $?
+        return 0
+    }
+
+    local -a frames=( '⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏' )
+    local -a rendered_frames=()
+    local f
+    local placeholder=$'\u2800'
+    for f in "${frames[@]}"; do
+        rendered_frames+=( "${template//${placeholder}/${spin_start}${f}${spin_end}}" )
+    done
+
+    local num_frames=${#rendered_frames}
+    local frame_idx=1
+
+    [[ -t 1 ]] && print -n -- $'\033[2J\033[H\033[?25l'"${rendered_frames[1]}"
+
+    "$@" &
+    local cmd_pid=$!
+
+    trap 'kill -TERM '"$cmd_pid"' 2>/dev/null; [[ -t 1 ]] && print -n -- $'\''\033[?25h\033[2J\033[H'\''; return 130' INT TERM HUP
+
+    while kill -0 "$cmd_pid" 2>/dev/null; do
+        sleep 0.08
+        kill -0 "$cmd_pid" 2>/dev/null || break
+        (( frame_idx = (frame_idx % num_frames) + 1 ))
+        [[ -t 1 ]] && print -n -- $'\033[H'"${rendered_frames[frame_idx]}"
+    done
+
+    wait "$cmd_pid" 2>/dev/null
+    rc=$?
+
+    trap - INT TERM HUP
+    [[ -t 1 ]] && print -n -- $'\033[?25h\033[2J\033[H'
     return $rc
 }
 
@@ -151,7 +205,7 @@ worktree_popup_destination() {
         destination=$(gum-input input \
             --header="Rename worktree — new absolute path" \
             --prompt="Path: " \
-            --placeholder="$current") || return 1
+            --placeholder="$(manager_display_path "$current")") || return 1
     else
         print -u2 -n -r -- 'Destination (absolute path; blank cancels): '
         IFS= read -r destination || return 1

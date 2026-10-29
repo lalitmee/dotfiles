@@ -20,14 +20,28 @@ manager_display() { print -rn -- "${(V)1}"; }
 # Format paths for display, contracting $HOME to ~/ while escaping controls. # {{{
 manager_display_path() {
     emulate -L zsh
-    local p="$1"
-    if [[ "$p" == "$HOME" ]]; then
-        print -rn -- '~'
-    elif [[ "$p" == "$HOME/"* ]]; then
-        manager_display "~/${p#$HOME/}"
-    else
-        manager_display "$p"
+    local raw="$1" p="${1:A}" home="${HOME:A}"
+    if [[ -z "$home" ]]; then
+        manager_display "$raw"
+        return
     fi
+    if [[ "$p" == "$home" ]]; then
+        print -rn -- '~'
+    elif [[ "$p" == "$home/"* ]]; then
+        manager_display "~/${p#$home/}"
+    else
+        manager_display "$raw"
+    fi
+}
+
+worktree_manager_join_display_paths() {
+    emulate -L zsh
+    local -a displayed path
+    displayed=()
+    for path in "$@"; do
+        displayed+=("$(manager_display_path "$path")")
+    done
+    print -r -- "${(j:, :)displayed}"
 }
 # }}}
 
@@ -165,7 +179,7 @@ manager_checkout() {
     # Recheck immediately before confirmation so safety copy reflects current state.
     manager_validate "$repo" "$selected" || return 1
     if [[ "$wm_action_status" == dirty ]]; then
-        manager_confirm "Checkout ${names[id]} in path: $selected
+        manager_confirm "Checkout ${names[id]} in path: $(manager_display_path "$selected")
 Status: $wm_action_status. Local changes may conflict with checkout." || return 1
     fi
     [[ "${kinds[id]}" == remote ]] && tracking=1
@@ -187,19 +201,19 @@ manager_mutation() {
     }
     if [[ "$action" == ctrl-r ]]; then
         destination=$(worktree_popup_destination "$selected") || return 1
-        manager_confirm "Move path: $selected
+        manager_confirm "Move path: $(manager_display_path "$selected")
 Status: $wm_action_status
-Destination: $destination" || return 1
+Destination: $(manager_display_path "$destination")" || return 1
         manager_run_action rename_worktree "$repo" "$selected" "$destination"
     else
-        manager_confirm "Remove path: $selected
+        manager_confirm "Remove path: $(manager_display_path "$selected")
 Status: $wm_action_status
 The branch will be retained." || return 1
         # Status can change while the first prompt is open.
         manager_validate "$repo" "$selected" || return 1
         if [[ "$wm_action_status" == dirty ]]; then
             manager_confirm "FORCE removal discards tracked and untracked changes.
-Path: $selected
+Path: $(manager_display_path "$selected")
 Status: $wm_action_status" force || return 1
             force=1
         fi
@@ -240,7 +254,7 @@ manager_main() {
     else
         while IFS= read -r -d '' root; do roots+=("$root"); done < <(load_worktree_roots)
     fi
-    projects_root="${(j:, :)roots}"
+    projects_root="$(worktree_manager_join_display_paths "${roots[@]}")"
     local heading_color=$popup_label reset_color=$popup_reset
     local -a fields rows choice
     local -A repo_colors used_colors
