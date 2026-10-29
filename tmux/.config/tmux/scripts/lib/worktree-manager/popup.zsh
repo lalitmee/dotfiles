@@ -17,6 +17,62 @@ _worktree_popup_gum() {
     command -v gum >/dev/null 2>&1 && [[ -t 0 ]]
 }
 
+worktree_manager_terminal_geometry() {
+    emulate -L zsh
+    if [[ -n "${TMUX:-}" ]]; then
+        tmux display-message -p '#{pane_width} #{pane_height}'
+    else
+        local cols lines
+        cols=$(tput cols 2>/dev/null) || cols=${COLUMNS:-80}
+        lines=$(tput lines 2>/dev/null) || lines=${LINES:-24}
+        print -r -- "$cols $lines"
+    fi
+}
+
+# Centered scan spinner with a rounded border; clears the pane before returning.
+worktree_manager_run_scan_spinner() {
+    emulate -L zsh
+    local title="$1"; shift
+    local cols lines box_width box_text box_height total_height pad_top margin_h full_title geometry rc=0
+
+    if ! _worktree_popup_gum; then
+        "$@" || return $?
+        return 0
+    fi
+
+    geometry="$(worktree_manager_terminal_geometry)"
+    cols="${geometry%% *}"
+    lines="${geometry##* }"
+    (( cols > 0 )) || cols=${COLUMNS:-80}
+    (( lines > 0 )) || lines=${LINES:-24}
+
+    box_width=72
+    (( cols < box_width + 4 )) && box_width=$(( cols - 4 ))
+    (( box_width < 48 )) && box_width=48
+
+    box_text="$(gum style --border rounded --border-foreground "$WM_ACCENT" \
+        --foreground "$WM_HIGHLIGHT" --padding '1 2' --width "$box_width" \
+        --align center "$title")" || return 1
+
+    box_height=$(printf '%s\n' "$box_text" | wc -l | tr -d ' ')
+    # Spinner renders on the first title line; keep the bordered message on the next lines.
+    total_height=$(( box_height + 1 ))
+    pad_top=0
+    (( lines > total_height )) && pad_top=$(( (lines - total_height) / 2 ))
+    margin_h=0
+    (( cols > box_width )) && margin_h=$(( (cols - box_width) / 2 ))
+    full_title=$'\n'"$box_text"
+
+    gum spin --spinner dot \
+        --spinner.foreground="$WM_ACCENT" \
+        --title "$full_title" \
+        --padding "$pad_top 0 0 $margin_h" -- \
+        "$@" || rc=$?
+
+    [[ -t 1 ]] && clear
+    return $rc
+}
+
 # Blocking notice surface. `__notice` runs inside a tmux popup; callers outside
 # tmux fall back to the same text-and-key interaction in the current pane.
 worktree_notice() {

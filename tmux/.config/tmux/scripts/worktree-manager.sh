@@ -267,18 +267,11 @@ manager_main() {
             else
                 diagnostics=$(mktemp "${TMPDIR:-/tmp}/worktree-ui.XXXXXXXX") || return 1
                 local cache_tmp; cache_tmp=$(mktemp "${cache_file}.XXXX") || return 1
-                if _worktree_popup_gum; then
-                    # Spinner renders to the tty; records/diagnostics are written
-                    # by the child's own redirects so nothing pollutes the stream.
-                    gum spin --spinner dot \
-                        --spinner.foreground="$WM_ACCENT" \
-                        --title.foreground="$WM_HIGHLIGHT" \
-                        --title "Scanning worktrees under $projects_root…" -- \
-                        zsh -c 'script=$1; output=$2; errors=$3; shift 3; zsh "$script" __discover "$@" > "$output" 2> "$errors"' \
-                        _ "$WM_SELF" "$cache_tmp" "$diagnostics" "${roots[@]}"
-                else
-                    discover_worktrees "${roots[@]}" 2> "$diagnostics" > "$cache_tmp"
-                fi
+                # Spinner renders to the tty; records/diagnostics are written by the
+                # child's own redirects so nothing pollutes the stream.
+                worktree_manager_run_scan_spinner "Scanning worktrees under $projects_root…" \
+                    zsh -c 'script=$1; output=$2; errors=$3; shift 3; zsh "$script" __discover "$@" > "$output" 2> "$errors"' \
+                    _ "$WM_SELF" "$cache_tmp" "$diagnostics" "${roots[@]}"
                 [[ -s "$diagnostics" ]] && feedback="$(< "$diagnostics")"
                 rm -f -- "$diagnostics"
                 while IFS= read -r -d '' field; do fields+=("$field"); done < "$cache_tmp"
