@@ -111,8 +111,14 @@ order:
    cloud service (see the Context7 section at the end).
 3. **Browser (`chrome-devtools-mcp`):** only for dynamic pages, DOM inspection,
    JavaScript-rendered content, or when steps 1-2 fail or return too little.
-   Attach to the already-open browser. Never launch a new instance. Run
-   `list_pages` before opening anything, and follow the tab rules in section 1.
+   Attach to the already-open browser via `--autoConnect`. Never launch a new
+   instance. Run `list_pages` before opening anything:
+   - If connection fails, stop and tell the user to enable debugging at
+     `chrome://inspect/#remote-debugging`.
+   - If `list_pages` returns only internal or blank tabs (`about:blank`,
+     `chrome://*`) and no relevant user tabs exist, verify target context with
+     the user before navigating.
+   - Always follow the tab rules in section 1.
 4. **Deep reasoning (`crash-mcp`):** an option for complex multi-step
    deductions or high-uncertainty problems. Not needed for routine work.
 

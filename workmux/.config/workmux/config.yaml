@@ -32,13 +32,13 @@ windows:
   - name: editor
     panes:
       - command: nvim
-        focus: true
   - name: server
     panes:
       - command: workmux-server-palette
   - name: agent
     panes:
       - command: workmux-agent-palette
+        focus: true
 
 sidebar:
   width: 40

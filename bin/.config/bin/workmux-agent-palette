@@ -687,10 +687,6 @@ launch_agent_by_index() { # {{{
     # Animated progression state
     animate_agent_handoff "$label" "$color"
 
-    if [[ -n "${TMUX:-}" ]]; then
-        tmux rename-window "$label" 2>/dev/null || true
-    fi
-
     clear
     local start_epoch="${EPOCHSECONDS:-$(date +%s)}"
     local -a cmd_parts
@@ -702,19 +698,10 @@ launch_agent_by_index() { # {{{
 
     record_agent_history "${ITEM_IDS[$idx]}" "$label" "$color" "$exit_code" "$duration_secs" "$launch_key_display"
 
-    rename_agent_window
-
     return "$exit_code"
 } # }}}
 
-rename_agent_window() { # {{{
-    if [[ -n "${TMUX:-}" ]]; then
-        tmux rename-window "agent" 2>/dev/null || true
-    fi
-} # }}}
-
 drop_to_shell() { # {{{
-    rename_agent_window
     stty sane 2>/dev/null || true
     exec "${SHELL:-/bin/zsh}" -l
 } # }}}
@@ -781,13 +768,11 @@ capture_palette_key() { # {{{
 
 main() { # {{{
     setup_environment
-    rename_agent_window
 
     while true; do
         scan_agents
 
         render_palette
-        rename_agent_window
 
         printf '\e[?25l' >/dev/tty 2>/dev/null || true
 

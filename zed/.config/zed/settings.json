@@ -170,7 +170,7 @@
         "browser_url": null,
         "ws_endpoint": null,
         "ws_headers": null,
-        "auto_connect": null,
+        "auto_connect": true,
         "channel": null,
         "headless": null,
         "isolated": null,
