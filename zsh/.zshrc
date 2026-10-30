@@ -10,8 +10,17 @@ SAVEHIST=0
 # -------------------------------------------------------------------
 _not_inside_tmux() { [[ -z "$TMUX" ]]; }
 
+_inside_herdr() {
+    [[ -n "${HC_TERMINAL_ID:-}" || \
+       -n "${HC_TERMINAL_SOCKET:-}" || \
+       -n "${HC_SCOPE:-}" || \
+       "${__CFBundleIdentifier:-}" == "dev.herdr.app" || \
+       "${XPC_SERVICE_NAME:-}" == application.dev.herdr.app* || \
+       "${TERM_PROGRAM:-}" == *herdr* ]]
+}
+
 ensure_tmux_is_running() {
-    if _not_inside_tmux; then
+    if _not_inside_tmux && ! _inside_herdr; then
         ~/.tat
     fi
 }
