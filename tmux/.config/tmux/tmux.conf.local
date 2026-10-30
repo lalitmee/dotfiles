@@ -479,6 +479,9 @@ bind x kill-pane
 # Move the current pane to its own new window.
 bind n break-pane -d
 
+# Toggle the current pane between tiled and floating.
+bind W if-shell -F '#{pane_floating_flag}' 'join-pane' 'break-pane -W'
+
 # Prompt to join a pane from another window/session.
 bind j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
 
@@ -877,6 +880,9 @@ bind -T root C-b switch-client -T layout-mode
 
 # Toggle the status bar on/off.
 bind -T layout-mode C-b set-option status
+
+# Toggle the current pane between tiled and floating.
+bind -T layout-mode f if-shell -F '#{pane_floating_flag}' 'join-pane' 'break-pane -W'
 
 # Split window horizontally (easier to press than ").
 bind -T layout-mode v splitw -d -c '#{pane_current_path}'

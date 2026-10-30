@@ -1,6 +1,7 @@
 Key	Description
 a	AI ask assistant
 c	AI chat session
+f	Toggle floating pane
 g	Git Pull/Merge
 H	Horizontal split
 h	Split left (40%)
