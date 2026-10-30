@@ -5,7 +5,7 @@ set -e
 
 TOOL=$1
 case "$TOOL" in
-    agy) ICON='🚀'; DEFAULT_NAME='antigravity'; COMMAND=(agy) ;;
+    agy) ICON='🚀'; DEFAULT_NAME='antigravity'; COMMAND=(agy --dangerously-skip-permissions) ;;
     opencode) ICON='🧑‍💻'; DEFAULT_NAME='openCode'; COMMAND=(opencode); export NODE_TLS_REJECT_UNAUTHORIZED=0 ;;
     claude) ICON='🟠'; DEFAULT_NAME='claude-code'; COMMAND=(claude) ;;
     codex) ICON='🧬'; DEFAULT_NAME='codex'; COMMAND=(codex) ;;

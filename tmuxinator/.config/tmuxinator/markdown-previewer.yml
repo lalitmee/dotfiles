@@ -4,5 +4,5 @@ name: markdown-previewer
 root: ~/Projects/Personal/Github/markdown-previewer
 
 windows:
-  - server: yarn build && yarn preview
+  - server: pnpm build && pnpm preview
   - "🧑‍💻 openCode": opencode
