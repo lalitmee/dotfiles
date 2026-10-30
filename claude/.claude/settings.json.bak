@@ -1,0 +1,123 @@
+{
+  "alwaysThinkingEnabled": false,
+  "effortLevel": "medium",
+  "enabledPlugins": {
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {},
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status waiting || true",
+            "type": "command"
+          }
+        ],
+        "matcher": "permission_prompt|elicitation_dialog"
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status waiting",
+            "type": "command"
+          }
+        ],
+        "matcher": "permission_prompt|elicitation_dialog"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status working",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/home/lalitmee/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      },
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux register-agent || true",
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|fork"
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux register-agent",
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|fork"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status done || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status done",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "command -v workmux >/dev/null 2>&1 && workmux set-window-status working || true",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "workmux set-window-status working",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "model": "sonnet[1m]",
+  "theme": "custom:cobalt2"
+}

@@ -23,6 +23,15 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -r '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -x '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ]; then /bin/sh '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10000
+          }
+        ]
       }
     ],
     "AfterTool": [
@@ -33,6 +42,15 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -r '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -x '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ]; then /bin/sh '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10000
+          }
+        ]
       }
     ],
     "BeforeAgent": [
@@ -41,6 +59,15 @@
           {
             "command": "workmux set-window-status working",
             "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -r '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -x '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ]; then /bin/sh '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10000
           }
         ]
       }
@@ -72,6 +99,17 @@
           {
             "command": "workmux register-agent",
             "type": "command"
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -r '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ] && [ -x '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh' ]; then /bin/sh '/home/lalitmee/.orca/agent-hooks/gemini-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10000
           }
         ]
       }

@@ -1,0 +1,20 @@
+{
+  "workmux-status": {
+    "PreInvocation": [
+      {
+        "command": "workmux register-agent >/dev/null 2>&1 || true; printf '{}\\n'",
+        "type": "command"
+      },
+      {
+        "command": "workmux set-window-status working >/dev/null 2>&1 || true; printf '{}\\n'",
+        "type": "command"
+      }
+    ],
+    "Stop": [
+      {
+        "command": "workmux set-window-status done >/dev/null 2>&1 || true; printf '{}\\n'",
+        "type": "command"
+      }
+    ]
+  }
+}
