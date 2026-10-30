@@ -26,7 +26,7 @@ Load the relevant section when the task involves it.
 
 ## Node / JavaScript / TypeScript
 
-- Use `yarn` by default, unless the repo's lockfile (`package-lock.json`,
+- Use `pnpm` by default, unless the repo's lockfile (`package-lock.json`,
   `pnpm-lock.yaml`) or its `packageManager` field says otherwise. Never create
   a second lockfile.
 
