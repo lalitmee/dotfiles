@@ -22,7 +22,7 @@ setup_environment
 # 2. Test agent scan with simulated commands in PATH
 mock_bin="$tmp_dir/bin"
 mkdir -p "$mock_bin"
-touch "$mock_bin/opencode" "$mock_bin/pi" "$mock_bin/cursor"
+touch "$mock_bin/opencode" "$mock_bin/pi" "$mock_bin/cursor" "$mock_bin/agy"
 chmod +x "$mock_bin"/*
 
 PATH="$mock_bin:/bin:/usr/bin"
@@ -42,6 +42,11 @@ fi
 
 if [[ "${ITEM_IDS[2]}" != "pi" || "${ITEM_KEYS[2]}" != "2" || "${ITEM_MNEMONICS[2]}" != "p" || "${ITEM_INSTALLED[2]}" != "1" ]]; then
     print -u2 "FAIL: pi metadata mismatch"
+    exit 1
+fi
+
+if [[ "${ITEM_IDS[3]}" != "agy" || "${ITEM_KEYS[3]}" != "3" || "${ITEM_MNEMONICS[3]}" != "a" || "${ITEM_INSTALLED[3]}" != "1" || "${ITEM_CMDS[3]}" != "agy --dangerously-skip-permissions" ]]; then
+    print -u2 "FAIL: agy metadata or command mismatch"
     exit 1
 fi
 

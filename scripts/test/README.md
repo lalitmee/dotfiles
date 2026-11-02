@@ -4,6 +4,12 @@ Run focused tests from the repository root. These are standalone scripts; there 
 
 ## Focused tests
 
+### Ghostty
+
+| Target | Behavior covered | Command |
+|---|---|---|
+| Ghostty updater | Progress, up-to-date check, interactive exit, verified installation, rollback preservation, and checksum failure | `zsh scripts/test/ghostty/install.zsh` |
+
 ### Tmux
 
 | Target | Behavior covered | Command |

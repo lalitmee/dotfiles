@@ -1,0 +1,86 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+if [[ ${1:-} != --run && -n ${TMUX:-} ]]; then
+    tmux new-window -n ghostty-update "zsh ${(q)0:A} --run"
+    exit
+fi
+
+tmp=''
+finish() {
+    local exit_code=$?
+    [[ -z $tmp ]] || rm -f "$tmp"
+    if [[ -t 0 && -t 1 ]]; then
+        print -n '\nPress any key to exit...'
+        read -k 1 || true
+        print
+    fi
+    return $exit_code
+}
+trap finish EXIT
+
+show_progress() {
+    if (( $+commands[gum_style] && $+commands[gum] )); then command gum_style "$1"; else print -r -- "$1"; fi
+}
+for tool in curl jq sha256sum python3; do
+    command -v "$tool" >/dev/null 2>&1 || { print -u2 "Missing required command: $tool"; exit 1; }
+done
+arch=$(uname -m)
+[[ $arch == x86_64 || $arch == aarch64 ]] || { print -u2 "Unsupported architecture: $arch"; exit 1; }
+show_progress 'Checking the latest stable Ghostty AppImage release...'
+release=$(curl -fsSL https://api.github.com/repos/pkgforge-dev/ghostty-appimage/releases/latest)
+tag=$(print -r -- "$release" | jq -er '.tag_name')
+[[ $tag =~ '^v[0-9]+\.[0-9]+\.[0-9]+(\+[0-9]+)?$' ]] || { print -u2 "Unsupported release tag: $tag"; exit 1; }
+version=${tag#v}
+asset=$(print -r -- "$release" | jq -cer --arg arch "$arch" '[.assets[] | select(.name | endswith("-" + $arch + ".AppImage"))] | if length == 1 then .[0] else empty end') || { print -u2 'No unique AppImage asset found.'; exit 1; }
+url=$(print -r -- "$asset" | jq -er '.browser_download_url')
+digest=$(print -r -- "$asset" | jq -er '.digest')
+[[ $url == https://github.com/pkgforge-dev/ghostty-appimage/releases/download/${tag}/* && $digest =~ '^sha256:[0-9a-f]{64}$' ]] || { print -u2 'Invalid asset URL or digest.'; exit 1; }
+bin="$HOME/.local/bin"
+mkdir -p "$bin"
+[[ ! -e "$bin/ghostty" || -L "$bin/ghostty" ]] || { print -u2 'Refusing to replace a non-symlink ghostty executable.'; exit 1; }
+if [[ -L "$bin/ghostty" && $(readlink "$bin/ghostty") == "ghostty-$version" ]] && python3 - "$bin/ghostty" "${digest#sha256:}" <<'PY'
+import hashlib, sys
+try:
+    with open(sys.argv[1], 'rb') as f:
+        header = f.read(11)
+        if header[8:11] != b'\0\0\0':
+            raise ValueError('unexpected header')
+        digest = hashlib.sha256(header[:8] + b'AI\x02')
+        for chunk in iter(lambda: f.read(1024 * 1024), b''):
+            digest.update(chunk)
+        if digest.hexdigest() != sys.argv[2]:
+            raise ValueError('checksum mismatch')
+except (OSError, ValueError):
+    sys.exit(1)
+PY
+then
+    show_progress "Ghostty $version is already up to date."
+    exit 0
+fi
+tmp=$(mktemp "$bin/.ghostty-update.XXXXXXXX")
+show_progress "Downloading Ghostty $version..."
+curl -fSL --progress-bar "$url" -o "$tmp"
+print -r -- "${digest#sha256:}  $tmp" | sha256sum -c -
+python3 - "$tmp" <<'PY'
+import sys
+with open(sys.argv[1], 'r+b') as f:
+    f.seek(8)
+    if f.read(3) != b'AI\x02':
+        raise SystemExit('Unexpected AppImage header; refusing to modify it.')
+    f.seek(8)
+    f.write(b'\0\0\0')
+PY
+chmod 755 "$tmp"
+output=$("$tmp" --version)
+[[ $output == "Ghostty ${version%%+*}"* ]] || { print -u2 'Downloaded executable reports an unexpected version.'; exit 1; }
+target="$bin/ghostty-$version"
+if [[ -e $target || -L $target ]]; then
+    cmp -s "$tmp" "$target" || { print -u2 "Existing target differs: $target"; exit 1; }
+else
+    mv -n "$tmp" "$target"
+fi
+link="$bin/.ghostty-link-$$"
+ln -s "ghostty-$version" "$link"
+mv -Tf "$link" "$bin/ghostty"
+show_progress "Ghostty $version is installed. Previous version files were preserved."

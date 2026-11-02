@@ -133,6 +133,13 @@ resolve_agent_cmd() { # {{{
     local agent_id="$1"
 
     case "$agent_id" in
+        agy)
+            if command -v agy > /dev/null 2>&1; then
+                print -r -- "agy --dangerously-skip-permissions"
+                return 0
+            fi
+            return 1
+            ;;
         cursor)
             if command -v cursor-agent > /dev/null 2>&1; then
                 print -r -- "cursor-agent"

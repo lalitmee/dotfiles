@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+exec "${0:A:h:h:h:h}/scripts/install/ghostty-latest" "$@"
