@@ -8,6 +8,7 @@ cursor-style = block
 background = #193549
 background-opacity = 0.7
 background-blur-radius = 20
+minimum-contrast = 3
 theme = Cobalt2
 
 # font-family = IoskeleyMonoTerm Nerd Font Medium

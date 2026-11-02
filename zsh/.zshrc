@@ -73,6 +73,7 @@ znap source zsh-users/zsh-autosuggestions
 znap source Aloxaf/fzf-tab
 znap source jeffreytse/zsh-vi-mode
 znap source zdharma-continuum/fast-syntax-highlighting
+FAST_HIGHLIGHT_STYLES[path-to-dir]='fg=#00aaff,underline'
 
 # Prompt: load p10k via znap source (NOT `znap prompt` — that conflicts
 # with p10k's instant-prompt block at the top of this file).
