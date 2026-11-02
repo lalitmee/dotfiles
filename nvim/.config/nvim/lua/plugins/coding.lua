@@ -334,26 +334,31 @@ return {
         event = "BufRead sxhkdrc",
     },
 
-    { --[[ rest.nvim ]]
-        "rest-nvim/rest.nvim",
-        dependencies = {
-            { "j-hui/fidget.nvim", opts = {} },
-        },
-        ft = { "http" },
+    { --[[ kulala.nvim ]]
+        "mistweaverco/kulala.nvim",
+        version = "5.3.4", -- Pin to last fully open-source, token-free release
+        ft = { "http", "rest" },
         init = function()
             local wk = require("which-key")
             wk.add({
                 { "<leader>rh", group = "http" },
             })
         end,
-        -- stylua: ignore
-        keys = {
-            { "<leader>rhr", ":Rest run<CR>", silent = true, desc = "Run Request" },
-            { "<leader>rhl", ":Rest run last<CR>", silent = true, desc = "Run Last Request" },
-            { "<leader>rhe", ":Rest env<CR>", silent = true, desc = "Env" },
-            { "<leader>rhL", ":Rest logs<CR>", silent = true, desc = "Logs" },
+        opts = {
+            default_view = "body",
         },
-        config = function() end,
+        keys = {
+            { "<leader>rhr", function() require("kulala").run() end, desc = "Run Request", ft = "http" },
+            { "<leader>rha", function() require("kulala").run_all() end, desc = "Run All Requests", ft = "http" },
+            { "<leader>rhl", function() require("kulala").replay() end, desc = "Replay Last Request", ft = "http" },
+            { "<leader>rhc", function() require("kulala").copy() end, desc = "Copy as cURL", ft = "http" },
+            { "<leader>rht", function() require("kulala").toggle_view() end, desc = "Toggle Headers/Body", ft = "http" },
+            { "<leader>rhi", function() require("kulala").inspect() end, desc = "Inspect Request", ft = "http" },
+            { "<leader>rhe", function() require("kulala").set_selected_env() end, desc = "Select Env", ft = "http" },
+            { "<leader>rhn", function() require("kulala").jump_next() end, desc = "Next Request", ft = "http" },
+            { "<leader>rhp", function() require("kulala").jump_prev() end, desc = "Prev Request", ft = "http" },
+            { "<leader>rhb", function() require("kulala").scratchpad() end, desc = "Open Scratchpad" },
+        },
     },
 
     { --[[ leetcode.nvim ]]
