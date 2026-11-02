@@ -1,8 +1,13 @@
 ---
-description: Apply the shared global advisor baseline in this repository.
+description: Apply the shared global instructions and advisor baseline across all workspaces
 alwaysApply: true
 ---
 
 Follow the shared instructions in `~/.agents/instructions/global.md`. If they are unavailable, say so rather than inventing or duplicating them.
 
-For Cursor-wide behavior, add this one-line User Rule under Customize → Rules → User Rules: `Follow the shared instructions in ~/.agents/instructions/global.md. If they are unavailable, say so rather than duplicating them.` User Rules are not stored in this dotfiles package; `.cursor/rules` applies only to repositories that load this file.
+Load optional modules when the task requires them:
+- `~/.agents/modules/brain.md`: saving context to the brain repositories.
+- `~/.agents/modules/conventions.md`: worktrees, Markdown, shell, Node, tmux.
+
+For Cursor-wide behavior, ensure this is set under Cursor Settings → Rules for AI / User Rules:
+`Follow the shared instructions in ~/.agents/instructions/global.md. If they are unavailable, say so rather than duplicating them.`

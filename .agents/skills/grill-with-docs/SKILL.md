@@ -5,11 +5,15 @@ description: Grilling session that challenges your plan against the existing dom
 
 <what-to-do>
 
-Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one.
 
-Always ask each question using the agents Question tool, one at a time. Put your recommended answer first and mark it "(Recommended)". Wait for the user's response before continuing; do not substitute plain chat questions.
+## Hard Rules
 
-If a question can be answered by exploring the codebase, explore the codebase instead.
+1. **Question tool mandatory:** Always ask each question using the environment's structured question tool (`ask_question`, `AskQuestion`, `ask_user`, or whichever interactive question tool your runtime provides), one question at a time.
+2. **Never substitute chat prose:** Do not ask questions in plain chat text or bulleted/lettered lists when a question tool is available in your environment, regardless of user pressure or device claims.
+3. **Recommended answer first:** Include at least 2 options, put your recommended answer first and mark it "(Recommended)".
+4. **Wait for response:** Wait for the user's response before asking the next question.
+5. **Codebase first:** If a question can be answered by exploring the codebase, explore the codebase instead.
 
 </what-to-do>
 
