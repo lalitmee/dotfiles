@@ -426,6 +426,10 @@ super + x
 super + alt + l
     i3run --summon --instance crx_bgdbmehlmdmddlgneophbcddadgknlpm -- brave-browser --app-id=bgdbmehlmdmddlgneophbcddadgknlpm
 
+# Scratchpad: HN Revamped (Hacker News Brave PWA)
+super + alt + n
+    i3run --summon --instance crx_pmecoomapegndiohkcoakbiibpjlkfga -- brave-browser --app-id=pmecoomapegndiohkcoakbiibpjlkfga
+
 # Scratchpad: Alsamixer (Audio Mixer)
 super + ctrl + a
     i3run --summon --title alsamixer -- ghostty --title=alsamixer -e alsamixer
