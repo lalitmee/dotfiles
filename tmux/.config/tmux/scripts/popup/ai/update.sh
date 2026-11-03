@@ -17,10 +17,49 @@ if [[ -n "$TMUX" && -z "$AI_UPDATE_IN_WINDOW" ]]; then
         WINDOW_NAME="ai-update"
     fi
 
-    # Preserve environment variables and arguments
-    tmux new-window -n "$WINDOW_NAME" "zsh -lic \"AI_UPDATE_IN_WINDOW=1 UPDATE_MODE='$UPDATE_MODE' '$0'\""
+    # Restore stderr after Znap prompt setup so gum inherits a terminal on both streams.
+    tmux new-window -n "$WINDOW_NAME" "zsh -lic \"AI_UPDATE_IN_WINDOW=1 UPDATE_MODE='$UPDATE_MODE' '$0' 2>&1\""
     exit 0
 fi
+
+ai_update_spinner() {
+    local title="$1"; shift
+    local cols width template frame rc
+    local -a frames=( '⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏' )
+    if [[ -n "$TMUX" ]]; then
+        cols=$(tmux display-message -p '#{window_width}' 2>/dev/null || tput cols 2>/dev/null || echo 80)
+    else
+        cols=$(tput cols 2>/dev/null || echo 80)
+    fi
+    (( cols > 0 )) || cols=80
+    width=$(( cols - 2 ))
+    (( width < 20 )) && width=20
+    template=$(CLICOLOR_FORCE=1 gum style --border rounded --border-foreground '#00AAFF' \
+        --border-background '#193549' --background '#193549' --foreground '#FFC600' \
+        --padding '1 0' --margin 0 --width "$width" --align center \
+        $'\u2800 '"$title") || { "$@" >/dev/null 2>&1; return $?; }
+    local placeholder=$'\u2800' index=1
+    local -a box_lines=("${(@f)template}")
+    local purple=$'\033[38;2;150;126;251;48;2;25;53;73m'
+    local yellow=$'\033[38;2;255;198;0;48;2;25;53;73m'
+    frame=${template//${placeholder}/${purple}${frames[index]}${yellow}}
+    print -r -- "$frame"
+    "$@" >/dev/null 2>&1 &
+    local pid=$!
+    while kill -0 "$pid" 2>/dev/null; do
+        sleep 0.08
+        kill -0 "$pid" 2>/dev/null || break
+        if [[ -t 1 ]]; then
+            (( index = index % ${#frames} + 1 ))
+            frame=${template//${placeholder}/${purple}${frames[index]}${yellow}}
+            print -n -r -- $'\033['"${#box_lines}"$'A\r'"$frame"$'\n'
+        fi
+    done
+    wait "$pid"
+    rc=$?
+    [[ -t 1 ]] && print -n -r -- $'\033['"${#box_lines}"$'A\r\033[J'
+    return $rc
+}
 
 # --- Main update logic is wrapped in a function ---
 run_updates() {
@@ -47,7 +86,7 @@ run_updates() {
 
         local dl_status=0
         if command -v gum >/dev/null 2>&1; then
-            gum spin --spinner dot --title "Downloading $tool_name installer..." -- curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
+            ai_update_spinner "Downloading $tool_name installer..." curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
         else
             gum_style "Downloading $tool_name installer..."
             curl -fsSL "$url" -o "$tmp_file" || dl_status=$?
@@ -106,7 +145,7 @@ run_updates() {
 
         local dl_status=0
         if command -v gum >/dev/null 2>&1; then
-            gum spin --spinner dot --title "Downloading remote script..." -- curl -fsSL "$script_url" -o "$tmp_script" || dl_status=$?
+            ai_update_spinner "Downloading remote script..." curl -fsSL "$script_url" -o "$tmp_script" || dl_status=$?
         else
             curl -fsSL "$script_url" -o "$tmp_script" || dl_status=$?
         fi
@@ -165,7 +204,7 @@ run_updates() {
         tmp_out=$(mktemp)
 
         if command -v gum >/dev/null 2>&1; then
-            gum spin --spinner dot --title "Updating $package_name_with_tag..." -- \
+            ai_update_spinner "Updating $package_name_with_tag..." \
                 sh -c 'npm install -g "$1" > "$2" 2>&1' _ "$package_name_with_tag" "$tmp_out" || install_status=$?
         else
             gum_style "Checking for updates for: $package_name_with_tag..."
@@ -206,7 +245,7 @@ run_updates() {
                     retry_out=$(mktemp)
 
                     if command -v gum >/dev/null 2>&1; then
-                        gum spin --spinner dot --title "Retrying installation for $package_name_with_tag..." -- \
+                        ai_update_spinner "Retrying installation for $package_name_with_tag..." \
                             sh -c 'npm install -g "$1" > "$2" 2>&1' _ "$package_name_with_tag" "$retry_out" || retry_status=$?
                     else
                         gum_style "🔄 Retrying installation..."
@@ -257,7 +296,7 @@ run_updates() {
             old_version=$(get_opencode_version)
             local opencode_status=0
             if command -v gum >/dev/null 2>&1; then
-                gum spin --spinner dot --title "Updating OpenCode CLI..." -- opencode upgrade || opencode_status=$?
+                ai_update_spinner "Updating OpenCode CLI..." opencode upgrade || opencode_status=$?
             else
                 opencode upgrade || opencode_status=$?
             fi
@@ -278,7 +317,7 @@ run_updates() {
             old_version=$(get_agy_version)
             local agy_status=0
             if command -v gum >/dev/null 2>&1; then
-                gum spin --spinner dot --title "Updating Antigravity CLI (agy)..." -- agy update || agy_status=$?
+                ai_update_spinner "Updating Antigravity CLI (agy)..." agy update || agy_status=$?
             else
                 gum_style "Updating Antigravity CLI (agy)..."
                 agy update || agy_status=$?
@@ -306,7 +345,7 @@ run_updates() {
             old_version=$(get_pi_version)
             local pi_status=0
             if command -v gum >/dev/null 2>&1; then
-                gum spin --spinner dot --title "Updating Pi Agent..." -- pi update pi || pi_status=$?
+                ai_update_spinner "Updating Pi Agent..." pi update pi || pi_status=$?
             else
                 gum_style "Updating Pi Agent..."
                 pi update pi || pi_status=$?
