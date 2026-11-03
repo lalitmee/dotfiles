@@ -119,6 +119,13 @@ matches:
       - name: clipboard
         type: clipboard
 
+  # NPM view package version from clipboard
+  - trigger: ":npmv"
+    replace: 'npm view "{{clipboard}}" version'
+    vars:
+      - name: clipboard
+        type: clipboard
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------

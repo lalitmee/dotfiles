@@ -55,12 +55,13 @@ if [[ -n ${description//[[:space:]]/} ]]; then
         fi
     else
         naming_prompt="Return ONLY a lowercase, hyphen-separated window name of 2 or 3 English words, using a-z and 0-9 only. No explanation. Task: $description"
-        for namer in agy opencode codex; do
+        for namer in opencode codex pi agy; do
             command -v "$namer" >/dev/null 2>&1 || continue
             case "$namer" in
-                agy) naming_command=(agy --mode plan "--print=$naming_prompt") ;;
-                opencode) naming_command=(opencode run --model opencode/beam-free --agent plan "$naming_prompt") ;;
-                codex) naming_command=(codex exec --ephemeral --sandbox read-only "$naming_prompt") ;;
+                opencode) naming_command=(opencode run --model openai/gpt-6-luna#high --agent plan "$naming_prompt") ;;
+                codex) naming_command=(codex exec --ephemeral --sandbox read-only --model gpt-6-luna --config 'model_reasoning_effort="high"' "$naming_prompt") ;;
+                pi) naming_command=(pi --model openai/gpt-6-luna:high --no-session --no-tools --no-extensions --print "$naming_prompt") ;;
+                agy) naming_command=(agy --mode plan --model gemini-3.8-flash-medium --effort medium "--print=$naming_prompt") ;;
             esac
             spinner_title="Naming with $namer..."
             rows=$(tput lines 2>/dev/null) || rows=0
@@ -72,8 +73,16 @@ if [[ -n ${description//[[:space:]]/} ]]; then
                 --title.foreground='#FFC600' \
                 --title="$spinner_title" \
                 --padding="$top 0 0 $left" \
-                --show-stdout -- timeout --kill-after=1s 10s \
-                "${naming_command[@]}") || continue
+                --show-stdout -- timeout --kill-after=1s 20s \
+                "${naming_command[@]}") || {
+                naming_exit=$?
+                case "$naming_exit" in
+                    124|137) naming_failure="timed out or was killed (exit $naming_exit)" ;;
+                    *) naming_failure="failed (exit $naming_exit)" ;;
+                esac
+                tmux display-message "AI naming: $namer $naming_failure; trying next backend" || true
+                continue
+            }
             slug=$(print -r -- "$response" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
             words=(${(s:-:)slug})
             if [[ ${#words} -ge 2 && ${#words} -le 3 && ${#slug} -le 48 ]]; then
@@ -81,6 +90,7 @@ if [[ -n ${description//[[:space:]]/} ]]; then
                 naming_status="named $slug via $namer"
                 break
             fi
+            tmux display-message "AI naming: $namer returned an invalid name; trying next backend" || true
         done
         [[ "$naming_status" == 'default name' ]] && naming_status='naming failed; using agent name'
     fi
