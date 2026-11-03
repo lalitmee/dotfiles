@@ -9,7 +9,6 @@ background = #193549
 background-opacity = 0.7
 background-blur-radius = 20
 theme = Cobalt2
-minimum-contrast = 3
 adjust-cell-width = -1
 
 # font-family = IoskeleyMonoTerm Nerd Font Medium
