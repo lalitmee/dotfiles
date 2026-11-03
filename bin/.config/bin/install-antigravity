@@ -1,0 +1,424 @@
+#!/usr/bin/env zsh
+
+setopt pipefail
+
+typeset -g ANTIGRAVITY_BUILD_DIR=""
+
+message() {
+    print -r -- "$1"
+}
+
+show_progress() {
+    local text="$1"
+    if (( $+commands[gum_style] && $+commands[gum] )); then
+        gum_style "$text"
+    else
+        message "$text"
+    fi
+}
+
+usage() {
+    cat <<'EOF'
+Usage: install-antigravity [--force|-f] [--file|-i <archive>] [--check|-c] [--help|-h]
+
+Install or update Google Antigravity 2.0 to /opt/antigravity and configure system launchers.
+
+Options:
+  -f, --force         Reinstall even if the installed version is up to date.
+  -i, --file <path>   Install from a local tar.gz archive instead of downloading.
+  -c, --check         Check installed version vs latest available version without installing.
+  -h, --help          Show this help message.
+EOF
+}
+
+detect_platform() {
+    case "$(uname -m)" in
+        x86_64|amd64)
+            print -r -- "linux-x64 Antigravity-x64"
+            ;;
+        aarch64|arm64)
+            print -r -- "linux-arm Antigravity-arm64"
+            ;;
+        *)
+            message "Unsupported architecture: $(uname -m)" >&2
+            return 1
+            ;;
+    esac
+}
+
+get_installed_version() {
+    local install_root="${INSTALL_ROOT:-/opt/antigravity}"
+    local ver=""
+
+    if [[ -f "$install_root/.version" ]]; then
+        ver=$(cat "$install_root/.version" 2>/dev/null | tr -d '[:space:]')
+        if [[ -n "$ver" ]]; then
+            print -r -- "$ver"
+            return 0
+        fi
+    fi
+
+    if [[ -f "$install_root/.linuxcapable-version" ]]; then
+        ver=$(cat "$install_root/.linuxcapable-version" 2>/dev/null | tr -d '[:space:]')
+        if [[ -n "$ver" ]]; then
+            print -r -- "$ver"
+            return 0
+        fi
+    fi
+
+    local asar
+    asar=$(find "$install_root" -maxdepth 4 -name "app.asar" 2>/dev/null | head -n 1)
+    if [[ -n "$asar" && -f "$asar" ]]; then
+        ver=$(python3 - "$asar" <<'PY' 2>/dev/null
+import json, struct, sys
+from pathlib import Path
+
+try:
+    asar = Path(sys.argv[1])
+    with asar.open("rb") as f:
+        f.read(4)
+        header_size = struct.unpack("<I", f.read(4))[0]
+        f.read(4)
+        json_size = struct.unpack("<I", f.read(4))[0]
+        header = json.loads(f.read(json_size).decode("utf-8"))
+        pkg_meta = header["files"]["package.json"]
+        f.seek(8 + header_size + int(pkg_meta["offset"]))
+        pkg = json.loads(f.read(int(pkg_meta["size"])).decode("utf-8"))
+        print(pkg.get("version", ""))
+except Exception:
+    sys.exit(1)
+PY
+)
+        if [[ -n "$ver" ]]; then
+            print -r -- "$ver"
+            return 0
+        fi
+    fi
+
+    print -r -- "none"
+    return 0
+}
+
+get_latest_release() {
+    local release_api="https://antigravity-hub-auto-updater-974169037036.us-central1.run.app/releases"
+    local output
+
+    output=$(curl -fsSL --retry 3 "$release_api" 2>/dev/null | python3 -c '
+import json, sys
+
+try:
+    data = json.load(sys.stdin)
+    if not isinstance(data, list) or len(data) == 0:
+        sys.exit(1)
+    latest = data[0]
+    version = latest.get("version")
+    execution_id = latest.get("execution_id") or latest.get("executionId")
+    if not version or not execution_id:
+        sys.exit(1)
+    print(f"{version} {execution_id}")
+except Exception:
+    sys.exit(1)
+') || return 1
+
+    [[ -n "$output" ]] || return 1
+    print -r -- "$output"
+}
+
+get_archive_version() {
+    local archive="$1"
+    local ver
+
+    [[ -f "$archive" ]] || return 1
+    ver=$(python3 - "$archive" <<'PY' 2>/dev/null
+import json, struct, sys, tarfile
+
+try:
+    with tarfile.open(sys.argv[1], "r:gz") as tar:
+        asar_member = None
+        for member in tar.getmembers():
+            if member.name.endswith("resources/app.asar"):
+                asar_member = member
+                break
+        if not asar_member:
+            sys.exit(1)
+        f = tar.extractfile(asar_member)
+        f.read(4)
+        header_size = struct.unpack("<I", f.read(4))[0]
+        f.read(4)
+        json_size = struct.unpack("<I", f.read(4))[0]
+        header = json.loads(f.read(json_size).decode("utf-8"))
+        pkg_meta = header["files"]["package.json"]
+        f.seek(8 + header_size + int(pkg_meta["offset"]))
+        pkg = json.loads(f.read(int(pkg_meta["size"])).decode("utf-8"))
+        print(pkg.get("version", ""))
+except Exception:
+    sys.exit(1)
+PY
+)
+    [[ -n "$ver" ]] || return 1
+    print -r -- "$ver"
+}
+
+extract_icon_from_asar() {
+    local asar_file="$1"
+    local output_icon="$2"
+
+    python3 - "$asar_file" "$output_icon" <<'PY'
+import json, struct, sys
+from pathlib import Path
+
+asar = Path(sys.argv[1])
+output = Path(sys.argv[2])
+with asar.open("rb") as f:
+    f.read(4)
+    header_size = struct.unpack("<I", f.read(4))[0]
+    archive_size = f.read(4)
+    json_size = struct.unpack("<I", f.read(4))[0]
+    header = json.loads(f.read(json_size).decode("utf-8"))
+
+icon = header.get("files", {}).get("icon.png")
+if not icon:
+    sys.exit(1)
+
+with asar.open("rb") as f:
+    f.seek(8 + header_size + int(icon["offset"]))
+    data = f.read(int(icon["size"]))
+    output.write_bytes(data)
+PY
+}
+
+run_as_root() {
+    if [[ "$(id -u)" -eq 0 || -n "${ANTIGRAVITY_TEST_MODE:-}" ]]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+cleanup_build_dir() {
+    if [[ -n "$ANTIGRAVITY_BUILD_DIR" && -d "$ANTIGRAVITY_BUILD_DIR" ]]; then
+        rm -rf -- "$ANTIGRAVITY_BUILD_DIR"
+    fi
+}
+
+install_antigravity() {
+    local force="$1"
+    local custom_file="$2"
+    local platform expected_top_dir
+    local version execution_id archive_path
+    local install_root="${INSTALL_ROOT:-/opt/antigravity}"
+    local command_link="${COMMAND_LINK:-/usr/local/bin/antigravity}"
+    local desktop_file="${DESKTOP_FILE:-/usr/share/applications/antigravity.desktop}"
+    local icon_file="${ICON_FILE:-/usr/share/icons/hicolor/512x512/apps/antigravity.png}"
+    local default_download="$HOME/Downloads/Antigravity.tar.gz"
+
+    local plat_info
+    plat_info=$(detect_platform) || return 1
+    platform=$(print -r -- "$plat_info" | awk '{print $1}')
+    expected_top_dir=$(print -r -- "$plat_info" | awk '{print $2}')
+
+    for tool in curl tar python3; do
+        command -v "$tool" >/dev/null 2>&1 || {
+            message "Required tool '$tool' is not installed." >&2
+            return 1
+        }
+    done
+
+    local current_version
+    current_version=$(get_installed_version)
+
+    ANTIGRAVITY_BUILD_DIR=$(mktemp -d "${TMPDIR:-/tmp}/antigravity-install.XXXXXX") || return 1
+    trap cleanup_build_dir EXIT
+
+    if [[ -n "$custom_file" ]]; then
+        [[ -f "$custom_file" ]] || {
+            message "Specified archive not found: $custom_file" >&2
+            return 1
+        }
+        archive_path="$custom_file"
+        version=$(get_archive_version "$archive_path") || {
+            message "Could not read Antigravity version from archive $archive_path" >&2
+            return 1
+        }
+        show_progress "Installing Antigravity $version from local archive..."
+    else
+        show_progress "Checking latest Antigravity release..."
+        local rel_info
+        rel_info=$(get_latest_release) || {
+            message "Failed to fetch latest release metadata from auto-updater API." >&2
+            return 1
+        }
+        version=$(print -r -- "$rel_info" | awk '{print $1}')
+        execution_id=$(print -r -- "$rel_info" | awk '{print $2}')
+
+        if [[ "$force" == false && "$current_version" == "$version" ]]; then
+            show_progress "Antigravity is already up to date (version $version)."
+            return 0
+        fi
+
+        # Check if ~/Downloads/Antigravity.tar.gz matches the latest version
+        if [[ -f "$default_download" ]] && [[ "$(get_archive_version "$default_download" 2>/dev/null)" == "$version" ]]; then
+            archive_path="$default_download"
+            show_progress "Found matching archive in Downloads (version $version). Using cached file..."
+        else
+            archive_path="$ANTIGRAVITY_BUILD_DIR/Antigravity.tar.gz"
+            local download_url="https://storage.googleapis.com/antigravity-public/antigravity-hub/${version}-${execution_id}/${platform}/Antigravity.tar.gz"
+            show_progress "Downloading Antigravity $version ($platform)..."
+            curl -fSL --retry 3 --progress-bar -o "$archive_path" "$download_url" || {
+                message "Failed to download Antigravity from $download_url" >&2
+                return 1
+            }
+        fi
+    fi
+
+    show_progress "Extracting Antigravity archive..."
+    local extract_dir="$ANTIGRAVITY_BUILD_DIR/extract"
+    mkdir -p "$extract_dir"
+    tar -xzf "$archive_path" -C "$extract_dir" || {
+        message "Failed to extract Antigravity archive." >&2
+        return 1
+    }
+
+    local top_dir
+    top_dir=$(find "$extract_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | head -n 1)
+    [[ -n "$top_dir" && "$top_dir" == "$expected_top_dir" ]] || {
+        message "Unexpected archive root: '$top_dir' (expected '$expected_top_dir')" >&2
+        return 1
+    }
+
+    local binary_path="$extract_dir/$top_dir/antigravity"
+    [[ -x "$binary_path" ]] || {
+        message "Executable not found or not executable at $binary_path" >&2
+        return 1
+    }
+
+    # Extract high-resolution icon from app.asar
+    local staged_icon="$ANTIGRAVITY_BUILD_DIR/antigravity.png"
+    if [[ -f "$extract_dir/$top_dir/resources/app.asar" ]]; then
+        extract_icon_from_asar "$extract_dir/$top_dir/resources/app.asar" "$staged_icon" || true
+    fi
+
+    # Record version metadata
+    print -r -- "$version" > "$extract_dir/$top_dir/.version"
+    print -r -- "$version" > "$extract_dir/$top_dir/.linuxcapable-version"
+
+    show_progress "Installing Antigravity $version to $install_root..."
+
+    # Prepare staging directory
+    run_as_root rm -rf "$install_root.new"
+    run_as_root mkdir -p "$install_root.new"
+    run_as_root cp -a "$extract_dir/$top_dir" "$install_root.new/"
+    run_as_root cp "$extract_dir/$top_dir/.version" "$install_root.new/.version"
+    run_as_root cp "$extract_dir/$top_dir/.linuxcapable-version" "$install_root.new/.linuxcapable-version"
+
+    # Set root setuid permissions on chrome-sandbox (required for Ubuntu 24.04 AppArmor restrictions)
+    if [[ -f "$install_root.new/$top_dir/chrome-sandbox" ]]; then
+        if [[ "$(id -u)" -eq 0 || -z "${ANTIGRAVITY_TEST_MODE:-}" ]]; then
+            run_as_root chown root:root "$install_root.new/$top_dir/chrome-sandbox"
+            run_as_root chmod 4755 "$install_root.new/$top_dir/chrome-sandbox"
+        else
+            chmod 4755 "$install_root.new/$top_dir/chrome-sandbox" 2>/dev/null || true
+        fi
+    fi
+
+    # Atomic swap into install_root
+    run_as_root rm -rf "$install_root.previous"
+    if [[ -d "$install_root" ]]; then
+        run_as_root mv "$install_root" "$install_root.previous"
+    fi
+    run_as_root mv "$install_root.new" "$install_root"
+
+    # Create command symlink
+    run_as_root install -d -m 0755 "$(dirname "$command_link")"
+    run_as_root ln -sfn "$install_root/$top_dir/antigravity" "$command_link"
+
+    # Install icon
+    if [[ -f "$staged_icon" ]]; then
+        run_as_root install -d -m 0755 "$(dirname "$icon_file")"
+        run_as_root install -m 0644 "$staged_icon" "$icon_file"
+    fi
+
+    # Install desktop launcher
+    run_as_root install -d -m 0755 "$(dirname "$desktop_file")"
+    local desktop_content="[Desktop Entry]
+Name=Antigravity
+Comment=Google Antigravity 2.0 agent platform
+Exec=$command_link %U
+Icon=antigravity
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupNotify=true
+StartupWMClass=Antigravity
+MimeType=x-scheme-handler/antigravity;
+"
+    print -r -- "$desktop_content" | run_as_root tee "$desktop_file" >/dev/null
+
+    # Refresh desktop & icon databases if tools are available
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        run_as_root update-desktop-database "$(dirname "$desktop_file")" >/dev/null 2>&1 || true
+    fi
+    if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+        run_as_root gtk-update-icon-cache -q /usr/share/icons/hicolor >/dev/null 2>&1 || true
+    fi
+
+    show_progress "Antigravity $version installed successfully at $install_root/$top_dir"
+}
+
+main() {
+    local force=false check=false custom_file=""
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                usage
+                return 0
+                ;;
+            -f|--force)
+                force=true
+                shift
+                ;;
+            -c|--check)
+                check=true
+                shift
+                ;;
+            -i|--file)
+                if [[ $# -lt 2 ]]; then
+                    message "Option --file requires an archive path." >&2
+                    return 2
+                fi
+                custom_file="$2"
+                shift 2
+                ;;
+            *)
+                message "Unknown option: $1" >&2
+                usage >&2
+                return 2
+                ;;
+        esac
+    done
+
+    if [[ "$check" == true ]]; then
+        local current_ver latest_info latest_ver
+        current_ver=$(get_installed_version)
+        latest_info=$(get_latest_release) || {
+            message "Installed: $current_ver (Failed to query latest release)" >&2
+            return 1
+        }
+        latest_ver=$(print -r -- "$latest_info" | awk '{print $1}')
+        message "Installed version: $current_ver"
+        message "Latest version:    $latest_ver"
+        if [[ "$current_ver" == "$latest_ver" ]]; then
+            message "Status: Up to date"
+        else
+            message "Status: Update available ($current_ver -> $latest_ver)"
+        fi
+        return 0
+    fi
+
+    install_antigravity "$force" "$custom_file"
+}
+
+if [[ "${ANTIGRAVITY_INSTALL_SOURCE_ONLY:-0}" != 1 ]]; then
+    main "$@"
+fi

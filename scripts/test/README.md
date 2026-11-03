@@ -4,6 +4,12 @@ Run focused tests from the repository root. These are standalone scripts; there 
 
 ## Focused tests
 
+### Antigravity
+
+| Target | Behavior covered | Command |
+|---|---|---|
+| Antigravity installer | Option parsing, version check, local archive installation, download upgrade, no-op when up-to-date, force re-install, sandbox permissions, and desktop integration | `zsh scripts/test/antigravity/install.zsh` |
+
 ### Ghostty
 
 | Target | Behavior covered | Command |
