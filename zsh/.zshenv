@@ -26,12 +26,23 @@ append_to_path() {
 # # NOTE: XDG configuration home {{{
 #-------------------------------------------------------------------------------
 
+# Restore host cache directory if running under AppImage runtimes (e.g. Ghostty)
+if [[ -n $HOST_XDG_CACHE_HOME ]]; then
+    export XDG_CACHE_HOME="$HOST_XDG_CACHE_HOME"
+elif [[ -z $XDG_CACHE_HOME ]]; then
+    export XDG_CACHE_HOME="$HOME/.cache"
+fi
+
 if [[ -z $XDG_CONFIG_HOME ]]; then
     export XDG_CONFIG_HOME="$HOME/.config"
 fi
 
 if [[ -z $XDG_DATA_HOME ]]; then
     export XDG_DATA_HOME="$HOME/.local/share"
+fi
+
+if [[ -z $XDG_STATE_HOME ]]; then
+    export XDG_STATE_HOME="$HOME/.local/state"
 fi
 
 #-------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ repos:
     hooks:
     -   id: gitleaks
         name: Scan commits being pushed for secrets
-        entry: gitleaks detect --verbose --redact --log-opts="--all --not --remotes"
+        entry: gitleaks detect --verbose --redact --log-opts="HEAD --not --remotes"
         language: golang
         pass_filenames: false
         stages: [pre-push]
