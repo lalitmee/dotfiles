@@ -73,6 +73,9 @@ bin/.config/bin/dev-env-manager
 # tmux plugins - runtime clones inside the stow-linked config dir
 tmux/.config/tmux/plugins/
 
+# Ghostty local overrides
+ghostty/.config/ghostty/config.local
+
 # Pi: track configuration only, never installed runtime or credentials
 /pi/.pi/agent/*
 !/pi/.pi/agent/settings.json

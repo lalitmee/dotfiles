@@ -37,3 +37,7 @@ keybind = super+r=reload_config
 
 # Map the Option key to Alt (Meta)
 macos-option-as-alt = true
+
+# Machine/OS-specific overrides (ignored if missing)
+config-file = ?config.local
+

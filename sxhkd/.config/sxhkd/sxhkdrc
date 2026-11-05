@@ -53,9 +53,13 @@ super + shift + c
 super + alt + z
     i3run --summon --instance dev.zed.Zed -- zed
 
-# Open Antigravity IDE
+# Scratchpad: Antigravity
 super + alt + a
-    $HOME/.local/share/antigravity-ide/bin/antigravity-ide --no-sandbox
+    i3run --summon --class antigravity -- antigravity
+
+# Scratchpad: Cursor
+super + ctrl + c
+    i3run --summon --class cursor -- cursor
 
 # Open Handy scratchpad
 super + alt + h

@@ -18,5 +18,10 @@
     "excalidraw": {
         "instances": ["crx_dnfpoenibinnbbckgbhendmlljoobcfg"],
         "workspace": "6"
+    },
+    "spotify": {
+        "classes": ["spotify", "Spotify"],
+        "instances": ["spotify"],
+        "workspace": "10"
     }
 }

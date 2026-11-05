@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# i3/polybar session PATH doesn't include ~/.local/bin (where zscroll lives)
+export PATH="$HOME/.local/bin:$PATH"
+
 # see man zscroll for documentation of the following parameters
 zscroll -l 30 \
         --delay 0.1 \
