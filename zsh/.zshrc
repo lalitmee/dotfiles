@@ -10,8 +10,9 @@ SAVEHIST=0
 # -------------------------------------------------------------------
 _not_inside_tmux() { [[ -z "$TMUX" ]]; }
 
-_inside_herdr() {
-    [[ -n "${HC_TERMINAL_ID:-}" || \
+_skip_tmux_autostart() {
+    [[ -n "${REX_SESSION:-}" || \
+       -n "${HC_TERMINAL_ID:-}" || \
        -n "${HC_TERMINAL_SOCKET:-}" || \
        -n "${HC_SCOPE:-}" || \
        "${__CFBundleIdentifier:-}" == "dev.herdr.app" || \
@@ -20,7 +21,7 @@ _inside_herdr() {
 }
 
 ensure_tmux_is_running() {
-    if _not_inside_tmux && ! _inside_herdr; then
+    if _not_inside_tmux && ! _skip_tmux_autostart; then
         ~/.tat
     fi
 }
