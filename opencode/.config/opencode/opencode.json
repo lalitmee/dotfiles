@@ -7,16 +7,9 @@
     "@slkiser/opencode-quota@6.2.2"
   ],
   "agents": {
-    "plan": {
-      "color": "#FF9D00"
-    },
-    "build": {
-      "color": "#0088FF"
-    },
     "discover": {
       "description": "Discover mode — research GitHub repos, topics, or URLs and align on intent",
       "mode": "primary",
-      "color": "#3AD900",
       "system": "{file:./prompts/explore-mode.txt}",
       "permissions": [
         { "action": "read", "resource": "*", "effect": "allow" },
@@ -29,25 +22,9 @@
         { "action": "skill", "resource": "*", "effect": "allow" }
       ]
     },
-    "explore": {
-      "color": "#9EFFFF"
-    },
-    "general": {
-      "color": "#FFEE80"
-    },
-    "tester": {
-      "color": "#00d7ff"
-    },
-    "refactorer": {
-      "color": "#9a6dff"
-    },
-    "architect": {
-      "color": "#ff6b6b"
-    },
     "ask": {
       "description": "Ask Mode — read-only workspace interrogation; answers with findings, decisions, logic, and reasons",
       "mode": "primary",
-      "color": "#bf7cff",
       "system": "{file:./prompts/ask-mode.txt}",
       "permissions": [
         { "action": "read", "resource": "*", "effect": "allow" },

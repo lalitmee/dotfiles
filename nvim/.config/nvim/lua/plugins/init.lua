@@ -5,7 +5,8 @@ return {
     },
 
     { --[[ wakatime ]]
-        enabled = vim.env.HOME == "/home/lalitmee",
+        enabled = false,
+        -- enabled = vim.env.HOME == "/home/lalitmee",
         "wakatime/vim-wakatime",
         event = { "VimEnter" },
     },

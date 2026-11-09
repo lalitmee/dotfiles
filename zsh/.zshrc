@@ -30,6 +30,7 @@ _skip_tmux_autostart() {
 }
 
 ensure_tmux_is_running() {
+    ZSH_TMUX_AUTOSTART=1
     local autostart="${ZSH_TMUX_AUTOSTART:-1}"
     if [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
         autostart="${ZSH_TMUX_AUTOSTART:-0}"
