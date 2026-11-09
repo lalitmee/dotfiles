@@ -2,7 +2,16 @@
 
 unsetopt INC_APPEND_HISTORY
 unsetopt SHARE_HISTORY
-SAVEHIST=0
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+mkdir -p "${HISTFILE:h}"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt APPEND_HISTORY HIST_IGNORE_DUPS
+
+# Keep Omarchy's mise-managed tools available in interactive Zsh too.
+if [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && command -v mise &>/dev/null; then
+    eval "$(mise activate zsh)"
+fi
 
 # -------------------------------------------------------------------
 # # NOTE: auto start tmux {{{
@@ -21,7 +30,11 @@ _skip_tmux_autostart() {
 }
 
 ensure_tmux_is_running() {
-    if _not_inside_tmux && ! _skip_tmux_autostart; then
+    local autostart="${ZSH_TMUX_AUTOSTART:-1}"
+    if [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
+        autostart="${ZSH_TMUX_AUTOSTART:-0}"
+    fi
+    if [[ "$autostart" == 1 && -t 0 && -t 1 ]] && command -v tmux &>/dev/null && [[ -x ~/.tat ]] && _not_inside_tmux && ! _skip_tmux_autostart; then
         ~/.tat
     fi
 }
@@ -40,18 +53,19 @@ ensure_tmux_is_running
 # fi
 
 
-# Download Znap over SSH (HTTPS GitHub requests return 403 in this environment).
+# Allow SSH on hosts that need it; HTTPS works without GitHub SSH credentials.
+ZSH_PLUGIN_GIT_SERVER="${ZSH_PLUGIN_GIT_SERVER:-https://github.com/}"
 ZNAP_DIR="$HOME/.znap/znap"
 if [[ ! -r "$ZNAP_DIR/znap.zsh" ]]; then
     if ! git clone --depth 1 -- \
-        git@github.com:marlonrichert/zsh-snap.git "$ZNAP_DIR"; then
+        "${ZSH_PLUGIN_GIT_SERVER}marlonrichert/zsh-snap.git" "$ZNAP_DIR"; then
         print -u2 "zsh: failed to install Znap; skipping remaining startup config"
         return 1
     fi
 fi
 source "$ZNAP_DIR/znap.zsh" || return 1
-# Znap defaults to HTTPS for shorthand plugin URLs; use SSH for those too.
-zstyle ':znap:clone:' default-server 'git@github.com:'
+# Use the same transport for shorthand plugin URLs.
+zstyle ':znap:clone:' default-server "$ZSH_PLUGIN_GIT_SERVER"
 
 # -------------------------------------------------------------------
 # # NOTE: plugins (znap-managed) {{{
@@ -111,9 +125,7 @@ FAST_HIGHLIGHT_STYLES[path-to-dir]='fg=#00aaff,underline'
 # -------------------------------------------------------------------
 # # NOTE: user configurations {{{
 # -------------------------------------------------------------------
-if [[ $TERM == xterm ]]; then
-    TERM=screen-256color
-fi
+# TERM belongs to the terminal emulator or tmux, not shell initialization.
 # }}}
 # -------------------------------------------------------------------
 
@@ -159,6 +171,7 @@ eval "$(zoxide init zsh)"
 # -------------------------------------------------------------------
 # # NOTE: pyenv {{{
 # -------------------------------------------------------------------
+if command -v pyenv &>/dev/null && ! [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
 eval "$(pyenv init --path)"
 
 # Lazy-load pyenv to prevent shell startup latency.
@@ -170,13 +183,16 @@ _load_pyenv() {
     add-zsh-hook -d precmd _pyenv_virtualenv_hook
 }
 znap function pyenv _load_pyenv
+fi
 # }}}
 # -------------------------------------------------------------------
 
 # -------------------------------------------------------------------
 # # NOTE: rbenv {{{
 # -------------------------------------------------------------------
-znap eval rbenv "rbenv init -"
+if command -v rbenv &>/dev/null && ! [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
+    znap eval rbenv "rbenv init -"
+fi
 # }}}
 # -------------------------------------------------------------------
 
@@ -199,11 +215,13 @@ _fnm_cleanup_multishells() {
         fi
     done
 }
+if command -v fnm &>/dev/null && ! [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
 _fnm_cleanup_multishells
 
 # Then load fnm silently
 export FNM_RESOLVE_ENGINES=false
 eval "$(fnm env --shell zsh)"
+fi
 
 # }}}
 # -------------------------------------------------------------------
@@ -223,6 +241,7 @@ znap compadd /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/li
 # NOTE: must be a direct eval, NOT `znap eval` — atuin registers its
 # widgets with `zle -N`, which does not survive znap's cache/compile step
 # (the atuin-search widget ends up undefined). Direct eval is ~cheap.
+if command -v atuin &>/dev/null; then
 eval "$(atuin init zsh)"
 
 # --- FORCE ATUIN BINDING ---
@@ -230,6 +249,7 @@ eval "$(atuin init zsh)"
 bindkey -M emacs '^R' atuin-search
 bindkey -M viins '^R' atuin-search-viins
 bindkey -M vicmd '^R' atuin-search
+fi
 # }}}
 # -------------------------------------------------------------------
 
@@ -262,7 +282,7 @@ fi
 # # NOTE: tmux-session-dots notify bell {{{
 #-------------------------------------------------------------------------------
 
-source ~/.config/tmux/plugins/tmux-session-dots/bell-notify.zsh
+[[ -r ~/.config/tmux/plugins/tmux-session-dots/bell-notify.zsh ]] && source ~/.config/tmux/plugins/tmux-session-dots/bell-notify.zsh
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -302,3 +322,7 @@ fi
 # zprof
 
 # vim:foldmethod=marker
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/lalitmee/.local/bin:$PATH"

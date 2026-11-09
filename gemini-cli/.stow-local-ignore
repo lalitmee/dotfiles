@@ -1,0 +1,2 @@
+# Deploy Antigravity-native config and shared instructions; exclude legacy Gemini files.
+^/\.gemini/(?!GEMINI\.md$|skills(?:/|$)|antigravity-cli(?:/|$)|config(?:/(?:hooks\.json$|mcp_config\.json$|skills(?:/|$))|$)).*

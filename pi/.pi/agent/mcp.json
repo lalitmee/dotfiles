@@ -1,22 +1,23 @@
 {
   "mcpServers": {
     "vercel": {
+      "enabled": true,
       "url": "https://mcp.vercel.com"
     },
     "linear": {
+      "enabled": true,
       "url": "https://mcp.linear.app/mcp"
     },
     "context7": {
+      "enabled": true,
       "command": "npx",
       "args": [
         "-y",
         "@upstash/context7-mcp"
-      ],
-      "env": {
-        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
-      }
+      ]
     },
     "crash": {
+      "enabled": true,
       "command": "npx",
       "args": [
         "-y",
@@ -24,6 +25,7 @@
       ]
     },
     "chrome-devtools": {
+      "enabled": true,
       "command": "npx",
       "args": [
         "-y",
@@ -32,6 +34,7 @@
       ]
     },
     "radius": {
+      "enabled": true,
       "url": "https://radius.pi.dev/mcp",
       "auth": {
         "provider": "radius"

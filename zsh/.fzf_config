@@ -2,12 +2,23 @@
 
 export FZF_DEFAULT_COMMAND='rg --hidden --ignore node_modules --follow --glob "!.git/*"'
 
+if command -v wl-copy &>/dev/null; then
+    _fzf_clipboard=wl-copy
+elif command -v pbcopy &>/dev/null; then
+    _fzf_clipboard=pbcopy
+elif command -v xclip &>/dev/null; then
+    _fzf_clipboard='xclip -selection clipboard'
+else
+    _fzf_clipboard='cat >/dev/null'
+fi
+
 export FZF_CTRL_R_OPTS=$FZF_CTRL_R_OPTS"
 --preview 'echo {}'
 --preview-window down:3:hidden:wrap
 --bind '?:toggle-preview'
---bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+--bind 'ctrl-y:execute-silent(echo -n {2..} | $_fzf_clipboard)+abort'
 --header 'Press CTRL-Y to copy command into clipboard' "
+unset _fzf_clipboard
 
 export FZF_DEFAULT_OPTS='
 --layout=reverse
@@ -15,12 +26,34 @@ export FZF_DEFAULT_OPTS='
 --height=100%
 --bind=ctrl-a:select-all,ctrl-j:down,ctrl-k:up,ctrl-d:deselect-all,change:first'
 
-# cobalt2
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+# Keep layout/bindings separate so theme refreshes never accumulate options.
+typeset -g _fzf_base_opts="$FZF_DEFAULT_OPTS"
+typeset -g _fzf_fallback_colors='
 --color=fg:#ffffff,bg:#193549,hl:#ffc600
 --color=fg+:#00aaff,bg+:#185294,hl+:#ffc600
 --color=info:#9e9e9e,prompt:#ff628c,pointer:#ff9a00
 --color=marker:#FF628C,spinner:#ffc600,header:#ff628c'
+
+_fzf_refresh_theme() {
+    local theme_file="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/current/theme/fzf-colors"
+    local colors="$_fzf_fallback_colors"
+    if [[ -r "$theme_file" ]]; then
+        colors="$(<"$theme_file")"
+    fi
+    export FZF_DEFAULT_OPTS="$_fzf_base_opts
+$colors"
+    local bat_config="${theme_file:h}/bat-config"
+    if [[ -r "$bat_config" ]]; then
+        export BAT_CONFIG_PATH="$bat_config"
+    elif [[ "$BAT_CONFIG_PATH" == */omarchy/current/theme/bat-config ]]; then
+        unset BAT_CONFIG_PATH
+    fi
+}
+
+_fzf_refresh_theme
+autoload -Uz add-zsh-hook
+add-zsh-hook -d precmd _fzf_refresh_theme
+add-zsh-hook precmd _fzf_refresh_theme
 
 # # tokyonight
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'

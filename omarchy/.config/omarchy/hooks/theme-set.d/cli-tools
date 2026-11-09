@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euo pipefail
+
+theme="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/current/theme"
+bat_config="${XDG_CONFIG_HOME:-$HOME/.config}/bat"
+if command -v bat >/dev/null && [[ -f "$theme/Omarchy.tmTheme" ]]; then
+    mkdir -p "$bat_config/themes"
+    target="$bat_config/themes/Omarchy.tmTheme"
+    if [[ -e "$target" && ! -L "$target" ]]; then
+        echo "Refusing to overwrite $target" >&2
+        exit 1
+    fi
+    ln -sfn "$theme/Omarchy.tmTheme" "$target"
+    bat cache --build >/dev/null
+fi
+
+# Do not start a server just to apply colors. The config loads it on next start.
+if command -v tmux >/dev/null && tmux list-sessions >/dev/null 2>&1 && [[ -f "$theme/tmux.conf" ]]; then
+    tmux source-file "$theme/tmux.conf"
+    if tmux show-option -gqv @dotfiles-tmux | grep -qx on && [[ -f "$theme/tmux-personal.conf" ]]; then
+        tmux source-file "$theme/tmux-personal.conf"
+    fi
+fi

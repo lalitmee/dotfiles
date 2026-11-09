@@ -1,0 +1,2 @@
+# Old exported settings are a backup, not an active configuration payload.
+^/\.claude/settings\.json\.bak$

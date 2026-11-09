@@ -1,5 +1,5 @@
 ---
-name: report
+name: data-report
 description: Generates comprehensive reports from data files and folders, with analysis and visualizations
 ---
 

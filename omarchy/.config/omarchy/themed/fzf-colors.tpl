@@ -1,0 +1,4 @@
+--color=fg:{{ foreground }},bg:{{ background }},hl:{{ yellow }}
+--color=fg+:{{ foreground }},bg+:{{ selection }},hl+:{{ yellow }}
+--color=info:{{ cyan }},prompt:{{ accent }},pointer:{{ accent }}
+--color=marker:{{ green }},spinner:{{ magenta }},header:{{ cyan }}

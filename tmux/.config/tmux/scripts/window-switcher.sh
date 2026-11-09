@@ -66,10 +66,7 @@ tmux capture-pane -ep -t {5}' \
     --bind='ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up' \
     --bind='ctrl-/:toggle-preview' \
     --bind='alt-p:change-preview-window[bottom:99%:<1(bottom:99%)|]' \
-    --color='fg:#FFFFFF,bg:#193549' \
-    --color='fg+:#FFFFFF,bg+:#185294' \
-    --color='hl:#FFC600,hl+:#FF9D00' \
-    --color='info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF,header:#66B3FF'); then
+    "${popup_fzf_colors[@]}"); then
     [[ -n "$selection" ]] || exit 0
     target=$(printf '%s\n' "$selection" | cut -f4)
     tmux switch-client -t "$target"

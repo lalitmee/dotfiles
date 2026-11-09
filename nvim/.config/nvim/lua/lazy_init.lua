@@ -68,4 +68,4 @@ require("lazy").setup("plugins", {
 })
 
 -- load colorscheme
-vim.cmd.colorscheme("cobalt2")
+require("core.omarchy_theme").apply()

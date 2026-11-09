@@ -1,0 +1,5 @@
+# Keep V1 integration payloads in the repository, not in active discovery.
+^/\.config/opencode/plugins(?:/|$)
+^/\.config/opencode/tui\.json$
+# Identical advisor command already exists in the compatible command/ tree.
+^/\.config/opencode/commands/advisor\.md$

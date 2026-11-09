@@ -850,7 +850,7 @@ return {
         },
         opts = {
             options = {
-                theme = "cobalt2",
+                theme = "auto",
                 globalstatus = true,
                 section_separators = { left = "", right = "" },
                 component_separators = { left = "", right = "" },

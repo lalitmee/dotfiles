@@ -9,7 +9,8 @@ This repository configures Linear's hosted MCP server for the clients whose MCP 
 | Gemini CLI | Configured in `gemini-cli/.gemini/settings.json` (`mcpServers.linear.httpUrl`) | Restart Gemini CLI and complete its OAuth flow when prompted. |
 | Zed | Configured in `zed/.config/zed/settings.json` (`context_servers.linear.url`) | Restart/reload MCP servers and authenticate when prompted. |
 | MCPHub for Neovim | Configured in `mcphub/.config/mcphub/servers.json` (`type: "streamable-http"`) | Start the server and complete MCPHub's OAuth flow. |
-| OpenCode | Configured in `opencode/.config/opencode/opencode.json` (`mcp.linear`) | Restart OpenCode and complete OAuth when prompted; if needed, run `opencode mcp auth linear`. |
+| OpenCode | Configured and enabled in `opencode/.config/opencode/opencode.json` (`mcp.servers.linear`); current status: needs authentication | Open `/mcps`, select Linear, and sign in. No restart is needed. |
+| Pi | Configured and enabled in `pi/.pi/agent/mcp.json` (`mcpServers.linear`); current status: needs authentication | Run `pi mcp login linear` or use `/mcp` in a Pi session. |
 | Codex CLI / IDE extension | Sanitized preference snapshot is tracked; live runtime config is local-only and not stowed | Configure MCP servers, project trust, and authentication in Codex's local settings; if needed, run `codex mcp login linear`. |
 | VS Code | MCP-capable; `vscode/mcp.json` is tracked but intentionally excluded from this change | Add the server through VS Code's user MCP configuration command, not the tracked repository file. |
 | Claude Code | Supported by Linear; local settings are not changed by this setup | Use the command below, or follow Linear's client-specific setup. |

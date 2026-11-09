@@ -17,12 +17,12 @@ config_path, expected_url = sys.argv[1:]
 text = Path(config_path).read_text()
 text = re.sub(r",(?=\s*[}\]])", "", text)
 config = json.loads(text)
-linear_server = config.get("mcp", {}).get("linear")
+linear_server = config.get("mcp", {}).get("servers", {}).get("linear")
 
 if linear_server != {
     "type": "remote",
     "url": expected_url,
-    "enabled": True,
+    "disabled": False,
 }:
     raise SystemExit("OpenCode Linear MCP entry is missing, malformed, or contains unexpected fields.")
 
@@ -80,10 +80,10 @@ if ! grep -Fqx '^/\.codex(?:/|$)' "codex/.stow-local-ignore"; then
 fi
 
 for expected in \
-    '| OpenCode | Configured in' \
+    '| OpenCode | Configured and enabled in' \
     '| Codex CLI / IDE extension | Sanitized preference snapshot is tracked; live runtime config is local-only and not stowed' \
     'codex/.codex/config.toml' \
-    'opencode mcp auth linear' \
+    'Open `/mcps`, select Linear, and sign in.' \
     'codex mcp login linear'; do
     if ! grep -Fq "$expected" "$GUIDE"; then
         echo "Linear MCP guide is missing expected coverage or login guidance: $expected" >&2

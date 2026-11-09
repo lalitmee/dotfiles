@@ -28,6 +28,7 @@ set -g extended-keys-format csi-u
 
 # Plugin declarations are initialized by tmux/.config/tmux/tmux.conf after this file loads.
 # Plugin updates remain explicit; config reload never installs or updates them.
+set -g @tpm-update 'u'
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins

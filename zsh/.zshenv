@@ -55,7 +55,7 @@ fi
 
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
-export TERM="xterm-256color"
+# Preserve TERM supplied by the terminal emulator or tmux.
 
 #-------------------------------------------------------------------------------
 # }}}
@@ -109,7 +109,7 @@ append_to_path "$HOME/.cargo/bin"
 
 # go
 export GOPATH="$HOME/go"
-append_to_path "$GOROOT/bin"
+[[ -n "$GOROOT" ]] && append_to_path "$GOROOT/bin"
 append_to_path "$GOPATH/bin"
 
 # # deno
@@ -136,6 +136,9 @@ append_to_path "$HOME/.local/share/fnm/aliases/default/bin"
 
 # Homebrew
 append_to_path "/home/linuxbrew/.linuxbrew/bin"
+
+# Omarchy's bootstrap is shell-compatible; its interactive Bash rc is not.
+[[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && source /usr/share/omarchy/default/bash/env-bootstrap
 
 #-------------------------------------------------------------------------------
 # }}}

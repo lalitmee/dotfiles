@@ -64,6 +64,7 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 | Target | Behavior covered | Command |
 |---|---|---|
 | Settings | Validate settings configuration | `bash scripts/test/config/settings.sh` |
+| Omarchy agents | Isolated, idempotent Stow; preserve system skills/themes and local Codex config; validate shared skills, hooks, and disabled integrations | `python3 scripts/test/config/omarchy-agents.py` |
 | Linear MCP | Validate Linear MCP configuration | `bash scripts/test/config/linear-mcp.sh` |
 | Gitleaks pre-commit | Exercise secret-blocking hooks in a temporary repository | `python3 scripts/test/security/gitleaks-precommit.py` |
 | Installed environment | Verify installation tools and configuration | `bash scripts/test/install/verify.sh` |

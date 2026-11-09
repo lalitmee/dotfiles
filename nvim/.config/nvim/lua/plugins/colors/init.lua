@@ -1,6 +1,6 @@
 require("plugins.colors.util")
 
-return {
+local specs = {
     { --[[ colorschemes ]]
 
         { --[[ cobalt2 ]]
@@ -142,3 +142,13 @@ return {
         config = true,
     },
 }
+
+-- Disabled personal theme presets must not disable Omarchy's chosen plugin
+-- when lazy.nvim merges specs for the same repository.
+if require("core.omarchy_theme").colorscheme then
+    specs[1] = vim.tbl_filter(function(spec)
+        return spec.enabled ~= false
+    end, specs[1])
+end
+
+return specs

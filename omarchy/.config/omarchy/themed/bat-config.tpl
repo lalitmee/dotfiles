@@ -1,0 +1,2 @@
+--theme="Omarchy"
+--italic-text=always

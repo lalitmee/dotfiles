@@ -18,6 +18,10 @@
 # Command shortcuts to streamline common Git operations.
 #
 [alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
     # List all aliases.
     aliases = config --get-regexp alias
 
@@ -119,44 +123,44 @@
 # Custom colors for `git blame`.
 #
 [color "blame"]
-    highlightRecent = "#080808" bold,1 year ago,"#e4e4e4",1 month ago,"#8a8a8a",7 days ago,"#00aaff"
+    highlightRecent = normal,1 year ago,white,1 month ago,brightblack,7 days ago,blue
 
 #
-# Custom colors for `git branch` using the Cobalt2 theme.
+# ANSI colors follow the terminal theme.
 #
 [color "branch"]
-    current  = "#ff00ff"
-    local    = "#8a8a8a"
-    remote   = "#ffc600"
-    upstream = "#5fff00"
+    current  = magenta
+    local    = normal
+    remote   = yellow
+    upstream = green
 
 #
-# Custom colors for `git diff` using the Cobalt2 theme.
+# Theme-aware colors for `git diff`.
 #
 [color "diff"]
-    meta       = "#080808" bold
-    frag       = "#ff00ff"
-    context    = "#e4e4e4"
-    old        = "#d70000"
-    new        = "#5fff00"
-    whitespace = "#ffc600" reverse
+    meta       = normal bold
+    frag       = magenta
+    context    = normal
+    old        = red
+    new        = green
+    whitespace = yellow reverse
 
 #
-# Custom colors for `git status` using the Cobalt2 theme.
+# Theme-aware colors for `git status`.
 #
 [color "status"]
-    added = "#5fff00" bold
-    changed = "#d70000" bold
-    untracked = "#d70000" bold
+    added = green bold
+    changed = red bold
+    untracked = red bold
 
 #
 # Custom colors for decorated output like in `git log --decorate`.
 #
 [color.decorate]
-    HEAD = "#d70000"
-    branch = "#00aaff"
-    tag = "#ffc600"
-    remoteBranch = "#ff00ff"
+    HEAD = red
+    branch = blue
+    tag = yellow
+    remoteBranch = magenta
 
 #
 # Settings related to creating commits.
@@ -165,7 +169,7 @@
     # Specifies the path to the file to be used as a template for commit messages.
     # template = ~/.config/git/template
     # Show the full diff in the editor when writing a commit message.
-    # verbose = true
+    verbose = true
 
 #
 # Core Git settings.
@@ -178,7 +182,7 @@
     # Set the default editor for commit messages and interactive commands.
     editor = nvim
     # Specifies the path to the global gitignore file.
-    excludesfile = /home/lalitmee/.config/git/ignore
+    excludesfile = ~/.config/git/ignore
     # Set the pager used to display multi-page output. `delta` is a modern diff viewer.
     pager = delta
     # Use an in-memory index to speed up operations in large repositories.
@@ -187,18 +191,9 @@
 #
 # Manages how Git handles user credentials.
 #
-[credential]
-    # Use an in-memory cache for credentials. Default timeout is 15 minutes.
-    credentialStore = cache
-    # Use the full path for credentials, which is necessary for some helpers.
-    useHttpPath = true
-	helper =
-
-#
-# Credential helper specific to GitHub.
-#
-[credential "https://github.com"]
-    helper = !$HOME/.config/bin/gh-wrapper auth git-credential
+# Authentication is machine-local; configure it with gh auth setup-git.
+[include]
+    path = ~/.config/git/config.local
 
 #
 # Configuration for the `delta` pager.
@@ -219,6 +214,8 @@
 # Default options for `git diff`.
 #
 [diff]
+    algorithm = histogram
+    mnemonicPrefix = true
     # Merge diff hunks that are close to each other for better context.
     interHunkContext = 10
     # Detect and track renames as copies.
@@ -246,11 +243,7 @@
 #
 # Configuration for Git Large File Storage (LFS).
 #
-[filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+# Run git lfs install after installing git-lfs on this machine.
 
 #
 # Default options for formatting patches.
@@ -379,8 +372,15 @@
 # Default options for `git tag`.
 #
 [tag]
-    # Sort tags by tagger date in descending order.
-    sort = -taggerdate
+    # Sort version numbers rather than tag dates.
+    sort = -version:refname
+
+[column]
+    ui = auto
+
+[rerere]
+    enabled = true
+    autoupdate = true
 
 #
 # Settings for data transfer operations.
@@ -411,3 +411,7 @@
 # even if the global default changes.
 [includeIf "gitdir:~/Projects/Personal/Github/"]
     path = ~/dotfiles/scripts/hooks/personal-github.config
+
+# Optional palette override; absent on non-Omarchy hosts.
+[include]
+    path = ~/.local/state/omarchy/current/theme/delta.gitconfig

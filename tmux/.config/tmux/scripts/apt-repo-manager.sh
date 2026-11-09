@@ -79,7 +79,7 @@ selected_medatada=$(echo "$repos" | fzf \
     --prompt="Search and select repositories to remove > " \
     --header="$header" \
     --height=20 \
-    --color='fg:#FFFFFF,bg:#193549,hl:#FFC600,fg+:#FFFFFF,bg+:#185294,hl+:#FF9D00,info:#8fbfdc,prompt:#3AD900,pointer:#00AAFF')
+    "${popup_fzf_colors[@]}")
 
 if [[ -z "$selected_medatada" ]]; then
     echo "No repositories selected for removal."

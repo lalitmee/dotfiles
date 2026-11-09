@@ -1,5 +1,5 @@
 {
-  "theme": "cobalt2",
+  "theme": "omarchy-system",
   "skills": [
     "~/.agents/skills"
   ],
@@ -25,9 +25,7 @@
     "enabled": true,
     "maxRetries": 3
   },
-  "lastChangelogVersion": "1.5.0",
   "defaultProvider": "openai",
   "defaultModel": "gpt-6-luna",
-  "deviceId": "0fc82671-224d-43c4-9ca9-ca9382a2fa77",
   "hideThinkingBlock": false
 }

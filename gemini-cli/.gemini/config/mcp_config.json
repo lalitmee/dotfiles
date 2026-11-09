@@ -9,6 +9,7 @@
       ]
     },
     "google-drive": {
+      "disabled": true,
       "command": "node",
       "args": [
         "/home/lalitmee/Projects/Personal/Github/google-drive-mcp/dist/index.js"
@@ -23,6 +24,43 @@
         "-y",
         "next-devtools-mcp@latest"
       ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "6000"
+      }
+    },
+    "crash": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "crash-mcp"
+      ]
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+    "linear": {
+      "serverUrl": "https://mcp.linear.app/mcp"
+    },
+    "playwright": {
+      "disabled": true,
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--extension"
+      ],
+      "env": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "$PLAYWRIGHT_MCP_EXTENSION_TOKEN"
+      }
     }
   }
 }

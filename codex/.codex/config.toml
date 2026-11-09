@@ -125,7 +125,7 @@ name = "rename"
 enabled = false
 
 [[skills.config]]
-name = "report"
+name = "data-report"
 enabled = false
 
 [[skills.config]]
