@@ -1,6 +1,6 @@
 # Personal status layout; loaded only by the dotfiles tmux configuration.
 set -g window-status-format "#[fg={{ foreground }},bg={{ background }}] #I:#W#{?@workmux_status, #{@workmux_status},} #[default]"
-set -g window-status-current-format "#[fg={{ background }},bg={{ accent }},bold] #I #[fg={{ accent }},bg={{ selection }},bold] #W#{?@workmux_status, #{@workmux_status},} #[default]"
+set -g window-status-current-format "#[fg={{ background }},bg={{ blue }},bold] #I #[fg={{ accent }},bg={{ selection }},bold] #W#{?@workmux_status, #{@workmux_status},} #[default]"
 set -g status-left "#[fg={{ background }},bg={{ yellow }},bold] ❐ #S #[default]"
 set -g status-right "#[fg={{ yellow }},bg={{ background }}] #(~/.config/tmux/plugins/tmux-session-dots/scripts/session-dots.sh '#S' '#{@session-dots-active}' '#{@session-dots-inactive}') #{?client_prefix,⌨ ,}#{?mouse,↗ ,}#{?session_many_attached,⚇ ,}#{?pane_synchronized,⚏ ,}#[fg={{ yellow }},bg={{ selection }},bold] ↑ #(bash ~/.config/tmux/scripts/uptime.sh) #[fg={{ background }},bg={{ yellow }},bold] #(id -un) #[default]"
 set -g message-format '#[#{E:message-style}]#{message}'
