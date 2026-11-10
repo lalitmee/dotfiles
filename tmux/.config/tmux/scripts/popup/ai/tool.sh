@@ -24,7 +24,8 @@ if ! command -v gum >/dev/null 2>&1; then
 fi
 source "${commands[gum-input]:A:h}/gum-theme.sh"
 
-description=$(gum-input write --header='Task description or window name (submit empty to skip)' --placeholder='Enter your prompt...' --height=6 --char-limit=0) || exit 0
+description=$(gum write --header='Task description or window name (submit empty to skip)' --placeholder='Enter your prompt...' --width=0 --height=6 --char-limit=0 \
+    --cursor-line.background="$gum_background" --cursor-line.foreground="$gum_foreground") || exit 0
 title="$ICON $DEFAULT_NAME"
 naming_status='default name'
 action=''

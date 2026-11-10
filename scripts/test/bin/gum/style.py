@@ -32,6 +32,16 @@ with tempfile.TemporaryDirectory(dir='/tmp/opencode') as tmp:
     args = run([str(repo / 'bin/.config/bin/quote'), 'programming'])
     assert args[args.index('--foreground') + 1] == '#fedcba'
     assert args[args.index('--width') + 1] != '213'
+    (theme.parent / 'theme.name').write_text('cobalt2\n')
+    (theme / 'colors.toml').write_text('background = "#193549"\naccent = "#ffc600"\nyellow = "#ffc600"\n')
+    args = run([str(repo / 'bin/.config/bin/quote'), 'programming'])
+    assert args[args.index('--foreground') + 1] == '#00AAFF'
+    assert args[args.index('--border-foreground') + 1] == '#ffc600'
+    (theme.parent / 'theme.name').write_text('catppuccin\n')
+    (theme / 'colors.toml').write_text('background = "#112233"\naccent = "#abcdef"\nyellow = "#fedcba"\n')
+    args = run([str(repo / 'bin/.config/bin/quote'), 'programming'])
+    assert args[args.index('--foreground') + 1] == '#fedcba'
+    assert args[args.index('--border-foreground') + 1] == '#abcdef'
     # Both shells accept the shared palette; invalid values never execute.
     palette = repo / 'bin/.config/bin/gum-theme.sh'
     for shell in ['bash', 'zsh']:

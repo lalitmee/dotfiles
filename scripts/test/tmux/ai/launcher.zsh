@@ -73,6 +73,11 @@ check() {
 
 INPUT='' ACTION='' NAMER='' check codex 'new-window -n 🧬 codex'
 grep -F 'write write --' "$LOG" >/dev/null
+if grep -F -- '--no-show-help' "$LOG" >/dev/null; then
+    print -u2 'expected native gum write help, not gum-input decoration'
+    exit 1
+fi
+grep -F -- '--cursor-line.background= --cursor-line.foreground=#FFFFFF' "$LOG" >/dev/null
 INPUT='Fix Login Flow' ACTION='✏️ Use as name' NAMER='' check codex 'new-window -n 🧬 fix-login-flow'
 INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy check codex 'new-window -n 🧬 fix-login-flow'
 grep -F 'display-message AI codex: named fix-login-flow via agy' "$LOG" >/dev/null

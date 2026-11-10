@@ -5,7 +5,7 @@ gum_accent='#66B3FF'
 gum_border='#00AAFF'
 gum_label='#FF628C'
 gum_value='#FFC600'
-gum_quote='220'
+gum_quote='#00AAFF'
 gum_muted='#9E9E9E'
 gum_selection='#0050A4'
 gum_theme_file="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/current/theme/colors.toml"
@@ -21,6 +21,10 @@ if [[ -r "$gum_theme_file" ]]; then
             selection_background) gum_selection="$gum_color" ;;
         esac
     done < <(sed -n 's/^[[:space:]]*\([a-z_]*\)[[:space:]]*=[[:space:]]*"\(#[[:xdigit:]]\{6\}\)"[[:space:]]*\(#.*\)\{0,1\}$/\1 \2/p' "$gum_theme_file")
+fi
+if [[ -r "${gum_theme_file%/theme/colors.toml}/theme.name" ]] &&
+    [[ "$(< "${gum_theme_file%/theme/colors.toml}/theme.name")" == 'cobalt2' ]]; then
+    gum_quote='#00AAFF'
 fi
 unset gum_theme_file gum_name gum_color
 
