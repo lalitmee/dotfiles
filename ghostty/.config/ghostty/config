@@ -19,7 +19,7 @@ font-family = MonoLisa Nerd Font
 # font-family = BlexMono Nerd Font Mono
 # font-family = JetBrainsMono Nerd Font
 # font-family = Iosevka Nerd Font
-font-size = 10
+font-size = 12
 
 gtk-titlebar = false
 gtk-tabs-location = bottom
@@ -40,4 +40,3 @@ macos-option-as-alt = true
 
 # Machine/OS-specific overrides (ignored if missing)
 config-file = ?config.local
-
