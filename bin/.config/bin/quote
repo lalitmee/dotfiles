@@ -9,9 +9,9 @@ fi
 
 # --- Configuration ---
 SCRIPT_DIR="${0:A:h}"
+source "$SCRIPT_DIR/gum-theme.sh"
 QUOTES_DIR="$SCRIPT_DIR/quotes"
-QUOTE_COLOR="220"
-AUTHOR_COLOR="213"
+QUOTE_COLOR="$gum_quote"
 
 # Print usage instructions
 # {{{
@@ -82,10 +82,10 @@ show_quote_from_file() {
         local quote_string="$quote -- $author"
         # Sourcing gum_style directly if it's in the PATH, or execute as command
         if command -v gum_style &>/dev/null; then
-            gum_style "$quote_string" "$QUOTE_COLOR" "$AUTHOR_COLOR"
+            gum_style "$quote_string" "$QUOTE_COLOR"
         else
             # Fallback style if gum_style is unavailable
-            gum style --foreground "$QUOTE_COLOR" --border rounded --align center --padding "1 2" "$quote"$'\n\n'"-- $author"
+            gum style --foreground "$QUOTE_COLOR" --background "$gum_background" --border rounded --align center --padding "1 2" "$quote"$'\n\n'"-- $author"
         fi
     fi
 }

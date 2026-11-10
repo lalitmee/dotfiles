@@ -64,10 +64,21 @@ with tempfile.TemporaryDirectory(prefix="agent-configs-", dir="/tmp/opencode") a
     claude = json.loads((home / ".claude/settings.json").read_text())
     pi = json.loads((home / ".pi/agent/settings.json").read_text())
     mcp = json.loads((home / ".pi/agent/mcp.json").read_text())
-    assert claude["theme"] == "custom:omarchy"
+    assert claude["theme"] == "custom:cobalt2"
+    assert (home / ".claude/themes/cobalt2.json").is_file()
     assert all(claude["enabledPlugins"].values())
     assert "statusLine" not in claude
-    assert pi["theme"] == "omarchy-system"
+    assert pi["theme"] == "cobalt2"
+    assert (home / ".pi/agent/themes/cobalt2.json").is_file()
+    cli = json.loads((home / ".config/opencode/cli.json").read_text())
+    assert cli["theme"]["name"] == "cobalt2-custom"
+    assert (home / ".config/opencode/themes/cobalt2-custom.json").is_file()
+    # Removing optional machine themes must not affect portable selection.
+    for name in [".claude/themes/omarchy.json", ".pi/agent/themes/omarchy-system.json"]:
+        (home / name).unlink()
+    subprocess.run(command, check=True)
+    assert not (home / ".claude/themes/omarchy.json").exists()
+    assert not (home / ".pi/agent/themes/omarchy-system.json").exists()
     assert "deviceId" not in pi and "lastChangelogVersion" not in pi
     assert all(server["enabled"] is True for server in mcp["mcpServers"].values())
     opencode = json.loads((home / ".config/opencode/opencode.json").read_text())

@@ -21,6 +21,8 @@ for _popup_color in "${popup_fzf_colors[@]}"; do
 done
 if [[ -r "$_popup_theme/bat-config" ]]; then
     export BAT_CONFIG_PATH="$_popup_theme/bat-config"
+elif [[ "${BAT_CONFIG_PATH:-}" == */omarchy/current/theme/bat-config ]]; then
+    unset BAT_CONFIG_PATH
 fi
 
 _popup_ansi() {

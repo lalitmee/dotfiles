@@ -56,6 +56,7 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 | Process killer | Port/process table merge, details view, kill guards, and SIGTERM/SIGKILL escalation | `zsh scripts/test/bin/process/kill-flow.zsh` |
 | Git email guard | Rejects unexpected author and committer identities | `zsh scripts/test/bin/git/email-guard.zsh` |
 | Gum input styling | Input/write palette, custom hints, password/flag forwarding, stdin/stdout preservation, and cancellation | `python3 scripts/test/bin/gum/input.py` |
+| Gum quote styling | Cobalt2 fallback, optional palette, explicit colors, and inherited background cleanup | `python3 scripts/test/bin/gum/style.py` |
 | Node global packages sync | Installs all packages from `node/global-packages.txt` for the active Node version | `zsh scripts/node/sync-global-packages.zsh` |
 | Node global packages sync (specific version) | Installs all packages for a given fnm-managed Node version | `zsh scripts/node/sync-global-packages.zsh --version 22` |
 
@@ -65,6 +66,7 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 |---|---|---|
 | Settings | Validate settings configuration | `bash scripts/test/config/settings.sh` |
 | Omarchy agents | Isolated, idempotent Stow; preserve system skills/themes and local Codex config; validate shared skills, hooks, and disabled integrations | `python3 scripts/test/config/omarchy-agents.py` |
+| Portable theme fallbacks | Missing/present fzf and popup palettes, stale bat paths, mocked Neovim selection, delta includes, and tmux overlay order | `python3 scripts/test/config/theme-fallbacks.py` |
 | Linear MCP | Validate Linear MCP configuration | `bash scripts/test/config/linear-mcp.sh` |
 | Gitleaks pre-commit | Exercise secret-blocking hooks in a temporary repository | `python3 scripts/test/security/gitleaks-precommit.py` |
 | Installed environment | Verify installation tools and configuration | `bash scripts/test/install/verify.sh` |

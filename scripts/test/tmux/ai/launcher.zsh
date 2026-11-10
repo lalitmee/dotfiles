@@ -62,7 +62,8 @@ shift 2
 "$@"
 EOF
 chmod +x "$tmp/bin/"*
-export PATH="$tmp/bin:$repo/bin/.config/bin:$PATH" LOG="$tmp/log" INPUT ACTION NAMER
+export HOME="$tmp" XDG_STATE_HOME="$tmp/state" SHELL=/bin/zsh
+export PATH="$tmp/bin:$repo/bin/.config/bin:/usr/bin:/bin" LOG="$tmp/log" INPUT ACTION NAMER
 
 check() {
     : > "$LOG"

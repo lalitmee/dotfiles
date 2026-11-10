@@ -22,6 +22,7 @@ if ! command -v gum >/dev/null 2>&1; then
     tmux display-message '❌ gum is not installed'
     exit 1
 fi
+source "${commands[gum-input]:A:h}/gum-theme.sh"
 
 description=$(gum-input write --header='Task description or window name (submit empty to skip)' --placeholder='Enter your prompt...' --height=6 --char-limit=0) || exit 0
 title="$ICON $DEFAULT_NAME"
@@ -31,11 +32,11 @@ action=''
 if [[ -n ${description//[[:space:]]/} ]]; then
     source "${0:A:h}/../../lib/popup-style.sh"
     action=$(gum filter --header=$'How should this text be used?\n'"$(popup_hints 'Enter:select' 'Esc:cancel')" \
-        --no-show-help --header.foreground='#FF628C' \
-        --text.foreground='#FFFFFF' --cursor-text.foreground='#FFC600' \
-        --cursor-text.background='#0050A4' --indicator.foreground='#66B3FF' \
-        --prompt.foreground='#66B3FF' --placeholder.foreground='#9E9E9E' \
-        --match.foreground='#FFC600' \
+        --no-show-help --header.foreground="$gum_label" \
+        --text.foreground="$gum_foreground" --cursor-text.foreground="$gum_value" \
+        --cursor-text.background="$gum_selection" --indicator.foreground="$gum_accent" \
+        --prompt.foreground="$gum_accent" --placeholder.foreground="$gum_muted" \
+        --match.foreground="$gum_value" \
         '✏️ Use as name' '✨ Generate name' '💬 Generate name and send prompt') || exit 0
 
     if [[ "$action" == '💬 Generate name and send prompt' ]]; then
@@ -69,8 +70,6 @@ if [[ -n ${description//[[:space:]]/} ]]; then
             top=$(( rows > 1 ? (rows - 1) / 2 : 0 ))
             left=$(( cols > ${#spinner_title} + 2 ? (cols - ${#spinner_title} - 2) / 2 : 0 ))
             response=$(gum spin --spinner dot \
-                --spinner.foreground='#66B3FF' \
-                --title.foreground='#FFC600' \
                 --title="$spinner_title" \
                 --padding="$top 0 0 $left" \
                 --show-stdout -- timeout --kill-after=1s 20s \

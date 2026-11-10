@@ -1,8 +1,9 @@
 #!/bin/zsh
+source "${0:A:h}/gum-theme.sh"
 
 # Define configurable variables
-border_color="${GUM_STYLE_BORDER_FOREGROUND:-#00AAFF}"  # cobalt2 blue
-text_color="${GUM_STYLE_FOREGROUND:-#FFC600}"           # cobalt2 yellow
+border_color="$gum_border"
+text_color="$gum_value"
 
 # Calculate width: use full terminal unless explicit arg given
 calculate_width() {
@@ -43,6 +44,8 @@ gum_style() {
         --border rounded \
         --border-foreground "$border_color" \
         --foreground "$quote_color" \
+        --background "$gum_background" \
+        --border-background "$gum_background" \
         --margin "0" \
         --padding "1 0" \
         --bold \
@@ -56,7 +59,7 @@ main() {
     local width_arg="$3"
 
     if [[ -z "$message" ]]; then
-        echo "Usage: $0 <message> [width]"
+        echo "Usage: $0 <message> [color] [width]"
         exit 1
     fi
 

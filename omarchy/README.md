@@ -14,6 +14,33 @@ Open fzf pickers keep their colors until closed and reopened.
 
 Generated theme files belong in Omarchy state, not in this repository.
 
+## Portable agent defaults
+
+Claude, Pi, and OpenCode select their shipped Cobalt2 themes even when Omarchy
+is absent. Claude and Pi do not use launchers or automatic theme switching.
+Select an installed Omarchy theme manually in their theme picker if desired;
+saving preferences may change the Stow-linked shared settings, so review the
+diff before syncing it to another machine.
+
+OpenCode can use the terminal's current palette for one invocation without
+editing its shared config:
+
+```sh
+OPENCODE_CLI_CONFIG_CONTENT='{"theme":{"name":"system"}}' opencode
+```
+
+## Gum and quote helpers
+
+Deploy the `bin` package alongside `zsh`. The shared `gum-theme.sh` reads only
+six-digit hex colors from the active `colors.toml`; missing or invalid entries
+retain Cobalt2 defaults. Zsh refreshes these colors before each prompt; the input,
+quote, and AI popup helpers refresh on invocation. Reopen existing widgets after
+switching themes. Backgrounds are refreshed explicitly to avoid inherited text
+blocks from an older theme. Without Omarchy, text backgrounds remain transparent.
+
+`gum_style` keeps its interface: `gum_style MESSAGE [COLOR] [WIDTH]`.
+Quote rendering no longer passes the unused author color as a box width.
+
 ## bat, delta, and tmux
 
 The other templates generate a shared `Omarchy.tmTheme`, bat config, delta

@@ -82,3 +82,13 @@
 ## Execution
 
 Recommended: native execution in this session. The changes share one fallback policy, and isolated checks can cover both environments without dispatching agents or running AI backends. No commits are authorized.
+
+## Execution outcome
+
+Implemented in the main checkout at the user's request. Claude/Pi automatic
+selection was explicitly dropped in favor of portable Cobalt2 defaults and
+manual theme selection. OpenCode uses Cobalt2 with a documented inline override.
+Gum helpers share a validated optional palette reader. Quote color/width argument
+mix-up and stale popup bat paths are fixed. Focused tests, mocked AI launcher,
+shell syntax, repository hooks, and diff whitespace checks passed. Native macOS
+and the original screenshot were not verified. Tests assume `/tmp/opencode` exists.

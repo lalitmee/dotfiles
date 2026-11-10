@@ -32,6 +32,7 @@ class InputTests(unittest.TestCase):
         self.root = root
         self.env = {k: v for k, v in os.environ.items() if not k.startswith('GUM_')}
         self.env.update(PATH=f"{root}:{os.environ['PATH']}",
+                        HOME=str(root), XDG_STATE_HOME=str(root / 'state'),
                         ARGS=str(root / 'args'), STDIN=str(root / 'stdin'))
 
     def run_helper(self, *args, stdin='', **env):
@@ -91,6 +92,11 @@ class InputTests(unittest.TestCase):
         self.assertEqual(self.args[-3:], ['--value', '--header', '--cursor.foreground=#123456'])
         self.assertIn('submit', self.header())
 
+    def test_explicit_header_foreground_has_no_embedded_label_color(self):
+        for style in [('--header.foreground=#123456',), ('--header.foreground', '#123456')]:
+            self.run_helper('input', '--header', 'Title', '--no-show-help', *style)
+            self.assertEqual(self.header(), 'Title')
+
     def test_help_is_not_decorated(self):
         self.run_helper('write', '--help')
         self.assertEqual(self.args, ['write', '--help'])
@@ -98,6 +104,25 @@ class InputTests(unittest.TestCase):
     def test_invalid_mode_and_missing_header(self):
         self.assertEqual(self.run_helper('choose').returncode, 2)
         self.assertEqual(self.run_helper('input', '--header').returncode, 2)
+
+    def test_current_palette_and_stale_background(self):
+        theme = self.root / 'state/omarchy/current/theme'
+        theme.mkdir(parents=True)
+        (theme / 'colors.toml').write_text('accent = "#123456"\nmagenta = "#abcdef"\nbackground = "#112233"\n')
+        self.run_helper('write', GUM_WRITE_HEADER_BACKGROUND='#008855')
+        self.assertIn('--cursor.foreground=#123456', self.args)
+        self.assertIn('--header.foreground=#abcdef', self.args)
+        self.assertIn('--header.background=#112233', self.args)
+        self.assertIn('--placeholder.foreground=#9E9E9E', self.args)
+        self.assertIn('\033[1;38;2;18;52;86mEnter', self.header())
+
+    def test_malformed_palette_retains_fallback(self):
+        theme = self.root / 'state/omarchy/current/theme'
+        theme.mkdir(parents=True)
+        (theme / 'colors.toml').write_text('accent = "oops"\nbackground = "$(touch BAD)"\n')
+        self.run_helper('input', GUM_INPUT_HEADER_BACKGROUND='#008855')
+        self.assertIn('--cursor.foreground=#66B3FF', self.args)
+        self.assertIn('--header.background=', self.args)
 
 
 if __name__ == '__main__':
