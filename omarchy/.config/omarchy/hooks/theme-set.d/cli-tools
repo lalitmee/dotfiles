@@ -21,3 +21,37 @@ if command -v tmux >/dev/null && tmux list-sessions >/dev/null 2>&1 && [[ -f "$t
         tmux source-file "$theme/tmux-personal.conf"
     fi
 fi
+
+# Sync active theme colors to Antigravity CLI / UI
+agy_state="${HOME}/.gemini/antigravity-cli/jetski_state.pbtxt"
+if [[ -f "$agy_state" && -f "$theme/pi.json" ]] && command -v python3 >/dev/null; then
+    python3 -c "
+import json, re, os
+state_file = os.path.expanduser('$agy_state')
+pi_file = os.path.expanduser('$theme/pi.json')
+if os.path.exists(state_file) and os.path.exists(pi_file):
+    with open(pi_file) as f:
+        pi = json.load(f)
+    v = pi.get('vars', {})
+    bg = v.get('background', '#193549')
+    primary = v.get('accent', '#ffc600')
+    fg = v.get('foreground', '#ffffff')
+    code_fg = v.get('color6', '#80fcff')
+    with open(state_file, 'r') as f:
+        content = f.read()
+    content = re.sub(r'theme_mode:\s*\w+\n?', '', content)
+    content = re.sub(r'custom_theme_seeds_dark\s*:\s*\{[^}]*\}\n?', '', content)
+    new_block = f'''theme_mode: THEME_MODE_DARK
+custom_theme_seeds_dark: {{
+  background: \"{bg}\"
+  primary: \"{primary}\"
+  foreground_override: \"{fg}\"
+  primary_foreground_override: \"{bg}\"
+  code_foreground_override: \"{code_fg}\"
+}}
+'''
+    content = content.rstrip() + '\n' + new_block
+    with open(state_file, 'w') as f:
+        f.write(content)
+" 2>/dev/null || true
+fi

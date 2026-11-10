@@ -1,3 +1,6 @@
+# Dynamic Omarchy theme
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+
 # custom-shader = shaders/cursor_smear_fade.glsl
 
 shell-integration = zsh
@@ -8,7 +11,7 @@ cursor-style = block
 background = #193549
 background-opacity = 0.7
 background-blur-radius = 20
-theme = Cobalt2
+# theme = Cobalt2
 adjust-cell-width = 0
 
 # font-family = IoskeleyMonoTerm Nerd Font Medium
@@ -19,7 +22,7 @@ font-family = MonoLisa Nerd Font
 # font-family = BlexMono Nerd Font Mono
 # font-family = JetBrainsMono Nerd Font
 # font-family = Iosevka Nerd Font
-font-size = 12
+font-size = 10
 
 gtk-titlebar = false
 gtk-tabs-location = bottom
