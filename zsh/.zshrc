@@ -19,14 +19,23 @@ fi
 # -------------------------------------------------------------------
 _not_inside_tmux() { [[ -z "$TMUX" ]]; }
 
-_skip_tmux_autostart() {
-    [[ -n "${REX_SESSION:-}" || \
+_inside_herdr() {
+    [[ -n "${HERDR_ENV:-}" || \
+       -n "${HERDR_PANE_ID:-}" || \
+       -n "${HERDR_SOCKET_PATH:-}" || \
+       -n "${HERDR_SESSION:-}" || \
+       -n "${HERDR_WORKSPACE_ID:-}" || \
+       -n "${HERDR_TAB_ID:-}" || \
        -n "${HC_TERMINAL_ID:-}" || \
        -n "${HC_TERMINAL_SOCKET:-}" || \
        -n "${HC_SCOPE:-}" || \
        "${__CFBundleIdentifier:-}" == "dev.herdr.app" || \
        "${XPC_SERVICE_NAME:-}" == application.dev.herdr.app* || \
        "${TERM_PROGRAM:-}" == *herdr* ]]
+}
+
+_skip_tmux_autostart() {
+    [[ -n "${REX_SESSION:-}" ]] || _inside_herdr
 }
 
 ensure_tmux_is_running() {
@@ -298,12 +307,7 @@ _show_startup_quote() {
     # Remove ourselves immediately so we only run once
     add-zsh-hook -d precmd _show_startup_quote
     # Keep Herdr terminals quiet; the quote command remains available manually.
-    if [[ -n "${HC_TERMINAL_ID:-}" || \
-          -n "${HC_TERMINAL_SOCKET:-}" || \
-          -n "${HC_SCOPE:-}" || \
-          "${__CFBundleIdentifier:-}" == "dev.herdr.app" || \
-          "${XPC_SERVICE_NAME:-}" == application.dev.herdr.app* || \
-          "${TERM_PROGRAM:-}" == *herdr* ]]; then
+    if _inside_herdr; then
         return 0
     fi
     if command -v quote &>/dev/null; then

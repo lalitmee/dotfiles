@@ -1,0 +1,17 @@
+# Deny by default: never collect Herdr runtime state or new files implicitly.
+/*
+!/.gitignore
+!/.stow-local-ignore
+!/README.md
+!/.config/
+/.config/*
+!/.config/herdr-app/
+/.config/herdr-app/*
+!/.config/herdr-app/settings.json
+!/.config/herdr-app/keys.json
+!/.config/herdr-app/layouts/
+!/.config/herdr-app/themes/
+/.config/herdr-app/layouts/*
+!/.config/herdr-app/layouts/main.json
+/.config/herdr-app/themes/*
+!/.config/herdr-app/themes/cobalt2.json
