@@ -75,6 +75,7 @@ tmux/.config/tmux/plugins/
 
 # Ghostty local overrides
 ghostty/.config/ghostty/config.local
+foot/.config/foot/config.local
 
 # Pi: track configuration only, never installed runtime or credentials
 /pi/.pi/agent/*

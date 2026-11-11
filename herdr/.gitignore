@@ -1,0 +1,10 @@
+# Deny by default; permit only reviewed configuration and package docs.
+/*
+!/.gitignore
+!/.stow-local-ignore
+!/README.md
+!/.config/
+/.config/*
+!/.config/herdr/
+/.config/herdr/*
+!/.config/herdr/config.toml

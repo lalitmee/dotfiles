@@ -6,5 +6,6 @@
   },
   "font_ligatures": false,
   "minimum_contrast": 1,
-  "font": "MonoLisa Nerd Font"
+  "font": "MonoLisa Nerd Font",
+  "font_size": 12
 }

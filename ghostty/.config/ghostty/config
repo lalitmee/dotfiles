@@ -22,6 +22,7 @@ font-family = MonoLisa Nerd Font
 # font-family = BlexMono Nerd Font Mono
 # font-family = JetBrainsMono Nerd Font
 # font-family = Iosevka Nerd Font
+# Shared fallback; set each machine's size in config.local.
 font-size = 10
 
 gtk-titlebar = false
