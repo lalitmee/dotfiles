@@ -31,6 +31,7 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | Tmux installer | Installer behavior | `zsh scripts/test/tmux/install.zsh` |
 | Tmux update checker | Update-check behavior | `zsh scripts/test/tmux/update-check.zsh` |
 | Native tmux config | Private-socket startup, baseline key identities/options, TPM bindings, status formats, and Cobalt2 colors | `zsh scripts/test/tmux/config.zsh` |
+| Truecolor detection | Real Gum RGB output for Foot/Ghostty terminal types inside/outside private tmux servers, with plain redirected output | `python3 scripts/test/tmux/truecolor.py` |
 | Message/command bar | Full-width background fill and command-mode style selection, with Cobalt2 and Omarchy palettes on a private socket | `python3 scripts/test/tmux/message-bar.py` |
 | Window index mover | Reorders windows to the typed index (others shift, indices stay contiguous), compacts existing gaps, follows the moved window, rejects invalid/out-of-range input | `zsh scripts/test/tmux/move-window-index.sh` |
 | Window switcher | Real tmux/fzf selection across linked sessions, no-match handling, column labels, and Escape cancellation on a private socket | `python3 scripts/test/tmux/window-switcher.py` |
