@@ -142,36 +142,25 @@ in one line and use the next-best option. Do not silently skip the step.
 - Start with the simplest solution and refine incrementally.
 
 <!-- context7 -->
-## Context7
+Use Context7 MCP to fetch current documentation whenever the user asks about a library, framework, SDK, API, CLI tool, or cloud service — even well-known ones like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This includes API syntax, configuration, version migration, porting code between libraries, platforms, or SQL dialects, library-specific debugging, setup instructions, and CLI tool usage. Use even when you think you know the answer — your training data may not reflect recent changes. Prefer this over web search for library docs.
 
-Use Context7 MCP to fetch current documentation whenever the user asks about a
-library, framework, SDK, API, CLI tool, or cloud service, even well-known ones
-like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This
-includes API syntax, configuration, version migration, porting code between
-libraries, platforms, or SQL dialects, library-specific debugging, setup
-instructions, and CLI tool usage. Use even when you think you know the answer,
-since your training data may not reflect recent changes. Prefer this over web
-search for library docs.
+Do not use for: refactoring, debugging, or reviewing code that does not depend on a library or platform API, or general programming concepts.
 
-Do not use for: refactoring, debugging, or reviewing code that does not depend
-on a library or platform API, or general programming concepts.
+## Steps
 
-### Steps
+1. Always start with `resolve-library-id` using the library name and what to look up in the library's documentation, unless the user provides an exact library ID in `/org/project` format
+2. Pick the best match (ID format: `/org/project`) by: exact name match, description relevance, code snippet count, source reputation (High/Medium preferred), and benchmark score (higher is better). If results don't look right, try alternate names or queries (e.g., "next.js" not "nextjs", or rephrase the question). Use version-specific IDs when the user mentions a version
+3. `query-docs` with the selected library ID and what to look up in the library's documentation (not single words), scoped to a single concept. If the question spans multiple distinct concepts (e.g. routing and auth and caching), make a separate `query-docs` call per concept with the same library ID, unless the question is about how the concepts interact — combined queries dilute ranking and return shallow results for each topic
+4. Answer using the fetched docs
 
-1. Always start with `resolve-library-id` using the library name and what to
-   look up in the library's documentation, unless the user provides an exact
-   library ID in `/org/project` format.
-2. Pick the best match (ID format: `/org/project`) by: exact name match,
-   description relevance, code snippet count, source reputation (High/Medium
-   preferred), and benchmark score (higher is better). If results don't look
-   right, try alternate names or queries (e.g., "next.js" not "nextjs", or
-   rephrase the question). Use version-specific IDs when the user mentions a
-   version.
-3. `query-docs` with the selected library ID and what to look up in the
-   library's documentation (not single words), scoped to a single concept. If
-   the question spans multiple distinct concepts (e.g. routing and auth and
-   caching), make a separate `query-docs` call per concept with the same library
-   ID, unless the question is about how the concepts interact. Combined queries
-   dilute ranking and return shallow results for each topic.
-4. Answer using the fetched docs.
+## Library source code
+
+If the `query-code` tool is available, use it when the docs do not answer an exact question: a signature or type, a default value, an option name, where an error message comes from, or how something works inside.
+
+- Use a library ID that `resolve-library-id` marks with "Source code", usually the GitHub repository (e.g. `/colinhacks/zod`). `/websites/...` and `/llmstxt/...` IDs have no source
+- Start with `grep` (set `fixed_strings` for error messages) or `definition` for a symbol, then `read` the file range in the result's "Next:" line
+- For a version, pass its git tag in `version` (e.g. `v3.24.2`)
+- Most questions need 1 to 4 `query-code` calls; stop at 6
+- If it answers "being indexed", retry at most twice, then answer from `query-docs`
+- Cite the file and line of the source you used
 <!-- context7 -->
