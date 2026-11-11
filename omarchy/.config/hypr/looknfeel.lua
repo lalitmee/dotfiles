@@ -1,6 +1,8 @@
 -- Change the default Omarchy look'n'feel.
 
--- Opt another application in to Omarchy's standard transparency.
+-- Float the Espanso Wayland sync tool dummy window so it doesn't split tiled windows
+o.window({ title = "^(Espanso Sync Tool)$" }, { float = true })
+
 -- Find its class with: hyprctl clients
 -- o.transparent_window("my-app")
 -- o.transparent_window("my-app", "0.9 0.85") -- Custom active/inactive opacity.
