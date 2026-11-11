@@ -1,0 +1,51 @@
+# Palette: lalitmee/cobalt2.nvim, lua/cobalt2/palette.lua (MIT).
+panel_bg = "#193549"
+bg_highlight = "#0050a4"
+fg_primary = "#ffffff"
+fg_secondary = "#8fbfdc"
+fg_dim = "#668799"
+
+diff_add = "#3ad900"
+diff_add_bg = "#2d7067"
+diff_del = "#ff628c"
+diff_del_bg = "#700009"
+diff_context = "#ffffff"
+diff_hunk_header = "#00aaff"
+expanded_context_fg = "#668799"
+
+syntax_add_bg = "#2d7067"
+syntax_del_bg = "#700009"
+syntax_theme = "cobalt2.tmTheme"
+
+file_added = "#3ad900"
+file_modified = "#ffc600"
+file_deleted = "#ff628c"
+file_renamed = "#967efb"
+
+reviewed = "#3ad900"
+pending = "#ffc600"
+
+comment_note = "#00aaff"
+comment_suggestion = "#80fcff"
+comment_issue = "#ff628c"
+comment_praise = "#3ad900"
+
+border_focused = "#ffc600"
+border_unfocused = "#668799"
+status_bar_bg = "#1c1c1c"
+cursor_color = "#ffc600"
+cursor_line_bg = "#0d3a58"
+branch_name = "#967efb"
+help_indicator = "#8fbfdc"
+
+message_info_fg = "#193549"
+message_info_bg = "#00aaff"
+message_warning_fg = "#193549"
+message_warning_bg = "#ffc600"
+message_error_fg = "#193549"
+message_error_bg = "#ff628c"
+update_badge_fg = "#193549"
+update_badge_bg = "#ffc600"
+
+mode_fg = "#193549"
+mode_bg = "#ffc600"

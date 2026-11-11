@@ -36,7 +36,7 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | Window index mover | Reorders windows to the typed index (others shift, indices stay contiguous), compacts existing gaps, follows the moved window, rejects invalid/out-of-range input | `zsh scripts/test/tmux/move-window-index.sh` |
 | Window switcher | Real tmux/fzf selection across linked sessions, no-match handling, column labels, and Escape cancellation on a private socket | `python3 scripts/test/tmux/window-switcher.py` |
 | Keybinding search | Cold startup, literal source lookup, aligned counts/colors, width-limited entry-key wrapping, real-fzf Ctrl-T browsing, continuation-row drill-down, and Shift-Tab return | `python3 scripts/test/tmux/search-keybindings.py` |
-| AI window launcher | Multiline input, empty/direct names, naming handoff to one reusable window, 20-second naming fallback, prompt delivery guard, and tmux status | `zsh scripts/test/tmux/ai/launcher.zsh` |
+| AI window launcher | Multiline input, empty/direct names, naming handoff to one reusable window, isolated-server window-switch regression, 20-second naming fallback, prompt delivery guard, and tmux status | `zsh scripts/test/tmux/ai/launcher.zsh` |
 | AI update launcher | Restores stderr after prompt setup in automatic, interactive, and default update modes | `python3 scripts/test/tmux/ai/update-launch.py` |
 | AI update spinner | Full-width temporary progress box and command exit status | `TMUX= zsh scripts/test/tmux/ai/update-spinner.zsh` |
 
@@ -63,6 +63,10 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 | Node global packages sync (specific version) | Installs all packages for a given fnm-managed Node version | `zsh scripts/node/sync-global-packages.zsh --version 22` |
 
 ## Validators and security checks
+
+- tuicr theme selection, argument forwarding, fallback and safe/idempotent hook:
+  `python3 scripts/test/config/tuicr-theme.py`. Also validates native template
+  rendering when the local Omarchy renderer is installed.
 
 | Target | Behavior covered | Command |
 |---|---|---|

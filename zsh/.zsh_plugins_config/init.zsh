@@ -1,3 +1,4 @@
 source $HOME/.zsh_plugins_config/zsh-vi-mode.zsh
 source $HOME/.zsh_plugins_config/zoxide.zsh
 source $HOME/.zsh_plugins_config/gum.zsh
+[[ -f "$HOME/.zsh_plugins_config/tuicr.zsh" ]] && source "$HOME/.zsh_plugins_config/tuicr.zsh"

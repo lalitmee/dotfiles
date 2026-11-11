@@ -118,7 +118,7 @@ fi
 # Quote each argument for the interactive shell rather than evaluating input as code.
 command_line="${(j: :)${(@q)COMMAND}}"
 if $run_in_window; then
-    tmux rename-window "$title"
+    tmux rename-window -t "$TMUX_PANE" "$title"
     tmux display-message "AI $TOOL: $naming_status"
     exec "$SHELL" -i -c "$command_line"
 fi

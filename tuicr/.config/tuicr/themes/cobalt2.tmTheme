@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>name</key>
+    <string>Cobalt2</string>
+    <key>comment</key>
+    <string>Palette and syntax mappings from lalitmee/cobalt2.nvim (MIT), copyright Lalit Kumar.</string>
+    <key>settings</key>
+    <array>
+        <dict>
+            <key>settings</key>
+            <dict>
+                <key>background</key><string>#193549</string>
+                <key>foreground</key><string>#FFFFFF</string>
+                <key>caret</key><string>#FFC600</string>
+                <key>selection</key><string>#0050A4</string>
+                <key>lineHighlight</key><string>#0D3A58</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>comment</string>
+            <key>settings</key><dict><key>foreground</key><string>#0088FF</string><key>fontStyle</key><string>italic</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>string</string>
+            <key>settings</key><dict><key>foreground</key><string>#88FF88</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>constant</string>
+            <key>settings</key><dict><key>foreground</key><string>#88FF88</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>keyword</string>
+            <key>settings</key><dict><key>foreground</key><string>#80FCFF</string><key>fontStyle</key><string>italic</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>storage</string>
+            <key>settings</key><dict><key>foreground</key><string>#FF9D00</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>entity.name.function, support.function</string>
+            <key>settings</key><dict><key>foreground</key><string>#EE80E1</string><key>fontStyle</key><string>italic</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>entity.name.type, entity.name.class</string>
+            <key>settings</key><dict><key>foreground</key><string>#FFC600</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>support.type</string>
+            <key>settings</key><dict><key>foreground</key><string>#FFC600</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>variable</string>
+            <key>settings</key><dict><key>foreground</key><string>#FF9A00</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>variable.language</string>
+            <key>settings</key><dict><key>foreground</key><string>#EE80E1</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>constant.numeric, constant.language, constant.character</string>
+            <key>settings</key><dict><key>foreground</key><string>#FF628C</string></dict>
+        </dict>
+        <dict>
+            <key>scope</key><string>invalid</string>
+            <key>settings</key><dict><key>foreground</key><string>#FF628C</string></dict>
+        </dict>
+    </array>
+</dict>
+</plist>

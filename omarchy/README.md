@@ -76,6 +76,15 @@ formats need palette-aware adaptation when migrating the full tmux setup.
 Do not edit generated files: Omarchy replaces them on theme changes. Existing
 bat/delta processes retain their colors; new invocations use the new palette.
 
+## tuicr
+
+Stow `tuicr` and `zsh` alongside this package. The `tuicr.toml` template and
+`theme-set.d/tuicr` hook supply the current Omarchy UI and shared syntax palette.
+The Zsh `tuicr` function selects it on invocation; without the generated theme,
+the portable Cobalt2 default applies. Explicit `--theme` choices win.
+Reopen tuicr after switching themes. Non-Zsh launches retain Cobalt2 unless
+`--theme omarchy` is supplied. See `tuicr/README.md`.
+
 ## Full personal tmux migration
 
 The `tmux` package uses Ctrl+A as its prefix and starts Zsh in new panes.

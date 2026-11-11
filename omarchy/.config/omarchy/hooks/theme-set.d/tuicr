@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+theme="${XDG_STATE_HOME:-$HOME/.local/state}/omarchy/current/theme"
+target="${XDG_CONFIG_HOME:-$HOME/.config}/tuicr/themes"
+[[ -f "$theme/tuicr.toml" && -f "$theme/Omarchy.tmTheme" ]] || exit 0
+mkdir -p "$target"
+for name in omarchy.toml Omarchy.tmTheme; do
+    if [[ -e "$target/$name" && ! -L "$target/$name" ]]; then
+        echo "Refusing to overwrite $target/$name" >&2
+        exit 1
+    fi
+done
+ln -sfn "$theme/Omarchy.tmTheme" "$target/Omarchy.tmTheme"
+ln -sfn "$theme/tuicr.toml" "$target/omarchy.toml"

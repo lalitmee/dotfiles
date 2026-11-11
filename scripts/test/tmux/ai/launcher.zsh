@@ -5,7 +5,7 @@ repo=${0:A:h:h:h:h:h}
 script="$repo/tmux/.config/tmux/scripts/popup/ai/tool.sh"
 [[ -x "$script" ]] || { print -u2 'AI launcher must be executable by tmux'; exit 1; }
 tmp=$(mktemp -d /tmp/opencode/ai-launcher.XXXXXX)
-trap 'rm -rf "$tmp"' EXIT
+trap '[[ -z ${REAL_TMUX_SOCKET:-} ]] || /usr/bin/tmux -S "$REAL_TMUX_SOCKET" kill-server; rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/bin"
 cat > "$tmp/bin/fzf" <<'EOF'
 #!/usr/bin/env zsh
@@ -23,6 +23,9 @@ esac
 EOF
 cat > "$tmp/bin/tmux" <<'EOF'
 #!/usr/bin/env zsh
+if [[ -n ${REAL_TMUX_SOCKET:-} ]]; then
+    exec /usr/bin/tmux -S "$REAL_TMUX_SOCKET" "$@"
+fi
 print -r -- "$*" >> "$LOG"
 if [[ "$1" == new-window && "${@[-1]}" == *'--run'* ]]; then
     /bin/zsh -c "${@[-1]}"
@@ -31,6 +34,7 @@ EOF
 cat > "$tmp/bin/agent-shell" <<'EOF'
 #!/usr/bin/env zsh
 print -r -- "agent-shell $*" >> "$LOG"
+[[ -z ${REAL_TMUX_SOCKET:-} ]] || tmux wait-for -S naming-done
 EOF
 cat > "$tmp/bin/tput" <<'EOF'
 #!/usr/bin/env zsh
@@ -47,6 +51,11 @@ cat > "$tmp/bin/opencode" <<'EOF'
 print -r -- "opencode $*" >> "$LOG"
 [[ "$*" == *'--model openai/gpt-6-luna#high --agent plan'* ]] || { print -u2 'invalid OpenCode naming arguments'; exit 1; }
 [[ "$NAMER" == invalid ]] && { print 'this output has too many words'; exit 0; }
+if [[ "$NAMER" == switched ]]; then
+    tmux select-window -t regression:other
+    print -r -- 'fix-login-flow'
+    exit 0
+fi
 [[ "$NAMER" == opencode ]] && print -r -- 'fix-login-flow' || exit 1
 EOF
 cat > "$tmp/bin/codex" <<'EOF'
@@ -70,6 +79,7 @@ shift 2
 EOF
 chmod +x "$tmp/bin/"*
 export HOME="$tmp" XDG_STATE_HOME="$tmp/state" SHELL="$tmp/bin/agent-shell"
+export TMUX_PANE='%42'
 export PATH="$tmp/bin:$repo/bin/.config/bin:/usr/bin:/bin" LOG="$tmp/log" INPUT ACTION NAMER
 
 check() {
@@ -86,7 +96,7 @@ if grep -F -- '--no-show-help' "$LOG" >/dev/null; then
 fi
 grep -F -- '--cursor-line.background= --cursor-line.foreground=#FFFFFF' "$LOG" >/dev/null
 INPUT='Fix Login Flow' ACTION='✏️ Use as name' NAMER='' check codex 'new-window -n 🧬 fix-login-flow'
-INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy check codex 'rename-window 🧬 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy check codex 'rename-window -t %42 🧬 fix-login-flow'
 [[ $(grep -n '^new-window' "$LOG" | cut -d: -f1) -lt $(grep -n '^spin ' "$LOG" | head -1 | cut -d: -f1) ]]
 [[ $(grep -c '^new-window' "$LOG") == 1 ]]
 [[ $(grep -c '^write ' "$LOG") == 1 ]]
@@ -100,12 +110,12 @@ grep -F 'agy --mode plan --model gemini-3.8-flash-medium --effort medium' "$LOG"
 grep -F -- '--padding=9 0 0 30' "$LOG" >/dev/null
 INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy zsh "$script" codex 2> "$tmp/spinner"
 grep -F 'Naming spinner visible' "$tmp/spinner" >/dev/null
-INPUT='Fix the login flow when the token expires' ACTION='✨ Generate name' NAMER=opencode check pi 'rename-window 🥧 fix-login-flow'
+INPUT='Fix the login flow when the token expires' ACTION='✨ Generate name' NAMER=opencode check pi 'rename-window -t %42 🥧 fix-login-flow'
 grep -F 'timeout --kill-after=1s 20s opencode run' "$LOG" >/dev/null
-INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=codex check pi 'rename-window 🥧 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=codex check pi 'rename-window -t %42 🥧 fix-login-flow'
 grep -F 'display-message AI naming: opencode failed (exit 1); trying next backend' "$LOG" >/dev/null
 [[ "$(grep -E '^(opencode|codex) ' "$LOG" | awk '{print $1}' | tr '\n' ' ')" == 'opencode codex ' ]]
-INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=pi check pi 'rename-window 🥧 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=pi check pi 'rename-window -t %42 🥧 fix-login-flow'
 [[ "$(grep -E '^(opencode|codex|pi) ' "$LOG" | awk '{print $1}' | tr '\n' ' ')" == 'opencode codex pi ' ]]
 INPUT=$'Long prompt\nwith another line' ACTION='✨ Generate name' NAMER=slow check pi 'new-window -n 🥧 pi'
 grep -F -- 'timeout --kill-after=1s 20s opencode run' "$LOG" >/dev/null
@@ -118,11 +128,28 @@ INPUT='Fix the login flow when the token expires' ACTION='💬 Generate name and
 grep -F 'Fix the login flow when the token expires' "$LOG" >/dev/null
 grep -F 'display-message AI codex: naming failed; using agent name' "$LOG" >/dev/null
 INPUT=$'Fix "login"; $(false)\nkeep $HOME literal'
-ACTION='💬 Generate name and send prompt' NAMER=opencode check codex 'rename-window 🧬 fix-login-flow'
+ACTION='💬 Generate name and send prompt' NAMER=opencode check codex 'rename-window -t %42 🧬 fix-login-flow'
 grep -F -- "agent-shell -i -c codex ${(q)INPUT}" "$LOG" >/dev/null
 [[ $(grep -c '^new-window' "$LOG") == 1 ]]
 : > "$LOG"
 INPUT='Fix login' ACTION='💬 Generate name and send prompt' NAMER=agy zsh "$script" crush && exit 1
 grep -F 'does not have a verified initial-prompt invocation' "$LOG" >/dev/null
 ! grep -F 'new-window' "$LOG" >/dev/null
+
+# Use a real server: the naming backend switches away before returning its name.
+export REAL_TMUX_SOCKET="$tmp/tmux.sock" NAMER=switched
+TMUX= tmux -f /dev/null new-session -d -s regression -n other /bin/sleep 30
+tmux set-option -g remain-on-exit on
+tmux set-option -g default-shell /bin/zsh
+continuation=(env "SHELL=$SHELL" zsh "$script" --run codex 'Fix Login Flow' '✨ Generate name')
+window_id=$(tmux new-window -P -F '#{window_id}' -n naming "${(j: :)${(@q)continuation}}")
+/usr/bin/timeout 10 tmux wait-for naming-done || {
+    tmux capture-pane -p -t "$window_id"
+    exit 1
+}
+[[ $(tmux display-message -p -t regression:other '#{window_name}') == other ]] || {
+    print -u2 'naming renamed the selected window instead of the agent window'
+    exit 1
+}
+[[ $(tmux display-message -p -t "$window_id" '#{window_name}') == '🧬 fix-login-flow' ]]
 print 'ai launcher checks passed'
