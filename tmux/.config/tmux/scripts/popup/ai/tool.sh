@@ -3,6 +3,11 @@
 # Launch an AI tool in a named tmux window from the AI tools popup.
 set -e
 
+run_in_window=false
+if [[ "$1" == --run ]]; then
+    run_in_window=true
+    shift
+fi
 TOOL=$1
 case "$TOOL" in
     agy) ICON='🚀'; DEFAULT_NAME='antigravity'; COMMAND=(agy --dangerously-skip-permissions) ;;
@@ -24,21 +29,28 @@ if ! command -v gum >/dev/null 2>&1; then
 fi
 source "${commands[gum-input]:A:h}/gum-theme.sh"
 
-description=$(gum write --header='Task description or window name (submit empty to skip)' --placeholder='Enter your prompt...' --width=0 --height=6 --char-limit=0 \
-    --cursor-line.background="$gum_background" --cursor-line.foreground="$gum_foreground") || exit 0
+if $run_in_window; then
+    description=$2
+    action=$3
+else
+    description=$(gum write --header='Task description or window name (submit empty to skip)' --placeholder='Enter your prompt...' --width=0 --height=6 --char-limit=0 \
+        --cursor-line.background="$gum_background" --cursor-line.foreground="$gum_foreground") || exit 0
+    action=''
+fi
 title="$ICON $DEFAULT_NAME"
 naming_status='default name'
-action=''
 
 if [[ -n ${description//[[:space:]]/} ]]; then
-    source "${0:A:h}/../../lib/popup-style.sh"
-    action=$(gum filter --header=$'How should this text be used?\n'"$(popup_hints 'Enter:select' 'Esc:cancel')" \
-        --no-show-help --header.foreground="$gum_label" \
-        --text.foreground="$gum_foreground" --cursor-text.foreground="$gum_value" \
-        --cursor-text.background="$gum_selection" --indicator.foreground="$gum_accent" \
-        --prompt.foreground="$gum_accent" --placeholder.foreground="$gum_muted" \
-        --match.foreground="$gum_value" \
-        '✏️ Use as name' '✨ Generate name' '💬 Generate name and send prompt') || exit 0
+    if ! $run_in_window; then
+        source "${0:A:h}/../../lib/popup-style.sh"
+        action=$(gum filter --header=$'How should this text be used?\n'"$(popup_hints 'Enter:select' 'Esc:cancel')" \
+            --no-show-help --header.foreground="$gum_label" \
+            --text.foreground="$gum_foreground" --cursor-text.foreground="$gum_value" \
+            --cursor-text.background="$gum_selection" --indicator.foreground="$gum_accent" \
+            --prompt.foreground="$gum_accent" --placeholder.foreground="$gum_muted" \
+            --match.foreground="$gum_value" \
+            '✏️ Use as name' '✨ Generate name' '💬 Generate name and send prompt') || exit 0
+    fi
 
     if [[ "$action" == '💬 Generate name and send prompt' ]]; then
         case "$TOOL" in
@@ -56,6 +68,12 @@ if [[ -n ${description//[[:space:]]/} ]]; then
             naming_status="named $slug"
         fi
     else
+        if ! $run_in_window; then
+            # Continue outside the popup before any slow naming backend runs.
+            continuation=(zsh "${0:A}" --run "$TOOL" "$description" "$action")
+            tmux new-window -n "$title" -c '#{pane_current_path}' "${(j: :)${(@q)continuation}}"
+            exit $?
+        fi
         naming_prompt="Return ONLY a lowercase, hyphen-separated window name of 2 or 3 English words, using a-z and 0-9 only. No explanation. Task: $description"
         for namer in opencode codex pi agy; do
             command -v "$namer" >/dev/null 2>&1 || continue
@@ -99,5 +117,10 @@ fi
 
 # Quote each argument for the interactive shell rather than evaluating input as code.
 command_line="${(j: :)${(@q)COMMAND}}"
+if $run_in_window; then
+    tmux rename-window "$title"
+    tmux display-message "AI $TOOL: $naming_status"
+    exec "$SHELL" -i -c "$command_line"
+fi
 tmux new-window -n "$title" -c '#{pane_current_path}' "$SHELL" -i -c "$command_line"
 tmux display-message "AI $TOOL: $naming_status"

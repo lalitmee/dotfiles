@@ -1,5 +1,5 @@
 {
-  "theme": "cobalt2",
+  "theme": "system",
   "skills": [
     "~/.agents/skills"
   ],
@@ -26,6 +26,8 @@
     "maxRetries": 3
   },
   "defaultProvider": "openai",
-  "defaultModel": "gpt-6-luna",
-  "hideThinkingBlock": false
+  "defaultModel": "gpt-6.1-sol",
+  "hideThinkingBlock": false,
+  "lastChangelogVersion": "1.5.2",
+  "deviceId": "c69df251-62ef-4b08-9cb1-063141778bb5"
 }

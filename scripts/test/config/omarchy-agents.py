@@ -82,6 +82,9 @@ with tempfile.TemporaryDirectory(prefix="agent-configs-", dir="/tmp/opencode") a
     assert "deviceId" not in pi and "lastChangelogVersion" not in pi
     assert all(server["enabled"] is True for server in mcp["mcpServers"].values())
     opencode = json.loads((home / ".config/opencode/opencode.json").read_text())
+    assert "./integrations/workmux-status" not in opencode["plugins"]
+    assert not (home / ".config/opencode/integrations/workmux-status").exists()
+    assert not (home / ".config/opencode/plugins/herdr-agent-state.js").exists()
     assert all(server.get("disabled", False) is False for server in opencode["mcp"]["servers"].values())
     antigravity = json.loads((home / ".gemini/antigravity-cli/settings.json").read_text())
     antigravity_mcp = json.loads((home / ".gemini/config/mcp_config.json").read_text())["mcpServers"]

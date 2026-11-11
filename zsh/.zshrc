@@ -297,6 +297,15 @@ fi
 _show_startup_quote() {
     # Remove ourselves immediately so we only run once
     add-zsh-hook -d precmd _show_startup_quote
+    # Keep Herdr terminals quiet; the quote command remains available manually.
+    if [[ -n "${HC_TERMINAL_ID:-}" || \
+          -n "${HC_TERMINAL_SOCKET:-}" || \
+          -n "${HC_SCOPE:-}" || \
+          "${__CFBundleIdentifier:-}" == "dev.herdr.app" || \
+          "${XPC_SERVICE_NAME:-}" == application.dev.herdr.app* || \
+          "${TERM_PROGRAM:-}" == *herdr* ]]; then
+        return 0
+    fi
     if command -v quote &>/dev/null; then
         quote
     fi

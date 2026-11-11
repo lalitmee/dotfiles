@@ -24,6 +24,13 @@ EOF
 cat > "$tmp/bin/tmux" <<'EOF'
 #!/usr/bin/env zsh
 print -r -- "$*" >> "$LOG"
+if [[ "$1" == new-window && "${@[-1]}" == *'--run'* ]]; then
+    /bin/zsh -c "${@[-1]}"
+fi
+EOF
+cat > "$tmp/bin/agent-shell" <<'EOF'
+#!/usr/bin/env zsh
+print -r -- "agent-shell $*" >> "$LOG"
 EOF
 cat > "$tmp/bin/tput" <<'EOF'
 #!/usr/bin/env zsh
@@ -62,7 +69,7 @@ shift 2
 "$@"
 EOF
 chmod +x "$tmp/bin/"*
-export HOME="$tmp" XDG_STATE_HOME="$tmp/state" SHELL=/bin/zsh
+export HOME="$tmp" XDG_STATE_HOME="$tmp/state" SHELL="$tmp/bin/agent-shell"
 export PATH="$tmp/bin:$repo/bin/.config/bin:/usr/bin:/bin" LOG="$tmp/log" INPUT ACTION NAMER
 
 check() {
@@ -79,7 +86,11 @@ if grep -F -- '--no-show-help' "$LOG" >/dev/null; then
 fi
 grep -F -- '--cursor-line.background= --cursor-line.foreground=#FFFFFF' "$LOG" >/dev/null
 INPUT='Fix Login Flow' ACTION='✏️ Use as name' NAMER='' check codex 'new-window -n 🧬 fix-login-flow'
-INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy check codex 'new-window -n 🧬 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy check codex 'rename-window 🧬 fix-login-flow'
+[[ $(grep -n '^new-window' "$LOG" | cut -d: -f1) -lt $(grep -n '^spin ' "$LOG" | head -1 | cut -d: -f1) ]]
+[[ $(grep -c '^new-window' "$LOG") == 1 ]]
+[[ $(grep -c '^write ' "$LOG") == 1 ]]
+grep -F 'agent-shell -i -c codex' "$LOG" >/dev/null
 grep -F 'display-message AI codex: named fix-login-flow via agy' "$LOG" >/dev/null
 grep -F 'opencode run --model openai/gpt-6-luna#high --agent plan' "$LOG" >/dev/null
 grep -F 'codex exec --ephemeral --sandbox read-only --model gpt-6-luna --config model_reasoning_effort="high"' "$LOG" >/dev/null
@@ -89,12 +100,12 @@ grep -F 'agy --mode plan --model gemini-3.8-flash-medium --effort medium' "$LOG"
 grep -F -- '--padding=9 0 0 30' "$LOG" >/dev/null
 INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=agy zsh "$script" codex 2> "$tmp/spinner"
 grep -F 'Naming spinner visible' "$tmp/spinner" >/dev/null
-INPUT='Fix the login flow when the token expires' ACTION='✨ Generate name' NAMER=opencode check pi 'new-window -n 🥧 fix-login-flow'
+INPUT='Fix the login flow when the token expires' ACTION='✨ Generate name' NAMER=opencode check pi 'rename-window 🥧 fix-login-flow'
 grep -F 'timeout --kill-after=1s 20s opencode run' "$LOG" >/dev/null
-INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=codex check pi 'new-window -n 🥧 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=codex check pi 'rename-window 🥧 fix-login-flow'
 grep -F 'display-message AI naming: opencode failed (exit 1); trying next backend' "$LOG" >/dev/null
 [[ "$(grep -E '^(opencode|codex) ' "$LOG" | awk '{print $1}' | tr '\n' ' ')" == 'opencode codex ' ]]
-INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=pi check pi 'new-window -n 🥧 fix-login-flow'
+INPUT='Fix Login Flow' ACTION='✨ Generate name' NAMER=pi check pi 'rename-window 🥧 fix-login-flow'
 [[ "$(grep -E '^(opencode|codex|pi) ' "$LOG" | awk '{print $1}' | tr '\n' ' ')" == 'opencode codex pi ' ]]
 INPUT=$'Long prompt\nwith another line' ACTION='✨ Generate name' NAMER=slow check pi 'new-window -n 🥧 pi'
 grep -F -- 'timeout --kill-after=1s 20s opencode run' "$LOG" >/dev/null
@@ -106,6 +117,10 @@ grep -F 'display-message AI naming: opencode returned an invalid name; trying ne
 INPUT='Fix the login flow when the token expires' ACTION='💬 Generate name and send prompt' NAMER='' check codex 'new-window -n 🧬 codex'
 grep -F 'Fix the login flow when the token expires' "$LOG" >/dev/null
 grep -F 'display-message AI codex: naming failed; using agent name' "$LOG" >/dev/null
+INPUT=$'Fix "login"; $(false)\nkeep $HOME literal'
+ACTION='💬 Generate name and send prompt' NAMER=opencode check codex 'rename-window 🧬 fix-login-flow'
+grep -F -- "agent-shell -i -c codex ${(q)INPUT}" "$LOG" >/dev/null
+[[ $(grep -c '^new-window' "$LOG") == 1 ]]
 : > "$LOG"
 INPUT='Fix login' ACTION='💬 Generate name and send prompt' NAMER=agy zsh "$script" crush && exit 1
 grep -F 'does not have a verified initial-prompt invocation' "$LOG" >/dev/null
