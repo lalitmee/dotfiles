@@ -33,6 +33,8 @@ with tempfile.TemporaryDirectory() as tmp:
             fmt = tmux('show-option', '-gqv', 'message-format')
             assert f'fill={accent}' in normal, (name, normal)
             assert f'fill={background}' in command, (name, command)
+            assert 'bold' in normal.split(','), (name, normal)
+            assert 'bold' in command.split(','), (name, command)
             assert '#[width=100%]' in fmt, (name, fmt)
             assert 'command_prompt' in fmt and 'message-command-style' in fmt, (name, fmt)
     finally:

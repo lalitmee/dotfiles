@@ -240,54 +240,51 @@ return {
         opts = {},
     },
 
-    -- Windsurf AI completion integration
+    -- Supermaven AI inline completion
     {
-        "Exafunction/windsurf.vim",
-        event = "BufEnter",
-        init = function()
-            -- Disable default keybindings so we can map them customly
-            vim.g.codeium_disable_bindings = 1
-        end,
-        config = function()
-            -- Disable by default and enable for specific programming languages
-            vim.g.codeium_filetypes_disabled_by_default = true
-            vim.g.codeium_filetypes = {
-                c = true,
-                cpp = true,
-                gitcommit = true,
-                go = true,
-                javascript = true,
-                javascriptreact = true,
-                lua = true,
-                python = true,
-                rust = true,
-                typescript = true,
-                typescriptreact = true,
-                vim = true,
-                yaml = true,
-            }
+        "supermaven-inc/supermaven-nvim",
+        event = "InsertEnter",
+        cmd = {
+            "SupermavenStart",
+            "SupermavenStop",
+            "SupermavenRestart",
+            "SupermavenToggle",
+            "SupermavenStatus",
+            "SupermavenUseFree",
+            "SupermavenUsePro",
+            "SupermavenLogout",
+            "SupermavenShowLog",
+            "SupermavenClearLog",
+        },
+        opts = {
+            keymaps = {
+                accept_suggestion = nil, -- Handled via blink.cmp <Tab>
+                clear_suggestion = "<C-x>",
+                accept_word = "<C-j>",
+            },
+            ignore_filetypes = {
+                snacks_picker = true,
+                snacks_input = true,
+                TelescopePrompt = true,
+                minifiles = true,
+            },
+            color = {
+                suggestion_color = "#8a8a8a",
+                cterm = 244,
+            },
+            log_level = "off",
+            disable_inline_completion = false,
+        },
+        config = function(_, opts)
+            require("supermaven-nvim").setup(opts)
 
-            -- Custom keymaps: <Tab> accepts the suggestion (blink.cmp's Tab
-            -- fallback chains to this global mapping), <C-g> is a backup accept
-            vim.keymap.set("i", "<Tab>", function()
-                return vim.fn["codeium#Accept"]()
-            end, { expr = true, silent = true, desc = "Windsurf: Accept suggestion" })
-
+            -- Backup accept keymap matching previous workflow
             vim.keymap.set("i", "<C-g>", function()
-                return vim.fn["codeium#Accept"]()
-            end, { expr = true, silent = true, desc = "Windsurf: Accept suggestion" })
-
-            vim.keymap.set("i", "<C-;>", function()
-                return vim.fn["codeium#CycleCompletions"](1)
-            end, { expr = true, silent = true, desc = "Windsurf: Next suggestion" })
-
-            vim.keymap.set("i", "<C-,>", function()
-                return vim.fn["codeium#CycleCompletions"](-1)
-            end, { expr = true, silent = true, desc = "Windsurf: Prev suggestion" })
-
-            vim.keymap.set("i", "<C-x>", function()
-                return vim.fn["codeium#Clear"]()
-            end, { expr = true, silent = true, desc = "Windsurf: Clear suggestion" })
+                local ok, suggestion = pcall(require, "supermaven-nvim.completion_preview")
+                if ok and suggestion.has_suggestion() then
+                    suggestion.on_accept_suggestion()
+                end
+            end, { desc = "Supermaven: Accept suggestion" })
         end,
     },
 }

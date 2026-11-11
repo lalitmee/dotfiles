@@ -14,7 +14,12 @@ return {
                 preset = "default",
                 ["<Tab>"] = {
                     "snippet_forward",
-                    function() -- if you are using Neovim's native inline completions
+                    function()
+                        local ok, suggestion = pcall(require, "supermaven-nvim.completion_preview")
+                        if ok and suggestion.has_suggestion() then
+                            suggestion.on_accept_suggestion()
+                            return true
+                        end
                         if vim.lsp.inline_completion then
                             return vim.lsp.inline_completion.get()
                         end

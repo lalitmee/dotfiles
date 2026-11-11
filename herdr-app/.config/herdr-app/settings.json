@@ -1,11 +1,11 @@
 {
-  "theme": "cobalt2",
-  "zoom": 1,
+  "zoom": 1.1,
   "sounds": {
     "enabled": true
   },
-  "font_ligatures": false,
-  "minimum_contrast": 1,
   "font": "MonoLisa Nerd Font",
-  "font_size": 12
+  "font_size": 12.0,
+  "font_ligatures": false,
+  "minimum_contrast": 1.0,
+  "theme": "cobalt2"
 }

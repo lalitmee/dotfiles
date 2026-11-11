@@ -1,7 +1,7 @@
 # Palette overlay only: preserve bindings, status layout, and plugin settings.
 set -g status-style "fg={{ foreground }},bg={{ background }}"
-set -g message-style "fg={{ background }},bg={{ accent }},fill={{ accent }}"
-set -g message-command-style "fg={{ accent }},bg={{ background }},fill={{ background }}"
+set -g message-style "fg={{ background }},bg={{ accent }},bold,fill={{ accent }}"
+set -g message-command-style "fg={{ accent }},bg={{ background }},bold,fill={{ background }}"
 set -g pane-border-style "fg={{ muted }}"
 set -g pane-active-border-style "fg={{ accent }}"
 set -g popup-style "fg={{ foreground }},bg={{ background }}"

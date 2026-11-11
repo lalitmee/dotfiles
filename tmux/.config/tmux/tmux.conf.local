@@ -483,8 +483,8 @@ bind n break-pane -d
 # Toggle the current pane between tiled and floating.
 bind W if-shell -F '#{pane_floating_flag}' 'join-pane' 'break-pane -W'
 
-# Prompt to join a pane from another window/session.
-bind j command-prompt -p "join pane from: "  "join-pane -h -s '%%'"
+# Find a window by name or content.
+bind f command-prompt { find-window -Z "%%" }
 
 # Prompt to swap the current pane with another.
 bind q display-panes\; command-prompt -p "pane #: "  "swap-pane -t '%%'"
@@ -509,6 +509,9 @@ bind BTab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "
 
 # Launch lazygit in a popup (tpad with per-directory git-root detection).
 bind g run-shell "#{@tpad-path} toggle lazygit"
+
+# Search visible text across all panes in the current window and jump in copy mode.
+bind j run-shell -b '"$HOME/.cargo/bin/tmux-flash" --multi-pane on --pane "#{pane_id}" --client "#{client_name}"'
 
 # Launch lazydocker in a custom tpad.
 bind D run-shell "#{@tpad-path} toggle lazydocker"

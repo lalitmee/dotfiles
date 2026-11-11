@@ -6,6 +6,9 @@ C-b	Layout Mode
 C-a C-f	File Picker Mode
 C-a C-g	Git Worktree Mode
 C-a F	Fingers (search and copy text)
+C-a j	Flash (search and jump across all panes)
+C-a J	Join pane from another window/session
+C-a f	Find window
 C-a W	Toggle floating pane
 C-a C-t	Tome (playbook)
 C-a C-s	Tome (scratchpad)
