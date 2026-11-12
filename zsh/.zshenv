@@ -120,6 +120,13 @@ append_to_path "$GOPATH/bin"
 export PYENV_ROOT="$HOME/.pyenv"
 append_to_path "$PYENV_ROOT/bin"
 
+# macOS user Python user-base bin (pip / pipx fallback)
+if [[ "$OSTYPE" == darwin* ]]; then
+    for py_bin in "$HOME"/Library/Python/*/bin(Nn); do
+        append_to_path "$py_bin"
+    done
+fi
+
 # # yarn
 # append_to_path "$HOME/.yarn/bin"
 # append_to_path "$HOME/.config/yarn/global/node_modules/.bin"

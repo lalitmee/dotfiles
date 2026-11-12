@@ -39,6 +39,10 @@ copyq/.config/copyq/copyq_tabs.ini
 *.elc
 **/*.elc
 
+# Zsh compiled word code files
+*.zwc
+**/*.zwc
+
 # git filter-repo backups
 .git-rewrite/
 
