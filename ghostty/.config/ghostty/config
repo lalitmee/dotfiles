@@ -11,7 +11,7 @@ cursor-style = block
 background = #193549
 background-opacity = 0.7
 background-blur-radius = 20
-# theme = Cobalt2
+theme = Cobalt2
 adjust-cell-width = 0
 adjust-cell-height = 2
 
