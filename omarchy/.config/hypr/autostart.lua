@@ -1,5 +1,6 @@
 -- Omarchy workspace IDs: laptop 1-10, portrait 11-20, middle 21-30.
--- Web apps share Brave's process, so route by class even after browser handoff.
+-- Brave and its web apps share a process, so route by class after browser handoff.
+o.window("^brave-browser$", { workspace = "21 silent" })
 o.window("^brave-discord\\.com__channels_@me-.*$", { workspace = "2 silent" })
 o.window("^brave-gemini\\.google\\.com.*$", { workspace = "12 silent" })
 o.window("^brave-music\\.youtube\\.com.*$", { workspace = "3 silent" })
