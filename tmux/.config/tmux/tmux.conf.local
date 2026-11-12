@@ -1058,8 +1058,8 @@ bind-key -T dev-mode b display-popup -E -B -w 100% -h 100% -x 0% -y 0% "~/.confi
 bind -T dev-mode s run-shell "#{@tpad-path} toggle scratchpad"
 
 # dev-env-manager global action palette (~/.local/bin/dact)
-bind-key -T dev-mode d display-popup -w 92% -h 85% -E \
-    "zsh -lc 'cd \"#{pane_current_path}\" && dact menu'"
+bind-key -T dev-mode d display-popup -d "#{pane_current_path}" -w 92% -h 85% -E \
+    "zsh -lc 'exec ~/.local/bin/dact menu'"
 
 #-------------------------------------------------------------------------------
 # }}}
