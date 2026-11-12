@@ -1,6 +1,3 @@
-# Dynamic Omarchy theme
-config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
-
 # custom-shader = shaders/cursor_smear_fade.glsl
 
 shell-integration = zsh
@@ -11,7 +8,7 @@ cursor-style = block
 background = #193549
 background-opacity = 0.7
 background-blur-radius = 20
-theme = Cobalt2
+# theme = Cobalt2
 adjust-cell-width = 0
 adjust-cell-height = 2
 
@@ -33,18 +30,48 @@ gtk-wide-tabs = false
 window-padding-x = 11
 window-padding-y = 11
 
-# window-decoration = false
-macos-titlebar-style = transparent
-
 confirm-close-surface = false
-
-auto-update = off
 
 # Keybinds
 keybind = super+r=reload_config
 
+#-------------------------------------------------------------------------------
+# # NOTE: auto update {{{
+#-------------------------------------------------------------------------------
+
+auto-update-channel = stable
+auto-update = download
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# # NOTE: local config files {{{
+#-------------------------------------------------------------------------------
+
+# linux - omarchy based
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+
+# macos
+config-file = ?config.local
+
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
+# # NOTE: macos configs {{{
+#-------------------------------------------------------------------------------
+
+macos-titlebar-style = hidden
+# macos-titlebar-style = transparent
+
 # Map the Option key to Alt (Meta)
 macos-option-as-alt = true
 
-# Machine/OS-specific overrides (ignored if missing)
-config-file = ?config.local
+#-------------------------------------------------------------------------------
+# }}}
+#-------------------------------------------------------------------------------
+
+# vim:fdm=marker
