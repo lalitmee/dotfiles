@@ -242,6 +242,7 @@ return {
 
     -- Supermaven AI inline completion
     {
+        enabled = vim.env.HOME == "/home/lalitmee",
         "supermaven-inc/supermaven-nvim",
         event = "InsertEnter",
         cmd = {
