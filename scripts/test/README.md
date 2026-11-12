@@ -59,6 +59,7 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 | Git email guard | Rejects unexpected author and committer identities | `zsh scripts/test/bin/git/email-guard.zsh` |
 | Gum input styling | Input/write palette, custom hints, password/flag forwarding, stdin/stdout preservation, and cancellation | `python3 scripts/test/bin/gum/input.py` |
 | Gum quote styling | Cobalt2 fallback, optional palette, explicit colors, and inherited background cleanup | `python3 scripts/test/bin/gum/style.py` |
+| Workmux palette colors | Real Gum agent/history and server rendering preserves RGB row colors without inherited backgrounds | `python3 scripts/test/bin/gum/palettes.py` |
 | Node global packages sync | Installs all packages from `node/global-packages.txt` for the active Node version | `zsh scripts/node/sync-global-packages.zsh` |
 | Node global packages sync (specific version) | Installs all packages for a given fnm-managed Node version | `zsh scripts/node/sync-global-packages.zsh --version 22` |
 

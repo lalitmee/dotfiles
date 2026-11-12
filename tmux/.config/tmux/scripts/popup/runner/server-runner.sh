@@ -242,7 +242,7 @@ render_server_menu() {
     card_lines+=("$(center_server_line "$colored" "${#plain}" "$inner_width")")
 
     card_content="$(printf '%b\n' "${card_lines[@]}")"
-    card_box="$(gum style --border rounded --border-foreground '#00AAFF' --padding '1 2' --width "$card_width" "$card_content")"
+    card_box="$(gum style --background '' --border-background '' --foreground '' --border rounded --border-foreground '#00AAFF' --padding '1 2' --width "$card_width" "$card_content")"
     card_height="$(printf '%s\n' "$card_box" | wc -l | tr -d ' ')"
     pad_top=0
     (( lines > card_height )) && pad_top=$(( (lines - card_height) / 2 ))
@@ -251,7 +251,7 @@ render_server_menu() {
 
     clear
     for (( index = 1; index <= pad_top; index++ )); do print; done
-    gum style --margin "0 $margin_h" "$card_box"
+    gum style --background '' --border-background '' --foreground '' --margin "0 $margin_h" "$card_box"
 }
 # }}}
 

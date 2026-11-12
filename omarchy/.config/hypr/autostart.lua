@@ -7,6 +7,8 @@ o.window("^brave-music\\.youtube\\.com.*$", { workspace = "3 silent" })
 
 hl.on("hyprland.start", function()
     hl.exec_cmd(o.launch("brave"), { workspace = "21 silent" })
+    hl.exec_cmd(o.launch('"$HOME/.local/bin/herdr-app"'), { workspace = "22 silent" })
+    hl.exec_cmd(o.launch('"$HOME/.local/share/t3code/T3-Code.AppImage"'), { workspace = "23 silent" })
     hl.exec_cmd(o.launch("ghostty"), { workspace = "11 silent" })
     hl.exec_cmd(o.launch("slack"), { workspace = "1 silent" })
     hl.exec_cmd('omarchy-launch-webapp "https://discord.com/channels/@me"', { workspace = "2 silent" })

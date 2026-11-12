@@ -513,6 +513,7 @@ render_palette() { # {{{
 
     local card_box history_box="" history_content
     card_box=$(gum style \
+        --background '' --border-background '' --foreground '' \
         --border rounded \
         --border-foreground "$HEX_ACCENT" \
         --bold \
@@ -523,6 +524,7 @@ render_palette() { # {{{
     if (( ${#HISTORY_LABELS[@]} > 0 )); then
         history_content=$(build_history_card_content "$inner_w")
         history_box=$(gum style \
+            --background '' --border-background '' --foreground '' \
             --border rounded \
             --border-foreground "$HEX_INNER_BORDER" \
             --padding "1 2" \
@@ -558,9 +560,9 @@ render_palette() { # {{{
     done
 
     # Emit horizontally centered launcher card, then recent runs directly below
-    gum style --margin "0 ${margin_h}" "$card_box"
+    gum style --background '' --border-background '' --foreground '' --margin "0 ${margin_h}" "$card_box"
     if [[ -n "$history_box" ]]; then
-        gum style --margin "1 ${margin_h}" "$history_box"
+        gum style --background '' --border-background '' --foreground '' --margin "1 ${margin_h}" "$history_box"
     fi
 } # }}}
 
@@ -628,6 +630,7 @@ notify_not_installed() { # {{{
     local label="$1"
     if command -v gum > /dev/null 2>&1; then
         gum style \
+            --background '' --border-background '' \
             --foreground "$HEX_DIMMED" \
             --bold \
             --margin "1 4" \
