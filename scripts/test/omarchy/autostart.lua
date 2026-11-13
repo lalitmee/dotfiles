@@ -25,7 +25,7 @@ local function scenario(restored)
         end,
     }
     o = {
-        window = function() end,
+        window = function(_match, _rules) end,
         launch = function(cmd) return "uwsm-app -- " .. cmd end,
         launch_webapp = function(url) return "omarchy-launch-webapp '" .. url .. "'" end,
     }
