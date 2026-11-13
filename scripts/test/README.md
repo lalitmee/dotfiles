@@ -16,6 +16,12 @@ Run focused tests from the repository root. These are standalone scripts; there 
 |---|---|---|
 | Ghostty updater | Progress, up-to-date check, interactive exit, verified installation, rollback preservation, and checksum failure | `zsh scripts/test/ghostty/install.zsh` |
 
+### Omarchy
+
+- Autostart: paced launches, restored-window detection, physical-monitor workspace
+  bindings, and repeated-start protection without launching real apps:
+  `lua scripts/test/omarchy/autostart.lua`.
+
 ### Tmux
 
 | Target | Behavior covered | Command |
