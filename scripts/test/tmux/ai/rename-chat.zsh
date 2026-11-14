@@ -80,13 +80,17 @@ cat > "$tmp/bin/agy" <<'EOF'
 printf '%s\n' "agy $*" >> "$CALL_LOG"
 printf '%s\n' "${NAME_RESPONSE:-window-title}"
 EOF
+cat > "$tmp/bin/hold-shell" <<'EOF'
+#!/usr/bin/env bash
+printf 'interactive result shell retained\n'
+EOF
 cat > "$tmp/bin/timeout" <<'EOF'
 #!/usr/bin/env bash
 [[ ${TIMEOUT_FAIL:-0} == 1 ]] && exit 124
 exec /usr/bin/timeout "$@"
 EOF
 chmod +x "$tmp/bin/"*
-export PATH="$tmp/bin:$PATH" TMUX_LOG="$tmp/tmux.log" GUM_LOG="$tmp/gum.log" CALL_LOG="$tmp/call.log" ADAPTER_LOG="$tmp/adapter.log" WINDOW_COUNT="$tmp/window.count"
+export PATH="$tmp/bin:$PATH" TMUX_LOG="$tmp/tmux.log" GUM_LOG="$tmp/gum.log" CALL_LOG="$tmp/call.log" ADAPTER_LOG="$tmp/adapter.log" WINDOW_COUNT="$tmp/window.count" SHELL="$tmp/bin/hold-shell"
 rehash
 [[ "$(whence -p codex)" == "$tmp/bin/codex" ]] || { print -u2 "unexpected codex path: $(whence -p codex)"; exit 1; }
 
@@ -95,6 +99,23 @@ run_script() {
     rm -f "$WINDOW_COUNT"
     ( source "$SCRIPT" '%1' ) >"$tmp/out" 2>"$tmp/err"
 }
+
+export ADAPTER_FAIL=1
+( source "$SCRIPT" '%1' --window ) >"$tmp/window.out" 2>"$tmp/window.err" || true
+grep -F 'session access unavailable for opencode' "$tmp/window.out" >/dev/null \
+    || { print -u2 'new-window flow did not print the provider failure'; exit 1; }
+grep -F 'interactive result shell retained' "$tmp/window.out" >/dev/null \
+    || { print -u2 "new-window flow did not keep its result visible: $(cat "$tmp/window.out") $(cat "$tmp/window.err")"; exit 1; }
+unset ADAPTER_FAIL
+: > "$CALL_LOG"
+rm -f "$WINDOW_COUNT"
+export NAME_RESPONSE='one-two-three'
+( source "$SCRIPT" '%1' --window ) >"$tmp/window-success.out" 2>"$tmp/window-success.err"
+grep -F 'Chat renamed to one-two-three via opencode' "$tmp/window-success.out" >/dev/null \
+    || { print -u2 'new-window flow did not print the rename result'; exit 1; }
+! grep -F 'interactive result shell retained' "$tmp/window-success.out" >/dev/null \
+    || { print -u2 'successful new-window flow did not close automatically'; exit 1; }
+unset NAME_RESPONSE
 
 if run_script; then
     print -r -- "$(cat "$tmp/tmux.log")" | grep -F 'rename-window -t @7 window-title' >/dev/null
@@ -169,12 +190,13 @@ unset PANE_COMMAND
 socket="chat-name-$$"
 binding_file="$tmp/ai-tools.conf"
 awk '/^bind-key -T ai-tools n /' "$ROOT/tmux/.config/tmux/tmux.conf.local" > "$binding_file"
-TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" -f /dev/null new-session -d -s ai-chat-test
-TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" source-file "$binding_file"
-binding=$(TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" list-keys -T ai-tools n)
-[[ "$binding" == *rename-chat.sh* ]] || { print -u2 "tmux did not load chat rename binding: $binding"; exit 1; }
+SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" -f /dev/null new-session -d -s ai-chat-test
+SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" source-file "$binding_file"
+binding=$(SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" list-keys -T ai-tools n)
+[[ "$binding" == *new-window* && "$binding" == *rename-chat.sh* && "$binding" == *--window* && "$binding" == *'#{pane_id}'* ]] \
+    || { print -u2 "tmux chat rename binding does not start a retained window with the source pane: $binding"; exit 1; }
 grep -Fx $'n\tName the current agent chat window' \
     "$ROOT/tmux/.config/tmux/scripts/popup/help/tables/ai-tools.txt" >/dev/null \
     || { print -u2 'AI-tools help table is missing the chat rename shortcut'; exit 1; }
-TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" kill-server
+SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" kill-server
 print 'chat rename checks passed'

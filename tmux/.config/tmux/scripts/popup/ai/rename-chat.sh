@@ -2,11 +2,30 @@
 set -e
 
 pane_id=$1
+window_mode=${2:-}
+if [[ "$window_mode" == --window ]]; then
+    keep_result_visible() {
+        local exit_status=$?
+        trap - EXIT
+        (( exit_status != 0 )) || return
+        print
+        print "Chat rename stopped (exit $exit_status)."
+        print "Press Ctrl-D or 'exit' to close this window..."
+        exec "${SHELL:-/bin/zsh}" -i
+    }
+    trap keep_result_visible EXIT
+fi
+
+notify() {
+    print -r -- "$1"
+    tmux display-message "$1" || true
+}
+
 window_id=$(tmux display-message -p -t "$pane_id" '#{window_id}')
 directory=$(tmux display-message -p -t "$pane_id" '#{pane_current_path}')
 pane_command=$(tmux display-message -p -t "$pane_id" '#{pane_current_command}')
 if [[ -z "$window_id" || -z "$directory" ]]; then
-    tmux display-message 'Chat rename: could not identify the originating window'
+    notify 'Chat rename: could not identify the originating window'
     exit 1
 fi
 
@@ -17,35 +36,45 @@ case "$pane_command" in
     claude) provider=claude ;;
     agy) provider=agy ;;
     *)
-        provider=$(gum choose --header='Select the agent running in this pane' opencode codex pi claude agy) || exit 0
+        provider=$(gum choose --header='Select the agent running in this pane' opencode codex pi claude agy) || {
+            notify 'Chat rename cancelled.'
+            exit 0
+        }
         ;;
 esac
 
 if [[ "$provider" == agy ]]; then
-    prompt=$(gum write --header='Describe this chat briefly; this text is sent to the naming model' --placeholder='Task description...' --width=0 --height=5 --char-limit=0) || exit 0
+    prompt=$(gum write --header='Describe this chat briefly; this text is sent to the naming model' --placeholder='Task description...' --width=0 --height=5 --char-limit=0) || {
+        notify 'Chat rename cancelled.'
+        exit 0
+    }
 else
     adapter="${0:A:h}/chat-sessions.py"
-    sessions=$(python3 "$adapter" list "$provider" "$directory") || {
-        tmux display-message "Chat rename: session access unavailable for $provider"
+    notify "Loading $provider sessions..."
+    sessions=$(gum spin --spinner dot --title="Loading $provider sessions..." --show-stdout -- python3 "$adapter" list "$provider" "$directory") || {
+        notify "Chat rename: session access unavailable for $provider"
         exit 1
     }
     choices=$(print -r -- "$sessions" | jq -r '.[] | [.id, (.title | gsub("[\\u0000-\\u001f\\u007f]"; ""))] | @tsv') || exit 1
     [[ -n "$choices" ]] || {
-        tmux display-message "Chat rename: no $provider sessions found for this directory"
+        notify "Chat rename: no $provider sessions found for this directory"
         exit 1
     }
-    selected=$(print -r -- "$choices" | gum filter --header='Select a chat; its first prompt is sent to the naming model' --placeholder='Search sessions...') || exit 0
+    selected=$(print -r -- "$choices" | gum filter --header='Select a chat; its first prompt is sent to the naming model' --placeholder='Search sessions...') || {
+        notify 'Chat rename cancelled.'
+        exit 0
+    }
     session_id=${selected%%$'\t'*}
     [[ -n "$session_id" ]] || exit 0
-    prompt_json=$(python3 "$adapter" prompt "$provider" "$directory" "$session_id") || {
-        tmux display-message "Chat rename: could not read the selected $provider prompt"
+    prompt_json=$(gum spin --spinner dot --title="Reading selected $provider prompt..." --show-stdout -- python3 "$adapter" prompt "$provider" "$directory" "$session_id") || {
+        notify "Chat rename: could not read the selected $provider prompt"
         exit 1
     }
     prompt=$(print -r -- "$prompt_json" | jq -er 'select(type == "string")') || exit 1
 fi
 
 [[ -n ${prompt//[[:space:]]/} ]] || {
-    tmux display-message 'Chat rename: no prompt or description available'
+    notify 'Chat rename: no prompt or description available'
     exit 1
 }
 
@@ -65,14 +94,14 @@ for namer in opencode codex pi agy; do
         # The pane may have moved or closed while the naming backend was running.
         current_window=$(tmux display-message -p -t "$pane_id" '#{window_id}' 2>/dev/null) || current_window=''
         if [[ "$current_window" != "$window_id" ]]; then
-            tmux display-message 'Chat rename: original window is no longer available'
+            notify 'Chat rename: original window is no longer available'
             exit 1
         fi
         tmux rename-window -t "$window_id" "$slug"
-        tmux display-message "Chat renamed to $slug via $namer"
+        notify "Chat renamed to $slug via $namer"
         exit 0
     fi
 done
 
-tmux display-message 'Chat rename: naming failed; window name unchanged'
+notify 'Chat rename: naming failed; window name unchanged'
 exit 1
