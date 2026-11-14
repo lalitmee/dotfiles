@@ -8,8 +8,9 @@ local classes = {
     [12] = "antigravity", [13] = "chatgpt",
 }
 
-local function scenario(restored)
+local function scenario(restored, reload)
     local hooks, timers, launches, rules, windows = {}, {}, {}, {}, {}
+    local delayed = {}
     local now = 0
     hl = {
         on = function(event, fn) hooks[event] = fn end,
@@ -20,10 +21,19 @@ local function scenario(restored)
             timers[#timers + 1] = { fn = fn, at = now + opts.timeout }
         end,
         exec_cmd = function(command, opts)
+            if command == "true" then return end
+            local seconds, expression = command:match("^sleep (%d+) && hyprctl dispatch '(.+)'$")
+            if seconds then
+                delayed[#delayed + 1] = { expression = expression, at = now + tonumber(seconds) * 1000 }
+                return
+            end
             local id = tonumber(opts.workspace:match("^%d+"))
             launches[#launches + 1] = { command = command, id = id, at = now }
         end,
     }
+    hl.dsp = { exec_cmd = function(command, opts)
+        return function() hl.exec_cmd(command, opts) end
+    end }
     o = {
         window = function(_match, _rules) end,
         launch = function(cmd) return "uwsm-app -- " .. cmd end,
@@ -45,13 +55,23 @@ local function scenario(restored)
     end
     hooks["hyprland.start"]()
     assert(#launches == 8, "repeated startup must not schedule a second queue")
+    if reload then
+        -- Reload destroys Lua timers, but already spawned shell processes survive.
+        timers = {}
+        dofile(config)
+    end
     while #timers > 0 do
         local timer = table.remove(timers, 1)
         now = timer.at
         timer.fn()
         assert(now < 120000, "startup queue must finish")
     end
-    assert(#launches == (restored and 8 or 9), "restored Discord must not be relaunched")
+    for _, job in ipairs(delayed) do
+        now = job.at
+        local action = assert(load("return " .. job.expression))()
+        if action then action() end
+    end
+    assert(#launches == (restored and 8 or 9), "Discord must survive reloads without duplicating restored windows")
     for _, launch in ipairs(launches) do
         assert(launch.id ~= 3 and launch.id ~= 4 and launch.id ~= 14 and launch.id ~= 15,
             "scratchpads must not autostart")
@@ -72,4 +92,6 @@ end
 
 scenario(false)
 scenario(true)
-print("Autostart: lazy scratchpad exclusion, Discord delay, restoration skip, and repeat-start guard passed")
+scenario(false, true)
+scenario(true, true)
+print("Autostart: lazy scratchpad exclusion, reload-safe Discord delay, restoration skip, and repeat-start guard passed")

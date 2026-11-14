@@ -28,6 +28,16 @@ o.window("^chatgpt$", { workspace = "13 silent" })
 -- Auto-start hyprsunset for automated night light scheduling
 o.launch_on_start("hyprsunset")
 
+-- Called by the delayed shell after any startup-time config reloads.
+function autostart_discord()
+    for _, window in ipairs(hl.get_windows()) do
+        if (window.class or ""):match("^brave%-discord") then
+            return hl.dsp.exec_cmd("true")
+        end
+    end
+    return hl.dsp.exec_cmd(o.launch_webapp("https://discord.com/channels/@me"), { workspace = "2 silent" })
+end
+
 local started = false
 hl.on("hyprland.start", function()
     if started then
@@ -62,9 +72,6 @@ hl.on("hyprland.start", function()
     launch_if_missing("^[Aa]ntigravity$", o.launch(home .. "/.local/bin/antigravity"), 12)
     launch_if_missing("^chatgpt$", o.launch("chatgpt"), 13)
 
-    -- Phase 2: Web apps (staggered slightly after Brave creates its singleton socket)
-    hl.timer(function()
-        launch_if_missing("^brave%-discord", o.launch_webapp("https://discord.com/channels/@me"), 2)
-    end, { type = "oneshot", timeout = 3000 })
-
+    -- A shell delay survives config reloads, which cancel pending Lua timers.
+    hl.exec_cmd("sleep 3 && hyprctl dispatch 'autostart_discord()'")
 end)
