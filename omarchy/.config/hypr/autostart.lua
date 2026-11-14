@@ -22,7 +22,7 @@ o.window("^brave-discord\\.com__channels_@me-.*$", { workspace = "2 silent" })
 o.window("^brave-music\\.youtube\\.com.*$", { workspace = "3 silent" })
 
 -- Portrait monitor: DP-1
-o.window("^brave-gemini\\.google\\.com.*$", { workspace = "12 silent" })
+o.window("^[Aa]ntigravity$", { workspace = "12 silent" })
 
 -- Auto-start hyprsunset for automated night light scheduling
 o.launch_on_start("hyprsunset")
@@ -57,15 +57,12 @@ hl.on("hyprland.start", function()
     launch_if_missing("^slack$", o.launch("slack"), 1)
     launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 22)
     launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 23)
+    launch_if_missing("^[Aa]ntigravity$", o.launch(home .. "/.local/bin/antigravity"), 12)
 
     -- Phase 2: Web apps (staggered slightly after Brave creates its singleton socket)
     hl.timer(function()
         launch_if_missing("^brave%-discord", o.launch_webapp("https://discord.com/channels/@me"), 2)
     end, { type = "oneshot", timeout = 3000 })
-
-    hl.timer(function()
-        launch_if_missing("^brave%-gemini", o.launch_webapp("https://gemini.google.com"), 4000)
-    end, { type = "oneshot", timeout = 4000 })
 
     hl.timer(function()
         launch_if_missing("^brave%-music", o.launch_webapp("https://music.youtube.com"), 5000)
