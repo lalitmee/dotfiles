@@ -1,5 +1,5 @@
 -- Omarchy workspace IDs: laptop 1-10, portrait 11-20, middle 21-30.
--- A silent workspace number alone does not select its physical monitor.
+-- Workspace rules to bind workspace IDs to physical monitors
 for _, group in ipairs({
     { monitor = "eDP-1", workspaces = { 1, 2, 3 } },
     { monitor = "desc:BNQ BenQ GW2480 ETD7L03841SL0", workspaces = { 11, 12 } },
@@ -10,38 +10,19 @@ for _, group in ipairs({
     end
 end
 
--- Brave and its web apps share a process, so route by class after browser handoff.
+-- Route windows to designated workspaces
+-- Middle monitor: DP-2
 o.window("^brave-browser$", { workspace = "21 silent" })
+o.window("^herdr-app$", { workspace = "22 silent" })
+o.window("^(t3code|com\\.t3tools\\.T3Code)$", { workspace = "23 silent" })
+
+-- Laptop monitor: eDP-1
+o.window("^slack$", { workspace = "1 silent" })
 o.window("^brave-discord\\.com__channels_@me-.*$", { workspace = "2 silent" })
-o.window("^brave-gemini\\.google\\.com.*$", { workspace = "12 silent" })
 o.window("^brave-music\\.youtube\\.com.*$", { workspace = "3 silent" })
 
-local apps = {
-    { class = "brave-browser", workspace = 21, command = o.launch("brave") },
-    { class = "com.mitchellh.ghostty", workspace = 11, command = o.launch("ghostty") },
-    { class = "slack", workspace = 1, command = o.launch("slack") },
-    { class = "herdr-app", workspace = 22, command = o.launch('"$HOME/.local/bin/herdr-app"') },
-    {
-        class = "com.t3tools.T3Code",
-        workspace = 23,
-        command = o.launch('"$HOME/.local/share/t3code/T3-Code.AppImage"'),
-    },
-    {
-        class = "brave-discord.com__channels_@me-Default",
-        workspace = 2,
-        command = o.launch_webapp("https://discord.com/channels/@me"),
-    },
-    {
-        class = "brave-gemini.google.com__-Default",
-        workspace = 12,
-        command = o.launch_webapp("https://gemini.google.com"),
-    },
-    {
-        class = "brave-music.youtube.com__-Default",
-        workspace = 3,
-        command = o.launch_webapp("https://music.youtube.com"),
-    },
-}
+-- Portrait monitor: DP-1
+o.window("^brave-gemini\\.google\\.com.*$", { workspace = "12 silent" })
 
 local started = false
 hl.on("hyprland.start", function()
@@ -50,30 +31,40 @@ hl.on("hyprland.start", function()
     end
     started = true
 
-    local function launch_next(index)
-        local app = apps[index]
-        if not app then
-            return
-        end
+    local home = os.getenv("HOME") or "/home/lalitmee"
 
-        local exists = false
+    local function app_is_running(pattern)
         for _, window in ipairs(hl.get_windows()) do
-            if window.class == app.class then
-                exists = true
-                break
+            if window.class and window.class:match(pattern) then
+                return true
             end
         end
-        if not exists then
-            hl.exec_cmd(app.command, { workspace = app.workspace .. " silent" })
-        end
+        return false
+    end
 
-        if apps[index + 1] then
-            -- shortcut: allow 20s for browser restore; increase if slow boots still race.
-            hl.timer(function()
-                launch_next(index + 1)
-            end, { type = "oneshot", timeout = index == 1 and 20000 or 5000 })
+    local function launch_if_missing(pattern, command, workspace)
+        if not app_is_running(pattern) then
+            hl.exec_cmd(command, { workspace = workspace .. " silent" })
         end
     end
 
-    launch_next(1)
+    -- Phase 1: Standalone desktop apps (launch immediately)
+    launch_if_missing("^brave-browser$", o.launch("brave"), 21)
+    launch_if_missing("^com%.mitchellh%.ghostty$", o.launch("ghostty"), 11)
+    launch_if_missing("^slack$", o.launch("slack"), 1)
+    launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 22)
+    launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 23)
+
+    -- Phase 2: Web apps (staggered slightly after Brave creates its singleton socket)
+    hl.timer(function()
+        launch_if_missing("^brave%-discord", o.launch_webapp("https://discord.com/channels/@me"), 2)
+    end, { type = "oneshot", timeout = 3000 })
+
+    hl.timer(function()
+        launch_if_missing("^brave%-gemini", o.launch_webapp("https://gemini.google.com"), 4000)
+    end, { type = "oneshot", timeout = 4000 })
+
+    hl.timer(function()
+        launch_if_missing("^brave%-music", o.launch_webapp("https://music.youtube.com"), 5000)
+    end, { type = "oneshot", timeout = 5000 })
 end)
