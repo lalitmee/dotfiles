@@ -132,8 +132,8 @@ awk '
     }
 ' "$actual_bindings" | LC_ALL=C sort -u > "$actual_ids"
 
-assert_eq 596 "$(wc -l < "$baseline_ids" | tr -d ' ')" "baseline binding identities"
-assert_eq 596 "$(wc -l < "$actual_ids" | tr -d ' ')" "isolated binding identities"
+assert_eq 597 "$(wc -l < "$baseline_ids" | tr -d ' ')" "baseline binding identities"
+assert_eq 597 "$(wc -l < "$actual_ids" | tr -d ' ')" "isolated binding identities"
 diff -u "$baseline_ids" "$actual_ids" || fail "isolated key table/binding identities differ from baseline"
 
 while IFS= read -r table; do
@@ -178,6 +178,11 @@ assert_prefix_binding m 'set -g mouse off'
 assert_prefix_binding m 'set -g mouse on'
 assert_prefix_binding r 'source-file'
 assert_prefix_binding R 'source-file'
+ai_chat_rename_binding="$(tmux_private list-keys -T ai-tools n)" \
+    || fail "could not inspect AI chat rename binding"
+assert_contains "$ai_chat_rename_binding" 'rename-chat.sh' "AI chat rename binding"
+assert_contains "$(<"$repo_root/tmux/.config/tmux/scripts/popup/help/tables/ai-tools.txt")" \
+    'n	Name the current agent chat window' "AI chat rename help row"
 copy_mode_escape="$(tmux_private list-keys -T copy-mode-vi Escape)"
 assert_contains "$copy_mode_escape" 'send-keys -X cancel' "vi copy-mode Escape exits copy mode"
 

@@ -9,7 +9,7 @@
 
 | Table | Binding count |
 |---|---:|
-| `ai-tools` | 15 |
+| `ai-tools` | 16 |
 | `ask-tools` | 8 |
 | `copy-mode` | 82 |
 | `copy-mode-vi` | 95 |
@@ -27,7 +27,7 @@
 | `spotify-mode` | 7 |
 | `work-sessions` | 11 |
 
-Binding count: 596
+Binding count: 597
 
 Distinct reported table count: 17. The previously expected count of 18 does not match this live server; `copy-mode-emacs` is absent (`mode-keys=vi`). See reconciliation below.
 
@@ -42,6 +42,7 @@ bind-key    -T ai-tools         g                         display-popup -E -h "8
 bind-key    -T ai-tools         h                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh copilot"
 bind-key    -T ai-tools         i                         new-window -c "#{pane_current_path}" -n ai-manage "zsh -lic '~/.config/tmux/scripts/popup/ai/manage.sh'"
 bind-key    -T ai-tools         k                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh kiro"
+bind-key    -T ai-tools         n                         display-popup -E -T " ✨ Name chat window " -h "70%" -w "80%" "zsh ~/.config/tmux/scripts/popup/ai/rename-chat.sh '#{pane_id}'"
 bind-key    -T ai-tools         o                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh opencode"
 bind-key    -T ai-tools         p                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh pi"
 bind-key    -T ai-tools         q                         switch-client -T root

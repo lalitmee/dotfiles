@@ -43,6 +43,8 @@ Run focused tests from the repository root. These are standalone scripts; there 
 | Window switcher | Real tmux/fzf selection across linked sessions, no-match handling, column labels, and Escape cancellation on a private socket | `python3 scripts/test/tmux/window-switcher.py` |
 | Keybinding search | Cold startup, literal source lookup, aligned counts/colors, width-limited entry-key wrapping, real-fzf Ctrl-T browsing, continuation-row drill-down, and Shift-Tab return | `python3 scripts/test/tmux/search-keybindings.py` |
 | AI window launcher | Multiline input, empty/direct names, naming handoff to one reusable window, isolated-server window-switch regression, 20-second naming fallback, prompt delivery guard, and tmux status | `zsh scripts/test/tmux/ai/launcher.zsh` |
+| AI chat session adapter | OpenCode, Codex, and Pi session selection and first user prompt retrieval from isolated fixtures; unsupported Claude access fails closed | `python3 scripts/test/tmux/ai/chat-sessions.py` |
+| AI chat window renamer | Session picker, AGY manual fallback, naming validation, cancellation, timeout, prompt safety, stable tmux target, and isolated binding load | `zsh scripts/test/tmux/ai/rename-chat.zsh` |
 | AI update launcher | Restores stderr after prompt setup in automatic, interactive, and default update modes | `python3 scripts/test/tmux/ai/update-launch.py` |
 | AI update spinner | Full-width temporary progress box and command exit status | `TMUX= zsh scripts/test/tmux/ai/update-spinner.zsh` |
 

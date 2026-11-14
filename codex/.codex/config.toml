@@ -7,6 +7,7 @@ approvals_reviewer = "auto_review"
 sandbox_mode = "workspace-write"
 
 [desktop]
+appearanceTheme = "dark"
 followUpQueueMode = "steer"
 external-agent-import-sync-item-types = "all"
 external-agent-import-sync-enabled = true
@@ -22,7 +23,7 @@ accent = "#ffc600"
 accentSource = "custom"
 contrast = 60
 ink = "#ffffff"
-opaqueWindows = false
+opaqueWindows = true
 surface = "#193549"
 
 [desktop.appearanceDarkChromeTheme.fonts]
