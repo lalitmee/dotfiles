@@ -1,8 +1,9 @@
 -- Run from the repository root; no real apps or compositor state are changed.
 local config = "omarchy/.config/hypr/autostart.lua"
 local classes = {
-    [21] = "brave-browser", [11] = "com.mitchellh.ghostty", [1] = "slack",
-    [23] = "herdr-app", [22] = "t3code",
+    [21] = "co.hyprlab.Hylki", [22] = "brave-browser",
+    [11] = "com.mitchellh.ghostty", [1] = "slack",
+    [24] = "herdr-app", [23] = "t3code",
     [2] = "brave-discord.com__channels_@me-Default",
     [12] = "antigravity", [13] = "chatgpt",
 }
@@ -31,7 +32,11 @@ local function scenario(restored)
     }
     dofile(config)
     hooks["hyprland.start"]()
-    assert(#launches == 7, "seven desktop apps start immediately")
+    assert(#launches == 8, "eight desktop apps start immediately")
+    for i, id in ipairs({ 21, 22, 11, 1, 24, 23, 12, 13 }) do
+        assert(launches[i].id == id, "desktop startup workspace order")
+    end
+    assert(launches[1].command:find("APPIMAGE_EXTRACT_AND_RUN=1", 1, true), "Hylki needs AppImage extraction")
     -- Session restoration happens after the first browser launch.
     if restored then
         for _, id in ipairs({ 2 }) do
@@ -39,22 +44,22 @@ local function scenario(restored)
         end
     end
     hooks["hyprland.start"]()
-    assert(#launches == 7, "repeated startup must not schedule a second queue")
+    assert(#launches == 8, "repeated startup must not schedule a second queue")
     while #timers > 0 do
         local timer = table.remove(timers, 1)
         now = timer.at
         timer.fn()
         assert(now < 120000, "startup queue must finish")
     end
-    assert(#launches == (restored and 7 or 8), "restored Discord must not be relaunched")
+    assert(#launches == (restored and 8 or 9), "restored Discord must not be relaunched")
     for _, launch in ipairs(launches) do
         assert(launch.id ~= 3 and launch.id ~= 4 and launch.id ~= 14 and launch.id ~= 15,
             "scratchpads must not autostart")
     end
     if not restored then
-        assert(launches[8].at == 3000, "Discord waits for Brave")
+        assert(launches[9].at == 3000, "Discord waits for Brave")
     end
-    for _, id in ipairs({ 21, 22, 23 }) do
+    for _, id in ipairs({ 21, 22, 23, 24 }) do
         assert(rules[id] == "desc:BNQ BenQ GW2480 C6K0150601Q", "middle workspace must bind to middle monitor")
     end
     for _, id in ipairs({ 11, 12 }) do

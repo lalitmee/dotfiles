@@ -3,7 +3,7 @@
 for _, group in ipairs({
     { monitor = "eDP-1", workspaces = { 1, 2 } },
     { monitor = "desc:BNQ BenQ GW2480 ETD7L03841SL0", workspaces = { 11, 12, 13 } },
-    { monitor = "desc:BNQ BenQ GW2480 C6K0150601Q", workspaces = { 21, 22, 23 } },
+    { monitor = "desc:BNQ BenQ GW2480 C6K0150601Q", workspaces = { 21, 22, 23, 24 } },
 }) do
     for _, workspace in ipairs(group.workspaces) do
         hl.workspace_rule({ workspace = tostring(workspace), monitor = group.monitor })
@@ -12,9 +12,10 @@ end
 
 -- Route windows to designated workspaces
 -- Middle monitor: DP-2
-o.window("^brave-browser$", { workspace = "21 silent" })
-o.window("^herdr-app$", { workspace = "23 silent" })
-o.window("^(t3code|com\\.t3tools\\.T3Code)$", { workspace = "22 silent" })
+o.window("^co\\.hyprlab\\.Hylki$", { workspace = "21 silent" })
+o.window("^brave-browser$", { workspace = "22 silent" })
+o.window("^herdr-app$", { workspace = "24 silent" })
+o.window("^(t3code|com\\.t3tools\\.T3Code)$", { workspace = "23 silent" })
 
 -- Laptop monitor: eDP-1
 o.window("^slack$", { workspace = "1 silent" })
@@ -52,11 +53,12 @@ hl.on("hyprland.start", function()
     end
 
     -- Phase 1: Standalone desktop apps (launch immediately)
-    launch_if_missing("^brave-browser$", o.launch("brave"), 21)
+    launch_if_missing("^co%.hyprlab%.Hylki$", o.launch("env APPIMAGE_EXTRACT_AND_RUN=1 " .. home .. "/Applications/Hylki-x86_64.AppImage"), 21)
+    launch_if_missing("^brave-browser$", o.launch("brave"), 22)
     launch_if_missing("^com%.mitchellh%.ghostty$", o.launch("ghostty"), 11)
     launch_if_missing("^slack$", o.launch("slack"), 1)
-    launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 23)
-    launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 22)
+    launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 24)
+    launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 23)
     launch_if_missing("^[Aa]ntigravity$", o.launch(home .. "/.local/bin/antigravity"), 12)
     launch_if_missing("^chatgpt$", o.launch("chatgpt"), 13)
 
