@@ -1,0 +1,26 @@
+{
+  "name": "Cobalt2",
+  "appearance": "dark",
+  "themeMode": "THEME_MODE_DARK",
+  "hubSurfaceBackgroundColor": "#193549",
+  "customThemeSeedsDark": {
+    "background": "#193549",
+    "primary": "#ffc600",
+    "foregroundOverride": "#ffffff",
+    "primaryForegroundOverride": "#193549",
+    "codeForegroundOverride": "#80fcff"
+  },
+  "palette": {
+    "background": "#193549",
+    "foreground": "#ffffff",
+    "primary": "#ffc600",
+    "primaryForeground": "#193549",
+    "accent": "#00aaff",
+    "cyan": "#80fcff",
+    "comment": "#0088ff",
+    "green": "#88ff88",
+    "red": "#ff628c",
+    "surface": "#152c3d",
+    "border": "#0d3a58"
+  }
+}

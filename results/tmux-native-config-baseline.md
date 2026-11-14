@@ -42,7 +42,7 @@ bind-key    -T ai-tools         g                         display-popup -E -h "8
 bind-key    -T ai-tools         h                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh copilot"
 bind-key    -T ai-tools         i                         new-window -c "#{pane_current_path}" -n ai-manage "zsh -lic '~/.config/tmux/scripts/popup/ai/manage.sh'"
 bind-key    -T ai-tools         k                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh kiro"
-bind-key    -T ai-tools         n                         new-window -c "#{pane_current_path}" -n chat-name "zsh ~/.config/tmux/scripts/popup/ai/rename-chat.sh '#{pane_id}' --window"
+bind-key    -T ai-tools         n                         run-shell -C "new-window -n chat-name -c \"#{pane_current_path}\" \"zsh ~/.config/tmux/scripts/popup/ai/rename-chat.sh #{pane_id} --window\""
 bind-key    -T ai-tools         o                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh opencode"
 bind-key    -T ai-tools         p                         display-popup -E -h "85%" -w "85%" "${HOME}/.config/tmux/scripts/popup/ai/tool.sh pi"
 bind-key    -T ai-tools         q                         switch-client -T root

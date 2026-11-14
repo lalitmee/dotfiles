@@ -190,11 +190,26 @@ unset PANE_COMMAND
 socket="chat-name-$$"
 binding_file="$tmp/ai-tools.conf"
 awk '/^bind-key -T ai-tools n /' "$ROOT/tmux/.config/tmux/tmux.conf.local" > "$binding_file"
+cat > "$tmp/bin/zsh" <<'EOF'
+#!/usr/bin/env bash
+printf '%s\n' "$@" > "$BINDING_ARGS"
+tmux -L "$TEST_SOCKET" wait-for -S binding-started
+EOF
+chmod +x "$tmp/bin/zsh"
+export TEST_SOCKET="$socket" BINDING_ARGS="$tmp/binding-args"
 SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" -f /dev/null new-session -d -s ai-chat-test
 SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" source-file "$binding_file"
 binding=$(SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" list-keys -T ai-tools n)
 [[ "$binding" == *new-window* && "$binding" == *rename-chat.sh* && "$binding" == *--window* && "$binding" == *'#{pane_id}'* ]] \
-    || { print -u2 "tmux chat rename binding does not start a retained window with the source pane: $binding"; exit 1; }
+    || { print -u2 "tmux chat rename binding does not start a window with the source pane: $binding"; exit 1; }
+source_pane=$(SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" list-panes -t ai-chat-test:0 -F '#{pane_id}')
+binding_command=$(sed -n 's/^bind-key -T ai-tools n //p' "$binding_file")
+print -r -- "$binding_command" > "$tmp/execute-binding.conf"
+SHELL=/bin/zsh TMUX_TMPDIR="$tmp" "$TMUX_BIN" -L "$socket" source-file "$tmp/execute-binding.conf"
+timeout 5 bash -c 'until [[ -s "$1" ]]; do sleep 0.05; done' _ "$BINDING_ARGS" \
+    || { print -u2 'chat rename window command did not start'; exit 1; }
+grep -Fx -- "$source_pane" "$BINDING_ARGS" >/dev/null \
+    || { print -u2 "chat rename received the wrong source pane: $(cat "$BINDING_ARGS")"; exit 1; }
 grep -Fx $'n\tName the current agent chat window' \
     "$ROOT/tmux/.config/tmux/scripts/popup/help/tables/ai-tools.txt" >/dev/null \
     || { print -u2 'AI-tools help table is missing the chat rename shortcut'; exit 1; }

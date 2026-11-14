@@ -750,7 +750,7 @@ bind-key -T ai-tools h display-popup -w 80% -h 50% -T '   copilot ' -E "~/.co
 bind-key -T ai-tools g display-popup -w 80% -h 50% -T ' 🖱️ cursor-agent ' -E "~/.config/tmux/scripts/popup/ai/tool.sh cursor-agent"
 
 # Rename the current agent chat window from its first user prompt
-bind-key -T ai-tools n new-window -n chat-name -c '#{pane_current_path}' "zsh ~/.config/tmux/scripts/popup/ai/rename-chat.sh '#{pane_id}' --window"
+bind-key -T ai-tools n run-shell -C 'new-window -n chat-name -c "#{pane_current_path}" "zsh ~/.config/tmux/scripts/popup/ai/rename-chat.sh #{pane_id} --window"'
 
 #-------------------------------------------------------------------------------
 # }}}
