@@ -24,6 +24,9 @@ o.window("^brave-music\\.youtube\\.com.*$", { workspace = "3 silent" })
 -- Portrait monitor: DP-1
 o.window("^brave-gemini\\.google\\.com.*$", { workspace = "12 silent" })
 
+-- Auto-start hyprsunset for automated night light scheduling
+o.launch_on_start("hyprsunset")
+
 local started = false
 hl.on("hyprland.start", function()
     if started then
