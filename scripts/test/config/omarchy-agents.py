@@ -34,7 +34,7 @@ with tempfile.TemporaryDirectory(prefix="agent-configs-", dir="/tmp/opencode") a
         path.write_text(content)
 
     command = [
-        "stow", "--no-folding", f"--dir={repo}", f"--target={home}",
+        "stow", "--no-folding", "--ignore=terminal-browser", f"--dir={repo}", f"--target={home}",
         "agents", "claude", "codex", "pi", "gemini-cli", "opencode",
     ]
     for _ in range(2):
@@ -55,7 +55,10 @@ with tempfile.TemporaryDirectory(prefix="agent-configs-", dir="/tmp/opencode") a
 
     for skill in (repo / "agents/.agents/skills").iterdir():
         source = skill / "SKILL.md"
-        if source.is_file():
+        if source.is_file() and skill.name != "terminal-browser":
+            codex_skill = home / ".codex/skills" / skill.name
+            assert codex_skill.is_symlink(), skill.name
+            assert (codex_skill / "SKILL.md").resolve() == source.resolve(), skill.name
             deployed = home / ".claude/skills" / skill.name / "SKILL.md"
             assert deployed.resolve() == source.resolve(), skill.name
             antigravity_skill = home / ".gemini/skills" / skill.name / "SKILL.md"

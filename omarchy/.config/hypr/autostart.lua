@@ -1,8 +1,8 @@
 -- Omarchy workspace IDs: laptop 1-10, portrait 11-20, middle 21-30.
 -- Workspace rules to bind workspace IDs to physical monitors
 for _, group in ipairs({
-    { monitor = "eDP-1", workspaces = { 1, 2, 3 } },
-    { monitor = "desc:BNQ BenQ GW2480 ETD7L03841SL0", workspaces = { 11, 12, 13, 14, 15 } },
+    { monitor = "eDP-1", workspaces = { 1, 2 } },
+    { monitor = "desc:BNQ BenQ GW2480 ETD7L03841SL0", workspaces = { 11, 12, 13 } },
     { monitor = "desc:BNQ BenQ GW2480 C6K0150601Q", workspaces = { 21, 22, 23 } },
 }) do
     for _, workspace in ipairs(group.workspaces) do
@@ -13,19 +13,16 @@ end
 -- Route windows to designated workspaces
 -- Middle monitor: DP-2
 o.window("^brave-browser$", { workspace = "21 silent" })
-o.window("^herdr-app$", { workspace = "22 silent" })
-o.window("^(t3code|com\\.t3tools\\.T3Code)$", { workspace = "23 silent" })
+o.window("^herdr-app$", { workspace = "23 silent" })
+o.window("^(t3code|com\\.t3tools\\.T3Code)$", { workspace = "22 silent" })
 
 -- Laptop monitor: eDP-1
 o.window("^slack$", { workspace = "1 silent" })
 o.window("^brave-discord\\.com__channels_@me-.*$", { workspace = "2 silent" })
-o.window("^brave-music\\.youtube\\.com.*$", { workspace = "3 silent" })
 
 -- Portrait monitor: DP-1
 o.window("^[Aa]ntigravity$", { workspace = "12 silent" })
 o.window("^chatgpt$", { workspace = "13 silent" })
-o.window("^brave-chatgpt\\.com.*$", { workspace = "14 silent" })
-o.window("^brave-gemini\\.google\\.com.*$", { workspace = "15 silent" })
 
 -- Auto-start hyprsunset for automated night light scheduling
 o.launch_on_start("hyprsunset")
@@ -58,8 +55,8 @@ hl.on("hyprland.start", function()
     launch_if_missing("^brave-browser$", o.launch("brave"), 21)
     launch_if_missing("^com%.mitchellh%.ghostty$", o.launch("ghostty"), 11)
     launch_if_missing("^slack$", o.launch("slack"), 1)
-    launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 22)
-    launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 23)
+    launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 23)
+    launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 22)
     launch_if_missing("^[Aa]ntigravity$", o.launch(home .. "/.local/bin/antigravity"), 12)
     launch_if_missing("^chatgpt$", o.launch("chatgpt"), 13)
 
@@ -68,12 +65,4 @@ hl.on("hyprland.start", function()
         launch_if_missing("^brave%-discord", o.launch_webapp("https://discord.com/channels/@me"), 2)
     end, { type = "oneshot", timeout = 3000 })
 
-    hl.timer(function()
-        launch_if_missing("^brave%-chatgpt%.com", o.launch_webapp("https://chatgpt.com"), 14)
-        launch_if_missing("^brave%-gemini%.google%.com", o.launch_webapp("https://gemini.google.com"), 15)
-    end, { type = "oneshot", timeout = 4000 })
-
-    hl.timer(function()
-        launch_if_missing("^brave%-music", o.launch_webapp("https://music.youtube.com"), 5000)
-    end, { type = "oneshot", timeout = 5000 })
 end)

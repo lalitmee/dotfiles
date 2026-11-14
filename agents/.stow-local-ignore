@@ -1,2 +1,4 @@
 ^/instructions(?:/|$)
 ^/modules(?:/|$)
+# Installed and maintained by terminal-browser on each machine.
+^/\.agents/skills/terminal-browser(?:/|$)

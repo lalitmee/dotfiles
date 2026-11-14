@@ -1,0 +1,7 @@
+{
+    "scratchpads": { "icon": "", "label": "Scratchpad" },
+    "scratchpads.gemini": { "icon": "󰫢", "label": "Gemini web", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"gemini\")'" },
+    "scratchpads.chatgpt": { "icon": "󰭹", "label": "ChatGPT web", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"chatgpt\")'" },
+    "scratchpads.youtube": { "icon": "", "label": "YouTube Music", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"youtube\")'" },
+    "scratchpads.spotify": { "icon": "", "label": "Spotify", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"spotify\")'" }
+}
