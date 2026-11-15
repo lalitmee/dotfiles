@@ -61,8 +61,9 @@ with tempfile.TemporaryDirectory(prefix="agent-configs-", dir="/tmp/opencode") a
             assert (codex_skill / "SKILL.md").resolve() == source.resolve(), skill.name
             deployed = home / ".claude/skills" / skill.name / "SKILL.md"
             assert deployed.resolve() == source.resolve(), skill.name
-            antigravity_skill = home / ".gemini/skills" / skill.name / "SKILL.md"
-            assert antigravity_skill.resolve() == source.resolve(), skill.name
+            for directory in [".gemini/skills", ".gemini/config/skills"]:
+                antigravity_skill = home / directory / skill.name / "SKILL.md"
+                assert antigravity_skill.resolve() == source.resolve(), (directory, skill.name)
 
     claude = json.loads((home / ".claude/settings.json").read_text())
     pi = json.loads((home / ".pi/agent/settings.json").read_text())
