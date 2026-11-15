@@ -19,8 +19,9 @@ Run focused tests from the repository root. These are standalone scripts; there 
 ### Omarchy
 
 - App scratchpads: lazy launches, rapid-summon duplicate prevention, browser routing,
-  existing-window adoption, and bindings: `lua scripts/test/omarchy/scratchpads.lua`.
-- Autostart: delayed Discord, scratchpad exclusion, restored-window detection, physical-monitor workspace
+  existing-window adoption, and bindings (including Discord, WhatsApp web, and ZapFast):
+  `lua scripts/test/omarchy/scratchpads.lua`.
+- Autostart: scratchpad exclusion, restored-window detection, physical-monitor workspace
   bindings, and repeated-start protection without launching real apps:
   `lua scripts/test/omarchy/autostart.lua`.
 

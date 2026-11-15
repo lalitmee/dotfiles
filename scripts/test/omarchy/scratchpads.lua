@@ -20,8 +20,11 @@ o = {
 o.rebind = o.bind
 dofile("omarchy/.config/hypr/bindings.lua")
 assert(#launches == 0, "configuration must not launch scratchpads")
-for _, name in ipairs({ "gemini", "chatgpt", "youtube", "spotify" }) do
-    hl.dispatch(toggle_app_scratchpad(name))
+for _, name in ipairs({ "gemini", "chatgpt", "youtube", "spotify", "discord", "whatsapp", "zapfast" }) do
+    local before = #launches
+    local action = toggle_app_scratchpad(name)
+    assert(#launches == before + 1, name .. " must launch on first summon")
+    hl.dispatch(action)
     assert(launches[#launches][2].workspace == "special:app-" .. name .. " silent")
     local count = #launches
     hl.dispatch(toggle_app_scratchpad(name))
@@ -37,6 +40,22 @@ assert(#launches == count and #moves == moved + 1, "adopt web only; leave deskto
 assert(moves[#moves].window == web and moves[#moves].follow == false)
 assert(toggles[#toggles] == "app-chatgpt")
 assert(binds["SUPER + Z"].menu == "scratchpads")
+for _, app in ipairs({
+    { name = "discord", key = "I", class = "brave-discord.com__channels_@me-Default" },
+    { name = "whatsapp", key = "A", class = "brave-web.whatsapp.com__-Default" },
+    { name = "zapfast", key = "P", class = "zapfast" },
+}) do
+    local window = { class = app.class }
+    hooks["window.open"](window)
+    assert(moves[#moves].workspace == "special:app-" .. app.name, "route new " .. app.name)
+    windows = { window }
+    local before = #launches
+    binds["SUPER + CTRL + ALT + " .. app.key]()
+    assert(#launches == before, "adopt existing " .. app.name)
+    assert(moves[#moves].window == window)
+    assert(toggles[#toggles] == "app-" .. app.name)
+end
+count = #launches
 toggle_app_scratchpad("unknown")
 assert(#launches == count, "unknown names must do nothing")
 print("Scratchpads: lazy launch, duplicate guard, browser routing, adoption, and bindings passed")

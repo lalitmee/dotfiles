@@ -71,13 +71,10 @@ local function scenario(restored, reload)
         local action = assert(load("return " .. job.expression))()
         if action then action() end
     end
-    assert(#launches == (restored and 8 or 9), "Discord must survive reloads without duplicating restored windows")
+    assert(#launches == 8, "Discord scratchpad must not autostart")
     for _, launch in ipairs(launches) do
         assert(launch.id ~= 3 and launch.id ~= 4 and launch.id ~= 14 and launch.id ~= 15,
             "scratchpads must not autostart")
-    end
-    if not restored then
-        assert(launches[9].at == 3000, "Discord waits for Brave")
     end
     for _, id in ipairs({ 21, 22, 23, 24 }) do
         assert(rules[id] == "desc:BNQ BenQ GW2480 C6K0150601Q", "middle workspace must bind to middle monitor")
@@ -94,4 +91,4 @@ scenario(false)
 scenario(true)
 scenario(false, true)
 scenario(true, true)
-print("Autostart: lazy scratchpad exclusion, reload-safe Discord delay, restoration skip, and repeat-start guard passed")
+print("Autostart: scratchpad exclusion, physical-monitor bindings, and repeat-start guard passed")

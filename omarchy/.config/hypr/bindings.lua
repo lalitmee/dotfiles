@@ -34,6 +34,9 @@ local scratchpads = {
     chatgpt = { key = "C", label = "ChatGPT web", pattern = "^brave%-chatgpt%.com", command = o.launch_webapp("https://chatgpt.com") },
     youtube = { key = "Y", label = "YouTube Music", pattern = "^brave%-music%.youtube%.com", command = o.launch_webapp("https://music.youtube.com") },
     spotify = { key = "S", label = "Spotify", pattern = "^[Ss]potify$", command = o.launch("spotify") },
+    discord = { key = "I", label = "Discord", pattern = "^brave%-discord%.com", command = o.launch_webapp("https://discord.com/channels/@me") },
+    whatsapp = { key = "A", label = "WhatsApp web", pattern = "^brave%-web%.whatsapp%.com", command = o.launch_webapp("https://web.whatsapp.com/") },
+    zapfast = { key = "P", label = "ZapFast", pattern = "^[Zz]apfast$", command = o.launch("zapfast") },
 }
 
 function toggle_app_scratchpad(name)
