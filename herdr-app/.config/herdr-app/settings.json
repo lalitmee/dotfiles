@@ -8,5 +8,6 @@
   "font_ligatures": false,
   "ui_font": "Google Sans",
   "minimum_contrast": 1,
-  "theme": "cobalt2"
+  "theme": "cobalt2",
+  "font_weight": 400
 }
