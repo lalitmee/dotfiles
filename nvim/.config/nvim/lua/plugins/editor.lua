@@ -407,6 +407,7 @@ return {
 
     { --[[ flash.nvim ]]
         "folke/flash.nvim",
+        commit = "b634694",
         event = "VeryLazy",
         init = function()
             local wk = require("which-key")
