@@ -14,3 +14,8 @@ elif [[ -d /home/linuxbrew/.linuxbrew ]]; then
     test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
     test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# Setting PATH for Python 3.12
+# The original version is saved in .zprofile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:${PATH}"
+export PATH
