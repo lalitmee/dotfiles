@@ -6,7 +6,7 @@
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 # Configure fzf-tab to show current directory contents for z command
-zstyle ':fzf-tab:complete:(cd|z|__zoxide_z):*' fzf-preview 'ls -la --color=always "$realpath"'
+zstyle ':fzf-tab:complete:(cd|z|__zoxide_z):*' fzf-preview 'eza -la --color=always --group-directories-first "$realpath"'
 zstyle ':fzf-tab:complete:(cd|z|__zoxide_z):*' fzf-flags '--height=40%' '--preview-window=right:70%'
 # }}}
 # -------------------------------------------------------------------
