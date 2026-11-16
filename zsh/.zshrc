@@ -17,39 +17,7 @@ fi
 # # NOTE: auto start tmux {{{
 # start tmux while starting new terminal
 # -------------------------------------------------------------------
-_not_inside_tmux() { [[ -z "$TMUX" ]]; }
-
-_inside_herdr() {
-    [[ -n "${HERDR_ENV:-}" || \
-       -n "${HERDR_PANE_ID:-}" || \
-       -n "${HERDR_SOCKET_PATH:-}" || \
-       -n "${HERDR_SESSION:-}" || \
-       -n "${HERDR_WORKSPACE_ID:-}" || \
-       -n "${HERDR_TAB_ID:-}" || \
-       -n "${HC_TERMINAL_ID:-}" || \
-       -n "${HC_TERMINAL_SOCKET:-}" || \
-       -n "${HC_SCOPE:-}" || \
-       "${__CFBundleIdentifier:-}" == "dev.herdr.app" || \
-       "${XPC_SERVICE_NAME:-}" == application.dev.herdr.app* || \
-       "${TERM_PROGRAM:-}" == *herdr* ]]
-}
-
-_skip_tmux_autostart() {
-    [[ -n "${REX_SESSION:-}" ]] || _inside_herdr
-}
-
-ensure_tmux_is_running() {
-    ZSH_TMUX_AUTOSTART=1
-    local autostart="${ZSH_TMUX_AUTOSTART:-1}"
-    if [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]]; then
-        autostart="${ZSH_TMUX_AUTOSTART:-0}"
-    fi
-    if [[ "$autostart" == 1 && -t 0 && -t 1 ]] && command -v tmux &>/dev/null && [[ -x ~/.tat ]] && _not_inside_tmux && ! _skip_tmux_autostart; then
-        ~/.tat
-    fi
-}
-
-ensure_tmux_is_running
+[[ -r ~/.zsh_plugins_config/tmux-autostart.zsh ]] && source ~/.zsh_plugins_config/tmux-autostart.zsh
 # -------------------------------------------------------------------
 # }}}
 # -------------------------------------------------------------------

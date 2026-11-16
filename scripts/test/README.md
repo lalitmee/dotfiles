@@ -16,6 +16,12 @@ Run focused tests from the repository root. These are standalone scripts; there 
 |---|---|---|
 | Ghostty updater | Progress, up-to-date check, interactive exit, verified installation, rollback preservation, and checksum failure | `zsh scripts/test/ghostty/install.zsh` |
 
+### Zsh
+
+| Target | Behavior covered | Command |
+|---|---|---|
+| Tmux autostart guard | Skips tmux autostart in Antigravity, ChatGPT, T3 Code, Claude, Codex, OpenCode, Cursor, Windsurf, Herdr, Rex, and Pi via env vars and process ancestry without false positives | `zsh scripts/test/zsh/tmux-autostart.zsh` |
+
 ### Omarchy
 
 - App scratchpads: lazy launches, rapid-summon duplicate prevention, browser routing,
