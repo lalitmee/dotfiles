@@ -10,6 +10,10 @@ dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/boo
 -- keeping core window-manager bindings:
 -- omarchy_preinstalled_bindings = false
 
+-- Hyprland 0.56.2 crashes during cursor shape changes on this machine.
+-- Skip Omarchy's temporary blank startup cursor and use the normal cursor.
+package.loaded["default.hypr.startup-cursor"] = true
+
 -- Load Omarchy defaults.
 require("default.hypr.omarchy")
 
