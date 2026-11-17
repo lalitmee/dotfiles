@@ -20,7 +20,7 @@ o = {
 o.rebind = o.bind
 dofile("omarchy/.config/hypr/bindings.lua")
 assert(#launches == 0, "configuration must not launch scratchpads")
-for _, name in ipairs({ "gemini", "chatgpt", "youtube", "spotify", "discord", "whatsapp", "zapfast" }) do
+for _, name in ipairs({ "gemini", "chatgpt", "youtube", "spotify", "discord", "whatsapp", "zapfast", "files" }) do
     local before = #launches
     local action = toggle_app_scratchpad(name)
     assert(#launches == before + 1, name .. " must launch on first summon")
@@ -44,6 +44,7 @@ for _, app in ipairs({
     { name = "discord", key = "I", class = "brave-discord.com__channels_@me-Default" },
     { name = "whatsapp", key = "A", class = "brave-web.whatsapp.com__-Default" },
     { name = "zapfast", key = "P", class = "zapfast" },
+    { name = "files", key = "F", class = "org.gnome.Nautilus" },
 }) do
     local window = { class = app.class }
     hooks["window.open"](window)

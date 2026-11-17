@@ -6,5 +6,6 @@
     "scratchpads.spotify": { "icon": "", "label": "Spotify", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"spotify\")'" },
     "scratchpads.discord": { "icon": "", "label": "Discord", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"discord\")'" },
     "scratchpads.whatsapp": { "icon": "", "label": "WhatsApp web", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"whatsapp\")'" },
-    "scratchpads.zapfast": { "icon": "", "label": "ZapFast", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"zapfast\")'" }
+    "scratchpads.zapfast": { "icon": "", "label": "ZapFast", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"zapfast\")'" },
+    "scratchpads.files": { "icon": "󰉋", "label": "Files", "action": "hyprctl dispatch 'toggle_app_scratchpad(\"files\")'" }
 }

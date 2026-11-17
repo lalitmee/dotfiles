@@ -37,6 +37,7 @@ local scratchpads = {
     discord = { key = "I", label = "Discord", pattern = "^brave%-discord%.com", command = o.launch_webapp("https://discord.com/channels/@me") },
     whatsapp = { key = "A", label = "WhatsApp web", pattern = "^brave%-web%.whatsapp%.com", command = o.launch_webapp("https://web.whatsapp.com/") },
     zapfast = { key = "P", label = "ZapFast", pattern = "^[Zz]apfast$", command = o.launch("zapfast") },
+    files = { key = "F", label = "Files", pattern = "^org%.gnome%.Nautilus$", command = o.launch("nautilus --new-window") },
 }
 
 function toggle_app_scratchpad(name)
