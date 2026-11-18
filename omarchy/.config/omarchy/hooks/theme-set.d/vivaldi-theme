@@ -74,6 +74,7 @@ def build_palette(colors: dict) -> dict[str, str]:
     fg_dark = colors.get("dark_foreground") or mix(fg, bg, 0.45)
 
     selection = colors.get("selection") or mix(bg, accent, 0.25)
+    active_tab_bg = mix(bg, selection, 0.32)
     highlight_fg = contrast_fg(accent, bg_darker, "#ffffff")
     accent_fg = contrast_fg(bg_dark, bg_darker, fg)
 
@@ -103,7 +104,8 @@ def build_palette(colors: dict) -> dict[str, str]:
         "accent_bg": bg_dark,
         "accent_bg_dark": bg_darker,
         "accent_bg_darker": mix(bg_darker, dark_anchor, 0.20),
-        "accent_bg_faded": selection,
+        "accent_bg_faded": mix(bg_dark, bg_darker, 0.50),
+        "active_tab_bg": active_tab_bg,
         "accent_fg": accent_fg,
         "highlight_bg": accent,
         "highlight_bg_dark": mix(accent, dark_anchor, 0.15),
@@ -201,7 +203,7 @@ def render_css(p: dict[str, str], theme_name: str) -> str:
 #browser #tabs-container .tab.active.active,
 #browser #tabs-subcontainer .tab.active.active,
 #browser.color-behind-tabs-on .tab.active.active {{
-  background-color: {mix(p["bg"], p["accent_bg_faded"], 0.32)} !important;
+  background-color: {p["active_tab_bg"]} !important;
   color: {p["fg_intense"]} !important;
   box-shadow: none !important;
 }}
