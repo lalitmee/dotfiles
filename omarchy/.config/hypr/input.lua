@@ -58,9 +58,11 @@
 -- hl.gesture({ fingers = 3, direction = "right", action = function() hl.dispatch(hl.dsp.focus({ direction = "r" })) end })
 
 -- Personal input overrides.
--- Caps Lock acts as Escape; Shift + Caps Lock stays the Compose key.
+-- Caps Lock -> Escape and Shift + Caps Lock -> Compose are handled by keyd
+-- (/etc/keyd/default.conf) so apps reading physical keys also see Escape.
+-- keyd emits KEY_COMPOSE (xkb Menu), so make Menu act as Compose.
 hl.config({
   input = {
-    kb_options = "caps:escape_shifted_compose",
+    kb_options = "compose:menu",
   },
 })

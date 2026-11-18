@@ -26,7 +26,7 @@
 -- o.bind("SUPER + PERIOD", nil, { panel = "omarchy.emojis" })
 
 -- Personal keybinding overrides.
-o.rebind("SUPER + SHIFT + CTRL + SPACE", "omacast launcher", hl.dsp.global("omacast:toggle"))
+o.bind("SUPER + D", "omacast launcher", hl.dsp.global("omacast:toggle"))
 o.rebind("SUPER + SHIFT + S", "Screenshot", "omarchy-capture-screenshot")
 -- Each app owns a special workspace; existing windows are adopted on summon.
 local scratchpads = {

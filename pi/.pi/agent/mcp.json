@@ -2,7 +2,10 @@
   "mcpServers": {
     "vercel": {
       "enabled": true,
-      "url": "https://mcp.vercel.com"
+      "url": "https://mcp.vercel.com",
+      "oauth": {
+        "scope": "openid offline_access"
+      }
     },
     "linear": {
       "enabled": true,
