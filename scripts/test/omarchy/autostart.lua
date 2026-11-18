@@ -4,7 +4,7 @@ local classes = {
     [21] = "co.hyprlab.Hylki", [22] = "brave-browser",
     [11] = "com.mitchellh.ghostty", [1] = "slack",
     [24] = "herdr-app", [23] = "t3code",
-    [2] = "brave-discord.com__channels_@me-Default",
+    [2] = "vivaldi-stable",
     [12] = "antigravity", [13] = "chatgpt",
 }
 
@@ -42,8 +42,8 @@ local function scenario(restored, reload)
     }
     dofile(config)
     hooks["hyprland.start"]()
-    assert(#launches == 8, "eight desktop apps start immediately")
-    for i, id in ipairs({ 21, 22, 11, 1, 24, 23, 12, 13 }) do
+    assert(#launches == 9, "nine desktop apps start immediately")
+    for i, id in ipairs({ 21, 22, 11, 1, 2, 24, 23, 12, 13 }) do
         assert(launches[i].id == id, "desktop startup workspace order")
     end
     assert(launches[1].command:find("APPIMAGE_EXTRACT_AND_RUN=1", 1, true), "Hylki needs AppImage extraction")
@@ -54,7 +54,7 @@ local function scenario(restored, reload)
         end
     end
     hooks["hyprland.start"]()
-    assert(#launches == 8, "repeated startup must not schedule a second queue")
+    assert(#launches == 9, "repeated startup must not schedule a second queue")
     if reload then
         -- Reload destroys Lua timers, but already spawned shell processes survive.
         timers = {}
@@ -71,7 +71,7 @@ local function scenario(restored, reload)
         local action = assert(load("return " .. job.expression))()
         if action then action() end
     end
-    assert(#launches == 8, "Discord scratchpad must not autostart")
+    assert(#launches == 9, "Discord scratchpad must not autostart")
     for _, launch in ipairs(launches) do
         assert(launch.id ~= 3 and launch.id ~= 4 and launch.id ~= 14 and launch.id ~= 15,
             "scratchpads must not autostart")

@@ -32,7 +32,7 @@ _popup_ansi() {
     printf '\033[1;38;2;%d;%d;%dm' "$((16#${hex:0:2}))" "$((16#${hex:2:2}))" "$((16#${hex:4:2}))"
 }
 if [[ -r "$_popup_theme/colors.toml" ]]; then
-    popup_key="$(_popup_ansi accent)" || popup_key=$'\033[1;38;2;102;179;255m'
+    popup_key="$(_popup_ansi blue)" || popup_key=$'\033[1;38;2;102;179;255m'
     popup_value="$(_popup_ansi yellow)" || popup_value=$'\033[38;2;255;198;0m'
     popup_label="$(_popup_ansi magenta)" || popup_label=$'\033[1;38;2;255;98;140m'
 fi

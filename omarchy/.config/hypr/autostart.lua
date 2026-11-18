@@ -19,6 +19,7 @@ o.window("^(t3code|com\\.t3tools\\.T3Code)$", { workspace = "23 silent" })
 
 -- Laptop monitor: eDP-1
 o.window("^slack$", { workspace = "1 silent" })
+o.window("^vivaldi-stable$", { workspace = "2 silent" })
 
 -- Portrait monitor: DP-1
 o.window("^[Aa]ntigravity$", { workspace = "12 silent" })
@@ -56,6 +57,7 @@ hl.on("hyprland.start", function()
     launch_if_missing("^brave-browser$", o.launch("brave"), 22)
     launch_if_missing("^com%.mitchellh%.ghostty$", o.launch("ghostty"), 11)
     launch_if_missing("^slack$", o.launch("slack"), 1)
+    launch_if_missing("^vivaldi%-stable$", o.launch("vivaldi"), 2)
     launch_if_missing("^herdr%-app$", o.launch(home .. "/.local/bin/herdr-app"), 24)
     launch_if_missing("t3code", o.launch(home .. "/.local/share/t3code/T3-Code.AppImage"), 23)
     launch_if_missing("^[Aa]ntigravity$", o.launch(home .. "/.local/bin/antigravity"), 12)
