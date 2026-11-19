@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "bookmarks": [
+    {
+      "title": "Search Google",
+      "url": "https://www.google.com/search?q={input}",
+      "prompt": "Search Google"
+    },
+    {
+      "title": "Search YouTube",
+      "url": "https://www.youtube.com/results?search_query={input}",
+      "prompt": "Search YouTube"
+    },
+    {
+      "title": "Search GitHub repositories",
+      "url": "https://github.com/search?q={input}&type=repositories",
+      "prompt": "Repository name or keywords"
+    },
+    {
+      "title": "Search GitHub code",
+      "url": "https://github.com/search?q={input}&type=code",
+      "prompt": "Code keywords"
+    },
+    {
+      "title": "Search code in a GitHub repository",
+      "url": "https://github.com/OWNER/REPO/search?q={input}&type=code",
+      "prompt": "Code keywords"
+    },
+    {
+      "title": "Open a GitHub issue",
+      "url": "https://github.com/OWNER/REPO/issues/{input}",
+      "prompt": "Issue number"
+    },
+    {
+      "title": "Search npm packages",
+      "url": "https://www.npmjs.com/search?q={input}",
+      "prompt": "Package name or keywords"
+    },
+    {
+      "title": "Search Python packages",
+      "url": "https://pypi.org/search/?q={input}",
+      "prompt": "Package name or keywords"
+    },
+    {
+      "title": "Search Rust crates",
+      "url": "https://crates.io/search?q={input}",
+      "prompt": "Crate name or keywords"
+    }
+  ]
+}
