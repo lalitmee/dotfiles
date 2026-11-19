@@ -3,9 +3,9 @@ local config = "omarchy/.config/hypr/autostart.lua"
 local classes = {
     [21] = "co.hyprlab.Hylki", [22] = "brave-browser",
     [11] = "com.mitchellh.ghostty", [1] = "slack",
-    [24] = "herdr-app", [23] = "t3code",
+    [12] = "herdr-app", [23] = "dev.shuv.rex-rune", [24] = "t3code",
     [2] = "vivaldi-stable",
-    [12] = "antigravity", [13] = "chatgpt",
+    [13] = "antigravity", [14] = "chatgpt",
 }
 
 local function scenario(restored, reload)
@@ -42,8 +42,8 @@ local function scenario(restored, reload)
     }
     dofile(config)
     hooks["hyprland.start"]()
-    assert(#launches == 9, "nine desktop apps start immediately")
-    for i, id in ipairs({ 21, 22, 11, 1, 2, 24, 23, 12, 13 }) do
+    assert(#launches == 10, "ten desktop apps start immediately")
+    for i, id in ipairs({ 21, 22, 11, 1, 2, 12, 23, 24, 13, 14 }) do
         assert(launches[i].id == id, "desktop startup workspace order")
     end
     assert(launches[1].command:find("APPIMAGE_EXTRACT_AND_RUN=1", 1, true), "Hylki needs AppImage extraction")
@@ -54,7 +54,7 @@ local function scenario(restored, reload)
         end
     end
     hooks["hyprland.start"]()
-    assert(#launches == 9, "repeated startup must not schedule a second queue")
+    assert(#launches == 10, "repeated startup must not schedule a second queue")
     if reload then
         -- Reload destroys Lua timers, but already spawned shell processes survive.
         timers = {}
@@ -71,15 +71,15 @@ local function scenario(restored, reload)
         local action = assert(load("return " .. job.expression))()
         if action then action() end
     end
-    assert(#launches == 9, "Discord scratchpad must not autostart")
+    assert(#launches == 10, "Discord scratchpad must not autostart")
     for _, launch in ipairs(launches) do
-        assert(launch.id ~= 3 and launch.id ~= 4 and launch.id ~= 14 and launch.id ~= 15,
+        assert(launch.id ~= 3 and launch.id ~= 4 and launch.id ~= 15,
             "scratchpads must not autostart")
     end
     for _, id in ipairs({ 21, 22, 23, 24 }) do
         assert(rules[id] == "desc:BNQ BenQ GW2480 C6K0150601Q", "middle workspace must bind to middle monitor")
     end
-    for _, id in ipairs({ 11, 12 }) do
+    for _, id in ipairs({ 11, 12, 13, 14 }) do
         assert(rules[id] == "desc:BNQ BenQ GW2480 ETD7L03841SL0", "portrait workspace must bind to portrait monitor")
     end
     for _, id in ipairs({ 1, 2 }) do
