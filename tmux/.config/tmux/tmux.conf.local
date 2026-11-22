@@ -497,6 +497,26 @@ bind Tab display-popup -E -w 100% -h 95% 'zsh "$HOME/.config/tmux/scripts/window
 # Keep the native session switcher with Cobalt2 floating-pane colours.
 bind BTab new-pane -E -s "fg=#FFFFFF,bg=#193549" -S "fg=#00AAFF,bg=#193549" -R "fg=#0050A4,bg=#193549" -X 0 -Y 0 -x "75%" -y "30%" \; move-pane -P bottom-centre \; switch-mode -ks
 
+bind -N "Toggle multiplexer sidebar" M-s run-shell '
+    pane=$(tmux list-panes -t "#{window_id}" -f "##{@multiplexer-sidebar}" -F "##{pane_id}") || exit
+    if [ -n "$pane" ]; then
+        tmux kill-pane -t "$pane"
+    else
+        pane=$(tmux split-window -hbf -l 32 -t "#{pane_id}" -P -F "##{pane_id}" "\"$HOME/.local/bin/multiplexer-sidebar\" --sidebar") &&
+            tmux set-option -p -t "$pane" @multiplexer-sidebar 1
+    fi
+'
+
+bind -N "Toggle multiplexer dashboard" M-d run-shell '
+    pane=$(tmux list-panes -t "#{window_id}" -f "##{@multiplexer-dashboard}" -F "##{pane_id}") || exit
+    if [ -n "$pane" ]; then
+        tmux kill-pane -t "$pane"
+    else
+        pane=$(tmux new-pane -O -x80% -y80% -X10% -Y10% -t "#{pane_id}" -c #{q:pane_current_path} -P -F "##{pane_id}" "\"$HOME/.local/bin/multiplexer-sidebar\"") &&
+            tmux set-option -p -t "$pane" @multiplexer-dashboard 1
+    fi
+'
+
 #-------------------------------------------------------------------------------
 # }}}
 #-------------------------------------------------------------------------------

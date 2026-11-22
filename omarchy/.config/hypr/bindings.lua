@@ -38,6 +38,7 @@ local scratchpads = {
     whatsapp = { key = "A", label = "WhatsApp web", pattern = "^brave%-web%.whatsapp%.com", command = o.launch_webapp("https://web.whatsapp.com/") },
     zapfast = { key = "P", label = "ZapFast", pattern = "^[Zz]apfast$", command = o.launch("zapfast") },
     files = { key = "F", label = "Files", pattern = "^org%.gnome%.Nautilus$", command = o.launch("nautilus --new-window") },
+    bitwarden = { key = "B", label = "Bitwarden", pattern = "^[Bb]itwarden$", command = o.launch("bitwarden-desktop") },
 }
 
 function toggle_app_scratchpad(name)

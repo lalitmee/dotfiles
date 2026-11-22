@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+"""Omarchy theme-set hook: generate OpenCode Desktop theme JSON from colors.toml."""
+
+import json
+import os
+import re
+import tempfile
+import tomllib
+from pathlib import Path
+
+HEX6_RE = re.compile(r"^#?[0-9a-fA-F]{6}$")
+
+
+def normalize_hex(value: object, fallback: str) -> str:
+    """Return a normalized #rrggbb string, or fallback if invalid."""
+    if isinstance(value, str):
+        s = value.strip()
+        if HEX6_RE.match(s):
+            return "#" + s.lstrip("#").lower()
+    return fallback
+
+
+def build_variant(colors: dict) -> dict:
+    """Map Omarchy colors.toml entries to an OpenCode Desktop theme variant."""
+    bg = normalize_hex(colors.get("background"), "#193549")
+    fg = normalize_hex(colors.get("foreground"), "#ffffff")
+    accent = normalize_hex(colors.get("accent"), "#ffc600")
+    muted = normalize_hex(colors.get("muted"), normalize_hex(colors.get("dark_foreground"), "#9e9e9e"))
+    red = normalize_hex(colors.get("red"), "#ff628c")
+    yellow = normalize_hex(colors.get("yellow"), accent)
+    orange = normalize_hex(colors.get("orange"), yellow)
+    green = normalize_hex(colors.get("green"), "#3ad900")
+    cyan = normalize_hex(colors.get("cyan"), "#80fcff")
+    blue = normalize_hex(colors.get("blue"), "#00aaff")
+    magenta = normalize_hex(colors.get("magenta"), accent)
+
+    return {
+        "palette": {
+            "neutral": bg,
+            "ink": fg,
+            "primary": accent,
+            "accent": magenta,
+            "success": green,
+            "warning": orange,
+            "error": red,
+            "info": cyan,
+            "interactive": blue,
+            "diffAdd": green,
+            "diffDelete": red,
+        },
+        "overrides": {
+            "syntax-comment": muted,
+            "syntax-keyword": orange,
+            "syntax-primitive": cyan,
+            "syntax-constant": magenta,
+            "syntax-string": green,
+            "syntax-property": blue,
+            "syntax-variable": fg,
+        },
+    }
+
+
+def atomic_write_text(target: Path, content: str) -> None:
+    """Atomically write text content to target via a same-directory temporary file."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(prefix=f".{target.name}.", dir=target.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(content)
+        os.replace(tmp_name, target)
+    except BaseException:
+        try:
+            os.unlink(tmp_name)
+        except OSError:
+            pass
+        raise
+
+
+def update_settings_background(settings_path: Path, background: str) -> None:
+    """Update backgroundColor in opencode.settings if the file already exists and is valid JSON."""
+    if not settings_path.is_file():
+        return
+    try:
+        data = json.loads(settings_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    if not isinstance(data, dict):
+        return
+    if data.get("backgroundColor") == background:
+        return
+    data["backgroundColor"] = background
+    atomic_write_text(settings_path, json.dumps(data, indent="\t") + "\n")
+
+
+def main() -> int:
+    state_dir = Path(os.environ.get("XDG_STATE_HOME", Path.home() / ".local/state"))
+    colors_path = state_dir / "omarchy/current/theme/colors.toml"
+    if not colors_path.is_file():
+        return 0
+
+    with colors_path.open("rb") as f:
+        colors = tomllib.load(f)
+
+    variant = build_variant(colors)
+    theme = {
+        "$schema": "https://opencode.ai/desktop-theme.json",
+        "name": "Omarchy",
+        "id": "omarchy",
+        "light": variant,
+        "dark": variant,
+    }
+
+    config_dir = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+    desktop_dir = config_dir / "ai.opencode.desktop"
+    atomic_write_text(desktop_dir / "omarchy-theme.json", json.dumps(theme, indent=2) + "\n")
+    update_settings_background(desktop_dir / "opencode.settings", variant["palette"]["neutral"])
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
