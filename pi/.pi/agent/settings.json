@@ -28,6 +28,6 @@
   "defaultProvider": "openai",
   "defaultModel": "gpt-6.1-sol",
   "hideThinkingBlock": false,
-  "lastChangelogVersion": "1.5.2",
+  "lastChangelogVersion": "1.6.0",
   "deviceId": "c69df251-62ef-4b08-9cb1-063141778bb5"
 }
