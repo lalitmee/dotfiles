@@ -12,6 +12,11 @@
 !/.config/herdr-app/layouts/
 !/.config/herdr-app/themes/
 /.config/herdr-app/layouts/*
-!/.config/herdr-app/layouts/main.json
+!/.config/herdr-app/layouts/lalitmee-main.json
 /.config/herdr-app/themes/*
 !/.config/herdr-app/themes/cobalt2.json
+!/.config/herdr-app/mods/
+/.config/herdr-app/mods/*
+!/.config/herdr-app/mods/worktree-keys/
+/.config/herdr-app/mods/worktree-keys/*
+!/.config/herdr-app/mods/worktree-keys/main.js

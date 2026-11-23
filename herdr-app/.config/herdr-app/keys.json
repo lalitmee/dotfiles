@@ -47,6 +47,8 @@
     "ctrl-shift-?": "app.help",
     "ctrl-shift-b": "layout.toggle:sidebar",
     "ctrl-shift-n": "space.new",
+    "ctrl-alt-n": "worktree-keys.new",
+    "ctrl-alt-o": "worktree-keys.open",
     "ctrl-shift-t": "tab.new",
     "ctrl-shift-p": "app.palette",
     "ctrl-,": "app.settings",

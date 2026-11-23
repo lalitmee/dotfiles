@@ -17,6 +17,12 @@
   },
   "children": [
     {
+      "id": "worktree-keys",
+      "type": "block",
+      "size": { "px": 1 },
+      "content": { "mod": "worktree-keys" }
+    },
+    {
       "id": "sidebar",
       "type": "column",
       "size": {

@@ -1,0 +1,272 @@
+#!/usr/bin/env python3
+"""Omarchy theme-set hook: generate OpenChamber theme JSONs from colors.toml."""
+
+import json
+import os
+import re
+import stat
+import tempfile
+import tomllib
+from pathlib import Path
+
+HEX6_RE = re.compile(r"^#?[0-9a-fA-F]{6}$")
+
+
+def normalize_hex(value: object, fallback: str) -> str:
+    """Return a normalized #rrggbb string, or fallback if invalid."""
+    if isinstance(value, str):
+        s = value.strip()
+        if HEX6_RE.match(s):
+            return "#" + s.lstrip("#").lower()
+    return fallback
+
+
+def parse_rgb(hex_color: str) -> tuple[int, int, int]:
+    """Parse #rrggbb into an (r, g, b) tuple."""
+    h = hex_color.lstrip("#")
+    return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+
+
+def blend(hex_a: str, hex_b: str, weight_b: float) -> str:
+    """Linearly interpolate between two #rrggbb colors."""
+    ra, ga, ba = parse_rgb(hex_a)
+    rb, gb, bb = parse_rgb(hex_b)
+    w = max(0.0, min(1.0, weight_b))
+    r = round(ra * (1.0 - w) + rb * w)
+    g = round(ga * (1.0 - w) + gb * w)
+    b = round(ba * (1.0 - w) + bb * w)
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+def with_alpha(hex_color: str, alpha_hex: str) -> str:
+    """Append a two-digit hex alpha suffix to a #rrggbb color."""
+    return f"{hex_color}{alpha_hex.lower()}"
+
+
+def resolve_is_dark(colors: dict, bg: str) -> bool:
+    """Determine dark vs light from colors.toml mode, falling back to background luminance."""
+    mode = colors.get("mode")
+    if isinstance(mode, str):
+        lowered = mode.strip().lower()
+        if lowered == "light":
+            return False
+        if lowered == "dark":
+            return True
+    r, g, b = parse_rgb(bg)
+    luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0
+    return luminance < 0.5
+
+
+def build_theme(colors: dict, variant: str, is_dark: bool) -> dict:
+    """Map Omarchy colors.toml entries to an OpenChamber theme JSON payload."""
+    default_bg = "#193549" if is_dark else "#eff1f5"
+    default_fg = "#ffffff" if is_dark else "#4c4f69"
+    default_dark_fg = "#9e9e9e" if is_dark else "#9ca0b0"
+    default_light_fg = "#cccccc" if is_dark else "#5c5f77"
+
+    bg = normalize_hex(colors.get("background"), default_bg)
+    fg = normalize_hex(colors.get("foreground"), default_fg)
+    accent = normalize_hex(colors.get("accent"), "#ffc600")
+    selection = normalize_hex(colors.get("selection"), blend(bg, accent, 0.25))
+
+    dark_bg = normalize_hex(colors.get("dark_background"), blend(bg, "#000000", 0.15))
+    darker_bg = normalize_hex(colors.get("darker_background"), blend(dark_bg, "#000000", 0.20))
+    lighter_bg = normalize_hex(colors.get("lighter_background"), blend(bg, fg, 0.08))
+
+    dark_fg = normalize_hex(colors.get("dark_foreground"), default_dark_fg)
+    light_fg = normalize_hex(colors.get("light_foreground"), default_light_fg)
+    bright_fg = normalize_hex(colors.get("bright_foreground"), fg)
+    muted = normalize_hex(colors.get("muted"), dark_fg)
+
+    red = normalize_hex(colors.get("red"), "#ff628c")
+    yellow = normalize_hex(colors.get("yellow"), accent)
+    orange = normalize_hex(colors.get("orange"), yellow)
+    green = normalize_hex(colors.get("green"), "#3ad900")
+    cyan = normalize_hex(colors.get("cyan"), "#80fcff")
+    blue = normalize_hex(colors.get("blue"), "#00aaff")
+    magenta = normalize_hex(colors.get("magenta"), accent)
+
+    bright_green = normalize_hex(colors.get("bright_green"), green)
+    bright_cyan = normalize_hex(colors.get("bright_cyan"), cyan)
+    bright_blue = normalize_hex(colors.get("bright_blue"), blue)
+
+    return {
+        "metadata": {
+            "id": f"omarchy-{variant}",
+            "name": "Omarchy",
+            "variant": variant,
+            "description": "Synced from the active Omarchy theme",
+            "version": "1.0.0",
+            "author": "Omarchy",
+            "tags": ["omarchy", variant],
+        },
+        "colors": {
+            "primary": {
+                "base": accent,
+                "hover": blend(accent, fg, 0.14),
+                "active": blend(accent, fg, 0.24),
+                "muted": with_alpha(accent, "80"),
+            },
+            "surface": {
+                "background": bg,
+                "foreground": fg,
+                "muted": dark_bg,
+                "mutedForeground": dark_fg,
+                "elevated": lighter_bg,
+                "subtle": blend(bg, lighter_bg, 0.5),
+            },
+            "interactive": {
+                "border": with_alpha(blend(bg, fg, 0.16), "bf"),
+                "borderHover": blend(bg, fg, 0.30),
+                "selection": with_alpha(selection, "55"),
+                "focusRing": with_alpha(accent, "66"),
+                "hover": with_alpha(fg, "12"),
+                "active": with_alpha(fg, "20"),
+            },
+            "status": {
+                "error": red,
+                "warning": orange,
+                "success": green,
+                "info": blue,
+            },
+            "syntax": {
+                "base": {
+                    "background": darker_bg,
+                    "comment": dark_fg,
+                    "keyword": orange,
+                    "string": green,
+                    "number": magenta,
+                    "function": yellow,
+                    "variable": fg,
+                    "type": cyan,
+                    "operator": blue,
+                },
+                "tokens": {
+                    "commentDoc": muted,
+                    "stringEscape": bright_green,
+                    "variableProperty": bright_blue,
+                    "className": bright_cyan,
+                    "punctuation": light_fg,
+                },
+                "highlights": {
+                    "diffAdded": green,
+                    "diffRemoved": red,
+                    "diffModified": blue,
+                },
+            },
+            "pr": {
+                "open": green,
+                "blocked": orange,
+                "merged": magenta,
+            },
+            "chat": {
+                "background": bg,
+                "userMessageBackground": blend(bg, accent, 0.10),
+                "divider": blend(bg, fg, 0.14),
+            },
+            "markdown": {
+                "link": blue,
+                "linkHover": bright_blue,
+                "inlineCode": cyan,
+                "inlineCodeBackground": darker_bg,
+                "blockquote": light_fg,
+                "blockquoteBorder": blend(bg, fg, 0.20),
+                "listMarker": with_alpha(accent, "99"),
+                "italic": bright_fg,
+            },
+            "tools": {
+                "border": with_alpha(blend(bg, fg, 0.18), "73"),
+                "icon": dark_fg,
+                "title": fg,
+                "description": light_fg,
+                "edit": {
+                    "addedBackground": with_alpha(green, "25"),
+                    "removedBackground": with_alpha(red, "25"),
+                    "lineNumber": dark_fg,
+                },
+            },
+        },
+        "config": {
+            "transitions": {
+                "fast": "150ms ease",
+                "normal": "250ms ease",
+                "slow": "350ms ease",
+            }
+        },
+    }
+
+
+def atomic_write_text(target: Path, content: str, mode: int | None = None) -> None:
+    """Atomically write text content to target via a same-directory temporary file."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if mode is None and target.exists():
+        mode = stat.S_IMODE(target.stat().st_mode)
+    fd, tmp_name = tempfile.mkstemp(prefix=f".{target.name}.", dir=target.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(content)
+        if mode is not None:
+            os.chmod(tmp_name, mode)
+        os.replace(tmp_name, target)
+    except BaseException:
+        try:
+            os.unlink(tmp_name)
+        except OSError:
+            pass
+        raise
+
+
+def update_splash_colors(settings_path: Path, bg: str, fg: str) -> None:
+    """Update desktopSplashColors in settings.json if valid JSON and values changed."""
+    if not settings_path.is_file():
+        return
+    try:
+        mode = stat.S_IMODE(settings_path.stat().st_mode)
+        data = json.loads(settings_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    if not isinstance(data, dict):
+        return
+
+    desired = {
+        "bgLight": bg,
+        "fgLight": fg,
+        "bgDark": bg,
+        "fgDark": fg,
+    }
+    if data.get("desktopSplashColors") == desired:
+        return
+
+    data["desktopSplashColors"] = desired
+    atomic_write_text(settings_path, json.dumps(data, indent=2) + "\n", mode=mode)
+
+
+def main() -> int:
+    state_dir = Path(os.environ.get("XDG_STATE_HOME", Path.home() / ".local/state"))
+    colors_path = state_dir / "omarchy/current/theme/colors.toml"
+    if not colors_path.is_file():
+        return 0
+
+    with colors_path.open("rb") as f:
+        colors = tomllib.load(f)
+
+    raw_bg = normalize_hex(colors.get("background"), "#193549")
+    is_dark = resolve_is_dark(colors, raw_bg)
+
+    config_dir = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+    openchamber_dir = config_dir / "openchamber"
+    themes_dir = openchamber_dir / "themes"
+
+    dark_theme = build_theme(colors, "dark", is_dark)
+    light_theme = build_theme(colors, "light", is_dark)
+
+    atomic_write_text(themes_dir / "omarchy-dark.json", json.dumps(dark_theme, indent=2) + "\n", mode=0o644)
+    atomic_write_text(themes_dir / "omarchy-light.json", json.dumps(light_theme, indent=2) + "\n", mode=0o644)
+
+    surface = dark_theme["colors"]["surface"]
+    update_splash_colors(openchamber_dir / "settings.json", surface["background"], surface["foreground"])
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
