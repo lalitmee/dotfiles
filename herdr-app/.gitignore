@@ -20,3 +20,13 @@
 !/.config/herdr-app/mods/worktree-keys/
 /.config/herdr-app/mods/worktree-keys/*
 !/.config/herdr-app/mods/worktree-keys/main.js
+!/.config/herdr-app/mods/tmux-bridge/
+/.config/herdr-app/mods/tmux-bridge/*
+!/.config/herdr-app/mods/tmux-bridge/main.js
+!/.config/herdr-app/mods/tmux-bridge/actions.js
+!/.config/herdr-app/mods/tmux-bridge/scratchpads.js
+!/.config/herdr-app/mods/tmux-leader/
+/.config/herdr-app/mods/tmux-leader/*
+!/.config/herdr-app/mods/tmux-leader/main.js
+!/.config/herdr-app/mods/tmux-leader/modes.js
+!/.config/herdr-app/mods/tmux-leader/mod.json

@@ -23,6 +23,12 @@
       "content": { "mod": "worktree-keys" }
     },
     {
+      "id": "tmux-bridge",
+      "type": "block",
+      "size": { "px": 1 },
+      "content": { "mod": "tmux-bridge" }
+    },
+    {
       "id": "sidebar",
       "type": "column",
       "size": {

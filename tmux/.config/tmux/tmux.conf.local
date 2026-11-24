@@ -424,9 +424,13 @@ set -g @tpad-backup-logs-title " Backup Logs "
 #           For bindings that work everywhere without the tmux prefix.
 #-------------------------------------------------------------------------------
 
-# switch sessions using `Alt-[` and `Alt-]`
-bind-key -n M-[ switch-client -p
-bind-key -n M-] switch-client -n
+# switch panes using `Alt-[` and `Alt-]`
+bind-key -n M-[ select-pane -t :.-
+bind-key -n M-] select-pane -t :.+
+
+# switch sessions using `Ctrl+Shift+K` and `Ctrl+Shift+J`
+bind-key -n C-S-K switch-client -p
+bind-key -n C-S-J switch-client -n
 
 # Smart pane switching with awareness of Vim/Neovim splits.
 # Smart pane switching with awareness of Vim/Neovim splits.
@@ -477,8 +481,12 @@ bind '\' split-window -h -c '#{pane_current_path}'
 # Kill the current pane without confirmation.
 bind x kill-pane
 
+# Navigate windows sequentially (reclaimed from break-pane).
+bind n next-window
+bind p previous-window
+
 # Move the current pane to its own new window.
-bind n break-pane -d
+bind ! break-pane -d
 
 # Toggle the current pane between tiled and floating.
 bind W if-shell -F '#{pane_floating_flag}' 'join-pane' 'break-pane -W'
@@ -539,8 +547,7 @@ bind D run-shell "#{@tpad-path} toggle lazydocker"
 # Launch the gh-dash popup script in tpad.
 bind G run-shell "#{@tpad-path} toggle gh-dash"
 
-# Launch the process viewer in a popup.
-bind p run-shell "#{@tpad-path} toggle process-viewer"
+# Process viewer lives in monitor-mode (`C-a C-m b`), freeing `C-a p` for previous-window.
 
 # Launch the main grimoire scratchpad (Replacing tmux-grimoire key bindings)
 bind t run-shell "#{@tpad-path} toggle grimoire"
