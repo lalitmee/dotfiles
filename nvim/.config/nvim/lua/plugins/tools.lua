@@ -785,13 +785,34 @@ return {
             { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
         },
         cmd = {
+            "DB",
             "DBUI",
             "DBUIToggle",
             "DBUIAddConnection",
             "DBUIFindBuffer",
         },
         keys = {
-            { "<leader>D", "<cmd>DBUIToggle<CR>", desc = "DB UI Toggle", silent = true },
+            { "<leader>Du", "<cmd>DBUIToggle<CR>", desc = "DB UI Toggle", silent = true },
+            { "<leader>Df", "<cmd>DBUIFindBuffer<CR>", desc = "DB UI Find Buffer", silent = true },
+            { "<leader>Da", "<cmd>DBUIAddConnection<CR>", desc = "DB UI Add Connection", silent = true },
+            { "<leader>Dr", "<cmd>%DB<CR>", desc = "DB Run Buffer", silent = true },
+            { "<leader>Dr", ":DB<CR>", mode = "x", desc = "DB Run Selection", silent = true },
+            { "<leader>Dl", "<cmd>.DB<CR>", desc = "DB Run Line", silent = true },
+            {
+                "<leader>Do",
+                function()
+                    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                        local buf = vim.api.nvim_win_get_buf(win)
+                        if vim.bo[buf].filetype == "dbout" then
+                            vim.api.nvim_set_current_win(win)
+                            return
+                        end
+                    end
+                    vim.notify("No .dbout window open", vim.log.levels.INFO)
+                end,
+                desc = "DB Jump to Output",
+                silent = true,
+            },
         },
         init = function()
             vim.g.db_ui_use_nerd_fonts = 1

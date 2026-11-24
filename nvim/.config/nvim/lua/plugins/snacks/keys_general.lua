@@ -253,6 +253,14 @@ return {
         silent = true,
     },
     {
+        "<leader>Ds",
+        function()
+            Snacks.terminal("sqlit")
+        end,
+        desc = "SQLit",
+        silent = true,
+    },
+    {
         "<leader>gt",
         function()
             Snacks.terminal("tig")
