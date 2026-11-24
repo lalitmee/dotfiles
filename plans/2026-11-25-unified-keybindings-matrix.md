@@ -56,15 +56,24 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `C-a` | Send literal `C-a` to app | `send-prefix` | `pane.send_key { key = "ctrl+a" }` | `send:\u0001` | `Native` / `JS Mod` |
 | `c` | New tab/window in cwd | `new-window -c '#{pane_current_path}'` | `client.tab.new` | `tab.new` | `Native` / `Native` |
+| `,` | Rename tab / window | `command-prompt -I "#W" { rename-window "%%" }` | `client.tab.rename` | `tab.rename` | `Native` / `JS Mod` |
+| `$` | Rename session / space | `command-prompt -I "#S" { rename-session "%%" }` | `session.rename` | `space.rename` | `Native` / `JS Mod` |
+| `T` | Rename pane | `command-prompt -I "#T" { select-pane -T "%%" }` | `pane.rename` | `pane.rename` | `Native` / `JS Mod` |
+| `&` | Close tab / window | `confirm-before ... kill-window` | `client.tab.close` | `tab.close` | `Native` / `JS Mod` |
+| `(` / `)` | Previous / Next session (tmux defaults) | `switch-client -p` / `-n` | `session.previous` / `session.next` | `space.prev` / `space.next` | `Native` / `JS Mod` |
+| `C-n` / `C-p` | Next / Previous tab (tmux defaults) | `next-window` / `previous-window` | `client.tab.next` / `client.tab.previous` | `tab.next` / `tab.prev` | `Native` / `JS Mod` |
+| `s` / `w` / `:` | Tree / Palette | `choose-tree -Zs/-Zw` / `command-prompt` | `session.switch` / `client.palette.toggle` | `app.palette` | `Native` / `JS Mod` |
+| `;` / `a` | Last pane / last window | `last-pane` / `last-window` | `client.history.back` | `history_back` | `Native` / `JS Mod` |
+| `E` / `Space` | Equalize / balance splits | `select-layout -E` / `next-layout` | `pane.balance` | `layout.switch` | `Native` / `JS Mod` |
 | `-` / `"` | Split pane horizontally (down) | `split-window -v -c '#{pane_current_path}'` | `pane.split.down` | `pane.split:down` | `Native` / `Native` |
 | `\` / `%` / `_` | Split pane vertically (right) | `split-window -h -c '#{pane_current_path}'` | `pane.split.right` | `pane.split:right` | `Native` / `Native` |
-| `+` | Zoom / unzoom pane | `resize-pane -Z` | `pane.zoom` | `pane.zoom` | `Native` / `Native` |
+| `+` / `z` | Zoom / unzoom pane | `resize-pane -Z` | `pane.zoom` | `pane.zoom` | `Native` / `Native` |
 | `x` | Kill current pane | `kill-pane` | `pane.close` | `pane.close` | `Native` / `Native` |
 | `X` | Kill current session/space | `switch-client -n \; kill-session` | `session.close` | `space.close` (`confirmed: true`) | `Native` / `Native` |
 | `n` | Next tab / window *(reclaimed)* | `next-window` *(optional sync edit)* | `client.tab.next` | `tab.next` | `Native` / `JS Mod` |
 | `p` | Previous tab / window *(reclaimed)* | `previous-window` *(optional sync edit)* | `client.tab.previous` | `tab.prev` | `Native` / `JS Mod` |
 | `!` | Break pane to new window/tab *(moved from `n`)* | `break-pane -d` *(optional sync edit)* | **Gap** (`pane.move_to_new_tab` unsupported in `0.11.0`; fallback: `pane.float`) | **Gap** (fallback: `terminal.peek` / `terminal.park` + `tab.new`) | `Gap` / `Gap` |
-| `W` | Toggle pane tiled ↔ floating | `if-shell #{pane_floating_flag} join-pane 'break-pane -W'` | Lua toggle `pane.float` / `pane.return_to_tiles` | `terminal.peek` / `terminal.keep` toggle via `JS Mod` | `Lua Helper` / `JS Mod` |
+| `W` / `@` | Toggle pane tiled ↔ floating | `if-shell #{pane_floating_flag} join-pane 'break-pane -W'` | Lua toggle `pane.float` / `pane.return_to_tiles` | `terminal.peek` / `terminal.keep` toggle via `JS Mod` | `Lua Helper` / `JS Mod` |
 | `J` | Join pane from prompt (`tmux.conf:20`) | `command-prompt ... join-pane -h -s '%%'` | `rex.ui.pick` pane → `pane.move_to_tab` | `JS Mod` picker → `terminal.show` / `terminal.keep` | `Lua Helper` / `JS Mod` |
 | `q` | Swap pane prompt | `display-panes \; command-prompt swap-pane` | `rex.ui.pick` pane → `pane.swap` | `JS Mod` picker → `pane.swap { target }` | `Lua Helper` / `JS Mod` |
 | `.` | Move window/tab to index | `move-window-index.sh` | `rex.ui.input` → `client.tab.move` | `JS Mod` prompt → `tab.move { index }` | `Lua Helper` / `JS Mod` |

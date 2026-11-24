@@ -88,16 +88,36 @@ local function git_root(dir)
     return dir
 end
 
+local attached_sessions = {}
+
+function M.ensure_attached(session_id)
+    if not session_id then
+        local list = rex.call("session.list")
+        session_id = list and list.sessions and list.sessions[1] and list.sessions[1].session_id
+    end
+    if not session_id then
+        return nil, nil
+    end
+    local res, err = rex.call("session.attach", { session_id = session_id })
+    if res and res.view then
+        attached_sessions[session_id] = true
+        return session_id, res.view
+    end
+    return session_id, nil, err
+end
+
 function M.get_view(session_id)
-    local ok, att = pcall(rex.call, "session.attach", { session_id = session_id })
-    if ok and att and att.view then
-        return att.view
+    local sid, view = M.ensure_attached(session_id)
+    if view then
+        return view, sid
     end
-    local ok2, v = pcall(rex.call, "session.view", { session_id = session_id })
-    if ok2 and v and v.windows then
-        return v
+    if sid then
+        local v = rex.call("session.view", { session_id = sid })
+        if v and v.windows then
+            return v, sid
+        end
     end
-    return nil
+    return nil, sid
 end
 
 function M.active_window(view, window_id)
@@ -115,22 +135,23 @@ end
 
 function M.open_floating(ctx, label, sh_cmd, opts)
     opts = opts or {}
-    if not ctx or not ctx.session_id then
-        return
+    local sid = M.ensure_attached(ctx and ctx.session_id)
+    if not sid then
+        return nil, "no session_id"
     end
     local dir = opts.cwd or M.cwd(ctx)
     local bounds = opts.bounds or { 0.05, 0.05, 0.9, 0.9 }
     local block_opts = {
         cwd = dir,
-        interactive = true,
         exit = { on_completion = opts.close_on_exit ~= false },
     }
     if sh_cmd and sh_cmd ~= "" then
         block_opts.command = { "zsh", "-lc", sh_cmd }
+        block_opts.interactive = true
     end
-    return rex.call("session.new_layer", {
-        session_id = ctx.session_id,
-        window_id = ctx.window_id,
+    local res, err = rex.call("session.new_layer", {
+        session_id = sid,
+        window_id = ctx and ctx.window_id or nil,
         bounds = bounds,
         focus = true,
         layout = {
@@ -141,24 +162,29 @@ function M.open_floating(ctx, label, sh_cmd, opts)
             },
         },
     })
+    if not res and err and rex.log then
+        rex.log("open_floating failed: " .. tostring(err))
+    end
+    return res, err
 end
 
 function M.open_tab(ctx, label, sh_cmd, opts)
     opts = opts or {}
-    if not ctx or not ctx.session_id then
-        return
+    local sid = M.ensure_attached(ctx and ctx.session_id)
+    if not sid then
+        return nil, "no session_id"
     end
     local dir = opts.cwd or M.cwd(ctx)
     local block_opts = {
         cwd = dir,
-        interactive = true,
         exit = { on_completion = opts.close_on_exit ~= false },
     }
     if sh_cmd and sh_cmd ~= "" then
         block_opts.command = { "zsh", "-lc", sh_cmd }
+        block_opts.interactive = true
     end
-    return rex.call("session.new_window", {
-        session_id = ctx.session_id,
+    local res, err = rex.call("session.new_window", {
+        session_id = sid,
         label = label,
         focus = true,
         layout = {
@@ -169,11 +195,20 @@ function M.open_tab(ctx, label, sh_cmd, opts)
             },
         },
     })
+    if not res and err and rex.log then
+        rex.log("open_tab failed: " .. tostring(err))
+    end
+    return res, err
 end
 
 function M.toggle(ctx, name)
     local entry = M.ENTRIES[name]
-    if not entry or not ctx or not ctx.session_id then
+    if not entry then
+        return
+    end
+
+    local view, sid = M.get_view(ctx and ctx.session_id)
+    if not sid then
         return
     end
 
@@ -183,8 +218,7 @@ function M.toggle(ctx, name)
     end
     local label = "tpad:" .. name .. (entry.per_dir and (":" .. dir) or "")
 
-    local view = M.get_view(ctx.session_id)
-    local win = M.active_window(view, ctx.window_id)
+    local win = M.active_window(view, ctx and ctx.window_id)
     if win and win.layers then
         for _, layer in ipairs(win.layers) do
             if layer.kind ~= "tiled" and layer.blocks then
@@ -199,14 +233,14 @@ function M.toggle(ctx, name)
                         end
                         if layer.state == "minimized" or not is_focused then
                             rex.call("session.set_layer_state", {
-                                session_id = ctx.session_id,
+                                session_id = sid,
                                 layer_id = layer.layer_id,
                                 state = "normal",
                                 focus = true,
                             })
                         else
                             rex.call("session.set_layer_state", {
-                                session_id = ctx.session_id,
+                                session_id = sid,
                                 layer_id = layer.layer_id,
                                 state = "minimized",
                             })
@@ -218,7 +252,7 @@ function M.toggle(ctx, name)
         end
     end
 
-    M.open_floating(ctx, label, entry.sh, { cwd = dir, bounds = { 0.05, 0.05, 0.9, 0.9 } })
+    return M.open_floating({ session_id = sid, window_id = win and win.window_id, block_id = ctx and ctx.block_id }, label, entry.sh, { cwd = dir, bounds = { 0.05, 0.05, 0.9, 0.9 } })
 end
 
 return M

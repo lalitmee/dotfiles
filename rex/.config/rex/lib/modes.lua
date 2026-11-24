@@ -185,7 +185,7 @@ M.MODES = {
     },
 
     ["resize"] = {
-        trigger = "ctrl+a>r",
+        trigger = "ctrl+a>alt+r",
         sticky = true,
         items = {
             { key = "h", title = "Resize left", action = "pane.resize", args = { direction = "left", amount = 4 } },
@@ -206,29 +206,16 @@ end
 
 function M.register(helpers)
     for mode_name, spec in pairs(M.MODES) do
+        local sticky = spec.sticky == true
         if spec.trigger then
-            rex.bind(spec.trigger, "client.mode.enter", { name = mode_name })
+            rex.bind(spec.trigger, "client.mode.enter", { name = mode_name, once = not sticky })
         end
 
         for _, item in ipairs(spec.items) do
             local key_path = mode_name .. "/" .. item.key
-            local sticky = spec.sticky or item.sticky
 
             if item.action then
-                if sticky then
-                    rex.bind(key_path, item.action, item.args)
-                else
-                    local act_name = "mode_" .. sanitize_name(mode_name .. "_" .. item.key)
-                    rex.action({
-                        name = act_name,
-                        title = item.title,
-                        run = function(_ctx)
-                            rex.client.queue("client.mode.exit")
-                            rex.client.queue(item.action, item.args)
-                        end,
-                    })
-                    rex.bind(key_path, act_name)
-                end
+                rex.bind(key_path, item.action, item.args)
             elseif item.scratchpad then
                 local act_name = "mode_" .. sanitize_name(mode_name .. "_" .. item.key)
                 local target = item.scratchpad
@@ -236,7 +223,6 @@ function M.register(helpers)
                     name = act_name,
                     title = item.title,
                     run = function(ctx)
-                        rex.client.queue("client.mode.exit")
                         scratchpad.toggle(ctx, target)
                     end,
                 })
@@ -249,7 +235,6 @@ function M.register(helpers)
                     name = act_name,
                     title = item.title,
                     run = function(ctx)
-                        rex.client.queue("client.mode.exit")
                         scratchpad.open_floating(ctx, item.title, cmd, { bounds = bounds })
                     end,
                 })
@@ -261,7 +246,6 @@ function M.register(helpers)
                     name = act_name,
                     title = item.title,
                     run = function(ctx)
-                        rex.client.queue("client.mode.exit")
                         scratchpad.open_tab(ctx, item.title, cmd)
                     end,
                 })
@@ -273,9 +257,6 @@ function M.register(helpers)
                     name = act_name,
                     title = item.title,
                     run = function(_ctx)
-                        if not sticky then
-                            rex.client.queue("client.mode.exit")
-                        end
                         rex.exec(argv)
                     end,
                 })
@@ -287,9 +268,6 @@ function M.register(helpers)
                     name = act_name,
                     title = item.title,
                     run = function(ctx)
-                        if not sticky then
-                            rex.client.queue("client.mode.exit")
-                        end
                         fn(ctx)
                     end,
                 })
@@ -302,15 +280,7 @@ function M.register(helpers)
         if mode_name ~= "layout-mode" then
             rex.bind(mode_name .. "/q", "client.mode.exit")
         else
-            rex.action({
-                name = "layout_kill_bottom_pane",
-                title = "Close focused pane",
-                run = function(_ctx)
-                    rex.client.queue("client.mode.exit")
-                    rex.client.queue("pane.close")
-                end,
-            })
-            rex.bind("layout-mode/q", "layout_kill_bottom_pane")
+            rex.bind("layout-mode/q", "pane.close")
         end
         rex.bind(mode_name .. "/shift+/", "client.shortcuts")
     end

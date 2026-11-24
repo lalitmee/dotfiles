@@ -1,8 +1,6 @@
 import * as fs from "fs/promises";
-import { exec, focused, hc, openOverlay, closeOverlay, panes, run, spaces, terminals } from "herdr";
+import { exec, focused, hc, panes, run, spaces, terminals } from "herdr";
 import { SCRATCHPADS } from "./scratchpads.js";
-
-const openFloatWindows = new Map(); // key -> { overlayId, terminal }
 
 function activeContext() {
   const f = focused();
@@ -74,22 +72,19 @@ async function gitRoot(cwd, machine) {
   return cwd;
 }
 
-function showTerminalWindow(key, addr, width = 0.88, height = 0.86) {
-  const id = openOverlay({
-    kind: "window",
-    key,
-    width,
-    height,
-    layout: {
-      type: "column",
-      children: [
-        { type: "block", size: { px: 28 }, content: { mod: "peek", props: { terminal: addr } } },
-        { type: "block", content: { terminal: addr } },
-      ],
-    },
-  });
-  openFloatWindows.set(key, { overlayId: id, terminal: addr });
-  run("pane.focus", { terminal: addr });
+function uniqueTerminalName(base) {
+  const clean = (base || "scratchpad")
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 26) || "scratchpad";
+  const taken = new Set(terminals().map((t) => t.name).filter(Boolean));
+  if (!taken.has(clean)) return clean;
+  for (let i = 2; i < 100; i += 1) {
+    const candidate = `${clean}-${i}`.slice(0, 32);
+    if (!taken.has(candidate)) return candidate;
+  }
+  return `${clean.slice(0, 20)}-${Date.now().toString(36).slice(-6)}`;
 }
 
 export async function openScratchpad(name) {
@@ -105,17 +100,20 @@ export async function openScratchpad(name) {
   const existing = liveTerms.find((t) => t.labels?.tpad === key || t.name === key);
 
   if (existing) {
-    const openEntry = openFloatWindows.get(key);
-    if (openEntry && ctx.terminal === existing.address) {
-      closeOverlay(openEntry.overlayId);
-      openFloatWindows.delete(key);
+    if (ctx.terminal === existing.address) {
+      run("overlay.close");
       return;
     }
-    showTerminalWindow(key, existing.address);
+    run("terminal.peek", { terminal: existing.address });
     return;
   }
 
-  const args = ["run", "--bg", "--json", "--no-parent", "--outlive-parent", "--label", `tpad=${key}`];
+  const baseName = spec.perDir && dir ? `${name}-${dir.split("/").filter(Boolean).pop()}` : name;
+  const args = [
+    "run", "--bg", "--json", "--no-parent", "--outlive-parent",
+    "--name", uniqueTerminalName(baseName),
+    "--label", `tpad=${key}`,
+  ];
   if (dir) args.push("--cwd", dir);
   if (ctx.machine) args.push("--on", ctx.machine);
   if (spec.sh) {
@@ -125,12 +123,15 @@ export async function openScratchpad(name) {
   if (res.code !== 0) return;
   const parsed = JSON.parse(res.stdout);
   const addr = parsed.address ?? parsed.terminal;
-  if (addr) showTerminalWindow(key, addr);
+  if (addr) run("terminal.peek", { terminal: addr });
 }
 
-export async function openFloatShell(shCmd, keyPrefix = "float") {
+export async function openFloatShell(shCmd, label = "float") {
   const ctx = activeContext();
-  const args = ["run", "--bg", "--json", "--no-parent", "--rm"];
+  const args = [
+    "run", "--bg", "--json", "--no-parent", "--rm",
+    "--name", uniqueTerminalName(label),
+  ];
   if (ctx.cwd) args.push("--cwd", ctx.cwd);
   if (ctx.machine) args.push("--on", ctx.machine);
   args.push("--", "zsh", "-lc", shCmd);
@@ -138,9 +139,7 @@ export async function openFloatShell(shCmd, keyPrefix = "float") {
   if (res.code !== 0) return;
   const parsed = JSON.parse(res.stdout);
   const addr = parsed.address ?? parsed.terminal;
-  if (addr) {
-    showTerminalWindow(`${keyPrefix}:${Date.now()}`, addr, 0.85, 0.85);
-  }
+  if (addr) run("terminal.peek", { terminal: addr });
 }
 
 export async function captureScrollback() {
