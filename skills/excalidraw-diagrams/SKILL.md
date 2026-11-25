@@ -10,7 +10,7 @@ Preserve meaning before polishing appearance. A relationship arrow is a bound co
 ## Workflow
 
 1. Identify audience, scope, diagram family, and evidence. Read an existing scene before editing. Preserve its nodes, edges, events, guards, retry policy, and IDs during a restyle. If a relationship is ambiguous, retain it and mark its meaning unconfirmed; never fill missing behavior from convention.
-2. Inspect the relevant project and `second-brain` conventions before choosing a durable artifact path. Use `~/Projects/Work/Github/second-brain/brain/notes/diagrams/` as the canonical home for native diagram files:
+2. Resolve whether the diagram is work or personal before choosing a durable artifact path. Work diagrams belong in the **Work second-brain** at `~/Projects/Work/Github/second-brain/brain/notes/diagrams/`; personal diagrams belong in the **Personal AI Brain** at `~/Projects/Personal/Github/ai-brain/`, never in the Work second-brain by default. Inspect the selected repository's `AGENTS.md`, index, and placement conventions first. The Personal AI Brain does not currently have an established diagrams folder; follow its instructions and propose a suitable location before writing there. If context does not clearly resolve work vs personal, ask before saving. For Work diagrams, use these context folders:
    - Repository-specific: `repos/<repo-slug>/<diagram-slug>.excalidraw`
    - Cross-repository feature: `features/<feature-slug>/<diagram-slug>.excalidraw`
    - Coordinated workspace initiative: `workspaces/<workspace-slug>/<diagram-slug>.excalidraw`
@@ -21,7 +21,8 @@ Preserve meaning before polishing appearance. A relationship arrow is a bound co
 6. Compose nodes and labels, then route connectors through reserved space. Use the shared tokens exactly. Read [library recipes](references/libraries.md) when reusing components.
 7. For EVERY relationship arrow, bind both ends to their intended shapes, with reciprocal native references. Use positive gaps for external regular-arrow bindings; keep approach points outside shapes. Validate saved output and post-resize geometry. Decorative lines are separate elements.
 8. Apply the [review checklist](references/review-checklist.md). Render and inspect the whole scene and readable details. Move each connected shape independently, resize, save/reopen, and repeat the attachment check when an editor is available. A screenshot or valid JSON does not prove attachment.
-9. Deliver the artifact and the report contract below. If rendering or editor interaction is unavailable, mark that check pending and identify the limitation.
+9. Show the rendered preview in the current chat whenever the active MCP and agentic client can display it. Use the MCP's view/render tool on the saved scene, then return its view through the client's display mechanism (for example, the returned MCP app view or image content). Confirm the preview is actually user-visible before reporting it as shown. When the current client cannot display the MCP result, use its best available preview mechanism and say what remains unavailable; keep the native artifact as the source of truth.
+10. Deliver the artifact and the report contract below. If rendering or editor interaction is unavailable, mark that check pending and identify the limitation.
 
 ## Quick reference
 
@@ -36,6 +37,7 @@ Preserve meaning before polishing appearance. A relationship arrow is a bound co
 ## Delivery contract
 
 - Artifact paths or actual returned MCP view.
+- Preview: shown in the current chat, or pending with the client limitation stated.
 - Diagram type, scope, and assumptions; flag illustrative examples.
 - Logic review: preserved/changed behavior, unresolved conditions, retry/timeout policy.
 - Visual review: inspected render, readability, overlaps and connector routing.
