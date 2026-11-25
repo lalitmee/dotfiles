@@ -2,6 +2,12 @@
 local home = os.getenv("HOME") or ""
 package.path = home .. "/.config/rex/?.lua;" .. package.path
 
+-- Official Rex on macOS vs rex-rune on Linux
+local is_mac = home:match("^/Users/") ~= nil
+local function act(mac, linux)
+    return is_mac and mac or linux
+end
+
 local scratchpad = require("lib.scratchpad")
 local modes = require("lib.modes")
 
@@ -280,7 +286,7 @@ end
 -- ---------------------------------------------------------------------------
 
 rex.bind("alt+e", "capture_scrollback_float")
-rex.bind("ctrl+shift+f", "client.search")
+rex.bind("ctrl+shift+f", act("client.find.open", "client.search"))
 rex.bind("ctrl+a>shift+;", "client.palette.toggle")
 rex.bind("ctrl+shift+p", "client.palette.toggle")
 
@@ -314,19 +320,19 @@ rex.bind("ctrl+a>up", "pane.focus.up")
 rex.bind("ctrl+a>down", "pane.focus.down")
 rex.bind("ctrl+a>left", "pane.focus.left")
 rex.bind("ctrl+a>right", "pane.focus.right")
-rex.bind("ctrl+a>;", "client.history.back")
-rex.bind("ctrl+a>a", "client.history.back")
-rex.bind("ctrl+a>shift+s", "client.history.back")
-rex.bind("alt+,", "client.history.back")
-rex.bind("alt+.", "client.history.forward")
+rex.bind("ctrl+a>;", act("client.navigate.back", "client.history.back"))
+rex.bind("ctrl+a>a", act("client.navigate.back", "client.history.back"))
+rex.bind("ctrl+a>shift+s", act("client.navigate.back", "client.history.back"))
+rex.bind("alt+,", act("client.navigate.back", "client.history.back"))
+rex.bind("alt+.", act("client.navigate.forward", "client.history.forward"))
 rex.bind("ctrl+a>alt+s", "client.sidebar.toggle")
 rex.bind("ctrl+a>alt+d", "toggle_dashboard")
 rex.bind("ctrl+a>shift+n", "project_session_picker")
 rex.bind("ctrl+a>shift+u", "project_session_picker")
 rex.bind("ctrl+a>r", "client.config.reload")
 rex.bind("ctrl+a>shift+r", "client.config.reload")
-rex.bind("ctrl+a>shift+/", "client.shortcuts")
-rex.bind("ctrl+a>/", "client.shortcuts")
+rex.bind("ctrl+a>shift+/", act("client.shortcuts.edit", "client.shortcuts"))
+rex.bind("ctrl+a>/", act("client.shortcuts.edit", "client.shortcuts"))
 rex.bind("ctrl+a>ctrl+c", "session.new")
 
 -- Core scratchpad launchers

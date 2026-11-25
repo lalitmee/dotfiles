@@ -3,7 +3,12 @@ local scratchpad = require("lib.scratchpad")
 local M = {}
 
 local HOME = os.getenv("HOME") or ""
+local IS_MAC = HOME:match("^/Users/") ~= nil
 local TMUX_SCRIPTS = HOME .. "/.config/tmux/scripts"
+
+local function act(mac, linux)
+    return IS_MAC and mac or linux
+end
 
 local function spawn_bg(cmd)
     return "nohup " .. cmd .. " >/dev/null 2>&1 &"
@@ -86,7 +91,7 @@ M.MODES = {
     ["layout-mode"] = {
         trigger = "ctrl+b",
         items = {
-            { key = "ctrl+b", title = "Toggle toolbar", action = "client.toolbar.toggle" },
+            { key = "ctrl+b", title = "Toggle toolbar", action = act("client.tab_style.toggle", "client.toolbar.toggle") },
             { key = "f", title = "Toggle floating pane", fn_name = "toggle_float" },
             { key = "v", title = "Split down", action = "pane.split.down" },
             { key = "shift+h", title = "Split right", action = "pane.split.right" },
@@ -163,8 +168,8 @@ M.MODES = {
             { key = "l", title = "Worktree logs", scratchpad = "worktree-logs" },
             { key = "x", title = "Workmux palette", tab = TMUX_SCRIPTS .. "/popup/workmux-palette.sh" },
             { key = "shift+p", title = "PR checkout", float = TMUX_SCRIPTS .. "/git/pr-checkout.sh" },
-            { key = ".", title = "History back", action = "client.history.back" },
-            { key = "t", title = "History forward", action = "client.history.forward" },
+            { key = ".", title = "History back", action = act("client.navigate.back", "client.history.back") },
+            { key = "t", title = "History forward", action = act("client.navigate.forward", "client.history.forward") },
             { key = "shift+r", title = "Reload config", action = "client.config.reload" },
         },
     },
@@ -282,7 +287,7 @@ function M.register(helpers)
         else
             rex.bind("layout-mode/q", "pane.close")
         end
-        rex.bind(mode_name .. "/shift+/", "client.shortcuts")
+        rex.bind(mode_name .. "/shift+/", act("client.shortcuts.edit", "client.shortcuts"))
     end
 end
 
