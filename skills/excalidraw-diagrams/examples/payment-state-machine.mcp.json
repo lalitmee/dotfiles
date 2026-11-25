@@ -1,0 +1,454 @@
+[
+  {
+    "type": "cameraUpdate",
+    "x": 0,
+    "y": 0,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "id": "title",
+    "type": "text",
+    "x": 48,
+    "y": 32,
+    "width": 612.4799999999999,
+    "height": 40.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Payment lifecycle \u00b7 state machine",
+    "fontSize": 32,
+    "fontFamily": 5
+  },
+  {
+    "id": "scope",
+    "type": "text",
+    "x": 48,
+    "y": 80,
+    "width": 593.92,
+    "height": 20.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Illustrative model only \u00b7 one payment \u00b7 retry policy unspecified",
+    "fontSize": 16,
+    "fontFamily": 5
+  },
+  {
+    "id": "initial",
+    "type": "ellipse",
+    "x": 48,
+    "y": 208,
+    "width": 24,
+    "height": 24,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#1e1e1e",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [
+      {
+        "id": "begin",
+        "type": "arrow"
+      }
+    ]
+  },
+  {
+    "id": "pending",
+    "type": "rectangle",
+    "x": 144,
+    "y": 184,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#a5d8ff",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "begin",
+        "type": "arrow"
+      },
+      {
+        "id": "authorize",
+        "type": "arrow"
+      },
+      {
+        "id": "decline",
+        "type": "arrow"
+      },
+      {
+        "id": "retry",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Pending",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "paid",
+    "type": "rectangle",
+    "x": 480,
+    "y": 184,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#b2f2bb",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "authorize",
+        "type": "arrow"
+      },
+      {
+        "id": "refund",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Paid",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "refunded",
+    "type": "rectangle",
+    "x": 864,
+    "y": 184,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#a5d8ff",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "refund",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Refunded",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "failed",
+    "type": "rectangle",
+    "x": 144,
+    "y": 448,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#ffc9c9",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "decline",
+        "type": "arrow"
+      },
+      {
+        "id": "retry",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Failed",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "begin",
+    "type": "arrow",
+    "x": 72,
+    "y": 220,
+    "width": 72,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        72,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "initial",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "pending",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "initial"
+    },
+    "end": {
+      "id": "pending"
+    }
+  },
+  {
+    "id": "authorize",
+    "type": "arrow",
+    "x": 336,
+    "y": 224,
+    "width": 144,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        144,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "pending",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "paid",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "pending"
+    },
+    "end": {
+      "id": "paid"
+    },
+    "label": {
+      "text": "authorized",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "refund",
+    "type": "arrow",
+    "x": 672,
+    "y": 224,
+    "width": 192,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        192,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "paid",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "refunded",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "paid"
+    },
+    "end": {
+      "id": "refunded"
+    },
+    "label": {
+      "text": "refund confirmed",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "decline",
+    "type": "arrow",
+    "x": 240,
+    "y": 264,
+    "width": 0,
+    "height": 184,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        184
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "pending",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "failed",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "pending"
+    },
+    "end": {
+      "id": "failed"
+    },
+    "label": {
+      "text": "declined",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "retry",
+    "type": "arrow",
+    "x": 144,
+    "y": 488,
+    "width": 96,
+    "height": 224,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        -48,
+        0
+      ],
+      [
+        -48,
+        -136
+      ],
+      [
+        48,
+        -136
+      ],
+      [
+        48,
+        -224
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "failed",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "pending",
+      "focus": 0.5,
+      "gap": 1
+    },
+    "start": {
+      "id": "failed"
+    },
+    "end": {
+      "id": "pending"
+    },
+    "label": {
+      "text": "retry requested",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "terminal-note",
+    "type": "text",
+    "x": 448,
+    "y": 448,
+    "width": 686.7199999999999,
+    "height": 40.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Refunded is terminal within this view.\nRetry is preserved; no attempt limit or new-attempt semantics are assumed.",
+    "fontSize": 16,
+    "fontFamily": 5
+  },
+  {
+    "id": "legend",
+    "type": "text",
+    "x": 48,
+    "y": 656,
+    "width": 584.64,
+    "height": 40.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Legend: blue = ordinary state \u00b7 green = success \u00b7 red = failure\nSolid arrows = transitions; labels name triggering events.",
+    "fontSize": 16,
+    "fontFamily": 5
+  }
+]

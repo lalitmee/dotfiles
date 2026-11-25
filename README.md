@@ -24,6 +24,10 @@ This dotfiles repository includes configuration for:
 
 And more...
 
+## Reusable agent skills
+
+See [skills](skills/README.md) for project-neutral skills, including Excalidraw diagram design and arrow-binding checks for Codex and Cursor.
+
 ## Screenshots
 
 ### neovim

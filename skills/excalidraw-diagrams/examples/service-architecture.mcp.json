@@ -1,0 +1,398 @@
+[
+  {
+    "type": "cameraUpdate",
+    "x": 0,
+    "y": 0,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "id": "title",
+    "type": "text",
+    "x": 48,
+    "y": 32,
+    "width": 779.52,
+    "height": 40.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Asynchronous job processing \u00b7 architecture",
+    "fontSize": 32,
+    "fontFamily": 5
+  },
+  {
+    "id": "scope",
+    "type": "text",
+    "x": 48,
+    "y": 80,
+    "width": 807.3599999999999,
+    "height": 20.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Illustrative container view \u00b7 delivery, retry and result retrieval policies unspecified",
+    "fontSize": 16,
+    "fontFamily": 5
+  },
+  {
+    "id": "browser",
+    "type": "rectangle",
+    "x": 48,
+    "y": 184,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#f1f3f5",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "request",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Browser\n[Client]",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "api",
+    "type": "rectangle",
+    "x": 480,
+    "y": 184,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#a5d8ff",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "request",
+        "type": "arrow"
+      },
+      {
+        "id": "enqueue",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Job API\n[Service]",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "queue",
+    "type": "rectangle",
+    "x": 864,
+    "y": 184,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#f1f3f5",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "enqueue",
+        "type": "arrow"
+      },
+      {
+        "id": "deliver",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Job queue\n[Queue]",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "worker",
+    "type": "rectangle",
+    "x": 864,
+    "y": 488,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#a5d8ff",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "deliver",
+        "type": "arrow"
+      },
+      {
+        "id": "persist",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Job worker\n[Service]",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "store",
+    "type": "rectangle",
+    "x": 480,
+    "y": 488,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#f1f3f5",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "persist",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Job store\n[Datastore]",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "request",
+    "type": "arrow",
+    "x": 240,
+    "y": 224,
+    "width": 240,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        240,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "browser",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "api",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "browser"
+    },
+    "end": {
+      "id": "api"
+    },
+    "label": {
+      "text": "submit job",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "enqueue",
+    "type": "arrow",
+    "x": 672,
+    "y": 224,
+    "width": 192,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        192,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "api",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "queue",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "api"
+    },
+    "end": {
+      "id": "queue"
+    },
+    "label": {
+      "text": "enqueue job",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "deliver",
+    "type": "arrow",
+    "x": 960,
+    "y": 264,
+    "width": 0,
+    "height": 224,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        224
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "queue",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "worker",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "queue"
+    },
+    "end": {
+      "id": "worker"
+    },
+    "label": {
+      "text": "deliver job (async)",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "persist",
+    "type": "arrow",
+    "x": 864,
+    "y": 528,
+    "width": 192,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        -192,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "worker",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "store",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "worker"
+    },
+    "end": {
+      "id": "store"
+    },
+    "label": {
+      "text": "persist result",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "boundary-note",
+    "type": "text",
+    "x": 48,
+    "y": 656,
+    "width": 751.68,
+    "height": 20.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Scope: logical components; deployment and ownership boundaries are not specified.",
+    "fontSize": 16,
+    "fontFamily": 5
+  },
+  {
+    "id": "legend",
+    "type": "text",
+    "x": 48,
+    "y": 712,
+    "width": 825.92,
+    "height": 60.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Legend: blue = ordinary component \u00b7 gray = actor or passive resource\nSolid directed arrows = named interactions; async is explicit in the label.\nAcceptance is not job completion; completion delivery to the client is outside this view.",
+    "fontSize": 16,
+    "fontFamily": 5
+  }
+]

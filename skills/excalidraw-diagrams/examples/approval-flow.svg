@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<rect width="1200" height="900" fill="white"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="none" stroke="#1e1e1e" stroke-width="1.5"/></marker></defs>
+<text x="48" y="64" fill="#1e1e1e" font-size="32" font-family="sans-serif">
+<tspan x="48" dy="0">Approval process · branching flow</tspan>
+</text>
+<text x="48" y="96" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Illustrative model only · manager review and resubmission</tspan>
+</text>
+<rect x="48" y="296" width="192" height="80" rx="12" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+<text x="91.80000000000001" y="343.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="91.80000000000001" dy="0">Submitted</tspan>
+</text>
+<polygon points="488.0,240 592,336.0 488.0,432 384,336.0" fill="#fff3bf" stroke="#1e1e1e" stroke-width="2"/>
+<text x="441.6" y="331.0" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="441.6" dy="0">Review</tspan>
+<tspan x="441.6" dy="25.0">outcome?</tspan>
+</text>
+<rect x="864" y="160" width="192" height="80" rx="12" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="913.6" y="207.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="913.6" dy="0">Approved</tspan>
+</text>
+<rect x="864" y="432" width="192" height="80" rx="12" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="913.6" y="479.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="913.6" dy="0">Rejected</tspan>
+</text>
+<rect x="384" y="608" width="192" height="80" rx="12" fill="#f1f3f5" stroke="#1e1e1e" stroke-width="2"/>
+<text x="398.8" y="655.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="398.8" dy="0">Revise request</tspan>
+</text>
+<polyline points="240,336 384,336" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="280" y="320" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="280" dy="0">submit</tspan>
+</text>
+<polyline points="488,240 488,200 864,200" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="672" y="184" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="672" dy="0">approved</tspan>
+</text>
+<polyline points="592,336 720,336 720,472 864,472" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="760" y="456" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="760" dy="0">rejected</tspan>
+</text>
+<polyline points="488,432 488,608" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="512" y="536" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="512" dy="0">needs information</tspan>
+</text>
+<polyline points="384,648 144,648 144,376" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="208" y="632" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="208" dy="0">resubmit</tspan>
+</text>
+<text x="48" y="784" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Legend: diamond = decision · blue = ordinary step · green/red = outcomes</tspan>
+<tspan x="48" dy="20.0">Every decision exit is explicit; the loop returns the revised request for review.</tspan>
+</text>
+</svg>

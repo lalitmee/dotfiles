@@ -82,6 +82,8 @@ zsh scripts/test/tmux/worktree/manager.zsh colors
 
 ## Validators and security checks
 
+- Excalidraw pilot scenes and reciprocal arrow bindings: `python3 skills/excalidraw-diagrams/scripts/validate_scene.py skills/excalidraw-diagrams/examples/*.excalidraw`. Regression mode: `python3 skills/excalidraw-diagrams/scripts/validate_scene.py --self-test`. Static checks do not replace editor movement tests.
+
 - tuicr theme selection, argument forwarding, fallback and safe/idempotent hook:
   `python3 scripts/test/config/tuicr-theme.py`. Also validates native template
   rendering when the local Omarchy renderer is installed.

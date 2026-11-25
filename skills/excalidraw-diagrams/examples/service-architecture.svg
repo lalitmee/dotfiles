@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<rect width="1200" height="900" fill="white"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="none" stroke="#1e1e1e" stroke-width="1.5"/></marker></defs>
+<text x="48" y="64" fill="#1e1e1e" font-size="32" font-family="sans-serif">
+<tspan x="48" dy="0">Asynchronous job processing · architecture</tspan>
+</text>
+<text x="48" y="96" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Illustrative container view · delivery, retry and result retrieval policies unspecified</tspan>
+</text>
+<rect x="48" y="184" width="192" height="80" rx="12" fill="#f1f3f5" stroke="#1e1e1e" stroke-width="2"/>
+<text x="97.6" y="219.0" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="97.6" dy="0">Browser</tspan>
+<tspan x="97.6" dy="25.0">[Client]</tspan>
+</text>
+<rect x="480" y="184" width="192" height="80" rx="12" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+<text x="523.8" y="219.0" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="523.8" dy="0">Job API</tspan>
+<tspan x="523.8" dy="25.0">[Service]</tspan>
+</text>
+<rect x="864" y="184" width="192" height="80" rx="12" fill="#f1f3f5" stroke="#1e1e1e" stroke-width="2"/>
+<text x="907.8" y="219.0" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="907.8" dy="0">Job queue</tspan>
+<tspan x="907.8" dy="25.0">[Queue]</tspan>
+</text>
+<rect x="864" y="488" width="192" height="80" rx="12" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+<text x="902.0" y="523.0" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="902.0" dy="0">Job worker</tspan>
+<tspan x="902.0" dy="25.0">[Service]</tspan>
+</text>
+<rect x="480" y="488" width="192" height="80" rx="12" fill="#f1f3f5" stroke="#1e1e1e" stroke-width="2"/>
+<text x="512.2" y="523.0" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="512.2" dy="0">Job store</tspan>
+<tspan x="512.2" dy="25.0">[Datastore]</tspan>
+</text>
+<polyline points="240,224 480,224" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="304" y="208" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="304" dy="0">submit job</tspan>
+</text>
+<polyline points="672,224 864,224" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="704" y="208" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="704" dy="0">enqueue job</tspan>
+</text>
+<polyline points="960,264 960,488" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="768" y="384" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="768" dy="0">deliver job (async)</tspan>
+</text>
+<polyline points="864,528 672,528" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="696" y="512" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="696" dy="0">persist result</tspan>
+</text>
+<text x="48" y="672" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Scope: logical components; deployment and ownership boundaries are not specified.</tspan>
+</text>
+<text x="48" y="728" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Legend: blue = ordinary component · gray = actor or passive resource</tspan>
+<tspan x="48" dy="20.0">Solid directed arrows = named interactions; async is explicit in the label.</tspan>
+<tspan x="48" dy="20.0">Acceptance is not job completion; completion delivery to the client is outside this view.</tspan>
+</text>
+</svg>

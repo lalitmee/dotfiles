@@ -1,0 +1,10 @@
+---
+description: Use the excalidraw-diagrams skill when creating, editing, restyling, or reviewing Excalidraw diagrams, state machines, flowcharts, or detached arrow bindings.
+alwaysApply: false
+---
+
+# Excalidraw diagrams
+
+Load the installed `excalidraw-diagrams` skill's `SKILL.md` and relevant references before generating or editing a diagram. If unavailable, locate `skills/excalidraw-diagrams/SKILL.md` in the current repository.
+
+Apply its shared design tokens, diagram-specific logic and review checklist. Preserve semantics during restyling. Every relationship arrow must bind to its source and target shapes, with reciprocal references in native scenes. Verify independent movement, resizing and save/reopen when an editor is available; report unavailable checks as pending. Touching a border or grouping the scene does not establish attachment.

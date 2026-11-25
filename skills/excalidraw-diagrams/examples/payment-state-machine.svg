@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<rect width="1200" height="900" fill="white"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="none" stroke="#1e1e1e" stroke-width="1.5"/></marker></defs>
+<text x="48" y="64" fill="#1e1e1e" font-size="32" font-family="sans-serif">
+<tspan x="48" dy="0">Payment lifecycle · state machine</tspan>
+</text>
+<text x="48" y="96" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Illustrative model only · one payment · retry policy unspecified</tspan>
+</text>
+<ellipse cx="60.0" cy="220.0" rx="12.0" ry="12.0" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="2"/>
+<rect x="144" y="184" width="192" height="80" rx="12" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+<text x="199.4" y="231.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="199.4" dy="0">Pending</tspan>
+</text>
+<rect x="480" y="184" width="192" height="80" rx="12" fill="#b2f2bb" stroke="#1e1e1e" stroke-width="2"/>
+<text x="552.8" y="231.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="552.8" dy="0">Paid</tspan>
+</text>
+<rect x="864" y="184" width="192" height="80" rx="12" fill="#a5d8ff" stroke="#1e1e1e" stroke-width="2"/>
+<text x="913.6" y="231.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="913.6" dy="0">Refunded</tspan>
+</text>
+<rect x="144" y="448" width="192" height="80" rx="12" fill="#ffc9c9" stroke="#1e1e1e" stroke-width="2"/>
+<text x="205.2" y="495.5" fill="#1e1e1e" font-size="20" font-family="sans-serif">
+<tspan x="205.2" dy="0">Failed</tspan>
+</text>
+<polyline points="72,220 144,220" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="336,224 480,224" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="360" y="208" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="360" dy="0">authorized</tspan>
+</text>
+<polyline points="672,224 864,224" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="692" y="208" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="692" dy="0">refund confirmed</tspan>
+</text>
+<polyline points="240,264 240,448" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="256" y="360" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="256" dy="0">declined</tspan>
+</text>
+<polyline points="144,488 96,488 96,352 192,352 192,264" fill="none" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="552" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">retry requested</tspan>
+</text>
+<text x="448" y="464" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="448" dy="0">Refunded is terminal within this view.</tspan>
+<tspan x="448" dy="20.0">Retry is preserved; no attempt limit or new-attempt semantics are assumed.</tspan>
+</text>
+<text x="48" y="672" fill="#1e1e1e" font-size="16" font-family="sans-serif">
+<tspan x="48" dy="0">Legend: blue = ordinary state · green = success · red = failure</tspan>
+<tspan x="48" dy="20.0">Solid arrows = transitions; labels name triggering events.</tspan>
+</text>
+</svg>

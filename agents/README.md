@@ -16,3 +16,5 @@ For T3 Code, refresh the Codex provider in Settings and use **Restart agent
 session** in the command palette after deployment. Skills then appear in the
 `$` menu across projects on this machine. Ensure custom skills are enabled in
 the machine-local `~/.codex/config.toml` skill configuration.
+
+The Excalidraw skill is maintained in `skills/excalidraw-diagrams` at the repository root, with directory aliases in this package for both skills homes. Its Cursor alias and routing rule live in the `cursor` package.

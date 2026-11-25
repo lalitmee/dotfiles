@@ -1,0 +1,449 @@
+[
+  {
+    "type": "cameraUpdate",
+    "x": 0,
+    "y": 0,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "id": "title",
+    "type": "text",
+    "x": 48,
+    "y": 32,
+    "width": 612.4799999999999,
+    "height": 40.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Approval process \u00b7 branching flow",
+    "fontSize": 32,
+    "fontFamily": 5
+  },
+  {
+    "id": "scope",
+    "type": "text",
+    "x": 48,
+    "y": 80,
+    "width": 528.9599999999999,
+    "height": 20.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Illustrative model only \u00b7 manager review and resubmission",
+    "fontSize": 16,
+    "fontFamily": 5
+  },
+  {
+    "id": "submitted",
+    "type": "rectangle",
+    "x": 48,
+    "y": 296,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#a5d8ff",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "submit",
+        "type": "arrow"
+      },
+      {
+        "id": "resubmit",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Submitted",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "review",
+    "type": "diamond",
+    "x": 384,
+    "y": 240,
+    "width": 208,
+    "height": 192,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#fff3bf",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [
+      {
+        "id": "submit",
+        "type": "arrow"
+      },
+      {
+        "id": "approve",
+        "type": "arrow"
+      },
+      {
+        "id": "reject",
+        "type": "arrow"
+      },
+      {
+        "id": "needs-info",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Review\noutcome?",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "approved",
+    "type": "rectangle",
+    "x": 864,
+    "y": 160,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#b2f2bb",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "approve",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Approved",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "rejected",
+    "type": "rectangle",
+    "x": 864,
+    "y": 432,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#ffc9c9",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "reject",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Rejected",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "revise",
+    "type": "rectangle",
+    "x": 384,
+    "y": 608,
+    "width": 192,
+    "height": 80,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "#f1f3f5",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": {
+      "type": 3
+    },
+    "boundElements": [
+      {
+        "id": "needs-info",
+        "type": "arrow"
+      },
+      {
+        "id": "resubmit",
+        "type": "arrow"
+      }
+    ],
+    "label": {
+      "text": "Revise request",
+      "fontSize": 20
+    }
+  },
+  {
+    "id": "submit",
+    "type": "arrow",
+    "x": 240,
+    "y": 336,
+    "width": 144,
+    "height": 0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        144,
+        0
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "submitted",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "review",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "submitted"
+    },
+    "end": {
+      "id": "review"
+    },
+    "label": {
+      "text": "submit",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "approve",
+    "type": "arrow",
+    "x": 488,
+    "y": 240,
+    "width": 376,
+    "height": 40,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -40
+      ],
+      [
+        376,
+        -40
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "review",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "approved",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "review"
+    },
+    "end": {
+      "id": "approved"
+    },
+    "label": {
+      "text": "approved",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "reject",
+    "type": "arrow",
+    "x": 592,
+    "y": 336,
+    "width": 272,
+    "height": 136,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        128,
+        0
+      ],
+      [
+        128,
+        136
+      ],
+      [
+        272,
+        136
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "review",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "rejected",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "review"
+    },
+    "end": {
+      "id": "rejected"
+    },
+    "label": {
+      "text": "rejected",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "needs-info",
+    "type": "arrow",
+    "x": 488,
+    "y": 432,
+    "width": 0,
+    "height": 176,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        176
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "review",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "revise",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "review"
+    },
+    "end": {
+      "id": "revise"
+    },
+    "label": {
+      "text": "needs information",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "resubmit",
+    "type": "arrow",
+    "x": 384,
+    "y": 648,
+    "width": 240,
+    "height": 272,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "points": [
+      [
+        0,
+        0
+      ],
+      [
+        -240,
+        0
+      ],
+      [
+        -240,
+        -272
+      ]
+    ],
+    "startArrowhead": null,
+    "endArrowhead": "arrow",
+    "startBinding": {
+      "elementId": "revise",
+      "focus": 0,
+      "gap": 1
+    },
+    "endBinding": {
+      "elementId": "submitted",
+      "focus": 0,
+      "gap": 1
+    },
+    "start": {
+      "id": "revise"
+    },
+    "end": {
+      "id": "submitted"
+    },
+    "label": {
+      "text": "resubmit",
+      "fontSize": 16
+    }
+  },
+  {
+    "id": "legend",
+    "type": "text",
+    "x": 48,
+    "y": 768,
+    "width": 751.68,
+    "height": 40.0,
+    "strokeColor": "#1e1e1e",
+    "backgroundColor": "transparent",
+    "strokeWidth": 2,
+    "roughness": 1,
+    "roundness": null,
+    "boundElements": [],
+    "text": "Legend: diamond = decision \u00b7 blue = ordinary step \u00b7 green/red = outcomes\nEvery decision exit is explicit; the loop returns the revised request for review.",
+    "fontSize": 16,
+    "fontFamily": 5
+  }
+]
