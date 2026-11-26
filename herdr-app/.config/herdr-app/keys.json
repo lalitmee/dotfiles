@@ -46,12 +46,7 @@
     "alt-down": "agent.next",
     "alt-up": "agent.prev",
     "ctrl-a": "tmux-bridge.leader_prefix",
-    "ctrl-b": {
-      "command": "mod.open",
-      "args": {
-        "name": "tmux-prefix"
-      }
-    },
+    "ctrl-b": "tmux-bridge.leader_layout",
     "ctrl-?": "app.help",
     "ctrl-shift-/": "app.help",
     "ctrl-shift-?": "app.help",
@@ -73,16 +68,11 @@
   },
   "terminal": {
     "ctrl-a": "tmux-bridge.leader_prefix",
-    "ctrl-b": {
-      "command": "mod.open",
-      "args": {
-        "name": "tmux-prefix"
-      }
-    },
-    "ctrl-h": "pane.go:left",
-    "ctrl-j": "pane.go:down",
-    "ctrl-k": "pane.go:up",
-    "ctrl-l": "pane.go:right",
+    "ctrl-b": "tmux-bridge.leader_layout",
+    "ctrl-h": "tmux-bridge.vim_left",
+    "ctrl-j": "tmux-bridge.vim_down",
+    "ctrl-k": "tmux-bridge.vim_up",
+    "ctrl-l": "tmux-bridge.vim_right",
     "ctrl-backspace": "send:\u0017",
     "ctrl-left": "send:\u001bb",
     "ctrl-right": "send:\u001bf",
