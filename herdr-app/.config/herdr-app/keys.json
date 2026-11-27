@@ -80,6 +80,10 @@
     "ctrl-shift-v": "terminal.paste",
     "ctrl-shift-f": "terminal.search",
     "ctrl-v": "terminal.paste_image",
+    "cmd-c": "terminal.copy",
+    "cmd-v": "terminal.paste",
+    "cmd-f": "terminal.search",
+    "cmd-a": "terminal.select_all",
     "ctrl-insert": "terminal.copy",
     "shift-insert": "terminal.paste"
   }
