@@ -35,6 +35,66 @@
       "title": "Search Rust crates",
       "url": "https://crates.io/search?q={input}",
       "prompt": "Crate name or keywords"
+    },
+    {
+      "title": "Gmail: Search",
+      "url": "https://mail.google.com/mail/u/0/#search/{input}",
+      "prompt": "Keywords or Gmail search expression"
+    },
+    {
+      "title": "Gmail: From sender",
+      "url": "https://mail.google.com/mail/u/0/#search/from%3A{input}",
+      "prompt": "Sender email address or domain"
+    },
+    {
+      "title": "Gmail: To recipient",
+      "url": "https://mail.google.com/mail/u/0/#search/to%3A{input}",
+      "prompt": "Recipient email address"
+    },
+    {
+      "title": "Gmail: Subject",
+      "url": "https://mail.google.com/mail/u/0/#search/subject%3A%28{input}%29",
+      "prompt": "Subject keywords"
+    },
+    {
+      "title": "Gmail: Attachments",
+      "url": "https://mail.google.com/mail/u/0/#search/has%3Aattachment%20{input}",
+      "prompt": "Attachment keywords"
+    },
+    {
+      "title": "Gmail: Recent mail",
+      "url": "https://mail.google.com/mail/u/0/#search/newer_than%3A30d%20{input}",
+      "prompt": "Keywords from the last 30 days"
+    },
+    {
+      "title": "Gmail: Label",
+      "url": "https://mail.google.com/mail/u/0/#search/label%3A{input}",
+      "prompt": "Existing Gmail label name"
+    },
+    {
+      "title": "Gmail: Category",
+      "url": "https://mail.google.com/mail/u/0/#search/category%3A{input}",
+      "prompt": "primary, updates, promotions, social, forums, purchases, or reservations"
+    },
+    {
+      "title": "Gmail: Unread inbox",
+      "url": "https://mail.google.com/mail/u/0/#search/in%3Ainbox%20is%3Aunread"
+    },
+    {
+      "title": "Gmail: Starred",
+      "url": "https://mail.google.com/mail/u/0/#search/is%3Astarred"
+    },
+    {
+      "title": "Gmail: Important unread",
+      "url": "https://mail.google.com/mail/u/0/#search/is%3Aimportant%20is%3Aunread"
+    },
+    {
+      "title": "Gmail: Purchases",
+      "url": "https://mail.google.com/mail/u/0/#search/category%3Apurchases"
+    },
+    {
+      "title": "Gmail: Travel reservations",
+      "url": "https://mail.google.com/mail/u/0/#search/category%3Areservations"
     }
   ]
 }
